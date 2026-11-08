@@ -31,15 +31,22 @@ const END = 9.8;   // two 3-frame hit-stops (4.2, 6.1) make it 10.0 s of video
 // quarter round (06-07: Viking at the left, Gunslinger at the right), then the rocking turns on another quarter until
 // Viking's back is to the front-left camera and Gunslinger's face is over his shoulder (08). The presents fall at
 // Viking's right; the Wizard and Reaper come round the hug to them (07) and the Wizard is in front at the left (08).
+// Review A (8 Nov) re-stage: the hug happens right of the crate (it stood on it), the presents land in front of the
+// Wizard and Reaper so they face us looking down at them (07), both stay in 01's frame for "And yours?", Viking stands
+// clear of Gunslinger's brim in 02, the coupon passes over Gunslinger's shoulder at the left edge of 05, the wink rises
+// above the Wizard's brim in 08. Every place below is clear of the others (bodies ~0.75 m wide) when it is used.
 const G0 = [-0.25, -0.42], V0 = [0.52, -0.45];           // the back row
-const W_IN = [-0.72, 0.28], R_IN = [1.12, 0.08];         // frame 0: stepped in to hand over the presents
-const W0 = [-1.08, -0.28], R0 = [1.2, -0.2];            // a step back, beside them (0.5-1.0)
-const CRATE = [-0.6, 0.86];                              // his seat at the front left (a wooden crate, 0.34 m)
-const G1 = [-0.6, 0.92];                                 // standing up from the crate (4.0)
-const W1 = [-0.5, -0.6], R1 = [0.85, -0.5];           // stepped in behind to watch (W 3.35, R 4.7: into Viking's place)
-const V1 = [0.2, 0.2];                                   // Viking steps forward to him for the coupon (4.6): 1 m from him, clear of his hat
-const HUG = [-0.38, 0.6];                                // the hug's middle
-const W2 = [-1.18, 1.55], R2 = [0.62, 1.3];               // at the presents on the rug, in front of the hug (07, 08)
+const V0b = [0.68, -0.5];                                // 1.1 Viking eases right as he turns to look (clear of the brim in 02)
+const W_IN = [-0.62, 0.2], R_IN = [1.1, 0.05];           // frame 0: stepped in to hand over the presents
+const W0 = [-1.08, -0.2], R0 = [1.36, 0.0];              // a step back to the sides (0.5-1.0), faces still in 01
+const CRATE = [-1.05, 0.6];                               // his seat at the front left (a wooden crate, 0.34 m)
+const G1 = [-0.35, 1.1];                                 // 3.95 he hops up off the crate toward Viking (04, then 05)
+const V1 = [0.55, 0.6];                                  // 4.55 Viking steps to him for the coupon (0.9 right, 0.5 behind him)
+const V3 = [-0.1, -0.05], W3 = [0.0, -0.85];             // 3.05 Viking steps closer to peek (03, behind him at the right); the Wizard
+                                                         // moves round behind Viking to see (out of 03, so nothing pokes from his hat)
+const W1 = [-0.35, -0.35], R1 = [1.15, -0.2];            // 4.3/4.9 they step in behind Viking's left and right shoulders (05)
+const W2 = [-0.35, 1.8], R2 = [1.3, 2.0];               // at their presents on the rug, in front of the hug (07)
+const GIFT_P = [0.25, 2.3], GIFT_B = [0.85, 2.4];        // where the presents land (6.0-6.4): in front of them
 const yawTo = ([x0, z0], [x1, z1]) => r3((Math.atan2(x1 - x0, z1 - z0) * 180) / Math.PI);
 
 const cast = [
@@ -54,7 +61,7 @@ const held = ([x, z]) => [r3(x - 0.1), 0.16, r3(z + 0.42)];   // the stack at Vi
 const HELD = held(V0);
 const props = [
   { id: "floor", kind: "plankfloor", x: 0, z: 0.4, w: 7, d: 6 },
-  { id: "rug", kind: "rug", x: -0.2, z: 0.7, w: 3.2, d: 3.0, color: "#a8473a" },
+  { id: "rug", kind: "rug", x: 0.15, z: 0.9, w: 3.6, d: 3.4, color: "#a8473a" },
   { id: "caketable", kind: "coffeetable", x: -1.6, z: 1.55, w: 0.7, d: 0.5, h: 0.42 },
   { id: "cake", kind: "cake", x: -1.6, y: 0.42, z: 1.55, lit: 1 },
   { id: "crate", kind: "crate", x: CRATE[0], z: CRATE[1], size: 0.34 },
@@ -73,73 +80,89 @@ const props = [
 ];
 
 // ---------------------------------------------------------------- blocking (places and facings only)
+// the stack: in Viking's arms at his belly (01-04), then in his right arm (05: his left mitten takes the coupon)
+const ARMS = ([x, z]) => [r3(x - 0.1), 0.16, r3(z + 0.42)], RIGHT_ARM = ([x, z]) => [r3(x + 0.3), 0.16, r3(z + 0.35)];
+const stack = (t, at, dur, ease = "inOut") => {
+  c.prop(t, "giftP", { x: at[0], y: at[1], z: at[2] }, dur, ease);
+  c.prop(t, "giftB", { x: at[0], y: r3(at[1] + BIG.h + 0.06), z: at[2] }, dur, ease);
+};
 // 0-1.5 PAY UP: the purple present into Viking's arms, the black box on top; both step back; 1.1 all eyes on Gunslinger
 c.prop(0.0, "giftP", { x: HELD[0], y: HELD[1], z: HELD[2], rot: -35 }, 0.45, "out");
 c.prop(0.55, "giftB", { x: HELD[0], y: r3(HELD[1] + BIG.h + 0.06), z: HELD[2], rot: -30 }, 0.3, "out");
 A(0.5, "wiz", "move", { to: W0, dur: 0.45, steps: 3 });
 A(0.9, "rea", "move", { to: R0, dur: 0.3, steps: 2 });
-A(1.0, "wiz", "turn", { to: yawTo(W0, G0), dur: 0.2 });
-A(1.1, "vik", "turn", { to: yawTo(V0, G0), dur: 0.25 });
-A(1.15, "rea", "turn", { to: yawTo(R0, G0), dur: 0.25 });
-// 2.8 THE DODGE: "wait!", forward to the crate, sits to write turned half away; the others turn to watch
-A(2.85, "gsl", "move", { to: [CRATE[0], r3(CRATE[1] - 0.25)], dur: 0.4, steps: 3 });
-A(3.25, "gsl", "sit", { seat: "crate", dur: 0.25, hands: "keep" });
-A(3.3, "gsl", "turn", { to: -35, dur: 0.2 });
-for (const [who, from] of [["rea", R0], ["vik", V0]]) A(3.0, who, "turn", { to: yawTo(from, CRATE), dur: 0.3 });
-A(3.35, "wiz", "move", { to: W1, dur: 0.35, steps: 2 });
-A(3.5, "wiz", "turn", { to: yawTo(W1, CRATE), dur: 0.25 });
+A(1.0, "wiz", "turn", { to: 80, dur: 0.2 });                        // three-quarter to us, eyes on Gunslinger
+A(1.1, "vik", "move", { to: V0b, dur: 0.25 }); A(1.1, "vik", "turn", { to: -55, dur: 0.25 });
+stack(1.1, ARMS(V0b), 0.25);
+A(1.15, "rea", "turn", { to: -95, dur: 0.25 });
+// 2.8 THE DODGE: "wait!", he hurries forward and left to the crate, sits and writes turned half away; they turn to watch
+A(2.85, "gsl", "move", { to: [-0.4, 0.2], dur: 0.22, steps: 2 });
+A(3.07, "gsl", "move", { to: [-0.75, 0.6], dur: 0.2, steps: 2 });
+A(3.3, "gsl", "sit", { seat: "crate", dur: 0.25, hands: "keep" });
+A(3.4, "gsl", "turn", { to: -35, dur: 0.2 });
+A(3.0, "rea", "turn", { to: yawTo(R0, CRATE), dur: 0.3 });
+A(3.05, "vik", "move", { to: V3, dur: 0.35, steps: 2 }); A(3.05, "vik", "turn", { to: yawTo(V3, CRATE), dur: 0.3 });
+stack(3.05, ARMS(V3), 0.35);
+A(3.3, "wiz", "move", { to: [-0.6, -0.9], dur: 0.25, steps: 2 }); A(3.55, "wiz", "move", { to: W3, dur: 0.25, steps: 2 });   // behind Viking
+A(3.8, "wiz", "turn", { to: yawTo(W3, CRATE), dur: 0.3 });
 c.prop(3.4, "coupon", { scale: 1, x: r3(CRATE[0] - 0.12), y: 0.55, z: r3(CRATE[1] + 0.25) }, 0.05);
-// 4.0 up, the coupon held up to us (04); 4.6 he turns and holds it out to Viking, who steps forward to him (05)
-A(4.0, "gsl", "stand", { dur: 0.2 });
-A(4.05, "gsl", "turn", { to: 0, dur: 0.15 });
-c.prop(4.1, "coupon", { x: G1[0], y: 0.55, z: r3(G1[1] + 0.42) }, 0.08);
+// 3.95 he hops up off the crate toward Viking and holds the coupon up to us (04); 4.3-4.9 the others step in behind
+// Viking; 4.55 Viking steps to him; 4.6 he turns and holds it out (05, over his shoulder at the left edge)
+A(3.95, "gsl", "stand", { dur: 0.15 });
+A(3.97, "gsl", "move", { to: G1, dur: 0.15 }); A(3.97, "gsl", "turn", { to: 0, dur: 0.15 });
+c.prop(4.1, "coupon", { x: G1[0], y: 0.4, z: r3(G1[1] + 0.42) }, 0.08);   // at his chest, clear of his face
+A(4.62, "wiz", "move", { to: W1, dur: 0.3, steps: 2 });   // once Viking has left his place
 A(4.55, "vik", "move", { to: V1, dur: 0.45, steps: 3 });
-A(5.02, "vik", "turn", { to: -8, dur: 0.2 });   // he reads it facing us (Gunslinger at his front left)
+stack(4.55, RIGHT_ARM(V1), 0.45);
 A(4.6, "gsl", "turn", { to: yawTo(G1, V1), dur: 0.3 });
-A(4.9, "rea", "move", { to: R1, dur: 0.35, steps: 2 });
+A(4.9, "rea", "move", { to: R1, dur: 0.3, steps: 2 });
+A(5.02, "vik", "turn", { to: -8, dur: 0.2 });   // he reads it facing us (Gunslinger at his front left)
 for (const [who, from] of [["wiz", W1], ["rea", R1]]) A(4.75, who, "turn", { to: yawTo(from, V1), dur: 0.3 });
-c.prop(4.55, "giftP", { x: held(V1)[0], y: 0.16, z: held(V1)[2] }, 0.45);
-c.prop(4.55, "giftB", { x: held(V1)[0], y: r3(0.16 + BIG.h + 0.06), z: held(V1)[2] }, 0.45);
-c.prop(4.7, "coupon", { x: r3(G1[0] + 0.05), y: 0.55, z: r3(G1[1] - 0.4) }, 0.2);
-c.prop(5.2, "coupon", { x: r3(V1[0] - 0.2), y: 0.62, z: r3(V1[1] + 0.4) }, 0.2);
-// 6.0 the hug: the presents drop at his right; he lifts him and swings him round
-c.prop(6.0, "giftP", { x: 0.32, y: 0.0, z: 0.5, rot: 20 }, 0.3, "in");
-c.prop(6.0, "giftB", { x: 0.12, y: 0.0, z: 1.05, rot: -15 }, 0.35, "in");
-// keyframes of the pair: [time, Viking [x, z, yaw], Gunslinger [x, y, z, yaw], dur]. 5.95 Viking lunges at him (from
-// behind his right); 6.0-6.6 he lifts him and swings him round behind himself (Viking passes behind, Gunslinger in
-// front) to side by side, angled in, cheek to cheek, both faces to the front (06-07: Viking left, Gunslinger right);
-// 8.0-8.7 the rocking turns them on until Viking's back is to the front-left camera and Gunslinger, lifted higher, looks
-// out over his left shoulder (08)
+c.prop(4.7, "coupon", { x: r3((G1[0] + V1[0]) / 2), y: 0.62, z: r3((G1[1] + V1[1]) / 2 + 0.25) }, 0.2);
+c.prop(5.2, "coupon", { x: r3(V1[0] - 0.3), y: 0.8, z: r3(V1[1] + 0.3) }, 0.2);
+// 6.0 the hug: the presents fall forward off his arm (in front of the Wizard and Reaper); he lunges, lifts him and
+// swings him round his front to his right
+c.prop(6.0, "giftP", { x: GIFT_P[0], y: 0.0, z: GIFT_P[1], rot: 20 }, 0.35, "in");
+c.prop(6.0, "giftB", { x: GIFT_B[0], y: 0.0, z: GIFT_B[1], rot: -15 }, 0.4, "in");
+// keyframes of the pair: [time, Viking [x, z, yaw], Gunslinger [x, y, z, yaw], dur]. 5.95 Viking lunges at him;
+// 6.12 he lifts him and swings him round his front; 6.32-6.57 side by side, angled in, cheek to cheek, both faces to the
+// front (06-07: Viking left, Gunslinger right); 8.05-8.7 the rocking turns them on until Viking's back is to the
+// front-left camera and Gunslinger, lifted higher, looks out over his left shoulder at the Wizard (08)
 const HUGK = [
-  [5.95, [-0.15, 0.42, -50], [-0.6, 0, 0.88, 130], 0.12],
-  [6.3, [-0.45, 0.28, 20], [-0.32, 0.12, 0.92, 200], 0.25],
-  [6.6, [-0.7, 0.6, 45], [-0.12, 0.2, 0.62, 315], 0.3],
-  [8.05, [-0.6, 0.92, 100], [-0.18, 0.26, 0.42, 300], 0.3],
-  [8.4, [-0.2, 0.9, 205], [-0.78, 0.4, 0.4, 380], 0.3],
+  [5.95, [0.25, 0.8, -60], [G1[0], 0, G1[1], 119], 0.12],
+  [6.12, [0.45, 0.7, 20], [0.75, 0.12, 1.2, 200], 0.2],
+  [6.32, [0.4, 0.95, 45], [0.97, 0.2, 0.92, 315], 0.25],
+  [8.05, [0.5, 1.27, 100], [0.92, 0.26, 0.77, 300], 0.3],
+  [8.4, [0.9, 1.25, 205], [0.32, 0.7, 0.75, 321], 0.3],   // he looks down-left at the Wizard
 ];
 for (const [t, [vx, vz, vy], [gx, gy, gz, gyaw], dur] of HUGK) {
   A(t, "vik", "move", { to: [vx, vz], dur }); A(t, "vik", "turn", { to: vy, dur });
   if (gy > 0) A(t, "gsl", "fly", { to: { x: gx, y: gy, z: gz }, dur }); else A(t, "gsl", "move", { to: [gx, gz], dur });
   A(t, "gsl", "turn", { to: gyaw, dur });
 }
-// 6.3-7.2 the Wizard and Reaper come round the hug to their presents on the rug (07)
-A(6.3, "wiz", "move", { to: [-1.25, 0.5], dur: 0.45, steps: 3 });
-A(6.75, "wiz", "move", { to: W2, dur: 0.4, steps: 2 });
-A(7.15, "wiz", "turn", { to: 40, dur: 0.3 });
-A(6.4, "rea", "move", { to: [0.85, 0.55], dur: 0.4, steps: 3 });
-A(6.8, "rea", "move", { to: R2, dur: 0.35, steps: 2 });
-A(7.2, "rea", "turn", { to: -60, dur: 0.3 });
+// 6.25-7.2 the Wizard and Reaper come round the hug to their presents on the rug (07): the Wizard down the left
+// (between the crate and the hug), Reaper round the right
+A(6.25, "wiz", "move", { to: [-0.45, 0.6], dur: 0.35, steps: 3 });
+A(6.6, "wiz", "move", { to: W2, dur: 0.45, steps: 3 });
+A(7.05, "wiz", "turn", { to: yawTo(W2, GIFT_P), dur: 0.3 });
+A(6.2, "rea", "move", { to: [1.8, 0.9], dur: 0.5, steps: 3 });
+A(6.7, "rea", "move", { to: R2, dur: 0.45, steps: 3 });
+A(7.2, "rea", "turn", { to: yawTo(R2, GIFT_B), dur: 0.3 });
+// 8.3 the Wizard steps closer, under Gunslinger's eyes, staring ahead stunned (08: his face in the bottom-left foreground)
+A(8.3, "wiz", "move", { to: [-0.3, 1.75], dur: 0.2 });
+A(8.3, "wiz", "turn", { to: 25, dur: 0.3 });
 
 // ---------------------------------------------------------------- shots, one per panel
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
-const P01 = { pos: [0.15, 1.2, 4.2], look: [0.12, 0.72, -0.2], fov: 42 };
+const P01 = { pos: [0.15, 1.2, 4.8], look: [0.12, 0.72, -0.2], fov: 44 };   // the four across, the Wizard and Reaper cut by the edges
 const P02 = fw([r3(G0[0] + 0.3), 0.95, G0[1]], { w: 1.5, az: -4, el: 4, fov: 30 });
-const P03 = fw([r3(CRATE[0] + 0.3), 0.8, r3(CRATE[1] - 0.45)], { w: 1.6, az: -4, el: 8, fov: 30 });
-const P04 = fw([G1[0], 0.7, G1[1]], { w: 1.0, az: 4, el: 2, fov: 30 });
-const P05 = fw([r3(V1[0] + 0.02), 0.85, V1[1]], { w: 1.4, az: 4, el: 10, fov: 30 });
-const P06 = fw([-0.4, 0.88, 0.6], { w: 1.55, az: 0, el: 4, fov: 32 });
-const P07 = { pos: [-0.25, 1.95, 5.0], look: [-0.25, 0.58, 0.75], fov: 44 };
-const P08 = fw([-0.5, 1.08, 0.55], { w: 1.25, az: -4, el: 4, fov: 30 });
+const P03 = fw([-0.75, 0.75, 0.3], { w: 1.7, az: 15, el: 8, fov: 30 });           // from his left: Viking behind him at the right
+const P04 = fw([G1[0], 0.7, G1[1]], { w: 0.85, az: 4, el: 2, fov: 30 });
+const P05 = fw([r3(V1[0] + 0.02), 0.85, V1[1]], { w: 1.4, az: 4, el: 12, fov: 30 });
+const P06a = fw([-0.05, 0.88, 0.95], { w: 1.7, az: 0, el: 4, fov: 32 }), P06b = fw([0.68, 0.95, 0.93], { w: 1.7, az: 0, el: 4, fov: 32 });
+const P06 = { ...P06a, to: { pos: P06b.pos, look: P06b.look }, dur: 0.6 };      // follows the swing
+const P07 = { pos: [0.37, 2.35, 5.6], look: [0.37, 0.55, 1.2], fov: 48 };
+const P08 = fw([0.2, 1.35, 0.75], { w: 1.25, az: -4, el: 4, fov: 30 });
 const beats = c.beats([
   ["P01 pay up", 0, P01, "hook"],
   ["P02 the pocket pat", 1.5, P02],

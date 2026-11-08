@@ -40,10 +40,13 @@ The birthday cake with lit candles on a little table at the front left in 01.
 
 ## The staging proof (8 Nov, director): positions and why
 
-Generator: make-your-birthday.mjs (constants G0, V0, W_IN, R_IN, W0, R0, CRATE, G1, W1, R1, V1, HUG, HUGK, W2, R2 and
-the eight cameras P01-P08). Stills at the panel times showed every beat's "must see" in frame (placeholders: an IOU
-note for the coupon, plain gifts, no hats, the pub plate standing in for the room). Panels sheet:
-/tmp/claude-0/stage/panels-v1.png (scratch).
+Generator: make-your-birthday.mjs (constants G0, V0, V0b, W_IN, R_IN, W0, R0, CRATE, V3, W3, G1, V1, W1, R1, W2, R2,
+GIFT_P, GIFT_B, the hug keyframes HUGK and the eight cameras P01-P08). Round 2 after review A (8 Nov): every place is
+clear of the others and of the crate when it is used (bodies ~0.75 m wide; checked frame by frame on the floor plan);
+the room plate is widened with plain planks so no camera sees its edge. Stills at the panel times showed every beat's
+"must see" in frame (placeholders: the coupon sits still where it was handed over, no hands on the props, the moth and
+wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/staging-stills-v2.png,
+/tmp/claude-0/stage/staging-panels-v2.png.
 
 ## Departures (reasons)
 
@@ -62,6 +65,14 @@ note for the coupon, plain gifts, no hats, the pub plate standing in for the roo
   (8.0-8.7) until Viking's back is to the front-left camera and Gunslinger, lifted higher, looks out over Viking's
   left shoulder for the wink (08). Side by side, angled in (cheek to cheek), both faces read in 06-07; face to face
   they were both in profile (stills).
-- **The cake table sits further front left** (x -1.6, z 1.55) than drawn, so the crate and the Wizard's path round the
-  hug have room; it shows at the bottom left of 01.
-- **The crate is visible at the front left from frame 0** (it has to exist before he sits on it: world logic).
+- **The cake is not in 01.** Drawn at the bottom left of 01, in front of everyone. There it would stand in the
+  coupon close (04), Viking's close (05) and the presents' landing spot (07); the bunting, hats, rosette and presents
+  already say birthday at frame 0. It stands on its table at the front left, off frame.
+- **The crate is visible at the front left from frame 0** (it has to exist before he sits on it: world logic), and
+  in 03 the camera is on his left side (his left, as drawn), so Viking, who steps closer to peek, is behind him at
+  the right.
+- **The presents land further forward (1.4-1.8 m) than a plain drop.** Viking flings them off his arm as he lunges, so
+  in 07 they lie in front of the Wizard and Reaper, who face us as they look down at them.
+- **The Wizard and Reaper come round the hug (6.25-7.2)**: the Wizard down the left between the crate and the hug,
+  Reaper round the right. In 08 the Wizard stands in the front left, staring ahead stunned while Gunslinger, lifted
+  higher, winks down at him.
