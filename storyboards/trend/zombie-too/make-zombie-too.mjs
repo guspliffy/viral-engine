@@ -256,6 +256,7 @@ A(r3(BITE - 0.14), "phx", "expr", { expr: "serene", set: { curve: 0.2, open: 0.3
 A(BITE, "phx", "expr", { expr: "serene", set: { curve: 0.3, open: 0.0 }, dur: 0.06 });   // ...and closed on the hood
 A(BITE, "phx", "squash", { amount: 0.04, dur: 0.12 });
 sfx(BITE, "gulp", { gain: 0.5, reason: "a soft cartoon nibble on the hood ('glk')" });
+if (V3) c.textPop(BITE, "phx", "*bite*", { xy: [290, 560], dur: 0.8, angle: -8, size: 110 });   // Jonny 8 Nov: the nibble alone doesn't read as a bite
 A(r3(BITE + 0.1), "rea2", "expr", { expr: "shocked", set: { open: 0.55, eye: 1.3, curve: -0.2 }, dur: 0.12 });
 A(r3(BITE + 0.08), "rea2", "face", { tear: 0.6, brow: 0.6, dur: 0.12 });
 A(r3(BITE + 0.06), "rea2", "look", { to: [0.0, 0.25], dur: 0.12, blink: false });

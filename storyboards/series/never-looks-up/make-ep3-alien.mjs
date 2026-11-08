@@ -19,6 +19,7 @@
 import { clip, write as writeSb, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import { nowRules } from "../../lib/now-rules.mjs";
+import { stretchAt } from "../../lib/stretch.mjs";
 import * as grips from "../../lib/grips.mjs";
 import { SAUCER } from "../../../engine/page/props-ufo.js";
 
@@ -29,7 +30,7 @@ const END = 10.0;
 const V3 = !!process.env.V3;   // the reach rules v3 opening (see the top)
 // v3 re-cuts take today's template motion (Jonny 7 Nov), except the planted gait: with it the Wizard's hat sinks 54 %
 // into Phoenix and 23 % into Reaper in the tug of war (no path, lean or feetTune change fixed it), so natural walks stay
-const write = (u, sb) => writeSb(u, V3 ? { ...nowRules(sb), motion: { overlap: true, timing: true, solve: true } } : sb);
+const write = (u, sb) => writeSb(u, V3 ? stretchAt({ ...nowRules(sb), motion: { overlap: true, timing: true, solve: true } }, 1.2, 0.7, 0.2) : sb);   // the close-up 1.2-1.4 s plays at 1/4.5 speed
 const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- places (x right, z toward us; the houses are -z)
@@ -78,7 +79,7 @@ const props = [
   { id: "lights", kind: "stringlights", lit: 1, bulbs: 7, sag: 0.16, points: [[-2.2, 2.05, -2.9], [-0.8, 2.3, -3.5], [0.6, 2.15, -3.0], [2.1, 2.35, -3.6]] },
   { id: "ufo", kind: "flyingsaucer", ...UFO0, lit: 1, wobble: 1, glow: 0, beamR: 0.6 },
   { id: "alien", kind: "beanalien", ...H0, rot: -35, drop: 0, happy: 0.6, ...(V3 && { staged: "it rides the lift disc down out of the hatch and back up" }) },
-  { id: "phone", kind: "phone", x: CHAIR0.x, y: 0.9, z: CHAIR0.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", ...(V3 && { bright: 2.2, halo: 0.15, haloK: 0.45 }) },   // v3: the bright phone rule (Jonny 5 Nov); a smaller glow than ep5: at 0.32 m it turned his eyes grey in the look-up close-up
+  { id: "phone", kind: "phone", x: CHAIR0.x, y: 0.9, z: CHAIR0.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", ...(V3 && { bright: 2.2, halo: 0.26, haloK: 0.5 }) },   // v3: the bright phone rule (Jonny 5 Nov); 0.26 m reads in the wides (Jonny 8 Nov: 0.15 at glow 0.6 showed none), 0.32 greyed his eyes in the look-up
   { id: "bowl", kind: "popcornbowl", ...BOWL0, rot: 0 },
   { id: "pop1", kind: "popcorn", x: BOWL0.x, y: 0.26, z: BOWL0.z, n: 9, to: [0.05, 0.08], spread: 0.3, ...(V3 && { staged: "its anchor stays at the bowl rim; the kernels themselves land on the blanket" }) },
   { id: "pop2", kind: "popcorn", x: r3(WIZ0[0] - 0.25), y: 0.2, z: r3(WIZ0[1] + 0.35), n: 14, to: [0.0, 0.1], spread: 0.35, ...(V3 && { staged: "its anchor stays at the bowl rim; the kernels themselves land on the blanket" }) },
@@ -103,7 +104,7 @@ A(0, "phx", "expr", { expr: "kind", set: { curve: 0.25, eye: 0.95 }, dur: V3 ? 0
 A(0, "phx", "face", { lid: 0.45, dur: V3 ? 0 : 0.01 });
 act.blinksAt(c, "phx", [1.9, 4.6, 6.6]);
 act.scrollPhone(c, "phx", [0.25, 1.15, 2.05, 3.05, 3.95, 4.85, 5.75, 6.65, 7.45]);
-prop(0, "phone", { glow: 0.6 }, V3 ? 0 : 0.01);
+prop(0, "phone", { glow: V3 ? 1 : 0.6 }, V3 ? 0 : 0.01);   // v3: the screen at full
 
 // ---------------------------------------------------------------- 1 BEAM 0-1.5 (P1)
 const CAP_Y = 700;   // gibberish captions: in the sky beside the saucer, below the title's top 20 %
@@ -128,7 +129,7 @@ if (V3) {
   // B8: the Wizard glances from the saucer to Phoenix, then the cut to his face and a 0.7 s freeze on it
   A(0.88, "wiz", "look", { to: [1.0, 0.15], dur: 0.12, blink: false });
   act.mood(c, 0.9, "wiz", "annoyed", { hold: 0.25 });             // "seriously?!": squint, brows in
-  c.hitStop(1.2, 21);
+  // the 0.7 s reaction hold on the close-up is a live one (stretchAt in write below), not a hit-stop: Jonny 8 Nov, the frozen picture "seems to be stuck"
 }
 // the Wizard on the blanket: the popcorn jumps out of his bowl
 A(0, "wiz", "ride", { prop: "wizC", off: [0, -0.02, 0], yaw: 0, sit: true, dur: 0 });
@@ -414,6 +415,6 @@ write(import.meta.url, {
     ...(V3 ? [{ who: "ast", from: 1.45, to: 1.7, checks: ["stance-slide"], reason: "the Astronaut's feet are under the bottom edge of the frame (a weight shift as he waves; same in the posted cut)" }, { who: "ast", from: 3.4, to: 3.6, checks: ["stance-slide"], reason: "the Astronaut's feet are under the bottom edge of the frame as he stops at the beam (same in the posted cut)" }] : []),
     ...(V3 ? [{ who: "wiz", with: "wiz", from: 2.55, to: 2.9, checks: ["face-covered"], reason: "his glove on Phoenix's rising ankle passes his own eyes as he pulls (0.2 s in the posted cut; today's eases hold it 0.3 s)" }] : []),
   // the contact checks read these windows on the video's clock: v3's 0.7 s freeze moves everything after 1.2 s later
-  ].map((w) => (V3 ? { ...w, ...(w.from > 1.2 && { from: r3(w.from + 0.7) }), to: r3(Math.min(END + 1.0, w.to + 0.7)) } : w)),
+  ],   // v3: stretchAt (in write) moves these with the live hold, on one clock
   notes: "Generated by storyboards/series/never-looks-up/make-ep3-alien.mjs. Panels: PANELS-ep3-alien.md. Title added in TikTok's text tool.",
 });

@@ -19,6 +19,7 @@
 import { clip, write as writeSb, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import { nowRules } from "../../lib/now-rules.mjs";
+import { stretchAt } from "../../lib/stretch.mjs";
 import fs from "node:fs";
 
 const FACES = "strong", MOTION = "natural";
@@ -26,7 +27,7 @@ const ENV = process.env.ENV ?? "dusk-bus-stop";
 const c = clip({ faces: FACES }), { A, sfx, see, prop } = c;
 const END = 10.0;
 const V3 = !!process.env.V3;   // the reach rules v3 opening (see the top)
-const write = (u, sb) => writeSb(u, V3 ? nowRules(sb) : sb);   // v3 re-cuts take today's template motion (Jonny 7 Nov)
+const write = (u, sb) => writeSb(u, V3 ? stretchAt(nowRules(sb), 1.05, 0.7, 0.25) : sb);   // the whole close-up (1.05-1.3 s story) plays at 1/3.8 speed, from its cut, so the tracking camera and Reaper slow together;   // v3 re-cuts take today's template motion (Jonny 7 Nov)
 const rad = (d) => (d * Math.PI) / 180;
 const deg = (r) => (r * 180) / Math.PI;
 
@@ -55,7 +56,7 @@ const FLEE = {                                                // two lanes a bod
   wiz: [WIZ0, [1.85, 0.8], [2.4, 2.3], [3.3, 3.2]],
 };
 // the horde at frame 0: strung out down the lane, Viking in front, each 0.9 m+ from the next
-const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [0.95, -5.6], dra: [-1.4, -3.3] };   // Viking clear of the Wizard on screen at frame 0
+const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [V3 ? 0.27 : 0.05, -4.4], sam: [0.95, -5.6], dra: [-1.4, -3.3] };   // Viking clear of the Wizard on screen at frame 0
 // where they end up (5.0-7.0), round the bench, bowed over cupped mittens: Viking sits beside him, Dragon and
 // Sorcerer stand behind the bench's back, Gunslinger at its right end, Samurai behind him to the right
 // (no zombie stands between the camera and the hedge in the club shot, so the friends' faces show over it: the
@@ -63,7 +64,7 @@ const H0 = { vik: [-0.7, -2.2], gun: [0.15, -3.2], sor: [0.05, -4.4], sam: [0.95
 const H1 = { dra: at(BENCH, -0.2, -0.95), sam: at(BENCH, 1.3, -0.95), gun: [2.35, 2.45], sor: [-1.1, 0.0] };   // Samurai right of the Viking's cupped hands on screen
 const PATH = {
   gun: [H0.gun, [-0.05, 0.2], [0.35, 1.02], [1.4, 1.15], [1.8, 2.0], H1.gun],   // down the middle, then right along the front of the hedge
-  sor: [H0.sor, [-0.1, -3.0], [-0.35, -2.2], H1.sor],                   // left of the lane, second row behind the bench
+  sor: [H0.sor, [V3 ? 0.04 : -0.1, -3.0], [-0.35, -2.2], H1.sor],                   // left of the lane, second row behind the bench
   sam: [H0.sam, [0.4, -1.5], [0.0, -0.45], [0.2, 0.6], H1.sam],                    // right of the lane, past the hedge's end, to behind the Viking
   dra: [H0.dra, [-1.05, 0.45], H1.dra],
 };
@@ -130,7 +131,7 @@ for (const [z, dur] of [["gun", 4.6], ["sam", 5.3], ["dra", 4.0], ["sor", 4.2]])
   c.arm(dur - 0.45, z, "R", "rest", 0.4); c.arm(dur - 0.45, z, "L", "rest", 0.4);   // arms down as they stop (clear of the bench)
 }
 sfx(0, "groan", { gain: 0.35, dur: 3.0, reason: "the horde's low overlapping groans as it shambles in" });
-sfx(0, "lampbuzz", { gain: 0.12, dur: END, reason: "the flickering street lamp over the bench" });
+if (!V3) sfx(0, "lampbuzz", { gain: 0.12, dur: END, reason: "the flickering street lamp over the bench" });   // v3: gone (Jonny 8 Nov: "an underlying buzz through the whole video")
 
 // ---------------------------------------------------------------- 1 HORDE 0-1.5 (P1): the friends sprint past and dive behind the hedge
 const CAP_Y = 640;
@@ -151,7 +152,7 @@ if (V3) {
   // B8: Reaper glances back at Phoenix as he runs, then the cut to his face and a 0.7 s freeze on it
   A(0.9, "rea", "look", { to: [-1.0, 0.1], dur: 0.12, blink: false });
   act.mood(c, 0.92, "rea", "annoyed", { hold: 0.25, squash: 0 });
-  c.hitStop(1.12, 21);   // Fable B: the cut after the line has landed ("sec." by ~1.0 s), inside B8's 1.0-2.5 s
+  // the 0.7 s reaction hold on the close-up is a live one (stretchAt in write below), not a hit-stop: Jonny 8 Nov, the frozen picture "seems to be stuck"
 }
 // the outer arm flails up and out, the arm on the friend's side pumps in front of the body (clear of the other one)
 const UP = { o: [0.3, 0.8, 0.12] }, MID = { o: [0.34, 0.55, 0.16] }, IN_HI = { o: [0.06, 0.6, 0.36] }, IN_LO = { o: [0.04, 0.4, 0.34] };
@@ -259,10 +260,12 @@ const SHOTS = JSON.parse(process.env.SHOTS ?? "null") ?? {
   BACK: [[0.0, 1.7, 8.5], [0.15, 0.95, 0], 46],        // P8: the club again, every head to the hedge
   REA_CU: [[1.45, 1.0, 6.0], [1.4, 0.92, 3.0], 34],    // v3 B8: Reaper running at us, glancing back at Phoenix
 };
+const L = (p, d) => p.map((v, i) => r3(v + d[i]));
 const S = Object.fromEntries(Object.entries(SHOTS).map(([k, [pos, look, fov]]) => [k, { pos: [pos[0], pos[1], r3(pos[2] + DZ)], look: [look[0], look[1], r3(look[2] + DZ)], fov }]));
 const beats = c.beats([
   ["P1 horde", 0, S.WIDE, "hook"],
-  ...(V3 ? [["B8 reaper close-up", 1.05, S.REA_CU, "reaction"], ["P1 wide again", 1.3, S.WIDE]] : []),
+  // the close-up follows Reaper as he runs on in slow motion (he ran out of a still frame once the freeze was gone)
+  ...(V3 ? [["B8 reaper close-up", 1.05, { ...S.REA_CU, to: { pos: L(S.REA_CU.pos, [0.355, 0, 0.71]), look: L(S.REA_CU.look, [0.355, 0, 0.71]) }, dur: 0.25, ease: "linear" }, "reaction"], ["P1 wide again", 1.3, S.WIDE]] : []),
   ["P2 hide", 1.5, "keep"],
   ["P3 one of us", 3.2, S.ONE],
   ["P4 club", 5.0, S.CLUB],
@@ -289,7 +292,9 @@ write(import.meta.url, {
   allowClip: [
     { who: "phx", with: "bench", from: 0, to: END, reason: "Phoenix sits on the bench" },
     { who: "vik", with: "bench", from: 5.4, to: END, reason: "zombie Viking sits on the bench beside him" },
-  // the contact checks read these windows on the video's clock: v3's 0.7 s freeze moves everything after 1.12 s later
-  ].map((w) => (V3 ? { ...w, ...(w.from > 1.12 && { from: r3(w.from + 0.7) }), to: r3(w.to + 0.7) } : w)),
+    // v3: in the slow-motion close-up Reaper's raised glove passes in front of the zombie Sorcerer, a background extra
+    // about 2.5 m behind him, never touching it (story time; stretchAt puts it at 1.5-1.85 s on the video)
+    ...(V3 ? [{ who: "rea", with: "sor", from: 1.21, to: 1.30, checks: ["face-covered"], reason: "Reaper's glove in the close-up foreground passes in front of a background zombie 2.5 m behind him; no contact, the zombie isn't acting" }] : []),
+  ],   // v3: stretchAt (in write) moves these with the live hold, on one clock
   notes: "Generated by storyboards/series/never-looks-up/make-ep5-zombies.mjs. Panels: PANELS-zombies.md. Title added in TikTok's text tool.",
 });

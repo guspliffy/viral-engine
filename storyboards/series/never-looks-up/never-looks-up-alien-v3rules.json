@@ -14,7 +14,7 @@
   "timing": true,
   "solve": true
  },
- "cover": 8.5,
+ "cover": 9.2,
  "set": {
   "type": "env",
   "env": "backyard-stargazing",
@@ -60,11 +60,11 @@
     "part": "main"
    },
    {
-    "at": 8,
+    "at": 8.7,
     "part": "hush"
    },
    {
-    "at": 9.15,
+    "at": 9.85,
     "part": "drop"
    }
   ]
@@ -85,8 +85,8 @@
  },
  "creative": {
   "length": [
-   10,
-   10
+   10.7,
+   10.7
   ]
  },
  "hook": {
@@ -274,8 +274,8 @@
    "scale": 1.9,
    "case": "#2a2d36",
    "bright": 2.2,
-   "halo": 0.15,
-   "haloK": 0.45
+   "halo": 0.26,
+   "haloK": 0.5
   },
   {
    "id": "bowl",
@@ -345,84 +345,84 @@
   },
   {
    "from": 1.1,
-   "to": 1.4,
+   "to": 2.1,
    "text": "I'll look up in a sec.",
    "pos": 470,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 1.75,
-   "to": 3,
+   "from": 2.45,
+   "to": 3.7,
    "text": "TAKE ME TOO!!",
    "pos": 640,
    "pop": false,
    "x": 410
   },
   {
-   "from": 1.85,
-   "to": 2.75,
+   "from": 2.55,
+   "to": 3.45,
    "text": "NO NO NO!",
    "pos": 900,
    "pop": false,
    "x": 700
   },
   {
-   "from": 3.3,
-   "to": 3.85,
+   "from": 4,
+   "to": 4.55,
    "text": "HNNNGH!",
    "pos": 900,
    "pop": false,
    "x": 700
   },
   {
-   "from": 3.9,
-   "to": 4.6,
+   "from": 4.6,
+   "to": 5.3,
    "text": "ME! PICK ME!",
    "pos": 640,
    "pop": false,
    "x": 340
   },
   {
-   "from": 4.25,
-   "to": 5,
+   "from": 4.95,
+   "to": 5.7,
    "text": "PULL!!",
    "pos": 900,
    "pop": false,
    "x": 700
   },
   {
-   "from": 5.95,
-   "to": 6.9,
+   "from": 6.65,
+   "to": 7.6,
    "text": "welcome welcome!!",
    "pos": 450,
    "pop": false
   },
   {
-   "from": 7.45,
-   "to": 7.95,
+   "from": 8.15,
+   "to": 8.65,
    "text": "hello?",
    "pos": 430,
    "pop": false
   },
   {
-   "from": 8.5,
-   "to": 9,
+   "from": 9.2,
+   "to": 9.7,
    "text": "huh.",
    "pos": 1250,
    "pop": false,
    "x": 826
   },
   {
-   "from": 9.05,
-   "to": 9.3,
+   "from": 9.75,
+   "to": 10,
    "text": "hmph!",
    "pos": 430,
    "pop": false
   },
   {
-   "from": 9.5,
-   "to": 10,
+   "from": 10.2,
+   "to": 10.7,
    "text": "NOOO...",
    "pos": 1250,
    "pop": false,
@@ -458,7 +458,7 @@
       -3.026
      ]
     },
-    "dur": 5
+    "dur": 5.7
    },
    "do": [
     {
@@ -467,7 +467,7 @@
      "set": {
       "spin": 6
      },
-     "dur": 9.4,
+     "dur": 10.1,
      "ease": "linear",
      "at": 0
     },
@@ -536,7 +536,7 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "glow": 0.6
+      "glow": 1
      },
      "dur": 0,
      "ease": "inOut",
@@ -713,7 +713,7 @@
     {
      "who": "ast",
      "do": "still",
-     "dur": 1.2,
+     "dur": 1.27,
      "idle": 0.08,
      "at": 0.02
     },
@@ -754,7 +754,7 @@
     {
      "sfx": "force-field",
      "gain": 0.32,
-     "dur": 9.2,
+     "dur": 9.9,
      "reason": "the beam's hum while it is on",
      "at": 0.1
     },
@@ -855,7 +855,7 @@
     {
      "who": "rea",
      "do": "still",
-     "dur": 1.5999999999999999,
+     "dur": 2.3,
      "idle": 0.08,
      "at": 0.3
     },
@@ -914,7 +914,7 @@
     {
      "who": "wiz",
      "do": "still",
-     "dur": 0.45,
+     "dur": 1.15,
      "idle": 0.06,
      "at": 1
     }
@@ -924,7 +924,7 @@
   {
    "name": "B8 wizard close-up",
    "at": 1.1,
-   "len": 0.3,
+   "len": 1,
    "shot": {
     "pos": [
      0.3,
@@ -944,7 +944,7 @@
      "do": "grip",
      "side": "R",
      "shape": "scroll",
-     "dur": 0.1,
+     "dur": 0.275,
      "at": 0.05
     },
     {
@@ -952,15 +952,15 @@
      "do": "grip",
      "side": "R",
      "shape": "hold",
-     "dur": 0.12,
-     "at": 0.21
+     "dur": 0.435,
+     "at": 0.595
     }
    ],
    "kind": "reaction"
   },
   {
    "name": "P2 lift",
-   "at": 1.4,
+   "at": 2.1,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -1027,7 +1027,7 @@
      "set": {
       "y": 0.6
      },
-     "dur": 1.7000000000000002,
+     "dur": 1.7,
      "ease": "in",
      "at": 0.1
     },
@@ -1477,7 +1477,7 @@
        0.088
       ]
      },
-     "dur": 0.3999999999999999,
+     "dur": 0.4,
      "ease": "linear",
      "at": 1
     },
@@ -1492,7 +1492,7 @@
        0.161
       ]
      },
-     "dur": 0.3999999999999999,
+     "dur": 0.4,
      "ease": "linear",
      "at": 1
     },
@@ -1567,7 +1567,7 @@
        0.123
       ]
      },
-     "dur": 0.40000000000000036,
+     "dur": 0.4,
      "ease": "linear",
      "at": 1.4
     },
@@ -1742,7 +1742,7 @@
   },
   {
    "name": "P3 tug of war",
-   "at": 3.2,
+   "at": 3.9,
    "len": 2.1,
    "shot": "keep",
    "do": [
@@ -1752,7 +1752,7 @@
      "set": {
       "y": 0.95
      },
-     "dur": 1.8999999999999995,
+     "dur": 1.9,
      "ease": "linear",
      "at": 0
     },
@@ -1767,7 +1767,7 @@
        0.123
       ]
      },
-     "dur": 0.3999999999999999,
+     "dur": 0.4,
      "ease": "linear",
      "at": 0
     },
@@ -1924,7 +1924,7 @@
        0.123
       ]
      },
-     "dur": 0.3999999999999999,
+     "dur": 0.4,
      "ease": "linear",
      "at": 0.4
     },
@@ -2030,7 +2030,7 @@
        0.123
       ]
      },
-     "dur": 0.40000000000000036,
+     "dur": 0.4,
      "ease": "linear",
      "at": 0.8
     },
@@ -2104,7 +2104,7 @@
        0.123
       ]
      },
-     "dur": 0.39999999999999947,
+     "dur": 0.4,
      "ease": "linear",
      "at": 1.2
     },
@@ -2240,7 +2240,7 @@
       "x": 0.56,
       "z": -0.33
      },
-     "dur": 1.7000000000000002,
+     "dur": 1.7,
      "ease": "inOut",
      "at": 1.9
     },
@@ -2251,7 +2251,7 @@
       "x": 1.107,
       "z": -0.039
      },
-     "dur": 1.7000000000000002,
+     "dur": 1.7,
      "ease": "inOut",
      "at": 1.9
     },
@@ -2261,7 +2261,7 @@
      "set": {
       "y": 1.5
      },
-     "dur": 1.7000000000000002,
+     "dur": 1.7,
      "ease": "out",
      "at": 1.9
     },
@@ -2272,7 +2272,7 @@
       "x": 0.472,
       "z": -0.377
      },
-     "dur": 1.7000000000000002,
+     "dur": 1.7,
      "ease": "inOut",
      "at": 1.9
     },
@@ -2432,7 +2432,7 @@
      "who": "wiz",
      "do": "pitch",
      "to": -18,
-     "dur": 0.28800000000000003,
+     "dur": 0.288,
      "at": 1.98
     },
     {
@@ -2464,14 +2464,14 @@
      "who": "rea",
      "do": "pitch",
      "to": -24,
-     "dur": 0.30600000000000005,
+     "dur": 0.306,
      "at": 2
     }
    ]
   },
   {
    "name": "P4 hatch",
-   "at": 5.3,
+   "at": 6,
    "len": 1,
    "shot": {
     "pos": [
@@ -2809,7 +2809,7 @@
   },
   {
    "name": "P5 greeting",
-   "at": 6.3,
+   "at": 7,
    "len": 0.7,
    "shot": {
     "pos": [
@@ -2894,7 +2894,7 @@
   },
   {
    "name": "P6 peak",
-   "at": 7,
+   "at": 7.7,
    "len": 1,
    "shot": {
     "pos": [
@@ -3002,7 +3002,7 @@
   },
   {
    "name": "P7 look-up",
-   "at": 8,
+   "at": 8.7,
    "len": 1.32,
    "shot": "keep",
    "do": [
@@ -3162,7 +3162,7 @@
   },
   {
    "name": "P8 back down",
-   "at": 9.32,
+   "at": 10.02,
    "len": 0.68,
    "shot": {
     "pos": [
@@ -3254,7 +3254,7 @@
     {
      "sfx": "wings",
      "gain": 0.45,
-     "dur": 0.47000000000000053,
+     "dur": 0.47,
      "at": 0.16
     },
     {
@@ -3463,15 +3463,15 @@
   },
   {
    "from": 1.12,
-   "to": 1.38,
+   "to": 2.01,
    "see": [
     "wiz.face"
    ],
    "why": "B8: the Wizard's face, frozen on Phoenix's promise"
   },
   {
-   "from": 1.6,
-   "to": 3.15,
+   "from": 2.3,
+   "to": 3.85,
    "see": [
     "phx.face",
     "wiz.face",
@@ -3481,8 +3481,8 @@
    "why": "P2: the chair lifts in the beam, the Wizard grabs his foot, the Astronaut cheers"
   },
   {
-   "from": 3.3,
-   "to": 4.9,
+   "from": 4,
+   "to": 5.6,
    "see": [
     "phx.face",
     "wiz.face",
@@ -3492,8 +3492,8 @@
    "why": "P3: the tug of war under the chair, the Astronaut begging to go"
   },
   {
-   "from": 5.2,
-   "to": 6.25,
+   "from": 5.9,
+   "to": 6.95,
    "see": [
     "phx.face",
     "ufo",
@@ -3504,8 +3504,8 @@
    "why": "P4: the friends in a pile, Phoenix still rising, the hatch opens"
   },
   {
-   "from": 6.35,
-   "to": 6.95,
+   "from": 7.05,
+   "to": 7.65,
    "see": [
     "phx.face",
     "alien"
@@ -3513,8 +3513,8 @@
    "why": "P5: the alien on its lift, waving, Phoenix on his phone right below"
   },
   {
-   "from": 7.1,
-   "to": 7.95,
+   "from": 7.8,
+   "to": 8.65,
    "see": [
     "phx.face",
     "alien",
@@ -3523,8 +3523,8 @@
    "why": "P6: the gift held out right by his phone"
   },
   {
-   "from": 8.1,
-   "to": 8.95,
+   "from": 8.8,
+   "to": 9.65,
    "see": [
     "phx.face",
     "alien"
@@ -3532,8 +3532,8 @@
    "why": "P7: Phoenix looks up at the alien and its gift: huh."
   },
   {
-   "from": 9.45,
-   "to": 9.95,
+   "from": 10.15,
+   "to": 10.65,
    "see": [
     "phx",
     "chair",
@@ -3548,15 +3548,11 @@
    "frames": 3
   },
   {
-   "at": 1.2,
-   "frames": 21
-  },
-  {
-   "at": 5.1,
+   "at": 5.8,
    "frames": 3
   },
   {
-   "at": 9.3,
+   "at": 10,
    "frames": 3
   }
  ],
