@@ -7,6 +7,7 @@ import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js"
 import { BokehPass } from "three/addons/postprocessing/BokehPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
+import { InkEffect } from "./ink.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
@@ -92,10 +93,44 @@ const GradeShader = {
     }`,
 };
 
+// set "satsuei" (8 Nov 2026, opt-in; anime look plan item 8, after the MEGA CLAWD film's grade, seeconever/megaclawd,
+// MIT): anime compositing on the finished picture, in display colours. A warm halation round the brightest parts
+// (windows, sky, glints), a soft diffusion glow screened from the light areas (it only adds light, so faces and lines
+// stay crisp), shadows pulled lavender and highlights warm by multiplying (the hue holds), a violet lift in the darks,
+// and a one-code-value dither against banding after TikTok's re-encode
+const SatsueiShader = {
+  uniforms: {
+    tDiffuse: { value: null }, res: { value: new THREE.Vector2(1080, 1920) }, hal: { value: 0.35 }, halThr: { value: 0.8 }, diffuse: { value: 0.22 }, diffThr: { value: 0.55 },
+    halCol: { value: new THREE.Color("#ff8a50") }, shade: { value: new THREE.Color("#e4e2ff") }, high: { value: new THREE.Color("#fff6ea") }, lift: { value: new THREE.Color("#0a0816") },
+  },
+  vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+  fragmentShader: /* glsl */`
+    uniform sampler2D tDiffuse; uniform vec2 res; uniform float hal, halThr, diffuse, diffThr; uniform vec3 halCol, shade, high, lift; varying vec2 vUv;
+    void main() {
+      vec3 c = texture2D(tDiffuse, vUv).rgb, h = vec3(0.0), g = vec3(0.0);
+      float sc = res.x / 1080.0;
+      for (int i = 0; i < 12; i++) {
+        float a = float(i) * 0.5236 + 0.26; vec2 o = vec2(cos(a), sin(a)) * sc / res;
+        vec3 s1 = texture2D(tDiffuse, vUv + o * 5.0).rgb, s2 = texture2D(tDiffuse, vUv + o * 14.0).rgb, s3 = texture2D(tDiffuse, vUv + o * 32.0).rgb;
+        h += max(s1 - halThr, 0.0) * 0.6 + max(s2 - halThr, 0.0) * 0.4;
+        g += max(s2 - diffThr, 0.0) * 0.5 + max(s3 - diffThr, 0.0) * 0.5;
+      }
+      h /= 12.0; g /= 12.0;
+      c += dot(h, vec3(0.3, 0.5, 0.2)) * halCol * hal / (1.0 - halThr);
+      c = 1.0 - (1.0 - c) * (1.0 - g * diffuse / (1.0 - diffThr));
+      float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
+      c *= mix(shade, high, smoothstep(0.08, 0.7, l));
+      c += lift * (1.0 - smoothstep(0.0, 0.35, l));
+      c += (fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) / 255.0;
+      gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
+    }`,
+};
+
 // a render pass that draws with the OutlineEffect (ink lines) into the composer's buffer
 class OutlineRenderPass extends Pass {
   constructor(fx, scene, camera) { super(); this.fx = fx; this.scene = scene; this.camera = camera; this.needsSwap = false; }
   render(renderer, writeBuffer, readBuffer) {
+    if (this.fx.ink) this.fx.ink.res = [readBuffer.width, readBuffer.height];   // set "ink": widths in real pixels
     renderer.setRenderTarget(this.renderToScreen ? null : readBuffer);
     renderer.setClearColor(0x000000, 0); renderer.clear();
     this.fx.render(this.scene, this.camera);
@@ -605,6 +640,23 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // far the underside stays in shade, "face": how far the shadow line bends round the face so it stays lit. The set keeps
   // its own painting. true: these defaults
   const CEL = setSpec?.cel ? { edge: 1.5, at: 0.08, flat: true, normals: "proxy", shift: 0.5, face: 0.6, ...(setSpec.cel === true ? {} : setSpec.cel) } : null;
+  // set "ink" (8 Nov 2026, opt-in; research/anime-look-2026-11-07 item 5, the MEGA CLAWD ink pass): line widths in real
+  // pixels (at 1080 wide), the same on every side of a body (three's hull drew ~3 px left/right, ~5.6 px top/bottom in
+  // 9:16), a drawn hierarchy: the potato's body outline the thickest ("px"), hats, hoods and capes a little less ("cloth"),
+  // gloves, faces and the costume's small parts thinner ("part"), props thinner still ("prop"), the set's own 3D parts
+  // finest ("set"; painted sets have none), and every line thinning with distance ("far": (ref / depth)^far, clamped
+  // "min".."max"; ref metres, the medium shot's distance), and the ink a little darker than today's coloured line
+  // ("dark" multiplies its lightness: the MEGA CLAWD ink is a dark ink mixed with the darkened colour beside it). true:
+  // these defaults
+  const INK = setSpec?.ink ? { px: 4.5, cloth: 0.8, part: 0.55, prop: 0.6, set: 1.1, far: 0.3, ref: 5, min: 0.55, max: 1.6, dark: 0.7, ...(setSpec.ink === true ? {} : setSpec.ink) } : null;
+  const castMats = new Set(); for (const a of actors) { if (a.ch.limbMat) castMats.add(a.ch.limbMat); a.ch.root.traverse((x) => { if (x.material) for (const m of [].concat(x.material)) castMats.add(m); }); }
+  const inkPx = (role, m, isSet) => {
+    if (isSet) return INK.set;
+    if (!castMats.has(m)) return INK.px * INK.prop;   // a scene prop (held or not)
+    if (role === "skin") return INK.px;
+    if (role === "cloth" || role === "hair") return INK.px * INK.cloth;
+    return INK.px * INK.part;   // gloves, linings, eyes, the costume's small parts and its own weapon
+  };
   const proxySkins = new Set(CEL?.normals === "proxy" ? actors.filter((a) => a.ch.skin && a.ch.body && a.ch.body.material === a.ch.skin).map((a) => a.ch.skin) : []);
   const celFor = (role, m) => {
     if (!CEL) return {};
@@ -668,10 +720,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       // coloured line art: a dark shade of the surface colour, bold enough to survive phone size; the set gets
       // thinner lines than the characters
       // the set's lines are thinner and lighter, so the background stays soft and the face is the focus
-      const thick = isSet ? 0.0016 : golden ? 0.004 : 0.0058;
+      const thick = INK ? inkPx(role, m, isSet) : isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", isSet ? 0.5 : golden ? 0.34 : 0.26), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", (isSet ? 0.5 : golden ? 0.34 : 0.26) * (INK && !isSet ? INK.dark : 1)), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
       cache.set(m, t); made.add(t);
     }
     return t;
@@ -698,7 +750,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     pool.rotation.x = -Math.PI / 2; pool.position.set(v3.x, 0.004, v3.z + 0.5); pool.renderOrder = 0; pool.userData.lookOnly = true; scene.add(pool);
   }
   const grounding = groundShadows(scene, actors, props, night ? "#241c30" : setSpec && (setSpec.type === "hills" || setSpec.type === "backyard") ? "#0f2e12" : "#2a2019", camera);
-  const fx = new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
+  const fx = INK
+    ? new InkEffect(R, { defaultThickness: INK.px * INK.part, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true, ink: { res: [W * R.getPixelRatio(), H * R.getPixelRatio()], ref: INK.far ? INK.ref : 0, pow: INK.far || 0.3, min: INK.min, max: INK.max } })
+    : new OutlineEffect(R, { defaultThickness: 0.0046, defaultColor: [0.12, 0.08, 0.07], defaultAlpha: 1, defaultKeepAlive: true });
 
   const composer = composerFor(R, W, H, draft);
   composer.addPass(new OutlineRenderPass(fx, scene, camera));
@@ -760,6 +814,14 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.lift.value.set(-0.05, -0.04, -0.015); grade.uniforms.highTint.value.set(-0.03, -0.01, 0.02); grade.uniforms.shadowTint.value.set(-0.01, 0.0, 0.03);
   }
   composer.addPass(grade);
+  // set "satsuei": true or { "hal", "halThr", "diffuse", "diffThr", "halCol", "shade", "high", "lift" } (SatsueiShader)
+  if (setSpec?.satsuei) {
+    const S = setSpec.satsuei === true ? {} : setSpec.satsuei, sat = new ShaderPass(SatsueiShader), u = sat.uniforms, pr = R.getPixelRatio();
+    u.res.value.set(W * pr, H * pr);
+    for (const k of ["hal", "halThr", "diffuse", "diffThr"]) if (S[k] != null) u[k].value = S[k];
+    for (const k of ["halCol", "shade", "high", "lift"]) if (S[k] != null) u[k].value = new THREE.Color(S[k]);
+    composer.addPass(sat);
+  }
   if (D && D.paper) {
     const paper = new ShaderPass(PaperShader), pr = R.getPixelRatio();
     paper.uniforms.res.value.set(W * pr, H * pr); paper.uniforms.grain.value = D.paper.grain; paper.uniforms.wash.value = D.paper.wash; paper.uniforms.pool.value = D.paper.pool;

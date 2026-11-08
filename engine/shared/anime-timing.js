@@ -17,10 +17,12 @@
 //                                       (a front-loaded walk skates: the template Wizard's 0.45 s move, 8 Nov),
 //                    "lead": 0.3,       from this long before such a move (its first steps start early)
 //                    "settle": 0.15 }   until this long after it
-// A drawing never holds across a cut: at a cut (cuts: the shot start times) every character shows its pose at the cut
-// or later, so a new setup placed just before a cut is what the new shot opens on (what if 01, 8 Nov 2026: a held
-// drawing showed the old setup in the new shot's first frame).
 // Everything is a function of (who, t), so renders and shards stay repeatable.
+// cuts: the story times of the camera cuts (the shots' starts). A drawing never holds across a cut: the first frame of a
+// shot shows the pose at that frame, so a cheat behind a cut (a twin swapped in, a "dur": 0 move to a new place) lands
+// on the cut and not two frames into the new shot (Death waits for GTA 6 ep 2, 8 Nov 2026: Death sat down three
+// frames after the cut). Nor does a front-loaded key reach past the next cut: a squash running over a cut showed
+// Phoenix already in the next shot's place two frames before it.
 const SKIP = ["still", "noblink", "talk", "voice", "blink", "idle", "mood"];
 const TRAVEL = ["move", "turn", "walk", "run", "dash", "shuffle", "step", "dance", "ride", "fly", "follow", "wander", "chase", "flee"];
 export function animeTimingSpec(o) {
@@ -47,23 +49,24 @@ export function makeAnimeTiming(o, actions = [], fps = 30, cuts = []) {
     L.segs = segs;
   }
   const step = (t, from, n) => from + Math.floor((t - from) * fps / n + 1e-4) * n / fps;
-  const cutList = cuts.filter((c) => c > 0).sort((a, b) => a - b);
-  const lastCut = (t) => { let c = null; for (const x of cutList) if (x <= t + 1e-6) c = x; else break; return c; };
-  const timing = (who, t) => { const r = drawing(who, t), c = cutList.length ? lastCut(t) : null; return c != null && r < c ? c : r; };
-  const drawing = (who, t) => {
-    const L = per.get(who);
-    if (!L) return step(t, 0, S.idle);
+  const CUTS = [...cuts].filter((x) => x > 0).sort((x, y) => x - y);
+  // the last cut at or before t (the drawings count from it)
+  const cutAt = (t) => { let c = -Infinity; for (const x of CUTS) { if (x <= t + 1e-6) c = x; else break; } return c; };
+  const cutAfter = (t) => { for (const x of CUTS) if (x > t + 1e-6) return x; return Infinity; };
+  const timing = (who, t) => {
+    const L = per.get(who), cut = cutAt(t);
+    if (!L) return step(t, Math.max(0, cut), S.idle);
     // travelling through the room: on 2s from the move's start, never snapped (a key over it waits for the feet)
     const walk = L.long.find(([a, b]) => t >= a - 1e-6 && t < b);
-    if (walk) return step(t, walk[0], 2);
+    if (walk) return step(t, Math.max(walk[0], cut), 2);
     for (const [a, b] of L.segs) {
       if (t < a - 1e-6 || t >= b - 1e-6) continue;
       const d = b - a, n = d <= S.fast ? 1 : d >= S.slow ? 3 : 2;
-      const p = Math.min(1, (step(t, a, n) - a) / d);
-      return a + d * (1 - Math.pow(1 - p, S.push));
+      const p = Math.min(1, (step(t, Math.max(a, cut), n) - a) / d);
+      return Math.min(a + d * (1 - Math.pow(1 - p, S.push)), cutAfter(t) - 1e-4);
     }
-    // between moves: the drawing holds, stepping from the end of the last move
-    let from = 0;
+    // between moves: the drawing holds, stepping from the end of the last move (or the last cut)
+    let from = Math.max(0, cut);
     for (const [, b] of L.segs) if (b <= t + 1e-6) from = Math.max(from, b);
     return step(t, from, S.idle);
   };

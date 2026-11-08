@@ -13,6 +13,8 @@ import { staff } from "./costumes.js";
 //   wallcalendar a paper wall calendar with a spiral top: a blank grid and ONE cell circled in red, no letters or
 //                numbers. Origin: its bottom centre; the picture is on its -z face (held with the phone hold it faces
 //                away from the holder; on a wall turn it rot 180). CALENDAR has its size.
+//   countcalendar the same calendar with red X's on the first spec.xs cells and a black skull (rise 0..1) and flame
+//                (puff 0..1) drawn in the cell after the circle (Death waits for GTA 6, ep 2). Drawn at 4x for inserts.
 //   gamepad      a small plain game controller lying flat (two grips, two sticks, four grey buttons, no marks). Origin
 //                its bottom centre, the grips along x. spec.color
 //   sidelamp     a small side cabinet with a table lamp on it (lit: a warm bulb light). smash 0..1: the lamp is hit,
@@ -44,6 +46,9 @@ import { staff } from "./costumes.js";
 //                [[x, y, z, face, size, spin]], face "front" (+z) | "up" (+y) | "left" (-x) | "right" (+x). Each is a
 //                ragged hole: frayed lighter fabric round a dark rim, pale foam inside with stuffing bulging out.
 //                puff 0..1 tears them open (they grow from the middle). spec.cover: the sofa's colour for the frayed edge.
+//   sofatape     grey duct-tape patches stuck over tears in a sofa's cover (Death waits for GTA 6, ep 2: the patched sofa
+//                in Jonny's panels): two crossed strips with torn ends, laid like sofarips (spec.at [[x, y, z, face,
+//                size, spin]], offsets from the prop's origin, face "front" | "up" | "left" | "right").
 //   parkedscythe Reaper's costume scythe as a loose prop (his own is left home: noProp). Origin: where his fist holds it.
 //   parkedstaff  the Wizard's costume staff as a loose prop. Origin: where his fist holds it.
 export const CALENDAR = { w: 0.26, h: 0.34, t: 0.008 };
@@ -138,6 +143,83 @@ export const NOTYET_KINDS = {
     const wire = mat("#8b8d93", { roughness: 0.35, metalness: 0.6 });
     for (let i = 0; i < 9; i++) { const l = mesh(new THREE.TorusGeometry(0.011, 0.0025, 6, 12), wire, P.whole, -W / 2 + 0.025 + i * ((W - 0.05) / 8), H + 0.002, 0); l.rotation.y = Math.PI / 2; l.castShadow = false; }
     return { grip: H / 2 };
+  },
+
+  // countcalendar (Death waits for GTA 6, episode 2, 8 Nov 2026): the same calendar a week later, lying or hanging,
+  // drawn at 4x for a close insert. spec.xs: the first xs cells carry a red X (the days that have passed); the circle
+  // sits on cell spec.circle (default 18, the wall calendar's). A black marker skull in the cell after the circle
+  // draws itself stroke by stroke as `rise` goes 0..1 (the head, the eyes, the nose, the teeth), and a little flame
+  // beside it with `puff` 0..1. No letters or numbers.
+  countcalendar(P) {
+    const { w: W, h: H, t: T } = CALENDAR, K = 4, CW = 260 * K, CH = 340 * K, xs = P.spec.xs ?? 0, circ = P.spec.circle ?? 18;
+    const cv = document.createElement("canvas"); cv.width = CW; cv.height = CH;
+    const g = cv.getContext("2d"), page = new THREE.CanvasTexture(cv); page.colorSpace = THREE.SRGBColorSpace; page.anisotropy = 8;
+    const x0 = 16 * K, y0 = 76 * K, cw = (CW - 32 * K) / 7, ch = (CH - y0 - 16 * K) / 5;
+    const cell = (i) => [x0 + (i % 7) * cw, y0 + Math.floor(i / 7) * ch];
+    const rnd = rng(P.spec.seed ?? 19);
+    // the hand-drawn wobble of each X, fixed once so it never changes from frame to frame
+    const wob = Array.from({ length: 35 }, () => [0, 1, 2, 3].map(() => (rnd() - 0.5) * 0.12));
+    // a stroke drawn up to share k (0..1) of its length: pts in cell units round the skull's middle
+    const part = (pts, k, cx, cy, s) => {
+      if (k <= 0) return; const n = pts.length - 1, m = k * n; g.beginPath();
+      for (let i = 0; i <= Math.min(n, Math.ceil(m)); i++) {
+        const f = Math.min(1, m - (i - 1)), [ax, ay] = pts[Math.max(0, i - 1)], [bx, by] = pts[i];
+        const x = i ? ax + (bx - ax) * f : bx, y = i ? ay + (by - ay) * f : by;
+        g[i ? "lineTo" : "moveTo"](cx + x * s, cy + y * s);
+      }
+      g.stroke();
+    };
+    const ring = (rx, ry, oy, a0 = -1.9, turns = 1.05, n = 36) => Array.from({ length: n + 1 }, (_, i) => { const a = a0 + (i / n) * Math.PI * 2 * turns; return [rx * Math.cos(a), oy + ry * Math.sin(a)]; });
+    let key = "";
+    const draw = (rise, puff) => {
+      g.fillStyle = "#fbf8f1"; g.fillRect(0, 0, CW, CH);
+      g.fillStyle = "#e9e2d3"; g.fillRect(0, 0, CW, 58 * K);   // the blank header band (no month name)
+      g.strokeStyle = "#9a978f"; g.lineWidth = 2.2 * K; g.lineCap = "butt";
+      for (let i = 0; i <= 7; i++) { g.beginPath(); g.moveTo(x0 + i * cw, y0); g.lineTo(x0 + i * cw, y0 + 5 * ch); g.stroke(); }
+      for (let j = 0; j <= 5; j++) { g.beginPath(); g.moveTo(x0, y0 + j * ch); g.lineTo(x0 + 7 * cw, y0 + j * ch); g.stroke(); }
+      // the days gone: a red X in each, a little uneven
+      g.strokeStyle = "#d8282d"; g.lineWidth = 4.5 * K; g.lineCap = "round";
+      for (let i = 0; i < Math.min(xs, circ); i++) {
+        const [x, y] = cell(i), q = wob[i], m = 0.2;
+        g.beginPath(); g.moveTo(x + cw * (m + q[0]), y + ch * (m + q[1])); g.lineTo(x + cw * (1 - m + q[2]), y + ch * (1 - m + q[3])); g.stroke();
+        g.beginPath(); g.moveTo(x + cw * (1 - m + q[1]), y + ch * (m + q[0])); g.lineTo(x + cw * (m + q[3]), y + ch * (1 - m + q[2])); g.stroke();
+      }
+      // launch day, circled in red (the wall calendar's loop)
+      { const [x, y] = cell(circ), cx = x + cw / 2, cy = y + ch / 2; g.lineWidth = 7 * K; g.beginPath();
+        for (let i = 0; i <= 40; i++) { const a = -0.6 + (i / 40) * Math.PI * 2.25, r = 1 + 0.08 * Math.sin(a * 3); g[i ? "lineTo" : "moveTo"](cx + cw * 0.62 * r * Math.cos(a), cy + ch * 0.6 * r * Math.sin(a)); }
+        g.stroke(); }
+      // the skull in the next cell: a big, quick black marker drawing that spills over the cell's lines
+      if (rise > 0) {
+        const [x, y] = cell(circ + 1), cx = x + cw / 2, cy = y + ch * 0.5, s = cw * 0.62;
+        g.strokeStyle = "#16141a"; g.fillStyle = "#16141a"; g.lineWidth = 5.5 * K; g.lineJoin = "round";
+        const seg = (a, b) => clamp((rise - a) / (b - a));
+        part(ring(0.62, 0.56, -0.12), seg(0, 0.42), cx, cy, s);                                         // the cranium
+        part([[-0.4, 0.3], [-0.36, 0.62], [0.36, 0.62], [0.4, 0.3]], seg(0.42, 0.58), cx, cy, s);           // the jaw
+        for (const [ex, a, b] of [[-0.24, 0.58, 0.7], [0.24, 0.7, 0.82]]) {                                 // the eyes, filled in
+          const k = seg(a, b); if (k > 0) { g.beginPath(); g.ellipse(cx + ex * s, cy - 0.08 * s, 0.17 * s * k, 0.19 * s * k, 0, 0, Math.PI * 2); g.fill(); }
+        }
+        part([[-0.05, 0.2], [0, 0.1], [0.05, 0.2]], seg(0.82, 0.88), cx, cy, s);                          // the nose
+        for (let i = 0; i < 3; i++) part([[-0.18 + i * 0.18, 0.4], [-0.18 + i * 0.18, 0.6]], seg(0.88 + i * 0.04, 0.92 + i * 0.04), cx, cy, s);   // the teeth
+      }
+      // a little flame beside it: Phoenix's mark
+      if (puff > 0) {
+        // in the next cell, apart from the skull and taller: an outline flame with three tongues in a thin line (a
+        // filled drop, and a thick outline that filled in at phone size, read as a spade or an ink blot)
+        const [x, y] = cell(circ + 1), fx = x + cw * 1.5, fy = y + ch * 0.93, s = cw * 0.95;
+        const F = [[0, 0], [-0.32, -0.1], [-0.42, -0.4], [-0.34, -0.66], [-0.28, -0.98], [-0.12, -0.62], [0, -1.25], [0.18, -0.72], [0.3, -0.92], [0.42, -0.5], [0.34, -0.15], [0, 0]];
+        g.strokeStyle = "#16141a"; g.lineWidth = 4 * K;
+        part(F, puff, fx, fy, s);
+      }
+      page.needsUpdate = true;
+    };
+    draw(0, 0);
+    const paper = mat("#f2eee4", { roughness: 0.9 });
+    const sheet = mesh(new THREE.BoxGeometry(W, H, T), paper, P.whole, 0, H / 2, 0);
+    const front = mesh(new THREE.PlaneGeometry(W - 0.004, H - 0.004), new THREE.MeshStandardMaterial({ map: page, roughness: 0.85 }), P.whole, 0, H / 2, -T / 2 - 0.001);
+    front.rotation.y = Math.PI; front.castShadow = false; sheet.castShadow = true;
+    const wire = mat("#8b8d93", { roughness: 0.35, metalness: 0.6 });
+    for (let i = 0; i < 9; i++) { const l = mesh(new THREE.TorusGeometry(0.011, 0.0025, 6, 12), wire, P.whole, -W / 2 + 0.025 + i * ((W - 0.05) / 8), H + 0.002, 0); l.rotation.y = Math.PI / 2; l.castShadow = false; }
+    return { grip: H / 2, apply(ps) { const r = Math.round(clamp(ps.rise ?? 0) * 200) / 200, f = Math.round(clamp(ps.puff ?? 0) * 200) / 200, k = `${r}|${f}`; if (k !== key) { key = k; draw(r, f); } } };
   },
 
   gamepad(P) {
@@ -406,6 +488,32 @@ export const NOTYET_KINDS = {
       return g;
     });
     return { grip: 0, apply(ps) { const k = clamp(ps.puff ?? 0); for (const g of rips) { g.visible = k > 0.01; g.scale.setScalar(Math.max(0.01, k)); } } };
+  },
+
+  sofatape(P) {
+    const tape = canvasTex(160, 128, (g, w, h) => {
+      const rnd = rng(211);
+      const strip = (ang, len, wid) => {
+        g.save(); g.translate(w / 2, h / 2); g.rotate(ang);
+        g.fillStyle = "#a9adb3"; g.beginPath(); g.moveTo(-len / 2, -wid / 2);
+        for (let i = 0; i <= 6; i++) g.lineTo(len / 2 + (rnd() - 0.5) * 6, -wid / 2 + (i / 6) * wid);   // a torn end
+        for (let i = 6; i >= 0; i--) g.lineTo(-len / 2 + (rnd() - 0.5) * 6, -wid / 2 + (i / 6) * wid);
+        g.closePath(); g.fill();
+        g.strokeStyle = "rgba(70,74,82,0.55)"; g.lineWidth = 2; g.stroke();
+        g.strokeStyle = "rgba(255,255,255,0.28)"; g.lineWidth = 1;   // the cloth weave of duct tape
+        for (let x = -len / 2 + 4; x < len / 2 - 4; x += 5) { g.beginPath(); g.moveTo(x, -wid / 2 + 2); g.lineTo(x + 2, wid / 2 - 2); g.stroke(); }
+        g.restore();
+      };
+      strip(0.42, 140, 30); strip(-0.38, 132, 28);
+      g.strokeStyle = "#3a3f4a"; g.lineWidth = 2;   // a few stitches over it, where someone tried to sew it first
+      for (let i = 0; i < 4; i++) { const x = 46 + i * 22, y = 62 + (rnd() - 0.5) * 10; g.beginPath(); g.moveTo(x - 4, y - 7); g.lineTo(x + 4, y + 7); g.stroke(); }
+    });
+    const FACE = { front: [0, 0, 0], up: [-Math.PI / 2, 0, 0], left: [0, -Math.PI / 2, 0], right: [0, Math.PI / 2, 0] };
+    for (const [x, y, z, face = "front", size = 0.16, spin = 0] of P.spec.at || []) {
+      const m = new THREE.MeshStandardMaterial({ map: tape, transparent: true, alphaTest: 0.05, roughness: 0.6, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
+      const d = new THREE.Mesh(new THREE.PlaneGeometry(size * 1.25, size), m); d.position.set(x, y, z); d.rotation.set(...FACE[face]); d.rotateZ(spin); d.translateZ(0.005); d.receiveShadow = true; P.whole.add(d);
+    }
+    return { grip: 0 };
   },
 
   parkedscythe(P) {
