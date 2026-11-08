@@ -387,6 +387,7 @@ def top(body, rig, G, B, out):
                lambda p: (1 - _ss((abs(p.x) - 0.12) / 0.05)) * _ss((neckZ - 0.06 - p.z) / 0.08))
     _finish(o, rig, _mat(G.get("mat", "Top_00_CLOTH"), G.get("color", "#26304f")))
     if G.get("drop"): _skirt(o, body, G, hemZ)
+    if G.get("sleeveDrop"): _sleeve_drop(o, body, G, B, arms)
     _bands(o, rig, G, hemZ - G.get("drop", 0.0), neckZ)
     parts = [o]
     if G.get("collar"): parts.append(_collar(o, rig, G, neckZ, body))
@@ -396,51 +397,106 @@ def top(body, rig, G, B, out):
     print("clothes: top", len(o.data.vertices), "verts, hem", round(hemZ, 3), "neck", round(neckZ, 3))
 
 
+def _extend(o, body, loop, axis, length, rings, prof, wto, wk, gap, band=None):
+    """an open edge loop of a garment carried on past the body along `axis` (unit) by `length`, in `rings` rings, levelled
+    at the end; each ring's radius round the loop's centre line is the loop's (smoothed round it) plus prof(t), but never
+    closer to the body than `gap`; its skin weights the loop's, blended toward the group `wto` by wk * t"""
+    bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world; inv = mw.inverted()
+    dl = bm.verts.layers.deform.active; bm.verts.ensure_lookup_table()
+    loop = [bm.verts[i] for i in loop]
+    P = [mw @ v.co for v in loop]
+    cen = sum(P, Vector()) / max(1, len(P))
+    u = axis.orthogonal().normalized(); w_ = axis.cross(u).normalized()
+    def perp(q): d = q - cen; return d - axis * d.dot(axis)
+    order = sorted(range(len(loop)), key=lambda i: math.atan2(perp(P[i]).dot(w_), perp(P[i]).dot(u)))
+    R = [perp(P[order[j]]).length for j in range(len(order))]
+    Rs = [sum(R[(j + k) % len(R)] for k in range(-3, 4)) / 7 for j in range(len(R))]
+    bvh = _surface_bvh(body)
+    gidx = {g.name: g.index for g in o.vertex_groups}
+    prev = [loop[i] for i in order]
+    for k in range(1, rings + 1):
+        t = k / rings; ring = []
+        for j, i in enumerate(order):
+            p = P[i]; d = perp(p); d = d.normalized() if d.length > 1e-6 else u
+            s0 = (p - cen).dot(axis); along = s0 + (length - s0) * t
+            c = cen + axis * along
+            r = Rs[j] + prof(t)
+            hit = bvh.ray_cast(c + d * 0.6, -d)
+            if hit[0] is not None: r = max(r, ((hit[0] - c) - axis * (hit[0] - c).dot(axis)).length + gap)
+            v = bm.verts.new(inv @ (c + d * r))
+            if dl is not None:
+                wsrc = dict(loop[i][dl]); tot0 = sum(wsrc.values()) or 1.0
+                wv = {g: x * (1 - wk * t) for g, x in wsrc.items()}
+                gi = gidx.get(wto(p) if callable(wto) else wto)
+                if gi is not None: wv[gi] = wv.get(gi, 0) + wk * t * tot0
+                tot = sum(wv.values()) or 1.0
+                for g, x in wv.items(): v[dl][g] = x / tot
+            ring.append(v)
+        for j in range(len(ring)):
+            a, b_, c_, e = prev[j], prev[(j + 1) % len(ring)], ring[(j + 1) % len(ring)], ring[j]
+            try: f = bm.faces.new((a, b_, c_, e))
+            except ValueError: continue
+            f.smooth = True; f.normal_update()
+            if band and t > 1 - band[0] + 1e-6: f.material_index = band[1]
+            mid = (mw @ a.co + mw @ c_.co) / 2
+            if (mw.to_3x3() @ f.normal).dot(perp(mid)) < 0: f.normal_flip()
+        prev = ring
+    bm.to_mesh(o.data); bm.free()
+    return len(order)
+
+
+def _band_prof(G, blouse, band_in):
+    """bloused out over the first half, then a step in to an elastic band over the last `bandH` (the step draws the
+    band's seam)"""
+    bh = G.get("bandH", 0.3)
+    return lambda t: blouse * _ss(t / 0.5) - (blouse + band_in) * _ss((t - (1 - bh)) / 0.08)
+
+
 def _skirt(o, body, G, hemZ):
     """a jacket longer than the body's hip loop: the hem's edge loop carried straight down `drop` (a windbreaker hangs to
     the top of the thighs, past where the body splits into legs, so it can't be a copy of the body there), bloused out
     `blouse` and gathered into an elastic band `bandIn` at the bottom; never closer to the body than `dropGap`"""
-    n_r = G.get("dropRings", 6); drop = G["drop"]
-    bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world; inv = mw.inverted()
-    dl = bm.verts.layers.deform.active
-    loop = [v for v in bm.verts if v.is_boundary and abs((mw @ v.co).z - hemZ) < 0.03 and abs((mw @ v.co).x) < 0.3]
-    P = [mw @ v.co for v in loop]
-    cen = sum(P, Vector()) / max(1, len(P)); cen.z = 0
-    order = sorted(range(len(loop)), key=lambda i: math.atan2(P[i].y - cen.y, P[i].x - cen.x))
-    R = [((P[i] - cen) * Vector((1, 1, 0))).length for i in order]
-    Rs = [sum(R[(j + k) % len(R)] for k in range(-3, 4)) / 7 for j in range(len(R))]
-    bvh = _surface_bvh(body)
-    thigh = {sd: next((g.index for g in o.vertex_groups if g.name == f"thigh_{sd}"), None) for sd in ("l", "r")}
-    prev = [loop[i] for i in order]; blouse = G.get("blouse", 0.015); band_in = G.get("bandIn", 0.006)
-    for k in range(1, n_r + 1):
-        t = k / n_r; ring = []
-        for j, i in enumerate(order):
-            p = P[i]; d = (p - cen) * Vector((1, 1, 0)); d = d.normalized() if d.length > 1e-6 else Vector((0, -1, 0))
-            z = p.z + (hemZ - drop - p.z) * t                 # (levelled at the bottom)
-            r = Rs[j] + blouse * _ss(t / 0.5) - (blouse + band_in) * _ss((t - 0.7) / 0.3)
-            # (the outermost body surface along this direction: cast from outside in)
-            far = Vector((cen.x, cen.y, z)) + d * 0.6
-            hit = bvh.ray_cast(far, -d)
-            if hit[0] is not None:
-                r = max(r, ((hit[0] - Vector((cen.x, cen.y, z))) * Vector((1, 1, 0))).length + G.get("dropGap", 0.012))
-            v = bm.verts.new(inv @ Vector((cen.x + d.x * r, cen.y + d.y * r, z)))
-            if dl is not None:
-                w = dict(loop[i][dl]); sd = "l" if p.x > 0 else "r"
-                if thigh[sd] is not None:
-                    w = {g: x * (1 - 0.35 * t) for g, x in w.items()}; w[thigh[sd]] = w.get(thigh[sd], 0) + 0.35 * t * sum(dict(loop[i][dl]).values())
-                tot = sum(w.values()) or 1.0
-                for g, x in w.items(): v[dl][g] = x / tot
-            ring.append(v)
-        for j in range(len(ring)):
-            a, b, c, e = prev[j], prev[(j + 1) % len(ring)], ring[(j + 1) % len(ring)], ring[j]
-            try: f = bm.faces.new((a, b, c, e))
-            except ValueError: continue
-            f.smooth = True
-            mid = (mw @ a.co + mw @ c.co) / 2; f.normal_update()
-            if (mw.to_3x3() @ f.normal).dot((mid - cen) * Vector((1, 1, 0))) < 0: f.normal_flip()
-        prev = ring
-    bm.to_mesh(o.data); bm.free()
-    print("clothes: top dropped", round(drop, 3), "below the hip loop,", len(order), "verts round")
+    mw = o.matrix_world
+    loop = [v.index for v in o.data.vertices if abs((mw @ v.co).z - hemZ) < 0.03 and abs((mw @ v.co).x) < 0.3]
+    bnd = _boundary_verts(o)
+    loop = [i for i in loop if i in bnd]
+    n = _extend(o, body, loop, Vector((0, 0, -1)), G["drop"], G.get("dropRings", 10),
+                _band_prof(G, G.get("blouse", 0.015), G.get("bandIn", 0.006)),
+                lambda p: "thigh_l" if p.x > 0 else "thigh_r", 0.35, G.get("dropGap", 0.012), _band_mat(o, G))
+    print("clothes: top dropped", round(G["drop"], 3), "below the hip loop,", n, "verts round")
+
+
+def _sleeve_drop(o, body, G, B, arms):
+    """sleeves longer than the arm: each sleeve end's loop carried on over the wrist along the forearm by `sleeveDrop`,
+    bloused and gathered into a cuff band (a windbreaker's sleeves bunch over the hand)"""
+    mw = o.matrix_world; bnd = _boundary_verts(o)
+    for sd, sg in (("l", 1), ("r", -1)):
+        a = arms[sd]; axis = (a[2] - a[1]).normalized()
+        loop = [i for i in bnd if (mw @ o.data.vertices[i].co).x * sg > 0.3]
+        if len(loop) < 8: continue
+        _extend(o, body, loop, axis, G["sleeveDrop"], G.get("sleeveRings", 6),
+                _band_prof({"bandH": G.get("cuffH", 0.35)}, G.get("cuffBlouse", 0.01), G.get("cuffIn", 0.004)), f"hand_{sd}", 0.6, G.get("cuffGap", 0.006),
+                _band_mat(o, G, G.get("cuffH", 0.35)))
+    print("clothes: sleeves carried", G["sleeveDrop"], "past the wrist")
+
+
+def _band_mat(o, G, bh=None):
+    """the elastic band's own material, a shade darker than the garment (the sheet draws the band as its own strip);
+    returns (band height share, material index), or None without `bandShade`"""
+    k = G.get("bandShade", 0.0)
+    if not k: return None
+    name = G.get("mat", "Top_00_CLOTH").replace("_00_", "Band_00_")
+    m = bpy.data.materials.get(name)
+    if m is None:
+        c = _hex(G.get("color", "#26304f")); m = _mat(name, "#%02x%02x%02x" % tuple(int(round(max(0, min(1, x * (1 - k))) * 255)) for x in c[:3]))
+    if m.name not in [x.name for x in o.data.materials if x]: o.data.materials.append(m)
+    return (bh if bh is not None else G.get("bandH", 0.3), [x.name for x in o.data.materials if x].index(m.name))
+
+
+def _boundary_verts(o):
+    bm = bmesh.new(); bm.from_mesh(o.data)
+    out = {v.index for v in bm.verts if v.is_boundary}
+    bm.free(); return out
 
 
 def _collar(o, rig, G, neckZ, body=None):

@@ -94,7 +94,7 @@
   },
   "hair": {
     "style": "wavy",
-    "color": "#4a3828",
+    "color": "#56402c",
     "capColor": "#443222",
     "underColor": "#3a2a1d",
     "seed": 5,
@@ -156,8 +156,8 @@
         "wedge": 0.8,
         "layer": -1,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "back",
@@ -195,8 +195,8 @@
         "wedge": 0.45,
         "layer": 1,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "topL",
@@ -233,8 +233,8 @@
         "splitD": 0.25,
         "layer": 0.5,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "topR",
@@ -271,8 +271,8 @@
         "splitD": 0.25,
         "layer": 0.5,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "sideL",
@@ -310,8 +310,8 @@
         "splitD": 0.25,
         "layer": 3,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "sideR",
@@ -349,8 +349,8 @@
         "splitD": 0.25,
         "layer": 3,
         "curl": 0.6,
-        "flick": 0.035,
-        "tipTaper": 0.4
+        "flick": 0.025,
+        "tipTaper": 0.6
       },
       {
         "name": "bangR",
@@ -508,7 +508,16 @@
     "tipNormalK": 0.3,
     "wavePhase": 0.6,
     "springFrom": 0.55,
-    "inkBody": 0.5
+    "inkBody": 0.5,
+    "strands": {
+      "every": 0.06,
+      "n": 4,
+      "dark": 0.36,
+      "w": 0.0005,
+      "light": 2,
+      "lightK": 0.12,
+      "seed": 11
+    }
   },
   "clothes": [
     {
@@ -552,7 +561,13 @@
       "drop": 0.075,
       "blouse": 0.018,
       "bandIn": 0.004,
-      "smoothN": 0.8
+      "smoothN": 0.8,
+      "sleeveDrop": 0.035,
+      "cuffBlouse": 0.012,
+      "cuffIn": 0.004,
+      "bandH": 0.32,
+      "dropRings": 10,
+      "bandShade": 0.18
     },
     {
       "type": "shoes",
@@ -571,5 +586,6 @@
       "gap": 0.006,
       "wrap": 0.004
     }
-  ]
+  ],
+  "headScale": 1.12
 }

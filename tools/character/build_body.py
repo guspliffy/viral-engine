@@ -129,6 +129,47 @@ if spec.get("accessories"):
     import accessories as acckit
     acckit.build_accessories(body, rig, EYES, spec["accessories"], spec.get("face"))
 
+# the head made bigger as the last step ("headScale", 8 Nov: the reference sheets draw 6-6.3 heads tall, the MakeHuman body
+# is 7): everything the head carries (head skin, face parts, hair, glasses, the hair's spring bones and colliders) scaled
+# round the top of the neck; a vertex the neck and head share scales by its head weight, so the neck blends
+def scale_head(rig, k, H=None):
+    import bmesh
+    bones = rig.data.bones; hb = bones["head"]
+    sub = {"head"} | {b.name for b in hb.children_recursive}
+    P = rig.matrix_world @ hb.head_local
+    f = lambda q, w: P + (q - P) * (1 + (k - 1) * w)
+    n = 0
+    for o in bpy.data.objects:
+        if o.type != "MESH" or not any(m.type == "ARMATURE" and m.object == rig for m in o.modifiers): continue
+        gn = {g.index: g.name for g in o.vertex_groups}
+        mw = o.matrix_world; inv = mw.inverted(); me = o.data
+        W = []
+        for v in me.vertices:
+            tot = sum(g.weight for g in v.groups if gn.get(g.group) in bones)
+            wh = sum(g.weight for g in v.groups if gn.get(g.group) in sub)
+            W.append(wh / tot if tot > 1e-6 else 0.0)
+        if not any(w > 0 for w in W): continue
+        if me.shape_keys:
+            for kb in me.shape_keys.key_blocks:
+                for i, w in enumerate(W):
+                    if w > 0: kb.data[i].co = inv @ f(mw @ kb.data[i].co, w)
+        for i, w in enumerate(W):
+            if w > 0: me.vertices[i].co = inv @ f(mw @ me.vertices[i].co, w)
+        me.update(); n += 1
+    bpy.context.view_layer.objects.active = rig; bpy.ops.object.mode_set(mode="EDIT")
+    Pl = rig.matrix_world.inverted() @ P
+    for eb in rig.data.edit_bones:
+        if eb.name in sub and eb.name != "head":
+            eb.head = Pl + (eb.head - Pl) * k; eb.tail = Pl + (eb.tail - Pl) * k
+        elif eb.name == "head": eb.tail = Pl + (eb.tail - Pl) * k
+    bpy.ops.object.mode_set(mode="OBJECT")
+    if H and H.get("_colliders"):
+        H["_colliders"] = [(b, (P + (Vector(w) - P) * k) if b in sub else w, r * k if b in sub else r) for (b, w, r) in H["_colliders"]]
+    print("head scaled", k, "on", n, "meshes round", tuple(round(x, 3) for x in P))
+
+
+if spec.get("headScale"): scale_head(rig, spec["headScale"], spec.get("hair"))
+
 # VRM 1.0 humanoid: game_engine bone names -> VRM bones
 ext = rig.data.vrm_addon_extension; ext.spec_version = "1.0"
 hb = ext.vrm1.humanoid.human_bones

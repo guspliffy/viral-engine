@@ -30,6 +30,34 @@ def _mat(name, colour):
     return m
 
 
+def _strand_mat(name, colour, st):
+    """the hair colour with fine strand lines (and a few lighter ones) across a texture that repeats every
+    st["every"] metres across a lock: st = { "every", "n" dark lines per repeat, "dark" (0..1 how dark), "w" (line width,
+    m), "light" (lighter lines per repeat), "seed" }"""
+    import random as _r
+    rnd = _r.Random(st.get("seed", 11)); Hpx = 512; per = st.get("every", 0.04)
+    base = _hex(colour); row = [1.0] * Hpx
+    def line(c, wpx, k):
+        for j in range(Hpx):
+            d = min(abs(j - c), Hpx - abs(j - c)); f = max(0.0, 1 - d / max(0.5, wpx))
+            row[j] *= 1 - k * f
+    for _ in range(st.get("n", 4)):
+        line(rnd.uniform(0, Hpx), st.get("w", 0.0006) / per * Hpx * rnd.uniform(0.7, 1.4), st.get("dark", 0.35) * rnd.uniform(0.6, 1.0))
+    for _ in range(st.get("light", 1)):
+        c = rnd.uniform(0, Hpx); wpx = st.get("w", 0.0006) * 2.5 / per * Hpx
+        for j in range(Hpx):
+            d = min(abs(j - c), Hpx - abs(j - c)); row[j] *= 1 + st.get("lightK", 0.12) * max(0.0, 1 - d / wpx)
+    img = bpy.data.images.new(name + "_strands", 4, Hpx, alpha=True)
+    px = []
+    for j in range(Hpx):
+        px += [min(1.0, base[0] * row[j]), min(1.0, base[1] * row[j]), min(1.0, base[2] * row[j]), 1.0] * 4     # (sRGB bytes)
+    img.pixels = px; img.pack()
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree
+    tex = nt.nodes.new("ShaderNodeTexImage"); tex.image = img; tex.interpolation = "Linear"
+    nt.links.new(tex.outputs["Color"], nt.nodes["Principled BSDF"].inputs["Base Color"])
+    return m
+
+
 def _world_bvh(body):
     mw = body.matrix_world; me = body.data
     V = [mw @ v.co for v in me.vertices]
@@ -540,17 +568,18 @@ def _ribbon(bm, pts, arcs, w0, thick, profile, kfun, kv, head, section="lens", g
     each vert's normal mix k into kv"""
     sec = SECTIONS[section]; M = len(sec)
     rings, out = [], []; N = len(pts); fr = _frames(pts)
+    p0 = pts[0][0]; off = (math.sin(p0.x * 127.1 + p0.y * 269.5 + p0.z * 311.7) * 43758.5453) % 1.0   # (strand texture: each piece its own)
     for i, (p, n) in enumerate(pts):
         a, nn, b = fr[i]; w = w0 * profile(arcs[i])
         if i == N - 1 or w < 1e-4:
-            v = bm.verts.new(p); rings.append([v]); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0)); break
+            v = bm.verts.new(p); rings.append([v]); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0, off)); break
         th = thick(w, i / max(1, N - 1)); R = _bend_r(head, p)
         ring = []
         for x, y in sec:
             X = x * w / 2
             q = p + b * X + nn * (y * th / 2 - X * X / (2 * R))
             if gap: q = head.keep_out(q, gap)
-            v = bm.verts.new(q); ring.append(v); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0))
+            v = bm.verts.new(q); ring.append(v); out.append((v, i)); kv.append((v, kfun(arcs[i]), lfun(arcs[i]) if lfun else 1.0, off + X))
         rings.append(ring)
     for i in range(len(rings) - 1):
         A, B = rings[i], rings[i + 1]
@@ -691,8 +720,9 @@ def build_hair_v2(body, rig, eyes, H):
     locks = [(pts, [(v.index, i) for v, i in vs], f, u) for pts, vs, f, u in locks]     # (indices before the bmesh goes)
     ks = {"Hair": [0.0] * len(bm_o.verts), "HairUnder": [0.0] * len(bm_u.verts)}
     ink = {"Hair": [0.0] * len(bm_o.verts), "HairUnder": [0.0] * len(bm_u.verts)}
+    acr = {"Hair": [0.0] * len(bm_o.verts), "HairUnder": [0.0] * len(bm_u.verts)}
     for kv, nm in ((kv_o, "Hair"), (kv_u, "HairUnder")):
-        for v, k, l in kv: ks[nm][v.index] = k; ink[nm][v.index] = l
+        for v, k, l, a in kv: ks[nm][v.index] = k; ink[nm][v.index] = l; acr[nm][v.index] = a
     # the cap: the scalp above the hairline on the volume (just under the clumps' roots), so no skin shows between them
     mw = body.matrix_world; me = body.data; Vw = head.V
     # (it stops capInset above the hairline: the edge of the hair is made of the clumps' tips, not of the cap)
@@ -717,11 +747,14 @@ def build_hair_v2(body, rig, eyes, H):
         b.verts.index_update(); m = bpy.data.meshes.new(name); b.to_mesh(m); b.free()
         o = bpy.data.objects.new(name, m); bpy.context.scene.collection.objects.link(o)
         for poly in o.data.polygons: poly.use_smooth = True
-        o.data.materials.append(_mat(f"{name}_00_HAIR", col)); objs.append(o)
+        st = H.get("strands") if name != "HairCap" else None
+        o.data.materials.append(_strand_mat(f"{name}_00_HAIR", col, st) if st else _mat(f"{name}_00_HAIR", col)); objs.append(o)
         _proxy_normals(o, head, ks.get(name, H.get("capNormalK", 0.85)))
-        # the ink weight per vertex in the UVs (u; the hair has no texture): 0 on the bodies and the cap, 1 on free tips
-        uvl = m.uv_layers.new(name="UVMap"); w = ink.get(name)
-        for lp in m.loops: uvl.data[lp.index].uv = ((w[lp.vertex_index] if w else 0.0), 0.0)
+        # the ink weight per vertex in the UVs (u): 0 on the bodies and the cap, 1 on free tips; v: the place across the
+        # piece in strand-texture repeats ("strands": the sheet's fine lines down each lock, from a texture that only
+        # varies across, so the lines run along the lock and close in at its tip)
+        uvl = m.uv_layers.new(name="UVMap"); w = ink.get(name); a = acr.get(name); per = (st or {}).get("every", 0.04)
+        for lp in m.loops: uvl.data[lp.index].uv = ((w[lp.vertex_index] if w else 0.0), (a[lp.vertex_index] / per if a else 0.0))
     hair = objs[0]
     for o in objs:
         g = o.vertex_groups.new(name="head"); g.add(list(range(len(o.data.vertices))), 1.0, "REPLACE")

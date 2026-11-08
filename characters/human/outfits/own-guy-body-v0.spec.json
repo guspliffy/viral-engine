@@ -739,7 +739,16 @@
     "section": "diamond",
     "tipNormalK": 0.25,
     "underColor": "#9a7444",
-    "inkBody": 0.7
+    "inkBody": 0.7,
+    "strands": {
+      "every": 0.05,
+      "n": 4,
+      "dark": 0.3,
+      "w": 0.0005,
+      "light": 2,
+      "lightK": 0.12,
+      "seed": 7
+    }
   },
   "clothes": [
     {
@@ -748,7 +757,19 @@
       "stripe": {
         "color": "#9a2c24",
         "w": 0.008
-      }
+      },
+      "smoothN": 0.7,
+      "ease": [
+        0.045,
+        0.065,
+        0.06,
+        0.045,
+        0.015
+      ],
+      "puff": 0.028,
+      "cuff": 0.05,
+      "straight": 0.6,
+      "taper": 0.15
     }
   ]
 }
