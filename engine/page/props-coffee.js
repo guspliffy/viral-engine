@@ -33,6 +33,7 @@ import { mat, basic, mesh, canvasTex } from "./props-trend.js";
 //               along its top edge. Its writing is on its BACK (-z), so the phone hold (face to the holder) shows the
 //               writing to whoever he holds it out to. `ink` 0..1 writes it: the I, the O, the U, then the cup doodle.
 //   feltpen     a fat blue marker, its felt tip at the origin pointing down, its cap end up (len 0.13): the thin pinch.
+//               spec.color / cap / felt recolour it (a black one: Death waits for GTA 6, episode 2).
 //   coffeecup   a takeaway paper cup with a kraft sleeve and the potato logo, a white snap lid (r 0.045, h 0.115, the
 //               cocoacup's size): the mug hold round the sleeve. `steam` 0..1 a wisp from the sip hole.
 //   cuptray     a moulded pulp carrier for four cups (0.25 across), its cups' bottoms at y 0.012 in the holes at
@@ -347,7 +348,7 @@ export const COFFEE_KINDS = {
 
   feltpen(P) {
     const { len: L, r: R } = COFFEE.pen;
-    const body = mat("#2a55c9", { roughness: 0.35 }), cap = mat("#1d3d96", { roughness: 0.35 }), felt = mat("#16245c", { roughness: 0.9 });
+    const body = mat(P.spec.color ?? "#2a55c9", { roughness: 0.35 }), cap = mat(P.spec.cap ?? "#1d3d96", { roughness: 0.35 }), felt = mat(P.spec.felt ?? "#16245c", { roughness: 0.9 });
     mesh(new THREE.ConeGeometry(R * 0.55, 0.018, 10), felt, P.whole, 0, 0.009, 0).rotation.x = Math.PI;   // the felt tip, down
     mesh(new THREE.CylinderGeometry(R * 0.75, R * 0.6, 0.014, 12), mat("#e8e8e8", { roughness: 0.4 }), P.whole, 0, 0.025, 0);
     mesh(new THREE.CylinderGeometry(R, R * 0.8, L * 0.62, 14), body, P.whole, 0, 0.032 + L * 0.31, 0);

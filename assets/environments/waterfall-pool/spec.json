@@ -1,0 +1,53 @@
+{
+ "name": "waterfall-pool",
+ "source": "Jonny's painting, 7 Nov 2026 (ChatGPT), for Pebble's scenes: a waterfall into a churning pool, seen from a low grassy bank, sun from the upper left",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.7,
+  "vfov": 50,
+  "pos": [
+   0,
+   1.7,
+   4.4
+  ],
+  "horizon": 0.4
+ },
+ "bands": [
+  6.0,
+  18.0,
+  60.0,
+  160.0
+ ],
+ "groundMax": 60.0,
+ "light": {
+  "from": "sun from the upper left",
+  "key": [
+   -4,
+   6,
+   -2
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass",
+ "lifeSkyTop": 0.08,
+ "motion": {
+  "water": [
+   [
+    0,
+    0.41,
+    1,
+    0.66
+   ]
+  ],
+  "still": [
+   [
+    0.55,
+    0.47,
+    0.76,
+    0.54
+   ]
+  ]
+ }
+}

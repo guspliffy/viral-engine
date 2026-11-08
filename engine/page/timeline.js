@@ -390,7 +390,7 @@ function gaitPlan(sb, actor, def) {
   // bouts: runs of steps less than 0.4 s apart (the bob, sway and arm swing ease in before and out after each)
   const bouts = [];
   for (const e of steps) { const b = bouts[bouts.length - 1]; if (b && e.t0 - b.t1 < 0.4) { b.t1 = Math.max(b.t1, e.t1); b.n++; } else bouts.push({ t0: e.t0, t1: e.t1, n: 1 }); e.b = bouts.length - 1; }
-  P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {} };
+  P = { K, ev, steps, bouts, warn, at, yawAt, tune: (typeof sb.motion === "object" && sb.motion.feetTune) || {}, roll: rollOf(sb, def) };
   per.set(actor.id, P);
   return P;
 }
@@ -421,6 +421,39 @@ function planGait(P, t, yaw) {
   tip[0] *= T.tip ?? 1; tip[1] *= T.tip ?? 1;
   return { ph, amt, sd: clamp(sd, 0.5, 2.2), dir: [ux * cy - uz * sy, ux * sy + uz * cy], v, fwd: clamp(0.13 * v, -0.08, GAIT.leanMax) * (T.lean ?? 1), run: !!cur?.run, tip };
 }
+// the heel-to-toe roll (opt-in, "motion": { "feet": 3 }, or "roll": { peel, strike, len } next to it; the human rig's
+// walk lessons, research/human-character-02, Jonny 7 Nov "maybe he looks more natural then"): the heel peels off the
+// floor before the foot lifts (the foot turns about its ball), the foot swings through and lands heel first with the
+// toes up, then rolls flat. peel / strike: radians at a full stride (len m); a shorter step rolls less. Off: null
+export const ROLL = { peel: 0.32, strike: 0.2, len: 0.22, settle: 0.14, lead: 0.16 };
+// a character's own amounts (legs.roll in its JSON: a long flat foot rolls less) sit under the storyboard's
+function rollOf(sb, def) {
+  const M = sb && typeof sb.motion === "object" ? sb.motion : null;
+  // a character can have it as its own default (legs.roll.on, Pebble: Jonny 7 Nov) on the planted gait (feet 2);
+  // a storyboard turns it off with "roll": false
+  if (!M || M.roll === false || !((M.feet ?? 0) >= 3 || M.roll || ((M.feet ?? 0) >= 2 && def?.legs?.roll?.on))) return null;
+  return { ...ROLL, ...(def?.legs?.roll || {}), ...(typeof M.roll === "object" ? M.roll : {}) };
+}
+// the foot's pitch (radians, + = toes up) at time t for step k of one foot's list E (-1: before its first step; null
+// roll: 0). Continuous at every lift and touch down: the heel has peeled to the swing's starting angle by the lift
+// (also the first step, and one after a span off the feet), and the strike's angle rolls flat after the landing
+function rollAt(R, E, k, t) {
+  if (!R) return 0;
+  const e = E[k], amt = (x) => (x && !x.off ? clamp((x.len ?? 0) / R.len) : 0);
+  if (e && !e.off && t < e.t1) {
+    // in the air: heel-up as it leaves, level by mid-swing, toes up for the landing
+    const k1 = clamp((t - e.t0) / Math.max(1e-3, e.t1 - e.t0));
+    return -R.peel * amt(e) * (1 - smooth(k1 / 0.55)) + R.strike * amt(e) * smooth((k1 - 0.55) / 0.45);
+  }
+  // standing: rolls flat after the heel strike, then the heel peels before the next lift
+  let p = e && !e.off ? R.strike * amt(e) * (1 - smooth((t - e.t1) / R.settle)) : 0;
+  const n = E[k + 1];
+  if (n && !n.off) {
+    const room = e && !e.off ? n.t0 - e.t1 : R.lead / 0.45, Tp = Math.max(0.06, Math.min(R.lead, 0.45 * Math.max(0, room)));
+    p -= R.peel * amt(n) * smooth((t - (n.t0 - Tp)) / Tp);
+  }
+  return p;
+}
 // where each foot is at time t (potato.js st.feet): standing where it touched down, or on its way along a low arc that
 // leaves and lands softly; with the body while it is off its feet. w fades it out in the air, sitting or kneeling.
 function planFeet(P, t, st, plant) {
@@ -440,6 +473,7 @@ function planFeet(P, t, st, plant) {
       lift = e.h * Math.sin(Math.PI * k1);
     } else { [x, z] = e.p1; y = e.y1; yaw = e.a1; }
     out[s] = { x, y: y + 0.035 * sc + lift, z, yaw, w };
+    if (P.roll) out[s].pitch = rollAt(P.roll, E, k, t);
   }
   return out;
 }

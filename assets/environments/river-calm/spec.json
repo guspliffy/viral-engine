@@ -1,0 +1,53 @@
+{
+ "name": "river-calm",
+ "source": "Jonny's painting, 7 Nov 2026 (ChatGPT), for Pebble's scenes: a calm wide river from a low pebbly bank, morning light from the left",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.7,
+  "vfov": 50,
+  "pos": [
+   0,
+   1.7,
+   4.4
+  ],
+  "horizon": 0.36
+ },
+ "bands": [
+  6.0,
+  18.0,
+  60.0,
+  160.0
+ ],
+ "groundMax": 60.0,
+ "light": {
+  "from": "morning light from the left",
+  "key": [
+   -4,
+   4,
+   -2
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass",
+ "motion": {
+  "shimmer": [
+   [
+    0,
+    0.37,
+    1,
+    0.66
+   ]
+  ],
+  "water": [
+   [
+    0,
+    0.37,
+    1,
+    0.66
+   ]
+  ]
+ },
+ "lifeSkyTop": 0.08
+}
