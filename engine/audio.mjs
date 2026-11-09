@@ -1062,9 +1062,13 @@ function foley(sb, panOf) {
   // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short
   // shuffle step and lighter in a run (its own steps replace the per-move ones below)
   const planted = feetOn(sb) && !ownSteps;
+  // (a step whose length isn't a number is a normal step: on the sound clock a hit-stop made every move's target NaN
+  // until 9 Nov (engine/shared/holds.js soundClock), so a step's gain was NaN and the effects and the music went
+  // silent from it on, Never Has Money 04)
   if (planted) for (const c of sb.cast || []) for (const f of footfalls(sb, c)) {
-    if (f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
-    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, f.len / 0.15)) });
+    if (!Number.isFinite(f.at) || f.at > (sb.storyDuration ?? sb.duration ?? Infinity)) continue;
+    const len = Number.isFinite(f.len) ? f.len : 0.15;
+    ev.push({ kind: step, at: f.at, pan: panOf(c.id), gain: (f.run ? 0.75 : 1) * (0.5 + 0.5 * Math.min(1, len / 0.15)) });
   }
   for (const a of acts) {
     const pan = panOf(a.who), d = a.dur ?? 0.3;
@@ -1145,9 +1149,12 @@ export function renderAudio(sb, chars, opts = {}) {
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
   const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
   const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
-  const events = soundEvents(sb, chars);
+  const events = soundEvents(sb, chars), skipped = [];
   for (const [ei, e] of events.entries()) {
     if (opts.fxGain && opts.fxGain[ei] != null && opts.fxGain[ei] !== 1) e.gain *= opts.fxGain[ei];
+    // one sound with no number for its time, gain or pan would turn its bus, the room and everything mixed after it
+    // into NaN, which plays as silence: it is left out and named (render.mjs prints out.skipped)
+    if (!Number.isFinite(e.at) || (e.gain != null && !Number.isFinite(e.gain)) || (e.pan != null && !Number.isFinite(e.pan))) { skipped.push(e); continue; }
     // a talk action's gain scales its line (a shout, a mumble across the room); 1 = as the voice is set
     if (e.kind === "voice" && e.action.speech) voices.add(e.at, speechSamples(e.action.speech.id), 0.5 * cfg.voice * (e.action.gain ?? 1), e.pan); // real speech (engine/voice/)
     else if (e.kind === "voice") {
@@ -1182,13 +1189,17 @@ export function renderAudio(sb, chars, opts = {}) {
   for (const [k, n] of (cfg.nature || []).entries()) { const o = typeof n === "string" ? { id: n } : n; bed.add(0, natureBed(o, sb.duration, seed + k), o.gain ?? 0.14, o.pan ?? 0); }
   if (cfg.engine) bed.add(0, engineSound(cfg.engine, sb.duration, rng(seed ^ 0x27d4eb2d)), cfg.engine.gain ?? 0.3, cfg.engine.pan ?? 0);
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
-  let peak = 0;
+  // (the last guard: a sample that still isn't a number plays as silence, and would make the peak NaN: it is zeroed and
+  // counted, out.badSamples)
+  let peak = 0, bad = 0;
   for (let i = 0; i < L.length; i++) {
     L[i] = voices.L[i] + fx.L[i] + bed.L[i] + wv.L[i] + wf.L[i]; R[i] = voices.R[i] + fx.R[i] + bed.R[i] + wv.R[i] + wf.R[i];
+    if (!Number.isFinite(L[i])) { L[i] = 0; bad++; }
+    if (!Number.isFinite(R[i])) { R[i] = 0; bad++; }
     peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i]));
   }
   if (peak > 0.89 && opts.norm !== false) { const g = 0.89 / peak; for (let i = 0; i < L.length; i++) { L[i] *= g; R[i] *= g; } }
-  const out = { L, R, sr: SR, events, peak, room: room.name };
+  const out = { L, R, sr: SR, events, peak, room: room.name, skipped, badSamples: bad };
   if (opts.stems) {
     const sum = (a, b) => { const o = new Float32Array(a.length); for (let i = 0; i < o.length; i++) o[i] = a[i] + b[i]; return o; };
     out.stems = { voice: { L: sum(voices.L, wv.L), R: sum(voices.R, wv.R) }, fx: { L: sum(fx.L, wf.L), R: sum(fx.R, wf.R) }, bed: { L: bed.L, R: bed.R } };

@@ -7,6 +7,10 @@
  "profile": "short",
  "loop": true,
  "captionStyle": "kinetic",
+ "captionBand": [
+  470,
+  1360
+ ],
  "castLook": "sheet",
  "cleanStart": true,
  "motion": {

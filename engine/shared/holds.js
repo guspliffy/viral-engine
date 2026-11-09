@@ -111,7 +111,11 @@ export function soundClock(sb) {
     const at = x.at ?? x.from, o = { ...x };
     if (x.at != null) o.at = R(x.at);
     if (x.from != null) o.from = R(x.from);
-    if (x.to != null) o.to = R(x.to);
+    // `to` is a time only in a from/to span (a caption, a beat span). An action's `to` is where it goes (a move's
+    // [x, z], a turn's yaw, a shot's camera): remapping it as a time made every move's target NaN on this clock, so a
+    // clip with a hit-stop and planted feet got NaN footsteps, and one NaN gain silenced the effects and the music
+    // (Never Has Money 04, 8 Nov)
+    if (x.from != null && typeof x.to === "number") o.to = R(x.to);
     if (x.dur != null && at != null) o.dur = Math.round((R(at + x.dur) - R(at)) * 1e6) / 1e6;
     return o;
   };

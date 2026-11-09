@@ -162,6 +162,9 @@ write(import.meta.url, {
   title: "Template demo",
   idea: "Built only from storyboards/lib (the clip template's example)",
   fps: 30, look: "anime-pro", profile: "short", loop: true, captionStyle: "kinetic",
+  // the subtitle band Jonny's series briefs give (y px, top and bottom of every subtitle): preflight fails a line
+  // outside it before any render (qa/check.mjs captionResults). Change it when a brief gives another band
+  captionBand: [470, 1360],
   castLook: LOOK,
   // the clip opens in its pose: the 0.01 s "start like this" moves at t = 0 are instant (engine/load.mjs cleanStart)
   cleanStart: true,
