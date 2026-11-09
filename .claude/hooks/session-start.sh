@@ -28,3 +28,7 @@ if ! sha256sum --check --status "$pyhashes" 2>/dev/null; then
     || python3 -m pip install --quiet --disable-pip-version-check --break-system-packages opencv-python-headless numpy
   sha256sum .claude/hooks/session-start.sh > "$pyhashes" || rm -f "$pyhashes"
 fi
+
+# Project memory: a session sees only the first 4 KB of a memory file and only what the index or a link reaches
+# (28 of 200 files were cut off on 9 Nov). Prints nothing when clean, else one line and the first 5 problems.
+python3 -I tools/lint-notes.py memory --brief || true

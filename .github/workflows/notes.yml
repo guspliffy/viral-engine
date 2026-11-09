@@ -1,0 +1,17 @@
+# The rule docs every session reads (CLAUDE.md, docs/rules, docs/templates, qa/REVIEW.md, .claude/agents): each repo
+# path they name must exist, CLAUDE.md stays <= 60 lines and docs/STATE.md <= 40 (tools/lint-notes.py, 9 Nov 2026).
+# A doc that names a missing tool sends the next director looking for it. Seconds, no browser.
+name: Rule docs
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Paths named in the rule docs exist, line caps hold
+        run: python3 tools/lint-notes.py docs

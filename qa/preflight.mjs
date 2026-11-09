@@ -35,6 +35,7 @@ import { GATE } from "./gate.mjs";
 import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
+import { panelResults } from "./panelfit.mjs";
 import { lockMusic } from "../engine/music.mjs";
 import { sayChanged } from "./say.mjs";
 
@@ -94,6 +95,12 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   for (const r of await motionResults(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of await storyNotes(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
+  // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
+  // the repo root or the storyboard's folder }), each panel's Numbers row against the layout at its time
+  if (sb.panels?.md) {
+    const md = [path.resolve(ROOT, sb.panels.md), sbFile ? path.resolve(path.dirname(sbFile), sb.panels.md) : null].find((f) => f && fs.existsSync(f)) || sb.panels.md;
+    for (const r of panelResults(sb, lay, md, chars)) add(r, "panels");
+  }
   if (!quick) {
     try {
       const { soundNotes, freshMix, phoneBand } = await import("./sound.mjs");

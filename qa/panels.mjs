@@ -10,6 +10,7 @@
 //
 // --grid CxR: the board's columns x rows, read left to right, row by row (panel 1 top left). --pick 1,2,4: only these
 // panels (with --at giving one time per picked panel). --height: each picture's height in the sheet (default 360).
+// --aspect: the board's panel shape, w/h (default 9:16; a --grid that cuts other shapes stops with the grid it looks like).
 import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
@@ -31,6 +32,20 @@ const run = (cmd, a) => { const r = spawnSync(cmd, a, { encoding: "utf8" }); if 
 // the board's size, so each panel's cell can be cut out
 const [bw, bh] = run("ffprobe", ["-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height", "-of", "csv=p=0", board]).trim().split(",").map(Number);
 const cw = Math.floor(bw / cols), ch = Math.floor(bh / rows);
+// Jonny's boards are 9:16 panels in a grid (Never Has Money 04: 4x2). A wrong --grid cuts every panel in pieces and the
+// sheet still looks like a sheet: the old-workflow build of that episode ran the default 2x4 on a 4x2 board, so each of
+// our frames sat next to halves of two panels and nobody noticed (9 Nov 2026). So a cell must be about 9:16, unless
+// --aspect says the board's panels are another shape (--aspect 1 for square panels, --aspect any to skip this).
+const want = opt("aspect", "0.5625");
+if (want !== "any") {
+  const a = Number(want), fits = (c, r) => Math.abs((bw / c) / (bh / r) / a - 1) <= 0.12;
+  if (!fits(cols, rows)) {
+    const guess = [];
+    for (let c = 1; c <= 8; c++) for (let r = 1; r <= 8; r++) if (fits(c, r)) guess.push([c, r]);
+    console.error(`--grid ${cols}x${rows} cuts ${bw}x${bh} into ${cw}x${ch} cells (${(cw / ch).toFixed(2)}), not ${want === "0.5625" ? "9:16" : `aspect ${want}`} panels${guess.length ? `: the board looks like --grid ${guess.sort((x, y) => Math.abs(x[0] * x[1] - 8) - Math.abs(y[0] * y[1] - 8)).slice(0, 3).map(([c, r]) => `${c}x${r}`).join(" or ")}` : ""}. Pass the right --grid, or --aspect <w/h | any> for panels of another shape.`);
+    process.exit(2);
+  }
+}
 
 // our frames: from a video at --at times, or the stills given in panel order
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "panels-"));
@@ -57,7 +72,7 @@ pick.forEach((n, i) => {
 // rows can differ in width when a frame isn't 9:16: pad every row to the widest
 const widest = Math.ceil(cw * H / ch) + Math.ceil(H * 9 / 16) + 2;
 const padded = rowsOut.map((r, i) => { parts.push(`${r}pad=${widest}:${H}:0:0:color=black[q${i}]`); return `[q${i}]`; });
-parts.push(`${padded.join("")}vstack=inputs=${padded.length}[out]`);
+parts.push(padded.length > 1 ? `${padded.join("")}vstack=inputs=${padded.length}[out]` : `${padded[0]}null[out]`);   // vstack needs two inputs
 const out = opt("out") || path.join(ROOT, "out", `${path.basename(inputs[0]).replace(/(-draft)?(-t[\d.]+)?\.(png|mp4|mov|mkv|webm)$/i, "")}.panels.png`);
 fs.mkdirSync(path.dirname(out), { recursive: true });
 run("ffmpeg", ["-v", "error", "-y", ...ins, "-filter_complex", parts.join(";"), "-map", "[out]", "-frames:v", "1", out]);

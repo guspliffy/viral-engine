@@ -57,13 +57,17 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 - **Look gate, new characters, sets or looks only**: 2-3 style frames (draft stills at the final look), checked by the
   creative director against the design, then Jonny. An existing look skips it.
 - **Staging proof, every clip, before any builder starts** (director + creative director, about 30-40 min): write
-  PANELS.md, with one row per panel and a reason for every departure, and the story chain (below). Block the clip in
+  PANELS.md from `docs/templates/PANELS.md`: a numbered checklist of what the panels stand on (8-12 lines, with numbers
+  and "never" where the default goes wrong), the Numbers table read off each panel before any code, a reason for every
+  departure, and the story chain (below). Block the clip in
   the generator: cast, camera per shot, set from boxes or existing props, placeholder props at their real sizes.
   Check every staging edit on the floor plan first (`node qa/clear.mjs <sb>`, 1-2 s) and try cameras and subtitle
   spots with `node qa/camfit.mjs` (a second each) before a layout pass; fix rounds lay out only the seconds they
   changed (`--layout --from --to`, docs/rules/fast-cheap.md).
-  Render the draft stills at one time per panel, run `qa/panels.mjs` against Jonny's board, and get review A on those
-  stills plus the panels. Fix staging until review A has no note that a story beat can't be seen. Only then write the
+  Render the draft stills at one time per panel, run `qa/panels.mjs` against Jonny's board and
+  `node qa/panelfit.mjs <sb> --panels <PANELS.md>` (each panel graded by number: size, eye line, x, faces, camera), grade
+  every checklist line yes, partial or no against the panel image (not against memory), and get review A on those
+  stills plus the panels. Grade the checklist again before the full render; the grades live in PANELS.md. Fix staging until review A has no note that a story beat can't be seen. Only then write the
   BOARD's numbers and brief the builders: they build to proven positions, not guessed ones.
 - **Delivery gate**: full render + checks + review B, the gate report + post pack, Jonny's go, PR, "merge it" only
   when every check on the head is green.
@@ -128,6 +132,11 @@ passed because a `see()` window counts a face as seen up to about 78° off camer
 - a face under a hat brim, a hood or a hand during its line or its reaction is not seen; look at the 15 fps strip of
   every payoff beat, and say in PANELS.md which way each payoff face turns.
 
+`payoff-face` (qa/framing.mjs, a visible glitch) checks this from the payoff's first frame to the end, for every face
+that acts from then on or that a "visible" window names: a turn inside a shot past 45° off camera, or a line or a
+reaction past 45° or under its own brim or a hand, for 0.2 s or more. On the three EP04 cuts it found the director's
+hug (Viking 6.3-7.0 s, Gunslinger 7.8-8.8 s, Reaper 7.1-8.6 s) and passed the old and Fable cuts.
+
 ## Hands: every move gets the frames its distance needs (EP04, 9 Nov)
 
 Jonny on EP04: "old has cleaner hand movements and hands are less glitchy". It was not the engine: the old branch's
@@ -135,13 +144,18 @@ anime-timing fix, applied to the director's clip, moved its hands by 2° at most
 The director's cut had 12 frames where Gunslinger's hand turned over 60° against the old cut's 4, at the beats
 everyone watches: "And yours?" (1.2 s), the pocket slap (1.6 s), the coupon reveal (4.0 s) and the hug (5.6-6.1 s).
 Most are hand jumps: a hand sent 24-68 cm in 2-3 frames; the palms-up turn on "And yours?" flips both hands 81° in
-one frame (`qa/handcause.mjs` in PR #128 names the cause of each pop).
+one frame (the hand-cause tool in the open PR #128, `handcause.mjs`, names the cause of each pop).
 - A hand move gets at least one frame per 10 cm it travels: a 66 cm reach is 7 frames (0.23 s), not 0.08 s.
 - Go straight from one hold to the next. Dropping a hand to `rest` and taking the next hold 0.06 s later sent the
   left mitten 68 cm and back in 3 frames (the coupon reveal).
 - A palm turn (palms up for "And yours?", a flip onto a prop) spreads over 6-8 frames, the same palm side through it.
 - Every hand-pop on a subject's hand on screen is fixed before the full render, even under the 90° flip gate.
   "Fine if hidden" means hidden: off frame, behind a body, or smeared by a fast move, as the check says.
+
+`qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
+than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
+with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
+director 30, Fable 21, the same order as Jonny's "old has cleaner hands".
 
 ## Check windows (`allowClip`): only the director adds them
 
@@ -153,7 +167,7 @@ waiver for the whole clip.
 - A window may cover only (a) contact the beat needs, like a hand on what it holds or a hug, or (b) a moment no
   camera sees, like inside the shut toilet or off frame on a cut. Never a body through a door, a wall, furniture or
   another body on screen: resize the prop or re-stage.
-- A hand flip (`hand-turn`), a rig jump or a foot slide on screen is never waived: change the move (see "Hands"
+- A hand flip (`hand-turn`, `palm-turn`), a rig jump or a foot slide on screen is never waived: change the move (see "Hands"
   below). In EP04 the director's cut waived two hand flips on screen; the old cut waived none.
 - Only the director writes windows. A builder reports the fail instead.
 - The delivery lists every window that is on screen, with its 15 fps strip. When clips are compared, count those
