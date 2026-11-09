@@ -84,7 +84,9 @@ export function storyTime(holds, t) {
     if (t < a + h.dur) return h.len ? R6(h.at + rampStory(h, t - a)) : h.at;
     shift += extra(h);
   }
-  return t - shift;
+  // rounded like the segments: a ramp's video length (frames / fps) is not exact in binary, so without it a frame
+  // that lands on a cut reads a hair before it (EP03 render 8: the old camera on the new scene for two frames)
+  return R6(t - shift);
 }
 
 export function renderTime(holds, s) {
@@ -94,7 +96,7 @@ export function renderTime(holds, s) {
     if (s > h.at + (h.len || 0) + 1e-9) { shift += extra(h); continue; }
     if (h.len && s > h.at + 1e-9) return R6(h.at + shift + rampVideo(h, s - h.at));   // inside a ramp
   }
-  return s + shift;
+  return R6(s + shift);
 }
 
 export const heldFor = (holds) => (holds || []).reduce((s, h) => s + extra(h), 0);
