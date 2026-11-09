@@ -1,0 +1,29 @@
+{
+  "_note": "Share or Steal (dark adult trust game over a deep fryer): a tense countdown bed and a warm fake-out swell. Render: generate.py engine/soundgen/recipes-sos.json out/soundgen-sos/raw; pick beds with pick.py (into a scratch dir, then merge), swell with swell.py.",
+  "sfx": [],
+  "music": [
+    {
+      "id": "sos-tension",
+      "bpm": 100,
+      "bars": 8,
+      "prompts": [
+        "dark tense game show suspense music, deep pulsing synth bass on every beat, ticking clock hi-hat, low cello drone, heartbeat kick, sparse, cinematic thriller, no melody, 100 BPM",
+        "taut staccato low strings, ticking clock, dark synth pad, ominous, minimal, steady pulse, no melody, 100 BPM"
+      ],
+      "seeds": [401, 402, 403],
+      "mood": "tense"
+    },
+    {
+      "id": "sos-warm",
+      "bpm": 120,
+      "bars": 1,
+      "swell": true,
+      "prompts": [
+        "warm hopeful emotional string swell with soft choir and piano, heartwarming friendship moment, major key, gentle, cinematic, full and warm from the first note, no drums",
+        "tender uplifting strings and soft choir, hopeful major chord, warm reconciliation, gentle piano, sustained and glowing from the very start, no percussion"
+      ],
+      "seeds": [411, 412, 413],
+      "mood": "warm"
+    }
+  ]
+}
