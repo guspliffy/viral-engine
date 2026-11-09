@@ -53,6 +53,8 @@ const LETTERS = [0.4, 7.9, -14.5];                                   // in front
 const AT_PHONE = [0.03, -1];
 const PH_Y = 0.2, PH_Z = 0.42;
 const PHONE_R = { x: [-0.11, PH_Y, PH_Z], palm: [0, PH_Y, PH_Z] }, PHONE_L = { x: [0.11, PH_Y, PH_Z], palm: [0, PH_Y, PH_Z] };
+const WPH_Y = -0.02;   // the Wizard's phone in his lap like Phoenix's (his shoulders sit higher, so his hands go lower)
+const WPHONE_R = { x: [-0.11, WPH_Y, PH_Z], palm: [0, WPH_Y, PH_Z] }, WPHONE_L = { x: [0.11, WPH_Y, PH_Z], palm: [0, WPH_Y, PH_Z] };
 const TUBA_R = { x: [-0.17, 0.12, 0.5], palm: [0, 0.12, 0.5] }, TUBA_L = { x: [0.17, 0.12, 0.5], palm: [0, 0.12, 0.5] };   // the palms 1-2 cm outside its tubing
 
 const cast = [
@@ -64,7 +66,7 @@ const cast = [
 ];
 
 const HIDE = 0.001;   // a prop that isn't out yet (scale ~0: not drawn)
-const PIGEONS = [[-0.95, 2.2, 20], [-0.35, 2.95, -30], [0.95, 2.5, 160], [1.45, 3.05, -150]];
+const PIGEONS = [[-1.45, -1.25, 20], [-0.6, -1.8, -30], [0.95, -1.55, 160], [2.15, -1.05, -150]];   // behind the bench: birds never in front of the cast
 const TRAILS = [[-1.6, 9.2], [0.4, 8.6], [2.3, 9.2]];   // where three rockets' trails end (plan x, y on the letters' plane)
 const CRATE_TOP = [CRATE[0], 0.48, CRATE[1]];
 const props = [
@@ -195,9 +197,10 @@ for (let k = 0; k < 3; k++) sfx(3.86 + k * 0.06, "rocket", { gain: 0.35, dur: 0.
 A(3.9, "dra", "look", { to: [0, 0.9], dur: 0.1, blink: false });
 // 04a: everyone stares up at it, delighted; Phoenix doesn't (the Wizard has stepped forward, clear of the crate)
 A(T4A, "wiz", "move", { to: W(WIZ_4), dur: 0, ease: "linear" }); A(T4A, "wiz", "turn", { to: -15, dur: 0 });
-for (const id of ["vik", "rea", "wiz"]) A(T4A - 0.02, id, "look", { to: [0, 0.8], dur: 0.12, blink: false });
+for (const id of ["vik", "rea"]) A(T4A - 0.02, id, "look", { to: [0, 0.8], dur: 0.12, blink: false });
+A(T4A - 0.02, "wiz", "look", { to: [0, 0.5], dur: 0.12, blink: false });   // his head is already tipped back: pupils kept clear of the lids
 for (const id of ["vik", "rea", "wiz", "dra"]) A(3.93, id, "pitch", { to: -25, dur: 0.15 });   // everyone's head tips back to the sky but his
-for (const sd of ["R", "L"]) A(4.1, "wiz", "arm", { side: sd, pose: { o: [0.25, 0.9, 0.2] }, dur: 0.24 });
+for (const sd of ["R", "L"]) A(4.1, "wiz", "arm", { side: sd, pose: { o: [0.25, 0.9, 0.2] }, dur: 0.36 });
 // the letters burst one after another, LOOK then UP, each with its own coloured flash on everyone
 const BURST = [4.1, 4.16, 4.22, 4.28, 4.4, 4.46], FLASH = ["#ffd35a", "#ff5ad6", "#5ae2ff", "#ffd35a", "#8dff5a", "#ff9a3a"];
 BURST.forEach((b, i) => {
@@ -211,7 +214,7 @@ PIGEONS.forEach(([x, z], i) => {
   prop(T4, `pig${i}`, { scale: 1.3, peck: 1 }, 0);
   const t0 = 4.12 + i * 0.05, dx = x < 0.3 ? -2.2 : 2.2;
   prop(t0, `pig${i}`, { peck: 0, flap: 1 }, 0.05);
-  prop(t0, `pig${i}`, { x: x + dx, y: 3.4 + i * 0.3, z: z + DZ + 1.2 }, 0.75, "in");
+  prop(t0, `pig${i}`, { x: x + dx, y: 3.4 + i * 0.3, z: z + DZ - 2.0 }, 0.75, "in");
 });
 sfx(4.14, "flutter", { gain: 0.3, dur: 0.9, reason: "the pigeons burst off the paving" });
 for (const id of ["wiz", "vik"]) A(4.12, id, "expr", { expr: "delighted", dur: 0.2 });
@@ -242,19 +245,22 @@ A(T5, "wiz", "look", { to: [-0.4, -0.4], dur: 0, blink: false });
 A(T5, "rea", "look", { to: [0.4, -0.3], dur: 0, blink: false }); A(T5, "rea", "expr", { expr: "deadpan", dur: 0 });
 sfx(T5 + 0.02, "put-down", { gain: 0.3, reason: "the Wizard drops onto the bench" });
 // his own phone comes out from his side, he types "look up", sends: whoosh, the music stops dead
-prop(5.98, "wphone", { scale: 1.7 }, 0);
-A(5.98, "wiz", "grab", { prop: "wphone", hand: "R", grip: [0, 0.05, 0], dur: 0.2, pose: { o: [-0.02, 0.32, 0.36] } });
+// he drops onto the bench with his own phone already in both hands, in his lap like Phoenix's (set across the cut:
+// bringing the hands in from his sides on screen turned both palms over in two frames)
+A(T5, "wiz", "arm", { side: "R", pose: WPHONE_R, dur: 0 }); A(T5, "wiz", "arm", { side: "L", pose: WPHONE_L, dur: 0 });
+prop(T5, "wphone", { scale: 1.9 }, 0);
+A(T5, "wiz", "grab", { prop: "wphone", hand: "both", grip: [0, 0.035, 0], dur: 0, pose: null });
 A(6.05, "wiz", "look", { to: [0.05, -0.8], dur: 0.12, blink: false });
 sfx(6.15, "typing", { gain: 0.4, dur: 0.35 });
 prop(6.3, "wphone", { feed: 1 }, 0); prop(6.6, "wphone", { feed: 2 }, 0);
 sfx(6.6, "whoosh", { gain: 0.5 });
 // the bubble flies 1 m across into Phoenix's phone
-const WPH = [WIZ_SEAT[0] + 0.0, 0.52, 0.48], PPH = [PHX[0] + 0.02, 0.56, 0.5];   // the screens
+const WPH = [WIZ_SEAT[0] + 0.0, 0.8, 0.68], PPH = [PHX[0] + 0.02, 0.56, 0.5];   // the screens
 prop(6.6, "bubble", { x: WPH[0], y: WPH[1], z: WPH[2] + DZ, scale: 1 }, 0);
 prop(6.6, "bubble", { pop: 1, glow: 1 }, 0.2, "out");
 prop(6.8, "bubble", { x: PPH[0] }, 0.46, "inOut"); prop(6.8, "bubble", { z: PPH[2] + DZ }, 0.46, "inOut");
-prop(6.8, "bubble", { y: r3((WPH[1] + PPH[1]) / 2 + 0.3) }, 0.23, "out"); prop(7.03, "bubble", { y: PPH[1] }, 0.23, "in");
-prop(7.26, "bubble", { pop: 0, glow: 0 }, 0.06);
+prop(6.8, "bubble", { y: r3((WPH[1] + PPH[1]) / 2 + 0.3) }, 0.23, "out"); c.at(7.03, { do: "prop", id: "bubble", set: { y: PPH[1] }, dur: 0.23, ease: "in", reason: "a chat bubble flying into his phone, not a falling body" });
+prop(7.2, "bubble", { pop: 0, glow: 0 }, 0.12);
 see(T5, 6.6, ["wiz.face", "phx.face", "wphone"], "05: he gives up, sits and texts");
 see(6.6, 7.25, ["bubble", "wiz.face", "phx.face"], "05-06: the text flies 1 m into Phoenix's phone");
 
@@ -268,14 +274,18 @@ A(7.45, "phx", "look", { to: [0.85, 0.1], dur: 0.1, blink: false });
 A(7.45, "phx", "turn", { to: 30, dur: 0.18 });
 A(7.48, "phx", "expr", { expr: "delighted", dur: 0.15 });
 A(7.48, "phx", "face", { lid: 0.0, dur: 0.12 });
-A(7.5, "phx", "release", { prop: "phone", hand: "L", dur: 0 });
+A(7.5, "phx", "grab", { prop: "phone", hand: "R", keep: true, dur: 0, pose: null });   // the right hand alone keeps it (a release of one hand let the whole phone fall)
 A(7.5, "phx", "arm", { side: "L", pose: "wave", dur: 0.24 });
 c.say(7.6, "phx", "oh, hi!", 0.45, "excited", { voice: false, sub: "Oh, hi!", pos: 480 });
 // he waves up to the cut; his hand is back on the phone in the wide (on screen, every path from the wave back to the
 // phone turned the palm over in a frame or two)
 A(8.4, "phx", "arm", { side: "L", pose: PHONE_L, dur: 0 });
 A(8.4, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], dur: 0, pose: null });
-// the Wizard: the phone still up, his eye twitches
+// the Wizard: from the 7.0 cut his phone is in his right hand alone, the left at rest (a hand leaving the phone on
+// screen turned its palm over; across this cut it settles long before he points)
+A(6.98, "wiz", "grab", { prop: "wphone", hand: "R", keep: true, dur: 0, pose: null });
+A(6.99, "wiz", "arm", { side: "L", pose: "rest", dur: 0 });
+// the phone still up, his eye twitches
 A(7.45, "wiz", "look", { to: [-0.9, 0.0], dur: 0.12, blink: false });
 A(7.5, "wiz", "expr", { expr: "deadpan", set: { eye: 1.0 }, dur: 0.15 });
 for (const t of [7.8, 8.05]) { A(t, "wiz", "face", { lidL: 0.85, dur: 0.1 }); A(t + 0.12, "wiz", "face", { lidL: 0.3, dur: 0.1 }); }
@@ -291,7 +301,7 @@ A(T7, "rea", "move", { to: W(REA_END), dur: 0, ease: "linear" }); A(T7, "rea", "
 A(T7, "rea", "arm", { side: "R", pose: { o: [0.1, 0.3, 0.42] }, dur: 0 }); A(T7, "rea", "arm", { side: "L", pose: { o: [0.08, 0.05, 0.3] }, dur: 0 });   // the cymbals still in his hands: one held out where we see it, the other down, clear of Phoenix
 for (const id of ["vik", "dra"]) { A(T7, id, "expr", { expr: "kind", dur: 0 }); A(T7, id, "look", { to: [-0.3, -0.3], dur: 0, blink: false }); }
 // the Wizard points furiously at the sky (his free hand; the phone stays in the other)
-A(8.4, "wiz", "arm", { side: "L", pose: { o: [0.5, 0.85, 0.12] }, dur: 0.24 });
+A(8.4, "wiz", "arm", { side: "L", pose: { o: [0.5, 0.85, 0.12] }, dur: 0.3 });
 A(8.42, "wiz", "grip", { side: "L", shape: "point", dur: 0.1 });
 A(8.42, "wiz", "expr", { expr: "angry", set: { open: 0.6 }, dur: 0.1 });
 A(8.42, "wiz", "look", { to: [-0.6, 0.2], dur: 0.1, blink: false });
@@ -309,10 +319,13 @@ A(9.45, "phx", "pitch", { to: 12, dur: 0.2 });
 A(9.45, "phx", "turn", { to: 0, dur: 0.25 });
 A(9.45, "phx", "expr", { expr: "kind", set: { curve: 0.55, eye: 0.82 }, dur: 0.2 });
 A(9.45, "phx", "face", { lid: 0.55, dur: 0.2 });   // back to his phone: lids half down again
-// the Wizard face-plants onto the bench
-A(8.95, "wiz", "arm", { side: "L", pose: "rest", dur: 0.3 });
-A(9.2, "wiz", "lean", { to: -58, dur: 0.24, ease: "in" });
-A(9.2, "wiz", "pitch", { to: 30, dur: 0.24, ease: "in" });
+// the Wizard gives up: he folds forward on the bench, the hat over his face
+A(8.95, "wiz", "arm", { side: "L", pose: { o: [0.42, 0.42, 0.22] }, dur: 0.3 }); A(9.25, "wiz", "arm", { side: "L", pose: "rest", dur: 0.3 });   // the arm sinks in two stages
+A(9.2, "wiz", "pitch", { to: 20, dur: 0.24, ease: "in" });   // he slumps forward over his phone, defeated, face still to us
+A(9.2, "wiz", "arm", { side: "R", pose: { x: [-0.1, 0.2, 0.45], palm: [0.02, 0.2, 0.45] }, dur: 0.24 });   // the phone stays in his lap as he slumps
+A(9.2, "wiz", "lean", { to: -6, dur: 0.24, ease: "in" });
+A(9.2, "wiz", "squash", { amount: 0.06, dur: 0.24 });
+A(9.2, "wiz", "hat", { off: [0.05, -0.04, 0.02], spin: [8, 0, -24], dur: 0.24 });   // his crooked hat slips further
 A(9.2, "wiz", "expr", { expr: "deadpan", set: { eye: 0.2 }, dur: 0.15 });
 sfx(9.44, "thud-soft", { gain: 0.5 });
 // Reaper, the quiet one, cracks up; then Viking and Dragon

@@ -15,7 +15,7 @@ target, read as panels 01-07 (shot 4 split in two, 04a/04b; see Departures). Bri
 | 5 | The wow (shot 4): LOOK / UP in firework stars across the sky over the skyline, readable at 360 px wide for 0.8 s or more, the bench small at the bottom; pigeons off the roofs, coloured light on Phoenix | yes: LOOK UP from 4.1 s to the fizzle at 8.2 s, the bench at 0.8 of the frame, pigeons off the paving at 4.12 s, a coloured flash per letter | |
 | 6 | The Wizard's phone screen reads "look up" (the chat bubble) on screen before the ping; Phoenix's screen is never shown | yes: the 'look up' bubble on the Wizard's phone at 6.6-7.25 s; Phoenix's screen never faces us | |
 | 7 | The payoff (7.3-8.4): Phoenix looks up instantly at the Wizard with a big honest smile and waves; both faces 3/4 or better to us the whole time | yes: panelfit 06 matches; Phoenix turned 30 degrees toward the Wizard | |
-| 8 | Second punch (8.4-10.5): the sky behind them holds only fading sparks of "LOOK U" (P gone first); Phoenix shrugs and looks back down; the Wizard face-down on the bench; Reaper (cymbals still in hand) laughing in the last frame with Viking and Dragon | partial: LOOK U sparks (P gone at 8.2 s), the shrug, the Wizard face-down, Reaper laughing with a cymbal in view in the last frame; Viking and Dragon are off frame by then (see Departures) | |
+| 8 | Second punch (8.4-10.5): the sky behind them holds only fading sparks of "LOOK U" (P gone first); Phoenix shrugs and looks back down; the Wizard face-down on the bench; Reaper (cymbals still in hand) laughing in the last frame with Viking and Dragon | partial: LOOK U sparks (P gone at 8.2 s), the shrug, the Wizard slumped on the bench (see Departures), Reaper laughing with a cymbal in view in the last frame; Viking and Dragon are off frame by then (see Departures) | |
 | 9 | Dusk city park: a bench, a street lamp, the skyline and a big open sky; whole frame sharp; no panic faces anywhere (goofy, cheeky, desperate) | yes: dusk-city-park, bench, street lamp, skyline, open sky | |
 | 10 | Continuity: one phone each; the megaphone lies on the bench from 1.9 s on; nobody near a flame (the crate several metres off) | yes: one phone each, the megaphone under the bench from 1.9 s, the crate 3 m behind the bench in 04 | |
 
@@ -42,11 +42,11 @@ target, read as panels 01-07 (shot 4 split in two, 04a/04b; see Departures). Bri
 5. Plan C: the Dragon lights the crate -> the puff of flame at the fuse, the rockets going up -> 04a very wide.
 6. The sky says LOOK UP -> the letters over the skyline, the bench small below, pigeons off the roofs -> 04a.
 7. The fake-out -> his thumb stops and his head lifts a little with LOOK UP glowing above him, then he swipes -> 04b.
-8. The Wizard gives up and sits -> smoke-smudged, hat crooked, dropping onto the bench beside him -> 05 medium.
+8. The Wizard gives up and sits -> smoke-smudged, hat crooked, dropping onto the bench beside him, his phone in hand -> 05 medium.
 9. He texts "look up" -> his own screen with the bubble, the send whoosh, the music stops -> 05 (screen insert).
 10. Ping -> Phoenix reads, looks up at once, smiles and waves "Oh, hi!" -> 06 close two-shot; the Wizard's eye twitches.
 11. The Wizard points at the sky -> the sky behind them (only fading "LOOK U" sparks) in the same frame -> 07.
-12. Phoenix shrugs and goes back to his phone; the Wizard face-plants; Reaper laughs, then everyone -> 07, last frame.
+12. Phoenix shrugs and goes back to his phone; the Wizard slumps, beaten; Reaper laughs, then everyone -> 07, last frame.
 
 Payoff faces: Phoenix turns his head toward the Wizard (his left, screen right) by about 35° at 7.45 and up-and-left
 by about 30° at 8.6: both stay inside 3/4. The Wizard faces Phoenix at 3/4 from 7.0 and points up without turning his
@@ -72,3 +72,11 @@ back. Reaper faces us from 9.3 to the end.
 - The last frame holds Reaper, Phoenix and the face-down Wizard, not Viking and Dragon too: the five of them plus the
   bench need about 4.5 m of frame, and 9:16 at a readable size holds about 3 m (camfit at 10.45 s puts Viking's eyes
   at x 1,199 px when Reaper's are at 120 px). The Dragon is at the right edge as 07 opens.
+- The Wizard slumps forward on the bench instead of face-planting into it (Jonny 9 Nov, draft 1: "wizard is glitched in
+  this scene"): a sitting potato tipped onto a 0.5 m seat end went through the seat and the end frame. His face stays
+  to us, as a payoff face must; his hat slipping over his face failed the face checks.
+- The Wizard sits down with his phone already in both hands (in his lap, like Phoenix's), rather than pulling it out on
+  screen: bringing both hands in from his sides turned the palms over in two frames. His first hold, one hand at his
+  face, read as a hand through the phone (Jonny 9 Nov, draft 1: "the phone in this scene is glitched").
+- The pigeons rise from the paving behind the bench, not off the roofs and not in front: birds never fly in front of
+  the cast (movement.md, Jonny 7 Nov).

@@ -434,9 +434,9 @@
   {
    "id": "pig0",
    "kind": "pigeon",
-   "x": -0.95,
+   "x": -1.45,
    "y": 0,
-   "z": -2.8,
+   "z": -6.25,
    "rot": 20,
    "scale": 0.001,
    "staged": "pecking on the paving"
@@ -444,9 +444,9 @@
   {
    "id": "pig1",
    "kind": "pigeon",
-   "x": -0.35,
+   "x": -0.6,
    "y": 0,
-   "z": -2.05,
+   "z": -6.8,
    "rot": -30,
    "scale": 0.001,
    "staged": "pecking on the paving"
@@ -456,7 +456,7 @@
    "kind": "pigeon",
    "x": 0.95,
    "y": 0,
-   "z": -2.5,
+   "z": -6.55,
    "rot": 160,
    "scale": 0.001,
    "staged": "pecking on the paving"
@@ -464,9 +464,9 @@
   {
    "id": "pig3",
    "kind": "pigeon",
-   "x": 1.45,
+   "x": 2.15,
    "y": 0,
-   "z": -1.9500000000000002,
+   "z": -6.05,
    "rot": -150,
    "scale": 0.001,
    "staged": "pecking on the paving"
@@ -2284,7 +2284,7 @@
      "do": "look",
      "to": [
       0,
-      0.8
+      0.5
      ],
      "dur": 0.12,
      "blink": false,
@@ -2390,7 +2390,7 @@
        0.2
       ]
      },
-     "dur": 0.24,
+     "dur": 0.36,
      "at": 0.15
     },
     {
@@ -2404,7 +2404,7 @@
        0.2
       ]
      },
-     "dur": 0.24,
+     "dur": 0.36,
      "at": 0.15
     },
     {
@@ -2445,9 +2445,9 @@
      "do": "prop",
      "id": "pig0",
      "set": {
-      "x": -3.1500000000000004,
+      "x": -3.6500000000000004,
       "y": 3.4,
-      "z": -1.5999999999999999
+      "z": -8.25
      },
      "dur": 0.75,
      "ease": "in",
@@ -2513,9 +2513,9 @@
      "do": "prop",
      "id": "pig1",
      "set": {
-      "x": -2.5500000000000003,
+      "x": -2.8000000000000003,
       "y": 3.6999999999999997,
-      "z": -0.8499999999999999
+      "z": -8.8
      },
      "dur": 0.75,
      "ease": "in",
@@ -2568,7 +2568,7 @@
      "set": {
       "x": 3.1500000000000004,
       "y": 4,
-      "z": -1.3
+      "z": -8.55
      },
      "dur": 0.75,
      "ease": "in",
@@ -2589,9 +2589,9 @@
      "do": "prop",
      "id": "pig3",
      "set": {
-      "x": 3.6500000000000004,
+      "x": 4.35,
       "y": 4.3,
-      "z": -0.7500000000000002
+      "z": -8.05
      },
      "dur": 0.75,
      "ease": "in",
@@ -2995,6 +2995,68 @@
      "at": 0
     },
     {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.11,
+       -0.02,
+       0.42
+      ],
+      "palm": [
+       0,
+       -0.02,
+       0.42
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.11,
+       -0.02,
+       0.42
+      ],
+      "palm": [
+       0,
+       -0.02,
+       0.42
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "scale": 1.9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "wphone",
+     "hand": "both",
+     "grip": [
+      0,
+      0.035,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
      "who": "phx",
      "do": "grip",
      "side": "R",
@@ -3014,36 +3076,6 @@
      "gain": 0.3,
      "reason": "the Wizard drops onto the bench",
      "at": 0.02
-    },
-    {
-     "do": "prop",
-     "id": "wphone",
-     "set": {
-      "scale": 1.7
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 0.38
-    },
-    {
-     "who": "wiz",
-     "do": "grab",
-     "prop": "wphone",
-     "hand": "R",
-     "grip": [
-      0,
-      0.05,
-      0
-     ],
-     "dur": 0.2,
-     "pose": {
-      "o": [
-       -0.02,
-       0.32,
-       0.36
-      ]
-     },
-     "at": 0.38
     },
     {
      "who": "wiz",
@@ -3120,8 +3152,8 @@
      "id": "bubble",
      "set": {
       "x": 0.45,
-      "y": 0.52,
-      "z": -4.52,
+      "y": 0.8,
+      "z": -4.32,
       "scale": 1
      },
      "dur": 0,
@@ -3163,11 +3195,29 @@
      "do": "prop",
      "id": "bubble",
      "set": {
-      "y": 0.84
+      "y": 0.98
      },
      "dur": 0.23,
      "ease": "out",
      "at": 1.2
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "wphone",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0,
+     "at": 1.39
     }
    ]
   },
@@ -3203,6 +3253,7 @@
      },
      "dur": 0.23,
      "ease": "in",
+     "reason": "a chat bubble flying into his phone, not a falling body",
      "at": 0.03
     },
     {
@@ -3218,9 +3269,9 @@
       "pop": 0,
       "glow": 0
      },
-     "dur": 0.06,
+     "dur": 0.12,
      "ease": "inOut",
-     "at": 0.26
+     "at": 0.2
     },
     {
      "sfx": "notify",
@@ -3300,10 +3351,12 @@
     },
     {
      "who": "phx",
-     "do": "release",
+     "do": "grab",
      "prop": "phone",
-     "hand": "L",
+     "hand": "R",
+     "keep": true,
      "dur": 0,
+     "pose": null,
      "at": 0.5
     },
     {
@@ -3611,7 +3664,7 @@
        0.12
       ]
      },
-     "dur": 0.24,
+     "dur": 0.3,
      "at": 0
     },
     {
@@ -3708,7 +3761,13 @@
      "who": "wiz",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       0.42,
+       0.42,
+       0.22
+      ]
+     },
      "dur": 0.3,
      "at": 0.55
     },
@@ -3742,18 +3801,60 @@
     },
     {
      "who": "wiz",
-     "do": "lean",
-     "to": -58,
+     "do": "pitch",
+     "to": 20,
      "dur": 0.24,
      "ease": "in",
      "at": 0.8
     },
     {
      "who": "wiz",
-     "do": "pitch",
-     "to": 30,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.2,
+       0.45
+      ],
+      "palm": [
+       0.02,
+       0.2,
+       0.45
+      ]
+     },
+     "dur": 0.24,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "lean",
+     "to": -6,
      "dur": 0.24,
      "ease": "in",
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.24,
+     "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "hat",
+     "off": [
+      0.05,
+      -0.04,
+      0.02
+     ],
+     "spin": [
+      8,
+      0,
+      -24
+     ],
+     "dur": 0.24,
      "at": 0.8
     },
     {
@@ -3765,6 +3866,14 @@
      },
      "dur": 0.15,
      "at": 0.8
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.85
     },
     {
      "who": "phx",
