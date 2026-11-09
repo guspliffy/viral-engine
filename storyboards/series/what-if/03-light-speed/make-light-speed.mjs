@@ -526,7 +526,10 @@ see(r3(QUESTION + 0.05), r3(END - 0.05), ["sam.face", "rea.face", "viko"], "pane
 
 // ---------------------------------------------------------------- shots (by hand: the painting's camera range)
 const SH = {
-  start: { pos: [-0.05, 1.55, 13.0], look: [0.0, 0, 5.0], fov: 40 },                    // panels 01-02: behind the line, down the road
+  start: { pos: [-0.05, 1.55, 13.0], look: [0.0, 0, 5.0], fov: 40,                     // panels 01-02: behind the line, down the road
+    // with the voiceover a slow push in under the spoken title (the stare-down is still for 3.2 s of video, render 9
+    // read as frozen), done before GO
+    ...(VO && { to: { pos: [-0.05, 1.55, 13.0], look: [0.0, 0, 5.0], fov: 36.5 }, dur: 0.6, ease: "inOut" }) },
   victim: { pos: [-0.1, 0.85, 13.0], look: [0.35, 0.5, 9.3], fov: 30 },                   // Viking's face; Samurai with the trophy far behind
   again: { pos: [1.32, 1.06, 15.3], look: [-0.37, -0.3, -5.8], fov: 16 },               // panel 03: long lens, Viking near, Samurai far
   car: { pos: [-0.3, 2.6, 17.5], look: [0.0, 0.5, 8.0], fov: 38 },                   // Viking in the car, Samurai bored beside it
