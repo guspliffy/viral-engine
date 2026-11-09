@@ -35,6 +35,8 @@ const END = 18.9;   // + the BOOM's 3-frame hit-stop = exactly 19.0 s of video (
 const TRIP1 = [1.0, 2.2], TRIP2 = [4.6, 5.6], TRIP3 = [8.0, 11.1];   // he's away (the streak, the silence)
 const PUFF1 = 2.9, THUMP2 = 6.3, BOOM = 13.5;                         // his late sound: small, bigger, all of it
 const TICKS = [11.9, 12.4, 12.9, 13.3];                               // the clock, louder each time (the test)
+// the pendulum all clip: a seconds pendulum (an end each second), hurrying into the four loud ticks, on after the boom
+const CLOCK_TICKS = [...Array.from({ length: 12 }, (_, k) => r3(-0.1 + k)), ...TICKS, 14.3, 15.3, 16.3, 17.3, 18.3];
 const S_REA = 1.55, S_TWO = 2.2, S_WALL = 4.0, S_LAPS = 7.3, S_HIGH = 8.0, S_SIT = 11.0, S_CLOCK = 12.25, S_BACK = 12.75, S_AFTER = 16.0;
 
 // ---------------------------------------------------------------- places (x right, z toward the camera)
@@ -69,39 +71,46 @@ const SHELVES = [-1.9, -0.2, 1.5, 3.2].map((x, i) => ({ id: `sh${i}`, kind: "lib
 const TABLES2 = [[-3.4, -2.2], [2.9, -1.2], [-3.6, 1.9], [3.0, 2.6]];
 const BIG = { w: 0.26, h: 0.34, t: 0.07 };   // the big book from the top shelf (panel 03)
 const props = [
-  { id: "floor", kind: "libfloor", x: 0, z: -1, w: 18, d: 22, seed: 21 },
+  { id: "floor", kind: "dayfloor", x: 0, z: -1, w: 18, d: 22, seed: 21, patches: [[-2.6, -1.4, 1.4, 2.2, -25], [-2.5, 1.9, 1.4, 2.2, -25], [0.6, -2.8, 1.3, 2.0, -25]] },   // pale stone, window-pane sun patches from the left (the brief)
   { id: "table", kind: "table", x: TABLE[0], z: TABLE[1], w: TABLE_W, d: TABLE_D, color: "#7a4a2c", legs: "#4e2e1a" },
   { id: "chairR", kind: "chair", x: REA[0], z: REA[1], rot: 0, scale: 0.7 },   // low chairs: the table at their chins, as the panels draw them
   { id: "chairL", kind: "chair", x: FAR[0], z: FAR[1], rot: 0, scale: 0.7 },   // set at PHX_SEAT on the cut at 11.0
   ...tower,
   // the overloaded cart: ten books in two stacks on its top (they vanish when he shelves them at 4.75; review A)
-  ...Array.from({ length: 10 }, (_, i) => ({ id: `cb${i}`, kind: "libbook", x: r3(CART[0] + (i < 5 ? -0.13 : 0.13)), y: r3(0.445 + (i % 5) * 0.045), z: CART[1], rot: r3(-20 + ((i * 29) % 9) - 4), w: 0.17, h: 0.24, t: 0.04, color: ["#7a2e2a", "#35506b", "#2f4a3a", "#6b5a2e", "#4b2f45"][i % 5], stand: 0, seed: 20 + i })),
+  ...Array.from({ length: 10 }, (_, i) => ({ id: `cb${i}`, kind: "libbook", x: r3(CART[0] + (i < 5 ? -0.122 : 0.122)), y: r3(0.445 + (i % 5) * 0.045), z: r3(CART[1] + (i < 5 ? -0.044 : 0.044)), rot: r3(-20 + ((i * 29) % 9) - 4), w: 0.17, h: 0.24, t: 0.04, color: ["#7a2e2a", "#35506b", "#2f4a3a", "#6b5a2e", "#4b2f45"][i % 5], stand: 0, seed: 20 + i })),   // two flat stacks at x +-0.13 on the tray, turned with the cart (-20)
   { id: "rbook", kind: "libbook", x: r3(REA[0] - 0.02), y: r3(TABLE_Y + 0.02), z: r3(TABLE[1] - 0.04), rot: 0, w: 0.17, h: 0.24, t: 0.04, color: "#7a2e2a", open: 1, stand: 0, seed: 8 },
   { id: "bbook", kind: "libbook", x: r3(TABLE[0] + 0.55), y: r3(TABLE_Y + 0.02), z: 0.17, rot: 8, w: 0.18, h: 0.25, t: 0.05, color: "#35506b", seed: 9 },
   { id: "bigbook", kind: "libbook", x: FAR[0], y: 0.5, z: FAR[1], rot: 0, ...BIG, color: "#7a2e2a", stand: 1, seed: 12, staged: "kept off stage until he brings it back from the top shelf" },
   { id: "dais", kind: "libdais", x: DAIS[0], z: DAIS[1], w: 2.4, d: 1.6, h: DAIS_H },
   { id: "desk", kind: "libdesk", x: DESK[0], y: DAIS_H, z: DESK[1], w: 2.0, h: DESK_H },
-  { id: "orb", kind: "greenlamp", x: r3(DESK[0] + 0.72), y: r3(DAIS_H + DESK_H), z: r3(DESK[1] + 0.02), color: "#3f8f4f" },   // STAND-IN for the green orb on its stand
+  { id: "orb", kind: "orbstand", x: r3(DESK[0] + 0.72), y: r3(DAIS_H + DESK_H), z: r3(DESK[1] + 0.02), glow: 1 },   // the green orb at his left (panel 01)
   ...SHELVES,
   { id: "ladder", kind: "libladder", x: 2.0, z: r3(SHELF_Z + 0.5), rot: 0, h: 2.4, w: 0.5, lean: 12 },
-  { id: "cart", kind: "cart", x: CART[0], z: CART[1], rot: -20 },                       // STAND-IN for the brass book cart
-  { id: "lampL", kind: "pendant", x: -0.7, y: 3.3, z: -4.4, len: 1.3, r: 0.22, staged: "hangs from the ceiling on its chain" },        // STAND-IN for the swinging brass lamps
-  { id: "lampR", kind: "pendant", x: 0.6, y: 3.3, z: -4.6, len: 1.3, r: 0.22, staged: "hangs from the ceiling on its chain" },
+  { id: "cart", kind: "bookcart", x: CART[0], z: CART[1], rot: -20 },   // the brass book trolley (top tray at 0.44)
+  { id: "lampL", kind: "brasslamp", x: -0.7, y: 4.6, z: -4.4, len: 1.3, staged: "hangs from the ceiling on its chain" },   // the shade at 3.3, as the stand-in's
+  { id: "lampR", kind: "brasslamp", x: 0.6, y: 4.6, z: -4.6, len: 1.3, staged: "hangs from the ceiling on its chain" },
+  { id: "sign", kind: "quietsign", x: DESK[0], y: 3.8, z: -5.3, len: 0.7, w: 1.0, h: 0.65, staged: "hangs from the ceiling on its chains over the desk" },   // panel 01: 0.13-0.28 down over the librarian
   { id: "plant", kind: "bistroplant", x: -1.8, z: -4.75 },
   // the longcase clock (STAND-IN until it is built: a tall case with the wall clock on it, so the insert frames it)
-  { id: "clockcase", kind: "libstack", x: CLOCK[0], z: CLOCK[1], rot: 0, l: 0.5, h: 2.1, d: 0.3, shelves: 1, seed: 40 },
-  { id: "clockface", kind: "clock", x: CLOCK[0], y: 1.75, z: r3(CLOCK[1] + 0.19), rot: 0, staged: "on the front of the clock case" },
+  { id: "clock", kind: "longclock", x: CLOCK[0], z: CLOCK[1], rot: 0, time: 3.2, amp: 6, ticks: CLOCK_TICKS },   // the test: its ticks louder before the BOOM
   ...TABLES2.flatMap(([x, z], i) => [
     { id: `t2${i}`, kind: "table", x, z, w: 1.5, d: 0.8, color: "#7a4a2c", legs: "#4e2e1a" },
     { id: `t2l${i}`, kind: "greenlamp", x: r3(x + 0.35), y: TABLE_Y, z: r3(z - 0.1) },
     { id: `t2c${i}`, kind: "chair", x: r3(x - 0.3), z: r3(z - 0.6), rot: 0 },
   ]),
-  { id: "page", kind: "paper", x: FAR[0], y: 0.2, z: FAR[1], rot: 0, staged: "off stage, then stuck to Reaper's face by the blast" },                 // the page that ends up on Reaper's face
+  { id: "page", kind: "libpage", x: FAR[0], y: 0.2, z: FAR[1], rot: 0, bend: 0, scale: 1.5, staged: "off stage, then stuck to Reaper's face by the blast" },                 // the page that ends up on Reaper's face
   { id: "dust", kind: "dustmotes", x: -0.5, y: 1.8, z: -1.5, n: 70, box: [6, 3, 6], color: "#fff4d6" },
-  { id: "beam", kind: "lightbeam", x: -3.0, y: 4.2, z: -1.5, rot: 30, tip: -50, len: 6, w: 1.8, color: "#fff2cc", glow: 0.3 },
+  { id: "beam", kind: "lightbeam", x: -3.0, y: 4.2, z: -1.5, rot: 30, tip: -50, len: 6, w: 1.8, color: "#fffaf0", glow: 0.3 },
 ];
 
 // ---------------------------------------------------------------- helpers
+// a hung thing knocked by a blast: out to `deg`, then a damped swing back and forth to rest over `dur` seconds
+function swing(t, id, deg, dur) {
+  const n = 5, step = r3(dur / n);
+  c.prop(r3(t - 0.01), id, { swing: 0 }, 0.01);
+  c.prop(t, id, { swing: deg }, 0.18, "out");
+  for (let k = 1; k <= n; k++) c.prop(r3(t + 0.18 + (k - 1) * step), id, { swing: k === n ? 0 : r3(deg * (-0.55) ** k) }, step, k === n ? "settle" : "inOut");
+}
 const setup = (t, who, at, yaw) => { A(r3(t - 0.02), who, "move", { to: at, dur: 0.01 }); A(r3(t - 0.02), who, "turn", { to: yaw, dur: 0.01 }); };
 const SUB = 880, SUB_HI = 600, DEMO = 400;   // the long-lens wides put every face low (0.55-0.67), so lines and demo captions go above them, inside the safe zone (y 210-1360; camfit spots, 9 Nov)
 const AWAY = [], FX = [];   // FX: drawn effect cels (engine/page/fxcel.js), absolute times   // [from, to] of every trip (allowClip windows below)
@@ -120,6 +129,8 @@ function fwip(t, at, yaw, away) {
   sfx(t, "ai/ignite", { gain: 0.5, reason: "he's back: a soft fwip as the sound returns" });
   AWAY.push([away, t]);
 }
+
+c.prop(0, "clock", { clock: 0 }, 0, "linear"); c.prop(0, "clock", { clock: END }, END, "linear");   // the pendulum on the clip's clock
 
 // ================================================================ 1 FRAME 0, 0-1.0: "SHHH!" and the bouncing friend
 // Panel 01: Phoenix mid-hop at the front left, wings twitching, the table shaking and the tower wobbling; Reaper
@@ -142,7 +153,7 @@ A(0, "sor", "expr", { expr: "annoyed", dur: 0.01 });
 c.arm(0, "sor", "R", { x: [-0.03, 0.34, 0.4] }, 0.01); c.arm(0, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.01);   // his other hand on the desk   // finger at his lips, under his eyes A(0, "sor", "grip", { side: "R", shape: "point", dur: 0.01 });
 c.say(0, "sor", "SHHH!", 0.6, "whisper", { pos: SUB_HI });
 c.arm(0.6, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(0.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.35, "inOut"); A(0.95, "sor", "grip", { side: "R", shape: "relaxed", dur: 0.3 });   // down and out past his chin, then back on his desk (clear of his eyes; a "rest" hand would go through the desk)
-cap(0, 0.97, "Too hyper for a library?", DEMO);
+cap(0, 0.97, "Too hyper for a library?", 210);   // over the sign (panel 01: the sign 0.13-0.28 down), clear of it
 c.say(0.25, "phx", "I'll be quiet!", 0.5, "whisper", { pos: SUB });
 see(0, 0.95, ["phx.face", "rea.face", "sor.face", TW(TOWER_N - 1)], "frame 0: the hyper friend bouncing in the library, the librarian's shush, Reaper's tower");
 // the tower wobbles: from his bouncing (0-0.9) and again as Reaper looks up at it (1.6-2.1, the stakes); the top
@@ -217,6 +228,7 @@ c.arm(5.8, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.7, "inOut"); A(5.85, "sor", "g
 // the bigger late thump
 sfx(THUMP2, "thud", { gain: 0.8, reason: "the rule, planted twice: a bigger late thump of his own sound" });
 sfx(r3(THUMP2 + 0.03), "creak", { gain: 0.35, reason: "the hanging lamps swinging on their chains" });
+swing(THUMP2, "lampL", 22, 2.4); swing(r3(THUMP2 + 0.04), "lampR", 18, 2.4); swing(r3(THUMP2 + 0.02), "sign", 10, 1.8);
 A(THUMP2, "sor", "lean", { to: -14, dur: 0.15, ease: "out" }); A(r3(THUMP2 + 0.25), "sor", "lean", { to: 0, dur: 0.45, ease: "settle" });
 A(THUMP2, "sor", "hat", { spin: [0, 0, -22], dur: 0.12, ease: "out" }); A(r3(THUMP2 + 0.3), "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
 A(THUMP2, "sor", "face", { lid: 0.8, dur: 0.05 }); A(r3(THUMP2 + 0.25), "sor", "face", { lid: 0, dur: 0.15 });
@@ -286,6 +298,7 @@ sfx(r3(BOOM + 0.02), "thud", { gain: 0.8, reason: "the boom's body" });
 sfx(r3(BOOM + 0.1), "kenney/impact-glass-light", { gain: 0.4, reason: "the windows rattle" });
 FX.push({ at: BOOM, do: "cel", kind: "ring", pos: [TABLE[0], 1.0, -2.5], size: 4, dur: 0.6, palette: "energy" });
 c.at(BOOM, { fx: "shake", dur: 0.5, amp: 0.03 });
+swing(BOOM, "sign", 72, 3.0); swing(BOOM, "lampL", 40, 3.0); swing(r3(BOOM + 0.02), "lampR", 36, 3.0);   // the sign swings up on its chains (panel 07)
 TOWER_N && Array.from({ length: TOWER_N }, (_, i) => i).forEach((i) => {
   const a = (i * 2.399) % (2 * Math.PI), up = 1.6 + (i % 4) * 0.5;
   c.throw(r3(BOOM + 0.02), TW(i), { v: [r3(Math.cos(a) * 2.2), r3(up), r3(Math.sin(a) * 1.4 + 0.6)], spin: [r3(3 + (i % 3)), r3((i % 5) - 2), r3(4 - (i % 4))] });
@@ -307,9 +320,9 @@ c.arm(14.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.8, "inOut"); c.arm(14.95, "
 A(15.0, "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
 A(14.4, "sor", "look", { to: [-0.3, -0.2], dur: 0.2, blink: false });
 // the page: it flutters down out of the blast onto Reaper's face (over half of it, panel 08)
-c.prop(14.6, "page", { x: r3(REA[0] + 0.25), y: 5.0, z: r3(REA[1] + 0.5), rot: 40, tip: 30 }, 0.01);
-c.prop(14.62, "page", { x: r3(REA[0] - 0.1), y: 2.3, z: r3(REA[1] + 0.45), rot: -25, tip: 55 }, 0.4, "in");
-c.prop(15.02, "page", { x: r3(REA[0] - 0.08), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: 80 }, 0.35, "out");
+c.prop(14.6, "page", { x: r3(REA[0] + 0.25), y: 5.0, z: r3(REA[1] + 0.5), rot: 40, tip: -70, bend: 0 }, 0.01);   // libpage stands facing +z at tip 0
+c.prop(14.62, "page", { x: r3(REA[0] - 0.1), y: 2.3, z: r3(REA[1] + 0.45), rot: -25, tip: -40 }, 0.4, "in");
+c.prop(15.02, "page", { x: r3(REA[0] - 0.11), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: -5, bend: 1 }, 0.35, "out");   // curled over half his face
 A(15.3, "rea", "face", { lid: 0.55, dur: 0.25 }); A(15.4, "rea", "look", { to: [-0.3, 0.0], dur: 0.3, blink: false });
 see(BOOM, S_AFTER, ["phx.face", "rea.face", "sor.face"], "the boom: every book off every shelf, three faces to us");
 
@@ -354,7 +367,7 @@ const SH = {
   laps: { pos: [-2.4, 1.25, -0.4], look: [-1.0, 1.05, -3.75], fov: 48 },        // Phoenix to us (the librarian hidden behind him, the space above for the lines)
   high: { pos: [2.4, 5.4, 10.0], look: [-0.6, 0.4, -2.4], fov: 28, to: { pos: [2.1, 5.0, 9.0], fov: 26 }, dur: 3.0, ease: "inOut" },   // panel 05: high over the reading room, the desk top right; a slow push through the laps
   sit: { pos: [-0.6, 1.3, 10.5], look: [-0.78, 1.55, -1.0], fov: 25 },            // panel 06: the table, level; from x -0.6 the librarian shows between the tower and Reaper
-  clock: { pos: [-1.7, 1.6, -4.3], look: [-1.85, 1.45, -6.05], fov: 40 },        // the longcase clock (STAND-IN case)
+  clock: { pos: [-1.7, 1.5, -4.3], look: [-1.85, 1.38, -6.05], fov: 40 },        // the longcase clock: dial and pendulum
   boom: { pos: [-1.0, 3.4, 12.0], look: [-0.6, 1.5, -1.5], fov: 28, to: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 }, dur: 2.4, ease: "inOut" },   // panel 07 pushing into panel 08 (no cut, review A)
   after: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 },         // panel 08: the medium-wide, from above
 };
@@ -380,10 +393,11 @@ write(import.meta.url, {
   castLook: LOOK, cleanStart: true, cover: 10.2,
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   panels: { md: "storyboards/series/what-if/02-library/PANELS.md" },
-  // STAND-IN plate: Too Much Energy 01's hall, slid left so its windows sit on the left (the daylight plate comes from a builder)
+  // the daylight hall (assets/plates/library-hall-day.png, 9 Nov): its arched windows (blue sky, green trees) fill the
+  // left 0-0.4 of the wide above the 3D shelves, its gallery shelves stand behind the desk (never the windows; panels)
   set: { type: "plain", color: "#d9cdb4", floor: "#b8a27e", para: 0, bloom: "emissive", aperture: 0,
-    plate: { src: "assets/plates/library-hall.png", z: -8.6, center: [1.6, 4.4], height: 15, depth: false, motion: false, dust: 30 },
-    lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
+    plate: { src: "assets/plates/library-hall-day.png", z: -8.6, center: [-3.6, 3.5], height: 7.8, depth: false, dust: 30 },
+    lighting: { v: LIGHTING, key: [-6, 6, 3] }, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },   // key from the windows (left)
   // a soft plucky chamber bed; it drops to silence every time he's away, comes back sweet when he sits, holds its
   // breath under the clock, and the boom lands on the drop
   music: { style: "sneaky", lowCut: 150, gain: 0.3, parts: [
