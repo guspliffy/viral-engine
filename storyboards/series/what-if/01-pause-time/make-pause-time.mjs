@@ -3,6 +3,8 @@
 // demos of one power, each bigger than the last, with the same word, sound and look every time; a title card; a twist
 // from a real fact; the end on a question. BOARD.md next to this file holds the brief, look, shots and check times.
 //   node storyboards/series/what-if/01-pause-time/make-pause-time.mjs -> pause-time.json
+//   node storyboards/series/what-if/01-pause-time/make-pause-time.mjs --vo -> pause-time-vo.json: the same picture
+//     with a commentator (the voice "narrator", Jonny 9 Nov 2026) and a longer last shot for its closing question
 //
 // THE BRIEF
 //   Joke:        the friend who is always late can stop time, so he is never late: he walks into the selfie, takes the
@@ -28,7 +30,11 @@ const LOOK = "sheet", FOCUS = false, LIGHTING = 2, HATCH = { boil: 0.25 }, CEL =
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 }, PHYSICS = true;
 const LIFE = "auto";
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, cap, see } = c;
-const END = 18.6;
+// --vo: the commentator cut (Jonny 9 Nov 2026: "i like the 1 ... i would like to try some videos with the voiceovers
+// as commentator"). The picture stays the same, so the two cuts compare the voiceover alone; the last wide holds 1.2 s
+// longer for the closing question after Phoenix's laugh
+const VO = process.argv.includes("--vo");
+const END = VO ? 19.8 : 18.6;
 const V = { voice: "viking" };   // Viking's real voice (VoxCPM2, engine/voice): his lines are words
 
 // the pauses: [from, to] on the clip's clock (Viking is the keeper of each)
@@ -325,9 +331,11 @@ A(r3(S5 - 0.02), "vik", "expr", { expr: "cocky", set: { curve: 0.8 }, dur: 0.01 
 cap(S5, 14.65, "But if time stops...", 300);
 halt(14.42);
 pauseSounds(P5);
-cap(14.75, 15.35, "...light stops too.", 300);
-cap(15.35, 15.88, "He'd see NOTHING.", 300);
-cap(15.88, 16.32, "That's real.", 300);   // off before the BONK!
+if (!VO) {   // the commentator cut says it instead ("Light stops too.", below)
+  cap(14.75, 15.35, "...light stops too.", 300);
+  cap(15.35, 15.88, "He'd see NOTHING.", 300);
+  cap(15.88, 16.32, "That's real.", 300);   // off before the BONK!
+}
 // in the dark: his eyes go wide, dart about, then he feels his way to the right, into the post
 c.arm(14.78, "vik", "R", "rest", 0.25, "inOut"); A(14.78, "vik", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 A(14.8, "vik", "expr", { expr: "terrified", set: { eye: 1.3 }, dur: 0.2 });
@@ -363,11 +371,36 @@ c.say(r3(AFTER + 0.05), "phx", "HA HA HA!", 0.8, "excited");
 c.arm(r3(AFTER - 0.05), "phx", "R", { x: [-0.1, 0.2, 0.42] }, 0.2, "out"); c.arm(r3(AFTER - 0.02), "phx", "L", { x: [0.1, 0.2, 0.42] }, 0.2, "out");   // clutching his belly
 A(r3(AFTER + 0.05), "phx", "squash", { amount: 0.06, dur: 0.2 }); A(r3(AFTER + 0.3), "phx", "squash", { amount: -0.02, dur: 0.2 }); A(r3(AFTER + 0.55), "phx", "squash", { amount: 0.05, dur: 0.2 });
 A(r3(AFTER + 0.33), "rea", "blink", { dur: 0.35 });   // one slow, unimpressed blink (it also keeps an automatic one off the laugh)
-cap(r3(AFTER + 0.05), r3(END - 0.05), "Would you still want it?", 300);
+if (!VO) cap(r3(AFTER + 0.05), r3(END - 0.05), "Would you still want it?", 300);   // the commentator asks it (below)
 see(16.9, r3(AFTER - 0.05), ["vik.face", "clock"], "the light back on him: reeling off the clock post he wound back");
 see(r3(AFTER + 0.05), 18.5, ["vik", "phx.face", "rea.face", "clock"], "the aftermath: Phoenix laughs, Reaper doesn't");
 const INSERT_CUP = 5.3;   // the cut to the cup in the air
 for (const cp of c.captions) for (const cut of [S2, INSERT_CUP, S3, S4, S5]) if (cp.from < cut && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
+
+// ================================================================ THE COMMENTATOR (--vo only)
+// The voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
+// storyteller"), Jonny's pick of six voices (project files audio/premise-voice-01 and -02). Each line sits where
+// nobody speaks: in the silent pauses, on the title card, in the dark, after the laugh; never on a "HALT!", Viking's
+// lines or the BONK. The takes: 4 reads of each line, the one Whisper heard word for word that is nearest the voice
+// he picked (speaker match); `take` -3211921395 gives seed 23, the read he heard of the premise. Spoken lengths (from
+// the reads) set the subtitles, at y 300 like the clip's other narration text, added after the cut trim above: a
+// voiceover's subtitle runs on across a cut. The title card's line has none (the title fills the frame's top).
+if (VO) {
+  const NARR = [
+    // [at, line, take, spoken s, subtitle until | false]
+    [1.02, "What if you could pause time?", -3211921395, 1.81, 3.1],   // the first pause: the premise as he strolls into the photo
+    [5.15, "Even the coffee waits for him.", 1, 1.89, P2[1]],           // the cup hanging in the air
+    [9.85, "Just wind it back.", 3, 1.54, P3[1]],                       // after this demo's "HALT!" subtitle, before "hm hm hmm"
+    [r3(S4 + 0.02), "Sounds perfect, right?", 3, 1.56, false],          // on the title card
+    [14.9, "But light stops too.", 9, 1.25, r3(BONK - 0.02)],           // in the dark, after "But if time stops..." and HALT! (Jonny 9 Nov: "but light stops too")
+    [r3(AFTER + 0.85), "Would you still want it?", 2, 1.33, r3(END - 0.05)],   // after Phoenix's laugh
+  ];
+  for (const [t, line, take, len, until] of NARR) {
+    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+    if (until) cap(t, until, line, 300);
+    if (until && until < t + len) throw new Error(`"${line}" is cut off at ${until}`);
+  }
+}
 const allowClip = [
   { who: "vik", with: "clock", from: 10.2, to: 11.1, reason: "he turns the crank on the clock's post: the glove closes round its knob" },
   { who: "vik", with: "clock", from: r3(BONK - 0.05), to: END, reason: "the BONK: he walks into the clock post in the dark and stays flat against it" },
@@ -435,7 +468,7 @@ pause[1].props = [{ id: "cup" }];   // the cup in the air stays in colour all pa
 pause.push({ from: P5[0], to: P5[1], keep: ["vik"], origin: "vik", look: "dark" });
 
 write(import.meta.url, {
-  id: "pause-time",
+  id: VO ? "pause-time-vo" : "pause-time",
   title: "What if your friend could pause time?",
   idea: "What if, episode 1 (format B trial): the always-late friend can stop time; three demos, a title, a real-physics twist",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
