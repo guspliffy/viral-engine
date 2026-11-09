@@ -31,7 +31,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
 - What if EP02 library (workflow v2 + PR #184 savers, ticking-clock test): ~300 min go->delivery, 3 builders (Sonnet T1
   props 170k, Opus T2 flame 228k + T3 book blast 275k) + Fable A 139k + B 170k = 0.98 M subagents; thread 1.02 M out
-  ($79, includes the 8 Nov What if storyboards); 1 check-fix round + 1 round after review B; 1 draft + 2 full local renders, 16 min each.
+  ($79, includes the 8 Nov What if storyboards); 1 check-fix round + 1 round after review B; 1 draft + 2 full local renders, 16 min each; commentator cut (--vo) +60 min incl. VoxCPM2 setup.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
