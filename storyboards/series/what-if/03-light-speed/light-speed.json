@@ -1511,9 +1511,9 @@
     {
      "at": 3.966666666666667,
      "pos": [
-      -0.55,
       0,
-      10.3
+      0,
+      400
      ],
      "yaw": 180,
      "pitch": 0,
@@ -13391,15 +13391,28 @@
   {
    "id": "st3",
    "kind": "lightstreak",
-   "x": 0,
-   "z": 0.85,
-   "len": 80,
+   "x": -0.16,
+   "z": 7,
+   "len": 86,
+   "w": 0.7,
    "head": 0,
    "tail": 0,
    "glow": 0,
    "sparks": 0,
    "clock": 0,
    "rot": -1.5
+  },
+  {
+   "id": "sp3",
+   "kind": "lightstreak",
+   "x": 0,
+   "z": 0.85,
+   "len": 1,
+   "head": 0,
+   "tail": 0,
+   "glow": 0,
+   "sparks": 0,
+   "clock": 0
   },
   {
    "id": "st4",
@@ -13449,6 +13462,50 @@
    "x": 7,
    "z": 30,
    "rot": 0
+  },
+  {
+   "id": "weeds1",
+   "kind": "weeds",
+   "x": -0.95,
+   "y": -3,
+   "z": 1.2,
+   "seed": 1,
+   "h": 0.31,
+   "flowers": 3,
+   "rot": 40
+  },
+  {
+   "id": "weeds2",
+   "kind": "weeds",
+   "x": 0.6,
+   "y": -3,
+   "z": 1,
+   "seed": 2,
+   "h": 0.26,
+   "flowers": 2,
+   "rot": 80
+  },
+  {
+   "id": "weeds3",
+   "kind": "weeds",
+   "x": 0.95,
+   "y": -3,
+   "z": 1.8,
+   "seed": 3,
+   "h": 0.31,
+   "flowers": 3,
+   "rot": 120
+  },
+  {
+   "id": "weeds4",
+   "kind": "weeds",
+   "x": -0.55,
+   "y": -3,
+   "z": 2.2,
+   "seed": 4,
+   "h": 0.26,
+   "flowers": 2,
+   "rot": 160
   }
  ],
  "captions": [
@@ -13577,24 +13634,12 @@
   },
   {
    "from": 14.85,
-   "to": 15.4,
-   "text": "Real fact: the faster you move,",
-   "pos": 470,
-   "pop": false
-  },
-  {
-   "from": 15.4,
-   "to": 15.9,
-   "text": "the slower your time runs.",
-   "pos": 470,
-   "pop": false
-  },
-  {
-   "from": 15.9,
    "to": 16.57,
-   "text": "Astronauts on the space station age a tiny bit slower than us.",
+   "text": "Real fact: the faster you move, the slower your time runs. Astronauts on the space station age a tiny bit slower than us.",
    "pos": 470,
-   "pop": false
+   "pop": false,
+   "size": 56,
+   "kinetic": false
   },
   {
    "from": 16.6,
@@ -13782,6 +13827,28 @@
     {
      "do": "prop",
      "id": "st4",
+     "set": {
+      "clock": 18
+     },
+     "dur": 18,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sp3",
+     "set": {
+      "clock": 0,
+      "head": 0,
+      "sparks": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sp3",
      "set": {
       "clock": 18
      },
@@ -14383,6 +14450,16 @@
      "at": 1.23
     },
     {
+     "do": "prop",
+     "id": "trophy",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
      "fx": "poof",
      "pos": [
       0.75,
@@ -14431,6 +14508,16 @@
      "dur": 0.6,
      "ease": "inOut",
      "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "trophy",
+     "set": {
+      "glint": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.6
     },
     {
      "who": "rea",
@@ -14554,8 +14641,8 @@
      "do": "skin",
      "color": "#e2533c",
      "to": 0.42,
-     "dur": 0.45,
-     "at": 0.3
+     "dur": 0.3,
+     "at": 0.25
     },
     {
      "who": "vik",
@@ -14563,27 +14650,34 @@
      "brow": 0,
      "lid": 0.46,
      "dur": 0.25,
-     "at": 0.3
+     "at": 0.25
     },
     {
      "who": "vik",
      "do": "squash",
      "amount": 0.05,
-     "dur": 0.4,
-     "at": 0.3
+     "dur": 0.3,
+     "at": 0.25
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "angry",
      "dur": 0.25,
-     "at": 0.35
+     "at": 0.3
     },
     {
      "who": "vik",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
      "at": 0.35
     },
     {
@@ -14594,10 +14688,25 @@
     },
     {
      "who": "vik",
-     "do": "still",
-     "dur": 0.7,
-     "idle": 0.06,
-     "at": 0.4
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.86
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.86
     }
    ],
    "kind": "reaction"
@@ -14650,6 +14759,20 @@
     },
     {
      "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "skin",
+     "to": 0.6,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vik",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -14673,26 +14796,13 @@
     },
     {
      "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.42,
-       0.62,
-       0.1
-      ]
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.8
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.12
-    },
-    {
-     "who": "vik",
-     "do": "grip",
-     "side": "L",
-     "shape": "point",
-     "dur": 0.12,
-     "at": 0.12
+     "dur": 0.1,
+     "at": 0.1
     },
     {
      "who": "vik",
@@ -14723,6 +14833,39 @@
      "color": "speaker",
      "size": 130,
      "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.42,
+       0.62,
+       0.1
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.3,
+     "at": 0.8
     },
     {
      "who": "vik",
@@ -15189,16 +15332,16 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     0.25,
-     1.25,
-     3.6
+     0.1,
+     1.3,
+     6.5
     ],
     "look": [
-     0.05,
-     0.7,
-     -3.3
+     0,
+     0.55,
+     -3
     ],
-    "fov": 42
+    "fov": 38
    },
    "do": [
     {
@@ -15519,9 +15662,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.45,
+       0.34,
        0.68,
-       -0.25
+       -0.05
       ]
      },
      "dur": 0.25,
@@ -15587,7 +15730,17 @@
     },
     {
      "do": "prop",
-     "id": "st3",
+     "id": "sp3",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "sp3",
      "set": {
       "sparks": 1
      },
@@ -15812,7 +15965,7 @@
      "who": "wiz",
      "do": "hat",
      "off": [
-      -0.2,
+      -0.05,
       0.75,
       -0.6
      ],
@@ -15898,6 +16051,16 @@
      "tone": false,
      "flash": 0,
      "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "sp3",
+     "set": {
+      "sparks": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "do": "prop",
@@ -16498,6 +16661,50 @@
      "at": 2.17
     },
     {
+     "do": "prop",
+     "id": "weeds1",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "reason": "the weeds of sixty years come up with the old road, at the reveal cut, not a fall",
+     "at": 2.17
+    },
+    {
+     "do": "prop",
+     "id": "weeds2",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "reason": "the weeds of sixty years come up with the old road, at the reveal cut, not a fall",
+     "at": 2.17
+    },
+    {
+     "do": "prop",
+     "id": "weeds3",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "reason": "the weeds of sixty years come up with the old road, at the reveal cut, not a fall",
+     "at": 2.17
+    },
+    {
+     "do": "prop",
+     "id": "weeds4",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "reason": "the weeds of sixty years come up with the old road, at the reveal cut, not a fall",
+     "at": 2.17
+    },
+    {
      "who": "viko",
      "do": "show",
      "dur": 0,
@@ -16537,19 +16744,19 @@
   {
    "name": "twist: sixty years later",
    "at": 12.5,
-   "len": 2.35,
+   "len": 1.1,
    "shot": {
     "pos": [
-     -0.1,
-     2.1,
-     3.6
+     0.05,
+     2.4,
+     4
     ],
     "look": [
-     -0.15,
-     0.2,
-     -2.5
+     0.05,
+     0,
+     -2.4
     ],
-    "fov": 52
+    "fov": 62
    },
    "do": [
     {
@@ -16581,7 +16788,28 @@
      "lid": 0.55,
      "dur": 0.4,
      "at": 0.5
-    },
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "twist: ...you won.",
+   "at": 13.6,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     0.5,
+     1.4,
+     3.9
+    ],
+    "look": [
+     0.5,
+     1,
+     -0.7
+    ],
+    "fov": 42
+   },
+   "do": [
     {
      "who": "viko",
      "do": "talk",
@@ -16590,7 +16818,7 @@
      "dur": 0.9,
      "blink": false,
      "voice": "viking",
-     "at": 1.3
+     "at": 0.2
     },
     {
      "who": "viko",
@@ -16600,7 +16828,7 @@
       "curve": 0.35
      },
      "dur": 0.3,
-     "at": 1.95
+     "at": 0.85
     },
     {
      "do": "prop",
@@ -16611,7 +16839,7 @@
      "dur": 0,
      "ease": "linear",
      "reason": "the old men's sticks go with them out of the shots of his face (at a cut), not a fall",
-     "at": 2.32
+     "at": 1.22
     },
     {
      "do": "prop",
@@ -16622,31 +16850,31 @@
      "dur": 0,
      "ease": "linear",
      "reason": "the old men's sticks go with them out of the shots of his face (at a cut), not a fall",
-     "at": 2.32
+     "at": 1.22
     },
     {
      "who": "viko",
      "do": "hide",
      "dur": 0,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "wizo",
      "do": "hide",
      "dur": 0,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "rea",
      "do": "hide",
      "dur": 0,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "sam",
      "do": "show",
      "dur": 0,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "sam",
@@ -16657,7 +16885,7 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "sam",
@@ -16665,7 +16893,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 2.33
+     "at": 1.23
     },
     {
      "who": "sam",
@@ -16673,10 +16901,10 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 2.33
+     "at": 1.23
     }
    ],
-   "kind": "payoff"
+   "kind": "reaction"
   },
   {
    "name": "twist: his face",
@@ -16823,9 +17051,9 @@
       "prop": "trophy",
       "grip": "stem",
       "at": [
-       -0.664,
+       -0.408,
        0.3,
-       0.487
+       0.403
       ]
      },
      "dur": 0.01,

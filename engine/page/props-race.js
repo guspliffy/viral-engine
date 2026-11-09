@@ -27,6 +27,9 @@ import { clamp } from "./util.js";
 //               the bend has reached), flat 0..1 (stalks behind the front lie away from the line), clock (a gentle sway).
 //   walkingstick an old wooden cane, origin the tip on the ground, standing along +y, 0.5 long, spec.style "crook"
 //               or "knob". Grip "top" (the handle's top: a glove rests on it from above).
+//   weeds       a tuft of wild grass through a crack in the old road, with a few small white flowers on thin stalks
+//               (the road sixty years later, panel 07): spec.n blades (14), spec.h the tallest (0.3 m), spec.flowers (3),
+//               spec.seed. They lean a little in the wind (clock). Not solid (userData.steam).
 // Additive glows (the streak, its sparks, the glint) are toneMapped false, unoutlined, shadowless and see-through for
 // the checks (userData.steam); so are the ribbon, the chalk and the wheat.
 export const RACE_GRIPS = {
@@ -418,5 +421,37 @@ export const RACE_KINDS = {
       mesh(new THREE.SphereGeometry(R * 0.95, 8, 6), wood, P.whole, 0, H, 0.071);
     }
     return { grip: 0 };
+  },
+
+  // ---------------------------------------------------------------------------------------------- weeds
+  weeds(P) {
+    const S = P.spec, n = S.n ?? 14, H = S.h ?? 0.3, nf = S.flowers ?? 3, seed = (S.seed ?? 1) * 37.3;
+    const greens = ["#6f8f3a", "#86a548", "#5d7b33", "#9bb35a"].map((c) => mat(c, { roughness: 0.85, side: THREE.DoubleSide }));
+    const blades = [];
+    for (let i = 0; i < n; i++) {
+      // a blade: a thin three-sided cone from the crack, leaning out at its own angle
+      const h = H * (0.45 + 0.55 * rnd(seed + i * 3.1)), a = rnd(seed + i * 5.7) * Math.PI * 2, lean = 0.15 + 0.45 * rnd(seed + i * 7.9);
+      const g = new THREE.ConeGeometry(0.009 + 0.006 * rnd(seed + i), h, 3, 1, true); g.translate(0, h / 2, 0);
+      const b = mesh(g, greens[i % greens.length], P.whole, 0.02 * Math.cos(a), 0, 0.02 * Math.sin(a));
+      b.rotation.set(Math.sin(a) * lean, 0, -Math.cos(a) * lean); b.userData.steam = true; b.castShadow = false;
+      blades.push([b, b.rotation.x, b.rotation.z, rnd(seed + i * 2.3) * 6]);
+    }
+    const petal = mat("#f6f3ea", { roughness: 0.7, side: THREE.DoubleSide }), eye = mat("#e7b93c", { roughness: 0.6 }), stalkM = greens[0];
+    for (let i = 0; i < nf; i++) {
+      // a flower: a thin stalk, a white disc of petals facing up and out, a yellow middle
+      const h = H * (0.6 + 0.5 * rnd(seed + 50 + i)), a = rnd(seed + 60 + i) * Math.PI * 2, r = 0.03 + 0.03 * rnd(seed + 70 + i);
+      const x = r * Math.cos(a), z = r * Math.sin(a);
+      const st = mesh(new THREE.CylinderGeometry(0.0025, 0.0035, h, 5), stalkM, P.whole, x, h / 2, z); st.userData.steam = true; st.castShadow = false;
+      const head = new THREE.Group(); head.position.set(x, h, z); head.rotation.set(-0.5 + 0.3 * Math.sin(a), a, 0); P.whole.add(head);
+      const d = mesh(new THREE.CircleGeometry(0.026, 10), petal, head); d.rotation.x = -Math.PI / 2; d.userData.steam = true; d.castShadow = false;
+      const m = mesh(new THREE.SphereGeometry(0.009, 8, 6), eye, head, 0, 0.003, 0); m.userData.steam = true; m.castShadow = false;
+    }
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const k = ps.clock ?? t ?? 0;
+        for (const [b, x0, z0, ph] of blades) { b.rotation.x = x0 + 0.04 * Math.sin(k * 2.1 + ph); b.rotation.z = z0 + 0.05 * Math.sin(k * 1.7 + ph * 1.3); }
+      },
+    };
   },
 };
