@@ -392,7 +392,7 @@ if (VO) {
     [5.15, "Even the coffee waits for him.", 1, 1.89, P2[1]],           // the cup hanging in the air
     [9.85, "Just wind it back.", 3, 1.54, P3[1]],                       // after this demo's "HALT!" subtitle, before "hm hm hmm"
     [r3(S4 + 0.02), "Sounds perfect, right?", 3, 1.56, false],          // on the title card
-    [14.9, "Light stops too.", 2, 1.37, r3(BONK - 0.02)],               // in the dark, after "But if time stops..." and HALT!
+    [14.9, "But light stops too.", 9, 1.25, r3(BONK - 0.02)],           // in the dark, after "But if time stops..." and HALT! (Jonny 9 Nov: "but light stops too")
     [r3(AFTER + 0.85), "Would you still want it?", 2, 1.33, r3(END - 0.05)],   // after Phoenix's laugh
   ];
   for (const [t, line, take, len, until] of NARR) {

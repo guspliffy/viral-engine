@@ -93,5 +93,5 @@ with the voiceovers as commentator". Same picture as the main cut, so the two co
 | 5.15 | Even the coffee waits for him. | the cup hanging in the air |
 | 9.85 | Just wind it back. | after this demo's HALT! subtitle, before "hm hm hmm" |
 | 12.42 | Sounds perfect, right? | the title card (no subtitle: the title fills the top) |
-| 14.90 | Light stops too. | the dark, after "But if time stops..." and HALT!; replaces the three twist captions |
+| 14.90 | But light stops too. | the dark, after "But if time stops..." and HALT!; replaces the three twist captions |
 | 18.30 | Would you still want it? | after Phoenix's laugh; replaces the closing caption |

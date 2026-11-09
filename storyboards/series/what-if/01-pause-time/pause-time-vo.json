@@ -357,7 +357,7 @@
   {
    "from": 14.9,
    "to": 16.32,
-   "text": "Light stops too.",
+   "text": "But light stops too.",
    "pos": 300,
    "pop": false
   },
@@ -3302,9 +3302,9 @@
     },
     {
      "macro": "narrate",
-     "line": "Light stops too.",
+     "line": "But light stops too.",
      "voice": "narrator",
-     "take": 2,
+     "take": 9,
      "caption": false,
      "at": 0.9
     },
