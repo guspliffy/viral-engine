@@ -1,0 +1,83 @@
+{
+ "id": "what-if/viking-old",
+ "name": "Viking, sixty years later (What if 03: light-speed race): a long white beard and white brows",
+ "franchise": "PotatoBrawl",
+ "source": "always-orders-potatoes/viking + costume.beard (9 Nov 2026, Jonny's panels 07-08)",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 1.02,
+  "width": 0.86,
+  "depth": 0.74,
+  "lump": 0.04,
+  "seed": 17
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.034
+ },
+ "face": {
+  "default": "delighted",
+  "iris": "#3a5a2a",
+  "cheeks": "#ff6f6f",
+  "neutral": {
+   "smirk": 0.2,
+   "curve": 0.35,
+   "open": 0,
+   "browL": 0.25,
+   "tilt": 0.02
+  },
+  "eye": {
+   "flick": 0.5,
+   "lash": 1.1
+  },
+  "browShape": {
+   "arch": 0.04,
+   "thick": 1.25
+  },
+  "brow": "#ecebe6"
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "hat-top",
+  "lift": [
+   0.22,
+   0.0
+  ]
+ },
+ "costume": {
+  "type": "viking",
+  "hair": "#b8652a",
+  "belt": "#a8322a",
+  "wood": "#6b4a2b",
+  "propHand": "L",
+  "noProp": true,
+  "beard": {
+   "color": "#f2efe9",
+   "len": 0.92,
+   "wide": 1.5,
+   "deep": 1.45
+  }
+ },
+ "personality": "Raider with an axe. Loud, cheerful, solves everything by charging at it (proposal).",
+ "voice": {
+  "pitch": 125,
+  "rate": 3.6,
+  "formant": 0.98,
+  "range": 7,
+  "breath": 0.08,
+  "vibrato": 0.01,
+  "seed": 41
+ },
+ "notes": "Copy of duo/viking with the sprout lifted out of his hair, so the series' potato blossom (the bloom action) shows on top of his head as Jonny's panels draw it (always orders potatoes, 6 Nov 2026).",
+ "hands": {
+  "type": "glove",
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ }
+}
