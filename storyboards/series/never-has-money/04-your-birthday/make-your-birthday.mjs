@@ -21,17 +21,17 @@ import { patProps, pocketPat, PAT } from "../pocket-pat.mjs";
 import { wink } from "../wink.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
-// two 3-frame hit-stops (the coupon up at 4.2, the hug lands at 6.0 on the story's clock = 6.1 on the video's) make
+// two 3-frame hit-stops (the coupon up at 4.2, the hug landed at 6.3 on the story's clock = 6.4 on the video's) make
 // 9.8 s of story exactly 10.0 s of video. Actions, sounds, captions and see() are on the story's clock; music parts
 // and the allowClip windows are on the video's clock (VC below)
-const END = 9.8, HS1 = 4.2, HS2 = 6.0;
+const END = 9.8, HS1 = 4.2, HS2 = 6.3;   // (review B: the hug's freeze on the frame it has arrived, lifted, both faces; at 6.0 it froze the lunge)
 const VC = (ts) => r3(ts + (ts >= HS1 ? 0.1 : 0) + (ts >= HS2 ? 0.1 : 0));
 // subtitles (fix 3): in the clear wall bands of each shot, off every character (qa/check caption-overlap: at 1250 they
 // sat 53-98 % behind the cast); inside TikTok's safe zone x 60-920, y 210-1360 (the top band only after 2 s, in 08)
 const SUB_01 = 630;                                   // 01: between the bunting and the hats
 const SUB_02 = 600, SUB_02X = 520;                    // "And yours?" runs into 02: the stone wall above his party cone, right of it
 const SUB_05 = 400, SUB_05X = 555;                    // 05-06: under the bunting, right of the Wizard's hat, left of Gunslinger's cone
-const SUB_08 = 216, SUB_08X = 400;                    // 08: over the bunting, left of Gunslinger's hat crown and cone
+const SUB_08 = 300, SUB_08X = 330, SUB_08S = 56;     // 08: over the bunting, left of Gunslinger's hat crown and cone (review B: y 216 sat under the Shorts top bar)
 
 // ---------------------------------------------------------------- the living room (world metres; camera at +z)
 // The back wall (the painted plate) at z -2.2; the rug in the middle. Frame 0 (panel 01): the handover moment: the
@@ -68,7 +68,8 @@ const V3 = [0.0, -0.3], W3 = [0.85, -1.4];             // 3.05 Viking steps clos
                                                        // moves round behind Viking to see (out of 03, so nothing pokes from his hat)
 const W1 = [-0.52, -0.85], R1 = [1.35, -0.2];           // 4.6/4.9 they step in behind Viking's left and right shoulders (05; W1: the Wizard further left and back, his face was behind Viking's head and Gunslinger's hat)
 const W2 = [-0.55, 1.7], R2 = [1.45, 2.35];             // at their presents on the rug, in front of the hug (07)
-const W4 = [-0.45, 1.65], W4_YAW = 30;   // (fix 1: in from the left edge, so his twitch reads in 08)
+const W4 = [-0.6, 1.65], W4_YAW = 30;                  // (fix 1: in from the left edge, so his twitch reads in 08; review B: 15 cm further left, his hat point
+//                  // met the two-finger glove and the brim, and his brim ran under Gunslinger's mouth)
 //                  // 8.3 the Wizard backs off a step, under Gunslinger's eyes: his face in 08's bottom-left foreground
 const GIFT_P = [0.05, 2.35], GIFT_B = [0.8, 2.5];      // where the presents land (6.18-6.55): in front of the hug, clear of the swing
 const yawTo = ([x0, z0], [x1, z1]) => r3((Math.atan2(x1 - x0, z1 - z0) * 180) / Math.PI);
@@ -270,7 +271,7 @@ A(3.08, "gsl", "sit", { seat: "crate", dur: 0.14, hands: "keep", height: 0.34 })
 sfx(3.22, "sit", { gain: 0.35, reason: "he plonks down on the wooden crate" });
 // the seated body: on the crate's centre (sit puts it 3 cm forward), its bottom on the crate top
 const SIT_Y = r3(0.34 - 0.12), C = [r3(CRATE[0] + Math.sin(rad(CRATE_YAW)) * 0.03), r3(CRATE[1] + Math.cos(rad(CRATE_YAW)) * 0.03)];
-const KNOT = bf(C, CRATE_YAW, 0.29, 0.13, r3(0.6 + SIT_Y)), BAND = bf(C, CRATE_YAW, 0.3, -0.05, r3(0.56 + SIT_Y)), KNEE = bf(C, CRATE_YAW, 0.3, 0.1, r3(0.3 + SIT_Y));
+const KNOT = bf(C, CRATE_YAW, 0.29, 0.13, r3(0.6 + SIT_Y)), BAND = bf(C, CRATE_YAW, 0.3, -0.05, r3(0.56 + SIT_Y)), KNEE = bf(C, CRATE_YAW, 0.3, 0.1, r3(0.4 + SIT_Y));   // (review B: 10 cm up, propped on the knee: at 0.52 his gloves stacked over it at his belt)
 const PROT = r3(CRATE_YAW + 180);
 c.prop(3.06, "pen", { x: KNOT[0], y: KNOT[1], z: KNOT[2], rot: PROT }, 0.02, "linear");
 c.prop(3.06, "coupon", { x: BAND[0], y: BAND[1], z: BAND[2], rot: PROT, tip: 0 }, 0.02, "linear");
@@ -288,12 +289,12 @@ c.arm(3.25, "gsl", "L", { prop: "coupon", grip: FOLD_GRIP }, 0.04, "settle");
 A(3.26, "gsl", "grip", { side: "L", shape: "pinch", dur: 0.04 });
 A(3.3, "gsl", "grab", { prop: "coupon", hand: "L", grip: FOLD_GRIP, dur: 0, pose: null });
 c.arm(3.31, "gsl", "L", { prop: "coupon", grip: FOLD_GRIP, at: KNEE }, 0.1, "inOut");
-const KTIP = 25;   // degrees past flat: the sheet slopes down off his knee toward the front (W1: lying flat it was edge-on to P03 and never read)
-c.prop(3.31, "coupon", { tip: -90 - KTIP }, 0.1, "inOut");   // on his knee, the drawing side up
+const KTIP = 45;   // (review B: 25 -> 45, toward the camera) degrees past flat: the sheet slopes down off his knee toward the front (W1: lying flat it was edge-on to P03 and never read)
+c.prop(3.31, "coupon", { tip: -90 - KTIP }, 0.14, "inOut");   // on his knee, the drawing side up
 c.prop(3.36, "coupon", { fold: 0 }, 0.08, "out");
 sfx(3.36, "crinkle", { gain: 0.3, reason: "the folded paper shaken open on his knee" });
 // the hand takes the unfolded sheet by its near edge from above, holding it flat
-const FLAT_GRIP = [-0.162, 0.12, 0.065];
+const FLAT_GRIP = [0.162, 0.12, 0.065];   // (review B: its far top corner, so his arm stays off the sheet; it was the near one, -0.162)
 c.arm(3.44, "gsl", "L", { prop: "coupon", grip: FLAT_GRIP, palm: true, at: KNEE }, 0.08, "inOut");
 A(3.46, "gsl", "grip", { side: "L", shape: "hold", dur: 0.06 });
 A(3.52, "gsl", "grab", { prop: "coupon", hand: "L", grip: FLAT_GRIP, dur: 0.08, pose: null });
@@ -499,11 +500,12 @@ function hugKey(t, K, dur, { fly = false, gslMoves = true, ease = "linear" } = {
 A(5.8, "gsl", "turn", { to: HUG.grab.gyaw, dur: 0.14 });   // (square on to Viking for the grab: from three quarters his arm swung into Viking in the lift)
 hugKey(5.92, HUG.grab, 0.08, { gslMoves: false, ease: "out" });
 A(5.92, "vik", "grip", { side: "L", shape: "flat", dur: 0.06 });
-sfx(5.98, "cloth", { gain: 0.45, reason: "the bear hug: fur and leather squeezed together" });
+sfx(5.98, "grab", { gain: 0.3, reason: "his gloves land on Gunslinger's sides" });
 // 6.0-6.3 the lift and the carry round his front (Gunslinger turns to us on the way: 105 -> -25)
 const N1 = 6;
 for (let i = 0; i < N1; i++) { const u = sstep((i + 1) / N1); hugKey(r3(6.0 + i * 0.05), mixK(HUG.grab, HUG.side, u, sstep(Math.min(1, ((i + 1) / N1) * 1.6))), 0.05, { fly: i === 0 }); }
-sfx(6.3, "kenney/cloth-belt", { gain: 0.22, reason: "his belt and holster creak as he is lifted" });
+sfx(6.12, "kenney/cloth-belt", { gain: 0.22, reason: "his belt and holster creak as he is lifted" });
+sfx(6.3, "cloth", { gain: 0.45, reason: "the bear hug lands: fur and leather squeezed together, on the freeze" });
 sfx(6.32, "ai/warm-resolve", { gain: 0.35, reason: "the warm resolve under the hug" });
 c.hitStop(HS2);
 // 8.5 at the cut to 08 he has turned with him, his back to us (fix 1: a cheat behind the cut: the 0.4 s turn in the open
@@ -543,6 +545,14 @@ A(7.05, "wiz", "look", { to: [0.0, -0.95], dur: 0.2, blink: false });   // (fix 
 act.shock(c, 7.15, "wiz", { open: 0.6, eye: 1.2, curve: -0.08, brow: 0.5, hold: 1.1 });
 A(7.15, "wiz", "pitch", { to: 16, dur: 0.3 });
 for (const s of ["R", "L"]) c.arm(7.15, "wiz", s, { o: [0.06, 0.3, 0.12] }, 0.4, "out");   // arms hanging, limp
+// (review B: the bill: he counts what it cost on his fingers, eyes from his box to the hug. His left hand, at his
+// cheek, not the right at o [0.3, 0.7, 0.3] as the note had it: turned to the hug at 07's left edge, his right glove
+// left the frame and his hat brim hid anything that high)
+// The glove holds still while the fingers count (a 4 cm bob on each count jumped in one frame: qa motion)
+c.arm(7.7, "wiz", "L", { o: [0.25, 0.42, 0.3] }, 0.15, "out"); A(7.7, "wiz", "grip", { side: "L", shape: "point", dur: 0.1 });
+for (const [t, set] of [[7.8, { thumb: 0.0 }], [8.0, { thumb: 0.0, curl: 0.6 }], [8.2, { thumb: 0.0, curl: 0.15 }]]) A(t, "wiz", "grip", { side: "L", shape: "point", set, dur: 0.06 });
+A(7.75, "wiz", "look", { to: [0.0, -0.95], dur: 0.1, blink: false }); A(8.05, "wiz", "look", { to: [0.55, 0.15], dur: 0.15, blink: false });
+c.arm(8.3, "wiz", "L", { o: [0.06, 0.3, 0.12] }, 0.2, "inOut"); A(8.3, "wiz", "grip", { side: "L", shape: "relaxed", dur: 0.15 });
 A(6.12, "rea", "move", { to: [2.0, 1.15], dur: 0.4, steps: 3 });   // round the right, clear of the lifted Gunslinger
 A(6.52, "rea", "move", { to: R2, dur: 0.4, steps: 3 });
 const R2_YAW = yawTo(R2, GIFT_B);
@@ -587,7 +597,10 @@ c.arm(8.5, "gsl", "L", { world: onBody([HUG.over.V[0], 0, HUG.over.V[1]], HUG.ov
 A(8.37, "gsl", "look", { to: [-0.5, -0.4], dur: 0.12, blink: false });   // down at the Wizard
 // (fix 3: the subtitle in the top band, left of his hat; wink.mjs passes no x, so it is added to its say here)
 const say0 = c.say;
-c.say = (t, who, line, dur, tone, o = {}) => say0(t, who, line, dur, tone, { ...o, style: { ...SUB_STYLE, x: SUB_08X } });
+c.say = (t, who, line, dur, tone, o = {}) => say0(t, who, line, dur, tone, { ...o, style: { ...SUB_STYLE, size: SUB_08S, x: SUB_08X } });
+// (review B: the moth's flutter arcs in over his hat, not out past the right edge: wink.mjs's two flight keys, moved in)
+const prop0 = c.prop, MOTH_IN = { [r3(WK + 0.22)]: [0.25, 1.3, 0.24], [r3(WK + 0.42)]: [0.3, 1.22, 0.28] };
+c.prop = (t, id, set, ...r) => prop0(t, id, id === "moth" && MOTH_IN[t] && set.x != null ? { ...set, x: MOTH_IN[t][0], y: MOTH_IN[t][1], z: MOTH_IN[t][2] } : set, ...r);
 wink(c, { who: "gsl", t: WK, until: END, line: "next year's on me!", sub: "Next year's on me!", pos: SUB_08,
   side: "R", brimTouch: { o: [0.36, 0.93, 0.1] }, look: [-0.45, -0.35],
   react: (t) => {
@@ -595,7 +608,7 @@ wink(c, { who: "gsl", t: WK, until: END, line: "next year's on me!", sub: "Next 
     for (const [dt, l] of [[0, 0.8], [0.1, 0.15], [0.2, 0.85], [0.3, 0.2], [0.42, 0.75], [0.54, 0.2], [0.68, 0.7], [0.8, 0.15]]) A(r3(t + dt), "wiz", "face", { lidL: l, dur: 0.05 });
     c.at(r3(t + 0.05), { fx: "sweat", who: "wiz", dur: 0.8, count: 1 });
   } });
-c.say = say0;
+c.say = say0; c.prop = prop0;
 see(8.75, 9.6, ["gsl.face", "wiz.face", "moth"], "panel 8: the two-finger hat tip and the wink down at the Wizard over Viking's shoulder, the moth lifting; the Wizard's twitch in the foreground");
 
 // blinks off the lines and the key looks

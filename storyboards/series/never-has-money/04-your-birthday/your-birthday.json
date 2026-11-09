@@ -379,11 +379,11 @@
    "from": 8.8,
    "to": 9.8,
    "text": "Next year's on me!",
-   "pos": 216,
+   "pos": 300,
    "pop": false,
-   "size": 62,
+   "size": 56,
    "kinetic": false,
-   "x": 400
+   "x": 330
   }
  ],
  "beats": [
@@ -3040,7 +3040,7 @@
       ],
       "at": [
        -1.157,
-       0.52,
+       0.62,
        0.928
       ]
      },
@@ -3052,9 +3052,9 @@
      "do": "prop",
      "id": "coupon",
      "set": {
-      "tip": -115
+      "tip": -135
      },
-     "dur": 0.1,
+     "dur": 0.14,
      "ease": "inOut",
      "at": 0.51
     },
@@ -3103,7 +3103,7 @@
       "point": "pinch",
       "at": [
        -1.06,
-       0.554,
+       0.675,
        0.947
       ]
      },
@@ -3156,14 +3156,14 @@
      "pose": {
       "prop": "coupon",
       "grip": [
-       -0.162,
+       0.162,
        0.12,
        0.065
       ],
       "palm": true,
       "at": [
        -1.157,
-       0.52,
+       0.62,
        0.928
       ]
      },
@@ -3207,7 +3207,7 @@
       "point": "pinch",
       "at": [
        -1.104,
-       0.558,
+       0.685,
        0.904
       ]
      },
@@ -3232,7 +3232,7 @@
      "prop": "coupon",
      "hand": "L",
      "grip": [
-      -0.162,
+      0.162,
       0.12,
       0.065
      ],
@@ -3254,7 +3254,7 @@
       "point": "pinch",
       "at": [
        -1.159,
-       0.554,
+       0.675,
        0.878
       ]
      },
@@ -3276,7 +3276,7 @@
       "point": "pinch",
       "at": [
        -1.205,
-       0.549,
+       0.665,
        0.858
       ]
      },
@@ -3309,7 +3309,7 @@
       "point": "pinch",
       "at": [
        -1.125,
-       0.521,
+       0.605,
        0.987
       ]
      },
@@ -3337,7 +3337,7 @@
       "point": "pinch",
       "at": [
        -1.196,
-       0.516,
+       0.595,
        0.949
       ]
      },
@@ -3370,7 +3370,7 @@
       "point": "pinch",
       "at": [
        -1.234,
-       0.526,
+       0.615,
        0.898
       ]
      },
@@ -4816,9 +4816,9 @@
      "at": 1.37
     },
     {
-     "sfx": "cloth",
-     "gain": 0.45,
-     "reason": "the bear hug: fur and leather squeezed together",
+     "sfx": "grab",
+     "gain": 0.3,
+     "reason": "his gloves land on Gunslinger's sides",
      "at": 1.38
     },
     {
@@ -5174,6 +5174,12 @@
      "dur": 0.05,
      "ease": "linear",
      "at": 0.1
+    },
+    {
+     "sfx": "kenney/cloth-belt",
+     "gain": 0.22,
+     "reason": "his belt and holster creak as he is lifted",
+     "at": 0.12
     },
     {
      "fx": "sweat",
@@ -5583,9 +5589,9 @@
      "at": 0.25
     },
     {
-     "sfx": "kenney/cloth-belt",
-     "gain": 0.22,
-     "reason": "his belt and holster creak as he is lifted",
+     "sfx": "cloth",
+     "gain": 0.45,
+     "reason": "the bear hug lands: fur and leather squeezed together, on the freeze",
      "at": 0.3
     },
     {
@@ -6112,6 +6118,29 @@
     },
     {
      "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.42,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "who": "wiz",
      "do": "blink",
      "dur": 0.22,
      "at": 0.7
@@ -6137,6 +6166,28 @@
      "dur": 0.24,
      "ease": "inOut",
      "at": 0.71
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      -0.95
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "set": {
+      "thumb": 0
+     },
+     "dur": 0.06,
+     "at": 0.8
     },
     {
      "sfx": "cloth",
@@ -6173,6 +6224,29 @@
      "dur": 0.14,
      "ease": "inOut",
      "at": 0.95
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "set": {
+      "thumb": 0,
+      "curl": 0.6
+     },
+     "dur": 0.06,
+     "at": 1
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.55,
+      0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.05
     },
     {
      "who": "rea",
@@ -6225,6 +6299,18 @@
      "at": 1.17
     },
     {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "set": {
+      "thumb": 0,
+      "curl": 0.15
+     },
+     "dur": 0.06,
+     "at": 1.2
+    },
+    {
      "who": "rea",
      "do": "arm",
      "side": "R",
@@ -6248,9 +6334,32 @@
     },
     {
      "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "who": "wiz",
      "do": "move",
      "to": [
-      -0.45,
+      -0.6,
       1.65
      ],
      "dur": 0.267,
@@ -6566,9 +6675,9 @@
      "do": "prop",
      "id": "moth",
      "set": {
-      "x": 0.44,
-      "y": 1.2400000000000002,
-      "z": 0.24000000000000002,
+      "x": 0.25,
+      "y": 1.3,
+      "z": 0.24,
       "bank": 15
      },
      "dur": 0.12,
@@ -6618,8 +6727,8 @@
      "do": "prop",
      "id": "moth",
      "set": {
-      "x": 0.38,
-      "y": 1.2000000000000002,
+      "x": 0.3,
+      "y": 1.22,
       "z": 0.28,
       "bank": -10
      },
@@ -6835,7 +6944,7 @@
    "frames": 3
   },
   {
-   "at": 6,
+   "at": 6.3,
    "frames": 3
   }
  ],
@@ -6975,7 +7084,7 @@
    "who": "vik",
    "with": "giftP",
    "from": 0,
-   "to": 6.2,
+   "to": 6.1,
    "reason": "the big present carried against his belly: both gloves on its ends, then his right arm round it"
   },
   {

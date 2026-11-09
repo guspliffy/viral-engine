@@ -149,3 +149,21 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **Buried pocket-pat effects (2.17-2.31) stay as they are:**
   - They are the series block's own sounds (pocket-pat.mjs), 0.1 s after five slaps that set the level they are measured against.
   - At +6 dB they rose only 2-4 dB and stayed buried.
+
+## Departures (writer, review B, 9 Nov)
+
+- **The hug's hit-stop is on the frame where the hug has arrived:** 6.3 on the story clock, 6.4 on the video clock. It was on 6.0, the lunge.
+  - This is the reviewer's cheaper fallback, not the reorder that lifts him first. The brief's intent is "the hug landing".
+  - The squeeze ("cloth") sound moved onto the freeze. A "grab" marks the gloves landing at 5.98, and the belt creak is at 6.12.
+- **The P08 caption is at y 300, x 330, size 56, outside the brief's 470-1360 band.** In P08 that band covers a face. Y 216 sat under the Shorts top bar.
+- **The Wizard counts the bill on his left hand, at his cheek.** The note had the right hand at o [0.3, 0.7, 0.3], but he is turned to the hug at 07's left edge: that hand left the frame and his hat brim hid it.
+  - The glove holds still while the fingers count. A bob on each count jumped in one frame.
+- **Note 2 is in part:**
+  - Done: the sheet is 10 cm higher on his knee, tipped 45°, with his left glove on its far top corner.
+  - Cost: the pen glove crosses his eyes for 0.17 s (3.40-3.57). Before, it was 0.07 s.
+  - Dropped: the Wizard parked as a peeking face. Turning him to us after the walk popped his elbow 18.6 cm. Turning during the walk still jumped it 4.8 cm and slid a foot, so he crosses behind as before.
+  - Tried and reverted: the lower row of strokes first. That put a 16.9 cm hand jump at 3.63.
+- **Note 4 (open palms on "And yours?") is dropped: it cost a contact.**
+  - Out sideways, his right glove left 01's frame and his left arm went 9 cm into Viking.
+  - In front of him, his left elbow still went 2 cm into Viking in the hat pat (1.60-1.67), even with no reach lean.
+- **In 08 (9.5) the Wizard's hat point still touches the two-finger glove**, even at the reviewer's [-0.6, 1.65]. His brim is now clear of Gunslinger's mouth.
