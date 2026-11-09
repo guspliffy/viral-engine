@@ -389,8 +389,8 @@ for (const cp of c.captions) if (/^zoom!$/i.test(cp.text)) cp.to = r3(Math.min(c
 
 // ================================================================ THE COMMENTATOR (--vo only)
 // EP01's voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
-// storyteller"), Jonny's pick. Each line sits where nobody speaks and no planted sound plays: the first trip's silence,
-// after the late puff, after the late thump, before the title card, in the book rain, after "...sorry.". Never on a
+// storyteller"), Jonny's pick. Each line sits where nobody speaks and no planted sound plays: the title at 0.0 (over the opening's captioned gibberish),
+// after the late puff, after the late thump, into the ring, in the book rain, after "...sorry.". Never on a
 // "Zoom!", the puff, the thump, the clock's ticks 11.9-13.3 (this episode's test) or the BOOM. The three middle lines
 // say the rule the picture plants (his sound comes later, louder, then all of it at once). The takes: 4-8 reads of each
 // line, the one Whisper heard word for word that is nearest the voice he picked (ECAPA speaker match to his liked read,
@@ -398,17 +398,18 @@ for (const cp of c.captions) if (/^zoom!$/i.test(cp.text)) cp.to = r3(Math.min(c
 // closing question's; in the wall shot at 540, under the sign; the book rain's at 600, under where the fact caption
 // comes; added after the cut trim above. The line into the title card has none (the title fills the frame).
 if (VO) {
+  const G = 1.0;   // Jonny 9 Nov 14:26 (EP03): "the speaker is too quiet compared to the rest of the video": twice the default 0.5
   const NARR = [
-    // [at, line, take, spoken s, subtitle until | false, subtitle y]   (take: Whisper word for word; speaker match to his liked read)
-    [1.08, "What if you could outrun sound?", 4, 1.87, 2.97, 300],     // the first trip: the sound has dropped out (0.68)
-    [4.68, "His sound comes later.", 1, 1.59, 6.28, 540],               // the cart trip's silence, ending on the late thump (6.3) (0.61)
-    [6.45, "And louder.", 3, 0.87, 7.33, 540],                          // after the thump, before "100 laps!" (7.42) (0.48)
-    [9.45, "Sounds perfect, right?", 3, 1.56, 11.01, 690],              // over the ring, before the sit (11.1); between the librarian and Reaper (0.55)
-    [14.6, "All of it. At once.", 8, 2.08, 16.69, 600],                 // the book rain, before "...sorry." (16.8), under the fact caption (0.43)
-    [17.6, "Would you still want it?", 4, 1.39, r3(END - 0.05), 300],   // after "...sorry." (16.8-17.3), the closing caption's place (0.58)
+    // [at, line, take, spoken s, subtitle until | false, subtitle y, gain]   (take: Whisper word for word; speaker match to his liked read)
+    [0.0, "What if your hyper friend was faster than sound... in a library?", 2, 4.27, false, 0, G],   // the title, spoken at the start (Jonny 9 Nov 14:26); over the gibberish SHHH / "I'll be quiet!" / "Zoom!" (captioned), ends before the cart's "Zoom!" (4.35); no subtitle: the frame has three already (0.60)
+    [4.68, "His sound comes later.", 1, 1.59, 6.28, 540, G],               // the cart trip's silence, ending on the late thump (6.3) (0.61)
+    [6.45, "And louder.", 3, 0.87, 7.33, 540, G],                          // after the thump, before "100 laps!" (7.42) (0.48)
+    [9.45, "Sounds perfect, right?", 3, 1.56, 11.01, 690, G],              // over the ring, before the sit (11.1); between the librarian and Reaper (0.55)
+    [14.6, "All of it. At once.", 8, 2.08, 16.69, 600, G],                 // the book rain, before "...sorry." (16.8), under the fact caption (0.43)
+    [17.6, "Would you still want it?", 4, 1.39, r3(END - 0.05), 300, G],   // after "...sorry." (16.8-17.3), the closing caption's place (0.58)
   ];
-  for (const [t, line, take, len, until, y] of NARR) {
-    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+  for (const [t, line, take, len, until, y, gain] of NARR) {
+    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
     if (until) cap(t, until, line, y);
     if (until && until < t + len) throw new Error(`"${line}" is cut off at ${until}`);
   }

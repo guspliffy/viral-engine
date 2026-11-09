@@ -1459,13 +1459,6 @@
    "kinetic": false
   },
   {
-   "from": 1.08,
-   "to": 2.97,
-   "text": "What if you could outrun sound?",
-   "pos": 300,
-   "pop": false
-  },
-  {
    "from": 4.68,
    "to": 6.28,
    "text": "His sound comes later.",
@@ -1768,6 +1761,15 @@
      },
      "dur": 0.1,
      "ease": "inOut",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "What if your hyper friend was faster than sound... in a library?",
+     "voice": "narrator",
+     "take": 2,
+     "caption": false,
+     "gain": 1,
      "at": 0
     },
     {
@@ -2352,14 +2354,6 @@
      ],
      "dur": 0.01,
      "at": 1.02
-    },
-    {
-     "macro": "narrate",
-     "line": "What if you could outrun sound?",
-     "voice": "narrator",
-     "take": 4,
-     "caption": false,
-     "at": 1.08
     },
     {
      "who": "rea",
@@ -3275,6 +3269,7 @@
      "voice": "narrator",
      "take": 1,
      "caption": false,
+     "gain": 1,
      "at": 0.68
     },
     {
@@ -3770,6 +3765,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
+     "gain": 1,
      "at": 2.45
     },
     {
@@ -4304,6 +4300,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
+     "gain": 1,
      "at": 1.45
     },
     {
@@ -5684,6 +5681,7 @@
      "voice": "narrator",
      "take": 8,
      "caption": false,
+     "gain": 1,
      "at": 1.1
     },
     {
@@ -6049,6 +6047,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
+     "gain": 1,
      "at": 1.6
     },
     {
