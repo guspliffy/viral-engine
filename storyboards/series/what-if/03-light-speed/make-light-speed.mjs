@@ -563,7 +563,8 @@ write(import.meta.url, {
   music: { style: "surf", lowCut: 150, gain: 0.28, parts: [
     { at: 0, part: "main" }, { at: r3(GO3 - 0.4), part: "build" }, { at: GO3, part: "drop" }, { at: SKID, part: "drop" },
     { at: r3(OPEN - 0.2), part: "stop" }, { at: REVEAL, part: "hush" }, { at: STARE, part: "musicbox" }] },
-  sound: { sfx: 0.65, ambience: 0.5, surface: "road", room: "open", guard: true,
+  sound: { sfx: 0.65, ambience: 0.5, surface: "grass",   // the soft outdoor step for a dirt road ("road" is no library surface and fell back to the indoor step)
+  room: "open", guard: true,
     engine: { keys: [[0, 0, 0, 0], [r3(CAR - 0.05), 0, 0, 0], [CAR, 900, 0.25, 1], [r3(CAR + 0.15), 4200, 0.7, 1], [r3(CAR + 0.3), 2600, 0.4, 1], [r3(LAUNCH - 0.05), 3800, 0.6, 1],
       [r3(LAUNCH + 0.1), 5600, 1, 1], [r3(SPIN0 - 0.05), 6200, 0.9, 1], [r3(SPIN0 + 0.1), 3200, 0.2, 1], [r3(SPIN0 + SPIN_LEN), 1000, 0.15, 1], [r3(WORLD - 0.1), 900, 0.15, 1], [WORLD, 0, 0, 0], [END, 0, 0, 0]], gain: 0.17, cyl: 4 } },
   hook: { show: ["sam", "vik", "trophy", "finish"], hint: 0, what: "two friends crouched at a start line glaring at each other; green sparks at Samurai's feet: 'Watch me win at light speed!'" },
