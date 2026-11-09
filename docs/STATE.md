@@ -25,6 +25,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
   (builder wrote the clip, staging frozen unseen) -> staging proof; the director writes the clip, never builders (Jonny, 8 Nov).
 - NHM EP04: old 338 min $64 subagents 0.32 M; v2 director writes 323 min $73 0.61 M; v2 Fable writes 527 min $169
   2.27 M. Jonny 9 Nov: Fable writer out; old has cleaner hands, director's cut better cut + scenes except the hug turn.
+- What if EP01 pause time (format B, 8 Nov): ~410 min brief->delivery (incl. new engine pause feature + animatic gate + a main merge), thread 906k in+out tokens (178 M cache read, $73), subagents 275k (Fable reviews A + B), 4 check-fix rounds + 1 round on Jonny's note (the cup beside the hand); 1 draft + 5 full local renders, ~25 min each; the farm has no VoxCPM2 voice.
 - Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
   for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.

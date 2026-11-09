@@ -6,6 +6,7 @@ import { speechMouthAt } from "../shared/visemes.js";
 import { isDance, applyDance } from "./dance.js";
 import { SEAT_Y, propState, gripWorld, partPoint } from "./props3d.js";
 import { CARD_REST } from "./costumes-card.js";
+import { pauseView } from "../shared/pause.js";
 
 // syllable plans are pure functions of (action, voice): cache them per action object
 const PLANS = new WeakMap();
@@ -143,10 +144,15 @@ function lookAt(looks, u) {
   return l;
 }
 
+// pause time: a frozen actor's timeline runs on its own clock (actorState), but props keep clip time, so what a hand or
+// a ride aims at is the prop at clip time (CLIP_T, set while a frozen actor is posed) in the storyboard's own actions
+let CLIP_T = null;
+const propNow = (sb, spec, t) => propState(sb.__pauseBase || sb, spec, CLIP_T ?? t);
+
 // where a "ride" action puts its rider at time u: the prop's position plus the offset turned with the prop
 function rideAt(sb, a, u) {
   const spec = (sb.props || []).find((q) => q.id === a.prop); if (!spec) return { x: 0, y: 0, z: 0, yaw: 0, lean: 0 };
-  const ps = propState(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1;
+  const ps = propNow(sb, spec, u), r = (ps.rot * Math.PI) / 180, s = ps.scale ?? 1;
   let [ox, oy, oz] = (a.off || [0, 0, 0]).map((v) => v * s), lean = 0;
   // tilt: true also follows the prop's tilt (a mattress tipped up like a lid): the offset turns with it about the
   // prop's own z, and the rider leans with it (for a rider facing along the prop's z)
@@ -499,6 +505,13 @@ export function footPhase(sb, actor, t, def = {}) {
 export function gaitWarnings(sb, actor, def = {}) { return gaitPlan(sb, actor, def).warn; }
 
 export function actorState(sb, actor, def, t, raw = false) {
+  // pause time (shared/pause.js, "pause" in the storyboard): a frozen actor plays its timeline on its own clock, which
+  // stops in every pause that doesn't keep it (its actions moved onto that clock, so they still play when written)
+  // (props keep clip time: a frozen actor's hand on a prop or a ride is resolved against the prop at clip time, CLIP_T)
+  if (sb.pause && !sb.__pauseView) {
+    const v = pauseView(sb, actor.id);
+    if (v) { const was = CLIP_T; CLIP_T = t; try { return actorState(v.sb, actor, def, v.tau(t), raw); } finally { CLIP_T = was; } }
+  }
   const c = actor, LD = loopLen(sb);   // LD: the loop length when loop-safe idle is on, else 0 (util.js)
   const st = {
     x: c.at[0], z: c.at[1], y: c.y ?? 0, yaw: yawOf(c.face ?? "camera"), lean: 0, pitch: 0, wings: 0, flap: 0, squash: 1, span: c.span ?? 1,
@@ -1004,7 +1017,7 @@ function busyOf(sb, id) {
 const CASTS = new WeakMap();
 export function registerCast(sb, list) { CASTS.set(sb, list); }
 // what solve.js needs from this module (no import cycle: solve.js gets these handed in)
-const layerHooks = { actorState: (...a) => actorState(...a), resolve: (...a) => resolveArms(...a), cutBetween: (...a) => cutBetween(...a), timedActions: (sb) => timedActions(sb).actions, cast: (sb) => CASTS.get(sb) || null };
+const layerHooks = { actorState: (...a) => actorState(...a), resolve: (...a) => resolveArms(...a), cutBetween: (...a) => cutBetween(...a), timedActions: (sb) => timedActions(sb).actions, cast: (sb) => CASTS.get(sb) || CASTS.get(sb.__pauseBase) || null };
 
 // an automatic blink starting at tb is skipped, whole, when it would land on a key beat: inside a still hold
 // (unless it says blink: true), or on an expression change or a look (an eye-blink there kills the moment)
@@ -1044,7 +1057,7 @@ function resolveArms(sb, st, def, t) {
     if (q.world) return q.world;
     const spec = (sb.props || []).find((p) => p.id === q.prop);
     if (!spec) throw new Error(`arm pose aims at unknown prop: ${q.prop}`);
-    const ps = propState(sb, spec, t), o = q.off || [0, 0, 0];
+    const ps = propNow(sb, spec, t), o = q.off || [0, 0, 0];
     const w = gripWorld(spec, onPart(q, spec, ps, q.grip ?? [0, 0.05, 0]), q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
     return [w[0] + o[0], w[1] + o[1], w[2] + o[2]];
   };
@@ -1064,7 +1077,7 @@ function resolveArms(sb, st, def, t) {
   const unit = (v) => { const l = Math.hypot(...v) || 1; return v.map((c) => c / l); };
   const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
   const framed = (q, s) => {
-    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t);
+    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propNow(sb, spec, t);
     const dirW = (v) => gripWorld(spec, onPart(q, spec, ps, v, true), [0, 0, 0], ps.rot, 1, ps.tilt, ps.tip);
     const Z = unit(dirW(q.frame.z)), y0 = dirW(q.frame.y), d = y0[0] * Z[0] + y0[1] * Z[1] + y0[2] * Z[2];
     const Y = unit(y0.map((c, i) => c - d * Z[i])), X = cross(Y, Z), mx = s === "L" ? -1 : 1;
@@ -1077,7 +1090,7 @@ function resolveArms(sb, st, def, t) {
   // going round it level (a jar held from the side or behind) instead of along the forearm
   const palmWorld = (q) => {
     if (q.world) return Array.isArray(q.palm) ? q.palm : null;
-    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propState(sb, spec, t), g = q.grip ?? [0, 0.05, 0];
+    const spec = (sb.props || []).find((p) => p.id === q.prop), ps = propNow(sb, spec, t), g = q.grip ?? [0, 0.05, 0];
     return gripWorld(spec, onPart(q, spec, ps, Array.isArray(q.palm) ? q.palm : [0, g[1], 0]), q.at || [ps.x, ps.y, ps.z], ps.rot, ps.scale, ps.tilt, ps.tip);
   };
   // point "pinch": the grip point is where a glove's fingertip pinch goes, not the hand's centre (potato.js)
