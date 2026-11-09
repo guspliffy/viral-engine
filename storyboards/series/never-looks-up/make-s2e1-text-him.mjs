@@ -342,7 +342,7 @@ const CAM4A = cam([0.35, 0.75, 7.8], up([0.35, 0.75, 7.8], 12), 50);
 const CAM4B = cam([-0.25, 0.75, 3.4], up([-0.25, 0.75, 3.4], 9), 55);
 const CAM5 = cam([0.05, 0.8, 5.6], up([0.05, 0.8, 5.6], 2), 38);
 const CAM6 = cam([0.02, 0.62, 4.7], up([0.02, 0.62, 4.7], 3), 36);
-const CAM7P = [0.1, 0.75, 7.4], CAM7 = cam(CAM7P, up(CAM7P, 8), 50, { to: { pos: P([-0.38, 0.8, 6.0]), look: P(up([-0.38, 0.8, 6.0], 6)) }, dur: 2.1 });
+const CAM7P = [0.1, 0.75, 7.4], CAM7 = cam(CAM7P, up(CAM7P, 8), 50, { to: { pos: P([-0.18, 0.8, 6.85]), look: P(up([-0.18, 0.8, 6.85], 6)) }, dur: 2.1 });
 const beats = c.beats([
   ["01 promise + megaphone", 0, CAM1, "hook"],
   ["02 victim close-up", 1.1, CAM2, "reaction"],
