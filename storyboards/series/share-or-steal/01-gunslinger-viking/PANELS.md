@@ -1,0 +1,53 @@
+# PANELS: gunslinger-viking (Share or Steal, season 1 episode 1)
+
+No panel images for this episode: the target is Jonny's brief and its beat grid,
+`/mnt/project-files/video-scripts/2026-11-09-share-or-steal/00-SERIES-FORMAT.md` (Jonny 9 Nov 13:01: "if one picks
+steal and the other doesn't, the other one gets fried ... we could make this a dramatic scene"). BOARD.md next to this
+file holds the look and the props. So there is no Numbers table; the checklist is graded against the brief and the
+draft stills.
+
+## Checklist: what the brief stands on
+
+| # | Line | Staging proof | Before full render |
+| --- | --- | --- | --- |
+| 1 | Frame 0 shows the title, both players, the gold between them and the fryer behind; never an empty set or a black open | | |
+| 2 | The promise breaks in the 1st second: his mitten is on the gold at frame 0 and Viking pats it away by 0.6 s | | |
+| 3 | Stakes visible by 1.5 s: the fryer's glow and steam in frame behind the table in the hook shot | | |
+| 4 | The rules read without sound: three rule cards (green, orange, red), one per spoken sentence, 120 px+ titles | | |
+| 5 | The countdown reads at 360 px: one number at a time, 190 px, white, the last three red, a beep on each | | |
+| 6 | Three stair-stepped pleas, each bigger: hand on heart (seated), the pocket pat standing (moth), a dash round the table into a knee slide clutching Viking's hand | | |
+| 7 | Plea 3 keeps both faces 3/4 to us (never past 45 deg): side by side, the eyes do the looking | | |
+| 8 | The fake-out: Viking's SHARE card face up and both smiling, 1.2 s, before the STEAL card turns | | |
+| 9 | The payoff faces (Viking's fall, Gunslinger's wince and hug) stay inside 45 deg of the camera from 17.6 s to the end | | |
+| 10 | The drop is a real fall: the trap's red rim lights, the chair tips back, Viking goes down through the hole, the empty chair springs back; never a cut away before he's gone | | |
+| 11 | The fryer itself never shows Viking in it (off screen: splash, sizzle, the steam column out of the hole) | | |
+| 12 | The end: Gunslinger hugging all the gold, the dry host line, then "Share... or steal?" and a hard cut | | |
+
+## Story chain
+
+1. He's reaching for the gold before the game starts -> his mitten on the pile, Viking's pat on it -> WIDE push-in to the TWO (0-2.35).
+2. The host says the stakes -> the rule cards + the fryer seething when he says "fries" + both look back at it -> TWO, FRYER insert, TWO (2.35-8.05).
+3. Plea 1 -> his hand on his heart, Viking's arms folding -> TWO; Viking's "you still owe me 50" -> VIK close-up.
+4. Plea 2 -> he stands, steps out, pats every pocket, the wallet opens empty, the moth -> GSL medium (he's in the open, left of the table).
+5. Viking softens -> his brows -> VIK close-up.
+6. Plea 3 -> he dashes round the front of the table and knee-slides to Viking's side -> WIDE (the whole path in frame), then the clutch -> HUG two-shot (both faces 3/4).
+7. "...Okay." -> Viking's face melts, his nod -> HUG; he scrambles back to his chair -> WIDE.
+8. 0: both cards slide face down -> CARDS (top-down on the table).
+9. Viking shows SHARE -> CARDS then TWO (the smiles).
+10. Gunslinger shows STEAL -> CARDS (the word) -> TWO (payoff: Viking's face falls, "Sorry, buddy").
+11. The trap arms -> the red rim behind Viking's chair, Viking looks down -> DROP (low, from Viking's side, the hole in frame).
+12. He falls -> the chair tips back over the hole, Viking goes through, the chair springs back -> DROP.
+13. Off screen in the fryer -> splash + sizzle, the steam column out of the hole -> DROP, then ENDW.
+14. He takes it all -> pulls the pile into his arms, eyes closed, happy -> ENDW push-in; host: "Gunslinger spent it all by Friday."; "Share... or steal?"
+
+Payoff faces: Viking faces -40 deg (seated, 3/4 to us) until he drops; his look goes down to the trap (eyes, not body).
+Gunslinger faces 40 deg (seated) from the payoff to the end; his lean into the gold is a pitch, not a turn.
+
+## Departures (and why)
+
+- The fryer stands behind the table between the players (the brief has it beside the table): in 9:16 a fryer beside
+  the table squeezes the players to the frame's edges; behind them it is in every two-shot.
+- The double-steal rule ("both steal, you both fry") is the brief's proposal; the host says it and card 3 shows it.
+  Jonny confirms or changes it on review.
+- The host never says "Ten seconds": the countdown starts as his rules end, the numbers and beeps carry it (the take
+  that fit ran 5.7 s, and 20-24 s is the brief's length).
