@@ -16574,6 +16574,31 @@
      "at": 0.75
     },
     {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.96,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "trophy",
+     "set": {
+      "glint": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
      "do": "prop",
      "id": "trophy",
      "set": {
@@ -16590,50 +16615,25 @@
      "pose": {
       "o": [
        -0.04,
-       0.96,
+       0.86,
        0.22
       ]
      },
      "dur": 0.2,
-     "ease": "out",
-     "at": 1
+     "ease": "inOut",
+     "at": 1.1
     },
     {
      "do": "prop",
      "id": "trophy",
      "set": {
-      "glint": 1
-     },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 1
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.04,
-       0.86,
-       0.22
-      ]
+      "glint": 0
      },
      "dur": 0.25,
      "ease": "inOut",
      "at": 1.2
     },
     {
-     "do": "prop",
-     "id": "trophy",
-     "set": {
-      "glint": 0
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
      "who": "sam",
      "do": "arm",
      "side": "R",
@@ -16646,7 +16646,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 1.6
+     "at": 1.45
     },
     {
      "do": "prop",
@@ -16656,7 +16656,7 @@
      },
      "dur": 0.1,
      "ease": "out",
-     "at": 1.6
+     "at": 1.45
     },
     {
      "who": "sam",
@@ -16669,9 +16669,9 @@
        0.22
       ]
      },
-     "dur": 0.25,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 1.8
+     "at": 1.65
     },
     {
      "do": "prop",
@@ -16681,7 +16681,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 1.9
+     "at": 1.75
     },
     {
      "who": "sam",

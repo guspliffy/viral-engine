@@ -441,8 +441,10 @@ c.textPop(r3(SKID + 0.25), "sam", "WON!", { dur: 0.9, color: "speaker", size: 14
 sfx(r3(SKID + 0.4), "brassswell", { gain: 0.7, dur: r3(OPEN - 0.2 - SKID - 0.4), reason: "the winner's fanfare (cut off at 12.2)" });
 A(r3(SKID + 0.7), "sam", "squash", { amount: -0.04, dur: 0.6 });   // he swells with pride
 // two trophy pumps, each with a glint (review B: 1.7 s with nothing moving was the swipe point)
-for (const t of [11.3, 11.9]) {
-  c.arm(t, "sam", "R", { o: [-0.04, 0.96, 0.22] }, 0.2, "out"); c.arm(r3(t + 0.2), "sam", "R", { o: [-0.04, 0.86, 0.22] }, 0.25, "inOut");
+// (both done by 12.15: the reveal's hidden move behind the cut starts his 0.3 s step lead-in at 12.18, and a pump
+// still front-loading then stepped him back a drawing, the check's pop at 13.17 s)
+for (const t of [11.2, 11.75]) {
+  c.arm(t, "sam", "R", { o: [-0.04, 0.96, 0.22] }, 0.2, "out"); c.arm(r3(t + 0.2), "sam", "R", { o: [-0.04, 0.86, 0.22] }, 0.2, "inOut");
   c.prop(t, "trophy", { glint: 1 }, 0.1, "out"); c.prop(r3(t + 0.3), "trophy", { glint: 0 }, 0.25, "inOut");
 }
 act.blinksAt(c, "sam", []);
