@@ -29,6 +29,9 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
   for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
+- What if EP03 race (matched opening, 9 Nov, v2 + savers): ~290 min brief->delivery, thread 0.91 M out ($74, 188 M
+  cache read), subagents 0.62 M (Sonnet builder 0.29, Fable A 0.17 + B 0.16), 2 draft rounds, 5 farm renders (~8 min;
+  3 fix rounds after review B: a pop, eyes-open time, hides drawn early) + 1 sound-only remix (footsteps).
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
