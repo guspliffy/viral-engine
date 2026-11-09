@@ -79,7 +79,12 @@ through the blast and the aftermath; nobody turns. The page on Reaper's face cov
 - **Panel 02 is graded at 1.2 s**, not 1.0: the streak leaves at 0.9-1.0; at 1.2 the after-images trail behind it.
 - **Panel 05 is graded at 9.6 s**: the title card covers 10.0-11.0.
 - **The tower is about 0.75 m** (15 books), as the panels draw it, not the brief's 2 m.
-- **Panel 01 Phoenix at 89 % of the panel's size**: the front wide also has to hold Reaper's tower and the desk; panelfit partial, accepted.
+- **Panel 02 eye line 0.57, not 0.72**: at 0.72 Reaper's eyes fall to y 1389, below the phone's safe zone (y 1360), under
+  the caption and the app's buttons (camfit, 9 Nov). The tower still shows whole above his hood.
+- **Panel 01 Phoenix at 88 % of the panel's size**: the front wide also has to hold Reaper's tower and the desk; panelfit partial, accepted.
+- **Review A (Fable, 9 Nov)**: panelfit after its notes 4 yes (03, 05, 07, 08), 4 partial (01 size, 02 eye line, 04 camera
+  above and size, 06 camera above), each with its reason here. Its "three captions in 0.9 s" note was not applied: the
+  brief asks for the subtitled "SHHH!" at 0.0, the demo caption and the whisper.
 - **Panel 04 from above (+2.3 m) and 123 % size**: no level camera sees Phoenix in front of the desk past the reading table, so the wall shot looks down from over the table (Reaper just under the frame).
 - **Panel 06 0.44 m above the eyes**: just high enough that the librarian shows over the table between the tower and Reaper.
 - **The after-images are drawn flame silhouettes**, not copies of Phoenix's body: the engine draws one of each character.

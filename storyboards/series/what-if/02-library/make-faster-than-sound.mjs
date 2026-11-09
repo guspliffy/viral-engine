@@ -43,7 +43,7 @@ const S_REA = 1.55, S_TWO = 2.2, S_WALL = 4.0, S_LAPS = 7.3, S_HIGH = 8.0, S_SIT
 // it on the right and his tower between him and Phoenix. The room is deep (the desk 5.4 m behind the table), so the
 // wall wide (panel 04) can stand between the table and the desk and still see Phoenix whole.
 const TABLE = [-0.7, 0], TABLE_Y = 0.62, TABLE_W = 1.7, TABLE_D = 0.8;
-const REA = [0.05, -0.72], PHX0 = [-2.15, 0.65], PHX_SEAT = [-1.25, -0.72], PHX_BACK = [-2.05, -0.7];   // PHX_BACK: where he lands with the book, nearer Reaper (panel 03)   // the seats behind the table (chairs facing us)
+const REA = [0.05, -0.72], PHX0 = [-1.9, 0.95], PHX_SEAT = [-1.25, -0.72], PHX_BACK = [-1.2, -0.78];   // review A: back between the seats for a medium two-shot (chairL only comes in on the cut at 11.0)   // PHX_BACK: where he lands with the book, nearer Reaper (panel 03)   // the seats behind the table (chairs facing us)
 const TOWER = [-0.75, -0.08];   // between the two seats, clear of both faces
 const DESK = [-0.4, -5.0], DAIS = [-0.4, -5.35], DAIS_H = 0.5, DESK_H = 0.45, SOR = [-0.4, -5.5];   // x -0.4: from the table camera the librarian shows between the tower and Reaper (panel 06)
 const SHELF_Z = -6.5, SHELF_H = 2.7;
@@ -72,8 +72,10 @@ const props = [
   { id: "floor", kind: "libfloor", x: 0, z: -1, w: 18, d: 22, seed: 21 },
   { id: "table", kind: "table", x: TABLE[0], z: TABLE[1], w: TABLE_W, d: TABLE_D, color: "#7a4a2c", legs: "#4e2e1a" },
   { id: "chairR", kind: "chair", x: REA[0], z: REA[1], rot: 0, scale: 0.7 },   // low chairs: the table at their chins, as the panels draw them
-  { id: "chairL", kind: "chair", x: PHX_SEAT[0], z: PHX_SEAT[1], rot: 0, scale: 0.7 },
+  { id: "chairL", kind: "chair", x: FAR[0], z: FAR[1], rot: 0, scale: 0.7 },   // set at PHX_SEAT on the cut at 11.0
   ...tower,
+  // the overloaded cart: ten books in two stacks on its top (they vanish when he shelves them at 4.75; review A)
+  ...Array.from({ length: 10 }, (_, i) => ({ id: `cb${i}`, kind: "libbook", x: r3(CART[0] + (i < 5 ? -0.13 : 0.13)), y: r3(0.445 + (i % 5) * 0.045), z: CART[1], rot: r3(-20 + ((i * 29) % 9) - 4), w: 0.17, h: 0.24, t: 0.04, color: ["#7a2e2a", "#35506b", "#2f4a3a", "#6b5a2e", "#4b2f45"][i % 5], stand: 0, seed: 20 + i })),
   { id: "rbook", kind: "libbook", x: r3(REA[0] - 0.02), y: r3(TABLE_Y + 0.02), z: r3(TABLE[1] - 0.04), rot: 0, w: 0.17, h: 0.24, t: 0.04, color: "#7a2e2a", open: 1, stand: 0, seed: 8 },
   { id: "bbook", kind: "libbook", x: r3(TABLE[0] + 0.55), y: r3(TABLE_Y + 0.02), z: 0.17, rot: 8, w: 0.18, h: 0.25, t: 0.05, color: "#35506b", seed: 9 },
   { id: "bigbook", kind: "libbook", x: FAR[0], y: 0.5, z: FAR[1], rot: 0, ...BIG, color: "#7a2e2a", stand: 1, seed: 12, staged: "kept off stage until he brings it back from the top shelf" },
@@ -101,12 +103,13 @@ const props = [
 
 // ---------------------------------------------------------------- helpers
 const setup = (t, who, at, yaw) => { A(r3(t - 0.02), who, "move", { to: at, dur: 0.01 }); A(r3(t - 0.02), who, "turn", { to: yaw, dur: 0.01 }); };
-const SUB = 440, SUB_HI = 600, DEMO = 260;   // the long-lens wides put every face low (0.55-0.67), so lines and demo captions go above them, inside the safe zone (y 210-1360; camfit spots, 9 Nov)
+const SUB = 880, SUB_HI = 600, DEMO = 400;   // the long-lens wides put every face low (0.55-0.67), so lines and demo captions go above them, inside the safe zone (y 210-1360; camfit spots, 9 Nov)
 const AWAY = [], FX = [];   // FX: drawn effect cels (engine/page/fxcel.js), absolute times   // [from, to] of every trip (allowClip windows below)
 // the power: the word, the whip-crack, gone in one frame (the streak in his place; STAND-IN: a poof)
-function zoom(t, { loud = false, word = r3(t - 0.12), pos = SUB } = {}) {
+function zoom(t, { loud = false, word = r3(t - 0.12), pos = SUB, air = false } = {}) {
   c.say(word, "phx", loud ? "ZOOM!" : "Zoom!", 0.3, loud ? "excited" : "whisper", { pos });
-  sfx(t, "whoosh", { gain: 0.9, reason: "the power: the whip-crack as he breaks the sound barrier (STAND-IN until a crack is whitelisted)" });
+  sfx(t, "slap", { gain: 0.9, reason: "the power: the whip-crack as he breaks the sound barrier (a sharp bright crack, little bass)" });
+  if (air) sfx(r3(t + 0.01), "whoosh", { gain: 0.6, reason: "the air he leaves behind, cut off by the silence (first trip only: the crack alone after)" });
   A(t, "phx", "hide");
   A(r3(t + 0.02), "phx", "move", { to: FAR, dur: 0.01 });
 }
@@ -114,7 +117,7 @@ function zoom(t, { loud = false, word = r3(t - 0.12), pos = SUB } = {}) {
 function fwip(t, at, yaw, away) {
   setup(t, "phx", at, yaw);
   A(t, "phx", "show");
-  sfx(t, "zip", { gain: 0.35, reason: "he's back: a soft fwip as the sound returns (STAND-IN)" });
+  sfx(t, "ai/ignite", { gain: 0.5, reason: "he's back: a soft fwip as the sound returns" });
   AWAY.push([away, t]);
 }
 
@@ -125,7 +128,7 @@ A(0, "phx", "look", { to: [0.35, 0.25], dur: 0.01, blink: false });   // toward 
 A(0, "phx", "noblink");
 A(0, "phx", "expr", { expr: "delighted", set: { curve: 1, open: 0.55, eye: 1.15 }, dur: 0.01 });
 for (const t of [-0.15, 0.42]) A(t, "phx", "hop", { height: 0.2, dur: 0.36 });   // the first already in the air at frame 0 (panel 01: mid-hop)
-A(0, "phx", "wings", { to: 1, dur: 0 }); A(0.42, "phx", "wings", { to: 1, dur: 0.1, ease: "out" });
+A(0, "phx", "wings", { to: 0.6, dur: 0 }); A(0.42, "phx", "wings", { to: 0.6, dur: 0.1, ease: "out" });   // twitching, half open (full spread reaches the table)
 for (const t of [0.08, 0.6]) A(t, "phx", "wings", { to: 0.35, dur: 0.16 });
 c.arm(0, "phx", "R", { x: [-0.2, 0.32, 0.4] }, 0.01); c.arm(0, "phx", "L", { x: [0.2, 0.32, 0.4] }, 0.01);   // fists at his chest, bursting
 A(0, "phx", "grip", { side: "both", shape: "fist", dur: 0.01 });
@@ -137,14 +140,21 @@ c.arm(0, "rea", "R", { x: [-0.22, 0.33, 0.38] }, 0.01); c.arm(0, "rea", "L", { x
 A(0, "sor", "look", { to: [-0.3, -0.15], dur: 0.01, blink: false });
 A(0, "sor", "expr", { expr: "annoyed", dur: 0.01 });
 c.arm(0, "sor", "R", { x: [-0.03, 0.34, 0.4] }, 0.01); c.arm(0, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.01);   // his other hand on the desk   // finger at his lips, under his eyes A(0, "sor", "grip", { side: "R", shape: "point", dur: 0.01 });
-c.say(0, "sor", "SHHH!", 0.35, "whisper", { pos: SUB_HI });
+c.say(0, "sor", "SHHH!", 0.6, "whisper", { pos: SUB_HI });
 c.arm(0.6, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(0.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.35, "inOut"); A(0.95, "sor", "grip", { side: "R", shape: "relaxed", dur: 0.3 });   // down and out past his chin, then back on his desk (clear of his eyes; a "rest" hand would go through the desk)
 cap(0, 0.97, "Too hyper for a library?", DEMO);
 c.say(0.25, "phx", "I'll be quiet!", 0.5, "whisper", { pos: SUB });
 see(0, 0.95, ["phx.face", "rea.face", "sor.face", TW(TOWER_N - 1)], "frame 0: the hyper friend bouncing in the library, the librarian's shush, Reaper's tower");
+// the tower wobbles: from his bouncing (0-0.9) and again as Reaper looks up at it (1.6-2.1, the stakes); the top
+// three books sway more than the ones under them, then settle (review A)
+const TWX = (i) => r3(TOWER[0] + ((i * 37) % 7 - 3) * 0.006);
+for (const [t0, t1, amp] of [[0.0, 0.9, 0.012], [1.6, 2.1, 0.016]])
+  for (let t = t0, k = 0; t < t1 - 1e-6; t = r3(t + 0.1), k++)
+    for (const i of [TOWER_N - 3, TOWER_N - 2, TOWER_N - 1]) c.prop(t, TW(i), { x: r3(TWX(i) + (k % 2 ? 1 : -1) * amp * (i - TOWER_N + 4) / 3) }, 0.1, "inOut");
+for (const t of [0.9, 2.1]) for (const i of [TOWER_N - 3, TOWER_N - 2, TOWER_N - 1]) c.prop(t, TW(i), { x: TWX(i) }, 0.25, "settle");
 
 // ================================================================ 2 SNAP 1, 1.0-2.2: gone (the streak, silence)
-zoom(TRIP1[0], { word: 0.8 });
+zoom(TRIP1[0], { word: 0.8, air: true });
 A(1.12, "rea", "look", { to: [-0.75, 0.0], dur: 0.35, blink: false });   // his eyes slide to the empty spot (panel 02)
 A(1.2, "sor", "look", { to: [-0.45, -0.15], dur: 0.3, blink: false }); A(1.25, "sor", "expr", { expr: "shocked", set: { open: 0.1, eye: 1.15 }, dur: 0.25 });
 see(1.05, S_REA, ["rea.face", "sor.face"], "Phoenix gone: only the streak; Reaper's eyes slide to where he was");
@@ -156,15 +166,15 @@ see(r3(S_REA + 0.05), S_TWO, ["rea.face", TW(TOWER_N - 1)], "Reaper's eyes on th
 // ================================================================ 3 DEMO 1, 2.2-4.0: the book from the top shelf
 // Panel 03: he's back the instant the sound returns, holding a big book up in both gloves, grinning. 0.7 s later his
 // own sound catches up: a small puff flips Reaper's page and lifts his hood.
-const BIG_AT = [r3(PHX_BACK[0] + 0.04), 0.7, r3(PHX_BACK[1] + 0.4)];   // held up at his chest (he hovers 0.28)
+const BIG_AT = [r3(PHX_BACK[0] + 0.04), 0.85, r3(PHX_BACK[1] + 0.44)];   // held up at his chest over the table's far edge (he hovers 0.4)
 c.prop(r3(TRIP1[1] - 0.03), "bigbook", { x: BIG_AT[0], y: BIG_AT[1], z: BIG_AT[2], rot: 0, stand: 1 }, 0.01);
-const HOLD = (s) => ({ prop: "bigbook", grip: [s * (BIG.w / 2 + 0.05), 0.02, 0], palm: true });
+const HOLD = (s) => ({ prop: "bigbook", grip: [s * (BIG.w / 2 + 0.015), 0, -0.02], palm: true });
 c.arm(r3(TRIP1[1] - 0.02), "phx", "R", HOLD(-1), 0.01); c.arm(r3(TRIP1[1] - 0.02), "phx", "L", HOLD(1), 0.01);
 A(r3(TRIP1[1] - 0.02), "phx", "grip", { side: "both", shape: "hold", dur: 0.01 });
 A(r3(TRIP1[1] - 0.01), "phx", "grab", { prop: "bigbook", hand: "both", grip: [0, 0, 0], dur: 0, pose: null });
 A(r3(TRIP1[1] - 0.02), "phx", "look", { to: [0.1, 0.05], dur: 0.01, blink: false });
 fwip(TRIP1[1], PHX_BACK, 10, TRIP1[0]);
-A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.28, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
+A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.4, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
 act.grin(c, r3(TRIP1[1] + 0.05), "phx");
 A(r3(TRIP1[1] + 0.05), "phx", "wings", { to: 0.7, dur: 0.15, ease: "out" });
 A(2.3, "rea", "look", { to: [-0.1, -0.5], dur: 0.25, blink: false });   // back to his book: nothing happened
@@ -173,7 +183,7 @@ sfx(PUFF1, "poof", { gain: 0.4, reason: "the rule, planted once: his sound arriv
 sfx(r3(PUFF1 + 0.02), "book-flip", { gain: 0.5, reason: "the puff flips Reaper's page" });
 A(PUFF1, "rea", "face", { lid: 0.9, dur: 0.05 }); A(r3(PUFF1 + 0.2), "rea", "face", { lid: 0.5, dur: 0.12 });
 A(PUFF1, "rea", "lean", { to: 5, dur: 0.08 }); A(r3(PUFF1 + 0.12), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
-A(PUFF1, "rea", "hat", { spin: [-14, 0, 0], dur: 0.08 }); A(r3(PUFF1 + 0.15), "rea", "hat", { spin: [0, 0, 0], dur: 0.35, ease: "settle" });
+A(PUFF1, "rea", "hat", { spin: [-20, 0, 0], dur: 0.12, ease: "out" }); A(r3(PUFF1 + 0.15), "rea", "hat", { spin: [0, 0, 0], dur: 0.35, ease: "settle" });
 A(3.25, "rea", "look", { to: [-0.8, 0.05], dur: 0.5, blink: false });   // the slow look at Phoenix
 act.mood(c, 3.35, "rea", "annoyed", { hold: 0.5 });
 see(S_TWO, S_WALL, ["phx.face", "rea.face", "bigbook"], "he's back with the book; the late puff flips Reaper's page; Reaper's slow look");
@@ -190,7 +200,9 @@ cap(S_WALL, 4.9, "Need a whole shelf?", DEMO);
 A(4.1, "sor", "look", { to: [0.55, -0.35], dur: 0.2, blink: false });   // at the cart
 c.arm(4.1, "sor", "L", { x: [0.32, 0.4, 0.34] }, 0.4, "inOut"); A(4.25, "sor", "grip", { side: "L", shape: "point", dur: 0.25 });   // his left hand: the cart is on his left
 act.mood(c, 4.15, "sor", "annoyed", { hold: 0.4 });
-zoom(TRIP2[0], { word: 4.35, pos: 1100 });   // off screen: under the librarian, where the wall shot is free
+A(r3(S_WALL - 0.02), "phx", "hide");   // on the cut: his crest would poke into the wall shot's corner (he is off screen until he zooms)
+zoom(TRIP2[0], { word: 4.35, pos: 1100 });
+for (let i = 0; i < 10; i++) c.at(4.75, { do: "prop", id: `cb${i}`, set: { x: FAR[0], y: 0, z: FAR[1] }, dur: 0.01, ease: "inOut", reason: "gone in one frame: he takes them faster than sound (not a fall)" });   // gone from the cart in one frame: he is shelving them   // off screen: under the librarian, where the wall shot is free
 // the books blur into the shelves (STAND-IN: the cart and the shelves' gaps come with the builders' cart and wall)
 A(5.0, "phx", "drop", { to: 0, dur: 0.01 });   // (while he is away: back on his feet for the pose)
 fwip(TRIP2[1], PHX_POSE, 10, TRIP2[0]);
@@ -229,7 +241,9 @@ A(8.3, "rea", "look", { to: [-0.6, 0.2], dur: 0.2, blink: false }); A(8.8, "rea"
 A(9.4, "rea", "look", { to: [-0.6, 0.2], dur: 0.25, blink: false }); A(10.0, "rea", "look", { to: [0.6, 0.2], dur: 0.25, blink: false });
 act.shock(c, 8.25, "rea", { hold: 2.2 });
 A(8.4, "sor", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.2 }, dur: 0.2 });
-cap(10.0, 10.97, "WHAT IF YOUR HYPER FRIEND\nWAS FASTER THAN SOUND\nIN A LIBRARY?", 560, true, { size: 88 });
+[8.4, 8.8, 9.2, 9.6, 10.0, 10.4].forEach((t, k) => { A(t, "rea", "hat", { spin: [-6, 0, k % 2 ? 9 : -9], dur: 0.35 }); A(r3(t + 0.1), "sor", "hat", { spin: [-8, 0, k % 2 ? -12 : 12], dur: 0.35 }); });   // hoods flapping in the ring's wind
+A(10.8, "rea", "hat", { spin: [0, 0, 0], dur: 0.25, ease: "settle" }); A(10.9, "sor", "hat", { spin: [0, 0, 0], dur: 0.25, ease: "settle" });
+cap(10.0, 10.97, "WHAT IF YOUR HYPER FRIEND\nWAS FASTER THAN SOUND\nIN A LIBRARY?", 560, true, { size: 88, kinetic: false });   // one pop, whole at once (it is the cover)
 see(S_HIGH, 10.0, ["rea.face", "table"], "100 laps in silence: the flame ring round the reading room");
 
 // ================================================================ 6 SNAP 2, 11.0-13.5: perfectly quiet (and the clock)
@@ -241,11 +255,12 @@ A(r3(S_SIT - 0.02), "sor", "look", { to: [-0.15, -0.2], dur: 0.01, blink: false 
 A(r3(TRIP3[1] - 0.02), "phx", "expr", { expr: "smug", set: { curve: 0.7 }, dur: 0.01 }); A(r3(TRIP3[1] - 0.02), "phx", "face", { lid: 0.45, dur: 0.01 });
 A(r3(TRIP3[1] - 0.02), "phx", "look", { to: [0.15, 0.05], dur: 0.01, blink: false }); A(r3(TRIP3[1] - 0.02), "phx", "wings", { to: 0.3, dur: 0.01 });
 c.arm(r3(TRIP3[1] - 0.02), "phx", "R", "rest", 0.01); c.arm(r3(TRIP3[1] - 0.02), "phx", "L", "rest", 0.01);
+c.prop(r3(S_SIT - 0.03), "chairL", { x: PHX_SEAT[0], z: PHX_SEAT[1] }, 0.01);   // on the cut from the ring
 fwip(TRIP3[1], PHX_SEAT, 8, TRIP3[0]);
-A(r3(TRIP3[1] - 0.01), "phx", "sit", { seat: "chairL", dur: 0.01, hands: "keep" });
+A(r3(TRIP3[1] - 0.01), "phx", "sit", { height: 0.294, dur: 0.01, hands: "keep" });   // on chairL's seat (0.42 x its scale 0.7): chairL only arrives on the cut at 11.0, and a seated sit reads its seat's first place
 A(r3(TRIP3[1] + 0.02), "phx", "squash", { amount: 0.08, dur: 0.15 });   // stops dead
 A(11.2, "rea", "look", { to: [-0.75, 0.0], dur: 0.25, blink: false });
-c.arm(11.25, "phx", "L", { x: [0.03, 0.45, 0.36] }, 0.45, "inOut"); A(11.4, "phx", "grip", { side: "L", shape: "point", dur: 0.2 });   // finger to his lips
+c.arm(11.2, "phx", "R", { x: [-0.12, 0.37, 0.4] }, 0.7, "inOut"); A(11.4, "phx", "grip", { side: "R", shape: "point", dur: 0.2 });   // forearm beside his cheek, not across his mouth (review A)   // finger to his lips
 c.say(11.5, "phx", "Shhh.", 0.4, "whisper", { pos: 560 });
 A(11.95, "rea", "face", { lid: 1, dur: 0.25 }); A(11.95, "rea", "expr", { expr: "kind", set: { curve: 0.25 }, dur: 0.3 });
 c.macro(12.0, "rea", "nod", { times: 1 });
@@ -254,7 +269,7 @@ c.arm(11.3, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(11.65,
 for (const w of ["phx", "rea", "sor"]) A(12.2, w, "still", { dur: 1.25, idle: 0.04 });
 see(TRIP3[1], S_CLOCK, ["phx.face", "rea.face", "sor.face"], "he sits perfectly quiet; they nod, relieved");
 // the clock (STAND-IN until the longcase clock is built: the shot frames where it will stand)
-TICKS.forEach((t, k) => sfx(t, "knock-tap", { gain: r3(0.35 + k * 0.2), reason: `the longcase clock ticks, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
+TICKS.forEach((t, k) => sfx(t, k % 2 ? "hit-wood" : "ai/fingertip-catch", { gain: r3(Math.min(1, (k % 2 ? 0.6 : 0.35) + k * 0.2)), reason: `the longcase clock: ${k % 2 ? "tock" : "tick"}, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
 sfx(13.05, "rumble", { gain: 0.5, reason: "the breath before it: a low rumble under the ticks" });
 A(13.1, "phx", "look", { to: [0.4, 0.3], dur: 0.2, blink: false }); A(13.15, "phx", "face", { lid: 0, dur: 0.15 });
 A(13.15, "rea", "face", { lid: 0.3, dur: 0.15 });
@@ -264,7 +279,9 @@ see(S_BACK, BOOM, ["phx.face", "rea.face"], "the three still; the ticks louder, 
 // Panel 07: all the sound he outran arrives at once. The shockwave blasts every book off every shelf, the tower
 // bursts, the sign swings up on its chains, the librarian's hood flips back, the windows rattle.
 c.hitStop(BOOM);
-sfx(BOOM, "impact", { gain: 1.0, loud: true, reason: "THE BOOM: every sound he outran arrives at once (STAND-IN for the sonic boom)" });
+sfx(BOOM, "slap", { gain: 1.0, reason: "the sonic boom's crack, its first frame" });
+sfx(BOOM, "impact", { gain: 1.0, loud: true, reason: "THE BOOM: every sound he outran arrives at once" });
+sfx(r3(BOOM + 0.01), "dinostomp", { gain: 0.9, reason: "the boom's deep body, low enough to feel and still heard on a phone" });
 sfx(r3(BOOM + 0.02), "thud", { gain: 0.8, reason: "the boom's body" });
 sfx(r3(BOOM + 0.1), "kenney/impact-glass-light", { gain: 0.4, reason: "the windows rattle" });
 FX.push({ at: BOOM, do: "cel", kind: "ring", pos: [TABLE[0], 1.0, -2.5], size: 4, dur: 0.6, palette: "energy" });
@@ -273,7 +290,9 @@ TOWER_N && Array.from({ length: TOWER_N }, (_, i) => i).forEach((i) => {
   const a = (i * 2.399) % (2 * Math.PI), up = 1.6 + (i % 4) * 0.5;
   c.throw(r3(BOOM + 0.02), TW(i), { v: [r3(Math.cos(a) * 2.2), r3(up), r3(Math.sin(a) * 1.4 + 0.6)], spin: [r3(3 + (i % 3)), r3((i % 5) - 2), r3(4 - (i % 4))] });
 });
-for (const w of ["phx", "rea", "sor"]) act.shock(c, BOOM, w, { hold: 1.4 });
+for (const w of ["phx", "sor"]) act.shock(c, BOOM, w, { hold: 1.4 });
+A(BOOM, "rea", "face", { lid: 0, dur: 0.05 }); A(BOOM, "rea", "expr", { expr: "deadpan", set: { eye: 1.2 }, dur: 0.05 });   // deadpan shock: eyes wide, mouth shut (review A: three different faces)
+act.mood(c, 14.3, "sor", "angry", { hold: 1.5 });
 c.arm(BOOM, "phx", "R", { x: [-0.3, 0.75, 0.25] }, 0.2, "out"); c.arm(BOOM, "phx", "L", { x: [0.3, 0.75, 0.25] }, 0.2, "out");   // arms up
 A(BOOM, "phx", "grip", { side: "both", shape: "open", dur: 0.08 });
 c.arm(BOOM, "rea", "R", { x: [-0.3, 0.7, 0.22] }, 0.2, "out"); c.arm(BOOM, "rea", "L", { x: [0.3, 0.7, 0.22] }, 0.2, "out");
@@ -282,31 +301,41 @@ c.arm(BOOM, "sor", "R", { x: [-0.3, 0.7, 0.22] }, 0.2, "out"); c.arm(BOOM, "sor"
 A(BOOM, "sor", "hat", { spin: [-35, 0, 0], dur: 0.08 });   // the hood flips back (panel 07)
 for (const w of ["phx", "rea", "sor"]) { A(BOOM, w, "squash", { amount: 0.18, dur: 0.25 }); A(BOOM, w, "pitch", { to: -8, dur: 0.1, ease: "out" }); A(r3(BOOM + 0.6), w, "pitch", { to: 0, dur: 0.5, ease: "settle" }); }
 sfx(14.6, "crumble", { gain: 0.7, reason: "books raining down onto the floor and the table" });
+// arms come down as the books rain (no cut: the camera pushes on into the aftermath)
+for (const w of ["phx", "rea"]) { c.arm(14.95, w, "R", "rest", 0.8, "inOut"); c.arm(14.95, w, "L", "rest", 0.8, "inOut"); A(15.1, w, "grip", { side: "both", shape: "relaxed", dur: 0.3 }); }   // after the shock's hold (to 14.9); on twos, so slow
+c.arm(14.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.8, "inOut"); c.arm(14.95, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.8, "inOut"); A(15.1, "sor", "grip", { side: "both", shape: "relaxed", dur: 0.3 });
+A(15.0, "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
+A(14.4, "sor", "look", { to: [-0.3, -0.2], dur: 0.2, blink: false });
+// the page: it flutters down out of the blast onto Reaper's face (over half of it, panel 08)
+c.prop(14.6, "page", { x: r3(REA[0] + 0.25), y: 5.0, z: r3(REA[1] + 0.5), rot: 40, tip: 30 }, 0.01);
+c.prop(14.62, "page", { x: r3(REA[0] - 0.1), y: 2.3, z: r3(REA[1] + 0.45), rot: -25, tip: 55 }, 0.4, "in");
+c.prop(15.02, "page", { x: r3(REA[0] - 0.08), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: 80 }, 0.35, "out");
+A(15.3, "rea", "face", { lid: 0.55, dur: 0.25 }); A(15.4, "rea", "look", { to: [-0.3, 0.0], dur: 0.3, blink: false });
 see(BOOM, S_AFTER, ["phx.face", "rea.face", "sor.face"], "the boom: every book off every shelf, three faces to us");
 
 // ================================================================ 8 FACT + QUESTION, 16.0-19.0: the aftermath
 // Panel 08: Reaper buried to his hood, a page stuck to his face; Phoenix sitting in the mess with a sheepish grin; the
 // librarian's glare; pages still falling (STAND-IN: the book pile comes with the builders' blast).
-for (const w of ["phx", "rea"]) { c.arm(r3(S_AFTER - 0.02), w, "R", "rest", 0.01); c.arm(r3(S_AFTER - 0.02), w, "L", "rest", 0.01); A(r3(S_AFTER - 0.02), w, "grip", { side: "both", shape: "relaxed", dur: 0.01 }); }
-A(r3(S_AFTER - 0.02), "sor", "hat", { spin: [0, 0, 0], dur: 0.01 });
-c.arm(r3(S_AFTER - 0.02), "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.01); c.arm(r3(S_AFTER - 0.02), "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.01);   // (on the cut) back on his desk to glare
-c.prop(r3(S_AFTER - 0.03), "page", { x: r3(REA[0] - 0.08), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: 80 }, 0.01);   // over half his face
-A(r3(S_AFTER - 0.02), "rea", "expr", { expr: "deadpan", dur: 0.01 }); A(r3(S_AFTER - 0.02), "rea", "face", { lid: 0.55, dur: 0.01 });
-A(r3(S_AFTER - 0.02), "rea", "look", { to: [-0.3, 0.0], dur: 0.01, blink: false });
-A(r3(S_AFTER - 0.02), "sor", "look", { to: [-0.3, -0.2], dur: 0.01, blink: false });
 cap(S_AFTER, 17.55, "Real fact: you only hear a supersonic jet after it has passed you.", 240);
 act.sheepish(c, 16.5, "phx");
 A(16.5, "phx", "look", { to: [0.5, 0.05], dur: 0.25, blink: false });
 c.say(16.8, "phx", "...sorry.", 0.5, "whisper", { pos: 500 });
 act.mood(c, 16.2, "sor", "angry", { hold: 2.0 });
 cap(17.6, r3(END - 0.05), "Would you still want it?", 300);
+// the callback: the librarian's finger back at his lips, as at frame 0 (review A, P8)
+c.arm(17.85, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.3, "inOut"); c.arm(18.15, "sor", "R", { x: [-0.03, 0.34, 0.4] }, 0.3, "inOut"); A(18.1, "sor", "grip", { side: "R", shape: "point", dur: 0.25 });
 see(S_AFTER, END, ["phx.face", "rea.face", "sor.face"], "the aftermath: buried, sheepish, glaring");
 
 for (const cp of c.captions) for (const cut of [S_REA, S_TWO, S_WALL, S_LAPS, S_HIGH, S_SIT, S_CLOCK, S_BACK, BOOM, S_AFTER]) if (cp.from < cut && cp.to > cut - 0.03 && cp.from < cut - 0.3) cp.to = r3(cut - 0.03);
 
+// a "Zoom!" subtitle leaves with him (0.55 s), not 0.8 s after he has gone
+for (const cp of c.captions) if (/^zoom!$/i.test(cp.text)) cp.to = r3(Math.min(cp.to, cp.from + 0.55));
+
 const allowClip = [
   ...AWAY.flatMap(([a, b]) => [{ who: "phx", from: r3(a - 0.02), to: r3(b + 0.04), checks: ["rig-jump", "foot-slide", "stance-slide", "hand-pop", "hand-turn"], reason: "faster than sound: he is gone in one frame and back in one frame (hidden while he's away)" }]),
   { who: "rea", with: "table", from: 0, to: r3(END + 0.2), reason: "Reaper sits at the reading table (stands at his chair, the table at his chest)" },
+  { who: "phx", with: "table", from: 0, to: 1.0, reason: "his twitching wing tips brush the table's near edge while he bounces (3 cm): the table shakes because he bumps it (the brief)" },
+  { who: "phx", with: "chairL", from: r3(TRIP3[1] - 0.05), to: r3(END + 0.2), reason: "he sits on it (seated by height: the chair only arrives on the cut at 11.0)" },
   { who: "phx", with: "table", from: TRIP3[1], to: r3(END + 0.2), reason: "Phoenix sits at the reading table beside Reaper" },
   { who: "sor", with: "desk", from: 0, to: r3(END + 0.2), reason: "the librarian behind his issue desk" },
   ...["phx", "rea", "sor"].map((who) => ({ who, from: BOOM, to: r3(BOOM + 0.3), checks: ["hand-jump"], reason: "the blast flings every arm up in two frames: the boom's smear, under the shake and the flying books" })),
@@ -318,15 +347,15 @@ const allowClip = [
 
 // ---------------------------------------------------------------- shots (by hand: every panel's camera, one side)
 const SH = {
-  wide: { pos: [-1.0, 4.0, 10.5], look: [-1.0, 1.4, -1.5], fov: 28.5 },          // panels 01-02: the long-lens front wide, the desk at the back (camfit 9 Nov)
+  wide: { pos: [-1.1, 3.0, 10.5], look: [-1.0, 1.15, -1.5], fov: 31 },          // panels 01-02: the long-lens front wide, the desk at the back (camfit 9 Nov)
   rea: { pos: [-0.3, 1.5, 3.6], look: [-0.45, 1.05, -0.4], fov: 36 },           // Reaper and his tower
-  two: { pos: [-1.6, 2.6, 9.0], look: [-1.0, 1.6, -0.6], fov: 39 },             // panel 03: the two-shot from the front left
+  two: { pos: [-1.2, 2.1, 6.8], look: [-0.55, 1.45, -0.6], fov: 34 },           // panel 03: the medium two-shot (the brief's size; review A), from the front left
   wall: { pos: [0.0, 3.0, 0.1], look: [-0.25, 0.95, -4.6], fov: 56 },           // panel 04: over the table, down at the desk (Reaper just under the frame)
   laps: { pos: [-2.4, 1.25, -0.4], look: [-1.0, 1.05, -3.75], fov: 48 },        // Phoenix to us (the librarian hidden behind him, the space above for the lines)
-  high: { pos: [2.4, 5.4, 10.0], look: [-0.6, 0.4, -2.4], fov: 28 },            // panel 05: high over the reading room, the desk top right
+  high: { pos: [2.4, 5.4, 10.0], look: [-0.6, 0.4, -2.4], fov: 28, to: { pos: [2.1, 5.0, 9.0], fov: 26 }, dur: 3.0, ease: "inOut" },   // panel 05: high over the reading room, the desk top right; a slow push through the laps
   sit: { pos: [-0.6, 1.3, 10.5], look: [-0.78, 1.55, -1.0], fov: 25 },            // panel 06: the table, level; from x -0.6 the librarian shows between the tower and Reaper
   clock: { pos: [-1.7, 1.6, -4.3], look: [-1.85, 1.45, -6.05], fov: 40 },        // the longcase clock (STAND-IN case)
-  boom: { pos: [-1.0, 3.4, 12.0], look: [-0.6, 1.5, -1.5], fov: 28 },           // panel 07: the wide, from above
+  boom: { pos: [-1.0, 3.4, 12.0], look: [-0.6, 1.5, -1.5], fov: 28, to: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 }, dur: 2.4, ease: "inOut" },   // panel 07 pushing into panel 08 (no cut, review A)
   after: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 },         // panel 08: the medium-wide, from above
 };
 const beats = c.beats([
@@ -340,7 +369,7 @@ const beats = c.beats([
   ["06 the clock", S_CLOCK, SH.clock, "insert"],
   ["06 the calm", S_BACK, SH.sit],
   ["07 BOOM", BOOM, SH.boom, "payoff"],
-  ["08 the aftermath", S_AFTER, SH.after, "reaction"],
+  ["08 the aftermath", S_AFTER, "keep"],   // the boom push lands on panel 08's framing
 ], END);
 
 write(import.meta.url, {
@@ -348,7 +377,7 @@ write(import.meta.url, {
   title: "What if your hyper friend was faster than sound in a library?",
   idea: "What if, episode 2: Phoenix moves faster than sound in the library (a book, a cart, 100 laps), his sound arriving later each time; he sits perfectly quiet and the clock ticks; then every sound he outran arrives at once",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
-  castLook: LOOK, cleanStart: true, cover: 10.5,
+  castLook: LOOK, cleanStart: true, cover: 10.2,
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   panels: { md: "storyboards/series/what-if/02-library/PANELS.md" },
   // STAND-IN plate: Too Much Energy 01's hall, slid left so its windows sit on the left (the daylight plate comes from a builder)
