@@ -43,10 +43,10 @@ const REA = [-1.62, 0.06], REA_YAW = 78;                             // 03-07: o
 const DRA_ON = [0.5, 0.0], DRA_YAW = -20;                            // 03: the tuba on the bench's free half
 const DRUM = [1.62, 0.4], DRUM_ROT = 90, DRUM_K = 0.7, VIK = [1.64, -0.2], VIK_YAW = -10;   // 03: a marching drummer behind his drum, the beaten head toward him
 const WIZ_COND = [2.08, 1.35], WIZ_COND_YAW = -60;                    // 03-04: conducting from the front right
-const CRATE0 = [0.98, 0.72], CRATE = [2.3, -2.25];                   // 01: beside the bench; 04: a few metres back
+const CRATE0 = [0.83, 0.72], CRATE = [2.3, -2.25];                   // 01: beside the bench; 04: a few metres back
 const DRA_FUSE = [3.05, -2.3], DRA_FUSE_YAW = -40;                     // 04: the Dragon a safe metre from the crate
 const WIZ_4 = [0.9, 1.6];                                             // 04a: watching the sky in front of the bench
-const VIK_END = [1.85, 0.95], DRA_END = [3.08, 1.2], REA_END = [-1.22, 0.58];                // 07: the drum moved away
+const VIK_END = [1.85, 0.95], DRA_END = [3.08, 1.2], REA_END = [-1.3, 0.55];                 // 07: the drum moved away
 const LAMP = [-2.05, -0.5];
 const LETTERS = [0.4, 7.9, -14.5];                                   // in front of the painted skyline (its cards start ~23 m out)
 
@@ -107,7 +107,7 @@ A(0, "phx", "face", { lid: 0.6, dur: 0 });
 A(0, "phx", "pitch", { to: 12, dur: 0 });
 prop(0, "phone", { glow: 1 }, 0);
 act.blinksAt(c, "phx", [1.5, 3.3, 6.2, 9.9]);
-act.scrollPhone(c, "phx", [0.8, 1.7, 2.45, 3.15, 4.2, 5.4, 6.3, 9.75, 10.2]);
+act.scrollPhone(c, "phx", [0.8, 1.7, 2.45, 3.15, 4.2, 4.95, 5.45, 6.3, 9.75, 10.2]);
 
 // the Wizard on the seat, the megaphone already up at Phoenix's ear; "Watch." to us, then into the megaphone
 A(0, "wiz", "grab", { prop: "mega", hand: "R", grip: [0, 0, 0], dur: 0, pose: { o: [0.0, 0.6, 0.28] } });
@@ -122,12 +122,13 @@ A(0.44, "wiz", "talk", { line: "HEY!!!", tone: "excited", dur: 0.42, voice: fals
 c.textPop(0.46, "wiz", "HEY!!!", { dur: 0.6, color: "speaker", size: 150, burst: "#ffe14a", angle: -8 });
 sfx(0.46, "feedback", { gain: 0.6, loud: true, reason: "the megaphone squeals into Phoenix's ear" });
 A(0.46, "phx", "squash", { amount: 0.015, dur: 0.12 });            // the blast ruffles him; his eyes and thumb don't move
+c.at(0.46, { fx: "shake", dur: 0.2 });                               // the frame shakes, his face doesn't
 A(0.86, "wiz", "still", { dur: 0.3, idle: 0.1 });
 see(0, 1.1, ["phx.face", "wiz.face", "mega", "phone", "tuba", "drum", "crate"], "01: the promise, the megaphone at Phoenix's ear, the band and the rockets ready");
 
 // ================================================================ 02 VICTIM CLOSE-UP 1.10-1.90 (reaction)
 A(1.15, "wiz", "arm", { side: "R", pose: { o: [0.06, 0.32, 0.24] }, dur: 0.45, ease: "inOut" });   // the megaphone comes down slowly
-act.shock(c, 1.12, "wiz", { open: 0.3, hold: 0.35 });
+act.shock(c, 1.12, "wiz", { open: 0.85, hold: 0.35 });
 A(1.12, "wiz", "lean", { to: 0, dur: 0.3 });
 A(1.58, "wiz", "expr", { expr: "annoyed", set: { curve: -0.1 }, dur: 0.18 });   // fine.
 A(1.58, "wiz", "face", { lid: 0.5, brow: -0.4, press: 0.6, dur: 0.18 });
@@ -195,11 +196,13 @@ A(3.9, "dra", "look", { to: [0, 0.9], dur: 0.1, blink: false });
 // 04a: everyone stares up at it, delighted; Phoenix doesn't (the Wizard has stepped forward, clear of the crate)
 A(T4A, "wiz", "move", { to: W(WIZ_4), dur: 0, ease: "linear" }); A(T4A, "wiz", "turn", { to: -15, dur: 0 });
 for (const id of ["vik", "rea", "wiz"]) A(T4A - 0.02, id, "look", { to: [0, 0.8], dur: 0.12, blink: false });
+for (const id of ["vik", "rea", "wiz", "dra"]) A(3.93, id, "pitch", { to: -25, dur: 0.15 });   // everyone's head tips back to the sky but his
+for (const sd of ["R", "L"]) A(4.1, "wiz", "arm", { side: sd, pose: { o: [0.25, 0.9, 0.2] }, dur: 0.24 });
 // the letters burst one after another, LOOK then UP, each with its own coloured flash on everyone
 const BURST = [4.1, 4.16, 4.22, 4.28, 4.4, 4.46], FLASH = ["#ffd35a", "#ff5ad6", "#5ae2ff", "#ffd35a", "#8dff5a", "#ff9a3a"];
 BURST.forEach((b, i) => {
   prop(b, "letters", { [`l${i}`]: 0.75 }, 4.0, "linear");
-  c.at(b, { fx: "flash", color: FLASH[i], peak: 0.18, dur: 0.35 });
+  c.at(b, { fx: "flash", color: FLASH[i], peak: 0.11, dur: 0.35 });
   if (i % 2 === 0) sfx(b, "firework", { gain: 0.55, ...(i === 0 && { loud: true }) });
 });
 sfx(4.4, "horn", { gain: 0.12, dur: 0.5, reason: "car alarms going off across the city" });
@@ -217,6 +220,7 @@ A(4.16, "rea", "expr", { expr: "eager", dur: 0.25 });
 const T4B = 4.75;
 A(5.1, "phx", "pitch", { to: 6, dur: 0.18, ease: "out" });
 A(5.1, "phx", "still", { dur: 0.3, idle: 0.05 });
+A(5.1, "phx", "face", { lid: 0.3, brow: 0.5, dur: 0.1 }); A(5.4, "phx", "face", { lid: 0.6, brow: 0, dur: 0.12 });   // the fake-out reads in the lids and brows
 A(5.42, "phx", "pitch", { to: 12, dur: 0.15 });
 see(T4, T4A, ["dra.face", "crate", "puff"], "04: the Dragon puffs a flame at the fuse; the rockets go");
 see(T4A, T4B, ["letters", "phx", "bench"], "04a: LOOK UP over the skyline, the bench small below");
@@ -227,7 +231,7 @@ const T5 = 5.6;
 for (const id of ["vik", "dra"]) A(T5, id, "hide");
 A(T5, "vik", "release", { prop: "mallet", to: [DRUM[0] + 0.5, 0.012, r3(DRUM[1] + DZ + 0.4)], dur: 0 }); prop(T5, "mallet", { rot: 30, tip: 90 }, 0);
 prop(T5, "drum", { x: 2.7, z: DZ - 1.2 }, 0);
-A(T5, "wiz", "release", { prop: "baton", to: [1.25, 0.012, r3(0.9 + DZ)], dur: 0 }); A(T5, "wiz", "arm", { side: "L", pose: "rest", dur: 0 }); prop(T5, "baton", { rot: 40, tip: 90 }, 0);
+A(T5, "wiz", "release", { prop: "baton", to: [1.25, 0.012, r3(0.9 + DZ)], dur: 0 }); for (const sd of ["R", "L"]) A(T5, "wiz", "arm", { side: sd, pose: "rest", dur: 0 }); prop(T5, "baton", { rot: 40, tip: 90 }, 0);
 A(T5, "wiz", "move", { to: W(WIZ_SEAT), y: SEAT, dur: 0, ease: "linear" }); A(T5, "wiz", "turn", { to: 0, dur: 0 });
 A(T5, "wiz", "sit", { seat: "bench", along: WIZ_SEAT[0], height: SEAT, dur: 0, hands: "keep" });
 A(T5 + 0.02, "wiz", "squash", { amount: 0.05, dur: 0.18 });                // he has just dropped onto the bench
@@ -245,10 +249,11 @@ sfx(6.15, "typing", { gain: 0.4, dur: 0.35 });
 prop(6.3, "wphone", { feed: 1 }, 0); prop(6.6, "wphone", { feed: 2 }, 0);
 sfx(6.6, "whoosh", { gain: 0.5 });
 // the bubble flies 1 m across into Phoenix's phone
-const WPH = [WIZ_SEAT[0] + 0.02, 0.7, 0.45], PPH = [PHX[0], 0.66, 0.45];
-prop(6.6, "bubble", { x: WPH[0], y: WPH[1] + 0.14, z: WPH[2] + DZ, scale: 1 }, 0);
+const WPH = [WIZ_SEAT[0] + 0.0, 0.52, 0.48], PPH = [PHX[0] + 0.02, 0.56, 0.5];   // the screens
+prop(6.6, "bubble", { x: WPH[0], y: WPH[1], z: WPH[2] + DZ, scale: 1 }, 0);
 prop(6.6, "bubble", { pop: 1, glow: 1 }, 0.2, "out");
-prop(6.82, "bubble", { x: PPH[0], y: PPH[1] + 0.14, z: PPH[2] + DZ }, 0.46, "inOut");
+prop(6.8, "bubble", { x: PPH[0] }, 0.46, "inOut"); prop(6.8, "bubble", { z: PPH[2] + DZ }, 0.46, "inOut");
+prop(6.8, "bubble", { y: r3((WPH[1] + PPH[1]) / 2 + 0.3) }, 0.23, "out"); prop(7.03, "bubble", { y: PPH[1] }, 0.23, "in");
 prop(7.26, "bubble", { pop: 0, glow: 0 }, 0.06);
 see(T5, 6.6, ["wiz.face", "phx.face", "wphone"], "05: he gives up, sits and texts");
 see(6.6, 7.25, ["bubble", "wiz.face", "phx.face"], "05-06: the text flies 1 m into Phoenix's phone");
@@ -256,7 +261,7 @@ see(6.6, 7.25, ["bubble", "wiz.face", "phx.face"], "05-06: the text flies 1 m in
 // ================================================================ 06 THE PAYOFF 7.00-8.40
 const T6 = 7.0;
 sfx(7.3, "notify", { gain: 0.5 });
-prop(7.3, "phone", { glow: 1.6 }, 0.06); prop(7.4, "phone", { glow: 1 }, 0.2);
+prop(7.3, "phone", { glow: 2.4 }, 0.06); prop(7.4, "phone", { glow: 1 }, 0.2);
 // ...and looks up at once, at the Wizard, with a big honest smile, and waves (the hand on the Wizard's side)
 A(7.45, "phx", "pitch", { to: 0, dur: 0.12, ease: "out" });
 A(7.45, "phx", "look", { to: [0.85, 0.1], dur: 0.1, blink: false });
@@ -273,7 +278,7 @@ A(8.4, "phx", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], dur: 0
 // the Wizard: the phone still up, his eye twitches
 A(7.45, "wiz", "look", { to: [-0.9, 0.0], dur: 0.12, blink: false });
 A(7.5, "wiz", "expr", { expr: "deadpan", set: { eye: 1.0 }, dur: 0.15 });
-for (const t of [7.95, 8.1, 8.25]) { A(t, "wiz", "face", { lidL: 0.7, dur: 0.04 }); A(t + 0.06, "wiz", "face", { lidL: 0.4, dur: 0.04 }); }
+for (const t of [7.8, 8.05]) { A(t, "wiz", "face", { lidL: 0.85, dur: 0.1 }); A(t + 0.12, "wiz", "face", { lidL: 0.3, dur: 0.1 }); }
 see(7.3, 8.4, ["phx.face", "wiz.face"], "06: the ping; Phoenix looks up at him and waves");
 
 // ================================================================ 07 THE SECOND PUNCH 8.40-10.50
@@ -283,21 +288,21 @@ A(T7, "dra", "move", { to: W(DRA_END), dur: 0, ease: "linear" }); for (const sd 
 A(T7, "vik", "move", { to: W(VIK_END), dur: 0, ease: "linear" }); A(T7, "vik", "turn", { to: -20, dur: 0 });
 A(8.26, "rea", "look", { to: [0.5, -0.3], dur: 0.1, blink: false });
 A(T7, "rea", "move", { to: W(REA_END), dur: 0, ease: "linear" }); A(T7, "rea", "turn", { to: 25, dur: 0 });
-for (const s of ["R", "L"]) A(T7, "rea", "arm", { side: s, pose: { o: [0.22, 0.28, 0.26] }, dur: 0 });
+A(T7, "rea", "arm", { side: "R", pose: { o: [0.1, 0.3, 0.42] }, dur: 0 }); A(T7, "rea", "arm", { side: "L", pose: { o: [0.08, 0.05, 0.3] }, dur: 0 });   // the cymbals still in his hands: one held out where we see it, the other down, clear of Phoenix
 for (const id of ["vik", "dra"]) { A(T7, id, "expr", { expr: "kind", dur: 0 }); A(T7, id, "look", { to: [-0.3, -0.3], dur: 0, blink: false }); }
 // the Wizard points furiously at the sky (his free hand; the phone stays in the other)
 A(8.4, "wiz", "arm", { side: "L", pose: { o: [0.5, 0.85, 0.12] }, dur: 0.24 });
 A(8.42, "wiz", "grip", { side: "L", shape: "point", dur: 0.1 });
 A(8.42, "wiz", "expr", { expr: "angry", set: { open: 0.6 }, dur: 0.1 });
 A(8.42, "wiz", "look", { to: [-0.6, 0.2], dur: 0.1, blink: false });
-c.say(8.47, "wiz", "the sky!!", 0.4, "excited", { voice: false, sub: "THE SKY!!", pos: 560 });
+c.say(8.47, "wiz", "the sky!!", 0.4, "excited", { voice: false, sub: "THE SKY!!", pos: 470 });
 // Phoenix looks up where he points: the last letter has fizzled, faint sparks of "LOOK U"
 A(8.65, "phx", "look", { to: [0.35, 0.9], dur: 0.15, blink: false });
 A(8.65, "phx", "pitch", { to: -6, dur: 0.2 });
 A(8.5, "phx", "turn", { to: 12, dur: 0.25 });   // back round toward the sky he is shown
 A(8.65, "phx", "expr", { expr: "kind", set: { curve: 0.3, eye: 1.05 }, dur: 0.15 });
 A(9.0, "phx", "expr", { expr: "happy", dur: 0.15 });
-A(9.0, "phx", "squash", { amount: -0.035, dur: 0.14 }); A(9.0, "phx", "lean", { to: 7, dur: 0.14 });   // a shrug: shoulders up, head tilted, the phone kept
+A(9.0, "phx", "squash", { amount: -0.035, dur: 0.14 }); A(9.0, "phx", "lean", { to: 15, dur: 0.14 }); A(9.0, "phx", "face", { brow: 0.6, dur: 0.12 }); A(9.3, "phx", "face", { brow: 0, dur: 0.2 });   // a shrug: shoulders up, head tilted, the phone kept
 A(9.3, "phx", "squash", { amount: 0, dur: 0.16 }); A(9.3, "phx", "lean", { to: 0, dur: 0.2 });
 A(9.45, "phx", "look", { to: AT_PHONE, dur: 0.15, blink: false });
 A(9.45, "phx", "pitch", { to: 12, dur: 0.2 });
@@ -313,7 +318,7 @@ sfx(9.44, "thud-soft", { gain: 0.5 });
 // Reaper, the quiet one, cracks up; then Viking and Dragon
 A(9.35, "rea", "expr", { expr: "delighted", set: { eye: 0.25, open: 0.8 }, dur: 0.1 });
 A(9.35, "rea", "look", { to: [0.3, 0.0], dur: 0.1, blink: false });
-c.say(9.4, "rea", "HA!", 0.35, "excited", { voice: false, sub: "HA!", pos: 560 });
+c.say(9.4, "rea", "HA!", 0.35, "excited", { voice: false, sub: "HA!", pos: 650 });
 for (const t of [9.42, 9.62, 9.82, 10.02, 10.22]) A(t, "rea", "squash", { amount: 0.05, dur: 0.18 });
 A(9.6, "vik", "expr", { expr: "delighted", set: { eye: 0.3 }, dur: 0.12 }); A(9.7, "dra", "expr", { expr: "delighted", set: { eye: 0.3 }, dur: 0.12 });
 for (const t of [9.65, 9.9, 10.15]) { A(t, "vik", "squash", { amount: 0.04, dur: 0.2 }); A(t + 0.07, "dra", "squash", { amount: 0.04, dur: 0.2 }); }
@@ -330,14 +335,14 @@ for (const id of ["rea", "vik", "dra"]) A(0, id, "hide");
 // ---------------------------------------------------------------- shots (plan coordinates; cameras level or up: the set's painting looks up 10.6 deg)
 const up = (pos, deg, dist = 10, yaw = 0) => [r3(pos[0] + Math.sin((yaw * Math.PI) / 180) * dist), r3(pos[1] + Math.tan((deg * Math.PI) / 180) * dist), r3(pos[2] - dist)];
 const CAM1 = cam([0.0, 1.1, 5.2], [0.0, 1.1, 0], 44);
-const CAM2 = cam([0.4, 0.62, 4.8], [0.5, 0.79, 0], 22);
-const CAM3 = cam([0.3, 1.45, 8.9], [0.3, 1.45, 0], 48, { to: { pos: P([-0.4, 1.2, 6.4]), look: P([-0.4, 1.2, 0]) }, dur: 1.7 });   // pushing in on the cymbals at his ear
+const CAM2 = cam([0.45, 0.95, 4.8], [0.55, 0.98, 0], 26);
+const CAM3P = [0.2, 0.9, 8.4], CAM3 = cam(CAM3P, up(CAM3P, 8), 48, { to: { pos: P([-0.4, 0.9, 6.2]), look: P(up([-0.4, 0.9, 6.2], 7)) }, dur: 1.7 });   // low: heads on the skyline; pushing in on the cymbals at his ear
 const CAM4 = cam([2.6, 0.72, 1.0], [2.68, 0.72, -2.3], 46);
 const CAM4A = cam([0.35, 0.75, 7.8], up([0.35, 0.75, 7.8], 12), 50);
 const CAM4B = cam([-0.25, 0.75, 3.4], up([-0.25, 0.75, 3.4], 9), 55);
 const CAM5 = cam([0.05, 0.8, 5.6], up([0.05, 0.8, 5.6], 2), 38);
 const CAM6 = cam([0.02, 0.62, 4.7], up([0.02, 0.62, 4.7], 3), 36);
-const CAM7P = [0.1, 0.75, 7.4], CAM7 = cam(CAM7P, up(CAM7P, 8), 50, { to: { pos: P([-0.45, 0.8, 5.7]), look: P(up([-0.45, 0.8, 5.7], 6)) }, dur: 2.1 });
+const CAM7P = [0.1, 0.75, 7.4], CAM7 = cam(CAM7P, up(CAM7P, 8), 50, { to: { pos: P([-0.38, 0.8, 6.0]), look: P(up([-0.38, 0.8, 6.0], 6)) }, dur: 2.1 });
 const beats = c.beats([
   ["01 promise + megaphone", 0, CAM1, "hook"],
   ["02 victim close-up", 1.1, CAM2, "reaction"],
