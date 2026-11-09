@@ -59,11 +59,25 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 - **Staging proof, every clip, before any builder starts** (director + creative director, about 30-40 min): write
   PANELS.md, with one row per panel and a reason for every departure, and the story chain (below). Block the clip in
   the generator: cast, camera per shot, set from boxes or existing props, placeholder props at their real sizes.
+  Check every staging edit on the floor plan first (`node qa/clear.mjs <sb>`, 1-2 s) and try cameras and subtitle
+  spots with `node qa/camfit.mjs` (a second each) before a layout pass; fix rounds lay out only the seconds they
+  changed (`--layout --from --to`, docs/rules/fast-cheap.md).
   Render the draft stills at one time per panel, run `qa/panels.mjs` against Jonny's board, and get review A on those
   stills plus the panels. Fix staging until review A has no note that a story beat can't be seen. Only then write the
   BOARD's numbers and brief the builders: they build to proven positions, not guessed ones.
 - **Delivery gate**: full render + checks + review B, the gate report + post pack, Jonny's go, PR, "merge it" only
   when every check on the head is green.
+
+## Reuse before you build (9 Nov 2026)
+
+Every Never Has Money episode so far built a new room and new props. In the director's EP04 build that was two builder
+tasks, about 290k tokens and 42 min of builder time (the props 11 min, the painted room 31 min), before any acting.
+Jonny's MrBeast playbook already says to reuse sets (approved 8 Nov). So, before the plan:
+- **Start from the series' last set** when the brief's place fits (the same flat, the same café): copy the set block,
+  plate and props from the last episode's generator and change the dressing (bunting, a cake table), not the room.
+- **Look for the prop before briefing one**: `grep -l "<kind>" engine/page/props-*.js` (a gift box, a crate, a table).
+  A different size is a number in the generator; only a prop the library hasn't got is a builder task.
+- A new room or a new prop is for a place or a panel the library can't give. PANELS.md names which, and why.
 
 ## Briefs and the work loop with builders
 
