@@ -27,6 +27,7 @@ import { signatureEvents, isSignature, signatureSound, signatureGain } from "./s
 import { actorState, cameraState, TAP_AT, feetOn, footfalls } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
 import { soundClock } from "./shared/holds.js";
+import { pausesOf } from "./shared/pause.js";
 
 // ---------- small DSP helpers ----------
 class Bus {
@@ -150,6 +151,41 @@ const SFX = {
   click(r) {
     const d = 0.12, x = buf(d), hp = biquad("hp", 1800, 0.8);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * (env(t, 0.0005, 0.004, d) + 0.7 * env(t - 0.055, 0.0005, 0.006, d)) + Math.sin(TAU * 1400 * t) * 0.3 * env(t, 0.0005, 0.01, d); }
+    return x;
+  },
+  // pause time (the what-if format, 8 Nov 2026), the power's sound, the same every time: a heavy clock "TOCK" (a dry
+  // knock on wood with a short metal ring on it) and under it the world winding down, a low buzzy tone that slides from
+  // about 380 Hz to 60 Hz over 0.8 s like a tape stopping, with a falling band of air, then a faint clock-bell tail
+  timestop(r) {
+    const d = 1.3, x = buf(d), lp = biquad("lp", 2600, 0.7), bp = biquad("bp", 1800, 2.5), air = biquad("bp", 1400, 1.2);
+    let p = 0, pk = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = Math.min(1, t / 0.8);
+      if (i % 64 === 0) retune(air, "bp", 1400 * Math.pow(0.18, u), 1.2);
+      const f = 380 * Math.pow(60 / 380, Math.pow(u, 0.75)); p += TAU * f / SR;
+      // the slide: odd harmonics (a soft square), fading as it slows
+      let y = (Math.sin(p) + Math.sin(3 * p) / 3 + Math.sin(5 * p) / 5) * 0.5 * env(t, 0.01, 0.6, d) * (1 - 0.85 * u);
+      y = run(lp, y) + run(air, r() * 2 - 1) * 0.35 * env(t, 0.02, 0.5, d);
+      // the tock: a click of bright noise, a wooden knock at 520 Hz and a low thump, all in the first 0.15 s
+      pk += TAU * 520 * Math.pow(0.85, Math.min(1, t / 0.1)) / SR;
+      y += run(bp, r() * 2 - 1) * 1.8 * env(t, 0.0005, 0.012, d) + (Math.sin(pk) * 1.2 + Math.sin(2 * pk) * 0.45) * env(t, 0.001, 0.07, d) + Math.sin(TAU * 95 * t) * 0.3 * env(t, 0.002, 0.08, d);
+      // the bell tail: a quiet clock chime ringing out
+      y += (Math.sin(TAU * 1568 * t) * 0.16 + Math.sin(TAU * 2349 * t) * 0.07) * env(t, 0.004, 0.55, d);
+      x[i] = y;
+    }
+    return x;
+  },
+  // the world starting again: a quick rising "vwip" (60 -> 700 Hz in 0.22 s) into one bright clock tick
+  timego(r) {
+    const d = 0.5, x = buf(d), hp = biquad("hp", 1500, 0.8);
+    let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = Math.min(1, t / 0.22), f = 60 * Math.pow(700 / 60, u * u); p += TAU * f / SR;
+      let y = (Math.sin(p) + Math.sin(2 * p) * 0.3) * 0.7 * (t < 0.22 ? 0.2 + 0.8 * u : Math.exp(-(t - 0.22) / 0.03));
+      const tk = t - 0.22;
+      if (tk >= 0) y += run(hp, r() * 2 - 1) * 1.2 * Math.exp(-tk / 0.006) + Math.sin(TAU * 2400 * tk) * 0.5 * Math.exp(-tk / 0.05);
+      x[i] = y;
+    }
     return x;
   },
   // a camera's self-timer: one short pure beep near 3 kHz with soft edges (Ghost Photo)
@@ -1188,6 +1224,16 @@ export function renderAudio(sb, chars, opts = {}) {
   // "sound": { "nature": ["birds", { "id": "stream", "gain": 0.12, "take": 2, "pan": -0.3 }] }
   for (const [k, n] of (cfg.nature || []).entries()) { const o = typeof n === "string" ? { id: n } : n; bed.add(0, natureBed(o, sb.duration, seed + k), o.gain ?? 0.14, o.pan ?? 0); }
   if (cfg.engine) bed.add(0, engineSound(cfg.engine, sb.duration, rng(seed ^ 0x27d4eb2d)), cfg.engine.gain ?? 0.3, cfg.engine.pan ?? 0);
+  // pause time (engine/shared/pause.js): the world's own sound stops with it (the wind, the birdsong, the room) and
+  // comes back when it carries on: out over 60 ms at the pause's start, back over 150 ms at its end (the music has
+  // its own "hush" parts, the effects and voices play on)
+  for (const w of pausesOf(sb) || []) {
+    const a = Math.max(0, Math.floor(w.from * SR)), b = Math.min(bed.n, Math.ceil((w.to + 0.15) * SR));
+    for (let i = a; i < b; i++) {
+      const t = i / SR, g = t < w.to ? Math.max(0, 1 - (t - w.from) / 0.06) : Math.min(1, (t - w.to) / 0.15);
+      bed.L[i] *= g; bed.R[i] *= g;
+    }
+  }
   const L = new Float32Array(voices.n), R = new Float32Array(voices.n);
   // (the last guard: a sample that still isn't a number plays as silence, and would make the peak NaN: it is zeroed and
   // counted, out.badSamples)

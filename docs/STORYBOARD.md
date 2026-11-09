@@ -487,7 +487,8 @@ the same picture, and the layout carries the bake's hash.
 - **A let-go is a body.** A `release` without `to` leaves the hand with the hand's speed and turn, tumbles and lands on
   whatever is under it (a put-down mug stays where it was put; a phone let go at the chest lands flat). A `release`
   with `to` and a `dur` of 0.1 s or more is an aimed throw: it gets to `to` in `dur`. `keep: "air"` with a reason
-  stages it in the air instead.
+  stages it in the air instead. A later grab picks it up where the bake left it (8 Nov 2026: before, a grab after a
+  let-go seated the prop from its simple drop pose, on the floor).
 - **Falls, throws and knocks** go through the clip builder, never a hand-tweened path (`physics-tween` warns on a
   `prop` tween that brings a loose prop down 15 cm or more):
 
@@ -554,6 +555,35 @@ Research: `/mnt/project-files/research/anime-look-2026-11-07/reports/Anime look 
 - **In the clip template since 8 Nov 2026** (Jonny picked both): `CEL = { at: 0.25 }` and `ANIME_TIMING = true` at the
   top of `storyboards/templates/clip-template.mjs`; set either to `null` / `false` for a clip that needs the old look.
   Finished clips don't change.
+- A drawing never holds across a camera cut (8 Nov 2026): the drawings count from the last cut, so on a cut's first
+  frame every character shows its pose at the cut (a setup that puts the cast in place for a new shot two frames before
+  it never shows the old pose), and a front-loaded key never runs past the next cut.
+
+## Pause time (the "What if your friend could..." format, 8 Nov 2026)
+
+Engine test: `node storyboards/env/make-pause-demo.mjs`; first clip: `storyboards/series/what-if/01-pause-time/`.
+The world stops for everyone but the keepers, who walk around in it; then it carries on from where it stopped.
+
+```json
+"pause": [{ "from": 1.0, "to": 2.75, "keep": ["vik"], "origin": "vik", "look": "grey",
+            "props": [{ "id": "cup", "from": 5.94 }] }]
+```
+
+- Everything is written in clip time. A frozen actor's timeline runs on its own clock, which stops in each pause that
+  doesn't keep it (engine/shared/pause.js `pauseView`): a hand mid-swing stays mid-swing and finishes after the pause,
+  breathing, blinks, flames and wings stop. A frozen actor can't have an action inside a pause (load.mjs refuses it).
+- The set's life (wind, clouds, birds), a prop's own idle (steam) and particle effects run on the world clock (stopped
+  in every pause). The keepers, the camera, captions, sounds, flashes and physics run on clip time.
+- Physics: put a `{ "do": "physics", "prop": "cup", "mode": "settle" }` at the pause's start to stop a body mid-air
+  (it isn't automatic). A keeper can take it out of the air: a `grab` with `keep: true` takes it where the bake has it.
+  To throw something into the pause, release it, then `c.knock` it a frame later with `to` + `in` (the knock starts
+  from where the let-go left it).
+- `look`: `"grey"` drains the colour from everything but the keepers (and the `props` listed while they're listed),
+  spreading from `origin` as a ring over `wave` s (0.3), flooding back over `back` s (0.2); `"dark"` turns every light
+  off but the keepers' eyes (light stops too); `"none"` stops the world with no look.
+- Sound: the generated music doesn't stop by itself: give each pause a `{ "at": from, "part": "hush" }` and the
+  next part at `to`. The ambience bed (wind, birds) is silenced in every pause (engine/audio.mjs). The power's sounds
+  are `timestop` (a wooden tock and a tape-stop slide) and `timego` (a rising vwip into one tick).
 
 ## Anime look 02: ink lines and satsuei grade (8 Nov 2026; on in the clip template since Jonny's pick, PR #174)
 
