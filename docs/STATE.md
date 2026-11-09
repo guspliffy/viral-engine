@@ -29,9 +29,9 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
   for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
-- What if EP02 library (workflow v2 + PR #184 savers, ticking-clock test): ~300 min go->delivery, 3 builders (Sonnet T1
-  props 170k, Opus T2 flame 228k + T3 book blast 275k) + Fable A 139k + B 170k = 0.98 M subagents; thread 1.02 M out
-  ($79, includes the 8 Nov What if storyboards); 1 check-fix round + 1 round after review B; 1 draft + 2 full local renders, 16 min each; commentator cut (--vo) +60 min incl. VoxCPM2 setup.
+- What if EP02 library (v2 + #184 savers, ticking-clock test): ~300 min go->delivery, subagents 0.98 M (3 builders 673k, Fable A 139k + B 170k), thread $79; 1 check-fix + 1 review-B round, 1 draft + 3 full renders (16 min); commentator cut +60 min.
+- NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
+  0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,

@@ -1,0 +1,631 @@
+{
+ "id": "make-s2e1-props-bench",
+ "title": "Props bench: S2 E1 Text him",
+ "idea": "Props bench for engine/page/props-band.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#27294f",
+  "floor": "#3b3550"
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "bench",
+   "kind": "parkbench",
+   "x": 2.3,
+   "z": -0.45
+  },
+  {
+   "id": "drum",
+   "kind": "bassdrum",
+   "x": -0.95,
+   "z": -0.45,
+   "rot": -55
+  },
+  {
+   "id": "crate",
+   "kind": "rocketcrate",
+   "x": 0.8,
+   "z": -0.45
+  },
+  {
+   "id": "tuba",
+   "kind": "tuba",
+   "x": -1,
+   "z": 1
+  },
+  {
+   "id": "cymA",
+   "kind": "cymbal",
+   "x": -0.5,
+   "y": 0.35,
+   "z": 1
+  },
+  {
+   "id": "cymB",
+   "kind": "cymbal",
+   "x": -0.2,
+   "y": 0.35,
+   "z": 1,
+   "rot": 25
+  },
+  {
+   "id": "mal",
+   "kind": "mallet",
+   "x": 0.15,
+   "z": 1
+  },
+  {
+   "id": "bat",
+   "kind": "baton",
+   "x": 0.4,
+   "z": 1
+  },
+  {
+   "id": "bub",
+   "kind": "chatbubble",
+   "x": 1,
+   "y": 0.25,
+   "z": 1
+  },
+  {
+   "id": "phone",
+   "kind": "phone",
+   "style": "iphone",
+   "x": 0.7,
+   "z": 1,
+   "scale": 1.6,
+   "screen": {
+    "src": "assets/screens/text-him/atlas.png",
+    "cols": 3,
+    "rows": 1
+   }
+  },
+  {
+   "id": "sky",
+   "kind": "skyletters",
+   "x": 0,
+   "y": 22,
+   "z": -40
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "overview",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.95,
+     1.9,
+     9.4
+    ],
+    "look": [
+     0.95,
+     0.4,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "drum",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tuba",
+     "set": {
+      "blow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cymA",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cymB",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "fuse": 0,
+      "launched": 0,
+      "smoke": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "pop": 0,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "dim": 1,
+      "l0": 0,
+      "fizzle0": 0,
+      "l1": 0,
+      "fizzle1": 0,
+      "l2": 0,
+      "fizzle2": 0,
+      "l3": 0,
+      "fizzle3": 0,
+      "l4": 0,
+      "fizzle4": 0,
+      "l5": 0,
+      "fizzle5": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tuba blow",
+   "at": 1.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -1,
+     0.75,
+     2.6
+    ],
+    "look": [
+     -1,
+     0.33,
+     1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tuba",
+     "set": {
+      "blow": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "cymbals mallet baton",
+   "at": 3,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.05,
+     0.6,
+     3.5
+    ],
+    "look": [
+     0.05,
+     0.3,
+     1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tuba",
+     "set": {
+      "blow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "cymA",
+     "set": {
+      "ring": 0.1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "cymB",
+     "set": {
+      "ring": 0.35
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "drum hit",
+   "at": 4.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.4,
+     1.35,
+     2.4
+    ],
+    "look": [
+     -0.95,
+     0.56,
+     -0.45
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cymA",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "cymB",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "drum",
+     "set": {
+      "hit": 0.08
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "crate fuse",
+   "at": 6,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     1,
+     0.7,
+     2
+    ],
+    "look": [
+     0.8,
+     0.35,
+     -0.45
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "drum",
+     "set": {
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "fuse": 0.45,
+      "launched": 2,
+      "smoke": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "bubble",
+   "at": 7.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.9,
+     0.3,
+     2.2
+    ],
+    "look": [
+     0.9,
+     0.25,
+     1
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crate",
+     "set": {
+      "fuse": 0,
+      "launched": 0,
+      "smoke": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "pop": 1,
+      "glow": 0.7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "phone tile 2",
+   "at": 9,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0.7,
+     0.18,
+     1.9
+    ],
+    "look": [
+     0.7,
+     0.18,
+     1
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "pop": 0,
+      "glow": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "feed": 2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "sky bursting",
+   "at": 10.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     6
+    ],
+    "look": [
+     0,
+     22,
+     -40
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "l0": 0.05,
+      "l1": 0.1,
+      "l2": 0.2,
+      "l3": 0.35,
+      "l4": 0.5,
+      "l5": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "sky LOOK UP",
+   "at": 12,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     6
+    ],
+    "look": [
+     0,
+     22,
+     -40
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "l0": 0.4,
+      "l1": 0.4,
+      "l2": 0.4,
+      "l3": 0.4,
+      "l4": 0.4,
+      "l5": 0.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "sky P fizzles",
+   "at": 13.5,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     6
+    ],
+    "look": [
+     0,
+     22,
+     -40
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "l0": 0.4,
+      "l1": 0.4,
+      "l2": 0.4,
+      "l3": 0.4,
+      "l4": 0.55,
+      "l5": 0.5,
+      "fizzle5": 0.65
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "bench",
+   "at": 15,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     2.3,
+     1.1,
+     5.8
+    ],
+    "look": [
+     2.3,
+     0.35,
+     -0.45
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sky",
+     "set": {
+      "l0": 0,
+      "l1": 0,
+      "l2": 0,
+      "l3": 0,
+      "l4": 0,
+      "l5": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/never-looks-up/make-s2e1-props-bench.mjs (engine bench, no reviews)."
+}
