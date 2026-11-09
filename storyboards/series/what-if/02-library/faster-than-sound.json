@@ -928,6 +928,17 @@
    "rot": 0
   },
   {
+   "id": "rpage",
+   "kind": "libpage",
+   "x": 0.115,
+   "y": 0.672,
+   "z": -0.04,
+   "rot": 0,
+   "tip": -90,
+   "bend": 0,
+   "staged": "lies on Reaper's open book until the late puff flips it"
+  },
+  {
    "id": "page",
    "kind": "libpage",
    "x": -9,
@@ -1451,7 +1462,7 @@
    "from": 16.8,
    "to": 17.7,
    "text": "...sorry.",
-   "pos": 500,
+   "pos": 595,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1685,9 +1696,29 @@
     },
     {
      "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.74
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.778
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.754
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1697,7 +1728,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.746
+      "x": -0.77
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1707,7 +1738,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.78
+      "x": -0.808
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1722,7 +1753,17 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
+     "set": {
+      "x": -0.724
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
      "set": {
       "x": -0.746
      },
@@ -1732,9 +1773,19 @@
     },
     {
      "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.726
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.73
+      "x": -0.706
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1744,17 +1795,37 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.756
+      "x": -0.728
      },
      "dur": 0.1,
      "ease": "inOut",
      "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.74
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.778
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.754
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1764,7 +1835,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.746
+      "x": -0.77
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1774,7 +1845,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.78
+      "x": -0.808
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1791,7 +1862,17 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
+     "set": {
+      "x": -0.724
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
      "set": {
       "x": -0.746
      },
@@ -1801,9 +1882,19 @@
     },
     {
      "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.726
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.73
+      "x": -0.706
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1813,17 +1904,37 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.756
+      "x": -0.728
      },
      "dur": 0.1,
      "ease": "inOut",
      "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.74
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.778
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.4
     },
     {
      "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.754
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1833,7 +1944,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.746
+      "x": -0.77
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1843,7 +1954,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.78
+      "x": -0.808
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1866,7 +1977,17 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
+     "set": {
+      "x": -0.724
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
      "set": {
       "x": -0.746
      },
@@ -1876,9 +1997,19 @@
     },
     {
      "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.726
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.73
+      "x": -0.706
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1888,7 +2019,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.756
+      "x": -0.728
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1918,9 +2049,29 @@
     },
     {
      "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.74
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.778
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.754
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1930,7 +2081,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.746
+      "x": -0.77
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1940,7 +2091,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.78
+      "x": -0.808
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1948,9 +2099,29 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
+     "set": {
+      "x": -0.724
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
      "set": {
       "x": -0.746
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.726
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1960,7 +2131,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.73
+      "x": -0.706
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1970,7 +2141,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.756
+      "x": -0.728
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1978,9 +2149,29 @@
     },
     {
      "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.74
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.778
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.754
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -1990,7 +2181,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.746
+      "x": -0.77
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2000,7 +2191,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.78
+      "x": -0.808
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2014,6 +2205,26 @@
      "dur": 0.3,
      "blink": false,
      "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.732
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.762
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -2144,7 +2355,7 @@
      "set": {
       "fade": 1
      },
-     "dur": 0.4,
+     "dur": 0.25,
      "ease": "in",
      "at": 1.22
     },
@@ -2189,9 +2400,9 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
      "set": {
-      "x": -0.755
+      "x": -0.738
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2199,19 +2410,9 @@
     },
     {
      "do": "prop",
-     "id": "tw13",
+     "id": "tw11",
      "set": {
-      "x": -0.749
-     },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 0.05
-    },
-    {
-     "do": "prop",
-     "id": "tw14",
-     "set": {
-      "x": -0.784
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2221,7 +2422,57 @@
      "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.745
+      "x": -0.768
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "tw13",
+     "set": {
+      "x": -0.762
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "tw14",
+     "set": {
+      "x": -0.798
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.726
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.75
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.732
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2231,7 +2482,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.727
+      "x": -0.714
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2241,7 +2492,7 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.752
+      "x": -0.738
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2260,9 +2511,9 @@
     },
     {
      "do": "prop",
-     "id": "tw12",
+     "id": "tw10",
      "set": {
-      "x": -0.755
+      "x": -0.738
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2270,19 +2521,9 @@
     },
     {
      "do": "prop",
-     "id": "tw13",
+     "id": "tw11",
      "set": {
-      "x": -0.749
-     },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 0.25
-    },
-    {
-     "do": "prop",
-     "id": "tw14",
-     "set": {
-      "x": -0.784
+      "x": -0.774
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2292,17 +2533,37 @@
      "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.745
+      "x": -0.768
      },
      "dur": 0.1,
      "ease": "inOut",
-     "at": 0.35
+     "at": 0.25
     },
     {
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.727
+      "x": -0.762
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "tw14",
+     "set": {
+      "x": -0.798
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.726
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2310,9 +2571,9 @@
     },
     {
      "do": "prop",
-     "id": "tw14",
+     "id": "tw11",
      "set": {
-      "x": -0.752
+      "x": -0.75
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2322,7 +2583,57 @@
      "do": "prop",
      "id": "tw12",
      "set": {
-      "x": -0.755
+      "x": -0.732
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "tw13",
+     "set": {
+      "x": -0.714
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "tw14",
+     "set": {
+      "x": -0.738
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.738
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.774
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tw12",
+     "set": {
+      "x": -0.768
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2332,7 +2643,7 @@
      "do": "prop",
      "id": "tw13",
      "set": {
-      "x": -0.749
+      "x": -0.762
      },
      "dur": 0.1,
      "ease": "inOut",
@@ -2342,11 +2653,31 @@
      "do": "prop",
      "id": "tw14",
      "set": {
-      "x": -0.784
+      "x": -0.798
      },
      "dur": 0.1,
      "ease": "inOut",
      "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tw10",
+     "set": {
+      "x": -0.732
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "tw11",
+     "set": {
+      "x": -0.762
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -2581,7 +2912,7 @@
     {
      "who": "rea",
      "do": "lean",
-     "to": 5,
+     "to": 12,
      "dur": 0.08,
      "at": 0.7
     },
@@ -2589,12 +2920,27 @@
      "who": "rea",
      "do": "hat",
      "spin": [
-      -20,
+      -45,
       0,
       0
      ],
      "dur": 0.12,
      "ease": "out",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "rpage",
+     "set": {
+      "x": -0.1,
+      "y": 0.95,
+      "z": 0.12,
+      "rot": 60,
+      "tip": -40
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "reason": "the late puff blows his page up off the book (air, not a fall)",
      "at": 0.7
     },
     {
@@ -2629,6 +2975,21 @@
      "lid": 0.5,
      "dur": 0.12,
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "rpage",
+     "set": {
+      "x": -0.05,
+      "y": 0.672,
+      "z": -0.04,
+      "rot": -6,
+      "tip": -90
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "reason": "the page floats back down onto the book's other side: turned (paper glides)",
+     "at": 1
     },
     {
      "who": "rea",
@@ -2754,10 +3115,10 @@
     ],
     "look": [
      -0.25,
-     0.95,
+     1.2,
      -4.6
     ],
-    "fov": 56
+    "fov": 62
    },
    "do": [
     {
@@ -3264,7 +3625,7 @@
      "do": "prop",
      "id": "lampL",
      "set": {
-      "swing": 22
+      "swing": 35
      },
      "dur": 0.18,
      "ease": "out",
@@ -3273,9 +3634,9 @@
     {
      "who": "sor",
      "do": "lean",
-     "to": -14,
-     "dur": 0.15,
-     "ease": "out",
+     "to": -22,
+     "dur": 0.24,
+     "ease": "inOut",
      "at": 2.3
     },
     {
@@ -3284,7 +3645,7 @@
      "spin": [
       0,
       0,
-      -22
+      -40
      ],
      "dur": 0.12,
      "ease": "out",
@@ -3365,7 +3726,7 @@
      "do": "prop",
      "id": "lampL",
      "set": {
-      "swing": -12.1
+      "swing": -19.25
      },
      "dur": 0.48,
      "ease": "inOut",
@@ -3461,7 +3822,7 @@
      "do": "prop",
      "id": "lampL",
      "set": {
-      "swing": 6.655
+      "swing": 10.588
      },
      "dur": 0.48,
      "ease": "inOut",
@@ -3495,14 +3856,14 @@
    "len": 0.7,
    "shot": {
     "pos": [
-     -2.4,
+     -3.1,
      1.25,
      -0.4
     ],
     "look": [
      -1,
      1.05,
-     -3.75
+     -3.25
     ],
     "fov": 48
    },
@@ -3562,7 +3923,7 @@
      "do": "prop",
      "id": "lampL",
      "set": {
-      "swing": -3.66
+      "swing": -5.823
      },
      "dur": 0.48,
      "ease": "inOut",
@@ -3601,7 +3962,7 @@
      "do": "prop",
      "id": "lampL",
      "set": {
-      "swing": 2.013
+      "swing": 3.203
      },
      "dur": 0.48,
      "ease": "inOut",
@@ -4096,12 +4457,12 @@
    "shot": {
     "pos": [
      -0.6,
-     1.3,
+     2.6,
      10.5
     ],
     "look": [
      -0.78,
-     1.55,
+     1.45,
      -1
     ],
     "fov": 25
@@ -4238,8 +4599,8 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.12,
-       0.37,
+       -0.03,
+       0.34,
        0.4
       ]
      },
@@ -4401,12 +4762,12 @@
    "shot": {
     "pos": [
      -0.6,
-     1.3,
+     2.6,
      10.5
     ],
     "look": [
      -0.78,
-     1.55,
+     1.45,
      -1
     ],
     "fov": 25
@@ -5487,7 +5848,34 @@
    "name": "08 the aftermath",
    "at": 16,
    "len": 2.9,
-   "shot": "keep",
+   "shot": {
+    "pos": [
+     -0.8,
+     3,
+     10
+    ],
+    "look": [
+     -0.55,
+     1.6,
+     -1
+    ],
+    "fov": 25,
+    "to": {
+     "pos": [
+      -0.8,
+      3,
+      10
+     ],
+     "look": [
+      -0.45,
+      1.15,
+      -3
+     ],
+     "fov": 21
+    },
+    "dur": 2.9,
+    "ease": "inOut"
+   },
    "do": [
     {
      "do": "prop",

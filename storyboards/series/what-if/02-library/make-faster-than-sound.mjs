@@ -97,6 +97,7 @@ const props = [
     { id: `t2l${i}`, kind: "greenlamp", x: r3(x + 0.35), y: TABLE_Y, z: r3(z - 0.1) },
     { id: `t2c${i}`, kind: "chair", x: r3(x - 0.3), z: r3(z - 0.6), rot: 0 },
   ]),
+  { id: "rpage", kind: "libpage", x: r3(REA[0] + 0.065), y: r3(TABLE_Y + 0.052), z: r3(TABLE[1] - 0.04), rot: 0, tip: -90, bend: 0, staged: "lies on Reaper's open book until the late puff flips it" },   // review B: the puff has to move something
   { id: "page", kind: "libpage", x: FAR[0], y: 0.2, z: FAR[1], rot: 0, bend: 0, scale: 1.5, staged: "off stage, then stuck to Reaper's face by the blast" },                 // the page that ends up on Reaper's face
   { id: "dust", kind: "dustmotes", x: -0.5, y: 1.8, z: -1.5, n: 70, box: [6, 3, 6], color: "#fff4d6" },
   { id: "beam", kind: "lightbeam", x: -3.0, y: 4.2, z: -1.5, rot: 30, tip: -50, len: 6, w: 1.8, color: "#fffaf0", glow: 0.3 },
@@ -169,14 +170,15 @@ see(0, 0.95, ["phx.face", "rea.face", "sor.face", TW(TOWER_N - 1)], "frame 0: th
 // the tower wobbles: from his bouncing (0-0.9) and again as Reaper looks up at it (1.6-2.1, the stakes); the top
 // three books sway more than the ones under them, then settle (review A)
 const TWX = (i) => r3(TOWER[0] + ((i * 37) % 7 - 3) * 0.006);
-for (const [t0, t1, amp] of [[0.0, 0.9, 0.012], [1.6, 2.1, 0.016]])
+const WOB = [5, 4, 3, 2, 1].map((n) => TOWER_N - n);   // review B: the top five books, the top one +-4 cm at phone size
+for (const [t0, t1, amp] of [[0.0, 0.9, 0.04], [1.6, 2.1, 0.03]])
   for (let t = t0, k = 0; t < t1 - 1e-6; t = r3(t + 0.1), k++)
-    for (const i of [TOWER_N - 3, TOWER_N - 2, TOWER_N - 1]) c.prop(t, TW(i), { x: r3(TWX(i) + (k % 2 ? 1 : -1) * amp * (i - TOWER_N + 4) / 3) }, 0.1, "inOut");
-for (const t of [0.9, 2.1]) for (const i of [TOWER_N - 3, TOWER_N - 2, TOWER_N - 1]) c.prop(t, TW(i), { x: TWX(i) }, 0.25, "settle");
+    for (const i of WOB) c.prop(t, TW(i), { x: r3(TWX(i) + (k % 2 ? 1 : -1) * amp * (i - TOWER_N + 6) / 5) }, 0.1, "inOut");
+for (const t of [0.9, 2.1]) for (const i of WOB) c.prop(t, TW(i), { x: TWX(i) }, 0.25, "settle");
 
 // ================================================================ 2 SNAP 1, 1.0-2.2: gone (the streak, silence)
 zoom(TRIP1[0], { word: 0.8, air: true });
-streak([[PHX0[0], 0.5, PHX0[1]], [-0.3, 0.45, 0.75], [1.2, 0.55, 0.3], [2.6, 1.0, -1.5]], TRIP1[0], 1.22, 1.62, { len: 4.0, w: 0.32, size: 1.4, gap: 0.9 });   // low across the front of the table and out right, under every face (panel 02: a low streak from the left edge)   // panel 02: off to the top shelf (the ladder side); big for the long lens
+streak([[PHX0[0], 0.5, PHX0[1]], [-0.3, 0.45, 0.75], [1.2, 0.55, 0.3], [2.6, 1.0, -1.5]], TRIP1[0], 1.22, 1.47, { len: 4.0, w: 0.32, size: 1.4, gap: 0.9 });   // low across the front of the table and out right, under every face (panel 02: a low streak from the left edge)   // panel 02: off to the top shelf (the ladder side); big for the long lens
 A(1.12, "rea", "look", { to: [-0.75, 0.0], dur: 0.35, blink: false });   // his eyes slide to the empty spot (panel 02)
 A(1.2, "sor", "look", { to: [-0.45, -0.15], dur: 0.3, blink: false }); A(1.25, "sor", "expr", { expr: "shocked", set: { open: 0.1, eye: 1.15 }, dur: 0.25 });
 see(1.05, S_REA, ["rea.face", "sor.face"], "Phoenix gone: only the streak; Reaper's eyes slide to where he was");
@@ -204,8 +206,10 @@ A(2.3, "rea", "look", { to: [-0.1, -0.5], dur: 0.25, blink: false });   // back 
 sfx(PUFF1, "poof", { gain: 0.4, reason: "the rule, planted once: his sound arrives 0.7 s late, a small puff of air" });
 sfx(r3(PUFF1 + 0.02), "book-flip", { gain: 1.0, reason: "the puff flips Reaper's page" });
 A(PUFF1, "rea", "face", { lid: 0.9, dur: 0.05 }); A(r3(PUFF1 + 0.2), "rea", "face", { lid: 0.5, dur: 0.12 });
-A(PUFF1, "rea", "lean", { to: 5, dur: 0.08 }); A(r3(PUFF1 + 0.12), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
-A(PUFF1, "rea", "hat", { spin: [-20, 0, 0], dur: 0.12, ease: "out" }); A(r3(PUFF1 + 0.15), "rea", "hat", { spin: [0, 0, 0], dur: 0.35, ease: "settle" });
+A(PUFF1, "rea", "lean", { to: 12, dur: 0.08 }); A(r3(PUFF1 + 0.12), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
+A(PUFF1, "rea", "hat", { spin: [-45, 0, 0], dur: 0.12, ease: "out" }); A(r3(PUFF1 + 0.15), "rea", "hat", { spin: [0, 0, 0], dur: 0.35, ease: "settle" });
+c.at(PUFF1, { do: "prop", id: "rpage", set: { x: -0.1, y: 0.95, z: 0.12, rot: 60, tip: -40 }, dur: 0.25, ease: "out", reason: "the late puff blows his page up off the book (air, not a fall)" });
+c.at(r3(PUFF1 + 0.3), { do: "prop", id: "rpage", set: { x: r3(REA[0] - 0.1), y: r3(TABLE_Y + 0.052), z: r3(TABLE[1] - 0.04), rot: -6, tip: -90 }, dur: 0.4, ease: "inOut", reason: "the page floats back down onto the book's other side: turned (paper glides)" });
 A(3.25, "rea", "look", { to: [-0.8, 0.05], dur: 0.5, blink: false });   // the slow look at Phoenix
 act.mood(c, 3.35, "rea", "annoyed", { hold: 0.5 });
 see(S_TWO, S_WALL, ["phx.face", "rea.face", "bigbook"], "he's back with the book; the late puff flips Reaper's page; Reaper's slow look");
@@ -242,9 +246,9 @@ c.arm(5.8, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.7, "inOut"); A(5.85, "sor", "g
 // the bigger late thump
 sfx(THUMP2, "thud", { gain: 0.8, reason: "the rule, planted twice: a bigger late thump of his own sound" });
 sfx(r3(THUMP2 + 0.03), "creak", { gain: 0.35, reason: "the hanging lamps swinging on their chains" });
-swing(THUMP2, "lampL", 22, 2.4); swing(r3(THUMP2 + 0.04), "lampR", 18, 2.4); swing(r3(THUMP2 + 0.02), "sign", 10, 1.8);
-A(THUMP2, "sor", "lean", { to: -14, dur: 0.15, ease: "out" }); A(r3(THUMP2 + 0.25), "sor", "lean", { to: 0, dur: 0.45, ease: "settle" });
-A(THUMP2, "sor", "hat", { spin: [0, 0, -22], dur: 0.12, ease: "out" }); A(r3(THUMP2 + 0.3), "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
+swing(THUMP2, "lampL", 35, 2.4); swing(r3(THUMP2 + 0.04), "lampR", 18, 2.4); swing(r3(THUMP2 + 0.02), "sign", 10, 1.8);
+A(THUMP2, "sor", "lean", { to: -22, dur: 0.24, ease: "inOut" }); A(r3(THUMP2 + 0.25), "sor", "lean", { to: 0, dur: 0.45, ease: "settle" });
+A(THUMP2, "sor", "hat", { spin: [0, 0, -40], dur: 0.12, ease: "out" }); A(r3(THUMP2 + 0.3), "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
 A(THUMP2, "sor", "face", { lid: 0.8, dur: 0.05 }); A(r3(THUMP2 + 0.25), "sor", "face", { lid: 0, dur: 0.15 });
 A(r3(THUMP2 + 0.05), "phx", "face", { lid: 0, dur: 0.12 }); A(r3(THUMP2 + 0.1), "phx", "look", { to: [0.4, 0.1], dur: 0.15, blink: false });
 act.mood(c, 6.6, "sor", "angry", { hold: 0.35 });
@@ -290,7 +294,7 @@ streak([[-3.4, 0.9, -1.6], [r3(PHX_SEAT[0] - 0.1), 0.7, r3(PHX_SEAT[1] + 0.2)]],
 A(r3(TRIP3[1] - 0.01), "phx", "sit", { height: 0.294, dur: 0.01, hands: "keep" });   // on chairL's seat (0.42 x its scale 0.7): chairL only arrives on the cut at 11.0, and a seated sit reads its seat's first place
 A(r3(TRIP3[1] + 0.02), "phx", "squash", { amount: 0.08, dur: 0.15 });   // stops dead
 A(11.2, "rea", "look", { to: [-0.75, 0.0], dur: 0.25, blink: false });
-c.arm(11.2, "phx", "R", { x: [-0.12, 0.37, 0.4] }, 0.7, "inOut"); A(11.4, "phx", "grip", { side: "R", shape: "point", dur: 0.2 });   // forearm beside his cheek, not across his mouth (review A)   // finger to his lips
+c.arm(11.2, "phx", "R", { x: [-0.03, 0.34, 0.4] }, 0.7, "inOut"); A(11.4, "phx", "grip", { side: "R", shape: "point", dur: 0.2 });   // forearm beside his cheek, not across his mouth (review A)   // finger to his lips
 c.say(11.5, "phx", "Shhh.", 0.4, "whisper", { pos: 560 });
 A(11.95, "rea", "face", { lid: 1, dur: 0.25 }); A(11.95, "rea", "expr", { expr: "kind", set: { curve: 0.25 }, dur: 0.3 });
 c.macro(12.0, "rea", "nod", { times: 1 });
@@ -366,7 +370,7 @@ see(BOOM, S_AFTER, ["phx.face", "rea.face", "sor.face"], "the boom: every book o
 cap(S_AFTER, 17.55, "Real fact: you only hear a supersonic jet after it has passed you.", 240);
 act.sheepish(c, 16.5, "phx");
 A(16.5, "phx", "look", { to: [0.5, 0.05], dur: 0.25, blink: false });
-c.say(16.8, "phx", "...sorry.", 0.5, "whisper", { pos: 500 });
+c.say(16.8, "phx", "...sorry.", 0.5, "whisper", { pos: 595 });   // under the fact caption (its box ends at 579), not on it (review B)
 act.mood(c, 16.2, "sor", "angry", { hold: 2.0 });
 cap(17.6, r3(END - 0.05), "Would you still want it?", 300);
 // the callback: the librarian's finger back at his lips, as at frame 0 (review A, P8)
@@ -399,10 +403,10 @@ const SH = {
   wide: { pos: [-1.1, 3.0, 10.5], look: [-1.0, 1.15, -1.5], fov: 31 },          // panels 01-02: the long-lens front wide, the desk at the back (camfit 9 Nov)
   rea: { pos: [-0.3, 1.5, 3.6], look: [-0.45, 1.05, -0.4], fov: 36 },           // Reaper and his tower
   two: { pos: [-1.2, 2.1, 6.8], look: [-0.55, 1.45, -0.6], fov: 34 },           // panel 03: the medium two-shot (the brief's size; review A), from the front left
-  wall: { pos: [0.0, 3.0, 0.1], look: [-0.25, 0.95, -4.6], fov: 56 },           // panel 04: over the table, down at the desk (Reaper just under the frame)
-  laps: { pos: [-2.4, 1.25, -0.4], look: [-1.0, 1.05, -3.75], fov: 48 },        // Phoenix to us (the librarian hidden behind him, the space above for the lines)
+  wall: { pos: [0.0, 3.0, 0.1], look: [-0.25, 1.2, -4.6], fov: 62 },           // panel 04: over the table at the desk (Reaper just under the frame); review B: tilted up and wider so both lamps and the sign swing in frame
+  laps: { pos: [-3.1, 1.25, -0.4], look: [-1.0, 1.05, -3.25], fov: 48 },        // Phoenix to us (the librarian hidden behind him, the space above for the lines)
   high: { pos: [2.4, 5.4, 10.0], look: [-0.6, 0.4, -2.4], fov: 28, to: { pos: [2.1, 5.0, 9.0], fov: 26 }, dur: 3.0, ease: "inOut" },   // panel 05: high over the reading room, the desk top right; a slow push through the laps
-  sit: { pos: [-0.6, 1.3, 10.5], look: [-0.78, 1.55, -1.0], fov: 25 },            // panel 06: the table, level; from x -0.6 the librarian shows between the tower and Reaper
+  sit: { pos: [-0.6, 2.6, 10.5], look: [-0.78, 1.45, -1.0], fov: 25 },            // panel 06: the table, level; from x -0.6 the librarian shows between the tower and Reaper
   clock: { pos: [-1.7, 1.5, -4.3], look: [-1.85, 1.38, -6.05], fov: 40 },        // the longcase clock: dial and pendulum
   boom: { pos: [-1.0, 3.4, 12.0], look: [-0.6, 1.5, -1.5], fov: 28, to: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 }, dur: 2.4, ease: "inOut" },   // panel 07 pushing into panel 08 (no cut, review A)
   after: { pos: [-0.8, 3.0, 10.0], look: [-0.55, 1.6, -1.0], fov: 25 },         // panel 08: the medium-wide, from above
@@ -418,7 +422,7 @@ const beats = c.beats([
   ["06 the clock", S_CLOCK, SH.clock, "insert"],
   ["06 the calm", S_BACK, SH.sit],
   ["07 BOOM", BOOM, SH.boom, "payoff"],
-  ["08 the aftermath", S_AFTER, "keep"],   // the boom push lands on panel 08's framing
+  ["08 the aftermath", S_AFTER, { ...SH.after, to: { pos: SH.after.pos, look: [-0.45, 1.15, -3.0], fov: 21 }, dur: r3(END - S_AFTER), ease: "inOut" }],   // review B: a slow creep onto the librarian answering his own SHHH   // the boom push lands on panel 08's framing
 ], END);
 
 write(import.meta.url, {
