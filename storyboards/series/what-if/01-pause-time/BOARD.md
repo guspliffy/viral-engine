@@ -80,3 +80,18 @@
 ## §4 Check times
 
 0.4, 1.8, 3.5, 4.1, 4.7, 5.5, 5.9, 6.9, 7.9, 8.9, 10.6, 11.9, 13.1, 15.4, 17.1, 17.8
+
+## §5 The commentator cut (`--vo`, pause-time-vo.json)
+
+Jonny 9 Nov 2026: of six voices he picked the deep storyteller (voices.json `narrator`) and wants "to try some videos
+with the voiceovers as commentator". Same picture as the main cut, so the two compare the voiceover alone; END 19.8
+(the last wide holds 1.2 s longer for the question after the laugh). The lines sit where nobody speaks:
+
+| at | line | where |
+|---|---|---|
+| 1.02 | What if you could pause time? | the first pause, as he strolls into the photo (the premise; the read Jonny heard) |
+| 5.15 | Even the coffee waits for him. | the cup hanging in the air |
+| 9.85 | Just wind it back. | after this demo's HALT! subtitle, before "hm hm hmm" |
+| 12.42 | Sounds perfect, right? | the title card (no subtitle: the title fills the top) |
+| 14.90 | Light stops too. | the dark, after "But if time stops..." and HALT!; replaces the three twist captions |
+| 18.30 | Would you still want it? | after Phoenix's laugh; replaces the closing caption |
