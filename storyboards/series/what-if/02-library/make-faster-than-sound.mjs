@@ -196,14 +196,13 @@ A(r3(TRIP1[1] - 0.02), "phx", "grip", { side: "both", shape: "hold", dur: 0.01 }
 A(r3(TRIP1[1] - 0.01), "phx", "grab", { prop: "bigbook", hand: "both", grip: [0, 0, 0], dur: 0, pose: null });
 A(r3(TRIP1[1] - 0.02), "phx", "look", { to: [0.1, 0.05], dur: 0.01, blink: false });
 fwip(TRIP1[1], PHX_BACK, 10, TRIP1[0]);
-streak([[1.2, 2.2, -4.5], [r3(PHX_BACK[0] + 0.2), 1.0, r3(PHX_BACK[1] + 0.3)]], r3(TRIP1[1] - 0.08), TRIP1[1], 2.5, { ghosts: 2 });   // back down from the top shelf
 A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.4, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
 act.grin(c, r3(TRIP1[1] + 0.05), "phx");
 A(r3(TRIP1[1] + 0.05), "phx", "wings", { to: 0.7, dur: 0.15, ease: "out" });
 A(2.3, "rea", "look", { to: [-0.1, -0.5], dur: 0.25, blink: false });   // back to his book: nothing happened
 // the late puff: his own small sound arrives, the page flips, the hood lifts
 sfx(PUFF1, "poof", { gain: 0.4, reason: "the rule, planted once: his sound arrives 0.7 s late, a small puff of air" });
-sfx(r3(PUFF1 + 0.02), "book-flip", { gain: 0.5, reason: "the puff flips Reaper's page" });
+sfx(r3(PUFF1 + 0.02), "book-flip", { gain: 1.0, reason: "the puff flips Reaper's page" });
 A(PUFF1, "rea", "face", { lid: 0.9, dur: 0.05 }); A(r3(PUFF1 + 0.2), "rea", "face", { lid: 0.5, dur: 0.12 });
 A(PUFF1, "rea", "lean", { to: 5, dur: 0.08 }); A(r3(PUFF1 + 0.12), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
 A(PUFF1, "rea", "hat", { spin: [-20, 0, 0], dur: 0.12, ease: "out" }); A(r3(PUFF1 + 0.15), "rea", "hat", { spin: [0, 0, 0], dur: 0.35, ease: "settle" });
@@ -227,7 +226,7 @@ A(r3(S_WALL - 0.02), "phx", "hide");   // on the cut: his crest would poke into 
 zoom(TRIP2[0], { word: 4.35, pos: 1100 });
 streak([[-2.2, 0.6, -1.4], [r3(CART[0] - 0.2), 0.75, r3(CART[1] + 0.2)]], TRIP2[0], 4.75, 5.05);   // in from where he stood to the cart
 streak([[r3(CART[0] - 0.1), 0.8, CART[1]], [1.5, 1.5, -6.1], [-0.2, 2.1, -6.1], [-1.9, 1.2, -6.1]], 4.8, 5.1, 5.45);   // the books into the shelves
-streak([[2.4, 1.6, -6.0], [r3(PHX_POSE[0] + 0.15), 0.6, PHX_POSE[1]]], 5.47, TRIP2[1], 5.95, { ghosts: 2 });   // back to the pose
+streak([[2.4, 1.6, -6.0], [r3(PHX_POSE[0] + 0.15), 0.6, PHX_POSE[1]]], 5.33, TRIP2[1], 5.95, { ghosts: 2 });   // back to the pose (over 8 frames: a faster sweep pops)
 for (let i = 0; i < 10; i++) c.at(4.75, { do: "prop", id: `cb${i}`, set: { x: FAR[0], y: 0, z: FAR[1] }, dur: 0.01, ease: "inOut", reason: "gone in one frame: he takes them faster than sound (not a fall)" });   // gone from the cart in one frame: he is shelving them   // off screen: under the librarian, where the wall shot is free
 // the books blur into the shelves (STAND-IN: the cart and the shelves' gaps come with the builders' cart and wall)
 A(5.0, "phx", "drop", { to: 0, dur: 0.01 });   // (while he is away: back on his feet for the pose)
@@ -300,7 +299,7 @@ c.arm(11.3, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(11.65,
 for (const w of ["phx", "rea", "sor"]) A(12.2, w, "still", { dur: 1.25, idle: 0.04 });
 see(TRIP3[1], S_CLOCK, ["phx.face", "rea.face", "sor.face"], "he sits perfectly quiet; they nod, relieved");
 // the clock (STAND-IN until the longcase clock is built: the shot frames where it will stand)
-TICKS.forEach((t, k) => sfx(t, k % 2 ? "seatclack" : "ai/fingertip-catch", { gain: r3(Math.min(1, (k % 2 ? 0.6 : 0.35) + k * 0.2)), reason: `the longcase clock: ${k % 2 ? "tock" : "tick"}, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
+TICKS.forEach((t, k) => sfx(t, k % 2 ? "seatclack" : "ai/fingertip-catch", { gain: r3(Math.min(1, (k % 2 ? 0.6 : 0.5) + k * 0.17)), reason: `the longcase clock: ${k % 2 ? "tock" : "tick"}, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
 sfx(13.05, "rumble", { gain: 0.5, reason: "the breath before it: a low rumble under the ticks" });
 A(13.1, "phx", "look", { to: [0.4, 0.3], dur: 0.2, blink: false }); A(13.15, "phx", "face", { lid: 0, dur: 0.15 });
 A(13.15, "rea", "face", { lid: 0.3, dur: 0.15 });
@@ -311,10 +310,11 @@ see(S_BACK, BOOM, ["phx.face", "rea.face"], "the three still; the ticks louder, 
 // bursts, the sign swings up on its chains, the librarian's hood flips back, the windows rattle.
 c.hitStop(BOOM);
 sfx(BOOM, "slap", { gain: 1.0, reason: "the sonic boom's crack, its first frame" });
+sfx(BOOM, "firework", { gain: 0.9, reason: "the boom's punchy mid thump over a deep boom (a phone hears it: the impact alone is mostly under 200 Hz)" });
 sfx(BOOM, "impact", { gain: 1.0, loud: true, reason: "THE BOOM: every sound he outran arrives at once" });
 sfx(r3(BOOM + 0.01), "dinostomp", { gain: 0.9, reason: "the boom's deep body, low enough to feel and still heard on a phone" });
 sfx(r3(BOOM + 0.02), "thud", { gain: 0.8, reason: "the boom's body" });
-sfx(r3(BOOM + 0.1), "kenney/impact-glass-light", { gain: 0.4, reason: "the windows rattle" });
+sfx(r3(BOOM + 0.1), "kenney/impact-glass-light", { gain: 0.7, reason: "the windows rattle" });
 FX.push({ at: BOOM, do: "cel", kind: "ring", pos: [TABLE[0], 1.0, -2.5], size: 4, dur: 0.6, palette: "energy" });
 c.at(BOOM, { fx: "shake", dur: 0.5, amp: 0.03 });
 // every book off every shelf (props-whatif-blast.js): the shelves hand their books to the storm on the boom's frame
@@ -347,7 +347,7 @@ A(BOOM, "rea", "grip", { side: "both", shape: "open", dur: 0.08 });
 c.arm(BOOM, "sor", "R", { x: [-0.3, 0.7, 0.22] }, 0.2, "out"); c.arm(BOOM, "sor", "L", { x: [0.3, 0.7, 0.22] }, 0.2, "out");   // arms up like the others
 A(BOOM, "sor", "hat", { spin: [-35, 0, 0], dur: 0.08 });   // the hood flips back (panel 07)
 for (const w of ["phx", "rea", "sor"]) { A(BOOM, w, "squash", { amount: 0.18, dur: 0.25 }); A(BOOM, w, "pitch", { to: -8, dur: 0.1, ease: "out" }); A(r3(BOOM + 0.6), w, "pitch", { to: 0, dur: 0.5, ease: "settle" }); }
-sfx(14.6, "crumble", { gain: 0.7, reason: "books raining down onto the floor and the table" });
+sfx(14.6, "crumble", { gain: 1.0, reason: "books raining down onto the floor and the table" });
 // arms come down as the books rain (no cut: the camera pushes on into the aftermath)
 for (const w of ["phx", "rea"]) { c.arm(14.95, w, "R", "rest", 0.8, "inOut"); c.arm(14.95, w, "L", "rest", 0.8, "inOut"); A(15.1, w, "grip", { side: "both", shape: "relaxed", dur: 0.3 }); }   // after the shock's hold (to 14.9); on twos, so slow
 c.arm(14.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.8, "inOut"); c.arm(14.95, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.8, "inOut"); A(15.1, "sor", "grip", { side: "both", shape: "relaxed", dur: 0.3 });
@@ -355,8 +355,8 @@ A(15.0, "sor", "hat", { spin: [0, 0, 0], dur: 0.5, ease: "settle" });
 A(14.4, "sor", "look", { to: [-0.3, -0.2], dur: 0.2, blink: false });
 // the page: it flutters down out of the blast onto Reaper's face (over half of it, panel 08)
 c.prop(14.6, "page", { x: r3(REA[0] + 0.25), y: 5.0, z: r3(REA[1] + 0.5), rot: 40, tip: -70, bend: 0 }, 0.01);   // libpage stands facing +z at tip 0
-c.prop(14.62, "page", { x: r3(REA[0] - 0.1), y: 2.3, z: r3(REA[1] + 0.45), rot: -25, tip: -40 }, 0.4, "in");
-c.prop(15.02, "page", { x: r3(REA[0] - 0.11), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: -5, bend: 1 }, 0.35, "out");   // curled over half his face
+c.at(14.62, { do: "prop", id: "page", set: { x: r3(REA[0] - 0.1), y: 2.3, z: r3(REA[1] + 0.45), rot: -25, tip: -40 }, dur: 0.4, ease: "in", reason: "a loose page drifts down on the blast's air and sticks to his face (paper flutters, it does not fall freely)" });
+c.at(15.02, { do: "prop", id: "page", set: { x: r3(REA[0] - 0.11), y: 0.86, z: r3(REA[1] + 0.41), rot: 8, tip: -5, bend: 1 }, dur: 0.35, ease: "out", reason: "a loose page drifts down on the blast's air and sticks to his face (paper flutters, it does not fall freely)" });   // curled over half his face
 A(15.3, "rea", "face", { lid: 0.55, dur: 0.25 }); A(15.4, "rea", "look", { to: [-0.3, 0.0], dur: 0.3, blink: false });
 see(BOOM, S_AFTER, ["phx.face", "rea.face", "sor.face"], "the boom: every book off every shelf, three faces to us");
 

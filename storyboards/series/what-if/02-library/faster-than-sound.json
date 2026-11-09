@@ -1015,37 +1015,6 @@
    "rot": 0,
    "path": [
     [
-     1.2,
-     2.2,
-     -4.5
-    ],
-    [
-     -1,
-     1,
-     -0.48
-    ]
-   ],
-   "len": 1.6,
-   "ghosts": 2,
-   "w": 0.36,
-   "size": 1,
-   "gap": 0.5,
-   "gain": 0.85,
-   "cover": 1.6,
-   "seed": 2,
-   "t": 0,
-   "fade": 1,
-   "staged": "light in the air: the trail he leaves"
-  },
-  {
-   "id": "streak3",
-   "kind": "flamestreak",
-   "x": 0,
-   "y": 0,
-   "z": 0,
-   "rot": 0,
-   "path": [
-    [
      -2.2,
      0.6,
      -1.4
@@ -1063,13 +1032,13 @@
    "gap": 0.5,
    "gain": 0.85,
    "cover": 1.6,
-   "seed": 3,
+   "seed": 2,
    "t": 0,
    "fade": 1,
    "staged": "light in the air: the trail he leaves"
   },
   {
-   "id": "streak4",
+   "id": "streak3",
    "kind": "flamestreak",
    "x": 0,
    "y": 0,
@@ -1104,13 +1073,13 @@
    "gap": 0.5,
    "gain": 0.85,
    "cover": 1.6,
-   "seed": 4,
+   "seed": 3,
    "t": 0,
    "fade": 1,
    "staged": "light in the air: the trail he leaves"
   },
   {
-   "id": "streak5",
+   "id": "streak4",
    "kind": "flamestreak",
    "x": 0,
    "y": 0,
@@ -1135,7 +1104,7 @@
    "gap": 0.5,
    "gain": 0.85,
    "cover": 1.6,
-   "seed": 5,
+   "seed": 4,
    "t": 0,
    "fade": 1,
    "staged": "light in the air: the trail he leaves"
@@ -1154,7 +1123,7 @@
    "fade": 1
   },
   {
-   "id": "streak6",
+   "id": "streak5",
    "kind": "flamestreak",
    "x": 0,
    "y": 0,
@@ -1179,7 +1148,7 @@
    "gap": 0.5,
    "gain": 0.85,
    "cover": 1.6,
-   "seed": 6,
+   "seed": 5,
    "t": 0,
    "fade": 1,
    "staged": "light in the air: the trail he leaves"
@@ -2411,27 +2380,6 @@
     },
     {
      "do": "prop",
-     "id": "streak2",
-     "set": {
-      "t": 0,
-      "fade": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.56
-    },
-    {
-     "do": "prop",
-     "id": "streak2",
-     "set": {
-      "t": 1
-     },
-     "dur": 0.08,
-     "ease": "linear",
-     "at": 0.57
-    },
-    {
-     "do": "prop",
      "id": "bigbook",
      "set": {
       "x": -1.16,
@@ -2570,16 +2518,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "streak2",
-     "set": {
-      "fade": 1
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 0
-    },
-    {
      "who": "phx",
      "do": "hover",
      "at": 0
@@ -2661,7 +2599,7 @@
     },
     {
      "sfx": "book-flip",
-     "gain": 0.5,
+     "gain": 1,
      "reason": "the puff flips Reaper's page",
      "at": 0.72
     },
@@ -2896,7 +2834,7 @@
     },
     {
      "do": "prop",
-     "id": "streak3",
+     "id": "streak2",
      "set": {
       "t": 0,
       "fade": 0
@@ -2918,7 +2856,7 @@
     },
     {
      "do": "prop",
-     "id": "streak3",
+     "id": "streak2",
      "set": {
       "t": 1
      },
@@ -2938,7 +2876,7 @@
     },
     {
      "do": "prop",
-     "id": "streak3",
+     "id": "streak2",
      "set": {
       "fade": 1
      },
@@ -3078,7 +3016,7 @@
     },
     {
      "do": "prop",
-     "id": "streak4",
+     "id": "streak3",
      "set": {
       "t": 0,
       "fade": 0
@@ -3089,7 +3027,7 @@
     },
     {
      "do": "prop",
-     "id": "streak4",
+     "id": "streak3",
      "set": {
       "t": 1
      },
@@ -3106,7 +3044,7 @@
     },
     {
      "do": "prop",
-     "id": "streak4",
+     "id": "streak3",
      "set": {
       "fade": 1
      },
@@ -3116,24 +3054,24 @@
     },
     {
      "do": "prop",
-     "id": "streak5",
+     "id": "streak4",
      "set": {
       "t": 0,
       "fade": 0
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.46
+     "at": 1.32
     },
     {
      "do": "prop",
-     "id": "streak5",
+     "id": "streak4",
      "set": {
       "t": 1
      },
-     "dur": 0.13,
+     "dur": 0.27,
      "ease": "linear",
-     "at": 1.47
+     "at": 1.33
     },
     {
      "who": "phx",
@@ -3211,7 +3149,7 @@
     },
     {
      "do": "prop",
-     "id": "streak5",
+     "id": "streak4",
      "set": {
       "fade": 1
      },
@@ -4139,7 +4077,7 @@
     },
     {
      "do": "prop",
-     "id": "streak6",
+     "id": "streak5",
      "set": {
       "t": 0,
       "fade": 0
@@ -4171,7 +4109,7 @@
    "do": [
     {
      "do": "prop",
-     "id": "streak6",
+     "id": "streak5",
      "set": {
       "t": 1
      },
@@ -4268,7 +4206,7 @@
     },
     {
      "do": "prop",
-     "id": "streak6",
+     "id": "streak5",
      "set": {
       "fade": 1
      },
@@ -4379,7 +4317,7 @@
     },
     {
      "sfx": "ai/fingertip-catch",
-     "gain": 0.35,
+     "gain": 0.5,
      "reason": "the longcase clock: tick, louder each time (1 of 4): the calm has a fuse",
      "at": 0.9
     },
@@ -4449,7 +4387,7 @@
    "do": [
     {
      "sfx": "seatclack",
-     "gain": 0.8,
+     "gain": 0.77,
      "reason": "the longcase clock: tock, louder each time (2 of 4): the calm has a fuse",
      "at": 0.15
     }
@@ -4476,7 +4414,7 @@
    "do": [
     {
      "sfx": "ai/fingertip-catch",
-     "gain": 0.75,
+     "gain": 0.84,
      "reason": "the longcase clock: tick, louder each time (3 of 4): the calm has a fuse",
      "at": 0.15
     },
@@ -4576,6 +4514,12 @@
      "sfx": "slap",
      "gain": 1,
      "reason": "the sonic boom's crack, its first frame",
+     "at": 0
+    },
+    {
+     "sfx": "firework",
+     "gain": 0.9,
+     "reason": "the boom's punchy mid thump over a deep boom (a phone hears it: the impact alone is mostly under 200 Hz)",
      "at": 0
     },
     {
@@ -5156,7 +5100,7 @@
     },
     {
      "sfx": "kenney/impact-glass-light",
-     "gain": 0.4,
+     "gain": 0.7,
      "reason": "the windows rattle",
      "at": 0.1
     },
@@ -5296,7 +5240,7 @@
     },
     {
      "sfx": "crumble",
-     "gain": 0.7,
+     "gain": 1,
      "reason": "books raining down onto the floor and the table",
      "at": 1.1
     },
@@ -5327,6 +5271,7 @@
      },
      "dur": 0.4,
      "ease": "in",
+     "reason": "a loose page drifts down on the blast's air and sticks to his face (paper flutters, it does not fall freely)",
      "at": 1.12
     },
     {
@@ -5450,6 +5395,7 @@
      },
      "dur": 0.35,
      "ease": "out",
+     "reason": "a loose page drifts down on the blast's air and sticks to his face (paper flutters, it does not fall freely)",
      "at": 1.52
     },
     {
@@ -5935,7 +5881,7 @@
   },
   {
    "who": "phx",
-   "with": "streak6",
+   "with": "streak5",
    "from": 10.98,
    "to": 11.45,
    "reason": "his arrival trail ends where he stops in his seat (light, no body)"

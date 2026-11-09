@@ -337,7 +337,10 @@ export const WHATIFFLAME_KINDS = {
           const th = gs[g], [x, z] = pt(th);
           o.position.set(x, 0.5, z);
           o.material.uniforms.uDir.value.set(RX * Math.sin(th), 0, -RZ * Math.cos(th)).normalize();
-          o.material.uniforms.uA.value = (g ? 0.5 : 0.6) * vis; o.material.uniforms.uClock.value = t;
+          // on the near side (+z, the bottom of a high camera's frame) a ghost crosses the frame in a frame or two: fade it
+          // there so it never reads as a one-frame pop (What if 02 draft check, 9 Nov)
+          const near = 1 - 0.8 * smooth(0.1, 0.8, z / RZ);
+          o.material.uniforms.uA.value = (g ? 0.5 : 0.6) * vis * near; o.material.uniforms.uClock.value = t;
         });
         sheets.forEach((o, i) => {
           const q = PG[i], age = t - q.t0;
