@@ -129,7 +129,7 @@ A(0.86, "wiz", "still", { dur: 0.3, idle: 0.1 });
 see(0, 1.1, ["phx.face", "wiz.face", "mega", "phone", "tuba", "drum", "crate"], "01: the promise, the megaphone at Phoenix's ear, the band and the rockets ready");
 
 // ================================================================ 02 VICTIM CLOSE-UP 1.10-1.90 (reaction)
-A(1.15, "wiz", "arm", { side: "R", pose: { o: [0.06, 0.32, 0.24] }, dur: 0.45, ease: "inOut" });   // the megaphone comes down slowly
+A(1.15, "wiz", "arm", { side: "R", pose: { o: [0.06, 0.32, 0.24] }, dur: 0.7, ease: "inOut" });   // the megaphone comes down slowly (on twos in a close-up: a faster move jumped)
 act.shock(c, 1.12, "wiz", { open: 0.85, hold: 0.35 });
 A(1.12, "wiz", "lean", { to: 0, dur: 0.3 });
 A(1.58, "wiz", "expr", { expr: "annoyed", set: { curve: -0.1 }, dur: 0.18 });   // fine.
