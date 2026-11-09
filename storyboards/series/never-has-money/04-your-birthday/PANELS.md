@@ -134,3 +134,18 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **Walk timings were picked against the layout's own drawing times.** `render.mjs --layout` samples contacts at times rounded to 0.1 ms. At those times `anime-timing.js` step() (margin 1e-4) draws every third 2s drawing one frame late, so the drawn rig in the layout has 3-1 holds that the render doesn't have.
   - Round 1's Viking 4.83 and Wizard 7.33 slides existed only there.
   - The chosen timings are clean at both exact and rounded times (an offline copy of the stance check).
+
+## Departures (writer, check-fix round 3, 9 Nov)
+
+- **Subtitles sit in the clear wall bands of each shot, not at y 1250 over the cast:**
+  - 01: y 630.
+  - 01-02: y 600 at x 520.
+  - 05-06: y 400 at x 555.
+  - 08: y 216 at x 400, over the bunting, after 2 s.
+- **The payoff is the wink (08), as the brief says:** "the wink over the hug is the last frame". The hug (06) is now the escalation. Gunslinger's line at 9.45 is the clip's loudest 100 ms, so the music is locked to 8.7 and dips before it.
+- **07 opens at fov 53, not 48**, a real step out from 06. The cut no longer reads as a jump cut.
+  - The wider frame shows Reaper's dusting glove turning 140° onto the lid, which is windowed.
+  - His glove stays flat on the lid after the last stroke.
+- **Buried pocket-pat effects (2.17-2.31) stay as they are:**
+  - They are the series block's own sounds (pocket-pat.mjs), 0.1 s after five slaps that set the level they are measured against.
+  - At +6 dB they rose only 2-4 dB and stayed buried.

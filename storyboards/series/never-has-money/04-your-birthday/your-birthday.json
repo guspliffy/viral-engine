@@ -350,7 +350,7 @@
    "from": 0.45,
    "to": 1.1,
    "text": "Happy birthday!",
-   "pos": 1250,
+   "pos": 630,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -359,28 +359,31 @@
    "from": 1.1,
    "to": 2,
    "text": "And yours?",
-   "pos": 1250,
+   "pos": 600,
    "pop": false,
    "size": 62,
-   "kinetic": false
+   "kinetic": false,
+   "x": 520
   },
   {
    "from": 5.8,
    "to": 6.82,
    "text": "Best… gift… EVER!",
-   "pos": 1250,
+   "pos": 400,
    "pop": false,
    "size": 62,
-   "kinetic": false
+   "kinetic": false,
+   "x": 555
   },
   {
    "from": 8.8,
    "to": 9.8,
    "text": "Next year's on me!",
-   "pos": 1060,
+   "pos": 216,
    "pop": false,
    "size": 62,
-   "kinetic": false
+   "kinetic": false,
+   "x": 400
   }
  ],
  "beats": [
@@ -5820,7 +5823,7 @@
      "at": 0.92
     }
    ],
-   "kind": "payoff"
+   "kind": "escalation"
   },
   {
    "name": "P07 the bill lands",
@@ -5837,7 +5840,7 @@
      0.55,
      1.2
     ],
-    "fov": 48,
+    "fov": 53,
     "to": {
      "pos": [
       0.37,
@@ -6120,7 +6123,7 @@
      "pose": {
       "prop": "giftB",
       "grip": [
-       -0.06,
+       0.07,
        0.195,
        0.07
       ],
@@ -6156,7 +6159,7 @@
      "pose": {
       "prop": "giftB",
       "grip": [
-       0.07,
+       -0.06,
        0.195,
        0.07
       ],
@@ -6178,7 +6181,7 @@
      "pose": {
       "prop": "giftB",
       "grip": [
-       -0.06,
+       0.07,
        0.195,
        0.07
       ],
@@ -6228,7 +6231,7 @@
      "pose": {
       "prop": "giftB",
       "grip": [
-       0.07,
+       -0.06,
        0.195,
        0.07
       ],
@@ -6280,21 +6283,6 @@
      "at": 1.37
     },
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.08,
-       0.42,
-       0.2
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.37
-    },
-    {
      "who": "gsl",
      "do": "look",
      "to": [
@@ -6304,14 +6292,6 @@
      "dur": 0.12,
      "blink": false,
      "at": 1.37
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 1.47
     },
     {
      "who": "rea",
@@ -6727,7 +6707,8 @@
      "dur": 0.05,
      "at": 1.2
     }
-   ]
+   ],
+   "kind": "payoff"
   }
  ],
  "visible": [
@@ -7030,6 +7011,15 @@
     "motion"
    ],
    "reason": "his snicker shake (a 3.5 % squash) lands on the last footfall of his walk in: 6.4 % in one frame of the story clock the motion check samples; drawn on 2s it is a 5 % change between two drawings, about 25 px of his 450 px body at 1080 wide in 05, behind Gunslinger's hat and shoulder (the front warning), his feet in frame inside Gunslinger's outline"
+  },
+  {
+   "who": "rea",
+   "from": 8.05,
+   "to": 8.15,
+   "checks": [
+    "hand-turn"
+   ],
+   "reason": "his first dusting stroke lands on the lid: the right glove turns from the box's side to flat on its lid, 140 degrees in one frame; a glove about 50 px across at x 855-910, y 1250 (1080 wide) at the right edge of the wide 07, his right foot in frame, the left just off the edge"
   },
   {
    "who": "rea",
