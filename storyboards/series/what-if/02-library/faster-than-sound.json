@@ -1,0 +1,3820 @@
+{
+ "id": "faster-than-sound",
+ "title": "What if your hyper friend was faster than sound in a library?",
+ "idea": "What if, episode 2: Phoenix moves faster than sound in the library (a book, a cart, 100 laps), his sound arriving later each time; he sits perfectly quiet and the clock ticks; then every sound he outran arrives at once",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "cover": 10.5,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "panels": {
+  "md": "storyboards/series/what-if/02-library/PANELS.md"
+ },
+ "set": {
+  "type": "plain",
+  "color": "#d9cdb4",
+  "floor": "#b8a27e",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/library-hall.png",
+   "z": -8.6,
+   "center": [
+    1.6,
+    4.4
+   ],
+   "height": 15,
+   "depth": false,
+   "motion": false,
+   "dust": 30
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "style": "sneaky",
+  "lowCut": 150,
+  "gain": 0.3,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 1,
+    "part": "hush"
+   },
+   {
+    "at": 2.2,
+    "part": "main"
+   },
+   {
+    "at": 4.6,
+    "part": "hush"
+   },
+   {
+    "at": 5.6,
+    "part": "main"
+   },
+   {
+    "at": 8,
+    "part": "hush"
+   },
+   {
+    "at": 11.1,
+    "part": "musicbox"
+   },
+   {
+    "at": 11.85,
+    "part": "hold"
+   },
+   {
+    "at": 13.5,
+    "part": "drop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.15,
+  "surface": "wood",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea",
+   "sor",
+   "tw14"
+  ],
+  "hint": 0,
+  "what": "the librarian shushes the hyper friend bouncing beside Reaper's book tower; he vanishes at 1.0 s"
+ },
+ "fx": [
+  {
+   "at": 8.15,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 3
+  },
+  {
+   "at": 8.65,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 4
+  },
+  {
+   "at": 9.15,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 5
+  },
+  {
+   "at": 9.65,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 6
+  },
+  {
+   "at": 10.15,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 7
+  },
+  {
+   "at": 10.65,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    0.05,
+    0
+   ],
+   "flat": true,
+   "size": 2.4,
+   "dur": 0.5,
+   "palette": "fire",
+   "seed": 8
+  },
+  {
+   "at": 13.5,
+   "do": "cel",
+   "kind": "ring",
+   "pos": [
+    -0.7,
+    1,
+    -2.5
+   ],
+   "size": 4,
+   "dur": 0.6,
+   "palette": "energy"
+  }
+ ],
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -2.15,
+    0.65
+   ],
+   "face": 15,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 1.7,
+   "span": 0.45
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.05,
+    -0.72
+   ],
+   "face": -8,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    -0.4,
+    -5.5
+   ],
+   "y": 0.5,
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 5.7
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "libfloor",
+   "x": 0,
+   "z": -1,
+   "w": 18,
+   "d": 22,
+   "seed": 21
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": -0.7,
+   "z": 0,
+   "w": 1.7,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "chairR",
+   "kind": "chair",
+   "x": 0.05,
+   "z": -0.72,
+   "rot": 0,
+   "scale": 0.7
+  },
+  {
+   "id": "chairL",
+   "kind": "chair",
+   "x": -1.25,
+   "z": -0.72,
+   "rot": 0,
+   "scale": 0.7
+  },
+  {
+   "id": "tw0",
+   "kind": "libbook",
+   "x": -0.768,
+   "y": 0.624,
+   "z": -0.092,
+   "rot": -12,
+   "w": 0.2,
+   "h": 0.28,
+   "t": 0.05,
+   "seed": 40,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw1",
+   "kind": "libbook",
+   "x": -0.756,
+   "y": 0.674,
+   "z": -0.074,
+   "rot": -7,
+   "w": 0.22,
+   "h": 0.32,
+   "t": 0.05,
+   "seed": 41,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw2",
+   "kind": "libbook",
+   "x": -0.744,
+   "y": 0.724,
+   "z": -0.086,
+   "rot": -2,
+   "w": 0.24,
+   "h": 0.3,
+   "t": 0.05,
+   "seed": 42,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw3",
+   "kind": "libbook",
+   "x": -0.732,
+   "y": 0.774,
+   "z": -0.068,
+   "rot": 3,
+   "w": 0.2,
+   "h": 0.28,
+   "t": 0.05,
+   "seed": 43,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw4",
+   "kind": "libbook",
+   "x": -0.762,
+   "y": 0.824,
+   "z": -0.08,
+   "rot": 8,
+   "w": 0.22,
+   "h": 0.32,
+   "t": 0.05,
+   "seed": 44,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw5",
+   "kind": "libbook",
+   "x": -0.75,
+   "y": 0.874,
+   "z": -0.092,
+   "rot": -11,
+   "w": 0.24,
+   "h": 0.3,
+   "t": 0.05,
+   "seed": 45,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw6",
+   "kind": "libbook",
+   "x": -0.738,
+   "y": 0.924,
+   "z": -0.074,
+   "rot": -6,
+   "w": 0.2,
+   "h": 0.28,
+   "t": 0.05,
+   "seed": 46,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw7",
+   "kind": "libbook",
+   "x": -0.768,
+   "y": 0.974,
+   "z": -0.086,
+   "rot": -1,
+   "w": 0.22,
+   "h": 0.32,
+   "t": 0.05,
+   "seed": 47,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw8",
+   "kind": "libbook",
+   "x": -0.756,
+   "y": 1.024,
+   "z": -0.068,
+   "rot": 4,
+   "w": 0.24,
+   "h": 0.3,
+   "t": 0.05,
+   "seed": 48,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw9",
+   "kind": "libbook",
+   "x": -0.744,
+   "y": 1.074,
+   "z": -0.08,
+   "rot": 9,
+   "w": 0.2,
+   "h": 0.28,
+   "t": 0.05,
+   "seed": 49,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw10",
+   "kind": "libbook",
+   "x": -0.732,
+   "y": 1.124,
+   "z": -0.092,
+   "rot": -10,
+   "w": 0.22,
+   "h": 0.32,
+   "t": 0.05,
+   "seed": 50,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw11",
+   "kind": "libbook",
+   "x": -0.762,
+   "y": 1.174,
+   "z": -0.074,
+   "rot": -5,
+   "w": 0.24,
+   "h": 0.3,
+   "t": 0.05,
+   "seed": 51,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw12",
+   "kind": "libbook",
+   "x": -0.75,
+   "y": 1.224,
+   "z": -0.086,
+   "rot": 0,
+   "w": 0.2,
+   "h": 0.28,
+   "t": 0.05,
+   "seed": 52,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw13",
+   "kind": "libbook",
+   "x": -0.738,
+   "y": 1.274,
+   "z": -0.068,
+   "rot": 5,
+   "w": 0.22,
+   "h": 0.32,
+   "t": 0.05,
+   "seed": 53,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "tw14",
+   "kind": "libbook",
+   "x": -0.768,
+   "y": 1.324,
+   "z": -0.08,
+   "rot": 10,
+   "w": 0.24,
+   "h": 0.3,
+   "t": 0.05,
+   "seed": 54,
+   "body": {
+    "density": 500,
+    "friction": 0.8,
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "rbook",
+   "kind": "libbook",
+   "x": 0.03,
+   "y": 0.64,
+   "z": -0.04,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "color": "#7a2e2a",
+   "open": 1,
+   "stand": 0,
+   "seed": 8
+  },
+  {
+   "id": "bbook",
+   "kind": "libbook",
+   "x": -0.15,
+   "y": 0.64,
+   "z": 0.17,
+   "rot": 8,
+   "w": 0.18,
+   "h": 0.25,
+   "t": 0.05,
+   "color": "#35506b",
+   "seed": 9
+  },
+  {
+   "id": "bigbook",
+   "kind": "libbook",
+   "x": -9,
+   "y": 0.5,
+   "z": 9,
+   "rot": 0,
+   "w": 0.26,
+   "h": 0.34,
+   "t": 0.07,
+   "color": "#7a2e2a",
+   "stand": 1,
+   "seed": 12,
+   "staged": "kept off stage until he brings it back from the top shelf"
+  },
+  {
+   "id": "dais",
+   "kind": "libdais",
+   "x": -0.4,
+   "z": -5.35,
+   "w": 2.4,
+   "d": 1.6,
+   "h": 0.5
+  },
+  {
+   "id": "desk",
+   "kind": "libdesk",
+   "x": -0.4,
+   "y": 0.5,
+   "z": -5,
+   "w": 2,
+   "h": 0.45
+  },
+  {
+   "id": "orb",
+   "kind": "greenlamp",
+   "x": 0.32,
+   "y": 0.95,
+   "z": -4.98,
+   "color": "#3f8f4f"
+  },
+  {
+   "id": "sh0",
+   "kind": "libstack",
+   "x": -1.9,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 3
+  },
+  {
+   "id": "sh1",
+   "kind": "libstack",
+   "x": -0.2,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 14
+  },
+  {
+   "id": "sh2",
+   "kind": "libstack",
+   "x": 1.5,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 25
+  },
+  {
+   "id": "sh3",
+   "kind": "libstack",
+   "x": 3.2,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 36
+  },
+  {
+   "id": "ladder",
+   "kind": "libladder",
+   "x": 2,
+   "z": -6,
+   "rot": 0,
+   "h": 2.4,
+   "w": 0.5,
+   "lean": 12
+  },
+  {
+   "id": "cart",
+   "kind": "cart",
+   "x": 0.6,
+   "z": -4,
+   "rot": -20
+  },
+  {
+   "id": "lampL",
+   "kind": "pendant",
+   "x": -0.7,
+   "y": 3.3,
+   "z": -4.4,
+   "len": 1.3,
+   "r": 0.22,
+   "staged": "hangs from the ceiling on its chain"
+  },
+  {
+   "id": "lampR",
+   "kind": "pendant",
+   "x": 0.6,
+   "y": 3.3,
+   "z": -4.6,
+   "len": 1.3,
+   "r": 0.22,
+   "staged": "hangs from the ceiling on its chain"
+  },
+  {
+   "id": "plant",
+   "kind": "bistroplant",
+   "x": -1.8,
+   "z": -4.75
+  },
+  {
+   "id": "clockcase",
+   "kind": "libstack",
+   "x": -1.85,
+   "z": -6.05,
+   "rot": 0,
+   "l": 0.5,
+   "h": 2.1,
+   "d": 0.3,
+   "shelves": 1,
+   "seed": 40
+  },
+  {
+   "id": "clockface",
+   "kind": "clock",
+   "x": -1.85,
+   "y": 1.75,
+   "z": -5.86,
+   "rot": 0,
+   "staged": "on the front of the clock case"
+  },
+  {
+   "id": "t20",
+   "kind": "table",
+   "x": -3.4,
+   "z": -2.2,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "t2l0",
+   "kind": "greenlamp",
+   "x": -3.05,
+   "y": 0.62,
+   "z": -2.3
+  },
+  {
+   "id": "t2c0",
+   "kind": "chair",
+   "x": -3.7,
+   "z": -2.8,
+   "rot": 0
+  },
+  {
+   "id": "t21",
+   "kind": "table",
+   "x": 2.9,
+   "z": -1.2,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "t2l1",
+   "kind": "greenlamp",
+   "x": 3.25,
+   "y": 0.62,
+   "z": -1.3
+  },
+  {
+   "id": "t2c1",
+   "kind": "chair",
+   "x": 2.6,
+   "z": -1.8,
+   "rot": 0
+  },
+  {
+   "id": "t22",
+   "kind": "table",
+   "x": -3.6,
+   "z": 1.9,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "t2l2",
+   "kind": "greenlamp",
+   "x": -3.25,
+   "y": 0.62,
+   "z": 1.8
+  },
+  {
+   "id": "t2c2",
+   "kind": "chair",
+   "x": -3.9,
+   "z": 1.3,
+   "rot": 0
+  },
+  {
+   "id": "t23",
+   "kind": "table",
+   "x": 3,
+   "z": 2.6,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "t2l3",
+   "kind": "greenlamp",
+   "x": 3.35,
+   "y": 0.62,
+   "z": 2.5
+  },
+  {
+   "id": "t2c3",
+   "kind": "chair",
+   "x": 2.7,
+   "z": 2,
+   "rot": 0
+  },
+  {
+   "id": "page",
+   "kind": "paper",
+   "x": -9,
+   "y": 0.2,
+   "z": 9,
+   "rot": 0,
+   "staged": "off stage, then stuck to Reaper's face by the blast"
+  },
+  {
+   "id": "dust",
+   "kind": "dustmotes",
+   "x": -0.5,
+   "y": 1.8,
+   "z": -1.5,
+   "n": 70,
+   "box": [
+    6,
+    3,
+    6
+   ],
+   "color": "#fff4d6"
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": -3,
+   "y": 4.2,
+   "z": -1.5,
+   "rot": 30,
+   "tip": -50,
+   "len": 6,
+   "w": 1.8,
+   "color": "#fff2cc",
+   "glow": 0.3
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.25,
+   "text": "SHHH!",
+   "pos": 600,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.97,
+   "text": "Too hyper for a library?",
+   "pos": 260,
+   "pop": false
+  },
+  {
+   "from": 0.25,
+   "to": 0.8,
+   "text": "I'll be quiet!",
+   "pos": 440,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0.8,
+   "to": 1.52,
+   "text": "Zoom!",
+   "pos": 440,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 4.9,
+   "text": "Need a whole shelf?",
+   "pos": 260,
+   "pop": false
+  },
+  {
+   "from": 4.35,
+   "to": 5.15,
+   "text": "Zoom!",
+   "pos": 1100,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.3,
+   "to": 7.97,
+   "text": "Still too much energy?",
+   "pos": 230,
+   "pop": false
+  },
+  {
+   "from": 7.42,
+   "to": 7.82,
+   "text": "100 laps!",
+   "pos": 430,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.82,
+   "to": 8.62,
+   "text": "ZOOM!",
+   "pos": 430,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 10.97,
+   "text": "WHAT IF YOUR HYPER FRIEND\nWAS FASTER THAN SOUND\nIN A LIBRARY?",
+   "pos": 560,
+   "pop": true,
+   "size": 88
+  },
+  {
+   "from": 11.5,
+   "to": 12.22,
+   "text": "Shhh.",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 17.55,
+   "text": "Real fact: you only hear a supersonic jet after it has passed you.",
+   "pos": 240,
+   "pop": false
+  },
+  {
+   "from": 16.8,
+   "to": 17.7,
+   "text": "...sorry.",
+   "pos": 500,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.6,
+   "to": 18.85,
+   "text": "Would you still want it?",
+   "pos": 300,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 frame 0: too hyper for a library",
+   "at": 0,
+   "len": 1.55,
+   "shot": {
+    "pos": [
+     -1,
+     4,
+     10.5
+    ],
+    "look": [
+     -1,
+     1.4,
+     -1.5
+    ],
+    "fov": 28.5
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.35,
+      0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.55,
+      "eye": 1.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.32,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.32,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "chairR",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.22,
+       0.33,
+       0.38
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.19,
+       0.33,
+       0.38
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.34,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.37,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "talk",
+     "line": "SHHH!",
+     "tone": "whisper",
+     "dur": 0.35,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.35,
+     "dur": 0.16,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "I'll be quiet!",
+     "tone": "whisper",
+     "dur": 0.5,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.2,
+     "dur": 0.36,
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.42
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.35,
+     "dur": 0.16,
+     "at": 0.6
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.24,
+       0.36,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Zoom!",
+     "tone": "whisper",
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.37,
+       0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.9,
+     "reason": "the power: the whip-crack as he breaks the sound barrier (STAND-IN until a crack is whitelisted)",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -9,
+      9
+     ],
+     "dur": 0.01,
+     "at": 1.02
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      0
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.12
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.45,
+      -0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1,
+      "eye": 1.15
+     },
+     "dur": 0.25,
+     "at": 1.25
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 Reaper and his tower",
+   "at": 1.55,
+   "len": 0.65,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.5,
+     3.6
+    ],
+    "look": [
+     -0.45,
+     1.05,
+     -0.4
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.6,
+     "idle": 0.05,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.45
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "bigbook",
+     "set": {
+      "x": -2.01,
+      "y": 0.7,
+      "z": -0.3,
+      "rot": 0,
+      "stand": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bigbook",
+      "grip": [
+       -0.18,
+       0.02,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bigbook",
+      "grip": [
+       0.18,
+       0.02,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -2.05,
+      -0.7
+     ],
+     "dur": 0.01,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "at": 0.63
+    },
+    {
+     "who": "phx",
+     "do": "grab",
+     "prop": "bigbook",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.64
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -2.05,
+      -0.7
+     ],
+     "y": 0.28,
+     "dur": 0.01,
+     "at": 0.64
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "03 the book from the top shelf",
+   "at": 2.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -1.6,
+     2.6,
+     9
+    ],
+    "look": [
+     -1,
+     1.6,
+     -0.6
+    ],
+    "fov": 39
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.35,
+     "reason": "he's back: a soft fwip as the sound returns (STAND-IN)",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hover",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.7,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.13
+    },
+    {
+     "sfx": "poof",
+     "gain": 0.4,
+     "reason": "the rule, planted once: his sound arrives 0.7 s late, a small puff of air",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.05,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 5,
+     "dur": 0.08,
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "hat",
+     "spin": [
+      -14,
+      0,
+      0
+     ],
+     "dur": 0.08,
+     "at": 0.7
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.5,
+     "reason": "the puff flips Reaper's page",
+     "at": 0.72
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.82
+    },
+    {
+     "who": "rea",
+     "do": "hat",
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "ease": "settle",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.12,
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.5,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 1.15
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 1.18
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 1.18
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 0.7,
+     "idle": 0.06,
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "release",
+     "prop": "bigbook",
+     "to": [
+      -1.25,
+      0.64,
+      0.15
+     ],
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bigbook",
+     "set": {
+      "stand": 0,
+      "rot": 85
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "04 a whole shelf",
+   "at": 4,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     0.1
+    ],
+    "look": [
+     -0.25,
+     0.95,
+     -4.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.32,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.06,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Zoom!",
+     "tone": "whisper",
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.9,
+     "reason": "the power: the whip-crack as he breaks the sound barrier (STAND-IN until a crack is whitelisted)",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -9,
+      9
+     ],
+     "dur": 0.01,
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "drop",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -1,
+      -3.25
+     ],
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.14,
+       0.3,
+       0.36
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.14,
+       0.3,
+       0.36
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.6
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.35,
+     "reason": "he's back: a soft fwip as the sound returns (STAND-IN)",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "rot": 700
+     },
+     "dur": 1.6,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "sfx": "freewheel",
+     "gain": 0.4,
+     "reason": "the empty cart spinning on its castors",
+     "at": 1.6
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.8
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.8
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.08,
+     "at": 1.8
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.37,
+       0.3
+      ]
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.85
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "reason": "the rule, planted twice: a bigger late thump of his own sound",
+     "at": 2.3
+    },
+    {
+     "who": "sor",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "who": "sor",
+     "do": "hat",
+     "spin": [
+      0,
+      0,
+      -22
+     ],
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "lid": 0.8,
+     "dur": 0.05,
+     "at": 2.3
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the hanging lamps swinging on their chains",
+     "at": 2.33
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "sor",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "settle",
+     "at": 2.55
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 2.55
+    },
+    {
+     "who": "sor",
+     "do": "hat",
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 2.6
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 2.65
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 2.65
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 0.55,
+     "idle": 0.06,
+     "at": 2.7
+    }
+   ]
+  },
+  {
+   "name": "05 100 laps!",
+   "at": 7.3,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.25,
+     -0.4
+    ],
+    "look": [
+     -1,
+     1.05,
+     -3.75
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "100 laps!",
+     "tone": "excited",
+     "dur": 0.45,
+     "blink": false,
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.13
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "ZOOM!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.52
+    }
+   ]
+  },
+  {
+   "name": "05 the ring (the title)",
+   "at": 8,
+   "len": 3,
+   "shot": {
+    "pos": [
+     2.4,
+     5.4,
+     10
+    ],
+    "look": [
+     -0.6,
+     0.4,
+     -2.4
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "sfx": "whoosh",
+     "gain": 0.9,
+     "reason": "the power: the whip-crack as he breaks the sound barrier (STAND-IN until a crack is whitelisted)",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -9,
+      9
+     ],
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 2.4000000000000004,
+     "idle": 0.08,
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.2
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.48
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 0.48
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 2.6
+    },
+    {
+     "who": "sor",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 2.6
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "sor",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.98
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.98
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 2.98
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "06 perfectly quiet",
+   "at": 11,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.3,
+     10.5
+    ],
+    "look": [
+     -0.78,
+     1.55,
+     -1
+    ],
+    "fov": 25
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.15,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.3,
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -1.25,
+      -0.72
+     ],
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.01,
+     "at": 0.08
+    },
+    {
+     "who": "phx",
+     "do": "sit",
+     "seat": "chairL",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0.09
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.1
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.35,
+     "reason": "he's back: a soft fwip as the sound returns (STAND-IN)",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.75,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.03,
+       0.45,
+       0.36
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.24,
+       0.36,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "Shhh.",
+     "tone": "whisper",
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "sor",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.03,
+       0.34,
+       0.4
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "sor",
+     "macro": "nod",
+     "times": 1,
+     "at": 0.85
+    },
+    {
+     "sfx": "knock-tap",
+     "gain": 0.35,
+     "reason": "the longcase clock ticks, louder each time (1 of 4): the calm has a fuse",
+     "at": 0.9
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.25
+     },
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "macro": "nod",
+     "times": 1,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.25,
+     "idle": 0.04,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.25,
+     "idle": 0.04,
+     "at": 1.2
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 1.25,
+     "idle": 0.04,
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "06 the clock",
+   "at": 12.25,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -1.7,
+     1.6,
+     -4.3
+    ],
+    "look": [
+     -1.85,
+     1.45,
+     -6.05
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "sfx": "knock-tap",
+     "gain": 0.55,
+     "reason": "the longcase clock ticks, louder each time (2 of 4): the calm has a fuse",
+     "at": 0.15
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "06 the calm",
+   "at": 12.75,
+   "len": 0.75,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.3,
+     10.5
+    ],
+    "look": [
+     -0.78,
+     1.55,
+     -1
+    ],
+    "fov": 25
+   },
+   "do": [
+    {
+     "sfx": "knock-tap",
+     "gain": 0.75,
+     "reason": "the longcase clock ticks, louder each time (3 of 4): the calm has a fuse",
+     "at": 0.15
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "reason": "the breath before it: a low rumble under the ticks",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.4,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "sfx": "knock-tap",
+     "gain": 0.95,
+     "reason": "the longcase clock ticks, louder each time (4 of 4): the calm has a fuse",
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "07 BOOM",
+   "at": 13.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -1,
+     3.4,
+     12
+    ],
+    "look": [
+     -0.6,
+     1.5,
+     -1.5
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "sfx": "impact",
+     "gain": 1,
+     "loud": true,
+     "reason": "THE BOOM: every sound he outran arrives at once (STAND-IN for the sonic boom)",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.5,
+     "amp": 0.03,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 1.5999999999999999,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.5999999999999999,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 1.5999999999999999,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.75,
+       0.25
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.75,
+       0.25
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.7,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.7,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.3,
+       0.7,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.3,
+       0.7,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "hat",
+     "spin": [
+      -35,
+      0,
+      0
+     ],
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.18,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "sor",
+     "do": "pitch",
+     "to": -8,
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "reason": "the boom's body",
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw0",
+     "mode": "throw",
+     "v": [
+      2.2,
+      1.6,
+      0.6
+     ],
+     "spin": [
+      3,
+      -2,
+      4
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw1",
+     "mode": "throw",
+     "v": [
+      -1.621,
+      2.1,
+      1.547
+     ],
+     "spin": [
+      4,
+      -1,
+      3
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw2",
+     "mode": "throw",
+     "v": [
+      0.188,
+      2.6,
+      -0.795
+     ],
+     "spin": [
+      5,
+      0,
+      2
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw3",
+     "mode": "throw",
+     "v": [
+      1.344,
+      3.1,
+      1.709
+     ],
+     "spin": [
+      3,
+      1,
+      1
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw4",
+     "mode": "throw",
+     "v": [
+      -2.168,
+      1.6,
+      0.361
+     ],
+     "spin": [
+      4,
+      2,
+      4
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw5",
+     "mode": "throw",
+     "v": [
+      1.851,
+      2.1,
+      -0.157
+     ],
+     "spin": [
+      5,
+      -2,
+      3
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw6",
+     "mode": "throw",
+     "v": [
+      -0.559,
+      2.6,
+      1.954
+     ],
+     "spin": [
+      3,
+      -1,
+      2
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw7",
+     "mode": "throw",
+     "v": [
+      -1.027,
+      3.1,
+      -0.638
+     ],
+     "spin": [
+      4,
+      0,
+      1
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw8",
+     "mode": "throw",
+     "v": [
+      2.072,
+      1.6,
+      1.07
+     ],
+     "spin": [
+      5,
+      1,
+      4
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw9",
+     "mode": "throw",
+     "v": [
+      -2.026,
+      2.1,
+      1.145
+     ],
+     "spin": [
+      3,
+      2,
+      3
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw10",
+     "mode": "throw",
+     "v": [
+      0.913,
+      2.6,
+      -0.674
+     ],
+     "spin": [
+      4,
+      -2,
+      2
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw11",
+     "mode": "throw",
+     "v": [
+      0.681,
+      3.1,
+      1.931
+     ],
+     "spin": [
+      5,
+      -1,
+      1
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw12",
+     "mode": "throw",
+     "v": [
+      -1.916,
+      1.6,
+      -0.088
+     ],
+     "spin": [
+      3,
+      0,
+      4
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw13",
+     "mode": "throw",
+     "v": [
+      2.143,
+      2.1,
+      0.282
+     ],
+     "spin": [
+      4,
+      1,
+      3
+     ],
+     "at": 0.02
+    },
+    {
+     "do": "physics",
+     "prop": "tw14",
+     "mode": "throw",
+     "v": [
+      -1.241,
+      2.6,
+      1.756
+     ],
+     "spin": [
+      5,
+      2,
+      2
+     ],
+     "at": 0.02
+    },
+    {
+     "sfx": "kenney/impact-glass-light",
+     "gain": 0.4,
+     "reason": "the windows rattle",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "sor",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.7,
+     "reason": "books raining down onto the floor and the table",
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "page",
+     "set": {
+      "x": -0.03,
+      "y": 0.86,
+      "z": -0.31,
+      "rot": 8,
+      "tip": 80
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.47
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "phx",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "sor",
+     "do": "hat",
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.37,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "sor",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.37,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.55,
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.3,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.48
+    },
+    {
+     "who": "sor",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.48
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "08 the aftermath",
+   "at": 16,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     -0.8,
+     3,
+     10
+    ],
+    "look": [
+     -0.55,
+     1.6,
+     -1
+    ],
+    "fov": 25
+   },
+   "do": [
+    {
+     "who": "sor",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "sor",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "sor",
+     "do": "still",
+     "dur": 2.2,
+     "idle": 0.06,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "...sorry.",
+     "tone": "whisper",
+     "dur": 0.5,
+     "blink": false,
+     "at": 0.8
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.95,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "sor.face",
+    "tw14"
+   ],
+   "why": "frame 0: the hyper friend bouncing in the library, the librarian's shush, Reaper's tower"
+  },
+  {
+   "from": 1.05,
+   "to": 1.55,
+   "see": [
+    "rea.face",
+    "sor.face"
+   ],
+   "why": "Phoenix gone: only the streak; Reaper's eyes slide to where he was"
+  },
+  {
+   "from": 1.6,
+   "to": 2.2,
+   "see": [
+    "rea.face",
+    "tw14"
+   ],
+   "why": "Reaper's eyes on the empty spot, then on his tower beside him"
+  },
+  {
+   "from": 2.2,
+   "to": 4,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "bigbook"
+   ],
+   "why": "he's back with the book; the late puff flips Reaper's page; Reaper's slow look"
+  },
+  {
+   "from": 4,
+   "to": 4.6,
+   "see": [
+    "sor.face",
+    "cart"
+   ],
+   "why": "the librarian points at the overloaded cart"
+  },
+  {
+   "from": 5.6,
+   "to": 7.3,
+   "see": [
+    "phx.face",
+    "sor.face",
+    "cart"
+   ],
+   "why": "the shelves full, the cart spinning empty, Phoenix posing; the thump blows the librarian sideways"
+  },
+  {
+   "from": 8,
+   "to": 10,
+   "see": [
+    "rea.face",
+    "table"
+   ],
+   "why": "100 laps in silence: the flame ring round the reading room"
+  },
+  {
+   "from": 11.1,
+   "to": 12.25,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "sor.face"
+   ],
+   "why": "he sits perfectly quiet; they nod, relieved"
+  },
+  {
+   "from": 12.75,
+   "to": 13.5,
+   "see": [
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "the three still; the ticks louder, the rumble starts"
+  },
+  {
+   "from": 13.5,
+   "to": 16,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "sor.face"
+   ],
+   "why": "the boom: every book off every shelf, three faces to us"
+  },
+  {
+   "from": 16,
+   "to": 18.9,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "sor.face"
+   ],
+   "why": "the aftermath: buried, sheepish, glaring"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 13.5,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "phx",
+   "from": 0.98,
+   "to": 2.24,
+   "checks": [
+    "rig-jump",
+    "foot-slide",
+    "stance-slide",
+    "hand-pop",
+    "hand-turn"
+   ],
+   "reason": "faster than sound: he is gone in one frame and back in one frame (hidden while he's away)"
+  },
+  {
+   "who": "phx",
+   "from": 4.58,
+   "to": 5.64,
+   "checks": [
+    "rig-jump",
+    "foot-slide",
+    "stance-slide",
+    "hand-pop",
+    "hand-turn"
+   ],
+   "reason": "faster than sound: he is gone in one frame and back in one frame (hidden while he's away)"
+  },
+  {
+   "who": "phx",
+   "from": 7.98,
+   "to": 11.14,
+   "checks": [
+    "rig-jump",
+    "foot-slide",
+    "stance-slide",
+    "hand-pop",
+    "hand-turn"
+   ],
+   "reason": "faster than sound: he is gone in one frame and back in one frame (hidden while he's away)"
+  },
+  {
+   "who": "rea",
+   "with": "table",
+   "from": 0,
+   "to": 19.1,
+   "reason": "Reaper sits at the reading table (stands at his chair, the table at his chest)"
+  },
+  {
+   "who": "phx",
+   "with": "table",
+   "from": 11.1,
+   "to": 19.1,
+   "reason": "Phoenix sits at the reading table beside Reaper"
+  },
+  {
+   "who": "sor",
+   "with": "desk",
+   "from": 0,
+   "to": 19.1,
+   "reason": "the librarian behind his issue desk"
+  },
+  {
+   "who": "phx",
+   "from": 13.5,
+   "to": 13.8,
+   "checks": [
+    "hand-jump"
+   ],
+   "reason": "the blast flings every arm up in two frames: the boom's smear, under the shake and the flying books"
+  },
+  {
+   "who": "rea",
+   "from": 13.5,
+   "to": 13.8,
+   "checks": [
+    "hand-jump"
+   ],
+   "reason": "the blast flings every arm up in two frames: the boom's smear, under the shake and the flying books"
+  },
+  {
+   "who": "sor",
+   "from": 13.5,
+   "to": 13.8,
+   "checks": [
+    "hand-jump"
+   ],
+   "reason": "the blast flings every arm up in two frames: the boom's smear, under the shake and the flying books"
+  },
+  {
+   "who": "phx",
+   "from": 0.5,
+   "to": 0.66,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "the second hop's takeoff: the body leaves the crouch fast (a hop, 15 fps strip checked 9 Nov)"
+  },
+  {
+   "who": "sor",
+   "from": 7.28,
+   "to": 7.7,
+   "checks": [
+    "face-hidden",
+    "front"
+   ],
+   "reason": "his anger is done; the laps shot is Phoenix's grin with the librarian hidden behind him on purpose (the space above for the lines)"
+  },
+  {
+   "who": "rea",
+   "with": "page",
+   "from": 15.95,
+   "to": 19.1,
+   "reason": "the blast stuck a page over half his face (panel 08)"
+  },
+  {
+   "who": "phx",
+   "with": "beam",
+   "from": 0,
+   "to": 18.9,
+   "reason": "the sunbeam is light"
+  },
+  {
+   "who": "phx",
+   "with": "dust",
+   "from": 0,
+   "to": 18.9,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "rea",
+   "with": "beam",
+   "from": 0,
+   "to": 18.9,
+   "reason": "the sunbeam is light"
+  },
+  {
+   "who": "rea",
+   "with": "dust",
+   "from": 0,
+   "to": 18.9,
+   "reason": "dust motes in the air"
+  },
+  {
+   "who": "sor",
+   "with": "beam",
+   "from": 0,
+   "to": 18.9,
+   "reason": "the sunbeam is light"
+  },
+  {
+   "who": "sor",
+   "with": "dust",
+   "from": 0,
+   "to": 18.9,
+   "reason": "dust motes in the air"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/02-library/make-faster-than-sound.mjs."
+}
