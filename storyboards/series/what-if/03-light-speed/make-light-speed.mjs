@@ -14,13 +14,15 @@
 //   Ending:      the real physics of moving that fast: time runs slower for him. The same road sixty years later,
 //                cracked and overgrown, the car rusted; Viking and the Wizard old men with white beards. Only Reaper is
 //                exactly the same (Death doesn't age). "...you won."
-//   Callback:    the opening promise "Watch me win at light speed!" (frame 0, the first subtitle, Jonny's title: the
-//                matched-opening test) turns into the viewer's "Would you still want to win?"
+//   Callback:    the narrator asks the title at 0.0 ("What if your competitive friend could run at light speed?",
+//                Jonny 9 Nov 14:25: "the title of the video should be spoken out at the beginning"; it replaced
+//                Samurai's "Watch me win at light speed!") and asks the viewer at the end: "Would you still want to win?"
 // The power: the word "GO!" (he shouts it himself), the sound (a rising electric whine and a thunder crack) and the
 // look (a green light streak, his blade's colour, that flattens the wheat and blows dust, leaves and hats about).
 //
-// THE CLOCKS: the 10x blast is a speed ramp (fx "ramp", story 9.4-10.0 over 1.6 s of video), so the storyboard runs
-// 1.0 s less story than video; every time below is story time. Video = story up to 9.4, story + 1.0 from 10.0 on.
+// THE CLOCKS: two speed ramps (fx "ramp"): the opening stare-down under the spoken title (story 0-0.6 over OPEN_VIDEO
+// s of video) and the 10x blast (story 9.4-10.0 over 1.6 s). Every time below is story time; VT() gives video time,
+// ST() story time. The brief's video times (V()) are the old clock's (no opening slow motion).
 //
 // WORLD: the painted road (assets/environments/wheat-road-day; its twin wheat-road-old from the reveal on). x right,
 // z toward the camera; the painting's camera stands at (0, 4.5, 22) looking down the road (-z), so every shot looks
@@ -28,7 +30,7 @@
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import { rigToWorld } from "../../../../engine/page/vehicle.js";
-import { holdsOf, renderTime } from "../../../../engine/shared/holds.js";
+import { holdsOf, renderTime, storyTime } from "../../../../engine/shared/holds.js";
 
 // ---------------------------------------------------------------- the template's picks (storyboards/templates)
 const LOOK = "sheet", FOCUS = false, LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = true;
@@ -49,6 +51,15 @@ const END = VO ? 18.7 : 18.0;
 // so the video still runs 1.0 s longer than the story from 10.0 on, as with the old 1.0 s freeze.
 const FREEZE = 10.0, HOLD = 1.0;        // the end of the slow motion (story) and the video it adds
 const SLOW = { at: 9.4, len: 0.6, rate: 0.26, in: 0.25, out: 0.25 };   // 0.6 s of story in 48 frames
+// The spoken title (Jonny 9 Nov 14:25) opens the clip: the narrator asks it over the stare-down in slow motion (the
+// first 0.6 s of story stretched to the read plus a breath), then "Ready..." and "GO!" at full speed.
+const TITLE = "What if your competitive friend could run at light speed?", TITLE_TAKE = 1, TITLE_LEN = 2.95;   // the read (s): take 1, Whisper word for word, speaker match 0.587 (take 2 0.600 runs 3.65 s)
+const OPEN_VIDEO = r3(Math.ceil((TITLE_LEN + 0.25) * 30) / 30);   // the slow motion's video length
+const OPEN_SLOW = { at: 0, len: 0.6, rate: r3(0.45 / (OPEN_VIDEO - 0.15)), in: 0, out: 0.3 };   // 0.6 s of story over OPEN_VIDEO
+const CLOCK = holdsOf({ fps: 30, fx: [...(VO ? [{ do: "ramp", ...OPEN_SLOW }] : []), { do: "ramp", ...SLOW }] });
+const VT = (story) => r3(renderTime(CLOCK, story));   // story -> video
+const ST = (video) => r3(storyTime(CLOCK, video));   // video -> story
+if (Math.abs(VT(FREEZE) - VT(SLOW.at) - SLOW.len - HOLD) > 0.002) throw new Error("the 10x slow motion must add exactly HOLD");
 const V = (video) => r3(video <= FREEZE ? video : video - HOLD);   // a brief's video time -> story time
 const VIK_VOICE = { voice: "viking" }, WIZ_VOICE = { voice: "wizard" }, SAM = { voice: false };   // Samurai speaks gibberish (subtitled)
 const rad = (d) => (d * Math.PI) / 180;
@@ -224,7 +235,10 @@ c.arm(0, "rea", "R", { prop: "trophy", grip: "stem" }, 0.01); A(0, "rea", "grip"
 A(0, "rea", "grab", { prop: "trophy", hand: "R", grip: "stem", dur: 0, pose: null });
 A(0, "rea", "look", { to: [-0.2, 0.0], dur: 0.01, blink: false });
 sfx(0, "charge", { gain: 0.4, reason: "frame 0: the green sparks crackling at Samurai's feet, the power building" });
-c.say(0, "sam", "Watch me win at light speed!", 0.72, "excited", { ...SAM, pos: 470 });   // under the top 20 % (the in-app title)
+// with the voiceover the narrator's spoken title has the opening (Samurai's promise goes), over the stare-down in
+// slow motion; the plain cut keeps his line at full speed
+if (VO) c.at(OPEN_SLOW.at, { fx: "ramp", ...OPEN_SLOW });
+else c.say(0, "sam", "Watch me win at light speed!", 0.72, "excited", { ...SAM, pos: 470 });   // under the top 20 % (the in-app title)
 c.say(0.74, "wiz", "Ready...", 0.3, "calm", { ...WIZ_VOICE, pos: 470 });
 c.captions[c.captions.length - 1].to = r3(GO1 - 0.02);
 A(0.62, "vik", "expr", { expr: "focused", set: { open: 0.1 }, dur: 0.12 });   // he starts to answer the Wizard's "Ready"
@@ -536,19 +550,22 @@ const SH = {
 // read (take 3). The lines are queued here, before c.beats() takes the actions; their subtitles are added after the
 // cut trim below, so a voiceover's subtitle runs on across a cut.
 const NARR = !VO ? [] : [
-  // [story s, line, take, spoken s, subtitle until | false, gain]. Gains from qa/lines.mjs (phone speaker, +3 dB over
-  // the rest at least): the first three sit in the streak's wind gusts (set life), so they are lifted most and the
-  // ambience goes 0.5 -> 0.3 with the voiceover (the music and the hits under them barely count)
-  [1.50, "He never loses.", 4, 1.15, false, 2.4],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
-  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 2.4],          // the roadster slides in after him; on over the glare cut
-  [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, 3.0],           // over the slow motion (video 9.4-11.0; EP01's line and read), in the 10x blast's wind (+7 dB on a phone at 3.0). No subtitle, as on EP01's title card
-  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), 1.2],   // the reveal, before old Viking's "...you won."
-  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, 0.9],    // the closing question (its caption is on screen)
+  // [story s, line, take, spoken s (video), subtitle until (story) | false, gain]. Gains: every line at about
+  // -12.7 LUFS momentary in the final mix, level with the action's loud moments (Jonny 9 Nov 14:25: "the speaker is
+  // too quiet compared to the rest of the video"; at 2.4/1.2/0.9 the lines sat -13 to -25 against the action's -7 to
+  // -11). The spike guard levels the mix to -14 LUFS around them and its voice limiter takes up to 1.7 dB off peaks.
+  // The ambience is 0.5 -> 0.3 with the voiceover (the streak's wind gusts sat under the first lines on a phone).
+  [0, TITLE, TITLE_TAKE, TITLE_LEN, false, 7.7],   // the spoken title (Jonny 14:25) over the slow-motion stare-down; subtitled in four short parts below
+  [1.50, "He never loses.", 4, 1.15, false, 7.5],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
+  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 8.0],          // the roadster slides in after him; on over the glare cut
+  [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, 8.2],           // over the slow motion (video 12.0-13.6; EP01's line and read), in the 10x blast's wind. No subtitle, as on EP01's title card
+  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), 8.4],   // the reveal, before old Viking's "...you won."
+  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, 8.4],    // the closing question (its caption is on screen)
 ];
 for (const [t, line, take, len, until, gain] of NARR) {
   c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
-  if (until && until < t + len - 0.01) throw new Error(`"${line}" is cut off at ${until}`);
-  if (!until && t + len > END - 0.3) throw new Error(`"${line}" runs to the end`);
+  if (until && VT(until) < VT(t) + len - 0.01) throw new Error(`"${line}" is cut off at ${until} (video ${VT(until)})`);
+  if (!until && VT(t) + len > VT(END) - 0.3) throw new Error(`"${line}" runs to the end`);
 }
 
 
@@ -570,6 +587,14 @@ const beats = c.beats([
 // a caption gives way at each cut it would run over
 for (const cp of c.captions) for (const cut of [VICTIM, AGAIN, CAR, CHASE, GLARE, WORLD, BLAST, BACK, REVEAL, LINE, STARE, QUESTION]) if (cp.from < cut - 0.05 && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
 for (const [t, line, , , until] of NARR) if (until) cap(t, until, line, 470, false, { kinetic: false });   // the commentator's subtitles (above)
+// the spoken title's subtitle in four short parts, as the read says them (Whisper: "friend" ends 1.42 s in), each short
+// enough to sit between the Wizard's hat and the far Reaper under the in-app title band
+if (VO) {
+  cap(0, ST(0.44), "What if your", 470, false, { kinetic: false });
+  cap(ST(0.44), ST(1.42), "competitive friend", 470, false, { kinetic: false });
+  cap(ST(1.42), ST(1.84), "could run", 470, false, { kinetic: false });
+  cap(ST(1.84), r3(OPEN_SLOW.len - 0.02), "at light speed?", 470, false, { kinetic: false });
+}
 
 const allowClip = [
   { who: "rea", from: r3(GO1), to: r3(VICTIM), checks: ["rig-jump"], reason: "his empty glove drops as the trophy vanishes at light speed; he is 12 % of the frame, 15 m down the road" },
@@ -584,10 +609,8 @@ const allowClip = [
   { who: "wizo", with: "stickW", from: SWAP, to: END, reason: "his glove rests on the knob of his walking stick" },
 ];
 
-// check windows are on the video clock at gate 1 (qa/gate.mjs windowFor): through the slow motion, then story + 1.0
-const SLOW_CLOCK = holdsOf({ fps: 30, fx: [{ do: "ramp", ...SLOW }] });
-if (Math.abs(renderTime(SLOW_CLOCK, FREEZE) - (FREEZE + HOLD)) > 1e-6) throw new Error("the slow motion must add exactly HOLD");
-const VT = (story) => r3(renderTime(SLOW_CLOCK, story));
+// check windows are on the video clock at gate 1 (qa/gate.mjs windowFor): VT through both slow motions
+
 for (const w of allowClip) { w.from = VT(w.from); w.to = VT(w.to); }
 
 write(import.meta.url, {
@@ -608,7 +631,7 @@ write(import.meta.url, {
   room: "open", guard: true,
     engine: { keys: [[0, 0, 0, 0], [r3(CAR - 0.05), 0, 0, 0], [CAR, 900, 0.25, 1], [r3(CAR + 0.15), 4200, 0.7, 1], [r3(CAR + 0.3), 2600, 0.4, 1], [r3(LAUNCH - 0.05), 3800, 0.6, 1],
       [r3(LAUNCH + 0.1), 5600, 1, 1], [r3(SPIN0 - 0.05), 6200, 0.9, 1], [r3(SPIN0 + 0.1), 3200, 0.2, 1], [r3(SPIN0 + SPIN_LEN), 1000, 0.15, 1], [r3(WORLD - 0.1), 900, 0.15, 1], [WORLD, 0, 0, 0], [END, 0, 0, 0]], gain: 0.17, cyl: 4 } },
-  hook: { show: ["sam", "vik", "trophy", "finish"], hint: 0, what: "two friends crouched at a start line glaring at each other; green sparks at Samurai's feet: 'Watch me win at light speed!'" },
+  hook: { show: ["sam", "vik", "trophy", "finish"], hint: 0, what: "two friends crouched at a start line glaring at each other in slow motion, green sparks at Samurai's feet; the narrator: 'What if your competitive friend could run at light speed?'" },
   panels: { md: "storyboards/series/what-if/03-light-speed/PANELS.md" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip,

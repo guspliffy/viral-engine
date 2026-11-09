@@ -28,21 +28,23 @@ promised to Jonny on 9 Nov (title, first subtitle and frame 0 say the same: "Wat
 
 Read off Jonny's sheet at 2x with a tenths grid (shares of the frame: 0 at the top or the left).
 
+Times are video seconds of the voiceover cut: the opening slow motion under the spoken title adds 2.6 s from panel 02 on, and panel 05 is the middle of the 10x slow motion (12.0-13.6).
+
 | Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 01 | 0.5 | sam | 0.54 | 0.72 | 1 | 0.40 | sam, vik | above | |
 | 01 | 0.5 | wiz | 0.31 | 0.42 | 0.56 | 0.15 | wiz | above | |
-| 02 | 1.2 | sam | 0.28 | 0.31 | 0.39 | 0.62 | sam | above | |
-| 02 | 1.2 | vik | 0.53 | 0.67 | 1 | 0.66 | vik | above | |
-| 03 | 3.0 | vik | 0.27 | 0.56 | 1 | 0.35 | vik | above | |
-| 03 | 3.0 | sam | 0.27 | 0.33 | 0.50 | 0.83 | sam | above | |
-| 04 | 5.6 | sam | 0.25 | 0.32 | 0.44 | 0.79 | sam | above | |
-| 05 | 10.0 | vik | 0.48 | 0.60 | 0.82 | 0.78 | vik | above | |
-| 05 | 10.0 | wiz | 0.47 | 0.55 | 0.75 | 0.12 | wiz | above | |
-| 06 | 12.2 | sam | 0.18 | 0.38 | 1 | 0.45 | sam | below | |
-| 07 | 14.2 | viko | 0.48 | 0.58 | 0.86 | 0.43 | viko, wizo, rea | above | |
-| 08 | 17.8 | sam | 0.31 | 0.53 | 1 | 0.15 | sam, rea | above | |
-| 08 | 17.8 | rea | 0.33 | 0.53 | 0.88 | 0.87 | rea | above | |
+| 02 | 3.8 | sam | 0.28 | 0.31 | 0.39 | 0.62 | sam | above | |
+| 02 | 3.8 | vik | 0.53 | 0.67 | 1 | 0.66 | vik | above | |
+| 03 | 5.6 | vik | 0.27 | 0.56 | 1 | 0.35 | vik | above | |
+| 03 | 5.6 | sam | 0.27 | 0.33 | 0.50 | 0.83 | sam | above | |
+| 04 | 8.2 | sam | 0.25 | 0.32 | 0.44 | 0.79 | sam | above | |
+| 05 | 12.6 | vik | 0.48 | 0.60 | 0.82 | 0.78 | vik | above | |
+| 05 | 12.6 | wiz | 0.47 | 0.55 | 0.75 | 0.12 | wiz | above | |
+| 06 | 14.8 | sam | 0.18 | 0.38 | 1 | 0.45 | sam | below | |
+| 07 | 16.8 | viko | 0.48 | 0.58 | 0.86 | 0.43 | viko, wizo, rea | above | |
+| 08 | 20.4 | sam | 0.31 | 0.53 | 1 | 0.15 | sam, rea | above | |
+| 08 | 20.4 | rea | 0.33 | 0.53 | 0.88 | 0.87 | rea | above | |
 
 ## Story chain
 
@@ -73,6 +75,8 @@ Read off Jonny's sheet at 2x with a tenths grid (shares of the frame: 0 at the t
 - 06-07: he opens his eyes at 13.1 s, not the brief's 13.50: three frames of open eyes before the reveal cut were lost on a phone (review B); the reveal cut stays at 13.50, and the wide pushes in a little over its 1.1 s.
 - 08: a step wider than the panel (Samurai 52 %, Reaper 64 % of the drawn size): the closing question needs a clear band above three heads, and the Reaper's slow blink must sit left of the phone's right-hand buttons (the panel has him at x 0.87, under the like button). Packing them closer put their bodies into each other.
 - The fact caption (15.85-17.6 s): the brief's first sentence only, whole at once (Jonny 9 Nov 13:20: cut it to its first sentence; 24 words in 1.7 s could not be read); the brief's 16.0-17.6 slot kept.
+- The spoken title (Jonny 9 Nov 14:25: "the title of the video should be spoken out at the beginning"): the narrator asks "What if your competitive friend could run at light speed?" from 0.0 (take 1, 2.95 s, Whisper word for word), subtitled in four short parts at y 470 (one long line hid 30-37 % behind the Wizard and the far Reaper). The stare-down plays in slow motion for the read (story 0-0.6 over 3.2 s of video), then "Ready..." and "GO!" at full speed. Samurai's "Watch me win at light speed!" is gone from the voiceover cut, so the matched-opening test (frame 0, first subtitle and title say the same) is now the spoken title. Everything from GO on is 2.6 s later than the brief's grid; the clip runs 22.3 s.
+- The narrator as loud as the action (Jonny 14:25: "the speaker is too quiet compared to the rest of the video"): every line about -12.7 LUFS momentary in the final mix, level with the loud moments (narrate gains 6.3-8.4).
 - No title card (Jonny 9 Nov 14:09 on EP02: the title "is the title of the video and should not appear mid video"): the 1.0 s freeze with the title at 10.0 s is now the blast's last 0.6 s of story in slow motion over 1.6 s (a speed ramp from 9.4 s), so every later beat keeps its time. The cover is the slow-motion frame, no text.
 - A commentator voiceover (Jonny 9 Nov 13:07: the voice over of the other What if episodes, default for the format): five lines of the narrator voice where nobody speaks (1.50 "He never loses.", 6.05 "Not even close.", 9.4 "Sounds perfect, right?" over the slow motion, 13.52 "Sixty years later.", 17.62 "Would you still want to win?"). The last shot holds 0.7 s longer (19.7 s, not 19.0) so the spoken question has room; old Viking's "...you won." moves 0.1 s later (14.9) to clear the narrator. The first line has no subtitle: Viking's close fills the caption band. The first three lines sit in the streak's wind gusts, so they are lifted most (gain 2.4, 2.4, 3.0) and the ambience goes 0.5 -> 0.3 with the voiceover (`qa/lines.mjs`: all five +4.7 to +13.2 dB over the rest on a phone speaker; Whisper hears each word for word).
 - Wheat rows: the painted wheat gusts with the wind bands at each GO (set life) instead of 3D wheat rows, which never matched the painting.

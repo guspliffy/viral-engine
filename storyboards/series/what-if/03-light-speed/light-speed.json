@@ -13718,7 +13718,7 @@
    "finish"
   ],
   "hint": 0,
-  "what": "two friends crouched at a start line glaring at each other; green sparks at Samurai's feet: 'Watch me win at light speed!'"
+  "what": "two friends crouched at a start line glaring at each other in slow motion, green sparks at Samurai's feet; the narrator: 'What if your competitive friend could run at light speed?'"
  },
  "panels": {
   "md": "storyboards/series/what-if/03-light-speed/PANELS.md"
@@ -14014,15 +14014,6 @@
  ],
  "captions": [
   {
-   "from": 0,
-   "to": 0.74,
-   "text": "Watch me win at light speed!",
-   "pos": 470,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
    "from": 0.74,
    "to": 0.96,
    "text": "Ready...",
@@ -14154,6 +14145,38 @@
    "from": 12.52,
    "to": 13.87,
    "text": "Sixty years later.",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.065,
+   "text": "What if your",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0.065,
+   "to": 0.21,
+   "text": "competitive friend",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0.21,
+   "to": 0.271,
+   "text": "could run",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 0.271,
+   "to": 0.58,
+   "text": "at light speed?",
    "pos": 470,
    "pop": false,
    "kinetic": false
@@ -14633,14 +14656,12 @@
      "at": 0
     },
     {
-     "who": "sam",
-     "do": "talk",
-     "line": "Watch me win at light speed!",
-     "tone": "excited",
-     "dur": 0.72,
-     "blink": false,
-     "voice": false,
-     "at": 0
+     "fx": "ramp",
+     "at": 0,
+     "len": 0.6,
+     "rate": 0.148,
+     "in": 0,
+     "out": 0.3
     },
     {
      "who": "sam",
@@ -14650,6 +14671,15 @@
     {
      "who": "rea",
      "do": "noblink",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "What if your competitive friend could run at light speed?",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 7.7,
      "at": 0
     },
     {
@@ -15016,7 +15046,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
-     "gain": 2.4,
+     "gain": 7.5,
      "at": 1.5
     },
     {
@@ -15825,7 +15855,7 @@
      "voice": "narrator",
      "take": 1,
      "caption": false,
-     "gain": 2.4,
+     "gain": 8,
      "at": 1.2
     },
     {
@@ -16561,7 +16591,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
-     "gain": 3,
+     "gain": 8.2,
      "at": 0.9
     },
     {
@@ -17392,7 +17422,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
-     "gain": 1.2,
+     "gain": 8.4,
      "at": 0.02
     },
     {
@@ -17845,7 +17875,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
-     "gain": 0.9,
+     "gain": 8.4,
      "at": 0.02
     },
     {
@@ -17984,8 +18014,8 @@
  "allowClip": [
   {
    "who": "rea",
-   "from": 0.98,
-   "to": 1.62,
+   "from": 3.58,
+   "to": 4.22,
    "checks": [
     "rig-jump"
    ],
@@ -17993,8 +18023,8 @@
   },
   {
    "who": "rea",
-   "from": 18.25,
-   "to": 19.7,
+   "from": 20.85,
+   "to": 22.3,
    "checks": [
     "eyes-readable"
    ],
@@ -18002,8 +18032,8 @@
   },
   {
    "who": "sam",
-   "from": 0.98,
-   "to": 1.38,
+   "from": 3.58,
+   "to": 3.98,
    "checks": [
     "rig-jump",
     "foot-slide",
@@ -18015,8 +18045,8 @@
   },
   {
    "who": "sam",
-   "from": 4.8,
-   "to": 5,
+   "from": 7.4,
+   "to": 7.6,
    "checks": [
     "rig-jump",
     "foot-slide",
@@ -18028,8 +18058,8 @@
   },
   {
    "who": "sam",
-   "from": 8.55,
-   "to": 11.85,
+   "from": 11.15,
+   "to": 14.45,
    "checks": [
     "rig-jump",
     "foot-slide",
@@ -18042,22 +18072,22 @@
   {
    "who": "vikc",
    "with": "wheel",
-   "from": 4,
-   "to": 7.5,
+   "from": 6.6,
+   "to": 10.1,
    "reason": "his gloves hold the steering wheel's rim"
   },
   {
    "who": "vikc",
    "with": "seatD",
-   "from": 4,
-   "to": 7.5,
+   "from": 6.6,
+   "to": 10.1,
    "reason": "he sits in the driver's seat"
   },
   {
    "who": "sam",
    "with": "finish",
-   "from": 4.8,
-   "to": 7.5,
+   "from": 7.4,
+   "to": 10.1,
    "checks": [
     "clipping"
    ],
@@ -18066,15 +18096,15 @@
   {
    "who": "viko",
    "with": "stickV",
-   "from": 11.3,
-   "to": 19.7,
+   "from": 13.9,
+   "to": 22.3,
    "reason": "his glove rests on the crook of his walking stick"
   },
   {
    "who": "wizo",
    "with": "stickW",
-   "from": 11.3,
-   "to": 19.7,
+   "from": 13.9,
+   "to": 22.3,
    "reason": "his glove rests on the knob of his walking stick"
   }
  ],
