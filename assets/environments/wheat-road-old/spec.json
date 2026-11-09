@@ -1,0 +1,39 @@
+{
+ "name": "wheat-road-old",
+ "prompt": "anime film background painting, gouache, abandoned straight country road decades later, cracked dry dirt road broken into plates, green weeds and grass growing through the cracks, overgrown wild meadow of green grass, tall weeds and white wildflowers both sides, green hills, small village, clear afternoon, blue sky",
+ "no": "people, car, vehicle, potato, animal, text, sign, fence, aerial view, high angle, curved road, winding road, rain, wet road, sunset, dusk, orange sky, asphalt, centre line, road markings, golden wheat, ripe wheat, crops",
+ "seeds": [
+  88,
+  7,
+  19
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 4.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   4.5,
+   22.0
+  ]
+ },
+ "light": {
+  "from": "high from the left: clear afternoon sun",
+  "key": [
+   -6.0,
+   7.0,
+   -2.0
+  ],
+  "shadow": 0.4
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 80,
+ "pad": 0.3,
+ "padY": 0.12,
+ "from": "wheat-road-day",
+ "strength": 0.75
+}

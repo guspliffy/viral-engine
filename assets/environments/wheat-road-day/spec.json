@@ -1,0 +1,38 @@
+{
+ "name": "wheat-road-day",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view standing in the middle of a wide straight empty dirt country road, pale sandy dirt fills the bottom half and runs straight to the horizon, flat golden wheat fields both sides, distant green hills with a small village, bright clear afternoon, blue sky, white cumulus clouds",
+ "no": "people, car, vehicle, potato, animal, text, sign, fence, tree in foreground, aerial view, high angle, curved road, winding road, rain, wet road, sunset, dusk, orange sky, pink clouds, asphalt, centre line, road markings, grass strip",
+ "seeds": [
+  88,
+  7,
+  19,
+  42
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 4.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   4.5,
+   22.0
+  ]
+ },
+ "light": {
+  "from": "high from the left: clear afternoon sun",
+  "key": [
+   -6.0,
+   7.0,
+   -2.0
+  ],
+  "shadow": 0.4
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 80,
+ "pad": 0.3,
+ "padY": 0.12
+}
