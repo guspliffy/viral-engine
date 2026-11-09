@@ -87,4 +87,8 @@ through the blast and the aftermath; nobody turns. The page on Reaper's face cov
   brief asks for the subtitled "SHHH!" at 0.0, the demo caption and the whisper.
 - **Panel 04 from above (+2.3 m) and 123 % size**: no level camera sees Phoenix in front of the desk past the reading table, so the wall shot looks down from over the table (Reaper just under the frame).
 - **Panel 06 0.44 m above the eyes**: just high enough that the librarian shows over the table between the tower and Reaper.
+- **Review B (Fable, 9 Nov)**: panel 06 now from 1.7 m above the eyes (camera y 2.6) so the librarian's face clears the
+  tower for his nod; panel 04's wall shot tilted up and wider (look y 1.2, fov 62) so both lamps and the sign swing in
+  frame (Phoenix's eyes at 74 % there, 72 % before); the laps camera 0.7 m further left (the hood off his crest); the
+  aftermath creeps in on the librarian over 3 s.
 - **The after-images are drawn flame silhouettes**, not copies of Phoenix's body: the engine draws one of each character.
