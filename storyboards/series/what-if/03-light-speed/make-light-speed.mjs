@@ -70,11 +70,12 @@ const SAM2 = [0.6, 8.6];                                // demo 2: beside the ca
 const SAM2_POST = [1.3, -3.7];                          // ...already at the finish, leaning on the right post
 // demo 3, all at the finish end (the car stopped there): Samurai in front, the friends round him, the road clear in
 // the middle for the streak
-const SAM3 = [0.0, 1.0], VIK3 = [0.95, 0.4], WIZ3 = [-0.75, 0.4], REA3 = [0.75, 2.6];
+const SAM3 = [0.0, 1.0], VIK3 = [0.95, 0.4], WIZ3 = [-0.75, 0.4], REA3 = [1.05, 3.5];
+const VIK3B = [0.65, 0.3];   // the blast frame cheats Viking half a metre in, between the two (panel 05; the challenge two-shot needs him clear of Samurai)   // panel 05: Wizard left, Viking centre right, Reaper front right
 const SAMB = [0.15, 1.9];                                 // where he skids in, back from round the world
 // sixty years later: they stand together now, the car where it stopped
 const WIZO = [-0.95, -0.3], VIKO = [0.05, -0.9], REAO = [1.05, -0.4];
-const SAMQ = [-0.6, -0.2];                              // panel 08: he has walked up to them (the Wizard steps out of frame)
+const SAMQ = [-0.55, 0.0];                              // panel 08: he has walked up to them (the Wizard steps out of frame)
 
 // ---------------------------------------------------------------- the car (the roadster rig): parked at the line for
 // demo 2, races off, slides round at the finish and stops facing us on the left, where it is still sixty years later
@@ -87,7 +88,7 @@ const SPIN_LEN = 0.66;
 const sm = (x) => { const u = Math.min(1, Math.max(0, x)); return u * u * (3 - 2 * u); };
 const HIDDEN = [0, 0, 400];     // a car not in the story yet / any more: far behind every camera (they all look down the road, -z)
 function carAt(t) {
-  if (t < CAR - 0.05 || t >= BACK - 0.03) return { at: r3(t), pos: HIDDEN, yaw: 180, pitch: 0, roll: 0, steer: 0 };
+  if (t < CAR - 0.05 || t >= WORLD - 0.02) return { at: r3(t), pos: HIDDEN, yaw: 180, pitch: 0, roll: 0, steer: 0 };
   if (t < LAUNCH) {   // parked, revving: the body rocks on its springs
     const k = t > CAR + 0.12 ? 1 : 0, w = Math.sin((t - CAR) * 38) * 0.6 * k;
     return { at: r3(t), pos: [CAR0[0], 0, CAR0[1]], yaw: 180, pitch: r3(-0.5 * k + 0.3 * w), roll: r3(0.4 * w), steer: 0 };
@@ -105,10 +106,12 @@ function carAt(t) {
   const settle = t > SPIN0 + SPIN_LEN ? Math.exp(-(t - SPIN0 - SPIN_LEN) * 7) * Math.sin((t - SPIN0 - SPIN_LEN) * 22) : 0;
   return { at: r3(t), pos: [r3(x), 0, r3(zSlide + dz * zk)], yaw: r3(yaw), pitch: r3(1.8 * Math.sin(u * Math.PI) + 1.2 * settle), roll: r3(-3.5 * Math.sin(u * Math.PI) + 0.8 * settle), steer: r3(u < 1 ? -30 * Math.sin(u * Math.PI) : 0), v0: undefined };
 }
-const keys = []; for (let f = 0; f <= Math.round(END * 30); f++) { const k = carAt(f / 30); delete k.v0; keys.push(k); }
+const keys = []; for (let f = 0; f <= Math.round(END * 30); f++) { const k = carAt(f / 30); delete k.v0; k.at = f / 30; keys.push(k); }   // exact frame times: the frame lands on its key, never between two keys either side of a jump
 const rig = { id: "car", kind: "roadster", color: "#d8342c", pivot: PIVOT, keys };
 // the same car sixty years later, where it stopped: rust, flat tyres, grass round it
-const oldKeys = [0, r3(BACK - 0.04), r3(BACK - 0.03), END].map((t) => ({ at: t, pos: t < BACK - 0.035 ? HIDDEN : [CAR_STOP[0], 0, CAR_STOP[1]], yaw: t < BACK - 0.035 ? 180 : STOP_YAW, pitch: 0, roll: 0, steer: 0 }));
+// one key a frame, like the young car: rig keys are a smooth spline (engine/page/vehicle.js hermite), so two far-apart
+// keys either side of a jump overshoot by hundreds of metres between them
+const oldKeys = []; for (let f = 0; f <= Math.round(END * 30); f++) { const t = f / 30, on = t >= REVEAL - 0.03; oldKeys.push({ at: t, pos: on ? [CAR_STOP[0], 0, CAR_STOP[1]] : HIDDEN, yaw: on ? STOP_YAW : 180, pitch: 0, roll: 0, steer: 0 }); }
 const rigOld = { id: "carold", kind: "roadster", color: "#d8342c", pivot: PIVOT, rust: 1, keys: oldKeys };
 const W = (t, q) => rigToWorld(rig, t, q).map(r3);
 console.log(`car: launch ${LAUNCH}, slide ${r3(SPIN0)}-${r3(SPIN0 + SPIN_LEN)} from z ${r3(CAR0[1] - runDist(SPIN0 - LAUNCH))} at ${r3(Math.min(VMAX, ACC * (SPIN0 - LAUNCH)))} m/s, stops at ${CAR_STOP}`);
@@ -161,13 +164,13 @@ for (const id of ["st1", "st2", "st3", "st4"]) { c.prop(0, id, { clock: 0, head:
 
 // the power, the same every time: sparks crackle at his feet and the whine rises, he shouts GO!, the thunder crack,
 // and the streak runs to where he already is. head 0 -> 1 in two frames, then it fades from its tail
-function power(t, id, { sparksFrom, big = 1, whine = true, fade, gopos = 470 } = {}) {
+function power(t, id, { sparksFrom, big = 1, whine = true, fade, gopos = 470, air = "whoosh" } = {}) {
   if (sparksFrom != null) { c.prop(r3(sparksFrom), id, { glow: 1 }, 0, "linear"); c.prop(r3(sparksFrom), id, { sparks: 1 }, 0.2, "out"); }
   if (whine) sfx(r3(t - 0.5), "charge", { gain: 0.45 * big, reason: "the power: the rising electric whine before he goes" });
   c.say(t, "sam", "GO!", 0.3, "excited", { ...SAM, sub: false });
   cap(t, r3(t + 0.55), "GO!", gopos, true, { size: 96 });   // a shouted word: a text pop, the same every time
   sfx(t + 0.03, "firework", { gain: Math.min(1.4, 0.95 * big), loud: true, reason: "the power: the thunder crack as he goes" });
-  sfx(t + 0.03, "whoosh", { gain: 0.7, reason: "the air behind the streak" });
+  if (air) sfx(t + 0.03, air, { gain: 0.7, reason: air === "whoosh" ? "the air behind the streak" : "the streak itself, an electric zap (the second time, so the air sound does not repeat)" });
   c.prop(r3(t + 0.03), id, { head: 1, sparks: 0 }, 0.067, "linear");
   const f = fade ?? t + 0.1;   // the streak hangs in the air till f, then fades from its tail
   c.prop(r3(f), id, { tail: 1 }, 0.9, "in");
@@ -219,12 +222,12 @@ c.arm(r3(GO1 + 0.04), "sam", "L", { o: [0.18, 0.62, 0.2] }, 0.01); A(r3(GO1 + 0.
 A(r3(GO1 + 0.04), "sam", "expr", { expr: "delighted", set: { curve: 1, open: 0.55 }, dur: 0.01 }); A(r3(GO1 + 0.04), "sam", "face", { lid: 1, dur: 0.01 });
 A(r3(GO1 + 0.12), "sam", "move", { to: SAM_LAND, y: 0, dur: 0.22, ease: "in", steps: 0 });
 act.landDust(c, r3(GO1 + 0.34), SAM_LAND);
-sfx(r3(GO1 + 0.34), "land", { gain: 0.95, reason: "he lands past the ribbon" });
+sfx(r3(GO1 + 0.34), "land", { gain: 1.4, loud: true, reason: "he lands past the ribbon (lifted: it has to cut through the bed on a phone)" });
 A(r3(GO1 + 0.34), "sam", "squash", { amount: 0.12, dur: 0.18 });
 // the ribbon snaps as the streak goes through; Reaper's glove is empty
 c.prop(r3(GO1 + 0.06), "finish", { snap: 1 }, 0.35, "out");
 sfx(r3(GO1 + 0.06), "slap", { gain: 0.35, reason: "the finish ribbon snapping" });
-c.arm(r3(GO1 + 0.25), "rea", "R", "rest", 0.5, "inOut"); A(r3(GO1 + 0.25), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
+c.arm(r3(GO1 + 0.25), "rea", "R", "rest", 0.8, "inOut"); A(r3(GO1 + 0.25), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
 A(r3(GO1 + 0.4), "rea", "look", { to: [-0.6, 0.0], dur: 0.25, blink: false });
 // the wheat beside the streak bends flat away from it: a gust band on the painted wheat (set.life wind "at", below)
 c.at(r3(GO1 + 0.05), { fx: "poof", pos: [SAM1[0], 0.05, SAM1[1]], dur: 0.6, color: "#e9d8c0", puffs: 10, sparks: 0, size: 0.5, lift: 0.1 });
@@ -285,7 +288,7 @@ A(r3(LAUNCH + 0.02), "vikc", "pitch", { to: -8, dur: 0.15 }); A(r3(LAUNCH + 0.4)
 // Samurai: a yawn, then GO
 A(r3(LAUNCH + 0.05), "sam", "look", { to: [0.0, 0.0], dur: 0.12, blink: false });
 c.prop(r3(GO2 - 0.35), "st2", { glow: 1 }, 0, "linear"); c.prop(r3(GO2 - 0.35), "st2", { sparks: 1 }, 0.2, "out");
-power(GO2, "st2", { big: 1.15 });
+power(GO2, "st2", { big: 1.15, air: "zap" });
 zip(GO2, SAM2_POST, -35);
 c.arm(r3(GO2 + 0.04), "sam", "R", { o: [0.1, 0.3, 0.2] }, 0.01);
 // leaning on the right post, yawning, eyes shut (his left glove to his mouth)
@@ -312,7 +315,7 @@ see(r3(GLARE + 0.05), r3(WORLD - 0.02), ["vikc.face", "sam.face"], "Viking glare
 hide(r3(WORLD - 0.02), "vikc"); show(r3(WORLD - 0.02), "vik"); show(r3(WORLD - 0.02), "wiz");
 c.at(r3(WORLD - 0.03), { do: "prop", id: "seatD", set: { y: -3 }, dur: 0, ease: "linear", reason: "put away under the road at a cut (only the driver needed it), not a fall" });
 show(r3(BLAST - 0.02), "rea");   // out of the challenge two-shot; in the blast frame (panel 05, front right)
-setup(WORLD, "vik", VIK3, -35); setup(WORLD, "sam", SAM3, 60); setup(WORLD, "wiz", WIZ3, 25); setup(WORLD, "rea", REA3, -20);
+setup(WORLD, "vik", VIK3, -35); setup(BLAST, "vik", VIK3B, -20); setup(WORLD, "sam", SAM3, 60); setup(WORLD, "wiz", WIZ3, 25); setup(WORLD, "rea", REA3, -20);
 A(r3(WORLD - 0.02), "vik", "skin", { to: 0.25, dur: 0.01 });
 c.arm(r3(WORLD - 0.02), "rea", "R", "rest", 0.01);
 A(r3(WORLD - 0.02), "rea", "look", { to: [-0.6, 0.0], dur: 0.01, blink: false });
@@ -331,38 +334,46 @@ A(r3(WORLD + 0.12), "vik", "look", { to: [-0.2, 0.05], dur: 0.12, blink: false }
 c.say(r3(WORLD + 0.15), "vik", "First one around the world!", 1.2, "excited", { ...VIK_VOICE, pos: 1200 });   // under their feet (the demo caption is above)
 // Samurai: one raised brow, a shrug of a smile, then he turns to the road
 A(r3(WORLD + 0.7), "sam", "expr", { expr: "smug", set: { raise: 0.05, curve: 0.6, smirk: 0.5 }, dur: 0.2 });
-A(r3(GO3 - 0.82), "sam", "look", { to: [-0.3, 0.0], dur: 0.12, blink: false });
-A(r3(GO3 - 0.72), "sam", "turn", { to: 178, dur: 0.62 });
+A(r3(GO3 - 1.0), "sam", "look", { to: [-0.3, 0.0], dur: 0.12, blink: false });
+A(r3(BLAST - 0.02), "sam", "turn", { to: 178, dur: 0.01, ease: "linear", sync: true });   // sync: the motion layer may not stagger it past the cut   // cut on the turn: in the blast frame he already has his back to us (turning on screen swung his hands 30 cm a frame)
 
 c.arm(r3(BLAST - 0.02), "vik", "L", "rest", 0.01); A(r3(BLAST - 0.02), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // down by the cut
 c.prop(r3(GO3 - 0.4), "st3", { glow: 1 }, 0, "linear"); c.prop(r3(GO3 - 0.4), "st3", { sparks: 1 }, 0.2, "out");
-power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02) });   // still blazing on the title card
+power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02), air: null });   // the boom and the wind swell are its air   // still blazing on the title card
 hide(r3(GO3 + 0.03), "sam"); A(r3(GO3 + 0.04), "sam", "move", { to: [0.15, 40], dur: 0.01, steps: 0 });
-sfx(r3(GO3 + 0.03), "impact", { gain: 1.25, loud: true, reason: "the biggest crack: a deep boom under it (the 10x)" });
+sfx(r3(GO3 + 0.03), "impact", { gain: 1.6, loud: true, reason: "the biggest crack: a deep boom under it (the 10x)" });
 sfx(r3(GO3 + 0.05), "windswell", { gain: 0.8, dur: 1.3, reason: "the blast of air down the road behind him" });
 sfx(r3(GO3 + 0.1), "leafrustle", { gain: 0.5, reason: "the wheat and leaves thrashing" });
 c.prop(r3(GO3 + 0.03), "finish", { snap: 0 }, 0, "linear");   // (mended after demo 1; it snaps again)
 c.prop(r3(GO3 + 0.12), "finish", { snap: 1 }, 0.3, "out");
-c.at(r3(GO3 + 0.05), { fx: "poof", pos: [SAM3[0], 0.1, SAM3[1]], dur: 1.4, color: "#e9d8c0", puffs: 22, sparks: 0, size: 1.0, lift: 0.4 });
-c.at(r3(GO3 + 0.03), { fx: "cel", kind: "ring", pos: [SAM3[0], 0.05, SAM3[1]], flat: true, size: 3.2, dur: 0.6, palette: "energy" });
-// everyone shields their face from the blast; the Wizard's hat flies off, Viking's cape blows back
-for (const [w, s, dt] of [["wiz", "R", 0.04], ["vik", "R", 0.0], ["rea", "L", 0.06]]) {
-  c.arm(r3(GO3 + 0.04 + dt), w, s, { o: [-0.06, 0.78, 0.32] }, 0.22, "out");
-  A(r3(GO3 + 0.04 + dt), w, "grip", { side: s, shape: "flat", dur: 0.22 });
-  A(r3(GO3 + 0.04 + dt), w, "expr", { expr: "shocked", set: { eye: 0.8, open: 0.45, curve: -0.5 }, dur: 0.1 });
-  A(r3(GO3 + 0.04 + dt), w, "pitch", { to: -10, dur: 0.25 });
-}
-A(r3(GO3 + 0.06), "wiz", "hat", { off: [-0.6, 1.0, -0.2], spin: [140, 60, -200], dur: 2.0, ease: "out" });   // still in the air on the title card
+// the dust rises in his wake, just behind the friends (in front of them it fogged their faces), panel 05; no ground
+// ring: from this low camera it read as a thin cyan line across the road
+c.at(r3(GO3 + 0.05), { fx: "poof", pos: [SAM3[0], 0.1, r3(SAM3[1] - 1.4)], dur: 1.4, color: "#e9d8c0", puffs: 22, sparks: 0, size: 1.0, lift: 0.4 });
+// the blast (panel 05): Viking screws his eyes shut behind his forearm, the Wizard's hat flies off and he grabs after
+// it, wide-eyed; the Reaper does not move a muscle (only his cloak and a slow blink: he has seen faster)
+// Viking has learnt: he is already braced behind his forearm when the blast frame cuts in (no arm thrown up on screen)
+A(r3(BLAST - 0.02), "vik", "arm", { side: "R", pose: { o: [-0.14, 0.6, 0.46] }, dur: 0.01, sync: true });   // the forearm across in front of his face A(r3(BLAST - 0.02), "vik", "grip", { side: "R", shape: "flat", dur: 0.01, sync: true });
+A(r3(GO3 + 0.04), "vik", "expr", { expr: "shocked", set: { open: 0.55, curve: -0.6 }, dur: 0.1 }); A(r3(GO3 + 0.06), "vik", "face", { lid: 1, dur: 0.1 });   // screwed shut
+A(r3(GO3 + 0.04), "vik", "pitch", { to: -10, dur: 0.25 });
+A(r3(GO3 + 0.08), "wiz", "expr", { expr: "shocked", set: { eye: 1.3, open: 0.7, curve: -0.4 }, dur: 0.1 });
+A(r3(GO3 + 0.06), "wiz", "pitch", { to: -8, dur: 0.25 });
+c.arm(r3(GO3 + 0.2), "wiz", "R", { o: [0.22, 1.02, 0.05] }, 0.8, "inOut"); A(r3(GO3 + 0.2), "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });   // grabbing after the hat
+A(r3(GO3 + 0.06), "wiz", "hat", { off: [-0.2, 0.75, -0.6], spin: [-25, 30, 40], dur: 2.0, ease: "out", quiet: true });   // still in the air on the title card, the cone still reads as a hat
+A(r3(GO3 + 0.1), "rea", "pitch", { to: -3, dur: 0.3 });
+A(r3(GO3 + 0.4), "rea", "face", { lid: 0.5, dur: 0.3 });
 A(r3(GO3 + 0.04), "vik", "lean", { to: 6, dur: 0.15 });
 see(r3(GO3 + 0.1), FREEZE, ["st3", "wiz.face", "vik.face", "rea"], "panel 05: the streak to the horizon, the wheat flattened, the friends shielding their faces");
 // the title card: the picture freezes on the blast for 1.0 s of video
 c.at(FREEZE, { fx: "freeze", hold: HOLD, push: 0.035, tone: false, flash: 0 });
-cap(FREEZE, r3(FREEZE + 0.02), "WHAT IF YOUR COMPETITIVE FRIEND COULD RUN AT LIGHT SPEED?", 480, false, { size: 92, kinetic: false });   // whole at once: the story clock stands still under it
+cap(FREEZE, r3(FREEZE + 0.02), "WHAT IF YOUR COMPETITIVE FRIEND COULD RUN AT LIGHT SPEED?", 470, false, { size: 84, kinetic: false });   // whole at once: the story clock stands still under it
 
 // ================================================================ 6 SNAP 2: BACK 10.3-12.5 (panel 06)
 // He went round the planet: the streak comes in from behind the camera and Samurai skids to a stop facing us in a
 // spray of dust, the trophy high, eyes shut, laughing: "WON!" The fanfare. He soaks it in. Sixty years have gone.
-const SWAP = BACK;   // the world is sixty years older from the moment he is back (the set swaps at this cut)
+const SWAP = BACK;   // the cast is sixty years older from the moment he is back (they are out of his shots till the reveal)
+// the world shows its age only at the reveal cut, when he opens his eyes: Jonny's panel 06 has the golden wheat and the
+// blue sky behind him, so the WON! close-up keeps the young road and the twist lands on one cut (07)
+const AGE = REVEAL;
 hide(r3(SWAP - 0.02), "vik"); hide(r3(SWAP - 0.02), "wiz");
 show(r3(SWAP - 0.02), "viko"); show(r3(SWAP - 0.02), "wizo");
 setup(SWAP, "rea", REAO, -15);
@@ -374,8 +385,8 @@ for (const st of ["stickV", "stickW"]) putAway(SWAP - 0.03, st, -3), putAway(REV
 A(r3(SWAP - 0.02), "rea", "pitch", { to: 0, dur: 0.01 }); A(r3(SWAP - 0.02), "rea", "squash", { amount: 0, dur: 0.01 });
 c.arm(r3(SWAP - 0.02), "rea", "L", "rest", 0.01); A(r3(SWAP - 0.02), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
 A(r3(SWAP - 0.02), "rea", "expr", { expr: "deadpan", dur: 0.01 }); A(r3(SWAP - 0.02), "rea", "look", { to: [-0.5, 0.0], dur: 0.01, blink: false });
-c.prop(r3(SWAP - 0.03), "finish", { snap: 0, age: 1 }, 0, "linear");
-c.prop(r3(SWAP - 0.03), "chalk", { age: 1 }, 0, "linear");
+c.prop(r3(AGE - 0.03), "finish", { snap: 0, age: 1 }, 0, "linear");
+c.prop(r3(AGE - 0.03), "chalk", { age: 1 }, 0, "linear");
 // the old men and their sticks: Viking's crook in his right glove, the Wizard's knob in his left
 const STICK_V = front(VIKO, 0, 0.34, 0.3, 0), STICK_W = front(WIZO, 10, 0.34, -0.3, 0);
 c.prop(r3(SWAP - 0.03), "stickV", { x: STICK_V[0], z: STICK_V[2] }, 0, "linear");
@@ -401,7 +412,7 @@ show(r3(SKID + 0.05), "sam");
 A(r3(SKID + 0.05), "sam", "move", { to: SAMB, dur: 0.38, ease: "out", steps: 0 });   // the skid: feet ahead, sliding to a stop
 A(r3(SKID + 0.05), "sam", "pitch", { to: -14, dur: 0.05 }); A(r3(SKID + 0.43), "sam", "pitch", { to: 0, dur: 0.3, ease: "settle" });
 c.at(r3(SKID + 0.08), { fx: "poof", pos: [SAMB[0], 0.02, r3(SAMB[1] + 0.45)], dur: 1.0, color: "#e9d8c0", puffs: 14, sparks: 0, size: 0.55, lift: 0.06 });
-c.arm(r3(BACK - 0.02), "sam", "R", UP_O, 0.01);
+c.arm(r3(BACK - 0.02), "sam", "R", { o: [-0.04, 0.86, 0.22] }, 0.01);   // high and in over his head, so the trophy is in the close frame (panel 06)
 c.arm(r3(BACK - 0.02), "sam", "L", { o: [0.2, 0.55, 0.22] }, 0.01); A(r3(BACK - 0.02), "sam", "grip", { side: "L", shape: "fist", dur: 0.01 });
 A(r3(BACK - 0.02), "sam", "expr", { expr: "delighted", set: { curve: 1, open: 0.7 }, dur: 0.01 }); A(r3(BACK - 0.02), "sam", "face", { lid: 1, dur: 0.01 });
 c.prop(r3(SKID + 0.45), "trophy", { glint: 1 }, 0.2, "out"); c.prop(r3(SKID + 0.9), "trophy", { glint: 0 }, 0.4, "inOut");
@@ -431,7 +442,7 @@ A(r3(V(14.8) + 0.65), "viko", "expr", { expr: "kind", set: { curve: 0.35 }, dur:
 see(r3(REVEAL + 0.1), r3(STARE - 0.02), ["viko.face", "wizo.face", "rea.face", "carold", "finish"], "panel 07: sixty years later, the friends old, Reaper the same");
 // his face: the smile drains, the trophy droops
 A(r3(STARE + 0.05), "sam", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.3 }, dur: 0.2 });
-c.arm(r3(STARE + 0.2), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMB, 0, 0.16, 0.3, 0.18) }, 0.7, "inOut");
+c.arm(r3(STARE + 0.2), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMB, 0, 0.3, 0.4, 0.2) }, 0.7, "inOut");
 c.arm(r3(STARE - 0.02), "sam", "L", "rest", 0.01); A(r3(STARE - 0.02), "sam", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // (lowered while we looked at them)
 A(r3(STARE + 0.3), "sam", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false });
 A(r3(STARE + 0.9), "sam", "look", { to: [0.45, 0.0], dur: 0.25, blink: false });
@@ -444,13 +455,13 @@ see(r3(STARE + 0.1), r3(QUESTION - 0.02), ["sam.face", "trophy"], "his face: it 
 // Samurai frozen at the left front, turned to us, the trophy drooping, staring at Reaper; old Viking on his stick
 // between them; Reaper unchanged, one slow blink.
 setup(QUESTION, "sam", SAMQ, 40);
-c.arm(r3(QUESTION - 0.02), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMQ, 40, 0.18, 0.3, 0.3) }, 0.01);
+c.arm(r3(QUESTION - 0.02), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMQ, 40, 0.3, 0.4, 0.3) }, 0.01);
 c.arm(r3(QUESTION - 0.02), "sam", "L", "rest", 0.01);
 A(r3(QUESTION - 0.02), "sam", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.3 }, dur: 0.01 });
 A(r3(QUESTION - 0.02), "sam", "look", { to: [0.75, 0.0], dur: 0.01, blink: false });
 setup(QUESTION, "wizo", [-2.3, -2.2], 10);   // stepped aside, out of frame
 c.prop(r3(QUESTION - 0.03), "stickW", { x: front([-2.3, -2.2], 10, 0.34, -0.3, 0)[0], z: front([-2.3, -2.2], 10, 0.34, -0.3, 0)[2] }, 0, "linear");
-setup(QUESTION, "rea", REAO, -40);
+setup(QUESTION, "rea", [1.0, REAO[1]], -20);   // a step in, so his slow blink sits inside the phone safe zone
 A(r3(QUESTION - 0.02), "rea", "look", { to: [-0.6, 0.0], dur: 0.01, blink: false });
 A(r3(QUESTION - 0.02), "viko", "look", { to: [-0.5, 0.0], dur: 0.01, blink: false });
 A(r3(V(18.3)), "rea", "face", { lid: 1, dur: 0.16 }); A(r3(V(18.3) + 0.3), "rea", "face", { lid: 0, dur: 0.16 });   // the slow blink (lids shut on purpose)
@@ -466,11 +477,11 @@ const SH = {
   chase: { pos: [-0.45, 2.6, 10.2], look: [0.15, -0.4, -3.6], fov: 32 },   // panel 04
   glare: { pos: [0.25, 1.25, 3.6], look: [0.05, 0.7, -3.3], fov: 42 },                  // the car's front, Samurai at the post
   world: { pos: [1.4, 1.5, 7.2], look: [0.35, 0.55, 0.6], fov: 34 },                    // the challenge
-  blast: { pos: [0.15, 2.8, 5.4], look: [0.1, 0, -3.5], fov: 46 },                      // panel 05: the title card frame
-  back: { pos: [0.15, 0.6, 5.2], look: [0.15, 0.6, 0], fov: 30 },                       // panel 06: low, Samurai fills it
+  blast: { pos: [0.05, 1.5, 7.2], look: [0.1, 0.3, -3], fov: 46 },   // panel 05: the title card frame. Low and straight down the road like the painting: from higher up the camera saw over the painted wheat bank onto its bare floor
+  back: { pos: [0.1, 0.62, 5.5], look: [0.1, 0.62, 0], fov: 34 },                       // panel 06: low, Samurai fills it
   reveal: { pos: [-0.1, 2.1, 3.6], look: [-0.15, 0.2, -2.5], fov: 52 },                  // panel 07: what he sees
   stare: { pos: [0.3, 1.0, 6.2], look: [0.15, 1.0, 1.9], fov: 30 },                      // his face
-  question: { pos: [0.2, 1.3, 4.2], look: [0.2, 0.85, -0.8], fov: 40 },                 // panel 08
+  question: { pos: [0.1, 1.3, 4.7], look: [0.24, 0.8, -0.8], fov: 44 },                 // panel 08
 };
 const beats = c.beats([
   ["start: watch me win", 0, SH.start, "hook"],
@@ -509,7 +520,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", captionBand: [470, 1360],
   castLook: LOOK, cleanStart: true,
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
-  set: { type: "env", env: "wheat-road-day", swap: [{ at: SWAP, env: "wheat-road-old" }], aperture: FOCUS ? 0.045 : 0, lighting: LIGHTING, hatch: HATCH, cel: CEL, life: LIFE([[GO1, 3], [GO2, 3], [GO3, 5]]), ink: true, satsuei: true },
+  set: { type: "env", env: "wheat-road-day", swap: [{ at: AGE, env: "wheat-road-old" }], aperture: FOCUS ? 0.045 : 0, lighting: LIGHTING, hatch: HATCH, cel: CEL, life: LIFE([[GO1, 3], [GO2, 3], [GO3, 5]]), ink: true, satsuei: true },
   rigs: [rig, rigOld],
   // a fast surf-rock race groove from 0.0; the biggest GO drops it; the fanfare's win, then dead silence for the
   // reveal (the wind over an empty road), and the music box for the fact and the question

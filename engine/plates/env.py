@@ -398,7 +398,12 @@ def split(S):
 
     # the ground: the picture with everything standing on it painted out, carried on the 3D floor
     gm = ground_3d.astype(float)
-    gcol = np.where(ground_3d[..., None], rgb, pull_push(rgb, gm))
+    # "farFloor": true (what if 03, 9 Nov 2026): the far fields the depth model put in the sky class (past skyFrom) but
+    # below the floor's far row keep their painted pixels on the floor. Without it the floor shows its blurred fill
+    # there, in front of the sky card that holds them: a soft band with a hard top edge across the frame, worst from a
+    # camera standing in the road (wheat-road-old's reveal). Off: every set built before stays as it was.
+    keep = ground_3d | (sky & (Zg <= gmax) & ~standing) if S.get("farFloor") else ground_3d
+    gcol = np.where(keep[..., None], rgb, pull_push(rgb, gm))
     gfn = "ground.webp"
     Image.fromarray((np.clip(extend(gcol), 0, 1) * 255).round().astype(np.uint8)).save(out(S, gfn), quality=S.get("quality", 92), method=4)
     gmo = extend(np.dstack([sway * ground_3d, shimmer * ground_3d, water * ground_3d]))

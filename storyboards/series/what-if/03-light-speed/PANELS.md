@@ -11,18 +11,18 @@ promised to Jonny on 9 Nov (title, first subtitle and frame 0 say the same: "Wat
 
 | # | Line | Staging proof | Before full render |
 | --- | --- | --- | --- |
-| 1 | A bright clear afternoon in every panel: deep blue sky with white cumulus in the top 0.15-0.25, golden wheat on both sides of a straight pale dirt road to the horizon, green hills behind; never the stock sunset painting (golden-country-road) | | |
-| 2 | 01-02: Samurai (left, x 0.40) and Viking (right, x 0.66) crouched in sprint starts at a chalk line close to a low camera, glaring at each other, both faces 3/4 in profile with their eyes at 0.70-0.75; their backs and shoulders fill the bottom 0.45 | | |
-| 3 | 01: Wizard with a raised red-white checkered flag at the left verge (eyes 0.42, x 0.15); Reaper with the gold trophy beside the right post of the red finish ribbon down the road (x 0.76, about 0.1 of the frame tall); green sparks crackling at Samurai's feet | | |
-| 4 | 02: Samurai past the snapped ribbon in the air (eyes 0.31, x 0.62), the trophy high in one glove; a green streak fading along the road from the start line to him with the wheat bent flat beside it; Viking still crouched, mouth open; Wizard's flag still up | | |
-| 5 | 03: Viking in a close medium fills the left half (eyes 0.56, x 0.35), red-faced, mouth wide, pointing right at Samurai; Samurai small in the right background (eyes 0.33, x 0.83) holding the trophy, calm, eyes shut | | |
-| 6 | 04: a wide down the road from behind and above the red roadster (gold rims) as it drives away in a cloud of dust, Viking's orange hair over the seat; Samurai already at the ribbon, leaning on the right post, yawning, eyes shut (eyes 0.32, x 0.79) | | |
-| 7 | 05 (title card, cover): the green streak from the camera to the horizon, wheat flattened in a line beside the road, Wizard's hat flying off (x 0.1, 0.3-0.45), Viking's fur cape flapping (no helmet), leaves and dust in the air; Wizard left, Viking right, Reaper front right, all shielding their faces | | |
-| 8 | 06: Samurai skids in toward a low camera in a dust spray, trophy high (top 0.06), eyes shut, mouth open laughing, filling the frame (eyes 0.38, x 0.45); dust fills the bottom 0.4 | | |
-| 9 | 07: the same road sixty years later: cracked, weeds through the cracks, wild grass and white flowers on the verges; the roadster rusted with flat tyres at the left; the ribbon posts leaning with a tattered faded ribbon; Wizard (grey beard, faded hat with its patch) and Viking (long white beard, white brows, orange hair) old and stooped on walking sticks; Reaper exactly as before; their three faces to camera | | |
-| 10 | 08: Samurai at the left front turned at least 3/4 to us (never side-on), wide eyes, the trophy drooping in his glove; old Viking leaning on his stick between him and Reaper; Reaper at the right unchanged, one slow blink; no Wizard in frame | | |
-| 11 | Never drawn reaction marks (anger vein in 03, sweat drops in 02 and 08, the yawn's "Zzz" puffs in 04, "!" ticks in 02): act them in faces and bodies | | |
-| 12 | The walking-stick tips stay planted on the road and the trophy stays in a glove from 1.0 s to the end; the top 0.2 of the frame stays clear 0-2 s for Jonny's in-app title | | |
+| 1 | A bright clear afternoon in every panel: deep blue sky with white cumulus in the top 0.15-0.25, golden wheat on both sides of a straight pale dirt road to the horizon, green hills behind; never the stock sunset painting (golden-country-road) | yes: blue sky, golden wheat and the straight road in every shot; the swap set (07, 08) keeps the sky | |
+| 2 | 01-02: Samurai (left, x 0.40) and Viking (right, x 0.66) crouched in sprint starts at a chalk line close to a low camera, glaring at each other, both faces 3/4 in profile with their eyes at 0.70-0.75; their backs and shoulders fill the bottom 0.45 | yes (01 matches) | |
+| 3 | 01: Wizard with a raised red-white checkered flag at the left verge (eyes 0.42, x 0.15); Reaper with the gold trophy beside the right post of the red finish ribbon down the road (x 0.76, about 0.1 of the frame tall); green sparks crackling at Samurai's feet | yes: flag at the left verge, Reaper with the trophy by the right post; sparks at his feet | |
+| 4 | 02: Samurai past the snapped ribbon in the air (eyes 0.31, x 0.62), the trophy high in one glove; a green streak fading along the road from the start line to him with the wheat bent flat beside it; Viking still crouched, mouth open; Wizard's flag still up | yes (02 matches); flag down by 02 (he lowers it after Ready) | |
+| 5 | 03: Viking in a close medium fills the left half (eyes 0.56, x 0.35), red-faced, mouth wide, pointing right at Samurai; Samurai small in the right background (eyes 0.33, x 0.83) holding the trophy, calm, eyes shut | partial: Viking 121 % size, a closer medium for the shout | |
+| 6 | 04: a wide down the road from behind and above the red roadster (gold rims) as it drives away in a cloud of dust, Viking's orange hair over the seat; Samurai already at the ribbon, leaning on the right post, yawning, eyes shut (eyes 0.32, x 0.79) | partial: the car is in the near foreground, Samurai at the ribbon (86 % size) | |
+| 7 | 05 (title card, cover): the green streak from the camera to the horizon, wheat flattened in a line beside the road, Wizard's hat flying off (x 0.1, 0.3-0.45), Viking's fur cape flapping (no helmet), leaves and dust in the air; Wizard left, Viking right, Reaper front right, all shielding their faces | partial: Wizard 157 % size (his flying hat counts), Viking 77 %; Reaper does not shield (below) | |
+| 8 | 06: Samurai skids in toward a low camera in a dust spray, trophy high (top 0.06), eyes shut, mouth open laughing, filling the frame (eyes 0.38, x 0.45); dust fills the bottom 0.4 | yes: trophy high in frame, eyes shut laughing, golden wheat behind; camera level not below (sky edge) | |
+| 9 | 07: the same road sixty years later: cracked, weeds through the cracks, wild grass and white flowers on the verges; the roadster rusted with flat tyres at the left; the ribbon posts leaning with a tattered faded ribbon; Wizard (grey beard, faded hat with its patch) and Viking (long white beard, white brows, orange hair) old and stooped on walking sticks; Reaper exactly as before; their three faces to camera | yes: rusted roadster left, tattered ribbon, cracked road, both old men on sticks, three faces to camera | |
+| 10 | 08: Samurai at the left front turned at least 3/4 to us (never side-on), wide eyes, the trophy drooping in his glove; old Viking leaning on his stick between him and Reaper; Reaper at the right unchanged, one slow blink; no Wizard in frame | partial: Samurai 3/4 at the left with the trophy, old Viking between, Reaper's blink; a step wider (below) | |
+| 11 | Never drawn reaction marks (anger vein in 03, sweat drops in 02 and 08, the yawn's "Zzz" puffs in 04, "!" ticks in 02): act them in faces and bodies | yes: no drawn marks anywhere | |
+| 12 | The walking-stick tips stay planted on the road and the trophy stays in a glove from 1.0 s to the end; the top 0.2 of the frame stays clear 0-2 s for Jonny's in-app title | yes: trophy in a glove 1.0 s to the end, stick tips on the road; top 0.2 clear 0-2 s | |
 
 ## Numbers: read off each panel before any code
 
@@ -46,8 +46,27 @@ Read off Jonny's sheet at 2x with a tenths grid (shares of the frame: 0 at the t
 
 ## Story chain
 
-(written with the generator; one line per beat: what happens -> what the viewer must see -> the shot that shows it)
+- 0.0-1.0 start: Samurai and Viking crouched at the chalk line, sparks at Samurai's feet, "Watch me win at light speed!" on frame 0 -> the promise and both rivals -> low two-shot from behind the line (01)
+- 1.0 GO1: he is past the ribbon with the trophy before "GO" finishes -> the cheat-fast win in one frame -> the same shot, green streak down the road (02)
+- 1.6-2.5 victim: Viking still crouched, going red, steaming -> who lost and how he feels -> his face, close
+- 2.5-4.0 AGAIN!: Viking points and shouts, Samurai small and calm behind -> the rematch -> medium on Viking (03)
+- 4.0-6.6 demo 2: Viking in the red roadster, launch; GO; Samurai already leaning on the post, yawning, as the car slides in -> even a car loses -> wide behind the car, then down the road (04)
+- 6.6-7.5 glare: Viking glares through the windscreen, one of Samurai's eyes opens -> the grudge grows -> two-shot over the bonnet
+- 7.5-8.5 demo 3: "First one around the world!" -> the biggest bet -> challenge two-shot
+- 8.5-10.3 blast + title: GO; streak to the horizon, the Wizard's hat flies, Viking braced behind his forearm, Reaper unmoved; freeze with the title -> the power at full size, the cover -> low wide down the road (05)
+- 10.3-12.5 WON!: he skids in from behind the camera, trophy high, eyes shut laughing; fanfare -> he won, and he does not look -> close, golden wheat behind him (06)
+- 12.5-14.9 twist: he opens his eyes: the road sixty years later, rusted car, two old men on sticks, Reaper the same; "...you won." -> the cost -> his view, high wide (07)
+- 14.9-16.6 his face + the fact -> it lands on him; the real physics -> close on him with the trophy drooping
+- 16.6-18.0 "Would you still want to win?" -> the question to the viewer; Reaper's slow blink -> three-shot (08), hard cut at the end
 
 ## Departures (and why)
 
-(filled in at the staging proof)
+- Frame 0 caption: "Watch me win at light speed!" instead of the brief's "Hate losing?": the matched-opening test promised on 9 Nov (title, first subtitle and frame 0 say the same line); read the 0:03 hold against EP02.
+- 03: Viking 121 % of the panel's size: the closer medium keeps the shout readable on a phone; Samurai still small and calm behind him.
+- 04: the roadster in the near foreground rather than mid-frame: the chase camera stays static while the car passes it, which sells the speed; Samurai at the ribbon as drawn.
+- 05: the Wizard reads 157 % of the panel's size because his flying hat counts in his height; the camera stays low and straight down the road like the painting (higher, it saw over the painted wheat bank onto its bare floor). The Reaper does not shield his face: he is the unbothered friend, and the panel's Reaper reads deadpan too. Samurai is cut out of the challenge-to-blast turn (cut on the action) so his hands never swing faster than 10 cm a frame.
+- 05: the young roadster is not in demo 3 (the panel has no car); it comes back rusted at the same spot in 07.
+- 06: the camera is level with his eyes, not below: looking up shows the top edge of the painted sky. The world ages at the reveal cut (07), not at his return, so 06 keeps the golden wheat behind him as drawn.
+- 07: the camera stands high in the road behind his eye line (his view), the same angle as the panel.
+- 08: a step wider than the panel (Samurai 52 %, Reaper 64 % of the drawn size): the closing question needs a clear band above three heads, and the Reaper's slow blink must sit left of the phone's right-hand buttons (the panel has him at x 0.87, under the like button). Packing them closer put their bodies into each other.
+- Wheat rows: the painted wheat gusts with the wind bands at each GO (set life) instead of 3D wheat rows, which never matched the painting.

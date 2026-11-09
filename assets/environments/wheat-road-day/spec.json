@@ -34,5 +34,6 @@
  "surface": "road",
  "groundMax": 80,
  "pad": 0.3,
- "padY": 0.12
+ "padY": 0.12,
+ "farFloor": true
 }
