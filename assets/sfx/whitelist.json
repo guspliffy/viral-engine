@@ -32,6 +32,8 @@
   "impact": { "family": "cartoon", "says": "a big deep boom that drops in pitch, with a metallic ring on top (a heavy cartoon hit)", "words": ["boom", "bam", "pow", "bumm"] },
   "poof": { "family": "cartoon", "says": "a soft puff of air going darker, about 0.9 s (a cloud of smoke); about half the time a little magic chime on top", "words": ["puff", "pouf"] },
   "pop": { "family": "cartoon", "says": "a bubble pop: a quick upward blip and a short ringing tone at 1.4 kHz", "words": ["plopp"] },
+  "timestop": { "family": "cartoon", "says": "time stopping: a dry wooden clock TOCK with a click on top (loudest at 0.01 s), under it a low buzzy tone sliding down from about 380 to 60 Hz over 0.8 s like a tape stopping, a falling band of air, and a faint clock-bell ring (1.6 kHz) dying away, 1.3 s (code-made; the what-if pause's power sound)", "words": ["time stop", "halt"] },
+  "timego": { "family": "cartoon", "says": "time starting again: a quick rising 'vwip' gliding from about 70 Hz up to 700 Hz in 0.22 s, ending in one bright clock tick (2.4 kHz), 0.42 s (code-made)", "words": ["vwip", "tick", "time go"] },
   "timer-beep": { "family": "handling", "says": "one short pure beep, steady at about 3 kHz, 0.08 s (a camera's self-timer counting down; code-made)", "words": ["piep"] },
   "bubbling": { "family": "wet", "says": "a low wet bubbling bed with about 17 small pops a second on top (around 350-430 Hz, dark), fading in and out; length = its dur (hot oil boiling in a giant fryer; code-made)", "words": ["blubb", "bubbling", "blubber"] },
   "rumble": { "family": "cartoon", "says": "a low dark rumble, almost all under 200 Hz (around 80 Hz), swelling slowly to its end; length = its dur (a furnace far off; code-made)", "words": ["rumble", "grollen"] },
