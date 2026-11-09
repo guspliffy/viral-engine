@@ -18,7 +18,7 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 - Trial the motion studio workflow on the next episode (docs/rules/workflow.md "Measuring").
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
-- What if EP01 pause time (format B, 8 Nov): ~410 min brief->delivery (incl. new engine pause feature + animatic gate + a main merge), thread 906k in+out tokens (178 M cache read, $73), subagents 275k (Fable reviews A + B), 4 check-fix rounds (3 + a 4th on Jonny's go for one glitch; 1 draft + 4 full local renders, ~25 min each; the farm has no VoxCPM2 voice).
+- What if EP01 pause time (format B, 8 Nov): ~410 min brief->delivery (incl. new engine pause feature + animatic gate + a main merge), thread 906k in+out tokens (178 M cache read, $73), subagents 275k (Fable reviews A + B), 4 check-fix rounds + 1 round on Jonny's note (the cup beside the hand); 1 draft + 5 full local renders, ~25 min each; the farm has no VoxCPM2 voice.
 - Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
   for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
