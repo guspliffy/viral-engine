@@ -1,6 +1,6 @@
 # State (<= 40 lines; with CLAUDE.md and `git log` it is all a fresh session needs)
 
-Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
+Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 
 ## On main
 - Template turns on: castLook "sheet", physics, holds 2, motion layer (overlap/timing/solve), feet 2, lighting 2,
@@ -20,9 +20,12 @@ Updated 8 Nov 2026 (main ad03ca5 + the motion studio workflow PR #171).
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
 - NHM EP03 old way: 465 min, Opus out 943k, Fable 0.31 M, 4 drafts, 32 warn. Jonny: better quality and logic.
 - NHM EP03 new way v1: 362 min, Opus out 691k, Sonnet 1.32 M + Fable 0.34 M, 2 rounds, 8 warn. Logic issues
-  (builder wrote the clip, staging frozen unseen) -> staging proof; clips written by Opus 5.5 xhigh or Fable 5.1 xhigh, never builders (Jonny, 8 Nov).
+  (builder wrote the clip, staging frozen unseen) -> staging proof; the director writes the clip, never builders (Jonny, 8 Nov).
+- NHM EP04: old 338 min $64 subagents 0.32 M; v2 director writes 323 min $73 0.61 M; v2 Fable writes 527 min $169
+  2.27 M. Jonny 9 Nov: Fable writer out; old has cleaner hands, director's cut better cut + scenes except the hug turn.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
   checks; Remotion needs a company licence). Builders on Sonnet at high, Fable reviews at xhigh (Jonny).
 - 8 Nov: animatic gate only for new series or formats (Jonny).
+- 9 Nov: the director (Opus 5.5 xhigh) writes every clip; Fable 5.1 as clip writer dropped, cost 2.3x for no clear gain (Jonny).

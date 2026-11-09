@@ -9,7 +9,6 @@ re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lin
 | Role | Who | Model, effort | Does |
 |---|---|---|---|
 | Director | the thread's own session | Opus 5.5, **xhigh** (project setting) | plan, PANELS.md, **the clip generator (staging, camera, acting, timing)**, briefs, integration, checks, review, PR, delivery |
-| Clip writer (option) | `clip-writer` | Fable 5.1, **xhigh** | writes the clip generator (staging, camera, acting, timing) when the director hands it the clip; reviews A and B then come from a fresh `creative-director` spawn |
 | Creative director | `creative-director` | Fable 5.1, **xhigh** (Jonny, 8 Nov) | reviews A and B, writes BOARD numbers when asked; never code |
 | Builder | `builder` | Sonnet 5.5, high (Jonny, 8 Nov) | one specced task with exact numbers: a props file + its bench, a painted plate or env set, a grip test, a sound pick list, a mechanical fix the director measured. **Never a clip generator, a camera or the acting** |
 | Senior builder | `builder` with model opus, effort high | Opus 5.5 | rig, physics, shaders, VFX, render pipeline, timeline, new checks, bug fixes in existing systems |
@@ -18,7 +17,7 @@ re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lin
 
 Spawning: when the repo's agent types are loaded, use them by name (`subagent_type: "creative-director"` etc.). When
 they aren't (the repo root isn't registered), spawn a general-purpose agent with the role's model and effort
-(creative director and clip writer: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`, `effort: "high"`) and start its prompt with
+(creative director: `model: "fable"`, `effort: "xhigh"`; builder: `model: "sonnet"`, `effort: "high"`) and start its prompt with
 "Follow .claude/agents/<role>.md in /path/to/viral-engine". Never spawn an untyped agent without a model: it runs on
 Opus. At most three builders at once. Small edits (under ~15 lines in a file you already hold) you make yourself:
 a spawn costs more than the edit.
@@ -40,9 +39,14 @@ judged the old one better in quality and logic. Two causes, so two rules:
    those calls itself, for example a glance up to the window so the viewer finds the friends, and the empty table seen
    from the peek.
 
-So the clip is written by Opus 5.5 at xhigh (the director) or Fable 5.1 at xhigh (`clip-writer`), never by a
-builder (Jonny, 8 Nov). Builders make the parts that have a right answer someone else can check:
-props, plates, benches and measured fixes.
+So the clip is written by the director, Opus 5.5 at xhigh, never by a builder (Jonny, 8 Nov). Builders make the
+parts that have a right answer someone else can check: props, plates, benches and measured fixes.
+
+EP04 "your birthday" was then built three ways: the old workflow, v2 with the director writing, and v2 with Fable 5.1
+xhigh writing (old 338 min / $64, director 323 min / $73, Fable 527 min / $169). Jonny (9 Nov): Fable as writer is
+out, its cut isn't better by enough for 2.3x the cost. The director's cut has the better cut and scene management,
+but the old cut has cleaner hands, and the director's hug spins Gunslinger's face away from us. The rules for both
+are in "The story chain" and "Check windows" below. Fable stays the creative director (reviews A and B at xhigh).
 
 ## Gates (Jonny signs off each one)
 
@@ -98,6 +102,33 @@ chain, for example:
 A beat whose "must see" is hidden by the set, too small at 360 px or off frame fails the chain. Fix it by re-staging
 (camera side, positions, a cut). It is never a note "on the brief", and it never waits for the next cut.
 
+**The payoff keeps its faces to us, start to end.** In EP04 (director's cut) the hug was staged so both faces were
+3/4 to us, then a 1.6 s "happy sway" turned the pair until Gunslinger's face left the camera for most of a second,
+and the wink after it sat under his hat brim. Viking's face in the hug was in profile, one eye showing. The checks
+passed because a `see()` window counts a face as seen up to about 78° off camera (`VISIBLE.facing` 0.2 in
+`qa/framing.mjs`), and the sway's window didn't list Gunslinger's face at all. So:
+- every `see()` window from the payoff's first frame to the end lists the faces that carry it, including the moves
+  between shots;
+- a turn, spin or carry never takes a payoff face past 3/4 (about 45° off camera) while it is on screen; when a
+  later beat needs a back to us (a wink over a shoulder), cut to it;
+- a face under a hat brim, a hood or a hand during its line or its reaction is not seen; look at the 15 fps strip of
+  every payoff beat, and say in PANELS.md which way each payoff face turns.
+
+## Hands: every move gets the frames its distance needs (EP04, 9 Nov)
+
+Jonny on EP04: "old has cleaner hand movements and hands are less glitchy". It was not the engine: the old branch's
+anime-timing fix, applied to the director's clip, moved its hands by 2° at most. It was how the hands were written.
+The director's cut had 12 frames where Gunslinger's hand turned over 60° against the old cut's 4, at the beats
+everyone watches: "And yours?" (1.2 s), the pocket slap (1.6 s), the coupon reveal (4.0 s) and the hug (5.6-6.1 s).
+Most are hand jumps: a hand sent 24-68 cm in 2-3 frames; the palms-up turn on "And yours?" flips both hands 81° in
+one frame (`qa/handcause.mjs` in PR #128 names the cause of each pop).
+- A hand move gets at least one frame per 10 cm it travels: a 66 cm reach is 7 frames (0.23 s), not 0.08 s.
+- Go straight from one hold to the next. Dropping a hand to `rest` and taking the next hold 0.06 s later sent the
+  left mitten 68 cm and back in 3 frames (the coupon reveal).
+- A palm turn (palms up for "And yours?", a flip onto a prop) spreads over 6-8 frames, the same palm side through it.
+- Every hand-pop on a subject's hand on screen is fixed before the full render, even under the 90° flip gate.
+  "Fine if hidden" means hidden: off frame, behind a body, or smeared by a fast move, as the check says.
+
 ## Check windows (`allowClip`): only the director adds them
 
 In the 8 Nov head-to-head, the new-workflow cut had 8 check warnings against the old cut's 32, yet it showed more
@@ -108,6 +139,8 @@ waiver for the whole clip.
 - A window may cover only (a) contact the beat needs, like a hand on what it holds or a hug, or (b) a moment no
   camera sees, like inside the shut toilet or off frame on a cut. Never a body through a door, a wall, furniture or
   another body on screen: resize the prop or re-stage.
+- A hand flip (`hand-turn`), a rig jump or a foot slide on screen is never waived: change the move (see "Hands"
+  below). In EP04 the director's cut waived two hand flips on screen; the old cut waived none.
 - Only the director writes windows. A builder reports the fail instead.
 - The delivery lists every window that is on screen, with its 15 fps strip. When clips are compared, count those
   windows next to the warnings.
