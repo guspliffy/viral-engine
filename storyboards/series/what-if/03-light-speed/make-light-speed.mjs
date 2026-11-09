@@ -549,18 +549,19 @@ const SH = {
 // audio/premise-voice-01/1-deep-storyteller.mp3) among the reads that fit the gap. "Sounds perfect, right?" is EP01's
 // read (take 3). The lines are queued here, before c.beats() takes the actions; their subtitles are added after the
 // cut trim below, so a voiceover's subtitle runs on across a cut.
+const NG = 4.0;   // the narrator's gain (all lines)
 const NARR = !VO ? [] : [
-  // [story s, line, take, spoken s (video), subtitle until (story) | false, gain]. Gains: every line at about
-  // -12.7 LUFS momentary in the final mix, level with the action's loud moments (Jonny 9 Nov 14:25: "the speaker is
-  // too quiet compared to the rest of the video"; at 2.4/1.2/0.9 the lines sat -13 to -25 against the action's -7 to
-  // -11). The spike guard levels the mix to -14 LUFS around them and its voice limiter takes up to 1.7 dB off peaks.
+  // [story s, line, take, spoken s (video), subtitle until (story) | false, gain]. NG: every line -12.5 to -14 LUFS
+  // momentary in the final mix, about 1.5 dB over the action's loud moments (p90) between the lines, whose peaks still
+  // hit 4-5 dB harder (Jonny 9 Nov 14:25: "the speaker is too quiet compared to the rest of the video"; at 2.4/1.2/0.9
+  // the late lines sat -20 to -25 against the action's -7 to -11; at 6-8 the action fell 10-20 dB under the voice).
   // The ambience is 0.5 -> 0.3 with the voiceover (the streak's wind gusts sat under the first lines on a phone).
-  [0, TITLE, TITLE_TAKE, TITLE_LEN, false, 7.7],   // the spoken title (Jonny 14:25) over the slow-motion stare-down; subtitled in four short parts below
-  [1.50, "He never loses.", 4, 1.15, false, 7.5],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
-  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 8.0],          // the roadster slides in after him; on over the glare cut
-  [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, 8.2],           // over the slow motion (video 12.0-13.6; EP01's line and read), in the 10x blast's wind. No subtitle, as on EP01's title card
-  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), 8.4],   // the reveal, before old Viking's "...you won."
-  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, 8.4],    // the closing question (its caption is on screen)
+  [0, TITLE, TITLE_TAKE, TITLE_LEN, false, NG],   // the spoken title (Jonny 14:25) over the slow-motion stare-down; subtitled in four short parts below
+  [1.50, "He never loses.", 4, 1.15, false, NG],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
+  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 1.5 * NG],          // the roadster slides in after him; on over the glare cut; lifted 1.5x over the engine and the screech (+1.3 dB on a phone at NG)
+  [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, NG],           // over the slow motion (video 12.0-13.6; EP01's line and read), in the 10x blast's wind. No subtitle, as on EP01's title card
+  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), NG],   // the reveal, before old Viking's "...you won."
+  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, NG],    // the closing question (its caption is on screen)
 ];
 for (const [t, line, take, len, until, gain] of NARR) {
   c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });

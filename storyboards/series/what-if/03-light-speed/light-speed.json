@@ -14679,7 +14679,7 @@
      "voice": "narrator",
      "take": 1,
      "caption": false,
-     "gain": 7.7,
+     "gain": 4,
      "at": 0
     },
     {
@@ -15046,7 +15046,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
-     "gain": 7.5,
+     "gain": 4,
      "at": 1.5
     },
     {
@@ -15855,7 +15855,7 @@
      "voice": "narrator",
      "take": 1,
      "caption": false,
-     "gain": 8,
+     "gain": 6,
      "at": 1.2
     },
     {
@@ -16591,7 +16591,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
-     "gain": 8.2,
+     "gain": 4,
      "at": 0.9
     },
     {
@@ -17422,7 +17422,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
-     "gain": 8.4,
+     "gain": 4,
      "at": 0.02
     },
     {
@@ -17875,7 +17875,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
-     "gain": 8.4,
+     "gain": 4,
      "at": 0.02
     },
     {
