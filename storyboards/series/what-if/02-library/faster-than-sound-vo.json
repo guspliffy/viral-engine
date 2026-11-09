@@ -9,7 +9,7 @@
  "captionStyle": "kinetic",
  "castLook": "sheet",
  "cleanStart": true,
- "cover": 10.2,
+ "cover": 9.6,
  "motion": {
   "feet": 2,
   "overlap": true,
@@ -1434,15 +1434,6 @@
    "kinetic": false
   },
   {
-   "from": 10,
-   "to": 10.97,
-   "text": "WHAT IF YOUR HYPER FRIEND\nWAS FASTER THAN SOUND\nIN A LIBRARY?",
-   "pos": 560,
-   "pop": true,
-   "size": 88,
-   "kinetic": false
-  },
-  {
    "from": 11.5,
    "to": 12.22,
    "text": "Shhh.",
@@ -1486,6 +1477,13 @@
    "to": 7.33,
    "text": "And louder.",
    "pos": 540,
+   "pop": false
+  },
+  {
+   "from": 9.45,
+   "to": 11.01,
+   "text": "Sounds perfect, right?",
+   "pos": 690,
    "pop": false
   },
   {
@@ -2749,7 +2747,7 @@
      "do": "prop",
      "id": "bigbook",
      "set": {
-      "x": -1.16,
+      "x": -1.29,
       "y": 0.85,
       "z": -0.34,
       "rot": 0,
@@ -2766,7 +2764,7 @@
      "pose": {
       "prop": "bigbook",
       "grip": [
-       -0.14500000000000002,
+       -0.015,
        0,
        -0.02
       ],
@@ -2782,7 +2780,7 @@
      "pose": {
       "prop": "bigbook",
       "grip": [
-       0.14500000000000002,
+       0.275,
        0,
        -0.02
       ],
@@ -2848,7 +2846,7 @@
       -1.2,
       -0.78
      ],
-     "y": 0.4,
+     "y": 0.47,
      "dur": 0.01,
      "at": 0.64
     }

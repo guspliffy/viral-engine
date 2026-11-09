@@ -195,15 +195,15 @@ see(r3(S_REA + 0.05), S_TWO, ["rea.face", TW(TOWER_N - 1)], "Reaper's eyes on th
 // ================================================================ 3 DEMO 1, 2.2-4.0: the book from the top shelf
 // Panel 03: he's back the instant the sound returns, holding a big book up in both gloves, grinning. 0.7 s later his
 // own sound catches up: a small puff flips Reaper's page and lifts his hood.
-const BIG_AT = [r3(PHX_BACK[0] + 0.04), 0.85, r3(PHX_BACK[1] + 0.44)];   // held up at his chest over the table's far edge (he hovers 0.4)
+const BIG_AT = [r3(PHX_BACK[0] + 0.04 - BIG.w / 2), 0.85, r3(PHX_BACK[1] + 0.44)];   // held up at his chest over the table's far edge; x is the spine (libbook's origin: the cover runs from it to +w), so the book's middle is on his chest
 c.prop(r3(TRIP1[1] - 0.03), "bigbook", { x: BIG_AT[0], y: BIG_AT[1], z: BIG_AT[2], rot: 0, stand: 1 }, 0.01);
-const HOLD = (s) => ({ prop: "bigbook", grip: [s * (BIG.w / 2 + 0.015), 0, -0.02], palm: true });
+const HOLD = (s) => ({ prop: "bigbook", grip: [r3(BIG.w / 2 + s * (BIG.w / 2 + 0.015)), 0, -0.02], palm: true });   // a glove on each side edge (spine and fore-edge), from the book's middle (Jonny 9 Nov: one glove sat on the cover's middle)
 c.arm(r3(TRIP1[1] - 0.02), "phx", "R", HOLD(-1), 0.01); c.arm(r3(TRIP1[1] - 0.02), "phx", "L", HOLD(1), 0.01);
 A(r3(TRIP1[1] - 0.02), "phx", "grip", { side: "both", shape: "hold", dur: 0.01 });
 A(r3(TRIP1[1] - 0.01), "phx", "grab", { prop: "bigbook", hand: "both", grip: [0, 0, 0], dur: 0, pose: null });
 A(r3(TRIP1[1] - 0.02), "phx", "look", { to: [0.1, 0.05], dur: 0.01, blink: false });
 fwip(TRIP1[1], PHX_BACK, 10, TRIP1[0]);
-A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.4, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
+A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.47, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
 act.grin(c, r3(TRIP1[1] + 0.05), "phx");
 A(r3(TRIP1[1] + 0.05), "phx", "wings", { to: 0.7, dur: 0.15, ease: "out" });
 A(2.3, "rea", "look", { to: [-0.1, -0.5], dur: 0.25, blink: false });   // back to his book: nothing happened
@@ -281,7 +281,7 @@ act.shock(c, 8.25, "rea", { hold: 2.2 });
 A(8.4, "sor", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.2 }, dur: 0.2 });
 [8.4, 8.8, 9.2, 9.6, 10.0, 10.4].forEach((t, k) => { A(t, "rea", "hat", { spin: [-6, 0, k % 2 ? 9 : -9], dur: 0.35 }); A(r3(t + 0.1), "sor", "hat", { spin: [-8, 0, k % 2 ? -12 : 12], dur: 0.35 }); });   // hoods flapping in the ring's wind
 A(10.8, "rea", "hat", { spin: [0, 0, 0], dur: 0.25, ease: "settle" }); A(10.9, "sor", "hat", { spin: [0, 0, 0], dur: 0.25, ease: "settle" });
-cap(10.0, 10.97, "WHAT IF YOUR HYPER FRIEND\nWAS FASTER THAN SOUND\nIN A LIBRARY?", 560, true, { size: 88, kinetic: false });   // one pop, whole at once (it is the cover)
+// (no title card mid-clip: Jonny 9 Nov 2026, "this is the title of the video and should not appear mid video"; the post's title carries it)
 see(S_HIGH, 10.0, ["rea.face", "table"], "100 laps in silence: the flame ring round the reading room");
 
 // ================================================================ 6 SNAP 2, 11.0-13.5: perfectly quiet (and the clock)
@@ -403,7 +403,7 @@ if (VO) {
     [1.08, "What if you could outrun sound?", 4, 1.87, 2.97, 300],     // the first trip: the sound has dropped out (0.68)
     [4.68, "His sound comes later.", 1, 1.59, 6.28, 540],               // the cart trip's silence, ending on the late thump (6.3) (0.61)
     [6.45, "And louder.", 3, 0.87, 7.33, 540],                          // after the thump, before "100 laps!" (7.42) (0.48)
-    [9.45, "Sounds perfect, right?", 3, 1.56, false, 0],                // into the title card (10.0), before the sit (11.1) (0.55)
+    [9.45, "Sounds perfect, right?", 3, 1.56, 11.01, 690],              // over the ring, before the sit (11.1); between the librarian and Reaper (0.55)
     [14.6, "All of it. At once.", 8, 2.08, 16.69, 600],                 // the book rain, before "...sorry." (16.8), under the fact caption (0.43)
     [17.6, "Would you still want it?", 4, 1.39, r3(END - 0.05), 300],   // after "...sorry." (16.8-17.3), the closing caption's place (0.58)
   ];
@@ -462,7 +462,7 @@ write(import.meta.url, {
   title: "What if your hyper friend was faster than sound in a library?",
   idea: "What if, episode 2: Phoenix moves faster than sound in the library (a book, a cart, 100 laps), his sound arriving later each time; he sits perfectly quiet and the clock ticks; then every sound he outran arrives at once",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
-  castLook: LOOK, cleanStart: true, cover: 10.2,
+  castLook: LOOK, cleanStart: true, cover: 9.6,
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   panels: { md: "storyboards/series/what-if/02-library/PANELS.md" },
   // the daylight hall (assets/plates/library-hall-day.png, 9 Nov): its arched windows (blue sky, green trees) fill the
