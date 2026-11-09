@@ -189,6 +189,8 @@ export class Character {
     // limbs
     this.limbMat = new THREE.MeshStandardMaterial({ color: def.limbs.color, roughness: 0.5 });
     if (def.hands?.type === "glove") this.limbMat.userData.lookRole = "glove";   // looks.js: its own toon values
+    // limbs.role (Pebble, review 7 Nov 2026): bare skin arms and legs with gloved hands shade as skin, not as cloth gloves
+    if (def.limbs?.role) this.limbMat.userData.lookRole = def.limbs.role;
     if (globalThis.__DIAG?.colors) this.limbMat = new THREE.MeshLambertMaterial({ color: "#3060e0" });   // arms and legs blue
     this.limbW = def.limbs.width;
     this.seamless = def.hands?.type === "glove" && !!def.hands?.seamless;
@@ -225,7 +227,10 @@ export class Character {
       // hands.type "glove": Jonny's hand & grip study, a cartoon glove with four separate rounded fingers, a thumb and
       // a wrist. Each finger bends at the knuckle (fingers / index pivot) and again half way (bends), so a curl rolls it
       fingers = piv(-0.002, 0.034, 0); index = piv(0.031, 0.034, 0.002);
+      // hands.fingerLen / fingerR (opt-in, Pebble 7 Nov "shorter, softer fingers"): scale every finger's length / thickness
+      const fL = this.def.hands?.fingerLen ?? 1, fR = this.def.hands?.fingerR ?? 1;
       const finger = (parent, x, len, r, spread, y = 0) => {
+        len *= fL; r *= fR;
         const base = new THREE.Group(); base.position.set(x, y, 0); base.rotation.z = spread; parent.add(base);
         const a = new THREE.Mesh(cap(r, len * 0.5), M("#ff9a20")); a.position.y = len * 0.25 + r * 0.6; a.castShadow = true; base.add(a);
         const mid = new THREE.Group(); mid.position.y = len * 0.5 + r * 0.6; base.add(mid); bends.push(mid);
@@ -672,8 +677,14 @@ export class Character {
     // turns), so the head sits on the body instead of floating over it. head.neckR: its radius (0 = none)
     const nr = HD.neckR ?? Math.min(hr.rx, hr.rz) * 0.42;
     if (nr > 0) {
-      const y0 = this.cy + this.ry * 0.8, y1 = hr.cy - hr.ry * 0.35;
-      hr.neck = new THREE.Mesh(new THREE.CylinderGeometry(nr, nr * 1.08, y1 - y0, 32, 1, true), this.skin);
+      const y0 = this.cy + this.ry * (HD.neckFillet ? 0.4 : 0.8), y1 = hr.cy - hr.ry * 0.35;   // a filleted neck roots deeper so its foot never shows over a forward-set chest
+      // head.neckFillet (opt-in, Pebble 7 Nov 13:16): the neck's cylinder reshaped: it leans from the chest's middle to under the head, and its top also widens (share of nr) so it runs
+      // into the head's underside at a shallow angle instead of meeting it as a hard-edged column; the bottom flares as
+      // neckFlare does
+      const F = HD.neckFillet, rb = nr * (1.08 + (HD.neckFlare ?? 0)), h = y1 - y0;
+      const ng = F ? new THREE.CylinderGeometry(nr, rb, h, 40, 12, true, Math.PI) : new THREE.CylinderGeometry(nr, rb, h, 32, 1, true);   // (its seam at the back)
+      if (F) { const q = ng.attributes.position; for (let k = 0; k < q.count; k++) { const y = q.getY(k), t = y / h + 0.5, r0 = Math.hypot(q.getX(k), q.getZ(k)), r1 = nr + (rb - nr) * (1 - t) ** 2 + nr * F * t ** 3; if (r0 > 1e-6) { q.setX(k, q.getX(k) * r1 / r0); q.setZ(k, q.getZ(k) * r1 / r0 + (t - 0.5) * (HD.forward ?? 0)); } } ng.computeVertexNormals(); }   // and leans forward: its foot over the chest's middle, its top under the head
+      hr.neck = new THREE.Mesh(ng, this.skin);   // head.neckFlare (opt-in): a throat widening into the chest
       hr.neck.position.set(0, (y0 + y1) / 2, (HD.forward ?? 0) * 0.5); hr.neck.castShadow = true; this.potatoParts.add(hr.neck);
     }
     if (HD.nose) { const n = this.headSurf(0, HD.nose.v ?? -0.08), m = new THREE.Mesh(new THREE.SphereGeometry(1, 24, 16), this.skin); m.scale.set(HD.nose.w ?? 0.03, HD.nose.h ?? 0.026, HD.nose.d ?? 0.022); m.position.copy(n.pos).addScaledVector(n.normal, -0.006); m.lookAt(n.pos.clone().add(n.normal)); hr.group.add(m); hr.nose = m; }
@@ -692,16 +703,26 @@ export class Character {
     // head.profile (Pebble's correction, 6 Nov 2026; opt-in): a tortoise head shaped by separate displacements instead
     // of one radial bump. cheek: the sides widen round elevation cheekV (share of the width); snout: the lower front
     // pushes FORWARD only (share of the depth), w wide and h tall round elevation v, lift raises its tip a little; jaw:
-    // the underside rounds off (share of the height) so no chin wedge forms. Normals come from this same surface
+    // the underside rounds off (share of the height) so no chin wedge forms. round (default 1): > 1 flattens the snout's
+    // swelling into a rounded muzzle with a soft edge instead of a pointed Gaussian tip (Jonny 7 Nov: "not rounded"). Normals come from this same surface
     // (headSurf differentiates headPoint), so the face, cap and spots sit on what is drawn
     if (P) {
       const cheek = (P.cheek ?? 0) * Math.exp(-(((d.y - (P.cheekV ?? -0.2)) / (P.cheekH ?? 0.5)) ** 2));
       out.x *= 1 + cheek;
       if (P.snout) {
-        const fz = Math.max(0, Math.min(1, (d.z - 0.05) / 0.55)), f = Math.exp(-((d.x / (P.w ?? 0.45)) ** 2) - (((d.y - (P.v ?? -0.15)) / (P.h ?? 0.3)) ** 2)) * fz * fz * (3 - 2 * fz);
+        const fz = Math.max(0, Math.min(1, (d.z - 0.05) / 0.55)), q = (d.x / (P.w ?? 0.45)) ** 2 + ((d.y - (P.v ?? -0.15)) / (P.h ?? 0.3)) ** 2, f = Math.exp(-(q ** (P.round ?? 1))) * fz * fz * (3 - 2 * fz);
         out.z += P.snout * H.rz * f; out.y += (P.lift ?? 0) * H.ry * f;
       }
       if (P.jaw && d.y < 0) out.y *= 1 - P.jaw * d.y * d.y;
+      // throat (opt-in, Pebble 7 Nov 12:07: "round the lower jaw into the neck"): below elevation from (d.y), the head's
+      // underside draws in to a neck of radius r round a centre z forward, and runs drop metres further down, so the jaw
+      // flows into a short throat instead of ending on a broad base over a separate column
+      const T = P.throat;
+      if (T && d.y < (T.from ?? -0.3)) {
+        const f0 = T.from ?? -0.3, t = Math.min(1, (f0 - d.y) / (1 + f0)), k = t * t * (3 - 2 * t), zc = T.z ?? 0;
+        const hz = out.z - zc, L = Math.hypot(out.x, hz), rT = T.r ?? 0.12, m = L > 1e-6 ? (L + (rT - L) * k) / L : 0;
+        out.x *= m; out.z = zc + hz * m; out.y -= (T.drop ?? 0.06) * k;
+      }
     }
     return out;
   }
@@ -729,7 +750,10 @@ export class Character {
   }
   // the arm tube's radius at t along it (0: the shoulder, 1: the wrist) for limb width w: rooted inside the body with a
   // wider shoulder (no cut tube end shows), narrowing to a wrist before the mitten
-  static armRadius(t, w) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1); }
+  // k (limbs.armTaper, opt-in, Pebble 7 Nov): a further share the forearm narrows by toward the wrist (0: none)
+  // a legs.dome leg's radius at t (0 hip .. 1 foot); without a dome the leg is a plain tube of radius w
+  static legRadius(t, w, dome) { return dome ? w * (t < (dome.top ?? 0.3) ? Math.sqrt(Math.max(0.0004, 1 - (1 - t / (dome.top ?? 0.3)) ** 2)) : 1) * (1 + (dome.flare ?? 0) * t ** (dome.flareP ?? 1)) * (1 - (dome.waist ?? 0) * Math.sin(Math.PI * t)) : w; }
+  static armRadius(t, w, k = 0) { return w * (t < 0.06 ? 1.19 * Math.sqrt(1 - (1 - t / 0.06) ** 2) : t < 0.25 ? 1.25 - t : t > 0.8 ? 1 - (t - 0.8) * 1.1 : 1) * (k ? 1 - k * Math.min(1, Math.max(0, (t - 0.2) / 0.7)) ** 1.2 : 1); }
   // storyboard "debug": { "anchors": true }: shoulder (red), elbow (green) and hand (blue) of each arm, drawn on top
   _anchors(s, pts) {
     this._anc ??= {};
@@ -745,6 +769,10 @@ export class Character {
   // its own ink shell draws the line, thinning away in creases, in the colour and width the look gives the arm tube
   _skinInit(s) {
     const a = this.arms[s];
+    // hands.oneMat (opt-in, Pebble 7 Nov): the hand's skin and the arm tube share one material, so the look shades them
+    // alike; as two materials the skin came out lighter, and where it overlaps the tube over the forearm's last stretch
+    // it showed as pale stripes with dark diamonds between the tube's flat sides
+    if (this.def.hands?.oneMat) this.skinMat ??= this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
     this.skinMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
     a.skin = new THREE.Mesh(new THREE.BufferGeometry(), this.skinMat);
     a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);
@@ -792,7 +820,7 @@ export class Character {
     const palm = (hs.palm || PALM).map((c) => cone(P(c[0], c[1], c[2]), P(c[3], c[4], c[5]), c[6] * k, c[7] * k));
     // the forearm's last stretch (hands.stub metres of it), on the arm's own curve and 1 % thinner than its tube
     const curve = Character.armCurve(a.shoulder, a.elbow, hand.position, a.joint), arm = [], L = curve.getLength(), N = 4;
-    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW) * 0.99;
+    const t0 = Math.max(0.3, 1 - (hs.stub ?? 0.15) / L), R = (t) => Character.armRadius(t, this.limbW, this.def.limbs?.armTaper) * 0.99;
     for (let i = 0; i < N; i++) { const ta = t0 + ((1 - t0) * i) / N, tb = t0 + ((1 - t0) * (i + 1)) / N; arm.push(cone(curve.getPointAt(ta), curve.getPointAt(tb), R(ta), R(tb))); }
     // hands.cuff { at, r, len }: a rolled glove rim round the wrist, at metres from the hand's centre, r times the arm
     const cuff = [];
@@ -812,7 +840,7 @@ export class Character {
     a.skin.geometry = a.ink.geometry = made ? geometryOf(made) : meshShape(shape, h);
   }
 
-  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0) {
+  _tube(old, a, c, b, w, arm = false, joint = false, stub = 0, dome = null) {
     if (old) { old.geometry.dispose(); this.root.remove(old); }
     const curve = Character.armCurve(a, c, b, joint);
     // arms: rooted inside the body with a wider shoulder (no cut tube end shows) and narrowing to a wrist before the mitten.
@@ -820,7 +848,11 @@ export class Character {
     // round cap half way along that stretch, so its outline never shows through the hand
     const L = stub ? curve.getLength() : 1, ts = 1 - (stub * 0.5) / L, tc = (w * 0.9) / L;
     const cap = (t) => (!stub || t <= ts ? 1 : Math.sqrt(Math.max(0, 1 - ((t - ts) / tc) ** 2)));
-    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w) * cap(t))
+    // legs.dome (opt-in, Pebble 7 Nov "boots with flat exposed upper edges"): { top, flare } a leg whose root closes in a
+    // round dome over its first `top` share (rooted inside the body, it swells out of the lower torso like a haunch) and
+    // widens by `flare` toward the foot, so it reads as a short sturdy leg, not a cut tube
+    const geo = arm ? taperedTube(curve, 0, 0, 32, 14, (t) => Character.armRadius(t, w, this.def.limbs?.armTaper) * cap(t))
+      : dome ? taperedTube(curve, 0, 0, 28, 20, (t) => Character.legRadius(t, w, dome))
       : new THREE.TubeGeometry(curve, 14, w, this.head ? 18 : 8, false);   // the core build's thick suit legs: rounder
     if (stub) geo.setAttribute("ink", new THREE.Float32BufferAttribute(new Float32Array(geo.attributes.position.count).fill(1), 1));
     const m = new THREE.Mesh(geo, stub ? this.armMat : this.limbMat); m.castShadow = true; this.root.add(m);
@@ -1003,7 +1035,8 @@ export class Character {
       // legs
       const ph = st.walk * 6.283 + (s === "R" ? 0 : Math.PI);
       const sd = st.stride ?? 1, lift = st.walkAmt * Math.max(0, Math.sin(ph)) * 0.07 * sd;
-      const foot = new THREE.Vector3(sx * 0.13, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
+      const fX = this.def.legs?.footX ?? 0.13;   // legs.footX (opt-in, Pebble 7 Nov): how far out each foot stands
+      const foot = new THREE.Vector3(sx * fX, 0.035 + lift + st.tuck * 0.08, 0.04 + st.walkAmt * Math.cos(ph) * 0.05 * sd);
       if (st.gait) {
         // natural gait: each foot stands for 58 % of the cycle and slides back under the body at exactly the body's
         // speed (so it stays put on the floor), then swings forward along the walk, lifted, easing out and in
@@ -1011,7 +1044,7 @@ export class Character {
         let along, up = 0;
         if (u < ST) along = A * (1 - (2 * u) / ST);
         else { const w = (u - ST) / (1 - ST); along = -A + 2 * A * (w - Math.sin(2 * Math.PI * w) / (2 * Math.PI)); up = Math.sin(Math.PI * w) * 0.065 * Math.min(1.4, G.sd) * G.amt; }
-        foot.set(sx * 0.13 + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
+        foot.set(sx * fX + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
       }
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
@@ -1027,24 +1060,37 @@ export class Character {
       // foot targets (timeline.js st.feet, the planted gait: { R: { x, y, z, yaw, w }, L }): where each foot stands, in the
       // same space as st.x, st.y, st.z (the stage, or the rig the actor rides), y the foot's centre (floor + 0.035 x scale
       // + lift), yaw (radians, like st.yaw; optional) the way it faces; w 0..1 blends it in over everything above
+      this.legs[s].flat = null;
       const ft = st.feet?.[s], fw = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0;
       if (fw > 0) {
         R.updateMatrix();
         const inv = new THREE.Matrix4().copy(R.matrix).invert();
         foot.lerp(new THREE.Vector3(ft.x, ft.y, ft.z).applyMatrix4(inv), fw);
         if (ft.yaw != null) this.legs[s].foot.quaternion.slerp(R.quaternion.clone().invert().multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), ft.yaw)), fw);
+        // the heel-to-toe roll (timeline.js rollAt, "motion": { "feet": 3 }): the foot turns about its heel (toes up)
+        // or its ball (heel up), so that edge stays where it is on the floor. legs.heel / legs.toe / legs.sole (m, the
+        // character's own foot; default the potato foot): how far behind and ahead of the foot's centre, and how far
+        // under it, the edges sit
+        this.legs[s].flat = ft.pitch ? foot.clone() : null;   // where the foot would stand flat (rig(): the planted point)
+        if (ft.pitch) {
+          const a = ft.pitch * fw, LG = this.def.legs || {}, q = this.legs[s].foot.quaternion;
+          const P = new THREE.Vector3(0, -(LG.sole ?? 0.035), a > 0 ? -(LG.heel ?? 0.094) : (LG.toe ?? 0.094));
+          const rx = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -a);
+          foot.add(P.clone().sub(P.clone().applyQuaternion(rx)).applyQuaternion(q));
+          q.multiply(rx);
+        }
       }
       // a toe tap (timeline "tap"): the foot turns up about its heel, so the toe lifts while the heel stays on the floor
       const tp = st.tap?.[s] || 0;
       if (tp > 0) { const ang = 0.5 * tp; foot.y += 0.094 * Math.sin(ang); foot.z -= 0.094 * (1 - Math.cos(ang)); this.legs[s].foot.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -ang)); }
-      const hip = new THREE.Vector3(sx * (this.def.legs?.hipX ?? 0.12), this.legH * S.y + 0.06, 0.0);
+      const hip = new THREE.Vector3(sx * (this.def.legs?.hipX ?? 0.12), this.legH * S.y + (this.def.legs?.hipY ?? 0.06), 0.0);   // legs.hipY (opt-in): the leg's root above the body's bottom
       this.legs[s].foot.position.copy(foot); this.legs[s].foot.visible = showLimbs;
       const key = [h.x, h.y, h.z, sh.x, sh.y, foot.x, foot.y, foot.z, hip.y, mid.x, mid.y, mid.z, st.grip?.[s]?.down || 0].join(",");
       if (showLimbs && key !== this[`_k${s}`]) {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         const knee = hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0)));
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1);
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, false, 0, this.def.legs?.dome);
         this.legs[s].hip = hip; this.legs[s].knee = knee;   // the leg's curve, for costume parts that follow it (costumes-core.js)
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
@@ -1074,7 +1120,9 @@ export class Character {
       const a = this.arms[s];
       if (a.hand && a.hand.visible !== false) out[`h${s}`] = a.hand.position.clone();
       if (a.elbow && a.shoulder && a.hand) out[`e${s}`] = Character.armCurve(a.shoulder, a.elbow, a.hand.position, a.joint).getPoint(0.5);
-      const f = this.legs[s]?.foot; if (f && f.visible) out[`f${s}`] = f.position.clone();
+      // a rolling foot (heel to toe) turns about its heel or ball, so its centre rises and moves a little while that edge
+      // stays put: the rig check follows where the foot would stand flat (the same point when it is flat)
+      const f = this.legs[s]?.foot; if (f && f.visible) out[`f${s}`] = (this.legs[s].flat || f.position).clone();
     }
     return out;
   }
@@ -1151,7 +1199,7 @@ export class Character {
     for (let i = 5; i <= 24; i++) {
       const c = curve.getPointAt(i / 24).applyMatrix4(this.root.matrixWorld);
       if (c.distanceTo(hand) < 0.08 * k) continue;
-      out.push({ c, r: Character.armRadius(i / 24, this.limbW) * k });
+      out.push({ c, r: Character.armRadius(i / 24, this.limbW, this.def.limbs?.armTaper) * k });
     }
     return out;
   }

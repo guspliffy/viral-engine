@@ -47,7 +47,9 @@
   "life": "auto",
   "cel": {
    "at": 0.25
-  }
+  },
+  "ink": true,
+  "satsuei": true
  },
  "music": {
   "style": "warm",

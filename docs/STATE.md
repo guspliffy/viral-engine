@@ -4,11 +4,11 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 
 ## On main
 - Template turns on: castLook "sheet", physics, holds 2, motion layer (overlap/timing/solve), feet 2, lighting 2,
-  living worlds `"life": "auto"`, anime look (`cel` + `animeTiming`, #168), sound guard, music bed, every line
+  living worlds `"life": "auto"`, anime look (`cel` + `animeTiming`, #168; `ink` + `satsuei`, #174), sound guard, music bed, every line
   subtitled, DoF off.
 - Checks: preflight one verdict, contact gate, rig, glitches (optical flow), prop-in-self, colour, lines (phone
   line + loop seam), golden + regress on every PR.
-- Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first).
+- Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first) or its seven effects redrawn as drawn cels (`"do": "cel"`, #174).
 
 ## Open PRs (awaiting "merge it" unless noted)
 - #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig
@@ -23,6 +23,9 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
   (builder wrote the clip, staging frozen unseen) -> staging proof; the director writes the clip, never builders (Jonny, 8 Nov).
 - NHM EP04: old 338 min $64 subagents 0.32 M; v2 director writes 323 min $73 0.61 M; v2 Fable writes 527 min $169
   2.27 M. Jonny 9 Nov: Fable writer out; old has cleaner hands, director's cut better cut + scenes except the hug turn.
+- Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
+  for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
+  review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,

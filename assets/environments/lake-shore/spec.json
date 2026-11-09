@@ -1,0 +1,66 @@
+{
+ "name": "lake-shore",
+ "source": "Jonny's painting, 7 Nov 2026 (ChatGPT), for Pebble's water bending: a calm lake from a low pebbly bank",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.7,
+  "vfov": 50,
+  "pos": [
+   0,
+   1.7,
+   4.4
+  ],
+  "horizon": 0.29
+ },
+ "light": {
+  "from": "upper left, low morning sun behind the trees on the left",
+  "key": [
+   -4.0,
+   4.0,
+   -2.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20,
+ "surface": "grass",
+ "motion": {
+  "shimmer": [
+   [
+    0.0,
+    0.3,
+    1.0,
+    0.655
+   ],
+   [
+    0.0,
+    0.655,
+    0.62,
+    0.69
+   ]
+  ],
+  "water": [
+   [
+    0,
+    0.3,
+    1,
+    0.655
+   ],
+   [
+    0,
+    0.655,
+    0.62,
+    0.69
+   ]
+  ]
+ },
+ "scale_note": "eye height 1.7: Pebble (about 2 m drawn) stands on the bank at about half the frame; at 0.95 he filled it",
+ "bands": [
+  6.0,
+  18.0,
+  60.0,
+  160.0
+ ],
+ "groundMax": 60.0,
+ "lifeSkyTop": 0.08
+}

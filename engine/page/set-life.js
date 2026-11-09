@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { lifeRng, gustAt, leaveTime, GUST_MAX } from "../shared/life.js";
 import { envCamera } from "./set-env.js";
+import { waterGLSL } from "./set-plate.js";
 
 // The living world (set "life", opt-in, 7 Nov 2026; research and plan in
 // /mnt/project-files/research/living-worlds-2026-11-07): the painted set breathes and answers the cast.
@@ -90,7 +91,7 @@ export function lifeLayer(mat, motion, width, o = {}) {
       vec2 sway = vec2(sin(uLifeT * 1.3 + ph) * 0.7 + sin(uLifeT * 3.7 + ph * 2.1) * 0.3 + sin(uLifeT * 5.3 + ph * 3.7) * 0.35 * gx,
                        sin(uLifeT * 1.9 + ph * 1.3) * 0.35) * k;
       sway.x -= gx * 0.9;                                           // leaning downwind (+x): the picture is sampled upwind
-      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * uPx * ${amp} * mo.${ch});${far ? "" : /* glsl */`
+      vec4 sampledDiffuseColor = texture2D(map, vMapUv + sway * uPx * ${amp} * mo.${ch});${far ? "" : waterGLSL("uLifeT", (w) => w.toFixed(2), `vMapUv + sway * uPx * ${amp} * mo.r`, "1.0 + 0.8 * gx", "vLifeW.xz")}${far ? "" : /* glsl */`
       vec2 q = vMapUv * vec2(5.0, 9.0) + vec2(uLifeT * 0.21, -uLifeT * 0.08);
       float n = sin(q.x * 2.3 + sin(q.y * 1.7 + uLifeT * 0.6)) * sin(q.y * 1.9 - sin(q.x * 1.3 - uLifeT * 0.4));
       sampledDiffuseColor.rgb *= 1.0 + mo.g * n * (0.05 + 0.05 * gx);`}

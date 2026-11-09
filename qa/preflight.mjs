@@ -21,7 +21,8 @@
 //          beat that needs it)
 //   WARN   no fail, but a visible-glitch warning (GATE.visible: a hand flip, a skating foot, a slipping prop, a jump):
 //          a delivery may carry none, so fix it or name it in a window with a reason
-//   PASS   nothing visible left; any other warning gets a one-line reason in the delivery
+//   PASS   nothing visible left; any other warning gets a one-line reason in the delivery (all of them: out/<id>.warnings.txt;
+//          on screen a warning prints only when it is new since the last preflight, CHECKS_FULL=1 prints them all)
 // Exit code 1 on FAIL only.
 import fs from "node:fs";
 import path from "node:path";
@@ -34,6 +35,7 @@ import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
 import { lockMusic } from "../engine/music.mjs";
+import { sayChanged } from "./say.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -119,9 +121,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   console.log(`preflight ${sb.id}: gate ${Number(sb.gate ?? 1)}${o.all ? " (every root fix assumed in)" : ""}, layout ${path.relative(process.cwd(), L.file)} ${L.how}`);
   const head = { fail: "BLOCKS THE RENDER", visible: "VISIBLE GLITCHES (may not ship as warnings: fix, or name in a window with a reason)", warn: "OTHER WARNINGS (one-line reason each in the delivery)" };
   for (const k of ["fail", "visible", "warn"]) {
-    const rs = res.filter((r) => r.kind === k); if (!rs.length) continue;
+    const rs = res.filter((r) => r.kind === k), lines = rs.map((r) => `  ${r.level === "fail" ? "FAIL" : "WARN"}  ${r.check}: ${r.msg}`);
+    // the other warnings: every one in <id>.warnings.txt beside the layout (each needs its one-line reason in the
+    // delivery), on screen only when new since the last preflight (qa/say.mjs; CHECKS_FULL=1 prints them all)
+    if (k === "warn") { if (lines.length) console.log(` ${head[k]}`); sayChanged(lines, path.join(o.out, `${sb.id}.warnings.txt`), { root: ROOT }); continue; }
+    if (!rs.length) continue;
     console.log(` ${head[k]}`);
-    for (const r of rs) console.log(`  ${r.level === "fail" ? "FAIL" : "WARN"}  ${r.check}: ${r.msg}`);
+    for (const l of lines) console.log(l);
   }
   const notes = res.filter((r) => r.kind === "note").length, c = (k) => res.filter((r) => r.kind === k).length;
   console.log(`${v}: ${c("fail")} fail${c("fail") === 1 ? "" : "s"}, ${c("visible")} visible-glitch warning${c("visible") === 1 ? "" : "s"}, ${c("warn")} other warning${c("warn") === 1 ? "" : "s"}, ${notes} note${notes === 1 ? "" : "s"}`);
