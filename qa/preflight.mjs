@@ -13,7 +13,8 @@
 //
 // Runs: the layout pass (engine/render.mjs --layout, 3-7 min for a clip, reused while newer than the storyboard and the
 // engine), the contact and grip checks, the drawn rig (qa/rig.mjs), the subject-owns-the-front check and the must-see
-// list and the pupils the lids leave showing (qa/framing.mjs), the storyboard's motion and acting habits (qa/motion.mjs), the camera lint (qa/camera.mjs), the
+// list and the pupils the lids leave showing (qa/framing.mjs), the captions (safe zone, the brief's band, hidden
+// behind characters: qa/check.mjs captionResults), the storyboard's motion and acting habits (qa/motion.mjs), the camera lint (qa/camera.mjs), the
 // sound the render would make on a phone speaker (qa/sound.mjs --phone) and the readability stills (qa/readability.mjs).
 //
 // Verdict:
@@ -29,11 +30,12 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
-import { clipResults, contactResults } from "./check.mjs";
+import { clipResults, contactResults, captionResults } from "./check.mjs";
 import { GATE } from "./gate.mjs";
 import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
+import { panelResults } from "./panelfit.mjs";
 import { lockMusic } from "../engine/music.mjs";
 import { sayChanged } from "./say.mjs";
 
@@ -82,6 +84,9 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   const res = [];
   const add = (r, from) => res.push({ ...r, from });
   for (const r of [...clipResults(sb, lay), ...contactResults(lay, sb)]) add(r, "contacts");
+  // captions over faces or outside the brief's band, from the layout: before this every build found them on a rendered
+  // draft (Never Has Money 04, 8 Nov: a draft and a check round each, and one cancelled farm render)
+  for (const r of captionResults(sb, lay)) add(r, "captions");
   for (const r of frontResults(sb, lay)) add(r, "framing");
   for (const r of eyesResults(sb, lay)) add(r, "framing");
   const chars = loadCharacters(sb);
@@ -90,6 +95,12 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   for (const r of await motionResults(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of await storyNotes(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
+  // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
+  // the repo root or the storyboard's folder }), each panel's Numbers row against the layout at its time
+  if (sb.panels?.md) {
+    const md = [path.resolve(ROOT, sb.panels.md), sbFile ? path.resolve(path.dirname(sbFile), sb.panels.md) : null].find((f) => f && fs.existsSync(f)) || sb.panels.md;
+    for (const r of panelResults(sb, lay, md, chars)) add(r, "panels");
+  }
   if (!quick) {
     try {
       const { soundNotes, freshMix, phoneBand } = await import("./sound.mjs");

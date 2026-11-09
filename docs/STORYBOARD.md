@@ -31,6 +31,9 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`shot`** starts at the beat (omit it to keep the camera; in a directed clip, omit it to let the beat's kind pick
   one, see "Directed camera" below). **`caption`** shows for the beat, or for
   `{ "text", "beats": 2 }` beats.
+- **`"captionBand": [470, 1360]`** (top level; the clip template sets it): the y band (px) every subtitle stays inside,
+  top to bottom, as Jonny's series briefs give it. `qa/preflight.mjs` and `qa/check.mjs` fail a subtitle outside it
+  (`caption-band`); text pops and cards are free. Without the field only the app's safe zone is checked.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
   word pops in as it is said (timed from the talk line it matches: with a real voice, from the voice model's own
   word timings; with the gibberish voice, from a syllable count), the word being said is lit in the speaker's

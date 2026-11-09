@@ -24,11 +24,16 @@ characters, look, new art, rights and money (zero paid AI). State: `docs/STATE.m
 ```bash
 node storyboards/<topic>/make-<clip>.mjs                       # generator -> storyboard JSON
 node qa/preflight.mjs <sb>                                     # one verdict before any render; FAIL blocks
-node engine/render.mjs <sb> --layout                           # layout + contact gate (~20 s)
+node qa/clear.mjs <sb>                                         # floor plan: bodies in each other or furniture (1-2 s)
+node engine/render.mjs <sb> --layout                           # layout + contact gate (~2 min)
+node engine/render.mjs <sb> --layout --from 3 --to 4.5         # fix round: only those seconds (~30 s), then full again
+node qa/camfit.mjs <sb> --at <s> [--pos x,y,z --look x,y,z --fov f]   # faces + free subtitle spots for a camera (1 s)
 node engine/render.mjs <sb> --stills beats --draft --safe      # draft stills (~1 min)
 node qa/contact.mjs <dir>/<id>-*.png --out <sheet.png>         # contact sheet of stills
 node engine/render.mjs <sb> --draft                            # draft render (~2 min) = the animatic
 node qa/check.mjs out/<id>.mp4 --sb <sb> --layout out/<id>.layout.json   # checks on a render
+node qa/panelfit.mjs <sb> --panels <PANELS.md>                 # Jonny's panels by number: size, eye line, faces
+python3 tools/lint-notes.py docs                               # rule docs: named paths exist, line caps (CI; `memory` too)
 gh workflow run render.yml -f storyboard=<sb>                  # full render on the free render farm
 node qa/golden.mjs                                             # after any change in engine/, characters/, assets/
 node qa/regress.mjs                                            # after a rig, grip or contact-check change

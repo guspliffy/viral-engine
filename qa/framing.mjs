@@ -161,7 +161,67 @@ export function visibility(sb, lay, chars = null) {
     : { group: "creative", level: "note", check: "visible", msg: `${label(r)}: ${r.misses.slice(0, 3).map((x) => `${x.why} ${x.from.toFixed(2)}-${x.to.toFixed(2)} s`).join("; ")}: move the prop, the character or the camera so it reads` });
   if (rows.length && !bad.length) results.push({ group: "creative", level: "pass", check: "visible", msg: `${rows.length} must-see item${rows.length > 1 ? "s" : ""} in view: ${rows.map((r) => r.item).join(", ")}${rows.some((r) => r.auto) ? " (auto: no \"visible\" list in the storyboard)" : ""}` });
   if (!rows.length) results.push({ group: "creative", level: "note", check: "visible", msg: "nothing to check: add a \"visible\" list (what each beat needs the viewer to see), or hook.show and a payoff beat" });
+  results.push(...payoffFaces(sb, lay, chars || loadCharacters(sb), { near, inside, miss, cast, fps }));
   return { rows, results };
+}
+
+// The payoff keeps its faces to us, from its first frame to the end (docs/rules/workflow.md, 9 Nov 2026). Never Has
+// Money 04's hug passed every check: a "visible" window counts a face as seen up to about 78° off camera
+// (VISIBLE.facing), its sway window didn't list Gunslinger, and the auto payoff window covers only its first 0.6 s.
+// So, for every face that acts from the payoff on (talk, say, expr, face, wink) or that a "visible" window from then on
+// names, on screen, for VISIBLE.minRun s or more:
+//   - a turn inside a shot takes it past GATE.payoffFacing degrees off camera (a shot that opens on the back is a cut
+//     to it, which the rule allows);
+//   - it acts (a line or a reaction) past GATE.payoffFacing, or under its own hat brim, costume or a hand.
+// Warn at gate 1, fail at "gate": 2; an allowClip window naming "payoff-face" with a reason waives a beat.
+function payoffFaces(sb, lay, chars, { near, inside, miss, cast, fps }) {
+  const p = (sb.beatSpans || []).find((b) => b.kind === "payoff"), out = [];
+  if (!p || !lay?.samples?.length) return out;
+  const ACT = ["talk", "say", "expr", "face", "wink"], acts = (sb.actions || []).filter((a) => a.who && cast[a.who] && ACT.includes(a.do));
+  const named = (sb.visible || []).filter((v) => (v.to ?? (v.from ?? v.at ?? 0) + VISIBLE.window) > p.from).flatMap((v) => [].concat(v.see || [])).filter((x) => /\.face$/.test(x)).map((x) => x.split(".")[0]);
+  const faces = [...new Set([...acts.filter((a) => a.at >= p.from - 1e-6).map((a) => a.who), ...named.filter((id) => cast[id])])];
+  if (!faces.length) return out;
+  const n = lay.contacts?.length || Math.round((lay.samples.at(-1).t || 0) * fps) + 1, lim = Math.cos(GATE.payoffFacing * Math.PI / 180);
+  const shotAt = (s) => (Array.isArray(sb.camera) && sb.camera.length ? 0 : (sb.shots || []).filter((q) => q.at <= s + 1e-6).length);
+  // the face's angle off camera in degrees, on the story clock (the body's yaw, as VISIBLE.facing reads it)
+  const off = (id, s) => {
+    const c = cast[id], def = chars?.[c?.character]; if (!def) return 0;
+    const st = actorState(sb, c, def, s);
+    let cam = cameraState(sb, s).pos;
+    const shot = (sb.shots || []).filter((q) => q.at <= s).sort((a, b) => a.at - b.at).at(-1), rg = c.rig && !shot?.rig && (sb.rigs || []).find((r) => r.id === c.rig);
+    if (rg) { const k = rigState(rg, s), R = rigRotation(k), o = rigOrigin(rg, k, R), q = cam.map((v, j) => v - o[j]); cam = [0, 1, 2].map((j) => R[0][j] * q[0] + R[1][j] * q[1] + R[2][j] * q[2]); }
+    const d = [cam[0] - st.x, cam[2] - st.z], m = Math.hypot(d[0], d[1]) || 1;
+    return Math.acos(Math.max(-1, Math.min(1, Math.sin(st.yaw ?? 0) * d[0] / m + Math.cos(st.yaw ?? 0) * d[1] / m))) * 180 / Math.PI;
+  };
+  const acting = (id, s) => acts.some((a) => a.who === id && s >= a.at - 1e-6 && s <= a.at + Math.max(a.dur ?? 0, 0.6));
+  const need = Math.max(1, Math.round(VISIBLE.minRun * fps)), level = gateLevel(sb);
+  for (const id of faces) {
+    const bad = []; let shot = -1, fine = false;
+    for (let i = 0; i < n; i++) {
+      const t = i / fps, s = storyAt(sb, t); if (s < p.from - 1e-6) continue;
+      const k = shotAt(s); if (k !== shot) { shot = k; fine = false; }
+      const a = (near(t).actors || []).find((q) => q.id === id);
+      if (!a || !inside(a.eyesPx)) { bad.push(null); continue; }
+      const deg = off(id, s), act = acting(id, s);
+      let why = null;
+      if (deg > GATE.payoffFacing && fine) why = "turns away";
+      else if (deg > GATE.payoffFacing && act) why = "acts turned away";
+      else if (act) { const m = miss(`${id}.face`, t); if (m && /own hat or costume|hand in front|held prop in front/.test(m)) why = `acts ${m}`; }
+      if (deg <= GATE.payoffFacing) fine = true;
+      bad.push(why && !windowFor(sb, "payoff-face", id, t) ? { i, why, deg } : null);
+    }
+    // runs of the same reason, VISIBLE.minRun s or longer
+    const runs = []; let cur = null;
+    for (const b of bad) {
+      if (b && cur && cur.why === b.why && cur.b === b.i - 1) { cur.b = b.i; cur.deg = Math.max(cur.deg, b.deg); }
+      else if (b) runs.push((cur = { why: b.why, a: b.i, b: b.i, deg: b.deg }));
+      else cur = null;
+    }
+    const long = runs.filter((r) => r.b - r.a + 1 >= need);
+    if (long.length) out.push({ group: "technical", level, check: "payoff-face", msg: `${id}'s face in the payoff: ${long.slice(0, 4).map((r) => `${r.why} ${(r.a / fps).toFixed(2)}-${((r.b + 1) / fps).toFixed(2)} s${/turn/.test(r.why) ? ` (${Math.round(r.deg)}° off camera)` : ""}`).join("; ")}: a payoff face stays at 3/4 or closer (${GATE.payoffFacing}° off camera at most) and in the clear while on screen, to the end (workflow.md "The payoff keeps its faces to us"); re-stage the turn or cut to the back view, or name it in an allowClip window ("checks": ["payoff-face"]) with a reason` });
+  }
+  if (!out.length) out.push({ group: "technical", level: "pass", check: "payoff-face", msg: `payoff faces stay to the camera to the end: ${faces.join(", ")}` });
+  return out;
 }
 
 // The subject owns the front (quality plan item 13 (c)): per frame, the subjects are who acts and the characters the

@@ -9,14 +9,17 @@ delivery with a reason.
 **When Jonny sends storyboard panels or images, they are the target, not just the beats** (Not Yet, 1 Nov 2026: the
 panels were read only for their beats, and the ending looked the wrong way; "I create these images with purpose, not
 to be ignored"). Even when a brief calls them "a staging reference":
-1. Before the layout, write `PANELS.md` next to the generator. It has one row per panel: the camera side and shot size,
-   who is where and what they face, the light and colours, and the details (wreckage, props, glow). Build the set so
-   that every panel's camera works.
+1. Before the layout, write `PANELS.md` next to the generator from `docs/templates/PANELS.md`: the numbered checklist
+   of what the panels stand on, and the Numbers table read off each panel (where the subject stands, which faces show,
+   the camera height). Per panel, also write the camera side and shot size, who is where and what they face, the light
+   and colours, and the details (wreckage, props, glow). Build the set so that every panel's camera works.
 2. Copy the look as well as the staging: the room's colours and time of day, the lighting, and the amount of detail and
    wreckage.
 3. Before any full render, check the draft against the panels:
-   `node qa/panels.mjs out/<id>-draft.mp4 --panels <board.png> --grid 2x4 --at <one time per panel>`. Look at it, and
-   give it to creative review A, telling the review that the panels are the target.
+   `node qa/panels.mjs out/<id>-draft.mp4 --panels <board.png> --grid 4x2 --at <one time per panel>` (columns x rows:
+   Jonny's 8-panel boards are 4x2; a grid that doesn't cut 9:16 panels stops and names the one it looks like) and
+   `node qa/panelfit.mjs <sb> --panels <PANELS.md>`. Grade the checklist against the sheet, and give both to creative
+   review A, telling the review that the panels are the target.
 4. A departure, such as a vertical frame that can't hold a landscape composition, goes in PANELS.md and in the
    delivery, with its reason.
 5. Match the detail and the energy, not only the layout. v2 of Not Yet was still "a simple room" next to the panels.
