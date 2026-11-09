@@ -238,7 +238,7 @@
    "from": 0,
    "to": 3.4,
    "text": "trophy at the stem, chest height, then overhead with a glint",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -246,7 +246,7 @@
    "from": 3.4,
    "to": 4.4,
    "text": "finish line: snap 0 | snap 0.5 | snap 1 | age 1",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -254,7 +254,7 @@
    "from": 4.4,
    "to": 5.4,
    "text": "finish line close: snap 1 (broken, swung back) | age 1 (leaning, torn)",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -262,7 +262,7 @@
    "from": 5.4,
    "to": 7,
    "text": "start flag held up, waving",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -270,7 +270,7 @@
    "from": 7,
    "to": 8,
    "text": "chalk line: age 0 | age 1",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -278,7 +278,7 @@
    "from": 8,
    "to": 9.2,
    "text": "light streak: head 0.3 + sparks | head 1 + sparks | tail 0.6",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -286,7 +286,7 @@
    "from": 9.2,
    "to": 10.4,
    "text": "light streak close: head, filaments and sparks at the origin",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -294,7 +294,7 @@
    "from": 10.4,
    "to": 11.4,
    "text": "light streak len 80: no gaps to the horizon",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
@@ -302,15 +302,15 @@
    "from": 11.4,
    "to": 12.4,
    "text": "wheat rows: front 0 | front 10 (flat 1)",
-   "pos": 1500,
+   "pos": 240,
    "pop": false,
    "kinetic": false
   },
   {
    "from": 12.4,
    "to": 13.8,
-   "text": "walking sticks: the crook under Viking's glove | the knob",
-   "pos": 1500,
+   "text": "sticks: crook | knob",
+   "pos": 240,
    "pop": false,
    "kinetic": false
   }

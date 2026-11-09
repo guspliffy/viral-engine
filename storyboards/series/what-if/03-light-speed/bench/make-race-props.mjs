@@ -75,9 +75,9 @@ const SHOTS = [
   ["streakclose", T.streakclose, { pos: [GX.streak - 2.9, 0.55, 1.6], look: [GX.streak - 1.5, 0.05, -0.6], fov: 40 }, "light streak close: head, filaments and sparks at the origin"],
   ["streak80", T.streak80, { pos: [GX.long, 0.8, 5.0], look: [GX.long, 0.2, -30], fov: 42 }, "light streak len 80: no gaps to the horizon"],
   ["wheat", T.wheat, { pos: [GX.wheat, 0.55, 3.0], look: [GX.wheat, 0.4, -8], fov: 44 }, "wheat rows: front 0 | front 10 (flat 1)"],
-  ["sticks", T.sticks, { pos: [GX.sticks - 0.1, 0.8, 4.4], look: [GX.sticks, 0.45, 0.2], fov: 36 }, "walking sticks: the crook under Viking's glove | the knob"],
+  ["sticks", T.sticks, { pos: [GX.sticks - 0.1, 0.8, 4.4], look: [GX.sticks, 0.45, 0.2], fov: 36 }, "sticks: crook | knob"],
 ];
-for (const [, t, , label] of SHOTS) c.cap(t, t + 1, label, 1500, false, { kinetic: false });
+for (const [, t, , label] of SHOTS) c.cap(t, t + 1, label, 240, false, { kinetic: false });   // at the top of the phone safe zone (y 210-1360), clear of the props, so the bench passes the episode preflight in CI
 console.log("stills:", [0.6, 2.6, ...SHOTS.slice(1).map(([, t]) => r3(t + 0.5))].join(","));
 // captions must not overlap in time: each runs to the next shot
 SHOTS.forEach(([, t], i) => { const cap = c.captions[i]; cap.to = r3(SHOTS[i + 1] ? SHOTS[i + 1][1] : END); });
