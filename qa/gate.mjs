@@ -11,11 +11,15 @@ import { storyTime, renderTime } from "../engine/shared/holds.js";
 export const GATE = {
   // the checks render.mjs refuses to render on (engine/render.mjs contactGate), and qa/preflight.mjs's verdict
   fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "limb-in-surface", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
-    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner"],
+    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner", "palm-turn", "payoff-face"],
   // visible at full speed: a delivery may carry none of these as a warning (each needs a fix or a named window)
-  visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support"],
+  visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support", "palm-turn", "payoff-face"],
   handTurn: 90,        // degrees in one frame, on screen and not smeared by motion blur (fails)
   blurPx: 144,         // px a frame: from here a move is smeared (engine/render.mjs BLUR, Jonny 4 Nov), which hides a turn
+  handTravel: 0.10,    // metres a hand may travel against its body per frame of its move, on screen (qa/hands.mjs; workflow.md "Hands")
+  palmTurn: 60,        // degrees: a hand turn this big ...
+  palmFrames: 6,       // ... is drawn over at least this many frames, on screen (qa/hands.mjs)
+  payoffFacing: 45,    // degrees off camera a payoff face may turn to while on screen (qa/framing.mjs payoffFaces; 3/4 view)
   footSlide: 0.05,     // metres in one frame, a foot on the floor without a step (fails)
   stanceSlide: 0.02,   // metres a standing foot slides during one stance of a step (warns until item 10)
   propSlip: 0.03,      // metres a held prop slips in the hand in one frame (fails once item 7 is in)

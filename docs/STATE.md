@@ -11,6 +11,8 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first) or its seven effects redrawn as drawn cels (`"do": "cel"`, #174).
 
 ## Open PRs (awaiting "merge it" unless noted)
+- #185 X-post checks: payoff-face, palm-turn + hand-jump (qa/hands.mjs), panels by number (qa/panelfit.mjs,
+  docs/templates/PANELS.md), notes lint (tools/lint-notes.py)
 - #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig
 - #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
 
