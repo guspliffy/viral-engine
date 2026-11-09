@@ -521,6 +521,30 @@ const SH = {
   stare: { pos: [0.3, 1.0, 6.2], look: [0.15, 1.0, 1.9], fov: 30 },                      // his face
   question: { pos: [0.1, 1.3, 4.7], look: [0.24, 0.8, -0.8], fov: 44 },                 // panel 08
 };
+// ================================================================ THE COMMENTATOR (default; --no-vo leaves it out)
+// The voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
+// storyteller"), Jonny's pick for the What if commentator (EP01's commentator cut, make-pause-time.mjs --vo). Each line
+// sits where nobody speaks: after the first "GO!", after the car loses, on the title card, at the reveal, and the
+// closing question (its caption is already on screen). The takes: 4 reads of each line; kept is the one Whisper heard
+// word for word with the closest speaker match (ECAPA cosine 0.44-0.55) to the read Jonny picked (project files
+// audio/premise-voice-01/1-deep-storyteller.mp3) among the reads that fit the gap. "Sounds perfect, right?" is EP01's
+// read (take 3). The lines are queued here, before c.beats() takes the actions; their subtitles are added after the
+// cut trim below, so a voiceover's subtitle runs on across a cut.
+const NARR = !VO ? [] : [
+  // [story s, line, take, spoken s, subtitle until | false]
+  [1.36, "He never loses.", 4, 1.15, false],                     // Viking going red; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
+  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03)],          // the roadster slides in after him; on over the glare cut
+  [FREEZE, "Sounds perfect, right?", 3, 1.56, false],            // the title card (EP01's line and read); the title fills the top
+  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03)],   // the reveal, before old Viking's "...you won."
+  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false],    // the closing question (its caption is on screen)
+];
+for (const [t, line, take, len, until] of NARR) {
+  c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+  if (until && until < t + len - 0.01) throw new Error(`"${line}" is cut off at ${until}`);
+  if (!until && t + len > END - 0.3) throw new Error(`"${line}" runs to the end`);
+}
+
+
 const beats = c.beats([
   ["start: watch me win", 0, SH.start, "hook"],
   ["victim: still crouched", VICTIM, SH.victim, "reaction"],
@@ -538,31 +562,7 @@ const beats = c.beats([
 ], END);
 // a caption gives way at each cut it would run over (except the title card's freeze)
 for (const cp of c.captions) for (const cut of [VICTIM, AGAIN, CAR, CHASE, GLARE, WORLD, BLAST, BACK, REVEAL, LINE, STARE, QUESTION]) if (cp.from < cut - 0.05 && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
-
-// ================================================================ THE COMMENTATOR (default; --no-vo leaves it out)
-// The voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
-// storyteller"), Jonny's pick for the What if commentator (EP01's commentator cut, make-pause-time.mjs --vo). Each line
-// sits where nobody speaks: after the first "GO!", after the car loses, on the title card, at the reveal, and the
-// closing question (its caption is already on screen). The takes: 4 reads of each line; kept is the one Whisper heard
-// word for word with the closest speaker match (ECAPA cosine 0.44-0.55) to the read Jonny picked (project files
-// audio/premise-voice-01/1-deep-storyteller.mp3) among the reads that fit the gap. "Sounds perfect, right?" is EP01's
-// read (take 3). Subtitles are added after the cut trim above: a voiceover's subtitle runs on across a cut.
-if (VO) {
-  const NARR = [
-    // [story s, line, take, spoken s, subtitle until | false]
-    [1.36, "He never loses.", 4, 1.15, false],                     // Viking going red; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
-    [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03)],          // the roadster slides in after him; on over the glare cut
-    [FREEZE, "Sounds perfect, right?", 3, 1.56, false],            // the title card (EP01's line and read); the title fills the top
-    [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03)],   // the reveal, before old Viking's "...you won."
-    [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false],    // the closing question (its caption is on screen)
-  ];
-  for (const [t, line, take, len, until] of NARR) {
-    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
-    if (until) cap(t, until, line, 470, false, { kinetic: false });
-    if (until && until < t + len - 0.01) throw new Error(`"${line}" is cut off at ${until}`);
-    if (!until && t + len > END - 0.3) throw new Error(`"${line}" runs to the end`);
-  }
-}
+for (const [t, line, , , until] of NARR) if (until) cap(t, until, line, 470, false, { kinetic: false });   // the commentator's subtitles (above)
 
 const allowClip = [
   { who: "rea", from: r3(GO1), to: r3(VICTIM), checks: ["rig-jump"], reason: "his empty glove drops as the trophy vanishes at light speed; he is 12 % of the frame, 15 m down the road" },

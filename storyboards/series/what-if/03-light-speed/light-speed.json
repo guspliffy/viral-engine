@@ -14999,6 +14999,14 @@
      "at": 1.32
     },
     {
+     "macro": "narrate",
+     "line": "He never loses.",
+     "voice": "narrator",
+     "take": 4,
+     "caption": false,
+     "at": 1.36
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -15820,6 +15828,14 @@
      "at": 1.042
     },
     {
+     "macro": "narrate",
+     "line": "Not even close.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "at": 1.2
+    },
+    {
      "who": "vikc",
      "do": "lean",
      "to": 0,
@@ -16544,6 +16560,14 @@
      "push": 0.035,
      "tone": false,
      "flash": 0,
+     "at": 1.5
+    },
+    {
+     "macro": "narrate",
+     "line": "Sounds perfect, right?",
+     "voice": "narrator",
+     "take": 3,
+     "caption": false,
      "at": 1.5
     },
     {
@@ -17369,6 +17393,14 @@
    },
    "do": [
     {
+     "macro": "narrate",
+     "line": "Sixty years later.",
+     "voice": "narrator",
+     "take": 4,
+     "caption": false,
+     "at": 0.02
+    },
+    {
      "who": "viko",
      "do": "expr",
      "expr": "tired",
@@ -17812,6 +17844,14 @@
     "fov": 44
    },
    "do": [
+    {
+     "macro": "narrate",
+     "line": "Would you still want to win?",
+     "voice": "narrator",
+     "take": 3,
+     "caption": false,
+     "at": 0.02
+    },
     {
      "who": "rea",
      "do": "face",
