@@ -91,7 +91,6 @@ const props = [
   { id: "lampR", kind: "brasslamp", x: 0.6, y: 4.6, z: -4.6, len: 1.3, staged: "hangs from the ceiling on its chain" },
   { id: "sign", kind: "quietsign", x: DESK[0], y: 3.8, z: -5.3, len: 0.7, w: 1.0, h: 0.65, staged: "hangs from the ceiling on its chains over the desk" },   // panel 01: 0.13-0.28 down over the librarian
   { id: "plant", kind: "bistroplant", x: -1.8, z: -4.75 },
-  // the longcase clock (STAND-IN until it is built: a tall case with the wall clock on it, so the insert frames it)
   { id: "clock", kind: "longclock", x: CLOCK[0], z: CLOCK[1], rot: 0, time: 3.2, amp: 6, ticks: CLOCK_TICKS },   // the test: its ticks louder before the BOOM
   ...TABLES2.flatMap(([x, z], i) => [
     { id: `t2${i}`, kind: "table", x, z, w: 1.5, d: 0.8, color: "#7a4a2c", legs: "#4e2e1a" },
@@ -110,6 +109,17 @@ function swing(t, id, deg, dur) {
   c.prop(r3(t - 0.01), id, { swing: 0 }, 0.01);
   c.prop(t, id, { swing: deg }, 0.18, "out");
   for (let k = 1; k <= n; k++) c.prop(r3(t + 0.18 + (k - 1) * step), id, { swing: k === n ? 0 : r3(deg * (-0.55) ** k) }, step, k === n ? "settle" : "inOut");
+}
+// the power's look (props-whatif-flame.js): a flame streak along a world path, its head running t0 -> t1, then fading
+// out by `gone`; three Phoenix-shaped after-images behind the head. Hidden (fade 1) before and after.
+let STREAKS = 0;
+function streak(path, t0, t1, gone, { ghosts = 3, len = 1.6, w = 0.36, size = 1, gap = 0.5 } = {}) {
+  const id = `streak${++STREAKS}`;
+  props.push({ id, kind: "flamestreak", x: 0, y: 0, z: 0, rot: 0, path, len, ghosts, w, size, gap, gain: 0.85, cover: 1.6, seed: STREAKS, t: 0, fade: 1, staged: "light in the air: the trail he leaves" });   // bright and covering: it flies over a pale sunlit floor
+  c.prop(r3(t0 - 0.01), id, { t: 0, fade: 0 }, 0.01);
+  c.prop(t0, id, { t: 1 }, r3(t1 - t0), "linear");
+  c.prop(t1, id, { fade: 1 }, r3(gone - t1), "in");
+  return id;
 }
 const setup = (t, who, at, yaw) => { A(r3(t - 0.02), who, "move", { to: at, dur: 0.01 }); A(r3(t - 0.02), who, "turn", { to: yaw, dur: 0.01 }); };
 const SUB = 880, SUB_HI = 600, DEMO = 400;   // the long-lens wides put every face low (0.55-0.67), so lines and demo captions go above them, inside the safe zone (y 210-1360; camfit spots, 9 Nov)
@@ -166,6 +176,7 @@ for (const t of [0.9, 2.1]) for (const i of [TOWER_N - 3, TOWER_N - 2, TOWER_N -
 
 // ================================================================ 2 SNAP 1, 1.0-2.2: gone (the streak, silence)
 zoom(TRIP1[0], { word: 0.8, air: true });
+streak([[PHX0[0], 0.5, PHX0[1]], [-0.3, 0.45, 0.75], [1.2, 0.55, 0.3], [2.6, 1.0, -1.5]], TRIP1[0], 1.22, 1.62, { len: 4.0, w: 0.32, size: 1.4, gap: 0.9 });   // low across the front of the table and out right, under every face (panel 02: a low streak from the left edge)   // panel 02: off to the top shelf (the ladder side); big for the long lens
 A(1.12, "rea", "look", { to: [-0.75, 0.0], dur: 0.35, blink: false });   // his eyes slide to the empty spot (panel 02)
 A(1.2, "sor", "look", { to: [-0.45, -0.15], dur: 0.3, blink: false }); A(1.25, "sor", "expr", { expr: "shocked", set: { open: 0.1, eye: 1.15 }, dur: 0.25 });
 see(1.05, S_REA, ["rea.face", "sor.face"], "Phoenix gone: only the streak; Reaper's eyes slide to where he was");
@@ -185,6 +196,7 @@ A(r3(TRIP1[1] - 0.02), "phx", "grip", { side: "both", shape: "hold", dur: 0.01 }
 A(r3(TRIP1[1] - 0.01), "phx", "grab", { prop: "bigbook", hand: "both", grip: [0, 0, 0], dur: 0, pose: null });
 A(r3(TRIP1[1] - 0.02), "phx", "look", { to: [0.1, 0.05], dur: 0.01, blink: false });
 fwip(TRIP1[1], PHX_BACK, 10, TRIP1[0]);
+streak([[1.2, 2.2, -4.5], [r3(PHX_BACK[0] + 0.2), 1.0, r3(PHX_BACK[1] + 0.3)]], r3(TRIP1[1] - 0.08), TRIP1[1], 2.5, { ghosts: 2 });   // back down from the top shelf
 A(r3(TRIP1[1] - 0.01), "phx", "move", { to: PHX_BACK, y: 0.4, dur: 0.01 }); A(TRIP1[1], "phx", "hover");   // too hyper to stand: he hovers, wings going (panel 03)
 act.grin(c, r3(TRIP1[1] + 0.05), "phx");
 A(r3(TRIP1[1] + 0.05), "phx", "wings", { to: 0.7, dur: 0.15, ease: "out" });
@@ -213,6 +225,9 @@ c.arm(4.1, "sor", "L", { x: [0.32, 0.4, 0.34] }, 0.4, "inOut"); A(4.25, "sor", "
 act.mood(c, 4.15, "sor", "annoyed", { hold: 0.4 });
 A(r3(S_WALL - 0.02), "phx", "hide");   // on the cut: his crest would poke into the wall shot's corner (he is off screen until he zooms)
 zoom(TRIP2[0], { word: 4.35, pos: 1100 });
+streak([[-2.2, 0.6, -1.4], [r3(CART[0] - 0.2), 0.75, r3(CART[1] + 0.2)]], TRIP2[0], 4.75, 5.05);   // in from where he stood to the cart
+streak([[r3(CART[0] - 0.1), 0.8, CART[1]], [1.5, 1.5, -6.1], [-0.2, 2.1, -6.1], [-1.9, 1.2, -6.1]], 4.8, 5.1, 5.45);   // the books into the shelves
+streak([[2.4, 1.6, -6.0], [r3(PHX_POSE[0] + 0.15), 0.6, PHX_POSE[1]]], 5.47, TRIP2[1], 5.95, { ghosts: 2 });   // back to the pose
 for (let i = 0; i < 10; i++) c.at(4.75, { do: "prop", id: `cb${i}`, set: { x: FAR[0], y: 0, z: FAR[1] }, dur: 0.01, ease: "inOut", reason: "gone in one frame: he takes them faster than sound (not a fall)" });   // gone from the cart in one frame: he is shelving them   // off screen: under the librarian, where the wall shot is free
 // the books blur into the shelves (STAND-IN: the cart and the shelves' gaps come with the builders' cart and wall)
 A(5.0, "phx", "drop", { to: 0, dur: 0.01 });   // (while he is away: back on his feet for the pose)
@@ -247,7 +262,10 @@ act.grin(c, 7.35, "phx");
 c.say(7.42, "phx", "100 laps!", 0.45, "excited", { pos: 430 });
 zoom(TRIP3[0], { loud: true, word: 7.82, pos: 430 });
 // the ring (STAND-IN: drawn ring cels on the floor round the table until the flame ring is built)
-for (let k = 0; k < 6; k++) FX.push({ at: r3(8.15 + k * 0.5), do: "cel", kind: "ring", pos: [TABLE[0], 0.05, TABLE[1]], flat: true, size: 2.4, dur: 0.5, palette: "fire", seed: 3 + k });
+props.push({ id: "ring", kind: "flamering", x: TABLE[0], y: 0, z: -0.3, rot: 0, rx: 1.8, rz: 1.3, seed: 1, t: 0, fade: 1 });   // panel 05: round Reaper's table
+c.prop(r3(TRIP3[0] - 0.01), "ring", { t: 0, fade: 0 }, 0.01);
+c.prop(TRIP3[0], "ring", { t: r3(TRIP3[1] - TRIP3[0]) }, r3(TRIP3[1] - TRIP3[0]), "linear");
+c.prop(r3(S_SIT - 0.01), "ring", { fade: 1 }, 0.01);   // gone on the cut: he has stopped
 for (const w of ["rea", "sor"]) { A(8.2, w, "lean", { to: -6, dur: 0.3 }); A(10.6, w, "lean", { to: 0, dur: 0.4, ease: "settle" }); }
 A(8.3, "rea", "look", { to: [-0.6, 0.2], dur: 0.2, blink: false }); A(8.8, "rea", "look", { to: [0.6, 0.2], dur: 0.25, blink: false });
 A(9.4, "rea", "look", { to: [-0.6, 0.2], dur: 0.25, blink: false }); A(10.0, "rea", "look", { to: [0.6, 0.2], dur: 0.25, blink: false });
@@ -269,6 +287,7 @@ A(r3(TRIP3[1] - 0.02), "phx", "look", { to: [0.15, 0.05], dur: 0.01, blink: fals
 c.arm(r3(TRIP3[1] - 0.02), "phx", "R", "rest", 0.01); c.arm(r3(TRIP3[1] - 0.02), "phx", "L", "rest", 0.01);
 c.prop(r3(S_SIT - 0.03), "chairL", { x: PHX_SEAT[0], z: PHX_SEAT[1] }, 0.01);   // on the cut from the ring
 fwip(TRIP3[1], PHX_SEAT, 8, TRIP3[0]);
+streak([[-3.4, 0.9, -1.6], [r3(PHX_SEAT[0] - 0.1), 0.7, r3(PHX_SEAT[1] + 0.2)]], S_SIT, TRIP3[1], 11.4, { ghosts: 2 });   // he stops dead in his seat
 A(r3(TRIP3[1] - 0.01), "phx", "sit", { height: 0.294, dur: 0.01, hands: "keep" });   // on chairL's seat (0.42 x its scale 0.7): chairL only arrives on the cut at 11.0, and a seated sit reads its seat's first place
 A(r3(TRIP3[1] + 0.02), "phx", "squash", { amount: 0.08, dur: 0.15 });   // stops dead
 A(11.2, "rea", "look", { to: [-0.75, 0.0], dur: 0.25, blink: false });

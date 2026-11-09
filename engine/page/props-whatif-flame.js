@@ -6,6 +6,8 @@ import { clamp } from "./util.js";
 //   flamestreak  the trail of one trip. spec.path [[x, y, z], ...] (2-4 points, WORLD metres: the prop cancels its own
 //                x/y/z/rot, so leave them at 0), spec.len (1.6: the trail's length behind the head), spec.ghosts (3),
 //                spec.gap (0.5: metres between after-images; they overlap when the path runs away from the camera),
+//                spec.w (0.36: the ribbon's half-width), spec.size (1: scales the after-images), spec.gain (0.42) and
+//                spec.cover (0.6): how bright the fire and how much of what's behind it covers (raise both on a pale sunlit floor),
 //                spec.seed. Params: t 0..1 (the head's place along the path, keyed by the director), fade 0..1 (1 =
 //                gone), clock (seconds, the flicker and the pages' flutter: defaults to the clip time). Look: a tapered
 //                ribbon of flame, wide and hot at the head, splitting into thin wisps toward the tail (a flat quad and
@@ -191,7 +193,7 @@ const STREAK_W = 0.36;   // the planes' half-width (the wisps fan out to it at t
 const STREAK_VS = /* glsl */`attribute float aS, aL; varying float vS, vL;
   void main() { vS = aS; vL = aL; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
 const STREAK_FS = /* glsl */`${FIRE}
-  uniform float uHead, uLen, uA, uClock, uSeed, uEnd; varying float vS, vL;
+  uniform float uHead, uLen, uA, uClock, uSeed, uEnd, uG, uC; varying float vS, vL;
   void main() {
     float d = uHead - vS;                               // metres behind the head (< 0: ahead of it)
     if (d < -0.3 || d > uLen) discard;
@@ -215,15 +217,16 @@ const STREAK_FS = /* glsl */`${FIRE}
     }
     h = max(h, smoothstep(0.2, 0.0, length(vec2(vL, d * 0.8))) * 0.95);   // the head's flare
     float k = smoothstep(0.03, 0.28, h) * (1.0 - smoothstep(0.65, 1.0, u)) * smoothstep(-0.3, 0.25, vS) * smoothstep(uEnd + 0.3, uEnd, vS);
-    k *= uA * 0.42;
+    k *= uA * uG;
     if (k < 0.004) discard;
-    gl_FragColor = vec4(fireCel(h) * k, k * 0.6);
+    gl_FragColor = vec4(fireCel(h) * k, min(1.0, k * uC));
   }`;
 
 const UP = new THREE.Vector3(0, 1, 0);
 export const WHATIFFLAME_KINDS = {
   flamestreak(P) {
     const S = P.spec, LEN = S.len ?? 1.6, NG = Math.max(0, Math.min(6, Math.round(S.ghosts ?? 3))), GAP = S.gap ?? 0.5, seed = S.seed ?? 1;
+    const SW = S.w ?? STREAK_W, GS = S.size ?? 1;   // spec.w: the half-width; spec.size scales the after-images (long-lens wides want both bigger)
     const pts = (S.path && S.path.length >= 2 ? S.path : [[0, 0.8, 0], [0, 0.8, -4]]).map((p) => new THREE.Vector3(...p));
     const curve = pts.length === 2 ? new THREE.LineCurve3(pts[0], pts[1]) : new THREE.CatmullRomCurve3(pts, false, "centripetal");
     const L = curve.getLength();
@@ -240,15 +243,16 @@ export const WHATIFFLAME_KINDS = {
         const s = -0.5 + ((L + 1) * i) / N, { p, tan } = at(s);
         const H = new THREE.Vector3().crossVectors(tan, UP); if (H.lengthSq() < 1e-4) H.set(1, 0, 0); H.normalize();
         const V = new THREE.Vector3().crossVectors(H, tan).normalize(), lat = H.multiplyScalar(Math.cos(th)).addScaledVector(V, Math.sin(th));
-        for (const sg of [-1, 1]) { pos.push(p.x + lat.x * STREAK_W * sg, p.y + lat.y * STREAK_W * sg, p.z + lat.z * STREAK_W * sg); aS.push(s); aL.push(STREAK_W * sg); }
+        for (const sg of [-1, 1]) { pos.push(p.x + lat.x * SW * sg, p.y + lat.y * SW * sg, p.z + lat.z * SW * sg); aS.push(s); aL.push(STREAK_W * sg); }   // aL stays in 0.36 units: a wider spec.w scales the whole look across
         if (i < N) { const b = base + i * 2; idx.push(b, b + 1, b + 2, b + 2, b + 1, b + 3); }
       }
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute("aS", new THREE.Float32BufferAttribute(aS, 1)); geo.setAttribute("aL", new THREE.Float32BufferAttribute(aL, 1)); geo.setIndex(idx);
-    const sm = glowMat(STREAK_VS, STREAK_FS, { uHead: { value: 0 }, uLen: { value: LEN }, uA: { value: 1 }, uClock: { value: 0 }, uSeed: { value: (seed * 7.31) % 50 }, uEnd: { value: L } });
+    const sm = glowMat(STREAK_VS, STREAK_FS, { uHead: { value: 0 }, uLen: { value: LEN }, uA: { value: 1 }, uClock: { value: 0 }, uSeed: { value: (seed * 7.31) % 50 }, uEnd: { value: L }, uG: { value: S.gain ?? 0.42 }, uC: { value: S.cover ?? 0.6 } });
     const ribbon = glowy(new THREE.Mesh(geo, sm), 5); P.whole.add(ribbon);
     const ghosts = Array.from({ length: NG }, (_, g) => ghost(P.whole, seed * 3.1 + g * 1.7, 6 + NG - g));   // the newest drawn last, over the older
+    if (GS !== 1) for (const o of ghosts) o.material.uniforms.uSize.value = GHOST_Q * GS;
     // the pages: each waits at a spot near the path (seeded) until the head passes it
     const sheets = pages(P.whole, 6), PG = sheets.map((_, i) => {
       const r = (k) => rnd(seed * 31.7 + i * 7.13 + k * 1.31);
