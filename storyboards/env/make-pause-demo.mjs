@@ -12,7 +12,7 @@ A(0.6, "phx", "arm", { side: "R", pose: { o: [0.12, 1.0, 0.15] }, dur: 0.9, lead
 A(P1 + 0.2, "phx", "arm", { side: "R", pose: "rest", dur: 0.6 });
 A(0.7, "rea", "look", { to: [-0.35, 0.1], dur: 0.6 });   // (a glance, not a turn: turned, his right sleeve went into Phoenix's wing)
 // Viking: HALT, then across the frozen road and back into his place
-c.say(0.55, "vik", "HALT!", 0.45, "excited", { sub: "HALT!" });
+c.say(0.55, "vik", "HALT!", 0.45, "excited", { sub: "HALT!", pos: 300 });   // above their heads: at the default y 1180 the three hid 27 % of it (main's caption-overlap FAIL, 9 Nov)
 sfx(P0, "timestop", { gain: 0.9, reason: "the pause's power sound: the world stops" });
 A(P0 + 0.15, "vik", "move", { to: [0.95, -1.0], dur: 1.2, steps: 2.2 });
 sfx(P1, "timego", { gain: 0.8, reason: "the world starts again" });

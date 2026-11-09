@@ -28,6 +28,12 @@ model); on GitHub runners tts.py runs it by itself when a line needs it. Speed: 
 second of speech on 4 cores (Kokoro: 0.1 s). Found through VoiceStudio; its own default model (OmniVoice) has
 non-commercial weights and is not used.
 
+Narrators (9 Nov 2026, Jonny picked by ear from six voices, project files `audio/premise-voice-01` and `-02`):
+`narrator` is the deep storyteller, VoxCPM2 on Reaper's reference clip with the direction "intrigued, mysterious, slow
+storyteller", for `narrate` lines (a commentator over the action). `narrator-trailer` is kept for other videos: a
+voice VoxCPM2 made from a description ("a deep, warm movie-trailer narrator"); a description alone gives a new voice
+for every text, so the take Jonny heard is its reference clip (`targets/narrator-trailer-ref.wav`).
+
 Whispers: `"tone": "whisper"` or `"soft": true` reads the line in the same voice, 9 % slower, darker (low-pass at
 5.5 kHz) and 7 dB quieter. Jonny picked this over breath-noise whispers, which sounded evil.
 
