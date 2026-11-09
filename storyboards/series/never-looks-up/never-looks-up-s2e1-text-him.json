@@ -996,7 +996,7 @@
      "who": "wiz",
      "do": "lean",
      "to": 0,
-     "dur": 0.3,
+     "dur": 0.5,
      "at": 0.02
     },
     {
@@ -1095,6 +1095,14 @@
      "dur": 0.13,
      "ease": "in",
      "at": 0.77
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0,
+     "at": 0.785
     }
    ],
    "kind": "reaction"
@@ -1260,14 +1268,6 @@
        0.3
       ]
      },
-     "at": 0
-    },
-    {
-     "who": "wiz",
-     "do": "grip",
-     "side": "L",
-     "shape": "pinch",
-     "dur": 0,
      "at": 0
     },
     {
@@ -1972,7 +1972,7 @@
   {
    "name": "04 fuse",
    "at": 3.6,
-   "len": 0.35,
+   "len": 0.4,
    "shot": {
     "pos": [
      2.6,
@@ -2259,39 +2259,6 @@
     },
     {
      "who": "vik",
-     "do": "look",
-     "to": [
-      0,
-      0.8
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.33
-    },
-    {
-     "who": "rea",
-     "do": "look",
-     "to": [
-      0,
-      0.8
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.33
-    },
-    {
-     "who": "wiz",
-     "do": "look",
-     "to": [
-      0,
-      0.5
-     ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.33
-    },
-    {
-     "who": "vik",
      "do": "pitch",
      "to": -25,
      "dur": 0.15,
@@ -2327,13 +2294,59 @@
      "dur": 0.28,
      "ease": "out",
      "at": 0.34
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "sfx": "rocket",
+     "gain": 0.35,
+     "dur": 0.22,
+     "at": 0.38
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.38
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.38
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.38
     }
    ]
   },
   {
    "name": "04a LOOK UP",
-   "at": 3.95,
-   "len": 0.8,
+   "at": 4,
+   "len": 0.75,
    "shot": {
     "pos": [
      0.35,
@@ -2348,13 +2361,6 @@
     "fov": 50
    },
    "do": [
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.12,
-     "at": 0
-    },
     {
      "who": "wiz",
      "do": "move",
@@ -2374,12 +2380,6 @@
      "at": 0
     },
     {
-     "sfx": "rocket",
-     "gain": 0.35,
-     "dur": 0.22,
-     "at": 0.03
-    },
-    {
      "who": "wiz",
      "do": "arm",
      "side": "R",
@@ -2391,7 +2391,7 @@
       ]
      },
      "dur": 0.36,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "wiz",
@@ -2405,7 +2405,7 @@
       ]
      },
      "dur": 0.36,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -2415,20 +2415,20 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.15
+     "at": 0.1
     },
     {
      "fx": "flash",
      "color": "#ffd35a",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "sfx": "firework",
      "gain": 0.55,
      "loud": true,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -2439,7 +2439,7 @@
      },
      "dur": 0.05,
      "ease": "inOut",
-     "at": 0.17
+     "at": 0.12
     },
     {
      "do": "prop",
@@ -2451,28 +2451,28 @@
      },
      "dur": 0.75,
      "ease": "in",
-     "at": 0.17
+     "at": 0.12
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
-     "at": 0.17
+     "at": 0.12
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
-     "at": 0.17
+     "at": 0.12
     },
     {
      "sfx": "flutter",
      "gain": 0.3,
      "dur": 0.9,
      "reason": "the pigeons burst off the paving",
-     "at": 0.19
+     "at": 0.14
     },
     {
      "do": "prop",
@@ -2482,21 +2482,21 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.21
+     "at": 0.16
     },
     {
      "fx": "flash",
      "color": "#ff5ad6",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.21
+     "at": 0.16
     },
     {
      "who": "rea",
      "do": "expr",
      "expr": "eager",
      "dur": 0.25,
-     "at": 0.21
+     "at": 0.16
     },
     {
      "do": "prop",
@@ -2507,7 +2507,7 @@
      },
      "dur": 0.05,
      "ease": "inOut",
-     "at": 0.22
+     "at": 0.17
     },
     {
      "do": "prop",
@@ -2519,7 +2519,7 @@
      },
      "dur": 0.75,
      "ease": "in",
-     "at": 0.22
+     "at": 0.17
     },
     {
      "who": "phx",
@@ -2527,7 +2527,7 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 0.25
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -2537,19 +2537,19 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "fx": "flash",
      "color": "#5ae2ff",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.27
+     "at": 0.22
     },
     {
      "sfx": "firework",
      "gain": 0.55,
-     "at": 0.27
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -2560,7 +2560,7 @@
      },
      "dur": 0.05,
      "ease": "inOut",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -2572,7 +2572,7 @@
      },
      "dur": 0.75,
      "ease": "in",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "do": "prop",
@@ -2583,7 +2583,7 @@
      },
      "dur": 0.05,
      "ease": "inOut",
-     "at": 0.32
+     "at": 0.27
     },
     {
      "do": "prop",
@@ -2595,7 +2595,7 @@
      },
      "dur": 0.75,
      "ease": "in",
-     "at": 0.32
+     "at": 0.27
     },
     {
      "do": "prop",
@@ -2605,20 +2605,20 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.33
+     "at": 0.28
     },
     {
      "fx": "flash",
      "color": "#ffd35a",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.33
+     "at": 0.28
     },
     {
      "who": "wiz",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.35
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -2628,7 +2628,7 @@
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 0.35
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -2638,7 +2638,7 @@
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 0.39
+     "at": 0.34
     },
     {
      "who": "phx",
@@ -2646,7 +2646,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 0.41
+     "at": 0.36
     },
     {
      "do": "prop",
@@ -2656,7 +2656,7 @@
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 0.43
+     "at": 0.38
     },
     {
      "do": "prop",
@@ -2666,26 +2666,26 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.45
+     "at": 0.4
     },
     {
      "fx": "flash",
      "color": "#8dff5a",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.45
+     "at": 0.4
     },
     {
      "sfx": "firework",
      "gain": 0.55,
-     "at": 0.45
+     "at": 0.4
     },
     {
      "sfx": "horn",
      "gain": 0.12,
      "dur": 0.5,
      "reason": "car alarms going off across the city",
-     "at": 0.45
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -2695,20 +2695,20 @@
      },
      "dur": 4,
      "ease": "linear",
-     "at": 0.51
+     "at": 0.46
     },
     {
      "fx": "flash",
      "color": "#ff9a3a",
      "peak": 0.11,
      "dur": 0.35,
-     "at": 0.51
+     "at": 0.46
     },
     {
      "who": "rea",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.65
+     "at": 0.6
     }
    ],
    "kind": "reveal"
@@ -4158,7 +4158,7 @@
   },
   {
    "from": 3.6,
-   "to": 3.95,
+   "to": 4,
    "see": [
     "dra.face",
     "crate",
@@ -4167,7 +4167,7 @@
    "why": "04: the Dragon puffs a flame at the fuse; the rockets go"
   },
   {
-   "from": 3.95,
+   "from": 4,
    "to": 4.75,
    "see": [
     "letters",
@@ -4279,6 +4279,15 @@
    "from": 1.9,
    "to": 5.6,
    "reason": "a 6 mm conductor's baton pinched at its cork, 8 m from the camera in 03 and off screen in 04: a few pixels wide"
+  },
+  {
+   "who": "wiz",
+   "from": 2,
+   "to": 2.07,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "the 6 mm baton shifts 3 cm in his pinch on the first downbeat, 8 m from the camera in the wide 03: about 3 px at full size"
   }
  ],
  "notes": "Generated by storyboards/series/never-looks-up/make-s2e1-text-him.mjs."
