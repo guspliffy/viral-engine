@@ -55,7 +55,7 @@ const VICTIM = 1.62, AGAIN = 2.5;      // Viking's face; he jumps up: "AGAIN!"
 const CAR = 4.0, LAUNCH = 4.45, GO2 = 4.8, CHASE = 4.85, GLARE = 6.6;   // demo 2: the car
 const WORLD = 7.5, GO3 = 8.6, BLAST = 8.5;                            // demo 3: around the world
 const BACK = 10.3;                     // snap 2: he's back (story; video 11.3): sixty years have gone
-const OPEN = 12.4, REVEAL = 12.5;      // he opens his eyes; the reveal wide (video 13.5)
+const OPEN = 12.25, REVEAL = 12.5;     // he opens his eyes (video 13.25: three frames before the cut were lost on a phone, review B); the reveal wide (video 13.5)
 const LINE = 13.6;                     // in on old Viking and the unchanged Reaper for "...you won." (video 14.6)
 const STARE = 14.85, QUESTION = 16.6;  // the fact over his face (brief: 16.0 video); the closing two-shot (video 17.6)
 
@@ -247,7 +247,7 @@ see(r3(GO1 + 0.1), r3(VICTIM - 0.02), ["sam", "trophy", "vik", "wiz"], "panel 02
 
 // ================================================================ 2 THE VICTIM 1.62-2.5
 // Viking, still crouched, turns his head to us (a look to the camera) and goes red
-A(r3(VICTIM + 0.05), "vik", "turn", { to: -20, dur: 0.25 });
+A(r3(VICTIM - 0.02), "vik", "turn", { to: -20, dur: 0.01, ease: "linear", sync: true });   // turned to us on the cut (review B: turning after it, the cut landed on his hair)
 A(r3(VICTIM + 0.05), "vik", "look", { to: [0.0, 0.0], dur: 0.2, blink: false });
 A(r3(VICTIM + 0.05), "vik", "pitch", { to: 6, dur: 0.25 });
 // (all done by 2.17: the AGAIN turn's feet start stepping at 2.2, 0.3 s before the cut, and a key still front-loading
@@ -261,18 +261,18 @@ see(r3(VICTIM + 0.1), r3(AGAIN - 0.02), ["vik.face"], "the victim: Viking still 
 // ================================================================ 3 AGAIN! 2.5-4.0 (panel 03)
 // Viking jumps up, points down the road at Samurai, who stands calm at the right post with the trophy, eyes shut
 hide(r3(VICTIM - 0.02), "rea");   // panels 03-04 have no Reaper
-A(AGAIN, "vik", "crouch", { to: 0, dur: 0.15 }); A(AGAIN, "vik", "pitch", { to: 0, dur: 0.15 });
-A(AGAIN, "vik", "turn", { to: 35, dur: 0.25 });
+A(AGAIN, "vik", "crouch", { to: 0, dur: 0.15 }); A(r3(AGAIN - 0.02), "vik", "pitch", { to: 0, dur: 0.01, sync: true });   // upright on the cut (review B: pitched forward, the cut landed on the top of his head)
+A(AGAIN, "vik", "turn", { to: 35, dur: 0.25 });   // (turned on the cut, his feet stepped through the victim shot: a turn's steps start 0.3 s early)
 A(AGAIN, "vik", "hop", { height: 0.12, dur: 0.3 });
 // his left glove is off the road by the cut (the road at his feet is below this frame), then points: from flat on the
 // road the glove turned over 84-131° in one drawing on screen
-c.arm(r3(AGAIN - 0.02), "vik", "L", { o: [0.3, 0.42, 0.22] }, 0.01); A(r3(AGAIN - 0.02), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
+c.arm(r3(AGAIN - 0.02), "vik", "L", { o: [0.38, 0.55, 0.16] }, 0.01); A(r3(AGAIN - 0.02), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
 c.arm(r3(AGAIN + 0.22), "vik", "L", { o: [0.42, 0.62, 0.1] }, 0.35, "inOut"); A(r3(AGAIN + 0.25), "vik", "grip", { side: "L", shape: "point", dur: 0.25 });
 c.arm(r3(AGAIN + 0.1), "vik", "R", { o: [0.12, 0.36, 0.16] }, 0.25, "inOut"); A(r3(AGAIN + 0.1), "vik", "grip", { side: "R", shape: "fist", dur: 0.15 });
 A(r3(AGAIN + 0.12), "vik", "look", { to: [0.55, 0.05], dur: 0.12, blink: false });
 A(AGAIN, "vik", "face", { lid: 0, dur: 0.08 }); A(AGAIN, "vik", "skin", { to: 0.6, dur: 0.15 });   // the shout: eyes wide, redder (review A: lids 0.46 read sulky)
 A(r3(AGAIN + 0.1), "vik", "expr", { expr: "angry", set: { open: 0.8 }, dur: 0.1 }); A(r3(AGAIN + 0.8), "vik", "expr", { expr: "angry", set: { open: 0.25 }, dur: 0.3 });
-c.say(r3(AGAIN + 0.2), "vik", "AGAIN!", 0.55, "angry", { ...VIK_VOICE, sub: false });
+c.say(r3(AGAIN + 0.2), "vik", "AGAIN!", 0.55, "angry", { ...VIK_VOICE, sub: false, amp: 1.6 });   // amp: a shout, not a small "o" (review B)
 c.textPop(r3(AGAIN + 0.2), "vik", "AGAIN!", { dur: 0.8, color: "speaker", size: 130 });   // his shout slammed beside his head (one of two pops)
 A(r3(AGAIN + 0.9), "vik", "skin", { to: 0.2, dur: 0.8 });
 // Samurai at the post: calm, eyes shut, the trophy at his chest
@@ -314,7 +314,7 @@ A(r3(GO2 + 0.9), "sam", "expr", { expr: "smug", set: { open: 0.1, curve: 0.45 },
 // the slide at the finish
 sfx(r3(SPIN0), "screech", { gain: 0.85, loud: true, reason: "the roadster sliding round at the finish" });
 sfx(r3(SPIN0), "tyres", { gain: 0.8, dur: SPIN_LEN, reason: "gravel under the sliding tyres" });
-c.at(r3(SPIN0 + 0.1), { fx: "poof", pos: [CAR_STOP[0] + 0.3, 0.05, CAR_STOP[1] + 0.8], dur: 1.2, color: "#e9d8c0", puffs: 18, sparks: 0, size: 1.1, lift: 0.2 });
+c.at(r3(SPIN0 + 0.1), { fx: "poof", pos: [CAR_STOP[0] + 0.3, 0.05, CAR_STOP[1] + 0.8], dur: 0.7, color: "#e9d8c0", puffs: 18, sparks: 0, size: 1.1, lift: 0.2 });
 A(r3(SPIN0 + 0.05), "vikc", "lean", { to: 12, dur: 0.25 }); A(r3(SPIN0 + SPIN_LEN), "vikc", "lean", { to: 0, dur: 0.3, ease: "settle" });
 see(r3(CHASE + 0.1), r3(GLARE - 0.02), ["vikc", "sam", "finish"], "panel 04: the car races off; Samurai is already at the ribbon, yawning");
 // the glare through the windscreen
@@ -353,7 +353,7 @@ A(r3(GO3 - 1.0), "sam", "look", { to: [-0.3, 0.0], dur: 0.12, blink: false });
 A(r3(BLAST - 0.02), "sam", "turn", { to: 178, dur: 0.01, ease: "linear", sync: true });   // sync: the motion layer may not stagger it past the cut   // cut on the turn: in the blast frame he already has his back to us (turning on screen swung his hands 30 cm a frame)
 
 c.arm(r3(BLAST - 0.02), "vik", "L", "rest", 0.01); A(r3(BLAST - 0.02), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // down by the cut
-c.prop(r3(GO3 - 0.4), "st3", { glow: 1 }, 0, "linear"); c.prop(r3(GO3 - 0.4), "sp3", { glow: 1 }, 0, "linear"); c.prop(r3(GO3 - 0.4), "sp3", { sparks: 1 }, 0.2, "out");
+c.prop(r3(GO3 - 0.4), "st3", { glow: 0.55 }, 0, "linear");   // a green core, not a white one (review B: the cover's streak read white) c.prop(r3(GO3 - 0.4), "sp3", { glow: 1 }, 0, "linear"); c.prop(r3(GO3 - 0.4), "sp3", { sparks: 1 }, 0.2, "out");
 c.prop(r3(FREEZE + 0.02), "sp3", { sparks: 0 }, 0.4, "inOut");   // the sparks crackle on where he stood until the title card
 power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02), air: null });   // the boom and the wind swell are its air   // still blazing on the title card
 hide(r3(GO3 + 0.03), "sam"); A(r3(GO3 + 0.04), "sam", "move", { to: [0.15, 40], dur: 0.01, steps: 0 });
@@ -416,16 +416,18 @@ for (const [w, s, spec, p] of [["viko", "R", "stickV", STICK_V], ["wizo", "L", "
 }
 // in from behind the camera
 const SKID = r3(BACK + 0.05);
-c.prop(r3(BACK - 0.02), "st4", { glow: 1 }, 0, "linear");
+c.prop(r3(BACK - 0.02), "st4", { glow: 0.55 }, 0, "linear");
 c.prop(SKID, "st4", { head: 1 }, 0.067, "linear"); c.prop(r3(SKID + 0.08), "st4", { tail: 1 }, 0.6, "in"); c.prop(r3(SKID + 0.4), "st4", { glow: 0 }, 0.5, "inOut");
 sfx(SKID, "firework", { gain: 1.0, loud: true, reason: "the power: the crack as he arrives from behind the camera" });
 sfx(SKID, "whoosh", { gain: 0.8, reason: "the air behind the streak" });
 sfx(r3(SKID + 0.06), "scrape", { gain: 0.6, reason: "his feet skidding on the dirt" });
 sfx(r3(SKID + 0.06), "tyres", { gain: 0.5, dur: 0.4, reason: "grit under the skid" });
 c.at(r3(SKID + 0.03), { fx: "shake", dur: 0.25, amp: 0.03 });
-A(r3(BACK - 0.02), "sam", "move", { to: [SAMB[0], r3(SAMB[1] + 0.9)], dur: 0.01, steps: 0 });
+// (he stays far behind the camera, hidden, until just before he is drawn again: the trophy in his glove went with him
+// to the skid's start at the cut and hung in the air alone for two frames, the full render's pop at 11.30 s)
+A(SKID, "sam", "move", { to: [SAMB[0], r3(SAMB[1] + 0.9)], dur: 0.01, steps: 0 });   // (and drawn again on the next drawing, below)
 A(r3(BACK - 0.02), "sam", "turn", { to: 0, dur: 0.01 });
-show(r3(SKID + 0.05), "sam");
+show(r3(SKID + 0.01), "sam");
 A(r3(SKID + 0.05), "sam", "move", { to: SAMB, dur: 0.38, ease: "out", steps: 0 });   // the skid: feet ahead, sliding to a stop
 A(r3(SKID + 0.05), "sam", "pitch", { to: -14, dur: 0.05 }); A(r3(SKID + 0.43), "sam", "pitch", { to: 0, dur: 0.3, ease: "settle" });
 c.at(r3(SKID + 0.08), { fx: "poof", pos: [SAMB[0], 0.02, r3(SAMB[1] + 0.45)], dur: 1.0, color: "#e9d8c0", puffs: 14, sparks: 0, size: 0.55, lift: 0.06 });
@@ -438,6 +440,11 @@ c.say(r3(SKID + 0.25), "sam", "WON!", 0.4, "excited", { ...SAM, sub: false });
 c.textPop(r3(SKID + 0.25), "sam", "WON!", { dur: 0.9, color: "speaker", size: 140, burst: "#ffd84a" });   // the win, slammed beside his head (the second pop)
 sfx(r3(SKID + 0.4), "brassswell", { gain: 0.7, dur: r3(OPEN - 0.2 - SKID - 0.4), reason: "the winner's fanfare (cut off at 12.2)" });
 A(r3(SKID + 0.7), "sam", "squash", { amount: -0.04, dur: 0.6 });   // he swells with pride
+// two trophy pumps, each with a glint (review B: 1.7 s with nothing moving was the swipe point)
+for (const t of [11.3, 11.9]) {
+  c.arm(t, "sam", "R", { o: [-0.04, 0.96, 0.22] }, 0.2, "out"); c.arm(r3(t + 0.2), "sam", "R", { o: [-0.04, 0.86, 0.22] }, 0.25, "inOut");
+  c.prop(t, "trophy", { glint: 1 }, 0.1, "out"); c.prop(r3(t + 0.3), "trophy", { glint: 0 }, 0.25, "inOut");
+}
 act.blinksAt(c, "sam", []);
 see(r3(SKID + 0.1), r3(REVEAL - 0.02), ["sam.face", "trophy"], "panel 06: back, trophy high, eyes shut: WON!");
 // the fanfare stops; he opens his eyes
@@ -462,7 +469,9 @@ A(r3(STARE + 0.05), "sam", "expr", { expr: "shocked", set: { open: 0.3, eye: 1.3
 c.arm(r3(STARE + 0.2), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMB, 0, 0.3, 0.4, 0.2) }, 0.7, "inOut");
 c.arm(r3(STARE - 0.02), "sam", "L", "rest", 0.01); A(r3(STARE - 0.02), "sam", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // (lowered while we looked at them)
 A(r3(STARE + 0.3), "sam", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false });
-A(r3(STARE + 0.9), "sam", "look", { to: [0.45, 0.0], dur: 0.25, blink: false });
+A(r3(STARE + 0.55), "sam", "expr", { expr: "worried", set: { open: 0.2 }, dur: 0.3 }); A(r3(STARE + 0.55), "sam", "pitch", { to: 6, dur: 0.4 });   // it dawns on him (review B: the stare read as cute surprise)
+A(r3(STARE + 0.55), "sam", "look", { to: [-0.15, -0.4], dur: 0.25, blink: false });   // down at the drooping trophy
+A(r3(STARE + 1.15), "sam", "look", { to: [0.45, 0.05], dur: 0.25, blink: false });   // then up at the Reaper
 // one block, whole at once (kinetic off): in 0.5 s chunks, word by word, nobody could read the last 12 words (review A)
 cap(STARE, r3(QUESTION - 0.03), "Real fact: the faster you move, the slower your time runs. Astronauts on the space station age a tiny bit slower than us.", 470, false, { size: 56, kinetic: false });
 see(r3(STARE + 0.1), r3(QUESTION - 0.02), ["sam.face", "trophy"], "his face: it was two seconds for him");
@@ -474,7 +483,7 @@ setup(QUESTION, "sam", SAMQ, 40);
 c.arm(r3(QUESTION - 0.02), "sam", "R", { prop: "trophy", grip: "stem", at: front(SAMQ, 40, 0.4, 0.15, 0.3) }, 0.01);
 c.arm(r3(QUESTION - 0.02), "sam", "L", "rest", 0.01);
 A(r3(QUESTION - 0.02), "sam", "expr", { expr: "shocked", set: { open: 0.25, eye: 1.3 }, dur: 0.01 });
-A(r3(QUESTION - 0.02), "sam", "look", { to: [0.75, 0.0], dur: 0.01, blink: false });
+A(r3(QUESTION - 0.02), "sam", "look", { to: [0.75, 0.0], dur: 0.01, blink: false }); A(r3(QUESTION - 0.02), "sam", "pitch", { to: 0, dur: 0.01 });
 setup(QUESTION, "wizo", [-2.3, -2.2], 10);   // stepped aside, out of frame
 c.prop(r3(QUESTION - 0.03), "stickW", { x: front([-2.3, -2.2], 10, 0.34, -0.3, 0)[0], z: front([-2.3, -2.2], 10, 0.34, -0.3, 0)[2] }, 0, "linear");
 setup(QUESTION, "rea", [1.0, REAO[1]], -20);   // a step in, so his slow blink sits inside the phone safe zone
@@ -495,7 +504,7 @@ const SH = {
   world: { pos: [1.4, 1.5, 7.2], look: [0.35, 0.55, 0.6], fov: 34 },                    // the challenge
   blast: { pos: [0.05, 1.5, 7.2], look: [0.1, 0.3, -3], fov: 46 },   // panel 05: the title card frame. Low and straight down the road like the painting: from higher up the camera saw over the painted wheat bank onto its bare floor
   back: { pos: [0.1, 0.62, 5.5], look: [0.1, 0.62, 0], fov: 34 },                       // panel 06: low, Samurai fills it
-  reveal: { pos: [0.05, 2.4, 4.0], look: [0.05, 0.0, -2.4], fov: 62 },                   // panel 07: what he sees, the car whole and all three inside the safe zone
+  reveal: { pos: [0.05, 2.4, 4.0], look: [0.05, 0.0, -2.4], fov: 62, to: { pos: [0.05, 2.4, 4.0], look: [0.05, 0.0, -2.4], fov: 52 }, dur: 1.1, ease: "inOut" },   // pushes in (review B: the faces were small)                   // panel 07: what he sees, the car whole and all three inside the safe zone
   line: { pos: [0.5, 1.4, 3.9], look: [0.5, 1.0, -0.7], fov: 42 },                      // old Viking beside the unchanged Reaper (review A: the Reaper was half out of the wide)
   stare: { pos: [0.3, 1.0, 6.2], look: [0.15, 1.0, 1.9], fov: 30 },                      // his face
   question: { pos: [0.1, 1.3, 4.7], look: [0.24, 0.8, -0.8], fov: 44 },                 // panel 08
@@ -530,6 +539,10 @@ const allowClip = [
   { who: "viko", with: "stickV", from: SWAP, to: END, reason: "his glove rests on the crook of his walking stick" },
   { who: "wizo", with: "stickW", from: SWAP, to: END, reason: "his glove rests on the knob of his walking stick" },
 ];
+
+// check windows are on the video clock at gate 1 (qa/gate.mjs windowFor): past the title card's freeze, story + 1.0
+const VT = (story) => r3(story <= FREEZE ? story : story + HOLD);
+for (const w of allowClip) { w.from = VT(w.from); w.to = VT(w.to); }
 
 write(import.meta.url, {
   id: "light-speed",
