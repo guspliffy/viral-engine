@@ -3,6 +3,7 @@
 // same word, sound and look every time, three demos (the third the 10x), a title card frozen on the 10x, a real-fact
 // twist, a closing question, 19.0 s. Jonny's eight panels win (PANELS.md next to this file: the checklist and numbers).
 //   node storyboards/series/what-if/03-light-speed/make-light-speed.mjs -> light-speed.json
+//   ... --no-vo -> light-speed-no-vo.json: the same clip without the commentator voiceover (renders 1-5)
 //
 // THE BRIEF
 //   Joke:        Samurai can't stand losing, so he runs at light speed: he wins a foot race before "GO", beats Viking
@@ -36,7 +37,12 @@ const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { ha
 // painting's own wheat carries it
 const LIFE = (gos) => ({ auto: true, wind: { at: gos.map(([t, s]) => ({ t: r3(t + 0.03), s, w: 5 })) } });
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, cap, see } = c;
-const END = 18.0;                       // story seconds (19.0 s of video with the 1.0 s title freeze)
+// The commentator voiceover is on by default (Jonny 9 Nov 2026 13:07: "add the voice over we used for the other what if
+// episodes. also make the voice over for this format default"); --no-vo makes the cut without it (renders 1-5)
+const VO = !process.argv.includes("--no-vo");
+// story seconds (19.0 s of video with the 1.0 s title freeze); with the voiceover the last shot holds 0.7 s longer, so
+// the spoken closing question has room (EP01's commentator cut held 1.2 s longer)
+const END = VO ? 18.7 : 18.0;
 const FREEZE = 10.0, HOLD = 1.0;        // the title card
 const V = (video) => r3(video <= FREEZE ? video : video - HOLD);   // a brief's video time -> story time
 const VIK_VOICE = { voice: "viking" }, WIZ_VOICE = { voice: "wizard" }, SAM = { voice: false };   // Samurai speaks gibberish (subtitled)
@@ -466,7 +472,7 @@ A(r3(REVEAL + 0.4), "viko", "pitch", { to: 12, dur: 0.6 });
 A(r3(REVEAL + 0.2), "viko", "expr", { expr: "tired", set: { curve: 0.15 }, dur: 0.3 });
 A(r3(REVEAL + 0.5), "wizo", "face", { lid: 0.55, dur: 0.4 });
 act.blinksAt(c, "rea", []);
-c.say(r3(V(14.8)), "viko", "...you won.", 0.9, "calm", { ...VIK_VOICE, style: "a very old man, thin, crackly, frail, slow", sub: "...you won.", pos: 470 });
+c.say(r3(V(VO ? 14.9 : 14.8)), "viko", "...you won.", 0.9, "calm", { ...VIK_VOICE, style: "a very old man, thin, crackly, frail, slow", sub: "...you won.", pos: 470 });
 A(r3(V(14.8) + 0.65), "viko", "expr", { expr: "kind", set: { curve: 0.35 }, dur: 0.3 });   // a tired little smile
 see(r3(REVEAL + 0.1), r3(STARE - 0.02), ["viko.face", "wizo.face", "rea.face", "carold", "finish"], "panel 07: sixty years later, the friends old, Reaper the same");
 // his face: the smile drains, the trophy droops
@@ -477,8 +483,9 @@ A(r3(STARE + 0.3), "sam", "look", { to: [-0.4, 0.0], dur: 0.2, blink: false });
 A(r3(STARE + 0.55), "sam", "expr", { expr: "worried", set: { open: 0.2 }, dur: 0.3 }); A(r3(STARE + 0.55), "sam", "pitch", { to: 6, dur: 0.4 });   // it dawns on him (review B: the stare read as cute surprise)
 A(r3(STARE + 0.55), "sam", "look", { to: [-0.15, -0.4], dur: 0.25, blink: false });   // down at the drooping trophy
 A(r3(STARE + 1.15), "sam", "look", { to: [0.45, 0.05], dur: 0.25, blink: false });   // then up at the Reaper
-// one block, whole at once (kinetic off): in 0.5 s chunks, word by word, nobody could read the last 12 words (review A)
-cap(STARE, r3(QUESTION - 0.03), "Real fact: the faster you move, the slower your time runs. Astronauts on the space station age a tiny bit slower than us.", 470, false, { size: 56, kinetic: false });
+// the brief's first sentence only (Jonny 9 Nov 2026 13:20: cut it to its first sentence; the 24 words in 1.7 s could not
+// be read), whole at once (kinetic off)
+cap(STARE, r3(QUESTION - 0.03), "Real fact: the faster you move, the slower your time runs.", 470, false, { kinetic: false });
 see(r3(STARE + 0.1), r3(QUESTION - 0.02), ["sam.face", "trophy"], "his face: it was two seconds for him");
 
 // ================================================================ 8 WOULD YOU STILL WANT TO WIN? 16.6-18.0 (panel 08)
@@ -532,6 +539,31 @@ const beats = c.beats([
 // a caption gives way at each cut it would run over (except the title card's freeze)
 for (const cp of c.captions) for (const cut of [VICTIM, AGAIN, CAR, CHASE, GLARE, WORLD, BLAST, BACK, REVEAL, LINE, STARE, QUESTION]) if (cp.from < cut - 0.05 && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
 
+// ================================================================ THE COMMENTATOR (default; --no-vo leaves it out)
+// The voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
+// storyteller"), Jonny's pick for the What if commentator (EP01's commentator cut, make-pause-time.mjs --vo). Each line
+// sits where nobody speaks: after the first "GO!", after the car loses, on the title card, at the reveal, and the
+// closing question (its caption is already on screen). The takes: 4 reads of each line; kept is the one Whisper heard
+// word for word with the closest speaker match (ECAPA cosine 0.44-0.55) to the read Jonny picked (project files
+// audio/premise-voice-01/1-deep-storyteller.mp3) among the reads that fit the gap. "Sounds perfect, right?" is EP01's
+// read (take 3). Subtitles are added after the cut trim above: a voiceover's subtitle runs on across a cut.
+if (VO) {
+  const NARR = [
+    // [story s, line, take, spoken s, subtitle until | false]
+    [1.36, "He never loses.", 4, 1.15, false],                     // Viking going red; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
+    [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03)],          // the roadster slides in after him; on over the glare cut
+    [FREEZE, "Sounds perfect, right?", 3, 1.56, false],            // the title card (EP01's line and read); the title fills the top
+    [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03)],   // the reveal, before old Viking's "...you won."
+    [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false],    // the closing question (its caption is on screen)
+  ];
+  for (const [t, line, take, len, until] of NARR) {
+    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+    if (until) cap(t, until, line, 470, false, { kinetic: false });
+    if (until && until < t + len - 0.01) throw new Error(`"${line}" is cut off at ${until}`);
+    if (!until && t + len > END - 0.3) throw new Error(`"${line}" runs to the end`);
+  }
+}
+
 const allowClip = [
   { who: "rea", from: r3(GO1), to: r3(VICTIM), checks: ["rig-jump"], reason: "his empty glove drops as the trophy vanishes at light speed; he is 12 % of the frame, 15 m down the road" },
   { who: "rea", from: r3(V(18.3) - 0.05), to: END, checks: ["eyes-readable"], reason: "Reaper's slow blink (the brief's 18.30 beat): the lids close on purpose" },
@@ -550,7 +582,7 @@ const VT = (story) => r3(story <= FREEZE ? story : story + HOLD);
 for (const w of allowClip) { w.from = VT(w.from); w.to = VT(w.to); }
 
 write(import.meta.url, {
-  id: "light-speed",
+  id: VO ? "light-speed" : "light-speed-no-vo",
   title: "What if your competitive friend could run at light speed?",
   idea: "What if, episode 3: the friend who has to win runs at light speed; three races he wins before they start, then around the world: two seconds for him, sixty years for his friends",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", captionBand: [470, 1360],

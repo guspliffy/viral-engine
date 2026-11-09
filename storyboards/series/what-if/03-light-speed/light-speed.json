@@ -6571,6 +6571,258 @@
      "pitch": 0,
      "roll": 0,
      "steer": 0
+    },
+    {
+     "at": 18.033333333333335,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.066666666666666,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.1,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.133333333333333,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.166666666666668,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.2,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.233333333333334,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.266666666666666,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.3,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.333333333333332,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.366666666666667,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.4,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.433333333333334,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.466666666666665,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.5,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.533333333333335,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.566666666666666,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.6,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.633333333333333,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.666666666666668,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.7,
+     "pos": [
+      0,
+      0,
+      400
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
     }
    ]
   },
@@ -13076,6 +13328,258 @@
      "pitch": 0,
      "roll": 0,
      "steer": 0
+    },
+    {
+     "at": 18.033333333333335,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.066666666666666,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.1,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.133333333333333,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.166666666666668,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.2,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.233333333333334,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.266666666666666,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.3,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.333333333333332,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.366666666666667,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.4,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.433333333333334,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.466666666666665,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.5,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.533333333333335,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.566666666666666,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.6,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.633333333333333,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.666666666666668,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
+    },
+    {
+     "at": 18.7,
+     "pos": [
+      -1.3,
+      0,
+      -2.4
+     ],
+     "yaw": 25,
+     "pitch": 0,
+     "roll": 0,
+     "steer": 0
     }
    ]
   }
@@ -13196,7 +13700,7 @@
      0
     ],
     [
-     18,
+     18.7,
      0,
      0,
      0
@@ -13626,7 +14130,7 @@
    "39": "l",
    "40": "o",
    "41": "w",
-   "from": 13.8,
+   "from": 13.9,
    "to": 14.82,
    "text": "...you won.",
    "pos": 470,
@@ -13635,18 +14139,33 @@
   {
    "from": 14.85,
    "to": 16.57,
-   "text": "Real fact: the faster you move, the slower your time runs. Astronauts on the space station age a tiny bit slower than us.",
+   "text": "Real fact: the faster you move, the slower your time runs.",
    "pos": 470,
    "pop": false,
-   "size": 56,
    "kinetic": false
   },
   {
    "from": 16.6,
-   "to": 17.97,
+   "to": 18.67,
    "text": "Would you still want to win?",
    "pos": 470,
    "pop": false
+  },
+  {
+   "from": 6.05,
+   "to": 7.47,
+   "text": "Not even close.",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12.52,
+   "to": 13.87,
+   "text": "Sixty years later.",
+   "pos": 470,
+   "pop": false,
+   "kinetic": false
   }
  ],
  "beats": [
@@ -13710,9 +14229,9 @@
      "do": "prop",
      "id": "finish",
      "set": {
-      "wave": 18
+      "wave": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13730,9 +14249,9 @@
      "do": "prop",
      "id": "flag",
      "set": {
-      "wave": 18
+      "wave": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13762,9 +14281,9 @@
      "do": "prop",
      "id": "st1",
      "set": {
-      "clock": 18
+      "clock": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13784,9 +14303,9 @@
      "do": "prop",
      "id": "st2",
      "set": {
-      "clock": 18
+      "clock": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13806,9 +14325,9 @@
      "do": "prop",
      "id": "st3",
      "set": {
-      "clock": 18
+      "clock": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13828,9 +14347,9 @@
      "do": "prop",
      "id": "st4",
      "set": {
-      "clock": 18
+      "clock": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -13850,9 +14369,9 @@
      "do": "prop",
      "id": "sp3",
      "set": {
-      "clock": 18
+      "clock": 18.7
      },
-     "dur": 18,
+     "dur": 18.7,
      "ease": "linear",
      "at": 0
     },
@@ -16908,7 +17427,7 @@
      "dur": 0.9,
      "blink": false,
      "voice": "viking",
-     "at": 0.2
+     "at": 0.3
     },
     {
      "who": "viko",
@@ -17278,7 +17797,7 @@
   {
    "name": "would you still want to win?",
    "at": 16.6,
-   "len": 1.4,
+   "len": 2.1,
    "shot": {
     "pos": [
      0.1,
@@ -17417,7 +17936,7 @@
   },
   {
    "from": 16.65,
-   "to": 17.95,
+   "to": 18.65,
    "see": [
     "sam.face",
     "rea.face",
@@ -17439,7 +17958,7 @@
   {
    "who": "rea",
    "from": 18.25,
-   "to": 19,
+   "to": 19.7,
    "checks": [
     "eyes-readable"
    ],
@@ -17512,14 +18031,14 @@
    "who": "viko",
    "with": "stickV",
    "from": 11.3,
-   "to": 19,
+   "to": 19.7,
    "reason": "his glove rests on the crook of his walking stick"
   },
   {
    "who": "wizo",
    "with": "stickW",
    "from": 11.3,
-   "to": 19,
+   "to": 19.7,
    "reason": "his glove rests on the knob of his walking stick"
   }
  ],
