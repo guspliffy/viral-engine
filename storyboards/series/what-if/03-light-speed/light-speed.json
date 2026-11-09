@@ -13621,7 +13621,7 @@
  },
  "sound": {
   "sfx": 0.65,
-  "ambience": 0.5,
+  "ambience": 0.3,
   "surface": "grass",
   "room": "open",
   "guard": true,
@@ -14999,14 +14999,6 @@
      "at": 1.32
     },
     {
-     "macro": "narrate",
-     "line": "He never loses.",
-     "voice": "narrator",
-     "take": 4,
-     "caption": false,
-     "at": 1.36
-    },
-    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -15026,6 +15018,15 @@
      "dur": 0.6,
      "ease": "inOut",
      "at": 1.43
+    },
+    {
+     "macro": "narrate",
+     "line": "He never loses.",
+     "voice": "narrator",
+     "take": 4,
+     "caption": false,
+     "gain": 2.4,
+     "at": 1.5
     },
     {
      "do": "prop",
@@ -15833,6 +15834,7 @@
      "voice": "narrator",
      "take": 1,
      "caption": false,
+     "gain": 2.4,
      "at": 1.2
     },
     {
@@ -16568,6 +16570,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
+     "gain": 1.2,
      "at": 1.5
     },
     {
@@ -17398,6 +17401,7 @@
      "voice": "narrator",
      "take": 4,
      "caption": false,
+     "gain": 1.2,
      "at": 0.02
     },
     {
@@ -17850,6 +17854,7 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
+     "gain": 0.9,
      "at": 0.02
     },
     {

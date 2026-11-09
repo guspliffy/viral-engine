@@ -531,15 +531,17 @@ const SH = {
 // read (take 3). The lines are queued here, before c.beats() takes the actions; their subtitles are added after the
 // cut trim below, so a voiceover's subtitle runs on across a cut.
 const NARR = !VO ? [] : [
-  // [story s, line, take, spoken s, subtitle until | false]
-  [1.36, "He never loses.", 4, 1.15, false],                     // Viking going red; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
-  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03)],          // the roadster slides in after him; on over the glare cut
-  [FREEZE, "Sounds perfect, right?", 3, 1.56, false],            // the title card (EP01's line and read); the title fills the top
-  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03)],   // the reveal, before old Viking's "...you won."
-  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false],    // the closing question (its caption is on screen)
+  // [story s, line, take, spoken s, subtitle until | false, gain]. Gains from qa/lines.mjs (phone speaker, +3 dB over
+  // the rest at least): the first two sit in the streak's wind gusts (set life), so they are lifted most and the
+  // ambience goes 0.5 -> 0.3 with the voiceover (the music and the hits under them barely count)
+  [1.50, "He never loses.", 4, 1.15, false, 2.4],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
+  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 2.4],          // the roadster slides in after him; on over the glare cut
+  [FREEZE, "Sounds perfect, right?", 3, 1.56, false, 1.2],            // the title card (EP01's line and read); the title fills the top
+  [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), 1.2],   // the reveal, before old Viking's "...you won."
+  [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, 0.9],    // the closing question (its caption is on screen)
 ];
-for (const [t, line, take, len, until] of NARR) {
-  c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+for (const [t, line, take, len, until, gain] of NARR) {
+  c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
   if (until && until < t + len - 0.01) throw new Error(`"${line}" is cut off at ${until}`);
   if (!until && t + len > END - 0.3) throw new Error(`"${line}" runs to the end`);
 }
@@ -595,7 +597,7 @@ write(import.meta.url, {
   music: { style: "surf", lowCut: 150, gain: 0.28, parts: [
     { at: 0, part: "main" }, { at: r3(GO3 - 0.4), part: "build" }, { at: GO3, part: "drop" }, { at: SKID, part: "drop" },
     { at: r3(OPEN - 0.2), part: "stop" }, { at: REVEAL, part: "hush" }, { at: STARE, part: "musicbox" }] },
-  sound: { sfx: 0.65, ambience: 0.5, surface: "grass",   // the soft outdoor step for a dirt road ("road" is no library surface and fell back to the indoor step)
+  sound: { sfx: 0.65, ambience: VO ? 0.3 : 0.5, surface: "grass",   // the soft outdoor step for a dirt road ("road" is no library surface and fell back to the indoor step)
   room: "open", guard: true,
     engine: { keys: [[0, 0, 0, 0], [r3(CAR - 0.05), 0, 0, 0], [CAR, 900, 0.25, 1], [r3(CAR + 0.15), 4200, 0.7, 1], [r3(CAR + 0.3), 2600, 0.4, 1], [r3(LAUNCH - 0.05), 3800, 0.6, 1],
       [r3(LAUNCH + 0.1), 5600, 1, 1], [r3(SPIN0 - 0.05), 6200, 0.9, 1], [r3(SPIN0 + 0.1), 3200, 0.2, 1], [r3(SPIN0 + SPIN_LEN), 1000, 0.15, 1], [r3(WORLD - 0.1), 900, 0.15, 1], [WORLD, 0, 0, 0], [END, 0, 0, 0]], gain: 0.17, cyl: 4 } },
