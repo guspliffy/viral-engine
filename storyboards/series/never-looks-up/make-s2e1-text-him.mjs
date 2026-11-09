@@ -321,13 +321,14 @@ A(9.45, "phx", "turn", { to: 0, dur: 0.25 });
 A(9.45, "phx", "expr", { expr: "kind", set: { curve: 0.55, eye: 0.82 }, dur: 0.2 });
 A(9.45, "phx", "face", { lid: 0.55, dur: 0.2 });   // back to his phone: lids half down again
 // the Wizard gives up: he folds forward on the bench, the hat over his face
-A(8.95, "wiz", "arm", { side: "L", pose: { o: [0.42, 0.42, 0.22] }, dur: 0.3 }); A(9.25, "wiz", "arm", { side: "L", pose: "rest", dur: 0.3 });   // the arm sinks in two stages
-A(9.2, "wiz", "pitch", { to: 20, dur: 0.24, ease: "in" });   // he slumps forward over his phone, defeated, face still to us
+A(8.95, "wiz", "arm", { side: "L", pose: { o: [0.42, 0.42, 0.22] }, dur: 0.3 }); A(9.25, "wiz", "arm", { side: "L", pose: { x: [0.17, 0.0, 0.4], palm: [0.17, -0.3, 0.4] }, dur: 0.3 });   // the arm sinks in two stages, to his knee (review B: "rest" left it hanging in the air beside him)
+A(9.25, "wiz", "grip", { side: "L", shape: "flat", dur: 0.2 });
+A(9.2, "wiz", "pitch", { to: 26, dur: 0.24, ease: "in" });   // he slumps forward over his phone, defeated, face still to us
 A(9.2, "wiz", "arm", { side: "R", pose: { x: [-0.1, 0.2, 0.45], palm: [0.02, 0.2, 0.45] }, dur: 0.24 });   // the phone stays in his lap as he slumps
 A(9.2, "wiz", "lean", { to: -6, dur: 0.24, ease: "in" });
 A(9.2, "wiz", "squash", { amount: 0.06, dur: 0.24 });
 A(9.2, "wiz", "hat", { off: [0.05, -0.04, 0.02], spin: [8, 0, -24], dur: 0.24 });   // his crooked hat slips further
-A(9.2, "wiz", "expr", { expr: "deadpan", set: { eye: 0.2 }, dur: 0.15 });
+A(9.2, "wiz", "expr", { expr: "deadpan", set: { eye: 0.2 }, dur: 0.15 }); A(9.2, "wiz", "face", { brow: -0.5, dur: 0.15 });
 sfx(9.44, "thud-soft", { gain: 0.5 });
 // Reaper, the quiet one, cracks up; then Viking and Dragon
 A(9.35, "rea", "expr", { expr: "delighted", set: { eye: 0.25, open: 0.8 }, dur: 0.1 });
@@ -338,7 +339,7 @@ A(9.6, "vik", "expr", { expr: "delighted", set: { eye: 0.3 }, dur: 0.12 }); A(9.
 for (const t of [9.65, 9.9, 10.15]) { A(t, "vik", "squash", { amount: 0.04, dur: 0.2 }); A(t + 0.07, "dra", "squash", { amount: 0.04, dur: 0.2 }); }
 // the letters: P fizzles first, then the rest fade to faint sparks
 prop(8.2, "letters", { fizzle5: 1 }, 0.6, "linear");
-prop(8.5, "letters", { dim: 0.35 }, 1.4, "inOut");
+prop(8.45, "letters", { dim: 0.12 }, 0.6, "inOut");   // review B: down to faint sparks by the shrug (LOOK U stayed readable to the end)
 sfx(8.55, "fizzle", { gain: 0.35 });
 see(T7, 9.3, ["wiz.face", "phx.face", "letters"], "07: he points at the sky; only sparks are left");
 see(9.4, END, ["rea.face", "phx.face", "wiz"], "07: Reaper cracks up; Phoenix back on his phone; the Wizard face-down");
@@ -354,7 +355,7 @@ const CAM3P = [0.2, 0.9, 8.4], CAM3 = cam(CAM3P, up(CAM3P, 8), 48, { to: { pos: 
 const CAM4 = cam([2.6, 0.72, 1.0], [2.68, 0.72, -2.3], 46);
 const CAM4A = cam([0.35, 0.75, 7.8], up([0.35, 0.75, 7.8], 12), 50);
 const CAM4B = cam([-0.25, 0.75, 3.4], up([-0.25, 0.75, 3.4], 9), 55);
-const CAM5 = cam([0.05, 0.8, 5.6], up([0.05, 0.8, 5.6], 2), 38);
+const CAM5 = cam([0.05, 0.8, 6.4], up([0.05, 0.8, 6.4], 2), 40);   // review B: wider, so the 7.0 cut to 06 is a real punch-in
 const CAM6 = cam([0.02, 0.62, 4.7], up([0.02, 0.62, 4.7], 3), 36);
 const CAM7P = [0.1, 0.75, 7.4], CAM7 = cam(CAM7P, up(CAM7P, 8), 50, { to: { pos: P([-0.18, 0.8, 6.85]), look: P(up([-0.18, 0.8, 6.85], 6)) }, dur: 2.1 });
 const beats = c.beats([
