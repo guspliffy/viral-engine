@@ -14341,6 +14341,14 @@
      "at": 1.03
     },
     {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.03
+    },
+    {
      "fx": "poof",
      "pos": [
       -0.5,
@@ -14433,23 +14441,6 @@
      "at": 1.13
     },
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.8,
-     "ease": "inOut",
-     "at": 1.23
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.23
-    },
-    {
      "do": "prop",
      "id": "trophy",
      "set": {
@@ -14495,7 +14486,7 @@
       -0.6,
       0
      ],
-     "dur": 0.25,
+     "dur": 0.15,
      "blink": false,
      "at": 1.38
     },
@@ -14875,7 +14866,7 @@
      "who": "vik",
      "do": "skin",
      "to": 0.2,
-     "dur": 0.8,
+     "dur": 0.45,
      "at": 0.9
     },
     {

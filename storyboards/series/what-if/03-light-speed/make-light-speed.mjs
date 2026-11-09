@@ -235,8 +235,11 @@ c.prop(r3(GO1 + 0.32), "trophy", { glint: 1 }, 0.1, "out"); c.prop(r3(GO1 + 0.62
 // the ribbon snaps as the streak goes through; Reaper's glove is empty
 c.prop(r3(GO1 + 0.06), "finish", { snap: 1 }, 0.35, "out");
 sfx(r3(GO1 + 0.06), "slap", { gain: 0.35, reason: "the finish ribbon snapping" });
-c.arm(r3(GO1 + 0.25), "rea", "R", "rest", 0.8, "inOut"); A(r3(GO1 + 0.25), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
-A(r3(GO1 + 0.4), "rea", "look", { to: [-0.6, 0.0], dur: 0.25, blink: false });
+// his empty glove stays up where the trophy was until the cut (deadpan): a drop to rest before his hide either
+// moved 27-32 cm in one frame or, longer, was drawn past the hide (anime timing front-loads a key); the arm goes
+// to rest while he is hidden (WORLD)
+A(r3(GO1 + 0.05), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
+A(r3(GO1 + 0.4), "rea", "look", { to: [-0.6, 0.0], dur: 0.15, blink: false });
 // the wheat beside the streak bends flat away from it: a gust band on the painted wheat (set.life wind "at", below)
 c.at(r3(GO1 + 0.05), { fx: "poof", pos: [SAM1[0], 0.05, SAM1[1]], dur: 0.6, color: "#e9d8c0", puffs: 10, sparks: 0, size: 0.5, lift: 0.1 });
 // Viking stays crouched, mouth open on his "Ready"; the Wizard's flag still up
@@ -274,7 +277,7 @@ A(AGAIN, "vik", "face", { lid: 0, dur: 0.08 }); A(AGAIN, "vik", "skin", { to: 0.
 A(r3(AGAIN + 0.1), "vik", "expr", { expr: "angry", set: { open: 0.8 }, dur: 0.1 }); A(r3(AGAIN + 0.8), "vik", "expr", { expr: "angry", set: { open: 0.25 }, dur: 0.3 });
 c.say(r3(AGAIN + 0.2), "vik", "AGAIN!", 0.55, "angry", { ...VIK_VOICE, sub: false, amp: 1.6 });   // amp: a shout, not a small "o" (review B)
 c.textPop(r3(AGAIN + 0.2), "vik", "AGAIN!", { dur: 0.8, color: "speaker", size: 130 });   // his shout slammed beside his head (one of two pops)
-A(r3(AGAIN + 0.9), "vik", "skin", { to: 0.2, dur: 0.8 });
+A(r3(AGAIN + 0.9), "vik", "skin", { to: 0.2, dur: 0.45 });   // done by 3.85: anime timing front-loads a key, and a 0.8 s fade drew him past his 3.98 hide at 3.8 (he vanished 0.2 s before the cut)
 // Samurai at the post: calm, eyes shut, the trophy at his chest
 setup(VICTIM, "sam", SAM_LAND, -15);
 c.arm(r3(VICTIM - 0.02), "sam", "R", { o: [0.02, 0.45, 0.34] }, 0.01);   // the trophy at his chest
