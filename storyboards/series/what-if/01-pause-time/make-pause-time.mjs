@@ -203,7 +203,12 @@ A(5.88, "vik", "grip", { side: "R", shape: "hold", dur: 0.1 });
 A(GRAB2, "vik", "grab", { prop: "cup", hand: "R", keep: true, dur: 0, pose: null });
 // at the cut to the wide the cup settles into his glove by the mug hold (the grab above keeps the offset it was taken at,
 // which put the cup beside the glove once the hand turned: render 3, the toast at 8.2)
-const VIK_CUP = grips.mug(c, "vik", CUP_SPEC, { side: "R", height: 0.66 });
+// Jonny 9 Nov (render 4 at 7 s: "the cup is not in Viking's hand but next to it"): the cup kept the tumble it had in
+// the air (the first grab takes it as the physics left it) and sat on the side of his fist, tipped over. Level it at
+// the cut, before the hold measures it (rot 180: its front to us), and hold it low (0.38 of its height) so the fingers
+// wrap its front and the lid and sleeve show above them (close-ups from the front and from above, 9 Nov)
+c.prop(r3(GRAB2 + 0.05), "cup", { rot: 180, tip: 0, tilt: 0, roll: 0 }, 0);
+const VIK_CUP = grips.mug(c, "vik", CUP_SPEC, { side: "R", height: 0.38 });
 A(r3(GRAB2 + 0.06), "vik", "grab", { prop: "cup", hand: "R", grip: VIK_CUP.hands.R.grip, dur: 0, pose: null });
 sfx(5.94, "ai/fingertip-catch", { gain: 0.35, reason: "his fingers closing on the cup in the air" });
 c.arm(6.04, "vik", "R", { o: [0.05, 0.5, 0.32] }, 0.45, "inOut");   // to his chest, slowly (it is full)

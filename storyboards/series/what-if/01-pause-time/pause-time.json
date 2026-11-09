@@ -1374,6 +1374,19 @@
      "dur": 0,
      "pose": null,
      "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "rot": 180,
+      "tip": 0,
+      "tilt": 0,
+      "roll": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.71
     }
    ],
    "kind": "insert"
@@ -1403,7 +1416,7 @@
      "hand": "R",
      "grip": [
       0.092,
-      0.076,
+      0.044,
       0.025
      ],
      "dur": 0,
