@@ -16,6 +16,7 @@
 //   node engine/render.mjs <storyboard> --png                           -> lossless frames into the encoder (slower)
 //   node engine/render.mjs <storyboard> --no-blur                       -> no motion blur (--blur turns it on in a draft)
 //   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds; exits 1 when the gate would stop a render)
+//   node engine/render.mjs <storyboard> --layout --from 3 --to 4.5      -> a fix round: lays out only those seconds into the last full layout, prints the gate and what changed
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
 //   node engine/render.mjs <storyboard> --shard 3/12                    -> video only, the 3rd of 12 equal frame ranges
@@ -283,6 +284,10 @@ async function main() {
     // (--guard only touches the sound's copy: the picture's fingerprint stays the same, so shards still join)
     audio = mixClip(o.guard && !sb.sound?.guard ? { ...sb, sound: { ...(sb.sound || {}), guard: true } } : sb, chars, mixLog);
     for (const line of mixLog) console.log(line);
+    // a sound with no number for its time, gain or pan is left out of the mix (one NaN turned the effects and the music
+    // silent from 4 s in Never Has Money 04, and every check passed): named here so it gets fixed at its source
+    if (audio.skipped?.length) console.log(`sound: WARNING ${audio.skipped.length} sound${audio.skipped.length > 1 ? "s" : ""} left out, no number for time, gain or pan: ${audio.skipped.slice(0, 6).map((e) => `${e.kind}${e.who ? ` (${e.who})` : ""} at ${e.at}`).join(", ")}`);
+    if (audio.badSamples) console.log(`sound: WARNING ${audio.badSamples} samples of the mix weren't numbers and were zeroed (a NaN in an effect or the room)`);
     writeWav(wavFile, audio.L, audio.R, audio.sr);
     const counts = audio.events.reduce((m, e) => ((m[e.kind] = (m[e.kind] || 0) + 1), m), {});
     console.log(`sound: ${audio.events.length} events ${JSON.stringify(counts)} in ${((Date.now() - ta) / 1000).toFixed(1)}s -> ${wavFile}`);
@@ -357,26 +362,46 @@ async function main() {
     };
 
     // caption and character boxes every 0.1 s, for qa/check.mjs; no pixels drawn, so it takes seconds
+    // A fix round (--layout with --from/--to): only that window is laid out (plus a frame-pair margin either side) and
+    // patched into the last full layout, so a pose fix is judged in seconds instead of a whole pass (a clip ran about
+    // 28 passes, Never Has Money 04). Every frame is posed at its own time, so a window gives the same rows a full pass
+    // would. It is written beside the full layout (<id>-<look>-<from>-<to>.layout.json), never over it, and the
+    // rest of the clip in it is the full layout's: an edit can still move a later landing or contact, so the whole clip
+    // is laid out again before any draft (preflight does it: the full layout is older than the storyboard)
+    const win = o.layoutOnly && (o.from != null || o.to != null) ? [o.from ?? 0, o.to ?? dur] : null;
+    let fullLay = null;   // (the last full layout a window is laid into)
     const writeLayout = async () => {
+      const full = path.join(o.out, `${sb.id}${tag}.layout.json`), nC = Math.round(dur * fps);
+      let inWin = () => true;
+      if (win) {
+        if (!fs.existsSync(full)) throw new Error(`--layout --from/--to lays a window into the last full layout (${path.relative(ROOT, full)}), and there is none: run --layout once without them`);
+        fullLay = JSON.parse(fs.readFileSync(full, "utf8"));
+        let k = 0; for (let t = 0; t < dur - 1e-6; t += 0.1) k++;
+        if (fullLay.fps !== fps || fullLay.contacts?.length !== nC || fullLay.samples?.length !== k) throw new Error(`the last full layout (${path.relative(ROOT, full)}) has another length or frame rate: run --layout without --from/--to`);
+        const a = Math.max(0, win[0] - 0.1), b = Math.min(dur, win[1] + 0.1);
+        inWin = (t) => t >= a - 1e-6 && t <= b + 1e-6;
+      }
       const samples = [];
-      for (let t = 0; t < dur - 1e-6; t += 0.1) samples.push(await page.evaluate((tt) => window.ENGINE.layout(tt), Math.round(t * 1000) / 1000));
-      const f = path.join(o.out, `${sb.id}${tag}.layout.json`);
+      let k = 0;
+      for (let t = 0; t < dur - 1e-6; t += 0.1, k++) { const tt = Math.round(t * 1000) / 1000; samples.push(inWin(tt) ? await page.evaluate((x) => window.ENGINE.layout(x), tt) : fullLay.samples[k]); }
+      const f = win ? path.join(o.out, `${sb.id}${tag}${range}.layout.json`) : full;
       // contact measures (grips, arms, hat brims) at every frame, so a one-frame pop shows
       const contacts = [];
-      for (let i = 0; i < Math.round(dur * fps); i++) contacts.push(await page.evaluate((tt) => window.ENGINE.contact(tt), Math.round((i / fps) * 10000) / 10000));
+      for (let i = 0; i < nC; i++) { const tt = Math.round((i / fps) * 10000) / 10000; contacts.push(inWin(tt) ? await page.evaluate((x) => window.ENGINE.contact(x), tt) : fullLay.contacts[i]); }
       // extra samples at the storyboard's "aimAt" times (a generator script aims throws and cuts from them)
       const aims = [];
       for (const t of sb.aimAt || []) aims.push(await page.evaluate((tt) => window.ENGINE.layout(tt), t));
-      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}) };
+      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}), ...(win ? { window: win, base: path.basename(full) } : {}) };
       fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
       return lay;
     };
     // the contact results (overlap, grips, brims) from the layout alone: printed by --layout, and a gate before a render
+    const shown = (r) => r.level !== "pass" && [...GATE.fails, ...GATE.visible, "hand-pop", "clipping", "staging", "stance-slide", "grip-gap"].includes(r.check);
     const contactGate = (lay) => {
       // everything the gate judges (qa/check.mjs gateResults: contacts, grips, the drawn rig, the front of the frame and
       // the required must-see items); the lists of what prints and what stops a render live in qa/gate.mjs GATE
-      const res = gateResults(sb, lay).filter((r) => r.level !== "pass" && [...GATE.fails, ...GATE.visible, "hand-pop", "clipping", "staging", "stance-slide", "grip-gap"].includes(r.check));
+      const res = gateResults(sb, lay).filter(shown);
       const lines = res.map((r) => `  ${r.level} ${r.check}: ${r.msg}`);
       // fails and visible glitches print every run; any other line only when it is new (qa/say.mjs: every line of
       // this run is in <id>.gate.txt beside the layout, CHECKS_FULL=1 prints them all)
@@ -388,9 +413,18 @@ async function main() {
         notes = [...visibility(sb, lay, ch).results, ...cameraLint(sb, ch)].filter((r) => r.level !== "pass" && !res.some((x) => x.check === r.check && x.msg === r.msg));
         lines.push(...notes.map((r) => `  note ${r.check}${r.rule ? ` ${r.rule}` : ""}: ${r.msg}`));
       } catch (e) { notes = [null]; lines.push(`  note visible: not checked (${e.message})`); }
-      sayChanged(lines, path.join(o.out, `${sb.id}${tag}.gate.txt`), { always: (l) => always.has(l), root: ROOT });
+      sayChanged(lines, path.join(o.out, `${sb.id}${tag}${win ? range : ""}.gate.txt`), { always: (l) => always.has(l), root: ROOT });
       if (!res.length) console.log("contacts: clean (no overlap, grips hold, arms clear of staffs and brims, hands off other characters, faces and props)");
       if (!notes.length) console.log("must-see and camera: everything the beats need is in view, no camera push-back, jump cut or line cross");
+      if (win && fullLay) {
+        // the fix round's answer: what the window changed against the full layout it was laid into
+        const key = (r) => `${r.level} ${r.check}: ${r.msg}`, was = gateResults(sb, fullLay).filter(shown).map(key), now = res.map(key);
+        const gone = was.filter((x) => !now.includes(x)), added = now.filter((x) => !was.includes(x));
+        console.log(`window ${win[0]}-${win[1]} s against the last full layout: ${gone.length} line${gone.length === 1 ? "" : "s"} gone, ${added.length} new`);
+        for (const x of gone) console.log(`  gone: ${x}`);
+        for (const x of added) console.log(`  new:  ${x}`);
+        console.log("(the rest of the clip is the last full layout's: lay the whole clip out again before a draft)");
+      }
       return res.filter((r) => r.level === "fail" && GATE.fails.includes(r.check));
     };
     // the cost trace: each frame posed as the render would pose it and its motion measured, so the blur samples (the
@@ -440,7 +474,7 @@ async function main() {
       console.log(`frame keys: ${n} in ${((Date.now() - th) / 1000).toFixed(1)}s -> ${o.hashes}`);
       return;
     }
-    if (o.layoutOnly) { const lay = await writeLayout(); if (o.cost) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
+    if (o.layoutOnly) { const tl = Date.now(), lay = await writeLayout(); if (win) console.log(`window laid out in ${((Date.now() - tl) / 1000).toFixed(0)} s`); if (o.cost && !win) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
     if (o.stills) {
       for (const t of o.stills) {
         const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f);

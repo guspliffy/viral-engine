@@ -5,6 +5,16 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
 - Judge a clip from its contact sheet, not by reading frame after frame. The exception is contact: a contact sheet
   missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
+- **Fewer layout passes** (9 Nov 2026: a clip ran about 28, each about 2 min and several turns of a long context):
+  - `node qa/clear.mjs <sb>` after every staging edit: bodies in each other or in floor props on a floor plan, 1-2 s.
+  - `node qa/camfit.mjs <sb> --at <s> --pos ... --look ... --fov ...` to try a camera or a subtitle spot: the faces,
+    eye lines and free subtitle tops for that camera from the last layout, in a second (eyes match the layout's px).
+  - Fix rounds: `node engine/render.mjs <sb> --layout --from 3 --to 4.5` lays out only those seconds into the last full
+    layout (about 30 s for 1.5 s of a 10 s clip, against 2 min 20) and prints what the fix changed. A window gives the
+    same contact rows as a full pass (character boxes can differ by a pixel or two); the rest of the clip is the last
+    full layout's, so lay the whole clip out again before a draft (preflight does it by itself).
+  - `qa/preflight.mjs` now judges the captions too (safe zone, the brief's `captionBand`, hidden behind characters), so
+    a subtitle over a face fails before a draft instead of on one.
 - **Frame cache** (on by default for whole renders, `engine/cache.mjs`): a render keeps every frame it draws in
   `out/frame-cache/` under a key of everything that frame depends on, and the next render of the clip draws only the
   frames an edit reached (a changed reaction, caption or effect); a sound-only edit draws nothing and an interrupted
