@@ -55,7 +55,7 @@ const VICTIM = 1.62, AGAIN = 2.5;      // Viking's face; he jumps up: "AGAIN!"
 const CAR = 4.0, LAUNCH = 4.45, GO2 = 4.8, CHASE = 4.85, GLARE = 6.6;   // demo 2: the car
 const WORLD = 7.5, GO3 = 8.6, BLAST = 8.5;                            // demo 3: around the world
 const BACK = 10.3;                     // snap 2: he's back (story; video 11.3): sixty years have gone
-const OPEN = 12.25, REVEAL = 12.5;     // he opens his eyes (video 13.25: three frames before the cut were lost on a phone, review B); the reveal wide (video 13.5)
+const OPEN = 12.1, REVEAL = 12.5;      // he opens his eyes (video 13.1, done by 12.18,  before the reveal's hidden move starts its step lead-in at 12.18: three frames of open eyes before the cut were lost on a phone, review B); the reveal wide (video 13.5)
 const LINE = 13.6;                     // in on old Viking and the unchanged Reaper for "...you won." (video 14.6)
 const STARE = 14.85, QUESTION = 16.6;  // the fact over his face (brief: 16.0 video); the closing two-shot (video 17.6)
 
@@ -450,7 +450,7 @@ for (const t of [11.2, 11.75]) {
 act.blinksAt(c, "sam", []);
 see(r3(SKID + 0.1), r3(REVEAL - 0.02), ["sam.face", "trophy"], "panel 06: back, trophy high, eyes shut: WON!");
 // the fanfare stops; he opens his eyes
-A(OPEN, "sam", "face", { lid: 0, dur: 0.08 }); A(OPEN, "sam", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.3 }, dur: 0.1 });
+A(OPEN, "sam", "face", { lid: 0, dur: 0.06 }); A(OPEN, "sam", "expr", { expr: "delighted", set: { curve: 0.8, open: 0.3 }, dur: 0.08 });
 
 // ================================================================ 7 THE TWIST 12.5-16.6 (panels 07, then his face)
 // The same road sixty years later: cracked, overgrown, the car rusted, the ribbon in tatters on leaning posts. Viking
