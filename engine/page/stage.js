@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { MeshBVH, acceleratedRaycast } from "three-mesh-bvh";
 import { Character, setRig } from "./potato.js";
 import { HumanCharacter, preloadHumans } from "./rigs/human.js";
 import { VrmCharacter, preloadVrms } from "./rigs/vrm.js";
@@ -1233,9 +1234,11 @@ function contact(t) {
     const k = a.ch.contact(), staff = k.staff && Object.fromEntries(Object.entries(k.staff).map(([n, v]) => [n, typeof v === "number" ? r(v) : v]));
     return { id: a.c.id, staff, brim: { R: r(k.brim.R), L: r(k.brim.L) }, ...(k.helmet ? { helmet: { R: r(k.helmet.R), L: r(k.helmet.L) } } : {}), q: { R: k.qR.map(r), L: k.qL.map(r) }, ...(k.dbgR || k.dbgL ? { dbg: { R: k.dbgR, L: k.dbgL } } : {}), cross: { R: r(k.cross.R), L: r(k.cross.L) }, ...rigOf(a) };
   });
-  const { gaps, ...near } = reach(), held = heldNow();
-  for (const h of held) { const g = (gaps || []).find((x) => x.who === h.who && x.prop === h.prop); if (g) h.gap = g.gap; }
-  return { t, actors: out, ...near, held, front: fronts() };
+  try {
+    const { gaps, ...near } = reach(), held = heldNow();
+    for (const h of held) { const g = (gaps || []).find((x) => x.who === h.who && x.prop === h.prop); if (g) h.gap = g.gap; }
+    return { t, actors: out, ...near, held, front: fronts() };
+  } finally { bvhDone(); }   // the ray trees are for the contact rays only: every mesh gets three's raycast back
 }
 
 // the final world positions the rig drew (potato.js rig()): hands, arm middles, feet, in millimetres, for the rig
@@ -1765,6 +1768,28 @@ function limbsIn(out, solids, keep) {
 // (an eye turned away round the head), a face turned away from the camera and the set don't count. Only faces at
 // least 0.3 hidden are listed, with who hides them most (the largest share of hidden points).
 const ray = new THREE.Raycaster();
+// The contact rays (hiddenFaces, fronts) search a bounding-volume tree per mesh (three-mesh-bvh) instead of testing
+// every triangle: the same hits, and a layout 3.5 to 8 times faster (8 Nov 2026; the rays were 96 % of a layout pass).
+// - a tree is rebuilt whenever the mesh's vertices, index, draw range or groups change (attribute versions), and it never
+//   writes the geometry's own bounds (setBoundingBox: false), so nothing else in the page sees a difference
+// - skinned and morphed meshes, and any mesh with a raycast of its own, keep three's raycast
+// - every mesh gets its own raycast back at the end of contact()
+// - three's raycast first culls by the geometry's bounding sphere and box; a mesh bent every frame that refreshes its
+//   sphere but not its box (split the bill's receipt strip) was missed there, the tree sees it where it is drawn
+// - ?nobvh on the page (CONTACT_BVH=0 for engine/render.mjs) measures the old way, for comparisons
+const BVH = { on: !/[?&]nobvh/.test(location.search), built: 0, reused: 0, prepped: [] };
+const bvhVer = (a) => (a ? `${a.isInterleavedBufferAttribute ? a.data.version : a.version}:${a.count}` : "-");
+function bvhPrep(list) {
+  if (!BVH.on) return;
+  for (const o of list) {
+    if (o.__bvhOn || !o.isMesh || o.isSkinnedMesh || o.isInstancedMesh || o.isBatchedMesh || Object.hasOwn(o, "raycast") || o.morphTargetInfluences?.length) continue;
+    const g = o.geometry, pos = g?.attributes?.position; if (!pos || g.morphAttributes?.position?.length) continue;
+    const key = `${bvhVer(pos)}:${bvhVer(g.index)}:${g.drawRange.start}:${g.drawRange.count}:${g.groups.length}`;
+    if (!g.boundsTree || g.__bvhKey !== key) { g.boundsTree = new MeshBVH(g, { indirect: true, setBoundingBox: false }); g.__bvhKey = key; BVH.built++; } else BVH.reused++;
+    o.raycast = acceleratedRaycast; o.__bvhOn = true; BVH.prepped.push(o);
+  }
+}
+function bvhDone() { for (const o of BVH.prepped) { delete o.raycast; delete o.__bvhOn; } BVH.prepped.length = 0; }
 function hiddenFaces(live, shownIn) {
   const out = [], limbs = new Set();
   scene.updateMatrixWorld(true);   // props and doors move in pose() after the last render: raycast where they are now
@@ -1786,6 +1811,7 @@ function hiddenFaces(live, shownIn) {
   for (const p of props) if (p.root.visible) p.root.traverseVisible((o) => { if (solid(o)) cands.push({ o, who: p.spec.id, scenery: !!p.spec.scenery }); });
   for (const o of setOccluders()) cands.push({ o, who: "the set", scenery: true });
   const objs = cands.map((c) => c.o), owner = new Map(cands.map((c) => [c.o, c]));
+  bvhPrep(objs); bvhPrep(handObjs);
   for (const b of live) {
     const eyes = b.ch.face?.eyes; if (!eyes || eyes.length < 2 || !shownIn(b.ch.face.group, b.ch.root)) continue;
     const mid = eyes[0].root.getWorldPosition(new THREE.Vector3()).add(eyes[1].root.getWorldPosition(new THREE.Vector3())).multiplyScalar(0.5).project(camera);
@@ -1904,6 +1930,7 @@ function fronts() {
   for (const a of live) a.ch.root.traverseVisible((o) => { if (o.isMesh && solidMark(o) !== false && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6)) { cands.push(o); mine.set(o, a.c.id); } });
   for (const p of props) if (p.root.visible) p.root.traverseVisible((o) => { if (o.isMesh && solidMark(o) !== false && !(o.material && !Array.isArray(o.material) && o.material.transparent && o.material.opacity < 0.6)) { cands.push(o); mine.set(o, p.held ? `${p.spec.id}@${p.holder}` : p.spec.id); } });
   for (const o of setOccluders()) { cands.push(o); mine.set(o, "the set"); }
+  bvhPrep(cands);
   const out = [], right = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrixWorld, 1);
   for (const a of live) {
     const g = a.ch.body.geometry, bb = g.boundingBox || (g.computeBoundingBox(), g.boundingBox), c = bb.getCenter(new THREE.Vector3()).applyMatrix4(a.ch.body.matrixWorld);

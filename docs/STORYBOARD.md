@@ -373,6 +373,11 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   `birds`, `startle`, `wind`, `clouds`, `bend`, `rain`: engine/shared/life.js). Background life stays in the
   background: never put birds or insects in front of the cast. About 5 % more drawing time per frame. A plain or room
   set ignores it for now. Engine tests: storyboards/env/make-living-meadow.mjs, make-life-auto-tests.mjs.
+  Painted water moves too (Jonny 8 Nov: "the water should move like water"): an env whose spec.json marks its water
+  (`"motion": { "water": [[x0, y0, x1, y1]], "still": [rocks] }`, fractions of the painting; env.py writes it into the
+  motion mask's blue channel) gets rows of wind ripples rolling toward the shore, the reflection bending under them,
+  bright dashes on the crests (set-plate.js `waterGLSL`). Marked: lake-shore, lake-sunset, river-calm, river-rapids,
+  river-meadow, waterfall-pool. Rivers don't flow downstream yet.
 - After an insert, low angle, over-the-shoulder, top-down or establishing shot the payoff's snap-in cuts on its action to its own framing 15 % wider and snaps in
   from there (a push from the low camera would fly across the room).
 - **No jump cuts**: when the next framing is too close to the current one for a cut (less than 1.4× in size), the
