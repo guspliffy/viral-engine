@@ -37,9 +37,14 @@ const LIGHTING = 2, HATCH = { boil: 0.25 }, LIFE = "auto", CEL = { at: 0.25 }, A
 const MUSIC = { style: "sneaky", lowCut: 150, gain: 0.28 };
 // the HUD, rule cards and vote card (overlay.mjs): on once the overlay thread's branch is merged in, or --overlay
 const OVERLAY = !process.argv.includes("--no-overlay");
+// the commentator test (Jonny 9 Nov 2026, see THE COMMENTATOR TEST below): --vo1 = voice "narrator", --vo5 =
+// "narrator-trailer". The picture stays the same but for two things: the Sorcerer's "Oops." comes 0.3 s later (room for
+// "No phone." after the phone dies) and the vote holds 0.5 s longer (room for the last line after "Nope. nope. nope.")
+const VO = process.argv.includes("--vo1") ? "narrator" : process.argv.includes("--vo5") ? "narrator-trailer" : null;
+const OOPS = VO ? 7.5 : 7.2;
 
 const c = clip({ faces: FACES, lines: LINES }), { A, sfx, see, prop } = c;
-const END = 16.0;
+const END = VO ? 16.5 : 16.0;
 const ENV = "fern-valley-campfire";
 
 // ---------------------------------------------------------------- places (x right, z toward us; the valley is -z)
@@ -196,8 +201,8 @@ A(6.35, "sor", "look", { to: [-0.6, 0.25], dur: 0.12, blink: false });   // up a
 // cut at 8.0 lowers it to his chest)
 A(6.6, "sor", "expr", { expr: "shocked", dur: 0.15 });
 A(7.15, "sor", "look", { to: [-0.8, 0.1], dur: 0.15, blink: false });
-c.say(7.2, "sor", "oops.", 0.35, "calm");
-act.sheepish(c, 7.2, "sor");
+c.say(OOPS, "sor", "oops.", 0.35, "calm");
+act.sheepish(c, OOPS, "sor");
 act.mood(c, 6.8, "vik", "annoyed", { hold: 1.0 });
 c.arm(6.7, "vik", "R", "rest", 0.4, "settle");
 see(4.0, 4.9, ["vik.face", "sor.face"], "the next plan: call for help; the Sorcerer is busy with selfies");
@@ -298,7 +303,7 @@ see(13.1, 15.9, ["vik.face", "rea.face"], "the vote: Viking or Reaper");
 // ---------------------------------------------------------------- blinks: placed, never on anyone's line
 // every line's window (from its start to 0.3 s after its voice); blinks go on turns and look shifts (where a real
 // blink falls), about every 2.5 s, never inside a window (freeAt guards it)
-const LINE_WIN = [[0, 1.2], [2.05, 2.7], [4.1, 5.35], [5.95, 6.65], [7.2, 7.85], [8.0, 9.2], [9.65, 10.55], [13.8, 15.1]];
+const LINE_WIN = [[0, 1.2], [2.05, 2.7], [4.1, 5.35], [5.95, 6.65], [OOPS, r3(OOPS + 0.65)], [8.0, 9.2], [9.65, 10.55], [13.8, 15.1]];
 const freeAt = (t) => !LINE_WIN.some(([a, b]) => t > a - 0.25 && t < b);
 const BLINKS = {
   vik: [1.78, 3.4, 5.6, 6.9, 11.3, 13.12],   // 1.78 as he turns to Dragon, 13.12 on the turn to us
@@ -325,6 +330,33 @@ if (OVERLAY) {
   rule(c, 6.55, 1.4, "RULE 2", "Never give the selfie one the phone", { who: "sor" });
   rule(c, 10.75, 1.6, "RULE 3", "Never let the hyper one near the fire", { who: "phx" });
   vote(c, 13.1, 3.25, "PART 2: who goes into the jungle for food?", [["A", "Viking", "vik"], ["B", "Reaper", "rea"]]);
+}
+
+// ---------------------------------------------------------------- THE COMMENTATOR TEST (--vo1 / --vo5 only)
+// Jonny 9 Nov 2026 (thread "Build Survive it EP1 without panels"): "before starting i want to see if we should use a
+// voiceover for this format aswell". The same picture with a deadpan commentator, a ladder that sits only where nobody
+// speaks and no hit lands: "Day one." on Viking's frozen grin, one "No ..." after each failure as its RULE card slams,
+// and the callback "Still day one." as the last word, after "Nope. nope. nope." (the vote holds 0.5 s longer for it).
+// --vo1 = voice "narrator" (the deep storyteller, Jonny's pick for What if), --vo5 = "narrator-trailer" (voice 5).
+// Takes: 6 reads of each line per voice with the engine's own seeds (tts.py: sha1(text|ref) + take); kept the one
+// Whisper heard word for word, metallic ring <= 5.2, that fits its gap, nearest to the read Jonny liked in the premise
+// test (MFCC). Subtitles in the sky band like the cast's lines; "Day one." over his crest (the close-up fills 585),
+// the last line under the vote card where Reaper's line was.
+if (VO) {
+  const TAKES = { narrator: [2, 1, 0, 3, 4], "narrator-trailer": [2, 0, 2, 1, 4] }[VO];
+  const NARR = [
+    // [at, line, subtitle until (the next line, cut or hit it must clear), subtitle y]   spoken s: voice 1 / voice 5
+    [1.06, "Day one.", 1.98, 330],         // 0.75 / 0.96: Viking's frozen grin, after his promise; before "Mmf?" (2.05)
+    [2.6, "No food.", 3.95, 585],          // 1.03 / 1.10: after the gulp (2.5), as RULE 1 slams (2.7); before "Call for help!" (4.1)
+    [6.55, "No phone.", r3(OOPS - 0.05), 585],   // 0.93 / 0.86: after DEAD (6.47), as RULE 2 slams; before "Oops." (7.5)
+    [10.65, "No fire.", 12.3, 585],        // 1.09 / 1.39: after the poof (10.45), as RULE 3 slams (10.75); before the rumble (12.4)
+    [14.95, "Still day one.", r3(END - 0.05), 800],   // 1.23 / 1.48: after "Nope. nope. nope." (13.8-14.8), the last word
+  ];
+  NARR.forEach(([t, line, until, y], i) => {
+    c.at(t, { macro: "narrate", line, voice: VO, ...(TAKES[i] ? { take: TAKES[i] } : {}), caption: false });
+    c.cap(t, until, line, y);
+  });
+  c.captions.find((x) => x.text.startsWith("Nope.")).to = 14.9;   // Reaper's subtitle leaves for the last line
 }
 
 // ---------------------------------------------------------------- shots (the camera always looks into the valley)
@@ -368,7 +400,7 @@ c.captions.find((x) => x.text === "One sec!").to = 5.3;
 c.captions.find((x) => x.text === "Food for three days!").to = 1.05;
 
 write(import.meta.url, {
-  id: "survive-it-01-island",
+  id: VO ? `survive-it-01-island-${VO === "narrator" ? "vo1" : "vo5"}` : "survive-it-01-island",
   title: "Stranded on an island with your friends, Part 1",
   idea: "Survive it ep 1 (format A trial): stranded at sunset, Dragon eats the food, the Sorcerer's selfies kill the phone, Phoenix flaps out the signal fire; vote: Viking or Reaper goes into the jungle for food in Part 2",
   format: "series: Survive it (numbered parts, day/clock HUD, rule cards, comment vote for the next part)",
