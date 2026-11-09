@@ -391,12 +391,12 @@
    "shot": {
     "pos": [
      0.4,
-     1,
-     4.25
+     0.7,
+     3.85
     ],
     "look": [
      0.4,
-     0.62,
+     0.95,
      -0.15
     ],
     "fov": 52
@@ -2570,7 +2570,7 @@
       -1.3
      ],
      "dur": 0.3,
-     "steps": 2,
+     "steps": 4,
      "at": 0.12
     },
     {
@@ -2652,7 +2652,7 @@
       0,
       -0.3
      ],
-     "dur": 0.533,
+     "dur": 0.6,
      "steps": 4,
      "at": 0.25
     },
@@ -2660,7 +2660,7 @@
      "who": "vik",
      "do": "turn",
      "to": -28,
-     "dur": 0.3,
+     "dur": 0.6,
      "at": 0.25
     },
     {
@@ -2681,7 +2681,7 @@
        0.37
       ]
      },
-     "dur": 0.35,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.25
     },
@@ -2703,7 +2703,7 @@
        0.37
       ]
      },
-     "dur": 0.35,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.25
     },
@@ -2713,7 +2713,7 @@
      "set": {
       "rot": 152
      },
-     "dur": 0.35,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.25
     },
@@ -2726,7 +2726,7 @@
       "z": 0.426,
       "rot": 152
      },
-     "dur": 0.35,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.25
     },
@@ -2941,8 +2941,8 @@
       -0.1,
       -1.6
      ],
-     "dur": 0.34,
-     "steps": 2,
+     "dur": 0.4,
+     "steps": 3,
      "at": 0.42
     },
     {
@@ -3260,17 +3260,6 @@
      "at": 0.735
     },
     {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      0.85,
-      -1.4
-     ],
-     "dur": 0.34,
-     "steps": 2,
-     "at": 0.76
-    },
-    {
      "who": "gsl",
      "do": "arm",
      "side": "R",
@@ -3291,6 +3280,17 @@
      "dur": 0.055,
      "ease": "inOut",
      "at": 0.795
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      0.85,
+      -1.4
+     ],
+     "dur": 0.34,
+     "steps": 3,
+     "at": 0.82
     },
     {
      "who": "gsl",
@@ -3403,13 +3403,6 @@
      },
      "dur": 0.15,
      "at": 1.08
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": -43.531,
-     "dur": 0.3,
-     "at": 1.1
     },
     {
      "who": "gsl",
@@ -3536,6 +3529,13 @@
      "dur": 0.15,
      "blink": false,
      "at": 1.15
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": -43.531,
+     "dur": 0.3,
+     "at": 1.16
     },
     {
      "who": "gsl",
@@ -3730,7 +3730,7 @@
       0.6
      ],
      "dur": 0.533,
-     "steps": 4,
+     "steps": 6,
      "at": 0.32
     },
     {
@@ -3807,15 +3807,15 @@
       -0.52,
       -0.85
      ],
-     "dur": 0.533,
-     "steps": 4,
+     "dur": 0.667,
+     "steps": 5,
      "at": 0.4
     },
     {
      "who": "wiz",
      "do": "turn",
      "to": 36.425,
-     "dur": 0.533,
+     "dur": 0.667,
      "at": 0.4
     },
     {
@@ -4033,8 +4033,8 @@
        0.3
       ]
      },
-     "dur": 0.25,
-     "ease": "in",
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 0.32
     },
     {
@@ -4327,7 +4327,7 @@
      "do": "arm",
      "side": "L",
      "pose": "hips",
-     "dur": 0.22,
+     "dur": 0.32,
      "ease": "inOut",
      "at": 0.69
     },
@@ -4336,7 +4336,7 @@
      "do": "arm",
      "side": "R",
      "pose": "hips",
-     "dur": 0.22,
+     "dur": 0.32,
      "ease": "inOut",
      "at": 0.69
     },
@@ -4406,22 +4406,6 @@
      "at": 0.75
     },
     {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.82
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.82
-    },
-    {
      "who": "vik",
      "do": "face",
      "press": 0.15,
@@ -4458,6 +4442,22 @@
      "lid": 1,
      "dur": 0.12,
      "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.92
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.92
     },
     {
      "who": "vik",
@@ -5735,6 +5735,13 @@
      "at": 0.82
     },
     {
+     "who": "wiz",
+     "do": "turn",
+     "to": 42.709,
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
      "who": "rea",
      "do": "look",
      "to": [
@@ -5865,13 +5872,6 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.05
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 42.709,
-     "dur": 0.3,
-     "at": 0.1
     },
     {
      "who": "rea",
@@ -7012,6 +7012,24 @@
     "hand-turn"
    ],
    "reason": "he leans over and sets his black box on the lid: his left glove rolls onto its end as it lands (the contact is the beat)"
+  },
+  {
+   "who": "gsl",
+   "from": 5.55,
+   "to": 5.65,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "his left mitten lands on his hip at the end of its 0.32 s move: it swings 100 px of 1080 in one frame (22 px the frames either side) as the elbow turns out; at the left edge of 05 while Viking reads in the middle, his left foot in frame, the right just off the left edge"
+  },
+  {
+   "who": "wiz",
+   "from": 5.1,
+   "to": 5.25,
+   "checks": [
+    "motion"
+   ],
+   "reason": "his snicker shake (a 3.5 % squash) lands on the last footfall of his walk in: 6.4 % in one frame of the story clock the motion check samples; drawn on 2s it is a 5 % change between two drawings, about 25 px of his 450 px body at 1080 wide in 05, behind Gunslinger's hat and shoulder (the front warning), his feet in frame inside Gunslinger's outline"
   },
   {
    "who": "rea",

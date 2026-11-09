@@ -124,3 +124,13 @@ wallet come with the pocket-pat block). Sheets (scratch): /tmp/claude-0/stage/st
 - **07→08: the turn now happens behind the 8.5 cut.** On camera it flipped Viking's coupon hand over. The two swap sides, as in Jonny's panels, and the camera check notes a line cross at 8.5.
 - **08:** the caption is at y 1060, between Gunslinger's face and the Wizard's.
 - **Coupon ink stays at 1** (see W1).
+
+## Departures (writer, fix round 2, 9 Nov)
+
+- **01 is at eye height now, but the rug is still about a quarter of frame 0.** The camera is at 0.7 m (the eyes are at 0.67-0.70 m) and in at z 3.85. The Wizard's and Reaper's faces are half cut by the edges, as drawn. The camera's height doesn't decide how much rug shows. What decides it is how high the frame's middle sits on the cast, so the rug goes from ~36 % to ~25 % and the faces sit a little below the middle.
+  - The present's bow is in front of Gunslinger's mouth at frame 0, in the round-1 camera too (camera 0.6, 0.85 and 1.0 tried). His eyes stay clear.
+- **The phone-band thuds at 6.38/6.64 stay.** In the second before them come the hug's hit, the cheer and the music returning on the payoff.
+  - A -10 dB duck and a hush part at 6.3-6.8 moved them by 0.0/-0.2 dB. A duck lowers the bed under the hit, not that loud second before it.
+- **Walk timings were picked against the layout's own drawing times.** `render.mjs --layout` samples contacts at times rounded to 0.1 ms. At those times `anime-timing.js` step() (margin 1e-4) draws every third 2s drawing one frame late, so the drawn rig in the layout has 3-1 holds that the render doesn't have.
+  - Round 1's Viking 4.83 and Wizard 7.33 slides existed only there.
+  - The chosen timings are clean at both exact and rounded times (an offline copy of the stance check).

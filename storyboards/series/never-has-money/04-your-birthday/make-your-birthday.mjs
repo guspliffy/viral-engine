@@ -309,15 +309,15 @@ A(3.12, "gsl", "pitch", { to: 10, dur: 0.3 });   // bent over his knee
 // the others watch: Viking steps closer and peeks, eyes narrowed; Reaper turns; the Wizard goes round behind Viking
 act.eyesLead(c, 3.0, "vik", [-0.6, -0.25]);
 const V3_YAW = -28;   // (fix 1: half turned to the crate, not square on: 20 degrees from his 05 facing, so the stack never turns much in his hands)
-A(3.05, "vik", "move", { to: V3, dur: 0.533, steps: 4 }); A(3.05, "vik", "turn", { to: V3_YAW, dur: 0.3 });
-stackTo(3.05, SIDE(V3, V3_YAW), V3_YAW, 0.35);
+A(3.05, "vik", "move", { to: V3, dur: 0.6, steps: 4 }); A(3.05, "vik", "turn", { to: V3_YAW, dur: 0.6 });   // (fix 2: the turn and the stack over the whole walk: his last step jumped)
+stackTo(3.05, SIDE(V3, V3_YAW), V3_YAW, 0.6);
 A(3.4, "vik", "face", { lid: 0.42, brow: -0.1, dur: 0.3 }); A(3.05, "vik", "expr", { expr: "kind", set: { curve: 0.1, open: 0 }, dur: 0.3 });   // (by 4.1, when he is behind Gunslinger in 04)
 A(3.45, "vik", "pitch", { to: 7, dur: 0.35 }); A(3.5, "vik", "look", { to: [-0.55, -0.4], dur: 0.15, blink: false });
 A(3.0, "rea", "turn", { to: yawTo(R0, CRATE), dur: 0.3 }); A(3.0, "rea", "look", { to: [-0.5, -0.3], dur: 0.2, blink: false });
 A(3.25, "wiz", "look", { to: [0.6, -0.1], dur: 0.15, blink: false });
 act.eyesLead(c, 2.92, "wiz", [0.3, -0.1]);
-A(2.92, "wiz", "move", { to: [-0.95, -1.3], dur: 0.3, steps: 2 }); A(3.22, "wiz", "move", { to: [-0.1, -1.6], dur: 0.34, steps: 2 }); A(3.56, "wiz", "move", { to: W3, dur: 0.34, steps: 2 });   // (W1: out of Gunslinger's way and wide of Viking's cape)
-A(3.9, "wiz", "turn", { to: yawTo(W3, CRATE), dur: 0.3 }); A(3.95, "wiz", "look", { to: [-0.6, -0.3], dur: 0.15, blink: false });
+A(2.92, "wiz", "move", { to: [-0.95, -1.3], dur: 0.3, steps: 4 }); A(3.22, "wiz", "move", { to: [-0.1, -1.6], dur: 0.4, steps: 3 }); A(3.62, "wiz", "move", { to: W3, dur: 0.34, steps: 3 });   // (fix 2: 4, 3 and 3 steps a second, the second leg 0.4 s: his feet skated; W1: out of Gunslinger's way and wide of Viking's cape)
+A(3.96, "wiz", "turn", { to: yawTo(W3, CRATE), dur: 0.3 }); A(3.95, "wiz", "look", { to: [-0.6, -0.3], dur: 0.15, blink: false });
 A(3.4, "wiz", "face", { lid: 0, dur: 0.2 }); A(3.4, "rea", "face", { lid: 0.4, dur: 0.2 });
 see(3.45, 3.9, ["gsl.face", "coupon", "vik.face"], "panel 3: he writes on his knee, tongue out, the moth on his brim; Viking peeks from behind at the right");
 
@@ -360,7 +360,7 @@ A(4.42, "vik", "grip", { side: "R", shape: "open", dur: 0.15 });
 c.arm(4.46, "vik", "R", { o: [0.1, 0.45, 0.2] }, 0.3, "inOut"); A(4.6, "vik", "face", { lid: 0, brow: 0.2, dur: 0.2 }); A(4.6, "vik", "pitch", { to: 0, dur: 0.3 });
 act.eyesLead(c, 4.42, "vik", [-0.3, -0.1]);
 const V1b_YAW = -8;
-A(4.42, "vik", "move", { to: V1, dur: 0.533, steps: 4 }); A(4.42, "vik", "turn", { to: V1b_YAW, dur: 0.533 });
+A(4.42, "vik", "move", { to: V1, dur: 0.533, steps: 6 }); A(4.42, "vik", "turn", { to: V1b_YAW, dur: 0.533 });   // (fix 2: quicker, shorter steps: his left foot slid)
 stackTo(4.42, SIDE(V1, V1b_YAW), V1b_YAW, 0.533, "inOut", { one: true });
 A(4.98, "vik", "expr", { expr: "eager", set: { curve: 0.35, open: 0.2 }, dur: 0.15 });   // (after Gunslinger's brim has passed his face)
 // Gunslinger turns to him, the left hand comes off the sheet (a "ta-da" flourish out to the side), the right holds it out
@@ -381,8 +381,8 @@ let tc = 5.12;
 sfx(r3(tc - 0.08), "flutter", { gain: 0.25, reason: "the sheet passing from mitten to mitten" });
 for (const s of ["L", "R"]) {
   A(r3(tc - 0.02), "gsl", "grip", { side: s, shape: "open", dur: 0.12 });
-  c.arm(r3(tc + 0.02), "gsl", s, { o: [0.12, 0.36, 0.26] }, 0.15, "inOut"); c.arm(r3(tc + 0.17), "gsl", s, "hips", 0.22, "inOut");   // round his front, not through it
-  A(r3(tc + 0.3), "gsl", "grip", { side: s, shape: "relaxed", dur: 0.2 });
+  c.arm(r3(tc + 0.02), "gsl", s, { o: [0.12, 0.36, 0.26] }, 0.15, "inOut"); c.arm(r3(tc + 0.17), "gsl", s, "hips", 0.32, "inOut");   // round his front, not through it (fix 2: to the hips over 0.32 s, not 0.22: his left elbow jumped)
+  A(r3(tc + 0.4), "gsl", "grip", { side: s, shape: "relaxed", dur: 0.2 });
 }
 A(r3(tc + 0.1), "gsl", "squash", { amount: -0.03, dur: 0.25 }); A(r3(tc + 0.1), "gsl", "expr", { expr: "cocky", set: { curve: 0.75, open: 0.2, smirk: 0.4 }, dur: 0.2 });
 // Viking turns to us and reads it, held low in front of his left chest (its drawing to us), eyes down on it
@@ -406,10 +406,11 @@ c.say(5.8, "vik", "best… gift… EVER!", 0.62, "excited", { voice: false, sub:
 // the Wizard steps in behind Viking's left shoulder and snickers into his mitten, eyes shut; Reaper behind his right
 // shoulder rolls his eyes and sighs a puff; they glance at each other
 act.eyesLead(c, 4.5, "wiz", [0.3, 0.0]); act.eyesLead(c, 4.7, "rea", [-0.3, 0.1]);
-A(4.5, "wiz", "move", { to: W1, dur: 0.533, steps: 4 }); A(4.5, "wiz", "turn", { to: yawTo(W1, V1), dur: 0.533 });   // (steps of 4 frames: they land on the drawings)
+A(4.5, "wiz", "move", { to: W1, dur: 0.667, steps: 5 }); A(4.5, "wiz", "turn", { to: yawTo(W1, V1), dur: 0.667 });   // (fix 2: 0.667 s at 5 steps a second, chosen with the layout's own drawing times: his foot slid as the 0.533 s run stopped)
 A(4.7, "rea", "move", { to: R1, dur: 0.4, steps: 3 }); A(4.7, "rea", "turn", { to: yawTo(R1, V1), dur: 0.4 });   // (before Viking's stack swings round to his side)
 A(4.85, "wiz", "look", { to: [0.2, -0.15], dur: 0.15, blink: false });
-c.arm(4.92, "wiz", "R", { o: [-0.1, 0.5, 0.3] }, 0.25, "in"); A(4.98, "wiz", "grip", { side: "R", shape: "flat", dur: 0.15 });
+c.arm(4.92, "wiz", "R", { o: [-0.1, 0.5, 0.3] }, 0.3, "inOut");   // (fix 2: eased at both ends: his elbow jumped as an "in" ended)
+A(4.98, "wiz", "grip", { side: "R", shape: "flat", dur: 0.15 });
 A(5.02, "wiz", "face", { lid: 1, brow: 0.1, dur: 0.15 }); A(5.02, "wiz", "expr", { expr: "happy", set: { curve: 0.7, open: 0.2 }, dur: 0.15 });
 for (const t of [5.08, 5.2, 5.32, 5.44]) A(t, "wiz", "squash", { amount: 0.035, dur: 0.1 });
 A(5.3, "wiz", "face", { lid: 0.5, dur: 0.12 }); A(5.32, "wiz", "look", { to: [0.65, -0.05], dur: 0.12, blink: false });   // a glance to Reaper
@@ -451,6 +452,9 @@ P_(6.44, "giftB", { y: r3(RUG + 0.03) }, 0.05, "out"); P_(6.49, "giftB", { y: RU
 sfx(6.18, "book-close", { gain: 1.0, reason: "the big present thumps onto the rug" });
 sfx(6.24, "kenney/book-close", { gain: 0.4, reason: "the black box lands on its lid and bounces off" });
 sfx(6.44, "thud-soft", { gain: 0.55, reason: "the black box hits the rug" });
+// (fix 2, phone-band: these two thuds stand +2.0 and +0.6 dB over the second before them on a phone, which is the hug's own
+// hit, the cheer and the music coming back on the payoff; a -10 dB duck and a hush 6.3-6.8 were tried and moved them
+// 0.0/-0.2 dB (a duck lowers the bed under the hit, not the loud second before it), so they stay: follow-through after the payoff)
 
 // the pair, keyed: Gunslinger's place in Viking's own frame [fwd, left], his lift and his own yaw; the gloves' spots in
 // Viking's frame [fwd, left], projected onto Gunslinger's body (just outside it), so they rest on him however he is
@@ -530,7 +534,7 @@ A(6.02, "wiz", "move", { to: [-0.45, 1.0], dur: 0.667, steps: 5 });
 act.shock(c, 6.2, "wiz", { open: 0.3, hold: 0.2 }); A(6.2, "wiz", "look", { to: [0.3, -0.3], dur: 0.1, blink: false });
 A(6.25, "rea", "look", { to: [-0.1, -0.3], dur: 0.12, blink: false });
 A(6.75, "wiz", "move", { to: W2, dur: 0.4, steps: 3 });
-A(7.1, "wiz", "turn", { to: yawTo(W2, GIFT_P), dur: 0.3 });
+A(6.85, "wiz", "turn", { to: yawTo(W2, GIFT_P), dur: 0.3 });   // (fix 2: turning as he walks in, not on the spot after: his feet skated)
 A(7.05, "wiz", "look", { to: [0.0, -0.95], dur: 0.2, blink: false });   // (fix 1: down on his box, not into the lens)
 act.shock(c, 7.15, "wiz", { open: 0.6, eye: 1.2, curve: -0.08, brow: 0.5, hold: 1.1 });
 A(7.15, "wiz", "pitch", { to: 16, dur: 0.3 });
@@ -588,7 +592,7 @@ act.blinksAt(c, "wiz", [2.0, 3.7, 7.7]); act.blinksAt(c, "rea", [1.9, 4.1, 7.0])
 
 // ---------------------------------------------------------------- shots, one per panel
 const fw = (target, { w, ...o }) => frame(target, { ...o, h: r3((w * 16) / 9) });
-const P01 = { pos: [0.4, 1.0, 4.25], look: [0.4, 0.62, -0.15], fov: 52 };   // (fix 1: pushed in, the Wizard and Reaper moved in 0.3 m: the four fill it)
+const P01 = { pos: [0.4, 0.7, 3.85], look: [0.4, 0.95, -0.15], fov: 52 };   // (fix 1: pushed in, the Wizard and Reaper moved in 0.3 m: the four fill it; fix 2: down to their eyes and in, aimed a little higher: the rug ~36 -> ~25 % of frame 0, the Wizard and Reaper half cut by the edges as drawn)
 //   // the four across, the Wizard and Reaper cut by the edges (W1: 0.3 right and fov 47 -> 50, so both edge faces stay in the safe zone)
 const P02 = fw([r3(GP[0] + 0.42), 0.95, GP[1]], { w: 1.7, az: -4, el: 4, fov: 30 });   // Gunslinger and the wallet left of centre, Viking expectant at the right edge (W1: was centred on Viking)
 const P03 = fw([-0.92, 0.75, 0.4], { w: 1.8, az: 15, el: 8, fov: 30 });   // (fix 1: on him, his face was cut by the left edge)
@@ -651,6 +655,9 @@ write(import.meta.url, {
     { who: "vik", with: "giftP", from: 0, to: VC(6.0), reason: "the big present carried against his belly: both gloves on its ends, then his right arm round it" },
     { who: "wiz", with: "giftP", from: 0, to: 0.3, reason: "his mittens flat on the far side of the present, pushing it over to Viking" },
     { who: "rea", from: VC(0.7), to: VC(0.85), checks: ["hand-turn"], reason: "he leans over and sets his black box on the lid: his left glove rolls onto its end as it lands (the contact is the beat)" },
+    // (fix 2: the one survivor of the round-2 tries, judged in the layout's own drawing times)
+    { who: "gsl", from: VC(5.45), to: VC(5.55), checks: ["rig-jump"], reason: "his left mitten lands on his hip at the end of its 0.32 s move: it swings 100 px of 1080 in one frame (22 px the frames either side) as the elbow turns out; at the left edge of 05 while Viking reads in the middle, his left foot in frame, the right just off the left edge" },
+    { who: "wiz", from: VC(5.0), to: VC(5.15), checks: ["motion"], reason: "his snicker shake (a 3.5 % squash) lands on the last footfall of his walk in: 6.4 % in one frame of the story clock the motion check samples; drawn on 2s it is a 5 % change between two drawings, about 25 px of his 450 px body at 1080 wide in 05, behind Gunslinger's hat and shoulder (the front warning), his feet in frame inside Gunslinger's outline" },
     { who: "rea", with: "giftB", from: 0, to: VC(1.0), reason: "he carries his black box in both hands and sets it down on the big present's lid" },
     { who: "rea", with: "giftP", from: VC(0.55), to: VC(1.0), reason: "he leans over the big present to set his box on its lid" },
     { who: "vik", with: "coupon", from: VC(4.95), to: 10, reason: "the coupon in his right mitten by its top edge: he reads it, then it hangs from his glove against Gunslinger's front in the hug" },
