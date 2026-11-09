@@ -54,8 +54,8 @@ engine passes, keyed on exact inputs); daylight-friendly materials (MeshStandard
   1.45 showing a brass pendulum (rod 0.7, bob r 0.07). Param `swing` (degrees, pendulum angle, + to +x) keyed by the
   director, and `spec.ticks` [times] optional: if given, the pendulum reaches an end at each tick time and the minute
   hand jumps one minute on each. Solid (the case box).
-- `quietsign`: a hanging sign, the origin is its ceiling point (y = spec.y): two brass chains spec.len (0.9) down to a
-  board 0.70 w x 0.45 h x 0.03, cream (#efe4cc) in a dark oak frame, with a painted dark-brown silhouette of a face in
+- `quietsign`: a hanging sign, the origin is its ceiling point (y = spec.y): two brass chains spec.len (0.7) down to a
+  board spec.w (1.0) x spec.h (0.65) x 0.03 (sized in the wide: hung at y 4.0 over [-0.4, -5.3] it fills 0.13-0.28 down), cream (#efe4cc) in a dark oak frame, with a painted dark-brown silhouette of a face in
   profile holding a finger to its lips (no words, no letters). Param `swing` (degrees about the hang point's x axis,
   + lifts the bottom toward +z, up to 80). Not solid.
 - `bookcart`: a library book trolley, l 0.9 (x) x w 0.45 (z), dark oak with brass corner posts and a brass push rail at
