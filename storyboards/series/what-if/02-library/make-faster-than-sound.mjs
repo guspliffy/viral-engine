@@ -3,6 +3,8 @@
 // 00-SERIES-FORMAT.md there, Jonny's eight panels storyboards/01-faster-than-sound-library/storyboard-eight-panels.png
 // (they win; PANELS.md here grades the clip against them by line and by number).
 //   node storyboards/series/what-if/02-library/make-faster-than-sound.mjs -> faster-than-sound.json
+//   node storyboards/series/what-if/02-library/make-faster-than-sound.mjs --vo -> faster-than-sound-vo.json: the same
+//     picture with EP01's commentator (the voice "narrator") and a longer last shot for its closing question
 //
 // THE BRIEF
 //   Joke:        Phoenix can't sit still in the library, so he moves faster than sound and nobody hears a thing: he
@@ -29,7 +31,10 @@ import * as act from "../../../lib/acting.mjs";
 const LOOK = "sheet", LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = true, INK = true, SATSUEI = true;
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 }, PHYSICS = true;
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, cap, see } = c;
-const END = 18.9;   // + the BOOM's 3-frame hit-stop = exactly 19.0 s of video (series format)
+// --vo: the commentator cut (Jonny 9 Nov 2026, 13:05: "add the voice over we used for the first what if series"). The
+// picture stays the same, so the two cuts compare the voiceover alone; the last shot holds 0.4 s longer for the question
+const VO = process.argv.includes("--vo");
+const END = VO ? 19.3 : 18.9;   // + the BOOM's 3-frame hit-stop = exactly 19.0 s of video (series format)
 
 // the beat grid (00-SERIES-FORMAT.md) and this clip's times
 const TRIP1 = [1.0, 2.2], TRIP2 = [4.6, 5.6], TRIP3 = [8.0, 11.1];   // he's away (the streak, the silence)
@@ -372,7 +377,7 @@ act.sheepish(c, 16.5, "phx");
 A(16.5, "phx", "look", { to: [0.5, 0.05], dur: 0.25, blink: false });
 c.say(16.8, "phx", "...sorry.", 0.5, "whisper", { pos: 595 });   // under the fact caption (its box ends at 579), not on it (review B)
 act.mood(c, 16.2, "sor", "angry", { hold: 2.0 });
-cap(17.6, r3(END - 0.05), "Would you still want it?", 300);
+if (!VO) cap(17.6, r3(END - 0.05), "Would you still want it?", 300);   // the commentator asks it (below)
 // the callback: the librarian's finger back at his lips, as at frame 0 (review A, P8)
 c.arm(17.85, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.3, "inOut"); c.arm(18.15, "sor", "R", { x: [-0.03, 0.34, 0.4] }, 0.3, "inOut"); A(18.1, "sor", "grip", { side: "R", shape: "point", dur: 0.25 });
 see(S_AFTER, END, ["phx.face", "rea.face", "sor.face"], "the aftermath: buried, sheepish, glaring");
@@ -381,6 +386,33 @@ for (const cp of c.captions) for (const cut of [S_REA, S_TWO, S_WALL, S_LAPS, S_
 
 // a "Zoom!" subtitle leaves with him (0.55 s), not 0.8 s after he has gone
 for (const cp of c.captions) if (/^zoom!$/i.test(cp.text)) cp.to = r3(Math.min(cp.to, cp.from + 0.55));
+
+// ================================================================ THE COMMENTATOR (--vo only)
+// EP01's voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
+// storyteller"), Jonny's pick. Each line sits where nobody speaks and no planted sound plays: the first trip's silence,
+// after the late puff, after the late thump, before the title card, in the book rain, after "...sorry.". Never on a
+// "Zoom!", the puff, the thump, the clock's ticks 11.9-13.3 (this episode's test) or the BOOM. The three middle lines
+// say the rule the picture plants (his sound comes later, louder, then all of it at once). The takes: 4-8 reads of each
+// line, the one Whisper heard word for word that is nearest the voice he picked (ECAPA speaker match to his liked read,
+// project files audio/premise-voice-01/1-deep-storyteller.mp3; the match in brackets). Subtitles at y 300 like the
+// closing question's; in the wall shot at 540, under the sign; the book rain's at 600, under where the fact caption
+// comes; added after the cut trim above. The line into the title card has none (the title fills the frame).
+if (VO) {
+  const NARR = [
+    // [at, line, take, spoken s, subtitle until | false, subtitle y]   (take: Whisper word for word; speaker match to his liked read)
+    [1.08, "What if you could outrun sound?", 4, 1.87, 2.97, 300],     // the first trip: the sound has dropped out (0.68)
+    [4.68, "His sound comes later.", 1, 1.59, 6.28, 540],               // the cart trip's silence, ending on the late thump (6.3) (0.61)
+    [6.45, "And louder.", 3, 0.87, 7.33, 540],                          // after the thump, before "100 laps!" (7.42) (0.48)
+    [9.45, "Sounds perfect, right?", 3, 1.56, false, 0],                // into the title card (10.0), before the sit (11.1) (0.55)
+    [14.6, "All of it. At once.", 8, 2.08, 16.69, 600],                 // the book rain, before "...sorry." (16.8), under the fact caption (0.43)
+    [17.6, "Would you still want it?", 4, 1.39, r3(END - 0.05), 300],   // after "...sorry." (16.8-17.3), the closing caption's place (0.58)
+  ];
+  for (const [t, line, take, len, until, y] of NARR) {
+    c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false });
+    if (until) cap(t, until, line, y);
+    if (until && until < t + len) throw new Error(`"${line}" is cut off at ${until}`);
+  }
+}
 
 const allowClip = [
   ...AWAY.flatMap(([a, b]) => [{ who: "phx", from: r3(a - 0.02), to: r3(b + 0.04), checks: ["rig-jump", "foot-slide", "stance-slide", "hand-pop", "hand-turn"], reason: "faster than sound: he is gone in one frame and back in one frame (hidden while he's away)" }]),
@@ -426,7 +458,7 @@ const beats = c.beats([
 ], END);
 
 write(import.meta.url, {
-  id: "faster-than-sound",
+  id: VO ? "faster-than-sound-vo" : "faster-than-sound",
   title: "What if your hyper friend was faster than sound in a library?",
   idea: "What if, episode 2: Phoenix moves faster than sound in the library (a book, a cart, 100 laps), his sound arriving later each time; he sits perfectly quiet and the clock ticks; then every sound he outran arrives at once",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
