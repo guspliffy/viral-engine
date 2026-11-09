@@ -14079,15 +14079,6 @@
    "size": 96
   },
   {
-   "from": 10,
-   "to": 10.02,
-   "text": "WHAT IF YOUR COMPETITIVE FRIEND COULD RUN AT LIGHT SPEED?",
-   "pos": 470,
-   "pop": false,
-   "size": 84,
-   "kinetic": false
-  },
-  {
    "0": "a",
    "1": " ",
    "2": "v",
@@ -16327,7 +16318,7 @@
    ]
   },
   {
-   "name": "demo 3: the blast (title card)",
+   "name": "demo 3: the blast (slow motion)",
    "at": 8.5,
    "len": 1.8,
    "shot": {
@@ -16557,12 +16548,12 @@
      "at": 0.5
     },
     {
-     "fx": "freeze",
-     "hold": 1,
-     "push": 0.035,
-     "tone": false,
-     "flash": 0,
-     "at": 1.5
+     "fx": "ramp",
+     "at": 0.9,
+     "len": 0.6,
+     "rate": 0.26,
+     "in": 0.25,
+     "out": 0.25
     },
     {
      "macro": "narrate",
@@ -16570,8 +16561,8 @@
      "voice": "narrator",
      "take": 3,
      "caption": false,
-     "gain": 1.2,
-     "at": 1.5
+     "gain": 3,
+     "at": 0.9
     },
     {
      "do": "prop",

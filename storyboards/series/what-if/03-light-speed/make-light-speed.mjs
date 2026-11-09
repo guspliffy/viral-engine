@@ -1,6 +1,6 @@
 // WHAT IF YOUR COMPETITIVE FRIEND COULD RUN AT LIGHT SPEED? (what if, episode 3; Jonny's go 9 Nov 2026 "go with the
 // 2 what if videos"). The series format (video-scripts/2026-11-08-what-if/00-SERIES-FORMAT.md): one power with the
-// same word, sound and look every time, three demos (the third the 10x), a title card frozen on the 10x, a real-fact
+// same word, sound and look every time, three demos (the third the 10x, in slow motion; no title card), a real-fact
 // twist, a closing question, 19.0 s. Jonny's eight panels win (PANELS.md next to this file: the checklist and numbers).
 //   node storyboards/series/what-if/03-light-speed/make-light-speed.mjs -> light-speed.json
 //   ... --no-vo -> light-speed-no-vo.json: the same clip without the commentator voiceover (renders 1-5)
@@ -19,8 +19,8 @@
 // The power: the word "GO!" (he shouts it himself), the sound (a rising electric whine and a thunder crack) and the
 // look (a green light streak, his blade's colour, that flattens the wheat and blows dust, leaves and hats about).
 //
-// THE CLOCKS: the title card is a freeze frame (fx "freeze", 1.0 s of video at story 10.0), so the storyboard runs
-// 18.0 s of story for 19.0 s of video; every time below is story time. Video = story up to 10.0, story + 1.0 after.
+// THE CLOCKS: the 10x blast is a speed ramp (fx "ramp", story 9.4-10.0 over 1.6 s of video), so the storyboard runs
+// 1.0 s less story than video; every time below is story time. Video = story up to 9.4, story + 1.0 from 10.0 on.
 //
 // WORLD: the painted road (assets/environments/wheat-road-day; its twin wheat-road-old from the reveal on). x right,
 // z toward the camera; the painting's camera stands at (0, 4.5, 22) looking down the road (-z), so every shot looks
@@ -28,6 +28,7 @@
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import { rigToWorld } from "../../../../engine/page/vehicle.js";
+import { holdsOf, renderTime } from "../../../../engine/shared/holds.js";
 
 // ---------------------------------------------------------------- the template's picks (storyboards/templates)
 const LOOK = "sheet", FOCUS = false, LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = true;
@@ -43,7 +44,11 @@ const VO = !process.argv.includes("--no-vo");
 // story seconds (19.0 s of video with the 1.0 s title freeze); with the voiceover the last shot holds 0.7 s longer, so
 // the spoken closing question has room (EP01's commentator cut held 1.2 s longer)
 const END = VO ? 18.7 : 18.0;
-const FREEZE = 10.0, HOLD = 1.0;        // the title card
+// No title card mid-video (Jonny 9 Nov 2026 14:09 on EP02: the title "is the title of the video and should not appear
+// mid video"). In its place the 10x blast plays in slow motion: story 9.4-10.0 over 1.6 s of video (a speed ramp),
+// so the video still runs 1.0 s longer than the story from 10.0 on, as with the old 1.0 s freeze.
+const FREEZE = 10.0, HOLD = 1.0;        // the end of the slow motion (story) and the video it adds
+const SLOW = { at: 9.4, len: 0.6, rate: 0.26, in: 0.25, out: 0.25 };   // 0.6 s of story in 48 frames
 const V = (video) => r3(video <= FREEZE ? video : video - HOLD);   // a brief's video time -> story time
 const VIK_VOICE = { voice: "viking" }, WIZ_VOICE = { voice: "wizard" }, SAM = { voice: false };   // Samurai speaks gibberish (subtitled)
 const rad = (d) => (d * Math.PI) / 180;
@@ -335,7 +340,7 @@ see(r3(GLARE + 0.05), r3(WORLD - 0.02), ["vikc.face", "sam.face"], "Viking glare
 // ================================================================ 5 DEMO 3: AROUND THE WHOLE WORLD? 7.5-10.3 (panel 05)
 // Viking out of the car: "First one around the world!", pointing down the road at the horizon. Samurai shrugs, turns
 // to the road; sparks; GO!: the biggest crack, the streak to the horizon, the wheat flattened in a line, the Wizard's
-// hat and Viking's cape blown back, dust and leaves; everyone shields their faces. The title card freezes it.
+// hat and Viking's cape blown back, dust and leaves; everyone shields their faces. Its last 0.6 s play in slow motion.
 hide(r3(WORLD - 0.02), "vikc"); show(r3(WORLD - 0.02), "vik"); show(r3(WORLD - 0.02), "wiz");
 c.at(r3(WORLD - 0.03), { do: "prop", id: "seatD", set: { y: -3 }, dur: 0, ease: "linear", reason: "put away under the road at a cut (only the driver needed it), not a fall" });
 show(r3(BLAST - 0.02), "rea");   // out of the challenge two-shot; in the blast frame (panel 05, front right)
@@ -363,8 +368,8 @@ A(r3(BLAST - 0.02), "sam", "turn", { to: 178, dur: 0.01, ease: "linear", sync: t
 
 c.arm(r3(BLAST - 0.02), "vik", "L", "rest", 0.01); A(r3(BLAST - 0.02), "vik", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // down by the cut
 c.prop(r3(GO3 - 0.4), "st3", { glow: 0.55 }, 0, "linear");   // a green core, not a white one (review B: the cover's streak read white) c.prop(r3(GO3 - 0.4), "sp3", { glow: 1 }, 0, "linear"); c.prop(r3(GO3 - 0.4), "sp3", { sparks: 1 }, 0.2, "out");
-c.prop(r3(FREEZE + 0.02), "sp3", { sparks: 0 }, 0.4, "inOut");   // the sparks crackle on where he stood until the title card
-power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02), air: null });   // the boom and the wind swell are its air   // still blazing on the title card
+c.prop(r3(FREEZE + 0.02), "sp3", { sparks: 0 }, 0.4, "inOut");   // the sparks crackle on where he stood through the slow motion
+power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02), air: null });   // the boom and the wind swell are its air   // still blazing through the slow motion
 hide(r3(GO3 + 0.03), "sam"); A(r3(GO3 + 0.04), "sam", "move", { to: [0.15, 40], dur: 0.01, steps: 0 });
 sfx(r3(GO3 + 0.03), "impact", { gain: 1.6, loud: true, reason: "the biggest crack: a deep boom under it (the 10x)" });
 sfx(r3(GO3 + 0.05), "windswell", { gain: 0.8, dur: 1.3, reason: "the blast of air down the road behind him" });
@@ -383,14 +388,14 @@ A(r3(GO3 + 0.04), "vik", "pitch", { to: -10, dur: 0.25 });
 A(r3(GO3 + 0.08), "wiz", "expr", { expr: "shocked", set: { eye: 1.3, open: 0.7, curve: -0.4 }, dur: 0.1 });
 A(r3(GO3 + 0.06), "wiz", "pitch", { to: -8, dur: 0.25 });
 c.arm(r3(GO3 + 0.2), "wiz", "R", { o: [0.22, 1.02, 0.05] }, 0.8, "inOut"); A(r3(GO3 + 0.2), "wiz", "grip", { side: "R", shape: "open", dur: 0.2 });   // grabbing after the hat
-A(r3(GO3 + 0.06), "wiz", "hat", { off: [-0.05, 0.75, -0.6], spin: [-25, 30, 40], dur: 2.0, ease: "out", quiet: true });   // still in the air on the title card, the cone still reads as a hat
+A(r3(GO3 + 0.06), "wiz", "hat", { off: [-0.05, 0.75, -0.6], spin: [-25, 30, 40], dur: 2.0, ease: "out", quiet: true });   // still in the air in the slow motion, the cone still reads as a hat
 A(r3(GO3 + 0.1), "rea", "pitch", { to: -3, dur: 0.3 });
 A(r3(GO3 + 0.4), "rea", "face", { lid: 0.5, dur: 0.3 });
 A(r3(GO3 + 0.04), "vik", "lean", { to: 6, dur: 0.15 });
 see(r3(GO3 + 0.1), FREEZE, ["st3", "wiz.face", "vik.face", "rea"], "panel 05: the streak to the horizon, the wheat flattened, the friends shielding their faces");
-// the title card: the picture freezes on the blast for 1.0 s of video
-c.at(FREEZE, { fx: "freeze", hold: HOLD, push: 0.035, tone: false, flash: 0 });
-cap(FREEZE, r3(FREEZE + 0.02), "WHAT IF YOUR COMPETITIVE FRIEND COULD RUN AT LIGHT SPEED?", 470, false, { size: 84, kinetic: false });   // whole at once: the story clock stands still under it
+// the 10x blast in slow motion (the old title card's place; no title mid-video): the streak, the flying hat, the
+// shielded faces, the sparks, 0.6 s of story over 1.6 s of video
+c.at(SLOW.at, { fx: "ramp", ...SLOW });
 
 // ================================================================ 6 SNAP 2: BACK 10.3-12.5 (panel 06)
 // He went round the planet: the streak comes in from behind the camera and Samurai skids to a stop facing us in a
@@ -514,7 +519,7 @@ const SH = {
   chase: { pos: [-0.45, 2.6, 10.2], look: [0.15, -0.4, -3.6], fov: 32 },   // panel 04
   glare: { pos: [0.1, 1.3, 6.5], look: [0.0, 0.55, -3.0], fov: 38 },                    // the car's front, Samurai at the post (a step back: Viking's head was cut by the left edge)
   world: { pos: [1.4, 1.5, 7.2], look: [0.35, 0.55, 0.6], fov: 34 },                    // the challenge
-  blast: { pos: [0.05, 1.5, 7.2], look: [0.1, 0.3, -3], fov: 46 },   // panel 05: the title card frame. Low and straight down the road like the painting: from higher up the camera saw over the painted wheat bank onto its bare floor
+  blast: { pos: [0.05, 1.5, 7.2], look: [0.1, 0.3, -3], fov: 46 },   // panel 05: the cover frame. Low and straight down the road like the painting: from higher up the camera saw over the painted wheat bank onto its bare floor
   back: { pos: [0.1, 0.62, 5.5], look: [0.1, 0.62, 0], fov: 34 },                       // panel 06: low, Samurai fills it
   reveal: { pos: [0.05, 2.4, 4.0], look: [0.05, 0.0, -2.4], fov: 62, to: { pos: [0.05, 2.4, 4.0], look: [0.05, 0.0, -2.4], fov: 52 }, dur: 1.1, ease: "inOut" },   // pushes in (review B: the faces were small)                   // panel 07: what he sees, the car whole and all three inside the safe zone
   line: { pos: [0.5, 1.4, 3.9], look: [0.5, 1.0, -0.7], fov: 42 },                      // old Viking beside the unchanged Reaper (review A: the Reaper was half out of the wide)
@@ -524,7 +529,7 @@ const SH = {
 // ================================================================ THE COMMENTATOR (default; --no-vo leaves it out)
 // The voice "narrator" (engine/voice/voices.json: VoxCPM2 on Reaper's reference, "intrigued, mysterious, slow
 // storyteller"), Jonny's pick for the What if commentator (EP01's commentator cut, make-pause-time.mjs --vo). Each line
-// sits where nobody speaks: after the first "GO!", after the car loses, on the title card, at the reveal, and the
+// sits where nobody speaks: after the first "GO!", after the car loses, over the slow motion, at the reveal, and the
 // closing question (its caption is already on screen). The takes: 4 reads of each line; kept is the one Whisper heard
 // word for word with the closest speaker match (ECAPA cosine 0.44-0.55) to the read Jonny picked (project files
 // audio/premise-voice-01/1-deep-storyteller.mp3) among the reads that fit the gap. "Sounds perfect, right?" is EP01's
@@ -532,11 +537,11 @@ const SH = {
 // cut trim below, so a voiceover's subtitle runs on across a cut.
 const NARR = !VO ? [] : [
   // [story s, line, take, spoken s, subtitle until | false, gain]. Gains from qa/lines.mjs (phone speaker, +3 dB over
-  // the rest at least): the first two sit in the streak's wind gusts (set life), so they are lifted most and the
+  // the rest at least): the first three sit in the streak's wind gusts (set life), so they are lifted most and the
   // ambience goes 0.5 -> 0.3 with the voiceover (the music and the hits under them barely count)
   [1.50, "He never loses.", 4, 1.15, false, 2.4],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
   [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 2.4],          // the roadster slides in after him; on over the glare cut
-  [FREEZE, "Sounds perfect, right?", 3, 1.56, false, 1.2],            // the title card (EP01's line and read); the title fills the top
+  [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, 3.0],           // over the slow motion (video 9.4-11.0; EP01's line and read), in the 10x blast's wind (+7 dB on a phone at 3.0). No subtitle, as on EP01's title card
   [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), 1.2],   // the reveal, before old Viking's "...you won."
   [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, 0.9],    // the closing question (its caption is on screen)
 ];
@@ -555,14 +560,14 @@ const beats = c.beats([
   ["demo 2: the race", CHASE, SH.chase],
   ["demo 2: the glare", GLARE, SH.glare, "reaction"],
   ["demo 3: around the world", WORLD, SH.world],
-  ["demo 3: the blast (title card)", BLAST, SH.blast, "reveal"],
+  ["demo 3: the blast (slow motion)", BLAST, SH.blast, "reveal"],
   ["snap 2: back, WON!", BACK, SH.back],
   ["twist: sixty years later", REVEAL, SH.reveal, "payoff"],
   ["twist: ...you won.", LINE, SH.line, "reaction"],
   ["twist: his face", STARE, SH.stare, "reaction"],
   ["would you still want to win?", QUESTION, SH.question, "reaction"],
 ], END);
-// a caption gives way at each cut it would run over (except the title card's freeze)
+// a caption gives way at each cut it would run over
 for (const cp of c.captions) for (const cut of [VICTIM, AGAIN, CAR, CHASE, GLARE, WORLD, BLAST, BACK, REVEAL, LINE, STARE, QUESTION]) if (cp.from < cut - 0.05 && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
 for (const [t, line, , , until] of NARR) if (until) cap(t, until, line, 470, false, { kinetic: false });   // the commentator's subtitles (above)
 
@@ -579,8 +584,10 @@ const allowClip = [
   { who: "wizo", with: "stickW", from: SWAP, to: END, reason: "his glove rests on the knob of his walking stick" },
 ];
 
-// check windows are on the video clock at gate 1 (qa/gate.mjs windowFor): past the title card's freeze, story + 1.0
-const VT = (story) => r3(story <= FREEZE ? story : story + HOLD);
+// check windows are on the video clock at gate 1 (qa/gate.mjs windowFor): through the slow motion, then story + 1.0
+const SLOW_CLOCK = holdsOf({ fps: 30, fx: [{ do: "ramp", ...SLOW }] });
+if (Math.abs(renderTime(SLOW_CLOCK, FREEZE) - (FREEZE + HOLD)) > 1e-6) throw new Error("the slow motion must add exactly HOLD");
+const VT = (story) => r3(renderTime(SLOW_CLOCK, story));
 for (const w of allowClip) { w.from = VT(w.from); w.to = VT(w.to); }
 
 write(import.meta.url, {
