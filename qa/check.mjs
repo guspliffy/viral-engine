@@ -45,6 +45,7 @@ export const RULES = {
   whiteY: 235, // a frame whose darkest pixel is this bright (0..255) is a blank white frame
   blackY: 20, // a frame whose brightest pixel is this dark is an empty black frame
   lufs: [-15.5, -12.5], truePeakMax: -1.0, silentLUFS: -40,
+  dropoutLUFS: -50, dropoutHold: 1.0, // momentary loudness under this for this long inside the clip: the sound dropped out
   coverWarn: 0.08, coverFail: 0.25, coverFailHold: 0.5, // share of a caption hidden by characters; fail if held 0.5 s
   stillDiff: 0.35, // mean |dY| per frame below which the picture counts as still
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
@@ -121,7 +122,7 @@ export const PROFILES = {
 };
 
 // which group each check belongs to (anything not listed is technical)
-const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "cartoon-only": "publishing",
+const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "caption-band": "publishing", "cartoon-only": "publishing",
   opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
   "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative", pace: "creative",
   frozen: "creative", visible: "creative", camera: "creative" };
@@ -558,6 +559,22 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
       const ok = I >= RULES.lufs[0] && I <= RULES.lufs[1];
       add(ok ? "pass" : "fail", "loudness", `${I.toFixed(1)} LUFS (target ${RULES.lufs.join("..")})`);
       add(TP <= RULES.truePeakMax ? "pass" : "fail", "true-peak", `${TP.toFixed(1)} dBTP (max ${RULES.truePeakMax})`);
+      // a stretch of silence inside the clip: a NaN gain in Never Has Money 04 (8 Nov) turned the effects and the music
+      // silent from 4.0 s, and the whole-clip loudness above still passed. Momentary loudness (a 400 ms window, read
+      // every 100 ms) under dropoutLUFS for dropoutHold s or more fails. The first 0.4 s (the window filling) and the
+      // last 0.3 s (the fade) don't count
+      const M = [...e.matchAll(/\bt:\s*([\d.]+)\s+TARGET:\S+\s+LUFS\s+M:\s*(\S+)/g)].map((m) => [Number(m[1]), Number(m[2])]);
+      const end = (M.length ? M[M.length - 1][0] : 0) - 0.3, runs = [];
+      let run = null;
+      for (const [t, m] of M) {
+        if (t < 0.45 || t > end) continue;
+        if (!(m >= RULES.dropoutLUFS)) { if (!run) run = { from: Math.max(0, t - 0.4), to: t, low: m }; run.to = t; if (!(m >= run.low)) run.low = m; }
+        else if (run) { runs.push(run); run = null; }
+      }
+      if (run) runs.push(run);
+      const gaps = runs.filter((r) => r.to - r.from + 1e-6 >= RULES.dropoutHold);
+      if (gaps.length) add("fail", "audio-dropout", `the sound goes silent at ${gaps.map((r) => `${r.from.toFixed(1)}-${r.to.toFixed(1)} s`).join(", ")} (momentary loudness under ${RULES.dropoutLUFS} LUFS): look for a NaN or a muted bus in the mix (the render prints "sound:" lines), or a deliberate silence that needs a quiet bed under it`);
+      else if (M.length) add("pass", "audio-dropout", `no silent stretch of ${RULES.dropoutHold} s or more inside the clip`);
     }
   }
 
@@ -608,45 +625,64 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     else add("pass", "cartoon-only", "no graphic-looking effects");
   }
 
-  // --- captions: inside the safe zone, not hidden behind characters
+  // --- captions: inside the safe zone and the brief's band, not hidden behind characters
   if (layout) {
-    const { x0, y0, x1, y1 } = RULES.safe, outside = new Map(), held = new Map(), worst = new Map();
-    const step = layout.samples.length > 1 ? layout.samples[1].t - layout.samples[0].t : 0.1;
-    for (const s of layout.samples) {
-      (s.captions || []).forEach((c, i) => {
-        const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
-        const [x, y, w, h] = box;
-        if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
-        if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
-        let cov = c.covered;
-        if (cov == null) { // fallback: share of the caption box inside any character box
-          cov = 0;
-          for (const ac of s.actors || []) {
-            if (!ac.box) continue;
-            const [ax, ay, aw, ah] = ac.box, ix = Math.max(0, Math.min(x + w, ax + aw) - Math.max(x, ax)), iy = Math.max(0, Math.min(y + h, ay + ah) - Math.max(y, ay));
-            cov = Math.max(cov, (ix * iy) / (w * h));
-          }
-        }
-        const wv = worst.get(key); if (!wv || cov > wv.cov) worst.set(key, { cov, t: s.t, fallback: c.covered == null });
-        const hd = held.get(key) || { run: 0, max: 0, at: null };
-        if (cov > RULES.coverFail) { hd.run += step; if (hd.run > hd.max) { hd.max = hd.run; hd.at = s.t; } } else hd.run = 0;
-        held.set(key, hd);
-      });
-    }
     // characters passing through props or each other (layout "clips", from the 3D engine)
     for (const r of clipResults(sb, layout)) add(r.level, r.check, r.msg);
     for (const r of contactResults(layout, sb)) add(r.level, r.check, r.msg);
-    for (const [k, t] of outside) add("fail", "caption-safe-zone", `"${k}" leaves the safe zone at ${t.toFixed(2)}s: the app's buttons and text cover it there`);
-    if (!outside.size && worst.size) add("pass", "caption-safe-zone", "every caption stays clear of the app's buttons and text");
-    for (const [k, w] of worst) {
-      const hd = held.get(k), msg = `"${k}": up to ${(w.cov * 100).toFixed(0)}% hidden behind characters at ${w.t.toFixed(2)}s${w.fallback ? " (box estimate)" : ""}`;
-      if (hd.max + 1e-6 >= RULES.coverFailHold) add(w.fallback ? "warn" : "fail", "caption-overlap", `${msg}, held ${hd.max.toFixed(1)}s`);
-      else if (w.cov > RULES.coverWarn) add("warn", "caption-overlap", msg);
-      else add("pass", "caption-overlap", msg);
-    }
-    if (!worst.size) add("pass", "captions", "no captions");
+    for (const r of captionResults(sb, layout)) add(r.level, r.check, r.msg);
   } else add("warn", "captions", "no layout file, caption placement not checked");
   return res;
+}
+
+// Captions judged from the layout alone (no pixels), so qa/preflight.mjs runs them before any render: all three
+// Never Has Money 04 builds (8 Nov) lost a draft render and a check round to a subtitle over a face or outside the
+// brief's band, which only the check on a rendered draft used to find.
+//   caption-safe-zone  a caption leaves RULES.safe (the app's buttons and text cover it there): fail
+//   caption-band       a subtitle (not a text pop or a card) leaves the storyboard's "captionBand": [top, bottom]
+//                      (y px; Jonny's series briefs: [470, 1360]): fail. Without the field it isn't checked
+//   caption-overlap    characters cover over coverFail of a caption for coverFailHold s: fail; over coverWarn: warn
+export function captionResults(sb, layout) {
+  const out = [], add = (level, check, msg) => out.push({ level, check, msg });
+  if (!layout?.samples?.length) return out;
+  const { x0, y0, x1, y1 } = RULES.safe, outside = new Map(), held = new Map(), worst = new Map(), band = new Map();
+  const B = Array.isArray(sb?.captionBand) && sb.captionBand.length === 2 ? sb.captionBand.map(Number) : null;
+  const step = layout.samples.length > 1 ? layout.samples[1].t - layout.samples[0].t : 0.1;
+  for (const s of layout.samples) {
+    (s.captions || []).forEach((c, i) => {
+      const box = Array.isArray(c) ? c : c.box, key = (c.text || `caption ${i + 1}`).slice(0, 40);
+      const [x, y, w, h] = box;
+      if (x < x0 || y < y0 || x + w > x1 || y + h > y1) if (!outside.has(key)) outside.set(key, s.t);
+      if (c.pop || c.card) return;   // a text pop sits beside its character on purpose, a card or the HUD over the action
+      // (12 px of slack: the box carries its padding, about 6 px above a line set at the band's top)
+      if (B && (y < B[0] - 12 || y + h > B[1] + 12) && !band.has(key)) band.set(key, { t: s.t, top: y, bottom: y + h });
+      let cov = c.covered;
+      if (cov == null) { // fallback: share of the caption box inside any character box
+        cov = 0;
+        for (const ac of s.actors || []) {
+          if (!ac.box) continue;
+          const [ax, ay, aw, ah] = ac.box, ix = Math.max(0, Math.min(x + w, ax + aw) - Math.max(x, ax)), iy = Math.max(0, Math.min(y + h, ay + ah) - Math.max(y, ay));
+          cov = Math.max(cov, (ix * iy) / (w * h));
+        }
+      }
+      const wv = worst.get(key); if (!wv || cov > wv.cov) worst.set(key, { cov, t: s.t, fallback: c.covered == null });
+      const hd = held.get(key) || { run: 0, max: 0, at: null };
+      if (cov > RULES.coverFail) { hd.run += step; if (hd.run > hd.max) { hd.max = hd.run; hd.at = s.t; } } else hd.run = 0;
+      held.set(key, hd);
+    });
+  }
+  for (const [k, t] of outside) add("fail", "caption-safe-zone", `"${k}" leaves the safe zone at ${t.toFixed(2)}s: the app's buttons and text cover it there`);
+  if (!outside.size && worst.size) add("pass", "caption-safe-zone", "every caption stays clear of the app's buttons and text");
+  for (const [k, b] of band) add("fail", "caption-band", `"${k}" sits at y ${Math.round(b.top)}-${Math.round(b.bottom)} at ${b.t.toFixed(2)}s, outside the brief's subtitle band y ${B[0]}-${B[1]} ("captionBand"): move its pos (the caption's top y)`);
+  if (B && !band.size && worst.size) add("pass", "caption-band", `every subtitle inside y ${B[0]}-${B[1]}`);
+  for (const [k, w] of worst) {
+    const hd = held.get(k), msg = `"${k}": up to ${(w.cov * 100).toFixed(0)}% hidden behind characters at ${w.t.toFixed(2)}s${w.fallback ? " (box estimate)" : ""}`;
+    if (hd.max + 1e-6 >= RULES.coverFailHold) add(w.fallback ? "warn" : "fail", "caption-overlap", `${msg}, held ${hd.max.toFixed(1)}s`);
+    else if (w.cov > RULES.coverWarn) add("warn", "caption-overlap", msg);
+    else add("pass", "caption-overlap", msg);
+  }
+  if (!worst.size) add("pass", "captions", "no captions");
+  return out;
 }
 
 // everything the render gate judges from a layout (engine/render.mjs contactGate): contacts, grips, the drawn rig, the
