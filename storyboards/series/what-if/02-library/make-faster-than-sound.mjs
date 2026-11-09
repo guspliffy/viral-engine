@@ -163,7 +163,7 @@ A(0, "sor", "expr", { expr: "annoyed", dur: 0.01 });
 c.arm(0, "sor", "R", { x: [-0.03, 0.34, 0.4] }, 0.01); c.arm(0, "sor", "L", { x: [0.2, 0.37, 0.3] }, 0.01);   // his other hand on the desk   // finger at his lips, under his eyes A(0, "sor", "grip", { side: "R", shape: "point", dur: 0.01 });
 c.say(0, "sor", "SHHH!", 0.6, "whisper", { pos: SUB_HI });
 c.arm(0.6, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(0.95, "sor", "R", { x: [-0.2, 0.37, 0.3] }, 0.35, "inOut"); A(0.95, "sor", "grip", { side: "R", shape: "relaxed", dur: 0.3 });   // down and out past his chin, then back on his desk (clear of his eyes; a "rest" hand would go through the desk)
-cap(0, 0.97, "Too hyper for a library?", 210);   // over the sign (panel 01: the sign 0.13-0.28 down), clear of it
+cap(0, 0.97, "Too hyper for a library?", 245);   // over the sign (panel 01: the sign 0.13-0.28 down), clear of it
 c.say(0.25, "phx", "I'll be quiet!", 0.5, "whisper", { pos: SUB });
 see(0, 0.95, ["phx.face", "rea.face", "sor.face", TW(TOWER_N - 1)], "frame 0: the hyper friend bouncing in the library, the librarian's shush, Reaper's tower");
 // the tower wobbles: from his bouncing (0-0.9) and again as Reaper looks up at it (1.6-2.1, the stakes); the top
@@ -300,7 +300,7 @@ c.arm(11.3, "sor", "R", { x: [-0.24, 0.36, 0.42] }, 0.35, "inOut"); c.arm(11.65,
 for (const w of ["phx", "rea", "sor"]) A(12.2, w, "still", { dur: 1.25, idle: 0.04 });
 see(TRIP3[1], S_CLOCK, ["phx.face", "rea.face", "sor.face"], "he sits perfectly quiet; they nod, relieved");
 // the clock (STAND-IN until the longcase clock is built: the shot frames where it will stand)
-TICKS.forEach((t, k) => sfx(t, k % 2 ? "hit-wood" : "ai/fingertip-catch", { gain: r3(Math.min(1, (k % 2 ? 0.6 : 0.35) + k * 0.2)), reason: `the longcase clock: ${k % 2 ? "tock" : "tick"}, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
+TICKS.forEach((t, k) => sfx(t, k % 2 ? "seatclack" : "ai/fingertip-catch", { gain: r3(Math.min(1, (k % 2 ? 0.6 : 0.35) + k * 0.2)), reason: `the longcase clock: ${k % 2 ? "tock" : "tick"}, louder each time (${k + 1} of ${TICKS.length}): the calm has a fuse` }));
 sfx(13.05, "rumble", { gain: 0.5, reason: "the breath before it: a low rumble under the ticks" });
 A(13.1, "phx", "look", { to: [0.4, 0.3], dur: 0.2, blink: false }); A(13.15, "phx", "face", { lid: 0, dur: 0.15 });
 A(13.15, "rea", "face", { lid: 0.3, dur: 0.15 });
@@ -317,6 +317,21 @@ sfx(r3(BOOM + 0.02), "thud", { gain: 0.8, reason: "the boom's body" });
 sfx(r3(BOOM + 0.1), "kenney/impact-glass-light", { gain: 0.4, reason: "the windows rattle" });
 FX.push({ at: BOOM, do: "cel", kind: "ring", pos: [TABLE[0], 1.0, -2.5], size: 4, dur: 0.6, palette: "energy" });
 c.at(BOOM, { fx: "shake", dur: 0.5, amp: 0.03 });
+// every book off every shelf (props-whatif-blast.js): the shelves hand their books to the storm on the boom's frame
+props.push(
+  { id: "storm", kind: "bookstorm", x: 0, y: 0, z: 0, rot: 0, t0: BOOM, staged: "flies from the shelves; rests on the floor",
+    stacks: SHELVES.map(({ x, z, rot, l, h, d, shelves, seed }) => ({ x, z, rot, l, h, d, shelves, seed })),
+    keepout: [[PHX_SEAT[0], PHX_SEAT[1], 0.4], [REA[0], REA[1], 0.4], [SOR[0], SOR[1], 0.55], [CLOCK[0], CLOCK[1], 0.3]],
+    boxes: [[TABLE[0], TABLE[1], TABLE_W, TABLE_D, TABLE_Y], [DAIS[0], DAIS[1], 2.4, 1.6, DAIS_H], [DESK[0], DESK[1], 2.0, 0.7, r3(DAIS_H + DESK_H)],
+      ...TABLES2.map(([x, z]) => [x, z, 1.5, 0.8, TABLE_Y])] },
+  { id: "pages", kind: "pagefall", x: 0, y: 0, z: 0, rot: 0, t0: 14.6, dur: r3(END - 14.6), box: [-2.6, 1.6, 5.0, -2.6, 0.9], floorY: 0, staged: "falls from above the frame" },
+  // panel 08: the heap round the two seats, up to Reaper's hood behind them, the seats themselves clear
+  { id: "pile", kind: "bookpile", x: 0, y: 0, z: 0, rot: 0, fill: 0, staged: "rests on the floor round the seats",
+    mounds: [{ x: -0.6, z: -1.75, r: 1.45, h: 1.0 }, { x: -2.15, z: -0.75, r: 0.8, h: 0.6 }, { x: 0.95, z: -0.75, r: 0.8, h: 0.6 }, { x: -0.7, z: 1.0, r: 1.0, h: 0.3 }],
+    holes: [[PHX_SEAT[0], PHX_SEAT[1], 0.38], [REA[0], REA[1], 0.38]] },
+);
+for (const sh of SHELVES) c.prop(BOOM, sh.id, { bare: 1 }, 0);
+c.prop(14.5, "pile", { fill: 0.6 }, 0.6, "linear"); c.prop(15.1, "pile", { fill: 1 }, 0.8, "out");   // as the books rain down (14.6)
 swing(BOOM, "sign", 72, 3.0); swing(BOOM, "lampL", 40, 3.0); swing(r3(BOOM + 0.02), "lampR", 36, 3.0);   // the sign swings up on its chains (panel 07)
 TOWER_N && Array.from({ length: TOWER_N }, (_, i) => i).forEach((i) => {
   const a = (i * 2.399) % (2 * Math.PI), up = 1.6 + (i % 4) * 0.5;
@@ -374,6 +389,8 @@ const allowClip = [
   { who: "phx", from: 0.5, to: 0.66, checks: ["rig-jump"], reason: "the second hop's takeoff: the body leaves the crouch fast (a hop, 15 fps strip checked 9 Nov)" },
   { who: "sor", from: r3(S_LAPS - 0.02), to: 7.7, checks: ["face-hidden", "front"], reason: "his anger is done; the laps shot is Phoenix's grin with the librarian hidden behind him on purpose (the space above for the lines)" },
   { who: "rea", with: "page", from: r3(S_AFTER - 0.05), to: r3(END + 0.2), reason: "the blast stuck a page over half his face (panel 08)" },
+  { who: "rea", with: "ring", from: TRIP3[0], to: S_SIT, reason: "the ring of flame runs round him on the floor (light and blown paper, no body): the check sees the ring's whole box round him (panel 05)" },
+  { who: "phx", with: `streak${STREAKS}`, from: r3(S_SIT - 0.02), to: 11.45, reason: "his arrival trail ends where he stops in his seat (light, no body)" },
   ...["phx", "rea", "sor"].flatMap((who) => [{ who, with: "beam", from: 0, to: END, reason: "the sunbeam is light" }, { who, with: "dust", from: 0, to: END, reason: "dust motes in the air" }]),
 ];
 

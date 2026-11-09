@@ -1183,6 +1183,198 @@
    "t": 0,
    "fade": 1,
    "staged": "light in the air: the trail he leaves"
+  },
+  {
+   "id": "storm",
+   "kind": "bookstorm",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t0": 13.5,
+   "staged": "flies from the shelves; rests on the floor",
+   "stacks": [
+    {
+     "x": -1.9,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 3
+    },
+    {
+     "x": -0.2,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 14
+    },
+    {
+     "x": 1.5,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 25
+    },
+    {
+     "x": 3.2,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 36
+    }
+   ],
+   "keepout": [
+    [
+     -1.25,
+     -0.72,
+     0.4
+    ],
+    [
+     0.05,
+     -0.72,
+     0.4
+    ],
+    [
+     -0.4,
+     -5.5,
+     0.55
+    ],
+    [
+     -1.85,
+     -6.05,
+     0.3
+    ]
+   ],
+   "boxes": [
+    [
+     -0.7,
+     0,
+     1.7,
+     0.8,
+     0.62
+    ],
+    [
+     -0.4,
+     -5.35,
+     2.4,
+     1.6,
+     0.5
+    ],
+    [
+     -0.4,
+     -5,
+     2,
+     0.7,
+     0.95
+    ],
+    [
+     -3.4,
+     -2.2,
+     1.5,
+     0.8,
+     0.62
+    ],
+    [
+     2.9,
+     -1.2,
+     1.5,
+     0.8,
+     0.62
+    ],
+    [
+     -3.6,
+     1.9,
+     1.5,
+     0.8,
+     0.62
+    ],
+    [
+     3,
+     2.6,
+     1.5,
+     0.8,
+     0.62
+    ]
+   ]
+  },
+  {
+   "id": "pages",
+   "kind": "pagefall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t0": 14.6,
+   "dur": 4.3,
+   "box": [
+    -2.6,
+    1.6,
+    5,
+    -2.6,
+    0.9
+   ],
+   "floorY": 0,
+   "staged": "falls from above the frame"
+  },
+  {
+   "id": "pile",
+   "kind": "bookpile",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "fill": 0,
+   "staged": "rests on the floor round the seats",
+   "mounds": [
+    {
+     "x": -0.6,
+     "z": -1.75,
+     "r": 1.45,
+     "h": 1
+    },
+    {
+     "x": -2.15,
+     "z": -0.75,
+     "r": 0.8,
+     "h": 0.6
+    },
+    {
+     "x": 0.95,
+     "z": -0.75,
+     "r": 0.8,
+     "h": 0.6
+    },
+    {
+     "x": -0.7,
+     "z": 1,
+     "r": 1,
+     "h": 0.3
+    }
+   ],
+   "holes": [
+    [
+     -1.25,
+     -0.72,
+     0.38
+    ],
+    [
+     0.05,
+     -0.72,
+     0.38
+    ]
+   ]
   }
  ],
  "captions": [
@@ -1199,7 +1391,7 @@
    "from": 0,
    "to": 0.97,
    "text": "Too hyper for a library?",
-   "pos": 210,
+   "pos": 245,
    "pop": false
   },
   {
@@ -4256,7 +4448,7 @@
    },
    "do": [
     {
-     "sfx": "hit-wood",
+     "sfx": "seatclack",
      "gain": 0.8,
      "reason": "the longcase clock: tock, louder each time (2 of 4): the calm has a fuse",
      "at": 0.15
@@ -4320,7 +4512,7 @@
      "at": 0.4
     },
     {
-     "sfx": "hit-wood",
+     "sfx": "seatclack",
      "gain": 1,
      "reason": "the longcase clock: tock, louder each time (4 of 4): the calm has a fuse",
      "at": 0.55
@@ -4397,6 +4589,46 @@
      "fx": "shake",
      "dur": 0.5,
      "amp": 0.03,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh0",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh1",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh2",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh3",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -5053,6 +5285,16 @@
      "at": 0.9
     },
     {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "fill": 0.6
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 1
+    },
+    {
      "sfx": "crumble",
      "gain": 0.7,
      "reason": "books raining down onto the floor and the table",
@@ -5209,6 +5451,16 @@
      "dur": 0.35,
      "ease": "out",
      "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 1.6
     },
     {
      "who": "phx",
@@ -5673,6 +5925,20 @@
    "from": 15.95,
    "to": 19.1,
    "reason": "the blast stuck a page over half his face (panel 08)"
+  },
+  {
+   "who": "rea",
+   "with": "ring",
+   "from": 8,
+   "to": 11,
+   "reason": "the ring of flame runs round him on the floor (light and blown paper, no body): the check sees the ring's whole box round him (panel 05)"
+  },
+  {
+   "who": "phx",
+   "with": "streak6",
+   "from": 10.98,
+   "to": 11.45,
+   "reason": "his arrival trail ends where he stops in his seat (light, no body)"
   },
   {
    "who": "phx",
