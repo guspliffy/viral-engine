@@ -1,0 +1,4704 @@
+{
+ "id": "gunslinger-viking",
+ "title": "Share or Steal 01: Gunslinger vs Viking",
+ "idea": "A trust game over a deep fryer: Gunslinger begs, Viking shares, Gunslinger steals; Viking's chair tips back through the trapdoor",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  240,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#0c0b11",
+  "floor": "#141219",
+  "night": true,
+  "para": 0,
+  "bloom": "emissive",
+  "key": [
+   0.4,
+   5.5,
+   1.6
+  ],
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sos-tension/sos-tension-01.ogg",
+  "gain": 0.36,
+  "lowCut": 100,
+  "duck": {
+   "db": 9
+  },
+  "until": 17.13,
+  "then": {
+   "file": "ai/sos-warm/sos-warm-01.ogg",
+   "from": 17.13,
+   "until": 18.57,
+   "gain": 0.42
+  }
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.2,
+  "guard": true,
+  "surface": "indoor"
+ },
+ "hook": {
+  "show": [
+   "gsl",
+   "vik",
+   "gold",
+   "fryer"
+  ],
+  "hint": 0,
+  "what": "his mitten is already on the gold between them, the fryer bubbling behind"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    -0.707,
+    -0.843
+   ],
+   "face": 40,
+   "expr": "eager",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "vik",
+   "character": "always-orders-potatoes/viking",
+   "at": [
+    0.707,
+    -0.843
+   ],
+   "face": -40,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "studio",
+   "kind": "ssstudio",
+   "x": 0,
+   "z": 0,
+   "dim": 0
+  },
+  {
+   "id": "fryer",
+   "kind": "ssfryer",
+   "x": 0,
+   "z": -1.85,
+   "w": 1.3,
+   "d": 0.75,
+   "h": 1,
+   "castLight": 1,
+   "haze": 0.6,
+   "churn": 0.3
+  },
+  {
+   "id": "oil",
+   "kind": "fryoil",
+   "x": 0,
+   "y": 0.92,
+   "z": -1.85,
+   "w": 1.18,
+   "d": 0.62
+  },
+  {
+   "id": "table",
+   "kind": "sostable",
+   "x": 0,
+   "z": 0,
+   "rot": 45,
+   "r": 0.6,
+   "h": 0.62
+  },
+  {
+   "id": "gold",
+   "kind": "goldpile",
+   "x": 0,
+   "y": 0.622,
+   "z": 0.02,
+   "scale": 0.8
+  },
+  {
+   "id": "chairG",
+   "kind": "sschair",
+   "x": -0.707,
+   "z": -0.843,
+   "rot": 40,
+   "tip": 0
+  },
+  {
+   "id": "chairV",
+   "kind": "sschair",
+   "x": 0.707,
+   "z": -0.843,
+   "rot": -40,
+   "tip": 0
+  },
+  {
+   "id": "trapG",
+   "kind": "sstrap",
+   "x": -1.157,
+   "z": -1.379,
+   "rot": 40,
+   "open": 0,
+   "warn": 0,
+   "steam": 0,
+   "rise": 0
+  },
+  {
+   "id": "trapV",
+   "kind": "sstrap",
+   "x": 1.157,
+   "z": -1.379,
+   "rot": -40,
+   "open": 0,
+   "warn": 0,
+   "steam": 0,
+   "rise": 0
+  },
+  {
+   "id": "gSteal",
+   "kind": "sscard",
+   "face": "steal",
+   "x": -0.298,
+   "y": 0.621,
+   "z": -0.201,
+   "rot": 0,
+   "scale": 0.75,
+   "flip": 0,
+   "glow": 0
+  },
+  {
+   "id": "gShare",
+   "kind": "sscard",
+   "face": "share",
+   "x": -0.146,
+   "y": 0.621,
+   "z": -0.329,
+   "rot": 0,
+   "scale": 0.75,
+   "flip": 0,
+   "glow": 0
+  },
+  {
+   "id": "vShare",
+   "kind": "sscard",
+   "face": "share",
+   "x": 0.298,
+   "y": 0.621,
+   "z": -0.201,
+   "rot": 0,
+   "scale": 0.75,
+   "flip": 0,
+   "glow": 0
+  },
+  {
+   "id": "vSteal",
+   "kind": "sscard",
+   "face": "steal",
+   "x": 0.146,
+   "y": 0.621,
+   "z": -0.329,
+   "rot": 0,
+   "scale": 0.75,
+   "flip": 0,
+   "glow": 0
+  },
+  {
+   "id": "wallet",
+   "kind": "wallet",
+   "x": -1.614,
+   "y": 0.28,
+   "z": 0.044,
+   "rot": 130,
+   "open": 0,
+   "staged": "down in his holster (part of his costume) until he draws it",
+   "scale": 0.001
+  },
+  {
+   "id": "moth",
+   "kind": "mott",
+   "wear": "gsl",
+   "x": 0,
+   "y": 0.6,
+   "z": 0.5,
+   "r": 0.045,
+   "scale": 0.001,
+   "open": 0,
+   "flap": 0,
+   "bob": 0,
+   "hope": 0.6,
+   "lookX": 0,
+   "lookY": 0,
+   "palette": {
+    "fluff": "#f4ead2",
+    "collar": "#e9dcbc",
+    "wing": "#f3e2c4",
+    "band": "201,162,122",
+    "rose": "#c9a27a",
+    "blush": "#efc9b4",
+    "dust": "#e9dcc4"
+   },
+   "staged": "a moth: it flies, then sits on his hat brim (worn)"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.3,
+   "text": "SHARE OR *STEAL*",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 20.75,
+   "to": 22.85,
+   "text": "Gunslinger spent it all by Friday.",
+   "pos": 300,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 22.9,
+   "to": 24.7,
+   "text": "SHARE… or *STEAL?*",
+   "pos": 300,
+   "pop": true,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 8.25,
+   "to": 9.05,
+   "text": "I'll share, I swear!",
+   "pos": 262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 400
+  },
+  {
+   "from": 9.05,
+   "to": 10.2,
+   "text": "You still owe me 50!",
+   "pos": 262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 400
+  },
+  {
+   "from": 11.71,
+   "to": 12.61,
+   "text": "Look! Nothing!",
+   "pos": 262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 400
+  },
+  {
+   "from": 13.78,
+   "to": 14.53,
+   "text": "PLEASE, brother!",
+   "pos": 262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 400
+  },
+  {
+   "from": 14.53,
+   "to": 15.38,
+   "text": "…Okay.",
+   "pos": 262,
+   "pop": false,
+   "size": 62,
+   "kinetic": false,
+   "x": 400
+  },
+  {
+   "from": 18.71,
+   "to": 19.51,
+   "text": "Sorry, buddy.",
+   "pos": 1190,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "hook",
+   "at": 0,
+   "len": 2.35,
+   "shot": {
+    "pos": [
+     0,
+     1.553,
+     4.309
+    ],
+    "look": [
+     0,
+     0.95,
+     -0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0,
+      1.46,
+      3.638
+     ],
+     "look": [
+      0,
+      1.02,
+      -0.55
+     ],
+     "fov": 38
+    },
+    "dur": 2.35
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trapG",
+     "set": {
+      "warn": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "warn": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fryer",
+     "set": {
+      "churn": 0.3
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "dim": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "bubbling",
+     "dur": 24.7,
+     "gain": 0.22,
+     "reason": "the deep fryer bubbling behind the table, the whole clip",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "dur": 16.43,
+     "gain": 0.18,
+     "reason": "the studio's low hum under the game, up to the bell",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "sit",
+     "seat": "chairG",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chairV",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.459,
+       0.655,
+       -0.321
+      ],
+      "palm": [
+       0.459,
+       0.22,
+       -0.321
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.508,
+       0.655,
+       0.237
+      ],
+      "palm": [
+       0.508,
+       0.22,
+       0.237
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.321,
+       0.655,
+       -0.459
+      ],
+      "palm": [
+       0.321,
+       0.22,
+       -0.459
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.12,
+       0.752,
+       -0.127
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.45
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.45,
+      "smirk": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.35
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "One pile of gold. One fryer.",
+     "voice": "narrator-trailer",
+     "style": "deep, dark game-show host, fast and clipped, tense",
+     "take": 0,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.12,
+       0.822,
+       -0.127
+      ]
+     },
+     "dur": 0.43,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "curve": -0.1
+     },
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": -0.15,
+     "lid": 0.25,
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.55,
+     "reason": "Viking's mitten pats down on Gunslinger's on the gold",
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.62
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 0.66
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.66
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.459,
+       0.655,
+       -0.321
+      ],
+      "palm": [
+       0.459,
+       0.22,
+       -0.321
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.74
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.1
+     },
+     "dur": 0.35,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.1,
+     "dur": 0.35,
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.237,
+       0.655,
+       -0.508
+      ],
+      "palm": [
+       -0.237,
+       0.22,
+       -0.508
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 1.79
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 1.79
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "rules",
+   "at": 2.35,
+   "len": 2.25,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Both share, you split it. One steals, the other one fries. Both steal, you both fry.",
+     "voice": "narrator-trailer",
+     "style": "deep, dark game-show host, fast and clipped, tense",
+     "take": 1,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "fx": "rule",
+     "dur": 1.48,
+     "title": "SHARE + SHARE",
+     "text": "Split the gold",
+     "color": "#2fae58",
+     "y": 300,
+     "at": 0
+    },
+    {
+     "fx": "rule",
+     "dur": 1.62,
+     "title": "STEAL + SHARE",
+     "text": "The sharer fries",
+     "color": "#ff8a2a",
+     "y": 300,
+     "at": 1.51
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.15,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.05
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.15,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.1
+    }
+   ]
+  },
+  {
+   "name": "the fryer",
+   "at": 4.6,
+   "len": 1.15,
+   "shot": {
+    "pos": [
+     0,
+     1.796,
+     -0.384
+    ],
+    "look": [
+     0,
+     0.95,
+     -1.85
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0,
+      1.729,
+      -0.501
+     ]
+    },
+    "dur": 0.8
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fryer",
+     "set": {
+      "churn": 0.8
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "sfx": "steam",
+     "gain": 0.25,
+     "reason": "a hiss of steam off the fryer as the host says 'fries'",
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15,
+      "eye": 1.1
+     },
+     "dur": 0.25,
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 0.65
+    },
+    {
+     "fx": "rule",
+     "dur": 2.3,
+     "title": "STEAL + STEAL",
+     "text": "You both fry",
+     "color": "#e0283c",
+     "y": 300,
+     "at": 0.92
+    }
+   ]
+  },
+  {
+   "name": "both fry",
+   "at": 5.75,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fryer",
+     "set": {
+      "churn": 0.3
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "curve": -0.05
+     },
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": -0.1,
+     "lid": 0.25,
+     "dur": 0.3,
+     "at": 1.2
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.3,
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "plea 1",
+   "at": 7.85,
+   "len": 1.15,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "fx": "pop",
+     "text": "10",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.22,
+       0.42,
+       0.32
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.55,
+      "open": 0.2,
+      "raise": 0
+     },
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "I'll share, I swear!",
+     "tone": "excited",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.4,
+       0.55
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "raise": 0.05
+     },
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.35,
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "fx": "pop",
+     "text": "9",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0.858
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.858
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.12,
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "you owe me",
+   "at": 9,
+   "len": 1.63,
+   "shot": {
+    "pos": [
+     -0.824,
+     1.34,
+     3.199
+    ],
+    "look": [
+     0.457,
+     1.05,
+     -0.743
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.773,
+      1.328,
+      3.041
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "you still owe me fifty!",
+     "tone": "calm",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.48,
+       0.55
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.4,
+       0.55
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.33
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.48,
+       0.55
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "fx": "pop",
+     "text": "8",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0.566
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.566
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.4,
+       0.55
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.63
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.67
+    },
+    {
+     "who": "gsl",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "gsl",
+     "do": "stand",
+     "dur": 0.22,
+     "at": 0.75
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.459,
+       0.655,
+       -0.321
+      ],
+      "palm": [
+       0.459,
+       0.22,
+       -0.321
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      -1.21,
+      -0.19
+     ],
+     "dur": 0.66,
+     "steps": 5,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 1.05
+    },
+    {
+     "fx": "pop",
+     "text": "7",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 1.424
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 1.424
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0,
+      "curve": 0.15,
+      "pucker": 0.6
+     },
+     "dur": 0.12,
+     "at": 1.6
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       0.95,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 1.6
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 1.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.25,
+      0.35
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.61
+    }
+   ]
+  },
+  {
+   "name": "plea 2",
+   "at": 10.63,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     -0.305,
+     0.8,
+     3.503
+    ],
+    "look": [
+     -1.09,
+     0.8,
+     -0.19
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his hat",
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.95,
+       0.08
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      0.3
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.24,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.12
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.12
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his chest",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.2,
+       0.38,
+       0.34
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.21
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.21
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.24,
+       0.38,
+       0.3
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.28
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his chest",
+     "at": 0.35
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.38,
+       0.34
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.36
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       0.33,
+       0.22
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.42
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.15
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.43
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       0.3,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "in",
+     "at": 0.46
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his hip",
+     "at": 0.5
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.07,
+       0.3,
+       0
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.33,
+       0.22
+      ]
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.07,
+       0.32,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.32,
+       -0.22
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.06,
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.33,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.57
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.2
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his back pocket",
+     "at": 0.65
+    },
+    {
+     "fx": "pop",
+     "text": "6",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0.652
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.652
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.32,
+       -0.22
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.66
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.66
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       0.14,
+       0.075
+      ]
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.72
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.07,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "reason": "the top of the wallet shows in the holster as his hand gets there",
+     "at": 0.78
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "the pocket pat: his glove slaps his holster",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ]
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.015,
+     "dur": 0.06,
+     "at": 0.81
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.03,
+     "at": 0.82
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "wallet",
+     "hand": "R",
+     "grip": [
+      -0.155,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.84
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.976,
+       0.5,
+       0.214
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.84
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "rot": 40
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.84
+    },
+    {
+     "sfx": "kenney/cloth-belt",
+     "gain": 0.55,
+     "reason": "the quick-draw: the wallet out of the leather holster",
+     "at": 0.85
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.35
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0.86
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.08,
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 360
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -0.909,
+       0.4,
+       0.106
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 320
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "sfx": "grab",
+     "gain": 0.45,
+     "reason": "the wallet flipped open: a soft leather flap",
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.18,
+       0.33,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.05,
+      -0.55
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.02
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.15,
+      "pucker": 0
+     },
+     "dur": 0.06,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.04,
+      "y": 0.43,
+      "z": 0.42,
+      "scale": 1
+     },
+     "dur": 0.02,
+     "ease": "inOut",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 1,
+      "flap": 1,
+      "bob": 0.6
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.08,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "sfx": "wings",
+     "gain": 0.12,
+     "dur": 0.6,
+     "reason": "the moth's soft wing beats as it flutters out of the empty wallet",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": -0.08,
+      "y": 0.86,
+      "z": 0.66,
+      "bank": -20
+     },
+     "dur": 0.07,
+     "ease": "out",
+     "at": 1.06
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "look! nothing!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 1.08
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.45
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": -0.36,
+      "y": 1,
+      "z": 0.52,
+      "bank": -30
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.15,
+      0.55
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 1.17
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0,
+      "y": 1.12,
+      "z": 0.64,
+      "bank": 10
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.19
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 1.24
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 1.24
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.46,
+      "y": 1.2200000000000002,
+      "z": 0.32,
+      "bank": 25
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "x": 0.4,
+      "y": 1.12,
+      "z": 0.2,
+      "bank": 0,
+      "bob": 0
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 1.32
+    },
+    {
+     "do": "prop",
+     "id": "moth",
+     "set": {
+      "open": 0,
+      "flap": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.34
+    }
+   ]
+  },
+  {
+   "name": "he softens",
+   "at": 12.08,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     -0.824,
+     1.34,
+     3.199
+    ],
+    "look": [
+     0.457,
+     1.05,
+     -0.743
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.773,
+      1.328,
+      3.041
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wallet",
+      "grip": [
+       -0.155,
+       0,
+       0
+      ],
+      "at": [
+       -1.614,
+       0.28,
+       0.044
+      ]
+     },
+     "dur": 0.32,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.15
+     },
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.15,
+     "brow": 0.15,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "fx": "pop",
+     "text": "5",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0.06
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.06
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 0.12
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.27
+    },
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "wallet",
+     "to": [
+      -1.614,
+      0.28,
+      0.044
+     ],
+     "dur": 0.04,
+     "at": 0.38
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.04,
+     "ease": "in",
+     "reason": "back down in his holster (part of his costume), so it runs with him",
+     "at": 0.44
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -0.317,
+     "dur": 0.137,
+     "ease": "inOut",
+     "at": 0.455
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "tip": 360,
+      "rot": 130
+     },
+     "dur": 0.04,
+     "ease": "inOut",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "plea 3",
+   "at": 12.63,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.03,
+     2.003,
+     7.398
+    ],
+    "look": [
+     -0.03,
+     0.8,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.43,
+      2.003,
+      7.398
+     ],
+     "look": [
+      0.43,
+      0.8,
+      -0.2
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -1.21,
+       -0.19
+      ],
+      [
+       0.005,
+       -1.185,
+       -0.186
+      ],
+      [
+       0.079,
+       -1.187,
+       0.176
+      ],
+      [
+       0.154,
+       -1.08,
+       0.522
+      ],
+      [
+       0.228,
+       -0.875,
+       0.821
+      ],
+      [
+       0.303,
+       -0.59,
+       1.045
+      ],
+      [
+       0.377,
+       -0.251,
+       1.173
+      ],
+      [
+       0.451,
+       0.11,
+       1.195
+      ],
+      [
+       0.526,
+       0.462,
+       1.108
+      ],
+      [
+       0.6,
+       0.771,
+       0.919
+      ],
+      [
+       0.6,
+       0.771,
+       0.919
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       7
+      ],
+      [
+       0.48,
+       7
+      ],
+      [
+       0.6,
+       4
+      ]
+     ],
+     "stride": 2,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 17.184,
+     "dur": 0.075,
+     "ease": "linear",
+     "at": 0.042
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.3,
+     "reason": "he dashes off round the table",
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 34.435,
+     "dur": 0.074,
+     "ease": "linear",
+     "at": 0.117
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 51.834,
+     "dur": 0.075,
+     "ease": "linear",
+     "at": 0.191
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 69.314,
+     "dur": 0.074,
+     "ease": "linear",
+     "at": 0.266
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 86.513,
+     "dur": 0.074,
+     "ease": "linear",
+     "at": 0.34
+    },
+    {
+     "fx": "pop",
+     "text": "4",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ffffff",
+     "at": 0.368
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.4,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.368
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.37
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 0.37
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 103.883,
+     "dur": 0.075,
+     "ease": "linear",
+     "at": 0.414
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 121.452,
+     "dur": 0.074,
+     "ease": "linear",
+     "at": 0.489
+    },
+    {
+     "who": "gsl",
+     "do": "kneel",
+     "dur": 1.79,
+     "blend": 0.4,
+     "at": 0.56
+    },
+    {
+     "who": "gsl",
+     "do": "move",
+     "to": [
+      1.68,
+      -0.2
+     ],
+     "dur": 0.45,
+     "ease": "out",
+     "steps": 0,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.35,
+     "reason": "his knees sliding across the studio floor",
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.4
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "chairV",
+     "set": {
+      "rot": 15
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.25,
+     "reason": "Viking's chair swivels round toward him",
+     "at": 0.8
+    },
+    {
+     "who": "gsl",
+     "do": "pitch",
+     "to": -11,
+     "dur": 0.35,
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.045,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.93
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.045,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "on his knees",
+   "at": 13.63,
+   "len": 1.35,
+   "shot": {
+    "pos": [
+     0.453,
+     -0.439,
+     4.059
+    ],
+    "look": [
+     1.26,
+     0.72,
+     -0.52
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.55,
+      "curve": -0.7
+     },
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.6,
+     "lid": 0.55,
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "pleeease! we're brothers!",
+     "tone": "sad",
+     "dur": 0.85,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.18,
+     "at": 0.15
+    },
+    {
+     "fx": "pop",
+     "text": "3",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ff3b4a",
+     "at": 0.226
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.55,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.226
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.5,
+     "reason": "a heartbeat under the last three seconds",
+     "at": 0.276
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.18,
+     "at": 0.37
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": 0.15
+     },
+     "dur": 0.35,
+     "at": 0.45
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "lid": 0.2,
+     "dur": 0.35,
+     "at": 0.45
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.18,
+     "at": 0.59
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.18,
+     "at": 0.81
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "...okay.",
+     "tone": "sad",
+     "dur": 0.45,
+     "blink": false,
+     "voice": false,
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "fx": "pop",
+     "text": "2",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ff3b4a",
+     "at": 1.084
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.55,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 1.084
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.5,
+     "reason": "a heartbeat under the last three seconds",
+     "at": 1.134
+    },
+    {
+     "who": "gsl",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.22
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -39.088,
+     "dur": 0.209,
+     "ease": "inOut",
+     "at": 1.33
+    }
+   ]
+  },
+  {
+   "name": "scramble back",
+   "at": 14.98,
+   "len": 0.4,
+   "shot": {
+    "pos": [
+     0.43,
+     2.003,
+     7.398
+    ],
+    "look": [
+     0.43,
+     0.8,
+     -0.2
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.3,
+      "open": 0.1
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.2,
+     "lid": 0,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.68,
+       -0.2
+      ],
+      [
+       0.217,
+       0.771,
+       0.919
+      ],
+      [
+       0.279,
+       0.415,
+       1.126
+      ],
+      [
+       0.341,
+       0.009,
+       1.2
+      ],
+      [
+       0.403,
+       -0.397,
+       1.132
+      ],
+      [
+       0.465,
+       -0.757,
+       0.931
+      ],
+      [
+       0.526,
+       -1.027,
+       0.62
+      ],
+      [
+       0.588,
+       -1.177,
+       0.236
+      ],
+      [
+       0.658,
+       -1.187,
+       -0.176
+      ],
+      [
+       0.778,
+       -1.057,
+       -0.567
+      ],
+      [
+       0.85,
+       -0.997,
+       -0.535
+      ]
+     ],
+     "rate": [
+      [
+       0,
+       7
+      ],
+      [
+       0.595,
+       7
+      ],
+      [
+       0.85,
+       2.5
+      ]
+     ],
+     "stride": 2,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "chairV",
+     "set": {
+      "rot": -40
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.1,
+     "lid": 0.1,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -59.824,
+     "dur": 0.062,
+     "ease": "linear",
+     "at": 0.266
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.459,
+       0.655,
+       -0.321
+      ],
+      "palm": [
+       0.459,
+       0.22,
+       -0.321
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.508,
+       0.655,
+       0.237
+      ],
+      "palm": [
+       0.508,
+       0.22,
+       0.237
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -79.67,
+     "dur": 0.062,
+     "ease": "linear",
+     "at": 0.328
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -99.508,
+     "dur": 0.062,
+     "ease": "linear",
+     "at": 0.39
+    }
+   ]
+  },
+  {
+   "name": "the cards",
+   "at": 15.38,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     0,
+     2.96,
+     0.313
+    ],
+    "look": [
+     0,
+     0.64,
+     -0.18
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -119.176,
+     "dur": 0.062,
+     "ease": "linear",
+     "at": 0.052
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": -139.037,
+     "dur": 0.061,
+     "ease": "linear",
+     "at": 0.115
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.42,
+     "ease": "inOut",
+     "at": 0.19
+    },
+    {
+     "fx": "pop",
+     "text": "1",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 150,
+     "dur": 0.818,
+     "angle": 0,
+     "color": "#ff3b4a",
+     "at": 0.192
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.55,
+     "reason": "the countdown's beep (the game's clock)",
+     "at": 0.192
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.5,
+     "reason": "a heartbeat under the last three seconds",
+     "at": 0.242
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "sit",
+     "seat": "chairG",
+     "dur": 0.45,
+     "hands": "keep",
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "vShare",
+      "grip": [
+       0,
+       0.085,
+       0.04
+      ],
+      "palm": [
+       0,
+       -0.5,
+       0.04
+      ]
+     },
+     "dur": 0.41,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 0.82
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gSteal",
+      "grip": [
+       0,
+       0.085,
+       0.04
+      ],
+      "palm": [
+       0,
+       -0.5,
+       0.04
+      ]
+     },
+     "dur": 0.46,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.321,
+       0.655,
+       -0.459
+      ],
+      "palm": [
+       0.321,
+       0.22,
+       -0.459
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "vShare",
+     "set": {
+      "x": 0.298,
+      "z": -0.121
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.4,
+     "reason": "Viking slides his card in under his palm",
+     "at": 1
+    },
+    {
+     "fx": "pop",
+     "text": "0",
+     "xy": [
+      800,
+      300
+     ],
+     "size": 180,
+     "dur": 0.6,
+     "angle": 0,
+     "color": "#ff3b4a",
+     "at": 1.05
+    },
+    {
+     "sfx": "bell-heavy",
+     "gain": 0.6,
+     "reason": "0: the game's dark bell",
+     "at": 1.05
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 1.17
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "gSteal",
+     "set": {
+      "x": -0.298,
+      "z": -0.121
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.4,
+     "reason": "Gunslinger slides his card in under his palm",
+     "at": 1.35
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "vShare",
+      "grip": [
+       0.1,
+       0.07,
+       0
+      ],
+      "palm": [
+       0.1,
+       -0.5,
+       0
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.43
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "vShare",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.45,
+     "reason": "the card flicked over onto its face",
+     "at": 1.75
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.508,
+       0.655,
+       0.237
+      ],
+      "palm": [
+       0.508,
+       0.22,
+       0.237
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
+     "fx": "pop",
+     "text": "SHARE",
+     "xy": [
+      540,
+      380
+     ],
+     "size": 170,
+     "dur": 1,
+     "angle": 0,
+     "color": "#3fd06a",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "vShare",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.99
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.1
+    }
+   ]
+  },
+  {
+   "name": "share",
+   "at": 17.53,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.3,
+     "lid": 0.15,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gSteal",
+      "grip": [
+       -0.1,
+       0.07,
+       0
+      ],
+      "palm": [
+       -0.1,
+       -0.5,
+       0
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.48
+    }
+   ]
+  },
+  {
+   "name": "steal",
+   "at": 18.08,
+   "len": 0.55,
+   "shot": {
+    "pos": [
+     0,
+     2.96,
+     0.313
+    ],
+    "look": [
+     0,
+     0.64,
+     -0.18
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "gSteal",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "sfx": "book-flip",
+     "gain": 0.45,
+     "reason": "the card flicked over onto its face",
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.237,
+       0.655,
+       -0.508
+      ],
+      "palm": [
+       -0.237,
+       0.22,
+       -0.508
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "fx": "pop",
+     "text": "STEAL",
+     "xy": [
+      540,
+      380
+     ],
+     "size": 170,
+     "dur": 1,
+     "angle": 0,
+     "color": "#ff3b4a",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "gSteal",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.49
+    }
+   ]
+  },
+  {
+   "name": "betrayal",
+   "at": 18.63,
+   "len": 0.88,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.55
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "curve": -0.2
+     },
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.55,
+     "lid": 0,
+     "dur": 0.25,
+     "at": 0.02
+    },
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "sorry, buddy.",
+     "tone": "calm",
+     "dur": 0.4,
+     "blink": false,
+     "voice": false,
+     "at": 0.08
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.3,
+      "smirk": 0.35
+     },
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.5
+     },
+     "dur": 0.3,
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.6,
+     "lid": 0.3,
+     "dur": 0.3,
+     "at": 0.36
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.34,
+       0.5
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.32,
+       0.36
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "warn": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "sfx": "kenney/metal-latch",
+     "gain": 0.5,
+     "reason": "the trapdoor's latch arming under Viking's chair",
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.67
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.6,
+     "dur": 0.2,
+     "at": 0.7
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the trap",
+   "at": 19.51,
+   "len": 0.99,
+   "shot": {
+    "pos": [
+     0.18,
+     1.75,
+     3.15
+    ],
+    "look": [
+     0.812,
+     0.7,
+     -1.111
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.27
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.85,
+     "reason": "the trapdoor bangs open",
+     "at": 0.27
+    },
+    {
+     "do": "prop",
+     "id": "chairV",
+     "set": {
+      "tip": 95
+     },
+     "dur": 0.26,
+     "ease": "in",
+     "at": 0.29
+    },
+    {
+     "who": "vik",
+     "do": "pitch",
+     "to": -85,
+     "dur": 0.26,
+     "ease": "in",
+     "at": 0.29
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.35,
+     "reason": "Viking falls back through the trapdoor",
+     "at": 0.32
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.65,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.32
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      1.157,
+      -1.379
+     ],
+     "dur": 0.24,
+     "ease": "in",
+     "steps": 0,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "drop",
+     "to": -1.9,
+     "dur": 0.24,
+     "at": 0.39
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "chairV",
+     "set": {
+      "tip": 0
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.69
+    },
+    {
+     "sfx": "splash",
+     "gain": 0.6,
+     "reason": "off screen, down the chute: the splash into the fryer",
+     "at": 0.69
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.3,
+     "reason": "the splash's wet slap (its punch on a phone speaker)",
+     "at": 0.69
+    },
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "steam": 1,
+      "rise": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.69
+    },
+    {
+     "do": "prop",
+     "id": "fryer",
+     "set": {
+      "churn": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.69
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1,
+      "curve": -0.3
+     },
+     "dur": 0.15,
+     "at": 0.74
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.8,
+     "brow": 0.4,
+     "dur": 0.15,
+     "at": 0.74
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.74
+    },
+    {
+     "sfx": "steam",
+     "gain": 0.55,
+     "reason": "the steam bursting up out of the trapdoor",
+     "at": 0.77
+    },
+    {
+     "sfx": "bubbling",
+     "dur": 2,
+     "gain": 0.5,
+     "reason": "the oil boiling up hard after the splash",
+     "at": 0.79
+    },
+    {
+     "sfx": "sizzle",
+     "gain": 0.6,
+     "reason": "the sizzle",
+     "at": 0.84
+    },
+    {
+     "sfx": "kenney/impact-metal-medium",
+     "gain": 0.5,
+     "reason": "the empty chair's chrome base clanks back down onto the floor",
+     "at": 0.97
+    }
+   ]
+  },
+  {
+   "name": "all the gold",
+   "at": 20.5,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     -0.25,
+     0.718,
+     4.617
+    ],
+    "look": [
+     -0.25,
+     0.9,
+     -0.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.25,
+      0.732,
+      4.2
+     ]
+    },
+    "dur": 4
+   },
+   "do": [
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0,
+     "brow": 0.1,
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "Gunslinger spent it all by Friday.",
+     "voice": "narrator-trailer",
+     "style": "deep, dry, deadpan narrator, unhurried",
+     "take": 0,
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.25,
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gold",
+      "grip": [
+       0.2,
+       0.08,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gold",
+      "grip": [
+       -0.2,
+       0.08,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "gsl",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.4,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "dim": 0.55
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "both",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.6,
+     "reason": "the gold pile jingling as his arms close round it",
+     "at": 0.75
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.25,
+     "at": 1.15
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.85
+     },
+     "dur": 0.25,
+     "at": 1.15
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 1.15,
+     "idle": 0.15,
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "fryer",
+     "set": {
+      "churn": 0.3
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "steam": 0.7
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "macro": "narrate",
+     "line": "Share... or steal?",
+     "voice": "narrator-trailer",
+     "style": "deep, dark game-show host, fast and clipped, tense",
+     "take": 1,
+     "caption": false,
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "trapV",
+     "set": {
+      "steam": 0.95
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 2.4
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.1,
+     "brow": 0.3,
+     "dur": 0.15,
+     "at": 2.4
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.45
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.2,
+     "at": 2.7
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 3
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lid": 0.85,
+     "brow": 0.1,
+     "dur": 0.2,
+     "at": 3.05
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.85,
+     "idle": 0.15,
+     "at": 3.3
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.6,
+   "see": [
+    "gsl.face",
+    "vik.face",
+    "gold"
+   ],
+   "why": "frame 0: the gold between them, his mitten on it, the fryer behind"
+  },
+  {
+   "from": 8.15,
+   "to": 9.05,
+   "see": [
+    "gsl.face",
+    "vik.face"
+   ],
+   "why": "plea 1: his hand on his heart, Viking watching"
+  },
+  {
+   "from": 9.05,
+   "to": 9.85,
+   "see": [
+    "vik.face"
+   ],
+   "why": "Viking, suspicious: you still owe me"
+  },
+  {
+   "from": 11.63,
+   "to": 11.93,
+   "see": [
+    "gsl.face",
+    "wallet",
+    "moth"
+   ],
+   "why": "the pocket pat: the open empty wallet, the moth flutters out, his hopeful grin"
+  },
+  {
+   "from": 13.68,
+   "to": 14.53,
+   "see": [
+    "gsl.face",
+    "vik.face"
+   ],
+   "why": "plea 3: on his knees begging, Viking turned to him, his face melting"
+  },
+  {
+   "from": 16.43,
+   "to": 16.83,
+   "see": [
+    "vShare",
+    "gSteal"
+   ],
+   "why": "the two chosen cards pushed in, face down"
+  },
+  {
+   "from": 17.13,
+   "to": 17.43,
+   "see": [
+    "vShare"
+   ],
+   "why": "SHARE: the card face up"
+  },
+  {
+   "from": 17.58,
+   "to": 18.23,
+   "see": [
+    "vik.face",
+    "gsl.face"
+   ],
+   "why": "the fake-out: they smile at each other"
+  },
+  {
+   "from": 18.33,
+   "to": 18.63,
+   "see": [
+    "gSteal"
+   ],
+   "why": "STEAL: the card face up"
+  },
+  {
+   "from": 18.63,
+   "to": 19.78,
+   "see": [
+    "vik.face",
+    "gsl.face"
+   ],
+   "why": "the betrayal: Viking's face falls, Gunslinger's sheepish shrug"
+  },
+  {
+   "from": 20.2,
+   "to": 24.6,
+   "see": [
+    "gsl.face",
+    "chairV"
+   ],
+   "why": "the empty chair, the steam, Gunslinger with all the gold"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "gsl",
+   "from": 12.73,
+   "to": 12.88,
+   "checks": [
+    "motion"
+   ],
+   "reason": "he throws himself into the dash: the run's lean lands in one drawing (on 2s), at the frame edge and moving"
+  },
+  {
+   "who": "gsl",
+   "from": 13.08,
+   "to": 13.25,
+   "checks": [
+    "stance-slide"
+   ],
+   "reason": "the last stride before he drops to his knees: 3 cm as the knee slide starts (he is sliding)"
+  },
+  {
+   "who": "gsl",
+   "from": 15.4,
+   "to": 15.54,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "off screen: the top-down card shot (cut at back + 0.4) has only the table in frame while he runs to his chair"
+  },
+  {
+   "who": "gsl",
+   "with": "studio",
+   "from": 0,
+   "to": 24.7,
+   "reason": "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, so feet on the floor count"
+  },
+  {
+   "who": "vik",
+   "with": "studio",
+   "from": 0,
+   "to": 24.7,
+   "reason": "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, and he drops through the trapdoor below it"
+  },
+  {
+   "who": "gsl",
+   "with": "chairG",
+   "from": 9.75,
+   "to": 10.45,
+   "reason": "his hat brim brushes his chair's high back as he stands and steps out"
+  },
+  {
+   "who": "gsl",
+   "with": "chairG",
+   "from": 15.73,
+   "to": 16.03,
+   "reason": "he slides in sideways onto his seat from beside it (his hat brim past its high back)"
+  },
+  {
+   "who": "moth",
+   "with": "chairG",
+   "from": 15.73,
+   "to": 16.23,
+   "reason": "the moth riding his hat brim passes his chair's high back as he slides in (off screen: the cards shot)"
+  },
+  {
+   "who": "vik",
+   "with": "trapV",
+   "from": 19.78,
+   "to": 24.7,
+   "reason": "he falls back through the open trapdoor"
+  },
+  {
+   "who": "gsl",
+   "with": "moth",
+   "from": 11.63,
+   "to": 24.7,
+   "reason": "the moth flies round him and sits on his hat brim (worn)"
+  },
+  {
+   "who": "gsl",
+   "with": "wallet",
+   "from": 11.38,
+   "to": 12.56,
+   "reason": "he draws the wallet from his holster and slips it back"
+  },
+  {
+   "who": "gsl",
+   "from": 10.63,
+   "to": 11.48,
+   "checks": [
+    "rig-jump",
+    "hand-jump"
+   ],
+   "reason": "the series' frantic pocket pat: six slaps in 0.75 s (the same block every Never Has Money episode)"
+  },
+  {
+   "who": "gsl",
+   "from": 11.4,
+   "to": 11.46,
+   "checks": [
+    "motion"
+   ],
+   "reason": "the quick-draw (series block): his hand snaps onto the wallet in the holster"
+  },
+  {
+   "who": "gsl",
+   "from": 11.51,
+   "to": 11.83,
+   "checks": [
+    "prop-pop",
+    "rig-jump"
+   ],
+   "reason": "the revolver spin (series block): the wallet turns once round his fingers on purpose, then flips open"
+  },
+  {
+   "who": "gsl",
+   "from": 12.38,
+   "to": 12.5,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "he lets the wallet go into his holster: it leaves his fingers"
+  },
+  {
+   "who": "gsl",
+   "with": "chairG",
+   "from": 0,
+   "to": 10.05,
+   "reason": "Gunslinger sits in his chair"
+  },
+  {
+   "who": "gsl",
+   "with": "chairG",
+   "from": 15.93,
+   "to": 24.7,
+   "reason": "Gunslinger sits in his chair again"
+  },
+  {
+   "who": "vik",
+   "with": "chairV",
+   "from": 0,
+   "to": 20.18,
+   "reason": "Viking sits in his chair (and rides it as it tips back)"
+  },
+  {
+   "who": "vik",
+   "with": "gsl",
+   "from": 0.35,
+   "to": 0.8,
+   "reason": "Viking's mitten pats down on Gunslinger's on the gold"
+  },
+  {
+   "who": "gsl",
+   "with": "gold",
+   "from": 0,
+   "to": 0.8,
+   "reason": "frame 0: his mitten creeping onto the gold pile"
+  },
+  {
+   "who": "vik",
+   "with": "gold",
+   "from": 0.35,
+   "to": 0.8,
+   "reason": "Viking's pat lands on the gold pile under Gunslinger's mitten"
+  },
+  {
+   "who": "gsl",
+   "with": "gold",
+   "from": 20.85,
+   "to": 24.7,
+   "reason": "he hugs the gold pile to him"
+  },
+  {
+   "who": "vik",
+   "from": 19.88,
+   "to": 24.7,
+   "checks": [
+    "rig-jump",
+    "stance-slide",
+    "foot-slide",
+    "lean-jump"
+   ],
+   "reason": "the drop through the trapdoor: he falls below the floor and is hidden"
+  }
+ ],
+ "notes": "Generated by storyboards/series/share-or-steal/01-gunslinger-viking/make-gunslinger-viking.mjs."
+}
