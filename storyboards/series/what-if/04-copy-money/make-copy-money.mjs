@@ -83,10 +83,10 @@ const GSL_C = [-0.36, 0.2], THRONE = [-1.7, 0.55];
 const GSL_W = [3.0, 1.7];   // during the wave shot he waits behind its camera
 const GLASS = { sam: [-1.75, -0.8], wiz: [-1.85, 0.95], rea: [-1.9, 2.0] };    // everyone but him runs to the window (the middle panes stay clear for the wave)
 const SAM_BOW = [-1.6, -0.95], SAM_BOW_YAW = 53;     // he turns from the glass and bows to the new owner
-const WIZ_R = [-1.7, -0.8], REA_R = [-1.7, 1.9], THK = 1.25;                    // beside the throne's arms (the throne 1.25 x: its back stands over his hat)
+const WIZ_R = [-1.7, -0.87], REA_R = [-1.7, 1.97], THK = 1.1;                    // beside the throne's arms
 const OFF = { wiz: [3.3, 1.5], rea: [3.6, 2.7] };                              // out of the twist's frame
 // the twist: he wheels the barrow to the counter's left end
-const BARROW1 = [-0.5, 0.1], BK = 0.85, GSL_T = [-1.5, 0.1], GSL_T_YAW = 60, SAM_T = [0.85, -0.78], SAM_B = [0.7, -1.1];   // the barrow at the counter's end (it points +x), him at its handles; the counter man at the till, and under the board
+const BARROW1 = [-0.5, 0.1], BK = 0.85, GSL_T = [-1.5, 0.1], GSL_T_YAW = 45, SAM_T = [0.85, -0.78], SAM_B = [0.7, -1.1];   // the barrow at the counter's end (it points +x), him at its handles; the counter man at the till, and under the board
 const SHK = 0.8;   // the one milkshake, in the counter man's glove
 const GSL1 = [-0.45, 0.1], GSL1_YAW = 35;                 // demo 1 and 2: one step toward the counter's corner, 3/4 to us
 const SAM_PAY = [0.45, -0.76], SAM_PAY_YAW = -30;         // demo 1: the counter man at the counter's corner, across from him
@@ -137,8 +137,8 @@ const props = [
   // the flip price board over the back counter
   ph("twist", { id: "board", kind: "flipboard", x: BOARD[0], y: BOARD[1], z: BOARD[2], w: 1.3, h: 0.62, drop: BOARD[1], stage: 0, blow: 0, clock: 0, staged: "the price board hangs on the kitchen wall" }, { kind: "sign", text: "4.50", y: BOARD[1] - 0.55 }),
   // demo 2: the hundred wallets in his arms; the IOU notes
-  ph("money", { id: "heap", kind: "walletheap", ...(() => { const q = front(GSL1, 30, 0.42, -0.22, 0.3); return { x: q[0], y: q[1], z: q[2] }; })(), rot: 30, n: 0, count: 100, spill: 0, wobble: 0, floor: 0.34, staged: "the copies: a hundred wallets pop into his arms" }, { kind: "coins", scale: 0.001 }),
-  ph("flood", { id: "ious", kind: "noterain", x: REA0[0], y: 0, z: REA0[1], look: "iou", n: 60, r: 0.9, top: 3.2, clock: 0, amount: 0 }, { kind: "leaves", scale: 0.001 }),
+  ph("money", { id: "heap", kind: "walletheap", ...(() => { const q = front(GSL1, 30, 0.42, -0.22, 0.3); return { x: q[0], y: -3, z: q[2] }; })(), rot: 30, n: 0, count: 100, spill: 0, wobble: 0, floor: 0.34, staged: "the copies: a hundred wallets pop into his arms" }, { kind: "coins", scale: 0.001 }),
+  ph("flood", { id: "ious", kind: "noterain", x: REA0[0], y: -6, z: REA0[1], look: "iou", n: 60, r: 0.9, top: 3.2, clock: 0, amount: 0 }, { kind: "leaves", scale: 0.001 }),
   { id: "iou", kind: "iounote", x: REA0[0], y: -2, z: REA0[1], rot: REA0_YAW, ink: 1 },
   // demo 3: the bricks of cash, the throne, the window wall and the wave
   BRICK("brick", [0.3, -2, 0.0], { scale: BRK }),
@@ -230,7 +230,7 @@ A(COPY1 + 0.35, "gsl", "expr", { expr: "delighted", set: { open: 0.6, curve: 1 }
 see(r3(COPY1 + 0.12), VICTIM, ["gsl.face", "coin1", "coin2"], "panel 02: two coins, his eyes wide");
 
 // ================================================================ 3 THE VICTIM 1.55-2.5
-A(DEMO1 - 0.5, "sam", "move", { to: SAM_PAY, dur: 0.4, ease: "inOut", steps: 2 }); A(DEMO1 - 0.5, "sam", "turn", { to: SAM_PAY_YAW, dur: 0.4 }); c.arm(VICTIM + 0.02, "sam", "L", "rest", 0.5, "inOut"); A(VICTIM + 0.1, "sam", "grip", { side: "L", shape: "relaxed", dur: 0.4 });
+A(DEMO1 - 0.65, "sam", "move", { to: SAM_PAY, dur: 0.4, ease: "inOut", steps: 2 }); A(DEMO1 - 0.65, "sam", "turn", { to: SAM_PAY_YAW, dur: 0.4 }); c.arm(SNAP1 + 0.08, "sam", "L", "rest", 0.5, "inOut"); A(SNAP1 + 0.1, "sam", "grip", { side: "L", shape: "relaxed", dur: 0.4 });   // the palm drops while the camera is on the coins
 A(VICTIM - 0.02, "rea", "look", { to: [-0.45, 0.3], dur: 0.01, blink: false });
 act.shock(c, r3(VICTIM + 0.05), "rea", { open: 0.3, eye: 1.2, hold: 0.7 });
 c.still(r3(VICTIM + 0.1), "rea", 0.7, 0);
@@ -240,16 +240,16 @@ see(r3(VICTIM + 0.05), DEMO1, ["rea.face", "rwal"], "the victim: Reaper frozen, 
 // one step to the counter's corner; he holds one coin out, the counter man takes it from his glove and bites it
 const PASS = [0.15, 0.74, -0.12];                                   // where the coin changes hands, over the counter's corner
 const MOUTH = front(SAM_PAY, SAM_PAY_YAW, 0.47, 0, 0.5);           // in front of the counter man's mouth
-A(DEMO1 - 0.5, "gsl", "move", { to: GSL1, dur: 0.4, ease: "inOut", steps: 1 }); A(DEMO1 - 0.5, "gsl", "turn", { to: GSL1_YAW, dur: 0.4 });
+A(DEMO1 - 0.7, "gsl", "move", { to: GSL1, dur: 0.35, ease: "inOut", steps: 1 }); A(DEMO1 - 0.7, "gsl", "turn", { to: GSL1_YAW, dur: 0.35 });
 A(DEMO1 - 0.05, "gsl", "expr", { expr: "cocky", set: { curve: 0.8, open: 0.3 }, dur: 0.15 }); A(DEMO1 - 0.05, "gsl", "look", { to: [0.6, 0.0], dur: 0.12, blink: false });
-c.arm(DEMO1 - 0.48, "gsl", "L", { prop: "coin1", grip: CGRIP, point: "pinch", at: PASS }, 0.42, "inOut");   // out before the cut: no palm turn on screen
+c.arm(DEMO1 - 0.6, "gsl", "L", { prop: "coin1", grip: CGRIP, point: "pinch", at: PASS }, 0.42, "inOut");   // out before the cut: no palm turn on screen
 A(DEMO1 - 0.1, "sam", "look", { to: [-0.5, 0.0], dur: 0.15, blink: false });
 const scoin = grips.thin(c, "sam", { id: "coin1", kind: COINK.kind, scale: CK, x: PASS[0], y: PASS[1], z: PASS[2], rot: GSL0_YAW }, { side: "R", from: COINK.hi, roll: 30 });
 const tTake = scoin.takeFrom(r3(DEMO1 + 0.25), PASS, { reach: 0.28, settle: 0.16 });      // his fingers close at about 2.95
 A(r3(tTake - 0.02), "gsl", "grip", { side: "L", shape: "open", dur: 0.12 }); c.arm(r3(tTake + 0.02), "gsl", "L", "hips", 0.35, "inOut");
 A(r3(tTake), "gsl", "look", { to: [0.05, 0.05], dur: 0.15, blink: false });               // to us: paid, for once
 const tBite = scoin.carry(r3(tTake + 0.02), MOUTH, 0.3, "inOut");
-A(r3(tBite - 0.25), "sam", "look", { to: [0.1, -0.2], dur: 0.15, blink: false }); A(r3(tBite - 0.05), "sam", "expr", { expr: "focused", set: { open: 0.3 }, dur: 0.08 });
+A(r3(tBite - 0.25), "sam", "look", { to: [0.1, -0.2], dur: 0.15, blink: false }); A(r3(tBite - 0.28), "sam", "expr", { expr: "focused", set: { open: 0.3 }, dur: 0.08 });
 A(tBite, "sam", "squash", { amount: 0.03, dur: 0.08 }); A(r3(tBite + 0.02), "sam", "face", { open: 0, dur: 0.05 });
 sfx(r3(tBite + 0.02), "tink", { gain: 0.6, reason: "the counter man bites the coin: it is real" });
 A(r3(tBite + 0.15), "sam", "expr", { expr: "shocked", set: { eye: 1.2, open: 0.15, curve: 0.1 }, dur: 0.12 });
@@ -258,7 +258,7 @@ see(r3(DEMO1 + 0.1), r3(tTake), ["gsl.face", "sam.face", "coin1"], "panel 03: he
 see(r3(tBite - 0.05), DEMO2, ["sam.face", "coin1"], "demo 1: the counter man bites the coin");
 // both coins are pocketed at the cut
 for (const [who, id] of [["sam", "coin1"], ["gsl", "coin2"]]) { A(DEMO2 - 0.03, who, "release", { prop: id, dur: 0 }); P(DEMO2 - 0.02, id, { scale: 0.001, y: -2 }); }
-c.arm(DEMO2 - 0.02, "sam", "R", "rest", 0.01); A(DEMO2 - 0.02, "sam", "grip", { side: "R", shape: "relaxed", dur: 0.01 }); A(DEMO2 - 0.02, "sam", "expr", { expr: "deadpan", dur: 0.01 });
+c.arm(DEMO2 - 0.02, "sam", "R", "rest", 0.01); A(DEMO2 - 0.02, "sam", "grip", { side: "R", shape: "relaxed", dur: 0.01 });
 
 // ================================================================ 5 DEMO 2: OWE EVERYONE? 4.0-7.5 (v2 panel 03)
 // his wallet out again; "COPY!": a hundred wallets pop into his arms. He flings them: his old IOUs rain down on Reaper,
@@ -274,7 +274,7 @@ A(DEMO2, "sam", "turn", { to: -20, dur: 0.3 });
 power(COPY2, "wallet", { big: 1.15, pos: 620 });
 // the wallet vanishes into the heap; his arms go under it
 A(COPY2 + 0.05, "gsl", "release", { prop: "wallet", dur: 0 }); P(COPY2 + 0.06, "wallet", { scale: 0.001, y: -2 });
-P(COPY2 + 0.03, "heap", { n: 1 }, 0.45, "out"); sfx(r3(COPY2 + 0.06), "pop", { gain: 0.5, reason: "a hundred wallets pop into his arms" });
+P(COPY2 + 0.02, "heap", { y: 0.3 }); P(COPY2 + 0.03, "heap", { n: 1 }, 0.45, "out"); sfx(r3(COPY2 + 0.06), "pop", { gain: 0.5, reason: "a hundred wallets pop into his arms" });
 for (const side of ["L", "R"]) { c.arm(COPY2 + 0.04, "gsl", side, "hold", 0.18, "out"); A(COPY2 + 0.04, "gsl", "grip", { side, shape: "carry", dur: 0.12 }); }
 A(COPY2 + 0.1, "gsl", "lean", { to: -7, dur: 0.3, ease: "settle" }); A(COPY2 + 0.1, "gsl", "expr", { expr: "delighted", set: { open: 0.7, curve: 1 }, dur: 0.15 });
 P(COPY2 + 0.5, "heap", { wobble: 4 }, 0.15, "inOut"); P(COPY2 + 0.65, "heap", { wobble: -3 }, FLING - COPY2 - 0.65, "inOut");
@@ -284,15 +284,15 @@ see(r3(COPY2 + 0.45), FLING, ["gsl.face", "heap", "rea"], "v2 panel 03: a hundre
 A(FLING - 0.12, "gsl", "lean", { to: -12, dur: 0.12, ease: "in" }); A(FLING, "gsl", "lean", { to: 6, dur: 0.15, ease: "out" }); A(FLING + 0.3, "gsl", "lean", { to: 0, dur: 0.3, ease: "inOut" });
 for (const side of ["L", "R"]) { c.arm(FLING - 0.02, "gsl", side, UP_WIDE, 0.16, "out"); A(FLING, "gsl", "grip", { side, shape: "open", dur: 0.1 }); c.arm(FLING + 0.5, "gsl", side, "hips", 0.35, "inOut"); }
 P(FLING, "heap", { spill: 1 }, 0.6, "out"); sfx(FLING, "whoosh", { gain: 0.45, reason: "he flings the wallets" });
-P(FLING, "ious", { clock: 0 }, 0); P(FLING, "ious", { clock: r3(DEMO3 - FLING) }, r3(DEMO3 - FLING), "linear"); P(FLING + 0.05, "ious", { amount: 1 }, 0.4, "out");
+P(FLING - 0.02, "ious", { y: 0 }); P(WAVE - 0.03, "ious", { y: -6 }); P(FLING, "ious", { clock: 0 }, 0); P(FLING, "ious", { clock: r3(DEMO3 - FLING) }, r3(DEMO3 - FLING), "linear"); P(FLING + 0.05, "ious", { amount: 1 }, 0.4, "out");
 sfx(r3(FLING + 0.25), "flutter", { gain: 0.3, dur: 1.2, reason: "the IOU notes flutter down on Reaper" });
 A(FLING + 0.25, "rea", "look", { to: [0.0, 0.7], dur: 0.2, blink: false }); A(FLING + 0.3, "rea", "expr", { expr: "shocked", set: { open: 0.2, eye: 1.15 }, dur: 0.15 });
 A(FLING + 0.3, "gsl", "expr", { expr: "cocky", set: { curve: 0.9, open: 0.4 }, dur: 0.15 }); A(FLING + 0.3, "gsl", "look", { to: [0.5, -0.2], dur: 0.15, blink: false });
 // the read: one IOU in his left glove (taken out of the air at the cut), his own wallet still in his right
 const R0 = body(REA0, REA0_YAW), IOU_AT = R0([0.22, 0.34, 0.5]), RWAL_AWAY = R0([-0.3, 0.3, 0.2]);
 const riou = grips.thin(c, "rea", { id: "iou", kind: "iounote", x: IOU_AT[0], y: IOU_AT[1], z: IOU_AT[2], rot: REA0_YAW }, { side: "L", from: 0.2, roll: 20 });
-P(READ - 0.06, "iou", { x: IOU_AT[0], y: IOU_AT[1], z: IOU_AT[2], rot: REA0_YAW, tip: -20 });
-riou.secure(riou.approach(r3(READ - 0.05), 0.01), 0.01);
+P(READ - 0.03, "iou", { x: IOU_AT[0], y: IOU_AT[1], z: IOU_AT[2], rot: REA0_YAW, tip: -20 });
+riou.secure(riou.approach(r3(READ - 0.025), 0.008), 0.008);
 riou.carry(r3(READ + 0.1), R0([0.2, 0.38, 0.52]), 0.25);
 A(READ - 0.02, "rea", "look", { to: [0.2, -0.35], dur: 0.01, blink: false }); A(READ - 0.02, "rea", "expr", { expr: "deadpan", set: { open: 0.05 }, dur: 0.01 });
 A(READ + 0.45, "rea", "look", { to: [0.05, -0.35], dur: 0.35, blink: false });                     // his eyes run along the line
@@ -323,7 +323,7 @@ setup(WAVE, "gsl", GSL_W, 80); for (const who of ["sam", "wiz", "rea"]) setup(WA
 for (const side of ["L", "R"]) c.arm(WAVE - 0.02, "gsl", side, "rest", 0.01);
 P(WAVE - 0.03, "heap", { y: -4 });
 for (const who of ["wiz", "rea", "sam"]) { A(WAVE - 0.02, who, "look", { to: [0.0, 0.45], dur: 0.01, blink: false }); A(WAVE - 0.02, who, "expr", { expr: "shocked", set: { open: 0.4, eye: 1.2 }, dur: 0.01 }); }
-for (const side of ["L", "R"]) { c.arm(WAVE - 0.02, "wiz", side, "cheeks", 0.01); c.arm(WAVE + 0.5, "wiz", side, UP_WIDE, 0.3, "out"); }
+for (const side of ["L", "R"]) { c.arm(WAVE - 0.02, "wiz", side, "cheeks", 0.01); c.arm(WAVE + 0.5, "wiz", side, { o: [0.38, 0.6, 0.55] }, 0.3, "out"); A(WAVE + 0.5, "wiz", "grip", { side, shape: "open", dur: 0.2 }); }
 A(WAVE + 0.55, "wiz", "hop", { count: 2, height: 0.12, dur: 0.6 });
 P(WAVE - 0.2, "wave", { clock: 0 }); P(WAVE - 0.2, "wave", { clock: r3(NIGHT - WAVE + 0.2) }, r3(NIGHT - WAVE + 0.2));
 P(WAVE - 0.1, "wave", { front: 0.12 }); P(WAVE, "wave", { front: 0.88 }, r3(SLAP_CUT - WAVE), "linear"); P(SLAP_CUT, "wave", { front: 1 }, 0.3, "out"); P(WAVE + 0.4, "wave", { level: 1 }, r3(SLAP_CUT - WAVE - 0.4), "inOut");
@@ -349,17 +349,15 @@ if (READY.has("money")) { P(SLAP, "brick", { squash: 1 }, 0.04, "out"); P(SLAP +
 A(SLAP + 0.03, "gsl", "look", { to: [0.35, 0.05], dur: 0.12, blink: false }); A(SLAP + 0.05, "gsl", "expr", { expr: "smug", set: { curve: 0.9 }, dur: 0.12 });
 P(SLAP + 0.03, "dsign", { flip: 1 }, 0.35, "settle"); sfx(r3(SLAP + 0.05), "seatclack", { gain: 0.4, reason: "the diner's sign flips to his hat" });
 A(SLAP + 0.08, "sam", "pitch", { to: 30, dur: 0.3, ease: "inOut" });
-A(SLAP + 0.25, "gsl", "release", { prop: "brick", dur: 0 }); A(SLAP + 0.25, "gsl", "grip", { side: "R", shape: "open", dur: 0.1 }); A(SLAP + 0.25, "gsl", "grip", { side: "L", shape: "open", dur: 0.1 });
-for (const side of ["L", "R"]) c.arm(SLAP + 0.26, "gsl", side, UP_WIDE, 0.18, "out");
-A(SLAP + 0.26, "gsl", "lean", { to: -4, dur: 0.18, ease: "out" }); A(SLAP + 0.28, "gsl", "expr", { expr: "delighted", set: { open: 0.7, curve: 1 }, dur: 0.1 });
 see(SLAP, FREEZE, ["gsl.face", "brick", "wave", "dsign", "sam"], "v2 panel 05 (the cover): the slap, the wave at its peak, the sign now his, the counter man's bow");
 c.at(SLOW.at, { fx: "ramp", ...SLOW });
 
 // ================================================================ 7 SNAP 2: THE THRONE 10.6-12.4 (v2 panel 06)
 P(SNAP2 + 0.02, "throne", { build: 1, ...(!READY.has("money") && { scale: 1 }) }, 0.3, "out"); sfx(r3(SNAP2 + 0.04), "plunk", { gain: 0.5, reason: "the throne of cash stacks up behind him" });
-A(SNAP2 - 0.02, "sam", "pitch", { to: 0, dur: 0.01 }); setup(SNAP2, "sam", [0.9, -1.15], -40); setup(SNAP2, "wiz", [-1.7, -1.75], 90); setup(SNAP2, "rea", [-1.7, 2.85], 90);   // the counter man back behind his counter (out of this frame); the friends run in from the frame's edges
-// he is already in front of it at the cut, arms still wide from the slap, and drops back onto the seat
-setup(SNAP2, "gsl", [r3(THRONE[0] + 1.0), THRONE[1]], 90); A(SNAP2 - 0.02, "gsl", "lean", { to: 0, dur: 0.01 });
+A(SNAP2 - 0.02, "sam", "pitch", { to: 0, dur: 0.01 }); setup(SNAP2, "sam", [0.9, -1.15], -40); setup(SNAP2, "wiz", [-1.7, -1.8], 90); setup(SNAP2, "rea", [-1.7, 2.9], 90);   // the counter man back behind his counter (out of this frame); the friends run in from the frame's edges
+// he is already in front of it at the cut, arms wide, and drops back onto the seat
+setup(SNAP2, "gsl", [r3(THRONE[0] + 1.0), THRONE[1]], 90); A(SNAP2 - 0.02, "gsl", "lean", { to: 0, dur: 0.01 }); A(SNAP2 - 0.02, "gsl", "release", { prop: "brick", dur: 0 });
+for (const side of ["L", "R"]) { c.arm(SNAP2 - 0.02, "gsl", side, UP_WIDE, 0.01); A(SNAP2 - 0.02, "gsl", "grip", { side, shape: "open", dur: 0.01 }); }
 A(SIT, "gsl", "sit", { seat: "throne", dur: 0.2 }); sfx(r3(SIT + 0.15), "ai/cushion-poof", { gain: 0.4, reason: "he drops back onto the throne of cash" });
 A(SIT + 0.18, "gsl", "squash", { amount: 0.05, dur: 0.14 }); A(SIT + 0.2, "gsl", "lean", { to: 8, dur: 0.2, ease: "settle" });   // forward a little: his brim stays clear of the backrest
 A(SIT + 0.1, "gsl", "expr", { expr: "delighted", set: { open: 0.7, curve: 1 }, dur: 0.12 }); A(SIT + 0.1, "gsl", "look", { to: [0.05, 0.05], dur: 0.1, blink: false });
@@ -369,8 +367,8 @@ for (const [i, [who, to, yaw]] of [["wiz", WIZ_R, 75], ["rea", REA_R, 105]].entr
   A(SNAP2 - 0.02, who, "turn", { to: 90, dur: 0.01 }); A(SNAP2 - 0.02, who, "expr", { expr: "delighted", set: { open: 0.6, curve: 1 }, dur: 0.01 }); A(SNAP2 - 0.02, who, "look", { to: [0.05, 0.1], dur: 0.01, blink: false });
   for (const side of ["L", "R"]) c.arm(SNAP2 - 0.02, who, side, "rest", 0.01);
   A(r3(SIT + 0.05), who, "move", { to, dur: 0.45, ease: "out", steps: 3 }); A(r3(SIT + 0.05), who, "turn", { to: yaw, dur: 0.4 });
-  const outer = who === "wiz" ? "L" : "R", inner = who === "wiz" ? "R" : "L";
-  c.arm(r3(SIT + 0.5 + 0.06 * i), who, outer, who === "wiz" ? UP_WIDE : "up", 0.25, "out"); c.arm(r3(SIT + 0.5 + 0.06 * i), who, inner, { o: [0.3, 0.62, 0.45] }, 0.25, "out"); A(r3(SIT + 0.5), who, "grip", { side: inner, shape: "fist", dur: 0.15 });
+  const outer = who === "wiz" ? "L" : "R";   // the arm away from the throne
+  c.arm(r3(SIT + 0.5 + 0.06 * i), who, outer, who === "wiz" ? UP_WIDE : "up", 0.3, "out");
   A(r3(SIT + 0.6 + 0.08 * i), who, "hop", { count: 2, height: 0.12, dur: 0.6 });
 }
 see(r3(SIT + 0.55), TWIST, ["gsl.face", "wiz.face", "rea.face", "throne"], "v2 panel 06: on his throne of cash, the friends cheering");
@@ -389,12 +387,12 @@ see(r3(TWIST + 0.15), BARROW, ["board"], "the price board runs away and its flap
 // meanwhile (off screen) the throne has gone into a wheelbarrow: he tips it out on the counter for ONE milkshake
 const OUT = r3(TWIST + 0.5);   // the board insert is on: nobody else is in its frame
 A(OUT, "gsl", "lean", { to: 0, dur: 0.01 }); A(OUT, "gsl", "stand", { dur: 0.01 }); setup(OUT + 0.06, "gsl", GSL_T, GSL_T_YAW);
-for (const who of ["wiz", "rea"]) { setup(OUT, who, OFF[who], -60); for (const side of ["L", "R"]) { c.arm(OUT, who, side, "rest", 0.05); A(OUT, who, "grip", { side, shape: "relaxed", dur: 0.05 }); } }
+for (const [who, t] of [["wiz", OUT], ["rea", r3(OUT + 0.3)]]) { setup(t, who, OFF[who], -60); for (const side of ["L", "R"]) { c.arm(r3(t + 0.05), who, side, "rest", 0.2); A(r3(t + 0.05), who, "grip", { side, shape: "relaxed", dur: 0.2 }); } }
 P(OUT, "throne", { build: 0, ...(!READY.has("money") && { scale: 0.001 }) });
 P(OUT, "barrow", { y: 0 }); P(BARROW - 0.02, "brick", { y: -2 });   // the brick lies on the counter in the board insert's corner: it goes at the cut
 setup(BARROW, "sam", SAM_T, -25); A(BARROW - 0.02, "sam", "look", { to: [-0.5, -0.1], dur: 0.01, blink: false }); A(BARROW - 0.02, "sam", "expr", { expr: "deadpan", dur: 0.01 });
 // his gloves on the handles; the handles rise as it tips (hand points: props-twist.js header)
-const HANDLE = (dump, sz) => { const a = 0.4957 * dump, x = -0.662 - 0.42, y = 0.486 - 0.15; return [r3(BARROW1[0] + BK * (0.42 + x * Math.cos(a) + y * Math.sin(a))), r3(BK * (0.15 - x * Math.sin(a) + y * Math.cos(a)) + 0.035), r3(BARROW1[1] + BK * 0.207 * sz)]; };
+const HANDLE = (dump, sz) => { const a = 0.4957 * dump, x = -0.662 - 0.42, y = 0.486 - 0.15; return [r3(BARROW1[0] + BK * (0.42 + x * Math.cos(a) + y * Math.sin(a))), r3(BK * (0.15 - x * Math.sin(a) + y * Math.cos(a)) + 0.065), r3(BARROW1[1] + BK * 0.207 * sz)]; };
 const DUMP = [0, 0.1, 0.35, 0.65, 0.9, 1], DUMP_AT = BARROW + 0.05, DUMP_STEP = 0.07;   // the tip, eased by hand so the gloves stay on the handles
 for (const [side, sz] of [["L", -1], ["R", 1]]) { A(OUT + 0.1, "gsl", "grip", { side, shape: "fist", dur: 0.05 }); c.arm(OUT + 0.1, "gsl", side, { world: HANDLE(0, sz) }, 0.05); }
 for (let i = 1; i < DUMP.length; i++) {
@@ -452,11 +450,11 @@ const rcup = grips.mug(c, "rea", { ...CUP, x: CUP0[0], y: CUP0[1], z: CUP0[2], r
 P(NIGHT - 0.03, "cup", { x: CUP0[0], y: CUP0[1], z: CUP0[2] }); rcup.secure(rcup.approach(r3(NIGHT - 0.02), 0.01), 0.01);
 const CUP1 = body(REA_N, REA_N_YAW)([-0.24, 0.42, 0.42]);
 // he hears the steps, lets the fire be and turns to him
-for (const side of ["L", "R"]) { c.arm(REA_IN + 0.7, "gsl", side, "rest", 0.5, "inOut"); A(REA_IN + 0.7, "gsl", "grip", { side, shape: "relaxed", dur: 0.4 }); }
+c.arm(REA_IN + 0.55, "gsl", "R", "rest", 0.7, "inOut"); A(REA_IN + 0.55, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.6 });
 A(REA_IN + 0.8, "gsl", "turn", { to: GSL_N2, dur: 0.45, ease: "inOut" });
 A(REA_IN, "rea", "move", { to: REA_N, dur: 1.0, ease: "inOut", steps: 4 }); A(REA_IN + 0.3, "rea", "turn", { to: REA_N_YAW, dur: 0.6 }); { // the cup rides in front of him: way points in his own frame along the walk and the turn
   const at = (u, yaw) => body([REA_N0[0] + (REA_N[0] - REA_N0[0]) * u, REA_N0[1] + (REA_N[1] - REA_N0[1]) * u], yaw)([-0.24, 0.42, 0.42]);
-  rcup.carry(REA_IN, at(0.2, -80), 0.3, "in"); rcup.carry(REA_IN + 0.3, at(0.5, -80), 0.2, "linear"); rcup.carry(REA_IN + 0.5, at(0.8, -62), 0.2, "linear"); rcup.carry(REA_IN + 0.7, CUP1, 0.3, "out"); }
+  rcup.carry(REA_IN, at(0.2, -80), 0.3, "in"); rcup.carry(REA_IN + 0.3, at(0.5, -80), 0.2, "linear", { rot: 0 }); rcup.carry(REA_IN + 0.5, at(0.8, -62), 0.2, "linear", { rot: 18 }); rcup.carry(REA_IN + 0.7, CUP1, 0.3, "out", { rot: 40 }); }
 A(REA_IN - 0.02, "rea", "expr", { expr: "deadpan", set: { curve: 0.1 }, dur: 0.01 }); A(REA_IN - 0.02, "rea", "look", { to: [-0.5, 0.0], dur: 0.01, blink: false });
 A(REA_IN + 0.9, "gsl", "look", { to: [0.5, 0.05], dur: 0.2, blink: false }); A(REA_IN + 1.0, "gsl", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.1, curve: 0 }, dur: 0.2 });
 // the closing question; the moth flutters up out of the fire to his hat
@@ -469,12 +467,12 @@ M9(QUESTION + 0.4, [BRIM[0] + 0.15, BRIM[1] + 0.2, BRIM[2] + 0.2], { bank: -15 }
 P(QUESTION + 0.92, "moth", { open: 0, flap: 0 }, 0.12, "inOut");
 sfx(r3(QUESTION + 0.05), "wings", { gain: 0.14, dur: 0.8, reason: "the moth flutters up out of the fire" });
 // the coffee: Reaper holds it out, he takes it in his left glove
-rcup.carry(HAND, HANDOUT, 0.3, "inOut");
-const gcup = grips.mug(c, "gsl", { ...CUP, x: HANDOUT[0], y: HANDOUT[1], z: HANDOUT[2], rot: 0 }, { side: "L" });
-const tCup = gcup.takeFrom(r3(HAND + 0.3), HANDOUT, { reach: 0.3, settle: 0.2 });
+rcup.carry(HAND, HANDOUT, 0.3, "inOut", { rot: 40 });
+const gcup = grips.mug(c, "gsl", { ...CUP, x: HANDOUT[0], y: HANDOUT[1], z: HANDOUT[2], rot: 40 }, { side: "L" });
+const tCup = gcup.takeFrom(r3(HAND + 0.3), HANDOUT, { reach: 0.4, settle: 0.2 });
 rcup.handOff(r3(tCup - 0.02));
 gcup.carry(r3(tCup + 0.05), GN2([0.3, 0.44, 0.42]), 0.3, "inOut");
-A(HAND + 0.3, "gsl", "look", { to: [0.4, -0.3], dur: 0.15, blink: false }); A(tCup, "gsl", "expr", { expr: "kind", set: { curve: 0.5, open: 0.1 }, dur: 0.2 });
+A(HAND + 0.3, "gsl", "look", { to: [0.4, -0.3], dur: 0.15, blink: false }); A(r3(tCup - 0.25), "gsl", "expr", { expr: "kind", set: { curve: 0.5, open: 0.1 }, dur: 0.2 });
 A(tCup, "gsl", "look", { to: [0.6, 0.05], dur: 0.15, blink: false }); 
 A(r3(tCup + 0.1), "rea", "expr", { expr: "kind", set: { curve: 0.35 }, dur: 0.25 });
 wink(c, { who: "gsl", t: WINK, until: END, sub: "Next time's on me.", line: "next time's on me.", pos: 1250,
@@ -493,7 +491,7 @@ const SH = {
   all: { pos: [0.3, 1.0, 4.6], look: [-0.45, 0.82, 0.1], fov: 32 },
   wave: { pos: [1.9, 1.3, 0.25], look: [WALL_X, 1.7, 0.25], fov: 56 },
   slap: { pos: [2.8, 2.2, 0.3], look: [-0.8, 0.6, -0.1], fov: 44 },
-  throne: { pos: [4.25, 1.35, 0.55], look: [-1.7, 1.05, 0.55], fov: 56 },
+  throne: { pos: [4.25, 1.35, 0.55], look: [-1.7, 1.05, 0.55], fov: 58 },
   board: { pos: [0.6, 1.0, 2.7], look: [0.7, 1.4, -1.6], fov: 36 },
   barrow: { pos: [-0.35, 1.55, 5.5], look: [-0.35, 0.95, 0], fov: 56 },
   night: { pos: [NX + 0.1, 1.7, 6.6], look: [NX + 0.1, 1.25, 0.5], fov: 48 },
@@ -534,6 +532,7 @@ for (const [t, line, take, len, until, gain] of NARR) {
 }
 for (let i = 1; i < NARR.length; i++) if (VT(NARR[i - 1][0]) + NARR[i - 1][3] > VT(NARR[i][0]) - 0.05) throw new Error(`"${NARR[i - 1][1]}" runs into "${NARR[i][1]}"`);
 
+if (process.env.AT) console.log(process.env.AT.split(",").map((v) => `video ${v} = story ${ST(+v)}`).join("  "));
 if (process.env.TIMES) console.log(Object.entries({ SNAP1, VICTIM, DEMO1, DEMO2, COPY2, FLING, READ, DEMO3, WAVE, SLAP_CUT, SLAP, SNAP2, SIT, TWIST, BLOW, BARROW, SHAKE, NIGHT, REA_IN, QUESTION, HAND, WINK, END }).map(([k, v]) => `${k} ${v}=${VT(v)}`).join("  "));
 const beats = c.beats(CUTS, END);
 for (const cp of c.captions) for (const [, cut] of CUTS) if (cp.from < cut - 0.05 && cp.to > cut - 0.03) cp.to = r3(cut - 0.03);
@@ -544,8 +543,9 @@ const allowClip = [
   { who: "gsl", with: "moth", from: 0, to: END, reason: "the moth flies round him and sits on his hat brim (worn)" },
   { who: "gsl", with: "wallet", from: 0, to: END, reason: "his wallet: in his glove, then in the holster on his hip" },
   { who: "rea", with: "ious", from: FLING, to: WAVE, reason: "the rain of IOU notes falls on and round him (paper, see-through for the contact checks)" },
+  { who: "gsl", with: "throne", from: SIT, to: TWIST, checks: ["costume-in-prop"], reason: "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest" },
   { who: "gsl", with: "snow", from: NIGHT, to: END, reason: "falling snow" }, { who: "rea", with: "snow", from: NIGHT, to: END, reason: "falling snow" },
-  { who: "gsl", checks: ["limb-through-costume"], from: WINK, to: END, reason: "the series' wink: two fingers on his hat brim (wink.mjs, every Never has money episode)" },
+  { who: "gsl", checks: ["limb-through-costume"], from: r3(WINK - 0.15), to: END, reason: "the series' wink: two fingers on his hat brim (wink.mjs, every Never has money episode)" },
 ];
 for (const w of [...allowClip, ...c.visible]) { w.from = VT(w.from); w.to = VT(w.to); }   // both lists are read on the video's clock
 
