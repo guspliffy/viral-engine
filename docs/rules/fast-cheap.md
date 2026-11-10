@@ -19,8 +19,13 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   `out/frame-cache/` under a key of everything that frame depends on, and the next render of the clip draws only the
   frames an edit reached (a changed reaction, caption or effect); a sound-only edit draws nothing and an interrupted
   render resumes. Keys cost seconds; a few reused frames are drawn again and must match, else everything is drawn.
-  An edit to the set, camera, shots, cast or look redraws every frame. `--no-cache` turns it off, `--cache-verify`
+  An edit to the set, camera, shots, cast or look redraws every frame. What only the checks read (a waiver window,
+  a must-see list, the panels file, the caption band) redraws nothing, or only the frames whose pose a waiver moved
+  (10 Nov 2026: one added window used to redraw all 315 frames). `--no-cache` turns it off, `--cache-verify`
   draws every frame and compares each one the cache holds. Shards on the farm don't use it.
+- **A render doesn't lay the clip out twice** (10 Nov 2026): the contact gate before a draft or a full render uses
+  the last full layout while it is still this clip's (same storyboard, characters, page code and loaded files, by
+  content), so the pass preflight just made isn't repeated (about 2 min on a 10 s clip). `--fresh-layout` lays out anew.
 - **Page code that keeps a mesh between frames** (a memo of the last pose) must key it on the exact inputs, never a
   rounded value: a mesh built for a slightly different pose made a frame depend on the frame drawn before it, so a
   cached frame or a farm shard's first frame came out different (4 Nov 2026: arm tubes, glove skins, brows, hat sway).
@@ -35,7 +40,9 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   up to 20 free GitHub runners at once and joins them (`gh workflow run render.yml -f storyboard=<sb> -f flags="--draft"`,
   or Actions → Render a clip). The MP4, cover and check result are the run's `clip` artifact for 3 days, downloadable
   by anyone on GitHub (the repo is public): fine for clips Jonny is about to post, not for anything private. The same
-  split works by hand: `--shard 3/12` on each machine, `--stitch 12` where the shards are collected.
+  split works by hand: `--shard 3/12` on each machine, `--stitch 12` where the shards are collected. The farm keeps
+  spoken lines between runs on a branch (10 Nov 2026), so only a new or changed line is read again; before, every run
+  of a clip with a VoxCPM2 voice spent 6 to 14 minutes on the same lines.
 - **Engine changes**: after changing anything in `engine/`, `characters/` or `assets/`, run `node qa/golden.mjs`
   (also runs on every pull request). It draws 12 approved stills (`qa/golden/golden.json`) with your working tree and
   with `origin/main` on the same machine (2.5 minutes each; main's are kept per commit) and fails on any changed pixel,
