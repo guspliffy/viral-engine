@@ -7,6 +7,11 @@
 //
 //   node qa/waivers.mjs <storyboard> [--layout file]    -> every window: who / with, seconds, checks, seconds in frame, reason
 //   node qa/waivers.mjs <storyboard> --md               -> the same as a markdown table (DELIVERY.md)
+//   node qa/waivers.mjs <storyboard> --fresh            -> lay the clip out again first (minutes)
+//
+// It counts on the LAST layout in out/ and never lays the clip out by itself (that took 7 silent minutes on the first
+// clip that used it): when that layout is older than the storyboard it says so on the first line, and --fresh or a
+// run of preflight makes a new one. No layout at all: it says which command writes one.
 //
 // "In frame": at a layout sample (10 a second) inside the window, who is on screen, and so is what it is with when the
 // layout knows it (a character: a sixth of its box inside the frame; a prop: drawn and its point inside the frame).
@@ -86,14 +91,23 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   for (let i = 0; i < a.length; i++) {
     if (a[i] === "--layout") o.layout = a[++i];
     else if (a[i] === "--md") o.md = true;
+    else if (a[i] === "--fresh") o.fresh = true;
     else if (a[i] === "--out") o.out = path.resolve(a[++i]);
     else if (!o.sb && !a[i].startsWith("--")) o.sb = a[i];
     else { console.error(`unknown option ${a[i]}`); process.exit(2); }
   }
-  if (!o.sb) { console.error("usage: node qa/waivers.mjs <storyboard.json> [--layout file] [--md] [--out dir]"); process.exit(2); }
+  if (!o.sb) { console.error("usage: node qa/waivers.mjs <storyboard.json> [--layout file] [--md] [--fresh] [--out dir]"); process.exit(2); }
   const { loadStoryboard } = await import("../engine/load.mjs");
   const { layoutFor, preflight } = await import("./preflight.mjs");
-  const sb = loadStoryboard(o.sb), L = layoutFor(o.sb, sb, { layout: o.layout, out: o.out, log: (m) => console.error(m) });
+  const sb = loadStoryboard(o.sb);
+  let L;
+  if (o.layout || o.fresh) L = layoutFor(o.sb, sb, { layout: o.layout, fresh: o.fresh, out: o.out, log: (m) => console.error(m) });
+  else {
+    const last = [`${sb.id}-${sb.look || "anime-pro"}.layout.json`, `${sb.id}.layout.json`].map((f) => path.join(o.out, f)).find((f) => fs.existsSync(f));
+    if (!last) { console.error(`no layout for ${sb.id} in ${path.relative(process.cwd(), o.out) || "."}: run node qa/preflight.mjs ${o.sb} (or this with --fresh, a few minutes), or name one with --layout`); process.exit(1); }
+    if (fs.statSync(last).mtimeMs < fs.statSync(o.sb).mtimeMs) console.error(`(the layout is older than the storyboard: these are the last layout's counts; --fresh lays the clip out again, a few minutes)`);
+    L = { file: last, lay: JSON.parse(fs.readFileSync(last, "utf8")), how: "the last one" };
+  }
   const res = await preflight(sb, L.lay, { quick: true, sbFile: o.sb }), bare = await preflight({ ...sb, allowClip: [] }, L.lay, { quick: true, sbFile: o.sb });
   const s = waiverSummary(sb, L.lay, res, bare);
   if (s.rows.length) console.log(waiverTable(s, o.md));
