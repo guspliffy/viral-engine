@@ -72,6 +72,24 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 - **Delivery gate**: full render + checks + review B, the gate report + post pack, Jonny's go, PR, "merge it" only
   when every check on the head is green.
 
+## Look a name up once (10 Nov 2026, trial)
+
+In a sampled stretch of a build 84 of 163 tool calls were greps of the engine for a name: which verbs exist and what
+they take, expressions, poses, easings, effects, sounds, helpers, prop kinds. Every one re-reads the whole thread
+(about 6 cents and 20 s at 300k tokens), and the same burst came back after each compaction.
+- **Read `docs/VOCAB.md` once at the start, and again after a compaction**, before any grep of `engine/` or
+  `storyboards/lib/`. It is written from the code at session start (`node tools/vocab.mjs` rewrites it, a second:
+  run it after a builder adds a prop kind or you add a helper). It has names and parameters; what a thing does is in
+  `docs/STORYBOARD.md` at the heading and line the sheet's last section gives.
+- **Keep `NOTES.md` next to the generator** (from `docs/templates/NOTES.md`): where the build stands, the cast's
+  places, the props and who holds them how, each camera, decisions with their reason, what was tried and dropped, and
+  any name you did have to look up. Update it at each step. After a compaction read it before anything else: it is
+  what the summary loses.
+- **A builder's prop or set file starts with a usage header** (BRIEF "DONE WHEN"): the kinds, each spec key with its
+  default, the size, where the origin is, where a hand holds it. The director reads the header, not the file.
+- **`node qa/peek.mjs <sb> --at <s> [--ids a,b]`** prints where the cast and props are in the last layout (boxes,
+  eyes, hands, who holds what, what is in what): no throwaway script to open the layout JSON.
+
 ## Reuse before you build (9 Nov 2026)
 
 Every Never Has Money episode so far built a new room and new props. In the director's EP04 build that was two builder
@@ -183,6 +201,11 @@ waiver for the whole clip.
 - Only the director writes windows. A builder reports the fail instead.
 - The delivery lists every window that is on screen, with its 15 fps strip. When clips are compared, count those
   windows next to the warnings.
+- Preflight counts them (10 Nov 2026, `qa/waivers.mjs`): how many windows are in frame, for how long, and which
+  findings they take out of the verdict. `node qa/waivers.mjs <sb> --md` writes the table for DELIVERY.md. Over 10
+  windows in frame (`GATE.waiverBudget`; EP04: the clean-hands cut had 7, the others 30 and 31), look at a 15 fps
+  strip of each before the full render. The count goes in the clip's Trial line, so the budget can be set from
+  Jonny's notes on the next five clips.
 
 ## The order of work for a clip: creative review and cheap checks first, then the full render
 
@@ -204,13 +227,22 @@ waiver for the whole clip.
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-5. **Full render** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in the
-   background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
-   (earshot listens: hits on their frame, footsteps on the right floor),
-   a 15 fps strip of every contact moment, then **creative director review B (cut)**
-   on its contact sheet, cut strips and phone sheet (`node qa/contact.mjs <clip> --sb <sb>`, then `--cuts --phone`), one round. Apply the notes that are cheap
-   (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
-6. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
+5. **Strips and review B on the passing draft, before the full render** (trial from 10 Nov 2026, Jonny; before, both
+   came after the full render). `node qa/contact.mjs out/<id>-draft.mp4 --sb <sb> --contacts` cuts a 15 fps strip of
+   every grab, release and drop and of whatever appears or vanishes inside a shot (`--at 3.8,11.3` adds a raise or a
+   touch, `--every 1` shows every frame); look at every row yourself first. Then **creative director review B (cut)**
+   on the draft's contact sheet, cut strips and phone sheet (`node qa/contact.mjs <draft> --sb <sb>`, then
+   `--cuts --phone`), one round, told that it is a draft (the look is not final: no notes on line quality or grain).
+   Apply the notes that are cheap (timing, framing, captions), draft again, and cut the strips again where you
+   changed something. Bigger notes go into the next cut or to Jonny. Why: What if EP03 (9 Nov) found four one-frame
+   glitches that every check had passed (a trophy alone in the air for two frames, an arm stepping back, eyes opening
+   late, Viking gone 0.2 s early) on the strips and in review B after full render 1: four more farm renders, 42 min.
+6. **Full render, once** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in
+   the background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
+   (earshot listens: hits on their frame, footsteps on the right floor). Look at its contact sheet and phone sheet
+   yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
+   cut changed after the one on the draft. Count the farm renders after review B in the Trial line: the target is one.
+7. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
    viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers
    (`qa/REVIEW.md`, "Delivering a clip"). For a motion change, add a labelled close-up strip of the moments that changed. Don't post anywhere: Jonny posts by hand.
@@ -239,3 +271,13 @@ comment poll, playlist + slot (reach rules v2)
 Jonny asked (8 Nov) to try it on the next episode and compare its time and tokens with the last one. For each clip
 made this way, add one line to docs/STATE.md "Trial": wall-clock minutes from brief to delivery, the thread's
 context tokens at delivery (`get_session`), the subagents' token totals from their results, and fix rounds used.
+
+From 10 Nov 2026 the line (and DELIVERY.md) also carries, from `get_session` at delivery: **the director's model and
+effort**, the thread's **cost in dollars**, its **output tokens** and its **cache-read tokens** (cache reads divided
+by the context size is about the number of model steps; half of a clip's bill is the thread re-reading itself, so
+steps are what to save). And from the build: drafts, **farm renders** (how many after review B), and the **check
+windows in frame** (`qa/waivers.mjs`). Why: the director's model is on trial (Fable 5.2 on high since 10 Nov, Opus
+5.5 on xhigh before). Fable 5.2 costs twice Opus 5.5 per output and cache-write token and the same per cache read, so
+the same build would cost about $111 instead of $73 unless it takes fewer steps. The line to beat: EP04 with the Opus
+director, $73, 323 min, 0.96 M output tokens, 180 M cache-read tokens. A clip that changed model midway says so and
+doesn't count. Jonny's verdict on the video decides; the numbers say what it cost.

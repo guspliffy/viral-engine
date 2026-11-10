@@ -34,6 +34,9 @@ export const GATE = {
   nearer: 1.5,         // m: a bystander this much nearer the camera than every subject ...
   bigger: 2,                       // ... and this many times bigger on screen than the largest, over GATE.front of their boxes
   lead: 0.75,                      // a cast member on this share of the must-see entries leads the clip: never a bystander
+  waiverBudget: 10,                // check windows in frame: over this, a 15 fps strip of each before a full render (qa/waivers.mjs;
+                                   // Never Has Money 04: the clean-hands cut had 7, the two others 30 and 31. A first number: set it
+                                   // from the counts of the next five clips beside Jonny's notes)
 };
 export const gateOf = (sb) => Number(sb?.gate ?? 1);
 // is the root fix of a glitch class turned on in this storyboard (so its check may fail)?

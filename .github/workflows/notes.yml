@@ -13,5 +13,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      # docs/VOCAB.md is written from the code at session start, not committed: written here too, so the docs that
+      # name it pass, and so a change that breaks the sheet (a renamed table in the engine) fails here
+      - name: The vocabulary sheet still writes from the code
+        run: node tools/vocab.mjs && test "$(grep -c '^- `' docs/VOCAB.md)" -gt 80
       - name: Paths named in the rule docs exist, line caps hold
         run: python3 tools/lint-notes.py docs
