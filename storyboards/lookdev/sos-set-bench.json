@@ -86,6 +86,22 @@
   }
  ],
  "captions": [],
+ "allowClip": [
+  {
+   "who": "gsl",
+   "with": "studio",
+   "from": 0,
+   "to": 4,
+   "reason": "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, so feet on the floor count"
+  },
+  {
+   "who": "vik",
+   "with": "studio",
+   "from": 0,
+   "to": 4,
+   "reason": "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, so feet on the floor count"
+  }
+ ],
  "beats": [
   {
    "name": "rest",
