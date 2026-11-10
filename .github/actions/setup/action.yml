@@ -49,13 +49,19 @@ runs:
     # Xvfb and Mesa for the default renderer (render.mjs --gl llvmpipe); GitHub's Ubuntu runners already have them
     - shell: bash
       run: command -v Xvfb > /dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends xvfb libgl1-mesa-dri > /dev/null)
+    # the voice packages are pinned (kokoro-onnx 0.6.1 has no build for the newest Python), so the Python is pinned too:
+    # the runner image's own python3 moves with the image (10 Nov 2026: the new image's Python had no kokoro-onnx 0.6.1)
+    - if: inputs.voice == 'true'
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
     - if: inputs.voice == 'true'
       uses: actions/cache@v4
       with:
         path: |
           engine/voice/.venv
           engine/voice/models
-        key: voice-${{ runner.os }}-${{ hashFiles('engine/voice/requirements.txt', 'engine/voice/setup.mjs') }}
+        key: voice-${{ runner.os }}-py313-${{ hashFiles('engine/voice/requirements.txt', 'engine/voice/setup.mjs') }}
     - if: inputs.voice == 'true'
       shell: bash
       run: node engine/voice/setup.mjs
