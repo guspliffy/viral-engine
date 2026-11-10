@@ -17,12 +17,22 @@ const MODELS = path.join(HERE, "models");
 const RELEASE = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0";
 const run = (cmd, args) => { const r = spawnSync(cmd, args, { stdio: "inherit" }); if (r.status !== 0) throw new Error(`${cmd} ${args.join(" ")} failed`); };
 
-const venv = path.join(HERE, ".venv"), py = path.join(venv, process.platform === "win32" ? "Scripts/python.exe" : "bin/python");
-if (!fs.existsSync(py)) {
-  const sys = process.platform === "win32" ? "py" : "python3";
-  console.log(`creating ${path.relative(process.cwd(), venv)} with ${sys}`);
-  run(sys, ["-m", "venv", venv]);
+// A venv made for another Python (CI restores it from a cache; a new runner image brings a new Python, 10 Nov 2026)
+// still has bin/python but no pip for it: make it again.
+function makeVenv(dir) {
+  const p = path.join(dir, process.platform === "win32" ? "Scripts/python.exe" : "bin/python");
+  if (fs.existsSync(p) && spawnSync(p, ["-m", "pip", "--version"], { stdio: "ignore" }).status !== 0) {
+    console.log(`${path.relative(process.cwd(), dir)} belongs to another Python: making it again`);
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+  if (!fs.existsSync(p)) {
+    const sys = process.platform === "win32" ? "py" : "python3";
+    console.log(`creating ${path.relative(process.cwd(), dir)} with ${sys}`);
+    run(sys, ["-m", "venv", dir]);
+  }
+  return p;
 }
+const py = makeVenv(path.join(HERE, ".venv"));
 run(py, ["-m", "pip", "install", "-q", "-r", path.join(HERE, "requirements.txt")]);
 
 fs.mkdirSync(MODELS, { recursive: true });
@@ -40,16 +50,14 @@ run(py, ["-c", `import sys; sys.path.insert(0, ${JSON.stringify(HERE)}); import 
 
 // --vc: voice conversion for recipes with "convert" (Pebble, 6 Nov 2026), a separate venv because torch is large
 if (process.argv.includes("--vc")) {
-  const vv = path.join(HERE, ".venv-vc"), vpy = path.join(vv, process.platform === "win32" ? "Scripts/python.exe" : "bin/python");
-  if (!fs.existsSync(vpy)) run(process.platform === "win32" ? "py" : "python3", ["-m", "venv", vv]);
+  const vpy = makeVenv(path.join(HERE, ".venv-vc"));
   run(vpy, ["-m", "pip", "install", "-q", "chatterbox-tts==0.1.7", "praat-parselmouth==0.4.7", "soundfile"]);
   run(vpy, ["-c", "from chatterbox.vc import ChatterboxVC; ChatterboxVC.from_pretrained('cpu'); print('voice conversion ready')"]);
 }
 
 // --vox: VoxCPM2 for recipes with "vox" (7 Nov 2026). CPU-only torch wheels (the default ones carry ~3 GB of CUDA)
 if (process.argv.includes("--vox")) {
-  const vv = path.join(HERE, ".venv-vox"), vpy = path.join(vv, process.platform === "win32" ? "Scripts/python.exe" : "bin/python");
-  if (!fs.existsSync(vpy)) run(process.platform === "win32" ? "py" : "python3", ["-m", "venv", vv]);
+  const vpy = makeVenv(path.join(HERE, ".venv-vox"));
   run(vpy, ["-m", "pip", "install", "-q", "torch==2.15.0", "torchaudio", "--index-url", "https://download.pytorch.org/whl/cpu"]);
   run(vpy, ["-m", "pip", "install", "-q", "voxcpm==2.0.3", "soundfile", "faster-whisper==1.2.1"]);   // whisper: timing + misread check
   run(vpy, ["-c", "from voxcpm import VoxCPM; VoxCPM.from_pretrained('openbmb/VoxCPM2', load_denoiser=False, optimize=False, device='cpu'); from faster_whisper import WhisperModel; WhisperModel('small', device='cpu', compute_type='int8'); print('VoxCPM2 ready')"]);

@@ -583,6 +583,120 @@
     }
    ],
    "pickedBy": "Claude 7 Nov 2026 (no ears): CLAP rank 2 and 1 of 6, take 04 has 52 % of its energy in the phone band (take 01: 27 %); Jonny judges by ear"
+  },
+  {
+   "id": "sos-tension",
+   "kind": "music",
+   "files": [
+    "sos-tension/sos-tension-01.ogg",
+    "sos-tension/sos-tension-02.ogg"
+   ],
+   "tags": [
+    "tense"
+   ],
+   "mood": "tense",
+   "bpm": 100.0,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 100,
+   "loopable": true,
+   "durationSec": 14.396,
+   "prompt": [
+    "dark tense game show suspense music, deep pulsing synth bass on every beat, ticking clock hi-hat, low cello drone, heartbeat kick, sparse, cinematic thriller, no melody, 100 BPM",
+    "taut staccato low strings, ticking clock, dark synth pad, ominous, minimal, steady pulse, no melody, 100 BPM"
+   ],
+   "seed": [
+    402,
+    402
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "sos-tension/sos-tension-01.ogg",
+     "seed": 402,
+     "durationSec": 19.203,
+     "bars": 8,
+     "bpm": 100.0,
+     "beatSpread": 0.013,
+     "steadyBeat": true,
+     "clap": -0.07,
+     "loudnessLUFS": -16.0,
+     "clapCommon": 0.115,
+     "prompt": "dark tense game show suspense music, deep pulsing synth bass on every beat, ticking clock hi-hat, low cello drone, heartbeat kick, sparse, cinematic thriller, no melody, 100 BPM"
+    },
+    {
+     "file": "sos-tension/sos-tension-02.ogg",
+     "seed": 402,
+     "durationSec": 9.59,
+     "bars": 4,
+     "bpm": 100.1,
+     "beatSpread": 0.012,
+     "steadyBeat": true,
+     "clap": -0.033,
+     "loudnessLUFS": -16.0,
+     "clapCommon": -0.017,
+     "prompt": "taut staccato low strings, ticking clock, dark synth pad, ominous, minimal, steady pulse, no melody, 100 BPM"
+    }
+   ],
+   "note": "take 01 is 8 bars, take 02 is 4 bars; per-take bpm/bars are in takes[]"
+  },
+  {
+   "id": "sos-warm",
+   "kind": "music",
+   "files": [
+    "sos-warm/sos-warm-01.ogg",
+    "sos-warm/sos-warm-02.ogg"
+   ],
+   "tags": [
+    "warm",
+    "swell"
+   ],
+   "mood": "warm",
+   "bpm": null,
+   "bars": null,
+   "key": null,
+   "askedBpm": 120,
+   "loopable": false,
+   "swell": true,
+   "durationSec": 6.5,
+   "prompt": [
+    "warm hopeful emotional string swell with soft choir and piano, heartwarming friendship moment, major key, gentle, cinematic, full and warm from the first note, no drums",
+    "tender uplifting strings and soft choir, hopeful major chord, warm reconciliation, gentle piano, sustained and glowing from the very start, no percussion"
+   ],
+   "seed": [
+    411,
+    413
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "sos-warm/sos-warm-01.ogg",
+     "seed": 411,
+     "durationSec": 6.5,
+     "first03Db": 1.7,
+     "a03_05Db": -1.3,
+     "first2sDb": 0.1,
+     "clap": 0.054,
+     "loudnessLUFS": -16.0,
+     "prompt": "warm hopeful emotional string swell with soft choir and piano, heartwarming friendship moment, major key, gentle, cinematic, full and warm from the first note, no drums"
+    },
+    {
+     "file": "sos-warm/sos-warm-02.ogg",
+     "seed": 413,
+     "durationSec": 6.5,
+     "first03Db": 1.0,
+     "a03_05Db": -0.7,
+     "first2sDb": 2.0,
+     "clap": 0.009,
+     "loudnessLUFS": -16.0,
+     "prompt": "warm hopeful emotional string swell with soft choir and piano, heartwarming friendship moment, major key, gentle, cinematic, full and warm from the first note, no drums"
+    }
+   ],
+   "note": "warm from the first 0.3 s (first03Db/a03_05Db = level of that window vs the 1-6 s body, dB); not a crescendo; decays naturally from ~4.5 s"
   }
  ]
 }
