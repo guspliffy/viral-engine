@@ -122,6 +122,14 @@ chain, for example:
 - the bill comes from somewhere (the bartender picks up the reader before he pushes it);
 - the friends outside are found because he looks there.
 
+**Cause and effect across the whole clip** (Jonny, 10 Nov 2026, on Survive it EP1: "its just different scenes", "must
+make sense and should have a logical cause and effect. elsewise the viewer is just wondering why he watched the
+video"): every beat happens BECAUSE of the beat before it. Write the chain as "X, so Y, so Z" from the first second
+to the last frame. A beat that can only be joined with "and then", a time jump or a card is rewritten or cut. One
+mistake or one want starts the clip and the last frame answers it; a stranger can retell the clip in one sentence.
+Review A checks this before anything else, and a brief or series format that asks for separate gags goes back to
+Jonny as an outline first (Survive it's three-fails shape did).
+
 A beat whose "must see" is hidden by the set, too small at 360 px or off frame fails the chain. Fix it by re-staging
 (camera side, positions, a cut). It is never a note "on the brief", and it never waits for the next cut.
 
