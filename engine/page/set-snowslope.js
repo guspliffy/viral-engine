@@ -356,7 +356,9 @@ function buildGround(g, S) {
   const pos = new Float32Array(nx * nz * 3), face = new Float32Array(nx * nz);
   for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
     const x = xs[i], z = zs[j], q = ground(x, z), k = j * nx + i;
-    pos[k * 3] = x; pos[k * 3 + 1] = q.y; pos[k * 3 + 2] = z; face[k] = q.face;
+    // S.pad { x, z0, z1, drop }: the ground dips under a room standing on it (a room floor at y 0 would z-fight with it)
+    const dip = S.pad && Math.abs(x) <= S.pad.x && z >= S.pad.z0 && z <= S.pad.z1 ? S.pad.drop : 0;
+    pos[k * 3] = x; pos[k * 3 + 1] = q.y - dip; pos[k * 3 + 2] = z; face[k] = q.face;
   }
   const idx = new Uint32Array((nx - 1) * (nz - 1) * 6); let n = 0;
   for (let j = 0; j < nz - 1; j++) for (let i = 0; i < nx - 1; i++) {

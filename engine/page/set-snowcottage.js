@@ -348,7 +348,7 @@ export function buildSnowcottage(scene, S = {}) {
 
   // ---- outside: `world: true` builds the snowy mountain round the cottage (set-snowslope.js, the same `dark` keys);
   // without it, a plain sky and snow card behind the door for benches
-  if (S.world) buildSnowWorld(scene, { seed: S.seed, dark: S.dark });
+  if (S.world) buildSnowWorld(scene, { seed: S.seed, dark: S.dark, pad: { x: R + 0.45, z0: BZ - 0.85, z1: FZ + 0.65, drop: 0.04 } });   // the ground's grid points under the room dip 4 cm below its floor
   const outside = S.outside !== false && !S.world ? (() => {
     const g = new THREE.Group(); g.name = "snowcottage-outside"; set.add(g);
     const [c, cg] = canvas(64, 256); const gr = cg.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, "#5b8fe0"); gr.addColorStop(0.75, "#bcd6f6"); gr.addColorStop(1, "#eef4ff"); cg.fillStyle = gr; cg.fillRect(0, 0, 64, 256);
