@@ -85,7 +85,7 @@ const RIDE_U = [0.3, 0.7], RIDE_OFF = [-19, 3, -15.5], RIDE_LOOK = [1.5, 4.5, 0.
 
 // the cameras (panel numbers in PANELS.md; each fitted with a lens search, then checked with qa/camfit.mjs)
 const CAM = {
-  A1: { pos: [1.07, 2.28, 3.23], look: [0.0, 0.42, -1.39], fov: 64 },   // P01: the hook, high from the front right
+  A1: { pos: [1.07, 2.45, 3.38], look: [-0.45, 0.25, -1.39], fov: 70 },   // P01: the hook, high from the front right
   CU: { pos: [1.65, 1.04, 2.57], look: [0.71, 0.76, 0.65], fov: 46 },     // P02: Viking's face, the snowed window behind him
   A3: { pos: [0.5, 2.5, 3.4], look: [0.3, 0.5, -0.49], fov: 64 },         // P03: high: the front pair low and big, the back pair over their heads
   B4: { pos: [0.1, 2.4, 2.2], look: [-1.9, 0.35, -1.3], fov: 64 },            // P04: from the right, the door at frame left
@@ -283,7 +283,7 @@ const HUD = { ...hud({
   threat: { kind: "snow", keys: [[0, 2.0], [T.door, 2.6, 0.3], [T.god, 7.0, 0.4], [T.heap, 4.0, 0.3], [T.spring, 2.4, 0.3], [T.mound, 60, 0.3]] },
   gauge: { kind: "warmth", keys: [[0, 12], [4.15, 11, 0.3], [WHOOMPH - 0.25, 9, 0.25], [WHOOMPH + 0.65, 4, 0.4], [T.door, 4], [T.rule2, -10, 0.4],
     [T.god, -35, 0.4], [T.ride, -40], [T.heap, -45, 0.3], [T.spring, -40], [r3(T.spring + 0.3), 1, 0.9]] },
-}), sky: false };
+}), sky: false, clockTag: false };   // review B: "+7h 35m" under a counter racing days read as a glitch
 // the cards sit under the SNOW chip (y 370, panels 03 and 06), in the brief's colours: Samurai blue, Reaper silver-grey,
 // the god deep red
 const CARD_Y = 370;
@@ -363,7 +363,7 @@ place(H, "god", GOH, camYaw(GOH, CAM.A3, 0.8)); A(H, "god", "look", { to: [0.5, 
 // WHOOMPH
 const W = WHOOMPH;
 sfx(W, "flamejet", { gain: 0.8, reason: "the flame column" }); sfx(W, "ai/flare", { gain: 0.6, reason: "the flash-burn" });
-c.at(W, { fx: "shake", dur: 0.3, amp: 0.022 });
+c.at(W, { fx: "shake", dur: 0.3, amp: 0.035 }); c.at(W, { fx: "flash", dur: 0.25, peak: 0.6, color: "#ffb347", sound: false });   // review B: the flash on all four faces
 const VE = POS.hearthEnd.vik, SE = POS.hearthEnd.sam;
 A(r3(W + 0.02), "vik", "move", { to: VE, dur: 0.36, steps: 0, ease: "out" }); A(r3(W + 0.02), "vik", "turn", { to: camYaw(VE, CAM.A3), dur: 0.3, ease: "out" });
 A(r3(W + 0.02), "vik", "lean", { to: -14, dur: 0.12, ease: "out" }); A(r3(W + 0.3), "vik", "lean", { to: 0, dur: 0.3, ease: "settle" });
@@ -620,7 +620,7 @@ const beats = c.beats([
   ["hook: the title, the chopping race", 0, CAM.A1, "hook"],
   ["Viking's face", T.cu, CAM.CU, "reaction"],
   ["fail 1: the flash-burn", T.hearth, CAM.A3],
-  ["fail 2: Reaper locks up", T.door, CAM.B4],
+  ["fail 2: Reaper locks up", T.door, { ...frame("B4"), to: { pos: [-0.055, 2.241, 1.929], look: CAM.B4.look, fov: CAM.B4.fov }, dur: r3(T.god - T.door), ease: "linear" }],   // review B: a slow 0.35 m push at the door over the longest hold
   ["fail 3: the god calls the sun", T.god, CAM.A5],
   ["the ride", T.ride, { ...frame("RIDE"), to: CAM.RIDE.to, dur: r3(T.heap - T.ride), ease: "linear" }],
   ["the heap", T.heap, CAM.HEAP],
