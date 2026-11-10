@@ -2,14 +2,27 @@
 // (approach, secure, lift, hold, place, release) at a table, in a close three-quarter view. One storyboard per hold,
 // grip-<hold>.json; Jonny approves each hold from its close-up video. Not clips (no reviews).
 //   node storyboards/lookdev/make-grip-tests.mjs && node engine/render.mjs storyboards/lookdev/grip-mug.json --draft
+//
+// In-hand proof for a NEW prop (10 Nov 2026; three deliveries of 8-9 Nov had a held prop in the wrong place: a book
+// gripped at its spine because that was its origin, a cup beside the hand, a baton slipping in the pinch). Before a
+// clip uses a prop a hand holds, its builder runs it through the hold on this bench and looks at two stills:
+//   node storyboards/lookdev/make-grip-tests.mjs --prop <kind> --hold <mug|bowl|box|thin|phone> [--spec '{"scale":1.2}']
+// writes grip-proof-<kind>.json (three-quarter front) and grip-proof-<kind>-side.json (from the holder's side) and
+// prints the two still commands (the hold beat) and the sheet. The kind needs its sizes in grips.mjs SIZE first.
+// Both files are scratch (not committed); the sheet goes in the builder's report.
 import { clip, write, r3 } from "../lib/clip.mjs";
 import * as grips from "../lib/grips.mjs";
 
 const TABLE_H = 0.36, WIZ = [0, -0.25], YAW = 0, END = 3.4;
 const AT_PROP = [0.1, -0.8], AT_CAM = [0, 0];   // eye targets: + right on screen, + up
 
+const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
+const PROOF = arg("--prop"), PROOF_HOLD = arg("--hold") || "mug";
+if (PROOF && !["mug", "bowl", "box", "thin", "phone"].includes(PROOF_HOLD)) { console.error(`--hold ${PROOF_HOLD}: use mug, bowl, box, thin or phone`); process.exit(2); }
+const SIDE_CAM = { pos: [2.5, 0.75, 0.9], look: [0, 0.5, 0.36], fov: 26 };   // from the holder's right, level with the hold
+
 // [hold, prop spec (kind and size), where it stands on the table, where it is held (its bottom centre), label]
-const TESTS = [
+const TESTS = PROOF ? ["", "-side"].map((view) => [PROOF_HOLD, { kind: PROOF, ...JSON.parse(arg("--spec") || "{}") }, [0, TABLE_H, 0.44], [0, 0.46, 0.4], `In-hand proof: ${PROOF} (${PROOF_HOLD} hold)${view ? ", side" : ""}`, [], view]) : [
   ["mug", { kind: "campmug", scale: 1.9 }, [-0.13, TABLE_H, 0.42], [-0.1, 0.46, 0.38], "Mug: wrapped from behind, handle away"],
   ["bowl", { kind: "snackbowl", scale: 1.2, biscuits: 2 }, [0, TABLE_H, 0.44], [0, 0.44, 0.42], "Bowl: cupped from outside, both hands"],
   ["box", { kind: "parcel", scale: 0.8 }, [0, TABLE_H, 0.46], [0, 0.42, 0.44], "Box: palms on the ends"],
@@ -20,7 +33,8 @@ const TESTS = [
   ["phone", { kind: "phone", style: "iphone", scale: 1.35, tip: -90 }, [-0.15, TABLE_H + 0.008, 0.36], [-0.16, 0.45, 0.44], "Phone: one hand, thumb free"],
 ];
 
-for (const [name, kind, spot, held, label, more = []] of TESTS) {
+const stills = [];
+for (const [name, kind, spot, held, label, more = [], view = null] of TESTS) {
   const c = clip(), { A } = c;
   const spec = { id: "it", ...kind, ...grips.placeFor(kind.kind, spot, YAW) };
   const h = grips[name](c, "wiz", spec, { side: "R", ...(name === "thin" && process.env.ROLL && { roll: +process.env.ROLL, readyRoll: +(process.env.READY ?? process.env.ROLL - 40) }) });
@@ -30,15 +44,16 @@ for (const [name, kind, spot, held, label, more = []] of TESTS) {
   if (name === "thin") t = h.carry(t + 0.05, [spot[0], spot[1] + 0.085, spot[2]], 0.3, "in");   // straight up out of the cup
   t = h.carry(t + 0.05, held, 0.45);                        // 03 lift
   A(t, "wiz", "look", { to: AT_CAM, dur: 0.2, blink: false });
+  const holdAt = Math.round((t + 0.1) * 100) / 100;         // the prop is up and still in the hand
   t = h.carry(t + 0.1, [held[0] + (name === "thin" ? 0.04 : 0.05), held[1] + (name === "thin" ? 0.01 : 0.03), held[2]], 0.5);   // 04 hold: a small sway, rigid in the hand
   A(t, "wiz", "look", { to: AT_PROP, dur: 0.15, blink: false });
   if (name === "thin") t = h.carry(t + 0.1, [spot[0], spot[1] + 0.085, spot[2]], 0.35);   // over the cup, then straight down
   t = h.put(t + 0.15, spot);                                // 05 place + 06 release
   const end = Math.max(END, Math.ceil((t + 0.2) * 10) / 10);
   c.cap(0, end, label, 1500, false, { kinetic: false });
-  const CAM = name === "thin" && process.env.CLOSE ? { pos: JSON.parse(process.env.CLOSE), look: [-0.06, 0.6, 0.42], fov: 24 } : name === "thin" ? { pos: [-0.6, 1.35, 2.2], look: [-0.1, 0.52, 0.3], fov: 30 } : { pos: [-0.75, 1.05, 2.3], look: [-0.05, 0.55, 0.3], fov: 30 };
+  const CAM = view === "-side" ? SIDE_CAM : name === "thin" && process.env.CLOSE ? { pos: JSON.parse(process.env.CLOSE), look: [-0.06, 0.6, 0.42], fov: 24 } : name === "thin" ? { pos: [-0.6, 1.35, 2.2], look: [-0.1, 0.52, 0.3], fov: 30 } : { pos: [-0.75, 1.05, 2.3], look: [-0.05, 0.55, 0.3], fov: 30 };
   write(import.meta.url, {
-    id: `grip-${name}${process.env.SUFFIX || ""}`, title: `Grip test: ${name}`, idea: "Grip library test bench, not a clip",
+    id: view != null ? `grip-proof-${PROOF}${view}` : `grip-${name}${process.env.SUFFIX || ""}`, title: view != null ? `In-hand proof: ${PROOF}` : `Grip test: ${name}`, idea: "Grip library test bench, not a clip",
     fps: 30, look: "anime-pro", profile: "short", loop: false,
     set: { type: "apartment", seed: 5 }, music: false, sound: { auto: false },
     hook: { show: ["wiz", "it"], hint: 0, what: "engine test" },
@@ -47,6 +62,13 @@ for (const [name, kind, spot, held, label, more = []] of TESTS) {
     captions: c.captions, beats: c.beats([[name, 0, CAM]], end),
     notes: "Generated by storyboards/lookdev/make-grip-tests.mjs (engine test, no reviews).",
   });
+  if (view != null) stills.push(`node engine/render.mjs storyboards/lookdev/grip-proof-${PROOF}${view}.json --stills ${holdAt} --draft`);
+}
+if (PROOF) {
+  console.log(`in-hand proof, look at both stills (the hand closed on the prop where a real hand would hold it, nothing through the glove, the prop upright):`);
+  for (const l of stills) console.log(`  ${l}`);
+  console.log(`  node qa/contact.mjs out/grip-proof-${PROOF}*-t*.png --out out/grip-proof-${PROOF}.png`);
+  process.exit(0);
 }
 
 // STAFF: the classic Wizard (the crisp one has none) runs Jonny's staff sheet: planted, ready, lift, carry, lower,
