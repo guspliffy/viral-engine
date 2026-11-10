@@ -11,8 +11,8 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first) or its seven effects redrawn as drawn cels (`"do": "cel"`, #174).
 
 ## Open PRs (awaiting "merge it" unless noted)
-- #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig
-- #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
+- #193 Survive it EP1 snowed in (also pins CI to ubuntu-24.04: farm renders fail on ubuntu-latest until it is merged)
+- #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig · #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
 
 ## Next
 - Trial workflow v2 (staging proof, director writes the clip) on the next episode.
@@ -31,7 +31,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 - Share or Steal 01 (9-10 Nov, new series + set, animatic gate): thread $59, 733k out; 2 drafts, 1 full render, no review B (Jonny approved the draft).
-- Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~470 min, 4 Sonnet builders + Fable A + B, 1 draft, 3 farm renders, sound redone locally.
+- Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~560 min, 4 Sonnet builders + Fable A + B, 1 draft, 4 farm renders (3 fix rounds), sound redone locally; ~70 min lost to the farm on Ubuntu 26.04.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
