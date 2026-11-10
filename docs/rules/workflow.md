@@ -93,9 +93,6 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
   Check every staging edit on the floor plan first (`node qa/clear.mjs <sb>`, 1-2 s) and try cameras and subtitle
   spots with `node qa/camfit.mjs` (a second each) before a layout pass; fix rounds lay out only the seconds they
   changed (`--layout --from --to`, docs/rules/fast-cheap.md).
-  Fit ALL panels' cameras in one batch (one camfit line per panel in a single command, against the Numbers table),
-  then one layout pass and one round of stills: shot by shot, Survive it EP1's 8 panels took 40 layout passes and
-  33 rounds of stills (10 Nov 2026).
   Render the draft stills at one time per panel, run `qa/panels.mjs` against Jonny's board and
   `node qa/panelfit.mjs <sb> --panels <PANELS.md>` (each panel graded by number: size, eye line, x, faces, camera), grade
   every checklist line yes, partial or no against the panel image (not against memory), and get review A on those
@@ -269,12 +266,11 @@ waiver for the whole clip.
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-   **One-second proof before the farm** (10 Nov 2026: all three fix rounds of Survive it EP1 were one-frame pops that
-   only rendered frames show, each a 13 min farm render): for every flash, impact frame, card that lands on an
-   effect, and big prop or wave passing the lens, draw only that second and look for an odd frame:
-   `node engine/render.mjs <sb> --draft --from <s> --to <s+1>`, then `node qa/pops.mjs out/<id>-<s>-<s+1>-draft.mp4
-   --from <s>` (30 s together). The same proof after every review note that adds or moves an effect. A flash at its
-   peak one frame before a dark card fades in at the same spot is an odd frame: start the flash two frames earlier.
+   **The one-second proof of rule 6** (Survive it EP1: all three fix rounds were one-frame pops, each a farm render):
+   for every flash, impact frame, card that lands on an effect and big prop passing the lens, and after a review
+   note that adds or moves one: `node engine/render.mjs <sb> --draft --from <s> --to <s+1>`, then
+   `node qa/pops.mjs out/<id>-<s>-<s+1>-draft.mp4 --from <s>` (30 s). A flash at its peak one frame before a dark
+   card fades in at the same spot is an odd frame: start the flash two frames earlier.
 5. **Strips and review B on the passing draft, before the full render** (trial from 10 Nov 2026, Jonny; before, both
    came after the full render). `node qa/contact.mjs out/<id>-draft.mp4 --sb <sb> --contacts` cuts a 15 fps strip of
    every grab, release and drop and of whatever appears or vanishes inside a shot (`--at 3.8,11.3` adds a raise or a
@@ -290,11 +286,10 @@ waiver for the whole clip.
    (earshot listens: hits on their frame, footsteps on the right floor). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
    cut changed after the one on the draft. Count the farm renders after review B in the Trial line: the target is one.
-   **Waiting costs steps** (every step re-reads the whole thread; about 100 of Survive it EP1's 853 steps only waited):
-   wait for a farm run with ONE background command that ends when the run does
-   (`until [ "$(gh run view <id> --json status -q .status)" = completed ]; do sleep 30; done`), no check-ins beside it.
-   Open the pull request when the final clip has passed its checks, not during the build: each of its check events
-   wakes the thread. Before that push, run `node qa/preflight.mjs <bench> --quick` on every bench the branch adds.
+   The background command of rule 7: `until [ "$(gh run view <id> --json status -q .status)" = completed ]; do
+   sleep 30; done`, no check-ins beside it (about 100 of Survive it EP1's 853 steps only waited). Open the pull
+   request when the final clip has passed, not during the build (each check event wakes the thread), and run
+   `node qa/preflight.mjs <bench> --quick` on every bench the branch adds before that push.
 7. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
    viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers
