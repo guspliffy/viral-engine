@@ -26,31 +26,49 @@ runs:
       run: npx playwright-core install chromium
     # ffmpeg from Ubuntu: apt-get update + install takes over a minute, so the .deb files are cached per runner image
     # and installed straight from the cache (seconds) on later runs
+    # (the workflows pin ubuntu-24.04: on 10 Nov 2026 ubuntu-latest moved to 26.04, whose ffmpeg 8 and Python broke the
+    # farm; the key below names the image, so another Ubuntu never gets these .debs. `env.ImageOS` is empty in an
+    # expression, it is only a shell variable, hence the step)
+    - id: image
+      shell: bash
+      run: echo "os=${ImageOS:-unknown}" >> "$GITHUB_OUTPUT"
     - uses: actions/cache@v4
       with:
         path: ~/ffmpeg-debs
-        key: ffmpeg-debs-${{ runner.os }}-${{ env.ImageOS }}-${{ env.ImageVersion }}
+        key: ffmpeg-debs-${{ runner.os }}-${{ steps.image.outputs.os }}
     - shell: bash
       run: |
         if ls ~/ffmpeg-debs/*.deb > /dev/null 2>&1; then
           sudo dpkg -i --force-depends ~/ffmpeg-debs/*.deb > /dev/null
-        else
+        fi
+        # the cached .debs come from an older runner image: on a newer one a library they count on can be missing
+        # (10 Nov 2026: libxml2.so.2), so ffmpeg has to run, not only install; if it doesn't, apt fetches what is missing
+        if ! ffmpeg -version > /dev/null 2>&1 || ! ffprobe -version > /dev/null 2>&1; then
           sudo apt-get update -qq
+          # first what the cached .debs still lack (apt refuses any other install while dependencies are unmet)
+          sudo apt-get install -y -qq --no-install-recommends --fix-broken > /dev/null
           sudo apt-get install -y -qq --no-install-recommends --download-only ffmpeg > /dev/null
-          mkdir -p ~/ffmpeg-debs && cp /var/cache/apt/archives/*.deb ~/ffmpeg-debs/
+          mkdir -p ~/ffmpeg-debs && cp /var/cache/apt/archives/*.deb ~/ffmpeg-debs/ 2> /dev/null || true
           sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
         fi
         ffmpeg -version | head -1
+        ffprobe -version | head -1
     # Xvfb and Mesa for the default renderer (render.mjs --gl llvmpipe); GitHub's Ubuntu runners already have them
     - shell: bash
       run: command -v Xvfb > /dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends xvfb libgl1-mesa-dri > /dev/null)
+    # the voice packages are pinned (kokoro-onnx 0.6.1 has no build for the newest Python), so the Python is pinned too:
+    # the runner image's own python3 moves with the image (10 Nov 2026: the new image's Python had no kokoro-onnx 0.6.1)
+    - if: inputs.voice == 'true'
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
     - if: inputs.voice == 'true'
       uses: actions/cache@v4
       with:
         path: |
           engine/voice/.venv
           engine/voice/models
-        key: voice-${{ runner.os }}-${{ hashFiles('engine/voice/requirements.txt', 'engine/voice/setup.mjs') }}
+        key: voice-${{ runner.os }}-py313-${{ hashFiles('engine/voice/requirements.txt', 'engine/voice/setup.mjs') }}
     - if: inputs.voice == 'true'
       shell: bash
       run: node engine/voice/setup.mjs

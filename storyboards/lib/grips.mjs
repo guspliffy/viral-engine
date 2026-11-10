@@ -72,6 +72,13 @@ const SIZE = {
   moneybag: { w: 0.3, h: 0.34, d: 0.26 },          // props-heist.js sack: both gloves hug its sides (box hold; widest at 0.16 up)
   policetorch: { r: 0.028, h: 0.2 },               // props-heist.js torch's body: a fist round it (mug hold; build it upright with spec up: true, tip it 90 to point it)
   producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
+  // props-survive-snow.js (Survive it 01, snowed in)
+  firewood: { w: 0.5, h: 0.18, d: 0.18 },          // the one log (len 0.5, r 0.09, lying along x): both gloves on its two ends (box hold); firelog (props-dino.js) has the same size
+  firelog: { w: 0.5, h: 0.18, d: 0.18 },
+  kindlingarmful: { w: 0.55, h: 0.14, d: 0.25 },   // the sticks across both arms: both gloves on the bundle's two ends (box hold)
+  boardplank: { len: 1.1, r: 0.0175 },             // a plank standing on its bottom end (the long side up y): the thin pinch at one end (from ~0.07)
+  hammer: { len: 0.32, r: 0.017, h: 0.2 },         // a claw hammer, handle up y from its butt: the mug hold (a fist round the handle, 0.13 up) or the thin pinch
+  woodchair: { w: 0.45, h: 0.9, d: 0.45 },         // a chair facing -z, its back rail on z 0 at 0.8: both gloves on the rail's ends (box hold, height 0.88)
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
