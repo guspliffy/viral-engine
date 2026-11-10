@@ -420,6 +420,14 @@
    "len": 7,
    "h": 3.3,
    "d": 2.5,
+   "notes": 900,
+   "nw": 0.5,
+   "nh": 0.3,
+   "tint": [
+    1,
+    1.12,
+    0.95
+   ],
    "front": 0,
    "level": 0.45,
    "clock": 0
@@ -474,12 +482,12 @@
   },
   {
    "id": "shake1",
-   "kind": "milkshake",
+   "kind": "fullshake",
    "x": 0.85,
    "y": -2,
    "z": -0.78,
    "rot": 0,
-   "scale": 0.8
+   "scale": 1.6
   },
   {
    "id": "barrel",
@@ -579,7 +587,7 @@
    "from": 11,
    "to": 12.35,
    "text": "Everything's on me. Forever.",
-   "pos": 1170,
+   "pos": 1210,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -606,6 +614,22 @@
    "pos": 480,
    "pop": false,
    "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.32,
+   "to": 9.82,
+   "text": "Every dollar in the city.",
+   "pos": 480,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12.45,
+   "to": 13.97,
+   "text": "But money only works while it's rare.",
+   "pos": 900,
+   "pop": false,
    "kinetic": false
   }
  ],
@@ -1096,6 +1120,16 @@
     },
     {
      "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0.75
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
      "id": "moth",
      "set": {
       "x": -0.4,
@@ -1109,6 +1143,16 @@
     },
     {
      "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0
+     },
+     "dur": 0.07,
+     "ease": "linear",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
      "id": "moth",
      "set": {
       "x": 0,
@@ -1119,6 +1163,26 @@
      "dur": 0.15,
      "ease": "inOut",
      "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0.75
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0
+     },
+     "dur": 0.07,
+     "ease": "linear",
+     "at": 0.47
     },
     {
      "who": "gsl",
@@ -3439,7 +3503,7 @@
   {
    "name": "demo 3: the slap (slow motion)",
    "at": 9.85,
-   "len": 0.75,
+   "len": 0.15,
    "shot": {
     "pos": [
      2.8,
@@ -3448,8 +3512,8 @@
     ],
     "look": [
      -0.8,
-     0.6,
-     -0.1
+     0.82,
+     0.42
     ],
     "fov": 44
    },
@@ -3463,7 +3527,42 @@
      "dur": 0.3,
      "ease": "out",
      "at": 0
+    }
+   ]
+  },
+  {
+   "name": "demo 3: the camera follows the brick down",
+   "at": 10,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     2.8,
+     2.2,
+     0.3
+    ],
+    "look": [
+     -0.8,
+     0.82,
+     0.42
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      2.8,
+      2.2,
+      0.3
+     ],
+     "look": [
+      -0.8,
+      0.6,
+      -0.1
+     ],
+     "fov": 44
     },
+    "dur": 0.18,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "gsl",
      "do": "arm",
@@ -3483,7 +3582,7 @@
      },
      "dur": 0.15,
      "ease": "in",
-     "at": 0.15
+     "at": 0
     },
     {
      "who": "gsl",
@@ -3491,11 +3590,11 @@
      "to": 5,
      "dur": 0.15,
      "ease": "in",
-     "at": 0.15
+     "at": 0
     },
     {
      "fx": "ramp",
-     "at": 0.15,
+     "at": 0,
      "len": 0.6,
      "rate": 0.26,
      "in": 0.25,
@@ -3505,14 +3604,29 @@
      "fx": "shake",
      "dur": 0.2,
      "amp": 0.025,
-     "at": 0.3
+     "at": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.31,
+      0.414,
+      0.2
+     ],
+     "dur": 0.16,
+     "color": "#cfe8b8",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.24,
+     "lift": 0.02,
+     "at": 0.15
     },
     {
      "sfx": "slam",
      "gain": 0.9,
      "loud": true,
      "reason": "the 10x: the brick of cash slapped on the counter",
-     "at": 0.3
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -3522,7 +3636,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.3
+     "at": 0.15
     },
     {
      "macro": "narrate",
@@ -3531,7 +3645,7 @@
      "take": 3,
      "caption": false,
      "gain": 4,
-     "at": 0.32
+     "at": 0.17
     },
     {
      "who": "gsl",
@@ -3542,7 +3656,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.33
+     "at": 0.18
     },
     {
      "do": "prop",
@@ -3552,7 +3666,7 @@
      },
      "dur": 0.35,
      "ease": "settle",
-     "at": 0.33
+     "at": 0.18
     },
     {
      "do": "prop",
@@ -3562,7 +3676,7 @@
      },
      "dur": 0.12,
      "ease": "settle",
-     "at": 0.34
+     "at": 0.19
     },
     {
      "who": "gsl",
@@ -3572,13 +3686,13 @@
       "curve": 0.9
      },
      "dur": 0.12,
-     "at": 0.35
+     "at": 0.2
     },
     {
      "sfx": "seatclack",
      "gain": 0.4,
      "reason": "the diner's sign flips to his hat",
-     "at": 0.35
+     "at": 0.2
     },
     {
      "who": "sam",
@@ -3586,14 +3700,20 @@
      "to": 30,
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.38
+     "at": 0.23
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.9,
+     "at": 0.54
     },
     {
      "who": "sam",
      "do": "pitch",
      "to": 0,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "sam",
@@ -3604,14 +3724,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "sam",
      "do": "turn",
      "to": -40,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3622,14 +3742,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3640,14 +3760,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3658,34 +3778,34 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "release",
      "prop": "brick",
      "dur": 0,
-     "at": 0.73
-    },
-    {
-     "who": "gsl",
-     "do": "still",
-     "dur": 0.25,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3699,15 +3819,15 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "L",
-     "shape": "open",
+     "shape": "cup",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3721,22 +3841,22 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "R",
-     "shape": "open",
+     "shape": "cup",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3747,7 +3867,7 @@
       "curve": 1
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3758,7 +3878,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3766,7 +3886,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3774,14 +3894,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3792,7 +3912,7 @@
       "curve": 1
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3803,7 +3923,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3811,7 +3931,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3819,7 +3939,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     }
    ]
   },
@@ -3838,7 +3958,22 @@
      1.05,
      0.55
     ],
-    "fov": 58
+    "fov": 58,
+    "to": {
+     "pos": [
+      3.95,
+      1.35,
+      0.55
+     ],
+     "look": [
+      -1.7,
+      1.05,
+      0.55
+     ],
+     "fov": 57.5
+    },
+    "dur": 1.6,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3954,6 +4089,22 @@
      "dur": 0.2,
      "ease": "settle",
      "at": 0.45
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
     },
     {
      "who": "wiz",
@@ -4200,7 +4351,7 @@
     {
      "who": "gsl",
      "do": "turn",
-     "to": 45,
+     "to": 22,
      "dur": 0.01,
      "at": 0.54
     },
@@ -4448,73 +4599,6 @@
     },
     {
      "do": "prop",
-     "id": "shake1",
-     "set": {
-      "x": 0.68,
-      "y": 0.86,
-      "z": -0.3
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.55
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.01,
-     "at": 1.56
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "shake1",
-      "grip": [
-       0.089,
-       0.139,
-       0.024
-      ],
-      "palm": "wrap",
-      "off": [
-       0.068,
-       0.02,
-       0.018
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 1.56
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "shake1",
-      "grip": [
-       0.089,
-       0.139,
-       0.024
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 1.57
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.576
-    },
-    {
-     "do": "prop",
      "id": "brick",
      "set": {
       "y": -2
@@ -4574,12 +4658,71 @@
      "who": "gsl",
      "do": "look",
      "to": [
-      0.5,
+      0.8,
       0
      ],
      "dur": 0.01,
      "blink": false,
      "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "shake1",
+     "set": {
+      "x": 0.316,
+      "y": 0.78,
+      "z": -0.696
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "set": {
+      "curl": 0.25,
+      "index": 0.2,
+      "thumb": 0.2
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shake1",
+      "grip": [
+       0,
+       -0.041,
+       0
+      ],
+      "at": [
+       0.316,
+       0.78,
+       -0.696
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "grab",
+     "prop": "shake1",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.041,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.592
     }
    ],
    "kind": "payoff"
@@ -4590,32 +4733,18 @@
    "len": 1.1,
    "shot": {
     "pos": [
-     -0.35,
-     1.55,
-     5.5
+     -2.1,
+     1.35,
+     3.9
     ],
     "look": [
-     -0.35,
-     0.95,
-     0
+     -0.42,
+     0.85,
+     -0.2
     ],
-    "fov": 56
+    "fov": 54
    },
    "do": [
-    {
-     "who": "sam",
-     "do": "grab",
-     "prop": "shake1",
-     "hand": "R",
-     "grip": [
-      0.089,
-      0.139,
-      0.024
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.04
-    },
     {
      "do": "prop",
      "id": "barrow",
@@ -4831,20 +4960,19 @@
      "pose": {
       "prop": "shake1",
       "grip": [
-       0.089,
-       0.139,
-       0.024
+       0,
+       -0.041,
+       0
       ],
-      "palm": "wrap",
       "at": [
-       0.8,
-       0.42,
-       -0.36
+       0.36,
+       0.55,
+       -0.9
       ]
      },
-     "dur": 0.26,
-     "ease": "inOut",
-     "at": 0.82
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.86
     },
     {
      "who": "gsl",
@@ -6211,7 +6339,7 @@
     "prop-pop",
     "grip-gap"
    ],
-   "reason": "the slap: the brick under his flat glove, off screen until the cut, then swung down in slow motion; drawn on twos, it moves between the glove's drawings"
+   "reason": "the slap: the brick under his flat glove, raised beside his hat at the cut, then swung down onto the counter as the slow motion starts; the arm is drawn on single frames, so the brick moves between the glove's drawings"
   },
   {
    "who": "rea",

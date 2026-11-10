@@ -27,7 +27,9 @@ import { noteTexture } from "./props-money.js";
 //               of its length and its depth (z -d/2 to d/2, the face toward +z is the one seen from the room).
 //               spec: len (16, x extent: the crest's tip runs from -len/2 to +len/2), h (2.7, the crest's height at level 1),
 //               d (2.5, depth z), notes (4200, banknotes on the face), car (1: the red hatchback riding it; 0 none),
-//               palm ([1.8, 0.2], x and z of the palm the wave bends over; null for none).
+//               palm ([1.8, 0.2], x and z of the palm the wave bends over; null for none),
+//               nw, nh (0.3, 0.19: one note on the face, metres), tint ([0.62, 1.32, 0.58]: the colour the note picture is
+//               multiplied by on the lit face; [1, 1, 1] keeps the picture's own green and cream border).
 //               Params: front 0..1 (the lip's tip along len: 0 = not yet in view at the -x end, 1 = past the +x end, the
 //               street full), level 0..1 (how high the flood behind the crest stands: at 1 it stands at 85 % of spec.h, the
 //               crest at spec.h; at 0.3 the flood is 0.25 h and the crest 0.65 h), clock (seconds; every tumble, bob and
@@ -290,7 +292,7 @@ function makeCar(parent) {
 FLOOD_KINDS.moneywave = (P) => {
   const S = P.spec, LEN = S.len ?? 16, HH = S.h ?? 2.7, D = S.d ?? 2.5, NB = S.notes ?? 4200, NR = Math.round(LEN * 10), NF = 170, YMAX = 3.4;
   const palmAt = S.palm === null ? null : S.palm ?? [1.8, 0.2];
-  const root = P.whole, NW = 0.3, NH = 0.19;   // a note on the wave: 0.3 x 0.19 m (bigger than life, so it reads from the street)
+  const root = P.whole, NW = S.nw ?? 0.3, NH = S.nh ?? 0.19, TINT = S.tint ?? [0.62, 1.32, 0.58];   // a note on the wave: 0.3 x 0.19 m (bigger than life, so it reads from the street); tint multiplies the note picture
   // the dark body: the profile's cap on the room side, the strips of its surface back to z -d/2, and the barrel's far wall
   const bodyBand = bandTexture("#3f6f47", "#5e9457", 6), darkBand = bandTexture("#2b573c", "#3f7a4a", 5);
   const MAXV = 140, mkGeo = (maxV, maxI) => { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(maxV * 3), 3)); g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(maxV * 2), 2)); g.setIndex(new THREE.BufferAttribute(new Uint32Array(maxI), 1)); g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 1e4); return g; };
@@ -340,7 +342,7 @@ FLOOD_KINDS.moneywave = (P) => {
         const k = sm(0.05, 0.17, d);
         if (k <= 0) { body.setMatrixAt(i, ZERO); continue; }
         const tint = (d < 0.42 ? 1 : d < 0.95 ? 0.78 : 0.58) * (y < Hc * 0.22 ? 0.82 : 1);
-        C.setRGB(0.62 * tint, 1.32 * tint, 0.58 * tint); body.setColorAt(i, C);
+        C.setRGB(TINT[0] * tint, TINT[1] * tint, TINT[2] * tint); body.setColorAt(i, C);
         const ang = s.ph + s.w * clk;
         put(body, i, xTip + u + 0.03 * Math.sin(1.9 * clk + s.ph), y + 0.03 * Math.sin(2.3 * clk + s.ph * 2), zc + 0.03 + s.z * 0.1, 0.45 * Math.sin(1.7 * clk + s.ph * 3), 0.45 * Math.sin(1.3 * clk + s.ph * 5), ang, NW * k, NH * k);
       }

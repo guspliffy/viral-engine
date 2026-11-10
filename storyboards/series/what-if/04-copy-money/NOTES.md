@@ -5,19 +5,19 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 
 ## Where the build stands
 
-- Step: packs on, review A applied, layout fails 38 -> 0; next: preflight, draft, strips, review B, ONE farm render.
-  Renders so far: drafts 0, farm renders 0; fix rounds used: 0 of 3; full layouts 4, partial layouts about 14
+- Step: draft 1 passed the checks (round 1 of 3), review B applied (wave notes, slap camera, barrow shot, throne
+  push in), main merged in; next: ONE farm render. Drafts 1, farm renders 0; full layouts 10, partial about 30
 - Generator: `--no-vo` writes copy-money-no-vo.json (no opening slow motion, no narrator); default = with narrator.
   `READY=money,flood,twist,night` names the packs that exist; `TIMES=1` prints story = video seconds for every beat;
   `AT=14.6,...` maps video seconds to story seconds. Windows (allowClip, see) are written in story s, converted by VT()
-- Trial counters: engine grep/sed lookups so far 22; thread start 06:07Z 10 Nov
+- Trial counters: engine grep/sed lookups so far 27; thread start 06:07Z 10 Nov
 
 ## Cast (a potato is 0.9 m wide, 1.1 m tall; Gunslinger's brim 1.3 m; body-width apart = 1.0-1.2 m)
 
 | id | at x,z (story s) | faces | holds (prop, hold, hand) |
 |---|---|---|---|
-| gsl | -0.65,0.2 (0); -0.45,0.1 (2.0); behind the camera 3.0,1.7 (8.3); -0.36,0.2 (9.85); throne -0.7,0.55 then seat -1.7,0.55 (10.6); -1.5,0.1 (12.9); 40,0.5 (15.1) | 30 / 35 / 80 / 90 / 45 / -50 then 15 | wallet R 0-0.82, again 4.0-4.55; coin1 L pinch (given to sam 2.75), coin2 R; brick R flat on top 8.6-10.6; barrow handles (world points) 14.0; bundle R 15.1-16.0; cup on L palm (from below) from 19.0 |
-| sam | 1.15,-0.95 (0); 0.45,-0.76 (1.85); glass -1.75,-0.8 (8.3); bow -1.6,-0.95 (9.4); under the board 0.7,-1.1 (12.4); till 0.85,-0.78 (14.0) | -25 / -30 / -90 / 53 / 10-165-15 / -25 | palm out L at 0; coin1 R (thin, top rim) 2.75-4.0; milkshake R (mug) 14.0 on |
+| gsl | -0.65,0.2 (0); -0.45,0.1 (2.0); behind the camera 3.0,1.7 (8.3); -0.36,0.2 (9.85); throne -0.7,0.55 then seat -1.7,0.55 (10.6); -1.5,0.1 (12.9); 40,0.5 (15.1) | 30 / 35 / 80 / 90 / 22 / -40 then 15 | wallet R 0-0.82, again 4.0-4.55; coin1 L pinch (given to sam 2.75), coin2 R; brick R flat on top 8.6-10.6; far fist on a barrow handle (world point) 14.0; bundle R 15.1-16.0; cup on L palm (from below) from 19.0 |
+| sam | 1.15,-0.95 (0); 0.45,-0.76 (1.85); glass -1.75,-0.8 (8.3); bow -1.6,-0.95 (9.4); under the board 0.7,-1.1 (12.4); till 0.85,-0.78 (14.0) | -25 / -30 / -90 / 53 / 10-165-15 / -25 | palm out L at 0; coin1 R (thin, top rim) 2.75-4.0; full milkshake on his open R palm (from below) 14.0 on |
 | rea | 0.95,2.4 (0); glass -1.9,2.0 (8.3); throne side -1.7,1.97 (11.3); 43 to 41.15,0.6 (16.9-17.9) | -14 / -90 / 105 / -50 | rwal R 0-7.3; iou L (thin) 5.85-8.27; coffee R from above (glove on the lid) 15.1-19.15 |
 | wiz | off (0); glass -1.85,0.95 (8.3); throne side -1.7,-0.87 (11.3); off (12.9) | -90 / 75 | - |
 
@@ -46,18 +46,20 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 | pay | 2.5 | 0.3,1.05,5.3 | 0.05,0.7,-0.3 | 36 | the coin changes hands, the bite |
 | heap / all | 4.0 / 7.5 | 0.9,2.2,6.1 / 0.3,1.0,4.6 | 0.2,0.8,0.3 / -0.45,0.82,0.1 | 40 / 32 | 100 wallets, IOU rain / COPY x3 |
 | wave | 8.3 | 1.9,1.3,0.25 | -2.4,1.7,0.25 | 56 | straight at the window wall, friends' backs low |
-| slap | 9.85 | 2.8,2.2,0.3 | -0.8,0.6,-0.1 | 44 | the cover |
-| throne | 10.6 | 4.25,1.35,0.55 | -1.7,1.05,0.55 | 58 | |
+| slap | 9.85, 10.0 | 2.8,2.2,0.3 | -0.8,0.82,0.42 to -0.8,0.6,-0.1 | 44 | the raised brick, then the cover |
+| throne | 10.6 | 4.25 to 3.95,1.35,0.55 | -1.7,1.05,0.55 | 58 to 57.5 | both friends' faces stay in |
 | board | 12.4 | 0.6,1.0,2.7 | 0.7,1.4,-1.6 | 36 | the board over the counter man |
-| barrow | 14.0 | -0.35,1.55,5.5 | -0.35,0.95,0 | 56 | barrow, pile, milkshake in his glove |
+| barrow | 14.0 | -2.1,1.35,3.9 | -0.42,0.85,-0.2 | 54 | him near, barrow, pile, the milkshake beside the counter man's head |
 | night, push in | 15.1, 18.4 | 40.1,1.7,6.6 to 40.45,1.15,4.6 | 40.1,1.25,0.5 to 40.45,0.85,0.5 | 48 to 46 | his right side is cut by the frame at the end |
 
 ## Decisions, with the reason
 
 - The window wall is the room's LEFT wall (panel 01): wave, slap and throne are shot from the right looking left.
 - Wizard is not in frame 0 (v2 names three). Cast stands, no stools. Two potatoes abreast per 9:16 frame, else stack in depth.
-- Gunslinger is not in the wave shot (review A: windows clear above the hats); he is back at the slap cut.
-- Demo 1: the counter man takes the coin from his glove and bites it. The milkshake is in his glove (the heap hid it on the counter).
+- Placing someone on a cut (move + turn + lean, dur 0.01): name `ease: "linear", sync: true`, or the timing layer's
+  settle plays out after the cut (the throne cut: a 4 cm body hop three frames in, a rig-jump). Poses on a cut: t - 0.02.
+- Demo 1: the counter man takes the coin from his glove and bites it. The milkshake is `fullshake` 1.6 x on his open palm
+  (kind `milkshake` is the EMPTY glass; in a mug hold before his forehead the arm crossed his face and nothing read).
 - Barrel 0.75 x and beside him, not in front: at full size it hid him and his warming gloves crossed his face.
 - The coffee: Reaper carries it from above (glove on the lid) and Gunslinger takes it on his open palm from below.
   A side (mug) hold for either sat on the cup's far side: arms crossed, gloves in the other's body, palms flipped.
@@ -67,10 +69,8 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 ## Tried and dropped
 
 - Named "up" arms: through Gunslinger's and Wizard's hat brims. `UP_WIDE = { o: [0.8, 0.95, 0.2] }` clears them.
-- A held cup carried to world points through Reaper's walk: it drifts against the body. Worn prop for the walk.
-- `grips.mug` with rot 0 for a pass: the grip lands on the wrong side (rot must be the holder's yaw + 180).
 - A glove on his belly (`out` < 0): the arm lies across his mouth, and a reach across the shoulder line jumps.
-- `act.shock` on someone holding a prop (it moves the arms): expr + squash. Arm moves inside the slow-motion ramp.
+- `act.shock` on a prop holder (moves the arms). Character moves in a slow-motion ramp (3-5 drawings a second): move a prop, an effect or the camera.
 
 ## Names looked up that `docs/VOCAB.md` didn't answer
 

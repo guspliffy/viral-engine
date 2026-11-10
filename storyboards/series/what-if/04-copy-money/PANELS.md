@@ -11,17 +11,17 @@ script Jonny asked for; where the two differ the v2 text wins and the row is a d
 
 | # | Line | Staging proof | Before full render |
 | --- | --- | --- | --- |
-| 1 | Frame 0 (01): the camera is on the customers' side looking at the kitchen wall; Gunslinger small at the left (x 0.18, eyes 0.53 down), the counter man behind the counter at the right with his palm out, Reaper low in front at the right, his wallet already out | yes (review A: partial, Reaper moved back to z 2.4) | |
-| 2 | Frame 0 (01): Gunslinger's wallet is open and empty in his glove, one coin, exactly one moth flying out of it; never a second moth | yes (coins now pinched at the bottom rim, above the fingers) | |
-| 3 | The price board (01, 03, 04, 07) hangs top right on the kitchen wall: one row of three food pictures over one row of flip digits, in frame in every wide of the main direction | yes | |
-| 4 | The copy (02): a close-up, his hat top near 0.14 and his eyes near 0.48 down, a coin in each glove held at chest height beside each other, both coins clear of his face, gold shimmer | yes | |
-| 5 | Paying (03): he holds the coins out over the counter to the counter man's open palm; both faces show; never his back to us | yes after the restage: one coin handed over the counter's corner, both faces 3/4 | |
-| 6 | The slap (06, the cover): he is big and front, 3/4 to us (eyes about 0.58 down, x 0.44), his glove flat on a brick of cash on the counter in the foreground; a hit burst is NOT copied (no reaction marks) | yes (camera above, see Departures) | |
-| 7 | The friends cheer behind or beside him with both faces to us (05, 06); never backs to camera on the throne beat | yes | |
-| 8 | The price board fills the top of the frame when it runs away (07), the counter man under it looking up at it | yes: the board over the counter man, who turns to look up at it | |
-| 9 | The diner is bright, red and chrome, window to a sunny street at the left (01-08) until the hard cut to night | yes | |
-| 10 | Money is green notes with the potato emblem and gold coins with the potato emblem (02, 05-08); never real currency | yes (props-money.js: potato emblem, no text or numbers) | |
-| 11 | No gun, in any frame; every potato alive and unhurt | yes | |
+| 1 | Frame 0 (01): the camera is on the customers' side looking at the kitchen wall; Gunslinger small at the left (x 0.18, eyes 0.53 down), the counter man behind the counter at the right with his palm out, Reaper low in front at the right, his wallet already out | yes (review A: partial, Reaper moved back to z 2.4) | yes (draft sheet 0.3 s) |
+| 2 | Frame 0 (01): Gunslinger's wallet is open and empty in his glove, one coin, exactly one moth flying out of it; never a second moth | yes (coins now pinched at the bottom rim, above the fingers) | yes |
+| 3 | The price board (01, 03, 04, 07) hangs top right on the kitchen wall: one row of three food pictures over one row of flip digits, in frame in every wide of the main direction | yes | yes |
+| 4 | The copy (02): a close-up, his hat top near 0.14 and his eyes near 0.48 down, a coin in each glove held at chest height beside each other, both coins clear of his face, gold shimmer | yes | yes |
+| 5 | Paying (03): he holds the coins out over the counter to the counter man's open palm; both faces show; never his back to us | yes after the restage: one coin handed over the counter's corner, both faces 3/4 | yes (departure: one coin) |
+| 6 | The slap (06, the cover): he is big and front, 3/4 to us (eyes about 0.58 down, x 0.44), his glove flat on a brick of cash on the counter in the foreground; a hit burst is NOT copied (no reaction marks) | yes (camera above, see Departures) | yes; after review B the camera starts on the raised brick and follows it down onto the counter |
+| 7 | The friends cheer behind or beside him with both faces to us (05, 06); never backs to camera on the throne beat | yes | yes |
+| 8 | The price board fills the top of the frame when it runs away (07), the counter man under it looking up at it | yes: the board over the counter man, who turns to look up at it | yes |
+| 9 | The diner is bright, red and chrome, window to a sunny street at the left (01-08) until the hard cut to night | yes | yes |
+| 10 | Money is green notes with the potato emblem and gold coins with the potato emblem (02, 05-08); never real currency | yes (props-money.js: potato emblem, no text or numbers) | yes; the wave's notes made bigger after review B so they read as banknotes |
+| 11 | No gun, in any frame; every potato alive and unhurt | yes | yes |
 
 ## Numbers: read off each panel before any code
 
@@ -31,7 +31,7 @@ opening slow motion (TITLE_LEN - 0.6 s).
 | Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 01 | 0.3 | gsl | 0.42 | 0.53 | 0.72 | 0.18 | gsl, sam, rea | above | Wizard is not in frame 0: the v2 script's frame 0 names three (Gunslinger, the counter man, Reaper) and the frame reads faster with the victim alone in front |
-| 02 | 1.3 | gsl | 0.14 | 0.48 | 1 | 0.44 | gsl | level | |
+| 02 | 1.3 | gsl | 0.14 | 0.48 | 1 | 0.44 | gsl | level | yes |
 | 03 | 3.0 | gsl | 0.40 | 0.50 | - | 0.22 | gsl, sam | above | v2 demo 1: he pays with ONE coin, handed over the counter's corner, and the counter man bites it (his right glove can't reach the counter, and a coin in a glove reads better than one lying flat); Wizard and Reaper are not in this shot |
 | 04 | - | gsl | - | - | - | - | - | - | v2 demo 2 replaces the coin stacks: a hundred wallets in his arms and a rain of IOU notes on Reaper |
 | 05 | - | gsl | - | - | - | - | - | - | v2 demo 3 replaces the money pit: a wave of banknotes outside the windows, then the throne of cash |
@@ -66,3 +66,10 @@ opening slow motion (TITLE_LEN - 0.6 s).
   the windows (review A). He is at the counter in the next shot, the slap.
 - The milkshake of v2 panel 07 is in the counter man's glove, not on the counter: the heap of cash hid it there.
 - Length: about 25 s with the spoken title at 0.0 (series rule since EP02), not the script's 19.0 s.
+- The ending (v2 panel 08): Reaper carries a takeaway coffee from above (glove on the lid) and Gunslinger takes it on
+  his open palm from below; a side hold for either crossed their arms or flipped a palm. The wink is a coffee toast
+  without the hat tip: his right glove is outside the last frame, and the series wink's hat tip goes through his brim.
+- The wheelbarrow shot is from the window side, Gunslinger near and the counter man behind (review B: square-on both
+  were small), and the one milkshake is a full pink one on the counter man's open palm, held up beside his head.
+- The narrator's lines are not subtitled (as in EP01 and EP03): the burned-in demo, fact and question captions carry
+  the story, and a second line of text would not fit the close-ups.
