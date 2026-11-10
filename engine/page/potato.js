@@ -9,7 +9,10 @@ const rd = (v, n) => Math.round(v * 10 ** n) / 10 ** n;
 // Rig options for the clip being drawn (stage.js calls setRig(sb) when it loads a storyboard). "rig": { "hand": 2 }
 // turns on the hand that can't flip (quality plan item 2, 5 Nov 2026); without it every clip draws as before.
 let HAND = null, SMOOTH = true;
-export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; };
+// FROST: the actors whose face actions key "frost" or "melt" (frost.js): only they get the frost layer, so every other
+// clip draws exactly as before
+let FROST = new Set();
+export const setRig = (sb) => { HAND = sb?.rig?.hand ?? null; SMOOTH = sb?.rig?.smooth !== false; FROST = frostActors(sb); };
 // Hand rig 2: the hand's turn is built from a base frame plus turns away from it that a wrist can do.
 // The base frame: the hand's frame when the forearm points out, forward and up (HAND_Y0, 45 degrees up from out and
 // forward, square to today's look-at reference: a hanging hand, and every forearm square to that reference, keeps
@@ -56,6 +59,7 @@ import { buildFries } from "./props.js";
 import { rng } from "./util.js";
 import { taperedTube } from "./geo.js";
 import { cone, meshShape, geometryOf, shapeKey, inkMaterial } from "./handmesh.js";
+import { Frost, frostActors } from "./frost.js";
 
 const LEG_H = 0.14;
 
@@ -207,6 +211,8 @@ export class Character {
     this.costume = buildCostume(def, this);
     this.fries = buildFries(def, this); this.fries.group.visible = false; this.root.add(this.fries.group);
     this._limbKey = "";
+    // the frost layer (face controls frost / melt, frost.js), for an actor whose storyboard keys them
+    if (FROST.has(key)) this.frost = new Frost(this);
   }
 
   // a mitten hand (def.hands.type "mitten"): palm, three fingers as one mitten, a separate index finger and a thumb, each
@@ -1105,6 +1111,7 @@ export class Character {
       if (this.legs[s].mesh) this.legs[s].mesh.visible = showLimbs;
     }
     this.costume.apply(st, t, hands, fries);
+    if (this.frost) this.frost.apply(st, t, fries);
     if (globalThis.__DIAG?.clearance && !fries) this._clearance(t);
   }
 
