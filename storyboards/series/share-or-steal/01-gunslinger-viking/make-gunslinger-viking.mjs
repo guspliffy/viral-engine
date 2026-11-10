@@ -58,7 +58,7 @@ const cast = [
 const card = (id, who, k, face) => { const [x, y, z] = cardAt(who, k); return { id, kind: "sscard", face, x, y, z, rot: 0, scale: CARD_SCALE, flip: 0, glow: 0 }; };
 const props = [
   { id: "studio", kind: "ssstudio", x: 0, z: 0, dim: 0 },
-  { id: "fryer", kind: "ssfryer", x: 0, z: FZ, w: 1.3, d: 0.75, h: 1.0, castLight: 0.6, haze: 0.35, churn: 0 },
+  { id: "fryer", kind: "ssfryer", x: 0, z: FZ, w: 1.3, d: 0.75, h: 1.0, castLight: 1.0, haze: 0.6, churn: 0.3 },   // review A: orange and seething from frame 0 (stakes by 1.5 s)
   { id: "oil", kind: "fryoil", x: 0, y: 0.92, z: FZ, w: 1.18, d: 0.62 },
   // turned 45 deg: the checks measure the round top by its square box, whose corners would point at the two players
   { id: "table", kind: "sostable", x: 0, z: 0, rot: 45, r: TR, h: TH },
@@ -73,7 +73,7 @@ const props = [
 
 // keys props3d.js propState doesn't start (warn, churn, dim) get a number at t 0, so their first tween eases, not steps
 for (const id of ["trapG", "trapV"]) c.prop(0, id, { warn: 0 }, 0.01);
-c.prop(0, "fryer", { churn: 0 }, 0.01); c.prop(0, "studio", { dim: 0 }, 0.01);
+c.prop(0, "fryer", { churn: 0.3 }, 0.01); c.prop(0, "studio", { dim: 0 }, 0.01);
 
 // ---------------------------------------------------------------- the clock (story seconds)
 // Host lines are the measured reads of voice 5 (narrator-trailer) in the "game-show host" style (BOARD §2).
@@ -88,7 +88,7 @@ T.plea1 = r3(T.count + 0.3);
 T.owe = r3(T.plea1 + 0.9);
 T.plea2 = r3(T.owe + 0.7);                        // he stands and steps out; the pocket pat follows
 T.pat = r3(T.plea2 + 0.88);                       // the pocket pat block's 1.5 s (its 1.47 .. 2.84 lands at pat - 0.03 .. pat + 1.34)
-T.plea3 = r3(T.pat + 1.72);                       // the wallet back in the holster, then the dash round the front of the table
+T.plea3 = r3(T.pat + 2.0);                       // the wallet back in the holster, then the dash round the front of the table
 T.kneel = r3(T.plea3 + 1.05);
 T.okay = r3(T.kneel + 0.85);
 T.back = r3(T.okay + 0.45);                       // he scrambles back to his chair
@@ -104,7 +104,7 @@ T.splash = r3(T.drop + 0.42);
 T.hug = r3(T.splash + 0.65);
 T.endLine = r3(T.splash + 0.55);
 T.ask = r3(T.endLine + 2.15);
-const END = r3(T.ask + 2.0);
+const END = r3(T.ask + 1.8);
 
 // ---------------------------------------------------------------- the host (voice 5, never on screen)
 const HOST = "deep, dark game-show host, fast and clipped, tense", DRY = "deep, dry, deadpan narrator, unhurried";
@@ -179,8 +179,8 @@ see(0, 0.6, ["gsl.face", "vik.face", "gold"], "frame 0: the gold between them, h
 A(r3(T.rules + 2.05), "vik", "look", { to: [-0.15, 0.1], dur: 0.2, blink: false });   // "the other one fries": over his shoulder at the fryer
 A(r3(T.rules + 2.1), "gsl", "look", { to: [0.15, 0.1], dur: 0.2, blink: false });
 sfx(r3(T.rules + 2.85), "steam", { gain: 0.25, reason: "a hiss of steam off the fryer as the host says 'fries'" });
-c.prop(r3(T.rules + 2.8), "fryer", { churn: 0.5 }, 0.2, "out");
-c.prop(r3(T.rules + 3.6), "fryer", { churn: 0 }, 0.6, "inOut");
+c.prop(r3(T.rules + 2.8), "fryer", { churn: 0.8 }, 0.2, "out");
+c.prop(r3(T.rules + 3.6), "fryer", { churn: 0.3 }, 0.6, "inOut");
 A(r3(T.rules + 2.9), "vik", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.1 }, dur: 0.25 }); A(r3(T.rules + 2.9), "vik", "face", { brow: 0.35, dur: 0.25 });
 A(r3(T.rules + 4.0), "vik", "look", { to: [-0.55, -0.05], dur: 0.2, blink: false });   // "both steal": at each other
 A(r3(T.rules + 4.0), "gsl", "look", { to: [0.55, -0.05], dur: 0.2, blink: false });
@@ -195,7 +195,9 @@ c.say(r3(T.plea1 + 0.1), "gsl", "I'll share, I swear!", 0.75, "excited", { voice
 see(T.plea1, r3(T.plea1 + 0.9), ["gsl.face", "vik.face"], "plea 1: his hand on his heart, Viking watching");
 // Viking: arms folded, one brow up: "You still owe me fifty!"
 // Viking: one finger up off the table ("uh-uh"), one brow up: "You still owe me fifty!"
-c.arm(r3(T.owe - 0.45), "vik", "R", { o: [-0.12, 0.62, 0.36] }, 0.45, "inOut");
+c.arm(r3(T.owe - 0.45), "vik", "R",  { o: [0, 0.4, 0.55] }, 0.45, "inOut");   // out over the table straight out in front of his right shoulder (o[0] is OUT from his side: < 0 crossed his face, > 0.3 hid behind his fur): the finger follows the forearm
+for (const t of [0.15, 0.45]) { c.arm(r3(T.owe + t), "vik", "R", { o: [0, 0.48, 0.55] }, 0.12, "inOut"); c.arm(r3(T.owe + t + 0.13), "vik", "R",  { o: [0, 0.4, 0.55] }, 0.12, "inOut"); }   // two wags
+A(r3(T.owe - 0.1), "vik", "look", { to: [-0.55, -0.05], dur: 0.12, blink: false });
 A(r3(T.owe - 0.2), "vik", "grip", { side: "R", shape: "point", dur: 0.12 });
 c.arm(r3(T.owe + 0.75), "vik", "R", ONTABLE("vik", "R"), 0.5, "inOut"); A(r3(T.owe + 1.0), "vik", "grip", { side: "R", shape: "flat", dur: 0.15 });
 A(r3(T.plea1 + 0.55), "vik", "expr", { expr: "annoyed", set: { raise: 0.05 }, dur: 0.25 }); A(r3(T.plea1 + 0.55), "vik", "face", { lid: 0.35, dur: 0.25 });
@@ -224,17 +226,17 @@ A(r3(T.pat + 1.03), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.08 });
 const HOLSTER = patProps({ who: "gsl", at: GS, yaw: G_YAW })[0];
 props.push(...patProps({ who: "gsl", at: GS, yaw: G_YAW }).map((q) => (q.id === "wallet" ? { ...q, scale: 0.001, staged: "down in his holster (part of his costume) until he draws it" } : q)));
 // the wallet back in the holster (EP04's moves): it folds shut, his hand takes it down, lets go, and it's gone
-c.prop(r3(T.pat + 1.25), "wallet", { open: 0 }, 0.1, "inOut");
-c.arm(r3(T.pat + 1.25), "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: [HOLSTER.x, HOLSTER.y, HOLSTER.z] }, 0.32, "inOut");   // 45 cm down to his hip: 0.32 s
-A(r3(T.pat + 1.58), "gsl", "release", { prop: "wallet", to: [HOLSTER.x, HOLSTER.y, HOLSTER.z], dur: 0.04 });
-c.prop(r3(T.pat + 1.7), "wallet", { tip: 360, rot: HOLSTER.rot }, 0.04, "inOut");   // squared up once it's out of sight
-c.at(r3(T.pat + 1.64), { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.04, ease: "in", reason: "back down in his holster (part of his costume), so it runs with him" });
-c.arm(r3(T.pat + 1.58), "gsl", "R", "rest", 0.42, "inOut");   // as he lets go
-c.arm(r3(T.pat + 1.3), "gsl", "L", "rest", 0.45, "inOut"); A(r3(T.pat + 1.32), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.15 });
+c.prop(r3(T.pat + 1.5), "wallet", { open: 0 }, 0.1, "inOut");   // open pat + 1.0 .. 1.45 in his medium (review A: 0.25 s vanished at phone size)
+c.arm(r3(T.pat + 1.5), "gsl", "R", { prop: "wallet", grip: [-0.155, 0, 0], at: [HOLSTER.x, HOLSTER.y, HOLSTER.z] }, 0.32, "inOut");   // 45 cm down to his hip: 0.32 s
+A(r3(T.pat + 1.83), "gsl", "release", { prop: "wallet", to: [HOLSTER.x, HOLSTER.y, HOLSTER.z], dur: 0.04 });
+c.prop(r3(T.pat + 1.95), "wallet", { tip: 360, rot: HOLSTER.rot }, 0.04, "inOut");   // squared up once it's out of sight
+c.at(r3(T.pat + 1.89), { do: "prop", id: "wallet", set: { scale: 0.001 }, dur: 0.04, ease: "in", reason: "back down in his holster (part of his costume), so it runs with him" });
+c.arm(r3(T.pat + 1.83), "gsl", "R", "rest", 0.42, "inOut");   // as he lets go
+c.arm(r3(T.pat + 1.55), "gsl", "L", "rest", 0.45, "inOut"); A(r3(T.pat + 1.57), "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.15 });
 c.say(r3(T.pat + 1.08), "gsl", "look! nothing!", 0.5, "excited", { voice: false, sub: "Look! Nothing!", ...TOP });
 // Viking's brows come down a little: he softens
 A(r3(T.pat + 1.0), "vik", "look", { to: [-0.45, 0.1], dur: 0.15, blink: false });
-A(r3(T.pat + 1.38), "vik", "expr", { expr: "sad", set: { curve: -0.15 }, dur: 0.3 }); A(r3(T.pat + 1.38), "vik", "face", { lid: 0.15, brow: 0.15, dur: 0.3 });
+A(r3(T.pat + 1.5), "vik", "expr", { expr: "sad", set: { curve: -0.15 }, dur: 0.3 }); A(r3(T.pat + 1.5), "vik", "face", { lid: 0.15, brow: 0.15, dur: 0.3 });
 
 // ---------------------------------------------------------------- PLEA 3 (the 10x): a dash round the table, a knee slide, begging, wailing
 // The dash runs round the front of the table (the camera side) on a circle clear of the table's edge by his hat brim,
@@ -297,6 +299,8 @@ A(r3(T.kneel - 0.3), "vik", "turn", { to: V_TURN, dur: 0.45, ease: "inOut" });
 c.prop(r3(T.kneel - 0.3), "chairV", { rot: V_TURN }, 0.45, "inOut");
 sfx(r3(T.kneel - 0.25), "creak", { gain: 0.25, reason: "Viking's chair swivels round toward him" });
 A(r3(T.kneel - 0.1), "gsl", "look", { to: [-0.6, 0.4], dur: 0.12, blink: false });
+A(r3(T.kneel - 0.15), "gsl", "pitch", { to: -11, dur: 0.35 });   // he leans back on his knees, face up to Viking (the kneel tips him 7 deg forward: the brim hid his eyes)
+A(r3(T.back - 0.15), "gsl", "pitch", { to: 0, dur: 0.2 });
 A(T.kneel, "gsl", "expr", { expr: "sad", set: { open: 0.55, curve: -0.7 }, dur: 0.15 }); A(T.kneel, "gsl", "face", { brow: 0.6, lid: 0.55, dur: 0.15 });
 c.say(r3(T.kneel + 0.1), "gsl", "pleeease! we're brothers!", 0.85, "sad", { voice: false, sub: "PLEASE, brother!", ...TOP });
 for (let k = 0; k < 4; k++) A(r3(T.kneel + 0.1 + k * 0.22), "gsl", "squash", { amount: 0.03, dur: 0.18 });   // sobs
@@ -383,7 +387,7 @@ sfx(T.warn, "kenney/metal-latch", { gain: 0.5, reason: "the trapdoor's latch arm
 A(r3(T.warn + 0.1), "vik", "look", { to: [0.2, -0.75], dur: 0.12, blink: false });
 A(r3(T.warn + 0.15), "vik", "expr", { expr: "terrified", dur: 0.2 }); A(r3(T.warn + 0.15), "vik", "face", { brow: 0.6, dur: 0.2 });
 // his hands come up off the table in fright (so they ride down with him: a hand left on the table flipped as he fell)
-for (const [s, x] of [["R", -0.2], ["L", 0.2]]) c.arm(r3(T.warn - 0.05), "vik", s, { o: [x, 0.52, 0.3] }, 0.5, "inOut");
+for (const [s, o] of [["R", [-0.1, 0.34, 0.5]], ["L", [0.08, 0.32, 0.36]]]) c.arm(r3(T.warn - 0.05), "vik", s, { o }, 0.5, "inOut");   // both palms up in front of his chest, clear of his eyes (o[0] is out from each side; his right one further forward: he sits turned 40 deg from the drop shot)   // palms up at his chest: at 0.52 a hand sat on his eye
 A(r3(T.warn + 0.12), "vik", "grip", { side: "both", shape: "open", dur: 0.15 });
 
 // ---------------------------------------------------------------- THE DROP: the trap opens, the chair tips back, he's gone
@@ -406,7 +410,8 @@ sfx(r3(T.splash + 0.15), "sizzle", { gain: 0.6, reason: "the sizzle" });
 c.prop(T.splash, "trapV", { steam: 1, rise: 1 }, 0.5, "out");
 c.prop(T.splash, "fryer", { churn: 1 }, 0.25, "out");
 c.prop(r3(T.splash + 1.6), "fryer", { churn: 0.3 }, 1.0, "inOut");
-c.prop(r3(T.splash + 2.0), "trapV", { steam: 0.55 }, 1.0, "inOut");
+c.prop(r3(T.splash + 2.0), "trapV", { steam: 0.7 }, 1.0, "inOut");
+c.prop(T.ask, "trapV", { steam: 0.95 }, 0.5, "out");   // a last puff as the question lands
 // Gunslinger winces at the sizzle
 A(r3(T.drop + 0.05), "gsl", "look", { to: [0.65, -0.1], dur: 0.1, blink: false });
 A(r3(T.splash + 0.05), "gsl", "expr", { expr: "shocked", set: { open: 0.1, curve: -0.3 }, dur: 0.15 }); A(r3(T.splash + 0.05), "gsl", "face", { lid: 0.8, brow: 0.4, dur: 0.15 });
@@ -422,7 +427,14 @@ A(r3(T.hug + 0.25), "gsl", "grip", { side: "both", shape: "press", dur: 0.1 });
 sfx(r3(T.hug + 0.4), "coins", { gain: 0.6, reason: "the gold pile jingling as his arms close round it" });
 A(r3(T.hug + 0.8), "gsl", "face", { lid: 0.85, dur: 0.25 });
 A(r3(T.hug + 0.8), "gsl", "expr", { expr: "happy", set: { curve: 0.85 }, dur: 0.25 });
-A(r3(T.hug + 0.85), "gsl", "still", { dur: r3(END - T.hug - 0.9), idle: 0.15 });
+A(r3(T.hug + 0.85), "gsl", "still", { dur: r3(T.ask - T.hug - 0.9), idle: 0.15 });
+// as the question pops: one eye opens on the empty chair, a small guilty gulp, and back to the gold (review A: 4.4 s of one frame)
+A(T.ask, "gsl", "face", { lid: 0.1, brow: 0.3, dur: 0.15 });
+A(r3(T.ask + 0.05), "gsl", "look", { to: [0.6, -0.2], dur: 0.2, blink: false });
+A(r3(T.ask + 0.3), "gsl", "squash", { amount: 0.03, dur: 0.2 });
+A(r3(T.ask + 0.6), "gsl", "look", { to: [0.3, -0.5], dur: 0.15, blink: false });
+A(r3(T.ask + 0.65), "gsl", "face", { lid: 0.85, brow: 0.1, dur: 0.2 });
+A(r3(T.ask + 0.9), "gsl", "still", { dur: r3(END - T.ask - 0.95), idle: 0.15 });
 c.prop(r3(T.endLine + 0.2), "studio", { dim: 0.55 }, 1.2, "inOut");
 see(T.splash, r3(END - 0.1), ["gsl.face", "chairV"], "the empty chair, the steam, Gunslinger with all the gold");
 
@@ -432,14 +444,14 @@ const WIDE = frame([0, 0.95, -0.6], { az: 0, el: 7, h: 3.6, fov: 40 });
 const TWO = frame([0, 1.02, -0.55], { az: 0, el: 6, h: 2.9, fov: 38 });
 const FRYER = frame([0, 0.95, FZ], { az: 0, el: 30, h: 1.1, fov: 36, push: 0.08, dur: 0.8 });
 // the countdown's shots keep room above the heads for the subtitles (y 262, left of the countdown)
-const VIK_MED = frame([V[0] - 0.05, 1.0, V[1] + 0.1], { az: -18, el: 4, h: 2.7, fov: 36, push: 0.04, dur: 1.0 });
+const VIK_MED = frame([V[0] - 0.25, 1.05, V[1] + 0.1], { az: -18, el: 4, h: 2.7, fov: 36, push: 0.04, dur: 1.0 });
 const GSL_MED = frame([GS[0] + 0.12, 0.8, GS[1]], { az: 12, el: 0, h: 2.6, fov: 38 });
-const PAT_TWO = frame([-0.45, 0.8, -0.55], { az: 0, el: 2, h: 3.6, fov: 38 });   // the empty wallet and Viking's face in one frame
-const RUNW = frame([0.27, 0.8, -0.2], { az: 0, el: 9, h: 5.6, fov: 40 });   // the dash: from the pat spot (x -1.14) to the kneel (x 1.68)
-const HUG = frame([1.19, 0.66, -0.52], { az: -10, el: -6, h: 3.5, fov: 38 });   // below his brim: he kneels low
-const CARDS = frame([0, TH + 0.02, -0.22], { az: 0, el: 78, h: 1.9, fov: 34 });
-const DROP = frame([r3((V[0] + VT[0]) / 2), 0.6, r3((V[1] + VT[1]) / 2)], { az: -8, el: 16, h: 2.7, fov: 38 });   // Viking and his trap behind him
-const ENDW = frame([0, 0.9, -0.6], { az: 0, el: -2, h: 3.2, fov: 40, push: 0.08, dur: 4 });   // at his eye height: his face under the brim
+// the dash and the scramble back: a wide that pans with him (a hard cut in from Viking's medium: the still wide cropped him at the pat spot)
+const RUNW_L = frame([-0.03, 0.8, -0.2], { az: 0, el: 9, h: 5.6, fov: 40 }), RUNW_R = frame([0.43, 0.8, -0.2], { az: 0, el: 9, h: 5.6, fov: 40 });
+const HUG = frame([1.26, 0.72, -0.52], { az: -10, el: -14, h: 3.3, fov: 38 });   // low, up under his brim: he kneels
+const CARDS = frame([0, TH + 0.02, -0.18], { az: 0, el: 78, h: 1.45, fov: 34 });   // the four cards round the pile, the players' hands coming in
+const DROP = { pos: [0.18, 1.75, 3.15], look: [r3((V[0] + VT[0]) / 2 - 0.12), 0.7, r3((V[1] + VT[1]) / 2)], fov: 40 };   // Viking with headroom, his trap's whole rim behind him (review A)
+const ENDW = frame([-0.25, 0.9, -0.6], { az: 0, el: -2, h: 3.8, fov: 40, push: 0.08, dur: 4 });   // at his eye height: his face under the brim
 const beats = c.beats([
   ["hook", 0, { ...WIDE, to: { pos: TWO.pos, look: TWO.look }, dur: T.rules }],
   ["rules", T.rules, TWO],
@@ -448,11 +460,11 @@ const beats = c.beats([
   ["plea 1", T.count, TWO],
   ["you owe me", r3(T.owe - 0.05), VIK_MED],
   ["plea 2", T.pat, GSL_MED],   // he gets up and steps out while we're on Viking: we cut to him already patting
-  ["he softens", r3(T.pat + 0.92), PAT_TWO],
-  ["plea 3", T.plea3, { ...PAT_TWO, to: { pos: RUNW.pos, look: RUNW.look }, dur: 0.45 }],   // pulls back with the dash
+  ["he softens", r3(T.pat + 1.45), VIK_MED],   // Viking's brows (review A); the wallet goes back in the holster off screen
+  ["plea 3", T.plea3, { ...RUNW_L, to: { pos: RUNW_R.pos, look: RUNW_R.look }, dur: 1.0 }],   // pans with the dash
   ["on his knees", r3(T.kneel - 0.05), HUG],
-  ["scramble back", T.back, RUNW],
-  ["the cards", r3(T.back + 0.5), CARDS],   // he's halfway back: his arrival and sit happen off the table's top-down shot
+  ["scramble back", T.back, RUNW_R],
+  ["the cards", r3(T.back + 0.4), CARDS],   // he's halfway back: his arrival and sit happen off the table's top-down shot
   ["share", r3(T.flip1 + 0.4), TWO],
   ["steal", r3(T.flip2 - 0.25), CARDS],
   ["betrayal", r3(T.flip2 + 0.3), TWO, "payoff"],
@@ -481,7 +493,9 @@ write(import.meta.url, {
   hook: { show: ["gsl", "vik", "gold", "fryer"], hint: 0, what: "his mitten is already on the gold between them, the fryer bubbling behind" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { who: "gsl", from: r3(T.pat + 0.9), to: r3(T.pat + 0.96), checks: ["foot-slide", "stance-slide"], reason: "the cut to the two-shot (he softens): the first frame of the new shot, not a slide anyone sees" },
+    { who: "gsl", from: r3(T.plea3 + 0.1), to: r3(T.plea3 + 0.25), checks: ["motion"], reason: "he throws himself into the dash: the run's lean lands in one drawing (on 2s), at the frame edge and moving" },
+    { who: "gsl", from: r3(T.plea3 + 0.45), to: r3(T.plea3 + 0.62), checks: ["stance-slide"], reason: "the last stride before he drops to his knees: 3 cm as the knee slide starts (he is sliding)" },
+    { who: "gsl", from: r3(T.back + 0.42), to: r3(T.back + 0.56), checks: ["rig-jump", "motion"], reason: "off screen: the top-down card shot (cut at back + 0.4) has only the table in frame while he runs to his chair" },
     { who: "gsl", with: "studio", from: 0, to: END, reason: "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, so feet on the floor count" },
     { who: "vik", with: "studio", from: 0, to: END, reason: "the studio's glossy floor is a backdrop slab at y 0.001 (solid: false); the body check reads its box, and he drops through the trapdoor below it" },
     { who: "gsl", with: "chairG", from: T.plea2, to: r3(T.plea2 + 0.7), reason: "his hat brim brushes his chair's high back as he stands and steps out" },
@@ -490,11 +504,11 @@ write(import.meta.url, {
     { who: "vik", with: "trapV", from: T.drop, to: END, reason: "he falls back through the open trapdoor" },
     // the never-has-money pocket pat (the series block, as in NHM EP04), on this clip's clock (+ dt)
     { who: "gsl", with: "moth", from: r3(2.5 + dt), to: END, reason: "the moth flies round him and sits on his hat brim (worn)" },
-    { who: "gsl", with: "wallet", from: r3(2.25 + dt), to: r3(T.pat + 1.68), reason: "he draws the wallet from his holster and slips it back" },
+    { who: "gsl", with: "wallet", from: r3(2.25 + dt), to: r3(T.pat + 1.93), reason: "he draws the wallet from his holster and slips it back" },
     { who: "gsl", from: r3(1.5 + dt), to: r3(2.35 + dt), checks: ["rig-jump", "hand-jump"], reason: "the series' frantic pocket pat: six slaps in 0.75 s (the same block every Never Has Money episode)" },
     { who: "gsl", from: r3(2.27 + dt), to: r3(2.33 + dt), checks: ["motion"], reason: "the quick-draw (series block): his hand snaps onto the wallet in the holster" },
     { who: "gsl", from: r3(2.38 + dt), to: r3(2.7 + dt), checks: ["prop-pop", "rig-jump"], reason: "the revolver spin (series block): the wallet turns once round his fingers on purpose, then flips open" },
-    { who: "gsl", from: r3(T.pat + 1.5), to: r3(T.pat + 1.62), checks: ["prop-pop"], reason: "he lets the wallet go into his holster: it leaves his fingers" },
+    { who: "gsl", from: r3(T.pat + 1.75), to: r3(T.pat + 1.87), checks: ["prop-pop"], reason: "he lets the wallet go into his holster: it leaves his fingers" },
     { who: "gsl", with: "chairG", from: 0, to: r3(T.plea2 + 0.3), reason: "Gunslinger sits in his chair" },
     { who: "gsl", with: "chairG", from: T.sit, to: END, reason: "Gunslinger sits in his chair again" },
     { who: "vik", with: "chairV", from: 0, to: r3(T.drop + 0.4), reason: "Viking sits in his chair (and rides it as it tips back)" },
