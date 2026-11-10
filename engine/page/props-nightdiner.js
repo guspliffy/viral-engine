@@ -34,8 +34,8 @@ import { noteTexture } from "./props-money.js";
 //   oilbarrel   a 200-litre steel drum, r 0.29 (rim 0.30), 0.86 tall, origin: the middle of its bottom on the ground;
 //               dented, rust-brown #6b4a3a with two rolled hoops (y 0.29, 0.57), a faded stripe and eight punched
 //               holes near the top (y 0.69..0.81) that glow orange, an open top with a bed of nine burning banknote
-//               bundles (0.17 x 0.075 x 0.045, green notes, cream bands, charred black at the edges, from the money
-//               pack's note) rising to y 0.96, over the rim (0.86). Params:
+//               bundles (0.2 x 0.09 x 0.055, green notes, cream bands, charred black at the edges, from the money
+//               pack's note) rising to y 1.0, over the rim (0.86). Params:
 //               fire 0..1 (propState default 0): flame height: at 1 nine cel-style flame tongues (billboards: yellow
 //                 core #ffe27a, orange #ff9a3d, red tips #e2502e) with the tallest 0.55 above the rim (y 1.41); it also
 //                 lights the holes, the inside wall, the ember bed and the rising embers (20 of them, up to 1.4 m above
@@ -144,10 +144,10 @@ const glassTex = (seed) => tex(cvs(256, 400, (g, W, H) => {
   g.fillStyle = "#171c2c"; g.beginPath(); g.arc(W * (0.3 + 0.4 * hs(seed, 1)), H * 0.1, 22, 0, Math.PI * 2); g.fill(); g.fillRect(W * (0.3 + 0.4 * hs(seed, 1)) - 1.5, 0, 3, H * 0.1);   // a pendant lamp
   for (let k = 0; k < 3; k++) { const x = W * (0.2 + 0.3 * k + 0.08 * hs(seed, k + 4)); g.fillStyle = "#1c141b"; g.beginPath(); g.ellipse(x, H * 0.8, 24, 8, 0, 0, Math.PI * 2); g.fill(); g.fillRect(x - 3, H * 0.8, 6, H * 0.14); g.fillRect(x - 16, H * 0.94, 32, 4); }   // stools
   g.fillStyle = "#151a26"; g.fillRect(0, H * 0.72, W, 5);   // the counter edge
-  g.save(); g.fillStyle = "rgba(150,175,230,0.075)"; const o = 40 * hs(seed, 9);
+  g.save(); g.fillStyle = "rgba(150,175,230,0.035)"; const o = 40 * hs(seed, 9);
   g.beginPath(); g.moveTo(W * 0.1 + o, 0); g.lineTo(W * 0.38 + o, 0); g.lineTo(W * 0.78 + o * 0.4, H); g.lineTo(W * 0.5 + o * 0.4, H); g.fill();
-  g.fillStyle = "rgba(150,175,230,0.05)"; g.beginPath(); g.moveTo(W * 0.5 + o, 0); g.lineTo(W * 0.6 + o, 0); g.lineTo(W * 1.0, H * 0.78); g.lineTo(W * 0.9, H * 0.78); g.fill();
-  const lg = g.createRadialGradient(W * 0.2, H * 0.18, 0, W * 0.2, H * 0.18, W * 0.6); lg.addColorStop(0, "rgba(130,160,230,0.1)"); lg.addColorStop(1, "rgba(130,160,230,0)"); g.fillStyle = lg; g.fillRect(0, 0, W, H);
+  g.fillStyle = "rgba(150,175,230,0.025)"; g.beginPath(); g.moveTo(W * 0.5 + o, 0); g.lineTo(W * 0.6 + o, 0); g.lineTo(W * 1.0, H * 0.78); g.lineTo(W * 0.9, H * 0.78); g.fill();
+  const lg = g.createRadialGradient(W * 0.2, H * 0.18, 0, W * 0.2, H * 0.18, W * 0.6); lg.addColorStop(0, "rgba(130,160,230,0.06)"); lg.addColorStop(1, "rgba(130,160,230,0)"); g.fillStyle = lg; g.fillRect(0, 0, W, H);
   const fr = g.createRadialGradient(W, H, 0, W, H, W * 0.7); fr.addColorStop(0, "rgba(190,210,240,0.12)"); fr.addColorStop(1, "rgba(190,210,240,0)"); g.fillStyle = fr; g.fillRect(0, 0, W, H);   // frost in the corner
   g.restore();
 }));
@@ -211,6 +211,7 @@ const paveTex = (w, d, spot) => tex(cvs(Math.round(w * 160), Math.round(d * 160)
     b.addColorStop(0, c); b.addColorStop(1, c.replace(/[\d.]+\)$/, "0)")); g.fillStyle = b; g.fillRect(x - r, y - r, r * 2, r * 2);
   }
   for (let i = 0; i < 5200; i++) { g.fillStyle = hs(i, 6) < 0.5 ? "rgba(255,255,255,0.22)" : "rgba(110,128,166,0.18)"; const s = 1 + 1.6 * hs(i, 7); g.fillRect(hs(i, 4) * W, hs(i, 5) * H, s, s); }
+  const vg = g.createLinearGradient(0, pz(3), 0, H); vg.addColorStop(0, "rgba(50,64,100,0)"); vg.addColorStop(1, "rgba(50,64,100,0.5)"); g.fillStyle = vg; g.fillRect(0, pz(3), W, H - pz(3));
   // the tramped patch where he has stood a while
   const [sx, sz] = spot, tr = g.createRadialGradient(px(sx), pz(sz), 0, px(sx), pz(sz), 0.95 * S);
   tr.addColorStop(0, "rgba(104,122,160,0.5)"); tr.addColorStop(0.6, "rgba(104,122,160,0.28)"); tr.addColorStop(1, "rgba(104,122,160,0)"); g.fillStyle = tr; g.fillRect(px(sx) - S, pz(sz) - S, 2 * S, 2 * S);
@@ -253,7 +254,7 @@ function bundleTex(kind, seed) {
     else { for (let i = 0; i < 12; i++) { const t = hs(i, seed + 3); g.fillStyle = t < 0.45 ? "#e4e8d0" : t < 0.8 ? "#b9d0a0" : "#97bd7e"; g.fillRect(0, (i * H) / 12, W, H / 12 + 0.5); g.fillStyle = "rgba(40,90,40,0.3)"; g.fillRect(0, (i * H) / 12, W, 1); } }
     if (kind === "side") { g.fillStyle = "#ddd2b0"; g.fillRect(W * 0.38, 0, W * 0.24, H); g.fillStyle = "rgba(100,80,40,0.35)"; g.fillRect(W * 0.38, 0, 2, H); g.fillRect(W * 0.62 - 2, 0, 2, H); }
     for (const [x, y, r] of [[0, 0, 0.5], [W, 0, 0.45], [0, H, 0.45], [W, H, 0.55], [W / 2, 0, 0.3], [W / 2, H, 0.3], [0, H / 2, 0.25], [W, H / 2, 0.25]]) {   // charred corners and edges
-      const rr = r * Math.min(W, H * 2) * (0.7 + 0.5 * hs(seed + x + y, 4)), b = g.createRadialGradient(x, y, 0, x, y, rr);
+      const rr = r * Math.min(W, H * 2) * (0.5 + 0.4 * hs(seed + x + y, 4)), b = g.createRadialGradient(x, y, 0, x, y, rr);
       b.addColorStop(0, "rgba(8,6,5,1)"); b.addColorStop(0.6, "rgba(18,12,10,0.9)"); b.addColorStop(1, "rgba(18,12,10,0)"); g.fillStyle = b; g.fillRect(0, 0, W, H);
     }
     g.strokeStyle = "rgba(255,140,50,0.9)"; g.lineWidth = 1.6;
@@ -284,8 +285,8 @@ function flameMat(seed) {
         float d = abs(x) / max(w, 1e-3);
         if (d > 1.0 || v > 0.995) discard;
         float k = d * 0.75 + v * 0.55;
-        vec3 col = mix(vec3(1.0, 0.886, 0.478), vec3(1.0, 0.604, 0.239), st(0.3, k));
-        col = mix(col, vec3(0.886, 0.314, 0.18), st(0.62, k));
+        vec3 col = mix(vec3(1.0, 0.84, 0.34), vec3(1.0, 0.5, 0.12), st(0.3, k));
+        col = mix(col, vec3(0.8, 0.2, 0.1), st(0.62, k));
         gl_FragColor = vec4(col, 1.0);
       }`,
     transparent: true, depthWrite: false, opacity: 0.45,
@@ -294,15 +295,15 @@ function flameMat(seed) {
   return m;
 }
 // x, z, height share, width, sway speed
-const TONGUES = [[0, 0, 1, 0.34, 6], [-0.1, 0.03, 0.78, 0.27, 7.3], [0.12, -0.02, 0.72, 0.26, 8.1], [-0.18, -0.04, 0.5, 0.21, 9.6], [0.19, 0.05, 0.46, 0.2, 10.4], [0.02, 0.11, 0.6, 0.23, 7.9], [-0.05, -0.1, 0.58, 0.22, 8.8], [0.0, -0.17, 0.34, 0.18, 11.2], [-0.15, 0.1, 0.32, 0.17, 10.1]];
+const TONGUES = [[0, -0.07, 1, 0.34, 6], [-0.1, -0.05, 0.78, 0.27, 7.3], [0.12, -0.09, 0.72, 0.26, 8.1], [-0.18, -0.11, 0.5, 0.21, 9.6], [0.19, -0.06, 0.46, 0.2, 10.4], [0.02, -0.02, 0.58, 0.23, 7.9], [-0.05, -0.17, 0.58, 0.22, 8.8], [0.0, -0.22, 0.34, 0.18, 11.2], [-0.13, 0.0, 0.3, 0.17, 10.1]];
 
 // ------------------------------------------------------------------------------------------------ kinds
 export const NIGHTDINER_KINDS = {
   dinerfront(P) {
     const W = P.spec.w ?? NIGHTDINER.wall.w, D = P.spec.d ?? NIGHTDINER.pave.d, H = NIGHTDINER.wall.h, g = P.whole;
-    const redM = bas({ color: "#f0f0f0", map: wallTex(W, H) }), frameM = bas({ color: "#8c2f2f" }), roofM = bas({ color: "#5e2022" });
+    const redM = bas({ color: "#b4b4b4", map: wallTex(W, H) }), frameM = bas({ color: "#8c2f2f" }), roofM = bas({ color: "#5e2022" });
     const flatC = bas({ map: chromeFlat(), color: "#d8d8d8" }), roundC = bas({ map: chromeRound(), color: "#d8d8d8" });
-    const snowM = bas({ vertexColors: true, color: "#e0e0e0" }), iceM = bas({ color: "#9db9d8" }), ironM = bas({ color: "#222735" });
+    const snowM = bas({ vertexColors: true, color: "#939aae" }), iceM = bas({ color: "#9db9d8" }), ironM = bas({ color: "#222735" });
     const notOnWall = { polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 };
     const SZ = NIGHTDINER;
 
@@ -322,7 +323,7 @@ export const NIGHTDINER_KINDS = {
     // ---- the windows: red frames with mullions, near-black glass, snow on the sills
     SZ.window.xs.forEach((cx, wi) => {
       const ww = SZ.window.w, y0 = SZ.window.y0 + 0.02, y1 = SZ.window.y1, hh = y1 - y0, cy = (y0 + y1) / 2;
-      put(g, new THREE.PlaneGeometry(ww - 0.1, hh - 0.1), bas({ map: glassTex(wi + 1), ...notOnWall }), cx, cy, 0.02);
+      put(g, new THREE.PlaneGeometry(ww - 0.1, hh - 0.1), bas({ map: glassTex(wi + 1), color: "#a8a8a8", ...notOnWall }), cx, cy, 0.02);
       box(g, 0.07, hh, 0.07, frameM, cx - ww / 2 + 0.035, cy, 0.035); box(g, 0.07, hh, 0.07, frameM, cx + ww / 2 - 0.035, cy, 0.035);
       box(g, ww, 0.08, 0.07, frameM, cx, y1 - 0.04, 0.035); box(g, ww, 0.08, 0.07, frameM, cx, y0 + 0.04, 0.035);
       box(g, 0.04, hh, 0.05, frameM, cx, cy, 0.03);
@@ -331,7 +332,7 @@ export const NIGHTDINER_KINDS = {
       snowStrip(g, snowM, cx - ww / 2 - 0.05, cx + ww / 2 + 0.05, SZ.window.y0 + 0.02, 0.09, 0.07, 0.18, 10 + wi);
     });
     // the notice, hanging by one corner on the glass of window 3
-    const cxN = SZ.window.xs[2] + 0.2, notice = put(g, new THREE.PlaneGeometry(0.34, 0.255), bas({ map: noticeTex(), color: "#d0d0d0", ...notOnWall }), cxN, 1.62, 0.035);
+    const cxN = SZ.window.xs[2] + 0.2, notice = put(g, new THREE.PlaneGeometry(0.34, 0.255), bas({ map: noticeTex(), color: "#8c8c8c", ...notOnWall }), cxN, 1.62, 0.035);
     notice.rotation.z = -0.3; put(g, new THREE.PlaneGeometry(0.1, 0.035), bas({ color: "#8a8368", transparent: true, opacity: 0.8 }), cxN - 0.09, 1.78, 0.04).rotation.z = 0.5;
 
     // ---- the door: double glass leaves in a red frame, push bars, a chain and a padlock, on a snow-capped step
@@ -339,10 +340,10 @@ export const NIGHTDINER_KINDS = {
     box(g, 1.5, 0.12, 0.5, bas({ color: "#3f4354" }), dx, 0.06, 0.25);
     snowStrip(g, snowM, dx - 0.75, dx + 0.75, 0.12, 0.28, 0.07, 0.52, 20);
     for (const sx of [-1, 1]) {
-      put(g, new THREE.PlaneGeometry(0.5, 1.82), bas({ map: glassTex(7 + sx), ...notOnWall }), dx + sx * 0.28, 1.2, 0.02);
+      put(g, new THREE.PlaneGeometry(0.5, 1.82), bas({ map: glassTex(7 + sx), color: "#a8a8a8", ...notOnWall }), dx + sx * 0.28, 1.2, 0.02);
       box(g, 0.07, 2.75, 0.07, frameM, dx + sx * (DW / 2 - 0.035), 1.495, 0.035);
     }
-    put(g, new THREE.PlaneGeometry(1.1, 0.6), bas({ map: glassTex(9), ...notOnWall }), dx, 2.5, 0.02);
+    put(g, new THREE.PlaneGeometry(1.1, 0.6), bas({ map: glassTex(9), color: "#a8a8a8", ...notOnWall }), dx, 2.5, 0.02);
     box(g, 0.05, 2.03, 0.06, frameM, dx, 1.135, 0.03); box(g, DW, 0.08, 0.07, frameM, dx, 2.83, 0.035); box(g, DW, 0.08, 0.07, frameM, dx, 2.17, 0.035);
     box(g, DW, 0.16, 0.07, frameM, dx, 0.2, 0.035);
     const BX = [dx - 0.17, dx + 0.17];
@@ -369,7 +370,7 @@ export const NIGHTDINER_KINDS = {
     for (const k of [-1, 1]) box(g, 0.07, 0.26, 0.07, ironM, sx + k * 0.55, 3.55, -0.05);
     const body = put(g, new THREE.ExtrudeGeometry(rrShape(sw, sh, 0.22), { depth: 0.1, bevelEnabled: true, bevelThickness: 0.008, bevelSize: 0.008, bevelSegments: 2, curveSegments: 10 }), bas({ color: "#161b2c" }), sx, cy, -0.1);
     body.userData.solid = false;
-    put(g, new THREE.PlaneGeometry(1.5, 0.9375), bas({ map: signTex(), transparent: true, ...notOnWall }), sx, cy, 0.012).renderOrder = 1;
+    put(g, new THREE.PlaneGeometry(1.5, 0.9375), bas({ map: signTex(), color: "#8e8e8e", transparent: true, ...notOnWall }), sx, cy, 0.012).renderOrder = 1;
     const neonM = bas({ color: "#2b2230" });
     put(g, new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rrPoints(1.46, 0.88, 0.19, 8), true, "centripetal"), 220, 0.02, 6, true), neonM, sx, cy, 0.03);
     const halo = glowy(put(g, new THREE.PlaneGeometry(1.9, 1.19), addm(neonGlowTex(), "#ffffff", 0), sx, cy, 0.05), 3);
@@ -378,7 +379,7 @@ export const NIGHTDINER_KINDS = {
     snowStrip(g, snowM, sx - sw / 2 + 0.1, sx + sw / 2 - 0.1, SZ.sign.y0 + sh - 0.01, -0.05, 0.08, 0.2, 30);
 
     // ---- the pavement: snow with prints, a soft shadow layer on it, drifts against the wall
-    const pave = put(g, new THREE.PlaneGeometry(W, D), bas({ map: paveTex(W, D, SZ.spot), color: "#e0e0e0", polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }), 0, 0.006, D / 2); pave.rotation.x = -Math.PI / 2;
+    const pave = put(g, new THREE.PlaneGeometry(W, D), bas({ map: paveTex(W, D, SZ.spot), color: "#929eb8", polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }), 0, 0.006, D / 2); pave.rotation.x = -Math.PI / 2;
     const sh2 = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.ShadowMaterial({ opacity: 0.4, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 }));
     sh2.rotation.x = -Math.PI / 2; sh2.position.set(0, 0.01, D / 2); sh2.receiveShadow = true; sh2.userData.solid = false; sh2.material.userData.noOutline = true; g.add(sh2);
     for (let i = 0; i < 14; i++) {
@@ -388,8 +389,8 @@ export const NIGHTDINER_KINDS = {
     put(g, snowGeo(0.7, 0.16, 0.5), snowM, SZ.lamp.x - 0.1, 0, SZ.lamp.z + 0.1);
 
     // ---- behind and above: the sky card, two dark buildings with three small lit windows
-    put(g, new THREE.PlaneGeometry(14, 10), bas({ map: skyTex() }), 0, 5, -6);
-    const bM = bas({ map: bldgTex() }), litM = bas({ color: "#e8a950" });
+    put(g, new THREE.PlaneGeometry(14, 10), bas({ map: skyTex(), color: "#9a9a9a" }), 0, 5, -6);
+    const bM = bas({ map: bldgTex(), color: "#8a8a8a" }), litM = bas({ color: "#c98a42" });
     put(g, new THREE.BoxGeometry(4.6, 6.2, 1.2), bM, -4.3, 3.1, -2.6); put(g, new THREE.BoxGeometry(4.1, 5.0, 1.2), bM, 4.55, 2.5, -2.6);
     box(g, 0.5, 0.7, 0.5, bM, 3.6, 5.3, -2.6);
     for (const [x, y] of [[-2.75, 4.35], [-3.4, 5.25], [3.0, 4.0]]) put(g, new THREE.PlaneGeometry(0.28, 0.38), litM, x, y, -1.99);
@@ -404,17 +405,17 @@ export const NIGHTDINER_KINDS = {
     const coneG = new THREE.ConeGeometry(1.45, LH - 0.2, 28, 1, true), cp = coneG.attributes.position, cc = new Float32Array(cp.count * 3);
     for (let i = 0; i < cp.count; i++) { const k = clamp((cp.getY(i) + (LH - 0.2) / 2) / (LH - 0.2)); cc.set([1 * k * k, 0.84 * k * k, 0.5 * k * k], i * 3); }
     coneG.setAttribute("color", new THREE.BufferAttribute(cc, 3));
-    glowy(put(g, coneG, bas({ vertexColors: true, transparent: true, opacity: 0.2, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, toneMapped: false }), lx + 0.34, (LH - 0.2) / 2 + 0.05, lz), 2);
+    glowy(put(g, coneG, bas({ vertexColors: true, transparent: true, opacity: 0.12, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, toneMapped: false }), lx + 0.34, (LH - 0.2) / 2 + 0.05, lz), 2);
     const lg = radial([[0, "rgba(255,226,150,1)"], [0.2, "rgba(255,200,110,0.6)"], [0.55, "rgba(255,170,80,0.16)"], [1, "rgba(255,150,60,0)"]]);
     const lampGlow = sprite(g, lg, 0.9, 5); lampGlow.position.set(lx + 0.34, LH - 0.17, lz); lampGlow.scale.set(1.1, 1.1, 1);
-    const disc = glowy(put(g, new THREE.PlaneGeometry(3.6, 3.6), addm(lg, "#ffffff", 0.5), lx + 0.34, 0.02, lz), 2); disc.rotation.x = -Math.PI / 2;
+    const disc = glowy(put(g, new THREE.PlaneGeometry(3.6, 3.6), addm(lg, "#ffffff", 0.4), lx + 0.34, 0.02, lz), 2); disc.rotation.x = -Math.PI / 2;
 
     return {
       grip: 0,
       apply(ps) {
         const f = clamp(ps.flicker ?? P.spec.flicker ?? 0);
         neonM.color.set("#2b2230").lerp(new THREE.Color("#c4362c"), f);
-        halo.material.opacity = 0.8 * f; halo.visible = f > 0.01;
+        halo.material.opacity = 0.55 * f; halo.visible = f > 0.01;
         bulbM.color.set("#39456a").lerp(new THREE.Color("#b08a4c"), f * 0.5);
       },
     };
@@ -457,12 +458,13 @@ export const NIGHTDINER_KINDS = {
     }
 
     // ---- the bed of burning banknote bundles (the note from the money pack, charred), over the rim
-    const L = 0.17, Wd = 0.075, Ht = 0.045, bundleGeo = new THREE.BoxGeometry(L, Ht, Wd), bandGeo = new THREE.BoxGeometry(L * 0.2, Ht + 0.008, Wd + 0.008);
-    const BUNDLES = [[0.1, 0.82, 0.02, 0.3, 0.05, 0.1], [0.0, 0.82, 0.11, 1.9, -0.1, 0.12], [-0.1, 0.82, -0.02, 0.1, 0.08, -0.12], [0.02, 0.82, -0.11, 1.3, 0.1, 0.05],
-      [0.05, 0.87, 0.05, 0.9, 0.12, 0.2], [-0.05, 0.87, 0.04, 2.4, -0.15, 0.1], [0.0, 0.87, -0.06, 0.2, 0.05, -0.2],
-      [0.0, 0.925, 0.0, 0.7, 0.3, 0.1], [0.04, 0.93, 0.05, 2.1, -0.35, 0.2]];
+    const L = 0.2, Wd = 0.09, Ht = 0.055, bundleGeo = new THREE.BoxGeometry(L, Ht, Wd), bandGeo = new THREE.BoxGeometry(L * 0.2, Ht + 0.008, Wd + 0.008);
+    const BUNDLES = [[0.1, 0.84, 0.02, 0.3, 0.05, 0.1], [0.0, 0.84, 0.11, 1.9, -0.1, 0.12], [-0.1, 0.84, -0.02, 0.1, 0.08, -0.12], [0.02, 0.84, -0.11, 1.3, 0.1, 0.05],
+      [0.05, 0.895, 0.05, 0.9, 0.12, 0.2], [-0.05, 0.895, 0.04, 2.4, -0.15, 0.1], [0.0, 0.895, -0.06, 0.2, 0.05, -0.2],
+      [0.0, 0.955, 0.0, 0.7, 0.3, 0.1], [0.04, 0.96, 0.05, 2.1, -0.35, 0.2]];
     const bandM = [bas({ map: bundleTex("end", 41), color: "#e8d8c0" })];
-    BUNDLES.forEach(([x, y, z, ry, rx, rz], i) => {
+    BUNDLES.forEach(([x, y, z0, ry, rx, rz], i) => {
+      const z = z0 + 0.03;
       const s = i * 7, mats = [bundleTex("end", s), bundleTex("end", s + 1), bundleTex("top", s + 2), bundleTex("side", s + 3), bundleTex("side", s + 4), bundleTex("side", s + 5)].map((t, k) => bas({ map: t, color: "#f2e2d0" }));
       const b = solid(put(g, bundleGeo, mats, x, y, z)); b.rotation.set(rx, ry, rz);
       const band = solid(put(b, bandGeo, bandM[0], 0, 0, 0)); band.position.x = (hs(i, 9) - 0.5) * 0.04;
