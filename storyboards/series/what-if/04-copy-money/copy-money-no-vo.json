@@ -526,10 +526,21 @@
   {
    "id": "cup",
    "kind": "papercup",
-   "x": 42.9,
+   "x": 43,
    "y": -2,
    "z": 0.7,
-   "scale": 1.5
+   "scale": 1.5,
+   "rot": 195
+  },
+  {
+   "id": "cupw",
+   "kind": "papercup",
+   "wear": "rea",
+   "x": -0.24,
+   "y": 0.42,
+   "z": 0.55,
+   "scale": 0.001,
+   "staged": "the coffee in front of his chest while he walks (worn, so it rides with him)"
   }
  ],
  "captions": [
@@ -4861,18 +4872,6 @@
     },
     {
      "do": "prop",
-     "id": "cup",
-     "set": {
-      "x": 42.445,
-      "y": 0.42,
-      "z": 0.537
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.07
-    },
-    {
-     "do": "prop",
      "id": "moth",
      "set": {
       "x": -0.821,
@@ -4908,7 +4907,7 @@
      "who": "rea",
      "do": "move",
      "to": [
-      42.9,
+      43,
       0.7
      ],
      "dur": 0.01,
@@ -4918,7 +4917,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -80,
+     "to": -50,
      "dur": 0.01,
      "at": 1.08
     },
@@ -4996,7 +4995,7 @@
      "who": "gsl",
      "do": "grip",
      "side": "L",
-     "shape": "fist",
+     "shape": "relaxed",
      "dur": 0.01,
      "at": 1.08
     },
@@ -5006,9 +5005,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.12,
-       0.4,
-       0.44
+       0.03,
+       0.24,
+       0.4
       ]
      },
      "dur": 0.01,
@@ -5041,7 +5040,12 @@
      "who": "rea",
      "do": "grip",
      "side": "R",
-     "shape": "open",
+     "shape": "clasp",
+     "set": {
+      "curl": 0.6,
+      "index": 0.55,
+      "thumb": 0.5
+     },
      "dur": 0.01,
      "at": 1.08
     },
@@ -5050,21 +5054,39 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "off": [
-       0.068,
-       0.02,
-       0.018
+      "o": [
+       -0.19,
+       0.66,
+       0.55
       ]
      },
      "dur": 0.01,
-     "ease": "inOut",
+     "at": 1.08
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "cupw",
+     "set": {
+      "scale": 1.5
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 1.08
     },
     {
@@ -5080,31 +5102,6 @@
      "dur": 0,
      "pose": null,
      "at": 1.09
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 1.09
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.096
     }
    ],
    "kind": "reaction"
@@ -5193,20 +5190,6 @@
      "dur": 5.95,
      "reason": "a low cold wind outside the dark diner (far under the mix)",
      "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "grab",
-     "prop": "cup",
-     "hand": "R",
-     "grip": [
-      0.07,
-      0.066,
-      0.019
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.06
     },
     {
      "sfx": "crinkle",
@@ -5410,113 +5393,26 @@
      "who": "rea",
      "do": "move",
      "to": [
-      41.05,
+      41.15,
       0.6
      ],
      "dur": 1,
      "ease": "inOut",
-     "steps": 4,
+     "steps": 5,
      "at": 1.8
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "at": [
-       42.075,
-       0.42,
-       0.517
-      ]
-     },
-     "dur": 0.3,
-     "ease": "in",
-     "at": 1.8
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": -40,
-     "dur": 0.6,
-     "at": 2.1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "at": [
-       41.52,
-       0.42,
-       0.487
-      ]
-     },
-     "dur": 0.2,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "cup",
-     "set": {
-      "rot": 0
-     },
-     "dur": 0.2,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "at": [
-       40.936,
-       0.42,
-       0.605
-      ]
-     },
-     "dur": 0.2,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "cup",
-     "set": {
-      "rot": 18
-     },
-     "dur": 0.2,
-     "ease": "linear",
-     "at": 2.3
     },
     {
      "who": "gsl",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.7,
+     "pose": {
+      "o": [
+       -0.2,
+       0.42,
+       0.38
+      ]
+     },
+     "dur": 0.6,
      "ease": "inOut",
      "at": 2.35
     },
@@ -5532,38 +5428,6 @@
      "sfx": "crinkle",
      "gain": 0.16,
      "reason": "the barrel fire crackles",
-     "at": 2.5
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "at": [
-       40.596,
-       0.42,
-       0.767
-      ]
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "cup",
-     "set": {
-      "rot": 40
-     },
-     "dur": 0.3,
-     "ease": "out",
      "at": 2.5
     },
     {
@@ -5610,6 +5474,91 @@
      "amount": 0.018,
      "dur": 0.1,
      "at": 2.82
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0,
+       0.16,
+       0
+      ],
+      "at": [
+       40.574,
+       0.42,
+       0.77
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.85
+    },
+    {
+     "do": "prop",
+     "id": "cupw",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.02
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "x": 40.574,
+      "y": 0.42,
+      "z": 0.77
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.02
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "R",
+     "grip": [
+      0,
+      0.16,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 3.03
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       40.574,
+       0.26,
+       0.77
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.1
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "set": {
+      "curl": 0.25,
+      "index": 0.2,
+      "thumb": 0.2
+     },
+     "dur": 0.5,
+     "at": 3.1
     }
    ],
    "kind": "reaction"
@@ -5690,34 +5639,23 @@
      "at": 0.3
     },
     {
-     "who": "rea",
+     "who": "gsl",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "prop": "cup",
       "grip": [
-       0.07,
-       0.066,
-       0.019
+       0,
+       -0.043,
+       0
       ],
-      "palm": "wrap",
       "at": [
-       40.52,
-       0.5,
-       0.74
+       40.574,
+       0.42,
+       0.77
       ]
      },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "cup",
-     "set": {
-      "rot": 40
-     },
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "inOut",
      "at": 0.3
     },
@@ -5736,37 +5674,27 @@
     },
     {
      "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.5,
+      "open": 0.1
+     },
      "dur": 0.2,
-     "at": 0.6
+     "at": 0.4
     },
     {
      "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       -0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "off": [
-       -0.04,
-       0.02,
-       0.057
-      ],
-      "at": [
-       40.52,
-       0.5,
-       0.74
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "L",
+     "grip": [
+      0,
+      -0.043,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
      "at": 0.6
     },
     {
@@ -5779,6 +5707,17 @@
      "dur": 0.15,
      "blink": false,
      "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.65
     },
     {
      "do": "prop",
@@ -5795,6 +5734,39 @@
      "at": 0.7
     },
     {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.25,
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       40.674,
+       0.78,
+       0.71
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.79
+    },
+    {
      "do": "prop",
      "id": "moth",
      "set": {
@@ -5806,124 +5778,68 @@
      "at": 0.92
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.05,
+       0.5,
+       0.35
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
      "who": "gsl",
      "do": "arm",
      "side": "L",
      "pose": {
       "prop": "cup",
       "grip": [
-       -0.07,
-       0.066,
-       0.019
+       0,
+       -0.043,
+       0
       ],
-      "palm": "wrap",
       "at": [
-       40.52,
-       0.5,
-       0.74
+       40.398,
+       0.46,
+       0.828
       ]
      },
-     "dur": 0.2,
-     "ease": "settle",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
      "at": 1
     },
     {
      "who": "gsl",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.5,
-      "open": 0.1
-     },
-     "dur": 0.2,
-     "at": 1.05
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.12
-    },
-    {
-     "who": "gsl",
-     "do": "grab",
-     "prop": "cup",
-     "hand": "L",
-     "grip": [
-      -0.07,
-      0.066,
-      0.019
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 1.26
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.28
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.6,
-      0.05
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1.3
-    },
-    {
-     "who": "rea",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 1.32
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
      "pose": {
-      "prop": "cup",
-      "grip": [
-       -0.07,
-       0.066,
-       0.019
-      ],
-      "palm": "wrap",
-      "at": [
-       40.398,
-       0.44,
-       0.828
+      "o": [
+       0.45,
+       0.6,
+       0.5
       ]
      },
-     "dur": 0.3,
+     "dur": 0.35,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.1
     },
     {
      "sfx": "crinkle",
      "gain": 0.16,
      "reason": "the barrel fire crackles",
-     "at": 1.4
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "kind",
-     "set": {
-      "curve": 0.35
-     },
-     "dur": 0.25,
      "at": 1.4
     },
     {
@@ -5955,9 +5871,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.24,
-       0.95,
-       0.1
+       0.6,
+       1,
+       0.45
       ]
      },
      "dur": 0.18,
@@ -6245,16 +6161,26 @@
   },
   {
    "from": 18.5,
+   "to": 19.1,
+   "see": [
+    "rea",
+    "cupw",
+    "gsl.face"
+   ],
+   "why": "Reaper walks up with one coffee"
+  },
+  {
+   "from": 19.15,
    "to": 19.4,
    "see": [
     "rea",
     "cup",
     "gsl.face"
    ],
-   "why": "Reaper walks up with one coffee"
+   "why": "Reaper stands there with one coffee"
   },
   {
-   "from": 20.7,
+   "from": 20.05,
    "to": 22,
    "see": [
     "gsl.face",
@@ -6296,6 +6222,13 @@
   },
   {
    "who": "rea",
+   "with": "cupw",
+   "from": 16.1,
+   "to": 22.05,
+   "reason": "the coffee he carries in front of his chest on the walk (worn)"
+  },
+  {
+   "who": "rea",
    "with": "ious",
    "from": 5.15,
    "to": 8.3,
@@ -6304,12 +6237,13 @@
   {
    "who": "gsl",
    "with": "throne",
-   "from": 11.85,
+   "from": 11.8,
    "to": 13.4,
    "checks": [
-    "costume-in-prop"
+    "costume-in-prop",
+    "arm-in-prop"
    ],
-   "reason": "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest"
+   "reason": "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest and his wide arms brush its arm rests on the way down"
   },
   {
    "who": "gsl",
@@ -6324,15 +6258,6 @@
    "from": 16.1,
    "to": 22.05,
    "reason": "falling snow"
-  },
-  {
-   "who": "gsl",
-   "checks": [
-    "limb-through-costume"
-   ],
-   "from": 20.75,
-   "to": 22.05,
-   "reason": "the series' wink: two fingers on his hat brim (wink.mjs, every Never has money episode)"
   }
  ],
  "notes": "Generated by storyboards/series/what-if/04-copy-money/make-copy-money.mjs."

@@ -13,23 +13,25 @@
 //   Wants:       Gunslinger wants to be the one who pays, for once and for ever.
 //   Consequence: money only works while it's rare: the price board flips past billions until its flaps blow off, and
 //                a wheelbarrow of cash doesn't buy one milkshake.
-//   Ending:      night, snow, the diner dark: he burns bundles of his money in a barrel to keep warm. Reaper hands
-//                him one coffee. The wink: "Next time's on me."
+//   Ending:      night, snow, the diner dark: he burns bundles of his money in a barrel to keep warm. Reaper puts
+//                one coffee in his open palm. The wink and a toast: "Next time's on me."
 //   Callback:    frame 0 Reaper reaches for his wallet to pay for him again; the last frame Reaper has paid again.
+//                Frame 0 the counter man's palm is out for money; at the end his own palm is out for a coffee.
 // The power: the word "COPY!", the sound (a cash-register ka-ching) and the look (a gold shimmer round the thing and an
 // exact copy popping out beside it with a little bounce), the same every time.
 //
-// THE CLOCKS: two speed ramps: the opening under the spoken title (story 0-0.6 over OPEN_VIDEO s) and the 10x (the
-// slap, the sign, the bow: story 9.4-10.0 over 1.6 s). Every time below is story time; VT() gives video time.
+// THE CLOCKS: two speed ramps: the opening under the spoken title (story 0-0.6 over TITLE_LEN s) and the 10x (SLOW:
+// the slap, the sign, the bow). Every time below is story time; VT() gives video time, ST() the other way. allowClip
+// and see windows are written on the story clock and converted with VT() at the end. TIMES=1 prints the beat table.
 //
 // WORLD (x right, z toward the main camera): the Never Has Money diner seen from the customers' side (Jonny's panels):
-// the kitchen wall behind the counter man at z -2.7, the counter along x at z 0, the window wall behind the main
-// camera at z +4 (shown only in the reverse shots, 8.3-12.8). The night ending stands 40 m to the right (x 40).
+// the kitchen wall behind the counter man at z -2.7, the counter along x at z 0, the window wall = the LEFT wall at
+// x -2.4 (the wave, the slap and the throne are shot from the right looking left). The night ending stands 40 m to
+// the right (x 40). Places, cameras and the reasons: NOTES.md beside this file.
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { BRIM } from "../../never-has-money/pocket-pat.mjs";
-import { wink } from "../../never-has-money/wink.mjs";
 import { holdsOf, renderTime, storyTime } from "../../../../engine/shared/holds.js";
 
 // ---------------------------------------------------------------- the template's picks (storyboards/templates)
@@ -64,6 +66,7 @@ const DEMO2 = 4.0, COPY2 = 4.5, FLING = 5.15, READ = 5.9;   // a hundred wallets
 const DEMO3 = 7.5, WAVE = 8.3, SLAP_CUT = 9.85, SLAP = 10.15;  // COPY x3; the reverse wide; the slap (inside the slow motion)
 const SNAP2 = 10.6, SIT = 10.85;             // the throne (video 11.6)
 const TWIST = 12.4, BLOW = 13.7, BARROW = 14.0, SHAKE = 14.5;   // the board runs away (its own shot); the wheelbarrow tipped; the head shake
+const CUPK = 1.3;   // the takeaway coffee cup: 15 cm tall
 const NIGHT = 15.1, REA_IN = 16.9, QUESTION = 18.4, HAND = 18.7, WINK = 19.9;   // the fact (3.3 s to read); Reaper walks in; the coffee; the wink
 const END = 21.05;
 
@@ -91,7 +94,7 @@ const SHK = 0.8;   // the one milkshake, in the counter man's glove
 const GSL1 = [-0.45, 0.1], GSL1_YAW = 35;                 // demo 1 and 2: one step toward the counter's corner, 3/4 to us
 const SAM_PAY = [0.45, -0.76], SAM_PAY_YAW = -30;         // demo 1: the counter man at the counter's corner, across from him
 // the night ending, 40 m to the right
-const NX = 40, GSL_N = [NX, 0.5], GSL_N_YAW = -50, GSL_N2 = 15, BARREL = [NX - 0.85, 0.5], BARK = 0.75, REA_N0 = [NX + 2.9, 0.7], REA_N = [NX + 1.05, 0.6], REA_N_YAW = -40;
+const NX = 40, GSL_N = [NX, 0.5], GSL_N_YAW = -50, GSL_N2 = 15, BARREL = [NX - 0.85, 0.5], BARK = 0.75, REA_N0 = [NX + 3.0, 0.7], REA_N = [NX + 1.15, 0.6], REA_N_YAW = -50;   // Reaper walks in already turned 3/4 to us: no turn with the cup in his glove
 
 const cast = [
   { id: "gsl", character: "never-has-money/gunslinger", at: GSL0, face: GSL0_YAW, expr: "eager", follow: 0.3, seed: 1.3 },
@@ -156,7 +159,8 @@ const props = [
   ph("night", { id: "front", kind: "dinerfront", x: r3(BARREL[0] + 0.5), y: 0, z: r3(BARREL[1] - 2.4), w: 9, d: 9, flicker: 0 }, { kind: "crate", size: 0.01 }),
   BRICK("bundle", [GSL_N[0], -2, GSL_N[1]], { scale: BUK }),
   ph("flood", { id: "snow", kind: "noterain", x: NX + 0.3, y: 0, z: 1.5, look: "snow", n: 400, r: 5, top: 5, clock: 0, amount: 1 }, { kind: "crate", size: 0.01, y: -3 }),
-  { id: "cup", kind: "papercup", x: REA_N0[0], y: -2, z: REA_N0[1], scale: 1.5 },
+  { id: "cup", kind: "coffeecup", x: REA_N0[0], y: -2, z: REA_N0[1], scale: CUPK, rot: 195 },
+  { id: "cupw", kind: "coffeecup", wear: "rea", x: -0.24, y: 0.42, z: 0.55, scale: 0.001, staged: "the coffee in front of his chest while he walks (worn, so it rides with him)" },
 ];
 const P = (t, id, set, dur = 0, ease = "linear") => c.prop(r3(t), id, set, dur, ease);
 const BTOP = [0, r3(0.11 * BRK), 0], BUTOP = [0, r3(0.11 * BUK), 0];   // a glove flat on top of the brick / the bundle
@@ -418,12 +422,12 @@ see(r3(BARROW + 0.4), NIGHT, ["gsl.face", "sam.face", "barrow", "pile", "shake1"
 const GN = body(GSL_N, GSL_N_YAW), GN2 = body(GSL_N, GSL_N2), toLocal = (w, yaw) => { const q = rotY([w[0] - GSL_N[0], w[1], w[2] - GSL_N[1]], -yaw); return [r3(q[0]), r3(q[1]), r3(q[2])]; };
 const RIM = r3(0.86 * BARK), FIRE = [BARREL[0], RIM, BARREL[1]];
 // his gloves beside the flames: the left one (nearer us) lower, the right one higher, so both show
-const WARM = { R: [r3(BARREL[0] + 0.31), r3(RIM + 0.1), r3(BARREL[1] - 0.1)] }, HUG = { o: [0.12, 0.4, 0.44] };
+const WARM = { R: [r3(BARREL[0] + 0.31), r3(RIM + 0.1), r3(BARREL[1] - 0.1)] }, HUG = { o: [0.03, 0.24, 0.4] };   // his left glove low in front of him (toward the fire, later under the coffee): from a hanging arm the reach swung the forearm 90 degrees in 3 frames
 A(NIGHT - 0.03, "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.01 }); A(NIGHT - 0.03, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.01 });
-setup(NIGHT, "gsl", GSL_N, GSL_N_YAW); setup(NIGHT, "rea", REA_N0, -80); setup(NIGHT, "sam", [NX + 8, -6], 0); setup(NIGHT, "wiz", [NX + 9, -6], 0);
+setup(NIGHT, "gsl", GSL_N, GSL_N_YAW); setup(NIGHT, "rea", REA_N0, REA_N_YAW); setup(NIGHT, "sam", [NX + 8, -6], 0); setup(NIGHT, "wiz", [NX + 9, -6], 0);
 hide(NIGHT - 0.02, "sam"); hide(NIGHT - 0.02, "wiz");
 A(NIGHT - 0.02, "gsl", "expr", { expr: "sad", set: { curve: -0.4, open: 0.05 }, dur: 0.01 }); A(NIGHT - 0.02, "gsl", "look", { to: [-0.4, -0.25], dur: 0.01, blink: false });
-A(NIGHT - 0.02, "gsl", "grip", { side: "L", shape: "fist", dur: 0.01 }); c.arm(NIGHT - 0.02, "gsl", "L", HUG, 0.01);
+A(NIGHT - 0.02, "gsl", "grip", { side: "L", shape: "relaxed", dur: 0.01 }); c.arm(NIGHT - 0.02, "gsl", "L", HUG, 0.01);
 // the bundle in his right glove goes into the fire
 const BUN0 = GN([-0.26, 0.55, 0.44]), BUN1 = [r3(BARREL[0] + 0.3), r3(RIM + 0.12), r3(BARREL[1] - 0.05)];   // under his brim, over the rim
 P(NIGHT - 0.03, "bundle", { x: BUN0[0], y: BUN0[1], z: BUN0[2], rot: 60 });
@@ -445,16 +449,29 @@ sfx(NIGHT, "ridewind", { gain: 0.06, dur: r3(END - NIGHT), reason: "a low cold w
 for (const t of [0.3, 1.6, 2.5, 3.6, 4.7]) sfx(r3(NIGHT + t), "crinkle", { gain: 0.16, reason: "the barrel fire crackles" });
 see(r3(NIGHT + 0.2), REA_IN, ["gsl.face", "barrel"], "v2 panel 08: night, snow, he burns his money to keep warm");
 // Reaper walks in with one paper cup of coffee
-const CUP = { id: "cup", kind: "papercup", scale: 1.5 }, RN0 = body(REA_N0, -80), CUP0 = RN0([-0.24, 0.42, 0.42]), HANDOUT = [NX + 0.52, 0.5, 0.74];
-const rcup = grips.mug(c, "rea", { ...CUP, x: CUP0[0], y: CUP0[1], z: CUP0[2], rot: 0 }, { side: "R" });
-P(NIGHT - 0.03, "cup", { x: CUP0[0], y: CUP0[1], z: CUP0[2] }); rcup.secure(rcup.approach(r3(NIGHT - 0.02), 0.01), 0.01);
-const CUP1 = body(REA_N, REA_N_YAW)([-0.24, 0.42, 0.42]);
+// Reaper carries the cup from above, his right glove on its lid (CTOP, the bundle's hold): the hand keeps its own turn,
+// so nothing flips, and the cup's body stays free for Gunslinger's glove. On the walk the cup is WORN (cupw rides with
+// his body, the glove over it in a body pose: a held prop carried to world points through a walk drifts against the
+// body). Standing, it becomes the held cup at the same spot.
+// A mug hold wants rot = the holder's yaw + 180 (Gunslinger's 15 + 180): with rot 0 both gloves sat on the cup's inner
+// side and turned inside out (palm-turn 96 degrees, three layouts).
+const CUPL = [-0.24, 0.42, 0.55], CUP1 = body(REA_N, REA_N_YAW)(CUPL), ARRIVE = r3(REA_IN + 1.0), CTOP = [0, r3(0.115 + 0.09 / CUPK), 0], RTOP = { o: [-0.19, 0.66, 0.55] };
+// the hand-over: Gunslinger holds his open palm out low under the cup (the counter man's palm of frame 0, turned
+// round), then lifts it under the cup's base and Reaper lets go. A side hold for him would sit on the cup's far side,
+// in Reaper's robe.
+const HANDOUT = CUP1, GBOT = [0, r3(-0.065 / CUPK), 0], PALM = [HANDOUT[0], 0.26, HANDOUT[2]], gbot = (at) => ({ prop: "cup", grip: GBOT, at: at.map(r3) });
+const CUPPED = { shape: "cup", set: { curl: 0.25, index: 0.2, thumb: 0.2 } };
+const rtop = (at) => ({ prop: "cup", grip: CTOP, at: at.map(r3) });
+A(NIGHT - 0.02, "rea", "grip", { side: "R", shape: "clasp", set: { curl: 0.6, index: 0.55, thumb: 0.5 }, dur: 0.01 }); c.arm(NIGHT - 0.02, "rea", "R", RTOP, 0.01);
+A(NIGHT - 0.02, "rea", "grip", { side: "L", shape: "relaxed", dur: 0.01 }); c.arm(NIGHT - 0.02, "rea", "L", "rest", 0.01);
+P(NIGHT - 0.02, "cupw", { scale: CUPK });
+c.arm(r3(ARRIVE + 0.05), "rea", "R", rtop(CUP1), 0.15, "inOut");
+P(ARRIVE + 0.22, "cupw", { scale: 0.001 }); P(ARRIVE + 0.22, "cup", { x: CUP1[0], y: CUP1[1], z: CUP1[2] });
+A(r3(ARRIVE + 0.23), "rea", "grab", { prop: "cup", hand: "R", grip: CTOP, dur: 0, pose: null });
 // he hears the steps, lets the fire be and turns to him
-c.arm(REA_IN + 0.55, "gsl", "R", "rest", 0.7, "inOut"); A(REA_IN + 0.55, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.6 });
+c.arm(REA_IN + 0.55, "gsl", "R", { o: [0.02, 0.36, 0.3] }, 0.6, "inOut");   // down beside him, clear of the barrel; in front of his belly the arm lay across his mouth A(REA_IN + 0.55, "gsl", "grip", { side: "R", shape: "relaxed", dur: 0.6 });
 A(REA_IN + 0.8, "gsl", "turn", { to: GSL_N2, dur: 0.45, ease: "inOut" });
-A(REA_IN, "rea", "move", { to: REA_N, dur: 1.0, ease: "inOut", steps: 4 }); A(REA_IN + 0.3, "rea", "turn", { to: REA_N_YAW, dur: 0.6 }); { // the cup rides in front of him: way points in his own frame along the walk and the turn
-  const at = (u, yaw) => body([REA_N0[0] + (REA_N[0] - REA_N0[0]) * u, REA_N0[1] + (REA_N[1] - REA_N0[1]) * u], yaw)([-0.24, 0.42, 0.42]);
-  rcup.carry(REA_IN, at(0.2, -80), 0.3, "in"); rcup.carry(REA_IN + 0.3, at(0.5, -80), 0.2, "linear", { rot: 0 }); rcup.carry(REA_IN + 0.5, at(0.8, -62), 0.2, "linear", { rot: 18 }); rcup.carry(REA_IN + 0.7, CUP1, 0.3, "out", { rot: 40 }); }
+A(REA_IN, "rea", "move", { to: REA_N, dur: 1.0, ease: "inOut", steps: 5 });
 A(REA_IN - 0.02, "rea", "expr", { expr: "deadpan", set: { curve: 0.1 }, dur: 0.01 }); A(REA_IN - 0.02, "rea", "look", { to: [-0.5, 0.0], dur: 0.01, blink: false });
 A(REA_IN + 0.9, "gsl", "look", { to: [0.5, 0.05], dur: 0.2, blink: false }); A(REA_IN + 1.0, "gsl", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.1, curve: 0 }, dur: 0.2 });
 // the closing question; the moth flutters up out of the fire to his hat
@@ -467,17 +484,31 @@ M9(QUESTION + 0.4, [BRIM[0] + 0.15, BRIM[1] + 0.2, BRIM[2] + 0.2], { bank: -15 }
 P(QUESTION + 0.92, "moth", { open: 0, flap: 0 }, 0.12, "inOut");
 sfx(r3(QUESTION + 0.05), "wings", { gain: 0.14, dur: 0.8, reason: "the moth flutters up out of the fire" });
 // the coffee: Reaper holds it out, he takes it in his left glove
-rcup.carry(HAND, HANDOUT, 0.3, "inOut", { rot: 40 });
-const gcup = grips.mug(c, "gsl", { ...CUP, x: HANDOUT[0], y: HANDOUT[1], z: HANDOUT[2], rot: 40 }, { side: "L" });
-const tCup = gcup.takeFrom(r3(HAND + 0.3), HANDOUT, { reach: 0.4, settle: 0.2 });
-rcup.handOff(r3(tCup - 0.02));
-gcup.carry(r3(tCup + 0.05), GN2([0.3, 0.44, 0.42]), 0.3, "inOut");
+c.arm(r3(REA_IN + 1.3), "gsl", "L", { world: PALM }, 0.4, "inOut"); A(r3(REA_IN + 1.3), "gsl", "grip", { side: "L", ...CUPPED, dur: 0.5 });
+c.arm(HAND, "gsl", "L", gbot(HANDOUT), 0.25, "inOut");
+A(r3(HAND + 0.3), "gsl", "grab", { prop: "cup", hand: "L", grip: GBOT, dur: 0, pose: null });
+const tCup = r3(HAND + 0.35);
+// Reaper lets go upward, then his glove goes back to his side
+A(r3(tCup + 0.1), "rea", "grip", { side: "R", shape: "open", dur: 0.15 }); c.arm(r3(tCup + 0.14), "rea", "R", { world: [r3(HANDOUT[0] + 0.1), 0.78, r3(HANDOUT[2] - 0.06)] }, 0.14, "out");   // after the cup has blended into the other glove (0.15 s)
+c.arm(r3(tCup + 0.3), "rea", "R", { o: [0.05, 0.5, 0.35] }, 0.45, "inOut"); A(r3(tCup + 0.35), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.3 });
+c.arm(r3(tCup + 0.3), "gsl", "L", gbot(GN2([0.3, 0.46, 0.42])), 0.35, "inOut");
 A(HAND + 0.3, "gsl", "look", { to: [0.4, -0.3], dur: 0.15, blink: false }); A(r3(tCup - 0.25), "gsl", "expr", { expr: "kind", set: { curve: 0.5, open: 0.1 }, dur: 0.2 });
 A(tCup, "gsl", "look", { to: [0.6, 0.05], dur: 0.15, blink: false }); 
 A(r3(tCup + 0.1), "rea", "expr", { expr: "kind", set: { curve: 0.35 }, dur: 0.25 });
-wink(c, { who: "gsl", t: WINK, until: END, sub: "Next time's on me.", line: "next time's on me.", pos: 1250,
-  react: (t) => { A(t, "rea", "look", { to: [-0.4, 0.3], dur: 0.2, blink: false }); A(r3(t + 0.2), "rea", "expr", { expr: "deadpan", set: { curve: 0.25, open: 0 }, dur: 0.2 }); } });
-see(r3(REA_IN + 0.6), QUESTION, ["rea", "cup", "gsl.face"], "Reaper walks up with one coffee");
+// THE WINK (the series wink of "never has money", without the hat tip: his right glove would be out of this frame):
+// he lifts the coffee to Reaper like a toast, winks and says the line; he winks again into the cut.
+A(WINK, "gsl", "look", { to: [0.05, 0.05], dur: 0.1, blink: false });
+A(WINK, "gsl", "expr", { expr: "cocky", set: { curve: 0.8, open: 0.35, smirk: 0.5 }, dur: 0.15 });
+c.arm(r3(WINK + 0.02), "gsl", "L", gbot(GN2([0.36, 0.6, 0.5])), 0.24, "out");
+A(r3(WINK + 0.24), "gsl", "face", { lidL: 1, dur: 0.06 }); A(r3(WINK + 0.62), "gsl", "face", { lidL: 0, dur: 0.08 });
+c.say(r3(WINK + 0.2), "gsl", "next time's on me.", 0.75, "excited", { voice: false, sub: "Next time's on me.", pos: 1250 });
+c.prop(r3(WINK + 0.2), "moth", { open: 1, flap: 1 }, 0.05, "out");
+M9(WINK + 0.22, [BRIM[0] + 0.04, BRIM[1] + 0.12, BRIM[2] + 0.04], { bank: 15 }, 0.12, "out"); M9(WINK + 0.42, [BRIM[0] - 0.02, BRIM[1] + 0.08, BRIM[2] + 0.08], { bank: -10 }, 0.14); M9(WINK + 0.6, BRIM, { bank: 0 }, 0.12);
+c.prop(r3(WINK + 0.72), "moth", { open: 0, flap: 0 }, 0.12, "inOut");
+sfx(r3(WINK + 0.2), "wings", { gain: 0.1, dur: 0.45, reason: "the moth lifting off the brim as he toasts" });
+A(r3(END - 0.32), "gsl", "face", { lidL: 1, dur: 0.06 });
+A(r3(WINK + 0.3), "rea", "look", { to: [-0.4, 0.3], dur: 0.2, blink: false }); A(r3(WINK + 0.5), "rea", "expr", { expr: "deadpan", set: { curve: 0.25, open: 0 }, dur: 0.2 });
+see(r3(REA_IN + 0.6), r3(ARRIVE + 0.2), ["rea", "cupw", "gsl.face"], "Reaper walks up with one coffee"); see(r3(ARRIVE + 0.25), QUESTION, ["rea", "cup", "gsl.face"], "Reaper stands there with one coffee");
 see(r3(tCup), r3(END - 0.05), ["gsl.face", "rea.face", "cup", "moth"], "the coffee from Reaper, the wink");
 
 // ---------------------------------------------------------------- shots
@@ -542,10 +573,10 @@ const allowClip = [
   { who: "sam", with: "hat", from: 0, to: END, reason: "the counter man's paper hat (worn)" },
   { who: "gsl", with: "moth", from: 0, to: END, reason: "the moth flies round him and sits on his hat brim (worn)" },
   { who: "gsl", with: "wallet", from: 0, to: END, reason: "his wallet: in his glove, then in the holster on his hip" },
+  { who: "rea", with: "cupw", from: NIGHT, to: END, reason: "the coffee he carries in front of his chest on the walk (worn)" },
   { who: "rea", with: "ious", from: FLING, to: WAVE, reason: "the rain of IOU notes falls on and round him (paper, see-through for the contact checks)" },
-  { who: "gsl", with: "throne", from: SIT, to: TWIST, checks: ["costume-in-prop"], reason: "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest" },
+  { who: "gsl", with: "throne", from: r3(SIT - 0.05), to: TWIST, checks: ["costume-in-prop", "arm-in-prop"], reason: "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest and his wide arms brush its arm rests on the way down" },
   { who: "gsl", with: "snow", from: NIGHT, to: END, reason: "falling snow" }, { who: "rea", with: "snow", from: NIGHT, to: END, reason: "falling snow" },
-  { who: "gsl", checks: ["limb-through-costume"], from: r3(WINK - 0.15), to: END, reason: "the series' wink: two fingers on his hat brim (wink.mjs, every Never has money episode)" },
 ];
 for (const w of [...allowClip, ...c.visible]) { w.from = VT(w.from); w.to = VT(w.to); }   // both lists are read on the video's clock
 
