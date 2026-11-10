@@ -19,8 +19,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 
 ## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
 - NHM EP03 old way: 465 min, Opus out 943k, Fable 0.31 M, 4 drafts, 32 warn. Jonny: better quality and logic.
-- NHM EP03 new way v1: 362 min, Opus out 691k, Sonnet 1.32 M + Fable 0.34 M, 2 rounds, 8 warn. Logic issues
-  (builder wrote the clip, staging frozen unseen) -> staging proof; the director writes the clip, never builders (Jonny, 8 Nov).
+- NHM EP03 new way v1: 362 min, Opus 691k out, Sonnet 1.32 M + Fable 0.34 M, 2 rounds, 8 warn. Logic issues -> the director writes.
 - NHM EP04: old 338 min $64 subagents 0.32 M; v2 director writes 323 min $73 0.61 M; v2 Fable writes 527 min $169
   2.27 M. Jonny 9 Nov: Fable writer out; old has cleaner hands, director's cut better cut + scenes except the hug turn.
 - What if EP01 pause time (format B, 8 Nov): ~410 min brief->delivery (incl. new engine pause feature + animatic gate + a main merge), thread 906k in+out tokens (178 M cache read, $73), subagents 275k (Fable reviews A + B), 4 check-fix rounds + 1 round on Jonny's note (the cup beside the hand); 1 draft + 5 full local renders, ~25 min each; the farm has no VoxCPM2 voice.
@@ -31,8 +30,9 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
   builder 0.29, Fable A 0.17 + B 0.16), 2 drafts, 5 farm renders (3 fix rounds after review B) + 1 sound-only remix.
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
-
+- Share or Steal 01 (9-10 Nov, new series + set, animatic gate): thread $59, 733k out; 2 drafts, 1 full render, no review B (Jonny approved the draft).
 - Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~470 min, 4 Sonnet builders + Fable A + B, 1 draft, 3 farm renders, sound redone locally.
+
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
   checks; Remotion needs a company licence). Builders on Sonnet at high, Fable reviews at xhigh (Jonny).
