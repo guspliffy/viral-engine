@@ -183,7 +183,7 @@ const props = [
   { id: "cot", kind: "cottagesled", x: 0, y: 0, z: 0, slide: 1, tilt: 0, sink: 0, door: 0, boards: 0, smoke: 1, trail: 0.6, scenery: true },
   { id: "ccap", kind: "chimneycap", x: chimTop[0], y: chimTop[1], z: chimTop[2], staged: "on the chimney top" },
   { id: "front", kind: "snowfront", x: 0, y: 0, z: 0, run: RIDE_U[0], scale: 1 },
-  { id: "cap", kind: "snowcap", x: 0, y: 0, z: 0, run: 0, break: 0, scale: 3 },
+  { id: "cap", kind: "snowcap", x: 0, y: 0, z: 0, run: 0, break: 0, scale: 3, firs: false },   // no flipping firs: at 3x they crossed the pull-back camera as one-frame dark shapes (the draft's pops fail)
   { id: "mound", kind: "snowmound", x: 0, y: 0, z: 0, rise: 0 },
   // the ending: fresh snow on Viking's crest as he rises out of the chimney (panel 08)
   { id: "lumpCrest", kind: "snowlump", x: chimTop[0], y: chimTop[1], z: chimTop[2], r: 0.13, staged: "on his crest" },
@@ -257,7 +257,8 @@ c.cap(T.record, r3(T.cu - 0.03), "New record!", SUB.A1 + 100, false, SUB_STYLE);
 // Viking: the log up like a trophy, bouncing on his heels; the line lifts it higher
 A(0, "vik", "look", { to: [0, 0.05], dur: 0, blink: false });
 for (const t of [0.55, 1.45, 2.3]) A(t, "vik", "squash", { amount: 0.035, dur: 0.3 });
-c.say(T.promise, "vik", "firewood till spring!", 0.9, "excited", { pos: SUB.A1 });
+c.say(T.promise, "vik", "firewood till spring!", 0.9, "excited", { sub: false });
+c.cap(T.promise, r3(T.cu - 0.03), "Firewood till spring!", SUB.A1, false, SUB_STYLE);   // ends on the cut: on his close-up it sat behind his face
 A(r3(T.promise + 0.1), "vik", "hop", { height: 0.05, dur: 0.3 });
 
 // Reaper on the rug: the cushion hugged tight, eyes on the snowed window, a shiver now and then
@@ -561,7 +562,8 @@ c.arm(r3(O - 0.12), "god", "R", "up", 0.45, "inOut");   // already on its way up
 grip2(O, "god", "fist", 0.1);
 for (const w of ["vik", "samB"]) { both(r3(O + 0.03), w, { o: [0.26, 1.02, 0.1] }, 0.18, "out"); if (w === "samB") c.arm(r3(O + 0.03), w, "R", { o: [0.1, 0.55, 0.3] }, 0.18, "out"); A(r3(O + 0.05 + (w === "vik" ? 0 : 0.06)), w, "hop", { height: 0.12, dur: 0.3 }); A(O, w, "expr", { expr: "delighted", dur: 0 }); A(O, w, "face", { lid: 0, dur: 0 }); }   // (an o-pose: the named "up" under a hop stayed at rest on the layout; the Samurai's right fist low: Reaper stands on that side)
 A(O, "rea", "expr", { expr: "happy", dur: 0 }); A(O, "rea", "face", { lid: 0.6, dur: 0 }); A(O, "rea", "look", { to: [0.2, 0.5], dur: 0, blink: false });
-c.say(18.15, "god", "You're welcome!", 0.9, "excited", { pos: SUB.D1 });
+c.say(18.15, "god", "You're welcome!", 0.9, "excited", { sub: false });
+c.cap(18.15, 18.95, "You're welcome!", SUB.D1, false, SUB_STYLE);   // off before the wave: the line's own subtitle stayed up over the avalanche till 19.4
 both(18.3, "god", "up", 0.3, "inOut");
 c.at(18.42, { fx: "flash", dur: 0.3, peak: 0.8, sound: false }); sfx(18.42, "flash", { gain: 0.5, reason: "the god's thank-you lightning" });
 sfx(18.45, "firework", { gain: 0.7, reason: "the thunderclap of thanks" }); sfx(18.47, "rumble", { gain: 0.8, reason: "the thunder" });

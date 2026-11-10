@@ -814,7 +814,8 @@
    "z": 0,
    "run": 0,
    "break": 0,
-   "scale": 3
+   "scale": 3,
+   "firs": false
   },
   {
    "id": "mound",
@@ -873,7 +874,7 @@
   },
   {
    "from": 2.75,
-   "to": 4.05,
+   "to": 3.703,
    "text": "Firewood till spring!",
    "pos": 385,
    "pop": false,
@@ -936,7 +937,7 @@
   },
   {
    "from": 18.15,
-   "to": 19.45,
+   "to": 18.95,
    "text": "You're welcome!",
    "pos": 760,
    "pop": false,

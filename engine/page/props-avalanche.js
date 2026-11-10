@@ -34,6 +34,7 @@ import { snowMaterial, farMesh, firGeometry, ridePath, slopeAt, heightAt, SNOWSL
 //                snowfront at `scale` (3: the payoff wave, 120 m wide) running down the apron to the origin, 0.95..1 it
 //                collapses there (raise the snowmound with it). Behind it the top third is bare grey rock and a
 //                scoured track runs down the face, debris down the apron. The prop's own size is not scaled.
+//                `firs: false` leaves the flipping firs out of its front.
 //   snowmound    `rise` 0..1: a smooth white mound over the whole cottage at the origin, 4.9 m high (its flat top over
 //                the roof), 11.5 m round; at 1 the chimney's top 0.47 m stays out. Origin: the world's origin.
 // Keys a storyboard has never set start unset (propState jumps the first tween of an unset key): set each key's first
@@ -266,7 +267,7 @@ function chimneycap(P) {
 // ---------- the avalanche front (snowfront, and the snowcap's payoff wave) ----------
 // local frame: origin on the ground at the ride's point, +x up the slope (behind), y up, z across; the group is pitched
 // with the slope and scaled by the prop's scale. Every moving piece is placed in the vertex shader from story time.
-function buildFront(parent, seed, cut = true) {
+function buildFront(parent, seed, cut = true, firs = true) {
   const rnd = rng(seed * 131 + 7), U = { uTime: { value: 0 }, uAmt: { value: 1 } }, g = new THREE.Group(); parent.add(g);
   const wz = (z) => 1 - sstep(15, 20.5, Math.abs(z));
   const hx = (x) => (x < 4.5 ? 1.3 * sstep(-8, 1, x) : x < 8.8 ? 1.3 + 6.9 * sstep(4.5, 8.8, x) : x < 13 ? 8.2 : 1.0 + 7.2 * Math.exp(-(x - 13) / 16));
@@ -353,8 +354,9 @@ void main() {
         float env = smoothstep(0.0, 0.06, tau) * (1.0 - smoothstep(0.8, 1.0, tau));
         pos = c + R * (pos * aP.w * env * uAmt); nor = R * nor; M = modelMatrix;` });
     farMesh(cg, m, g, "avalanche-chunks"); }
-  // twelve firs torn out and flipping end over end ahead of the wall
-  { const N = 12, a = [], v = [], q = [], fg = new THREE.InstancedBufferGeometry().copy(firGeometry()); fg.instanceCount = N;
+  // twelve firs torn out and flipping end over end ahead of the wall (`firs: false` on a snowcap leaves them out: at
+  // scale 3 they pass a near camera as one-frame dark shapes)
+  if (firs) { const N = 12, a = [], v = [], q = [], fg = new THREE.InstancedBufferGeometry().copy(firGeometry()); fg.instanceCount = N;
     for (let i = 0; i < N; i++) {
       a.push(5.5 + rnd() * 4, 6 + rnd() * 2.5, -17 + (34 * (i + rnd() * 0.8)) / N, 3 + rnd() * 3);
       v.push(-(1.2 + rnd() * 2.6), 4 + rnd() * 2.5, (rnd() * 2 - 1) * 1.2, 2.2 + rnd() * 0.9);
@@ -457,7 +459,7 @@ vec3 lumps(vec2 p) {
   farMesh(apron, am, P.whole, "snowcap-debris");
   // the payoff wave: a snowfront (scale: the prop's scale) running down the apron
   const wg = new THREE.Group(); wg.rotation.order = "YXZ"; P.whole.add(wg);
-  const F = buildFront(wg, (S.seed || 9) + 3, false);
+  const F = buildFront(wg, (S.seed || 9) + 3, false, S.firs !== false);
   return { grip: 0, apply(ps, t) {
     P.root.position.set(0, 0, 0); P.root.rotation.set(0, 0, 0); P.root.scale.set(1, 1, 1);
     const run = clamp(ps.run ?? S.run ?? 0), brk = clamp(ps.break ?? S.break ?? 0);
