@@ -39,9 +39,11 @@ runs:
         # (10 Nov 2026: libxml2.so.2), so ffmpeg has to run, not only install; if it doesn't, apt fetches what is missing
         if ! ffmpeg -version > /dev/null 2>&1; then
           sudo apt-get update -qq
-          sudo apt-get install -y -qq --no-install-recommends --fix-broken --download-only ffmpeg > /dev/null
+          # first what the cached .debs still lack (apt refuses any other install while dependencies are unmet)
+          sudo apt-get install -y -qq --no-install-recommends --fix-broken > /dev/null
+          sudo apt-get install -y -qq --no-install-recommends --download-only ffmpeg > /dev/null
           mkdir -p ~/ffmpeg-debs && cp /var/cache/apt/archives/*.deb ~/ffmpeg-debs/ 2> /dev/null || true
-          sudo apt-get install -y -qq --no-install-recommends --fix-broken ffmpeg > /dev/null
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg > /dev/null
         fi
         ffmpeg -version | head -1
     # Xvfb and Mesa for the default renderer (render.mjs --gl llvmpipe); GitHub's Ubuntu runners already have them
