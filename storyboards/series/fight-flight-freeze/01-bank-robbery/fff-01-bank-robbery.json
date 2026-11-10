@@ -1,0 +1,1618 @@
+{
+ "id": "fff-01-bank-robbery",
+ "title": "You just robbed a bank. Fight, flight or freeze?",
+ "idea": "Fight, Flight or Freeze pilot: three friends rob a bank; Viking fights (netted), Phoenix runs (in a circle, into the van), Reaper freezes (tips into a crate of potatoes and gets away)",
+ "format": "series: Fight, Flight or Freeze (one extreme situation, three instincts, all three outcomes in one video)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  470,
+  1360
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "env",
+  "env": "dusk-back-alley",
+  "swap": [
+   {
+    "at": 8.2,
+    "env": "dusk-bus-stop"
+   },
+   {
+    "at": 12,
+    "env": "dusk-back-alley"
+   },
+   {
+    "at": 12.7,
+    "env": "sunset-rooftop"
+   },
+   {
+    "at": 15.5,
+    "env": "twilight-city-crossing"
+   },
+   {
+    "at": 16.9,
+    "env": "dusk-bus-stop"
+   },
+   {
+    "at": 19.3,
+    "env": "dusk-back-alley"
+   },
+   {
+    "at": 28.6,
+    "env": "turquoise-beach-shallows"
+   }
+  ],
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "style": "sneaky",
+  "lowCut": 150,
+  "gain": 0.28
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "surface": "concrete",
+  "room": "street",
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   32,
+   32
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "phx",
+   "rea"
+  ],
+  "hint": 0,
+  "what": "three masked potatoes high-five over open money bags in a back alley, a bank alarm ringing"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "duo/viking",
+   "at": [
+    0,
+    -0.95
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 3.3
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.92,
+    -0.45
+   ],
+   "face": 16,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.86,
+    -0.45
+   ],
+   "face": -16,
+   "expr": "happy",
+   "follow": 0.25,
+   "seed": 3.1
+  },
+  {
+   "id": "sam",
+   "character": "duo/samurai",
+   "at": [
+    40,
+    44
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.2
+  },
+  {
+   "id": "god",
+   "character": "potatobrawl/allfather",
+   "at": [
+    43,
+    44
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    46,
+    44
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "crateL",
+   "kind": "cardbox",
+   "x": -0.95,
+   "z": 0.3,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.5,
+   "closed": true
+  },
+  {
+   "id": "crateM",
+   "kind": "cardbox",
+   "x": 0,
+   "z": 0.3,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.5,
+   "closed": true
+  },
+  {
+   "id": "crateR",
+   "kind": "cardbox",
+   "x": 0.86,
+   "z": 0.3,
+   "w": 0.7,
+   "d": 0.5,
+   "h": 0.5,
+   "closed": true
+  },
+  {
+   "id": "bin",
+   "kind": "cardbox",
+   "x": 2.05,
+   "z": -0.45,
+   "w": 1.5,
+   "d": 1,
+   "h": 0.28,
+   "closed": false,
+   "empty": true
+  },
+  {
+   "id": "tag",
+   "kind": "sign",
+   "x": 1.7499999999999998,
+   "z": 0.13,
+   "text": "POTATOES 2.99",
+   "small": true,
+   "rot": 0
+  },
+  {
+   "id": "van",
+   "kind": "citycar",
+   "x": 0,
+   "z": -3.2,
+   "rot": 180,
+   "color": "#20263a",
+   "scale": 0.001
+  },
+  {
+   "id": "car1",
+   "kind": "citycar",
+   "x": -3.2,
+   "z": -7.5,
+   "rot": 60,
+   "color": "#20263a",
+   "scale": 0.001
+  },
+  {
+   "id": "car2",
+   "kind": "citycar",
+   "x": 3.2,
+   "z": -7.5,
+   "rot": -60,
+   "color": "#20263a",
+   "scale": 0.001
+  },
+  {
+   "id": "roofL",
+   "kind": "cardbox",
+   "x": -2.3,
+   "z": 0.2,
+   "w": 2.8,
+   "d": 2,
+   "h": 1,
+   "closed": true,
+   "scale": 0.001
+  },
+  {
+   "id": "roofR",
+   "kind": "cardbox",
+   "x": 2.3,
+   "z": 0.2,
+   "w": 2.8,
+   "d": 2,
+   "h": 1,
+   "closed": true,
+   "scale": 0.001
+  },
+  {
+   "id": "lounger",
+   "kind": "deckchair",
+   "x": 0,
+   "z": 0.6,
+   "rot": 0,
+   "scale": 0.001
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "1 you just robbed a bank",
+   "at": 0,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     5.4
+    ],
+    "look": [
+     0,
+     1.172,
+     -4.598
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 the police are here",
+   "at": 2.9,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     5.4
+    ],
+    "look": [
+     0,
+     1.172,
+     -4.598
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "3 three faces",
+   "at": 3.7,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0,
+     0.85,
+     4.3
+    ],
+    "look": [
+     0,
+     1.072,
+     -5.698
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "4 fight",
+   "at": 4.5,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     2.1500000000000004
+    ],
+    "look": [
+     0,
+     1.022,
+     -7.848
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "4 flight",
+   "at": 5.1,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.92,
+     0.8,
+     2.65
+    ],
+    "look": [
+     -0.92,
+     1.022,
+     -7.348
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "4 freeze",
+   "at": 5.7,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.86,
+     0.8,
+     2.65
+    ],
+    "look": [
+     0.86,
+     1.022,
+     -7.348
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "5 only one gets away",
+   "at": 6.4,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0,
+     0.85,
+     4.3
+    ],
+    "look": [
+     0,
+     1.072,
+     -5.698
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "tag",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "van",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -0.62,
+      3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      0.62,
+      3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -5.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 1.78
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 1.78
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      46,
+      40
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "6 the charge",
+   "at": 8.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     8.6
+    ],
+    "look": [
+     0,
+     1.407,
+     -1.399
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      1.6
+     ],
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "6 fighting works",
+   "at": 9.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     5.6
+    ],
+    "look": [
+     0,
+     1.157,
+     -4.399
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "tag",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "van",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.92,
+      -0.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 16,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.86,
+      -0.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -16,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 2.78
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      40,
+      40
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 2.78
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 2.78
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    }
+   ]
+  },
+  {
+   "name": "7 phoenix bolts",
+   "at": 12,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     5.4
+    ],
+    "look": [
+     0,
+     1.172,
+     -4.598
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "tag",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "roofL",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "roofR",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      -3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.68
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.68
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      46,
+      40
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.68
+    }
+   ]
+  },
+  {
+   "name": "7 the rooftops",
+   "at": 12.7,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     6
+    ],
+    "look": [
+     0,
+     1.381,
+     -3.993
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -1.6,
+      0.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "7 the leap",
+   "at": 13.9,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0,
+     0.5,
+     6.4
+    ],
+    "look": [
+     0,
+     3.287,
+     -3.204
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "roofL",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "roofR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      1.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.58
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "7 lost them",
+   "at": 15.5,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     5.2
+    ],
+    "look": [
+     0,
+     0.998,
+     -4.8
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "van",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      3.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.38
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -1.6,
+      -2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 1.38
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      1.6,
+      -2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "7 the van",
+   "at": 16.9,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     8.6
+    ],
+    "look": [
+     0,
+     1.407,
+     -1.399
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "tag",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "van",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.86,
+      -0.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -16,
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 2.38
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 2.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 2.38
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 2.38
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.38
+    }
+   ]
+  },
+  {
+   "name": "8 the one who did nothing",
+   "at": 19.3,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     0.9,
+     0.9,
+     5
+    ],
+    "look": [
+     0.9,
+     1.122,
+     -4.998
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "8 in the potatoes",
+   "at": 22.2,
+   "len": 6.4,
+   "shot": {
+    "pos": [
+     1.75,
+     0.85,
+     3.4
+    ],
+    "look": [
+     1.75,
+     1.072,
+     -6.598
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      3.4,
+      0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "do": "prop",
+     "id": "tag",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "do": "prop",
+     "id": "lounger",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 6.38
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 6.38
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 6.38
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 6.38
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 6.38
+    }
+   ]
+  },
+  {
+   "name": "9 the beach",
+   "at": 28.6,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     5.2
+    ],
+    "look": [
+     0,
+     -1.563,
+     -4.479
+    ],
+    "fov": 42
+   },
+   "do": [],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/fight-flight-freeze/01-bank-robbery/make-bank-robbery.mjs. Title added in TikTok's text tool."
+}
