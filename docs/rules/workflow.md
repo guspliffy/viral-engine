@@ -64,6 +64,9 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
   Check every staging edit on the floor plan first (`node qa/clear.mjs <sb>`, 1-2 s) and try cameras and subtitle
   spots with `node qa/camfit.mjs` (a second each) before a layout pass; fix rounds lay out only the seconds they
   changed (`--layout --from --to`, docs/rules/fast-cheap.md).
+  Fit ALL panels' cameras in one batch (one camfit line per panel in a single command, against the Numbers table),
+  then one layout pass and one round of stills: shot by shot, Survive it EP1's 8 panels took 40 layout passes and
+  33 rounds of stills (10 Nov 2026).
   Render the draft stills at one time per panel, run `qa/panels.mjs` against Jonny's board and
   `node qa/panelfit.mjs <sb> --panels <PANELS.md>` (each panel graded by number: size, eye line, x, faces, camera), grade
   every checklist line yes, partial or no against the panel image (not against memory), and get review A on those
@@ -96,7 +99,9 @@ Jonny's MrBeast playbook already says to reuse sets (approved 8 Nov). So, before
    7-10 min with three builders sharing it). Props benches, plates and sound picks can run beside it. Full renders go
    to the render farm.
 4. **Verify** yourself: `node qa/preflight.mjs <sb>`, `--layout`, the draft stills contact sheet at half scale. Read
-   only the tails of outputs.
+   only the tails of outputs. A bench with a cast is judged by CI's episode preflight like an episode (two clips in
+   a row went red on their benches, 10 Nov 2026): its cast stands clear of each other (1.2 m or more side by side),
+   and the director gives it the same worn-prop windows as the episode.
 5. **Review the diff**, not the files: `git diff --stat`, then `git diff -- <task files>`. Check the DONE WHEN list,
    nothing outside OWN, determinism, Jonny's rules (docs/rules/*), and accept or reject each listed assumption.
 6. **Fix**: numbered fixes to the same builder (SendMessage keeps its cache warm), two builder rounds at most; after
@@ -193,12 +198,23 @@ waiver for the whole clip.
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
+   **One-second proof before the farm** (10 Nov 2026: all three fix rounds of Survive it EP1 were one-frame pops that
+   only rendered frames show, each a 13 min farm render): for every flash, impact frame, card that lands on an
+   effect, and big prop or wave passing the lens, draw only that second and look for an odd frame:
+   `node engine/render.mjs <sb> --draft --from <s> --to <s+1>`, then `node qa/pops.mjs out/<id>-<s>-<s+1>-draft.mp4
+   --from <s>` (30 s together). The same proof after every review note that adds or moves an effect. A flash at its
+   peak one frame before a dark card fades in at the same spot is an odd frame: start the flash two frames earlier.
 5. **Full render** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in the
    background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor),
    a 15 fps strip of every contact moment, then **creative director review B (cut)**
    on its contact sheet, cut strips and phone sheet (`node qa/contact.mjs <clip> --sb <sb>`, then `--cuts --phone`), one round. Apply the notes that are cheap
    (timing, framing, captions) and re-render once. Bigger ones go into the next cut or to Jonny.
+   **Waiting costs steps** (every step re-reads the whole thread; about 100 of Survive it EP1's 853 steps only waited):
+   wait for a farm run with ONE background command that ends when the run does
+   (`until [ "$(gh run view <id> --json status -q .status)" = completed ]; do sleep 30; done`), no check-ins beside it.
+   Open the pull request when the final clip has passed its checks, not during the build: each of its check events
+   wakes the thread. Before that push, run `node qa/preflight.mjs <bench> --quick` on every bench the branch adds.
 6. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
    viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers

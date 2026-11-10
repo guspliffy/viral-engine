@@ -13,6 +13,8 @@ DONE WHEN:
 - <criterion with exact numbers, e.g. "card reader 15 x 22 cm, screen reads 84.00 at 360 px wide in the bench still">
 - `node qa/preflight.mjs <sb>`: no FAIL; `render.mjs <sb> --layout`: contact gate clean
 - draft stills contact sheet at <path>
+- a bench with a cast: bodies 1.2 m or more apart side by side, `node qa/preflight.mjs <bench> --quick`: no FAIL except
+  worn or enclosing props (list those in NOTES: the director adds the windows)
 OUT OF SCOPE: <tempting extras to skip: new moves, engine changes, renders>
 ```
 

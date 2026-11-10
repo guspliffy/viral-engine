@@ -32,6 +32,7 @@ node engine/render.mjs <sb> --stills beats --draft --safe      # draft stills (~
 node qa/contact.mjs <dir>/<id>-*.png --out <sheet.png>         # contact sheet of stills
 node engine/render.mjs <sb> --draft                            # draft render (~2 min) = the animatic
 node qa/check.mjs out/<id>.mp4 --sb <sb> --layout out/<id>.layout.json   # checks on a render
+node qa/pops.mjs out/<id>-<a>-<b>-draft.mp4 --from <a>         # one-frame pops in a one-second draft (--draft --from --to), before the farm
 node qa/panelfit.mjs <sb> --panels <PANELS.md>                 # Jonny's panels by number: size, eye line, faces
 python3 tools/lint-notes.py docs                               # rule docs: named paths exist, line caps (CI; `memory` too)
 gh workflow run render.yml -f storyboard=<sb>                  # full render on the free render farm
