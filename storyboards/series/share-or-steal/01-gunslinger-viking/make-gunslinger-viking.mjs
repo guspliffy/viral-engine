@@ -453,7 +453,7 @@ const CARDS = frame([0, TH + 0.02, -0.18], { az: 0, el: 78, h: 1.45, fov: 34 });
 const DROP = { pos: [0.18, 1.75, 3.15], look: [r3((V[0] + VT[0]) / 2 - 0.12), 0.7, r3((V[1] + VT[1]) / 2)], fov: 40 };   // Viking with headroom, his trap's whole rim behind him (review A)
 const ENDW = frame([-0.25, 0.9, -0.6], { az: 0, el: -2, h: 3.8, fov: 40, push: 0.08, dur: 4 });   // at his eye height: his face under the brim
 const beats = c.beats([
-  ["hook", 0, { ...WIDE, to: { pos: TWO.pos, look: TWO.look }, dur: T.rules }],
+  ["hook", 0, { ...WIDE, to: { pos: TWO.pos, look: TWO.look, fov: TWO.fov }, dur: T.rules }],   // lands exactly on the TWO: the cut to the rules is invisible
   ["rules", T.rules, TWO],
   ["the fryer", r3(T.rules + 2.25), FRYER],
   ["both fry", r3(T.rules + 3.4), TWO],
