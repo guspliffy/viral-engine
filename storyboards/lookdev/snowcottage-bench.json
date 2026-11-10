@@ -199,7 +199,7 @@
    "id": "vik",
    "character": "duo/viking",
    "at": [
-    0.71,
+    0.98,
     -0.23
    ],
    "face": "camera",
@@ -223,7 +223,7 @@
    "id": "rea",
    "character": "never-has-money/reaper",
    "at": [
-    -0.1,
+    -0.18,
     0.27
    ],
    "face": "camera",

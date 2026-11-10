@@ -18,7 +18,7 @@ const SET = {
   hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true,
   fire: step(1, 2, 0.25, 1), candles: 1, snowWindow: step(0.8, 0.8, 1.0, 0.8), dark: step(0, 0, 1, 0), door: step(0, 0, 0, 1),
 };
-const FOUR = [["vik", "duo/viking", [0.71, -0.23]], ["sam", "duo/samurai", [-1.27, -1.84]], ["rea", "never-has-money/reaper", [-0.1, 0.27]], ["god", "potatobrawl/allfather", [0.32, -1.81]]];
+const FOUR = [["vik", "duo/viking", [0.98, -0.23]], ["sam", "duo/samurai", [-1.27, -1.84]], ["rea", "never-has-money/reaper", [-0.18, 0.27]], ["god", "potatobrawl/allfather", [0.32, -1.81]]];
 const cast = FOUR.map(([id, character, at], i) => ({ id, character, at, face: "camera", follow: 0, sway: 0.4, seed: 1.1 + i * 0.7 }));
 const actions = FOUR.map(([id]) => ({ who: id, at: 0, do: "noblink" }));
 const ROOM = { pos: [0.76, 1.6, 2.96], look: [-0.02, 0.7, -1.91], fov: 58 }, DOOR = { pos: [1.63, 1.45, 3.03], look: [-2.08, 0.92, -1.63], fov: 60 };
