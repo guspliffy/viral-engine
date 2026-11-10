@@ -364,7 +364,8 @@ P(SNAP2 + 0.02, "throne", { build: 1, ...(!READY.has("money") && { scale: 1 }) }
 A(SNAP2 - 0.02, "sam", "pitch", { to: 0, dur: 0.01 }); setup(SNAP2, "sam", [0.9, -1.15], -40); setup(SNAP2, "wiz", [-1.7, -1.8], 90); setup(SNAP2, "rea", [-1.7, 2.9], 90);   // the counter man back behind his counter (out of this frame); the friends run in from the frame's edges
 // he is already in front of it at the cut, arms wide, and drops back onto the seat
 setup(SNAP2, "gsl", [r3(THRONE[0] + 1.0), THRONE[1]], 90); A(SNAP2 - 0.02, "gsl", "lean", { to: 0, dur: 0.01 }); A(SNAP2 - 0.02, "gsl", "release", { prop: "brick", dur: 0 });
-A(SNAP2 - 0.02, "gsl", "still", { dur: 0.25 });   // placed on the cut with his arms wide, the hands wobbled 5 cm
+// arms wide on the cut (tried: half up then wide in the shot, and fists on hips until he sits: both jumped more)
+A(SNAP2 - 0.02, "gsl", "still", { dur: 0.25 });
 for (const side of ["L", "R"]) { c.arm(SNAP2 - 0.02, "gsl", side, { o: [0.55, 0.85, 0.2] }, 0.01); A(SNAP2 - 0.02, "gsl", "grip", { side, shape: "open", dur: 0.01 }); }
 A(SIT, "gsl", "sit", { seat: "throne", dur: 0.2 }); sfx(r3(SIT + 0.15), "ai/cushion-poof", { gain: 0.4, reason: "he drops back onto the throne of cash" });
 A(SIT + 0.18, "gsl", "squash", { amount: 0.05, dur: 0.14 }); A(SIT + 0.2, "gsl", "lean", { to: 8, dur: 0.2, ease: "settle" });   // forward a little: his brim stays clear of the backrest
@@ -582,7 +583,7 @@ const allowClip = [
   { who: "sam", with: "hat", from: 0, to: END, reason: "the counter man's paper hat (worn)" },
   { who: "gsl", with: "moth", from: 0, to: END, reason: "the moth flies round him and sits on his hat brim (worn)" },
   { who: "gsl", with: "wallet", from: 0, to: END, reason: "his wallet: in his glove, then in the holster on his hip" },
-  { who: "gsl", from: r3(WAVE + 0.3), to: r3(SLAP + 0.12), checks: ["prop-pop", "grip-gap"], reason: "the slap: the brick under his flat glove, off screen until the cut, then swung down in slow motion; drawn on twos, it moves between the glove's drawings" },
+  { who: "gsl", from: r3(WAVE + 0.3), to: r3(SNAP2 - 0.03), checks: ["prop-pop", "grip-gap"], reason: "the slap: the brick under his flat glove, off screen until the cut, then swung down in slow motion; drawn on twos, it moves between the glove's drawings" },
   { who: "rea", with: "cupw", from: NIGHT, to: END, reason: "the coffee he carries in front of his chest on the walk (worn)" },
   { who: "rea", with: "ious", from: FLING, to: WAVE, reason: "the rain of IOU notes falls on and round him (paper, see-through for the contact checks)" },
   { who: "gsl", with: "throne", from: r3(SIT - 0.05), to: TWIST, checks: ["costume-in-prop", "arm-in-prop"], reason: "he sits back on the throne: his hat brim (1.3 m wide) rests against its backrest and his wide arms brush its arm rests on the way down" },

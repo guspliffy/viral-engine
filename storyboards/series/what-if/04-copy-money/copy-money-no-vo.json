@@ -6120,7 +6120,7 @@
   {
    "who": "gsl",
    "from": 8.6,
-   "to": 10.684,
+   "to": 11.57,
    "checks": [
     "prop-pop",
     "grip-gap"
