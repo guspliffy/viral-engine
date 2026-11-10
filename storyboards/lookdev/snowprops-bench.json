@@ -1,0 +1,3356 @@
+{
+ "id": "snowprops-bench",
+ "title": "Snow props bench: the small props of the snowed-in cottage",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 14.5,
+ "cleanStart": true,
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "animeTiming": true,
+ "set": {
+  "type": "xmasroom",
+  "light": "golden",
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    1.5,
+    4.5
+   ],
+   "look": [
+    0,
+    0.7,
+    0.4
+   ],
+   "fov": 50
+  },
+  {
+   "at": 3.5,
+   "pos": [
+    0,
+    1.7,
+    6.6
+   ],
+   "look": [
+    0,
+    0.6,
+    0
+   ],
+   "fov": 52
+  },
+  {
+   "at": 4.5,
+   "pos": [
+    0.9,
+    1.45,
+    2.7
+   ],
+   "look": [
+    -0.45,
+    0.3,
+    -0.5
+   ],
+   "fov": 52
+  },
+  {
+   "at": 6.5,
+   "pos": [
+    0.15,
+    1.3,
+    4
+   ],
+   "look": [
+    0,
+    0.55,
+    0.3
+   ],
+   "fov": 50
+  },
+  {
+   "at": 8.5,
+   "pos": [
+    -0.12,
+    1.15,
+    4.8
+   ],
+   "look": [
+    -0.12,
+    0.85,
+    -0.2
+   ],
+   "fov": 60
+  },
+  {
+   "at": 9.5,
+   "pos": [
+    0.5,
+    1.5,
+    1.9
+   ],
+   "look": [
+    -1.4,
+    1.45,
+    -2.3
+   ],
+   "fov": 52
+  },
+  {
+   "at": 10.5,
+   "pos": [
+    0.4,
+    1.5,
+    1.2
+   ],
+   "look": [
+    1.05,
+    1.5,
+    -2
+   ],
+   "fov": 54
+  },
+  {
+   "at": 11.5,
+   "pos": [
+    -0.1,
+    1.15,
+    3.3
+   ],
+   "look": [
+    -0.1,
+    0.65,
+    -1.6
+   ],
+   "fov": 52
+  },
+  {
+   "at": 12.5,
+   "pos": [
+    0,
+    1.4,
+    3.4
+   ],
+   "look": [
+    -0.05,
+    1,
+    -2
+   ],
+   "fov": 52
+  },
+  {
+   "at": 13.5,
+   "pos": [
+    2.5,
+    1.35,
+    3.1
+   ],
+   "look": [
+    -0.15,
+    0.95,
+    -0.4
+   ],
+   "fov": 50
+  }
+ ],
+ "cast": [
+  {
+   "id": "vik",
+   "character": "duo/viking",
+   "at": [
+    -0.55,
+    0.2
+   ],
+   "face": 7.289,
+   "follow": 0,
+   "sway": 0.4,
+   "seed": 1.1
+  },
+  {
+   "id": "sam",
+   "character": "duo/samurai",
+   "at": [
+    -2.3,
+    -1.7
+   ],
+   "face": 20.353,
+   "follow": 0,
+   "sway": 0.4,
+   "seed": 1.8
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.62,
+    0.2
+   ],
+   "face": -8.205,
+   "follow": 0,
+   "sway": 0.4,
+   "seed": 2.5
+  }
+ ],
+ "props": [
+  {
+   "id": "blkA",
+   "kind": "choppingblock",
+   "x": -0.55,
+   "y": 0,
+   "z": 0.8200000000000001
+  },
+  {
+   "id": "blkB",
+   "kind": "choppingblock",
+   "x": 0.62,
+   "y": 0,
+   "z": 0.8200000000000001
+  },
+  {
+   "id": "log",
+   "kind": "firewood",
+   "len": 0.5,
+   "r": 0.09,
+   "x": -0.55,
+   "y": 0.4,
+   "z": 0.82,
+   "rot": 180
+  },
+  {
+   "id": "hammer",
+   "kind": "hammer",
+   "x": 0.67,
+   "y": 0.4,
+   "z": 0.82,
+   "rot": 180
+  },
+  {
+   "id": "rack",
+   "kind": "lograck",
+   "x": -1.45,
+   "z": 0.4,
+   "rot": 20,
+   "logs": 2,
+   "scale": 0
+  },
+  {
+   "id": "block",
+   "kind": "choppingblock",
+   "x": -0.75,
+   "z": 0.45,
+   "scale": 0
+  },
+  {
+   "id": "plank",
+   "kind": "boardplank",
+   "x": -0.15,
+   "y": 0,
+   "z": 0.4,
+   "rot": -25,
+   "tilt": 7,
+   "scale": 0
+  },
+  {
+   "id": "hammer2",
+   "kind": "hammer",
+   "x": 0.3,
+   "y": 0.02,
+   "z": 0.9,
+   "rot": 210,
+   "tilt": 90,
+   "scale": 0
+  },
+  {
+   "id": "chL1",
+   "kind": "woodchair",
+   "x": 0.55,
+   "z": 0.4,
+   "rot": -20,
+   "scale": 0
+  },
+  {
+   "id": "chL2",
+   "kind": "woodchair",
+   "x": 1.15,
+   "z": 0.55,
+   "rot": 70,
+   "tip": 90,
+   "y": 0.45,
+   "scale": 0
+  },
+  {
+   "id": "lump",
+   "kind": "snowlump",
+   "x": -0.4,
+   "y": 0,
+   "z": 1.5,
+   "r": 0.15,
+   "scale": 0
+  },
+  {
+   "id": "block3",
+   "kind": "choppingblock",
+   "x": -0.45,
+   "z": -0.5,
+   "scale": 0
+  },
+  {
+   "id": "heap",
+   "kind": "sliverheap",
+   "x": -0.45,
+   "z": -0.18,
+   "block": [
+    0,
+    -0.32
+   ],
+   "amount": 0.3,
+   "chop": [
+    [
+     4.85
+    ],
+    [
+     5.85
+    ]
+   ],
+   "seed": 11,
+   "scale": 0
+  },
+  {
+   "id": "rack3",
+   "kind": "lograck",
+   "x": -1.35,
+   "z": -0.35,
+   "rot": 12,
+   "logs": 1,
+   "scale": 0
+  },
+  {
+   "id": "blkC",
+   "kind": "choppingblock",
+   "x": 0,
+   "y": 0,
+   "z": 0.9199999999999999,
+   "scale": 0
+  },
+  {
+   "id": "kind",
+   "kind": "kindlingarmful",
+   "x": 0,
+   "y": 0.4,
+   "z": 0.92,
+   "rot": 180,
+   "scale": 0
+  },
+  {
+   "id": "quilt",
+   "kind": "huddleblanket",
+   "over": [
+    [
+     -1.2,
+     -0.2,
+     1.38
+    ],
+    [
+     0,
+     -0.2,
+     1.33
+    ],
+    [
+     0.97,
+     -0.2,
+     1.4
+    ]
+   ],
+   "cover": 1,
+   "staged": "worn over the cast",
+   "scale": 0
+  },
+  {
+   "id": "pl1",
+   "kind": "boardplank",
+   "len": 1.4,
+   "seed": 4,
+   "x": -2.1199999999999997,
+   "y": 0.95,
+   "z": -2.2,
+   "tilt": 90,
+   "staged": "nailed over the window",
+   "scale": 0
+  },
+  {
+   "id": "pl2",
+   "kind": "boardplank",
+   "len": 1.4,
+   "seed": 5,
+   "x": -2.07,
+   "y": 1.3,
+   "z": -2.2,
+   "tilt": 90,
+   "staged": "nailed over the window",
+   "scale": 0
+  },
+  {
+   "id": "pl3",
+   "kind": "boardplank",
+   "len": 1.4,
+   "seed": 6,
+   "x": -2.1199999999999997,
+   "y": 1.65,
+   "z": -2.2,
+   "tilt": 90,
+   "staged": "nailed over the window",
+   "scale": 0
+  },
+  {
+   "id": "pl4",
+   "kind": "boardplank",
+   "len": 1.4,
+   "seed": 7,
+   "x": -2.07,
+   "y": 2,
+   "z": -2.2,
+   "tilt": 90,
+   "staged": "nailed over the window",
+   "scale": 0
+  },
+  {
+   "id": "spray",
+   "kind": "snowspray",
+   "x": -1.4,
+   "y": 0.82,
+   "z": -2.17,
+   "w": 1.3,
+   "h": 1.3800000000000003,
+   "gaps": [
+    0.305,
+    0.655,
+    1.005
+   ],
+   "seed": 3,
+   "scale": 0
+  },
+  {
+   "id": "bolt",
+   "kind": "chimneybolt",
+   "x": 1.05,
+   "y": 1,
+   "z": -1.9,
+   "w": 1.7,
+   "h": 1.6,
+   "scale": 0
+  },
+  {
+   "id": "throat",
+   "kind": "snowthroat",
+   "x": -0.1,
+   "y": 0,
+   "z": -1.6,
+   "trickle": 0.7,
+   "scale": 0
+  },
+  {
+   "id": "plIce",
+   "kind": "boardplank",
+   "len": 1.3,
+   "x": -0.7,
+   "y": 1.75,
+   "z": -1.6,
+   "tilt": 90,
+   "staged": "a board overhead, the icicles' edge",
+   "scale": 0
+  },
+  {
+   "id": "icerow",
+   "kind": "iciclerow",
+   "x": 0,
+   "y": 1.66,
+   "z": -1.6,
+   "len": 1.2,
+   "count": 11,
+   "grow": 0.9,
+   "staged": "hangs from the board",
+   "scale": 0
+  },
+  {
+   "id": "ice1",
+   "kind": "icicle",
+   "x": 0.8,
+   "y": 1.3,
+   "z": -1.2,
+   "len": 0.14,
+   "staged": "a dropping icicle held in the air for the bench",
+   "scale": 0
+  },
+  {
+   "id": "ice2",
+   "kind": "icicle",
+   "x": 0.55,
+   "y": 0.02,
+   "z": -0.9,
+   "tip": 100,
+   "len": 0.14,
+   "scale": 0
+  },
+  {
+   "id": "drift",
+   "kind": "snowdrift",
+   "x": -0.1,
+   "y": 0,
+   "z": -2.28,
+   "w": 1.3,
+   "d": 0.9,
+   "depth": 1,
+   "scale": 0
+  },
+  {
+   "id": "plBeam",
+   "kind": "boardplank",
+   "len": 1.2,
+   "x": -1,
+   "y": 1.9,
+   "z": -1.3,
+   "tilt": 90,
+   "staged": "the board with the gap",
+   "scale": 0
+  },
+  {
+   "id": "beam",
+   "kind": "sunbeam",
+   "x": -0.15,
+   "y": 1.8,
+   "z": -1.25,
+   "len": 1.9,
+   "w": 0.07,
+   "h": 0.5,
+   "dir": [
+    -0.16,
+    -0.65,
+    0.74
+   ],
+   "sweep": 0.5,
+   "on": 1,
+   "staged": "light",
+   "scale": 0
+  },
+  {
+   "id": "lumpHat",
+   "kind": "snowlump",
+   "x": -0.44,
+   "y": 1.24,
+   "z": -0.1,
+   "r": 0.16,
+   "staged": "on his crest",
+   "scale": 0
+  },
+  {
+   "id": "lumpNose",
+   "kind": "snowlump",
+   "x": -0.35000000000000003,
+   "y": 0.76,
+   "z": 0.28,
+   "r": 0.035,
+   "staged": "on his nose",
+   "scale": 0
+  },
+  {
+   "id": "patch",
+   "kind": "greenpatch",
+   "x": 0.8,
+   "y": 0,
+   "z": 0.7,
+   "grow": 1,
+   "scale": 0
+  }
+ ],
+ "actions": [
+  {
+   "who": "vik",
+   "do": "noblink",
+   "at": 0
+  },
+  {
+   "who": "sam",
+   "do": "noblink",
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "noblink",
+   "at": 0
+  },
+  {
+   "who": "vik",
+   "do": "look",
+   "to": [
+    0,
+    0.1
+   ],
+   "dur": 0.01,
+   "blink": false,
+   "at": 0
+  },
+  {
+   "who": "rea",
+   "do": "look",
+   "to": [
+    0,
+    0.1
+   ],
+   "dur": 0.01,
+   "blink": false,
+   "at": 0
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "open",
+   "dur": 0.2,
+   "at": 0.1
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "off": [
+     -0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.3,
+   "ease": "inOut",
+   "at": 0.1
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "open",
+   "dur": 0.2,
+   "at": 0.1
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     -0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "off": [
+     0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.3,
+   "ease": "inOut",
+   "at": 0.1
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "open",
+   "dur": 0.2,
+   "at": 0.1
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "hammer",
+    "grip": [
+     0.065,
+     0.132,
+     0.017
+    ],
+    "palm": "wrap",
+    "off": [
+     -0.068,
+     0.02,
+     -0.018
+    ]
+   },
+   "dur": 0.3,
+   "ease": "inOut",
+   "at": 0.1
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     0.295,
+     0.099,
+     0
+    ],
+    "palm": true
+   },
+   "dur": 0.2,
+   "ease": "settle",
+   "at": 0.4
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     -0.295,
+     0.099,
+     0
+    ],
+    "palm": true
+   },
+   "dur": 0.2,
+   "ease": "settle",
+   "at": 0.4
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "hammer",
+    "grip": [
+     0.065,
+     0.132,
+     0.017
+    ],
+    "palm": "wrap"
+   },
+   "dur": 0.2,
+   "ease": "settle",
+   "at": 0.4
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "press",
+   "dur": 0.12,
+   "at": 0.52
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "press",
+   "dur": 0.12,
+   "at": 0.52
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "hold",
+   "dur": 0.12,
+   "at": 0.52
+  },
+  {
+   "who": "vik",
+   "do": "grab",
+   "prop": "log",
+   "hand": "both",
+   "grip": [
+    0,
+    0.099,
+    0
+   ],
+   "dur": 0,
+   "pose": null,
+   "at": 0.66
+  },
+  {
+   "who": "rea",
+   "do": "grab",
+   "prop": "hammer",
+   "hand": "R",
+   "grip": [
+    0.065,
+    0.132,
+    0.017
+   ],
+   "dur": 0,
+   "pose": null,
+   "at": 0.66
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "at": [
+     -0.55,
+     0.62,
+     0.66
+    ]
+   },
+   "dur": 0.5,
+   "ease": "inOut",
+   "at": 0.75
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     -0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "at": [
+     -0.55,
+     0.62,
+     0.66
+    ]
+   },
+   "dur": 0.5,
+   "ease": "inOut",
+   "at": 0.75
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "hammer",
+    "grip": [
+     0.065,
+     0.132,
+     0.017
+    ],
+    "palm": "wrap",
+    "at": [
+     0.2,
+     0.8,
+     0.65
+    ]
+   },
+   "dur": 0.5,
+   "ease": "inOut",
+   "at": 0.75
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "at": [
+     -0.55,
+     0.4,
+     0.82
+    ]
+   },
+   "dur": 0.35,
+   "ease": "out",
+   "at": 2.25
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     -0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "at": [
+     -0.55,
+     0.4,
+     0.82
+    ]
+   },
+   "dur": 0.35,
+   "ease": "out",
+   "at": 2.25
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "hammer",
+    "grip": [
+     0.065,
+     0.132,
+     0.017
+    ],
+    "palm": "wrap",
+    "at": [
+     0.67,
+     0.4,
+     0.82
+    ]
+   },
+   "dur": 0.35,
+   "ease": "out",
+   "at": 2.25
+  },
+  {
+   "do": "prop",
+   "id": "log",
+   "set": {
+    "squash": 0.05
+   },
+   "dur": 0.05,
+   "ease": "out",
+   "at": 2.6
+  },
+  {
+   "do": "prop",
+   "id": "hammer",
+   "set": {
+    "squash": 0.05
+   },
+   "dur": 0.05,
+   "ease": "out",
+   "at": 2.6
+  },
+  {
+   "do": "prop",
+   "id": "log",
+   "set": {
+    "squash": 0
+   },
+   "dur": 0.15,
+   "ease": "settle",
+   "at": 2.65
+  },
+  {
+   "do": "prop",
+   "id": "hammer",
+   "set": {
+    "squash": 0
+   },
+   "dur": 0.15,
+   "ease": "settle",
+   "at": 2.65
+  },
+  {
+   "who": "vik",
+   "do": "release",
+   "prop": "log",
+   "dur": 0,
+   "at": 2.7
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "open",
+   "dur": 0.15,
+   "at": 2.7
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "open",
+   "dur": 0.15,
+   "at": 2.7
+  },
+  {
+   "who": "rea",
+   "do": "release",
+   "prop": "hammer",
+   "dur": 0,
+   "at": 2.7
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "open",
+   "dur": 0.15,
+   "at": 2.7
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "off": [
+     -0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.2,
+   "ease": "out",
+   "at": 2.74
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "log",
+    "grip": [
+     -0.295,
+     0.099,
+     0
+    ],
+    "palm": true,
+    "off": [
+     0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.2,
+   "ease": "out",
+   "at": 2.74
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "hammer",
+    "grip": [
+     0.065,
+     0.132,
+     0.017
+    ],
+    "palm": "wrap",
+    "off": [
+     -0.068,
+     0.02,
+     -0.018
+    ]
+   },
+   "dur": 0.2,
+   "ease": "out",
+   "at": 2.74
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.4,
+   "ease": "settle",
+   "at": 2.94
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.3,
+   "at": 2.94
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.4,
+   "ease": "settle",
+   "at": 2.94
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.3,
+   "at": 2.94
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.4,
+   "ease": "settle",
+   "at": 2.94
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.3,
+   "at": 2.94
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    -1.3,
+    -1.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": 9.345,
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    1,
+    -1.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": -7.214,
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    0,
+    -1.6
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": 0,
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "blkA",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "blkB",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "log",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "hammer",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "rack",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "block",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "plank",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "hammer2",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "chL1",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "chL2",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "do": "prop",
+   "id": "lump",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 3.47
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    1.5,
+    -0.4
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 4.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": -10.954,
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    -1.9,
+    -0.9
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": 37.875,
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    -0.45,
+    -1.15
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": 19.323,
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "rack",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "block",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "plank",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "hammer2",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "chL1",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "chL2",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "lump",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "block3",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "heap",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "rack3",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 4.47
+  },
+  {
+   "do": "prop",
+   "id": "heap",
+   "set": {
+    "amount": 1
+   },
+   "dur": 0.3,
+   "ease": "out",
+   "at": 5.5
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    -2.2,
+    -1.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 6.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": 23.912,
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    2.2,
+    -1.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": -21.146,
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    0,
+    0.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": 2.322,
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 6.47
+  },
+  {
+   "do": "prop",
+   "id": "block3",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 6.47
+  },
+  {
+   "do": "prop",
+   "id": "heap",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 6.47
+  },
+  {
+   "do": "prop",
+   "id": "rack3",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 6.47
+  },
+  {
+   "do": "prop",
+   "id": "blkC",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 6.47
+  },
+  {
+   "do": "prop",
+   "id": "kind",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 6.47
+  },
+  {
+   "who": "sam",
+   "do": "noblink",
+   "at": 6.5
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "open",
+   "dur": 0.2,
+   "at": 6.55
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     0.32,
+     0.077,
+     0
+    ],
+    "palm": true,
+    "off": [
+     -0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.3,
+   "ease": "inOut",
+   "at": 6.55
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "open",
+   "dur": 0.2,
+   "at": 6.55
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     -0.32,
+     0.077,
+     0
+    ],
+    "palm": true,
+    "off": [
+     0.08,
+     0.02,
+     -0.03
+    ]
+   },
+   "dur": 0.3,
+   "ease": "inOut",
+   "at": 6.55
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     0.32,
+     0.077,
+     0
+    ],
+    "palm": true
+   },
+   "dur": 0.2,
+   "ease": "settle",
+   "at": 6.85
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     -0.32,
+     0.077,
+     0
+    ],
+    "palm": true
+   },
+   "dur": 0.2,
+   "ease": "settle",
+   "at": 6.85
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "press",
+   "dur": 0.12,
+   "at": 6.97
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "press",
+   "dur": 0.12,
+   "at": 6.97
+  },
+  {
+   "who": "sam",
+   "do": "grab",
+   "prop": "kind",
+   "hand": "both",
+   "grip": [
+    0,
+    0.077,
+    0
+   ],
+   "dur": 0,
+   "pose": null,
+   "at": 7.11
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     0.32,
+     0.077,
+     0
+    ],
+    "palm": true,
+    "at": [
+     0,
+     0.62,
+     0.76
+    ]
+   },
+   "dur": 0.4,
+   "ease": "inOut",
+   "at": 7.2
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": {
+    "prop": "kind",
+    "grip": [
+     -0.32,
+     0.077,
+     0
+    ],
+    "palm": true,
+    "at": [
+     0,
+     0.62,
+     0.76
+    ]
+   },
+   "dur": 0.4,
+   "ease": "inOut",
+   "at": 7.2
+  },
+  {
+   "do": "prop",
+   "id": "kind",
+   "set": {
+    "dump": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 7.25
+  },
+  {
+   "do": "prop",
+   "id": "kind",
+   "set": {
+    "dump": 1
+   },
+   "dur": 1,
+   "ease": "linear",
+   "at": 7.25
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    -1.2,
+    -0.2
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": 12.189,
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    0,
+    -0.2
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": -1.375,
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    0.97,
+    -0.2
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": -12.298,
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 8.47
+  },
+  {
+   "do": "prop",
+   "id": "blkC",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 8.47
+  },
+  {
+   "do": "prop",
+   "id": "kind",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 8.47
+  },
+  {
+   "do": "prop",
+   "id": "quilt",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 8.47
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    1.6,
+    -1.2
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 9.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": -19.537,
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    2.2,
+    0.6
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": -52.595,
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    -2.2,
+    0.8
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": 67.834,
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "quilt",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "pl1",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "pl2",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "pl3",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "pl4",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "spray",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 9.47
+  },
+  {
+   "do": "prop",
+   "id": "spray",
+   "set": {
+    "on": 1
+   },
+   "dur": 0.3,
+   "ease": "out",
+   "at": 9.55
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    -2,
+    -1
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 10.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": 47.49,
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    -2.2,
+    0.8
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": 81.254,
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    2.2,
+    1
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": -83.66,
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "pl1",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "pl2",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "pl3",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "pl4",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "spray",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 10.47
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "set": {
+    "on": 1
+   },
+   "dur": 0.4,
+   "ease": "linear",
+   "at": 10.55
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    1.9,
+    0.4
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": -34.592,
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    2.4,
+    -0.9
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": -30.763,
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    -2.1,
+    0.2
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": 32.829,
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 11.47
+  },
+  {
+   "do": "prop",
+   "id": "bolt",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 11.47
+  },
+  {
+   "do": "prop",
+   "id": "throat",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 11.47
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    1.9,
+    0.5
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": -33.232,
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    2.2,
+    -0.6
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": -28.811,
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    -2.1,
+    0.3
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": 34.114,
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "throat",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "plIce",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "icerow",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "ice1",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "ice2",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "do": "prop",
+   "id": "drift",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 12.47
+  },
+  {
+   "who": "vik",
+   "do": "move",
+   "to": [
+    -0.4,
+    -0.1
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 13.47
+  },
+  {
+   "who": "vik",
+   "do": "turn",
+   "to": 42.184,
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "vik",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "vik",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "move",
+   "to": [
+    -2.2,
+    -1.5
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "turn",
+   "to": 45.616,
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "sam",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "move",
+   "to": [
+    -1.2,
+    -1.7
+   ],
+   "dur": 0.01,
+   "steps": 0,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "turn",
+   "to": 37.626,
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "R",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "R",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "arm",
+   "side": "L",
+   "pose": "rest",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "who": "rea",
+   "do": "grip",
+   "side": "L",
+   "shape": "relaxed",
+   "dur": 0.01,
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "plIce",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "icerow",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "ice1",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "ice2",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "drift",
+   "set": {
+    "scale": 0
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "plBeam",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "beam",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "lumpHat",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "lumpNose",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "patch",
+   "set": {
+    "scale": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.47
+  },
+  {
+   "do": "prop",
+   "id": "beam",
+   "set": {
+    "on": 1
+   },
+   "dur": 0.01,
+   "ease": "linear",
+   "at": 13.5
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "quilt",
+   "from": 8.5,
+   "to": 9.5,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "one quilt worn over all three, the arms tucked under it"
+  },
+  {
+   "who": "lumpHat",
+   "from": 13.5,
+   "to": 14.5,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "a lump of snow sitting on Viking's crest"
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-snowprops-bench.mjs (props bench, Survive it EP1 task T4)."
+}

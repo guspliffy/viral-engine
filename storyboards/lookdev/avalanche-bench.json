@@ -1,0 +1,455 @@
+{
+ "id": "avalanche-bench",
+ "title": "Avalanche bench: the snowy mountain, the cottage's ride and the cap coming down",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 5,
+ "cleanStart": true,
+ "set": {
+  "type": "snowslope",
+  "dark": [
+   [
+    0,
+    1
+   ],
+   [
+    1,
+    1
+   ],
+   [
+    1,
+    0
+   ]
+  ],
+  "light": "golden",
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "cot",
+   "kind": "cottagesled",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "slide": 1,
+   "scenery": true
+  },
+  {
+   "id": "ccap",
+   "kind": "chimneycap",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "front",
+   "kind": "snowfront",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "run": 0
+  },
+  {
+   "id": "cap",
+   "kind": "snowcap",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "run": 0,
+   "scale": 3
+  },
+  {
+   "id": "mound",
+   "kind": "snowmound",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rise": 0
+  }
+ ],
+ "actions": [
+  {
+   "do": "prop",
+   "id": "cot",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "slide": 0.5,
+    "tilt": 6,
+    "door": 0,
+    "boards": 1,
+    "trail": 1,
+    "smoke": 2.5
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ccap",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "x": 68.7678,
+    "y": 28.443,
+    "z": -1.9,
+    "roll": 24
+   }
+  },
+  {
+   "do": "prop",
+   "id": "front",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "run": 0.5,
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cap",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "run": 0,
+    "break": 0,
+    "scale": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "mound",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "rise": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cot",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "slide": 1,
+    "tilt": 0,
+    "door": 1,
+    "boards": 0,
+    "trail": 0.6,
+    "smoke": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ccap",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "x": 1.05,
+    "y": 5.3877,
+    "z": -1.9,
+    "roll": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "front",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "run": 1,
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cap",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "run": 0,
+    "break": 0,
+    "scale": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "mound",
+   "at": 1,
+   "dur": 0,
+   "set": {
+    "rise": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cot",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "slide": 1,
+    "tilt": 0,
+    "door": 0,
+    "boards": 0,
+    "trail": 0.6,
+    "smoke": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ccap",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "x": 1.05,
+    "y": 5.3877,
+    "z": -1.9,
+    "roll": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "front",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "run": 1,
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cap",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "run": 1,
+    "break": 1,
+    "scale": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "mound",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "rise": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cot",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "slide": 1,
+    "tilt": 0,
+    "door": 0,
+    "boards": 0,
+    "trail": 0.6,
+    "smoke": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ccap",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "x": 1.05,
+    "y": 5.3877,
+    "z": -1.9,
+    "roll": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "front",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "run": 1,
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cap",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "run": 0.6,
+    "break": 1,
+    "scale": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "mound",
+   "at": 3,
+   "dur": 0,
+   "set": {
+    "rise": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cot",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "slide": 1,
+    "tilt": 0,
+    "door": 1,
+    "boards": 0,
+    "trail": 0.6,
+    "smoke": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ccap",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "x": 1.05,
+    "y": 5.3877,
+    "z": -1.9,
+    "roll": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "front",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "run": 1,
+    "scale": 0.001
+   }
+  },
+  {
+   "do": "prop",
+   "id": "cap",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "run": 0,
+    "break": 0,
+    "scale": 3
+   }
+  },
+  {
+   "do": "prop",
+   "id": "mound",
+   "at": 4,
+   "dur": 0,
+   "set": {
+    "rise": 0
+   }
+  }
+ ],
+ "captions": [],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    51,
+    26.094,
+    -15.5
+   ],
+   "look": [
+    71.5,
+    27.594,
+    0.5
+   ],
+   "fov": 42
+  },
+  {
+   "at": 1,
+   "pos": [
+    -6.9,
+    0.71,
+    -0.4
+   ],
+   "look": [
+    3.1,
+    3.58,
+    -0.4
+   ],
+   "fov": 56
+  },
+  {
+   "at": 2,
+   "pos": [
+    -12,
+    4,
+    -0.4
+   ],
+   "look": [
+    60,
+    40,
+    0
+   ],
+   "fov": 50
+  },
+  {
+   "at": 3,
+   "pos": [
+    -12,
+    4,
+    -0.4
+   ],
+   "look": [
+    60,
+    40,
+    0
+   ],
+   "fov": 50
+  },
+  {
+   "at": 4,
+   "pos": [
+    -5.75,
+    0.71,
+    -0.4
+   ],
+   "look": [
+    4.25,
+    3.58,
+    -0.4
+   ],
+   "fov": 56
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/lookdev/make-avalanche-bench.mjs (Survive it EP1 task T2)."
+}

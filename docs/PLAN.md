@@ -154,5 +154,12 @@ speed lines, impact frames; fits the game's manga KO pages). Worth A/B-testing a
 
 ## Engine wishes
 
+- **The farm reads a VoxCPM2 line as another take** (Survive it EP1, 10 Nov): the narrator's title on the render farm
+  matched the local take 5 for 0.9 s, then not (correlation 0.26); the picked takes live only in the local
+  `out/speech/`. Until picked takes travel with the branch (a committed speech cache, or the farm's speech job taking
+  an upload), a clip with a narrator gets its sound from `--audio-only` on the machine the takes were picked on.
+- **Snow boulders and firs of a 3x `snowcap` front cross a near camera as one-frame shapes** (same clip): the pops check
+  fails. `firs: false` and a whiteout fx cover it; a front that thins out near the lens would not need either.
+
 - **A second light for doorway sets** (Fable, Don't Let Dragon Light the Pumpkin, 29 Oct): cool daylight on the porch
   outside and the warm hall light inside, so a door frame separates the two. Sets have one key light today.
