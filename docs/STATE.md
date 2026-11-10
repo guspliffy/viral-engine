@@ -11,7 +11,6 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first) or its seven effects redrawn as drawn cels (`"do": "cel"`, #174).
 
 ## Open PRs (awaiting "merge it" unless noted)
-- #186 What if EP03 light-speed race (with the sound-clock fix: gusts, car engine, music parts after a freeze or ramp)
 - #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig
 - #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
 
@@ -33,6 +32,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 
+- Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~470 min, 4 Sonnet builders + Fable A + B, 1 draft, 3 farm renders, sound redone locally.
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
   checks; Remotion needs a company licence). Builders on Sonnet at high, Fable reviews at xhigh (Jonny).

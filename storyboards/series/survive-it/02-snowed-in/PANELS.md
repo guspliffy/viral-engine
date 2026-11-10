@@ -86,6 +86,13 @@ x 0.8. 05 vik 0.52 x 0.15, sam 0.43 x 0.3, rea 0.52 x 0.85. 07 vik 0.6 x 0.22, r
   of the width): the panel wins, the camera stands on the mound 3.65 m from the chimney.
 - 07: all four eye lines sit at 0.57 (the panel's back row is higher, on a porch step the cottage doesn't have); the
   subtitle sits over their heads at y 760 (the panel's bottom band is outside the safe zone here).
+- 01 (review B): the hook camera stands at the room's front wall with a 70 degree lens, turned a little left, so
+  Reaper's face is inside the frame at 0.19 x 0.81 (panel 0.22 x 0.79); Viking's eye line is 0.71 (panel 0.64).
+- 03: an orange flash on the four faces at the whoomph (review B; the panel's flame column sits behind the cast).
+- 04: a slow 0.35 m push at the door over the 3.5 s (review B: the clip's longest hold).
+- HUD: the clock's "+7h 35m" tags are off (review B: under a counter racing days they read as a glitch).
+- 07 (review B, not applied): Reaper first in the dive. He stands behind the god, his way to the door crosses him.
+- 06 (review B, not applied): a wider ride shot with sky and moon. Tried at 56 degrees: the slope fills the frame either way.
 - Spring is two shots (the huddle, then the door of 04): the plank rip and the green outside need the door camera.
 - 06: the chimney cap's fly-off-and-land-back gag is left out (a physics body can't ride the moving cottage); the cap
   pops off in 08 instead. The stop is heard on the cut inside (thud + impact + shake), not shown outside: the room
