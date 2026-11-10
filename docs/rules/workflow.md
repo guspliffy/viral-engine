@@ -4,6 +4,35 @@ Adopted from Jonny's motion studio kit on 8 Nov 2026 (copy: `/mnt/project-files/
 adapted to this engine. Files are the shared memory: every agent starts empty, so anything not in a file is
 re-explained and re-paid. Keep CLAUDE.md <= 60 lines and docs/STATE.md <= 40 lines.
 
+## The eight rules: every video cheaper or better than the last (Jonny, 10 Nov 2026)
+
+Jonny: "our videos just get more and more expensive without significant rise in quality, this should change". No
+fixed budget per video (length and new things differ too much): the workflow removes wasted work, and the waste is
+counted the same way every time. Where a section below says otherwise, these eight win.
+
+1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's OK, polish, checks on the
+   draft, one full render, delivery. A step back is named with its reason in the clip's notes.
+2. **Decide first, polish last.** The rough draft (`--draft`: story, timing, cameras, captions; only fails that hide
+   a beat are fixed) goes to Jonny before any hand or foot polish, on every clip. Nothing is polished that he might
+   still cut; a retiming after polish breaks the hands again (Share or Steal EP01). His OK on the draft replaces
+   review B. Send it and end the turn: no polish while it waits.
+3. **Look a name up once.** The vocabulary sheet and the clip's notes come before any search of the engine, and a
+   name found by search goes into the notes (Survive it EP1: about 230 of 853 steps were lookups).
+4. **Batch, don't loop.** Fit all cameras in one pass (`node qa/camfit.mjs`), then lay out once; fix every finding of
+   a check run before the next run (Survive it EP1: 40 layout runs for 8 panels).
+5. **Two rounds, then restage.** A hand, foot or contact finding that survives two fix rounds gets a simpler grip,
+   another camera or a cut that hides it, not a third round of tuning (Share or Steal EP01: 20 check rounds).
+6. **Prove new things small.** A new prop a hand holds passes the grip bench, a new flash or effect a one-second
+   draft (`--draft --from --to`), a new set its own preflight, before it enters the clip.
+7. **One full render, no waiting steps.** Strips, cut sheets and flash checks run on the draft. A second full render
+   needs its reason in DELIVERY.md. Start a render with one background command and end the turn; titles, merges and
+   post packs happen in a short thread, not in the clip's long one (every step there re-reads the whole thread).
+8. **Count the waste and fix the biggest.** DELIVERY.md carries the same five counts for every video: lookups, layout
+   runs, check-fix rounds, full renders, waiting steps (counted from the thread's own tool calls, the same way each
+   time), and Jonny's score out of 10 when he gives one. The largest count gets one tool or check before the next
+   video. A lesson that does not become a tool, a check or a template line is dropped, and a new line in a rule file
+   replaces or merges an old one.
+
 ## Roles
 
 | Role | Who | Model, effort | Does |
@@ -52,8 +81,8 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
 
 - **Gate A, brief**: Jonny's brief (ENGINE-PROMPT, video-scripts, storyboard panels) or a BOARD.md he approved. No
   renders before his go when he said so for a series.
-- **Animatic gate, new series or new formats only**: the draft render (`--draft`: real timing, draft look, scratch
-  sound) goes to Jonny before any polish or full render. Episodes of a series that is already running skip it.
+- **Animatic gate, every clip (rule 2 above)**: the draft render (`--draft`: real timing, draft look, scratch
+  sound) goes to Jonny before any polish or full render. His OK replaces review B.
 - **Look gate, new characters, sets or looks only**: 2-3 style frames (draft stills at the final look), checked by the
   creative director against the design, then Jonny. An existing look skips it.
 - **Staging proof, every clip, before any builder starts** (director + creative director, about 30-40 min): write
@@ -72,7 +101,7 @@ are in "The story chain" and "Check windows" below. Fable stays the creative dir
   every checklist line yes, partial or no against the panel image (not against memory), and get review A on those
   stills plus the panels. Grade the checklist again before the full render; the grades live in PANELS.md. Fix staging until review A has no note that a story beat can't be seen. Only then write the
   BOARD's numbers and brief the builders: they build to proven positions, not guessed ones.
-- **Delivery gate**: full render + checks + review B, the gate report + post pack, Jonny's go, PR, "merge it" only
+- **Delivery gate**: full render + checks (+ review B only when Jonny did not see the draft), the gate report + post pack, Jonny's go, PR, "merge it" only
   when every check on the head is green.
 
 ## Look a name up once (10 Nov 2026, trial)
