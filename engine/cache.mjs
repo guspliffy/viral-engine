@@ -88,6 +88,13 @@ export function checkParts(parts, { fingerprint, frameA, frameB, countFrames }) 
 // else in the storyboard (set, camera, shots, cast, look, focus track) is part of every key: change it and every frame
 // is drawn again. Files are content-addressed (<key>.jpg|png); the oldest go first when the folder passes its limit.
 export const TIMELINE_KEYS = ["actions", "say", "captions", "fx", "sfx", "music", "sound", "beats", "notes", "creative", "title", "idea", "hook"];
+// What only the checks read (qa/, the contact gate) is in no key: the must-see lists, the panels file, the caption band
+// and the gate version draw nothing, so an edit to them re-draws nothing (10 Nov 2026: one added waiver window re-drew
+// 315 of 315 frames). allowClip is a check key too, but the contact solver also reads it (page/solve.js: a push the
+// beat needs is left alone), which moves a pose; a moved pose is in that frame's state digest, so allowClip stays out
+// of the whole-storyboard part like the timeline does (STATE_KEYS), and in it with the drawn look's smear.
+export const CHECK_KEYS = ["visible", "panels", "captionBand", "gate"];
+export const STATE_KEYS = ["allowClip"];
 export class FrameCache {
   constructor(dir, limitGB) { this.dir = dir; this.limit = limitGB * 1e9; fs.mkdirSync(dir, { recursive: true }); this.stored = []; }
   file(key, ext) { return path.join(this.dir, `${key}.${ext}`); }

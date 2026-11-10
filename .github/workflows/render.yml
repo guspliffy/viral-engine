@@ -42,9 +42,30 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           voice: "true"
+      # Spoken lines from earlier runs on this branch (or on main), so a line is read once and not on every run.
+      # 10 Nov 2026: a run with a VoxCPM2 voice spent 6 to 14 minutes in the next step, installing the model and
+      # reading the same lines again (81-101 s without one). engine/voice/speech.mjs names a line's files by a hash
+      # of its text and recipe, so a kept file is that line; a new or changed line is still read here (and then
+      # this run pays the install). A cache can't be changed once written, so each run that read a new line saves
+      # its own, and the restore takes the newest.
+      - uses: actions/cache/restore@v4
+        with:
+          path: out/speech
+          key: speech-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: speech-
+      - id: kept
+        run: echo "n=$(ls out/speech 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
       # the contact gate once for all shards (they skip it), and real speech into out/speech for all of them
       - name: Contact gate and speech
         run: node engine/render.mjs "$SB" --layout $COST $FLAGS
+      - id: read
+        if: ${{ !cancelled() }}
+        run: echo "n=$(ls out/speech 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"
+      - if: ${{ !cancelled() && steps.read.outputs.n != steps.kept.outputs.n }}
+        uses: actions/cache/save@v4
+        with:
+          path: out/speech
+          key: speech-${{ github.run_id }}-${{ github.run_attempt }}
       - id: split
         env:
           SHARDS: ${{ inputs.shards }}
