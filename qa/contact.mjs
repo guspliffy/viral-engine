@@ -9,6 +9,17 @@
 //                                                                     seam), 0.2 s either side, the first new frame marked red
 //   node qa/contact.mjs out/x.mp4 --phone                          -> out/x.phone.png: one frame a second at 360 px wide,
 //                                                                     the size people watch at: read every caption there
+//   node qa/contact.mjs out/x-draft.mp4 --sb storyboards/x.json --contacts   -> out/x-draft.contacts-1.png ...: one row per
+//                                                                     contact moment (every grab, release and drop, and
+//                                                                     whatever appears or vanishes inside a shot), a
+//                                                                     15 fps strip from 0.13 s before to 0.33 s after,
+//                                                                     the contact frame marked red; six rows a sheet.
+//                                                                     --at 3.8,11.3 adds moments (a raise, a touch),
+//                                                                     --every 1 shows every frame instead of every 2nd.
+//                                                                     Run it on the DRAFT, before the full render
+//                                                                     (What if EP03, 9 Nov: four one-frame glitches
+//                                                                     every check passed were found on these strips
+//                                                                     after full render 1, and cost four more renders)
 //
 // Without --times the beats come from the storyboard: just after each shot starts, plus a frame mid-way through
 // each shot longer than 1.5 s. Without a storyboard: 8 evenly spaced frames.
@@ -84,8 +95,8 @@ export function cutTimes(clip, sb, fps = 30) {
 // one row per cut: frames -6, -4, -2, -1 | 0, +2, +4, +6 around it (0.2 s either side at 30 fps), the first frame of the
 // new shot with a red edge. A cut has to read in those frames: the eye lands on the same spot, the action carries on.
 // With loop: true the seam (last frame -> first) gets a row too.
-export function cutStrips(clip, cuts, { fps = 30, width = 180, out, loop = false, dur } = {}) {
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cuts-")), rows = [], K = [-6, -4, -2, -1, 0, 2, 4, 6];
+export function cutStrips(clip, cuts, { fps = 30, width = 180, out, loop = false, dur, K = [-6, -4, -2, -1, 0, 2, 4, 6] } = {}) {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "cuts-")), rows = [];
   const n = Math.round((dur ?? Number(probe(clip, "format=duration"))) * fps);
   const grab = (f, file, mark, label) => {
     const vf = [`scale=${width}:-2`, mark ? "drawbox=x=0:y=0:w=6:h=ih:c=red:t=fill" : null, `drawtext=fontfile=${FONT}:text='${label}':x=6:y=6:fontsize=${Math.round(width / 9)}:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=3`].filter(Boolean).join(",");
@@ -111,6 +122,25 @@ export function cutStrips(clip, cuts, { fps = 30, width = 180, out, loop = false
   return out;
 }
 
+// The contact moments of a storyboard, on the video's clock: every grab, release and drop (a grab that takes time:
+// where the hand sets off and where it closes), and a character or prop shown or hidden inside a shot (at a cut the
+// cut strips show it). Moments within 0.25 s of each other share a row. [{ t, what: ["wiz grab baton", ...] }]
+export function contactMoments(sb, extra = []) {
+  const cuts = (sb.shots || []).map((x) => x.at), atCut = (t) => t < 0.05 || cuts.some((c) => Math.abs(c - t) < 0.07), ev = [];
+  for (const a of sb.actions || []) {
+    const name = `${a.who ?? ""} ${a.do} ${a.prop ?? ""}`.replace(/\s+/g, " ").trim();
+    if (["grab", "release", "drop"].includes(a.do)) { if (a.at > 0.05 || (a.dur ?? 0) > 0) ev.push({ t: a.at, what: name }); if ((a.dur ?? 0) > 0.25) ev.push({ t: a.at + a.dur, what: `${name} (done)` }); }
+    else if (["show", "hide"].includes(a.do) && !atCut(a.at)) ev.push({ t: a.at, what: name });
+  }
+  for (const t of extra) ev.push({ t, what: "named with --at" });
+  const out = [];
+  for (const e of ev.filter((x) => x.t >= 0 && x.t < sb.duration).sort((x, y) => x.t - y.t)) {
+    const last = out.at(-1);
+    if (last && e.t - last.t0 < 0.25) { if (!last.what.includes(e.what)) last.what.push(e.what); } else out.push({ t0: e.t, what: [e.what] });
+  }
+  return out.map((m) => ({ t: renderTime(sb.holds, m.t0), what: m.what }));
+}
+
 // one frame a second at 360 px wide, 6 to a row, labelled with its second
 export function phoneSheet(clip, { out, cols = 6, width = 360 } = {}) {
   const secs = Math.ceil(Number(probe(clip, "format=duration"))), rows = Math.ceil(secs / cols);
@@ -128,11 +158,27 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     else if (a[i] === "--width") o.width = Number(a[++i]);
     else if (a[i] === "--out") o.out = a[++i];
     else if (a[i] === "--cuts") o.cuts = true;
+    else if (a[i] === "--contacts") o.contacts = true;
+    else if (a[i] === "--at") o.at = a[++i].split(",").map(Number);
+    else if (a[i] === "--every") o.every = Number(a[++i]);
     else if (a[i] === "--phone") o.phone = true;
     else (o.inputs ||= []).push(a[i]);
   }
   o.clip = o.inputs && (o.inputs.every((f) => f.endsWith(".png")) ? o.inputs : o.inputs[0]);
   if (!o.clip) { console.error("usage: node qa/contact.mjs <clip.mp4> [--sb storyboard.json | --times t,t] [--cols 4] [--width 270] [--out sheet.png]"); process.exit(2); }
+  if (o.contacts) {
+    if (!o.sb) { console.error("--contacts needs --sb <storyboard.json>: the contact moments come from it"); process.exit(2); }
+    const sb = loadStoryboard(o.sb), base = o.clip.replace(/\.mp4$/, ""), fps = sb.fps ?? 30, step = o.every === 1 ? 1 : 2;
+    const moments = contactMoments(sb, o.at || []), K = [-2, -1, 0, 1, 2, 3, 4, 5].map((k) => k * step), per = 6;
+    if (!moments.length) { console.log("no contact moments in the storyboard (no grab, release or drop, nothing shown or hidden inside a shot): name some with --at"); process.exit(0); }
+    for (let i = 0; i < moments.length; i += per) {
+      const part = moments.slice(i, i + per), f = cutStrips(o.clip, part.map((m) => m.t), { out: `${base}.contacts-${i / per + 1}.png`, fps, dur: sb.duration, K });
+      console.log(`wrote ${f} (${step === 1 ? "every frame" : "15 fps"}, the contact frame marked red):`);
+      part.forEach((m, k) => console.log(`  row ${k + 1}  ${m.t.toFixed(2)} s  ${m.what.join(", ")}`));
+    }
+    console.log(`${moments.length} contact moment${moments.length === 1 ? "" : "s"}: in every row the hand reaches the thing before it moves, the thing never hangs alone, nothing appears or is gone a frame early`);
+    process.exit(0);
+  }
   if (o.cuts || o.phone) {
     const sb = o.sb ? loadStoryboard(o.sb) : null, base = o.clip.replace(/\.mp4$/, "");
     if (o.cuts) {

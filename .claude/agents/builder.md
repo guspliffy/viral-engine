@@ -22,6 +22,11 @@ You build exactly one brief (`docs/templates/BRIEF.md` format). CLAUDE.md has th
   --layout` and the draft stills + contact sheet. Run layout, preflight or a render only when the brief says the
   machine is yours (one such job at a time on this box). Look at your own contact sheet once before you report. Don't run a
   draft or full render unless the brief says so, and never the render farm.
+- A new props or set file starts with a usage header (kinds, every spec key with its default, size, where the origin
+  is, where a hand holds it): the director reads that, not the file. A prop a hand holds also gets the in-hand proof
+  (`node storyboards/lookdev/make-grip-tests.mjs --prop <kind> --hold <hold>`): look at the front and the side still
+  before you report, and name the sheet under CHECKS. A book gripped at its spine because that was its origin
+  (What if EP02) is caught here in a minute.
 - Never add or widen an `allowClip` window: report the check fail in NOTES and let the director decide.
 - Don't refactor, rename or "improve" anything outside the brief. Don't commit or push.
 
