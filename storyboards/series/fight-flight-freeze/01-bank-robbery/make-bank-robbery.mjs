@@ -136,15 +136,15 @@ place(T.beach, "rea", [0, 0.6], 0); park(T.beach, "sam");
 const HOOK = shot("alley", [0, 0.95, 5.4], { tilt: -8, fov: 46 });
 const TRIO_CU = shot("alley", [0, 0.85, 4.3], { tilt: -8, fov: 40 });
 const ONE = (x, z) => shot("alley", [x, 0.8, z + 3.1], { tilt: -8, fov: 34 });
-const STREET_W = shot("street", [0, 1.25, 8.6], { tilt: -6, fov: 46 });
+const STREET_W = shot("street", [0, 1.25, 7.0], { tilt: -6, fov: 46 });
 const STREET_M = shot("street", [0, 1.0, 5.6], { tilt: -6, fov: 40 });
-const ROOF_RUN = shot("roof", [0, 1.0, 6.0], { tilt: -8, fov: 46 });
-const ROOF_LEAP = shot("roof", [0, 0.5, 6.4], { tilt: 6, fov: 50 });
+const ROOF_RUN = shot("roof", [0, 1.0, 5.0], { tilt: -8, fov: 46 });
+const ROOF_LEAP = shot("roof", [0, 0.75, 6.4], { tilt: 6, fov: 44 });
 const CORNER = shot("corner", [0, 0.95, 5.2], { tilt: -5, fov: 40 });
-const VAN = shot("street", [0, 1.25, 8.6], { tilt: -6, fov: 46 });
+const VAN = shot("street", [0, 1.25, 7.0], { tilt: -6, fov: 46 });
 const ALONE = shot("alley", [0.9, 0.9, 5.0], { tilt: -8, fov: 44 });
 const CRATE = shot("alley", [1.75, 0.85, 3.4], { tilt: -8, fov: 40 });
-const BEACH = shot("beach", [0, 0.95, 5.2], { tilt: -6, fov: 42 });
+const BEACH = shot("beach", [0, 1.75, 5.2], { tilt: -6, fov: 42 });
 const beats = c.beats([
   ["1 you just robbed a bank", T.hook, HOOK, "hook"],
   ["2 the police are here", T.police, HOOK],
