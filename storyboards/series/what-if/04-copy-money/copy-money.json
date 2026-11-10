@@ -517,10 +517,10 @@
    "kind": "noterain",
    "x": 40.3,
    "y": 0,
-   "z": 1.5,
+   "z": 0.3,
    "look": "snow",
-   "n": 400,
-   "r": 5,
+   "n": 160,
+   "r": 2.4,
    "top": 5,
    "clock": 0,
    "amount": 1
@@ -570,7 +570,7 @@
   },
   {
    "from": 7.5,
-   "to": 7.72,
+   "to": 8.27,
    "text": "Want it all?",
    "pos": 470,
    "pop": false
@@ -2737,6 +2737,37 @@
    "do": [
     {
      "who": "gsl",
+     "do": "talk",
+     "line": "COPY!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.2
+    },
+    {
+     "fx": "pop",
+     "text": "COPY!",
+     "who": "gsl",
+     "dur": 0.2,
+     "xy": [
+      330,
+      690
+     ],
+     "size": 120,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -2766,84 +2797,74 @@
      "at": 0.2
     },
     {
-     "who": "gsl",
-     "do": "talk",
-     "line": "COPY!",
-     "tone": "excited",
-     "dur": 0.3,
-     "blink": false,
-     "voice": false,
-     "at": 0.25
-    },
-    {
-     "fx": "pop",
-     "text": "COPY!",
-     "who": "gsl",
-     "dur": 0.5,
-     "xy": [
-      330,
-      560
-     ],
-     "size": 120,
-     "angle": -4,
-     "color": "speaker",
-     "at": 0.25
-    },
-    {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.1,
-     "at": 0.25
-    },
-    {
      "sfx": "ding",
      "gain": 0.8,
      "loud": false,
      "reason": "the power: the cash-register ka-ching",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "fx": "sparkle",
      "on": "gsl",
      "dur": 0.45,
      "color": "#ffd75a",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "fx": "pop",
      "text": "COPY!",
      "who": "gsl",
-     "dur": 0.5,
+     "dur": 0.2,
      "xy": [
       760,
-      640
+      770
      ],
      "size": 130,
      "angle": -4,
      "color": "speaker",
-     "at": 0.47
+     "at": 0.4
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.1,
-     "at": 0.47
+     "at": 0.4
     },
     {
      "sfx": "ding",
      "gain": 0.96,
      "loud": false,
      "reason": "the power: the cash-register ka-ching",
-     "at": 0.49
+     "at": 0.42
     },
     {
      "fx": "sparkle",
      "on": "gsl",
      "dur": 0.45,
      "color": "#ffd75a",
-     "at": 0.49
+     "at": 0.42
+    },
+    {
+     "fx": "pop",
+     "text": "COPY!",
+     "who": "gsl",
+     "dur": 0.5,
+     "xy": [
+      540,
+      880
+     ],
+     "size": 150,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.6
     },
     {
      "who": "gsl",
@@ -2877,25 +2898,18 @@
      "at": 0.6
     },
     {
-     "fx": "pop",
-     "text": "COPY!",
-     "who": "gsl",
-     "dur": 0.5,
-     "xy": [
-      540,
-      760
-     ],
-     "size": 150,
-     "angle": -4,
-     "color": "speaker",
-     "at": 0.69
+     "sfx": "ding",
+     "gain": 1.1199999999999999,
+     "loud": true,
+     "reason": "the power: the cash-register ka-ching",
+     "at": 0.62
     },
     {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.1,
-     "at": 0.69
+     "fx": "sparkle",
+     "on": "gsl",
+     "dur": 0.45,
+     "color": "#ffd75a",
+     "at": 0.62
     },
     {
      "do": "prop",
@@ -2906,20 +2920,6 @@
      "dur": 0,
      "ease": "linear",
      "at": 0.7
-    },
-    {
-     "sfx": "ding",
-     "gain": 1.1199999999999999,
-     "loud": true,
-     "reason": "the power: the cash-register ka-ching",
-     "at": 0.71
-    },
-    {
-     "fx": "sparkle",
-     "on": "gsl",
-     "dur": 0.45,
-     "color": "#ffd75a",
-     "at": 0.71
     },
     {
      "sfx": "rumble",

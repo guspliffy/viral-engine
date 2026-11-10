@@ -159,7 +159,7 @@ const props = [
   ph("night", { id: "barrel", kind: "oilbarrel", x: BARREL[0], y: 0, z: BARREL[1], scale: BARK, fire: 1, feed: 0, glow: 1, clock: 0 }, { kind: "crate", size: 0.62 }),
   ph("night", { id: "front", kind: "dinerfront", x: r3(BARREL[0] + 0.5), y: 0, z: r3(BARREL[1] - 2.4), w: 9, d: 9, flicker: 0 }, { kind: "crate", size: 0.01 }),
   BRICK("bundle", [GSL_N[0], -2, GSL_N[1]], { scale: BUK }),
-  ph("flood", { id: "snow", kind: "noterain", x: NX + 0.3, y: 0, z: 1.5, look: "snow", n: 400, r: 5, top: 5, clock: 0, amount: 1 }, { kind: "crate", size: 0.01, y: -3 }),
+  ph("flood", { id: "snow", kind: "noterain", x: NX + 0.3, y: 0, z: 0.3, look: "snow", n: 160, r: 2.4, top: 5, clock: 0, amount: 1 }, { kind: "crate", size: 0.01, y: -3 }),
   { id: "cup", kind: "coffeecup", x: REA_N0[0], y: -2, z: REA_N0[1], scale: CUPK, rot: 195 },
   { id: "cupw", kind: "coffeecup", wear: "rea", x: -0.24, y: 0.42, z: 0.55, scale: 0.001, staged: "the coffee in front of his chest while he walks (worn, so it rides with him)" },
 ];
@@ -173,10 +173,10 @@ const SEEDS = { money: { coin1: { shine: 0, flat: 0 }, coin2: { shine: 0, flat: 
   flood: { ious: { amount: 0, clock: 0 }, wave: { front: 0, clock: 0 }, spill: { grow: 0, clock: 0 }, snow: { amount: 1, clock: 0 } } };
 
 // the power, the same every time: "COPY!" (a text pop, his shout), the ka-ching, a gold shimmer on the thing
-function power(t, on, { big = 1, pos = 600, size = 96, say = true, pop = null } = {}) {
+function power(t, on, { big = 1, pos = 600, size = 96, say = true, pop = null, popDur = 0.5 } = {}) {
   if (say) c.say(t, "gsl", "COPY!", 0.3, "excited", { voice: false, sub: false });
   // pop: [x, y] px: in a close-up his body fills the subtitle band, so the word is a text pop on his hat's crown
-  if (pop) c.textPop(t, "gsl", "COPY!", { dur: 0.5, xy: pop, size: Math.max(120, size), angle: -4, color: "speaker" });
+  if (pop) c.textPop(t, "gsl", "COPY!", { dur: popDur, xy: pop, size: Math.max(120, size), angle: -4, color: "speaker" });
   else cap(t, r3(t + 0.5), "COPY!", pos, true, { size });
   sfx(r3(t + 0.02), "ding", { gain: Math.min(1.3, 0.8 * big), loud: big > 1.2, reason: "the power: the cash-register ka-ching" });
   c.at(r3(t + 0.02), { fx: "sparkle", on, dur: 0.45, color: "#ffd75a" });
@@ -315,10 +315,10 @@ see(r3(READ + 0.3), DEMO3, ["rea.face", "iou"], "Reaper reads one of the old IOU
 A(WAVE - 0.03, "rea", "release", { prop: "iou", dur: 0 }); P(WAVE - 0.02, "iou", { y: -2 }); c.arm(WAVE - 0.02, "rea", "L", "rest", 0.01); A(WAVE - 0.02, "rea", "grip", { side: "L", shape: "relaxed", dur: 0.01 });   // he keeps it through the COPY shot; gone at the glass
 
 // ================================================================ 6 DEMO 3: WANT IT ALL? 7.5-10.6 (v2 panels 04, 05)
-cap(DEMO3, r3(DEMO3 + 0.22), "Want it all?", 470);
+cap(DEMO3, r3(WAVE - 0.03), "Want it all?", 470);   // up for the whole shot (0.22 s was too short to read); the pops sit under it
 A(DEMO3 - 0.02, "gsl", "turn", { to: 20, dur: 0.01 }); A(DEMO3 - 0.02, "gsl", "look", { to: [0.05, 0.05], dur: 0.01, blink: false }); A(DEMO3 - 0.02, "gsl", "expr", { expr: "evil", set: { curve: 0.9, open: 0.3 }, dur: 0.01 });
-for (const [i, t] of [DEMO3 + 0.25, DEMO3 + 0.47, DEMO3 + 0.69].entries()) {
-  power(t, "gsl", { big: 1 + 0.2 * i, pop: [[330, 560], [760, 640], [540, 760]][i], size: 110 + 20 * i, say: i === 0 });   // three pops round his hat, each bigger
+for (const [i, t] of [DEMO3 + 0.2, DEMO3 + 0.4, DEMO3 + 0.6].entries()) {
+  power(t, "gsl", { big: 1 + 0.2 * i, pop: [[330, 690], [760, 770], [540, 880]][i], size: 110 + 20 * i, say: i === 0, popDur: [0.2, 0.2, 0.5][i] });   // three pops round his hat, each bigger and each replacing the last; only the third hangs over the cut onto the wave
   A(t, "gsl", "squash", { amount: 0.03 + 0.01 * i, dur: 0.1 });
 }
 for (const side of ["L", "R"]) c.arm(DEMO3 + 0.2, "gsl", side, UP_WIDE, 0.5, "out");
