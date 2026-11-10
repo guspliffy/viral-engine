@@ -103,6 +103,26 @@ export function buildRoadster(spec) {
   const tail = new THREE.MeshStandardMaterial({ color: "#d4231d", emissive: new THREE.Color("#b01812"), emissiveIntensity: 0.3, roughness: 0.3 });
   const glass = mat("#cfeaf8", { roughness: 0.05, transparent: true, opacity: 0.32 }); glass.userData.glass = true;
   const body = mesh(bodyGeometry(), paint, root); body.name = "car-body";
+  // spec.rust 0..1 (what if 03, 9 Nov 2026: the same car sixty years later): the paint goes dull and brown in blotches
+  // (a fixed pattern from the vertex position, so every frame is the same), the chrome dull, the lamps dead, the glass
+  // grimy, the tyres flat. Opt-in: without it the car is built exactly as before.
+  const RU = Math.min(1, Math.max(0, spec.rust ?? 0));
+  if (RU > 0) {
+    paint.roughness = 0.32 + 0.6 * RU; paint.color.lerp(new THREE.Color("#a0452c"), 0.55 * RU);
+    const P = body.geometry.attributes.position, Cc = body.geometry.attributes.color, rust = new THREE.Color("#6b3a22"), dk = new THREE.Color("#4a2a1c"), c = new THREE.Color();
+    for (let i = 0; i < P.count; i++) {
+      c.fromBufferAttribute(Cc, i); if (c.r < 0.9) continue;   // only the paint (the cockpit and the underside stay)
+      const x = P.getX(i), y = P.getY(i), z = P.getZ(i);
+      const n = Math.sin(x * 9.1 + z * 3.7) * Math.sin(z * 7.3 - y * 11.2) + 0.6 * Math.sin(x * 23.0 - z * 17.0 + y * 5.0);
+      const k = Math.min(1, Math.max(0, (n + 0.35) * 1.6)) * RU;
+      c.lerp(k > 0.75 ? dk : rust, k * 0.85); Cc.setXYZ(i, c.r, c.g, c.b);
+    }
+    Cc.needsUpdate = true;
+    chrome.color.set("#7d7268"); chrome.metalness = 0.2; chrome.roughness = 0.8;
+    for (const m of [lens, amber, tail]) { m.emissiveIntensity = 0; m.color.lerp(new THREE.Color("#5a4a3a"), 0.6 * RU); }
+    glass.color.set("#9a9078"); glass.opacity = 0.32 + 0.3 * RU;
+    tyreM.color.set("#2a2826");
+  }
   const front = BODY.z1, track = ROADSTER.track;
 
   // parts set into the body's surface: found by casting a ray at it along z (from the front, or from the back)
@@ -155,6 +175,7 @@ export function buildRoadster(spec) {
   const wheels = [[-1, 1], [1, 1], [-1, -1], [1, -1]].map(([sx, sz]) => {
     const pivot = new THREE.Group(); pivot.position.set(sx * track, R, sz > 0 ? ROADSTER.front : ROADSTER.rear); root.add(pivot);
     const w = wheel(tyreM, chrome, dark, R); pivot.add(w);
+    if (RU > 0) w.scale.y = 1 - 0.22 * RU;   // flat tyres, squashed about the hub: the generator sets the rig 0.22 R lower (R 0.358: 0.079)
     return { pivot, w, front: sz > 0 };
   });
   return {

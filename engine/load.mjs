@@ -189,6 +189,12 @@ function envFiles(set, sb) {
   set.windows ??= false;
   set.shadowSize ??= 6;
   if (E.surface && !sb.sound?.surface) sb.sound = { ...sb.sound, surface: E.surface };   // footsteps on the painted ground
+  // set.swap (set-env.js): the env shown from a time on (the same place sixty years later): its own env.json
+  for (const w of set.swap || []) {
+    const d = `assets/environments/${w.env}`, g = path.join(ROOT, d, "env.json");
+    if (!fs.existsSync(g)) throw new Error(`set env swap "${w.env}": ${d}/env.json not found (make it with engine/plates/env.py)`);
+    w.envData = { ...JSON.parse(fs.readFileSync(g, "utf8")), dir: d };
+  }
 }
 
 // the camera must stay where the layers cover the frame (engine/shared/env-coverage.js): a storyboard whose camera

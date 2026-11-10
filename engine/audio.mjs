@@ -26,7 +26,7 @@ import { entry } from "./sfx/whitelist.mjs";
 import { signatureEvents, isSignature, signatureSound, signatureGain } from "./sfx/signature.mjs";
 import { actorState, cameraState, TAP_AT, feetOn, footfalls } from "./page/timeline.js";
 import { loadCharacters } from "./load.mjs";
-import { soundClock } from "./shared/holds.js";
+import { soundClock, renderTime } from "./shared/holds.js";
 import { pausesOf } from "./shared/pause.js";
 
 // ---------- small DSP helpers ----------
@@ -1218,7 +1218,11 @@ export function renderAudio(sb, chars, opts = {}) {
   const amb = cfg.ambience ?? 0.1, bed = new Bus(sb.duration);
   // set "life" (engine/shared/life.js): the bed follows the living world: each gust heard as it crosses, birdsong
   // that stops at a startle, the flock's wing-burst when it leaves
-  const life = lifeSpec(sb.set, sb.duration);
+  // The gusts and startles are story times (the picture draws them on its clock): moved to the video's clock here,
+  // so past a freeze or a slow-motion stretch the wind is heard when the grass bends (What if 03, 10 Nov 2026)
+  const lifeV = (t) => (sb.heldFrom ? Math.round(renderTime(sb.heldFrom, t) * 1e6) / 1e6 : t);
+  const life0 = lifeSpec(sb.set, sb.duration);
+  const life = life0 && sb.heldFrom ? { ...life0, wind: { ...life0.wind, gusts: life0.wind.gusts.map((G) => ({ ...G, tc: lifeV(G.tc) })) }, startle: life0.startle.map((s) => ({ ...s, t: lifeV(s.t) })) } : life0;
   if (amb > 0) bed.add(0, life ? lifeBed(life, sb, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3) : ambience(sb.set?.type, sb.duration, rng(seed ^ 0x5bd1e995), cfg.bedFade ?? 0.3), amb, 0);
   // nature beds (Pebble's calm videos, Jonny 6 Nov 2026: birds, water, wind, leaves to match the scenery):
   // "sound": { "nature": ["birds", { "id": "stream", "gain": 0.12, "take": 2, "pan": -0.3 }] }

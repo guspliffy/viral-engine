@@ -11,8 +11,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Rigs: potato cast, VRM humans (vrm-v1), VFX via Effekseer (`tools/vfx/fetch-effects.sh` first) or its seven effects redrawn as drawn cels (`"do": "cel"`, #174).
 
 ## Open PRs (awaiting "merge it" unless noted)
-- #185 X-post checks: payoff-face, palm-turn + hand-jump (qa/hands.mjs), panels by number (qa/panelfit.mjs,
-  docs/templates/PANELS.md), notes lint (tools/lint-notes.py)
+- #186 What if EP03 light-speed race (with the sound-clock fix: gusts, car engine, music parts after a freeze or ramp)
 - #172 How to 02 seesaw · #163 v3 openings alien/zombies/zombie too · #143 Pebble correction · #136 friends rig
 - #128 hand-pop causes · #109 too-much-energy briefs · #86 reposts
 
@@ -29,6 +28,8 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - Survive it 01 island (format A, new format with animatic gate, PR #181): 449 min brief->delivery (about 170 of them waiting
   for Jonny's go on the animatic), thread 203k context tokens at delivery (after one compaction), subagents 286k (Fable
   review A 145k + B 141k), 3 quick contact-fix rounds after review B, 2 farm renders.
+- What if EP03 race (9 Nov, v2 + savers): ~290 min brief->delivery, thread 0.91 M out ($74), subagents 0.62 M (Sonnet
+  builder 0.29, Fable A 0.17 + B 0.16), 2 drafts, 5 farm renders (3 fix rounds after review B) + 1 sound-only remix.
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 

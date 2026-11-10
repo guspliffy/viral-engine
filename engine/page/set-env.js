@@ -16,13 +16,24 @@ import { lifeLayer, lifeOn, lifeTwin } from "./set-life.js";
 // dark the cast's shadows fall on the painted ground), "layers": ["near", ...] (only these cards: a review tool).
 // The camera must stay where the layers cover the frame: engine/load.mjs refuses a storyboard whose camera shows a
 // layer's edge (qa/env.mjs prints each frame's coverage and the safe camera range).
+// "swap": [{ "at": 13.6, "env": "<name>" }] (what if 03, 9 Nov 2026: the same road sixty years later): from each `at`
+// (world time) on, that env is shown instead; engine/load.mjs fills each entry's envData. Paint the swap from the
+// first env's own painting (engine/plates/env.py "from") so the two line up; cut to it, never swap mid-shot. The light,
+// floor sound and camera checks stay the first env's. Without swap the set is built exactly as before.
 export function buildEnv(scene, spec) {
-  const E = spec.envData;
+  if (!spec.swap?.length) return buildEnvInto(scene, scene, spec, spec.envData);
+  const all = [{ at: -Infinity, envData: spec.envData }, ...spec.swap.filter((w) => w.envData).sort((a, b) => a.at - b.at)];
+  const groups = all.map((w) => { const g = new THREE.Group(); g.name = `set-env-swap-${w.envData?.name ?? "main"}`; scene.add(g); buildEnvInto(g, scene, spec, w.envData); return g; });
+  const bg = scene.background;
+  (globalThis.__setTicks ||= []).push((t) => { let k = 0; for (let i = 1; i < all.length; i++) if (t >= all[i].at) k = i; groups.forEach((g, i) => { g.visible = i === k; }); scene.background = bg; });
+}
+
+function buildEnvInto(scene, root, spec, E) {
   if (!E) throw new Error(`set env "${spec.env}": env.json not loaded (engine/load.mjs fills spec.envData)`);
   const dir = `/${E.dir.replace(/^\/+/, "")}`, cam = envCamera(E);
   const [W, H] = E.size, [PX, PY] = E.pad, pw = W + 2 * PX, ph = H + 2 * PY;
   const sway = (spec.sway ?? 1) * (E.sway ?? 1);
-  scene.background = new THREE.Color(E.palette?.find((p) => /^#[89a-f]/i.test(p.color))?.color || "#a8c8e8");
+  if (root === scene || !root.background) root.background = new THREE.Color(E.palette?.find((p) => /^#[89a-f]/i.test(p.color))?.color || "#a8c8e8");
   const loader = new THREE.TextureLoader(), loads = [];
   const tex = (src) => { const p = loader.loadAsync(`${dir}/${src}`).then((t) => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t; }); loads.push(p); return p; };
   const raw = (src) => { const p = loader.loadAsync(`${dir}/${src}`); loads.push(p); return p; };
