@@ -50,6 +50,9 @@ import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
 import { LIBRARY_KINDS, LIBRARY_GRIPS } from "./props-library.js";   // too much energy 01, the library: bookcases, ladder, books, desk, lamp, shush
+import { WHATIFLIB_KINDS, WHATIFLIB_GRIPS } from "./props-whatif-library.js";   // what if 02 faster than sound: longclock, quietsign, bookcart, brasslamp, orbstand, libpage
+import { WHATIFFLAME_KINDS } from "./props-whatif-flame.js";   // what if 02: flamestreak, flamering (the power's look)
+import { WHATIFBLAST_KINDS } from "./props-whatif-blast.js";   // what if 02: bookstorm, pagefall, bookpile (the BOOM's books)
 import { CINEMA_KINDS, CINEMA_GRIPS } from "./props-cinema.js";   // too much energy 02, the cinema: seats, tiers, bucket, popcorn
 import { CAMP_KINDS, CAMP_GRIPS, CAMP_PARTS } from "./props-camp.js";   // too much energy 03, camping at 6 am: ridge tent, sleeping bags, cord, clock
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
@@ -1377,6 +1380,7 @@ Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
+Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)
 Object.assign(KINDS, CINEMA_KINDS); Object.assign(GRIPS, CINEMA_GRIPS);   // too much energy 02 (props-cinema.js)
 Object.assign(KINDS, CAMP_KINDS); Object.assign(GRIPS, CAMP_GRIPS);   // too much energy 03: ridgetent, sleepbag, tentcord, campclock (props-camp.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)

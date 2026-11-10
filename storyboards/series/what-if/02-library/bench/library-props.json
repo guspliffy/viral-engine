@@ -1,0 +1,668 @@
+{
+ "id": "library-props",
+ "title": "Library props bench",
+ "idea": "Props bench for What if EP02 (longclock, quietsign, bookcart, brasslamp, orbstand, libpage), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#cfe0ee",
+  "floor": "#b8a27e"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "sor",
+   "clk"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "sor",
+   "character": "potatobrawl/sorcerer",
+   "at": [
+    -20.1,
+    0.05
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "potatobrawl/reaper",
+   "at": [
+    1.2,
+    0.2
+   ],
+   "face": -20,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.4
+  }
+ ],
+ "props": [
+  {
+   "id": "clk",
+   "kind": "longclock",
+   "x": -21,
+   "z": 0,
+   "ticks": [
+    1,
+    1.5,
+    2,
+    2.4
+   ]
+  },
+  {
+   "id": "clk2",
+   "kind": "longclock",
+   "x": -14,
+   "z": 0,
+   "ticks": [
+    4.3,
+    4.8,
+    5.3,
+    5.7
+   ]
+  },
+  {
+   "id": "signA",
+   "kind": "quietsign",
+   "x": -7.75,
+   "y": 2.6,
+   "z": 0,
+   "staged": "hung from the ceiling"
+  },
+  {
+   "id": "signB",
+   "kind": "quietsign",
+   "x": -6.25,
+   "y": 2.6,
+   "z": 0,
+   "staged": "hung from the ceiling"
+  },
+  {
+   "id": "cart",
+   "kind": "bookcart",
+   "x": 0,
+   "z": 0
+  },
+  {
+   "id": "lampA",
+   "kind": "brasslamp",
+   "x": 6.4,
+   "y": 2.7,
+   "z": 0,
+   "staged": "hung from the ceiling"
+  },
+  {
+   "id": "lampB",
+   "kind": "brasslamp",
+   "x": 7.6,
+   "y": 2.7,
+   "z": 0,
+   "staged": "hung from the ceiling"
+  },
+  {
+   "id": "table",
+   "kind": "libdesk",
+   "x": 14,
+   "z": 0,
+   "h": 0.95,
+   "w": 1,
+   "d": 0.5,
+   "seed": 4
+  },
+  {
+   "id": "orbA",
+   "kind": "orbstand",
+   "x": 13.78,
+   "y": 0.962,
+   "z": 0.05,
+   "glow": 1
+  },
+  {
+   "id": "orbB",
+   "kind": "orbstand",
+   "x": 14.22,
+   "y": 0.962,
+   "z": 0.05,
+   "glow": 0.25
+  },
+  {
+   "id": "dfloor",
+   "kind": "dayfloor",
+   "x": 28,
+   "z": 0,
+   "w": 7,
+   "d": 7,
+   "seed": 7
+  },
+  {
+   "id": "pageA",
+   "kind": "libpage",
+   "x": 20.75,
+   "y": 1.1,
+   "z": 0,
+   "staged": "a loose page held up in the air"
+  },
+  {
+   "id": "pageB",
+   "kind": "libpage",
+   "x": 21.25,
+   "y": 1.1,
+   "z": 0,
+   "rot": 40,
+   "staged": "a loose page held up in the air"
+  },
+  {
+   "id": "cb0",
+   "kind": "libbook",
+   "x": -0.215,
+   "y": 0.56,
+   "z": -0.14,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 11,
+   "stand": 1
+  },
+  {
+   "id": "cb1",
+   "kind": "libbook",
+   "x": -0.215,
+   "y": 0.56,
+   "z": -0.07,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 12,
+   "stand": 1
+  },
+  {
+   "id": "cb2",
+   "kind": "libbook",
+   "x": -0.215,
+   "y": 0.56,
+   "z": 0,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 13,
+   "stand": 1
+  },
+  {
+   "id": "cb3",
+   "kind": "libbook",
+   "x": -0.215,
+   "y": 0.56,
+   "z": 0.07,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 14,
+   "stand": 1
+  },
+  {
+   "id": "cb4",
+   "kind": "libbook",
+   "x": -0.215,
+   "y": 0.56,
+   "z": 0.14,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 15,
+   "stand": 1
+  },
+  {
+   "id": "cb5",
+   "kind": "libbook",
+   "x": 0.045,
+   "y": 0.56,
+   "z": -0.14,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 16,
+   "stand": 1
+  },
+  {
+   "id": "cb6",
+   "kind": "libbook",
+   "x": 0.045,
+   "y": 0.56,
+   "z": -0.07,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 17,
+   "stand": 1
+  },
+  {
+   "id": "cb7",
+   "kind": "libbook",
+   "x": 0.045,
+   "y": 0.56,
+   "z": 0,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 18,
+   "stand": 1
+  },
+  {
+   "id": "cb8",
+   "kind": "libbook",
+   "x": 0.045,
+   "y": 0.56,
+   "z": 0.07,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 19,
+   "stand": 1
+  },
+  {
+   "id": "cb9",
+   "kind": "libbook",
+   "x": 0.045,
+   "y": 0.56,
+   "z": 0.14,
+   "rot": 0,
+   "w": 0.17,
+   "h": 0.24,
+   "t": 0.04,
+   "seed": 20,
+   "stand": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "clock",
+   "at": 0,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -20.7,
+     1.2,
+     6.2
+    ],
+    "look": [
+     -20.7,
+     1,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cb0",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb4",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb5",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb6",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb7",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb8",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb9",
+     "set": {
+      "stand": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk",
+     "set": {
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk",
+     "set": {
+      "clock": 18
+     },
+     "dur": 18,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk2",
+     "set": {
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk2",
+     "set": {
+      "clock": 18
+     },
+     "dur": 18,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "signA",
+     "set": {
+      "swing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "signB",
+     "set": {
+      "swing": 70
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lampA",
+     "set": {
+      "swing": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lampB",
+     "set": {
+      "swing": 25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pageA",
+     "set": {
+      "bend": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pageB",
+     "set": {
+      "bend": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "dial",
+   "at": 3,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -13.95,
+     1.7,
+     2.1
+    ],
+    "look": [
+     -14,
+     1.6,
+     0
+    ],
+    "fov": 38
+   },
+   "do": []
+  },
+  {
+   "name": "sign",
+   "at": 6,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -7,
+     1.7,
+     7.2
+    ],
+    "look": [
+     -7,
+     1.7,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "cart",
+   "at": 8,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.3,
+     1.1,
+     4.4
+    ],
+    "look": [
+     0.3,
+     0.55,
+     0
+    ],
+    "fov": 38
+   },
+   "do": []
+  },
+  {
+   "name": "lamps",
+   "at": 10,
+   "len": 2,
+   "shot": {
+    "pos": [
+     7.2,
+     1.8,
+     7
+    ],
+    "look": [
+     7.2,
+     1.7,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "orb",
+   "at": 12,
+   "len": 2,
+   "shot": {
+    "pos": [
+     14,
+     1.2,
+     1.9
+    ],
+    "look": [
+     14,
+     1.1,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "page",
+   "at": 14,
+   "len": 2,
+   "shot": {
+    "pos": [
+     21,
+     1.1,
+     2.4
+    ],
+    "look": [
+     21,
+     1.1,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "floor",
+   "at": 16,
+   "len": 2,
+   "shot": {
+    "pos": [
+     26.6,
+     10,
+     10
+    ],
+    "look": [
+     26.6,
+     0,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/02-library/bench/make-library-props.mjs (props bench, no reviews)."
+}

@@ -1,0 +1,382 @@
+{
+ "id": "blast-bench",
+ "title": "Book blast bench (What if EP02, T3)",
+ "idea": "Builder bench: bookstorm, pagefall, bookpile, libstack bare; not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#d9cdb4",
+  "floor": "#b8a27e",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/library-hall.png",
+   "z": -8.6,
+   "center": [
+    1.6,
+    4.4
+   ],
+   "height": 15,
+   "depth": false,
+   "motion": false
+  },
+  "lighting": 2,
+  "focus": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "phx",
+   "rea"
+  ],
+  "hint": 0,
+  "what": "builder bench"
+ },
+ "cast": [
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -1.25,
+    -0.84
+   ],
+   "face": 10,
+   "expr": "eager",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.05,
+    -0.84
+   ],
+   "face": -8,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "libfloor",
+   "x": 0,
+   "z": -1,
+   "w": 18,
+   "d": 22,
+   "seed": 21
+  },
+  {
+   "id": "sh0",
+   "kind": "libstack",
+   "x": -1.9,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 3
+  },
+  {
+   "id": "sh1",
+   "kind": "libstack",
+   "x": -0.2,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 14
+  },
+  {
+   "id": "sh2",
+   "kind": "libstack",
+   "x": 1.5,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 25
+  },
+  {
+   "id": "sh3",
+   "kind": "libstack",
+   "x": 3.2,
+   "z": -6.5,
+   "rot": 0,
+   "l": 1.7,
+   "h": 2.7,
+   "d": 0.44,
+   "shelves": 6,
+   "seed": 36
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": -0.7,
+   "z": 0,
+   "w": 1.7,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "storm",
+   "kind": "bookstorm",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t0": 1,
+   "stacks": [
+    {
+     "x": -1.9,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 3
+    },
+    {
+     "x": -0.2,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 14
+    },
+    {
+     "x": 1.5,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 25
+    },
+    {
+     "x": 3.2,
+     "z": -6.5,
+     "rot": 0,
+     "l": 1.7,
+     "h": 2.7,
+     "d": 0.44,
+     "shelves": 6,
+     "seed": 36
+    }
+   ],
+   "keepout": [
+    [
+     -1.25,
+     -0.72,
+     0.4
+    ],
+    [
+     0.05,
+     -0.72,
+     0.4
+    ]
+   ],
+   "boxes": [
+    [
+     -0.7,
+     0,
+     1.7,
+     0.8,
+     0.62
+    ]
+   ],
+   "staged": "flies from the shelves; rests on the floor"
+  },
+  {
+   "id": "pages",
+   "kind": "pagefall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "t0": 1.6,
+   "dur": 4.3,
+   "box": [
+    -2.6,
+    1.6,
+    5,
+    -2.6,
+    0.9
+   ],
+   "floorY": 0,
+   "staged": "falls from above the frame"
+  },
+  {
+   "id": "pile",
+   "kind": "bookpile",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "fill": 0,
+   "mounds": [
+    {
+     "x": -0.6,
+     "z": -1.75,
+     "r": 1.45,
+     "h": 1
+    },
+    {
+     "x": -2.15,
+     "z": -0.75,
+     "r": 0.8,
+     "h": 0.6
+    },
+    {
+     "x": 0.95,
+     "z": -0.75,
+     "r": 0.8,
+     "h": 0.6
+    },
+    {
+     "x": -0.7,
+     "z": 1,
+     "r": 1,
+     "h": 0.3
+    }
+   ],
+   "holes": [
+    [
+     -1.25,
+     -0.72,
+     0.38
+    ],
+    [
+     0.05,
+     -0.72,
+     0.38
+    ]
+   ],
+   "staged": "rests on the floor round the seats"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 5.5,
+   "text": "BOOK BLAST BENCH",
+   "pos": 260,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "boom",
+   "at": 0,
+   "len": 5.5,
+   "shot": {
+    "pos": [
+     -1,
+     3.4,
+     12
+    ],
+    "look": [
+     -0.6,
+     1.5,
+     -1.5
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh0",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sh1",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sh2",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sh3",
+     "set": {
+      "bare": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "fill": 0.5
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 3.6
+    },
+    {
+     "do": "prop",
+     "id": "pile",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 4.4
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/02-library/bench/make-blast.mjs (builder bench T3, no reviews)."
+}
