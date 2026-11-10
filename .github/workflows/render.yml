@@ -32,7 +32,7 @@ env:
 jobs:
   plan:
     name: Check the storyboard
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     outputs:
       shards: ${{ steps.split.outputs.list }}
@@ -65,7 +65,7 @@ jobs:
   shard:
     name: Shard ${{ matrix.shard }}
     needs: plan
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     strategy:
       fail-fast: true
@@ -96,7 +96,7 @@ jobs:
   stitch:
     name: Join and add sound
     needs: [plan, shard]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4

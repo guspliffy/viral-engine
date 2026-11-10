@@ -157,6 +157,15 @@ moving at once.
   both sides. L and R are the character's own left and right. Lids: 0 open .. 1 shut (needs `"lids": true` in the
   character's `face`, so far the Wizard; the lids also follow the gaze and close on blinks). Brows: about ±1 up or
   down. Corners: + up. `press`: 1 = lips pressed tight.
+- `{ "who", "do": "face", "frost": 0..1, "melt": 0..1, "dur" }` frosts a potato over like a frozen fry (Survive it,
+  engine/page/frost.js; any of the ten, castLook "sheet" or not). `frost` 0.3 (DAY 2): a sugar frost on the tops, the
+  crest tips (tiny icicles) and the edges, a pale ice-blue rim; 0.8 (DAY 10): white frost brows, an icicle fringe under
+  the mouth, icicles off the chin, white crest, hood and hat edges, frost patches, a beard glazed with icicles; 1.0
+  (DAY 100): a glitter coat below the eyes, icicles to 6 cm. `melt` 0 -> 1 is the thaw: steam puffs rise, the coat
+  slides down in sheets, the icicles shrink and drip, and at 1 the frost is gone while the steam stays as long as
+  `frost` > 0 (the clip keys frost 1 -> 0.5 with melt 1 over 0.6 s). Eyes, brows, mouth, gloves and the sprout's green
+  stay clear. Only an actor whose storyboard keys `frost` or `melt` gets the layer, so other clips draw as before.
+  Bench: `storyboards/lookdev/make-frost-bench.mjs`.
 - `{ "who", "do": "grip", "side": "R" | "L" | "both", "shape": "open" | "hold" | "fist" | "pinch" | "point" | "cup" | "flat", "dur" }`
   curls a mitten hand (`"hands": { "type": "mitten" }` in the character file, so far the Wizard). `hold` wraps a handle,
   a staff or a jar; `pinch` is thumb on index, for a cup handle or a lid; `cup` cradles an orb or a jar from below; `flat` is an open palm; `carry` holds something from below its side, palm half up (a bowl in both hands); `press` is a palm flat on a box's end with the thumb along the side; `tip` pinches a thin prop between the thumb and index pads at the same height, the index curled over the camera side, the palm beside the shaft and the other fingers curled loose (grip `set` tunes `roll`, `lean`, `close` 0 open to 1 closed, `thin` = the prop's radius in hand units). An arm pose with `"point": "pinch"` puts the pinch point, not the hand, on its target, and a grab with `"point": "pinch"` holds the prop there, so the hand stays aimed along the forearm. A character file sets its resting face in `face.neutral` (expression and per-side lid and brow keys) and its eye design in `face.eye` (`depth`, `iris`, `lash`, `flick`, `tilt`, `glints`), `face.browShape` and `face.blush`. Props attach at `character.gripPoint(side)`.
