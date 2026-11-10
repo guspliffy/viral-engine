@@ -7,7 +7,7 @@ import { wizardSheet, cowboySheet, cowboySheetHat, cowboyArt, neckerchief } from
 import { cardWings } from "./costumes-card.js";
 import { coreCostume } from "./costumes-core.js";
 import { pebbleCostume } from "./costumes-pebble.js";
-import { castCostume, CAST_TYPES, clothCape } from "./costumes-cast.js";
+import { castCostume, CAST_TYPES, clothCape, addBeard } from "./costumes-cast.js";
 
 // the portraits' sprout: a short stem and two round, pointed leaves opening in a V, broad side to the front
 function leafGeometry(w, len, thick) {
@@ -323,6 +323,7 @@ export function buildCostume(def, ch) {
   const extraHat = !hat && C.hat?.type === "cowboy";
   if (extraHat) { hat = cowboyHat(C.hat); hat.group.scale.set(1.15, 1.1, 1.15); hat.group.children.slice(2).forEach((o) => o.scale.set(o.scale.x * 1.32, o.scale.y, o.scale.z * 1.32)); cowboySheetHat(hat, C.hat); }
   if (C.neckerchief) neckerchief(ch, C.neckerchief, `#${new THREE.Color(C.neckerchief).multiplyScalar(0.6).getHexString()}`);
+  if (C.beard) addBeard(ch, C.beard);   // costume.beard: an old man's beard on any potato (costumes-cast.js addBeard)
   if (C.tie) tie(C, ch);
   if (C.type === "wizard" && C.art && C.sheet) wizardSheet(C, ch, hat);   // costume.sheet: the design-sheet rebuild (costumes-art-cast.js)
   else if (C.type === "wizard" && C.art) {

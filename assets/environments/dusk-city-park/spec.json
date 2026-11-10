@@ -1,0 +1,51 @@
+{
+ "name": "dusk-city-park",
+ "prompt": "anime background painting, gouache, low ground level view across a wide empty paved city park plaza at blue hour, grey paving stones fill the bottom third, low hedges and round trees at both sides, a few warm street lamps, distant city skyline with tiny lit windows low on the horizon, vast clear deep blue sky fills the top two thirds, faint orange horizon glow, first stars",
+ "no": "people, person, potato, text, letters, sign, logo, aerial view, high angle, bird's eye view, fireworks, moon, sun, clouds covering the sky, bench in foreground, car, fountain, statue, water",
+ "seeds": [
+  3,
+  11,
+  21,
+  34,
+  47,
+  58
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "last light, a low orange glow at the horizon straight ahead behind the skyline",
+  "key": [
+   0.0,
+   3.0,
+   -9.0
+  ],
+  "shadow": 0.25
+ },
+ "swayMax": 25,
+ "surface": "concrete",
+ "groundMax": 40,
+ "standRatio": 0.6,
+ "pad": 0.3,
+ "padY": 0.12,
+ "bands": [
+  3.0,
+  9.0,
+  28.0,
+  32.0
+ ],
+ "groundRows": [
+  0.83,
+  0.99
+ ]
+}

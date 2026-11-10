@@ -57,12 +57,29 @@ def pipes(img2img=False):
 def paint(S):
     import torch, time
     W, H = map(int, S.get("size", "896x1344").split("x"))
+    if S.get("from"): return paint_from(S, W, H)
     pipe = pipes()
     for i, seed in enumerate(S.get("seeds", [1])):
         if i and not S.get("all_seeds"): break
         t = time.time()
         img = pipe(S["prompt"], negative_prompt=NEG + (", " + S["no"] if S.get("no") else ""), num_inference_steps=8,
                    guidance_scale=0, width=W, height=H, generator=torch.Generator().manual_seed(seed)).images[0]
+        f = out(S, "paint.png" if i == 0 else f"paint-seed{seed}.png")
+        img.save(f); print("wrote", f, round(time.time() - t), "s", flush=True)
+
+
+def paint_from(S, W, H):
+    """spec "from": "<env name>" (what if 03, 9 Nov 2026: the same road sixty years later): repaint another env's
+    paint.png image-to-image with this prompt at spec "strength" (0.5), so the place, horizon and road line up with it
+    and only what the prompt changes is new. Seeds as in paint."""
+    import torch, time
+    src = Image.open(os.path.join(S["_dir"], "..", S["from"], "paint.png")).convert("RGB").resize((W, H), Image.LANCZOS)
+    pipe = pipes(img2img=True)
+    for i, seed in enumerate(S.get("seeds", [1])):
+        if i and not S.get("all_seeds"): break
+        t = time.time()
+        img = pipe(S["prompt"], negative_prompt=NEG + (", " + S["no"] if S.get("no") else ""), image=src, strength=S.get("strength", 0.5),
+                   num_inference_steps=8, guidance_scale=0, generator=torch.Generator().manual_seed(seed)).images[0]
         f = out(S, "paint.png" if i == 0 else f"paint-seed{seed}.png")
         img.save(f); print("wrote", f, round(time.time() - t), "s", flush=True)
 
@@ -381,7 +398,12 @@ def split(S):
 
     # the ground: the picture with everything standing on it painted out, carried on the 3D floor
     gm = ground_3d.astype(float)
-    gcol = np.where(ground_3d[..., None], rgb, pull_push(rgb, gm))
+    # "farFloor": true (what if 03, 9 Nov 2026): the far fields the depth model put in the sky class (past skyFrom) but
+    # below the floor's far row keep their painted pixels on the floor. Without it the floor shows its blurred fill
+    # there, in front of the sky card that holds them: a soft band with a hard top edge across the frame, worst from a
+    # camera standing in the road (wheat-road-old's reveal). Off: every set built before stays as it was.
+    keep = ground_3d | (sky & (Zg <= gmax) & ~standing) if S.get("farFloor") else ground_3d
+    gcol = np.where(keep[..., None], rgb, pull_push(rgb, gm))
     gfn = "ground.webp"
     Image.fromarray((np.clip(extend(gcol), 0, 1) * 255).round().astype(np.uint8)).save(out(S, gfn), quality=S.get("quality", 92), method=4)
     gmo = extend(np.dstack([sway * ground_3d, shimmer * ground_3d, water * ground_3d]))
