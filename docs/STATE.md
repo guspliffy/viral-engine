@@ -31,6 +31,10 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 - Share or Steal 01 (9-10 Nov, new series + set, animatic gate): thread $59, 733k out; 2 drafts, 1 full render, no review B (Jonny approved the draft).
+- There's a catch EP04 copy money (10 Nov, new workflow #189 + #190, director Fable 5.2 on high): ~315 min brief->delivery (no
+  waiting on Jonny), thread $92, 1.28 M out, 128 M cache read; subagents 1.09 M (Sonnet builders 0.88 M for four prop
+  packs, Fable A 124k + B 87k); 1 draft, 1 check-fix round (0 fails), 1 farm render after review B, 10 windows in
+  frame, 30 engine lookups, 15 full + 26 partial layouts, 14 waiting steps.
 - Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~560 min, 4 Sonnet builders + Fable A + B, 1 draft, 4 farm renders (3 fix rounds), sound redone locally; ~70 min lost to the farm on Ubuntu 26.04.
 
 ## Decisions (one line each, with the reason)
