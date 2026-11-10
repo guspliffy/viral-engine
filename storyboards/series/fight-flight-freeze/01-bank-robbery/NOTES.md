@@ -84,3 +84,18 @@ Probe before use: `node <scratchpad>/camprobe.mjs <env> "x,y,z tilt fov; ..."`.
 - qa/env.mjs prints "undefined frames" for swapped clips (cosmetic).
 - A statement after `//` on the same line is dead code (the bag's tilt reset at the beach sat in a comment).
 - Before the PR: `qa/golden.mjs` + `qa/regress.mjs` (load.mjs, props3d.js, stage.js, audio.mjs, two new prop files).
+
+## State 10 Nov 10:40 UTC (after Jonny's notes on draft 2)
+
+- Jonny on draft 2: fight more extreme with shooting and action; "i dont understand why flight got caught"; the tip into
+  the bin read as a glitch; "its not clear why he didnt got arrested"; every outcome needs a logical cause on screen.
+- Rework (draft 3): gunfire from behind the shield line (spellbolt tracers scale 3, lightpool muzzle flash, `gunshot`
+  + `ting`), one ricochet blows up patrol car `carX` (carburst needs `on` TWEENED to 1, firesmoke `fire` too: spec values
+  are not read); "Lost them!" is a close shot in the SAME street, the wide shot shows the van, officers, Viking netted in
+  the van; Reaper never tips: the potato bin + tag stand in front of him from frame 0, officer leans in from the bin's
+  right end (yaw -68, lean 28, camera-side L hand to his cheek then the tag), line "Nothing here. Just potatoes."
+- Clock now: END 32.8; HIT = charge + 0.75; impact frames 2 (GO = HIT + 2/30).
+- Before the farm render: `git fetch origin main && git merge origin/main` (main ea05117 has #189, #190, #193, #195).
+- DELIVERY.md needs: Trial line; five counts (lookups ~60, layout runs ~25, check-fix rounds on renders 1, full renders,
+  waiting steps); lessons review (what would have improved quality; what saves time/tokens next time); post pack.
+- Counters: drafts 3 (draft 3 rendering), preflight runs 18, review A 1, review B 1 (on draft 2, superseded by Jonny).

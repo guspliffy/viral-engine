@@ -64,15 +64,16 @@ const nar = (t, key, { sub = true, until = null, pos = CAP_Y } = {}) => {
 // was written on guessed line lengths; "cut picture, never a narrator line")
 const T = {
   hook: 0, snap1: fr(1.6), police: fr(2.85), faces: fr(3.65), fight: fr(4.3), flight: fr(4.9), freeze: fr(5.5), question: fr(6.35),
-  roar: fr(8.15), charge: fr(8.75), grin: fr(9.75), net: fr(11.0),
-  bolt: fr(12.65), roof: fr(13.5), leap: fr(14.6), lost: fr(16.1), van: fr(17.4),
-  alone: fr(20.15), crate: fr(23.5), lean: fr(26.1), radio: fr(27.85),
-  beach: fr(29.6), which: fr(31.7), end: 33.1,
+  roar: fr(8.15), charge: fr(8.75), grin: fr(10.05), net: fr(11.3),
+  bolt: fr(12.95), roof: fr(13.8), leap: fr(14.9), lost: fr(16.4), van: fr(17.7),
+  alone: fr(20.45), crate: fr(23.8), lean: fr(25.8), radio: fr(27.55),
+  beach: fr(29.3), which: fr(31.4), end: 32.8,
 };
 const END = T.end;
 const NET = r3(T.net + 0.34);   // the net lands on Viking
+const HIT = r3(T.charge + 0.75);   // Viking goes through the shield line
 // which env is up from when (set.swap); the alley is the first env: its light is the clip's light
-const PLACES = [[0, "alley"], [T.police, "street"], [T.faces, "alley"], [T.charge, "street"], [T.bolt, "alley"], [T.roof, "roof"], [T.lost, "corner"], [T.van, "street"], [T.alone, "alley"], [T.beach, "beach"]];
+const PLACES = [[0, "alley"], [T.police, "street"], [T.faces, "alley"], [T.charge, "street"], [T.bolt, "alley"], [T.roof, "roof"], [T.lost, "street"], [T.alone, "alley"], [T.beach, "beach"]];
 const placeAt = (t) => PLACES.filter(([at]) => at <= t + 1e-6).pop()[1];
 
 // ---------------------------------------------------------------- cast
@@ -82,7 +83,7 @@ const PARK = { vik: [40, 40], phx: [43, 40], rea: [46, 40], sam: [40, 44], god: 
 // AX: the whole alley staging sits 1.15 m left of the painting's middle, so the freeze shots (bin + officer, to the
 // right) stay inside the painted floor (it ends about 2.8 m right of the middle at these cameras)
 const AX = -1.15, VIK_A = [AX, -1.15], PHX_A = [r3(AX - 0.92), -0.4], REA_A = [r3(AX + 0.88), -0.4], PHX_YAW = 16, REA_YAW = -16;
-const PHX_H = [r3(AX - 0.66), -0.4], REA_H = [r3(AX + 0.64), -0.4];   // huddled, from the duck on
+const PHX_H = [r3(AX - 0.66), -0.4], REA_H = [r3(AX + 0.9), -0.4];   // huddled, from the duck on
 const cast = [
   { id: "vik", character: "duo/viking", at: VIK_A, face: 12, expr: "delighted", follow: 0.3, seed: 3.3 },
   { id: "phx", character: "duo/phoenix", at: PHX_A, face: PHX_YAW, expr: "delighted", follow: 0.3, seed: 1.7 },
@@ -119,13 +120,15 @@ const pr = (t, id, set, dur = 0.3, ease = "inOut") => { if (has(id)) prop(t, id,
 const ROW_Z = 0.45, ROW_H = 0.34;
 P("alley", { id: "crateL", kind: "producecrate", x: r3(AX - 0.95), z: ROW_Z, w: 0.9, d: 0.5, h: ROW_H, fill: "carrots" });
 P("alley", { id: "crateM", kind: "producecrate", x: AX, z: ROW_Z, w: 0.9, d: 0.5, h: ROW_H });
-P("alley", { id: "crateR", kind: "producecrate", x: r3(AX + 0.9), z: ROW_Z, w: 0.8, d: 0.5, h: ROW_H, fill: "cabbages" });
-const TAG_X = 0.72;   // the price tag: past Reaper's head when he lies in the bin
-const BIN = { x: r3(AX + 1.95), z: -0.4, w: 1.5, d: 1.0, h: 0.28 };
+// Jonny, 10 Nov: the tip into the bin read as a glitch and it was not clear why Reaper is not arrested. Now the bin of
+// potatoes with its price tag is the third "crate" of the row, right in front of him: he is a potato behind a
+// "POTATOES 2.99" sign, and the officer says so.
+const TAG_X = 0;
+const BIN = { x: r3(AX + 0.98), z: ROW_Z, w: 1.0, d: 0.55, h: 0.28 };
 P("alley", { id: "bin", kind: "spudbin", x: BIN.x, z: BIN.z, w: BIN.w, d: BIN.d, h: BIN.h, tagX: TAG_X, crook: -18, look: 0, seed: 7 });
 // the loot: two open bags on the ground in front of the row, Reaper's in his arms (the frozen pose's bag, to the beach)
-P("alley", { id: "bagL", kind: "moneybag", x: r3(AX - 0.72), z: 1.02, rot: 14, open: true });
-P("alley", { id: "bagM", kind: "moneybag", x: r3(AX + 0.38), z: 1.06, rot: -10, open: true });
+P("alley", { id: "bagL", kind: "moneybag", x: r3(AX - 0.72), z: 1.02, rot: 14, open: true }, { to: T.alone });
+P("alley", { id: "bagM", kind: "moneybag", x: r3(AX + 0.38), z: 1.06, rot: -10, open: true }, { to: T.alone });
 const front = ([x, z], yaw, f, s, y) => { const a = rad(yaw); return [r3(x + f * Math.sin(a) + s * Math.cos(a)), r3(y), r3(z + f * Math.cos(a) - s * Math.sin(a))]; };
 const BAG_AT = front(REA_A, REA_YAW, 0.4, 0, 0.2);
 // (a held prop stays in the world when its holder is parked: it is carried wherever Reaper goes, by hand, below)
@@ -141,8 +144,8 @@ P("alley", { id: "washG", kind: "sirenwash", x: AX, z: 1.2, w: 5, h: 3.5, flat: 
 P("alley", { id: "pool", kind: "lightpool", x: r3(AX - 2.6), y: 0.2, z: r3(ROW_Z + 0.27), w: 1.1, d: 0.6, face: "z", on: 0 });   // on the crate fronts
 P("alley", { id: "shadow", kind: "copshadow", x: r3(AX - 0.4), z: 3.6, len: 2.6, w: 1.1, on: 0 });
 // the officer's torch: worn at his right glove, along his forward (the cutaway to the police, 2.85-3.65)
-const TORCH = { x: -0.42, y: 0.5, z: 0.15 };
-P("street", { id: "torch", kind: "policetorch", wear: "sam", ...TORCH, len: 1.5, r: 0.3, on: 1 }, { from: T.police, to: T.faces });
+const TORCH = { x: -0.53, y: 0.5, z: 0.15 };   // beside the glove, not in the palm (no check window)
+P("alley", { id: "torch2", kind: "policetorch", wear: "sam", x: -0.44, y: 0.5, z: 0.15, len: 1.2, r: 0.25, on: 1 }, { from: T.lean, to: T.beach });
 // the masks and the caps (fit tables: props-heist.js header)
 const CAP = { sam: 1.09, god: 1.26, dra: 1.06 };
 for (const who of ["vik", "phx", "rea"]) P("all", { id: `mask-${who}`, kind: "eyemask", wear: who, x: 0, y: 0, z: 0, fit: who });
@@ -158,7 +161,28 @@ P("street", { id: "car3", kind: "policecar", x: 0, z: WALL_Z - 9, rot: 0, lights
 [-1.5, -0.75, 0.75, 1.5].forEach((x, i) => P("street", { id: `wall${i}`, kind: "riotshield", x, y: -1.2, z: WALL_Z + 1.4 }, { to: T.bolt }));
 P("street", { id: "washS", kind: "sirenwash", x: 0, y: 0.2, z: WALL_Z + 2.2, w: 7, h: 4.5, on: 0 }, { to: T.bolt });
 P("street", { id: "netfly", kind: "policenet", x: 0, y: 0.9, z: WALL_Z + 1.2, r: 0.75, open: 0, wrap: 0 }, { from: T.net, to: NET + 0.02 });
-P("street", { id: "netwrap", kind: "policenet", wear: "vik", x: 0, y: 1.12, z: 0, r: 0.75, open: 1, wrap: 1 }, { from: NET + 0.02, to: T.bolt });
+P("street", { id: "netwrap", kind: "policenet", wear: "vik", x: 0, y: 1.12, z: 0, r: 0.75, open: 1, wrap: 1 }, { from: NET + 0.02, to: T.alone });
+// the gunfire (Jonny, 10 Nov: "more extreme with shooting and action"): the lead officer fires from behind the line,
+// every shot rings off Viking's crate, and the third bounces back into their own patrol car
+const LINE_Z0 = -1.7, MUZZLE = [-0.05, 0.5, LINE_Z0 - 0.85], WRECK = { x: 2.7, z: -3.6 };   // the car is about 2 x 4.4 m: straight, clear of Dragon's wing and of the van
+const SHOTS = [0.1, 0.2, 0.3, 0.4, 0.5, 0.58].map((d) => r3(T.charge + d)), FLY = 0.09;
+const crateZ = (t) => 4.17 + (LINE_Z0 + 1.07 - 4.17) * Math.min(1, (t - T.charge) / (HIT - T.charge - 0.1));
+const HITS = SHOTS.map((t, i) => [r3(((i * 37) % 5 - 2) * 0.07), 1.12, r3(crateZ(t + FLY) - 0.2)]);   // where each shot meets the crate
+const BOUNCE = [[-3.6, 4.6, -3], [3.3, 5.2, -4], [r3(WRECK.x - 0.6), 0.7, r3(WRECK.z + 1.8)], [-2.8, 5.5, -2], [3.8, 3.6, -5], [-4.2, 3.8, -4]];
+const BOOM = r3(SHOTS[2] + FLY + 0.12);
+const sub3 = (a, b) => [r3(a[0] - b[0]), r3(a[1] - b[1]), r3(a[2] - b[2])];
+SHOTS.forEach((t, i) => {
+  P("street", { id: `shot${i}`, kind: "spellbolt", x: MUZZLE[0], y: MUZZLE[1], z: MUZZLE[2], from: [0, 0, 0], to: sub3(HITS[i], MUZZLE).map((v) => r3(v / 3)), scale: 3, rise: 0, staged: "a bullet in flight" }, { from: T.charge, to: T.grin });
+  P("street", { id: `rico${i}`, kind: "spellbolt", x: HITS[i][0], y: HITS[i][1], z: HITS[i][2], from: [0, 0, 0], to: sub3(BOUNCE[i], HITS[i]).map((v) => r3(v / 3)), scale: 3, rise: 0, staged: "a ricochet in flight" }, { from: T.charge, to: T.grin });
+});
+P("street", { id: "muzzle", kind: "lightpool", x: MUZZLE[0], y: MUZZLE[1], z: MUZZLE[2] + 0.1, w: 1.5, d: 1.5, face: "z", on: 0 }, { from: T.charge, to: T.grin });
+P("street", { id: "spark", kind: "lightpool", x: 0, y: 1.12, z: 3.9, w: 1.1, d: 1.1, face: "z", on: 0 }, { from: T.charge, to: T.grin });
+P("street", { id: "carX", kind: "policecar", x: WRECK.x, z: WRECK.z, rot: 0, lights: 1 }, { from: T.charge, to: T.bolt });
+P("street", { id: "boom", kind: "carburst", x: r3(WRECK.x - 0.5), y: 0.6, z: r3(WRECK.z + 1.6), at: BOOM, r: 1.5, on: 1 }, { from: T.charge, to: T.bolt });
+P("street", { id: "fire", kind: "firesmoke", x: r3(WRECK.x - 0.7), y: 0.7, z: r3(WRECK.z + 1.6), w: 2.6, h: 4.6, fire: 0 }, { from: T.charge, to: T.bolt });
+// the same wreck, still burning, when Phoenix lands back here
+P("street", { id: "carY", kind: "policecar", x: WRECK.x, z: WRECK.z, rot: 0, lights: 0 }, { from: T.van });
+P("street", { id: "fireY", kind: "firesmoke", x: r3(WRECK.x - 0.7), y: 0.7, z: r3(WRECK.z + 1.6), w: 2.6, h: 4.6, fire: 0 }, { from: T.van });
 const VAN = { x: 0, z: -2.4 };
 P("street", { id: "van", kind: "policevan", x: VAN.x, z: VAN.z, open: 1, lights: 0 }, { from: T.van });
 
@@ -167,7 +191,7 @@ const ROOF_H = 1.0, RL = { x: -2.35, z: 0.3 }, RR = { x: 2.35, z: 0.3 };
 P("roof", { id: "roofL", kind: "roofblock", x: RL.x, z: RL.z, w: 2.9, d: 2.0, h: ROOF_H, extras: ["chimney"], seed: 3 }, { from: T.leap, to: T.lost });
 P("roof", { id: "roofR", kind: "roofblock", x: RR.x, z: RR.z, w: 2.9, d: 2.0, h: ROOF_H, extras: ["tank", "antenna"], seed: 8 }, { from: T.leap, to: T.lost });
 P("roof", { id: "spot", kind: "lightpool", x: 0, y: 0.01, z: -6, w: 2.2, d: 1.5, on: 0 });
-P("roof", { id: "beam", kind: "lightbeam", x: 0.6, y: 9, z: -6, tip: 0, len: 9.2, w: 1.6, color: "#fff1c2", glow: 0 });
+P("roof", { id: "beam", kind: "lightbeam", x: 0.6, y: 9, z: -6, tip: 0, len: 9.2, w: 1.6, color: "#ffffff", glow: 0 });
 
 // ---- beach: a sandbank in the shallows, the lounger on it
 P("beach", { id: "sand", kind: "sandpit", x: 0, y: -0.13, z: 0.5, w: 3.4, d: 2.4, h: 0.1, color: "#f0dfb0" });
@@ -228,7 +252,7 @@ nar(T.snap1 + 0.2, "hiding", { until: T.police });
 const DUCK = -0.18, HOME = { vik: VIK_A, phx: PHX_H, rea: REA_H };
 const duck = (t, who, down, dur = 0.22) => { A(t, who, "crouch", { to: down ? 1 : 0, dur }); A(t, who, "move", { to: HOME[who], y: down ? DUCK : 0, dur, steps: 0, ease: "out" }); };
 for (const [who, dt] of [["phx", 0.42], ["vik", 0.5], ["rea", 0.58]]) duck(T.snap1 + dt, who, true);
-const BAG_H = front(REA_H, REA_YAW, 0.4, 0, 0.2);
+const BAG_H = front(REA_H, REA_YAW, 0.33, 0, 0.2);
 bag.carry(T.snap1 + 0.58, [BAG_H[0], r3(BAG_H[1] + DUCK), BAG_H[2]], 0.22, "out");
 sfx(T.snap1 + 0.55, "pat", { gain: 0.4, reason: "three bodies dropping behind the crates" });
 see(T.snap1 + 0.8, T.police, ["vik.face", "phx.face", "rea.face"], "hiding: three pairs of eyes over the crate row, police light on the walls");
@@ -238,14 +262,13 @@ see(T.snap1 + 0.8, T.police, ["vik.face", "phx.face", "rea.face"], "hiding: thre
 // camera sits at z -1.8 looking down -z, so the trio in the alley's coordinates is behind the lens.)
 nar(T.police + 0.05, "police", { until: T.fight });
 place(T.police, "sam", [0, -5.95], 0); place(T.police, "god", [-0.9, -6.5], 0); place(T.police, "dra", [0.9, -6.5], 0);
-c.arm(T.police - 0.02, "sam", "R", { o: [0, r3(TORCH.y - 0.15), r3(TORCH.z + 0.1)] }, 0.01); A(T.police - 0.02, "sam", "grip", { side: "R", shape: "fist", dur: 0.01 });
 A(T.police, "sam", "move", { to: [0, -5.5], dur: 0.4, ease: "out" });
 expr(T.police, "sam", "stern", { browY: -0.012 }); look(T.police, "sam", [0, 0], 0);
 for (const who of ["god", "dra"]) { look(T.police, who, [0, 0], 0); A(T.police + 0.1, who, "move", { to: [who === "god" ? -0.9 : 0.9, -6.3], dur: 0.35, ease: "out" }); }
 pr(T.police - 0.02, "car3", { z: -13.5, lights: 1 }, 0.01, "linear"); pr(T.police, "car3", { z: -9.4 }, 0.4, "out");
 pr(T.faces - 0.02, "car3", { z: WALL_Z - 9, lights: 0 }, 0.01, "linear");
 see(T.police, T.faces, ["sam.face", "cap-sam", "car3"], "the police, front on: caps, riot shields, a torch, a patrol car's light bar");
-park(T.faces, "sam"); park(T.faces, "god"); park(T.faces, "dra"); c.arm(T.faces - 0.02, "sam", "R", "rest", 0.01);
+park(T.faces, "sam"); park(T.faces, "god"); park(T.faces, "dra");
 // back in the alley their torch finds the crate row
 pr(T.police, "shadow", { on: 1 }, 0.25);
 pr(T.police + 0.1, "pool", { on: 1 }, 0.2); pr(T.police + 0.1, "pool", { x: r3(AX - 1.7) }, 0.6, "inOut");
@@ -281,7 +304,7 @@ see(T.flight, T.freeze, ["phx.face"], "FLIGHT: Phoenix's legs are already going"
 nar(T.freeze, "freeze", { sub: false });
 c.textPop(T.freeze + 0.25, "rea", "FREEZE", { ...LABEL, color: "#8fd8ff" });
 duck(T.freeze - 0.08, "rea", false, 0.1);
-const BAG_0 = front(REA_H, 0, 0.4, 0, 0.2);   // the bag in front of him once he faces us: where it stays to the tip-over
+const BAG_0 = front(REA_H, 0, 0.36, 0, 0.04);   // low, behind the bin   // the bag in front of him once he faces us: where it stays to the tip-over
 bag.carry(T.freeze - 0.08, BAG_0, 0.12, "out", { rot: 180 });
 A(T.freeze - 0.02, "rea", "turn", { to: 0, dur: 0.1 });
 A(T.freeze, "rea", "expr", { expr: "shocked", set: { open: 0.02, eye: 1.5, curve: -0.02 }, dur: 0.08 });
@@ -314,7 +337,24 @@ see(T.roar, T.charge, ["vik.face"], "Viking roars and charges the lens with a cr
 // ---- the street: his back to us, the shield line facing us; he goes through them like skittles
 place(T.charge, "vik", [0, 4.6], 180); park(T.charge, "phx"); park(T.charge, "rea");
 place(T.charge, "god", GOD_S, 0); place(T.charge, "dra", DRA_S, 0);
-const HIT = r3(T.charge + 0.45);
+// the lead officer between the two shields, his glove out: he opens fire
+place(T.charge, "sam", [-0.1, LINE_Z - 1.4], 0); expr(T.charge - 0.02, "sam", "angry", { browY: -0.012 }, 0.01);
+c.arm(T.charge - 0.02, "sam", "R", { o: [-0.37, 0.3, 0.5] }, 0.01); A(T.charge - 0.02, "sam", "grip", { side: "R", shape: "fist", dur: 0.01 });
+SHOTS.forEach((t, i) => {
+  sfx(t, "gunshot", { gain: 0.75, reason: "the police open fire on the charging Viking" });
+  pr(t, "muzzle", { on: 1 }, 0.02, "linear"); pr(t + 0.05, "muzzle", { on: 0 }, 0.04, "linear");
+  pr(t, `shot${i}`, { rise: 1 }, FLY, "linear");
+  pr(t + FLY - 0.01, "spark", { x: HITS[i][0], z: r3(HITS[i][2] - 0.05) }, 0.01, "linear");
+  pr(t + FLY, "spark", { on: 1 }, 0.03, "linear"); pr(t + FLY + 0.04, "spark", { on: 0 }, 0.05, "linear");
+  sfx(t + FLY, "ting", { gain: 0.5, reason: "a bullet ringing off his crate" });
+  pr(t + FLY, `rico${i}`, { rise: 1 }, 0.12, "linear");
+});
+// ...and the third one comes back at their own car
+sfx(BOOM, "firework", { gain: 0.85, reason: "the patrol car blowing up behind the line" }); sfx(BOOM, "slam", { gain: 0.9, reason: "the blast" });
+pr(T.charge - 0.02, "boom", { on: 1 }, 0.01, "linear");   // (its life is timed from spec.at; `on` is read from the tweens, not the spec)
+pr(BOOM, "carX", { lights: 0 }, 0.05, "linear"); pr(BOOM + 0.1, "fire", { fire: 1 }, 0.3, "out");
+pr(BOOM + 0.55, "boom", { on: 0 }, 0.35, "inOut");   // the fireball only: its cooling smoke reads as pale blocks in this look; the wreck burns on
+look(BOOM + 0.05, "sam", [0.8, 0.1], 0.08);
 sh.carry(T.charge - 0.02, [0, 1.12, 4.6 - 0.43], 0.01, "linear", { rot: 0 });
 A(T.charge, "vik", "move", { to: [0, LINE_Z + 1.4], dur: r3(HIT - T.charge), ease: "linear", stride: 1.8 });
 sh.carry(T.charge, [0, 1.12, LINE_Z + 1.07], r3(HIT - T.charge - 0.1), "linear"); sh.carry(HIT - 0.1, [0, 0.5, LINE_Z + 0.92], 0.1, "in");
@@ -323,23 +363,25 @@ sfx(HIT, "hit-wood", { gain: 0.9, reason: "the crate hitting the shield line" })
 sfx(HIT, "slam", { gain: 0.7, reason: "two riot shields going over" });
 // the impact frames (4 white frames after the 3-frame hit-stop) hold the hit pose: bodies that fly inside them read
 // as one-frame pops (draft 1). Everything launches at GO, the frame the picture comes back.
-const GO = r3(HIT + 4 / 30);
-c.at(HIT, { fx: "impact", dur: r3(4 / 30) });
+const GO = r3(HIT + 2 / 30);
+c.at(HIT, { fx: "impact", dur: r3(2 / 30) });
 c.hitStop(HIT, 3);
 pr(GO, "shield", { smash: 1 }, 0.35, "out");
 A(GO, "vik", "release", { prop: "shield", dur: 0 });
 c.arm(GO + 0.02, "vik", "both", { o: [0.2, 0.55, 0.25] }, 0.2, "out");
 c.drop(GO, "shield");
 for (const [who, sx] of [["god", -1], ["dra", 1]]) {
-  A(GO, who, "move", { to: [sx * 2.6, LINE_Z - 1.2], y: 1.7, dur: 0.26, ease: "out", steps: 0 });
-  A(GO + 0.26, who, "move", { to: [sx * 5.4, LINE_Z - 2.2], y: 0.3, dur: 0.26, ease: "in", steps: 0 });
-  A(GO, who, "pitch", { to: sx * 360, dur: 0.52, ease: "linear" });
+  const zf = sx > 0 ? 0.9 : -1.2;   // Dragon flies off toward the lens side: the burning car is behind him on the right
+  A(GO, who, "move", { to: [sx * 2.6, LINE_Z + zf], y: 1.7, dur: 0.46, ease: "linear", steps: 0 });
+  A(GO + 0.46, who, "move", { to: [sx * 5.4, LINE_Z + zf * 1.6], y: 0.3, dur: 0.26, ease: "in", steps: 0 });
+  A(GO, who, "pitch", { to: sx * 360, dur: 0.74, ease: "linear" });
   expr(GO, who, "dizzy");
-  park(GO + 0.55, who);
+  park(GO + 0.74, who);
 }
 // he skids through, turns to us, fists up: fighting works
 A(GO, "vik", "move", { to: [0, LINE_Z + 1.1], dur: 0.25, ease: "out", steps: 2 });
 expr(T.grin - 0.02, "vik", "cocky", { curve: 0.6, open: 0.35 }, 0.01);
+park(T.grin, "sam"); c.arm(T.grin - 0.02, "sam", "R", "rest", 0.01);
 place(T.grin, "vik", [0, LINE_Z + 1.1], 0); c.arm(T.grin - 0.02, "vik", "both", { o: [0.3, 0.8, 0.12] }, 0.01); c.arm(T.grin + 0.02, "vik", "both", { o: [0.3, 1.02, 0.12] }, 0.2, "settle");
 look(T.grin - 0.02, "vik", [0, 0.05], 0.01);
 c.say(T.grin + 0.05, "vik", "ha!", 0.3, "excited", { sub: "HA!" });
@@ -402,124 +444,120 @@ see(T.roof + 0.5, T.leap, ["phx.face"], "Phoenix sprints at us over the roof, th
 const TOP = ROOF_H + 0.08, L0 = [-1.7, 0.75], L1 = [-1.25, 0.75], R1 = [1.35, 0.75];
 place(T.leap, "phx", L0, 78, TOP);
 pr(T.leap - 0.02, "spot", { on: 0 }, 0.01, "linear");
-pr(T.leap - 0.02, "beam", { x: -0.9, y: 9.6, z: 0.75, glow: 0.9 }, 0.01, "linear");
+pr(T.leap - 0.02, "beam", { x: -0.9, y: 9.6, z: 0.75, glow: 1 }, 0.01, "linear");
 A(T.leap, "phx", "move", { to: L1, y: TOP, dur: 0.15, ease: "linear", stride: 1.9 });
 const JUMP = r3(T.leap + 0.15), APEX = r3(JUMP + 0.6), DOWN = r3(T.lost - 0.2);   // a long hang at the top (the wow), cut on the way down
 sfx(JUMP, "whoosh", { gain: 0.7, reason: "Phoenix leaving the roof's edge" });
-A(JUMP, "phx", "fly", { to: { x: 0.05, y: 2.55, z: 0.75 }, dur: r3(APEX - JUMP), ease: "out" });
+A(JUMP, "phx", "fly", { to: { x: 0.05, y: 1.8, z: 0.75 }, dur: r3(APEX - JUMP), ease: "out" });
+A(APEX, "phx", "fly", { to: { x: 0.6, y: 1.7, z: 0.75 }, dur: r3(DOWN - APEX), ease: "linear" });   // he keeps drifting: no dead hang
 A(JUMP, "phx", "turn", { to: 35, dur: 0.3 });   // opens to us in the air
 expr(JUMP + 0.1, "phx", "delighted", { open: 0.7 });
 c.arm(JUMP, "phx", "both", { o: [0.42, 0.95, 0.05] }, 0.25, "out");
 A(DOWN, "phx", "land", { to: TOP, dur: 0.34 });
 A(DOWN, "phx", "move", { to: R1, y: TOP, dur: 0.34, ease: "linear", steps: 0 });
-pr(T.leap, "beam", { x: 0.05 }, r3(JUMP + 0.3 - T.leap), "inOut"); pr(APEX, "beam", { x: 0.4 }, r3(T.lost - APEX), "inOut");
+pr(T.leap, "beam", { x: 0.05 }, r3(JUMP + 0.3 - T.leap), "inOut"); pr(APEX, "beam", { x: 0.6 }, r3(T.lost - APEX), "linear");
 see(JUMP + 0.2, DOWN, ["phx.face", "phx"], "THE WOW: Phoenix mid-leap between the roofs, wings wide, in the helicopter's beam");
 
-// ---- round the corner: he drops into a quiet street, looks back, and runs at us grinning: "Lost them!"
-place(T.lost, "phx", [0, 1.2], 0, 2.0);
-A(T.lost, "phx", "move", { to: [0, 1.2], y: 0, dur: 0.3, ease: "linear", steps: 0 });
+// ---- "Lost them!": he drops into a street, close on him (Jonny, 10 Nov: "i dont understand why flight got caught":
+// it is the SAME street, and the wide shot shows it: the van, the officers, the burning car, Viking already inside)
+const LAND = [0, 0.4];
+place(T.lost, "phx", LAND, 0, 2.0);
+A(T.lost, "phx", "move", { to: LAND, y: 0, dur: 0.3, ease: "linear", steps: 0 });
 c.arm(T.lost - 0.02, "phx", "both", { o: [0.3, 0.8, 0.05] }, 0.01); c.arm(T.lost + 0.3, "phx", "both", "rest", 0.3, "settle");
-sfx(T.lost + 0.3, "land", { gain: 0.6, reason: "Phoenix dropping into the next street" });
-act.landDust(c, T.lost + 0.3, [0, 1.2]);
+sfx(T.lost + 0.3, "land", { gain: 0.6, reason: "Phoenix dropping into a street" });
+act.landDust(c, T.lost + 0.3, LAND);
 look(T.lost + 0.32, "phx", [-0.6, 0.7], 0.08); look(T.lost + 0.5, "phx", [0, 0.05], 0.08);
 expr(T.lost + 0.45, "phx", "delighted", { curve: 0.75 });
-c.say(T.lost + 0.48, "phx", "lost them!", 0.55, "excited");
-A(T.lost + 1.0, "phx", "move", { to: [0.15, 2.9], dur: r3(T.van - T.lost - 1.0), stride: 1.8 });   // off toward the lens: big, his face still in frame
-see(T.lost + 0.35, T.van - 0.2, ["phx.face"], "the head fake: 'Lost them!', grinning at us");
+c.say(T.lost + 0.48, "phx", "lost them!", 0.55, "excited", { pos: 480 });
+see(T.lost + 0.35, T.van, ["phx.face"], "the head fake: 'Lost them!', grinning at us");
 
-// ---- straight into the open back of the police van. The doors shut
-pr(T.van - 0.02, "van", { lights: 1 }, 0.01, "linear");
-place(T.van, "phx", [0, 3.2], 180); place(T.van, "god", [-1.3, -1.0], 50); place(T.van, "dra", [1.3, -1.0], -50);
-for (const who of ["god", "dra"]) A(T.van - 0.02, who, "pitch", { to: 0, dur: 0.01 });
-const IN = r3(T.van + 0.75), SHUT = r3(IN + 0.45);
-A(T.van, "phx", "move", { to: [0, VAN.z + 0.45], dur: r3(IN - T.van - 0.2), ease: "linear", stride: 1.9 });
-A(IN - 0.2, "phx", "move", { to: [0, VAN.z - 0.75], y: 0.45, dur: 0.2, ease: "linear", steps: 0 });
-A(IN - 0.3, "phx", "wings", { to: 1, dur: 0.12 });   // the brakes, too late
+// ---- the wide shot: he has landed right back where it started
+pr(T.van - 0.02, "van", { lights: 1 }, 0.01, "linear"); pr(T.van - 0.02, "fireY", { fire: 1 }, 0.01, "linear");
+place(T.van, "god", [-1.15, -1.0], 50); place(T.van, "dra", [1.15, -1.0], -50);
+for (const who of ["god", "dra"]) { A(T.van - 0.02, who, "pitch", { to: 0, dur: 0.01 }); expr(T.van - 0.02, who, "stern", null, 0.01); look(T.van, who, [who === "god" ? 0.6 : -0.6, 0], 0); }
+A(T.van - 0.02, "vik", "lean", { to: 0, dur: 0.01 }); place(T.van, "vik", [-0.5, VAN.z - 1.0], 0, 0.45); expr(T.van - 0.02, "vik", "deadpan", null, 0.01);   // netted, in the van already
+sfx(T.van + 0.05, "sirenwail", { dur: 0.5, gain: 0.7, reason: "one whoop of the siren right behind him" });
+nar(T.van + 0.1, "flightOut", { until: T.alone });   // "Flight was fast. In a circle."
+// the grin dies; his eyes slide to the side; he turns round and sees all of it
+expr(T.van + 0.1, "phx", "worried", null, 0.15); look(T.van + 0.12, "phx", [0.85, 0], 0.15);
+const SEEN = r3(T.van + 0.45);
+A(SEEN, "phx", "turn", { to: 180, dur: 0.3 });
+A(SEEN + 0.3, "phx", "wings", { to: 1, dur: 0.1 }); A(SEEN + 0.3, "phx", "hop", { height: 0.12, dur: 0.2 });
+A(SEEN + 0.6, "phx", "wings", { to: 0, dur: 0.3 });
+c.arm(SEEN + 0.3, "god", "L", { o: [0.45, 0.55, 0] }, 0.4, "inOut");   // the officer's glove: in you go
+const WALK = r3(SEEN + 0.65), IN = r3(WALK + 0.8), SHUT = r3(IN + 0.5);
+A(WALK, "phx", "move", { to: [0.45, VAN.z + 0.45], dur: 0.6 });   // he walks in by himself, shoulders down
+A(IN - 0.2, "phx", "move", { to: [0.45, VAN.z - 0.65], y: 0.45, dur: 0.2, ease: "linear", steps: 0 });
 sfx(IN, "hit-metal", { gain: 0.7, reason: "Phoenix's feet on the van's metal floor" });
 A(IN + 0.02, "phx", "turn", { to: 0, dur: 0.3 });
-act.shock(c, IN + 0.2, "phx", { hold: 0.3 });
-A(IN + 0.1, "phx", "wings", { to: 0, dur: 0.25 });
+expr(IN, "phx", "sad", null, 0.2);
+c.arm(IN + 0.05, "god", "L", "rest", 0.45, "inOut");
 pr(SHUT - 0.14, "van", { open: 0 }, 0.14, "in");
 sfx(SHUT, "slam", { gain: 0.95, reason: "the van's doors" }); sfx(SHUT + 0.12, "latch", { gain: 0.7, reason: "the bolt" });
-park(SHUT + 0.01, "phx");
-pr(SHUT, "van", { rock: 3 }, 0.1, "out"); pr(SHUT + 0.1, "van", { rock: -2 }, 0.14); pr(SHUT + 0.24, "van", { rock: 0 }, 0.2, "settle");
-sfx(SHUT + 0.5, "thud-soft", { gain: 0.5, reason: "one thump from inside the van" }); pr(SHUT + 0.5, "van", { rock: 1.5 }, 0.08, "out"); pr(SHUT + 0.58, "van", { rock: 0 }, 0.2, "settle");
-for (const who of ["god", "dra"]) { look(SHUT + 0.45, who, [who === "god" ? 0.8 : -0.8, 0.05], 0.12); A(SHUT + 0.75, who, "expr", { expr: "smug", dur: 0.2 }); }
-nar(T.van + 0.4, "flightOut", { until: T.alone });   // "Flight was fast." over the run, the doors, "In a circle."
-see(IN + 0.3, SHUT - 0.1, ["phx.face"], "inside the van he turns: too late");
-see(SHUT, T.alone, ["van", "god.face", "dra.face"], "the doors shut on him; the two officers share a look");
+park(SHUT + 0.01, "phx"); park(SHUT + 0.01, "vik");
+pr(SHUT, "van", { rock: 3 }, 0.1, "out"); pr(SHUT + 0.1, "van", { rock: -2 }, 0.14); pr(SHUT + 0.24, "van", { rock: 0 }, 0.1, "settle");
+for (const who of ["god", "dra"]) A(SHUT + 0.1, who, "expr", { expr: "smug", dur: 0.2 });
+see(T.van, SEEN + 0.3, ["phx.face", "van"], "the reveal: the van, the officers and the burning car right behind his grin");
+see(IN + 0.3, SHUT - 0.1, ["phx.face", "vik.face"], "side by side in the van: the runner and the fighter");
+see(SHUT, T.alone, ["van", "god.face", "dra.face"], "the doors shut on them");
 
 // ================================================================ 4 FREEZE 19.5-28.7
-// ---- the one who did nothing: Reaper alone behind the crates, exactly as he was. Then he tips over, stiff
+// ---- the one who did nothing: Reaper alone behind the potato bin, exactly as he was. Steps and a torch come closer
 place(T.alone, "rea", REA_H, 0); park(T.alone, "god"); park(T.alone, "dra");
-for (const id of ["washL", "washR", "washG"])
-pr(T.alone - 0.02, "pool", { x: r3(AX - 2.4), on: 0 }, 0.01, "linear"); pr(T.alone - 0.02, "shadow", { on: 0 }, 0.01, "linear");
+pr(T.alone - 0.02, "pool", { x: 1.9, y: 0.2, on: 0 }, 0.01, "linear"); pr(T.alone - 0.02, "shadow", { on: 0 }, 0.01, "linear");
 sfx(T.alone, "sirenwail", { dur: 8.5, gain: 0.4, reason: "sirens, further off now" });
 nar(T.alone + 0.05, "twoDown", { until: r3(T.alone + 0.9) });
 const NOTHING = r3(T.alone + 0.9);
-pr(T.alone + 0.9, "bin", { look: -1 }, 0.2); pr(T.alone + 1.7, "bin", { blink: 1 }, 0.08); pr(T.alone + 1.82, "bin", { blink: 0 }, 0.08);
 nar(NOTHING, "nothing", { until: T.crate });
-const TIP = r3(T.crate - 0.65), LIE = 0.3;   // a potato on its side lies half its width up (the lean pivots at the base)
-A(TIP - 0.5, "rea", "lean", { to: 3, dur: 0.25 }); A(TIP - 0.25, "rea", "lean", { to: -4, dur: 0.25 });
-sfx(TIP - 0.45, "creak", { gain: 0.5, reason: "Reaper starting to tip, like a felled plank" });
-A(TIP, "rea", "lean", { to: -90, dur: 0.5, ease: "in" });
-// the bag tips with him: about his base, in four steps of the same ease
-const LIE_AT = [r3(BIN.x - 0.2), BIN.z + 0.05];   // his head at the bin's right end, by the tag
-for (let i = 1; i <= 4; i++) {
-  const u = i / 4, e = u * u, a = rad(90 * e), bx = REA_H[0] + (LIE_AT[0] - REA_H[0]) * e, bz = REA_H[1] + (LIE_AT[1] - REA_H[1]) * e;
-  bag.carry(r3(TIP + (i - 1) * 0.125), [r3(bx + 0.2 * Math.sin(a)), r3(LIE * e + 0.2 * Math.cos(a)), r3(bz + 0.4)], 0.125, "linear");
-  prop(r3(TIP + (i - 1) * 0.125), "bagR", { tilt: r3(-90 * e) }, 0.125, "linear");
-}
-A(TIP, "rea", "move", { to: LIE_AT, y: LIE, dur: 0.5, ease: "in", steps: 0 });
-sfx(TIP + 0.5, "hit-wood", { gain: 0.8, reason: "Reaper landing in the potato bin" });
-sfx(TIP + 0.52, "crumble", { gain: 0.6, reason: "potatoes shifting under him" });
-c.at(TIP + 0.5, { fx: "poof", pos: [BIN.x, 0.35, BIN.z + 0.3], dur: 0.5, color: "#cbb89a", puffs: 7, sparks: 0, size: 0.4, lift: 0.3 });
-see(T.alone, TIP, ["rea.face", "bagR"], "Reaper alone, the same frozen pose; the potato bin beside him");
+pr(T.alone + 0.9, "bin", { look: -1 }, 0.2); pr(T.alone + 1.7, "bin", { blink: 1 }, 0.08); pr(T.alone + 1.82, "bin", { blink: 0 }, 0.08);
+pr(T.alone + 1.6, "pool", { on: 0.7 }, 0.2); pr(T.alone + 1.6, "pool", { x: 0.9 }, r3(T.crate - T.alone - 1.6), "inOut");
+for (const dt of [1.7, 2.3, 2.9]) sfx(T.alone + dt, "step", { gain: 0.45 + dt * 0.06, reason: "the officer's boots coming down the alley" });
+see(T.alone, T.crate, ["rea.face", "bin"], "Reaper alone behind the bin of potatoes, the same frozen pose, the price tag in front of him");
 
-// ---- in the potatoes: they look at him, blink, one whispers "shh". The torch sweeps the bin and stops on his face
-pr(T.crate + 0.1, "bin", { look: 0 }, 0.15); pr(T.crate + 0.45, "bin", { blink: 1 }, 0.08); pr(T.crate + 0.57, "bin", { blink: 0 }, 0.08);
-pr(T.crate + 0.9, "bin", { blink: 1 }, 0.08); pr(T.crate + 1.02, "bin", { blink: 0 }, 0.08);
-const SHH = r3(T.crate + 1.0);
-pr(SHH, "bin", { shh: 1 }, 0.15); pr(SHH + 0.8, "bin", { shh: 0 }, 0.2);
+// ---- close: a potato behind a bin of potatoes. They look up at him, one whispers "shh". The torch stops on his face
+pr(T.crate - 0.02, "bin", { look: 0 }, 0.01, "linear"); pr(T.crate + 0.15, "bin", { blink: 1 }, 0.08); pr(T.crate + 0.27, "bin", { blink: 0 }, 0.08);
+const SHH = r3(T.crate + 0.3);
+pr(SHH, "bin", { shh: 1 }, 0.12); pr(SHH + 0.7, "bin", { shh: 0 }, 0.2);
 sfx(SHH + 0.05, "hiss", { gain: 0.35, dur: 0.5, reason: "a potato in the bin whispering shh" });
-cap(SHH, r3(SHH + 0.9), "Shh!", 620, false, { size: 62, kinetic: false });
-const SWEEP = r3(SHH + 0.75), FOUND = r3(SWEEP + 0.7);
-pr(SWEEP - 0.02, "pool", { x: r3(BIN.x - 1.3), y: 0.14, z: BIN.z + BIN.d / 2 + 0.06, w: 0.9, d: 0.32 }, 0.01, "linear");
-pr(SWEEP, "pool", { on: 0.6 }, 0.15); pr(SWEEP, "pool", { x: r3(BIN.x + 0.5) }, r3(FOUND - SWEEP), "inOut");
+c.textPop(SHH, "rea", "Shh!", { size: 78, dur: 0.85, angle: 6, dx: 0.9, dy: 0.95, color: "#ffffff" });   // beside the potato that whispers (a centred caption sits on Reaper)
+const SWEEP = r3(T.crate + 0.9), FOUND = r3(T.crate + 1.5);
+pr(SWEEP - 0.02, "pool", { x: 0.7, y: 0.3, z: r3(BIN.z + BIN.d / 2 + 0.05), w: 0.9, d: 0.5 }, 0.01, "linear");
+pr(SWEEP, "pool", { on: 0.45 }, 0.15); pr(SWEEP, "pool", { x: r3(REA_H[0] + 0.05), y: 0.52 }, r3(FOUND - SWEEP), "inOut");   // across the bin, up onto his face
 pr(SWEEP, "bin", { look: 1 }, 0.12); pr(FOUND, "bin", { blink: 1 }, 0.1);
-for (const dt of [0, 0.6]) sfx(SWEEP + 0.1 + dt, "ai/heartbeat", { gain: 0.8, reason: "Reaper's heart, the only thing moving" });
-see(T.crate + 0.1, T.lean, ["rea.face", "bin"], "Reaper in the potatoes, the same pose on its side; the beam stops on his face");
+for (const dt of [0, 0.5]) sfx(SWEEP + 0.1 + dt, "ai/heartbeat", { gain: 0.8, reason: "Reaper's heart, the only thing moving" });
+see(T.crate + 0.1, T.lean, ["rea.face", "bin"], "a potato behind a bin of potatoes; the torch stops on his face");
 
-// ---- snap 2, the fake-out: the officer leans in, reaches for his face... and straightens the price tag
-const SAM0 = [r3(BIN.x + 2.7), 0.5], SAM1 = [r3(BIN.x + 1.2), 0.5], SAM2 = [r3(BIN.x + 1.32), 0.56];
-place(T.lean, "sam", SAM0, -70);
+// ---- snap 2, the fake-out: the officer leans in, his glove comes for Reaper's face... and straightens the price tag
+// He stands at the bin's right end, in profile, and leans far in over it. One hand does it all, the camera-side one:
+// up to Reaper's cheek, a held beat, then a short drop to the tag right under it (the far hand holds the torch).
+const SAM1 = [r3(BIN.x + BIN.w / 2 + 0.57), BIN.z], SAM0 = [r3(SAM1[0] + 1.6), SAM1[1]];
+place(T.lean, "sam", SAM0, -68);   // a little open to the lens, so his face reads
+c.arm(T.lean - 0.02, "sam", "R", { o: [0, 0.35, 0.25] }, 0.01); A(T.lean - 0.02, "sam", "grip", { side: "R", shape: "fist", dur: 0.01 });   // the torch hand
 A(T.lean, "sam", "move", { to: SAM1, dur: 0.5, ease: "out" });
-look(T.lean, "sam", [-0.3, -0.5], 0);
-A(T.lean + 0.5, "sam", "lean", { to: 12, dur: 0.3 });   // + leans to screen left: over the bin's end, over Reaper's face
+look(T.lean, "sam", [-0.3, -0.1], 0);
+A(T.lean + 0.45, "sam", "lean", { to: 28, dur: 0.35 });   // + leans to screen left: over the bin, toward Reaper
 expr(T.lean + 0.55, "sam", "stern", { browY: -0.01 });
-// his glove comes out and hovers right over Reaper's eye (as the lens sees it)...
-c.arm(T.lean + 0.4, "sam", "R", { o: [0, 0.62, 0.3] }, 0.26, "out");   // up first, so the glove comes in over the hood, not through it
-c.arm(T.lean + 0.68, "sam", "R", { o: [-0.12, 0.56, 0.52] }, 0.27, "inOut");   // just over his eye, clear of the hood
-pr(T.lean + 0.7, "bin", { look: 1 }, 0.12);   // the potatoes watch the glove
+c.arm(T.lean + 0.4, "sam", "L", { o: [0, 0.6, 0.3] }, 0.26, "out");
+c.arm(T.lean + 0.68, "sam", "L", { o: [-0.3, 0.45, 0.55] }, 0.27, "inOut");
+pr(T.lean + 0.7, "bin", { blink: 0, look: 1 }, 0.12);   // the potatoes watch the glove
 for (const dt of [0.75, 1.1]) sfx(T.lean + dt, "ai/heartbeat", { gain: 0.9, reason: "Reaper's heart as the glove comes for his face" });
-// ...then drops right and down to the crooked tag, and straightens it
+// ...then drops to the crooked tag in front of him, and straightens it
 const FIX = r3(T.lean + 1.4);
-c.arm(FIX - 0.2, "sam", "R", { o: [-0.07, 0.3, 0.3] }, 0.18, "inOut");   // in front of the tag (the hood tip is right behind it)
-A(FIX - 0.15, "sam", "grip", { side: "R", shape: "pinch", dur: 0.1 });
+c.arm(FIX - 0.2, "sam", "L", { o: [-0.15, 0.27, 0.52] }, 0.18, "inOut");
+A(FIX - 0.15, "sam", "grip", { side: "L", shape: "pinch", dur: 0.1 });
 pr(FIX, "bin", { crook: 0 }, 0.14, "back");
 sfx(FIX + 0.04, "tink", { gain: 0.5, reason: "the price tag straightened" });
 A(FIX + 0.15, "sam", "expr", { expr: "smug", dur: 0.2 });
-c.arm(FIX + 0.25, "sam", "R", "rest", 0.35, "settle"); A(FIX + 0.25, "sam", "move", { to: SAM2, dur: 0.35, ease: "out", steps: 2 });
-A(FIX + 0.25, "sam", "lean", { to: 0, dur: 0.3 });
-see(T.lean + 0.5, T.radio, ["sam.face", "rea.face"], "the fake-out: the officer's hand goes past Reaper's face to the price tag");
-// ---- "Two in custody. We're done here." The lights leave
+c.arm(FIX + 0.25, "sam", "L", "rest", 0.35, "settle"); A(FIX + 0.25, "sam", "lean", { to: 0, dur: 0.3 });
+see(T.lean + 0.5, T.radio, ["sam.face", "rea.face"], "the fake-out: the officer's glove goes past Reaper's face to the price tag");
+// ---- "Nothing here. Just potatoes." He walks on; the lights leave
 sfx(T.radio, "radio", { gain: 0.6, reason: "the officer's radio keying" });
-A(T.radio, "sam", "turn", { to: -25, dur: 0.3 });
-c.say(T.radio + 0.2, "sam", "two in custody. we're done here.", 1.3, "calm", { sub: "Two in custody. We're done here." });
-A(T.radio + 1.0, "sam", "move", { to: [r3(BIN.x + 3.4), 0.5], dur: 0.7, ease: "in" });
+A(T.radio, "sam", "turn", { to: -35, dur: 0.3 });
+c.say(T.radio + 0.1, "sam", "nothing here. just potatoes.", 1.1, "calm", { sub: "Nothing here. Just potatoes." });   // its caption must be gone before the beach
+A(T.radio + 1.1, "sam", "turn", { to: 90, dur: 0.25 }); A(T.radio + 1.2, "sam", "move", { to: SAM0, dur: 0.55, ease: "in" });
 pr(T.radio + 0.3, "pool", { on: 0 }, 0.3);
 for (const id of ["washL", "washR", "washG"]) pr(T.radio + 0.9, id, { on: 0 }, 0.7, "inOut");
-pr(T.radio + 1.2, "bin", { blink: 0 }, 0.1); pr(T.radio + 1.25, "bin", { look: 1 }, 0.2);
+pr(T.radio + 1.25, "bin", { look: 0 }, 0.2);
 
 // ================================================================ 5 THE PAYOFF 28.7-32.2: a sunny beach, the same pose
 place(T.beach, "rea", [0, 0.5], 0); park(T.beach, "sam");
@@ -544,21 +582,23 @@ act.blinksAt(c, "god", [r3(T.van + 1.5)]); act.blinksAt(c, "dra", [r3(T.van + 1.
 A(1.1, "rea", "blink", { dur: 0.22 }); A(3.4, "rea", "blink", { dur: 0.22 });
 
 // ---------------------------------------------------------------- shots
-const HOOK = shot("alley", [AX, 0.95, 5.3], { tilt: -8, fov: 46 });
+const HOOK = shot("alley", [r3(AX + 0.06), 0.95, 5.3], { tilt: -8, fov: 46 });
 const COPS = shot("street", [0, 1.1, -1.8], { tilt: -6, fov: 42 });
+const LOST_CU = shot("street", [0, 0.95, 4.2], { tilt: -4.5, fov: 36 });
 const TRIO_CU = shot("alley", [AX, 0.6, 3.0], { tilt: -8, fov: 46 });
 const QUEST = shot("alley", [AX, 0.9, 4.3], { tilt: -8, fov: 46 });
 const ONE = ([x, z]) => shot("alley", [x, 0.8, z + 3.0], { tilt: -8, fov: 34 });
 const STREET_W = shot("street", [0, 1.25, 7.0], { tilt: -6, fov: 46 });
+const CHARGE_W = shot("street", [0.7, 1.25, 7.0], { tilt: -6, fov: 46 });   // off his axis: the shooter in the gap and the car on the right stay in view past Viking's back
 const STREET_M = shot("street", [0, 1.15, 4.4], { tilt: -6, fov: 42 });
 const ROOF_RUN = shot("roof", [0, 1.0, 5.0], { tilt: -8, fov: 46 });
-const ROOF_LEAP = shot("roof", [0, 0.8, 5.0], { tilt: 5, fov: 44 });
+const ROOF_LEAP = shot("roof", [0, 1.1, 5.0], { tilt: 6, fov: 44 });
 const CORNER = shot("corner", [0, 0.95, 5.2], { tilt: -5, fov: 40 });
 const VAN_W = shot("street", [0, 1.25, 7.0], { tilt: -6, fov: 46 });
-const ALONE = shot("alley", [0.31, 0.9, 5.2], { tilt: -8, fov: 46 });
-const ALONE_IN = shot("alley", [0.31, 0.9, 4.7], { tilt: -8, fov: 46 });
-const CRATE = shot("alley", [r3(BIN.x + 0.1), 0.85, 3.9], { tilt: -8, fov: 40 });
-const LEAN = shot("alley", [1.4, 0.75, 3.7], { tilt: -9, fov: 46 });
+const ALONE = shot("alley", [-0.2, 0.9, 4.9], { tilt: -8, fov: 46 });
+const ALONE_IN = shot("alley", [-0.2, 0.85, 4.0], { tilt: -8, fov: 46 });
+const CRATE = shot("alley", [-0.05, 0.95, 2.8], { tilt: -18, fov: 36 });   // looking down into the bin: the potatoes' faces under his
+const LEAN = shot("alley", [0.25, 0.8, 4.6], { tilt: -9, fov: 46 });
 const BEACH = shot("beach", [0, 1.75, 5.2], { tilt: 0, fov: 42 });   // Reaper low in frame: four lines of text fit over him
 const beats = c.beats([
   ["1 you just robbed a bank", T.hook, HOOK, "hook"],
@@ -569,12 +609,12 @@ const beats = c.beats([
   ["4 freeze", T.freeze, ONE(REA_H)],
   ["5 only one gets away", T.question, QUEST],
   ["6 the roar", T.roar, QUEST],
-  ["6 the charge", T.charge, STREET_W],
+  ["6 the charge", T.charge, CHARGE_W],
   ["6 fighting works", T.grin, STREET_M],
   ["7 phoenix bolts", T.bolt, QUEST],
   ["7 the rooftops", T.roof, ROOF_RUN],
   ["7 the leap", T.leap, ROOF_LEAP, "escalation"],
-  ["7 lost them", T.lost, CORNER],
+  ["7 lost them", T.lost, LOST_CU],
   ["7 the van", T.van, VAN_W],
   ["8 the one who did nothing", T.alone, { ...ALONE, to: ALONE_IN, dur: r3(T.crate - T.alone), ease: "linear" }],
   ["8 in the potatoes", T.crate, CRATE],
@@ -602,14 +642,14 @@ write(import.meta.url, {
   allowClip: [
     { who: "vik", with: "phx", from: 0, to: 0.3, reason: "the high-five: their two gloves meet" },
     { who: "rea", with: "bagR", from: 0, to: V(END), reason: "Reaper hugs his money bag against his belly from frame 0 to the beach (the frozen pose)" },
-    { who: "rea", with: "bin", from: V(TIP), to: V(T.beach), reason: "Reaper lies in the potato bin (the beat: a potato hiding in a bin of potatoes)" },
     { who: "rea", with: "lounger", from: V(T.beach), to: V(END), reason: "Reaper sits on the lounger" },
     { who: "phx", with: "van", from: V(T.van + 0.4), to: V(T.alone), reason: "Phoenix runs into the open back of the van" },
-    { who: "sam", with: "bin", from: V(FIX - 0.2), to: V(FIX + 0.35), reason: "the officer's glove on the bin's price tag as he straightens it" },
+    { who: "sam", with: "bin", from: V(FIX - 0.25), to: V(FIX + 0.4), reason: "the officer's glove on the bin's price tag as he straightens it" },
+    { who: "sam", with: "torch2", from: V(T.lean - 0.05), to: V(T.beach), reason: "the torch is in his fist (worn at the glove)" },
+    { who: "vik", with: "van", from: V(T.van), to: V(T.alone), reason: "Viking, netted, sits in the back of the van" },
     { who: "god", with: "cap-god", from: 0, to: V(END), reason: "the officer's cap sits in his hair (worn)" },
     { who: "dra", with: "cap-dra", from: 0, to: V(END), reason: "the officer's cap (worn)" },
     { who: "sam", with: "cap-sam", from: 0, to: V(END), reason: "the officer's cap (worn)" },
-    { who: "sam", with: "torch", from: V(T.police - 0.05), to: V(T.faces), reason: "the torch is in his fist (worn at the glove)" },
   ],
   notes: "Generated by storyboards/series/fight-flight-freeze/01-bank-robbery/make-bank-robbery.mjs. Title added in TikTok's text tool.",
 });
