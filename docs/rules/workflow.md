@@ -152,6 +152,17 @@ one frame (the hand-cause tool in the open PR #128, `handcause.mjs`, names the c
 - Every hand-pop on a subject's hand on screen is fixed before the full render, even under the 90° flip gate.
   "Fine if hidden" means hidden: off frame, behind a body, or smeared by a fast move, as the check says.
 
+Three rig facts that cost Share or Steal EP01 about 20 check rounds (10 Nov), each found by trial:
+- A free arm pose `{ o: [out, up, fwd] }` counts `out` from that side's flank, mirrored per side: 0 is at the body's
+  side, a negative value crosses the body (the hand lands on the face), a large one hides behind a costume's
+  shoulders. `up` is a fraction of the body's height, `fwd` is metres in front. `{ x: [x, up, fwd] }` is the signed
+  body position (`handTarget` in `engine/page/potato.js`). Check a new pose with one draft still before a layout.
+- A hand lying flat on a table or a card needs `palm: [x, y - 0.4, z]`, a point below the grip. `palm: true` faces
+  the prop's own axis at the grip's height, which is sideways for anything flat, and the palm flips on the way.
+- `animeTiming` draws on 2s on one frame grid for the whole clip (`drawingNo` in `engine/page/drawn.js`). Moving a
+  beat by an odd number of frames changes which frames are drawn after it, and a passage that was clean can pick up
+  slides. Retime in steps of 2 frames (0.067 s), and hide a sit or a step-out behind a cut instead of tuning it.
+
 `qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
 than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
 with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
