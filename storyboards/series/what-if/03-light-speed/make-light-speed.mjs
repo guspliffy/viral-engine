@@ -386,7 +386,7 @@ c.prop(r3(FREEZE + 0.02), "sp3", { sparks: 0 }, 0.4, "inOut");   // the sparks c
 power(GO3, "st3", { big: 1.45, fade: r3(FREEZE + 0.02), air: null });   // the boom and the wind swell are its air   // still blazing through the slow motion
 hide(r3(GO3 + 0.03), "sam"); A(r3(GO3 + 0.04), "sam", "move", { to: [0.15, 40], dur: 0.01, steps: 0 });
 sfx(r3(GO3 + 0.03), "impact", { gain: 1.6, loud: true, reason: "the biggest crack: a deep boom under it (the 10x)" });
-sfx(r3(GO3 + 0.05), "windswell", { gain: 0.8, dur: 1.3, reason: "the blast of air down the road behind him" });
+sfx(r3(GO3 + 0.05), "windswell", { gain: 0.6, dur: 1.3, reason: "the blast of air down the road behind him" });
 sfx(r3(GO3 + 0.1), "leafrustle", { gain: 0.5, reason: "the wheat and leaves thrashing" });
 c.prop(r3(GO3 + 0.03), "finish", { snap: 0 }, 0, "linear");   // (mended after demo 1; it snaps again)
 c.prop(r3(GO3 + 0.12), "finish", { snap: 1 }, 0.3, "out");
@@ -558,10 +558,10 @@ const NARR = !VO ? [] : [
   // momentary in the final mix, about 1.5 dB over the action's loud moments (p90) between the lines, whose peaks still
   // hit 4-5 dB harder (Jonny 9 Nov 14:25: "the speaker is too quiet compared to the rest of the video"; at 2.4/1.2/0.9
   // the late lines sat -20 to -25 against the action's -7 to -11; at 6-8 the action fell 10-20 dB under the voice).
-  // The ambience is 0.5 -> 0.3 with the voiceover (the streak's wind gusts sat under the first lines on a phone).
+  // The ambience is 0.5 -> 0.06 with the voiceover (Jonny 9 Nov: "the wind is too loud": at 0.3 the wind bed was the loudest stem, and until the sound-clock fix its gusts played 2.6 s before their picture).
   [0, TITLE, TITLE_TAKE, TITLE_LEN, false, NG],   // the spoken title (Jonny 14:25) over the slow-motion stare-down; subtitled in four short parts below
   [1.50, "He never loses.", 4, 1.15, false, NG],                     // Viking going red, after the landing; ends before "AGAIN!" (2.7). No subtitle: his close fills y 160-1500 (camfit: no free spot in the band)
-  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), 1.5 * NG],          // the roadster slides in after him; on over the glare cut; lifted 1.5x over the engine and the screech (+1.3 dB on a phone at NG)
+  [6.05, "Not even close.", 1, 1.33, r3(WORLD - 0.03), NG],                // the roadster slides in after him; on over the glare cut (it was lifted 1.5x while the blast's gust played early under it)
   [SLOW.at, "Sounds perfect, right?", 3, 1.56, false, NG],           // over the slow motion (video 12.0-13.6; EP01's line and read), in the 10x blast's wind. No subtitle, as on EP01's title card
   [r3(REVEAL + 0.02), "Sixty years later.", 4, 1.23, r3(V(14.9) - 0.03), NG],   // the reveal, before old Viking's "...you won."
   [r3(QUESTION + 0.02), "Would you still want to win?", 3, 1.63, false, NG],    // the closing question (its caption is on screen)
@@ -631,7 +631,7 @@ write(import.meta.url, {
   music: { style: "surf", lowCut: 150, gain: 0.28, parts: [
     { at: 0, part: "main" }, { at: r3(GO3 - 0.4), part: "build" }, { at: GO3, part: "drop" }, { at: SKID, part: "drop" },
     { at: r3(OPEN - 0.2), part: "stop" }, { at: REVEAL, part: "hush" }, { at: STARE, part: "musicbox" }] },
-  sound: { sfx: 0.65, ambience: VO ? 0.3 : 0.5, surface: "grass",   // the soft outdoor step for a dirt road ("road" is no library surface and fell back to the indoor step)
+  sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.1, surface: "grass",   // the soft outdoor step for a dirt road ("road" is no library surface and fell back to the indoor step)
   room: "open", guard: true,
     engine: { keys: [[0, 0, 0, 0], [r3(CAR - 0.05), 0, 0, 0], [CAR, 900, 0.25, 1], [r3(CAR + 0.15), 4200, 0.7, 1], [r3(CAR + 0.3), 2600, 0.4, 1], [r3(LAUNCH - 0.05), 3800, 0.6, 1],
       [r3(LAUNCH + 0.1), 5600, 1, 1], [r3(SPIN0 - 0.05), 6200, 0.9, 1], [r3(SPIN0 + 0.1), 3200, 0.2, 1], [r3(SPIN0 + SPIN_LEN), 1000, 0.15, 1], [r3(WORLD - 0.1), 900, 0.15, 1], [WORLD, 0, 0, 0], [END, 0, 0, 0]], gain: 0.17, cyl: 4 } },

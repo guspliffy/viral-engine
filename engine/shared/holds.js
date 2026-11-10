@@ -123,5 +123,19 @@ export function soundClock(sb) {
   };
   const out = { ...sb, holds: undefined, heldFrom: holds };
   for (const k of ["actions", "fx", "sfx", "captions", "shots", "beatSpans"]) if (Array.isArray(sb[k])) out[k] = sb[k].map(span);
+  // times outside those lists: the car engine's keys and the music's own parts, start, stop and payoff. They stayed on
+  // the story clock until 10 Nov 2026, so past a freeze or a slow-motion stretch the engine and the music's stop came
+  // early by the time the holds had added (What if 03: 2.6 s after the spoken title's slow motion). The wind's gusts
+  // (set "life") had the same fault: engine/audio.mjs moves them with `heldFrom`.
+  if (Array.isArray(sb.sound?.engine?.keys)) out.sound = { ...sb.sound, engine: { ...sb.sound.engine, keys: sb.sound.engine.keys.map((k) => [R(k[0]), ...k.slice(1)]) } };
+  // a locked block (engine/music.mjs lockMusic) was made on this clock already; "clock" marks one mapped here
+  const M = sb.music;
+  if (M && typeof M === "object" && M.clock !== "video" && !(M.lock && typeof M.lock === "object")) {
+    const m = { ...M, clock: "video" };
+    if (Array.isArray(M.parts)) m.parts = M.parts.map((p) => ({ ...p, at: R(p.at) }));
+    for (const k of ["from", "until", "payoff"]) if (typeof M[k] === "number") m[k] = R(M[k]);
+    if (typeof M.then?.from === "number") m.then = { ...M.then, from: R(M.then.from) };
+    out.music = m;
+  }
   return out;
 }
