@@ -47,17 +47,7 @@
    "motion": false,
    "dust": 6
   },
-  "plates": [
-   {
-    "src": "assets/environments/bryant-park-winter-village/paint.png",
-    "z": -4.5,
-    "center": [
-     40.2,
-     2.6
-    ],
-    "height": 9.5
-   }
-  ],
+  "plates": [],
   "lighting": 2,
   "hatch": {
    "boil": 0.25
@@ -87,7 +77,33 @@
   "style": "bounce",
   "key": 10,
   "lowCut": 150,
-  "gain": 0.28
+  "gain": 0.28,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 7.5,
+    "part": "build"
+   },
+   {
+    "at": 10.15,
+    "part": "drop"
+   },
+   {
+    "at": 12.35,
+    "part": "stop"
+   },
+   {
+    "at": 14,
+    "part": "hush"
+   },
+   {
+    "at": 15.1,
+    "part": "musicbox"
+   }
+  ]
  },
  "sound": {
   "sfx": 0.65,
@@ -465,19 +481,25 @@
   },
   {
    "id": "barrel",
+   "kind": "oilbarrel",
    "x": 39.15,
    "y": 0,
    "z": 0.5,
-   "kind": "crate",
-   "size": 0.62
+   "scale": 0.75,
+   "fire": 1,
+   "feed": 0,
+   "glow": 1,
+   "clock": 0
   },
   {
    "id": "front",
-   "x": 40.3,
+   "kind": "dinerfront",
+   "x": 39.65,
    "y": 0,
    "z": -1.9,
-   "kind": "crate",
-   "size": 0.01
+   "w": 9,
+   "d": 9,
+   "flicker": 0
   },
   {
    "id": "bundle",
@@ -787,6 +809,27 @@
      "id": "dsign",
      "set": {
       "flip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "fire": 1,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -5164,6 +5207,53 @@
      "dur": 0.35,
      "ease": "inOut",
      "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "sfx": "lampbuzz",
+     "gain": 0.14,
+     "dur": 0.4,
+     "reason": "the dead diner sign buzzes once and gives up",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0.15
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0.8
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.74
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.86
     },
     {
      "who": "gsl",

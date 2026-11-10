@@ -38,7 +38,7 @@ const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { ha
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, cap, see } = c;
 const VO = !process.argv.includes("--no-vo");
 // the builders' props: until a file is in, its kinds are stood in for by boxes at the real sizes (the staging proof)
-const READY = new Set((process.env.READY ?? "money,flood,twist").split(",").filter(Boolean));   // the prop packs that exist; a missing pack gets stand-ins
+const READY = new Set((process.env.READY ?? "money,flood,twist,night").split(",").filter(Boolean));   // the prop packs that exist; a missing pack gets stand-ins
 const ph = (pack, final, stand) => (READY.has(pack) ? final : { id: final.id, x: final.x, y: final.y, z: final.z, ...(final.rot != null && { rot: final.rot }), ...(final.wear && { wear: final.wear }), ...stand });
 
 // ---------------------------------------------------------------- the clocks
@@ -152,7 +152,7 @@ const props = [
   { id: "shake1", kind: "milkshake", x: SAM_T[0], y: -2, z: SAM_T[1], rot: 0, scale: SHK },
   // the night ending
   ph("night", { id: "barrel", kind: "oilbarrel", x: BARREL[0], y: 0, z: BARREL[1], scale: BARK, fire: 1, feed: 0, glow: 1, clock: 0 }, { kind: "crate", size: 0.62 }),
-  ph("night", { id: "front", kind: "dinerfront", x: NX + 0.3, y: 0, z: -1.9, w: 9, d: 9, flicker: 0 }, { kind: "crate", size: 0.01 }),
+  ph("night", { id: "front", kind: "dinerfront", x: r3(BARREL[0] + 0.5), y: 0, z: r3(BARREL[1] - 2.4), w: 9, d: 9, flicker: 0 }, { kind: "crate", size: 0.01 }),
   BRICK("bundle", [GSL_N[0], -2, GSL_N[1]], { scale: BUK }),
   ph("flood", { id: "snow", kind: "noterain", x: NX + 0.3, y: 0, z: 1.5, look: "snow", n: 400, r: 5, top: 5, clock: 0, amount: 1 }, { kind: "crate", size: 0.01, y: -3 }),
   { id: "cup", kind: "papercup", x: REA_N0[0], y: -2, z: REA_N0[1], scale: 1.5 },
@@ -161,6 +161,7 @@ const P = (t, id, set, dur = 0, ease = "linear") => c.prop(r3(t), id, set, dur, 
 // params the engine has no default for jump on their first tween: seed them at 0 (props-money.js, props-flood.js headers)
 const SEEDS = { money: { coin1: { shine: 0, flat: 0 }, coin2: { shine: 0, flat: 0 }, heap: { n: 0 }, throne: { build: 0 }, pile: { grow: 0 } },
   twist: { board: { stage: 0, blow: 0 }, barrow: { dump: 0 }, dsign: { flip: 0 } },
+  night: { barrel: { fire: 1, clock: 0 }, front: { flicker: 0 } },
   flood: { ious: { amount: 0, clock: 0 }, wave: { front: 0, clock: 0 }, spill: { grow: 0, clock: 0 }, snow: { amount: 1, clock: 0 } } };
 
 // the power, the same every time: "COPY!" (a text pop, his shout), the ka-ching, a gold shimmer on the thing
@@ -432,6 +433,9 @@ A(NIGHT + 0.9, "gsl", "grip", { side: "R", shape: "open", dur: 0.15 }); c.arm(NI
 for (const t of [1.5, 1.72, 2.6, 2.82]) A(r3(NIGHT + t), "gsl", "squash", { amount: 0.018, dur: 0.1 });   // a shiver
 cap(NIGHT, r3(QUESTION - 0.03), "The catch: in November 1923, one loaf of bread in Germany cost 200 billion marks.", 470, false, { kinetic: false });
 P(NIGHT, "barrel", { clock: 0 }); P(NIGHT, "barrel", { clock: r3(END - NIGHT) }, r3(END - NIGHT));
+// the dead sign (his hat) buzzes once and gives up
+for (const [t, v, d] of [[0.5, 1, 0.05], [0.62, 0.15, 0.05], [0.74, 0.8, 0.04], [0.86, 0, 0.25]]) P(NIGHT + t, "front", { flicker: v }, d);
+sfx(r3(NIGHT + 0.5), "lampbuzz", { gain: 0.14, dur: 0.4, reason: "the dead diner sign buzzes once and gives up" });
 P(NIGHT, "snow", { clock: 0 }); P(NIGHT, "snow", { clock: r3(END - NIGHT) }, r3(END - NIGHT));
 sfx(NIGHT, "ridewind", { gain: 0.06, dur: r3(END - NIGHT), reason: "a low cold wind outside the dark diner (far under the mix)" });
 for (const t of [0.3, 1.6, 2.5, 3.6, 4.7]) sfx(r3(NIGHT + t), "crinkle", { gain: 0.16, reason: "the barrel fire crackles" });
@@ -545,11 +549,12 @@ write(import.meta.url, {
     plate: { src: "assets/plates/diner-kitchen.png", z: -2.7, center: [0.35, 2.1], height: 8.2, depth: false, motion: false, dust: 6 },
     plates: [
       ...(READY.has("flood") ? [] : [{ src: "assets/plates/diner-sunny.png", z: 0.2, center: [WALL_X, 1.61], height: 8, turn: 90 }]),
-      { src: "assets/environments/bryant-park-winter-village/paint.png", z: -4.5, center: [NX + 0.2, 2.6], height: 9.5 },
+      ...(READY.has("night") ? [] : [{ src: "assets/environments/bryant-park-winter-village/paint.png", z: -4.5, center: [NX + 0.2, 2.6], height: 9.5 }]),
     ],
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true, nightSet: "#7c7fa8" },
   sky: [[0, 0], [r3(NIGHT - 0.03), 0], [r3(NIGHT - 0.02), 1]],
-  music: { style: "bounce", key: 10, lowCut: 150, gain: 0.28 },
+  music: { style: "bounce", key: 10, lowCut: 150, gain: 0.28, parts: [
+    { at: 0, part: "main" }, { at: DEMO3, part: "build" }, { at: SLAP, part: "drop" }, { at: r3(TWIST - 0.05), part: "stop" }, { at: BARROW, part: "hush" }, { at: NIGHT, part: "musicbox" }] },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "wood", room: "room", guard: true },
   hook: { show: ["gsl", "sam", "rea", "wallet", "coin1"], hint: 0, what: "Gunslinger shows his empty wallet and his one coin, the moth flying out; the counter man's palm is out; Reaper reaches for his own wallet. The narrator: 'Your broke friend can copy money. There's a catch.'" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
