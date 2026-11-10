@@ -280,19 +280,35 @@ export function braid(ch, s, mat) {
 }
 // the big beard: from the cheeks under the nose down over the chest to a soft point, with a moustache across the top
 // and an opening for the mouth. Wavy strands run down it.
-export function beardGeometry(ch) {
+// B (optional, the generic costume.beard below): len (how far down the body it runs, 0.72 = the Norse god's, to the
+// belly), wide (its width, 1), deep (how far it stands off the face, 1)
+export function beardGeometry(ch, B = {}) {
   const g = new THREE.SphereGeometry(1, 64, 48), p = g.attributes.position, v = new THREE.Vector3();
+  const L = B.len ?? 0.72, WK = B.wide ?? 1, DK = B.deep ?? 1;
   for (let i = 0; i < p.count; i++) {
     v.fromBufferAttribute(p, i);
     const k = (1 - v.y) / 2;                                    // 0 top .. 1 bottom
-    const w = 0.28 * (1 - 0.8 * k ** 1.6) + 0.015, d = 0.15 * (1 - 0.45 * k) + 0.02;
+    const w = (0.28 * (1 - 0.8 * k ** 1.6) + 0.015) * WK, d = (0.15 * (1 - 0.45 * k) + 0.02) * DK;
     const strands = 0.012 * Math.sin(Math.atan2(v.x, v.z) * 18 + k * 4);
-    const th = (v.x * w) / ch.rx * 1.3, ph = -0.26 + 0.2 * v.x * v.x * (1 - k) - k * 0.72;   // rises up the cheeks, clear of the mouth
+    const th = (v.x * w) / ch.rx * 1.3, ph = -0.26 + 0.2 * v.x * v.x * (1 - k) - k * L;   // rises up the cheeks, clear of the mouth
     const s = ch.surf(th, ph), base = s.pos.clone(), lift = Math.max(0, v.z) * (d + strands) + 0.012;
     p.setXYZ(i, base.x + s.normal.x * lift, base.y + s.normal.y * lift + 0.02, base.z + s.normal.z * lift);
   }
   g.computeVertexNormals();
   return g;
+}
+
+// costume.beard (what if 03 light-speed race, 9 Nov 2026: the friends sixty years later): an old man's beard and
+// moustache on any potato, the Norse god's construction. { color: "#efece6", len: 0.72, wide: 1, deep: 1,
+// moustache: true }. Opt-in: a costume without it draws exactly as before.
+export function addBeard(ch, B) {
+  const m = std(B.color || "#efece6", { roughness: 0.95 }), parts = ch.potatoParts;
+  const beard = new THREE.Mesh(beardGeometry(ch, B), m); beard.castShadow = true; parts.add(beard);
+  if (B.moustache !== false) for (const s of [-1, 1]) {   // from under the nose out and down past the mouth corners into the beard
+    const pts = [[0.0, -0.095], [0.17, -0.095], [0.3, -0.15], [0.36, -0.26]].map(([u, v]) => { const q = ch.surf(s * u, v); return q.pos.addScaledVector(q.normal, 0.03); });
+    const mu = new THREE.Mesh(taperedTube(new THREE.CatmullRomCurve3(pts), 0, 0, 20, 10, (t) => 0.034 * Math.sin(Math.PI * (0.25 + 0.7 * t)) + 0.008), m); mu.castShadow = true; parts.add(mu);
+  }
+  return beard;
 }
 
 export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid"];
