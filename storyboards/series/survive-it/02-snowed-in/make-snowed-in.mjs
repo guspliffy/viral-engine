@@ -89,7 +89,7 @@ const CAM = {
   CU: { pos: [1.65, 1.04, 2.57], look: [0.71, 0.76, 0.65], fov: 46 },     // P02: Viking's face, the snowed window behind him
   A3: { pos: [0.5, 2.5, 3.4], look: [0.3, 0.5, -0.49], fov: 64 },         // P03: high: the front pair low and big, the back pair over their heads
   B4: { pos: [0.1, 2.4, 2.2], look: [-1.9, 0.35, -1.3], fov: 64 },            // P04: from the right, the door at frame left
-  A5: { pos: [0.0, 1.7, 3.4], look: [0.0, 0.8, -0.3], fov: 72 },          // P05: the god front, the chimney top right (the spring huddle's framing, 90 days earlier)
+  A5: { pos: [-0.14, 1.7, 3.4], look: [-0.14, 0.8, -0.3], fov: 76 },          // P05: the god front, the chimney top right (the spring huddle's framing, 90 days earlier)
   RIDE: { pos: add3(rideAt(RIDE_U[0]), RIDE_OFF), look: add3(rideAt(RIDE_U[0]), RIDE_LOOK), fov: 42 },   // P06: the ride
   STOP: { pos: [-14, 6, 16], look: [10, 2, 0], fov: 50 },                // the cottage ploughs into the valley and stops
   HEAP: { pos: [-0.95, 2.5, 3.1], look: [-0.95, 0.6, -0.8], fov: 64 },    // the heap, from above
@@ -575,6 +575,9 @@ c.prop(18.85, "cap", { run: 0.95 }, 0.75, "in"); c.prop(19.6, "cap", { run: 1 },
 c.prop(19.45, "mound", { rise: 1 }, 0.35, "out"); show(19.6, "patch", false);
 sfx(18.85, "ridewind", { gain: 1.0, dur: 1.0, reason: "the cap's avalanche roars down (snowslide)" }); sfx(18.9, "rumble", { gain: 1.0, reason: "the avalanche" });
 sfx(19.6, "impact", { gain: 0.9, reason: "the wave hits the cottage" }); c.at(19.6, { fx: "shake", dur: 0.3, amp: 0.03 });
+// the wave takes the lens: snow-white for 0.17 s, then the chimney shot fades in out of it (the draft and the first full
+// render failed the pops check here: boulders three times life size crossing the camera one frame each)
+c.at(19.58, { fx: "flash", dur: 0.4, peak: 1.5, color: "#f7faff", sound: false });
 sfx(T.mound, "thud-soft", { gain: 0.9, reason: "the mound settles" });
 // the dive back in (the god nearest the door first, then the Samurai, Reaper, Viking; each gone through the door)
 // one at a time: each is through the door before the next gets there; once inside they wait out of every shot
