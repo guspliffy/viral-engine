@@ -112,6 +112,9 @@ const NAMED = {
   // surf rock with a fairground organ (Never Looks Up 07, the roller coaster): driving straight eighths, snare on 2 and
   // 4, a galloping kick, the bass in octaves on every eighth, organ chords on the off-beats like a fairground band organ
   surf: { bpm: [156, 164], kick: [0, 6, 8, 14], snare: [4, 12], hatOpen: [], hat: "even", bass: [0, 2, 4, 6, 8, 10, 12, 14], bassLen: 0.2, octaves: "alt", chord: [2, 6, 10, 14], chordInst: "organ" },
+  // a cosy oom-pah polka (Survive it EP1, snowed in): the bass on every beat swapping root and fifth (oom), a reedy
+  // organ chord on every off-beat like an accordion (pah), a light kick on 1 and 3; pair it with "sleigh": true
+  polka: { bpm: [124, 132], kick: [0, 8], snare: [], hatOpen: [], hat: "none", bass: [0, 4, 8, 12], bassLen: 0.14, fifths: true, chord: [2, 6, 10, 14], chordInst: "organ" },
 };
 const styleOf = (name) => STYLE[name] || NAMED[name];
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };

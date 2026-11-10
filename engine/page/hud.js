@@ -10,6 +10,12 @@
 // and at 0 reads DEAD and blinks twice; its chip gives a little kick on every drop. "part" adds a small PART line
 // under the day. "show": [from, to] limits it to part of the clip.
 //
+// Survive it EP1 (9 Nov 2026) adds three opt-in parts, nothing changes without them: "label": "SURVIVE IT" (a small
+// yellow line under DAY, like "part"); "threat": { "kind": "snow", "keys": [[t, metres, dur?]] } (a second chip under
+// the day chip: a little house whose blue fill rises with the snow, buried at 7 m, "SNOW 2.0 m", red text from 7 m,
+// a kick on every rise); "gauge": { "kind": "warmth", "keys": [[t, celsius, dur?]] } (a thermometer and "12 °C" after
+// the clock in the right chip: green, amber under 8, blue under 0).
+//
 // pos "top" (default): DAY in the safe zone's top-left corner and the clock + battery in its top-right, y 214-284, the
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
@@ -18,6 +24,7 @@ import { keyed, minutes, nightOf } from "../shared/sky.js";
 
 const SAFE = { x0: 60, y0: 210, x1: 920, y1: 1360 };
 const CH = 70, PAD = 22, FONT = '900 44px "CapBlack"', SMALL = '800 22px "CapBold"', TAG = '900 30px "CapBlack"';
+const THR_FONT = '900 34px "CapBlack"', THR_H = 56;
 const CHIP = "rgba(18,16,24,0.66)", EDGE = "rgba(255,255,255,0.16)", TXT = "#fff8ec";
 
 const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
@@ -33,6 +40,10 @@ export function hudState(sb, t) {
   const out = { pos: H.pos || "top", y: H.y };
   if (day) out.day = { n: Math.round(day.v), since: day.since };
   if (H.part != null) out.part = H.part;
+  if (H.label) out.label = String(H.label);
+  const thr = H.threat ? keyed(H.threat.keys, t) : null, gau = H.gauge ? keyed(H.gauge.keys, t) : null;
+  if (thr) { const rose = thr.i > 0 && thr.K[thr.i][1] > thr.K[thr.i - 1][1]; out.threat = { kind: H.threat.kind || "snow", v: thr.v, kick: rose && thr.since >= 0 ? thr.since : null }; }
+  if (gau) out.gauge = { kind: H.gauge.kind || "warmth", v: gau.v };
   if (clock) {
     out.clock = { text: hhmm(clock.v), mins: clock.v };
     // the jump tag: a key that moves the clock on by a minute or more shows "+N min" for a second from its start
@@ -54,21 +65,26 @@ function layout(ctx, S) {
   const dayW = S.day ? ctx.measureText(`DAY ${S.day.n}`).width + PAD * 2 : 0;
   const dig = Math.max(...[..."0123456789"].map((d) => ctx.measureText(d).width)), colon = ctx.measureText(":").width;
   const pctW = Math.max(dig * 3 + ctx.measureText("%").width, ctx.measureText("DEAD").width);
+  const gauW = S.gauge ? 26 + 10 + dig * 3 + ctx.measureText("-").width + ctx.measureText(" °C").width : 0;
+  ctx.font = THR_FONT; const thrW = S.threat ? 40 + 12 + ctx.measureText("SNOW 0.0 m").width + PAD * 2 : 0;
   ctx.restore();
   const clockW = S.clock ? 34 + 12 + dig * 4 + colon : 0, batW = S.battery ? 56 + 10 + pctW : 0;
-  const rw = (clockW && batW ? clockW + 26 + batW : clockW + batW) + PAD * 2;
-  const hL = S.part != null ? CH + 22 : CH;
+  const parts = [clockW, batW, gauW].filter((w) => w > 0);
+  const rw = parts.reduce((a, w) => a + w, 0) + 26 * Math.max(0, parts.length - 1) + PAD * 2;
+  const hL = S.part != null || S.label ? CH + 22 : CH;
+  const left = S.day || S.part != null || S.label ? [SAFE.x0 + 12, y, Math.max(dayW, 150), hL] : null;
   return {
-    y, dig, colon, clockW, batW,
-    left: S.day || S.part != null ? [SAFE.x0 + 12, y, Math.max(dayW, 150), hL] : null,
-    right: S.clock || S.battery ? [SAFE.x1 - 12 - rw, y, rw, CH] : null,
+    y, dig, colon, clockW, batW, gauW,
+    left,
+    threat: S.threat ? [SAFE.x0 + 12, y + (left ? hL + 10 : 0), thrW, THR_H] : null,
+    right: S.clock || S.battery || S.gauge ? [SAFE.x1 - 12 - rw, y, rw, CH] : null,
   };
 }
 export function hudBoxes(ctx, sb, t) {
   const S = hudState(sb, t);
   if (!S) return [];
   const L = layout(ctx, S);
-  return [L.left, L.right].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  return [L.left, L.threat, L.right].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h]) {
@@ -100,6 +116,25 @@ function sky(ctx, cx, cy, mins) {
   }
   ctx.restore();
 }
+// a little house buried to `fill` (0..1) in blue snow
+function house(ctx, x, y, fill) {
+  const w = 30, h = 28, roof = 12;
+  ctx.save();
+  const path = () => { ctx.beginPath(); ctx.moveTo(x, y + roof); ctx.lineTo(x + w / 2, y); ctx.lineTo(x + w, y + roof); ctx.lineTo(x + w, y + h); ctx.lineTo(x, y + h); ctx.closePath(); };
+  if (fill > 0) { path(); ctx.save(); ctx.clip(); ctx.fillStyle = "#7cc4ff"; ctx.fillRect(x - 2, y + h - (h + 2) * fill, w + 4, (h + 2) * fill + 2); ctx.restore(); }
+  path(); ctx.lineWidth = 3.5; ctx.lineJoin = "round"; ctx.strokeStyle = TXT; ctx.stroke();
+  ctx.restore();
+}
+const warmColour = (v) => (v < 0 ? "#7cc4ff" : v < 8 ? "#ffb02e" : "#5fe07a");
+// a small thermometer: the stem fills with the warmth's colour
+function thermo(ctx, cx, cy, v) {
+  const col = warmColour(v), k = clamp((v + 45) / 60);
+  ctx.save(); ctx.lineWidth = 3; ctx.strokeStyle = TXT;
+  ctx.beginPath(); ctx.roundRect(cx - 5, cy - 18, 10, 26, 5); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy + 12, 8, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); ctx.stroke();
+  ctx.fillStyle = col; ctx.fillRect(cx - 2, cy + 6 - 20 * k, 4, 20 * k + 2);
+  ctx.restore();
+}
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
 
 export function drawHud(ctx, sb, t) {
@@ -116,7 +151,16 @@ export function drawHud(ctx, sb, t) {
     chip(ctx, L.left);
     ctx.fillStyle = TXT; ctx.font = FONT; ctx.letterSpacing = "0.5px";
     if (S.day) ctx.fillText(`DAY ${S.day.n}`, x + w / 2, y + CH / 2 + 2);
-    if (S.part != null) { ctx.font = SMALL; ctx.letterSpacing = "2px"; ctx.fillStyle = "#ffd25a"; ctx.fillText(`PART ${S.part}`, x + w / 2, y + h - 18); }
+    if (S.part != null || S.label) { ctx.font = SMALL; ctx.letterSpacing = "2px"; ctx.fillStyle = "#ffd25a"; ctx.fillText(S.label || `PART ${S.part}`, x + w / 2, y + h - 18); }
+    ctx.restore();
+  }
+  if (L.threat) {
+    const T = S.threat, [x, y, w, h] = L.threat, kick = T.kick != null && T.kick < 0.2 ? Math.sin((T.kick / 0.2) * Math.PI) : 0;
+    ctx.save(); ctx.translate(0, -kick * 4);
+    chip(ctx, L.threat);
+    house(ctx, x + PAD, y + (h - 28) / 2 - 1, clamp(T.v / 7));
+    ctx.font = THR_FONT; ctx.letterSpacing = "0.5px"; ctx.textAlign = "left"; ctx.fillStyle = T.v >= 7 ? "#ff6b5e" : TXT;
+    ctx.fillText(`SNOW ${T.v < 10 ? (Math.round(T.v * 10) / 10).toFixed(1) : Math.round(T.v)} m`, x + PAD + 30 + 12, y + h / 2 + 2);
     ctx.restore();
   }
   if (L.right) {
@@ -142,6 +186,13 @@ export function drawHud(ctx, sb, t) {
         if (dead) ctx.fillText("DEAD", bx + 56 + 10, mid);
         else { ctx.textAlign = "center"; digits(ctx, `${B.pct}%`, bx + 56 + 10, mid, L.dig, L.colon); }
       }
+      cx += L.batW + 26;
+    }
+    if (S.gauge) {
+      const v = Math.round(S.gauge.v);
+      thermo(ctx, cx + 12, mid - 4, S.gauge.v); cx += 26 + 10;
+      ctx.textAlign = "left"; ctx.fillStyle = v < 0 ? "#bfe3ff" : TXT;
+      ctx.fillText(`${v} °C`, cx, mid);
     }
     ctx.restore();
     // the clock's jump tag: a yellow pill that slides out to the left of the chip on the same row, then fades
