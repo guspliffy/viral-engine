@@ -363,7 +363,10 @@ place(H, "god", GOH, camYaw(GOH, CAM.A3, 0.8)); A(H, "god", "look", { to: [0.5, 
 // WHOOMPH
 const W = WHOOMPH;
 sfx(W, "flamejet", { gain: 0.8, reason: "the flame column" }); sfx(W, "ai/flare", { gain: 0.6, reason: "the flash-burn" });
-c.at(W, { fx: "shake", dur: 0.3, amp: 0.035 }); c.at(W, { fx: "flash", dur: 0.25, peak: 0.6, color: "#ffb347", sound: false });   // review B: the flash on all four faces
+c.at(W, { fx: "shake", dur: 0.3, amp: 0.035 });
+// review B: the flash on all four faces. Two frames before the RULE 1 card: a veil at its peak on the frame before the dark card
+// fades in is one odd frame (bright, then dark, at the card's spot: check "pops" 37 on the third full render)
+c.at(r3(W - 0.067), { fx: "flash", dur: 0.25, peak: 0.6, color: "#ffb347", sound: false });
 const VE = POS.hearthEnd.vik, SE = POS.hearthEnd.sam;
 A(r3(W + 0.02), "vik", "move", { to: VE, dur: 0.36, steps: 0, ease: "out" }); A(r3(W + 0.02), "vik", "turn", { to: camYaw(VE, CAM.A3), dur: 0.3, ease: "out" });
 A(r3(W + 0.02), "vik", "lean", { to: -14, dur: 0.12, ease: "out" }); A(r3(W + 0.3), "vik", "lean", { to: 0, dur: 0.3, ease: "settle" });

@@ -3072,6 +3072,14 @@
      "at": 1.374
     },
     {
+     "fx": "flash",
+     "dur": 0.25,
+     "peak": 0.6,
+     "color": "#ffb347",
+     "sound": false,
+     "at": 1.433
+    },
+    {
      "do": "prop",
      "id": "armful",
      "set": {
@@ -3136,14 +3144,6 @@
      "fx": "shake",
      "dur": 0.3,
      "amp": 0.035,
-     "at": 1.5
-    },
-    {
-     "fx": "flash",
-     "dur": 0.25,
-     "peak": 0.6,
-     "color": "#ffb347",
-     "sound": false,
      "at": 1.5
     },
     {
