@@ -29,6 +29,11 @@ if ! sha256sum --check --status "$pyhashes" 2>/dev/null; then
   sha256sum .claude/hooks/session-start.sh > "$pyhashes" || rm -f "$pyhashes"
 fi
 
+# The engine's vocabulary on one sheet (docs/VOCAB.md, not committed: written from the code, so it is never stale and
+# never conflicts): the director reads it instead of grepping the engine for a name (10 Nov 2026, 52 % of a build's
+# tool calls were such lookups). A second.
+node tools/vocab.mjs > /dev/null || true
+
 # Project memory: a session sees only the first 4 KB of a memory file and only what the index or a link reaches
 # (28 of 200 files were cut off on 9 Nov). Prints nothing when clean, else one line and the first 5 problems.
 python3 -I tools/lint-notes.py memory --brief || true

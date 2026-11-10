@@ -14,6 +14,7 @@ characters, look, new art, rights and money (zero paid AI). State: `docs/STATE.m
 | Writing a clip from a brief or storyboard panels; the template | `docs/rules/writing-clips.md` |
 | New motion, physics, living worlds, scenery | `docs/rules/movement.md` |
 | Render speed, frame cache, render farm, engine changes + golden | `docs/rules/fast-cheap.md` |
+| A name the engine knows (verbs, poses, effects, helpers, prop kinds): read before any grep | `docs/VOCAB.md` |
 | Storyboard format | `docs/STORYBOARD.md` |
 | Creative reviews A and B, delivery self-review | `qa/REVIEW.md` |
 | Assets and their licences | `docs/ASSETS.md` |
