@@ -297,12 +297,14 @@
   {
    "id": "rwal",
    "kind": "wallet",
-   "x": 0.703,
+   "wear": "rea",
+   "x": -0.14,
    "y": 0.5,
-   "z": 2.812,
-   "rot": -14,
+   "z": 0.46,
+   "rot": 0,
    "open": 0,
-   "scale": 1.5
+   "scale": 1.5,
+   "staged": "his wallet half out, in front of his chest (worn: held, it left his glove by 7 cm on his sigh)"
   },
   {
    "id": "coin1",
@@ -552,14 +554,6 @@
    "pop": false
   },
   {
-   "from": 0.93,
-   "to": 1.43,
-   "text": "COPY!",
-   "pos": 520,
-   "pop": true,
-   "size": 96
-  },
-  {
    "from": 4,
    "to": 4.45,
    "text": "Owe everyone?",
@@ -609,7 +603,7 @@
    "from": 11,
    "to": 12.35,
    "text": "Everything's on me. Forever.",
-   "pos": 1250,
+   "pos": 1170,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -624,7 +618,7 @@
   },
   {
    "from": 18.4,
-   "to": 21.02,
+   "to": 20.05,
    "text": "Would you still want it?",
    "pos": 470,
    "pop": false
@@ -633,7 +627,7 @@
    "from": 20.1,
    "to": 21.05,
    "text": "Next time's on me.",
-   "pos": 1250,
+   "pos": 480,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1048,11 +1042,10 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "rwal",
-      "grip": [
-       -0.215,
-       0,
-       0
+      "o": [
+       -0.1,
+       0.5,
+       0.46
       ]
      },
      "dur": 0.01,
@@ -1064,20 +1057,6 @@
      "side": "R",
      "shape": "pinch",
      "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "rea",
-     "do": "grab",
-     "prop": "rwal",
-     "hand": "R",
-     "grip": [
-      -0.215,
-      0,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
      "at": 0
     },
     {
@@ -1311,6 +1290,20 @@
      "at": 0.03
     },
     {
+     "fx": "pop",
+     "text": "COPY!",
+     "who": "gsl",
+     "dur": 0.5,
+     "xy": [
+      540,
+      560
+     ],
+     "size": 120,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.03
+    },
+    {
      "do": "prop",
      "id": "coin1",
      "set": {
@@ -1386,23 +1379,6 @@
      },
      "dur": 0.1,
      "at": 0.07
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.08
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.4,
-     "at": 0.1
     },
     {
      "do": "prop",
@@ -1589,25 +1565,6 @@
      "at": 0.25
     },
     {
-     "who": "sam",
-     "do": "move",
-     "to": [
-      0.45,
-      -0.76
-     ],
-     "dur": 0.4,
-     "ease": "inOut",
-     "steps": 2,
-     "at": 0.3
-    },
-    {
-     "who": "sam",
-     "do": "turn",
-     "to": -30,
-     "dur": 0.4,
-     "at": 0.3
-    },
-    {
      "who": "gsl",
      "do": "arm",
      "side": "L",
@@ -1661,6 +1618,24 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.9
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0.45,
+      -0.76
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "at": 0.93
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "at": 0.93
     }
    ],
    "kind": "reaction"
@@ -1831,7 +1806,7 @@
        -0.353
       ]
      },
-     "dur": 0.3,
+     "dur": 0.42,
      "ease": "inOut",
      "at": 0.81
     },
@@ -1843,7 +1818,7 @@
       "open": 0.3
      },
      "dur": 0.08,
-     "at": 0.83
+     "at": 0.95
     },
     {
      "who": "sam",
@@ -1854,27 +1829,27 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.86
+     "at": 0.98
     },
     {
      "who": "sam",
      "do": "squash",
      "amount": 0.03,
      "dur": 0.08,
-     "at": 1.11
+     "at": 1.23
     },
     {
      "who": "sam",
      "do": "face",
      "open": 0,
      "dur": 0.05,
-     "at": 1.13
+     "at": 1.25
     },
     {
      "sfx": "tink",
      "gain": 0.6,
      "reason": "the counter man bites the coin: it is real",
-     "at": 1.13
+     "at": 1.25
     },
     {
      "who": "sam",
@@ -1886,7 +1861,7 @@
       "curve": 0.1
      },
      "dur": 0.12,
-     "at": 1.26
+     "at": 1.38
     },
     {
      "who": "sam",
@@ -1897,7 +1872,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.29
+     "at": 1.41
     },
     {
      "who": "sam",
@@ -2674,17 +2649,23 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "rwal",
-      "grip": [
-       -0.215,
-       0,
-       0
-      ],
-      "at": [
-       0.611,
+      "o": [
+       0.08,
        0.3,
-       2.521
+       0.12
       ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "rwal",
+     "set": {
+      "x": -0.34,
+      "y": 0.3,
+      "z": 0.18
      },
      "dur": 0.3,
      "ease": "inOut",
@@ -2702,13 +2683,6 @@
      "at": 1.3
     },
     {
-     "who": "rea",
-     "do": "release",
-     "prop": "rwal",
-     "dur": 0,
-     "at": 1.36
-    },
-    {
      "do": "prop",
      "id": "rwal",
      "set": {
@@ -2716,7 +2690,7 @@
      },
      "dur": 0.04,
      "ease": "linear",
-     "at": 1.37
+     "at": 1.33
     },
     {
      "who": "rea",
@@ -3695,8 +3669,8 @@
      "side": "L",
      "pose": {
       "o": [
-       0.8,
-       0.95,
+       0.55,
+       0.85,
        0.2
       ]
      },
@@ -3717,8 +3691,8 @@
      "side": "R",
      "pose": {
       "o": [
-       0.8,
-       0.95,
+       0.55,
+       0.85,
        0.2
       ]
      },
@@ -6032,7 +6006,7 @@
    "why": "panel 03: he holds the coin out over the counter's corner"
   },
   {
-   "from": 6.727,
+   "from": 6.847,
    "to": 7.167,
    "see": [
     "sam.face",
@@ -6189,6 +6163,17 @@
    "from": 0,
    "to": 25.217,
    "reason": "his wallet: in his glove, then in the holster on his hip"
+  },
+  {
+   "who": "gsl",
+   "with": "brick",
+   "from": 11.767,
+   "to": 13.851,
+   "checks": [
+    "prop-pop",
+    "grip-gap"
+   ],
+   "reason": "the slap: the brick under his flat glove, off screen until the cut, then swung down in slow motion; drawn on twos, it moves between the glove's drawings"
   },
   {
    "who": "rea",
