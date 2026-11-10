@@ -17,7 +17,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 ## Next
 - Trial workflow v2 (staging proof, director writes the clip) on the next episode.
 
-## Trial (one line per clip: clip, minutes brief->delivery, thread tokens, subagent tokens, fix rounds)
+## Trial (closed 10 Nov 2026: new videos get a row in docs/LEDGER.md, `node tools/ledger.mjs add`)
 - NHM EP03 old way: 465 min, Opus out 943k, Fable 0.31 M, 4 drafts, 32 warn. Jonny: better quality and logic.
 - NHM EP03 new way v1: 362 min, Opus 691k out, Sonnet 1.32 M + Fable 0.34 M, 2 rounds, 8 warn. Logic issues -> the director writes.
 - NHM EP04: old 338 min $64 subagents 0.32 M; v2 director writes 323 min $73 0.61 M; v2 Fable writes 527 min $169
