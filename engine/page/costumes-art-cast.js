@@ -26,10 +26,12 @@ function flameLocks(ch, L, o = {}) {
     const p2 = p1.clone().addScaledVector(n, len * 0.12).addScaledVector(up, len * (0.12 + lean)).addScaledVector(back, len * 0.3).addScaledVector(sd, side * len * 0.2);
     const p3 = p2.clone().addScaledVector(back, len * 0.3).addScaledVector(up, len * (0.1 + lean * 0.6)).addScaledVector(sd, side * len * 0.2);
     const g = lock([p0, p1, p2, p3], "side", w, o.thick ?? 0.05, (t) => Math.min(1, 0.45 + t * 3) * (1 - t) ** 0.8 + 0.01, 30, 12);
+    g.userData.tip = p3.clone();
     if (o.tint) tintAlong(g, o.tint[0], o.tint[1], o.tint[2] ?? 1.3);
     geos.push(g);
   }
   const m = mergeGeometries(geos); m.userData.ink = lockInk(geos, { width: 0.0028, to: 0.62, ...(o.ink || {}) });
+  m.userData.frostTips = geos.map((g) => g.userData.tip).filter(Boolean);   // frost.js: tiny icicles off the lock tips (a tag only)
   return m;
 }
 
@@ -191,6 +193,7 @@ function allfather(C, ch, out) {
   // drawn strands: a warm grey stroke or two along each lock (white hair is drawn with a light line, never black)
   const hi = lockInk(geos, { width: 0.0022, to: 0.78, off: 0.3 }); if (hi) body.add(inkMesh(hi, "#c2ae92", 0.8));
   const plainHairM = new THREE.MeshStandardMaterial({ color: hairC, roughness: 0.85 }); plainHairM.userData.lookRole = "hair";
+  plainHairM.userData.frostBeard = true;   // frost.js: the beard and braids glaze icy with icicles (a tag only)
   // braids in front of the shoulders, each with two gold rings and a tuft below
   for (const s of [-1, 1]) {
     const path = [[1.0, 0.2, 0.06], [1.08, -0.05, 0.08], [1.1, -0.3, 0.08], [1.08, -0.55, 0.07]].map(([th, ph, l]) => [s * th, ph, l]);
@@ -380,6 +383,7 @@ function reaperSheet(C, ch) {
     shell.setAttribute("color", new THREE.BufferAttribute(cols, 3)); }
   const cloth = clothMat(outer, { side: THREE.DoubleSide, vertexColors: true });
   const rimM = clothMat(new THREE.Color(outer).lerp(new THREE.Color(lining), 0.3));
+  rimM.userData.frostEdge = true;   // frost.js: the hood's rolled opening frosts white as an edge (a tag only)
   const innerM = clothMat(lining, { side: THREE.DoubleSide, role: "lining" });
   for (const [g, m] of [[shell, cloth], [hem, rimM], [inG, innerM], [wall, innerM]]) body.add(mesh(g, m));
   // the cloak: from the shoulders to just above the boots, flaring into a bell (most at the back), four broad folds at

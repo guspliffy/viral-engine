@@ -10,8 +10,11 @@
 // A key is [t, value, dur?]: from t the value counts from the previous key's value over dur seconds (none: it jumps).
 
 // the "hud" block: day / battery a number or keys, clock "HH:MM" or keys; pos "top" | "bottom", or y (px); show: [from, to]
-export function hud({ day, clock, battery, part, pos, y, show, clockTag } = {}) {
+// label: a small yellow line under DAY ("SURVIVE IT"); threat: { kind: "snow", keys } (metres, a house chip under the
+// day); gauge: { kind: "warmth", keys } (°C, a thermometer after the clock). engine/page/hud.js has the details.
+export function hud({ day, clock, battery, part, label, threat, gauge, pos, y, show, clockTag } = {}) {
   return { ...(day != null && { day }), ...(clock != null && { clock }), ...(battery != null && { battery }), ...(part != null && { part }),
+    ...(label && { label }), ...(threat && { threat }), ...(gauge && { gauge }),
     ...(pos && { pos }), ...(y != null && { y }), ...(show && { show }), ...(clockTag === false && { clockTag: false }) };
 }
 
