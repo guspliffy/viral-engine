@@ -1022,8 +1022,8 @@
    "pop": false
   },
   {
-   "from": 27.716,
-   "to": 29.416,
+   "from": 27.666,
+   "to": 29.166,
    "text": "Nothing here. Just potatoes.",
    "pos": 560,
    "pop": false,
@@ -8148,18 +8148,18 @@
     },
     {
      "who": "sam",
-     "do": "blink",
-     "dur": 0.22,
+     "do": "talk",
+     "line": "nothing here. just potatoes.",
+     "tone": "calm",
+     "dur": 1.1,
+     "blink": false,
      "at": 1.866
     },
     {
      "who": "sam",
-     "do": "talk",
-     "line": "nothing here. just potatoes.",
-     "tone": "calm",
-     "dur": 1.3,
-     "blink": false,
-     "at": 1.916
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.866
     },
     {
      "do": "prop",
