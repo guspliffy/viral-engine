@@ -17,6 +17,7 @@
 //   node engine/render.mjs <storyboard> --no-blur                       -> no motion blur (--blur turns it on in a draft)
 //   node engine/render.mjs <storyboard> --layout                        -> only <id>.layout.json for qa/check.mjs, plus the contact results (seconds; exits 1 when the gate would stop a render)
 //   node engine/render.mjs <storyboard> --layout --from 3 --to 4.5      -> a fix round: lays out only those seconds into the last full layout, prints the gate and what changed
+//   node engine/render.mjs <storyboard> --fresh-layout                  -> lay the clip out again for the contact gate (a render uses the last full layout while it is still this clip's)
 //   node engine/render.mjs <storyboard> --gl gpu                        -> draw on the graphics card instead of the CPU
 //   node engine/render.mjs <storyboard> --force                         -> render even when the contact gate fails
 //   node engine/render.mjs <storyboard> --shard 3/12                    -> video only, the 3rd of 12 equal frame ranges
@@ -56,7 +57,7 @@ import { cameraLint } from "../qa/camera.mjs";
 import { sayChanged } from "../qa/say.mjs";
 import { renderTime } from "./shared/holds.js";
 import os from "node:os";
-import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
+import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, STATE_KEYS, CHECK_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".json": "application/json", ".otf": "font/otf", ".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".gltf": "model/gltf+json", ".glb": "model/gltf-binary", ".bin": "application/octet-stream", ".wasm": "application/wasm" };
@@ -95,6 +96,7 @@ function args() {
     else if (a[i] === "--no-blur") o.blur = false;
     else if (a[i] === "--blur") o.blur = true;
     else if (a[i] === "--layout") o.layoutOnly = true;
+    else if (a[i] === "--fresh-layout") o.freshLayout = true;        // lay the clip out again before a render even when the last full layout still fits
     else if (a[i] === "--draft") o.draft = true;
     else if (a[i] === "--silent") o.silent = true;
     else if (a[i] === "--audio-only") o.audioOnly = true;
@@ -370,6 +372,24 @@ async function main() {
     // is laid out again before any draft (preflight does it: the full layout is older than the storyboard)
     const win = o.layoutOnly && (o.from != null || o.to != null) ? [o.from ?? 0, o.to ?? dur] : null;
     let fullLay = null;   // (the last full layout a window is laid into)
+    // What a full layout depends on: the storyboard as the page got it (real speech and beats already in), the
+    // characters, the page's code and this file. A full layout carries that key and the files the page had loaded
+    // (models, sets) by content, so a render can tell that the last layout is still this clip's (layoutStill).
+    const layoutKey = () => sha(JSON.stringify({ sb, chars, fps, code: filesHash(new Set(pageCode())), render: sha(fs.readFileSync(fileURLToPath(import.meta.url))) }));
+    const layoutDeps = () => { const files = [...served].filter((f) => fs.existsSync(f)).sort(); return { files: files.map((f) => path.relative(ROOT, f).replace(/\\/g, "/")), hash: filesHash(files) }; };
+    // A render lays the clip out for its contact gate. Preflight has usually just done that (2 minutes on a 10 s clip,
+    // half of a draft whose frames are all cached), so the last full layout is used again while it is still this
+    // clip's: same key, and every file its page loaded unchanged. --fresh-layout, a window or --layout lays out anew.
+    const layoutStill = () => {
+      const full = path.join(o.out, `${sb.id}${tag}.layout.json`);
+      if (o.freshLayout || !fs.existsSync(full)) return null;
+      let lay; try { lay = JSON.parse(fs.readFileSync(full, "utf8")); } catch { return null; }
+      if (!lay.key || lay.key !== layoutKey() || !lay.deps || !Array.isArray(lay.deps.files)) return null;
+      const files = lay.deps.files.map((f) => path.join(ROOT, f));
+      if (files.some((f) => !fs.existsSync(f)) || filesHash(files) !== lay.deps.hash) return null;
+      console.log(`layout: ${path.relative(ROOT, full)} is still this clip's (same storyboard, characters, page code and loaded files), not laid out again (--fresh-layout does)`);
+      return lay;
+    };
     const writeLayout = async () => {
       const full = path.join(o.out, `${sb.id}${tag}.layout.json`), nC = Math.round(dur * fps);
       let inWin = () => true;
@@ -391,7 +411,7 @@ async function main() {
       // extra samples at the storyboard's "aimAt" times (a generator script aims throws and cuts from them)
       const aims = [];
       for (const t of sb.aimAt || []) aims.push(await page.evaluate((tt) => window.ENGINE.layout(tt), t));
-      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}), ...(win ? { window: win, base: path.basename(full) } : {}) };
+      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}), ...(win ? { window: win, base: path.basename(full) } : { key: layoutKey(), deps: layoutDeps() }) };
       fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
       return lay;
@@ -484,7 +504,7 @@ async function main() {
       return;
     }
     // --skip-gate: only after a --layout run of the same storyboard passed (the render workflow checks once, not per shard)
-    const gate = o.skipGate ? [] : contactGate(await writeLayout());
+    const gate = o.skipGate ? [] : contactGate(layoutStill() || await writeLayout());
     if (gate.length) {
       console.log(`contact gate: ${gate.length} problem${gate.length > 1 ? "s" : ""} in the storyboard, fix before rendering${o.force ? " (--force: rendering anyway)" : " (or --force)"}`);
       if (!o.force) { process.exitCode = 1; return; }
@@ -542,7 +562,8 @@ async function main() {
     if (fc) {
       const tk = Date.now();
       // the drawn look's smear reaches back to the drawing before: then the timeline is part of every key
-      const timeline = sm ? [] : TIMELINE_KEYS, rest = Object.fromEntries(Object.entries(sb).filter(([k]) => !timeline.includes(k)));
+      // check-only keys draw nothing and are in no key; allowClip moves poses (the solver), so it goes with the timeline
+      const timeline = sm ? CHECK_KEYS : [...TIMELINE_KEYS, ...STATE_KEYS, ...CHECK_KEYS], rest = Object.fromEntries(Object.entries(sb).filter(([k]) => !timeline.includes(k)));
       // a frame's state, and with motion blur the states at its shutter's ends and of the two frames before it (they
       // set how fast it moves, so how many samples it gets)
       const sh = bl ? bl.shutter / 2 / fps : 0, st = new Map();
