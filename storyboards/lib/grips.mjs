@@ -69,6 +69,9 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  coin: { len: -0.1417, r: 0.008 },                // props-money.js gold coin r 0.085, origin its CENTRE: thin hold, the default from 0.6 lands on the rim's bottom (0.6 x -0.1417 = -0.085), the pads on the two faces (half thickness 0.008)
+  cashbrick: { w: 0.34, h: 0.11, d: 0.2 },         // props-money.js three bundles side by side, origin bottom centre: box hold (two palms on the ends); a one-hand top carry uses grips.rest(top: 0.11)
+  wheelbarrow: { r: -0.76, h: 0.74 },              // props-twist.js: ONE handle for the mug hold with the right glove; r < 0 (like coin's len) turns its point toward the handles: (0.966, 0.66h, 0.259) x (r + 0.05) = (-0.686, 0.488, -0.184), the left handle 0.03 before its end; a clip puts both gloves on TWIST_GRIPS.wheelbarrow.handleL / handleR
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
