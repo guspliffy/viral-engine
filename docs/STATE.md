@@ -32,6 +32,8 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - What if EP03 race (matched opening, 9 Nov, v2 + savers): ~290 min brief->delivery, thread 0.91 M out ($74, 188 M
   cache read), subagents 0.62 M (Sonnet builder 0.29, Fable A 0.17 + B 0.16), 2 draft rounds, 5 farm renders (~8 min;
   3 fix rounds after review B: a pop, eyes-open time, hides drawn early) + 1 sound-only remix (footsteps).
+- NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
+  0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
 
 ## Decisions (one line each, with the reason)
 - 8 Nov: workflow from Jonny's motion studio kit adopted on our own engine, not Remotion (keeps 3D cast, physics,
