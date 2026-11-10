@@ -35,12 +35,12 @@ frames go to Jonny before the polish (workflow.md gates).
 
 | What | Kind (file) | Where | Size / API |
 | --- | --- | --- | --- |
-| round table | `sostable` (props-sos.js) | centre (0, 0) | r 0.46, top 0.62, pedestal |
-| gold pile | `goldpile` (props-sos.js) | on the table, (0, 0.62, -0.15) | 0.42 w x 0.34 d x 0.18 h, one rigid prop |
-| cards x4 | `sscard` (props-sos.js) | on the table | 0.2 x 0.28 x 0.012; face share/steal; flip 0..1 |
-| chairs x2 | `sschair` (props-sos.js) | G (-0.68, -0.52) rot 52; V (0.68, -0.52) rot -52 | seat top 0.42; tip (deg back) |
-| trapdoors x2 | `sstrap` (props-sos.js) | 0.75 m behind each chair, same rot | 0.9 square; open, warn, steam, rise |
-| deep fryer | `ssfryer` (props-sos-set.js) | (0, -1.55) | 1.3 w x 0.75 d, rim 1.0; churn; castLight |
+| round table | `sostable` (props-sos.js) | centre (0, 0), rot 45 | r 0.6, top 0.62, pedestal |
+| gold pile | `goldpile` (props-sos.js) | on the table, (0, 0.62, 0.02), scale 0.8 | 0.34 w x 0.27 d, one rigid prop |
+| cards x4 | `sscard` (props-sos.js) | on the table, 0.36 from its middle, scale 0.75 | 0.2 x 0.28 x 0.012; face share/steal; flip 0..1 |
+| chairs x2 | `sschair` (props-sos.js) | G (-0.71, -0.84) rot 40; V (0.71, -0.84) rot -40 (1.1 from the table's middle) | seat top 0.42; tip (deg back) |
+| trapdoors x2 | `sstrap` (props-sos.js) | 0.7 m behind each chair, same rot | 0.9 square; open, warn, steam, rise |
+| deep fryer | `ssfryer` (props-sos-set.js) | (0, -1.85) | 1.3 w x 0.75 d, rim 1.0; churn 0.3 and castLight 1.0 from frame 0 |
 | oil | `fryoil` (props-hell.js) | in the fryer, y 0.92 | w 1.18, d 0.62 |
 | studio | `ssstudio` (props-sos-set.js) | origin (0, 0) | cyc, bulbs, strips, truss, beam, floor |
 

@@ -27,18 +27,18 @@ draft stills.
 
 1. He's reaching for the gold before the game starts -> his mitten on the pile, Viking's pat on it -> WIDE push-in to the TWO (0-2.35).
 2. The host says the stakes -> the rule cards + the fryer seething when he says "fries" + both look back at it -> TWO, FRYER insert, TWO (2.35-8.05).
-3. Plea 1 -> his hand on his heart -> TWO; Viking's finger up, "you still owe me 50" -> VIK medium (headroom for the subtitle).
+3. Plea 1 -> his hand on his heart -> TWO; Viking's finger out at him, wagging twice, "you still owe me 50" -> VIK medium (room on the left for the arm; headroom for the subtitle).
 4. Plea 2 -> he gets up and steps out while we're on Viking; cut to him in the open left of the table patting every pocket -> GSL medium.
-5. The wallet opens empty, the moth, "Look! Nothing!" -> Viking's brows soften -> PAT two-shot (the wallet and Viking's face in one frame).
-6. Plea 3 -> he dashes round the front of the table and knee-slides to Viking's side -> the two-shot pulls back to WIDE (the whole path in frame), then begging on his knees, Viking swivels to him -> HUG two-shot (both faces 3/4).
+5. The wallet opens empty, the moth, "Look! Nothing!" -> held 0.45 s in the GSL medium -> Viking's brows soften -> VIK medium (the wallet goes back in the holster off screen).
+6. Plea 3 -> he dashes round the front of the table and knee-slides to Viking's side -> a WIDE that pans with him (the whole path in frame), then begging on his knees, Viking swivels to him -> HUG two-shot (both faces 3/4).
 7. "...Okay." -> Viking's face melts, his nod -> HUG; he scrambles back -> WIDE, cut halfway.
 8. 0: both cards slide face down, each keeps his hand on his own -> CARDS (top-down on the table).
 9. Viking shows SHARE -> CARDS then TWO (the smiles).
 10. Gunslinger shows STEAL -> CARDS (the word) -> TWO (payoff: Viking's face falls, "Sorry, buddy").
-11. The trap arms -> the red rim behind Viking's chair, Viking looks down -> DROP (low, from Viking's side, the hole in frame).
+11. The trap arms -> the red rim behind Viking's chair, Viking looks down, palms up -> DROP (from the front, headroom over him, the whole rim in frame).
 12. He falls -> the chair tips back over the hole, Viking goes through, the chair springs back -> DROP.
 13. Off screen in the fryer -> splash + sizzle, the steam column out of the hole -> DROP, then ENDW.
-14. He takes it all -> pulls the pile into his arms, eyes closed, happy -> ENDW push-in; host: "Gunslinger spent it all by Friday."; "Share... or steal?"
+14. He takes it all -> pulls the pile into his arms, eyes closed, happy -> ENDW push-in; host: "Gunslinger spent it all by Friday."; on "Share... or steal?" one eye opens on the empty chair, a gulp, back to the gold; a last puff of steam.
 
 Payoff faces: Viking faces -40 deg (seated, 3/4 to us) until he drops; his look goes down to the trap (eyes, not body).
 Gunslinger faces 40 deg (seated) from the payoff to the end; his lean into the gold is a pitch, not a turn.
@@ -50,8 +50,17 @@ Gunslinger faces 40 deg (seated) from the payoff to the end; his lean into the g
 - The double-steal rule ("both steal, you both fry") is the brief's proposal; the host says it and card 3 shows it.
   Jonny confirms or changes it on review.
 - The host never says "Ten seconds": the countdown starts on his last word, the numbers and beeps carry it.
-- 24.6 s, a little over the brief's 20-24 s: the host's rules take 5.5 s in one breath (the grid gives 3 s).
+- 24.7 s, a little over the brief's 20-24 s: the host's rules take 5.5 s in one breath (the grid gives 3 s).
 - The countdown sits in the top-right corner and the countdown's subtitles above the heads (y 262): in the pleas'
   close shots the bodies fill the low band, and a subtitle there covered a face.
 - Plea 3 is begging on his knees, not hugging Viking's arm (the brief): his 0.4 m hat brim went into Viking in every
   clutch tried; the knee slide and the sobbing keep it the biggest plea.
+
+## Creative review A (one round) and what was done
+
+1. The fryer sat dark until 5.2 s -> it glows orange and seethes from frame 0 (castLight 1.0, haze 0.6, churn 0.3), flares on "fries".
+2. The open wallet was on screen 0.25 s -> it holds 0.45 s in his medium, then Viking's softening has its own shot.
+3. Viking's point read as scratching his head -> a straight arm out at Gunslinger, two wags.
+4. The drop shot cropped Viking's head -> pulled back, 120 px headroom, the whole trap rim in frame, his palms up clear of his eyes.
+5. The last 4.4 s were one frame -> the glance at the empty chair and the gulp as the question pops; denser steam.
+- Not taken: a caption "He swore he'd share." under the title (no room over the faces; Jonny writes titles himself).
