@@ -48,16 +48,19 @@ x 0.8. 05 vik 0.52 x 0.15, sam 0.43 x 0.3, rea 0.52 x 0.85. 07 vik 0.6 x 0.22, r
 - 3.75 Viking's grin freezes, eyes slide to the heap -> his face and the last log -> CU (02).
 - 4.45-7.1 he lays the log on, the Samurai dumps the heap, WHOOMPH, embers -> the flame column on four faces, then the
   crumb -> A3 (03), RULE 1 on the whoomph.
-- 7.1-10.6 DAY 2 night: Reaper boards the door and window, throws the chairs -> the door, the window, Viking's "That
-  was the door!" -> B4 (04), RULE 2.
+- 7.1-10.6 DAY 2 night: Reaper nails three planks across the door (the window is boarded already), Viking's "That
+  was the door!" over the two hits for luck, Reaper's back against the boards -> B4 close on the door (04), RULE 2 on
+  the thud.
 - 10.6-13.2 DAY 10: frosted, the god calls the sun, lightning, the room lurches -> the god front, the others behind,
   the boards, the chimney -> A5 (05), RULE 3.
 - 13.2-14.6 the cottage rides the avalanche -> outside, moonlit, tracking -> C (06).
 - 14.6-15.4 the heap against the window wall, the god's arm still up -> HEAP.
-- 15.4-18.0 DAY 100: "Day one hundred.", sun through a gap, "Spring! We made it!", the Samurai rips the boards off,
-  the door opens on green -> B6.
-- 18.0-20.8 outside: "You're welcome!", the thunderclap, the cap comes down, Reaper drags them in, the mound, the
-  chimney, Viking's crest; "Day one." -> D (07 -> 08), one move pulling back.
+- 15.4-16.9 DAY 100: "Day one hundred.", sun through a gap, "Spring! We made it!" -> B6 (the huddle under one quilt).
+- 16.9-18.0 the Samurai rips the three planks off ("Fastest!"), the door opens on green -> B4 again (the door of 04).
+- 18.0-19.87 outside: "You're welcome!", the thunderclap, the cap comes down, they dive back in, the door slams, the
+  mound -> D1 (07), pulling back to the whole mountain (DB).
+- 19.87-20.8 the chimney on the mound: the cap pops, Viking's crest and eyes rise; "Day one." -> DC (08), a cut in on
+  the same line.
 
 ## Departures (and why)
 
@@ -74,8 +77,16 @@ x 0.8. 05 vik 0.52 x 0.15, sam 0.43 x 0.3, rea 0.52 x 0.85. 07 vik 0.6 x 0.22, r
   more to us the blade left the frame's left edge.
 - From 03 on the Samurai is `duo/samurai` (katana put away): the costume katana can't leave the katana cast's glove,
   and both gloves carry the armful and rip the planks. The cut to 03 hides the swap.
-- 04: one chair flung onto the door instead of two, and no block shoved to the window (the beat is 3.5 s and Reaper's
-  run already reads); no breath clouds (no breath prop yet: the frost carries the cold).
+- 04: no chairs and no run to the window: the window's plank is up on the cut and Reaper stays at the door (from the
+  panel's close camera a run to the window and a flying chair hid faces, and the beat is 3.5 s); no breath clouds (no
+  breath prop yet: the frost carries the cold). Viking's "That was the door!" comes over the two hits for luck, before
+  the thud: after it, RULE 2 covered his subtitle (no free band under the card in this framing).
+- 07 and 08: the brief's one pull-back is a pull-back (07 to the whole mountain) and a cut in to the chimney (08): one
+  move can't end on Viking's face a third of the frame wide. Review A asked for 08 from farther back (his face 16 %
+  of the width): the panel wins, the camera stands on the mound 3.65 m from the chimney.
+- 07: all four eye lines sit at 0.57 (the panel's back row is higher, on a porch step the cottage doesn't have); the
+  subtitle sits over their heads at y 760 (the panel's bottom band is outside the safe zone here).
+- Spring is two shots (the huddle, then the door of 04): the plank rip and the green outside need the door camera.
 - 06: the chimney cap's fly-off-and-land-back gag is left out (a physics body can't ride the moving cottage); the cap
   pops off in 08 instead. The stop is heard on the cut inside (thud + impact + shake), not shown outside: the room
   stands at the origin, so an outside shot of the cottage arriving would show the room before the walls get there.

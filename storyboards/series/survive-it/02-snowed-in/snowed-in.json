@@ -46,19 +46,19 @@
     1
    ],
    [
-    5.726,
+    5.926,
     1
    ],
    [
-    5.766,
+    5.966,
     2
    ],
    [
-    6.216,
+    6.416,
     2
    ],
    [
-    6.366,
+    6.566,
     0.25
    ],
    [
@@ -355,12 +355,12 @@
      0.3
     ],
     [
-     5.516,
+     5.716,
      9,
      0.25
     ],
     [
-     6.416,
+     6.6160000000000005,
      4,
      0.4
     ],
@@ -405,10 +405,10 @@
    "id": "vik",
    "character": "duo/viking",
    "at": [
-    0.85,
-    0.2
+    0.9,
+    0.9
    ],
-   "face": 3.322,
+   "face": 3.338,
    "expr": "delighted",
    "follow": 0.4,
    "seed": 3.3
@@ -417,7 +417,7 @@
    "id": "sam",
    "character": "duo/samurai-katana",
    "at": [
-    -1.5,
+    -1.3,
     -1.4
    ],
    "face": 80,
@@ -430,9 +430,9 @@
    "character": "never-has-money/reaper",
    "at": [
     0,
-    1.05
+    1.5
    ],
-   "face": 26.143,
+   "face": 31.737,
    "expr": "terrified",
    "follow": 0.3,
    "seed": 3.1
@@ -441,10 +441,10 @@
    "id": "god",
    "character": "potatobrawl/allfather-no-raven",
    "at": [
-    -0.35,
+    -0.25,
     -1.87
    ],
-   "face": 12.447,
+   "face": 11.609,
    "expr": "deadpan",
    "follow": 0.3,
    "seed": 4.4
@@ -466,9 +466,9 @@
   {
    "id": "block",
    "kind": "choppingblock",
-   "x": -0.88,
+   "x": -0.611,
    "y": 0,
-   "z": -1.291,
+   "z": -1.278,
    "rot": 20
   },
   {
@@ -483,9 +483,9 @@
   {
    "id": "heap",
    "kind": "sliverheap",
-   "x": -0.88,
+   "x": -0.611,
    "y": 0,
-   "z": -0.971,
+   "z": -0.958,
    "amount": 0,
    "chop": [
     0.15,
@@ -502,20 +502,20 @@
   {
    "id": "log",
    "kind": "firewood",
-   "x": 0.88,
-   "y": 0.28,
-   "z": 0.719,
-   "rot": 183.322,
+   "x": 0.93,
+   "y": 0.4,
+   "z": 1.419,
+   "rot": 183.338,
    "len": 0.5,
    "r": 0.09
   },
   {
    "id": "armful",
    "kind": "kindlingarmful",
-   "x": -0.17,
+   "x": -0.345,
    "y": 0.3,
-   "z": 0.279,
-   "rot": 314.236
+   "z": 1.033,
+   "rot": 199.654
   },
   {
    "id": "hammer",
@@ -711,10 +711,10 @@
    "kind": "huddleblanket",
    "over": [
     [
-     -0.4,
-     0.2,
+     -0.33,
+     0.25,
      1.42,
-     3.213
+     2.506
     ],
     [
      0.8,
@@ -866,7 +866,7 @@
    "from": 3.25,
    "to": 3.703,
    "text": "New record!",
-   "pos": 385,
+   "pos": 485,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -881,8 +881,8 @@
    "kinetic": false
   },
   {
-   "from": 4.85,
-   "to": 5.95,
+   "from": 4.52,
+   "to": 5.62,
    "text": "More is faster!",
    "pos": 470,
    "pop": false,
@@ -891,18 +891,18 @@
   },
   {
    "from": 7.25,
-   "to": 8.45,
+   "to": 8.36,
    "text": "It's getting in!",
-   "pos": 590,
+   "pos": 460,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 9.5,
-   "to": 10.8,
+   "from": 8.36,
+   "to": 9.61,
    "text": "That was the door!",
-   "pos": 590,
+   "pos": 460,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -938,7 +938,7 @@
    "from": 18.15,
    "to": 19.45,
    "text": "You're welcome!",
-   "pos": 1180,
+   "pos": 760,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -956,11 +956,11 @@
      3.23
     ],
     "look": [
-     -0.32,
-     0.25,
+     0,
+     0.42,
      -1.39
     ],
-    "fov": 59
+    "fov": 64
    },
    "do": [
     {
@@ -1375,7 +1375,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1458,7 +1458,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1582,7 +1582,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1675,7 +1675,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1785,7 +1785,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1878,7 +1878,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -1988,7 +1988,7 @@
     {
      "fx": "slash",
      "pos": [
-      -1.428,
+      -1.228,
       0.78,
       -1.235
      ],
@@ -2212,14 +2212,14 @@
    "len": 0.733,
    "shot": {
     "pos": [
-     1.6,
+     1.65,
      1.04,
-     1.87
+     2.57
     ],
     "look": [
-     0.66,
+     0.71,
      0.76,
-     -0.05
+     0.65
     ],
     "fov": 46
    },
@@ -2298,7 +2298,7 @@
      "who": "vik",
      "do": "move",
      "to": [
-      1.55,
+      1.3,
       -0.9
      ],
      "dur": 0.01,
@@ -2309,7 +2309,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": -155.556,
+     "to": -167.196,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.713
@@ -2337,7 +2337,7 @@
     {
      "who": "samB",
      "do": "turn",
-     "to": 134.236,
+     "to": 19.654,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.713
@@ -2446,9 +2446,9 @@
       ],
       "palm": true,
       "at": [
-       1.335,
+       1.185,
        0.28,
-       -1.373
+       -1.407
       ]
      },
      "dur": 0,
@@ -2468,9 +2468,9 @@
       ],
       "palm": true,
       "at": [
-       1.335,
+       1.185,
        0.28,
-       -1.373
+       -1.407
       ]
      },
      "dur": 0,
@@ -2481,7 +2481,7 @@
      "do": "prop",
      "id": "log",
      "set": {
-      "rot": 24.444
+      "rot": 12.804
      },
      "dur": 0,
      "ease": "linear",
@@ -2717,9 +2717,9 @@
       ],
       "palm": true,
       "at": [
-       1.285,
+       1.158,
        0.42,
-       -1.483
+       -1.524
       ]
      },
      "dur": 0.12,
@@ -2739,9 +2739,9 @@
       ],
       "palm": true,
       "at": [
-       1.285,
+       1.158,
        0.42,
-       -1.483
+       -1.524
       ]
      },
      "dur": 0.12,
@@ -2750,60 +2750,19 @@
     },
     {
      "who": "samB",
-     "do": "move",
-     "to": [
-      1.02,
-      -0.88
-     ],
-     "dur": 0.63,
-     "steps": 5,
-     "stride": 1.8,
-     "ease": "linear",
+     "do": "talk",
+     "line": "more is faster!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
      "at": 0.054
     },
     {
      "who": "samB",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "armful",
-      "grip": [
-       0.32,
-       0.077,
-       0
-      ],
-      "palm": true,
-      "at": [
-       1.35,
-       0.3,
-       -1.201
-      ]
-     },
-     "dur": 0.63,
-     "ease": "linear",
-     "at": 0.054
-    },
-    {
-     "who": "samB",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "armful",
-      "grip": [
-       -0.32,
-       0.077,
-       0
-      ],
-      "palm": true,
-      "at": [
-       1.35,
-       0.3,
-       -1.201
-      ]
-     },
-     "dur": 0.63,
-     "ease": "linear",
-     "at": 0.054
+     "do": "hop",
+     "height": 0.05,
+     "dur": 0.25,
+     "at": 0.134
     },
     {
      "who": "vik",
@@ -2838,8 +2797,8 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.35,
-     "ease": "settle",
+     "dur": 0.5,
+     "ease": "inOut",
      "at": 0.22
     },
     {
@@ -2847,29 +2806,20 @@
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.35,
-     "ease": "settle",
+     "dur": 0.5,
+     "ease": "inOut",
      "at": 0.22
     },
     {
      "who": "vik",
      "do": "move",
      "to": [
-      1.75,
-      -0.35
+      1.1,
+      0.3
      ],
-     "dur": 0.35,
-     "steps": 2.5,
-     "at": 0.254
-    },
-    {
-     "who": "samB",
-     "do": "talk",
-     "line": "more is faster!",
-     "tone": "excited",
-     "dur": 0.7,
-     "blink": false,
-     "at": 0.384
+     "dur": 0.5,
+     "steps": 2,
+     "at": 0.234
     },
     {
      "do": "prop",
@@ -2888,11 +2838,131 @@
      "at": 0.48
     },
     {
+     "who": "samB",
+     "do": "turn",
+     "to": 134.236,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.534
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "armful",
+      "grip": [
+       0.32,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.17,
+       0.3,
+       0.279
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.534
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "armful",
+      "grip": [
+       -0.32,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.17,
+       0.3,
+       0.279
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.534
+    },
+    {
+     "do": "prop",
+     "id": "armful",
+     "set": {
+      "rot": 314.236
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.534
+    },
+    {
      "who": "vik",
      "do": "turn",
-     "to": -125.981,
-     "dur": 0.25,
+     "to": -6.572,
+     "dur": 0.55,
+     "ease": "inOut",
      "at": 0.684
+    },
+    {
+     "who": "samB",
+     "do": "move",
+     "to": [
+      1.02,
+      -0.88
+     ],
+     "dur": 0.5,
+     "steps": 4,
+     "stride": 1.8,
+     "ease": "linear",
+     "at": 0.734
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "armful",
+      "grip": [
+       0.32,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.35,
+       0.3,
+       -1.201
+      ]
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.734
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "armful",
+      "grip": [
+       -0.32,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.35,
+       0.3,
+       -1.201
+      ]
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.734
     },
     {
      "who": "vik",
@@ -2902,18 +2972,18 @@
       "open": 0.08
      },
      "dur": 0.2,
-     "at": 0.834
+     "at": 0.934
     },
     {
      "who": "vik",
      "do": "look",
      "to": [
-      0.1,
-      -0.1
+      -0.6,
+      -0.15
      ],
-     "dur": 0.15,
+     "dur": 0.2,
      "blink": false,
-     "at": 0.834
+     "at": 0.934
     },
     {
      "do": "prop",
@@ -2923,21 +2993,21 @@
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 0.834
+     "at": 1.254
     },
     {
      "sfx": "patter",
      "gain": 0.35,
      "dur": 0.4,
      "reason": "the whole heap of matchsticks tumbles into the fireplace",
-     "at": 0.874
+     "at": 1.294
     },
     {
      "who": "samB",
      "do": "release",
      "prop": "armful",
      "dur": 0,
-     "at": 1.134
+     "at": 1.334
     },
     {
      "who": "samB",
@@ -2945,7 +3015,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.15,
-     "at": 1.134
+     "at": 1.334
     },
     {
      "who": "samB",
@@ -2953,7 +3023,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.15,
-     "at": 1.134
+     "at": 1.334
     },
     {
      "who": "samB",
@@ -2968,14 +3038,14 @@
       ],
       "palm": true,
       "off": [
-       0.034,
+       -0.085,
        0.02,
-       0.078
+       -0.001
       ]
      },
-     "dur": 0.2,
+     "dur": 0.1,
      "ease": "out",
-     "at": 1.174
+     "at": 1.374
     },
     {
      "who": "samB",
@@ -2990,14 +3060,14 @@
       ],
       "palm": true,
       "off": [
-       -0.077,
+       0.065,
        0.02,
-       -0.036
+       -0.055
       ]
      },
-     "dur": 0.2,
+     "dur": 0.1,
      "ease": "out",
-     "at": 1.174
+     "at": 1.374
     },
     {
      "do": "prop",
@@ -3007,55 +3077,84 @@
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 1.27
+     "at": 1.47
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.48,
+       0.28
+      ]
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 1.474
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.48,
+       0.28
+      ]
+     },
+     "dur": 0.06,
+     "ease": "linear",
+     "at": 1.474
     },
     {
      "fx": "rule",
-     "dur": 1.5,
+     "dur": 1.134,
      "title": "RULE 1",
      "text": "Never let the competitive one chop the wood",
-     "who": "samB",
      "color": "#4aa8ff",
      "y": 370,
-     "at": 1.3
+     "at": 1.5
     },
     {
      "sfx": "flamejet",
      "gain": 0.8,
      "reason": "the flame column",
-     "at": 1.3
+     "at": 1.5
     },
     {
      "sfx": "ai/flare",
      "gain": 0.6,
      "reason": "the flash-burn",
-     "at": 1.3
+     "at": 1.5
     },
     {
      "fx": "shake",
      "dur": 0.3,
      "amp": 0.022,
-     "at": 1.3
+     "at": 1.5
     },
     {
      "who": "vik",
      "do": "move",
      "to": [
-      1,
+      0.8,
       1
      ],
      "dur": 0.36,
      "steps": 0,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
      "do": "turn",
-     "to": -11.768,
+     "to": -7.125,
      "dur": 0.3,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3063,7 +3162,7 @@
      "to": -14,
      "dur": 0.12,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3075,21 +3174,21 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
      "do": "still",
      "dur": 0.65,
      "idle": 0.08,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3097,14 +3196,14 @@
      "side": "R",
      "pose": {
       "o": [
-       0.1,
-       0.45,
-       0.3
+       0.2,
+       0.5,
+       0.22
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.32
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3112,14 +3211,14 @@
      "side": "L",
      "pose": {
       "o": [
-       0.1,
-       0.45,
-       0.3
+       0.2,
+       0.5,
+       0.22
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.32
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3127,7 +3226,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.1,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "vik",
@@ -3135,27 +3234,27 @@
      "side": "L",
      "shape": "open",
      "dur": 0.1,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
      "do": "move",
      "to": [
-      0,
+      -0.35,
       0.8
      ],
      "dur": 0.36,
      "steps": 0,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
      "do": "turn",
-     "to": 10.886,
+     "to": 18.104,
      "dur": 0.3,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
@@ -3163,7 +3262,7 @@
      "to": -14,
      "dur": 0.12,
      "ease": "out",
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
@@ -3175,46 +3274,46 @@
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
      "do": "still",
      "dur": 0.6000000000000001,
      "idle": 0.08,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "rea",
      "do": "crouch",
      "to": 0.35,
      "dur": 0.15,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "rea",
      "do": "arm",
      "side": "R",
      "pose": "cheeks",
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "who": "rea",
      "do": "arm",
      "side": "L",
      "pose": "cheeks",
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.52
     },
     {
      "who": "rea",
@@ -3224,7 +3323,7 @@
       "open": 0.3
      },
      "dur": 0.12,
-     "at": 1.32
+     "at": 1.52
     },
     {
      "who": "samB",
@@ -3232,14 +3331,14 @@
      "side": "R",
      "pose": {
       "o": [
-       0.1,
-       0.45,
-       0.3
+       0.2,
+       0.5,
+       0.22
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.34
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.54
     },
     {
      "who": "samB",
@@ -3247,14 +3346,14 @@
      "side": "L",
      "pose": {
       "o": [
-       0.1,
-       0.45,
-       0.3
+       0.2,
+       0.5,
+       0.22
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
-     "at": 1.34
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.54
     },
     {
      "who": "samB",
@@ -3262,7 +3361,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.1,
-     "at": 1.34
+     "at": 1.54
     },
     {
      "who": "samB",
@@ -3270,14 +3369,14 @@
      "side": "L",
      "shape": "open",
      "dur": 0.1,
-     "at": 1.34
+     "at": 1.54
     },
     {
      "who": "god",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.15,
-     "at": 1.36
+     "at": 1.56
     },
     {
      "who": "god",
@@ -3287,55 +3386,21 @@
       0.05
      ],
      "dur": 0.15,
-     "at": 1.36
-    },
-    {
-     "who": "samB",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.374
-    },
-    {
-     "who": "samB",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.374
-    },
-    {
-     "who": "samB",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.4,
-     "ease": "settle",
-     "at": 1.374
-    },
-    {
-     "who": "samB",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1.374
+     "at": 1.56
     },
     {
      "who": "god",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.12,
-     "at": 1.4
+     "at": 1.6
     },
     {
      "who": "god",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.12,
-     "at": 1.53
+     "at": 1.73
     },
     {
      "who": "vik",
@@ -3343,7 +3408,7 @@
      "to": 0,
      "dur": 0.3,
      "ease": "settle",
-     "at": 1.6
+     "at": 1.8
     },
     {
      "who": "samB",
@@ -3351,27 +3416,27 @@
      "to": 0,
      "dur": 0.3,
      "ease": "settle",
-     "at": 1.6
+     "at": 1.8
     },
     {
      "who": "god",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.12,
-     "at": 1.66
+     "at": 1.86
     },
     {
      "who": "god",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.12,
-     "at": 1.79
+     "at": 1.99
     },
     {
      "sfx": "ai/snuff",
      "gain": 0.6,
      "reason": "the fire drops to embers",
-     "at": 1.9
+     "at": 2.1
     },
     {
      "fx": "poof",
@@ -3386,7 +3451,7 @@
      "sparks": 0,
      "size": 0.45,
      "lift": 0.4,
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "vik",
@@ -3396,7 +3461,7 @@
       -0.5
      ],
      "dur": 0.2,
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "vik",
@@ -3405,7 +3470,7 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "settle",
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "vik",
@@ -3414,14 +3479,14 @@
      "pose": "rest",
      "dur": 0.4,
      "ease": "settle",
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "god",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.2,
-     "at": 1.934
+     "at": 2.134
     },
     {
      "who": "vik",
@@ -3429,7 +3494,7 @@
      "brow": 0.35,
      "lid": 0,
      "dur": 0.25,
-     "at": 1.95
+     "at": 2.15
     },
     {
      "who": "samB",
@@ -3438,7 +3503,7 @@
      "pose": "rest",
      "dur": 0.35,
      "ease": "settle",
-     "at": 1.95
+     "at": 2.15
     },
     {
      "who": "samB",
@@ -3447,7 +3512,7 @@
      "pose": "rest",
      "dur": 0.35,
      "ease": "settle",
-     "at": 1.95
+     "at": 2.15
     },
     {
      "who": "god",
@@ -3457,55 +3522,21 @@
       -0.05
      ],
      "dur": 0.14,
-     "at": 1.984
+     "at": 2.154
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "sad",
      "dur": 0.25,
-     "at": 2
+     "at": 2.2
     },
     {
      "who": "vik",
      "do": "squash",
      "amount": 0.02,
      "dur": 0.2,
-     "at": 2
-    },
-    {
-     "who": "vik",
-     "do": "still",
-     "dur": 0.5,
-     "idle": 0.06,
-     "at": 2.05
-    },
-    {
-     "who": "god",
-     "do": "look",
-     "to": [
-      0.4,
-      -0.05
-     ],
-     "dur": 0.14,
-     "at": 2.134
-    },
-    {
-     "who": "rea",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.35,
-     "at": 2.134
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "sad",
-     "set": {
-      "open": 0.06
-     },
-     "dur": 0.25,
-     "at": 2.134
+     "at": 2.2
     },
     {
      "who": "rea",
@@ -3518,9 +3549,9 @@
        0.36
       ]
      },
-     "dur": 0.35,
-     "ease": "settle",
-     "at": 2.184
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.214
     },
     {
      "who": "rea",
@@ -3533,59 +3564,9 @@
        0.36
       ]
      },
-     "dur": 0.35,
-     "ease": "settle",
-     "at": 2.184
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      -0.85,
-      -0.02
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 2.284
-    },
-    {
-     "who": "vik",
-     "do": "face",
-     "brow": 0,
-     "lid": 0.46,
-     "dur": 0.25,
-     "at": 2.284
-    },
-    {
-     "who": "god",
-     "do": "look",
-     "to": [
-      -0.4,
-      -0.05
-     ],
-     "dur": 0.14,
-     "at": 2.284
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "annoyed",
-     "dur": 0.25,
-     "at": 2.334
-    },
-    {
-     "who": "vik",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.2,
-     "at": 2.334
-    },
-    {
-     "who": "vik",
-     "do": "still",
-     "dur": 0.5,
-     "idle": 0.06,
-     "at": 2.384
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.214
     },
     {
      "who": "samB",
@@ -3599,23 +3580,23 @@
       "smirk": 0.4
      },
      "dur": 0.3,
-     "at": 2.384
+     "at": 2.234
     },
     {
      "who": "samB",
      "do": "face",
      "brow": 0.4,
      "dur": 0.3,
-     "at": 2.384
+     "at": 2.234
     },
     {
      "who": "samB",
      "do": "arm",
      "side": "R",
      "pose": "hat",
-     "dur": 0.25,
-     "ease": "settle",
-     "at": 2.384
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.234
     },
     {
      "who": "samB",
@@ -3625,7 +3606,91 @@
       -0.05
      ],
      "dur": 0.15,
+     "at": 2.234
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.234
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.06
+     },
+     "dur": 0.25,
+     "at": 2.234
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.06,
+     "at": 2.25
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.05
+     ],
+     "dur": 0.14,
+     "at": 2.264
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.05
+     ],
+     "dur": 0.14,
+     "at": 2.374
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
      "at": 2.384
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 2.384
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 2.434
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 2.434
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.06,
+     "at": 2.484
     },
     {
      "who": "god",
@@ -3635,7 +3700,7 @@
       -0.05
      ],
      "dur": 0.14,
-     "at": 2.434
+     "at": 2.484
     },
     {
      "who": "rea",
@@ -3669,8 +3734,8 @@
      "who": "samB",
      "do": "move",
      "to": [
-      -0.79,
-      -0.2
+      -2.18,
+      -1.59
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3680,7 +3745,7 @@
     {
      "who": "samB",
      "do": "turn",
-     "to": 30.38,
+     "to": 23.273,
      "dur": 0.01,
      "ease": "linear",
      "at": 2.614
@@ -3697,8 +3762,8 @@
      "who": "god",
      "do": "move",
      "to": [
-      -0.62,
-      -1.3
+      -1.14,
+      -1.85
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3708,7 +3773,7 @@
     {
      "who": "god",
      "do": "turn",
-     "to": 15.755,
+     "to": 8.512,
      "dur": 0.01,
      "ease": "linear",
      "at": 2.614
@@ -3725,8 +3790,8 @@
      "who": "vik",
      "do": "move",
      "to": [
-      0.98,
-      0.13
+      -0.54,
+      0.29
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3736,7 +3801,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": 12.63,
+     "to": 11.115,
      "dur": 0.01,
      "ease": "linear",
      "at": 2.614
@@ -3757,43 +3822,43 @@
    "len": 3.5,
    "shot": {
     "pos": [
-     2.2,
-     2.1,
-     3.3
+     0.1,
+     2.4,
+     2.2
     ],
     "look": [
-     -0.57,
-     0.65,
-     -0.25
+     -1.9,
+     0.35,
+     -1.3
     ],
-    "fov": 69
+    "fov": 64
    },
    "do": [
     {
      "who": "vik",
      "do": "face",
-     "frost": 0.3,
+     "frost": 0.15,
      "dur": 0,
      "at": 0
     },
     {
      "who": "samB",
      "do": "face",
-     "frost": 0.3,
+     "frost": 0.15,
      "dur": 0,
      "at": 0
     },
     {
      "who": "rea",
      "do": "face",
-     "frost": 0.3,
+     "frost": 0.15,
      "dur": 0,
      "at": 0
     },
     {
      "who": "god",
      "do": "face",
-     "frost": 0.3,
+     "frost": 0.15,
      "dur": 0,
      "at": 0
     },
@@ -4222,9 +4287,9 @@
        -0.5
       ]
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.59
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.53
     },
     {
      "do": "prop",
@@ -4233,9 +4298,9 @@
       "rot": -90,
       "tip": -55
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.59
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.53
     },
     {
      "do": "prop",
@@ -4269,9 +4334,9 @@
        -0.5
       ]
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 0.72
+     "at": 0.69
     },
     {
      "do": "prop",
@@ -4280,9 +4345,9 @@
       "rot": -90,
       "tip": 0
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 0.72
+     "at": 0.69
     },
     {
      "who": "rea",
@@ -4321,9 +4386,9 @@
        -0.5
       ]
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.93
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.87
     },
     {
      "do": "prop",
@@ -4332,9 +4397,9 @@
       "rot": -90,
       "tip": -55
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.93
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.87
     },
     {
      "do": "prop",
@@ -4368,9 +4433,9 @@
        -0.5
       ]
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.06
+     "at": 1.03
     },
     {
      "do": "prop",
@@ -4379,9 +4444,9 @@
       "rot": -90,
       "tip": 0
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.06
+     "at": 1.03
     },
     {
      "who": "rea",
@@ -4395,12 +4460,6 @@
      "gain": 0.6,
      "reason": "the hammer nails a plank across the door",
      "at": 1.13
-    },
-    {
-     "sfx": "kenney/impact-plank-medium",
-     "gain": 0.35,
-     "reason": "the plank against the door",
-     "at": 1.15
     },
     {
      "who": "rea",
@@ -4420,9 +4479,9 @@
        -0.5
       ]
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 1.2
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.14
     },
     {
      "do": "prop",
@@ -4431,9 +4490,49 @@
       "rot": -90,
       "tip": -55
      },
-     "dur": 0.12,
-     "ease": "out",
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.14
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.35,
+     "reason": "the plank against the door",
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.62,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "that was the door!",
+     "tone": "excited",
+     "dur": 0.85,
+     "blink": false,
+     "at": 1.26
     },
     {
      "who": "rea",
@@ -4453,9 +4552,9 @@
        -0.5
       ]
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.33
+     "at": 1.3
     },
     {
      "do": "prop",
@@ -4464,9 +4563,42 @@
       "rot": -90,
       "tip": 0
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.33
+     "at": 1.3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "hammer",
+      "grip": [
+       0.065,
+       0.132,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -2.45,
+       0.77,
+       -0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.36
+    },
+    {
+     "do": "prop",
+     "id": "hammer",
+     "set": {
+      "rot": -90,
+      "tip": -55
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.36
     },
     {
      "who": "rea",
@@ -4477,7 +4609,7 @@
     },
     {
      "sfx": "hit-wood",
-     "gain": 0.5,
+     "gain": 0.4,
      "reason": "the hammer nails a plank across the door",
      "at": 1.4
     },
@@ -4494,47 +4626,14 @@
       ],
       "palm": "wrap",
       "at": [
-       -2.45,
-       0.77,
-       -0.5
-      ]
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 1.42
-    },
-    {
-     "do": "prop",
-     "id": "hammer",
-     "set": {
-      "rot": -90,
-      "tip": -55
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 1.42
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "hammer",
-      "grip": [
-       0.065,
-       0.132,
-       0.017
-      ],
-      "palm": "wrap",
-      "at": [
        -2.54,
        0.66,
        -0.5
       ]
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.55
+     "at": 1.52
     },
     {
      "do": "prop",
@@ -4543,9 +4642,9 @@
       "rot": -90,
       "tip": 0
      },
-     "dur": 0.07,
+     "dur": 0.1,
      "ease": "in",
-     "at": 1.55
+     "at": 1.52
     },
     {
      "who": "rea",
@@ -4556,7 +4655,7 @@
     },
     {
      "sfx": "hit-wood",
-     "gain": 0.5,
+     "gain": 0.4,
      "reason": "the hammer nails a plank across the door",
      "at": 1.62
     },
@@ -4634,11 +4733,43 @@
      "at": 1.9
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "hammer",
+      "grip": [
+       0.065,
+       0.132,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -2.22,
+       0.3,
+       0.03
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "hammer",
+     "set": {
+      "rot": 80,
+      "tip": 0
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.98
+    },
+    {
      "fx": "rule",
      "dur": 1.334,
      "title": "RULE 2",
      "text": "Never let the scared one lock up",
-     "who": "rea",
      "color": "#c9cdd6",
      "y": 370,
      "at": 2.166
@@ -4661,6 +4792,15 @@
      "amount": 0.06,
      "dur": 0.15,
      "at": 2.166
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.2
     },
     {
      "who": "rea",
@@ -4690,21 +4830,6 @@
      "at": 2.3
     },
     {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.5,
-       0.62,
-       0.12
-      ]
-     },
-     "dur": 0.22,
-     "ease": "settle",
-     "at": 2.32
-    },
-    {
      "who": "rea",
      "do": "squash",
      "amount": 0.03,
@@ -4718,15 +4843,6 @@
      "lid": 0.46,
      "dur": 0.25,
      "at": 2.35
-    },
-    {
-     "who": "vik",
-     "do": "talk",
-     "line": "that was the door!",
-     "tone": "excited",
-     "dur": 0.9,
-     "blink": false,
-     "at": 2.4
     },
     {
      "who": "vik",
@@ -5479,9 +5595,9 @@
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "settle",
-     "at": 0.95
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
     },
     {
      "who": "god",
@@ -5494,9 +5610,9 @@
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "settle",
-     "at": 0.95
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
     },
     {
      "who": "god",
@@ -5517,13 +5633,6 @@
     },
     {
      "who": "vik",
-     "do": "squash",
-     "amount": 0.02,
-     "dur": 0.1,
-     "at": 1.15
-    },
-    {
-     "who": "vik",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -5533,26 +5642,9 @@
        0.3
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 1.18
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.15
-     },
-     "dur": 0.1,
-     "at": 1.18
-    },
-    {
-     "who": "vik",
-     "do": "face",
-     "lid": 0.7,
-     "dur": 0.1,
-     "at": 1.18
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 1
     },
     {
      "who": "samB",
@@ -5565,26 +5657,9 @@
        0.3
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 1.18
-    },
-    {
-     "who": "samB",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.15
-     },
-     "dur": 0.1,
-     "at": 1.18
-    },
-    {
-     "who": "samB",
-     "do": "face",
-     "lid": 0.7,
-     "dur": 0.1,
-     "at": 1.18
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 1
     },
     {
      "who": "rea",
@@ -5597,8 +5672,49 @@
        0.3
       ]
      },
+     "dur": 0.36,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.02,
      "dur": 0.1,
-     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.1,
+     "at": 1.18
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0.7,
+     "dur": 0.1,
+     "at": 1.18
+    },
+    {
+     "who": "samB",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.1,
+     "at": 1.18
+    },
+    {
+     "who": "samB",
+     "do": "face",
+     "lid": 0.7,
+     "dur": 0.1,
      "at": 1.18
     },
     {
@@ -5713,33 +5829,9 @@
        0.36
       ]
      },
-     "dur": 0.25,
-     "ease": "settle",
-     "at": 1.65
-    },
-    {
-     "who": "vik",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.15,
-     "at": 1.65
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "terrified",
-     "dur": 0.2,
-     "at": 1.65
-    },
-    {
-     "who": "vik",
-     "do": "look",
-     "to": [
-      0.15,
-      0.4
-     ],
-     "dur": 0.2,
-     "at": 1.65
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.6
     },
     {
      "who": "samB",
@@ -5752,33 +5844,9 @@
        0.36
       ]
      },
-     "dur": 0.25,
-     "ease": "settle",
-     "at": 1.65
-    },
-    {
-     "who": "samB",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.15,
-     "at": 1.65
-    },
-    {
-     "who": "samB",
-     "do": "expr",
-     "expr": "terrified",
-     "dur": 0.2,
-     "at": 1.65
-    },
-    {
-     "who": "samB",
-     "do": "look",
-     "to": [
-      0.15,
-      0.4
-     ],
-     "dur": 0.2,
-     "at": 1.65
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.6
     },
     {
      "who": "rea",
@@ -5791,8 +5859,56 @@
        0.36
       ]
      },
-     "dur": 0.25,
-     "ease": "settle",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 1.65
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 1.65
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.15,
+      0.4
+     ],
+     "dur": 0.2,
+     "at": 1.65
+    },
+    {
+     "who": "samB",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.15,
+     "at": 1.65
+    },
+    {
+     "who": "samB",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 1.65
+    },
+    {
+     "who": "samB",
+     "do": "look",
+     "to": [
+      0.15,
+      0.4
+     ],
+     "dur": 0.2,
      "at": 1.65
     },
     {
@@ -5830,8 +5946,8 @@
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.3,
-     "ease": "settle",
+     "dur": 0.55,
+     "ease": "inOut",
      "at": 1.7
     },
     {
@@ -6029,7 +6145,6 @@
      "dur": 1.5,
      "title": "RULE 3",
      "text": "Never let the allfather call the weather",
-     "who": "god",
      "color": "#ff5a5a",
      "y": 370,
      "at": 2.1
@@ -6774,8 +6889,8 @@
      "who": "vik",
      "do": "move",
      "to": [
-      -0.4,
-      0.2
+      -0.33,
+      0.25
      ],
      "dur": 0.01,
      "steps": 0,
@@ -6785,7 +6900,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": 3.213,
+     "to": 2.506,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -7391,6 +7506,36 @@
      "at": 1.02
     },
     {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       1.02,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.08
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       1.02,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.08
+    },
+    {
      "do": "prop",
      "id": "quilt",
      "set": {
@@ -7401,7 +7546,157 @@
      "at": 1.1
     },
     {
+     "who": "samB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1.02,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.11
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.06,
+       1.02,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.11
+    },
+    {
      "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "samB",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "samB",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "samB",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "samB",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "god",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "god",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.12
+    },
+    {
+     "who": "god",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "god",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 1.12
+    },
+    {
+     "who": "rea",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -7411,12 +7706,12 @@
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.12
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.14
     },
     {
-     "who": "vik",
+     "who": "rea",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -7426,129 +7721,9 @@
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.12
-    },
-    {
-     "who": "vik",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "vik",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "vik",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "samB",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "samB",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "samB",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "samB",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "rea",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "rea",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "god",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "god",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 1.12
-    },
-    {
-     "who": "god",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
-     "at": 1.12
-    },
-    {
-     "who": "god",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.2,
-     "at": 1.12
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.14
     },
     {
      "who": "vik",
@@ -7558,64 +7733,34 @@
      "at": 1.15
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "arm",
      "side": "R",
      "pose": {
       "o": [
-       0.26,
+       0.14,
        1.02,
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.15
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.17
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "arm",
      "side": "L",
      "pose": {
       "o": [
-       0.26,
+       0.14,
        1.02,
        0.1
       ]
      },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.15
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.26,
-       1.02,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.18
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.26,
-       1.02,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.18
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.17
     },
     {
      "who": "samB",
@@ -7633,36 +7778,6 @@
      "dur": 0.25,
      "ease": "in",
      "at": 1.2
-    },
-    {
-     "who": "god",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.14,
-       1.02,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.21
-    },
-    {
-     "who": "god",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.14,
-       1.02,
-       0.1
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.21
     },
     {
      "who": "rea",
@@ -7689,9 +7804,9 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "vik",
@@ -7704,9 +7819,9 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "rea",
@@ -7719,9 +7834,9 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "rea",
@@ -7734,9 +7849,9 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "god",
@@ -7749,9 +7864,9 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "god",
@@ -7764,16 +7879,16 @@
        0.28
       ]
      },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 1.32
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 1.3
     },
     {
      "who": "vik",
      "do": "move",
      "to": [
-      0.98,
-      0.13
+      -0.54,
+      0.29
      ],
      "dur": 0.01,
      "steps": 0,
@@ -7783,7 +7898,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": 10.525,
+     "to": 9.262,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.48
@@ -7800,8 +7915,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -0.79,
-      -0.2
+      -1.95,
+      -1.35
      ],
      "dur": 0.01,
      "steps": 0,
@@ -7811,7 +7926,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": 20.253,
+     "to": 15.002,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.48
@@ -7828,8 +7943,8 @@
      "who": "god",
      "do": "move",
      "to": [
-      -0.62,
-      -1.3
+      -0.8,
+      -1.85
      ],
      "dur": 0.01,
      "steps": 0,
@@ -7839,7 +7954,7 @@
     {
      "who": "god",
      "do": "turn",
-     "to": 15.755,
+     "to": 6.264,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.48
@@ -7888,16 +8003,16 @@
    "len": 1.1,
    "shot": {
     "pos": [
-     2.2,
-     2.1,
-     3.3
+     0.1,
+     2.4,
+     2.2
     ],
     "look": [
-     -0.57,
-     0.65,
-     -0.25
+     -1.9,
+     0.35,
+     -1.3
     ],
-    "fov": 69
+    "fov": 64
    },
    "do": [
     {
@@ -8029,13 +8144,13 @@
      "side": "R",
      "pose": {
       "o": [
-       0.3,
+       0.15,
        0.7,
        0.25
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
+     "dur": 0.08,
+     "ease": "inOut",
      "at": 0.11
     },
     {
@@ -8064,9 +8179,9 @@
        -0.45
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 0.24
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.19
     },
     {
      "do": "physics",
@@ -8082,13 +8197,13 @@
       4,
       3
      ],
-     "at": 0.36
+     "at": 0.34
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 0.5,
      "reason": "a door plank ripped off",
-     "at": 0.36
+     "at": 0.34
     },
     {
      "who": "samB",
@@ -8096,14 +8211,14 @@
      "side": "R",
      "pose": {
       "o": [
-       0.3,
+       0.15,
        0.7,
        0.25
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 0.37
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.35
     },
     {
      "who": "samB",
@@ -8116,9 +8231,9 @@
        -0.45
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 0.48
+     "dur": 0.14,
+     "ease": "inOut",
+     "at": 0.43
     },
     {
      "do": "physics",
@@ -8134,13 +8249,13 @@
       4,
       3
      ],
-     "at": 0.6
+     "at": 0.58
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 0.5,
      "reason": "a door plank ripped off",
-     "at": 0.6
+     "at": 0.58
     },
     {
      "who": "samB",
@@ -8148,22 +8263,22 @@
      "side": "R",
      "pose": {
       "o": [
-       0.3,
+       0.15,
        0.7,
        0.25
       ]
      },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 0.61
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.59
     },
     {
      "who": "samB",
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.2,
-     "ease": "settle",
+     "dur": 0.35,
+     "ease": "inOut",
      "at": 0.66
     },
     {
@@ -8178,18 +8293,18 @@
      "who": "samB",
      "do": "move",
      "to": [
-      -2,
-      0.5
+      -1.82,
+      0.35
      ],
-     "dur": 0.24,
+     "dur": 0.28,
      "steps": 2,
      "at": 0.68
     },
     {
      "who": "samB",
      "do": "turn",
-     "to": -40,
-     "dur": 0.2,
+     "to": 25,
+     "dur": 0.22,
      "at": 0.7
     },
     {
@@ -8391,35 +8506,13 @@
      "at": 0.8
     },
     {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      -1.2,
-      -0.1
-     ],
-     "dur": 0.26,
-     "steps": 2,
-     "at": 0.82
-    },
-    {
      "who": "vik",
      "do": "move",
      "to": [
-      0.6,
+      -0.8,
       0.15
      ],
-     "dur": 0.26,
-     "steps": 2,
-     "at": 0.82
-    },
-    {
-     "who": "god",
-     "do": "move",
-     "to": [
-      -0.95,
-      -1.2
-     ],
-     "dur": 0.26,
+     "dur": 0.3,
      "steps": 2,
      "at": 0.82
     },
@@ -8430,11 +8523,20 @@
      "at": 0.85
     },
     {
+     "who": "god",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.98
+    },
+    {
      "who": "vik",
      "do": "move",
      "to": [
       -4.65,
-      -2.95
+      -2.45
      ],
      "dur": 0.01,
      "steps": 0,
@@ -8444,7 +8546,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": -73.918,
+     "to": -75.904,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.08
@@ -8461,8 +8563,8 @@
      "who": "samB",
      "do": "move",
      "to": [
-      -3.85,
-      -0.58
+      -4.6,
+      -1.05
      ],
      "dur": 0.01,
      "steps": 0,
@@ -8472,7 +8574,7 @@
     {
      "who": "samB",
      "do": "turn",
-     "to": -96.914,
+     "to": -93.396,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.08
@@ -8489,7 +8591,7 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -3.9,
+      -3.8,
       -1.85
      ],
      "dur": 0.01,
@@ -8500,7 +8602,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": -85.462,
+     "to": -84.342,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.08
@@ -8517,8 +8619,8 @@
      "who": "god",
      "do": "move",
      "to": [
-      -4.62,
-      0
+      -3.8,
+      -0.3
      ],
      "dur": 0.01,
      "steps": 0,
@@ -8528,7 +8630,7 @@
     {
      "who": "god",
      "do": "turn",
-     "to": -78.601,
+     "to": -75.794,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.08
@@ -8549,16 +8651,16 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     -10.2,
-     0.45,
-     -1.35
+     -9.15,
+     0.5,
+     -1.32
     ],
     "look": [
-     89.556,
-     7.426,
-     -1.35
+     89.877,
+     14.417,
+     -1.32
     ],
-    "fov": 64
+    "fov": 68
    },
    "do": [
     {
@@ -8723,15 +8825,6 @@
      "at": 0
     },
     {
-     "who": "god",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.2,
-     "ease": "settle",
-     "at": 0.02
-    },
-    {
      "who": "vik",
      "do": "arm",
      "side": "R",
@@ -8785,6 +8878,21 @@
        0.26,
        1.02,
        0.1
+      ]
+     },
+     "dur": 0.18,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "who": "samB",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.55,
+       0.3
       ]
      },
      "dur": 0.18,
@@ -8819,18 +8927,18 @@
      "do": "arm",
      "side": "R",
      "pose": "up",
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.4
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
     },
     {
      "who": "god",
      "do": "arm",
      "side": "L",
      "pose": "up",
-     "dur": 0.15,
-     "ease": "out",
-     "at": 0.4
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
     },
     {
      "fx": "flash",
@@ -8866,16 +8974,16 @@
    "len": 1.266,
    "shot": {
     "pos": [
-     -10.2,
-     0.45,
-     -1.35
+     -9.15,
+     0.5,
+     -1.32
     ],
     "look": [
-     89.556,
-     7.426,
-     -1.35
+     89.877,
+     14.417,
+     -1.32
     ],
-    "fov": 64,
+    "fov": 68,
     "to": {
      "pos": [
       -13,
@@ -9007,14 +9115,14 @@
      "at": 0.25
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "turn",
-     "to": 78.69,
+     "to": 96.71,
      "dur": 0.08,
      "at": 0.25
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "move",
      "to": [
       -2.95,
@@ -9032,14 +9140,14 @@
      "at": 0.3
     },
     {
-     "who": "god",
+     "who": "samB",
      "do": "turn",
-     "to": 103.47,
+     "to": 68.499,
      "dur": 0.08,
      "at": 0.33
     },
     {
-     "who": "god",
+     "who": "samB",
      "do": "move",
      "to": [
       -2.95,
@@ -9051,16 +9159,16 @@
      "at": 0.33
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "hide",
      "dur": 0,
      "at": 0.37
     },
     {
-     "who": "samB",
+     "who": "god",
      "do": "move",
      "to": [
-      1.8,
+      0.5,
       3
      ],
      "dur": 0.01,
@@ -9071,7 +9179,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": 33.232,
+     "to": 30.379,
      "dur": 0.08,
      "at": 0.4
     },
@@ -9088,16 +9196,16 @@
      "at": 0.4
     },
     {
-     "who": "god",
+     "who": "samB",
      "do": "hide",
      "dur": 0,
      "at": 0.45
     },
     {
-     "who": "god",
+     "who": "samB",
      "do": "move",
      "to": [
-      0.5,
+      1.8,
       3
      ],
      "dur": 0.01,
@@ -9108,7 +9216,7 @@
     {
      "who": "vik",
      "do": "turn",
-     "to": 33.69,
+     "to": 39.668,
      "dur": 0.08,
      "at": 0.48
     },
@@ -9326,16 +9434,16 @@
    "len": 0.934,
    "shot": {
     "pos": [
-     -4.55,
-     4.3,
+     -2.6,
+     5.15,
      -1.9
     ],
     "look": [
-     93.931,
-     21.665,
+     95.215,
+     25.941,
      -1.9
     ],
-    "fov": 55
+    "fov": 56
    },
    "do": [
     {
@@ -9343,9 +9451,9 @@
      "prop": "ccap",
      "mode": "throw",
      "v": [
-      -1.6,
-      3.2,
-      0.4
+      -2.6,
+      2.8,
+      1.4
      ],
      "spin": [
       3,
@@ -9538,6 +9646,85 @@
     "costume-in-prop"
    ],
    "reason": "the grass hollow they stand in"
+  },
+  {
+   "who": "sam",
+   "from": 0,
+   "to": 3.733,
+   "checks": [
+    "hand-jump"
+   ],
+   "reason": "the katana chop: the blade's fall is one smear frame under the slash fx, the race's whole joke is its speed"
+  },
+  {
+   "who": "rea",
+   "from": 7.3,
+   "to": 8.8,
+   "checks": [
+    "hand-jump"
+   ],
+   "reason": "the hammer blows: the hit is one impact frame (wood sound, squash), the rise to each is slow"
+  },
+  {
+   "who": "vik",
+   "from": 18.85,
+   "to": 19.25,
+   "checks": [
+    "hand-jump",
+    "hand-turn"
+   ],
+   "reason": "the dive back in: four small bodies through the door in 0.4 s on the wide, under the avalanche roar"
+  },
+  {
+   "who": "samB",
+   "from": 18.85,
+   "to": 19.25,
+   "checks": [
+    "hand-jump",
+    "hand-turn"
+   ],
+   "reason": "the dive back in: four small bodies through the door in 0.4 s on the wide, under the avalanche roar"
+  },
+  {
+   "who": "rea",
+   "from": 18.85,
+   "to": 19.25,
+   "checks": [
+    "hand-jump",
+    "hand-turn"
+   ],
+   "reason": "the dive back in: four small bodies through the door in 0.4 s on the wide, under the avalanche roar"
+  },
+  {
+   "who": "god",
+   "from": 18.85,
+   "to": 19.25,
+   "checks": [
+    "hand-jump",
+    "hand-turn"
+   ],
+   "reason": "the dive back in: four small bodies through the door in 0.4 s on the wide, under the avalanche roar"
+  },
+  {
+   "who": "samB",
+   "from": 15.4,
+   "to": 16.42,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "DAY 100: four frosted under one quilt to the eyes, the Samurai at the back; it isn't his moment (his is the rip at the door)"
+  },
+  {
+   "who": "armful",
+   "from": 5.966,
+   "to": 20.8,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "burned in the flash: hidden (scale 0) from then on, its box stays at the hearth"
   },
   {
    "who": "cap",

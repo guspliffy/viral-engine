@@ -85,40 +85,40 @@ const RIDE_U = [0.3, 0.7], RIDE_OFF = [-19, 3, -15.5], RIDE_LOOK = [1.5, 4.5, 0.
 
 // the cameras (panel numbers in PANELS.md; each fitted with a lens search, then checked with qa/camfit.mjs)
 const CAM = {
-  A1: { pos: [1.07, 2.28, 3.23], look: [-0.32, 0.25, -1.39], fov: 59 },   // P01: the hook, high from the front right
-  CU: { pos: [1.6, 1.04, 1.87], look: [0.66, 0.76, -0.05], fov: 46 },     // P02: Viking's face, the snowed window behind him
+  A1: { pos: [1.07, 2.28, 3.23], look: [0.0, 0.42, -1.39], fov: 64 },   // P01: the hook, high from the front right
+  CU: { pos: [1.65, 1.04, 2.57], look: [0.71, 0.76, 0.65], fov: 46 },     // P02: Viking's face, the snowed window behind him
   A3: { pos: [0.5, 2.5, 3.4], look: [0.3, 0.5, -0.49], fov: 64 },         // P03: high: the front pair low and big, the back pair over their heads
-  B4: { pos: [2.2, 2.1, 3.3], look: [-0.57, 0.65, -0.25], fov: 69 },      // P04: from the right, the door at frame left
+  B4: { pos: [0.1, 2.4, 2.2], look: [-1.9, 0.35, -1.3], fov: 64 },            // P04: from the right, the door at frame left
   A5: { pos: [0.0, 1.7, 3.4], look: [0.0, 0.8, -0.3], fov: 72 },          // P05: the god front, the chimney top right (the spring huddle's framing, 90 days earlier)
   RIDE: { pos: add3(rideAt(RIDE_U[0]), RIDE_OFF), look: add3(rideAt(RIDE_U[0]), RIDE_LOOK), fov: 42 },   // P06: the ride
   STOP: { pos: [-14, 6, 16], look: [10, 2, 0], fov: 50 },                // the cottage ploughs into the valley and stops
   HEAP: { pos: [-0.95, 2.5, 3.1], look: [-0.95, 0.6, -0.8], fov: 64 },    // the heap, from above
   B6: { pos: [-0.1, 1.7, 3.4], look: [-0.1, 0.8, -0.3], fov: 66 },        // spring: the huddle under the boarded window
-  D1: { pos: [-10.2, 0.45, -1.35], look: lookAlong([-10.2, 0.45, -1.35], 4), fov: 64 },   // P07: low outside the door, the roof and the mountain over them
+  D1: { pos: [-9.15, 0.5, -1.32], look: lookAlong([-9.15, 0.5, -1.32], 8), fov: 68 },   // P07: low outside the door, the roof and the mountain over them
   DB: { pos: [-13, 4.2, -1.5], look: lookAlong([-13, 4.2, -1.5], 16.9), fov: 52 },   // pulled back: the whole mountain
-  DC: { pos: [-4.55, 4.3, -1.9], look: lookAlong([-4.55, 4.3, -1.9], 10), fov: 55 },   // P08: on the mound, the chimney, the peak up top
+  DC: { pos: [-2.6, 5.15, -1.9], look: lookAlong([-2.6, 5.15, -1.9], 12), fov: 56 },   // P08: on the mound's flat top (4.92 m), 3.65 m from the chimney: his face a third of the width, the stone rim under it, the peak up top
 };
 CAM.RIDE.to = { pos: add3(rideAt(RIDE_U[1]), RIDE_OFF), look: add3(rideAt(RIDE_U[1]), RIDE_LOOK) };
 // key poses per beat (bodies a body-width apart, clear of the block [-0.88, -1.29], the rack [-1.0, -1.95], the
 // hearth step x 0.1..2.0 z > -1.35 and the walls)
 const POS = {
-  hook: { vik: [0.85, 0.2], sam: [-1.5, -1.4], rea: [0.0, 1.05], god: [-0.35, -1.87] },
+  hook: { vik: [0.9, 0.9], sam: [-1.3, -1.4], rea: [0.0, 1.5], god: [-0.25, -1.87] },   // review A: Viking nearest (panel 01)
   // camera A3 (panel 03): the god far left and Reaper beside him at the back, the Samurai and Viking in front
-  hearth: { vik: [1.55, -0.9], sam: [-0.5, 0.6], rea: [0.0, -1.25], god: [-0.95, -1.0] },
-  hearthEnd: { vik: [1.0, 1.0], sam: [0.0, 0.8] },   // the flash blows the two at the fire 2 m toward us (panel 03: they are big and low, the god and Reaper over their heads)
+  hearth: { vik: [1.3, -0.9], sam: [-0.5, 0.6], rea: [0.0, -1.25], god: [-0.95, -1.0] },
+  hearthEnd: { vik: [0.8, 1.0], sam: [-0.35, 0.8] },   // the flash blows the two at the fire 2 m toward us (panel 03: they are big and low, the god and Reaper over their heads)
   // camera B4 (panel 04): from the lens at [2.2, 3.3] Reaper at the door stands 49 degrees left, the Samurai 40, the god
   // 31, Viking 21 and nearest: no face behind a body
-  door: { rea: [-2.0, -0.35], sam: [-0.79, -0.2], god: [-0.62, -1.3], vik: [0.98, 0.13] },
+  door: { rea: [-2.0, -0.35], sam: [-2.18, -1.59], god: [-1.14, -1.85], vik: [-0.54, 0.29] },
   god: { vik: [-1.2, 0.2], sam: [-0.62, -0.95], god: [0.3, -0.25], rea: [1.35, -0.85] },   // a zigzag: the god and Viking in front, the other two in the gaps
   heap: { sam: [-2.1, -0.4], rea: [-0.75, -0.35], vik: [-1.42, -1.3], god: [0.1, -1.1] },   // two rows, the back row in the gaps
   // one quilt over a zigzag: Viking and Reaper in front, the Samurai and the god behind in the gaps (1.0 m apart)
-  spring: { vik: [-0.4, 0.2], rea: [0.8, 0.2], sam: [-1.1, -0.6], god: [0.22, -0.75] },
-  rip: { rea: [-0.79, -0.2], god: [-0.62, -1.3], vik: [0.98, 0.13] },   // camera B4 again, Reaper in the Samurai's place
-  out: { vik: [-4.65, -2.95], rea: [-3.9, -1.85], sam: [-3.85, -0.58], god: [-4.62, 0.0] },   // a zigzag across the doorway side: every face clear from the low camera
+  spring: { vik: [-0.33, 0.25], rea: [0.8, 0.2], sam: [-1.1, -0.6], god: [0.22, -0.75] },
+  rip: { rea: [-1.95, -1.35], god: [-0.8, -1.85], vik: [-0.54, 0.29] },   // Reaper and the god clear of the door's swing   // camera B4 again, Reaper in the Samurai's place
+  out: { vik: [-4.65, -2.45], rea: [-3.8, -1.85], sam: [-4.6, -1.05], god: [-3.8, -0.3] },   // a true zigzag (panel 07): Viking and the Samurai in front, Reaper and the god behind in the gaps, 1.1 m apart
 };
 // the Samurai chops side-on to the right, 3/4 to us (yaw 80: the blade rises and falls in front of him toward the
 // frame's middle, as in panel 01, never off its left edge), the block in front of him
-const SAM_FACE = 80, BLOCK = [r3(-1.5 + 0.63 * Math.sin(rad(SAM_FACE))), r3(-1.4 + 0.63 * Math.cos(rad(SAM_FACE)))];
+const SAM_FACE = 80, BLOCK = [r3(POS.hook.sam[0] + 0.7 * Math.sin(rad(SAM_FACE))), r3(POS.hook.sam[1] + 0.7 * Math.cos(rad(SAM_FACE)))];
 const VIK = POS.hook.vik, SAM = POS.hook.sam, REA = POS.hook.rea, GOD = POS.hook.god;
 const yawAt = (a, b) => yawTo(a, b, 1);
 const HEIGHT = { vik: 1.42, sam: 1.33, rea: 1.38, god: 1.42 };
@@ -138,11 +138,11 @@ const PARK = [-2.3, 3.4];
 // props-avalanche.js); hidden ones start at scale 0 (c.prop at 0) and come in on a cut
 const VIK_YAW = cast[0].face;
 // the one log: up in both gloves at belly height in front of him (the top under his mouth), its cut ends to the sides
-const LOG_AT = [r3(VIK[0] + 0.52 * Math.sin(rad(VIK_YAW))), 0.28, r3(VIK[1] + 0.52 * Math.cos(rad(VIK_YAW)))];
+const LOG_AT = [r3(VIK[0] + 0.52 * Math.sin(rad(VIK_YAW))), 0.4, r3(VIK[1] + 0.52 * Math.cos(rad(VIK_YAW)))];
 const LOG = { id: "log", kind: "firewood", ...grips.placeFor("firewood", LOG_AT, VIK_YAW), len: 0.5, r: 0.09 };
 const HEAP_AT = [BLOCK[0], r3(BLOCK[1] + 0.32)], RACK_AT = [-1.0, -1.95];
 // the armful: across the Samurai's arms on the cut to the hearth (he scooped the heap off screen)
-const SAM_DUMP = [1.02, -0.88], ARM_YAW = yawAt(POS.hearth.sam, SAM_DUMP);   // he runs straight at the fire, no turn with the armful
+const SAM_DUMP = [1.02, -0.88], ARM_YAW = yawTo(POS.hearth.sam, camXZ(CAM.A3)), DUMP_YAW = yawAt(POS.hearth.sam, SAM_DUMP);   // the armful shown to us, then a turn and a run at the fire
 const ARMFUL = { id: "armful", kind: "kindlingarmful", ...grips.placeFor("kindlingarmful", [r3(POS.hearth.sam[0] + 0.46 * Math.sin(rad(ARM_YAW))), 0.3, r3(POS.hearth.sam[1] + 0.46 * Math.cos(rad(ARM_YAW)))], ARM_YAW) };
 // the hammer: in Reaper's right fist on the cut to DAY 2
 const REA_DOOR_YAW = 10;   // 3/4 to camera B4, his right glove on the door side
@@ -252,7 +252,7 @@ c.arm(VICTORY, "sam", "L", { o: [0.3, 0.42, 0.2] }, 0.25, "settle"); A(VICTORY, 
 A(VICTORY, "sam", "expr", { expr: "cocky", dur: 0.2 }); A(VICTORY, "sam", "look", { to: [0.15, 0.1], dur: 0.2, blink: false });
 A(r3(T.record - 0.05), "sam", "hop", { height: 0.06, dur: 0.28 });
 c.say(T.record, "sam", "new record!", 0.5, "excited", { sub: false });
-c.cap(T.record, r3(T.cu - 0.03), "New record!", SUB.A1, false, SUB_STYLE);   // ends on the cut, off Viking's close-up
+c.cap(T.record, r3(T.cu - 0.03), "New record!", SUB.A1 + 100, false, SUB_STYLE);   // under "Firewood till spring!" (both up at 3.25-3.65)   // ends on the cut, off Viking's close-up
 
 // Viking: the log up like a trophy, bouncing on his heels; the line lifts it higher
 A(0, "vik", "look", { to: [0, 0.05], dur: 0, blink: false });
@@ -273,7 +273,7 @@ A(3.0, "god", "face", { brow: 0.3, dur: 0.35 });
 // ---------------------------------------------------------------- HUD (the day races under the time-skip cuts)
 // the brief's HUD table, every time moved by the spoken title (PANELS.md); "sky": false = the clock's night is the
 // set's own business (snowcottage `dark` keys), not a plate's night picture
-const WHOOMPH = r3(T.hearth + 1.3);   // the flame column (panel 03)
+const WHOOMPH = r3(T.hearth + 1.5);   // the flame column (panel 03)
 const EMBERS = r3(WHOOMPH + 0.6);   // the flame drops to one glowing crumb
 const HUD = { ...hud({
   label: "SURVIVE IT",
@@ -286,9 +286,9 @@ const HUD = { ...hud({
 // the cards sit under the SNOW chip (y 370, panels 03 and 06), in the brief's colours: Samurai blue, Reaper silver-grey,
 // the god deep red
 const CARD_Y = 370;
-rule(c, WHOOMPH, 1.5, "RULE 1", "Never let the competitive one chop the wood", { who: "samB", color: "#4aa8ff", y: CARD_Y });
-rule(c, T.rule2, r3(T.god - T.rule2), "RULE 2", "Never let the scared one lock up", { who: "rea", color: "#c9cdd6", y: CARD_Y });
-rule(c, r3(T.lurch + 0.1), 1.5, "RULE 3", "Never let the allfather call the weather", { who: "god", color: "#ff5a5a", y: CARD_Y });
+rule(c, WHOOMPH, r3(T.door - WHOOMPH), "RULE 1", "Never let the competitive one chop the wood", { color: "#4aa8ff", y: CARD_Y });
+rule(c, T.rule2, r3(T.god - T.rule2), "RULE 2", "Never let the scared one lock up", { color: "#c9cdd6", y: CARD_Y });
+rule(c, r3(T.lurch + 0.1), 1.5, "RULE 3", "Never let the allfather call the weather", { color: "#ff5a5a", y: CARD_Y });
 
 // ---------------------------------------------------------------- shared helpers for the beats
 const sin = (d) => Math.sin(rad(d)), cos = (d) => Math.cos(rad(d));
@@ -301,7 +301,7 @@ const FOUR = ["vik", "samB", "rea", "god"];
 const laugh = (t, who, n = 3) => { for (let k = 0; k < n; k++) A(r3(t + 0.13 * k), who, "squash", { amount: 0.04, dur: 0.12 }); };
 // each beat's subtitle top (qa/camfit.mjs free bands; LINES.pos until a camfit says otherwise)
 // (the lens check's numbers until camfit on the layout says otherwise: over the heads in the wides, under the HUD)
-Object.assign(SUB, { A3: 470, B4: 590, A5: 500, B6: 500, D1: 1180, DC: 480 });
+Object.assign(SUB, { A3: 470, B4: 460, A5: 500, B6: 500, D1: 760, DC: 480 });   // camfit 10 Nov: A1 210-450, A3 210-470, B4 210-460, the rip 210-520, D1 210-780
 // cold: the arms tucked in front of the body (Reaper's hug from the hook), never out at a neighbour
 const tuck = (t, who, dur = 0, ease) => { c.arm(r3(t), who, "R", { x: [0.1, 0.36, 0.36] }, dur, ease); c.arm(r3(t), who, "L", { x: [-0.1, 0.33, 0.36] }, dur, ease); };
 
@@ -327,13 +327,13 @@ A(H, "vik", "look", { to: [0, -0.3], dur: 0, blink: false }); A(H, "vik", "expr"
 vlog.carry(r3(H + 0.04), ahead(VH, VH_YAW, 0.64, 0.42), 0.12, "out");
 A(r3(H + 0.17), "vik", "release", { prop: "log", to: FIRE_AT, dur: 0.3 });
 grip2(H + 0.19, "vik", "open", 0.12);
-both(H + 0.22, "vik", "rest", 0.35, "settle");
+both(H + 0.22, "vik", "rest", 0.5, "inOut");
 show(r3(H + 0.46), "log", false);   // into the flames
 sfx(r3(H + 0.48), "hit-wood", { gain: 0.35, reason: "the log lands on the fire grate" });
 // he steps back from the fire and watches the Samurai come
-A(4.72, "vik", "move", { to: [1.75, -0.35], dur: 0.35, steps: 2.5 });
-A(5.15, "vik", "turn", { to: yawAt([1.75, -0.35], SAM_DUMP), dur: 0.25 });
-A(5.3, "vik", "expr", { expr: "sad", set: { open: 0.08 }, dur: 0.2 }); A(5.3, "vik", "look", { to: [0.1, -0.1], dur: 0.15, blink: false });
+const VB = [1.1, 0.3];   // inside the frame's right edge (camera A3)
+A(4.7, "vik", "move", { to: VB, dur: 0.5, steps: 2 }); A(5.15, "vik", "turn", { to: camYaw(VB, CAM.A3, 0.6), dur: 0.55, ease: "inOut" });   // backs off the fire, then turns to us
+A(5.4, "vik", "expr", { expr: "sad", set: { open: 0.08 }, dur: 0.2 }); A(5.4, "vik", "look", { to: [-0.6, -0.15], dur: 0.2, blink: false });
 
 const SH = POS.hearth.sam;
 place(H, "samB", SH, ARM_YAW); A(H, "samB", "show", { dur: 0 }); show(H, "armful");
@@ -341,12 +341,17 @@ const harm = grips.box(c, "samB", ARMFUL);
 for (const sd of harm.sides) { c.arm(H, "samB", sd, { prop: "armful", grip: harm.hands[sd].grip, palm: true }, 0); A(H, "samB", "grip", { side: sd, shape: "press", dur: 0 }); }
 A(H, "samB", "grab", { prop: "armful", hand: "both", grip: [0, r3(0.55 * 0.14), 0], dur: 0, pose: null });
 A(H, "samB", "expr", { expr: "eager", dur: 0 }); A(H, "samB", "look", { to: [0, -0.1], dur: 0, blink: false });
-A(4.52, "samB", "move", { to: SAM_DUMP, dur: 0.63, steps: 5, stride: 1.8, ease: "linear" });
-harm.carry(4.52, ahead(SAM_DUMP, ARM_YAW, 0.46, 0.3), 0.63, "linear");   // the armful goes with him (a held prop stays in the world unless carried)
-c.say(4.85, "samB", "more is faster!", 0.7, "excited", { pos: SUB.A3 });
-c.prop(5.3, "armful", { dump: 1 }, 0.3, "in");
-sfx(5.34, "patter", { gain: 0.35, dur: 0.4, reason: "the whole heap of matchsticks tumbles into the fireplace" });
-harm.release(5.6); show(r3(WHOOMPH - 0.03), "armful", false);   // empty: the hands let go, it is gone in the flash
+c.say(4.52, "samB", "more is faster!", 0.7, "excited", { pos: SUB.A3 });
+A(4.6, "samB", "hop", { height: 0.05, dur: 0.25 });
+// the turn and the run: the armful turns with him, then goes with him (a held prop stays in the world unless carried)
+A(5.0, "samB", "turn", { to: DUMP_YAW, dur: 0.2, ease: "inOut" });
+harm.carry(5.0, ahead(SH, DUMP_YAW, 0.46, 0.3), 0.2, "inOut", { rot: r3(ARMFUL.rot + DUMP_YAW - ARM_YAW) });
+A(5.2, "samB", "move", { to: SAM_DUMP, dur: 0.5, steps: 4, stride: 1.8, ease: "linear" });
+harm.carry(5.2, ahead(SAM_DUMP, DUMP_YAW, 0.46, 0.3), 0.5, "linear");
+c.prop(5.72, "armful", { dump: 1 }, 0.3, "in");
+sfx(5.76, "patter", { gain: 0.35, dur: 0.4, reason: "the whole heap of matchsticks tumbles into the fireplace" });
+harm.release(5.8, { rest: false, back: 0.1 }); both(5.94, "samB", { o: [0.18, 0.48, 0.28] }, 0.06, "linear");   // the hands in his own frame before the flash turns him
+show(r3(WHOOMPH - 0.03), "armful", false);   // empty: the hands let go, it is gone in the flash
 c.prop(H, "heap", { amount: 0 }, 0); show(H, "rack", false); show(H, "block", false);   // he scooped the heap; the rack is empty; the block is behind the cast from here on (out of every later shot)
 
 const REH = POS.hearth.rea, GOH = POS.hearth.god;
@@ -361,22 +366,22 @@ c.at(W, { fx: "shake", dur: 0.3, amp: 0.022 });
 const VE = POS.hearthEnd.vik, SE = POS.hearthEnd.sam;
 A(r3(W + 0.02), "vik", "move", { to: VE, dur: 0.36, steps: 0, ease: "out" }); A(r3(W + 0.02), "vik", "turn", { to: camYaw(VE, CAM.A3), dur: 0.3, ease: "out" });
 A(r3(W + 0.02), "vik", "lean", { to: -14, dur: 0.12, ease: "out" }); A(r3(W + 0.3), "vik", "lean", { to: 0, dur: 0.3, ease: "settle" });
-act.shock(c, r3(W + 0.02), "vik", { hold: 0.45 }); both(W + 0.02, "vik", { o: [0.1, 0.45, 0.3] }, 0.15, "out"); grip2(W + 0.02, "vik", "open", 0.1);
+act.shock(c, r3(W + 0.02), "vik", { hold: 0.45 }); both(W + 0.02, "vik", { o: [0.2, 0.5, 0.22] }, 0.3, "inOut"); grip2(W + 0.02, "vik", "open", 0.1);
 A(r3(W + 0.02), "samB", "move", { to: SE, dur: 0.36, steps: 0, ease: "out" }); A(r3(W + 0.02), "samB", "turn", { to: camYaw(SE, CAM.A3), dur: 0.3, ease: "out" });
 A(r3(W + 0.02), "samB", "lean", { to: -14, dur: 0.12, ease: "out" }); A(r3(W + 0.3), "samB", "lean", { to: 0, dur: 0.3, ease: "settle" });
-act.shock(c, r3(W + 0.02), "samB", { hold: 0.4 }); both(W + 0.04, "samB", { o: [0.1, 0.45, 0.3] }, 0.15, "out"); grip2(W + 0.04, "samB", "open", 0.1);
-A(r3(W + 0.02), "rea", "crouch", { to: 0.35, dur: 0.15 }); both(W + 0.02, "rea", "cheeks", 0.15, "out"); A(r3(W + 0.02), "rea", "expr", { expr: "terrified", set: { open: 0.3 }, dur: 0.12 });
+act.shock(c, r3(W + 0.02), "samB", { hold: 0.4 }); both(W + 0.04, "samB", { o: [0.2, 0.5, 0.22] }, 0.3, "inOut"); grip2(W + 0.04, "samB", "open", 0.1);
+A(r3(W + 0.02), "rea", "crouch", { to: 0.35, dur: 0.15 }); both(W + 0.02, "rea", "cheeks", 0.24, "inOut"); A(r3(W + 0.02), "rea", "expr", { expr: "terrified", set: { open: 0.3 }, dur: 0.12 });
 A(r3(W + 0.06), "god", "expr", { expr: "delighted", dur: 0.15 }); laugh(W + 0.1, "god", 4); A(r3(W + 0.06), "god", "look", { to: [0.55, 0.05], dur: 0.15 });
 // one glowing crumb: the flame drops, a grey puff, the log burnt to nothing
 sfx(EMBERS, "ai/snuff", { gain: 0.6, reason: "the fire drops to embers" });
 c.at(EMBERS, { fx: "poof", pos: [1.05, 0.55, -1.75], dur: 0.6, color: "#8f8a86", puffs: 8, sparks: 0, size: 0.45, lift: 0.4 });
 // Viking stares at the crumb, then at the Samurai; the Samurai's sheepish grin; the god shakes his head; Reaper uncurls
 A(EMBERS, "vik", "look", { to: [0.35, -0.5], dur: 0.2 }); act.mood(c, r3(EMBERS + 0.05), "vik", "sad", { hold: 0.3 }); both(EMBERS, "vik", "rest", 0.4, "settle");
-A(6.75, "vik", "look", { to: [-0.85, -0.02], dur: 0.15, blink: false }); act.mood(c, 6.75, "vik", "annoyed", { hold: 0.3 });
+A(6.85, "vik", "look", { to: [-0.85, -0.02], dur: 0.15, blink: false }); act.mood(c, 6.85, "vik", "annoyed", { hold: 0.2 });
 both(r3(EMBERS + 0.05), "samB", "rest", 0.35, "settle");
-act.sheepish(c, 6.85, "samB"); c.arm(6.85, "samB", "R", "hat", 0.25, "settle"); A(6.85, "samB", "look", { to: [0.5, -0.05], dur: 0.15 });
-A(6.4, "god", "expr", { expr: "deadpan", dur: 0.2 }); for (const [k, x] of [-0.4, 0.4, -0.4, 0].entries()) A(r3(6.45 + 0.15 * k), "god", "look", { to: [x, -0.05], dur: 0.14 });
-A(6.6, "rea", "crouch", { to: 0, dur: 0.35 }); tuck(6.65, "rea", 0.35, "settle"); A(6.6, "rea", "expr", { expr: "sad", set: { open: 0.06 }, dur: 0.25 });
+act.sheepish(c, 6.7, "samB"); c.arm(6.7, "samB", "R", "hat", 0.35, "inOut"); A(6.7, "samB", "look", { to: [0.5, -0.05], dur: 0.15 });
+A(6.6, "god", "expr", { expr: "deadpan", dur: 0.2 }); for (const [k, x] of [-0.4, 0.4, -0.4, 0].entries()) A(r3(6.62 + 0.11 * k), "god", "look", { to: [x, -0.05], dur: 0.14 });
+A(6.7, "rea", "crouch", { to: 0, dur: 0.3 }); tuck(6.68, "rea", 0.4, "inOut"); A(6.7, "rea", "expr", { expr: "sad", set: { open: 0.06 }, dur: 0.25 });
 
 // ---------------------------------------------------------------- 4 FAIL 2: REAPER LOCKS UP 7.1-10.6 (panel 04, camera B4)
 // DAY 2 night: the wind, the door rattles; Reaper hammers three planks across the door, then two more hits for luck,
@@ -385,7 +390,7 @@ A(6.6, "rea", "crouch", { to: 0, dur: 0.35 }); tuck(6.65, "rea", 0.35, "settle")
 const D = T.door, RD = POS.door.rea;
 place(D, "rea", RD, REA_DOOR_YAW); place(D, "samB", POS.door.sam, camYaw(POS.door.sam, CAM.B4, 0.75));
 place(D, "god", POS.door.god, camYaw(POS.door.god, CAM.B4, 0.5)); place(D, "vik", POS.door.vik, camYaw(POS.door.vik, CAM.B4, 0.6));
-frost(D, FOUR, 0.3);
+frost(D, FOUR, 0.15);   // DAY 2: a first dusting (review A)
 c.prop(D, "wp", WIN_PLANK, 0);
 for (const w of ["vik", "samB", "god"]) { both(D, w, "rest", 0); grip2(D, w, "relaxed", 0); A(D, w, "face", { brow: 0, lid: 0, dur: 0 }); }
 A(D, "rea", "crouch", { to: 0, dur: 0 });
@@ -405,25 +410,27 @@ const HITS = [7.55, 7.89, 8.23, 8.5, 8.72], HIT_Y = [0.6, 0.95, 1.3, 0.95, 0.95]
 const hamHit = (y, z) => ({ at: [-2.54, r3(y - 0.29), z], rot: -90, tip: 0 });
 const hamUp = (y, z) => ({ at: [-2.45, r3(y - 0.18), z], rot: -90, tip: -55 });
 { const u = hamUp(HIT_Y[0], HIT_Z); hh.carry(D, u.at, 0, "linear", { rot: u.rot, tip: u.tip }); }
-const swing = (t, aim) => { const u = hamUp(...aim), h = hamHit(...aim); hh.carry(r3(t - 0.2), u.at, 0.12, "out", { rot: u.rot, tip: u.tip }); hh.carry(r3(t - 0.07), h.at, 0.07, "in", { rot: h.rot, tip: h.tip }); A(r3(t - 0.02), "rea", "squash", { amount: 0.05, dur: 0.12 }); };
+const swing = (t, aim) => { const u = hamUp(...aim), h = hamHit(...aim); hh.carry(r3(t - 0.26), u.at, 0.15, "inOut", { rot: u.rot, tip: u.tip }); hh.carry(r3(t - 0.1), h.at, 0.1, "in", { rot: h.rot, tip: h.tip }); A(r3(t - 0.02), "rea", "squash", { amount: 0.05, dur: 0.12 }); };
 HITS.forEach((t, k) => {
   if (k) swing(t, [HIT_Y[k], HIT_Z]); else { const h = hamHit(HIT_Y[0], HIT_Z); hh.carry(r3(t - 0.07), h.at, 0.07, "in", { rot: h.rot, tip: h.tip }); A(r3(t - 0.02), "rea", "squash", { amount: 0.05, dur: 0.12 }); }
   if (k < 3) c.prop(r3(t - 0.14), `dp${k + 1}`, plankUp(DOOR_PLANK_Y[k]), 0.1, "out");   // he slaps it on, then the nail
-  sfx(t, "hit-wood", { gain: k < 3 ? 0.6 : 0.5, reason: "the hammer nails a plank across the door" });
+  sfx(t, "hit-wood", { gain: k < 3 ? 0.6 : 0.4, reason: "the hammer nails a plank across the door" });
   if (k < 3) sfx(r3(t + 0.02), "kenney/impact-plank-medium", { gain: 0.35, reason: "the plank against the door" });
 });
 // his back against the boards (the thud = RULE 2), the hammer down at his side, panting, a proud nod
 const RB = [-2.25, -0.4], RB_YAW = 80;
 A(8.92, "rea", "move", { to: RB, dur: 0.3, steps: 2 }); A(8.92, "rea", "turn", { to: RB_YAW, dur: 0.3 });
-hh.carry(8.92, [-2.42, 0.6, 0.0], 0.15, "out", { rot: 40, tip: 0 });   // out to his right-front first: never through his middle hh.carry(9.08, [-2.22, 0.3, 0.03], 0.22, "inOut", { rot: RB_YAW, tip: 0 });   // after the turn is half done: the fist goes round his side, not through him
+hh.carry(8.92, [-2.42, 0.6, 0.0], 0.15, "out", { rot: 40, tip: 0 });   // out to his right-front first: never through his middle
+hh.carry(9.08, [-2.22, 0.3, 0.03], 0.22, "inOut", { rot: RB_YAW, tip: 0 });   // after the turn is half done: the fist goes round his side, not through him
 sfx(T.rule2, "thud", { gain: 0.8, reason: "Reaper's back hits the boarded door" });
 c.at(T.rule2, { fx: "shake", dur: 0.15, amp: 0.012 }); A(T.rule2, "rea", "squash", { amount: 0.06, dur: 0.15 });
 A(9.35, "rea", "expr", { expr: "smug", dur: 0.25 }); A(9.35, "rea", "look", { to: [0.3, 0], dur: 0.2 });
 for (let k = 0; k < 4; k++) A(r3(9.45 + 0.2 * k), "rea", "squash", { amount: 0.03, dur: 0.18 });   // panting
 A(10.15, "rea", "look", { to: [0.3, -0.3], dur: 0.12 }); A(10.29, "rea", "look", { to: [0.3, 0.05], dur: 0.14 });   // the nod
 // Viking: "That was the door!", an arm out at it; the Samurai impressed; the god glares at the boards
-c.say(9.5, "vik", "that was the door!", 0.9, "excited", { pos: SUB.B4 });
-c.arm(9.42, "vik", "R", { o: [0.5, 0.62, 0.12] }, 0.22, "settle"); act.mood(c, 9.45, "vik", "annoyed", { hold: 0.6 });
+c.say(8.36, "vik", "that was the door!", 0.85, "excited", { pos: SUB.B4 });   // over the two hits for luck: his subtitle is gone before RULE 2 drops on the thud
+c.arm(8.3, "vik", "R", { o: [0.5, 0.62, 0.12] }, 0.3, "inOut"); A(8.3, "vik", "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0.15 });
+c.arm(9.3, "vik", "R", "rest", 0.45, "inOut"); act.mood(c, 9.45, "vik", "annoyed", { hold: 0.6 });
 A(9.0, "god", "face", { brow: -0.3, lid: 0.3, dur: 0.25 }); A(9.0, "god", "expr", { expr: "stern", dur: 0.25 });
 A(8.95, "samB", "expr", { expr: "delighted", dur: 0.2 }); A(9.4, "samB", "look", { to: [-0.8, 0], dur: 0.2 });
 
@@ -445,18 +452,18 @@ for (const t of [10.75, 11.3, 11.75]) for (const w of ["vik", "samB", "rea"]) A(
 c.say(10.8, "god", "Cold? I shall call the SUN!", 1.6, "excited", { pos: SUB.A5 });
 A(10.9, "god", "expr", { expr: "cocky", dur: 0.25 });
 both(11.05, "god", { o: [0.12, 0.6, 0.25] }, 0.4, "inOut"); grip2(11.05, "god", "fist", 0.2);
-both(11.55, "god", { o: [0.26, 1.02, 0.1] }, 0.2, "settle"); A(11.55, "god", "expr", { expr: "angry", dur: 0.15 }); A(11.55, "god", "look", { to: [0, 0.45], dur: 0.15 });
+both(11.5, "god", { o: [0.26, 1.02, 0.1] }, 0.3, "inOut"); A(11.55, "god", "expr", { expr: "angry", dur: 0.15 }); A(11.55, "god", "look", { to: [0, 0.45], dur: 0.15 });
 // lightning, thunder, the others shield their eyes
 c.prop(11.8, "bolt", { on: 1 }, 0.08, "out"); c.prop(12.1, "bolt", { on: 0 }, 0.15, "in");
 c.at(11.8, { fx: "flash", dur: 0.3, peak: 0.8, sound: false }); sfx(11.8, "flash", { gain: 0.5, reason: "the lightning up the chimney" });
 sfx(11.9, "firework", { gain: 0.7, reason: "the thunderclap (thunder: firework + rumble)" }); sfx(11.92, "rumble", { gain: 0.8, reason: "the thunder" });
 c.at(11.9, { fx: "shake", dur: 0.3, amp: 0.02 });
-for (const w of ["vik", "samB", "rea"]) { c.arm(11.78, w, "R", { o: [-0.06, 0.72, 0.3] }, 0.1, "out"); A(11.78, w, "expr", { expr: "shocked", set: { open: 0.15 }, dur: 0.1 }); A(11.78, w, "face", { lid: 0.7, dur: 0.1 }); }
+for (const w of ["vik", "samB", "rea"]) { c.arm(11.6, w, "R", { o: [-0.06, 0.72, 0.3] }, 0.36, "inOut"); A(11.78, w, "expr", { expr: "shocked", set: { open: 0.15 }, dur: 0.1 }); A(11.78, w, "face", { lid: 0.7, dur: 0.1 }); }
 // the rumble doesn't stop: candles shiver, icicles drop, the god lowers an arm and looks up
 sfx(12.05, "ridewind", { gain: 0.45, dur: 0.75, reason: "the mountain's snow starts to move (snowslide: ridewind + rumble)" }); sfx(12.2, "rumble", { gain: 0.9, reason: "the rumble grows" });
 c.drop(12.05, "ice1"); sfx(12.38, "tink", { gain: 0.4, reason: "an icicle hits the hearth" }); c.drop(12.28, "ice2"); sfx(12.6, "tink", { gain: 0.35, reason: "the second icicle" });
-c.arm(12.3, "god", "L", "rest", 0.3, "settle"); A(12.3, "god", "expr", { expr: "shocked", set: { open: 0.1 }, dur: 0.2 }); A(12.3, "god", "look", { to: [0.3, 0.6], dur: 0.2 });
-for (const w of ["vik", "samB", "rea"]) { c.arm(12.25, w, "R", { x: [0.1, 0.36, 0.36] }, 0.25, "settle"); A(12.25, w, "face", { lid: 0, dur: 0.15 }); A(12.25, w, "expr", { expr: "terrified", dur: 0.2 }); A(12.25, w, "look", { to: [0.15, 0.4], dur: 0.2 }); }
+c.arm(12.3, "god", "L", "rest", 0.55, "inOut"); A(12.3, "god", "expr", { expr: "shocked", set: { open: 0.1 }, dur: 0.2 }); A(12.3, "god", "look", { to: [0.3, 0.6], dur: 0.2 });
+for (const w of ["vik", "samB", "rea"]) { c.arm(12.2, w, "R", { x: [0.1, 0.36, 0.36] }, 0.5, "inOut"); A(12.25, w, "face", { lid: 0, dur: 0.15 }); A(12.25, w, "expr", { expr: "terrified", dur: 0.2 }); A(12.25, w, "look", { to: [0.15, 0.4], dur: 0.2 }); }
 // the LURCH: every body slides 0.2 m toward -x, the blankets slide off, snow jets through every gap
 const L = T.lurch;
 c.at(L, { fx: "shake", dur: 0.5, amp: 0.045 }); sfx(L, "impact", { gain: 0.85, reason: "the room lurches" }); sfx(r3(L + 0.05), "thud", { gain: 0.7, reason: "everything slides into the wall" });
@@ -514,33 +521,33 @@ A(15.9, "vik", "face", { lid: 0.75, dur: 0.15 }); A(16.1, "vik", "expr", { expr:
 for (const w of ["samB", "rea", "god"]) A(16.25, w, "look", { to: [w === "rea" ? -0.5 : w === "god" ? -0.4 : 0.4, 0.1], dur: 0.2 });
 c.say(16.42, "vik", "spring! we made it!", 1.0, "excited", { pos: SUB.B6, sub: "Spring! We made it!" });
 c.prop(16.5, "quilt", { cover: 0 }, 0.3, "out");
-for (const [k, w] of FOUR.entries()) { both(r3(16.52 + 0.03 * k), w, { o: [w === "god" ? 0.14 : 0.26, 1.02, 0.1] }, 0.2, "out"); grip2(16.52, w, "open", 0.15); A(r3(16.55 + 0.04 * k), w, "hop", { height: 0.1, dur: 0.3 }); A(16.52, w, "expr", { expr: "delighted", dur: 0.2 }); A(16.52, w, "face", { lid: 0, dur: 0.2 }); }
+for (const [k, w] of FOUR.entries()) { both(r3(16.48 + 0.03 * k), w, { o: [w === "god" ? 0.14 : w === "samB" ? 0.06 : 0.26, 1.02, 0.1] }, 0.3, "inOut"); grip2(16.52, w, "open", 0.15); A(r3(16.55 + 0.04 * k), w, "hop", { height: 0.1, dur: 0.3 }); A(16.52, w, "expr", { expr: "delighted", dur: 0.2 }); A(16.52, w, "face", { lid: 0, dur: 0.2 }); }
 c.prop(16.6, "beam", { on: 0 }, 0.25, "in");
 // the cheer drops to low fists before the cut: from the door camera a raised glove would cover the face behind it
-for (const w of ["vik", "rea", "god"]) both(16.72, w, { o: [0.12, 0.5, 0.28] }, 0.15, "settle");
+for (const w of ["vik", "rea", "god"]) both(16.7, w, { o: [0.12, 0.5, 0.28] }, 0.24, "inOut");
 // the cut to the door: the Samurai 3/4 to us, his right glove on the top plank; three rips, top first, each flung behind him
-const SD = [-2.15, -0.4], SD_YAW = 20, RIPS = [[r3(RIP + 0.1), 2], [17.26, 1], [17.5, 0]];
+const SD = [-2.15, -0.4], SD_YAW = 20, RIPS = [[r3(RIP + 0.1), 2], [17.24, 1], [17.48, 0]];
 const plankAt = (k) => ({ world: [-2.56, DOOR_PLANK_Y[k], -0.45] });
 for (const w of ["vik", "rea", "god"]) { const p = POS.rip[w]; place(RIP, w, p, camYaw(p, CAM.B4, 0.5)); A(RIP, w, "look", { to: [-0.6, 0], dur: 0, blink: false }); }
 place(RIP, "samB", SD, SD_YAW); show(RIP, "quilt", false); c.prop(RIP, "cot", { boards: 0 }, 0);
 c.arm(RIP, "samB", "R", plankAt(2), 0); c.arm(RIP, "samB", "L", "rest", 0); A(RIP, "samB", "grip", { side: "R", shape: "hold", dur: 0 });
 A(RIP, "samB", "expr", { expr: "eager", dur: 0 }); A(RIP, "samB", "look", { to: [-0.5, 0.1], dur: 0, blink: false });
 RIPS.forEach(([t, k], i) => {
-  if (i) c.arm(r3(t - 0.12), "samB", "R", plankAt(k), 0.1, "out");
+  if (i) c.arm(r3(t - 0.15), "samB", "R", plankAt(k), 0.14, "inOut");
   c.throw(t, `dp${k + 1}`, { v: [0.9, 1.8, r3(-1.6 - 0.3 * i)], spin: [2, 4, 3] });
-  c.arm(r3(t + 0.01), "samB", "R", { o: [0.3, 0.7, 0.25] }, 0.1, "out");
+  c.arm(r3(t + 0.01), "samB", "R", { o: [0.15, 0.7, 0.25] }, 0.08, "inOut");   // up and forward: the wall is on his right
   sfx(t, "kenney/impact-plank-medium", { gain: 0.5, reason: "a door plank ripped off" });
 });
 sfx(r3(RIP + 0.12), "scrape", { gain: 0.4, reason: "the nails come out" });
 c.say(17.05, "samB", "fastest!", 0.5, "excited", { pos: SUB.B6 });
-c.arm(17.56, "samB", "R", "rest", 0.2, "settle"); A(17.56, "samB", "grip", { side: "R", shape: "relaxed", dur: 0.15 });
-A(17.58, "samB", "move", { to: [-2.0, 0.5], dur: 0.24, steps: 2 }); A(17.6, "samB", "turn", { to: -40, dur: 0.2 });
+c.arm(17.56, "samB", "R", "rest", 0.35, "inOut"); A(17.56, "samB", "grip", { side: "R", shape: "relaxed", dur: 0.15 });
+A(17.58, "samB", "move", { to: [-1.82, 0.35], dur: 0.28, steps: 2 }); A(17.6, "samB", "turn", { to: 25, dur: 0.22 });   // clear of the door's swing, still in the shot
 sfx(17.62, "door-creak", { gain: 0.6, reason: "the door swings open" });
 // the light: everyone squints, thaws (frost 1 -> 0.5, melt 0 -> 1: steam, sheets slide off) and leans to the door
 for (const w of FOUR) { A(17.64, w, "face", { lid: 0.55, dur: 0.15 }); A(17.64, w, "expr", { expr: "happy", dur: 0.2 }); A(17.64, w, "look", { to: [-0.5, 0.15], dur: 0.15 }); if (w !== "samB") both(17.64, w, "rest", 0.25, "settle"); }
 for (const w of FOUR) { A(17.7, w, "face", { frost: 0.4, melt: 1, dur: 0.6 }); }
 sfx(17.75, "steam", { gain: 0.4, reason: "the frost steams off in the sun" });
-for (const [w, to] of [["rea", [-1.2, -0.1]], ["vik", [0.6, 0.15]], ["god", [-0.95, -1.2]]]) A(17.72, w, "move", { to, dur: 0.26, steps: 2 });
+A(17.72, "vik", "move", { to: [-0.8, 0.15], dur: 0.3, steps: 2 });   // a step to the light
 
 // ---------------------------------------------------------------- 9 THE PAYOFF 18.0-20.8 (panels 07 and 08, cameras D1 -> DB -> DC)
 // the doorway on the green: "You're welcome!", a thunderclap of thanks, a CRACK; the camera pulls back to the whole
@@ -550,11 +557,12 @@ const O = T.out;
 for (const w of ["vik", "sam", "rea", "god"]) { const id = w === "sam" ? "samB" : w, p = POS.out[w]; place(O, id, p, camYaw(p, CAM.D1) + (w === "god" ? 25 : 0)); both(O, id, "rest", 0); }
 show(O, "ccap");
 A(O, "god", "expr", { expr: "cocky", dur: 0 }); A(O, "god", "look", { to: [0.2, 0.5], dur: 0, blink: false });
-c.arm(r3(O + 0.02), "god", "R", "up", 0.2, "settle"); grip2(O, "god", "fist", 0.1);
-for (const w of ["vik", "samB"]) { both(r3(O + 0.03), w, { o: [0.26, 1.02, 0.1] }, 0.18, "out"); A(r3(O + 0.05 + (w === "vik" ? 0 : 0.06)), w, "hop", { height: 0.12, dur: 0.3 }); A(O, w, "expr", { expr: "delighted", dur: 0 }); A(O, w, "face", { lid: 0, dur: 0 }); }   // (an o-pose: the named "up" under a hop stayed at rest on the layout)
+c.arm(r3(O - 0.12), "god", "R", "up", 0.45, "inOut");   // already on its way up in the door shot: a pose change on the cut frame lands late
+grip2(O, "god", "fist", 0.1);
+for (const w of ["vik", "samB"]) { both(r3(O + 0.03), w, { o: [0.26, 1.02, 0.1] }, 0.18, "out"); if (w === "samB") c.arm(r3(O + 0.03), w, "R", { o: [0.1, 0.55, 0.3] }, 0.18, "out"); A(r3(O + 0.05 + (w === "vik" ? 0 : 0.06)), w, "hop", { height: 0.12, dur: 0.3 }); A(O, w, "expr", { expr: "delighted", dur: 0 }); A(O, w, "face", { lid: 0, dur: 0 }); }   // (an o-pose: the named "up" under a hop stayed at rest on the layout; the Samurai's right fist low: Reaper stands on that side)
 A(O, "rea", "expr", { expr: "happy", dur: 0 }); A(O, "rea", "face", { lid: 0.6, dur: 0 }); A(O, "rea", "look", { to: [0.2, 0.5], dur: 0, blink: false });
 c.say(18.15, "god", "You're welcome!", 0.9, "excited", { pos: SUB.D1 });
-both(18.4, "god", "up", 0.15, "out");
+both(18.3, "god", "up", 0.3, "inOut");
 c.at(18.42, { fx: "flash", dur: 0.3, peak: 0.8, sound: false }); sfx(18.42, "flash", { gain: 0.5, reason: "the god's thank-you lightning" });
 sfx(18.45, "firework", { gain: 0.7, reason: "the thunderclap of thanks" }); sfx(18.47, "rumble", { gain: 0.8, reason: "the thunder" });
 sfx(18.6, "crumble", { gain: 0.9, reason: "the CRACK high up (crack: crumble)" });
@@ -566,10 +574,10 @@ c.prop(19.45, "mound", { rise: 1 }, 0.35, "out"); show(19.6, "patch", false);
 sfx(18.85, "ridewind", { gain: 1.0, dur: 1.0, reason: "the cap's avalanche roars down (snowslide)" }); sfx(18.9, "rumble", { gain: 1.0, reason: "the avalanche" });
 sfx(19.6, "impact", { gain: 0.9, reason: "the wave hits the cottage" }); c.at(19.6, { fx: "shake", dur: 0.3, amp: 0.03 });
 sfx(T.mound, "thud-soft", { gain: 0.9, reason: "the mound settles" });
-// the dive back in (the god nearest the door first, then Reaper, Viking, the Samurai; each gone through the door)
+// the dive back in (the god nearest the door first, then the Samurai, Reaper, Viking; each gone through the door)
 // one at a time: each is through the door before the next gets there; once inside they wait out of every shot
 const DOORWAY = [-2.95, -0.4], INSIDE = { god: [0.5, 3.0], rea: [-1.0, 3.0], samB: [1.8, 3.0] };
-for (const [w, t0, t1] of [["samB", 18.85, 18.97], ["god", 18.93, 19.05], ["rea", 19.0, 19.14], ["vik", 19.08, 19.22]]) {
+for (const [w, t0, t1] of [["god", 18.85, 18.97], ["samB", 18.93, 19.05], ["rea", 19.0, 19.14], ["vik", 19.08, 19.22]]) {
   A(t0, w, "turn", { to: yawAt(POS.out[w === "samB" ? "sam" : w], DOORWAY), dur: 0.08 });
   A(t0, w, "move", { to: DOORWAY, dur: r3(t1 - t0), steps: 3, stride: 1.9 }); A(t1, w, "hide", { dur: 0 });
   if (INSIDE[w]) A(r3(t1 + 0.02), w, "move", { to: INSIDE[w], dur: 0.01, steps: 0, ease: "linear" });
@@ -580,7 +588,7 @@ const CH = [1.05, -1.9], VIK_LOW = 4.1, VIK_UP = 4.96, RISE = [20.1, 20.5], LUMP
 A(T.mound, "vik", "move", { to: CH, y: VIK_LOW, dur: 0, steps: 0, ease: "linear" }); A(T.mound, "vik", "turn", { to: -90, dur: 0, ease: "linear" });
 A(T.mound, "vik", "grow", { to: 0.8, dur: 0 }); A(T.mound, "vik", "show", { dur: 0 }); both(T.mound, "vik", "rest", 0);
 for (const w of ["vik"]) { A(T.mound, w, "face", { frost: 0, melt: 0, dur: 0 }); A(T.mound, w, "expr", { expr: "deadpan", set: { open: 0 }, dur: 0 }); A(T.mound, w, "face", { lid: 0.35, dur: 0 }); A(T.mound, w, "look", { to: [0, 0], dur: 0, blink: false }); }
-c.throw(20.0, "ccap", { v: [-1.6, 3.2, 0.4], spin: [3, 1, 2] }); sfx(20.0, "pop", { gain: 0.6, reason: "the chimney cap pops off" });
+c.throw(20.0, "ccap", { v: [-2.6, 2.8, 1.4], spin: [3, 1, 2] }); sfx(20.0, "pop", { gain: 0.6, reason: "the chimney cap pops off" });
 A(RISE[0], "vik", "move", { to: CH, y: VIK_UP, dur: r3(RISE[1] - RISE[0]), steps: 0, ease: "out" });
 show(T.mound, "lumpCrest"); c.prop(T.mound, "lumpCrest", { y: r3(VIK_LOW + LUMP_DY) }, 0); c.prop(RISE[0], "lumpCrest", { y: r3(VIK_UP + LUMP_DY) }, r3(RISE[1] - RISE[0]), "out");
 A(20.45, "vik", "blink", { dur: 0.12 }); A(20.68, "vik", "blink", { dur: 0.1 });
@@ -644,6 +652,11 @@ write(import.meta.url, {
     { who: "sprayD", from: T.god, to: T.spring, checks: WORN, reason: "cel snow jets through the board gaps: air, not a body" },
     { who: "drift", from: T.god, to: T.out, checks: WORN, reason: "loose snow the cast stand knee-deep in" },
     { who: "patch", from: T.out, to: T.end, checks: WORN, reason: "the grass hollow they stand in" },
+    { who: "sam", from: 0, to: T.cu, checks: ["hand-jump"], reason: "the katana chop: the blade's fall is one smear frame under the slash fx, the race's whole joke is its speed" },
+    { who: "rea", from: 7.3, to: 8.8, checks: ["hand-jump"], reason: "the hammer blows: the hit is one impact frame (wood sound, squash), the rise to each is slow" },
+    ...["vik", "samB", "rea", "god"].map((who) => ({ who, from: 18.85, to: 19.25, checks: ["hand-jump", "hand-turn"], reason: "the dive back in: four small bodies through the door in 0.4 s on the wide, under the avalanche roar" })),
+    { who: "samB", from: T.spring, to: 16.42, checks: ["face-hidden"], reason: "DAY 100: four frosted under one quilt to the eyes, the Samurai at the back; it isn't his moment (his is the rip at the door)" },
+    { who: "armful", from: WHOOMPH, to: T.end, checks: WORN, reason: "burned in the flash: hidden (scale 0) from then on, its box stays at the hearth" },
     { who: "cap", from: 18.6, to: T.end, checks: ["clipping"], reason: "the mountain's cap is one world-sized prop: its box holds the whole valley" },
     { who: "mound", from: 19.4, to: T.end, checks: WORN, reason: "the mound buries the cottage; Viking rises out of its chimney" },
   ],
