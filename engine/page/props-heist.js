@@ -26,7 +26,8 @@ import { clamp } from "./util.js";
 //               = the neck stands open (the rope loose) and three bundles of green banknotes (#3f9b5a, a paper band)
 //               stick 0.08 out of it. Solid. Holds: HEIST_GRIPS.moneybag.belly = [0, 0.16, 0] (the hugged middle: two
 //               gloves, one each side), .sideR / .sideL = [+-0.15, 0.16, 0] (the sides themselves); grips.mjs SIZE.moneybag
-//               for the box hold.
+//               for the box hold. spec.back (false): the "$" on the back (-z), for a sack whose holder hugs it facing
+//               the camera (the box hold wants the prop's front toward its holder: rot = the holder's yaw + 180).
 //   riotshield  (worn or standing) a curved rounded-rectangle shield 0.62 wide, 0.86 tall, 0.02 thick, bowed 0.06 toward
 //               +z, smoky blue-grey #8fa3b8 at 0.45 opacity in a dark frame #1c2440 0.03 wide with a white band across it
 //               at 0.55-0.68 up and the word POLICE in dark navy capitals (readable from both sides). Origin: bottom
@@ -286,6 +287,8 @@ export const HEIST_KINDS = {
       return sackAt(closedP, k, th, 0.0035);
     }, 14, 14);
     const d = mesh(dec, decalM, P.whole); d.castShadow = false; d.userData.sack = true;
+    // spec.back: the "$" on the back (-z) instead: a sack hugged with the box hold turns its front to its holder
+    if (P.spec.back) d.rotation.y = Math.PI;
     return {
       grip: 0,
       apply(ps) {
