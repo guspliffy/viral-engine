@@ -67,8 +67,11 @@ const T = {
 // x at y 1.03. The flat's rooms and the shop stand far off at y 0 (each its own zroom / zshop).
 const XH = 40, XB = 70, XS = 100;         // the flat's room (front door in the back wall), the bathroom, the shop
 const DOORZ = -2.2;                       // the flat room is 4.4 deep
-const LAD = { x0: -3.25, y: 1.03, len: 6.7 };
-const CAR = [-0.6, 0.2];                  // the car whose alarm saves and betrays them: right under the ladder
+const LAD = { x0: -3.3, y: 1.03, len: 6.7 };
+const CAR = [0.1, 0.5];                   // the car whose alarm saves and betrays them: right under the ladder
+const HX = -0.95, HZ = -2.5;              // the horde's ground rectangle: the whole street width, z -14.5..9.5
+// the parked cars and the askew car, as rectangles [x, z, w, d] in the horde's own metres (props-zstreet.js header)
+const CARS = [[-1.65, -15], [-1.65, -9], [-1.65, -3.5], [-1.65, 6], [0.7, -11.5], [0.7, -6]].map(([x, z]) => [r3(x - HX), r3(z - HZ), 2.0, 4.4]).concat([[r3(CAR[0] - HX), r3(CAR[1] - HZ), 3.4, 4.6]]);
 const FIVE = ["spud", "sam", "wiz", "phx", "gun"];
 const FAR = [200, 0];
 // who stands where in each scene: [x, z, yaw]
@@ -110,7 +113,7 @@ const cast = [
 const props = [
   // the street world
   { id: "street", kind: "zstreet", x: 0, y: 0, z: 0, car: CAR, alarm: 0, dent: 0, dawn: 0 },
-  { id: "horde", kind: "zhorde", x: -0.95, y: -15, z: -6, n: 300, box: [7.4, 30], seed: 3, avoid: [[CAR[0] + 0.95, CAR[1] + 6, 2.2, 4.6]], gx: CAR[0] + 0.95, gz: CAR[1] + 6, adv: 0, up: 0, reach: 0 },
+  { id: "horde", kind: "zhorde", x: HX, y: -15, z: HZ, n: 430, box: [7.5, 24], seed: 3, avoid: CARS, gx: CAR[0] - HX, gz: CAR[1] - HZ, adv: 0, up: 0, reach: 0 },
   { id: "flood", kind: "zhorde", x: -6.3, y: 0, z: 0, n: 14, box: [1.6, 2.6], seed: 8, gx: 0.6, gz: -40, adv: 0, up: 0, reach: 0 },   // waits inside the dark room
   { id: "ladder", kind: "zladder", x: FAR[0], y: LAD.y, z: 0, len: LAD.len, sag: 0, crack: 0, drop: 0 },
   { id: "half", kind: "zladder", x: FAR[0], y: 0.04, z: 6, len: LAD.len, half: true, rot: 24 },
@@ -122,7 +125,7 @@ const props = [
   { id: "candle", kind: "pillarcandle", x: FAR[0], y: 0, z: 2, lit: 1 },
   // the bathroom
   { id: "bath", kind: "zroom", x: XB, y: 0, z: 0, w: 2.4, d: 2.6, floor: "tiles", dress: "bath", dim: 1, glowx: 0.1, glowz: 0.2 },
-  { id: "cistern", kind: "zcistern", x: XB + 0.15, y: 0, z: -0.95, lid: 0, water: 1 },
+  { id: "cistern", kind: "zcistern", x: XB + 0.15, y: 0, z: -0.85, lid: 0, water: 1 },
   { id: "candleB", kind: "pillarcandle", x: XB + 0.15, y: 0, z: 0.35, lit: 1 },
   { id: "cup", kind: "campmug", x: XB + 0.5, y: 0.95, z: -0.55 },
   // the balcony's bucket corner (P04)
@@ -131,9 +134,9 @@ const props = [
   // the shop
   { id: "shop", kind: "zshop", x: XS, y: 0, z: 0, dim: 0.25 },
   { id: "bag", kind: "tinbag", x: XS + 0.15, y: 0, z: 0.0, fill: 0.3 },
-  { id: "tinS", kind: "tin", x: XS + 1.2, y: 0.62, z: 0.45, open: 0 },     // Spud's one tin
-  { id: "tinG", kind: "tin", x: XS - 0.2, y: 0.95, z: 0.1, open: 0 },      // the tin in the Gunslinger's hand, later the one that falls
-  { id: "tinL", kind: "tin", x: FAR[0], y: 0, z: 10, open: 1 },            // the last tin of day 5
+  { id: "tinS", kind: "tin", scale: 1.5, x: XS + 1.2, y: 0.62, z: 0.45, open: 0 },     // Spud's one tin
+  { id: "tinG", kind: "tin", scale: 1.5, x: XS - 0.2, y: 0.95, z: 0.1, open: 0 },      // the tin in the Gunslinger's hand, later the one that falls
+  { id: "tinL", kind: "tin", scale: 1.5, x: FAR[0], y: 0, z: 10, open: 1 },            // the last tin of day 5
   { id: "spoon", kind: "spoon", x: FAR[0], y: 0.02, z: 12 },
 ];
 
@@ -155,8 +158,8 @@ const air = (t, who, [x, y, z], yaw, pitch, dur = 0.01, ease = "linear") => {
 };
 const scene = (t, places) => Object.entries(places).forEach(([w, p]) => stand(t, w, p));
 const putProp = (t, id, set) => prop(r3(t - 0.02), id, set, 0.01, "linear");
-// the ladder's top at world x (BRIEF-T2: sag dips the middle 0.35, crack hangs the middle 1.3 below the ends)
-const ladY = (x, sag = 0, crack = 0) => { const u = Math.min(1, Math.max(0, (x - LAD.x0) / LAD.len)); return r3(LAD.y + 0.03 - sag * 0.35 * Math.sin(Math.PI * u) - crack * 1.3 * (1 - Math.abs(2 * u - 1))); };
+// where feet stand on the ladder at world x (the formula in props-zstreet.js's header)
+const ladY = (x, sag = 0, crack = 0) => { const u = Math.min(1, Math.max(0, (x - LAD.x0) / LAD.len)); return r3(LAD.y + 0.056 - 0.35 * sag * 4 * u * (1 - u) * (1 - crack) - 1.3 * crack * (1 - Math.abs(2 * u - 1))); };
 
 // ---------------------------------------------------------------- the narrator (voice 1): the title from 0.0, then only the days
 c.at(0.0, { macro: "narrate", line: "How to survive a zombie apocalypse.", voice: "narrator", caption: false });
@@ -221,12 +224,12 @@ see(T.bath, T.bucket, ["spud.face", "sam.face", "cistern"], "P03: the tap is dry
 // ================================================================ P04 DAY 3 (6.6 - 8.3): no toilet. The bucket.
 scene(T.bucket, S.p04);
 putProp(T.bucket, "bucket", { x: -4.5, z: -1.3 }); putProp(T.bucket, "screen", { x: -4.3, z: -0.8 });
-putProp(T.bucket, "horde", { adv: 0, gx: 3.7, gz: -20 });
+putProp(T.bucket, "horde", { adv: 0, gx: 3.7, gz: -30 });
 ["gun", "phx", "spud"].forEach((w) => { expr(r3(T.bucket - 0.02), w, "deadpan", null, 0.01); both(r3(T.bucket - 0.02), w, REST, 0.01); });
 A(T.bucket, "gun", "move", { to: [-4.0, -0.3], dur: 0.6, steps: 2 }); look(T.bucket, "gun", [10, -0.3], 0.01);
 both(r3(T.bucket + 0.1), "gun", "hips", 0.3);                            // he sets his belt, eyes straight ahead
 look(T.bucket, "phx", [10, 3], 0.01); expr(T.bucket, "phx", "focused", { curve: -0.15 }, 0.01); both(T.bucket, "phx", { o: [0.08, 0.3, 0.18] }, 0.01);
-look(T.bucket, "spud", [0, 40], 0.01); A(T.bucket, "spud", "tilt", { to: -8, dur: 0.01 });
+look(T.bucket, "spud", [0, 40], 0.01);
 c.say(T.talk, "gun", "Nobody talks about this.", 1.0, "calm", { sub: false });
 c.cap(T.talk, r3(T.tin - 0.03), "Nobody talks about this.", 1180, false, SUB_STYLE);
 A(r3(T.talk + 0.7), "phx", "move", { to: [-4.35, -0.75], dur: 0.5, steps: 2 });
@@ -239,7 +242,7 @@ putProp(T.tin, "robe", { x: XH - 0.12 }); putProp(T.tin, "couch", { x: XH + 0.75
 putProp(T.tin, "candle", { x: XH + 0.45, z: 0.55 }); putProp(T.tin, "tinL", { x: XH, y: 0, z: 0.3 }); putProp(T.tin, "spoon", { x: XH - 0.25, y: 0.5, z: -0.2 });
 putProp(T.tin, "bucket", { x: FAR[0] }); putProp(T.tin, "screen", { x: FAR[0] });
 c.at(T.tin, { macro: "narrate", line: "Day five.", voice: "narrator", caption: false });
-FIVE.forEach((w) => { expr(r3(T.tin - 0.02), w, "sad", { curve: -0.25, lidL: 0.3, lidR: 0.3 }, 0.01); both(r3(T.tin - 0.02), w, "lap", 0.01); look(r3(T.tin - 0.02), w, [XH, 0.3], 0.01); A(r3(T.tin - 0.02), w, "tilt", { to: 0, dur: 0.01 }); });
+FIVE.forEach((w) => { expr(r3(T.tin - 0.02), w, "sad", { curve: -0.25, lidL: 0.3, lidR: 0.3 }, 0.01); both(r3(T.tin - 0.02), w, "lap", 0.01); look(r3(T.tin - 0.02), w, [XH, 0.3], 0.01); });
 A(r3(T.tin - 0.02), "wiz", "lean", { to: -10, dur: 0.01 });               // too weak to sit up: the Samurai props him
 c.arm(r3(T.tin - 0.02), "sam", "R", { o: [0.3, 0.5, 0.1] }, 0.01);
 c.arm(r3(T.tin + 0.1), "spud", "R", { o: [0.28, 0.5, 0.3] }, 0.5); prop(r3(T.tin + 0.1), "spoon", { x: XH - 0.7, y: 0.52, z: -0.1 }, 0.6, "inOut");
@@ -328,7 +331,7 @@ sfx(T.slip, "tink", { gain: 0.4, reason: "a tin slips out of the bag" });
 see(T.back, T.down, ["gun", "bag", "tinG", "spud.face"], "P09: the bag bends the ladder; one tin slips out and falls");
 
 // ================================================================ P10 DAY 6 (18.3 - 20.4): straight down. Every face turns up.
-putProp(T.down, "horde", { adv: 0, gx: GX + 0.95, gz: CAR[1] + 6 });
+putProp(T.down, "horde", { adv: 0, gx: CAR[0] - HX, gz: CAR[1] - HZ });
 sfx(T.hit, "slam", { gain: 0.7, loud: true, reason: "the tin dents the car roof" });
 prop(T.hit, "street", { dent: 1 }, 0.05); prop(r3(T.hit + 0.05), "street", { alarm: 1 }, 0.05);
 c.at(T.hit, { fx: "shake", dur: 0.25, amp: 0.04 });
