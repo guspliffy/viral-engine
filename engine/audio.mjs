@@ -696,6 +696,19 @@ const SFX = {
     }
     return x;
   },
+  // thunder close by: a hard dry crack, then a long boom that rolls away in a few uneven swells. The crack and a band
+  // round 320 Hz carry it on a phone speaker; the weight under 110 Hz is for everything else (Doomscroll to survive
+  // pilot, 11 Nov 2026: the first cut used the firework burst as a stand-in)
+  thunder(r, d = 2.8) {
+    const x = buf(d), hp = biquad("hp", 2200, 0.7), mid = biquad("bp", 320, 0.8), lp = biquad("lp", 110, 0.8);
+    const rolls = Array.from({ length: 5 }, (_, j) => [0.12 + j * 0.42 + r() * 0.2, 0.9 - j * 0.15]);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1;
+      let roll = Math.exp(-t / 0.9) * 0.6; for (const [h, a] of rolls) { const u = t - h; if (u > 0) roll += a * Math.min(1, u / 0.04) * Math.exp(-u / 0.35); }
+      x[i] = (run(hp, n) * env(t, 0.0004, 0.08, d) * 3.4 + (run(mid, n) * 3.0 + run(lp, r() * 2 - 1) * 1.0) * roll * Math.min(1, t / 0.004)) * Math.min(1, (d - t) / 0.4);
+    }
+    return x;
+  },
   // a small weak firework far away: a dull little "pff" and a thin sputter that dies at once
   fizzle(r, d = 0.6) {
     const x = buf(d), bp = biquad("bp", 900, 0.9), hp = biquad("hp", 4000, 0.8), ticks = Array.from({ length: 7 }, () => 0.06 + r() * 0.35);

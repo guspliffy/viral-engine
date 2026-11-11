@@ -1,0 +1,35 @@
+{
+ "name": "pine-forest-night",
+ "prompt": "anime film background painting, gouache, soft brush strokes, low ground level view across a wide flat open clearing of bare dark earth filling the bottom half, tall dark pine tree trunks all around the clearing, cold blue moonlit fog between the trunks, small full moon, deep blue night",
+ "no": "campfire, fire, log, tent, house, road, path, lantern, lamp, daylight, sun",
+ "seeds": [
+  27,
+  3,
+  11,
+  40
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.5,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "upper left: cold moonlight",
+  "key": [
+   -3.0,
+   5.0,
+   1.0
+  ],
+  "shadow": 0.25
+ },
+ "swayMax": 20,
+ "surface": "dirt"
+}
