@@ -17,6 +17,8 @@
 //                    subtitle"), at `pos` (y in px; default 1180, low, clear of the title Jonny adds at the top in the
 //                    app) in `style` (default { size: 62, kinetic: false }, as the friends-try-to episodes);
 //                    c.say(..., { sub: "Mine!" }) gives the subtitle its own text, { sub: false } leaves one out
+//                    a subtitle ends where the next line's subtitle starts, and where any other caption (c.cap) starts
+//                    in the same band, so two texts never stand on each other
 //   { blink: false } no automatic blink lands on a line (an eye-blink on a key line kills it); { blink: true } on
 //                    one c.say allows it again (the talk action carries blink: false; engine/page/timeline.js
 //                    blinkFree reads it)
@@ -28,6 +30,8 @@ import { writeFileSync } from "node:fs";
 export const r3 = (x) => Math.round(x * 1000) / 1000;
 
 export const SUB_POS = 1180, SUB_STYLE = { size: 62, kinetic: false };
+// two captions whose tops are closer than this stand on each other (a two-line subtitle at size 62 is 150-180 px tall)
+export const SUB_CLEAR = 180;
 
 export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
   const items = [], captions = [], hitStops = [], visible = [], subs = [];
@@ -76,6 +80,14 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
       if (late.length) throw new Error(`items after the end: ${JSON.stringify(late.slice(0, 3))}`);
       // a line's subtitle gives way to the next one (two quick lines: "mine!", "nuh-uh!") and ends with the clip
       subs.sort((a, b) => a.from - b.from).forEach((s, i) => { s.to = r3(Math.min(s.to, subs.slice(i + 1).find((n) => n.from > s.from)?.from ?? end, end)); });
+      // ... and to any other caption that starts while it is up and would stand on it (a narrator's c.cap in the same
+      // band: Fight, Flight or Freeze 01, 11 Nov 2026, two subtitles on each other for 3 frames, which cost a second
+      // farm render). Text pops and cards sit elsewhere on purpose; a caption SUB_CLEAR px or more away is clear
+      const others = captions.filter((k) => !subs.includes(k) && !k.pop && !k.card && k.pos != null);
+      for (const s of subs) {
+        const n = others.filter((k) => k.from > s.from && k.from < s.to && Math.abs(k.pos - s.pos) < SUB_CLEAR).sort((x, y) => x.from - y.from)[0];
+        if (n) s.to = r3(n.from);
+      }
       return shots.map(([name, start, shot, kind], i) => {
         const to = shots[i + 1]?.[1] ?? end;
         const mine = items.filter((x) => x.at >= start - 1e-6 && (i === shots.length - 1 || x.at < to - 1e-6)).map((x) => ({ ...x, at: r3(x.at - start) }));
