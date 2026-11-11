@@ -26,6 +26,9 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   transcript in under a second. Should end `?` in the count columns (Share or Steal 01 had 7 unknown, filled below by
   the script; copy money's verdict was "open: the comparison row has no counts").
 
+- Every draft prints its own `pops` line (11 Nov, from Doomscroll 01; waits for Jonny's word): three videos lost
+  farm renders to single frames their drafts already showed. Should keep `renders` at 1.
+
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
 
