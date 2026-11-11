@@ -20,15 +20,15 @@ function leafGeometry(w, len, thick) {
   g.computeVertexNormals();
   return g;
 }
-function sprout(color) {
+function sprout(color, single = false) {   // single (sprout.leaves 1, Spud): one leaf standing a little to the side
   const g = new THREE.Group();
   const m = new THREE.MeshStandardMaterial({ color, roughness: 0.45, side: THREE.DoubleSide });
   const vein = new THREE.MeshStandardMaterial({ color: new THREE.Color(color).multiplyScalar(0.7), roughness: 0.5 });
   const stem = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.016, 0.07, 10), m); stem.position.y = 0.03; g.add(stem);
   const leafG = leafGeometry(0.056, 0.15, 0.014);
-  const leaves = [-1, 1].map((s) => {
+  const leaves = (single ? [1] : [-1, 1]).map((s) => {
     const pivot = new THREE.Group(); pivot.position.y = 0.06; g.add(pivot);
-    const leaf = new THREE.Mesh(leafG, m); leaf.rotation.set(-0.15, s * 0.25, -s * 0.85); leaf.castShadow = true; pivot.add(leaf);
+    const leaf = new THREE.Mesh(leafG, m); leaf.rotation.set(-0.15, s * 0.25, single ? -0.5 : -s * 0.85); leaf.castShadow = true; pivot.add(leaf);
     const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.003, 0.0045, 0.115, 6), vein); rib.position.set(0, 0.062, 0.01); leaf.add(rib);
     return { pivot, s };
   });
@@ -335,7 +335,7 @@ export function buildCostume(def, ch) {
   }
   const card = C.cardWings ? cardWings(C.cardWings, ch) : null;   // homemade cardboard wings and their straps (costumes-card.js)
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
-  const sprt = sprout(sp.color || "#6cbf3a");
+  const sprt = sprout(sp.color || "#6cbf3a", sp.leaves === 1);
   const where = sp.placement || (hat ? "hat-top" : "top");
   if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.14, 0.05, 0.24); sprt.group.rotation.set(0.3, -0.45, 0.45); hat.group.add(sprt.group); }   // tucked into the front-left of the band, as in the reference art
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); if (sp.lift) sprt.group.position.add(new THREE.Vector3(0, sp.lift[0], sp.lift[1])); hat.group.add(sprt.group); }   // lift [up, forward]: out of a tall head of hair (Viking with the blossom)
