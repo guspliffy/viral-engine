@@ -75,38 +75,58 @@ c.prop(0, "vat", { churn: 0.3 }, 0.01); c.prop(0, "studio", { dim: 0 }, 0.01);
 for (const id of ["smokeA", "smokeB"]) c.prop(0, id, { on: 0 }, 0.01);
 
 // ---------------------------------------------------------------- the clock (story seconds, on the 2s grid)
-const STEP = g(0.8);
-const T = { pic1: g(1.0), pic2: g(1.53), pic3: g(2.07), lower: g(2.53), count: g(3.0) };
-T.n = (k) => r3(T.count + (4 - k) * STEP);       // the countdown's number k: 4 at 3.0 .. 0 at 6.2
-T.offer = g(4.47);                               // Samurai's hand goes out over the gold (the shot changes on "2")
+// Draft 2 (Jonny, 11 Nov 12:07: "make the rules a bit more clear and maybe even let the voice comment like a game
+// show moderator"): each rule card has its own spoken line and a label, and the host comments every beat.
+// The host's takes were picked by length and by what Whisper heard (out/sos-voice/make3.mjs, run3.log): the rules as
+// full sentences ran 6 s, so he says just the three labels ("Split it!" 0.62, "One fries!" 0.92, "Both fry!" 0.99)
+// after the title (1.25 s); the cards show who did what.
+const STEP = g(0.73);
+const T = { pic1: g(1.33), pic2: g(2.13), pic3: g(3.13), count: g(4.27) };
+T.lower = g(T.count - 0.47);
+T.n = (k) => r3(T.count + (4 - k) * STEP);       // the countdown's number k
+T.offer = g(T.n(2) - 0.13);                      // Samurai's hand goes out over the gold on "2"
 T.clasp = T.n(1);                                // they shake on "1"
 T.zero = T.n(0);
-T.flip1 = g(6.93);                               // Samurai: STEAL (the fake-out: he thinks he has won)
-T.warn1 = g(7.47);                               // the rim under Reaper goes red
-T.grab = g(7.6);                                 // Samurai's glove onto the gold
-T.flip2 = g(8.6);                                // Reaper: STEAL too (the truth)
-T.warn2 = g(9.2);                                // the rim under Samurai goes red as well
-T.drop = g(10.0);                                // both lifts drop
-T.splash = g(10.33);
-T.up1 = g(11.33);                                // Samurai's lift comes back up: an empty chair
-T.up2 = g(11.93);                                // Reaper's lift comes back up: Reaper, fried
-T.endLine = g(12.53);                            // "You can't fry Death."
-T.pull = g(12.93);                               // he takes the gold
-T.ask = g(14.33);
-const END = g(16.0);
+T.flip1 = g(T.zero + 0.93);                      // Samurai: STEAL (the fake-out: he thinks he has won)
+T.warn1 = g(T.flip1 + 0.47);                     // the rim under Reaper goes red
+T.grab = g(T.flip1 + 0.6);                       // Samurai's glove onto the gold
+T.flip2 = g(T.flip1 + 1.6);                      // Reaper: STEAL too (the truth)
+T.warn2 = g(T.flip2 + 0.53);                     // the rim under Samurai goes red as well
+T.drop = g(T.flip2 + 1.6);                      // both lifts drop
+T.splash = g(T.drop + 0.33);
+T.up1 = g(T.drop + 1.27);                        // Samurai's lift comes back up: an empty chair
+T.up2 = g(T.up1 + 0.6);                          // Reaper's lift comes back up: Reaper, fried
+T.endLine = g(T.up2 + 0.6);                      // "You can't fry Death."
+T.pull = g(T.endLine + 0.4);                     // he takes the gold
+T.ask = g(T.endLine + 1.73);
+const END = g(T.ask + 1.67);
 
-// ---------------------------------------------------------------- the host (voice 5, never on screen): the title and the end
-const HOST = "deep, dark game-show host, fast and clipped, tense", DRY = "deep, dry, deadpan narrator, unhurried";
-const host = (t, line, { take = 0, style = HOST } = {}) => c.at(t, { macro: "narrate", line, voice: "narrator-trailer", style, take, caption: false });
-host(0.05, "Share or steal.");
-host(T.endLine, "You can't fry Death.", { style: DRY });
-host(T.ask, "Share... or steal?", { take: 1 });
+// ---------------------------------------------------------------- the host (voice 5, never on screen): a game-show moderator
+const SHOW = "energetic TV game-show host, big showman voice, fast and punchy", HOST = "deep, dark game-show host, fast and clipped, tense", DRY = "deep, dry, deadpan narrator, unhurried";
+const host = (t, line, { take = 0, style = SHOW } = {}) => c.at(t, { macro: "narrate", line, voice: "narrator-trailer", style, take, caption: false });
+host(0.05, "Share or steal!", { take: 1, style: HOST });        // 1.25 s
+host(T.pic1, "Split it!");                                       // 0.62 s
+host(T.pic2, "One fries!", { take: 1 });                         // 0.92 s
+host(T.pic3, "Both fry!");                                       // 0.99 s
+host(r3(T.count + 0.1), "Four seconds!");                        // 1.05 s
+host(r3(T.n(2) + 0.2), "A handshake!");                          // 1.0 s, as Samurai's hand goes out
+host(r3(T.clasp + 0.25), "How sweet.", { take: 1 });             // 0.62 s
+host(r3(T.flip1 - 0.8), "Samurai steals!");                      // 1.3 s: "steals" lands on the card
+host(r3(T.flip2 - 0.75), "Reaper steals too!", { take: 1 });     // 1.33 s
+host(r3(T.warn2 + 0.2), "Both fry!");                            // the third rule again, as both rims go red
+host(T.endLine, "You can't fry Death.", { style: DRY, take: 2 });   // 1.39 s
+host(T.ask, "Share... or steal?", { take: 1, style: HOST });
 
 // ---------------------------------------------------------------- text: title, picture rules, countdown, end card
 cap(0, r3(T.pic1 - 0.05), "SHARE OR *STEAL*", 250, false, { size: 104, kinetic: false });
-// the rules as three picture cards, one every half second, all three up until the clock starts (panel 02)
-const PICS = [[T.pic1, 198, ["share", "share"], ["gold", "gold"]], [T.pic2, 490, ["steal", "share"], ["gold", "fire"]], [T.pic3, 782, ["steal", "steal"], ["fire", "fire"]]];
-for (const [t, x, top, bottom] of PICS) { picrule(c, t, r3(T.count - t), top, bottom, { x, y: 300, w: 268 }); sfx(t, "pop", { gain: 0.5, reason: "a picture rule card pops in" }); }
+// the rules: three picture cards, each popping in as the host says it, with its outcome in two words under it; all
+// three stay up until the clock starts (panel 02)
+const PICS = [[T.pic1, 198, ["share", "share"], ["gold", "gold"], "SPLIT IT", "#3fd06a"], [T.pic2, 490, ["steal", "share"], ["gold", "fire"], "ONE FRIES", "#ff9a3a"], [T.pic3, 782, ["steal", "steal"], ["fire", "fire"], "BOTH FRY", "#ff3b4a"]];
+for (const [t, x, top, bottom, label, color] of PICS) {
+  picrule(c, t, r3(T.count - t), top, bottom, { x, y: 300, w: 268 });
+  c.at(r3(t + 0.12), { fx: "pop", text: label, xy: [x, 690], size: 42, dur: r3(T.count - t - 0.12), angle: 0, color });
+  sfx(t, "pop", { gain: 0.5, reason: "a picture rule card pops in" });
+}
 // the countdown 4 .. 0: one number a step, top right (panels 03, 04), the last two red, a beep on each
 for (let k = 4; k >= 0; k--) {
   const t = T.n(k), hot = k <= 1;
@@ -154,10 +174,10 @@ see(0, 0.9, ["sam.face", "rpr.face", "gold", "fanS", "fanR"], "frame 0: both ove
 
 // ---------------------------------------------------------------- RULES 1.0-3.0: three picture cards; the rims blink with the flames
 const rim = (who, t, v, dur = 0.08) => c.prop(t, LIFT[who], { glow: v }, dur, "out");
-rim("rpr", T.pic2, 1); rim("rpr", r3(T.pic2 + 0.33), 0, 0.15);   // "one steals, the other fries": one rim
-sfx(T.pic2, "kenney/metal-latch", { gain: 0.3, reason: "a hatch rim blinks red under Reaper's chair" });
-A(r3(T.pic2 + 0.07), "rpr", "look", { to: [0.15, -0.7], dur: 0.12, blink: false });   // he looks down at it, lids the same
-A(r3(T.pic2 + 0.47), "rpr", "look", { to: [-0.5, -0.05], dur: 0.15, blink: false });
+rim("rpr", r3(T.pic2 + 0.35), 1); rim("rpr", r3(T.pic3 - 0.2), 0, 0.15);   // "... the other one fries": one rim, on "fries"
+sfx(r3(T.pic2 + 0.35), "kenney/metal-latch", { gain: 0.3, reason: "a hatch rim blinks red under Reaper's chair" });
+A(r3(T.pic2 + 0.42), "rpr", "look", { to: [0.15, -0.7], dur: 0.12, blink: false });   // he looks down at it, lids the same
+A(r3(T.pic2 + 0.82), "rpr", "look", { to: [-0.5, -0.05], dur: 0.15, blink: false });
 rim("sam", T.pic3, 1); rim("rpr", T.pic3, 1);                     // "both steal, both fry": both, held (panel 02)
 sfx(T.pic3, "kenney/metal-latch", { gain: 0.4, reason: "both hatch rims go red" });
 A(r3(T.pic3 + 0.07), "sam", "look", { to: [-0.15, -0.7], dur: 0.12, blink: false });

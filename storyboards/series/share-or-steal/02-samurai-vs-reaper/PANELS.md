@@ -27,13 +27,13 @@ Board: `/mnt/project-files/video-scripts/2026-11-09-share-or-steal/panels-02-sam
 | Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 01 | 0.5 | sam | 0.36 | 0.44 | - | 0.21 | sam, rpr | above | |
-| 02 | 2.3 | rpr | 0.38 | 0.45 | - | 0.78 | sam, rpr | above | |
-| 03 | 3.4 | sam | 0.20 | 0.42 | - | 0.24 | sam, rpr | level | |
-| 04 | 5.6 | rpr | 0.24 | 0.41 | - | 0.74 | sam, rpr | level | |
-| 05 | 8.2 | sam | 0.26 | 0.42 | - | 0.24 | sam, rpr | above | |
-| 06 | 9.5 | sam | 0.28 | 0.45 | - | 0.20 | sam, rpr | above | |
-| 07 | 10.1 | sam | 0.38 | 0.45 | - | 0.16 | sam, rpr | above | |
-| 08 | 13.6 | rprF | 0.35 | 0.46 | - | 0.75 | rprF | above | |
+| 02 | 3.7 | rpr | 0.38 | 0.45 | - | 0.78 | sam, rpr | above | |
+| 03 | 4.6 | sam | 0.20 | 0.42 | - | 0.24 | sam, rpr | level | |
+| 04 | 6.8 | rpr | 0.24 | 0.41 | - | 0.74 | sam, rpr | level | |
+| 05 | 9.0 | sam | 0.26 | 0.42 | - | 0.24 | sam, rpr | above | |
+| 06 | 10.0 | sam | 0.28 | 0.45 | - | 0.20 | sam, rpr | above | |
+| 07 | 11.6 | sam | 0.38 | 0.45 | - | 0.16 | sam, rpr | above | |
+| 08 | 14.9 | rprF | 0.35 | 0.46 | - | 0.75 | rprF | above | |
 
 ## Story chain
 
@@ -61,3 +61,7 @@ Board: `/mnt/project-files/video-scripts/2026-11-09-share-or-steal/panels-02-sam
 - Rough draft 1 (11 Nov) rendered with `--force`: the gate's 8 fails are all gloves and a robe hem 3-5 cm into the
   table or a card (2.6-3.0 s, 7.8 s, 13.1-16.0 s). None hides a beat; they are polished after Jonny's OK on the draft
   (workflow.md rule 2: decide first, polish last).
+- Draft 2 (11 Nov, Jonny: "make the rules a bit more clear and maybe even let the voice comment like a game show
+  moderator"): each rule card has a label under it and the host says it ("Split it!", "One fries!", "Both fry!"); he
+  also calls the countdown, the handshake, both steals and the fry. 17.2 s (the spoken rules cost about 1 s, the
+  two called steals 0.5 s). Rendered with `--force` for the same reason as draft 1; hands are still unpolished.
