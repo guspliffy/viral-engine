@@ -23,8 +23,10 @@ import { CITY_KINDS } from "./props-city.js";
 //                             smoke trail streaming back along -z), the right engine on its pylon, no snow berm. It flips
 //                             at 0.5 (a tween of `broken` is a cut, not a morph).
 //              Spec: none. rot / tip / roll / x / y / z / scale as for any prop (a tip of +20 pitches the nose down).
-//              WRECK.door = [x, y, z]: the door's sill (the middle of its bottom edge, on the skin) in the prop's frame at
-//              broken 0: the evacslide's origin goes there (rotated with the plane), WRECK.doorW x WRECK.doorH the opening.
+//              WRECK.door = [2.098, 1.475, 12]: the door's sill (the middle of its bottom edge, on the skin) in the prop's frame
+//              at broken 0: the evacslide's origin goes there (turned with the plane); WRECK.doorW x WRECK.doorH = 1.0 x 1.9 the
+//              opening. The sill is 1.475 m up, not 2.3: a 1.9 m door under a roof 3.42 m high cannot start at 2.3 m, so the
+//              door runs from y 1.475 to about 3.2 and the slide's spec.h should be 1.475 (or the plane's nose-up pitch changes it).
 //              Only fuselage, wings, tail and engines are solid for the checks; fire, smoke, berm, windows, door glass,
 //              dents and decals are see-through (userData.steam). Nothing casts a shadow. Nobody holds it (grip 0).
 //   evacslide  a yellow inflatable escape slide. Origin: the middle of its top edge (at the door sill); it runs out along
@@ -62,6 +64,9 @@ function tint(geo, fn) {
   for (let i = 0; i < p.count; i++) c.set(fn(p.getX(i), p.getY(i), p.getZ(i)), i * 3);
   geo.setAttribute("color", new THREE.Float32BufferAttribute(c, 3)); return geo;
 }
+// props-freefall.js's hull() winds its triangles inward (it shows the far wall seen from inside); turn them outward so a
+// patch on the near side is not culled and the shading is the right way round
+function outward(geo) { const i = geo.index.array; for (let k = 0; k < i.length; k += 3) { const t = i[k + 1]; i[k + 1] = i[k + 2]; i[k + 2] = t; } geo.computeVertexNormals(); return geo; }
 const mix3 = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
 
 // ---------------------------------------------------------------- the wreck's numbers
@@ -148,22 +153,22 @@ export const WAKEOUT_KINDS = {
     const R = JET.R, g = new THREE.Group(); P.whole.add(g);
     const af = new THREE.Group(); af.position.set(0, Y0, 0); af.rotation.z = ROLL; g.add(af);   // the airframe: axis at the origin, rolled
     const skinM = (color, o = {}) => { const m = mat(color, o); m.userData.noHatch = true; return m; };
-    const white = skinM("#eceff3", { vertexColors: true, emissive: "#dbe3f0", emissiveIntensity: 0.3 }), belly = skinM("#a9b1bd"), red = skinM("#c2332f"), grey = skinM("#cfd5de", { side: THREE.DoubleSide });
+    const white = skinM("#eceff3", { vertexColors: true, }), belly = skinM("#a9b1bd"), red = skinM("#c2332f"), grey = skinM("#aab3c0", { side: THREE.DoubleSide });
     const char = skinM("#1f1c1b", { side: THREE.DoubleSide }), metal = mat("#8f98a6", { metalness: 0.3, roughness: 0.5 }), snowM = skinM("#f1f5fb", { roughness: 0.95 });
     const dark = flat("#0f121a"), dent = skinM("#8e97a7", { side: THREE.DoubleSide }), hole = flat("#14161d", { side: THREE.DoubleSide });
     // ---- the fuselage: white with soot streaked over the burning wing and along the back, mottled dirt
     const soot = [0.03, 0.028, 0.026], stain = [0.8, 0.72, 0.62];
-    const hullG = tint(hull(0, Math.PI * 2, JET.tail, JET.nose, 0, 48, 110), (x, y, z) => {
+    const hullG = tint(outward(hull(0, Math.PI * 2, JET.tail, JET.nose, 0, 48, 110)), (x, y, z) => {
       const side = clamp(x / 1.2), top = clamp((y - 0.2) / 1.6);
       const s = clamp(0.95 * Math.exp(-(((z - 1) / 5.5) ** 2)) * side * top + 0.7 * Math.exp(-(((z + 5) / 6) ** 2)) * side * top * 0.7 + 0.18 * top);
       const d = 0.5 + 0.5 * Math.sin(z * 1.7 + x * 3.1) * Math.sin(y * 2.3 + z * 0.9);
-      return mix3(mix3([1, 1, 1], stain, d > 0.78 ? 0.35 : 0), soot, s * 0.85);
+      return mix3(mix3([1, 1, 1], stain, d > 0.78 ? 0.35 : 0), soot, s * 0.85).map((v) => v * 0.6);   // under the golden sun a white hull blows out into the snow: keep it a light grey
     });
     mesh(hullG, white, af);
-    mesh(hull(Math.PI * 1.13, Math.PI * 1.87, JET.tail + 0.6, JET.nose - 0.4, 0.08, 24, 90), belly, af);
+    mesh(outward(hull(Math.PI * 1.13, Math.PI * 1.87, JET.tail + 0.6, JET.nose - 0.4, 0.08, 24, 90)), belly, af);
     for (const s of [1, -1]) {   // the one red stripe along the window line
       const a = (d) => (s > 0 ? d : Math.PI - d), [p0, p1] = [a(-0.24), a(-0.1)].sort((x, y) => x - y);
-      mesh(hull(p0, p1, -9.5, 15.6, 0.09, 4, 80), red, af);
+      mesh(outward(hull(p0, p1, -9.5, 15.6, 0.09, 4, 80)), red, af);
     }
     // the dark window row, a few lit orange by the fire inside; the door's stretch is left out
     const winGeo = new THREE.PlaneGeometry(0.3, 0.44), glow = flat("#ff9a3d", { toneMapped: false });
@@ -184,9 +189,9 @@ export const WAKEOUT_KINDS = {
       const d2 = mesh(new THREE.PlaneGeometry(0.75, 1.75), white, af); d2.position.copy(p).addScaledVector(n, 0.05); d2.lookAt(p.clone().add(n.clone().multiplyScalar(2))); d2.userData.steam = true;
     }
     // ---- the open front-left door: a frame, a dark opening with the cabin fire low in it, the sill and the door leaf swung out
-    const patch = (a0, a1, z0, z1, out, m) => { const o = mesh(hull(a0, a1, z0, z1, out, 10, 8), m, af); o.userData.steam = true; return o; };
+    const patch = (a0, a1, z0, z1, out, m) => { const o = mesh(outward(hull(a0, a1, z0, z1, out, 10, 8)), m, af); o.userData.steam = true; return o; };
     patch(DOOR.a0 - 0.05, DOOR.a1 + 0.05, DOOR.z0 - 0.09, DOOR.z1 + 0.09, 0.1, flat("#7d8696"));
-    const inside = tint(hull(DOOR.a0, DOOR.a1, DOOR.z0, DOOR.z1, 0.13, 10, 8), (x, y) => mix3([0.05, 0.055, 0.07], [1.0, 0.5, 0.12], clamp((1.2 - y) / 1.0) ** 1.5 * 0.85));
+    const inside = tint(outward(hull(DOOR.a0, DOOR.a1, DOOR.z0, DOOR.z1, 0.13, 10, 8)), (x, y) => mix3([0.05, 0.055, 0.07], [1.0, 0.5, 0.12], clamp((1.2 - y) / 1.0) ** 1.5 * 0.85));
     const open = mesh(inside, new THREE.MeshBasicMaterial({ vertexColors: true, toneMapped: false }), af); open.userData.steam = true; open.material.userData.noOutline = true;
     const sill = skin((DOOR.z0 + DOOR.z1) / 2, DOOR.a0, 0.13);
     const ledge = mesh(new THREE.BoxGeometry(1.1, 0.08, 0.2), metal, af); ledge.position.copy(sill.p); ledge.lookAt(sill.p.clone().add(sill.n)); ledge.userData.steam = true;
@@ -216,7 +221,7 @@ export const WAKEOUT_KINDS = {
     mesh(wing(1), grey, Lfull);
     mesh(wing(1, 4.5), grey, Lstub);
     for (const s of [1, -1]) {   // winglets, the wing-root fairings
-      const tl = tipOf(s).le, wl = mesh(foil({ le: [tl[0], tl[1], tl[2] + 0.05], c: 1.6, t: 0.1 }, { le: [tl[0] + s * 0.45, tl[1] + 2.2, tl[2] - 1.15], c: 0.7, t: 0.08 }, { vertical: true }), skinM("#d9dee6", { side: THREE.DoubleSide }), s > 0 ? Lfull : R_); void wl;
+      const tl = tipOf(s).le, wl = mesh(foil({ le: [tl[0], tl[1], tl[2] + 0.05], c: 1.6, t: 0.1 }, { le: [tl[0] + s * 0.45, tl[1] + 2.2, tl[2] - 1.15], c: 0.7, t: 0.08 }, { vertical: true }), skinM("#aab3c0", { side: THREE.DoubleSide }), s > 0 ? Lfull : R_); void wl;
       const f = mesh(new THREE.SphereGeometry(1, 20, 12), belly, af, s * 1.15, -1.25, 1.2); f.scale.set(1.1, 0.55, 4.2);
     }
     // the tear: charred jagged shards and a bent skin flap on the stub's cut end (x 4.5)
@@ -238,7 +243,7 @@ export const WAKEOUT_KINDS = {
     // ---- tail: the tailplane and the fin (white, the fin scorched), the tail cone
     for (const s of [1, -1]) mesh(foil({ le: [s * 0.4, 0.95, -13.4], c: 3.7, t: 0.11 }, { le: [s * 6.4, 1.55, -17.0], c: 1.4, t: 0.09 }), grey, af);
     const finY = body(-13).y + body(-13).r * SQ - 0.15;
-    mesh(foil({ le: [0, finY, -10.6], c: 6.4, t: 0.11 }, { le: [0, finY + 6.3, -15.6], c: 2.3, t: 0.09 }, { vertical: true }), skinM("#e6e9ee", { side: THREE.DoubleSide }), af);
+    mesh(foil({ le: [0, finY, -10.6], c: 6.4, t: 0.11 }, { le: [0, finY + 6.3, -15.6], c: 2.3, t: 0.09 }, { vertical: true }), skinM("#b9c1cd", { side: THREE.DoubleSide }), af);
     mesh(new THREE.CylinderGeometry(0.22, 0.26, 0.4, 14), metal, af, 0, body(-18.3).y, -18.4).rotation.x = Math.PI / 2;
     // ---- the snow berm: ploughed up along both sides of the belly and piled at the nose (see-through, no outline)
     const berm = new THREE.Group(); g.add(berm); snowM.userData.noOutline = true;
@@ -254,8 +259,8 @@ export const WAKEOUT_KINDS = {
     g.traverse((o) => { if (o.isMesh) { o.castShadow = false; o.receiveShadow = false; } });
     big(g);
     // ---- fire and smoke (not shrunk): the city's cel fire twice (the stub, the engine in the snow) and two smoke columns
-    const flame = (w, h, sc) => { const grp = new THREE.Group(); P.whole.add(grp); const k = CITY_KINDS.firesmoke({ spec: { w, h }, whole: grp }); grp.scale.setScalar(sc); grp.rotation.y = Math.PI; steamy(grp); return { grp, k, sc }; };
-    const fA = flame(1.9, 3, 3.6), fB = flame(1.6, 2.5, 2.6);
+    const flame = (w, h, sc) => { const grp = new THREE.Group(); P.whole.add(grp); const k = CITY_KINDS.firesmoke({ spec: { w, h }, whole: grp }); grp.scale.set(sc * 1.35, sc, sc * 1.35); grp.rotation.y = Math.PI; steamy(grp); return { grp, k, sc }; };
+    const fA = flame(0.9, 3, 3.6), fB = flame(1.0, 2.5, 2.6);
     const colA = new THREE.Group(), colB = new THREE.Group(); P.whole.add(colA, colB);
     const smokeA = column(colA, 34, 11), smokeB = column(colB, 18, 71);
     const stubAt = [2.5, -0.5, 0.05], engTop = [5.9, -1.5, 3.2], groundEng = [6.6, 1.5, 0.9];
@@ -267,7 +272,7 @@ export const WAKEOUT_KINDS = {
         Lfull.visible = Lflight.visible = Rflight.visible = fl; Lstub.visible = ground.visible = berm.visible = !fl;
         // flames: the stub (or the engine on its pylon, trailing back, when broken) and the engine in the snow
         const pa = af2p(...(fl ? engTop : stubAt));
-        fA.grp.position.set(...pa); fA.grp.scale.setScalar(fl ? 2.8 : 3.6); fA.grp.rotation.x = fl ? -1.0 : 0;
+        fA.grp.position.set(...pa); fA.grp.scale.set(fl ? 3.8 : 4.9, fl ? 2.8 : 3.6, fl ? 3.8 : 4.9); fA.grp.rotation.x = fl ? -1.0 : 0;
         fA.k.apply({ fire: f }, tt);
         fB.grp.position.set(...groundEng); fB.k.apply({ fire: fl ? 0 : f * 0.9 }, tt);
         // smoke: wreck, a 25 m column leaning toward -z and -x; broken, a trail streaming back from the engine

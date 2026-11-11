@@ -3,7 +3,7 @@
 //   0.4  5  bridgeend at [-300,80,0], spec.at 0, camera [-298,79,7] / [-300,81,1.5] / 50, t 0.4 (debris just off the edge)
 //   0.8  6  the same bridge from [-306,83,4] / [-300,80,1] / 40, t 0.8
 //   1.5  1  jetwreck (fire 1) at the origin turned nose to -x, evacslide 1 at its door; camera [-9,1.6,16] / [-12,1.8,0] / 45 (panel 09)
-//   2.5  2  the same from [-70,2.2,24] / [0,6,0] / 30 (far, ending A; the brief's z 26 had a fir of the set in front of the lens)
+//   2.5  2  the same from [-43,2.2,22] / [0,6,0] / 30 (far, ending A; the brief's [-70,2.2,26] is outside the set's tree-free channel and a fir stands in front of the lens)
 //   3.5  3  the same from [-14,1.5,9] / [0,3,-1] / 50 (ending B)
 //   4.5  4  jetwreck broken 1, fire 1 at [60,18,0] tip 20 rot -90; camera [20,14,40] / [60,19,0] / 40 (panel 05's high wide)
 // The bridge shots come first because the debris is a function of t - spec.at (0) and the brief asks for t 0.4 and 0.8.
@@ -24,7 +24,7 @@ const STILLS = [
   { at: 0, still: 0.4, name: "5: the bridge end, debris just off the edge (t 0.4)", shot: { pos: [-298, 79, 7], look: [-300, 81, 1.5], fov: 50 } },
   { at: 0.6, still: 0.8, name: "6: the same, from the side (t 0.8)", shot: { pos: [-306, 83, 4], look: [-300, 80, 1], fov: 40 } },
   { at: 1, still: 1.5, name: "1: panel 09, the door, the slide, the burning stub", shot: { pos: [-9, 1.6, 16], look: [-12, 1.8, 0], fov: 45 } },
-  { at: 2, still: 2.5, name: "2: far, as ending A sees it", shot: { pos: [-70, 2.2, 24], look: [0, 6, 0], fov: 30 } },
+  { at: 2, still: 2.5, name: "2: far, as ending A sees it", shot: { pos: [-43, 2.2, 22], look: [0, 6, 0], fov: 30 } },
   { at: 3, still: 3.5, name: "3: near, ending B", shot: { pos: [-14, 1.5, 9], look: [0, 3, -1], fov: 50 } },
   { at: 4, still: 4.5, name: "4: panel 05, the whole airliner, left engine burning", shot: { pos: [20, 14, 40], look: [60, 19, 0], fov: 40 } },
 ];
