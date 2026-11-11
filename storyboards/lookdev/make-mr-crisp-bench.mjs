@@ -22,7 +22,7 @@ function build(id, ink) {
     who("cF", X.front), who("c3", X.q3, { face: -35 }), who("cS", X.side, { face: -90 }), who("cR", X.rear, { face: 180 }),
     who("cE", X.evil), who("cD", X.delighted, { expr: "delighted" }), who("cG", X.furious, { expr: "angry" }), who("cL", X.laugh, { expr: "delighted" }),
     who("cA", X.rub), who("cB", X.size, { face: -10 }),
-    { id: "spud", character: "potatobrawl/spud", at: [X.size + 1.0, 0], face: 10, expr: "kind", follow: 0.3, seed: 2.9 },
+    { id: "spud", character: "potatobrawl/spud", at: [X.size + 1.15, 0], face: 10, expr: "kind", follow: 0.3, seed: 2.9 },
   ];
   // the four faces (the clip uses the stock names on top of the resting evil grin; the lids are a control of their own)
   A(0, "cD", "face", { lid: 0.05, dur: 0.01 });
