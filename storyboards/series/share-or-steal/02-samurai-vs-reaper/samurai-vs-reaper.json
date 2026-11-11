@@ -62,8 +62,8 @@
   "until": 9.973,
   "then": {
    "file": "ai/sos-warm/sos-warm-01.ogg",
-   "from": 13.8,
-   "until": 17.2,
+   "from": 13.933,
+   "until": 17.333,
    "gain": 0.3
   }
  },
@@ -205,7 +205,8 @@
    "x": -0.707,
    "z": -0.843,
    "rot": 40,
-   "tip": 0
+   "tip": 0,
+   "staged": "stands on its dunk lift's plate, which carries it down into the vat and back up"
   },
   {
    "id": "chairR",
@@ -213,7 +214,8 @@
    "x": 0.707,
    "z": -0.843,
    "rot": -40,
-   "tip": 0
+   "tip": 0,
+   "staged": "stands on its dunk lift's plate, which carries it down into the vat and back up"
   },
   {
    "id": "sCard",
@@ -255,7 +257,8 @@
    "z": -0.3,
    "rot": 0,
    "tip": 0,
-   "scale": 0.95
+   "scale": 0.95,
+   "staged": "held up in his far hand: the arm pose closes his fingers on its lower edge"
   },
   {
    "id": "fanR",
@@ -267,7 +270,8 @@
    "z": -0.3,
    "rot": 0,
    "tip": 0,
-   "scale": 0.95
+   "scale": 0.95,
+   "staged": "held up in his far hand: the arm pose closes his fingers on its lower edge"
   },
   {
    "id": "smokeA",
@@ -307,16 +311,16 @@
    "kinetic": false
   },
   {
-   "from": 13.8,
-   "to": 15.483,
+   "from": 13.933,
+   "to": 15.617,
    "text": "You can't fry Death.",
    "pos": 300,
    "pop": false,
    "kinetic": false
   },
   {
-   "from": 15.533,
-   "to": 17.2,
+   "from": 15.667,
+   "to": 17.333,
    "text": "SHARE… or *STEAL?*",
    "pos": 300,
    "pop": true,
@@ -399,7 +403,7 @@
     },
     {
      "sfx": "bubbling",
-     "dur": 17.2,
+     "dur": 17.333,
      "gain": 0.26,
      "reason": "the vat of oil bubbling under the grate, the whole clip",
      "at": 0
@@ -816,30 +820,84 @@
      "at": 3.533
     },
     {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.537
+    },
+    {
+     "who": "rpr",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 3.537
+    },
+    {
      "do": "prop",
      "id": "fanS",
      "set": {
-      "x": -0.309,
-      "y": 0.56,
-      "z": -0.524,
-      "tip": -75
+      "x": -0.348,
+      "y": 0.72,
+      "z": -0.57,
+      "tip": -20
      },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 3.8
+     "dur": 0.27,
+     "ease": "linear",
+     "reason": "carried in his hand: he draws his fan back over the table's edge",
+     "at": 3.667
     },
     {
      "do": "prop",
      "id": "fanR",
      "set": {
-      "x": 0.309,
-      "y": 0.56,
-      "z": -0.524,
-      "tip": -75
+      "x": 0.348,
+      "y": 0.72,
+      "z": -0.57,
+      "tip": -20
      },
-     "dur": 0.36,
-     "ease": "inOut",
-     "at": 3.8
+     "dur": 0.27,
+     "ease": "linear",
+     "reason": "carried in his hand: he draws his fan back over the table's edge",
+     "at": 3.667
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.58,
+       0.76,
+       -0.36
+      ]
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 3.717
+    },
+    {
+     "who": "rpr",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.58,
+       0.8,
+       -0.36
+      ]
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 3.717
     },
     {
      "who": "sam",
@@ -858,9 +916,9 @@
        -0.218
       ]
      },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 3.85
+     "dur": 0.33,
+     "ease": "linear",
+     "at": 3.867
     },
     {
      "who": "rpr",
@@ -879,9 +937,53 @@
        0.284
       ]
      },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 3.85
+     "dur": 0.33,
+     "ease": "linear",
+     "at": 3.867
+    },
+    {
+     "do": "prop",
+     "id": "fanS",
+     "set": {
+      "x": -0.373,
+      "y": 0.56,
+      "z": -0.601,
+      "tip": -60
+     },
+     "dur": 0.26,
+     "ease": "out",
+     "reason": "carried in his hand: he lowers his fan into his lap",
+     "at": 3.937
+    },
+    {
+     "do": "prop",
+     "id": "fanR",
+     "set": {
+      "x": 0.373,
+      "y": 0.56,
+      "z": -0.601,
+      "tip": -60
+     },
+     "dur": 0.26,
+     "ease": "out",
+     "reason": "carried in his hand: he lowers his fan into his lap",
+     "at": 3.937
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 3.967
+    },
+    {
+     "who": "rpr",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 3.967
     },
     {
      "do": "prop",
@@ -902,22 +1004,6 @@
      "dur": 0.2,
      "ease": "out",
      "at": 4.067
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.12,
-     "at": 4.1
-    },
-    {
-     "who": "rpr",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.12,
-     "at": 4.1
     },
     {
      "who": "sam",
@@ -944,6 +1030,68 @@
      "gain": 0.35,
      "reason": "Reaper lays his card face down",
      "at": 4.217
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.237
+    },
+    {
+     "who": "rpr",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.237
+    },
+    {
+     "do": "prop",
+     "id": "fanS",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "reason": "tucked into his robe as the shot changes",
+     "at": 4.247
+    },
+    {
+     "do": "prop",
+     "id": "sCard",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "reason": "the card he chose, laid face down under his palm as the shot changes",
+     "at": 4.247
+    },
+    {
+     "do": "prop",
+     "id": "fanR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "reason": "tucked into his robe as the shot changes",
+     "at": 4.247
+    },
+    {
+     "do": "prop",
+     "id": "rCard",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "reason": "the card he chose, laid face down under his palm as the shot changes",
+     "at": 4.247
     }
    ]
   },
@@ -999,26 +1147,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "fanS",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "reason": "tucked into his robe as the shot changes",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sCard",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "reason": "the card he chose, laid face down under his palm as the shot changes",
-     "at": 0
-    },
-    {
      "who": "sam",
      "do": "arm",
      "side": "R",
@@ -1040,39 +1168,10 @@
     },
     {
      "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": "lap",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "sam",
      "do": "grip",
      "side": "L",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "fanR",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "reason": "tucked into his robe as the shot changes",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "rCard",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "reason": "the card he chose, laid face down under his palm as the shot changes",
      "at": 0
     },
     {
@@ -1093,15 +1192,6 @@
       ]
      },
      "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "rpr",
-     "do": "arm",
-     "side": "R",
-     "pose": "lap",
-     "dur": 0.3,
-     "ease": "inOut",
      "at": 0
     },
     {
@@ -1179,7 +1269,7 @@
     {
      "who": "rpr",
      "do": "blink",
-     "dur": 0.3,
+     "dur": 0.2,
      "at": 1.033
     },
     {
@@ -1217,22 +1307,14 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.035,
-       0.88,
-       -0.42
+       -0.22,
+       0.8,
+       -0.6
       ]
      },
-     "dur": 0.45,
-     "ease": "inOut",
+     "dur": 0.23,
+     "ease": "in",
      "at": 1.333
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.2,
-     "at": 1.433
     },
     {
      "fx": "pop",
@@ -1268,6 +1350,21 @@
      "at": 1.533
     },
     {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.035,
+       0.88,
+       -0.42
+      ]
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.563
+    },
+    {
      "macro": "narrate",
      "line": "A handshake!",
      "voice": "narrator-trailer",
@@ -1300,14 +1397,29 @@
      "side": "R",
      "pose": {
       "world": [
+       0.22,
+       0.8,
+       -0.6
+      ]
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.779
+    },
+    {
+     "who": "rpr",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
        0.035,
        0.88,
        -0.42
       ]
      },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.779
+     "dur": 0.22,
+     "ease": "linear",
+     "at": 1.979
     },
     {
      "who": "rpr",
@@ -1773,17 +1885,36 @@
      "do": "arm",
      "side": "L",
      "pose": {
+      "world": [
+       -0.2,
+       0.8,
+       -0.58
+      ]
+     },
+     "dur": 0.23,
+     "ease": "in",
+     "at": 1.534
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": {
       "prop": "gold",
       "grip": [
-       -0.19,
-       0.13,
-       -0.02
+       -0.16,
+       0.16,
+       -0.1
       ],
-      "palm": true
+      "palm": [
+       0,
+       -0.2,
+       0
+      ]
      },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 1.534
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.764
     },
     {
      "macro": "narrate",
@@ -1795,12 +1926,10 @@
      "at": 1.784
     },
     {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "press",
-     "dur": 0.12,
-     "at": 1.834
+     "sfx": "coins",
+     "gain": 0.45,
+     "reason": "the gold shifts under Samurai's glove",
+     "at": 2.084
     },
     {
      "do": "prop",
@@ -1811,13 +1940,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 2.034
-    },
-    {
-     "sfx": "coins",
-     "gain": 0.45,
-     "reason": "the gold shifts under Samurai's glove",
-     "at": 2.084
+     "at": 2.104
     },
     {
      "who": "rpr",
@@ -1845,7 +1968,7 @@
   {
    "name": "steal too",
    "at": 9.533,
-   "len": 1.53,
+   "len": 1.664,
    "shot": {
     "pos": [
      0,
@@ -1996,22 +2119,19 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.02,
-       0.36,
-       0.4
+      "world": [
+       -0.12,
+       0.82,
+       -0.52
+      ],
+      "palm": [
+       -0.07,
+       0.7,
+       -0.03
       ]
      },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.15,
+     "dur": 0.37,
+     "ease": "linear",
      "at": 0.6
     },
     {
@@ -2031,6 +2151,42 @@
      "at": 0.734
     },
     {
+     "who": "rpr",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rCard",
+      "grip": [
+       0,
+       0.2,
+       0.03
+      ],
+      "palm": [
+       0,
+       -0.5,
+       0.03
+      ]
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 0.804
+    },
+    {
+     "who": "rpr",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.37,
+       0.76,
+       -0.67
+      ]
+     },
+     "dur": 0.13,
+     "ease": "linear",
+     "at": 0.804
+    },
+    {
      "who": "sam",
      "do": "look",
      "to": [
@@ -2042,20 +2198,20 @@
      "at": 0.834
     },
     {
-     "who": "sam",
-     "do": "expr",
-     "expr": "terrified",
-     "dur": 0.2,
-     "at": 0.884
-    },
-    {
      "macro": "narrate",
      "line": "Both fry!",
      "voice": "narrator-trailer",
      "style": "energetic TV game-show host, big showman voice, fast and punchy",
      "take": 0,
      "caption": false,
-     "at": 0.934
+     "at": 0.884
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.884
     },
     {
      "who": "rpr",
@@ -2064,12 +2220,12 @@
      "pose": {
       "x": [
        0.1,
-       0.4,
+       0.35,
        0.3
       ]
      },
      "dur": 0.4,
-     "ease": "inOut",
+     "ease": "linear",
      "at": 0.934
     },
     {
@@ -2079,12 +2235,12 @@
      "pose": {
       "x": [
        -0.1,
-       0.34,
+       0.3,
        0.31
       ]
      },
      "dur": 0.4,
-     "ease": "inOut",
+     "ease": "linear",
      "at": 0.934
     },
     {
@@ -2141,8 +2297,8 @@
   },
   {
    "name": "the drop",
-   "at": 11.063,
-   "len": 2.737,
+   "at": 11.197,
+   "len": 2.736,
    "shot": {
     "pos": [
      0,
@@ -2242,6 +2398,7 @@
      },
      "dur": 0.3,
      "ease": "in",
+     "reason": "the chair is bolted to its lift's plate and goes down with it (the lift's own curve, not a free fall)",
      "at": 0.27
     },
     {
@@ -2262,12 +2419,19 @@
      },
      "dur": 0.3,
      "ease": "in",
+     "reason": "the chair is bolted to its lift's plate and goes down with it (the lift's own curve, not a free fall)",
      "at": 0.27
     },
     {
      "sfx": "kenney/impact-metal-heavy",
      "gain": 0.85,
-     "reason": "both lifts let go with a bang",
+     "reason": "both lifts let go with a bang (the low body of the hit)",
+     "at": 0.27
+    },
+    {
+     "sfx": "kenney/impact-metal-medium",
+     "gain": 0.6,
+     "reason": "the same bang's mid layer: the part a phone speaker plays",
      "at": 0.27
     },
     {
@@ -2312,9 +2476,9 @@
      "prop": "rCard",
      "mode": "throw",
      "to": [
-      0.3,
+      0.1,
       0.626,
-      0.2
+      0.38
      ],
      "in": 0.8,
      "spin": [
@@ -2348,7 +2512,7 @@
      },
      "dur": 0.7,
      "ease": "linear",
-     "at": 0.604
+     "at": 0.603
     },
     {
      "do": "prop",
@@ -2358,19 +2522,19 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 0.604
+     "at": 0.603
     },
     {
      "sfx": "splash",
-     "gain": 0.6,
+     "gain": 0.68,
      "reason": "Samurai hits the oil",
-     "at": 0.604
+     "at": 0.603
     },
     {
      "sfx": "slap",
      "gain": 0.3,
      "reason": "the splash's wet slap (its punch on a phone speaker)",
-     "at": 0.604
+     "at": 0.603
     },
     {
      "do": "prop",
@@ -2380,7 +2544,7 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 0.604
+     "at": 0.603
     },
     {
      "do": "prop",
@@ -2390,7 +2554,7 @@
      },
      "dur": 0.7,
      "ease": "linear",
-     "at": 0.664
+     "at": 0.663
     },
     {
      "do": "prop",
@@ -2400,32 +2564,32 @@
      },
      "dur": 0.5,
      "ease": "out",
-     "at": 0.664
+     "at": 0.663
     },
     {
      "sfx": "splash",
-     "gain": 0.6,
+     "gain": 0.68,
      "reason": "Reaper hits the oil",
-     "at": 0.664
+     "at": 0.663
     },
     {
      "sfx": "steam",
      "gain": 0.55,
      "reason": "steam bursting up out of both hatches",
-     "at": 0.684
+     "at": 0.683
     },
     {
      "sfx": "bubbling",
      "dur": 1.8,
      "gain": 0.5,
      "reason": "the oil boiling up hard after the splash",
-     "at": 0.704
+     "at": 0.703
     },
     {
      "sfx": "sizzle",
      "gain": 0.6,
      "reason": "the long sizzle",
-     "at": 0.754
+     "at": 0.753
     },
     {
      "sfx": "kenney/drop-leather",
@@ -2441,7 +2605,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 1.537
+     "at": 1.536
     },
     {
      "do": "prop",
@@ -2451,13 +2615,13 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 1.537
+     "at": 1.536
     },
     {
      "sfx": "doorslide",
      "gain": 0.4,
      "reason": "the lift under Samurai's chair comes back up",
-     "at": 1.537
+     "at": 1.536
     },
     {
      "do": "prop",
@@ -2467,7 +2631,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 1.537
+     "at": 1.536
     },
     {
      "do": "prop",
@@ -2477,7 +2641,7 @@
      },
      "dur": 0.6,
      "ease": "inOut",
-     "at": 1.637
+     "at": 1.636
     },
     {
      "do": "prop",
@@ -2487,7 +2651,7 @@
      },
      "dur": 0.9,
      "ease": "inOut",
-     "at": 1.904
+     "at": 1.903
     },
     {
      "do": "prop",
@@ -2497,13 +2661,13 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.937
+     "at": 1.936
     },
     {
      "sfx": "kenney/impact-metal-medium",
      "gain": 0.5,
      "reason": "the lift's plate clunks home in the grate",
-     "at": 1.957
+     "at": 1.956
     },
     {
      "who": "rprF",
@@ -2517,7 +2681,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 1.967
+     "at": 1.966
     },
     {
      "who": "rprF",
@@ -2531,7 +2695,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 1.967
+     "at": 1.966
     },
     {
      "who": "rprF",
@@ -2542,19 +2706,19 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 1.967
+     "at": 1.966
     },
     {
      "who": "rprF",
      "do": "face",
      "lid": 0.5,
      "dur": 0.01,
-     "at": 1.967
+     "at": 1.966
     },
     {
      "who": "rprF",
      "do": "show",
-     "at": 2.107
+     "at": 2.106
     },
     {
      "do": "prop",
@@ -2564,7 +2728,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 2.137
+     "at": 2.136
     },
     {
      "do": "prop",
@@ -2574,13 +2738,13 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 2.137
+     "at": 2.136
     },
     {
      "sfx": "doorslide",
      "gain": 0.4,
      "reason": "the lift under Reaper's chair comes back up",
-     "at": 2.137
+     "at": 2.136
     },
     {
      "do": "prop",
@@ -2590,7 +2754,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 2.137
+     "at": 2.136
     },
     {
      "do": "prop",
@@ -2600,7 +2764,7 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 2.437
+     "at": 2.436
     },
     {
      "do": "prop",
@@ -2610,37 +2774,37 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 2.437
+     "at": 2.436
     },
     {
      "sfx": "sizzle",
      "gain": 0.35,
      "reason": "Reaper, still sizzling",
-     "at": 2.487
+     "at": 2.486
     },
     {
      "sfx": "kenney/impact-metal-medium",
      "gain": 0.5,
      "reason": "the lift's plate clunks home in the grate",
-     "at": 2.557
+     "at": 2.556
     },
     {
      "who": "rprF",
      "do": "squash",
-     "amount": 0.04,
+     "amount": 0.02,
      "dur": 0.2,
-     "at": 2.587
+     "at": 2.586
     },
     {
      "who": "rprF",
      "do": "ride",
-     "at": 2.637
+     "at": 2.636
     }
    ]
   },
   {
    "name": "you can't fry death",
-   "at": 13.8,
+   "at": 13.933,
    "len": 3.4,
    "shot": {
     "pos": [
@@ -2721,13 +2885,13 @@
       "prop": "gold",
       "grip": [
        0.19,
-       0.06,
+       0.13,
        -0.06
       ],
       "palm": true
      },
      "dur": 0.5,
-     "ease": "inOut",
+     "ease": "linear",
      "at": 0.4
     },
     {
@@ -2738,13 +2902,13 @@
       "prop": "gold",
       "grip": [
        0.15,
-       0.06,
+       0.13,
        0.11
       ],
       "palm": true
      },
      "dur": 0.5,
-     "ease": "inOut",
+     "ease": "linear",
      "at": 0.4
     },
     {
@@ -2759,8 +2923,8 @@
      "do": "prop",
      "id": "gold",
      "set": {
-      "x": 0.24,
-      "z": -0.06
+      "x": 0.27,
+      "z": -0.12
      },
      "dur": 0.6,
      "ease": "inOut",
@@ -2788,7 +2952,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.633
+     "at": 1.634
     },
     {
      "macro": "narrate",
@@ -2797,20 +2961,20 @@
      "style": "deep, dark game-show host, fast and clipped, tense",
      "take": 1,
      "caption": false,
-     "at": 1.733
+     "at": 1.734
     },
     {
      "who": "rprF",
      "do": "blink",
      "dur": 0.3,
-     "at": 2.233
+     "at": 2.234
     },
     {
      "who": "rprF",
      "do": "still",
-     "dur": 0.817,
+     "dur": 0.816,
      "idle": 0.15,
-     "at": 2.533
+     "at": 2.534
     }
    ]
   }
@@ -2888,7 +3052,7 @@
   },
   {
    "from": 10.367,
-   "to": 11.033,
+   "to": 11.167,
    "see": [
     "sam.face",
     "rpr.face",
@@ -2898,8 +3062,8 @@
    "why": "the truth: both cards red, both rims red, Samurai's smirk gone"
   },
   {
-   "from": 11.333,
-   "to": 11.583,
+   "from": 11.467,
+   "to": 11.717,
    "see": [
     "sam.face",
     "rpr.face"
@@ -2907,8 +3071,8 @@
    "why": "the drop: Samurai's arms up, Reaper's folded"
   },
   {
-   "from": 11.767,
-   "to": 12.5,
+   "from": 11.9,
+   "to": 12.633,
    "see": [
     "gold",
     "liftS",
@@ -2917,16 +3081,16 @@
    "why": "both gone: steam out of both hatches, the gold alone on the table"
   },
   {
-   "from": 13.1,
-   "to": 13.15,
+   "from": 13.233,
+   "to": 13.283,
    "see": [
     "chairS"
    ],
    "why": "Samurai's chair comes back up empty, in steam"
   },
   {
-   "from": 13.7,
-   "to": 17.1,
+   "from": 13.833,
+   "to": 17.233,
    "see": [
     "rprF.face",
     "chairS",
@@ -2940,28 +3104,28 @@
    "who": "sam",
    "with": "chairS",
    "from": 0,
-   "to": 11.683,
+   "to": 11.817,
    "reason": "Samurai sits in his chair (and rides it down on the lift)"
   },
   {
    "who": "rpr",
    "with": "chairR",
    "from": 0,
-   "to": 11.683,
+   "to": 11.817,
    "reason": "Reaper sits in his chair (and rides it down on the lift)"
   },
   {
    "who": "rprF",
    "with": "chairR",
    "from": 0,
-   "to": 17.2,
+   "to": 17.333,
    "reason": "Reaper, fried, sits in his chair as the lift brings it back up"
   },
   {
    "who": "rpr",
    "with": "rprF",
    "from": 0,
-   "to": 17.2,
+   "to": 17.333,
    "reason": "the same character: the fried Reaper is hidden until the lift comes back up and takes the first one's place under the oil"
   },
   {
@@ -2974,43 +3138,43 @@
   {
    "who": "sam",
    "with": "liftS",
-   "from": 11.283,
-   "to": 17.2,
+   "from": 11.417,
+   "to": 17.333,
    "reason": "he goes down through the hatch on his lift, into the vat (hidden under the oil)"
   },
   {
    "who": "sam",
    "with": "vat",
-   "from": 11.283,
-   "to": 17.2,
+   "from": 11.417,
+   "to": 17.333,
    "reason": "he goes down through the hatch on his lift, into the vat (hidden under the oil)"
   },
   {
    "who": "rpr",
    "with": "liftR",
-   "from": 11.283,
-   "to": 17.2,
+   "from": 11.417,
+   "to": 17.333,
    "reason": "he goes down through the hatch on his lift, into the vat (hidden under the oil)"
   },
   {
    "who": "rpr",
    "with": "vat",
-   "from": 11.283,
-   "to": 17.2,
+   "from": 11.417,
+   "to": 17.333,
    "reason": "he goes down through the hatch on his lift, into the vat (hidden under the oil)"
   },
   {
    "who": "rprF",
    "with": "liftR",
    "from": 0,
-   "to": 13.7,
+   "to": 13.833,
    "reason": "the fried Reaper waits under the oil and rides his lift up through the hatch"
   },
   {
    "who": "rprF",
    "with": "vat",
    "from": 0,
-   "to": 13.7,
+   "to": 13.833,
    "reason": "the fried Reaper waits under the oil and rides his lift up through the hatch"
   },
   {
@@ -3037,8 +3201,8 @@
   {
    "who": "rprF",
    "with": "gold",
-   "from": 14.2,
-   "to": 17.2,
+   "from": 14.333,
+   "to": 17.333,
    "reason": "Reaper pulls the gold pile to him with both gloves"
   }
  ],

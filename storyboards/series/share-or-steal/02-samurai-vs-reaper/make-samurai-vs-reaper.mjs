@@ -47,7 +47,8 @@ const CARD = { sam: "sCard", rpr: "rCard" }, LIFT = { sam: "liftS", rpr: "liftR"
 // the fan of two cards he holds up at frame 0: in his far hand (the one nearer the table), at chest height in front
 // of that shoulder, its faces to the camera
 const fanAt = (who) => [who === "sam" ? -0.3 : 0.3, 0.7, -0.3];   // over the table on his side, under his face from our side, clear of the other fan
-const fanLap = (who) => P(SEAT[who], YAW[who], 0.5, who === "sam" ? 0.1 : -0.1, 0.56);   // on his knees, clear of his belly
+const fanLap = (who) => P(SEAT[who], YAW[who], 0.4, who === "sam" ? 0.1 : -0.1, 0.56);   // down in his lap, behind the table from the camera, his fingers 10 cm short of its edge
+const fanEdge = (who) => P(SEAT[who], YAW[who], 0.44, who === "sam" ? 0.1 : -0.1, 0.72);   // on the way: back past the table's edge at its own height first
 
 const cast = [
   { id: "sam", character: "duo/samurai", at: SEAT.sam, face: S_YAW, expr: "stern", follow: 0.3, seed: 2.3 },
@@ -56,7 +57,7 @@ const cast = [
   { id: "rprF", character: "share-or-steal/reaper-fried", at: SEAT.rpr, face: R_YAW, expr: "deadpan", follow: 0.3, seed: 5.1 },
 ];
 const card = (who) => { const [x, y, z] = cardAt(who); return { id: CARD[who], kind: "sscard", face: "steal", back: "red", solid: true, x, y, z, rot: 0, scale: 0.001, flip: 0, glow: 0, staged: "in his fan until he lays it face down under his palm (on the cut at 3.0 s)" }; };
-const fan = (who) => { const [x, y, z] = fanAt(who); return { id: FAN[who], kind: "sscardfan", back: "red", solid: true, x, y, z, rot: 0, tip: 0, scale: 0.95 }; };
+const fan = (who) => { const [x, y, z] = fanAt(who); return { id: FAN[who], kind: "sscardfan", back: "red", solid: true, x, y, z, rot: 0, tip: 0, scale: 0.95, staged: "held up in his far hand: the arm pose closes his fingers on its lower edge" }; };
 const props = [
   { id: "studio", kind: "ssstudio", x: 0, z: 0, dim: 0, pit: true, trussY: 2.9, beams: [SEAT.sam, SEAT.rpr] },
   { id: "vat", kind: "ssvat", x: 0, z: 0, r: 2.25, holes: [SEAT.sam, SEAT.rpr], haze: 0.7, castLight: 1, churn: 0.3 },
@@ -64,8 +65,8 @@ const props = [
   { id: "liftR", kind: "sslift", x: SEAT.rpr[0], z: SEAT.rpr[1], glow: 0, drop: 0, steam: 0, burst: 0 },
   { id: "table", kind: "sostable", x: 0, z: 0, rot: 45, r: TR, h: TH, pedestal: "drum" },
   { id: "gold", kind: "goldpile", x: GOLD[0], y: GOLD[1], z: GOLD[2], scale: GOLD_SCALE },
-  { id: "chairS", kind: "sschair", x: SEAT.sam[0], z: SEAT.sam[1], rot: S_YAW, tip: 0 },
-  { id: "chairR", kind: "sschair", x: SEAT.rpr[0], z: SEAT.rpr[1], rot: R_YAW, tip: 0 },
+  { id: "chairS", kind: "sschair", x: SEAT.sam[0], z: SEAT.sam[1], rot: S_YAW, tip: 0, staged: "stands on its dunk lift's plate, which carries it down into the vat and back up" },
+  { id: "chairR", kind: "sschair", x: SEAT.rpr[0], z: SEAT.rpr[1], rot: R_YAW, tip: 0, staged: "stands on its dunk lift's plate, which carries it down into the vat and back up" },
   card("sam"), card("rpr"), fan("sam"), fan("rpr"),
   { id: "smokeA", kind: "smokewisp", x: r3(SEAT.rpr[0] - 0.12), y: 1.42, z: r3(SEAT.rpr[1] - 0.05), h: 0.9, n: 9, size: 0.16, alpha: 0.7, rgb: "215,210,205", on: 0 },
   { id: "smokeB", kind: "smokewisp", x: r3(SEAT.rpr[0] + 0.2), y: 1.3, z: r3(SEAT.rpr[1] - 0.1), h: 0.7, n: 9, size: 0.14, alpha: 0.7, rgb: "215,210,205", on: 0 },
@@ -82,7 +83,7 @@ for (const id of ["smokeA", "smokeB"]) c.prop(0, id, { on: 0 }, 0.01);
 // after the title (1.25 s); the cards show who did what.
 const STEP = g(0.73);
 const T = { pic1: g(1.33), pic2: g(2.13), pic3: g(3.13), count: g(4.27) };
-T.lower = g(T.count - 0.47);
+T.lower = g(T.count - 0.6);
 T.n = (k) => r3(T.count + (4 - k) * STEP);       // the countdown's number k
 T.offer = g(T.n(2) - 0.13);                      // Samurai's hand goes out over the gold on "2"
 T.clasp = T.n(1);                                // they shake on "1"
@@ -92,7 +93,7 @@ T.warn1 = g(T.flip1 + 0.47);                     // the rim under Reaper goes re
 T.grab = g(T.flip1 + 0.6);                       // Samurai's glove onto the gold
 T.flip2 = g(T.flip1 + 1.6);                      // Reaper: STEAL too (the truth)
 T.warn2 = g(T.flip2 + 0.53);                     // the rim under Samurai goes red as well
-T.drop = g(T.flip2 + 1.6);                      // both lifts drop
+T.drop = g(T.flip2 + 1.73);                      // both lifts drop
 T.splash = g(T.drop + 0.33);
 T.up1 = g(T.drop + 1.27);                        // Samurai's lift comes back up: an empty chair
 T.up2 = g(T.up1 + 0.6);                          // Reaper's lift comes back up: Reaper, fried
@@ -113,7 +114,7 @@ host(r3(T.n(2) + 0.2), "A handshake!");                          // 1.0 s, as Sa
 host(r3(T.clasp + 0.25), "How sweet.", { take: 1 });             // 0.62 s
 host(r3(T.flip1 - 0.8), "Samurai steals!");                      // 1.3 s: "steals" lands on the card
 host(r3(T.flip2 - 0.75), "Reaper steals too!", { take: 1 });     // 1.33 s
-host(r3(T.warn2 + 0.2), "Both fry!");                            // the third rule again, as both rims go red
+host(r3(T.warn2 + 0.15), "Both fry!");                            // the third rule again, as both rims go red
 host(T.endLine, "You can't fry Death.", { style: DRY, take: 2 });   // 1.39 s
 host(T.ask, "Share... or steal?", { take: 1, style: HOST });
 
@@ -188,14 +189,21 @@ see(r3(T.pic3 + 0.1), r3(T.count - 0.25), ["sam.face", "rpr.face", "liftS", "lif
 // each picks: the fan goes down into his lap, and his other hand comes up and lays one card face down (the card
 // itself shows from the cut at 3.0, under his palm)
 for (const who of ["sam", "rpr"]) {
-  const [fx, fy, fz] = fanLap(who);
-  c.prop(T.lower, FAN[who], { x: fx, y: fy, z: fz, tip: -75 }, 0.36, "inOut");
-  c.arm(r3(T.lower + 0.05), who, HAND[who], cardSpot(who), 0.4, "inOut"); A(r3(T.lower + 0.3), who, "grip", { side: HAND[who], shape: "flat", dur: 0.12 });
+  const [fx, fy, fz] = fanLap(who), sgn = who === "sam" ? 1 : -1;
+  A(r3(T.lower - 0.13), who, "look", { to: [0.15 * sgn, -0.5], dur: 0.12, blink: false });   // down at his own cards: he picks
+  A(r3(T.count - 0.03), who, "look", { to: [0.5 * sgn, -0.05], dur: 0.01, blink: false });  // and on the cut his eyes are on the other one
+  const [ex, ey, ez] = fanEdge(who);
+  c.at(T.lower, { do: "prop", id: FAN[who], set: { x: ex, y: ey, z: ez, tip: -20 }, dur: 0.27, ease: "linear", reason: "carried in his hand: he draws his fan back over the table's edge" });
+  c.at(r3(T.lower + 0.27), { do: "prop", id: FAN[who], set: { x: fx, y: fy, z: fz, tip: -60 }, dur: 0.26, ease: "out", reason: "carried in his hand: he lowers his fan into his lap" });   // back over the table's edge at its own height: 15 frames, no flip
+  c.arm(r3(T.lower + 0.05), who, HAND[who], { world: who === "sam" ? [-0.58, 0.76, -0.36] : [0.58, 0.8, -0.36] }, 0.15, "linear");   // up out of his lap over the table's edge first
+  c.arm(r3(T.lower + 0.2), who, HAND[who], cardSpot(who), 0.33, "linear"); A(r3(T.lower + 0.3), who, "grip", { side: HAND[who], shape: "flat", dur: 0.12 });
   // on the cut: the fan is tucked away, the chosen card lies under his palm, his far hand rests in his lap
-  c.at(T.count, { do: "prop", id: FAN[who], set: { scale: 0.001 }, dur: 0.01, reason: "tucked into his robe as the shot changes" });
-  c.at(T.count, { do: "prop", id: CARD[who], set: { scale: CARD_SCALE }, dur: 0.01, reason: "the card he chose, laid face down under his palm as the shot changes" });
+  c.at(r3(T.count - 0.02), { do: "prop", id: FAN[who], set: { scale: 0.001 }, dur: 0.01, reason: "tucked into his robe as the shot changes" });
+  c.at(r3(T.count - 0.02), { do: "prop", id: CARD[who], set: { scale: CARD_SCALE }, dur: 0.01, reason: "the card he chose, laid face down under his palm as the shot changes" });
   c.arm(T.count, who, HAND[who], { prop: CARD[who], ...ON_CARD }, 0.01);
-  c.arm(T.count, who, FAR[who], "lap", 0.3, "inOut"); A(T.count, who, "grip", { side: FAR[who], shape: "relaxed", dur: 0.15 });
+  // his far hand stays down where the fan went, behind the table, until the handshake: a pose change AT the cut showed
+  // four frames before it (measured: his palm turned 62-75 deg at count - 0.13, still in the wide shot)
+  A(T.count, who, "grip", { side: FAR[who], shape: "relaxed", dur: 0.15 });
   sfx(r3(T.count - 0.05), "kenney/drop-leather", { gain: 0.35, reason: `${who === "sam" ? "Samurai" : "Reaper"} lays his card face down` });
 }
 
@@ -205,7 +213,7 @@ A(T.count, "sam", "expr", { expr: "focused", set: { curve: -0.1 }, dur: 0.2 }); 
 c.at(r3(T.count + 0.3), { fx: "sweat", who: "sam", dur: 1.2, count: 2 });
 A(r3(T.n(3) + 0.05), "sam", "look", { to: [0.1, -0.55], dur: 0.1, blink: false });   // a flick down at his own card
 A(r3(T.n(3) + 0.38), "sam", "look", { to: [0.5, -0.05], dur: 0.1, blink: false });
-A(r3(T.n(3) + 0.3), "rpr", "blink", { dur: 0.3 });                                    // Reaper: one slow blink
+A(r3(T.n(3) + 0.3), "rpr", "blink", { dur: 0.2 });                                    // Reaper: one slow blink
 see(r3(T.count + 0.1), r3(T.n(3) + 0.6), ["sam.face", "rpr.face", "sCard", "rCard"], "the stare-down: gloves on the two face-down cards, a bead of sweat on Samurai");
 
 // ---------------------------------------------------------------- 2, 1: the silent handshake over the gold (panel 04)
@@ -215,12 +223,12 @@ const MEET = [0, 0.88, -0.42];
 const meet = (who, dy = 0) => ({ world: [r3(MEET[0] + (who === "sam" ? -0.035 : 0.035)), r3(MEET[1] + dy), MEET[2]] });
 A(r3(T.offer - 0.1), "sam", "look", { to: [0.5, -0.05], dur: 0.1, blink: false });
 A(T.offer, "sam", "pitch", { to: 11, dur: 0.4 });
-c.arm(T.offer, "sam", "L", meet("sam"), 0.45, "inOut"); A(r3(T.offer + 0.1), "sam", "grip", { side: "L", shape: "open", dur: 0.2 });
+c.arm(T.offer, "sam", "L", { world: [-0.22, 0.8, -0.6] }, 0.23, "in"); c.arm(r3(T.offer + 0.23), "sam", "L", meet("sam"), 0.3, "linear");   // up out of his lap over the table's edge, then across A(r3(T.offer + 0.1), "sam", "grip", { side: "L", shape: "open", dur: 0.2 });
 A(r3(T.offer + 0.2), "sam", "face", { brow: 0.1, lid: 0.3, dur: 0.25 });               // brows up a little: deal?
 A(r3(T.offer + 0.4), "rpr", "look", { to: [-0.3, -0.35], dur: 0.12, blink: false });   // Reaper looks at the hand ...
 A(r3(T.offer + 0.75), "rpr", "look", { to: [-0.5, -0.05], dur: 0.12, blink: false });  // ... then at him
 A(r3(T.clasp - 0.42), "rpr", "pitch", { to: 9, dur: 0.35 });
-c.arm(r3(T.clasp - 0.42), "rpr", "R", meet("rpr"), 0.4, "inOut");
+c.arm(r3(T.clasp - 0.42), "rpr", "R", { world: [0.22, 0.8, -0.6] }, 0.2, "in"); c.arm(r3(T.clasp - 0.22), "rpr", "R", meet("rpr"), 0.22, "linear");
 A(r3(T.clasp - 0.08), "sam", "grip", { side: "L", shape: "clasp", dur: 0.1 }); A(r3(T.clasp - 0.08), "rpr", "grip", { side: "R", shape: "clasp", dur: 0.1 });
 sfx(T.clasp, "pat", { gain: 0.5, reason: "their gloves meet: the handshake" });
 for (const [k, dy] of [[0.07, -0.05], [0.2, 0.04], [0.33, -0.05], [0.47, 0]]) for (const who of ["sam", "rpr"]) c.arm(r3(T.clasp + k), who, FAR[who], meet(who, dy), 0.12, "inOut");   // two pumps, together
@@ -252,8 +260,9 @@ rim("rpr", T.warn1, 1);
 sfx(T.warn1, "kenney/metal-latch", { gain: 0.5, reason: "the lift's latch arming under Reaper's chair" });
 A(r3(T.warn1 + 0.12), "rpr", "look", { to: [0.15, -0.75], dur: 0.15, blink: false });
 // Samurai's other glove goes onto the gold and draws it a hand's width to him
-c.arm(T.grab, "sam", "L", { prop: "gold", grip: [-0.19, 0.13, -0.02], palm: true }, 0.45, "inOut"); A(r3(T.grab + 0.3), "sam", "grip", { side: "L", shape: "press", dur: 0.12 });
-c.prop(r3(T.grab + 0.5), "gold", { x: -0.07, z: -0.03 }, 0.3, "inOut");
+c.arm(T.grab, "sam", "L", { world: [-0.2, 0.8, -0.58] }, 0.23, "in");   // up over the table's edge first, not through it
+c.arm(r3(T.grab + 0.23), "sam", "L", { prop: "gold", grip: [-0.16, 0.16, -0.1], palm: [0, -0.2, 0] }, 0.3, "linear");   // palm down onto the pile's flank A(r3(T.grab + 0.42), "sam", "grip", { side: "L", shape: "press", dur: 0.12 });
+c.prop(r3(T.grab + 0.57), "gold", { x: -0.07, z: -0.03 }, 0.3, "inOut");
 sfx(r3(T.grab + 0.55), "coins", { gain: 0.45, reason: "the gold shifts under Samurai's glove" });
 see(r3(T.grab + 0.5), r3(T.flip2 - 0.2), ["sam.face", "rpr.face", "gold", "liftR"], "the fake-out: his smirk, his glove on the gold, the red rim under Reaper");
 
@@ -263,7 +272,7 @@ c.arm(r3(T.flip2 + 0.1), "rpr", "L", { prop: "rCard", ...ON_CARD }, 0.3, "inOut"
 A(r3(T.flip2 + 0.3), "rpr", "look", { to: [-0.5, -0.05], dur: 0.2, blink: false });    // and only now he looks up
 A(r3(T.flip2 + 0.27), "sam", "look", { to: [0.35, -0.5], dur: 0.08, blink: false });   // Samurai: at the card ...
 A(r3(T.flip2 + 0.33), "sam", "expr", { expr: "shocked", set: { open: 0.3, curve: -0.2, eye: 1.2 }, dur: 0.15 }); A(r3(T.flip2 + 0.33), "sam", "face", { brow: 0.5, lid: 0, dur: 0.15 });
-c.arm(r3(T.flip2 + 0.4), "sam", "L", { o: [0.02, 0.36, 0.4] }, 0.35, "inOut"); A(r3(T.flip2 + 0.4), "sam", "grip", { side: "L", shape: "open", dur: 0.15 });   // his glove comes off the gold
+c.arm(r3(T.flip2 + 0.4), "sam", "L", { world: [-0.12, 0.82, -0.52], palm: [-0.07, 0.7, -0.03] }, 0.37, "linear");   // snatched back, the palm still toward the gold A(r3(T.flip2 + 0.4), "sam", "grip", { side: "L", shape: "open", dur: 0.15 });   // his glove comes off the gold
 see(T.flip2, r3(T.flip2 + 0.3), ["rCard"], "STEAL: Reaper's card face up too");
 rim("sam", T.warn2, 1);
 sfx(T.warn2, "kenney/metal-latch", { gain: 0.55, reason: "the lift's latch arming under Samurai's chair too" });
@@ -273,30 +282,33 @@ A(r3(T.warn2 + 0.45), "sam", "look", { to: [0.5, -0.05], dur: 0.1, blink: false 
 c.arm(r3(T.warn2 + 0.3), "sam", "R", { o: [0.02, 0.36, 0.42] }, 0.35, "inOut"); A(r3(T.warn2 + 0.3), "sam", "grip", { side: "R", shape: "open", dur: 0.15 });
 see(r3(T.warn2 + 0.1), r3(T.drop - 0.3), ["sam.face", "rpr.face", "liftS", "liftR"], "the truth: both cards red, both rims red, Samurai's smirk gone");
 // Reaper folds his arms and waits
-const FOLD = { R: { x: [0.1, 0.4, 0.3] }, L: { x: [-0.1, 0.34, 0.31] } };
-const fold = (who, t, dur = 0.4) => { for (const s of ["R", "L"]) c.arm(t, who, s, FOLD[s], dur, "inOut"); A(r3(t + dur * 0.5), who, "grip", { side: "both", shape: "relaxed", dur: 0.15 }); };
+const FOLD = { R: { x: [0.1, 0.35, 0.3] }, L: { x: [-0.1, 0.3, 0.31] } };   // under his chin from the camera, never over his mouth
+const fold = (who, t, dur = 0.4) => { for (const s of ["R", "L"]) c.arm(t, who, s, FOLD[s], dur, "linear"); A(r3(t + dur * 0.5), who, "grip", { side: "both", shape: "relaxed", dur: 0.15 }); };
+c.arm(r3(T.warn2 + 0.07), "rpr", "L", { prop: "rCard", grip: [0, 0.2, 0.03], palm: [0, -0.5, 0.03] }, 0.13, "linear");   // his glove lifts off the card first, so the sleeve clears the table
+c.arm(r3(T.warn2 + 0.07), "rpr", "R", { world: [0.37, 0.76, -0.67] }, 0.13, "linear");    // and the other one up out of his lap, clear of the table's edge
 fold("rpr", r3(T.warn2 + 0.2));
 A(r3(T.warn2 + 0.2), "rpr", "pitch", { to: 0, dur: 0.35 });
 
 // ---------------------------------------------------------------- THE DROP (panel 07): both lifts go straight down
 for (const who of ["sam", "rpr"]) {
   c.prop(T.drop, LIFT[who], { drop: DEEP }, 0.3, "in");
-  c.prop(T.drop, CHAIR[who], { y: -DEEP }, 0.3, "in");
+  c.at(T.drop, { do: "prop", id: CHAIR[who], set: { y: -DEEP }, dur: 0.3, ease: "in", reason: "the chair is bolted to its lift's plate and goes down with it (the lift's own curve, not a free fall)" });
   A(r3(T.drop - 0.03), who, "ride", { prop: CHAIR[who], off: SEATED, dur: 0.01 });   // he goes down with his chair, on its own curve
   A(r3(T.drop + 0.31), who, "hide");
   const k = who === "sam" ? 0 : 0.06;
   c.prop(r3(T.splash + k), LIFT[who], { burst: 1 }, 0.7, "linear");
   c.prop(r3(T.splash + k), LIFT[who], { steam: 0.8 }, 0.5, "out");
-  sfx(r3(T.splash + k), "splash", { gain: 0.6, reason: `${who === "sam" ? "Samurai" : "Reaper"} hits the oil` });
+  sfx(r3(T.splash + k), "splash", { gain: 0.68, reason: `${who === "sam" ? "Samurai" : "Reaper"} hits the oil` });
 }
-sfx(T.drop, "kenney/impact-metal-heavy", { gain: 0.85, reason: "both lifts let go with a bang" });
+sfx(T.drop, "kenney/impact-metal-heavy", { gain: 0.85, reason: "both lifts let go with a bang (the low body of the hit)" });
+sfx(T.drop, "kenney/impact-metal-medium", { gain: 0.6, reason: "the same bang's mid layer: the part a phone speaker plays" });
 sfx(r3(T.drop + 0.04), "whoosh", { gain: 0.35, reason: "both chairs drop through the grate" });
 // Samurai: arms thrown up, mouth wide open; Reaper: arms folded, the same face
 A(r3(T.drop - 0.07), "sam", "pitch", { to: 0, dur: 0.12 });
 for (const s of ["R", "L"]) c.arm(r3(T.drop - 0.23), "sam", s, "up", 0.3, "inOut");   // 0.9 m: nine frames
 A(r3(T.drop - 0.07), "sam", "expr", { expr: "terrified", set: { open: 0.75 }, dur: 0.1 }); A(r3(T.drop - 0.07), "sam", "face", { brow: 0.7, lid: 0, dur: 0.1 });
 // the two cards jump off the table with the bang and fall back
-for (const [who, to, spin] of [["sam", [-0.34, r3(TH + 0.006), 0.16], [2, 0.6, 1]], ["rpr", [0.3, r3(TH + 0.006), 0.2], [-2, 0.8, -1]]]) {
+for (const [who, to, spin] of [["sam", [-0.34, r3(TH + 0.006), 0.16], [2, 0.6, 1]], ["rpr", [0.1, r3(TH + 0.006), 0.38], [-2, 0.8, -1]]]) {
   c.prop(T.drop, CARD[who], { glow: 0 }, 0.1);
   c.throw(r3(T.drop + 0.03), CARD[who], { to, in: 0.8, spin });
 }
@@ -322,21 +334,22 @@ c.prop(r3(T.up1 + 0.1), "liftS", { steam: 0.45 }, 0.6, "inOut");
 rise("rpr", T.up2);
 c.prop(r3(T.up2 - 0.2), "liftR", { steam: 0 }, 0.3, "inOut");
 // the fried Reaper takes his place under the oil, already seated, arms folded, and rides the plate up
-for (const s of ["R", "L"]) c.arm(r3(T.up2 - 0.17), "rprF", s, FOLD[s], 0.01);
+const FOLD_F = { R: { x: [0.1, 0.4, 0.3] }, L: { x: [-0.1, 0.34, 0.31] } };   // a hand higher than before the fryer: the reach to the gold from here is clean (no palm turn, the sleeves clear the table's edge)
+for (const s of ["R", "L"]) c.arm(r3(T.up2 - 0.17), "rprF", s, FOLD_F[s], 0.01);
 A(r3(T.up2 - 0.17), "rprF", "look", { to: [-0.5, -0.05], dur: 0.01, blink: false });
 A(r3(T.up2 - 0.17), "rprF", "face", { lid: 0.5, dur: 0.01 });
 A(r3(T.up2 - 0.03), "rprF", "show");
 A(r3(T.up2 + 0.5), "rprF", "ride", {});
-A(r3(T.up2 + 0.45), "rprF", "squash", { amount: 0.04, dur: 0.2 });
+A(r3(T.up2 + 0.45), "rprF", "squash", { amount: 0.02, dur: 0.2 });
 for (const id of ["smokeA", "smokeB"]) c.prop(r3(T.up2 + 0.3), id, { on: 1 }, 0.4, "out");
 sfx(r3(T.up2 + 0.35), "sizzle", { gain: 0.35, reason: "Reaper, still sizzling" });
 A(r3(T.up2 + 0.75), "rprF", "blink", { dur: 0.3 });
 // he takes the gold: arms unfold, both gloves onto the pile, and it comes to him
 A(r3(T.pull - 0.05), "rprF", "look", { to: [-0.3, -0.5], dur: 0.15, blink: false });
 A(T.pull, "rprF", "pitch", { to: 4, dur: 0.4 }); A(r3(T.pull + 0.6), "rprF", "pitch", { to: 0, dur: 0.6 });
-for (const [s, gr] of [["R", [0.19, 0.06, -0.06]], ["L", [0.15, 0.06, 0.11]]]) c.arm(T.pull, "rprF", s, { prop: "gold", grip: gr, palm: true }, 0.5, "inOut");
+for (const [s, gr] of [["R", [0.19, 0.13, -0.06]], ["L", [0.15, 0.13, 0.11]]]) c.arm(T.pull, "rprF", s, { prop: "gold", grip: gr, palm: true }, 0.5, "linear");
 A(r3(T.pull + 0.35), "rprF", "grip", { side: "both", shape: "press", dur: 0.12 });
-c.prop(r3(T.pull + 0.55), "gold", { x: 0.24, z: -0.06 }, 0.6, "inOut");
+c.prop(r3(T.pull + 0.55), "gold", { x: 0.27, z: -0.12 }, 0.6, "inOut");
 sfx(r3(T.pull + 0.6), "coins", { gain: 0.6, reason: "the whole pile slides across to Reaper" });
 A(r3(T.ask - 0.1), "rprF", "look", { to: [-0.35, 0.05], dur: 0.2, blink: false });   // a flat look across at the empty chair
 A(r3(T.ask + 0.5), "rprF", "blink", { dur: 0.3 });
