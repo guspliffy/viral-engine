@@ -64,15 +64,19 @@
   "show": [
    "spud",
    "sam",
-   "panel"
+   "fire"
   ],
   "hint": 0,
-  "what": "five friends ride a lift, the Samurai's fist is already over the door-close button"
+  "what": "cold open (opener B): the burning lift in free fall with all five floating, then the cut back to day 1"
  },
  "hud": {
   "day": [
    [
     0,
+    30
+   ],
+   [
+    1.4,
     1
    ],
    [
@@ -94,6 +98,10 @@
   "battery": [
    [
     0,
+    0
+   ],
+   [
+    1.4,
     9
    ],
    [
@@ -115,8 +123,8 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    0.05,
-    0.6
+    0.1,
+    0.55
    ],
    "face": "camera",
    "expr": "kind",
@@ -127,8 +135,8 @@
    "id": "sam",
    "character": "duo/samurai",
    "at": [
-    1.3,
-    0.72
+    1.2,
+    0.35
    ],
    "face": "camera",
    "expr": "cocky",
@@ -140,7 +148,7 @@
    "character": "never-has-money/wizard",
    "at": [
     -1.2,
-    0.45
+    0.2
    ],
    "face": "camera",
    "expr": "kind",
@@ -151,7 +159,7 @@
    "id": "phx",
    "character": "duo/phoenix",
    "at": [
-    -0.7,
+    -0.5,
     -0.8
    ],
    "face": "camera",
@@ -163,7 +171,7 @@
    "id": "gun",
    "character": "never-has-money/gunslinger",
    "at": [
-    0.75,
+    0.85,
     -0.85
    ],
    "face": "camera",
@@ -191,7 +199,7 @@
    "x": 0,
    "y": 3.05,
    "z": -1.585,
-   "count": 795
+   "count": 640
   },
   {
    "id": "panel",
@@ -208,7 +216,7 @@
    ],
    "lit": 0,
    "hot": 0,
-   "dead": 0,
+   "dead": 1,
    "punch": 0
   },
   {
@@ -218,14 +226,14 @@
    "y": 3.53,
    "z": 0.95,
    "len": 8,
-   "strands": 12,
+   "strands": 0,
    "whip": 0,
    "glow": 0
   },
   {
    "id": "phone",
    "kind": "phone",
-   "x": 0.95,
+   "x": 0.8,
    "y": 0.62,
    "z": -0.43,
    "rot": 180,
@@ -243,7 +251,7 @@
    "w": 2.6,
    "h": 3.2,
    "castLight": true,
-   "burn": 0
+   "burn": 0.6
   },
   {
    "id": "blast",
@@ -263,15 +271,16 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "dark": 0
+   "dark": 1
   },
   {
    "id": "lamp",
    "kind": "alarmlamp",
    "x": -1.7,
-   "y": 3.2,
+   "y": 3.4,
    "z": -1.3,
-   "on": 0
+   "tip": 180,
+   "on": 1
   },
   {
    "id": "sparksL",
@@ -286,7 +295,7 @@
    ],
    "n": 110,
    "dir": -1,
-   "rate": 0
+   "rate": 1
   },
   {
    "id": "sparksR",
@@ -301,7 +310,7 @@
    ],
    "n": 110,
    "dir": -1,
-   "rate": 0
+   "rate": 1
   },
   {
    "id": "blobs",
@@ -315,7 +324,7 @@
     2.2
    ],
    "n": 9,
-   "show": 0
+   "show": 1
   },
   {
    "id": "shell",
@@ -330,7 +339,7 @@
    "id": "pit",
    "kind": "shaftpit",
    "x": 0,
-   "y": -8,
+   "y": -22,
    "z": 0,
    "h": 40,
    "signY": 5.2
@@ -372,7 +381,7 @@
    "id": "sky",
    "kind": "spacesky",
    "x": 60,
-   "y": -8,
+   "y": 11,
    "z": -40,
    "w": 70,
    "h": 110,
@@ -517,7 +526,7 @@
    "kinetic": false
   },
   {
-   "from": 21.2,
+   "from": 21.25,
    "to": 22.1,
    "text": "...New record.",
    "pos": 1250,
@@ -537,36 +546,21 @@
  ],
  "beats": [
   {
-   "name": "hook: the title, the ride up",
+   "name": "hook: day 30 first, the free fall",
    "at": 0,
-   "len": 3.6,
+   "len": 1.4,
    "shot": {
     "pos": [
      0.1,
-     1.75,
-     7.6
+     1.9,
+     7.2
     ],
     "look": [
      0.1,
-     1.55,
+     1.5,
      -0.3
     ],
-    "fov": 46,
-    "to": {
-     "pos": [
-      0.1,
-      1.7,
-      7
-     ],
-     "look": [
-      0.1,
-      1.55,
-      -0.3
-     ],
-     "fov": 46
-    },
-    "dur": 3.6,
-    "ease": "linear"
+    "fov": 44
    },
    "do": [
     {
@@ -577,12 +571,879 @@
      "at": 0
     },
     {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 0.1,
+      "y": 0.9,
+      "z": 0.55
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 88,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0.9,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "fly",
+     "to": {
+      "x": 1.2,
+      "y": 1.5,
+      "z": 0.35
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "pitch",
+     "to": -13.75,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0.9,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "fly",
+     "to": {
+      "x": -1.2,
+      "y": 1.7,
+      "z": 0.2
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 16.5,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0.9,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -0.5,
+      "y": 2.2,
+      "z": -0.8
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -8.25,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "skin",
+     "color": "#b98a45",
+     "to": 0.54,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "fly",
+     "to": {
+      "x": 0.85,
+      "y": 1.1,
+      "z": -0.85
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 22,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0.9,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "burn": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dark",
+     "set": {
+      "dark": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sign",
+     "set": {
+      "count": 520
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "y": -8
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "fx": "speedlines",
+     "dur": 1.37,
+     "dir": "up",
+     "at": 0
+    },
+    {
+     "sfx": "ridewind",
+     "gain": 0.5,
+     "reason": "the car in free fall (cold open)",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 160,
+     "dur": 1.36,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "sam",
+     "do": "pitch",
+     "to": -25,
+     "dur": 1.36,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 30,
+     "dur": 1.36,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": -15,
+     "dur": 1.36,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 40,
+     "dur": 1.36,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "fx": "flash",
+     "dur": 0.2,
+     "peak": 1,
+     "color": "#ffffff",
+     "sound": false,
+     "at": 1.33
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "land",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0.95,
+      0.72
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "land",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "move",
+     "to": [
+      -0.95,
+      0.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "land",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.5,
+      -0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "land",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      0.6,
+      -0.85
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "land",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "skin",
+     "color": "#8a5a2b",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "burn": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "dark",
+     "set": {
+      "dark": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "blobs",
+     "set": {
+      "show": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sparksL",
+     "set": {
+      "rate": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sparksR",
+     "set": {
+      "rate": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "panel",
+     "set": {
+      "dead": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "cable",
+     "set": {
+      "strands": 12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sign",
+     "set": {
+      "count": 796
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "pit",
+     "set": {
+      "y": -8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "day 1: the ride up",
+   "at": 1.4,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     0.05,
+     1.55,
+     6.9
+    ],
+    "look": [
+     0.05,
+     1.35,
+     -0.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.05,
+      1.5,
+      6.4
+     ],
+     "look": [
+      0.05,
+      1.35,
+      -0.3
+     ],
+     "fov": 46
+    },
+    "dur": 2.2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "recordscratch",
+     "gain": 0.35,
+     "reason": "the cut back from day 30 to day 1",
+     "at": 0
+    },
+    {
      "do": "prop",
      "id": "sign",
      "set": {
       "count": 799.4
      },
-     "dur": 3.9,
+     "dur": 2.5,
      "ease": "linear",
      "at": 0
     },
@@ -592,28 +1453,14 @@
      "set": {
       "y": -20
      },
-     "dur": 4.5,
+     "dur": 3.1,
      "ease": "linear",
      "at": 0
     },
     {
      "who": "sam",
-     "do": "turn",
-     "to": 55,
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 15,
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "sam",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "o": [
        0.42,
@@ -627,7 +1474,7 @@
     {
      "who": "sam",
      "do": "grip",
-     "side": "R",
+     "side": "L",
      "shape": "fist",
      "dur": 0,
      "at": 0
@@ -642,9 +1489,9 @@
     {
      "who": "phx",
      "do": "hop",
-     "count": 6,
+     "count": 4,
      "height": 0.22,
-     "dur": 2.7,
+     "dur": 1.8,
      "at": 0
     },
     {
@@ -745,20 +1592,16 @@
      "at": 0
     },
     {
-     "who": "spud",
-     "do": "noblink",
-     "at": 0
-    },
-    {
-     "who": "wiz",
-     "do": "noblink",
-     "at": 0
-    },
-    {
      "sfx": "ding",
      "gain": 0.3,
      "reason": "the lift's floor chime on the ride up",
-     "at": 0
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
     },
     {
      "who": "wiz",
@@ -768,24 +1611,12 @@
     },
     {
      "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.4
-    },
-    {
-     "who": "wiz",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.2
-    },
-    {
-     "who": "spud",
      "do": "talk",
      "line": "Floor 800. Two seconds.",
      "tone": "calm",
      "dur": 0.8,
      "blink": false,
-     "at": 2.75
+     "at": 1.35
     },
     {
      "who": "spud",
@@ -796,45 +1627,76 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 2.75
+     "at": 1.35
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "happy",
      "dur": 0.15,
-     "at": 2.75
+     "at": 1.35
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      0.55,
-      -0.15
+      0.6,
+      0.45
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.58
+     "at": 2.18
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 20,
+     "to": 40,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.58
+     "at": 2.18
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      1.45,
+      0.72
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.18
     },
     {
      "who": "sam",
      "do": "turn",
-     "to": 40,
+     "to": 15,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.58
+     "at": 2.18
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      -1.55,
+      -0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.18
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.18
     }
-   ],
-   "kind": "hook"
+   ]
   },
   {
    "name": "the punch",
@@ -842,22 +1704,22 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     -0.35,
-     0.95,
-     3.7
+     0.5,
+     1,
+     4.3
     ],
     "look": [
-     1.35,
-     0.7,
+     1.4,
+     0.74,
      0.6
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
      "who": "sam",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "o": [
        0.2,
@@ -920,7 +1782,7 @@
     {
      "who": "sam",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "world": [
        1.98,
@@ -996,7 +1858,7 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.05,
+      0,
       0.6
      ],
      "dur": 0.01,
@@ -1011,6 +1873,46 @@
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0.95,
+      0.72
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "who": "gun",
+     "do": "move",
+     "to": [
+      0.6,
+      -0.85
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "who": "gun",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
     }
    ]
   },
@@ -1020,13 +1922,13 @@
    "len": 3,
    "shot": {
     "pos": [
-     0.1,
-     1.75,
-     7.6
+     0.05,
+     1.55,
+     6.9
     ],
     "look": [
-     0.1,
-     1.55,
+     0.05,
+     1.35,
      -0.3
     ],
     "fov": 46
@@ -1035,7 +1937,7 @@
     {
      "who": "sam",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": "up",
      "dur": 0.12,
      "ease": "out",
@@ -2048,13 +2950,13 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     0.1,
-     1.75,
-     7.6
+     0.05,
+     1.55,
+     6.9
     ],
     "look": [
-     0.1,
-     1.55,
+     0.05,
+     1.35,
      -0.3
     ],
     "fov": 46
@@ -3223,6 +4125,26 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 2.45
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.55,
+      0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.746
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.746
     }
    ]
   },
@@ -3232,16 +4154,16 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     -0.45,
-     0.6,
-     3.5
+     -0.55,
+     0.66,
+     3.7
     ],
     "look": [
      -0.55,
-     0.52,
+     0.58,
      0.8
     ],
-    "fov": 26
+    "fov": 30
    },
    "do": [
     {
@@ -3258,8 +4180,8 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0.5,
-      0.1
+      0.15,
+      0.05
      ],
      "dur": 0,
      "blink": false,
@@ -3269,7 +4191,7 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "cheeks",
+     "pose": "up",
      "dur": 0,
      "ease": "inOut",
      "at": 0
@@ -3278,7 +4200,7 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "cheeks",
+     "pose": "up",
      "dur": 0,
      "ease": "inOut",
      "at": 0
@@ -3291,6 +4213,26 @@
      "dur": 0.5,
      "blink": false,
      "at": 0.03
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.55,
+      0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 65.879,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
     }
    ]
   },
@@ -3496,7 +4438,7 @@
     {
      "who": "sam",
      "do": "turn",
-     "to": -5.655,
+     "to": -4.403,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -3516,7 +4458,7 @@
     {
      "who": "wiz",
      "do": "turn",
-     "to": 6.895,
+     "to": 5.383,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -3536,7 +4478,7 @@
     {
      "who": "gun",
      "do": "turn",
-     "to": -4.453,
+     "to": -3.605,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -3550,15 +4492,15 @@
    "shot": {
     "pos": [
      0.1,
-     0.35,
-     5.8
+     1.05,
+     7.4
     ],
     "look": [
-     0.05,
-     2.05,
-     -0.3
+     0.1,
+     2.45,
+     0
     ],
-    "fov": 58
+    "fov": 52
    },
    "do": [
     {
@@ -3780,7 +4722,7 @@
      "do": "prop",
      "id": "cable",
      "set": {
-      "strands": 8,
+      "strands": 6,
       "whip": 1,
       "glow": 0.3
      },
@@ -3814,7 +4756,7 @@
      "set": {
       "whip": 0
      },
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "settle",
      "at": 0.62
     },
@@ -3828,12 +4770,20 @@
      "at": 0.75
     },
     {
+     "who": "phx",
+     "do": "hop",
+     "count": 1,
+     "height": 2.45,
+     "dur": 0.5,
+     "at": 1.034
+    },
+    {
      "do": "prop",
      "id": "cable",
      "set": {
-      "strands": 4,
+      "strands": 1,
       "whip": 1,
-      "glow": 0.3
+      "glow": 1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3852,22 +4802,20 @@
      "at": 1.05
     },
     {
-     "who": "phx",
-     "do": "hop",
-     "count": 1,
-     "height": 1.9,
-     "dur": 0.5,
-     "at": 1.05
-    },
-    {
      "do": "prop",
      "id": "cable",
      "set": {
       "whip": 0
      },
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "settle",
      "at": 1.07
+    },
+    {
+     "fx": "shake",
+     "dur": 0.35,
+     "amp": 0.08,
+     "at": 1.284
     },
     {
      "do": "prop",
@@ -3879,38 +4827,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.534
+     "at": 1.284
     },
     {
      "sfx": "hit-metal",
      "gain": 0.6,
      "loud": true,
      "reason": "the last strand goes",
-     "at": 1.534
-    },
-    {
-     "do": "prop",
-     "id": "cable",
-     "set": {
-      "strands": 1,
-      "whip": 1,
-      "glow": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 1.55
-    },
-    {
-     "fx": "shake",
-     "dur": 0.2,
-     "amp": 0.07,
-     "at": 1.55
-    },
-    {
-     "sfx": "hit-metal",
-     "gain": 0.4,
-     "reason": "strands snap on Phoenix's landing",
-     "at": 1.55
+     "at": 1.284
     },
     {
      "do": "prop",
@@ -3920,17 +4844,7 @@
      },
      "dur": 0.5,
      "ease": "settle",
-     "at": 1.554
-    },
-    {
-     "do": "prop",
-     "id": "cable",
-     "set": {
-      "whip": 0
-     },
-     "dur": 0.35,
-     "ease": "settle",
-     "at": 1.57
+     "at": 1.304
     },
     {
      "who": "spud",
@@ -4621,15 +5535,15 @@
    "shot": {
     "pos": [
      0.3,
-     2.4,
+     1.7,
      14.5
     ],
     "look": [
      0,
-     1.7,
+     0.6,
      0
     ],
-    "fov": 40
+    "fov": 46
    },
    "do": [
     {
@@ -4904,8 +5818,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.45,
-      0.35
+      0.25,
+      0.55
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4915,7 +5829,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -102.155,
+     "to": -55,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -4924,8 +5838,8 @@
      "who": "sam",
      "do": "move",
      "to": [
-      1.3,
-      0.2
+      1.45,
+      0.75
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4935,7 +5849,7 @@
     {
      "who": "sam",
      "do": "turn",
-     "to": -93.552,
+     "to": -55,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -4944,8 +5858,8 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      -0.5,
-      -0.4
+      1.25,
+      -0.6
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4955,7 +5869,7 @@
     {
      "who": "wiz",
      "do": "turn",
-     "to": -101.788,
+     "to": -55,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -4964,8 +5878,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      0.35,
-      -0.85
+      -0.75,
+      0.75
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4975,7 +5889,7 @@
     {
      "who": "phx",
      "do": "turn",
-     "to": -82.714,
+     "to": -55,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -4984,8 +5898,8 @@
      "who": "gun",
      "do": "move",
      "to": [
-      -0.3,
-      0.5
+      0.2,
+      -0.75
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4995,7 +5909,7 @@
     {
      "who": "gun",
      "do": "turn",
-     "to": -113.529,
+     "to": -55,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -5059,16 +5973,16 @@
    "len": 1.3,
    "shot": {
     "pos": [
-     -1.75,
-     2.5,
-     -1.35
+     -1.7,
+     1.25,
+     -1.4
     ],
     "look": [
-     0.35,
-     0.35,
-     0.75
+     0.4,
+     1.15,
+     1.25
     ],
-    "fov": 68
+    "fov": 62
    },
    "do": [
     {
@@ -5294,7 +6208,7 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
+      -0.25,
       0.75
      ],
      "dur": 0.01,
@@ -5321,7 +6235,7 @@
      "who": "sam",
      "do": "move",
      "to": [
-      1.05,
+      0.75,
       0.5
      ],
      "dur": 0.01,
@@ -5348,7 +6262,7 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      -1.05,
+      -1.3,
       0.45
      ],
      "dur": 0.01,
@@ -5375,7 +6289,7 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -0.5,
+      -0.75,
       -0.45
      ],
      "dur": 0.01,
@@ -5402,7 +6316,7 @@
      "who": "gun",
      "do": "move",
      "to": [
-      0.55,
+      0.3,
       -0.5
      ],
      "dur": 0.01,
@@ -5510,8 +6424,8 @@
      "who": "ast",
      "do": "move",
      "to": [
-      3.6,
-      2.2
+      3.9,
+      2.6
      ],
      "dur": 0.01,
      "steps": 0,
@@ -5521,7 +6435,7 @@
     {
      "who": "ast",
      "do": "turn",
-     "to": -40,
+     "to": -30,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.28
@@ -5531,40 +6445,40 @@
   {
    "name": "space",
    "at": 20.566,
-   "len": 2.534,
+   "len": 0.634,
    "shot": {
     "pos": [
-     0.6,
-     2.2,
-     15.5
+     0.5,
+     2,
+     13.4
     ],
     "look": [
-     0.2,
-     1.7,
+     0.3,
+     1.45,
      0
     ],
-    "fov": 36,
+    "fov": 44,
     "to": {
      "pos": [
-      0.5,
-      2.1,
-      14.2
+      0.45,
+      1.9,
+      12.6
      ],
      "look": [
-      0.2,
-      1.7,
+      0.3,
+      1.45,
       0
      ],
-     "fov": 36
+     "fov": 44
     },
-    "dur": 2.534,
+    "dur": 0.634,
     "ease": "out"
    },
    "do": [
     {
      "who": "spud",
      "do": "face",
-     "lid": 1,
+     "lid": 0,
      "dur": 0,
      "at": 0
     },
@@ -5600,7 +6514,7 @@
     {
      "who": "sam",
      "do": "face",
-     "lid": 1,
+     "lid": 0,
      "dur": 0,
      "at": 0
     },
@@ -5636,7 +6550,7 @@
     {
      "who": "wiz",
      "do": "face",
-     "lid": 1,
+     "lid": 0,
      "dur": 0,
      "at": 0
     },
@@ -5672,7 +6586,7 @@
     {
      "who": "phx",
      "do": "face",
-     "lid": 1,
+     "lid": 0,
      "dur": 0,
      "at": 0
     },
@@ -5708,7 +6622,7 @@
     {
      "who": "gun",
      "do": "face",
-     "lid": 1,
+     "lid": 0,
      "dur": 0,
      "at": 0
     },
@@ -5810,29 +6724,55 @@
      "who": "ast",
      "do": "fly",
      "to": {
-      "x": 3.6,
-      "y": 1.2,
-      "z": 2.2
+      "x": 3.9,
+      "y": 1.5,
+      "z": 2.6
      },
      "dur": 0.01,
      "ease": "linear",
      "at": 0
+    }
+   ]
+  },
+  {
+   "name": "new record",
+   "at": 21.2,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     0.25,
+     1.2,
+     6.2
+    ],
+    "look": [
+     0.2,
+     1,
+     0.4
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0.25,
+      1.15,
+      5.6
+     ],
+     "look": [
+      0.2,
+      1,
+      0.4
+     ],
+     "fov": 48
     },
-    {
-     "who": "sam",
-     "do": "talk",
-     "line": "...New record.",
-     "tone": "calm",
-     "dur": 0.7,
-     "blink": false,
-     "at": 0.634
-    },
+    "dur": 1.9,
+    "ease": "out"
+   },
+   "do": [
     {
      "who": "sam",
      "do": "expr",
      "expr": "smug",
      "dur": 0.15,
-     "at": 0.634
+     "at": 0
     },
     {
      "who": "sam",
@@ -5843,7 +6783,16 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.634
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "talk",
+     "line": "...New record.",
+     "tone": "calm",
+     "dur": 0.7,
+     "blink": false,
+     "at": 0.05
     },
     {
      "who": "sam",
@@ -5852,7 +6801,7 @@
      "pose": "hips",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.734
+     "at": 0.1
     },
     {
      "who": "sam",
@@ -5861,19 +6810,19 @@
      "pose": "hips",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.734
+     "at": 0.1
     },
     {
      "who": "ast",
      "do": "fly",
      "to": {
-      "x": 2.35,
-      "y": 1.35,
-      "z": 2.3
+      "x": 1,
+      "y": 1.3,
+      "z": 2.6
      },
-     "dur": 1.6,
+     "dur": 0.75,
      "ease": "out",
-     "at": 0.934
+     "at": 0.25
     },
     {
      "who": "spud",
@@ -5881,14 +6830,14 @@
      "to": 1,
      "dur": 0.4,
      "ease": "settle",
-     "at": 1.134
+     "at": 0.5
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.15,
-     "at": 1.134
+     "at": 0.5
     },
     {
      "who": "spud",
@@ -5899,7 +6848,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.134
+     "at": 0.5
     },
     {
      "who": "ast",
@@ -5907,7 +6856,7 @@
      "side": "R",
      "pose": "wave",
      "dur": 0.3,
-     "at": 1.334
+     "at": 0.7
     },
     {
      "who": "ast",
@@ -5916,7 +6865,7 @@
      "tone": "question",
      "dur": 0.55,
      "blink": false,
-     "at": 1.534
+     "at": 0.9
     },
     {
      "who": "spud",
@@ -5927,7 +6876,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.634
+     "at": 1
     },
     {
      "who": "sam",
@@ -5938,7 +6887,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.634
+     "at": 1
     },
     {
      "who": "wiz",
@@ -5949,7 +6898,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.634
+     "at": 1
     },
     {
      "who": "phx",
@@ -5960,7 +6909,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.634
+     "at": 1
     },
     {
      "who": "gun",
@@ -5971,7 +6920,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.634
+     "at": 1
     }
    ],
    "kind": "payoff"
@@ -5980,6 +6929,15 @@
  "visible": [
   {
    "from": 0,
+   "to": 1.4,
+   "see": [
+    "spud.face",
+    "fire"
+   ],
+   "why": "frame 0: the burning lift in free fall, all five floating and screaming (day 30 first)"
+  },
+  {
+   "from": 1.4,
    "to": 3.6,
    "see": [
     "spud.face",
@@ -5987,7 +6945,7 @@
     "panel",
     "sign"
    ],
-   "why": "frame 0: five friends riding up, the Samurai's fist over the door-close button, the sign climbing"
+   "why": "day 1: five friends riding up, the Samurai's fist over the door-close button, the sign climbing"
   },
   {
    "from": 3.6,

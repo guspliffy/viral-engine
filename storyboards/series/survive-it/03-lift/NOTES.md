@@ -2,8 +2,8 @@
 
 ## Where the build stands
 
-- Step: staging proof (generator first pass written 11 Nov; floor plan clear)
-- Next: builders T1 (props-lift.js) and T2 (props-lift-fx.js) report -> draft stills at the 12 panel times -> camfit batch -> layout -> review A -> draft to Jonny (rule 2: no polish before his OK)
+- Step: staging proof, second layout pass (11 Nov ~23:20 Berlin). Builders T1 + T2 done and committed.
+- Next: camfit batch for the subtitles -> review A -> draft render -> check -> draft to Jonny (rule 2: no polish before his OK). Then golden (engine edits), merge main in (#194 qa/pops.mjs), push.
 - Renders so far: drafts 0, farm renders 0; fix rounds used: 0 of 3
 - Thread: "Make next Survive it episode". Jonny's go on the panels: 11 Nov 20:40 Berlin. Weekly limit nearly used: lean.
 
@@ -25,6 +25,13 @@
 - Sounds are whitelist stand-ins: hit-metal (strand), firework (blast), slam (spring hit), seatclack (launch), crumble (roof). A real pick list comes after the draft.
 - Spring replaces the counterweight, space replaces the city (Jonny saw both in the panels and said go).
 
+- OPENER B, cold open (Jonny 11 Nov 21:17 Berlin, marketing thread: apply the opener rules to the next videos and test A vs B): the clip starts inside the day-30 free fall for 1.4 s (cast and props START in that state), flash + recordscratch, then day 1. Departure from P01. Name "opener B" in the delivery.
+- Wide shots: the five stand within x +-0.95 (a tall frame cannot hold the 4.1 m car); the Samurai is placed at the wall only for the punch close-up, and he punches with his LEFT (the wall is on his left when he faces us).
+- Bounce: two landings snap strands (6, then 1 glowing), the third hop's TOP (T.snap) takes the last one. Camera low in the hallway looking up, so the cable over the roof is in frame.
+- Space: wide for 0.65 s (car over the Earth), then closer (REC) for "...New record." and the Astronaut.
+- ENGINE BUG found and fixed (commit 3debddf): under set "ink" the arm skin's ink shell took a pixel width as clip space; a light-limbed character (Astronaut) hid the whole frame behind a grey shell. looks.js marks px, potato.js converts.
+- Lids: 0 open, 1 shut. Prop start states come from the spec; a state at frame 0 also needs prop(0, id, {...}, 0).
+
 ## Names looked up (do not grep again)
 
 - yaw: degrees, atan2(dx, dz): 0 faces +z (the hallway camera), 90 faces +x. `turn` takes the short way.
@@ -39,15 +46,15 @@
 
 | id | character | start x,z | role |
 |---|---|---|---|
-| spud | potatobrawl/spud | 0.05, 0.6 | lead, reacts; "Floor 800. Two seconds." / "...sure." / "TAKE IT!" / "NOT THE CABLE!" / "Floor 800!" |
-| sam | duo/samurai | 1.3, 0.72 | the punch; "...New record." |
-| wiz | never-has-money/wizard | -1.2, 0.45 | the reset; "Page two: 'Don't.'" |
-| phx | duo/phoenix | -0.7, -0.8 | the bounce |
-| gun | never-has-money/gunslinger | 0.75, -0.85 | the phone |
+| spud | potatobrawl/spud | 0.0, 0.6 | lead, reacts; "Floor 800. Two seconds." / "...sure." / "TAKE IT!" / "NOT THE CABLE!" / "Floor 800!" |
+| sam | duo/samurai | 0.95, 0.72 | the punch; "...New record." |
+| wiz | never-has-money/wizard | -0.95, 0.45 | the reset; "Page two: 'Don't.'" |
+| phx | duo/phoenix | -0.5, -0.8 | the bounce |
+| gun | never-has-money/gunslinger | 0.6, -0.85 | the phone |
 | ast | potatobrawl/astronaut | parked 9, 4 | "Going down?" |
 
 ## Props (kinds from the two builder files; read their headers, not the code)
 
 panel liftpanel (right wall x 2.03, rot -90), cable liftcable, fire wallfire, blast liftblast, dark cardark, lamp alarmlamp, sparksL/R sparkrain, blobs fireblobs, shell liftshell, pit shaftpit, spring liftspring, pass shaftpass, sky spacesky, sign floorsign, doors elevdoors, phone.
 
-## Cameras: CAM in the generator (A hallway wide, CU, WALL, GUN, SPUD, LOW, FALL, PIT, UP, SPACE), first guesses, not yet fitted.
+## Cameras: CAM in the generator (A hallway wide, CU, WALL, GUN, SPUD, LOW, FALL, PIT, UP, SPACE, REC), fitted on stills in two passes.
