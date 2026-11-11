@@ -64,7 +64,7 @@ const SPUD4 = [0.1, -6.3], REA4 = [-0.85, -7.1], PHX4 = [1.05, -7.1];           
 const MAM4 = [3.0, -9.6], SAB4 = [-1.6, -8.6], SABK = 1.6, MAMK = 1.3;   // the panels draw both far bigger than life                    // the animals round them
 // the street
 const BREACH_X = 1.4, LAMP_AT = [-2.5, SZ + 8], LAMP_H = 7.5;
-const SCY_END = [-0.1, SZ + 14.6];
+const SCY_END = [0.0, SZ + 15.4];
 const rad = (d) => (d * Math.PI) / 180;
 // where the T. rex stands so that its snout is at `snout` (world), for a pose and a heading
 const rexFor = (snout, pose, rot, y = 0) => { const q = trexPoints({ ...pose, scale: REXK }).snout, a = rad(rot); return { x: r3(snout[0] - (q[0] * Math.cos(a) + q[2] * Math.sin(a))), y, z: r3(snout[2] - (-q[0] * Math.sin(a) + q[2] * Math.cos(a))), rot, ...pose }; };
@@ -106,7 +106,7 @@ const props = [
   ph("street", { id: "front", kind: "museumfront", x: 0, y: 0, z: SZ, w: 34, h: 10, breachX: BREACH_X, breachW: 9, breachH: 7.5, breach: 0, burst: 0 }, { ...box(34, 10, 1), z: SZ - 0.5 }),
   ph("street", { id: "square", kind: "townsquare", x: 0, y: 0, z: SZ + 10, w: 40, d: 34 }, { ...box(0.2, 0.2, 0.2), y: DOWN, z: SZ + 10 }),
   ph("street", { id: "neck", kind: "hillneck", x: 2.5, y: 0, z: SZ - 18, rise: 0, headH: 23, headZ: 11 }, { ...box(5, 38, 5), y: DOWN, z: SZ - 18, x: 2.5 }),
-  ph("street", { id: "cracks", kind: "streetcracks", x: SCY_END[0], y: 0.01, z: SCY_END[1], r: 2.6, grow: 0 }, { ...box(0.2, 0.2, 0.2), y: DOWN }),
+  ph("street", { id: "cracks", kind: "streetcracks", x: SCY_END[0], y: 0.01, z: SCY_END[1], r: 4, grow: 0 }, { ...box(0.2, 0.2, 0.2), y: DOWN }),
   ...(has("fossils") ? [["spSab", SAB, 1.3, 2.2], ["spMam", MAM, 2.4, 3.6], ["spRex", REXP, 3.0, 5.6]].map(([id, at, r, h]) => ({ id, kind: "lifesparks", x: at[0], y: 0.3, z: at[1], r, h, rise: 0 })) : []),
   { id: "lamp", kind: "streetlamp", x: LAMP_AT[0], y: 0, z: LAMP_AT[1], h: LAMP_H, lit: 0 },
   // ---- Reaper's scythe: worn in his right fist all clip; a second one falls and stands in the street
@@ -233,7 +233,7 @@ see(r3(RUN + 0.4), CRASH, ["rea.face"], "Reaper runs screaming along the row, ea
 // ================================================================= 4 THE CRASH (8.3) and EVERYTHING ALIVE (9.3)
 place(r3(CRASH - 0.1), "rea", [1.0, -9.15], 168);
 P(r3(CRASH - 0.12), "scy", { tilt: -80, x: -0.5 }, 0.1);
-A(CRASH, "rea", "lean", { to: 24, dur: 0.12, ease: "out" }); A(r3(CRASH + 0.35), "rea", "lean", { to: 0, dur: 0.35, ease: "inOut" }); A(CRASH, "rea", "squash", { amount: 0.1, dur: 0.14 });
+A(CRASH, "rea", "lean", { to: 12, dur: 0.12, ease: "out" }); A(r3(CRASH + 0.35), "rea", "lean", { to: 0, dur: 0.35, ease: "inOut" }); A(CRASH, "rea", "squash", { amount: 0.1, dur: 0.14 });
 sfx(CRASH, "slam", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "bell", { gain: 0.9, loud: true });
 c.at(CRASH, { fx: "sparkle", at: [0.95, 0.9, -9.7], color: "#7dff6a", dur: 0.6 }); c.at(CRASH, { fx: "shake", dur: 0.3, amp: 0.03 });
 expr(r3(CRASH + 0.3), "spud", "terrified", TERROR); expr(r3(CRASH + 0.3), "phx", "delighted", { open: 0.7, curve: 1 });
@@ -257,8 +257,8 @@ see(ALIVE, CALM, ["rex", "mam", "sab", "spud", "rea", "phx"], "the whole museum 
 // ================================================================= 5 THE CALM (10.8-12.6): it only sniffs him
 place(CALM, "spud", SPUD4, 6); place(CALM, "rea", REA4, 14); place(CALM, "phx", PHX4, -30);
 P(r3(CALM - 0.02), "rex", { ...rexFor([0.3, 1.6, -6.8], { lean: 20, neckP: 25, headP: 10 }, 6), jaw: 0, brow: 0.5, squint: 0.3, arms: 0 });
-P(r3(CALM - 0.02), "mam", { x: 3.5, z: -9.3, rot: -75 }); P(r3(CALM - 0.02), "sab", { x: -2.8, z: -8.5, rot: 72 });
-ANI(r3(CALM - 0.02), "mam", { trunk: 0.2, headY: 20, headP: 10 }); ANI(r3(CALM - 0.02), "sab", { jaw: 0, headP: 10 });
+P(r3(CALM - 0.02), "mam", { x: 3.1, z: -9.0, rot: -75 }); P(r3(CALM - 0.02), "sab", { x: -2.5, z: -8.6, rot: 68 });
+ANI(r3(CALM - 0.02), "mam", { trunk: -0.8, headY: 0, headP: 10 }); ANI(r3(CALM - 0.02), "sab", { jaw: 0, headP: 10 });
 for (const k of [0, 0.5, 1.0]) { P(r3(CALM + 0.15 + k), "rex", { sniff: 1 }, 0.15); P(r3(CALM + 0.3 + k), "rex", { sniff: 0 }, 0.25); sfx(r3(CALM + 0.15 + k), "snort", { gain: 0.5 }); }
 expr(CALM, "spud", "shocked", { open: 0.05, eye: 1.2, curve: 0 }, 0.01); A(CALM, "spud", "look", { to: [0.6, 0.5], dur: 0.01, blink: false });
 expr(r3(CALM + 0.8), "spud", "happy", { open: 0.3, curve: 0.8, eye: 0.9 }, 0.3);
@@ -269,8 +269,8 @@ see(CALM, CATCH, ["spud.face", "phx.face", "rex"], "the fake-out: the T. rex sni
 
 // ================================================================= 6 THE CATCH (12.6-14.0): they are all starving
 sfx(CATCH, "groan", { gain: 0.9, loud: true }); sfx(r3(CATCH + 0.1), "rumble", { gain: 0.7 }); c.at(r3(CATCH + 0.05), { fx: "shake", dur: 0.7, amp: 0.015 });
-P(CATCH, "rex", { lean: 6, neckP: 8, headP: 32, neckY: 0, squint: 0.75, brow: -1, jaw: 0.25 }, 0.4, "inOut");
-ANI(CATCH, "rex", { drool: 1 }, 0.5); for (const id of ["mam", "sab"]) ANI(CATCH, id, { ...HUNGRY, headP: 22, trunk: -0.4 }, 0.4, "inOut");
+P(CATCH, "rex", { lean: 6, neckP: 8, headP: 32, neckY: 0, squint: 0.75, brow: -1, jaw: 0.6 }, 0.4, "inOut");
+ANI(CATCH, "rex", { drool: 1 }, 0.5); for (const id of ["mam", "sab"]) ANI(CATCH, id, { ...HUNGRY, jaw: 0.5, headP: 22, trunk: -1 }, 0.4, "inOut");
 ANI(r3(CATCH + 0.5), "sab", { lick: 1 }, 0.5);
 for (const w of ["spud", "phx", "rea"]) { A(r3(CATCH + 0.45), w, "look", { to: [0.1, 0.95], dur: 0.12, blink: false }); expr(r3(CATCH + 0.6), w, "terrified", TERROR, 0.1); }
 c.arm(r3(CATCH + 0.5), "phx", "L", "rest", 0.2);
@@ -339,20 +339,20 @@ cap(r3(RISE + 0.6), END, "Would you still want it?", 920);
 see(RISE, END, ["neck", "scyF"], "the scythe stands in the cracked street; a long neck as big as a hill rises behind the museum");
 
 // ---------------------------------------------------------------- shots (camera A looks -z, B looks +z)
-const coldCam = (from, dur) => { const z = (f) => r3(SZ + 3 + f * 3.2 + 0.9); return { pos: [0.15, 0.5, r3(z(from) + 5.5)], look: [0.5, 2.3, r3(z(from) - 3.5)], fov: 46, to: { pos: [0.15, 0.5, r3(z(from + dur) + 4.6)], look: [0.5, 2.5, r3(z(from + dur) - 4.4)], fov: 46 }, dur, ease: "linear" }; };
+const coldCam = (from, dur) => { const z = (f) => r3(SZ + 3 + f * 3.2 + 0.9); return { pos: [0.0, 0.5, r3(z(from) + 6.1)], look: [0.1, 2.3, r3(z(from) - 3.5)], fov: 46, to: { pos: [0.0, 0.5, r3(z(from + dur) + 5.2)], look: [0.1, 2.5, r3(z(from + dur) - 4.4)], fov: 46 }, dur, ease: "linear" }; };
 const SH = {
   cold:   coldCam(COLD - STREET, HALL),
   front:  coldCam(FRONT - STREET, LAMP - FRONT),
-  hall:   { pos: [-0.5, 1.7, 8.7], look: [-0.4, 1.15, 0], fov: 50 },
+  hall:   { pos: [-0.5, 1.7, 8.7], look: [-0.4, 1.15, 0], fov: 50, to: { pos: [-0.9, 1.3, 6.0], look: [-0.7, 1.1, 0.6], fov: 50 }, dur: 0.8, ease: "inOut" },
   fish:   { pos: [-1.0, 1.5, 6.2], look: [-1.05, 1.2, 0.8], fov: 50 },
   run:    { pos: [0.3, 1.0, -2.8], look: [1.5, 1.0, 1.6], fov: 46, to: { pos: [0.3, 1.0, -9.4], look: [1.5, 1.0, -6.1] }, dur: r3(CRASH - RUN - 0.85), ease: "linear" },
-  crash:  { pos: [1.0, 0.95, -12.7], look: [0.98, 1.25, -8], fov: 44 },   // from between the T. rex's legs: he runs at us and into the plinth
+  crash:  { pos: [1.0, 0.8, -12.7], look: [1.0, 1.55, -8], fov: 44 },   // from between the T. rex's legs: he runs at us and into the plinth
   alive:  { pos: [-0.2, 0.3, -0.6], look: [0.6, 3.0, -10.6], fov: 56 },
   calm:   { pos: [-0.1, 1.0, -0.4], look: [-0.15, 1.75, -7.4], fov: 40 },
   catch:  { pos: [0.1, 0.45, -2.5], look: [0.05, 2.45, -7], fov: 55 },
   chase:  { pos: [0.35, 0.5, -0.3], look: [0.2, 2.5, -6.3], fov: 48, to: { pos: [0.35, 0.5, 5.8], look: [0.2, 2.6, -0.2] }, dur: r3(STREET - CHASE), ease: "linear" },
   side:   { pos: [10.5, 1.4, SZ + 9.5], look: [0.8, 2.5, SZ + 4.0], fov: 46 },
-  lamp:   { pos: [0.6, 0.9, SZ + 14.6], look: [-2.3, 5.3, SZ + 8], fov: 46 },
+  lamp:   { pos: [-0.4, 2.5, SZ + 12.0], look: [-2.6, 6.2, SZ + 8], fov: 44 },
   scythe: { pos: [0.4, 0.3, SZ + 17.4], look: [-0.9, 4.4, SZ + 6], fov: 60 },
 };
 const CUTS = [
@@ -394,6 +394,7 @@ const allowClip = [
   ...["spud", "rea", "phx"].map((who) => ({ who, from: r3(LAMP - 0.06), to: r3(LAMP + 0.04), checks: ["rig-jump", "motion"], reason: "placed on the lamp top on the cut to the lamp shot" })),
   { who: "phx", with: "rea", from: FISH, to: r3(RUN + 0.15), reason: "Phoenix shoves Reaper's scythe arm at the fish case (panel 03): his glove is on Reaper's sleeve" },
   { who: "rea", with: "spud", from: STREET, to: FRONT, checks: ["face-hidden"], reason: "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces" },
+  { who: "phx", from: r3(RUN + 0.55), to: r3(RUN + 0.8), checks: ["rig-jump", "motion"], reason: "ROUGH DRAFT ONLY (polish list): his left arm drops into the run in one frame, 4.8 m behind the subject of the run shot" },
   { who: "rea", with: "scyF", from: r3(SLIP - 0.05), to: r3(SLIP + 0.55), reason: "the scythe slips out of his glove and falls past his robe" },
 ];
 

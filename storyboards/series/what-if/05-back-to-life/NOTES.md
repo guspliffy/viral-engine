@@ -9,10 +9,18 @@ life?", the turn stays "But there's a catch."
 
 ## Where the build stands
 
-- Step: staging proof done on stand-in boxes (out/btl-sheet-*.png); builders T1-T5 next; review A on stills with the
-  real props (decision below); rough draft to Jonny; polish only after his OK
-- Next: briefs + dispatch (max 3 at once), wire READY packs, layout, review A, draft --no-vo
-- Renders so far: drafts 0, farm 0; fix rounds 0 of 3
+- Step: ROUGH DRAFT 1 sent to Jonny 11 Nov ~23:30 Berlin (no narrator, `back-to-life-no-vo`; project files
+  videos/what-if/05-back-to-life/). WAIT for his OK or notes; polish only after it (his OK replaces review B).
+- Done: builders T1-T5 (five packs, benches in bench/), clip restaged on the real pieces, review A (6 notes, all
+  applied; note 5 in part: camera lower and tilted up, no claw-with-blade close-up), music parts follow the story
+  (Jonny's rule 11 Nov: bounce key 10 = the series theme, change at "But there's a catch").
+- Checks: 3 fix rounds used on the staging (26 fails -> 1). The last one (phx elbow L jumps at 6.57 s, behind the
+  subject in the run shot) is waived FOR THE DRAFT ONLY in allowClip: fix it in the polish, then delete the window.
+- Polish list (after his OK): scythe really in Reaper's glove (worn beside him now); fish hugged in both arms while
+  running (run arms now); lamp clinging hands; phx arm jump 6.57; sabre-tooth's face barely in the catch shot
+  (13.4 s); T. rex head mostly off the bottom-left of the lamp shot; narrator (6 lines, voice 1, measure with
+  qa/lines.mjs); 44 visible-glitch warnings to read (hand-pop, palm-turn, foot-slide); pops probe at 8.3 and 19.5.
+- Renders so far: drafts 2 (the first was superseded by the review notes), farm 0; layouts 9 full + 2 partial
 
 ## The improvement loop
 
@@ -28,8 +36,8 @@ HALL: x -5..7, z -16..8, h 9, skylight roof. Walkway x -4..1.2. Rope along x 1.6
 right: sabre-tooth plinth [3.4, 0.5], mammoth [3.6, -4.2], T. rex on a low plinth at the END of the hall [1.0, -11]
 facing +z, scale 1.5 (5.3 m tall). Pterosaur skeletons hang y 5.5 at [2, -1] and [2.2, -6.5]. Fish case [-1.6, 0.6].
 Plant [1.25, 2.55]. Two camera directions: A looks -z (row on the right, T. rex far), B looks +z from the T. rex end.
-STREET: same world, z + 100. Museum front = plane z 100 facing +z, doors at x 0, the breach at x 4. Lamp [-2.5, 108].
-Town row z 122 facing -z, giant long-neck rises at [3, 135]. Cast never run the stairs (they are placed past them).
+STREET: same world, z + 100. Museum front = plane z 100 facing +z, entrance at x -9, the breach at x 1.4 (9 wide). Lamp [-2.5, 108],
+7.5 tall. The giant long-neck rises BEHIND the museum at [2.5, 82]. Scythe ends at [0, 115.4]. Cast never run the stairs (they are placed past them).
 
 ## Beats (video s = story s, no ramps): COLD 0 | HALL 1.5 | FISH 3.6 | RUN 6.0 | CRASH 8.3 | ALIVE 9.3 | CALM 10.8 |
 CATCH 12.6 | CHASE 14.0 | STREET 15.6 | LAMP 17.4 | SCYTHE 19.4 | END 22.0

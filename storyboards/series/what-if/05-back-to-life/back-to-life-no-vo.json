@@ -404,10 +404,10 @@
   {
    "id": "cracks",
    "kind": "streetcracks",
-   "x": -0.1,
+   "x": 0,
    "y": 0.01,
-   "z": 114.6,
-   "r": 2.6,
+   "z": 115.4,
+   "r": 4,
    "grow": 0
   },
   {
@@ -461,9 +461,9 @@
   {
    "id": "scyF",
    "kind": "parkedscythe",
-   "x": -0.1,
+   "x": 0,
    "y": -60,
-   "z": 114.6,
+   "z": 115.4,
    "rot": 20
   }
  ],
@@ -555,24 +555,24 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     0.15,
+     0,
      0.5,
-     111.96
+     112.56
     ],
     "look": [
-     0.5,
+     0.1,
      2.3,
      102.96
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.15,
+      0,
       0.5,
-      115.86
+      116.46
      ],
      "look": [
-      0.5,
+      0.1,
       2.5,
       106.86
      ],
@@ -1585,7 +1585,22 @@
      1.15,
      0
     ],
-    "fov": 50
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.9,
+      1.3,
+      6
+     ],
+     "look": [
+      -0.7,
+      1.1,
+      0.6
+     ],
+     "fov": 50
+    },
+    "dur": 0.8,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -2851,12 +2866,12 @@
    "shot": {
     "pos": [
      1,
-     0.95,
+     0.8,
      -12.7
     ],
     "look": [
-     0.98,
-     1.25,
+     1,
+     1.55,
      -8
     ],
     "fov": 44
@@ -2966,7 +2981,7 @@
     {
      "who": "rea",
      "do": "lean",
-     "to": 24,
+     "to": 12,
      "dur": 0.12,
      "ease": "out",
      "at": 0.45
@@ -3577,8 +3592,8 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "x": 3.5,
-      "z": -9.3,
+      "x": 3.1,
+      "z": -9,
       "rot": -75
      },
      "dur": 0.01,
@@ -3589,9 +3604,9 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "x": -2.8,
-      "z": -8.5,
-      "rot": 72
+      "x": -2.5,
+      "z": -8.6,
+      "rot": 68
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3601,8 +3616,8 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "trunk": 0.2,
-      "headY": 20,
+      "trunk": -0.8,
+      "headY": 0,
       "headP": 10
      },
      "dur": 0.01,
@@ -3850,7 +3865,7 @@
       "neckY": 0,
       "squint": 0.75,
       "brow": -1,
-      "jaw": 0.25
+      "jaw": 0.6
      },
      "dur": 0.4,
      "ease": "inOut",
@@ -3872,11 +3887,11 @@
      "set": {
       "brow": -1,
       "squint": 0.7,
-      "jaw": 0.3,
+      "jaw": 0.5,
       "drool": 1,
       "lookY": -0.8,
       "headP": 22,
-      "trunk": -0.4
+      "trunk": -1
      },
      "dur": 0.4,
      "ease": "inOut",
@@ -3888,11 +3903,11 @@
      "set": {
       "brow": -1,
       "squint": 0.7,
-      "jaw": 0.3,
+      "jaw": 0.5,
       "drool": 1,
       "lookY": -0.8,
       "headP": 22,
-      "trunk": -0.4
+      "trunk": -1
      },
      "dur": 0.4,
      "ease": "inOut",
@@ -5183,24 +5198,24 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     0.15,
+     0,
      0.5,
-     112.28
+     112.88
     ],
     "look": [
-     0.5,
+     0.1,
      2.3,
      103.28
     ],
     "fov": 46,
     "to": {
      "pos": [
-      0.15,
+      0,
       0.5,
-      114.26
+      114.86
      ],
      "look": [
-      0.5,
+      0.1,
       2.5,
       105.26
      ],
@@ -5431,16 +5446,16 @@
    "len": 2,
    "shot": {
     "pos": [
-     0.6,
-     0.9,
-     114.6
+     -0.4,
+     2.5,
+     112
     ],
     "look": [
-     -2.3,
-     5.3,
+     -2.6,
+     6.2,
      108
     ],
-    "fov": 46
+    "fov": 44
    },
    "do": [
     {
@@ -5678,9 +5693,9 @@
      "do": "prop",
      "id": "scyF",
      "set": {
-      "x": -0.1,
+      "x": 0,
       "y": 0.5,
-      "z": 114.6,
+      "z": 115.4,
       "rot": 380,
       "tip": 12
      },
@@ -6131,6 +6146,16 @@
     "face-hidden"
    ],
    "reason": "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces"
+  },
+  {
+   "who": "phx",
+   "from": 6.45,
+   "to": 6.7,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "ROUGH DRAFT ONLY (polish list): his left arm drops into the run in one frame, 4.8 m behind the subject of the run shot"
   },
   {
    "who": "rea",
