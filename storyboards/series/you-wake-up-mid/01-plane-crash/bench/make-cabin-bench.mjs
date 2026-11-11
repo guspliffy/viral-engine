@@ -22,6 +22,10 @@ const CAMS = [
   ["5 brace, view 1, bins open", [-0.6, 1.2, -0.8], [1.4, 1.3, 1.2], 50, { feed: 1, lid: 1 }],
   ["6 crawl, lights 0.2, view 2", [0, 0.35, 6.0], [0, 0.6, -4], 45, { level: 0.2, feed: 2 }],
   ["7 door open, lights 0.2", [0.2, 0.5, 3.0], [0, 1.0, 10.4], 40, { level: 0.2, feed: 2, open: 1 }],
+  // bench only: the three window views up close (row 0, port side), so each view can be judged
+  ["w0 window, view 0 (cloud)", [1.4, 1.35, 0.4], [2.65, 1.3, 0.4], 30, { feed: 0 }],
+  ["w1 window, view 1 (treetops at 60 m/s)", [1.4, 1.35, 0.4], [2.65, 1.3, 0.4], 30, { feed: 1 }],
+  ["w2 window, view 2 (forest, smoke)", [1.4, 1.35, 0.4], [2.65, 1.3, 0.4], 30, { feed: 2 }],
 ];
 // OVERVIEW=1: three extra cameras OUTSIDE the walls (the walls cull from outside, so they look in): a check for z-fighting, holes and the seven rows
 const OV = !!process.env.OVERVIEW;

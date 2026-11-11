@@ -101,7 +101,7 @@ function smokeMaterial(seed) {
         vec2 q = (vUv - 0.5) * 2.0; float a = atan(q.y, q.x), r = length(q);
         float edge = 0.76 + 0.1 * sin(a * 4.0 + uSeed * 6.0) + 0.07 * sin(a * 7.0 - uSeed * 3.0 + uTime * 0.5) + 0.05 * sin(a * 11.0 + uSeed * 9.0);
         float d = r / edge; if (d > 1.0) discard;
-        vec3 dark = mix(vec3(0.075, 0.07, 0.08), vec3(0.2, 0.19, 0.2), uTone), mid = dark * 1.8 + 0.035, lit = mix(vec3(0.4, 0.39, 0.41), vec3(0.6, 0.58, 0.58), uTone);
+        vec3 dark = mix(vec3(0.035, 0.033, 0.04), vec3(0.11, 0.105, 0.115), uTone), mid = dark * 1.9 + 0.02, lit = mix(vec3(0.2, 0.195, 0.21), vec3(0.4, 0.39, 0.4), uTone);
         float L = q.y * 0.7 - q.x * 0.25 - d * 0.25;
         vec3 col = mix(dark, mid, band(-0.12, L)); col = mix(col, lit, band(0.42, L));
         gl_FragColor = vec4(col, (1.0 - smoothstep(0.88, 1.0, d)) * uA);
@@ -148,11 +148,11 @@ export const WAKEOUT_KINDS = {
     const R = JET.R, g = new THREE.Group(); P.whole.add(g);
     const af = new THREE.Group(); af.position.set(0, Y0, 0); af.rotation.z = ROLL; g.add(af);   // the airframe: axis at the origin, rolled
     const skinM = (color, o = {}) => { const m = mat(color, o); m.userData.noHatch = true; return m; };
-    const white = skinM("#eceff3", { vertexColors: true }), belly = skinM("#a9b1bd"), red = skinM("#c2332f"), grey = skinM("#cfd5de", { side: THREE.DoubleSide });
+    const white = skinM("#eceff3", { vertexColors: true, emissive: "#dbe3f0", emissiveIntensity: 0.3 }), belly = skinM("#a9b1bd"), red = skinM("#c2332f"), grey = skinM("#cfd5de", { side: THREE.DoubleSide });
     const char = skinM("#1f1c1b", { side: THREE.DoubleSide }), metal = mat("#8f98a6", { metalness: 0.3, roughness: 0.5 }), snowM = skinM("#f1f5fb", { roughness: 0.95 });
-    const dark = flat("#0f121a"), dent = skinM("#b3bac6", { side: THREE.DoubleSide }), hole = flat("#14161d", { side: THREE.DoubleSide });
+    const dark = flat("#0f121a"), dent = skinM("#8e97a7", { side: THREE.DoubleSide }), hole = flat("#14161d", { side: THREE.DoubleSide });
     // ---- the fuselage: white with soot streaked over the burning wing and along the back, mottled dirt
-    const soot = [0.1, 0.09, 0.085], stain = [0.8, 0.72, 0.62];
+    const soot = [0.03, 0.028, 0.026], stain = [0.8, 0.72, 0.62];
     const hullG = tint(hull(0, Math.PI * 2, JET.tail, JET.nose, 0, 48, 110), (x, y, z) => {
       const side = clamp(x / 1.2), top = clamp((y - 0.2) / 1.6);
       const s = clamp(0.95 * Math.exp(-(((z - 1) / 5.5) ** 2)) * side * top + 0.7 * Math.exp(-(((z + 5) / 6) ** 2)) * side * top * 0.7 + 0.18 * top);
@@ -245,7 +245,8 @@ export const WAKEOUT_KINDS = {
     const lump = (x, y, z, rx, ry, rz) => { const o = mesh(new THREE.SphereGeometry(1, 14, 10), snowM, berm, x, y, z); o.scale.set(rx, ry, rz); return o; };
     for (const s of [1, -1]) for (let i = 0; i < 22; i++) {
       const z = 17 - i * 1.6 + (rnd(i * 5 + (s > 0 ? 1 : 2)) - 0.5) * 0.8, k = rnd(i * 3 + (s > 0 ? 5 : 6));
-      lump(s * (2.05 + k * 0.5), 0.1, z, 1.05 + k * 0.45, 0.75 + k * 0.4, 1.3 + rnd(i + 31) * 0.4);
+      if (s > 0 && z < 4 && z > -4.5) continue;   // the wing stub and the engine stand clear of the berm
+      lump(s * (2.05 + k * 0.5), 0.1, z, 1.05 + k * 0.45, (0.75 + k * 0.4) * (s > 0 ? 0.8 : 1), 1.3 + rnd(i + 31) * 0.4);
     }
     lump(0, 0.2, 20.8, 3.0, 1.9, 2.8); lump(-1.6, 0.1, 19.6, 1.9, 1.3, 2.2); lump(1.7, 0.1, 19.8, 2.0, 1.2, 2.2); lump(0.4, 0.2, 23.0, 2.0, 1.2, 1.7);
     steamy(berm);
@@ -254,7 +255,7 @@ export const WAKEOUT_KINDS = {
     big(g);
     // ---- fire and smoke (not shrunk): the city's cel fire twice (the stub, the engine in the snow) and two smoke columns
     const flame = (w, h, sc) => { const grp = new THREE.Group(); P.whole.add(grp); const k = CITY_KINDS.firesmoke({ spec: { w, h }, whole: grp }); grp.scale.setScalar(sc); grp.rotation.y = Math.PI; steamy(grp); return { grp, k, sc }; };
-    const fA = flame(2.0, 3, 2.4), fB = flame(1.8, 2.5, 1.6);
+    const fA = flame(1.9, 3, 3.6), fB = flame(1.6, 2.5, 2.6);
     const colA = new THREE.Group(), colB = new THREE.Group(); P.whole.add(colA, colB);
     const smokeA = column(colA, 34, 11), smokeB = column(colB, 18, 71);
     const stubAt = [2.5, -0.5, 0.05], engTop = [5.9, -1.5, 3.2], groundEng = [6.6, 1.5, 0.9];
@@ -266,7 +267,7 @@ export const WAKEOUT_KINDS = {
         Lfull.visible = Lflight.visible = Rflight.visible = fl; Lstub.visible = ground.visible = berm.visible = !fl;
         // flames: the stub (or the engine on its pylon, trailing back, when broken) and the engine in the snow
         const pa = af2p(...(fl ? engTop : stubAt));
-        fA.grp.position.set(...pa); fA.grp.scale.setScalar(fl ? 1.9 : 2.4); fA.grp.rotation.x = fl ? -1.0 : 0;
+        fA.grp.position.set(...pa); fA.grp.scale.setScalar(fl ? 2.8 : 3.6); fA.grp.rotation.x = fl ? -1.0 : 0;
         fA.k.apply({ fire: f }, tt);
         fB.grp.position.set(...groundEng); fB.k.apply({ fire: fl ? 0 : f * 0.9 }, tt);
         // smoke: wreck, a 25 m column leaning toward -z and -x; broken, a trail streaming back from the engine
@@ -313,7 +314,7 @@ export const WAKEOUT_KINDS = {
   bridgeend(P) {
     const S = P.spec, LEN = S.len ?? 16, T0 = S.at ?? 0, DECK = 0.9, X = 4;
     const g = new THREE.Group(); P.whole.add(g);
-    const concrete = mat("#b8b3a8", { roughness: 0.95 }), conc2 = mat("#a39f95", { roughness: 0.95 }), asphalt = mat("#3a3c43", { roughness: 0.9 }), kerb = mat("#c9c5ba", { roughness: 0.9 });
+    const concrete = mat("#aeb0b2", { roughness: 0.95 }), conc2 = mat("#999b9e", { roughness: 0.95 }), asphalt = mat("#3a3c43", { roughness: 0.9 }), kerb = mat("#c3c5c6", { roughness: 0.9 });
     const steel = mat("#8c95a2", { roughness: 0.5, metalness: 0.25 }), rust = mat("#7b4a2c", { roughness: 0.8 }), line = mat("#ecdc98", { roughness: 0.8 });
     for (const m of [concrete, conc2, asphalt, kerb]) m.userData.noHatch = true;
     // the jagged broken edge (z of the edge at each x, 4 -> -4): the top layer reaches out further than the lower slab
@@ -338,10 +339,10 @@ export const WAKEOUT_KINDS = {
       for (const [z, lean] of [[-3.2, 0.3], [-1.9, 0.75]]) { const p = mesh(new THREE.BoxGeometry(0.09, 1.0, 0.09), steel, g, s * (3.98 + lean * 0.5), 0.45 - lean * 0.2, z); p.rotation.z = -s * lean; }
     }
     // rebar sticking out of the jagged top edge, bent down
-    for (let i = 0; i < 16; i++) {
-      const x = 3.7 - (i / 15) * 7.4, k = XS.findIndex((v, j) => j + 1 < XS.length && x <= v && x >= XS[j + 1]), j = Math.max(0, k), u = (XS[j] - x) / (XS[j] - XS[j + 1] || 1), ze = ZT[j] + (ZT[j + 1] - ZT[j]) * u, L = 0.5 + rnd(i + 90) * 0.9;
-      const bar = mesh(new THREE.CylinderGeometry(0.018, 0.018, L, 5), rust, g, x, -0.3 - rnd(i + 70) * 0.3 - Math.sin(0.35 + rnd(i + 80) * 0.6) * L * 0.5, ze + Math.cos(0.35 + rnd(i + 80) * 0.6) * L * 0.5);
-      bar.rotation.set(Math.PI / 2 + 0.35 + rnd(i + 80) * 0.6, 0, (rnd(i + 60) - 0.5) * 0.5);
+    for (let i = 0; i < 12; i++) {
+      const x = 3.7 - (i / 11) * 7.4, k = XS.findIndex((v, j) => j + 1 < XS.length && x <= v && x >= XS[j + 1]), j = Math.max(0, k), u = (XS[j] - x) / (XS[j] - XS[j + 1] || 1), ze = ZT[j] + (ZT[j + 1] - ZT[j]) * u, L = 0.35 + rnd(i + 90) * 0.5;
+      const bar = mesh(new THREE.CylinderGeometry(0.011, 0.011, L, 5), rust, g, x, -0.3 - rnd(i + 70) * 0.3 - Math.sin(0.15 + rnd(i + 80) * 0.5) * L * 0.5, ze + Math.cos(0.15 + rnd(i + 80) * 0.5) * L * 0.5);
+      bar.rotation.set(Math.PI / 2 + 0.15 + rnd(i + 80) * 0.5, 0, (rnd(i + 60) - 0.5) * 0.5);
     }
     // the pier at z -6: a cap beam and the column, 40 m down
     mesh(new THREE.BoxGeometry(6.4, 0.9, 2.1), concrete, g, 0, -DECK - 0.45, -6);

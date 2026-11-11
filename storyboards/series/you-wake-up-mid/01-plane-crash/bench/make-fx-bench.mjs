@@ -30,7 +30,7 @@ const BEATS = [
 ];
 // every key primed with a zero-length tween, then set at the start of its beat
 prop(0, "eng", { fire: 0 }, 0); prop(0, "smoke", { fill: 0, fire: 0 }, 0);
-BEATS.forEach(([n, , k], i) => { prop(i * BL + 0.01, "eng", { fire: k.fire }, 0); prop(i * BL + 0.01, "smoke", { fill: k.fill, fire: k.sfire }, 0); prop(i * BL + 0.01, "mask", { scale: n === "neck mask" ? 1 : 0 }, 0); });   // the mask only in its own beat
+BEATS.forEach(([n, , k], i) => { const at = i === 0 ? 0 : i * BL + 0.01; prop(at, "eng", { fire: k.fire }, 0); prop(at, "smoke", { fill: k.fill, fire: k.sfire }, 0); prop(at, "mask", { scale: n === "neck mask" ? 1 : 0 }, 0); });   // the mask only in its own beat
 
 const sb = {
   id: "fx-bench", title: "FX bench: engine fire, cabin smoke, neck mask", idea: "Props bench for engine/page/props-wakeup-fx.js, not a clip",

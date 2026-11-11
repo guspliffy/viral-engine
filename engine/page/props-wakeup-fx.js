@@ -22,7 +22,7 @@ import { clamp } from "./util.js";
 //               place it at [0,0,0]). spec { x0: -2.65, x1: 2.65, z0: -4.95, z1: 10.5, top: 2.75 } (defaults; z0 is the
 //               back bulkhead, top the ceiling). KEY fill 0..1 (default spec.fill ?? 1): the smoke's underside sits at
 //               y = top - fill * 2.0 (fill 1: y 0.75; 0: none, nothing drawn) with a soft, slowly rolling, lumpy edge
-//               (about 0.35 m of lump, 0.5 m soft ramp). KEY fire 0..1 (default 0): an orange glow and cel flame tongues
+//               (0.5 m of lump, 0.5 m soft ramp, lowest wisps at the line). KEY fire 0..1 (default 0): an orange glow and cel flame tongues
 //               on the back bulkhead (z0 side) and an orange underglow in the smoke over the last 4.5 m toward z0.
 //               From a camera in the hall, everything above the line is dense dark grey-brown cel smoke (three tones,
 //               banded, rolling; at least 0.9 opaque beyond 1.5 m, thinner right at the lens so the frame never goes
@@ -219,11 +219,11 @@ export const WAKEFX_KINDS = {
     const FIRE0 = -1.5, NT = 20;
     const tongues = Array.from({ length: NT }, (_, i) => {
       const core = i < 6, ang = rnd(i + 5) * Math.PI * 2, rr = core ? 0.08 + 0.25 * rnd(i + 8) : 0.7 + 0.22 * rnd(i + 8);
-      const zb = core ? -1.55 - 0.2 * rnd(i + 20) : -1.5 + 1.25 * rnd(i + 20) * (0.3 + 0.7 * rnd(i + 21));
+      const zb = core ? -1.55 - 0.2 * rnd(i + 20) : -1.5 + 1.3 * rnd(i + 20);
       const len = core ? 2.6 + 1.4 * rnd(i + 30) : Math.min(1.5 + 1.9 * rnd(i + 30), zb - (FIRE0 - 4.0));   // never past 4 m behind the nozzle
       const m = tongueMaterial(rnd(i + 40)), o = steamy(new THREE.Mesh(new THREE.PlaneGeometry(1, 1, 1, 1), m), 6);
       m.uniforms.uBase.value.set(Math.cos(ang) * rr, Math.sin(ang) * rr, zb); P.whole.add(o);
-      return { o, m, len: Math.max(1.4, len), zb, wid: core ? 0.5 + 0.35 * rnd(i + 50) : 0.28 + 0.3 * rnd(i + 50), lift: 0.3 + 0.5 * rnd(i + 60), sp: 6 + 5 * rnd(i + 70), ph: rnd(i + 80) * 6.28 };
+      return { o, m, len: Math.max(1.4, len), zb, wid: core ? 0.55 + 0.4 * rnd(i + 50) : 0.34 + 0.34 * rnd(i + 50), lift: 0.3 + 0.5 * rnd(i + 60), sp: 6 + 5 * rnd(i + 70), ph: rnd(i + 80) * 6.28 };
     });
     const discs = Array.from({ length: 10 }, (_, i) => { const m = fireDisc(rnd(i + 120)), o = steamy(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), m), 5); P.whole.add(o); return { o, m, s: i / 10, jx: rnd(i + 130) - 0.5, jy: rnd(i + 140) - 0.5 }; });
     const glow = glowCard(P.whole, "#ff8a3a"), glow2 = glowCard(P.whole, "#ffc060");
@@ -257,8 +257,8 @@ export const WAKEFX_KINDS = {
         for (const q of puffs) {
           // each smoke puff rolls back 8 m on its own 3.4 s loop, swelling and rising, thinning at the end
           const u = (q.s + tt / 3.4) % 1, zz = FIRE0 - 0.2 - u * 8.0 * (0.55 + 0.45 * f);
-          q.o.position.set(q.jx * (0.6 + 1.2 * u), 0.25 + q.jy * 0.5 + Math.pow(u, 1.5) * 2.2 + 0.25 * u, zz);
-          q.m.uniforms.uR.value = (0.5 + 1.5 * Math.pow(u, 0.8)) * q.sz * (0.6 + 0.4 * f);
+          q.o.position.set(q.jx * (0.6 + 1.2 * u), 0.25 + q.jy * 0.5 + Math.pow(u, 1.5) * 3.0 + 0.3 * u, zz);
+          q.m.uniforms.uR.value = (0.7 + 2.0 * Math.pow(u, 0.8)) * q.sz * (0.6 + 0.4 * f);
           q.m.uniforms.uWarm.value = f * (1 - sm(u / 0.32)); q.m.uniforms.uTime.value = tt;
           q.m.uniforms.uA.value = 0.97 * sm(f * 2.5) * sm(u / 0.07) * (1 - sm((u - 0.6) / 0.4));
         }
@@ -317,19 +317,20 @@ export const WAKEFX_KINDS = {
         fragmentShader: `uniform float uH, uA; ${SMOKE_COMMON}${SMOKE_FRAG}
           void main() {
             if (vL.y > uTop) discard;
-            float edge = smoothstep(0.0, 0.5, min(min(vL.x - uMin.x, uMax.x - vL.x), min(vL.z - uMin.z, uMax.z - vL.z)));
-            float a = uA * edge * smoothstep(0.2, 1.6, length(vL - vCam));
+            vec2 ov = max(max(uMin.xz - vL.xz, vL.xz - uMax.xz), 0.0);
+            float edge = 1.0 - smoothstep(0.0, 0.9, length(ov));
+            float a = uA * edge * smoothstep(0.2, 1.6, length(vL - vCam)) * smoothstep(0.03, 0.2, abs(normalize(vL - vCam).y));
             if (a < 0.004) discard;
             gl_FragColor = vec4(smokeCol(vL, uH), a);
           }`,
         transparent: true, depthWrite: false, side: THREE.DoubleSide,
       });
       m.userData.noOutline = true;
-      const pg = new THREE.PlaneGeometry(bw, bl, 38, 96); pg.rotateX(-Math.PI / 2); pg.translate((lo.x + hi.x) / 2, 0, (lo.z + hi.z) / 2);
+      const EXT = 1.0, pg = new THREE.PlaneGeometry(bw + 2 * EXT, bl + 2 * EXT, 46, 104); pg.rotateX(-Math.PI / 2);   // reaches 1 m past the box: its edge fades outside it pg.translate((lo.x + hi.x) / 2, 0, (lo.z + hi.z) / 2);
       const o = steamy(new THREE.Mesh(pg, m), 10); P.whole.add(o); return { o, m };
     });
     // 3: flame tongues and a glow on the back bulkhead (z0 side), drawn after the smoke so they read through it
-    const FH = 2.4, FY = 0.3;
+    const FH = 2.4, FY = 0.0;
     const flameM = new THREE.ShaderMaterial({
       uniforms: { uTime: { value: 0 }, uFire: { value: 0 }, uWd: { value: bw }, uHt: { value: FH } },
       vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
@@ -339,11 +340,11 @@ export const WAKEFX_KINDS = {
           float x = vUv.x * uWd, y = vUv.y * uHt, best = 9.0;
           for (int i = 0; i < 12; i++) {
             float fi = float(i);
-            float c = (fi + 0.5) / 12.0 * uWd + (hh(fi + 3.0) - 0.5) * 0.35, y0 = 0.1 + 0.3 * hh(fi + 8.0);
+            float c = (fi + 0.5) / 12.0 * uWd + (hh(fi + 3.0) - 0.5) * 0.35, y0 = 0.25 * hh(fi + 8.0);
             float H = (0.9 + 1.0 * hh(fi + 13.0)) * (0.35 + 0.65 * uFire) * (0.85 + 0.15 * sin(uTime * (5.0 + 4.0 * hh(fi + 17.0)) + fi * 2.0));
-            float bw = 0.2 + 0.22 * hh(fi + 21.0);
+            float bw = 0.28 + 0.3 * hh(fi + 21.0);
             float v = (y - y0) / H; if (v < 0.0 || v > 1.0) continue;
-            float w = bw * pow(1.0 - v, 1.1) * (1.0 + 0.16 * sin(v * 9.0 + uTime * 9.0 + fi * 3.0));
+            float w = bw * pow(1.0 - v, 0.65) * (1.0 + 0.16 * sin(v * 9.0 + uTime * 9.0 + fi * 3.0));
             float lean = (0.5 + 0.7 * hh(fi + 25.0)) * (hh(fi + 29.0) - 0.5) * 2.0;
             float dx = abs(x - c - lean * v * v - 0.12 * v * sin(uTime * 4.0 + fi * 1.7)) / max(w, 0.001);
             if (dx > 1.0) continue;

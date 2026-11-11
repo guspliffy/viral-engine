@@ -33,7 +33,7 @@ import { clamp } from "./util.js";
 //                           cabin surface; at 0 the cabin is dim grey and only the window views (and the EXIT sign, the
 //                           door's daylight) stay bright. Quantised to eighths (a variant material per step), so a tween steps.
 //               drop  0..1  the oxygen MASKS: a yellow mask on a white hose drops from the bin underside over every drawn
-//                           seat (0 stowed and hidden, 1 hanging 0.58 m, cup open toward +z); they swing a little, a pure
+//                           seat (0 stowed and hidden, 1 hanging 0.5 m, cup open toward +z); they swing a little, a pure
 //                           function of the story time.
 //               lid   0..1  the bin LIDS: every lid (22) swings up on its top hinge (to about 75 degrees) and shows the dark
 //                           inside.
@@ -115,7 +115,8 @@ float vn(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
   return mix(mix(h1(i.x + i.y * 57.0), h1(i.x + 1.0 + i.y * 57.0), f.x), mix(h1(i.x + (i.y + 1.0) * 57.0), h1(i.x + 1.0 + (i.y + 1.0) * 57.0), f.x), f.y); }
 float fbm(vec2 p) { float s = 0.0, a = 0.5; for (int i = 0; i < 4; i++) { s += a * vn(p); p = p * 2.03 + vec2(13.1, 7.7); a *= 0.5; } return s; }
 // one row of snowy pines: x = coverage, y = 1 on the snowy upper half of a tier
-vec2 pine(float x, float y, float cell, float seed, float base, float hmax) {
+vec2 pine(float x, float y, float cell, float seed, float base, float hmax, float fl) {
+  if (y < base) return fl > 0.5 ? vec2(1.0, step(0.9, h1(floor(x * 2.0) * 7.0 + floor(y) * 13.0 + seed))) : vec2(0.0);   // fl: a solid canopy below the trees' feet
   float i = floor(x / cell); vec2 r = vec2(0.0);
   for (int d = -1; d <= 1; d++) {
     float ci = i + float(d);
@@ -132,25 +133,25 @@ vec3 layer(vec3 col, vec2 a, vec3 dark, float haze, vec3 sky) { vec3 c = mix(dar
 // view 1: treetops close under the wing, 60 m/s (world metres: x along the plane toward -z, y up)
 vec3 rush(float x, float y) {
   vec3 sky = mix(vec3(0.78, 0.84, 0.91), vec3(0.93, 0.96, 0.99), smoothstep(-2.0, 7.0, y)), col = sky;
-  col = layer(col, pine(x * 0.8 + 17.0, y, 2.4, 3.1, -16.0, 21.0), PINE * 1.25, 0.45, sky);
-  col = layer(col, pine(x + 5.0, y, 3.2, 7.3, -15.0, 19.0), PINE * 1.1, 0.25, sky);
-  col = layer(col, pine(x * 1.15, y - 0.4, 4.4, 1.9, -14.0, 21.0), PINE * 0.85, 0.0, sky);
+  col = layer(col, pine(x * 0.8 + 17.0, y, 2.4, 3.1, -4.0, 9.0, 1.0), PINE * 1.25, 0.45, sky);
+  col = layer(col, pine(x + 5.0, y, 3.2, 7.3, -5.0, 10.0, 1.0), PINE * 1.1, 0.25, sky);
+  col = layer(col, pine(x * 1.15, y, 4.4, 1.9, -6.0, 11.5, 1.0), PINE * 0.85, 0.0, sky);
   return col;
 }
 // view 2: the crash forest, still: farther trees, snow on the ground, smoke drifting up
 vec3 forest(float x, float y, float t) {
   vec3 sky = mix(vec3(0.62, 0.66, 0.72), vec3(0.84, 0.87, 0.91), smoothstep(-6.0, 12.0, y)), col = sky;
-  col = layer(col, pine(x * 1.3 + 3.0, y, 2.2, 5.3, -5.5, 12.0), PINE * 1.5, 0.55, sky);
-  col = layer(col, pine(x + 11.0, y, 3.1, 8.1, -8.0, 15.0), PINE * 1.2, 0.3, sky);
-  col = layer(col, pine(x * 0.8, y, 4.3, 2.4, -10.0, 19.0), PINE * 0.9, 0.0, sky);
+  col = layer(col, pine(x * 1.3 + 3.0, y, 2.2, 5.3, -5.5, 12.0, 0.0), PINE * 1.5, 0.55, sky);
+  col = layer(col, pine(x + 11.0, y, 3.1, 8.1, -8.0, 15.0, 0.0), PINE * 1.2, 0.3, sky);
+  col = layer(col, pine(x * 0.8, y, 4.3, 2.4, -10.0, 19.0, 0.0), PINE * 0.9, 0.0, sky);
   col = mix(col, mix(vec3(0.86, 0.9, 0.95), vec3(0.74, 0.8, 0.88), smoothstep(-14.0, -9.0, y)), 1.0 - smoothstep(-9.8, -8.2, y + 0.4 * sin(x * 0.7)));
   float sm = fbm(vec2(x * 0.07 + uTime * 0.12, y * 0.06 - uTime * 0.22 + 2.0));
   return mix(col, vec3(0.22, 0.22, 0.25), smoothstep(0.4, 0.78, sm) * (0.4 + 0.5 * smoothstep(-8.0, 10.0, y)) * 0.9);
 }
 vec3 cloud(vec2 p, float t) {
   float c = fbm(vec2(p.x * 4.0 + t * 0.05, p.y * 6.0 - t * 0.012)), c2 = fbm(vec2(p.x * 9.0 - t * 0.03, p.y * 11.0 + 4.0));
-  vec3 base = mix(vec3(0.74, 0.80, 0.88), vec3(0.90, 0.93, 0.97), smoothstep(-0.3, 0.3, p.y));
-  return mix(mix(base, vec3(0.97, 0.98, 1.0), smoothstep(0.35, 0.7, c)), vec3(0.66, 0.72, 0.82), smoothstep(0.55, 0.8, c2) * 0.35);
+  vec3 base = mix(vec3(0.60, 0.67, 0.77), vec3(0.78, 0.83, 0.90), smoothstep(-0.3, 0.3, p.y));
+  return mix(mix(base, vec3(0.86, 0.90, 0.95), smoothstep(0.35, 0.7, c)), vec3(0.50, 0.57, 0.68), smoothstep(0.55, 0.8, c2) * 0.35);
 }
 void main() {
   float w0 = max(0.0, 1.0 - abs(uView)), w1 = max(0.0, 1.0 - abs(uView - 1.0)), w2 = max(0.0, 1.0 - abs(uView - 2.0));
@@ -173,9 +174,9 @@ export const WAKECABIN_KINDS = {
     const add = (geo, m, parent = hall) => { const o = new THREE.Mesh(geo, m); parent.add(o); return dim.track(o); };
 
     // materials
-    const wallM = quiet(mk("#c2cad5")), ceilM = quiet(mk("#ccd2da")), binM = mk("#c9cfd7", { roughness: 0.6 }), binDark = quiet(mk("#24242c", { roughness: 1 })),
-      trimM = mk("#a9b0bc", { roughness: 0.7 }), bulkM = quiet(mk("#c3c9d3")), doorM = mk("#8f98a3", { roughness: 0.6 }), panelM = mk("#b3b9c3", { roughness: 0.6 }),
-      stripM = quiet(mk("#a3aec8")), shoulderM = quiet(mk("#c2cad5", { side: THREE.FrontSide }));
+    const wallM = quiet(mk("#e4e8ee")), ceilM = quiet(mk("#e8ebf0")), binM = mk("#dfe4ea", { roughness: 0.6 }), binDark = quiet(mk("#24242c", { roughness: 1 })),
+      trimM = mk("#cdd3dc", { roughness: 0.7 }), bulkM = quiet(mk("#dfe3ea")), doorM = mk("#aab2bd", { roughness: 0.6 }), panelM = mk("#c9ced6", { roughness: 0.6 }),
+      stripM = quiet(mk("#c3cde4")), shoulderM = quiet(mk("#e4e8ee", { side: THREE.FrontSide }));
     const carpet = carpetTex(), floorM = quiet(mk("#ffffff", { map: carpet, roughness: 1, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8 }));
 
     // floor (4 mm above the set's ground), the aisle edge strips, the ceiling, the bin undersides
@@ -249,14 +250,14 @@ export const WAKECABIN_KINDS = {
 
     // the oxygen masks over every drawn seat
     const hoseM = mk("#f2f1ec", { roughness: 0.6 }), yel = mk("#f2bd12", { roughness: 0.45 }), clear = mk("#f6f1d8", { roughness: 0.2, transparent: true, opacity: 0.8 });
-    const hoseG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3([[0, 0, 0], [0.025, -0.12, 0.015], [-0.025, -0.25, 0.03], [0.02, -0.4, 0.02], [0, -0.58, 0.03]].map((a) => new THREE.Vector3(...a))), 24, 0.0075, 5, false);
-    const cupG = new THREE.CylinderGeometry(0.075, 0.045, 0.07, 16, 1, true), rimG = new THREE.TorusGeometry(0.075, 0.011, 6, 16), capG = new THREE.CircleGeometry(0.046, 14), bagG = new THREE.SphereGeometry(0.05, 10, 8);
+    const hoseG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3([[0, 0, 0], [0.025, -0.1, 0.015], [-0.025, -0.21, 0.03], [0.02, -0.34, 0.02], [0, -0.5, 0.03]].map((a) => new THREE.Vector3(...a))), 24, 0.0075, 5, false);
+    const cupG = new THREE.CylinderGeometry(0.075, 0.045, 0.07, 16, 1, true), rimG = new THREE.TorusGeometry(0.075, 0.011, 6, 16), capG = new THREE.CircleGeometry(0.046, 14), bagG = new THREE.SphereGeometry(0.04, 10, 8);
     const masks = seatList.map(([x, z], i) => {
       const g = new THREE.Group(); g.position.set(x, 2.35, z + 0.05); hall.add(g);
       const hose = add(hoseG, hoseM, g), cup = new THREE.Group(); g.add(cup); cup.rotation.x = 0.35;
       add(cupG, yel, cup).rotation.x = Math.PI / 2; add(rimG, clear, cup).position.z = 0.035;
       const cap = add(capG, yel, cup); cap.position.z = -0.035; cap.rotation.y = Math.PI;
-      const bag = add(bagG, clear, cup); bag.position.set(0, -0.1, -0.02); bag.scale.set(1, 1.3, 0.7);
+      const bag = add(bagG, clear, cup); bag.position.set(0, -0.08, -0.02); bag.scale.set(1, 1.2, 0.7);
       return { g, hose, cup, ph: rnd(i + 3) };
     });
 
@@ -287,7 +288,7 @@ export const WAKECABIN_KINDS = {
         const d = clamp(ps.drop ?? 0);
         for (const m of masks) {
           m.g.visible = d > 0.01; if (d <= 0.01) continue;
-          m.hose.scale.y = d; m.cup.position.set(0, -0.58 * d, 0.03);
+          m.hose.scale.y = d; m.cup.position.set(0, -0.5 * d, 0.03);
           m.g.rotation.set(0.05 * Math.sin(t * 1.5 + m.ph * 9), 0, 0.06 * Math.sin(t * 1.9 + m.ph * 6.28) + 0.025 * Math.sin(t * 3.1 + m.ph * 13));
         }
         const o = clamp(ps.lid ?? 0), e = o * o * (3 - 2 * o);
