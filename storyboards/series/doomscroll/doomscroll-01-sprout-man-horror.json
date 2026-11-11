@@ -414,8 +414,8 @@
    "kinetic": false
   },
   {
-   "from": 20.8,
-   "to": 21.95,
+   "from": 20.65,
+   "to": 21.45,
    "text": "ugh. selfie mode.",
    "pos": 1275,
    "pop": false,
@@ -2917,23 +2917,23 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.25
+     "at": 1.05
     },
     {
      "sfx": "click",
      "gain": 0.6,
      "reason": "the phone's camera opens",
-     "at": 1.25
+     "at": 1.05
     },
     {
      "who": "spd",
      "do": "talk",
      "line": "ugh. selfie mode.",
      "tone": "calm",
-     "dur": 0.75,
+     "dur": 0.4,
      "blink": false,
      "voice": false,
-     "at": 1.3
+     "at": 1.15
     }
    ]
   },
