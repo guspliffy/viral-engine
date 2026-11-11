@@ -41,6 +41,11 @@ shown (fire out of the hole), a creepy music box tune.
   rounds to learn that. Leaning 9 degrees his collar frill pokes through the parapet in the close shot.
 - From straight above a hat brim hides the whole face: the `hat` verb slides it back for the look up.
 - The top-down shot saw the dark floor past the vat: the vat's front edge is 2 m nearer now (d 7.4, z 1.2).
+- BLACK FRAMES ONLY IN THE FULL RENDER (cost one full render, 9 min): every frame with a hot tile was black below
+  a stepped edge. Cause: the hot halo's shader took pow() of a number that goes negative at the plane's edge when
+  anti-aliasing is on (a draft has none), one NaN pixel, and the full look's passes spread it over the frame. Fix:
+  clamp in the shader. Lesson for any clip with a NEW shader: one FULL still per shot (`--stills <t>` without
+  `--draft`, 20 s each) before the full render. The check `black-frames` named it at once, but only after the render.
 - Counts for version 2: layout runs 9, draft-still rounds 5, draft renders 2, builders 2 (stage 153k tokens,
   clown 243k tokens), narrator reads 2. Review A skipped again (weekly limit; Jonny looks at the draft first).
 
