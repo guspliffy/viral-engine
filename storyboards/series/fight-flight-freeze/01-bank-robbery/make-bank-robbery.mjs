@@ -456,6 +456,7 @@ backInHall(T.left); place(T.left, "sam", PARK.sam, 0); park(T.left, "sam");
 [["winA", 0], ["winB", 0.12], ["winC", 0.22]].forEach(([id, dt]) => { pr(T.left + 0.1 + dt, id, { x: id === "winC" ? 16 : -16, len: 14 }, 0.8, "in"); });
 sfx(T.left + 0.15, "screech", { gain: 0.55, reason: "the cars outside the window tearing off" });
 for (const id of ["washL", "washR", "washG", "winwash"]) pr(T.left + 0.5, id, { on: 0 }, 0.7, "inOut");
+c.captions.find((k) => k.text === "HE'S RUNNING! AFTER HIM!").to = r3(T.left + 0.2);   // off before the narrator's line: two subtitles stood on each other for 3 frames
 nar(T.left + 0.3, "chased", { until: r3(T.left + 2.8) });   // the line runs on over the chase itself
 see(T.left, T.chase, ["rea.face", "winA"], "Reaper alone behind the crates; through the window every police car pulls away after Phoenix");
 
