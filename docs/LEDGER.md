@@ -19,6 +19,9 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
 - Vocabulary sheet, clip notes and `qa/peek.mjs` (#190): should lower `lookups` (Survive it EP1: about 230 of 853 steps).
 - Layout reuse and frame-cache keys (#189): should lower `machine` minutes per draft.
 - The eight rules (#195): should lower `layouts`, `fix rounds` and `waits`.
+- `tools/ledger-count.mjs` (11 Nov, from Share or Steal EP02; waits for Jonny's word): counts a row from the thread's
+  transcript in under a second. Should end `?` in the count columns (Share or Steal 01 had 7 unknown, filled below by
+  the script; copy money's verdict was "open: the comparison row has no counts").
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
@@ -28,7 +31,7 @@ Opus 5.5 on xhigh before); the line to compare with is the first row.
 | date | video | s | new | lookups | layouts | fix rounds | unseen | renders | waits | steps | min | machine | director | $ | score | notes | test |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | 2026-11-08 | never-has-money-04-your-birthday (director writes) | ? | ? | ? | ? | ? | ? | ? | ? | ? | 323 | ? | Opus 5.5 xhigh | 73 | ? | better cuts and scenes; hands less clean than the old cut; Gunslinger turns from the camera in the hug | none |
-| 2026-11-10 | share-or-steal-01 | 24.7 | series, set | ? | ? | 20 | ? | 1 | ? | ? | ? | ? | ? | 59 | ? | ? | none |
+| 2026-11-10 | share-or-steal-01 | 24.7 | series, set | 223 | 3 partial + 24 preflight runs | 20 | ? | 1 | 10 | 532 | 1094 (overnight stop on the usage limit) | 103 foreground + 11 background commands | Opus 5.5 xhigh | 59 | ? | ? | none |
 | 2026-11-10 | survive-it-ep1-snowed-in | 20.8 | room, mountain, built to panels from scratch | ~230 | 40 | 3 | 0 | 4 | ~100 | 853 | 560 | ? | ? | ? | ? | format: just different scenes, not one story | none |
 | 2026-11-11 | fff-01-bank-robbery | 29.7 | series, built hall inside an env set (room swap + window), painted airport env, heist props, 8 sounds | ~90 | 27 full + 6 partial | 1 | ? | 2 | ? | ~600 | ~450 (1775 on the clock, weekly limit hit for about 22 h) | ? | Fable 5.2 high | 91 | ? | 5 drafts: draft 2 causes unclear; draft 3 forced jokes, wants serious cause chain; draft 4 window, door, 10x extreme, airport; draft 5 go. Render 2 for two subtitles on each other for 3 frames (no check sees it) | lookups fell (~90 vs ~230 Survive it EP1), fix rounds 1 vs 3; layouts not lower (27 vs 40 on 5 drafts) |
 | 2026-11-11 | theres-a-catch-04-copy-money (2 rounds) | 21.6 | format, 5 prop packs, night set; round 2 rebuilt two thirds from Jonny's notes | 51 | 20 full + 35 partial | 4 | 1 | 2 | 18 | 725 | 435 | ? | Fable 5.2 high | 118 | ? | round 1: catch was a fact caption, not shown; slow opening; copied wallets not money; cup and wallet holds wrong; music too quiet; opening line not catchy. Round 2 draft: OK | open: the comparison row has no counts |
