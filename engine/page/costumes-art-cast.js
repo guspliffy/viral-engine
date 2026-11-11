@@ -5,7 +5,7 @@ import { taperedTube } from "./geo.js";
 import { rad } from "./util.js";
 import { strap, onSurface, buckle, gold, glowOrb, katana, axe, raven, ribbedWing, beardGeometry, clothCape, rng } from "./costumes-cast.js";
 import { hoodieGeometry } from "./costumes-pb.js";
-import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, lockInk, inkMesh, drapeMesh, roll, stitches, softFollow } from "./costumes-art.js";
+import { dirOf, band, garment, garmentMesh, clothMat, liningMat, leatherMat, metalMat, lock, onBody, scalp, tintAlong, shineBand, trim, sstep, foldInk, lockInk, inkMesh, drapeMesh, roll, stitches, softFollow } from "./costumes-art.js";
 
 // costume.art for the cast types (castLook "art", 31 Oct 2026; see costumes-art.js for the rules). Each builder
 // returns castCostume's { hat, sitDepth, prop, extra, apply, helmet }. Jonny's targets: references/
@@ -287,7 +287,7 @@ function sorcerer(C, ch, out) {
   return out;
 }
 
-export const ART_CAST = { viking, astronaut, dragon, allfather, samurai, sorcerer };
+export const ART_CAST = { viking, astronaut, dragon, allfather, samurai, sorcerer, spud };
 
 // ---------- the types built outside castCostume: Gunslinger (cowboy), Phoenix, Reaper, Wizard ------------------------
 // Gunslinger: a knotted bandana that drapes, an open vest with lapels, a slung gun belt with a holster
@@ -837,5 +837,169 @@ function dragonSheet(C, ch, out) {
     for (const W of wings) W.pivot.rotation.set(0.1, W.s * (0.12 - 0.1 * w), W.s * (-0.12 + 0.6 * w + flap));
     tailG.rotation.y = 0.15 * Math.sin(t * rad(2.2)) - 0.9 * (st.ft?.s || 0);
   };
+  return out;
+}
+
+// ---------- Spud (Jonny, 11 Nov 2026): the main character, the one normal potato among the fighters -------------------
+// His reference sheet (/mnt/project-files/videos/cast/spud/): no hat, no weapon, only a chunky teal knit sweater with a
+// rolled collar, a rolled hem, rolled cuffs and one stitched patch on the LEFT elbow. The knit is a small tiling
+// stitch map (rows of V stitches) over the garment's own folds; the collar sits low under the face and rises round the
+// back so the arms come out of the sweater, not out of bare skin. Built in every cast look (he has no plain version).
+// The knit, drawn by hand (Jonny, 11 Nov: the first, perfectly regular stitch tile read as computer-made, "less
+// hand-drawn" than the fighters). One texture covers a whole piece without repeating: every stitch is a pair of brush
+// strokes with its own place, length, width and strength (hash by column and row, so the same every render), some
+// stitches are faint, some carry a pencil line under one leg, and a soft wash of light and dark runs under all of it.
+// cols run along x and wrap (the seam round a body or a sleeve doesn't show); swap: columns along y (a sleeve).
+const hash2 = (a, b) => { const v = Math.sin(a * 127.1 + b * 311.7 + 74.7) * 43758.5453; return v - Math.floor(v); };
+function texOf(buf, W, H, swap) {
+  const w = swap ? H : W, h = swap ? W : H, data = new Uint8Array(w * h * 4);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const g = Math.round(255 * Math.max(0, Math.min(1, swap ? buf[x * W + y] : buf[y * W + x]))), k = (y * w + x) * 4; data[k] = data[k + 1] = data[k + 2] = g; data[k + 3] = 255; }
+  const t = new THREE.DataTexture(data, w, h, THREE.RGBAFormat);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.magFilter = THREE.LinearFilter; t.minFilter = THREE.LinearMipmapLinearFilter; t.generateMipmaps = true;
+  t.anisotropy = 4; t.colorSpace = THREE.SRGBColorSpace; t.needsUpdate = true;
+  return t;
+}
+// the wash: smooth value noise, period `p` px, wrapping in x
+function wash(W, H, p, seed, amp) {
+  const nx = Math.max(1, Math.round(W / p)), at = (ix, iy) => hash2(((ix % nx) + nx) % nx + seed * 13.1, iy + seed * 7.3), buf = new Float32Array(W * H);
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const fx = (x / W) * nx, fy = y / p, ix = Math.floor(fx), iy = Math.floor(fy), ux = fx - ix, uy = fy - iy, sx = ux * ux * (3 - 2 * ux), sy = uy * uy * (3 - 2 * uy);
+    buf[y * W + x] = amp * ((at(ix, iy) * (1 - sx) + at(ix + 1, iy) * sx) * (1 - sy) + (at(ix, iy + 1) * (1 - sx) + at(ix + 1, iy + 1) * sx) * sy - 0.5) * 2;
+  }
+  return buf;
+}
+function knitTexture(cols, rows, W, H, seed, swap = false) {
+  const buf = wash(W, H, 90, seed, 0.05), cw = W / cols, chh = H / rows, base = 0.8;
+  for (let k = 0; k < buf.length; k++) buf[k] += base;
+  const lift = new Float32Array(W * H);   // how far a stroke lightens (max over strokes), and where a pencil line darkens
+  const stroke = (x0, y0, x1, y1, w0, w1, val, dark) => {
+    const pad = Math.max(w0, w1) + 1.5, xa = Math.floor(Math.min(x0, x1) - pad), xb = Math.ceil(Math.max(x0, x1) + pad), ya = Math.max(0, Math.floor(Math.min(y0, y1) - pad)), yb = Math.min(H - 1, Math.ceil(Math.max(y0, y1) + pad));
+    const dx = x1 - x0, dy = y1 - y0, l2 = dx * dx + dy * dy || 1;
+    for (let y = ya; y <= yb; y++) for (let x = xa; x <= xb; x++) {
+      const u = Math.max(0, Math.min(1, ((x - x0) * dx + (y - y0) * dy) / l2)), d = Math.hypot(x - (x0 + dx * u), y - (y0 + dy * u)), w = w0 + (w1 - w0) * u;
+      const a = 1 - sstep(w - 1, w + 0.8, d); if (a <= 0) continue;
+      const q = y * W + (((x % W) + W) % W);
+      if (dark) lift[q] = Math.min(lift[q], -a * val); else if (lift[q] >= 0) lift[q] = Math.max(lift[q], a * val);
+    }
+  };
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const h = (n) => hash2(c * 3.17 + n * 11.3 + seed, r * 5.71 + n * 1.7);
+    if (h(0) < 0.05) continue;   // a stitch left undrawn
+    const xc = (c + 0.5 + (h(1) - 0.5) * 0.2) * cw, y0 = (r + 0.06 + (h(2) - 0.5) * 0.16) * chh, len = chh * (0.8 + 0.22 * h(3)), half = cw * (0.3 + 0.1 * h(4));
+    const w = cw * 0.12 * (0.75 + 0.6 * h(5)), val = (h(6) < 0.14 ? 0.07 : 0.14 + 0.07 * h(7)), lean = (h(8) - 0.5) * 0.12 * cw;
+    // two legs from the point (low) up and out, thick at the point and thinning toward the top, like a brush lifted off
+    stroke(xc + lean, y0, xc - half, y0 + len * (0.92 + 0.1 * h(9)), w, w * 0.5, val, false);
+    stroke(xc + lean, y0, xc + half, y0 + len * (0.92 + 0.1 * h(10)), w, w * 0.5, val, false);
+  }
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const h = (n) => hash2(c * 7.31 + n * 3.3 + seed * 2, r * 2.93 + n * 9.1);
+    if (h(0) > 0.3) continue;   // a pencil line in the gap beside about a third of the stitches
+    const x = (c + (h(1) - 0.5) * 0.12) * cw, y0 = (r + 0.15 + 0.2 * h(2)) * chh, len = chh * (0.45 + 0.45 * h(3));
+    stroke(x, y0, x + (h(4) - 0.5) * 0.14 * cw, y0 + len, 0.9, 0.5, 0.16 + 0.08 * h(5), true);
+  }
+  for (let k = 0; k < buf.length; k++) buf[k] += lift[k];
+  return texOf(buf, W, H, swap);
+}
+// the ribbing of a rolled collar, hem or cuff: n pencil lines across the roll, each a little bent, some broken
+function ribTexture(n, W, H, seed) {
+  const buf = wash(W, H, 70, seed, 0.04), dark = new Float32Array(W * H);
+  for (let i = 0; i < n; i++) {
+    const h = (m) => hash2(i * 4.37 + m * 2.9 + seed, m * 6.1 + 0.3), x0 = ((i + 0.5 + (h(1) - 0.5) * 0.35) / n) * W, bend = (h(2) - 0.5) * 0.5 * (W / n), ph = h(3) * 6.28;
+    const a = h(4) < 0.25 ? 0.15 + 0.3 * h(5) : 0, b = h(6) < 0.25 ? 0.55 + 0.3 * h(7) : 1, w = 0.9 + 0.9 * h(8), val = 0.16 + 0.1 * h(9);   // a..b: the part of the roll this line is drawn over
+    for (let y = Math.floor(a * H); y < Math.floor(b * H); y++) {
+      const xc = x0 + bend * Math.sin(ph + (y / H) * 3.1), end = Math.max(0.3, Math.min(1, (y / H - a) * 10, (b - y / H) * 10));
+      for (let x = Math.floor(xc - w - 2); x <= Math.ceil(xc + w + 2); x++) { const q = y * W + (((x % W) + W) % W); dark[q] = Math.max(dark[q], (1 - sstep(w - 0.8, w + 0.8, Math.abs(x - xc))) * val * end); }
+    }
+  }
+  for (let k = 0; k < buf.length; k++) buf[k] += 0.9 - dark[k];
+  return texOf(buf, W, H, false);
+}
+// uv for a costumes-art.js grid (rows of nu + 1 points): fn(i, j) -> [u, v]
+function gridUv(g, nu, nv, fn) {
+  const uv = new Float32Array((nu + 1) * (nv + 1) * 2);
+  for (let j = 0; j <= nv; j++) for (let i = 0; i <= nu; i++) { const [u, v] = fn(i, j), k = (j * (nu + 1) + i) * 2; uv[k] = u; uv[k + 1] = v; }
+  g.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); return g;
+}
+function spud(C, ch, out) {
+  const parts = ch.potatoParts, teal = C.sweater || "#2f8f8a", dark = `#${new THREE.Color(teal).multiplyScalar(0.62).getHexString()}`;
+  const COLS = 40, ROWS = 12;   // stitch columns round the body and rows from collar to hem, each drawn once
+  const knit = knitTexture(COLS, ROWS, 1024, 512, 3.1), knitArm = knitTexture(9, 5, 256, 256, 8.7, true), rib = ribTexture(66, 1024, 64, 5.3);
+  const wool = (o = {}) => { const m = clothMat(teal, { side: THREE.DoubleSide, ...o }); m.map = o.arm ? knitArm : o.rib ? rib : knit; return m; };
+  // the neckline: low under the mouth, rising round the sides to the back of the head (the shoulders stay inside)
+  const front = C.neck ?? -0.4, back = C.neckBack ?? 0.0, neck = (th) => front + (back - front) * 0.5 * (1 - Math.cos(th));
+  const hem = -1.16, NU = 180, NV = 36;
+  // the body of the sweater: thick, a little off the skin, a few soft folds that deepen toward the hem
+  const G = garment(ch, { topFn: neck, top: front, hem, folds: 6, depth: 0.013, flare: 0.014, lift: 0.024, lift0: 0.02, wave: 0.006, thick: 0.016, phase: 0.9, grad: 0.24, segs: NU, rows: NV });
+  gridUv(G.outer, NU, NV, (i, j) => { const th = (i / NU) * Math.PI * 2, tp = neck(th); return [i / NU, (tp + (hem - tp) * (j / NV) - hem) / (Math.max(front, back) - hem)]; });   // once round, hem 0 .. collar 1
+  parts.add(mesh(G.outer, wool({ vertexColors: true })));
+  parts.add(mesh(G.inner, liningMat(dark), false));
+  parts.add(mesh(G.hem, clothMat(teal, { side: THREE.DoubleSide }), false));
+  { const ig = foldInk(G, { width: 0.006 }); if (ig) parts.add(inkMesh(ig, teal)); }   // a brush line down each fold, as on the fighters' clothes
+  // the rolled collar and the rolled hem: fat round bands in the same knit, the stitches running round the roll
+  const BN = 160, BV = 16, rollUv = (g) => gridUv(g, BN, BV, (i, j) => [i / BN, j / BV]);
+  parts.add(mesh(rollUv(band(ch, { ph: front, tilt: back - front, w: 0.042, t: 0.05, lift: 0.014, round: 1, segs: BN })), wool({ rib: true })));
+  parts.add(mesh(rollUv(band(ch, { ph: hem + 0.02, w: 0.034, t: 0.034, lift: 0.02, round: 1, segs: BN })), wool({ rib: true })));
+  // chunky sleeves with a rolled cuff, built here (not sleeves()): Jonny, 11 Nov, "the hands are glitchy". The shared
+  // sleeve ends at a fixed share of the arm, so on Spud's short arm its cuff ring cut through the palm, and its tube
+  // takes three's Frenet frames, which turn about the arm from one frame to the next and made the knit swim. This one
+  // ends SL.gap metres before the hand's centre (the palm comes out of the cuff, whatever the arm's length), carries its
+  // cuff as a swelling of the same tube, and keeps one frame: "up" at the shoulder, carried along the arm without twist.
+  const SL = { from: 0.04, gap: C.cuffGap ?? 0.062, r0: 0.08, r1: 0.06, cuff: 0.013, n: 14, radial: 16 };
+  const armM = wool({ arm: true }); armM.map.repeat.set(1, 1);
+  const slv = {}; for (const s of ["L", "R"]) { slv[s] = new THREE.Mesh(new THREE.BufferGeometry(), armM); slv[s].castShadow = true; slv[s].frustumCulled = false; ch.root.add(slv[s]); }
+  const _up = V(0, 1, 0), _fw = V(0, 0, 1), _r = V(0, 0, 0), _n = V(0, 0, 0), _b = V(0, 0, 0);
+  const sleeveRadius = (t) => ((SL.r0 + (SL.r1 - SL.r0) * t) + SL.cuff * sstep(0.76, 0.87, t)) * (1 - 0.3 * sstep(0.92, 1, t));   // the cuff swells, then its mouth closes in on the wrist
+  const sl = () => {
+    for (const s of ["L", "R"]) {
+      const A = ch.arms?.[s]; if (!A?.shoulder || !A.elbow || !A.hand) { slv[s].visible = false; continue; }
+      const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), L = Math.max(0.05, curve.getLength());
+      const to = Math.max(SL.from + 0.3, Math.min(0.92, 1 - SL.gap / L)), n = SL.n, R = SL.radial;
+      const pos = new Float32Array((n + 1) * (R + 1) * 3), uv = new Float32Array((n + 1) * (R + 1) * 2), idx = [];
+      for (let i = 0; i <= n; i++) {
+        const t = i / n, u = SL.from + (to - SL.from) * t, p = curve.getPointAt(u), T = curve.getTangentAt(u);
+        if (i === 0) { const w = sstep(0.75, 0.95, Math.abs(T.y)); _r.copy(_up).multiplyScalar(1 - w).addScaledVector(_fw, w); _n.copy(_r); }
+        _n.addScaledVector(T, -_n.dot(T)).normalize(); _b.crossVectors(T, _n);
+        const r = sleeveRadius(t);
+        for (let k = 0; k <= R; k++) {
+          const a = (k / R) * Math.PI * 2, c = Math.cos(a) * r, d = Math.sin(a) * r, q = (i * (R + 1) + k);
+          pos[q * 3] = p.x + c * _n.x + d * _b.x; pos[q * 3 + 1] = p.y + c * _n.y + d * _b.y; pos[q * 3 + 2] = p.z + c * _n.z + d * _b.z;
+          uv[q * 2] = t; uv[q * 2 + 1] = k / R;   // the sleeve's own drawing: once along, once round
+        }
+      }
+      for (let i = 0; i < n; i++) for (let k = 0; k < R; k++) { const a = i * (R + 1) + k, b = a + R + 1; idx.push(a, b, a + 1, a + 1, b, b + 1); }
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+      { const N = g.attributes.normal; for (let i = 0; i <= n; i++) { const a = i * (R + 1), b = a + R, x = N.getX(a) + N.getX(b), y = N.getY(a) + N.getY(b), z = N.getZ(a) + N.getZ(b), l = Math.hypot(x, y, z) || 1; N.setXYZ(a, x / l, y / l, z / l); N.setXYZ(b, x / l, y / l, z / l); } }   // no seam down the sleeve
+      slv[s].geometry.dispose(); slv[s].geometry = g; slv[s].visible = true;
+    }
+  };
+  // the patch on the left elbow: a piece of brown cloth curved round the sleeve, a pale stitch on each side. It rides the
+  // arm's own curve every frame, on the side of the sleeve that faces out and back
+  const patch = new THREE.Group(), PR = 0.081, PA = 0.5, PH = 0.036;
+  { const n = 10, pts = []; for (let j = 0; j <= n; j++) for (let i = 0; i <= n; i++) { const a = (i / n - 0.5) * 2 * PA, y = (j / n - 0.5) * 2 * PH; pts.push(V(Math.sin(a) * PR, y, Math.cos(a) * PR)); }
+    const pos = new Float32Array(pts.length * 3), idx = []; pts.forEach((p, i) => { pos[i * 3] = p.x; pos[i * 3 + 1] = p.y; pos[i * 3 + 2] = p.z; });
+    for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) { const a = j * (n + 1) + i, b = a + 1, c = a + n + 1, d = c + 1; idx.push(a, b, c, b, d, c); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    patch.add(mesh(g, clothMat(C.patch || "#9a6a3c", { side: THREE.DoubleSide }), false));
+    const thread = new THREE.MeshStandardMaterial({ color: "#e6d9b8", roughness: 0.8 }); thread.userData.lookRole = "cloth";
+    const st = (a, y, alongY) => { const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.0028, 0.016, 3, 6), thread); m.position.set(Math.sin(a) * (PR + 0.002), y, Math.cos(a) * (PR + 0.002)); if (!alongY) m.rotation.z = Math.PI / 2; m.rotation.y = a; patch.add(m); };
+    for (const k of [-0.5, 0.5]) { st(k * PA, PH, true); st(k * PA, -PH, true); st(PA, k * PH, false); st(-PA, k * PH, false); } }
+  patch.visible = false; ch.root.add(patch);
+  // his hands are bare (the sheet's pale mitten hands), his legs and feet stay the brown boots (limbs.color)
+  { const pale = C.hands || "#f6dcae";
+    if (ch.skinMat) ch.skinMat.color.set(pale);   // the seamless glove's skin
+    if (ch.armMat && ch.armMat !== ch.limbMat) ch.armMat.color.set(pale);   // and the wrist that shows past the cuff
+    if (ch.limbMat) { const hm = ch.limbMat.clone(); hm.color.set(pale); hm.userData = { ...ch.limbMat.userData };
+      for (const s of ["L", "R"]) ch.arms?.[s]?.hand?.traverse?.((o) => { if (o.isMesh && o.material === ch.limbMat) o.material = hm; }); } }
+  const _x = V(0, 0, 0), _z = V(0, 0, 0), _m = new THREE.Matrix4();
+  const base = out.apply;
+  out.apply = (st, t, ...r) => {
+    base && base(st, t, ...r); sl();
+    const A = ch.arms?.L; if (!A?.shoulder || !A.elbow || !A.hand) { patch.visible = false; return; }
+    const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), u = 0.42, p = curve.getPointAt(u), T = curve.getTangentAt(u);
+    _z.set(1, 0, -0.7).addScaledVector(T, -T.dot(_z.set(1, 0, -0.7))).normalize();   // out and back, square to the arm
+    _x.crossVectors(T, _z).normalize();
+    patch.quaternion.setFromRotationMatrix(_m.makeBasis(_x, T, _z)); patch.position.copy(p); patch.visible = true;
+  };
+  out.sitDepth = 0;
   return out;
 }

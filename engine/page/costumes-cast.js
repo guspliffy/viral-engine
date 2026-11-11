@@ -311,14 +311,14 @@ export function addBeard(ch, B) {
   return beard;
 }
 
-export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid"];
+export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud"];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
 export function castCostume(C, ch) {
   const parts = ch.potatoParts, out = { hat: null, sitDepth: 0, prop: null, extra: [], apply() {} };
   const T = C.type;
   // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
-  if (C.art && ART_CAST[T]) return ART_CAST[T](C, ch, out);
+  if ((C.art || T === "spud") && ART_CAST[T]) return ART_CAST[T](C, ch, out);   // Spud has no plain version: his sweater is the same in every look
   if (T === "astronaut") {
     const suitM = std(C.suit || "#eef0f4", { roughness: 0.55 }), trimM = std(C.trim || "#9aa3b2", { roughness: 0.45, metalness: 0.3 });
     parts.add(new THREE.Mesh(lowerShell(ch, -0.42), suitM));
