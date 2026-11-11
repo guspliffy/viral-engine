@@ -59,3 +59,11 @@ panel liftpanel (right wall x 2.03, rot -90), cable liftcable, fire wallfire, bl
 
 ## Cameras: CAM in the generator (A hallway wide, CU, WALL, GUN, SPUD, LOW, FALL, PIT, UP, SPACE, REC), fitted on stills in two passes.
 - 11 Nov: rough draft rendered with --force. Reason: workflow rule 2 (the rough draft goes to Jonny before any hand or foot polish); the contact gate's 52 findings are polish (arms through hat brims in the screams, hand turns, rig jumps at cuts), none hides a story beat.
+
+## Sound pass (after Jonny's OK on the rough draft)
+
+- Music rule, Jonny 11 Nov 2026 22:30 Berlin (project memory feedback-music-supports-video-2026-11-11.md; read it first,
+  it was not in the memory folder yet when this was written): music from 0.0 that matches the story's mood, changes at
+  the turn, sits under the voice at about gain 0.45, one short theme per series. The draft still has the stand-in
+  `{ style: "bounce", gain: 0.26 }`. Turns in this episode: the cut back to day 1 (1.4 s), the jam (4.5 s), the wall
+  blast (9.2 s), the cable snap (16.55 s), space (20.55 s).
