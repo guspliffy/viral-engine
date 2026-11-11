@@ -20,9 +20,9 @@ CONTRACT (every size a spec key with this default; origin of zstreet = the world
       balcony door 1.6 x 2.1 in the facade at z 0 with a dark room behind it. Other storeys have the same balcony
       without anything on it (at y -3, -6, ... and y 3).
     - THE SHOP BUILDING on the right: its facade plane at x 3.0 from y -15 up to y 0 only. Flat roof at y 0 from
-      x 3.0 to 11, z -6..6: grey gravel, a low kerb 0.15 round it, a street-side parapet 0.25 thick and 1.0 high
-      (x 3.0..3.25, its top y 1.0) but ONLY from z -1.2 to 1.2 open as a 0.5 m high wall, i.e. between z -0.5 and
-      0.5 the parapet is 1.0 high and solid so a ladder can rest on it; two vents, an aerial, a roof hatch
+      x 3.0 to 11, z -6..6: grey gravel, a low kerb 0.15 round it, a street-side parapet 0.25 thick (x 3.0..3.25) along the
+      whole roof edge, 0.5 high, except between z -0.5 and 0.5 where it is a solid block 1.0 high (its top y 1.0:
+      the ladder rests on it); two vents, an aerial, a roof hatch
       (0.9 x 0.9, lid open) at (6.5, 0, -2.5). At street level a shopfront: awning, a glass door, a window.
       Behind the roof (x > 11) taller dull buildings as a painted backdrop.
     - THE STREET at y -15: asphalt 6 m wide between pavements (kerbs at x -2.6 and 1.6), litter, six parked cars
