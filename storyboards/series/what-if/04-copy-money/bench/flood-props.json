@@ -1,0 +1,1429 @@
+{
+ "id": "flood-props",
+ "title": "Flood props bench",
+ "idea": "Props bench for There's a catch EP04 (window wall, money wave, note flood, note rain), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#cfdde8",
+  "floor": "#8a4a38"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "gsl",
+   "wall"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    0.8,
+    2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    8,
+    2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "windowwall",
+   "x": 0,
+   "z": 0,
+   "tiles": 2
+  },
+  {
+   "id": "wA",
+   "kind": "moneywave",
+   "x": 4.1,
+   "y": 0,
+   "z": -2.2,
+   "len": 16,
+   "h": 2.7,
+   "d": 2.5,
+   "front": 0,
+   "level": 1,
+   "clock": 0,
+   "palm": [
+    -3.5,
+    0.2
+   ]
+  },
+  {
+   "id": "wB",
+   "kind": "moneywave",
+   "x": 0,
+   "y": 0,
+   "z": -2.2,
+   "len": 16,
+   "h": 2.7,
+   "d": 2.5,
+   "front": 0,
+   "level": 1,
+   "clock": 0,
+   "palm": [
+    1,
+    0.2
+   ]
+  },
+  {
+   "id": "wC",
+   "kind": "moneywave",
+   "x": -4.3,
+   "y": 0,
+   "z": -2.2,
+   "len": 16,
+   "h": 2.7,
+   "d": 2.5,
+   "front": 0,
+   "level": 1,
+   "clock": 0,
+   "palm": null
+  },
+  {
+   "id": "fl",
+   "kind": "noteflood",
+   "x": 0,
+   "y": 0,
+   "z": 0.03,
+   "w": 3.6,
+   "d": 2.2
+  },
+  {
+   "id": "iou",
+   "kind": "noterain",
+   "x": 8,
+   "y": 0,
+   "z": 2,
+   "look": "iou",
+   "n": 60,
+   "top": 3.2,
+   "r": 0.9
+  },
+  {
+   "id": "nte",
+   "kind": "noterain",
+   "x": 15,
+   "y": 0,
+   "z": 2,
+   "look": "note",
+   "n": 60,
+   "top": 3.2,
+   "r": 0.9
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "wall: 2 tiles, 7.3 m wide (15.5 m back)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "wall: square on from 6 m",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "wall: 25 degrees off to the side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "wave front 0.2 level 0.3 clock 0",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "wave front 0.2 level 0.3 clock 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "text": "wave front 0.2 level 0.3 clock 1.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "wave front 0.5 level 0.7 clock 0",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "wave front 0.5 level 0.7 clock 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "wave front 0.5 level 0.7 clock 1.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "wave front 0.8 level 1 clock 0",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "wave front 0.8 level 1 clock 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "wave front 0.8 level 1 clock 1.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "wave moving: front 0.40 to 0.70 in 1 s (stills 1/30 s apart)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 14,
+   "text": "wave front 0.5 level 1, 25 degrees off",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "wave front 0.5 level 1, wide camera 12 m",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "wave front 0.5 level 1, low camera 4.6 m",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 17,
+   "text": "noteflood grow 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17,
+   "to": 18,
+   "text": "noteflood grow 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 18,
+   "to": 19,
+   "text": "noterain iou amount 0.5 over Reaper",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 19,
+   "to": 20,
+   "text": "noterain iou amount 1 over Reaper",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "noterain note amount 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "wall-wide",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.6,
+     15.5
+    ],
+    "look": [
+     0,
+     2.4,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wall-front",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wall-side",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.5357095704441965,
+     1.7,
+     5.437846722219899
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wA-0",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0.2,
+      "level": 0.3,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wA-0.5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0.2,
+      "level": 0.3,
+      "clock": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wA-1.3",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0.2,
+      "level": 0.3,
+      "clock": 1.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wB-0",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 0.7,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wB-0.5",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 0.7,
+      "clock": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wB-1.3",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 0.7,
+      "clock": 1.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wC-0",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0.8,
+      "level": 1,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wC-0.5",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0.8,
+      "level": 1,
+      "clock": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wC-1.3",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0.8,
+      "level": 1,
+      "clock": 1.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wave-moving",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.4,
+      "level": 0.7,
+      "clock": 3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.7,
+      "level": 0.7,
+      "clock": 4
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wave-side",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.5357095704441965,
+     1.7,
+     5.437846722219899
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 1,
+      "clock": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wave-wide",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     12
+    ],
+    "look": [
+     0,
+     1.6,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 1,
+      "clock": 1.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wave-low",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.4,
+     1.2,
+     4.6
+    ],
+    "look": [
+     0,
+     1.5,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0.5,
+      "level": 1,
+      "clock": 1.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flood-0.5",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     5.2
+    ],
+    "look": [
+     0,
+     0.3,
+     0.8
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fl",
+     "set": {
+      "grow": 0.5,
+      "clock": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flood-1",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     5.2
+    ],
+    "look": [
+     0,
+     0.3,
+     0.8
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wA",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wB",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wC",
+     "set": {
+      "front": 0,
+      "clock": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fl",
+     "set": {
+      "grow": 1,
+      "clock": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "iou-0.5",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8,
+     1.5,
+     6.2
+    ],
+    "look": [
+     8,
+     1.2,
+     2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "iou",
+     "set": {
+      "amount": 0.5,
+      "clock": 0.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "iou-1",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8,
+     1.5,
+     6.2
+    ],
+    "look": [
+     8,
+     1.2,
+     2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "iou",
+     "set": {
+      "amount": 1,
+      "clock": 2.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "note-rain",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15,
+     1.5,
+     5.6
+    ],
+    "look": [
+     15,
+     1.2,
+     2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "nte",
+     "set": {
+      "amount": 1,
+      "clock": 1.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "iou",
+   "from": 0,
+   "to": 21,
+   "reason": "the rain of notes falls on and round him (paper), as in the clip"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/04-copy-money/bench/make-flood-props.mjs (props bench, no reviews)."
+}

@@ -1,0 +1,3 @@
+# bench stills, contact sheets and in-hand proofs are regenerated from the bench generators
+*.png
+proof/
