@@ -8,6 +8,7 @@
 - v4 lessons: looking toward -z, +x is screen RIGHT (the old note said left). A view from uphill behind a white hull on snow shows nothing: outside shots of the plane are side-on. dark 0.5+ puts the moon over the mountain (look across the slope, not up it). Narrator reads 2-word lines slowly (1.2-3.4 s): cut shots to the recorded lengths.
 - Renders so far (v4): still rounds 4, layouts 2 (inside the draft runs), drafts 1 per cut, farm renders 0. Seen in the draft strips, for the polish round: B's "You looked back." caption starts on top of the 0:00 clock; run-shot clock shows 0:02 (panel 0:05); the Wizard's face is under his hat in most cabin shots; door shot is no clear two-foot kick; storm plate pale; golden not yet run for the engine changes.
 - Renders (v3): layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
+- At the final cut (Jonny 11 Nov 21:17 Berlin, marketing thread; memory hook-opener-test-2026-11-11.md): check the first seconds against the five opener rules and name the opener type (A contest running at frame 0, B cold open on the most extreme moment) in DELIVERY.md so the stats read can compare. No rebuild of the drafts for it.
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
 
 ## The improvement loop
