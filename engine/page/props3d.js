@@ -77,6 +77,8 @@ import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: wat
 import { SNOW_KINDS, snowPropKeys } from "./props-survive-snow.js";   // survive it 01 snowed in: choppingblock, sliverheap, kindlingarmful, boardplank, hammer, woodchair, huddleblanket, iciclerow, snowthroat, snowspray, snowdrift, chimneybolt, sunbeam, snowlump, greenpatch...
 import { AVALANCHE_KINDS } from "./props-avalanche.js";   // survive it 01 snowed in: cottagesled, chimneycap, snowfront, snowcap, snowmound
 import { SOS_KINDS, SOS_GRIPS } from "./props-sos.js";   // share or steal: the game pieces (props-sos.js)
+import { LIFT_KINDS } from "./props-lift.js";   // survive it EP2 lift: button wall, cable, spring, shell, shaft (props-lift.js)
+import { LIFT_FX_KINDS } from "./props-lift-fx.js";   // survive it EP2 lift: wall fire, blast, sparks, space sky (props-lift-fx.js)
 import { SOS_VAT_KINDS } from "./props-sos-vat.js";   // share or steal v2: the open vat, the grating deck, the dunk lifts (props-sos-vat.js)
 import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dark studio and the deep fryer (props-sos-set.js)
 
@@ -1405,6 +1407,7 @@ Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
 Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props (props-survive-snow.js)
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
+Object.assign(KINDS, LIFT_KINDS, LIFT_FX_KINDS);
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
