@@ -25,7 +25,7 @@ and run, so it goes over and blows up; he wakes up in the next crash.
 | 08 | 14.7-16.5 | outside: belly first into the slope, a wing torn off in fire | side-on and high: a white hull seen from uphill behind is invisible on snow |
 | 09 | 16.5-18.3 | inside at the same moment: bins burst, the Wizard thrown the length of the cabin past us | |
 | 10 | 18.3-20.1 | outside: stopped with the nose over the cliff edge, rocking, 1:30 | the abyss is a plain blue-grey wall |
-| 11 | 20.1-22.8 | Viking hauls his suitcase out of the bin over his head, the cabin lurches, Spud points: leave it | suitcase overhead and from the port bin (in his arms it was hidden behind his body) |
+| 11 | 20.1-22.8 | Viking hauls his suitcase out of the bin over his head, the cabin lurches, Spud points: leave it | suitcase overhead, from the bin over the front row across the aisle (in his arms it was hidden behind his body) |
 | 12 | 22.8-25.0 | under the smoke, 0:40: Spud crawls at us, the others behind | |
 | 13 | 25.0-27.2 | the jammed suitcase is kicked out of the door and falls into the abyss; down the slide | Spud is behind the suitcase: the kick reads from the suitcase, not from two feet |
 | 14 | 27.2-29.4 | they run at us through the snow, the hull tips over the cliff behind them | the clock reads 0:02, 0:01 (it counts real seconds; the drawing says 0:05) |
