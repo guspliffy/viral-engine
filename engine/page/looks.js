@@ -65,6 +65,14 @@ function skinTextures(seed) {
   return { bump: tex(bump, false), color: tex(col, true) };
 }
 
+// Hot Potato 01 (11 Nov 2026): every full-look frame with a glowing tile was black below a stepped edge, and no draft
+// showed it (a draft has no anti-aliasing). The scene's buffer is half float, so a NaN or an infinity survives in it.
+const NanGuardShader = {
+  uniforms: { tDiffuse: { value: null } },
+  vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+  fragmentShader: "uniform sampler2D tDiffuse; varying vec2 vUv; void main() { vec4 c = texture2D(tDiffuse, vUv); bool bad = any(isnan(c)) || any(isinf(c)); gl_FragColor = bad ? vec4(0.0, 0.0, 0.0, 1.0) : c; }",
+};
+
 // display-space grade: contrast, saturation, split toning (cool shadows, warm highlights), vignette, and for the
 // anime look a light gradient from the top (the "para" layer of anime compositing)
 const GradeShader = {
@@ -763,6 +771,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   // the drawn look (drawn.js): brush lines from the scene's shapes replace the even outline
   const lines = D && D.lines ? new DrawnLinesPass(scene, camera, D.lines, new Set([...actors.map((a) => a.ch.root), ...props.map((p) => p.root)].filter(Boolean)), D.brush) : null;
   if (lines) { fx.enabled = false; composer.addPass(lines); }
+  // one pixel that is not a number (a prop shader's pow() of a negative base at a plane's edge under anti-aliasing) is
+  // spread by the passes below (bokeh, bloom, glow) until the frame is black: it becomes a black pixel here instead
+  composer.addPass(new ShaderPass(NanGuardShader));
   // Effekseer particle effects (vfx.js), in the scene's buffer against its depth, before the glow and the grade
   if (vfx) composer.addPass(vfx.pass(camera));
   const bokeh = golden && (setSpec.aperture ?? 0) > 0 ? new BokehPass(scene, camera, { focus: 5, aperture: setSpec.aperture ?? 0.012, maxblur: 0.012 }) : null;
