@@ -72,6 +72,8 @@ import { SNOW_KINDS, snowPropKeys } from "./props-survive-snow.js";   // survive
 import { AVALANCHE_KINDS } from "./props-avalanche.js";   // survive it 01 snowed in: cottagesled, chimneycap, snowfront, snowcap, snowmound
 import { SOS_KINDS, SOS_GRIPS } from "./props-sos.js";   // share or steal: the game pieces (props-sos.js)
 import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dark studio and the deep fryer (props-sos-set.js)
+import { HP_SET_KINDS } from "./props-hotpotato-set.js";   // hot potato: the felt studio, trapdoor tiles and the vat
+import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the coal, tongs, bow tie and basket lift
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1396,6 +1398,7 @@ Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props (props-survive-snow.js)
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
+Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
