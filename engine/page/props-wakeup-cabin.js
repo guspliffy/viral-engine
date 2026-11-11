@@ -20,6 +20,7 @@ import { clamp } from "./util.js";
 //               top sits 4 mm above it and wins the depth test, so it never fights the snowy ground the set draws at y 0),
 //               pale strips at |x| 0.5. Front bulkhead z 10.5, doorway x -0.5..0.5, y 0..2.0, the EXIT sign (0.72 x 0.3 m) centred
 //               (0, 2.2, 10.44) facing -z; back bulkhead z -4.95. Doorway daylight plane at z 10.62 (behind the door).
+//   spec        clear   port windows left as real holes, no view card: [row, ...] (a prop outside, like enginefire, shows through)
 //   spec        omit    seats left out: [[row, "A".."D"], ...], default [[0,"A"],[0,"B"],[1,"B"]]: put real `planeseat`
 //                       props there (w 0.96, arms "both", color HALL_SEAT, cover 0.34); the hall's own seats are all one merged
 //                       mesh per material, so a hole costs nothing. No mask hangs over an omitted seat.
@@ -212,7 +213,9 @@ export const WAKECABIN_KINDS = {
     // the window views
     const viewU = { uTime: { value: 0 }, uView: { value: 0 } };
     { const list = [];
+      const clear = new Set((S.clear ?? []).map((k) => ZP * k + 0.4));   // spec.clear [row, ...]: port windows left as real holes (a prop outside shows through)
       for (const s of [1, -1]) for (const z of winZ) {
+        if (s > 0 && clear.has(z)) continue;
         const g = planeAt(0.8, 1.0, 0, -s * Math.PI / 2, s * (W + 0.05), WIN_Y, z);   // faces the aisle
         g.setAttribute("aZ", new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count).fill(z), 1)); list.push(g);
       }

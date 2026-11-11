@@ -2,9 +2,9 @@
 
 ## Where the build stands
 
-- Step: staging (builders T1-T3 building the cabin, fx and outside props in parallel; generator v1 compiles, 35.05 s A / 34.25 s B)
-- Next: builders' reports -> fill KEY map in the generator -> one layout -> peek faces/hands -> stills per shot -> draft A + B -> Jonny
-- Renders so far: drafts 0, farm renders 0; fix rounds used: 0 of 3
+- Step: staging (builders done; generator retimed to the recorded narrator lines: 39.5 s A / 38.5 s B; all 13 cameras re-set 11 Nov)
+- Next: layout 3 -> camfit every shot -> draft stills + sheet against the panels -> rough draft A + B -> Jonny (no polish before his go)
+- Renders so far: layouts 3 (one aborted on a sound name), drafts 0, farm renders 0; fix rounds used: 0 of 3
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
 
 ## The improvement loop
@@ -52,6 +52,12 @@
 - Wizard sits in the row ahead on the aisle, turned round on his seat (panel 04's place for him), not across the aisle.
 - Panel 11: Viking and the Wizard stay small in the right background as drawn.
 - No hit-stops or ramps: story clock = video clock (the two readouts and the narrator stay in step).
+
+- A potato is ~1 m wide (Spud 1.2 m tall, seated top 1.53; Viking 1.41 / 1.72) and seat backs are taller than a seated potato: nobody is seen from behind a row, and two side by side need fov 50-70 or 5 m of distance. Panel sizes (drawn with small bodies) are not reachable in the cabin; eye lines and sides are kept.
+- Panel 01: the hall's windows are painted cards, so a prop outside never showed. `clear: [0]` (new spec) leaves row 0's port window a real hole; the hall sits 0.65 m forward in shot 1 only, so that window is beside his face, not behind his head; the engine is placed on the sight line.
+- Panel 04/06: the Wizard sits in the window seat in front of Spud (not the aisle seat) so one side view from the aisle holds both; row 1's aisle seat is parked for those two shots. In 06 he slams into the seat back ahead (a seat back is too tall to fly over).
+- Subtitles: 1120 when the faces are above it; 640 (crawl, slide), 900 (ending A), 1250 (brace, impact) when the panel puts the face low. Clocks stay lower left (1265).
+- Crawl pose: tip 38, y -0.05 (tip 62 / y -0.28 put the eyes under the floor: body pivot is 0.45 m up).
 
 ## Tried and dropped
 
