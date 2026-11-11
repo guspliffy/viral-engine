@@ -8,6 +8,8 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 //              its long side along local x, its faces to +z and -z. spec.l (1.6), h (2.3), d (0.44), shelves (5),
 //              seed. spec.rail: a brass ladder rail along its +z face at spec.railY (1.55) with a round end stop at
 //              the -x end (spec.stop 1: the +x end). It never moves by itself: it falls as a physics body (spec.body { shape: "box" }).
+//              Param bare 0..1 (0): empties the shelves from the top down, at 1 bare wood (bookstorm takes the books:
+//              libstackBooks(spec) gives their slots).
 //   libladder  a rolling library ladder: two side rails and round rungs, hooks at the top that sit on the rail, two
 //              small wheels at the foot. Origin: the foot's middle; it leans back toward -z by spec.lean degrees (14),
 //              climbed from +z. spec.h (1.75 along the rails), w (0.5). Grip "railL" / "railR": the rails at chest
@@ -37,6 +39,38 @@ function rng(seed) { let a = (seed * 2654435761) >>> 0; return () => { a = (a + 
 // book cloth colours of an old library: mostly muted, a few strong ones (copy nature: many dull, few bright)
 const CLOTH = ["#7a2e2a", "#8c3b2e", "#5a3a26", "#2f4a3a", "#35506b", "#6b5a2e", "#4b2f45", "#7d6a4a", "#9a4a2a", "#3d3a5c", "#2c5a5a", "#a8743a", "#5e6b3a", "#8a2c3c"];
 
+// libstack's book slots (bookstorm launches exactly these): per shelf (bottom up) and face (-z, then +z), runs of
+// upright books of mixed width and height, a gap here and there, now and then one leaning on its neighbour or a short
+// pile lying flat (nothing in a rhythm), from the stack's seed. Each slot is a box in the stack's own frame: its middle
+// x, y, z, size w (along x), h (y), d (z), turn rz about z, face -1 / 1, flat (one of a pile lying flat), c (CLOTH index)
+// and color. libstack draws these boxes; the order is its draw order.
+export function libstackBooks(S) {
+  const L = S.l ?? 1.6, H = S.h ?? 2.3, D = S.d ?? 0.44, N = S.shelves ?? 5, r = rng(S.seed ?? 3), T = 0.04;
+  const y0 = 0.1, step = (H - 0.14 - y0) / N, out = [];
+  const book = (x, y, z, w, h, d, rz, c, face, flat) => out.push({ x, y, z, w, h, d, rz, c, color: CLOTH[c], face, flat });
+  for (let i = 0; i < N; i++) for (const f of [-1, 1]) {
+    const yb = y0 + i * step + 0.014, hmax = step - 0.05;
+    let x = -L / 2 + T * 1.5 + 0.01;
+    const xe = L / 2 - T * 1.5 - 0.01;
+    while (x < xe - 0.03) {
+      const u = r();
+      if (u < 0.06) { x += 0.05 + r() * 0.12; continue; }   // a gap
+      if (u < 0.11) {   // a short pile lying flat
+        const w = Math.min(0.22 + r() * 0.06, xe - x), n = 2 + Math.floor(r() * 3);
+        if (w < 0.18) break;
+        for (let k = 0; k < n; k++) book(x + w / 2 + (r() - 0.5) * 0.02, yb + 0.02 + k * 0.04, f * (D / 4), w - 0.02 * k, 0.035, D / 2 - 0.05, 0, Math.floor(r() * CLOTH.length), f, true);
+        x += w + 0.01; continue;
+      }
+      const w = 0.025 + r() * 0.045, h = hmax * (0.62 + r() * 0.36), d = D / 2 - 0.04 - r() * 0.04;
+      if (x + w > xe) break;
+      const lean = u > 0.95 ? 0.22 : 0;   // one leaning on the next
+      book(x + w / 2 + lean * h * 0.5, yb + h / 2 - lean * 0.01, f * (D / 4 + 0.005), w, h, d, -lean, Math.floor(r() * CLOTH.length), f, false);
+      x += w + (lean ? h * 0.22 : 0.002);
+    }
+  }
+  return out;
+}
+
 // a little dragon, drawn in a few strokes (cover and pages): a curled body, a wing, a head with a horn
 function drawDragon(g, cx, cy, s, body, wing) {
   g.save(); g.translate(cx, cy); g.scale(s, s);
@@ -51,7 +85,7 @@ function drawDragon(g, cx, cy, s, body, wing) {
 
 export const LIBRARY_KINDS = {
   libstack(P) {
-    const S = P.spec, L = S.l ?? 1.6, H = S.h ?? 2.3, D = S.d ?? 0.44, N = S.shelves ?? 5, r = rng(S.seed ?? 3);
+    const S = P.spec, L = S.l ?? 1.6, H = S.h ?? 2.3, D = S.d ?? 0.44, N = S.shelves ?? 5;
     const wood = mat("#6b4428", { roughness: 0.5 }), dark = mat("#4a2e1a", { roughness: 0.6 }), T = 0.04;
     const g = new THREE.Group(); P.whole.add(g);
     // the carcass: two end panels with a plinth and a cornice, a middle board between the two faces, the shelves
@@ -62,40 +96,20 @@ export const LIBRARY_KINDS = {
     mesh(new THREE.BoxGeometry(L - T * 2, H - 0.12, 0.02), dark, g, 0, H / 2, 0);
     const y0 = 0.1, step = (H - 0.14 - y0) / N;
     for (let i = 0; i <= N; i++) mesh(new THREE.BoxGeometry(L - T * 2, 0.028, D), wood, g, 0, y0 + i * step, 0);
-    // the books: per shelf and face, runs of upright books of mixed width and height, a gap here and there, now and
-    // then one leaning on its neighbour or a short pile lying flat (nothing in a rhythm)
-    // every book of the bookcase goes into one mesh (vertex colours): hundreds of separate meshes made the contact
-    // checks, which measure hands against every prop mesh, take minutes
-    const geos = [], col = new THREE.Color(), O = new THREE.Object3D();
-    const book = (x, y, z, w, h, d, rz, c) => {
-      O.position.set(x, y, z); O.rotation.set(0, 0, rz); O.scale.set(w, h, d); O.updateMatrix();
+    // the books (libstackBooks below: the same slots bookstorm launches): every book of the bookcase goes into one
+    // mesh (vertex colours): hundreds of separate meshes made the contact checks, which measure hands against every
+    // prop mesh, take minutes
+    const geos = [], col = new THREE.Color(), O = new THREE.Object3D(), slots = libstackBooks(S);
+    for (const k of slots) {
+      O.position.set(k.x, k.y, k.z); O.rotation.set(0, 0, k.rz); O.scale.set(k.w, k.h, k.d); O.updateMatrix();
       const b = new THREE.BoxGeometry(1, 1, 1).toNonIndexed(); b.applyMatrix4(O.matrix); b.deleteAttribute("uv");
-      col.set(CLOTH[c]); const n = b.attributes.position.count, a = new Float32Array(n * 3);
+      col.set(CLOTH[k.c]); const n = b.attributes.position.count, a = new Float32Array(n * 3);
       for (let i = 0; i < n; i++) { a[i * 3] = col.r; a[i * 3 + 1] = col.g; a[i * 3 + 2] = col.b; }
       b.setAttribute("color", new THREE.BufferAttribute(a, 3)); geos.push(b);
-    };
-    for (let i = 0; i < N; i++) for (const f of [-1, 1]) {
-      const yb = y0 + i * step + 0.014, hmax = step - 0.05;
-      let x = -L / 2 + T * 1.5 + 0.01;
-      const xe = L / 2 - T * 1.5 - 0.01;
-      while (x < xe - 0.03) {
-        const u = r();
-        if (u < 0.06) { x += 0.05 + r() * 0.12; continue; }   // a gap
-        if (u < 0.11) {   // a short pile lying flat
-          const w = Math.min(0.22 + r() * 0.06, xe - x), n = 2 + Math.floor(r() * 3);
-          if (w < 0.18) break;
-          for (let k = 0; k < n; k++) book(x + w / 2 + (r() - 0.5) * 0.02, yb + 0.02 + k * 0.04, f * (D / 4), w - 0.02 * k, 0.035, D / 2 - 0.05, 0, Math.floor(r() * CLOTH.length));
-          x += w + 0.01; continue;
-        }
-        const w = 0.025 + r() * 0.045, h = hmax * (0.62 + r() * 0.36), d = D / 2 - 0.04 - r() * 0.04;
-        if (x + w > xe) break;
-        const lean = u > 0.95 ? 0.22 : 0;   // one leaning on the next
-        book(x + w / 2 + lean * h * 0.5, yb + h / 2 - lean * 0.01, f * (D / 4 + 0.005), w, h, d, -lean, Math.floor(r() * CLOTH.length));
-        x += w + (lean ? h * 0.22 : 0.002);
-      }
     }
     // (not measured by the contact checks: the books sit inside the shelves, and a hand meets the shelves' boards first)
-    if (geos.length) mesh(mergeGeometries(geos), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.8 }), g).userData.solid = false;
+    const books = geos.length ? mesh(mergeGeometries(geos), new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.8 }), g) : null;
+    if (books) books.userData.solid = false;
     // the brass rail for the rolling ladder on the +z face, on brackets, with a round end stop at the -x end
     if (S.rail) {
       const brass = mat("#b8913a", { roughness: 0.3, metalness: 0.6 }), ry = S.railY ?? 1.55, rz = D / 2 + 0.07;
@@ -103,7 +117,19 @@ export const LIBRARY_KINDS = {
       for (const x of [-L / 2 + 0.05, 0, L / 2 - 0.05]) { const b = mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.08, 8), brass, g, x, ry, rz - 0.04); b.rotation.x = Math.PI / 2; }
       mesh(new THREE.SphereGeometry(0.045, 14, 10), brass, g, (S.stop ?? -1) * (L / 2 + 0.03), ry, rz);
     }
-    return {};
+    // bare 0..1 (default 0: every book as before): the shelves empty from the top shelf down (the books after the
+    // first (1 - bare) of the slots are not drawn); at 1 the shelves are bare wood. A step to 1 at bookstorm's t0
+    // hands every book to the storm, which draws them in these same slots at that instant.
+    // (a new draw range bumps the colours' version, so the frame cache's memo of this mesh sees the change)
+    const nb = slots.length; let shown = nb;
+    return {
+      apply(ps) {
+        if (!books) return;
+        const k = Math.round((1 - clamp(ps.bare)) * nb);
+        books.visible = k > 0;
+        if (k !== shown) { shown = k; books.geometry.setDrawRange(0, k >= nb ? Infinity : k * 36); books.geometry.attributes.color.needsUpdate = true; }
+      },
+    };
   },
 
   libladder(P) {

@@ -1,0 +1,438 @@
+{
+ "id": "flame-bench",
+ "title": "Flame bench",
+ "idea": "Bench for What if EP02's power (flame streak, ring of flame), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#d9cdb4",
+  "floor": "#b8a27e",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "plate": {
+   "src": "assets/plates/library-hall.png",
+   "z": -8.6,
+   "center": [
+    1.6,
+    4.4
+   ],
+   "height": 15,
+   "depth": false,
+   "motion": false,
+   "dust": 30
+  },
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "streak"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "libfloor",
+   "x": 0,
+   "z": -1,
+   "w": 18,
+   "d": 22,
+   "seed": 21
+  },
+  {
+   "id": "table",
+   "kind": "table",
+   "x": -0.7,
+   "z": 0,
+   "w": 1.7,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "chairR",
+   "kind": "chair",
+   "x": 0.05,
+   "z": -0.72,
+   "rot": 0,
+   "scale": 0.7
+  },
+  {
+   "id": "t20",
+   "kind": "table",
+   "x": -3.4,
+   "z": -2.2,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "t21",
+   "kind": "table",
+   "x": 2.9,
+   "z": -1.2,
+   "w": 1.5,
+   "d": 0.8,
+   "color": "#7a4a2c",
+   "legs": "#4e2e1a"
+  },
+  {
+   "id": "dais",
+   "kind": "libdais",
+   "x": -0.4,
+   "z": -5.35,
+   "w": 2.4,
+   "d": 1.6,
+   "h": 0.5
+  },
+  {
+   "id": "desk",
+   "kind": "libdesk",
+   "x": -0.4,
+   "y": 0.5,
+   "z": -5,
+   "w": 2,
+   "h": 0.45
+  },
+  {
+   "id": "streak",
+   "kind": "flamestreak",
+   "path": [
+    [
+     -3.5,
+     0.6,
+     1
+    ],
+    [
+     1.5,
+     1,
+     -5
+    ]
+   ],
+   "len": 1.6,
+   "ghosts": 3,
+   "seed": 1
+  },
+  {
+   "id": "ring",
+   "kind": "flamering",
+   "x": -0.7,
+   "z": -0.3,
+   "rx": 1.8,
+   "rz": 1.3,
+   "seed": 1,
+   "fade": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "flamestreak t 0.3 (the clip's wide)",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "flamestreak t 0.6",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "flamestreak t 1.0",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "flamestreak t 0.6 close: the after-images",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 5.5,
+   "text": "flamering (the clip's high camera)",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.5,
+   "to": 6,
+   "text": "flamering close: ghosts and papers",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "flamering fade 0.5",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "streak03",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.1,
+     3,
+     10.5
+    ],
+    "look": [
+     -1,
+     1.15,
+     -1.5
+    ],
+    "fov": 31
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "streak",
+     "set": {
+      "t": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "streak06",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.1,
+     3,
+     10.5
+    ],
+    "look": [
+     -1,
+     1.15,
+     -1.5
+    ],
+    "fov": 31
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "streak",
+     "set": {
+      "t": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "streak10",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.1,
+     3,
+     10.5
+    ],
+    "look": [
+     -1,
+     1.15,
+     -1.5
+    ],
+    "fov": 31
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "streak",
+     "set": {
+      "t": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "streakclose",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.6,
+     1.5,
+     3.2
+    ],
+    "look": [
+     -1.2,
+     0.85,
+     -1.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "streak",
+     "set": {
+      "t": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "ring",
+   "at": 4,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     2.4,
+     5.4,
+     10
+    ],
+    "look": [
+     -0.6,
+     0.4,
+     -2.4
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "streak",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "fade": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "t": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "t": 3
+     },
+     "dur": 2.999,
+     "ease": "linear",
+     "at": 0.001
+    }
+   ]
+  },
+  {
+   "name": "ringlow",
+   "at": 5.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     -0.7,
+     2,
+     4.6
+    ],
+    "look": [
+     -0.7,
+     0.5,
+     -0.3
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "ringfade",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.4,
+     5.4,
+     10
+    ],
+    "look": [
+     -0.6,
+     0.4,
+     -2.4
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "fade": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/02-library/bench/make-flame.mjs (props bench, no reviews)."
+}
