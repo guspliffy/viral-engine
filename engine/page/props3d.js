@@ -46,6 +46,10 @@ import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
 import { FREEFALL_KINDS } from "./props-freefall.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
+import { MONEY_KINDS } from "./props-money.js";       // there's a catch 04: coin, cashbrick, cashthrone, walletheap, cashheap
+import { FLOOD_KINDS } from "./props-flood.js";       // there's a catch 04: windowwall, moneywave, noterain, noteflood
+import { TWIST_KINDS } from "./props-twist.js";       // there's a catch 04: flipboard, wheelbarrow, dinersign
+import { NIGHTDINER_KINDS } from "./props-nightdiner.js";   // there's a catch 04: dinerfront, oilbarrel
 import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4: the bistro table, the bill, the long bill
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
@@ -1374,6 +1378,7 @@ Object.assign(KINDS, UFO_KINDS, PLANE_KINDS, FREEFALL_KINDS);   // never looks u
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
 Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
+Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);   // there's a catch 04 (props-money.js, props-flood.js, props-twist.js, props-nightdiner.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
