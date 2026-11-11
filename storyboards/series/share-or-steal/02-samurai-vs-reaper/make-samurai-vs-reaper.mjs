@@ -126,7 +126,7 @@ const PICS = [[T.pic1, 198, ["share", "share"], ["gold", "gold"], "SPLIT IT", "#
 for (const [t, x, top, bottom, label, color] of PICS) {
   picrule(c, t, r3(T.count - t), top, bottom, { x, y: 300, w: 268 });
   c.at(r3(t + 0.12), { fx: "pop", text: label, xy: [x, 690], size: 42, dur: r3(T.count - t - 0.12), angle: 0, color });
-  sfx(t, "pop", { gain: 0.5, reason: "a picture rule card pops in" });
+  sfx(t, "pop", { gain: 0.3, reason: "a picture rule card pops in (low: the host says its label on the same frame)" });
 }
 // the countdown 4 .. 0: one number a step, top right (panels 03, 04), the last two red, a beep on each
 for (let k = 4; k >= 0; k--) {
@@ -191,15 +191,17 @@ see(r3(T.pic3 + 0.1), r3(T.count - 0.25), ["sam.face", "rpr.face", "liftS", "lif
 for (const who of ["sam", "rpr"]) {
   const [fx, fy, fz] = fanLap(who), sgn = who === "sam" ? 1 : -1;
   A(r3(T.lower - 0.13), who, "look", { to: [0.15 * sgn, -0.5], dur: 0.12, blink: false });   // down at his own cards: he picks
-  A(r3(T.count - 0.03), who, "look", { to: [0.5 * sgn, -0.05], dur: 0.01, blink: false });  // and on the cut his eyes are on the other one
+  A(T.count, who, "look", { to: [0.5 * sgn, -0.05], dur: 0.01, blink: false });  // and on the cut his eyes are on the other one
+  // T.count is 4.267, a hair after video frame 128 (4.2667): the cut and these swaps all land on frame 129. A swap two
+  // hundredths early (tried) showed for one frame in the wide shot; a still at "4.267" does not show that, the video does
   const [ex, ey, ez] = fanEdge(who);
   c.at(T.lower, { do: "prop", id: FAN[who], set: { x: ex, y: ey, z: ez, tip: -20 }, dur: 0.27, ease: "linear", reason: "carried in his hand: he draws his fan back over the table's edge" });
   c.at(r3(T.lower + 0.27), { do: "prop", id: FAN[who], set: { x: fx, y: fy, z: fz, tip: -60 }, dur: 0.26, ease: "out", reason: "carried in his hand: he lowers his fan into his lap" });   // back over the table's edge at its own height: 15 frames, no flip
   c.arm(r3(T.lower + 0.05), who, HAND[who], { world: who === "sam" ? [-0.58, 0.76, -0.36] : [0.58, 0.8, -0.36] }, 0.15, "linear");   // up out of his lap over the table's edge first
   c.arm(r3(T.lower + 0.2), who, HAND[who], cardSpot(who), 0.33, "linear"); A(r3(T.lower + 0.3), who, "grip", { side: HAND[who], shape: "flat", dur: 0.12 });
   // on the cut: the fan is tucked away, the chosen card lies under his palm, his far hand rests in his lap
-  c.at(r3(T.count - 0.02), { do: "prop", id: FAN[who], set: { scale: 0.001 }, dur: 0.01, reason: "tucked into his robe as the shot changes" });
-  c.at(r3(T.count - 0.02), { do: "prop", id: CARD[who], set: { scale: CARD_SCALE }, dur: 0.01, reason: "the card he chose, laid face down under his palm as the shot changes" });
+  c.at(T.count, { do: "prop", id: FAN[who], set: { scale: 0.001 }, dur: 0.01, reason: "tucked into his robe as the shot changes" });
+  c.at(T.count, { do: "prop", id: CARD[who], set: { scale: CARD_SCALE }, dur: 0.01, reason: "the card he chose, laid face down under his palm as the shot changes" });
   c.arm(T.count, who, HAND[who], { prop: CARD[who], ...ON_CARD }, 0.01);
   // his far hand stays down where the fan went, behind the table, until the handshake: a pose change AT the cut showed
   // four frames before it (measured: his palm turned 62-75 deg at count - 0.13, still in the wide shot)

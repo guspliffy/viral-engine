@@ -618,8 +618,8 @@
     },
     {
      "sfx": "pop",
-     "gain": 0.5,
-     "reason": "a picture rule card pops in",
+     "gain": 0.3,
+     "reason": "a picture rule card pops in (low: the host says its label on the same frame)",
      "at": 1.333
     },
     {
@@ -662,8 +662,8 @@
     },
     {
      "sfx": "pop",
-     "gain": 0.5,
-     "reason": "a picture rule card pops in",
+     "gain": 0.3,
+     "reason": "a picture rule card pops in (low: the host says its label on the same frame)",
      "at": 2.133
     },
     {
@@ -754,8 +754,8 @@
     },
     {
      "sfx": "pop",
-     "gain": 0.5,
-     "reason": "a picture rule card pops in",
+     "gain": 0.3,
+     "reason": "a picture rule card pops in (low: the host says its label on the same frame)",
      "at": 3.133
     },
     {
@@ -1030,68 +1030,6 @@
      "gain": 0.35,
      "reason": "Reaper lays his card face down",
      "at": 4.217
-    },
-    {
-     "who": "sam",
-     "do": "look",
-     "to": [
-      0.5,
-      -0.05
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 4.237
-    },
-    {
-     "who": "rpr",
-     "do": "look",
-     "to": [
-      -0.5,
-      -0.05
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 4.237
-    },
-    {
-     "do": "prop",
-     "id": "fanS",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "reason": "tucked into his robe as the shot changes",
-     "at": 4.247
-    },
-    {
-     "do": "prop",
-     "id": "sCard",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "reason": "the card he chose, laid face down under his palm as the shot changes",
-     "at": 4.247
-    },
-    {
-     "do": "prop",
-     "id": "fanR",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "reason": "tucked into his robe as the shot changes",
-     "at": 4.247
-    },
-    {
-     "do": "prop",
-     "id": "rCard",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "reason": "the card he chose, laid face down under his palm as the shot changes",
-     "at": 4.247
     }
    ]
   },
@@ -1148,6 +1086,37 @@
     },
     {
      "who": "sam",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fanS",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "reason": "tucked into his robe as the shot changes",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sCard",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "reason": "the card he chose, laid face down under his palm as the shot changes",
+     "at": 0
+    },
+    {
+     "who": "sam",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -1172,6 +1141,37 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "rpr",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fanR",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "reason": "tucked into his robe as the shot changes",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rCard",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "reason": "the card he chose, laid face down under his palm as the shot changes",
      "at": 0
     },
     {
