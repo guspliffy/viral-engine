@@ -1,7 +1,7 @@
 # Hot Potato 01 (pilot): notes
 
 Brief: Jonny's 10-panel sheet (`panels-sheet.png`), his go 11 Nov 2026 12:23 Berlin. Panel notes: `PANELS.md`.
-Status: rough draft 3 sent to Jonny 11 Nov (15 s, from his notes on draft 2); polish, checks on the draft and the full
+Status: rough draft 3 sent to Jonny 11 Nov (15.0 s, from his notes on draft 2); polish, checks on the draft and the full
 render wait for his OK.
 
 ## Numbers the set and the clip stand on
