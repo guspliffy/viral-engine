@@ -38,6 +38,7 @@ const SIZE = {
   foamcan: { r: 0.034, h: 0.15 },                  // props-prank.js FOAMCAN: held round its body like a mug
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
+  sscardfan: { w: 0.44, h: 0.3, t: 0.02 },        // props-sos.js: SHARE and STEAL fanned about the bottom middle (the pivot = the origin; 0.32 wide, spec.solid 0.44): the phone hold on the lower edge
   ravenphoto: { w: 0.1, h: 0.13, t: 0.004 },       // props-raven.js photo print: held with the phone hold, its picture (-z) faces away from the holder
   // a small thing pinched by the thin hold (Candy Bodyguard): len = the height the pinch's `from` is measured on, r =
   // the half-width the pads close on

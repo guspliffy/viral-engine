@@ -1,9 +1,15 @@
 // The series overlays (engine/page/hud.js, engine/page/card.js): a HUD with the day, clock and battery, rule cards and
+// a picture rule card (no words, Share or Steal) at t for dur s: top = the two playing cards ["share" | "steal", ...], bottom
+// = the two icons ["gold" | "fire", ...]. o: { x (the card's centre, px, default the safe zone's centre), y (top edge px,
+// default 300), w (width px, default 290; height 1.28 w) }. Pops in over 0.18 s, fades over its last 0.12 s.
+export function picrule(c, t, dur, top, bottom, o = {}) { c.at(t, { fx: "picrule", dur, top, bottom, ...o }); }
+
 // the comment-vote end card. All opt-in; times are story time.
 //
-//   import { hud, rule, vote } from "../lib/overlay.mjs";
+//   import { hud, rule, picrule, vote } from "../lib/overlay.mjs";
 //   const HUD = hud({ day: 1, clock: [[0, "18:05"], [4.2, "18:31", 0.5]], battery: [[0, 41], [5.0, 30, 0.12]], part: 1 });
 //   rule(c, 3.1, 1.6, "RULE 1", "Never let Dragon cook", { who: "dra" });
+//   picrule(c, 0.3, 2.0, ["steal", "share"], ["gold", "fire"], { x: 540, y: 300 });
 //   vote(c, 14.0, 3.0, "PART 2: who goes into the jungle for food?", [["A", "Viking", "vik"], ["B", "Reaper", "rea"]]);
 //   write(import.meta.url, { ..., hud: HUD, beats });
 //
