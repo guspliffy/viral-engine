@@ -4,6 +4,20 @@ Who the characters are, so every clip draws on the same people. **Canon** below 
 24 Oct 2026. Anything marked *proposal* is not canon until he confirms it. Changes to a character's look or
 personality are his call (`CLAUDE.md`).
 
+## Spud, the main character
+
+Jonny, 11 Nov 2026: one simple main potato for every video, so the account is recognised faster, with the ten
+fighters as side characters. `characters/potatobrawl/spud.json`, costume type `spud`, reference sheet
+`/mnt/project-files/videos/cast/spud/spud-reference-sheet-2026-11-11.png`.
+
+- **Neutral on purpose** (canon): no quirk and no type, so the average person can stand in for him. He wants an
+  ordinary day and reacts the way anyone would. His one soft trait: he goes along with his friends.
+- **The fighters carry the quirks.** A fighter's idea starts the trouble, Spud says yes, and the rest follows as one
+  cause-and-effect chain. Never give Spud a strong personality type of his own.
+- **Look**: no hat, no weapon, no prop. A teal knit sweater (rolled collar, hem and cuffs, one patch on the left
+  elbow), brown boots, one leaf on the sprout, about 85 % of a fighter's height. The sprout shows his mood (`droop`).
+- *Proposal until a pilot video is judged*: the same short sound at 0.0 of every video, and his voice numbers.
+
 ## The series: Phoenix and Reaper
 
 Their relationship carries the series. **Phoenix reads Reaper's restraint as disapproval. Reaper finds Phoenix
