@@ -9,7 +9,8 @@
 //   style: house | disco | bounce | funk | chip | sneaky | lofi | march | warm (default: from the seed)
 //   styles: a pool for the seed to pick from (e.g. ["sneaky", "march", "warm"]); key: semitones from C;
 //   progression: an index into PROGRESSIONS or scale degrees ([0, 4, 5, 3]); lead: bell | blip | whistle;
-//   drums: false for no drums
+//   drums: false for no drums; phone: true plays the bass an octave up, so a phone speaker (200 Hz-6 kHz) still
+//   carries it (engine/music.mjs also cuts the bed under 150 Hz then)
 //   part: "intro" (hats, soft kick, chords) | "main" (everything) | "build" (snare roll and riser, no kick)
 //         | "drop" (main with a crash on its first beat) | "stop" (silence: the record-scratch beat)
 //         | "hush" (silence the music comes back from) | "musicbox" (the lead motif alone, slowly, on a soft music box:
@@ -196,7 +197,7 @@ export function renderBeat(music, duration, id = "") {
       if (Y.bass.includes(step)) {
         const i = Y.bass.indexOf(step);
         const up = Y.octaves === "alt" ? (i % 2 ? 12 : 0) : Y.octaves === "funk" ? (i % 3 === 1 ? 12 : 0) : Y.fifths ? (i % 2 ? 7 : 0) : Y.walk ? [0, 3, 5, 7][i % 4] : beatInBar === 3 ? 12 : 0;
-        add(t, INST.bass(r, ch.root + up, spb * (Y.bassLen ?? 0.45)), (full ? 0.5 : 0.25) * soft);
+        add(t, INST.bass(r, ch.root + up + (music.phone ? 12 : 0), spb * (Y.bassLen ?? 0.45)), (full ? 0.5 : 0.25) * soft);
       }
       if (Y.chord.includes(step)) add(t, chord(ch.notes), (full ? 0.28 : 0.18) * soft, -0.15);
       // lead motif: on every second bar, only in the full parts

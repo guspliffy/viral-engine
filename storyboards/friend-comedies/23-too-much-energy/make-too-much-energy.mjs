@@ -37,11 +37,17 @@ import { RAIL_Y, MATTRESS as M, BROOM as BR } from "../../../engine/page/props-e
 
 // ---------------------------------------------------------------- the lab picks (Jonny, 30 Oct 2026)
 const OPENER = { who: "phx", line: "heyheyhey wake up!", words: false };   // gibberish chatter from frame 0
-const FOCUS = true;
+// --repost writes too-much-energy-repost.json (reach playbook, 4 Nov 2026: repost the best finishers with a new hook and
+// new music): no burned-in hook caption (Jonny types the title in TikTok's text tool), the whole frame sharp (Jonny,
+// 4 Nov: no depth of field), a phone-friendly disco bed instead of the chip one, and a new last beat: Phoenix rises
+// back up into the glowing window, reborn from his own ash, and the tired eye snaps open. Team Phoenix or Team Reaper
+// is the comment trigger, and the last frame leads back into frame 0 (Phoenix at the window).
+const REPOST = process.argv.includes("--repost");
+const FOCUS = !REPOST;
 const FACES = "strong";
 
 const c = clip({ faces: FACES }), { A, sfx, cap } = c;
-const END = 9.0;
+const SHOWN = 9.0, END = REPOST ? 9.7 : SHOWN;
 
 // ---------------------------------------------------------------- places
 const BED = E.bed, WZ = E.wallZ, WIN_X = (E.win.x0 + E.win.x1) / 2;
@@ -62,7 +68,7 @@ const BROOM0 = { x: 0.42, z: -1.95, tilt: -12 };                   // leaning on
 const PAN0 = [0.68, -1.72];                                        // on the floor beside it
 
 // mattress grip points for Phoenix's hands (the mattress's own frame: x across from the hinge, z along the bed)
-const EDGE = (dz) => [r3(M.w + 0.035), 0.07, r3(-0.75 - BED[1] + dz)];   // toward the foot: a hand-width between their heads
+const EDGE = (dz) => [r3(M.w + 0.035), REPOST ? 0.12 : 0.07, r3(-0.75 - BED[1] + dz)];   // repost: the sheet gloves sat in the bed frame at 0.07   // toward the foot: a hand-width between their heads
 
 const cast = [
   { id: "rea", character: "lookdev/reaper-crisp", at: BED, face: "camera", expr: "serene", follow: 0.3, seed: 3.3 },
@@ -284,8 +290,30 @@ c.prop(8.62, "glow", { glow: 0.95 }, 0.22, "out");
 sfx(8.72, "sizzle", { gain: 0.22 });
 A(8.74, "rea", "face", { lidR: 0.35, dur: 0.12 }); A(8.74, "rea", "look", { to: [0.6, 0.1], dur: 0.12, blink: false });   // one tired eye: here we go again
 
+// ---------------------------------------------------------------- 9 (repost) HE'S BACK 9.0-9.7: up into the window
+// below the sill outside (the wall hides him), then up into the empty frame, wings wide, grinning; the glow is his
+const T9 = SHOWN;
+if (REPOST) {
+  A(T9 - 0.05, "phx", "fly", { to: { x: OUT[0], y: -0.25, z: OUT[2] }, dur: 0.01 });
+  A(T9 - 0.05, "phx", "turn", { to: "camera", dur: 0 });
+  A(T9 - 0.05, "phx", "grow", { to: 1, dur: 0.01 });
+  A(T9 - 0.05, "phx", "face", { lid: 0, dur: 0 });
+  A(T9 - 0.05, "phx", "expr", { expr: "eager", dur: 0 });
+  A(T9 - 0.04, "phx", "show");
+  A(T9, "phx", "fly", { to: { x: OUT[0], y: OUT[1] + 0.05, z: OUT[2] }, dur: 0.3, ease: "out" });
+  A(T9 + 0.1, "phx", "wings", { to: 1, dur: 0.15, ease: "out" });
+  A(T9 + 0.1, "phx", "span", { to: 0.75, dur: 0.2 });
+  A(T9 + 0.3, "phx", "squash", { amount: 0.12, dur: 0.18 });
+  A(T9 + 0.3, "phx", "look", { to: [-0.3, -0.1], dur: 0.1, blink: false });
+  sfx(T9 + 0.1, "ai/flare", { gain: 0.7 });
+  A(T9 + 0.32, "phx", "talk", { line: "again!", dur: 0.35, tone: "excited" });
+  A(T9 + 0.12, "rea", "face", { lidR: 0, lidL: 0.2, dur: 0.08 });   // both eyes snap open
+  A(T9 + 0.12, "rea", "look", { to: [0.6, 0.1], dur: 0.08, blink: false });
+  A(T9 + 0.2, "rea", "expr", { expr: "annoyed", dur: 0.2 });
+}
+
 // the hook caption (Jonny's rule: on screen from frame 0)
-cap(0, 2.6, "that one friend with too much energy", 250, false, { kinetic: false });
+if (!REPOST) cap(0, 2.6, "that one friend with too much energy", 250, false, { kinetic: false });
 // Phoenix's gibberish in plain words (Jonny, 31 Oct: every gibberish line gets a subtitle), one line, low in the safe zone
 const SUB = 1240, sub = (from, to, text) => cap(from, to, text, SUB, false, { kinetic: false, size: 62 });
 sub(0, 1.1, "WAKE UP!");
@@ -293,6 +321,7 @@ sub(1.18, 2.05, "it's MORNING!");
 sub(2.1, 2.9, "wheee! boing!");
 sub(3.0, 3.95, "look! LOOK!");
 sub(4.3, T_OUT + 0.1, "again! ag—");
+if (REPOST) sub(T9 + 0.3, END, "AGAIN!");
 
 // ---------------------------------------------------------------- shots
 const MASTER = frame([0.0, 0.92, -1.45], { az: -12, el: 10, h: 3.6, fov: 34 });
@@ -310,21 +339,22 @@ const beats = c.beats([
   ["sweep", T_SW, SWEEP],
   ["outside", 6.64, WINDOW],
   ["again", 7.6, MASTER, "reaction"],
+  ...(REPOST ? [["he's back", T9, "keep"]] : []),
 ], END);
 
 write(import.meta.url, {
-  id: "too-much-energy",
+  id: REPOST ? "too-much-energy-repost" : "too-much-energy",
   title: "Too Much Energy",
   cover: 3.5,
   idea: "Friend comedies 23 (Jonny's brief 30 Oct 2026): 6 AM, Phoenix crashes in with too much energy and burns out into ash; Reaper sweeps him out of the window and goes back to sleep; the window glows again",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   motionBlur: false,   // Jonny 31 Oct: blur read as soft focus; at 30 fps it smeared Reaper's face on his hops
-  castLook: "golden",
+  castLook: REPOST ? "sheet" : "golden",   // repost: the cast's new look (sheet faces, skin, costumes, hatching; Jonny 4 Nov)
   set: { type: "energyroom", night: true, seed: 6, aperture: FOCUS ? 0.03 : 0, ...(FOCUS && { focus: "acting" }) },
   // a bright, busy bed for Phoenix's energy, cut dead at the burnout (the brief's silence)
-  music: { style: "chip", seed: 23, gain: 0.32, until: T_OUT, dip: false },
+  music: REPOST ? { style: "disco", phone: true, gain: 0.32, until: T_OUT, dip: false } : { style: "chip", seed: 23, gain: 0.32, until: T_OUT, dip: false },
   sound: { sfx: 0.7, ambience: 0.15, speech: false, signature: false, surface: "wood" },
-  creative: { length: [9, 9] },
+  creative: { length: [END, END] },
   hook: { show: ["rea", "phx", "clock"], hint: 0, what: "6 AM: Phoenix slams into the window beside sleeping Reaper" },
   cast, props, captions: c.captions, beats,
   allowClip: [
@@ -333,6 +363,8 @@ write(import.meta.url, {
     { who: "rea", with: "frame", from: 7.6, to: END, reason: "Reaper gets back into bed" },
     { who: "rea", with: "mat", from: 7.6, to: END, reason: "Reaper gets back into bed under the blanket" },
     { who: "phx", with: "mat", from: 2.84, to: 3.9, reason: "Phoenix's hands are on the mattress's edge while he tips it up" },
+    ...(REPOST ? [{ who: "phx", with: "glow", from: 0, to: 1.1, reason: "the orange glow outside the window is a light card, not a surface: his gloves pass through light" }] : []),
+    ...(REPOST ? [{ who: "phx", with: "curtR", from: 2.35, to: 2.55, reason: "the sheet costume's flame crest and wing brush the curtain's edge on the back-wall rebound: that is what sets it alight" }] : []),
   ],
   notes: "Generated by storyboards/friend-comedies/23-too-much-energy/make-too-much-energy.mjs.",
 });

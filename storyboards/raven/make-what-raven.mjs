@@ -34,7 +34,13 @@ const c = clip(), { A, sfx } = c;
 // sneeze still real (it isn't a word), the same English subtitles, music and timing
 const GIB = process.argv.includes("--gibberish");
 const words = GIB ? { voice: false } : {};
-const END = 10.6;
+// --repost writes what-raven-repost.json (reach playbook, 4 Nov 2026: repost the best finishers with a new hook and new
+// music). No burned-in hook caption (Jonny types the title with TikTok's text tool when he posts), the caw is loud on
+// frame 0, a phone-friendly funk bed instead of the sneaky one, and a new last beat: a FOURTH beak pokes out of the
+// hood where the first one did, while Odin is still counting. The gap is never explained (how many are in there?),
+// which is the comment trigger, and the last frame leads back into frame 0's beak.
+const REPOST = process.argv.includes("--repost");
+const SHOWN = 10.6, END = REPOST ? 11.5 : SHOWN;
 
 // ---------------------------------------------------------------- places
 const CHAIR = [0.2, 0];
@@ -65,6 +71,7 @@ const props = [
   { id: "r1", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },   // the peeker (later the hood one)
   { id: "r2", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
   { id: "r3", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 },
+  ...(REPOST ? [{ id: "r4", kind: "raven", x: INSIDE[0], y: INSIDE[1], z: INSIDE[2], scale: 0 }] : []),   // the one still in there
   { id: "feather", kind: "ravenfeather", x: 0.3, y: 1.5, z: 0.47, scale: 1.25 },
 ];
 
@@ -96,13 +103,13 @@ c.prop(0.03, "r1", { flap: 1 }, 0.05); c.prop(0.14, "r1", { flap: 0 }, 0.06);   
 c.prop(0.12, "r1", { peck: 1 }, 0.06); c.prop(0.18, "r1", { peck: 0 }, 0.08);
 look(0, "rea", R_UP, 0.01);
 A(0, "rea", "expr", { expr: "kind", set: { curve: 0.1, eye: 1.12 }, dur: 0.01 });
-c.cap(0, 1.2, "When you borrowed\nOdin's raven", 250, false, { kinetic: false });   // the analytics read (29 Oct evening): a relatable "When..." line
+if (!REPOST) c.cap(0, 1.2, "When you borrowed\nOdin's raven", 250, false, { kinetic: false });   // the analytics read (29 Oct evening): a relatable "When..." line
 // his own right hand comes up and pushes the beak back under the hood
 c.arm(0.34, "rea", "R", { x: [-0.13, 0.78, 0.42], palm: [-0.05, 0.78, 0.22] }, 0.16, "out");
 A(0.34, "rea", "grip", { side: "R", shape: "flat", dur: 0.12 });
 c.prop(0.5, "r1", { x: INSIDE[0], y: INSIDE[1], z: INSIDE[2] }, 0.12, "in");
 sfx(0.5, "cloth", { gain: 0.5, reason: "the raven shoved back under the hood (on screen)" });
-sfx(0.04, "ai/raven-caw", { gain: 0.3, reason: "the peeking raven (on screen at the hood edge)" });
+sfx(0.04, "ai/raven-caw", { gain: REPOST ? 0.55 : 0.3, reason: "the peeking raven (on screen at the hood edge)" });
 c.arm(0.56, "rea", "R", { x: [-0.24, 0.22, 0.34] }, 0.3, "inOut"); A(0.58, "rea", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 c.prop(0.57, "r1", { scale: 0 }, 0.01);                // out of sight inside the hood
 look(0.5, "rea", R_AHEAD, 0.12);
@@ -178,8 +185,9 @@ A(CHOO + 0.12, "rea", "pitch", { to: 0, dur: 0.35, ease: "settle" });
 A(CHOO - 0.03, "rea", "squash", { amount: 0.08, dur: 0.1 });
 A(CHOO - 0.03, "rea", "face", { lid: 1, dur: 0.06 });
 A(CHOO - 0.03, "rea", "expr", { expr: "kind", set: { open: 0.65, curve: -0.45 }, dur: 0.06 });
-A(CHOO + 0.35, "rea", "face", { lid: 0, brow: 0, dur: 0.15 });
-A(CHOO + 0.35, "rea", "expr", { expr: "shocked", set: { tilt: 0.5, curve: -0.5, open: 0.3, eye: 1.2, pupil: 0.6 }, dur: 0.2 });   // caught: wide eyes (not a happy face)
+// repost: the eyes snap open (the sheet face's half-open lid under a lowered brow read as a one-frame glare at 6.33 s)
+A(CHOO + 0.35, "rea", "face", { lid: 0, brow: 0, dur: REPOST ? 0.06 : 0.15 });
+A(CHOO + 0.35, "rea", "expr", { expr: "shocked", set: { tilt: 0.5, curve: -0.5, open: 0.3, eye: 1.2, pupil: 0.6 }, dur: REPOST ? 0.08 : 0.2 });   // caught: wide eyes (not a happy face)
 c.prop(CHOO, "feather", { scale: 0 }, 0.01);           // blown off in the puff
 c.at(CHOO, { fx: "shake", amp: 0.05, dur: 0.35 });
 sfx(CHOO, "poof", { gain: 0.5, reason: "the sneeze's puff of air as the birds burst out (on screen)" });
@@ -243,6 +251,26 @@ A(T8 + 0.1, "odin", "expr", { expr: "deadpan", set: { curve: -0.1 }, dur: 0.3 })
 A(T8 + 0.1, "odin", "face", { lid: 0.2, dur: 0.3 });
 A(T8 + 0.2, "odin", "still", { dur: 1.7, idle: 0.04 });
 
+// ---------------------------------------------------------------- 9 (repost) ONE MORE 10.6-11.5: a fourth beak
+// the same spot and the same moves as frame 0's beak; Odin's eyes go from Reaper to the hood, his brows up; Reaper's
+// eyes roll up to it, the deadpan cracks into a stiff smile. Nobody explains it.
+const T9 = SHOWN;
+if (REPOST) {
+  A(T9, "rea", "still", { dur: END - T9, idle: 0.03 }); A(T9, "odin", "still", { dur: END - T9, idle: 0.04 });
+  c.prop(T9 + 0.12, "r4", { scale: RAVEN, x: 0.09, y: 1.16, z: 0.22, rot: 0, tip: 35 }, 0.01);
+  c.prop(T9 + 0.13, "r4", { y: 1.22 }, 0.14, "out");
+  c.prop(T9 + 0.15, "r4", { flap: 1 }, 0.05); c.prop(T9 + 0.26, "r4", { flap: 0 }, 0.06);
+  c.prop(T9 + 0.36, "r4", { peck: 1 }, 0.06); c.prop(T9 + 0.42, "r4", { peck: 0 }, 0.08);
+  sfx(T9 + 0.15, "ai/raven-caw", { gain: 0.45, reason: "the fourth raven peeking out of the hood (on screen)" });
+  sfx(T9 + 0.14, "cloth", { gain: 0.4, reason: "the hood cloth as the beak pushes out (on screen)" });
+  look(T9 + 0.3, "rea", R_UP, 0.25);
+  A(T9 + 0.3, "rea", "face", { lid: 0, dur: 0.15 });
+  A(T9 + 0.32, "rea", "expr", { expr: "kind", set: { curve: 0.55, smirk: 0, open: 0, eye: 1.15 }, dur: 0.2 });   // the stiff smile from the bulge
+  act.eyesLead(c, T9 + 0.22, "odin", O_AT_HOOD);
+  A(T9 + 0.3, "odin", "face", { lid: 0, dur: 0.15 });
+  A(T9 + 0.3, "odin", "expr", { expr: "stern", set: { raise: 0.1 }, dur: 0.2 });
+}
+
 // ---------------------------------------------------------------- shots
 const SHOTS = {
   beak: { pos: [-0.3, 1.25, 3.2], look: [-0.28, 1.08, 0.45], fov: 48 },   // frame 0: a two-shot, Odin striding in at the left edge
@@ -266,18 +294,20 @@ const beats = c.beats([
   ["count", T7, SHOTS.count],
   ["what ravens", T8, SHOTS.denial, "reaction"],
   ["odin stares", 9.8, SHOTS.stare],
+  ...(REPOST ? [["one more", T9, SHOTS.count]] : []),   // both faces, the perched birds and the hood edge
 ], END);
 
 const inHood = (id, from, to, why) => ({ who: "rea", with: id, from, to, reason: `${id} ${why} (a bird inside Reaper's hood: the body hides it)` });
 write(import.meta.url, {
-  id: GIB ? "what-raven-gibberish" : "what-raven",
+  id: REPOST ? "what-raven-repost" : GIB ? "what-raven-gibberish" : "what-raven",
   ...(GIB && { seed: "what-raven" }),   // the same music as the English cut
   title: "What Raven?",
   idea: "Eight trend tests #04 (hidden-in-plain-sight 'What iPad?' format): Reaper denies hiding Odin's raven until a sneeze blows three out of his hood",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
+  ...(REPOST && { castLook: "sheet" }),   // the cast's new look (sheet faces, skin, costumes, hatching; Jonny 4 Nov)
   set: { type: "plain", color: "#e9c9a0", floor: "#b98256", light: "golden",
     plate: { src: "assets/plates/livingroom-golden.png", z: -2.4, center: [0, 1.4], height: 5.6, relief: 0.6 } },
-  music: { style: "sneaky", bpm: 110 },   // from 0:00 at full level (analytics read, 29 Oct evening); the engine drops a beat before the payoff
+  music: REPOST ? { style: "funk", phone: true } : { style: "sneaky", bpm: 110 },   // repost: new music, cut for phone speakers   // from 0:00 at full level (analytics read, 29 Oct evening); the engine drops a beat before the payoff
   sound: { sfx: 0.7, ambience: 0.3, surface: "wood", signature: false },
   hook: { show: ["rea", "r1"], hint: 0, what: "a raven's beak pokes out of Reaper's hood and he shoves it back in" },
   cast, props, captions: c.captions, beats,
@@ -291,6 +321,7 @@ write(import.meta.url, {
     inHood("r2", CHOO, CHOO + 0.25, "bursts out of the hood opening"),
     inHood("r3", CHOO, CHOO + 0.35, "bursts out of the hood opening"),
     { who: "rea", with: "feather", from: 4.7, to: CHOO, reason: "the feather rests across his face (it landed there)" },
+    ...(REPOST ? [inHood("r4", T9, END, "peeks out of the hood's top edge, like the first one")] : []),
     { who: "rea", with: "r1", from: LAND_R1 - 0.1, to: END, reason: "the raven perches on top of his hood (its feet on the cloth) and taps his head" },
   ],
   notes: "Generated by storyboards/raven/make-what-raven.mjs. Brief: Jonny's eight trend tests pack, 04-what-raven.",
