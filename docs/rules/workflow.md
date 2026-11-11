@@ -211,6 +211,16 @@ Three rig facts that cost Share or Steal EP01 about 20 check rounds (10 Nov), ea
   beat by an odd number of frames changes which frames are drawn after it, and a passage that was clean can pick up
   slides. Retime in steps of 2 frames (0.067 s), and hide a sit or a step-out behind a cut instead of tuning it.
 
+Four more from Share or Steal EP02 (11 Nov), each measured in a layout:
+- A hand that leaves a lap beside a table goes through the table's edge on a straight line. Send it over the edge
+  first: a `{ world: [...] }` point 18 cm above the top, beside the face (never between face and camera), first leg
+  ease "in", second leg "linear". "in" into "out" puts 20-40 cm into one drawing at the join.
+- An arm pose change scheduled on a cut turned the palm 62-75 degrees four frames before the cut, still in the old
+  shot. Keep the pose through the cut and change it half a second later, or not at all.
+- A still at a rounded time is not the video's frame: 4.267 s is after frame 128 (4.2667 s). A prop swap two
+  hundredths before a cut showed for one frame in the outgoing shot. Judge cut frames on the render's `--cuts` sheet.
+- A seated character follows a moving chair with `ride` (`prop`, `off: [0, 0.3, 0.03]`); `drop` falls on its own curve.
+
 `qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
 than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
 with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
