@@ -1,0 +1,925 @@
+{
+ "id": "twist-props",
+ "title": "Twist props bench",
+ "idea": "Props bench for There's a catch EP04 (flip-digit price board, wheelbarrow, diner sign), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#cfdde8",
+  "floor": "#8a8274"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "gun",
+   "wb0"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "gun",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    33.85,
+    0
+   ],
+   "face": 90,
+   "expr": "eager",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "b0",
+   "kind": "flipboard",
+   "x": -49,
+   "y": 1.7,
+   "z": 0,
+   "stage": 0
+  },
+  {
+   "id": "b1",
+   "kind": "flipboard",
+   "x": -42,
+   "y": 1.7,
+   "z": 0,
+   "stage": 1
+  },
+  {
+   "id": "b2",
+   "kind": "flipboard",
+   "x": -35,
+   "y": 1.7,
+   "z": 0,
+   "stage": 2
+  },
+  {
+   "id": "b3",
+   "kind": "flipboard",
+   "x": -28,
+   "y": 1.7,
+   "z": 0,
+   "stage": 3
+  },
+  {
+   "id": "b4",
+   "kind": "flipboard",
+   "x": -21,
+   "y": 1.7,
+   "z": 0,
+   "stage": 4
+  },
+  {
+   "id": "b5",
+   "kind": "flipboard",
+   "x": -14,
+   "y": 1.7,
+   "z": 0,
+   "stage": 5,
+   "clock": 0.31
+  },
+  {
+   "id": "b6",
+   "kind": "flipboard",
+   "x": -7,
+   "y": 1.7,
+   "z": 0,
+   "stage": 0.45
+  },
+  {
+   "id": "b7",
+   "kind": "flipboard",
+   "x": 0,
+   "y": 1.7,
+   "z": 0,
+   "stage": 2.5
+  },
+  {
+   "id": "b8",
+   "kind": "flipboard",
+   "x": 7,
+   "y": 1.7,
+   "z": 0,
+   "stage": 3.55
+  },
+  {
+   "id": "b9",
+   "kind": "flipboard",
+   "x": 14,
+   "y": 1.7,
+   "z": 0,
+   "stage": 5,
+   "blow": 0.3,
+   "clock": 0.31
+  },
+  {
+   "id": "b10",
+   "kind": "flipboard",
+   "x": 21,
+   "y": 1.7,
+   "z": 0,
+   "stage": 5,
+   "blow": 0.7,
+   "clock": 0.31
+  },
+  {
+   "id": "b11",
+   "kind": "flipboard",
+   "x": 28,
+   "y": 1.7,
+   "z": 0,
+   "stage": 5,
+   "blow": 1
+  },
+  {
+   "id": "wb0",
+   "kind": "wheelbarrow",
+   "x": 35,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "load": 1
+  },
+  {
+   "id": "wb14",
+   "kind": "wheelbarrow",
+   "x": 42,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "load": 1,
+   "dump": 0.5
+  },
+  {
+   "id": "box14",
+   "kind": "coffeetable",
+   "x": 43.5,
+   "z": 0.1,
+   "h": 0.38,
+   "w": 0.5,
+   "d": 0.5
+  },
+  {
+   "id": "wb15",
+   "kind": "wheelbarrow",
+   "x": 49,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "load": 1,
+   "dump": 1
+  },
+  {
+   "id": "box15",
+   "kind": "coffeetable",
+   "x": 50.5,
+   "z": 0.1,
+   "h": 0.38,
+   "w": 0.5,
+   "d": 0.5
+  },
+  {
+   "id": "wb16",
+   "kind": "wheelbarrow",
+   "x": 56,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "load": 0
+  },
+  {
+   "id": "sg17",
+   "kind": "dinersign",
+   "x": 63,
+   "y": 2.55,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "sg18",
+   "kind": "dinersign",
+   "x": 70,
+   "y": 2.55,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "sg19",
+   "kind": "dinersign",
+   "x": 77,
+   "y": 2.55,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "sg20",
+   "kind": "dinersign",
+   "x": 84,
+   "y": 2.55,
+   "z": 0,
+   "lit": 0,
+   "snow": true
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "flipboard: stage 0 (4.50)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "flipboard: stage 1 (450.00)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "flipboard: stage 2 (45,000.00)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "flipboard: stage 3 (4,500,000.00)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "flipboard: stage 4 (4,500,000,000)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "text": "flipboard: stage 5 (flipping, rattling)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "flipboard: stage 0.45 (flaps mid-fall)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "flipboard: stage 2.5 (flaps mid-fall)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "flipboard: stage 3.55 (flaps mid-fall)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "flipboard: blow 0.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "flipboard: blow 0.7",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "flipboard: blow 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "wheelbarrow: load 1, Gunslinger's gloves on both handles",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "wheelbarrow: dump 0.5 beside a 0.38 m box",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "wheelbarrow: dump 1 beside a 0.38 m box",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 17,
+   "text": "wheelbarrow: load 0",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17,
+   "to": 18,
+   "text": "dinersign: flip 0 (milkshake)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 18,
+   "to": 19,
+   "text": "dinersign: flip 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 19,
+   "to": 20,
+   "text": "dinersign: flip 1 (the hat)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "dinersign: lit 0, snow",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "board0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -49,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -49,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "gun",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wb0",
+      "grip": [
+       -0.662,
+       0.486,
+       0.207
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wb0",
+      "grip": [
+       -0.662,
+       0.486,
+       -0.207
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "wb0",
+     "hand": "R",
+     "grip": [
+      -0.662,
+      0.486,
+      0.207
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "gun",
+     "do": "grab",
+     "prop": "wb0",
+     "hand": "L",
+     "grip": [
+      -0.662,
+      0.486,
+      -0.207
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sg17",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sg18",
+     "set": {
+      "flip": 0.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sg19",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sg20",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "board1",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -42,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -42,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board2",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -35,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board3",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -28,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board4",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -21,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -21,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board5",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -14,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board6",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     1.65,
+     3.9
+    ],
+    "look": [
+     -7,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board7",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.65,
+     3.9
+    ],
+    "look": [
+     0,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board8",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7,
+     1.65,
+     3.9
+    ],
+    "look": [
+     7,
+     1.65,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "board9",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     14,
+     1.3,
+     5.8
+    ],
+    "look": [
+     14,
+     1,
+     0.7
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "board10",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     21,
+     1.3,
+     5.8
+    ],
+    "look": [
+     21,
+     1,
+     0.7
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "board11",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     28,
+     1.3,
+     5.8
+    ],
+    "look": [
+     28,
+     1,
+     0.7
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "barrow-hands",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     34.65,
+     0.85,
+     5
+    ],
+    "look": [
+     34.65,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "barrow-hands-top",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     32.5,
+     1.4,
+     1.9
+    ],
+    "look": [
+     34.3,
+     0.5,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "barrow14",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42.5,
+     0.95,
+     4.6
+    ],
+    "look": [
+     42.5,
+     0.5,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "barrow15",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     49.5,
+     0.95,
+     4.6
+    ],
+    "look": [
+     49.5,
+     0.5,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "barrow16",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     56.5,
+     0.95,
+     4.6
+    ],
+    "look": [
+     56.5,
+     0.5,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "sign17",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     63,
+     2.45,
+     3.5
+    ],
+    "look": [
+     63,
+     2.45,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "sign18",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     70,
+     2.45,
+     3.5
+    ],
+    "look": [
+     70,
+     2.45,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "sign19",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     77,
+     2.45,
+     3.5
+    ],
+    "look": [
+     77,
+     2.45,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "sign20",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     84,
+     2.45,
+     3.5
+    ],
+    "look": [
+     84,
+     2.45,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/04-copy-money/bench/make-twist-props.mjs (props bench, no reviews)."
+}
