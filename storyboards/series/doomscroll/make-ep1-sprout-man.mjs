@@ -101,11 +101,12 @@ const STAFF0 = { x: 1.95, y: 0.0, z: 0.95, rot: 0, tilt: -14, tip: 0 };
 const props = [
   { id: "log", kind: "firelog", x: LOG.x, z: LOG.z, rot: 0, len: LOG.len, r: LOG.r },
   { id: "fire", kind: "campfire", x: FIRE[0], z: FIRE[1], lit: 1, r: 0.3 },
-  { id: "sm", kind: "sproutman", x: SM_0.x, y: 0, z: SM_0.z, rot: SM_0.rot, scale: SM_0.scale, seed: 5, ...(S && { shadow: 0.94, eyes: 0 }) },
+  { id: "sm", kind: "sproutman", x: SM_0.x, y: 0, z: SM_0.z, rot: SM_0.rot, scale: SM_0.scale, seed: 5, ...(S && { shadow: 0.94, eyes: 1 }) },
   ...(HOR ? [{ id: "tree", kind: "pinetrunk", x: TREE.x, z: TREE.z, h: TREE.h, r: TREE.r, crown: 0.75, seed: 3 }] : []),
-  { id: "phone", kind: "phone", x: S_SPD, y: 0.9, z: LOG.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 1.5, halo: 0.42 },
-  { id: "staff", kind: "parkedstaff", ...STAFF0 },
-  { id: "frame", kind: "selfieframe", x: 0, y: 0, z: 0, scale: 0, w: 0.36, h: 0.62 },
+  { id: "phone", kind: "phone", x: S_SPD, y: 0.9, z: LOG.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 1.5, halo: 0.42,
+    ...(HOR && { staged: "Spud holds it; from the drop on Sprout Man holds it between two sprout tips, and a prop has no hand the engine knows as a holder" }) },
+  { id: "staff", kind: "parkedstaff", ...STAFF0, ...(HOR && { staged: "it leans on the log, then the Wizard holds it up (the staff-less Wizard has no grip for it, so it is staged at his hand)" }) },
+  { id: "frame", kind: "selfieframe", x: 0, y: 0, z: 0, scale: 0, w: 0.36, h: 0.62, ...(HOR && { staged: "the phone's own camera screen, an overlay in front of the lens for the selfie shot, not an object in the world" }) },
 ];
 // cut B: the storm. Rain between us and them, two bolts far behind the trees (one more for the phone at the end)
 const OFF = 0.0001;
@@ -156,7 +157,7 @@ if (HOR) {
   sweat(o(0.5), "vik"); sweat(o(1.3), "wiz");
   station(o(0), SM_PEEK, { headR: 0, headP: 6 });
   sm(o(0.3), { x: TREE.x - TREE_R - (X ? 0.22 : 0.1), headR: -14 }, 1.9, "inOut");           // he leans out a little further to look at them
-  if (S) sm(o(0.9), { eyes: 1 }, 0.5, "out");                                           // two slits open in the dark
+  // S: his two slits glow from frame 0 (opener rule 1: frame 0 is already the trouble)
   // 02 (2.5-5.0): lightning. The pine stands alone. The fire gutters; they search the dark
   flash(o(2.45), "boltL", 0.75);
   sm(o(2.47), { scale: OFF }, 0.01);                                                    // gone inside the flash
@@ -268,18 +269,32 @@ if (X) { prop(7.0, "rain", { scale: OFF }, 0.01); prop(14.0, "rain", { scale: 1 
 for (const w of ["vik", "wiz"]) { A(7.0, w, "hat", { off: [0, 0, 0], spin: [0, 0, 0], dur: 0, quiet: true }); A(7.0, w, "expr", { expr: "terrified", dur: 0.01 }); A(7.0, w, "face", { lid: 1, dur: 0.01 }); }
 coilTo(7.0, "A", [UP.vik[0], UP.vik[1] + BODY, UP.vik[2]], 0.01); coilTo(7.0, "B", [UP.wiz[0], UP.wiz[1] + BODY, UP.wiz[2]], 0.01);
 const TOP = 0.95;                                                       // the hand holds Spud by the top of his sweater
-armTo(7.05, "R", [S_SPD, 0.3 + TOP, LOG.z], 0.25, "out", { fanR: 0.2 });
-A(7.3, "spd", "stand", {});
-A(7.32, "spd", "fly", { to: { x: HANG.spd[0], y: HANG.spd[1], z: HANG.spd[2] }, dur: 0.55, ease: "inOut" });
-armTo(7.32, "R", [HANG.spd[0], HANG.spd[1] + TOP, HANG.spd[2]], 0.55, "inOut");
-A(7.4, "spd", "pitch", { to: 180, dur: 0.5 }); A(7.4, "spd", "turn", { to: 180, dur: 0.5 });   // pitch alone would show his back: with the half turn his face stays to us                          // upside down, still scrolling
+if (HOR) {
+  // cuts H and S: the flip is not shown. A half turn in half a second with both hands on the phone flips the hands
+  // inside one frame, and a hand flip on screen is never waived (workflow.md "Check windows"). The shot opens with him
+  // already upside down in the hand, rising the last 40 cm into place; he is the right way up again on the next cut
+  const LOW0 = [HANG.spd[0], HANG.spd[1] - 0.4, HANG.spd[2]], TL = 6.97;   // one frame before the cut at 7.0
+  A(TL - 0.03, "spd", "stand", {});
+  A(TL, "spd", "fly", { to: { x: LOW0[0], y: LOW0[1], z: LOW0[2] }, dur: 0.01 });
+  A(TL, "spd", "pitch", { to: 180, dur: 0.01 }); A(TL, "spd", "turn", { to: 180, dur: 0.01 });
+  A(7.0, "spd", "fly", { to: { x: HANG.spd[0], y: HANG.spd[1], z: HANG.spd[2] }, dur: 0.45, ease: "out" });
+  armTo(7.0, "R", [LOW0[0], LOW0[1] + TOP, LOW0[2]], 0.01, "inOut", { fanR: 0.2 });
+  armTo(7.01, "R", [HANG.spd[0], HANG.spd[1] + TOP, HANG.spd[2]], 0.45, "out");
+} else {
+  armTo(7.05, "R", [S_SPD, 0.3 + TOP, LOG.z], 0.25, "out", { fanR: 0.2 });
+  A(7.3, "spd", "stand", {});
+  A(7.32, "spd", "fly", { to: { x: HANG.spd[0], y: HANG.spd[1], z: HANG.spd[2] }, dur: 0.55, ease: "inOut" });
+  armTo(7.32, "R", [HANG.spd[0], HANG.spd[1] + TOP, HANG.spd[2]], 0.55, "inOut");
+  A(7.4, "spd", "pitch", { to: 180, dur: 0.5 }); A(7.4, "spd", "turn", { to: 180, dur: 0.5 });   // pitch alone would show his back: with the half turn his face stays to us                          // upside down, still scrolling
+}
 sfx(7.32, "whoosh", { gain: 0.5 });
 carry(7.6, "vik", "A", HANG.vik, 0.6, "out");
 carry(7.28, "wiz", "B", HANG.wiz, 0.6, "out");
 c.say(7.62, "wiz", "dont look!", 0.6, "whisper", { sub: "DON'T LOOK!", voice: false, pos: 520 });
 ramp(c, 8.3, 0.6, 0.35);                                                // slow motion on the hero picture (the cover)
 // he turns Spud the right way up and brings him to his blank face
-A(9.2, "spd", "pitch", { to: 0, dur: 0.5 }); A(9.2, "spd", "turn", { to: 0, dur: 0.5 });
+if (HOR) { A(9.97, "spd", "pitch", { to: 0, dur: 0.01 }); A(9.97, "spd", "turn", { to: 0, dur: 0.01 }); }   // on the cut to the jab
+else { A(9.2, "spd", "pitch", { to: 0, dur: 0.5 }); A(9.2, "spd", "turn", { to: 0, dur: 0.5 }); }
 if (!X) sm(9.2, { lean: 30, headP: 14 }, 0.6);
 see(7.9, 9.1, ["spd.face", "vik.face", "wiz.face", "sm", "phone"], "P05: Spud upside down, still scrolling; the friends wrapped, eyes shut");
 
@@ -296,19 +311,21 @@ A(10.9, "spd", "face", { lid: 0.3, dur: 0.6 });
 // cuts H and S (Jonny on the horror draft: "it should be just more clear that the filter is on the phone and the man
 // gets hooked by this. now it seem quite random"): the screen comes back on, and Spud says what the jab did
 if (HOR) {
-  prop(11.25, "phone", { glow: 0.9 }, 0.08); sfx(11.25, "click", { gain: 0.6, reason: "the phone's camera opens" });
-  c.say(11.3, "spd", "ugh. selfie mode.", 0.75, "calm", { sub: "ugh. selfie mode.", voice: false, pos: 1275 });
+  prop(11.05, "phone", { glow: 0.9 }, 0.08); sfx(11.05, "click", { gain: 0.6, reason: "the phone's camera opens" });
+  // the line ends before the cut to the selfie screen at 12.0 (a subtitle stays 0.8 s at least): in that shot Spud's face
+  // sits where the subtitle is
+  c.say(11.15, "spd", "ugh. selfie mode.", 0.4, "calm", { sub: "ugh. selfie mode.", voice: false, pos: S ? 1245 : 1275 });
 }
 see(10.1, 11.9, ["spd.face", "phone"], "P06: the jab, the black screen, his head starting to lift");
 
 // ---------------------------------------------------------------- 6 THE FACE 12.0-14.0 (P07): the selfie camera
-const SELFIE = { pos: [HANG.spd[0] + 0.4, r3(HANG.spd[1] + 1.12), 2.55], fov: 46 };
+const SELFIE = { pos: [HANG.spd[0] + 0.4, r3(HANG.spd[1] + (S ? 0.92 : 1.12)), 2.55], fov: 46 };   // S: 20 cm lower, so his small head sits above the filter row
 // B: for the selfie his blank head comes right up behind Spud and fills the screen
 const SM_SELF = { ...SM_BIG, scale: 3, x: HANG.spd[0] + 0.75, y: r3(SELFIE.pos[1] + 0.25 - 3 * HEAD_UP), z: -2.2, lean: 0 };
 if (X) station(12.0, SM_SELF, { headP: 6 });
 // S: he is small, so for the selfie he comes close behind Spud and a little up, head upright: the face fills the screen
 // above the filter row
-if (S) sm(12.0, { z: 0.5, y: 0.22, lean: 20, headP: 0, headR: 0 }, 0.01);
+if (S) sm(12.0, { z: 0.5, lean: 20, headP: 0, headR: 0 }, 0.01);
 prop(12.0, "frame", { x: SELFIE.pos[0], y: SELFIE.pos[1], z: SELFIE.pos[2] - 0.8, scale: 1 }, 0.01);
 prop(14.0, "frame", { scale: 0 }, 0.01);
 A(12.0, "spd", "pitch", { to: 0, dur: 0.01 });
@@ -333,7 +350,7 @@ see(12.4, 13.9, ["sm"], "P07: the puppy filter on the blank head");
 
 // ---------------------------------------------------------------- 7 THE DROP 14.0-16.0: both hands on the phone, so everyone falls
 const TAKEN = X ? [0.3, r3(HANG.spd[1] + 0.6), 0.5] : [0.05, 1.95, 0.75], INLAP = X ? [SM_SIT.x, 3.3, SM_SIT.z + 2.0] : [F_SM, 0.98, LOG.z + 0.5];
-if (X) station(14.0, { ...SM_FAR, lean: 14 }, { puppy: 0, headP: 32 }); else sm(14.0, { puppy: 0, lean: 14, headP: 32, ...(S && { y: 0, z: SM_BIG.z }) }, 0.01);
+if (X) station(14.0, { ...SM_FAR, lean: 14 }, { puppy: 0, headP: 32 }); else sm(14.0, { puppy: 0, lean: 14, headP: 32, ...(S && { z: SM_BIG.z }) }, 0.01);
 A(14.0, "spd", "release", { prop: "phone", hand: "both", dur: 0, to: TAKEN });
 prop(14.0, "phone", { rot: 180, tip: -20, glow: 0.9 }, 0.01);
 armTo(14.0, "L", [TAKEN[0] + 0.07, TAKEN[1], TAKEN[2]], 0.01, "inOut", { fanL: 0.5, fanR: 0.5 }); armTo(14.0, "R", [TAKEN[0] - 0.07, TAKEN[1], TAKEN[2]], 0.01);
@@ -400,7 +417,8 @@ const WIDE = X ? shot([-0.3, 1.0, 6.2], { tilt: 12, fov: 46 }) : shot([0.0, 1.5,
 const SHH = X ? shot([-0.55, 1.1, 5.0], { tilt: 11, fov: 46 }) : shot([-0.55, 1.62, 5.5], { fov: 46 });
 const HAND = shot([-0.95, 1.1, 4.2], { tilt: X ? 5 : 0, fov: 46 });
 const HERO = X ? shot([0.0, 5.2, 8.7], { tilt: 6, fov: 48 }) : shot([0.0, 1.7, 8.7], { tilt: 1, fov: 48 });
-const JAB = shot([HANG.spd[0] + 0.1, HANG.spd[1] + 0.55, 4.0], { tilt: HOR ? -4 : -3, fov: 36 });   // H, S: a degree lower, so his line fits under his feet inside the caption band
+const JAB = S ? shot([HANG.spd[0] + 0.1, HANG.spd[1] + 0.55, 4.9], { tilt: -5, fov: 36 })   // S: further back and lower, so his line fits under his feet inside the caption band (qa/camfit.mjs: pos 1230-1260)
+  : shot([HANG.spd[0] + 0.1, HANG.spd[1] + 0.55, 4.0], { tilt: H ? -4 : -3, fov: 36 });
 const SELF = shot(SELFIE.pos, { fov: SELFIE.fov });
 const DROP = X ? shot([0.0, 1.3, 7.6], { tilt: 12, fov: 46 }) : shot([0.0, 1.55, 8.4], { tilt: 2, fov: 46 });
 const LAST = X ? shot([-0.3, 1.5, 7.8], { tilt: 4, fov: 46 })   // the dawn painting looks up only 3 degrees
@@ -460,8 +478,9 @@ write(import.meta.url, {
     { who: "vik", with: "log", from: 17.4 + D, to: END + 1.5, reason: "Viking sits on the log" },
     { who: "wiz", with: "log", from: 17.4 + D, to: END + 1.5, reason: "the Wizard sits on the log" },
     ...["spd", "vik", "wiz"].map((who) => ({ who, with: "sm", from: 14.7 + D, to: END + 1.5, reason: "Sprout Man's box takes in his long arms and back sprouts, which reach out past the three; his body sits clear of them on the log" })),
+    ...(HOR ? [{ who: "spd", with: "sm", from: 7.0 + D, to: 10.0 + D + 1, reason: "contact the beat needs: his hand holds Spud up by the top of the sweater" }] : []),
     { who: "wiz", with: "staff", from: 16.7 + D, to: END + 1.5, reason: "the Wizard holds his staff (a prop staged at his hand)" },
-    { who: "spd", from: 7.3 + D, to: 8.0 + D, checks: ["face-covered", "hand-jump", "palm-turn", ...(X ? ["rig-jump", "motion"] : [])], reason: "he is flipped upside down in half a second with both hands on the phone" + (X ? "; in B he is also yanked six metres up above the clouds in that half second" : "") },
+    ...(HOR ? [] : [{ who: "spd", from: 7.3 + D, to: 8.0 + D, checks: ["face-covered", "hand-jump", "palm-turn", ...(X ? ["rig-jump", "motion"] : [])], reason: "he is flipped upside down in half a second with both hands on the phone" + (X ? "; in B he is also yanked six metres up above the clouds in that half second" : "") }]),
     ...(X ? ["spd", "vik", "wiz"].map((who) => ({ who, from: 14.7 + D, to: 15.45 + D, checks: ["rig-jump", "motion", "hand-jump"], reason: "B: the three fall six metres out of the sky in under half a second (meant to be fast)" })) : []),
   ],
   notes: "Generated by storyboards/series/doomscroll/make-ep1-sprout-man.mjs. Panels: /mnt/project-files/video-scripts/2026-11-11-doomscroll-to-survive/panels-01-sprout-man/. Title added in TikTok's text tool.",
