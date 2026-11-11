@@ -21,9 +21,9 @@ const props = [
 ];
 c.prop(0, "cS", { flip: 1 }, 0); c.prop(0, "cT", { flip: 1 }, 0);
 
-picrule(c, 0.3, 3.2, ["share", "share"], ["gold", "gold"], { x: 200, y: 300, w: 290 });
-picrule(c, 0.3, 3.2, ["steal", "share"], ["gold", "fire"], { x: 540, y: 300, w: 290 });
-picrule(c, 0.3, 3.2, ["steal", "steal"], ["fire", "fire"], { x: 880, y: 300, w: 290 });
+picrule(c, 0.3, 3.2, ["share", "share"], ["gold", "gold"], { x: 198, y: 300, w: 268 });
+picrule(c, 0.3, 3.2, ["steal", "share"], ["gold", "fire"], { x: 490, y: 300, w: 268 });
+picrule(c, 0.3, 3.2, ["steal", "steal"], ["fire", "fire"], { x: 782, y: 300, w: 268 });
 
 const end = 3.5;
 const beats = c.beats([["table", 0, { pos: [0, 1.3, 3.2], look: [0, 1.0, 0], fov: 45 }], ["fan", 2, { pos: [0, 1.0, 1.6], look: [0, 0.78, -0.1], fov: 30 }]], end);

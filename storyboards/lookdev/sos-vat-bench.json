@@ -60,6 +60,50 @@
    "seed": 2.1
   }
  ],
+ "allowClip": [
+  {
+   "who": "sam",
+   "with": "vat",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "sam",
+   "with": "liftL",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "sam",
+   "with": "chairL",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in sits in his chair for the whole bench"
+  },
+  {
+   "who": "rea",
+   "with": "vat",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "rea",
+   "with": "liftR",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in sits in his chair for the whole bench"
+  }
+ ],
  "props": [
   {
    "id": "studio",
