@@ -1,0 +1,266 @@
+{
+ "id": "sprout-bench",
+ "title": "Sprout Man bench",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#f3d9a4",
+  "floor": "#d9b27a",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "shade": "soft"
+ },
+ "drawn": {
+  "lines": {
+   "width": 5.4,
+   "pressure": 1.2,
+   "taper": 0.85,
+   "tint": 0.4
+  },
+  "brush": {
+   "glow": 0,
+   "wrap": 0.12,
+   "cool": 0.2
+  },
+  "paint": {
+   "edge": 0.35
+  },
+  "paper": {
+   "grain": 0.12,
+   "wash": 0.09,
+   "pool": 0.15
+  }
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   20
+  ],
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "c",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.95,
+    0
+   ],
+   "face": -15,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 1.3
+  }
+ ],
+ "beats": [
+  {
+   "name": "rest",
+   "at": 0,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {},
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "reach",
+   "at": 1,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "aLx": 1.056,
+      "aLy": 1,
+      "aLz": 1.042,
+      "aLk": 1,
+      "fanL": 1,
+      "wig": 1,
+      "lean": 12,
+      "headP": 15
+     },
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "crouch",
+   "at": 2,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "hipY": 0.6,
+      "hipZ": -0.25,
+      "lean": 38,
+      "headP": 20,
+      "aRx": 0.801,
+      "aRy": 0.75,
+      "aRz": 1.039,
+      "aRk": 1,
+      "fanR": 0,
+      "aLk": 0
+     },
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "grab",
+   "at": 3,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "hipY": 1.28,
+      "hipZ": 0,
+      "lean": 0,
+      "headP": 0,
+      "aRk": 0,
+      "aLk": 0,
+      "tAx": 1.111,
+      "tAy": 1.9,
+      "tAz": 0.543,
+      "tAk": 1
+     },
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "sit",
+   "at": 4,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "tAk": 0,
+      "hipY": 0.45,
+      "sit": 1,
+      "lean": 22,
+      "headP": 30,
+      "aLx": -0.065,
+      "aLy": 0.75,
+      "aLz": 0.548,
+      "aLk": 1,
+      "aRx": -0.183,
+      "aRy": 0.75,
+      "aRz": 0.523,
+      "aRk": 1,
+      "fanL": 0.6,
+      "fanR": 0.6
+     },
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "cross",
+   "at": 5,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "sit": 0,
+      "cross": 1,
+      "hipY": 0.14,
+      "lean": 25
+     },
+     "dur": 0.3
+    }
+   ]
+  },
+  {
+   "name": "puppy",
+   "at": 6,
+   "len": 1,
+   "do": [
+    {
+     "do": "prop",
+     "id": "sm",
+     "at": 0,
+     "set": {
+      "cross": 0,
+      "hipY": 1.28,
+      "lean": 5,
+      "aLk": 0,
+      "aRk": 0,
+      "puppy": 1,
+      "headP": 0
+     },
+     "dur": 0.3
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.2,
+    1.5,
+    8.2
+   ],
+   "look": [
+    0.2,
+    1.4,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 6,
+   "pos": [
+    -0.1,
+    2.5,
+    2.6
+   ],
+   "look": [
+    -0.25,
+    2.55,
+    0
+   ],
+   "fov": 30
+  }
+ ],
+ "props": [
+  {
+   "id": "sm",
+   "kind": "sproutman",
+   "x": -0.25,
+   "z": -0.3,
+   "rot": 12,
+   "scale": 1
+  }
+ ],
+ "duration": 7
+}
