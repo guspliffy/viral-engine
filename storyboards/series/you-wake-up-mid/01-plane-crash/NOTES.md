@@ -2,8 +2,8 @@
 
 ## Where the build stands
 
-- Step: WAITING FOR JONNY on the rough drafts A + B (sent 11 Nov ~13:40 Berlin; rendered with --force: contacts unpolished on purpose, rule 2; draft render = 6.5 min layout + 11 min frames per cut)
-- Next: send both drafts to Jonny -> his go -> ONE polish round (hands, feet, contacts, allowClip with reasons) -> checks -> one farm render per cut
+- Step: v3 ROUGH DRAFTS REJECTED by Jonny (11 Nov 13:57 Berlin): "more of an explainer and tends to be boring"; he wants panic, action, dangerous music, the plane actually falling (like Never Looks Up EP2), first second = POV with blinking eyes, then the character, then the plane, 10x more extreme, PANELS FIRST. Outline v4 (16 panels, two sheet prompts) sent 14:15: project files video-scripts/2026-11-11-you-wake-up-mid/01-mid-plane-crash-V4-10X-PANEL-PROMPT.md. WAITING for his sheets + go; no build before it.
+- Next (after his go): PANELS.md from his new sheets -> rebuild the generator to them. Reuse: cabinhall, enginefire, cabinsmoke, neckmask, jetwreck, evacslide, bridgeend, car shot; from EP2 (props-freefall.js): airliner, stormsky, cloudrush, rainstreaks, skybolt. New: torn-off tail on the cabin, POV eyelids (VOCAB `pov`, `blink`), cliff edge, a "danger" music style in puppet/beat.mjs (builder), short narrator lines re-recorded.
 - Renders so far: layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
 
