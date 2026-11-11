@@ -1,6 +1,6 @@
 {
  "id": "copy-money",
- "title": "He found the infinite money glitch. But there's a catch.",
+ "title": "You found the infinite money glitch. But there's a catch.",
  "idea": "There's a catch, episode 4: the friend who never has money can copy it: one coin, an armful of hundreds, every dollar in the city; then prices explode and a pile of his money burns just to keep him warm",
  "fps": 30,
  "look": "anime-pro",
@@ -625,7 +625,7 @@
   {
    "from": 9.12,
    "to": 10.62,
-   "text": "Every dollar in the city.",
+   "text": "Copy every dollar in the city.",
    "pos": 480,
    "pop": false,
    "kinetic": false
@@ -1136,7 +1136,7 @@
     },
     {
      "macro": "narrate",
-     "line": "He found the infinite money glitch. But there's a catch.",
+     "line": "You found the infinite money glitch. But there's a catch.",
      "voice": "narrator",
      "take": 2,
      "caption": false,
@@ -1905,7 +1905,7 @@
      "take": 1,
      "caption": false,
      "gain": 4,
-     "at": 0.7
+     "at": 0.65
     },
     {
      "who": "sam",
@@ -2009,7 +2009,7 @@
     },
     {
      "sfx": "tink",
-     "gain": 0.6,
+     "gain": 0.85,
      "reason": "the counter man bites the coin: it is real",
      "at": 1.28
     },
@@ -2613,9 +2613,9 @@
     },
     {
      "macro": "narrate",
-     "line": "Every debt he ever had.",
+     "line": "Pay every debt you ever had.",
      "voice": "narrator",
-     "take": 3,
+     "take": 2,
      "caption": false,
      "gain": 4,
      "at": 1.75
@@ -3352,7 +3352,7 @@
     },
     {
      "macro": "narrate",
-     "line": "Every dollar in the city.",
+     "line": "Copy every dollar in the city.",
      "voice": "narrator",
      "take": 1,
      "caption": false,
@@ -3728,7 +3728,7 @@
     },
     {
      "sfx": "slam",
-     "gain": 0.9,
+     "gain": 1.3,
      "loud": true,
      "reason": "the 10x: the brick of cash slapped on the counter",
      "at": 0.15
@@ -3742,15 +3742,6 @@
      "dur": 0.04,
      "ease": "out",
      "at": 0.15
-    },
-    {
-     "macro": "narrate",
-     "line": "Sounds perfect, right?",
-     "voice": "narrator",
-     "take": 3,
-     "caption": false,
-     "gain": 4,
-     "at": 0.17
     },
     {
      "who": "gsl",
@@ -3800,6 +3791,15 @@
      "at": 0.2
     },
     {
+     "macro": "narrate",
+     "line": "Sounds perfect, right?",
+     "voice": "narrator",
+     "take": 3,
+     "caption": false,
+     "gain": 4,
+     "at": 0.222
+    },
+    {
      "who": "sam",
      "do": "pitch",
      "to": 30,
@@ -3809,6 +3809,12 @@
     },
     {
      "who": "gsl",
+     "do": "still",
+     "dur": 0.9,
+     "at": 0.54
+    },
+    {
+     "who": "wiz",
      "do": "still",
      "dur": 0.9,
      "at": 0.54
@@ -3843,17 +3849,21 @@
      "do": "move",
      "to": [
       -1.7,
-      -1.8
+      -0.94
      ],
      "dur": 0.01,
      "steps": 0,
+     "ease": "linear",
+     "sync": true,
      "at": 0.58
     },
     {
      "who": "wiz",
      "do": "turn",
-     "to": 90,
+     "to": 75,
      "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
      "at": 0.58
     },
     {
@@ -3861,17 +3871,21 @@
      "do": "move",
      "to": [
       -1.7,
-      2.9
+      1.97
      ],
      "dur": 0.01,
      "steps": 0,
+     "ease": "linear",
+     "sync": true,
      "at": 0.58
     },
     {
      "who": "rea",
      "do": "turn",
-     "to": 90,
+     "to": 105,
      "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
      "at": 0.58
     },
     {
@@ -3958,13 +3972,6 @@
     },
     {
      "who": "wiz",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "at": 0.58
-    },
-    {
-     "who": "wiz",
      "do": "expr",
      "expr": "delighted",
      "set": {
@@ -3988,23 +3995,38 @@
     {
      "who": "wiz",
      "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0.58
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
      "at": 0.58
     },
     {
-     "who": "rea",
-     "do": "turn",
-     "to": 90,
+     "who": "wiz",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.8,
+       0.95,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
      "dur": 0.01,
      "at": 0.58
     },
@@ -4040,9 +4062,25 @@
     },
     {
      "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "rea",
      "do": "arm",
      "side": "R",
      "pose": "rest",
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
      "dur": 0.01,
      "at": 0.58
     }
@@ -4105,44 +4143,6 @@
      "at": 0.25
     },
     {
-     "who": "wiz",
-     "do": "move",
-     "to": [
-      -1.7,
-      -0.94
-     ],
-     "dur": 0.45,
-     "ease": "out",
-     "steps": 3,
-     "at": 0.3
-    },
-    {
-     "who": "wiz",
-     "do": "turn",
-     "to": 75,
-     "dur": 0.4,
-     "at": 0.3
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      -1.7,
-      1.97
-     ],
-     "dur": 0.45,
-     "ease": "out",
-     "steps": 3,
-     "at": 0.3
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": 105,
-     "dur": 0.4,
-     "at": 0.3
-    },
-    {
      "who": "gsl",
      "do": "expr",
      "expr": "delighted",
@@ -4196,6 +4196,17 @@
      "at": 0.45
     },
     {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
      "who": "gsl",
      "do": "grip",
      "side": "L",
@@ -4210,46 +4221,6 @@
      "shape": "open",
      "dur": 0.15,
      "at": 0.55
-    },
-    {
-     "who": "wiz",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.8,
-       0.95,
-       0.2
-      ]
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.75
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.81
-    },
-    {
-     "who": "wiz",
-     "do": "hop",
-     "count": 2,
-     "height": 0.12,
-     "dur": 0.6,
-     "at": 0.85
-    },
-    {
-     "who": "rea",
-     "do": "hop",
-     "count": 2,
-     "height": 0.12,
-     "dur": 0.6,
-     "at": 0.93
     },
     {
      "who": "sam",
@@ -5096,19 +5067,6 @@
      "at": 1.07
     },
     {
-     "do": "prop",
-     "id": "bundle",
-     "set": {
-      "x": 40.013,
-      "y": 0.85,
-      "z": 1.238,
-      "rot": 60
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.07
-    },
-    {
      "who": "gsl",
      "do": "move",
      "to": [
@@ -5232,7 +5190,7 @@
      "who": "gsl",
      "do": "grip",
      "side": "R",
-     "shape": "flat",
+     "shape": "open",
      "dur": 0.01,
      "at": 1.08
     },
@@ -5241,29 +5199,14 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "bundle",
-      "grip": [
-       0,
-       0.125,
-       0
+      "world": [
+       40.028,
+       0.62,
+       1.252
       ]
      },
      "dur": 0.01,
      "at": 1.08
-    },
-    {
-     "who": "gsl",
-     "do": "grab",
-     "prop": "bundle",
-     "hand": "R",
-     "grip": [
-      0,
-      0.125,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 1.092
     }
    ],
    "kind": "reaction"
@@ -5274,24 +5217,24 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     39.4,
+     39.7,
      0.65,
      7.7
     ],
     "look": [
-     39.3,
+     39.65,
      1.5,
      0.6
     ],
     "fov": 48,
     "to": {
      "pos": [
-      39.4,
+      39.7,
       0.65,
-      7.1
+      7.3
      ],
      "look": [
-      39.3,
+      39.65,
       1.5,
       0.6
      ],
@@ -5364,53 +5307,6 @@
      "at": 0.15
     },
     {
-     "who": "gsl",
-     "do": "release",
-     "prop": "bundle",
-     "dur": 0,
-     "at": 0.4
-    },
-    {
-     "do": "physics",
-     "prop": "bundle",
-     "mode": "throw",
-     "to": [
-      39.45,
-      0.95,
-      0.55
-     ],
-     "in": 0.3,
-     "spin": [
-      1,
-      0,
-      0.5
-     ],
-     "at": 0.4
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 0.43
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       40.028,
-       0.62,
-       1.252
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.45
-    },
-    {
      "do": "prop",
      "id": "front",
      "set": {
@@ -5456,18 +5352,8 @@
     {
      "sfx": "ai/flare",
      "gain": 0.5,
-     "reason": "another brick of banknotes flares up on the burning pile",
+     "reason": "a gust: the burning pile of banknotes flares up",
      "at": 0.68
-    },
-    {
-     "do": "prop",
-     "id": "bundle",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.04,
-     "ease": "linear",
-     "at": 0.7
     },
     {
      "do": "prop",
