@@ -41,7 +41,7 @@
    "id": "vikF",
    "character": "duo/viking",
    "at": [
-    -35.92,
+    -36.2,
     0
    ],
    "face": 0,
@@ -65,7 +65,7 @@
    "id": "reaF",
    "character": "never-has-money/reaper",
    "at": [
-    -34.08,
+    -33.8,
     0
    ],
    "face": 0,
@@ -77,7 +77,7 @@
    "id": "vik3",
    "character": "duo/viking",
    "at": [
-    -28.92,
+    -29.2,
     0
    ],
    "face": 36,
@@ -101,7 +101,7 @@
    "id": "rea3",
    "character": "never-has-money/reaper",
    "at": [
-    -27.08,
+    -26.8,
     0
    ],
    "face": 36,
@@ -113,7 +113,7 @@
    "id": "vikB",
    "character": "duo/viking",
    "at": [
-    -21.92,
+    -22.2,
     0
    ],
    "face": 180,
@@ -137,7 +137,7 @@
    "id": "reaB",
    "character": "never-has-money/reaper",
    "at": [
-    -20.08,
+    -19.8,
     0
    ],
    "face": 180,
@@ -149,7 +149,7 @@
    "id": "samF",
    "character": "duo/samurai",
    "at": [
-    -14.92,
+    -15.2,
     0
    ],
    "face": 0,
@@ -173,7 +173,7 @@
    "id": "draF",
    "character": "potatobrawl/dragon",
    "at": [
-    -13.08,
+    -12.8,
     0
    ],
    "face": 0,
@@ -185,7 +185,7 @@
    "id": "samS",
    "character": "duo/samurai",
    "at": [
-    -7.92,
+    -8.2,
     0
    ],
    "face": 90,
@@ -209,7 +209,7 @@
    "id": "draS",
    "character": "potatobrawl/dragon",
    "at": [
-    -6.08,
+    -5.8,
     0
    ],
    "face": 90,
@@ -467,6 +467,67 @@
    "z": 0
   }
  ],
+ "allowClip": [
+  {
+   "who": "samF",
+   "with": "cap-samF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godF",
+   "with": "cap-godF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "draF",
+   "with": "cap-draF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "samS",
+   "with": "cap-samS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godS",
+   "with": "cap-godS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "draS",
+   "with": "cap-draS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godW",
+   "with": "godW",
+   "from": 11.4,
+   "to": 13.4,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "seen from the front through the clear shield, his glove on the upper handle is at eye height: the bench shows where the handles sit"
+  },
+  {
+   "who": "godW",
+   "with": "shWorn",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the god stands behind his riot shield with both gloves on its handles; the bench shows exactly that"
+  }
+ ],
  "captions": [
   {
    "from": 0,
@@ -613,38 +674,6 @@
    "kinetic": false
   },
   {
-   "from": 18.4,
-   "to": 19.3,
-   "text": "close: Viking, shocked",
-   "pos": 240,
-   "pop": false,
-   "kinetic": false
-  },
-  {
-   "from": 19.4,
-   "to": 20.3,
-   "text": "close: Phoenix, angry",
-   "pos": 240,
-   "pop": false,
-   "kinetic": false
-  },
-  {
-   "from": 20.4,
-   "to": 21.3,
-   "text": "close: Reaper, shocked",
-   "pos": 240,
-   "pop": false,
-   "kinetic": false
-  },
-  {
-   "from": 21.4,
-   "to": 22.3,
-   "text": "close: Viking 3/4, angry",
-   "pos": 240,
-   "pop": false,
-   "kinetic": false
-  },
-  {
    "from": 22.4,
    "to": 23.3,
    "text": "close: Samurai's cap",
@@ -701,7 +730,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -910,7 +939,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -972,7 +1001,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -1034,7 +1063,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -1096,7 +1125,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -1158,7 +1187,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": [
     {
@@ -1220,7 +1249,7 @@
      0.75,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": []
   },
@@ -1239,7 +1268,7 @@
      0.52,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": []
   },
@@ -1258,7 +1287,7 @@
      0.52,
      0
     ],
-    "fov": 34
+    "fov": 40
    },
    "do": []
   },
@@ -1447,12 +1476,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -35.92,
+     -36.2,
      0.72,
      4.6
     ],
     "look": [
-     -35.92,
+     -36.2,
      0.72,
      0
     ],
@@ -1501,12 +1530,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -34.08,
+     -33.8,
      0.72,
      4.6
     ],
     "look": [
-     -34.08,
+     -33.8,
      0.72,
      0
     ],
@@ -1528,12 +1557,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -28.92,
+     -29.2,
      0.72,
      4.6
     ],
     "look": [
-     -28.92,
+     -29.2,
      0.72,
      0
     ],
@@ -1547,12 +1576,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -14.92,
+     -15.2,
      0.85,
      4.6
     ],
     "look": [
-     -14.92,
+     -15.2,
      0.85,
      0
     ],
@@ -1585,12 +1614,12 @@
    "len": 1,
    "shot": {
     "pos": [
-     -13.08,
+     -12.8,
      0.85,
      4.6
     ],
     "look": [
-     -13.08,
+     -12.8,
      0.85,
      0
     ],
