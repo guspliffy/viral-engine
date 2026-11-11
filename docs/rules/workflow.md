@@ -323,8 +323,8 @@ wasted work, and you prove it.
 
 5. Add one ledger row with one command (`node tools/ledger.mjs add ...`): length, new things, rule 8's five counts,
    check fails seen and unseen, steps, minutes from brief to delivery, machine minutes, director model and effort,
-   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. If the row needs counting by hand, the
-   counting script is the next fix.
+   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. The counts come from the thread's own
+   transcript: `node tools/ledger-count.mjs --from <time of the brief> --to <time of the delivery>` (under a second).
 6. Judge the fix on test against the comparison video. Count fell and score held: keep it. No drop after two videos:
    take it out again. Nothing stays on belief.
 7. Pick exactly one next fix. A fault that reached Jonny's eyes always goes first. Otherwise the largest of: the
