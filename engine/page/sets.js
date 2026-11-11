@@ -112,7 +112,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
   if (type === "plain") return plain(scene, spec);
-  if (type === "env") return buildEnv(scene, spec);   // set-env.js: a layered painted environment (assets/environments)
+  if (type === "env") return buildEnv(scene, spec, (g, room) => buildSetType(g, room, palette));   // set-env.js: a layered painted environment (assets/environments)
   return meadow(scene, spec, palette);
 }
 
@@ -131,6 +131,8 @@ function plain(scene, spec) {
     sh.rotation.x = -Math.PI / 2; sh.position.y = 0.001; sh.receiveShadow = true; sh.material.userData.noOutline = true; scene.add(sh);
     return;   // no sky dome: it would paint over the plate, which keeps out of the depth buffer
   }
+  // floor "none": the background colour and the sky dome only, no ground (Share or Steal's vat lies below y 0)
+  if (S.floor === "none") { scene.add(skyDome(S.color, S.color, S.color)); return; }
   scene.add(skyDome(S.color, S.color, S.floor));
   const ground = new THREE.Mesh(new THREE.CircleGeometry(60, 96), new THREE.MeshLambertMaterial({ color: S.floor }));
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; ground.material.userData.noOutline = true; scene.add(ground);

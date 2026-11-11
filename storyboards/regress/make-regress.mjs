@@ -169,6 +169,24 @@ for (const [id, title, dur, expect] of [
   });
 }
 
+// TWO CAPTIONS ON EACH OTHER: Fight, Flight or Freeze 01 (11 Nov 2026) had a shout's subtitle and the narrator's line
+// up together for 3 frames, 40 px apart; every check passed. Written as two plain captions it must fail
+// caption-collide; with the shout as a spoken line, c.say ends its subtitle where the narrator's caption starts
+{
+  const c = clip(), { A } = c;
+  A(0, "wiz", "noblink");
+  c.cap(0.5, 1.5, "COME OUT WITH YOUR HANDS UP!", 560, false, { size: 62, kinetic: false });
+  c.cap(1.4, 2.4, "Everyone chased Flight.", 520);
+  base("caption-collide", "two captions on each other for 3 frames", WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.8, { fail: ["caption-collide"] });
+}
+{
+  const c = clip({ lines: { sub: true, pos: 560 } }), { A } = c;
+  A(0, "wiz", "noblink");
+  c.say(0.5, "wiz", "come out with your hands up!", 0.6, "excited", { sub: "COME OUT WITH YOUR HANDS UP!" });
+  c.cap(1.4, 2.4, "Everyone chased Flight.", 520);
+  base("caption-collide-fixed", "a spoken line's subtitle gives way to the next caption", WIZ1, [], c, frame([0, 0.6, 0], { h: 1.6, fov: 30 }), 2.8, { clean: ["caption-collide"] });
+}
+
 // GLOW AND GLASS: solid is a property, not an opacity. A phone held in both gloves with its screen's glow at full
 // strength (haloK 0.55; two clips turned it under 0.5 to pass, 71f192b, ffdce32) is clean: a glow can't be touched.
 // A glove pushed into the water glass (opacity 0.3, which used to count as air) fails: glass is solid for hands

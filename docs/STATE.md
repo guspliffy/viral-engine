@@ -30,7 +30,7 @@ Updated 9 Nov 2026 (main c0a90c7 + workflow v2 PR #179).
 - What if EP03 race (9 Nov, v2 + savers): ~290 min brief->delivery, thread 0.91 M out ($74), subagents 0.62 M (Sonnet builder 0.29, Fable A 0.17 + B 0.16), 2 drafts, 5 farm renders (3 fix rounds after review B) + 1 sound-only remix.
 - NLU S2 EP01 text him (9 Nov, no ref images, new set): ~265 min (30 waiting on Jonny), thread $50, 652k out, subagents
   0.67 M (Sonnet builders 0.33 M, Fable A 160k + B 182k), 2 drafts + 3 check-fix rounds on his 2 glitch notes, 2 full renders.
-- Share or Steal 01 (9-10 Nov, new series + set, animatic gate): thread $59, 733k out; 2 drafts, 1 full render, no review B (Jonny approved the draft).
+- Share or Steal 01 (9-10 Nov, new series + set, animatic gate): thread $59, 733k out; 2 drafts, 1 full render, no review B (Jonny approved the draft). 02 (11 Nov, format v2, vat set, 8 panels): 2 drafts, 1 full render, no review B; row in `docs/LEDGER.md`.
 - Survive it EP1 snowed in (9-10 Nov, from scratch to Jonny's panels, new room + mountain): ~560 min, 4 Sonnet builders + Fable A + B, 1 draft, 4 farm renders (3 fix rounds), sound redone locally; ~70 min lost to the farm on Ubuntu 26.04.
 
 ## Decisions (one line each, with the reason)

@@ -34,6 +34,8 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`"captionBand": [470, 1360]`** (top level; the clip template sets it): the y band (px) every subtitle stays inside,
   top to bottom, as Jonny's series briefs give it. `qa/preflight.mjs` and `qa/check.mjs` fail a subtitle outside it
   (`caption-band`); text pops and cards are free. Without the field only the app's safe zone is checked.
+  Two captions that are up in the same frames with crossing boxes fail too (`caption-collide`, even for one frame);
+  `c.say` ends a line's subtitle where the next caption in its band starts, a `c.cap` ends where you say.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
   word pops in as it is said (timed from the talk line it matches: with a real voice, from the voice model's own
   word timings; with the gibberish voice, from a syllable count), the word being said is lit in the speaker's
@@ -375,6 +377,10 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   strength come from its `env.json`. The camera must stay inside the painting: `engine/load.mjs` refuses a storyboard
   that shows a layer's edge, `node qa/env.mjs <sb>` lists the frames and `node qa/env.mjs --range <env>` the safe moves.
   Place the cast on the floor's painted ground (brown in the env's `review.png`), not behind a bank.
+  `"swap": [{ "at": 3, "env": "..." }]` changes the place at a cut. An entry may be a built room instead of a
+  painting: `{ "at": 0, "room": { "type": "nighthall", "pos": [0, 0, 3], "window": { "x": 0, "y": 1, "w": 1.9,
+  "h": 1.15 } } }` puts that set type inside the env set, moved by `pos`, with its own background colour;
+  `nighthall`'s `window` cuts a window with a night view into its far wall (place props behind the glass yourself).
 - **A living world** (`"set": { ..., "life": "auto" }`, on in the clip template; Jonny 7 Nov 2026): on an env set the
   wind runs through the grass and trees in gusts you also hear, the sky drifts and cloud shadows cross the far hills,
   a few sparrows peck on the ground far behind the cast and fly off at the clip's big loud moment (the payoff's

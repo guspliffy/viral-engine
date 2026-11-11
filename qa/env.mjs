@@ -9,7 +9,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import { loadStoryboard } from "../engine/load.mjs";
+import { loadStoryboard, envCoverageOf } from "../engine/load.mjs";
 import { cameraState } from "../engine/page/timeline.js";
 import { worldCamera } from "../engine/page/vehicle.js";
 import { envCoverage, envRange } from "../engine/shared/env-coverage.js";
@@ -18,7 +18,7 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..")
 
 export function envReport(sb) {
   if (sb.set?.type !== "env") return null;
-  return envCoverage(sb.set.envData, (t) => worldCamera(sb, cameraState(sb, t), t), sb.duration ?? 1, sb.fps ?? 30);
+  return envCoverageOf(sb);
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

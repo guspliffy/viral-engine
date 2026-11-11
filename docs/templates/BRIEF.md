@@ -18,6 +18,8 @@ DONE WHEN:
 - a prop a hand holds: its sizes in `storyboards/lib/grips.mjs` SIZE and the in-hand proof sheet
   (`node storyboards/lookdev/make-grip-tests.mjs --prop <kind> --hold <hold>`, the two stills it names): the hand
   closed where a real hand would hold it, front and side, nothing through the glove
+- a bench with a cast: bodies 1.2 m or more apart side by side, `node qa/preflight.mjs <bench> --quick`: no FAIL except
+  worn or enclosing props (list those in NOTES: the director adds the windows)
 OUT OF SCOPE: <tempting extras to skip: new moves, engine changes, renders>
 ```
 

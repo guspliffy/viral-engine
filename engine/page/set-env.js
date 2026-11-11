@@ -20,12 +20,19 @@ import { lifeLayer, lifeOn, lifeTwin } from "./set-life.js";
 // (world time) on, that env is shown instead; engine/load.mjs fills each entry's envData. Paint the swap from the
 // first env's own painting (engine/plates/env.py "from") so the two line up; cut to it, never swap mid-shot. The light,
 // floor sound and camera checks stay the first env's. Without swap the set is built exactly as before.
-export function buildEnv(scene, spec) {
+// A swap entry can also be a built room: { "at": 0, "room": { "type": "nighthall", "pos": [0, 0, 3] } } (fight flight
+// or freeze 01, 11 Nov 2026: a hideout inside a house between painted streets): sets.js builds that set type into the
+// entry's group, moved by pos; no painting camera, so the env camera gate skips its stretch.
+export function buildEnv(scene, spec, buildRoom) {
   if (!spec.swap?.length) return buildEnvInto(scene, scene, spec, spec.envData);
-  const all = [{ at: -Infinity, envData: spec.envData }, ...spec.swap.filter((w) => w.envData).sort((a, b) => a.at - b.at)];
-  const groups = all.map((w) => { const g = new THREE.Group(); g.name = `set-env-swap-${w.envData?.name ?? "main"}`; scene.add(g); buildEnvInto(g, scene, spec, w.envData); return g; });
+  const all = [{ at: -Infinity, envData: spec.envData }, ...spec.swap.filter((w) => w.envData || (w.room && buildRoom)).sort((a, b) => a.at - b.at)];
+  const groups = all.map((w) => {
+    const g = new THREE.Group(); g.name = `set-env-swap-${w.room ? `room-${w.room.type}` : w.envData?.name ?? "main"}`; scene.add(g);
+    if (w.room) { g.position.set(...(w.room.pos || [0, 0, 0])); buildRoom(g, w.room); } else buildEnvInto(g, scene, spec, w.envData);
+    return g;
+  });
   const bg = scene.background;
-  (globalThis.__setTicks ||= []).push((t) => { let k = 0; for (let i = 1; i < all.length; i++) if (t >= all[i].at) k = i; groups.forEach((g, i) => { g.visible = i === k; }); scene.background = bg; });
+  (globalThis.__setTicks ||= []).push((t) => { let k = 0; for (let i = 1; i < all.length; i++) if (t >= all[i].at) k = i; groups.forEach((g, i) => { g.visible = i === k; }); scene.background = groups[k].background || bg; });   // a built room brings its own background (what shows past its door)
 }
 
 function buildEnvInto(scene, root, spec, E) {
