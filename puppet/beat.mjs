@@ -17,7 +17,10 @@
 //         part, the chord's root, nothing else: the world holding its breath before the music snaps back; Never Looks
 //         Up 07, 8 Nov 2026)
 //   named styles (only by name, never picked by a seed, so adding one changes no other clip): surf (fast surf rock
-//         with a fairground organ, 156-164 bpm)
+//         with a fairground organ, 156-164 bpm) | danger (a disaster-film chase cue, 148-156 bpm, A minor with a flat second
+//         (i, bVI, i, bII): overdriven bass on every eighth, kick on every beat, 16th hats, snare 2+4 and a roll every 4th bar,
+//         a two-note tritone alarm stab in bars 2 and 4, a dark low-passed saw pad; no lead, no swing; key defaults to A
+//         (-3); the build adds a pitch riser, the drop a low boom; You wake up mid 01, plane crash, 11 Nov 2026)
 //   sleigh: true adds jingle bells (a sleigh-bell shake on the off-beats) in the full parts: a holiday flavour
 const SR = 44100, TAU = Math.PI * 2;
 
@@ -115,6 +118,41 @@ const NAMED = {
   // a cosy oom-pah polka (Survive it EP1, snowed in): the bass on every beat swapping root and fifth (oom), a reedy
   // organ chord on every off-beat like an accordion (pah), a light kick on 1 and 3; pair it with "sleigh": true
   polka: { bpm: [124, 132], kick: [0, 8], snare: [], hatOpen: [], hat: "none", bass: [0, 4, 8, 12], bassLen: 0.14, fifths: true, chord: [2, 6, 10, 14], chordInst: "organ" },
+  // a disaster-film chase cue (You wake up mid 01): played by its own branch in renderBeat (danger: true), the groove
+  // fields here only keep the shared code happy; key: A minor unless music.key pins another
+  danger: { bpm: [148, 156], danger: true, key: -3, kick: [0, 4, 8, 12], snare: [4, 12], hatOpen: [], hat: "all", bass: [0, 2, 4, 6, 8, 10, 12, 14], chord: [], chordInst: "organ" },
+};
+// the "danger" style: its own sounds (so no existing style's sounds or random numbers change). Chords are semitones above the
+// key's tonic (A minor by default), one a bar: i, bVI, i, bII. bVI and bII have no major third (no major chords): bVI is
+// root + fifth + minor seventh, bII a diminished triad, the tense bar.
+const DANGER = {
+  chords: [{ root: 0, pad: [0, 3, 7] }, { root: 8, pad: [8, 15, 18] }, { root: 0, pad: [0, 3, 7] }, { root: 1, pad: [1, 4, 7] }],
+  // overdriven bass: sine + low-passed saw pushed through a soft clipper
+  bass(note, len) {
+    const x = new Float32Array(Math.ceil(len * SR)), f = midi(note), lp = onePole(650); let p = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR; p += f / SR; x[i] = Math.tanh(2.6 * (Math.sin(TAU * p) * 0.7 + lp((p % 1) * 2 - 1) * 0.8)) * 0.6 * Math.min(1, t / 0.003) * Math.min(1, (len - t) / 0.01) * Math.exp(-t / (len * 1.2)); }
+    return x;
+  },
+  // one alarm note: a hard square with a detuned twin, brassy low-pass, 0.12 s
+  alarm(note) {
+    const d = 0.12, x = new Float32Array(Math.ceil(d * SR)), f = midi(note), lp = onePole(3800); let p = 0, q = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR; p += f / SR; q += f * 1.006 / SR; x[i] = lp((p % 1 < 0.5 ? 1 : -1) * 0.6 + (q % 1 < 0.5 ? 1 : -1) * 0.4) * Math.min(1, t / 0.002) * Math.min(1, (d - t) / 0.012) * (1 - 0.3 * t / d); }
+    return x;
+  },
+  // dark pad: detuned saws on each chord note through a two-pole low-pass at about 900 Hz, a slow swell and release
+  pad(notes, len) {
+    const x = new Float32Array(Math.ceil(len * SR)), ph = notes.map(() => [0, 0, 0]), a = onePole(900), b = onePole(900);
+    for (let i = 0; i < x.length; i++) { const t = i / SR; let y = 0; notes.forEach((n, j) => { [0.994, 1, 1.006].forEach((det, k) => { ph[j][k] += midi(n) * det / SR; y += (ph[j][k] % 1) * 2 - 1; }); }); x[i] = b(a(y / (notes.length * 3))) * Math.min(1, t / 0.12) * Math.min(1, (len - t) / 0.15); }
+    return x;
+  },
+  // a low boom for the drop: a sine falling from 85 to 32 Hz with a slow decay
+  boom() { const x = new Float32Array(1.5 * SR); let p = 0; for (let i = 0; i < x.length; i++) { const t = i / SR; p += (32 + 53 * Math.exp(-t / 0.18)) / SR; x[i] = Math.tanh(1.6 * Math.sin(TAU * p)) * Math.exp(-t / 0.55) * Math.min(1, t / 0.003); } return x; },
+  // a rising pitch for the build: a saw sweeping up two octaves, low-passed higher as it climbs, louder as it climbs
+  rise(note, len) {
+    const x = new Float32Array(Math.ceil(len * SR)), f0 = midi(note + 24); let p = 0, y1 = 0;
+    for (let i = 0; i < x.length; i++) { const t = i / SR, k = t / len, f = f0 * Math.pow(4, k), a = Math.exp(-TAU * (500 + 4000 * k) / SR); p += f / SR; y1 = (1 - a) * ((p % 1) * 2 - 1) + a * y1; x[i] = y1 * (0.15 + 0.85 * k * k); }
+    return x;
+  },
 };
 const styleOf = (name) => STYLE[name] || NAMED[name];
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
@@ -130,7 +168,7 @@ export function musicFlavour(music = {}, id = "") {
   const pool = music.styles || STYLES;            // e.g. ["sneaky", "march", "warm"] to stay within a vibe
   const style = music.style || pool[Math.floor(r() * pool.length)], S = styleOf(style);
   if (!S) throw new Error(`music.style "${style}" unknown (known: ${[...STYLES, ...Object.keys(NAMED)].join(", ")})`);
-  const key = music.key ?? Math.floor(r() * 12) - 5;    // semitones from C, -5..+6
+  const key = music.key ?? S.key ?? Math.floor(r() * 12) - 5;    // semitones from C, -5..+6
   if (!Number.isFinite(key)) throw new Error(`music.key must be semitones from C (a number, e.g. 0 for C, -3 for A), not ${JSON.stringify(music.key)}: a note name made every note NaN and the bed silent (pitch a tent, 5 Nov 2026)`);
   let prog = PROGRESSIONS[Math.floor(r() * PROGRESSIONS.length)];
   if (S.minor && prog[0] !== 5) prog = [5, 3, 4, 5];
@@ -140,7 +178,7 @@ export function musicFlavour(music = {}, id = "") {
   const leadInst = music.lead ?? ["bell", "blip", "whistle"][Math.floor(r() * 3)];
   const swing = S.swing ? 0.06 + r() * 0.08 : r() * 0.03;
   const penta = [0, 2, 4, 7, 9, 12, 14], motif = Array.from({ length: 8 }, () => (r() < 0.3 ? null : 72 + penta[Math.floor(r() * penta.length)]));
-  return { seed, style, key, prog, bpm, leadInst, swing, motif, drums: music.drums !== false, S };
+  return { seed, style, key, prog, bpm, leadInst, swing: S.danger ? 0 : swing, motif, drums: music.drums !== false, S };
 }
 
 export function renderBeat(music, duration, id = "") {
@@ -154,6 +192,13 @@ export function renderBeat(music, duration, id = "") {
   // the building blocks are cached: each hit of the same drum is the same sound
   const K = INST.kick(r), C = INST.clap(r), H = INST.hat(r, false), HO = INST.hat(r, true), S = INST.snare(r), SL = music.sleigh ? INST.sleigh(mulberry(F.seed ^ 0x51e16)) : null;
   const chord = (notes) => INST[F.S.chordInst](r, notes);
+  // "danger" has its own random stream, drums and cached sounds (nothing here touches the shared stream r)
+  const rd = mulberry(F.seed ^ 0xda4932), DK = F.S.danger ? INST.kick(rd) : null, DS = F.S.danger ? INST.snare(rd) : null, DH = F.S.danger ? INST.hat(rd, false) : null;
+  const DM = !F.S.danger ? null : { boom: DANGER.boom(), bass: DANGER.bass, alarm: [[], []] };
+  if (DM) for (const bi of [1, 3]) {   // the alarm: the bar's chord root (octave 5) and the tritone above it
+    const root = 84 + F.key + DANGER.chords[bi].root - (DANGER.chords[bi].root > 6 ? 12 : 0);
+    DM.alarm[0][bi] = DANGER.alarm(root); DM.alarm[1][bi] = DANGER.alarm(root + 6);
+  }
   // "hold": one organ note, the chord's root two octaves up, from the part's start to the next part
   parts.forEach((P, i) => {
     if (P.part !== "hold") return;
@@ -173,13 +218,31 @@ export function renderBeat(music, duration, id = "") {
         const len = (parts[parts.indexOf(P) + 1]?.at ?? duration) - P.at, k = (t - P.at) / Math.max(0.01, len);
         const every = k < 0.5 ? 2 : 1;
         if (e % every === 0) add(t, S, 0.25 + 0.35 * k);
-        if (Math.abs(t - P.at) < 1e-6) add(t, INST.riser(r, len), 0.35);
+        if (Math.abs(t - P.at) < 1e-6) { add(t, INST.riser(r, len), 0.35); if (F.S.danger) add(t, DANGER.rise(36 + F.key, len), 0.2); }
         continue;
       }
       if (part === "musicbox") {
         // the motif at half speed on the music box, an octave up, every bar, and a soft low note on each bar's start
         if (e === 0) { const m = F.motif[(bar * 4 + beatInBar) % 8] ?? F.motif[(bar * 4 + beatInBar + 1) % 8]; if (m) add(t, INST.musicbox(r, m + 12 + F.key), 0.3, 0.1); }
         if (e === 0 && beatInBar === 0) add(t, INST.musicbox(r, ch.root + 24), 0.16, -0.1);
+        continue;
+      }
+      if (F.S.danger) {
+        // "danger": a chase cue. intro = bass pulse, hats and a heartbeat kick; main = everything; drop = main + crash + boom
+        const full = part === "main" || part === "drop", step = beatInBar * 4 + e, bi = ((bar % 4) + 4) % 4, dc = DANGER.chords[bi], ton = 36 + F.key;
+        const nextAt = parts[parts.indexOf(P) + 1]?.at ?? duration;
+        if (part === "drop" && step === 0 && Math.abs(t - P.at) < 0.02) { add(t, INST.crash(rd), 0.35, -0.1); add(t, DM.boom, 0.7); }
+        if (F.drums) {
+          if (full && step % 4 === 0) add(t, DK, 0.95);
+          if (part === "intro" && (step === 0 || step === 8)) add(t, DK, 0.5);
+          if (part === "intro" && (step === 3 || step === 11)) add(t, DK, 0.3);
+          if (full && (step === 4 || step === 12) && !(bi === 3 && step === 12)) add(t, DS, 0.55, 0.05);
+          if (full && bi === 3 && step >= 8) add(t, DS, 0.25 + 0.4 * (step - 8) / 7, 0.05);
+          add(t, DH, (full ? (e === 2 ? 0.22 : e === 0 ? 0.12 : 0.08) : (e === 2 ? 0.1 : 0.06)), 0.3);
+        }
+        if (step % 2 === 0) add(t, DM.bass(ton + dc.root + (step === 6 || step === 14 ? 12 : 0), spb * 0.4), full ? 0.5 : 0.3);
+        if (step === 0 || (t - P.at < spb / 4 - 1e-6)) { const end = Math.min(off + (Math.floor(b / 4) + 1) * 4 * spb, nextAt); if (end - t > 0.05) add(t, DANGER.pad(dc.pad.map((n) => ton + 12 + n), end - t + (end === nextAt ? 0 : 0.05)), full ? 0.3 : 0.18, -0.15); }
+        if (full && (bi === 1 || bi === 3) && (step === 10 || step === 14)) add(t, DM.alarm[step === 10 ? 0 : 1][bi], 0.3, 0.1);
         continue;
       }
       const full = part === "main" || part === "drop", step = beatInBar * 4 + e, Y = F.S, soft = Y.soft ? 0.6 : 1;

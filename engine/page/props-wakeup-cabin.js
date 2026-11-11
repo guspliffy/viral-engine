@@ -27,7 +27,7 @@ import { clamp } from "./util.js";
 //               seat    the hall's seat colour, default "#2f4d8c" (use the same colour on the real planeseat props)
 //               feed, level, drop, lid, open, fill   the start values of the keys below (a `prop` action tweens each one)
 //   KEYS        (existing propState keys, tweened by { do: "prop", id, set: {...} })
-//               feed  0..2  the VIEW out of every window (default 0): 0 cold grey-white high cloud drifting slowly; 1 snowy pine
+//               feed  0..3  the VIEW out of every window (default 0): 0 cold grey-white high cloud drifting slowly; 1 snowy pine
 //                           treetops rushing past toward -z at 60 m/s (streaked, close, fills the pane; panel 04); 2 a still
 //                           snowy pine forest with smoke drifting (panel 09). Between whole numbers the views blend.
 //               level 0..1  the cabin LIGHTS (default 1): the ceiling and reading-light panels and the brightness of every
@@ -42,6 +42,24 @@ import { clamp } from "./util.js";
 //                           the bulkhead; at 1 the panel is gone and flat bright cold daylight (white-blue) fills the doorway.
 //               fill  0..1  the EXIT SIGN's brightness (default 1) = its opacity (material transparent, depthWrite false,
 //                           renderOrder 20, so smoke at renderOrder 10 never hides it).
+//               tear, alarm   the start values of the two keys below (a `prop` action sets either as a step at its time)
+//               tearZ   where the tail is torn off, default -2.0 (between rows -1 and -2); read once at build
+//   KEYS (T4, 11 Nov; both default 0 = the hall draws exactly as before)
+//               tear  0|1   the TAIL TORN OFF (a step at 0.5; default 0). At 1 nothing of the hall with z < tearZ is drawn (rows -2 and
+//                           -3, walls, windows with their view cards, bins and lids, ceiling, lights, floor, carpet, masks, the back
+//                           bulkhead) and a torn rim sits at the cut all round the opening: 100 or so jagged skin teeth 0.1-0.5 m long
+//                           pointing toward -z, bent outward, a dark rib 8 cm thick just inside the edge, 12 cables and insulation strips
+//                           0.3-1.1 m long hanging from the ceiling and the bin edges and whipping toward -z (flutter = pure function of
+//                           story time), two bent floor beams sticking out 0.6 m. NOTHING is drawn behind the hole (the generator puts a
+//                           sky card there). Rim, cables, teeth are see-through for the checks and cast no shadow.
+//               alarm 0|1   EMERGENCY LIGHTING (a step at 0.5; default 0). The warm ceiling and reading panels go dark; red strips (2 on the
+//                           ceiling at x +-0.5, 2 on the bin undersides at x +-0.72, full length) are lit and pulse 60..100 % on a 0.5 s
+//                           period (1.0 at t = 0); every cabin surface is dimmed to 45 % with a red cast (seats stay dark blue). `level` still
+//                           works on top. The EXIT sign, the door's daylight and the window views are not dimmed.
+//               feed 3      (added to the feed key above) a NIGHT THUNDERSTORM in every window while the plane dives: near-black blue-violet
+//                           cloud rushing UP past the pane, thin rain streaks slanting, lightning every 1.3 s of story time (the pane goes
+//                           pale blue-white 0.21-0.29 s into each 1.3 s cycle, a half-strength restrike at 0.36-0.44 s): the same in every
+//                           window. Blends like the others (2.5 = half forest, half storm); `feed` runs 0..3.
 //   HALL_SEAT   exported: the seat colour above.
 export const HALL_SEAT = "#2f4d8c";
 
@@ -58,26 +76,97 @@ const WIN_Y = 1.3, WIN_RX = 0.22, WIN_RY = 0.3;
 // every mesh to the variant for the light level (a swap only when the step changes).
 const STEPS = 8;
 function dimKit() {
-  const fams = new Map(), ents = []; let cur = STEPS;
-  const variant = (f, k) => {
-    if (k >= STEPS) return f.m;
-    if (!f.v[k]) {
-      const lv = k / STEPS, v = f.m.clone(), c = v.color, g = c.r * 0.3 + c.g * 0.59 + c.b * 0.11, d = 0.45 * (1 - lv), s = 0.2 + 0.8 * lv;
-      c.r += (g - c.r) * d; c.g += (g - c.g) * d; c.b += (g - c.b) * d; c.multiplyScalar(s); f.v[k] = v;
+  const fams = new Map(), ents = []; let cur = STEPS, alarm = false;
+  const variant = (f, k, al) => {
+    if (k >= STEPS && !al) return f.m;
+    const key = k + (al ? STEPS + 1 : 0);
+    if (!f.v[key]) {
+      const v = f.m.clone(), c = v.color;
+      if (k < STEPS) { const lv = k / STEPS, g = c.r * 0.3 + c.g * 0.59 + c.b * 0.11, d = 0.45 * (1 - lv), s = 0.2 + 0.8 * lv; c.r += (g - c.r) * d; c.g += (g - c.g) * d; c.b += (g - c.b) * d; c.multiplyScalar(s); }
+      if (al) { c.multiplyScalar(0.45); c.r *= 1.3; c.g *= 0.78; c.b *= 0.75; }   // emergency lighting: 45 % with a red cast
+      f.v[key] = v;
     }
-    return f.v[k];
+    return f.v[key];
   };
   return {
     track(o) {
       const m = o.material;
       if (!m || !m.isMeshStandardMaterial) return o;
       let f = fams.get(m); if (!f) fams.set(m, f = { m, v: [] });
-      ents.push({ o, f }); return o;
+      ents.push({ o, f }); if (cur < STEPS || alarm) o.material = variant(f, cur, alarm); return o;
     },
-    set(level) {
+    set(level, al = false) {
       const k = Math.round(clamp(level) * STEPS);
-      if (k === cur) return; cur = k;
-      for (const e of ents) e.o.material = variant(e.f, k);
+      if (k === cur && al === alarm) return; cur = k; alarm = al;
+      for (const e of ents) e.o.material = variant(e.f, k, al);
+    },
+  };
+}
+
+// keeps the part of a triangle soup with z >= z0 (every attribute interpolated); null when nothing is left
+function clipZ(geo, z0) {
+  const names = ["position", ...Object.keys(geo.attributes).filter((n) => n !== "position")], A = names.map((n) => geo.attributes[n]), out = A.map(() => []);
+  const vert = (i) => A.map((a) => { const r = []; for (let c = 0; c < a.itemSize; c++) r.push(a.getComponent(i, c)); return r; });
+  const lerpV = (u, v, f) => u.map((a, i) => a.map((x, c) => x + (v[i][c] - x) * f));
+  for (let i = 0; i + 2 < A[0].count; i += 3) {
+    const tri = [vert(i), vert(i + 1), vert(i + 2)], poly = [];
+    for (let j = 0; j < 3; j++) {
+      const c = tri[j], n = tri[(j + 1) % 3], ci = c[0][2] >= z0, ni = n[0][2] >= z0;
+      if (ci) poly.push(c);
+      if (ci !== ni) poly.push(lerpV(c, n, (z0 - c[0][2]) / (n[0][2] - c[0][2])));
+    }
+    for (let j = 1; j + 1 < poly.length; j++) for (const v of [poly[0], poly[j], poly[j + 1]]) v.forEach((comp, a) => out[a].push(...comp));
+  }
+  if (!out[0].length) return null;
+  const g = new THREE.BufferGeometry(); names.forEach((n, a) => g.setAttribute(n, new THREE.Float32BufferAttribute(out[a], A[a].itemSize))); return g;
+}
+
+// the torn rim at z = tz (see the header): jagged skin teeth, a dark rib, whipping cables and strips, two bent floor beams
+function tornRim(tz) {
+  const g = new THREE.Group(), R = 2.65, pos = [], col = [], c0 = new THREE.Color("#d2d7df"), c1 = new THREE.Color("#5b616b");
+  // outline pieces [x0, y0, x1, y1, nx, ny]: the outward side of each (floor, walls, shoulders, ceiling, bin undersides, bin lid faces)
+  const SEG = [[-R, 0.004, R, 0.004, 0, -1]];
+  for (const s of [1, -1]) SEG.push([s * R, 0.004, s * R, 1.9, s, 0], [s * R, 1.9, s * 2.6, 2.35, s, 0.15], [s * 2.6, 2.35, s * 2.6, 2.75, s, 0], [s * 2.6, 2.75, 0, 2.75, 0, 1], [s * 0.62, 2.35, s * 2.6, 2.35, 0, -1], [s * 0.62, 2.35, s * 0.62, 2.75, -s, 0]);
+  const ribs = [], ribM = quiet(mk("#2b303a", { roughness: 0.8 }));
+  let idx = 0;
+  for (const [x0, y0, x1, y1, nx, ny] of SEG) {
+    const len = Math.hypot(x1 - x0, y1 - y0), dx = (x1 - x0) / len, dy = (y1 - y0) / len, nl = Math.hypot(nx, ny), ox = nx / nl, oy = ny / nl;
+    for (let u = 0; u < len - 0.03; idx++) {
+      const w = Math.min(0.12 + 0.3 * rnd(idx * 3 + 1), len - u), L = 0.1 + 0.4 * rnd(idx * 3 + 2), bend = (0.15 + 0.4 * rnd(idx * 3 + 3)) * L, jit = (rnd(idx * 3 + 4) - 0.5) * 0.8 * w;
+      const ax = x0 + dx * u, ay = y0 + dy * u, bx = ax + dx * w, by = ay + dy * w, mx = (ax + bx) / 2 + dx * jit + ox * bend, my = (ay + by) / 2 + dy * jit + oy * bend;
+      pos.push(ax, ay, tz, bx, by, tz, mx, my, tz - L); col.push(c0.r, c0.g, c0.b, c0.r, c0.g, c0.b, c1.r, c1.g, c1.b);
+      u += w;
+    }
+    const rib = new THREE.BoxGeometry(len, 0.1, 0.08); rib.rotateZ(Math.atan2(dy, dx)); rib.translate((x0 + x1) / 2 - ox * 0.05, (y0 + y1) / 2 - oy * 0.05, tz + 0.05); ribs.push(rib);
+  }
+  const tg = new THREE.BufferGeometry(); tg.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); tg.setAttribute("color", new THREE.Float32BufferAttribute(col, 3)); tg.computeVertexNormals();
+  g.add(new THREE.Mesh(tg, mk("#ffffff", { vertexColors: true, side: THREE.DoubleSide, roughness: 0.7 })));
+  g.add(new THREE.Mesh(merged(ribs), ribM));
+  // cables (dark, blue, orange) and insulation strips hanging from the ceiling and the bin edges; two segments each, a whip toward -z
+  const CC = ["#15171c", "#2a2f6b", "#c8561a", "#1c1c20", "#6a2a2a", "#15171c", "#2a2f6b", "#1c1c20"], IC = ["#e6d9a8", "#dcb4ae", "#e9e4cf", "#d9c48c"];
+  const whips = [];
+  for (let i = 0; i < 12; i++) {
+    const side = i < 6 ? 0 : i < 9 ? -1 : 1, ax = side === 0 ? -0.55 + 0.22 * i + 0.05 * (rnd(i + 70) - 0.5) : side * (0.8 + 0.55 * ((i - 6) % 3) + 0.1 * rnd(i + 70)), ay = side === 0 ? 2.74 : 2.345;
+    const len = 0.3 + 0.8 * rnd(i + 40), l1 = len * 0.55, l2 = len - l1, strip = i % 3 === 1, ph = rnd(i + 90) * 6.283, w = 6 + 5 * rnd(i + 100);
+    const m = strip ? mk(IC[(i / 3) | 0], { roughness: 0.9, side: THREE.DoubleSide }) : mk(CC[i % CC.length], { roughness: 0.7 });
+    const seg = (L) => strip ? new THREE.PlaneGeometry(0.06 + 0.04 * rnd(i + 110), L).translate(0, -L / 2, 0) : new THREE.CylinderGeometry(0.014, 0.012, L, 5).translate(0, -L / 2, 0);
+    const g1 = new THREE.Group(), g2 = new THREE.Group(); g1.position.set(ax, ay, tz + 0.02); g2.position.y = -l1; g1.add(g2); g.add(g1);
+    g1.add(new THREE.Mesh(seg(l1), m)); g2.add(new THREE.Mesh(seg(l2), m));
+    whips.push({ g1, g2, ph, w, strip });
+  }
+  // two bent floor beams sticking out 0.6 m
+  const beamM = mk("#4a505c", { roughness: 0.6 });
+  for (const [x, bendA, yaw] of [[-1.4, -0.45, 0.15], [1.15, 0.4, -0.2]]) {
+    const b1 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.34).translate(0, 0, -0.17), beamM), b2 = new THREE.Group(), b3 = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 0.3).translate(0, 0, -0.15), beamM);
+    b1.position.set(x, 0.06, tz); b2.position.z = -0.34; b2.rotation.set(bendA, yaw, 0); b2.add(b3); b1.add(b2); g.add(b1);
+  }
+  return {
+    group: g,
+    update(t) {
+      for (const q of whips) {
+        q.g1.rotation.x = 0.6 + 0.4 * Math.sin(q.w * t + q.ph); q.g1.rotation.z = 0.15 * Math.sin(q.w * 0.6 * t + q.ph * 2);
+        q.g2.rotation.x = 0.2 + 0.4 * Math.sin(q.w * 1.7 * t + q.ph + 1.0); if (q.strip) q.g1.rotation.y = 0.8 * Math.sin(q.w * 0.8 * t + q.ph);
+      }
     },
   };
 }
@@ -154,8 +243,21 @@ vec3 cloud(vec2 p, float t) {
   vec3 base = mix(vec3(0.60, 0.67, 0.77), vec3(0.78, 0.83, 0.90), smoothstep(-0.3, 0.3, p.y));
   return mix(mix(base, vec3(0.86, 0.90, 0.95), smoothstep(0.35, 0.7, c)), vec3(0.50, 0.57, 0.68), smoothstep(0.55, 0.8, c2) * 0.35);
 }
+// view 3: a night thunderstorm in a dive. Near-black blue-violet cloud rushing UP past the pane, thin slanting rain, lightning
+// (a pure function of uTime: pale blue-white 0.21-0.29 s into each 1.3 s cycle, a half-strength restrike 0.36-0.44 s)
+vec3 storm(vec2 p, float t) {
+  float c1 = fbm(vec2(p.x * 2.6 + 3.0, (p.y - 2.2 * t) * 0.8)), c2 = fbm(vec2(p.x * 6.0 - 5.0, (p.y - 4.4 * t) * 1.3 + 9.0));
+  vec3 col = mix(vec3(0.03, 0.035, 0.085), vec3(0.15, 0.12, 0.29), smoothstep(0.35, 0.65, c1));
+  col = mix(col, vec3(0.26, 0.23, 0.46), smoothstep(0.5, 0.8, c2) * 0.65);
+  vec2 r = vec2(p.x * 44.0 + p.y * 9.0, p.y * 2.4 - t * 9.0);
+  float i = floor(r.x), f = fract(r.x), s = fract(r.y + h1(i) * 7.0), on = step(0.6, h1(i + 17.0));
+  float rain = on * (1.0 - smoothstep(0.02, 0.07, abs(f - 0.5))) * smoothstep(0.0, 0.05, s) * (1.0 - smoothstep(0.16, 0.24, s));
+  col += vec3(0.40, 0.50, 0.78) * rain * 0.3;
+  float tp = mod(t, 1.3), fl = step(0.21, tp) * (1.0 - step(0.29, tp)) + 0.55 * step(0.36, tp) * (1.0 - step(0.44, tp));
+  return mix(col, vec3(0.72, 0.84, 1.0), fl * 0.85);
+}
 void main() {
-  float w0 = max(0.0, 1.0 - abs(uView)), w1 = max(0.0, 1.0 - abs(uView - 1.0)), w2 = max(0.0, 1.0 - abs(uView - 2.0));
+  float w0 = max(0.0, 1.0 - abs(uView)), w1 = max(0.0, 1.0 - abs(uView - 1.0)), w2 = max(0.0, 1.0 - abs(uView - 2.0)), w3 = max(0.0, 1.0 - abs(uView - 3.0));
   vec3 col = vec3(0.0);
   if (w0 > 0.0) col += w0 * cloud(vP, uTime);
   if (w1 > 0.0) {   // 60 m/s: the world slides toward -z, so what is at z now was at z + 60 t before; smeared over about a 60th of a second
@@ -164,6 +266,7 @@ void main() {
     col += w1 * s / 7.0;
   }
   if (w2 > 0.0) col += w2 * forest(vP.x * 36.0, vP.y * 36.0, uTime);
+  if (w3 > 0.0) col += w3 * storm(vP, uTime);
   gl_FragColor = vec4(pow(col, vec3(2.2)), 1.0);   // the colours above are meant as they show: undo the final sRGB encode
 }`;
 
@@ -172,7 +275,9 @@ export const WAKECABIN_KINDS = {
     const S = P.spec, hall = P.whole, dim = dimKit();
     const omit = new Set((S.omit ?? [[0, "A"], [0, "B"], [1, "B"]]).map(([k, l]) => `${k}${l}`));
     const seatColor = S.seat ?? HALL_SEAT;
-    const add = (geo, m, parent = hall) => { const o = new THREE.Mesh(geo, m); parent.add(o); return dim.track(o); };
+    const cuttable = [], baseOf = new Map();   // meshes straight on the hall (the tear cuts them) and the material each was built with
+    const add = (geo, m, parent = hall) => { const o = new THREE.Mesh(geo, m); parent.add(o); baseOf.set(o, m); if (parent === hall) cuttable.push(o); return dim.track(o); };
+    const tz = S.tearZ ?? -2.0;
 
     // materials
     const wallM = quiet(mk("#e4e8ee")), ceilM = quiet(mk("#e8ebf0")), binM = mk("#dfe4ea", { roughness: 0.6 }), binDark = quiet(mk("#24242c", { roughness: 1 })),
@@ -239,7 +344,7 @@ export const WAKECABIN_KINDS = {
     for (const s of [1, -1]) for (const k of ROWS) {
       const hg = new THREE.Group(); hg.position.set(s * 0.62, 2.75, ZP * k); hall.add(hg);
       const lid = add(new THREE.BoxGeometry(0.025, 0.4, ZP - 0.05), binM, hg); lid.position.set(s * 0.0125, -0.2, 0);
-      lids.push([hg, s]);
+      lids.push([hg, s, ZP * k]);
     }
 
     // the ceiling light panels and the reading lights (the cabin's lit parts)
@@ -251,6 +356,11 @@ export const WAKECABIN_KINDS = {
       for (const k of ROWS) for (const l of "ABCD") dots.push(new THREE.CircleGeometry(0.028, 12).rotateX(Math.PI / 2).translate(X_OF[l] + (l < "C" ? -0.2 : 0.2), 2.348, ZP * k - 0.2));
       add(merged(dots), lightM); }
 
+    // the emergency strips (alarm): 2 on the ceiling at x +-0.5, 2 on the bin undersides at x +-0.72, the whole length, red, pulsing
+    const redM = basic("#ff2a1c");
+    const strips = [add(merged([-1, 1].map((s) => planeAt(0.07, LEN, Math.PI / 2, 0, s * 0.5, 2.744, ZC))), redM), add(merged([-1, 1].map((s) => planeAt(0.05, LEN, Math.PI / 2, 0, s * 0.72, 2.346, ZC))), redM)];
+    for (const o of strips) o.userData.alarmOnly = true;
+
     // the oxygen masks over every drawn seat
     const hoseM = mk("#f2f1ec", { roughness: 0.6 }), yel = mk("#f2bd12", { roughness: 0.45 }), clear = mk("#f6f1d8", { roughness: 0.2, transparent: true, opacity: 0.8 });
     const hoseG = new THREE.TubeGeometry(new THREE.CatmullRomCurve3([[0, 0, 0], [0.025, -0.1, 0.015], [-0.025, -0.21, 0.03], [0.02, -0.34, 0.02], [0, -0.5, 0.03]].map((a) => new THREE.Vector3(...a))), 24, 0.0075, 5, false);
@@ -261,7 +371,7 @@ export const WAKECABIN_KINDS = {
       add(cupG, yel, cup).rotation.x = Math.PI / 2; add(rimG, clear, cup).position.z = 0.035;
       const cap = add(capG, yel, cup); cap.position.z = -0.035; cap.rotation.y = Math.PI;
       const bag = add(bagG, clear, cup); bag.position.set(0, -0.08, -0.02); bag.scale.set(1, 1.2, 0.7);
-      return { g, hose, cup, ph: rnd(i + 3) };
+      return { g, hose, cup, ph: rnd(i + 3), z: z + 0.05 };
     });
 
     // the front bulkhead (a doorway cut in it), the door frame, the door, the daylight behind it, the EXIT sign
@@ -278,6 +388,20 @@ export const WAKECABIN_KINDS = {
     { const body = add(new THREE.BoxGeometry(0.74, 0.32, 0.06), mk("#26332b", { roughness: 0.6 })); body.position.set(0, 2.2, 10.47);
       const face = new THREE.Mesh(new THREE.PlaneGeometry(0.72, 0.3), signM); face.rotation.y = Math.PI; face.position.set(0, 2.2, 10.434); face.renderOrder = 20; hall.add(face); }
 
+    // the tear (key tear): built now, hidden until it is used. Every mesh straight on the hall is classified against z = tearZ:
+    // wholly in front stays, wholly behind goes, the rest gets a copy cut at the plane that replaces it while the tail is off
+    const rim = tornRim(tz); rim.group.visible = false; hall.add(rim.group);
+    rim.group.traverse((o) => { if (o.isMesh) dim.track(o); });
+    const cuts = new Map();
+    for (const o of cuttable) {
+      o.updateMatrix(); const g = toNI(o.geometry).clone().applyMatrix4(o.matrix), P = g.attributes.position; let lo = Infinity, hi = -Infinity;
+      for (let i = 0; i < P.count; i++) { const z = P.getZ(i); if (z < lo) lo = z; if (z > hi) hi = z; }
+      if (lo >= tz - 1e-6) continue;
+      if (hi <= tz + 1e-6) { cuts.set(o, null); continue; }
+      const cg = clipZ(g, tz); if (!cg) { cuts.set(o, null); continue; }
+      const c = new THREE.Mesh(cg, baseOf.get(o)); c.visible = false; c.userData.alarmOnly = o.userData.alarmOnly; hall.add(c); dim.track(c); cuts.set(o, c);
+    }
+
     // see-through for the contact checks, no shadows either way
     hall.traverse((o) => { o.userData.steam = true; o.castShadow = false; o.receiveShadow = false; });
     const mixC = (a, b, t) => new THREE.Color(a).lerp(new THREE.Color(b), t);
@@ -285,17 +409,23 @@ export const WAKECABIN_KINDS = {
     return {
       grip: 0,
       apply(ps, t = 0) {
-        viewU.uView.value = clamp(ps.feed ?? 0, 0, 2); viewU.uTime.value = t;
-        const lv = clamp(ps.level ?? 1);
-        dim.set(lv); lightM.color.copy(mixC("#3a3836", "#ffe3a6", lv * lv));
+        viewU.uView.value = clamp(ps.feed ?? 0, 0, 3); viewU.uTime.value = t;
+        const lv = clamp(ps.level ?? 1), al = clamp(ps.alarm ?? S.alarm ?? 0) > 0.5, torn = clamp(ps.tear ?? S.tear ?? 0) > 0.5;
+        dim.set(lv, al); lightM.color.copy(mixC("#3a3836", "#ffe3a6", al ? 0 : lv * lv));
+        redM.color.set("#ff2a1c").multiplyScalar(0.8 + 0.2 * Math.cos((t / 0.5) * Math.PI * 2));   // 60..100 %, 0.5 s period
+        for (const o of cuttable) {
+          const on = !o.userData.alarmOnly || al, c = cuts.get(o);
+          if (c === undefined) o.visible = on; else { o.visible = !torn && on; if (c) c.visible = torn && on; }
+        }
+        rim.group.visible = torn; if (torn) rim.update(t);
         const d = clamp(ps.drop ?? 0);
         for (const m of masks) {
-          m.g.visible = d > 0.01; if (d <= 0.01) continue;
+          m.g.visible = d > 0.01 && !(torn && m.z < tz); if (m.g.visible === false) continue;
           m.hose.scale.y = d; m.cup.position.set(0, -0.5 * d, 0.03);
           m.g.rotation.set(0.05 * Math.sin(t * 1.5 + m.ph * 9), 0, 0.06 * Math.sin(t * 1.9 + m.ph * 6.28) + 0.025 * Math.sin(t * 3.1 + m.ph * 13));
         }
         const o = clamp(ps.lid ?? 0), e = o * o * (3 - 2 * o);
-        for (const [h, s] of lids) h.rotation.z = -s * 1.3 * e;
+        for (const [h, s, z] of lids) { h.rotation.z = -s * 1.3 * e; h.visible = !(torn && z < tz); }
         const dr = clamp(ps.open ?? 0); door.rotation.y = -dr * 1.5; door.visible = dr < 0.999; day.visible = dr > 0.001;
         const sg = clamp(ps.fill ?? 1); signM.opacity = sg; signM.visible = sg > 0.004;
       },

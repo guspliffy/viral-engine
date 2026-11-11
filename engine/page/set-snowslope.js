@@ -25,6 +25,8 @@ import { rng } from "./util.js";
 // together, in any look (looks.js leaves shader materials as they are). Nothing here is solid for the contact checks.
 //
 // spec: { type: "snowslope", seed, dark: [[t, 0..1], ...] (eased between keys, a step at equal times; or a number) }
+//         cliff { x, drop = 180 } (the floor breaks off along x and lies `drop` lower beyond it), at [x, y, z] (the whole world
+//         moved; ridePath and heightAt stay in the set's own frame)
 // SNOWSLOPE: the numbers, heightAt(x, z), slopeAt(x) (the ground along the fall line, z 0), ridePath(u).
 
 const T30 = Math.tan(Math.PI / 6);
@@ -100,6 +102,14 @@ function ground(x, z) {
   return { y: h, face };
 }
 export const heightAt = (x, z) => ground(x, z).y;
+// S.cliff { x, drop = 180 }: the valley floor breaks off along the line x = S.cliff.x (it wanders a few metres with z)
+// and everything beyond it (toward -x) lies `drop` metres lower: a rock wall with the valley far below (You wake up mid
+// EP01, 11 Nov 2026: the wreck stops with its nose over the edge). heightAt / slopeAt / ridePath do not know about it.
+const cliffDrop = (S, x, z) => {
+  if (!S.cliff) return 0;
+  const xe = S.cliff.x + 3.0 * (vnoise(z / 11 + 3.1, 0.7) - 0.5) + 1.0 * (vnoise(z / 2.9, 8.3) - 0.5);
+  return (S.cliff.drop ?? 180) * sstep(xe, xe - 2.4, x);
+};
 
 // the cottage's ride: u 0 at x 140 up the apron, 1 at the origin (level, yaw 0); u runs linearly in x along the fall line.
 // pitch: degrees the floor tips with the ground (+: its +x side higher, as on the apron)
@@ -358,7 +368,7 @@ function buildGround(g, S) {
     const x = xs[i], z = zs[j], q = ground(x, z), k = j * nx + i;
     // S.pad { x, z0, z1, drop }: the ground dips under a room standing on it (a room floor at y 0 would z-fight with it)
     const dip = S.pad && Math.abs(x) <= S.pad.x && z >= S.pad.z0 && z <= S.pad.z1 ? S.pad.drop : 0;
-    pos[k * 3] = x; pos[k * 3 + 1] = q.y - dip; pos[k * 3 + 2] = z; face[k] = q.face;
+    pos[k * 3] = x; pos[k * 3 + 1] = q.y - dip - cliffDrop(S, x, z); pos[k * 3 + 2] = z; face[k] = q.face;
   }
   const idx = new Uint32Array((nx - 1) * (nz - 1) * 6); let n = 0;
   for (let j = 0; j < nz - 1; j++) for (let i = 0; i < nx - 1; i++) {
@@ -370,7 +380,7 @@ function buildGround(g, S) {
   // colours: snow where it can lie, grey rock where it's steep and on the face (bare in the top third: the cap prop),
   // snow-dusted forest on the lower flanks; a slight blue in the valley's hollows
   const nor = geo.attributes.normal, col = new Float32Array(nx * nz * 3), c = new THREE.Color();
-  const SNOW = C("#f6f9ff"), SNOWB = C("#e3ecfb"), ROCK = C("#80858f"), ROCKD = C("#545964"), FOREST = C("#46705f");
+  const ABYSS = C("#3c4a6e"), SNOW = C("#f6f9ff"), SNOWB = C("#e3ecfb"), ROCK = C("#80858f"), ROCKD = C("#545964"), FOREST = C("#46705f");
   const capY = PEAK.y * (2 / 3);
   for (let k = 0; k < nx * nz; k++) {
     const x = pos[k * 3], y = pos[k * 3 + 1], z = pos[k * 3 + 2], steep = 1 - nor.getY(k), f = face[k];
@@ -384,6 +394,7 @@ function buildGround(g, S) {
     const sn = new THREE.Color().copy(SNOW).lerp(SNOWB, vnoise(x / 30 + 1, z / 30) * 0.7);
     c.lerp(sn, snow);
     if (forest > 0) c.lerp(new THREE.Color().copy(FOREST).lerp(SNOW, 0.28 + 0.25 * vnoise(x / 9, z / 9)), forest * 0.9);
+    if (S.cliff) c.lerp(ABYSS, 0.72 * Math.min(1, cliffDrop(S, x, z) / ((S.cliff.drop ?? 180) * 0.25)));   // the wall and the valley below it lie in deep blue shade
     col[k * 3] = c.r; col[k * 3 + 1] = c.g; col[k * 3 + 2] = c.b;
   }
   geo.setAttribute("aCol", new THREE.BufferAttribute(col, 3));
@@ -392,7 +403,7 @@ function buildGround(g, S) {
 }
 
 // ---------- the firs: clumps round the valley and up the apron's sides ----------
-function buildFirs(g, rnd) {
+function buildFirs(g, rnd, S = {}) {
   const spots = [];
   const okAt = (x, z) => {
     if (Math.hypot(x, z) < 12) return false;
@@ -405,7 +416,9 @@ function buildFirs(g, rnd) {
       const a = rnd() * Math.PI * 2, d = Math.sqrt(rnd()) * spread, x = cx + Math.cos(a) * d, z = cz + Math.sin(a) * d;
       if (!okAt(x, z)) continue;
       const q = ground(x, z); if (q.face > 0.3) continue;
-      spots.push([x, q.y - 0.25, z, 5 + rnd() ** 2.2 * 15, rnd() * Math.PI * 2, 0.85 + rnd() * 0.3]);
+      const cd = cliffDrop(S, x, z), full = S.cliff ? S.cliff.drop ?? 180 : 0;
+      if (cd > 0.02 * full && cd < 0.98 * full) { rnd(); rnd(); rnd(); continue; }   // none on the wall itself (the same draws, so the other firs stay)
+      spots.push([x, q.y - 0.25 - cd, z, 5 + rnd() ** 2.2 * 15, rnd() * Math.PI * 2, 0.85 + rnd() * 0.3]);
     }
   };
   for (let i = 0; i < 26; i++) { const a = rnd() * Math.PI * 2, r = 24 + rnd() ** 1.4 * 230; clump(Math.cos(a) * r, Math.sin(a) * r); }
@@ -424,7 +437,8 @@ export function buildSnowWorld(scene, S = {}) {
   scene.background = new THREE.Color("#d6e6f6");
   g.add(buildSky(rnd));
   buildGround(g, S);
-  SNOWSLOPE.firs = buildFirs(g, rnd);
+  SNOWSLOPE.firs = buildFirs(g, rnd, S);
+  if (S.at) g.position.set(S.at[0], S.at[1], S.at[2]);   // the whole world moved (metres): the clip's origin can hang beyond the cliff
   const dark = S.dark;
   setDark(keyAt(dark, 0));
   (globalThis.__setTicks ||= []).push((t) => setDark(keyAt(dark, t)));

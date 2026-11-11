@@ -37,8 +37,20 @@ import { clamp } from "./util.js";
 //               0.34 m: a circle in the horizontal plane) leaves the cup's two sides and runs back round -z (its
 //               centre at z -r). No keys beyond place / rot / tip / tilt / scale. Nothing holds it (it hangs round a
 //               neck); see-through for the checks (steam).
+//   eyelids     (T4, 11 Nov) the inside of the hero's own eyelids for a first-person shot. ORIGIN: none; the prop builds itself
+//               in WORLD space from spec.cam = { pos: [x, y, z], look: [x, y, z], fov, aspect }: fov = the shot's VERTICAL fov
+//               in degrees (default 40), aspect = frame width / height (default 9/16); the generator copies the shot's camera
+//               there and leaves x / y / z / rot at 0 (a camera roll, a rig or a moving camera are not followed: the shot must
+//               be static). A flat card 0.5 m in front of that camera, square to its view, 15 % larger than the frame. Unlit,
+//               no outline, no depth test, renderOrder 1000: drawn over everything (smoke, signs, cast); see-through for the
+//               checks (steam), no shadow. Two lids, very dark warm brown (#1c0f0a at the frame's edge to #4a2a1c at the lid
+//               edge, over about half the frame height), the opening an almond (upper edge a rounder, taller arc, lower edge
+//               flatter, pointed corners that close first), the edge feathered over 6 % of the frame height, 9 short sparse
+//               lashes on the upper edge. KEY open 0..1 (default spec.open ?? 0; it tweens): 0 fully shut (the whole frame is
+//               lid, the darkest at the frame's edge), 0.5 the almond is half the frame's height in the middle and 80 % of its
+//               width, 1 fully open (the card is hidden; at 0.99 both lids are already outside the frame).
 //   Sizes: enginefire about 6 x 2.1 x 7.5 m with its smoke; cabinsmoke the spec box (5.3 x 2.75 x 15.45 m);
-//   neckmask 0.15 m cup, 0.68 m loop.
+//   neckmask 0.15 m cup, 0.68 m loop; eyelids a card about 0.5 m in front of the lens (0.5 m * tan(fov/2) * 1.15 tall).
 
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const sm = (x) => { const k = clamp(x); return k * k * (3 - 2 * k); };
@@ -398,5 +410,47 @@ export const WAKEFX_KINDS = {
     solid(new THREE.BoxGeometry(0.02, 0.014, 0.024), std("#d9d4c4", { roughness: 0.6 }), P.whole, 0, 0, -2 * R);   // the adjuster slide at the back
     steamAll(P.whole);
     return { grip: 0 };
+  },
+
+  // ------------------------------------------------------------------ first-person eyelids (EP01 panel 01)
+  eyelids(P) {
+    const cam = P.spec.cam || {}, pos = new THREE.Vector3(...(cam.pos || [0, 1.5, 0])), look = new THREE.Vector3(...(cam.look || [0, 1.5, 1])), fov = cam.fov ?? 40, asp = cam.aspect ?? 9 / 16;
+    const f = look.clone().sub(pos).normalize(), r = new THREE.Vector3().crossVectors(f, new THREE.Vector3(0, 1, 0)).normalize(), u = new THREE.Vector3().crossVectors(r, f).normalize();
+    const halfH = 0.5 * Math.tan((fov * Math.PI) / 360) * 1.15, halfW = halfH * asp;
+    const m = new THREE.ShaderMaterial({
+      uniforms: { uOpen: { value: P.spec.open ?? 0 }, uAsp: { value: asp } },
+      vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uOpen, uAsp; varying vec2 vUv;
+        float hh(float n) { return fract(sin(n * 127.1 + 311.7) * 43758.5453); }
+        // q: the frame in units of its half height (y -1..1, x -asp..asp). The opening is two ellipses cut across (their overlap is
+        // the almond): the upper one tall and round, the lower one flatter, the corners where they cross are pointed
+        float sdE(vec2 p, vec2 A) { float e = length(p / A); return (e - 1.0) * e / max(length(p / (A * A)), 1e-4); }
+        void main() {
+          vec2 q = (vUv - 0.5) * 2.0 * 1.15 * vec2(uAsp, 1.0);
+          float o = uOpen, Ht = o <= 0.5 ? 2.0 * o : 1.0 + 8.0 * (o - 0.5), W = (o <= 0.5 ? 1.6 * o : 0.8 + 3.2 * (o - 0.5)) * uAsp;
+          W = max(W, 1e-3);
+          float Hu = max(0.62 * Ht, 1e-3), Hl = max(0.38 * Ht, 1e-3), yc = 0.5 * (Hl - Hu), cu = yc - 1.5 * Hu;
+          float d = max(sdE(q - vec2(0.0, cu), vec2(1.25 * W, 2.5 * Hu)), sdE(q - vec2(0.0, yc + 1.5 * Hl), vec2(1.25 * W, 2.5 * Hl)));
+          float a = smoothstep(0.0, 0.12, d); a = max(a, 1.0 - smoothstep(0.0, 0.04, o));
+          vec3 col = mix(vec3(0.290, 0.165, 0.110), vec3(0.110, 0.059, 0.039), smoothstep(0.0, 0.5, d));
+          // short sparse lashes down from the upper edge, curling out toward the corners
+          float la = 0.0;
+          for (int i = 0; i < 9; i++) {
+            float fi = float(i), xi = (fi - 4.0) * 0.17 * W;
+            if (hh(fi + 5.0) < 0.3) continue;
+            vec2 b = vec2(xi, cu + 2.5 * Hu * sqrt(max(1.0 - (xi / (1.25 * W)) * (xi / (1.25 * W)), 0.0))), dir = normalize(vec2(0.3 * xi / W, -1.0)), v = q - b;
+            float len = (0.04 + 0.04 * hh(fi + 9.0)) * clamp(Ht * 3.0, 0.0, 1.0), tt = clamp(dot(v, dir), 0.0, len), dist = length(v - dir * tt);
+            la = max(la, 1.0 - smoothstep(0.0015, 0.004, dist));
+          }
+          la *= step(o, 0.995);
+          gl_FragColor = vec4(pow(mix(col, vec3(0.05, 0.03, 0.02), la), vec3(2.2)), max(a, la));
+        }`,
+      transparent: true, depthTest: false, depthWrite: false, side: THREE.DoubleSide,
+    });
+    m.userData.noOutline = true;
+    const card = steamy(new THREE.Mesh(new THREE.PlaneGeometry(2 * halfW, 2 * halfH), m), 1000);
+    card.matrixAutoUpdate = false; card.matrix.makeBasis(r, u, f.clone().negate()).setPosition(pos.clone().addScaledVector(f, 0.5)); card.matrixWorldNeedsUpdate = true;
+    P.whole.add(card);
+    return { grip: 0, apply(ps) { const o = clamp(ps.open ?? 0); m.uniforms.uOpen.value = o; card.visible = o < 0.995; } };
   },
 };

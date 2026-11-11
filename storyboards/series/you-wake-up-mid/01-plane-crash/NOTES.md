@@ -2,9 +2,11 @@
 
 ## Where the build stands
 
-- Step: v3 ROUGH DRAFTS REJECTED by Jonny (11 Nov 13:57 Berlin): "more of an explainer and tends to be boring"; he wants panic, action, dangerous music, the plane actually falling (like Never Looks Up EP2), first second = POV with blinking eyes, then the character, then the plane, 10x more extreme, PANELS FIRST. Outline v4 (16 panels, two sheet prompts) sent 14:15: project files video-scripts/2026-11-11-you-wake-up-mid/01-mid-plane-crash-V4-10X-PANEL-PROMPT.md. WAITING for his sheets + go; no build before it.
-- Next (after his go): PANELS.md from his new sheets -> rebuild the generator to them. Reuse: cabinhall, enginefire, cabinsmoke, neckmask, jetwreck, evacslide, bridgeend, car shot; from EP2 (props-freefall.js): airliner, stormsky, cloudrush, rainstreaks, skybolt. New: torn-off tail on the cabin, POV eyelids (VOCAB `pov`, `blink`), cliff edge, a "danger" music style in puppet/beat.mjs (builder), short narrator lines re-recorded.
-- Renders so far: layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
+- Step: v4 "10x" (Jonny's go on the 16 panel images, 11 Nov 19:47 Berlin). Generator rewritten to the panels, staged in 4 still rounds, ROUGH DRAFT of both cuts rendering (--force: rule 2, contacts and hands unpolished on purpose; preflight 118 fails = rig jumps on cuts, clipping, captions over bodies in the tight cabin shots). A 35.8 s, B 34.9 s.
+- Next: send both drafts to Jonny -> his OK -> one polish round -> checks -> one farm render per cut -> PANELS.md v4, DELIVERY.md, post pack, ledger row, PR.
+- v4 pieces: T4 (cabinhall keys `tear`, `alarm`, feed 3 = storm; `eyelids` prop, spec.cam, key `open`, needs a level still camera, works on a rig), T5 (jetwreck key `torn` (NOT `tail`: propState starts `tail` at 1), `wingchunk` key fire), T6 (music style `danger`), set snowslope `cliff { x, drop }` + `at [x,y,z]` (mine): the set is moved +150 in x so the cabin at the origin hangs beyond the cliff and nothing of the valley shows through the hole; outside coordinates go through out(x,y,z).
+- v4 lessons: looking toward -z, +x is screen RIGHT (the old note said left). A view from uphill behind a white hull on snow shows nothing: outside shots of the plane are side-on. dark 0.5+ puts the moon over the mountain (look across the slope, not up it). Narrator reads 2-word lines slowly (1.2-3.4 s): cut shots to the recorded lengths.
+- Renders so far (v3): layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
 
 ## The improvement loop
