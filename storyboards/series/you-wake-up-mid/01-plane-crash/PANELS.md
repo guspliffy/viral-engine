@@ -1,58 +1,40 @@
-# PANELS: wake-up-mid-plane-crash (You wake up mid, EP01)
+# PANELS: wake-up-mid-plane-crash (You wake up mid, EP01), v4 "10x"
 
-Boards: /mnt/project-files/video-scripts/2026-11-11-you-wake-up-mid/panels-01-mid-plane-crash/sheet-1-panels-01-08.png (4x2) and sheet-2-panels-09-12.png (2x2). Brief: ../01-mid-plane-crash-IMAGE-PROMPT.md there (outline v3).
+Boards (Jonny's "go" 11 Nov 2026 19:47 Berlin): /mnt/project-files/video-scripts/2026-11-11-you-wake-up-mid/panels-01-mid-plane-crash-v4/
+wake-up-plane-v4-sheet-1-panels-01-08.png and wake-up-plane-v4-sheet-2-panels-09-16.png (PANEL-NOTES.md there).
+Outline: ../01-mid-plane-crash-V4-10X-PANEL-PROMPT.md. Where a drawing and the outline differ, the outline wins.
+The v3 panels (12, rejected with the v3 drafts) are in git history.
 
-## Checklist: what these panels stand on
+## Story chain (cause and effect, one line)
 
-| # | Line | Staging proof | Before full render |
+The engine blows, so the plane dives, so the tail tears off, so there is no air, so it comes out of the cloud at a
+mountain, so it belly-lands, loses a wing and stops on a cliff edge, so it burns and tips with every step, so out
+and run, so it goes over and blows up; he wakes up in the next crash.
+
+## Panels, shots and departures
+
+| Panel | Shot (s, cut A) | What is on screen | Departure, with the reason |
 | --- | --- | --- | --- |
-| 1 | 01: Spud's face fills the left half, eyes wide, sprout straight up; the burning engine with black smoke fills his window on the right. Never a dark or empty window | | |
-| 2 | 02: yellow masks on hoses hang over the row; Spud holds his on with both hands; Viking is slumped, eyes shut, one arm toward the row in front | | |
-| 3 | 03: we look up the aisle past Spud and Viking; the green EXIT sign glows at the end, seven seat rows away; Spud points | | |
-| 4 | 04: side view: Spud folded forward, belt across his lap, head at the seat in front; the Wizard upright with his phone up; trees in the windows | | |
-| 5 | 05: extreme wide: the white airliner ploughs down through snowy pines, left engine burning, a big plume of snow | | |
-| 6 | 06: bins open, bags in the air, Spud still braced low left, the Wizard thrown forward, his phone in the air | | |
-| 7 | 07: smoke under the ceiling, fire glow behind; Viking big in front hauling a brown suitcase, filling the aisle; Spud behind him pointing | | |
-| 8 | 08: floor level: dark smoke fills the top two thirds; Spud crawls toward us, a hand on a seat frame; Viking behind him drags the suitcase | | |
-| 9 | 09: the white fuselage with a red stripe, an open door, the yellow slide; Spud drags the dazed Wizard through deep snow; Viking on the slide hugging the suitcase | | |
-| 10 | 10: the fireball far behind between the pines; all three face-down in the snow in front; Spud lifts his head | | |
-| 11 | 11: Spud close, eyes squeezed shut, sprout bent flat; the fireball right behind him, the fuselage at the left | | |
-| 12 | 12: the red car in mid-air seen through its windscreen, Spud wide-eyed at the wheel, the yellow mask round his neck; the broken bridge end low left, a sunny valley | | |
-| 13 | Readouts lower left, white: 0:30 (02), 1:30 (07), 0:50 (08), 0:20 (09), 0:00 (10, 11). Never painted into the scene | | |
+| 01 | 0.0-1.0 | first person through blinking eyelids: the cabin nose-down, alarm strips, bags flying at him | the drinks trolley is a suitcase and bags (no trolley prop; nothing new built for one second) |
+| 02 | 1.0-2.5 | Spud's terror, Viking screaming beside him, the Wizard floating off his seat | the title's second half sits top right, off the faces |
+| 03 | 2.5-4.8 | outside: the airliner falls nose first through the thunderstorm, one engine a tail of fire | the storm plate is paler than the drawing's black sky |
+| 04 | 4.8-7.0 | the tail tears off; the unbelted Wizard goes with the air, Spud (belted) has him by the hand | seen from the front (a camera behind the row sees only seat backs); by the hand, not the cape |
+| 05 | 7.0-10.5 | 0:15: Spud's mask is on, he slams the second one on Viking, who is passing out | clock top left (the bodies fill the lower frame) |
+| 06 | 10.5-12.2 | outside: no tail, on fire, out of the cloud, the mountain behind, treetops under the wing | the outline's version (see PANEL-NOTES) |
+| 07 | 12.2-14.7 | both folded in the brace position, the Wizard upright and screaming | |
+| 08 | 14.7-16.5 | outside: belly first into the slope, a wing torn off in fire | side-on and high: a white hull seen from uphill behind is invisible on snow |
+| 09 | 16.5-18.3 | inside at the same moment: bins burst, the Wizard thrown the length of the cabin past us | |
+| 10 | 18.3-20.1 | outside: stopped with the nose over the cliff edge, rocking, 1:30 | the abyss is a plain blue-grey wall |
+| 11 | 20.1-22.8 | Viking hauls his suitcase out of the bin over his head, the cabin lurches, Spud points: leave it | suitcase overhead and from the port bin (in his arms it was hidden behind his body) |
+| 12 | 22.8-25.0 | under the smoke, 0:40: Spud crawls at us, the others behind | |
+| 13 | 25.0-27.2 | the jammed suitcase is kicked out of the door and falls into the abyss; down the slide | Spud is behind the suitcase: the kick reads from the suitcase, not from two feet |
+| 14 | 27.2-29.4 | they run at us through the snow, the hull tips over the cliff behind them | the clock reads 0:02, 0:01 (it counts real seconds; the drawing says 0:05) |
+| 15 | 29.4-32.5 (A) | 0:00: the blast far behind, all three face first in the snow, Spud lifts his head, alive | |
+| 16 | 29.4-31.6 (B) | he stopped near the edge and turned round: the blast reaches him | standing and turned round (outline), not crawling |
+| next | to the end | the same blink, then Spud at the wheel of a car flying off a bridge, the mask round his neck | |
 
-## Numbers: read off each panel before any code
+## Opener (hook-opener-test, 11 Nov)
 
-| Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | 0.6 | spud | 0.26 | 0.60 | 1 | 0.22 | spud | level | |
-| 02 | 4.6 | spud | 0.52 | 0.68 | 1 | 0.27 | spud, vik | above | mirrored: his window is on the port wall in 01 and 03 |
-| 03 | 9.5 | spud | 0.50 | - | 1 | 0.25 | - | level | seat backs of row 0 parked for the shot |
-| 04 | 13.5 | spud | 0.42 | - | 0.85 | 0.30 | wiz | level | Viking and his seat out of the shot |
-| 06 | 17.0 | wiz | 0.62 | 0.78 | 0.92 | 0.62 | - | below | |
-| 07 | 20.5 | vik | 0.28 | 0.42 | 1 | 0.38 | vik, spud | level | camera on the exit side, looking back |
-| 08 | 24.5 | spud | 0.62 | 0.78 | 0.97 | 0.62 | spud | below | |
-| 09 | 28.2 | spud | 0.52 | 0.63 | 0.80 | 0.28 | spud, wiz | level | |
-| 10 | 32.3 | spud | 0.60 | 0.72 | 0.84 | 0.52 | spud | below | cut A only |
-| 11 | 30.9 | spud | 0.66 | 0.78 | 1 | 0.32 | spud | below | cut B only |
-| 12 | 33.6 | spud2 | 0.50 | 0.62 | - | 0.50 | spud2 | below | |
-
-## Story chain
-
-- A bang, his eyes snap open -> his face and the fire in his own window in one frame -> close-up 01.
-- The masks drop, so the 30 s clock starts -> Viking reaches for others first and passes out; Spud's mask goes on, then he puts Viking's on and Viking wakes -> row medium 02 with the readout.
-- Awake, so he can look for the way out -> the aisle, the EXIT sign and a number on each row, one to seven -> over the shoulder 03.
-- Trees fill the windows, so he braces -> belt, head down; the Wizard films upright in the same frame -> side view 04.
-- The plane hits the forest -> the whole plane ploughing -> wide 05.
-- The same moment inside: the braced one stays put, the upright one flies -> 06, "This is why you brace."
-- It stops and burns, so the 90 s clock starts -> Viking and his suitcase between Spud and the exit -> 07, "Leave everything."
-- Smoke comes down, so he goes under it and cannot see -> his hand on each seat, numbers 4, 5, 6 -> floor view 08.
-- Seat 7 -> the EXIT sign comes out of the smoke right where he counted, the door opens -> reverse (new shot).
-- Out -> the slide, the wreck burning, the smoke blowing right, he drags the Wizard left -> 09, "Upwind. Two hundred metres."
-- A: he keeps going, so the blast is far behind and only knocks them over -> 10. B: he stops close to look back, so the blast reaches him -> 11, "You stopped too early."
-- He shuts his eyes -> the same eyes open at a steering wheel in mid-air, the mask still round his neck -> 12.
-
-## Departures (and why)
-
-See NOTES.md "Decisions": 2 + 2 seats, 02 mirrored, 03 seat backs parked, 04/06 without Viking, 07 looks back from the exit side, 08 gets a reverse shot, 11 keeps the two small figures.
-Narration: "Ninety seconds to get out" (not "before the cabin burns") and "Two hundred metres" (not 150): the fact check, NOTES.md.
-Length 35.05 s (A) and 34.25 s (B), not 33: the last two narrator lines need their time.
+Type A (the trouble is already running at frame 0, the outcome open: does he get out), with the narrator reading
+the title at 0.0. It opens first person (Jonny's own ask), so rule 2 (two characters in the picture) is only met
+from 1.0 s. Named in DELIVERY.md.
