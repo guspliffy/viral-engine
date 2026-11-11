@@ -13,11 +13,11 @@ OWN: `engine/page/props-zstreet.js` (stub exists: replace, keep the three export
   `storyboards/lookdev/make-zstreet-bench.mjs` + its json. Touch nothing else.
 CONTRACT (every size a spec key with this default; origin of zstreet = the world origin):
   zstreet   one prop holding the whole place. The street runs along z. `depth` 15: the street floor is at y -15.
-    - OUR HOUSE on the left: its facade plane at x -4.3, from y -15 up to y 6, z -22..14: an old plastered town
+    - OUR HOUSE on the left: its facade plane at x -4.9, from y -15 up to y 6, z -22..14: an old plastered town
       house, storeys 3 m, tall windows (dark, some broken, a few curtains), a cornice at the top.
-    - THE BALCONY (y 0 is its floor top): slab x -4.3..-3.0, z -1.6..1.6, 0.18 thick, an iron railing 1.0 high on
+    - THE BALCONY (y 0 is its floor top): slab x -4.9..-3.0 (1.9 deep), z -1.6..1.6, 0.18 thick, an iron railing 1.0 high on
       its three free sides (posts every 0.4, a flat handrail 0.06 wide; the handrail's top is y 1.0), a glass
-      balcony door 1.6 x 2.1 in the facade at z 0 with a dark room behind it. Other storeys have the same balcony
+      balcony door 1.6 x 2.1 in the facade at z 0 standing OPEN (both leaves swung inward), a dark room behind. Other storeys have the same balcony
       without anything on it (at y -3, -6, ... and y 3).
     - THE SHOP BUILDING on the right: its facade plane at x 3.0 from y -15 up to y 0 only. Flat roof at y 0 from
       x 3.0 to 11, z -6..6: grey gravel, a low kerb 0.15 round it, a street-side parapet 0.25 thick (x 3.0..3.25) along the
