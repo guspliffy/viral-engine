@@ -1,0 +1,612 @@
+{
+ "id": "fx-bench",
+ "title": "FX bench: engine fire, cabin smoke, neck mask",
+ "idea": "Props bench for engine/page/props-wakeup-fx.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "music": false,
+ "sound": {
+  "auto": false,
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "cleanStart": true,
+ "set": {
+  "type": "snowslope",
+  "dark": 0,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "eng",
+   "kind": "enginefire",
+   "x": 5.6,
+   "y": 1.5,
+   "z": -2.6
+  },
+  {
+   "id": "smoke",
+   "kind": "cabinsmoke",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "mask",
+   "kind": "neckmask",
+   "x": 0,
+   "y": 1,
+   "z": 0
+  },
+  {
+   "id": "seat",
+   "kind": "planeseat",
+   "x": 2.09,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "case",
+   "kind": "suitcase",
+   "x": 0,
+   "y": 0.24,
+   "z": 2
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "engine on fire (window view)",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     0.95,
+     1.9
+    ],
+    "look": [
+     2.6,
+     1.3,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "engine on fire (nearer, wider)",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     1.3,
+     1.2
+    ],
+    "look": [
+     5.6,
+     1.6,
+     -2.6
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "smoke fill 1 fire 1 (along the hall)",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.35,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     -4
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 1,
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "smoke fill 0.6 fire 0.6",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.6,
+     7
+    ],
+    "look": [
+     0,
+     1.3,
+     -4
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0.6,
+      "fire": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "smoke fill 1 (sideways)",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.5,
+     -0.8
+    ],
+    "look": [
+     1.4,
+     0.8,
+     1.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 1,
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "neck mask",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.05,
+     1.2
+    ],
+    "look": [
+     0,
+     1,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "clean engine (fire 0)",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     1.3,
+     1.2
+    ],
+    "look": [
+     5.6,
+     1.6,
+     -2.6
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "extra: engine fire wide",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.4,
+     3.5
+    ],
+    "look": [
+     5.6,
+     1.9,
+     -5
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "extra: engine fire half",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.4,
+     3.5
+    ],
+    "look": [
+     5.6,
+     1.9,
+     -5
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0,
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "extra: bulkhead fire, camera in the smoke",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.6,
+     4
+    ],
+    "look": [
+     0,
+     1.2,
+     -4.9
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 1,
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/you-wake-up-mid/01-plane-crash/bench/make-fx-bench.mjs (T2)."
+}
