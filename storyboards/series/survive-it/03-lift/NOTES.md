@@ -58,3 +58,4 @@
 panel liftpanel (right wall x 2.03, rot -90), cable liftcable, fire wallfire, blast liftblast, dark cardark, lamp alarmlamp, sparksL/R sparkrain, blobs fireblobs, shell liftshell, pit shaftpit, spring liftspring, pass shaftpass, sky spacesky, sign floorsign, doors elevdoors, phone.
 
 ## Cameras: CAM in the generator (A hallway wide, CU, WALL, GUN, SPUD, LOW, FALL, PIT, UP, SPACE, REC), fitted on stills in two passes.
+- 11 Nov: rough draft rendered with --force. Reason: workflow rule 2 (the rough draft goes to Jonny before any hand or foot polish); the contact gate's 52 findings are polish (arms through hat brims in the screams, hand turns, rig jumps at cuts), none hides a story beat.

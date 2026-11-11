@@ -110,7 +110,7 @@
     0.9
    ],
    [
-    15,
+    14.9,
     0
    ]
   ],
@@ -197,8 +197,9 @@
    "id": "sign",
    "kind": "floorsign",
    "x": 0,
-   "y": 3.05,
+   "y": 2.75,
    "z": -1.585,
+   "scale": 1.8,
    "count": 640
   },
   {
@@ -226,6 +227,7 @@
    "y": 3.53,
    "z": 0.95,
    "len": 8,
+   "scale": 1.8,
    "strands": 0,
    "whip": 0,
    "glow": 0
@@ -285,13 +287,13 @@
   {
    "id": "sparksL",
    "kind": "sparkrain",
-   "x": -2.5,
+   "x": -1.6,
    "y": 2,
-   "z": 0.6,
+   "z": 1.3,
    "box": [
-    0.7,
+    0.5,
     7,
-    1.2
+    0.4
    ],
    "n": 110,
    "dir": -1,
@@ -300,13 +302,13 @@
   {
    "id": "sparksR",
    "kind": "sparkrain",
-   "x": 2.5,
+   "x": 1.6,
    "y": 2,
-   "z": 0.6,
+   "z": 1.3,
    "box": [
-    0.7,
+    0.5,
     7,
-    1.2
+    0.4
    ],
    "n": 110,
    "dir": -1,
@@ -395,49 +397,50 @@
  "captions": [
   {
    "from": 0,
+   "to": 1.37,
+   "text": "Stuck in a lift with your friends",
+   "pos": 1190,
+   "pop": false
+  },
+  {
+   "from": 1.4,
    "to": 2.7,
-   "text": "Stuck in a lift with your friends for 30 days.",
-   "pos": 470,
+   "text": "for 30 days.",
+   "pos": 680,
    "pop": false
   },
   {
    "from": 2.75,
-   "to": 3.63,
+   "to": 3.95,
    "text": "Floor 800. Two seconds.",
-   "pos": 560,
+   "pos": 680,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
    "from": 3.63,
-   "to": 4.63,
+   "to": 4.47,
    "text": "One second. New record!",
    "pos": 1240,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pop": false
   },
   {
    "from": 5.6,
-   "to": 7.05,
+   "to": 7.02,
    "text": "Reset: press every floor. In order.",
-   "pos": 560,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pos": 680,
+   "pop": false
   },
   {
    "from": 7.05,
-   "to": 7.85,
+   "to": 7.47,
    "text": "...sure.",
-   "pos": 1240,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pos": 620,
+   "pop": false
   },
   {
-   "from": 7.65,
+   "from": 7.5,
    "to": 8.9,
    "text": "Day twelve.",
    "pos": 470,
@@ -447,7 +450,7 @@
    "from": 10.05,
    "to": 11.25,
    "text": "...Page two: 'Don't.'",
-   "pos": 560,
+   "pos": 680,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -475,12 +478,10 @@
   },
   {
    "from": 13.796,
-   "to": 14.396,
+   "to": 14.336,
    "text": "TAKE IT!",
    "pos": 1250,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pop": false
   },
   {
    "from": 14.396,
@@ -493,43 +494,39 @@
   },
   {
    "from": 15.296,
-   "to": 16.016,
+   "to": 16.396,
    "text": "I'll bounce us loose!",
-   "pos": 1250,
+   "pos": 520,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
    "from": 16.016,
-   "to": 17.016,
+   "to": 16.936,
    "text": "NOT THE CABLE!",
-   "pos": 1250,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pos": 520,
+   "pop": false
   },
   {
    "from": 17.066,
    "to": 18.466,
    "text": "Day thirty.",
-   "pos": 470,
+   "pos": 1190,
    "pop": false
   },
   {
    "from": 19.7,
-   "to": 20.6,
+   "to": 20.536,
    "text": "Floor 800!",
-   "pos": 1250,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
+   "pos": 520,
+   "pop": false
   },
   {
    "from": 21.25,
    "to": 22.1,
    "text": "...New record.",
-   "pos": 1250,
+   "pos": 560,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -538,7 +535,7 @@
    "from": 22.1,
    "to": 23.05,
    "text": "Going down?",
-   "pos": 1250,
+   "pos": 1290,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1418,7 +1415,7 @@
      "pos": [
       0.05,
       1.5,
-      6.4
+      6.75
      ],
      "look": [
       0.05,
@@ -1640,8 +1637,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.6,
-      0.45
+      0.82,
+      0.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1704,14 +1701,14 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     0.5,
+     0.2,
      1,
-     4.3
+     4.9
     ],
     "look": [
-     1.4,
-     0.74,
-     0.6
+     1.45,
+     0.76,
+     0.5
     ],
     "fov": 40
    },
@@ -1801,6 +1798,16 @@
       "punch": 1
      },
      "dur": 0.01,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.05,
      "ease": "linear",
      "at": 0.6
     },
@@ -1919,7 +1926,7 @@
   {
    "name": "the jam",
    "at": 4.5,
-   "len": 3,
+   "len": 1.9,
    "shot": {
     "pos": [
      0.05,
@@ -2029,16 +2036,6 @@
      "id": "sparksR",
      "set": {
       "rate": 1
-     },
-     "dur": 0.05,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "lamp",
-     "set": {
-      "on": 1
      },
      "dur": 0.05,
      "ease": "linear",
@@ -2499,33 +2496,6 @@
      "at": 1.3
     },
     {
-     "who": "spud",
-     "do": "talk",
-     "line": "...sure.",
-     "tone": "calm",
-     "dur": 0.4,
-     "blink": false,
-     "at": 2.55
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "deadpan",
-     "dur": 0.15,
-     "at": 2.55
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 2.55
-    },
-    {
      "who": "wiz",
      "do": "move",
      "to": [
@@ -2535,7 +2505,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "wiz",
@@ -2543,7 +2513,7 @@
      "to": 75,
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "spud",
@@ -2555,7 +2525,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "spud",
@@ -2563,7 +2533,7 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "sam",
@@ -2575,7 +2545,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "sam",
@@ -2583,7 +2553,7 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "phx",
@@ -2595,7 +2565,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "phx",
@@ -2603,7 +2573,7 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "gun",
@@ -2615,7 +2585,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     },
     {
      "who": "gun",
@@ -2623,14 +2593,14 @@
      "to": 30,
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.88
     }
    ]
   },
   {
    "name": "the wall fills up",
-   "at": 7.5,
-   "len": 1.7,
+   "at": 6.4,
+   "len": 2.8,
    "shot": {
     "pos": [
      -1.5,
@@ -2664,7 +2634,7 @@
     {
      "who": "wiz",
      "do": "tap",
-     "count": 9,
+     "count": 16,
      "every": 0.15,
      "side": "R",
      "lift": 0.05,
@@ -2676,14 +2646,14 @@
      "set": {
       "lit": 1000
      },
-     "dur": 1.3,
+     "dur": 2.4,
      "ease": "linear",
      "at": 0
     },
     {
      "who": "spud",
      "do": "expr",
-     "expr": "eager",
+     "expr": "deadpan",
      "dur": 0,
      "at": 0
     },
@@ -2770,11 +2740,38 @@
      "at": 0
     },
     {
+     "who": "spud",
+     "do": "talk",
+     "line": "...sure.",
+     "tone": "calm",
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.15,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.65
+    },
+    {
      "macro": "narrate",
      "line": "Day twelve.",
      "voice": "narrator",
      "caption": false,
-     "at": 0.15
+     "at": 1.1
     },
     {
      "do": "prop",
@@ -2784,13 +2781,13 @@
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 1.4
+     "at": 2.5
     },
     {
      "sfx": "charge",
      "gain": 0.45,
      "reason": "the 1,000 lit buttons whine up",
-     "at": 1.4
+     "at": 2.5
     },
     {
      "who": "spud",
@@ -2800,7 +2797,7 @@
       "open": 0.15
      },
      "dur": 0.12,
-     "at": 1.48
+     "at": 2.58
     },
     {
      "who": "sam",
@@ -2810,7 +2807,7 @@
       "open": 0.15
      },
      "dur": 0.12,
-     "at": 1.48
+     "at": 2.58
     },
     {
      "who": "wiz",
@@ -2820,7 +2817,7 @@
       "open": 0.15
      },
      "dur": 0.12,
-     "at": 1.48
+     "at": 2.58
     },
     {
      "who": "phx",
@@ -2830,7 +2827,7 @@
       "open": 0.15
      },
      "dur": 0.12,
-     "at": 1.48
+     "at": 2.58
     },
     {
      "who": "gun",
@@ -2840,7 +2837,7 @@
       "open": 0.15
      },
      "dur": 0.12,
-     "at": 1.48
+     "at": 2.58
     },
     {
      "who": "wiz",
@@ -2852,7 +2849,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -2860,7 +2857,7 @@
      "to": -35,
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -2872,7 +2869,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -2880,7 +2877,7 @@
      "to": -35,
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -2892,7 +2889,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -2900,7 +2897,7 @@
      "to": -35,
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -2912,7 +2909,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -2920,7 +2917,7 @@
      "to": -35,
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -2932,7 +2929,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -2940,7 +2937,7 @@
      "to": -35,
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.68
+     "at": 2.78
     }
    ]
   },
@@ -4331,57 +4328,68 @@
      "at": 0.164
     },
     {
+     "who": "gun",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.434
+    },
+    {
      "sfx": "deflate",
      "gain": 0.4,
      "reason": "the phone's battery dies",
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "gun",
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.4,
+      "open": 0.45,
       "eye": 1.425,
       "curve": -0.075
      },
      "dur": 0.25,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "gun",
      "do": "face",
      "brow": 0.45,
      "dur": 0.25,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "gun",
      "do": "still",
-     "dur": 0.45,
+     "dur": 0.5,
      "idle": 0.08,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "angry",
      "dur": 0.15,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "sam",
      "do": "expr",
      "expr": "angry",
      "dur": 0.15,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "angry",
      "dur": 0.15,
-     "at": 0.634
+     "at": 0.534
     },
     {
      "who": "phx",
@@ -4438,7 +4446,7 @@
     {
      "who": "sam",
      "do": "turn",
-     "to": -4.403,
+     "to": -4.285,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -4458,7 +4466,7 @@
     {
      "who": "wiz",
      "do": "turn",
-     "to": 5.383,
+     "to": 5.239,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -4478,7 +4486,7 @@
     {
      "who": "gun",
      "do": "turn",
-     "to": -3.605,
+     "to": -3.521,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.88
@@ -4492,15 +4500,15 @@
    "shot": {
     "pos": [
      0.1,
-     1.05,
-     7.4
+     1,
+     7.6
     ],
     "look": [
      0.1,
-     2.45,
+     2.9,
      0
     ],
-    "fov": 52
+    "fov": 54
    },
    "do": [
     {
@@ -4722,9 +4730,9 @@
      "do": "prop",
      "id": "cable",
      "set": {
-      "strands": 6,
+      "strands": 7,
       "whip": 1,
-      "glow": 0.3
+      "glow": 0.4
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4773,7 +4781,7 @@
      "who": "phx",
      "do": "hop",
      "count": 1,
-     "height": 2.45,
+     "height": 3,
      "dur": 0.5,
      "at": 1.034
     },
@@ -4781,7 +4789,7 @@
      "do": "prop",
      "id": "cable",
      "set": {
-      "strands": 1,
+      "strands": 2,
       "whip": 1,
       "glow": 1
      },
@@ -4812,9 +4820,8 @@
      "at": 1.07
     },
     {
-     "fx": "shake",
-     "dur": 0.35,
-     "amp": 0.08,
+     "fx": "impact",
+     "dur": 0.067,
      "at": 1.284
     },
     {
@@ -4845,6 +4852,12 @@
      "dur": 0.5,
      "ease": "settle",
      "at": 1.304
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.08,
+     "at": 1.354
     },
     {
      "who": "spud",
@@ -5509,7 +5522,7 @@
      "do": "prop",
      "id": "pit",
      "set": {
-      "y": -30
+      "y": -9
      },
      "dur": 0.01,
      "ease": "linear",
@@ -5520,7 +5533,7 @@
      "id": "spring",
      "set": {
       "x": 0,
-      "y": -30
+      "y": -9
      },
      "dur": 0.01,
      "ease": "linear",
@@ -5775,7 +5788,7 @@
      },
      "dur": 0.08,
      "ease": "out",
-     "at": 0.584
+     "at": 0.484
     },
     {
      "do": "prop",
@@ -5785,14 +5798,20 @@
      },
      "dur": 0.08,
      "ease": "out",
-     "at": 0.584
+     "at": 0.484
     },
     {
      "sfx": "seatclack",
      "gain": 0.7,
      "loud": true,
      "reason": "the spring fires the car back up",
-     "at": 0.584
+     "at": 0.484
+    },
+    {
+     "fx": "speedlines",
+     "dur": 0.236,
+     "dir": "down",
+     "at": 0.534
     },
     {
      "do": "prop",
@@ -5800,9 +5819,9 @@
      "set": {
       "y": -34
      },
-     "dur": 0.14,
+     "dur": 0.2,
      "ease": "in",
-     "at": 0.664
+     "at": 0.564
     },
     {
      "do": "prop",
@@ -5810,9 +5829,9 @@
      "set": {
       "y": -34
      },
-     "dur": 0.14,
+     "dur": 0.2,
      "ease": "in",
-     "at": 0.664
+     "at": 0.564
     },
     {
      "who": "spud",
@@ -5829,7 +5848,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -55,
+     "to": -100,
      "dur": 0.01,
      "ease": "linear",
      "at": 0.78
@@ -5858,8 +5877,8 @@
      "who": "wiz",
      "do": "move",
      "to": [
-      1.25,
-      -0.6
+      1.5,
+      -0.85
      ],
      "dur": 0.01,
      "steps": 0,
@@ -5878,8 +5897,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -0.75,
-      0.75
+      0.95,
+      -0.05
      ],
      "dur": 0.01,
      "steps": 0,
@@ -5959,7 +5978,8 @@
      "id": "pass",
      "set": {
       "x": 0,
-      "y": 0
+      "y": -23.4,
+      "blur": 0.25
      },
      "dur": 0.01,
      "ease": "linear",
@@ -6109,7 +6129,7 @@
      "do": "prop",
      "id": "pass",
      "set": {
-      "y": -56
+      "y": -35.6
      },
      "dur": 1.3,
      "ease": "linear",
@@ -6133,25 +6153,25 @@
      "side": "L",
      "pose": {
       "o": [
-       0.5,
+       0.55,
        0.6,
-       0.1
+       0.05
       ]
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 0.384
+     "at": 0.234
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.9,
+      -0.9,
       0.1
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.384
+     "at": 0.234
     },
     {
      "who": "spud",
@@ -6740,24 +6760,24 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     0.25,
+     0.5,
      1.2,
      6.2
     ],
     "look": [
-     0.2,
+     0.45,
      1,
      0.4
     ],
     "fov": 48,
     "to": {
      "pos": [
-      0.25,
+      0.5,
       1.15,
       5.6
      ],
      "look": [
-      0.2,
+      0.45,
       1,
       0.4
      ],
@@ -6816,9 +6836,9 @@
      "who": "ast",
      "do": "fly",
      "to": {
-      "x": 1,
-      "y": 1.3,
-      "z": 2.6
+      "x": 0.95,
+      "y": 0.95,
+      "z": 1.95
      },
      "dur": 0.75,
      "ease": "out",
@@ -6968,7 +6988,7 @@
    "why": "the jam: all five thrown up, a strand gone; the glares land on the Samurai"
   },
   {
-   "from": 7.5,
+   "from": 6.4,
    "to": 9.2,
    "see": [
     "wiz",

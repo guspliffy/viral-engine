@@ -36,7 +36,8 @@ const T = {
   jam: fr(4.5),        // P03 the jam, wide
   manual: 5.6,         // Wizard: "Reset: press every floor. In order."
   sure: 7.05,          // Spud: "...sure."
-  wall: fr(7.5),       // P04 the button wall, days 1 -> 12
+  wall: fr(6.4),       // P04 the button wall (under the Wizard's line), days 1 -> 12
+  d12: 7.5,            // narrator: "Day twelve."
   hot: 8.9,            // all 1,000 lit, the plate goes white
   blast: fr(9.2),      // P05 the wall explodes, wide
   page2: 10.05,        // Wizard: "...Page two: 'Don't.'"
@@ -45,13 +46,13 @@ const T = {
   offer: 12.95,        // the phone: "...we could do 1,900."
   take: fr(13.75),     // P07 Spud: "TAKE IT!"
   counter: fr(14.35),  // back on the Gunslinger: "...1,850?"
-  dead: 15.0,          // the battery dies
+  dead: 14.9,          // the battery dies
   bounce: fr(15.25),   // P08 Phoenix bounces, low angle
   snap: 16.55,         // the last strand: Phoenix's third hop hits the ceiling
   fall: fr(16.95),     // P09 free fall
   pit: fr(18.45),      // P10 the pit, outside
   hit: 18.7,           // the car meets the spring
-  launch: 19.05,       // the spring fires
+  launch: 18.95,       // the spring fires
   up: fr(19.25),       // P11 inside, floor 800 passes
   f800: 19.95,         // the hallway in the doorway
   space: fr(20.55),    // P12 space
@@ -77,16 +78,16 @@ const F9 = { spud: [0.1, 0.55, 0.9, 160], sam: [1.2, 0.35, 1.5, -25], wiz: [-1.2
 
 const CAM = {
   A: { pos: [0.05, 1.55, 6.9], look: [0.05, 1.35, -0.3], fov: 46 },          // the hallway wide: the car, the cable over it
-  CU: { pos: [0.5, 1.0, 4.3], look: [1.4, 0.74, 0.6], fov: 40 },        // P02: the fist and the button, Spud beside it
+  CU: { pos: [0.2, 1.0, 4.9], look: [1.45, 0.76, 0.5], fov: 40 },        // P02: the fist and the button, Spud beside it
   WALL: { pos: [-1.5, 1.7, 5.4], look: [1.5, 1.45, -0.2], fov: 46 },      // P04: the button wall from the left wall
   GUN: { pos: [0.35, 1.0, 4.6], look: [0.5, 0.95, 0], fov: 38 },           // P06: Gunslinger calm in front of the fire
   SPUD: { pos: [-0.55, 0.66, 3.7], look: [-0.55, 0.58, 0.8], fov: 30 },    // P07: Spud's face
-  LOW: { pos: [0.1, 1.05, 7.4], look: [0.1, 2.45, 0], fov: 52 },        // P08: low, looking up at the ceiling and the cable
+  LOW: { pos: [0.1, 1.0, 7.6], look: [0.1, 2.9, 0], fov: 54 },        // P08: low, looking up at the ceiling and the cable
   FALL: { pos: [0.1, 1.9, 7.2], look: [0.1, 1.5, -0.3], fov: 44 },         // P09: zero gravity
   PIT: { pos: [0.3, 1.7, 14.5], look: [0, 0.6, 0], fov: 46 },              // P10: outside, the spring under the car
   UP: { pos: [-1.7, 1.25, -1.4], look: [0.4, 1.15, 1.25], fov: 62 },       // P11: inside, the doorway at the right
   SPACE: { pos: [0.5, 2.0, 13.4], look: [0.3, 1.45, 0], fov: 44 },
-  REC: { pos: [0.25, 1.2, 6.2], look: [0.2, 1.0, 0.4], fov: 48 },            // P12 closer: the Samurai's record, the Astronaut drifting in          // P12: the car over the Earth
+  REC: { pos: [0.5, 1.2, 6.2], look: [0.45, 1.0, 0.4], fov: 48 },            // P12 closer: the Samurai's record, the Astronaut drifting in          // P12: the car over the Earth
 };
 
 const cast = [
@@ -100,16 +101,16 @@ const cast = [
 
 const FARX = 60;   // parked props wait out here (the floor plan ignores height)
 const props = [
-  { id: "sign", kind: "floorsign", x: 0, y: 3.05, z: -1.585, count: 640 },
+  { id: "sign", kind: "floorsign", x: 0, y: 2.75, z: -1.585, scale: 1.8, count: 640 },
   { id: "panel", kind: "liftpanel", x: 2.03, y: 0.05, z: -0.2, rot: -90, w: 2.6, h: 3.2, close: [1.05, BTN.y], lit: 0, hot: 0, dead: 1, punch: 0 },
-  { id: "cable", kind: "liftcable", x: 0, y: 3.53, z: 0.95, len: 8, strands: 0, whip: 0, glow: 0 },
+  { id: "cable", kind: "liftcable", x: 0, y: 3.53, z: 0.95, len: 8, scale: 1.8, strands: 0, whip: 0, glow: 0 },
   { id: "phone", kind: "phone", x: P0.gun[0] + 0.2, y: 0.62, z: P0.gun[1] + 0.42, rot: 180, tip: -20, scale: 1.8, case: "#2d2f3a" },
   { id: "fire", kind: "wallfire", x: 1.95, y: 0, z: -0.2, rot: -90, w: 2.6, h: 3.2, castLight: true, burn: 0.6 },
   { id: "blast", kind: "liftblast", x: 1.9, y: 1.6, z: -0.2, rot: -90, t0: T.blast + 0.033, w: 2.6, h: 3.2, far: 3.9 },
   { id: "dark", kind: "cardark", x: 0, y: 0, z: 0, dark: 1 },
   { id: "lamp", kind: "alarmlamp", x: -1.7, y: 3.4, z: -1.3, tip: 180, on: 1 },
-  { id: "sparksL", kind: "sparkrain", x: -2.5, y: 2, z: 0.6, box: [0.7, 7, 1.2], n: 110, dir: -1, rate: 1 },
-  { id: "sparksR", kind: "sparkrain", x: 2.5, y: 2, z: 0.6, box: [0.7, 7, 1.2], n: 110, dir: -1, rate: 1 },
+  { id: "sparksL", kind: "sparkrain", x: -1.6, y: 2, z: 1.3, box: [0.5, 7, 0.4], n: 110, dir: -1, rate: 1 },
+  { id: "sparksR", kind: "sparkrain", x: 1.6, y: 2, z: 1.3, box: [0.5, 7, 0.4], n: 110, dir: -1, rate: 1 },
   { id: "blobs", kind: "fireblobs", x: 0, y: 1.7, z: -0.2, box: [3.4, 2.4, 2.2], n: 9, show: 1 },
   { id: "shell", kind: "liftshell", x: FARX, y: 0, z: 0, sign: "0", scorch: 1 },
   { id: "pit", kind: "shaftpit", x: 0, y: -22, z: 0, h: 40, signY: 5.2 },
@@ -128,7 +129,8 @@ const bake = (t, to, dur = 0.5) => FIVE.forEach((w) => A(t, w, "skin", { color: 
 
 // ---------------------------------------------------------------- the narrator (voice 1): the title from 0.0
 c.at(0.0, { macro: "narrate", line: "Stuck in a lift with your friends for thirty days.", voice: "narrator", caption: false });
-c.cap(0.0, 2.7, "Stuck in a lift with your friends for 30 days.", 470, false, SUB_STYLE);
+c.cap(0.0, r3(T.day1 - 0.03), "Stuck in a lift with your friends", 1190, false, SUB_STYLE);
+c.cap(T.day1, 2.7, "for 30 days.", 680, false, SUB_STYLE);
 
 // ================================================================ 0 COLD OPEN (opener B, Jonny 11 Nov): 1.4 s of day 30
 // The clip opens inside the free fall (the props and the cast start in that state), then cuts back to day 1.
@@ -170,18 +172,19 @@ look(T.day1, "gun", [0.15, -0.6], 0); look(T.day1, "wiz", [0.5, 0.1], 0); look(T
 c.arm(T.day1, "spud", "R", { o: [0.3, 0.85, 0.2] }, 0); A(T.day1, "spud", "grip", { side: "R", shape: "point", dur: 0 }); look(T.day1, "spud", [0, 0.8], 0);
 act.blinksAt(c, "spud", [2.0]); act.blinksAt(c, "wiz", [2.3]);
 sfx(r3(T.day1 + 0.2), "ding", { gain: 0.3, reason: "the lift's floor chime on the ride up" });
-c.say(T.spud, "spud", "Floor 800. Two seconds.", 0.8, "calm", { pos: 560 });
+c.say(T.spud, "spud", "Floor 800. Two seconds.", 0.8, "calm", { pos: 680 });
 look(T.spud, "spud", [0, 0], 0.2); expr(T.spud, "spud", "happy");
 see(T.day1, T.cu, ["spud.face", "sam", "panel", "sign"], "day 1: five friends riding up, the Samurai's fist over the door-close button, the sign climbing");
 
 // P02: the punch. Close on the button: fist through the plate, Spud beside it
-place(T.cu, "spud", [0.6, 0.45], 40); place(T.cu, "sam", [1.45, 0.72], 15); place(T.cu, "gun", [-1.55, -0.2], 0);
-c.say(T.cu + 0.03, "sam", "One second. New record!", 0.6, "excited", { pos: 1240 });
+place(T.cu, "spud", [0.82, 0.15], 40); place(T.cu, "sam", [1.45, 0.72], 15); place(T.cu, "gun", [-1.55, -0.2], 0);
+c.say(T.cu + 0.03, "sam", "One second. New record!", 0.6, "excited", { sub: false });
+c.cap(r3(T.cu + 0.03), r3(T.jam - 0.03), "One second. New record!", 1240, false, SUB_STYLE);
 c.arm(T.cu, "sam", "L", { o: [0.2, 0.7, -0.05] }, 0.3, "out");                      // wind-up
 c.arm(r3(T.punch - 0.1), "sam", "L", { world: [1.98, BTN.y, BTN.z] }, 0.1, "in");   // the punch
 expr(T.cu, "sam", "cocky", { open: 0.22 }); look(T.cu, "sam", [0.7, -0.1], 0);
 look(T.cu, "spud", [0.7, -0.05], 0); expr(T.cu, "spud", "kind", null, 0);
-prop(T.punch, "panel", { punch: 1 }, 0.01, "linear");
+prop(T.punch, "panel", { punch: 1 }, 0.01, "linear"); prop(T.punch, "lamp", { on: 1 }, 0.05, "linear");
 c.at(T.punch, { fx: "impact", dur: r3(2 / 30) }); c.at(r3(T.punch + 0.03), { fx: "shake", dur: 0.3, amp: 0.05 });
 sfx(T.punch, "slam", { gain: 0.6, loud: true, reason: "the Samurai's fist through the button plate" });
 sfx(r3(T.punch + 0.05), "fizzle", { gain: 0.4, reason: "the broken button sparks" });
@@ -195,7 +198,7 @@ FIVE.forEach((w, i) => { A(r3(T.jam + 0.02 * i), w, "hop", { count: 1, height: w
 c.at(T.jam, { fx: "shake", dur: 0.6, amp: 0.07 });
 prop(T.jam, "sparksL", { rate: 1 }, 0.05, "linear"); prop(T.jam, "sparksR", { rate: 1 }, 0.05, "linear");
 prop(r3(T.jam + 0.85), "sparksL", { rate: 0 }, 0.3, "linear"); prop(r3(T.jam + 0.85), "sparksR", { rate: 0 }, 0.3, "linear");
-prop(T.jam, "lamp", { on: 1 }, 0.05, "linear"); prop(r3(T.manual + 0.2), "lamp", { on: 0 }, 0.2, "linear");
+prop(r3(T.manual + 0.2), "lamp", { on: 0 }, 0.2, "linear");
 prop(r3(T.jam + 0.1), "cable", { strands: 11, whip: 1 }, 0.01, "linear"); prop(r3(T.jam + 0.12), "cable", { whip: 0 }, 0.5, "settle");
 sfx(T.jam, "screech", { gain: 0.55, loud: true, reason: "the emergency brakes lock" });
 sfx(r3(T.jam + 0.1), "hit-metal", { gain: 0.4, reason: "a cable strand snaps" });
@@ -205,22 +208,24 @@ act.sheepish(c, r3(T.jam + 0.85), "sam");
 see(T.jam, T.manual, ["spud.face", "sam.face", "cable"], "the jam: all five thrown up, a strand gone; the glares land on the Samurai");
 
 // ================================================================ 2 SO THE WIZARD RESETS IT (P04-P05)
-c.say(T.manual, "wiz", "Reset: press every floor. In order.", 1.35, "calm", { pos: 560 });
+c.say(T.manual, "wiz", "Reset: press every floor. In order.", 1.35, "calm", { sub: false });
+c.cap(T.manual, r3(T.sure - 0.03), "Reset: press every floor. In order.", 680, false, SUB_STYLE);
 c.arm(T.manual, "wiz", "R", "point", 0.3); look(T.manual, "wiz", [0.6, 0.2], 0.2); expr(T.manual, "wiz", "focused");
 FIVE.filter((w) => w !== "wiz").forEach((w) => look(r3(T.manual + 0.1), w, [w === "sam" ? -0.8 : -0.6, 0.05], 0.2));
-c.say(T.sure, "spud", "...sure.", 0.4, "calm", { pos: 1240 });
+c.say(T.sure, "spud", "...sure.", 0.4, "calm", { sub: false });
+c.cap(T.sure, r3(T.d12 - 0.03), "...sure.", 620, false, SUB_STYLE);
 expr(T.sure, "spud", "deadpan"); look(T.sure, "spud", [0, 0], 0.15);
 
 // P04: the wall fills up, days 1 to 12, in one shot
 const W4 = { wiz: [1.3, 0.25], spud: [0.4, 0.8], sam: [0.25, -0.35], phx: [-0.75, 0.25], gun: [-0.7, -0.95] };
 Object.entries(W4).forEach(([w, at]) => place(T.wall, w, at, w === "wiz" ? 75 : 30));
 c.arm(T.wall, "wiz", "R", "up", 0); c.arm(T.wall, "wiz", "L", "rest", 0);
-A(T.wall, "wiz", "tap", { count: 9, every: 0.15, side: "R", lift: 0.05 });
+A(T.wall, "wiz", "tap", { count: 16, every: 0.15, side: "R", lift: 0.05 });
 prop(T.wall, "panel", { lit: 1000 }, r3(T.hot - T.wall - 0.1), "linear");
-FIVE.filter((w) => w !== "wiz").forEach((w) => { expr(T.wall, w, "eager", null, 0); look(T.wall, w, [0.7, 0.5], 0); });
+FIVE.filter((w) => w !== "wiz").forEach((w) => { expr(T.wall, w, w === "spud" ? "deadpan" : "eager", null, 0); look(T.wall, w, [0.7, 0.5], 0); });
 look(T.wall, "wiz", [0.5, 0.7], 0);
-c.at(r3(T.wall + 0.15), { macro: "narrate", line: "Day twelve.", voice: "narrator", caption: false });
-c.cap(r3(T.wall + 0.15), r3(T.hot), "Day twelve.", 470, false, SUB_STYLE);
+c.at(T.d12, { macro: "narrate", line: "Day twelve.", voice: "narrator", caption: false });
+c.cap(T.d12, r3(T.hot), "Day twelve.", 470, false, SUB_STYLE);
 sfx(T.wall, "timer-beep", { gain: 0.25, reason: "the buttons lighting, faster and faster" });
 prop(T.hot, "panel", { hot: 1 }, r3(T.blast - T.hot), "in");
 sfx(T.hot, "charge", { gain: 0.45, reason: "the 1,000 lit buttons whine up" });
@@ -243,7 +248,7 @@ Object.entries(BL).forEach(([w, at], i) => {
   both(r3(T.blast + 0.6), w, "rest", 0.3);
 });
 bake(r3(T.blast + 0.1), 0.3, 0.6);
-c.say(T.page2, "wiz", "...Page two: 'Don't.'", 0.8, "sad", { pos: 560 });
+c.say(T.page2, "wiz", "...Page two: 'Don't.'", 0.8, "sad", { pos: 680 });
 expr(T.page2, "wiz", "sad", { open: 0.08 }); look(T.page2, "wiz", [0, -0.5], 0.2);
 FIVE.filter((w) => w !== "wiz").forEach((w) => { expr(r3(T.page2 - 0.2), w, "annoyed"); look(r3(T.page2 - 0.2), w, yawTo(BL[w], BL.wiz) > 0 ? [0.6, 0] : [-0.6, 0], 0.2); });
 see(T.blast, T.call, ["fire", "wiz.face", "spud.face"], "effect: the wall explodes and burns; the lights are gone; the Wizard reads page two too late");
@@ -265,7 +270,8 @@ c.cap(T.offer, T.take, "☎ \"...we could do 1,900.\"", 1240, false, SUB_STYLE);
 see(T.call, T.take, ["gun.face", "phone", "fire"], "cause: the only phone, and he haggles calmly while the wall burns behind him");
 
 // P07: Spud's face
-c.say(r3(T.take + 0.03), "spud", "TAKE IT!", 0.5, "excited", { pos: 1250 });
+c.say(r3(T.take + 0.03), "spud", "TAKE IT!", 0.5, "excited", { sub: false });
+c.cap(r3(T.take + 0.03), r3(T.counter - 0.03), "TAKE IT!", 1250, false, SUB_STYLE);
 place(T.take, "spud", P6.spud, 0); scream(T.take, "spud", 0.4); look(T.take, "spud", [0.15, 0.05], 0);
 both(T.take, "spud", "up", 0);
 see(T.take, T.counter, ["spud.face"], "Spud's panic close-up: he begs him to take the offer");
@@ -275,7 +281,7 @@ c.say(r3(T.counter + 0.03), "gun", "...1,850?", 0.5, "question", { pos: 1240 });
 expr(T.counter, "gun", "cocky"); look(T.counter, "gun", [0.25, -0.2], 0);
 place(T.counter, "spud", P6.spud, yawTo(P6.spud, P6.gun, 0.6)); c.arm(T.counter, "spud", "R", "rest", 0); c.arm(T.counter, "spud", "L", "rest", 0);
 sfx(T.dead, "deflate", { gain: 0.4, reason: "the phone's battery dies" });
-act.shock(c, T.dead, "gun", { open: 0.2, hold: 0.25 });
+look(r3(T.dead - 0.1), "gun", [0.3, -0.6], 0.1); act.shock(c, T.dead, "gun", { open: 0.25, hold: 0.3 });
 ["spud", "sam", "wiz"].forEach((w) => { expr(T.dead, w, "angry"); });
 see(T.counter, T.bounce, ["gun.face", "phone"], "effect: his counter-offer costs the last percent");
 
@@ -283,19 +289,20 @@ see(T.counter, T.bounce, ["gun.face", "phone"], "effect: his counter-offer costs
 Object.entries(P8).forEach(([w, at]) => place(T.bounce, w, at, w === "phx" ? 0 : yawTo(at, [CAM.LOW.pos[0], CAM.LOW.pos[2]], 0.5)));
 A(T.bounce, "gun", "release", { dur: 0 }); prop(T.bounce, "phone", { x: FARX }, 0.01, "linear");
 c.arm(T.bounce, "gun", "R", "rest", 0); c.arm(T.bounce, "gun", "L", "rest", 0);
-c.say(r3(T.bounce + 0.03), "phx", "I'll bounce us loose!", 0.7, "excited", { pos: 1250 });
+c.say(r3(T.bounce + 0.03), "phx", "I'll bounce us loose!", 0.7, "excited", { pos: 520 });
 expr(T.bounce, "phx", "eager", { open: 0.2 }, 0);
-const HOPS = [[T.bounce + 0.2, 0.7, 6], [T.bounce + 0.6, 1.1, 1]];   // [t, height, strands left after the landing]
+const HOPS = [[T.bounce + 0.2, 0.7, 7], [T.bounce + 0.6, 1.1, 2]];   // [t, height, strands left after the landing]
 HOPS.forEach(([t, h, n], i) => {
   A(r3(t), "phx", "hop", { count: 1, height: h, dur: 0.4 + 0.05 * i });
   const down = r3(t + 0.4 + 0.05 * i);
-  prop(down, "cable", { strands: n, whip: 1, glow: n === 1 ? 1 : 0.3 }, 0.01, "linear"); prop(r3(down + 0.02), "cable", { whip: 0 }, 0.3, "settle");
+  prop(down, "cable", { strands: n, whip: 1, glow: n === 2 ? 1 : 0.4 }, 0.01, "linear"); prop(r3(down + 0.02), "cable", { whip: 0 }, 0.3, "settle");
   c.at(down, { fx: "shake", dur: 0.2, amp: 0.03 + 0.02 * i });
   sfx(down, "hit-metal", { gain: 0.4, reason: "strands snap on Phoenix's landing" });
 });
-A(r3(T.snap - 0.25), "phx", "hop", { count: 1, height: 2.45, dur: 0.5 });   // the third hop: its top is the ceiling
-c.at(T.snap, { fx: "shake", dur: 0.35, amp: 0.08 });
-c.say(r3(T.bounce + 0.75), "spud", "NOT THE CABLE!", 0.6, "excited", { pos: 1250 });
+A(r3(T.snap - 0.25), "phx", "hop", { count: 1, height: 3.0, dur: 0.5 });   // the third hop: its top is the ceiling
+c.at(T.snap, { fx: "impact", dur: r3(2 / 30) }); c.at(r3(T.snap + 0.07), { fx: "shake", dur: 0.3, amp: 0.08 });
+c.say(r3(T.bounce + 0.75), "spud", "NOT THE CABLE!", 0.6, "excited", { sub: false });
+c.cap(r3(T.bounce + 0.75), r3(T.fall - 0.03), "NOT THE CABLE!", 520, false, SUB_STYLE);
 ["spud", "sam", "wiz", "gun"].forEach((w) => { scream(r3(T.bounce + 0.45), w, 0.3); both(r3(T.bounce + 0.45), w, "up", 0.2, "out"); look(r3(T.bounce + 0.4), w, [0, 0.9], 0.15); });
 prop(T.snap, "cable", { strands: 0, whip: 1, glow: 0 }, 0.01, "linear"); prop(r3(T.snap + 0.02), "cable", { whip: 0 }, 0.5, "settle");
 sfx(T.snap, "hit-metal", { gain: 0.6, loud: true, reason: "the last strand goes" });
@@ -308,7 +315,7 @@ Object.entries(F9).forEach(([w, [x, z, y, pit]], i) => {
   scream(T.fall, w, 0.4); both(T.fall, w, "up", 0.2, "out");
 });
 c.at(r3(T.fall + 0.1), { macro: "narrate", line: "Day thirty.", voice: "narrator", caption: false });
-c.cap(r3(T.fall + 0.1), T.pit, "Day thirty.", 470, false, SUB_STYLE);
+c.cap(r3(T.fall + 0.1), T.pit, "Day thirty.", 1190, false, SUB_STYLE);
 bake(T.fall, 0.9, 0.6);
 prop(T.fall, "blobs", { show: 1 }, 0.3, "out"); prop(T.fall, "fire", { burn: 0.6 }, 0.3);
 prop(T.fall, "sign", { count: 0 }, r3(T.pit - T.fall), "in");
@@ -329,28 +336,30 @@ FIVE.forEach((w, i) => {
 });
 prop(T.pit, "blobs", { show: 0 }, 0.01, "linear"); prop(T.pit, "sparksL", { rate: 0 }, 0.01, "linear"); prop(T.pit, "sparksR", { rate: 0 }, 0.01, "linear");
 prop(r3(T.pit - 0.02), "shell", { x: 0 }, 0.01, "linear");
-prop(r3(T.pit - 0.02), "pit", { y: -30 }, 0.01, "linear"); prop(T.pit, "pit", { y: PITC }, r3(T.hit - T.pit), "linear");
-prop(r3(T.pit - 0.02), "spring", { x: 0, y: -30 }, 0.01, "linear"); prop(T.pit, "spring", { y: PITC }, r3(T.hit - T.pit), "linear");
+prop(r3(T.pit - 0.02), "pit", { y: -9 }, 0.01, "linear"); prop(T.pit, "pit", { y: PITC }, r3(T.hit - T.pit), "linear");
+prop(r3(T.pit - 0.02), "spring", { x: 0, y: -9 }, 0.01, "linear"); prop(T.pit, "spring", { y: PITC }, r3(T.hit - T.pit), "linear");
 prop(T.hit, "spring", { squash: 1, y: PITY }, 0.12, "out"); prop(T.hit, "pit", { y: PITY }, 0.12, "out");
 c.at(T.hit, { fx: "impact", dur: r3(2 / 30) }); c.at(r3(T.hit + 0.03), { fx: "shake", dur: 0.4, amp: 0.08 });
 sfx(T.hit, "slam", { gain: 0.7, loud: true, reason: "the car lands on the buffer spring" });
 sfx(r3(T.hit + 0.1), "creak", { gain: 0.5, reason: "the spring squashed flat, loading up" });
 // the launch: the spring opens, the pit drops away
 prop(T.launch, "spring", { squash: 0, y: PITC }, 0.08, "out"); prop(T.launch, "pit", { y: PITC }, 0.08, "out");
-prop(r3(T.launch + 0.08), "pit", { y: -34 }, 0.14, "in"); prop(r3(T.launch + 0.08), "spring", { y: -34 }, 0.14, "in");
+prop(r3(T.launch + 0.08), "pit", { y: -34 }, 0.2, "in"); prop(r3(T.launch + 0.08), "spring", { y: -34 }, 0.2, "in");
+c.at(r3(T.launch + 0.05), { fx: "speedlines", dur: r3(T.up - T.launch - 0.08), dir: "down" });
 sfx(T.launch, "seatclack", { gain: 0.7, loud: true, reason: "the spring fires the car back up" });
 see(T.pit, T.up, ["spring", "spud.face"], "cause: the giant spring at the bottom, squashed flat under the car, then it fires");
 
 // P11: inside, shooting up; floor 800 passes in one blink
-const U11 = { spud: [0.25, 0.55], sam: [1.45, 0.75], wiz: [1.25, -0.6], phx: [-0.75, 0.75], gun: [0.2, -0.75] };
-Object.entries(U11).forEach(([w, at]) => { place(T.up, w, at, -55); A(T.up, w, "crouch", { to: 1, dur: 0 }); expr(T.up, w, "terrified", { open: 0.12 }, 0); A(T.up, w, "face", { lid: 0.6, dur: 0 }); });
+const U11 = { spud: [0.25, 0.55], sam: [1.45, 0.75], wiz: [1.5, -0.85], phx: [0.95, -0.05], gun: [0.2, -0.75] };
+Object.entries(U11).forEach(([w, at]) => { place(T.up, w, at, w === "spud" ? -100 : -55); A(T.up, w, "crouch", { to: 1, dur: 0 }); expr(T.up, w, "terrified", { open: 0.12 }, 0); A(T.up, w, "face", { lid: 0.6, dur: 0 }); });
 prop(r3(T.up - 0.02), "shell", { x: FARX }, 0.01, "linear"); prop(r3(T.up - 0.02), "pit", { x: FARX }, 0.01, "linear"); prop(r3(T.up - 0.02), "spring", { x: FARX }, 0.01, "linear"); prop(r3(T.up - 0.02), "doors", { open: 1 }, 0.01, "linear");
-prop(r3(T.up - 0.02), "pass", { x: 0, y: 0 }, 0.01, "linear"); prop(T.up, "pass", { y: -56 }, r3(T.space - T.up), "linear");   // the 800 opening (y 30) is level at T.f800
+prop(r3(T.up - 0.02), "pass", { x: 0, y: -23.4, blur: 0.25 }, 0.01, "linear"); prop(T.up, "pass", { y: -35.6 }, r3(T.space - T.up), "linear");   // the 800 opening (y 30) is level with the floor at T.f800, 9.4 m/s
 c.at(T.up, { fx: "speedlines", dur: r3(T.space - T.up), dir: "down" });
 sfx(T.up, "rocket", { gain: 0.55, reason: "the car shooting up the shaft" });
 sfx(r3(T.f800 - 0.1), "ding", { gain: 0.5, reason: "floor 800 passes" });
-c.say(r3(T.f800 - 0.25), "spud", "Floor 800!", 0.5, "excited", { pos: 1250 });
-c.arm(r3(T.f800 - 0.3), "spud", "L", { o: [0.5, 0.6, 0.1] }, 0.25, "out"); look(r3(T.f800 - 0.3), "spud", [0.9, 0.1], 0.12); scream(r3(T.f800 - 0.3), "spud", 0.3);
+c.say(r3(T.f800 - 0.25), "spud", "Floor 800!", 0.5, "excited", { sub: false });
+c.cap(r3(T.f800 - 0.25), r3(T.space - 0.03), "Floor 800!", 520, false, SUB_STYLE);
+c.arm(r3(T.f800 - 0.45), "spud", "L", { o: [0.55, 0.6, 0.05] }, 0.25, "out"); look(r3(T.f800 - 0.45), "spud", [-0.9, 0.1], 0.12); scream(r3(T.f800 - 0.3), "spud", 0.3);
 c.arm(r3(T.f800 - 0.2), "sam", "L", { o: [0.5, 0.5, 0.1] }, 0.25, "out"); look(r3(T.f800 - 0.25), "sam", [0.9, 0], 0.12);
 see(T.up, T.space, ["spud.face", "pass"], "effect: floor 800 slides past the open doorway, Spud reaches for it, nothing can stop the car");
 
@@ -365,15 +374,15 @@ c.at(T.space, { fx: "flash", dur: 0.35, peak: 1.3, color: "#ffffff", sound: fals
 sfx(T.space, "crumble", { gain: 0.7, loud: true, reason: "the car bursts through the roof" });
 ["wiz", "phx", "gun"].forEach((w) => expr(T.space, w, "shocked", { open: 0.22 }, 0));
 expr(T.space, "spud", "shocked", { open: 0.12 }, 0); expr(T.space, "sam", "shocked", { open: 0.1 }, 0);
-c.say(r3(T.record + 0.05), "sam", "...New record.", 0.7, "calm", { pos: 1250 });
+c.say(r3(T.record + 0.05), "sam", "...New record.", 0.7, "calm", { pos: 560 });
 expr(T.record, "sam", "smug"); look(T.record, "sam", [0, 0.1], 0.2); both(r3(T.record + 0.1), "sam", "hips", 0.3);
 A(r3(T.record + 0.5), "spud", "droop", { to: 1, dur: 0.4, ease: "settle" }); expr(r3(T.record + 0.5), "spud", "deadpan"); look(r3(T.record + 0.5), "spud", [0, 0], 0.2);
 // the Astronaut drifts past the open front
 place(T.space, "ast", [3.9, 2.6], -30);
 A(T.space, "ast", "fly", { to: { x: 3.9, y: 1.5, z: 2.6 }, dur: 0.01, ease: "linear" });
-A(r3(T.record + 0.25), "ast", "fly", { to: { x: 1.0, y: 1.3, z: 2.6 }, dur: 0.75, ease: "out" });
+A(r3(T.record + 0.25), "ast", "fly", { to: { x: 0.95, y: 0.95, z: 1.95 }, dur: 0.75, ease: "out" });
 c.arm(r3(T.astro - 0.2), "ast", "R", "wave", 0.3);
-c.say(T.astro, "ast", "Going down?", 0.55, "question", { pos: 1250 });
+c.say(T.astro, "ast", "Going down?", 0.55, "question", { pos: 1290 });
 FIVE.forEach((w) => look(r3(T.astro + 0.1), w, [0.8, 0.1], 0.2));
 see(T.space, T.end, ["spud.face", "sam.face", "sky"], "the payoff: the car over the Earth, the Samurai's record, Spud's leaf drooping");
 see(T.astro, T.end, ["ast.face"], "the Astronaut's line");
@@ -381,7 +390,7 @@ see(T.astro, T.end, ["ast.face"], "the Astronaut's line");
 // ---------------------------------------------------------------- HUD: the day counter and the phone's battery
 const HUD = { ...hud({
   label: "SURVIVE IT",
-  day: [[0, 30], [T.day1, 1], [T.wall, 12, r3(T.hot - T.wall - 0.2)], [T.lapse, 29, 0.9], [T.fall, 30, 0.3]],
+  day: [[0, 30], [T.day1, 1], [T.d12, 12, r3(T.hot - T.d12 - 0.2)], [T.lapse, 29, 0.9], [T.fall, 30, 0.3]],
   battery: [[0, 0], [T.day1, 9], [T.lapse, 1, 0.9], [T.dead, 0]],
 }), sky: false, clockTag: false };
 
@@ -389,7 +398,7 @@ const HUD = { ...hud({
 const sh = (k, to, dur, ease = "linear") => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov, ...(to && { to, dur, ease }) });
 const beats = c.beats([
   ["hook: day 30 first, the free fall", 0, sh("FALL"), "hook"],
-  ["day 1: the ride up", T.day1, sh("A", { pos: [0.05, 1.5, 6.4], look: CAM.A.look, fov: CAM.A.fov }, r3(T.cu - T.day1))],
+  ["day 1: the ride up", T.day1, sh("A", { pos: [0.05, 1.5, 6.75], look: CAM.A.look, fov: CAM.A.fov }, r3(T.cu - T.day1))],
   ["the punch", T.cu, sh("CU")],
   ["the jam", T.jam, sh("A")],
   ["the wall fills up", T.wall, sh("WALL")],
@@ -402,7 +411,7 @@ const beats = c.beats([
   ["the pit", T.pit, sh("PIT")],
   ["floor 800", T.up, sh("UP")],
   ["space", T.space, sh("SPACE", { pos: [0.45, 1.9, 12.6], look: CAM.SPACE.look, fov: CAM.SPACE.fov }, r3(T.record - T.space), "out")],
-  ["new record", T.record, sh("REC", { pos: [0.25, 1.15, 5.6], look: CAM.REC.look, fov: CAM.REC.fov }, r3(T.end - T.record), "out"), "payoff"],
+  ["new record", T.record, sh("REC", { pos: [0.5, 1.15, 5.6], look: CAM.REC.look, fov: CAM.REC.fov }, r3(T.end - T.record), "out"), "payoff"],
 ], T.end);
 
 const WORN = ["clipping", "arm-in-prop", "hand-in-prop", "costume-in-prop"];
