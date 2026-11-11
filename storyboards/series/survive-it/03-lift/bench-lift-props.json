@@ -1,0 +1,569 @@
+{
+ "id": "bench-lift-props",
+ "title": "Bench: the lift's own props (liftpanel, liftcable, liftspring, liftshell, shaftpit, shaftpass)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 15,
+ "cleanStart": true,
+ "set": {
+  "type": "elevator",
+  "seed": 3
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "p0",
+   "kind": "liftpanel",
+   "x": 40,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "p400",
+   "kind": "liftpanel",
+   "x": 43,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "p1000",
+   "kind": "liftpanel",
+   "x": 46,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "phot",
+   "kind": "liftpanel",
+   "x": 50,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "pdead",
+   "kind": "liftpanel",
+   "x": 53.4,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "punch0",
+   "kind": "liftpanel",
+   "x": 60,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "punch1",
+   "kind": "liftpanel",
+   "x": 63.4,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "c12",
+   "kind": "liftcable",
+   "x": 70,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "c7",
+   "kind": "liftcable",
+   "x": 71.8,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "c1",
+   "kind": "liftcable",
+   "x": 73.6,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "c0",
+   "kind": "liftcable",
+   "x": 75.4,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "c12g",
+   "kind": "liftcable",
+   "x": 77.2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sp0",
+   "kind": "liftspring",
+   "x": 90,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sp1",
+   "kind": "liftspring",
+   "x": 95,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "shell",
+   "kind": "liftshell",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "pit",
+   "kind": "shaftpit",
+   "x": 130,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "ps0",
+   "kind": "shaftpass",
+   "x": 150,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "ps1",
+   "kind": "shaftpass",
+   "x": 155,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "ps5",
+   "kind": "shaftpass",
+   "x": 160,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "actions": [
+  {
+   "do": "prop",
+   "id": "p0",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "p400",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 400
+   }
+  },
+  {
+   "do": "prop",
+   "id": "p1000",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 1000
+   }
+  },
+  {
+   "do": "prop",
+   "id": "phot",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 1000,
+    "hot": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "pdead",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 1000,
+    "dead": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "punch0",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 300,
+    "punch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "punch1",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "lit": 300,
+    "punch": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "c12",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "strands": 12
+   }
+  },
+  {
+   "do": "prop",
+   "id": "c7",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "strands": 7,
+    "whip": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "c1",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "strands": 1,
+    "whip": 0.3,
+    "glow": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "c0",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "strands": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "c12g",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "strands": 12,
+    "glow": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "sp0",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "squash": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "sp1",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "squash": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "shell",
+   "at": 7,
+   "dur": 0,
+   "set": {
+    "scorch": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "shell",
+   "at": 8,
+   "dur": 0,
+   "set": {
+    "scorch": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "shell",
+   "at": 9,
+   "dur": 0,
+   "set": {
+    "scorch": 0.5,
+    "count": 800
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ps0",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "blur": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ps1",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "blur": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "ps5",
+   "at": 0,
+   "dur": 0,
+   "set": {
+    "blur": 0.5
+   }
+  }
+ ],
+ "captions": [],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    43,
+    1.8,
+    17
+   ],
+   "look": [
+    43,
+    1.7,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 1,
+   "pos": [
+    51.7,
+    1.8,
+    11
+   ],
+   "look": [
+    51.7,
+    1.7,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 2,
+   "pos": [
+    62.75,
+    0.9,
+    7
+   ],
+   "look": [
+    62.75,
+    0.8,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 3,
+   "pos": [
+    73.6,
+    4.2,
+    15
+   ],
+   "look": [
+    73.6,
+    4.2,
+    0
+   ],
+   "fov": 50
+  },
+  {
+   "at": 4,
+   "pos": [
+    72.7,
+    1,
+    6
+   ],
+   "look": [
+    72.7,
+    0.9,
+    0
+   ],
+   "fov": 45
+  },
+  {
+   "at": 5,
+   "pos": [
+    72.7,
+    7,
+    6
+   ],
+   "look": [
+    72.7,
+    7,
+    0
+   ],
+   "fov": 45
+  },
+  {
+   "at": 6,
+   "pos": [
+    92.5,
+    1.3,
+    18
+   ],
+   "look": [
+    92.5,
+    1.2,
+    0
+   ],
+   "fov": 50
+  },
+  {
+   "at": 7,
+   "pos": [
+    0,
+    1.6,
+    9
+   ],
+   "look": [
+    0,
+    1.8,
+    0
+   ],
+   "fov": 62
+  },
+  {
+   "at": 8,
+   "pos": [
+    0,
+    1.6,
+    9
+   ],
+   "look": [
+    0,
+    1.8,
+    0
+   ],
+   "fov": 62
+  },
+  {
+   "at": 9,
+   "pos": [
+    7,
+    4.5,
+    8.5
+   ],
+   "look": [
+    0,
+    1.6,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 10,
+   "pos": [
+    130,
+    3.5,
+    8
+   ],
+   "look": [
+    130,
+    3.2,
+    -2.6
+   ],
+   "fov": 58
+  },
+  {
+   "at": 11,
+   "pos": [
+    130,
+    13,
+    8
+   ],
+   "look": [
+    130,
+    13,
+    -2.6
+   ],
+   "fov": 58
+  },
+  {
+   "at": 12,
+   "pos": [
+    150,
+    31,
+    -6.5
+   ],
+   "look": [
+    150,
+    31.05,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 13,
+   "pos": [
+    155,
+    31,
+    -6.5
+   ],
+   "look": [
+    155,
+    31.05,
+    0
+   ],
+   "fov": 55
+  },
+  {
+   "at": 14,
+   "pos": [
+    160,
+    31,
+    -6.5
+   ],
+   "look": [
+    160,
+    31.05,
+    0
+   ],
+   "fov": 55
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/survive-it/03-lift/make-bench-props.mjs (Survive it EP2 task T1)."
+}

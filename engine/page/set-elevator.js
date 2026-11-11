@@ -127,7 +127,8 @@ export function buildElevator(scene, S = {}) {
   for (const x of [-hw + 0.35, 0, hw - 0.35]) box(car, 0.03, 0.03, 0.08, brass, x, E.rail, E.backZ + 0.045);
   for (const s of [-1, 1]) for (const z of [E.backZ + 0.4, E.frontZ - 0.5]) box(car, 0.08, 0.03, 0.03, brass, s * (hw - 0.045), E.rail, z);
   // the ceiling: cream panels round a big warm light panel
-  const ceil = flat(new THREE.Mesh(new THREE.PlaneGeometry(hw * 2, depth + 6), std("#e8dfcf"))); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, E.H, cz + 3); car.add(ceil);
+  const ceilOn = S.open ? 0 : 6;   // spec.open: the ceiling ends with the car
+  const ceil = flat(new THREE.Mesh(new THREE.PlaneGeometry(hw * 2, depth + ceilOn), std("#e8dfcf"))); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, E.H, cz + ceilOn / 2); car.add(ceil);
   for (const x of [-1.1, 0, 1.1]) for (const z of [cz - 0.6, cz + 0.6]) {
     const ring = new THREE.Mesh(new THREE.RingGeometry(0.09, 0.115, 28), std("#c99a3e", { metalness: 0.7, roughness: 0.3, side: THREE.DoubleSide })); ring.rotation.x = Math.PI / 2; ring.position.set(x, E.H - 0.006, z); car.add(ring);
     const l = new THREE.Mesh(new THREE.CircleGeometry(0.09, 28), basic({ color: "#fff3d6", side: THREE.DoubleSide })); l.rotation.x = Math.PI / 2; l.position.set(x, E.H - 0.008, z); car.add(l);

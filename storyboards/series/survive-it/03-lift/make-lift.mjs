@@ -97,7 +97,7 @@ const FARX = 60;   // parked props wait out here (the floor plan ignores height)
 const props = [
   { id: "sign", kind: "floorsign", x: 0, y: 3.05, z: -1.585, count: 795 },
   { id: "panel", kind: "liftpanel", x: 2.03, y: 0.05, z: -0.2, rot: -90, w: 2.6, h: 3.2, close: [1.05, BTN.y], lit: 0, hot: 0, dead: 0, punch: 0 },
-  { id: "cable", kind: "liftcable", x: 0, y: 3.42, z: 0.95, len: 8, strands: 12, whip: 0, glow: 0 },
+  { id: "cable", kind: "liftcable", x: 0, y: 3.53, z: 0.95, len: 8, strands: 12, whip: 0, glow: 0 },
   { id: "phone", kind: "phone", x: P0.gun[0] + 0.2, y: 0.62, z: P0.gun[1] + 0.42, rot: 180, tip: -20, scale: 1.8, case: "#2d2f3a" },
   { id: "fire", kind: "wallfire", x: 1.95, y: 0, z: -0.2, rot: -90, w: 2.6, h: 3.2, castLight: true, burn: 0 },
   { id: "blast", kind: "liftblast", x: 1.9, y: 1.6, z: -0.2, rot: -90, t0: T.blast + 0.033, w: 2.6, h: 3.2, far: 3.9 },
