@@ -989,7 +989,11 @@ function spud(C, ch, out) {
     if (ch.skinMat) ch.skinMat.color.set(pale);   // the seamless glove's skin
     if (ch.armMat && ch.armMat !== ch.limbMat) ch.armMat.color.set(pale);   // and the wrist that shows past the cuff
     if (ch.limbMat) { const hm = ch.limbMat.clone(); hm.color.set(pale); hm.userData = { ...ch.limbMat.userData };
-      for (const s of ["L", "R"]) ch.arms?.[s]?.hand?.traverse?.((o) => { if (o.isMesh && o.material === ch.limbMat) o.material = hm; }); } }
+      for (const s of ["L", "R"]) ch.arms?.[s]?.hand?.traverse?.((o) => { if (o.isMesh && o.material === ch.limbMat) o.material = hm; });  }
+    // his legs and boots take no ink hull (11 Nov): under set "ink" a limb colour that is not near black gets a hull,
+    // and on his legs that hull blew up into a brown wall across the whole frame (the fighters' limbs are dark, so
+    // theirs never showed it). The hands above keep their line. Cause in the hull itself: still open
+    if (ch.limbMat) ch.limbMat.userData.noOutline = true; }
   const _x = V(0, 0, 0), _z = V(0, 0, 0), _m = new THREE.Matrix4();
   const base = out.apply;
   out.apply = (st, t, ...r) => {

@@ -1,0 +1,35 @@
+{
+ "name": "storm-pine-clearing",
+ "prompt": "anime film background painting, gouache, low ground level view across a wide flat open clearing of bare wet dark earth filling the bottom third, a low line of small pine trees far away, a huge black thunderstorm sky filling the top two thirds, forked lightning, rain, night",
+ "no": "campfire, fire, log, tent, house, road, path, lantern, sun, daylight, tall trees in front",
+ "seeds": [
+  3,
+  11,
+  27,
+  40
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.5,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "above: cold storm light",
+  "key": [
+   -2.0,
+   6.0,
+   2.0
+  ],
+  "shadow": 0.2
+ },
+ "swayMax": 20,
+ "surface": "dirt"
+}
