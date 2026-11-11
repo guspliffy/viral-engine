@@ -48,9 +48,14 @@
   "satsuei": true
  },
  "music": {
-  "style": "bounce",
-  "lowCut": 150,
-  "gain": 0.3
+  "style": "sneaky",
+  "parts": [
+   {
+    "at": 0,
+    "part": "musicbox"
+   }
+  ],
+  "gain": 0.5
  },
  "sound": {
   "sfx": 0.6,
@@ -110,14 +115,14 @@
   },
   {
    "id": "host",
-   "character": "halloween/wizard-host",
+   "character": "hot-potato/wizard-gamemaster",
    "at": [
     1.425,
     0
    ],
    "y": 1.2,
    "face": -12,
-   "expr": "delighted",
+   "expr": "evil",
    "follow": 0.3,
    "seed": 0.4
   },
@@ -133,6 +138,20 @@
    "expr": "delighted",
    "follow": 0.3,
    "seed": 0.4,
+   "hidden": true
+  },
+  {
+   "id": "vcrisp",
+   "character": "hot-potato/viking-crispy",
+   "at": [
+    -30,
+    -30
+   ],
+   "y": -0.5,
+   "face": 8,
+   "expr": "dizzy",
+   "follow": 0.3,
+   "seed": 4.1,
    "hidden": true
   }
  ],
@@ -246,6 +265,42 @@
    "drip": 0
   },
   {
+   "id": "lift0",
+   "kind": "hplift",
+   "x": -1.425,
+   "y": -0.5,
+   "z": 0,
+   "w": 0.9,
+   "d": 0.8,
+   "h": 0.42,
+   "pole": 3,
+   "drip": 0
+  },
+  {
+   "id": "fireV",
+   "kind": "fireplume",
+   "staged": "fire out of the fryer through the open tile (an effect)",
+   "x": -1.425,
+   "y": 0.85,
+   "z": 0,
+   "tip": -90,
+   "length": 1.7,
+   "width": 0.6,
+   "balls": 26
+  },
+  {
+   "id": "fireH",
+   "kind": "fireplume",
+   "staged": "fire out of the fryer through the open tile (an effect)",
+   "x": 1.425,
+   "y": 0.85,
+   "z": 0,
+   "tip": -90,
+   "length": 1.7,
+   "width": 0.6,
+   "balls": 26
+  },
+  {
    "id": "plume",
    "kind": "fireplume",
    "staged": "Dragon's sneeze of fire (an effect)",
@@ -329,44 +384,49 @@
  "captions": [
   {
    "from": 0.02,
-   "to": 1.02,
-   "text": "HOT POTATO!",
+   "to": 2.64,
+   "text": "Hot Potato. Drop it, or fry.",
    "pos": 800,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 6.52,
+   "text": "Dragon is fireproof.",
+   "pos": 672,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6.85,
+   "to": 7.87,
+   "text": "One second!",
+   "pos": 672,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.68,
+   "to": 12,
+   "text": "Rules are rules.",
+   "pos": 800,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2.95,
+   "to": 3.48,
+   "text": "Next!",
+   "pos": 672,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 1.25,
-   "to": 2.2,
-   "text": "Bye-bye, Viking!",
-   "pos": 800,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 3.03,
-   "to": 3.93,
+   "from": 3.48,
+   "to": 4.38,
    "text": "HOT! HOT! HOT!",
-   "pos": 672,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 4.33,
-   "to": 5.03,
-   "text": "Ooh, cosy!",
-   "pos": 672,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 5.03,
-   "to": 5.83,
-   "text": "No no no!",
    "pos": 672,
    "pop": false,
    "size": 62,
@@ -375,15 +435,15 @@
   {
    "from": 6.4,
    "to": 7.2,
-   "text": "ONE!",
+   "text": "No no no!",
    "pos": 672,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 7.92,
-   "to": 8.72,
+   "from": 8.37,
+   "to": 9.17,
    "text": "CHOO!",
    "pos": 800,
    "pop": false,
@@ -391,8 +451,8 @@
    "kinetic": false
   },
   {
-   "from": 8.74,
-   "to": 9.54,
+   "from": 9.19,
+   "to": 9.99,
    "text": "Uh-oh.",
    "pos": 800,
    "pop": false,
@@ -400,8 +460,8 @@
    "kinetic": false
   },
   {
-   "from": 10.45,
-   "to": 10.9,
+   "from": 11.86,
+   "to": 12.35,
    "text": "WE HAVE A *WINNER!*",
    "pos": 740,
    "pop": true,
@@ -409,8 +469,8 @@
    "kinetic": false
   },
   {
-   "from": 10.95,
-   "to": 11.9,
+   "from": 12.4,
+   "to": 13.35,
    "text": "See you next week, kids!",
    "pos": 800,
    "pop": false,
@@ -418,8 +478,8 @@
    "kinetic": false
   },
   {
-   "from": 11.9,
-   "to": 12.65,
+   "from": 13.35,
+   "to": 14.1,
    "text": "Ah… ah…",
    "pos": 800,
    "pop": false,
@@ -431,12 +491,12 @@
   {
    "name": "01 the coal",
    "at": 0,
-   "len": 2.15,
+   "len": 2.6,
    "shot": {
     "pos": [
      0,
-     3.502,
-     11.456
+     3.531,
+     11.788
     ],
     "look": [
      0,
@@ -526,6 +586,40 @@
     },
     {
      "do": "prop",
+     "id": "fireV",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fade": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fireH",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fade": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lift0",
+     "set": {
+      "drip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "confL",
      "set": {
       "burst": 0
@@ -576,7 +670,7 @@
     },
     {
      "sfx": "bubbling",
-     "dur": 12.65,
+     "dur": 14.1,
      "gain": 0.2,
      "reason": "the fryer bubbling under the stage, the whole clip",
      "at": 0
@@ -792,9 +886,9 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.2,
-       0.16,
-       0.3
+       -0.055,
+       0.17,
+       0.4
       ]
      },
      "dur": 0,
@@ -805,10 +899,10 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.3,
-       0.62,
-       0.12
+      "x": [
+       0.055,
+       0.17,
+       0.4
       ]
      },
      "dur": 0,
@@ -825,28 +919,47 @@
     {
      "who": "host",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "evil",
      "set": {
       "curve": 0.9,
-      "open": 0.45
+      "open": 0.3
      },
      "dur": 0,
      "at": 0
     },
     {
-     "fx": "sweat",
-     "who": "vik",
-     "dur": 0.7,
-     "at": 0.02
+     "who": "host",
+     "do": "face",
+     "brow": -0.45,
+     "tilt": 0.6,
+     "lid": 0.3,
+     "dur": 0,
+     "at": 0
     },
     {
      "who": "host",
-     "do": "talk",
-     "line": "hot potato!",
-     "tone": "excited",
-     "dur": 0.6,
+     "do": "look",
+     "to": [
+      -0.75,
+      -0.15
+     ],
+     "dur": 0,
      "blink": false,
-     "voice": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Hot Potato. Drop it, or fry.",
+     "voice": "narrator",
+     "take": 2,
+     "caption": false,
+     "gain": 1.1,
+     "at": 0.02
+    },
+    {
+     "fx": "sweat",
+     "who": "vik",
+     "dur": 0.7,
      "at": 0.02
     },
     {
@@ -863,6 +976,66 @@
      "at": 0.05
     },
     {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.13,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.21000000000000002,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.21
+    },
+    {
      "who": "vik",
      "do": "squash",
      "amount": 0.04,
@@ -870,11 +1043,71 @@
      "at": 0.25
     },
     {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
      "who": "vik",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.18,
      "at": 0.45
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.13,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.53
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.21000000000000002,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.53
     },
     {
      "do": "prop",
@@ -1090,6 +1323,17 @@
     },
     {
      "who": "host",
+     "do": "expr",
+     "expr": "evil",
+     "set": {
+      "curve": 1,
+      "open": 0.7
+     },
+     "dur": 0.12,
+     "at": 0.87
+    },
+    {
+     "who": "host",
      "do": "look",
      "to": [
       -0.6,
@@ -1112,6 +1356,13 @@
      "at": 1.02
     },
     {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.02
+    },
+    {
      "who": "vik",
      "do": "hide",
      "at": 1.17
@@ -1127,6 +1378,13 @@
      "ease": "linear",
      "steps": 0,
      "at": 1.18
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.19
     },
     {
      "do": "prop",
@@ -1155,14 +1413,30 @@
      "at": 1.22
     },
     {
-     "who": "host",
-     "do": "talk",
-     "line": "aww! bye-bye viking!",
-     "tone": "excited",
-     "dur": 0.55,
-     "blink": false,
-     "voice": false,
-     "at": 1.25
+     "do": "prop",
+     "id": "fireV",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "fireV",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.24
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 0.6,
+     "reason": "fire shoots up out of the loser's hole",
+     "at": 1.24
     },
     {
      "do": "prop",
@@ -1181,14 +1455,11 @@
      "at": 1.32
     },
     {
-     "do": "prop",
-     "id": "tile_vik",
-     "set": {
-      "open": 0
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 1.45
+     "who": "host",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.36
     },
     {
      "do": "prop",
@@ -1232,12 +1503,99 @@
     },
     {
      "who": "host",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.53
+    },
+    {
+     "who": "vcrisp",
+     "do": "move",
+     "to": [
+      -1.425,
+      0
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "steps": 0,
+     "at": 1.6
+    },
+    {
+     "who": "vcrisp",
+     "do": "ride",
+     "prop": "lift0",
+     "off": [
+      0,
+      0.02,
+      0
+     ],
+     "yaw": 8,
+     "dur": 0,
+     "at": 1.62
+    },
+    {
+     "who": "vcrisp",
+     "do": "show",
+     "at": 1.63
+    },
+    {
+     "who": "vcrisp",
+     "do": "expr",
+     "expr": "dizzy",
+     "dur": 0,
+     "at": 1.63
+    },
+    {
+     "do": "prop",
+     "id": "lift0",
+     "set": {
+      "y": 1.22
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.67
+    },
+    {
+     "do": "prop",
+     "id": "lift0",
+     "set": {
+      "drip": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.67
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the fry basket winds Viking back up",
+     "at": 1.67
+    },
+    {
+     "do": "prop",
+     "id": "fireV",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.69
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.15,
+     "at": 1.7
+    },
+    {
+     "who": "host",
      "do": "arm",
      "side": "L",
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.45
+     "at": 1.9
     },
     {
      "who": "host",
@@ -1252,7 +1610,80 @@
      },
      "dur": 0.22,
      "ease": "inOut",
-     "at": 1.45
+     "at": 1.9
+    },
+    {
+     "sfx": "steam",
+     "gain": 0.4,
+     "reason": "steam off the fried Viking",
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.97
+    },
+    {
+     "who": "drg",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.97
+    },
+    {
+     "who": "host",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.12,
+     "at": 2.02
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.25,
+     "at": 2.02
+    },
+    {
+     "who": "drg",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.12,
+     "at": 2.02
+    },
+    {
+     "who": "drg",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.25,
+     "at": 2.02
     },
     {
      "do": "prop",
@@ -1265,7 +1696,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.66
+     "at": 2.11
+    },
+    {
+     "sfx": "ding",
+     "gain": 0.55,
+     "reason": "ding: he's done",
+     "at": 2.12
     },
     {
      "do": "carry",
@@ -1276,7 +1713,7 @@
       0,
       0.5
      ],
-     "at": 1.67
+     "at": 2.12
     },
     {
      "who": "host",
@@ -1292,7 +1729,7 @@
       ]
      },
      "dur": 0.04,
-     "at": 1.68
+     "at": 2.13
     },
     {
      "who": "host",
@@ -1300,7 +1737,7 @@
      "side": "R",
      "shape": "clasp",
      "dur": 0.05,
-     "at": 1.68
+     "at": 2.13
     },
     {
      "do": "prop",
@@ -1310,7 +1747,7 @@
      },
      "dur": 0.08,
      "ease": "back",
-     "at": 1.7
+     "at": 2.15
     },
     {
      "do": "prop",
@@ -1320,19 +1757,26 @@
      },
      "dur": 0.08,
      "ease": "back",
-     "at": 1.7
+     "at": 2.15
     },
     {
      "fx": "poof",
      "who": "host",
      "dur": 0.35,
-     "at": 1.7
+     "at": 2.15
     },
     {
      "sfx": "poof",
      "gain": 0.5,
      "reason": "the host conjures tongs with a fresh glowing coal",
-     "at": 1.7
+     "at": 2.15
+    },
+    {
+     "who": "vcrisp",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.4,
+     "at": 2.17
     },
     {
      "who": "host",
@@ -1343,7 +1787,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.72
+     "at": 2.17
     },
     {
      "who": "drg",
@@ -1358,7 +1802,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.75
+     "at": 2.2
     },
     {
      "who": "drg",
@@ -1373,7 +1817,17 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.75
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.25
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 2.22
     },
     {
      "who": "host",
@@ -1381,7 +1835,7 @@
      "to": -72,
      "dur": 0.74,
      "ease": "linear",
-     "at": 1.8
+     "at": 2.25
     },
     {
      "who": "host",
@@ -1393,7 +1847,7 @@
      "dur": 0.36,
      "steps": 2,
      "ease": "linear",
-     "at": 1.8
+     "at": 2.25
     },
     {
      "do": "prop",
@@ -1406,14 +1860,14 @@
      },
      "dur": 0.123,
      "ease": "linear",
-     "at": 1.8
+     "at": 2.25
     },
     {
      "who": "drg",
      "do": "pitch",
      "to": -5,
      "dur": 0.3,
-     "at": 1.8
+     "at": 2.25
     },
     {
      "who": "drg",
@@ -1424,7 +1878,19 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.8
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.3
+    },
+    {
+     "who": "drg",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.35
     },
     {
      "do": "prop",
@@ -1437,7 +1903,13 @@
      },
      "dur": 0.123,
      "ease": "linear",
-     "at": 1.923
+     "at": 2.373
+    },
+    {
+     "who": "host",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1448,7 +1920,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2
+     "at": 2.45
     },
     {
      "do": "prop",
@@ -1461,7 +1933,7 @@
      },
      "dur": 0.123,
      "ease": "linear",
-     "at": 2.047
+     "at": 2.497
     },
     {
      "who": "spud",
@@ -1469,7 +1941,7 @@
      "to": 35,
      "dur": 0.3,
      "ease": "inOut",
-     "at": 2.05
+     "at": 2.5
     },
     {
      "who": "spud",
@@ -1484,7 +1956,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 2.1
+     "at": 2.55
     },
     {
      "who": "spud",
@@ -1499,7 +1971,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 2.1
+     "at": 2.55
     },
     {
      "who": "spud",
@@ -1507,14 +1979,14 @@
      "side": "both",
      "shape": "cup",
      "dur": 0.15,
-     "at": 2.1
+     "at": 2.55
     }
    ],
    "kind": "hook"
   },
   {
    "name": "03 a fresh coal",
-   "at": 2.15,
+   "at": 2.6,
    "len": 0.85,
    "shot": {
     "pos": [
@@ -1579,16 +2051,6 @@
     },
     {
      "do": "prop",
-     "id": "vat",
-     "set": {
-      "churn": 0.25
-     },
-     "dur": 0.8,
-     "ease": "inOut",
-     "at": 0.07
-    },
-    {
-     "do": "prop",
      "id": "tongs",
      "set": {
       "x": 0.213,
@@ -1601,29 +2063,11 @@
      "at": 0.143
     },
     {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.15
-    },
-    {
      "who": "host",
      "do": "pitch",
      "to": 8,
      "dur": 0.25,
      "at": 0.15
-    },
-    {
-     "who": "drg",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.2
-    },
-    {
-     "who": "host",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.25
     },
     {
      "do": "prop",
@@ -1639,6 +2083,16 @@
      "at": 0.267
     },
     {
+     "do": "prop",
+     "id": "lift0",
+     "set": {
+      "drip": 0.15
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.27
+    },
+    {
      "who": "spud",
      "do": "look",
      "to": [
@@ -1648,6 +2102,16 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.3
+    },
+    {
+     "who": "host",
+     "do": "talk",
+     "line": "next!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.35
     },
     {
      "do": "prop",
@@ -1812,7 +2276,7 @@
   },
   {
    "name": "hot hot",
-   "at": 3,
+   "at": 3.45,
    "len": 0.58,
    "shot": {
     "pos": [
@@ -2016,7 +2480,7 @@
   },
   {
    "name": "04 the pass",
-   "at": 3.58,
+   "at": 4.03,
    "len": 2.57,
    "shot": {
     "pos": [
@@ -2193,6 +2657,15 @@
      "at": 0.2
     },
     {
+     "macro": "narrate",
+     "line": "Dragon is fireproof.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 1,
+     "at": 0.37
+    },
+    {
      "do": "prop",
      "id": "tile_vik",
      "set": {
@@ -2343,16 +2816,6 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.7
-    },
-    {
-     "who": "drg",
-     "do": "talk",
-     "line": "ooh! warm!",
-     "tone": "excited",
-     "dur": 0.5,
-     "blink": false,
-     "voice": false,
-     "at": 0.75
     },
     {
      "who": "spud",
@@ -2529,16 +2992,6 @@
      "at": 1.32
     },
     {
-     "who": "spud",
-     "do": "talk",
-     "line": "no no no!",
-     "tone": "excited",
-     "dur": 0.4,
-     "blink": false,
-     "voice": false,
-     "at": 1.45
-    },
-    {
      "who": "drg",
      "do": "release",
      "prop": "coal",
@@ -2696,6 +3149,12 @@
     },
     {
      "who": "drg",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.97
+    },
+    {
+     "who": "drg",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -2735,6 +3194,12 @@
      "at": 1.97
     },
     {
+     "who": "host",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.02
+    },
+    {
      "do": "prop",
      "id": "studio",
      "set": {
@@ -2759,10 +3224,14 @@
      "at": 2.27
     },
     {
-     "who": "drg",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.42
+     "who": "spud",
+     "do": "talk",
+     "line": "no no no!",
+     "tone": "excited",
+     "dur": 0.4,
+     "blink": false,
+     "voice": false,
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -2770,18 +3239,12 @@
      "amount": 0.07,
      "dur": 0.15,
      "at": 2.44
-    },
-    {
-     "who": "host",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.47
     }
    ]
   },
   {
    "name": "06 the fake-out",
-   "at": 6.15,
+   "at": 6.6,
    "len": 1.05,
    "shot": {
     "pos": [
@@ -2820,20 +3283,49 @@
      "do": "expr",
      "expr": "evil",
      "set": {
-      "curve": 0.85,
-      "open": 0.25
+      "curve": 1,
+      "open": 0.35
      },
      "dur": 0.2,
      "at": 0.05
     },
     {
      "who": "host",
-     "do": "talk",
-     "line": "one!",
-     "tone": "excited",
-     "dur": 0.3,
-     "blink": false,
-     "voice": false,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "One second!",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 1.4,
      "at": 0.25
     },
     {
@@ -2872,6 +3364,36 @@
      "dur": 0.08,
      "blink": false,
      "at": 0.32
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.13,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.36
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.21000000000000002,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.36
     },
     {
      "who": "spud",
@@ -3010,6 +3532,36 @@
      "at": 0.49
     },
     {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.17,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.52
+    },
+    {
      "who": "drg",
      "do": "look",
      "to": [
@@ -3019,6 +3571,36 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.57
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.055,
+       0.13,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.055,
+       0.21000000000000002,
+       0.4
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.68
     },
     {
      "who": "drg",
@@ -3062,7 +3644,7 @@
   },
   {
    "name": "07 smoke",
-   "at": 7.2,
+   "at": 7.65,
    "len": 0.73,
    "shot": {
     "pos": [
@@ -3166,6 +3748,44 @@
      "at": 0.12
     },
     {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.145,
+       0.1,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.145,
+       0.1,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "host",
+     "do": "grip",
+     "side": "both",
+     "shape": "cup",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
      "who": "drg",
      "do": "expr",
      "expr": "focused",
@@ -3220,17 +3840,6 @@
      "dur": 0.1,
      "blink": false,
      "at": 0.4
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      -0.815,
-      0
-     ],
-     "dur": 0.26,
-     "steps": 1,
-     "at": 0.46
     },
     {
      "who": "spud",
@@ -3322,8 +3931,8 @@
   },
   {
    "name": "08 the sneeze",
-   "at": 7.93,
-   "len": 2.22,
+   "at": 8.38,
+   "len": 2.82,
    "shot": {
     "pos": [
      0.3,
@@ -3557,7 +4166,7 @@
     {
      "who": "host",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "evil",
      "set": {
       "curve": 0.9,
       "open": 0.05
@@ -3568,7 +4177,8 @@
     {
      "who": "host",
      "do": "face",
-     "brow": 0.5,
+     "brow": 0.6,
+     "tilt": 0,
      "lid": 0,
      "dur": 0.08,
      "at": 0.49
@@ -3667,17 +4277,6 @@
      "dur": 0.2,
      "ease": "inOut",
      "at": 0.62
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      -0.475,
-      0
-     ],
-     "dur": 0.3,
-     "steps": 1,
-     "at": 0.67
     },
     {
      "who": "spud",
@@ -3845,6 +4444,15 @@
      "at": 1.29
     },
     {
+     "macro": "narrate",
+     "line": "Rules are rules.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 1.5,
+     "at": 1.3
+    },
+    {
      "do": "prop",
      "id": "studio",
      "set": {
@@ -3891,6 +4499,12 @@
      },
      "dur": 0.15,
      "at": 1.42
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.52
     },
     {
      "who": "drg",
@@ -3991,6 +4605,32 @@
      "at": 1.77
     },
     {
+     "do": "prop",
+     "id": "fireH",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 1.79
+    },
+    {
+     "do": "prop",
+     "id": "fireH",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 1.79
+    },
+    {
+     "sfx": "flamejet",
+     "gain": 0.6,
+     "reason": "fire shoots up out of the loser's hole",
+     "at": 1.79
+    },
+    {
      "who": "drg",
      "do": "arm",
      "side": "R",
@@ -4012,12 +4652,6 @@
      "at": 1.87
     },
     {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.97
-    },
-    {
      "who": "drg",
      "do": "arm",
      "side": "R",
@@ -4033,16 +4667,6 @@
      "at": 1.97
     },
     {
-     "do": "prop",
-     "id": "tile_host",
-     "set": {
-      "hot": 0
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 2.07
-    },
-    {
      "who": "drg",
      "do": "arm",
      "side": "R",
@@ -4056,14 +4680,49 @@
      "dur": 0.13,
      "ease": "inOut",
      "at": 2.12
+    },
+    {
+     "do": "prop",
+     "id": "fireH",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.24
+    },
+    {
+     "who": "drg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.02,
+       0.42,
+       0.37
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.67
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "10 crispy",
-   "at": 10.15,
-   "len": 2.5,
+   "at": 11.2,
+   "len": 2.9,
    "shot": {
     "pos": [
      0.3,
@@ -4092,19 +4751,14 @@
    },
    "do": [
     {
-     "who": "drg",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.02,
-       0.42,
-       0.37
-      ]
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.3
      },
-     "dur": 0.13,
+     "dur": 0.8,
      "ease": "inOut",
-     "at": 0.03
+     "at": 0
     },
     {
      "who": "crisp",
@@ -4134,6 +4788,34 @@
     {
      "who": "crisp",
      "do": "show",
+     "at": 0.06
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.12,
+       0.2
+      ]
+     },
+     "dur": 0,
+     "at": 0.06
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.2,
+       0.12,
+       0.2
+      ]
+     },
+     "dur": 0,
      "at": 0.06
     },
     {
@@ -4273,31 +4955,6 @@
      "at": 0.4
     },
     {
-     "who": "crisp",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.42,
-       0.66,
-       0.2
-      ]
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "vat",
-     "set": {
-      "churn": 0.3
-     },
-     "dur": 0.8,
-     "ease": "inOut",
-     "at": 0.6
-    },
-    {
      "sfx": "ding",
      "gain": 0.6,
      "reason": "ding: he's done",
@@ -4347,31 +5004,6 @@
     },
     {
      "who": "crisp",
-     "do": "talk",
-     "line": "see you next week, kids!",
-     "tone": "excited",
-     "dur": 0.85,
-     "blink": false,
-     "voice": false,
-     "at": 0.8
-    },
-    {
-     "who": "crisp",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.34,
-       0.72,
-       0.2
-      ]
-     },
-     "dur": 0.18,
-     "ease": "inOut",
-     "at": 0.85
-    },
-    {
-     "who": "crisp",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -4381,9 +5013,19 @@
        0.2
       ]
      },
-     "dur": 0.18,
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 1.05
+     "at": 0.9
+    },
+    {
+     "who": "crisp",
+     "do": "talk",
+     "line": "see you next week, kids!",
+     "tone": "excited",
+     "dur": 0.85,
+     "blink": false,
+     "voice": false,
+     "at": 1.2
     },
     {
      "who": "crisp",
@@ -4426,6 +5068,36 @@
      "at": 1.45
     },
     {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.72,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.66,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.85
+    },
+    {
      "who": "drg",
      "do": "expr",
      "expr": "focused",
@@ -4435,7 +5107,7 @@
       "eye": 0.7
      },
      "dur": 0.15,
-     "at": 1.7
+     "at": 2.1
     },
     {
      "who": "drg",
@@ -4443,7 +5115,7 @@
      "brow": -0.3,
      "tilt": 0.3,
      "dur": 0.15,
-     "at": 1.7
+     "at": 2.1
     },
     {
      "who": "drg",
@@ -4451,13 +5123,13 @@
      "to": -12,
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.75
+     "at": 2.15
     },
     {
      "sfx": "gasp",
      "gain": 0.55,
      "reason": "ah... (Dragon's next sneeze building)",
-     "at": 1.75
+     "at": 2.15
     },
     {
      "who": "drg",
@@ -4467,7 +5139,7 @@
      "dur": 0.5,
      "blink": false,
      "voice": false,
-     "at": 1.75
+     "at": 2.15
     },
     {
      "who": "spud",
@@ -4478,7 +5150,7 @@
      ],
      "dur": 0.08,
      "blink": false,
-     "at": 1.9
+     "at": 2.3
     },
     {
      "who": "spud",
@@ -4488,7 +5160,7 @@
       "open": 0.5
      },
      "dur": 0.1,
-     "at": 1.95
+     "at": 2.35
     },
     {
      "who": "spud",
@@ -4496,14 +5168,14 @@
      "lid": 0,
      "brow": 0.6,
      "dur": 0.1,
-     "at": 1.95
+     "at": 2.35
     },
     {
      "who": "spud",
      "do": "droop",
      "to": 0,
      "dur": 0.1,
-     "at": 1.95
+     "at": 2.35
     },
     {
      "who": "crisp",
@@ -4514,7 +5186,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 2
+     "at": 2.4
     },
     {
      "who": "crisp",
@@ -4525,7 +5197,7 @@
       "curve": -0.2
      },
      "dur": 0.12,
-     "at": 2.05
+     "at": 2.45
     }
    ]
   }
@@ -4544,6 +5216,16 @@
    "why": "frame 0: Viking with the coal on the red tile, the others watching, the host beaming"
   },
   {
+   "from": 1.67,
+   "to": 2.37,
+   "see": [
+    "vcrisp",
+    "spud.face",
+    "drg.face"
+   ],
+   "why": "what losing means: Viking comes back up fried"
+  },
+  {
    "from": 0.72,
    "to": 1.12,
    "see": [
@@ -4553,8 +5235,8 @@
    "why": "the rule: at 0 the red tile opens under whoever holds the coal"
   },
   {
-   "from": 2.4,
-   "to": 3,
+   "from": 2.85,
+   "to": 3.45,
    "see": [
     "spud.face",
     "host.face",
@@ -4563,8 +5245,8 @@
    "why": "the fresh coal goes from the tongs into Spud's gloves; his tile turns red"
   },
   {
-   "from": 3,
-   "to": 3.5,
+   "from": 3.45,
+   "to": 3.95,
    "see": [
     "spud.face",
     "coal"
@@ -4572,8 +5254,8 @@
    "why": "it burns his gloves"
   },
   {
-   "from": 3.68,
-   "to": 4.18,
+   "from": 4.13,
+   "to": 4.63,
    "see": [
     "spud.face",
     "drg.face",
@@ -4582,8 +5264,8 @@
    "why": "Spud throws the coal to Dragon"
   },
   {
-   "from": 4.38,
-   "to": 4.95,
+   "from": 4.83,
+   "to": 5.4,
    "see": [
     "drg.face",
     "spud.face",
@@ -4592,8 +5274,8 @@
    "why": "the coal doesn't hurt Dragon; Spud nurses his gloves"
   },
   {
-   "from": 5.05,
-   "to": 5.65,
+   "from": 5.5,
+   "to": 6.1,
    "see": [
     "spud.face",
     "drg.face",
@@ -4602,8 +5284,8 @@
    "why": "Dragon lobs it back: the coal is Spud's again"
   },
   {
-   "from": 6.32,
-   "to": 6.92,
+   "from": 6.77,
+   "to": 7.37,
    "see": [
     "spud.face",
     "host.face"
@@ -4611,8 +5293,8 @@
    "why": "clock 1: Spud hurls the coal high, the host leaning in for his loser"
   },
   {
-   "from": 7.35,
-   "to": 7.7,
+   "from": 7.8,
+   "to": 8.15,
    "see": [
     "drg.face",
     "coal"
@@ -4620,8 +5302,8 @@
    "why": "the smoke goes up Dragon's nose"
   },
   {
-   "from": 8.02,
-   "to": 8.42,
+   "from": 8.47,
+   "to": 8.87,
    "see": [
     "drg.face",
     "host.face",
@@ -4630,8 +5312,8 @@
    "why": "the sneeze: fire carries the coal from Dragon to the host"
   },
   {
-   "from": 8.42,
-   "to": 9.45,
+   "from": 8.87,
+   "to": 9.9,
    "see": [
     "host.face",
     "tile_host"
@@ -4639,8 +5321,8 @@
    "why": "the red tile is the host's own: his smile freezes, 0, he drops"
   },
   {
-   "from": 10.75,
-   "to": 12.55,
+   "from": 11.8,
+   "to": 14,
    "see": [
     "crisp.face",
     "spud.face",
@@ -4654,195 +5336,250 @@
    "who": "vik",
    "with": "studio",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the cast stand on the stage (scenery: its box is the whole studio)"
   },
   {
    "who": "spud",
    "with": "studio",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the cast stand on the stage (scenery: its box is the whole studio)"
   },
   {
    "who": "drg",
    "with": "studio",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the cast stand on the stage (scenery: its box is the whole studio)"
   },
   {
    "who": "host",
    "with": "studio",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the cast stand on the stage (scenery: its box is the whole studio)"
   },
   {
    "who": "crisp",
    "with": "studio",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the cast stand on the stage (scenery: its box is the whole studio)"
   },
   {
    "who": "vik",
    "with": "tile_vik",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "spud",
    "with": "tile_spud",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "drg",
    "with": "tile_drg",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "host",
    "with": "tile_host",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "crisp",
    "with": "tile_host",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the basket lifts the fried host up through the open tile"
   },
   {
    "who": "crisp",
    "with": "lift",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "the fried host stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "studio",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "tile_vik",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "lift0",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "vat",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "confL",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "with": "confR",
+   "from": 0,
+   "to": 17.1,
+   "reason": "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket"
+  },
+  {
+   "who": "vcrisp",
+   "from": 0,
+   "to": 2.32,
+   "checks": [
+    "rig-jump",
+    "stance-slide",
+    "foot-slide",
+    "lean-jump",
+    "face-covered"
+   ],
+   "reason": "hidden until the lift: he is put in the basket under the stage, then the lift carries him up fast"
   },
   {
    "who": "host",
    "with": "bow",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "he wears the bow tie"
   },
   {
    "who": "crisp",
    "with": "bow2",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "he wears the bow tie"
   },
   {
    "who": "vik",
    "with": "confL",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "vik",
    "with": "confR",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "spud",
    "with": "confL",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "spud",
    "with": "confR",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "drg",
    "with": "confL",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "drg",
    "with": "confR",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "host",
    "with": "confL",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "host",
    "with": "confR",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "crisp",
    "with": "confL",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "crisp",
    "with": "confR",
    "from": 0,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "confetti falls past the cast"
   },
   {
    "who": "vik",
    "with": "vat",
    "from": 0.72,
-   "to": 15.65,
+   "to": 17.1,
    "reason": "he falls into the fryer under the stage (hidden there)"
   },
   {
    "who": "host",
    "with": "vat",
-   "from": 9.15,
-   "to": 15.65,
+   "from": 9.6,
+   "to": 17.1,
    "reason": "he falls into the fryer under the stage (hidden there)"
   },
   {
    "who": "host",
    "with": "lift",
-   "from": 9.15,
-   "to": 15.65,
+   "from": 9.6,
+   "to": 17.1,
    "reason": "he falls past the basket under the stage (hidden there)"
   },
   {
    "who": "spud",
    "with": "tongs",
-   "from": 2.4,
-   "to": 2.9,
+   "from": 2.85,
+   "to": 3.35,
    "reason": "the tongs set the coal between his cupped gloves"
   },
   {
    "who": "crisp",
    "from": 0,
-   "to": 11.65,
+   "to": 12.7,
    "checks": [
     "face-covered"
    ],
@@ -4852,13 +5589,13 @@
    "who": "crisp",
    "with": "vat",
    "from": 0,
-   "to": 12.65,
+   "to": 13.7,
    "reason": "under the stage, hidden: the basket lifts him up out of the vat"
   },
   {
    "who": "crisp",
    "from": 0,
-   "to": 12.65,
+   "to": 13.7,
    "checks": [
     "rig-jump",
     "stance-slide",
@@ -4870,8 +5607,8 @@
   {
    "who": "host",
    "with": "drg",
-   "from": 3.05,
-   "to": 3.6,
+   "from": 3.5,
+   "to": 4.05,
    "reason": "off screen (Spud's close shot): the host walks back past Dragon to his tile"
   },
   {
@@ -4884,35 +5621,35 @@
   {
    "who": "spud",
    "with": "coal",
-   "from": 2.5,
-   "to": 6.82,
+   "from": 2.95,
+   "to": 7.27,
    "reason": "Spud holds, throws and catches the coal"
   },
   {
    "who": "drg",
    "with": "coal",
-   "from": 3.98,
-   "to": 8.22,
+   "from": 4.43,
+   "to": 8.67,
    "reason": "Dragon holds, lobs and catches the coal"
   },
   {
    "who": "host",
    "with": "coal",
-   "from": 1.6,
-   "to": 9.75,
+   "from": 2.05,
+   "to": 10.2,
    "reason": "the host carries the coal in his tongs, and it lands in his gloves"
   },
   {
    "who": "host",
    "with": "tongs",
-   "from": 1.6,
-   "to": 3.2,
+   "from": 2.05,
+   "to": 3.65,
    "reason": "the host holds the tongs"
   },
   {
    "who": "vik",
    "from": 0.79,
-   "to": 12.65,
+   "to": 14.1,
    "checks": [
     "rig-jump",
     "stance-slide",
@@ -4923,8 +5660,8 @@
   },
   {
    "who": "host",
-   "from": 9.22,
-   "to": 12.65,
+   "from": 9.67,
+   "to": 14.1,
    "checks": [
     "rig-jump",
     "stance-slide",

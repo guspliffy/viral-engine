@@ -1,0 +1,71 @@
+{
+ "id": "hot-potato/wizard-gamemaster",
+ "name": "Wizard, the evil game master (Hot Potato)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Dusk) and game/portraits/wizard.jpg",
+ "rig": "potato",
+ "body": {
+  "color": "#f2b04e",
+  "height": 1.0,
+  "width": 0.82,
+  "depth": 0.7,
+  "lump": 0.035,
+  "seed": 4
+ },
+ "limbs": {
+  "color": "#262540",
+  "width": 0.032
+ },
+ "face": {
+  "default": "evil",
+  "iris": "#c21f2e",
+  "cheeks": "#e79a3c",
+  "neutral": {
+   "curve": 0.55,
+   "smirk": 0.3,
+   "lidL": 0.32,
+   "lidR": 0.38,
+   "browL": -0.35,
+   "browR": -0.35,
+   "tilt": 0.55
+  },
+  "eye": {
+   "flick": 0.6
+  },
+  "browShape": {
+   "arch": 0.06
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "hat-brim"
+ },
+ "costume": {
+  "type": "wizard",
+  "accent": "#1b1024",
+  "band": "#a3122a",
+  "glow": "#ff3a2a",
+  "staffWood": "#7a4e2a",
+  "propHand": "L",
+  "noProp": true,
+  "sheetFelt": "#17101c",
+  "sheetCape": "#5e0d1a",
+  "sheetSash": "#c0182a",
+  "hakama": "#15111a"
+ },
+ "personality": "Occasional third character. Wants to be useful and respected; overcomplicates simple requests; patient and sincerely curious. Canon since 24 Oct 2026, see docs/character-bible.md.",
+ "voice": {
+  "pitch": 118,
+  "rate": 2.7,
+  "formant": 1.0,
+  "range": 3,
+  "breath": 0.14,
+  "vibrato": 0.025,
+  "seed": 4
+ },
+ "notes": "Hot Potato pilot (Jonny 11 Nov 2026: 'wizard as the evil game master must be more clear and evil, make him look evil'): black robe and hat with a blood-red band, red eyes, angled brows, a fixed smirk. Variant for this series only.",
+ "voiceNote": "gibberish, low and slow, a little breathy",
+ "hands": {
+  "type": "mitten"
+ }
+}

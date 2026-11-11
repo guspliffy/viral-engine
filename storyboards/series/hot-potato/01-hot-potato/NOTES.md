@@ -1,7 +1,8 @@
 # Hot Potato 01 (pilot): notes
 
 Brief: Jonny's 10-panel sheet (`panels-sheet.png`), his go 11 Nov 2026 12:23 Berlin. Panel notes: `PANELS.md`.
-Status: rough draft 2 sent to Jonny 11 Nov (13.6 s); polish, checks on the draft and the full render wait for his OK.
+Status: rough draft 3 sent to Jonny 11 Nov (15 s, from his notes on draft 2); polish, checks on the draft and the full
+render wait for his OK.
 
 ## Numbers the set and the clip stand on
 
@@ -11,6 +12,20 @@ Status: rough draft 2 sent to Jonny 11 Nov (13.6 s); polish, checks on the draft
 - The coal is held at the belly (UPS in the generator): at 0.3 and up it covered mouths and eyes.
 - Cameras: wide `frame([0, 2.5, 0], h 6.9)`; mediums level at y 2.3 from z 4.1; closes from y 2.2 looking down a
   little. From those the strip between the sign and the heads is free for a subtitle (y 672; 800 on the wides).
+
+## Jonny's notes on draft 2 (11 Nov 14:03 Berlin) = the format from here on
+
+"we need a commentary voice for this format, wizard as the evil game master must be more clear and evil - make him
+look evil / the danger of the situation isnt really clear here. it should be something like hot potato drop or fry
+maybe with a bit psychic children music". Built into draft 3:
+- Commentator (voice `narrator`, on by default, `--no-vo` for the plain cut): the tagline "Hot Potato. Drop it, or
+  fry." at 0.0, then "Dragon is fireproof.", "One second!", "Rules are rules.". Reads run 2.5 / 2.0 / 0.9 / 2.2 s: the
+  storyteller is slow, so three or four words per line and no character line under one.
+- Danger shown: a fire column shoots out of the hole after each drop, and the fried Viking comes back up in a fry
+  basket in the first 2.5 s and stays on stage as the warning.
+- Evil game master: cast `hot-potato/wizard-gamemaster` (red eyes, low brows, black hat, blood-red cape; the
+  sheet-look robe takes `costume.sheetFelt` / `sheetCape` / `sheetSash` / `hakama`, not `accent`), rubs his gloves.
+- Music: `sneaky` style with the `musicbox` part alone (a slow minor music box tune).
 
 ## What cost rounds (for the next episode)
 
@@ -34,5 +49,5 @@ Status: rough draft 2 sent to Jonny 11 Nov (13.6 s); polish, checks on the draft
 
 ## Counts so far (for the ledger row)
 
-Layout runs 9, draft-still rounds 4, draft renders 2, builders 2 (set 266k tokens, hand props 370k tokens), fix rounds
-on the staging 2.
+Layout runs 13, draft-still rounds 6, draft renders 4, builders 2 (set 266k tokens, hand props 370k tokens), fix rounds
+on the staging 3. Voice install (VoxCPM2) about 12 min on a fresh container; 5 narrator reads.
