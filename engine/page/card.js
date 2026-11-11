@@ -12,8 +12,16 @@
 //       the options follow one by one, and it drifts gently while it holds. A card that runs to the clip's end stays
 //       to the last frame (no exit), so the loop starts again under it.
 //
-// Both sit centred in the safe zone (x 490) at "y" (the top edge, px: rule 300, vote 330). Their boxes go to the layout
-// as cards (stage.js), so qa/check.mjs keeps them in the safe zone and qa/framing.mjs sees a face under one.
+//   { "fx": "picrule", "at": 0.3, "dur": 2.0, "x": 540, "y": 300, "w": 290, "top": ["steal", "share"], "bottom": ["gold", "fire"] }
+//       a picture rule card (Share or Steal, T2), no words: a cream card, x = its centre and y = its top edge (px on the
+//       1080 x 1920 frame), w = its width (default 290; height 1.28 w; x default the safe zone's centre, y 300). The upper
+//       half shows two small playing cards tilted -8 and +8 degrees ("share" green, "steal" red), the lower half two
+//       icons ("gold" a stack of three gold bars, "fire" a flame). Pops in over 0.18 s (0 to 1.12 to 1 about its centre),
+//       holds still, fades out over its last 0.12 s (a card that runs to the clip's end stays to the last frame).
+//       Its box is the card's place without the pop. Pure function of t.
+//
+// rule and vote sit centred in the safe zone (x 490) at "y" (the top edge, px: rule 300, vote 330). Their boxes go to the
+// layout as cards (stage.js), so qa/check.mjs keeps them in the safe zone and qa/framing.mjs sees a face under one.
 // Story time, so a hit-stop holds them with the picture.
 import { clamp, ease } from "./util.js";
 
@@ -127,20 +135,81 @@ function drawVote(ctx, f, t, end, accentOf) {
   ctx.restore();
 }
 
-export const isCard = (f) => f.do === "rule" || f.do === "vote";
+
+// --- the picture rule card (no words): two playing cards over two icons
+const PIC = { cream: "#f6ecd2", ink: "#2a2018", share: "#2fae58", steal: "#e0283c" };
+function picLayout(f) {
+  const w = f.w ?? 290, h = 1.28 * w;
+  return { box: [Math.round((f.x ?? CX) - w / 2), Math.round(f.y ?? 300), Math.round(w), Math.round(h)] };
+}
+// a little playing card (0.3 w wide, 1.4 times as tall) centred on 0, 0, tilted deg
+function picPlayCard(ctx, w, color, deg) {
+  const cw = 0.3 * w, ch = cw * 1.4, r = cw * 0.12;
+  ctx.save(); ctx.rotate((deg * Math.PI) / 180);
+  ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect(-cw / 2, -ch / 2, cw, ch, r); ctx.fill();
+  ctx.lineWidth = w * 0.014; ctx.strokeStyle = PIC.ink; ctx.stroke();
+  ctx.lineWidth = w * 0.012; ctx.strokeStyle = PIC.cream; ctx.beginPath(); ctx.roundRect(-cw / 2 + cw * 0.09, -ch / 2 + cw * 0.09, cw * 0.82, ch - cw * 0.18, r * 0.6); ctx.stroke();
+  ctx.restore();
+}
+// a stack of three gold bars (two below, one on top) centred on 0, 0 in a box s px across
+function picGold(ctx, s) {
+  const bw = s * 0.46, bh = s * 0.25, tw = bw * 0.82;
+  const bar = (cx, cy) => {   // a trapezoid: the bar seen from the front, the top face narrower and lighter
+    const g = ctx.createLinearGradient(0, cy - bh, 0, cy);
+    g.addColorStop(0, "#ffe27a"); g.addColorStop(1, "#e0a81e");
+    ctx.beginPath(); ctx.moveTo(cx - bw / 2, cy); ctx.lineTo(cx + bw / 2, cy); ctx.lineTo(cx + tw / 2, cy - bh); ctx.lineTo(cx - tw / 2, cy - bh); ctx.closePath();
+    ctx.fillStyle = g; ctx.fill(); ctx.lineWidth = s * 0.035; ctx.lineJoin = "round"; ctx.strokeStyle = "#8a5f10"; ctx.stroke();
+    ctx.strokeStyle = "rgba(255,255,255,0.85)"; ctx.lineWidth = s * 0.03; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(cx - tw / 2 + s * 0.04, cy - bh + s * 0.05); ctx.lineTo(cx + tw / 2 - s * 0.1, cy - bh + s * 0.05); ctx.stroke();
+  };
+  const y0 = s * 0.38;
+  bar(-bw * 0.52, y0); bar(bw * 0.52, y0); bar(0, y0 - bh * 1.02);
+}
+// a flame (orange teardrop, yellow core) standing on 0, 0 and s px high
+function picFire(ctx, s) {
+  const drop = (k, dx, dy, fill, stroke) => {
+    ctx.save(); ctx.translate(dx, dy); ctx.scale(s * k, s * k);
+    ctx.beginPath(); ctx.moveTo(0.06, -1); ctx.bezierCurveTo(0.2, -0.72, 0.38, -0.55, 0.36, -0.28); ctx.bezierCurveTo(0.34, -0.08, 0.18, 0, 0, 0);
+    ctx.bezierCurveTo(-0.18, 0, -0.37, -0.1, -0.36, -0.3); ctx.bezierCurveTo(-0.35, -0.5, -0.12, -0.6, -0.14, -0.78); ctx.bezierCurveTo(-0.14, -0.88, 0, -0.93, 0.06, -1); ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill(); if (stroke) { ctx.lineWidth = 0.05; ctx.lineJoin = "round"; ctx.strokeStyle = stroke; ctx.stroke(); }
+    ctx.restore();
+  };
+  drop(1, 0, s * 0.45, "#ff7a1a", "#a83208");
+  drop(0.5, 0, s * 0.45 - s * 0.03, "#ffd23a");
+}
+function drawPicRule(ctx, f, t, end) {
+  const [x, y, w, h] = picLayout(f).box, d = f.dur ?? 2, k = t - f.at;
+  // 0 -> 1.12 over the first 0.1 s, back to 1 by 0.18 s
+  const sc = k < 0.1 ? 1.12 * ease("out")(clamp(k / 0.1)) : 1.12 - 0.12 * ease("inOut")(clamp((k - 0.1) / 0.08));
+  const alpha = lasts(f, end) ? 1 : 1 - clamp((k - (d - 0.12)) / 0.12);
+  if (sc <= 0.001 || alpha <= 0) return;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x + w / 2, y + h / 2); ctx.scale(sc, sc); ctx.translate(-w / 2, -h / 2);
+  ctx.save(); ctx.shadowColor = "rgba(10,8,16,0.5)"; ctx.shadowBlur = w * 0.07; ctx.shadowOffsetY = w * 0.035;
+  ctx.fillStyle = PIC.cream; ctx.beginPath(); ctx.roundRect(0, 0, w, h, 0.1 * w); ctx.fill(); ctx.restore();
+  ctx.lineWidth = 6; ctx.strokeStyle = PIC.ink; ctx.beginPath(); ctx.roundRect(0, 0, w, h, 0.1 * w); ctx.stroke();
+  const col = (n) => (n === "steal" ? PIC.steal : PIC.share), top = f.top || ["share", "share"], bot = f.bottom || ["gold", "gold"];
+  // upper half: two playing cards side by side, tilted apart, slightly overlapping (the right one on top)
+  [-1, 1].forEach((sgn, i) => { ctx.save(); ctx.translate(w / 2 + sgn * 0.14 * w, 0.34 * w); picPlayCard(ctx, w, col(top[i]), sgn * 8); ctx.restore(); });
+  // lower half: two icons side by side
+  [-1, 1].forEach((sgn, i) => { ctx.save(); ctx.translate(w / 2 + sgn * 0.215 * w, 0.88 * w); (bot[i] === "fire" ? picFire : picGold)(ctx, 0.38 * w); ctx.restore(); });
+  ctx.restore();
+}
+
+export const isCard = (f) => f.do === "rule" || f.do === "vote" || f.do === "picrule";
 
 // every card on screen at t, drawn in storyboard order
 export function drawCards(ctx, sb, t, accentOf) {
   const end = sb.storyDuration ?? sb.duration ?? Infinity;
   for (const f of sb.fx || []) {
     if (!isCard(f) || !on(f, t, end)) continue;
-    if (f.do === "rule") drawRule(ctx, f, t, end, accentOf); else drawVote(ctx, f, t, end, accentOf);
+    if (f.do === "rule") drawRule(ctx, f, t, end, accentOf); else if (f.do === "picrule") drawPicRule(ctx, f, t, end); else drawVote(ctx, f, t, end, accentOf);
   }
 }
 // their boxes for the layout (the biggest the card gets: its place without the pop or drift)
 export function cardBoxes(ctx, sb, t) {
   const end = sb.storyDuration ?? sb.duration ?? Infinity;
-  return (sb.fx || []).filter((f) => isCard(f) && on(f, t, end)).map((f) => ({ text: f.do === "rule" ? f.title || f.text : f.question, box: (f.do === "rule" ? ruleLayout(ctx, f) : voteLayout(ctx, f)).box, card: true }));
+  return (sb.fx || []).filter((f) => isCard(f) && on(f, t, end)).map((f) => ({ text: f.do === "rule" ? f.title || f.text : f.do === "picrule" ? "picrule" : f.question, box: (f.do === "rule" ? ruleLayout(ctx, f) : f.do === "picrule" ? picLayout(f) : voteLayout(ctx, f)).box, card: true }));
 }
 // what the frame cache keys on: which cards are up and how far into each
 export const cardKey = (sb, t) => { const end = sb.storyDuration ?? sb.duration ?? Infinity; const a = (sb.fx || []).filter((f) => isCard(f) && on(f, t, end)).map((f) => Math.round((t - f.at) * 1e4)); return a.length ? a.join(",") : ""; };

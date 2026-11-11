@@ -46,6 +46,10 @@ import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
 import { FREEFALL_KINDS } from "./props-freefall.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
+import { MONEY_KINDS } from "./props-money.js";       // there's a catch 04: coin, cashbrick, cashthrone, walletheap, cashheap
+import { FLOOD_KINDS } from "./props-flood.js";       // there's a catch 04: windowwall, moneywave, noterain, noteflood
+import { TWIST_KINDS } from "./props-twist.js";       // there's a catch 04: flipboard, wheelbarrow, dinersign
+import { NIGHTDINER_KINDS } from "./props-nightdiner.js";   // there's a catch 04: dinerfront, oilbarrel
 import { BISTRO_KINDS } from "./props-bistro.js";   // friends try to, episode 4: the bistro table, the bill, the long bill
 import { SNEAK_KINDS, SNEAK_GRIPS } from "./props-sneak.js";   // friends-try-to 06 (night hall: door, coat stand, slippers, rug)
 import { XMAS_KINDS, XMAS_GRIPS } from "./props-xmas.js";   // friends try to, episode 7: the tree, the star, the fairy lights
@@ -60,6 +64,8 @@ import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinerco
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
+import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
+import { HEISTSET_KINDS, HEISTSET_GRIPS } from "./props-heistset.js";   // fight flight or freeze 01: producecrate, spudbin, policevan, lightbar, sirenwash, lightpool, copshadow, roofblock
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
@@ -71,6 +77,7 @@ import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: wat
 import { SNOW_KINDS, snowPropKeys } from "./props-survive-snow.js";   // survive it 01 snowed in: choppingblock, sliverheap, kindlingarmful, boardplank, hammer, woodchair, huddleblanket, iciclerow, snowthroat, snowspray, snowdrift, chimneybolt, sunbeam, snowlump, greenpatch...
 import { AVALANCHE_KINDS } from "./props-avalanche.js";   // survive it 01 snowed in: cottagesled, chimneycap, snowfront, snowcap, snowmound
 import { SOS_KINDS, SOS_GRIPS } from "./props-sos.js";   // share or steal: the game pieces (props-sos.js)
+import { SOS_VAT_KINDS } from "./props-sos-vat.js";   // share or steal v2: the open vat, the grating deck, the dunk lifts (props-sos-vat.js)
 import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dark studio and the deep fryer (props-sos-set.js)
 import { HP_SET_KINDS } from "./props-hotpotato-set.js";   // hot potato: the felt studio, trapdoor tiles and the vat
 import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the coal, tongs, bow tie and basket lift
@@ -1375,11 +1382,14 @@ Object.assign(KINDS, UFO_KINDS, PLANE_KINDS, FREEFALL_KINDS);   // never looks u
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
 Object.assign(KINDS, TENT_KINDS);   // friends try to 02: tent, tentpeg, backpack, firering, windleaves (props-tent.js)
+Object.assign(KINDS, MONEY_KINDS, FLOOD_KINDS, TWIST_KINDS, NIGHTDINER_KINDS);   // there's a catch 04 (props-money.js, props-flood.js, props-twist.js, props-nightdiner.js)
 Object.assign(KINDS, BISTRO_KINDS);   // friends try to 04: bistrotable, billtray, receipt, billstrip, longbill, sum, waterglass, platestack, dinnerplate, pouch, spillpile, fishbone, napkin, waiterapron, cardreader, bottlecandle, bistroplant (props-bistro.js)
 Object.assign(KINDS, DINER_KINDS);   // never has money 01 (props-diner.js)
 Object.assign(KINDS, COFFEE_KINDS);   // never has money 02 (props-coffee.js)
 Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
+Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
+Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
 Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)
@@ -1397,7 +1407,7 @@ Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
 Object.assign(KINDS, WATER_KINDS);   // waterbend (props-water.js)
 Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props (props-survive-snow.js)
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
-Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
+Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
@@ -1533,9 +1543,9 @@ function physInto(ps, id, t) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 // kinds that stand on nothing: effects, light, weather and air (holds 2's support record treats them as staged)
-export const FX_KINDS = /^(roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
+export const FX_KINDS = /^(sirenwash|lightpool|copshadow|roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
 export function propState(sb, spec, t) {
-  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, hold: null, left: null, carry: null };
+  const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, lights: spec.lights ?? 0, rock: 0, shh: 0, crook: spec.crook ?? 0, wrap: spec.wrap ?? 0, ...(typeof spec.look === "number" && { look: spec.look }), steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, hold: null, left: null, carry: null, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0 };
   Object.assign(ps, snowPropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
