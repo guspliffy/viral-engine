@@ -84,7 +84,7 @@
  "music": {
   "style": "danger",
   "lowCut": 150,
-  "gain": 0.3,
+  "gain": 0.4,
   "parts": [
    {
     "at": 0,
@@ -1597,7 +1597,13 @@
      "who": "vik",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.26,
+       0.14,
+       0.36
+      ]
+     },
      "dur": 0.01,
      "at": 0.98
     },
@@ -1605,7 +1611,13 @@
      "who": "vik",
      "do": "arm",
      "side": "L",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.26,
+       0.14,
+       0.36
+      ]
+     },
      "dur": 0.01,
      "at": 0.98
     }
@@ -2531,7 +2543,7 @@
       "grip": [
        0.36,
        0.45,
-       1.02
+       1.12
       ]
      },
      "dur": 0.15,
@@ -2585,6 +2597,22 @@
      "at": 0.25
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wizC",
+      "grip": [
+       0.36,
+       0.45,
+       1.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
      "sfx": "crumble",
      "gain": 0.7,
      "reason": "metal ripping",
@@ -2620,22 +2648,6 @@
      "to": 10,
      "dur": 0.2,
      "at": 0.35
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "wizC",
-      "grip": [
-       0.36,
-       0.45,
-       1.02
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.37
     },
     {
      "who": "spud",
@@ -3088,9 +3100,9 @@
     {
      "who": "vik",
      "do": "lean",
-     "to": -6,
+     "to": 3,
      "dur": 0.4,
-     "at": 0.25
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -3132,7 +3144,7 @@
     {
      "who": "vik",
      "do": "lean",
-     "to": -13,
+     "to": 0,
      "dur": 0.45,
      "ease": "in",
      "at": 0.7
@@ -3140,7 +3152,7 @@
     {
      "who": "vik",
      "do": "pitch",
-     "to": 10,
+     "to": 15,
      "dur": 0.45,
      "ease": "in",
      "at": 0.7
@@ -3171,9 +3183,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.15,
-       1.55,
-       0.42
+       1.23,
+       1.59,
+       0.52
       ]
      },
      "dur": 0.3,
@@ -4567,34 +4579,6 @@
      "at": 0.5
     },
     {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -0.95,
-       1.9,
-       0.34
-      ]
-     },
-     "dur": 0.01,
-     "at": 0.5
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       -0.95,
-       1.9,
-       0.86
-      ]
-     },
-     "dur": 0.01,
-     "at": 0.5
-    },
-    {
      "do": "prop",
      "id": "jet",
      "set": {
@@ -4667,9 +4651,9 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "x": 0.9,
+      "x": 0.92,
       "y": 0,
-      "z": 0.6,
+      "z": 0.72,
       "rot": 0
      },
      "dur": 0,
@@ -4693,7 +4677,7 @@
      "do": "prop",
      "id": "vikC",
      "set": {
-      "x": -0.08,
+      "x": -0.14,
       "y": 0,
       "z": 0.6,
       "rot": -75
@@ -4782,7 +4766,13 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       0.02,
+       0.02,
+       0.24
+      ]
+     },
      "dur": 0.01,
      "at": 1.78
     },
@@ -4790,7 +4780,13 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       0.02,
+       0.02,
+       0.24
+      ]
+     },
      "dur": 0.01,
      "at": 1.78
     },
@@ -4817,6 +4813,34 @@
      "dur": 0,
      "ease": "linear",
      "at": 1.78
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.95,
+       1.9,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.95,
+       1.9,
+       0.86
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
     }
    ]
   },
@@ -4826,16 +4850,16 @@
    "len": 1.05,
    "shot": {
     "pos": [
-     0.4,
+     0.39,
      1.05,
      3.5
     ],
     "look": [
-     0.4,
+     0.39,
      0.9,
      0.5
     ],
-    "fov": 56,
+    "fov": 60,
     "roll": 7
    },
    "do": [
@@ -4935,7 +4959,7 @@
      "do": "prop",
      "id": "trunk",
      "set": {
-      "x": -0.08,
+      "x": -0.14,
       "y": 1.78,
       "z": 0.65
      },
@@ -4959,7 +4983,7 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.38,
+       -0.44,
        1.48,
        0.65
       ]
@@ -4974,7 +4998,7 @@
      "side": "L",
      "pose": {
       "world": [
-       0.22,
+       0.16,
        1.48,
        0.65
       ]
@@ -5012,19 +5036,19 @@
    "len": 1.65,
    "shot": {
     "pos": [
-     0.4,
+     0.39,
      1.05,
      3.5
     ],
     "look": [
-     0.4,
+     0.39,
      0.9,
      0.5
     ],
-    "fov": 56,
+    "fov": 60,
     "roll": 7,
     "to": {
-     "roll": 17
+     "roll": 15
     },
     "dur": 0.45,
     "ease": "out"
@@ -5096,21 +5120,21 @@
      "side": "R",
      "pose": {
       "o": [
-       0.3,
+       0.16,
        0.5,
-       0.36
+       0.42
       ]
      },
-     "dur": 0.28,
-     "ease": "out",
-     "at": 0.2
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.15
     },
     {
      "who": "spud",
      "do": "grip",
      "side": "R",
      "shape": "point",
-     "dur": 0.12,
+     "dur": 0.3,
      "at": 0.2
     },
     {
@@ -5142,9 +5166,16 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
-     "at": 1.15
+     "pose": {
+      "o": [
+       0.02,
+       0.02,
+       0.24
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.05
     },
     {
      "who": "spud",
@@ -5591,7 +5622,7 @@
     {
      "who": "vik",
      "do": "expr",
-     "expr": "annoyed",
+     "expr": "focused",
      "dur": 0,
      "at": 0
     },
@@ -6282,9 +6313,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.16,
+       0.06,
        0.3,
-       -0.05
+       0.05
       ]
      },
      "dur": 0.01,
@@ -6296,9 +6327,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.16,
+       0.06,
        0.3,
-       -0.05
+       0.05
       ]
      },
      "dur": 0.01,
@@ -6513,7 +6544,7 @@
      "who": "spud",
      "do": "pitch",
      "to": -12,
-     "dur": 0.25,
+     "dur": 0.3,
      "at": 0.85
     },
     {
@@ -6555,8 +6586,8 @@
       "y": 0,
       "z": 7.1
      },
-     "dur": 0.58,
-     "ease": "in",
+     "dur": 0.88,
+     "ease": "linear",
      "at": 1.04
     },
     {
@@ -6602,17 +6633,6 @@
     },
     {
      "do": "prop",
-     "id": "wizC",
-     "set": {
-      "x": 138,
-      "z": 1.32
-     },
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
      "id": "vikC",
      "set": {
       "x": 137.9,
@@ -6639,17 +6659,15 @@
      "at": 1.3
     },
     {
-     "who": "spud",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.15,
-     "at": 1.55
-    },
-    {
-     "sfx": "slap",
-     "gain": 0.5,
-     "reason": "the Wizard shoves him",
-     "at": 1.6
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": 138,
+      "z": 1.32
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.38
     },
     {
      "do": "prop",
@@ -6657,7 +6675,7 @@
      "set": {
       "rot": 0
      },
-     "dur": 0.1,
+     "dur": 0.15,
      "ease": "out",
      "at": 1.6
     },
@@ -6671,27 +6689,23 @@
      },
      "dur": 0.1,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.65
     },
     {
-     "do": "prop",
-     "id": "spudC",
+     "sfx": "slap",
+     "gain": 0.5,
+     "reason": "the Wizard shoves him",
+     "at": 1.68
+    },
+    {
+     "who": "wiz",
+     "do": "expr",
+     "expr": "terrified",
      "set": {
-      "x": 138.4,
-      "y": 0,
-      "z": 8.7
+      "open": 0.5
      },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 1.65
-    },
-    {
-     "who": "vik",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.3,
-     "at": 1.65
+     "dur": 0,
+     "at": 1.7
     },
     {
      "who": "vik",
@@ -6705,23 +6719,13 @@
      "yaw": 0,
      "sit": true,
      "dur": 0,
-     "at": 1.7
+     "at": 1.75
     },
     {
      "sfx": "zip",
      "gain": 0.5,
      "reason": "vik down the slide",
-     "at": 1.7
-    },
-    {
-     "who": "wiz",
-     "do": "expr",
-     "expr": "terrified",
-     "set": {
-      "open": 0.5
-     },
-     "dur": 0,
-     "at": 1.7
+     "at": 1.75
     },
     {
      "do": "prop",
@@ -6730,9 +6734,9 @@
       "y": 0,
       "z": 7.1
      },
-     "dur": 0.5,
-     "ease": "in",
-     "at": 1.72
+     "dur": 0.9,
+     "ease": "linear",
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -6747,46 +6751,13 @@
     },
     {
      "do": "prop",
-     "id": "wizC",
+     "id": "spudC",
      "set": {
-      "x": 138,
-      "y": 1.328,
-      "z": 2.6
+      "z": 8.5
      },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 1.95
-    },
-    {
-     "who": "wiz",
-     "do": "ride",
-     "prop": "wizC",
-     "off": [
-      0,
-      0.15,
-      0
-     ],
-     "yaw": 0,
-     "sit": true,
-     "dur": 0,
-     "at": 2.05
-    },
-    {
-     "sfx": "zip",
-     "gain": 0.5,
-     "reason": "wiz down the slide",
-     "at": 2.05
-    },
-    {
-     "do": "prop",
-     "id": "wizC",
-     "set": {
-      "y": 0,
-      "z": 7.1
-     },
-     "dur": 0.45,
-     "ease": "in",
-     "at": 2.07
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.94
     },
     {
      "do": "prop",
@@ -7109,7 +7080,7 @@
      "who": "spud",
      "do": "turn",
      "to": 185,
-     "dur": 0.4,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.9
     },
@@ -7725,9 +7696,11 @@
    "to": 20.1,
    "checks": [
     "clipping",
-    "costume-in-prop"
+    "costume-in-prop",
+    "arm-in-prop",
+    "hand-in-prop"
    ],
-   "reason": "he sits in this seat (he rides a carrier so the seat can shake; a sitter is in his seat)"
+   "reason": "he sits in this seat (on a carrier, so the seat can shake): body in the seat, forearms on its armrests"
   },
   {
    "who": "vik",
@@ -7736,9 +7709,22 @@
    "to": 20.1,
    "checks": [
     "clipping",
-    "costume-in-prop"
+    "costume-in-prop",
+    "arm-in-prop",
+    "hand-in-prop"
    ],
-   "reason": "he sits in this seat"
+   "reason": "he sits in this seat, wider than it: forearms on its armrests"
+  },
+  {
+   "who": "vik",
+   "with": "seatA",
+   "from": 7,
+   "to": 10.5,
+   "checks": [
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "passed out, his elbow lies on the armrest the two seats share"
   },
   {
    "who": "spud",
@@ -7764,7 +7750,9 @@
    "from": 25,
    "to": 27.2,
    "checks": [
-    "clipping"
+    "clipping",
+    "hand-in-prop",
+    "arm-in-prop"
    ],
    "reason": "they come out of the wreck's door: inside the hull until then, the check takes the hull's box"
   },
@@ -7774,7 +7762,9 @@
    "from": 25,
    "to": 27.2,
    "checks": [
-    "clipping"
+    "clipping",
+    "hand-in-prop",
+    "arm-in-prop"
    ],
    "reason": "they come out of the wreck's door: inside the hull until then, the check takes the hull's box"
   },
@@ -7784,7 +7774,9 @@
    "from": 25,
    "to": 27.2,
    "checks": [
-    "clipping"
+    "clipping",
+    "hand-in-prop",
+    "arm-in-prop"
    ],
    "reason": "they come out of the wreck's door: inside the hull until then, the check takes the hull's box"
   },
