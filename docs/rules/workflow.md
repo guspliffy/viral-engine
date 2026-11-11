@@ -11,7 +11,9 @@ fixed budget per video (length and new things differ too much): the workflow rem
 counted the same way every time. Where a section below says otherwise, these eight win.
 
 1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's OK, polish, checks on the
-   draft, one full render, delivery. A step back is named with its reason in the clip's notes.
+   draft, one full render, delivery. A step back is named with its reason in the clip's notes. For the first clip of
+   a new series the outline is six lines of "X, so Y, so Z" and goes to Jonny before anything is built (Fight, Flight
+   or Freeze 01: three of five drafts rebuilt the story, about a third of its cost).
 2. **Decide first, polish last.** The rough draft (`--draft`: story, timing, cameras, captions; only fails that hide
    a beat are fixed) goes to Jonny before any hand or foot polish, on every clip. Nothing is polished that he might
    still cut; a retiming after polish breaks the hands again (Share or Steal EP01). His OK on the draft replaces
@@ -144,7 +146,9 @@ Jonny's MrBeast playbook already says to reuse sets (approved 8 Nov). So, before
    7-10 min with three builders sharing it). Props benches, plates and sound picks can run beside it. Full renders go
    to the render farm.
 4. **Verify** yourself: `node qa/preflight.mjs <sb>`, `--layout`, the draft stills contact sheet at half scale. Read
-   only the tails of outputs.
+   only the tails of outputs. A bench with a cast is judged by CI's episode preflight like an episode (two clips in
+   a row went red on their benches, 10 Nov 2026): its cast stands clear of each other (1.2 m or more side by side),
+   and the director gives it the same worn-prop windows as the episode.
 5. **Review the diff**, not the files: `git diff --stat`, then `git diff -- <task files>`. Check the DONE WHEN list,
    nothing outside OWN, determinism, Jonny's rules (docs/rules/*), and accept or reject each listed assumption.
 6. **Fix**: numbered fixes to the same builder (SendMessage keeps its cache warm), two builder rounds at most; after
@@ -164,6 +168,14 @@ chain, for example:
 - he peeks, and we see what he sees (the empty seats in the same frame);
 - the bill comes from somewhere (the bartender picks up the reader before he pushes it);
 - the friends outside are found because he looks there.
+
+**Cause and effect across the whole clip** (Jonny, 10 Nov 2026, on Survive it EP1: "its just different scenes", "must
+make sense and should have a logical cause and effect. elsewise the viewer is just wondering why he watched the
+video"): every beat happens BECAUSE of the beat before it. Write the chain as "X, so Y, so Z" from the first second
+to the last frame. A beat that can only be joined with "and then", a time jump or a card is rewritten or cut. One
+mistake or one want starts the clip and the last frame answers it; a stranger can retell the clip in one sentence.
+Review A checks this before anything else, and a brief or series format that asks for separate gags goes back to
+Jonny as an outline first (Survive it's three-fails shape did).
 
 A beat whose "must see" is hidden by the set, too small at 360 px or off frame fails the chain. Fix it by re-staging
 (camera side, positions, a cut). It is never a note "on the brief", and it never waits for the next cut.
@@ -211,6 +223,16 @@ Three rig facts that cost Share or Steal EP01 about 20 check rounds (10 Nov), ea
   beat by an odd number of frames changes which frames are drawn after it, and a passage that was clean can pick up
   slides. Retime in steps of 2 frames (0.067 s), and hide a sit or a step-out behind a cut instead of tuning it.
 
+Four more from Share or Steal EP02 (11 Nov), each measured in a layout:
+- A hand that leaves a lap beside a table goes through the table's edge on a straight line. Send it over the edge
+  first: a `{ world: [...] }` point 18 cm above the top, beside the face (never between face and camera), first leg
+  ease "in", second leg "linear". "in" into "out" puts 20-40 cm into one drawing at the join.
+- An arm pose change scheduled on a cut turned the palm 62-75 degrees four frames before the cut, still in the old
+  shot. Keep the pose through the cut and change it half a second later, or not at all.
+- A still at a rounded time is not the video's frame: 4.267 s is after frame 128 (4.2667 s). A prop swap two
+  hundredths before a cut showed for one frame in the outgoing shot. Judge cut frames on the render's `--cuts` sheet.
+- A seated character follows a moving chair with `ride` (`prop`, `off: [0, 0.3, 0.03]`); `drop` falls on its own curve.
+
 `qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
 than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
 with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
@@ -257,6 +279,11 @@ waiver for the whole clip.
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
+   **The one-second proof of rule 6** (Survive it EP1: all three fix rounds were one-frame pops, each a farm render):
+   for every flash, impact frame, card that lands on an effect and big prop passing the lens, and after a review
+   note that adds or moves one: `node engine/render.mjs <sb> --draft --from <s> --to <s+1>`, then
+   `node qa/pops.mjs out/<id>-<s>-<s+1>-draft.mp4 --from <s>` (30 s). A flash at its peak one frame before a dark
+   card fades in at the same spot is an odd frame: start the flash two frames earlier.
 5. **Strips and review B on the passing draft, before the full render** (trial from 10 Nov 2026, Jonny; before, both
    came after the full render). `node qa/contact.mjs out/<id>-draft.mp4 --sb <sb> --contacts` cuts a 15 fps strip of
    every grab, release and drop and of whatever appears or vanishes inside a shot (`--at 3.8,11.3` adds a raise or a
@@ -272,6 +299,10 @@ waiver for the whole clip.
    (earshot listens: hits on their frame, footsteps on the right floor). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
    cut changed after the one on the draft. Count the farm renders after review B in the ledger row: the target is one.
+   The background command of rule 7: `until [ "$(gh run view <id> --json status -q .status)" = completed ]; do
+   sleep 30; done`, no check-ins beside it (about 100 of Survive it EP1's 853 steps only waited). Open the pull
+   request when the final clip has passed, not during the build (each check event wakes the thread), and run
+   `node qa/preflight.mjs <bench> --quick` on every bench the branch adds before that push.
 7. **Deliver** (see "Delivery" below): the MP4, its cover and a `DELIVERY.md` next to it with the one-line check result and Fable's notes in one line each, marked
    applied or not, plus the five timestamps to check with headphones (`node qa/risky.mjs <clip> --sb <sb>`) and the
    viewer read ("would you finish, where would you stop") from review B, and the twelve self-review answers
@@ -323,8 +354,8 @@ wasted work, and you prove it.
 
 5. Add one ledger row with one command (`node tools/ledger.mjs add ...`): length, new things, rule 8's five counts,
    check fails seen and unseen, steps, minutes from brief to delivery, machine minutes, director model and effort,
-   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. If the row needs counting by hand, the
-   counting script is the next fix.
+   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. The counts come from the thread's own
+   transcript: `node tools/ledger-count.mjs --from <time of the brief> --to <time of the delivery>` (under a second).
 6. Judge the fix on test against the comparison video. Count fell and score held: keep it. No drop after two videos:
    take it out again. Nothing stays on belief.
 7. Pick exactly one next fix. A fault that reached Jonny's eyes always goes first. Otherwise the largest of: the

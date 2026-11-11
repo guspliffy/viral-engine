@@ -191,6 +191,7 @@ function envFiles(set, sb) {
   if (E.surface && !sb.sound?.surface) sb.sound = { ...sb.sound, surface: E.surface };   // footsteps on the painted ground
   // set.swap (set-env.js): the env shown from a time on (the same place sixty years later): its own env.json
   for (const w of set.swap || []) {
+    if (w.room) continue;   // a built room (set-env.js): no painting to load
     const d = `assets/environments/${w.env}`, g = path.join(ROOT, d, "env.json");
     if (!fs.existsSync(g)) throw new Error(`set env swap "${w.env}": ${d}/env.json not found (make it with engine/plates/env.py)`);
     w.envData = { ...JSON.parse(fs.readFileSync(g, "utf8")), dir: d };
@@ -200,8 +201,23 @@ function envFiles(set, sb) {
 // the camera must stay where the layers cover the frame (engine/shared/env-coverage.js): a storyboard whose camera
 // shows a layer's edge is refused before any render, like a contact glitch. qa/env.mjs prints the details and the
 // safe range; set.envCheck false turns the gate off (a test of the check itself).
+// With set.swap each stretch is checked against the env that is up in it (fight flight or freeze 01, 10 Nov 2026: five
+// places with their own painting cameras; before, every frame was held to the first env's range).
+export function envCoverageOf(sb) {
+  const cam = (t) => worldCamera(sb, cameraState(sb, t), t), D = sb.duration ?? 1, fps = sb.fps ?? 30;
+  const swaps = (sb.set.swap || []).filter((w) => w.envData || w.room).sort((a, b) => a.at - b.at);
+  if (!swaps.length) return envCoverage(sb.set.envData, cam, D, fps);
+  const parts = [{ at: 0, envData: sb.set.envData }, ...swaps], out = { fails: [], warns: [] };
+  parts.forEach((w, i) => {
+    const t0 = Math.max(0, w.at), t1 = Math.min(D, parts[i + 1]?.at ?? D);
+    if (t1 - t0 < 1 / fps || w.room) return;   // a built room has walls all round: no painting edge to show
+    const r = envCoverage(w.envData, (t) => cam(t0 + t), t1 - t0 - 1 / fps, fps);
+    for (const k of Object.keys(r)) if (Array.isArray(r[k])) (out[k] ||= []).push(...r[k].map((e) => (e && typeof e.from === "number" ? { ...e, from: e.from + t0, to: e.to + t0, msg: `${e.msg} [${w.envData.name}]` } : e)));
+  });
+  return out;
+}
 function envGate(sb) {
-  const r = envCoverage(sb.set.envData, (t) => worldCamera(sb, cameraState(sb, t), t), sb.duration ?? 1, sb.fps ?? 30);
+  const r = envCoverageOf(sb);
   if (r.fails.length) throw new Error(`set env "${sb.set.env}": the camera shows the edge of the painting:\n` +
     r.fails.map((e) => `  ${e.from.toFixed(2)}-${e.to.toFixed(2)} s ${e.rule}: ${e.msg} (${e.at})`).join("\n") + `\n  run node qa/env.mjs ${sb.id ?? "<storyboard>"} for the safe camera range`);
 }

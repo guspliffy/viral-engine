@@ -990,7 +990,9 @@ function spud(C, ch, out) {
     if (ch.armMat && ch.armMat !== ch.limbMat) ch.armMat.color.set(pale);   // and the wrist that shows past the cuff
     if (ch.limbMat) { const hm = ch.limbMat.clone(); hm.color.set(pale); hm.userData = { ...ch.limbMat.userData };
       for (const s of ["L", "R"]) ch.arms?.[s]?.hand?.traverse?.((o) => { if (o.isMesh && o.material === ch.limbMat) o.material = hm; }); } }
-  if (ch.limbMat) ch.limbMat.userData.noOutline = true;   // workaround (11 Nov, from the Doomscroll thread, until the fix is on main): the ink hull of his brown legs and boots blows up into a flat brown wall across the frame
+  // brown legs and boots: the engine skips the ink hull only on near-black limbs (looks.js, "ink parts are lines
+  // already"), and a hull on the thin leg tubes blows up into a flat wall across the frame on a set with ink lines
+  if (ch.limbMat) ch.limbMat.userData.noOutline = true;
   const _x = V(0, 0, 0), _z = V(0, 0, 0), _m = new THREE.Matrix4();
   const base = out.apply;
   out.apply = (st, t, ...r) => {
