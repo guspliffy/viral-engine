@@ -12,48 +12,57 @@ on the drafts are newer than the brief and win. New series: the DRAFT goes to Jo
   the police chase him and so miss Reaper; "Viking lasted x" and also "Phoenix lasted 3 days". Keep the first 8 s and
   the voice, change only the scenery.
 
-## The story chain (draft 4, 31.3 s)
+- Draft 4 (11 Nov 11:09 UTC): "kind of yes"; police cars seen through a window; Phoenix runs out of the door "instead
+  of the officer coming in"; "more dramatic and 10x more extreme"; the roof flight "quite useless", the beach "weird",
+  "rather catch him at the airport while trying to board into a plane".
+- Draft 5 (11 Nov 11:55 UTC): "well done, go".
 
-1. 0-8.15 the hall of a dark house: high-five over the loot, sirens, they duck behind three crates. Police cutaway in
-   the street (2.85). Three faces, FIGHT / FLIGHT / FREEZE (Reaper freezes DOWN behind his crate), the big question.
+## The story chain (draft 5 = the cut, 29.7 s)
+
+1. 0-8.15 the hall of a dark house, a window behind the three: high-five over the loot, sirens, police cars roll up
+   outside the window (1.6), they duck behind three crates. Street cutaway (2.85). FIGHT / FLIGHT / FREEZE (Reaper
+   freezes DOWN behind his crate), the big question.
 2. 8.15-13.45 Viking roars out; street: gunfire, the patrol car blows up, the wall of cars, the net. "Fight lasted
-   four seconds." (unchanged from draft 3).
-3. 13.45 from the hiding place: an officer steps in through the open front door, torch on. "They're in here."
-4. 14.8 close: the torch's pool crawls along the crates to Phoenix. 16.0 he bolts over the crates, past the officer,
-   out of the door. "He's running! After him!" The officer runs out.
-5. 18.1 Reaper alone, the police lights leave. "Everyone chased Flight." runs on over the roof chase (19.6) and the
-   leap (20.7, the cover).
-6. 22.2 "Three days later.": Phoenix asleep on a far beach; 23.7 two officers step in; he gets up, hands up.
-   "Flight lasted three days."
-7. 26.7 the silent hall: Reaper's eyes go left, right; "Nobody ever searched the house."; he comes up from behind the
-   crate and breathes out. 29.8 "Which one are you?"
+   four seconds."
+3. 13.45 the hall from the front: megaphone "COME OUT WITH YOUR HANDS UP!", a searchlight sweeps the floor, Phoenix
+   sweats.
+4. 15.5 reverse shot: Phoenix flies out of the front door by himself. "HE'S RUNNING! AFTER HIM!" The car at the door
+   tears off.
+5. 17.1 Reaper alone, the cars leave the window, the lights go. "Everyone chased Flight." runs on over the street
+   chase (18.5): three cars, a searchlight, a second car going up (the cover, 19.65).
+6. 20.1 "Three days later.": the airport apron, Phoenix walks to the plane with a suitcase; 21.5 two cars cut him
+   off, the case falls, he runs back, stops, hands up, two officers walk in. "Flight lasted three days."
+7. 25.1 the silent hall: Reaper's eyes go left, right; "Nobody ever searched the house."; he comes up and breathes
+   out. 28.2 "Which one are you?"
 
 ## Places
 
-`PLACES`: hall 0, street 2.85, hall 3.65, street 8.75, hall 13.45, roof 19.6, beach 22.2, hall 26.7.
+`PLACES`: hall 0, street 2.85, hall 3.65, street 8.75, hall 13.45, street 18.5, air 20.1, hall 25.1.
 The hall is the built set `nighthall` as a ROOM inside the env set: `set.swap: [{ at, room: { type: "nighthall",
-pos: [0, 0, 3] } }]` (new in engine/page/set-env.js, sets.js, load.mjs on this branch). Moved 3 m toward the lens: the
-open front door is on the LEFT wall at z 1.1-2.3, the far wall at z -4.2, walls at x +-1.4. The first env (street)
-gives the clip its light. A room brings its own background colour (what shows past the door).
+pos: [0, 0, 3], window: { x, y, w, h } } }]` (engine/page/set-env.js, sets.js, load.mjs, set-nighthall.js on this
+branch). Moved 3 m toward the lens: the open front door is on the LEFT wall at z 1.1-2.3, the far wall at z -4.2,
+walls at x +-1.4. The first env (street) gives the clip its light. A room brings its own background colour.
+The airport is the painted env `airport-apron-sunrise` (engine/plates/env.py, seed 8 of 9).
 
 ## Cast and props in the hall
 
 | id | at x,z | notes |
 |---|---|---|
 | vik | 0, -1.15 | lifts the small crate `shield` at the roar |
-| phx | -0.92, -0.4; huddled -0.66 | ducked again from 13.45; flies out of the door at 16.0 |
-| rea | 0.88, -0.4; huddled 0.66 | ducked (crouch 1, y -0.18) from 2.2 to 28.95; `bagR` in both arms (grips.box) |
-| sam | door: -0.55, 1.95 | worn `torch2` 13.45-18.1; cheated to -1.05, 2.75 for the close shot at 14.8 |
+| phx | -0.92, -0.4; huddled -0.66 | ducked again from 13.45; flies out of the door at 15.5 |
+| rea | 0.88, -0.4; huddled 0.66 | ducked (crouch 1, y -0.18) from 2.2 to 27.35; `bagR` in both arms (grips.box) |
+| sam | hidden at 5.6, -7 | only the megaphone voice at 13.75 |
 
 Crates `crateL/M/R` x -0.92, 0, 0.92 at z 0.45, h 0.34. Money bags `bagL`, `bagM` on the floor in front of the row.
+Window cars `winA/B/C` stand 0.5 m above the hall floor, 4 m behind the glass (`staged`), with a siren wash `winwash`.
 `backInHall(t)`: after every cut back to the hall Reaper and his bag are put back in the frozen pose (the prop loop
 restores a prop's spec height when its place comes back).
 
 ## Cameras
 
 Front shots in the hall use `shot("hall", ...)` = the old alley framing (the alley painting's pitch). `REV` looks from
-behind the hiders at the door: pos 0.95, 1.25, -2.9, look -0.7, 0.72, 1.5, fov 50. Beach: 0, 1.9, 6.8, tilt 0, fov 46
-(the frame is only 2 m wide at the old 5.2 m / fov 42).
+behind the hiders at the door: pos 0.95, 1.25, -2.9, look -0.7, 0.72, 1.5, fov 50. Chase: 0, 1.25, 7.0, tilt -6,
+fov 46. Airport: 0, 1.4, 8.0, tilt -6, fov 46 (wide enough for both officers).
 
 ## Facts looked up this round
 
@@ -63,16 +72,18 @@ behind the hiders at the door: pos 0.95, 1.25, -2.9, look -0.7, 0.72, 1.5, fov 5
 - `pr()` on a prop id that does not exist is a no-op (the generator's helper checks `has(id)`).
 - Yaw: 0 faces the lens (+z), 90 faces +x, 180 faces away; from the reverse shot 180 is face-on.
 - A potato in profile reads as a back: for a face in the reverse shot keep the yaw within about 45 of 180.
-- The deckchair's front posts cross the face of a wide character (Phoenix): not used.
+- Navy police cars vanish against a night sky: show them by headlights, the light bar and a siren wash.
+- A painted plane comes out with fake lettering unless the prompt says "plain white unmarked".
 
-## Counters (Trial line, five counts)
+## Counters (rule 8, the ledger row)
 
-Drafts 3 sent (draft 4 next), farm renders 0, check-fix rounds on renders 1 of 3, preflight runs 20, still rounds 5,
-engine lookups ~75, windows in frame 6, review A 1, review B 1 (draft 2).
+Drafts 5, farm renders 1, check-fix rounds on renders 1 of 3, preflight runs 27 (+6 windowed), still rounds 9,
+engine lookups ~90, windows in frame 7, review A 1, review B 1 (draft 2), 9 env paintings (1 kept).
+Repeats noted (improvement loop, step 3): full preflight (~4 min) re-run for one moved prop: windowed layout first;
+the story was rebuilt three times after a draft because the chain was not agreed in words before building.
 
 ## Delivery to-dos
 
-One farm render only after Jonny's go; `qa/check.mjs --ears`, `qa/risky.mjs`; DELIVERY.md (departures, warnings,
-`qa/waivers.mjs --md`, Trial line, five counts, lessons review); cover without text (the leap); post pack; PR with
-`qa/golden.mjs` + `qa/regress.mjs` green (engine edits: set-env.js, sets.js, load.mjs, props3d.js, stage.js,
-audio.mjs, two prop files).
+`qa/check.mjs --ears`, `qa/risky.mjs`; DELIVERY.md (departures, warnings, `qa/waivers.mjs --md`, five counts,
+lessons review); cover without text (the second blast, 19.65); post pack; PR with `qa/golden.mjs` + `qa/regress.mjs`
+green; one ledger row (`node tools/ledger.mjs add`).
