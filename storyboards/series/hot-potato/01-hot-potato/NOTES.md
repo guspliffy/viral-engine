@@ -34,6 +34,13 @@ shown (fire out of the hole), a creepy music box tune.
 - Opener (Jonny's test, 11 Nov): type A, the contest already runs at frame 0 (coal in Viking's gloves, clock at 1,
   the narrator at 0.0). Not met, by his panel 01: it is a close shot of one character, and the first subtitle
   waits for the wide at 1.3 s. Name the type in the delivery.
+- The evil laugh (Jonny 21:41 Berlin on the rough draft: "make the clown laugh evil the rest is good to go"): a talk
+  `pattern` in his own voice (two low chuckles, a climb, a long falling last one). The FACE makes it evil, not the
+  head: thrown back 7 degrees the brows read raised and jolly from the balcony camera; 14 degrees forward the mouth
+  sinks behind the parapet; upright with brows low, lids half down and the mouth wide open reads evil. Three still
+  rounds to learn that. Leaning 9 degrees his collar frill pokes through the parapet in the close shot.
+- From straight above a hat brim hides the whole face: the `hat` verb slides it back for the look up.
+- The top-down shot saw the dark floor past the vat: the vat's front edge is 2 m nearer now (d 7.4, z 1.2).
 - Counts for version 2: layout runs 9, draft-still rounds 5, draft renders 2, builders 2 (stage 153k tokens,
   clown 243k tokens), narrator reads 2. Review A skipped again (weekly limit; Jonny looks at the draft first).
 

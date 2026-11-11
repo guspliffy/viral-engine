@@ -31,7 +31,7 @@ const PLAYERS = ["vik", "drg", "gun", "spud"];
 const B = 2.6, BOOTH = { w: 2.2, d: 0.9, rail: 0.45, roofY: 1.9 };   // the balcony floor (y) and its sizes
 const CZ = r3(WALL_Z + 0.43);                                // the clown stands behind the parapet
 const LEVER = { x: 0.45, y: r3(B + BOOTH.rail), z: r3(WALL_Z + BOOTH.d - 0.04), len: 0.32 };
-const VAT = { z: 0.2, d: 5.4, w: 5.4, rim: 0.55, oil: 0.47 };
+const VAT = { z: 1.2, d: 7.4, w: 5.4, rim: 0.55, oil: 0.47 };   // (its front edge is 2 m nearer than the stage needs: the top-down shot saw the dark floor past it)
 
 const cast = [
   { id: "vik", character: "always-orders-potatoes/viking", at: P.vik, y: S, face: YAW.vik, expr: "terrified", follow: 0.3, seed: 4.1 },
@@ -98,6 +98,9 @@ const T = {
 // (the commentator's "at zero" lands 1.3 s in: the bell waits for it, and everything after moves with it)
 const D0 = 0.3; for (const k of Object.keys(T)) T[k] = r3(T[k] + D0);
 const D1 = 0.1; for (const k of ["ding1", "wide", "pull", "next", "again"]) T[k] = r3(T[k] + D1);   // a beat for Gunslinger to see what he caught
+// Jonny on the rough draft (11 Nov 21:41 Berlin): "make the clown laugh evil". The laugh gets his whole close-up:
+// 0.75 s more before the tongs open, and everything after moves with it.
+const DL = 0.75; for (const k of Object.keys(T)) if (!["ding0", "show"].includes(k)) T[k] = r3(T[k] + DL);
 T.tick = 0.9; T.c5 = T.land;
 const tickAt = (n) => r3(T.c5 + (5 - n) * T.tick);   // the second n starts (5 .. 1): 3.5, 4.4, 5.3, 6.2, 7.1
 // the high throw has two halves: a release that rises to APEX (straight over the stage's middle, close under the top
@@ -105,7 +108,7 @@ const tickAt = (n) => r3(T.c5 + (5 - n) * T.tick);   // the second n starts (5 .
 // gloves (a grab with a dur snaps). (One release with an arc peaks two thirds of the way at 0.59 x arc, off to the side of the frame.)
 const RISE = 0.75, FALL = 0.4, APEX = [0.1, 7.6, 0.44], CATCH = r3(T.hurl + RISE + 0.01 + FALL);
 const RAMP = { at: r3(T.hurl + 0.58), len: 0.36, rate: 0.3 };
-const END = r3(11.7 + D0 + D1);
+const END = r3(11.7 + D0 + D1 + DL);
 
 // ---------------------------------------------------------------- text and the game's sounds
 // One text on screen at a time, clear of the sign, the faces and the clock card (top right). SUB = the free strip per
@@ -168,6 +171,19 @@ for (const w of ["drg", "gun", "spud"]) { sides(0, w, 0); A(0, w, "expr", { expr
 A(0, "drg", "look", { to: [0, -0.4], dur: 0, blink: false }); A(0, "gun", "look", { to: [0, -0.4], dur: 0, blink: false }); A(0, "spud", "look", { to: [0, -0.5], dur: 0, blink: false });
 // the clown: one glove on the lever, grinning down at the loser
 const rub = (t, n) => { for (let k = 0; k < n; k++) for (const [s, x] of [["R", -1], ["L", 1]]) c.arm(r3(t + k * 0.16), "host", s, { x: [x * 0.06, 0.3 + (k % 2 ? 0.04 : 0) * x, 0.42] }, 0.15, "inOut"); };
+// the clown's evil laugh, in his own voice, written syllable by syllable (engine/shared/syllables.js planPattern):
+// two low slow chuckles, then it climbs and speeds up, the last one long and falling. `big` = the whole laugh
+// (1.38 s), else the climb's tail (0.56 s) or, with `low`, three low chuckles (0.66 s).
+const HEH = (st, amp, gap) => ({ c: "h", v: "e", d: 0.15, st, amp, gap }), HA = (st, d = 0.12, o = {}) => ({ c: "h", v: "a", d, st, gap: 0.05, ...o });
+const LAUGH = {
+  big: [HEH(-3, 0.75, 0.11), HEH(-2, 0.85, 0.09), HA(1), HA(3), HA(5), HA(7), HA(9, 0.2, { glide: -4, gap: 0 })],
+  short: [HA(3), HA(5), HA(7), HA(8, 0.18, { glide: -4, gap: 0 })],
+  low: [HEH(-3, 0.7, 0.09), HEH(-4, 0.75, 0.09), HEH(-5, 0.8, 0)],
+};
+const laughLen = (P) => r3(P.reduce((n, x) => n + x.d + (x.gap ?? 0.04), 0));
+const laugh = (t, kind, gain = 1.1) => c.say(t, "host", "ha ha ha", laughLen(LAUGH[kind]), "excited", { voice: false, sub: false, gain, pattern: LAUGH[kind] });
+// the laughing face: brows low and tilted in, lids half down, the mouth wide open over the pointed teeth
+const evilLaugh = (t, dur = 0.12) => { A(t, "host", "expr", { expr: "evil", set: { curve: 1, open: 0.95 }, dur }); A(t, "host", "face", { brow: -0.6, tilt: 0.8, lid: 0.5, dur }); };
 c.arm(0, "host", "L", hostHand(leverKnob(0)), 0); c.arm(0, "host", "R", { x: [-0.2, 0.4, 0.4] }, 0);
 A(0, "host", "grip", { side: "L", shape: "clasp", dur: 0 });
 A(0, "host", "expr", { expr: "evil", set: { curve: 0.9, open: 0.3 }, dur: 0 }); A(0, "host", "face", { brow: -0.45, tilt: 0.6, lid: 0.3, dur: 0 });
@@ -203,7 +219,7 @@ for (const [w, lean] of [["drg", -7], ["gun", -7], ["spud", -6]]) {
 }
 // the clown laughs, head back
 A(r3(T.ding0 + 0.3), "host", "pitch", { to: -8, dur: 0.2 });
-A(r3(T.ding0 + 0.25), "host", "expr", { expr: "delighted", set: { curve: 1, open: 0.9 }, dur: 0.12 }); A(r3(T.ding0 + 0.25), "host", "face", { lid: 0.7, brow: 0.2, dur: 0.12 });
+evilLaugh(r3(T.ding0 + 0.25));   // (no sound yet: the commentator is still speaking; the laugh is heard in his close-up)
 for (let k = 0; k < 5; k++) A(r3(T.ding0 + 0.35 + k * 0.17), "host", "squash", { amount: 0.06, dur: 0.15 });
 see(r3(T.ding0 + 0.1), r3(T.ding0 + 0.5), ["vik", "host.face", "spud.face"], "the rule: at zero the clown pulls the lever and Viking drops through his tile");
 
@@ -214,11 +230,20 @@ c.at(r3(T.show - 0.05), { do: "carry", prop: "coal", by: "tongs", off: [0, 0, 0.
 c.at(r3(T.show - 0.04), { do: "prop", id: "tongs", set: { scale: 1 }, dur: 0.01, ease: "linear" }); c.at(r3(T.show - 0.04), { do: "prop", id: "coal", set: { scale: 1 }, dur: 0.01, ease: "linear" });
 c.arm(r3(T.show - 0.04), "host", "R", { prop: "tongs", grip: "hold", palm: [0, 0, 0.13] }, 0.02);
 A(r3(T.show - 0.04), "host", "grip", { side: "R", shape: "clasp", dur: 0.02 });
-A(r3(T.show - 0.04), "host", "pitch", { to: 9, dur: 0.02 });
+A(r3(T.show - 0.04), "host", "pitch", { to: 3, dur: 0.02 });   // (leaning 9 degrees, his collar frill pokes through the parapet in this close shot)
 A(r3(T.show - 0.04), "host", "expr", { expr: "evil", set: { curve: 0.95, open: 0.35 }, dur: 0.02 }); A(r3(T.show - 0.04), "host", "face", { brow: -0.5, tilt: 0.65, lid: 0.35, dur: 0.02 });
 A(r3(T.show - 0.04), "host", "look", { to: [0, -0.1], dur: 0.02, blink: false });      // at us
-A(r3(T.show + 0.35), "host", "face", { brow: -0.2, tilt: 0.65, lid: 0.35, dur: 0.15 });   // a brow comes up
-A(r3(T.show + 0.5), "host", "look", { to: [0, -0.75], dur: 0.12, blink: false });         // down at Spud
+// THE EVIL LAUGH: two low chuckles at us through the grin, then his chin drops and it climbs, his whole body
+// shaking; he comes down out of it onto Spud and opens the tongs
+laugh(r3(T.show + 0.05), "big");
+for (const k of [0, 1]) A(r3(T.show + 0.05 + k * 0.26), "host", "squash", { amount: 0.04, dur: 0.2 });
+// (his head stays over the parapet, a little up, eyes on us: thrown back 7 degrees the brows read raised and jolly from
+// this camera, and 14 degrees forward his mouth sinks behind the parapet)
+A(r3(T.show + 0.5), "host", "pitch", { to: 0, dur: 0.18 }); evilLaugh(r3(T.show + 0.5)); A(r3(T.show + 0.5), "host", "look", { to: [0, 0.05], dur: 0.12, blink: false });
+for (let k = 0; k < 5; k++) A(r3(T.show + 0.55 + k * 0.17), "host", "squash", { amount: 0.045, dur: 0.15 });
+A(r3(T.give - 0.2), "host", "pitch", { to: 4, dur: 0.16 });
+A(r3(T.give - 0.2), "host", "expr", { expr: "evil", set: { curve: 0.95, open: 0.35 }, dur: 0.12 }); A(r3(T.give - 0.2), "host", "face", { brow: -0.5, tilt: 0.65, lid: 0.35, dur: 0.12 });
+A(r3(T.give - 0.18), "host", "look", { to: [0, -0.75], dur: 0.12, blink: false });        // down at Spud
 num(r3(T.show + 0.02), 5);
 sfx(T.show, "sizzle", { gain: 0.3, reason: "the fresh coal hissing in the tongs" });
 see(T.show, r3(T.give - 0.05), ["host.face", "coal", "tongs"], "the evil clown holds a fresh glowing coal out in his tongs");
@@ -347,6 +372,10 @@ see(r3(T.top + 0.08), r3(T.reflex - 0.06), ["coal", "spud.face", "drg.face", "gu
 
 // ---------------------------------------------------------------- 11 THE REFLEX (8.1-9.25): Gunslinger catches it, zero
 A(r3(T.reflex - 0.04), "gun", "pitch", { to: -6, dur: 0.04 });
+// his hat slides back off his forehead as he looks straight up (from above, the brim hid his whole face), and
+// drops back on with the catch
+A(r3(T.hurl + 0.1), "gun", "hat", { off: [0, -0.12, -0.34], spin: [-50, 0, 0], dur: 0.22 });
+A(r3(T.reflex - 0.04), "gun", "hat", { off: [0, 0, 0], spin: [0, 0, 0], dur: 0.14 });
 c.arm(r3(T.reflex + 0.06), "gun", "R", cup("gun").R, 0.13, "out"); c.arm(r3(T.reflex + 0.06), "gun", "L", cup("gun").L, 0.13, "out");
 A(r3(T.reflex + 0.06), "gun", "grip", { side: "both", shape: "cup", dur: 0.1 });
 hot(CATCH, "gun");
@@ -381,7 +410,7 @@ sfx(r3(T.pull + 0.66), "sizzle", { gain: 0.55, reason: "the sizzle" });
 c.prop(r3(T.pull + 0.56), "vat", { churn: 0.45 }, 0.25, "out"); c.prop(r3(T.pull + 1.5), "vat", { churn: 0.25 }, 0.8, "inOut");
 fire(r3(T.pull + 0.58), "fireG");
 hot(r3(T.pull + 0.12), null); c.prop(r3(T.pull + 0.8), "clock", { alarm: 0 }, 0.3, "inOut");
-A(r3(T.pull + 0.25), "host", "expr", { expr: "delighted", set: { curve: 1, open: 0.85 }, dur: 0.12 }); A(r3(T.pull + 0.25), "host", "face", { lid: 0.7, brow: 0.2, dur: 0.12 });
+evilLaugh(r3(T.pull + 0.25)); laugh(r3(T.pull + 0.3), "short", 1.0);
 for (let k = 0; k < 3; k++) A(r3(T.pull + 0.3 + k * 0.17), "host", "squash", { amount: 0.06, dur: 0.15 });
 // Spud and Dragon breathe out
 for (const w of ["drg", "spud"]) { A(r3(T.pull + 0.2), w, "look", { to: [w === "drg" ? 0.55 : 0.6, -0.5], dur: 0.1, blink: false }); A(r3(T.pull + 0.25), w, "squash", { amount: 0.07, dur: 0.25 }); }
@@ -406,6 +435,8 @@ A(r3(T.next - 0.3), "host", "look", { to: [0, -0.8], dur: 0.12, blink: false });
 say(r3(T.next + 0.05), "host", "next!", 0.35, "excited", "NEXT!", SUB.wide);
 sfx(T.next, "sizzle", { gain: 0.35, reason: "the next coal hissing in the tongs" });
 tick(T.again, 5);
+laugh(r3(T.again + 0.12), "low", 0.9);   // the last sound: he chuckles down at the two who are left
+for (let k = 0; k < 3; k++) A(r3(T.again + 0.12 + k * 0.24), "host", "squash", { amount: 0.04, dur: 0.2 });
 // Spud hears the clock: his sprout shoots up, he looks up behind him
 A(r3(T.again + 0.05), "spud", "droop", { to: 0, dur: 0.08 }); A(r3(T.again + 0.05), "spud", "pitch", { to: -6, dur: 0.12 });
 A(r3(T.again + 0.05), "spud", "look", { to: [0, 0.8], dur: 0.08, blink: false });

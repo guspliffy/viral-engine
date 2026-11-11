@@ -20,13 +20,17 @@ Whoever holds the coal at zero, fries. Said once by the commentator at 0.0, prov
 
 Fake-out before the payoff: the coal in the air (did he beat the clock?). Stakes by 1.5 s: Viking's drop and the fire.
 
-## Panels (video seconds; the story clock is about 0.9 s shorter after the slow motion)
+Jonny on the rough draft (11 Nov 2026 21:41 Berlin): "make the clown laugh evil the rest is good to go". The laugh
+is panel 03 (0.75 s longer for it, so panels 04 to 12 start 0.75 s later than the sheet's plan), a short one after
+Gunslinger's drop and a low chuckle as the last sound.
+
+## Panels (story seconds; after the slow motion the video runs about 0.9 s behind)
 
 | Panel | Story s | Shot | What must read |
 | --- | --- | --- | --- |
 | 01 | 0.0 | close on Viking from slightly below | terror, the glowing coal in his gloves, the clock card at 1 |
 | 02 | 1.0 | wide from high in front | clock 0, the clown pulls the lever, Viking drops, fire out of the hole, three lean away |
-| 03 | 2.3 | close on the clown in his balcony | evil grin, a fresh coal in the tongs, a glove on the lever, clock 5 |
+| 03 | 2.6 | close on the clown in his balcony | evil grin, then his EVIL LAUGH (1.4 s); a fresh coal in the tongs, a glove on the lever, clock 5 |
 | 04 | 3.2 | medium on Spud | the coal lands in his gloves, his tile red, "HOT! HOT! HOT!", clock 5 |
 | 05 | 4.2 | close on Dragon's face | terror, the coal at arm's length, clock 4 |
 | 06 | 5.2 | close on Gunslinger's face | a scream, the coal in his gloves, clock 3 |
@@ -43,4 +47,5 @@ Fake-out before the payoff: the coal in the air (did he beat the clock?). Stakes
 - Panel 12: Gunslinger drops through his own tile on the right (the sheet used the front hole).
 - The clown's gloves have three fingers and a thumb like the whole cast (the sheet drew four).
 - Panels 06 and 12: his hat stays on (the hat is part of his costume in the engine; a hop and the fire carry it).
+  In panel 10 it slides back off his forehead as he looks up, so the camera above sees his face.
 - Panel 04: the open hole is in front of Spud, out of this frame (on the sheet it glows behind him).

@@ -208,9 +208,9 @@
    "kind": "hpvat",
    "x": 0,
    "y": 0,
-   "z": 0.2,
+   "z": 1.2,
    "w": 5.4,
-   "d": 5.4,
+   "d": 7.4,
    "h": 0.55,
    "castLight": 0.8,
    "haze": 0.3,
@@ -222,9 +222,9 @@
    "staged": "the oil in the vat",
    "x": 0,
    "y": 0.47,
-   "z": 0.2,
+   "z": 1.2,
    "w": 5.26,
-   "d": 5.26
+   "d": 7.26
   },
   {
    "id": "tile_vik",
@@ -348,8 +348,8 @@
  ],
  "captions": [
   {
-   "from": 7.96,
-   "to": 8.61,
+   "from": 8.71,
+   "to": 9.36,
    "text": "One second!",
    "pos": 1100,
    "pop": false,
@@ -364,8 +364,8 @@
    "kinetic": false
   },
   {
-   "from": 10.9,
-   "to": 11.7,
+   "from": 11.65,
+   "to": 12.45,
    "text": "NEXT!",
    "pos": 900,
    "pop": false,
@@ -503,7 +503,7 @@
     },
     {
      "sfx": "bubbling",
-     "dur": 12.1,
+     "dur": 12.85,
      "gain": 0.2,
      "reason": "the fryer bubbling under the stage, the whole clip",
      "at": 0
@@ -1262,10 +1262,10 @@
     {
      "who": "host",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "evil",
      "set": {
       "curve": 1,
-      "open": 0.9
+      "open": 0.95
      },
      "dur": 0.12,
      "at": 0.28
@@ -1273,8 +1273,9 @@
     {
      "who": "host",
      "do": "face",
-     "lid": 0.7,
-     "brow": 0.2,
+     "brow": -0.6,
+     "tilt": 0.8,
+     "lid": 0.5,
      "dur": 0.12,
      "at": 0.28
     },
@@ -1543,7 +1544,7 @@
     {
      "who": "host",
      "do": "pitch",
-     "to": 9,
+     "to": 3,
      "dur": 0.02,
      "at": 1.29
     },
@@ -1583,7 +1584,7 @@
   {
    "name": "03 the clown",
    "at": 2.6,
-   "len": 0.9,
+   "len": 1.65,
    "shot": {
     "pos": [
      0,
@@ -1623,6 +1624,78 @@
      "dur": 0.08,
      "ease": "out",
      "at": 0.02
+    },
+    {
+     "who": "host",
+     "do": "talk",
+     "line": "ha ha ha",
+     "tone": "excited",
+     "dur": 1.38,
+     "blink": false,
+     "voice": false,
+     "gain": 1.1,
+     "pattern": [
+      {
+       "c": "h",
+       "v": "e",
+       "d": 0.15,
+       "st": -3,
+       "amp": 0.75,
+       "gap": 0.11
+      },
+      {
+       "c": "h",
+       "v": "e",
+       "d": 0.15,
+       "st": -2,
+       "amp": 0.85,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 1,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 3,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 5,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 7,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.2,
+       "st": 9,
+       "gap": 0,
+       "glide": -4
+      }
+     ],
+     "at": 0.05
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 0.05
     },
     {
      "who": "drg",
@@ -1673,12 +1746,10 @@
     },
     {
      "who": "host",
-     "do": "face",
-     "brow": -0.2,
-     "tilt": 0.65,
-     "lid": 0.35,
-     "dur": 0.15,
-     "at": 0.35
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 0.31
     },
     {
      "who": "drg",
@@ -1688,14 +1759,76 @@
     },
     {
      "who": "host",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.18,
+     "at": 0.5
+    },
+    {
+     "who": "host",
+     "do": "expr",
+     "expr": "evil",
+     "set": {
+      "curve": 1,
+      "open": 0.95
+     },
+     "dur": 0.12,
+     "at": 0.5
+    },
+    {
+     "who": "host",
+     "do": "face",
+     "brow": -0.6,
+     "tilt": 0.8,
+     "lid": 0.5,
+     "dur": 0.12,
+     "at": 0.5
+    },
+    {
+     "who": "host",
      "do": "look",
      "to": [
       0,
-      -0.75
+      0.05
      ],
      "dur": 0.12,
      "blink": false,
      "at": 0.5
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.15,
+     "at": 0.72
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.15,
+     "at": 0.89
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.15,
+     "at": 1.06
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.045,
+     "dur": 0.15,
+     "at": 1.23
     },
     {
      "who": "spud",
@@ -1710,7 +1843,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.52
+     "at": 1.27
     },
     {
      "who": "spud",
@@ -1725,7 +1858,7 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.52
+     "at": 1.27
     },
     {
      "who": "spud",
@@ -1733,7 +1866,45 @@
      "side": "both",
      "shape": "cup",
      "dur": 0.15,
-     "at": 0.52
+     "at": 1.27
+    },
+    {
+     "who": "host",
+     "do": "pitch",
+     "to": 4,
+     "dur": 0.16,
+     "at": 1.37
+    },
+    {
+     "who": "host",
+     "do": "expr",
+     "expr": "evil",
+     "set": {
+      "curve": 0.95,
+      "open": 0.35
+     },
+     "dur": 0.12,
+     "at": 1.37
+    },
+    {
+     "who": "host",
+     "do": "face",
+     "brow": -0.5,
+     "tilt": 0.65,
+     "lid": 0.35,
+     "dur": 0.12,
+     "at": 1.37
+    },
+    {
+     "who": "host",
+     "do": "look",
+     "to": [
+      0,
+      -0.75
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.39
     },
     {
      "do": "prop",
@@ -1743,12 +1914,12 @@
      },
      "dur": 0.1,
      "ease": "out",
-     "at": 0.75
+     "at": 1.5
     },
     {
      "do": "carry",
      "prop": "coal",
-     "at": 0.82
+     "at": 1.57
     },
     {
      "do": "prop",
@@ -1760,13 +1931,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.82
+     "at": 1.57
     },
     {
      "sfx": "click",
      "gain": 0.4,
      "reason": "the tongs snap open",
-     "at": 0.82
+     "at": 1.57
     },
     {
      "do": "prop",
@@ -1777,7 +1948,7 @@
      },
      "dur": 0.26,
      "ease": "out",
-     "at": 0.84
+     "at": 1.59
     },
     {
      "do": "prop",
@@ -1787,7 +1958,7 @@
      },
      "dur": 0.36,
      "ease": "in",
-     "at": 0.84
+     "at": 1.59
     },
     {
      "who": "spud",
@@ -1798,13 +1969,13 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.87
+     "at": 1.62
     }
    ]
   },
   {
    "name": "04 spud has it",
-   "at": 3.5,
+   "at": 4.25,
    "len": 1.02,
    "shot": {
     "pos": [
@@ -2307,7 +2478,7 @@
   },
   {
    "name": "05 dragon",
-   "at": 4.52,
+   "at": 5.27,
    "len": 0.95,
    "shot": {
     "pos": [
@@ -2819,7 +2990,7 @@
   },
   {
    "name": "06 gunslinger",
-   "at": 5.47,
+   "at": 6.22,
    "len": 0.83,
    "shot": {
     "pos": [
@@ -3070,6 +3241,12 @@
      "at": 0.33
     },
     {
+     "who": "host",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.38
+    },
+    {
      "who": "gun",
      "do": "squash",
      "amount": 0.07,
@@ -3180,7 +3357,7 @@
   },
   {
    "name": "07 hands behind backs",
-   "at": 6.3,
+   "at": 7.05,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -3522,12 +3699,6 @@
      "at": 0.29
     },
     {
-     "who": "host",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.3
-    },
-    {
      "do": "prop",
      "id": "clock",
      "set": {
@@ -3769,7 +3940,7 @@
   },
   {
    "name": "08 fear",
-   "at": 7.1,
+   "at": 7.85,
    "len": 0.4,
    "shot": {
     "pos": [
@@ -3877,7 +4048,7 @@
   },
   {
    "name": "09 straight up",
-   "at": 7.5,
+   "at": 8.25,
    "len": 0.44,
    "shot": {
     "pos": [
@@ -4117,6 +4288,22 @@
      "at": 0.22
     },
     {
+     "who": "gun",
+     "do": "hat",
+     "off": [
+      0,
+      -0.12,
+      -0.34
+     ],
+     "spin": [
+      -50,
+      0,
+      0
+     ],
+     "dur": 0.22,
+     "at": 0.22
+    },
+    {
      "who": "drg",
      "do": "face",
      "brow": 0.6,
@@ -4174,7 +4361,7 @@
   },
   {
    "name": "10 it hangs",
-   "at": 7.94,
+   "at": 8.69,
    "len": 0.62,
    "shot": {
     "pos": [
@@ -4252,13 +4439,29 @@
      "to": -6,
      "dur": 0.04,
      "at": 0.58
+    },
+    {
+     "who": "gun",
+     "do": "hat",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0.14,
+     "at": 0.58
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "11 the reflex",
-   "at": 8.56,
+   "at": 9.31,
    "len": 1.09,
    "shot": {
     "pos": [
@@ -4624,12 +4827,24 @@
      "lid": 0,
      "dur": 0.12,
      "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.79
+    },
+    {
+     "who": "drg",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.89
     }
    ]
   },
   {
    "name": "12 gone",
-   "at": 9.65,
+   "at": 10.4,
    "len": 2.45,
    "shot": {
     "pos": [
@@ -4770,10 +4985,10 @@
     {
      "who": "host",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "evil",
      "set": {
       "curve": 1,
-      "open": 0.85
+      "open": 0.95
      },
      "dur": 0.12,
      "at": 0.32
@@ -4781,8 +4996,9 @@
     {
      "who": "host",
      "do": "face",
-     "lid": 0.7,
-     "brow": 0.2,
+     "brow": -0.6,
+     "tilt": 0.8,
+     "lid": 0.5,
      "dur": 0.12,
      "at": 0.32
     },
@@ -4802,16 +5018,52 @@
     },
     {
      "who": "host",
+     "do": "talk",
+     "line": "ha ha ha",
+     "tone": "excited",
+     "dur": 0.69,
+     "blink": false,
+     "voice": false,
+     "gain": 1,
+     "pattern": [
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 3,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 5,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.12,
+       "st": 7,
+       "gap": 0.05
+      },
+      {
+       "c": "h",
+       "v": "a",
+       "d": 0.18,
+       "st": 8,
+       "gap": 0,
+       "glide": -4
+      }
+     ],
+     "at": 0.37
+    },
+    {
+     "who": "host",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.15,
      "at": 0.37
-    },
-    {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.45
     },
     {
      "do": "prop",
@@ -4829,12 +5081,6 @@
      "amount": 0.06,
      "dur": 0.15,
      "at": 0.54
-    },
-    {
-     "who": "drg",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.55
     },
     {
      "who": "gun",
@@ -5341,6 +5587,50 @@
      "at": 1.75
     },
     {
+     "who": "host",
+     "do": "talk",
+     "line": "ha ha ha",
+     "tone": "excited",
+     "dur": 0.63,
+     "blink": false,
+     "voice": false,
+     "gain": 0.9,
+     "pattern": [
+      {
+       "c": "h",
+       "v": "e",
+       "d": 0.15,
+       "st": -3,
+       "amp": 0.7,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "e",
+       "d": 0.15,
+       "st": -4,
+       "amp": 0.75,
+       "gap": 0.09
+      },
+      {
+       "c": "h",
+       "v": "e",
+       "d": 0.15,
+       "st": -5,
+       "amp": 0.8,
+       "gap": 0
+      }
+     ],
+     "at": 1.77
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 1.77
+    },
+    {
      "who": "drg",
      "do": "look",
      "to": [
@@ -5369,6 +5659,20 @@
      "lid": 0,
      "dur": 0.1,
      "at": 1.81
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 2.01
+    },
+    {
+     "who": "host",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 2.25
     }
    ]
   }
@@ -5395,7 +5699,7 @@
   },
   {
    "from": 2.6,
-   "to": 3.37,
+   "to": 4.12,
    "see": [
     "host.face",
     "coal",
@@ -5404,8 +5708,8 @@
    "why": "the evil clown holds a fresh glowing coal out in his tongs"
   },
   {
-   "from": 3.85,
-   "to": 4.2,
+   "from": 4.6,
+   "to": 4.95,
    "see": [
     "spud.face",
     "coal"
@@ -5413,8 +5717,8 @@
    "why": "the coal in Spud's gloves on his red tile, the clock at 5"
   },
   {
-   "from": 4.66,
-   "to": 5.15,
+   "from": 5.41,
+   "to": 5.9,
    "see": [
     "drg.face",
     "coal"
@@ -5422,8 +5726,8 @@
    "why": "Dragon's terrified face over the coal, the clock at 4"
   },
   {
-   "from": 5.6,
-   "to": 6.05,
+   "from": 6.35,
+   "to": 6.8,
    "see": [
     "gun.face",
     "coal"
@@ -5431,8 +5735,8 @@
    "why": "Gunslinger's screaming face over the coal, the clock at 3"
   },
   {
-   "from": 6.7,
-   "to": 6.95,
+   "from": 7.45,
+   "to": 7.7,
    "see": [
     "spud.face",
     "drg",
@@ -5443,16 +5747,16 @@
    "why": "the coal is back with Spud at 2; Dragon and Gunslinger hide their gloves behind their backs"
   },
   {
-   "from": 7.1,
-   "to": 7.48,
+   "from": 7.85,
+   "to": 8.23,
    "see": [
     "spud.face"
    ],
    "why": "Spud's face, pure fear, as the clock ticks to 1"
   },
   {
-   "from": 7.67,
-   "to": 7.9,
+   "from": 8.42,
+   "to": 8.65,
    "see": [
     "spud",
     "coal"
@@ -5460,8 +5764,8 @@
    "why": "Spud throws the coal straight up with both arms"
   },
   {
-   "from": 8.02,
-   "to": 8.5,
+   "from": 8.77,
+   "to": 9.25,
    "see": [
     "coal",
     "spud.face",
@@ -5471,8 +5775,8 @@
    "why": "from straight above: the coal hangs over the stage, three faces look up at it"
   },
   {
-   "from": 8.84,
-   "to": 9.6,
+   "from": 9.59,
+   "to": 10.35,
    "see": [
     "gun.face",
     "coal"
@@ -5480,8 +5784,8 @@
    "why": "the coal dropped into Gunslinger's gloves by reflex; his tile is red, the clock at 0"
   },
   {
-   "from": 10.85,
-   "to": 12,
+   "from": 11.6,
+   "to": 12.75,
    "see": [
     "host.face",
     "coal2",
@@ -5496,139 +5800,139 @@
    "who": "vik",
    "with": "studio",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "vik",
    "with": "booth",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "vik",
    "with": "vat",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "drg",
    "with": "studio",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "drg",
    "with": "booth",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "drg",
    "with": "vat",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "gun",
    "with": "studio",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "gun",
    "with": "booth",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "gun",
    "with": "vat",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "spud",
    "with": "studio",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "spud",
    "with": "booth",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "spud",
    "with": "vat",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "host",
    "with": "studio",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "host",
    "with": "booth",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "host",
    "with": "vat",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden"
   },
   {
    "who": "vik",
    "with": "tile_vik",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "drg",
    "with": "tile_drg",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "gun",
    "with": "tile_gun",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "spud",
    "with": "tile_spud",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "each player stands on his trapdoor tile (and drops through it)"
   },
   {
    "who": "host",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "checks": [
     "face-hidden"
    ],
@@ -5638,28 +5942,28 @@
    "who": "host",
    "with": "lever",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "his glove rests on the lever's knob and pulls it"
   },
   {
    "who": "host",
    "with": "tongs",
    "from": 0,
-   "to": 15.1,
+   "to": 15.85,
    "reason": "the clown holds the tongs"
   },
   {
    "who": "host",
    "with": "coal",
    "from": 2.5,
-   "to": 4,
+   "to": 4.75,
    "reason": "the clown holds the coal out in his tongs"
   },
   {
    "who": "host",
    "with": "coal2",
-   "from": 10.45,
-   "to": 15.1,
+   "from": 11.2,
+   "to": 15.85,
    "reason": "the clown holds the next coal out in his tongs"
   },
   {
@@ -5672,28 +5976,28 @@
   {
    "who": "spud",
    "with": "coal",
-   "from": 3.32,
-   "to": 15.1,
+   "from": 4.07,
+   "to": 15.85,
    "reason": "spud catches, holds and throws the coal"
   },
   {
    "who": "drg",
    "with": "coal",
-   "from": 3.32,
-   "to": 15.1,
+   "from": 4.07,
+   "to": 15.85,
    "reason": "drg catches, holds and throws the coal"
   },
   {
    "who": "gun",
    "with": "coal",
-   "from": 3.32,
-   "to": 15.1,
+   "from": 4.07,
+   "to": 15.85,
    "reason": "gun catches, holds and throws the coal"
   },
   {
    "who": "vik",
    "from": 1.4,
-   "to": 15.1,
+   "to": 15.85,
    "checks": [
     "rig-jump",
     "stance-slide",
@@ -5704,8 +6008,8 @@
   },
   {
    "who": "spud",
-   "from": 10.42,
-   "to": 12.5,
+   "from": 11.17,
+   "to": 13.25,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -5714,8 +6018,8 @@
   },
   {
    "who": "gun",
-   "from": 9.82,
-   "to": 15.1,
+   "from": 10.57,
+   "to": 15.85,
    "checks": [
     "rig-jump",
     "stance-slide",
