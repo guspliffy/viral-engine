@@ -5,8 +5,8 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 
 ## Where the build stands
 
-- Step: draft 1 passed the checks (round 1 of 3), review B applied (wave notes, slap camera, barrow shot, throne
-  push in), main merged in; next: ONE farm render. Drafts 1, farm renders 0; full layouts 10, partial about 30
+- ROUND 2 (Jonny 10 Nov, after delivery): real-speed opening (frame 0 to 1.7 s), Reaper holds a 100 (`banknote`),
+  the catch SHOWN (`cashpyre` at 38.7,0; him 40.45,1.65), cups by `grips.mug` on a cut. Draft 2 with Jonny, then polish
 - Generator: `--no-vo` writes copy-money-no-vo.json (no opening slow motion, no narrator); default = with narrator.
   `READY=money,flood,twist,night` names the packs that exist; `TIMES=1` prints story = video seconds for every beat;
   `AT=14.6,...` maps video seconds to story seconds. Windows (allowClip, see) are written in story s, converted by VT()
@@ -50,7 +50,7 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 | throne | 10.6 | 4.25 to 3.95,1.35,0.55 | -1.7,1.05,0.55 | 58 to 57.5 | both friends' faces stay in |
 | board | 12.4 | 0.6,1.0,2.7 | 0.7,1.4,-1.6 | 36 | the board over the counter man |
 | barrow | 14.0 | -2.1,1.35,3.9 | -0.42,0.85,-0.2 | 54 | him near, barrow, pile, the milkshake beside the counter man's head |
-| night, push in | 15.1, 18.4 | 40.1,1.7,6.6 to 40.45,1.15,4.6 | 40.1,1.25,0.5 to 40.45,0.85,0.5 | 48 to 46 | his right side is cut by the frame at the end |
+| night / offer / two | 15.9 / 17.8 / 19.3 | 39.4,0.65,7.7 to 7.1 / 40.75,1.2,6.55 / 40.95,1.1,5.75 | 39.3,1.5,0.6 / 41.1,0.95,1.65 / 40.95,0.85,1.65 | 48 / 46 / 40 | low angle: the pile towers; the cup in Reaper's glove; the toast |
 
 ## Decisions, with the reason
 

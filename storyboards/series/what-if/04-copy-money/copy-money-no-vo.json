@@ -1,7 +1,7 @@
 {
  "id": "copy-money-no-vo",
- "title": "Your broke friend can copy money. There's a catch.",
- "idea": "There's a catch, episode 4: the friend who never has money can copy it: one coin, a hundred wallets, every dollar in the city; then prices explode and he burns his money to keep warm",
+ "title": "He found the infinite money glitch. But there's a catch.",
+ "idea": "There's a catch, episode 4: the friend who never has money can copy it: one coin, an armful of hundreds, every dollar in the city; then prices explode and a pile of his money burns just to keep him warm",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
@@ -65,11 +65,11 @@
    0
   ],
   [
-   15.07,
+   15.87,
    0
   ],
   [
-   15.08,
+   15.88,
    1
   ]
  ],
@@ -77,30 +77,30 @@
   "style": "bounce",
   "key": 10,
   "lowCut": 150,
-  "gain": 0.28,
+  "gain": 0.45,
   "parts": [
    {
     "at": 0,
     "part": "main"
    },
    {
-    "at": 7.5,
+    "at": 8.3,
     "part": "build"
    },
    {
-    "at": 10.15,
+    "at": 10.95,
     "part": "drop"
    },
    {
-    "at": 12.35,
+    "at": 13.15,
     "part": "stop"
    },
    {
-    "at": 14,
+    "at": 14.8,
     "part": "hush"
    },
    {
-    "at": 15.1,
+    "at": 15.9,
     "part": "musicbox"
    }
   ]
@@ -121,7 +121,7 @@
    "coin1"
   ],
   "hint": 0,
-  "what": "Gunslinger shows his empty wallet and his one coin, the moth flying out; the counter man's palm is out; Reaper reaches for his own wallet. The narrator: 'Your broke friend can copy money. There's a catch.'"
+  "what": "Gunslinger looks into his empty wallet, the moth flying out, then holds up his one coin; the counter man's palm is out and beckons; Reaper holds out a 100 to pay for him again. The narrator's opening line ends on 'But there's a catch.'"
  },
  "cast": [
   {
@@ -295,16 +295,15 @@
    "staged": "a moth: it flies, then sits on his hat brim (worn)"
   },
   {
-   "id": "rwal",
-   "kind": "wallet",
-   "wear": "rea",
-   "x": -0.14,
-   "y": 0.5,
-   "z": 0.46,
-   "rot": 0,
-   "open": 0,
-   "scale": 1.5,
-   "staged": "his wallet half out, in front of his chest (worn: held, it left his glove by 7 cm on his sigh)"
+   "id": "bill",
+   "kind": "banknote",
+   "x": 0.577,
+   "y": 0.4,
+   "z": 2.822,
+   "rot": -14,
+   "tip": -12,
+   "scale": 1.7,
+   "staged": "the 100 Reaper holds out to pay for him again; from demo 2 it is in Gunslinger's glove"
   },
   {
    "id": "coin1",
@@ -343,6 +342,7 @@
   {
    "id": "heap",
    "kind": "walletheap",
+   "look": "cash",
    "x": -0.049,
    "y": -3,
    "z": 0.354,
@@ -352,7 +352,7 @@
    "spill": 0,
    "wobble": 0,
    "floor": 0.34,
-   "staged": "the copies: a hundred wallets pop into his arms"
+   "staged": "the copies: a hundred bundles of hundreds pop into his arms"
   },
   {
    "id": "ious",
@@ -360,21 +360,31 @@
    "x": 0.95,
    "y": -6,
    "z": 2.4,
-   "look": "iou",
-   "n": 60,
+   "look": "note",
+   "n": 80,
    "r": 0.9,
    "top": 3.2,
    "clock": 0,
    "amount": 0
   },
   {
-   "id": "iou",
-   "kind": "iounote",
+   "id": "cbill",
+   "kind": "banknote",
    "x": 0.95,
    "y": -2,
    "z": 2.4,
    "rot": -14,
-   "ink": 1
+   "scale": 1.7
+  },
+  {
+   "id": "gbill",
+   "kind": "banknote",
+   "x": -0.45,
+   "y": -2,
+   "z": 0.1,
+   "rot": 30,
+   "scale": 1.7,
+   "staged": "Reaper's 100 in Gunslinger's glove from demo 2 (a second prop: a prop grabbed by a new hand blends from the old hand for 0.15 s, across the cut)"
   },
   {
    "id": "brick",
@@ -420,6 +430,14 @@
    "len": 7,
    "h": 3.3,
    "d": 2.5,
+   "notes": 900,
+   "nw": 0.5,
+   "nh": 0.3,
+   "tint": [
+    1,
+    1.12,
+    0.95
+   ],
    "front": 0,
    "level": 0.45,
    "clock": 0
@@ -474,24 +492,28 @@
   },
   {
    "id": "shake1",
-   "kind": "milkshake",
+   "kind": "fullshake",
    "x": 0.85,
    "y": -2,
    "z": -0.78,
    "rot": 0,
-   "scale": 0.8
+   "scale": 1.6
   },
   {
-   "id": "barrel",
-   "kind": "oilbarrel",
-   "x": 39.15,
+   "id": "pyre",
+   "kind": "cashpyre",
+   "x": 38.7,
    "y": 0,
-   "z": 0.5,
-   "scale": 0.75,
+   "z": 0,
+   "w": 3.2,
+   "d": 2.4,
+   "h": 1.7,
+   "flame": 1.3,
    "fire": 1,
    "feed": 0,
    "glow": 1,
-   "clock": 0
+   "clock": 0,
+   "staged": "a pile of his banknotes as big as a van, on fire"
   },
   {
    "id": "front",
@@ -506,21 +528,21 @@
   {
    "id": "bundle",
    "kind": "cashbrick",
-   "x": 40,
+   "x": 40.45,
    "y": -2,
-   "z": 0.5,
+   "z": 1.65,
    "squash": 0,
-   "scale": 0.8
+   "scale": 1.2
   },
   {
    "id": "snow",
    "kind": "noterain",
-   "x": 40.3,
+   "x": 40,
    "y": 0,
-   "z": 1.5,
+   "z": 0.6,
    "look": "snow",
-   "n": 400,
-   "r": 5,
+   "n": 220,
+   "r": 2.8,
    "top": 5,
    "clock": 0,
    "amount": 1
@@ -528,80 +550,72 @@
   {
    "id": "cup",
    "kind": "coffeecup",
-   "x": 43,
+   "x": 41.8,
    "y": -2,
-   "z": 0.7,
+   "z": 1.75,
    "scale": 1.3,
-   "rot": 195
+   "rot": 130
   },
   {
-   "id": "cupw",
+   "id": "cup2",
    "kind": "coffeecup",
-   "wear": "rea",
-   "x": -0.24,
-   "y": 0.42,
-   "z": 0.55,
-   "scale": 0.001,
-   "staged": "the coffee in front of his chest while he walks (worn, so it rides with him)"
+   "x": 40.45,
+   "y": -2,
+   "z": 1.65,
+   "scale": 1.3,
+   "rot": 195,
+   "staged": "the same coffee, in Gunslinger's glove after the cut (a second prop: one prop grabbed by a new hand blends from the old hand for 0.15 s, across the cut)"
   }
  ],
  "captions": [
   {
    "from": 0,
-   "to": 0.87,
+   "to": 1.67,
    "text": "Can't pay again?",
    "pos": 480,
    "pop": false
   },
   {
-   "from": 4,
-   "to": 4.45,
+   "from": 4.8,
+   "to": 5.25,
    "text": "Owe everyone?",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 4.5,
-   "to": 5,
+   "from": 5.3,
+   "to": 5.8,
    "text": "COPY!",
    "pos": 620,
    "pop": true,
    "size": 96
   },
   {
-   "from": 7.5,
-   "to": 7.72,
+   "from": 8.3,
+   "to": 9.07,
    "text": "Want it all?",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 11,
-   "to": 12.35,
+   "from": 11.8,
+   "to": 13.15,
    "text": "Everything's on me. Forever.",
-   "pos": 1170,
+   "pos": 1210,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 15.1,
-   "to": 18.37,
-   "text": "The catch: in November 1923, one loaf of bread in Germany cost 200 billion marks.",
-   "pos": 470,
-   "pop": false,
-   "kinetic": false
-  },
-  {
-   "from": 18.4,
-   "to": 20.05,
+   "from": 17.8,
+   "to": 19.27,
    "text": "Would you still want it?",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 20.1,
-   "to": 21.05,
+   "from": 19.42,
+   "to": 20.55,
    "text": "Next time's on me.",
    "pos": 480,
    "pop": false,
@@ -613,7 +627,7 @@
   {
    "name": "frame 0: can't pay again?",
    "at": 0,
-   "len": 0.9,
+   "len": 1.7,
    "shot": {
     "pos": [
      0.9,
@@ -625,7 +639,22 @@
      0.78,
      0
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.9,
+      2.3,
+      6.3
+     ],
+     "look": [
+      0.2,
+      0.78,
+      0
+     ],
+     "fov": 37.5
+    },
+    "dur": 1.6,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -782,7 +811,7 @@
     },
     {
      "do": "prop",
-     "id": "barrel",
+     "id": "pyre",
      "set": {
       "fire": 1,
       "clock": 0
@@ -902,9 +931,9 @@
       ],
       "point": "pinch",
       "at": [
-       -0.138,
-       0.5,
-       0.366
+       -0.128,
+       0.32,
+       0.384
       ]
      },
      "dur": 0.01,
@@ -914,8 +943,8 @@
      "who": "gsl",
      "do": "look",
      "to": [
-      0.3,
-      0.2
+      -0.35,
+      0.15
      ],
      "dur": 0.01,
      "blink": false,
@@ -924,10 +953,10 @@
     {
      "who": "gsl",
      "do": "expr",
-     "expr": "eager",
+     "expr": "sad",
      "set": {
-      "curve": 0.5,
-      "open": 0.25
+      "curve": -0.3,
+      "open": 0.2
      },
      "dur": 0.01,
      "at": 0
@@ -1003,11 +1032,13 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       -0.1,
-       0.5,
-       0.46
-      ]
+      "prop": "bill",
+      "grip": [
+       0,
+       0.03,
+       0
+      ],
+      "point": "pinch"
      },
      "dur": 0.01,
      "at": 0
@@ -1016,7 +1047,48 @@
      "who": "rea",
      "do": "grip",
      "side": "R",
-     "shape": "pinch",
+     "shape": "tip",
+     "set": {
+      "roll": 30,
+      "lean": 30,
+      "thin": 0.003
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "bill",
+     "hand": "R",
+     "grip": [
+      0,
+      0.03,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bill",
+      "grip": [
+       0,
+       0.03,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       0.577,
+       0.4,
+       2.822
+      ]
+     },
      "dur": 0.01,
      "at": 0
     },
@@ -1053,7 +1125,9 @@
     },
     {
      "who": "rea",
-     "macro": "sigh",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.3,
      "at": 0.05
     },
     {
@@ -1076,6 +1150,20 @@
      "at": 0.22
     },
     {
+     "who": "sam",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.25,
+     "reason": "the counter man's fingers beckon: pay up",
+     "at": 0.35
+    },
+    {
      "do": "prop",
      "id": "moth",
      "set": {
@@ -1089,11 +1177,22 @@
      "at": 0.37
     },
     {
+     "who": "sam",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "set": {
+      "up": 1
+     },
+     "dur": 0.1,
+     "at": 0.44
+    },
+    {
      "who": "gsl",
      "do": "look",
      "to": [
-      -0.35,
-      0.3
+      0.55,
+      0
      ],
      "dur": 0.12,
      "blink": false,
@@ -1114,16 +1213,6 @@
     },
     {
      "do": "prop",
-     "id": "wallet",
-     "set": {
-      "open": 0
-     },
-     "dur": 0.06,
-     "ease": "inOut",
-     "at": 0.62
-    },
-    {
-     "do": "prop",
      "id": "moth",
      "set": {
       "x": 0.4,
@@ -1137,6 +1226,14 @@
      "at": 0.64
     },
     {
+     "who": "sam",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 0.72
+    },
+    {
      "do": "prop",
      "id": "moth",
      "set": {
@@ -1148,6 +1245,103 @@
      "at": 0.76
     },
     {
+     "sfx": "pat",
+     "gain": 0.25,
+     "reason": "the counter man's fingers beckon: pay up",
+     "at": 0.77
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "set": {
+      "up": 1
+     },
+     "dur": 0.1,
+     "at": 0.86
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.5,
+      "open": 0.25
+     },
+     "dur": 0.12,
+     "at": 0.9
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coin1",
+      "grip": [
+       0,
+       -0.075,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       -0.138,
+       0.5,
+       0.366
+      ]
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.3,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0.8
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.35,
+     "reason": "his whole fortune, one coin, held up",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "coin1",
+     "set": {
+      "shine": 0
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "wallet",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.06,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
      "who": "gsl",
      "do": "release",
      "prop": "wallet",
@@ -1157,21 +1351,20 @@
       0.361
      ],
      "dur": 0,
-     "at": 0.86
+     "at": 1.66
     },
     {
      "do": "prop",
      "id": "wallet",
      "set": {
       "x": -1.088,
-      "y": 0.28,
+      "y": -2,
       "z": 0.361,
-      "rot": 120,
-      "tip": 0
+      "scale": 0.001
      },
      "dur": 0,
      "ease": "inOut",
-     "at": 0.87
+     "at": 1.67
     },
     {
      "who": "gsl",
@@ -1192,7 +1385,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.88
+     "at": 1.68
     },
     {
      "who": "gsl",
@@ -1200,14 +1393,14 @@
      "side": "R",
      "shape": "open",
      "dur": 0.01,
-     "at": 0.88
+     "at": 1.68
     }
    ],
    "kind": "hook"
   },
   {
    "name": "snap 1: COPY! two coins",
-   "at": 0.9,
+   "at": 1.7,
    "len": 0.65,
    "shot": {
     "pos": [
@@ -1440,7 +1633,7 @@
   },
   {
    "name": "victim: Reaper, wallet half out",
-   "at": 1.55,
+   "at": 2.35,
    "len": 0.95,
    "shot": {
     "pos": [
@@ -1461,33 +1654,25 @@
      "do": "expr",
      "expr": "shocked",
      "set": {
-      "open": 0.5,
-      "eye": 1.368,
-      "curve": -0.075
+      "open": 0.3,
+      "eye": 1.2
      },
-     "dur": 0.25,
+     "dur": 0.1,
      "at": 0.05
     },
     {
      "who": "rea",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.05
-    },
-    {
-     "who": "rea",
-     "do": "still",
-     "dur": 0.8999999999999999,
-     "idle": 0.08,
-     "at": 0.05
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.12,
+     "at": 0.08
     },
     {
      "who": "rea",
      "do": "still",
-     "dur": 0.7,
+     "dur": 0.55,
      "idle": 0,
-     "at": 0.1
+     "at": 0.25
     },
     {
      "who": "gsl",
@@ -1586,7 +1771,7 @@
   },
   {
    "name": "demo 1: he pays",
-   "at": 2.5,
+   "at": 3.3,
    "len": 1.5,
    "shot": {
     "pos": [
@@ -1825,6 +2010,30 @@
     },
     {
      "do": "prop",
+     "id": "bill",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "gbill",
+     "set": {
+      "x": -0.49,
+      "y": 0.4,
+      "z": 0.631,
+      "rot": 30,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
      "id": "coin1",
      "set": {
       "scale": 0.001,
@@ -1885,25 +2094,15 @@
      "at": 1.48
     },
     {
-     "do": "prop",
-     "id": "wallet",
-     "set": {
-      "x": -0.334,
-      "y": 0.52,
-      "z": 0.541,
-      "rot": 30,
-      "tip": -20,
-      "open": 0
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.48
-    },
-    {
      "who": "gsl",
      "do": "grip",
      "side": "R",
-     "shape": "pinch",
+     "shape": "tip",
+     "set": {
+      "roll": 30,
+      "lean": 30,
+      "thin": 0.003
+     },
      "dur": 0.01,
      "at": 1.48
     },
@@ -1912,35 +2111,55 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "wallet",
+      "prop": "gbill",
       "grip": [
-       -0.215,
        0,
+       0.03,
        0
-      ]
+      ],
+      "point": "pinch"
      },
      "dur": 0.01,
      "at": 1.48
     },
     {
+     "who": "rea",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.48
+    },
+    {
      "who": "gsl",
      "do": "grab",
-     "prop": "wallet",
+     "prop": "gbill",
      "hand": "R",
      "grip": [
-      -0.215,
       0,
+      0.03,
       0
      ],
      "dur": 0,
      "pose": null,
-     "at": 1.49
+     "point": "pinch",
+     "at": 1.492
     }
    ]
   },
   {
    "name": "demo 2: a hundred wallets",
-   "at": 4,
+   "at": 4.8,
    "len": 1.9,
    "shot": {
     "pos": [
@@ -1956,26 +2175,6 @@
     "fov": 40
    },
    "do": [
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "wallet",
-      "grip": [
-       -0.215,
-       0,
-       0
-      ],
-      "at": [
-       -0.334,
-       0.52,
-       0.541
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
     {
      "who": "gsl",
      "do": "look",
@@ -2024,7 +2223,7 @@
     },
     {
      "fx": "sparkle",
-     "on": "wallet",
+     "on": "gbill",
      "dur": 0.45,
      "color": "#ffd75a",
      "at": 0.52
@@ -2086,13 +2285,13 @@
     {
      "who": "gsl",
      "do": "release",
-     "prop": "wallet",
+     "prop": "gbill",
      "dur": 0,
      "at": 0.55
     },
     {
      "do": "prop",
-     "id": "wallet",
+     "id": "gbill",
      "set": {
       "scale": 0.001,
       "y": -2
@@ -2104,7 +2303,7 @@
     {
      "sfx": "pop",
      "gain": 0.5,
-     "reason": "a hundred wallets pop into his arms",
+     "reason": "a hundred bundles of hundreds pop into his arms",
      "at": 0.56
     },
     {
@@ -2260,7 +2459,7 @@
     {
      "sfx": "whoosh",
      "gain": 0.45,
-     "reason": "he flings the wallets",
+     "reason": "he flings the bundles",
      "at": 1.15
     },
     {
@@ -2297,7 +2496,7 @@
      "sfx": "flutter",
      "gain": 0.3,
      "dur": 1.2,
-     "reason": "the IOU notes flutter down on Reaper",
+     "reason": "the hundreds flutter down on Reaper",
      "at": 1.4
     },
     {
@@ -2372,13 +2571,13 @@
     },
     {
      "do": "prop",
-     "id": "iou",
+     "id": "cbill",
      "set": {
       "x": 1.043,
       "y": 0.34,
       "z": 2.938,
       "rot": -14,
-      "tip": -20
+      "tip": -15
      },
      "dur": 0,
      "ease": "linear",
@@ -2392,7 +2591,7 @@
      "set": {
       "roll": -20,
       "lean": 30,
-      "thin": null,
+      "thin": 0.002,
       "close": 0,
       "curl": 0.7,
       "index": 0.5
@@ -2405,10 +2604,10 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "prop": "iou",
+      "prop": "cbill",
       "grip": [
        0,
-       null,
+       0.03,
        0
       ],
       "point": "pinch",
@@ -2448,10 +2647,10 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "prop": "iou",
+      "prop": "cbill",
       "grip": [
        0,
-       null,
+       0.03,
        0
       ],
       "point": "pinch"
@@ -2468,7 +2667,7 @@
      "set": {
       "roll": 20,
       "lean": 30,
-      "thin": null
+      "thin": 0.002
      },
      "dur": 0.12,
      "at": 1.888
@@ -2477,7 +2676,7 @@
   },
   {
    "name": "demo 2: Reaper reads an IOU",
-   "at": 5.9,
+   "at": 6.7,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -2496,11 +2695,11 @@
     {
      "who": "rea",
      "do": "grab",
-     "prop": "iou",
+     "prop": "cbill",
      "hand": "L",
      "grip": [
       0,
-      null,
+      0.03,
       0
      ],
      "dur": 0,
@@ -2513,10 +2712,10 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "prop": "iou",
+      "prop": "cbill",
       "grip": [
        0,
-       null,
+       0.03,
        0
       ],
       "point": "pinch",
@@ -2572,43 +2771,6 @@
     },
     {
      "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.04,
-       0.38,
-       0.42
-      ]
-     },
-     "dur": 0.4,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "rwal",
-     "set": {
-      "x": -0.28,
-      "y": 0.38,
-      "z": 0.44
-     },
-     "dur": 0.4,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "rwal",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "who": "rea",
      "do": "expr",
      "expr": "kind",
      "set": {
@@ -2617,23 +2779,6 @@
      },
      "dur": 0.2,
      "at": 1.3
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.15,
-     "at": 1.38
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.4
     },
     {
      "who": "gsl",
@@ -2669,7 +2814,7 @@
   },
   {
    "name": "demo 3: COPY! COPY! COPY!",
-   "at": 7.5,
+   "at": 8.3,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -2685,6 +2830,37 @@
     "fov": 32
    },
    "do": [
+    {
+     "who": "gsl",
+     "do": "talk",
+     "line": "COPY!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.2
+    },
+    {
+     "fx": "pop",
+     "text": "COPY!",
+     "who": "gsl",
+     "dur": 0.2,
+     "xy": [
+      330,
+      690
+     ],
+     "size": 120,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.1,
+     "at": 0.2
+    },
     {
      "who": "gsl",
      "do": "arm",
@@ -2716,84 +2892,74 @@
      "at": 0.2
     },
     {
-     "who": "gsl",
-     "do": "talk",
-     "line": "COPY!",
-     "tone": "excited",
-     "dur": 0.3,
-     "blink": false,
-     "voice": false,
-     "at": 0.25
-    },
-    {
-     "fx": "pop",
-     "text": "COPY!",
-     "who": "gsl",
-     "dur": 0.5,
-     "xy": [
-      330,
-      560
-     ],
-     "size": 120,
-     "angle": -4,
-     "color": "speaker",
-     "at": 0.25
-    },
-    {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.03,
-     "dur": 0.1,
-     "at": 0.25
-    },
-    {
      "sfx": "ding",
      "gain": 0.8,
      "loud": false,
      "reason": "the power: the cash-register ka-ching",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "fx": "sparkle",
      "on": "gsl",
      "dur": 0.45,
      "color": "#ffd75a",
-     "at": 0.27
+     "at": 0.22
     },
     {
      "fx": "pop",
      "text": "COPY!",
      "who": "gsl",
-     "dur": 0.5,
+     "dur": 0.2,
      "xy": [
       760,
-      640
+      770
      ],
      "size": 130,
      "angle": -4,
      "color": "speaker",
-     "at": 0.47
+     "at": 0.4
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.04,
      "dur": 0.1,
-     "at": 0.47
+     "at": 0.4
     },
     {
      "sfx": "ding",
      "gain": 0.96,
      "loud": false,
      "reason": "the power: the cash-register ka-ching",
-     "at": 0.49
+     "at": 0.42
     },
     {
      "fx": "sparkle",
      "on": "gsl",
      "dur": 0.45,
      "color": "#ffd75a",
-     "at": 0.49
+     "at": 0.42
+    },
+    {
+     "fx": "pop",
+     "text": "COPY!",
+     "who": "gsl",
+     "dur": 0.5,
+     "xy": [
+      540,
+      880
+     ],
+     "size": 150,
+     "angle": -4,
+     "color": "speaker",
+     "at": 0.6
+    },
+    {
+     "who": "gsl",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.1,
+     "at": 0.6
     },
     {
      "who": "gsl",
@@ -2827,25 +2993,18 @@
      "at": 0.6
     },
     {
-     "fx": "pop",
-     "text": "COPY!",
-     "who": "gsl",
-     "dur": 0.5,
-     "xy": [
-      540,
-      760
-     ],
-     "size": 150,
-     "angle": -4,
-     "color": "speaker",
-     "at": 0.69
+     "sfx": "ding",
+     "gain": 1.1199999999999999,
+     "loud": true,
+     "reason": "the power: the cash-register ka-ching",
+     "at": 0.62
     },
     {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.1,
-     "at": 0.69
+     "fx": "sparkle",
+     "on": "gsl",
+     "dur": 0.45,
+     "color": "#ffd75a",
+     "at": 0.62
     },
     {
      "do": "prop",
@@ -2856,20 +3015,6 @@
      "dur": 0,
      "ease": "linear",
      "at": 0.7
-    },
-    {
-     "sfx": "ding",
-     "gain": 1.1199999999999999,
-     "loud": true,
-     "reason": "the power: the cash-register ka-ching",
-     "at": 0.71
-    },
-    {
-     "fx": "sparkle",
-     "on": "gsl",
-     "dur": 0.45,
-     "color": "#ffd75a",
-     "at": 0.71
     },
     {
      "sfx": "rumble",
@@ -2891,7 +3036,14 @@
     {
      "who": "rea",
      "do": "release",
-     "prop": "iou",
+     "prop": "bill",
+     "dur": 0,
+     "at": 0.77
+    },
+    {
+     "who": "rea",
+     "do": "release",
+     "prop": "cbill",
      "dur": 0,
      "at": 0.77
     },
@@ -2906,8 +3058,24 @@
      "at": 0.77
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.78
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.78
+    },
+    {
      "do": "prop",
-     "id": "iou",
+     "id": "cbill",
      "set": {
       "y": -2
      },
@@ -3105,7 +3273,7 @@
   },
   {
    "name": "demo 3: the wave",
-   "at": 8.3,
+   "at": 9.1,
    "len": 1.55,
    "shot": {
     "pos": [
@@ -3379,8 +3547,8 @@
   },
   {
    "name": "demo 3: the slap (slow motion)",
-   "at": 9.85,
-   "len": 0.75,
+   "at": 10.65,
+   "len": 0.15,
    "shot": {
     "pos": [
      2.8,
@@ -3389,8 +3557,8 @@
     ],
     "look": [
      -0.8,
-     0.6,
-     -0.1
+     0.82,
+     0.42
     ],
     "fov": 44
    },
@@ -3404,7 +3572,42 @@
      "dur": 0.3,
      "ease": "out",
      "at": 0
+    }
+   ]
+  },
+  {
+   "name": "demo 3: the camera follows the brick down",
+   "at": 10.8,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     2.8,
+     2.2,
+     0.3
+    ],
+    "look": [
+     -0.8,
+     0.82,
+     0.42
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      2.8,
+      2.2,
+      0.3
+     ],
+     "look": [
+      -0.8,
+      0.6,
+      -0.1
+     ],
+     "fov": 44
     },
+    "dur": 0.18,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "who": "gsl",
      "do": "arm",
@@ -3424,7 +3627,7 @@
      },
      "dur": 0.15,
      "ease": "in",
-     "at": 0.15
+     "at": 0
     },
     {
      "who": "gsl",
@@ -3432,11 +3635,11 @@
      "to": 5,
      "dur": 0.15,
      "ease": "in",
-     "at": 0.15
+     "at": 0
     },
     {
      "fx": "ramp",
-     "at": 0.15,
+     "at": 0,
      "len": 0.6,
      "rate": 0.26,
      "in": 0.25,
@@ -3446,14 +3649,29 @@
      "fx": "shake",
      "dur": 0.2,
      "amp": 0.025,
-     "at": 0.3
+     "at": 0.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.31,
+      0.414,
+      0.2
+     ],
+     "dur": 0.16,
+     "color": "#cfe8b8",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.24,
+     "lift": 0.02,
+     "at": 0.15
     },
     {
      "sfx": "slam",
      "gain": 0.9,
      "loud": true,
      "reason": "the 10x: the brick of cash slapped on the counter",
-     "at": 0.3
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -3463,7 +3681,7 @@
      },
      "dur": 0.04,
      "ease": "out",
-     "at": 0.3
+     "at": 0.15
     },
     {
      "who": "gsl",
@@ -3474,7 +3692,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.33
+     "at": 0.18
     },
     {
      "do": "prop",
@@ -3484,7 +3702,7 @@
      },
      "dur": 0.35,
      "ease": "settle",
-     "at": 0.33
+     "at": 0.18
     },
     {
      "do": "prop",
@@ -3494,7 +3712,7 @@
      },
      "dur": 0.12,
      "ease": "settle",
-     "at": 0.34
+     "at": 0.19
     },
     {
      "who": "gsl",
@@ -3504,13 +3722,13 @@
       "curve": 0.9
      },
      "dur": 0.12,
-     "at": 0.35
+     "at": 0.2
     },
     {
      "sfx": "seatclack",
      "gain": 0.4,
      "reason": "the diner's sign flips to his hat",
-     "at": 0.35
+     "at": 0.2
     },
     {
      "who": "sam",
@@ -3518,14 +3736,20 @@
      "to": 30,
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.38
+     "at": 0.23
+    },
+    {
+     "who": "gsl",
+     "do": "still",
+     "dur": 0.9,
+     "at": 0.54
     },
     {
      "who": "sam",
      "do": "pitch",
      "to": 0,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "sam",
@@ -3536,14 +3760,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "sam",
      "do": "turn",
      "to": -40,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3554,14 +3778,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3572,14 +3796,14 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3590,34 +3814,34 @@
      ],
      "dur": 0.01,
      "steps": 0,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 0.73
+     "ease": "linear",
+     "sync": true,
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "release",
      "prop": "brick",
      "dur": 0,
-     "at": 0.73
-    },
-    {
-     "who": "gsl",
-     "do": "still",
-     "dur": 0.25,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3631,15 +3855,15 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "L",
-     "shape": "open",
+     "shape": "cup",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
@@ -3653,22 +3877,22 @@
       ]
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "gsl",
      "do": "grip",
      "side": "R",
-     "shape": "open",
+     "shape": "cup",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3679,7 +3903,7 @@
       "curve": 1
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3690,7 +3914,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3698,7 +3922,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "wiz",
@@ -3706,14 +3930,14 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 90,
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3724,7 +3948,7 @@
       "curve": 1
      },
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3735,7 +3959,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3743,7 +3967,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     },
     {
      "who": "rea",
@@ -3751,13 +3975,13 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 0.73
+     "at": 0.58
     }
    ]
   },
   {
    "name": "snap 2: the throne",
-   "at": 10.6,
+   "at": 11.4,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -3770,7 +3994,22 @@
      1.05,
      0.55
     ],
-    "fov": 58
+    "fov": 58,
+    "to": {
+     "pos": [
+      3.95,
+      1.35,
+      0.55
+     ],
+     "look": [
+      -1.7,
+      1.05,
+      0.55
+     ],
+     "fov": 57.5
+    },
+    "dur": 1.6,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3801,7 +4040,7 @@
      "do": "move",
      "to": [
       -1.7,
-      -0.87
+      -0.94
      ],
      "dur": 0.45,
      "ease": "out",
@@ -3888,6 +4127,22 @@
      "at": 0.45
     },
     {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
      "who": "wiz",
      "do": "arm",
      "side": "L",
@@ -3967,7 +4222,7 @@
   },
   {
    "name": "twist: the board runs away",
-   "at": 12.4,
+   "at": 13.2,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -4123,7 +4378,7 @@
     {
      "who": "gsl",
      "do": "turn",
-     "to": 45,
+     "to": 22,
      "dur": 0.01,
      "at": 0.54
     },
@@ -4371,73 +4626,6 @@
     },
     {
      "do": "prop",
-     "id": "shake1",
-     "set": {
-      "x": 0.68,
-      "y": 0.86,
-      "z": -0.3
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.55
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.01,
-     "at": 1.56
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "shake1",
-      "grip": [
-       0.089,
-       0.139,
-       0.024
-      ],
-      "palm": "wrap",
-      "off": [
-       0.068,
-       0.02,
-       0.018
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 1.56
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "shake1",
-      "grip": [
-       0.089,
-       0.139,
-       0.024
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.01,
-     "ease": "settle",
-     "at": 1.57
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 1.576
-    },
-    {
-     "do": "prop",
      "id": "brick",
      "set": {
       "y": -2
@@ -4497,48 +4685,93 @@
      "who": "gsl",
      "do": "look",
      "to": [
-      0.5,
+      0.8,
       0
      ],
      "dur": 0.01,
      "blink": false,
      "at": 1.58
-    }
-   ],
-   "kind": "payoff"
-  },
-  {
-   "name": "twist: a wheelbarrow for one milkshake",
-   "at": 14,
-   "len": 1.1,
-   "shot": {
-    "pos": [
-     -0.35,
-     1.55,
-     5.5
-    ],
-    "look": [
-     -0.35,
-     0.95,
-     0
-    ],
-    "fov": 56
-   },
-   "do": [
+    },
+    {
+     "do": "prop",
+     "id": "shake1",
+     "set": {
+      "x": 0.316,
+      "y": 0.78,
+      "z": -0.696
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "set": {
+      "curl": 0.25,
+      "index": 0.2,
+      "thumb": 0.2
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shake1",
+      "grip": [
+       0,
+       -0.041,
+       0
+      ],
+      "at": [
+       0.316,
+       0.78,
+       -0.696
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.58
+    },
     {
      "who": "sam",
      "do": "grab",
      "prop": "shake1",
      "hand": "R",
      "grip": [
-      0.089,
-      0.139,
-      0.024
+      0,
+      -0.041,
+      0
      ],
      "dur": 0,
      "pose": null,
-     "at": 0.04
-    },
+     "at": 1.592
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "twist: a wheelbarrow for one milkshake",
+   "at": 14.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -2.1,
+     1.35,
+     3.9
+    ],
+    "look": [
+     -0.42,
+     0.85,
+     -0.2
+    ],
+    "fov": 54
+   },
+   "do": [
     {
      "do": "prop",
      "id": "barrow",
@@ -4754,20 +4987,19 @@
      "pose": {
       "prop": "shake1",
       "grip": [
-       0.089,
-       0.139,
-       0.024
+       0,
+       -0.041,
+       0
       ],
-      "palm": "wrap",
       "at": [
-       0.8,
-       0.42,
-       -0.36
+       0.36,
+       0.55,
+       -0.9
       ]
      },
-     "dur": 0.26,
-     "ease": "inOut",
-     "at": 0.82
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.86
     },
     {
      "who": "gsl",
@@ -4789,9 +5021,9 @@
      "do": "prop",
      "id": "bundle",
      "set": {
-      "x": 39.518,
-      "y": 0.55,
-      "z": 0.67,
+      "x": 40.013,
+      "y": 0.85,
+      "z": 1.238,
       "rot": 60
      },
      "dur": 0,
@@ -4799,26 +5031,11 @@
      "at": 1.07
     },
     {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": -0.821,
-      "y": 0.795,
-      "z": -0.22,
-      "scale": 0.001,
-      "open": 0,
-      "flap": 0
-     },
-     "dur": 0,
-     "ease": "inOut",
-     "at": 1.07
-    },
-    {
      "who": "gsl",
      "do": "move",
      "to": [
-      40,
-      0.5
+      40.45,
+      1.65
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4827,7 +5044,7 @@
     {
      "who": "gsl",
      "do": "turn",
-     "to": -40,
+     "to": -45,
      "dur": 0.01,
      "at": 1.08
     },
@@ -4835,8 +5052,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      43,
-      0.7
+      47,
+      4
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4912,19 +5129,11 @@
      "who": "gsl",
      "do": "look",
      "to": [
-      -0.4,
-      -0.25
+      -0.5,
+      0.1
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 1.08
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
      "at": 1.08
     },
     {
@@ -4957,64 +5166,11 @@
       "prop": "bundle",
       "grip": [
        0,
-       0.088,
+       0.125,
        0
       ]
      },
      "dur": 0.01,
-     "at": 1.08
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "clasp",
-     "set": {
-      "curl": 0.6,
-      "index": 0.55,
-      "thumb": 0.5
-     },
-     "dur": 0.01,
-     "at": 1.08
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.19,
-       0.66,
-       0.55
-      ]
-     },
-     "dur": 0.01,
-     "at": 1.08
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 1.08
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 1.08
-    },
-    {
-     "do": "prop",
-     "id": "cupw",
-     "set": {
-      "scale": 1.3
-     },
-     "dur": 0,
-     "ease": "linear",
      "at": 1.08
     },
     {
@@ -5024,57 +5180,52 @@
      "hand": "R",
      "grip": [
       0,
-      0.088,
+      0.125,
       0
      ],
      "dur": 0,
      "pose": null,
-     "at": 1.09
+     "at": 1.092
     }
    ],
    "kind": "reaction"
   },
   {
-   "name": "night: the catch",
-   "at": 15.1,
-   "len": 3.3,
+   "name": "night: the catch, shown: a pile of his money burning to keep him warm",
+   "at": 15.9,
+   "len": 1.9,
    "shot": {
     "pos": [
-     40.1,
-     1.7,
-     6.6
+     39.4,
+     0.65,
+     7.7
     ],
     "look": [
-     40.1,
-     1.25,
-     0.5
+     39.3,
+     1.5,
+     0.6
     ],
-    "fov": 48
+    "fov": 48,
+    "to": {
+     "pos": [
+      39.4,
+      0.65,
+      7.1
+     ],
+     "look": [
+      39.3,
+      1.5,
+      0.6
+     ],
+     "fov": 48
+    },
+    "dur": 1.9,
+    "ease": "inOut"
    },
    "do": [
     {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bundle",
-      "grip": [
-       0,
-       0.088,
-       0
-      ],
-      "at": [
-       39.518,
-       0.55,
-       0.67
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
      "do": "prop",
-     "id": "barrel",
+     "id": "pyre",
      "set": {
       "clock": 0
      },
@@ -5084,11 +5235,11 @@
     },
     {
      "do": "prop",
-     "id": "barrel",
+     "id": "pyre",
      "set": {
-      "clock": 5.95
+      "clock": 4.65
      },
-     "dur": 5.95,
+     "dur": 4.65,
      "ease": "linear",
      "at": 0
     },
@@ -5106,45 +5257,71 @@
      "do": "prop",
      "id": "snow",
      "set": {
-      "clock": 5.95
+      "clock": 4.65
      },
-     "dur": 5.95,
+     "dur": 4.65,
      "ease": "linear",
      "at": 0
     },
     {
      "sfx": "ridewind",
      "gain": 0.06,
-     "dur": 5.95,
+     "dur": 4.65,
      "reason": "a low cold wind outside the dark diner (far under the mix)",
      "at": 0
     },
     {
      "sfx": "crinkle",
-     "gain": 0.16,
-     "reason": "the barrel fire crackles",
-     "at": 0.3
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.15
+    },
+    {
+     "who": "gsl",
+     "do": "release",
+     "prop": "bundle",
+     "dur": 0,
+     "at": 0.4
+    },
+    {
+     "do": "physics",
+     "prop": "bundle",
+     "mode": "throw",
+     "to": [
+      39.45,
+      0.95,
+      0.55
+     ],
+     "in": 0.3,
+     "spin": [
+      1,
+      0,
+      0.5
+     ],
+     "at": 0.4
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.43
     },
     {
      "who": "gsl",
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "bundle",
-      "grip": [
-       0,
-       0.088,
-       0
-      ],
-      "at": [
-       39.45,
-       0.765,
-       0.45
+      "world": [
+       40.028,
+       0.62,
+       1.252
       ]
      },
-     "dur": 0.35,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 0.5
+     "at": 0.45
     },
     {
      "do": "prop",
@@ -5164,6 +5341,12 @@
      "at": 0.5
     },
     {
+     "sfx": "crinkle",
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.6
+    },
+    {
      "do": "prop",
      "id": "front",
      "set": {
@@ -5172,6 +5355,32 @@
      "dur": 0.05,
      "ease": "linear",
      "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "pyre",
+     "set": {
+      "feed": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.68
+    },
+    {
+     "sfx": "ai/flare",
+     "gain": 0.5,
+     "reason": "another brick of banknotes flares up on the burning pile",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "bundle",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -5185,6 +5394,16 @@
     },
     {
      "do": "prop",
+     "id": "pyre",
+     "set": {
+      "feed": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
      "id": "front",
      "set": {
       "flicker": 0
@@ -5195,139 +5414,110 @@
     },
     {
      "who": "gsl",
-     "do": "release",
-     "prop": "bundle",
-     "dur": 0,
-     "at": 0.87
-    },
-    {
-     "do": "physics",
-     "prop": "bundle",
-     "mode": "throw",
-     "to": [
-      39.15,
-      0.545,
-      0.5
-     ],
-     "in": 0.2,
-     "spin": [
-      1,
-      0,
-      0.5
-     ],
-     "at": 0.87
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 0.9
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       39.46,
-       0.745,
-       0.4
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.92
-    },
-    {
-     "do": "prop",
-     "id": "barrel",
-     "set": {
-      "feed": 1
-     },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 1.05
-    },
-    {
-     "sfx": "ai/flare",
-     "gain": 0.4,
-     "reason": "a bundle of banknotes flares up in the barrel",
-     "at": 1.05
-    },
-    {
-     "do": "prop",
-     "id": "bundle",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.04,
-     "ease": "linear",
-     "at": 1.07
-    },
-    {
-     "do": "prop",
-     "id": "barrel",
-     "set": {
-      "feed": 0
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 1.2
-    },
-    {
-     "who": "gsl",
      "do": "squash",
      "amount": 0.018,
      "dur": 0.1,
-     "at": 1.5
+     "at": 1.25
     },
     {
      "sfx": "crinkle",
-     "gain": 0.16,
-     "reason": "the barrel fire crackles",
-     "at": 1.6
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 1.3
     },
     {
      "who": "gsl",
      "do": "squash",
      "amount": 0.018,
      "dur": 0.1,
-     "at": 1.72
+     "at": 1.47
     },
     {
-     "who": "rea",
-     "do": "expr",
-     "expr": "deadpan",
+     "do": "prop",
+     "id": "cup",
      "set": {
-      "curve": 0.1
+      "x": 41.306,
+      "y": 0.42,
+      "z": 1.877,
+      "rot": 130
      },
-     "dur": 0.01,
-     "at": 1.78
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.87
     },
     {
-     "who": "rea",
-     "do": "look",
+     "who": "gsl",
+     "do": "move",
      "to": [
-      -0.5,
-      0
+      40.45,
+      1.65
      ],
      "dur": 0.01,
-     "blink": false,
-     "at": 1.78
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "gsl",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
     },
     {
      "who": "rea",
      "do": "move",
      "to": [
-      41.15,
-      0.6
+      41.8,
+      1.75
      ],
-     "dur": 1,
-     "ease": "inOut",
-     "steps": 5,
-     "at": 1.8
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.36,
+       0.24
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.88
     },
     {
      "who": "gsl",
@@ -5340,40 +5530,143 @@
        0.24
       ]
      },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 2.35
+     "dur": 0.01,
+     "at": 1.88
     },
     {
-     "sfx": "crinkle",
-     "gain": 0.16,
-     "reason": "the barrel fire crackles",
-     "at": 2.5
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 1.88
     },
     {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.018,
-     "dur": 0.1,
-     "at": 2.6
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup",
+      "grip": [
+       0.074,
+       0.076,
+       0.039
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "at": 1.88
     },
     {
-     "who": "gsl",
-     "do": "turn",
-     "to": 15,
-     "dur": 0.5,
-     "at": 2.6
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": 0.15
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.88
     },
     {
      "who": "gsl",
      "do": "look",
      "to": [
-      0.5,
-      0.05
+      0.05,
+      -0.1
      ],
-     "dur": 0.2,
+     "dur": 0.01,
      "blink": false,
-     "at": 2.7
+     "at": 1.88
+    },
+    {
+     "who": "gsl",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.3,
+      "open": 0.05
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "cup",
+     "hand": "R",
+     "grip": [
+      0.074,
+      0.076,
+      0.039
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.892
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "Reaper holds out one coffee",
+   "at": 17.8,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     40.75,
+     1.2,
+     6.55
+    ],
+    "look": [
+     41.1,
+     0.95,
+     1.65
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "sfx": "crinkle",
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.2
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.3
     },
     {
      "who": "gsl",
@@ -5385,211 +5678,24 @@
       "curve": 0
      },
      "dur": 0.2,
-     "at": 2.8
-    },
-    {
-     "who": "gsl",
-     "do": "squash",
-     "amount": 0.018,
-     "dur": 0.1,
-     "at": 2.82
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0,
-       0.184,
-       0
-      ],
-      "at": [
-       40.574,
-       0.42,
-       0.77
-      ]
-     },
-     "dur": 0.15,
-     "ease": "inOut",
-     "at": 2.85
-    },
-    {
-     "do": "prop",
-     "id": "cupw",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.02
-    },
-    {
-     "do": "prop",
-     "id": "cup",
-     "set": {
-      "x": 40.574,
-      "y": 0.42,
-      "z": 0.77
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.02
-    },
-    {
-     "who": "rea",
-     "do": "grab",
-     "prop": "cup",
-     "hand": "R",
-     "grip": [
-      0,
-      0.184,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 3.03
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       40.574,
-       0.26,
-       0.77
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 3.1
-    },
-    {
-     "who": "gsl",
-     "do": "grip",
-     "side": "L",
-     "shape": "cup",
-     "set": {
-      "curl": 0.25,
-      "index": 0.2,
-      "thumb": 0.2
-     },
-     "dur": 0.5,
-     "at": 3.1
-    }
-   ],
-   "kind": "reaction"
-  },
-  {
-   "name": "would you still want it? (push in)",
-   "at": 18.4,
-   "len": 2.65,
-   "shot": {
-    "pos": [
-     40.1,
-     1.7,
-     6.6
-    ],
-    "look": [
-     40.1,
-     1.25,
-     0.5
-    ],
-    "fov": 48,
-    "to": {
-     "pos": [
-      40.45,
-      1.15,
-      4.6
-     ],
-     "look": [
-      40.45,
-      0.85,
-      0.5
-     ],
-     "fov": 46
-    },
-    "dur": 1.3,
-    "ease": "inOut"
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": -0.821,
-      "y": 0.795,
-      "z": -0.22,
-      "scale": 1,
-      "open": 1,
-      "flap": 1,
-      "bob": 0.5
-     },
-     "dur": 0.05,
-     "ease": "inOut",
-     "at": 0.05
-    },
-    {
-     "sfx": "wings",
-     "gain": 0.14,
-     "dur": 0.8,
-     "reason": "the moth flutters up out of the fire",
-     "at": 0.05
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": -0.493,
-      "y": 1.4,
-      "z": -0.032,
-      "bank": 20
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.1
+     "at": 0.4
     },
     {
      "sfx": "crinkle",
-     "gain": 0.16,
-     "reason": "the barrel fire crackles",
-     "at": 0.3
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.9
     },
     {
      "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0,
-       -0.05,
-       0
-      ],
-      "at": [
-       40.574,
-       0.42,
-       0.77
-      ]
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": 0.55,
-      "y": 1.32,
-      "z": 0.4,
-      "bank": -15
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 0.4
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.9
     },
     {
      "who": "gsl",
@@ -5600,65 +5706,7 @@
       "open": 0.1
      },
      "dur": 0.2,
-     "at": 0.4
-    },
-    {
-     "who": "gsl",
-     "do": "grab",
-     "prop": "cup",
-     "hand": "L",
-     "grip": [
-      0,
-      -0.05,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.6
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.4,
-      -0.3
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.6
-    },
-    {
-     "who": "gsl",
-     "do": "look",
-     "to": [
-      0.6,
-      0.05
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.65
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "x": 0.4,
-      "y": 1.12,
-      "z": 0.2,
-      "bank": 0,
-      "bob": 0
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.7
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.15,
-     "at": 0.75
+     "at": 0.95
     },
     {
      "who": "rea",
@@ -5668,83 +5716,100 @@
       "curve": 0.35
      },
      "dur": 0.25,
-     "at": 0.75
+     "at": 1
     },
     {
      "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       40.674,
-       0.78,
-       0.71
-      ]
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.79
-    },
-    {
-     "do": "prop",
-     "id": "moth",
-     "set": {
-      "open": 0,
-      "flap": 0
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.92
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.05,
-       0.5,
-       0.35
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.95
-    },
-    {
-     "who": "gsl",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "cup",
-      "grip": [
-       0,
-       -0.05,
-       0
-      ],
-      "at": [
-       40.398,
-       0.46,
-       0.828
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.95
+     "do": "release",
+     "prop": "cup",
+     "dur": 0,
+     "at": 1.46
     },
     {
      "who": "rea",
      "do": "grip",
      "side": "R",
      "shape": "relaxed",
-     "dur": 0.3,
-     "at": 1
+     "dur": 0.01,
+     "at": 1.47
     },
     {
-     "sfx": "crinkle",
-     "gain": 0.16,
-     "reason": "the barrel fire crackles",
-     "at": 1.4
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "y": -2,
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "x": 40.903,
+      "y": 0.42,
+      "z": 2.026,
+      "rot": 195
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "who": "gsl",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "gsl",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cup2",
+      "grip": [
+       -0.042,
+       0.076,
+       0.072
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      41.6,
+      1.75
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
     },
     {
      "who": "gsl",
@@ -5753,9 +5818,9 @@
       0.05,
       0.05
      ],
-     "dur": 0.1,
+     "dur": 0.01,
      "blink": false,
-     "at": 1.5
+     "at": 1.48
     },
     {
      "who": "gsl",
@@ -5766,29 +5831,71 @@
       "open": 0.35,
       "smirk": 0.5
      },
-     "dur": 0.15,
-     "at": 1.5
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "gsl",
+     "do": "grab",
+     "prop": "cup2",
+     "hand": "L",
+     "grip": [
+      -0.042,
+      0.076,
+      0.072
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.492
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "the toast and the wink",
+   "at": 19.3,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     40.95,
+     1.1,
+     5.75
+    ],
+    "look": [
+     40.95,
+     0.85,
+     1.65
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "sfx": "crinkle",
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.1
     },
     {
      "who": "gsl",
      "do": "arm",
      "side": "L",
      "pose": {
-      "prop": "cup",
+      "prop": "cup2",
       "grip": [
-       0,
-       -0.05,
-       0
+       -0.042,
+       0.076,
+       0.072
       ],
+      "palm": "wrap",
       "at": [
-       40.477,
-       0.6,
-       0.89
+       40.952,
+       0.58,
+       2.054
       ]
      },
-     "dur": 0.24,
-     "ease": "out",
-     "at": 1.52
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.1
     },
     {
      "who": "gsl",
@@ -5798,7 +5905,7 @@
      "dur": 0.75,
      "blink": false,
      "voice": false,
-     "at": 1.7
+     "at": 0.12
     },
     {
      "do": "prop",
@@ -5809,14 +5916,14 @@
      },
      "dur": 0.05,
      "ease": "out",
-     "at": 1.7
+     "at": 0.2
     },
     {
      "sfx": "wings",
      "gain": 0.1,
      "dur": 0.45,
      "reason": "the moth lifting off the brim as he toasts",
-     "at": 1.7
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -5829,14 +5936,7 @@
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 1.72
-    },
-    {
-     "who": "gsl",
-     "do": "face",
-     "lidL": 1,
-     "dur": 0.06,
-     "at": 1.74
+     "at": 0.22
     },
     {
      "who": "rea",
@@ -5847,7 +5947,14 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.8
+     "at": 0.3
+    },
+    {
+     "who": "gsl",
+     "do": "face",
+     "lidL": 1,
+     "dur": 0.06,
+     "at": 0.32
     },
     {
      "do": "prop",
@@ -5860,7 +5967,7 @@
      },
      "dur": 0.14,
      "ease": "inOut",
-     "at": 1.92
+     "at": 0.42
     },
     {
      "who": "rea",
@@ -5871,7 +5978,7 @@
       "open": 0
      },
      "dur": 0.2,
-     "at": 2
+     "at": 0.5
     },
     {
      "do": "prop",
@@ -5884,14 +5991,14 @@
      },
      "dur": 0.12,
      "ease": "inOut",
-     "at": 2.1
+     "at": 0.6
     },
     {
      "who": "gsl",
      "do": "face",
      "lidL": 0,
      "dur": 0.08,
-     "at": 2.12
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -5902,14 +6009,20 @@
      },
      "dur": 0.12,
      "ease": "inOut",
-     "at": 2.22
+     "at": 0.72
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.2,
+     "reason": "the burning pile crackles",
+     "at": 0.8
     },
     {
      "who": "gsl",
      "do": "face",
      "lidL": 1,
      "dur": 0.06,
-     "at": 2.33
+     "at": 0.93
     }
    ],
    "kind": "reaction"
@@ -5918,20 +6031,20 @@
  "visible": [
   {
    "from": 0,
-   "to": 0.9,
+   "to": 1.7,
    "see": [
     "gsl.face",
     "sam.face",
     "rea.face",
     "wallet",
     "coin1",
-    "board"
+    "bill"
    ],
-   "why": "frame 0: the broke friend, his empty wallet and one coin, the palm out, Reaper about to pay again"
+   "why": "frame 0: the broke friend, his empty wallet and one coin, the counter man's palm out, Reaper about to pay again with a 100"
   },
   {
-   "from": 1.05,
-   "to": 1.55,
+   "from": 1.85,
+   "to": 2.35,
    "see": [
     "gsl.face",
     "coin1",
@@ -5940,17 +6053,17 @@
    "why": "panel 02: two coins, his eyes wide"
   },
   {
-   "from": 1.6,
-   "to": 2.5,
+   "from": 2.4,
+   "to": 3.3,
    "see": [
     "rea.face",
-    "rwal"
+    "bill"
    ],
-   "why": "the victim: Reaper frozen, his wallet half out"
+   "why": "the victim: Reaper frozen, the 100 he was about to pay with still in his glove"
   },
   {
-   "from": 2.6,
-   "to": 3.29,
+   "from": 3.4,
+   "to": 4.09,
    "see": [
     "gsl.face",
     "sam.face",
@@ -5959,8 +6072,8 @@
    "why": "panel 03: he holds the coin out over the counter's corner"
   },
   {
-   "from": 3.71,
-   "to": 4,
+   "from": 4.51,
+   "to": 4.8,
    "see": [
     "sam.face",
     "coin1"
@@ -5968,35 +6081,35 @@
    "why": "demo 1: the counter man bites the coin"
   },
   {
-   "from": 4.95,
-   "to": 5.15,
+   "from": 5.75,
+   "to": 5.95,
    "see": [
     "gsl.face",
     "heap",
     "rea"
    ],
-   "why": "v2 panel 03: a hundred wallets in his arms"
+   "why": "v2 panel 03: a hundred bundles of hundreds in his arms"
   },
   {
-   "from": 6.2,
-   "to": 7.5,
+   "from": 7,
+   "to": 8.3,
    "see": [
     "rea.face",
-    "iou"
+    "cbill"
    ],
-   "why": "Reaper reads one of the old IOUs: paid back; his own wallet goes away"
+   "why": "Reaper catches one of the hundreds and looks at it: paid back"
   },
   {
-   "from": 7.6,
-   "to": 8.3,
+   "from": 8.4,
+   "to": 9.1,
    "see": [
     "gsl.face"
    ],
    "why": "COPY! COPY! COPY!: his arms go up"
   },
   {
-   "from": 8.6,
-   "to": 9.85,
+   "from": 9.4,
+   "to": 10.65,
    "see": [
     "wave",
     "wiz",
@@ -6005,8 +6118,8 @@
    "why": "v2 panel 04: the wave of banknotes rolls down the street outside the windows; the friends at the glass"
   },
   {
-   "from": 10.222,
-   "to": 11.6,
+   "from": 11.022,
+   "to": 12.4,
    "see": [
     "gsl.face",
     "brick",
@@ -6017,8 +6130,8 @@
    "why": "v2 panel 05 (the cover): the slap, the wave at its peak, the sign now his, the counter man's bow"
   },
   {
-   "from": 12.4,
-   "to": 13.4,
+   "from": 13.2,
+   "to": 14.2,
    "see": [
     "gsl.face",
     "wiz.face",
@@ -6028,16 +6141,16 @@
    "why": "v2 panel 06: on his throne of cash, the friends cheering"
   },
   {
-   "from": 13.55,
-   "to": 15,
+   "from": 14.35,
+   "to": 15.8,
    "see": [
     "board"
    ],
    "why": "the price board runs away and its flaps blow off"
   },
   {
-   "from": 15.4,
-   "to": 16.1,
+   "from": 16.2,
+   "to": 16.9,
    "see": [
     "gsl.face",
     "sam.face",
@@ -6048,44 +6161,34 @@
    "why": "v2 panel 07: a wheelbarrow of cash for one milkshake; the counter man shakes his head and slides it back"
   },
   {
-   "from": 16.3,
-   "to": 17.9,
+   "from": 17.1,
+   "to": 18.8,
    "see": [
     "gsl.face",
-    "barrel"
+    "pyre"
    ],
-   "why": "v2 panel 08: night, snow, he burns his money to keep warm"
+   "why": "the catch, shown: a huge pile of his money burning just to keep him warm"
   },
   {
-   "from": 18.5,
-   "to": 19.1,
-   "see": [
-    "rea",
-    "cupw",
-    "gsl.face"
-   ],
-   "why": "Reaper walks up with one coffee"
-  },
-  {
-   "from": 19.15,
-   "to": 19.4,
-   "see": [
-    "rea",
-    "cup",
-    "gsl.face"
-   ],
-   "why": "Reaper stands there with one coffee"
-  },
-  {
-   "from": 20.05,
-   "to": 22,
+   "from": 18.9,
+   "to": 20.3,
    "see": [
     "gsl.face",
     "rea.face",
-    "cup",
+    "cup"
+   ],
+   "why": "Reaper holds out one coffee, his glove round its side"
+  },
+  {
+   "from": 20.35,
+   "to": 21.5,
+   "see": [
+    "gsl.face",
+    "rea.face",
+    "cup2",
     "moth"
    ],
-   "why": "the coffee from Reaper, the wink"
+   "why": "the coffee from Reaper in his glove, the toast and the wink"
   }
  ],
  "allowClip": [
@@ -6093,59 +6196,52 @@
    "who": "sam",
    "with": "apron",
    "from": 0,
-   "to": 22.05,
+   "to": 21.55,
    "reason": "the counter man's apron (worn)"
   },
   {
    "who": "sam",
    "with": "hat",
    "from": 0,
-   "to": 22.05,
+   "to": 21.55,
    "reason": "the counter man's paper hat (worn)"
   },
   {
    "who": "gsl",
    "with": "moth",
    "from": 0,
-   "to": 22.05,
+   "to": 21.55,
    "reason": "the moth flies round him and sits on his hat brim (worn)"
   },
   {
    "who": "gsl",
    "with": "wallet",
    "from": 0,
-   "to": 22.05,
+   "to": 21.55,
    "reason": "his wallet: in his glove, then in the holster on his hip"
   },
   {
    "who": "gsl",
-   "from": 8.6,
-   "to": 11.57,
+   "from": 9.4,
+   "to": 12.37,
    "checks": [
     "prop-pop",
     "grip-gap"
    ],
-   "reason": "the slap: the brick under his flat glove, off screen until the cut, then swung down in slow motion; drawn on twos, it moves between the glove's drawings"
-  },
-  {
-   "who": "rea",
-   "with": "cupw",
-   "from": 16.1,
-   "to": 22.05,
-   "reason": "the coffee he carries in front of his chest on the walk (worn)"
+   "reason": "the slap: the brick under his flat glove, raised beside his hat at the cut, then swung down onto the counter as the slow motion starts; the arm is drawn on single frames, so the brick moves between the glove's drawings"
   },
   {
    "who": "rea",
    "with": "ious",
-   "from": 5.15,
-   "to": 8.3,
-   "reason": "the rain of IOU notes falls on and round him (paper, see-through for the contact checks)"
+   "from": 5.95,
+   "to": 9.1,
+   "reason": "the rain of banknotes falls on and round him (paper, see-through for the contact checks)"
   },
   {
    "who": "gsl",
    "with": "throne",
-   "from": 11.8,
-   "to": 13.4,
+   "from": 12.6,
+   "to": 14.2,
    "checks": [
     "costume-in-prop",
     "arm-in-prop"
@@ -6155,15 +6251,15 @@
   {
    "who": "gsl",
    "with": "snow",
-   "from": 16.1,
-   "to": 22.05,
+   "from": 16.9,
+   "to": 21.55,
    "reason": "falling snow"
   },
   {
    "who": "rea",
    "with": "snow",
-   "from": 16.1,
-   "to": 22.05,
+   "from": 16.9,
+   "to": 21.55,
    "reason": "falling snow"
   }
  ],

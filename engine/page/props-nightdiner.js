@@ -49,6 +49,12 @@ import { noteTexture } from "./props-money.js";
 //                 (reach 3.6 m) on what stands within 1.5 m.
 //               Solid for the checks: the drum and what is in it; flames, glows, sparks, embers and scraps are
 //               see-through (userData.steam).
+//   cashpyre    a huge mound of banknotes on fire (Jonny 10 Nov: the catch is SHOWN, a huge pile of money burning just to
+//               keep him warm). Origin: the ground under its middle; the street (camera) side is +z. Spec: w 3.2, d 2.4,
+//               h 1.6 (the mound), n 800 notes of ns 2.5 x the money pack's note (0.2 x 0.1), flames 18 cel tongues on its
+//               top and street side, flame (default h: the crest tongue's height in metres above the crest).
+//               Params as the oilbarrel's: fire 0..1, clock (seconds), feed 0..1 (flare + sparks), glow 0..1 (ground pool,
+//               aura, a warm point light on the street side). Solid for the checks: the mound only.
 export const NIGHTDINER = {
   wall: { w: 9, h: 3.3, d: 0.3 }, pave: { d: 9 }, spot: [0, 2.4],
   window: { xs: [-3.5, -1.95, -0.4, 1.15], w: 1.25, y0: 0.9, y1: 2.85 }, door: { x: 2.6, w: 1.3 },
@@ -523,6 +529,77 @@ export const NIGHTDINER_KINDS = {
         for (const e of scraps) {
           const u = frac(ck * 0.2 + e.ph), k = Math.min(1, u * 8) * Math.min(1, (1 - u) * 4) * gate;
           e.q.visible = gate > 0.02; e.q.position.set(e.x + e.dr * u * 0.6 + Math.sin(ck * 1.3 + e.i) * 0.08 * u, RIM + 0.1 + u * 1.45, e.z);
+          e.q.rotation.set(ck * e.spin, ck * e.spin * 0.7, ck * e.spin * 0.4); e.q.scale.setScalar(Math.max(0.001, k));
+        }
+      },
+    };
+  },
+
+  // ---------------------------------------------------------------------------------------------- cashpyre
+  cashpyre(P) {
+    const S = P.spec, g = P.whole, A = (S.w ?? 3.2) / 2, Cz = (S.d ?? 2.4) / 2, Hh = S.h ?? 1.6, N = Math.round(S.n ?? 800), NS = S.ns ?? 2.5, NF = Math.round(S.flames ?? 18);
+    const dome = put(g, new THREE.SphereGeometry(1, 32, 14, 0, Math.PI * 2, 0, Math.PI / 2), bas({ color: "#46553a" }), 0, 0, 0, true); dome.scale.set(A * 0.97, Hh * 0.95, Cz * 0.97);
+    // a point on the mound at latitude phi (0 the top, pi/2 the foot) and angle th (0 = +x, pi/2 = +z, the street side); nv: its normal
+    const nv = new THREE.Vector3();
+    const surf = (phi, th) => { const sp = Math.sin(phi), sx = sp * Math.cos(th), sz = sp * Math.sin(th), cy = Math.cos(phi); nv.set(sx / A, cy / Hh, sz / Cz).normalize(); return [A * sx, Hh * cy, Cz * sz]; };
+    // the notes: bent cards all over it, unlit: warm and bright by the fire, cold at the foot, charred near the top
+    const ng = new THREE.PlaneGeometry(0.2, 0.1, 6, 1), pa = ng.attributes.position;
+    for (let i = 0; i < pa.count; i++) { const x = pa.getX(i) / 0.1; pa.setZ(i, 0.014 * x * x); }
+    const noteM = bas({ map: noteTexture(), side: THREE.DoubleSide });
+    const im = new THREE.InstancedMesh(ng, noteM, N); im.frustumCulled = false; im.userData.solid = false; g.add(im);
+    const d = new THREE.Object3D(), q = new THREE.Quaternion(), qy = new THREE.Quaternion(), zv = new THREE.Vector3(0, 0, 1), col = new THREE.Color(), HOT = new THREE.Color("#ffdcae"), COLD = new THREE.Color("#8aa27c"), CHAR = new THREE.Color("#2a211c");
+    const c01 = (x) => Math.min(1, Math.max(0, x));
+    for (let i = 0; i < N; i++) {
+      const phi = 0.08 + 1.49 * Math.sqrt(hs(i, 1)), th = i * 2.39996, p = surf(Math.min(phi, Math.PI / 2), th), lift = 0.01 + (i % 13) * 0.004;
+      q.setFromUnitVectors(zv, nv); qy.setFromAxisAngle(zv, hs(i, 3) * 6.28); q.multiply(qy);
+      d.position.set(p[0] + nv.x * lift, Math.max(p[1] + nv.y * lift, 0.012 + (i % 7) * 0.002), p[2] + nv.z * lift); d.quaternion.copy(q); d.rotateX((hs(i, 4) - 0.5) * 0.5);
+      d.scale.setScalar(NS * (0.85 + 0.3 * hs(i, 5))); d.updateMatrix(); im.setMatrixAt(i, d.matrix);
+      const heat = c01(1 - phi / 1.25), front = c01(0.55 + 0.45 * Math.sin(th));
+      col.copy(COLD).lerp(HOT, c01(heat * 0.9 + 0.25 * front)); if (hs(i, 6) < heat * 0.5) col.lerp(CHAR, 0.75);
+      im.setColorAt(i, col);
+    }
+    im.instanceMatrix.needsUpdate = true; im.instanceColor.needsUpdate = true;
+    // the flames: cel tongues standing on the mound's top and street side, the tallest on the crest
+    const flames = Array.from({ length: NF }, (_, i) => {
+      const phi = i === 0 ? 0 : 0.15 + 1.05 * hs(i, 11), th = -0.25 + (Math.PI + 0.5) * hs(i, 12), p = surf(phi, th);
+      const m = flameMat(hs(i, 13)), qd = glowy(put(g, new THREE.PlaneGeometry(1, 1), m, p[0] + nv.x * 0.06, p[1] + nv.y * 0.06 - 0.05, p[2] + nv.z * 0.06), 4 + (i % 3));
+      return { q: qd, m, hh: i === 0 ? 1.0 : (0.45 + 0.5 * (1 - phi / 1.2)) * (0.6 + 0.4 * hs(i, 14)), sp: 6 + 5 * hs(i, 15), ph: hs(i, 16) * 6.28 };
+    });
+    const FH = S.flame ?? Hh;   // the crest flame's height
+    const pool = glowy(put(g, new THREE.PlaneGeometry(1, 1), addm(radial([[0, "rgba(255,190,100,0.8)"], [0.3, "rgba(255,140,60,0.4)"], [0.65, "rgba(255,110,40,0.12)"], [1, "rgba(255,100,30,0)"]]), "#ffffff", 0), 0, 0.02, 0), 2); pool.rotation.x = -Math.PI / 2; pool.scale.set(A * 5, Cz * 6, 1);
+    const aura = sprite(g, radial([[0, "rgba(255,170,80,0.7)"], [0.3, "rgba(255,140,60,0.32)"], [0.7, "rgba(255,110,40,0.07)"], [1, "rgba(255,100,30,0)"]]), 0, 2); aura.position.set(0, Hh * 1.1, 0.2); aura.scale.set(A * 4.6, A * 4.6, 1);
+    const light = new THREE.PointLight("#ff9a4a", 0, A * 5, 1.4); light.position.set(A * 0.7, Hh * 0.9, Cz + 0.9); g.add(light);
+    const dotT = radial(DOT, 64);
+    const embers = Array.from({ length: 40 }, (_, i) => { const p = surf(1.1 * hs(i, 21), -0.2 + 3.5 * hs(i, 22)); return { s: sprite(g, dotT, 1, 7), ph: hs(i, 23), sp: 0.2 + 0.25 * hs(i, 24), x: p[0], y: p[1], z: p[2], dr: (hs(i, 25) - 0.5) * 1.4, sz: 0.05 + 0.06 * hs(i, 26), i }; });
+    const sparks = Array.from({ length: 24 }, (_, i) => ({ s: sprite(g, dotT, 1, 7), ph: hs(i + 30, 1), sp: 0.9 + 0.9 * hs(i + 30, 2), x: (hs(i + 30, 3) - 0.5) * A, z: (hs(i + 30, 4) - 0.2) * Cz, dr: (hs(i + 30, 5) - 0.5) * 2.2, up: 1.4 + 1.0 * hs(i + 30, 6), sz: 0.08 + 0.06 * hs(i + 30, 7) }));
+    const scrapG = new THREE.PlaneGeometry(0.16, 0.09), scrapM = [bas({ color: "#1f1b18", side: THREE.DoubleSide }), bas({ color: "#3c5a33", side: THREE.DoubleSide }), bas({ color: "#cdbf98", side: THREE.DoubleSide })];
+    const scraps = Array.from({ length: 12 }, (_, i) => { const p = surf(0.9 * hs(i, 31), 3.5 * hs(i, 32)); return { q: glowy(put(g, scrapG, scrapM[i % 3], p[0], p[1], p[2]), 5), ph: hs(i, 33), x: p[0], y: p[1], z: p[2], dr: (hs(i, 34) - 0.5) * 1.8, spin: 2 + 3 * hs(i, 35), i }; });
+    return {
+      grip: 0,
+      apply(ps) {
+        const fire = c01(ps.fire ?? 0), feed = c01(ps.feed ?? 0), glow = c01(ps.glow ?? 0), ck = ps.clock ?? S.clock ?? 0;
+        const on = fire > 0.01, fl = 0.92 + 0.08 * Math.sin(ck * 13.1) * Math.sin(ck * 5.3 + 1), gate = c01(fire * 3);
+        for (const f of flames) {
+          f.q.visible = on;
+          const k = 0.88 + 0.12 * Math.sin(ck * f.sp + f.ph), h = FH * f.hh * fire * k * (1 + 0.4 * feed);
+          f.m.uniforms.uTime.value = ck; f.m.uniforms.uH.value = Math.max(0.001, h); f.m.uniforms.uW.value = FH * f.hh * 0.52 * (0.7 + 0.3 * fire) * (1 + 0.18 * feed);
+        }
+        noteM.color.setScalar(0.6 + 0.4 * fire * fl);
+        pool.material.opacity = c01(glow * fl * (1 + 0.25 * feed)); pool.visible = glow > 0.01;
+        aura.material.opacity = c01(glow * 0.5 * (0.94 + 0.06 * fl) * (1 + 0.35 * feed)); aura.visible = glow > 0.01;
+        light.intensity = 7 * glow * fl * (1 + 0.35 * feed);
+        for (const e of embers) {
+          const u = frac(ck * e.sp + e.ph), s = e.sz * (1 - u) ** 0.6 * gate;
+          e.s.visible = gate > 0.02; e.s.position.set(e.x + e.dr * u + Math.sin(ck * 1.7 + e.i * 2.1) * 0.12 * u, e.y + 0.1 + u * 2.8, e.z); e.s.scale.set(s, s, 1);
+        }
+        const fg = c01(feed * 1.5);
+        for (const e of sparks) {
+          const u = frac(ck * e.sp + e.ph), s = e.sz * (1 - u) ** 0.5 * fg;
+          e.s.visible = fg > 0.02; e.s.position.set(e.x + e.dr * u, Hh * 0.8 + u * e.up, e.z + 0.4 * u); e.s.scale.set(s, s, 1);
+        }
+        for (const e of scraps) {
+          const u = frac(ck * 0.2 + e.ph), k = Math.min(1, u * 8) * Math.min(1, (1 - u) * 4) * gate;
+          e.q.visible = gate > 0.02; e.q.position.set(e.x + e.dr * u * 0.6 + Math.sin(ck * 1.3 + e.i) * 0.12 * u, e.y + 0.15 + u * 2.6, e.z);
           e.q.rotation.set(ck * e.spin, ck * e.spin * 0.7, ck * e.spin * 0.4); e.q.scale.setScalar(Math.max(0.001, k));
         }
       },

@@ -31,7 +31,9 @@ import { mat, mesh, smooth } from "./props-trend.js";
 //               one gold coin (r 0.12) on its front as the jewel, loose notes and coins round the foot. Param build 0..1:
 //               the bricks stack up from the floor row by row, each with a little overshoot (0 nothing, 1 complete; below
 //               0.15 only a low pile of bricks shows; the jewel and the loose money pop in last). Solid (real meshes).
-//   walletheap  spec.n (100: a number above 1 is the count; or spec.count) brown wallets (the diner wallet's look, 0.12 x 0.085
+//   banknote    one note standing on its short edge: 0.1 wide (x), 0.2 tall (y), a little curled, the face to +z and to -z.
+//               Origin: the middle of its bottom edge. HELD: the thin pinch near its bottom edge (grips.mjs SIZE.banknote).
+//   walletheap  (spec.look "cash": banded bundles of banknotes in place of the wallets, same sizes and motion) spec.n (100: a number above 1 is the count; or spec.count) brown wallets (the diner wallet's look, 0.12 x 0.085
 //               x 0.02, a little colour variety from a hash) heaped in a potato's arms: a wide fan of three layers standing like
 //               a hand of cards plus a leaning tower of wallets laid flat above it, 0.9 wide, 0.95 tall, 0.35 deep. Origin:
 //               bottom centre of the heap (the generator puts it at the holder's chest, y about 0.3). Params: n 0..1 (how many
@@ -89,8 +91,9 @@ const drawNote = (g, w, h) => {
     g.fillStyle = "#a8cf94"; g.strokeStyle = C.border; g.lineWidth = 4; g.beginPath(); g.arc(cx, cy, 24, 0, Math.PI * 2); g.fill(); g.stroke();
     g.fillStyle = C.cream; g.beginPath(); g.arc(cx, cy, 9, 0, Math.PI * 2); g.fill();
   }
-  g.fillStyle = "#a8cf94";
-  for (const x of [118, w - 118]) for (const y of [92, 128, 164]) { g.beginPath(); g.arc(x, y, 8, 0, Math.PI * 2); g.fill(); }
+  // "100" left and right of the emblem (Jonny 10 Nov: he copies 100 $ bills): a play note's number, no real currency
+  g.fillStyle = "#2f6a2c"; g.textAlign = "center"; g.textBaseline = "middle"; g.font = `900 66px "DejaVu Sans Condensed","Arial Narrow","Liberation Sans Narrow",Arial,sans-serif`;
+  for (const x of [93, w - 93]) g.fillText("100", x, h / 2 + 4, 120);
   g.fillStyle = C.cream; g.strokeStyle = C.border; g.lineWidth = 7; g.beginPath(); g.ellipse(w / 2, h / 2, 96, 92, 0, 0, Math.PI * 2); g.fill(); g.stroke();
   g.strokeStyle = "#d8c9a0"; g.lineWidth = 3; g.beginPath(); g.ellipse(w / 2, h / 2, 86, 82, 0, 0, Math.PI * 2); g.stroke();
   drawPotato(g, w / 2, h / 2 + 4, 70);
@@ -225,6 +228,18 @@ export const MONEY_KINDS = {
     };
   },
 
+  // ---------------------------------------------------------------------------------------------- banknote
+  banknote(P) {
+    const T = tex();
+    for (const back of [0, 1]) {
+      const g = new THREE.PlaneGeometry(0.1, 0.2, 1, 8), pa = g.attributes.position;
+      for (let i = 0; i < pa.count; i++) { const y = pa.getY(i) / 0.1; pa.setZ(i, (back ? -1 : 1) * 0.008 * y * y); }
+      g.computeVertexNormals(); g.translate(0, 0.1, back ? 0.0006 : 0); if (back) g.rotateY(Math.PI);
+      mesh(g, mat("#ffffff", { map: T.noteTop, roughness: 0.85 }), P.whole);
+    }
+    return { grip: 0, apply() {} };
+  },
+
   // ---------------------------------------------------------------------------------------------- cashthrone
   cashthrone(P) {
     const S = P.spec, T = tex(), W = S.w ?? 1.25, D = S.d ?? 1.0, SEAT = S.seat ?? 0.42, BACK = S.back ?? 1.7;
@@ -302,9 +317,16 @@ export const MONEY_KINDS = {
       for (let i = 0; i < n; i++) { a[i * 3] = c.r; a[i * 3 + 1] = c.g; a[i * 3 + 2] = c.b; }
       g.setAttribute("color", new THREE.BufferAttribute(a, 3)); parts.push(g);
     };
-    add(new THREE.BoxGeometry(WW, WH, WT), "#7a4a26");
-    add(new THREE.BoxGeometry(0.009, WH, WT + 0.0012), "#4e2c14", -WW / 2 + 0.0045, 0, 0);
-    for (const sz of [1, -1]) {
+    // look "cash": every item is a banded bundle of banknotes instead of a wallet (Jonny 10 Nov: he copies money, not wallets)
+    const cash = S.look === "cash";
+    if (cash) {
+      add(new THREE.BoxGeometry(WW, WH, WT), "#8fc27a");
+      add(new THREE.BoxGeometry(WW + 0.0016, WH * 0.9, WT * 0.5), "#eef1da");
+      add(new THREE.BoxGeometry(WW * 0.24, WH + 0.002, WT + 0.002), C.cream);
+      for (const sz of [1, -1]) for (const x of [-WW * 0.32, WW * 0.32]) add(new THREE.BoxGeometry(WW * 0.2, WH * 0.5, 0.0012), "#4f7f4a", x, 0, sz * (WT / 2 + 0.0006));
+    } else add(new THREE.BoxGeometry(WW, WH, WT), "#7a4a26");
+    if (!cash) add(new THREE.BoxGeometry(0.009, WH, WT + 0.0012), "#4e2c14", -WW / 2 + 0.0045, 0, 0);
+    if (!cash) for (const sz of [1, -1]) {
       const z = sz * (WT / 2 + 0.0006);
       add(new THREE.BoxGeometry(WW * 0.86, WH * 0.3, 0.0012), "#9a6236", 0.004, WH * 0.2, z);
       for (const y of [WH * 0.42, -WH * 0.42]) add(new THREE.BoxGeometry(WW * 0.88, 0.0016, 0.0014), "#e0c28a", 0.004, y, z + sz * 0.0006);
