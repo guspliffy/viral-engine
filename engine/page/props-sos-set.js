@@ -22,6 +22,10 @@ import { FIRE_U } from "./firelight.js";
 //             at y 0.62 with dust specks drifting in it, a soft pool of light on the floor, and a dark glossy floor
 //             (12 x 12 m panels, seams every 1.2 m, the strips and bulbs faintly mirrored) at y 0.001.
 //             Param dim 0..1 multiplies the bulbs, strips, spot cans, beam and pool (the lights going down).
+//             Season set v2 (all default off; see props-sos-vat.js): spec.pit true = no floor panels, no floor pool, no bulb
+//             ring, no violet strips (cyclorama, truss, cans and beam stay); spec.trussY (3.3) = height of the truss, the
+//             cans and the beam's top; spec.beams [[x, z], ...] = instead of the middle cone one soft cone per entry from a
+//             lit can at (0.6 x, trussY - 0.1, z + 0.3) to a soft disc of radius 0.55 at (x, 0.45, z) (no dust specks then).
 // Lights, glows, steam, the cyclorama and the floor are see-through for the checks (opacity under 0.5, or marked
 // userData.solid false / steam), so nothing in them counts as something to touch; the fryer's steel is solid.
 // NOTE for the director: churn and dim are read as ps.churn / ps.dim (a c.prop tween) and fall back to spec.churn /
@@ -294,7 +298,7 @@ const STRIP_Y0 = 0.5, STRIP_H = 2.2;
 const TRUSS_Y = 3.3, TRUSS_R = 1.5, TABLE_Y = 0.62, BEAM_R = 0.8;
 
 const SOS_STUDIO = (P) => {
-  const S = P.spec, kStrip = new Float32Array(6).fill(1);
+  const S = P.spec, pit = !!S.pit, TY = S.trussY ?? TRUSS_Y, beams = Array.isArray(S.beams) && S.beams.length ? S.beams : null, kStrip = new Float32Array(6).fill(pit ? 0 : 1);
   const bulbCol = "#ffd9a0", stripCol = "#7a2fb0";
 
   // (a) the cyclorama: near black, a touch lighter at the floor line, faint panel seams, violet spill round each strip
@@ -340,7 +344,7 @@ const SOS_STUDIO = (P) => {
     const st = ghost(new THREE.Mesh(new THREE.PlaneGeometry(0.06, STRIP_H), m), -6); st.position.y = STRIP_Y0 + STRIP_H / 2; g.add(st);
     const gm = stripGlowM.clone(); gm.uniforms = { uCol: { value: lin(stripCol) }, uA: { value: 0.3 } }; stripMats.push(gm);
     const gl = ghost(new THREE.Mesh(new THREE.PlaneGeometry(0.9, STRIP_H + 1.1), gm), -7); gl.position.set(0, STRIP_Y0 + STRIP_H / 2, -0.012); g.add(gl);
-    P.whole.add(g);
+    if (!pit) P.whole.add(g);   // pit: no violet strips
   });
 
   // (b) the ring of small warm bulbs on a thin dark rail, over the back 240 deg
@@ -348,49 +352,49 @@ const SOS_STUDIO = (P) => {
   const railPts = Array.from({ length: RING_N }, (_, j) => new THREE.Vector3(...ringPt(j, RING_Y - 0.028)));
   const railM = std("#17161c", { roughness: 0.5, metalness: 0.4, emissive: "#0a0a0d" });
   const rail = ghost(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(railPts), 160, 0.0085, 5), railM), 0); rail.castShadow = false; rail.userData.solid = false;
-  P.whole.add(rail);
+  if (!pit) P.whole.add(rail);   // pit: no bulb ring (rail, posts, bulbs, halos)
   const posts = []; for (let j = 0; j < RING_N; j += 7) { const [x, , z] = ringPt(j); posts.push([[x, 0, z], [x, RING_Y - 0.028, z]]); }
-  const postBars = bars(posts, 0.006, railM, 5); postBars.userData.solid = false; postBars.userData.steam = true; postBars.castShadow = false; P.whole.add(postBars);
+  const postBars = bars(posts, 0.006, railM, 5); postBars.userData.solid = false; postBars.userData.steam = true; postBars.castShadow = false; if (!pit) P.whole.add(postBars);
   const bulbM = glowMat(bulbCol, 3.0), m4 = new THREE.Matrix4();
   const bulbs = new THREE.InstancedMesh(new THREE.SphereGeometry(0.022, 10, 8), bulbM, RING_N);
   const halos = new THREE.InstancedMesh(new THREE.PlaneGeometry(1, 1), haloMat(bulbCol, 0.4, 0.17), RING_N);
   for (let j = 0; j < RING_N; j++) { const [x, y, z] = ringPt(j); m4.makeTranslation(x, y, z); bulbs.setMatrixAt(j, m4); halos.setMatrixAt(j, m4); }
   bulbs.instanceMatrix.needsUpdate = halos.instanceMatrix.needsUpdate = true;
-  P.whole.add(ghost(bulbs, 0), ghost(halos, 2));
+  ghost(bulbs, 0); ghost(halos, 2); if (!pit) P.whole.add(bulbs, halos);
 
   // (d) the overhead circular truss with 8 black spot cans, all aimed at the table
   const silver = std("#a9aeb6", { roughness: 0.35, metalness: 0.6, emissive: "#0e1014" });
   const chord = (r, y) => Array.from({ length: 64 }, (_, i) => [[r * Math.cos(((i) / 64) * Math.PI * 2), y, r * Math.sin((i / 64) * Math.PI * 2)], [r * Math.cos(((i + 1) / 64) * Math.PI * 2), y, r * Math.sin(((i + 1) / 64) * Math.PI * 2)]]);
   const tw = 0.13, tb = [];
-  for (const r of [TRUSS_R - tw, TRUSS_R + tw]) for (const y of [TRUSS_Y - tw, TRUSS_Y + tw]) tb.push(...chord(r, y));
+  for (const r of [TRUSS_R - tw, TRUSS_R + tw]) for (const y of [TY - tw, TY + tw]) tb.push(...chord(r, y));
   const pt = (r, a, y) => [r * Math.cos(a), y, r * Math.sin(a)];
   for (let i = 0; i < 48; i++) {
     const a0 = (i / 48) * Math.PI * 2, a1 = ((i + 1) / 48) * Math.PI * 2, up = i % 2 === 0;
-    for (const r of [TRUSS_R - tw, TRUSS_R + tw]) tb.push([pt(r, a0, up ? TRUSS_Y - tw : TRUSS_Y + tw), pt(r, a1, up ? TRUSS_Y + tw : TRUSS_Y - tw)]);
-    if (i % 2 === 0) { tb.push([pt(TRUSS_R - tw, a0, TRUSS_Y + tw), pt(TRUSS_R + tw, a0, TRUSS_Y + tw)]); tb.push([pt(TRUSS_R - tw, a0, TRUSS_Y - tw), pt(TRUSS_R + tw, a0, TRUSS_Y - tw)]); }
+    for (const r of [TRUSS_R - tw, TRUSS_R + tw]) tb.push([pt(r, a0, up ? TY - tw : TY + tw), pt(r, a1, up ? TY + tw : TY - tw)]);
+    if (i % 2 === 0) { tb.push([pt(TRUSS_R - tw, a0, TY + tw), pt(TRUSS_R + tw, a0, TY + tw)]); tb.push([pt(TRUSS_R - tw, a0, TY - tw), pt(TRUSS_R + tw, a0, TY - tw)]); }
   }
   const truss = bars(tb, 0.0125, silver, 6);
   truss.traverse((o) => { o.userData.solid = false; }); P.whole.add(ghost(truss, 0));
   // four hanging cables up into the dark
-  const cab = []; for (let i = 0; i < 4; i++) { const a = Math.PI / 4 + (i * Math.PI) / 2; cab.push([pt(TRUSS_R, a, TRUSS_Y + tw), pt(TRUSS_R * 0.9, a, 6.9)]); }
+  const cab = []; for (let i = 0; i < 4; i++) { const a = Math.PI / 4 + (i * Math.PI) / 2; cab.push([pt(TRUSS_R, a, TY + tw), pt(TRUSS_R * 0.9, a, 6.9)]); }
   P.whole.add(ghost(bars(cab, 0.006, railM, 4), 0));
   const canBody = std("#26282f", { roughness: 0.5, metalness: 0.4, emissive: "#0d0e11" });
   const lensM = glowMat("#fff1dc", 2.0);
   const bg = new THREE.CylinderGeometry(0.115, 0.088, 0.34, 18); bg.rotateX(Math.PI / 2);   // wide front at +z
   const lg = new THREE.CircleGeometry(0.1, 20), target = new THREE.Vector3(0, TABLE_Y, 0), z3 = new THREE.Vector3(0, 0, 1);
   for (let i = 0; i < 8; i++) {
-    const a = (i + 0.5) * (Math.PI / 4), px = TRUSS_R * Math.cos(a), pz = TRUSS_R * Math.sin(a), py = TRUSS_Y - tw - 0.27;
+    const a = (i + 0.5) * (Math.PI / 4), px = TRUSS_R * Math.cos(a), pz = TRUSS_R * Math.sin(a), py = TY - tw - 0.27;
     const can = new THREE.Group(); can.position.set(px, py, pz);
     can.quaternion.setFromUnitVectors(z3, new THREE.Vector3().subVectors(target, can.position).normalize());
     const b = add(can, bg, canBody, 0, 0, 0, true); b.userData.solid = false;
     const fin = add(can, new THREE.CylinderGeometry(0.122, 0.122, 0.02, 18), canBody, 0, 0, -0.05, true); fin.rotation.x = Math.PI / 2; fin.userData.solid = false;
     const lens = ghost(new THREE.Mesh(lg, lensM), 1); lens.position.z = 0.172; can.add(lens);
     P.whole.add(can);
-    P.whole.add(ghost(bars([[[px, TRUSS_Y - tw, pz], [px, py + 0.1, pz]]], 0.011, canBody, 6), 0));   // the stem from the truss
+    P.whole.add(ghost(bars([[[px, TY - tw, pz], [px, py + 0.1, pz]]], 0.011, canBody, 6), 0));   // the stem from the truss
   }
 
   // (e) the one visible spotlight: a soft additive cone with dust specks, and a pool on the floor
-  const beamH = TRUSS_Y - TABLE_Y;
+  const beamH = TY - TABLE_Y;
   const beamM = new THREE.ShaderMaterial({
     uniforms: { uA: { value: 0.07 }, uTime: { value: 0 }, uCol: { value: lin("#fff3e0") } },
     vertexShader: `varying vec2 vUv; varying vec3 vN, vP; void main() { vUv = uv; vN = normalize(normalMatrix * normal); vec4 mv = modelViewMatrix * vec4(position, 1.0); vP = mv.xyz; gl_Position = projectionMatrix * mv; }`,
@@ -404,7 +408,28 @@ const SOS_STUDIO = (P) => {
       }`,
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.FrontSide, opacity: 0.1,
   }); beamM.userData.noOutline = true;
-  const beam = ghost(new THREE.Mesh(new THREE.CylinderGeometry(0.03, BEAM_R, beamH, 64, 1, true), beamM), 2); beam.position.set(0, TABLE_Y + beamH / 2, 0); P.whole.add(beam);
+  // spec.beams [[x, z], ...] (the pit studio): instead of the middle cone, one soft cone per floor target from a lit can at
+  // (0.6 x, trussY - 0.1, z + 0.3) down to a soft disc of radius 0.55 at (x, 0.45, z)
+  const discM = new THREE.ShaderMaterial({
+    uniforms: { uCol: { value: lin("#fff3e0") }, uA: { value: 0.12 } }, vertexShader: VS,
+    fragmentShader: "uniform vec3 uCol; uniform float uA; varying vec2 vUv; void main() { float r = length((vUv - 0.5) * 2.0); gl_FragColor = vec4(uCol, uA * pow(1.0 - smoothstep(0.0, 1.0, r), 1.6)); }",
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.3,
+  }); discM.userData.noOutline = true;
+  const canHalos = [];
+  if (!beams) { const beam = ghost(new THREE.Mesh(new THREE.CylinderGeometry(0.03, BEAM_R, beamH, 64, 1, true), beamM), 2); beam.position.set(0, TABLE_Y + beamH / 2, 0); P.whole.add(beam); }
+  else for (const [bx, bz] of beams) {
+    const from = new THREE.Vector3(0.6 * bx, TY - 0.1, bz + 0.3), to = new THREE.Vector3(bx, 0.45, bz), dir = new THREE.Vector3().subVectors(to, from), L = dir.length();
+    const cone = ghost(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.55, L, 48, 1, true), beamM), 2);
+    cone.position.addVectors(from, to).multiplyScalar(0.5); cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir.clone().negate().normalize()); P.whole.add(cone);
+    const disc = ghost(new THREE.Mesh(new THREE.PlaneGeometry(1.1, 1.1), discM), 2); disc.rotation.x = -Math.PI / 2; disc.position.copy(to); P.whole.add(disc);
+    const can = new THREE.Group(); can.position.copy(from); can.quaternion.setFromUnitVectors(z3, dir.clone().normalize());
+    const b = add(can, bg, canBody, 0, 0, 0, true); b.userData.solid = false;
+    const fin = add(can, new THREE.CylinderGeometry(0.122, 0.122, 0.02, 18), canBody, 0, 0, -0.05, true); fin.rotation.x = Math.PI / 2; fin.userData.solid = false;
+    const lens = ghost(new THREE.Mesh(lg, lensM), 1); lens.position.z = 0.172; can.add(lens);
+    const hm = haloMat("#fff1dc", 0.55, 0.34); canHalos.push(hm); const hl = ghost(new THREE.Mesh(new THREE.PlaneGeometry(1, 1), hm), 3); hl.position.z = 0.2; can.add(hl);
+    P.whole.add(can);
+    P.whole.add(ghost(bars([[[from.x, from.y, from.z], [from.x, TY + tw, from.z]]], 0.011, canBody, 6), 0));   // the stem up into the truss
+  }
   // dust: 70 specks drifting down inside the cone, placed in the vertex shader from the clock alone
   const N = 70, seeds = new Float32Array(N * 4);
   for (let i = 0; i < N; i++) { seeds[i * 4] = rnd(i + 200); seeds[i * 4 + 1] = rnd(i + 300); seeds[i * 4 + 2] = rnd(i + 400); seeds[i * 4 + 3] = rnd(i + 500); }
@@ -416,8 +441,8 @@ const SOS_STUDIO = (P) => {
       void main() {
         vUv = uv; float sp = 0.5 + aSeed.w;
         float hf = fract(aSeed.x - uTime * 0.018 * sp);   // 0 at the top, 1 at the table
-        float y = mix(${(TRUSS_Y - 0.15).toFixed(2)}, ${(TABLE_Y + 0.25).toFixed(2)}, hf);
-        float rc = ${BEAM_R.toFixed(2)} * (${TRUSS_Y.toFixed(2)} - y) / ${beamH.toFixed(2)} * 0.9 * sqrt(aSeed.z);
+        float y = mix(${(TY - 0.15).toFixed(2)}, ${(TABLE_Y + 0.25).toFixed(2)}, hf);
+        float rc = ${BEAM_R.toFixed(2)} * (${TY.toFixed(2)} - y) / ${beamH.toFixed(2)} * 0.9 * sqrt(aSeed.z);
         float a = aSeed.y * 6.2832 + uTime * 0.06 * (aSeed.w - 0.5) + sin(uTime * 0.5 + aSeed.x * 20.0) * 0.15;
         vec3 p = vec3(rc * cos(a), y + sin(uTime * 0.8 + aSeed.y * 30.0) * 0.015, rc * sin(a));
         vB = (0.5 + 0.5 * sin(uTime * (1.0 + 3.0 * aSeed.w) + aSeed.y * 40.0)) * smoothstep(0.0, 0.08, hf) * smoothstep(1.0, 0.9, hf);
@@ -426,15 +451,15 @@ const SOS_STUDIO = (P) => {
     fragmentShader: "uniform vec3 uCol; uniform float uA; varying vec2 vUv; varying float vB; void main() { float r = length((vUv - 0.5) * 2.0); float a = uA * vB * (1.0 - smoothstep(0.2, 1.0, r)); gl_FragColor = vec4(uCol, a); }",
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.3,
   }); dustM.userData.noOutline = true;
-  P.whole.add(ghost(new THREE.Mesh(dg, dustM), 2));
+  if (!beams) P.whole.add(ghost(new THREE.Mesh(dg, dustM), 2));
   const poolM = new THREE.ShaderMaterial({
     uniforms: { uCol: { value: lin("#ffe9cc") }, uA: { value: 0.14 } }, vertexShader: VS,
     fragmentShader: "uniform vec3 uCol; uniform float uA; varying vec2 vUv; void main() { float r = length((vUv - 0.5) * 2.0); float g = pow(1.0 - smoothstep(0.0, 1.0, r), 1.7); g += 0.35 * (1.0 - smoothstep(0.45, 0.62, r)); gl_FragColor = vec4(uCol, uA * g); }",
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.3, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2,
   }); poolM.userData.noOutline = true;
-  const pool = ghost(new THREE.Mesh(new THREE.PlaneGeometry(3, 3), poolM), -8); pool.rotation.x = -Math.PI / 2; pool.position.y = 0.0016; P.whole.add(pool);
+  const pool = ghost(new THREE.Mesh(new THREE.PlaneGeometry(3, 3), poolM), -8); pool.rotation.x = -Math.PI / 2; pool.position.y = 0.0016; if (!pit) P.whole.add(pool);
   // the spot also lights the cast and the table a little (one hard light from above)
-  const spot = new THREE.SpotLight("#fff0dc", 0, 0, 0.3, 0.45, 1.6); spot.position.set(0, TRUSS_Y, 0); spot.target.position.set(0, TABLE_Y, 0); P.whole.add(spot, spot.target);
+  const spot = new THREE.SpotLight("#fff0dc", 0, 0, 0.3, 0.45, 1.6); spot.position.set(0, TY, 0); spot.target.position.set(0, TABLE_Y, 0); P.whole.add(spot, spot.target);
 
   // (f) the floor: dark glossy panels at y 0.001, seams every 1.2 m, the strips and bulbs faintly mirrored
   const floorM = flagged(new THREE.ShaderMaterial({
@@ -470,17 +495,17 @@ const SOS_STUDIO = (P) => {
     depthWrite: true,
   }));
   const fg = new THREE.PlaneGeometry(12, 12); fg.rotateX(-Math.PI / 2); fg.translate(0, 0.001, 0);
-  const floor = ghost(new THREE.Mesh(fg, floorM), -9); floor.receiveShadow = false; P.whole.add(floor);
+  const floor = ghost(new THREE.Mesh(fg, floorM), -9); floor.receiveShadow = false; if (!pit) P.whole.add(floor);
 
   return {
     grip: 0,
     apply(ps, t) {
       const tt = t ?? 0, dim = clamp(ps.dim ?? S.dim ?? 1);
-      for (let i = 0; i < 6; i++) kStrip[i] = dim * (0.94 + 0.06 * Math.sin(tt * 0.9 + i * 1.7));
+      for (let i = 0; i < 6; i++) kStrip[i] = pit ? 0 : dim * (0.94 + 0.06 * Math.sin(tt * 0.9 + i * 1.7));
       // (the cyclorama and the floor share kStrip, so their spill and mirror follow the strips)
       for (let i = 0; i < stripMats.length; i += 2) { stripMats[i].uniforms.uK.value = 2.4 * kStrip[i / 2]; stripMats[i + 1].uniforms.uA.value = 0.3 * kStrip[i / 2]; }
       bulbM.uniforms.uK.value = 3.0 * dim * (0.97 + 0.03 * Math.sin(tt * 1.3)); halos.material.uniforms.uA.value = 0.4 * dim; floorM.uniforms.uBulb.value = dim;
-      lensM.uniforms.uK.value = 2.0 * dim;
+      lensM.uniforms.uK.value = 2.0 * dim; discM.uniforms.uA.value = 0.12 * dim; for (const h of canHalos) h.uniforms.uA.value = 0.55 * dim;
       beamM.uniforms.uA.value = 0.07 * dim; beamM.uniforms.uTime.value = tt; dustM.uniforms.uTime.value = tt; dustM.uniforms.uA.value = 0.7 * dim;
       poolM.uniforms.uA.value = 0.14 * dim;
       spot.intensity = (S.spot ?? 14) * dim;

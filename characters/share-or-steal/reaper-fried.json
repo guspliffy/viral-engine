@@ -1,0 +1,111 @@
+{
+ "id": "share-or-steal/reaper-fried",
+ "name": "Reaper, deep fried (Share or Steal EP02)",
+ "franchise": "PotatoBrawl",
+ "source": "guspliffy/potatobrawl: game/core.js FIGHTERS (palette Shroud) and game/ui/draw-fighters.js (hood, farm scythe)",
+ "rig": "potato",
+ "body": {
+  "color": "#7c3f12",
+  "height": 1.04,
+  "width": 0.76,
+  "depth": 0.72,
+  "lump": 0.035,
+  "seed": 13,
+  "taper": 0.16,
+  "specks": 40,
+  "speckColor": "#4a2208",
+  "speckSize": 1.35,
+  "gloss": 0.85,
+  "drips": 10,
+  "shine": 3,
+  "dripColor": "#ffc53d"
+ },
+ "limbs": {
+  "color": "#1f1d26",
+  "width": 0.05,
+  "shoulder": -0.42
+ },
+ "face": {
+  "default": "smug",
+  "iris": "#4a1f14",
+  "cheeks": "#c2491f",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.15,
+   "smirk": 0.35,
+   "eye": 1,
+   "browY": -0.005,
+   "lidL": 0.42,
+   "lidR": 0.42
+  },
+  "eye": {
+   "corner": 1,
+   "flick": 0,
+   "lash": 1.15,
+   "depth": 0.27,
+   "iris": 0.62,
+   "glints": 1,
+   "oval": 1.32
+  },
+  "browShape": {
+   "arch": 0.01,
+   "thick": 0.8,
+   "taper": 1.1,
+   "tip": 0.0035,
+   "lift": 0.008
+  },
+  "blush": 0.5
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top",
+  "lift": [
+   0.025,
+   -0.03
+  ]
+ },
+ "costume": {
+  "type": "reaper",
+  "accent": "#1e1b21",
+  "wood": "#6b4a2b",
+  "blade": "#c9ced6",
+  "propHand": "R",
+  "hoodPeak": 0,
+  "hoodStyle": "hoodie",
+  "hoodStand": 0.11,
+  "hoodOpen": 0.86,
+  "hoodOverhang": 0.18,
+  "hoodRim": 0.03,
+  "hoodOpenH": 0.92,
+  "hoodDiag": 0.1,
+  "hoodDome": 0.0,
+  "hoodTip": 0.12,
+  "hoodCrown": 0.0,
+  "noProp": true
+ },
+ "tts": "reaper",
+ "voice": {
+  "pitch": 92,
+  "rate": 2.5,
+  "formant": 0.92,
+  "range": 1.5,
+  "breath": 0.12,
+  "vibrato": 0.006,
+  "seed": 23
+ },
+ "voiceNote": "gibberish, low and flat (same as the puppet voice, puppet/cast.json)",
+ "hands": {
+  "type": "glove",
+  "size": 1.7,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  },
+  "grip": {
+   "R": "hold"
+  }
+ },
+ "notes": "Share or Steal EP02 (11 Nov 2026): notyet/reaper-noscythe after a dunk in the fryer: the fried-gold body of hell/crispy-spud (specks, gloss, oil drips) and a darker, singed hood. One episode; not canon."
+}

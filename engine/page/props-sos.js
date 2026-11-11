@@ -7,13 +7,28 @@ import { clamp, rng as rngOf } from "./util.js";
 // Origins at the floor / bottom centre unless said; +z is the prop's front (the camera side at rot 0).
 //   sostable   the round game table: r spec.r (0.46), top at spec.h (0.62), 5 cm thick, black lacquer with a thin gold
 //              inlay ring 4 cm in from the edge and a gold edge band; one thick black pedestal (r 0.12) on a round
-//              base (r 0.3, 3 cm). Grip = h.
+//              base (r 0.3, 3 cm). Grip = h. spec.pedestal "drum" (T2) = instead of that pedestal and base, one steel
+//              drum (r 0.27) from the floor to the underside of the top: brushed steel, two hoop bands, a ring of
+//              24 rivets under the top.
 //   goldpile   ~130 gold coins heaped into a mound with 6 gold bars poking out and four-point glints twinkling: one
 //              rigid prop (footprint 0.42 x 0.34, 0.18 high), origin on the table top. Grips "L" and "R" (SOS_GRIPS).
 //   sscard     a stiff game card 0.2 (x) x 0.28 (z) x 0.012 lying flat, spec.face "share" | "steal". Its back (navy,
 //              gold border, a gold coin) is up at flip 0, the face (cream, the word in green / red) when flip is 1.
 //              Params: flip 0..1 (a half turn about the card's own long axis z; it lifts as it turns so the corner
 //              never cuts the table), glow 0..1 (a soft rim of light in the face colour on the table round it).
+//              spec.back "red" (T2) = the back in deep red (#a3202a) with a cream border line and a fine darker-red wave
+//              (seigaiha) pattern; absent = the navy back. spec.solid true (T2) = the face is a solid card in the word's
+//              colour (green SHARE, red STEAL), a thin cream border line 6 % in, the word in bold white capitals with a dark
+//              outline, as large as fits (across the short side); default false = the cream face. The glow keeps the colour.
+//   sscardfan  (T2) both cards as ONE rigid thing held up in one glove: two cards 0.2 x 0.28 x 0.012 standing upright,
+//              faces toward +z, fanned about a common pivot at the bottom middle (the origin, where thumb and fingers
+//              pinch): SHARE in front, turned 12 degrees to the viewer's left (top toward -x); STEAL behind it, turned 12
+//              degrees to the right, 6 mm behind (its word is drawn small in the top right strip SHARE leaves free, so
+//              both words read). About 0.32 wide x 0.3 high (SIZE in storyboards/lib/grips.mjs, the
+//              phone hold). spec.back as for sscard; spec.scale as for any prop. No params. spec.solid true: solid coloured
+//              faces, spread wider (SHARE 16 degrees left at x -0.045, STEAL 16 degrees right at x +0.045, so 0.09 apart and
+//              over half of each card shows, about 0.44 wide), each word whole along the long side reading bottom to top on
+//              the half of its card the other one leaves free.
 //   sschair    a high-back game-show chair facing +z: seat top at SEAT_Y (0.42), seat 0.66 x 0.55, oxblood leather
 //              with button tufting, a back 0.66 x 0.12 rising to 1.15, a chrome pedestal on a 4-star chrome base,
 //              no armrests; the seat is where "sit" puts a character (seat id = the prop id). Param tip (degrees,
@@ -129,7 +144,24 @@ function cardBack() {
     g.fillStyle = GOLD; for (const [x, y] of [[70, 70], [w - 70, 70], [70, h - 70], [w - 70, h - 70]]) { g.beginPath(); g.arc(x, y, 9, 0, Math.PI * 2); g.fill(); }
   });
 }
-function cardFace(word, color) {
+// the red back (T2): deep red, a cream border line and a fine darker-red wave pattern (seigaiha: rows of overlapping
+// concentric scallops), as on Jonny's panel 03
+function cardBackRed() {
+  return canvasTex(CW, CH, (g, w, h) => {
+    g.fillStyle = "#a3202a"; g.fillRect(0, 0, w, h);
+    g.save(); g.beginPath(); g.roundRect(40, 40, w - 80, h - 80, 16); g.clip();
+    g.strokeStyle = "#5e0e17"; g.lineWidth = 3.5; g.lineCap = "round";
+    const R = 46, rows = Math.ceil(h / (R / 2)) + 2, cols = Math.ceil(w / (R * 2)) + 2;
+    for (let j = rows; j >= 0; j--) for (let i = -1; i < cols; i++) {
+      const cx = i * R * 2 + (j % 2 ? R : 0), cy = j * (R / 2) + R * 0.5;
+      for (const k of [1, 0.74, 0.48, 0.22]) { g.beginPath(); g.arc(cx, cy, R * k, Math.PI, 0); g.stroke(); }
+    }
+    g.restore();
+    g.strokeStyle = "#f3e6c8"; g.lineWidth = 8; g.beginPath(); g.roundRect(24, 24, w - 48, h - 48, 26); g.stroke();
+    g.lineWidth = 2.5; g.globalAlpha = 0.7; g.beginPath(); g.roundRect(40, 40, w - 80, h - 80, 16); g.stroke(); g.globalAlpha = 1;
+  });
+}
+function cardFace(word, color, wedge = false) {
   return canvasTex(CW, CH, (g, w, h) => {
     g.fillStyle = "#f6efe0"; g.fillRect(0, 0, w, h);
     g.strokeStyle = color; g.lineWidth = 9; g.beginPath(); g.roundRect(22, 22, w - 44, h - 44, 26); g.stroke();
@@ -137,10 +169,31 @@ function cardFace(word, color) {
     // heavy bold capitals filling 85 % of the card's width, a stroke in the same colour to thicken them
     g.fillStyle = g.strokeStyle = color; g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
     const stack = (px) => `900 ${px}px Inter, "Arial Black", Impact, sans-serif`;
-    let px = 160; g.font = stack(px); px = Math.round(px * ((w * 0.85 - 8) / g.measureText(word).width)); g.font = stack(px);
-    g.lineWidth = 8; g.strokeText(word, w / 2, h / 2 + px * 0.04); g.fillText(word, w / 2, h / 2 + px * 0.04);
+    // wedge (the fan's back card): the word sits in the top right strip the front card leaves uncovered, 0.074 m wide, clear of a glove on the right edge
+    const fit = wedge ? 190 : w * 0.85 - 8, wx = wedge ? 372 : w / 2, wy = wedge ? 104 : h / 2;
+    let px = 160; g.font = stack(px); px = Math.round(px * (fit / g.measureText(word).width)); g.font = stack(px);
+    g.lineWidth = wedge ? 5 : 8; g.strokeText(word, wx, wy + px * 0.04); g.fillText(word, wx, wy + px * 0.04);
     // small pips above and below, in the word's colour
-    for (const y of [h * 0.3, h * 0.7]) { g.fillRect(w * 0.5 - 40, y - 3, 80, 6); }
+    if (!wedge) for (const y of [h * 0.3, h * 0.7]) { g.fillRect(w * 0.5 - 40, y - 3, 80, 6); }
+  });
+}
+
+// the solid face (T2, spec.solid): a flat card in the word's colour, a thin cream border line 6 % in, the word in bold white
+// capitals with a dark outline, as large as fits. along: null = across the short side (a card lying flat); "up" = along
+// the long side reading bottom to top, centred at texture x cx (the fan: each word sits on the half the other card leaves free)
+function cardFaceSolid(word, color, along = null, cx = CW / 2) {
+  return canvasTex(CW, CH, (g, w, h) => {
+    g.fillStyle = color; g.fillRect(0, 0, w, h);
+    g.strokeStyle = "#f6ecd2"; g.lineWidth = 4; g.beginPath(); g.roundRect(w * 0.06, w * 0.06, w * 0.88, h - w * 0.12, 16); g.stroke();
+    g.textAlign = "center"; g.textBaseline = "middle"; g.lineJoin = "round";
+    const stack = (px) => `900 ${px}px Inter, "Arial Black", Impact, sans-serif`;
+    g.save();
+    if (along) { g.translate(cx, h / 2); g.rotate(-Math.PI / 2); } else g.translate(w / 2, h / 2);
+    const fit = along ? h * 0.84 : w * 0.84;
+    g.font = stack(160); const px = Math.round(160 * (fit / g.measureText(word).width)); g.font = stack(px);
+    g.strokeStyle = "#2a2018"; g.lineWidth = Math.max(8, px * 0.12); g.strokeText(word, 0, px * 0.04);
+    g.fillStyle = "#ffffff"; g.fillText(word, 0, px * 0.04);
+    g.restore();
   });
 }
 
@@ -177,11 +230,23 @@ export const SOS_KINDS = {
     const lacquer = quiet(mat("#07070b", { roughness: 0.9, metalness: 0 }));
     const gold = mat("#f2c23a", { roughness: 0.28, metalness: 0.7, emissive: new THREE.Color("#7a5200"), emissiveIntensity: 0.35 });
     const column = quiet(mat("#101016", { roughness: 0.3, metalness: 0.3 }), 0.12);
-    // the base, the pedestal, the top
+    // the base, the pedestal, the top (spec.pedestal "drum": one brushed steel drum instead)
+    if (S.pedestal === "drum") {
+      const DR = 0.27, DH = H - T;
+      const steel = mat("#c2c8d2", { roughness: 0.5, metalness: 0.4, emissive: new THREE.Color("#2e333d"), emissiveIntensity: 0.8, map: canvasTex(256, 256, (g, w, h) => {
+        g.fillStyle = "#b4bbc6"; g.fillRect(0, 0, w, h);
+        for (let y = 0; y < h; y++) { g.fillStyle = `rgba(${rnd(y + 5) > 0.5 ? "255,255,255" : "20,24,32"},${0.05 + rnd(y + 9) * 0.14})`; g.fillRect(0, y, w, 1); }
+      }) }); steel.userData.krimK = 0.3;
+      const hoop = mat("#8d95a3", { roughness: 0.4, metalness: 0.5, emissive: new THREE.Color("#20242c"), emissiveIntensity: 0.7 }); hoop.userData.krimK = 0.3;
+      mesh(new THREE.CylinderGeometry(DR, DR, DH, 56), steel, P.whole, 0, DH / 2, 0);
+      for (const y of [0.1, DH - 0.15]) { mesh(new THREE.CylinderGeometry(DR + 0.008, DR + 0.008, 0.032, 56), hoop, P.whole, 0, y, 0); for (const dy of [-0.019, 0.019]) mesh(new THREE.TorusGeometry(DR + 0.008, 0.004, 6, 56), hoop, P.whole, 0, y + dy, 0).rotation.x = Math.PI / 2; }
+      for (let i = 0; i < 24; i++) { const a = (i / 24) * Math.PI * 2; mesh(new THREE.SphereGeometry(0.011, 8, 6), hoop, P.whole, Math.cos(a) * (DR + 0.002), DH - 0.035, Math.sin(a) * (DR + 0.002)); }
+    } else {
     mesh(new THREE.CylinderGeometry(0.29, 0.3, 0.03, 40), column, P.whole, 0, 0.015, 0);
     mesh(new THREE.TorusGeometry(0.288, 0.005, 6, 48), gold, P.whole, 0, 0.03, 0).rotation.x = Math.PI / 2;
     mesh(new THREE.CylinderGeometry(0.12, 0.12, H - T - 0.03, 32), column, P.whole, 0, 0.03 + (H - T - 0.03) / 2, 0);
     for (const y of [0.075, H - T - 0.045]) mesh(new THREE.TorusGeometry(0.122, 0.009, 8, 36), gold, P.whole, 0, y, 0).rotation.x = Math.PI / 2;
+    }
     mesh(new THREE.CylinderGeometry(R - 0.004, R - 0.03, T, 56), lacquer, P.whole, 0, H - T / 2, 0);
     // the gold edge band (round the thick edge, a lip of black under it) and the thin inlay ring 4 cm in from the edge
     mesh(new THREE.CylinderGeometry(R + 0.0015, R + 0.0015, 0.034, 56, 1, true), gold, P.whole, 0, H - 0.017, 0);
@@ -240,7 +305,7 @@ export const SOS_KINDS = {
     const edge = quiet(mat("#161f38", { roughness: 0.6 }));
     // the printing also glows a little (emissiveMap) so the word keeps its colour whatever light the set throws on it
     const printed = (map) => quiet(mat("#8a8a8a", { map, roughness: 0.65, emissive: new THREE.Color("#ffffff"), emissiveMap: map, emissiveIntensity: 0.5 }));
-    const back = printed(cardBack()), front = printed(cardFace(word, col));
+    const back = printed(P.spec.back === "red" ? cardBackRed() : cardBack()), front = printed(P.spec.solid ? cardFaceSolid(word, col) : cardFace(word, col));
     back.userData.noHatch = front.userData.noHatch = true;
     // the card turns about its own centre line (z); y 0.006 = half its thickness, the origin is the table top
     const turn = new THREE.Group(); P.whole.add(turn);
@@ -264,6 +329,27 @@ export const SOS_KINDS = {
         gm.opacity = 0.9 * g; glow.visible = g > 0.01;
       },
     };
+  },
+
+  sscardfan(P) {
+    // two upright cards fanned about the bottom middle: the origin is the pivot (where the glove pinches)
+    const edge = quiet(mat("#161f38", { roughness: 0.6 }));
+    const printed = (map) => { const m = quiet(mat("#8a8a8a", { map, roughness: 0.65, emissive: new THREE.Color("#ffffff"), emissiveMap: map, emissiveIntensity: 0.5 })); m.userData.noHatch = true; return m; };
+    const red = P.spec.back === "red", solid = !!P.spec.solid;
+    // [word, colour, turn about z in degrees (+ = the top goes to the viewer's left), x, z, the word's texture x (solid)]
+    // solid: 16 degrees each way and 0.09 apart (+-0.045 about the pivot), so over half of each card shows; the word runs
+    // up the long side on the half the other card does not cover (SHARE the left half, STEAL the right half)
+    const cards = solid
+      ? [["SHARE", "#2fae58", 16, -0.045, 0, CW * 0.25], ["STEAL", "#e0283c", -16, 0.045, -0.006, CW * 0.75]]
+      : [["SHARE", "#2fae58", 12, 0, 0, 0], ["STEAL", "#e0283c", -12, 0, -0.006, 0]];
+    for (const [word, col, deg, x, z, cx] of cards) {
+      const card = new THREE.Group(); card.position.set(x, 0, z); card.rotation.z = (deg * Math.PI) / 180; P.whole.add(card);
+      mesh(new THREE.BoxGeometry(0.2, 0.28, 0.012), edge, card, 0, 0.14, 0);
+      const map = solid ? cardFaceSolid(word, col, "up", cx) : cardFace(word, col, deg < 0);
+      const front = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.28), printed(map)); front.position.set(0, 0.14, 0.0062); front.castShadow = false; card.add(front);
+      const back = new THREE.Mesh(new THREE.PlaneGeometry(0.2, 0.28), printed(red ? cardBackRed() : cardBack())); back.rotation.y = Math.PI; back.position.set(0, 0.14, -0.0062); back.castShadow = false; card.add(back);
+    }
+    return { grip: 0 };
   },
 
   sschair(P) {

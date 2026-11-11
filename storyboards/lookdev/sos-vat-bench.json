@@ -1,0 +1,434 @@
+{
+ "id": "sos-vat-bench",
+ "title": "Share or Steal set v2 bench: vat, deck, lifts",
+ "idea": "Engine look bench for the Share or Steal vat set (task T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#0c0b11",
+  "floor": "none",
+  "night": true,
+  "para": 0,
+  "bloom": "emissive",
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "sam",
+   "rea"
+  ],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [
+  {
+   "id": "sam",
+   "character": "duo/samurai",
+   "at": [
+    -0.707,
+    -0.843
+   ],
+   "face": 40,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "lookdev/reaper-crisp",
+   "at": [
+    0.707,
+    -0.843
+   ],
+   "face": -40,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "sam",
+   "with": "vat",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "sam",
+   "with": "liftL",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "sam",
+   "with": "chairL",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in sits in his chair for the whole bench"
+  },
+  {
+   "who": "rea",
+   "with": "vat",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "rea",
+   "with": "liftR",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in rides his lift down into the vat and back up"
+  },
+  {
+   "who": "rea",
+   "with": "chairR",
+   "from": 0,
+   "to": 4,
+   "reason": "bench: the stand-in sits in his chair for the whole bench"
+  }
+ ],
+ "props": [
+  {
+   "id": "studio",
+   "kind": "ssstudio",
+   "pit": true,
+   "trussY": 2.9,
+   "beams": [
+    [
+     -0.71,
+     -0.84
+    ],
+    [
+     0.71,
+     -0.84
+    ]
+   ]
+  },
+  {
+   "id": "vat",
+   "kind": "ssvat"
+  },
+  {
+   "id": "liftL",
+   "kind": "sslift",
+   "x": -0.78,
+   "y": 0,
+   "z": -0.84
+  },
+  {
+   "id": "liftR",
+   "kind": "sslift",
+   "x": 0.78,
+   "y": 0,
+   "z": -0.84
+  },
+  {
+   "id": "table",
+   "kind": "sostable",
+   "x": 0,
+   "z": 0,
+   "rot": 45,
+   "r": 0.6,
+   "h": 0.62
+  },
+  {
+   "id": "gold",
+   "kind": "goldpile",
+   "y": 0.622,
+   "z": 0.02,
+   "scale": 0.8
+  },
+  {
+   "id": "chairL",
+   "kind": "sschair",
+   "x": -0.707,
+   "z": -0.843,
+   "rot": 40
+  },
+  {
+   "id": "chairR",
+   "kind": "sschair",
+   "x": 0.707,
+   "z": -0.843,
+   "rot": -40
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "rest",
+   "at": 0,
+   "len": 1.17,
+   "shot": {
+    "pos": [
+     0,
+     2.179,
+     5.432
+    ],
+    "look": [
+     0,
+     0.75,
+     -0.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "sit",
+     "seat": "chairL",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "sit",
+     "seat": "chairR",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "liftL",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "liftR",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "glow",
+   "at": 1.17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.179,
+     5.432
+    ],
+    "look": [
+     0,
+     0.75,
+     -0.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "liftL",
+     "set": {
+      "drop": 1.9
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "liftR",
+     "set": {
+      "drop": 1.9
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "chairL",
+     "set": {
+      "y": -1.9
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "chairR",
+     "set": {
+      "y": -1.9
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "who": "sam",
+     "do": "drop",
+     "to": -1.9,
+     "at": 0.83
+    },
+    {
+     "who": "rea",
+     "do": "drop",
+     "to": -1.9,
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    }
+   ]
+  },
+  {
+   "name": "dunk",
+   "at": 2.17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.179,
+     5.432
+    ],
+    "look": [
+     0,
+     0.75,
+     -0.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "liftL",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.857,
+     "ease": "linear",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "liftR",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0.857,
+     "ease": "linear",
+     "at": 0.03
+    },
+    {
+     "do": "prop",
+     "id": "liftL",
+     "set": {
+      "drop": 0,
+      "steam": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "liftR",
+     "set": {
+      "drop": 0,
+      "steam": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "chairL",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "chairR",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.5
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.83
+    }
+   ]
+  },
+  {
+   "name": "back",
+   "at": 3.17,
+   "len": 0.83,
+   "shot": {
+    "pos": [
+     0,
+     1.46,
+     3.638
+    ],
+    "look": [
+     0,
+     1.02,
+     -0.55
+    ],
+    "fov": 38
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-sos-vat-bench.mjs (engine bench, no reviews)."
+}
