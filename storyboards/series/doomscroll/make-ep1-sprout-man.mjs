@@ -428,7 +428,7 @@ const CLOSE = shot([-0.85, 0.85, 3.9], { tilt: X ? 9 : 5, fov: 42 });   // 03: S
 const LOW = X ? shot([0.2, 0.45, 6.6], { tilt: 24, fov: 54 })           // 04: from the ground up the suit
   : shot([0.1, 0.45, 5.6], { tilt: 3, fov: 46 });                       // S: low in front of the fire, him bent over them
 const VIKC = shot([S_VIK + 0.05, 0.85, 3.3], { tilt: 5, fov: 34 });     // Viking's eyes
-const beats = c.beats([
+const SHOTS = [
   ...(HOR ? [["01 behind the pine", 0, WIDE, "hook"], ["03 the legs", 5.0, CLOSE], ["04 the cage", 7.5, LOW], ["he looks", 9.0, VIKC], ["05 the strike", 10.0, WIDE]]
     : [["P01 the rule", 0, WIDE, "hook"]]),
   ["P03 shh", 2.0 + D, SHH],
@@ -439,7 +439,16 @@ const beats = c.beats([
   ["the drop", 14.0 + D, DROP],
   ["dead", 16.0 + D, "keep"],
   ["P08 nobody looks up", 17.4 + D, LAST, "reaction"],
-], END);
+];
+// An instant change written exactly on a cut lands one frame late: at the cut's own frame its 0.01 s tween has not
+// started, so the new shot's first frame still shows the old pose (the farm render of 11 Nov failed "pops" on two such
+// frames, at the shh shot and at the selfie screen). Such a change starts 0.03 s before its cut instead: after the old
+// shot's last frame, done before the new shot's first. Only at the three cuts where a frame showed it (shh, the selfie
+// screen on and off): at the jab cut Spud is turned upright by his own instant moves at 9.97, and moving Sprout Man's
+// arm there too made the checks read Spud's turn a frame late
+const CUTS = [2.0, 12.0, 14.0].map((t) => t + D);
+for (const it of c0.items) if ((it.dur ?? 1) <= 0.02 && CUTS.some((t) => Math.abs(it.at - t) < 1e-6)) it.at = r3(it.at - 0.03);
+const beats = c.beats(SHOTS, END);
 
 write(import.meta.url, {
   id: S ? "doomscroll-01-sprout-man-shadow" : H ? "doomscroll-01-sprout-man-horror" : X ? "doomscroll-01-sprout-man-extreme" : "doomscroll-01-sprout-man",

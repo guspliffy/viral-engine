@@ -1758,27 +1758,7 @@
      "do": "blink",
      "dur": 0.22,
      "at": 1.1
-    }
-   ]
-  },
-  {
-   "name": "P03 shh",
-   "at": 11.5,
-   "len": 2.5,
-   "shot": {
-    "pos": [
-     -0.55,
-     1.62,
-     5.5
-    ],
-    "look": [
-     -0.55,
-     1.62,
-     -4.5
-    ],
-    "fov": 46
-   },
-   "do": [
+    },
     {
      "do": "prop",
      "id": "sm",
@@ -1801,7 +1781,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0
+     "at": 1.47
     },
     {
      "do": "prop",
@@ -1813,8 +1793,28 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0
-    },
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "P03 shh",
+   "at": 11.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -0.55,
+     1.62,
+     5.5
+    ],
+    "look": [
+     -0.55,
+     1.62,
+     -4.5
+    ],
+    "fov": 46
+   },
+   "do": [
     {
      "who": "wiz",
      "do": "look",
@@ -2814,6 +2814,70 @@
      "blink": false,
      "voice": false,
      "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "z": 0.5,
+      "lean": 20,
+      "headP": 0,
+      "headR": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "frame",
+     "set": {
+      "x": 0.25,
+      "y": 2.22,
+      "z": 1.7499999999999998,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "spd",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.97
+    },
+    {
+     "who": "spd",
+     "do": "look",
+     "to": [
+      0.3,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.97
+    },
+    {
+     "who": "spd",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.01,
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "aLx": -0.35,
+      "aLy": 1.92,
+      "aLz": 1.24,
+      "aLk": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
     }
    ]
   },
@@ -2835,70 +2899,6 @@
     "fov": 46
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "sm",
-     "set": {
-      "z": 0.5,
-      "lean": 20,
-      "headP": 0,
-      "headR": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "frame",
-     "set": {
-      "x": 0.25,
-      "y": 2.22,
-      "z": 1.7499999999999998,
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spd",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spd",
-     "do": "look",
-     "to": [
-      0.3,
-      0.2
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "who": "spd",
-     "do": "face",
-     "lid": 0.5,
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sm",
-     "set": {
-      "aLx": -0.35,
-      "aLy": 1.92,
-      "aLz": 1.24,
-      "aLk": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
     {
      "do": "prop",
      "id": "frame",
@@ -3004,6 +3004,82 @@
      "dur": 0.12,
      "ease": "out",
      "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "frame",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "puppy": 0,
+      "lean": 14,
+      "headP": 32,
+      "z": -0.1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "who": "spd",
+     "do": "release",
+     "prop": "phone",
+     "hand": "both",
+     "dur": 0,
+     "to": [
+      0.05,
+      1.95,
+      0.75
+     ],
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "rot": 180,
+      "tip": -20,
+      "glow": 0.9
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "aLx": -0.28,
+      "aLy": 1.95,
+      "aLz": 0.85,
+      "aLk": 1,
+      "fanL": 0.5,
+      "fanR": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "aRx": -0.42,
+      "aRy": 1.95,
+      "aRz": 0.85,
+      "aRk": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.97
     }
    ],
    "kind": "payoff"
@@ -3026,82 +3102,6 @@
     "fov": 46
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "frame",
-     "set": {
-      "scale": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sm",
-     "set": {
-      "puppy": 0,
-      "lean": 14,
-      "headP": 32,
-      "z": -0.1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spd",
-     "do": "release",
-     "prop": "phone",
-     "hand": "both",
-     "dur": 0,
-     "to": [
-      0.05,
-      1.95,
-      0.75
-     ],
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "rot": 180,
-      "tip": -20,
-      "glow": 0.9
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sm",
-     "set": {
-      "aLx": -0.28,
-      "aLy": 1.95,
-      "aLz": 0.85,
-      "aLk": 1,
-      "fanL": 0.5,
-      "fanR": 0.5
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "sm",
-     "set": {
-      "aRx": -0.42,
-      "aRy": 1.95,
-      "aRz": 0.85,
-      "aRk": 1
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
     {
      "who": "spd",
      "do": "drop",
