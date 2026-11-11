@@ -39,7 +39,7 @@ const fr = (t) => Math.floor((Math.round(t * 30) / 30) * 1000) / 1000;   // a cu
 // The hideout is a built room, the night hall of a house (engine/page/set-nighthall.js), moved HALL_Z toward the lens
 // so its open front door (left wall) is between the camera and the crates the three hide behind.
 const HALL_Z = 3;
-const ENVS = { hall: "dusk-back-alley", street: "dusk-bus-stop", roof: "sunset-rooftop", beach: "turquoise-beach-shallows" };   // "hall": only the old alley painting's pitch, for the front shots' framing
+const ENVS = { hall: "dusk-back-alley", street: "dusk-bus-stop", air: "airport-apron-sunrise" };   // "hall": only the old alley painting's pitch, for the front shots' framing
 const PITCH = Object.fromEntries(Object.entries(ENVS).map(([k, n]) => [k, JSON.parse(fs.readFileSync(new URL(`../../../../assets/environments/${n}/env.json`, import.meta.url))).eye.pitch]));
 const shot = (env, pos, { pan = 0, tilt = 0, fov = 44 } = {}) => {
   const yaw = rad(pan), pit = rad(-PITCH[env] + tilt), k = 10;
@@ -69,15 +69,15 @@ const nar = (t, key, { sub = true, until = null, pos = CAP_Y } = {}) => {
 const T = {
   hook: 0, snap1: fr(1.6), police: fr(2.85), faces: fr(3.65), fight: fr(4.3), flight: fr(4.9), freeze: fr(5.5), question: fr(6.35),
   roar: fr(8.15), charge: fr(8.75), grin: fr(10.05), net: fr(11.3),
-  search: fr(13.45), beam: fr(14.8), run: fr(16.0), left: fr(18.1),
-  roof: fr(19.6), leap: fr(20.7), days: fr(22.2), caught: fr(23.7),
-  quiet: fr(26.7), which: fr(29.8), end: 31.3,
+  search: fr(13.45), run: fr(15.5), left: fr(17.1), chase: fr(18.5),
+  days: fr(20.1), caught: fr(21.5), quiet: fr(25.1), which: fr(28.2), end: 29.7,
 };
+T.back = T.search;
 const END = T.end;
 const NET = r3(T.net + 0.34);   // the net lands on Viking
 const HIT = r3(T.charge + 0.75);   // Viking goes through the shield line
 // which place is up from when (set.swap); the street is the first env: its light is the clip's light
-const PLACES = [[0, "hall"], [T.police, "street"], [T.faces, "hall"], [T.charge, "street"], [T.search, "hall"], [T.roof, "roof"], [T.days, "beach"], [T.quiet, "hall"]];
+const PLACES = [[0, "hall"], [T.police, "street"], [T.faces, "hall"], [T.charge, "street"], [T.search, "hall"], [T.chase, "street"], [T.days, "air"], [T.quiet, "hall"]];
 const placeAt = (t) => PLACES.filter(([at]) => at <= t + 1e-6).pop()[1];
 
 // ---------------------------------------------------------------- cast
@@ -137,8 +137,15 @@ P("hall", { id: "washL", kind: "sirenwash", x: -1.37, y: 0.3, z: -1.2, rot: 90, 
 P("hall", { id: "washR", kind: "sirenwash", x: 1.37, y: 0.3, z: -1.2, rot: -90, w: 4.5, h: 2.2, on: 0 });
 P("hall", { id: "washG", kind: "sirenwash", x: -0.3, z: 1.6, w: 2.4, h: 2.4, flat: true, on: 0 });
 P("hall", { id: "pool", kind: "lightpool", x: -1.45, y: 0.2, z: r3(ROW_Z + 0.27), w: 1.1, d: 0.6, face: "z", on: 0 });   // on the crate fronts
-// the officer's torch: worn at his right glove, along his forward
-P("hall", { id: "torch2", kind: "policetorch", wear: "sam", x: -0.44, y: 0.5, z: 0.15, len: 1.2, r: 0.25, on: 1 }, { from: T.search, to: T.left });
+P("hall", { id: "search", kind: "lightpool", x: -1.2, y: 0.01, z: 1.5, w: 1.5, d: 1.1, on: 0 });   // the searchlight's pool on the hall floor
+// outside the window in the far wall (WIN): three patrol cars, noses at the house, on a street half a metre up so the
+// lens (0.9 m high, 9 m from the window) sees their windscreens and light bars; one more outside the front door
+const WIN = { x: 0, y: 1.0, w: 1.9, h: 1.15 }, OUT_Y = 0.5, OUT_Z = r3(NIGHTHALL.far + HALL_Z - 6.4);   // noses about 4 m from the glass: a whole car front fits the window
+P("hall", { id: "winA", kind: "policecar", x: 0.1, y: OUT_Y, z: r3(OUT_Z - 9), rot: 0, lights: 0, staged: "the street outside the window lies half a metre above the hall floor" });
+P("hall", { id: "winB", kind: "policecar", x: -2.3, y: OUT_Y, z: r3(OUT_Z - 10), rot: 24, lights: 0, staged: "the street outside the window lies half a metre above the hall floor" });
+P("hall", { id: "winC", kind: "policecar", x: 2.5, y: OUT_Y, z: r3(OUT_Z - 11), rot: -24, lights: 0, staged: "the street outside the window lies half a metre above the hall floor" });
+P("hall", { id: "winwash", kind: "sirenwash", x: 0, y: 1.7, z: r3(NIGHTHALL.far + HALL_Z - 0.6), w: 4.6, h: 3, on: 0 });   // their blue and red in the window: the navy cars read against it
+P("hall", { id: "doorcar", kind: "policecar", x: -4.4, z: 6.6, rot: 150, lights: 1 }, { from: T.search, to: T.left });
 // the masks and the caps (fit tables: props-heist.js header)
 const CAP = { sam: 1.09, god: 1.26, dra: 1.06 };
 for (const who of ["vik", "phx", "rea"]) P("all", { id: `mask-${who}`, kind: "eyemask", wear: who, x: 0, y: 0, z: 0, fit: who });
@@ -173,16 +180,19 @@ P("street", { id: "spark", kind: "lightpool", x: 0, y: 1.12, z: 3.9, w: 1.1, d: 
 P("street", { id: "carX", kind: "policecar", x: WRECK.x, z: WRECK.z, rot: 0, lights: 1 }, { from: T.charge, to: T.search });
 P("street", { id: "boom", kind: "carburst", x: r3(WRECK.x - 0.5), y: 0.6, z: r3(WRECK.z + 1.6), at: BOOM, r: 1.5, on: 1 }, { from: T.charge, to: T.search });
 P("street", { id: "fire", kind: "firesmoke", x: r3(WRECK.x - 0.7), y: 0.7, z: r3(WRECK.z + 1.6), w: 2.6, h: 4.6, fire: 0 }, { from: T.charge, to: T.search });
-// ---- roof: the chase's roof is the painting's own terrace; the leap is between two blocks, low angle
-const ROOF_H = 1.0, RL = { x: -2.35, z: 0.3 }, RR = { x: 2.35, z: 0.3 };
-P("roof", { id: "roofL", kind: "roofblock", x: RL.x, z: RL.z, w: 2.9, d: 2.0, h: ROOF_H, extras: ["chimney"], seed: 3 }, { from: T.leap, to: T.days });
-P("roof", { id: "roofR", kind: "roofblock", x: RR.x, z: RR.z, w: 2.9, d: 2.0, h: ROOF_H, extras: ["tank", "antenna"], seed: 8 }, { from: T.leap, to: T.days });
-P("roof", { id: "spot", kind: "lightpool", x: 0, y: 0.01, z: -6, w: 2.2, d: 1.5, on: 0 });
-P("roof", { id: "beam", kind: "lightbeam", x: 0.6, y: 9, z: -6, tip: 0, len: 9.2, w: 1.6, color: "#ffffff", glow: 0 });
-
-// ---- beach, three days later: a sandbank in the shallows
-P("beach", { id: "sand", kind: "sandpit", x: 0, y: -0.07, z: 0.2, w: 5.6, d: 3.4, h: 0.1, color: "#f0dfb0" });
-P("beach", { id: "gulls", kind: "gulls", x: 0, y: 0, z: 0, n: 3, at: [1.5, 7, -14], r: 6, staged: "gulls circling in the sky" });
+// the chase down the same street: the wreck still burning, three more cars, the helicopter's beam
+P("street", { id: "carY", kind: "policecar", x: WRECK.x, z: WRECK.z, rot: 0, lights: 0 }, { from: T.chase });
+P("street", { id: "fireY", kind: "firesmoke", x: r3(WRECK.x - 0.7), y: 0.7, z: r3(WRECK.z + 1.6), w: 2.6, h: 4.6, fire: 0 }, { from: T.chase });
+P("street", { id: "boom2", kind: "carburst", x: r3(WRECK.x - 1.0), y: 0.7, z: r3(WRECK.z - 1.2), at: r3(T.chase + 0.85), r: 1.8, on: 1 }, { from: T.chase });
+for (const id of ["chase1", "chase2", "chase3"]) P("street", { id, kind: "policecar", x: 0, z: -30, rot: 0, lights: 0 }, { from: T.chase });
+P("street", { id: "spot", kind: "lightpool", x: 0, y: 0.01, z: -6, w: 2.2, d: 1.5, on: 0 }, { from: T.chase });
+P("street", { id: "beam", kind: "lightbeam", x: 0.6, y: 9, z: -6, tip: 0, len: 9.2, w: 1.6, color: "#ffffff", glow: 0 }, { from: T.chase });
+// ---- the airport apron, three days later: his suitcase, two patrol cars, police light on the tarmac
+P("air", { id: "case", kind: "suitcase", x: 0.6, y: 0.24, z: 2.3, color: "#c8452e" });
+P("air", { id: "air1", kind: "policecar", x: -9.5, z: -2.3, rot: 62, lights: 0 });
+P("air", { id: "air2", kind: "policecar", x: 9.5, z: -2.6, rot: -62, lights: 0 });
+P("air", { id: "washA", kind: "sirenwash", x: 0, y: 0.6, z: -1.2, w: 7, h: 3.5, on: 0 });
+P("air", { id: "washB", kind: "sirenwash", x: 0, z: 3.2, w: 6, h: 4, flat: true, on: 0 });
 
 // show each prop only while its place is up ("all": always; "a+b": in both) and inside its own from-to
 for (const p of props) {
@@ -225,7 +235,9 @@ see(0, 1.5, ["vik.face", "phx.face", "rea.face", "bagL", "bagM"], "frame 0: thre
 sfx(T.snap1, "siren", { gain: 0.75, reason: "a police car's whoop at the alley's mouth, behind the lens" });
 sfx(T.snap1 + 0.25, "screech", { gain: 0.6, reason: "tyres stopping at the alley's mouth" });
 sfx(T.snap1 + 0.5, "sirenwail", { dur: 6, gain: 0.5, reason: "more sirens closing in, far off, under the voice" });
-for (const id of ["washL", "washR", "washG"]) { pr(T.snap1, id, { on: 1 }, 0.12, "out"); }
+for (const id of ["washL", "washR", "washG", "winwash"]) { pr(T.snap1 + (id === "winwash" ? 0.3 : 0), id, { on: id === "winwash" ? 0.45 : 1 }, 0.12, "out"); }
+// ...and through the window behind them three patrol cars roll up, noses at the house
+[["winA", OUT_Z, 0], ["winB", r3(OUT_Z - 0.8), 0.12], ["winC", r3(OUT_Z - 1.4), 0.24]].forEach(([id, z, dt]) => { pr(T.snap1 - 0.02, id, { lights: 1 }, 0.01, "linear"); pr(T.snap1 + dt, id, { z, len: 9 }, 0.45, "out"); });
 for (const [who, to] of [["vik", [0.1, 0.25]], ["phx", [0.2, 0.25]], ["rea", [-0.1, 0.25]]]) look(T.snap1 + 0.04, who, to, 0.1);
 act.shock(c, T.snap1 + 0.05, "vik", { hold: 0.3 }); act.shock(c, T.snap1 + 0.08, "phx", { hold: 0.3 });
 expr(T.snap1 + 0.1, "rea", "terrified");
@@ -401,133 +413,122 @@ sfx(NET + 1.0, "cuffs", { gain: 0.8, reason: "handcuffs" });
 nar(T.net, "fightOut", { until: T.search });
 see(NET + 0.75, T.search, ["vik.face"], "Viking netted, on his side, face to us");
 
-// ================================================================ 3 FLIGHT: the search, the bolt, the chase
-// Jonny, 10 Nov (on draft 3): no forced jokes, a logical chain. Viking stormed out of the front door, so the police
-// know the house; an officer comes in; Phoenix can't take it and bolts; every officer goes after him, so nobody ever
-// looks behind the crates where Reaper froze.
-// ---- seen from the hiding place: the officer steps in through the open front door, his torch on, the loot at his feet
-const DOOR_Z = r3((NIGHTHALL.door.z0 + NIGHTHALL.door.z1) / 2 + HALL_Z);
-const SAM_IN = [-0.55, r3(DOOR_Z + 0.25)], SAM_OUT = [-2.4, DOOR_Z];
+// ================================================================ 3 FLIGHT: he can't take it, runs out of the door, and takes every officer with him
+// Jonny, 10-11 Nov: no forced jokes, one logical chain, more dramatic. Viking stormed out of the front door, so the
+// police know the house: their cars stand outside the window, a megaphone orders the rest out. Phoenix cracks and runs
+// out of the door; every car goes after him, so nobody ever comes in to look behind the crates where Reaper froze.
 const BAG_F = [BAG_0[0], r3(BAG_0[1] + DUCK), BAG_0[2]];   // the bag's place in the frozen pose: put back after every cut to the hall
 const backInHall = (t) => { place(t, "rea", REA_H, 0, DUCK); bag.carry(r3(t - 0.009), BAG_F, 0.008, "linear"); };
-backInHall(T.search);
-place(T.search, "phx", PHX_H, 0, DUCK); A(T.search - 0.02, "phx", "crouch", { to: 1, dur: 0.01 }); A(T.search - 0.02, "phx", "wings", { to: 0, dur: 0.01 });
-c.arm(T.search - 0.02, "phx", "both", { o: [-0.05, 0.3, 0.3] }, 0.01);
-park(T.search, "vik"); park(T.search, "god"); park(T.search, "dra");
-place(T.search, "sam", SAM_OUT, 90); expr(T.search - 0.02, "sam", "stern", { browY: -0.012 }, 0.01);
-c.arm(T.search - 0.02, "sam", "R", { o: [0, 0.35, 0.25] }, 0.01); A(T.search - 0.02, "sam", "grip", { side: "R", shape: "fist", dur: 0.01 });   // the torch hand
-A(T.search, "sam", "move", { to: SAM_IN, dur: 0.5, ease: "out" });
-A(T.search + 0.3, "sam", "turn", { to: 150, dur: 0.3 });   // into the hall, toward the crates
-look(T.search + 0.45, "sam", [0.1, -0.6], 0.12); look(T.search + 0.85, "sam", [0, 0], 0.12);   // down at the open money bags, then up
-for (const dt of [0.05, 0.3]) sfx(T.search + dt, "step", { gain: 0.6, reason: "the officer's boots on the hall's boards" });
-c.say(T.search + 0.6, "sam", "they're in here.", 0.65, "calm", { sub: "They're in here." });
-see(T.search + 0.5, T.beam, ["sam.face", "torch2"], "from the hiding place: the officer in the open front door, torch on, the money bags at his feet");
+// ---- two left behind the crates. Outside: three cars, a searchlight through the window, a megaphone
+backInHall(T.back);
+place(T.back, "phx", PHX_H, 0, DUCK); A(T.back - 0.02, "phx", "crouch", { to: 1, dur: 0.01 }); A(T.back - 0.02, "phx", "wings", { to: 0, dur: 0.01 });
+c.arm(T.back - 0.02, "phx", "both", { o: [-0.05, 0.3, 0.3] }, 0.01);
+park(T.back, "vik"); park(T.back, "god"); park(T.back, "dra");
+place(T.back, "sam", [5.6, -7], 0);   // outside, behind the wall: only his voice comes in
+sfx(T.back + 0.05, "feedback", { gain: 0.5, reason: "the police megaphone squealing on outside the window" });
+c.say(T.back + 0.3, "sam", "come out with your hands up!", 1.3, "excited", { sub: "COME OUT WITH YOUR HANDS UP!" });
+pr(T.back - 0.02, "search", { x: -1.2, on: 0.75 }, 0.01, "linear"); pr(T.back, "search", { x: 1.1 }, 0.9, "inOut"); pr(T.back + 0.9, "search", { x: -0.6 }, 1.0, "inOut");   // the searchlight sweeping the hall floor
+expr(T.back - 0.02, "phx", "terrified", { open: 0.15 }, 0.01);
+for (const [dt, to] of [[0, [-0.6, 0.3]], [0.45, [0.7, 0.2]], [0.9, [-0.8, -0.1]], [1.4, [-0.85, 0.05]]]) look(T.back + dt, "phx", to, 0.1);   // the window, Reaper, the door... the door
+c.at(r3(T.back + 0.3), { fx: "sweat", who: "phx", dur: 0.9, count: 5 });
+A(T.back + 0.2, "phx", "tap", { count: 10, every: 0.14, side: "R" });
+for (const dt of [0.2, 0.75, 1.25, 1.65]) sfx(T.back + dt, "ai/heartbeat", { gain: 0.9, reason: "Phoenix's heart, faster and faster" });
+see(T.back, T.run, ["phx.face", "rea.face", "winA"], "police cars and their lights fill the window, a megaphone orders them out; Phoenix's eyes go to the door, Reaper has not moved");
 
-// ---- close on the two who are left: the torch's pool crawls along the crates toward Phoenix; Reaper has not moved
-place(T.beam, "sam", [-0.9, 3.7], 150);   // a step back for the close shot: his torch arm would cross the lens
-pr(T.beam - 0.02, "pool", { x: -1.45, on: 0.6 }, 0.01, "linear"); pr(T.beam, "pool", { x: r3(PHX_H[0] - 0.05) }, 1.0, "inOut");
-expr(T.beam - 0.02, "phx", "terrified", { open: 0.15 }, 0.01);
-look(T.beam - 0.02, "phx", [-0.85, -0.3], 0.01); look(T.beam + 0.15, "phx", [-0.25, -0.4], 0.85);   // his eyes ride the light as it comes
-c.at(r3(T.beam + 0.2), { fx: "sweat", who: "phx", dur: 0.8, count: 4 });
-for (const dt of [0.15, 0.65]) sfx(T.beam + dt, "ai/heartbeat", { gain: 0.85, reason: "Phoenix's heart as the light comes closer" });
-act.shock(c, T.beam + 0.98, "phx", { hold: 0.2 });
-see(T.beam, T.run, ["phx.face", "rea.face"], "the torch's light crawling along the crates to Phoenix; Reaper frozen beside him");
-
-// ---- he bolts: up over the crates, past the officer and out of the front door. The officer goes after him
+// ---- he bolts (seen from the hiding place): up over the crates and out of the front door into the police lights
 const RUN = T.run;
-place(RUN, "sam", SAM_IN, 150);
-pr(RUN, "pool", { on: 0 }, 0.1, "linear");
+pr(RUN, "search", { on: 0 }, 0.1, "linear");
 A(RUN, "phx", "crouch", { to: 0, dur: 0.1 }); A(RUN, "phx", "wings", { to: 1, dur: 0.1 }); A(RUN, "phx", "turn", { to: -20, dur: 0.1 });
 c.arm(RUN, "phx", "both", "rest", 0.1);
-A(RUN + 0.12, "phx", "fly", { to: { x: -0.75, y: 1.3, z: 0.85 }, dur: 0.24, ease: "linear" });
-A(RUN + 0.36, "phx", "fly", { to: { x: -2.6, y: 1.0, z: 2.0 }, dur: 0.26, ease: "linear" });
-sfx(RUN + 0.12, "rocket", { gain: 0.5, dur: 0.5, reason: "Phoenix bursting out of the hiding place" });
+A(RUN + 0.12, "phx", "fly", { to: { x: -0.75, y: 1.2, z: 0.85 }, dur: 0.24, ease: "linear" });
+A(RUN + 0.36, "phx", "fly", { to: { x: -2.6, y: 0.8, z: 1.9 }, dur: 0.26, ease: "linear" });
+sfx(RUN + 0.12, "rocket", { gain: 0.55, dur: 0.5, reason: "Phoenix bursting out of the hiding place" });
+c.at(r3(RUN + 0.14), { fx: "shake", dur: 0.25, amp: 0.03 });
 park(RUN + 0.64, "phx");
-act.shock(c, RUN + 0.16, "sam", { hold: 0.25 }); A(RUN + 0.2, "sam", "squash", { amount: 0.1, dur: 0.22 });   // he ducks as Phoenix goes past his head
-A(RUN + 0.42, "sam", "turn", { to: 222, dur: 0.22 });   // round after him, toward the door, his face still to us
+c.say(RUN + 0.7, "sam", "he's running! after him!", 0.9, "excited", { sub: "HE'S RUNNING! AFTER HIM!" });
+sfx(RUN + 0.75, "sirenwail", { dur: 4.2, gain: 0.6, reason: "every siren starting up after Phoenix" });
+pr(RUN + 0.95, "doorcar", { x: -3.2, z: 24, len: 12 }, 0.65, "in"); sfx(RUN + 0.95, "screech", { gain: 0.7, reason: "the car outside the door tearing off after him" });
+see(RUN + 0.1, RUN + 0.5, ["phx"], "Phoenix bursts up over the crates and out of the open front door");
+see(RUN + 0.7, T.left, ["doorcar"], "'He's running! After him!': the police car outside the door tears off; Reaper's back, frozen, in the corner");
 
-look(RUN + 0.45, "sam", [0, 0.1], 0.1);
-expr(RUN + 0.5, "sam", "angry", { open: 0.5 });
-c.say(RUN + 0.55, "sam", "he's running! after him!", 0.9, "excited", { sub: "He's running! After him!" });
-A(RUN + 1.4, "sam", "turn", { to: 270, dur: 0.12 });
-A(RUN + 1.5, "sam", "move", { to: SAM_OUT, dur: 0.42, ease: "in", stride: 1.5 });
-sfx(RUN + 1.2, "sirenwail", { dur: 3.2, gain: 0.55, reason: "every siren pulling away after Phoenix" });
-sfx(RUN + 1.75, "screech", { gain: 0.5, reason: "the patrol cars tearing off" });
-see(RUN + 0.1, RUN + 0.5, ["phx", "sam.face"], "Phoenix bursts up over the crates and out of the door past the officer");
-see(RUN + 0.6, T.left, ["sam.face"], "'He's running! After him!': the officer runs out after Phoenix; Reaper's back, frozen, in the corner");
+// ---- left behind: through the window the cars pull away, the lights leave the walls. Nobody came in
+backInHall(T.left); place(T.left, "sam", PARK.sam, 0); park(T.left, "sam");
+[["winA", 0], ["winB", 0.12], ["winC", 0.22]].forEach(([id, dt]) => { pr(T.left + 0.1 + dt, id, { x: id === "winC" ? 16 : -16, len: 14 }, 0.8, "in"); });
+sfx(T.left + 0.15, "screech", { gain: 0.55, reason: "the cars outside the window tearing off" });
+for (const id of ["washL", "washR", "washG", "winwash"]) pr(T.left + 0.5, id, { on: 0 }, 0.7, "inOut");
+nar(T.left + 0.3, "chased", { until: r3(T.left + 2.8) });   // the line runs on over the chase itself
+see(T.left, T.chase, ["rea.face", "winA"], "Reaper alone behind the crates; through the window every police car pulls away after Phoenix");
 
-// ---- left behind: the lights and the sirens leave. Nobody looked behind the crates
-backInHall(T.left); park(T.left, "sam");
-for (const id of ["washL", "washR", "washG"]) pr(T.left + 0.2, id, { on: 0 }, 1.0, "inOut");
-nar(T.left + 0.7, "chased", { until: r3(T.left + 3.2) });   // said over the chase itself: the line runs on over the roof
-see(T.left, T.roof, ["rea.face"], "Reaper alone behind the crates, the same frozen pose, the police lights leaving the walls");
+// ---- the chase (the cover): Phoenix flat out down the street at us, three cars and a helicopter's beam on him, the
+// wreck from Viking's fight still burning; one car clips it and goes up too
+const CH = T.chase, CHD = r3(T.days - T.chase);
+place(CH, "phx", [0.2, -9.5], 0); park(CH, "rea");
+A(CH - 0.02, "phx", "pitch", { to: 0, dur: 0.01 }); A(CH - 0.02, "phx", "wings", { to: 0.6, dur: 0.01 });
+A(CH, "phx", "move", { to: [-0.3, 2.4], dur: CHD, ease: "linear", stride: 1.9 });
+expr(CH - 0.02, "phx", "terrified", { open: 0.55 }, 0.01); look(CH, "phx", [0, 0.05], 0);
+look(CH + 0.5, "phx", [0.5, 0.6], 0.1); look(CH + 0.95, "phx", [0, 0.05], 0.1);
+sfx(CH, "chopper", { dur: CHD, gain: 0.6, reason: "the police helicopter over the street" });
+pr(CH - 0.02, "fireY", { fire: 1 }, 0.01, "linear");
+[["chase1", -1.5, -19, -6.5], ["chase2", 1.35, -22, -5.6], ["chase3", -0.1, -27, -12]].forEach(([id, x, z0, z1]) => {
+  pr(CH - 0.02, id, { x, z: z0, lights: 1 }, 0.01, "linear"); pr(CH, id, { z: z1, len: 14 }, CHD, "linear");
+});
+pr(CH - 0.02, "spot", { on: 1, x: 1.6, z: -10.5 }, 0.01, "linear"); pr(CH, "spot", { x: -0.3, z: 2.0 }, CHD, "in");
+pr(CH - 0.02, "beam", { glow: 0.7, x: 1.6, z: -10.5 }, 0.01, "linear"); pr(CH, "beam", { x: -0.3, z: 2.0 }, CHD, "in");
+const BOOM2 = r3(CH + 0.85);   // chase2 passes the wreck
+pr(CH - 0.02, "boom2", { on: 1 }, 0.01, "linear"); pr(BOOM2 + 0.4, "boom2", { on: 0 }, 0.25, "inOut");   // the fireball only (its cooling smoke reads as pale blocks in this look)
+sfx(BOOM2, "firework", { gain: 0.85, reason: "a chasing patrol car clipping the burning wreck and going up" }); sfx(BOOM2, "slam", { gain: 0.9, reason: "the second blast" });
+c.at(BOOM2, { fx: "shake", dur: 0.3, amp: 0.04 });
+pr(BOOM2, "chase2", { lights: 0 }, 0.05, "linear");
+sfx(CH + 0.2, "screech", { gain: 0.6, reason: "three patrol cars sliding into the street behind him" });
+see(CH + 0.3, T.days, ["phx.face", "chase1", "chase2"], "THE CHASE: Phoenix sprints at us, three police cars and a helicopter's beam behind him, a car going up in flames");
 
-// ---- the rooftops: Phoenix sprints at us across the roof, an officer behind him, the helicopter's spotlight on him
-place(T.roof, "phx", [0.3, -9], 0); park(T.roof, "rea");
-A(T.roof - 0.02, "phx", "pitch", { to: 0, dur: 0.01 });
-sfx(T.roof, "chopper", { dur: r3(T.days - T.roof), gain: 0.6, reason: "the police helicopter over the roofs" });
-A(T.roof, "phx", "wings", { to: 0.5, dur: 0.01 });
-A(T.roof, "phx", "move", { to: [0, 1.6], dur: r3(T.leap - T.roof), ease: "linear", stride: 1.9 });
-expr(T.roof, "phx", "terrified", { open: 0.5 });
-look(T.roof + 0.3, "phx", [0.3, 0.8], 0.1); look(T.roof + 0.75, "phx", [0, 0.1], 0.1);
-place(T.roof, "sam", [-1.5, -14.5], 0);   // beside Phoenix's line, so the lens sees the chase expr(T.roof - 0.02, "sam", "angry", { open: 0.3 }, 0.01); c.arm(T.roof - 0.02, "sam", "R", "rest", 0.01);
-A(T.roof, "sam", "move", { to: [-1.3, -4.0], dur: r3(T.leap - T.roof), ease: "linear", stride: 1.9 });
-park(T.leap, "sam");
-pr(T.roof - 0.02, "spot", { on: 1, x: 1.8, z: -9.5 }, 0.01, "linear"); pr(T.roof - 0.02, "beam", { glow: 0.5, x: 1.8, z: -9.5 }, 0.01, "linear");
-pr(T.roof, "spot", { x: 0.1, z: 1.2 }, r3(T.leap - T.roof), "in"); pr(T.roof, "beam", { x: 0.1, z: 1.2 }, r3(T.leap - T.roof), "in");
-see(T.roof + 0.5, T.leap, ["phx.face", "sam"], "Phoenix sprints at us over the roof, an officer behind him, the spotlight closing on him");
-
-// ---- the leap: low angle, the gap between two roofs, wings wide in the beam (the cover)
-const TOP = ROOF_H + 0.08, L0 = [-1.7, 0.75], L1 = [-1.25, 0.75], R1 = [1.35, 0.75];
-place(T.leap, "phx", L0, 78, TOP);
-pr(T.leap - 0.02, "spot", { on: 0 }, 0.01, "linear");
-pr(T.leap - 0.02, "beam", { x: -0.9, y: 9.6, z: 0.75, glow: 1 }, 0.01, "linear");
-A(T.leap, "phx", "move", { to: L1, y: TOP, dur: 0.15, ease: "linear", stride: 1.9 });
-const JUMP = r3(T.leap + 0.15), APEX = r3(JUMP + 0.6), DOWN = r3(T.days - 0.2);   // a long hang at the top (the wow), cut on the way down
-sfx(JUMP, "whoosh", { gain: 0.7, reason: "Phoenix leaving the roof's edge" });
-A(JUMP, "phx", "fly", { to: { x: 0.05, y: 1.8, z: 0.75 }, dur: r3(APEX - JUMP), ease: "out" });
-A(APEX, "phx", "fly", { to: { x: 0.6, y: 1.7, z: 0.75 }, dur: r3(DOWN - APEX), ease: "linear" });   // he keeps drifting: no dead hang
-A(JUMP, "phx", "turn", { to: 35, dur: 0.3 });   // opens to us in the air
-expr(JUMP + 0.1, "phx", "terrified", { open: 0.6 });
-c.arm(JUMP, "phx", "both", { o: [0.42, 0.95, 0.05] }, 0.25, "out");
-A(DOWN, "phx", "land", { to: TOP, dur: 0.34 });
-A(DOWN, "phx", "move", { to: R1, y: TOP, dur: 0.34, ease: "linear", steps: 0 });
-pr(T.leap, "beam", { x: 0.05 }, r3(JUMP + 0.3 - T.leap), "inOut"); pr(APEX, "beam", { x: 0.6 }, r3(T.days - APEX), "linear");
-see(JUMP + 0.2, DOWN, ["phx.face", "phx"], "THE WOW: Phoenix mid-leap between the roofs, wings wide, in the helicopter's beam");
-
-// ================================================================ 4 THREE DAYS LATER: a beach far away. He thought he had made it
-// asleep on his side on the sand, face to us (lean -90 tips to screen right about his base; y lifts him onto his side)
-const BED = [-0.45, 0.5], LIE = 0.4;
-place(T.days, "phx", BED, 0, LIE);
+// ================================================================ 4 THREE DAYS LATER: the airport. One more step and he is on the plane
+// He walks out across the apron to the jet, a suitcase rolling beside him. Two patrol cars slide in between him and
+// the stairs; he spins round to run back, and there are more behind him. Hands up.
+const WALK0 = [0, 2.3], WALK1 = [0, 0.7], CASE_DX = 0.6, WALKD = r3(T.caught - T.days + 0.15);
+place(T.days, "phx", WALK0, 180);
 A(T.days - 0.02, "phx", "wings", { to: 0, dur: 0.01 }); c.arm(T.days - 0.02, "phx", "both", "rest", 0.01);
-A(T.days - 0.02, "phx", "lean", { to: -90, dur: 0.01 });
-expr(T.days - 0.02, "phx", "serene", null, 0.01); A(T.days - 0.02, "phx", "face", { lid: 1, dur: 0.01 }); look(T.days - 0.02, "phx", [0, -0.1], 0.01);
-sfx(T.days, "waves", { dur: r3(T.quiet - T.days - 0.05), gain: 0.5, reason: "the sea" });
-sfx(T.days + 0.3, "gull", { gain: 0.5, reason: "a gull over the beach" });
+expr(T.days - 0.02, "phx", "happy", null, 0.01); look(T.days - 0.02, "phx", [0, 0.1], 0.01);
+A(T.days, "phx", "move", { to: WALK1, dur: WALKD, ease: "linear" });
+pr(T.days - 0.02, "case", { x: r3(WALK0[0] + CASE_DX), z: WALK0[1] }, 0.01, "linear"); pr(T.days, "case", { z: WALK1[1] }, WALKD, "linear");
+sfx(T.days, "rumble", { dur: r3(T.quiet - T.days - 0.05), gain: 0.3, reason: "a jet's engines idling on the apron" });
 const CARD = { size: 58, kinetic: false, style: "label" };
-cap(r3(T.days + 0.1), T.caught, "Three days later.", 480, true, CARD);
-c.at(r3(T.days + 0.2), { fx: "zzz", pos: [0.6, 0.8, 0.6], dur: 1.4, count: 3, scale: 4.5 });
-see(T.days, T.caught, ["phx.face"], "three days later: Phoenix asleep on the sand of a far beach, still in his mask");
-// ---- two caps step in beside him. He opens his eyes, and puts his hands up
-const SAM_B = [-1.05, -0.35], GOD_B = [1.1, -0.35];
-place(T.caught, "sam", [-2.9, -0.2], 80); place(T.caught, "god", [2.9, -0.2], -80);
-for (const who of ["sam", "god"]) { A(T.caught - 0.02, who, "pitch", { to: 0, dur: 0.01 }); expr(T.caught - 0.02, who, "stern", { browY: -0.012 }, 0.01); look(T.caught - 0.02, who, [0, -0.1], 0.01); }
-A(T.caught, "sam", "move", { to: SAM_B, dur: 0.55, ease: "out" }); A(T.caught + 0.1, "god", "move", { to: GOD_B, dur: 0.55, ease: "out" });
-A(T.caught + 0.4, "sam", "turn", { to: 35, dur: 0.25 }); A(T.caught + 0.5, "god", "turn", { to: -35, dur: 0.25 });
-for (const dt of [0.1, 0.3, 0.5]) sfx(T.caught + dt, "step", { gain: 0.5, reason: "boots in the sand, either side of him" });
-const WAKE = r3(T.caught + 0.7);
-A(WAKE, "phx", "face", { lid: 0, dur: 0.12 });
-A(WAKE + 0.12, "phx", "lean", { to: 0, dur: 0.3, ease: "out" }); A(WAKE + 0.12, "phx", "move", { to: [0, 0.5], y: 0, dur: 0.3, ease: "out", steps: 0 });   // up off the sand look(WAKE + 0.45, "phx", [-0.85, 0.1], 0.12); look(WAKE + 0.85, "phx", [0.85, 0.1], 0.14); look(WAKE + 1.25, "phx", [0, 0], 0.15);
-expr(WAKE + 0.15, "phx", "shocked", { eye: 1.3, open: 0.2 }, 0.12); expr(WAKE + 1.25, "phx", "sad", null, 0.3);
-c.arm(WAKE + 1.35, "phx", "both", "up", 0.45, "inOut");   // hands up: it is over
-sfx(WAKE + 1.95, "cuffs", { gain: 0.8, reason: "handcuffs" });
-nar(T.caught + 0.45, "flightOut", { until: T.quiet });
-see(WAKE + 0.2, T.quiet, ["phx.face", "cap-sam", "cap-god"], "two officers either side of him; Phoenix wakes, gets up, looks left and right, and puts his hands up");
+cap(r3(T.days + 0.1), r3(T.caught + 0.3), "Three days later.", 480, true, CARD);
+see(T.days, T.caught, ["phx", "case"], "three days later: Phoenix walks out to a waiting plane, a suitcase rolling beside him");
+// ---- two cars cut him off
+const CUT = T.caught;
+[["air1", -1.75, 62, 0], ["air2", 1.9, -62, 0.12]].forEach(([id, x, rot, dt]) => {
+  pr(CUT - 0.02, id, { lights: 1 }, 0.01, "linear"); pr(CUT + dt, id, { x, len: 9 }, 0.36, "out");
+  sfx(CUT + dt + 0.05, "screech", { gain: 0.7, reason: "a patrol car sliding in between him and the plane" });
+});
+sfx(CUT, "sirenwail", { dur: 3.4, gain: 0.5, reason: "sirens all round him on the apron" });
+pr(CUT + 0.3, "washA", { on: 1 }, 0.15);
+act.shock(c, CUT + 0.3, "phx", { hold: 0.2 }); A(CUT + 0.3, "phx", "hop", { height: 0.1, dur: 0.2 });
+pr(CUT + 0.34, "case", { x: r3(WALK1[0] + CASE_DX + 0.1) }, 0.3, "out"); pr(CUT + 0.4, "case", { tilt: 88 }, 0.3, "in");   // let go: it rolls on a step and falls over sfx(CUT + 0.7, "thud", { gain: 0.6, reason: "the suitcase falling over" });
+A(CUT + 0.55, "phx", "turn", { to: 0, dur: 0.4, ease: "inOut" });   // round, to run back the way he came
+expr(CUT + 0.6, "phx", "terrified", { open: 0.4 });
+A(CUT + 0.95, "phx", "move", { to: [0, 1.25], dur: 0.3, ease: "out", stride: 1.4 });
+// ...and more of them behind him (behind the lens): a siren whoop, their light on the ground at his feet. He stops
+sfx(CUT + 1.05, "siren", { gain: 0.8, reason: "another patrol car whooping right in front of him, behind the lens" });
+pr(CUT + 1.05, "washB", { on: 1 }, 0.12);
+look(CUT + 1.1, "phx", [-0.8, 0.1], 0.1); look(CUT + 1.4, "phx", [0.8, 0.1], 0.12); look(CUT + 1.75, "phx", [0, 0], 0.15);
+expr(CUT + 1.75, "phx", "sad", null, 0.3);
+c.arm(CUT + 1.9, "phx", "both", "up", 0.45, "inOut");   // hands up: it is over
+// the officers walk up from the cars behind him
+place(CUT + 0.9, "sam", [-2.9, 0.1], 70); place(CUT + 0.9, "god", [3.1, 0.1], -70);   // in from the sides, in front of the cars
+for (const who of ["sam", "god"]) { A(CUT + 0.88, who, "pitch", { to: 0, dur: 0.01 }); expr(CUT + 0.88, who, "stern", { browY: -0.012 }, 0.01); look(CUT + 0.9, who, [0, 0], 0.01); }
+A(CUT + 0.95, "sam", "move", { to: [-1.1, 0.35], dur: 0.9, ease: "out" }); A(CUT + 1.05, "god", "move", { to: [1.5, 0.3], dur: 0.9, ease: "out" });
+A(CUT + 1.6, "sam", "turn", { to: 25, dur: 0.25 }); A(CUT + 1.7, "god", "turn", { to: -25, dur: 0.25 });
+sfx(CUT + 2.75, "cuffs", { gain: 0.8, reason: "handcuffs" });
+nar(CUT + 1.0, "flightOut", { until: T.quiet });
+see(CUT + 0.3, CUT + 0.8, ["phx", "air1", "air2"], "two patrol cars slide in between Phoenix and the plane; the suitcase falls");
+see(CUT + 1.9, T.quiet, ["phx.face", "cap-sam", "cap-god"], "Phoenix, turned back to us, hands up; police lights all round, two officers walking up behind him");
 
 // ================================================================ 5 FREEZE: nobody ever searched the house
 backInHall(T.quiet); park(T.quiet, "phx"); park(T.quiet, "sam"); park(T.quiet, "god");
+for (const id of ["winA", "winB", "winC"]) pr(T.quiet - 0.02, id, { lights: 0 }, 0.01, "linear");
 nar(T.quiet + 0.3, "searched", { until: T.which });
-// the hall is silent. Only his eyes move: left, right. Then the first breath, and the first blink, since "Freeze."
+// the hall is silent, the window dark. Only his eyes move: left, right. Then he comes up and breathes out
 look(T.quiet + 0.6, "rea", [-0.8, 0.02], 0.25); look(T.quiet + 1.2, "rea", [0.8, 0.02], 0.3); look(T.quiet + 1.85, "rea", [0, 0.02], 0.2);
 const OUT = r3(T.quiet + 2.25);
 A(OUT, "rea", "blink", { dur: 0.25 });
@@ -537,12 +538,11 @@ A(OUT + 0.55, "rea", "squash", { amount: 0.07, dur: 0.5 });
 A(OUT + 0.5, "rea", "expr", { expr: "happy", set: { curve: 0.25, open: 0.12, eye: 1 }, dur: 0.4 }); A(OUT + 0.5, "rea", "face", { brow: 0, dur: 0.4 });
 sfx(OUT + 0.55, "deflate", { gain: 0.3, reason: "Reaper finally breathing out" });
 nar(T.which + 0.02, "which", { until: END });
-see(T.quiet, END, ["rea.face", "bagR"], "the payoff: the house is silent, Reaper still behind the crates with the bag; he breathes out");
+see(T.quiet, END, ["rea.face", "bagR"], "the payoff: the house is silent, the window dark; Reaper comes up from behind the crates with the bag and breathes out");
 
 // ---------------------------------------------------------------- blinks: placed, never on a line; Reaper never blinks after "Freeze." until it is over
 act.blinksAt(c, "vik", [1.2, 3.3, 6.15]);
 act.blinksAt(c, "phx", [1.35, 3.45, 6.2]);
-act.blinksAt(c, "sam", [r3(T.search + 0.3)]);
 A(1.1, "rea", "blink", { dur: 0.22 }); A(3.4, "rea", "blink", { dur: 0.22 });
 
 // ---------------------------------------------------------------- shots
@@ -556,11 +556,10 @@ const ONE = ([x, z], y = 0.8) => shot("hall", [x, y, z + 3.0], { tilt: -8, fov: 
 const CHARGE_W = shot("street", [0.7, 1.25, 7.0], { tilt: -6, fov: 46 });   // off his axis: the shooter in the gap and the car on the right stay in view past Viking's back
 const STREET_M = shot("street", [0, 1.15, 4.4], { tilt: -6, fov: 42 });
 const REV = { pos: [0.95, 1.25, -2.9], look: [-0.7, 0.72, 1.5], fov: 50 };   // from behind the two who are left: the crates, the open front door
-const TWO_CU = shot("hall", [0, 0.62, 3.4], { tilt: -8, fov: 54 });   // both faces whole (the officer is cheated behind the lens)
-const LEFT = shot("hall", [0.3, 0.85, 4.1], { tilt: -8, fov: 46 }), LEFT_IN = shot("hall", [0.5, 0.7, 3.2], { tilt: -8, fov: 46 });
-const ROOF_RUN = shot("roof", [0, 1.0, 5.0], { tilt: -8, fov: 46 });
-const ROOF_LEAP = shot("roof", [0, 1.1, 5.0], { tilt: 6, fov: 44 });
-const BEACH = shot("beach", [0, 1.9, 6.8], { tilt: 0, fov: 46 });
+const LEFT = shot("hall", [0.3, 0.9, 4.4], { tilt: -8, fov: 46 }), LEFT_IN = shot("hall", [0.4, 0.85, 3.8], { tilt: -8, fov: 46 });
+const BACK = shot("hall", [0, 0.95, 4.6], { tilt: -8, fov: 46 });   // the two behind the crates, the window and its police lights over their heads
+const CHASE = shot("street", [0, 1.25, 7.0], { tilt: -6, fov: 46 });
+const AIR = shot("air", [0, 1.4, 8.0], { tilt: -6, fov: 46 });
 const QUIET = shot("hall", [0.5, 0.8, 3.4], { tilt: -8, fov: 46 }), QUIET_IN = shot("hall", [0.6, 0.75, 2.7], { tilt: -8, fov: 46 });
 const beats = c.beats([
   ["1 you just robbed a bank", T.hook, HOOK, "hook"],
@@ -573,13 +572,11 @@ const beats = c.beats([
   ["6 the roar", T.roar, QUEST],
   ["6 the charge", T.charge, CHARGE_W],
   ["6 fighting works", T.grin, STREET_M],
-  ["7 they are in here", T.search, REV],
-  ["7 the beam", T.beam, TWO_CU],
+  ["7 come out with your hands up", T.back, BACK],
   ["7 phoenix bolts", T.run, REV],
-  ["8 left behind", T.left, { ...LEFT, to: LEFT_IN, dur: r3(T.roof - T.left), ease: "linear" }],
-  ["9 the rooftops", T.roof, ROOF_RUN],
-  ["9 the leap", T.leap, ROOF_LEAP, "escalation"],
-  ["10 three days later", T.days, BEACH],
+  ["8 left behind", T.left, { ...LEFT, to: LEFT_IN, dur: r3(T.chase - T.left), ease: "linear" }],
+  ["9 the chase", T.chase, CHASE, "escalation"],
+  ["10 three days later, the airport", T.days, AIR],
   ["11 nobody searched the house", T.quiet, { ...QUIET, to: QUIET_IN, dur: r3(END - T.quiet), ease: "linear" }, "payoff"],
 ], END);
 
@@ -588,13 +585,13 @@ const V = (t) => r3(t > HIT ? t + 0.1 : t);   // story seconds -> the video's cl
 write(import.meta.url, {
   id: "fff-01-bank-robbery",
   title: "You just robbed a bank. Fight, flight or freeze?",
-  idea: "Fight, Flight or Freeze pilot: three friends hide in a house after a bank robbery; Viking storms out to fight (netted in seconds), Phoenix bolts (every officer chases him, caught three days later), and because they all chase Phoenix nobody searches the house where Reaper froze",
+  idea: "Fight, Flight or Freeze pilot: three friends hide in a house after a bank robbery; Viking storms out to fight (netted in seconds), Phoenix runs out of the door (every police car chases him; caught three days later at the airport, one step from a plane), and because they all chase Phoenix nobody searches the house where Reaper froze",
   format: "series: Fight, Flight or Freeze (one extreme situation, three instincts, all three outcomes in one video)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [470, 1360],
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
-  cover: r3(APEX + 0.1),
-  set: { type: "env", env: ENVS.street, swap: PLACES.map(([at, name]) => (name === "hall" ? { at, room: { type: "nighthall", pos: [0, 0, HALL_Z] } } : { at, env: ENVS[name] })), aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
+  cover: r3(BOOM2 + 0.3),
+  set: { type: "env", env: ENVS.street, swap: PLACES.map(([at, name]) => (name === "hall" ? { at, room: { type: "nighthall", pos: [0, 0, HALL_Z], window: WIN } } : { at, env: ENVS[name] })), aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
   music: { style: "sneaky", lowCut: 150, gain: 0.26, parts: [{ at: 0, part: "main" }, { at: T.quiet, part: "stop" }] },
   sound: { sfx: 0.65, ambience: 0.06, guard: true, surface: "wood", room: "street", signature: { entrances: false } },
   creative: { length: [END, END] },
@@ -604,7 +601,7 @@ write(import.meta.url, {
     { who: "vik", with: "phx", from: 0, to: 0.3, reason: "the high-five: their two gloves meet" },
     { who: "rea", with: "bagR", from: 0, to: V(END), reason: "Reaper hugs his money bag against his belly from frame 0 to the end (the frozen pose)" },
     { who: "vik", with: "shield", from: V(NET + 0.7), to: V(T.search), reason: "Viking, netted, lies on the splinters of his crate: a glove rests in them" },
-    { who: "sam", with: "torch2", from: V(T.search - 0.05), to: V(T.left), reason: "the torch is in his fist (worn at the glove)" },
+    { who: "phx", with: "case", from: V(T.days), to: V(T.caught + 0.75), reason: "Phoenix pulls his suitcase along by its handle, then lets go of it" },
     { who: "god", with: "cap-god", from: 0, to: V(END), reason: "the officer's cap sits in his hair (worn)" },
     { who: "dra", with: "cap-dra", from: 0, to: V(END), reason: "the officer's cap (worn)" },
     { who: "sam", with: "cap-sam", from: 0, to: V(END), reason: "the officer's cap (worn)" },
