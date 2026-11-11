@@ -1,7 +1,7 @@
 {
  "id": "fff-01-bank-robbery",
  "title": "You just robbed a bank. Fight, flight or freeze?",
- "idea": "Fight, Flight or Freeze pilot: three friends rob a bank; Viking fights (netted), Phoenix runs (in a circle, into the van), Reaper freezes (tips into a bin of potatoes and gets away)",
+ "idea": "Fight, Flight or Freeze pilot: three friends hide in a house after a bank robbery; Viking storms out to fight (netted in seconds), Phoenix bolts (every officer chases him, caught three days later), and because they all chase Phoenix nobody searches the house where Reaper froze",
  "format": "series: Fight, Flight or Freeze (one extreme situation, three instincts, all three outcomes in one video)",
  "fps": 30,
  "look": "anime-pro",
@@ -27,42 +27,70 @@
  },
  "physics": true,
  "animeTiming": true,
- "cover": 15.75,
+ "cover": 21.55,
  "set": {
   "type": "env",
-  "env": "dusk-back-alley",
+  "env": "dusk-bus-stop",
   "swap": [
+   {
+    "at": 0,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ]
+    }
+   },
    {
     "at": 2.866,
     "env": "dusk-bus-stop"
    },
    {
     "at": 3.666,
-    "env": "dusk-back-alley"
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ]
+    }
    },
    {
     "at": 8.766,
     "env": "dusk-bus-stop"
    },
    {
-    "at": 12.966,
-    "env": "dusk-back-alley"
+    "at": 13.466,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ]
+    }
    },
    {
-    "at": 13.8,
+    "at": 19.6,
     "env": "sunset-rooftop"
    },
    {
-    "at": 16.4,
-    "env": "dusk-bus-stop"
-   },
-   {
-    "at": 20.466,
-    "env": "dusk-back-alley"
-   },
-   {
-    "at": 29.3,
+    "at": 22.2,
     "env": "turquoise-beach-shallows"
+   },
+   {
+    "at": 26.7,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ]
+    }
    }
   ],
   "aperture": 0,
@@ -87,21 +115,16 @@
     "part": "main"
    },
    {
-    "at": 20.466,
+    "at": 26.7,
     "part": "stop"
    }
-  ],
-  "then": {
-   "file": "ai/elevator-bossa/elevator-bossa-01.ogg",
-   "from": 29.3,
-   "gain": 0.3
-  }
+  ]
  },
  "sound": {
   "sfx": 0.65,
   "ambience": 0.06,
   "guard": true,
-  "surface": "concrete",
+  "surface": "wood",
   "room": "street",
   "signature": {
    "entrances": false
@@ -109,8 +132,8 @@
  },
  "creative": {
   "length": [
-   32.8,
-   32.8
+   31.3,
+   31.3
   ]
  },
  "hook": {
@@ -122,14 +145,14 @@
    "bagM"
   ],
   "hint": 0,
-  "what": "three masked potatoes high-five over open money bags in a back alley, a bank alarm ringing"
+  "what": "three masked potatoes high-five over open money bags in a dark house hall, a bank alarm ringing"
  },
  "cast": [
   {
    "id": "vik",
    "character": "duo/viking",
    "at": [
-    -1.15,
+    0,
     -1.15
    ],
    "face": 12,
@@ -141,7 +164,7 @@
    "id": "phx",
    "character": "duo/phoenix",
    "at": [
-    -2.07,
+    -0.92,
     -0.4
    ],
    "face": 16,
@@ -153,7 +176,7 @@
    "id": "rea",
    "character": "never-has-money/reaper",
    "at": [
-    -0.27,
+    0.88,
     -0.4
    ],
    "face": -16,
@@ -202,39 +225,34 @@
   {
    "id": "crateL",
    "kind": "producecrate",
-   "x": -2.1,
-   "z": 0.45,
-   "w": 0.9,
-   "d": 0.5,
-   "h": 0.34,
-   "fill": "carrots"
-  },
-  {
-   "id": "crateM",
-   "kind": "producecrate",
-   "x": -1.15,
+   "x": -0.92,
    "z": 0.45,
    "w": 0.9,
    "d": 0.5,
    "h": 0.34
   },
   {
-   "id": "bin",
-   "kind": "spudbin",
-   "x": -0.17,
+   "id": "crateM",
+   "kind": "producecrate",
+   "x": 0,
    "z": 0.45,
-   "w": 1,
-   "d": 0.55,
-   "h": 0.28,
-   "tagX": 0,
-   "crook": -18,
-   "look": 0,
-   "seed": 7
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.34
+  },
+  {
+   "id": "crateR",
+   "kind": "producecrate",
+   "x": 0.92,
+   "z": 0.45,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.34
   },
   {
    "id": "bagL",
    "kind": "moneybag",
-   "x": -1.87,
+   "x": -0.72,
    "z": 1.02,
    "rot": 14,
    "open": true
@@ -242,7 +260,7 @@
   {
    "id": "bagM",
    "kind": "moneybag",
-   "x": -0.77,
+   "x": 0.38,
    "z": 1.06,
    "rot": -10,
    "open": true
@@ -250,7 +268,7 @@
   {
    "id": "bagR",
    "kind": "moneybag",
-   "x": -0.38,
+   "x": 0.77,
    "y": 0.2,
    "z": -0.015,
    "rot": 164,
@@ -259,7 +277,7 @@
   {
    "id": "shield",
    "kind": "producecrate",
-   "x": -1.15,
+   "x": 0,
    "z": -0.7,
    "w": 0.5,
    "d": 0.36,
@@ -270,53 +288,44 @@
   {
    "id": "washL",
    "kind": "sirenwash",
-   "x": -2.6,
-   "y": 0.4,
-   "z": -2.5,
-   "rot": 55,
-   "w": 5,
-   "h": 4,
+   "x": -1.37,
+   "y": 0.3,
+   "z": -1.2,
+   "rot": 90,
+   "w": 4.5,
+   "h": 2.2,
    "on": 0
   },
   {
    "id": "washR",
    "kind": "sirenwash",
-   "x": 2.6,
-   "y": 0.4,
-   "z": -2.5,
-   "rot": -55,
-   "w": 5,
-   "h": 4,
+   "x": 1.37,
+   "y": 0.3,
+   "z": -1.2,
+   "rot": -90,
+   "w": 4.5,
+   "h": 2.2,
    "on": 0
   },
   {
    "id": "washG",
    "kind": "sirenwash",
-   "x": -1.15,
-   "z": 1.2,
-   "w": 5,
-   "h": 3.5,
+   "x": -0.3,
+   "z": 1.6,
+   "w": 2.4,
+   "h": 2.4,
    "flat": true,
    "on": 0
   },
   {
    "id": "pool",
    "kind": "lightpool",
-   "x": -3.75,
+   "x": -1.45,
    "y": 0.2,
    "z": 0.72,
    "w": 1.1,
    "d": 0.6,
    "face": "z",
-   "on": 0
-  },
-  {
-   "id": "shadow",
-   "kind": "copshadow",
-   "x": -1.55,
-   "z": 3.6,
-   "len": 2.6,
-   "w": 1.1,
    "on": 0
   },
   {
@@ -796,37 +805,6 @@
    "scale": 0.001
   },
   {
-   "id": "carY",
-   "kind": "policecar",
-   "x": 2.7,
-   "z": -3.6,
-   "rot": 0,
-   "lights": 0,
-   "scale": 0.001,
-   "y": -30
-  },
-  {
-   "id": "fireY",
-   "kind": "firesmoke",
-   "x": 2,
-   "y": -30,
-   "z": -2,
-   "w": 2.6,
-   "h": 4.6,
-   "fire": 0,
-   "scale": 0.001
-  },
-  {
-   "id": "van",
-   "kind": "policevan",
-   "x": 0,
-   "z": -2.4,
-   "open": 1,
-   "lights": 0,
-   "scale": 0.001,
-   "y": -30
-  },
-  {
    "id": "roofL",
    "kind": "roofblock",
    "x": -2.35,
@@ -886,21 +864,11 @@
    "kind": "sandpit",
    "x": 0,
    "y": -30,
-   "z": 0.5,
-   "w": 3.4,
-   "d": 2.4,
+   "z": 0.2,
+   "w": 5.6,
+   "d": 3.4,
    "h": 0.1,
    "color": "#f0dfb0",
-   "scale": 0.001
-  },
-  {
-   "id": "lounger",
-   "kind": "deckchair",
-   "x": 0,
-   "z": 0.5,
-   "rot": 0,
-   "color": "#f4f0e6",
-   "stripe": "#e2483a",
    "scale": 0.001
   },
   {
@@ -917,16 +885,6 @@
    ],
    "r": 6,
    "staged": "gulls circling in the sky",
-   "scale": 0.001
-  },
-  {
-   "id": "gull",
-   "kind": "pigeon",
-   "wear": "rea",
-   "x": 0.05,
-   "y": 1.24,
-   "z": 0.02,
-   "happy": 1,
    "scale": 0.001
   }
  ],
@@ -979,61 +937,40 @@
   },
   {
    "from": 11.3,
-   "to": 12.966,
+   "to": 13.466,
    "text": "Fight lasted four seconds.",
    "pos": 520,
    "pop": false
   },
   {
-   "from": 13.016,
-   "to": 13.8,
-   "text": "One down.",
-   "pos": 520,
-   "pop": false
-  },
-  {
-   "from": 16.88,
-   "to": 17.83,
-   "text": "Lost them!",
-   "pos": 480,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 17.8,
-   "to": 20.466,
-   "text": "Flight was fast. In a circle.",
-   "pos": 520,
-   "pop": false
-  },
-  {
-   "from": 20.516,
-   "to": 21.366,
-   "text": "Two down.",
-   "pos": 520,
-   "pop": false
-  },
-  {
-   "from": 21.366,
-   "to": 23.8,
-   "text": "Which leaves the one who did nothing.",
-   "pos": 520,
-   "pop": false
-  },
-  {
-   "from": 27.666,
-   "to": 29.166,
-   "text": "Nothing here. Just potatoes.",
+   "from": 14.066,
+   "to": 15.116,
+   "text": "They're in here.",
    "pos": 560,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 29.6,
-   "to": 32.8,
-   "text": "Viking: 8 years.",
+   "from": 16.55,
+   "to": 17.85,
+   "text": "He's running! After him!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 18.8,
+   "to": 21.3,
+   "text": "Everyone chased Flight.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 22.3,
+   "to": 23.7,
+   "text": "Three days later.",
    "pos": 480,
    "pop": true,
    "size": 58,
@@ -1041,30 +978,24 @@
    "style": "label"
   },
   {
-   "from": 30.2,
-   "to": 32.8,
-   "text": "Phoenix: 8 years.",
-   "pos": 570,
-   "pop": true,
-   "size": 58,
-   "kinetic": false,
-   "style": "label"
+   "from": 24.15,
+   "to": 26.7,
+   "text": "Flight lasted three days.",
+   "pos": 520,
+   "pop": false
   },
   {
-   "from": 30.8,
-   "to": 32.8,
-   "text": "Reaper: still hasn't moved.",
-   "pos": 660,
-   "pop": true,
-   "size": 58,
-   "kinetic": false,
-   "style": "label"
+   "from": 27,
+   "to": 29.8,
+   "text": "Nobody ever searched the house.",
+   "pos": 520,
+   "pop": false
   },
   {
-   "from": 31.42,
-   "to": 32.8,
+   "from": 29.82,
+   "to": 31.3,
    "text": "Which one are you?",
-   "pos": 750,
+   "pos": 520,
    "pop": false
   }
  ],
@@ -1075,12 +1006,12 @@
    "len": 2.866,
    "shot": {
     "pos": [
-     -1.09,
+     0.06,
      0.95,
      5.3
     ],
     "look": [
-     -1.09,
+     0.06,
      1.172,
      -4.698
     ],
@@ -1319,16 +1250,6 @@
     },
     {
      "who": "sam",
-     "do": "noblink",
-     "at": 0
-    },
-    {
-     "who": "god",
-     "do": "noblink",
-     "at": 0
-    },
-    {
-     "who": "dra",
      "do": "noblink",
      "at": 0
     },
@@ -1645,7 +1566,7 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -1.81,
+      -0.66,
       -0.4
      ],
      "y": -0.18,
@@ -1672,7 +1593,7 @@
      "who": "vik",
      "do": "move",
      "to": [
-      -1.15,
+      0,
       -1.15
      ],
      "y": -0.18,
@@ -1698,7 +1619,7 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -0.25,
+      0.66,
       -0.4
      ],
      "y": -0.18,
@@ -1720,7 +1641,7 @@
       ],
       "palm": true,
       "at": [
-       -0.341,
+       0.569,
        0.02,
        -0.083
       ]
@@ -1742,7 +1663,7 @@
       ],
       "palm": true,
       "at": [
-       -0.341,
+       0.569,
        0.02,
        -0.083
       ]
@@ -1777,7 +1698,7 @@
     },
     {
      "do": "prop",
-     "id": "bin",
+     "id": "crateR",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1862,18 +1783,6 @@
     {
      "do": "prop",
      "id": "pool",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.846
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -2173,16 +2082,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "on": 1
-     },
-     "dur": 0.25,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
      "sfx": "step",
      "gain": 0.5,
      "reason": "the officer's boot on the cobbles",
@@ -2222,7 +2121,7 @@
      "do": "prop",
      "id": "pool",
      "set": {
-      "on": 1
+      "on": 0.7
      },
      "dur": 0.2,
      "ease": "inOut",
@@ -2232,7 +2131,7 @@
      "do": "prop",
      "id": "pool",
      "set": {
-      "x": -2.85
+      "x": -1.15
      },
      "dur": 0.6,
      "ease": "inOut",
@@ -2321,7 +2220,7 @@
     },
     {
      "do": "prop",
-     "id": "bin",
+     "id": "crateR",
      "set": {
       "scale": 1,
       "y": 0
@@ -2372,7 +2271,7 @@
      "id": "washL",
      "set": {
       "scale": 1,
-      "y": 0.4
+      "y": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2384,7 +2283,7 @@
      "id": "washR",
      "set": {
       "scale": 1,
-      "y": 0.4
+      "y": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2409,18 +2308,6 @@
      "set": {
       "scale": 1,
       "y": 0.2
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.78
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "scale": 1,
-      "y": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2618,12 +2505,12 @@
    "len": 0.634,
    "shot": {
     "pos": [
-     -1.15,
+     0,
      0.6,
      3
     ],
     "look": [
-     -1.15,
+     0,
      0.822,
      -6.998
     ],
@@ -2674,7 +2561,7 @@
      "who": "vik",
      "do": "move",
      "to": [
-      -1.15,
+      0,
       -1.15
      ],
      "y": 0,
@@ -2750,12 +2637,12 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     -1.15,
+     0,
      0.8,
      1.85
     ],
     "look": [
-     -1.15,
+     0,
      1.022,
      -8.148
     ],
@@ -2842,7 +2729,7 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -1.81,
+      -0.66,
       -0.4
      ],
      "y": 0,
@@ -2885,12 +2772,12 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     -1.81,
+     -0.66,
      0.8,
      2.6
     ],
     "look": [
-     -1.81,
+     -0.66,
      1.022,
      -7.398
     ],
@@ -2977,26 +2864,6 @@
     },
     {
      "who": "rea",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.1,
-     "at": 0.52
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      -0.25,
-      -0.4
-     ],
-     "y": 0,
-     "dur": 0.1,
-     "steps": 0,
-     "ease": "out",
-     "at": 0.52
-    },
-    {
-     "who": "rea",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -3008,9 +2875,9 @@
       ],
       "palm": true,
       "at": [
-       -0.25,
-       0.04,
-       -0.04
+       0.66,
+       0.02,
+       -0.07
       ]
      },
      "dur": 0.12,
@@ -3030,9 +2897,9 @@
       ],
       "palm": true,
       "at": [
-       -0.25,
-       0.04,
-       -0.04
+       0.66,
+       0.02,
+       -0.07
       ]
      },
      "dur": 0.12,
@@ -3064,14 +2931,14 @@
    "len": 0.866,
    "shot": {
     "pos": [
-     -0.25,
-     0.8,
+     0.66,
+     1.05,
      2.6
     ],
     "look": [
-     -0.25,
-     1.022,
-     -7.398
+     0.66,
+     -0.64,
+     -7.256
     ],
     "fov": 34
    },
@@ -3130,7 +2997,7 @@
     {
      "who": "rea",
      "do": "still",
-     "dur": 28.3,
+     "dur": 21.7,
      "idle": 0,
      "at": 0.1
     },
@@ -3173,12 +3040,12 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     -1.15,
+     0,
      0.9,
      4.3
     ],
     "look": [
-     -1.15,
+     0,
      1.122,
      -5.698
     ],
@@ -3189,17 +3056,7 @@
      "do": "prop",
      "id": "pool",
      "set": {
-      "x": -1.9
-     },
-     "dur": 0.9,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "z": 1.75
+      "x": -0.95
      },
      "dur": 0.9,
      "ease": "inOut",
@@ -3240,7 +3097,7 @@
       ],
       "palm": true,
       "at": [
-       -1.15,
+       0,
        0,
        -0.7
       ]
@@ -3262,7 +3119,7 @@
       ],
       "palm": true,
       "at": [
-       -1.15,
+       0,
        0,
        -0.7
       ]
@@ -3300,7 +3157,7 @@
       ],
       "palm": true,
       "at": [
-       -1.15,
+       0,
        1.12,
        -0.72
       ]
@@ -3322,7 +3179,7 @@
       ],
       "palm": true,
       "at": [
-       -1.15,
+       0,
        1.12,
        -0.72
       ]
@@ -3353,12 +3210,12 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     -1.15,
+     0,
      0.9,
      4.3
     ],
     "look": [
-     -1.15,
+     0,
      1.122,
      -5.698
     ],
@@ -3423,7 +3280,7 @@
     },
     {
      "do": "prop",
-     "id": "bin",
+     "id": "crateR",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -3508,18 +3365,6 @@
     {
      "do": "prop",
      "id": "pool",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.58
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -5265,7 +5110,7 @@
   {
    "name": "6 fighting works",
    "at": 10.066,
-   "len": 2.9,
+   "len": 3.4,
    "shot": {
     "pos": [
      0,
@@ -5722,7 +5567,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5734,11 +5579,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
-     "id": "bin",
+     "id": "crateR",
      "set": {
       "scale": 1,
       "y": 0
@@ -5746,7 +5591,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5758,7 +5603,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5770,7 +5615,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5782,7 +5627,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5794,31 +5639,31 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
      "id": "washL",
      "set": {
       "scale": 1,
-      "y": 0.4
+      "y": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
      "id": "washR",
      "set": {
       "scale": 1,
-      "y": 0.4
+      "y": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5830,7 +5675,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5842,19 +5687,18 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
-     "id": "shadow",
+     "id": "torch2",
      "set": {
-      "scale": 1,
-      "y": 0
+      "scale": 1
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5865,7 +5709,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5876,7 +5720,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5888,7 +5732,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5900,7 +5744,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5912,7 +5756,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5924,7 +5768,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5936,7 +5780,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5948,7 +5792,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5960,7 +5804,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5972,7 +5816,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5983,7 +5827,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -5995,7 +5839,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -6007,7 +5851,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "do": "prop",
@@ -6019,62 +5863,90 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.88
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      -1.81,
-      -0.4
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.88
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 16,
-     "dur": 0.01,
-     "at": 2.88
-    },
-    {
-     "who": "phx",
-     "do": "show",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "who": "rea",
      "do": "move",
      "to": [
-      -0.25,
+      0.66,
       -0.4
      ],
-     "y": 0,
+     "y": -0.18,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 0,
      "dur": 0.01,
-     "at": 2.88
+     "at": 3.38
     },
     {
      "who": "rea",
      "do": "show",
-     "at": 2.88
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.38
     },
     {
      "who": "vik",
      "do": "hide",
-     "at": 2.88
+     "at": 3.38
     },
     {
      "who": "vik",
@@ -6087,12 +5959,650 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.88
+     "at": 3.38
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -2.4,
+      1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0,
+       0.35,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 3.391
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 3.391
+    }
+   ]
+  },
+  {
+   "name": "7 they are in here",
+   "at": 13.466,
+   "len": 1.334,
+   "shot": {
+    "pos": [
+     0.95,
+     1.25,
+     -2.9
+    ],
+    "look": [
+     -0.7,
+     0.72,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.55,
+      1.95
+     ],
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "step",
+     "gain": 0.6,
+     "reason": "the officer's boots on the hall's boards",
+     "at": 0.05
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "sfx": "step",
+     "gain": 0.6,
+     "reason": "the officer's boots on the hall's boards",
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "sam",
+     "do": "talk",
+     "line": "they're in here.",
+     "tone": "calm",
+     "dur": 0.65,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.9,
+      3.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.314
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.01,
+     "at": 1.314
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.314
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "x": -1.45,
+      "on": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.314
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 1.314
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.314
+    }
+   ]
+  },
+  {
+   "name": "7 the beam",
+   "at": 14.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     0,
+     0.62,
+     3.4
+    ],
+    "look": [
+     0,
+     0.842,
+     -6.598
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "x": -0.71
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.4
+     ],
+     "dur": 0.85,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.85,
+     "reason": "Phoenix's heart as the light comes closer",
+     "at": 0.15
+    },
+    {
+     "fx": "sweat",
+     "who": "phx",
+     "dur": 0.8,
+     "count": 4,
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.85,
+     "reason": "Phoenix's heart as the light comes closer",
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.98
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.98
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 0.98
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.55,
+      1.95
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "7 phoenix bolts",
+   "at": 16,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     0.95,
+     1.25,
+     -2.9
+    ],
+    "look": [
+     -0.7,
+     0.72,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -0.75,
+      "y": 1.3,
+      "z": 0.85
+     },
+     "dur": 0.24,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "sfx": "rocket",
+     "gain": 0.5,
+     "dur": 0.5,
+     "reason": "Phoenix bursting out of the hiding place",
+     "at": 0.12
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.16
+    },
+    {
+     "who": "sam",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.16
+    },
+    {
+     "who": "sam",
+     "do": "still",
+     "dur": 0.45,
+     "idle": 0.08,
+     "at": 0.16
+    },
+    {
+     "who": "sam",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.22,
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -2.6,
+      "y": 1,
+      "z": 2
+     },
+     "dur": 0.26,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 222,
+     "dur": 0.22,
+     "at": 0.42
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "sam",
+     "do": "talk",
+     "line": "he's running! after him!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.62
+    },
+    {
+     "sfx": "sirenwail",
+     "dur": 3.2,
+     "gain": 0.55,
+     "reason": "every siren pulling away after Phoenix",
+     "at": 1.2
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 270,
+     "dur": 0.12,
+     "at": 1.4
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -2.4,
+      1.7
+     ],
+     "dur": 0.42,
+     "ease": "in",
+     "stride": 1.5,
+     "at": 1.5
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.5,
+     "reason": "the patrol cars tearing off",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "torch2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.08
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.08
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 2.08
     },
     {
      "who": "sam",
      "do": "hide",
-     "at": 2.88
+     "at": 2.08
     },
     {
      "who": "sam",
@@ -6105,79 +6615,124 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 2.88
+     "at": 2.08
     },
     {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0.6,
-      -0.1
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 2.88
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 2.091
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 2.091
     }
    ]
   },
   {
-   "name": "7 phoenix bolts",
-   "at": 12.966,
-   "len": 0.834,
+   "name": "8 left behind",
+   "at": 18.1,
+   "len": 1.5,
    "shot": {
     "pos": [
-     -1.15,
-     0.9,
-     4.3
+     0.3,
+     0.85,
+     4.1
     ],
     "look": [
-     -1.15,
-     1.122,
-     -5.698
+     0.3,
+     1.072,
+     -5.898
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.5,
+      0.7,
+      3.2
+     ],
+     "look": [
+      0.5,
+      0.922,
+      -6.798
+     ],
+     "fov": 46
+    },
+    "dur": 1.5,
+    "ease": "linear"
    },
    "do": [
     {
-     "who": "phx",
-     "do": "expr",
-     "expr": "terrified",
-     "dur": 0.15,
-     "at": 0
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "on": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "on": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "on": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "macro": "narrate",
-     "line": "One down.",
+     "line": "Everyone chased Flight.",
      "voice": "narrator",
      "caption": false,
      "gain": 4,
-     "at": 0.05
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 150,
-     "dur": 0.18,
-     "at": 0.3
-    },
-    {
-     "who": "phx",
-     "do": "fly",
-     "to": {
-      "x": -2.75,
-      "y": 4.6,
-      "z": -5.5
-     },
-     "dur": 0.34,
-     "ease": "in",
-     "at": 0.38
-    },
-    {
-     "sfx": "rocket",
-     "gain": 0.5,
-     "dur": 0.5,
-     "reason": "Phoenix taking off, a trail of fire",
-     "at": 0.38
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -6189,7 +6744,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6201,11 +6756,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
-     "id": "bin",
+     "id": "crateR",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -6213,7 +6768,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6225,7 +6780,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6237,7 +6792,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6249,7 +6804,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6261,7 +6816,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6273,7 +6828,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6285,7 +6840,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6297,19 +6852,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6321,7 +6864,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6333,7 +6876,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "who": "phx",
@@ -6346,24 +6889,24 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "who": "phx",
      "do": "turn",
      "to": 0,
      "dur": 0.01,
-     "at": 0.814
+     "at": 1.48
     },
     {
      "who": "phx",
      "do": "show",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "who": "rea",
      "do": "hide",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "who": "rea",
@@ -6376,7 +6919,39 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 0.814
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -1.5,
+      -14.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6388,7 +6963,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.814
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -6400,13 +6975,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.814
+     "at": 1.48
     }
    ]
   },
   {
-   "name": "7 the rooftops",
-   "at": 13.8,
+   "name": "9 the rooftops",
+   "at": 19.6,
    "len": 1.1,
    "shot": {
     "pos": [
@@ -6459,6 +7034,18 @@
      "at": 0
     },
     {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -1.3,
+      -4
+     ],
+     "dur": 1.1,
+     "ease": "linear",
+     "stride": 1.9,
+     "at": 0
+    },
+    {
      "do": "prop",
      "id": "spot",
      "set": {
@@ -6479,12 +7066,6 @@
      "dur": 1.1,
      "ease": "in",
      "at": 0
-    },
-    {
-     "who": "phx",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.1
     },
     {
      "who": "phx",
@@ -6530,6 +7111,24 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.08
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 1.08
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
      "at": 1.08
     },
     {
@@ -6583,8 +7182,8 @@
    ]
   },
   {
-   "name": "7 the leap",
-   "at": 14.9,
+   "name": "9 the leap",
+   "at": 20.7,
    "len": 1.5,
    "shot": {
     "pos": [
@@ -6666,9 +7265,9 @@
     {
      "who": "phx",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "terrified",
      "set": {
-      "open": 0.7
+      "open": 0.6
      },
      "dur": 0.15,
      "at": 0.25
@@ -6714,17 +7313,6 @@
      "ease": "linear",
      "steps": 0,
      "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "netwrap",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.48
     },
     {
      "do": "prop",
@@ -6775,1589 +7363,16 @@
      "at": 1.48
     },
     {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      0,
-      0.4
-     ],
-     "y": 2,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.48
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.01,
-     "at": 1.48
-    },
-    {
-     "who": "phx",
-     "do": "show",
-     "at": 1.48
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "both",
-     "pose": {
-      "o": [
-       0.3,
-       0.8,
-       0.05
-      ]
-     },
-     "dur": 0.01,
-     "at": 1.48
-    }
-   ],
-   "kind": "escalation"
-  },
-  {
-   "name": "7 lost them",
-   "at": 16.4,
-   "len": 1.3,
-   "shot": {
-    "pos": [
-     0,
-     0.95,
-     4.2
-    ],
-    "look": [
-     0,
-     1.369,
-     -5.791
-    ],
-    "fov": 36
-   },
-   "do": [
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      0,
-      0.4
-     ],
-     "y": 0,
-     "dur": 0.3,
-     "ease": "linear",
-     "steps": 0,
-     "at": 0
-    },
-    {
-     "who": "phx",
-     "do": "arm",
-     "side": "both",
-     "pose": "rest",
-     "dur": 0.3,
-     "ease": "settle",
-     "at": 0.3
-    },
-    {
-     "sfx": "land",
-     "gain": 0.6,
-     "reason": "Phoenix dropping into a street",
-     "at": 0.3
-    },
-    {
-     "fx": "poof",
-     "pos": [
-      0,
-      0.02,
-      0.55
-     ],
-     "dur": 0.45,
-     "color": "#e9d8c0",
-     "puffs": 8,
-     "sparks": 0,
-     "size": 0.4,
-     "lift": 0.06,
-     "at": 0.3
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      -0.6,
-      0.7
-     ],
-     "dur": 0.08,
-     "blink": false,
-     "at": 0.32
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "delighted",
-     "set": {
-      "curve": 0.75
-     },
-     "dur": 0.15,
-     "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "talk",
-     "line": "lost them!",
-     "tone": "excited",
-     "dur": 0.55,
-     "blink": false,
-     "at": 0.48
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0,
-      0.05
-     ],
-     "dur": 0.08,
-     "blink": false,
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "carY",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.28
-    },
-    {
-     "do": "prop",
-     "id": "fireY",
-     "set": {
-      "scale": 1,
-      "y": 0.7
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.28
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.28
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "lights": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 1.28
-    },
-    {
-     "do": "prop",
-     "id": "fireY",
-     "set": {
-      "fire": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 1.28
-    },
-    {
-     "who": "god",
-     "do": "move",
-     "to": [
-      -1.15,
-      -1
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.28
-    },
-    {
-     "who": "god",
-     "do": "turn",
-     "to": 50,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "god",
-     "do": "show",
-     "at": 1.28
-    },
-    {
-     "who": "dra",
-     "do": "move",
-     "to": [
-      1.15,
-      -1
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.28
-    },
-    {
-     "who": "dra",
-     "do": "turn",
-     "to": -50,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "dra",
-     "do": "show",
-     "at": 1.28
-    },
-    {
-     "who": "god",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "god",
-     "do": "expr",
-     "expr": "stern",
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "dra",
-     "do": "pitch",
-     "to": 0,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "stern",
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "vik",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      -0.5,
-      -3.4
-     ],
-     "y": 0.45,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.28
-    },
-    {
-     "who": "vik",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.01,
-     "at": 1.28
-    },
-    {
-     "who": "vik",
-     "do": "show",
-     "at": 1.28
-    },
-    {
-     "who": "vik",
-     "do": "expr",
-     "expr": "deadpan",
-     "dur": 0.01,
-     "at": 1.28
-    }
-   ]
-  },
-  {
-   "name": "7 the van",
-   "at": 17.7,
-   "len": 2.766,
-   "shot": {
-    "pos": [
-     0,
-     1.25,
-     7
-    ],
-    "look": [
-     0,
-     1.407,
-     -2.999
-    ],
-    "fov": 46
-   },
-   "do": [
-    {
-     "who": "god",
-     "do": "look",
-     "to": [
-      0.6,
-      0
-     ],
-     "dur": 0,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "who": "dra",
-     "do": "look",
-     "to": [
-      -0.6,
-      0
-     ],
-     "dur": 0,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "sfx": "sirenwail",
-     "dur": 0.5,
-     "gain": 0.7,
-     "reason": "one whoop of the siren right behind him",
-     "at": 0.05
-    },
-    {
-     "macro": "narrate",
-     "line": "Flight was fast. In a circle.",
-     "voice": "narrator",
-     "caption": false,
-     "gain": 4,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "worried",
-     "dur": 0.15,
-     "at": 0.1
-    },
-    {
-     "who": "phx",
-     "do": "look",
-     "to": [
-      0.85,
-      0
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.12
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 180,
-     "dur": 0.3,
-     "at": 0.45
-    },
-    {
-     "who": "phx",
-     "do": "wings",
-     "to": 1,
-     "dur": 0.1,
-     "at": 0.75
-    },
-    {
-     "who": "phx",
-     "do": "hop",
-     "height": 0.12,
-     "dur": 0.2,
-     "at": 0.75
-    },
-    {
-     "who": "god",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.45,
-       0.55,
-       0
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.75
-    },
-    {
-     "who": "phx",
-     "do": "wings",
-     "to": 0,
-     "dur": 0.3,
-     "at": 1.05
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      0.45,
-      -1.95
-     ],
-     "dur": 0.6,
-     "at": 1.1
-    },
-    {
-     "who": "god",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.5
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      0.45,
-      -3.05
-     ],
-     "y": 0.45,
-     "dur": 0.2,
-     "ease": "linear",
-     "steps": 0,
-     "at": 1.7
-    },
-    {
-     "who": "dra",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.7
-    },
-    {
-     "sfx": "hit-metal",
-     "gain": 0.7,
-     "reason": "Phoenix's feet on the van's metal floor",
-     "at": 1.9
-    },
-    {
-     "who": "phx",
-     "do": "expr",
-     "expr": "sad",
-     "dur": 0.2,
-     "at": 1.9
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.3,
-     "at": 1.92
-    },
-    {
-     "who": "god",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 1.95
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "open": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 2.26
-    },
-    {
-     "who": "phx",
-     "do": "hide",
-     "at": 2.39
-    },
-    {
-     "who": "phx",
-     "do": "move",
-     "to": [
-      43,
-      40
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.39
-    },
-    {
-     "who": "vik",
-     "do": "hide",
-     "at": 2.39
-    },
-    {
-     "who": "vik",
-     "do": "move",
-     "to": [
-      40,
-      40
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.39
-    },
-    {
-     "sfx": "slam",
-     "gain": 0.95,
-     "reason": "the van's doors",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "rock": 3
-     },
-     "dur": 0.1,
-     "ease": "out",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "rock": -2
-     },
-     "dur": 0.14,
-     "ease": "inOut",
-     "at": 2.5
-    },
-    {
-     "who": "god",
-     "do": "expr",
-     "expr": "smug",
-     "dur": 0.2,
-     "at": 2.5
-    },
-    {
-     "who": "dra",
-     "do": "expr",
-     "expr": "smug",
-     "dur": 0.2,
-     "at": 2.5
-    },
-    {
-     "sfx": "latch",
-     "gain": 0.7,
-     "reason": "the bolt",
-     "at": 2.52
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "rock": 0
-     },
-     "dur": 0.1,
-     "ease": "settle",
-     "at": 2.64
-    },
-    {
-     "do": "prop",
-     "id": "crateL",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "crateM",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "bagR",
-     "set": {
-      "scale": 1,
-      "y": 0.2
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "washL",
-     "set": {
-      "scale": 1,
-      "y": 0.4
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "washR",
-     "set": {
-      "scale": 1,
-      "y": 0.4
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "washG",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "scale": 1,
-      "y": 0.2
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "scale": 1,
-      "y": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "netwrap",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "carY",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "fireY",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "van",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.746
-    },
-    {
-     "who": "rea",
-     "do": "move",
-     "to": [
-      -0.25,
-      -0.4
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.746
-    },
-    {
-     "who": "rea",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.01,
-     "at": 2.746
-    },
-    {
-     "who": "rea",
-     "do": "show",
-     "at": 2.746
-    },
-    {
-     "who": "god",
-     "do": "hide",
-     "at": 2.746
-    },
-    {
-     "who": "god",
-     "do": "move",
-     "to": [
-      43,
-      44
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.746
-    },
-    {
-     "who": "dra",
-     "do": "hide",
-     "at": 2.746
-    },
-    {
-     "who": "dra",
-     "do": "move",
-     "to": [
-      46,
-      44
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "x": 1.9,
-      "y": 0.2,
-      "on": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.746
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.746
-    }
-   ]
-  },
-  {
-   "name": "8 the one who did nothing",
-   "at": 20.466,
-   "len": 3.334,
-   "shot": {
-    "pos": [
-     -0.2,
-     0.9,
-     4.9
-    ],
-    "look": [
-     -0.2,
-     1.122,
-     -5.098
-    ],
-    "fov": 46,
-    "to": {
-     "pos": [
-      -0.2,
-      0.85,
-      4
-     ],
-     "look": [
-      -0.2,
-      1.072,
-      -5.998
-     ],
-     "fov": 46
-    },
-    "dur": 3.334,
-    "ease": "linear"
-   },
-   "do": [
-    {
-     "sfx": "sirenwail",
-     "dur": 8.5,
-     "gain": 0.4,
-     "reason": "sirens, further off now",
-     "at": 0
-    },
-    {
-     "macro": "narrate",
-     "line": "Two down.",
-     "voice": "narrator",
-     "caption": false,
-     "gain": 4,
-     "at": 0.05
-    },
-    {
-     "macro": "narrate",
-     "line": "Which leaves the one who did nothing.",
-     "voice": "narrator",
-     "caption": false,
-     "gain": 4,
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "look": -1
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "on": 0.7
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "x": 0.9
-     },
-     "dur": 1.734,
-     "ease": "inOut",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 1
-     },
-     "dur": 0.08,
-     "ease": "inOut",
-     "at": 1.7
-    },
-    {
-     "sfx": "step",
-     "gain": 0.552,
-     "reason": "the officer's boots coming down the alley",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 0
-     },
-     "dur": 0.08,
-     "ease": "inOut",
-     "at": 1.82
-    },
-    {
-     "sfx": "step",
-     "gain": 0.588,
-     "reason": "the officer's boots coming down the alley",
-     "at": 2.3
-    },
-    {
-     "sfx": "step",
-     "gain": 0.624,
-     "reason": "the officer's boots coming down the alley",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "look": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.314
-    }
-   ]
-  },
-  {
-   "name": "8 in the potatoes",
-   "at": 23.8,
-   "len": 2,
-   "shot": {
-    "pos": [
-     -0.05,
-     0.95,
-     2.8
-    ],
-    "look": [
-     -0.05,
-     -0.567,
-     -7.084
-    ],
-    "fov": 36
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 1
-     },
-     "dur": 0.08,
-     "ease": "inOut",
-     "at": 0.15
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 0
-     },
-     "dur": 0.08,
-     "ease": "inOut",
-     "at": 0.27
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "shh": 1
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "fx": "pop",
-     "text": "Shh!",
-     "who": "rea",
-     "size": 78,
-     "dur": 0.85,
-     "angle": 6,
-     "dx": 0.9,
-     "dy": 0.95,
-     "color": "#ffffff",
-     "at": 0.3
-    },
-    {
-     "sfx": "hiss",
-     "gain": 0.35,
-     "dur": 0.5,
-     "reason": "a potato in the bin whispering shh",
-     "at": 0.35
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "x": 0.7,
-      "y": 0.3,
-      "z": 0.775,
-      "w": 0.9,
-      "d": 0.5
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.88
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "on": 0.45
-     },
-     "dur": 0.15,
-     "ease": "inOut",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "x": -0.2,
-      "y": 0.52
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "look": 1
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "shh": 0
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 1
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.8,
-     "reason": "Reaper's heart, the only thing moving",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 1
-     },
-     "dur": 0.1,
-     "ease": "inOut",
-     "at": 1.5
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.8,
-     "reason": "Reaper's heart, the only thing moving",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "torch2",
-     "set": {
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "move",
-     "to": [
-      2.5,
-      0.45
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "turn",
-     "to": -68,
-     "dur": 0.01,
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "show",
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0,
-       0.35,
-       0.25
-      ]
-     },
-     "dur": 0.01,
-     "at": 1.98
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "R",
-     "shape": "fist",
-     "dur": 0.01,
-     "at": 1.98
-    }
-   ]
-  },
-  {
-   "name": "8 the price tag",
-   "at": 25.8,
-   "len": 3.5,
-   "shot": {
-    "pos": [
-     0.25,
-     0.8,
-     4.6
-    ],
-    "look": [
-     0.25,
-     0.848,
-     -5.4
-    ],
-    "fov": 46
-   },
-   "do": [
-    {
-     "who": "sam",
-     "do": "move",
-     "to": [
-      0.9,
-      0.45
-     ],
-     "dur": 0.5,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "who": "sam",
-     "do": "look",
-     "to": [
-      -0.3,
-      -0.1
-     ],
-     "dur": 0,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "who": "sam",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.35
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0,
-       0.6,
-       0.3
-      ]
-     },
-     "dur": 0.26,
-     "ease": "out",
-     "at": 0.4
-    },
-    {
-     "who": "sam",
-     "do": "lean",
-     "to": 28,
-     "dur": 0.35,
-     "at": 0.45
-    },
-    {
-     "who": "sam",
-     "do": "expr",
-     "expr": "stern",
-     "set": {
-      "browY": -0.01
-     },
-     "dur": 0.15,
-     "at": 0.55
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.3,
-       0.45,
-       0.55
-      ]
-     },
-     "dur": 0.27,
-     "ease": "inOut",
-     "at": 0.68
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "blink": 0,
-      "look": 1
-     },
-     "dur": 0.12,
-     "ease": "inOut",
-     "at": 0.7
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.9,
-     "reason": "Reaper's heart as the glove comes for his face",
-     "at": 0.75
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.9,
-     "reason": "Reaper's heart as the glove comes for his face",
-     "at": 1.1
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       -0.15,
-       0.27,
-       0.52
-      ]
-     },
-     "dur": 0.18,
-     "ease": "inOut",
-     "at": 1.2
-    },
-    {
-     "who": "sam",
-     "do": "grip",
-     "side": "L",
-     "shape": "pinch",
-     "dur": 0.1,
-     "at": 1.25
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "crook": 0
-     },
-     "dur": 0.14,
-     "ease": "back",
-     "at": 1.4
-    },
-    {
-     "sfx": "tink",
-     "gain": 0.5,
-     "reason": "the price tag straightened",
-     "at": 1.44
-    },
-    {
-     "who": "sam",
-     "do": "expr",
-     "expr": "smug",
-     "dur": 0.2,
-     "at": 1.55
-    },
-    {
-     "who": "sam",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "ease": "settle",
-     "at": 1.65
-    },
-    {
-     "who": "sam",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.3,
-     "at": 1.65
-    },
-    {
-     "sfx": "radio",
-     "gain": 0.6,
-     "reason": "the officer's radio keying",
-     "at": 1.766
-    },
-    {
-     "who": "sam",
-     "do": "turn",
-     "to": -35,
-     "dur": 0.3,
-     "at": 1.766
-    },
-    {
-     "who": "sam",
-     "do": "talk",
-     "line": "nothing here. just potatoes.",
-     "tone": "calm",
-     "dur": 1.1,
-     "blink": false,
-     "at": 1.866
-    },
-    {
-     "who": "sam",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.866
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 2.066
-    },
-    {
-     "do": "prop",
-     "id": "washL",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.7,
-     "ease": "inOut",
-     "at": 2.666
-    },
-    {
-     "do": "prop",
-     "id": "washR",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.7,
-     "ease": "inOut",
-     "at": 2.666
-    },
-    {
-     "do": "prop",
-     "id": "washG",
-     "set": {
-      "on": 0
-     },
-     "dur": 0.7,
-     "ease": "inOut",
-     "at": 2.666
-    },
-    {
-     "who": "sam",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.25,
-     "at": 2.866
-    },
-    {
-     "who": "sam",
-     "do": "move",
-     "to": [
-      2.5,
-      0.45
-     ],
-     "dur": 0.55,
-     "ease": "in",
-     "at": 2.966
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "look": 0
-     },
-     "dur": 0.2,
-     "ease": "inOut",
-     "at": 3.016
-    },
-    {
-     "do": "prop",
-     "id": "crateL",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "crateM",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "bin",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "washL",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "washR",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "washG",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "pool",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "shadow",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "torch2",
-     "set": {
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
      "do": "prop",
      "id": "sand",
      "set": {
       "scale": 1,
-      "y": -0.13
+      "y": -0.07
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "lounger",
-     "set": {
-      "scale": 1.3
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
+     "at": 1.48
     },
     {
      "do": "prop",
@@ -8369,48 +7384,546 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
+     "at": 1.48
     },
     {
-     "do": "prop",
-     "id": "gull",
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.45,
+      0.5
+     ],
+     "y": 0.4,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": -90,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "serene",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.48
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "10 three days later",
+   "at": 22.2,
+   "len": 4.5,
+   "shot": {
+    "pos": [
+     0,
+     1.9,
+     6.8
+    ],
+    "look": [
+     0,
+     0.412,
+     -3.089
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "sfx": "waves",
+     "dur": 4.45,
+     "gain": 0.5,
+     "reason": "the sea",
+     "at": 0
+    },
+    {
+     "fx": "zzz",
+     "pos": [
+      0.6,
+      0.8,
+      0.6
+     ],
+     "dur": 1.4,
+     "count": 3,
+     "scale": 4.5,
+     "at": 0.2
+    },
+    {
+     "sfx": "gull",
+     "gain": 0.5,
+     "reason": "a gull over the beach",
+     "at": 0.3
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -2.9,
+      -0.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      2.9,
+      -0.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": -80,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "stern",
      "set": {
-      "scale": 1
+      "browY": -0.012
      },
      "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.48
+     "at": 1.48
     },
     {
-     "who": "rea",
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.48
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -1.05,
+      -0.35
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      1.1,
+      -0.35
+     ],
+     "dur": 0.55,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "boots in the sand, either side of him",
+     "at": 1.6
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "boots in the sand, either side of him",
+     "at": 1.8
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.25,
+     "at": 1.9
+    },
+    {
+     "macro": "narrate",
+     "line": "Flight lasted three days.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 1.95
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "boots in the sand, either side of him",
+     "at": 2
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.12,
+     "at": 2.2
+    },
+    {
+     "who": "phx",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.32
+    },
+    {
+     "who": "phx",
      "do": "move",
      "to": [
       0,
       0.5
      ],
      "y": 0,
+     "dur": 0.3,
+     "ease": "out",
+     "steps": 0,
+     "at": 2.32
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.2
+     },
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 3.45
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.55
+    },
+    {
+     "sfx": "cuffs",
+     "gain": 0.8,
+     "reason": "handcuffs",
+     "at": 4.15
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "sand",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "do": "prop",
+     "id": "gulls",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.48
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.48
     },
     {
      "who": "rea",
      "do": "turn",
      "to": 0,
      "dur": 0.01,
-     "at": 3.48
+     "at": 4.48
     },
     {
      "who": "rea",
      "do": "show",
-     "at": 3.48
+     "at": 4.48
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 4.48
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.48
     },
     {
      "who": "sam",
      "do": "hide",
-     "at": 3.48
+     "at": 4.48
     },
     {
      "who": "sam",
@@ -8423,22 +7936,25 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.48
     },
     {
-     "who": "rea",
-     "do": "lean",
-     "to": 0,
-     "dur": 0.01,
-     "at": 3.48
+     "who": "god",
+     "do": "hide",
+     "at": 4.48
     },
     {
-     "who": "rea",
-     "do": "sit",
-     "seat": "lounger",
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
      "dur": 0.01,
-     "hands": "keep",
-     "at": 3.48
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.48
     },
     {
      "who": "rea",
@@ -8453,14 +7969,14 @@
       ],
       "palm": true,
       "at": [
-       0,
-       0.28,
-       0.9
+       0.66,
+       0.02,
+       -0.07
       ]
      },
-     "dur": 0.01,
+     "dur": 0.008,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.491
     },
     {
      "who": "rea",
@@ -8475,57 +7991,192 @@
       ],
       "palm": true,
       "at": [
-       0,
-       0.28,
-       0.9
+       0.66,
+       0.02,
+       -0.07
       ]
      },
-     "dur": 0.01,
+     "dur": 0.008,
      "ease": "linear",
-     "at": 3.48
-    },
-    {
-     "do": "prop",
-     "id": "bagR",
-     "set": {
-      "tilt": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.48
+     "at": 4.491
     }
    ]
   },
   {
-   "name": "9 the beach",
-   "at": 29.3,
-   "len": 3.5,
+   "name": "11 nobody searched the house",
+   "at": 26.7,
+   "len": 4.6,
    "shot": {
     "pos": [
-     0,
-     1.75,
-     5.2
+     0.5,
+     0.8,
+     3.4
     ],
     "look": [
-     0,
-     0.262,
-     -4.689
+     0.5,
+     1.022,
+     -6.598
     ],
-    "fov": 42
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.6,
+      0.75,
+      2.7
+     ],
+     "look": [
+      0.6,
+      0.972,
+      -7.298
+     ],
+     "fov": 46
+    },
+    "dur": 4.6,
+    "ease": "linear"
    },
    "do": [
     {
-     "sfx": "waves",
-     "dur": 3.45,
-     "gain": 0.5,
-     "reason": "the sea",
-     "at": 0
+     "macro": "narrate",
+     "line": "Nobody ever searched the house.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0.3
     },
     {
-     "sfx": "gull",
-     "gain": 0.6,
-     "reason": "the seagull on his hood",
-     "at": 0.25
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.02
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.8,
+      0.02
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.02
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.25,
+     "at": 2.25
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": 0,
+     "dur": 0.5,
+     "steps": 0,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.2,
+       -0.07
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.2,
+       -0.07
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.25,
+      "open": 0.12,
+      "eye": 1
+     },
+     "dur": 0.4,
+     "at": 2.75
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.4,
+     "at": 2.75
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.5,
+     "at": 2.8
+    },
+    {
+     "sfx": "deflate",
+     "gain": 0.3,
+     "reason": "Reaper finally breathing out",
+     "at": 2.8
     },
     {
      "macro": "narrate",
@@ -8533,7 +8184,7 @@
      "voice": "narrator",
      "caption": false,
      "gain": 4,
-     "at": 2.12
+     "at": 3.12
     }
    ],
    "kind": "payoff"
@@ -8602,10 +8253,9 @@
    "from": 5.5,
    "to": 6.366,
    "see": [
-    "rea.face",
-    "bagR"
+    "rea.face"
    ],
-   "why": "FREEZE: Reaper stiff as a board, the bag in his arms"
+   "why": "FREEZE: Reaper goes stiff behind his crate, eyes wide"
   },
   {
    "from": 6.366,
@@ -8645,32 +8295,67 @@
   },
   {
    "from": 12.39,
-   "to": 12.966,
+   "to": 13.466,
    "see": [
     "vik.face"
    ],
    "why": "Viking netted, on his side, face to us"
   },
   {
-   "from": 12.966,
-   "to": 13.316,
+   "from": 13.966,
+   "to": 14.8,
+   "see": [
+    "sam.face",
+    "torch2"
+   ],
+   "why": "from the hiding place: the officer in the open front door, torch on, the money bags at his feet"
+  },
+  {
+   "from": 14.8,
+   "to": 16,
    "see": [
     "phx.face",
     "rea.face"
    ],
-   "why": "two left: Phoenix looks at Viking's empty spot; Reaper hasn't moved"
+   "why": "the torch's light crawling along the crates to Phoenix; Reaper frozen beside him"
   },
   {
-   "from": 14.3,
-   "to": 14.9,
+   "from": 16.1,
+   "to": 16.5,
    "see": [
-    "phx.face"
+    "phx",
+    "sam.face"
    ],
-   "why": "Phoenix sprints at us over the roof, the spotlight closing on him"
+   "why": "Phoenix bursts up over the crates and out of the door past the officer"
   },
   {
-   "from": 15.25,
-   "to": 16.2,
+   "from": 16.6,
+   "to": 18.1,
+   "see": [
+    "sam.face"
+   ],
+   "why": "'He's running! After him!': the officer runs out after Phoenix; Reaper's back, frozen, in the corner"
+  },
+  {
+   "from": 18.1,
+   "to": 19.6,
+   "see": [
+    "rea.face"
+   ],
+   "why": "Reaper alone behind the crates, the same frozen pose, the police lights leaving the walls"
+  },
+  {
+   "from": 20.1,
+   "to": 20.7,
+   "see": [
+    "phx.face",
+    "sam"
+   ],
+   "why": "Phoenix sprints at us over the roof, an officer behind him, the spotlight closing on him"
+  },
+  {
+   "from": 21.05,
+   "to": 22,
    "see": [
     "phx.face",
     "phx"
@@ -8678,77 +8363,31 @@
    "why": "THE WOW: Phoenix mid-leap between the roofs, wings wide, in the helicopter's beam"
   },
   {
-   "from": 16.75,
-   "to": 17.7,
+   "from": 22.2,
+   "to": 23.7,
    "see": [
     "phx.face"
    ],
-   "why": "the head fake: 'Lost them!', grinning at us"
+   "why": "three days later: Phoenix asleep on the sand of a far beach, still in his mask"
   },
   {
-   "from": 17.7,
-   "to": 18.45,
+   "from": 24.6,
+   "to": 26.7,
    "see": [
     "phx.face",
-    "van"
+    "cap-sam",
+    "cap-god"
    ],
-   "why": "the reveal: the van, the officers and the burning car right behind his grin"
+   "why": "two officers either side of him; Phoenix wakes, gets up, looks left and right, and puts his hands up"
   },
   {
-   "from": 19.9,
-   "to": 20,
-   "see": [
-    "phx.face",
-    "vik.face"
-   ],
-   "why": "side by side in the van: the runner and the fighter"
-  },
-  {
-   "from": 20.1,
-   "to": 20.466,
-   "see": [
-    "van",
-    "god.face",
-    "dra.face"
-   ],
-   "why": "the doors shut on them"
-  },
-  {
-   "from": 20.466,
-   "to": 23.8,
+   "from": 26.7,
+   "to": 31.3,
    "see": [
     "rea.face",
-    "bin"
+    "bagR"
    ],
-   "why": "Reaper alone behind the bin of potatoes, the same frozen pose, the price tag in front of him"
-  },
-  {
-   "from": 23.9,
-   "to": 25.8,
-   "see": [
-    "rea.face",
-    "bin"
-   ],
-   "why": "a potato behind a bin of potatoes; the torch stops on his face"
-  },
-  {
-   "from": 26.3,
-   "to": 27.566,
-   "see": [
-    "sam.face",
-    "rea.face"
-   ],
-   "why": "the fake-out: the officer's glove goes past Reaper's face to the price tag"
-  },
-  {
-   "from": 29.3,
-   "to": 32.8,
-   "see": [
-    "rea.face",
-    "bagR",
-    "lounger"
-   ],
-   "why": "the payoff: Reaper on a lounger at the beach, the same frozen pose, the bag in his arms"
+   "why": "the payoff: the house is silent, Reaper still behind the crates with the bag; he breathes out"
   }
  ],
  "hitStop": [
@@ -8769,63 +8408,42 @@
    "who": "rea",
    "with": "bagR",
    "from": 0,
-   "to": 32.9,
-   "reason": "Reaper hugs his money bag against his belly from frame 0 to the beach (the frozen pose)"
+   "to": 31.4,
+   "reason": "Reaper hugs his money bag against his belly from frame 0 to the end (the frozen pose)"
   },
   {
-   "who": "rea",
-   "with": "lounger",
-   "from": 29.4,
-   "to": 32.9,
-   "reason": "Reaper sits on the lounger"
-  },
-  {
-   "who": "phx",
-   "with": "van",
-   "from": 18.2,
-   "to": 20.566,
-   "reason": "Phoenix runs into the open back of the van"
-  },
-  {
-   "who": "sam",
-   "with": "bin",
-   "from": 27.05,
-   "to": 27.7,
-   "reason": "the officer's glove on the bin's price tag as he straightens it"
+   "who": "vik",
+   "with": "shield",
+   "from": 12.44,
+   "to": 13.566,
+   "reason": "Viking, netted, lies on the splinters of his crate: a glove rests in them"
   },
   {
    "who": "sam",
    "with": "torch2",
-   "from": 25.85,
-   "to": 29.4,
+   "from": 13.516,
+   "to": 18.2,
    "reason": "the torch is in his fist (worn at the glove)"
-  },
-  {
-   "who": "vik",
-   "with": "van",
-   "from": 17.8,
-   "to": 20.566,
-   "reason": "Viking, netted, sits in the back of the van"
   },
   {
    "who": "god",
    "with": "cap-god",
    "from": 0,
-   "to": 32.9,
+   "to": 31.4,
    "reason": "the officer's cap sits in his hair (worn)"
   },
   {
    "who": "dra",
    "with": "cap-dra",
    "from": 0,
-   "to": 32.9,
+   "to": 31.4,
    "reason": "the officer's cap (worn)"
   },
   {
    "who": "sam",
    "with": "cap-sam",
    "from": 0,
-   "to": 32.9,
+   "to": 31.4,
    "reason": "the officer's cap (worn)"
   }
  ],

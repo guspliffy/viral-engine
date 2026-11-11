@@ -1,101 +1,78 @@
 # NOTES: fff-01-bank-robbery (the director's working memory)
 
-Brief (the target): `/mnt/project-files/video-scripts/2026-11-10-fight-flight-freeze/00-SERIES-FORMAT-AND-PILOT.md`.
-No panels from Jonny. New series: the DRAFT goes to Jonny before the farm render (animatic gate).
+Brief: `/mnt/project-files/video-scripts/2026-11-10-fight-flight-freeze/00-SERIES-FORMAT-AND-PILOT.md`. Jonny's notes
+on the drafts are newer than the brief and win. New series: the DRAFT goes to Jonny before the farm render.
 
-## Where the build stands
+## Jonny's notes (the target)
 
-- Step: review A done (7 notes applied in the generator); preflight to 0 fails, then the draft render
-- Next: draft + `qa/check.mjs`, contact strips of each window in frame, review B on the draft, draft to Jonny
-- Renders so far: drafts 0, farm renders 0; fix rounds on renders used: 0 of 3
-- Trial line counters: engine/ grep or sed lookups ~45 (most before VOCAB.md existed on this branch); windows in frame 10
+- Draft 2 (10 Nov): fight more extreme "with shooting and action"; every outcome needs a cause on screen.
+- Draft 3 (10 Nov 15:42 UTC): "cut the forced jokes out", "more realistic and serious", "logic to this series not just
+  random followups". Out: "One down." / "Two down.", "Flight was fast. In a circle.", Phoenix walking into the van,
+  Reaper behind the potato bin. In: a hidden place in a house; Viking goes out to fight and is caught; Phoenix runs,
+  the police chase him and so miss Reaper; "Viking lasted x" and also "Phoenix lasted 3 days". Keep the first 8 s and
+  the voice, change only the scenery.
 
-## Cast (from the generator; AX = -1.15, the alley is staged left of centre)
+## The story chain (draft 4, 31.3 s)
 
-| id | character | at x,z | faces | holds |
-|---|---|---|---|---|
-| vik | duo/viking | AX, -1.15 | 0 | crate `shield` overhead 7.6-9.2 (grips.box), dropped at the hit |
-| phx | duo/phoenix | AX-0.92, -0.4; huddled AX-0.66 | 16 | - |
-| rea | never-has-money/reaper | AX+0.88, -0.4; huddled AX+0.64; lies in the bin from 22.85 | -16, 0 from "Freeze." | `bagR` in both arms 0-END (grips.box, secure(0,0)) |
-| sam | duo/samurai | back to lens AX-0.85, 3.0 (2.85) and AX-0.78, 2.2 (6.35); street wall 10.2; bin's right end 26.1 | 180; -70 | worn `torch` 2.85-8.75 |
-| god, dra | potatobrawl/allfather, dragon | street line x -+0.66, z -1.7; van doors 17.4 | 0; +-50 | worn riotshield to 12.65 |
+1. 0-8.15 the hall of a dark house: high-five over the loot, sirens, they duck behind three crates. Police cutaway in
+   the street (2.85). Three faces, FIGHT / FLIGHT / FREEZE (Reaper freezes DOWN behind his crate), the big question.
+2. 8.15-13.45 Viking roars out; street: gunfire, the patrol car blows up, the wall of cars, the net. "Fight lasted
+   four seconds." (unchanged from draft 3).
+3. 13.45 from the hiding place: an officer steps in through the open front door, torch on. "They're in here."
+4. 14.8 close: the torch's pool crawls along the crates to Phoenix. 16.0 he bolts over the crates, past the officer,
+   out of the door. "He's running! After him!" The officer runs out.
+5. 18.1 Reaper alone, the police lights leave. "Everyone chased Flight." runs on over the roof chase (19.6) and the
+   leap (20.7, the cover).
+6. 22.2 "Three days later.": Phoenix asleep on a far beach; 23.7 two officers step in; he gets up, hands up.
+   "Flight lasted three days."
+7. 26.7 the silent hall: Reaper's eyes go left, right; "Nobody ever searched the house."; he comes up from behind the
+   crate and breathes out. 29.8 "Which one are you?"
 
-## Props
+## Places
 
-Places: alley 0-8.75, 12.65-13.5, 20.15-29.6 · street 8.75-12.65, 17.4-20.15 · roof 13.5-16.1 · corner 16.1-17.4 ·
-beach 29.6-END. `P(place, spec, {from, to, stay})` parks a prop under the floor (y -30, with a `reason`) while its
-place is not up; `stay: true` for anything a `sit` reads (the lounger).
-Crate row z 0.45, h 0.34. BIN x AX+1.95 = 0.8, z -0.4, 1.5 x 1.0 x 0.28, tag at tagX 0.72; Reaper lies with his base
-at BIN.x-0.2 (eyes about BIN.x+0.5, hood tip right behind the tag).
-Street: shield line z -1.7; wall of cars z -6.2. Van back at 0,-2.4, floor y 0.45. Roof blocks x -+2.35, top 1.0.
+`PLACES`: hall 0, street 2.85, hall 3.65, street 8.75, hall 13.45, roof 19.6, beach 22.2, hall 26.7.
+The hall is the built set `nighthall` as a ROOM inside the env set: `set.swap: [{ at, room: { type: "nighthall",
+pos: [0, 0, 3] } }]` (new in engine/page/set-env.js, sets.js, load.mjs on this branch). Moved 3 m toward the lens: the
+open front door is on the LEFT wall at z 1.1-2.3, the far wall at z -4.2, walls at x +-1.4. The first env (street)
+gives the clip its light. A room brings its own background colour (what shows past the door).
 
-## Cameras (shot(env, pos, {tilt, fov}); tilt is added to MINUS the painting's pitch, so -8 = about level)
+## Cast and props in the hall
 
-Probe before use: `node <scratchpad>/camprobe.mjs <env> "x,y,z tilt fov; ..."`.
+| id | at x,z | notes |
+|---|---|---|
+| vik | 0, -1.15 | lifts the small crate `shield` at the roar |
+| phx | -0.92, -0.4; huddled -0.66 | ducked again from 13.45; flies out of the door at 16.0 |
+| rea | 0.88, -0.4; huddled 0.66 | ducked (crouch 1, y -0.18) from 2.2 to 28.95; `bagR` in both arms (grips.box) |
+| sam | door: -0.55, 1.95 | worn `torch2` 13.45-18.1; cheated to -1.05, 2.75 for the close shot at 14.8 |
 
-| shot | pos | fov | env limit learned |
-|---|---|---|---|
-| HOOK | AX,0.95,5.3 | 46 | alley ok |
-| TRIO_CU | AX,0.6,3.0 | 46 | ok |
-| QUEST | AX,0.9,4.3 | 46 | |
-| ONE(at) | x,0.8,z+3.0 | 34 | ok |
-| STREET_W / VAN_W | 0,1.25,7.0 tilt -6 | 46 | z 8.6 fails |
-| STREET_M | 0,1.15,4.4 tilt -6 | 42 | |
-| ROOF_RUN | 0,1.0,5.0 | 46 | z 6 fails |
-| ROOF_LEAP | 0,0.8,5.0 tilt +5 | 44 | fov 50 fails (sky) |
-| CORNER | 0,0.95,5.2 tilt -5 | 40 | |
-| ALONE -> ALONE_IN | 0.31,0.9,5.2 -> 4.7 (push-in) | 46 | |
-| CRATE | BIN.x+0.1,0.85,3.9 | 40 | |
-| LEAN | 1.35,0.9,5.0 | 48 | at z 5.2 x must be <= 1.45: the painted floor ends bottom right |
-| BEACH | 0,1.75,5.2 tilt 0 | 42 | y under 1.73 fails; tilt 0 puts Reaper low so four text lines fit (tops 480-750) |
+Crates `crateL/M/R` x -0.92, 0, 0.92 at z 0.45, h 0.34. Money bags `bagL`, `bagM` on the floor in front of the row.
+`backInHall(t)`: after every cut back to the hall Reaper and his bag are put back in the frozen pose (the prop loop
+restores a prop's spec height when its place comes back).
 
-## Decisions, with the reason
+## Cameras
 
-- Five painted envs by `set.swap` instead of new paintings (alley, bus stop = market street, rooftop, crossing, beach).
-- Review A: the police must be ON screen by 3 s, so the Samurai stands in the foreground, back to the lens, with a
-  torch (before: only a siren wash, a light pool and a shadow from behind the lens).
-- Alley staged 1.15 m left of centre so bin + officer fit inside the painted floor.
-- FIGHT: Viking runs away from camera into a shield line that faces us; his 180 turn hides in the cut at the grin.
-- Narrator lengths measured (out/speech): 13 lines, 0.55-2.3 s; clock re-timed to them, END 33.1.
-- Fake-out: the glove hovers just over Reaper's eye (clear of the face rays), then drops to the tag in FRONT of it.
-- End card: the three lines hold to END, "Which one are you?" under them (review A).
+Front shots in the hall use `shot("hall", ...)` = the old alley framing (the alley painting's pitch). `REV` looks from
+behind the hiders at the door: pos 0.95, 1.25, -2.9, look -0.7, 0.72, 1.5, fov 50. Beach: 0, 1.9, 6.8, tilt 0, fov 46
+(the frame is only 2 m wide at the old 5.2 m / fov 42).
 
-## Tried and dropped
+## Facts looked up this round
 
-- `crouch 1` to hide behind crates: drops only ~0.12 m. Duck = crouch + `move y -0.18`.
-- `lean +90` tips to screen LEFT; `lean -90` to screen right, pivot at the base: lying needs `move y`.
-- `--stills beats` gives 12 odd times: pass explicit times.
-- Hiding a prop by scale 0.001: the clipping check still measures it. Park it at y -30.
-- `land` without a flying state, and a run-off move after a place: the actor vanishes. Drop = `move y`.
+- Voice lengths come from `out/speech/*.json` `dur` (narrator: fightOut 2.16, chased 2.28, flightOut 2.41, searched
+  2.61, which 1.32). The table in draft 3 had fightOut at 1.6: wrong, measure after every new line.
+- No "asleep" expression: `serene` + `face { lid: 1 }`. Lying on a side: `lean -90` + `move y 0.4` (base to the left).
+- `pr()` on a prop id that does not exist is a no-op (the generator's helper checks `has(id)`).
+- Yaw: 0 faces the lens (+z), 90 faces +x, 180 faces away; from the reverse shot 180 is face-on.
+- A potato in profile reads as a back: for a face in the reverse shot keep the yaw within about 45 of 180.
+- The deckchair's front posts cross the face of a wide character (Phoenix): not used.
 
-## Names and facts looked up that `docs/VOCAB.md` didn't answer
+## Counters (Trial line, five counts)
 
-- `move { y }` ends at that height; `fly { to: {x,y,z} }`; arm `"rest"` returns an arm.
-- arm `{ o: [out, up, fwd] }`: `out` from the body's SIDE (0.42 m from the middle), negative = across the front; the
-  glove ends ~0.15 above `up`; R hand is at -x for an actor facing +z.
-- A box hold stays in the WORLD: carry it by hand at every move of the holder; prop rot = holder yaw + 180 or the arms cross.
-- `allowClip` windows are on the VIDEO clock at gate 1: `V(t)` adds the hit-stop (0.1 s after HIT).
-- Worn props: a "(worn)" window, or meshes with `userData.steam` (stage.js clipping skips them on this branch).
-- narrator: `c.at(t, { macro: "narrate", line, voice: "narrator", caption: false, gain })` before `c.beats()`.
-- env gate with `set.swap`: fixed in engine/load.mjs `envCoverageOf` (each stretch against the env that is up).
+Drafts 3 sent (draft 4 next), farm renders 0, check-fix rounds on renders 1 of 3, preflight runs 20, still rounds 5,
+engine lookups ~75, windows in frame 6, review A 1, review B 1 (draft 2).
 
-## Open findings (check, time, plan)
+## Delivery to-dos
 
-- qa/env.mjs prints "undefined frames" for swapped clips (cosmetic).
-- A statement after `//` on the same line is dead code (the bag's tilt reset at the beach sat in a comment).
-- Before the PR: `qa/golden.mjs` + `qa/regress.mjs` (load.mjs, props3d.js, stage.js, audio.mjs, two new prop files).
-
-## State 10 Nov 10:40 UTC (after Jonny's notes on draft 2)
-
-- Jonny on draft 2: fight more extreme with shooting and action; "i dont understand why flight got caught"; the tip into
-  the bin read as a glitch; "its not clear why he didnt got arrested"; every outcome needs a logical cause on screen.
-- Rework (draft 3): gunfire from behind the shield line (spellbolt tracers scale 3, lightpool muzzle flash, `gunshot`
-  + `ting`), one ricochet blows up patrol car `carX` (carburst needs `on` TWEENED to 1, firesmoke `fire` too: spec values
-  are not read); "Lost them!" is a close shot in the SAME street, the wide shot shows the van, officers, Viking netted in
-  the van; Reaper never tips: the potato bin + tag stand in front of him from frame 0, officer leans in from the bin's
-  right end (yaw -68, lean 28, camera-side L hand to his cheek then the tag), line "Nothing here. Just potatoes."
-- Clock now: END 32.8; HIT = charge + 0.75; impact frames 2 (GO = HIT + 2/30).
-- Before the farm render: `git fetch origin main && git merge origin/main` (main ea05117 has #189, #190, #193, #195).
-- DELIVERY.md needs: Trial line; five counts (lookups ~60, layout runs ~25, check-fix rounds on renders 1, full renders,
-  waiting steps); lessons review (what would have improved quality; what saves time/tokens next time); post pack.
-- Counters: drafts 3 (draft 3 rendering), preflight runs 18, review A 1, review B 1 (on draft 2, superseded by Jonny).
+One farm render only after Jonny's go; `qa/check.mjs --ears`, `qa/risky.mjs`; DELIVERY.md (departures, warnings,
+`qa/waivers.mjs --md`, Trial line, five counts, lessons review); cover without text (the leap); post pack; PR with
+`qa/golden.mjs` + `qa/regress.mjs` green (engine edits: set-env.js, sets.js, load.mjs, props3d.js, stage.js,
+audio.mjs, two prop files).
