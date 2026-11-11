@@ -12,6 +12,22 @@ import { TREX } from "../shared/trex-rig.js";
 //              lookY -1..1 (the pupils), wag 0..1 (the tail tip wags), curl 0..1 (the tail sweeps round its left side
 //              along the ground: 1 = its tip in front of the T-rex), arms 0..1 (the tiny arms raised), breath 0..1
 //              (the chest heaves), step 0..1 (the left foot lifts: a stomp is step 1 -> 0 on the contact frame).
+//              Added 12 Nov 2026 for "back to life" (every default keeps the picture above exactly as it was):
+//              spec.skin "green" (default) | "brown": warm brown hide (#9c6a3c back, #c08f55 flanks, cream #ead9a8 belly,
+//              dark brown #5f3d22 speckles and soft tiger bands) with brown feet, lids, brows and nostrils. Own texture.
+//              glow 0..1 (propState default spec.glow ?? 0): every material of THIS trex turns toward #b8ff9a by emissive
+//              (the eyes by colour): 1 = a flat glowing silhouette; a second trex in the scene is not touched.
+//              gait (a count of run cycles, default 0): both legs swing in turn by its fraction: the left foot lifts 0.28 m and
+//              swings forward 18 deg over the first half cycle, the right one over the second half, the planted foot sweeps
+//              back and stays on the ground; the body bobs 5 cm twice a cycle (up while a foot is up) and the tail
+//              counter-swings 7 deg. 0, 0.5 and every whole number = the rest pose (both feet down); 0.25 = left foot up,
+//              0.75 = right foot up. `step` still lifts the left foot on top.
+//              drool 0..1 (default 0): three thin tapered strands (0.5 / 0.4 / 0.45 m at 1, scale 1) hang from the lower jaw's
+//              front and sides, pale blue-white and half see-through, a drop at each end and a bead part way down. Their roots
+//              ride the jaw as it opens; they hang straight down in the world. See-through and not solid for the checks.
+//              NOTE: propState (props3d.js) has defaults for glow but NOT for gait and drool, so the first tween of either
+//              JUMPS from its end value: seed them (and glow) with a dur-0 `set` at time 0 (`c.prop(0, id, { gait: 0, drool: 0,
+//              glow: 0 }, 0, "linear")`) before the first tween.
 //   firelog    a fallen log to sit on (spec.len, spec.r; seat height SEAT_Y 0.42 at r 0.21); spin (turns) rolls it.
 //   campfire   a ring of stones round crossed sticks and cel-banded flames; lit 0..1 (set lit: 1 in the spec),
 //              wobble -1..1 flattens the flames sideways along +x (the roar's wind from the right is -1), puff 0..1 a
@@ -47,15 +63,39 @@ const skinTex = () => (SKIN ||= canvasTex(512, 256, (g, W, H) => {
     g.fillStyle = `rgba(52,86,34,${0.35 + 0.35 * rnd(i + 77)})`; g.beginPath(); g.ellipse(x, y, r * 1.3, r, rnd(i + 3) * 3, 0, Math.PI * 2); g.fill();
   }
 }));
-const skinMat = () => mat("#ffffff", { map: skinTex(), roughness: 0.75 });
+// brown skin (spec.skin "brown"): back #9c6a3c, flanks #c08f55, cream belly #ead9a8, dark brown #5f3d22 speckles and
+// eleven soft tiger bands (each drawn once, from the back down the flank), cached apart from the green one
+let SKIN_BROWN = null;
+const skinTexBrown = () => (SKIN_BROWN ||= canvasTex(512, 256, (g, W, H) => {
+  const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, "#9c6a3c"); gr.addColorStop(0.3, "#ab7843"); gr.addColorStop(0.5, "#c08f55"); gr.addColorStop(0.78, "#dbbc82"); gr.addColorStop(1, "#ead9a8");
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 11; i++) {
+    const x = ((i + 0.15 + 0.7 * rnd(i + 210)) / 11) * W, y0 = -4, len = H * (0.5 + 0.2 * rnd(i + 230)), w = 9 + rnd(i + 250) * 9, bend = (rnd(i + 270) - 0.5) * 34;
+    g.fillStyle = `rgba(95,61,34,${0.22 + 0.16 * rnd(i + 290)})`; g.beginPath();
+    g.moveTo(x - w / 2, y0); g.bezierCurveTo(x - w / 2 + bend, len * 0.4, x - w * 0.35 + bend * 1.4, len * 0.8, x + bend * 1.6, len);
+    g.bezierCurveTo(x + w * 0.35 + bend * 1.4, len * 0.8, x + w / 2 + bend, len * 0.4, x + w / 2, y0); g.closePath(); g.fill();
+  }
+  for (let i = 0; i < 260; i++) {
+    const x = rnd(i) * W, y = rnd(i + 500) * H * 0.62, r = 2 + rnd(i + 900) * 5;
+    g.fillStyle = `rgba(95,61,34,${0.3 + 0.35 * rnd(i + 77)})`; g.beginPath(); g.ellipse(x, y, r * 1.3, r, rnd(i + 3) * 3, 0, Math.PI * 2); g.fill();
+  }
+}));
+const skinMat = (brown, make = mat) => make("#ffffff", { map: brown ? skinTexBrown() : skinTex(), roughness: 0.75 });
+const GLOW = new THREE.Color("#b8ff9a");   // glow: every material turns toward this
+// see-through and not solid for the checks (drool): userData.steam + solid = false
+const ghost = (o, order = 4) => { o.frustumCulled = false; o.renderOrder = order; o.castShadow = false; o.receiveShadow = false; o.userData.steam = true; o.userData.solid = false; return o; };
 
 export const DINO_KINDS = {
   trex(P) {
-    const skin = skinMat(), green = mat("#76a447", { roughness: 0.75 }), dark = mat("#4f7d31", { roughness: 0.8 });
-    const belly = mat("#e6d690", { roughness: 0.75 }), mouthM = mat("#7a2a34", { roughness: 0.6 }), tongueM = mat("#e0707e", { roughness: 0.55 });
-    const toothM = mat("#fbf6e6", { roughness: 0.45 }), clawM = mat("#efe6cf", { roughness: 0.5 });
-    const white = new THREE.MeshBasicMaterial({ color: "#fbfaf4" }), irisM = new THREE.MeshBasicMaterial({ color: "#7a4a1e" });
-    const pupilM = new THREE.MeshBasicMaterial({ color: "#1a120c" }), glintM = new THREE.MeshBasicMaterial({ color: "#ffffff" });
+    // every material is this instance's own and carries the glow colour as its emissive at intensity 0 (the look copies a
+    // standard material's colours when it first draws it and then follows only emissiveIntensity); basic ones are lerped
+    const brownSkin = P.spec.skin === "brown", list = [];
+    const M = (color, o = {}) => { const m = mat(color, { emissive: GLOW, emissiveIntensity: 0, ...o }); m.userData.c0 = m.color.clone(); list.push(m); return m; };
+    const Bm = (color) => { const m = new THREE.MeshBasicMaterial({ color }); m.userData.c0 = m.color.clone(); list.push(m); return m; };
+    const skin = skinMat(brownSkin, M), green = M(brownSkin ? "#b07d48" : "#76a447", { roughness: 0.75 }), dark = M(brownSkin ? "#5f3d22" : "#4f7d31", { roughness: 0.8 });
+    const belly = M(brownSkin ? "#ead9a8" : "#e6d690", { roughness: 0.75 }), mouthM = M("#7a2a34", { roughness: 0.6 }), tongueM = M("#e0707e", { roughness: 0.55 });
+    const toothM = M("#fbf6e6", { roughness: 0.45 }), clawM = M("#efe6cf", { roughness: 0.5 }), nostrilM = M(brownSkin ? "#3a2414" : "#2e4a1e");
+    const white = Bm("#fbfaf4"), irisM = Bm("#7a4a1e"), pupilM = Bm("#1a120c"), glintM = Bm("#ffffff");
     const root = new THREE.Group(); P.whole.add(root);
 
     // ---- legs (fixed under the hip; the left one can lift for a stomp)
@@ -97,7 +137,7 @@ export const DINO_KINDS = {
     // brow ridges: thick bumps over each eye that tilt for anger or curiosity
     const brows = [-1, 1].map((s) => { const b = mesh(ell(0.15, 0.05, 0.1), dark, hd, s * TREX.eye[0], TREX.eye[1] + 0.15, TREX.eye[2] - 0.02); b.rotation.order = "ZYX"; return { b, s }; });
     // nostrils
-    const nostrils = [-1, 1].map((s) => { const n = mesh(ell(0.045, 0.026, 0.03), mat("#2e4a1e"), hd, s * 0.1, TREX.nose[1], TREX.nose[2] - 0.03); n.rotation.x = -0.6; return n; });
+    const nostrils = [-1, 1].map((s) => { const n = mesh(ell(0.045, 0.026, 0.03), nostrilM, hd, s * 0.1, TREX.nose[1], TREX.nose[2] - 0.03); n.rotation.x = -0.6; return n; });
     // upper teeth: rounded, a few big ones along the jaw's lower edge (never sharp)
     for (const [x, z, h] of [[0.27, 0.5, 0.09], [0.27, 0.68, 0.12], [0.22, 0.88, 0.1], [0.12, 1.03, 0.08]]) for (const s of [-1, 1]) mesh(ell(0.042, h, 0.042, 12), toothM, hd, s * x, -0.18 - h * 0.4, z);
     // lower jaw on its hinge
@@ -106,6 +146,17 @@ export const DINO_KINDS = {
     mesh(ell(0.27, 0.05, 0.42), mouthM, jaw, 0, 0.0, 0.48);
     const tongue = mesh(ell(0.17, 0.05, 0.3), tongueM, jaw, 0, 0.03, 0.44);
     for (const [x, z, h] of [[0.25, 0.42, 0.07], [0.24, 0.62, 0.09], [0.17, 0.82, 0.07]]) for (const s of [-1, 1]) mesh(ell(0.036, h, 0.036, 12), toothM, jaw, s * x, 0.02 + h * 0.4, z);
+    // drool (spec/state `drool`): three thin tapered strands, pale blue-white and half see-through, from the lower jaw's front
+    // and sides. Their roots ride the jaw; each strand group is counter-turned in apply so it hangs straight down in the world.
+    // Lengths are in prop metres at scale 1 (the head is drawn bigger, so each group is scaled back by headScale): 0.5 / 0.4 / 0.45 m at 1
+    const droolM = new THREE.MeshStandardMaterial({ color: "#d6eaff", roughness: 0.15, transparent: true, opacity: 0.5, depthWrite: false }); droolM.userData.noOutline = true;
+    const strandG = new THREE.CylinderGeometry(1, 0.3, 1, 8, 1, true).translate(0, -0.5, 0), dropG = new THREE.SphereGeometry(1, 10, 8);
+    const drools = [[0, -0.07, 0.97, 0.5, 0.013], [-0.34, -0.06, 0.6, 0.4, 0.011], [0.34, -0.06, 0.72, 0.45, 0.012]].map(([x, y, z, len, rr], i) => {
+      const g = new THREE.Group(); g.position.set(x, y, z); g.scale.setScalar(1 / TREX.headScale); jaw.add(g);
+      const str = ghost(new THREE.Mesh(strandG, droolM)), drop = ghost(new THREE.Mesh(dropG, droolM)), bead = ghost(new THREE.Mesh(dropG, droolM));
+      g.add(str, drop, bead);
+      return { g, str, drop, bead, len, rr, ph: rnd(i + 9) * 6 };
+    });
     // eyes: big bulging whites with brown irises, black pupils and a glint; skin lids close from the top
     const eyes = [-1, 1].map((s) => {
       const g = new THREE.Group(); g.position.set(s * TREX.eye[0], TREX.eye[1], TREX.eye[2]); g.rotation.y = s * 0.3; hd.add(g);
@@ -186,9 +237,35 @@ export const DINO_KINDS = {
         for (const a of arms) a.sh.rotation.set(-0.2 - 0.8 * ar + Math.sin(tt * 2 + a.s) * 0.05, 0, a.s * 0.1);
         // a stomp: the left foot (+x) lifts at step 1
         const st = clamp(ps.step ?? 0);
-        legs[1].g.position.y = 1.2 + 0.28 * st; legs[1].g.rotation.x = -0.25 * st;
+        // gait: a count of run cycles, both legs in turn. The left foot lifts 0.28 m and swings forward 18 deg in the first
+        // half of a cycle (the right one in the second half), the planted one sweeps back and stays on the ground; the body
+        // bobs 5 cm twice a cycle (up while a foot is up) and the tail counter-swings. Whole numbers = the rest pose
+        const gt = ps.gait ?? P.spec.gait ?? 0, gp = Math.PI * 2 * gt, sw = Math.sin(gp), bob = 0.5 - 0.5 * Math.cos(gp * 2);
+        legs.forEach((l, i) => {
+          const u = (i === 1 ? 1 : -1) * sw, ang = rad(18) * u, pl = u < 0 ? 1 : 0;   // + u: forward and lifted
+          l.g.position.y = 1.2 + (i === 1 ? 0.28 * st : 0) + 0.28 * Math.max(0, u) - 1.12 * (1 - Math.cos(ang)) * pl;
+          l.g.rotation.x = (i === 1 ? -0.25 * st : 0) - ang;
+          l.foot.rotation.x = ang * pl + 0.35 * Math.max(0, u);   // planted: the sole stays level; lifted: the toes dip
+        });
+        hip.position.y += 0.05 * bob;
+        tb.rotation.set(0.08 * bob, 0.12 * sw, 0);
         // tail
         shapeTail(clamp(ps.curl ?? 0), tt, clamp(ps.wag ?? 0));
+        // drool: the roots follow the jaw; the group is counter-turned so the strands hang straight down in the world
+        const dk = clamp(ps.drool ?? P.spec.drool ?? 0);
+        for (const d of drools) d.g.visible = dk > 0.01;
+        if (dk > 0.01) {
+          const hang = hip.quaternion.clone().multiply(neck.quaternion).multiply(head.quaternion).multiply(jaw.quaternion).invert();
+          for (const d of drools) {
+            d.g.quaternion.copy(hang);
+            const L = d.len * dk * (1 + 0.05 * Math.sin(tt * 3 + d.ph)), r = d.rr;
+            d.str.scale.set(r, L, r); d.drop.position.y = -L; d.drop.scale.set(r * 1.9, r * 2.6, r * 1.9);
+            d.bead.position.y = -L * 0.55; d.bead.scale.setScalar(r * 1.4);
+          }
+        }
+        // glow: every standard material goes to #b8ff9a by emissive, the basic ones (eyes) are lerped to it
+        const gl = clamp(ps.glow ?? 0);
+        for (const m of list) { if (m.isMeshBasicMaterial) m.color.copy(m.userData.c0).lerp(GLOW, gl); else m.emissiveIntensity = gl; }
       },
     };
   },

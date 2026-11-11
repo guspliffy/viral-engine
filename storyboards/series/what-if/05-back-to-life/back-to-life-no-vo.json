@@ -46,9 +46,52 @@
   "satsuei": true
  },
  "music": {
-  "style": "sneaky",
+  "style": "bounce",
+  "key": 10,
   "lowCut": 150,
-  "gain": 0.45
+  "gain": 0.45,
+  "parts": [
+   {
+    "at": 0,
+    "part": "drop"
+   },
+   {
+    "at": 1.5,
+    "part": "intro"
+   },
+   {
+    "at": 5.9,
+    "part": "build"
+   },
+   {
+    "at": 8.9,
+    "part": "drop"
+   },
+   {
+    "at": 10.8,
+    "part": "musicbox"
+   },
+   {
+    "at": 11.95,
+    "part": "hold"
+   },
+   {
+    "at": 14,
+    "part": "drop"
+   },
+   {
+    "at": 17.4,
+    "part": "main"
+   },
+   {
+    "at": 19.5,
+    "part": "stop"
+   },
+   {
+    "at": 20,
+    "part": "hold"
+   }
+  ]
  },
  "sound": {
   "sfx": 0.65,
@@ -107,40 +150,34 @@
  "props": [
   {
    "id": "hall",
-   "x": -5.15,
+   "kind": "museumhall",
+   "x": 1,
    "y": 0,
-   "z": -1,
-   "kind": "stoneblock",
-   "w": 0.3,
-   "h": 9,
-   "d": 30
+   "z": -2,
+   "w": 12,
+   "d": 28,
+   "h": 9
   },
   {
    "id": "hallR",
+   "kind": "stoneblock",
    "x": 7.15,
    "y": -60,
-   "z": -1,
-   "kind": "stoneblock",
-   "w": 0.3,
-   "h": 9,
-   "d": 30
+   "z": -4
   },
   {
    "id": "hallE",
+   "kind": "stoneblock",
    "x": 1,
    "y": -60,
-   "z": -16.15,
-   "kind": "stoneblock",
-   "w": 12,
-   "h": 9,
-   "d": 0.3
+   "z": -16.15
   },
   {
    "id": "rope",
+   "kind": "exhibitrope",
    "x": 0,
    "y": 0,
    "z": 0,
-   "kind": "stanchions",
    "posts": [
     [
      1.6,
@@ -170,125 +207,109 @@
   },
   {
    "id": "sabP",
+   "kind": "plinth",
    "x": 3.4,
    "y": 0,
    "z": 0.5,
-   "kind": "stoneblock",
    "w": 2.6,
    "h": 0.3,
    "d": 1.6
   },
   {
    "id": "mamP",
+   "kind": "plinth",
    "x": 3.6,
    "y": 0,
    "z": -4.2,
-   "kind": "stoneblock",
    "w": 3.2,
    "h": 0.3,
    "d": 4.4
   },
   {
    "id": "rexP",
+   "kind": "plinth",
    "x": 1,
    "y": 0,
    "z": -11,
-   "kind": "stoneblock",
    "w": 3.4,
    "h": 0.3,
    "d": 3
   },
   {
    "id": "case",
-   "x": -1.2,
+   "kind": "glasscase",
+   "x": -1.9,
    "y": 0,
    "z": 0.3,
-   "kind": "stoneblock",
-   "w": 1.1,
-   "h": 2.1,
-   "d": 1.1
+   "fossil": 1
   },
   {
    "id": "plant",
-   "x": 1.25,
+   "kind": "wiltplant",
+   "x": -1.1,
    "y": 0,
-   "z": 2.55,
-   "kind": "bistroplant"
+   "z": 1.25,
+   "bloom": 0
   },
   {
    "id": "fish",
-   "x": -1.2,
+   "kind": "livefish",
+   "x": -1.9,
    "y": -60,
-   "z": 0.3,
-   "kind": "stoneblock",
-   "w": 0.5,
-   "h": 0.2,
-   "d": 0.16
+   "z": 0.3
   },
   {
    "id": "fishW",
-   "x": 0,
-   "y": 0.42,
-   "z": 0.4,
+   "kind": "livefish",
    "wear": "spud",
-   "kind": "stoneblock",
-   "w": 0.5,
-   "h": 0.2,
-   "d": 0.16,
+   "x": 0,
+   "y": 0.26,
+   "z": 0.42,
    "scale": 0.001
   },
   {
    "id": "sabB",
+   "kind": "sabrebones",
    "x": 3.4,
    "y": 0.3,
    "z": 0.5,
    "rot": -90,
-   "kind": "stoneblock",
-   "w": 0.6,
-   "h": 1.1,
-   "d": 1.8
+   "scale": 1.6
   },
   {
    "id": "mamB",
+   "kind": "mammothbones",
    "x": 3.6,
    "y": 0.3,
    "z": -4.2,
    "rot": -55,
-   "kind": "stoneblock",
-   "w": 1.7,
-   "h": 3.1,
-   "d": 3.4
+   "scale": 1.3
   },
   {
    "id": "rexB",
+   "kind": "trexbones",
    "x": 1,
    "y": 0.3,
    "z": -11,
    "rot": 0,
-   "kind": "trex",
-   "scale": 1.5
+   "scale": 1.5,
+   "rods": false
   },
   {
    "id": "ptB1",
+   "kind": "pterobones",
    "x": 2,
    "y": 5.5,
    "z": -1,
-   "rot": -60,
-   "kind": "stoneblock",
-   "w": 2.6,
-   "h": 0.25,
-   "d": 0.8
+   "rot": -60
   },
   {
    "id": "ptB2",
+   "kind": "pterobones",
    "x": 2.2,
    "y": 5.8,
    "z": -6.5,
-   "rot": -110,
-   "kind": "stoneblock",
-   "w": 2.6,
-   "h": 0.25,
-   "d": 0.8
+   "rot": -110
   },
   {
    "id": "rex",
@@ -302,102 +323,122 @@
    "brow": -1,
    "neckP": 5,
    "headP": -8,
-   "lean": 14
+   "lean": 14,
+   "skin": "brown"
   },
   {
    "id": "mam",
+   "kind": "mammoth",
    "x": 6.6,
    "y": 0,
    "z": 97.5,
    "rot": 0,
-   "kind": "stoneblock",
-   "w": 1.7,
-   "h": 3.1,
-   "d": 3.4
+   "scale": 1.3
   },
   {
    "id": "sab",
+   "kind": "sabretooth",
    "x": 1.2,
    "y": 0,
    "z": 97,
    "rot": 0,
-   "kind": "stoneblock",
-   "w": 0.6,
-   "h": 1.1,
-   "d": 1.8
+   "scale": 1.6
   },
   {
    "id": "pt1",
+   "kind": "pterosaur",
    "x": 3.4,
    "y": 6.5,
    "z": 99,
-   "rot": 0,
-   "kind": "stoneblock",
-   "w": 2.6,
-   "h": 0.25,
-   "d": 0.8
+   "rot": 0
   },
   {
    "id": "pt2",
+   "kind": "pterosaur",
    "x": 5.6,
    "y": 7.6,
    "z": 98,
-   "rot": 0,
-   "kind": "stoneblock",
-   "w": 2.6,
-   "h": 0.25,
-   "d": 0.8
+   "rot": 0
   },
   {
    "id": "pt3",
+   "kind": "pterosaur",
    "x": 2,
    "y": 8.4,
    "z": 97,
-   "rot": 0,
-   "kind": "stoneblock",
-   "w": 2.6,
-   "h": 0.25,
-   "d": 0.8
+   "rot": 0
   },
   {
    "id": "front",
+   "kind": "museumfront",
    "x": 0,
    "y": 0,
-   "z": 99.5,
-   "kind": "stoneblock",
+   "z": 100,
    "w": 34,
    "h": 10,
-   "d": 1
+   "breachX": 1.4,
+   "breachW": 9,
+   "breachH": 7.5,
+   "breach": 0,
+   "burst": 0
   },
   {
    "id": "square",
+   "kind": "townsquare",
    "x": 0,
-   "y": -60,
+   "y": 0,
    "z": 110,
-   "kind": "stoneblock",
-   "w": 0.2,
-   "h": 0.2,
-   "d": 0.2
+   "w": 40,
+   "d": 34
   },
   {
    "id": "neck",
+   "kind": "hillneck",
    "x": 2.5,
-   "y": -60,
+   "y": 0,
    "z": 82,
-   "kind": "stoneblock",
-   "w": 5,
-   "h": 38,
-   "d": 5
+   "rise": 0,
+   "headH": 23,
+   "headZ": 11
   },
   {
    "id": "cracks",
-   "x": -0.6,
-   "y": -60,
-   "z": 115,
-   "kind": "stoneblock",
-   "w": 0.2,
-   "h": 0.2,
-   "d": 0.2
+   "kind": "streetcracks",
+   "x": -0.1,
+   "y": 0.01,
+   "z": 114.6,
+   "r": 2.6,
+   "grow": 0
+  },
+  {
+   "id": "spSab",
+   "kind": "lifesparks",
+   "x": 3.4,
+   "y": 0.3,
+   "z": 0.5,
+   "r": 1.3,
+   "h": 2.2,
+   "rise": 0
+  },
+  {
+   "id": "spMam",
+   "kind": "lifesparks",
+   "x": 3.6,
+   "y": 0.3,
+   "z": -4.2,
+   "r": 2.4,
+   "h": 3.6,
+   "rise": 0
+  },
+  {
+   "id": "spRex",
+   "kind": "lifesparks",
+   "x": 1,
+   "y": 0.3,
+   "z": -11,
+   "r": 3,
+   "h": 5.6,
+   "rise": 0
   },
   {
    "id": "lamp",
@@ -405,7 +446,7 @@
    "x": -2.5,
    "y": 0,
    "z": 108,
-   "h": 6.5,
+   "h": 7.5,
    "lit": 0
   },
   {
@@ -420,9 +461,9 @@
   {
    "id": "scyF",
    "kind": "parkedscythe",
-   "x": -0.6,
+   "x": -0.1,
    "y": -60,
-   "z": 115,
+   "z": 114.6,
    "rot": 20
   }
  ],
@@ -431,7 +472,7 @@
    "from": 1.8,
    "to": 2.35,
    "text": "Ooh, bones!",
-   "pos": 1180,
+   "pos": 930,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -440,7 +481,7 @@
    "from": 2.35,
    "to": 3.35,
    "text": "Don't touch it!",
-   "pos": 1180,
+   "pos": 930,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -449,7 +490,7 @@
    "from": 3.7,
    "to": 4.7,
    "text": "Do the fish!",
-   "pos": 1180,
+   "pos": 930,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -458,7 +499,7 @@
    "from": 5.25,
    "to": 6,
    "text": "AAAH!",
-   "pos": 1180,
+   "pos": 930,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -467,7 +508,7 @@
    "from": 6,
    "to": 6.27,
    "text": "AAAAAH!",
-   "pos": 1180,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -476,7 +517,7 @@
    "from": 11.15,
    "to": 12.25,
    "text": "He's friendly!",
-   "pos": 1180,
+   "pos": 900,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -503,7 +544,7 @@
    "from": 20.6,
    "to": 22,
    "text": "Would you still want it?",
-   "pos": 1210,
+   "pos": 920,
    "pop": false
   }
  ],
@@ -542,18 +583,322 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "gait": 0,
+      "crouch": 0,
+      "bound": 0,
+      "lick": 0,
+      "tail": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0,
+      "drool": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spSab",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spMam",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spRex",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "fossil": 1,
+      "glow": 0,
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "breach": 0,
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "neck",
+     "set": {
+      "rise": 0,
+      "jaw": 0,
+      "blink": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cracks",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "run",
      "pts": [
       [
        0,
        0.1,
-       106.46
+       106.51
       ],
       [
        1.5,
        0.1,
-       111.26
+       111.31
       ]
      ],
      "dur": 1.5,
@@ -575,9 +920,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -599,12 +945,12 @@
      "pts": [
       [
        0,
-       -0.8,
+       -0.95,
        105.56
       ],
       [
        1.5,
-       -0.8,
+       -0.95,
        110.36
       ]
      ],
@@ -627,9 +973,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -651,13 +998,13 @@
      "pts": [
       [
        0,
-       0.95,
-       105.71
+       1.15,
+       105.66
       ],
       [
        1.5,
-       0.95,
-       110.51
+       1.15,
+       110.46
       ]
      ],
      "dur": 1.5,
@@ -679,9 +1026,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -730,10 +1078,150 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "step": 1
+      "gait": 1.336,
+      "drool": 1,
+      "glow": 0
      },
-     "dur": 0.14,
-     "ease": "out",
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 3.841
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 1.12,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 3.22
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 1.76,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 5.06
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -866,6 +1354,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 2
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "sfx": "slam",
      "gain": 0.9,
      "loud": true,
@@ -888,39 +1386,9 @@
      "at": 0.05
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.14
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.28
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.44
     },
     {
      "sfx": "dinostomp",
@@ -928,74 +1396,14 @@
      "at": 0.58
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.74
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.88
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 1.04
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 1.18
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 1.34
     },
     {
      "sfx": "dinostomp",
@@ -1063,11 +1471,21 @@
      "at": 1.48
     },
     {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
-      -0.6,
-      2.3
+      -1.75,
+      2.4
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1078,7 +1496,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 12,
+     "to": 20,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1088,8 +1506,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      0.3,
-      1.9
+      -0.15,
+      1.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1110,8 +1528,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      1.3,
-      0.45
+      1,
+      1.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1158,16 +1576,16 @@
    "len": 2.1,
    "shot": {
     "pos": [
-     -0.2,
-     1.1,
-     7.6
+     -0.5,
+     1.7,
+     8.7
     ],
     "look": [
-     0.75,
-     1.5,
+     -0.4,
+     1.15,
      0
     ],
-    "fov": 44
+    "fov": 50
    },
    "do": [
     {
@@ -1233,7 +1651,13 @@
      "who": "phx",
      "do": "arm",
      "side": "R",
-     "pose": "point",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.45
+      ]
+     },
      "dur": 0.3,
      "at": 0.25
     },
@@ -1389,8 +1813,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.5,
-      2.75
+      -1.75,
+      2.4
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1401,7 +1825,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -18,
+     "to": 25,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1411,8 +1835,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -1.2,
-      1.6
+      -0.3,
+      1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1423,7 +1847,7 @@
     {
      "who": "rea",
      "do": "turn",
-     "to": 14,
+     "to": -20,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1433,8 +1857,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      -1.9,
-      2.6
+      0.5,
+      2
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1445,7 +1869,7 @@
     {
      "who": "phx",
      "do": "turn",
-     "to": 62,
+     "to": -65,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1455,11 +1879,19 @@
      "who": "phx",
      "do": "arm",
      "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.08
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
      "pose": {
       "o": [
-       0.3,
-       0.55,
-       0.4
+       0.25,
+       0.4,
+       0.45
       ]
      },
      "dur": 0.01,
@@ -1473,16 +1905,16 @@
    "len": 2.7,
    "shot": {
     "pos": [
-     -1.15,
-     1.15,
-     7
+     -1,
+     1.5,
+     6.2
     ],
     "look": [
-     -1.15,
-     1.35,
-     1.5
+     -1.05,
+     1.2,
+     0.8
     ],
-    "fov": 36
+    "fov": 50
    },
    "do": [
     {
@@ -1530,7 +1962,7 @@
      "who": "phx",
      "do": "look",
      "to": [
-      0.7,
+      -0.7,
       0.1
      ],
      "dur": 0.01,
@@ -1552,7 +1984,7 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.6,
+      0.6,
       0.2
      ],
      "dur": 0.01,
@@ -1597,9 +2029,19 @@
     },
     {
      "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
      "id": "fish",
      "set": {
-      "x": -1.2,
+      "x": -1.9,
       "y": 1.55,
       "z": 0.8,
       "rot": 30
@@ -1610,11 +2052,34 @@
     },
     {
      "do": "prop",
+     "id": "case",
+     "set": {
+      "burst": 1,
+      "fossil": 0
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
      "id": "fish",
      "set": {
-      "x": -0.85,
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "x": -1.825,
       "y": 2.3,
-      "z": 1.825,
+      "z": 1.65,
       "rot": 200
      },
      "dur": 0.225,
@@ -1627,13 +2092,25 @@
      "at": 0.95
     },
     {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.04
+    },
+    {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": {
       "o": [
        0.12,
-       0.42,
+       0.3,
        0.34
       ]
      },
@@ -1647,7 +2124,7 @@
      "pose": {
       "o": [
        0.12,
-       0.42,
+       0.3,
        0.34
       ]
      },
@@ -1658,14 +2135,71 @@
      "do": "prop",
      "id": "fish",
      "set": {
-      "x": -0.5,
-      "y": 0.5,
-      "z": 3.15,
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "x": -1.75,
+      "y": 0.34,
+      "z": 2.82,
       "rot": 380
      },
      "dur": 0.225,
      "ease": "in",
      "at": 1.175
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.31
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.4
     },
     {
      "sfx": "slap",
@@ -1711,13 +2245,36 @@
      "at": 1.4
     },
     {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -1,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.51
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.62
+    },
+    {
      "who": "rea",
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.08,
      "at": 1.65
@@ -1741,13 +2298,68 @@
      "at": 1.65
     },
     {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -1,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.73
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.84
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -0.4,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 0.4,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 2.06
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -0.4,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 2.17
+    },
+    {
      "who": "rea",
      "do": "run",
      "pts": [
       [
        0,
-       -1.2,
-       1.6
+       -0.3,
+       1
       ],
       [
        0.4,
@@ -1796,6 +2408,14 @@
      "at": 2.4
     },
     {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.45
+    },
+    {
      "do": "prop",
      "id": "scy",
      "set": {
@@ -1818,35 +2438,45 @@
   {
    "name": "the run along the row",
    "at": 6.3,
-   "len": 1.9,
+   "len": 1.55,
    "shot": {
     "pos": [
-     -1.2,
-     0.9,
-     -3.6
+     0.3,
+     1,
+     -2.8
     ],
     "look": [
-     1.4,
-     1.4,
-     2.6
+     1.5,
+     1,
+     1.6
     ],
-    "fov": 44,
+    "fov": 46,
     "to": {
      "pos": [
-      -1.9,
-      0.9,
-      -11.6
+      0.3,
+      1,
+      -9.4
      ],
      "look": [
-      1.4,
       1.5,
-      -6.5
+      1,
+      -6.1
      ]
     },
-    "dur": 1.9,
+    "dur": 1.55,
     "ease": "linear"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
     {
      "who": "spud",
      "do": "turn",
@@ -1867,13 +2497,23 @@
      "pts": [
       [
        0,
-       -0.5,
-       2.75
+       -1.75,
+       2.4
+      ],
+      [
+       0.45,
+       -3,
+       1
+      ],
+      [
+       0.8,
+       -3,
+       -0.6
       ],
       [
        1.9,
-       -1.3,
-       -4.6
+       -2.5,
+       -5
       ]
      ],
      "dur": 1.9,
@@ -1902,18 +2542,43 @@
      "dur": 0.5
     },
     {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "spSab",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
      "who": "phx",
      "do": "run",
      "pts": [
       [
        0,
-       -1.9,
-       2.6
+       0.5,
+       2
+      ],
+      [
+       0.5,
+       -0.2,
+       0
       ],
       [
        1.8,
-       -2.5,
-       -5.4
+       -1,
+       -4.3
       ]
      ],
      "dur": 1.8,
@@ -1931,6 +2596,16 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
      "sfx": "bell",
      "gain": 0.5,
      "at": 0.35
@@ -1943,9 +2618,44 @@
     },
     {
      "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
      "id": "sabB",
      "set": {
       "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1966,9 +2676,34 @@
     },
     {
      "do": "prop",
+     "id": "sab",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
      "id": "ptB1",
      "set": {
       "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1988,6 +2723,16 @@
      "at": 0.85
     },
     {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.87
+    },
+    {
      "sfx": "bell",
      "gain": 0.5,
      "at": 0.95
@@ -2002,7 +2747,52 @@
      "do": "prop",
      "id": "mamB",
      "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "spMam",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
       "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2033,6 +2823,56 @@
      "dur": 0.5
     },
     {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "the crash into the T. rex",
+   "at": 7.85,
+   "len": 1.45,
+   "shot": {
+    "pos": [
+     1,
+     0.95,
+     -12.7
+    ],
+    "look": [
+     0.98,
+     1.25,
+     -8
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "who": "rea",
      "do": "move",
      "to": [
@@ -2043,7 +2883,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.88
+     "at": 0.33
     },
     {
      "who": "rea",
@@ -2052,7 +2892,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.88
+     "at": 0.33
     },
     {
      "do": "prop",
@@ -2063,28 +2903,18 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 1.88
-    }
-   ]
-  },
-  {
-   "name": "the crash into the T. rex",
-   "at": 8.2,
-   "len": 1.1,
-   "shot": {
-    "pos": [
-     -2.9,
-     1,
-     -6.3
-    ],
-    "look": [
-     0.9,
-     1.7,
-     -10.2
-    ],
-    "fov": 52
-   },
-   "do": [
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.35
+    },
     {
      "do": "prop",
      "id": "ptB2",
@@ -2093,7 +2923,22 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.03
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.38
     },
     {
      "do": "prop",
@@ -2106,7 +2951,17 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.05
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.42
     },
     {
      "who": "rea",
@@ -2114,49 +2969,80 @@
      "to": 24,
      "dur": 0.12,
      "ease": "out",
-     "at": 0.1
+     "at": 0.45
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.14,
-     "at": 0.1
+     "at": 0.45
     },
     {
      "sfx": "slam",
      "gain": 0.6,
-     "at": 0.1
+     "at": 0.45
     },
     {
-     "fx": "impact",
-     "at": 0.1,
-     "color": "#9dff7a",
-     "dur": 0.3
+     "fx": "sparkle",
+     "at": 0.45,
+     "color": "#7dff6a",
+     "dur": 0.6
     },
     {
      "fx": "shake",
      "dur": 0.3,
      "amp": 0.03,
-     "at": 0.1
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "spRex",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 0.45
     },
     {
      "sfx": "bell",
      "gain": 0.9,
      "loud": true,
-     "at": 0.13
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.55
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.12,
-     "at": 0.4
+     "at": 0.75
     },
     {
      "who": "phx",
@@ -2167,7 +3053,27 @@
       "curve": 1
      },
      "dur": 0.12,
-     "at": 0.4
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "glow": 1,
+      "gait": 0,
+      "drool": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
     },
     {
      "do": "prop",
@@ -2187,7 +3093,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.7
+     "at": 1.05
     },
     {
      "do": "prop",
@@ -2197,20 +3103,30 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.7
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 1.07
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
       0.1,
-      -6.7
+      -6.3
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "who": "spud",
@@ -2219,20 +3135,20 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "who": "rea",
      "do": "move",
      "to": [
-      -1.2,
-      -6.95
+      -0.85,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "who": "rea",
@@ -2241,20 +3157,20 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "who": "phx",
      "do": "move",
      "to": [
-      1,
-      -6.95
+      1.05,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "who": "phx",
@@ -2263,7 +3179,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.08
+     "at": 1.43
     },
     {
      "do": "prop",
@@ -2274,7 +3190,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.08
+     "at": 1.43
     }
    ]
   },
@@ -2284,16 +3200,16 @@
    "len": 1.5,
    "shot": {
     "pos": [
-     -0.3,
+     -0.2,
      0.3,
-     2.6
+     -0.6
     ],
     "look": [
-     0.8,
-     2.9,
+     0.6,
+     3,
      -10.6
     ],
-    "fov": 54
+    "fov": 56
    },
    "do": [
     {
@@ -2313,9 +3229,9 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "x": 3.3,
+      "x": 3,
       "y": 0,
-      "z": -9.4,
+      "z": -9.6,
       "rot": -70
      },
      "dur": 0.01,
@@ -2326,9 +3242,9 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "x": -1.9,
+      "x": -1.6,
       "y": 0,
-      "z": -8.1,
+      "z": -8.6,
       "rot": 65
      },
      "dur": 0.01,
@@ -2386,10 +3302,87 @@
      "at": 0
     },
     {
-     "who": "rea",
-     "do": "lean",
-     "to": 0,
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4,
+      "gait": 0,
+      "glow": 0
+     },
      "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "trunk": 1
+     },
+     "dur": 0.5,
+     "ease": "back",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 3.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 3.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -2429,6 +3422,16 @@
      "sfx": "snort",
      "gain": 0.6,
      "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0.8
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -2475,11 +3478,21 @@
      "at": 0.65
     },
     {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0.1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.7
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
       0.1,
-      -6.7
+      -6.3
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2500,8 +3513,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -1.2,
-      -6.95
+      -0.85,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2522,8 +3535,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      1,
-      -6.95
+      1.05,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2544,10 +3557,10 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "x": -1.191,
+      "x": -0.146,
       "y": 0,
-      "z": -11.502,
-      "rot": 10,
+      "z": -11.043,
+      "rot": 6,
       "lean": 20,
       "neckP": 25,
       "headP": 10,
@@ -2564,9 +3577,44 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "x": 2.6,
-      "z": -7.8,
+      "x": 3.5,
+      "z": -9.3,
       "rot": -75
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -2.8,
+      "z": -8.5,
+      "rot": 72
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "trunk": 0.2,
+      "headY": 20,
+      "headP": 10
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0,
+      "headP": 10
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2809,6 +3857,48 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "drool": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.3,
+      "drool": 1,
+      "lookY": -0.8,
+      "headP": 22,
+      "trunk": -0.4
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.3,
+      "drool": 1,
+      "lookY": -0.8,
+      "headP": 22,
+      "trunk": -0.4
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
      "fx": "shake",
      "dur": 0.7,
      "amp": 0.015,
@@ -2853,6 +3943,16 @@
      "at": 0.45
     },
     {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "lick": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
      "who": "phx",
      "do": "arm",
      "side": "L",
@@ -2865,9 +3965,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.1,
      "at": 0.6
@@ -2877,9 +3978,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.1,
      "at": 0.6
@@ -2889,9 +3991,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.1,
      "at": 0.6
@@ -2911,7 +4014,7 @@
      "do": "move",
      "to": [
       0.1,
-      -2.3
+      -6.3
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2932,8 +4035,8 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -0.8,
-      -3.2
+      -0.85,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2954,8 +4057,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      0.95,
-      -3.05
+      1.05,
+      -7.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2977,13 +4080,52 @@
      "id": "rex",
      "set": {
       "x": 0.4,
-      "z": -7.2,
+      "y": 0,
+      "z": -11.2,
       "rot": 0,
       "lean": 16,
       "neckP": 6,
       "headP": -6,
       "jaw": 0.9,
       "squint": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "headP": 0,
+      "headY": 0,
+      "trunk": 0.6,
+      "lick": 0,
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "headP": 0,
+      "headY": 0,
+      "trunk": 0.6,
+      "lick": 0,
+      "gait": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3005,8 +4147,8 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "x": -2.4,
-      "z": -6.2,
+      "x": -2.3,
+      "z": -9,
       "rot": 6
      },
      "dur": 0.01,
@@ -3048,26 +4190,26 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     0.1,
+     0.35,
      0.5,
-     3.2
+     -0.3
     ],
     "look": [
      0.2,
-     1.8,
-     -6
+     2.5,
+     -6.3
     ],
     "fov": 48,
     "to": {
      "pos": [
-      0.1,
+      0.35,
       0.5,
-      8.3
+      5.8
      ],
      "look": [
       0.2,
-      1.9,
-      0
+      2.6,
+      -0.2
      ]
     },
     "dur": 1.6,
@@ -3081,12 +4223,12 @@
       [
        0,
        0.1,
-       -2.3
+       -6.3
       ],
       [
        1.6,
        0.1,
-       4.74
+       -0.22
       ]
      ],
      "dur": 1.6,
@@ -3108,9 +4250,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3132,13 +4275,13 @@
      "pts": [
       [
        0,
-       -0.8,
-       -3.2
+       -0.85,
+       -7.1
       ],
       [
        1.6,
-       -0.8,
-       3.84
+       -0.85,
+       -1.02
       ]
      ],
      "dur": 1.6,
@@ -3160,9 +4303,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3184,13 +4328,13 @@
      "pts": [
       [
        0,
-       0.95,
-       -3.05
+       1.05,
+       -7.1
       ],
       [
        1.6,
-       0.95,
-       3.99
+       1.05,
+       -1.02
       ]
      ],
      "dur": 1.6,
@@ -3212,9 +4356,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3234,7 +4379,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "z": -0.8
+      "z": -5.44
      },
      "dur": 1.6,
      "ease": "linear",
@@ -3244,10 +4389,82 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "step": 1
+      "gait": 0
      },
-     "dur": 0.14,
-     "ease": "out",
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 2.672
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 2.24
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 3.52
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 4
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 4
+     },
+     "dur": 1.6,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -3264,7 +4481,7 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "z": 0.52
+      "z": -3.08
      },
      "dur": 1.6,
      "ease": "linear",
@@ -3299,16 +4516,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.14
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.6,
      "at": 0.28
@@ -3318,26 +4525,6 @@
      "dur": 0.15,
      "amp": 0.02,
      "at": 0.28
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.44
     },
     {
      "sfx": "dinostomp",
@@ -3351,26 +4538,6 @@
      "at": 0.58
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.74
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.6,
      "at": 0.88
@@ -3382,26 +4549,6 @@
      "at": 0.88
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 1.04
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.6,
      "at": 1.18
@@ -3411,26 +4558,6 @@
      "dur": 0.15,
      "amp": 0.02,
      "at": 1.18
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 1.34
     },
     {
      "sfx": "dinostomp",
@@ -3448,7 +4575,7 @@
      "do": "move",
      "to": [
       0.1,
-      103.9
+      103.95
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3469,7 +4596,7 @@
      "who": "rea",
      "do": "move",
      "to": [
-      -0.8,
+      -0.95,
       103
      ],
      "dur": 0.01,
@@ -3491,8 +4618,8 @@
      "who": "phx",
      "do": "move",
      "to": [
-      0.95,
-      103.15
+      1.15,
+      103.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -3519,12 +4646,12 @@
     "pos": [
      10.5,
      1.4,
-     108
+     109.5
     ],
     "look": [
      0.8,
-     2.7,
-     102.6
+     2.5,
+     104
     ],
     "fov": 46
    },
@@ -3536,12 +4663,12 @@
       [
        0,
        0.1,
-       103.9
+       103.95
       ],
       [
        1.8,
        0.1,
-       109.66
+       109.71
       ]
      ],
      "dur": 1.8,
@@ -3563,9 +4690,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3587,12 +4715,12 @@
      "pts": [
       [
        0,
-       -0.8,
+       -0.95,
        103
       ],
       [
        1.8,
-       -0.8,
+       -0.95,
        108.76
       ]
      ],
@@ -3615,9 +4743,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3639,13 +4768,13 @@
      "pts": [
       [
        0,
-       0.95,
-       103.15
+       1.15,
+       103.1
       ],
       [
        1.8,
-       0.95,
-       108.91
+       1.15,
+       108.86
       ]
      ],
      "dur": 1.8,
@@ -3667,9 +4796,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -3718,10 +4848,150 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "step": 1
+      "gait": 0,
+      "drool": 1,
+      "glow": 0
      },
-     "dur": 0.14,
-     "ease": "out",
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 3.006
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 2.52
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 3.96
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -3854,29 +5124,9 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.14
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.28
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.3
     },
     {
      "do": "prop",
@@ -3886,6 +5136,16 @@
      },
      "dur": 0.1,
      "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 1.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
      "at": 0.3
     },
     {
@@ -3906,39 +5166,9 @@
      "at": 0.35
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.44
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.58
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.74
     },
     {
      "sfx": "dinostomp",
@@ -3981,74 +5211,14 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.14
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.28
     },
     {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.44
-    },
-    {
      "sfx": "dinostomp",
      "gain": 0.5,
      "at": 0.58
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 1
-     },
-     "dur": 0.14,
-     "ease": "out",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "rex",
-     "set": {
-      "step": 0
-     },
-     "dur": 0.14,
-     "ease": "in",
-     "at": 0.74
     },
     {
      "sfx": "dinostomp",
@@ -4061,7 +5231,7 @@
      "prop": "lamp",
      "off": [
       0,
-      6.6,
+      7.75,
       0.05
      ],
      "yaw": 0,
@@ -4073,8 +5243,8 @@
      "do": "ride",
      "prop": "lamp",
      "off": [
-      -0.62,
-      5.9,
+      -0.8,
+      6.8,
       0.12
      ],
      "yaw": 12,
@@ -4086,8 +5256,8 @@
      "do": "ride",
      "prop": "lamp",
      "off": [
-      0.62,
-      5.95,
+      0.8,
+      6.85,
       0.12
      ],
      "yaw": -12,
@@ -4095,16 +5265,44 @@
      "at": 0.88
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
      "do": "prop",
      "id": "rex",
      "set": {
-      "x": 2.997,
+      "x": -7.293,
       "y": 0,
-      "z": 107.212,
-      "rot": -75,
-      "lean": 0,
-      "neckP": -5,
-      "headP": -8,
+      "z": 106.528,
+      "rot": 65,
+      "lean": 6,
+      "neckP": -12,
+      "headP": -30,
       "jaw": 0.2,
       "squint": 0.4,
       "brow": -1,
@@ -4118,9 +5316,9 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "x": 1.2,
-      "z": 109.6,
-      "rot": -100
+      "x": 1.3,
+      "z": 107,
+      "rot": -70
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4130,9 +5328,63 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "x": -4.6,
+      "x": -0.6,
       "z": 109.4,
-      "rot": 100
+      "rot": -100
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.5,
+      "drool": 1,
+      "lookY": -0.8,
+      "gait": 0,
+      "headP": -25,
+      "trunk": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.7,
+      "drool": 1,
+      "lookY": 0.8,
+      "gait": 0,
+      "headP": -30,
+      "crouch": 0.6
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4181,11 +5433,11 @@
     "pos": [
      0.6,
      0.9,
-     114.2
+     114.6
     ],
     "look": [
-     -2.2,
-     4.6,
+     -2.3,
+     5.3,
      108
     ],
     "fov": 46
@@ -4196,9 +5448,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -4219,9 +5472,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -4242,9 +5496,10 @@
      "do": "expr",
      "expr": "terrified",
      "set": {
-      "open": 0.75,
-      "eye": 1.35,
-      "curve": -0.3
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
      },
      "dur": 0.01,
      "at": 0
@@ -4264,6 +5519,26 @@
      "do": "prop",
      "id": "pt1",
      "set": {
+      "flap": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 5
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
       "x": 5
      },
      "dur": 2,
@@ -4275,7 +5550,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -11
+      "neckP": -15
      },
      "dur": 0.16,
      "ease": "out",
@@ -4300,7 +5575,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -5
+      "neckP": -12
      },
      "dur": 0.07,
      "ease": "in",
@@ -4340,7 +5615,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -11
+      "neckP": -15
      },
      "dur": 0.16,
      "ease": "out",
@@ -4358,7 +5633,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -5
+      "neckP": -12
      },
      "dur": 0.07,
      "ease": "in",
@@ -4391,7 +5666,7 @@
      "id": "scyF",
      "set": {
       "x": -3.6,
-      "y": 6.35,
+      "y": 7.35,
       "z": 108.2,
       "rot": 20
      },
@@ -4403,11 +5678,11 @@
      "do": "prop",
      "id": "scyF",
      "set": {
-      "x": -0.6,
+      "x": -0.1,
       "y": 0.5,
-      "z": 115,
+      "z": 114.6,
       "rot": 380,
-      "tip": 0
+      "tip": 12
      },
      "dur": 1,
      "ease": "in",
@@ -4448,7 +5723,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -11
+      "neckP": -15
      },
      "dur": 0.16,
      "ease": "out",
@@ -4466,7 +5741,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -5
+      "neckP": -12
      },
      "dur": 0.07,
      "ease": "in",
@@ -4482,7 +5757,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -11
+      "neckP": -15
      },
      "dur": 0.16,
      "ease": "out",
@@ -4493,7 +5768,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -5
+      "neckP": -12
      },
      "dur": 0.07,
      "ease": "in",
@@ -4514,10 +5789,10 @@
     ],
     "look": [
      -0.9,
-     5.2,
+     4.4,
      106
     ],
-    "fov": 58
+    "fov": 60
    },
    "do": [
     {
@@ -4531,10 +5806,10 @@
      "at": 0.1
     },
     {
-     "fx": "impact",
+     "fx": "sparkle",
      "at": 0.1,
-     "color": "#9dff7a",
-     "dur": 0.3
+     "color": "#7dff6a",
+     "dur": 0.6
     },
     {
      "sfx": "bell",
@@ -4552,16 +5827,6 @@
      "dur": 0.9,
      "ease": "out",
      "at": 0.15
-    },
-    {
-     "do": "prop",
-     "id": "neck",
-     "set": {
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.58
     },
     {
      "sfx": "rumble",
@@ -4590,8 +5855,8 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "neckY": 150,
-      "neckP": -20,
+      "neckY": 80,
+      "neckP": -15,
       "headP": -10,
       "jaw": 0.3,
       "brow": 0.8,
@@ -4725,14 +5990,22 @@
   },
   {
    "from": 15.6,
+   "to": 16.5,
+   "see": [
+    "rex"
+   ],
+   "why": "the T. rex comes through the museum's front wall behind them (from the side)"
+  },
+  {
+   "from": 16.5,
    "to": 17.4,
    "see": [
     "rex",
-    "spud",
-    "rea",
-    "phx"
+    "spud.face",
+    "rea.face",
+    "phx.face"
    ],
-   "why": "the T. rex comes through the museum's front wall behind them"
+   "why": "the cold open's moment again: they run at us, the T. rex right behind"
   },
   {
    "from": 17.4,
@@ -4790,6 +6063,81 @@
    "from": 17.4,
    "to": 22,
    "reason": "they cling to the lamp's lantern"
+  },
+  {
+   "who": "spud",
+   "with": "rea",
+   "from": 17.35,
+   "to": 22,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "spud",
+   "with": "phx",
+   "from": 17.35,
+   "to": 22,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "rea",
+   "with": "phx",
+   "from": 17.35,
+   "to": 22,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "spud",
+   "from": 17.34,
+   "to": 17.44,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "rea",
+   "from": 17.34,
+   "to": 17.44,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "phx",
+   "from": 17.34,
+   "to": 17.44,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "phx",
+   "with": "rea",
+   "from": 3.6,
+   "to": 6.05,
+   "reason": "Phoenix shoves Reaper's scythe arm at the fish case (panel 03): his glove is on Reaper's sleeve"
+  },
+  {
+   "who": "rea",
+   "with": "spud",
+   "from": 15.6,
+   "to": 16.5,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces"
+  },
+  {
+   "who": "rea",
+   "with": "scyF",
+   "from": 18.45,
+   "to": 19.05,
+   "reason": "the scythe slips out of his glove and falls past his robe"
   }
  ],
  "notes": "Generated by storyboards/series/what-if/05-back-to-life/make-back-to-life.mjs."
