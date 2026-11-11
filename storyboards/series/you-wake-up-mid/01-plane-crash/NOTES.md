@@ -74,3 +74,18 @@
 ## Tried and dropped
 
 -
+
+## Final cut delivered with one flag open (11 Nov 2026, 23:50 Berlin)
+
+- Farm render 1 (c1f525c) failed qa/check on pixels: pop at 0.90 s (suitcase through the camera) and strobe at the
+  car blink (6 brightness steps in 1 s). Fixed in a3e79ef (suitcase ends in front of the lens at the cut; one slow
+  eye opening, no second blink), proven with `--draft --from --to` + qa/pops.mjs + a YAVG step count.
+- Farm render 2 (a3e79ef, runs 43111523795 A and 43111527437 B) = the delivered files. qa/check: 1 FAIL left in both,
+  strobe at 5.07 s (tear flash 183, decay steps over 20, thunder at RIP + 0.9: 4 steps in 1 s, limit 3). A scan of
+  every second of both renders with the same rule shows no other window of 4.
+- NOT BUILT, waits for Jonny (rounds past the cap of three): line `c.at(RIP, { fx: "flash", peak: 0.6, dur: 0.14` to
+  dur 0.24 (decay steps near 11), then one more farm render per cut, then PR, ledger row, improvement-loop fix.
+- Delivery: project files videos/you-wake-up-mid/01-plane-crash/ (FINAL-A-safe, FINAL-B-looked-back, DELIVERY.md,
+  check-A.txt, check-B.txt). Post pack in DELIVERY.md.
+- Tool lessons for the ledger: qa/check's strobe line names only its worst window (each render showed the next one);
+  the picture check never ran on a draft of this clip. Candidate fix: qa/pops.mjs also prints every strobe window.
