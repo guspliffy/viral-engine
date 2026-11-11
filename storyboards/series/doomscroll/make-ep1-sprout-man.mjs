@@ -16,7 +16,17 @@
 //                the log, him scrolling in the middle, nobody looks up.
 //   Callback:    the rule from frame 0 ("look up and you die") still holds in the last picture, now for the monster too.
 //
-//   node storyboards/series/doomscroll/make-ep1-sprout-man.mjs [--extreme]
+//   cut H (--horror, 11 Nov evening): cut B told like a horror film, after Jonny's verdict on the two drafts ("the man
+//   should first appear behind a tree and then appear behind the character ... build up tension and then let the slender
+//   act", "horror music", "the characters must look scared") and his ten-panel sheet
+//   (.../02-sprout-man-EXTREME-HORROR-PANELS.md, panels-02-extreme-horror/). A new opening of 9.5 s goes in front and
+//   cut B's whole chain plays D = 9.5 s later: every time below the opening is cut B's own time, moved by the builder.
+//
+//   cut S (--shadow): Jonny on the horror sheet, 11 Nov 19:59: "the creepy character should be smaller and look more evil,
+//   he should be very fast and more like a crepy shadow". Cut A's small monster and night forest, told like cut H: the
+//   same opening and fear, but he is a black shadow with two glowing slit eyes who crosses the frame in a few frames.
+//
+//   node storyboards/series/doomscroll/make-ep1-sprout-man.mjs [--extreme | --horror | --shadow]
 import { clip, write, r3 } from "../../lib/clip.mjs";
 import * as act from "../../lib/acting.mjs";
 import { hud } from "../../lib/overlay.mjs";
@@ -27,9 +37,16 @@ const FACES = "strong";
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
 const RIG = { hand: 2, eyes: 2, hold: 2 };
 const LINES = { sub: true, blink: false };
-const c = clip({ faces: FACES, lines: LINES }), { A, sfx, see, prop, cap } = c;
-const END = 19.0, T9X = 17.4;
-const X = process.argv.includes("--extreme");   // cut B
+const H = process.argv.includes("--horror");    // cut H: cut B behind a horror opening
+const S = process.argv.includes("--shadow");    // cut S: cut A's small monster as a fast black shadow, behind the same opening
+const HOR = H || S;                             // told like a horror film
+const X = H || process.argv.includes("--extreme");   // cut B
+const D = HOR ? 9.5 : 0, T0 = -D, o = (t) => t - D;   // o(3) = second 3 of the video in cut H (the opening is written in real seconds)
+const c0 = clip({ faces: FACES, lines: LINES });
+const late = (f) => (t, ...a) => f(t + D, ...a), late2 = (f) => (a, b, ...r) => f(a + D, b + D, ...r);
+const c = D ? { ...c0, at: late(c0.at), A: late(c0.A), prop: late(c0.prop), sfx: late(c0.sfx), arm: late(c0.arm), still: late(c0.still), say: late(c0.say), macro: late(c0.macro), see: late2(c0.see), cap: late2(c0.cap), hitStop: late(c0.hitStop) } : c0;
+const { A, sfx, see, prop, cap } = c;
+const END = 19.0 + D, T9X = 17.4 + D;
 const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- places (x right, z toward us; the forest is -z)
@@ -54,7 +71,13 @@ const SM_BIG = X ? { ...SM_FAR, x: 0, y: -12.2, z: -6, scale: 6, lean: 0 }      
   : { ...SM_FAR, x: 0.4, z: -0.1, rot: 0, lean: 5 };                                                       // P05: full height behind the log
 const SM_SIT = X ? { ...SM_FAR, hipY: 0.22, lean: 22 }                                                     // B P08: cross-legged in the flattened forest
   : { ...SM_FAR, x: F_SM, z: LOG.z, rot: 0, hipY: 0.53, lean: 20 };                                        // P08: on the log
-let smNow = { ...SM_FAR };
+// cut H: the pine he hides behind, and where he stands behind it (not far and huge: near and tall, "much too high up
+// the tree"; a locked camera cannot tell the difference, and the painted pines would hide a real giant further back)
+// The pine is a bare trunk: its crown is out of the top of the frame.
+const TREE = X ? { x: 1.2, z: -16, h: 30, r: 0.9 } : { x: 0.55, z: -5, h: 16, r: 0.5 }, TREE_R = X ? 0.75 : 0.44;   // TREE_R: the trunk's radius at his head's height
+const SM_PEEK = { ...SM_FAR, x: TREE.x - TREE_R, z: TREE.z - (X ? 1.0 : 0.8), rot: 0, scale: X ? 3 : 1.15, lean: 0, twist: 0 };
+const SM_0 = HOR ? SM_PEEK : SM_FAR;
+let smNow = { ...SM_0 };
 const BASE_KEYS = ["x", "y", "z", "rot", "scale", "hipY", "hipZ", "lean", "twist"];
 const sm = (t, set, dur = 0.3, ease = "inOut") => { prop(t, "sm", set, dur, ease); for (const k of BASE_KEYS) if (k in set) smNow[k] = set[k]; };
 const station = (t, S, extra = {}, dur = 0.01) => sm(t, { ...Object.fromEntries(BASE_KEYS.map((k) => [k, S[k]])), ...extra }, dur);
@@ -78,45 +101,115 @@ const STAFF0 = { x: 1.95, y: 0.0, z: 0.95, rot: 0, tilt: -14, tip: 0 };
 const props = [
   { id: "log", kind: "firelog", x: LOG.x, z: LOG.z, rot: 0, len: LOG.len, r: LOG.r },
   { id: "fire", kind: "campfire", x: FIRE[0], z: FIRE[1], lit: 1, r: 0.3 },
-  { id: "sm", kind: "sproutman", x: SM_FAR.x, y: 0, z: SM_FAR.z, rot: SM_FAR.rot, scale: SM_FAR.scale, seed: 5 },
+  { id: "sm", kind: "sproutman", x: SM_0.x, y: 0, z: SM_0.z, rot: SM_0.rot, scale: SM_0.scale, seed: 5, ...(S && { shadow: 0.94, eyes: 0 }) },
+  ...(HOR ? [{ id: "tree", kind: "pinetrunk", x: TREE.x, z: TREE.z, h: TREE.h, r: TREE.r, crown: 0.75, seed: 3 }] : []),
   { id: "phone", kind: "phone", x: S_SPD, y: 0.9, z: LOG.z + 0.45, rot: 180, tip: -28, scale: 1.9, case: "#2a2d36", bright: 1.5, halo: 0.42 },
   { id: "staff", kind: "parkedstaff", ...STAFF0 },
   { id: "frame", kind: "selfieframe", x: 0, y: 0, z: 0, scale: 0, w: 0.36, h: 0.62 },
 ];
 // cut B: the storm. Rain between us and them, two bolts far behind the trees (one more for the phone at the end)
 const OFF = 0.0001;
+if (X || S) props.push({ id: "rain", kind: "rainstreaks", x: 0, y: 4, z: 4.2, n: 320, box: [9, 9, 5], v: [-2.5, -13, 0], len: 0.7, width: 0.012, opacity: 0.3 });
 if (X) props.push(
-  { id: "rain", kind: "rainstreaks", x: 0, y: 4, z: 4.2, n: 320, box: [9, 9, 5], v: [-2.5, -13, 0], len: 0.7, width: 0.012, opacity: 0.3 },
   { id: "boltL", kind: "skybolt", x: -7, y: 17, z: -32, h: 36, seed: 4, glow: 0 },
   { id: "boltR", kind: "skybolt", x: 8, y: 19, z: -36, h: 40, seed: 9, glow: 0 },
   { id: "boltP", kind: "skybolt", x: 0.5, y: 14.5, z: -13.1, h: 22, w: 0.3, seed: 6, glow: 0 },
 );
 // a lightning flash: the bolt, the giant lit white, thunder a beat later
-const flash = (t, id = "boltL", gain = 0.7) => { if (!X) return;
-  prop(t, id, { glow: 1 }, 0.03); prop(t + 0.08, id, { glow: 0.25 }, 0.05); prop(t + 0.16, id, { glow: 0.9 }, 0.03); prop(t + 0.24, id, { glow: 0 }, 0.3, "out");
+const flash = (t, id = "boltL", gain = 0.7) => { if (!X && !S) return;
+  if (X) { prop(t, id, { glow: 1 }, 0.03); prop(t + 0.08, id, { glow: 0.25 }, 0.05); prop(t + 0.16, id, { glow: 0.9 }, 0.03); prop(t + 0.24, id, { glow: 0 }, 0.3, "out"); }
   prop(t, "sm", { flash: 1 }, 0.03); prop(t + 0.24, "sm", { flash: 0 }, 0.35, "out");
-  sfx(t + 0.12, "firework", { gain, reason: "thunder: a crack over a deep boom (the library has no thunder yet)" }); };
+  if (HOR) { c.at(t, { fx: "flash", peak: 0.35, dur: 0.3, color: "#dfe8ff" }); sfx(t + 0.12, "thunder", { gain }); }
+  else sfx(t + 0.12, "firework", { gain, reason: "thunder: a crack over a deep boom (the library has no thunder yet)" }); };
 
 // ---------------------------------------------------------------- from frame 0: three on the log, Spud on his phone
-A(0, "spd", "sit", { seat: "log", along: S_SPD, dur: 0, hands: "keep", feet: [0.36, 0.08] });
-A(0, "spd", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
-A(0, "spd", "look", { to: AT_PHONE, dur: 0, blink: false });
-A(0, "spd", "expr", { expr: "kind", set: { curve: 0.2, eye: 0.95 }, dur: 0.01 });
-A(0, "spd", "face", { lid: 0.5, dur: 0 });
+A(T0, "spd", "sit", { seat: "log", along: S_SPD, dur: 0, hands: "keep", feet: [0.36, 0.08] });
+A(T0, "spd", "grab", { prop: "phone", hand: "both", grip: [0, 0.035, 0], pose: null });
+A(T0, "spd", "look", { to: AT_PHONE, dur: 0, blink: false });
+A(T0, "spd", "expr", { expr: "kind", set: { curve: 0.2, eye: 0.95 }, dur: 0.01 });
+A(T0, "spd", "face", { lid: 0.5, dur: 0 });
 act.blinksAt(c, "spd", [1.6, 5.4, 8.9, 15.7]);
 act.scrollPhone(c, "spd", [0.3, 1.2, 2.4, 4.7, 5.6, 6.5, 7.95, 8.8, 9.6]);
-prop(0, "phone", { glow: 0.75 }, 0.01);
-A(0, "vik", "sit", { seat: "log", along: S_VIK, dur: 0, hands: "lap" });
-A(0, "wiz", "sit", { seat: "log", along: S_WIZ, dur: 0, hands: "lap" });
-A(0, "vik", "look", { to: [0.1, -0.3], dur: 0, blink: false });       // warming at the fire
-A(0, "wiz", "look", { to: [-0.1, -0.3], dur: 0, blink: false });
+prop(T0, "phone", { glow: 0.75 }, 0.01);
+A(T0, "vik", "sit", { seat: "log", along: S_VIK, dur: 0, hands: "lap" });
+A(T0, "wiz", "sit", { seat: "log", along: S_WIZ, dur: 0, hands: "lap" });
+if (!HOR) { A(T0, "vik", "look", { to: [0.1, -0.3], dur: 0, blink: false });       // warming at the fire
+  A(T0, "wiz", "look", { to: [-0.1, -0.3], dur: 0, blink: false }); }
+
+// ---------------------------------------------------------------- CUT H, THE OPENING 0-10.0 (panels 01-04), real seconds
+// 01 he looks out from behind a pine, far too high up; 02 lightning, the pine stands alone; 03 two black trunks behind
+// Spud are his legs; 04 he bends down over the camp and his fingers settle round the log like a cage; the music is
+// gone, a heartbeat, Viking's eyes creep up. Then cut B's chain: he strikes at 10.0.
+const FEAR = { expr: "terrified", set: { open: 0.1, curve: -0.3 } };   // the scream's eyes with a small tight mouth
+const sweat = (t, who, count = 3) => c.at(t, { fx: "sweat", who, dur: 0.7, count });
+if (HOR) {
+  act.blinksAt(c, "spd", [1.6, 4.2, 8.1].map(o));
+  act.scrollPhone(c, "spd", [0.3, 1.2, 2.4, 3.5, 4.4, 5.5, 6.5, 7.9, 8.8].map(o));
+  for (const [w, amp] of [["vik", 0.8], ["wiz", 0.9]]) {
+    A(o(0), w, "expr", { ...FEAR, dur: 0.01 }); A(o(0), w, "face", { brow: 0.45, dur: 0 });
+    A(o(0), w, "shake", { dur: 4.9, amp }); A(o(5.0), w, "shake", { dur: 4.4, amp: amp + 0.5 });
+  }
+  // 01 (0-2.5): they know he is there and do not dare to look. Eyes dart to the side he is on, never up
+  A(o(0), "vik", "look", { to: [0.55, 0.0], dur: 0, blink: false }); A(o(0), "wiz", "look", { to: [0.3, -0.1], dur: 0, blink: false });
+  A(o(1.0), "vik", "look", { to: [0.0, -0.15], dur: 0.12, blink: false }); A(o(1.7), "vik", "look", { to: [0.6, 0.05], dur: 0.12, blink: false });
+  A(o(0.7), "wiz", "look", { to: [0.65, 0.0], dur: 0.12, blink: false }); A(o(1.5), "wiz", "look", { to: [0.1, -0.2], dur: 0.12, blink: false });
+  sweat(o(0.5), "vik"); sweat(o(1.3), "wiz");
+  station(o(0), SM_PEEK, { headR: 0, headP: 6 });
+  sm(o(0.3), { x: TREE.x - TREE_R - (X ? 0.22 : 0.1), headR: -14 }, 1.9, "inOut");           // he leans out a little further to look at them
+  if (S) sm(o(0.9), { eyes: 1 }, 0.5, "out");                                           // two slits open in the dark
+  // 02 (2.5-5.0): lightning. The pine stands alone. The fire gutters; they search the dark
+  flash(o(2.45), "boltL", 0.75);
+  sm(o(2.47), { scale: OFF }, 0.01);                                                    // gone inside the flash
+  if (S) {   // "very fast": twice he crosses right behind them, a black streak of a few frames; their eyes whip after it
+    for (const [t, z, from, to] of [[3.55, -1.7, -5.5, 5.5], [4.35, -1.0, 5.5, -5.5]]) {
+      station(o(t - 0.02), { ...SM_FAR, x: from, z, rot: from < 0 ? 80 : -80, lean: 24 }, { eyes: 1 });
+      sm(o(t), { x: to }, 0.14, "linear"); sm(o(t + 0.15), { scale: OFF }, 0.01);
+      sfx(o(t), "whoosh", { gain: 0.45 });
+      for (const w of ["vik", "wiz"]) { A(o(t + 0.05), w, "look", { to: [to > 0 ? 0.8 : -0.8, 0.05], dur: 0.08, blink: false }); A(o(t + 0.05), w, "squash", { amount: 0.05, dur: 0.15 }); }
+    }
+  }
+  prop(o(2.6), "fire", { lit: 0.3 }, 0.8, "out");
+  for (const [t, v, w] of [[2.75, [-0.7, 0.05], [0.7, 0.0]], [3.35, [0.7, 0.1], [-0.6, 0.05]], [4.0, [-0.3, -0.1], [0.5, -0.1]], [4.5, [0.4, 0.0], [-0.4, 0.0]]]) {
+    A(o(t), "vik", "look", { to: v, dur: 0.1, blink: false }); A(o(t + 0.08), "wiz", "look", { to: w, dur: 0.1, blink: false });
+  }
+  c.say(o(3.2), "wiz", "where is he?", 0.9, "whisper", { sub: "where is he?", voice: false, pos: 880 });
+  sweat(o(3.0), "vik"); sweat(o(4.1), "wiz");
+  see(o(0.1), o(2.3), ["spd.face", "vik.face", "wiz.face", "phone"], "01: Spud on his phone, the friends stiff with fear; the pale head behind the pine");
+  see(o(2.7), o(4.9), ["spd.face", "vik.face", "wiz.face"], "02: the pine alone; the friends search the dark");
+  // 03 (5.0-7.5): close on Spud. The two trunks behind him are trouser legs
+  if (X) station(o(4.97), SM_NEAR, { headP: 0, headR: 0 });
+  prop(o(4.97), "tree", { scale: OFF }, 0.01);
+  flash(o(6.0), "boltR", 0.7);
+  if (S) { station(o(6.0), SM_NEAR, { headP: 26, headR: 0, eyes: 1 }); sm(o(6.7), { headR: 12 }, 0.5, "inOut"); }   // in the flash he stands behind Spud; the head tips, curious
+  A(o(6.25), "vik", "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0.12 }); sweat(o(6.3), "vik", 4);
+  for (const [w, t] of [["vik", 6.9], ["wiz", 6.8]]) { A(o(t), w, "look", { to: [0, -1], dur: 0.1, blink: false }); A(o(t), w, "expr", { ...FEAR, dur: 0.15 }); A(o(t), w, "face", { lid: 0.55, dur: 0.15 }); }
+  see(o(5.1), o(7.4), ["spd.face", "phone"], "03: Spud's calm phone-lit face, two black trunks behind him");
+  // 04 (7.5-9.0): he bends down out of the storm; the fingers come down round the log
+  station(o(7.47), X ? { ...SM_NEAR, x: -0.2, lean: 8 } : { ...SM_NEAR, x: -0.3, z: -0.6, rot: 0, lean: 6 }, { headP: 10, headR: 0 });
+  sm(o(7.5), { lean: X ? 52 : 46, headP: 34 }, 1.45, "inOut");
+  armTo(o(7.6), "L", X ? [2.2, 0.12, 1.7] : [1.55, 0.1, 1.5], 1.3, "inOut", { fanL: 1, wig: 0.25 });
+  armTo(o(7.6), "R", X ? [-2.6, 0.12, 1.7] : [-2.15, 0.1, 1.5], 1.3, "inOut", { fanR: 1 });
+  for (const [t, g] of [[7.55, 0.9], [8.45, 1], [9.15, 1]]) sfx(o(t), "ai/heartbeat", { gain: g, reason: "the music is gone: a heartbeat is the only sound left while he bends down over them" });
+  c.say(o(7.9), "wiz", "dont look", 0.6, "whisper", { sub: "don't look...", voice: false });
+  see(o(7.8), o(8.9), ["sm"], "04: he bends over the camp, the fingers like a cage");
+  // 9.0-10.0: Viking close. He cannot help it (cut B's own eyesLead and shock follow at 9.72 and 9.88)
+  A(o(9.0), "vik", "face", { lid: 0.2, dur: 0.3 });
+  A(o(9.05), "vik", "look", { to: [0.05, -0.45], dur: 0.3, blink: false }); A(o(9.4), "vik", "look", { to: [0.15, 0.05], dur: 0.3, blink: false });
+  sweat(o(9.1), "vik", 4);
+  see(o(9.1), o(9.95), ["vik.face"], "Viking's eyes creep up");
+  // the strike (cut B's 0.5 = 10.0): the cage lets go, the fire bursts into embers
+  prop(o(10.0), "sm", { aLk: 0, aRk: 0, wig: 0 }, 0.25, "out");
+  prop(o(10.02), "fire", { lit: 0 }, 0.1);
+  act.landDust(c, o(10.03), FIRE, { color: "#ff9a3c", puffs: 12 });
+  sfx(o(10.03), "crumble", { gain: 0.5, reason: "the fire is smashed apart" });
+}
 
 // ---------------------------------------------------------------- 1 THE RULE 0-2.0 (P01, P02): Viking looks up and is gone
-c.macro(0.0, null, "narrate", { line: "Look up, and you die.", voice: process.env.FINAL ? "narrator-trailer" : "storyteller-deep", caption: false, gain: 1 });
-cap(0, 2.0, "LOOK UP AND YOU DIE.", X ? 560 : 330);
+c.macro(T0, null, "narrate", { line: "Look up, and you die.", voice: process.env.FINAL ? "narrator-trailer" : "storyteller-deep", caption: false, gain: 1 });
+cap(T0, T0 + 2.0, "LOOK UP AND YOU DIE.", X ? 560 : 330);
 flash(0.5, "boltL"); flash(2.3, "boltR", 0.6); flash(4.5, "boltL", 0.5); flash(10.55, "boltR");
 act.eyesLead(c, 0.22, "vik", [0.45, 0.75]);
-act.shock(c, 0.38, "vik", { open: 0.3, hold: 0.5 });
+if (HOR) A(0.38, "vik", "expr", { expr: "terrified", dur: 0.12 }); else act.shock(c, 0.38, "vik", { open: 0.3, hold: 0.5 });
 sfx(0.5, "scarestab", { gain: 0.8 });
 coilTo(0.5, "A", [S_VIK, 0.3 + BODY, LOG.z], 0.3, "in", { tAk: 1 });     // the sprout whips across the frame and coils round him
 sfx(0.55, "whoosh", { gain: 0.7 });
@@ -127,14 +220,15 @@ const HAT_UP = 0.78, hatOff = (g, at) => [r3(g[0] - at[0]), r3(g[1] - at[1] - HA
 A(0.88, "vik", "hat", { off: hatOff(HELMET, UP.vik), spin: [80, 200, 0], dur: 0.32, ease: "in", quiet: true });
 A(1.2, "vik", "hat", { off: hatOff(HELMET, UP.vik), spin: [80, 1100, 0], dur: 0.8, ease: "out", quiet: true });
 sfx(1.2, "tink", { gain: 0.6, reason: "the helmet hits the ground" });
-act.shock(c, 1.05, "wiz", { open: 0.42, hold: 1.2 });
+if (HOR) { A(1.05, "wiz", "expr", { expr: "terrified", dur: 0.12 }); } else act.shock(c, 1.05, "wiz", { open: 0.42, hold: 1.2 });
 A(1.0, "wiz", "look", { to: [-0.6, 0.5], dur: 0.12, blink: false });    // where Viking was, and up
 c.say(1.25, "wiz", "aaaah!", 0.7, "excited", { sub: "AAAH!", voice: false });
-see(0, 1.0, ["spd.face", "vik.face", "wiz.face", "sm", "phone"], "P01: three on the log, Spud on his phone, the tall one behind them");
+if (HOR) see(0.5, 1.0, ["spd.face", "vik.face", "phone"], "05: the strike, Viking wrapped, Spud on his phone");
+else see(0, 1.0, ["spd.face", "vik.face", "wiz.face", "sm", "phone"], "P01: three on the log, Spud on his phone, the tall one behind them");
 see(1.0, 1.9, ["spd.face", "wiz.face"], "P02: Viking gone, the Wizard screams, Spud has not moved");
 
 // ---------------------------------------------------------------- 2 SHH 2.0-4.5 (P03): the Wizard looks too
-station(2.0, SM_NEAR);
+station(2.0, SM_NEAR, HOR ? { aLk: 0, aRk: 0, fanL: 0.35, fanR: 0.35, wig: 0, headP: 0 } : {});
 coilTo(2.0, "A", [UP.vik[0], UP.vik[1] + BODY, UP.vik[2]], 0.01);
 A(2.1, "wiz", "look", { to: [-0.75, 0.85], dur: 0.12, blink: false });   // up at him
 coilTo(2.3, "B", [S_WIZ, 0.3 + BODY, LOG.z], 0.26, "in", { tBk: 1 });
@@ -167,7 +261,7 @@ see(4.6, 6.9, ["spd.face", "phone", "sm"], "P04: the long fingers between his fa
 
 // ---------------------------------------------------------------- 4 THE LIFT 7.0-10.0 (P05, the 10x moment)
 station(7.0, SM_BIG, { headP: X ? -8 : 12, fanL: 0.35, wig: 0, aLk: 0 });
-if (X) { prop(7.0, "rain", { scale: OFF }, 0.01); prop(14.0, "rain", { scale: 1 }, 0.01); prop(T9X, "rain", { scale: OFF }, 0.01); }
+if (X) { prop(7.0, "rain", { scale: OFF }, 0.01); prop(14.0, "rain", { scale: 1 }, 0.01); prop(T9X - D, "rain", { scale: OFF }, 0.01); }
 for (const w of ["vik", "wiz"]) { A(7.0, w, "hat", { off: [0, 0, 0], spin: [0, 0, 0], dur: 0, quiet: true }); A(7.0, w, "expr", { expr: "terrified", dur: 0.01 }); A(7.0, w, "face", { lid: 1, dur: 0.01 }); }
 coilTo(7.0, "A", [UP.vik[0], UP.vik[1] + BODY, UP.vik[2]], 0.01); coilTo(7.0, "B", [UP.wiz[0], UP.wiz[1] + BODY, UP.wiz[2]], 0.01);
 const TOP = 0.95;                                                       // the hand holds Spud by the top of his sweater
@@ -265,8 +359,9 @@ for (const [w, s] of X ? [["spd", S_SPD], ["vik", S_VIK], ["wiz", S_WIZ]] : [["s
   A(T9, w, "move", { to: [s, LOG.z], dur: 0.01, steps: 0 });
   A(T9, w, "sit", { seat: "log", along: s, dur: 0.01, hands: "lap" });
   A(T9, w, "look", { to: [0, -1], dur: 0.01, blink: false });
-  A(T9, w, "face", { lid: 0.6, dur: 0.01 });
-  A(T9, w, "expr", { expr: "sad", dur: 0.01 });
+  A(T9, w, "face", { lid: HOR ? 0.2 : 0.6, dur: 0.01 });
+  if (HOR) { A(T9, w, "expr", { ...FEAR, dur: 0.01 }); A(T9 + 0.06, w, "shake", { dur: 1.4, amp: 1.2 }); }
+  else A(T9, w, "expr", { expr: "sad", dur: 0.01 });
 }
 A(T9, "spd", "droop", { to: 1, dur: 0.01 });
 prop(T9, "staff", { x: (X ? S_WIZ : F_WIZ) - 0.42, y: 0.5, z: LOG.z + 0.45, rot: 0, tilt: 68, tip: 8 }, 0.01);
@@ -289,52 +384,64 @@ const SELF = shot(SELFIE.pos, { fov: SELFIE.fov });
 const DROP = X ? shot([0.0, 1.3, 7.6], { tilt: 12, fov: 46 }) : shot([0.0, 1.55, 8.4], { tilt: 2, fov: 46 });
 const LAST = X ? shot([-0.3, 1.5, 7.8], { tilt: 4, fov: 46 })   // the dawn painting looks up only 3 degrees
    : shot([0.0, 1.55, 8.4], { tilt: 2, fov: 46 });
+// cut H's opening shots
+const CLOSE = shot([-0.85, 0.85, 3.9], { tilt: 9, fov: 42 });           // 03: Spud's face, the legs behind him
+const LOW = X ? shot([0.2, 0.45, 6.6], { tilt: 24, fov: 54 })           // 04: from the ground up the suit
+  : shot([0.1, 0.45, 5.6], { tilt: 4, fov: 46 });                       // S: low in front of the fire, him bent over them
+const VIKC = shot([S_VIK + 0.05, 0.85, 3.3], { tilt: 5, fov: 34 });     // Viking's eyes
 const beats = c.beats([
-  ["P01 the rule", 0, WIDE, "hook"],
-  ["P03 shh", 2.0, SHH],
-  ["P04 the hand", 4.5, HAND],
-  ["P05 the lift", 7.0, HERO],
-  ["P06 the jab", 10.0, JAB],
-  ["P07 the face", 12.0, SELF, "payoff"],
-  ["the drop", 14.0, DROP],
-  ["dead", 16.0, "keep"],
-  ["P08 nobody looks up", 17.4, LAST, "reaction"],
+  ...(HOR ? [["01 behind the pine", 0, WIDE, "hook"], ["03 the legs", 5.0, CLOSE], ["04 the cage", 7.5, LOW], ["he looks", 9.0, VIKC], ["05 the strike", 10.0, WIDE]]
+    : [["P01 the rule", 0, WIDE, "hook"]]),
+  ["P03 shh", 2.0 + D, SHH],
+  ["P04 the hand", 4.5 + D, HAND],
+  ["P05 the lift", 7.0 + D, HERO],
+  ["P06 the jab", 10.0 + D, JAB],
+  ["P07 the face", 12.0 + D, SELF, "payoff"],
+  ["the drop", 14.0 + D, DROP],
+  ["dead", 16.0 + D, "keep"],
+  ["P08 nobody looks up", 17.4 + D, LAST, "reaction"],
 ], END);
 
 write(import.meta.url, {
-  id: X ? "doomscroll-01-sprout-man-extreme" : "doomscroll-01-sprout-man",
+  id: S ? "doomscroll-01-sprout-man-shadow" : H ? "doomscroll-01-sprout-man-horror" : X ? "doomscroll-01-sprout-man-extreme" : "doomscroll-01-sprout-man",
   title: "Look up and you die",
-  idea: "Doomscroll to survive, pilot A: a faceless monster takes everyone who looks up; Spud never looks up from his phone, and the phone's selfie filter saves them all",
+  idea: "Doomscroll to survive, pilot: a faceless monster takes everyone who looks up; Spud never looks up from his phone, and the phone's selfie filter saves them all",
   format: "series pilot: Doomscroll to survive (look up and you die; the phone causes the save; the battery is the clock)",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [300, 1360],
   castLook: "sheet", cleanStart: true,
   motion: MOTION, rig: RIG, physics: true, animeTiming: true,
-  cover: 8.5,
+  cover: 8.5 + D,
   set: { type: "env", env: X ? "storm-pine-clearing" : "pine-forest-night",
     // B: above the clouds for the lift, back down for the drop, the flattened forest at dawn for the last picture. The
     // camera gate reads only the first env, so it fails the last shot, which is framed for the dawn painting (it looks
     // up 3 degrees, the storm 12). The gate is off for B for that reason; checked by hand on 11 Nov: with --gate every
     // shot before 17.4 s passes on the storm env, and the last shot passes on the dawn env alone
-    ...(X && { swap: [{ at: 7.0, env: "moon-above-storm" }, { at: 14.0, env: "storm-pine-clearing" }, { at: T9X, env: "flattened-forest-dawn" }], envCheck: process.argv.includes("--gate") }),
+    ...(X && { swap: [...(H ? [{ at: 7.5, env: "storm-pine-clearing-up" }, { at: 9.0, env: "storm-pine-clearing" }] : []), { at: 7.0 + D, env: "moon-above-storm" }, { at: 14.0 + D, env: "storm-pine-clearing" }, { at: T9X, env: "flattened-forest-dawn" }], envCheck: process.argv.includes("--gate") }),
     shade: "soft", aperture: 0, focus: false, lighting: 2, hatch: { boil: 0.25 }, life: "auto", cel: { at: 0.25 }, ink: true, satsuei: true },
-  hud: hud({ battery: [[0, 5], [2.0, 4, 0.12], [4.5, 3, 0.12], [7.0, 2, 0.12], [10.0, 1, 0.12], [16.0, 0, 0.12], [17.05, 100, 0.35]] }),
-  music: { style: "sneaky", lowCut: 150, gain: 0.34, parts: [{ at: 0, part: "main" }, { at: 10.55, part: "stop" }, { at: 12.35, part: "drop" }] },
+  hud: hud({ battery: HOR ? [[0, 5], [5.0, 4, 0.12], [10.0, 3, 0.12], [7.0 + D, 2, 0.12], [10.0 + D, 1, 0.12], [16.0 + D, 0, 0.12], [17.05 + D, 100, 0.35]]
+    : [[0, 5], [2.0, 4, 0.12], [4.5, 3, 0.12], [7.0, 2, 0.12], [10.0, 1, 0.12], [16.0, 0, 0.12], [17.05, 100, 0.35]] }),
+  // cut H: the horror bed (puppet/beat.mjs "dread"): drone, heartbeat and a creeping cluster; silence while he bends down
+  // (7.5-10.0, the heartbeat alone is a sound effect), back faster on the strike, cut dead by the jab, a music box on the
+  // puppy face, nothing while they fall, the drone again when the battery dies
+  music: HOR ? { style: "dread", bpm: 60, key: 0, gain: 0.4, parts: [{ at: 0, part: "main" }, { at: 7.5, part: "hush" }, { at: 10.0, part: "drop" }, { at: 10.55 + D, part: "hush" }, { at: 12.35 + D, part: "musicbox" }, { at: 14.0 + D, part: "hush" }, { at: 16.0 + D, part: "main" }] }
+    : { style: "sneaky", lowCut: 150, gain: 0.34, parts: [{ at: 0, part: "main" }, { at: 10.55, part: "stop" }, { at: 12.35, part: "drop" }] },
   sound: { sfx: 0.7, ambience: 0.06, surface: "dirt", room: "open", guard: true },
-  creative: { length: [18, 22] },
-  hook: { show: ["spd", "vik", "wiz", "sm", "phone"], hint: 0, what: "a tall faceless figure stands behind three friends at a campfire; one looks up and is gone" },
+  creative: { length: HOR ? [27, 31] : [18, 22] },
+  hook: HOR ? { show: ["spd", "vik", "wiz", "phone"], hint: 0, what: "three friends at a campfire in a storm, two of them stiff with fear; a pale blank head looks out from behind a pine, far too high up" }
+    : { show: ["spd", "vik", "wiz", "sm", "phone"], hint: 0, what: "a tall faceless figure stands behind three friends at a campfire; one looks up and is gone" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { who: "spd", with: "log", from: 0, to: 7.4, reason: "Spud sits on the log" },
-    { who: "vik", with: "log", from: 0, to: 1.0, reason: "Viking sits on the log" },
-    { who: "wiz", with: "log", from: 0, to: 2.7, reason: "the Wizard sits on the log" },
-    { who: "spd", with: "log", from: 17.4, to: END + 1.5, reason: "Spud sits on the log" },
-    { who: "vik", with: "log", from: 17.4, to: END + 1.5, reason: "Viking sits on the log" },
-    { who: "wiz", with: "log", from: 17.4, to: END + 1.5, reason: "the Wizard sits on the log" },
-    ...["spd", "vik", "wiz"].map((who) => ({ who, with: "sm", from: 14.7, to: END + 1.5, reason: "Sprout Man's box takes in his long arms and back sprouts, which reach out past the three; his body sits clear of them on the log" })),
-    { who: "wiz", with: "staff", from: 16.7, to: END + 1.5, reason: "the Wizard holds his staff (a prop staged at his hand)" },
-    { who: "spd", from: 7.3, to: 8.0, checks: ["face-covered", "hand-jump", "palm-turn", ...(X ? ["rig-jump", "motion"] : [])], reason: "he is flipped upside down in half a second with both hands on the phone" + (X ? "; in B he is also yanked six metres up above the clouds in that half second" : "") },
-    ...(X ? ["spd", "vik", "wiz"].map((who) => ({ who, from: 14.7, to: 15.45, checks: ["rig-jump", "motion", "hand-jump"], reason: "B: the three fall six metres out of the sky in under half a second (meant to be fast)" })) : []),
+    { who: "spd", with: "log", from: 0, to: 7.4 + D, reason: "Spud sits on the log" },
+    { who: "vik", with: "log", from: 0, to: 1.0 + D, reason: "Viking sits on the log" },
+    { who: "wiz", with: "log", from: 0, to: 2.7 + D, reason: "the Wizard sits on the log" },
+    { who: "spd", with: "log", from: 17.4 + D, to: END + 1.5, reason: "Spud sits on the log" },
+    { who: "vik", with: "log", from: 17.4 + D, to: END + 1.5, reason: "Viking sits on the log" },
+    { who: "wiz", with: "log", from: 17.4 + D, to: END + 1.5, reason: "the Wizard sits on the log" },
+    ...["spd", "vik", "wiz"].map((who) => ({ who, with: "sm", from: 14.7 + D, to: END + 1.5, reason: "Sprout Man's box takes in his long arms and back sprouts, which reach out past the three; his body sits clear of them on the log" })),
+    { who: "wiz", with: "staff", from: 16.7 + D, to: END + 1.5, reason: "the Wizard holds his staff (a prop staged at his hand)" },
+    { who: "spd", from: 7.3 + D, to: 8.0 + D, checks: ["face-covered", "hand-jump", "palm-turn", ...(X ? ["rig-jump", "motion"] : [])], reason: "he is flipped upside down in half a second with both hands on the phone" + (X ? "; in B he is also yanked six metres up above the clouds in that half second" : "") },
+    ...(X ? ["spd", "vik", "wiz"].map((who) => ({ who, from: 14.7 + D, to: 15.45 + D, checks: ["rig-jump", "motion", "hand-jump"], reason: "B: the three fall six metres out of the sky in under half a second (meant to be fast)" })) : []),
   ],
   notes: "Generated by storyboards/series/doomscroll/make-ep1-sprout-man.mjs. Panels: /mnt/project-files/video-scripts/2026-11-11-doomscroll-to-survive/panels-01-sprout-man/. Title added in TikTok's text tool.",
 });

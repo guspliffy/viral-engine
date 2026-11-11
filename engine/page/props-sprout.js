@@ -21,7 +21,8 @@ import { SPROUT } from "../shared/sprout-rig.js";
 //                 tAx tAy tAz tAk, tBx tBy tBz tBk: two back sprouts reach a target and coil round it (spec.wrap =
 //                 the coil's radius in WORLD metres, default 0.46: a potato), k 0 = curled at his back,
 //                 puppy 0..1: the selfie filter's face on his head (ears, eyes, nose, tongue; phone-screen shots
-//                 only), flash 0..1: lit white by lightning.
+//                 only), flash 0..1: lit white by lightning. spec.shadow 0..1 turns all of him toward black (cut S:
+//                 0.94, a shadow with no ink line), eyes 0..1 opens two glowing slanted slit eyes on the head.
 //               Arms, fingers and back sprouts are see-through for the contact checks (userData.steam).
 //   selfieframe the phone's camera screen seen from inside: a dark bezel round the picture, a black bar with a white
 //               shutter button, a small lens dot on top. Put it right in front of the shot's camera (origin = the
@@ -78,7 +79,8 @@ export const SPROUT_KINDS = {
     const [hazeC, hazeK] = P.spec.haze ?? ["#000000", 0];
     const tint = (hex) => new THREE.Color(hex).lerp(new THREE.Color(hazeC), hazeK);
     const mats = [];
-    const M = (hex, o = {}) => { const m = mat("#ffffff", { ...o }); m.color.copy(tint(hex)); m.userData.base = m.color.clone(); m.emissive = new THREE.Color("#cfe0ff"); m.emissiveIntensity = 0; mats.push(m); return m; };
+    const shadow = P.spec.shadow ?? 0, BLACK = new THREE.Color("#050508");   // 0..1: how far he is a black shadow (cut S of the pilot)
+    const M = (hex, o = {}) => { const m = mat("#ffffff", { ...o }); m.color.copy(tint(hex)).lerp(BLACK, shadow); if (shadow > 0.5) m.userData.noOutline = true; m.userData.base = m.color.clone(); m.emissive = new THREE.Color("#cfe0ff"); m.emissiveIntensity = 0; mats.push(m); return m; };
     // peeled-potato skin: cream with faint freckles, a few darker "eyes" and soft mottling
     const skinT = canvasTex(512, 512, (g, W, H) => {
       g.fillStyle = "#efe4c9"; g.fillRect(0, 0, W, H);
@@ -152,6 +154,15 @@ export const SPROUT_KINDS = {
     sticker(oval(0.03, 0.022), "#ff7f96", 0, -0.045, 0.02);                                                          // nose
     sticker(oval(0.03, 0.045), "#ff6f86", 0, -0.125, 0.016);                                                         // tongue
     sticker(oval(0.004, 0.03), "#e2536b", 0, -0.12, 0.02);
+
+    // ---- two glowing slit eyes, slanted down to the middle (evil), shown by `eyes` 0..1 (0 = the blank head). They
+    // sit under the puppy stickers and go out while the filter is on
+    const evil = new THREE.Group(); evil.position.set(0, S.headUp, 0); head.add(evil);
+    for (const s of [-1, 1]) {
+      const glow = new THREE.Mesh(oval(0.07, 0.03), new THREE.MeshBasicMaterial({ color: "#fff1b8", side: THREE.DoubleSide, transparent: true, opacity: 0.35 }));
+      const slit = new THREE.Mesh(oval(0.052, 0.014), new THREE.MeshBasicMaterial({ color: "#fffbe6", side: THREE.DoubleSide }));
+      for (const [o, off] of [[glow, 0.006], [slit, 0.008]]) { o.position.set(s * 0.085, 0.05, onHead(s * 0.085, 0.05, off)); o.rotation.z = -s * 0.42; o.userData.steam = true; o.material.userData.noOutline = true; o.castShadow = o.receiveShadow = false; evil.add(o); }
+    }
 
     // ---- arms, fingers, back sprouts (drawn in his frame, so the torso can lean while a hand stays on its target)
     const NA = 26, RA = 8, NF = 6, RF = 5, NT = 34, RT = 6;
@@ -239,7 +250,8 @@ export const SPROUT_KINDS = {
           Bk.tube.set(Bk.pts, (u) => lerp(i < 2 ? 0.034 : 0.026, i < 2 ? 0.02 : 0.007, u));
         }
         const pk = clamp(ps.puppy ?? 0); pup.visible = pk > 0.01; pup.scale.setScalar(pk <= 0 ? 0.001 : 1 + 0.25 * Math.sin(Math.min(pk, 1) * Math.PI));
-        const fl = clamp(ps.flash ?? 0); for (const m of mats) m.emissiveIntensity = 0.55 * fl;
+        const ek = clamp(ps.eyes ?? 0) * (1 - clamp(pk)); evil.visible = ek > 0.01; evil.scale.set(1, Math.max(ek, 0.001), 1);
+        const fl = clamp(ps.flash ?? 0); for (const m of mats) m.emissiveIntensity = 0.55 * fl * (1 - 0.8 * shadow);   // a shadow stays dark in lightning
       },
     };
   },
@@ -255,6 +267,20 @@ export const SPROUT_KINDS = {
     part(new THREE.CircleGeometry(bar * 0.36, 32), white, 0, -h / 2 + bar * 0.5, 0.0005);
     part(new THREE.RingGeometry(bar * 0.4, bar * 0.45, 32), white, 0, -h / 2 + bar * 0.5, 0.0005);
     part(new THREE.CircleGeometry(bz * 0.3, 16), grey, 0, h / 2 + bz * 0.8, 0.0005);
+    return { grip: 0, apply() {} };
+  },
+
+  // one pine in silhouette, to hide behind: a bare dark trunk with a crown of drooping needle skirts high up, the
+  // colour of the storm painting's own pines (near black, no ink line). spec.h = its height (m), spec.r = the trunk's
+  // radius at the ground, spec.crown = where the needles start (share of the height)
+  pinetrunk(P) {
+    const h = P.spec.h ?? 9, r = P.spec.r ?? 0.3, c0 = P.spec.crown ?? 0.45;
+    const bark = new THREE.MeshStandardMaterial({ color: "#0d0c12", roughness: 1 }), needle = new THREE.MeshStandardMaterial({ color: "#0a0f12", roughness: 1 });
+    bark.userData.noOutline = needle.userData.noOutline = true;
+    const part = (geo, m, y) => { const o = new THREE.Mesh(geo, m); o.position.y = y; o.castShadow = o.receiveShadow = false; P.whole.add(o); return o; };
+    part(new THREE.CylinderGeometry(r * 0.35, r, h, 14), bark, h / 2);
+    const n = 7;
+    for (let i = 0; i < n; i++) { const k = i / (n - 1), y = h * (c0 + (1 - c0) * k), w = r * (5.2 - 4.2 * k) * (0.85 + 0.3 * rnd(i + (P.spec.seed ?? 1) * 7)); part(new THREE.ConeGeometry(w, h * (1 - c0) / n * 1.9, 9), needle, y).rotation.y = rnd(i + 3) * 6; }
     return { grip: 0, apply() {} };
   },
 };
