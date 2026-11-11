@@ -2,7 +2,7 @@
 
 ## Where the build stands
 
-- Step: rough draft (staging stills read for all 13 shots, both endings; drafts A + B rendering with --force: contacts unpolished on purpose, rule 2)
+- Step: WAITING FOR JONNY on the rough drafts A + B (sent 11 Nov ~13:40 Berlin; rendered with --force: contacts unpolished on purpose, rule 2; draft render = 6.5 min layout + 11 min frames per cut)
 - Next: send both drafts to Jonny -> his go -> ONE polish round (hands, feet, contacts, allowClip with reasons) -> checks -> one farm render per cut
 - Renders so far: layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
