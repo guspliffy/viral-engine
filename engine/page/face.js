@@ -121,7 +121,8 @@ export class Face {
     if (this.browStyle.flat) { this.browMat = this.browMat === this.inkMat ? this.inkMat.clone() : this.browMat; this.browMat.userData.noOutline = true; }
     // face.mouth { ink, thick } (Pebble, 6 Nov 2026; default-preserving): the closed smile's own colour (a warm brown
     // instead of the ink) and a thickness factor, so the smile can be finer without scaling the whole face
-    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1, lift: MO.flat ? 0.002 : 0.005 };
+    // face.mouth.sharp (0..1, opt-in, Mr. Crisp): an open mouth shows a row of small pointed teeth instead of the plain band
+    const MO = arguments[0].mouth || {}; this.mouthStyle = { thick: MO.thick ?? 1, lift: MO.flat ? 0.002 : 0.005, sharp: Math.max(0, Math.min(1, MO.sharp ?? 0)) };
     this.smileMat = MO.ink ? new THREE.MeshStandardMaterial({ color: MO.ink, roughness: 0.55 }) : this.inkMat;
     // mouth.flat (opt-in, Pebble 7 Nov 2026): the closed smile is one fine painted line: no outline shell round its tube
     // (it drew a second dark line under the smile) and it sits closer to the skin
@@ -746,7 +747,21 @@ export class Face {
         // they grow in with the opening, so a mouth starting to talk never shows them appearing in one frame
         const ramp = Math.min(1, (open - 0.06) / 0.22), teeth = Math.max(0, Math.min(1, (smile - 0.35) / 0.3)) * Math.max(0, Math.min(1, (open - 0.25) / 0.2)),
           tongue = Math.max(0, Math.min(1, (open - 0.35) / 0.2)), tw = Math.min(0.42, 0.2 + open * 0.3) * ramp * teeth;   // one restrained tooth row, only in a broad smile
-        if (tw > 0.005) patch(0.1, 0.9, () => 0.02, (t) => tw * Math.pow(Math.max(0, Math.sin(Math.PI * t)), 0.35), 0.0075, this.teethMat);
+        const sharp = this.mouthStyle.sharp;
+        if (sharp > 0) {   // mouth.sharp: pointed teeth hang from the upper lip, a shorter row rises from the lower; each its own length, and never longer than half the opening there
+          const sp = Math.min(1, (open - 0.05) / 0.2) * sharp, M = 11, at = (A, t) => { const x = t * n, i = Math.min(n - 1, Math.floor(x)); return lerp(A[i], A[i + 1], x - i); }, tri = [];
+          const hh = (i) => { const q = Math.sin(i * 127.1 + 311.7) * 43758.5453; return q - Math.floor(q); };
+          for (let m = 0; m < 2 * M; m++) {
+            const low = m >= M, i = m % M, t0 = 0.07 + 0.86 * ((i + (low ? 0.5 : 0)) / M), t1 = t0 + 0.86 / M, tm = (t0 + t1) / 2;
+            if (t1 > 0.93) continue;
+            const a = at(low ? lower : upper, t0), b = at(low ? lower : upper, t1), c = at(low ? lower : upper, tm);
+            const room = Math.abs(at(upper, tm)[1] - at(lower, tm)[1]), len = Math.min((0.05 + 0.035 * hh(m + 1)) * (low ? 0.7 : 1) * sp, room * 0.48);
+            tri.push(this._surfLine([a, b, [c[0], c[1] + (low ? len : -len)]], 0.0086 * s));
+          }
+          const ps = [], ix = []; tri.forEach((q, k) => { for (const v of q) ps.push(v.x, v.y, v.z); ix.push(k * 3, k * 3 + 1, k * 3 + 2); });
+          const pg = new THREE.BufferGeometry(); pg.setAttribute("position", new THREE.Float32BufferAttribute(ps, 3)); pg.setIndex(ix); pg.computeVertexNormals();
+          this.teethMat.side = THREE.DoubleSide; const tm = new THREE.Mesh(pg, this.teethMat); this.group.add(tm); this.mouthInner.push(tm);
+        } else if (tw > 0.005) patch(0.1, 0.9, () => 0.02, (t) => tw * Math.pow(Math.max(0, Math.sin(Math.PI * t)), 0.35), 0.0075, this.teethMat);
         if (tongue > 0.01) patch(0.22, 0.78, (t) => 1 - 0.42 * tongue * Math.pow(Math.max(0, Math.sin(Math.PI * Math.min(1, Math.max(0, (t - 0.22) / 0.56)))), 0.5), () => 0.96, 0.0078, this.tongueMat);
       }
       const ring = [...upper, ...lower.slice().reverse()];

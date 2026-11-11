@@ -1,10 +1,39 @@
 # Hot Potato 01 (pilot): notes
 
-Brief: Jonny's 10-panel sheet (`panels-sheet.png`), his go 11 Nov 2026 12:23 Berlin. Panel notes: `PANELS.md`.
-Status: rough draft 3 sent to Jonny 11 Nov (15.0 s, from his notes on draft 2); polish, checks on the draft and the full
-render wait for his OK.
+Brief now: version 2, Jonny's go on the 12-panel sheet and the clown sheet, 11 Nov 2026 20:22 Berlin (`PANELS.md`).
+Status: version 2 rough draft sent to Jonny 11 Nov; polish, checks on the draft and the full render wait for his OK.
 
-## Numbers the set and the clip stand on
+## Why version 2 (Jonny on draft 3, 11 Nov 19:52 Berlin)
+
+"there are lettering overlaying, as such i like the video but to me i dont really understand it. its really weird ...
+how can we make the game more clear? also i dont think wizard should be fried. and i dont think dragon should be
+fireproof because this makes the game even more unlogical to me. we should stage it differently. the characters
+should stand in a triangle, wizard should look evil. or we use a new character, maybe a evil clown, then we make
+dramatic close ups of the characters faces, shocked and with fear of getting fried".
+So: ONE rule, said once and shown by 1.5 s; nobody has a special power; the host never loses; players in a triangle;
+face close-ups carry the fear; one text on screen at a time. His earlier notes stay: commentator voice, the danger
+shown (fire out of the hole), a creepy music box tune.
+
+## Version 2: numbers and lessons
+
+- Stage top y 1.2, round, radius 2.5. Tiles (x, z): Viking [0, 1.15] front, Dragon [-1.2, 0], Gunslinger [1.2, 0],
+  Spud [0, -1.15] back; the two at the sides stand at yaw +-50. Balcony floor y 2.6 on the wall (z -2.7), the clown
+  at z -2.27, lever on the parapet at x 0.45.
+- The clock is `hpclock`, pinned to the screen top right: every wide keeps the sign left of it (camera x 0.3).
+- A face close-up has no free strip for a subtitle (qa/camfit.mjs says so): shouts are text pops beside the head,
+  and the commentator's subtitle waits for the next wide. Captions lie under the caption-overlap check whatever
+  their `pop` flag.
+- A release's `arc` is not a parabola: it peaks two thirds of the way at 0.59 x arc. A high throw that must hang
+  under a top camera = a release straight up to a point (ease out), then the prop's own tween down (set its x, y, z
+  at the apex first: a tween starts from the prop's own numbers), then the catch. A grab with a `dur` snaps.
+- The same holds after a `carry` ends: set the prop's place, then tween.
+- hptile `hot` glows over an open hole: switch it off as the tile opens.
+- A camera at [0.12, 1.7, 4.25] rendered black (unknown why); 3.75 is fine.
+- The commentator's "coal" is heard as "cold" or "call" by Whisper in both takes: Jonny judges it by ear.
+- Counts for version 2: layout runs 9, draft-still rounds 4, draft renders 1, builders 2 (stage 153k tokens,
+  clown 243k tokens), narrator reads 2. Review A skipped again (weekly limit; Jonny looks at the draft first).
+
+## Version 1 (row of four, rejected): numbers the set and the clip stood on
 
 - Stage top y 1.2, four tiles 0.95 apart (Viking, Spud, Dragon, host), stage front z 1.45, wall z -2.7, sun y 5.05,
   card y 3.95, sign y 3.4, vat on the kitchen floor in front of and under the stage.

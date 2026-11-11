@@ -42,6 +42,49 @@ import { FIRE_U } from "./firelight.js";
 //             bigger puffs rolling up to about 2 m and amber oil droplets hopping. Steel is solid; steam and glow are see-through.
 // NOTE for the director: num, sing, hot and churn are not in props3d.js propState's list, so a c.prop sets them in one step at its
 // start time instead of easing (bump, ring and open ARE listed and tween). Give them a first value on the prop spec.
+//
+// ---- VERSION 2 (task T4, 11 Nov 2026; brief BRIEF-T4.md, look: panels-v2-sheet.png): the version 1 text above stays true when `layout` is not given.
+//   hpstudio  new spec `layout: "diamond"` (default: the version 1 row of four). Then, and only then:
+//             stage    a ROUND top, radius spec.stageR 2.5, centre x 0 z 0, at y spec.stageH 1.2 (the cast stand on it), cream felt, one faint
+//                      pastel ring of stitches 0.25 in from the edge; a lilac felt fascia (#cdb7ee) 0.3 tall round the rim (y 0.9..1.2) with yellow
+//                      felt stars every 0.6 m; six round posts (r 0.085, at 30, 90 .. 330 degrees from +z, 0.2 in from the rim) down to the kitchen
+//                      floor, OPEN between them (the vat and its oil show under the rim). A dark backing on the wall under the stage.
+//             holes    spec.holes [[0, -1.15], [-1.2, 0], [1.2, 0], [0, 1.15]] (x, z), each spec.holeW 0.9 square through the top, turned
+//                      spec.holeRot 45 degrees about y (a diamond, one corner toward the camera). The shaft is lined black for its top 0.25 m
+//                      only and OPEN below (from above the `fryoil` at y 0.47 shows through an open hole); the lining runs 0.1 further back.
+//             kept     the wall (z spec.wallZ -2.7), the two clouds and the bunting. NO arch, sun, number card or sign: the sign is on hpbooth,
+//                      the clock is hpclock. Params num, bump, ring, sing do nothing in this layout.
+//   hptile    unchanged. In a diamond hole give it `rot: 45` (the generic prop turn, the same as holeRot): x z = the hole's, y 1.2. It closes
+//             flush and swings down on its own back edge (back-left after the turn) inside the hole. Note: `hot` lays its flat red glow over the
+//             whole tile square whatever `open` is, so an open AND hot tile seen from straight above is red-tinted; open with hot 0 shows the oil.
+//   hpbooth   the host's balcony, a puppet-theatre window. Origin = the centre of the balcony floor's BACK edge, on the wall: put it at x 0,
+//             y 2.8, z wallZ. The floor TOP is y 0 (the cast's y = the booth's y). Spec: w 2.2 (floor width, x), d 0.9 (floor depth toward +z),
+//             rail 0.45 (parapet height above the floor), roofY 2.0 (the roof's underside above the floor), signW 2.3, signH 0.5.
+//             Floor: wood planks 0.08 thick (y -0.08..0). Skirt: scalloped lilac felt on the front edge, 0.25 below the floor's underside.
+//             Parapet: front edge (front face at z d), 0.08 thick, vertical stripes lilac / pink / cream (0.1 wide). Two cream posts r 0.05 at the
+//             front corners (x +-(w/2 - 0.05), z d - 0.06) up to the pink roof (w + 0.3 wide, 0.1 thick, front at z d + 0.1), a scalloped pink
+//             valance 0.3 deep along its front (lower edge y roofY - 0.3 = 1.7), pink curtains tied back at x +-0.9 (0.3 wide, z d - 0.25, 1.5 tall,
+//             from y 0.2 to 1.7): the opening between them is 1.5 wide and 1.5 high. Inside: dim violet #5b4a8a back and side walls. The sign
+//             (HOT POTATO, the lettering of the version 1 sign, a yellow star at each end) stands on the roof's front edge: centre y roofY + 0.1 +
+//             signH / 2, z d + 0.07. Not solid (scenery flags as hpstudio): the host leans over the parapet. No params.
+//   hplever   the trapdoor lever. Origin = the centre of its base's BOTTOM (stand it on the parapet top: y booth + rail, z booth + d - 0.04).
+//             Brass base 0.2 (x) x 0.1 (y) x 0.28 (z) with a dark slot along z; steel stick spec.len 0.45 from the pivot (0, 0.1, 0) at the base's
+//             top, a round shiny red knob r 0.085 centred at the stick's end. Param pull 0..1 (default 0, in propState: it tweens): the stick leans
+//             25 degrees BACK (toward -z) at 0 and 55 degrees FORWARD (+z) at 1, linear between.
+//             The knob's centre in the lever's own frame (the host's glove rests on it): pull 0 (0, 0.508, -0.190); pull 1 (0, 0.358, 0.369).
+//             Not solid.
+//   hpclock   the clock card, pinned to the SCREEN: its vertex shader writes clip space (the card's place never depends on the camera, the
+//             prop's x y z or its rot/scale are ignored), no depth test, drawn last (renderOrder 9999), never culled, no outline, not solid, no
+//             shadow. The frame's aspect is read from the camera's projection, so the card is never stretched, in any shot and from straight above.
+//             Spec: sx 0.84, sy 0.17 (the card BODY's centre as fractions of the frame from the left and from the TOP), size 0.105 (the card's
+//             height as a fraction of the frame height; the card is 0.92 of that wide; the smiling sun with rays sits on its top edge and rises
+//             about 0.4 card heights above it). Params (ps.<key>, falling back to spec.<key>):
+//               num   (5)  the digit 0..5 (-1 hides the whole clock). NOT tweened: set it in one step at its start time
+//               bump  (0)  0..1 the card pops to 1.2 x (1 + 0.2 bump) about its centre: a tick. In propState, tweens (give it 1 then back to 0)
+//               alarm (0)  0..1 the card turns red with a cream digit and shakes a little (about 3.5 degrees, 7 Hz): the bell at 0. In propState, tweens
+//   propState (props3d.js, the one line of it) gained `pull` and `alarm` (both default to the spec's value, else 0).
+// Known limit: the drawn-lines pass (drawn.js) is a screen-space post pass that does not know the card, so a set line behind the card (the sign's
+// lower edge, the bunting) is drawn across it. It needs a hook in drawn.js (an "ink hud" flag that blocks lines under it), which this file cannot give.
 const DEG = Math.PI / 180;
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
 const lin = (hex) => { const c = new THREE.Color(hex); return new THREE.Vector3(c.r, c.g, c.b); };
@@ -124,13 +167,58 @@ const SUN_FACE = (parent, k) => {
   return { smile, mouth };
 };
 
+// the diamond layout's stage (hpstudio layout "diamond"): a round felt top with four turned square holes, a lilac fascia with
+// yellow stars, six round posts to the kitchen floor, the shafts lined dark for their top 0.25 m only
+function diamondStage(root, S) {
+  const R = S.stageR ?? 2.5, SH = S.stageH ?? 1.2, HR = (S.holeRot ?? 45) * DEG, HW = S.holeW ?? 0.9, WZ = S.wallZ ?? -2.7;
+  const HOLES = S.holes ?? [[0, -1.15], [-1.2, 0], [1.2, 0], [0, 1.15]], TOP_T = 0.06, LINE = 0.25;
+  const cs = Math.cos(HR), sn = Math.sin(HR);
+  // the top: a disc with the four holes (shape y is -z once laid flat)
+  const sh = new THREE.Shape(); sh.absarc(0, 0, R, 0, Math.PI * 2, false);
+  for (const [hx, hz] of HOLES) {
+    const h = new THREE.Path();
+    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([a, b], i) => { const lx = a * HW / 2, lz = b * HW / 2, x = hx + lx * cs + lz * sn, z = hz - lx * sn + lz * cs; (i ? h.lineTo : h.moveTo).call(h, x, -z); });
+    h.closePath(); sh.holes.push(h);
+  }
+  const topG = new THREE.ExtrudeGeometry(sh, { depth: TOP_T, bevelEnabled: false, curveSegments: 72 }); topG.rotateX(-Math.PI / 2); topG.translate(0, SH - TOP_T, 0);
+  const top = add(root, topG, felt("#efdcae", 0.1, { map: feltTex(1.2, 1.2), side: THREE.FrontSide }), 0, 0, 0, false, true); top.name = "hp-stage-top";
+  // one faint pastel ring stitched 0.25 in from the edge: dashes
+  const RS = R - 0.25, nd = Math.round((2 * Math.PI * RS) / 0.14), dashG = new THREE.PlaneGeometry(0.075, 0.024); dashG.rotateX(-Math.PI / 2);
+  const stitchM = new THREE.MeshBasicMaterial({ color: "#e9b9d6", polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); stitchM.userData.noOutline = true;
+  const dashes = new THREE.InstancedMesh(dashG, stitchM, nd), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0), one = new THREE.Vector3(1, 1, 1), pp = new THREE.Vector3();
+  for (let i = 0; i < nd; i++) { const a = (i / nd) * Math.PI * 2; q.setFromAxisAngle(up, a + Math.PI / 2); m4.compose(pp.set(Math.sin(a) * RS, SH + 0.002, Math.cos(a) * RS), q, one); dashes.setMatrixAt(i, m4); }
+  dashes.instanceMatrix.needsUpdate = true; dashes.frustumCulled = false; dashes.renderOrder = 1; root.add(dashes);
+  // the lilac fascia round the rim (y 0.9..1.2) and a yellow felt star every 0.6 m
+  const fasM = felt("#cdb7ee", 0.14, { map: feltTex(10, 1) });
+  const fas = add(root, new THREE.CylinderGeometry(R + 0.012, R + 0.012, 0.3, 96, 1, true), fasM, 0, SH - 0.15, 0, false, true); fas.name = "hp-fascia";
+  const starS = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = Math.PI / 2 + (i * Math.PI) / 5, r = i % 2 ? 0.04 : 0.09; (i ? starS.lineTo : starS.moveTo).call(starS, Math.cos(a) * r, Math.sin(a) * r); } starS.closePath();
+  const starG = cut(starS, 0.014, 0.006), starM = felt("#ffd84a", 0.42), ns = Math.round((2 * Math.PI * R) / 0.6);
+  for (let i = 0; i < ns; i++) { const a = (i + 0.5) / ns * Math.PI * 2, s = add(root, starG, starM, Math.sin(a) * (R + 0.012), SH - 0.15, Math.cos(a) * (R + 0.012)); s.rotation.y = a; }
+  // six round posts down to the kitchen floor (the front pair stand either side of the centre), open between them
+  const postM = felt("#c4aef0", 0.3, { map: feltTex(1, 3) });
+  for (let i = 0; i < 6; i++) { const a = ((30 + 60 * i) * DEG), o = R - 0.2; add(root, new THREE.CylinderGeometry(0.085, 0.085, SH - 0.02, 20), postM, Math.sin(a) * o, (SH - 0.02) / 2, Math.cos(a) * o, true, true); }
+  // the shafts: lined dark for the top 0.25 m only, open below (from straight above the oil shows through an open hole).
+  // The lining runs 0.1 further back than the hole so the flap of an open tile (it leans 5 degrees past straight down) hangs in front of it
+  const linM = new THREE.MeshBasicMaterial({ color: "#000000", side: THREE.DoubleSide }); linM.userData.noOutline = true;
+  for (const [hx, hz] of HOLES) {
+    const g = new THREE.Group(); g.position.set(hx, SH - LINE / 2, hz); g.rotation.y = HR; root.add(g);
+    const wallA = (w, x, z, ry) => { const m = add(g, new THREE.PlaneGeometry(w, LINE), linM, x, 0, z); m.rotation.y = ry; return m; };
+    wallA(HW + 0.01, 0, -HW / 2 - 0.1, 0); wallA(HW + 0.01, 0, HW / 2, 0);
+    wallA(HW + 0.1, -HW / 2 - 0.005, -0.05, Math.PI / 2); wallA(HW + 0.1, HW / 2 + 0.005, -0.05, Math.PI / 2);
+  }
+  // under the stage: a dark backing on the wall
+  add(root, new THREE.PlaneGeometry(2 * R + 1.2, SH), felt("#2a1f27", 0.1), 0, SH / 2 - 0.02, WZ + 0.02, false, false);
+}
+
 const HP_STUDIO = (P) => {
   const S = P.spec, W = S.stageW ?? 4.4, SH = S.stageH ?? 1.2, SF = S.stageFront ?? 0.65, WZ = S.wallZ ?? -2.7;
   const TX = S.tiles ?? [-1.425, -0.475, 0.475, 1.425];
   const ARCH_R = S.archR ?? 2.55, SIGN_W = S.signW ?? 3.3, SIGN_Y = S.signY ?? 3.4, SUN_Y = S.sunY ?? 5.05, SUN_R = S.sunR ?? 0.6, CARD_Y = S.cardY ?? 3.95;
-  const root = P.whole;
+  const root = P.whole, DIAMOND = S.layout === "diamond";
 
-  // ---- the stage: cream felt top with four holes, a plank fascia, five posts, the open dark space under it
+  if (DIAMOND) diamondStage(root, S);
+  // ---- the stage: cream felt top with four holes, a plank fascia, five posts, the open dark space under it (version 1 layout)
+  if (!DIAMOND) {
   const TOP_T = 0.06, FZ = SF - 0.05;   // the top runs to z FZ; the 5 cm plank strip (wood) closes the front edge at SF
   const sh = new THREE.Shape(); sh.moveTo(-W / 2, -FZ); sh.lineTo(W / 2, -FZ); sh.lineTo(W / 2, -WZ); sh.lineTo(-W / 2, -WZ); sh.closePath();
   for (const x of TX) { const h = new THREE.Path(); h.moveTo(x - 0.45, -0.45); h.lineTo(x + 0.45, -0.45); h.lineTo(x + 0.45, 0.45); h.lineTo(x - 0.45, 0.45); h.closePath(); sh.holes.push(h); }
@@ -153,6 +241,7 @@ const HP_STUDIO = (P) => {
     fragmentShader: "varying vec2 vUv; void main() { float f = smoothstep(0.0, 0.18, vUv.y) * smoothstep(1.0, 0.82, vUv.y) * (0.55 + 0.45 * smoothstep(0.0, 0.5, 1.0 - vUv.y + 0.2)); gl_FragColor = vec4(0.0, 0.0, 0.0, 0.62 * min(1.0, f + 0.25)); }",
   }); shadeM.userData.noOutline = true;
   const shade = add(root, new THREE.PlaneGeometry(W, SF - WZ), shadeM, 0, 0.003, (SF + WZ) / 2); shade.rotation.x = -Math.PI / 2; ghost(shade, 1);
+  }
 
   // ---- the back wall: sky-blue felt with soft vertical curtain folds
   const WH = 8 - SH, wallTex = canvasTex(1024, 696, (g, w, h) => {
@@ -187,6 +276,8 @@ const HP_STUDIO = (P) => {
     p.rotation.z = Math.atan2(0.4 * 2 * x / 2.8 ** 2, 1);
   }
 
+  // (version 1 layout only: arch, sign, sun and number card. The diamond layout has none of them: the sign is on hpbooth, the clock is hpclock)
+  const L = DIAMOND ? null : (() => {
   // ---- the rainbow arch: six felt stripes of a half ring, 0.12 in front of the wall
   const STRIPES = ["#f4a3a3", "#f8c58c", "#f9e79a", "#a9e0a5", "#9ccdf2", "#c6aef0"], BAND = 0.55, SW = BAND / 6;
   STRIPES.forEach((c, i) => {
@@ -247,11 +338,15 @@ const HP_STUDIO = (P) => {
     });
     const d = add(cardG, new THREE.PlaneGeometry(0.62, 0.66), texMat(tex, 0.35, { transparent: true, alphaTest: 0.5, side: THREE.FrontSide }), 0, 0, 0.002); d.userData.noOutline = true; digits.push(d);
   }
+  return { pivot, cardG, digits, sun, rays, smile, mouth };
+  })();
   scenery(root);
 
   return {
     grip: 0,
     apply(ps, t) {
+      if (!L) return;
+      const { pivot, cardG, digits, sun, rays, smile, mouth } = L;
       const tt = t ?? 0, num = Math.round(ps.num ?? S.num ?? 1), bump = clamp(ps.bump || (S.bump ?? 0)), ring = clamp(ps.ring || (S.ring ?? 0)), sing = clamp(ps.sing ?? S.sing ?? 0);
       // the card: swings (damped by bump) and pops; -1 hides it and its strings
       pivot.visible = num >= 0;
@@ -446,4 +541,182 @@ const HP_VAT = (P) => {
   };
 };
 
-export const HP_SET_KINDS = { hpstudio: HP_STUDIO, hptile: HP_TILE, hpvat: HP_VAT };
+// ---------------------------------------------------------------- the host's balcony (version 2)
+// a flat felt shape with a scalloped lower edge: n half circles along w, h deep in all (faces +z, top edge at y 0, hangs to -h)
+function scalloped(w, h, n) {
+  const r = w / n / 2, s = new THREE.Shape(); s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(w / 2, -h + r);
+  for (let i = 0; i < n; i++) s.absarc(w / 2 - (i + 0.5) * 2 * r, -h + r, r, 0, -Math.PI, true);
+  s.lineTo(-w / 2, 0); return s;
+}
+// the white stitched line along a scalloped edge, as a see-through plane w x h (same n, 0.03 in from the edge)
+function scallopStitch(w, h, n) {
+  const k = 400, r = w / n / 2, tex = canvasTex(Math.round(w * k), Math.round(h * k), (g, W, H) => {
+    g.clearRect(0, 0, W, H); g.setLineDash([0.04 * k, 0.03 * k]); g.lineCap = "round"; g.strokeStyle = "#fffaf0"; g.lineWidth = 0.011 * k; g.beginPath();
+    for (let i = 0; i < n; i++) { const cx = (i + 0.5) * 2 * r * k; g.moveTo(cx - (r - 0.03) * k, H - r * k); g.arc(cx, H - r * k, (r - 0.03) * k, Math.PI, 0, true); }
+    g.stroke();
+  });
+  const m = new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); m.userData.noOutline = true;
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); p.renderOrder = 2; return p;
+}
+// the HOT POTATO plank (the same lettering as the version 1 sign): w x h, a star at each end; origin = its centre, face toward +z
+function plankSign(parent, W, H) {
+  const tex = canvasTex(2048, Math.round(2048 * H / W), (g, w, h) => {
+    g.clearRect(0, 0, w, h);
+    rr(g, 0, 0, w, h, h / 2); g.fillStyle = "#5a2f16"; g.fill();
+    g.save(); rr(g, 22, 22, w - 44, h - 44, (h - 44) / 2); g.clip(); g.fillStyle = "#d9a066"; g.fillRect(0, 0, w, h);
+    for (let i = 0; i < 46; i++) { g.strokeStyle = `rgba(130,78,34,${0.07 + 0.1 * rnd(i + 2)})`; g.lineWidth = 1 + rnd(i) * 3; const y = rnd(i + 40) * h; g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(w * 0.3, y + (rnd(i + 8) - 0.5) * 16, w * 0.65, y + (rnd(i + 9) - 0.5) * 16, w, y + (rnd(i + 7) - 0.5) * 10); g.stroke(); }
+    const hl = g.createLinearGradient(0, 22, 0, h - 22); hl.addColorStop(0, "rgba(255,235,190,0.28)"); hl.addColorStop(0.45, "rgba(255,235,190,0)"); hl.addColorStop(1, "rgba(90,50,20,0.16)"); g.fillStyle = hl; g.fillRect(0, 0, w, h);
+    g.restore();
+    const txt = "HOT POTATO"; g.font = '900 300px Inter, "Liberation Sans", sans-serif'; const m0 = g.measureText(txt), fs = 300 * Math.min(1, 1640 / m0.width, (h * 0.62) / 300);
+    g.font = `900 ${fs}px Inter, "Liberation Sans", sans-serif`; g.textAlign = "center"; g.textBaseline = "alphabetic"; g.lineJoin = "round";
+    const m = g.measureText(txt), ty = h / 2 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2 + 3;
+    g.strokeStyle = "#fff1d0"; g.lineWidth = 26; g.strokeText(txt, w / 2, ty);
+    g.strokeStyle = "#6b3a1f"; g.lineWidth = 8; g.strokeText(txt, w / 2, ty); g.fillStyle = "#6b3a1f"; g.fillText(txt, w / 2, ty);
+  });
+  const sg = new THREE.Group(); parent.add(sg);
+  const bodyG = new THREE.ExtrudeGeometry(rrect(W, H, H / 2), { depth: 0.04, bevelEnabled: false, curveSegments: 16 }); bodyG.translate(0, 0, -0.04);
+  add(sg, bodyG, felt("#5a2f16", 0.3), 0, 0, -0.002, true, true);
+  const face = add(sg, new THREE.PlaneGeometry(W, H), texMat(tex, 0.35, { transparent: true, alphaTest: 0.5, side: THREE.FrontSide }), 0, 0, 0.001); face.userData.noOutline = true;
+  const star = new THREE.Shape(); for (let i = 0; i < 10; i++) { const a = Math.PI / 2 + (i * Math.PI) / 5, r = (i % 2 ? 0.07 : 0.15) * (H / 0.62) * 1.05; (i ? star.lineTo : star.moveTo).call(star, Math.cos(a) * r, Math.sin(a) * r); } star.closePath();
+  const starG = cut(star, 0.02, 0.008), starM = felt("#ffd84a", 0.4);
+  for (const sx of [-1, 1]) { const s = add(sg, starG, starM, sx * (W / 2 + 0.03), 0.01, 0.014); s.rotation.z = sx * 12 * DEG; }
+  return sg;
+}
+
+const HP_BOOTH = (P) => {
+  const S = P.spec, W = S.w ?? 2.2, D = S.d ?? 0.9, RAIL = S.rail ?? 0.45, ROOF = S.roofY ?? 2.0, SIGN_W = S.signW ?? 2.3, SIGN_H = S.signH ?? 0.5, FT = 0.08, RT = 0.1;
+  const root = P.whole, RW = W + 0.3, ZF = D + RT;   // the roof is 0.3 wider than the floor and 0.1 deeper at the front
+  // the floor: wood planks, top at y 0
+  const woodM = texMat(woodTex(512, 256, 6), 0.3, {});
+  add(root, new THREE.BoxGeometry(W, FT, D), woodM, 0, -FT / 2, D / 2, false, true);
+  // the scalloped lilac skirt, hanging 0.25 below the floor's underside, and its stitches
+  const skirtH = FT + 0.25;
+  add(root, cut(scalloped(W, skirtH, 10), 0.03, 0.006), felt("#cdb7ee", 0.34), 0, 0, D, false, true);
+  const sst = scallopStitch(W, skirtH, 10); sst.position.set(0, -skirtH / 2, D + 0.0385); root.add(sst);
+  // the parapet along the front edge: vertical pastel felt stripes (lilac, pink, cream)
+  const stripes = canvasTex(1024, 256, (g, w, h) => {
+    const n = Math.round(W / 0.1), cols = ["#cdb7ee", "#f5aacb", "#fff0d0"];
+    for (let i = 0; i < n; i++) { g.fillStyle = cols[i % 3]; g.fillRect(Math.floor(i * w / n), 0, Math.ceil(w / n) + 1, h); g.fillStyle = "rgba(90,60,110,0.12)"; g.fillRect(Math.floor(i * w / n), 0, 2, h); }
+    g.setLineDash([22, 14]); g.lineCap = "round"; g.strokeStyle = "rgba(255,250,240,0.95)"; g.lineWidth = 5; g.beginPath(); g.moveTo(10, 22); g.lineTo(w - 10, 22); g.moveTo(10, h - 22); g.lineTo(w - 10, h - 22); g.stroke();
+  });
+  const stripeM = texMat(stripes, 0.22, {}), capM = felt("#fff0d0", 0.3);
+  add(root, new THREE.BoxGeometry(W, RAIL, 0.08), [capM, capM, capM, capM, stripeM, stripeM], 0, RAIL / 2, D - 0.04, true, true);
+  // dim violet inside, so a golden potato stands out: back wall and two side walls
+  const violet = felt("#5b4a8a", 0.12, { side: THREE.DoubleSide });
+  add(root, new THREE.PlaneGeometry(W, ROOF), violet, 0, ROOF / 2, 0.01, false, true);
+  for (const sx of [-1, 1]) { const sw = add(root, new THREE.PlaneGeometry(D, ROOF), violet, sx * (W / 2 - 0.005), ROOF / 2, D / 2, false, true); sw.rotation.y = Math.PI / 2; }
+  // two cream posts at the front corners up to the pink roof, its scalloped valance, the pink curtains tied back
+  const cream = felt("#fff0d0", 0.34), pink = felt("#f29ac0", 0.34);
+  for (const sx of [-1, 1]) add(root, new THREE.CylinderGeometry(0.05, 0.05, ROOF, 14), cream, sx * (W / 2 - 0.05), ROOF / 2, D - 0.06, true, true);
+  add(root, new THREE.BoxGeometry(RW, RT, ZF), felt("#f29ac0", 0.34, { map: feltTex(2, 1) }), 0, ROOF + RT / 2, ZF / 2, true, true);
+  add(root, cut(scalloped(RW, 0.3, 10), 0.03, 0.006), pink, 0, ROOF, ZF - 0.03, false, true);
+  const vst = scallopStitch(RW, 0.3, 10); vst.position.set(0, ROOF - 0.15, ZF + 0.0085); root.add(vst);
+  const cs = new THREE.Shape(); cs.moveTo(-0.15, 0); cs.lineTo(0.15, 0); cs.splineThru([new THREE.Vector2(0.12, 0.25), new THREE.Vector2(0.085, 0.66), new THREE.Vector2(0.12, 1.1), new THREE.Vector2(0.15, 1.5)]);
+  cs.lineTo(-0.15, 1.5); cs.splineThru([new THREE.Vector2(-0.12, 1.1), new THREE.Vector2(-0.085, 0.66), new THREE.Vector2(-0.12, 0.25), new THREE.Vector2(-0.15, 0)]);
+  const curtG = new THREE.ExtrudeGeometry(cs, { depth: 0.05, curveSegments: 14, bevelEnabled: true, bevelThickness: 0.008, bevelSize: 0.008, bevelSegments: 2 });
+  const curtM = felt("#f08ab4", 0.36);
+  for (const sx of [-1, 1]) {
+    // hangs 1.5 high from the valance's lower edge (y ROOF - 0.3) to 0.2 above the floor: the opening between the two is 1.5 wide and 1.5 high
+    add(root, curtG, curtM, sx * 0.9, ROOF - 0.3 - 1.5, D - 0.25, false, true);
+    add(root, new THREE.BoxGeometry(0.22, 0.05, 0.08), cream, sx * 0.9, ROOF - 0.3 - 1.5 + 0.66, D - 0.225, false, true);
+  }
+  // the sign: on the roof's front edge, HOT POTATO with a star at each end
+  const sg = plankSign(root, SIGN_W, SIGN_H); sg.position.set(0, ROOF + RT + SIGN_H / 2, ZF - 0.03);
+  scenery(root);
+  return { grip: 0, apply() {} };
+};
+
+// ---------------------------------------------------------------- the trapdoor lever (version 2)
+const HP_LEVER = (P) => {
+  const S = P.spec, LEN = S.len ?? 0.45, KR = 0.085, BY = 0.1, BACK = -25 * DEG, FWD = 55 * DEG;
+  const brass = std("#d9a93a", { roughness: 0.35, metalness: 0.6, emissive: "#5a3f0a" }), steel = std("#c9cdd3", { roughness: 0.28, metalness: 0.6, emissive: "#14161a" });
+  const knobM = std("#e0222f", { roughness: 0.18, metalness: 0.15, emissive: "#6a0a10" }), slotM = new THREE.MeshBasicMaterial({ color: "#2a1a08" }); slotM.userData.noOutline = true;
+  add(P.whole, new THREE.BoxGeometry(0.2, BY, 0.28), brass, 0, BY / 2, 0, true, true);
+  add(P.whole, new THREE.BoxGeometry(0.04, 0.004, 0.22), slotM, 0, BY + 0.001, 0);   // the slot the stick swings in
+  const piv = new THREE.Group(); piv.position.set(0, BY, 0); P.whole.add(piv);
+  const pin = add(piv, new THREE.CylinderGeometry(0.034, 0.034, 0.14, 14), steel, 0, 0, 0, true); pin.rotation.z = Math.PI / 2;
+  add(piv, new THREE.CylinderGeometry(0.014, 0.014, LEN, 10), steel, 0, LEN / 2, 0, true);
+  add(piv, new THREE.SphereGeometry(KR, 24, 16), knobM, 0, LEN, 0, true);
+  scenery(P.whole);
+  return { grip: 0, apply(ps) { const pull = clamp(ps.pull ?? S.pull ?? 0); piv.rotation.x = BACK + (FWD - BACK) * pull; } };
+};
+
+// ---------------------------------------------------------------- the clock card, pinned to the screen (version 2)
+const CLOCK_VS = `uniform vec2 uC, uSh; uniform float uS, uPop, uRot; varying vec2 vP;
+  void main() {
+    vP = position.xy; float asp = projectionMatrix[1][1] / projectionMatrix[0][0];
+    float c = cos(uRot), s = sin(uRot); vec2 p = vec2(c * position.x - s * position.y, s * position.x + c * position.y) * uPop;
+    gl_Position = vec4(uC + uSh + vec2(p.x / asp, p.y) * 2.0 * uS, 0.0, 1.0);
+  }`;
+const CLOCK_FS = `uniform sampler2D uDig; uniform float uNum, uAlarm;
+  uniform vec3 uCream, uBrown, uRed, uDigit, uDigitA, uSun, uSunEdge, uRay, uInk, uPink, uBorderA;
+  varying vec2 vP;
+  float rrect(vec2 p, vec2 b, float r) { vec2 q = abs(p) - b + r; return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r; }
+  vec4 over(vec4 t, vec4 b) { float a = t.a + b.a * (1.0 - t.a); return vec4((t.rgb * t.a + b.rgb * b.a * (1.0 - t.a)) / max(a, 1e-4), a); }
+  void main() {
+    vec2 p = vP; float aa = max(fwidth(p.y), 0.0015) * 1.2;
+    vec4 acc = vec4(0.0);
+    // the sun, sitting on the card's top edge (its lower half is behind the card)
+    vec2 q = p - vec2(0.0, 0.58); float r = length(q), ang = atan(q.y, q.x), sec = 6.2831853 / 12.0;
+    float a2 = mod(ang + sec * 0.5, sec) - sec * 0.5, perp = r * abs(sin(a2));
+    float hw = mix(0.05, 0.004, clamp((r - 0.17) / 0.17, 0.0, 1.0));
+    float rayA = (1.0 - smoothstep(hw - aa, hw + aa, perp)) * step(0.17, r) * (1.0 - step(0.345, r));
+    acc = over(vec4(uRay, rayA), acc);
+    float dd = r - 0.19;
+    acc = over(vec4(uSunEdge, 1.0 - smoothstep(-aa, aa, dd)), acc);
+    acc = over(vec4(uSun, 1.0 - smoothstep(-0.022 - aa, -0.022 + aa, dd)), acc);
+    for (int i = 0; i < 2; i++) {
+      float sx = i == 0 ? -1.0 : 1.0; vec2 e = p - vec2(sx * 0.065, 0.695);
+      float eye = (1.0 - smoothstep(0.0, aa * 1.5, abs(length(e) - 0.026) - 0.008)) * smoothstep(-0.004, 0.004, e.y);
+      acc = over(vec4(uInk, eye), acc);
+      float ch = 0.55 * (1.0 - smoothstep(0.0, 0.034, length(p - vec2(sx * 0.12, 0.625))));
+      acc = over(vec4(uPink, ch), acc);
+    }
+    vec2 m = p - vec2(0.0, 0.665);
+    float sm = (1.0 - smoothstep(0.0, aa * 1.5, abs(length(m) - 0.06) - 0.008)) * (1.0 - smoothstep(-0.026, -0.014, m.y));
+    acc = over(vec4(uInk, sm), acc);
+    // the card: a soft shadow, the brown border, the face (cream, red on alarm)
+    float sdw = 0.3 * (1.0 - smoothstep(-0.03, 0.03, rrect(p - vec2(0.012, -0.028), vec2(0.46, 0.5), 0.1)));
+    acc = over(vec4(0.0, 0.0, 0.0, sdw), acc);
+    float dC = rrect(p, vec2(0.46, 0.5), 0.1);
+    vec3 face = mix(uCream, uRed, uAlarm), edge = mix(uBrown, uBorderA, uAlarm);
+    vec3 cc = mix(face, edge, smoothstep(-0.05 - aa, -0.05 + aa, dC));
+    acc = over(vec4(cc, 1.0 - smoothstep(-aa, aa, dC)), acc);
+    // the digit
+    vec2 dp = (p - vec2(0.0, -0.02)) / vec2(0.5, 0.56) + 0.5;
+    float ins = step(0.0, dp.x) * step(dp.x, 1.0) * step(0.0, dp.y) * step(dp.y, 1.0);
+    float da = texture2D(uDig, vec2((uNum + clamp(dp.x, 0.0, 1.0)) / 6.0, clamp(dp.y, 0.0, 1.0))).a * ins;
+    acc = over(vec4(mix(uDigit, uDigitA, uAlarm), da), acc);
+    gl_FragColor = acc;
+  }`;
+const HP_CLOCK = (P) => {
+  const S = P.spec, SX = S.sx ?? 0.84, SY = S.sy ?? 0.17, SIZE = S.size ?? 0.105;
+  const dig = canvasTex(1536, 288, (g, w, h) => {
+    g.clearRect(0, 0, w, h); g.font = '900 290px Inter, "Liberation Sans", sans-serif'; g.textAlign = "center"; g.textBaseline = "alphabetic"; g.lineJoin = "round";
+    for (let n = 0; n <= 5; n++) {
+      const m = g.measureText(String(n)); g.fillStyle = "#fff"; g.strokeStyle = "#fff"; g.lineWidth = 6;
+      const y = h / 2 + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2, x = n * 256 + 128; g.strokeText(String(n), x, y); g.fillText(String(n), x, y);
+    }
+  });
+  dig.minFilter = THREE.LinearFilter; dig.generateMipmaps = false; dig.anisotropy = 1;
+  const U = { uC: { value: new THREE.Vector2() }, uSh: { value: new THREE.Vector2() }, uS: { value: SIZE }, uPop: { value: 1 }, uRot: { value: 0 }, uNum: { value: 5 }, uAlarm: { value: 0 }, uDig: { value: dig },
+    uCream: { value: lin("#fff1d2") }, uBrown: { value: lin("#8a5a38") }, uRed: { value: lin("#d93a3a") }, uDigit: { value: lin("#8c1f26") }, uDigitA: { value: lin("#fff1d2") }, uSun: { value: lin("#ffd23f") },
+    uSunEdge: { value: lin("#f08a24") }, uRay: { value: lin("#ffc431") }, uInk: { value: lin("#7a3a12") }, uPink: { value: lin("#ff7aa2") }, uBorderA: { value: lin("#7a1e1e") } };
+  const m = new THREE.ShaderMaterial({ uniforms: U, vertexShader: CLOCK_VS, fragmentShader: CLOCK_FS, transparent: true, depthTest: false, depthWrite: false, side: THREE.DoubleSide, fog: false, toneMapped: false });
+  m.userData.noOutline = true;
+  const g = new THREE.PlaneGeometry(1.04, 1.54); g.translate(0, 0.21, 0);   // card heights: the card is x +-0.46, y +-0.5; the sun above it
+  const card = ghost(new THREE.Mesh(g, m), 9999); P.whole.add(card);
+  scenery(P.whole);
+  return {
+    grip: 0,
+    apply(ps, t) {
+      const tt = t ?? 0, num = Math.round(ps.num ?? S.num ?? 5), bump = clamp(ps.bump || (S.bump ?? 0)), al = clamp(ps.alarm || (S.alarm ?? 0));
+      card.visible = num >= 0;
+      U.uNum.value = clamp(num, 0, 5); U.uAlarm.value = al; U.uPop.value = 1 + 0.2 * bump;
+      U.uC.value.set(2 * SX - 1, 1 - 2 * SY);
+      U.uRot.value = 0.06 * al * Math.sin(tt * Math.PI * 14); U.uSh.value.set(0.006 * al * Math.sin(tt * Math.PI * 22 + 1), 0.004 * al * Math.sin(tt * Math.PI * 26));
+    },
+  };
+};
+
+export const HP_SET_KINDS = { hpstudio: HP_STUDIO, hptile: HP_TILE, hpvat: HP_VAT, hpbooth: HP_BOOTH, hplever: HP_LEVER, hpclock: HP_CLOCK };

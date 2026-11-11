@@ -232,6 +232,25 @@
     "thick": 0.72,
     "arch": 0.05
    }
+  },
+  "clown": {
+   "iris": "#f2c21a",
+   "eye": {
+    "iris": 0.7,
+    "oval": 1.0,
+    "lash": 1.8,
+    "flick": 0.5,
+    "tilt": 0.15,
+    "pupilZ": 0.12
+   },
+   "browShape": {
+    "thick": 1.9,
+    "arch": 0.02,
+    "inner": 0.15,
+    "outer": 0.66
+   },
+   "freckles": 0,
+   "blush": 0.3
   }
  }
 }
