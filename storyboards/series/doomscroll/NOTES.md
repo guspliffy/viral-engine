@@ -1,5 +1,10 @@
 # Doomscroll to survive, pilot "Sprout Man": notes
 
+**Delivered cut: S (`--shadow`), picked by Jonny on 11 Nov 2026.** Its storyboard `doomscroll-01-sprout-man-shadow.json`
+is the only one kept in the repo. Cuts A, B and H were drafts he saw and did not pick; the generator still writes them
+with their flags (H fails preflight on the "ugh. selfie mode." subtitle behind Spud, A and B carry hand flips on screen).
+
+
 Jonny, 11 Nov 2026: a pilot of "Look up and you die" with our own potato monster leaned on Slender Man, then "i would
 like to see both episodes as pilot and see how they compare". One generator builds both:
 
