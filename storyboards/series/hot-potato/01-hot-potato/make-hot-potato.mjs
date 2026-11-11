@@ -1,522 +1,437 @@
-// HOT POTATO, pilot of the deadly-cute game show (11 Nov 2026), from the clip template. Written by the director;
-// builders made the props only (engine/page/props-hotpotato-set.js, props-hotpotato.js).
-//   node storyboards/series/hot-potato/01-hot-potato/make-hot-potato.mjs -> hot-potato-01.json
-//   (--staging: placeholder blocks instead of the builders' props, for the staging proof)
-// Brief: Jonny's 10-panel sheet (panels-sheet.png next to this file; the original and his go are in
-// /mnt/project-files/video-scripts/2026-11-11-hot-potato-game-show/). PANELS.md and NOTES.md next to this file.
+// HOT POTATO, pilot of the deadly-cute game show, VERSION 2 (11 Nov 2026), from the clip template. Written by the
+// director; builders made the props and the clown only (engine/page/props-hotpotato-set.js, props-hotpotato.js,
+// costumes-clown.js). Version 1 (row of four, fireproof Dragon, fried Wizard) is in git history: Jonny found it
+// confusing (NOTES.md).
+//   node storyboards/series/hot-potato/01-hot-potato/make-hot-potato.mjs -> hot-potato-01.json   (--no-vo: no commentator)
+// Brief: Jonny's 12-panel sheet (panels-v2-sheet.png next to this file) and his clown sheet (mr-crisp-reference.png),
+// his go 11 Nov 20:22 Berlin. PANELS.md and NOTES.md next to this file.
 //
-// THE BRIEF (about 15 s; Spud, Dragon, the Wizard as host, Viking; a felt preschool-TV studio over a deep fryer)
-//   Joke:        the sweetest kids' game show kills its losers, and the fireproof Dragon sneezes the coal into the host.
-//   Wants:       Spud wants to be rid of the coal before the clock hits 0; the host wants a loser.
-//   Consequence: whoever holds the coal at 0 drops through his tile into the fryer: Viking first, then the host.
-//   Ending:      the fry basket lifts the host out golden and crispy, alive, waving: "See you next week, kids!"
-//   Callback:    frame 0 the host beams at a player on a red tile; at the end the red tile is his own.
-import { clip, write, r3, frame } from "../../../lib/clip.mjs";
+// THE BRIEF (about 13 s; Spud, Dragon, Gunslinger, Viking; Mr. Crisp the evil clown as host)
+//   Rule:        whoever holds the coal at zero, fries. Said once at 0.0 and proved by Viking in the first two seconds.
+//   Wants:       every player wants to be rid of the coal before zero; the clown wants a loser.
+//   Chain:       Viking holds it at zero, so he drops. A new coal, so the clock starts at 5. It burns, so it goes round
+//                the triangle. At 2 it is back with Spud, so the others hide their hands. So he throws it straight up.
+//                It has to come down, so Gunslinger catches it by reflex at zero and drops.
+//   Ending:      the clown already holds out the next coal, the clock jumps back to 5, Spud sees it.
+//   Nobody has a special power. The host never loses.
+import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import { ramp } from "../../../lib/camera.mjs";
 
-const STAGING = process.argv.includes("--staging");
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see, cap } = c;
 
 // ---------------------------------------------------------------- the studio (world metres; camera at +z)
-// The stage top is at y S (the cast stand on it: cast `y`); the kitchen floor is y 0. Four trapdoor tiles in a row,
-// TILE apart: Viking, Spud, Dragon, host (left to right, as on every panel). In front of the tiles an apron 0.85 m
-// deep (the host walks along it to hand Spud the coal). The vat stands on the kitchen floor under and in front of the
-// stage. Wall heights and the two master cameras were fitted to the panels' frame shares (NOTES.md).
-const S = 1.2, TILE = 0.95;
-const X = { vik: r3(-1.5 * TILE), spud: r3(-0.5 * TILE), drg: r3(0.5 * TILE), host: r3(1.5 * TILE) };
-const FRONT = 1.45;                                  // the stage's front edge (z)
-const WALL_Z = -2.7, SUN_Y = 5.05, CARD_Y = 3.95, SIGN_Y = 3.4;
-const VAT = { z: 1.2, d: 2.9, w: 4.0, rim: 0.55, oil: 0.47 };
-const TILE_COL = { vik: "#f6b8d0", spud: "#bfe8d0", drg: "#f9e7a0", host: "#d6c3f2" };
-const H = { vik: 1.02, spud: 0.88, drg: 0.96, host: 1.0 };   // body heights
+// A round stage (top at y S) over the vat, four trapdoor tiles in a diamond: Viking in front (nearest the camera), Dragon
+// left, Gunslinger right, Spud at the back. Above and behind Spud, on the wall: the clown's balcony with the lever.
+const S = 1.2, WALL_Z = -2.7;
+const P = { vik: [0, 1.15], drg: [-1.2, 0], gun: [1.2, 0], spud: [0, -1.15] };
+const YAW = { vik: 0, drg: 50, gun: -50, spud: 0 };          // the two at the sides stand three-quarter to the camera and the middle
+const TILE_COL = { vik: "#d6c3f2", drg: "#f6b8d0", gun: "#f9e7a0", spud: "#bfe8d0" };
+const PLAYERS = ["vik", "drg", "gun", "spud"];
+const B = 2.8, BOOTH = { w: 2.2, d: 0.9, rail: 0.45, roofY: 2.0 };   // the balcony floor (y) and its sizes
+const CZ = r3(WALL_Z + 0.43);                                // the clown stands behind the parapet
+const LEVER = { x: 0.55, y: r3(B + BOOTH.rail), z: r3(WALL_Z + BOOTH.d - 0.04), len: 0.32 };
+const VAT = { z: 0.2, d: 5.4, w: 5.4, rim: 0.55, oil: 0.47 };
 
-const YAW = { vik: 12, spud: 5, drg: -5, host: -12 };
 const cast = [
-  { id: "vik", character: "potatobrawl/viking", at: [X.vik, 0], y: S, face: YAW.vik, expr: "terrified", follow: 0.3, seed: 4.1 },
-  { id: "spud", character: "potatobrawl/spud", at: [X.spud, 0], y: S, face: YAW.spud, expr: "shocked", follow: 0.3, seed: 2.9 },
-  { id: "drg", character: "potatobrawl/dragon", at: [X.drg, 0], y: S, face: YAW.drg, expr: "kind", follow: 0.3, seed: 2.7 },
-  { id: "host", character: "hot-potato/wizard-gamemaster", at: [X.host, 0], y: S, face: YAW.host, expr: "evil", follow: 0.3, seed: 0.4 },
-  { id: "crisp", character: "hot-potato/wizard-crispy", at: [30, -30], y: r3(S - 1.7), face: -4, expr: "delighted", follow: 0.3, seed: 0.4, hidden: true },
-  { id: "vcrisp", character: "hot-potato/viking-crispy", at: [-30, -30], y: r3(S - 1.7), face: 8, expr: "dizzy", follow: 0.3, seed: 4.1, hidden: true },
+  { id: "vik", character: "potatobrawl/viking", at: P.vik, y: S, face: YAW.vik, expr: "terrified", follow: 0.3, seed: 4.1 },
+  { id: "spud", character: "potatobrawl/spud", at: P.spud, y: S, face: YAW.spud, expr: "shocked", follow: 0.3, seed: 2.9 },
+  { id: "drg", character: "potatobrawl/dragon", at: P.drg, y: S, face: YAW.drg, expr: "shocked", follow: 0.3, seed: 2.7 },
+  { id: "gun", character: "never-has-money/gunslinger", at: P.gun, y: S, face: YAW.gun, expr: "shocked", follow: 0.3, seed: 1.3 }   // the Gunslinger without pistols,
+  { id: "host", character: "hot-potato/mr-crisp", at: [0, CZ], y: B, face: 0, expr: "evil", follow: 0.3, seed: 0.4 },
 ];
 
-const block = (id, x, y, z, w, h, d) => ({ id, kind: "stoneblock", x, y, z, w, h, d, cap: 0 });
-const tile = (who) => (STAGING ? block(`tile_${who}`, X[who], S, 0, 0.9, 0.02, 0.9) : { id: `tile_${who}`, kind: "hptile", x: X[who], y: S, z: 0, w: 0.9, color: TILE_COL[who], open: 0, hot: 0 });
-// the coal's rest places: Viking's is in his gloves from frame 0 (the grab seats it); the game coal waits in the tongs
-// (a cupped hold: the two gloves are body poses, LEG the height of a body's bottom over its feet; the coal's CENTRE sits
-// 3 cm over the gloves' middles, between them)
-// LEG and the hold heights were read off the layout (qa/peek.mjs): a glove at pose height up is at y S + LEG + up. The
-// holds are at the belly, under each face (at 0.3 and up the coal covered mouths and eyes from the level cameras).
-const LEG = { vik: 0.18, spud: 0.09, drg: 0.125, host: 0.1 }, UPS = { vik: 0.12, spud: 0.16, drg: 0.22, host: 0.1 }, FWD = 0.38;
+// the cupped hold: both gloves at the belly, the coal's centre 3 cm over the point between them. LEG = the height of
+// a body's bottom over its feet; a glove at pose height up is at y S + LEG + up (read off the layout with qa/peek.mjs)
+const LEG = { vik: 0.18, spud: 0.09, drg: 0.125, gun: 0.15, host: 0.1 }, UPS = { vik: 0.12, spud: 0.16, drg: 0.22, gun: 0.16 }, FWD = 0.38;
 const rotY = ([ox, oz], yaw) => { const a = (yaw * Math.PI) / 180; return [ox * Math.cos(a) + oz * Math.sin(a), -ox * Math.sin(a) + oz * Math.cos(a)]; };
-const cupAt = (who, [x, z] = [X[who], 0], yaw = YAW[who], up = UPS[who]) => { const [dx, dz] = rotY([0, FWD], yaw); return [r3(x + dx), r3(S + LEG[who] + up + 0.03), r3(z + dz)]; };
-const HAND0 = (who) => cupAt(who);
-const PARK = [X.host, r3(S - 0.7), -1.5], STAGED = "parked under the stage, tiny, until the host conjures it";
-const STAGED_T = "the host's hand follows the tongs (a hand-held carrier cannot carry the coal); parked tiny under the stage before and after";
+const cupAt = (who, yaw = YAW[who], up = UPS[who]) => { const [dx, dz] = rotY([0, FWD], yaw); return [r3(P[who][0] + dx), r3(S + LEG[who] + up + 0.03), r3(P[who][1] + dz)]; };
+// the tongs: held out over the parapet in the clown's right glove, level, the coal in their jaws 0.5 m in front
+const TONGS_OUT = { x: -0.34, y: r3(B + 0.62), z: r3(CZ + 0.42), rot: -8 }, TONGS_DOWN = { x: -0.34, y: r3(B + 0.1), z: r3(CZ + 0.3), rot: -8 };
+const coalInTongs = (k) => { const a = (k.rot * Math.PI) / 180; return [r3(k.x + 0.5 * Math.sin(a)), k.y, r3(k.z + 0.5 * Math.cos(a))]; };
+const leverKnob = (pull) => { const a = ((-25 + 80 * pull) * Math.PI) / 180; return [LEVER.x, r3(LEVER.y + 0.1 + LEVER.len * Math.cos(a)), r3(LEVER.z + LEVER.len * Math.sin(a))]; };
+const hostHand = ([x, y, z]) => ({ x: [r3(x), r3(y - B - LEG.host), r3(z - CZ)] });   // a world point as his arm pose (he faces the camera)
+const HIDE = [0, r3(S - 0.9), 0], STAGED = "hidden under the stage, tiny, until the clown shows it";
+
 const props = [
-  ...(STAGING ? [
-    block("studio", 0, 0, r3((WALL_Z + FRONT) / 2), 4.4, S, r3(FRONT - WALL_Z)),
-    block("vat", 0, 0, VAT.z + 0.8, VAT.w, VAT.rim, 1.3),
-    { ...block("coal0", HAND0("vik")[0], HAND0("vik")[1], HAND0("vik")[2], 0.18, 0.18, 0.18), staged: "in Viking's cupped gloves" },
-    { ...block("coal", PARK[0], PARK[1], PARK[2], 0.18, 0.18, 0.18), scale: 0.001, staged: STAGED },
-    { ...block("tongs", PARK[0], PARK[1], PARK[2], 0.05, 0.05, 0.5), scale: 0.001, staged: STAGED },
-    block("lift", X.host, r3(S - 1.7), 0, 0.9, 0.04, 0.8), block("lift0", X.vik, r3(S - 1.7), 0, 0.9, 0.04, 0.8),
-  ] : [
-    { id: "studio", kind: "hpstudio", x: 0, y: 0, z: 0, stageH: S, stageFront: FRONT, wallZ: WALL_Z, sunY: SUN_Y, cardY: CARD_Y, signY: SIGN_Y,
-      tiles: [X.vik, X.spud, X.drg, X.host], num: 1, bump: 0, ring: 0, sing: 0 },
-    { id: "vat", kind: "hpvat", x: 0, y: 0, z: VAT.z, w: VAT.w, d: VAT.d, h: VAT.rim, castLight: 0.6, haze: 0.35, churn: 0.25 },
-    { id: "oil", kind: "fryoil", staged: "the oil in the vat", x: 0, y: VAT.oil, z: VAT.z, w: r3(VAT.w - 0.14), d: r3(VAT.d - 0.14) },
-    { id: "coal0", kind: "hpcoal", x: HAND0("vik")[0], y: HAND0("vik")[1], z: HAND0("vik")[2], glow: 1, smoke: 0.6, staged: "in Viking's cupped gloves, then hanging over his hole for a beat" },
-    { id: "coal", kind: "hpcoal", x: PARK[0], y: PARK[1], z: PARK[2], glow: 1, smoke: 0.6, scale: 0.001, staged: STAGED },
-    { id: "tongs", kind: "hptongs", x: PARK[0], y: PARK[1], z: PARK[2], rot: -60, open: 0, scale: 0.001, staged: STAGED_T },
-    { id: "bow", kind: "hpbowtie", wear: "host", x: 0, y: 0.41, z: 0.33, singe: 0 },
-    { id: "bow2", kind: "hpbowtie", wear: "crisp", x: 0, y: 0.41, z: 0.33, singe: 1 },
-    { id: "lift", kind: "hplift", x: X.host, y: r3(S - 1.7), z: 0, w: 0.9, d: 0.8, h: 0.42, pole: 3.0, drip: 0 },
-    { id: "lift0", kind: "hplift", x: X.vik, y: r3(S - 1.7), z: 0, w: 0.9, d: 0.8, h: 0.42, pole: 3.0, drip: 0 },
-    // the danger (Jonny 11 Nov: "the danger of the situation isn't really clear"): fire shoots up out of a loser's hole
-    ...[["fireV", X.vik], ["fireH", X.host]].map(([id, x]) => ({ id, kind: "fireplume", staged: "fire out of the fryer through the open tile (an effect)", x, y: r3(S - 0.35), z: 0, tip: -90, length: 1.7, width: 0.6, balls: 26 })),
-    { id: "plume", kind: "fireplume", staged: "Dragon's sneeze of fire (an effect)", x: r3(X.drg + 0.3), y: r3(S + 0.46), z: 0.34, rot: 90, length: 0.95, width: 0.44, balls: 26 },
-    { id: "confL", kind: "confetti", x: -2.0, y: r3(S + 1.6), z: 0.4, count: 60, spread: 1.3, up: 1.2, floor: 1.6, seed: 5 },
-    { id: "confR", kind: "confetti", x: 2.0, y: r3(S + 1.6), z: 0.4, count: 60, spread: 1.3, up: 1.2, floor: 1.6, seed: 9 },
-  ]),
-  ...["vik", "spud", "drg", "host"].map(tile),
+  { id: "studio", kind: "hpstudio", layout: "diamond", x: 0, y: 0, z: 0, stageH: S, stageR: 2.5, wallZ: WALL_Z, holes: PLAYERS.map((w) => P[w]), holeRot: 45, num: -1 },
+  { id: "booth", kind: "hpbooth", x: 0, y: B, z: WALL_Z, ...BOOTH },
+  { id: "lever", kind: "hplever", x: LEVER.x, y: LEVER.y, z: LEVER.z, len: LEVER.len, pull: 0 },
+  { id: "clock", kind: "hpclock", x: 0, y: 0, z: 0, sx: 0.84, sy: 0.17, size: 0.105, num: 1, bump: 0, alarm: 0 },
+  { id: "vat", kind: "hpvat", x: 0, y: 0, z: VAT.z, w: VAT.w, d: VAT.d, h: VAT.rim, castLight: 0.8, haze: 0.3, churn: 0.25 },
+  { id: "oil", kind: "fryoil", staged: "the oil in the vat", x: 0, y: VAT.oil, z: VAT.z, w: r3(VAT.w - 0.14), d: r3(VAT.d - 0.14) },
+  ...PLAYERS.map((w) => ({ id: `tile_${w}`, kind: "hptile", x: P[w][0], y: S, z: P[w][1], rot: 45, w: 0.9, color: TILE_COL[w], open: 0, hot: 0 })),
+  { id: "coal0", kind: "hpcoal", x: cupAt("vik")[0], y: cupAt("vik")[1], z: cupAt("vik")[2], glow: 1, smoke: 0.6, staged: "in Viking's cupped gloves, then falling into the hole after him" },
+  { id: "coal", kind: "hpcoal", x: HIDE[0], y: HIDE[1], z: HIDE[2], glow: 1, smoke: 0.6, scale: 0.001, staged: STAGED },
+  { id: "coal2", kind: "hpcoal", x: HIDE[0], y: HIDE[1], z: HIDE[2], glow: 1, smoke: 0.6, scale: 0.001, staged: STAGED },
+  { id: "tongs", kind: "hptongs", ...TONGS_DOWN, open: 0, scale: 0.001, staged: "the clown's hand follows the tongs (a hand-held carrier cannot carry the coal); tiny behind the parapet when he does not show them" },
+  // the danger: fire shoots up out of a loser's hole
+  ...[["fireV", "vik"], ["fireG", "gun"]].map(([id, w]) => ({ id, kind: "fireplume", staged: "fire out of the fryer through the open tile (an effect)", x: P[w][0], y: r3(S - 0.35), z: P[w][1], tip: -90, length: 1.9, width: 0.65, balls: 26 })),
 ];
 // keys propState doesn't start get a number at t 0, so their first tween eases instead of stepping
-if (!STAGING) {
-  for (const w of ["vik", "spud", "drg", "host"]) c.prop(0, `tile_${w}`, { hot: w === "vik" ? 1 : 0, open: 0 }, 0.01);
-  c.prop(0, "studio", { bump: 0, ring: 0, sing: 0 }, 0.01); c.prop(0, "vat", { churn: 0.25 }, 0.01);
-  for (const id of ["plume", "fireV", "fireH"]) c.prop(0, id, { on: 0, len: 0, fade: 0 }, 0.01); c.prop(0, "lift0", { drip: 0 }, 0.01); c.prop(0, "confL", { burst: 0 }, 0.01); c.prop(0, "confR", { burst: 0 }, 0.01);
-  c.prop(0, "tongs", { open: 0 }, 0.01); c.prop(0, "lift", { drip: 0 }, 0.01); c.prop(0, "coal", { smoke: 0.6 }, 0.01);
-}
-const P_ = (t, id, set, dur, ease) => { if (!STAGING) c.prop(t, id, set, dur, ease); };   // a param the placeholders don't have
+for (const w of PLAYERS) c.prop(0, `tile_${w}`, { hot: w === "vik" ? 1 : 0, open: 0 }, 0.01);
+c.prop(0, "clock", { bump: 0, alarm: 0 }, 0.01); c.prop(0, "lever", { pull: 0 }, 0.01); c.prop(0, "vat", { churn: 0.25 }, 0.01);
+for (const id of ["fireV", "fireG"]) c.prop(0, id, { on: 0, len: 0, fade: 0 }, 0.01);
+c.prop(0, "tongs", { open: 0 }, 0.01);
 
 // ---------------------------------------------------------------- the clock (story seconds)
-// One slow-motion ramp (the sneeze) stretches the video: story 7.95-8.7 plays at 0.3, so the video is about 1.75 s
-// longer than the story from there on. Panel times are video seconds.
+// One slow-motion ramp (the coal hanging in the air, panel 10) stretches the video by about 0.9 s from there on.
 const T = {
-  ding0: 0.72,     // the clock hits 0 for Viking: bell, his tile opens
-  bye: 1.25,       // the host: "Bye-bye, Viking!"
-  conjure: 1.7,    // the host conjures tongs with a fresh coal and walks along the apron
-  give: 2.6,       // the coal goes into Spud's gloves: his tile turns red, the clock starts at 5
-  hot: 3.0,        // "Hot! Hot!"
-  throw1: 3.78,    // Spud throws it to Dragon
-  lob: 5.05,       // Dragon lobs it back
-  hurl: 6.62,      // clock 1: Spud hurls it high
-  catch2: 7.3,     // Dragon catches it in front of his face
-  choo: 8.02,      // the sneeze
-  land: 8.42,      // the coal lands in the host's gloves: his tile turns red
-  ding1: 9.15,     // the clock hits 0 for the host
-  rise: 10.25,     // the fry basket rises
-  bye2: 10.95,     // "See you next week, kids!"
-  again: 11.85,    // Dragon's nose wrinkles again
+  ding0: 1.0,      // 0 for Viking: the clown pulls the lever, the tile opens (panel 02)
+  show: 2.3,       // the clown holds a fresh coal out in his tongs (03)
+  give: 3.12,      // the tongs open
+  land: 3.5,       // it lands in Spud's gloves: his tile turns red, the clock starts at 5 (04)
+  throw1: 4.0,     // Spud to Dragon (05)
+  throw2: 4.9,     // Dragon to Gunslinger (06)
+  throw3: 5.8,     // Gunslinger back to Spud (07)
+  hide: 6.24,      // the other two hide their hands
+  fear: 6.8,       // Spud's face (08)
+  hurl: 7.32,      // he throws it straight up (09)
+  top: 7.64,       // from above: the coal hangs (10)
+  reflex: 8.1,     // Gunslinger (11): his gloves shoot out
+  ding1: 8.65,     // 0
+  wide: 9.25,      // 12
+  pull: 9.32,      // the lever
+  next: 10.45,     // the next coal
+  again: 10.9,     // the clock jumps back to 5
 };
-// (draft 3: the fried Viking comes back up before the host goes on, so everything from the conjure on is D later)
-const D = 0.45; for (const k of ["conjure", "give", "hot", "throw1", "lob", "hurl", "catch2", "choo", "land", "ding1", "rise", "bye2", "again"]) T[k] = r3(T[k] + D);
-T.c5 = r3(T.give + 0.05); T.tick = 0.95;
-const tickAt = (n) => r3(T.c5 + (5 - n) * T.tick);   // the second n starts (5 .. 1)
-const D2 = 0.6, D3 = 0.4; for (const k of ["rise", "bye2", "again"]) T[k] = r3(T[k] + D2 + (k === "rise" ? 0 : D3));   // room for the commentator's "Rules are rules."
-const RAMP = { at: r3(7.95 + D), len: 0.55, rate: 0.3 };
-const END = r3(12.65 + D + D2 + D3);
+T.tick = 0.9; T.c5 = T.land;
+const tickAt = (n) => r3(T.c5 + (5 - n) * T.tick);   // the second n starts (5 .. 1): 3.5, 4.4, 5.3, 6.2, 7.1
+const FLY = 1.0, CATCH = r3(T.hurl + FLY);           // the high throw's flight; it lands in Gunslinger's gloves at 8.32
+const RAMP = { at: r3(T.top + 0.04), len: 0.4, rate: 0.3 };
+const END = 11.7;
 
 // ---------------------------------------------------------------- text and the game's sounds
-// subtitles sit between the sign and the heads, the one free strip in every shot (qa/camfit.mjs; the low band is the
-// stage and the vat): y 800 on the wides, 672 on the mediums and Spud's close shot (their cameras are level or look
-// down a little, which opens that strip). Dragon's close shot has no free strip (his wings): no line there
-const subPos = (t) => (t < r3(T.give - 0.45) || t >= RAMP.at - 0.04 ? 800 : 672);
-const say = (t, who, line, dur, tone, sub, o = {}) => c.say(t, who, line, dur, tone, { voice: false, sub, pos: subPos(t), ...o });
-const num = (t, n) => { P_(t, "studio", { num: n }, 0.01, "linear"); P_(t, "studio", { bump: 1 }, 0.08, "out"); P_(r3(t + 0.1), "studio", { bump: 0 }, 0.25, "inOut"); };
-const hot = (t, who) => { for (const w of ["vik", "spud", "drg", "host"]) P_(t, `tile_${w}`, { hot: w === who ? 1 : 0 }, 0.1, "out"); if (who) sfx(t, "click", { gain: 0.35, reason: `the red light jumps to ${who}'s tile` }); };
-const bell = (t) => { P_(t, "studio", { ring: 1 }, 0.06, "out"); P_(r3(t + 0.5), "studio", { ring: 0 }, 0.3, "inOut"); sfx(t, "bell", { gain: 0.7, reason: "0: the sun clock's bell" }); };
-// the commentator (Jonny 11 Nov: "we need a commentary voice for this format"): the deep storyteller, the title and the
-// rule from 0.0, then one short line wherever nobody speaks. [story s, line, take, spoken s, gain]
+// One text on screen at a time, clear of the sign, the faces and the clock card (top right). SUB = the free strip per
+// shot (qa/camfit.mjs).
+const SUB = { vik: 620, high: 900, clown: 1250, spud: 620, drg: 620, gun: 620, fear: 1280, low: 1250, top: 1250, wide: 900 };
+const say = (t, who, line, dur, tone, sub, pos, o = {}) => c.say(t, who, line, dur, tone, { voice: false, sub, pos, ...o });
+const num = (t, n) => { c.prop(t, "clock", { num: n }, 0.01, "linear"); c.prop(t, "clock", { bump: 1 }, 0.08, "out"); c.prop(r3(t + 0.1), "clock", { bump: 0 }, 0.25, "inOut"); };
+const tick = (t, n) => { num(t, n); sfx(t, "timer-beep", { gain: n <= 2 ? 0.55 : 0.4, reason: `the clock: ${n}` }); };
+const hot = (t, who) => { for (const w of PLAYERS) c.prop(t, `tile_${w}`, { hot: w === who ? 1 : 0 }, 0.1, "out"); if (who) sfx(t, "click", { gain: 0.35, reason: `the red light jumps to ${who}'s tile` }); };
+const zero = (t) => { num(t, 0); c.prop(t, "clock", { alarm: 1 }, 0.06, "out"); sfx(t, "bell", { gain: 0.7, reason: "0: the clock's bell" }); };
+const fire = (t, id) => { c.prop(t, id, { on: 1 }, 0.04, "out"); c.prop(t, id, { len: 1 }, 0.22, "out"); c.prop(r3(t + 0.55), id, { fade: 1 }, 0.4, "inOut"); sfx(t, "flamejet", { gain: 0.65, reason: "fire shoots up out of the loser's hole" }); };
+// the commentator (Jonny 11 Nov: "we need a commentary voice for this format"): he says the rule once, and the last
+// second. [story s, line, take, spoken s, gain, subtitle y]
 const VO = !process.argv.includes("--no-vo");
 const NARR = !VO ? [] : [
-  [0.02, "Hot Potato. Drop it, or fry.", 2, 2.47, 1.1],
-  [r3(T.throw1 + 0.17), "Dragon is fireproof.", 1, 1.97, 1],
-  [r3(T.c5 + 4 * T.tick - 0.05), "One second!", 1, 0.87, 1.4],
-  [r3(T.ding1 + 0.08), "Rules are rules.", 1, 2.17, 1.5],
+  [0.02, "Hold the coal at zero, and you fry.", 1, 3.0, 1.1, null],
+  [r3(tickAt(1) - 0.05), "One second!", 1, 0.87, 1.4, SUB.fear],
 ];
-for (const [t, line, take, len, gain] of NARR) {
+for (const [t, line, take, len, gain, pos] of NARR) {
   c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
-  cap(t, r3(t + len + 0.15), line, subPos(t), false, { kinetic: false });
+  if (pos) cap(t, r3(t + len + 0.15), line, pos, false, { kinetic: false });
+}
+if (VO) {   // the rule's subtitle follows the cuts: Viking's close shot, the high wide, the clown
+  cap(0.02, r3(T.ding0 - 0.04), "Hold the coal at zero,", SUB.vik, false, { kinetic: false });
+  cap(r3(T.ding0 - 0.02), r3(T.show - 0.04), "Hold the coal at zero,\nand *YOU FRY.*", SUB.high, false, { kinetic: false });
 }
 sfx(0, "bubbling", { dur: END, gain: 0.2, reason: "the fryer bubbling under the stage, the whole clip" });
 
 // ---------------------------------------------------------------- holding, throwing and catching the coal
-// Both gloves cupped at the belly (body poses, 0.29 apart: a 0.2 coal between them). The coal is thrown to the point
-// between the gloves and taken there by both hands as it is (keep): from then on it moves with them.
-const cup = (who) => ({ R: { x: [-0.145, UPS[who], FWD] }, L: { x: [0.145, UPS[who], FWD] } });
+const cup = (who, fwd = FWD) => ({ R: { x: [-0.145, UPS[who], fwd] }, L: { x: [0.145, UPS[who], fwd] } });
 const ready = (t, who, dur = 0.3) => { c.arm(t, who, "R", cup(who).R, dur, "inOut"); c.arm(t, who, "L", cup(who).L, dur, "inOut"); A(t, who, "grip", { side: "both", shape: "cup", dur: 0.15 }); };
-// (a hair after the flight ends: at the same instant the float sum can still read as in flight, and the grab then
-// blends from the thrower's hand, a 1 m pop). The grip seats the coal's middle 3 cm over the point between the gloves,
-// wherever the throw's aim left it by a centimetre or two.
+// a catch is a grab a hair AFTER the flight ends (at the same instant the grab blends from the thrower's hand)
 const take = (t, who, prop = "coal") => A(r3(t + 0.01), who, "grab", { prop, hand: "both", grip: [0, -0.03, 0], pose: null, dur: 0 });
-// a throw is a glide from the hand to `to` (no physics bodies in this clip: a body bounced off the thrower): straight
-// in time, `arc` metres high in the middle
-const toss = (t, who, to, dur, arc = 0.25, after = { R: { x: [-0.3, 0.62, 0.3] }, L: { x: [0.3, 0.62, 0.3] } }) => {
+// a throw is a glide from the hands to `to`, straight in time, `arc` metres high in the middle (no physics bodies)
+const toss = (t, who, to, dur, arc = 0.3, after = { R: { x: [-0.3, 0.56, 0.34] }, L: { x: [0.3, 0.56, 0.34] } }) => {
   A(t, who, "release", { prop: "coal", to, dur, arc, ease: "linear" });
   c.arm(t, who, "L", after.L, 0.2, "out"); c.arm(t, who, "R", after.R, 0.2, "out");
   A(t, who, "grip", { side: "both", shape: "open", dur: 0.1 });
   sfx(t, "whoosh", { gain: 0.3, reason: `${who} throws the coal` });
 };
+const sides = (t, who, dur = 0.3) => { for (const [s, x] of [["R", -0.24], ["L", 0.24]]) c.arm(t, who, s, { x: [x, 0.1, 0.12] }, dur, "inOut"); };   // idle arms at the sides
+const shake = (t, who, n, amount = 0.05) => { for (let k = 0; k < n; k++) A(r3(t + k * 0.18), who, "squash", { amount, dur: 0.16 }); };
+const scared = (t, who, open = 0.5, dur = 0.12) => { A(t, who, "expr", { expr: "terrified", set: { open, curve: -0.4 }, dur }); A(t, who, "face", { brow: 0.6, lid: 0, dur }); };
 
-for (const w of ["vik", "spud", "drg", "host", "crisp"]) A(0, w, "noblink");
-act.blinksAt(c, "spud", [2.3, 9.9]); act.blinksAt(c, "drg", [2.35, 6.0]); act.blinksAt(c, "host", [2.4, 6.05]);
+for (const w of [...PLAYERS, "host"]) A(0, w, "noblink");
+act.blinksAt(c, "spud", [2.6, 9.8]); act.blinksAt(c, "drg", [2.7, 9.9]); act.blinksAt(c, "host", [6.3]);
 
-// ---------------------------------------------------------------- 01 FRAME 0 (0-0.72): Viking, the coal, the red tile, the clock at 1
+// ---------------------------------------------------------------- 01 FRAME 0 (0-1.0): Viking, the coal, the red tile, the clock at 1
 c.arm(0, "vik", "R", cup("vik").R, 0); c.arm(0, "vik", "L", cup("vik").L, 0); A(0, "vik", "grip", { side: "both", shape: "cup", dur: 0 });
 A(0, "vik", "look", { to: [0, -0.6], dur: 0, blink: false });
-A(0, "vik", "expr", { expr: "terrified", set: { open: 0.35, curve: -0.6 }, dur: 0 }); A(0, "vik", "face", { brow: 0.6, lid: 0.35, dur: 0 });
-for (let k = 0; k < 3; k++) A(r3(0.05 + k * 0.2), "vik", "squash", { amount: 0.04, dur: 0.18 });   // he shakes
-c.at(0.02, { fx: "sweat", who: "vik", dur: 0.7 });
-for (const s of ["R", "L"]) { c.arm(0, "spud", s, { x: [s === "R" ? -0.07 : 0.07, 0.24, 0.36] }, 0); c.arm(0, "drg", s, { x: [s === "R" ? -0.08 : 0.08, 0.26, 0.37] }, 0); }
-A(0, "spud", "look", { to: [-0.7, -0.1], dur: 0, blink: false }); A(0, "spud", "expr", { expr: "shocked", set: { open: 0.3 }, dur: 0 });
-A(0, "drg", "look", { to: [-0.7, -0.1], dur: 0, blink: false }); A(0, "drg", "expr", { expr: "shocked", set: { open: 0.15, eye: 1.15 }, dur: 0 });
-// the host: arms spread, beaming at us; his line opens the clip on a voice
-// the evil game master: a fixed grin, eyes on the loser, rubbing his gloves
-const rub = (t, n) => { for (let k = 0; k < n; k++) for (const [s, x] of [["R", -1], ["L", 1]]) c.arm(r3(t + k * 0.16), "host", s, { x: [x * 0.055, 0.17 + (k % 2 ? 0.04 : 0) * x, 0.4] }, 0.15, "inOut"); };
-for (const [s, x] of [["R", -1], ["L", 1]]) c.arm(0, "host", s, { x: [x * 0.055, 0.17, 0.4] }, 0);
-A(0, "host", "grip", { side: "both", shape: "open", dur: 0 });
+A(0, "vik", "expr", { expr: "terrified", set: { open: 0.3, curve: -0.6 }, dur: 0 }); A(0, "vik", "face", { brow: 0.6, lid: 0, dur: 0 });
+shake(0.05, "vik", 5, 0.045);
+c.at(0.02, { fx: "sweat", who: "vik", dur: 0.9 });
+A(0.45, "vik", "look", { to: [0.55, 0.6], dur: 0.1, blink: false });   // up at the clock
+A(0.75, "vik", "look", { to: [0, 0.1], dur: 0.1, blink: false });      // at us
+A(0.75, "vik", "expr", { expr: "terrified", set: { open: 0.6, curve: -0.5 }, dur: 0.1 });
+for (const w of ["drg", "gun", "spud"]) { sides(0, w, 0); A(0, w, "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0 }); }
+A(0, "drg", "look", { to: [0, -0.4], dur: 0, blink: false }); A(0, "gun", "look", { to: [0, -0.4], dur: 0, blink: false }); A(0, "spud", "look", { to: [0, -0.5], dur: 0, blink: false });
+// the clown: one glove on the lever, grinning down at the loser
+const rub = (t, n) => { for (let k = 0; k < n; k++) for (const [s, x] of [["R", -1], ["L", 1]]) c.arm(r3(t + k * 0.16), "host", s, { x: [x * 0.06, 0.5 + (k % 2 ? 0.04 : 0) * x, 0.42] }, 0.15, "inOut"); };
+c.arm(0, "host", "L", hostHand(leverKnob(0)), 0); c.arm(0, "host", "R", { x: [-0.2, 0.52, 0.4] }, 0);
+A(0, "host", "grip", { side: "L", shape: "clasp", dur: 0 });
 A(0, "host", "expr", { expr: "evil", set: { curve: 0.9, open: 0.3 }, dur: 0 }); A(0, "host", "face", { brow: -0.45, tilt: 0.6, lid: 0.3, dur: 0 });
-A(0, "host", "look", { to: [-0.75, -0.15], dur: 0, blink: false });
-rub(0.05, 4);
-sfx(0.02, "timer-beep", { gain: 0.4, reason: "the clock's last second ticking for Viking" });
-see(0, 0.7, ["vik.face", "spud.face", "drg.face", "host.face", "coal0"], "frame 0: Viking with the coal on the red tile, the others watching, the host beaming");
+A(0, "host", "look", { to: [0, -0.7], dur: 0, blink: false });
+A(0, "host", "pitch", { to: 8, dur: 0 });
+sfx(0.03, "timer-beep", { gain: 0.5, reason: "the clock's last second ticking for Viking" });
+see(0, 0.9, ["vik.face", "coal0"], "frame 0: Viking in terror with the glowing coal on his red tile");
 
-// ---------------------------------------------------------------- 02 THE RULE (0.72-1.7): 0, his tile opens, he drops
-num(T.ding0, 0); bell(T.ding0);
-P_(r3(T.ding0 + 0.04), "tile_vik", { open: 1 }, 0.12, "in");
-sfx(r3(T.ding0 + 0.04), "latch", { gain: 0.6, reason: "Viking's trapdoor tile drops open" });
-A(r3(T.ding0 + 0.02), "vik", "expr", { expr: "terrified", set: { open: 0.75, curve: -0.3 }, dur: 0.06 });
+// ---------------------------------------------------------------- 02 THE RULE (1.0-2.3): zero, the lever, his tile opens, he drops
+zero(T.ding0);
+c.prop(r3(T.ding0 + 0.04), "lever", { pull: 0.7 }, 0.12, "in"); c.arm(r3(T.ding0 + 0.04), "host", "L", hostHand(leverKnob(0.7)), 0.12, "in");
+sfx(r3(T.ding0 + 0.04), "creak", { gain: 0.4, reason: "the clown pulls the lever" });
+c.prop(r3(T.ding0 + 0.14), "tile_vik", { open: 1 }, 0.12, "in");
+sfx(r3(T.ding0 + 0.14), "latch", { gain: 0.6, reason: "Viking's trapdoor tile drops open" });
+A(r3(T.ding0 + 0.1), "vik", "expr", { expr: "terrified", set: { open: 0.8, curve: -0.3 }, dur: 0.06 });
+for (const s of ["R", "L"]) c.arm(r3(T.ding0 + 0.14), "vik", s, "up", 0.16, "out");
+A(r3(T.ding0 + 0.14), "vik", "grip", { side: "both", shape: "open", dur: 0.08 });
+A(r3(T.ding0 + 0.17), "vik", "drop", { to: r3(S - 1.6), dur: 0.36 });
+A(r3(T.ding0 + 0.56), "vik", "hide"); A(r3(T.ding0 + 0.57), "vik", "move", { to: [-7, 7], dur: 0, ease: "linear", steps: 0 });
 // he lets go: the coal hangs a beat over the hole and falls in after him
-c.prop(r3(T.ding0 + 0.3), "coal0", { x: X.vik, y: r3(S - 1.1), z: 0.12 }, 0.3, "in"); c.prop(r3(T.ding0 + 0.6), "coal0", { scale: 0.001 }, 0.02, "in");
-for (const s of ["R", "L"]) c.arm(r3(T.ding0 + 0.04), "vik", s, "up", 0.16, "out");
-A(r3(T.ding0 + 0.04), "vik", "grip", { side: "both", shape: "open", dur: 0.08 });
-A(r3(T.ding0 + 0.07), "vik", "drop", { to: r3(S - 1.55), dur: 0.36 });
-A(r3(T.ding0 + 0.45), "vik", "hide"); A(r3(T.ding0 + 0.46), "vik", "move", { to: [-6, -6], dur: 0, ease: "linear", steps: 0 });
-sfx(r3(T.ding0 + 0.08), "whoosh", { gain: 0.35, reason: "Viking falls through his tile" });
-P_(r3(T.ding0 + 0.05), "confL", { burst: 1 }, 2.4, "linear"); P_(r3(T.ding0 + 0.05), "confR", { burst: 1 }, 2.4, "linear");
-sfx(r3(T.ding0 + 0.05), "partyhorn", { gain: 0.45, reason: "confetti and a party horn for the loser" });
-sfx(r3(T.ding0 + 0.5), "splash", { gain: 0.6, reason: "under the stage: the splash into the fryer" });
-sfx(r3(T.ding0 + 0.6), "sizzle", { gain: 0.55, reason: "the sizzle" });
-P_(r3(T.ding0 + 0.5), "vat", { churn: 0.4 }, 0.25, "out"); P_(r3(T.ding0 + 1.5), "vat", { churn: 0.25 }, 0.8, "inOut");
-// Spud and Dragon stare down at the hole; the host claps his cheeks
-for (const w of ["spud", "drg"]) { A(r3(T.ding0 + 0.12), w, "look", { to: [-0.75, -0.7], dur: 0.12, blink: false }); A(r3(T.ding0 + 0.15), w, "expr", { expr: "terrified", set: { open: 0.4 }, dur: 0.15 }); A(r3(T.ding0 + 0.15), w, "squash", { amount: 0.06, dur: 0.25 }); }
-for (const s of ["R", "L"]) c.arm(r3(T.ding0 + 0.15), "host", s, "cheeks", 0.3, "inOut");
-A(r3(T.ding0 + 0.2), "host", "look", { to: [-0.6, -0.3], dur: 0.15, blink: false });
-A(r3(T.ding0 + 0.15), "host", "expr", { expr: "evil", set: { curve: 1, open: 0.7 }, dur: 0.12 });
-for (let k = 0; k < 5; k++) A(r3(T.ding0 + 0.3 + k * 0.17), "host", "squash", { amount: 0.06, dur: 0.15 });   // he laughs
-hot(r3(T.bye + 0.2), null);
-// the danger: fire out of the hole, then the basket brings him back up, fried (alive, dizzy): that is what losing means
-const fire = (t, id) => { P_(t, id, { on: 1 }, 0.04, "out"); P_(t, id, { len: 1 }, 0.22, "out"); P_(r3(t + 0.45), id, { fade: 1 }, 0.35, "inOut"); sfx(t, "flamejet", { gain: 0.6, reason: "fire shoots up out of the loser's hole" }); };
-fire(r3(T.ding0 + 0.52), "fireV");
-const UP0 = r3(T.ding0 + 0.95);
-A(r3(UP0 - 0.07), "vcrisp", "move", { to: [X.vik, 0], dur: 0, ease: "linear", steps: 0 });
-A(r3(UP0 - 0.05), "vcrisp", "ride", { prop: "lift0", off: [0, 0.02, 0], yaw: 8, dur: 0 });
-A(r3(UP0 - 0.04), "vcrisp", "show");
-c.prop(UP0, "lift0", { y: r3(S + 0.02) }, 0.5, "inOut");
-P_(UP0, "lift0", { drip: 1 }, 0.3, "out"); P_(r3(UP0 + 1.2), "lift0", { drip: 0.15 }, 0.8, "inOut");
-sfx(UP0, "creak", { gain: 0.35, reason: "the fry basket winds Viking back up" }); sfx(r3(UP0 + 0.45), "ding", { gain: 0.55, reason: "ding: he's done" });
-sfx(r3(UP0 + 0.3), "steam", { gain: 0.4, reason: "steam off the fried Viking" });
-A(r3(UP0 - 0.04), "vcrisp", "expr", { expr: "dizzy", dur: 0 }); A(r3(UP0 + 0.5), "vcrisp", "droop", { to: 1, dur: 0.4 });
-for (const w of ["spud", "drg"]) { A(r3(UP0 + 0.3), w, "look", { to: [-0.8, -0.05], dur: 0.12, blink: false }); A(r3(UP0 + 0.35), w, "expr", { expr: "terrified", set: { open: 0.55 }, dur: 0.12 }); A(r3(UP0 + 0.35), w, "squash", { amount: 0.07, dur: 0.25 }); }
-A(r3(UP0 + 0.3), "host", "look", { to: [-0.8, -0.1], dur: 0.12, blink: false });
-see(UP0, r3(UP0 + 0.7), ["vcrisp", "spud.face", "drg.face"], "what losing means: Viking comes back up fried");
-say(r3(T.give - 0.1), "host", "next!", 0.3, "excited", "Next!");
-see(T.ding0, r3(T.ding0 + 0.4), ["vik", "tile_vik"], "the rule: at 0 the red tile opens under whoever holds the coal");
+c.prop(r3(T.ding0 + 0.4), "coal0", { x: P.vik[0], y: r3(S - 1.1), z: P.vik[1] }, 0.3, "in"); c.prop(r3(T.ding0 + 0.7), "coal0", { scale: 0.001 }, 0.02, "in");
+sfx(r3(T.ding0 + 0.18), "whoosh", { gain: 0.35, reason: "Viking falls through his tile" });
+sfx(r3(T.ding0 + 0.6), "splash", { gain: 0.6, reason: "under the stage: the splash into the fryer" });
+sfx(r3(T.ding0 + 0.7), "sizzle", { gain: 0.55, reason: "the sizzle" });
+c.prop(r3(T.ding0 + 0.6), "vat", { churn: 0.45 }, 0.25, "out"); c.prop(r3(T.ding0 + 1.6), "vat", { churn: 0.25 }, 0.8, "inOut");
+fire(r3(T.ding0 + 0.62), "fireV");
+hot(r3(T.ding0 + 0.6), null); c.prop(r3(T.ding0 + 0.9), "clock", { alarm: 0 }, 0.3, "inOut");
+// the three stare at the hole and lean away from it
+for (const [w, lean] of [["drg", -7], ["gun", -7], ["spud", -6]]) {
+  A(r3(T.ding0 + 0.2), w, "look", { to: [0, -0.75], dur: 0.12, blink: false }); scared(r3(T.ding0 + 0.24), w, 0.5, 0.15);
+  A(r3(T.ding0 + 0.24), w, "squash", { amount: 0.07, dur: 0.25 }); A(r3(T.ding0 + 0.3), w, "pitch", { to: lean, dur: 0.25 });
+  A(r3(T.show + 0.1), w, "pitch", { to: 0, dur: 0.3 });
+}
+// the clown laughs, head back
+A(r3(T.ding0 + 0.3), "host", "pitch", { to: -8, dur: 0.2 });
+A(r3(T.ding0 + 0.25), "host", "expr", { expr: "delighted", set: { curve: 1, open: 0.9 }, dur: 0.12 }); A(r3(T.ding0 + 0.25), "host", "face", { lid: 0.7, brow: 0.2, dur: 0.12 });
+for (let k = 0; k < 5; k++) A(r3(T.ding0 + 0.35 + k * 0.17), "host", "squash", { amount: 0.06, dur: 0.15 });
+see(r3(T.ding0 + 0.1), r3(T.ding0 + 0.5), ["vik", "host.face", "spud.face"], "the rule: at zero the clown pulls the lever and Viking drops through his tile");
 
-// ---------------------------------------------------------------- 03 A FRESH COAL (1.7-3.0): the host conjures it and brings it to Spud
-// He steps along the apron to in front of the gap between Spud and Dragon, tongs out toward Spud, and sets the coal
-// in Spud's cupped gloves; then (off screen, on Spud's close shot) the tongs go and he walks back to his tile.
-// The tongs move on their own tweens (the coal rides them: a carry follows a prop's tween, never a hand) and the host's
-// hand follows their handle. They stay level (the carry offset ignores a tip).
-const GIVE_AT = [0.42, 0.88], GIVE_YAW = -72, APRON = [1.2, 0.75], SPUD_GIVE = 35;
-const C_GIVE = cupAt("spud", [X.spud, 0], SPUD_GIVE);
-const dirOf = (rot) => [Math.sin((rot * Math.PI) / 180), Math.cos((rot * Math.PI) / 180)];
-const ROT_GIVE = r3((Math.atan2(C_GIVE[0] - GIVE_AT[0], C_GIVE[2] - GIVE_AT[1]) * 180) / Math.PI), ROT0 = -60;
-// the walk: two straight legs at one speed, the turn spread over both; the tongs' handle stays at the same place
-// beside his body all the way (HANDLE, in his frame), and comes to the give exactly
-const WALK = { t0: r3(T.conjure + 0.1), l1: 0.36, l2: 0.38 }, HANDLE = [-0.2, 0.32], TONG_Y = 1.7;
-const walkAt = (u) => { const t = u * (WALK.l1 + WALK.l2), k = t < WALK.l1 ? t / WALK.l1 : (t - WALK.l1) / WALK.l2, [a, b] = t < WALK.l1 ? [[X.host, 0], APRON] : [APRON, GIVE_AT]; return { at: [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k], yaw: YAW.host + (GIVE_YAW - YAW.host) * u }; };
-const K_GIVE = (() => { const [dx, dz] = dirOf(ROT_GIVE); return { x: r3(C_GIVE[0] - 0.5 * dx), y: C_GIVE[1], z: r3(C_GIVE[2] - 0.5 * dz), rot: ROT_GIVE }; })();
-const tongsAt = (u) => {
-  const w = walkAt(u), [hx, hz] = rotY(HANDLE, w.yaw), rot = ROT0 + (ROT_GIVE - ROT0) * u, [dx, dz] = dirOf(rot);
-  const nom = { x: w.at[0] + hx - 0.13 * dx, y: TONG_Y, z: w.at[1] + hz - 0.13 * dz }, e = u * u;
-  return { x: r3(nom.x + (K_GIVE.x - nom.x) * e), y: r3(nom.y + (K_GIVE.y - nom.y) * e), z: r3(nom.z + (K_GIVE.z - nom.z) * e), rot: r3(rot) };
-};
-const K0 = tongsAt(0);
-const K3 = (() => { const [dx, dz] = dirOf(ROT_GIVE); return { x: r3(K_GIVE.x - 0.1 * dx), y: K_GIVE.y, z: r3(K_GIVE.z - 0.1 * dz), rot: ROT_GIVE }; })();   // drawn back after the give
-c.arm(r3(T.conjure - 0.25), "host", "L", "rest", 0.3, "inOut");
-c.arm(r3(T.conjure - 0.25), "host", "R", { x: [-0.2, 0.44, 0.32] }, 0.22, "inOut");
-c.at(r3(T.conjure - 0.04), { do: "prop", id: "tongs", set: K0, dur: 0.01, ease: "linear" });
-c.at(r3(T.conjure - 0.03), { do: "carry", prop: "coal", by: "tongs", off: [0, 0, 0.5] });
-c.arm(r3(T.conjure - 0.02), "host", "R", { prop: "tongs", grip: "hold", palm: [0, 0, 0.13] }, 0.04);
-A(r3(T.conjure - 0.02), "host", "grip", { side: "R", shape: "clasp", dur: 0.05 });
-c.at(T.conjure, { do: "prop", id: "tongs", set: { scale: 1 }, dur: 0.08, ease: "back" }); c.at(T.conjure, { do: "prop", id: "coal", set: { scale: 1 }, dur: 0.08, ease: "back" });
-c.at(T.conjure, { fx: "poof", who: "host", dur: 0.35 });
-sfx(T.conjure, "poof", { gain: 0.5, reason: "the host conjures tongs with a fresh glowing coal" });
-A(r3(T.conjure + 0.02), "host", "look", { to: [-0.7, -0.1], dur: 0.12, blink: false });
-A(WALK.t0, "host", "turn", { to: GIVE_YAW, dur: r3(WALK.l1 + WALK.l2), ease: "linear" });
-A(WALK.t0, "host", "move", { to: APRON, dur: WALK.l1, steps: 2, ease: "linear" });   // out onto the apron, clear of Dragon
-A(r3(WALK.t0 + WALK.l1), "host", "move", { to: GIVE_AT, dur: WALK.l2, steps: 2, ease: "linear" });
-{ const N = 6, d = (WALK.l1 + WALK.l2) / N; for (let i = 1; i <= N; i++) c.prop(r3(WALK.t0 + (i - 1) * d), "tongs", tongsAt(i / N), r3(d), "linear"); }
-// Dragon makes room: arms down, a little lean back, eyes on the coal going past
-for (const [s, x] of [["R", -0.22], ["L", 0.22]]) c.arm(r3(T.conjure + 0.05), "drg", s, { x: [x, 0.1, 0.12] }, 0.3, "inOut");
-A(r3(T.conjure + 0.1), "drg", "pitch", { to: -5, dur: 0.3 }); A(r3(T.conjure + 0.1), "drg", "look", { to: [0.3, -0.1], dur: 0.12, blink: false });
-A(r3(T.conjure + 0.5), "drg", "look", { to: [-0.5, -0.2], dur: 0.15, blink: false });
-A(r3(T.hot + 0.4), "drg", "pitch", { to: 0, dur: 0.3 });
-A(r3(T.give - 0.3), "host", "pitch", { to: 8, dur: 0.25 });   // he leans in
-A(r3(T.give - 0.55), "spud", "turn", { to: SPUD_GIVE, dur: 0.3, ease: "inOut" });
-ready(r3(T.give - 0.5), "spud", 0.35);
-A(r3(T.give - 0.6), "spud", "look", { to: [0.5, 0.1], dur: 0.12, blink: false });
-A(r3(T.give - 0.4), "spud", "expr", { expr: "shocked", set: { open: 0.2, eye: 1.2 }, dur: 0.2 });
-A(r3(T.give - 0.15), "spud", "look", { to: [0.15, -0.5], dur: 0.12, blink: false });
-P_(r3(T.give - 0.05), "tongs", { open: 1 }, 0.12, "out");
+// ---------------------------------------------------------------- 03 A FRESH COAL (2.3-3.2): the clown, close
+c.prop(r3(T.show - 0.05), "lever", { pull: 0 }, 0.01, "linear"); c.arm(r3(T.show - 0.05), "host", "L", hostHand(leverKnob(0)), 0.02);
+c.at(r3(T.show - 0.06), { do: "prop", id: "tongs", set: TONGS_OUT, dur: 0.01, ease: "linear" });
+c.at(r3(T.show - 0.05), { do: "carry", prop: "coal", by: "tongs", off: [0, 0, 0.5] });
+c.at(r3(T.show - 0.04), { do: "prop", id: "tongs", set: { scale: 1 }, dur: 0.01, ease: "linear" }); c.at(r3(T.show - 0.04), { do: "prop", id: "coal", set: { scale: 1 }, dur: 0.01, ease: "linear" });
+c.arm(r3(T.show - 0.04), "host", "R", { prop: "tongs", grip: "hold", palm: [0, 0, 0.13] }, 0.02);
+A(r3(T.show - 0.04), "host", "grip", { side: "R", shape: "clasp", dur: 0.02 });
+A(r3(T.show - 0.04), "host", "pitch", { to: 9, dur: 0.02 });
+A(r3(T.show - 0.04), "host", "expr", { expr: "evil", set: { curve: 0.95, open: 0.35 }, dur: 0.02 }); A(r3(T.show - 0.04), "host", "face", { brow: -0.5, tilt: 0.65, lid: 0.35, dur: 0.02 });
+A(r3(T.show - 0.04), "host", "look", { to: [0, -0.1], dur: 0.02, blink: false });      // at us
+A(r3(T.show + 0.35), "host", "face", { brow: -0.2, tilt: 0.65, lid: 0.35, dur: 0.15 });   // a brow comes up
+A(r3(T.show + 0.5), "host", "look", { to: [0, -0.75], dur: 0.12, blink: false });         // down at Spud
+num(r3(T.show + 0.02), 5);
+sfx(T.show, "sizzle", { gain: 0.3, reason: "the fresh coal hissing in the tongs" });
+see(T.show, r3(T.give - 0.05), ["host.face", "coal", "tongs"], "the evil clown holds a fresh glowing coal out in his tongs");
+// the tongs open: the coal drops forward and down into Spud's gloves (out over his head, then straight down)
+ready(r3(T.give - 0.3), "spud", 0.3);
+c.prop(r3(T.give - 0.07), "tongs", { open: 1 }, 0.1, "out");
 c.at(T.give, { do: "carry", prop: "coal" });
-take(T.give, "spud");
-hot(T.give, "spud"); num(T.c5, 5);
-sfx(T.c5, "timer-beep", { gain: 0.45, reason: "the clock starts: 5" });
-see(r3(T.give - 0.2), r3(T.give + 0.4), ["spud.face", "host.face", "coal"], "the fresh coal goes from the tongs into Spud's gloves; his tile turns red");
-// he steps back along the apron at once, the tongs with him: by Spud's close shot (T.hot) they are out of its frame,
-// and poof away there; he is back on his tile, gloves together at his belly, before the first throw
-const BACK = { t0: r3(T.give + 0.12), l1: 0.4, l2: 0.4, via: [1.35, 0.95] };
-c.prop(BACK.t0, "tongs", { x: 0.83, y: 1.62, z: 1.0, rot: -100 }, 0.3, "inOut");
-A(r3(T.give + 0.1), "host", "pitch", { to: 0, dur: 0.25 });
-A(r3(T.give + 0.12), "spud", "turn", { to: YAW.spud, dur: 0.28, ease: "inOut" });
-A(BACK.t0, "host", "move", { to: BACK.via, dur: BACK.l1, steps: 2, ease: "linear" });
-A(r3(BACK.t0 + BACK.l1), "host", "move", { to: [X.host, 0], dur: BACK.l2, steps: 2, ease: "linear" });
-A(r3(BACK.t0 + 0.2), "host", "turn", { to: YAW.host, dur: 0.6, ease: "inOut" });
-c.at(r3(T.hot + 0.05), { do: "prop", id: "tongs", set: { scale: 0.001 }, dur: 0.05, ease: "in" });
-c.at(r3(T.hot + 0.11), { do: "prop", id: "tongs", set: { x: PARK[0], y: PARK[1], z: PARK[2] }, dur: 0.01, ease: "linear" });
-ready(r3(T.hot + 0.08), "host", 0.3);   // gloves together at his belly: the coal will land in them
-A(r3(T.hot + 0.3), "host", "look", { to: [-0.6, -0.1], dur: 0.12, blink: false });
+{ const to = cupAt("spud"); c.prop(T.give, "coal", { x: to[0], z: to[2] }, 0.26, "out"); c.prop(T.give, "coal", { y: to[1] }, r3(T.land - T.give), "in"); }
+take(T.land, "spud");
+sfx(T.give, "click", { gain: 0.4, reason: "the tongs snap open" });
 
-// ---------------------------------------------------------------- "HOT! HOT!" (3.0-3.6): it burns
-A(T.hot, "spud", "look", { to: [0, -0.6], dur: 0.1, blink: false });
-A(T.hot, "spud", "expr", { expr: "terrified", set: { open: 0.6, curve: -0.4 }, dur: 0.12 }); A(T.hot, "spud", "face", { brow: 0.6, dur: 0.12 });
-for (let k = 0; k < 3; k++) A(r3(T.hot + 0.04 + k * 0.18), "spud", "squash", { amount: 0.07, dur: 0.16 });
-say(r3(T.hot + 0.03), "spud", "hot! hot! hot!", 0.5, "excited", "HOT! HOT! HOT!");
-sfx(T.hot, "sizzle", { gain: 0.4, reason: "the coal sizzling in Spud's gloves" });
-c.at(r3(T.hot + 0.05), { fx: "sweat", who: "spud", dur: 0.6 });
-see(T.hot, r3(T.hot + 0.5), ["spud.face", "coal"], "it burns his gloves");
+// ---------------------------------------------------------------- 04 SPUD HAS IT (3.2-4.22): clock 5, "HOT!"
+A(r3(T.give + 0.05), "spud", "look", { to: [0, 0.8], dur: 0.1, blink: false });
+A(r3(T.land - 0.08), "spud", "look", { to: [0, -0.6], dur: 0.08, blink: false });
+hot(T.land, "spud"); tick(T.c5, 5);
+scared(T.land, "spud", 0.6); shake(r3(T.land + 0.04), "spud", 3, 0.07);
+A(T.land, "spud", "droop", { to: 0, dur: 0.1 });
+say(r3(T.land + 0.05), "spud", "hot! hot! hot!", 0.45, "excited", "HOT! HOT! HOT!", SUB.spud);
+sfx(T.land, "sizzle", { gain: 0.45, reason: "the coal sizzling in Spud's gloves" });
+see(r3(T.land + 0.05), r3(T.throw1 - 0.1), ["spud.face", "coal"], "the coal in Spud's gloves on his red tile, the clock at 5");
+// the tongs go back behind the parapet; the clown rubs his gloves from here on
+c.prop(r3(T.land + 0.1), "tongs", { scale: 0.001 }, 0.02, "in"); c.prop(r3(T.land + 0.14), "tongs", TONGS_DOWN, 0.01, "linear");
+A(r3(T.land + 0.1), "host", "grip", { side: "both", shape: "open", dur: 0.1 });
+A(r3(T.land + 0.1), "host", "pitch", { to: 12, dur: 0.4 });
+rub(r3(T.land + 0.16), 6);
+// Spud to Dragon
+A(r3(T.throw1 - 0.28), "spud", "turn", { to: -40, dur: 0.24, ease: "inOut" });
+A(r3(T.throw1 - 0.25), "spud", "look", { to: [-0.3, -0.1], dur: 0.1, blink: false });
+ready(r3(T.throw1 - 0.3), "drg", 0.28);
+A(r3(T.throw1 - 0.2), "drg", "look", { to: [0.8, 0], dur: 0.1, blink: false }); scared(r3(T.throw1 - 0.15), "drg", 0.4);
+toss(T.throw1, "spud", cupAt("drg"), 0.3, 0.3);
+take(r3(T.throw1 + 0.3), "drg");
+A(r3(T.throw1 + 0.3), "spud", "turn", { to: 0, dur: 0.3, ease: "inOut" }); sides(r3(T.throw1 + 0.35), "spud", 0.3);
+A(r3(T.throw1 + 0.35), "spud", "expr", { expr: "shocked", set: { open: 0.25 }, dur: 0.2 });
 
-// ---------------------------------------------------------------- 04 THE PASS (3.6-4.5): Spud throws it to Dragon, who is fireproof
-num(tickAt(4), 4); sfx(tickAt(4), "timer-beep", { gain: 0.45, reason: "the clock: 4" });
-A(r3(T.throw1 - 0.3), "spud", "look", { to: [0.7, 0], dur: 0.1, blink: false });
-A(r3(T.throw1 - 0.25), "drg", "look", { to: [-0.6, 0], dur: 0.12, blink: false });
-A(r3(T.throw1 - 0.2), "drg", "expr", { expr: "eager", set: { open: 0.4, curve: 0.6 }, dur: 0.15 });
-// Dragon takes it on one open palm (his right, toward Spud), the other arm out
-// (out beside his body, in the gap to Spud: an arm across his own face hid his eyes)
-const PALM = { x: [-0.4, 0.42, 0.3], palm: [-0.4, 1.5, 0.3] };
-const palmAt = (who) => [r3(X[who] - 0.4), r3(S + LEG[who] + 0.42 + 0.15), 0.28];   // the coal's centre over the open palm
-c.arm(r3(T.throw1 - 0.2), "drg", "R", PALM, 0.3, "inOut"); A(r3(T.throw1 - 0.2), "drg", "grip", { side: "R", shape: "flat", dur: 0.15 });
-c.arm(r3(T.throw1 - 0.2), "drg", "L", { o: [0.15, 0.6, 0.2] }, 0.3, "inOut");
-A(r3(T.throw1 - 0.02), "spud", "expr", { expr: "terrified", set: { open: 0.3, eye: 0.3, curve: -0.5 }, dur: 0.1 });
-toss(T.throw1, "spud", palmAt("drg"), 0.3, 0.2);
-A(r3(T.throw1 + 0.31), "drg", "grab", { prop: "coal", hand: "R", grip: "below", pose: null, dur: 0 });
-hot(r3(T.throw1 + 0.3), "drg");
-sfx(r3(T.throw1 + 0.3), "pat", { gain: 0.4, reason: "the coal lands on Dragon's palm" });
-see(r3(T.throw1 - 0.1), r3(T.throw1 + 0.4), ["spud.face", "drg.face", "coal"], "Spud throws the coal to Dragon");
+// ---------------------------------------------------------------- 05 DRAGON (4.22-5.17): clock 4, his face
+hot(r3(T.throw1 + 0.3), "drg"); tick(tickAt(4), 4);
+A(r3(T.throw1 + 0.3), "drg", "look", { to: [0, -0.6], dur: 0.08, blink: false });
+scared(r3(T.throw1 + 0.3), "drg", 0.7); shake(r3(T.throw1 + 0.33), "drg", 3, 0.07);
+c.at(r3(T.throw1 + 0.3), { fx: "sweat", who: "drg", dur: 0.6 });
+for (const s of ["R", "L"]) c.arm(r3(T.throw1 + 0.34), "drg", s, cup("drg", 0.5)[s], 0.14, "out");   // as far from his face as his arms go
+A(r3(T.throw1 + 0.36), "drg", "pitch", { to: -9, dur: 0.15 });
+say(r3(T.throw1 + 0.42), "drg", "not me!", 0.4, "excited", "NOT ME!", SUB.drg);
+sfx(r3(T.throw1 + 0.3), "sizzle", { gain: 0.4, reason: "the coal in Dragon's gloves" });
+see(r3(T.throw1 + 0.36), r3(T.throw2 - 0.05), ["drg.face", "coal"], "Dragon's terrified face over the coal, the clock at 4");
+ready(r3(T.throw2 - 0.3), "gun", 0.28);
+A(r3(T.throw2 - 0.2), "gun", "look", { to: [-0.6, 0], dur: 0.1, blink: false }); scared(r3(T.throw2 - 0.15), "gun", 0.4);
+A(r3(T.throw2 - 0.15), "drg", "look", { to: [0.55, 0], dur: 0.1, blink: false });
+for (const s of ["R", "L"]) c.arm(r3(T.throw2 - 0.14), "drg", s, cup("drg")[s], 0.12, "in");
+toss(T.throw2, "drg", cupAt("gun"), 0.35, 0.35);
+take(r3(T.throw2 + 0.35), "gun");
+A(r3(T.throw2 + 0.1), "drg", "pitch", { to: 0, dur: 0.3 }); sides(r3(T.throw2 + 0.4), "drg", 0.3);
 
-// ---------------------------------------------------------------- 05 FIREPROOF (4.1-5.0): Dragon enjoys it; Spud blows on his gloves
-c.arm(r3(T.throw1 + 0.38), "drg", "R", { x: [-0.42, 0.78, 0.2], palm: [-0.42, 1.9, 0.2] }, 0.4, "inOut");   // up beside his head like a beach ball
-A(r3(T.throw1 + 0.4), "drg", "look", { to: [-0.45, 0.45], dur: 0.12, blink: false });
-A(r3(T.throw1 + 0.45), "drg", "expr", { expr: "delighted", set: { curve: 0.9, open: 0.5 }, dur: 0.2 }); A(r3(T.throw1 + 0.45), "drg", "face", { lid: 0.75, dur: 0.2 });
-for (const [s, x] of [["R", -0.08], ["L", 0.08]]) c.arm(r3(T.throw1 + 0.5), "spud", s, { x: [x, 0.36, 0.36] }, 0.35, "inOut");   // gloves up under his mouth
-A(r3(T.throw1 + 0.5), "spud", "look", { to: [0, -0.4], dur: 0.12, blink: false });
-A(r3(T.throw1 + 0.6), "spud", "expr", { expr: "sad", set: { pucker: 0.6, open: 0.2 }, dur: 0.2 }); A(r3(T.throw1 + 0.6), "spud", "face", { lid: 0.8, brow: 0.3, dur: 0.2 });
-for (const t of [0.75, 1.05]) sfx(r3(T.throw1 + t), "blow", { gain: 0.35, dur: 0.22, reason: "Spud blows on his burnt gloves" });
-num(tickAt(3), 3); sfx(tickAt(3), "timer-beep", { gain: 0.45, reason: "the clock: 3" });
-see(r3(T.throw1 + 0.6), r3(T.lob - 0.1), ["drg.face", "spud.face", "coal"], "the coal doesn't hurt Dragon; Spud nurses his gloves");
+// ---------------------------------------------------------------- 06 GUNSLINGER (5.17-6.0): clock 3, his face
+const G1 = r3(T.throw2 + 0.35);
+hot(G1, "gun"); tick(tickAt(3), 3);
+A(G1, "gun", "look", { to: [0, -0.6], dur: 0.08, blink: false });
+scared(G1, "gun", 0.95); A(G1, "gun", "hop", { count: 1, height: 0.12, dur: 0.3 }); shake(r3(G1 + 0.3), "gun", 2, 0.07);
+c.at(G1, { fx: "sweat", who: "gun", dur: 0.5 });
+say(r3(G1 + 0.08), "gun", "nope!", 0.4, "excited", "NOPE!", SUB.gun);
+sfx(G1, "sizzle", { gain: 0.4, reason: "the coal in Gunslinger's gloves" });
+see(r3(G1 + 0.05), r3(T.throw3 - 0.05), ["gun.face", "coal"], "Gunslinger's screaming face over the coal, the clock at 3");
+ready(r3(T.throw3 - 0.3), "spud", 0.28);
+A(r3(T.throw3 - 0.2), "spud", "look", { to: [0.6, 0], dur: 0.1, blink: false }); scared(r3(T.throw3 - 0.15), "spud", 0.4);
+A(r3(T.throw3 - 0.15), "gun", "look", { to: [-0.9, 0], dur: 0.1, blink: false });
+toss(T.throw3, "gun", cupAt("spud"), 0.35, 0.35);
+const S2 = r3(T.throw3 + 0.35);
+take(S2, "spud");
 
-// ---------------------------------------------------------------- THE LOB BACK (5.05-6.2): Dragon lobs it back; Spud juggles it
-A(r3(T.lob - 0.45), "drg", "look", { to: [-0.6, 0], dur: 0.12, blink: false });
-A(r3(T.lob - 0.4), "drg", "face", { lid: 0.1, dur: 0.15 });
-c.arm(r3(T.lob - 0.35), "drg", "R", { x: [-0.4, 0.3, 0.32], palm: [-0.4, 1.4, 0.32] }, 0.25, "inOut");   // down for the underarm swing
-A(r3(T.lob - 0.3), "spud", "look", { to: [0.65, 0.1], dur: 0.1, blink: false });
-A(r3(T.lob - 0.25), "spud", "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0.12 }); A(r3(T.lob - 0.25), "spud", "face", { lid: 0, brow: 0.6, dur: 0.12 });
-say(r3(T.lob + 0.9), "spud", "no no no!", 0.4, "excited", "No no no!");
-ready(r3(T.lob - 0.15), "spud", 0.3);
-A(T.lob, "drg", "release", { prop: "coal", to: cupAt("spud"), dur: 0.4, arc: 0.35, ease: "linear" });
-c.arm(T.lob, "drg", "R", { x: [-0.42, 0.62, 0.3] }, 0.22, "out"); c.arm(r3(T.lob + 0.5), "drg", "R", { x: [-0.22, 0.1, 0.12] }, 0.4, "inOut"); c.arm(r3(T.lob + 0.5), "drg", "L", { x: [0.22, 0.1, 0.12] }, 0.4, "inOut");   // low: the next shot looks up at them
-sfx(T.lob, "whoosh", { gain: 0.25, reason: "Dragon lobs the coal back" });
-take(r3(T.lob + 0.4), "spud");
-hot(r3(T.lob + 0.4), "spud");
-num(tickAt(2), 2); sfx(tickAt(2), "timer-beep", { gain: 0.5, reason: "the clock: 2" });
-A(r3(T.lob + 0.42), "spud", "look", { to: [0, -0.6], dur: 0.08, blink: false });
-A(r3(T.lob + 0.42), "spud", "expr", { expr: "terrified", set: { open: 0.65, curve: -0.4 }, dur: 0.1 });
-for (let k = 0; k < 4; k++) A(r3(T.lob + 0.46 + k * 0.17), "spud", "squash", { amount: 0.07, dur: 0.15 });
-sfx(r3(T.lob + 0.45), "sizzle", { gain: 0.4, reason: "the coal sizzling in Spud's gloves again" });
-A(r3(T.lob + 0.5), "drg", "expr", { expr: "happy", set: { curve: 0.6 }, dur: 0.2 });
-see(T.lob, r3(T.lob + 0.6), ["spud.face", "drg.face", "coal"], "Dragon lobs it back: the coal is Spud's again");
+// ---------------------------------------------------------------- 07 NOBODY WILL CATCH IT (6.0-6.8): clock 2, hands behind backs
+hot(S2, "spud"); tick(tickAt(2), 2);
+scared(S2, "spud", 0.6); shake(r3(S2 + 0.03), "spud", 2, 0.06);
+sfx(S2, "sizzle", { gain: 0.4, reason: "the coal back in Spud's gloves" });
+for (const w of ["drg", "gun"]) {
+  for (const [s, x] of [["R", -0.17], ["L", 0.17]]) c.arm(T.hide, w, s, { x: [x, 0.12, -0.3] }, 0.14, "out");   // gloves behind the back
+  A(T.hide, w, "grip", { side: "both", shape: "fist", dur: 0.1 });
+  A(r3(T.hide + 0.05), w, "pitch", { to: -8, dur: 0.15 });
+  A(T.hide, w, "expr", { expr: "terrified", set: { open: 0.1, curve: -0.5 }, dur: 0.12 });
+  const to = w === "drg" ? 1 : -1;   // toward Spud, then away, then at him again: a head shake
+  A(r3(T.hide + 0.02), w, "look", { to: [0.8 * to, 0], dur: 0.08, blink: false }); A(r3(T.hide + 0.2), w, "look", { to: [0.2 * to, 0], dur: 0.08, blink: false }); A(r3(T.hide + 0.36), w, "look", { to: [0.8 * to, 0], dur: 0.08, blink: false });
+}
+sfx(T.hide, "whoosh", { gain: 0.25, reason: "two pairs of gloves vanish behind two backs" });
+A(r3(T.hide + 0.02), "spud", "turn", { to: -30, dur: 0.14, ease: "inOut" }); A(r3(T.hide + 0.02), "spud", "look", { to: [-0.4, 0], dur: 0.08, blink: false });
+A(r3(T.hide + 0.26), "spud", "turn", { to: 30, dur: 0.18, ease: "inOut" }); A(r3(T.hide + 0.26), "spud", "look", { to: [0.4, 0], dur: 0.08, blink: false });
+A(r3(T.fear - 0.12), "spud", "turn", { to: 0, dur: 0.1, ease: "inOut" });
+A(r3(T.hide - 0.2), "host", "pitch", { to: 15, dur: 0.3 }); A(r3(T.hide - 0.2), "host", "look", { to: [0, -0.8], dur: 0.1, blink: false });
+rub(r3(T.hide - 0.1), 5);
+see(r3(T.hide + 0.16), r3(T.fear - 0.15), ["spud.face", "drg", "gun", "coal", "host.face"], "the coal is back with Spud at 2; Dragon and Gunslinger hide their gloves behind their backs");
 
-// ---------------------------------------------------------------- 06 THE FAKE-OUT (6.2-7.0): clock 1, Spud hurls it high; the host leans in
-num(tickAt(1), 1); sfx(tickAt(1), "timer-beep", { gain: 0.6, reason: "the clock: 1" });
-rub(r3(tickAt(1) - 0.1), 4);
-A(r3(tickAt(1) - 0.3), "host", "pitch", { to: 7, dur: 0.3 });
-A(r3(tickAt(1) - 0.3), "host", "look", { to: [-0.7, -0.1], dur: 0.12, blink: false });
-A(r3(tickAt(1) - 0.25), "host", "expr", { expr: "evil", set: { curve: 1, open: 0.35 }, dur: 0.2 });
-A(r3(tickAt(1) + 0.02), "spud", "look", { to: [0.1, 0.8], dur: 0.08, blink: false });
-A(r3(T.hurl - 0.1), "spud", "crouch", { to: 0.12, dur: 0.1 });
-A(T.hurl, "spud", "crouch", { to: 0, dur: 0.1 });
-// high over to Dragon, who catches it right in front of his face
-const FACE_AT = cupAt("drg");
-toss(T.hurl, "spud", FACE_AT, r3(T.catch2 - T.hurl), 0.75, { R: "up", L: "up" });
-A(T.hurl, "spud", "expr", { expr: "terrified", set: { open: 0.8 }, dur: 0.08 }); A(T.hurl, "spud", "face", { brow: 0.7, lid: 0, dur: 0.08 });
-A(r3(T.hurl + 0.02), "spud", "hop", { count: 1, height: 0.12, dur: 0.3 });
-hot(r3(T.hurl + 0.02), null);
-see(r3(T.hurl - 0.3), r3(T.hurl + 0.3), ["spud.face", "host.face"], "clock 1: Spud hurls the coal high, the host leaning in for his loser");
+// ---------------------------------------------------------------- 08 SPUD'S FACE (6.8-7.2): the clock ticks to 1
+A(r3(T.fear - 0.02), "spud", "look", { to: [0, -0.5], dur: 0.02, blink: false });
+A(r3(T.fear - 0.02), "spud", "expr", { expr: "terrified", set: { open: 0.05, curve: -0.7 }, dur: 0.02 }); A(r3(T.fear - 0.02), "spud", "face", { brow: 0.75, lid: 0, dur: 0.02 });
+c.at(T.fear, { fx: "sweat", who: "spud", dur: 0.5 });
+for (let k = 0; k < 3; k++) A(r3(T.fear + 0.03 + k * 0.1), "spud", "look", { to: [k % 2 ? 0.08 : -0.08, -0.45], dur: 0.06, blink: false });   // his eyes shake
+tick(tickAt(1), 1);
+A(r3(tickAt(1) + 0.02), "spud", "look", { to: [0, 0.7], dur: 0.08, blink: false });     // up
+A(r3(tickAt(1) + 0.02), "spud", "expr", { expr: "terrified", set: { open: 0.5, curve: -0.3, eye: 1.2 }, dur: 0.08 });
+see(T.fear, r3(tickAt(1) + 0.08), ["spud.face"], "Spud's face, pure fear, as the clock ticks to 1");
 
-// ---------------------------------------------------------------- 07 SMOKE (7.0-7.95): Dragon catches it under his nose; the smoke goes up it
-A(r3(T.hurl + 0.1), "drg", "look", { to: [-0.3, 0.8], dur: 0.12, blink: false });
-ready(r3(T.catch2 - 0.4), "drg", 0.35);
-take(T.catch2, "drg");
-ready(r3(T.catch2 + 0.1), "host", 0.3);   // his gloves back at his belly (he was rubbing them)
-hot(T.catch2, "drg");
-sfx(T.catch2, "pat", { gain: 0.45, reason: "Dragon catches the coal in both gloves" });
-A(r3(T.catch2 + 0.02), "drg", "look", { to: [0, -0.55], dur: 0.1, blink: false });
-P_(T.catch2, "coal", { smoke: 1 }, 0.2, "out");
-A(r3(T.catch2 + 0.15), "drg", "expr", { expr: "focused", set: { pucker: 0.5, open: 0.1, eye: 1.15 }, dur: 0.2 }); A(r3(T.catch2 + 0.15), "drg", "face", { brow: -0.3, tilt: 0.3, dur: 0.2 });
-A(r3(T.catch2 + 0.2), "drg", "look", { to: [0, 0.1], dur: 0.2, blink: false });   // eyes cross toward his nose
-sfx(r3(T.catch2 + 0.25), "gasp", { gain: 0.5, reason: "ah... (the smoke goes up Dragon's nose)" });
-A(r3(T.catch2 + 0.3), "drg", "pitch", { to: -8, dur: 0.3, ease: "inOut" });
-// Dragon turns away from Spud as the sneeze builds: toward the host
-A(r3(T.catch2 + 0.42), "drg", "turn", { to: 42, dur: 0.24, ease: "inOut" });
-A(r3(T.catch2 + 0.44), "drg", "pitch", { to: -15, dur: 0.2, ease: "inOut" });
-A(r3(T.catch2 + 0.44), "drg", "expr", { expr: "focused", set: { pucker: 0.3, open: 0.5, eye: 0.5 }, dur: 0.15 });
-// Spud sees it coming and ducks (done before the slow motion)
-A(r3(T.catch2 + 0.3), "spud", "look", { to: [0.7, 0.1], dur: 0.1, blink: false });
-A(r3(T.catch2 + 0.42), "spud", "crouch", { to: 0.3, dur: 0.2 });
-for (const [s, x] of [["R", -0.14], ["L", 0.14]]) c.arm(r3(T.catch2 + 0.38), "spud", s, { x: [x, 0.92, 0.12] }, 0.24, "inOut");   // gloves over his head
-A(r3(T.catch2 + 0.45), "spud", "expr", { expr: "terrified", set: { eye: 0.2, open: 0.2 }, dur: 0.12 });
-see(r3(T.catch2 + 0.05), r3(T.catch2 + 0.4), ["drg.face", "coal"], "the smoke goes up Dragon's nose");
+// ---------------------------------------------------------------- 09 STRAIGHT UP (7.2-7.64)
+A(r3(T.hurl - 0.1), "spud", "crouch", { to: 0.12, dur: 0.08 });
+A(r3(T.hurl - 0.02), "spud", "crouch", { to: 0, dur: 0.08 });
+A(r3(T.hurl - 0.02), "spud", "face", { brow: 0.4, lid: 1, dur: 0.08 });   // eyes shut
+hot(T.hurl, null);
+toss(T.hurl, "spud", cupAt("gun"), FLY, 4.8, { R: { x: [-0.2, 0.86, 0.12] }, L: { x: [0.2, 0.86, 0.12] } });
+A(r3(T.hurl + 0.02), "spud", "squash", { amount: -0.08, dur: 0.25 });   // stretched on tiptoe
+sfx(T.hurl, "whoosh", { gain: 0.5, reason: "Spud hurls the coal straight up" });
+see(r3(T.hurl + 0.05), r3(T.top - 0.04), ["spud", "coal"], "Spud throws the coal straight up with both arms");
 
-// ---------------------------------------------------------------- 08 THE SNEEZE (7.95-8.7, slow motion): the fire carries the coal into the host's gloves
-ramp(c, RAMP.at, RAMP.len, RAMP.rate, { in: 0.12, out: 0.2 });
-const HOST_CUP = cupAt("host");
-say(r3(RAMP.at - 0.03), "drg", "choo!", 0.03, "excited", "CHOO!");   // (before the ramp: a line inside one is off its voice; its subtitle runs through the slow motion)
-A(T.choo, "drg", "pitch", { to: 13, dur: 0.07, ease: "out" });
-A(T.choo, "drg", "expr", { expr: "focused", set: { pucker: 0, open: 0.75, eye: 0.1 }, dur: 0.05 });
-A(T.choo, "drg", "squash", { amount: 0.12, dur: 0.3 });
-A(r3(T.choo + 0.01), "drg", "release", { prop: "coal", to: HOST_CUP, dur: r3(T.land - T.choo - 0.01), ease: "out" });
-for (const [s, x] of [["R", -0.3], ["L", 0.3]]) c.arm(r3(T.choo + 0.01), "drg", s, { x: [x, 0.5, 0.3] }, 0.1, "out");
-P_(T.choo, "plume", { on: 1 }, 0.04, "out"); P_(T.choo, "plume", { len: 1 }, r3(T.land - T.choo), "out");
-P_(r3(T.land + 0.05), "plume", { fade: 1 }, 0.4, "inOut");
-sfx(T.choo, "blow", { gain: 0.6, dur: 0.35, reason: "CHOO: Dragon's sneeze" });
-sfx(r3(T.choo - 0.02), "ai/flare", { gain: 1.4, reason: "the sneeze is fire: a big fwoomp" });
-sfx(r3(T.choo + 0.05), "flamejet", { gain: 0.5, reason: "the jet of fire carrying the coal across the stage" });
-c.at(T.choo, { fx: "shake", amp: 0.03, dur: 0.4 });
-c.at(T.choo, { fx: "speedlines", dur: r3(T.land - T.choo), who: "drg" });
-c.at(r3(T.choo + 0.05), { do: "hat", who: "host", off: [0.16, 0.1, -0.12], spin: [0, 0, -24], dur: 0.3, ease: "out" });   // blown back
-take(T.land, "host");
-hot(T.land, "host");
-A(r3(T.land - 0.18), "host", "look", { to: [-0.4, -0.3], dur: 0.1, blink: false });
-sfx(T.land, "pat", { gain: 0.5, reason: "the coal lands in the host's gloves" });
-A(r3(T.land - 0.02), "host", "pitch", { to: -6, dur: 0.1 });
-A(T.land, "host", "expr", { expr: "evil", set: { curve: 0.9, open: 0.05 }, dur: 0.05 }); A(T.land, "host", "face", { brow: 0.6, tilt: 0, lid: 0, dur: 0.08 });   // the grin stays, frozen; the brows shoot up
-see(T.choo, T.land, ["drg.face", "host.face", "coal"], "the sneeze: fire carries the coal from Dragon to the host");
+// ---------------------------------------------------------------- 10 THE COAL HANGS (7.64-8.1, slow motion): three faces look up
+ramp(c, RAMP.at, RAMP.len, RAMP.rate, { in: 0.1, out: 0.12 });
+for (const w of ["drg", "gun", "spud"]) {
+  A(r3(T.top - 0.08), w, "pitch", { to: -24, dur: 0.06 }); A(r3(T.top - 0.08), w, "look", { to: [0, 0.9], dur: 0.06, blink: false });
+  A(r3(T.top - 0.08), w, "expr", { expr: "shocked", set: { open: 0.6, eye: 1.15 }, dur: 0.06 }); A(r3(T.top - 0.08), w, "face", { brow: 0.6, lid: 0, dur: 0.06 });
+}
+sides(r3(T.top - 0.06), "spud", 0.12);
+sfx(r3(T.top + 0.02), "timestop", { gain: 0.4, reason: "the coal hangs in the air: slow motion" });
+see(r3(T.top + 0.08), r3(T.reflex - 0.06), ["coal", "spud.face", "drg.face", "gun.face"], "from straight above: the coal hangs over the stage, three faces look up at it");
 
-// ---------------------------------------------------------------- 09 THE HOST'S TILE (8.7-10.2): frozen smile, a look down, 0, he drops
-A(r3(RAMP.at + RAMP.len + 0.02), "drg", "turn", { to: YAW.drg, dur: 0.35, ease: "inOut" });
-A(r3(RAMP.at + RAMP.len + 0.02), "drg", "pitch", { to: 0, dur: 0.3 });
-A(r3(RAMP.at + RAMP.len + 0.05), "drg", "expr", { expr: "kind", set: { curve: 0.1 }, dur: 0.25 }); A(r3(RAMP.at + RAMP.len + 0.05), "drg", "face", { brow: 0, tilt: 0, lid: 0.1, dur: 0.25 });
-A(r3(RAMP.at + RAMP.len + 0.05), "spud", "crouch", { to: 0, dur: 0.3 });
-for (const [s, x] of [["R", -1], ["L", 1]]) { c.arm(r3(RAMP.at + RAMP.len + 0.05), "spud", s, { x: [0.36 * x, 0.6, 0.12] }, 0.2, "inOut"); c.arm(r3(RAMP.at + RAMP.len + 0.25), "spud", s, { x: [0.07 * x, 0.24, 0.36] }, 0.25, "inOut"); }
-// (he ducks where he stands: Viking's basket is on the next tile)   // down round his face, not across it
-A(r3(RAMP.at + RAMP.len + 0.1), "spud", "look", { to: [0.75, -0.05], dur: 0.12, blink: false });
-A(r3(RAMP.at + RAMP.len + 0.15), "spud", "expr", { expr: "shocked", set: { open: 0.3 }, dur: 0.2 });
-A(r3(T.land + 0.25), "host", "look", { to: [0, -0.85], dur: 0.14, blink: false });   // down at his own red tile
-c.at(r3(T.land + 0.3), { fx: "sweat", who: "host", dur: 0.5 });
-say(r3(T.land + 0.32), "host", "uh-oh.", 0.3, "calm", "Uh-oh.");
-num(T.ding1, 0); bell(T.ding1);
-P_(r3(T.ding1 + 0.04), "tile_host", { open: 1 }, 0.12, "in");
-sfx(r3(T.ding1 + 0.04), "latch", { gain: 0.6, reason: "the host's trapdoor tile drops open" });
-A(r3(T.ding1 + 0.02), "host", "look", { to: [0, 0], dur: 0.06, blink: false });
-A(r3(T.ding1 + 0.07), "host", "drop", { to: r3(S - 1.55), dur: 0.38 });
-// his hat stays in the air a beat, then falls in after him
-c.at(r3(T.ding1 + 0.07), { do: "hat", who: "host", off: [0.1, 1.5, -0.05], spin: [0, 0, -40], dur: 0.38, ease: "in" });
-A(r3(T.ding1 + 0.44), "host", "release", { prop: "coal", to: [X.host, 0.3, 0], dur: 0.02 }); c.at(r3(T.ding1 + 0.43), { do: "prop", id: "coal", set: { scale: 0.001 }, dur: 0.02, ease: "in" });
-A(r3(T.ding1 + 0.47), "host", "hide"); A(r3(T.ding1 + 0.48), "host", "move", { to: [6, -6], dur: 0, ease: "linear", steps: 0 });
-sfx(r3(T.ding1 + 0.1), "whoosh", { gain: 0.35, reason: "the host falls through his tile" });
-sfx(r3(T.ding1 + 0.55), "splash", { gain: 0.6, reason: "under the stage: the splash into the fryer" });
-fire(r3(T.ding1 + 0.57), "fireH");
-sfx(r3(T.ding1 + 0.65), "sizzle", { gain: 0.6, reason: "the sizzle" });
-P_(r3(T.ding1 + 0.55), "vat", { churn: 0.4 }, 0.25, "out"); P_(r3(T.ding1 + 1.6), "vat", { churn: 0.3 }, 0.8, "inOut");
-// Dragon wipes his nose; Spud stares at the hole
-A(r3(T.ding1 + 0.15), "drg", "look", { to: [0.7, -0.5], dur: 0.12, blink: false });
-c.arm(r3(T.ding1 + 0.3), "drg", "R", { x: [-0.02, 0.42, 0.37] }, 0.3, "inOut");
-for (const t of [0.62, 0.9]) { c.arm(r3(T.ding1 + t), "drg", "R", { x: [0.05, 0.42, 0.37] }, 0.13, "inOut"); c.arm(r3(T.ding1 + t + 0.13), "drg", "R", { x: [-0.02, 0.42, 0.37] }, 0.13, "inOut"); }
-A(r3(T.ding1 + 0.35), "drg", "expr", { expr: "sad", set: { curve: -0.1, pucker: 0.3 }, dur: 0.2 }); A(r3(T.ding1 + 0.35), "drg", "face", { lid: 0.7, dur: 0.2 });
-A(r3(T.ding1 + 0.15), "spud", "look", { to: [0.75, -0.6], dur: 0.12, blink: false });
-A(r3(T.ding1 + 0.2), "spud", "expr", { expr: "shocked", set: { open: 0.45 }, dur: 0.15 });
-see(T.land, r3(T.ding1 + 0.3), ["host.face", "tile_host"], "the red tile is the host's own: his smile freezes, 0, he drops");
+// ---------------------------------------------------------------- 11 THE REFLEX (8.1-9.25): Gunslinger catches it, zero
+A(r3(T.reflex - 0.04), "gun", "pitch", { to: -6, dur: 0.04 });
+c.arm(r3(T.reflex + 0.06), "gun", "R", cup("gun").R, 0.13, "out"); c.arm(r3(T.reflex + 0.06), "gun", "L", cup("gun").L, 0.13, "out");
+A(r3(T.reflex + 0.06), "gun", "grip", { side: "both", shape: "cup", dur: 0.1 });
+take(CATCH, "gun");
+hot(CATCH, "gun");
+sfx(CATCH, "sizzle", { gain: 0.5, reason: "the coal lands in Gunslinger's gloves" });
+A(r3(CATCH + 0.02), "gun", "pitch", { to: 0, dur: 0.12 }); A(r3(CATCH + 0.02), "gun", "look", { to: [0, -0.7], dur: 0.1, blink: false });
+A(r3(CATCH + 0.05), "gun", "expr", { expr: "shocked", set: { open: 0.08, curve: 0.35, eye: 1.2 }, dur: 0.1 });   // a tiny frozen smile of horror
+A(r3(CATCH + 0.05), "gun", "face", { brow: 0.7, lid: 0, dur: 0.1 });
+zero(T.ding1);
+A(r3(T.ding1 + 0.05), "gun", "face", { brow: 0.7, lid: 0.25, dur: 0.05 }); A(r3(T.ding1 + 0.13), "gun", "face", { brow: 0.7, lid: 0, dur: 0.05 });   // an eye twitches
+A(r3(T.ding1 + 0.22), "gun", "look", { to: [0.1, 0.1], dur: 0.1, blink: false });   // at us
+scared(r3(T.ding1 + 0.26), "gun", 0.7);
+c.at(r3(T.ding1 + 0.2), { fx: "sweat", who: "gun", dur: 0.4 });
+see(r3(CATCH + 0.06), r3(T.wide - 0.05), ["gun.face", "coal"], "the coal dropped into Gunslinger's gloves by reflex; his tile is red, the clock at 0");
+// off screen meanwhile: the others look at him
+for (const [w, x] of [["drg", 0.55], ["spud", 0.6]]) { A(r3(T.reflex + 0.3), w, "pitch", { to: 0, dur: 0.2 }); A(r3(T.reflex + 0.3), w, "look", { to: [x, -0.1], dur: 0.1, blink: false }); }
+sides(r3(T.reflex + 0.3), "drg", 0.2);
+A(r3(T.reflex + 0.3), "host", "pitch", { to: 6, dur: 0.2 });
+c.arm(r3(T.reflex + 0.3), "host", "L", hostHand(leverKnob(0)), 0.2, "inOut"); A(r3(T.reflex + 0.45), "host", "grip", { side: "L", shape: "clasp", dur: 0.1 });
+c.arm(r3(T.reflex + 0.3), "host", "R", { x: [-0.2, 0.52, 0.4] }, 0.2, "inOut");
 
-// ---------------------------------------------------------------- 10 CRISPY (10.2-end): the basket lifts him out, alive; the next sneeze is coming
-P_(r3(T.rise - 0.25), "tile_host", { hot: 0 }, 0.2);
-A(r3(T.rise - 0.07), "crisp", "move", { to: [X.host, 0], dur: 0, ease: "linear", steps: 0 });
-A(r3(T.rise - 0.05), "crisp", "ride", { prop: "lift", off: [0, 0.02, 0], yaw: -4, dur: 0 });
-A(r3(T.rise - 0.04), "crisp", "show");
-for (const [s, x] of [["R", -0.2], ["L", 0.2]]) c.arm(r3(T.rise - 0.04), "crisp", s, { x: [x, 0.12, 0.2] }, 0);   // arms in: the basket is narrow and Dragon is close
-c.prop(T.rise, "lift", { y: r3(S + 0.02) }, 0.6, "inOut");
-sfx(T.rise, "creak", { gain: 0.4, reason: "the fry basket's lift winding up" });
-sfx(r3(T.rise + 0.5), "ding", { gain: 0.6, reason: "ding: he's done" });
-sfx(r3(T.rise + 0.3), "steam", { gain: 0.4, reason: "steam off the fried host" });
-P_(T.rise, "lift", { drip: 1 }, 0.3, "out"); P_(r3(T.rise + 1.2), "lift", { drip: 0.2 }, 0.8, "inOut");
-P_(r3(T.rise + 0.2), "studio", { sing: 1 }, 0.2, "out"); P_(r3(T.rise + 0.2), "confL", { burst: 0 }, 0.01, "linear"); P_(r3(T.rise + 0.2), "confR", { burst: 0 }, 0.01, "linear");
-P_(r3(T.rise + 0.22), "confL", { burst: 1 }, 2.2, "linear"); P_(r3(T.rise + 0.22), "confR", { burst: 1 }, 2.2, "linear");
-sfx(r3(T.rise + 0.2), "partyhorn", { gain: 0.45, reason: "the sun sings and the confetti flies: a winner" });
-cap(r3(T.rise + 0.56), r3(T.bye2 - 0.05), "WE HAVE A *WINNER!*", 740, true, { size: 84, kinetic: false });
-A(r3(T.rise + 0.3), "crisp", "expr", { expr: "delighted", set: { curve: 0.95, open: 0.4 }, dur: 0.15 });
-// he waves beside his head, wide of the hat's brim
-c.arm(r3(T.bye2 - 0.3), "crisp", "L", { x: [0.42, 0.66, 0.2] }, 0.3, "inOut");
-for (let k = 0; k < 4; k++) c.arm(r3(T.bye2 + 0.05 + k * 0.2), "crisp", "L", { x: [k % 2 ? 0.42 : 0.34, k % 2 ? 0.66 : 0.72, 0.2] }, 0.18, "inOut");
-say(T.bye2, "crisp", "see you next week, kids!", 0.85, "excited", "See you next week, kids!");
-for (const w of ["spud", "drg"]) A(r3(T.rise + 0.3), w, "look", { to: [0.7, 0], dur: 0.12, blink: false });
-A(r3(T.rise + 0.6), "spud", "expr", { expr: "sad", set: { curve: 0.25 }, dur: 0.3 }); A(r3(T.rise + 0.6), "spud", "face", { lid: 0.7, brow: 0.3, dur: 0.3 });   // a weak relieved smile
-A(r3(T.rise + 0.6), "spud", "droop", { to: 1, dur: 0.4 });
-c.arm(r3(T.rise + 0.3), "drg", "R", { x: [-0.22, 0.1, 0.12] }, 0.35, "inOut");
-A(r3(T.rise + 0.5), "drg", "expr", { expr: "happy", set: { curve: 0.5 }, dur: 0.25 }); A(r3(T.rise + 0.5), "drg", "face", { lid: 0.1, dur: 0.25 });
-// the button: Dragon's nose wrinkles again
-A(T.again, "drg", "expr", { expr: "focused", set: { pucker: 0.5, open: 0.35, eye: 0.7 }, dur: 0.15 }); A(T.again, "drg", "face", { brow: -0.3, tilt: 0.3, dur: 0.15 });
-A(r3(T.again + 0.05), "drg", "pitch", { to: -12, dur: 0.35, ease: "inOut" });
-sfx(r3(T.again + 0.05), "gasp", { gain: 0.55, reason: "ah... (Dragon's next sneeze building)" });
-say(r3(T.again + 0.05), "drg", "ah... ah...", 0.5, "calm", "Ah… ah…");
-A(r3(T.again + 0.2), "spud", "look", { to: [0.7, 0.1], dur: 0.08, blink: false });
-A(r3(T.again + 0.25), "spud", "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0.1 }); A(r3(T.again + 0.25), "spud", "face", { lid: 0, brow: 0.6, dur: 0.1 });
-A(r3(T.again + 0.25), "spud", "droop", { to: 0, dur: 0.1 });
-A(r3(T.again + 0.3), "crisp", "look", { to: [-0.7, 0], dur: 0.1, blink: false });
-A(r3(T.again + 0.35), "crisp", "expr", { expr: "shocked", set: { open: 0.3, curve: -0.2 }, dur: 0.12 });
-see(r3(T.rise + 0.5), r3(END - 0.1), ["crisp.face", "spud.face", "drg.face"], "the host comes up fried and alive, waving; Spud and Dragon are the winners");
+// ---------------------------------------------------------------- 12 GONE (9.25-11.7): the lever, relief, the next coal
+c.prop(T.pull, "lever", { pull: 0.7 }, 0.12, "in"); c.arm(T.pull, "host", "L", hostHand(leverKnob(0.7)), 0.12, "in");
+sfx(T.pull, "creak", { gain: 0.4, reason: "the clown pulls the lever" });
+c.prop(r3(T.pull + 0.1), "tile_gun", { open: 1 }, 0.12, "in");
+sfx(r3(T.pull + 0.1), "latch", { gain: 0.6, reason: "Gunslinger's trapdoor tile drops open" });
+A(r3(T.pull + 0.13), "gun", "drop", { to: r3(S - 1.6), dur: 0.36 });
+c.prop(r3(T.pull + 0.46), "coal", { scale: 0.001 }, 0.02, "in");
+A(r3(T.pull + 0.52), "gun", "hide"); A(r3(T.pull + 0.53), "gun", "move", { to: [7, 7], dur: 0, ease: "linear", steps: 0 });
+sfx(r3(T.pull + 0.14), "whoosh", { gain: 0.35, reason: "Gunslinger falls through his tile" });
+sfx(r3(T.pull + 0.56), "splash", { gain: 0.6, reason: "under the stage: the splash into the fryer" });
+sfx(r3(T.pull + 0.66), "sizzle", { gain: 0.55, reason: "the sizzle" });
+c.prop(r3(T.pull + 0.56), "vat", { churn: 0.45 }, 0.25, "out"); c.prop(r3(T.pull + 1.5), "vat", { churn: 0.25 }, 0.8, "inOut");
+fire(r3(T.pull + 0.58), "fireG");
+hot(r3(T.pull + 0.5), null); c.prop(r3(T.pull + 0.8), "clock", { alarm: 0 }, 0.3, "inOut");
+A(r3(T.pull + 0.25), "host", "expr", { expr: "delighted", set: { curve: 1, open: 0.85 }, dur: 0.12 }); A(r3(T.pull + 0.25), "host", "face", { lid: 0.7, brow: 0.2, dur: 0.12 });
+for (let k = 0; k < 3; k++) A(r3(T.pull + 0.3 + k * 0.17), "host", "squash", { amount: 0.06, dur: 0.15 });
+// Spud and Dragon breathe out
+for (const w of ["drg", "spud"]) { A(r3(T.pull + 0.2), w, "look", { to: [w === "drg" ? 0.55 : 0.6, -0.5], dur: 0.1, blink: false }); A(r3(T.pull + 0.25), w, "squash", { amount: 0.07, dur: 0.25 }); }
+A(r3(T.pull + 0.75), "spud", "expr", { expr: "sad", set: { open: 0.25, curve: 0.1 }, dur: 0.25 }); A(r3(T.pull + 0.75), "spud", "face", { brow: 0.3, lid: 0.45, dur: 0.25 });
+A(r3(T.pull + 0.75), "spud", "droop", { to: 1, dur: 0.35 }); A(r3(T.pull + 0.75), "spud", "pitch", { to: 7, dur: 0.35 });
+A(r3(T.pull + 0.75), "spud", "look", { to: [0, -0.4], dur: 0.15, blink: false });
+c.arm(r3(T.pull + 0.8), "spud", "R", { x: [-0.1, 0.6, 0.32] }, 0.3, "inOut"); c.arm(r3(T.pull + 1.15), "spud", "R", { x: [0.08, 0.62, 0.32] }, 0.25, "inOut");   // he wipes his forehead
+sfx(r3(T.pull + 0.8), "gasp", { gain: 0.4, reason: "Spud breathes out" });
+A(r3(T.pull + 0.75), "drg", "expr", { expr: "dizzy", set: { open: 0.3 }, dur: 0.25 }); A(r3(T.pull + 0.75), "drg", "crouch", { to: 0.2, dur: 0.35 });
+for (const [s, x] of [["R", -0.1], ["L", 0.1]]) c.arm(r3(T.pull + 0.8), "drg", s, { x: [x, 0.3, 0.36] }, 0.3, "inOut");   // gloves on his chest
+// ... and the clown already holds out the next coal
+c.arm(r3(T.next - 0.45), "host", "L", { x: [0.2, 0.52, 0.4] }, 0.2, "inOut"); A(r3(T.next - 0.45), "host", "grip", { side: "L", shape: "open", dur: 0.1 });
+c.prop(r3(T.next - 0.4), "lever", { pull: 0 }, 0.2, "inOut");
+c.at(r3(T.next - 0.3), { do: "carry", prop: "coal2", by: "tongs", off: [0, 0, 0.5] });
+c.prop(r3(T.next - 0.3), "tongs", { open: 0 }, 0.01, "linear");
+c.arm(r3(T.next - 0.29), "host", "R", { prop: "tongs", grip: "hold", palm: [0, 0, 0.13] }, 0.04); A(r3(T.next - 0.29), "host", "grip", { side: "R", shape: "clasp", dur: 0.04 });
+c.at(r3(T.next - 0.25), { do: "prop", id: "tongs", set: { scale: 1 }, dur: 0.01, ease: "linear" }); c.at(r3(T.next - 0.25), { do: "prop", id: "coal2", set: { scale: 1 }, dur: 0.01, ease: "linear" });
+c.prop(r3(T.next - 0.24), "tongs", TONGS_OUT, 0.24, "out");
+A(r3(T.next - 0.3), "host", "pitch", { to: 12, dur: 0.3 });
+A(r3(T.next - 0.3), "host", "expr", { expr: "evil", set: { curve: 0.95, open: 0.35 }, dur: 0.15 }); A(r3(T.next - 0.3), "host", "face", { brow: -0.5, tilt: 0.65, lid: 0.35, dur: 0.15 });
+A(r3(T.next - 0.3), "host", "look", { to: [0, -0.8], dur: 0.12, blink: false });
+say(r3(T.next + 0.05), "host", "next!", 0.35, "excited", "NEXT!", SUB.wide);
+sfx(T.next, "sizzle", { gain: 0.35, reason: "the next coal hissing in the tongs" });
+tick(T.again, 5);
+// Spud hears the clock: his sprout shoots up, he looks up behind him
+A(r3(T.again + 0.05), "spud", "droop", { to: 0, dur: 0.08 }); A(r3(T.again + 0.05), "spud", "pitch", { to: -6, dur: 0.12 });
+A(r3(T.again + 0.05), "spud", "look", { to: [0, 0.8], dur: 0.08, blink: false });
+scared(r3(T.again + 0.08), "spud", 0.55, 0.1);
+sides(r3(T.again + 0.05), "spud", 0.15);
+A(r3(T.again + 0.12), "drg", "look", { to: [0.8, 0.4], dur: 0.1, blink: false }); scared(r3(T.again + 0.16), "drg", 0.5, 0.1);
+see(T.next, r3(END - 0.1), ["host.face", "coal2", "spud.face", "drg.face"], "Gunslinger is gone; the clown holds out the next coal over Spud, the clock back at 5");
 
 // ---------------------------------------------------------------- shots
-// WIDE: the whole set, sun to vat, four bodies across (panels 01, 02). MED: level with the wall's card, a wider lens
-// from closer, so the sun's card stays in the top of the frame behind bigger bodies (panels 03-06).
-const WIDE = frame([0, 2.5, 0], { az: 0, el: 5, h: 7.1, fov: 33.4 });   // (6.4 high cut Viking's side off)
-const med = (x) => ({ pos: [r3(x), 2.3, 4.1], look: [r3(x), 2.3, 0.1], fov: 41.2 });   // level, above the heads: the sign clears them by a subtitle's height
-const HAND = med(-0.05);                                     // 03: Spud and the host at the handover
-const close = (x) => ({ pos: [x, 2.2, 3.4], look: [x, 2.05, 0.1], fov: 40 });   // from a little above: the face, the coal and the red tile inside the safe zone
-const SPUD_HOT = close(X.spud);   // "hot! hot!"
-const TWO = med(0.0);                                        // 04, 05: Spud and Dragon
-const SPUD_LOW = { pos: [-2.6, 1.55, 3.9], look: [0.3, 2.25, -0.1], fov: 42 };   // 06: low and from the left, Spud in front, the host's grin at the far end of the row
-const DRG_CLOSE = close(X.drg);   // 07
-const WIDE3 = frame([0.3, 2.3, 0], { az: 0, el: 5, h: 5.9, fov: 33.4 });   // 08, 09: Spud, Dragon and the host
-const END_W = frame([0.55, 2.25, 0], { az: 0, el: 5, h: 5.4, fov: 33.4 });  // 10
+// HIGH: from high in front, the whole diamond, the balcony above it, the oil under the rim (panels 02, 07).
+const HIGH = { pos: [0, 7.4, 8.4], look: [0, 2.35, -0.9], fov: 36 };
+const VIK = { pos: [0.12, 1.7, 3.75], look: [0, 1.98, 1.15], fov: 33 };                    // 01: from slightly below
+const CLOWN = { pos: [0.18, 3.72, 0.55], look: [0.05, 3.62, -2.2], fov: 37 };              // 03
+const SPUD_MED = { pos: [0, 2.15, 2.0], look: [0, 1.82, -1.15], fov: 36 };                 // 04
+const faceCam = (who, d = 2.25) => { const [dx, dz] = rotY([0, d], YAW[who]); return { pos: [r3(P[who][0] + dx), 1.98, r3(P[who][1] + dz)], look: [P[who][0], 1.8, P[who][1]], fov: 32 }; };
+const DRG = faceCam("drg"), GUN = faceCam("gun");                                         // 05, 06, 11
+const FEAR = { pos: [0, 1.93, 0.75], look: [0, 1.9, -1.15], fov: 21 };                     // 08: his face fills the frame
+const LOW = { pos: [0.55, 1.42, 1.25], look: [0, 2.45, -1.15], fov: 46 };                  // 09
+const TOP = { pos: [0.25, 8.4, 0.55], look: [0.25, 1.2, 0.02], fov: 50 };                  // 10: straight down
+const FRONT = { pos: [0, 4.9, 9.2], look: [0, 2.7, -0.9], fov: 35 };                       // 12
 const beats = c.beats([
-  ["01 the coal", 0, WIDE, "hook"],
-  ["03 a fresh coal", r3(T.give - 0.45), HAND],
-  ["hot hot", T.hot, SPUD_HOT],
-  ["04 the pass", r3(tickAt(4) - 0.02), TWO],
-  ["06 the fake-out", r3(tickAt(1) - 0.3), SPUD_LOW],
-  ["07 smoke", r3(T.catch2 - 0.1), DRG_CLOSE],
-  ["08 the sneeze", r3(RAMP.at - 0.02), WIDE3, "payoff"],
-  ["10 crispy", r3(T.rise - 0.1), { ...WIDE3, to: { pos: END_W.pos, look: END_W.look }, dur: 1.2 }],   // a push in, no cut
+  ["01 the coal", 0, VIK, "hook"],
+  ["02 the rule", r3(T.ding0 - 0.03), HIGH],
+  ["03 the clown", T.show, CLOWN],
+  ["04 spud has it", r3(T.give + 0.08), SPUD_MED],
+  ["05 dragon", r3(T.throw1 + 0.22), DRG],
+  ["06 gunslinger", r3(T.throw2 + 0.27), GUN],
+  ["07 hands behind backs", r3(T.throw3 + 0.2), HIGH],
+  ["08 fear", T.fear, FEAR],
+  ["09 straight up", r3(T.hurl - 0.12), LOW],
+  ["10 it hangs", T.top, TOP, "payoff"],
+  ["11 the reflex", T.reflex, GUN],
+  ["12 gone", T.wide, FRONT],
 ], END);
 
+const W3 = END + 3;   // (the checks read windows on the video's clock, about 0.9 s longer than the story)
 write(import.meta.url, {
   id: "hot-potato-01",
   title: "Hot Potato 01 (pilot)",
-  idea: "A preschool-sweet game show over a deep fryer: hold the coal at zero and your tile opens. The fireproof Dragon sneezes it into the host.",
+  idea: "A preschool-sweet game show over a deep fryer, run by an evil clown: whoever holds the coal at zero, fries.",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [240, 1360],
   castLook: "sheet",
@@ -529,33 +444,19 @@ write(import.meta.url, {
   // a creepy children's tune (Jonny 11 Nov): the motif alone on a slow music box, in a minor key, no drums
   music: { style: "sneaky", parts: [{ at: 0, part: "musicbox" }], gain: 0.5 },
   sound: { sfx: 0.6, ambience: 0.2, guard: true, surface: "indoor" },
-  hook: { show: ["vik", "spud", "drg", "host"], hint: 0, what: "Viking holds a glowing coal on a red tile over the fryer, the clock at 1" },
+  hook: { show: ["vik", "coal0"], hint: 0, what: "Viking in terror, a glowing coal in his gloves, his tile red, the clock at 1" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
-  // (the checks read windows on the video's clock, which the slow motion makes about 1.75 s longer than the story)
   allowClip: [
-    ...["vik", "spud", "drg", "host", "crisp"].map((who) => ({ who, with: "studio", from: 0, to: END + 3, reason: "the cast stand on the stage (scenery: its box is the whole studio)" })),
-    ...["vik", "spud", "drg", "host"].map((who) => ({ who, with: `tile_${who}`, from: 0, to: END + 3, reason: "each player stands on his trapdoor tile (and drops through it)" })),
-    { who: "crisp", with: "tile_host", from: 0, to: END + 3, reason: "the basket lifts the fried host up through the open tile" },
-    { who: "crisp", with: "lift", from: 0, to: END + 3, reason: "the fried host stands in the fry basket" },
-    ...["studio", "tile_vik", "lift0", "vat", "confL", "confR"].map((w) => ({ who: "vcrisp", with: w, from: 0, to: END + 3, reason: "the fried Viking is lifted out of the vat through his open tile and stands in the fry basket" })),
-    { who: "vcrisp", from: 0, to: r3(T.ding0 + 1.6), checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump", "face-covered"], reason: "hidden until the lift: he is put in the basket under the stage, then the lift carries him up fast" },
-    { who: "host", with: "bow", from: 0, to: END + 3, reason: "he wears the bow tie" }, { who: "crisp", with: "bow2", from: 0, to: END + 3, reason: "he wears the bow tie" },
-    ...["vik", "spud", "drg", "host", "crisp"].flatMap((who) => ["confL", "confR"].map((w) => ({ who, with: w, from: 0, to: END + 3, reason: "confetti falls past the cast" }))),
-    { who: "vik", with: "vat", from: T.ding0, to: END + 3, reason: "he falls into the fryer under the stage (hidden there)" },
-    { who: "host", with: "vat", from: T.ding1, to: END + 3, reason: "he falls into the fryer under the stage (hidden there)" },
-    { who: "host", with: "lift", from: T.ding1, to: END + 3, reason: "he falls past the basket under the stage (hidden there)" },
-    { who: "spud", with: "tongs", from: r3(T.give - 0.2), to: r3(T.give + 0.3), reason: "the tongs set the coal between his cupped gloves" },
-    { who: "crisp", from: 0, to: r3(T.rise + 1.4), checks: ["face-covered"], reason: "hidden behind the wall until the lift" },
-    { who: "crisp", with: "vat", from: 0, to: r3(T.rise + 2.4), reason: "under the stage, hidden: the basket lifts him up out of the vat" },
-    { who: "crisp", from: 0, to: r3(T.rise + 2.4), checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump"], reason: "hidden until the lift: he is put in the basket under the stage, then the lift carries him up fast" },
-    { who: "host", with: "drg", from: r3(T.hot + 0.05), to: r3(T.hot + 0.6), reason: "off screen (Spud's close shot): the host walks back past Dragon to his tile" },
-    { who: "vik", with: "coal0", from: 0, to: 1.3, reason: "Viking holds the coal in both gloves" },
-    { who: "spud", with: "coal", from: r3(T.give - 0.1), to: r3(T.hurl + 0.2), reason: "Spud holds, throws and catches the coal" },
-    { who: "drg", with: "coal", from: r3(T.throw1 + 0.2), to: r3(T.choo + 0.2), reason: "Dragon holds, lobs and catches the coal" },
-    { who: "host", with: "coal", from: r3(T.conjure - 0.1), to: r3(T.ding1 + 0.6), reason: "the host carries the coal in his tongs, and it lands in his gloves" },
-    { who: "host", with: "tongs", from: r3(T.conjure - 0.1), to: r3(T.hot + 0.2), reason: "the host holds the tongs" },
-    { who: "vik", from: r3(T.ding0 + 0.07), to: END, checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump"], reason: "the drop through the trapdoor: he falls below the stage and is hidden" },
-    { who: "host", from: r3(T.ding1 + 0.07), to: END, checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump"], reason: "the drop through the trapdoor: he falls below the stage and is hidden" },
+    ...[...PLAYERS, "host"].flatMap((who) => ["studio", "booth", "vat"].map((w) => ({ who, with: w, from: 0, to: W3, reason: "the cast stand on the stage and in the balcony (scenery: its box is the whole studio); losers fall into the vat under it, hidden" }))),
+    ...PLAYERS.map((who) => ({ who, with: `tile_${who}`, from: 0, to: W3, reason: "each player stands on his trapdoor tile (and drops through it)" })),
+    { who: "host", with: "lever", from: 0, to: W3, reason: "his glove rests on the lever's knob and pulls it" },
+    { who: "host", with: "tongs", from: 0, to: W3, reason: "the clown holds the tongs" },
+    { who: "host", with: "coal", from: r3(T.show - 0.1), to: r3(T.land + 0.2), reason: "the clown holds the coal out in his tongs" },
+    { who: "host", with: "coal2", from: r3(T.next - 0.4), to: W3, reason: "the clown holds the next coal out in his tongs" },
+    { who: "vik", with: "coal0", from: 0, to: r3(T.ding0 + 0.8), reason: "Viking holds the coal in both gloves" },
+    ...["spud", "drg", "gun"].map((who) => ({ who, with: "coal", from: r3(T.give - 0.1), to: W3, reason: `${who} catches, holds and throws the coal` })),
+    { who: "vik", from: r3(T.ding0 + 0.1), to: W3, checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump"], reason: "the drop through the trapdoor: he falls below the stage and is hidden" },
+    { who: "gun", from: r3(T.pull + 0.1), to: W3, checks: ["rig-jump", "stance-slide", "foot-slide", "lean-jump"], reason: "the drop through the trapdoor: he falls below the stage and is hidden" },
   ],
   notes: "Generated by storyboards/series/hot-potato/01-hot-potato/make-hot-potato.mjs.",
 });
