@@ -1,7 +1,7 @@
-// Spud, the main character (Jonny, 11 Nov 2026): his turnaround on the plain stage (same as the fighters'), and his
-// test clip: the turnaround, three faces in close-up with the sprout showing the mood, then his size between the
+// Spud, the main character (Jonny, 11 Nov 2026): his test clip on the fighters' plain turnaround stage: a slow full turn, three faces in close-up with the sprout showing the mood, then his size between the
 // Viking and the Wizard (the group stands 3 m along the stage, so a cut takes us there and nobody has to walk in).
-//   node storyboards/characters/make-spud-test.mjs   -> storyboards/characters/turn-spud-sheet.json, spud-test.json
+//   node storyboards/characters/make-spud-test.mjs   -> storyboards/characters/spud-test.json
+// (No turn-spud-sheet.json: the fighters' quick quarter-turn turnaround fails preflight's rig-jump on the drawn timing.)
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,8 +9,7 @@ import { turnaround } from "./make-turnaround.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const write = (sb) => { const f = path.join(here, `${sb.id}.json`); fs.writeFileSync(f, JSON.stringify(sb, null, 1) + "\n"); console.log(f); };
-const turn = { ...turnaround("spud", "potatobrawl/spud", "sheet"), id: "turn-spud-sheet" };
-write(turn);
+const turn = turnaround("spud", "potatobrawl/spud", "sheet");   // the stage, look and drawn style; the turn itself is replaced below
 
 const Q = 1.45, R = 0.25, RA = (90 / Q) * R / 3;   // a quarter turn (s); the turn eases in and out over R s and RA degrees (cubic: it meets the even speed)
 const turnSteps = [[RA, R, "in"], [90, Q * (90 - RA) / 90, "linear"], [180, Q, "linear"], [270, Q, "linear"], [360 - RA, Q * (90 - RA) / 90, "linear"], [360, R, "out"]];
