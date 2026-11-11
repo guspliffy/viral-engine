@@ -19,6 +19,9 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
 - Vocabulary sheet, clip notes and `qa/peek.mjs` (#190): should lower `lookups` (Survive it EP1: about 230 of 853 steps).
 - Layout reuse and frame-cache keys (#189): should lower `machine` minutes per draft.
 - The eight rules (#195): should lower `layouts`, `fix rounds` and `waits`.
+- From Fight, Flight or Freeze 01 (11 Nov): captions can't stand on each other (`c.say` gives way to the next
+  caption, `caption-collide` fails in preflight) and a new series sends its six-line chain to Jonny before the first
+  build: should keep `renders` at 1 and lower the drafts that rebuild a story.
 - `tools/ledger-count.mjs` (11 Nov, from Share or Steal EP02; waits for Jonny's word): counts a row from the thread's
   transcript in under a second. Should end `?` in the count columns (Share or Steal 01 had 7 unknown, filled below by
   the script; copy money's verdict was "open: the comparison row has no counts").

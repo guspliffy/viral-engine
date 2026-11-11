@@ -47,6 +47,7 @@ export const RULES = {
   blackY: 20, // a frame whose brightest pixel is this dark is an empty black frame
   lufs: [-15.5, -12.5], truePeakMax: -1.0, silentLUFS: -40,
   dropoutLUFS: -50, dropoutHold: 1.0, // momentary loudness under this for this long inside the clip: the sound dropped out
+  captionCross: 0.35, // two captions collide when the smaller box is crossed by over this share of its height
   coverWarn: 0.08, coverFail: 0.25, coverFailHold: 0.5, // share of a caption hidden by characters; fail if held 0.5 s
   stillDiff: 0.35, // mean |dY| per frame below which the picture counts as still
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
@@ -123,7 +124,7 @@ export const PROFILES = {
 };
 
 // which group each check belongs to (anything not listed is technical)
-const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "caption-band": "publishing", "cartoon-only": "publishing",
+const GROUP = { "length-limit": "publishing", "caption-safe-zone": "publishing", "caption-band": "publishing", "caption-collide": "publishing", "cartoon-only": "publishing",
   opening: "creative", "still-hold": "creative", loop: "creative", length: "creative", "event-gaps": "creative", "reading-speed": "creative",
   "eyes-lead": "creative", "reaction-hold": "creative", "payoff-sound": "creative", "loop-seam": "creative", pace: "creative",
   frozen: "creative", visible: "creative", camera: "creative" };
@@ -643,6 +644,14 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
 //   caption-band       a subtitle (not a text pop or a card) leaves the storyboard's "captionBand": [top, bottom]
 //                      (y px; Jonny's series briefs: [470, 1360]): fail. Without the field it isn't checked
 //   caption-overlap    characters cover over coverFail of a caption for coverFailHold s: fail; over coverWarn: warn
+//   caption-collide    a caption (not a text pop or a card) is still up when the next one comes in on top of it:
+//                      their times are staggered (neither holds the other: a label with a tagline under it for
+//                      its whole time is a layout, not a collision) and the smaller box is crossed by over a third
+//                      of its height (a line box carries leading, so stacked lines touch by less): fail. Times
+//                      come from the storyboard (exact, so 3 frames between two 0.1 s samples are found), boxes
+//                      from the layout. Fight, Flight or Freeze 01 (11 Nov 2026): a shout's subtitle and the
+//                      narrator's line stood on each other for 3 frames; every check passed and the full render
+//                      had to be done twice
 export function captionResults(sb, layout) {
   const out = [], add = (level, check, msg) => out.push({ level, check, msg });
   if (!layout?.samples?.length) return out;
@@ -682,6 +691,31 @@ export function captionResults(sb, layout) {
     else if (w.cov > RULES.coverWarn) add("warn", "caption-overlap", msg);
     else add("pass", "caption-overlap", msg);
   }
+  const fps = sb?.fps || 30, caps = (sb?.captions || []).filter((c) => c && !c.pop && !c.card && c.text && c.to > c.from);
+  const boxOf = (c) => {   // the caption's largest box while it is up: [x0, y0, x1, y1], or null when no sample caught it
+    let b = null;
+    for (const s of layout.samples) {
+      if (s.t < c.from - 0.15 || s.t > c.to + 0.15) continue;
+      for (const k of s.captions || []) {
+        if (Array.isArray(k) || k.pop || k.card || k.text !== c.text) continue;
+        const [x, y, w, h] = k.box;
+        b = b ? [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x + w), Math.max(b[3], y + h)] : [x, y, x + w, y + h];
+      }
+    }
+    return b;
+  };
+  const boxes = caps.map(boxOf);
+  let collide = 0;
+  for (let i = 0; i < caps.length; i++) for (let j = i + 1; j < caps.length; j++) {
+    const a = caps[i], b = caps[j], t0 = Math.max(a.from, b.from), t1 = Math.min(a.to, b.to), A = boxes[i], Bx = boxes[j];
+    if (t1 - t0 < 0.5 / fps || !A || !Bx) continue;
+    if ((a.from - b.from) * (a.to - b.to) <= 1e-9) continue;   // one holds the other (or they start or end together): shown together on purpose
+    const ix = Math.min(A[2], Bx[2]) - Math.max(A[0], Bx[0]), iy = Math.min(A[3], Bx[3]) - Math.max(A[1], Bx[1]);
+    if (ix <= 8 || iy <= RULES.captionCross * Math.min(A[3] - A[1], Bx[3] - Bx[1])) continue;
+    collide++;
+    add("fail", "caption-collide", `"${a.text.slice(0, 40)}" and "${b.text.slice(0, 40)}" stand on each other at ${t0.toFixed(2)}-${t1.toFixed(2)}s (${Math.max(1, Math.round((t1 - t0) * fps))} frames): end the first where the second starts, or move one (pos)`);
+  }
+  if (!collide && caps.length > 1) add("pass", "caption-collide", "no two captions stand on each other");
   if (!worst.size) add("pass", "captions", "no captions");
   return out;
 }
