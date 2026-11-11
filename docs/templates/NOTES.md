@@ -10,6 +10,13 @@ is looked up or tried twice. Keep it under 80 lines; it is not the delivery and 
 - Next: <the one thing to do next>
 - Renders so far: <drafts n, farm renders n>; fix rounds used: <n of 3>
 
+## The improvement loop (docs/rules/workflow.md; `node tools/ledger.mjs`)
+
+- Fix on test, and the count it should lower: <from the ledger>
+- Comparison video: <the earlier one closest in length and new things>
+- Repeats (the third time the same kind of step for the same reason: what, why, the new route):
+- Check fails: <n seen in the frames, n unseen (which check)>
+
 ## Cast (from the generator)
 
 | id | character | at x,z | faces | sits / stands on | holds (prop, hold, hand) |
