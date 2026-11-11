@@ -213,6 +213,16 @@ Three rig facts that cost Share or Steal EP01 about 20 check rounds (10 Nov), ea
   beat by an odd number of frames changes which frames are drawn after it, and a passage that was clean can pick up
   slides. Retime in steps of 2 frames (0.067 s), and hide a sit or a step-out behind a cut instead of tuning it.
 
+Four more from Share or Steal EP02 (11 Nov), each measured in a layout:
+- A hand that leaves a lap beside a table goes through the table's edge on a straight line. Send it over the edge
+  first: a `{ world: [...] }` point 18 cm above the top, beside the face (never between face and camera), first leg
+  ease "in", second leg "linear". "in" into "out" puts 20-40 cm into one drawing at the join.
+- An arm pose change scheduled on a cut turned the palm 62-75 degrees four frames before the cut, still in the old
+  shot. Keep the pose through the cut and change it half a second later, or not at all.
+- A still at a rounded time is not the video's frame: 4.267 s is after frame 128 (4.2667 s). A prop swap two
+  hundredths before a cut showed for one frame in the outgoing shot. Judge cut frames on the render's `--cuts` sheet.
+- A seated character follows a moving chair with `ride` (`prop`, `off: [0, 0.3, 0.03]`); `drop` falls on its own curve.
+
 `qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
 than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
 with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
@@ -325,8 +335,8 @@ wasted work, and you prove it.
 
 5. Add one ledger row with one command (`node tools/ledger.mjs add ...`): length, new things, rule 8's five counts,
    check fails seen and unseen, steps, minutes from brief to delivery, machine minutes, director model and effort,
-   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. If the row needs counting by hand, the
-   counting script is the next fix.
+   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. The counts come from the thread's own
+   transcript: `node tools/ledger-count.mjs --from <time of the brief> --to <time of the delivery>` (under a second).
 6. Judge the fix on test against the comparison video. Count fell and score held: keep it. No drop after two videos:
    take it out again. Nothing stays on belief.
 7. Pick exactly one next fix. A fault that reached Jonny's eyes always goes first. Otherwise the largest of: the
