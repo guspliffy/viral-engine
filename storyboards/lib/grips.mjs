@@ -90,6 +90,11 @@ const SIZE = {
   // HP_GRIPS.hptongs through an arm pose (len 0.55, handle bundle r 0.06); the proof is make-hotpotato-bench.mjs
   hpcoal: { rim: -0.0375, wall: [[-0.1, 0.02], [-0.07, 0.06], [-0.03, 0.08], [0.03, 0.084], [0.1, 0.02]] },
   hptongs: { len: 0.55, r: 0.06 },
+  // props-zshop.js (Survive it 04, zombies): the 400 g food tin (7.5 cm across, 11 cm high), held round its side with the mug hold (0.66 up = the label's lower middle)
+  tin: { r: 0.0375, h: 0.11 },
+  // the jute bag held by ONE fist at its gathered neck, the sack hanging under it: r = the neck ring (0.085); h is NOT the sack's height: the mug hold's
+  // default height 0.66 x 1.0795 = 0.7125 = 0.95 x 0.75, the neck (props-zshop.js ZSHOP_GRIPS.tinbag.neck), so `grips.mug(c, who, BAG)` needs no height option
+  tinbag: { r: 0.085, h: 1.0795 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
