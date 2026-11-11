@@ -201,7 +201,7 @@ see(10.1, 11.9, ["spd.face", "phone"], "P06: the jab, the black screen, his head
 // ---------------------------------------------------------------- 6 THE FACE 12.0-14.0 (P07): the selfie camera
 const SELFIE = { pos: [HANG.spd[0] + 0.4, r3(HANG.spd[1] + 1.12), 2.55], fov: 46 };
 // B: for the selfie his blank head comes right up behind Spud and fills the screen
-const SM_SELF = { ...SM_BIG, x: HANG.spd[0] + 0.75, y: r3(SELFIE.pos[1] + 0.25 - 3 * HEAD_UP), z: -2.2, lean: 0 };
+const SM_SELF = { ...SM_BIG, scale: 3, x: HANG.spd[0] + 0.75, y: r3(SELFIE.pos[1] + 0.25 - 3 * HEAD_UP), z: -2.2, lean: 0 };
 if (X) station(12.0, SM_SELF, { headP: 6 });
 prop(12.0, "frame", { x: SELFIE.pos[0], y: SELFIE.pos[1], z: SELFIE.pos[2] - 0.8, scale: 1 }, 0.01);
 prop(14.0, "frame", { scale: 0 }, 0.01);
