@@ -1,0 +1,1670 @@
+{
+ "id": "heist-props",
+ "title": "Heist props bench",
+ "idea": "Props bench for Fight, Flight or Freeze 01 (eyemask, policecap, moneybag, riotshield, policetorch, policenet), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#5b6376",
+  "floor": "#3f4655"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "vikF",
+   "mask-vikF"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "vikF",
+   "character": "duo/viking",
+   "at": [
+    -36.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "phxF",
+   "character": "duo/phoenix",
+   "at": [
+    -35,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "reaF",
+   "character": "never-has-money/reaper",
+   "at": [
+    -33.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "vik3",
+   "character": "duo/viking",
+   "at": [
+    -29.2,
+    0
+   ],
+   "face": 36,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "phx3",
+   "character": "duo/phoenix",
+   "at": [
+    -28,
+    0
+   ],
+   "face": 36,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "rea3",
+   "character": "never-has-money/reaper",
+   "at": [
+    -26.8,
+    0
+   ],
+   "face": 36,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "vikB",
+   "character": "duo/viking",
+   "at": [
+    -22.2,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "phxB",
+   "character": "duo/phoenix",
+   "at": [
+    -21,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "reaB",
+   "character": "never-has-money/reaper",
+   "at": [
+    -19.8,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "samF",
+   "character": "duo/samurai",
+   "at": [
+    -15.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.2
+  },
+  {
+   "id": "godF",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -14,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.4
+  },
+  {
+   "id": "draF",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -12.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "samS",
+   "character": "duo/samurai",
+   "at": [
+    -8.2,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.2
+  },
+  {
+   "id": "godS",
+   "character": "potatobrawl/allfather",
+   "at": [
+    -7,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.4
+  },
+  {
+   "id": "draS",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -5.8,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "godW",
+   "character": "potatobrawl/allfather",
+   "at": [
+    7.55,
+    0
+   ],
+   "face": 0,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 4.4
+  },
+  {
+   "id": "vikN",
+   "character": "duo/viking",
+   "at": [
+    28,
+    0
+   ],
+   "face": 0,
+   "expr": "shocked",
+   "follow": 0.2,
+   "seed": 3.3
+  }
+ ],
+ "props": [
+  {
+   "id": "mask-vikF",
+   "kind": "eyemask",
+   "wear": "vikF",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "vik"
+  },
+  {
+   "id": "mask-phxF",
+   "kind": "eyemask",
+   "wear": "phxF",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "phx"
+  },
+  {
+   "id": "mask-reaF",
+   "kind": "eyemask",
+   "wear": "reaF",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "rea"
+  },
+  {
+   "id": "mask-vik3",
+   "kind": "eyemask",
+   "wear": "vik3",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "vik"
+  },
+  {
+   "id": "mask-phx3",
+   "kind": "eyemask",
+   "wear": "phx3",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "phx"
+  },
+  {
+   "id": "mask-rea3",
+   "kind": "eyemask",
+   "wear": "rea3",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "rea"
+  },
+  {
+   "id": "mask-vikB",
+   "kind": "eyemask",
+   "wear": "vikB",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "vik"
+  },
+  {
+   "id": "mask-phxB",
+   "kind": "eyemask",
+   "wear": "phxB",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "phx"
+  },
+  {
+   "id": "mask-reaB",
+   "kind": "eyemask",
+   "wear": "reaB",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "rea"
+  },
+  {
+   "id": "cap-samF",
+   "kind": "policecap",
+   "wear": "samF",
+   "x": 0,
+   "y": 1.09,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "cap-godF",
+   "kind": "policecap",
+   "wear": "godF",
+   "x": 0,
+   "y": 1.22,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "cap-draF",
+   "kind": "policecap",
+   "wear": "draF",
+   "x": 0,
+   "y": 1.04,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "cap-samS",
+   "kind": "policecap",
+   "wear": "samS",
+   "x": 0,
+   "y": 1.09,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "cap-godS",
+   "kind": "policecap",
+   "wear": "godS",
+   "x": 0,
+   "y": 1.22,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "cap-draS",
+   "kind": "policecap",
+   "wear": "draS",
+   "x": 0,
+   "y": 1.04,
+   "z": 0.02,
+   "r": 0.2,
+   "tilt": 0
+  },
+  {
+   "id": "bagC",
+   "kind": "moneybag",
+   "x": -0.28,
+   "z": 0,
+   "rot": -10
+  },
+  {
+   "id": "bagO",
+   "kind": "moneybag",
+   "x": 0.28,
+   "z": 0,
+   "rot": 10,
+   "open": true
+  },
+  {
+   "id": "shStand",
+   "kind": "riotshield",
+   "x": 6.15,
+   "z": 0,
+   "rot": 14,
+   "tip": -6
+  },
+  {
+   "id": "shWorn",
+   "kind": "riotshield",
+   "wear": "godW",
+   "x": 0,
+   "y": 0.27,
+   "z": 0.56
+  },
+  {
+   "id": "tOff",
+   "kind": "policetorch",
+   "x": 13.72,
+   "y": 0.55,
+   "z": 0,
+   "rot": 62,
+   "tip": 14
+  },
+  {
+   "id": "tOn",
+   "kind": "policetorch",
+   "x": 14.28,
+   "y": 0.55,
+   "z": 0,
+   "rot": -62,
+   "tip": 14,
+   "len": 1.2,
+   "r": 0.2
+  },
+  {
+   "id": "tLong",
+   "kind": "policetorch",
+   "x": 40.3,
+   "y": 1,
+   "z": 0,
+   "rot": 90,
+   "tip": 0
+  },
+  {
+   "id": "net0",
+   "kind": "policenet",
+   "x": 20.05,
+   "y": 0.12,
+   "z": 0
+  },
+  {
+   "id": "net1",
+   "kind": "policenet",
+   "x": 21.55,
+   "y": 1.05,
+   "z": 0,
+   "spin": 12
+  },
+  {
+   "id": "net2",
+   "kind": "policenet",
+   "x": 28,
+   "y": 1.3,
+   "z": 0
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "samF",
+   "with": "cap-samF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godF",
+   "with": "cap-godF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "draF",
+   "with": "cap-draF",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "samS",
+   "with": "cap-samS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godS",
+   "with": "cap-godS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "draS",
+   "with": "cap-draS",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the officer's cap sits on his head (worn), as in the clip"
+  },
+  {
+   "who": "godW",
+   "with": "godW",
+   "from": 11.4,
+   "to": 13.4,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "seen from the front through the clear shield, his glove on the upper handle is at eye height: the bench shows where the handles sit"
+  },
+  {
+   "who": "godW",
+   "with": "shWorn",
+   "from": 0,
+   "to": 27.4,
+   "reason": "the god stands behind his riot shield with both gloves on its handles; the bench shows exactly that"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.9,
+   "text": "eyemask facing the camera, as cast",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1.4,
+   "to": 2.3,
+   "text": "eyemask facing, shocked",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2.4,
+   "to": 3.3,
+   "text": "eyemask facing, angry",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3.4,
+   "to": 4.3,
+   "text": "eyemask 3/4, as cast",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 5.3,
+   "text": "eyemask 3/4, shocked",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.4,
+   "to": 6.3,
+   "text": "eyemask 3/4, angry",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6.4,
+   "to": 7.3,
+   "text": "eyemask from behind: knot and tails",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7.4,
+   "to": 8.3,
+   "text": "policecap front at eye level",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8.4,
+   "to": 9.3,
+   "text": "policecap side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.4,
+   "to": 10.3,
+   "text": "moneybag closed | open",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10.4,
+   "to": 11.3,
+   "text": "moneybag 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11.4,
+   "to": 12.3,
+   "text": "riotshield standing | worn by the god",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12.4,
+   "to": 13.3,
+   "text": "riotshield from the side: handles and gloves",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13.4,
+   "to": 14.3,
+   "text": "policetorch off | on",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14.4,
+   "to": 15.3,
+   "text": "policetorch beam, len 3.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15.4,
+   "to": 16.3,
+   "text": "policenet open 0 | open 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16.4,
+   "to": 17.3,
+   "text": "policenet wrap 1 over Viking",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17.4,
+   "to": 18.3,
+   "text": "policenet wrap 1, 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 22.4,
+   "to": 23.3,
+   "text": "close: Samurai's cap",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 23.4,
+   "to": 24.3,
+   "text": "close: the god's cap",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 24.4,
+   "to": 25.3,
+   "text": "close: Dragon's cap",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 25.4,
+   "to": 26.3,
+   "text": "close: the god's cap, side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 26.4,
+   "to": 27.3,
+   "text": "policenet open 0: the bundle",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "maskF0",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -35,
+     0.95,
+     9
+    ],
+    "look": [
+     -35,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "net0",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "net1",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "net2",
+     "set": {
+      "open": 1,
+      "wrap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tOff",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tOn",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tLong",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "godW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.05,
+       0.721,
+       0.47500000000000003
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "godW",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "godW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.06,
+       0.471,
+       0.47500000000000003
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "godW",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 1.15
+    }
+   ]
+  },
+  {
+   "name": "maskF1",
+   "at": 1.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.95,
+     9
+    ],
+    "look": [
+     -35,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "maskF2",
+   "at": 2.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.95,
+     9
+    ],
+    "look": [
+     -35,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "mask30",
+   "at": 3.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     0.95,
+     9
+    ],
+    "look": [
+     -28,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "mask31",
+   "at": 4.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     0.95,
+     9
+    ],
+    "look": [
+     -28,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "mask32",
+   "at": 5.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     0.95,
+     9
+    ],
+    "look": [
+     -28,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "phx3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "who": "rea3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "maskB",
+   "at": 6.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -21,
+     0.95,
+     9
+    ],
+    "look": [
+     -21,
+     0.75,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "capF",
+   "at": 7.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     0.72,
+     9
+    ],
+    "look": [
+     -14,
+     0.52,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "capS",
+   "at": 8.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     0.72,
+     9
+    ],
+    "look": [
+     -7,
+     0.52,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "bag",
+   "at": 9.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.6,
+     3.7
+    ],
+    "look": [
+     0,
+     0.17,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bag3",
+   "at": 10.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.7,
+     0.75,
+     2.9
+    ],
+    "look": [
+     0,
+     0.17,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "shield",
+   "at": 11.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.9,
+     0.9,
+     5.4
+    ],
+    "look": [
+     6.9,
+     0.5,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "shieldB",
+   "at": 12.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     11.2,
+     1,
+     2.2
+    ],
+    "look": [
+     7.55,
+     0.6,
+     0.4
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "torch",
+   "at": 13.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     14,
+     0.75,
+     2.1
+    ],
+    "look": [
+     14,
+     0.55,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "beam",
+   "at": 14.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42,
+     1.3,
+     8
+    ],
+    "look": [
+     42,
+     0.95,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "nets",
+   "at": 15.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     21,
+     2.7,
+     6
+    ],
+    "look": [
+     21,
+     0.5,
+     0
+    ],
+    "fov": 46
+   },
+   "do": []
+  },
+  {
+   "name": "wrap",
+   "at": 16.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     28,
+     0.9,
+     5.2
+    ],
+    "look": [
+     28,
+     0.55,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "wrap3",
+   "at": 17.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     30.4,
+     1,
+     3.6
+    ],
+    "look": [
+     28,
+     0.55,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "vikF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "cVik",
+   "at": 18.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -36.2,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -36.2,
+     0.72,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "phxF",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "cPhx",
+   "at": 19.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -35,
+     0.72,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "reaF",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "cRea",
+   "at": 20.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -33.8,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -33.8,
+     0.72,
+     0
+    ],
+    "fov": 20
+   },
+   "do": [
+    {
+     "who": "vik3",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.1,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "cVik3",
+   "at": 21.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -29.2,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -29.2,
+     0.72,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "cSam",
+   "at": 22.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -15.2,
+     0.85,
+     4.6
+    ],
+    "look": [
+     -15.2,
+     0.85,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "cGod",
+   "at": 23.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     0.85,
+     4.6
+    ],
+    "look": [
+     -14,
+     0.85,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "cDra",
+   "at": 24.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -12.8,
+     0.85,
+     4.6
+    ],
+    "look": [
+     -12.8,
+     0.85,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "cGodS",
+   "at": 25.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     0.85,
+     4.6
+    ],
+    "look": [
+     -7,
+     0.85,
+     0
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "net0",
+   "at": 26.4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20.05,
+     0.5,
+     1.7
+    ],
+    "look": [
+     20.05,
+     0.14,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/fight-flight-freeze/01-bank-robbery/bench/make-heist-props.mjs (props bench, no reviews)."
+}

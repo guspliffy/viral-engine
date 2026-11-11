@@ -1166,7 +1166,8 @@ function clipping() {
       if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
       let worst = 0;
       p.root.updateMatrixWorld(true);
-      p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent)) worst = Math.max(worst, depthIn(b, o)); });
+      // (a mesh a prop marks see-through for the checks, userData.steam: a cloth mask on a face, a net, a glow, is not a body in a body)
+      p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam) worst = Math.max(worst, depthIn(b, o)); });
       if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
     }
     // touch: within about 10% of the body's size of each other (a warning; going in is a failure)
