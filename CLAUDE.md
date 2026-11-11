@@ -31,7 +31,7 @@ node engine/render.mjs <sb> --layout --from 3 --to 4.5         # fix round: only
 node qa/camfit.mjs <sb> --at <s> [--pos x,y,z --look x,y,z --fov f]   # faces + free subtitle spots for a camera (1 s)
 node engine/render.mjs <sb> --stills beats --draft --safe      # draft stills (~1 min)
 node qa/contact.mjs <dir>/<id>-*.png --out <sheet.png>         # contact sheet of stills
-node engine/render.mjs <sb> --draft                            # draft render (~2 min) = the animatic
+node engine/render.mjs <sb> --draft                            # draft render (~2 min) = the animatic; prints its one-frame pops line
 node qa/check.mjs out/<id>.mp4 --sb <sb> --layout out/<id>.layout.json   # checks on a render
 node qa/panelfit.mjs <sb> --panels <PANELS.md>                 # Jonny's panels by number: size, eye line, faces
 python3 tools/lint-notes.py docs                               # rule docs: named paths exist, line caps (CI; `memory` too)
