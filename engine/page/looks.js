@@ -727,7 +727,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
       const thick = INK ? inkPx(role, m, isSet) : isSet ? 0.0016 : golden ? 0.004 : 0.0058;
       // ink parts (brows, mouth, limbs) are lines already
       const dark = m.color && m.color.getHSL({}).l < 0.08;
-      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", (isSet ? 0.5 : golden ? 0.34 : 0.26) * (INK && !isSet ? INK.dark : 1)), alpha: 1 };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
+      t.userData.outlineParameters = noLines || m.transparent || m.userData.noOutline || (dark && !isSet) || (golden && isSet) ? noLine : { thickness: thick * (m.userData.lineK || 1), color: m.userData.lineColor ? new THREE.Color(m.userData.lineColor).toArray() : lineColor(m.color || "#333", (isSet ? 0.5 : golden ? 0.34 : 0.26) * (INK && !isSet ? INK.dark : 1)), alpha: 1, px: !!INK };   // (lineColor / lineK: a textured material whose base colour is white names its own ink, e.g. the VRM person)
       cache.set(m, t); made.add(t);
     }
     return t;

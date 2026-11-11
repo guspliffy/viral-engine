@@ -784,7 +784,9 @@ export class Character {
     a.skin.castShadow = true; a.skin.receiveShadow = !!this.def.hands.selfShadow; a.skin.frustumCulled = false; a.skin.matrixAutoUpdate = false; this.root.add(a.skin);
     const im = inkMaterial(); im.userData.outlineParameters = { visible: false };
     // the line the look gives the legs (same material as the arms used to have)
-    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? op.thickness : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
+    // (set "ink" gives that width in pixels at 1080 wide, op.px; this shell's shader takes clip space, so a light-limbed
+    // character, the Astronaut, drew its arm line metres wide: 11 Nov 2026)
+    const line = () => { const op = this.legs[s].mesh?.material?.userData?.outlineParameters; im.uniforms.thickness.value = op && op.visible !== false && op.thickness ? (op.px ? (op.thickness * 2) / 1080 : op.thickness) : 0; if (op?.color) im.uniforms.color.value.fromArray(op.color); };
     a.ink = new THREE.Mesh(a.skin.geometry, im); a.ink.frustumCulled = false; a.ink.onBeforeRender = line; a.ink.matrixAutoUpdate = false; this.root.add(a.ink);
     // the arm tube: the same ink, instead of three's outline
     this.armMat ??= Object.assign(this.limbMat.clone(), { userData: { ...this.limbMat.userData, noOutline: true } });
