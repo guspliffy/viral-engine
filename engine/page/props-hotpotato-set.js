@@ -390,7 +390,7 @@ const HP_TILE = (P) => {
   const glowM = (fs) => { const m = new THREE.ShaderMaterial({
     uniforms: { uA: { value: 0 }, uCol: { value: lin("#ff2a36") } }, vertexShader: VS, transparent: true, depthWrite: false, opacity: 0.3, side: THREE.DoubleSide,   // normal blending: additive red cannot show on the cream stage
     fragmentShader: fs }); m.userData.noOutline = true; return m; };
-  const haloFs = "uniform vec3 uCol; uniform float uA; varying vec2 vUv; void main() { float e = 1.0 - smoothstep(0.55, 1.0, abs(vUv.x - 0.5) * 2.0); float a = uA * e * pow(1.0 - vUv.y, 1.5) * smoothstep(0.0, 0.04, vUv.y); gl_FragColor = vec4(uCol, a); }";
+  const haloFs = "uniform vec3 uCol; uniform float uA; varying vec2 vUv; void main() { float e = 1.0 - smoothstep(0.55, 1.0, abs(vUv.x - 0.5) * 2.0); float a = uA * e * pow(clamp(1.0 - vUv.y, 0.0, 1.0), 1.5) * smoothstep(0.0, 0.04, vUv.y); gl_FragColor = vec4(uCol, clamp(a, 0.0, 1.0)); }";   // (clamped: with anti-aliasing on, vUv.y is read past 1 at the plane's top edge, pow of a negative is NaN, and one NaN pixel turns the full look's frame black; a draft has no anti-aliasing and never showed it)
   const topFs = "uniform vec3 uCol; uniform float uA; varying vec2 vUv; void main() { vec2 q = abs(vUv - 0.5) * 2.0; float a = uA * (1.0 - smoothstep(0.5, 1.0, max(q.x, q.y))); gl_FragColor = vec4(uCol, a); }";
   const haloA = glowM(haloFs), haloB = glowM(haloFs), topGlow = glowM(topFs);
   const hz = ghost(new THREE.Mesh(new THREE.PlaneGeometry(w * 1.5, 0.3), haloA), 4); hz.position.set(0, 0.15, w * 0.2); P.whole.add(hz);
