@@ -990,6 +990,7 @@ function spud(C, ch, out) {
     if (ch.armMat && ch.armMat !== ch.limbMat) ch.armMat.color.set(pale);   // and the wrist that shows past the cuff
     if (ch.limbMat) { const hm = ch.limbMat.clone(); hm.color.set(pale); hm.userData = { ...ch.limbMat.userData };
       for (const s of ["L", "R"]) ch.arms?.[s]?.hand?.traverse?.((o) => { if (o.isMesh && o.material === ch.limbMat) o.material = hm; }); } }
+  if (ch.limbMat) ch.limbMat.userData.noOutline = true;   // (workaround from the Doomscroll thread, 11 Nov: with ink lines on, the legs' ink hull blew up into a brown wall)
   const _x = V(0, 0, 0), _z = V(0, 0, 0), _m = new THREE.Matrix4();
   const base = out.apply;
   out.apply = (st, t, ...r) => {

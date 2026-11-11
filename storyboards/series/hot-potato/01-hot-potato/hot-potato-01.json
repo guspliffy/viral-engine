@@ -24,7 +24,6 @@
   "eyes": 2,
   "hold": 2
  },
- "physics": true,
  "animeTiming": true,
  "set": {
   "type": "plain",
@@ -126,8 +125,8 @@
    "id": "crisp",
    "character": "hot-potato/wizard-crispy",
    "at": [
-    1.425,
-    0
+    30,
+    -30
    ],
    "y": -0.5,
    "face": -4,
@@ -140,117 +139,191 @@
  "props": [
   {
    "id": "studio",
-   "kind": "stoneblock",
+   "kind": "hpstudio",
    "x": 0,
    "y": 0,
-   "z": -0.625,
-   "w": 4.4,
-   "h": 1.2,
-   "d": 4.15,
-   "cap": 0
+   "z": 0,
+   "stageH": 1.2,
+   "stageFront": 1.45,
+   "wallZ": -2.7,
+   "sunY": 5.05,
+   "cardY": 3.95,
+   "signY": 3.4,
+   "tiles": [
+    -1.425,
+    -0.475,
+    0.475,
+    1.425
+   ],
+   "num": 1,
+   "bump": 0,
+   "ring": 0,
+   "sing": 0
   },
   {
    "id": "vat",
-   "kind": "stoneblock",
+   "kind": "hpvat",
    "x": 0,
    "y": 0,
-   "z": 2,
+   "z": 1.2,
    "w": 4,
+   "d": 2.9,
    "h": 0.55,
-   "d": 1.3,
-   "cap": 0
+   "castLight": 0.6,
+   "haze": 0.35,
+   "churn": 0.25
+  },
+  {
+   "id": "oil",
+   "kind": "fryoil",
+   "staged": "the oil in the vat",
+   "x": 0,
+   "y": 0.47,
+   "z": 1.2,
+   "w": 3.86,
+   "d": 2.76
   },
   {
    "id": "coal0",
-   "kind": "stoneblock",
-   "x": -1.425,
-   "y": 1.505,
-   "z": 0.38,
-   "w": 0.18,
-   "h": 0.18,
-   "d": 0.18,
-   "cap": 0
+   "kind": "hpcoal",
+   "x": -1.346,
+   "y": 1.53,
+   "z": 0.372,
+   "glow": 1,
+   "smoke": 0.6,
+   "staged": "in Viking's cupped gloves, then hanging over his hole for a beat"
   },
   {
    "id": "coal",
-   "kind": "stoneblock",
+   "kind": "hpcoal",
    "x": 1.425,
    "y": 0.5,
    "z": -1.5,
-   "w": 0.18,
-   "h": 0.18,
-   "d": 0.18,
-   "cap": 0,
+   "glow": 1,
+   "smoke": 0.6,
    "scale": 0.001,
    "staged": "parked under the stage, tiny, until the host conjures it"
   },
   {
    "id": "tongs",
-   "kind": "stoneblock",
+   "kind": "hptongs",
    "x": 1.425,
    "y": 0.5,
    "z": -1.5,
-   "w": 0.05,
-   "h": 0.05,
-   "d": 0.5,
-   "cap": 0,
+   "rot": -60,
+   "open": 0,
    "scale": 0.001,
-   "staged": "parked under the stage, tiny, until the host conjures it"
+   "staged": "the host's hand follows the tongs (a hand-held carrier cannot carry the coal); parked tiny under the stage before and after"
+  },
+  {
+   "id": "bow",
+   "kind": "hpbowtie",
+   "wear": "host",
+   "x": 0,
+   "y": 0.41,
+   "z": 0.33,
+   "singe": 0
+  },
+  {
+   "id": "bow2",
+   "kind": "hpbowtie",
+   "wear": "crisp",
+   "x": 0,
+   "y": 0.41,
+   "z": 0.33,
+   "singe": 1
   },
   {
    "id": "lift",
-   "kind": "stoneblock",
+   "kind": "hplift",
    "x": 1.425,
    "y": -0.5,
    "z": 0,
    "w": 0.9,
-   "h": 0.04,
    "d": 0.8,
-   "cap": 0
+   "h": 0.42,
+   "pole": 3,
+   "drip": 0
+  },
+  {
+   "id": "plume",
+   "kind": "fireplume",
+   "staged": "Dragon's sneeze of fire (an effect)",
+   "x": 0.775,
+   "y": 1.66,
+   "z": 0.34,
+   "rot": 90,
+   "length": 0.95,
+   "width": 0.44,
+   "balls": 26
+  },
+  {
+   "id": "confL",
+   "kind": "confetti",
+   "x": -2,
+   "y": 2.8,
+   "z": 0.4,
+   "count": 60,
+   "spread": 1.3,
+   "up": 1.2,
+   "floor": 1.6,
+   "seed": 5
+  },
+  {
+   "id": "confR",
+   "kind": "confetti",
+   "x": 2,
+   "y": 2.8,
+   "z": 0.4,
+   "count": 60,
+   "spread": 1.3,
+   "up": 1.2,
+   "floor": 1.6,
+   "seed": 9
   },
   {
    "id": "tile_vik",
-   "kind": "stoneblock",
+   "kind": "hptile",
    "x": -1.425,
    "y": 1.2,
    "z": 0,
    "w": 0.9,
-   "h": 0.02,
-   "d": 0.9,
-   "cap": 0
+   "color": "#f6b8d0",
+   "open": 0,
+   "hot": 0
   },
   {
    "id": "tile_spud",
-   "kind": "stoneblock",
+   "kind": "hptile",
    "x": -0.475,
    "y": 1.2,
    "z": 0,
    "w": 0.9,
-   "h": 0.02,
-   "d": 0.9,
-   "cap": 0
+   "color": "#bfe8d0",
+   "open": 0,
+   "hot": 0
   },
   {
    "id": "tile_drg",
-   "kind": "stoneblock",
+   "kind": "hptile",
    "x": 0.475,
    "y": 1.2,
    "z": 0,
    "w": 0.9,
-   "h": 0.02,
-   "d": 0.9,
-   "cap": 0
+   "color": "#f9e7a0",
+   "open": 0,
+   "hot": 0
   },
   {
    "id": "tile_host",
-   "kind": "stoneblock",
+   "kind": "hptile",
    "x": 1.425,
    "y": 1.2,
    "z": 0,
    "w": 0.9,
-   "h": 0.02,
-   "d": 0.9,
-   "cap": 0
+   "color": "#d6c3f2",
+   "open": 0,
+   "hot": 0
   }
  ],
  "captions": [
@@ -276,7 +349,7 @@
    "from": 3.03,
    "to": 3.93,
    "text": "HOT! HOT! HOT!",
-   "pos": 800,
+   "pos": 672,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -285,7 +358,7 @@
    "from": 4.33,
    "to": 5.03,
    "text": "Ooh, cosy!",
-   "pos": 800,
+   "pos": 672,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -294,32 +367,32 @@
    "from": 5.03,
    "to": 5.83,
    "text": "No no no!",
-   "pos": 800,
+   "pos": 672,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 7.52,
-   "to": 7.7,
-   "text": "Ah…",
-   "pos": 800,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 7.7,
-   "to": 8.5,
+   "from": 6.4,
+   "to": 7.2,
    "text": "ONE!",
+   "pos": 672,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.92,
+   "to": 8.72,
+   "text": "CHOO!",
    "pos": 800,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 8.84,
-   "to": 9.64,
+   "from": 8.74,
+   "to": 9.54,
    "text": "Uh-oh.",
    "pos": 800,
    "pop": false,
@@ -330,7 +403,7 @@
    "from": 10.45,
    "to": 10.9,
    "text": "WE HAVE A *WINNER!*",
-   "pos": 620,
+   "pos": 740,
    "pop": true,
    "size": 84,
    "kinetic": false
@@ -362,17 +435,145 @@
    "shot": {
     "pos": [
      0,
-     3.28,
-     10.626
+     3.502,
+     11.456
     ],
     "look": [
      0,
-     2.35,
+     2.5,
      0
     ],
     "fov": 33.4
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 1,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0,
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0,
+      "ring": 0,
+      "sing": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "on": 0,
+      "len": 0,
+      "fade": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "confL",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "confR",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "drip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coal",
+     "set": {
+      "smoke": 0.6
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "sfx": "bubbling",
      "dur": 12.65,
@@ -422,26 +623,12 @@
     },
     {
      "who": "vik",
-     "do": "grab",
-     "prop": "coal0",
-     "hand": "R",
-     "grip": [
-      -0.09,
-      -0.03,
-      0
-     ],
-     "pose": null,
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "vik",
      "do": "arm",
      "side": "R",
      "pose": {
       "x": [
-       -0.1,
-       0.27,
+       -0.145,
+       0.12,
        0.38
       ]
      },
@@ -454,8 +641,8 @@
      "side": "L",
      "pose": {
       "x": [
-       0.1,
-       0.27,
+       0.145,
+       0.12,
        0.38
       ]
      },
@@ -507,8 +694,8 @@
      "pose": {
       "x": [
        -0.07,
-       0.4,
-       0.34
+       0.24,
+       0.36
       ]
      },
      "dur": 0,
@@ -521,8 +708,8 @@
      "pose": {
       "x": [
        -0.08,
-       0.4,
-       0.36
+       0.26,
+       0.37
       ]
      },
      "dur": 0,
@@ -535,8 +722,8 @@
      "pose": {
       "x": [
        0.07,
-       0.4,
-       0.34
+       0.24,
+       0.36
       ]
      },
      "dur": 0,
@@ -549,8 +736,8 @@
      "pose": {
       "x": [
        0.08,
-       0.4,
-       0.36
+       0.26,
+       0.37
       ]
      },
      "dur": 0,
@@ -600,42 +787,14 @@
      "at": 0
     },
     {
-     "who": "crisp",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.06,
-       0.4,
-       0.34
-      ]
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "crisp",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.06,
-       0.4,
-       0.34
-      ]
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
      "who": "host",
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       0.3,
-       0.62,
-       0.12
+      "x": [
+       -0.2,
+       0.16,
+       0.3
       ]
      },
      "dur": 0,
@@ -718,6 +877,36 @@
      "at": 0.45
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.72
+    },
+    {
      "sfx": "bell",
      "gain": 0.7,
      "reason": "0: the sun clock's bell",
@@ -735,15 +924,19 @@
      "at": 0.74
     },
     {
-     "sfx": "latch",
-     "gain": 0.6,
-     "reason": "Viking's trapdoor tile drops open",
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.12,
+     "ease": "in",
      "at": 0.76
     },
     {
-     "who": "vik",
-     "do": "release",
-     "prop": "coal0",
+     "sfx": "latch",
+     "gain": 0.6,
+     "reason": "Viking's trapdoor tile drops open",
      "at": 0.76
     },
     {
@@ -773,6 +966,26 @@
      "at": 0.76
     },
     {
+     "do": "prop",
+     "id": "confL",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.77
+    },
+    {
+     "do": "prop",
+     "id": "confR",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.77
+    },
+    {
      "sfx": "partyhorn",
      "gain": 0.45,
      "reason": "confetti and a party horn for the loser",
@@ -790,6 +1003,16 @@
      "gain": 0.35,
      "reason": "Viking falls through his tile",
      "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
     },
     {
      "who": "spud",
@@ -877,6 +1100,18 @@
      "at": 0.92
     },
     {
+     "do": "prop",
+     "id": "coal0",
+     "set": {
+      "x": -1.425,
+      "y": 0.1,
+      "z": 0.12
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.02
+    },
+    {
      "who": "vik",
      "do": "hide",
      "at": 1.17
@@ -894,9 +1129,29 @@
      "at": 1.18
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
      "sfx": "splash",
      "gain": 0.6,
      "reason": "under the stage: the splash into the fryer",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.4
+     },
+     "dur": 0.25,
+     "ease": "out",
      "at": 1.22
     },
     {
@@ -910,10 +1165,70 @@
      "at": 1.25
     },
     {
+     "do": "prop",
+     "id": "coal0",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.02,
+     "ease": "in",
+     "at": 1.32
+    },
+    {
      "sfx": "sizzle",
      "gain": 0.55,
      "reason": "the sizzle",
      "at": 1.32
+    },
+    {
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.45
     },
     {
      "who": "host",
@@ -929,15 +1244,28 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       0.12,
-       0.5,
-       0.3
+      "x": [
+       -0.2,
+       0.44,
+       0.32
       ]
      },
-     "dur": 0.3,
+     "dur": 0.22,
      "ease": "inOut",
      "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 1.275,
+      "y": 1.7,
+      "z": 0.206,
+      "rot": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.66
     },
     {
      "do": "carry",
@@ -948,20 +1276,30 @@
       0,
       0.5
      ],
+     "at": 1.67
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tongs",
+      "grip": "hold",
+      "palm": [
+       0,
+       0,
+       0.13
+      ]
+     },
+     "dur": 0.04,
      "at": 1.68
     },
     {
      "who": "host",
-     "do": "grab",
-     "prop": "tongs",
-     "hand": "R",
-     "grip": [
-      0,
-      0,
-      0
-     ],
-     "pose": null,
-     "dur": 0.01,
+     "do": "grip",
+     "side": "R",
+     "shape": "clasp",
+     "dur": 0.05,
      "at": 1.68
     },
     {
@@ -1008,23 +1346,98 @@
      "at": 1.72
     },
     {
+     "who": "drg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.22,
+       0.1,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "drg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.22,
+       0.1,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
      "who": "host",
      "do": "turn",
-     "to": -62,
-     "dur": 0.5,
-     "ease": "inOut",
+     "to": -72,
+     "dur": 0.74,
+     "ease": "linear",
      "at": 1.8
     },
     {
      "who": "host",
      "do": "move",
      "to": [
-      1.3,
-      0.98
+      1.2,
+      0.75
      ],
      "dur": 0.36,
      "steps": 2,
+     "ease": "linear",
      "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 1.137,
+      "y": 1.694,
+      "z": 0.443,
+      "rot": -71.674
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 1.8
+    },
+    {
+     "who": "drg",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.3,
+     "at": 1.8
+    },
+    {
+     "who": "drg",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.957,
+      "y": 1.676,
+      "z": 0.661,
+      "rot": -83.349
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 1.923
     },
     {
      "who": "spud",
@@ -1035,6 +1448,65 @@
      ],
      "dur": 0.12,
      "blink": false,
+     "at": 2
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.741,
+      "y": 1.645,
+      "z": 0.81,
+      "rot": -95.023
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 2.047
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.145,
+       0.16,
+       0.38
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.145,
+       0.16,
+       0.38
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "cup",
+     "dur": 0.15,
      "at": 2.1
     }
    ],
@@ -1046,66 +1518,53 @@
    "len": 0.85,
    "shot": {
     "pos": [
-     0,
-     1.83,
+     -0.05,
+     2.3,
      4.1
     ],
     "look": [
-     0,
-     2.14,
+     -0.05,
+     2.3,
      0.1
     ],
     "fov": 41.2
    },
    "do": [
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.1,
-       0.27,
-       0.38
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.1,
-       0.27,
-       0.38
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "both",
-     "shape": "cup",
-     "dur": 0.15,
-     "at": 0
-    },
-    {
      "who": "host",
      "do": "move",
      "to": [
-      0.5,
-      0.98
+      0.42,
+      0.88
      ],
      "dur": 0.38,
      "steps": 2,
+     "ease": "linear",
      "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.431,
+      "y": 1.602,
+      "z": 0.766,
+      "rot": -106.697
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "who": "drg",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.05
     },
     {
      "who": "spud",
@@ -1119,24 +1578,39 @@
      "at": 0.05
     },
     {
-     "who": "host",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.02,
-       0.46,
-       0.5
-      ]
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.25
      },
-     "dur": 0.3,
+     "dur": 0.8,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.213,
+      "y": 1.547,
+      "z": 0.706,
+      "rot": -118.372
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 0.143
     },
     {
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
+     "at": 0.15
+    },
+    {
+     "who": "host",
+     "do": "pitch",
+     "to": 8,
+     "dur": 0.25,
      "at": 0.15
     },
     {
@@ -1152,6 +1626,19 @@
      "at": 0.25
     },
     {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.126,
+      "y": 1.48,
+      "z": 0.633,
+      "rot": -130.046
+     },
+     "dur": 0.123,
+     "ease": "linear",
+     "at": 0.267
+    },
+    {
      "who": "spud",
      "do": "look",
      "to": [
@@ -1163,8 +1650,58 @@
      "at": 0.3
     },
     {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
      "do": "carry",
      "prop": "coal",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
      "at": 0.45
     },
     {
@@ -1177,15 +1714,35 @@
      "who": "spud",
      "do": "grab",
      "prop": "coal",
-     "hand": "R",
+     "hand": "both",
      "grip": [
-      -0.09,
+      0,
       -0.03,
       0
      ],
      "pose": null,
-     "dur": 0.06,
+     "dur": 0,
      "at": 0.46
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.5
     },
     {
      "sfx": "timer-beep",
@@ -1195,14 +1752,61 @@
     },
     {
      "who": "host",
-     "do": "look",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 0.83,
+      "y": 1.62,
+      "z": 1,
+      "rot": -100
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 5,
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.57
+    },
+    {
+     "who": "host",
+     "do": "move",
      "to": [
-      0.7,
-      0
+      1.35,
+      0.95
      ],
-     "dur": 0.12,
-     "blink": false,
-     "at": 0.8
+     "dur": 0.4,
+     "steps": 2,
+     "ease": "linear",
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "host",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.77
     }
    ]
   },
@@ -1213,15 +1817,15 @@
    "shot": {
     "pos": [
      -0.475,
-     1.75,
-     3.3
+     2.2,
+     3.4
     ],
     "look": [
      -0.475,
-     1.95,
+     2.05,
      0.1
     ],
-    "fov": 36
+    "fov": 40
    },
    "do": [
     {
@@ -1294,33 +1898,64 @@
     },
     {
      "who": "host",
-     "do": "turn",
-     "to": -12,
-     "dur": 0.5,
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.145,
+       0.1,
+       0.38
+      ]
+     },
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.08
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.145,
+       0.1,
+       0.38
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.08
+    },
+    {
+     "who": "host",
+     "do": "grip",
+     "side": "both",
+     "shape": "cup",
+     "dur": 0.15,
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "tongs",
+     "set": {
+      "x": 1.425,
+      "y": 0.5,
+      "z": -1.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.11
     },
     {
      "who": "host",
      "do": "move",
      "to": [
-      1.3,
-      0.98
-     ],
-     "dur": 0.36,
-     "steps": 2,
-     "at": 0.1
-    },
-    {
-     "who": "host",
-     "do": "release",
-     "prop": "tongs",
-     "to": [
       1.425,
-      0.7,
-      -0.6
+      0
      ],
-     "dur": 0.02,
+     "dur": 0.4,
+     "steps": 2,
+     "ease": "linear",
      "at": 0.12
     },
     {
@@ -1332,41 +1967,21 @@
     },
     {
      "who": "host",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "x": [
-       -0.1,
-       0.3,
-       0.38
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
      "at": 0.3
     },
     {
-     "who": "host",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.1,
-       0.3,
-       0.38
-      ]
-     },
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "who": "host",
-     "do": "grip",
-     "side": "both",
-     "shape": "cup",
-     "dur": 0.15,
-     "at": 0.3
+     "who": "drg",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.4
     },
     {
      "who": "spud",
@@ -1374,17 +1989,6 @@
      "amount": 0.07,
      "dur": 0.16,
      "at": 0.4
-    },
-    {
-     "who": "host",
-     "do": "move",
-     "to": [
-      1.425,
-      0
-     ],
-     "dur": 0.38,
-     "steps": 2,
-     "at": 0.46
     },
     {
      "who": "spud",
@@ -1417,12 +2021,12 @@
    "shot": {
     "pos": [
      0,
-     1.83,
+     2.3,
      4.1
     ],
     "look": [
      0,
-     2.14,
+     2.3,
      0.1
     ],
     "fov": 41.2
@@ -1445,13 +2049,13 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.3,
-       0.5,
+       -0.4,
+       0.42,
        0.3
       ],
       "palm": [
-       -0.3,
-       1.6,
+       -0.4,
+       1.5,
        0.3
       ]
      },
@@ -1468,25 +2072,55 @@
      "at": 0
     },
     {
+     "who": "drg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.6,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
      "sfx": "timer-beep",
      "gain": 0.45,
      "reason": "the clock: 4",
      "at": 0.02
     },
     {
-     "who": "drg",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.28,
-       0.55,
-       0.1
-      ]
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
      },
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 0.1
+     "at": 0.12
     },
     {
      "who": "spud",
@@ -1505,11 +2139,13 @@
      "do": "release",
      "prop": "coal",
      "to": [
-      0.175,
-      1.79,
-      0.3
+      0.075,
+      1.895,
+      0.28
      ],
      "dur": 0.3,
+     "arc": 0.2,
+     "ease": "linear",
      "at": 0.2
     },
     {
@@ -1557,17 +2193,43 @@
      "at": 0.2
     },
     {
-     "who": "drg",
-     "do": "grab",
-     "prop": "coal",
-     "hand": "R",
-     "grip": [
-      0,
-      -0.1,
-      0
-     ],
-     "pose": null,
-     "dur": 0.05,
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
      "at": 0.5
     },
     {
@@ -1584,18 +2246,28 @@
     },
     {
      "who": "drg",
+     "do": "grab",
+     "prop": "coal",
+     "hand": "R",
+     "grip": "below",
+     "pose": null,
+     "dur": 0,
+     "at": 0.51
+    },
+    {
+     "who": "drg",
      "do": "arm",
      "side": "R",
      "pose": {
       "x": [
-       -0.36,
-       0.86,
-       0.22
+       -0.42,
+       0.78,
+       0.2
       ],
       "palm": [
-       -0.36,
+       -0.42,
        1.9,
-       0.22
+       0.2
       ]
      },
      "dur": 0.4,
@@ -1638,8 +2310,8 @@
      "pose": {
       "x": [
        -0.08,
-       0.52,
-       0.3
+       0.36,
+       0.36
       ]
      },
      "dur": 0.35,
@@ -1653,8 +2325,8 @@
      "pose": {
       "x": [
        0.08,
-       0.52,
-       0.3
+       0.36,
+       0.36
       ]
      },
      "dur": 0.35,
@@ -1709,6 +2381,26 @@
      "at": 0.95
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.97
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.97
+    },
+    {
      "sfx": "timer-beep",
      "gain": 0.45,
      "reason": "the clock: 3",
@@ -1726,6 +2418,16 @@
      "at": 1.02
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.07
+    },
+    {
      "who": "drg",
      "do": "face",
      "lid": 0.1,
@@ -1738,14 +2440,14 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.34,
-       0.34,
-       0.34
+       -0.4,
+       0.3,
+       0.32
       ],
       "palm": [
-       -0.34,
-       1.6,
-       0.34
+       -0.4,
+       1.4,
+       0.32
       ]
      },
      "dur": 0.25,
@@ -1794,8 +2496,8 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.1,
-       0.27,
+       -0.145,
+       0.16,
        0.38
       ]
      },
@@ -1809,8 +2511,8 @@
      "side": "L",
      "pose": {
       "x": [
-       0.1,
-       0.27,
+       0.145,
+       0.16,
        0.38
       ]
      },
@@ -1841,11 +2543,13 @@
      "do": "release",
      "prop": "coal",
      "to": [
-      -0.475,
-      1.468,
-      0.38
+      -0.442,
+      1.48,
+      0.379
      ],
      "dur": 0.4,
+     "arc": 0.35,
+     "ease": "linear",
      "at": 1.47
     },
     {
@@ -1854,8 +2558,8 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.36,
-       0.7,
+       -0.42,
+       0.62,
        0.3
       ]
      },
@@ -1870,17 +2574,43 @@
      "at": 1.47
     },
     {
-     "who": "spud",
-     "do": "grab",
-     "prop": "coal",
-     "hand": "R",
-     "grip": [
-      -0.09,
-      -0.03,
-      0
-     ],
-     "pose": null,
-     "dur": 0.06,
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.87
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.87
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.87
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
      "at": 1.87
     },
     {
@@ -1888,6 +2618,20 @@
      "gain": 0.35,
      "reason": "the red light jumps to spud's tile",
      "at": 1.87
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "coal",
+     "hand": "both",
+     "grip": [
+      0,
+      -0.03,
+      0
+     ],
+     "pose": null,
+     "dur": 0,
+     "at": 1.88
     },
     {
      "who": "spud",
@@ -1910,6 +2654,26 @@
      },
      "dur": 0.1,
      "at": 1.89
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.92
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.92
     },
     {
      "sfx": "timer-beep",
@@ -1936,9 +2700,9 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.08,
-       0.4,
-       0.36
+       -0.22,
+       0.1,
+       0.12
       ]
      },
      "dur": 0.4,
@@ -1951,9 +2715,9 @@
      "side": "L",
      "pose": {
       "x": [
-       0.08,
-       0.4,
-       0.36
+       0.22,
+       0.1,
+       0.12
       ]
      },
      "dur": 0.4,
@@ -1969,6 +2733,16 @@
      },
      "dur": 0.2,
      "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.02
     },
     {
      "who": "spud",
@@ -2008,7 +2782,7 @@
   {
    "name": "06 the fake-out",
    "at": 6.15,
-   "len": 0.93,
+   "len": 1.05,
    "shot": {
     "pos": [
      -2.6,
@@ -2016,7 +2790,7 @@
      3.9
     ],
     "look": [
-     0.25,
+     0.3,
      2.25,
      -0.1
     ],
@@ -2053,6 +2827,36 @@
      "at": 0.05
     },
     {
+     "who": "host",
+     "do": "talk",
+     "line": "one!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
      "sfx": "timer-beep",
      "gain": 0.6,
      "reason": "the clock: 1",
@@ -2077,6 +2881,16 @@
      "at": 0.37
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
      "who": "spud",
      "do": "crouch",
      "to": 0,
@@ -2088,11 +2902,13 @@
      "do": "release",
      "prop": "coal",
      "to": [
-      0.475,
-      1.556,
-      0.38
+      0.442,
+      1.575,
+      0.379
      ],
      "dur": 0.68,
+     "arc": 0.75,
+     "ease": "linear",
      "at": 0.47
     },
     {
@@ -2154,6 +2970,46 @@
      "at": 0.49
     },
     {
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
      "who": "drg",
      "do": "look",
      "to": [
@@ -2170,8 +3026,8 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.1,
-       0.34,
+       -0.145,
+       0.22,
        0.38
       ]
      },
@@ -2185,8 +3041,8 @@
      "side": "L",
      "pose": {
       "x": [
-       0.1,
-       0.34,
+       0.145,
+       0.22,
        0.38
       ]
      },
@@ -2206,47 +3062,97 @@
   },
   {
    "name": "07 smoke",
-   "at": 7.08,
-   "len": 0.85,
+   "at": 7.2,
+   "len": 0.73,
    "shot": {
     "pos": [
      0.475,
-     1.8,
-     2.75
+     2.2,
+     3.4
     ],
     "look": [
      0.475,
-     1.78,
+     2.05,
      0.1
     ],
-    "fov": 36
+    "fov": 40
    },
    "do": [
     {
-     "who": "drg",
-     "do": "grab",
-     "prop": "coal",
-     "hand": "R",
-     "grip": [
-      -0.09,
-      -0.03,
-      0
-     ],
-     "pose": null,
-     "dur": 0.06,
-     "at": 0.22
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.1
     },
     {
      "sfx": "click",
      "gain": 0.35,
      "reason": "the red light jumps to drg's tile",
-     "at": 0.22
+     "at": 0.1
     },
     {
      "sfx": "pat",
      "gain": 0.45,
      "reason": "Dragon catches the coal in both gloves",
-     "at": 0.22
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "coal",
+     "set": {
+      "smoke": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "drg",
+     "do": "grab",
+     "prop": "coal",
+     "hand": "both",
+     "grip": [
+      0,
+      -0.03,
+      0
+     ],
+     "pose": null,
+     "dur": 0,
+     "at": 0.11
     },
     {
      "who": "drg",
@@ -2257,7 +3163,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.24
+     "at": 0.12
     },
     {
      "who": "drg",
@@ -2269,7 +3175,7 @@
       "eye": 1.15
      },
      "dur": 0.2,
-     "at": 0.37
+     "at": 0.25
     },
     {
      "who": "drg",
@@ -2277,7 +3183,7 @@
      "brow": -0.3,
      "tilt": 0.3,
      "dur": 0.2,
-     "at": 0.37
+     "at": 0.25
     },
     {
      "who": "drg",
@@ -2288,23 +3194,13 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.42
-    },
-    {
-     "who": "drg",
-     "do": "talk",
-     "line": "ah...",
-     "tone": "calm",
-     "dur": 0.3,
-     "blink": false,
-     "voice": false,
-     "at": 0.44
+     "at": 0.3
     },
     {
      "sfx": "gasp",
      "gain": 0.5,
      "reason": "ah... (the smoke goes up Dragon's nose)",
-     "at": 0.47
+     "at": 0.35
     },
     {
      "who": "drg",
@@ -2312,7 +3208,7 @@
      "to": -8,
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.52
+     "at": 0.4
     },
     {
      "who": "spud",
@@ -2323,7 +3219,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.52
+     "at": 0.4
     },
     {
      "who": "spud",
@@ -2334,7 +3230,7 @@
      ],
      "dur": 0.26,
      "steps": 1,
-     "at": 0.58
+     "at": 0.46
     },
     {
      "who": "spud",
@@ -2349,7 +3245,7 @@
      },
      "dur": 0.24,
      "ease": "inOut",
-     "at": 0.6
+     "at": 0.48
     },
     {
      "who": "spud",
@@ -2364,17 +3260,7 @@
      },
      "dur": 0.24,
      "ease": "inOut",
-     "at": 0.6
-    },
-    {
-     "who": "host",
-     "do": "talk",
-     "line": "one!",
-     "tone": "excited",
-     "dur": 0.25,
-     "blink": false,
-     "voice": false,
-     "at": 0.62
+     "at": 0.48
     },
     {
      "who": "drg",
@@ -2382,14 +3268,14 @@
      "to": 42,
      "dur": 0.24,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.52
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0.3,
      "dur": 0.2,
-     "at": 0.64
+     "at": 0.52
     },
     {
      "who": "drg",
@@ -2397,7 +3283,7 @@
      "to": -15,
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.66
+     "at": 0.54
     },
     {
      "who": "drg",
@@ -2409,7 +3295,7 @@
       "eye": 0.5
      },
      "dur": 0.15,
-     "at": 0.66
+     "at": 0.54
     },
     {
      "who": "spud",
@@ -2420,7 +3306,17 @@
       "open": 0.2
      },
      "dur": 0.12,
-     "at": 0.67
+     "at": 0.55
+    },
+    {
+     "who": "drg",
+     "do": "talk",
+     "line": "choo!",
+     "tone": "excited",
+     "dur": 0.03,
+     "blink": false,
+     "voice": false,
+     "at": 0.72
     }
    ]
   },
@@ -2444,7 +3340,7 @@
    "do": [
     {
      "fx": "ramp",
-     "len": 0.75,
+     "len": 0.55,
      "rate": 0.3,
      "in": 0.12,
      "out": 0.2,
@@ -2484,6 +3380,26 @@
      "at": 0.09
     },
     {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.04,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "len": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.09
+    },
+    {
      "sfx": "blow",
      "gain": 0.6,
      "dur": 0.35,
@@ -2498,7 +3414,7 @@
     },
     {
      "fx": "speedlines",
-     "dur": 0.5,
+     "dur": 0.4,
      "who": "drg",
      "at": 0.09
     },
@@ -2507,11 +3423,12 @@
      "do": "release",
      "prop": "coal",
      "to": [
-      1.425,
-      1.53,
-      0.38
+      1.346,
+      1.43,
+      0.372
      ],
-     "dur": 0.49,
+     "dur": 0.39,
+     "ease": "out",
      "at": 0.1
     },
     {
@@ -2576,40 +3493,66 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 0.41
+     "at": 0.31
     },
     {
      "who": "host",
      "do": "pitch",
      "to": -6,
      "dur": 0.1,
-     "at": 0.57
+     "at": 0.47
     },
     {
-     "who": "host",
-     "do": "grab",
-     "prop": "coal",
-     "hand": "R",
-     "grip": [
-      -0.09,
-      -0.03,
-      0
-     ],
-     "pose": null,
-     "dur": 0.04,
-     "at": 0.59
+     "do": "prop",
+     "id": "tile_vik",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_spud",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_drg",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.49
     },
     {
      "sfx": "click",
      "gain": 0.35,
      "reason": "the red light jumps to host's tile",
-     "at": 0.59
+     "at": 0.49
     },
     {
      "sfx": "pat",
      "gain": 0.5,
      "reason": "the coal lands in the host's gloves",
-     "at": 0.59
+     "at": 0.49
     },
     {
      "who": "host",
@@ -2620,7 +3563,7 @@
       "open": 0.05
      },
      "dur": 0.05,
-     "at": 0.59
+     "at": 0.49
     },
     {
      "who": "host",
@@ -2628,7 +3571,31 @@
      "brow": 0.5,
      "lid": 0,
      "dur": 0.08,
-     "at": 0.59
+     "at": 0.49
+    },
+    {
+     "who": "host",
+     "do": "grab",
+     "prop": "coal",
+     "hand": "both",
+     "grip": [
+      0,
+      -0.03,
+      0
+     ],
+     "pose": null,
+     "dur": 0,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "plume",
+     "set": {
+      "fade": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.54
     },
     {
      "who": "drg",
@@ -2636,14 +3603,14 @@
      "to": -5,
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.79
+     "at": 0.59
     },
     {
      "who": "drg",
      "do": "pitch",
      "to": 0,
      "dur": 0.3,
-     "at": 0.79
+     "at": 0.59
     },
     {
      "who": "drg",
@@ -2653,7 +3620,7 @@
       "curve": 0.1
      },
      "dur": 0.25,
-     "at": 0.82
+     "at": 0.62
     },
     {
      "who": "drg",
@@ -2662,14 +3629,14 @@
      "tilt": 0,
      "lid": 0.1,
      "dur": 0.25,
-     "at": 0.82
+     "at": 0.62
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.3,
-     "at": 0.82
+     "at": 0.62
     },
     {
      "who": "spud",
@@ -2677,14 +3644,14 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.07,
-       0.4,
-       0.34
+       -0.36,
+       0.6,
+       0.12
       ]
      },
-     "dur": 0.4,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 0.82
+     "at": 0.62
     },
     {
      "who": "spud",
@@ -2692,25 +3659,25 @@
      "side": "L",
      "pose": {
       "x": [
-       0.07,
-       0.4,
-       0.34
+       0.36,
+       0.6,
+       0.12
       ]
      },
-     "dur": 0.4,
+     "dur": 0.2,
      "ease": "inOut",
-     "at": 0.82
+     "at": 0.62
     },
     {
-     "who": "host",
-     "do": "look",
+     "who": "spud",
+     "do": "move",
      "to": [
-      0,
-      -0.85
+      -0.475,
+      0
      ],
-     "dur": 0.14,
-     "blink": false,
-     "at": 0.84
+     "dur": 0.3,
+     "steps": 1,
+     "at": 0.67
     },
     {
      "who": "spud",
@@ -2721,23 +3688,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 0.87
-    },
-    {
-     "fx": "sweat",
-     "who": "host",
-     "dur": 0.5,
-     "at": 0.89
-    },
-    {
-     "who": "host",
-     "do": "talk",
-     "line": "uh-oh.",
-     "tone": "calm",
-     "dur": 0.3,
-     "blink": false,
-     "voice": false,
-     "at": 0.91
+     "at": 0.67
     },
     {
      "who": "spud",
@@ -2747,7 +3698,94 @@
       "open": 0.3
      },
      "dur": 0.2,
-     "at": 0.92
+     "at": 0.72
+    },
+    {
+     "who": "host",
+     "do": "look",
+     "to": [
+      0,
+      -0.85
+     ],
+     "dur": 0.14,
+     "blink": false,
+     "at": 0.74
+    },
+    {
+     "fx": "sweat",
+     "who": "host",
+     "dur": 0.5,
+     "at": 0.79
+    },
+    {
+     "who": "host",
+     "do": "talk",
+     "line": "uh-oh.",
+     "tone": "calm",
+     "dur": 0.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.81
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.24,
+       0.36
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.24,
+       0.36
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "num": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 1
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.22
     },
     {
      "sfx": "bell",
@@ -2765,6 +3803,16 @@
      "dur": 0.06,
      "blink": false,
      "at": 1.24
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 1.26
     },
     {
      "sfx": "latch",
@@ -2795,6 +3843,16 @@
      "dur": 0.38,
      "ease": "in",
      "at": 1.29
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "bump": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.32
     },
     {
      "sfx": "whoosh",
@@ -2841,8 +3899,8 @@
      "pose": {
       "x": [
        -0.02,
-       0.56,
-       0.36
+       0.42,
+       0.37
       ]
      },
      "dur": 0.3,
@@ -2907,9 +3965,29 @@
      "at": 1.7
     },
     {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "ring": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.72
+    },
+    {
      "sfx": "splash",
      "gain": 0.6,
      "reason": "under the stage: the splash into the fryer",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.4
+     },
+     "dur": 0.25,
+     "ease": "out",
      "at": 1.77
     },
     {
@@ -2919,8 +3997,8 @@
      "pose": {
       "x": [
        0.05,
-       0.56,
-       0.36
+       0.42,
+       0.37
       ]
      },
      "dur": 0.13,
@@ -2946,13 +4024,23 @@
      "pose": {
       "x": [
        -0.02,
-       0.56,
-       0.36
+       0.42,
+       0.37
       ]
      },
      "dur": 0.13,
      "ease": "inOut",
      "at": 1.97
+    },
+    {
+     "do": "prop",
+     "id": "tile_host",
+     "set": {
+      "hot": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.07
     },
     {
      "who": "drg",
@@ -2961,8 +4049,8 @@
      "pose": {
       "x": [
        0.05,
-       0.56,
-       0.36
+       0.42,
+       0.37
       ]
      },
      "dur": 0.13,
@@ -2990,13 +4078,13 @@
     "fov": 33.4,
     "to": {
      "pos": [
-      0.45,
-      2.955,
-      8.633
+      0.55,
+      3.034,
+      8.965
      ],
      "look": [
-      0.45,
-      2.2,
+      0.55,
+      2.25,
       0
      ]
     },
@@ -3010,8 +4098,8 @@
      "pose": {
       "x": [
        -0.02,
-       0.56,
-       0.36
+       0.42,
+       0.37
       ]
      },
      "dur": 0.13,
@@ -3020,13 +4108,26 @@
     },
     {
      "who": "crisp",
+     "do": "move",
+     "to": [
+      1.425,
+      0
+     ],
+     "dur": 0,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0.03
+    },
+    {
+     "who": "crisp",
      "do": "ride",
      "prop": "lift",
      "off": [
       0,
-      0.03,
+      0.02,
       0
      ],
+     "yaw": -4,
      "dur": 0,
      "at": 0.05
     },
@@ -3041,8 +4142,8 @@
      "set": {
       "y": 1.22
      },
-     "dur": 0.55,
-     "ease": "out",
+     "dur": 0.6,
+     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -3052,10 +4153,70 @@
      "at": 0.1
     },
     {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "drip": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "studio",
+     "set": {
+      "sing": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "confL",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "confR",
+     "set": {
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
      "sfx": "partyhorn",
      "gain": 0.45,
      "reason": "the sun sings and the confetti flies: a winner",
      "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "confL",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "confR",
+     "set": {
+      "burst": 1
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.32
     },
     {
      "sfx": "steam",
@@ -3102,9 +4263,9 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.08,
-       0.4,
-       0.36
+       -0.22,
+       0.1,
+       0.12
       ]
      },
      "dur": 0.35,
@@ -3115,10 +4276,26 @@
      "who": "crisp",
      "do": "arm",
      "side": "L",
-     "pose": "wave",
+     "pose": {
+      "x": [
+       0.42,
+       0.66,
+       0.2
+      ]
+     },
      "dur": 0.3,
      "ease": "inOut",
      "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "vat",
+     "set": {
+      "churn": 0.3
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.6
     },
     {
      "sfx": "ding",
@@ -3177,6 +4354,76 @@
      "blink": false,
      "voice": false,
      "at": 0.8
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.72,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.66,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.34,
+       0.72,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "lift",
+     "set": {
+      "drip": 0.2
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "crisp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.42,
+       0.66,
+       0.2
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.45
     },
     {
      "who": "drg",
@@ -3374,7 +4621,7 @@
   },
   {
    "from": 8.02,
-   "to": 8.52,
+   "to": 8.42,
    "see": [
     "drg.face",
     "host.face",
@@ -3383,7 +4630,7 @@
    "why": "the sneeze: fire carries the coal from Dragon to the host"
   },
   {
-   "from": 8.52,
+   "from": 8.42,
    "to": 9.45,
    "see": [
     "host.face",
@@ -3479,6 +4726,153 @@
    "from": 0,
    "to": 15.65,
    "reason": "the fried host stands in the fry basket"
+  },
+  {
+   "who": "host",
+   "with": "bow",
+   "from": 0,
+   "to": 15.65,
+   "reason": "he wears the bow tie"
+  },
+  {
+   "who": "crisp",
+   "with": "bow2",
+   "from": 0,
+   "to": 15.65,
+   "reason": "he wears the bow tie"
+  },
+  {
+   "who": "vik",
+   "with": "confL",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "vik",
+   "with": "confR",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "spud",
+   "with": "confL",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "spud",
+   "with": "confR",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "drg",
+   "with": "confL",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "drg",
+   "with": "confR",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "host",
+   "with": "confL",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "host",
+   "with": "confR",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "crisp",
+   "with": "confL",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "crisp",
+   "with": "confR",
+   "from": 0,
+   "to": 15.65,
+   "reason": "confetti falls past the cast"
+  },
+  {
+   "who": "vik",
+   "with": "vat",
+   "from": 0.72,
+   "to": 15.65,
+   "reason": "he falls into the fryer under the stage (hidden there)"
+  },
+  {
+   "who": "host",
+   "with": "vat",
+   "from": 9.15,
+   "to": 15.65,
+   "reason": "he falls into the fryer under the stage (hidden there)"
+  },
+  {
+   "who": "host",
+   "with": "lift",
+   "from": 9.15,
+   "to": 15.65,
+   "reason": "he falls past the basket under the stage (hidden there)"
+  },
+  {
+   "who": "spud",
+   "with": "tongs",
+   "from": 2.4,
+   "to": 2.9,
+   "reason": "the tongs set the coal between his cupped gloves"
+  },
+  {
+   "who": "crisp",
+   "from": 0,
+   "to": 11.65,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "hidden behind the wall until the lift"
+  },
+  {
+   "who": "crisp",
+   "with": "vat",
+   "from": 0,
+   "to": 12.65,
+   "reason": "under the stage, hidden: the basket lifts him up out of the vat"
+  },
+  {
+   "who": "crisp",
+   "from": 0,
+   "to": 12.65,
+   "checks": [
+    "rig-jump",
+    "stance-slide",
+    "foot-slide",
+    "lean-jump"
+   ],
+   "reason": "hidden until the lift: he is put in the basket under the stage, then the lift carries him up fast"
+  },
+  {
+   "who": "host",
+   "with": "drg",
+   "from": 3.05,
+   "to": 3.6,
+   "reason": "off screen (Spud's close shot): the host walks back past Dragon to his tile"
   },
   {
    "who": "vik",
