@@ -112,8 +112,8 @@ const END = r3(11.7 + D0 + D1);
 // shot (qa/camfit.mjs).
 const SUB = { vik: 1235, high: 900, clown: 1250, spud: 620, drg: 420, gun: 420, fear: 300, low: 1250, top: 1100, wide: 900 };
 const say = (t, who, line, dur, tone, sub, pos, o = {}) => c.say(t, who, line, dur, tone, { voice: false, sub, pos, ...o });
-// a shout on a face close-up: a text pop beside the head (a close-up has no free strip for a subtitle)
-const shout = (t, who, line, dur, text) => { c.say(t, who, line, dur, "excited", { voice: false, sub: false }); c.textPop(t, who, text, { dur: r3(dur + 0.25), size: 105, color: "speaker" }); };
+// a shout on a face close-up: a text pop beside the head (a close-up has no free strip for a subtitle) The pop sits LEFT of the head: the clock card owns the top right corner.
+const shout = (t, who, line, dur, text) => { c.say(t, who, line, dur, "excited", { voice: false, sub: false }); c.textPop(t, who, text, { dur: r3(dur + 0.25), size: 105, color: "speaker", dx: -0.6 }); };
 const num = (t, n) => { c.prop(t, "clock", { num: n }, 0.01, "linear"); c.prop(t, "clock", { bump: 1 }, 0.08, "out"); c.prop(r3(t + 0.1), "clock", { bump: 0 }, 0.25, "inOut"); };
 const tick = (t, n) => { num(t, n); sfx(t, "timer-beep", { gain: n <= 2 ? 0.55 : 0.4, reason: `the clock: ${n}` }); };
 const hot = (t, who) => { for (const w of PLAYERS) c.prop(t, `tile_${w}`, { hot: w === who ? 1 : 0 }, 0.1, "out"); if (who) sfx(t, "click", { gain: 0.35, reason: `the red light jumps to ${who}'s tile` }); };

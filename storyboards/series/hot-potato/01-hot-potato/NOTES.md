@@ -30,7 +30,11 @@ shown (fire out of the hole), a creepy music box tune.
 - hptile `hot` glows over an open hole: switch it off as the tile opens.
 - A camera at [0.12, 1.7, 4.25] rendered black (unknown why); 3.75 is fine.
 - The commentator's "coal" is heard as "cold" or "call" by Whisper in both takes: Jonny judges it by ear.
-- Counts for version 2: layout runs 9, draft-still rounds 4, draft renders 1, builders 2 (stage 153k tokens,
+- A text pop sits right of the head by default, which is where the clock card lives: `dx: -0.6` puts it left.
+- Opener (Jonny's test, 11 Nov): type A, the contest already runs at frame 0 (coal in Viking's gloves, clock at 1,
+  the narrator at 0.0). Not met, by his panel 01: it is a close shot of one character, and the first subtitle
+  waits for the wide at 1.3 s. Name the type in the delivery.
+- Counts for version 2: layout runs 9, draft-still rounds 5, draft renders 2, builders 2 (stage 153k tokens,
   clown 243k tokens), narrator reads 2. Review A skipped again (weekly limit; Jonny looks at the draft first).
 
 ## Version 1 (row of four, rejected): numbers the set and the clip stood on
