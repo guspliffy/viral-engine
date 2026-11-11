@@ -1,0 +1,706 @@
+{
+ "id": "bench-lift-fx",
+ "title": "Lift fx bench (Survive it EP2, T2)",
+ "idea": "Builder bench for props-lift-fx.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "physics": false,
+ "set": {
+  "type": "elevator",
+  "seed": 3
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "wf",
+   "kind": "wallfire",
+   "x": 1.95,
+   "y": 0,
+   "z": -0.175,
+   "rot": -90,
+   "w": 2.6,
+   "h": 3.2,
+   "seed": 5,
+   "castLight": true,
+   "staged": "on the right wall, facing -x"
+  },
+  {
+   "id": "bl",
+   "kind": "liftblast",
+   "x": 1.95,
+   "y": 1.6,
+   "z": -0.175,
+   "rot": -90,
+   "t0": 5,
+   "w": 2.6,
+   "h": 3.2,
+   "far": 4,
+   "buttons": 140,
+   "seed": 2,
+   "staged": "the right wall's middle, blasting toward -x"
+  },
+  {
+   "id": "fb",
+   "kind": "fireblobs",
+   "x": 0,
+   "y": 1.7,
+   "z": -0.3,
+   "n": 9,
+   "box": [
+    3.4,
+    2.4,
+    2.2
+   ],
+   "seed": 4,
+   "staged": "floats in the car"
+  },
+  {
+   "id": "sd",
+   "kind": "sparkrain",
+   "x": 0,
+   "y": 1.7,
+   "z": 2.4,
+   "n": 220,
+   "box": [
+    5.2,
+    7,
+    0.6
+   ],
+   "speed": 9,
+   "dir": -1,
+   "seed": 3,
+   "staged": "streams past the car's front"
+  },
+  {
+   "id": "su",
+   "kind": "sparkrain",
+   "x": 0,
+   "y": 1.7,
+   "z": 2.4,
+   "n": 220,
+   "box": [
+    5.2,
+    7,
+    0.6
+   ],
+   "speed": 9,
+   "dir": 1,
+   "seed": 6,
+   "staged": "streams past the car's front"
+  },
+  {
+   "id": "dk",
+   "kind": "cardark",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "staged": "inside the car's walls"
+  },
+  {
+   "id": "al",
+   "kind": "alarmlamp",
+   "x": 1.9,
+   "y": 3.39,
+   "z": -1.5,
+   "tip": 180,
+   "staged": "hangs from the ceiling at the back right corner"
+  },
+  {
+   "id": "sky",
+   "kind": "spacesky",
+   "x": 200,
+   "y": 60,
+   "z": -40,
+   "w": 70,
+   "h": 110,
+   "seed": 7,
+   "hole": [
+    0.5,
+    0.12
+   ],
+   "staged": "backdrop card far from the car"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1,
+   "text": "wallfire burn 0.3, outside camera",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "wallfire burn 1, outside camera",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "wallfire burn 0.3, inside facing the wall",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "wallfire burn 1, inside facing the wall",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "nothing",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 7,
+   "text": "liftblast t0 5.0: +0.03, +0.25, +0.7, +1.6",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "fireblobs show 1",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "sparkrain down",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "sparkrain up",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "cardark 1 + wallfire 1 + alarmlamp on, outside",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "the same from inside",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "spacesky from 25 m",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 14,
+   "text": "spacesky, the whole card",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "alarmlamp on: peak (14.25) and trough (14.5)",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "cardark 1, wallfire off, from inside",
+   "pos": 1500,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "wf03-out",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "wf10-out",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "wf03-in",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.7,
+     1.5,
+     -0.1
+    ],
+    "look": [
+     1.95,
+     1.4,
+     -0.175
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "wf10-in",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.7,
+     1.5,
+     -0.1
+    ],
+    "look": [
+     1.95,
+     1.4,
+     -0.175
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "idle",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "blast",
+   "at": 5,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "blobs",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fb",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "sparks-down",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fb",
+     "set": {
+      "show": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sd",
+     "set": {
+      "rate": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "sparks-up",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sd",
+     "set": {
+      "rate": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "su",
+     "set": {
+      "rate": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "dark-out",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     7.4
+    ],
+    "look": [
+     0,
+     1.6,
+     -0.2
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "su",
+     "set": {
+      "rate": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "dk",
+     "set": {
+      "dark": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "al",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "dark-in",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.7,
+     1.5,
+     -0.1
+    ],
+    "look": [
+     1.95,
+     1.4,
+     -0.175
+    ],
+    "fov": 60
+   },
+   "do": []
+  },
+  {
+   "name": "sky-near",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     200,
+     32.5,
+     -15
+    ],
+    "look": [
+     200,
+     32.5,
+     -40
+    ],
+    "fov": 70
+   },
+   "do": []
+  },
+  {
+   "name": "sky-far",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     200,
+     60,
+     40
+    ],
+    "look": [
+     200,
+     60,
+     -40
+    ],
+    "fov": 72
+   },
+   "do": []
+  },
+  {
+   "name": "lamp",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     2.3,
+     1.1
+    ],
+    "look": [
+     1.9,
+     3.2,
+     -1.5
+    ],
+    "fov": 45
+   },
+   "do": []
+  },
+  {
+   "name": "dark-back",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     0.9
+    ],
+    "look": [
+     0,
+     1.4,
+     -1.6
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wf",
+     "set": {
+      "burn": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/survive-it/03-lift/make-bench-fx.mjs (props bench, no reviews)."
+}

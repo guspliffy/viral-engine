@@ -1,0 +1,80 @@
+// Bench for builder task T2 (briefs/T2-lift-fx.md): the seven kinds of engine/page/props-lift-fx.js on the elevator set,
+// no cast. Not a clip: the director wires times and places into the clip generator.
+//   0.5 / 1.5   wallfire burn 0.3, then 1, from the clip's outside camera [0, 1, 7.4]
+//   2.5 / 3.5   the same from inside the car facing the wall
+//   5.03 5.25 5.7 6.6   liftblast at t0 + 0.03, + 0.25, + 0.7, + 1.6 (t0 = 5)
+//   7.5  fireblobs   8.5 sparkrain down   9.5 sparkrain up
+//   10.5 / 11.5  cardark 1 + wallfire 1 + alarmlamp on, from outside and from inside
+//   12.5 / 13.5  spacesky from 25 m (9:16 frame), and the whole card
+//   14.25 / 14.5  alarmlamp close, at a pulse's peak and trough   15.5  cardark from inside, no fire
+//   node storyboards/series/survive-it/03-lift/make-bench-fx.mjs
+//   node engine/render.mjs storyboards/series/survive-it/03-lift/bench-lift-fx.json --stills 0.5,1.5,2.5,3.5,5.03,5.25,5.7,6.6,7.5,8.5,9.5,10.5,11.5,12.5,13.5,14.25,14.5,15.5 --draft
+//   node qa/contact.mjs out/bench-lift-fx-t*.png --out storyboards/series/survive-it/03-lift/briefs/T2-contact.png
+import { clip, write } from "../../../lib/clip.mjs";
+
+const c = clip();
+const END = 16;
+const WALL = { x: 1.95, z: -0.175 };   // the right wall's fire, the middle of the car's depth
+const OUT = { pos: [0, 1, 7.4], look: [0, 1.6, -0.2], fov: 62 };
+const IN = { pos: [-1.7, 1.5, -0.1], look: [WALL.x, 1.4, WALL.z], fov: 60 };
+const SKY = { x: 200, y: 60, z: -40 };
+const NEAR = { pos: [SKY.x, 32.5, -15], look: [SKY.x, 32.5, -40], fov: 70 };
+const LAMP = { pos: [0.3, 2.3, 1.1], look: [1.9, 3.2, -1.5], fov: 45 };
+const BACK = { pos: [0, 1.5, 0.9], look: [0, 1.4, -1.6], fov: 60 };
+const FAR = { pos: [SKY.x, SKY.y, 40], look: [SKY.x, SKY.y, -40], fov: 72 };
+
+const props = [
+  { id: "wf", kind: "wallfire", x: WALL.x, y: 0, z: WALL.z, rot: -90, w: 2.6, h: 3.2, seed: 5, castLight: true, staged: "on the right wall, facing -x" },
+  { id: "bl", kind: "liftblast", x: WALL.x, y: 1.6, z: WALL.z, rot: -90, t0: 5, w: 2.6, h: 3.2, far: 4.0, buttons: 140, seed: 2, staged: "the right wall's middle, blasting toward -x" },
+  { id: "fb", kind: "fireblobs", x: 0, y: 1.7, z: -0.3, n: 9, box: [3.4, 2.4, 2.2], seed: 4, staged: "floats in the car" },
+  { id: "sd", kind: "sparkrain", x: 0, y: 1.7, z: 2.4, n: 220, box: [5.2, 7, 0.6], speed: 9, dir: -1, seed: 3, staged: "streams past the car's front" },
+  { id: "su", kind: "sparkrain", x: 0, y: 1.7, z: 2.4, n: 220, box: [5.2, 7, 0.6], speed: 9, dir: 1, seed: 6, staged: "streams past the car's front" },
+  { id: "dk", kind: "cardark", x: 0, y: 0, z: 0, staged: "inside the car's walls" },
+  { id: "al", kind: "alarmlamp", x: 1.9, y: 3.39, z: -1.5, tip: 180, staged: "hangs from the ceiling at the back right corner" },
+  { id: "sky", kind: "spacesky", x: SKY.x, y: SKY.y, z: SKY.z, w: 70, h: 110, seed: 7, hole: [0.5, 0.12], staged: "backdrop card far from the car" },
+];
+const set = (t, id, s) => c.prop(t, id, s, 0, "linear");
+set(0.01, "wf", { burn: 0.3 });
+set(1.01, "wf", { burn: 1 });
+set(2.01, "wf", { burn: 0.3 });
+set(3.01, "wf", { burn: 1 });
+set(4.01, "wf", { burn: 0 });
+set(7.01, "fb", { show: 1 });
+set(8.01, "fb", { show: 0 });
+set(8.01, "sd", { rate: 1 });
+set(9.01, "sd", { rate: 0 });
+set(9.01, "su", { rate: 1 });
+set(10.01, "su", { rate: 0 });
+set(10.01, "wf", { burn: 1 });
+set(10.01, "dk", { dark: 1 });
+set(10.01, "al", { on: 1 });
+set(15.01, "wf", { burn: 0 });
+
+const SHOTS = [
+  ["wf03-out", 0, OUT, "wallfire burn 0.3, outside camera"],
+  ["wf10-out", 1, OUT, "wallfire burn 1, outside camera"],
+  ["wf03-in", 2, IN, "wallfire burn 0.3, inside facing the wall"],
+  ["wf10-in", 3, IN, "wallfire burn 1, inside facing the wall"],
+  ["idle", 4, OUT, "nothing"],
+  ["blast", 5, OUT, "liftblast t0 5.0: +0.03, +0.25, +0.7, +1.6"],
+  ["blobs", 7, OUT, "fireblobs show 1"],
+  ["sparks-down", 8, OUT, "sparkrain down"],
+  ["sparks-up", 9, OUT, "sparkrain up"],
+  ["dark-out", 10, OUT, "cardark 1 + wallfire 1 + alarmlamp on, outside"],
+  ["dark-in", 11, IN, "the same from inside"],
+  ["sky-near", 12, NEAR, "spacesky from 25 m"],
+  ["sky-far", 13, FAR, "spacesky, the whole card"],
+  ["lamp", 14, LAMP, "alarmlamp on: peak (14.25) and trough (14.5)"],
+  ["dark-back", 15, BACK, "cardark 1, wallfire off, from inside"],
+];
+SHOTS.forEach(([, t, , label], i) => c.cap(t, SHOTS[i + 1]?.[1] ?? END, label, 1500, false, { kinetic: false }));
+
+write(import.meta.url, {
+  id: "bench-lift-fx", title: "Lift fx bench (Survive it EP2, T2)", idea: "Builder bench for props-lift-fx.js, not a clip",
+  fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", physics: false,
+  set: { type: "elevator", seed: 3 },
+  music: false, sound: { auto: false },
+  hook: { show: [], hint: 0, what: "engine test" },
+  cast: [], props, captions: c.captions, beats: c.beats(SHOTS.map(([n, t, s]) => [n, t, s]), END),
+  notes: "Generated by storyboards/series/survive-it/03-lift/make-bench-fx.mjs (props bench, no reviews).",
+});
