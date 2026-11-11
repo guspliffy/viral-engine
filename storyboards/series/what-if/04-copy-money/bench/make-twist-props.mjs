@@ -56,7 +56,8 @@ const GUN_X = GX0 + 7 * BOARDS.length;
 const cast = [{ id: "gun", character: "never-has-money/gunslinger", at: [GUN_X - 1.15, 0], face: 90, expr: "eager", follow: 0.2, seed: 1.3 }];
 // every shot is 1 s; stills are taken 0.5 s into each
 const T = (i) => r3(i * 1), END = r3(SHOTS.length);
-SHOTS.forEach(([, , label], i) => c.cap(T(i), T(i + 1), label, 240, false, { kinetic: false }));
+// "barrow-hands-top" fills the frame with him (no free caption band, qa/camfit.mjs): its label is the beat's name only
+SHOTS.forEach(([n, , label], i) => { if (n !== "barrow-hands-top") c.cap(T(i), T(i + 1), label, 240, false, { kinetic: false }); });
 console.log("stills:", SHOTS.map((_, i) => r3(T(i) + 0.5)).join(","));
 write(import.meta.url, {
   id: "twist-props", title: "Twist props bench", idea: "Props bench for There's a catch EP04 (flip-digit price board, wheelbarrow, diner sign), not a clip",

@@ -349,14 +349,6 @@
    "kinetic": false
   },
   {
-   "from": 13,
-   "to": 14,
-   "text": "wheelbarrow: the gloves from behind and above",
-   "pos": 240,
-   "pop": false,
-   "kinetic": false
-  },
-  {
    "from": 14,
    "to": 15,
    "text": "wheelbarrow: dump 0.5 beside a 0.38 m box",
