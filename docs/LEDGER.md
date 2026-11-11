@@ -26,6 +26,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   transcript in under a second. Should end `?` in the count columns (Share or Steal 01 had 7 unknown, filled below by
   the script; copy money's verdict was "open: the comparison row has no counts").
 
+- From Hot Potato 01 (11 Nov; waits for Jonny's word): a NaN guard pass in the full look (`engine/page/looks.js`).
+  One prop shader's NaN pixel turned every full-look frame with that prop black, and no draft showed it (drafts
+  have no anti-aliasing): one full render lost (9 min) and a still round to find it. Should keep `renders` at 1
+  for clips with new shaders. Proof: the faulty shader with the guard draws three full stills that were black
+  before; golden unchanged.
 - Every draft prints its own `pops` line (11 Nov, from Doomscroll 01; waits for Jonny's word): three videos lost
   farm renders to single frames their drafts already showed. Should keep `renders` at 1.
 
