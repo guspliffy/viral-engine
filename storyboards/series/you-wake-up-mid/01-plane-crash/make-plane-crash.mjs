@@ -350,7 +350,7 @@ park(T.slide, "hall", "smokeP", "seatA", "seatB", ...FRONT_SEATS, "eng", "plume"
 A(cut(T.slide), "vik", "release", { prop: "maskV", to: [BX, PARK, 0.4], dur: 0 });
 prop(cut(T.slide), "jet", { x: 0, y: 0, z: 0, tip: 0, ...key("brk", 0), ...key("fire", 1) }, 0, "linear");
 prop(cut(T.slide), "slideP", { y: DOOR[1] }, 0, "linear");
-sfx(T.slide, "nature/wind-howl", { gain: 0.12, dur: r3(T.car - T.slide), reason: "the cold wind over the snow" });
+sfx(T.slide, "windswell", { gain: 0.12, dur: r3(T.car - T.slide), reason: "the cold wind over the snow" });
 sfx(T.slide, "flamejet", { gain: 0.4, dur: r3(T.boom - T.slide), reason: "the wreck burning" });
 // Spud at the bottom, hauling the dazed Wizard away from the smoke: both hold a point that travels between them
 const RUN0 = [-12.6, 8.6], RUN1 = [-17.2, 11.4], RUN_YAW = -58;

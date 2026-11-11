@@ -4810,7 +4810,7 @@
    },
    "do": [
     {
-     "sfx": "nature/wind-howl",
+     "sfx": "windswell",
      "gain": 0.12,
      "dur": 6.2,
      "reason": "the cold wind over the snow",
