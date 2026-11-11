@@ -1194,14 +1194,14 @@
      "do": "prop",
      "id": "fly1",
      "set": {
-      "x": 0.3,
-      "y": 1.05,
-      "z": -1.2,
+      "x": 0.2,
+      "y": 1.1,
+      "z": -0.3,
       "rot": 216,
       "tip": 144,
       "roll": 72
      },
-     "dur": 0.95,
+     "dur": 1,
      "ease": "linear",
      "at": 0
     },
@@ -7529,10 +7529,10 @@
      "do": "prop",
      "id": "lids2",
      "set": {
-      "open": 0.7
+      "open": 1
      },
-     "dur": 0.14,
-     "ease": "out",
+     "dur": 0.5,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -7548,26 +7548,6 @@
      "dur": 1.7,
      "reason": "the car in the air",
      "at": 0.05
-    },
-    {
-     "do": "prop",
-     "id": "lids2",
-     "set": {
-      "open": 0.1
-     },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "lids2",
-     "set": {
-      "open": 1
-     },
-     "dur": 0.22,
-     "ease": "out",
-     "at": 0.3
     },
     {
      "macro": "narrate",

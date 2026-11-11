@@ -218,7 +218,8 @@ sfx(0.02, "scarestab", { gain: 0.5, reason: "frame 0: the sting under the title"
 shake(0, 0.07, 1.0);
 prop(0, "lids", key("lids", 0.34), 0, "linear"); prop(0.02, "lids", key("lids", 0.62), 0.16, "out");
 prop(0.3, "lids", key("lids", 0.06), 0.1, "in"); prop(0.42, "lids", key("lids", 1), 0.3, "out");
-fling(0, 0.95, "fly1", [0.3, 1.05, -1.2], [0.6, 0.4, 0.2]); fling(0.15, 1.0, "fly2", [-0.5, 1.45, -1.6], [0.4, 0.8, 0.5]);
+fling(0, 1.0, "fly1", [0.2, 1.1, -0.3], [0.6, 0.4, 0.2]);   // it fills the lens on the last frame before the cut and never passes through the camera (a one-frame dark pop on the first full render)
+ fling(0.15, 1.0, "fly2", [-0.5, 1.45, -1.6], [0.4, 0.8, 0.5]);
 fling(0.3, 1.0, "fly3", [0.5, 0.9, 1.2], [0.5, 0.3, 0.7]); fling(0, 0.7, "fly4", [-0.35, 1.5, -1.5], [1, 0.5, 0.3]); fling(0, 0.5, "fly5", [0.3, 1.25, -1.2], [1.5, 1, 0.6]);
 sfx(0.5, "whoosh", { gain: 0.5, reason: "bags flying down the aisle at him" });
 narr(0.05, "You wake up mid plane crash.", DUR.wake, ["You wake up", "mid plane crash."], [1210, 470], r3(T.fall - 0.03 - 0.05 - DUR.wake), [null, 655]);
@@ -539,7 +540,8 @@ c.arm(0, "spud2", "R", { prop: "wheel", grip: "R" }, 0.01); c.arm(0, "spud2", "L
 A(0, "spud2", "expr", { expr: "serene", dur: 0 }); A(0, "spud2", "droop", { to: 0.8, dur: 0 });
 prop(0, "lids2", key("lids", 1), 0, "linear");
 A(cut(T.car), "spud2", "pov", { on: true }); A(cut(T.wheel), "spud2", "pov", { on: false });
-set(T.car, "lids2", key("lids", 0.2)); prop(T.car, "lids2", key("lids", 0.7), 0.14, "out"); prop(T.car + 0.2, "lids2", key("lids", 0.1), 0.08, "in"); prop(T.car + 0.3, "lids2", key("lids", 1), 0.22, "out");
+// one slow opening, no second blink: over the bright sky a three-frame blink was six brightness jumps in a second (strobe fail on the first full render)
+set(T.car, "lids2", key("lids", 0.2)); prop(T.car, "lids2", key("lids", 1), 0.5, "linear");
 A(T.wheel, "spud2", "expr", { expr: "terrified", set: { open: 0.6 }, dur: 0 }); A(T.wheel, "spud2", "droop", { to: 0, dur: 0 });
 A(T.wheel + 0.05, "spud2", "squash", { amount: 0.1, dur: 0.25 }); A(T.wheel + 0.4, "spud2", "look", { to: [0, -0.5], dur: 0.15, blink: false });
 c.at(r3(T.wheel + 0.2), { fx: "sweat", who: "spud2", dur: 0.9, count: 4 });
