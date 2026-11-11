@@ -97,6 +97,16 @@ function voice(bus, a, v, pan, gain) {
 }
 
 // ---------- sound effects ----------
+// the first and last 2 ms of a bank-robbery sound (alarmbell ... cuffs) are silent and the next 4 ms ease in or out,
+// so a copy placed back to back or cut at the end can never click
+function seam(x) {
+  const a = Math.round(0.0018 * SR), b = Math.round(0.004 * SR);
+  for (let i = 0; i < a + b && i < x.length; i++) {
+    const u = Math.max(0, (i - a) / b), g = u * u * (3 - 2 * u), j = x.length - 1 - i;
+    x[i] *= g; x[j] *= g;
+  }
+  return x;
+}
 const SFX = {
   hop(r) { const d = 0.13, x = buf(d); let p = 0; for (let i = 0; i < x.length; i++) { const t = i / SR, f = 280 * Math.pow(620 / 280, t / d); p += TAU * f / SR; x[i] = (Math.sin(p) + 0.25 * Math.sin(2 * p)) * env(t, 0.004, 0.05, d); } return x; },
   land(r) { const d = 0.12, x = buf(d), lp = biquad("lp", 900, 0.7); let p = 0; for (let i = 0; i < x.length; i++) { const t = i / SR, f = 140 * Math.pow(55 / 140, t / d); p += TAU * f / SR; x[i] = Math.sin(p) * env(t, 0.002, 0.04, d) + run(lp, r() * 2 - 1) * env(t, 0.001, 0.008, d) * 0.6; } return x; },
@@ -842,6 +852,124 @@ const SFX = {
       i0 += Math.round(nd * SR);
     }
     return x;
+  },
+  // ---- the bank robbery's soundscape (Fight, Flight or Freeze 01, T3): alarm, sirens, helicopter, gull, radio, net
+  // launcher, handcuffs. Each is a pure function of its seeded noise source `r` and its length; the level is set
+  // by a peak (normalise) so no length or seed can clip, and the first and last 2 ms are faded to silence (seam).
+  // a bank's alarm bell, ringing without a gap: a metal bell struck 22 times a second, each strike a bright clang
+  // (a 760 Hz body and partials near 1.9, 2.9, 4.3 and 5.6 kHz, 40 ms decay). Whole strikes fit d at 22 a second,
+  // so two copies placed back to back keep the beat. Default 2 s.
+  alarmbell(r, d = 2) {
+    const x = buf(d), n = Math.max(1, Math.round(d * 22)), P = [[760, 0.55, 1.4], [1900, 0.5, 1], [2900, 0.38, 0.8], [4300, 0.26, 0.6], [5600, 0.18, 0.45]];
+    for (let k = 0; k < n; k++) {
+      const a = Math.round((0.002 + k / 22) * SR), g = 0.9 + 0.2 * r(), det = 1 + 0.004 * (r() * 2 - 1);
+      for (let i = 0; i < 0.2 * SR && a + i < x.length; i++) {
+        const t = i / SR, at = Math.min(1, t / 0.0006); let y = 0;
+        for (const [f, amp, dec] of P) y += Math.sin(TAU * f * det * t) * amp * Math.exp(-t / (0.04 * dec * 0.8));
+        x[a + i] += y * at * g;
+      }
+    }
+    return seam(normalise(x, 0.8));
+  },
+  // a police "whoop": one near-sine tone with two odd harmonics sweeping 550 -> 1450 Hz over 70 % of d, then falling
+  // back to 700 Hz, a little grit; from d >= 2.4 it repeats the whoop (one per 1.2 s). 20 ms in, 80 ms out. Default 1.2 s.
+  siren(r, d = 1.2) {
+    const x = buf(d), cyc = d >= 2.4 ? Math.floor(d / 1.2 + 0.001) : 1, L = d / cyc; let p = 0, gr = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, u = (t % L) / L;
+      const f = u < 0.7 ? 550 * Math.pow(1450 / 550, u / 0.7) : 1450 * Math.pow(700 / 1450, (u - 0.7) / 0.3);
+      gr += (r() * 2 - 1 - gr) * 0.05; // slow-ish random wobble of the pitch = grit
+      p += TAU * f * (1 + 0.012 * gr) / SR;
+      x[i] = (Math.sin(p) + 0.28 * Math.sin(3 * p) + 0.1 * Math.sin(5 * p) + 0.05 * (r() * 2 - 1)) * Math.min(1, t / 0.02, (d - t) / 0.08);
+    }
+    return seam(normalise(x, 0.8));
+  },
+  // a police siren far away, the slow two-tone wail: 650 <-> 950 Hz, 0.9 s a cycle, low-passed at 1.8 kHz, 12 dB
+  // under `siren` (a bed under a voice). Default 4 s.
+  sirenwail(r, d = 4) {
+    const x = buf(d), lp = biquad("lp", 1800, 0.7); let p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, f = 800 - 150 * Math.cos(TAU * t / 0.9); p += TAU * f / SR;
+      x[i] = run(lp, Math.sin(p) + 0.3 * Math.sin(2 * p) + 0.2 * Math.sin(3 * p) + 0.03 * (r() * 2 - 1)) * Math.min(1, t / 0.15, (d - t) / 0.15);
+    }
+    return seam(normalise(x, 0.255));
+  },
+  // a helicopter overhead: the rotor thump 11 a second (noise bursts band-passed round 90 Hz, each with a slap at
+  // 900 Hz) over a turbine whine near 1.6 kHz; swells in over 0.5 s and out over 0.5 s. Default 3 s.
+  chopper(r, d = 3) {
+    const x = buf(d), lo = biquad("bp", 90, 1.6), sl = biquad("bp", 900, 2), hi = biquad("bp", 1600, 12), sw = Math.min(0.5, d / 3); let p = 0;
+    const gains = Array.from({ length: Math.ceil(d * 11) + 1 }, () => 0.85 + 0.3 * r());
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.floor(t * 11), ph = t - k / 11, g = gains[k], n = r() * 2 - 1;
+      const thump = run(lo, n) * 7 * g * Math.min(1, ph / 0.004) * Math.exp(-ph / 0.03), slap = run(sl, n) * 1.2 * g * Math.min(1, ph / 0.001) * Math.exp(-ph / 0.012);
+      p += TAU * 1600 * (1 + 0.01 * Math.sin(TAU * 0.7 * t)) / SR;
+      const whine = Math.sin(p) * 0.05 + run(hi, n) * 0.13, s = Math.min(1, t / sw, (d - t) / sw);
+      x[i] = (thump + slap + whine) * s * s * (3 - 2 * s);
+    }
+    return seam(normalise(x, 0.8));
+  },
+  // a seagull's cry, "kee-yah, yah, yah": three falling squawks (0.22, 0.18, 0.18 s), each a nasal tone gliding
+  // 2.6 -> 1.6 kHz with a formant near 3 kHz and a fast vibrato; the gaps open out with d (0.9 s by default)
+  gull(r, d = 0.9) {
+    const x = buf(d), sc = d / 0.9; let bp = biquad("bp", 3000, 3);
+    for (const [t0, len] of [[0.04, 0.22], [0.36, 0.18], [0.6, 0.18]]) {
+      const a = Math.round(t0 * sc * SR), f1 = 2600 * (1 + 0.03 * (r() * 2 - 1)), f2 = 1600 * (1 + 0.03 * (r() * 2 - 1)); let p = 0;
+      for (let i = 0; i < len * SR && a + i < x.length; i++) {
+        const t = i / SR, u = t / len, f = (f1 + (f2 - f1) * Math.pow(u, 0.8)) * (1 + 0.05 * Math.sin(TAU * 32 * t));
+        p += TAU * f / SR; let y = 0;
+        for (let h = 1; h <= 4 && h * f < 12000; h++) y += Math.sin(h * p) / h / (1 + Math.pow((h * f - 3000) / 800, 2));
+        y = y * 1.6 + run(bp, r() * 2 - 1) * 0.25;
+        x[a + i] += y * Math.min(1, t / 0.012, (len - t) / 0.05) * (1 - 0.35 * u);
+      }
+    }
+    return seam(normalise(x, 0.7));
+  },
+  // a police radio keying: a 30 ms squelch click, band-passed static (700 Hz - 3 kHz) for the middle, then a short
+  // 1.2 kHz roger beep (80 ms) at the end. Default 0.5 s.
+  radio(r, d = 0.5) {
+    const x = buf(d), hp = biquad("hp", 700, 0.7), lp = biquad("lp", 3000, 0.7), lq = biquad("lp", 3000, 0.7), lp2 = biquad("lp", 3000, 0.7), b0 = d - 0.1, s1 = 0.03;
+    let am = 1;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1; let y = 0;
+      if (t < s1) y += run(lp2, n) * 1.6 * Math.exp(-t / 0.007) * Math.min(1, t / 0.0004) + Math.sin(TAU * 1900 * t) * 0.5 * Math.exp(-t / 0.004);
+      else if (t < b0 - 0.01) { if (i % 90 === 0) am = 0.55 + 0.45 * r(); y = run(lq, run(lp, run(hp, n))) * 1.5 * am * Math.min(1, (t - s1) / 0.01, (b0 - 0.01 - t) / 0.01); }
+      if (t >= b0 && t < b0 + 0.08) y += Math.sin(TAU * 1200 * t) * Math.min(1, (t - b0) / 0.004, (b0 + 0.08 - t) / 0.004) * 0.7;
+      x[i] = y;
+    }
+    return seam(normalise(x, 0.7));
+  },
+  // a net launcher: a dull compressed-air "pfft" (a 15 ms thump at 140 Hz, then noise low-passed from 6 kHz down to
+  // 900 Hz over 0.2 s), then a thin rope whistle rising to 2.5 kHz and fading. Default 0.6 s.
+  netshot(r, d = 0.6) {
+    const x = buf(d), tw = d - 0.2; let lp = biquad("lp", 6000, 0.7), p = 0;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / 0.2);
+      if (i % 32 === 0) lp = retune(lp, "lp", 6000 * Math.pow(900 / 6000, k), 0.8);
+      const thump = Math.sin(TAU * 140 * t) * Math.min(1, t / 0.002) * Math.exp(-t / 0.005) * 1.5;
+      const puff = run(lp, r() * 2 - 1) * 1.1 * Math.min(1, t / 0.004) * Math.exp(-t / 0.09);
+      const w = t - 0.17, u = Math.max(0, w) / (tw * 0.8);
+      p += TAU * (1300 + 1200 * Math.min(1, u) ** 0.7) / SR;
+      const whistle = w > 0 ? (Math.sin(p) * 0.3 + (r() * 2 - 1) * 0.02) * Math.min(1, w / 0.04, (d - t) / (tw * 0.45)) : 0;
+      x[i] = thump + puff + whistle;
+    }
+    return seam(normalise(x, 0.8));
+  },
+  // handcuffs closing: five quick ratchet clicks 45 ms apart, each a little higher, then one firmer metal clack
+  // (2.2 kHz + 5.1 kHz, 60 ms decay). Default 0.45 s.
+  cuffs(r, d = 0.45) {
+    const x = buf(d), bp = biquad("bp", 2400, 2.5);
+    for (let k = 0; k < 5; k++) {
+      const a = Math.round((0.012 + k * 0.045) * SR), f = 2300 * Math.pow(1.07, k), g = 0.8 + 0.2 * r(); let b = biquad("bp", f, 4);
+      for (let i = 0; i < 0.02 * SR && a + i < x.length; i++) {
+        const t = i / SR; x[a + i] += (run(b, r() * 2 - 1) * 1.4 * Math.exp(-t / 0.002) + Math.sin(TAU * f * t) * 1.0 * Math.exp(-t / 0.003)) * Math.min(1, t / 0.0003) * g;
+      }
+    }
+    const a = Math.round(0.26 * SR);
+    for (let i = 0; a + i < x.length; i++) {
+      const t = i / SR;
+      x[a + i] += (Math.sin(TAU * 2200 * t) * 0.8 + Math.sin(TAU * 5100 * t) * 0.5 + run(bp, r() * 2 - 1) * 1.4 * Math.exp(-t / 0.004)) * Math.min(1, t / 0.0005) * Math.exp(-t / 0.06) * Math.min(1, (d - 0.26 - t) / 0.03);
+    }
+    return seam(normalise(x, 0.8));
   },
 };
 

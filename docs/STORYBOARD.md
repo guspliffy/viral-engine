@@ -375,6 +375,10 @@ shots). Each beat without a `shot` gets one from its `kind` and who acts in it:
   strength come from its `env.json`. The camera must stay inside the painting: `engine/load.mjs` refuses a storyboard
   that shows a layer's edge, `node qa/env.mjs <sb>` lists the frames and `node qa/env.mjs --range <env>` the safe moves.
   Place the cast on the floor's painted ground (brown in the env's `review.png`), not behind a bank.
+  `"swap": [{ "at": 3, "env": "..." }]` changes the place at a cut. An entry may be a built room instead of a
+  painting: `{ "at": 0, "room": { "type": "nighthall", "pos": [0, 0, 3], "window": { "x": 0, "y": 1, "w": 1.9,
+  "h": 1.15 } } }` puts that set type inside the env set, moved by `pos`, with its own background colour;
+  `nighthall`'s `window` cuts a window with a night view into its far wall (place props behind the glass yourself).
 - **A living world** (`"set": { ..., "life": "auto" }`, on in the clip template; Jonny 7 Nov 2026): on an env set the
   wind runs through the grass and trees in gusts you also hear, the sky drifts and cloud shadows cross the far hills,
   a few sparrows peck on the ground far behind the cast and fly off at the clip's big loud moment (the payoff's

@@ -112,7 +112,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "office") return office(scene, { seed: 3, ...spec });
   if (type === "rooftop") return rooftop(scene, { seed: 3, ...spec });
   if (type === "plain") return plain(scene, spec);
-  if (type === "env") return buildEnv(scene, spec);   // set-env.js: a layered painted environment (assets/environments)
+  if (type === "env") return buildEnv(scene, spec, (g, room) => buildSetType(g, room, palette));   // set-env.js: a layered painted environment (assets/environments)
   return meadow(scene, spec, palette);
 }
 

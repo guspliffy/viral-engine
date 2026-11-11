@@ -70,6 +70,9 @@ const SIZE = {
   fork: { len: 0.25, r: 0.006 },                   // props-roast.js dinner fork standing on its tines: the thin pinch on its handle
   tablespoon: { len: 0.3, r: 0.007 },              // props-steak.js big spoon standing on its bowl's tip: the thin pinch on its handle
   corncob: { w: 0.24, h: 0.092, d: 0.092 },        // props-steak.js corn on the cob lying along x: both gloves on its two ends (box hold)
+  moneybag: { w: 0.3, h: 0.34, d: 0.26 },          // props-heist.js sack: both gloves hug its sides (box hold; widest at 0.16 up)
+  policetorch: { r: 0.028, h: 0.2 },               // props-heist.js torch's body: a fist round it (mug hold; build it upright with spec up: true, tip it 90 to point it)
+  producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
   coin: { len: -0.1417, r: 0.008 },                // props-money.js gold coin r 0.085, origin its CENTRE: thin hold, the default from 0.6 lands on the rim's bottom (0.6 x -0.1417 = -0.085), the pads on the two faces (half thickness 0.008)
   banknote: { len: 0.2, r: 0.002 },                // props-money.js one note standing on its short edge (0.1 wide, 0.2 tall), origin its bottom edge's middle: the thin pinch low on it (from 0.15)
   cashbrick: { w: 0.34, h: 0.11, d: 0.2 },         // props-money.js three bundles side by side, origin bottom centre: box hold (two palms on the ends); a one-hand top carry uses grips.rest(top: 0.11)
