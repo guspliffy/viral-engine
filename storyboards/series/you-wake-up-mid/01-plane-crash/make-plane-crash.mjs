@@ -68,17 +68,17 @@ const CAR = [-300, 80, 0];                                 // the bridge's broke
 // A potato is about 1 m wide and the frame is tall: two of them side by side need a wide lens or a long way back.
 const HALL_Z0 = 0.65;                                      // shot 1 only: the cabin sits 0.65 m forward, so a window is beside his face, not behind his head
 const CAM = {
-  wake: { pos: [1.05, 0.98, 2.9], look: [2.2, 1.15, 0.55], fov: 52, to: { pos: [1.15, 0.98, 2.6] }, dur: 3.0, ease: "out" },    // 01
-  masks: { pos: [1.56, 1.75, 3.55], look: [1.56, 0.95, 0.4], fov: 52 },                                                        // 02
-  count: { pos: [1.92, 1.9, -1.3], look: [1.78, 0.38, 6.7], fov: 50 },                                                          // 03
-  brace: { pos: [-0.48, 1.0, 0.45], look: [2.09, 0.78, 0.75], fov: 70 },                                                        // 04
+  wake: { pos: [1.05, 0.98, 2.9], look: [2.42, 1.15, 0.55], fov: 52, to: { pos: [1.15, 0.98, 2.6] }, dur: 3.0, ease: "out" },    // 01
+  masks: { pos: [1.56, 1.75, 3.55], look: [1.56, 0.95, 0.4], fov: 48 },                                                        // 02
+  count: { pos: [1.75, 1.9, -1.3], look: [1.35, 0.38, 6.7], fov: 50 },                                                          // 03
+  brace: { pos: [-0.48, 1.0, 0.7], look: [2.09, 0.85, 0.75], fov: 74 },                                                        // 04
   plough: { pos: [22, 12, 34], look: [60, 17, 0], fov: 40, to: { look: [42, 8, 0] }, dur: 1.5, ease: "linear" },                 // 05
-  impact: { pos: [-0.48, 1.0, -0.4], look: [2.09, 1.1, 1.0], fov: 72 },                                                         // 06
-  smoke: { pos: [0.42, 1.05, 6.4], look: [-0.15, 0.28, 1.5], fov: 40, roll: 4 },                                                // 07
+  impact: { pos: [-0.48, 1.1, 0.65], look: [2.09, 1.05, 1.0], fov: 76 },                                                         // 06
+  smoke: { pos: [0.25, 1.05, 6.4], look: [-0.31, 0.28, 1.5], fov: 46, roll: 4 },                                                // 07
   crawl: { pos: [0, 0.3, 10.4], look: [0, 1.29, 5.4], fov: 40 },                                                                // 08
   exit: { pos: [-0.3, 0.45, 6.4], look: [0.05, 1.45, 10.44], fov: 46 },                                                         // 08 reverse: the payoff of "seven"
-  slide: { pos: [-14, 1.2, 20], look: [-14.2, 0.71, 10], fov: 45 },                                                             // 09
-  safe: { pos: [-103, 0.7, 13.5], look: [-60, 1.5, 6], fov: 34 },                                                               // 10
+  slide: { pos: [-14, 1.2, 20], look: [-14.2, 0.85, 10], fov: 38 },                                                             // 09
+  safe: { pos: [-103, 0.7, 13.0], look: [0, -0.5, 0.4], fov: 34 },                                                               // 10
   close: { pos: [-26.8, 0.75, 9.7], look: [-15, 3.2, 5], fov: 40 },                                                             // 11
   car: { rig: "car", pos: [0.9, 1.75, 5.2], look: [0.45, 1.2, 0.3], fov: 30 },                                                  // 12
 };
@@ -110,15 +110,15 @@ const FRONT_SEATS = ["seatA1", "seatW", "seatA2", "seatB2"];
 const TRUNK = { x: -1.3, y: 2.56, z: 2.7 };               // Viking's suitcase, in the starboard bin over row 2
 const props = [
   { id: "hall", kind: "cabinhall", x: 0, y: 0, z: HALL_Z0, clear: [0], omit: [[0, "A"], [0, "B"], [1, "A"], [1, "B"], [2, "A"], [2, "B"]] },
-  { id: "smokeP", kind: "cabinsmoke", x: 0, y: 0, z: 0 },
-  { id: "eng", kind: "enginefire", x: 4.6, y: 1.45, z: 0.5, ...key("fire", 1) },
+  { id: "smokeP", kind: "cabinsmoke", x: 0, y: 0, z: 0, scale: 0 },   // scale 0 = off: at fill 0 it still paints the frame
+  { id: "eng", kind: "enginefire", x: 4.6, y: 1.45, z: 1.6, ...key("fire", 1) },
   { id: "seatA", ...SEATSPEC, x: AX, z: 0 }, { id: "seatB", ...SEATSPEC, x: BX, z: 0 },
   { id: "seatA1", ...SEATSPEC, x: AX, y: PARK, z: PITCH }, { id: "seatW", ...SEATSPEC, x: BX, y: PARK, z: PITCH },
   { id: "seatA2", ...SEATSPEC, x: AX, y: PARK, z: r3(2 * PITCH) }, { id: "seatB2", ...SEATSPEC, x: BX, y: PARK, z: r3(2 * PITCH) },
   { id: "belt", kind: "seatbelt", x: AX, z: 0, r: 0.4 },
   { id: "maskS", kind: "oxymask", ...MASK_UP(AX), anchor: anchor(AX) },
   { id: "maskV", kind: "oxymask", ...MASK_UP(BX), anchor: anchor(BX) },
-  { id: "maskW", kind: "oxymask", ...MASK_UP(AX), y: PARK, z: r3(PITCH + 0.4), anchor: anchor(AX, r3(PITCH + 0.4)) },
+  { id: "maskW", kind: "oxymask", ...MASK_UP(AX), z: r3(PITCH + 0.4), anchor: anchor(AX, r3(PITCH + 0.4)) },
   { id: "neck", kind: "neckmask", x: AX, y: PARK, z: 0.3 },
   { id: "phone", kind: "phone", x: r3(AX - 0.12), y: PARK, z: r3(PITCH - 0.42), rot: 20, tip: -80, scale: 1.7, case: "#2a2d36" },
   { id: "trunk", kind: "suitcase", ...TRUNK, tip: 90, color: "#7a4a25", rib: "#5c3518", scale: 1.5 },
@@ -134,7 +134,7 @@ const props = [
   { id: "jet", kind: "jetwreck", x: 0, y: PARK - 30, z: 0, rot: -90, ...key("fire", 1), ...key("brk", 1) },
   { id: "plume", kind: "snowfront", run: 0.5, scale: 0.55, firs: true },
   { id: "slideP", kind: "evacslide", x: DOOR[0], y: PARK - 30, z: DOOR[2], rot: -90, h: DOOR[1], len: 5.0, ...key("inflate", 1) },
-  { id: "blast", kind: "carburst", x: 0, y: 3, z: 0, at: T.boom, r: 16 },
+  { id: "blast", kind: "carburst", x: 0, y: 3, z: 0, at: T.boom, r: SAFE ? 11 : 16 },
   ...(SAFE ? [] : [{ id: "blast2", kind: "carburst", x: -15, y: 2, z: 7, at: r3(T.boom + 0.3), r: 9 }]),
   // the car shot
   { id: "bridge", kind: "bridgeend", x: CAR[0], y: CAR[1], z: CAR[2], at: r3(T.car - 0.3) },
@@ -166,7 +166,7 @@ const narr = (t, line, dur, chunks, y = SUBY) => {
 };
 // an on-screen clock in the lower left corner, counting down one second per second from `from` (seconds)
 const clock = (t0, t1, from) => { for (let k = 0; t0 + k < t1 - 1e-6; k++) { const s = Math.max(0, from - k); c.cap(r3(t0 + k), r3(Math.min(t1, t0 + k + 1)), `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`, 1265, false, { x: 205, size: 92, kinetic: false }); } };
-const num = (t, cam, p, text, o = {}) => c.at(t, { fx: "pop", text, xy: project(cam, p), size: 110, dur: 0.55, angle: 0, color: "#ffffff", ...o });
+const num = (t, cam, p, text, o = {}) => c.at(t, { fx: "pop", text, xy: project(cam, p), size: 110, dur: 0.3, angle: 0, color: "#ffffff", ...o });
 
 // ================================================================ 1 WAKE 0-3.0 (panel 01)
 for (const w of ["spud", "vik"]) A(0, w, "ride", { prop: `${w}C`, off: [0, SEAT, 0], yaw: 0, sit: true, dur: 0 });
@@ -174,6 +174,7 @@ A(0, "wiz", "ride", { prop: "wizC", off: [0, SEAT, 0], yaw: 0, sit: true, dur: 0
 both(0, "spud", "lap", 0); both(0, "vik", "lap", 0); both(0, "wiz", "lap", 0);
 A(0, "wiz", "hide");                                       // the camera sits in his row until the count
 A(0, "spud", "expr", { expr: "serene", dur: 0 }); A(0, "spud", "droop", { to: 0.6, dur: 0 });
+prop(0, "eng", key("fire", 1), 0, "linear");   // a key in the spec does not start it: keys are set by a tween
 sfx(0, "impact", { gain: 0.9, loud: true, reason: "frame 0: the bang that wakes him (the left engine blows)" });
 sfx(0, "rumble", { gain: 0.3, dur: r3(T.plough - 0.05), reason: "the cabin's engine rumble bed, to the crash" });
 sfx(0.05, "flamejet", { gain: 0.35, dur: 2.9, reason: "the engine burning outside his window" });
@@ -186,7 +187,7 @@ c.at(0.5, { fx: "sweat", who: "spud", dur: 0.9, count: 4 });
 A(1.55, "spud", "look", { to: [0, 0.05], dur: 0.16, blink: false }); A(1.6, "spud", "expr", { expr: "terrified", set: { open: 0.75 }, dur: 0.12 });
 A(2.35, "spud", "look", { to: [0.9, 0.1], dur: 0.14, blink: false });
 A(0, "vik", "expr", { expr: "shocked", set: { open: 0.3 }, dur: 0 }); A(0.2, "vik", "look", { to: [0.9, 0.2], dur: 0.2 });
-narr(0.05, "You wake up mid plane crash. Here is how you live.", DUR.wake, ["You wake up mid plane crash.", "Here is how you live."]);
+narr(0.05, "You wake up mid plane crash. Here is how you live.", DUR.wake, ["You wake up", "mid plane crash.", "Here is how you live."], [1290, 1290, 1120]);
 see(0, 1.2, ["spud.face", "eng"], "frame 0: his eyes snap open and the engine burns in his window");
 
 // ================================================================ 2 MASK FIRST 3.0-8.0 (panel 02)
@@ -201,7 +202,7 @@ for (let k = 0; k < 6; k++) sfx(r3(T.mask + 0.2 + k), "timer-beep", { gain: 0.3,
 both(T.mask - 0.3, "spud", "lap", 0.25);
 // Viking helps the row in front first, goes dizzy and slumps
 A(T.mask + 0.1, "vik", "look", { to: [0.2, 0.35], dur: 0.15, blink: false });
-c.arm(T.mask + 0.25, "vik", "L", { world: [r3(BX + 0.22), 1.32, 0.86] }, 0.4, "out");
+c.arm(T.mask + 0.25, "vik", "R", { world: [r3(BX - 0.3), 1.05, 0.9] }, 0.4, "out");
 A(T.mask + 0.3, "vik", "expr", { expr: "kind", set: { open: 0.2 }, dur: 0.2 });
 A(T.mask + 1.1, "vik", "expr", { expr: "dizzy", dur: 0.35 }); A(T.mask + 1.1, "vik", "lean", { to: 7, dur: 0.4 }); A(T.mask + 1.5, "vik", "lean", { to: -6, dur: 0.4 });
 A(T.mask + 1.9, "vik", "expr", { expr: "serene", set: { open: 0.12 }, dur: 0.25 }); A(T.mask + 1.9, "vik", "lean", { to: -13, dur: 0.45, ease: "in" }); A(T.mask + 1.9, "vik", "pitch", { to: 10, dur: 0.45, ease: "in" });
@@ -210,7 +211,7 @@ c.arm(T.mask + 1.9, "vik", "R", "rest", 0.4);
 A(T.mask + 0.2, "spud", "look", { to: [0, 0.7], dur: 0.14, blink: false });
 both(T.mask + 0.45, "spud", (s) => ({ world: [r3(AX + (s === "R" ? -0.1 : 0.1)), HANG, 0.42] }), 0.3, "out");
 prop(T.mask + 0.85, "maskS", { x: FACE_S[0], y: FACE_S[1], z: FACE_S[2], tilt: 0 }, 0.3, "inOut");
-both(T.mask + 0.85, "spud", (s) => ({ world: [r3(FACE_S[0] + (s === "R" ? -0.13 : 0.13)), FACE_S[1], r3(FACE_S[2] - 0.02)] }), 0.3, "inOut");
+both(T.mask + 0.85, "spud", (s) => ({ world: [r3(FACE_S[0] + (s === "R" ? -0.17 : 0.17)), r3(FACE_S[1] - 0.08), r3(FACE_S[2] - 0.02)] }), 0.3, "inOut");
 A(T.mask + 0.9, "spud", "look", { to: [0, 0], dur: 0.2, blink: false }); A(T.mask + 0.9, "spud", "expr", { expr: "focused", dur: 0.2 });
 A(T.mask + 1.2, "spud", "grab", { prop: "maskS", hand: "hat", keep: true });
 A(T.mask + 1.3, "spud", "squash", { amount: 0.05, dur: 0.5 });
@@ -232,25 +233,25 @@ see(T.mask + 1.9, T.mask + 3.2, ["vik.face"], "Viking, who helped others first, 
 // ================================================================ 3 COUNT THE ROWS 8.0-11.5 (panel 03)
 park(T.count, "seatA", "seatB");                           // the camera sits where their seat backs are
 for (const id of FRONT_SEATS) prop(cut(T.count), id, { y: 0 }, 0, "linear");   // the rows ahead are back
-A(cut(T.count), "wiz", "show"); prop(cut(T.count), "maskW", { y: HANG }, 0, "linear");
+A(cut(T.count), "wiz", "show"); seatOn(T.count, "wiz", AX, PITCH, 180, SEAT); prop(cut(T.count), "maskW", { y: HANG }, 0, "linear");
 A(T.count, "spud", "look", { to: [-0.2, 0.2], dur: 0.15 });
 c.arm(T.count + 0.3, "spud", "R", { world: [1.6, 1.45, 0.75] }, 0.35, "out"); A(T.count + 0.3, "spud", "grip", { side: "R", shape: "point", dur: 0.15 });
 A(T.count + 0.2, "vik", "look", { to: [0, 0.2], dur: 0.2 });
 for (let k = 1; k <= 7; k++) { const t = r3(T.count + 0.6 + 0.3 * k); num(t, CAM.count, [1.56, 1.72, rowZ(k)], String(k), { size: Math.round(150 - 12 * k) }); sfx(t, "tink", { gain: 0.3, reason: `he counts row ${k}` }); }
 c.arm(T.count + 2.95, "spud", "R", "lap", 0.4, "inOut"); A(T.count + 2.95, "spud", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
-narr(T.count + 0.1, "Count the rows to the exit. Seven.", DUR.count, ["Count the rows to the exit.", "Seven."]);
+narr(T.count + 0.1, "Count the rows to the exit. Seven.", DUR.count, ["Count the rows", "to the exit.", "Seven."]);
 
 // ================================================================ 4 BRACE 11.5-15.0 (panel 04)
 prop(cut(T.brace), "seatA", { y: 0 }, 0, "linear");        // his own seat is back; Viking's stays out: the camera looks from there
-A(cut(T.brace), "vik", "hide");
-A(cut(T.brace), "spud", "release", { prop: "maskS", to: [AX, PARK, 0.4], dur: 0 });   // down here he needs no mask: it hangs round his neck from now on
+A(cut(T.brace), "vik", "hide"); A(cut(T.brace), "vik", "release", { prop: "maskV", to: [BX, r3(OH_Y + 0.07), 0.4], dur: 0 });
+A(cut(T.brace), "spud", "release", { prop: "maskS", to: [AX, r3(OH_Y + 0.07), 0.4], dur: 0 });   // down here he needs no mask: it hangs round his neck from now on
 prop(cut(T.brace), "neck", { x: AX, y: 0.52, z: 0.4, tip: -50 }, 0, "linear");
 A(T.brace, "spud", "grab", { prop: "neck", hand: "hat", keep: true });
 prop(T.brace - 0.3, "hall", key("view", 1), 0.3);
-seatOn(T.brace, "wiz", AX, PITCH, 180, 0.44); park(T.brace, "seatW");   // the aisle seat of row 1 stands between the camera and the Wizard              // he kneels on his seat, turned round, filming
-prop(cut(T.brace), "phone", { y: 1.5 }, 0, "linear");
+seatOn(T.brace, "wiz", AX, r3(PITCH + 0.1), -90, 0.44); park(T.brace, "seatW");   // he kneels on his seat facing the aisle, filming himself; the aisle seat of row 1 stands between the camera and him
+prop(cut(T.brace), "phone", { x: r3(AX - 0.52), y: 1.5, z: r3(PITCH + 0.02), rot: 90, tip: 0 }, 0, "linear");
 c.arm(cut(T.brace), "wiz", "R", { prop: "phone", grip: [0, 0.07, 0] }, 0); A(cut(T.brace), "wiz", "grip", { side: "R", shape: "hold", dur: 0 });
-A(T.brace, "wiz", "expr", { expr: "eager", set: { open: 0.25 }, dur: 0 }); A(T.brace, "wiz", "look", { to: [-0.5, 0], dur: 0, blink: false });
+A(T.brace, "wiz", "expr", { expr: "happy", set: { open: 0.35 }, dur: 0 }); A(T.brace, "wiz", "look", { to: [0, 0.25], dur: 0, blink: false });
 A(T.brace, "spud", "look", { to: [0, -0.3], dur: 0.15 }); A(T.brace, "spud", "expr", { expr: "focused", dur: 0.15 });
 both(T.brace + 0.15, "spud", (s) => ({ o: [-0.02, 0.22, 0.3] }), 0.3, "inOut");
 sfx(T.brace + 0.5, "click", { gain: 0.5, reason: "the belt pulled tight" });
@@ -267,7 +268,7 @@ see(T.brace + 2.5, T.brace + 4.2, ["spud", "wiz.face", "phone"], "the brace posi
 // ================================================================ 5 THE PLOUGH 15.0-16.6 (panel 05)
 const jetAt = (u) => { const q = ridePath(u); return { x: r3(q.at[0]), y: r3(q.at[1]), z: r3(q.at[2]), tip: r3(q.pitch) }; };
 const U0 = 0.5, U1 = 0.76, PL = T.impact - T.plough;
-prop(cut(T.plough), "jet", jetAt(U0), 0, "linear"); prop(cut(T.plough), "plume", { run: U0 }, 0, "linear");
+prop(cut(T.plough), "jet", { ...jetAt(U0), ...key("brk", 1), ...key("fire", 1) }, 0, "linear"); prop(cut(T.plough), "plume", { run: U0 }, 0, "linear");
 for (let k = 0; k < 4; k++) { const a = U0 + ((U1 - U0) * (k + 1)) / 4; prop(r3(T.plough + (PL * k) / 4), "jet", jetAt(a), r3(PL / 4), "linear"); prop(r3(T.plough + (PL * k) / 4), "plume", { run: r3(a) }, r3(PL / 4), "linear"); }
 shake(T.plough, 0.05, 1.5);
 sfx(T.plough, "slam", { gain: 0.95, loud: true, reason: "the belly hits the forest" });
@@ -275,7 +276,7 @@ sfx(T.plough + 0.05, "rumble", { gain: 0.8, dur: 3.6, reason: "the plane ploughi
 sfx(T.plough + 0.5, "crumble", { gain: 0.6, reason: "trees snapping" }); sfx(T.plough + 1.0, "crumble", { gain: 0.6, reason: "trees snapping" });
 
 // ================================================================ 6 IMPACT INSIDE 16.6-19.0 (panel 06)
-park(T.impact, "maskW");
+prop(cut(T.impact), "maskW", { y: r3(OH_Y + 0.07) }, 0, "linear");
 prop(T.impact + 0.05, "hall", key("bins", 1), 0.15, "out");
 shake(T.impact, 0.1, 0.6); shake(T.impact + 0.75, 0.07, 0.4); shake(T.impact + 1.35, 0.04, 0.4);
 sfx(T.impact, "impact", { gain: 0.9, loud: true, reason: "the cabin slams through the trees" });
@@ -285,10 +286,10 @@ A(T.impact + 0.02, "spud", "squash", { amount: 0.14, dur: 0.3 }); A(T.impact + 0
 // the Wizard, upright and unbelted, goes over the seat in front; his phone flies
 c.throw(T.impact + 0.04, "phone", { v: [-0.7, 2.4, 3.2], spin: [9, 3, 6] });
 A(T.impact + 0.02, "wiz", "expr", { expr: "terrified", set: { open: 0.8 }, dur: 0.06 }); both(T.impact + 0.04, "wiz", () => ({ o: [0.36, 0.55, 0.3] }), 0.12, "out");
-prop(T.impact + 0.04, "wizC", { z: r3(PITCH + 0.52) }, 0.16, "linear"); A(T.impact + 0.04, "wiz", "pitch", { to: -30, dur: 0.16, ease: "linear" });
+prop(T.impact + 0.04, "wizC", { z: r3(PITCH + 0.42) }, 0.16, "linear"); A(T.impact + 0.04, "wiz", "lean", { to: -32, dur: 0.16, ease: "linear" });
 sfx(T.impact + 0.2, "thud-soft", { gain: 0.7, reason: "the Wizard slams into the seat in front" });
 A(T.impact + 0.2, "wiz", "squash", { amount: 0.16, dur: 0.3 });
-prop(T.impact + 0.22, "wizC", { z: r3(PITCH + 0.3) }, 0.4, "out"); A(T.impact + 0.22, "wiz", "pitch", { to: 22, dur: 0.5, ease: "inOut" });
+prop(T.impact + 0.22, "wizC", { z: r3(PITCH + 0.3) }, 0.4, "out"); A(T.impact + 0.22, "wiz", "lean", { to: 14, dur: 0.5, ease: "inOut" }); A(T.impact + 0.22, "wiz", "pitch", { to: 16, dur: 0.5, ease: "inOut" });
 A(T.impact + 0.5, "wiz", "expr", { expr: "dizzy", dur: 0.2 }); both(T.impact + 0.5, "wiz", "rest", 0.3);
 prop(T.impact + 1.2, "hall", key("lights", 0.15), 0.06); prop(T.impact + 1.3, "hall", key("lights", 0.8), 0.06); prop(T.impact + 1.42, "hall", key("lights", 0.2), 0.1);
 prop(T.impact + 1.5, "hall", key("view", 2), 0.4);
@@ -303,7 +304,7 @@ prop(cut(T.smoke), "seatB", { y: 0 }, 0, "linear"); prop(cut(T.smoke), "seatW", 
 A(cut(T.smoke), "vik", "show");
 standOn(T.smoke, "spud", 0.32, 0.9, 0); standOn(T.smoke, "vik", -0.3, 2.9, -55);
 A(cut(T.smoke), "spud", "pitch", { to: 0, dur: 0 }); A(cut(T.smoke), "vik", "pitch", { to: 0, dur: 0 }); A(cut(T.smoke), "vik", "lean", { to: 0, dur: 0 });
-prop(cut(T.smoke), "smokeP", { ...key("fill", 0.2), ...key("fire", 0.5) }, 0, "linear");
+prop(cut(T.smoke), "smokeP", { scale: 1, ...key("fill", 0.2), ...key("fire", 0.5) }, 0, "linear");
 prop(T.smoke, "smokeP", { ...key("fill", 0.55), ...key("fire", 0.85) }, r3(T.crawl - T.smoke - 0.1), "linear");
 sfx(T.smoke, "flamejet", { gain: 0.3, dur: r3(T.slide - T.smoke - 0.1), reason: "fire at the back of the cabin" });
 clock(r3(T.smoke + 0.15), T.crawl, 90);
@@ -321,7 +322,7 @@ A(T.smoke + 1.3, "spud", "expr", { expr: "angry", set: { open: 0.45 }, dur: 0.15
 A(T.smoke + 2.2, "spud", "hop", { count: 2, height: 0.07, dur: 0.5 });
 A(T.smoke + 3.0, "spud", "look", { to: [0, 0.8], dur: 0.15 }); A(T.smoke + 3.1, "spud", "expr", { expr: "shocked", set: { open: 0.1 }, dur: 0.15 });
 c.arm(T.smoke + 3.3, "spud", "R", "rest", 0.3); A(T.smoke + 3.3, "spud", "crouch", { to: 0.6, dur: 0.4 }); A(T.smoke + 3.3, "spud", "pitch", { to: 35, dur: 0.45 });
-narr(T.smoke + 0.15, "Ninety seconds to get out. Leave everything.", DUR.ninety, ["Ninety seconds to get out.", "Leave everything."]);
+narr(T.smoke + 0.15, "Ninety seconds to get out. Leave everything.", DUR.ninety, ["Ninety seconds", "to get out.", "Leave everything."]);
 see(T.smoke + 1.0, T.smoke + 3.0, ["vik", "trunk", "spud.face"], "Viking and his suitcase fill the aisle; Spud is stuck behind him");
 
 // ================================================================ 8 STAY LOW 23.0-27.0 (panel 08, then the reverse)
@@ -334,7 +335,7 @@ function crawl(who, t0, t1, x, z0, z1, { y = -0.05, tip = 38 } = {}) {
   for (let t = t0, k = 0; t < t1 - 0.3; t += 0.42, k++) { c.arm(r3(t), who, k % 2 ? "L" : "R", { o: [0.12, 0.3, 0.52] }, 0.2, "out"); c.arm(r3(t + 0.21), who, k % 2 ? "L" : "R", { o: [0.14, 0.12, 0.2] }, 0.2, "in"); }
 }
 prop(cut(T.crawl), "smokeP", { ...key("fill", 1), ...key("fire", 1) }, 0, "linear");
-crawl("spud", T.crawl, T.exit, 0.18, 5.6, 7.6);
+crawl("spud", T.crawl, T.exit, 0.18, 5.2, 6.8);
 crawl("vik", T.crawl, T.exit, -0.22, 3.2, 5.2);
 crawl("wiz", T.crawl, T.exit, 0.15, 0.8, 2.8);
 prop(cut(T.crawl), "trunk", { x: -0.22, y: 0.3, z: 2.1, tip: 90 }, 0, "linear"); prop(T.crawl, "trunk", { z: 4.1 }, r3(T.exit - T.crawl), "linear");
@@ -343,7 +344,7 @@ A(T.crawl, "spud", "expr", { expr: "focused", dur: 0 }); A(T.crawl, "spud", "loo
 A(T.crawl, "vik", "expr", { expr: "annoyed", dur: 0 }); A(T.crawl, "wiz", "expr", { expr: "dizzy", dur: 0 });
 clock(r3(T.crawl + 0.05), T.exit, 50);
 for (const [k, t] of [[4, T.crawl + 0.6], [5, T.crawl + 1.5], [6, T.crawl + 2.4]]) { num(r3(t), CAM.crawl, [0.55, 0.75, r3(rowZ(k) + 0.2)], String(k), { size: 120 + 14 * (k - 4) }); sfx(r3(t), "pat", { gain: 0.5, reason: `his hand finds seat ${k}` }); }
-narr(T.crawl + 0.1, "Stay low. You cannot see. But you counted.", DUR.low, ["Stay low.", "You cannot see.", "But you counted."], 640);
+narr(T.crawl + 0.1, "Stay low. You cannot see. But you counted.", DUR.low, ["Stay low.", "You cannot see.", "But you counted."], [640, 640, 780]);
 see(T.crawl + 0.4, T.exit - 0.2, ["spud.face"], "Spud crawls under the smoke, a hand on each seat");
 // the reverse: the seventh seat, and the green sign comes out of the smoke
 crawl("spud", T.exit, T.slide, 0.18, 8.9, 9.5);
@@ -351,7 +352,7 @@ for (const w of ["vik", "wiz"]) { A(cut(T.exit), w, "hide"); A(cut(T.slide), w, 
 park(T.exit, "trunk");
 prop(cut(T.exit), "hall", key("sign", 0.25), 0, "linear");
 c.arm(T.exit + 0.25, "spud", "L", { world: [0.6, 0.55, 9.6] }, 0.2, "out");
-num(r3(T.exit + 0.45), CAM.exit, [0.55, 0.95, 9.6], "7", { size: 190 }); sfx(T.exit + 0.45, "pat", { gain: 0.6, reason: "seat seven" });
+num(r3(T.exit + 0.45), CAM.exit, [0.55, 0.95, 9.6], "7", { size: 190, dur: 0.9 }); sfx(T.exit + 0.45, "pat", { gain: 0.6, reason: "seat seven" });
 prop(T.exit + 0.5, "hall", key("sign", 1), 0.35, "out"); sfx(T.exit + 0.55, "ding", { gain: 0.4, reason: "the EXIT sign shows through the smoke" });
 prop(T.exit + 0.8, "hall", key("door", 1), 0.4, "out"); sfx(T.exit + 0.8, "doorslide", { gain: 0.5, reason: "the exit door opens" });
 clock(r3(T.exit), T.slide, 47);
@@ -359,9 +360,9 @@ c.at(r3(T.slide - 0.1), { fx: "flash", peak: 0.7, dur: 0.2, sound: false });
 
 // ================================================================ 9 DOWN THE SLIDE 27.0-29.4 (panel 09)
 park(T.slide, "hall", "smokeP", "seatA", "seatB", ...FRONT_SEATS, "eng", "plume", "bag1", "bag2", "bag3", "phone");
-A(cut(T.slide), "vik", "release", { prop: "maskV", to: [BX, PARK, 0.4], dur: 0 });
+prop(cut(T.slide), "smokeP", { scale: 0 }, 0, "linear");
 prop(cut(T.slide), "jet", { x: 0, y: 0, z: 0, tip: 0, ...key("brk", 0), ...key("fire", 1) }, 0, "linear");
-prop(cut(T.slide), "slideP", { y: DOOR[1] }, 0, "linear");
+prop(cut(T.slide), "slideP", { y: DOOR[1], ...key("inflate", 1) }, 0, "linear");
 sfx(T.slide, "windswell", { gain: 0.12, dur: r3(T.car - T.slide), reason: "the cold wind over the snow" });
 sfx(T.slide, "flamejet", { gain: 0.4, dur: r3(T.boom - T.slide), reason: "the wreck burning" });
 // Spud at the bottom, hauling the dazed Wizard away from the smoke: both hold a point that travels between them
@@ -395,6 +396,7 @@ see(T.slide + 0.3, T.far - 0.2, ["spud.face", "wiz", "slideP"], "out of the door
 
 // ================================================================ 10 / 11 THE BLAST 29.4-: two endings
 park(T.far, "slideP");
+prop(cut(T.boom), "blast", { on: 1 }, 0, "linear"); if (!SAFE) prop(cut(T.boom + 0.3), "blast2", { on: 1 }, 0, "linear");
 sfx(T.boom, "impact", { gain: 1, loud: true, reason: "0:00: the wreck blows up" }); sfx(T.boom + 0.05, "rumble", { gain: 0.9, dur: 2.2, reason: "the blast rolling over the valley" });
 c.at(T.boom, { fx: "flash", peak: 0.55, dur: 0.14, sound: false });
 if (SAFE) {
@@ -416,7 +418,7 @@ if (SAFE) {
   prop(D, "vikC", { x: -95.4, y: -0.3 }, 0.32, "out"); A(D, "vik", "pitch", { to: 82, dur: 0.32, ease: "in" }); prop(D, "trunk", { x: -96.3, y: 0.1, tip: 60 }, 0.32, "out");
   for (const [x, z] of [[-97.3, 12.6], [-96.2, 13.6], [-95.4, 10.9]]) act.landDust(c, r3(D + 0.28), [x, z], { color: "#f4f7fb", puffs: 10 });
   sfx(D + 0.28, "thud-soft", { gain: 0.6, reason: "they land face-first in the snow" });
-  A(D + 1.0, "spud", "pitch", { to: 62, dur: 0.45, ease: "inOut" }); A(D + 1.05, "spud", "look", { to: [0, 0.35], dur: 0.2 });
+  A(D + 1.0, "spud", "pitch", { to: 32, dur: 0.45, ease: "inOut" }); A(D + 1.0, "spud", "move", { to: [-97.3, 12.6], y: -0.06, dur: 0.45, steps: 0, ease: "inOut" }); A(D + 1.05, "spud", "look", { to: [0, 0.35], dur: 0.2 });
   A(D + 1.1, "spud", "expr", { expr: "shocked", set: { open: 0.25 }, dur: 0.25 });
   A(D + 1.7, "spud", "expr", { expr: "sad", set: { open: 0.12, curve: 0.15 }, dur: 0.3 }); A(D + 1.7, "spud", "droop", { to: 1, dur: 0.5 });
   A(T.car - 0.4, "spud", "expr", { expr: "serene", dur: 0.25 });
@@ -424,7 +426,7 @@ if (SAFE) {
   see(D + 1.0, T.car - 0.1, ["spud.face", "blast"], "the wreck burns far behind him and he is alive");
 } else {
   // B: he stops a short way off to look back. The clock runs out behind him
-  const B0 = [-24, 9];
+  const B0 = [-24.2, 8.5];
   A(cut(T.far), "spud", "move", { to: B0, dur: 0.01, steps: 0, ease: "linear" }); A(cut(T.far), "spud", "turn", { to: 40, dur: 0.01, ease: "linear" });
   c.arm(cut(T.far), "spud", "L", "rest", 0); c.arm(cut(T.far), "spud", "R", "rest", 0);
   A(T.far, "spud", "expr", { expr: "shocked", set: { open: 0.2 }, dur: 0 }); A(T.far, "spud", "look", { to: [0.5, 0.3], dur: 0, blink: false });
@@ -456,7 +458,7 @@ A(T.car + 0.12, "spud2", "squash", { amount: 0.1, dur: 0.25 }); A(T.car + 0.5, "
 c.at(r3(T.car + 0.3), { fx: "sweat", who: "spud2", dur: 0.9, count: 4 });
 sfx(T.car, "screech", { gain: 0.8, loud: true, reason: "the smash cut: tyres leaving the broken bridge" });
 sfx(T.car + 0.05, "windswell", { gain: 0.6, dur: 1.7, reason: "the car in the air" });
-narr(T.car + 0.2, "You wake up mid car crash.", DUR.car, ["You wake up mid car crash."]);
+narr(T.car + 0.2, "You wake up mid car crash.", DUR.car, ["You wake up", "mid car crash."], 1290);
 see(T.car + 0.15, T.end, ["spud2.face", "wheel"], "the same eyes snap open at the wheel of a car in mid-air");
 
 // ---------------------------------------------------------------- shots
@@ -483,7 +485,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [470, 1360],
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
-  set: { type: "snowslope", dark: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
+  set: { type: "snowslope", dark: 0, para: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   music: MUSIC,
   sound: { sfx: 0.65, ambience: 0.06, guard: true },
   creative: { length: [T.end, T.end] },

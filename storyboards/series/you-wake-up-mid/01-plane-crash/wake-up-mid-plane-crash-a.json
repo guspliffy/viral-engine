@@ -30,6 +30,7 @@
  "set": {
   "type": "snowslope",
   "dark": 0,
+  "para": 0,
   "aperture": 0,
   "focus": false,
   "bloom": "emissive",
@@ -208,14 +209,15 @@
    "kind": "cabinsmoke",
    "x": 0,
    "y": 0,
-   "z": 0
+   "z": 0,
+   "scale": 0
   },
   {
    "id": "eng",
    "kind": "enginefire",
    "x": 4.6,
    "y": 1.45,
-   "z": 0.5,
+   "z": 1.6,
    "fire": 1
   },
   {
@@ -317,7 +319,7 @@
    "id": "maskW",
    "kind": "oxymask",
    "x": 2.09,
-   "y": -40,
+   "y": 2.42,
    "z": 1.75,
    "anchor": [
     2.09,
@@ -443,7 +445,7 @@
    "y": 3,
    "z": 0,
    "at": 33.1,
-   "r": 16
+   "r": 11
   },
   {
    "id": "bridge",
@@ -496,15 +498,24 @@
  "captions": [
   {
    "from": 0.05,
-   "to": 2.41,
-   "text": "You wake up mid plane crash.",
-   "pos": 1120,
+   "to": 0.996,
+   "text": "You wake up",
+   "pos": 1290,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 2.41,
+   "from": 0.996,
+   "to": 2.373,
+   "text": "mid plane crash.",
+   "pos": 1290,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.373,
    "to": 4.43,
    "text": "Here is how you live.",
    "pos": 1120,
@@ -610,15 +621,24 @@
   },
   {
    "from": 9,
-   "to": 11.618,
-   "text": "Count the rows to the exit.",
+   "to": 10.4,
+   "text": "Count the rows",
    "pos": 1120,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 11.618,
+   "from": 10.4,
+   "to": 11.6,
+   "text": "to the exit.",
+   "pos": 1120,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.6,
    "to": 12.45,
    "text": "Seven.",
    "pos": 1120,
@@ -704,15 +724,24 @@
   },
   {
    "from": 20.55,
-   "to": 22.842,
-   "text": "Ninety seconds to get out.",
+   "to": 21.813,
+   "text": "Ninety seconds",
    "pos": 1120,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 22.842,
+   "from": 21.813,
+   "to": 22.806,
+   "text": "to get out.",
+   "pos": 1120,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 22.806,
    "to": 24.59,
    "text": "Leave everything.",
    "pos": 1120,
@@ -772,7 +801,7 @@
    "from": 27.308,
    "to": 29.43,
    "text": "But you counted.",
-   "pos": 640,
+   "pos": 780,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -895,9 +924,18 @@
   },
   {
    "from": 36.7,
+   "to": 37.866,
+   "text": "You wake up",
+   "pos": 1290,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 37.866,
    "to": 39.6,
-   "text": "You wake up mid car crash.",
-   "pos": 1120,
+   "text": "mid car crash.",
+   "pos": 1290,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -915,7 +953,7 @@
      2.9
     ],
     "look": [
-     2.2,
+     2.42,
      1.15,
      0.55
     ],
@@ -1038,6 +1076,16 @@
      "do": "droop",
      "to": 0.6,
      "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1316,7 +1364,7 @@
      0.95,
      0.4
     ],
-    "fov": 52
+    "fov": 48
    },
    "do": [
     {
@@ -1386,12 +1434,12 @@
     {
      "who": "vik",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "world": [
-       1.25,
-       1.32,
-       0.86
+       0.73,
+       1.05,
+       0.9
       ]
      },
      "dur": 0.4,
@@ -1517,8 +1565,8 @@
      "side": "R",
      "pose": {
       "world": [
-       1.96,
-       0.81,
+       1.92,
+       0.73,
        0.43
       ]
      },
@@ -1532,8 +1580,8 @@
      "side": "L",
      "pose": {
       "world": [
-       2.22,
-       0.81,
+       2.26,
+       0.73,
        0.43
       ]
      },
@@ -1891,6 +1939,33 @@
     },
     {
      "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": 2.09,
+      "y": 0,
+      "z": 1.35,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.68
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "wizC",
+     "off": [
+      0,
+      0.3,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 5.68
+    },
+    {
+     "do": "prop",
      "id": "maskW",
      "set": {
       "y": 1.55
@@ -1907,12 +1982,12 @@
    "len": 3.4,
    "shot": {
     "pos": [
-     1.92,
+     1.75,
      1.9,
      -1.3
     ],
     "look": [
-     1.78,
+     1.35,
      0.38,
      6.7
     ],
@@ -1973,11 +2048,11 @@
      "fx": "pop",
      "text": "1",
      "xy": [
-      784,
+      585,
       712
      ],
      "size": 138,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.9
@@ -1992,11 +2067,11 @@
      "fx": "pop",
      "text": "2",
      "xy": [
-      690,
+      535,
       664
      ],
      "size": 126,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.2
@@ -2011,11 +2086,11 @@
      "fx": "pop",
      "text": "3",
      "xy": [
-      644,
-      640
+      510,
+      641
      ],
      "size": 114,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.5
@@ -2030,11 +2105,11 @@
      "fx": "pop",
      "text": "4",
      "xy": [
-      615,
+      495,
       626
      ],
      "size": 102,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.8
@@ -2049,11 +2124,11 @@
      "fx": "pop",
      "text": "5",
      "xy": [
-      597,
-      616
+      485,
+      617
      ],
      "size": 90,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.1
@@ -2068,11 +2143,11 @@
      "fx": "pop",
      "text": "6",
      "xy": [
-      583,
+      478,
       610
      ],
      "size": 78,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.4
@@ -2087,11 +2162,11 @@
      "fx": "pop",
      "text": "7",
      "xy": [
-      573,
-      604
+      473,
+      605
      ],
      "size": 66,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.7
@@ -2145,12 +2220,24 @@
      "at": 3.38
     },
     {
+     "who": "vik",
+     "do": "release",
+     "prop": "maskV",
+     "to": [
+      1.03,
+      2.42,
+      0.4
+     ],
+     "dur": 0,
+     "at": 3.38
+    },
+    {
      "who": "spud",
      "do": "release",
      "prop": "maskS",
      "to": [
       2.09,
-      -40,
+      2.42,
       0.4
      ],
      "dur": 0,
@@ -2175,8 +2262,8 @@
      "set": {
       "x": 2.09,
       "y": 0,
-      "z": 1.35,
-      "rot": 180
+      "z": 1.45,
+      "rot": -90
      },
      "dur": 0,
      "ease": "linear",
@@ -2210,7 +2297,11 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "y": 1.5
+      "x": 1.57,
+      "y": 1.5,
+      "z": 1.37,
+      "rot": 90,
+      "tip": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -2249,14 +2340,14 @@
     "pos": [
      -0.48,
      1,
-     0.45
+     0.7
     ],
     "look": [
      2.09,
-     0.78,
+     0.85,
      0.75
     ],
-    "fov": 70
+    "fov": 74
    },
    "do": [
     {
@@ -2270,9 +2361,9 @@
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "eager",
+     "expr": "happy",
      "set": {
-      "open": 0.25
+      "open": 0.35
      },
      "dur": 0,
      "at": 0
@@ -2281,8 +2372,8 @@
      "who": "wiz",
      "do": "look",
      "to": [
-      -0.5,
-      0
+      0,
+      0.25
      ],
      "dur": 0,
      "blink": false,
@@ -2459,7 +2550,9 @@
       "x": 70,
       "y": 23.094,
       "z": 0,
-      "tip": 30
+      "tip": 30,
+      "broken": 1,
+      "fire": 1
      },
      "dur": 0,
      "ease": "linear",
@@ -2632,7 +2725,7 @@
      "do": "prop",
      "id": "maskW",
      "set": {
-      "y": -40
+      "y": 2.42
      },
      "dur": 0,
      "ease": "linear",
@@ -2648,15 +2741,15 @@
    "shot": {
     "pos": [
      -0.48,
-     1,
-     -0.4
+     1.1,
+     0.65
     ],
     "look": [
      2.09,
-     1.1,
+     1.05,
      1
     ],
-    "fov": 72
+    "fov": 76
    },
    "do": [
     {
@@ -2739,7 +2832,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "z": 1.87
+      "z": 1.77
      },
      "dur": 0.16,
      "ease": "linear",
@@ -2747,8 +2840,8 @@
     },
     {
      "who": "wiz",
-     "do": "pitch",
-     "to": -30,
+     "do": "lean",
+     "to": -32,
      "dur": 0.16,
      "ease": "linear",
      "at": 0.04
@@ -2842,8 +2935,16 @@
     },
     {
      "who": "wiz",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
      "do": "pitch",
-     "to": 22,
+     "to": 16,
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.22
@@ -3095,6 +3196,7 @@
      "do": "prop",
      "id": "smokeP",
      "set": {
+      "scale": 1,
       "fill": 0.2,
       "fire": 0.5
      },
@@ -3139,16 +3241,16 @@
    "len": 4,
    "shot": {
     "pos": [
-     0.42,
+     0.25,
      1.05,
      6.4
     ],
     "look": [
-     -0.15,
+     -0.31,
      0.28,
      1.5
     ],
-    "fov": 40,
+    "fov": 46,
     "roll": 4
    },
    "do": [
@@ -3405,7 +3507,7 @@
      "set": {
       "x": 0.18,
       "y": 0,
-      "z": 5.6,
+      "z": 5.2,
       "rot": 0
      },
      "dur": 0,
@@ -3577,7 +3679,7 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "z": 7.6
+      "z": 6.8
      },
      "dur": 3,
      "ease": "linear",
@@ -3802,7 +3904,7 @@
       1230
      ],
      "size": 120,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.6
@@ -4046,7 +4148,7 @@
       1134
      ],
      "size": 134,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.5
@@ -4245,7 +4347,7 @@
       919
      ],
      "size": 148,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.4
@@ -4521,7 +4623,7 @@
       1163
      ],
      "size": 190,
-     "dur": 0.55,
+     "dur": 0.9,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.45
@@ -4797,15 +4899,13 @@
      "at": 1.78
     },
     {
-     "who": "vik",
-     "do": "release",
-     "prop": "maskV",
-     "to": [
-      1.03,
-      -40,
-      0.4
-     ],
+     "do": "prop",
+     "id": "smokeP",
+     "set": {
+      "scale": 0
+     },
      "dur": 0,
+     "ease": "linear",
      "at": 1.78
     },
     {
@@ -4827,7 +4927,8 @@
      "do": "prop",
      "id": "slideP",
      "set": {
-      "y": 1.475
+      "y": 1.475,
+      "on": 1
      },
      "dur": 0,
      "ease": "linear",
@@ -5062,10 +5163,10 @@
     ],
     "look": [
      -14.2,
-     0.71,
+     0.85,
      10
     ],
-    "fov": 45
+    "fov": 38
    },
    "do": [
     {
@@ -5362,12 +5463,12 @@
     "pos": [
      -103,
      0.7,
-     13.5
+     13
     ],
     "look": [
-     -60,
-     1.5,
-     6
+     0,
+     -0.5,
+     0.4
     ],
     "fov": 34
    },
@@ -5424,6 +5525,16 @@
      "dur": 1.7,
      "ease": "linear",
      "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "blast",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.38
     },
     {
      "sfx": "impact",
@@ -5654,8 +5765,21 @@
     {
      "who": "spud",
      "do": "pitch",
-     "to": 62,
+     "to": 32,
      "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -97.3,
+      12.6
+     ],
+     "y": -0.06,
+     "dur": 0.45,
+     "steps": 0,
      "ease": "inOut",
      "at": 2.7
     },

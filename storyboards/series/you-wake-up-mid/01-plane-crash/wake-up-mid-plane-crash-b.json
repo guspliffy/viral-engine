@@ -30,6 +30,7 @@
  "set": {
   "type": "snowslope",
   "dark": 0,
+  "para": 0,
   "aperture": 0,
   "focus": false,
   "bloom": "emissive",
@@ -143,7 +144,7 @@
    "id": "wiz",
    "character": "notyet/wizard-nostaff",
    "at": [
-    1.03,
+    2.09,
     1.35
    ],
    "face": 180,
@@ -172,7 +173,10 @@
    "kind": "cabinhall",
    "x": 0,
    "y": 0,
-   "z": 0,
+   "z": 0.65,
+   "clear": [
+    0
+   ],
    "omit": [
     [
      0,
@@ -205,14 +209,15 @@
    "kind": "cabinsmoke",
    "x": 0,
    "y": 0,
-   "z": 0
+   "z": 0,
+   "scale": 0
   },
   {
    "id": "eng",
    "kind": "enginefire",
-   "x": 6,
-   "y": 1.9,
-   "z": -1.3,
+   "x": 4.6,
+   "y": 1.45,
+   "z": 1.6,
    "fire": 1
   },
   {
@@ -313,11 +318,11 @@
   {
    "id": "maskW",
    "kind": "oxymask",
-   "x": 1.03,
-   "y": -40,
+   "x": 2.09,
+   "y": 2.42,
    "z": 1.75,
    "anchor": [
-    1.03,
+    2.09,
     2.34,
     1.75
    ]
@@ -332,7 +337,7 @@
   {
    "id": "phone",
    "kind": "phone",
-   "x": 0.91,
+   "x": 1.97,
    "y": -40,
    "z": 0.93,
    "rot": 20,
@@ -394,7 +399,7 @@
   {
    "id": "wizC",
    "kind": "carrier",
-   "x": 1.03,
+   "x": 2.09,
    "y": 0,
    "z": 1.35
   },
@@ -485,8 +490,8 @@
    "kind": "steer",
    "rig": "car",
    "x": 0.55,
-   "y": 0.88,
-   "z": 0.63,
+   "y": 0.62,
+   "z": 0.7,
    "tip": 34
   },
   {
@@ -494,23 +499,32 @@
    "kind": "neckmask",
    "rig": "car",
    "x": 0.55,
-   "y": 0.62,
-   "z": 0.6,
-   "tip": -60
+   "y": 0.68,
+   "z": 0.44,
+   "tip": -50
   }
  ],
  "captions": [
   {
    "from": 0.05,
-   "to": 2.41,
-   "text": "You wake up mid plane crash.",
-   "pos": 1120,
+   "to": 0.996,
+   "text": "You wake up",
+   "pos": 1290,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 2.41,
+   "from": 0.996,
+   "to": 2.373,
+   "text": "mid plane crash.",
+   "pos": 1290,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.373,
    "to": 4.43,
    "text": "Here is how you live.",
    "pos": 1120,
@@ -559,8 +573,28 @@
    "kinetic": false
   },
   {
+   "from": 7.4,
+   "to": 8.4,
+   "text": "0:26",
+   "pos": 1265,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 8.4,
+   "to": 8.9,
+   "text": "0:25",
+   "pos": 1265,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
    "from": 4.3,
-   "to": 5.025,
+   "to": 5.036,
    "text": "Mask first.",
    "pos": 1120,
    "pop": false,
@@ -568,16 +602,25 @@
    "kinetic": false
   },
   {
-   "from": 5.025,
-   "to": 7.462,
-   "text": "Up here you have about thirty seconds",
+   "from": 5.036,
+   "to": 6.507,
+   "text": "Up here you have about",
    "pos": 1120,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 7.462,
+   "from": 6.507,
+   "to": 7.443,
+   "text": "thirty seconds",
+   "pos": 1120,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.443,
    "to": 9.03,
    "text": "before you pass out.",
    "pos": 1120,
@@ -587,15 +630,24 @@
   },
   {
    "from": 9,
-   "to": 11.618,
-   "text": "Count the rows to the exit.",
+   "to": 10.4,
+   "text": "Count the rows",
    "pos": 1120,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 11.618,
+   "from": 10.4,
+   "to": 11.6,
+   "text": "to the exit.",
+   "pos": 1120,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.6,
    "to": 12.45,
    "text": "Seven.",
    "pos": 1120,
@@ -607,7 +659,7 @@
    "from": 12.4,
    "to": 14.723,
    "text": "Belt low and tight.",
-   "pos": 1120,
+   "pos": 1250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -616,7 +668,7 @@
    "from": 14.723,
    "to": 15.946,
    "text": "Head down.",
-   "pos": 1120,
+   "pos": 1250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -625,7 +677,7 @@
    "from": 15.946,
    "to": 16.93,
    "text": "Brace.",
-   "pos": 1120,
+   "pos": 1250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -634,7 +686,7 @@
    "from": 18.8,
    "to": 20.38,
    "text": "This is why you brace.",
-   "pos": 1120,
+   "pos": 1250,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -681,15 +733,24 @@
   },
   {
    "from": 20.55,
-   "to": 22.842,
-   "text": "Ninety seconds to get out.",
+   "to": 21.813,
+   "text": "Ninety seconds",
    "pos": 1120,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 22.842,
+   "from": 21.813,
+   "to": 22.806,
+   "text": "to get out.",
+   "pos": 1120,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 22.806,
    "to": 24.59,
    "text": "Leave everything.",
    "pos": 1120,
@@ -731,7 +792,7 @@
    "from": 24.5,
    "to": 25.553,
    "text": "Stay low.",
-   "pos": 1120,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -740,7 +801,7 @@
    "from": 25.553,
    "to": 27.308,
    "text": "You cannot see.",
-   "pos": 1120,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -749,7 +810,7 @@
    "from": 27.308,
    "to": 29.43,
    "text": "But you counted.",
-   "pos": 1120,
+   "pos": 780,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -808,7 +869,7 @@
    "from": 29.35,
    "to": 30.471,
    "text": "Do not stop.",
-   "pos": 1120,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -817,7 +878,7 @@
    "from": 30.471,
    "to": 31.125,
    "text": "Upwind.",
-   "pos": 1120,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -826,7 +887,7 @@
    "from": 31.125,
    "to": 33.15,
    "text": "Two hundred metres.",
-   "pos": 1120,
+   "pos": 640,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -862,9 +923,18 @@
   },
   {
    "from": 35.7,
+   "to": 36.866,
+   "text": "You wake up",
+   "pos": 1290,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 36.866,
    "to": 38.6,
-   "text": "You wake up mid car crash.",
-   "pos": 1120,
+   "text": "mid car crash.",
+   "pos": 1290,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -877,21 +947,21 @@
    "len": 3.2,
    "shot": {
     "pos": [
-     1.2,
-     0.95,
-     1.9
+     1.05,
+     0.98,
+     2.9
     ],
     "look": [
-     2.2,
-     0.85,
-     0.1
+     2.42,
+     1.15,
+     0.55
     ],
-    "fov": 30,
+    "fov": 52,
     "to": {
      "pos": [
-      1.3,
-      0.93,
-      1.6
+      1.15,
+      0.98,
+      2.6
      ]
     },
     "dur": 3,
@@ -1005,6 +1075,16 @@
      "do": "droop",
      "to": 0.6,
      "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "eng",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1254,6 +1334,16 @@
      "pose": "lap",
      "dur": 0.25,
      "at": 2.9
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.18
     }
    ],
    "kind": "hook"
@@ -1264,16 +1354,16 @@
    "len": 5.7,
    "shot": {
     "pos": [
-     0.9,
-     1.25,
-     3.4
+     1.56,
+     1.75,
+     3.55
     ],
     "look": [
      1.56,
      0.95,
-     0
+     0.4
     ],
-    "fov": 34
+    "fov": 48
    },
    "do": [
     {
@@ -1343,12 +1433,12 @@
     {
      "who": "vik",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "world": [
-       1.25,
-       1.32,
-       0.86
+       0.73,
+       1.05,
+       0.9
       ]
      },
      "dur": 0.4,
@@ -1460,8 +1550,8 @@
      "id": "maskS",
      "set": {
       "x": 2.09,
-      "y": 0.74,
-      "z": 0.4,
+      "y": 0.81,
+      "z": 0.45,
       "tilt": 0
      },
      "dur": 0.3,
@@ -1474,9 +1564,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.96,
-       0.74,
-       0.38
+       1.92,
+       0.73,
+       0.43
       ]
      },
      "dur": 0.3,
@@ -1489,9 +1579,9 @@
      "side": "L",
      "pose": {
       "world": [
-       2.22,
-       0.74,
-       0.38
+       2.26,
+       0.73,
+       0.43
       ]
      },
      "dur": 0.3,
@@ -1663,9 +1753,9 @@
      "do": "prop",
      "id": "maskV",
      "set": {
-      "x": 1.03,
-      "y": 0.86,
-      "z": 0.44,
+      "x": 1.17,
+      "y": 0.82,
+      "z": 0.46,
       "tilt": 0
      },
      "dur": 0.35,
@@ -1678,9 +1768,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.18,
-       0.86,
-       0.44
+       1.33,
+       0.72,
+       0.48
       ]
      },
      "dur": 0.35,
@@ -1750,6 +1840,12 @@
      "at": 3.95
     },
     {
+     "sfx": "timer-beep",
+     "gain": 0.3,
+     "reason": "the 30 s clock ticks",
+     "at": 4.2
+    },
+    {
      "who": "vik",
      "do": "look",
      "to": [
@@ -1768,6 +1864,12 @@
      ],
      "dur": 0.2,
      "at": 4.4
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.3,
+     "reason": "the 30 s clock ticks",
+     "at": 5.2
     },
     {
      "do": "prop",
@@ -1836,6 +1938,33 @@
     },
     {
      "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": 2.09,
+      "y": 0,
+      "z": 1.35,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.68
+    },
+    {
+     "who": "wiz",
+     "do": "ride",
+     "prop": "wizC",
+     "off": [
+      0,
+      0.3,
+      0
+     ],
+     "yaw": 0,
+     "sit": true,
+     "dur": 0,
+     "at": 5.68
+    },
+    {
+     "do": "prop",
      "id": "maskW",
      "set": {
       "y": 1.55
@@ -1853,15 +1982,15 @@
    "shot": {
     "pos": [
      1.75,
-     1.3,
-     -1.15
+     1.9,
+     -1.3
     ],
     "look": [
-     0.2,
-     1.25,
-     10
+     1.35,
+     0.38,
+     6.7
     ],
-    "fov": 42
+    "fov": 50
    },
    "do": [
     {
@@ -1897,9 +2026,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.5,
-       1.2,
-       1.1
+       1.6,
+       1.45,
+       0.75
       ]
      },
      "dur": 0.35,
@@ -1918,11 +2047,11 @@
      "fx": "pop",
      "text": "1",
      "xy": [
-      1054,
+      585,
       712
      ],
      "size": 138,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.9
@@ -1937,11 +2066,11 @@
      "fx": "pop",
      "text": "2",
      "xy": [
-      720,
-      804
+      535,
+      664
      ],
      "size": 126,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.2
@@ -1956,11 +2085,11 @@
      "fx": "pop",
      "text": "3",
      "xy": [
-      572,
-      844
+      510,
+      641
      ],
      "size": 114,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.5
@@ -1975,11 +2104,11 @@
      "fx": "pop",
      "text": "4",
      "xy": [
-      489,
-      867
+      495,
+      626
      ],
      "size": 102,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.8
@@ -1994,11 +2123,11 @@
      "fx": "pop",
      "text": "5",
      "xy": [
-      436,
-      882
+      485,
+      617
      ],
      "size": 90,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.1
@@ -2013,11 +2142,11 @@
      "fx": "pop",
      "text": "6",
      "xy": [
-      399,
-      892
+      478,
+      610
      ],
      "size": 78,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.4
@@ -2032,11 +2161,11 @@
      "fx": "pop",
      "text": "7",
      "xy": [
-      372,
-      900
+      473,
+      605
      ],
      "size": 66,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.7
@@ -2090,12 +2219,24 @@
      "at": 3.38
     },
     {
+     "who": "vik",
+     "do": "release",
+     "prop": "maskV",
+     "to": [
+      1.03,
+      2.42,
+      0.4
+     ],
+     "dur": 0,
+     "at": 3.38
+    },
+    {
      "who": "spud",
      "do": "release",
      "prop": "maskS",
      "to": [
       2.09,
-      -40,
+      2.42,
       0.4
      ],
      "dur": 0,
@@ -2118,10 +2259,10 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": 1.03,
+      "x": 2.09,
       "y": 0,
-      "z": 1.35,
-      "rot": 180
+      "z": 1.45,
+      "rot": -90
      },
      "dur": 0,
      "ease": "linear",
@@ -2143,9 +2284,23 @@
     },
     {
      "do": "prop",
+     "id": "seatW",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
      "id": "phone",
      "set": {
-      "y": 1.5
+      "x": 1.57,
+      "y": 1.5,
+      "z": 1.37,
+      "rot": 90,
+      "tip": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -2182,16 +2337,16 @@
    "len": 4.4,
    "shot": {
     "pos": [
-     -0.4,
-     0.95,
-     0.5
+     -0.48,
+     1,
+     0.7
     ],
     "look": [
      2.09,
-     0.8,
-     0.3
+     0.85,
+     0.75
     ],
-    "fov": 36
+    "fov": 74
    },
    "do": [
     {
@@ -2205,9 +2360,9 @@
     {
      "who": "wiz",
      "do": "expr",
-     "expr": "eager",
+     "expr": "happy",
      "set": {
-      "open": 0.25
+      "open": 0.35
      },
      "dur": 0,
      "at": 0
@@ -2216,8 +2371,8 @@
      "who": "wiz",
      "do": "look",
      "to": [
-      -0.5,
-      0
+      0,
+      0.25
      ],
      "dur": 0,
      "blink": false,
@@ -2394,7 +2549,9 @@
       "x": 70,
       "y": 23.094,
       "z": 0,
-      "tip": 30
+      "tip": 30,
+      "broken": 1,
+      "fire": 1
      },
      "dur": 0,
      "ease": "linear",
@@ -2435,7 +2592,7 @@
       0
      ]
     },
-    "dur": 1.6,
+    "dur": 1.5,
     "ease": "linear"
    },
    "do": [
@@ -2567,7 +2724,7 @@
      "do": "prop",
      "id": "maskW",
      "set": {
-      "y": -40
+      "y": 2.42
      },
      "dur": 0,
      "ease": "linear",
@@ -2582,16 +2739,16 @@
    "len": 2.2,
    "shot": {
     "pos": [
-     -0.45,
-     1.25,
-     -0.9
+     -0.48,
+     1.1,
+     0.65
     ],
     "look": [
-     1.4,
-     1.3,
-     1.2
+     2.09,
+     1.05,
+     1
     ],
-    "fov": 50
+    "fov": 76
    },
    "do": [
     {
@@ -2644,8 +2801,14 @@
      "who": "wiz",
      "do": "arm",
      "side": "R",
-     "pose": "up",
-     "dur": 0.15,
+     "pose": {
+      "o": [
+       0.36,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.12,
      "ease": "out",
      "at": 0.04
     },
@@ -2653,8 +2816,14 @@
      "who": "wiz",
      "do": "arm",
      "side": "L",
-     "pose": "up",
-     "dur": 0.15,
+     "pose": {
+      "o": [
+       0.36,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.12,
      "ease": "out",
      "at": 0.04
     },
@@ -2662,18 +2831,17 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 0.75,
-      "z": 2.1
+      "z": 1.77
      },
-     "dur": 0.26,
-     "ease": "out",
+     "dur": 0.16,
+     "ease": "linear",
      "at": 0.04
     },
     {
      "who": "wiz",
-     "do": "pitch",
-     "to": -100,
-     "dur": 0.5,
+     "do": "lean",
+     "to": -32,
+     "dur": 0.16,
      "ease": "linear",
      "at": 0.04
     },
@@ -2726,6 +2894,19 @@
      "at": 0.16
     },
     {
+     "sfx": "thud-soft",
+     "gain": 0.7,
+     "reason": "the Wizard slams into the seat in front",
+     "at": 0.2
+    },
+    {
+     "who": "wiz",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
      "do": "physics",
      "prop": "bag3",
      "mode": "drop",
@@ -2745,25 +2926,34 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 0.5,
-      "z": 2.65
+      "z": 1.65
      },
-     "dur": 0.24,
-     "ease": "in",
-     "at": 0.3
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.22
     },
     {
-     "sfx": "thud-soft",
-     "gain": 0.7,
-     "reason": "the Wizard lands over the seat in front",
-     "at": 0.54
+     "who": "wiz",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.22
+    },
+    {
+     "who": "wiz",
+     "do": "pitch",
+     "to": 16,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.22
     },
     {
      "who": "wiz",
      "do": "expr",
      "expr": "dizzy",
      "dur": 0.2,
-     "at": 0.6
+     "at": 0.5
     },
     {
      "who": "wiz",
@@ -2771,7 +2961,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.3,
-     "at": 0.6
+     "at": 0.5
     },
     {
      "who": "wiz",
@@ -2779,7 +2969,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.3,
-     "at": 0.6
+     "at": 0.5
     },
     {
      "macro": "narrate",
@@ -2914,6 +3104,16 @@
      "at": 2.18
     },
     {
+     "do": "prop",
+     "id": "seatW",
+     "set": {
+      "y": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.18
+    },
+    {
      "who": "vik",
      "do": "show",
      "at": 2.18
@@ -2922,7 +3122,7 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "x": 0.28,
+      "x": 0.32,
       "y": 0,
       "z": 0.9,
       "rot": 0
@@ -2948,10 +3148,10 @@
      "do": "prop",
      "id": "vikC",
      "set": {
-      "x": -0.22,
+      "x": -0.3,
       "y": 0,
       "z": 2.9,
-      "rot": -78
+      "rot": -55
      },
      "dur": 0,
      "ease": "linear",
@@ -2995,6 +3195,7 @@
      "do": "prop",
      "id": "smokeP",
      "set": {
+      "scale": 1,
       "fill": 0.2,
       "fire": 0.5
      },
@@ -3010,7 +3211,7 @@
       "world": [
        -0.95,
        1.7,
-       3.16
+       2.64
       ]
      },
      "dur": 0,
@@ -3024,7 +3225,7 @@
       "world": [
        -0.95,
        1.7,
-       2.64
+       3.16
       ]
      },
      "dur": 0,
@@ -3039,17 +3240,17 @@
    "len": 4,
    "shot": {
     "pos": [
-     0.35,
-     1.1,
-     5
+     0.25,
+     1.05,
+     6.4
     ],
     "look": [
-     0.05,
-     1,
+     -0.31,
+     0.28,
      1.5
     ],
-    "fov": 38,
-    "roll": 5
+    "fov": 46,
+    "roll": 4
    },
    "do": [
     {
@@ -3150,7 +3351,7 @@
       "world": [
        -0.82,
        1.05,
-       3.22
+       2.58
       ]
      },
      "dur": 0.4,
@@ -3165,7 +3366,7 @@
       "world": [
        -0.82,
        1.05,
-       2.58
+       3.22
       ]
      },
      "dur": 0.4,
@@ -3303,9 +3504,9 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "x": 0.08,
+      "x": 0.18,
       "y": 0,
-      "z": 4.5,
+      "z": 5.2,
       "rot": 0
      },
      "dur": 0,
@@ -3318,7 +3519,7 @@
      "prop": "spudC",
      "off": [
       0,
-      -0.28,
+      -0.05,
       0
      ],
      "yaw": 0,
@@ -3328,7 +3529,7 @@
     {
      "who": "spud",
      "do": "pitch",
-     "to": 62,
+     "to": 38,
      "dur": 0,
      "at": 3.98
     },
@@ -3350,9 +3551,9 @@
      "do": "prop",
      "id": "vikC",
      "set": {
-      "x": -0.1,
+      "x": -0.22,
       "y": 0,
-      "z": 2.1,
+      "z": 3.2,
       "rot": 0
      },
      "dur": 0,
@@ -3365,7 +3566,7 @@
      "prop": "vikC",
      "off": [
       0,
-      -0.3,
+      -0.05,
       0
      ],
      "yaw": 0,
@@ -3375,7 +3576,7 @@
     {
      "who": "vik",
      "do": "pitch",
-     "to": 55,
+     "to": 38,
      "dur": 0,
      "at": 3.98
     },
@@ -3397,9 +3598,9 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": 0.12,
+      "x": 0.15,
       "y": 0,
-      "z": -0.2,
+      "z": 0.8,
       "rot": 0
      },
      "dur": 0,
@@ -3412,7 +3613,7 @@
      "prop": "wizC",
      "off": [
       0,
-      -0.3,
+      -0.05,
       0
      ],
      "yaw": 0,
@@ -3422,7 +3623,7 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": 55,
+     "to": 38,
      "dur": 0,
      "at": 3.98
     },
@@ -3444,9 +3645,9 @@
      "do": "prop",
      "id": "trunk",
      "set": {
-      "x": -0.1,
+      "x": -0.22,
       "y": 0.3,
-      "z": 1.25,
+      "z": 2.1,
       "tip": 90
      },
      "dur": 0,
@@ -3462,13 +3663,13 @@
    "shot": {
     "pos": [
      0,
-     0.32,
-     10.2
+     0.3,
+     10.4
     ],
     "look": [
      0,
-     0.5,
-     5
+     1.29,
+     5.4
     ],
     "fov": 40
    },
@@ -3477,7 +3678,7 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "z": 8
+      "z": 6.8
      },
      "dur": 3,
      "ease": "linear",
@@ -3502,7 +3703,7 @@
      "do": "prop",
      "id": "vikC",
      "set": {
-      "z": 5.4
+      "z": 5.2
      },
      "dur": 3,
      "ease": "linear",
@@ -3527,7 +3728,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "z": 2.9
+      "z": 2.8
      },
      "dur": 3,
      "ease": "linear",
@@ -3552,7 +3753,7 @@
      "do": "prop",
      "id": "trunk",
      "set": {
-      "z": 4.55
+      "z": 4.1
      },
      "dur": 3,
      "ease": "linear",
@@ -3698,11 +3899,11 @@
      "fx": "pop",
      "text": "4",
      "xy": [
-      855,
-      805
+      842,
+      1230
      ],
      "size": 120,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.6
@@ -3942,11 +4143,11 @@
      "fx": "pop",
      "text": "5",
      "xy": [
-      985,
-      704
+      958,
+      1134
      ],
      "size": 134,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 1.5
@@ -4141,11 +4342,11 @@
      "fx": "pop",
      "text": "6",
      "xy": [
-      1298,
-      458
+      1216,
+      919
      ],
      "size": 148,
-     "dur": 0.55,
+     "dur": 0.3,
      "angle": 0,
      "color": "#ffffff",
      "at": 2.4
@@ -4250,9 +4451,9 @@
      "do": "prop",
      "id": "spudC",
      "set": {
-      "x": 0.08,
+      "x": 0.18,
       "y": 0,
-      "z": 8.3,
+      "z": 8.9,
       "rot": 0
      },
      "dur": 0,
@@ -4265,7 +4466,7 @@
      "prop": "spudC",
      "off": [
       0,
-      -0.28,
+      -0.05,
       0
      ],
      "yaw": 0,
@@ -4275,7 +4476,7 @@
     {
      "who": "spud",
      "do": "pitch",
-     "to": 62,
+     "to": 38,
      "dur": 0,
      "at": 2.98
     },
@@ -4291,6 +4492,26 @@
      "do": "lean",
      "to": 0,
      "dur": 0,
+     "at": 2.98
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 2.98
+    },
+    {
+     "who": "wiz",
+     "do": "hide",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "y": -40
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 2.98
     },
     {
@@ -4311,23 +4532,23 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     -0.4,
-     0.42,
-     7.6
+     -0.3,
+     0.45,
+     6.4
     ],
     "look": [
-     0.1,
-     1,
-     10.4
+     0.05,
+     1.45,
+     10.44
     ],
-    "fov": 42
+    "fov": 46
    },
    "do": [
     {
      "do": "prop",
      "id": "spudC",
      "set": {
-      "z": 9.2
+      "z": 9.5
      },
      "dur": 1.8,
      "ease": "linear",
@@ -4369,9 +4590,9 @@
      "side": "L",
      "pose": {
       "world": [
-       0.55,
        0.6,
-       9.7
+       0.55,
+       9.6
       ]
      },
      "dur": 0.2,
@@ -4397,11 +4618,11 @@
      "fx": "pop",
      "text": "7",
      "xy": [
-      -77,
-      881
+      147,
+      1163
      ],
      "size": 190,
-     "dur": 0.55,
+     "dur": 0.9,
      "angle": 0,
      "color": "#ffffff",
      "at": 0.45
@@ -4525,6 +4746,16 @@
      "dur": 0.2,
      "sound": false,
      "at": 1.7
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 1.78
+    },
+    {
+     "who": "wiz",
+     "do": "show",
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -4667,15 +4898,13 @@
      "at": 1.78
     },
     {
-     "who": "vik",
-     "do": "release",
-     "prop": "maskV",
-     "to": [
-      1.03,
-      -40,
-      0.4
-     ],
+     "do": "prop",
+     "id": "smokeP",
+     "set": {
+      "scale": 0
+     },
      "dur": 0,
+     "ease": "linear",
      "at": 1.78
     },
     {
@@ -4697,7 +4926,8 @@
      "do": "prop",
      "id": "slideP",
      "set": {
-      "y": 1.475
+      "y": 1.475,
+      "on": 1
      },
      "dur": 0,
      "ease": "linear",
@@ -4756,8 +4986,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -12.6,
-      8.6
+      -12.9,
+      8.9
      ],
      "dur": 0.01,
      "steps": 0,
@@ -4767,7 +4997,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -58,
+     "to": -52,
      "dur": 0.01,
      "ease": "linear",
      "at": 1.78
@@ -4776,10 +5006,10 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": -11.6,
+      "x": -11.9,
       "y": 0,
-      "z": 8.05,
-      "rot": -58
+      "z": 8.35,
+      "rot": -52
      },
      "dur": 0,
      "ease": "linear",
@@ -4789,9 +5019,9 @@
      "do": "prop",
      "id": "handC",
      "set": {
-      "x": -12.1,
+      "x": -12.4,
       "y": 0.5,
-      "z": 8.325
+      "z": 8.625
      },
      "dur": 0,
      "ease": "linear",
@@ -4926,16 +5156,16 @@
    "len": 2.5,
    "shot": {
     "pos": [
-     -9,
-     1.6,
-     16
+     -14,
+     1.2,
+     20
     ],
     "look": [
-     -12,
-     1.8,
-     0
+     -14.2,
+     0.85,
+     10
     ],
-    "fov": 45
+    "fov": 38
    },
    "do": [
     {
@@ -4956,8 +5186,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -17.2,
-      11.4
+      -15.6,
+      11
      ],
      "dur": 2.5,
      "ease": "linear",
@@ -4967,8 +5197,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "x": -16.2,
-      "z": 10.85
+      "x": -14.6,
+      "z": 10.45
      },
      "dur": 2.5,
      "ease": "linear",
@@ -4978,8 +5208,8 @@
      "do": "prop",
      "id": "handC",
      "set": {
-      "x": -16.7,
-      "z": 11.125
+      "x": -15.1,
+      "z": 10.725
      },
      "dur": 2.5,
      "ease": "linear",
@@ -5081,8 +5311,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -24,
-      9
+      -24.2,
+      8.5
      ],
      "dur": 0.01,
      "steps": 0,
@@ -5308,6 +5538,16 @@
      "at": 1.3
     },
     {
+     "do": "prop",
+     "id": "blast",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
      "sfx": "impact",
      "gain": 1,
      "loud": true,
@@ -5388,6 +5628,16 @@
      "to": 1,
      "dur": 0.15,
      "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "blast2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.68
     },
     {
      "who": "spud",

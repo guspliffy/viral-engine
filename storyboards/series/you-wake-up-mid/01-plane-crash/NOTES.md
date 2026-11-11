@@ -2,9 +2,9 @@
 
 ## Where the build stands
 
-- Step: staging (builders done; generator retimed to the recorded narrator lines: 39.5 s A / 38.5 s B; all 13 cameras re-set 11 Nov)
-- Next: layout 3 -> camfit every shot -> draft stills + sheet against the panels -> rough draft A + B -> Jonny (no polish before his go)
-- Renders so far: layouts 3 (one aborted on a sound name), drafts 0, farm renders 0; fix rounds used: 0 of 3
+- Step: rough draft (staging stills read for all 13 shots, both endings; drafts A + B rendering with --force: contacts unpolished on purpose, rule 2)
+- Next: send both drafts to Jonny -> his go -> ONE polish round (hands, feet, contacts, allowClip with reasons) -> checks -> one farm render per cut
+- Renders so far: layouts 5 (one aborted on a sound name, two inside draft runs), still rounds 8, drafts 1 per cut, farm renders 0; fix rounds used: 0 of 3
 - Step back named: builders started BEFORE the staging proof (the cabin did not exist, nothing to stage in); every size they build to is in briefs/ and the bench cameras are the shot cameras.
 
 ## The improvement loop
@@ -53,11 +53,17 @@
 - Panel 11: Viking and the Wizard stay small in the right background as drawn.
 - No hit-stops or ramps: story clock = video clock (the two readouts and the narrator stay in step).
 
-- A potato is ~1 m wide (Spud 1.2 m tall, seated top 1.53; Viking 1.41 / 1.72) and seat backs are taller than a seated potato: nobody is seen from behind a row, and two side by side need fov 50-70 or 5 m of distance. Panel sizes (drawn with small bodies) are not reachable in the cabin; eye lines and sides are kept.
+- Sizes (measured in stills, 11 Nov): Spud ~0.65 m wide, 1.2 m tall standing, seated top 1.53; Viking ~0.8 wide, 1.41 / 1.72. The layout's "box" includes spread arms: do not read body width from it. Seat backs (~1.6) are taller than a seated potato: nobody is seen from behind a row. Two in adjacent ROWS (pitch 1.35) side-on need fov ~74 from the aisle.
 - Panel 01: the hall's windows are painted cards, so a prop outside never showed. `clear: [0]` (new spec) leaves row 0's port window a real hole; the hall sits 0.65 m forward in shot 1 only, so that window is beside his face, not behind his head; the engine is placed on the sight line.
 - Panel 04/06: the Wizard sits in the window seat in front of Spud (not the aisle seat) so one side view from the aisle holds both; row 1's aisle seat is parked for those two shots. In 06 he slams into the seat back ahead (a seat back is too tall to fly over).
 - Subtitles: 1120 when the faces are above it; 640 (crawl, slide), 900 (ending A), 1250 (brace, impact) when the panel puts the face low. Clocks stay lower left (1265).
 - Crawl pose: tip 38, y -0.05 (tip 62 / y -0.28 put the eyes under the floor: body pivot is 0.45 m up).
+
+- THE BROWN WALL (cost 5 still rounds): with ink on, Spud's brown legs and boots get an ink hull that blows up into a flat brown wall hiding the set. Bisected by dropping props and set options from the JSON; fix = one line at the end of spud() in costumes-art-cast.js (`limbMat.userData.noOutline`), a workaround from the Doomscroll thread until main has it. That file belongs to the Spud thread: drop the line when main carries the fix.
+- A key in a prop's spec does not start it (`fire`, `on`, `broken`): set keys with a tween at t 0 or at the cut. carburst needs `on: 1`.
+- cabinsmoke off = `scale: 0` (kept from the bisect; fill 0 may be fine too, untested after the ink fix).
+- Hose masks park in the ceiling panel (y 2.42), never under the floor: the hose runs from its anchor to the cup.
+- The Wizard films HIMSELF (faces the aisle, phone up) in 04: a seat back is taller than his eyes, he cannot film over it, and his face is to the camera as the panel wants.
 
 ## Tried and dropped
 
