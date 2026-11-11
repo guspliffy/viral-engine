@@ -26,6 +26,38 @@ Outline, image prompts and his two sheets: `/mnt/project-files/video-scripts/202
 | 16 | 0 % | the battery dies, so the face is gone and his head turns to them; the Wizard charges it |
 | 17.4 | 100 % | nobody looks up |
 
+## Cuts H and S (11 Nov evening): the same chain behind a horror opening
+
+Jonny on the two drafts: keep the extreme cut, "horror music", "the characters must look scared", "the man should first
+appear behind a tree and then appear behind the character ... build up tension and then let the slender act". On the
+ten-panel sheet he then asked for a second version: "smaller ... more evil ... very fast and more like a crepy shadow".
+
+```bash
+node storyboards/series/doomscroll/make-ep1-sprout-man.mjs --horror   # cut H: the giant (his sheet) -> ...-horror.json
+node storyboards/series/doomscroll/make-ep1-sprout-man.mjs --shadow   # cut S: the small fast shadow -> ...-shadow.json
+```
+
+Both put a 9.5 s opening in front and play the old chain D = 9.5 s later (H: cut B's, S: cut A's). The builder is
+wrapped so every time below the opening stays the old cut's own time; the opening is written in real seconds with `o()`.
+
+| s | what happens |
+|---|---|
+| 0 | he looks out from behind a pine (`pinetrunk`), far too high up; the friends are stiff with fear, eyes darting |
+| 2.5 | lightning: the pine stands alone. S: twice he crosses right behind them in four frames |
+| 5.0 | close on Spud. H: the two trunks behind him are trouser legs. S: in the flash at 6.0 he stands behind him |
+| 7.5 | he bends down over them, the fingers settle round the log; the music is gone, a heartbeat |
+| 9.0 | Viking's eyes creep up |
+| 10.0 | the strike (the old chain's 0.5 s) |
+
+- Fear: `FEAR` (the terrified eyes, a small tight mouth), `shake`, the `sweat` effect; also in the last picture.
+- Music: `dread` (puppet/beat.mjs): drone, heartbeat, a creeping high cluster; hush 7.5-10, faster from the strike,
+  cut by the jab, music box on the puppy face, the drone again when the battery dies. Thunder is the new `thunder`.
+- H: the shot up his suit looks 51 degrees up, past the storm painting's sky (35), so 7.5-9.0 swaps to
+  `storm-pine-clearing-up` (the same layers, the sky card 1.6x).
+- S: the prop with `shadow: 0.94` (all of him toward black, no ink line) and the key `eyes` (two glowing slits). The
+  night painting's sky ends 26 degrees up: tilt + fov/2 stays under that.
+- Length: 28.5 s of story, 29.2 s of video (the outline said about 25).
+
 ## Places and files
 
 - Sprout Man is a prop: `engine/page/props-sprout.js` (kind `sproutman`, plus `selfieframe`), skeleton and state keys in

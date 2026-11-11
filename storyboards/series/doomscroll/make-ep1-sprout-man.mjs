@@ -172,7 +172,7 @@ if (HOR) {
   for (const [t, v, w] of [[2.75, [-0.7, 0.05], [0.7, 0.0]], [3.35, [0.7, 0.1], [-0.6, 0.05]], [4.0, [-0.3, -0.1], [0.5, -0.1]], [4.5, [0.4, 0.0], [-0.4, 0.0]]]) {
     A(o(t), "vik", "look", { to: v, dur: 0.1, blink: false }); A(o(t + 0.08), "wiz", "look", { to: w, dur: 0.1, blink: false });
   }
-  c.say(o(3.2), "wiz", "where is he?", 0.9, "whisper", { sub: "where is he?", voice: false, pos: 880 });
+  c.say(o(3.2), "wiz", "where is he?", 0.9, "whisper", { sub: "where is he?", voice: false, pos: X ? 880 : 640 });
   sweat(o(3.0), "vik"); sweat(o(4.1), "wiz");
   see(o(0.1), o(2.3), ["spd.face", "vik.face", "wiz.face", "phone"], "01: Spud on his phone, the friends stiff with fear; the pale head behind the pine");
   see(o(2.7), o(4.9), ["spd.face", "vik.face", "wiz.face"], "02: the pine alone; the friends search the dark");
@@ -186,7 +186,7 @@ if (HOR) {
   see(o(5.1), o(7.4), ["spd.face", "phone"], "03: Spud's calm phone-lit face, two black trunks behind him");
   // 04 (7.5-9.0): he bends down out of the storm; the fingers come down round the log
   station(o(7.47), X ? { ...SM_NEAR, x: -0.2, lean: 8 } : { ...SM_NEAR, x: -0.3, z: -0.6, rot: 0, lean: 6 }, { headP: 10, headR: 0 });
-  sm(o(7.5), { lean: X ? 52 : 46, headP: 34 }, 1.45, "inOut");
+  sm(o(7.5), { lean: X ? 52 : 46, headP: X ? 34 : -22 }, 1.45, "inOut");   // S: the head stays up, so the eyes glare out over them
   armTo(o(7.6), "L", X ? [2.2, 0.12, 1.7] : [1.55, 0.1, 1.5], 1.3, "inOut", { fanL: 1, wig: 0.25 });
   armTo(o(7.6), "R", X ? [-2.6, 0.12, 1.7] : [-2.15, 0.1, 1.5], 1.3, "inOut", { fanR: 1 });
   for (const [t, g] of [[7.55, 0.9], [8.45, 1], [9.15, 1]]) sfx(o(t), "ai/heartbeat", { gain: g, reason: "the music is gone: a heartbeat is the only sound left while he bends down over them" });
@@ -205,8 +205,11 @@ if (HOR) {
 }
 
 // ---------------------------------------------------------------- 1 THE RULE 0-2.0 (P01, P02): Viking looks up and is gone
-c.macro(T0, null, "narrate", { line: "Look up, and you die.", voice: process.env.FINAL ? "narrator-trailer" : "storyteller-deep", caption: false, gain: 1 });
-cap(T0, T0 + 2.0, "LOOK UP AND YOU DIE.", X ? 560 : 330);
+// the rule: Jonny on the horror draft, 11 Nov 20:36: "maybe the hook should be look up or get haunted instead of die.
+// maybe death is a bit hard". Cuts A and B keep the line they were drafted with
+const RULE = HOR ? ["Look up, and you get haunted.", "LOOK UP AND YOU GET HAUNTED.", "Look up and you get haunted"] : ["Look up, and you die.", "LOOK UP AND YOU DIE.", "Look up and you die"];
+c.macro(T0, null, "narrate", { line: RULE[0], voice: process.env.FINAL ? "narrator-trailer" : "storyteller-deep", caption: false, gain: 1 });
+cap(T0, T0 + (HOR ? 2.4 : 2.0), RULE[1], X ? 560 : 330);
 flash(0.5, "boltL"); flash(2.3, "boltR", 0.6); flash(4.5, "boltL", 0.5); flash(10.55, "boltR");
 act.eyesLead(c, 0.22, "vik", [0.45, 0.75]);
 if (HOR) A(0.38, "vik", "expr", { expr: "terrified", dur: 0.12 }); else act.shock(c, 0.38, "vik", { open: 0.3, hold: 0.5 });
@@ -290,6 +293,12 @@ prop(10.55, "phone", { glow: 0 }, 0.03);
 armTo(10.75, "L", [PHONE_W[0] + 0.3 * J, PHONE_W[1] + 0.42 * J, PHONE_W[2] + 0.05], 0.3, "out");
 A(10.9, "spd", "pitch", { to: -11, dur: 0.95, ease: "in" });           // his head starts to lift... eyes still down
 A(10.9, "spd", "face", { lid: 0.3, dur: 0.6 });
+// cuts H and S (Jonny on the horror draft: "it should be just more clear that the filter is on the phone and the man
+// gets hooked by this. now it seem quite random"): the screen comes back on, and Spud says what the jab did
+if (HOR) {
+  prop(11.25, "phone", { glow: 0.9 }, 0.08); sfx(11.25, "click", { gain: 0.6, reason: "the phone's camera opens" });
+  c.say(11.3, "spd", "ugh. selfie mode.", 0.75, "calm", { sub: "ugh. selfie mode.", voice: false, pos: 1275 });
+}
 see(10.1, 11.9, ["spd.face", "phone"], "P06: the jab, the black screen, his head starting to lift");
 
 // ---------------------------------------------------------------- 6 THE FACE 12.0-14.0 (P07): the selfie camera
@@ -297,6 +306,9 @@ const SELFIE = { pos: [HANG.spd[0] + 0.4, r3(HANG.spd[1] + 1.12), 2.55], fov: 46
 // B: for the selfie his blank head comes right up behind Spud and fills the screen
 const SM_SELF = { ...SM_BIG, scale: 3, x: HANG.spd[0] + 0.75, y: r3(SELFIE.pos[1] + 0.25 - 3 * HEAD_UP), z: -2.2, lean: 0 };
 if (X) station(12.0, SM_SELF, { headP: 6 });
+// S: he is small, so for the selfie he comes close behind Spud and a little up, head upright: the face fills the screen
+// above the filter row
+if (S) sm(12.0, { z: 0.5, y: 0.22, lean: 20, headP: 0, headR: 0 }, 0.01);
 prop(12.0, "frame", { x: SELFIE.pos[0], y: SELFIE.pos[1], z: SELFIE.pos[2] - 0.8, scale: 1 }, 0.01);
 prop(14.0, "frame", { scale: 0 }, 0.01);
 A(12.0, "spd", "pitch", { to: 0, dur: 0.01 });
@@ -305,15 +317,23 @@ A(12.0, "spd", "face", { lid: 0.5, dur: 0.01 });
 armTo(12.0, "L", [PHONE_W[0] + 0.2, PHONE_W[1] + 0.2, PHONE_W[2]], 0.01);
 sm(12.35, { puppy: 1 }, 0.22, "back");
 sfx(12.35, "pop", { gain: 0.8 }); sfx(12.4, "ting", { gain: 0.5 });
+if (HOR) {
+  // the phone's own screen says what this is: the filter row slides up and "PUPPY FILTER" is picked as the face pops on
+  prop(12.3, "frame", { filter: 1 }, 0.2, "back");
+  // hooked: he turns the new face left and right to look at it, then the shutter goes. His first selfie
+  sm(12.62, { headR: 13 }, 0.22, "inOut"); sm(12.9, { headR: -13 }, 0.26, "inOut"); sm(13.22, { headR: 0 }, 0.2, "inOut");
+  prop(13.5, "frame", { snap: 1 }, 0.06, "out"); prop(13.58, "frame", { snap: 0 }, 0.12, "out");
+  c.at(13.52, { fx: "flash", peak: 0.6, dur: 0.22 }); sfx(13.5, "flash", { gain: 0.7, reason: "the phone's shutter: he takes a selfie" });
+}
 { // he freezes, then touches the face he never had
-  const H = sproutHead(X ? { ...smNow } : { ...smNow, lean: 30 }), k = smNow.scale;
+  const H = sproutHead(X || S ? { ...smNow } : { ...smNow, lean: 30 }), k = smNow.scale;
   armTo(12.95, "L", [H[0] + 0.3 * k, H[1] - 0.05 * k, H[2] + 0.22 * k], 0.45, "inOut", { fanL: 0.8 });
 }
 see(12.4, 13.9, ["sm"], "P07: the puppy filter on the blank head");
 
 // ---------------------------------------------------------------- 7 THE DROP 14.0-16.0: both hands on the phone, so everyone falls
 const TAKEN = X ? [0.3, r3(HANG.spd[1] + 0.6), 0.5] : [0.05, 1.95, 0.75], INLAP = X ? [SM_SIT.x, 3.3, SM_SIT.z + 2.0] : [F_SM, 0.98, LOG.z + 0.5];
-if (X) station(14.0, { ...SM_FAR, lean: 14 }, { puppy: 0, headP: 32 }); else sm(14.0, { puppy: 0, lean: 14, headP: 32 }, 0.01);
+if (X) station(14.0, { ...SM_FAR, lean: 14 }, { puppy: 0, headP: 32 }); else sm(14.0, { puppy: 0, lean: 14, headP: 32, ...(S && { y: 0, z: SM_BIG.z }) }, 0.01);
 A(14.0, "spd", "release", { prop: "phone", hand: "both", dur: 0, to: TAKEN });
 prop(14.0, "phone", { rot: 180, tip: -20, glow: 0.9 }, 0.01);
 armTo(14.0, "L", [TAKEN[0] + 0.07, TAKEN[1], TAKEN[2]], 0.01, "inOut", { fanL: 0.5, fanR: 0.5 }); armTo(14.0, "R", [TAKEN[0] - 0.07, TAKEN[1], TAKEN[2]], 0.01);
@@ -334,6 +354,7 @@ station(14.7, SM_SIT, { sit: 1, cross: X ? 1 : 0, headP: 34 }, 0.7);
 prop(14.7, "phone", { x: INLAP[0], y: INLAP[1], z: INLAP[2], tip: -28, ...(X && { scale: 5 }) }, 0.7);
 prop(14.7, "sm", (() => { const b = { ...SM_SIT }; const l = toSprout(b, [INLAP[0] + 0.07, INLAP[1], INLAP[2]]), r = toSprout(b, [INLAP[0] - 0.07, INLAP[1], INLAP[2]]); return { aLx: l[0], aLy: l[1], aLz: l[2], aRx: r[0], aRy: r[1], aRz: r[2] }; })(), 0.7);
 sfx(15.5, "flash", { gain: 0.5 }); sm(15.45, { wig: 0.5 }, 0.2);
+if (HOR) { c.at(15.5, { fx: "flash", peak: 0.3, dur: 0.18 }); c.at(15.85, { fx: "flash", peak: 0.3, dur: 0.18 }); sfx(15.85, "flash", { gain: 0.5, reason: "another selfie" }); }
 see(14.0, 14.6, ["spd", "vik", "wiz", "sm", "phone"], "both hands on the phone: all three drop, alive");
 see(15.0, 15.9, ["sm", "phone", "spd.face"], "he sits on the log with the phone");
 
@@ -379,15 +400,15 @@ const WIDE = X ? shot([-0.3, 1.0, 6.2], { tilt: 12, fov: 46 }) : shot([0.0, 1.5,
 const SHH = X ? shot([-0.55, 1.1, 5.0], { tilt: 11, fov: 46 }) : shot([-0.55, 1.62, 5.5], { fov: 46 });
 const HAND = shot([-0.95, 1.1, 4.2], { tilt: X ? 5 : 0, fov: 46 });
 const HERO = X ? shot([0.0, 5.2, 8.7], { tilt: 6, fov: 48 }) : shot([0.0, 1.7, 8.7], { tilt: 1, fov: 48 });
-const JAB = shot([HANG.spd[0] + 0.1, HANG.spd[1] + 0.55, 4.0], { tilt: -3, fov: 36 });
+const JAB = shot([HANG.spd[0] + 0.1, HANG.spd[1] + 0.55, 4.0], { tilt: HOR ? -4 : -3, fov: 36 });   // H, S: a degree lower, so his line fits under his feet inside the caption band
 const SELF = shot(SELFIE.pos, { fov: SELFIE.fov });
 const DROP = X ? shot([0.0, 1.3, 7.6], { tilt: 12, fov: 46 }) : shot([0.0, 1.55, 8.4], { tilt: 2, fov: 46 });
 const LAST = X ? shot([-0.3, 1.5, 7.8], { tilt: 4, fov: 46 })   // the dawn painting looks up only 3 degrees
    : shot([0.0, 1.55, 8.4], { tilt: 2, fov: 46 });
 // cut H's opening shots
-const CLOSE = shot([-0.85, 0.85, 3.9], { tilt: 9, fov: 42 });           // 03: Spud's face, the legs behind him
+const CLOSE = shot([-0.85, 0.85, 3.9], { tilt: X ? 9 : 5, fov: 42 });   // 03: Spud's face, the legs behind him (S: all of him; the night painting's sky ends 26 degrees up)
 const LOW = X ? shot([0.2, 0.45, 6.6], { tilt: 24, fov: 54 })           // 04: from the ground up the suit
-  : shot([0.1, 0.45, 5.6], { tilt: 4, fov: 46 });                       // S: low in front of the fire, him bent over them
+  : shot([0.1, 0.45, 5.6], { tilt: 3, fov: 46 });                       // S: low in front of the fire, him bent over them
 const VIKC = shot([S_VIK + 0.05, 0.85, 3.3], { tilt: 5, fov: 34 });     // Viking's eyes
 const beats = c.beats([
   ...(HOR ? [["01 behind the pine", 0, WIDE, "hook"], ["03 the legs", 5.0, CLOSE], ["04 the cage", 7.5, LOW], ["he looks", 9.0, VIKC], ["05 the strike", 10.0, WIDE]]
@@ -404,7 +425,7 @@ const beats = c.beats([
 
 write(import.meta.url, {
   id: S ? "doomscroll-01-sprout-man-shadow" : H ? "doomscroll-01-sprout-man-horror" : X ? "doomscroll-01-sprout-man-extreme" : "doomscroll-01-sprout-man",
-  title: "Look up and you die",
+  title: RULE[2],
   idea: "Doomscroll to survive, pilot: a faceless monster takes everyone who looks up; Spud never looks up from his phone, and the phone's selfie filter saves them all",
   format: "series pilot: Doomscroll to survive (look up and you die; the phone causes the save; the battery is the clock)",
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",

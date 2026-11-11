@@ -1,6 +1,6 @@
 {
  "id": "doomscroll-01-sprout-man-horror",
- "title": "Look up and you die",
+ "title": "Look up and you get haunted",
  "idea": "Doomscroll to survive, pilot: a faceless monster takes everyone who looks up; Spud never looks up from his phone, and the phone's selfie filter saves them all",
  "format": "series pilot: Doomscroll to survive (look up and you die; the phone causes the save; the battery is the clock)",
  "fps": 30,
@@ -378,8 +378,8 @@
   },
   {
    "from": 0,
-   "to": 2,
-   "text": "LOOK UP AND YOU DIE.",
+   "to": 2.4,
+   "text": "LOOK UP AND YOU GET HAUNTED.",
    "pos": 560,
    "pop": false
   },
@@ -406,6 +406,15 @@
    "to": 18.12,
    "text": "DON'T LOOK!",
    "pos": 520,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 20.8,
+   "to": 21.95,
+   "text": "ugh. selfie mode.",
+   "pos": 1275,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -608,7 +617,7 @@
     {
      "who": null,
      "macro": "narrate",
-     "line": "Look up, and you die.",
+     "line": "Look up, and you get haunted.",
      "voice": "storyteller-deep",
      "caption": false,
      "gain": 1,
@@ -1236,7 +1245,8 @@
       "hipZ": 0,
       "lean": 8,
       "twist": 0,
-      "headP": 10
+      "headP": 10,
+      "headR": 0
      },
      "dur": 0.01,
      "ease": "inOut",
@@ -2736,8 +2746,8 @@
     ],
     "look": [
      0.15,
-     6.227,
-     -5.986
+     6.052,
+     -5.976
     ],
     "fov": 36
    },
@@ -2884,6 +2894,32 @@
      "lid": 0.3,
      "dur": 0.6,
      "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "glow": 0.9
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "sfx": "click",
+     "gain": 0.6,
+     "reason": "the phone's camera opens",
+     "at": 1.25
+    },
+    {
+     "who": "spd",
+     "do": "talk",
+     "line": "ugh. selfie mode.",
+     "tone": "calm",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 1.3
     }
    ]
   },
@@ -2977,6 +3013,16 @@
     },
     {
      "do": "prop",
+     "id": "frame",
+     "set": {
+      "filter": 1
+     },
+     "dur": 0.2,
+     "ease": "back",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
      "id": "sm",
      "set": {
       "puppy": 1
@@ -2999,6 +3045,26 @@
      "do": "prop",
      "id": "sm",
      "set": {
+      "headR": 13
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.62
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "headR": -13
+     },
+     "dur": 0.26,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
       "aLx": 0.3,
       "aLy": 2.51,
       "aLz": 0.22,
@@ -3008,6 +3074,48 @@
      "dur": 0.45,
      "ease": "inOut",
      "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "sm",
+     "set": {
+      "headR": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "frame",
+     "set": {
+      "snap": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.7,
+     "reason": "the phone's shutter: he takes a selfie",
+     "at": 1.5
+    },
+    {
+     "fx": "flash",
+     "peak": 0.6,
+     "dur": 0.22,
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "frame",
+     "set": {
+      "snap": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.58
     }
    ],
    "kind": "payoff"
@@ -3385,10 +3493,28 @@
      "at": 1.5
     },
     {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.18,
+     "at": 1.5
+    },
+    {
      "who": "spd",
      "do": "blink",
      "dur": 0.22,
      "at": 1.7
+    },
+    {
+     "fx": "flash",
+     "peak": 0.3,
+     "dur": 0.18,
+     "at": 1.85
+    },
+    {
+     "sfx": "flash",
+     "gain": 0.5,
+     "reason": "another selfie",
+     "at": 1.85
     }
    ]
   },

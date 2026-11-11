@@ -24,7 +24,8 @@ import { SPROUT } from "../shared/sprout-rig.js";
 //                 only), flash 0..1: lit white by lightning. spec.shadow 0..1 turns all of him toward black (cut S:
 //                 0.94, a shadow with no ink line), eyes 0..1 opens two glowing slanted slit eyes on the head.
 //               Arms, fingers and back sprouts are see-through for the contact checks (userData.steam).
-//   selfieframe the phone's camera screen seen from inside: a dark bezel round the picture, a black bar with a white
+//   selfieframe (keys filter 0..1: the filter row and the "PUPPY FILTER" label, snap 0..1: the shutter pressed)
+//               the phone's camera screen seen from inside: a dark bezel round the picture, a black bar with a white
 //               shutter button, a small lens dot on top. Put it right in front of the shot's camera (origin = the
 //               picture's middle, facing +z toward the camera); spec.w x spec.h metres = the picture's size.
 const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
@@ -267,7 +268,33 @@ export const SPROUT_KINDS = {
     part(new THREE.CircleGeometry(bar * 0.36, 32), white, 0, -h / 2 + bar * 0.5, 0.0005);
     part(new THREE.RingGeometry(bar * 0.4, bar * 0.45, 32), white, 0, -h / 2 + bar * 0.5, 0.0005);
     part(new THREE.CircleGeometry(bz * 0.3, 16), grey, 0, h / 2 + bz * 0.8, 0.0005);
-    return { grip: 0, apply() {} };
+    // the filter row a phone camera shows over the bottom of the picture, and the name of the one that is picked. Shown
+    // by `filter` 0..1 (it slides up and grows in): five round bubbles, the middle one ringed in white with a puppy in
+    // it, and a dark pill "PUPPY FILTER" above. `snap` 0..1 presses the shutter button
+    const shutter = P.whole.children[P.whole.children.length - 3];
+    const row = new THREE.Group(); P.whole.add(row);
+    const flat = (hex, o = {}) => { const m = new THREE.MeshBasicMaterial({ color: hex, ...o }); m.userData.noOutline = true; return m; };
+    const on = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.userData.steam = true; o.castShadow = o.receiveShadow = false; row.add(o); return o; };
+    const rb = bar * 0.3, gap = rb * 2.7;
+    ["#f7b1c8", "#9fd0ff", null, "#ffe08a", "#b9f0c0"].forEach((hex, i) => {
+      const x = (i - 2) * gap;
+      if (hex) { on(new THREE.CircleGeometry(rb, 24), flat(hex, { transparent: true, opacity: 0.85 }), x, 0, 0.001); return; }
+      on(new THREE.RingGeometry(rb * 1.25, rb * 1.5, 32), flat("#ffffff"), 0, 0, 0.001);
+      on(new THREE.CircleGeometry(rb * 1.2, 28), flat("#f3e2c2"), 0, 0, 0.001);                                   // the puppy: a pale face,
+      for (const k of [-1, 1]) { const e = on(new THREE.CircleGeometry(rb * 0.55, 16), flat("#b8763c"), k * rb * 0.95, rb * 0.5, 0.0015); e.scale.set(0.6, 1.1, 1); e.rotation.z = -k * 0.5; }   // two ears,
+      for (const k of [-1, 1]) on(new THREE.CircleGeometry(rb * 0.16, 12), flat("#1a1410"), k * rb * 0.4, rb * 0.15, 0.002);   // eyes
+      on(new THREE.CircleGeometry(rb * 0.2, 12), flat("#ff7f96"), 0, -rb * 0.3, 0.002);                           // and a pink nose
+    });
+    const labelT = canvasTex(768, 160, (g, W, H) => {
+      g.fillStyle = "rgba(12,12,16,0.78)"; g.beginPath(); g.roundRect(4, 4, W - 8, H - 8, H / 2); g.fill();
+      g.fillStyle = "#ffffff"; g.font = "900 84px CapBlack, Arial Black, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText("PUPPY FILTER", W / 2, H / 2 + 4);
+    });
+    const lw = w * 0.66; on(new THREE.PlaneGeometry(lw, lw * 160 / 768), flat("#ffffff", { map: labelT, transparent: true }), 0, rb * 3.1, 0.001);
+    const rowY = -h / 2 + bar + rb * 2.0;
+    return { grip: 0, apply(ps) {
+      const k = Math.max(0, ps.filter ?? 0); row.visible = k > 0.01; row.scale.setScalar(Math.max(k, 0.001)); row.position.set(0, rowY - (1 - Math.min(k, 1)) * bar, 0.0008);
+      shutter.scale.setScalar(1 - 0.22 * Math.min(1, Math.max(0, ps.snap ?? 0)));
+    } };
   },
 
   // one pine in silhouette, to hide behind: a bare dark trunk with a crown of drooping needle skirts high up, the

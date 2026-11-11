@@ -22,6 +22,7 @@ export const SPROUT_STATE = {
   fanL: 0.35, fanR: 0.35, wig: 0,                                     // fingers: 0 = one pointing tip, 1 = spread; wig = wiggle
   tAx: 0, tAy: 0, tAz: 0, tAk: 0, tBx: 0, tBy: 0, tBz: 0, tBk: 0,     // two back sprouts that reach and coil round a target
   puppy: 0, flash: 0, eyes: 0,
+  headP: 0, headY: 0, headR: 0,                                       // the head: pitch (down +), yaw, roll (degrees)
 };
 
 const rad = (d) => (d * Math.PI) / 180;
