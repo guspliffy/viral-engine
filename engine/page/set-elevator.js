@@ -10,7 +10,8 @@ import { canvas, tex } from "./set-porch.js";
 // the hallway would be. When the camera is inside the car (z < ELEVATOR.gateZ), the front wall with its door opening
 // and the hallway beyond appear instead: a warm corridor with sconces, plants and a painting, where someone waits.
 // Each piece says which side it belongs to in userData.camGate (stage.js shows it only when the camera is on that side).
-// spec: { type: "elevator", seed }.
+// spec: { type: "elevator", seed, open }. open: true leaves out the side walls and floor that run on toward an outside
+// camera, so the car stands alone (Survive it EP2: a brick shaft or space round it, props-lift.js).
 export const ELEVATOR = { halfW: 2.05, backZ: -1.6, frontZ: 1.25, gateZ: 1.2, H: 3.4, rail: 0.5, door: { halfW: 0.62, h: 2.05 }, hallEnd: 7.5, hallHalfW: 1.7 };
 
 const std = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.8, ...o });
@@ -109,9 +110,9 @@ export function buildElevator(scene, S = {}) {
   // side walls run on past the front while the camera is outside, so a wide shot never sees past the car
   for (const s of [-1, 1]) {
     const w = flat(new THREE.Mesh(new THREE.PlaneGeometry(depth, E.H), steelSide)); w.rotation.y = -s * Math.PI / 2; w.position.set(s * hw, E.H / 2, cz); car.add(w);
-    const ext = flat(new THREE.Mesh(new THREE.PlaneGeometry(6, E.H), steelSide)); ext.rotation.y = -s * Math.PI / 2; ext.position.set(s * hw, E.H / 2, E.frontZ + 3); outs.add(ext);
+    const ext = flat(new THREE.Mesh(new THREE.PlaneGeometry(6, E.H), steelSide)); ext.rotation.y = -s * Math.PI / 2; ext.position.set(s * hw, E.H / 2, E.frontZ + 3); if (!S.open) outs.add(ext);   // spec.open: no run-on walls or floor (the car alone: a shaft or space round it)
   }
-  const floorExt = flat(new THREE.Mesh(new THREE.PlaneGeometry(hw * 2, 8), floorM)); floorExt.rotation.x = -Math.PI / 2; floorExt.position.set(0, 0, E.frontZ + 4); outs.add(floorExt);
+  const floorExt = flat(new THREE.Mesh(new THREE.PlaneGeometry(hw * 2, 8), floorM)); floorExt.rotation.x = -Math.PI / 2; floorExt.position.set(0, 0, E.frontZ + 4); if (!S.open) outs.add(floorExt);
   // the dark teal pilasters at the back corners and either side of the middle, and a teal skirting all round
   const teal = std("#24494a", { roughness: 0.5, metalness: 0.2 });
   for (const x of [-hw + 0.06, -0.62, 0.62, hw - 0.06]) box(car, 0.12, E.H, 0.03, teal, x, E.H / 2, E.backZ + 0.015);

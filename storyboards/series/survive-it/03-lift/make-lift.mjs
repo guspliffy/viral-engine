@@ -73,14 +73,14 @@ const P8 = { phx: [0, -0.35], spud: [0.1, 0.85], sam: [1.2, 0.3], wiz: [-1.25, 0
 
 const CAM = {
   A: { pos: [0.1, 1.75, 7.6], look: [0.1, 1.55, -0.3], fov: 46 },          // the hallway wide: the car, the cable over it
-  CU: { pos: [0.3, 0.92, 3.3], look: [1.55, 0.72, 0.75], fov: 40 },        // P02: the fist and the button, Spud beside it
-  WALL: { pos: [-1.75, 1.5, 0.2], look: [2.0, 1.55, -0.1], fov: 62 },      // P04: the button wall from the left wall
+  CU: { pos: [-0.35, 0.95, 3.7], look: [1.35, 0.7, 0.6], fov: 34 },        // P02: the fist and the button, Spud beside it
+  WALL: { pos: [-1.5, 1.7, 5.4], look: [1.5, 1.45, -0.2], fov: 46 },      // P04: the button wall from the left wall
   GUN: { pos: [0.35, 1.0, 4.6], look: [0.5, 0.95, 0], fov: 38 },           // P06: Gunslinger calm in front of the fire
-  SPUD: { pos: [-0.5, 0.62, 2.55], look: [-0.55, 0.5, 0.75], fov: 30 },    // P07: Spud's face
-  LOW: { pos: [0.1, 0.35, 5.6], look: [0.05, 1.9, -0.3], fov: 50 },        // P08: low, looking up at the ceiling and the cable
+  SPUD: { pos: [-0.45, 0.6, 3.5], look: [-0.55, 0.52, 0.8], fov: 26 },    // P07: Spud's face
+  LOW: { pos: [0.1, 0.35, 5.8], look: [0.05, 2.05, -0.3], fov: 58 },        // P08: low, looking up at the ceiling and the cable
   FALL: { pos: [0.1, 1.9, 7.2], look: [0.1, 1.5, -0.3], fov: 44 },         // P09: zero gravity
-  PIT: { pos: [0.3, 2.6, 13.5], look: [0, 1.5, 0], fov: 40 },              // P10: outside, the spring under the car
-  UP: { pos: [-1.55, 0.75, -1.2], look: [0.5, 0.75, 1.3], fov: 62 },       // P11: inside, the doorway at the right
+  PIT: { pos: [0.3, 2.4, 14.5], look: [0, 1.7, 0], fov: 40 },              // P10: outside, the spring under the car
+  UP: { pos: [-1.75, 2.5, -1.35], look: [0.35, 0.35, 0.75], fov: 68 },       // P11: inside, the doorway at the right
   SPACE: { pos: [0.6, 2.2, 15.5], look: [0.2, 1.7, 0], fov: 36 },          // P12: the car over the Earth
 };
 
@@ -107,7 +107,7 @@ const props = [
   { id: "sparksR", kind: "sparkrain", x: 2.5, y: 2, z: 0.6, box: [0.7, 7, 1.2], n: 110, dir: -1, rate: 0 },
   { id: "blobs", kind: "fireblobs", x: 0, y: 1.7, z: -0.2, box: [3.4, 2.4, 2.2], n: 9, show: 0 },
   { id: "shell", kind: "liftshell", x: FARX, y: 0, z: 0, sign: "0", scorch: 1 },
-  { id: "pit", kind: "shaftpit", x: FARX, y: -30, z: 0, h: 40, signY: 5.2 },
+  { id: "pit", kind: "shaftpit", x: 0, y: -8, z: 0, h: 40, signY: 5.2 },
   { id: "spring", kind: "liftspring", x: FARX, y: -30, z: -0.2, r: 1.3, h: 2.4, squash: 0 },
   { id: "pass", kind: "shaftpass", x: FARX, y: 0, z: 1.9, w: 3.4, h: 60, floors: [{ y: 30, label: "800" }], blur: 1 },
   { id: "doors", kind: "elevdoors", x: 0, z: 1.27, open: 0 },
@@ -128,6 +128,7 @@ c.cap(0.0, 2.7, "Stuck in a lift with your friends for 30 days.", 470, false, SU
 // ================================================================ 1 DAY 1, THE MISTAKE (P01-P03)
 // P01: the ride up. Samurai's fist over the button from frame 0, Phoenix hopping, Gunslinger on his phone, the sign climbing
 prop(0, "sign", { count: 799.4 }, 3.9, "linear");
+prop(0, "pit", { y: -20 }, T.jam, "linear");   // the shaft slides down past the car: the ride up
 A(0, "sam", "turn", { to: 55, dur: 0 }); A(0, "wiz", "turn", { to: 15, dur: 0 });
 c.arm(0, "sam", "R", { o: [0.42, 0.62, 0.3] }, 0); A(0, "sam", "grip", { side: "R", shape: "fist", dur: 0 });
 A(0, "sam", "lean", { to: 8, dur: 0 });
@@ -143,7 +144,7 @@ look(T.spud, "spud", [0, 0], 0.2); expr(T.spud, "spud", "happy");
 see(0, T.cu, ["spud.face", "sam", "panel", "sign"], "frame 0: five friends riding up, the Samurai's fist over the door-close button, the sign climbing");
 
 // P02: the punch. Close on the button: fist through the plate, Spud beside it
-place(T.cu, "spud", [0.72, 0.0], 35);
+place(T.cu, "spud", [0.55, -0.15], 20); A(r3(T.cu - 0.02), "sam", "turn", { to: 40, dur: 0.01, ease: "linear" });
 c.say(T.cu + 0.03, "sam", "One second. New record!", 0.6, "excited", { pos: 1240 });
 c.arm(T.cu, "sam", "R", { o: [0.2, 0.7, -0.05] }, 0.3, "out");                      // wind-up
 c.arm(r3(T.punch - 0.1), "sam", "R", { world: [1.98, BTN.y, BTN.z] }, 0.1, "in");   // the punch
@@ -180,8 +181,8 @@ c.say(T.sure, "spud", "...sure.", 0.4, "calm", { pos: 1240 });
 expr(T.sure, "spud", "deadpan"); look(T.sure, "spud", [0, 0], 0.15);
 
 // P04: the wall fills up, days 1 to 12, in one shot
-const W4 = { wiz: [1.25, 0.15], spud: [0.75, -0.75], sam: [0.2, 0.55], phx: [-0.2, -0.45], gun: [-0.75, 0.25] };
-Object.entries(W4).forEach(([w, at]) => place(T.wall, w, at, w === "wiz" ? 90 : yawTo(at, [CAM.WALL.pos[0], CAM.WALL.pos[2]], 0.75)));
+const W4 = { wiz: [1.3, 0.25], spud: [0.4, 0.8], sam: [0.25, -0.35], phx: [-0.75, 0.25], gun: [-0.7, -0.95] };
+Object.entries(W4).forEach(([w, at]) => place(T.wall, w, at, w === "wiz" ? 75 : 30));
 c.arm(T.wall, "wiz", "R", "up", 0); c.arm(T.wall, "wiz", "L", "rest", 0);
 A(T.wall, "wiz", "tap", { count: 9, every: 0.15, side: "R", lift: 0.05 });
 prop(T.wall, "panel", { lit: 1000 }, r3(T.hot - T.wall - 0.1), "linear");
@@ -235,7 +236,7 @@ see(T.call, T.take, ["gun.face", "phone", "fire"], "cause: the only phone, and h
 // P07: Spud's face
 c.say(r3(T.take + 0.03), "spud", "TAKE IT!", 0.5, "excited", { pos: 1250 });
 scream(T.take, "spud", 0.4); look(T.take, "spud", [0.5, 0.1], 0);
-both(T.take, "spud", { o: [0.3, 0.55, 0.3] }, 0);
+both(T.take, "spud", "cheeks", 0);
 see(T.take, T.counter, ["spud.face"], "Spud's panic close-up: he begs him to take the offer");
 
 // back on the Gunslinger: one more counter-offer, and the battery dies
@@ -279,6 +280,7 @@ c.cap(r3(T.fall + 0.1), T.pit, "Day thirty.", 470, false, SUB_STYLE);
 bake(T.fall, 0.9, 0.6);
 prop(T.fall, "blobs", { show: 1 }, 0.3, "out"); prop(T.fall, "fire", { burn: 0.6 }, 0.3);
 prop(T.fall, "sign", { count: 0 }, r3(T.pit - T.fall), "in");
+prop(T.fall, "pit", { y: -1 }, r3(T.pit - T.fall - 0.05), "in");   // the shaft rushes up past the car
 prop(T.fall, "sparksL", { rate: 1 }, 0.1, "linear"); prop(T.fall, "sparksR", { rate: 1 }, 0.1, "linear");
 c.at(T.fall, { fx: "speedlines", dur: r3(T.pit - T.fall), dir: "up" });
 sfx(T.fall, "ridewind", { gain: 0.5, reason: "the car in free fall" });
@@ -286,7 +288,7 @@ see(T.fall, T.pit, ["spud.face", "sign"], "effect: the car falls the whole tower
 
 // ================================================================ 5 SO THE SPRING FIRES THEM BACK UP (P10-P11)
 // P10: outside. The pit rushes up, the car meets the spring
-const PITY = -1.0;   // the pit floor under the car when the spring is squashed flat
+const PITY = -0.5, PITC = -2.55;   // the pit floor under the car: spring squashed flat / at first contact (free height 2.4)
 FIVE.forEach((w, i) => {
   const at = [[0, 0.75], [1.05, 0.55], [-1.05, 0.55], [-0.55, -0.4], [0.55, -0.4]][i];
   place(T.pit, w, at, 0); A(r3(T.pit - 0.02), w, "land", { dur: 0.01 }); A(r3(T.pit - 0.02), w, "pitch", { to: 0, dur: 0.01, ease: "linear" });
@@ -295,14 +297,14 @@ FIVE.forEach((w, i) => {
 });
 prop(T.pit, "blobs", { show: 0 }, 0.01, "linear"); prop(T.pit, "sparksL", { rate: 0 }, 0.01, "linear"); prop(T.pit, "sparksR", { rate: 0 }, 0.01, "linear");
 prop(r3(T.pit - 0.02), "shell", { x: 0 }, 0.01, "linear");
-prop(r3(T.pit - 0.02), "pit", { x: 0, y: -30 }, 0.01, "linear"); prop(T.pit, "pit", { y: PITY - 2.05 }, r3(T.hit - T.pit), "linear");
-prop(r3(T.pit - 0.02), "spring", { x: 0, y: -30 }, 0.01, "linear"); prop(T.pit, "spring", { y: PITY - 2.05 }, r3(T.hit - T.pit), "linear");
+prop(r3(T.pit - 0.02), "pit", { y: -30 }, 0.01, "linear"); prop(T.pit, "pit", { y: PITC }, r3(T.hit - T.pit), "linear");
+prop(r3(T.pit - 0.02), "spring", { x: 0, y: -30 }, 0.01, "linear"); prop(T.pit, "spring", { y: PITC }, r3(T.hit - T.pit), "linear");
 prop(T.hit, "spring", { squash: 1, y: PITY }, 0.12, "out"); prop(T.hit, "pit", { y: PITY }, 0.12, "out");
 c.at(T.hit, { fx: "impact", dur: r3(2 / 30) }); c.at(r3(T.hit + 0.03), { fx: "shake", dur: 0.4, amp: 0.08 });
 sfx(T.hit, "slam", { gain: 0.7, loud: true, reason: "the car lands on the buffer spring" });
 sfx(r3(T.hit + 0.1), "creak", { gain: 0.5, reason: "the spring squashed flat, loading up" });
 // the launch: the spring opens, the pit drops away
-prop(T.launch, "spring", { squash: 0, y: PITY - 2.05 }, 0.08, "out"); prop(T.launch, "pit", { y: PITY - 2.05 }, 0.08, "out");
+prop(T.launch, "spring", { squash: 0, y: PITC }, 0.08, "out"); prop(T.launch, "pit", { y: PITC }, 0.08, "out");
 prop(r3(T.launch + 0.08), "pit", { y: -34 }, 0.14, "in"); prop(r3(T.launch + 0.08), "spring", { y: -34 }, 0.14, "in");
 sfx(T.launch, "seatclack", { gain: 0.7, loud: true, reason: "the spring fires the car back up" });
 see(T.pit, T.up, ["spring", "spud.face"], "cause: the giant spring at the bottom, squashed flat under the car, then it fires");
@@ -378,7 +380,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [470, 1360],
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
-  set: { type: "elevator", seed: 3, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
+  set: { type: "elevator", seed: 3, open: true, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   music: MUSIC,
   sound: { sfx: 0.65, ambience: 0.3, guard: true },
   creative: { length: [T.end, T.end] },
