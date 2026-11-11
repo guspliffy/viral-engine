@@ -12,7 +12,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
-import { clipResults, contactResults } from "./check.mjs";
+import { clipResults, contactResults, captionResults } from "./check.mjs";
 import { GATE as RENDER_GATE } from "./gate.mjs";
 import { visibility, frontResults } from "./framing.mjs";
 import { motionResults } from "./motion.mjs";
@@ -22,9 +22,9 @@ const DIR = path.join(ROOT, "storyboards/regress");
 // the checks a fixture may not fail unless its expect block names them (the render gate, qa/gate.mjs)
 const GATE = RENDER_GATE.fails;
 
-// the contact, rig, framing (must-see, the front) and motion results, as qa/preflight.mjs judges them
+// the contact, rig, caption, framing (must-see, the front) and motion results, as qa/preflight.mjs judges them
 export async function judge(sb, layout) {
-  const res = [...clipResults(sb, layout), ...contactResults(layout, sb), ...frontResults(sb, layout), ...visibility(sb, layout).results, ...(await motionResults(sb, sb.fps ?? 30))], ex = sb.expect || {}, bad = [];
+  const res = [...clipResults(sb, layout), ...contactResults(layout, sb), ...captionResults(sb, layout), ...frontResults(sb, layout), ...visibility(sb, layout).results, ...(await motionResults(sb, sb.fps ?? 30))], ex = sb.expect || {}, bad = [];
   const lvl = (check) => (res.some((r) => r.check === check && r.level === "fail") ? "fail" : res.some((r) => r.check === check && r.level === "warn") ? "warn" : "pass");
   for (const c of ex.fail || []) if (lvl(c) !== "fail") bad.push(`${c} should fail, got ${lvl(c)}`);
   for (const c of ex.warn || []) if (lvl(c) === "pass") bad.push(`${c} should warn, got pass`);

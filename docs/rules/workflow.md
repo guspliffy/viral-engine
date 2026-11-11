@@ -11,7 +11,9 @@ fixed budget per video (length and new things differ too much): the workflow rem
 counted the same way every time. Where a section below says otherwise, these eight win.
 
 1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's OK, polish, checks on the
-   draft, one full render, delivery. A step back is named with its reason in the clip's notes.
+   draft, one full render, delivery. A step back is named with its reason in the clip's notes. For the first clip of
+   a new series the outline is six lines of "X, so Y, so Z" and goes to Jonny before anything is built (Fight, Flight
+   or Freeze 01: three of five drafts rebuilt the story, about a third of its cost).
 2. **Decide first, polish last.** The rough draft (`--draft`: story, timing, cameras, captions; only fails that hide
    a beat are fixed) goes to Jonny before any hand or foot polish, on every clip. Nothing is polished that he might
    still cut; a retiming after polish breaks the hands again (Share or Steal EP01). His OK on the draft replaces
@@ -352,8 +354,8 @@ wasted work, and you prove it.
 
 5. Add one ledger row with one command (`node tools/ledger.mjs add ...`): length, new things, rule 8's five counts,
    check fails seen and unseen, steps, minutes from brief to delivery, machine minutes, director model and effort,
-   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. If the row needs counting by hand, the
-   counting script is the next fix.
+   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. The counts come from the thread's own
+   transcript: `node tools/ledger-count.mjs --from <time of the brief> --to <time of the delivery>` (under a second).
 6. Judge the fix on test against the comparison video. Count fell and score held: keep it. No drop after two videos:
    take it out again. Nothing stays on belief.
 7. Pick exactly one next fix. A fault that reached Jonny's eyes always goes first. Otherwise the largest of: the
