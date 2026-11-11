@@ -30,5 +30,6 @@ Opus 5.5 on xhigh before); the line to compare with is the first row.
 | 2026-11-08 | never-has-money-04-your-birthday (director writes) | ? | ? | ? | ? | ? | ? | ? | ? | ? | 323 | ? | Opus 5.5 xhigh | 73 | ? | better cuts and scenes; hands less clean than the old cut; Gunslinger turns from the camera in the hug | none |
 | 2026-11-10 | share-or-steal-01 | 24.7 | series, set | ? | ? | 20 | ? | 1 | ? | ? | ? | ? | ? | 59 | ? | ? | none |
 | 2026-11-10 | survive-it-ep1-snowed-in | 20.8 | room, mountain, built to panels from scratch | ~230 | 40 | 3 | 0 | 4 | ~100 | 853 | 560 | ? | ? | ? | ? | format: just different scenes, not one story | none |
+| 2026-11-11 | theres-a-catch-04-copy-money (2 rounds) | 21.6 | format, 5 prop packs, night set; round 2 rebuilt two thirds from Jonny's notes | 51 | 20 full + 35 partial | 4 | 1 | 2 | 18 | 725 | 435 | ? | Fable 5.2 high | 118 | ? | round 1: catch was a fact caption, not shown; slow opening; copied wallets not money; cup and wallet holds wrong; music too quiet; opening line not catchy. Round 2 draft: OK | open: the comparison row has no counts |
 
 Records before 8 Nov and the other clips of 8 to 10 Nov are the "Trial" lines in `docs/STATE.md`, as written then.

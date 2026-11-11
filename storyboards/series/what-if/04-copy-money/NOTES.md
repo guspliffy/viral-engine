@@ -6,7 +6,7 @@ panel sheet where they differ). Series: There's a catch, EP04. Trial of the new 
 ## Where the build stands
 
 - ROUND 2 (Jonny 10 Nov, after delivery): real-speed opening (frame 0 to 1.7 s), Reaper holds a 100 (`banknote`),
-  the catch SHOWN (`cashpyre` at 38.7,0; him 40.45,1.65), cups by `grips.mug` on a cut. Draft 2 with Jonny, then polish
+  the catch SHOWN (`cashpyre` at 38.7,0; him 40.45,1.65), cups by `grips.mug` on a cut. Draft OK'd, delivered 11 Nov
 - Generator: `--no-vo` writes copy-money-no-vo.json (no opening slow motion, no narrator); default = with narrator.
   `READY=money,flood,twist,night` names the packs that exist; `TIMES=1` prints story = video seconds for every beat;
   `AT=14.6,...` maps video seconds to story seconds. Windows (allowClip, see) are written in story s, converted by VT()
