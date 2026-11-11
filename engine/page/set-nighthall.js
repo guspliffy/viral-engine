@@ -150,15 +150,31 @@ export function buildNighthall(scene, S = {}) {
   const spill = new THREE.Mesh(new THREE.PlaneGeometry(1.5, D.z1 - D.z0 - 0.1), basic({ color: "#5a74c8", transparent: true, opacity: 0.22, depthWrite: false, blending: THREE.AdditiveBlending }));
   spill.rotation.x = -Math.PI / 2; spill.position.set(-hw + 0.7, 0.004, (D.z0 + D.z1) / 2); spill.renderOrder = 1; set.add(spill);
   // the near end (behind the camera) and the far end of the hall: panelled walls; the far one has a little console and a picture
+  // S.window { x, y, w, h } (x its middle, y its sill; fight flight or freeze 01, 11 Nov 2026): a window in the far wall
+  // with a pale casing, a sill and a glazing cross; what stands outside (props) and a night picture show through it
+  const Wn = S.window;
   for (const [z, f] of [[P.far, 1], [P.near, -1]]) {
+    if (Wn && f > 0) {
+      const x0 = Wn.x - Wn.w / 2, x1 = Wn.x + Wn.w / 2, y0 = Wn.y, y1 = Wn.y + Wn.h;
+      for (const [a, b, c, d] of [[-hw, x0, W, H], [x1, hw, W, H], [x0, x1, y1, H], [x0, x1, W, y0]]) {
+        if (b - a < 0.01 || d - c < 0.01) continue;
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(b - a, d - c), paper(b - a, d - c)); m.position.set((a + b) / 2, (c + d) / 2, z); set.add(m);
+      }
+      for (const y of [y0, y1]) box(set, Wn.w + 0.16, 0.08, 0.1, casing, Wn.x, y + (y === y0 ? -0.04 : 0.04), z + 0.03);
+      for (const x of [x0, x1]) box(set, 0.08, Wn.h, 0.1, casing, x + (x === x0 ? -0.04 : 0.04), (y0 + y1) / 2, z + 0.03);
+      box(set, Wn.w + 0.3, 0.04, 0.2, casing, Wn.x, y0 - 0.06, z + 0.08);
+      box(set, 0.035, Wn.h, 0.04, casing, Wn.x, (y0 + y1) / 2, z); box(set, Wn.w, 0.035, 0.04, casing, Wn.x, (y0 + y1) / 2, z);
+      const out = new THREE.Mesh(new THREE.PlaneGeometry(16, 9), basic({ map: tex(nightTex(rnd)) })); out.position.set(Wn.x, 3.2, z - (Wn.far ?? 10)); out.name = "set-night-window"; set.add(out);
+    } else {
     const w = new THREE.Mesh(new THREE.PlaneGeometry(P.w, H - W), paper(P.w, H - W)); w.position.set(0, W + (H - W) / 2, z); if (f < 0) w.rotation.y = Math.PI; set.add(w);
+    }
     const p = new THREE.Mesh(new THREE.PlaneGeometry(P.w, W), panel(P.w)); p.position.set(0, W / 2, z + f * 0.012); if (f < 0) p.rotation.y = Math.PI; set.add(p);
     box(set, P.w, 0.05, 0.05, rail, 0, W, z + f * 0.025);
   }
   const wood = std("#6e4a32", { roughness: 0.5 });
   box(set, 0.9, 0.04, 0.3, wood, -0.6, 0.74, P.far + 0.17, true);
   for (const dx of [-0.4, 0.4]) box(set, 0.04, 0.72, 0.26, wood, -0.6 + dx, 0.36, P.far + 0.17, true);
-  picture(set, rnd, 1, 0.6, 0.45, -0.6, 1.55, P.far + 0.01, 0);
+  if (!Wn) picture(set, rnd, 1, 0.6, 0.45, -0.6, 1.55, P.far + 0.01, 0);
   // a little lamp on the console, off (a dark shade)
   { const base = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.2, 14), std("#8f8a7a", { roughness: 0.4 })); base.position.set(-0.85, 0.86, P.far + 0.17); set.add(base);
     const shade = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.14, 0.16, 18, 1, true), std("#c9bfa8", { roughness: 0.8, side: THREE.DoubleSide })); shade.position.set(-0.85, 1.03, P.far + 0.17); set.add(shade); }

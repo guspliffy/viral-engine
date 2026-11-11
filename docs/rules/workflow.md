@@ -27,11 +27,12 @@ counted the same way every time. Where a section below says otherwise, these eig
 7. **One full render, no waiting steps.** Strips, cut sheets and flash checks run on the draft. A second full render
    needs its reason in DELIVERY.md. Start a render with one background command and end the turn; titles, merges and
    post packs happen in a short thread, not in the clip's long one (every step there re-reads the whole thread).
-8. **Count the waste and fix the biggest.** DELIVERY.md carries the same five counts for every video: lookups, layout
-   runs, check-fix rounds, full renders, waiting steps (counted from the thread's own tool calls, the same way each
-   time), and Jonny's score out of 10 when he gives one. The largest count gets one tool or check before the next
-   video. A lesson that does not become a tool, a check or a template line is dropped, and a new line in a rule file
-   replaces or merges an old one.
+8. **Count the waste and fix the biggest.** Every video gets one row in `docs/LEDGER.md` with the same five counts:
+   lookups, layout runs, check-fix rounds, full renders, waiting steps (counted from the thread's own tool calls and
+   the clip's notes, the same way each time), and Jonny's score out of 10 when he gives one. What is done with the
+   row is "The improvement loop" at the end of this file: one fix per video, tested on the next one. A lesson that
+   does not become a tool, a check or a template line is dropped, and a new line in a rule file replaces or merges
+   an old one.
 
 ## Roles
 
@@ -220,6 +221,16 @@ Three rig facts that cost Share or Steal EP01 about 20 check rounds (10 Nov), ea
   beat by an odd number of frames changes which frames are drawn after it, and a passage that was clean can pick up
   slides. Retime in steps of 2 frames (0.067 s), and hide a sit or a step-out behind a cut instead of tuning it.
 
+Four more from Share or Steal EP02 (11 Nov), each measured in a layout:
+- A hand that leaves a lap beside a table goes through the table's edge on a straight line. Send it over the edge
+  first: a `{ world: [...] }` point 18 cm above the top, beside the face (never between face and camera), first leg
+  ease "in", second leg "linear". "in" into "out" puts 20-40 cm into one drawing at the join.
+- An arm pose change scheduled on a cut turned the palm 62-75 degrees four frames before the cut, still in the old
+  shot. Keep the pose through the cut and change it half a second later, or not at all.
+- A still at a rounded time is not the video's frame: 4.267 s is after frame 128 (4.2667 s). A prop swap two
+  hundredths before a cut showed for one frame in the outgoing shot. Judge cut frames on the render's `--cuts` sheet.
+- A seated character follows a moving chair with `ride` (`prop`, `off: [0, 0.3, 0.03]`); `drop` falls on its own curve.
+
 `qa/hands.mjs` checks these numbers on screen, unsmeared and inside a shot: `palm-turn` (a turn of 60° or more in fewer
 than 6 frames) is a visible glitch; `hand-jump` (a move 2 or more frames short of one frame per 10 cm) is a warning
 with its one-line reason in the delivery. On the EP04 cuts: palm turns old 1, director 12, Fable 12; hand jumps old 13,
@@ -243,7 +254,7 @@ waiver for the whole clip.
 - Preflight counts them (10 Nov 2026, `qa/waivers.mjs`): how many windows are in frame, for how long, and which
   findings they take out of the verdict. `node qa/waivers.mjs <sb> --md` writes the table for DELIVERY.md. Over 10
   windows in frame (`GATE.waiverBudget`; EP04: the clean-hands cut had 7, the others 30 and 31), look at a 15 fps
-  strip of each before the full render. The count goes in the clip's Trial line, so the budget can be set from
+  strip of each before the full render. The count goes in the clip's ledger row, so the budget can be set from
   Jonny's notes on the next five clips.
 
 ## The order of work for a clip: creative review and cheap checks first, then the full render
@@ -285,7 +296,7 @@ waiver for the whole clip.
    the background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
    (earshot listens: hits on their frame, footsteps on the right floor). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
-   cut changed after the one on the draft. Count the farm renders after review B in the Trial line: the target is one.
+   cut changed after the one on the draft. Count the farm renders after review B in the ledger row: the target is one.
    The background command of rule 7: `until [ "$(gh run view <id> --json status -q .status)" = completed ]; do
    sleep 30; done`, no check-ins beside it (about 100 of Survive it EP1's 853 steps only waited). Open the pull
    request when the final clip has passed, not during the build (each check event wakes the thread), and run
@@ -314,18 +325,50 @@ POST PACK: title, caption (line 1 situation, line 2 "Which one are you..."), #fu
 comment poll, playlist + slot (reach rules v2)
 ```
 
-## Measuring the new workflow
+## The improvement loop (Jonny, 10 Nov 2026)
 
-Jonny asked (8 Nov) to try it on the next episode and compare its time and tokens with the last one. For each clip
-made this way, add one line to docs/STATE.md "Trial": wall-clock minutes from brief to delivery, the thread's
-context tokens at delivery (`get_session`), the subagents' token totals from their results, and fix rounds used.
+Written by Claude for Claude on Jonny's ask: the workflow and the engine improve themselves in tokens and time while
+quality stays the same or rises. It replaces "Measuring the new workflow" and the Trial lines in docs/STATE.md.
 
-From 10 Nov 2026 the line (and DELIVERY.md) also carries, from `get_session` at delivery: **the director's model and
-effort**, the thread's **cost in dollars**, its **output tokens** and its **cache-read tokens** (cache reads divided
-by the context size is about the number of model steps; half of a clip's bill is the thread re-reading itself, so
-steps are what to save). And from the build: drafts, **farm renders** (how many after review B), and the **check
-windows in frame** (`qa/waivers.mjs`). Why: the director's model is on trial (Fable 5.2 on high since 10 Nov, Opus
-5.5 on xhigh before). Fable 5.2 costs twice Opus 5.5 per output and cache-write token and the same per cache read, so
-the same build would cost about $111 instead of $73 unless it takes fewer steps. The line to beat: EP04 with the Opus
-director, $73, 323 min, 0.96 M output tokens, 180 M cache-read tokens. A clip that changed model midway says so and
-doesn't count. Jonny's verdict on the video decides; the numbers say what it cost.
+Goal: every video takes fewer steps and fewer minutes than the last comparable one, and Jonny's score does not fall.
+Jonny judges finished videos; numbers only say what they cost. There is no budget and no target total. You remove
+wasted work, and you prove it.
+
+**Before the first step of a video**
+
+1. `node tools/ledger.mjs` prints the last three ledger rows and the fix that is on test. Write in the clip's notes
+   which count that fix should lower.
+2. Pick the comparison video: the earlier one closest in length and in new things (props, effects, sets, format).
+
+**While building**
+
+3. The third time you do the same kind of step for the same reason, stop. That is waste showing itself live. Write
+   one line in the notes (what repeated, why) and change the route. These lines are the causes for the ledger, so
+   nobody re-reads a transcript later.
+4. When a check fails, note whether the fault can be seen in the frames. A fail nobody can see is the check's fault,
+   not the clip's.
+
+**After delivery, in a short thread**
+
+5. Add one ledger row with one command (`node tools/ledger.mjs add ...`): length, new things, rule 8's five counts,
+   check fails seen and unseen, steps, minutes from brief to delivery, machine minutes, director model and effort,
+   cost, Jonny's score, each note he gave. Unknown is `?`, never a guess. If the row needs counting by hand, the
+   counting script is the next fix.
+6. Judge the fix on test against the comparison video. Count fell and score held: keep it. No drop after two videos:
+   take it out again. Nothing stays on belief.
+7. Pick exactly one next fix. A fault that reached Jonny's eyes always goes first. Otherwise the largest of: the
+   biggest waste count, the slowest engine command times its runs, a check with unseen fails in two videos.
+8. Build it as deep as it will go: first an engine or helper default so it cannot go wrong, then a warning or check
+   at the earliest step, then the template or vocabulary sheet, and a rule line only as a last resort, replacing an
+   old one. A lesson kept as text is paid again in every thread.
+9. Keep it small: it must cost less than it saves over the next three videos. A fix that changes what the video
+   looks like is proven on a finished video Jonny judges; any other fix by a before and after number. It goes to
+   Jonny as one small pull request and waits for his word. The ledger's "Fix on test" names it.
+
+**Every fifth video**
+
+10. Prune. Take out checks, tools and rule lines that did not fire or were not used in five videos. Ask whether this
+    loop paid for itself in the ledger, and cut the steps of this section that did not.
+
+Never trade quality for a number, never skip a check to improve a count, and never ask Jonny to judge anything but a
+video.

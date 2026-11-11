@@ -1,0 +1,478 @@
+{
+ "id": "nightdiner-props",
+ "title": "Night diner props bench",
+ "idea": "Props bench for There's a catch EP04 (dinerfront, oilbarrel), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#0e1630",
+  "floor": "#161c2c"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "gsl",
+   "barrel"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "gsl",
+   "character": "never-has-money/gunslinger",
+   "at": [
+    -0.75,
+    2
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    1.35,
+    2.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.4
+  }
+ ],
+ "props": [
+  {
+   "id": "front",
+   "kind": "dinerfront",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 9,
+   "d": 9
+  },
+  {
+   "id": "barrel",
+   "kind": "oilbarrel",
+   "x": 0.25,
+   "y": 0,
+   "z": 2.4,
+   "rot": 0,
+   "glow": 1,
+   "feed": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "a1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.5,
+     9.7
+    ],
+    "look": [
+     0.3,
+     0.82,
+     2
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "fire": 1,
+      "clock": 0.35,
+      "feed": 0,
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "gsl",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.35,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera A, clock 0.35, feed 0, flicker 0"
+  },
+  {
+   "name": "a2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.5,
+     9.7
+    ],
+    "look": [
+     0.3,
+     0.82,
+     2
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.95,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera A, clock 0.95, feed 0, flicker 1"
+  },
+  {
+   "name": "a3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.5,
+     9.7
+    ],
+    "look": [
+     0.3,
+     0.82,
+     2
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.35,
+      "feed": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera A, clock 0.35, feed 1, flicker 0"
+  },
+  {
+   "name": "a4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.5,
+     9.7
+    ],
+    "look": [
+     0.3,
+     0.82,
+     2
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.95,
+      "feed": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera A, clock 0.95, feed 1, flicker 1"
+  },
+  {
+   "name": "b5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.2,
+     6.1
+    ],
+    "look": [
+     -0.15,
+     0.82,
+     2
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.35,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera B, clock 0.35, feed 0, flicker 0"
+  },
+  {
+   "name": "b6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.2,
+     6.1
+    ],
+    "look": [
+     -0.15,
+     0.82,
+     2
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.95,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera B, clock 0.95, feed 0, flicker 1"
+  },
+  {
+   "name": "b7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.2,
+     6.1
+    ],
+    "look": [
+     -0.15,
+     0.82,
+     2
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.35,
+      "feed": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera B, clock 0.35, feed 1, flicker 0"
+  },
+  {
+   "name": "b8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.2,
+     6.1
+    ],
+    "look": [
+     -0.15,
+     0.82,
+     2
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "barrel",
+     "set": {
+      "clock": 0.95,
+      "feed": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "flicker": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "camera B, clock 0.95, feed 1, flicker 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/04-copy-money/bench/make-nightdiner-props.mjs (props bench, no reviews)."
+}

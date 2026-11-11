@@ -1,0 +1,36 @@
+{
+ "name": "airport-apron-sunrise",
+ "prompt": "anime film background painting, gouache, soft brush strokes, eye level view from the ground across a wide empty airport apron at sunrise, flat grey concrete tarmac fills the bottom half, in the middle distance one passenger jet airliner with a plain white unmarked fuselage parked side-on, a mobile passenger boarding staircase leading up to its open cabin door, a glass terminal building and a control tower far behind, warm orange and pink sunrise sky, long soft shadows",
+ "no": "people, potato, text, letters, lettering, words, airline name, logo, livery, yellow plane, sign, car in foreground, puddles, rain, aerial view, view from above, plane in the air",
+ "seeds": [
+  8,
+  5,
+  19,
+  23,
+  31
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 2.0,
+  "vfov": 46,
+  "pos": [
+   0,
+   2.0,
+   11.0
+  ]
+ },
+ "light": {
+  "from": "low from the left: a warm sunrise",
+  "key": [
+   -3.0,
+   4.0,
+   2.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 15,
+ "surface": "street"
+}
