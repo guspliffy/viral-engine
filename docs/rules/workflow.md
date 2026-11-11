@@ -11,7 +11,9 @@ fixed budget per video (length and new things differ too much): the workflow rem
 counted the same way every time. Where a section below says otherwise, these eight win.
 
 1. **Fixed order, no skipping back.** Story outline, staging stills, rough draft, Jonny's OK, polish, checks on the
-   draft, one full render, delivery. A step back is named with its reason in the clip's notes.
+   draft, one full render, delivery. A step back is named with its reason in the clip's notes. For the first clip of
+   a new series the outline is six lines of "X, so Y, so Z" and goes to Jonny before anything is built (Fight, Flight
+   or Freeze 01: three of five drafts rebuilt the story, about a third of its cost).
 2. **Decide first, polish last.** The rough draft (`--draft`: story, timing, cameras, captions; only fails that hide
    a beat are fixed) goes to Jonny before any hand or foot polish, on every clip. Nothing is polished that he might
    still cut; a retiming after polish breaks the hands again (Share or Steal EP01). His OK on the draft replaces

@@ -19,6 +19,9 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
 - Vocabulary sheet, clip notes and `qa/peek.mjs` (#190): should lower `lookups` (Survive it EP1: about 230 of 853 steps).
 - Layout reuse and frame-cache keys (#189): should lower `machine` minutes per draft.
 - The eight rules (#195): should lower `layouts`, `fix rounds` and `waits`.
+- From Fight, Flight or Freeze 01 (11 Nov): captions can't stand on each other (`c.say` gives way to the next
+  caption, `caption-collide` fails in preflight) and a new series sends its six-line chain to Jonny before the first
+  build: should keep `renders` at 1 and lower the drafts that rebuild a story.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
