@@ -15,19 +15,23 @@ import { clip, write, r3 } from "../../../../lib/clip.mjs";
 const c = clip();
 const RIG = { hand: 2, eyes: 2, hold: 2 };
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
-const GX = { tent: 0, car: 30, camp: 60, pot: 64, branch: 68, lan: 80, fire: 90, pine: 110 };
+const GX = { tent: 0, car: 30, camp: 60, pot: 64, branch: 68, lan: 80, fire: 90, pine: 110, cut: 130 };
 
 // the three friends (scale: Spud 0.88, Chip 0.53, Wedge 0.98)
 const cast = [
   { id: "spud", character: "potatobrawl/spud", at: [-2.4, 2.4], face: 25, expr: "kind", follow: 0.2, seed: 2.1 },
   { id: "chip", character: "potatobrawl/chip", at: [-3.3, 2.6], face: 25, expr: "kind", follow: 0.2, seed: 3.1 },
   { id: "wedge", character: "potatobrawl/wedge", at: [-4.2, 2.4], face: 25, expr: "kind", follow: 0.2, seed: 4.2 },
+  { id: "spudI", character: "potatobrawl/spud", at: [GX.cut - 0.6, -0.2], face: 0, expr: "scared", follow: 0.2, seed: 2.1 },
+  { id: "chipI", character: "potatobrawl/chip", at: [GX.cut, 0.45], face: 0, expr: "scared", follow: 0.2, seed: 3.1 },
+  { id: "wedgeI", character: "potatobrawl/wedge", at: [GX.cut + 0.75, -0.25], face: 0, expr: "scared", follow: 0.2, seed: 4.2 },
   { id: "spudC", character: "potatobrawl/spud", at: [GX.camp + 1.1, 0.3], face: -30, expr: "kind", follow: 0.2, seed: 2.1 },
 ];
 const R2 = 0.312;   // the pine's radius at 2 m (0.36 -> 0.12 over 9 m), where the claw marks go
 const props = [
   { id: "tent", kind: "domecamp", x: GX.tent, z: 0 },
   { id: "carW", kind: "campcar", x: GX.tent - 10, z: 0.0, rot: -35 },
+  { id: "tentB", kind: "domecamp", x: GX.cut, z: 0 },
   { id: "carD", kind: "campcar", x: GX.tent + 0.4, z: 6.6, rot: 180 },
   { id: "doorW", kind: "cardoor", x: GX.tent - 7.8, y: 0.045, z: 0.9, rot: 10, tilt: -90 },
   { id: "car", kind: "campcar", x: GX.car, z: 0 },
@@ -45,8 +49,9 @@ const props = [
 ];
 // params that propState has no default for are seeded at 0 (a dur-0 set), then tweened
 const SEED = (t) => {
-  c.prop(t, "tent", { open: 0, rip: 0, push: 0, flutter: 0 }, 0);
+  c.prop(t, "tent", { open: 0, rip: 0, push: 0, flutter: 0, cut: 0 }, 0);
   for (const id of ["carW", "carD", "car"]) c.prop(t, id, { smash: 0, door: 0, torn: 0, lights: 0, flash: 0 }, 0);
+  c.prop(t, "tentB", { open: 0, cut: 0 }, 0);
   c.prop(t, "cooler", { dent: 0 }, 0); c.prop(t, "pot0", { dent: 0 }, 0); c.prop(t, "pot1", { dent: 0 }, 0); c.prop(t, "branch", { fire: 0 }, 0);
   for (const id of ["lan0", "lan1", "lan2"]) c.prop(t, id, { lit: 0, tip: 0 }, 0);
   c.prop(t, "grass", { fire: 0, spread: 0 }, 0); c.prop(t, "pine", { sway: 0, shake: 0, snap: 0 }, 0);
@@ -62,6 +67,8 @@ const SHOTS = [
   ["tentPush", () => c.prop(T, "tent", { rip: 0, flutter: 0, push: 1 }, 0), camFor(GX.tent, { p: [4.2, 1.5, 4.6], l: [0, 0.65, 0.5], f: 40 }), "domecamp: push 1 (the front fly bulges in)"],
   ["tentWin", () => { c.prop(T, "tent", { push: 0, open: 0 }, 0); c.prop(T, "carW", { smash: 1, torn: 1, lights: 1 }, 0); }, { pos: [GX.tent + 0.6, 0.75, 0.0], look: [GX.tent - 1.5, 0.65, 0], fov: 55 }, "from inside through the window: smashed car, torn door, lights"],
   ["tentDoor", () => { c.prop(T, "carD", { smash: 1, torn: 1, lights: 1 }, 0); }, { pos: [GX.tent, 0.72, -0.5], look: [GX.tent + 0.2, 0.7, 6.6], fov: 50 }, "from inside through the door mesh: the smashed car outside"],
+  ["tentCut", () => c.prop(T, "tentB", { cut: 1 }, 0), { pos: [GX.cut + 0.3, 1.5, -3.6], look: [GX.cut, 0.5, 0.2], fov: 68 }, "domecamp: cut 1, the wild wall, from 2 m behind: door closed with its mesh window, three potatoes inside"],
+  ["tentCutOpen", () => c.prop(T, "tentB", { open: 1 }, 0), { pos: [GX.cut + 0.3, 1.5, -3.6], look: [GX.cut, 0.5, 0.2], fov: 68 }, "domecamp: cut 1, the door open"],
   ["tentWinOut", () => {}, camFor(GX.tent, { p: [-4.4, 1.0, -3.0], l: [-1.2, 0.65, 0], f: 36 }), "domecamp: the window (-x wall) from outside"],
   ["car0", () => {}, camFor(GX.car, { p: [4.2, 1.5, 6.0], l: [0, 0.9, 0.3], f: 36 }), "campcar: parked"],
   ["car1", () => c.prop(T, "car", { smash: 1, door: 1, lights: 1 }, 0), camFor(GX.car, { p: [5.0, 1.3, 5.6], l: [0, 0.9, 0.3], f: 38 }), "campcar: smash 1, door 1, lights 1"],

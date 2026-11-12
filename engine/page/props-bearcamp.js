@@ -59,6 +59,10 @@
 //               the climb side (+z, within 66 deg) between 1 m and 7.4 m, so a bear and a potato climb up the +z face. sway -1..1
 //               (seed) swings the top 0.5 m (to +x at 1), shake 0..1 (seed) adds a 13 Hz tremble on the clip clock; snap (a count, seed)
 //               branch bits (up to 8) break off the +x side at 5-9 m: bit i falls during snap i -> i + 1 and lies below it after.
+//               cut 0..1 (seed; off below 0.5, on from 0.5, no animation) a film-set wild wall: the back half of the fly (local -z, opposite
+//               the door) is not drawn, a clean seam on the z = 0 line over the dome; the poles stay, the floor tub rim on that side
+//               drops to a 4 cm lip, the door half shows its darker inner green, the side window keeps its front half. A camera
+//               outside behind the tent (about 2 m) sees straight in. Not solid there: only the cloth that is drawn counts.
 // Solid: the car, the door, the cooler, the pot, the branch, the lantern's metal, the trunk and branches. See-through (userData.steam):
 // the window mesh, the beams, flames, glows, smoke. The tent is an enclosing shell (the potatoes sit inside): list it for
 // the contact checks. Sizes of the held props: storyboards/lib/grips.mjs SIZE.
@@ -277,8 +281,11 @@ export const BEARCAMP_KINDS = {
     const flyMesh = mesh(fly, flyM, P.whole); flyMesh.frustumCulled = false;
     const inMesh = mesh(fly, inM, P.whole); inMesh.castShadow = inMesh.receiveShadow = false; inMesh.frustumCulled = false; flyMesh.receiveShadow = false;   // no self-shadow on the cloth (acne on its dark side)
     // floor tub: a tan rim round the base and the floor inside
-    const rimPts = []; for (let i = 0; i < 48; i++) { const a = (i / 48) * TAU, c = Math.cos(a), s = Math.sin(a); rimPts.push([1.012 * DA * sgn(c) * Math.abs(c) ** (2 / DP), 0.05, 1.012 * DB * sgn(s) * Math.abs(s) ** (2 / DP)]); }
-    mesh(tubeGeo(rimPts, 0.05, 8, true), mat("#8a7a5a", { roughness: 0.95 }), P.whole);
+    // (two arcs: the door half, and the back half which `cut` lowers to a 4 cm lip)
+    const rimArc = (a0, a1, y) => { const pts = []; for (let i = 0; i <= 24; i++) { const a = lerp(a0, a1, i / 24), c = Math.cos(a), s = Math.sin(a); pts.push([1.012 * DA * sgn(c) * Math.abs(c) ** (2 / DP), y, 1.012 * DB * sgn(s) * Math.abs(s) ** (2 / DP)]); } return pts; };
+    const rimM = mat("#8a7a5a", { roughness: 0.95 });
+    mesh(tubeGeo(rimArc(0, Math.PI, 0.05), 0.05, 8, false), rimM, P.whole);
+    const rimBack = mesh(tubeGeo(rimArc(Math.PI, TAU, 0.05), 0.05, 8, false), rimM, P.whole); let lastCut = 0;
     {
       const sh = new THREE.Shape(); for (let i = 0; i < 64; i++) { const a = (i / 64) * TAU, c = Math.cos(a), s = Math.sin(a), x = 0.99 * DA * sgn(c) * Math.abs(c) ** (2 / DP), z = 0.99 * DB * sgn(s) * Math.abs(s) ** (2 / DP); i ? sh.lineTo(x, -z) : sh.moveTo(x, -z); }
       const fl = mesh(new THREE.ShapeGeometry(sh), mat("#6f6046", { roughness: 1 }), P.whole, 0, 0.03, 0); fl.rotation.x = -Math.PI / 2; fl.castShadow = false;
@@ -316,10 +323,11 @@ export const BEARCAMP_KINDS = {
 
     const flyAt = (p, off, d) => { const n = domeN(p[0], p[2]), k = off + d; return [p[0] + n[0] * k, p[1] + n[1] * k, p[2] + n[2] * k]; };
     let lastKey = "", lastAlpha = "";
-    const drawAlpha = (rip) => {
+    const drawAlpha = (rip, cut) => {
       ag.globalCompositeOperation = "source-over"; ag.clearRect(0, 0, CW, CH); ag.drawImage(base, 0, 0, CW, CH); ag.globalCompositeOperation = "destination-out"; ag.fillStyle = "#000";
       const poly = (pts) => { ag.beginPath(); pts.forEach((p, i) => { const q = uvPx(p, CW, CH); i ? ag.lineTo(q[0], q[1]) : ag.moveTo(q[0], q[1]); }); ag.closePath(); ag.fill(); };
       poly(doorPoly(1)); poly(winPoly(1));
+      if (cut) ag.fillRect(CW / 2, 0, CW / 2 + 1, CH);   // the wild wall: the back half (-z, a from pi to 2 pi) not drawn, the seam on the z = 0 grid line
       const rr = clamp(rip), len = RIPLEN * clamp(rr / 0.55);
       if (len > 0.02) {
         for (let i = 0; i < 4; i++) {   // the slits: ragged ribbons
@@ -334,13 +342,14 @@ export const BEARCAMP_KINDS = {
       }
       alpha.needsUpdate = true;
     };
-    drawAlpha(0); lastAlpha = "0";
+    drawAlpha(0, 0); lastAlpha = "0|0";
     return {
       grip: 0,
       apply(ps, t) {
-        const tt = t ?? 0, op = clamp(num(ps, S, "open")), rip = clamp(num(ps, S, "rip")), push = clamp(num(ps, S, "push")), flut = clamp(num(ps, S, "flutter"));
-        const key = [op, rip, push, flut, flut > 0 || rip > 0.6 ? tt.toFixed(3) : 0].join("|"); if (key === lastKey) return; lastKey = key;
-        const ak = String(Math.round(rip * 40)); if (ak !== lastAlpha) { lastAlpha = ak; drawAlpha(rip); }
+        const tt = t ?? 0, op = clamp(num(ps, S, "open")), rip = clamp(num(ps, S, "rip")), push = clamp(num(ps, S, "push")), flut = clamp(num(ps, S, "flutter")), cut = num(ps, S, "cut") >= 0.5 ? 1 : 0;
+        const key = [op, rip, push, flut, cut, flut > 0 || rip > 0.6 ? tt.toFixed(3) : 0].join("|"); if (key === lastKey) return; lastKey = key;
+        const ak = Math.round(rip * 40) + "|" + cut; if (ak !== lastAlpha) { lastAlpha = ak; drawAlpha(rip, cut); }
+        if (cut !== lastCut) { lastCut = cut; rimBack.geometry.dispose(); rimBack.geometry = tubeGeo(rimArc(Math.PI, TAU, cut ? 0.02 : 0.05), cut ? 0.02 : 0.05, 8, false); }
         // displacement along the fly's normal at a rest point: the bear's push (in) and the wind's ripple
         const disp = (x, y, z) => {
           const bulge = Math.exp(-((x / 0.62) ** 2 + ((y - 0.78) / 0.55) ** 2)) * smooth((z + 0.2) / 0.6);
@@ -360,7 +369,7 @@ export const BEARCAMP_KINDS = {
         if (roll.visible) { const rr = 0.012 + 0.05 * op, hw = Math.max(0.1, doorHW(Math.min(Y, DOOR.top - 0.001))) * cutK, pts = [];
           for (let i = 0; i <= 12; i++) { const x = (i / 6 - 1) * hw, p = frontPt(x, Y); pts.push(flyAt(p, 0.014 + rr * 0.9, disp(p[0], p[1], p[2]))); } roll.geometry.dispose(); roll.geometry = tubeGeo(pts, rr, 10); }
         // the window
-        fill(win, NWX, NWY, (u, v) => { const z = lerp(WIN.z0, WIN.z1, u), y = lerp(WIN.y0, WIN.y1, v), p = leftPt(z, y); return flyAt(p, 0.004, disp(p[0], p[1], p[2])); });
+        fill(win, NWX, NWY, (u, v) => { const z = lerp(cut ? 0 : WIN.z0, WIN.z1, u), y = lerp(WIN.y0, WIN.y1, v), p = leftPt(z, y); return flyAt(p, 0.004, disp(p[0], p[1], p[2])); });
         // the claw strips: from the slit's top, lifting off the fly as they hang and splaying a little
         const len = RIPLEN * clamp(rip / 0.55), lift = smooth((rip - 0.3) / 0.7);
         strips.forEach(({ g, m }, s) => {
