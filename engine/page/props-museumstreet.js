@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { clamp, lerp, rng } from "./util.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
+import { makeLoft } from "./geo.js";
 
 // "There's a catch" episode 5, "back to life" (task T4): the museum's outside and the town square. Bright midday, metres,
 // x right, y up, z toward the main camera, every prop faces +z at rot 0. Nothing here is solid for the checks and nothing
@@ -40,8 +41,10 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 //                back. rise 0..1 (propState default spec.rise 0): at 0 nothing is above ground; to 0.45 the back heaves up
 //                (earth, grass, three tiny houses and five trees that tilt and slide off from 0.35, 40 clods of earth and
 //                rock that fall off from 0.2 to 0.95), the neck (thick, grey-green #8f9a84, paler throat) swings up and
-//                forward from rise 0.3 to 0.85 to a small gentle head at y 36, z 14 in front of the origin looking down
-//                toward +z. Spec headH 36 and headZ 14 (the head's height and distance in front of the origin: the neck is
+//                forward from rise 0.3 to 0.85 to a small sauropod head at y 36, z 14 in front of the origin looking down
+//                toward +z. Neck and head are ONE lofted skin (S-curve, wrinkle bands, old scars, clods and grass still on its back; head
+//                1.7x the neck's end width: domed crest over the nostrils, broad flat muzzle, closed mouth line, small dark eyes on the sides
+//                under a ridge, no white, no brows) with the lower jaw a second loft hinged at the back of the mouth. Spec headH 36 and headZ 14 (the head's height and distance in front of the origin: the neck is
 //                scaled to them), bend 1 (the sideways S of the neck, 0 = in one plane). Back at rise 1: 26 wide (x +-13), 12 tall, 22 deep (z +-11). jaw 0..1 (mouth), blink 0..1
 //                (eyelids). Dust billows at its base (10 sprites, strongest while it heaves).
 //   streetcracks the dropped scythe's crack in the cobbles. Spec: r 2.6 (the reach of the longest arm is 0.75..1.1 r).
@@ -645,7 +648,7 @@ export const MUSEUMSTREET_KINDS = {
   // ------------------------------------------------------------------------------------------------ hillneck
   hillneck(P) {
     const g = P.whole, S = P.spec, HW = 13, HH = 12, HD = 11;   // the back: half width, height, half depth at rise 1
-    const skinM = std("#ffffff", { map: tex(neckSkinCanvas()), roughness: 0.95 }), humpM = std("#ffffff", { map: tex(humpCanvas()), roughness: 1 });
+    const humpM = std("#ffffff", { map: tex(humpCanvas()), roughness: 1 });
     const earthM = std("#ffffff", { map: tex(earthCanvas()), roughness: 1, flatShading: true }), rockM = std("#9a9a90", { roughness: 1, flatShading: true });
     const surf = (x, z) => HH * Math.sqrt(Math.max(0, 1 - (x / HW) ** 2 - (z / HD) ** 2));
 
@@ -666,60 +669,95 @@ export const MUSEUMSTREET_KINDS = {
       const m = put(g, cgeo[i % 4], i % 3 === 0 ? rockM : earthM, 0, 0, 0); m.scale.setScalar(size);
       clods.push({ m, sx, sz, size, ex: (sx / HW) * (15 + 9 * rnd(i, 83)) + (rnd(i, 84) - 0.5) * 3, ez: clampN((sz / HD) * (13 + 9 * rnd(i, 85)), -24, 12), ts: 0.2 + 0.6 * rnd(i, 86), sp: [rnd(i, 87) * 5, rnd(i, 88) * 5, rnd(i, 89) * 5] });
     }
-    // ---- the neck: a tube along a fixed curve, swung up about its root (at the front of the back) and forward
+    // ---- neck and head: ONE lofted skin from the ground to the snout (a gentle S, thick at the base, tapering to a small
+    // sauropod head: a domed crest over the nostrils, a broad flat muzzle, a closed mouth line); the lower jaw is a second thin loft
+    // hinged at the back of the mouth. Built in the frame of its root (the front of the back) and swung up about it by a group.
     const HEAD_H = S.headH ?? 36, HEAD_Z = S.headZ ?? 14, BEND = S.bend ?? 1, KY = (HEAD_H + 0.2 - 6.5) / 29.7, KZ = (HEAD_Z - 1 - 8) / 5;
-    const NM = 28, RING = 18, FIN = new THREE.CatmullRomCurve3([[0, 6.5, 8], [-1.6, 15, 6.5], [1.6, 24, 7.5], [2.4, 31, 10.2], [0.6, 36.2, 13.0]].map(([x, y, z]) => new THREE.Vector3(x * BEND, 6.5 + (y - 6.5) * KY, 8 + (z - 8) * KZ)));
-    const cpts = FIN.getSpacedPoints(NM), nrm = [], rad = [];
-    for (let i = 0; i <= NM; i++) { const t = FIN.getTangentAt(i / NM); nrm.push(new THREE.Vector3(0, -t.z, t.y).normalize()); rad.push(1.5 + 2.4 * (1 - i / NM) ** 1.2); }
-    const npos = new Float32Array((NM + 1) * (RING + 1) * 3), nuv = new Float32Array((NM + 1) * (RING + 1) * 2), nidx = [];
-    for (let i = 0; i <= NM; i++) for (let j = 0; j <= RING; j++) { nuv.set([j / RING, (i / NM) * 5], (i * (RING + 1) + j) * 2); if (i < NM && j < RING) { const a = i * (RING + 1) + j, b = a + 1, c2 = a + RING + 1, d = c2 + 1; nidx.push(a, c2, b, b, c2, d); } }
-    const ngeo = new THREE.BufferGeometry(); ngeo.setAttribute("position", new THREE.BufferAttribute(npos, 3)); ngeo.setAttribute("uv", new THREE.BufferAttribute(nuv, 2)); ngeo.setIndex(nidx);
-    const neck = put(g, ngeo, skinM, 0, 0, 0);
-    // ---- the head: gentle, big eyes, a closed-ish smile; jaw and eyelids move
-    const head = new THREE.Group(); g.add(head);
-    const hskin = std("#ffffff", { map: tex(neckSkinCanvas(true)), roughness: 0.95 }), paleM = std("#c9d0b8"), mouthM = std("#7a2a34"), white = new THREE.MeshBasicMaterial({ color: "#fbfaf4" }), iris = new THREE.MeshBasicMaterial({ color: "#6b4a2a" }), pup = new THREE.MeshBasicMaterial({ color: "#1a120c" }), glint = new THREE.MeshBasicMaterial({ color: "#ffffff" });
-    put(head, ell(1.3, 1.2, 1.4, 26), hskin, 0, 0, 0.9); put(head, ell(0.88, 0.68, 1.3, 22), hskin, 0, -0.3, 2.3);
-    for (const s of [-1, 1]) { put(head, ell(0.09, 0.07, 0.07, 8), std("#4d5a48"), s * 0.28, 0.12, 3.5); const ck = put(head, new THREE.CircleGeometry(0.28, 14), bas({ color: "#d9a59a", transparent: true, opacity: 0.5, depthWrite: false }), s * 1.02, -0.3, 1.75); ck.rotation.y = s * 1.25; }
-    put(head, ell(0.55, 0.12, 0.9, 12), mouthM, 0, -0.62, 2.0);
-    const jaw = new THREE.Group(); jaw.position.set(0, -0.62, 1.2); head.add(jaw);
-    put(jaw, ell(0.75, 0.3, 1.2, 18), paleM, 0, -0.12, 1.1); put(jaw, ell(0.5, 0.06, 0.8, 10), std("#d97c88"), 0, 0.14, 1.0);
+    const NN = 17, FIN = new THREE.CatmullRomCurve3([[0, 6.5, 8], [-1.6, 15, 6.5], [1.6, 24, 7.5], [2.4, 31, 10.2], [1.4, 35.2, 11.3], [0.6, 36.2, 13.0]].map(([x, y, z]) => new THREE.Vector3(x * BEND, 6.5 + (y - 6.5) * KY, 8 + (z - 8) * KZ)));
+    const cpts = FIN.getSpacedPoints(NN), pivot = FIN.getPointAt(0), E = cpts[NN], TH = 0.4;   // E = the back of the skull (where the head ends up); the head looks 0.4 rad down
+    const Uh = new THREE.Vector3(0, Math.cos(TH), Math.sin(TH)), Dh = new THREE.Vector3(0, -Math.sin(TH), Math.cos(TH));
+    // head profile in the head's frame: [s along the face, top, bottom of the closed mouth line, half width, squareness]
+    const HS = [[0, 0.65, -0.65, 0.65, 2], [0.9, 1.0, -0.62, 0.85, 2.2], [1.8, 1.2, -0.5, 0.92, 2.3], [2.5, 1.35, -0.38, 0.85, 2.4], [3.1, 1.0, -0.32, 0.8, 2.5], [3.7, 0.5, -0.3, 1.0, 2.8], [4.3, 0.32, -0.28, 1.12, 3.0], [4.6, 0.1, -0.12, 0.75, 2.5]];
+    const secs = [], nsec = NN + HS.length, vEc = (v) => [v.x - pivot.x, v.y - pivot.y, v.z - pivot.z];
+    for (let i = 0; i < NN; i++) { const r = 0.65 + 3.4 * (1 - i / NN) ** 1.6; secs.push({ c: vEc(cpts[i]), w: r * 1.05, up: r * 0.95, dn: r * 0.95 }); }
+    for (const [s, T, B, w, n] of HS) { const yc = (T + B) / 2, c = E.clone().addScaledVector(Uh, yc).addScaledVector(Dh, s); secs.push({ c: vEc(c), w, up: (T - B) / 2, dn: (T - B) / 2, n }); }
+    const rg = (seed) => { const R = rng(seed); return R; };
+    const vn = (x, y, sd = 0) => { const i = Math.floor(x), j = Math.floor(y), a = smooth(0, 1, x - i), b = smooth(0, 1, y - j), h = (p, q) => rnd(p * 57 + q * 131, sd + 5); return (h(i, j) * (1 - a) + h(i + 1, j) * a) * (1 - b) + (h(i, j + 1) * (1 - a) + h(i + 1, j + 1) * a) * b; };
+    const mx = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+    const GB = rgbOf("#59684f"), GF = rgbOf("#7b8870"), GP = rgbOf("#b4bd9d"), GH = rgbOf("#6f7c63");
+    const blocks = (g, W, H, st, f) => { for (let y = 0; y < H; y += st) for (let x = 0; x < W; x += st) { const c = f((x + st / 2) / W, 1 - (y + st / 2) / H); g.fillStyle = `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`; g.fillRect(x, y, st, st); } };
+    // the skin, painted once: u = along the spine (the head from u 0.7), v 0.5 = the back, v 0 / 1 = the throat
+    const skinCanvas = cvs(2048, 512, (g, W, H) => {
+      const R = rg(151), UH = (NN - 0.5) / (nsec - 1);
+      blocks(g, W, H, 4, (u, v) => {
+        const d = Math.abs(v - 0.5) * 2, edge = 0.8 + 0.07 * (vn(u * 70, 3) - 0.5) + 0.05 * (vn(u * 240, 9) - 0.5), head = smooth(UH - 0.01, UH + 0.02, u);
+        let c = mx(GB, GF, smooth(0, 0.6, d)); c = mx(c, GP, smooth(edge - 0.1, edge + 0.08, d) * (1 - 0.25 * head));
+        c = mx(c, GH, head * 0.4 * (1 - smooth(0.5, 0.95, d)));
+        return mx(c, GB, (vn(u * 90, v * 12, 21) - 0.45) * 0.35);
+      });
+      // wrinkle bands round the neck
+      for (let k = 0; k < 30; k++) {
+        const x0 = ((k + 0.1 + 0.8 * R()) / 30) * W * UH, a = 4 + 5 * R(), ph = R() * 6;
+        for (const [dx, col, lw] of [[0, "rgba(40,54,38,0.38)", 2 + 3 * R()], [5, "rgba(225,232,205,0.12)", 2]]) { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let y = 0; y <= H; y += 8) { const x = x0 + dx + a * Math.sin(y / 38 + ph) + 3 * (R() - 0.5); y ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }
+      }
+      // fine scale marks
+      for (let i = 0; i < 4200; i++) { g.fillStyle = R() < 0.55 ? "rgba(48,62,46,0.16)" : "rgba(235,240,215,0.14)"; g.beginPath(); g.ellipse(R() * W, R() * H, 2 + 3 * R(), 1.5 + 2.2 * R(), R() * 3, 0, 7); g.fill(); }
+      // a few big old scars on the flanks: pale healed ridges with a darker rim
+      [[0.09, 0.3], [0.19, 0.7], [0.28, 0.34], [0.38, 0.66], [0.47, 0.3], [0.56, 0.7], [0.63, 0.36]].forEach(([u, v], i) => {
+        const x = u * W + 20 * R(), y = (1 - v) * H, a = (R() - 0.5) * 1.2 + 1.35, L = 70 + 70 * R(), t = 12 + 9 * R();
+        g.save(); g.translate(x, y); g.rotate(a); g.fillStyle = "rgba(214,196,176,0.6)"; g.strokeStyle = "rgba(74,62,54,0.55)"; g.lineWidth = 3;
+        g.beginPath(); g.ellipse(0, 0, L, t, 0, 0, 7); g.fill(); g.stroke();
+        for (let m = -3; m <= 3; m++) { g.beginPath(); g.moveTo(m * L * 0.28, -t * 1.4); g.lineTo(m * L * 0.28 + 3, t * 1.4); g.stroke(); }
+        g.restore();
+      });
+      // clods of earth and tufts of grass still on the back of the neck, thinning out up the neck
+      for (let i = 0; i < 150; i++) {
+        const u = Math.pow(R(), 1.7) * 0.5, v = 0.5 + (R() - 0.5) * 0.28, th = 1 - u * 1.6; if (R() > th) continue;
+        g.fillStyle = i % 3 === 0 ? "#6f9a4a" : i % 3 === 1 ? "#7a5a3a" : "#5a4228"; g.globalAlpha = 0.85; g.beginPath(); g.ellipse(u * W, (1 - v) * H, 8 + 22 * R(), 6 + 12 * R(), R() * 3, 0, 7); g.fill(); g.globalAlpha = 1;
+      }
+      // the head: nostrils on the crest, the closed mouth line along the lip
+      for (const v of [0.4, 0.6]) { g.fillStyle = "rgba(36,46,34,0.9)"; g.beginPath(); g.ellipse(((NN + 3.35) / (nsec - 1)) * W, (1 - v) * H, 15, 6, 0.2, 0, 7); g.fill(); }
+      g.fillStyle = "rgba(38,46,36,0.7)"; g.fillRect(((NN + 1.2) / (nsec - 1)) * W, 0, W, 4); g.fillRect(((NN + 1.2) / (nsec - 1)) * W, H - 4, W, 4);
+    });
+    const jawCanvas = cvs(256, 128, (g, W, H) => { blocks(g, W, H, 4, (u, v) => { const d = Math.abs(v - 0.5) * 2; return mx(mx(GH, GP, smooth(0.2, 0.7, d)), GB, (vn(u * 30, v * 8, 4) - 0.45) * 0.3); }); g.fillStyle = "rgba(38,46,36,0.7)"; g.fillRect(0, H / 2 - 2, W, 4); });
+    const skinM = std("#ffffff", { map: tex(skinCanvas), roughness: 0.95 }), jawM = std("#ffffff", { map: tex(jawCanvas), roughness: 0.95 }), ridgeM = std("#7a8770", { roughness: 0.95 });
+    const neckG = new THREE.Group(); g.add(neckG);
+    const neckGeo = makeLoft(secs, { sub: 3, radial: 28, ref: [0, 0, -1] });
+    put(neckG, neckGeo, skinM, 0, 0, 0);
+    const headG = new THREE.Group(); headG.position.set(...vEc(E)); headG.rotation.x = TH; neckG.add(headG);
+    // lower jaw: [s, centre y, half depth, half width], hinged at (y -0.55, s 1.0)
+    const JT = [[1.0, -0.75, 0.25, 0.6], [1.8, -0.68, 0.22, 0.72], [2.5, -0.53, 0.19, 0.72], [3.1, -0.44, 0.16, 0.7], [3.7, -0.39, 0.13, 0.85], [4.3, -0.35, 0.11, 0.95], [4.55, -0.25, 0.05, 0.6]];
+    const jawGeo = makeLoft(JT.map(([s, y, d, w]) => ({ c: [0, y, s], w, up: d, dn: d, n: 2.4 })), { sub: 3, radial: 20 });
+    put(headG, jawGeo, jawM, 0, 0, 0);
+    const setJaw = (k) => { const a = 0.55 * k, ca = Math.cos(a), sa = Math.sin(a); jawGeo.userData.set(JT.map(([s, y, d, w]) => { const dy = y + 0.55, ds = s - 1.0; return { c: [0, -0.55 + dy * ca - ds * sa, 1.0 + dy * sa + ds * ca], w, up: d, dn: d, n: 2.4 }; })); };
+    // eyes: small, dark, on the sides of the head under a slight ridge (no white, no brows); the lids close for a blink
+    const eyeM = bas({ color: "#1b1511" }), glintM = bas({ color: "#f4f1e6" });
     const eyes = [-1, 1].map((s) => {
-      const e = new THREE.Group(); e.position.set(s * 0.95, 0.5, 1.55); e.rotation.y = s * 0.55; head.add(e);
-      for (const [geo, m, z] of [[new THREE.SphereGeometry(0.5, 20, 14), white, 0], [new THREE.CircleGeometry(0.3, 20), iris, 0.455], [new THREE.CircleGeometry(0.17, 18), pup, 0.46], [new THREE.CircleGeometry(0.07, 12), glint, 0.465]]) { const o = put(e, geo, m, z === 0.465 ? 0.1 : 0, z === 0.465 ? 0.1 : 0, z); }
-      const lid = put(e, new THREE.SphereGeometry(0.53, 20, 10, 0, Math.PI * 2, 0, Math.PI / 2), hskin, 0, 0, 0); lid.rotation.x = -Math.PI / 2;
+      const e = new THREE.Group(); e.position.set(s * 0.87, 0.62, 1.95); e.rotation.y = s * Math.PI / 2; headG.add(e);
+      put(e, new THREE.SphereGeometry(0.09, 14, 10), eyeM, 0, 0, 0); put(e, new THREE.SphereGeometry(0.02, 8, 6), glintM, 0.03, 0.04, 0.08);
+      const lid = put(e, new THREE.SphereGeometry(0.1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), skinM, 0, 0, 0); lid.rotation.x = -Math.PI / 2;
       const lp = new THREE.Group(); e.add(lp); lp.add(lid);
-      const brow = put(e, ell(0.46, 0.09, 0.2, 10), std("#6f7c68"), 0, 0.62, 0.05); brow.rotation.z = -s * 0.18;
+      put(headG, makeLoft([[1.45, 0.07, 0.05], [1.8, 0.2, 0.1], [2.1, 0.2, 0.1], [2.45, 0.1, 0.05]].map(([z, w, ud]) => ({ c: [s * 0.8, 0.83, z], w, up: ud, dn: ud })), { sub: 3, radial: 10 }), ridgeM, 0, 0, 0);
       return { lp };
     });
     // ---- dust at the base
     const dustMap = tex(puffCanvas(140, "rgba(226,212,180,A)", "rgba(170,150,115,A)", 10, 256)), dust = [];
     for (let i = 0; i < 10; i++) { const a = (i / 10) * Math.PI * 2 + 0.3 * rnd(i, 90); dust.push({ s: spriteOf(g, dustMap, "#ffffff", 7), x: 17 * Math.cos(a), z: 14 * Math.sin(a), r: 4.5 + 3.5 * rnd(i, 91), ph: rnd(i, 92) }); }
 
-    const pivot = FIN.getPointAt(0), tmp = new THREE.Vector3();
-    let lastKey = "";
+    let lastKey = "", lastJaw = -1;
     return {
       grip: 0,
       apply(ps) {
         const rise = clamp(ps.rise ?? S.rise ?? 0), jawK = clamp(ps.jaw ?? 0), blink = clamp(ps.blink ?? 0);
         const e = easeOut(rise / 0.45), y0 = HH * (e - 1), q = clamp((rise - 0.3) / 0.55), sw = q * q * (3 - 2 * q), alpha = 2.3 * (1 - sw);
         const on = rise > 0.002;
-        for (const o of [hump, neck, head, ...rim.map((r) => r[0])]) o.visible = on;
+        for (const o of [hump, neckG, ...rim.map((r) => r[0])]) o.visible = on;
         const key = `${rise}|${jawK}|${blink}`; if (key === lastKey) return; lastKey = key;
+        if (jawK !== lastJaw) { lastJaw = jawK; setJaw(jawK); }
         hump.visible = on; hump.position.y = y0; hump.rotation.z = 0.012 * Math.sin(rise * 60) * (1 - e);
         for (const [m, a] of rim) { const k = smooth(0, 0.35, rise); m.position.set((HW + 1.6) * Math.cos(a) * 1.05, 0.2 + 0.2 * k, (HD + 1.6) * Math.sin(a) * 1.05); m.scale.set(1, k, 1); m.visible = on && k > 0.02; }
-        // neck
-        const cs = Math.cos(alpha), sn = Math.sin(alpha), p = neck.geometry.attributes.position;
-        for (let i = 0; i <= NM; i++) for (let j = 0; j <= RING; j++) {
-          const ph = (j / RING) * Math.PI * 2, r = rad[i];
-          tmp.set(cpts[i].x + Math.cos(ph) * r * 1.08, cpts[i].y + nrm[i].y * Math.sin(ph) * r, cpts[i].z + nrm[i].z * Math.sin(ph) * r);
-          const dy = tmp.y - pivot.y, dz = tmp.z - pivot.z;
-          p.setXYZ(i * (RING + 1) + j, tmp.x, pivot.y + dy * cs - dz * sn + y0, pivot.z + dy * sn + dz * cs);
-        }
-        p.needsUpdate = true; neck.geometry.computeVertexNormals(); neck.geometry.computeBoundingSphere();
-        const end = cpts[NM], dy = end.y - pivot.y, dz = end.z - pivot.z;
-        head.position.set(end.x, pivot.y + dy * cs - dz * sn + y0, pivot.z + dy * sn + dz * cs); head.rotation.set(alpha + 0.4, 0, 0);
-        neck.visible = on && sw > 0.003; head.visible = on && sw > 0.003;
-        jaw.rotation.x = 0.55 * jawK;
+        // neck and head: one skin, swung up about its root (a group turned about x) and shifted with the back
+        neckG.position.set(pivot.x, pivot.y + y0, pivot.z); neckG.rotation.x = alpha; neckG.visible = on && sw > 0.003;
         const lidK = 0.2 + 0.8 * blink; for (const e2 of eyes) e2.lp.rotation.x = (35 + 140 * lidK) * Math.PI / 180;
         // riders and clods: carried on the back, then they slide and fall as it rises
         for (const r of riders) {
