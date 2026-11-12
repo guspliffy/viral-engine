@@ -1,0 +1,569 @@
+{
+ "id": "watch-props",
+ "title": "Time-watch props bench",
+ "idea": "Props bench for There's a catch EP07 (pocketwatch, watchwreck, rainbox, seasonswirl, goldmedal), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#0d1526",
+  "floor": "#3a1a1a"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "watch"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "watch",
+   "kind": "pocketwatch",
+   "x": -0.2,
+   "y": 0.7,
+   "z": 0.3,
+   "rot": 0,
+   "floor": -0.55
+  },
+  {
+   "id": "loose",
+   "kind": "pocketwatch",
+   "x": 20,
+   "y": 1.4,
+   "z": 0,
+   "rot": 0,
+   "floor": -0.55,
+   "glint": 1
+  },
+  {
+   "id": "rain",
+   "kind": "rainbox",
+   "x": 300,
+   "y": 0,
+   "z": 0,
+   "box": [
+    8,
+    6,
+    8
+   ],
+   "n": 1500,
+   "seed": 3,
+   "splash": 1,
+   "streak": 1
+  },
+  {
+   "id": "swirl",
+   "kind": "seasonswirl",
+   "x": 300,
+   "y": 0,
+   "z": 0,
+   "r": 6,
+   "h": 8,
+   "n": 600,
+   "snow": 1,
+   "leaves": 1,
+   "rain": 1
+  },
+  {
+   "id": "medal",
+   "kind": "goldmedal",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.4,
+   "swing": 0
+  },
+  {
+   "id": "wreck",
+   "kind": "watchwreck",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "rot": 20
+  },
+  {
+   "id": "puddle",
+   "kind": "wetpuddle",
+   "x": 40.02,
+   "y": 0.003,
+   "z": 0.02,
+   "rx": 0.5,
+   "rz": 0.4,
+   "splash": 0,
+   "ring": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.6,
+     0.9
+    ],
+    "look": [
+     -0.5,
+     0.6,
+     0.3
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "watch",
+     "set": {
+      "hands": 0,
+      "wind": 0,
+      "shake": 0,
+      "glint": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "loose",
+     "set": {
+      "hands": 0,
+      "wind": 0,
+      "shake": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "watch",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      -0.035
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "watch",
+     "set": {
+      "hands": -0.4,
+      "glint": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.5
+    }
+   ],
+   "kind": "watch held in the right glove, close"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.9,
+     2.5
+    ],
+    "look": [
+     -0.3,
+     0.62,
+     0.25
+    ],
+    "fov": 34
+   },
+   "do": [],
+   "kind": "Spud holds the watch up"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     1.4,
+     0.55
+    ],
+    "look": [
+     20,
+     1.4,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "loose",
+     "set": {
+      "crack": 1,
+      "wind": 360,
+      "hands": 2.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "crack 1, wind 360"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     1.4,
+     0.5
+    ],
+    "look": [
+     20,
+     1.4,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "loose",
+     "set": {
+      "crack": 0,
+      "burst": 0.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "burst 0.1"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     1.2,
+     1.3
+    ],
+    "look": [
+     20,
+     1.15,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "loose",
+     "set": {
+      "burst": 0.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "burst 0.4"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     1.12,
+     1.5
+    ],
+    "look": [
+     20,
+     1.12,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "loose",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "burst 1"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     3.4
+    ],
+    "look": [
+     0,
+     0.9,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "x": 0,
+      "time": 2,
+      "streak": 1,
+      "splash": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "rain time 2, streak 1"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     3.4
+    ],
+    "look": [
+     0,
+     0.9,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "time": 2,
+      "streak": 0,
+      "splash": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "rain frozen, streak 0"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.5,
+     7.5
+    ],
+    "look": [
+     0,
+     1.5,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "x": 300
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "swirl",
+     "set": {
+      "x": 0,
+      "time": 3.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "seasonswirl: snow, leaves, rain"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.5,
+     1.6
+    ],
+    "look": [
+     0,
+     0.32,
+     0.1
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "swirl",
+     "set": {
+      "x": 300
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "medal",
+     "set": {
+      "swing": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "goldmedal worn by Spud"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40.2,
+     0.7,
+     0.8
+    ],
+    "look": [
+     40,
+     0,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "medal",
+     "set": {
+      "x": 300
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "watchwreck in a puddle"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/07-time-travel/bench/make-watch-props.mjs (props bench, no reviews)."
+}
