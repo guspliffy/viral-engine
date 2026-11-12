@@ -272,6 +272,15 @@
    "scale": 1.05
   },
   {
+   "id": "pot12",
+   "kind": "cookpot",
+   "dent": 1,
+   "scale": 1.3,
+   "x": 40,
+   "z": 48,
+   "rot": 200
+  },
+  {
    "id": "pine12",
    "kind": "climbpine",
    "x": 40,
@@ -689,7 +698,7 @@
      "do": "prop",
      "id": "tent",
      "set": {
-      "rip": 0.3
+      "rip": 0.12
      },
      "dur": 0.18,
      "ease": "out",
@@ -726,7 +735,7 @@
      "do": "prop",
      "id": "tent",
      "set": {
-      "rip": 0.45
+      "rip": 0.21
      },
      "dur": 0.18,
      "ease": "out",
@@ -763,7 +772,7 @@
      "do": "prop",
      "id": "tent",
      "set": {
-      "rip": 0.55
+      "rip": 0.3
      },
      "dur": 0.18,
      "ease": "out",
@@ -3717,8 +3726,11 @@
      "who": "spud",
      "do": "release",
      "prop": "branch",
-     "keep": "air",
-     "reason": "the branch is put away off screen before the dawn cut",
+     "to": [
+      56,
+      0,
+      42
+     ],
      "dur": 0,
      "at": 2.5
     },
@@ -3732,8 +3744,37 @@
     },
     {
      "who": "spud",
+     "do": "release",
+     "prop": "pot",
+     "to": [
+      58,
+      0,
+      44
+     ],
+     "dur": 0,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
      "do": "arm",
      "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.52
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
      "pose": "rest",
      "dur": 0.3,
      "ease": "inOut",
@@ -3775,6 +3816,17 @@
     {
      "who": "spud",
      "do": "show",
+     "at": 2.88
+    },
+    {
+     "do": "prop",
+     "id": "pot12",
+     "set": {
+      "x": 0.42,
+      "z": 0.95
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 2.88
     },
     {
@@ -3942,38 +3994,6 @@
      "dur": 0.01,
      "ease": "linear",
      "at": 2.88
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "pot",
-      "grip": [
-       0.272,
-       0.115,
-       -0.008
-      ],
-      "palm": true,
-      "at": [
-       0.118,
-       0.22,
-       0.655
-      ]
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.885
-    },
-    {
-     "do": "prop",
-     "id": "pot",
-     "set": {
-      "rot": 372
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.885
     }
    ]
   },

@@ -140,7 +140,8 @@ const POT = P({ id: "pot", kind: "cookpot", dent: 0, scale: 1.3, ...grips.placeF
 const BRANCH = P({ id: "branch", kind: "burnbranch", fire: 0, ...grips.placeFor("burnbranch", [40.24, 0.36, 40.3], 0) });
 P({ id: "bolt", kind: "skybolt", x: -6, y: 0, z: -40, h: 60, seed: 5, glow: 0 });
 P({ id: "bear", kind: "bear", x: 0, z: -2.2, rot: 0, scale: 1.05 });   // posed per shot below; 1.05 = 2.54 m reared (BEAR-DESIGN.md)
-// panel 12, at the lake: the clawed pine on the right (the torn bag is cut with the bag)
+// panel 12, at the lake: the clawed pine on the right (the torn bag is cut with the bag); the dented pot on the grass
+P({ id: "pot12", kind: "cookpot", dent: 1, scale: 1.3, x: 40, z: 48, rot: 200 });
 P({ id: "pine12", kind: "climbpine", x: 40, z: 46 });
 P({ id: "claws", kind: "clawmarks", x: 40, z: 46, r: 0.36 });
 
@@ -160,14 +161,16 @@ const lightning = (t, { bolt = true, x = -6, seed = 5 } = {}) => {
 pr(0, "tent", { scale: 1.2 }, 0, "linear"); pr(T.phone - 0.02, "tent", { scale: TENT_S }, 0.01, "linear");   // 01 (a flash-forward, outside) a smaller tent so the bear towers over it
 // draft 3 (Jonny 20:02 "01 should be the first scene and the bear should scratch the tent"): as panel 01, the bear in
 // its REACH pose (rear 0.5: palms on top of the tent's front) right behind the tent, close and big over the three; it
-// rakes the fly three times (swipe, alternate paws), the claw slits opening a little more each time
+// rakes the fly three times (swipe, alternate paws), the claw slits growing a little each time; rip stays <= 0.3:
+// past it the strips peel and hang and the cloth read as sliding down (Jonny on draft 3: "should get scratched and not
+// the tent move down")
 const RAKES = [0.15, 0.85, 1.55];
 bearAt(0, 0, -1.7, 0, { scale: 1.45, rear: 0.5, pawL: 0, pawR: 0, jaw: 0.8, snarl: 1, brow: -1, ears: -0.6, headP: 18, swipeSide: 1 });
 pr(0, "tent", { cut: 0, push: 0, open: 1, rip: 0 }, 0, "linear");   // seeds (no propState default)
 RAKES.forEach((t, i) => {
   bear(r3(t - 0.01), { swipe: 0, swipeSide: i % 2 ? -1 : 1 }, 0.01, "linear");
   bear(t, { swipe: 1 }, 0.6, "inOut");
-  pr(r3(t + 0.28), "tent", { rip: [0.3, 0.45, 0.55][i] }, 0.18, "out");
+  pr(r3(t + 0.28), "tent", { rip: [0.12, 0.21, 0.3][i] }, 0.18, "out");
   sfx(r3(t + 0.28), "ai/canvas-rip", { gain: 0.85, reason: "claws raking through the tent cloth" });
 });
 lightning(0.05);
@@ -436,10 +439,14 @@ see(FLEE + 0.05, T.dawn, ["bear"], "the bear gives up and runs off into the fore
 // at the forest edge, deep claw marks up the empty pine on the right.
 place(T.dawn, "spud", [-0.2, 0.6], 12);
 // the branch left behind at the camp (off screen in 11b): let go in the air, out of the physics bake, and put away
-A(r3(T.dawn - 0.4), "spud", "release", { prop: "branch", keep: "air", reason: "the branch is put away off screen before the dawn cut", dur: 0 });
+A(r3(T.dawn - 0.4), "spud", "release", { prop: "branch", to: [56, 0, 42], dur: 0 });
 pr(r3(T.dawn - 0.35), "branch", { x: 56, y: 0, z: 42, fire: 0 }, 0.01, "linear");
 c.A(r3(T.dawn - 0.4), "spud", "grip", { side: "R", shape: "relaxed", dur: 0.1 }); c.arm(r3(T.dawn - 0.38), "spud", "R", "rest", 0.3, "inOut");
-hPot.carry(T.dawn - 0.015, bodyPt([-0.2, 0.6], 12, [-0.3, 0.22, 0.12]), 0.01, "linear", { rot: rotFor("cookpot", 12) });   // the dented pot hangs in his hand
+// the dented pot on the grass beside him (Jonny on draft 3: the pot hanging from his fist read as a glitch): let go off
+// screen before the cut, out of the physics bake, and set down on the ground
+A(r3(T.dawn - 0.4), "spud", "release", { prop: "pot", to: [58, 0, 44], dur: 0 });   // put away off set (a tween after a let-go does not move it: release `to` does)
+c.A(r3(T.dawn - 0.4), "spud", "grip", { side: "L", shape: "relaxed", dur: 0.1 }); c.arm(r3(T.dawn - 0.38), "spud", "L", "rest", 0.3, "inOut");
+pr(T.dawn - 0.02, "pot12", { x: 0.42, z: 0.95 }, 0.01, "linear");
 expr(T.dawn - 0.02, "spud", "sad", { open: 0.05 }, 0.01); look(T.dawn - 0.02, "spud", [0.6, 0.2], 0.01);
 pr(T.dawn - 0.02, "pine12", { x: 1.25, z: -1.4, rot: 180 }, 0.01, "linear");
 pr(T.dawn - 0.02, "claws", { x: 1.25, y: 1.3, z: -1.04 }, 0.01, "linear");
