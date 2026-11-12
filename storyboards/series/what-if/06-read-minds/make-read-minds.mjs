@@ -200,10 +200,10 @@ const felt = (x, z, up = UP) => ({ prop: "table", grip: [r3(x), r3(TH + up), r3(
 // Spud's two hole cards held up before his chest in his left glove, faces to him, backs to the front cameras
 const SFAN_AT = (() => { const [x, z] = P2(SEAT.spud, YAW.spud, 0.4, 0.3); return [x, 0.72, z]; })();
 P(0, "sFan", { x: SFAN_AT[0], y: SFAN_AT[1], z: SFAN_AT[2], rot: YAW.spud, tip: -15 });
-// the cardfan's own hold (grips.mjs SIZE cardfan: the phone hold on the lower edge), so the glove pinches the fan's side
-// edge instead of standing inside the cards (Jonny 12 Nov 19:04: the glove went through the cards in the shoulder shot)
-const sfh = grips.phone(c, "spud", { id: "sFan", kind: "cardfan", x: SFAN_AT[0], y: SFAN_AT[1], z: SFAN_AT[2], rot: YAW.spud, tip: -15 }, { side: "L" });
-c.arm(0, "spud", "L", { prop: "sFan", grip: sfh.hands.L.grip, palm: true }, 0); A(0, "spud", "grip", { side: "L", shape: "hold", dur: 0 });
+// the glove closes round the bottom of the two cards from the camera side (the backs), thumb over the faces: from the
+// front the gloved fingers wrap the backs, over his shoulder both faces show above it (Jonny 12 Nov 19:04 + 20:04: the
+// glove inside the cards, then the cards stuck to the side of the glove; checked in stills at 0.8, 4.2 and 6.6 s)
+c.arm(0, "spud", "L", { prop: "sFan", grip: [0, 0.035, 0.05], palm: true }, 0); A(0, "spud", "grip", { side: "L", shape: "hold", dur: 0 });
 c.arm(0, "spud", "R", felt(0.14, -0.38), 0);
 c.arm(0, "chip", "L", "lap", 0); c.arm(0, "chip", "R", "lap", 0);
 const SUBY = 540;   // speech lettering in the upper third, never over a face (Jonny 12 Nov)
