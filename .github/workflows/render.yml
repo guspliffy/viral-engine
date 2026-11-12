@@ -33,7 +33,7 @@ jobs:
   plan:
     name: Check the storyboard
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 45   # a 60 s+ clip: its contact gate + cost trace ran past 20 min on one runner (zombies v3, 12 Nov)
     outputs:
       shards: ${{ steps.split.outputs.list }}
       n: ${{ steps.split.outputs.n }}
