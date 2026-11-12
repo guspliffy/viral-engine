@@ -1,0 +1,10 @@
+# Common to T1-T3 (You wake up mid EP01, plane crash; director's thread, 11 Nov 2026)
+
+Jonny's panels (the target for look, colours and detail): /mnt/project-files/video-scripts/2026-11-11-you-wake-up-mid/panels-01-mid-plane-crash/sheet-1-panels-01-08.png and sheet-2-panels-09-12.png (Read them once; trailing slash on /mnt/project-files/ paths, never search that folder).
+World: x right, y up, z toward the plane's NOSE (+z), metres. The plane's left (port) side is +x. The cast are potatoes 0.76-0.9 m wide and 0.88-1.4 m tall.
+Engine rules that bind you: CLAUDE.md "Rules that apply to every task" (deterministic: no Math.random, no wall clock; motion is a pure function of story time and the prop's keys). Use only keys props3d.js `propState` already tweens (read that function, lines ~1538-1590, once) and say in your usage header which key means what.
+The registry (engine/page/props3d.js) already imports your file's export; do not touch props3d.js.
+Everything you draw that is air, light, glass, cloth or a shell round the cast is flagged see-through for the contact checks the way props-plane.js does it (`steam(o)`: userData.steam = true, castShadow false), and big shells never cast shadows.
+Bench: write `storyboards/series/you-wake-up-mid/01-plane-crash/bench/make-<task>-bench.mjs` (start from storyboards/templates/clip-template.mjs for the flags; NO cast in a bench; set `{ type: "snowslope", dark: 0 }` plus the template's look flags; one beat per camera the brief lists, 1 s each). Render ONLY its stills: `CHROME_PATH=/opt/pw-browsers/chromium node engine/render.mjs <bench.json> --stills beats --draft --safe --silent`, then `node qa/contact.mjs out/<id>-*.png --out out/<id>-sheet.png` and LOOK at the sheet (Read it) before you report. No layout, no preflight, no draft or full render, no other storyboard. At most 4 stills runs.
+Other builders run on this 4-core box at the same time: do not start a second render while one of yours is running.
+Report format: .claude/agents/builder.md (STATUS / FILES / CHECKS / ASSUMPTIONS / NOTES, at most 150 words) plus the exact usage header text.
