@@ -1,0 +1,81 @@
+{
+  "id": "potatobrawl/wedge",
+  "name": "Wedge",
+  "franchise": "PotatoBrawl",
+  "source": "Reference sheet generated 12 Nov 2026 from Jonny's picks (on his PC: codex-image-trial/out/wedge-reference-sheet-2026-11-12.png; its measurements are the numbers here)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.98,
+    "width": 0.88,
+    "depth": 0.67,
+    "lump": 0.03,
+    "seed": 53,
+    "taper": -0.26,
+    "square": 2.6
+  },
+  "limbs": {
+    "color": "#6a4429",
+    "width": 0.032,
+    "shoulder": -0.3
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 1.08
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1,
+    "lay": [
+      -0.15,
+      0.2,
+      -1.4
+    ],
+    "size": 2.2
+  },
+  "costume": {
+    "type": "wedge",
+    "jacket": "#c34732",
+    "rib": "#fcdaa7",
+    "hemRib": "#efbe83"
+  },
+  "personality": "Spud's everyday friend who says \"trust me\" (Jonny's pick, 12 Nov 2026; the Parallel park type). The biggest of the group, sure of every plan he has, wrong about most of them, and he talks Spud into the one that goes wrong. Catchphrase, in gibberish with the same subtitle every time: \"Trust me.\"",
+  "voice": {
+    "pitch": 98,
+    "rate": 2.8,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 83
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.3,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "No hat, no weapon. One garment: the red bomber jacket (costumes-everyday.js) with a cream ribbed shawl collar in a deep V to the zip, cream cuffs and hem, two slanted flap pockets with a button each. Brown sunglasses pushed up on TOP of the head beside the leaf, never on the forehead and never over the eyes by default. One big leaf swept to the side like styled hair. Dark brown trousers and boots. Broad on top, narrow below, a rounded crown. His sheet draws him 1.24 of Spud's height; he is built 1.10 (Jonny was told: only a little taller). Body width stays at or under 0.88: wider, and the hands jump in a turn (qa rig-jump). Same skin, eyes and hands as Spud."
+}

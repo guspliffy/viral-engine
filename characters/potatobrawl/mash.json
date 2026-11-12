@@ -1,0 +1,83 @@
+{
+  "id": "potatobrawl/mash",
+  "name": "Mash",
+  "franchise": "PotatoBrawl",
+  "source": "Reference sheet generated 12 Nov 2026 from Jonny's picks (on his PC: codex-image-trial/out/mash-reference-sheet-2026-11-12.png; its measurements are the numbers here)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 1.24,
+    "width": 0.54,
+    "depth": 0.5,
+    "lump": 0.03,
+    "seed": 67,
+    "taper": 0.05
+  },
+  "limbs": {
+    "color": "#6e5038",
+    "width": 0.032,
+    "shoulder": -0.3
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.72
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1,
+    "lay": [
+      0,
+      0.2,
+      -2.0
+    ],
+    "size": 2.2
+  },
+  "costume": {
+    "type": "mash",
+    "hoodie": "#7a716c",
+    "strings": "#f2d8bd",
+    "phones": "#8fb1c5",
+    "shoes": "#f7e5d0",
+    "sole": "#d5bca1",
+    "shoeSize": 1.15
+  },
+  "personality": "Spud's everyday friend who never looks up (Jonny's pick, 12 Nov 2026). Tall, slouched, always on his phone; he misses what happens right in front of him, and that is what starts the trouble. Catchphrase, in gibberish with the same subtitle every time: \"One sec.\"",
+  "voice": {
+    "pitch": 108,
+    "rate": 2.6,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 97
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.15,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "No hat, no weapon. One garment: the dark charcoal hoodie (costumes-everyday.js), hood DOWN so his shape and leaf show, a pouch pocket, two thin drawstrings. Big light-blue headphones round the neck. The phone is a prop a clip hands him (left hand on his sheet), not part of him. One leaf drooping to the side. Brown trousers, chunky white trainers. A tall narrow oval: his sheet draws him 1.43 of Spud's height, he is built about 1.35. Same skin, eyes and hands as Spud."
+}
