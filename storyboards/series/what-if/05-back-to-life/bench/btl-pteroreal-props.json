@@ -1,0 +1,735 @@
+{
+ "id": "btl-pteroreal-props",
+ "title": "Real Pteranodon bench",
+ "idea": "Props bench for There's a catch EP05 (real-anatomy pterosaur), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "pte"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.5,
+    1.2
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "pte",
+   "kind": "pterosaur",
+   "x": 0,
+   "y": 1.7,
+   "z": 0,
+   "rot": 0,
+   "flap": 0,
+   "bank": 0,
+   "fold": 0,
+   "glow": 0,
+   "jaw": 0,
+   "brow": 0,
+   "squint": 0,
+   "blink": 0,
+   "lookX": 0,
+   "lookY": 0,
+   "headY": 0,
+   "headP": 0,
+   "drool": 0,
+   "breath": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     8.7,
+     0.9
+    ],
+    "look": [
+     0,
+     1.7,
+     0.1
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "blink": 0,
+      "fold": 0,
+      "drool": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      1.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "1 from above"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.26,
+     4.4
+    ],
+    "look": [
+     0,
+     4.8,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 4.8,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "2 from below 40 deg"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0.125,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "3 front flap 0.125"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0.375,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "4 front flap 0.375"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0.625,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "5 front flap 0.625"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0.875,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "6 front flap 0.875"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.5,
+     1.7,
+     0.3
+    ],
+    "look": [
+     0,
+     1.7,
+     0.3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "7 side gliding"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     1.98,
+     0.85
+    ],
+    "look": [
+     0,
+     1.95,
+     0.7
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 1,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "8 head side jaw 1"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.6
+    ],
+    "look": [
+     0,
+     4.95,
+     0.9
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 4.8,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -0.8,
+      "headY": 0,
+      "headP": 25,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "9 hungry from front below"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4,
+     1.8,
+     4
+    ],
+    "look": [
+     0,
+     1.5999999999999999,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 1,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "10 fold 1"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 30,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "11 bank 30"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0.5,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "12 glow 0.5"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.7,
+     6
+    ],
+    "look": [
+     0,
+     1.7,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 0,
+      "y": 1.7,
+      "z": 0,
+      "rot": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 1,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "13 glow 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/05-back-to-life/bench/make-pteroreal-props.mjs (props bench, no reviews)."
+}
