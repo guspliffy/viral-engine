@@ -68,7 +68,9 @@ import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: pa
 import { RACE_KINDS, RACE_GRIPS } from "./props-race.js";   // what if 03 light-speed race: trophy, finishline, startflag, chalkline, lightstreak, wheatrow, walkingstick
 import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight or freeze 01: eyemask, policecap, moneybag, riotshield, policetorch, policenet
 import { HEISTSET_KINDS, HEISTSET_GRIPS } from "./props-heistset.js";   // fight flight or freeze 01: producecrate, spudbin, policevan, lightbar, sirenwash, lightpool, copshadow, roofblock
-import { ZFLAT_KINDS, ZFLAT_GRIPS, ZFLAT_STATE } from "./props-zflat.js";   // survive it zombies: the flat (rooms, front door, cistern)
+import { ZFLAT_KINDS, ZFLAT_GRIPS, ZFLAT_STATE } from "./props-zflat.js";
+import { ZHOME_KINDS, ZHOME_GRIPS, ZHOME_STATE } from "./props-zhome.js";   // survive it zombies v2: the flat's things
+import { ZOUTBREAK_KINDS, ZOUTBREAK_GRIPS, ZOUTBREAK_STATE } from "./props-zoutbreak.js";   // survive it zombies v2: the outbreak street   // survive it zombies: the flat (rooms, front door, cistern)
 import { ZSTREET_KINDS, ZSTREET_GRIPS, ZSTREET_STATE } from "./props-zstreet.js";   // survive it zombies: street canyon, balcony, shop roof, horde, ladder
 import { ZSHOP_KINDS, ZSHOP_GRIPS, ZSHOP_STATE } from "./props-zshop.js";   // survive it zombies: the shop, tins, the bag
 import { MUSEUM_KINDS } from "./props-museum.js";   // there's a catch 05: museumhall, plinth, exhibitrope, glasscase, livefish, wiltplant
@@ -1405,9 +1407,9 @@ Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
-Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
+Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
