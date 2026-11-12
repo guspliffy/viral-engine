@@ -7,6 +7,8 @@
 //
 // soundNotes(sb), from the storyboard alone:
 //   whoosh-repeat  the same whoosh more than twice reads cheap: vary it or drop the quieter ones
+//   realistic-sounds  a sound that only marks movement or magic (pops, chimes, zaps, boings, whooshes, signatures,
+//                  stings; the automatic ones too, with how to switch them off): Jonny 12 Nov, realistic sounds only
 //   sound-event    a named sound with nothing happening on screen near it (no action starting or ending, no effect);
 //                  give it an action, move it, or say why in "reason" (an off-screen horn)
 //   floor          footsteps on a floor the engine had to guess (set type not in library.mjs SURFACES)
@@ -73,6 +75,10 @@ const SR = 44100, FRAME = 1 / 30;
 const NOT_PHYSICAL = /^(sting|sadslide|jingle|ui-|notify|ringtone|gasp|speech|magic-up|kenney\/(tone|two-tone|three-tone|pep-sound|power-up))/;
 const WHOOSH = /whoosh|swish/;
 const QUIET_ACTIONS = new Set(["look", "blink", "noblink", "expr", "still"]);
+// sounds that only mark movement or magic, the early clips' blings, chimes, squeaks and boings (Jonny 12 Nov 2026: "if
+// we use sounds they should be realistic or come close to atleast"); the hint says how to switch off an automatic one
+const UNREAL = /^(ringpop|pop|poof|tink|ting|ding|zap|magic-up|force-field|laser|charge|sting|sadslide|partyhorn|jingle|hop|flutter|recordscratch|whistletune|timestop|timego|flash|shing|whoosh|swish|windswell|sig-|ui-|notify|ai\/magic-zap|ai\/blep|ai\/flare|ai\/dundun|kenney\/(tone|two-tone|three-tone|pep-sound|power-up|phaser|zap|slime))/;
+const UNREAL_HINT = { hop: "the hop's own boing: `quiet: true` on the hop", pop: "a swap's pop", charge: "a charge's hum: `quiet: true`", sting: "the shocked face's sting: `sound.autoSting` off", sadslide: "a droop's trombone: `sound.autoTrombone` off", poof: "a poof effect: `sound: false` on it", whoosh: "a hat's whoosh: `quiet: true` on it", tink: "a hat landing: `quiet: true`" };
 // the physical moments of the storyboard: actions starting and ending, and every footfall of a walk (a foot lands
 // every half step cycle, as in audio.mjs foley and page/potato.js)
 function physicalMoments(sb) {
@@ -93,6 +99,12 @@ export function soundNotes(sb) {
   const ev = soundEvents(sb);
   const wh = ev.filter((e) => WHOOSH.test(e.kind));
   if (wh.length > 2) add("warn", "whoosh-repeat", `${wh.length} whooshes (${list(wh.map((e) => e.at))}): more than two of the same air sound reads cheap; vary them (shing, cloth, flutter) or drop the quieter ones`);
+  // realistic sounds only: every sound that only marks movement or magic, the automatic ones included
+  const unreal = ev.filter((e) => UNREAL.test(e.kind));
+  if (unreal.length) {
+    const kinds = [...new Set(unreal.map((e) => e.kind))].map((k) => { const at = unreal.filter((e) => e.kind === k).map((e) => e.at); const h = /^sig-/.test(k) ? "a lead's signature: `sound.signature: false`" : UNREAL_HINT[k]; return `${k} at ${list(at)}${h && !(sb.sfx || []).some((x) => x.sound === k) ? ` (${h})` : ""}`; });
+    add("warn", "realistic-sounds", `${unreal.length} sound${unreal.length > 1 ? "s" : ""} that only mark movement or magic: ${kinds.join("; ")}. Jonny 12 Nov: realistic sounds only, no blings, chimes, squeaks or boings; use the real sound of the thing or none (docs/rules/output.md)`);
+  } else add("pass", "realistic-sounds", "no sound that only marks movement or magic");
   // physical moments: actions starting and ending, effects
   const moments = physicalMoments(sb), spans = [];
   for (const a of sb.actions || []) if (!QUIET_ACTIONS.has(a.do)) spans.push([a.at, a.at + (a.dur ?? 0.3)]);
