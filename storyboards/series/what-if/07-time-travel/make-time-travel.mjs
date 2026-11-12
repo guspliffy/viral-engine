@@ -138,6 +138,12 @@ A(0, "chip", "move", { to: CHIP_T1, y: CHIP_Y1, dur: 0.01, steps: 0, ease: "line
 expr(0, "chip", "eager", { open: 0.6 }, 0.01); look(0, "chip", [0.4, -0.1], 0.01);
 Pk("stadium", 0, "crowd", { cheer: 1 });
 Pk("watch", 0, "swirl", { y: DOWN });
+// seed every param that is first tweened later: an unseeded tween starts from undefined and writes NaN (the farm's
+// shards died on the tape's NaN vertices at its snap)
+for (const [pk, id, set] of [["rescue", "crane", { fall: 0 }], ["stadium", "crowd", { hole: CHIP_T1[0] }], ["stadium", "fl0", { lit: 1 }], ["stadium", "fl1", { lit: 1 }],
+  ["stadium", "fl2", { lit: 1 }], ["stadium", "fl3", { lit: 1 }], ["stadium", "fw0", { burst: 0 }], ["stadium", "fw1", { burst: 0 }], ["stadium", "fw2", { burst: 0 }],
+  ["watch", "rain", { alpha: 0.55 }], ["stadium", "screen", { pic: 0, show: 1 }], ["rescue", "starter", { fire: 0 }], ["stadium", "tape", { snap: 0 }],
+  ["rescue", "wash", { on: 0 }], ["watch", "watch", { burst: 0, crack: 0, glint: 0, hands: 0 }]]) Pk(pk, 0, id, set);
 Pk("stadium", 0, "tape", { wave: 1 });
 // the rain: forward with the clock, frozen at the click, then running backward (rising); the watch's hands spin back
 Pk("watch", 0, "rain", { x: 0, y: 0, z: -1.5, time: 0, streak: 1 }); Pk("watch", 0, "rain", { time: T.click }, T.click, "linear");
