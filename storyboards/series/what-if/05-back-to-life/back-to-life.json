@@ -2410,18 +2410,20 @@
      "at": 2.5
     },
     {
-     "who": "phx",
-     "do": "turn",
-     "to": 199,
-     "dur": 0.38,
-     "at": 2.5
-    },
-    {
      "who": "rea",
      "do": "turn",
      "to": 180,
      "dur": 0.25,
      "at": 2.6
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 199,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
     }
    ]
   },
@@ -2972,6 +2974,12 @@
     },
     {
      "sfx": "slam",
+     "gain": 1,
+     "loud": true,
+     "at": 0.45
+    },
+    {
+     "sfx": "slap",
      "gain": 0.6,
      "at": 0.45
     },
@@ -5170,6 +5178,11 @@
      "sfx": "slam",
      "gain": 1,
      "loud": true,
+     "at": 0.3
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
      "at": 0.3
     },
     {

@@ -231,7 +231,7 @@ for (const [bones, alive, t, at] of WAKE) {
 }
 // Spud and Phoenix come after him
 c.arm(r3(RUN + 0.15), "phx", "L", "rest", 0.3);
-A(r3(RUN + 0.45), "spud", "turn", { to: 190, dur: 0.25 }); A(r3(RUN + 0.2), "phx", "turn", { to: 199, dur: 0.38 });   // done before his run starts (heading of its first leg): no one-frame arm swap
+A(r3(RUN + 0.45), "spud", "turn", { to: 190, dur: 0.25 }); A(r3(RUN + 0.38), "phx", "turn", { to: 199, dur: 0.01, ease: "linear", sync: true });   // turned ON the cut to the run shot (heading of his first leg): no arm swap in view
 A(r3(RUN + 0.5), "spud", "run", { pts: [[0, SPUD2[0], SPUD2[1]], [0.45, -3.0, 1.0], [0.8, -3.0, -0.6], [1.9, SPUD3[0], SPUD3[1]]], dur: 1.9, rate: [[0, 3.4], [1.9, 3.4]], stride: 1.5 });
 A(r3(RUN + 0.6), "phx", "run", { pts: [[0, PHX2[0], PHX2[1]], [0.5, -0.2, 0.0], [1.8, PHX3[0], PHX3[1]]], dur: 1.8, rate: [[0, 4.2], [1.8, 4.2]], stride: 1.5 });
 see(r3(RUN + 0.4), CRASH, ["rea.face"], "Reaper runs screaming along the row, each skeleton lighting up behind him");
@@ -240,7 +240,7 @@ see(r3(RUN + 0.4), CRASH, ["rea.face"], "Reaper runs screaming along the row, ea
 place(r3(CRASH - 0.1), "rea", [1.0, -9.15], 168);
 P(r3(CRASH - 0.12), "scy", { tilt: -80, x: -0.5 }, 0.1);
 A(CRASH, "rea", "lean", { to: 12, dur: 0.12, ease: "out" }); A(r3(CRASH + 0.35), "rea", "lean", { to: 0, dur: 0.35, ease: "inOut" }); A(CRASH, "rea", "squash", { amount: 0.1, dur: 0.14 });
-sfx(CRASH, "slam", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "zap", { gain: 0.7, loud: true }); sfx(r3(CRASH + 0.1), "ai/heartbeat", { gain: 0.9, loud: true, reason: "life comes back into the biggest one: one deep heartbeat" });
+sfx(CRASH, "slam", { gain: 1, loud: true }); sfx(CRASH, "slap", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "zap", { gain: 0.7, loud: true }); sfx(r3(CRASH + 0.1), "ai/heartbeat", { gain: 0.9, loud: true, reason: "life comes back into the biggest one: one deep heartbeat" });
 c.at(CRASH, { fx: "sparkle", at: [0.95, 0.9, -9.7], color: "#7dff6a", dur: 0.6 }); c.at(CRASH, { fx: "shake", dur: 0.3, amp: 0.03 });
 expr(r3(CRASH + 0.3), "spud", "terrified", TERROR); expr(r3(CRASH + 0.3), "phx", "delighted", { open: 0.7, curve: 1 });
 Pk("fossils", CRASH, "rexB", { glow: 1 }, 0.45, "out"); Pk("fossils", r3(CRASH + 0.1), "rexB", { rattle: 1 }, 0.4); Pk("fossils", CRASH, "spRex", { rise: 1 }, 0.9, "out");
@@ -304,7 +304,7 @@ see(CHASE, STREET, ["spud.face", "rea.face", "phx.face", "rex"], "the whole muse
 
 // ================================================================= 8 THE STREET (15.6-17.4): out through the front wall
 street(STREET, 0);
-sfx(r3(STREET + 0.3), "slam", { gain: 1, loud: true }); sfx(r3(STREET + 0.35), "crumble", { gain: 0.7 }); c.at(r3(STREET + 0.3), { fx: "shake", dur: 0.5, amp: 0.045 });
+sfx(r3(STREET + 0.3), "slam", { gain: 1, loud: true }); sfx(r3(STREET + 0.3), "slap", { gain: 0.6 }); sfx(r3(STREET + 0.35), "crumble", { gain: 0.7 }); c.at(r3(STREET + 0.3), { fx: "shake", dur: 0.5, amp: 0.045 });
 see(STREET, FRONT, ["rex"], "the T. rex comes through the museum's front wall behind them (from the side)");
 see(FRONT, LAMP, ["rex", "spud.face", "rea.face", "phx.face"], "the cold open's moment again: they run at us, the T. rex right behind");
 
