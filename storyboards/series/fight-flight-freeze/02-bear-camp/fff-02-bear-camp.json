@@ -64,7 +64,7 @@
   "dip": false,
   "until": 28.7,
   "then": {
-   "file": "ai/sad/sad-01.ogg",
+   "file": "ai/sad/sad-02.ogg",
    "from": 28.7,
    "gain": 0.55
   }
@@ -139,10 +139,11 @@
    "kind": "domecamp",
    "x": 0,
    "z": 0,
-   "rot": 180,
-   "open": 0,
+   "rot": 0,
+   "open": 1,
    "rip": 0,
    "push": 0,
+   "cut": 0,
    "flutter": 0.4
   },
   {
@@ -214,15 +215,15 @@
   {
    "id": "cooler",
    "kind": "cooler",
-   "x": -0.15,
-   "z": 2.35,
+   "x": 58,
+   "z": 40,
    "rot": 0
   },
   {
    "id": "bag",
    "kind": "sleepbag",
-   "x": 0,
-   "z": 0.7,
+   "x": 50,
+   "z": 40,
    "rot": 0,
    "color": "#3c4a7a",
    "cover": 0,
@@ -232,7 +233,7 @@
    "id": "phone",
    "kind": "phone",
    "style": "iphone",
-   "x": 40,
+   "x": 52,
    "y": 0.5,
    "z": 40,
    "screen": {
@@ -245,14 +246,14 @@
   {
    "id": "pot",
    "kind": "cookpot",
-   "x": 40,
+   "x": 54,
    "z": 41,
    "dent": 0
   },
   {
    "id": "branch",
    "kind": "burnbranch",
-   "x": 40,
+   "x": 56,
    "z": 42,
    "fire": 1
   },
@@ -349,7 +350,7 @@
   },
   {
    "from": 16.6,
-   "to": 20.34,
+   "to": 19.95,
    "text": "Flight lasted thirty seconds.",
    "pos": 400,
    "pop": false
@@ -372,14 +373,14 @@
   },
   {
    "from": 29,
-   "to": 31.46,
+   "to": 31.25,
    "text": "You can't beat a black bear.",
    "pos": 400,
    "pop": false
   },
   {
    "from": 31.25,
-   "to": 32.88,
+   "to": 32.7,
    "text": "But you can scare it.",
    "pos": 400,
    "pop": false
@@ -388,7 +389,7 @@
    "from": 32.7,
    "to": 35.2,
    "text": "Would you survive against a black bear?",
-   "pos": 400,
+   "pos": 300,
    "pop": false
   }
  ],
@@ -400,13 +401,13 @@
    "shot": {
     "pos": [
      0,
-     0.8,
-     3.6
+     0.72,
+     3.9
     ],
     "look": [
      0,
-     2.52,
-     -6.251
+     2.783,
+     -5.885
     ],
     "fov": 50
    },
@@ -426,11 +427,11 @@
       "brow": -1,
       "squint": 0,
       "headY": 0,
-      "headP": 20,
+      "headP": 25,
       "ears": -0.6,
       "breath": 0.5,
       "x": 0,
-      "z": -1.55,
+      "z": -0.95,
       "rot": 0
      },
      "dur": 0.01,
@@ -441,7 +442,19 @@
      "do": "prop",
      "id": "tent",
      "set": {
-      "rip": 1
+      "cut": 0,
+      "push": 0,
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "rip": 0.65
      },
      "dur": 0.5,
      "ease": "out",
@@ -458,11 +471,17 @@
      "at": 0
     },
     {
+     "sfx": "ai/bear-roar",
+     "gain": 1,
+     "reason": "the bear roaring over the tent",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
-      -0.82,
-      0.55
+      -0.85,
+      0.35
      ],
      "y": 0,
      "dur": 0.01,
@@ -508,7 +527,7 @@
      "do": "move",
      "to": [
       0,
-      0.7
+      0.55
      ],
      "y": 0,
      "dur": 0.01,
@@ -553,8 +572,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      0.84,
-      0.55
+      0.88,
+      0.35
      ],
      "y": 0,
      "dur": 0.01,
@@ -640,12 +659,17 @@
      "at": 0.05
     },
     {
-     "fx": "vfx",
-     "kind": "flash",
-     "dur": 0.18,
-     "color": "#dfe6ff",
-     "amount": 0.55,
+     "fx": "flash",
+     "peak": 0.35,
+     "dur": 0.3,
+     "color": "#dfe8ff",
      "at": 0.05
+    },
+    {
+     "sfx": "ai/canvas-rip",
+     "gain": 0.9,
+     "reason": "claws ripping the tent",
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -656,6 +680,38 @@
      "dur": 0.18,
      "ease": "in",
      "at": 0.17
+    },
+    {
+     "sfx": "ai/thunder",
+     "gain": 0.8,
+     "reason": "the thunder after the flash",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "bear",
+     "set": {
+      "gait": 0,
+      "bound": 0,
+      "rear": 0,
+      "swipe": 0,
+      "climb": 0,
+      "climbStep": 0,
+      "jaw": 0,
+      "snarl": 0,
+      "brow": 0,
+      "squint": 0,
+      "headY": 0,
+      "headP": 10,
+      "ears": 0,
+      "breath": 0.5,
+      "x": 2.65,
+      "z": -4.9,
+      "rot": -70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
     },
     {
      "who": "spud",
@@ -800,7 +856,9 @@
      "id": "tent",
      "set": {
       "rip": 0,
-      "open": 0
+      "open": 0,
+      "rot": 180,
+      "cut": 1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -837,16 +895,16 @@
    "len": 2.1,
    "shot": {
     "pos": [
-     0.05,
-     0.7,
-     1.15
+     0,
+     0.8,
+     2.9
     ],
     "look": [
-     0.05,
-     1.381,
-     -8.827
+     0,
+     1.481,
+     -7.077
     ],
-    "fov": 50
+    "fov": 46
    },
    "do": [
     {
@@ -856,6 +914,12 @@
      "caption": false,
      "gain": 4,
      "at": 0.15
+    },
+    {
+     "sfx": "ai/bear-growl",
+     "gain": 0.7,
+     "reason": "a deep growl right outside the tent",
+     "at": 0.3
     },
     {
      "who": "spud",
@@ -893,9 +957,29 @@
       "headP": 10,
       "ears": 0,
       "breath": 0.5,
-      "x": 2.65,
-      "z": -4.9,
-      "rot": -70
+      "x": 2.1,
+      "z": -4.3,
+      "rot": -140
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -909,16 +993,16 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     0.25,
-     0.7,
-     0.55
+     1.7,
+     0.8,
+     -1.2
     ],
     "look": [
-     1.806,
-     1.729,
-     -9.274
+     2.046,
+     2.175,
+     -11.099
     ],
-    "fov": 40
+    "fov": 44
    },
    "do": [
     {
@@ -953,6 +1037,12 @@
      "at": 0.45
     },
     {
+     "sfx": "ai/glass-smash",
+     "gain": 1,
+     "reason": "the windscreen smashed by the paw",
+     "at": 0.45
+    },
+    {
      "do": "prop",
      "id": "bear",
      "set": {
@@ -972,6 +1062,12 @@
      "dur": 0.25,
      "ease": "in",
      "at": 0.85
+    },
+    {
+     "sfx": "ai/metal-tear",
+     "gain": 0.9,
+     "reason": "the door wrenched off its hinges",
+     "at": 0.95
     },
     {
      "do": "prop",
@@ -1014,20 +1110,17 @@
      "do": "prop",
      "id": "car",
      "set": {
-      "lights": 1
+      "flash": 6
      },
-     "dur": 0.05,
+     "dur": 2.4,
      "ease": "linear",
      "at": 1.25
     },
     {
-     "do": "prop",
-     "id": "car",
-     "set": {
-      "flash": 4
-     },
-     "dur": 1.6,
-     "ease": "linear",
+     "sfx": "ai/car-alarm",
+     "gain": 0.5,
+     "dur": 5.6,
+     "reason": "the car alarm",
      "at": 1.25
     },
     {
@@ -1040,8 +1133,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.82,
-      0.3
+      -0.62,
+      0.1
      ],
      "y": 0,
      "dur": 0.01,
@@ -1066,7 +1159,7 @@
      "do": "move",
      "to": [
       0,
-      0.05
+      0.35
      ],
      "y": 0,
      "dur": 0.01,
@@ -1090,8 +1183,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      0.84,
-      0.3
+      0.7,
+      0.1
      ],
      "y": 0,
      "dur": 0.01,
@@ -1115,30 +1208,11 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "x": 40,
+      "x": 52,
       "z": 40
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.88
-    },
-    {
-     "do": "prop",
-     "id": "bag",
-     "set": {
-      "x": 0,
-      "z": 0.05,
-      "cover": 0.2
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 1.88
-    },
-    {
-     "who": "chip",
-     "do": "ride",
-     "prop": "bag",
-     "sit": true,
      "at": 1.88
     },
     {
@@ -1180,15 +1254,15 @@
    "shot": {
     "pos": [
      0,
-     0.68,
-     1.3
+     0.8,
+     3.6
     ],
     "look": [
      0,
-     1.361,
-     -8.677
+     1.481,
+     -6.377
     ],
-    "fov": 50
+    "fov": 46
    },
    "do": [
     {
@@ -1258,16 +1332,6 @@
      "at": 0.95
     },
     {
-     "do": "prop",
-     "id": "bag",
-     "set": {
-      "cover": 0.6
-     },
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 1.7
-    },
-    {
      "macro": "narrate",
      "line": "Or freeze.",
      "voice": "narrator",
@@ -1316,16 +1380,6 @@
     },
     {
      "do": "prop",
-     "id": "tent",
-     "set": {
-      "open": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 4.58
-    },
-    {
-     "do": "prop",
      "id": "bear",
      "set": {
       "gait": 0,
@@ -1355,14 +1409,21 @@
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": 0.05,
-      "z": -0.45,
-      "rot": 0,
+      "x": -0.35,
+      "z": -0.4,
+      "rot": 70,
       "cover": 0.85,
-      "recline": 85
+      "recline": 30
      },
      "dur": 0.01,
      "ease": "linear",
+     "at": 4.58
+    },
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": "bag",
+     "sit": true,
      "at": 4.58
     },
     {
@@ -1430,16 +1491,16 @@
    "len": 2,
    "shot": {
     "pos": [
-     -0.2,
-     0.75,
-     1
+     0.1,
+     0.8,
+     3
     ],
     "look": [
-     0.495,
-     1.605,
-     -8.939
+     0.1,
+     1.481,
+     -6.977
     ],
-    "fov": 50
+    "fov": 46
    },
    "do": [
     {
@@ -1473,6 +1534,12 @@
      "at": 0.35
     },
     {
+     "sfx": "ai/glass-smash",
+     "gain": 0.35,
+     "reason": "the lantern's glass on the ground",
+     "at": 0.55
+    },
+    {
      "do": "prop",
      "id": "grass",
      "set": {
@@ -1491,6 +1558,13 @@
      "dur": 1.6,
      "ease": "linear",
      "at": 0.55
+    },
+    {
+     "sfx": "ai/grass-fire",
+     "gain": 0.45,
+     "dur": 18,
+     "reason": "the dry grass burning",
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -1516,6 +1590,12 @@
      "at": 0.75
     },
     {
+     "sfx": "ai/bear-huff",
+     "gain": 0.8,
+     "reason": "the bear huffing as it sniffs Chip",
+     "at": 0.9
+    },
+    {
      "do": "prop",
      "id": "bear",
      "set": {
@@ -1533,9 +1613,9 @@
       "headP": 30,
       "ears": 0,
       "breath": 0.5,
-      "x": 1.6,
+      "x": 3.6,
       "z": -2.6,
-      "rot": -130
+      "rot": -95
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1545,10 +1625,11 @@
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": 0.291,
-      "z": -2.458,
-      "rot": 140,
-      "recline": 90
+      "x": 3.639,
+      "z": -2.147,
+      "rot": -95,
+      "recline": 40,
+      "cover": 0.95
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1589,6 +1670,17 @@
      "steps": 0,
      "ease": "linear",
      "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "cut": 0,
+      "push": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.98
     }
    ]
   },
@@ -1598,24 +1690,24 @@
    "len": 2.5,
    "shot": {
     "pos": [
-     0.3,
-     1.1,
-     2.6
+     2,
+     1,
+     1
     ],
     "look": [
-     -0.394,
-     2.129,
-     -7.323
+     2,
+     2.375,
+     -8.905
     ],
-    "fov": 46
+    "fov": 50
    },
    "do": [
     {
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": -1.6,
-      "z": -5.4,
+      "x": 1.2,
+      "z": -2.9,
       "gait": 3
      },
      "dur": 2.5,
@@ -1626,12 +1718,18 @@
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": -2.917,
-      "z": -5.249,
-      "rot": 140
+      "x": 1.237,
+      "z": -2.434,
+      "rot": -95
      },
      "dur": 2.5,
      "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/bag-drag",
+     "gain": 0.7,
+     "reason": "the bag dragged over the grass",
      "at": 0
     },
     {
@@ -1664,8 +1762,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      1.2,
-      0.6
+      1.8,
+      1.7
      ],
      "y": 0,
      "dur": 0.01,
@@ -1676,7 +1774,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": -110,
+     "to": -105,
      "dur": 0.01,
      "at": 2.48
     },
@@ -1724,9 +1822,9 @@
       "headP": 10,
       "ears": -0.6,
       "breath": 0.5,
-      "x": 2.6,
-      "z": -0.8,
-      "rot": -105
+      "x": 3.4,
+      "z": 1.9,
+      "rot": -95
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1736,9 +1834,20 @@
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": 2.4,
-      "z": -1.6,
-      "recline": 90
+      "x": 2.6,
+      "z": -2.4,
+      "recline": 40
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.48
+    },
+    {
+     "do": "prop",
+     "id": "cooler",
+     "set": {
+      "x": -0.15,
+      "z": 2.35
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1753,23 +1862,23 @@
    "shot": {
     "pos": [
      0.2,
-     0.8,
-     3
+     0.9,
+     5.4
     ],
     "look": [
-     -0.667,
-     1.829,
-     -6.909
+     -0.487,
+     2.62,
+     -4.427
     ],
-    "fov": 46
+    "fov": 48
    },
    "do": [
     {
      "who": "wedge",
      "do": "move",
      "to": [
-      -2.1,
-      -1.7
+      -2.2,
+      1.3
      ],
      "dur": 1.7,
      "ease": "linear",
@@ -1780,8 +1889,8 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": -1.4,
-      "z": -2.6,
+      "x": -0.6,
+      "z": 1.5,
       "gait": 3
      },
      "dur": 1.7,
@@ -1800,6 +1909,12 @@
      "at": 0
     },
     {
+     "sfx": "ai/bear-charge",
+     "gain": 0.9,
+     "reason": "the bear galloping after Wedge",
+     "at": 0.1
+    },
+    {
      "sfx": "ai/step-grass",
      "gain": 0.5,
      "reason": "Wedge running",
@@ -1812,7 +1927,7 @@
       -2.4,
       -2.38
      ],
-     "y": 3.6,
+     "y": 2.5,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -1858,7 +1973,7 @@
       "x": -2.4,
       "z": -2.25,
       "rot": 180,
-      "y": 0.6
+      "y": 0.1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1874,13 +1989,13 @@
    "shot": {
     "pos": [
      -1.5,
-     4.3,
+     3.6,
      2.2
     ],
     "look": [
-     -2.543,
-     4.981,
-     -7.722
+     -2.523,
+     5.663,
+     -7.531
     ],
     "fov": 46
    },
@@ -1918,11 +2033,10 @@
      "at": 0.05
     },
     {
-     "fx": "vfx",
-     "kind": "flash",
-     "dur": 0.18,
-     "color": "#dfe6ff",
-     "amount": 0.55,
+     "fx": "flash",
+     "peak": 0.35,
+     "dur": 0.3,
+     "color": "#dfe8ff",
      "at": 0.05
     },
     {
@@ -1939,7 +2053,7 @@
      "who": "wedge",
      "do": "climb",
      "to": {
-      "y": 5
+      "y": 3.7
      },
      "steps": 4,
      "dur": 2.6,
@@ -1949,12 +2063,18 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "y": 1.8,
-      "climbStep": 3
+      "y": 0.9,
+      "climbStep": 2
      },
      "dur": 3.1,
      "ease": "linear",
      "at": 0.2
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.8,
+     "reason": "bark and branches breaking as the bear climbs",
+     "at": 0.3
     },
     {
      "macro": "narrate",
@@ -1963,6 +2083,12 @@
      "caption": false,
      "gain": 4,
      "at": 0.3
+    },
+    {
+     "sfx": "ai/thunder",
+     "gain": 0.8,
+     "reason": "the thunder after the flash",
+     "at": 0.4
     },
     {
      "who": "wedge",
@@ -1984,6 +2110,18 @@
      },
      "dur": 0.15,
      "at": 1.2
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.8,
+     "reason": "more branches",
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/bear-growl",
+     "gain": 0.8,
+     "reason": "the bear right under him",
+     "at": 2.4
     },
     {
      "macro": "narrate",
@@ -2027,7 +2165,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 25,
+     "to": 55,
      "dur": 0.01,
      "at": 5.58
     },
@@ -2125,9 +2263,9 @@
       "headP": 5,
       "ears": 0,
       "breath": 0.5,
-      "x": 1.9,
-      "z": -3.1,
-      "rot": -40
+      "x": 1.2,
+      "z": -0.4,
+      "rot": -160
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2141,16 +2279,16 @@
    "len": 2.1,
    "shot": {
     "pos": [
-     0.9,
-     1,
-     5
+     -0.1,
+     1.1,
+     5.6
     ],
     "look": [
-     -0.14,
-     2.029,
-     -4.892
+     -0.1,
+     2.648,
+     -4.279
     ],
-    "fov": 44
+    "fov": 46
    },
    "do": [
     {
@@ -2170,17 +2308,80 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "rot": 15
+      "rot": -140
      },
      "dur": 0.8,
      "ease": "inOut",
      "at": 0.3
     },
     {
+     "sfx": "ai/pot-bang",
+     "gain": 0.9,
+     "reason": "Spud banging the pot on the branch",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/pot-bang",
+     "gain": 0.9,
+     "reason": "again",
+     "at": 0.8
+    },
+    {
+     "sfx": "ai/pot-bang",
+     "gain": 0.9,
+     "reason": "again",
+     "at": 1.2
+    },
+    {
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
      "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      2.35
+     ],
+     "y": 0.48,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 2.08
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.08
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "x": -1.9
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.08
+    },
+    {
+     "do": "prop",
+     "id": "lantern",
+     "set": {
+      "x": 60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.08
     },
     {
      "do": "prop",
@@ -2200,9 +2401,9 @@
       "headP": 8,
       "ears": -1,
       "breath": 0.5,
-      "x": 0.6,
-      "z": -5,
-      "rot": 175
+      "x": 1.3,
+      "z": -4.6,
+      "rot": -7
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2216,24 +2417,24 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     -0.4,
-     0.68,
-     3.6
+     0,
+     1,
+     4.6
     ],
     "look": [
-     0.285,
-     2.572,
-     -6.195
+     0,
+     2.202,
+     -5.327
     ],
-    "fov": 48
+    "fov": 46
    },
    "do": [
     {
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": 0.2,
-      "z": 1,
+      "x": 0.55,
+      "z": 1.3,
       "gait": 3.5
      },
      "dur": 1.35,
@@ -2241,12 +2442,113 @@
      "at": 0
     },
     {
+     "sfx": "ai/bear-charge",
+     "gain": 1,
+     "reason": "the bear charging",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "x": 2,
+      "seed": 11
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.35
+    },
+    {
+     "fx": "flash",
+     "peak": 0.35,
+     "dur": 0.3,
+     "color": "#dfe8ff",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 0.47
+    },
+    {
+     "sfx": "ai/bear-roar",
+     "gain": 0.9,
+     "reason": "roaring as it charges",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/thunder",
+     "gain": 0.8,
+     "reason": "the thunder after the flash",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "x": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "lantern",
+     "set": {
+      "x": 0.9
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      2.35
+     ],
+     "y": 0.48,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.38
+    },
+    {
      "do": "prop",
      "id": "bear",
      "set": {
       "gait": 0,
       "bound": 0,
-      "rear": 0.9,
+      "rear": 0.65,
       "swipe": 0,
       "climb": 0,
       "climbStep": 0,
@@ -2258,9 +2560,9 @@
       "headP": 0,
       "ears": -1,
       "breath": 0.5,
-      "x": 0.75,
-      "z": 1.75,
-      "rot": -100
+      "x": 0.5,
+      "z": 2.35,
+      "rot": -90
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2274,18 +2576,24 @@
    "len": 3.3,
    "shot": {
     "pos": [
-     0.4,
-     1,
-     5.1
+     0.2,
+     1.3,
+     5.6
     ],
     "look": [
-     0.4,
-     2.029,
-     -4.847
+     0.2,
+     3.02,
+     -4.251
     ],
-    "fov": 44
+    "fov": 50
    },
    "do": [
+    {
+     "sfx": "ai/bear-roar",
+     "gain": 1,
+     "reason": "the roar in his face",
+     "at": 0.1
+    },
     {
      "who": "spud",
      "do": "arm",
@@ -2323,13 +2631,20 @@
      "at": 0.9
     },
     {
+     "sfx": "ai/pot-bite",
+     "gain": 1,
+     "reason": "teeth on the steel pot",
+     "at": 0.9
+    },
+    {
      "do": "prop",
      "id": "bear",
      "set": {
       "rear": 0,
-      "jaw": 0.2
+      "jaw": 0.2,
+      "x": 1.5
      },
-     "dur": 0.4,
+     "dur": 0.45,
      "ease": "inOut",
      "at": 1.6
     },
@@ -2337,7 +2652,7 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "rot": -170
+      "rot": -193
      },
      "dur": 0.45,
      "ease": "inOut",
@@ -2347,13 +2662,19 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": 1.5,
-      "z": -4.5,
+      "x": 1.8,
+      "z": -3.2,
       "gait": 2.5,
       "bound": 0.6
      },
      "dur": 1.6,
      "ease": "in",
+     "at": 2.5
+    },
+    {
+     "sfx": "ai/bear-charge",
+     "gain": 0.6,
+     "reason": "the bear running off into the forest",
      "at": 2.5
     },
     {
@@ -2366,8 +2687,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.4,
-      1
+      -0.2,
+      0.6
      ],
      "y": 0,
      "dur": 0.01,
@@ -2388,10 +2709,19 @@
      "at": 3.28
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
      "do": "prop",
      "id": "branch",
      "set": {
-      "x": 40,
+      "x": 56,
       "z": 42
      },
      "dur": 0.01,
@@ -2402,9 +2732,9 @@
      "do": "prop",
      "id": "pot",
      "set": {
-      "x": -0.1,
+      "x": 0.1,
       "y": 0.32,
-      "z": 1.25
+      "z": 0.85
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2452,8 +2782,8 @@
      "do": "prop",
      "id": "bag12",
      "set": {
-      "x": 1.3,
-      "z": -0.8,
+      "x": 0.75,
+      "z": -0.6,
       "rot": 70
      },
      "dur": 0.01,
@@ -2464,8 +2794,9 @@
      "do": "prop",
      "id": "pine12",
      "set": {
-      "x": 2.4,
-      "z": -0.6
+      "x": 1.25,
+      "z": -1.4,
+      "rot": 180
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2475,9 +2806,9 @@
      "do": "prop",
      "id": "claws",
      "set": {
-      "x": 2.4,
-      "y": 1.4,
-      "z": -0.24
+      "x": 1.25,
+      "y": 1.3,
+      "z": -1.04
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2489,6 +2820,127 @@
      "set": {
       "x": 60,
       "z": 60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "x": 70,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "x": 74,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "x": 78,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "lantern",
+     "set": {
+      "x": 82,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "grass",
+     "set": {
+      "x": 86,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "grass2",
+     "set": {
+      "x": 90,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "pine",
+     "set": {
+      "x": 94,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "x": 98,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "cooler",
+     "set": {
+      "x": 102,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": 106,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "x": 110,
+      "z": 70
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2696,9 +3148,51 @@
   {
    "who": "chip",
    "with": "bag",
-   "from": 5.5,
+   "from": 10.1,
    "to": 14.6,
    "reason": "Chip rides inside his sleeping bag (enclosing prop) until he is dragged off"
+  },
+  {
+   "who": "spud",
+   "with": "tent",
+   "from": 0,
+   "to": 12.1,
+   "reason": "the three are inside the tent (an enclosing prop): its cloth is all round them"
+  },
+  {
+   "who": "chip",
+   "with": "tent",
+   "from": 0,
+   "to": 12.1,
+   "reason": "the three are inside the tent (an enclosing prop): its cloth is all round them"
+  },
+  {
+   "who": "wedge",
+   "with": "tent",
+   "from": 0,
+   "to": 12.1,
+   "reason": "the three are inside the tent (an enclosing prop): its cloth is all round them"
+  },
+  {
+   "who": "chip",
+   "with": "bear",
+   "from": 10.1,
+   "to": 14.6,
+   "reason": "the bear's muzzle over Chip in his bag, then his bag's foot end in its teeth (the bear never touches the potato itself on screen)"
+  },
+  {
+   "who": "wedge",
+   "with": "pine",
+   "from": 16.3,
+   "to": 21.9,
+   "reason": "Wedge climbs the pine: arms round the trunk, gloves and jacket against the bark"
+  },
+  {
+   "who": "wedge",
+   "with": "tent",
+   "from": 14.6,
+   "to": 16.3,
+   "reason": "Wedge runs out past the tent"
   },
   {
    "who": "spud",
@@ -2706,6 +3200,20 @@
    "from": 21.9,
    "to": 28.7,
    "reason": "Spud stands on the cooler's lid"
+  },
+  {
+   "who": "wedge",
+   "with": "chip",
+   "from": 0,
+   "to": 10.1,
+   "reason": "the three are pressed together in a small tent (panels 01, 02, 04 draw them shoulder to shoulder)"
+  },
+  {
+   "who": "chip",
+   "with": "spud",
+   "from": 0,
+   "to": 10.1,
+   "reason": "the three are pressed together in a small tent (panels 01, 02, 04 draw them shoulder to shoulder)"
   }
  ],
  "notes": "Generated by storyboards/series/fight-flight-freeze/02-bear-camp/make-bear-camp.mjs. Title added in TikTok's text tool."

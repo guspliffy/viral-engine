@@ -117,7 +117,7 @@ const P = (spec) => {
 const has = (id) => props.some((p) => p.id === id);
 const pr = (t, id, set, dur = 0.3, ease = "inOut") => { if (has(id)) prop(t, id, set, dur, ease); };
 
-P({ id: "tent", kind: "domecamp", x: TENT[0], z: TENT[1], rot: 180, open: 0, rip: 0, push: 0, flutter: 0.4 });
+P({ id: "tent", kind: "domecamp", x: TENT[0], z: TENT[1], rot: 0, open: 1, rip: 0, push: 0, cut: 0, flutter: 0.4 });   // 01 only: turned to us (the cold open is a flash-forward); rot 180 from 02
 P({ id: "car", kind: "campcar", x: CAR[0], z: CAR[1], rot: 0, smash: 0, door: 0, torn: 0, lights: 0, flash: 0 });
 P({ id: "door", kind: "cardoor", x: 40, z: 40, rot: 0 });   // parked off set until the bear tears it off
 P({ id: "lantern", kind: "gaslantern", x: LANTERN[0], z: LANTERN[1], lit: 1, tip: 0 });
@@ -125,11 +125,11 @@ P({ id: "grass", kind: "grassfire", x: 1.6, z: -1.9, w: 2.6, d: 0.9, seed: 4, fi
 P({ id: "grass2", kind: "grassfire", x: -0.6, z: 1.0, w: 3.2, d: 0.8, seed: 9, fire: 0, spread: 0 });   // it reaches our side by 07
 P({ id: "pine", kind: "climbpine", x: PINE[0], z: PINE[1], rot: 180, sway: 0, shake: 0, snap: 0 });   // rot 180: its branch stubs away from the climb side
 P({ id: "fire", kind: "campfire", x: FIRE[0], z: FIRE[1], lit: 1 });
-P({ id: "cooler", kind: "cooler", x: COOLER[0], z: COOLER[1], rot: 0 });
-P({ id: "bag", kind: "sleepbag", x: CHIP_IN[0], z: CHIP_IN[1], rot: 0, color: "#3c4a7a", cover: 0, recline: 18 });
-P({ id: "phone", kind: "phone", style: "iphone", x: 40, y: 0.5, z: 40, screen: { src: "storyboards/series/fight-flight-freeze/02-bear-camp/art/no-service.png", cols: 1, rows: 1 }, feed: 0 });
-P({ id: "pot", kind: "cookpot", x: 40, z: 41, dent: 0 });
-P({ id: "branch", kind: "burnbranch", x: 40, z: 42, fire: 1 });
+P({ id: "cooler", kind: "cooler", x: 58, z: 40, rot: 0 });   // cut cheat: kept out of the tent shots, in from 07
+P({ id: "bag", kind: "sleepbag", x: 50, z: 40, rot: 0, color: "#3c4a7a", cover: 0, recline: 18 });
+P({ id: "phone", kind: "phone", style: "iphone", x: 52, y: 0.5, z: 40, screen: { src: "storyboards/series/fight-flight-freeze/02-bear-camp/art/no-service.png", cols: 1, rows: 1 }, feed: 0 });
+P({ id: "pot", kind: "cookpot", x: 54, z: 41, dent: 0 });
+P({ id: "branch", kind: "burnbranch", x: 56, z: 42, fire: 1 });
 P({ id: "bolt", kind: "skybolt", x: -6, y: 0, z: -40, h: 60, seed: 5, glow: 0 });
 P({ id: "bear", kind: "bear", x: 0, z: -2.2, rot: 0, scale: 1.05 });   // posed per shot below; 1.05 = 2.54 m reared (BEAR-DESIGN.md)
 // panel 12, at the lake: the torn bag at the forest edge, the clawed pine on the right
@@ -143,20 +143,21 @@ const bear = (t, set, dur = 0.01, ease = "linear") => pr(t, "bear", set, dur, ea
 const bearAt = (t, x, z, rot, pose = {}) => bear(Math.max(0, r3(t - 0.02)), { ...BEAR0, x, z, rot, ...pose });
 const lightning = (t, { bolt = true, x = -6, seed = 5 } = {}) => {
   if (bolt) { pr(t - 0.02, "bolt", { x, seed }, 0.01, "linear"); pr(t, "bolt", { glow: 1 }, 0.03, "linear"); pr(t + 0.12, "bolt", { glow: 0 }, 0.18, "in"); }
-  c.at(t, { fx: "vfx", kind: "flash", dur: 0.18, color: "#dfe6ff", amount: 0.55 });
+  c.at(t, { fx: "flash", peak: 0.35, dur: 0.3, color: "#dfe8ff" });   // as doomscroll 01
   sfx(r3(t + 0.35), "ai/thunder", { gain: 0.8, reason: "the thunder after the flash" });
 };
 
 // ================================================================ 01 COLD OPEN 0-1.5: the bear over the tent, claws in the cloth
 // panel 01: lightning, the bear on its hind legs right behind the tent, both fore paws raking down through the front
 // of the fly; the three in the torn opening scream at us. (Story-wise this is the moment of 05, seen from outside.)
-bearAt(0, 0, -1.55, 0, { rear: 1, jaw: 0.8, snarl: 1, brow: -1, ears: -0.6, headP: 20 });
-pr(0, "tent", { rip: 1 }, 0.5, "out");
+bearAt(0, 0, -0.95, 0, { rear: 1, jaw: 0.8, snarl: 1, brow: -1, ears: -0.6, headP: 25 });
+pr(0, "tent", { cut: 0, push: 0, open: 1 }, 0, "linear");   // seeds (no propState default)
+pr(0, "tent", { rip: 0.65 }, 0.5, "out");
 bear(0, { swipe: 0.6 }, 0.45, "out");
 lightning(0.05);
 sfx(0, "ai/bear-roar", { gain: 1, reason: "the bear roaring over the tent" });
 sfx(0.1, "ai/canvas-rip", { gain: 0.9, reason: "claws ripping the tent" });
-for (const [who, at] of [["spud", [-0.82, 0.55]], ["chip", [0, 0.7]], ["wedge", [0.84, 0.55]]]) {
+for (const [who, at] of [["spud", [-0.85, 0.35]], ["chip", [0, 0.55]], ["wedge", [0.88, 0.35]]]) {
   place(0, who, at, 0); expr(0, who, "terrified", { open: 0.6 }, 0.01); look(0, who, [0, 0.9], 0.01);
 }
 nar(0.0, "camping", { until: T.phone + 0.1 });
@@ -165,10 +166,11 @@ see(0, T.phone, ["bear", "tent", "spud.face", "chip.face", "wedge.face"], "COLD 
 // ================================================================ 02 1.5-3.4: inside the tent, no signal
 // panel 02: close group in the dark tent, Spud holds up his phone ("No service"), its light on his face; Chip and
 // Wedge pressed behind him. The tent's door (-z) behind them; outside, the bear's growl.
+bearAt(T.phone, r3(CAR[0] + 1.35), r3(CAR[1] + 0.7), -70, { headP: 10 });
 place(T.phone, "spud", [-0.15, 0.35], 0); place(T.phone, "chip", [0.6, 0.0], -10); place(T.phone, "wedge", [-0.75, -0.25], 10);
 for (const who of ["spud", "chip", "wedge"]) expr(T.phone - 0.02, who, "terrified", { open: 0.25 }, 0.01);
 look(T.phone - 0.02, "spud", [0.25, -0.35], 0.01); look(T.phone - 0.02, "chip", [-0.3, -0.2], 0.01); look(T.phone - 0.02, "wedge", [0.3, -0.2], 0.01);
-pr(T.phone - 0.02, "tent", { rip: 0, open: 0 }, 0.01, "linear");
+pr(T.phone - 0.02, "tent", { rip: 0, open: 0, rot: 180, cut: 1 }, 0.01, "linear");   // from here the door faces the forest; the back is a wild wall for the inside shots
 // the phone in Spud's R hand, held up in front of his face, its screen to us
 pr(T.phone - 0.02, "phone", { x: -0.05, y: 0.48, z: 0.62, rot: 0, tip: -8 }, 0.01, "linear");
 A(T.phone - 0.02, "spud", "grab", { prop: "phone", hand: "R", dur: 0.01 });
@@ -179,7 +181,9 @@ see(T.phone, T.car, ["spud.face", "chip.face", "wedge.face", "phone"], "no signa
 // ================================================================ 03 3.4-5.6: through the door's mesh window, the car
 // panel 03: from inside the tent through its mesh window: the bear smashes the windscreen, the driver door hangs torn
 // open on the grass, the headlights flash across the camp.
-bearAt(T.car, r3(CAR[0] + 1.35), r3(CAR[1] + 0.7), -70, { headP: 10 });
+bearAt(T.car, r3(CAR[0] + 0.8), r3(CAR[1] + 1.3), -140, { headP: 10 });   // at the bonnet, the driver door beside it
+pr(T.car - 0.02, "car", { lights: 1 }, 0.01, "linear");
+pr(T.car - 0.02, "tent", { open: 1 }, 0.01, "linear");   // the mesh read black from inside: through the open doorway (departure)
 bear(T.car + 0.1, { rear: 0.55, swipe: 0 }, 0.25, "out");
 const SMASH = r3(T.car + 0.45), TEAR = r3(T.car + 1.15);   // no narrator here: the glass, the metal, the alarm
 bear(SMASH - 0.1, { swipe: 1 }, 0.12, "in");
@@ -191,18 +195,16 @@ pr(TEAR - 0.02, "car", { torn: 1 }, 0.01, "linear");
 pr(TEAR - 0.02, "door", { x: r3(CAR[0] + 1.05), y: 0.6, z: r3(CAR[1] + 0.5), rot: 20 }, 0.01, "linear");
 pr(TEAR, "door", { x: r3(CAR[0] + 2.2), y: 0, z: r3(CAR[1] + 1.6), rot: 75, tilt: 85 }, 0.45, "in");
 sfx(TEAR - 0.2, "ai/metal-tear", { gain: 0.9, reason: "the door wrenched off its hinges" });
-pr(TEAR + 0.1, "car", { lights: 1 }, 0.05, "linear"); pr(TEAR + 0.1, "car", { flash: 4 }, 1.6, "linear");
+pr(TEAR + 0.1, "car", { flash: 6 }, 2.4, "linear");
 sfx(TEAR + 0.1, "ai/car-alarm", { gain: 0.5, dur: 5.6, reason: "the car alarm" });
 see(T.car + 0.2, T.faces, ["bear", "car"], "through the mesh: the bear smashes the windscreen and tears the door off, the alarm and lights going");
 
 // ================================================================ 04 5.6-7.6: three faces, three choices
 // panel 04: side by side, lit red and white by the flashing headlights: Spud clenches a fist (FIGHT), Chip slides into
 // his sleeping bag (FREEZE), Wedge looks at the tent door (FLIGHT). Labels as drawn (speech-bubble shape: textPop).
-place(T.faces, "spud", [-0.82, 0.3], 10); place(T.faces, "chip", [0, 0.05], 0); place(T.faces, "wedge", [0.84, 0.3], -10);
-pr(T.faces - 0.02, "phone", { x: 40, z: 40 }, 0.01, "linear"); A(T.faces - 0.03, "spud", "release", { dur: 0.01 });
-pr(T.faces - 0.02, "bag", { x: 0, z: 0.05, cover: 0.2 }, 0.01, "linear");
-A(T.faces - 0.02, "chip", "ride", { prop: "bag", sit: true });
-pr(T.faces + 1.7, "bag", { cover: 0.6 }, 0.6, "inOut");
+place(T.faces, "spud", [-0.62, 0.1], 10); place(T.faces, "chip", [0, 0.35], 0); place(T.faces, "wedge", [0.7, 0.1], -10);
+pr(T.faces - 0.02, "phone", { x: 52, z: 40 }, 0.01, "linear"); A(T.faces - 0.03, "spud", "release", { dur: 0.01 });
+// departure: Chip freezes standing, eyes shut (in the bag here its shell hid him from every angle tried); the bag from 05
 expr(T.faces - 0.02, "spud", "angry", { open: 0.05 }, 0.01); c.arm(T.faces + 0.12, "spud", "R", "fist", 0.25, "out");
 expr(T.faces - 0.02, "chip", "terrified", { open: 0.1 }, 0.01); A(T.faces + 1.9, "chip", "face", { lid: 1, dur: 0.2 });
 expr(T.faces - 0.02, "wedge", "terrified", { open: 0.2 }, 0.01); look(T.faces + 0.9, "wedge", [0.6, 0.05], 0.15);
@@ -221,7 +223,7 @@ see(T.faces + 0.2, T.door, ["spud.face", "chip.face", "wedge.face"], "three choi
 // panel 05: at the open door: the bear knocks the gas lantern over (the dry grass catches), pushes its head and
 // shoulders in; Chip lies curled in his bag, eyes shut tight. Spud and Wedge pressed to the back wall, out of shot.
 const KNOCK = r3(T.door + 0.25);
-pr(T.door - 0.02, "tent", { open: 1 }, 0.01, "linear");
+
 bearAt(T.door, 0.55, -2.1, 0, { headP: 25, sniff: 1 });
 bear(KNOCK - 0.1, { swipe: 0.5 }, 0.15, "in"); bear(KNOCK + 0.1, { swipe: 0 }, 0.3);
 pr(KNOCK, "lantern", { tip: 1 }, 0.35, "in");
@@ -232,7 +234,8 @@ bear(T.door + 0.75, { z: -1.05, x: 0.1, headP: 35, jaw: 0.2 }, 0.7, "inOut");   
 pr(T.door + 0.75, "tent", { push: 0.6 }, 0.7, "inOut");
 sfx(T.door + 0.9, "ai/bear-huff", { gain: 0.8, reason: "the bear huffing as it sniffs Chip" });
 // Chip lies down in the bag, curled, eyes shut
-pr(T.door - 0.02, "bag", { x: 0.05, z: -0.45, rot: 0, cover: 0.85, recline: 85 }, 0.01, "linear");
+pr(T.door - 0.02, "bag", { x: -0.35, z: -0.4, rot: 70, cover: 0.85, recline: 30 }, 0.01, "linear");
+A(T.door - 0.02, "chip", "ride", { prop: "bag", sit: true });   // curled up, hood over his face (recline 85 floats the shell: the prop is made for a sitter)
 A(T.door - 0.02, "chip", "face", { lid: 1, dur: 0.01 });
 place(T.door, "spud", [-0.9, 0.75], 15); place(T.door, "wedge", [0.9, 0.75], -15);
 see(T.door + 0.1, T.drag, ["bear", "lantern", "bag"], "the lantern goes over, the grass burns, the bear's head comes in over Chip in his bag");
@@ -240,33 +243,35 @@ see(T.door + 0.1, T.drag, ["bear", "lantern", "bag"], "the lantern goes over, th
 // ================================================================ 06 9.6-11.9: dragged out into the dark
 // panel 06: side view, the bear walks away to the left with the bag's foot in its teeth, Chip inside; the grass fire
 // behind. The bag follows the mouth hold (BEAR_MOUTH from the bear's header).
-const DRAG0 = [1.6, -2.6], DRAG1 = [-1.6, -5.4];
-bearAt(T.drag, DRAG0[0], DRAG0[1], -130, { gait: 0, headP: 30, jaw: 0.35 });
+const DRAG0 = [3.6, -2.6], DRAG1 = [1.2, -2.9];
+bearAt(T.drag, DRAG0[0], DRAG0[1], -95, { gait: 0, headP: 30, jaw: 0.35 });
 bear(T.drag, { x: DRAG1[0], z: DRAG1[1], gait: 3 }, r3(T.run - T.drag), "linear");
 // the bag lies along the bear's near side (toward us), its foot end in the bear's teeth (bearMouth, props-bear.js)
-const DRAG_ROT = -130, BEAR_S = 1.05;
+const DRAG_ROT = -95, BEAR_S = 1.05;
 const bagFor = ([x, z], gait) => {
   const m = bearMouth({ ...BEAR0, headP: 30, jaw: 0.35, gait }, { x, z, rot: DRAG_ROT, scale: BEAR_S }), a = rad(DRAG_ROT);
-  const perp = [-Math.cos(a), Math.sin(a)], side = perp[1] > 0 ? perp : [-perp[0], -perp[1]];   // the side toward the lens (+z)
-  return { x: r3(m[0] + side[0] * 0.95), z: r3(m[2] + side[1] * 0.95), rot: r3((Math.atan2(-side[0], -side[1]) * 180) / Math.PI) };
+  const fwd = [Math.sin(a), Math.cos(a)];   // the bag trails along the bear's near (+z) flank, its foot end forward in the teeth
+  return { x: r3(m[0] - fwd[0] * 0.95), z: r3(m[2] - fwd[1] * 0.95 + 0.45), rot: DRAG_ROT };
 };
-pr(T.drag - 0.02, "bag", { ...bagFor(DRAG0, 0), recline: 90 }, 0.01, "linear");
+pr(T.drag - 0.02, "bag", { ...bagFor(DRAG0, 0), recline: 40, cover: 0.95 }, 0.01, "linear");
 pr(T.drag, "bag", bagFor(DRAG1, 3), r3(T.run - T.drag), "linear");
 sfx(T.drag, "ai/bag-drag", { gain: 0.7, reason: "the bag dragged over the grass" });
 park(T.drag, "spud"); park(T.drag, "wedge");
+pr(T.drag - 0.02, "tent", { cut: 0, push: 0 }, 0.01, "linear");
 nar(T.drag + 0.3, "freezeOut");
 see(T.drag + 0.1, T.run, ["bear", "bag"], "Freeze: the bear drags Chip away in his sleeping bag");
 
 // ================================================================ 07 11.9-13.6: Wedge runs; the bear drops the bag and chases
 // panel 07: Wedge sprints past the burning grass toward the trees (to our left); the bear behind him, low and fast.
 park(T.run, "chip");
-const W0 = [1.2, 0.6], W1 = [-2.1, -1.7];
-place(T.run, "wedge", W0, -110);
+const W0 = [1.8, 1.7], W1 = [-2.2, 1.3];
+place(T.run, "wedge", W0, -105);
 expr(T.run - 0.02, "wedge", "terrified", { open: 0.35 }, 0.01); look(T.run - 0.02, "wedge", [0.6, 0.1], 0.01);
 A(T.run, "wedge", "move", { to: W1, dur: 1.7, ease: "linear", stride: 1.4 });
-bearAt(T.run, 2.6, -0.8, -105, { bound: 1, gait: 0, jaw: 0.5, snarl: 0.6, headP: 10, ears: -0.6 });
-bear(T.run, { x: -1.4, z: -2.6, gait: 3 }, 1.7, "linear");
-pr(T.run - 0.02, "bag", { x: 2.4, z: -1.6, recline: 90 }, 0.01, "linear");   // dropped behind
+bearAt(T.run, 3.4, 1.9, -95, { bound: 1, gait: 0, jaw: 0.5, snarl: 0.6, headP: 10, ears: -0.6 });
+bear(T.run, { x: -0.6, z: 1.5, gait: 3 }, 1.7, "linear");
+pr(T.run - 0.02, "bag", { x: 2.6, z: -2.4, recline: 40 }, 0.01, "linear");
+pr(T.run - 0.02, "cooler", { x: COOLER[0], z: COOLER[1] }, 0.01, "linear");   // dropped behind the tent
 pr(T.run, "grass2", { fire: 1, spread: 0.5 }, 0.3, "out");
 sfx(T.run + 0.1, "ai/bear-charge", { gain: 0.9, reason: "the bear galloping after Wedge" });
 sfx(T.run + 0.2, "ai/step-grass", { gain: 0.5, reason: "Wedge running" });
@@ -276,33 +281,33 @@ see(T.run + 0.1, T.tree, ["wedge.face", "bear"], "Flight: Wedge runs, the bear d
 // panel 08: lightning, looking up the pine: Wedge clings halfway up, the bear climbs right behind him, bark flying.
 // The cut on the treetop: Wedge's face looking down, the bear's head rising into the frame under him.
 const CLIMB = r3(T.tree + 0.2);
-place(T.tree, "wedge", [PINE[0], r3(PINE[1] + 0.42)], 180, 3.6);   // on the trunk's +z side, his back to us (he faces the bark), climbing
+place(T.tree, "wedge", [PINE[0], r3(PINE[1] + 0.42)], 180, 2.5);   // on the trunk's +z side, his back to us (he faces the bark), climbing
 A(T.tree - 0.02, "wedge", "pitch", { to: 0, dur: 0.01 });
-A(CLIMB, "wedge", "climb", { to: { y: 5.0 }, steps: 4, dur: 2.6 });
+A(CLIMB, "wedge", "climb", { to: { y: 3.7 }, steps: 4, dur: 2.6 });
 look(T.tree + 1.2, "wedge", [0.3, -0.9], 0.2); expr(T.tree + 1.2, "wedge", "terrified", { open: 0.5 }, 0.15);
-bearAt(T.tree, PINE[0], r3(PINE[1] + 0.55), 180, { climb: 1, climbStep: 0, y: 0.6, jaw: 0.4, snarl: 0.5 });
-bear(CLIMB, { y: 1.8, climbStep: 3 }, 3.1, "linear");   // crown stays under Wedge's feet (2.4 m reared + y)
+bearAt(T.tree, PINE[0], r3(PINE[1] + 0.55), 180, { climb: 1, climbStep: 0, y: 0.1, jaw: 0.4, snarl: 0.5 });
+bear(CLIMB, { y: 0.9, climbStep: 2 }, 3.1, "linear");   // crown stays under Wedge's feet (2.4 m reared + y)
 pr(T.tree, "pine", { shake: 1, snap: 6 }, 3.5, "linear");
 lightning(T.tree + 0.05, { x: -2, seed: 8 });
 sfx(T.tree + 0.3, "ai/branch-snap", { gain: 0.8, reason: "bark and branches breaking as the bear climbs" });
 sfx(T.tree + 1.6, "ai/branch-snap", { gain: 0.8, reason: "more branches" });
 sfx(T.tree + 2.4, "ai/bear-growl", { gain: 0.8, reason: "the bear right under him" });
-nar(T.tree + 0.3, "flightOut"); nar(r3(T.tree + 3.65), "climb", { until: T.stand });
+nar(T.tree + 0.3, "flightOut", { until: r3(T.tree + 3.65) }); nar(r3(T.tree + 3.65), "climb", { until: T.stand });
 see(T.tree + 0.1, T.stand, ["wedge", "bear", "pine"], "black bears climb: the bear climbs the pine right behind Wedge");
 
 // ================================================================ 09 17.5-19.6: Spud stands his ground
 // panel 09: Spud up on the cooler by the campfire, a burning branch raised in his L hand, the pot in his R, roaring;
 // behind him (back right) the bear has come down the pine and turns toward him.
 park(T.stand, "wedge");
-place(T.stand, "spud", COOLER, 25, 0.48);
+place(T.stand, "spud", COOLER, 55, 0.48);
 expr(T.stand - 0.02, "spud", "angry", { open: 0.7 }, 0.01); look(T.stand - 0.02, "spud", [0.5, 0.1], 0.01);
 pr(T.stand - 0.02, "branch", { x: r3(COOLER[0] - 0.42), y: 1.2, z: COOLER[1], fire: 1 }, 0.01, "linear");
 pr(T.stand - 0.02, "pot", { x: r3(COOLER[0] + 0.42), y: 0.85, z: r3(COOLER[1] + 0.1) }, 0.01, "linear");
 A(T.stand - 0.02, "spud", "grab", { prop: "branch", hand: "L", dur: 0.01 });
 A(T.stand - 0.02, "spud", "grab", { prop: "pot", hand: "R", dur: 0.01 });
 c.arm(T.stand - 0.02, "spud", "L", "up", 0.01, "linear");
-bearAt(T.stand, 1.9, -3.1, -40, { headP: 5, jaw: 0.3 });
-bear(T.stand + 0.3, { rot: 15 }, 0.8, "inOut");
+bearAt(T.stand, 1.2, -0.4, -160, { headP: 5, jaw: 0.3 });
+bear(T.stand + 0.3, { rot: -140 }, 0.8, "inOut");
 c.say(T.stand + 0.25, "spud", "GET AWAY! GO!", { voice: "spud", gibberish: true, gain: 1.0 });
 sfx(T.stand + 0.4, "ai/pot-bang", { gain: 0.9, reason: "Spud banging the pot on the branch" });
 sfx(T.stand + 0.8, "ai/pot-bang", { gain: 0.9, reason: "again" });
@@ -311,8 +316,13 @@ see(T.stand + 0.1, T.charge, ["spud.face", "branch", "pot", "bear"], "Spud on th
 
 // ================================================================ 10 19.6-21.0: the charge
 // panel 10: low behind Spud: the bear charges at full speed straight at him, dirt and sparks; he does not step back.
-bearAt(T.charge, 0.6, -5.0, 175, { bound: 1, jaw: 0.6, snarl: 0.8, ears: -1, headP: 8 });
-bear(T.charge, { x: 0.2, z: 1.0, gait: 3.5 }, 1.35, "in");
+place(T.charge, "spud", COOLER, 180, 0.48);   // cut cheat: his back to us, the bear coming at him down the lens axis
+pr(T.charge - 0.02, "tent", { x: -1.9 }, 0.01, "linear");   // cut cheat: the tent slid left out of the charge line
+pr(T.bite - 0.02, "tent", { x: TENT[0] }, 0.01, "linear");
+pr(T.charge - 0.02, "lantern", { x: 60 }, 0.01, "linear"); pr(T.bite - 0.02, "lantern", { x: LANTERN[0] }, 0.01, "linear");   // out of the charge line
+bearAt(T.charge, 1.3, -4.6, -7, { bound: 1, jaw: 0.6, snarl: 0.8, ears: -1, headP: 8 });
+bear(T.charge, { x: 0.55, z: 1.3, gait: 3.5 }, 1.35, "in");
+lightning(T.charge + 0.35, { x: 2, seed: 11 });
 sfx(T.charge, "ai/bear-charge", { gain: 1, reason: "the bear charging" });
 sfx(T.charge + 0.5, "ai/bear-roar", { gain: 0.9, reason: "roaring as it charges" });
 see(T.charge + 0.05, T.bite, ["bear", "spud"], "the bear charges straight at Spud; he holds his ground");
@@ -321,35 +331,38 @@ see(T.charge + 0.05, T.bite, ["bear", "spud"], "the bear charges straight at Spu
 // panel 11: the bear stopped a metre in front of him, rearing and roaring; Spud thrusts the pot up and it bites the
 // pot (drawn so: Jonny 16:43). Then it drops to all fours, turns and runs into the forest. He never hits it.
 const BITE = r3(T.bite + 0.9);
-bearAt(T.bite, 0.75, 1.75, -100, { rear: 0.9, jaw: 0.9, snarl: 1, ears: -1, brow: -1 });
+place(T.bite, "spud", COOLER, 90, 0.48);
+bearAt(T.bite, 0.5, 2.35, -90, { rear: 0.65, jaw: 0.9, snarl: 1, ears: -1, brow: -1 });
 c.arm(T.bite + 0.5, "spud", "R", { o: [0.18, 0.95, 0.3] }, 0.3, "out");   // the pot thrust up at its face
 bear(BITE - 0.15, { jaw: 0.35, headP: 15 }, 0.15, "in");
 pr(BITE, "pot", { dent: 1 }, 0.1, "out");
 sfx(BITE, "ai/pot-bite", { gain: 1, reason: "teeth on the steel pot" });
 sfx(T.bite + 0.1, "ai/bear-roar", { gain: 1, reason: "the roar in his face" });
 const FLEE = r3(BITE + 0.7);
-bear(FLEE, { rear: 0, jaw: 0.2 }, 0.4, "inOut");
-bear(FLEE + 0.45, { rot: -170 }, 0.45, "inOut");
-bear(FLEE + 0.9, { x: 1.5, z: -4.5, gait: 2.5, bound: 0.6 }, 1.6, "in");
+bear(FLEE, { rear: 0, jaw: 0.2, x: 1.5 }, 0.45, "inOut");   // drops to all fours backing off, clear of him
+bear(FLEE + 0.45, { rot: -193 }, 0.45, "inOut");   // turns away from Spud: its rump swings toward us, not through him
+bear(FLEE + 0.9, { x: 1.8, z: -3.2, gait: 2.5, bound: 0.6 }, 1.6, "in");
 sfx(FLEE + 0.9, "ai/bear-charge", { gain: 0.6, reason: "the bear running off into the forest" });
 see(T.bite + 0.05, FLEE + 0.9, ["bear", "spud.face", "pot"], "a metre away on its hind legs: it bites the pot Spud holds up, then gives up");
 
 // ================================================================ 12 24.3-31.0: sunrise at the lake
 // panel 12: smoke over the burnt grass, Spud alone with the dented pot, breathing out; behind him the empty torn bag
 // at the forest edge, deep claw marks up the empty pine on the right.
-place(T.dawn, "spud", [-0.4, 1.0], 12);
+place(T.dawn, "spud", [-0.2, 0.6], 12);
+c.arm(T.dawn - 0.02, "spud", "L", "rest", 0.01, "linear");
 A(T.dawn - 0.03, "spud", "release", { dur: 0.01 });
-pr(T.dawn - 0.02, "branch", { x: 40, z: 42 }, 0.01, "linear");
-pr(T.dawn - 0.02, "pot", { x: -0.1, y: 0.32, z: 1.25 }, 0.01, "linear");
+pr(T.dawn - 0.02, "branch", { x: 56, z: 42 }, 0.01, "linear");
+pr(T.dawn - 0.02, "pot", { x: 0.1, y: 0.32, z: 0.85 }, 0.01, "linear");
 A(T.dawn - 0.02, "spud", "grab", { prop: "pot", hand: "R", dur: 0.01 });
 c.arm(T.dawn - 0.02, "spud", "R", "hold", 0.01, "linear");
 expr(T.dawn - 0.02, "spud", "sad", { open: 0.05 }, 0.01); look(T.dawn - 0.02, "spud", [0.6, 0.2], 0.01);
-pr(T.dawn - 0.02, "bag12", { x: 1.3, z: -0.8, rot: 70 }, 0.01, "linear");
-pr(T.dawn - 0.02, "pine12", { x: 2.4, z: -0.6 }, 0.01, "linear");
-pr(T.dawn - 0.02, "claws", { x: 2.4, y: 1.4, z: -0.24 }, 0.01, "linear");
+pr(T.dawn - 0.02, "bag12", { x: 0.75, z: -0.6, rot: 70 }, 0.01, "linear");
+pr(T.dawn - 0.02, "pine12", { x: 1.25, z: -1.4, rot: 180 }, 0.01, "linear");
+pr(T.dawn - 0.02, "claws", { x: 1.25, y: 1.3, z: -1.04 }, 0.01, "linear");
 pr(T.dawn - 0.02, "bear", { x: 60, z: 60 }, 0.01, "linear");
+["tent", "car", "door", "lantern", "grass", "grass2", "pine", "fire", "cooler", "bag", "bolt"].forEach((id, i) => pr(T.dawn - 0.02, id, { x: 70 + i * 4, z: 70 }, 0.01, "linear"));
 A(T.dawn + 1.6, "spud", "squash", { amount: 0.06, dur: 0.6 });   // breathes out
-nar(T.dawn + 0.3, "beat"); nar(r3(T.dawn + 2.55), "scare"); nar(r3(T.dawn + 4.0), "survive", { until: END });
+nar(T.dawn + 0.3, "beat", { until: r3(T.dawn + 2.55) }); nar(r3(T.dawn + 2.55), "scare", { until: r3(T.dawn + 4.0) }); nar(r3(T.dawn + 4.0), "survive", { until: END, pos: 300 });
 see(T.dawn + 0.1, END, ["spud.face", "pot", "bag12"], "sunrise: Spud alone with the dented pot, the empty torn bag, the clawed pine");
 
 // ---------------------------------------------------------------- blinks: placed, never on a line
@@ -361,18 +374,18 @@ act.blinksAt(c, "chip", [3.57]);
 // every shot keeps to the paintings' safe range (node qa/env.mjs --range <env>): camp x +-2.7, y >= 0.65, pan +-10,
 // tilt +-8 round the painting's own pitch (the storm painting looks 11.9 deg UP, tilt - is down), fov <= 52; dawn x +-0.59, y >= 1.14, z 3.4-5.4. So the shot up the pine
 // is taken from up in the air (4.4 m), level with the two of them, not from the ground looking up.
-const OPEN = shot("camp", [0, 0.8, 3.6], { tilt: -2, fov: 50 });              // 01 low in front of the torn tent, the bear above it
-const PHONE = shot("camp", [0.05, 0.7, 1.15], { tilt: -8, fov: 50 });         // 02 inside, by the back wall, on the three and the phone
-const MESH = shot("camp", [0.25, 0.7, 0.55], { pan: 9, tilt: -6, fov: 40 });  // 03 behind them inside, out through the door's mesh window
-const FACES3 = shot("camp", [0, 0.68, 1.3], { tilt: -8, fov: 50 });           // 04 the three side by side
-const DOORIN = shot("camp", [-0.2, 0.75, 1.0], { pan: 4, tilt: -7, fov: 50 }); // 05 from the back wall to the door: the bear's head comes in over Chip
-const DRAG = shot("camp", [0.3, 1.1, 2.6], { pan: -4, tilt: -6, fov: 46 });   // 06 the bear drags the bag off to the left, the fire behind
-const RUN = shot("camp", [0.2, 0.8, 3.0], { pan: -5, tilt: -6, fov: 46 });   // 07 Wedge big in front, the bear behind
-const UP = shot("camp", [-1.5, 4.3, 2.2], { pan: -6, tilt: -8, fov: 46 });    // 08 level with the climb, up in the air
-const STAND = shot("camp", [0.9, 1.0, 5.0], { pan: -6, tilt: -6, fov: 44 });  // 09 Spud on the cooler, the bear back right
-const LOWBACK = shot("camp", [-0.4, 0.68, 3.6], { pan: 4, tilt: -1, fov: 48 }); // 10 low behind Spud, the charge at us
-const SIDE = shot("camp", [0.4, 1.0, 5.1], { tilt: -6, fov: 44 });            // 11 the two of them side on
-const DAWN = shot("dawn", [0.2, 1.3, 4.4], { tilt: 5, fov: 46 });           // 12 the lake at sunrise
+const OPEN = shot("camp", [0, 0.72, 3.9], { tilt: 0, fov: 50 });             // 01 low in front of the torn tent, the bear above it
+const PHONE = shot("camp", [0.0, 0.8, 2.9], { tilt: -8, fov: 46 });       // 02 through the wild wall: the three and the phone
+const MESH = shot("camp", [1.7, 0.8, -1.2], { pan: 2, tilt: -4, fov: 44 });  // 03 inside behind them, out through the door's mesh window
+const FACES3 = shot("camp", [0, 0.8, 3.6], { tilt: -8, fov: 46 });          // 04 the three side by side
+const DOORIN = shot("camp", [0.1, 0.8, 3.0], { pan: 0, tilt: -8, fov: 46 }); // 05 from behind the back wall to the door: the bear's head comes in over Chip
+const DRAG = shot("camp", [2.0, 1.0, 1.0], { pan: 0, tilt: -4, fov: 50 });  // 06 the bear drags the bag off to the left, the fire behind
+const RUN = shot("camp", [0.2, 0.9, 5.4], { pan: -4, tilt: -2, fov: 48 });   // 07 Wedge across the front of the tent, the bear behind
+const UP = shot("camp", [-1.5, 3.6, 2.2], { pan: -6, tilt: 0, fov: 46 });   // 08 level with the climb, up in the air
+const STAND = shot("camp", [-0.1, 1.1, 5.6], { pan: 0, tilt: -3, fov: 46 }); // 09 Spud on the cooler, the bear back left
+const LOWBACK = shot("camp", [0, 1.0, 4.6], { pan: 0, tilt: -5, fov: 46 }); // 10 low behind Spud, the charge at us
+const SIDE = shot("camp", [0.2, 1.3, 5.6], { tilt: -2, fov: 50 });          // 11 the two of them side on
+const DAWN = shot("dawn", [0.2, 1.3, 4.4], { tilt: 5, fov: 46 });            // 12 the lake at sunrise
 const beats = c.beats([
   ["01 cold open: the bear over the tent", T.hook, OPEN, "hook"],
   ["02 no service", T.phone, PHONE],
@@ -399,14 +412,20 @@ write(import.meta.url, {
   cover: 0.4,
   set: { type: "env", env: ENVS.camp, swap: PLACES.map(([at, name]) => ({ at, env: ENVS[name] })), life: "storm", aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
   music: { file: "ai/orchestra-chase/orchestra-chase-01.ogg", lowCut: 90, gain: 0.8, duck: { voice: -6 }, dip: false, until: T.dawn,
-    then: { file: "ai/sad/sad-01.ogg", from: T.dawn, gain: 0.55 } },
+    then: { file: "ai/sad/sad-02.ogg", from: T.dawn, gain: 0.55 } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true, surface: "grass", signature: { entrances: false } },
   creative: { length: [END, END] },
   hook: { show: ["bear", "tent", "spud", "chip", "wedge"], hint: 0, what: "a black bear on its hind legs rips open a tent with three screaming potatoes inside, lightning behind" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { who: "chip", with: "bag", from: T.faces, to: T.run, reason: "Chip rides inside his sleeping bag (enclosing prop) until he is dragged off" },
+    { who: "chip", with: "bag", from: T.door, to: T.run, reason: "Chip rides inside his sleeping bag (enclosing prop) until he is dragged off" },
+    ...["spud", "chip", "wedge"].map((who) => ({ who, with: "tent", from: 0, to: T.drag, reason: "the three are inside the tent (an enclosing prop): its cloth is all round them" })),
+    { who: "chip", with: "bear", from: T.door, to: T.run, reason: "the bear's muzzle over Chip in his bag, then his bag's foot end in its teeth (the bear never touches the potato itself on screen)" },
+    { who: "wedge", with: "pine", from: T.tree, to: T.stand, reason: "Wedge climbs the pine: arms round the trunk, gloves and jacket against the bark" },
+    { who: "wedge", with: "tent", from: T.run, to: T.tree, reason: "Wedge runs out past the tent" },
     { who: "spud", with: "cooler", from: T.stand, to: T.dawn, reason: "Spud stands on the cooler's lid" },
+    { who: "wedge", with: "chip", from: 0, to: T.door, reason: "the three are pressed together in a small tent (panels 01, 02, 04 draw them shoulder to shoulder)" },
+    { who: "chip", with: "spud", from: 0, to: T.door, reason: "the three are pressed together in a small tent (panels 01, 02, 04 draw them shoulder to shoulder)" },
   ],
   notes: "Generated by storyboards/series/fight-flight-freeze/02-bear-camp/make-bear-camp.mjs. Title added in TikTok's text tool.",
 });
