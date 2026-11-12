@@ -1,3 +1,12 @@
+# FINAL v3 (12 Nov 2026, 20:05 Berlin): triumphant music from 0.0
+
+- Video: `read-minds-FINAL-v3.mp4` (32.2 s). Same cut, cover and post pack as v2 below; only the music changed.
+- Jonny 19:51: "we should have the triumphatic music by second 0": the casino bed is hero-bed-01 looped from the first
+  frame until "But there's a catch" (v2 had poker tension into the hero theme on the call).
+- Farm run 43284233520: `qa/check.mjs` PASS, 0 fails; -14.0 LUFS, true peak -2.0 dBTP, no pops, no dropout.
+
+---
+
 # There's a catch 06: "What if you could read minds?" FINAL v2 (new opening, 12 Nov 2026 evening)
 
 - Video: `read-minds-FINAL-v2.mp4` (32.2 s, 1080x1920, 30 fps). Cover without text: `read-minds-cover-v2.png` (2.6 s,
