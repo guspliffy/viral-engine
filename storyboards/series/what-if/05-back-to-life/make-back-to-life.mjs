@@ -407,7 +407,6 @@ const allowClip = [
   ...["spud", "rea", "phx"].map((who) => ({ who, from: r3(LAMP - 0.06), to: r3(LAMP + 0.04), checks: ["rig-jump", "motion"], reason: "placed on the lamp top on the cut to the lamp shot" })),
   { who: "phx", with: "rea", from: FISH, to: r3(RUN + 0.15), reason: "Phoenix shoves Reaper's scythe arm at the fish case (panel 03): his glove is on Reaper's sleeve" },
   { who: "rea", with: "spud", from: STREET, to: FRONT, checks: ["face-hidden"], reason: "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces" },
-  { who: "phx", from: r3(RUN + 0.55), to: r3(RUN + 0.8), checks: ["rig-jump", "motion"], reason: "ROUGH DRAFT ONLY (polish list): his left arm drops into the run in one frame, 4.8 m behind the subject of the run shot" },
   { who: "rea", with: "scyF", from: r3(SLIP - 0.05), to: r3(SLIP + 0.55), reason: "the scythe slips out of his glove and falls past his robe" },
 ];
 

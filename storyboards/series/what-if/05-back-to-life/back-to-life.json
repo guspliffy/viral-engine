@@ -6267,16 +6267,6 @@
    "reason": "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces"
   },
   {
-   "who": "phx",
-   "from": 6.95,
-   "to": 7.2,
-   "checks": [
-    "rig-jump",
-    "motion"
-   ],
-   "reason": "ROUGH DRAFT ONLY (polish list): his left arm drops into the run in one frame, 4.8 m behind the subject of the run shot"
-  },
-  {
    "who": "rea",
    "with": "scyF",
    "from": 18.95,
