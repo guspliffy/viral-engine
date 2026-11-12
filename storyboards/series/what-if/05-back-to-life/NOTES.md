@@ -110,6 +110,16 @@ CATCH 12.6 | CHASE 14.0 | STREET 15.6 | LAMP 17.4 | SCYTHE 19.4 | END 22.0
   `MUSIC=<file> node make-back-to-life.mjs` swaps a take for an A/B by ear. The model plays about 14 s per take.
 - Polish done with it: Phoenix's turn ends before his run starts (the one-frame arm swap at 7.07 s; waiver deleted).
 
+## Farm render 1 failed its check (12 Nov): one-frame flashes of the light rings
+
+- `pops` FAIL at 7.77 s (43) and 8.87 s (39): a `lifesparks` ring with ease "out" crosses the lens height in ONE frame
+  when the camera stands near it (mammoth) or inside it (T. rex, camera 1.7 m from a 3 m ring). Seen in the frames:
+  yes (a beam and a blob for a frame each). Fix: `rise` linear over 1.0 s; alive-glow fades linear (0.7 s, rex 0.36 s).
+- 8.33 s (28, warn; 32 in a draft): no glitch, the cut came one frame after a pose step of the stepped animation
+  (Reaper near the lens). Fix: that cut one frame later. A check fault nobody sees, but cheap to step round.
+- The draft's own pops line (the fix on test) names both fails (37, 36) on draft 2; this branch was cut before it was
+  merged, so nobody saw it. Tested each fix with `--draft --from --to` (1-3 min) before render 2.
+
 ## Names looked up that docs/VOCAB.md didn't answer
 
 - stand-in box: `stoneblock` (props-guard.js) spec w, h, d. `stanchions` spec.posts [[x,z],...] (props-duo.js).

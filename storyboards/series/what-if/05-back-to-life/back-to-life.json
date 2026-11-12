@@ -2433,7 +2433,7 @@
   {
    "name": "the run along the row",
    "at": 6.8,
-   "len": 1.55,
+   "len": 1.584,
    "shot": {
     "pos": [
      0.3,
@@ -2554,8 +2554,8 @@
      "set": {
       "rise": 1
      },
-     "dur": 0.8,
-     "ease": "out",
+     "dur": 1,
+     "ease": "linear",
      "at": 0.2
     },
     {
@@ -2677,8 +2677,8 @@
      "set": {
       "glow": 0
      },
-     "dur": 0.45,
-     "ease": "out",
+     "dur": 0.7,
+     "ease": "linear",
      "at": 0.72
     },
     {
@@ -2725,8 +2725,8 @@
      "set": {
       "glow": 0
      },
-     "dur": 0.45,
-     "ease": "out",
+     "dur": 0.7,
+     "ease": "linear",
      "at": 0.87
     },
     {
@@ -2756,8 +2756,8 @@
      "set": {
       "rise": 1
      },
-     "dur": 0.8,
-     "ease": "out",
+     "dur": 1,
+     "ease": "linear",
      "at": 0.95
     },
     {
@@ -2835,16 +2835,26 @@
      "set": {
       "glow": 0
      },
-     "dur": 0.45,
-     "ease": "out",
+     "dur": 0.7,
+     "ease": "linear",
      "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.55
     }
    ]
   },
   {
    "name": "the crash into the T. rex",
-   "at": 8.35,
-   "len": 1.45,
+   "at": 8.384,
+   "len": 1.416,
    "shot": {
     "pos": [
      1,
@@ -2860,16 +2870,6 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "ptB2",
-     "set": {
-      "rattle": 1
-     },
-     "dur": 0.3,
-     "ease": "linear",
-     "at": 0
-    },
-    {
      "who": "rea",
      "do": "move",
      "to": [
@@ -2880,7 +2880,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 0.33
+     "at": 0.296
     },
     {
      "who": "rea",
@@ -2889,7 +2889,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.33
+     "at": 0.296
     },
     {
      "do": "prop",
@@ -2900,7 +2900,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.33
+     "at": 0.296
     },
     {
      "do": "prop",
@@ -2910,7 +2910,7 @@
      },
      "dur": 0.5,
      "ease": "linear",
-     "at": 0.35
+     "at": 0.316
     },
     {
      "do": "prop",
@@ -2920,7 +2920,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.346
     },
     {
      "do": "prop",
@@ -2935,7 +2935,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.38
+     "at": 0.346
     },
     {
      "do": "prop",
@@ -2948,7 +2948,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.4
+     "at": 0.366
     },
     {
      "do": "prop",
@@ -2956,9 +2956,9 @@
      "set": {
       "glow": 0
      },
-     "dur": 0.45,
-     "ease": "out",
-     "at": 0.42
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0.386
     },
     {
      "who": "rea",
@@ -2966,29 +2966,29 @@
      "to": 12,
      "dur": 0.12,
      "ease": "out",
-     "at": 0.45
+     "at": 0.416
     },
     {
      "who": "rea",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.14,
-     "at": 0.45
+     "at": 0.416
     },
     {
      "sfx": "slam",
      "gain": 1,
      "loud": true,
-     "at": 0.45
+     "at": 0.416
     },
     {
      "sfx": "slap",
      "gain": 0.6,
-     "at": 0.45
+     "at": 0.416
     },
     {
      "fx": "sparkle",
-     "at": 0.45,
+     "at": 0.416,
      "color": "#7dff6a",
      "dur": 0.6
     },
@@ -2996,7 +2996,7 @@
      "fx": "shake",
      "dur": 0.3,
      "amp": 0.03,
-     "at": 0.45
+     "at": 0.416
     },
     {
      "do": "prop",
@@ -3006,7 +3006,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 0.45
+     "at": 0.416
     },
     {
      "do": "prop",
@@ -3014,22 +3014,22 @@
      "set": {
       "rise": 1
      },
-     "dur": 0.9,
-     "ease": "out",
-     "at": 0.45
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.416
     },
     {
      "sfx": "zap",
      "gain": 0.7,
      "loud": true,
-     "at": 0.48
+     "at": 0.446
     },
     {
      "sfx": "ai/heartbeat",
      "gain": 0.9,
      "loud": true,
      "reason": "life comes back into the biggest one: one deep heartbeat",
-     "at": 0.55
+     "at": 0.516
     },
     {
      "do": "prop",
@@ -3039,7 +3039,7 @@
      },
      "dur": 0.4,
      "ease": "linear",
-     "at": 0.55
+     "at": 0.516
     },
     {
      "who": "spud",
@@ -3052,7 +3052,7 @@
       "wide": 1
      },
      "dur": 0.12,
-     "at": 0.75
+     "at": 0.716
     },
     {
      "who": "phx",
@@ -3063,7 +3063,7 @@
       "curve": 1
      },
      "dur": 0.12,
-     "at": 0.75
+     "at": 0.716
     },
     {
      "who": "rea",
@@ -3071,7 +3071,7 @@
      "to": 0,
      "dur": 0.35,
      "ease": "inOut",
-     "at": 0.8
+     "at": 0.766
     },
     {
      "do": "prop",
@@ -3083,7 +3083,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.03
+     "at": 0.996
     },
     {
      "do": "prop",
@@ -3105,7 +3105,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.05
+     "at": 1.016
     },
     {
      "do": "prop",
@@ -3115,7 +3115,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.05
+     "at": 1.016
     },
     {
      "do": "prop",
@@ -3123,9 +3123,9 @@
      "set": {
       "glow": 0
      },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 1.07
+     "dur": 0.36,
+     "ease": "linear",
+     "at": 1.036
     },
     {
      "who": "spud",
@@ -3138,7 +3138,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "who": "spud",
@@ -3147,7 +3147,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "who": "rea",
@@ -3160,7 +3160,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "who": "rea",
@@ -3169,7 +3169,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "who": "phx",
@@ -3182,7 +3182,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "who": "phx",
@@ -3191,7 +3191,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.43
+     "at": 1.396
     },
     {
      "do": "prop",
@@ -3202,7 +3202,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.43
+     "at": 1.396
     }
    ]
   },

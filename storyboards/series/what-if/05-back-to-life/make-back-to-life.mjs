@@ -224,8 +224,8 @@ for (const [bones, alive, t, at] of WAKE) {
   sfx(t, "zap", { gain: 0.45 }); c.at(t, { fx: "sparkle", at: at.length === 2 ? [ROPE_X + 0.3, 0.6, at[1]] : at, color: "#7dff6a", dur: 0.5 });
   Pk("fossils", t, bones, { glow: 1 }, 0.4, "out"); Pk("fossils", r3(t + 0.1), bones, { rattle: 1 }, 0.3);
   park(r3(t + 0.5), bones);
-  ANI(r3(t + 0.48), alive, { glow: 1, ...CURIOUS }); ANI(r3(t + 0.52), alive, { glow: 0 }, 0.45, "out");
-  const sp = { sabB: "spSab", mamB: "spMam" }[bones]; if (sp) Pk("fossils", t, sp, { rise: 1 }, 0.8, "out");
+  ANI(r3(t + 0.48), alive, { glow: 1, ...CURIOUS }); ANI(r3(t + 0.52), alive, { glow: 0 }, 0.7, "linear");   // an even fade: "out" dropped half the glow in two frames (pops, farm render 1)
+  const sp = { sabB: "spSab", mamB: "spMam" }[bones]; if (sp) Pk("fossils", t, sp, { rise: 1 }, +(process.env.RISE ?? 1.0), process.env.REASE ?? "linear");   // a steady climb: with ease "out" the ring crossed the lens height in one frame (a one-frame flash, farm render 1)
   if (at.length === 2) P(r3(t + 0.5), alive, { x: at[0], y: 0.3, z: at[1], rot: bones === "sabB" ? -90 : -55 });
   else P(r3(t + 0.5), alive, { x: at[0], y: at[1], z: at[2], rot: 180 });
 }
@@ -243,9 +243,9 @@ A(CRASH, "rea", "lean", { to: 12, dur: 0.12, ease: "out" }); A(r3(CRASH + 0.35),
 sfx(CRASH, "slam", { gain: 1, loud: true }); sfx(CRASH, "slap", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "zap", { gain: 0.7, loud: true }); sfx(r3(CRASH + 0.1), "ai/heartbeat", { gain: 0.9, loud: true, reason: "life comes back into the biggest one: one deep heartbeat" });
 c.at(CRASH, { fx: "sparkle", at: [0.95, 0.9, -9.7], color: "#7dff6a", dur: 0.6 }); c.at(CRASH, { fx: "shake", dur: 0.3, amp: 0.03 });
 expr(r3(CRASH + 0.3), "spud", "terrified", TERROR); expr(r3(CRASH + 0.3), "phx", "delighted", { open: 0.7, curve: 1 });
-Pk("fossils", CRASH, "rexB", { glow: 1 }, 0.45, "out"); Pk("fossils", r3(CRASH + 0.1), "rexB", { rattle: 1 }, 0.4); Pk("fossils", CRASH, "spRex", { rise: 1 }, 0.9, "out");
+Pk("fossils", CRASH, "rexB", { glow: 1 }, 0.45, "out"); Pk("fossils", r3(CRASH + 0.1), "rexB", { rattle: 1 }, 0.4); Pk("fossils", CRASH, "spRex", { rise: 1 }, +(process.env.RISE ?? 1.0), process.env.REASE ?? "linear");
 P(r3(CRASH + 0.6), "rex", { x: REXP[0], y: 0.3, z: REXP[1], rot: 0, jaw: 0, brow: 0.3, lean: 0, neckP: 0, headP: 0, headY: 0, neckY: 0, squint: 0, step: 0 }); park(r3(CRASH + 0.62), "rexB");
-ANI(r3(CRASH + 0.58), "rex", { glow: 1, gait: 0, drool: 0 }); ANI(r3(CRASH + 0.62), "rex", { glow: 0 }, 0.5, "out");
+ANI(r3(CRASH + 0.58), "rex", { glow: 1, gait: 0, drool: 0 }); ANI(r3(CRASH + 0.62), "rex", { glow: 0 }, 0.36, "linear");   // even, and over before the cut to the wide shot
 // 06: everything alive
 P(ALIVE, "rex", { lean: -6, neckP: 0, headP: 4, headY: 16, jaw: 0.9, arms: 1 }, 0.4, "out"); P(r3(ALIVE + 0.4), "rex", { jaw: 0.3, lean: 0, neckP: 6, headP: 14 }, 0.3);
 P(STOMP - 0.14, "rex", { step: 1 }, 0.14, "out"); P(STOMP, "rex", { step: 0 }, 0.08, "in"); sfx(STOMP, "dinostomp", { gain: 0.9, loud: true }); c.at(STOMP, { fx: "shake", dur: 0.35, amp: 0.04 });
@@ -375,7 +375,7 @@ const CUTS = [
   ["the hall: the plant", HALL, SH.hall],
   ["the fish", FISH, SH.fish],
   ["the run along the row", r3(RUN + 0.4), SH.run],
-  ["the crash into the T. rex", r3(CRASH - 0.45), SH.crash],
+  ["the crash into the T. rex", r3(CRASH - 0.45 + +(process.env.CUTD ?? 0.034)), SH.crash],   // one frame later: the cut no longer follows a pose step by a single frame (pops, farm render 1)
   ["everything alive", ALIVE, SH.alive, "reveal"],
   ["the calm", CALM, SH.calm],
   ["the catch", CATCH, SH.catch, "payoff"],
