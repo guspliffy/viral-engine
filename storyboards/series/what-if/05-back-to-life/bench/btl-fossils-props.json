@@ -1,0 +1,4523 @@
+{
+ "id": "btl-fossils-props",
+ "title": "Fossil skeletons bench",
+ "idea": "Props bench for There's a catch EP05 (trexbones, mammothbones, sabrebones, pterobones, lifesparks), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "sab"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    2.3
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "sab",
+   "kind": "sabrebones",
+   "x": 3.4,
+   "y": 0.3,
+   "z": 0.5,
+   "rot": -90,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "mam",
+   "kind": "mammothbones",
+   "x": 3.6,
+   "y": 0.3,
+   "z": -4.2,
+   "rot": -55,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "rex",
+   "kind": "trexbones",
+   "x": 1,
+   "y": 0.3,
+   "z": -11,
+   "rot": 0,
+   "scale": 1.5,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "pt1",
+   "kind": "pterobones",
+   "x": 2,
+   "y": 5.5,
+   "z": -1,
+   "rot": -60,
+   "wire": 3.5,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "pt2",
+   "kind": "pterobones",
+   "x": 2.2,
+   "y": 5.8,
+   "z": -6.5,
+   "rot": -110,
+   "wire": 3.5,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "psab",
+   "kind": "stoneblock",
+   "x": 3.4,
+   "y": 0,
+   "z": 0.5,
+   "rot": 0,
+   "w": 2.6,
+   "h": 0.3,
+   "d": 1.6
+  },
+  {
+   "id": "pmam",
+   "kind": "stoneblock",
+   "x": 3.6,
+   "y": 0,
+   "z": -4.2,
+   "rot": 0,
+   "w": 3.2,
+   "h": 0.3,
+   "d": 4.4
+  },
+  {
+   "id": "prex",
+   "kind": "stoneblock",
+   "x": 1,
+   "y": 0,
+   "z": -11,
+   "rot": 0,
+   "w": 3.4,
+   "h": 0.3,
+   "d": 3
+  },
+  {
+   "id": "twa",
+   "kind": "trex",
+   "x": 1,
+   "y": 0,
+   "z": -11,
+   "rot": 0,
+   "scale": 1.5
+  },
+  {
+   "id": "twb",
+   "kind": "trexbones",
+   "x": 1,
+   "y": 0,
+   "z": -11,
+   "rot": 0,
+   "scale": 1.5,
+   "glow": 0,
+   "rattle": 0
+  },
+  {
+   "id": "spk",
+   "kind": "lifesparks",
+   "x": 3.4,
+   "y": 0.3,
+   "z": 0.5,
+   "rot": 0,
+   "r": 1.5,
+   "h": 3,
+   "rise": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0.75,
+     1.5,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 2.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A rest"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0.75,
+     1.5,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 2.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A glow 1"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.65,
+     6.5
+    ],
+    "look": [
+     3.25,
+     0.65,
+     0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C sab glow 0"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.65,
+     6.5
+    ],
+    "look": [
+     3.25,
+     0.65,
+     0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0.5,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C sab glow 0.5"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.65,
+     6.5
+    ],
+    "look": [
+     3.25,
+     0.65,
+     0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C sab glow 1"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     0.65,
+     6.5
+    ],
+    "look": [
+     3.25,
+     0.65,
+     0.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C sab rattle 1"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.189,
+     1.5,
+     2.353
+    ],
+    "look": [
+     3.272,
+     1.5,
+     -3.971
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C mam glow 0"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.189,
+     1.5,
+     2.353
+    ],
+    "look": [
+     3.272,
+     1.5,
+     -3.971
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0.5,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C mam glow 0.5"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.189,
+     1.5,
+     2.353
+    ],
+    "look": [
+     3.272,
+     1.5,
+     -3.971
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C mam glow 1"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8.189,
+     1.5,
+     2.353
+    ],
+    "look": [
+     3.272,
+     1.5,
+     -3.971
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C mam rattle 1"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C rex glow 0"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0.5,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C rex glow 0.5"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C rex glow 1"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C rex rattle 1"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.582,
+     5.45,
+     -0.599
+    ],
+    "look": [
+     2,
+     5.45,
+     -1
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C pt1 glow 0"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.582,
+     5.45,
+     -0.599
+    ],
+    "look": [
+     2,
+     5.45,
+     -1
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0.5,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C pt1 glow 0.5"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.582,
+     5.45,
+     -0.599
+    ],
+    "look": [
+     2,
+     5.45,
+     -1
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C pt1 glow 1"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6.582,
+     5.45,
+     -0.599
+    ],
+    "look": [
+     2,
+     5.45,
+     -1
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C pt1 rattle 1"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "overlap: the trex alone"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     18,
+     2.4,
+     -11
+    ],
+    "look": [
+     1,
+     2.4,
+     -11.4
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 83.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "overlap: the trexbones alone, same place"
+  },
+  {
+   "name": "s21",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     1.5,
+     6.7
+    ],
+    "look": [
+     3.4,
+     1.5,
+     0.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sparks rise 0.3 round the sabre"
+  },
+  {
+   "name": "s22",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.4,
+     1.5,
+     6.7
+    ],
+    "look": [
+     3.4,
+     1.5,
+     0.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0.5,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 83.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 81,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 82,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 82.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 83.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0.7
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sparks rise 0.7, sabre glow 0.5"
+  },
+  {
+   "name": "s23",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.3,
+     2.6
+    ],
+    "look": [
+     0.8,
+     2.9,
+     -10.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.005
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 2.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "B rest (Spud hidden)"
+  },
+  {
+   "name": "s24",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.3,
+     2.6
+    ],
+    "look": [
+     0.8,
+     2.9,
+     -10.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 2,
+      "y": 5.5,
+      "z": -1,
+      "rot": -60,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 2.2,
+      "y": 5.8,
+      "z": -6.5,
+      "rot": -110,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "psab",
+     "set": {
+      "x": 3.4,
+      "y": 0,
+      "z": 0.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pmam",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": -4.2,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "prex",
+     "set": {
+      "x": 1,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twa",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "twb",
+     "set": {
+      "x": 81,
+      "y": 0,
+      "z": -11,
+      "rot": 0,
+      "glow": 1,
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "spk",
+     "set": {
+      "x": 83.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": 0,
+      "rise": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "B glow 1 (Spud hidden)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/05-back-to-life/bench/make-fossils-props.mjs (props bench, no reviews)."
+}

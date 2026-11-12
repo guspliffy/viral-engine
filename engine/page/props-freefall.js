@@ -38,18 +38,18 @@ const DOT = () => canvasTex(64, 64, (x) => { const g = x.createRadialGradient(32
 export const JET = { len: 37, R: 1.98, span: 34, nose: 18.5, tail: -18.5 };
 // the fuselage's radius and the height of its middle at station z (nose +18.5, tail -18.5): a rounded nose, a straight
 // barrel, and a tail cone whose roof stays nearly level while its belly sweeps up to the APU
-function body(z) {
+export function body(z) {
   const R = JET.R;
   if (z > 12.5) { const u = clamp((z - 12.5) / 6); const r = R * Math.sqrt(Math.max(0, 1 - u ** 2.4)); return { r, y: -0.28 * u * u }; }
   if (z > -6) return { r: R, y: 0 };
   const v = clamp((-6 - z) / 12.5), r = R * (1 - 0.82 * v ** 1.25);
   return { r, y: R - 0.22 * v - r };
 }
-const SQ = 1.04;   // a little taller than wide
+export const SQ = 1.04;   // a little taller than wide
 // a skin round the fuselage between angles a0..a1 (radians, 0 = +x, pi/2 = the roof) and stations z1 > z0, `out` metres
 // off the white skin (a painted stripe, the grey belly; 8 cm or more: at 100 m the depth buffer can't part closer
 // layers and the drawn lines speckle where they fight)
-function hull(a0, a1, z0, z1, out = 0, na = 40, nz = 90) {
+export function hull(a0, a1, z0, z1, out = 0, na = 40, nz = 90) {
   const pos = [], idx = [];
   for (let i = 0; i <= nz; i++) {
     const z = z1 - ((z1 - z0) * i) / nz, b = body(z);
@@ -59,7 +59,7 @@ function hull(a0, a1, z0, z1, out = 0, na = 40, nz = 90) {
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
 }
 // a point on the skin (and its outward normal) at station z, angle a
-function skin(z, a, out = 0) {
+export function skin(z, a, out = 0) {
   const b = body(z), r = b.r + out, e = 0.05, b2 = body(z + e), dr = (b2.r - b.r) / e;
   const p = new THREE.Vector3(r * Math.cos(a), b.y + SQ * r * Math.sin(a), z);
   const n = new THREE.Vector3(Math.cos(a), Math.sin(a) / SQ, -dr).normalize();
@@ -67,7 +67,7 @@ function skin(z, a, out = 0) {
 }
 // a lifting surface lofted from root to tip: sections are symmetric aerofoils (NACA 00xx). root/tip: { le: [x, y, z] (the
 // leading edge), c (chord, running toward -z), t (thickness share) }; vertical: the span runs up y (a fin) instead of x
-function foil(root, tip, { vertical = false, n = 14 } = {}) {
+export function foil(root, tip, { vertical = false, n = 14 } = {}) {
   const pts = []; for (let i = 0; i <= n; i++) { const u = 1 - Math.cos((i / n) * Math.PI / 2); pts.push(u); }   // denser at the nose
   const yt = (u, t) => 5 * t * (0.2969 * Math.sqrt(u) - 0.126 * u - 0.3516 * u * u + 0.2843 * u ** 3 - 0.1036 * u ** 4);
   const sec = (s) => {

@@ -20,7 +20,9 @@ function leafGeometry(w, len, thick) {
   g.computeVertexNormals();
   return g;
 }
-function sprout(color, single = false) {   // single (sprout.leaves 1, Spud): one leaf standing a little to the side
+// sprout.lay [x, y, z] (opt-in, the everyday friends 12 Nov 2026): the single leaf's own resting turn instead of Spud's,
+// so a leaf can lie swept back like styled hair (Wedge) or hang forward (Mash)
+function sprout(color, single = false, lay = null) {   // single (sprout.leaves 1, Spud): one leaf standing a little to the side
   const g = new THREE.Group();
   const m = new THREE.MeshStandardMaterial({ color, roughness: 0.45, side: THREE.DoubleSide });
   const vein = new THREE.MeshStandardMaterial({ color: new THREE.Color(color).multiplyScalar(0.7), roughness: 0.5 });
@@ -28,7 +30,7 @@ function sprout(color, single = false) {   // single (sprout.leaves 1, Spud): on
   const leafG = leafGeometry(0.056, 0.15, 0.014);
   const leaves = (single ? [1] : [-1, 1]).map((s) => {
     const pivot = new THREE.Group(); pivot.position.y = 0.06; g.add(pivot);
-    const leaf = new THREE.Mesh(leafG, m); leaf.rotation.set(-0.15, s * 0.25, single ? -0.5 : -s * 0.85); leaf.castShadow = true; pivot.add(leaf);
+    const leaf = new THREE.Mesh(leafG, m); if (single && lay) leaf.rotation.set(lay[0], lay[1], lay[2]); else leaf.rotation.set(-0.15, s * 0.25, single ? -0.5 : -s * 0.85); leaf.castShadow = true; pivot.add(leaf);
     const rib = new THREE.Mesh(new THREE.CylinderGeometry(0.003, 0.0045, 0.115, 6), vein); rib.position.set(0, 0.062, 0.01); leaf.add(rib);
     return { pivot, s };
   });
@@ -335,7 +337,7 @@ export function buildCostume(def, ch) {
   }
   const card = C.cardWings ? cardWings(C.cardWings, ch) : null;   // homemade cardboard wings and their straps (costumes-card.js)
   if (hat) { hat.group.rotation.set(-0.08, 0, 0.06); mount.add(hat.group); }
-  const sprt = sprout(sp.color || "#6cbf3a", sp.leaves === 1);
+  const sprt = sprout(sp.color || "#6cbf3a", sp.leaves === 1, sp.lay);
   const where = sp.placement || (hat ? "hat-top" : "top");
   if (where === "hat-brim" && hat) { sprt.group.scale.setScalar(0.62); sprt.group.position.set(-0.14, 0.05, 0.24); sprt.group.rotation.set(0.3, -0.45, 0.45); hat.group.add(sprt.group); }   // tucked into the front-left of the band, as in the reference art
   else if (where === "hat-top" && hat) { sprt.group.position.set(0.0, hat.height - 0.02, 0); if (sp.lift) sprt.group.position.add(new THREE.Vector3(0, sp.lift[0], sp.lift[1])); hat.group.add(sprt.group); }   // lift [up, forward]: out of a tall head of hair (Viking with the blossom)
@@ -345,6 +347,7 @@ export function buildCostume(def, ch) {
   if (prop && globalThis.__DIAG?.colors) { const g = new THREE.MeshLambertMaterial({ color: "#20b040" }); prop.group.traverse((o) => { if (o.isMesh) o.material = g; }); prop.group.add(new THREE.Mesh(new THREE.SphereGeometry(0.006, 8, 6), new THREE.MeshBasicMaterial({ color: "#000000", depthTest: false }))); }   // its grip point black   // debug: the prop green
   if ((pb || isCast) && prop) ch.root.add(prop.group);
   if (pb) sprt.group.scale.setScalar(0.7);
+  else if (sp.size) sprt.group.scale.setScalar(sp.size);   // sprout.size (opt-in, the everyday friends): a bigger or smaller sprout than the cast's
   if (C.type === "magician") { prop = wand(C); ch.root.add(prop.group); }
   const propHand = C.propHand || "R";
   const sitDepth = extraHat ? 0.21 : pb ? pb.sitDepth : isCast ? cc.sitDepth : art ? 0.21 : hat ? ({ wizard: 0.11, magician: 0.05, cap: 0.1 }[C.type] ?? 0.09) : 0.0;   // art: the cowboy hat sits down on the head

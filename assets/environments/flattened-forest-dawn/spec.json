@@ -1,0 +1,35 @@
+{
+ "name": "flattened-forest-dawn",
+ "prompt": "anime film background painting, gouache, low ground level view across a wide flat clearing of bare earth filling the bottom third, a destroyed forest, fallen broken pine trunks and stumps lying everywhere to the far horizon, huge pink and gold dawn sky after a storm",
+ "no": "campfire, fire, tent, house, road, standing trees in front, people",
+ "seeds": [
+  3,
+  11,
+  27,
+  40
+ ],
+ "all_seeds": true,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.5,
+   7.8
+  ]
+ },
+ "light": {
+  "from": "back right, low: pink dawn",
+  "key": [
+   3.0,
+   3.0,
+   -2.0
+  ],
+  "shadow": 0.25
+ },
+ "swayMax": 20,
+ "surface": "dirt"
+}

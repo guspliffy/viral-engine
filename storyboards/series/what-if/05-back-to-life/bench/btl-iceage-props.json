@@ -1,0 +1,3459 @@
+{
+ "id": "btl-iceage-props",
+ "title": "Ice-age animals bench",
+ "idea": "Props bench for There's a catch EP05 (mammoth, sabretooth, pterosaur), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "mam"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.1,
+    -0.7
+   ],
+   "face": 180,
+   "expr": "terrified",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "mam",
+   "kind": "mammoth",
+   "x": 3.3,
+   "y": 0,
+   "z": -3.4,
+   "rot": -70,
+   "gait": 0,
+   "trunk": 0,
+   "trunkY": 0,
+   "ears": 0,
+   "glow": 0,
+   "jaw": 0,
+   "brow": 0,
+   "squint": 0,
+   "blink": 0,
+   "lookX": 0,
+   "lookY": 0,
+   "headY": 0,
+   "headP": 0,
+   "drool": 0,
+   "breath": 0
+  },
+  {
+   "id": "sab",
+   "kind": "sabretooth",
+   "x": -1.9,
+   "y": 0,
+   "z": -2.1,
+   "rot": 65,
+   "gait": 0,
+   "bound": 0,
+   "crouch": 0,
+   "lick": 0,
+   "tail": 0,
+   "glow": 0,
+   "jaw": 0,
+   "brow": 0,
+   "squint": 0,
+   "blink": 0,
+   "lookX": 0,
+   "lookY": 0,
+   "headY": 0,
+   "headP": 0,
+   "drool": 0,
+   "breath": 0
+  },
+  {
+   "id": "pte",
+   "kind": "pterosaur",
+   "x": 1.5,
+   "y": 5.5,
+   "z": -3,
+   "rot": 90,
+   "flap": 0,
+   "bank": 0,
+   "fold": 0,
+   "glow": 0,
+   "jaw": 0,
+   "brow": 0,
+   "squint": 0,
+   "blink": 0,
+   "lookX": 0,
+   "lookY": 0,
+   "headY": 0,
+   "headP": 0,
+   "drool": 0,
+   "breath": 0
+  },
+  {
+   "id": "rex",
+   "kind": "trex",
+   "x": 0.4,
+   "y": 0,
+   "z": -5.5,
+   "rot": 0,
+   "scale": 1.5
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.3,
+     8.6
+    ],
+    "look": [
+     0.8,
+     2.9,
+     -4.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A calm"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.3,
+     8.6
+    ],
+    "look": [
+     0.8,
+     2.9,
+     -4.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A starving"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.45,
+     3.5
+    ],
+    "look": [
+     0.05,
+     2.45,
+     -1
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "B starving"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.586,
+     1.5,
+     -1.621
+    ],
+    "look": [
+     1.796,
+     2,
+     -2.853
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face mammoth calm"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.586,
+     1.5,
+     -1.621
+    ],
+    "look": [
+     1.796,
+     2,
+     -2.853
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face mammoth starving"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.456,
+     0.7,
+     -1.001
+    ],
+    "look": [
+     -1.084,
+     0.8,
+     -1.72
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face sabre calm"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.456,
+     0.6,
+     -1.001
+    ],
+    "look": [
+     -1.084,
+     0.8,
+     -1.72
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face sabre starving"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.75,
+     5.6,
+     -3
+    ],
+    "look": [
+     2.25,
+     5.7,
+     -3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0.4,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0.1,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face ptero calm"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.75,
+     5.3,
+     -3
+    ],
+    "look": [
+     2.25,
+     5.7,
+     -3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0.3,
+      "brow": -1,
+      "squint": 0.7,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": -1,
+      "headY": 0,
+      "headP": 12,
+      "drool": 1,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face ptero starving"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth gait 0"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0.25,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth gait 0.25"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0.5,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth gait 0.5"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0.5,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth glow 0.5"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 1,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth glow 1"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": -1,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth trunk -1"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5.352,
+     1.5,
+     2.238
+    ],
+    "look": [
+     3.3,
+     1.5,
+     -3.4
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 1,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mammoth trunk 1"
+  },
+  {
+   "name": "s17",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre gait 0"
+  },
+  {
+   "name": "s18",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0.25,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre gait 0.25"
+  },
+  {
+   "name": "s19",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0.5,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre gait 0.5"
+  },
+  {
+   "name": "s20",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0.5,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre glow 0.5"
+  },
+  {
+   "name": "s21",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 1,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre glow 1"
+  },
+  {
+   "name": "s22",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.636,
+     0.6,
+     -7.538
+    ],
+    "look": [
+     -1.9,
+     0.6,
+     -2.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.9,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 1,
+      "lick": 0.5,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 61.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "sabre crouch 1 lick 0.5"
+  },
+  {
+   "name": "s23",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero flap 0"
+  },
+  {
+   "name": "s24",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0.25,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero flap 0.25"
+  },
+  {
+   "name": "s25",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0.75,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero flap 0.75"
+  },
+  {
+   "name": "s26",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 0.5,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero glow 0.5"
+  },
+  {
+   "name": "s27",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0,
+      "glow": 1,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero glow 1"
+  },
+  {
+   "name": "s28",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     5.5,
+     -9
+    ],
+    "look": [
+     1.5,
+     5.5,
+     -3
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 63.3,
+      "y": 0,
+      "z": -3.4,
+      "rot": -70,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 58.1,
+      "y": 0,
+      "z": -2.1,
+      "rot": 65,
+      "gait": 0,
+      "bound": 0,
+      "crouch": 0,
+      "lick": 0,
+      "tail": 0,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pte",
+     "set": {
+      "x": 1.5,
+      "y": 5.5,
+      "z": -3,
+      "rot": 90,
+      "flap": 0,
+      "bank": 0,
+      "fold": 1,
+      "glow": 0,
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 60.4,
+      "y": 0,
+      "z": -5.5,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "ptero fold 1"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/05-back-to-life/bench/make-iceage-props.mjs (props bench, no reviews)."
+}

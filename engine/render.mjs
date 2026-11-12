@@ -50,7 +50,7 @@ import { mixClip } from "./sfx/guard.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { lockMusic } from "./music.mjs";
-import { gateResults } from "../qa/check.mjs";
+import { gateResults, oddFrames, RULES } from "../qa/check.mjs";
 import { GATE } from "../qa/gate.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
@@ -677,6 +677,18 @@ async function finish(audio, videoFile, wavFile, outFile, o, dur, note) {
     await ffmpeg(["-y", "-loglevel", "error", "-i", videoFile, "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", "-movflags", "+faststart", outFile]);
     console.log(`wrote ${outFile} (silent)`);
   }
+  if (o.draft) popsLine(outFile, o.from ?? 0);
+}
+
+// Every draft tests itself for one-frame pops (the "pops" line of qa/check.mjs, about a second): the full render's
+// check fails on them, and two videos in a row lost a farm render to a single frame the draft already showed
+// (Share or Steal 02, Doomscroll 01, 11 Nov 2026). Times are seconds of the video, also for a --from/--to window.
+function popsLine(file, from) {
+  try {
+    const worst = oddFrames(file, 30).filter((x) => x.score > RULES.oddFrame).slice(0, 6), top = worst[0]?.score ?? 0;
+    if (!worst.length) return console.log("pops: no odd single frames in this draft");
+    console.log(`pops ${top > RULES.oddFrameFail ? "FAIL (the full render's check fails on this: fix it before the farm)" : "warn"}: odd single frames at ${worst.map((x) => `${(x.t + from).toFixed(2)}s (${x.score.toFixed(0)}, ${x.where})`).join(", ")}; look at the frames round each (node qa/contact.mjs <draft> --times ...)`);
+  } catch (e) { console.log(`pops: not measured (${e.message || e})`); }
 }
 
 main().catch((e) => { console.error(e.message || e); process.exit(1); });

@@ -13,7 +13,7 @@ export const GATE = {
   fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "limb-in-surface", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
     "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner", "palm-turn", "payoff-face"],
   // visible at full speed: a delivery may carry none of these as a warning (each needs a fix or a named window)
-  visible: ["rig-jump", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support", "palm-turn", "payoff-face"],
+  visible: ["rig-jump", "air-walk", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support", "palm-turn", "payoff-face"],
   handTurn: 90,        // degrees in one frame, on screen and not smeared by motion blur (fails)
   blurPx: 144,         // px a frame: from here a move is smeared (engine/render.mjs BLUR, Jonny 4 Nov), which hides a turn
   handTravel: 0.10,    // metres a hand may travel against its body per frame of its move, on screen (qa/hands.mjs; workflow.md "Hands")

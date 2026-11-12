@@ -696,6 +696,41 @@ const SFX = {
     }
     return x;
   },
+  // thunder close by: a hard dry crack, then a long boom that rolls away in a few uneven swells. The crack and a band
+  // round 320 Hz carry it on a phone speaker; the weight under 110 Hz is for everything else (Doomscroll to survive
+  // pilot, 11 Nov 2026: the first cut used the firework burst as a stand-in)
+  thunder(r, d = 2.8) {
+    const x = buf(d), hp = biquad("hp", 2200, 0.7), mid = biquad("bp", 320, 0.8), lp = biquad("lp", 110, 0.8);
+    const rolls = Array.from({ length: 5 }, (_, j) => [0.12 + j * 0.42 + r() * 0.2, 0.9 - j * 0.15]);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1;
+      let roll = Math.exp(-t / 0.9) * 0.6; for (const [h, a] of rolls) { const u = t - h; if (u > 0) roll += a * Math.min(1, u / 0.04) * Math.exp(-u / 0.35); }
+      x[i] = (run(hp, n) * env(t, 0.0004, 0.08, d) * 3.4 + (run(mid, n) * 3.0 + run(lp, r() * 2 - 1) * 1.0) * roll * Math.min(1, t / 0.004)) * Math.min(1, (d - t) / 0.4);
+    }
+    return x;
+  },
+  // a big fuel explosion close by (You wake up mid plane crash, Jonny 12 Nov 2026: "when the plane is exploding we need
+  // an explosion sound"): a hard crack on its first frame, a fireball roar whose pitch sinks as it grows (four noise
+  // bands, the higher the shorter), a boom sinking 62->34 Hz, a second smaller blast after 0.4 s, then debris ticks
+  // and a tail of burning. The bands round 380 and 900 Hz carry it on a phone speaker.
+  explosion(r, d = 3.0) {
+    const x = buf(d), hp = biquad("hp", 2400, 0.7), hi = biquad("bp", 900, 0.6), mid = biquad("bp", 380, 0.7), lo = biquad("lp", 130, 0.8), tk = biquad("hp", 3000, 0.8), fire = biquad("bp", 600, 0.5);
+    const ticks = Array.from({ length: 40 }, (_, j) => 0.3 + Math.pow(j / 40, 1.4) * (d - 0.9) + r() * 0.05);
+    const blast = (t, k) => t < 0 ? 0 : Math.min(1, t / 0.003) * Math.exp(-t / k);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1, u = t - 0.4;
+      const b1 = (k) => blast(t, k) + 0.45 * blast(u, k * 0.8);
+      let v = run(hp, n) * (blast(t, 0.03) + 0.4 * blast(u, 0.03)) * 1.3          // the crack (kept low: a tall crack only makes the limiter squash the roar)
+        + run(hi, n) * b1(0.22) * 2.2                                             // the fireball, bright at first
+        + run(mid, r() * 2 - 1) * b1(0.6) * 3.6                                   // its roar (phone band)
+        + run(lo, r() * 2 - 1) * b1(1.0) * 1.6                                    // its weight
+        + Math.sin(TAU * (62 - 28 * Math.min(1, t / 0.7)) * t) * blast(t, 0.75) * 0.9;   // the boom, sinking
+      let c = 0; for (const [j, h] of ticks.entries()) c += env(t - h, 0.0003, 0.006, d) * (1 - j / 55);
+      v += run(tk, r() * 2 - 1) * c * 0.5 + run(fire, r() * 2 - 1) * 0.22 * Math.min(1, t / 0.5) * (0.7 + 0.3 * Math.sin(TAU * 7 * t + 3 * Math.sin(TAU * 1.3 * t)));   // debris, burning
+      x[i] = v * Math.min(1, (d - t) / 0.5);
+    }
+    return x;
+  },
   // a small weak firework far away: a dull little "pff" and a thin sputter that dies at once
   fizzle(r, d = 0.6) {
     const x = buf(d), bp = biquad("bp", 900, 0.9), hp = biquad("hp", 4000, 0.8), ticks = Array.from({ length: 7 }, () => 0.06 + r() * 0.35);

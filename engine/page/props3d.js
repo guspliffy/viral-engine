@@ -45,6 +45,8 @@ import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, e
 import { UFO_KINDS } from "./props-ufo.js";
 import { PLANE_KINDS } from "./props-plane.js";
 import { FREEFALL_KINDS } from "./props-freefall.js";
+import { SPROUT_KINDS } from "./props-sprout.js";
+import { SPROUT_STATE } from "../shared/sprout-rig.js";
 import { PARKING_KINDS } from "./props-parking.js";   // friends-try-to 05 (wheeliebin, kerb)
 import { MONEY_KINDS } from "./props-money.js";       // there's a catch 04: coin, cashbrick, cashthrone, walletheap, cashheap
 import { FLOOD_KINDS } from "./props-flood.js";       // there's a catch 04: windowwall, moneywave, noterain, noteflood
@@ -69,11 +71,20 @@ import { HEISTSET_KINDS, HEISTSET_GRIPS } from "./props-heistset.js";   // fight
 import { ZFLAT_KINDS, ZFLAT_GRIPS, ZFLAT_STATE } from "./props-zflat.js";   // survive it zombies: the flat (rooms, front door, cistern)
 import { ZSTREET_KINDS, ZSTREET_GRIPS, ZSTREET_STATE } from "./props-zstreet.js";   // survive it zombies: street canyon, balcony, shop roof, horde, ladder
 import { ZSHOP_KINDS, ZSHOP_GRIPS, ZSHOP_STATE } from "./props-zshop.js";   // survive it zombies: the shop, tins, the bag
+import { MUSEUM_KINDS } from "./props-museum.js";   // there's a catch 05: museumhall, plinth, exhibitrope, glasscase, livefish, wiltplant
+import { ICEAGE_KINDS } from "./props-iceage.js";   // there's a catch 05: mammoth, sabretooth, pterosaur
+import { REX_KINDS } from "./props-rex.js";         // there's a catch 05: rex (the real-anatomy T. rex, one lofted skin)
+import { PTERO_KINDS } from "./props-ptero.js";     // there's a catch 05: pterosaur (real anatomy; replaces the one in props-iceage.js)
+import { FOSSILS_KINDS } from "./props-fossils.js";   // there's a catch 05: trexbones, mammothbones, sabrebones, pterobones, lifesparks
+import { MUSEUMSTREET_KINDS } from "./props-museumstreet.js";   // there's a catch 05: museumfront, townsquare, hillneck, streetcracks
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
 import { COASTER_KINDS } from "./props-coaster.js";   // never looks up 07, the roller coaster: coastertrack, coastercar, photopost, photoscreen
 import { CITY_KINDS } from "./props-city.js";
+import { WAKECABIN_KINDS } from "./props-wakeup-cabin.js";
+import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
+import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
@@ -1381,6 +1392,7 @@ export const TREE_STEPS = Array.from({ length: 5 }, (_, k) => 0.22 + k * 0.2);
 
 Object.assign(KINDS, TREND_KINDS, CATCH_KINDS, ROBBED_KINDS, HALLOWEEN_KINDS, HOME_KINDS, ELEVATOR_KINDS, ROAD_KINDS, MAKEUP_KINDS, CHEF_KINDS, DUO_KINDS, PACKAGE_KINDS, JUICE_KINDS, CHARGER_KINDS, CANDLE_KINDS, COOKIE_KINDS, GHOSTPHOTO_KINDS, COSTUME_KINDS, PUMPKIN_KINDS, PRANK_KINDS, RAVEN_KINDS, CANDY_KINDS, HELL_KINDS, COPYCAT_KINDS, ENERGY_KINDS, SOFA_KINDS, TRAIL_KINDS, NOTYET_KINDS, OKILIED_KINDS, BUSY_KINDS, ZOMBIE_KINDS, HORN_KINDS, BONFIRE_KINDS, GUARD_KINDS, DINO_KINDS, SHARK_KINDS, BUSSTOP_KINDS);   // coffin, screen, letters, confetti, printer, flatpack... (props-trend.js), door, bowl, candy, bucket, toilet roll (props-halloween.js), stool (props-home.js), bubblehelmet, brush, paintpot, handmirror (props-makeup.js), soupbowl, spoon, ladle (props-chef.js), foldphone, duobox, duolid, ledge, storedoors, tent, sleepingbag... (props-duo.js), frontdoor, parcel (props-package.js), juicebox, bendystraw, papercup (props-juice.js), chargebank, snackbowl, biscuit (props-charger.js), dessertplate, cupcake, cakedome, breath (props-candle.js), chunkcookie, floorcushion (props-cookie.js), cobbles, sheetghost, tripodcam (props-ghostphoto.js), pavement, leaves, pumpkin (props-costume.js), pumpkinhelm, fireplume, soot (props-pumpkin.js), armchair, orangefeather, foam, foamcan, foampatch (props-prank.js), ravenfeather, redarmchair, ravenphoto (props-raven.js), toyspider, jambwall (props-candy.js), fryoil, burnerflames, fryerbasket, steamjet, steamhaze, bobspud, fryfloat, spudshadows (props-hell.js), cafetable, hotsauce, pillarcandle, wallhole (props-copycat.js), bedframe, tipmattress, winglass, firecurtain, digiclock, broom, dustpan, ashpile, ashfall, outglow (props-energy.js), sofahalf, ceilingbreak, spellaura (props-sofa.js), carrier, trailstaff (props-trail.js), soggyfry, rubble, ruinwall, wetstreet, ripples, fogveil (props-zombie.js), parapet, stringlights, deckchair, blanket, teamug, toffeeapple, paving, sandbucket, firework, sparktrail, ember, barge, crowd (props-bonfire.js), sentrybox, railings, stoneblock, pigeon, fireball, tear, tongue, wetpuddle (props-guard.js), trex, firelog, campfire, mallowstick, mallows, mallowbag, boulder, ferns, roarlines (props-dino.js), donutring, shark, guardtower, megaphone, whistle, noodle, wakefoam, splash, bubbles (props-shark.js), busshelter, hedge, recyclebin, streetlamp (props-busstop.js)
 Object.assign(KINDS, IKEA_KINDS, BEDROOM_KINDS);   // friends try to: wardrobe, plank, hardboard, allenkey, cardbox, screwbag, bubblewrap, manual (props-ikea.js); cat, plaidbed, petcarrier, sock, torchbeam, toymouse, treat, cattree, shadowpool (props-bedroom.js)
+Object.assign(KINDS, SPROUT_KINDS);   // doomscroll to survive: sproutman, selfieframe, pinetrunk (props-sprout.js)
 Object.assign(KINDS, UFO_KINDS, PLANE_KINDS, FREEFALL_KINDS);   // never looks up: flyingsaucer, beanalien, lawnchair, telescope, popcornbowl, popcorn, picnicblanket (props-ufo.js); planeseat, seatbelt, cabinwall, overhead, oxymask, drinktray, blob, pillow, magazine, rowback (props-plane.js); airliner, stormsky, cloudrush, rainstreaks, skybolt (props-freefall.js)
 Object.assign(KINDS, PARKING_KINDS);   // friends-try-to 05: wheeliebin, kerb (props-parking.js)
 Object.assign(KINDS, WINTER_KINDS);   // the $20 Potato: marketstall, woodcounter, clambox, bill20, cocoacup, cocoaspill, loadedtop, apron (props-winter.js)
@@ -1397,6 +1409,7 @@ Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS); Object.assign(GRI
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
 const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
+Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
 Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)
@@ -1408,6 +1421,7 @@ Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.j
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
+Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, BAND_KINDS);   // never looks up S2 E1 (props-band.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
@@ -1553,6 +1567,9 @@ function physInto(ps, id, t) {
 export const FX_KINDS = /^(sirenwash|lightpool|copshadow|roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
 export function propState(sb, spec, t) {
   const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, lights: spec.lights ?? 0, rock: 0, shh: 0, crook: spec.crook ?? 0, wrap: spec.wrap ?? 0, ...(typeof spec.look === "number" && { look: spec.look }), steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, ...kitState(spec), hold: null, left: null, carry: null, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0 };
+  // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
+  if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
+  if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
   Object.assign(ps, snowPropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
