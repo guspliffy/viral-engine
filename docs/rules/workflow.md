@@ -296,7 +296,7 @@ waiver for the whole clip.
    late, Viking gone 0.2 s early) on the strips and in review B after full render 1: four more farm renders, 42 min.
 6. **Full render, once** on GitHub's free runners (`gh workflow run render.yml -f storyboard=<sb>`, see below) or in
    the background here (fetch the branches again right before it), `qa/check.mjs --ears` on the final MP4
-   (earshot listens: hits on their frame, footsteps on the right floor). Look at its contact sheet and phone sheet
+   (earshot listens: hits on their frame, footsteps on the right floor, a synth music bed in a dramatic clip). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
    cut changed after the one on the draft. Count the farm renders after review B in the ledger row: the target is one.
    The background command of rule 7: `until [ "$(gh run view <id> --json status -q .status)" = completed ]; do
