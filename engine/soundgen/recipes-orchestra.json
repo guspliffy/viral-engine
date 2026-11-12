@@ -1,0 +1,26 @@
+{
+  "_note": "Recorded-sounding orchestra beds for danger and chase scenes, 12 Nov 2026. Jonny on the beds synthesised in puppet/beat.mjs under a T. rex chase (There's a catch 05): \"this sounds like game music and not dramatic. it should be a dramatic orchestra with piano trumpets and timpani. really dramatic chasing music\". He picked this chase take by ear over a darker one (\"i like draft a more\"). Only the takes he heard in that clip are in the library (one seed each).",
+  "sfx": [],
+  "music": [
+    {
+      "id": "orchestra-chase",
+      "bpm": 150,
+      "bars": 8,
+      "prompts": [
+        "relentless thriller chase music, pounding grand piano chords and racing piano runs, blaring trumpets, thunderous timpani rolls, full symphony orchestra, live recording, terrifying and urgent, 150 BPM"
+      ],
+      "seeds": [522],
+      "mood": "danger"
+    },
+    {
+      "id": "orchestra-suspense",
+      "bpm": 75,
+      "bars": 4,
+      "prompts": [
+        "dark suspense film score, slow ominous low piano notes, quiet tremolo strings, soft timpani heartbeat, muted trumpet far away, something terrible is about to happen, real orchestra, no drum kit, 75 BPM"
+      ],
+      "seeds": [511],
+      "mood": "suspense"
+    }
+  ]
+}
