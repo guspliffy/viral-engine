@@ -1,0 +1,6006 @@
+{
+ "id": "wake-up-mid-sinking-car",
+ "title": "You wake up mid sinking car",
+ "idea": "You wake up mid EP02: you wake up at the wheel of a car flying off a broken bridge into a stormy lake; belt off, no phone, not the door, break the side window, small ones first, out and up; on the shore he shuts his eyes and wakes up mid house fire",
+ "format": "series: You wake up mid (opens on a first-person blink; the narrator reads the title at 0.0 and then only short commands; on-screen clock; ends in the next scenario)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  240,
+  1440
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "stormlake",
+  "lip": false,
+  "under": "auto",
+  "hole": [
+   [
+    0,
+    null
+   ],
+   [
+    1.43,
+    [
+     0,
+     0.8,
+     0,
+     1.6,
+     1
+    ]
+   ],
+   [
+    21.5,
+    [
+     0,
+     0.9,
+     0,
+     1.6,
+     1
+    ]
+   ],
+   [
+    21.51,
+    null
+   ]
+  ],
+  "shafts": [
+   [
+    19,
+    [
+     1,
+     0.2
+    ]
+   ],
+   [
+    24,
+    [
+     1.6,
+     0.4
+    ]
+   ]
+  ],
+  "wipe": [
+   [
+    26.96,
+    0
+   ],
+   [
+    27,
+    1
+   ],
+   [
+    27.033,
+    0.6
+   ],
+   [
+    27.066,
+    0
+   ]
+  ],
+  "para": 0,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/disaster/disaster-04.ogg",
+  "from": 0,
+  "skip": 1.698,
+  "until": 33.55,
+  "lowCut": 150,
+  "gain": 0.55,
+  "duck": {
+   "db": -8,
+   "voice": -10
+  }
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false
+ },
+ "creative": {
+  "length": [
+   37.34,
+   37.34
+  ]
+ },
+ "hook": {
+  "show": [
+   "bridge",
+   "beams"
+  ],
+  "hint": 0,
+  "what": "frame 0: the red car already in the air off the snapped bridge, nose down toward the storm lake"
+ },
+ "panels": {
+  "md": "storyboards/series/you-wake-up-mid/02-sinking-car/PANELS.md"
+ },
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#c8372d",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      11.6,
+      -8.6
+     ],
+     "yaw": 0,
+     "pitch": 16,
+     "roll": 0
+    },
+    {
+     "at": 0.6,
+     "pos": [
+      0,
+      8.6,
+      -5.4
+     ],
+     "yaw": 0,
+     "pitch": 22,
+     "roll": 0
+    },
+    {
+     "at": 1.15,
+     "pos": [
+      0,
+      3.2,
+      -1.6
+     ],
+     "yaw": 0,
+     "pitch": 30,
+     "roll": 0
+    },
+    {
+     "at": 1.45,
+     "pos": [
+      0,
+      -0.25,
+      0
+     ],
+     "yaw": 0,
+     "pitch": 34,
+     "roll": 0
+    },
+    {
+     "at": 1.8,
+     "pos": [
+      0,
+      -1,
+      0.5
+     ],
+     "yaw": 0,
+     "pitch": 18,
+     "roll": 0
+    },
+    {
+     "at": 2.3,
+     "pos": [
+      0,
+      -0.25,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": -2,
+     "roll": 0
+    },
+    {
+     "at": 2.8,
+     "pos": [
+      0,
+      -0.55,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 4,
+     "roll": 0
+    },
+    {
+     "at": 3.3,
+     "pos": [
+      0,
+      -0.45,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 3,
+     "roll": 0
+    },
+    {
+     "at": 7,
+     "pos": [
+      0,
+      -0.7,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 5,
+     "roll": 0
+    },
+    {
+     "at": 9,
+     "pos": [
+      0,
+      -1.1,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 7,
+     "roll": 0
+    },
+    {
+     "at": 11.5,
+     "pos": [
+      0,
+      -1.3,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 9,
+     "roll": 0
+    },
+    {
+     "at": 13.8,
+     "pos": [
+      0,
+      -1.47,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 10,
+     "roll": 0
+    },
+    {
+     "at": 16,
+     "pos": [
+      0,
+      -1.7,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 14,
+     "roll": 0
+    },
+    {
+     "at": 19,
+     "pos": [
+      0,
+      -2.2,
+      0.8
+     ],
+     "yaw": 0,
+     "pitch": 25,
+     "roll": 0
+    },
+    {
+     "at": 21.5,
+     "pos": [
+      0,
+      -3.2,
+      0.9
+     ],
+     "yaw": 0,
+     "pitch": 35,
+     "roll": 0
+    },
+    {
+     "at": 24,
+     "pos": [
+      0,
+      -5,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 40,
+     "roll": 0
+    },
+    {
+     "at": 26.5,
+     "pos": [
+      0,
+      -7,
+      1.1
+     ],
+     "yaw": 0,
+     "pitch": 20,
+     "roll": 0
+    },
+    {
+     "at": 37.34,
+     "pos": [
+      0,
+      -7,
+      1.1
+     ],
+     "yaw": 0,
+     "pitch": 20,
+     "roll": 0
+    }
+   ]
+  }
+ ],
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "terrified",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "rig": "car",
+   "at": [
+    -0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "terrified",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 5.6
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "rig": "car",
+   "at": [
+    0.45,
+    -0.95
+   ],
+   "face": "camera",
+   "expr": "terrified",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 3.4
+  },
+  {
+   "id": "spudW",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.9,
+    0.1
+   ],
+   "face": 90,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "mashW",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.9,
+    -0.4
+   ],
+   "face": 90,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 5.6
+  },
+  {
+   "id": "chipW",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.1,
+    0.5
+   ],
+   "face": 90,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 3.4
+  }
+ ],
+ "props": [
+  {
+   "id": "seat-drv",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86,
+   "head": false
+  },
+  {
+   "id": "seat-pas",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rl",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rr",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.88,
+   "z": 0.63,
+   "tip": 34
+  },
+  {
+   "id": "lids",
+   "staged": "a first-person overlay",
+   "kind": "eyelids",
+   "rig": "car",
+   "cam": {
+    "pos": [
+     0.55,
+     1.3,
+     0.55
+    ],
+    "look": [
+     0.5,
+     0.9,
+     8
+    ],
+    "fov": 66
+   }
+  },
+  {
+   "id": "phone",
+   "staged": "in Mash's hand, then knocked into the water",
+   "kind": "phone",
+   "style": "iphone",
+   "rig": "car",
+   "x": -0.3,
+   "y": 1,
+   "z": 0.45,
+   "rot": -100,
+   "tip": -10,
+   "scale": 1.6
+  },
+  {
+   "id": "water",
+   "kind": "cabinwater",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "level": 0
+  },
+  {
+   "id": "glass",
+   "kind": "carglass",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "level": 0,
+   "t0": 13.8,
+   "pourEnd": 17
+  },
+  {
+   "id": "dash",
+   "kind": "dashglow",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "rest",
+   "staged": "on the driver's seat, then in his hands",
+   "kind": "headrest",
+   "rig": "car",
+   "x": 0.55,
+   "y": 1.46,
+   "z": -0.33,
+   "color": "#59535f"
+  },
+  {
+   "id": "beams",
+   "kind": "headbeams",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "bridge",
+   "staged": "the near stump's broken lip (the set's own deck ends in a clean cut at z -17)",
+   "kind": "bridgeend",
+   "x": 0,
+   "y": 14,
+   "z": -14,
+   "len": 3,
+   "at": 0
+  },
+  {
+   "id": "rain",
+   "staged": "rain",
+   "kind": "rainstreaks",
+   "x": 0,
+   "y": 6,
+   "z": 0,
+   "n": 160,
+   "box": [
+    14,
+    14,
+    14
+   ],
+   "v": [
+    1.9,
+    -9,
+    0
+   ],
+   "len": 0.35,
+   "width": 0.02,
+   "opacity": 0.35
+  },
+  {
+   "id": "spray",
+   "kind": "splash",
+   "x": 0,
+   "y": 0,
+   "z": 0.9,
+   "scale": 4.5
+  },
+  {
+   "id": "bubW",
+   "kind": "lakebubbles",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "mode": "stream",
+   "car": {
+    "id": "car",
+    "kind": "hatchback",
+    "color": "#c8372d",
+    "pivot": [
+     0,
+     0.5,
+     0
+    ],
+    "keys": [
+     {
+      "at": 0,
+      "pos": [
+       0,
+       11.6,
+       -8.6
+      ],
+      "yaw": 0,
+      "pitch": 16,
+      "roll": 0
+     },
+     {
+      "at": 0.6,
+      "pos": [
+       0,
+       8.6,
+       -5.4
+      ],
+      "yaw": 0,
+      "pitch": 22,
+      "roll": 0
+     },
+     {
+      "at": 1.15,
+      "pos": [
+       0,
+       3.2,
+       -1.6
+      ],
+      "yaw": 0,
+      "pitch": 30,
+      "roll": 0
+     },
+     {
+      "at": 1.45,
+      "pos": [
+       0,
+       -0.25,
+       0
+      ],
+      "yaw": 0,
+      "pitch": 34,
+      "roll": 0
+     },
+     {
+      "at": 1.8,
+      "pos": [
+       0,
+       -1,
+       0.5
+      ],
+      "yaw": 0,
+      "pitch": 18,
+      "roll": 0
+     },
+     {
+      "at": 2.3,
+      "pos": [
+       0,
+       -0.25,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": -2,
+      "roll": 0
+     },
+     {
+      "at": 2.8,
+      "pos": [
+       0,
+       -0.55,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 4,
+      "roll": 0
+     },
+     {
+      "at": 3.3,
+      "pos": [
+       0,
+       -0.45,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 3,
+      "roll": 0
+     },
+     {
+      "at": 7,
+      "pos": [
+       0,
+       -0.7,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 5,
+      "roll": 0
+     },
+     {
+      "at": 9,
+      "pos": [
+       0,
+       -1.1,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 7,
+      "roll": 0
+     },
+     {
+      "at": 11.5,
+      "pos": [
+       0,
+       -1.3,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 9,
+      "roll": 0
+     },
+     {
+      "at": 13.8,
+      "pos": [
+       0,
+       -1.47,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 10,
+      "roll": 0
+     },
+     {
+      "at": 16,
+      "pos": [
+       0,
+       -1.7,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 14,
+      "roll": 0
+     },
+     {
+      "at": 19,
+      "pos": [
+       0,
+       -2.2,
+       0.8
+      ],
+      "yaw": 0,
+      "pitch": 25,
+      "roll": 0
+     },
+     {
+      "at": 21.5,
+      "pos": [
+       0,
+       -3.2,
+       0.9
+      ],
+      "yaw": 0,
+      "pitch": 35,
+      "roll": 0
+     },
+     {
+      "at": 24,
+      "pos": [
+       0,
+       -5,
+       1
+      ],
+      "yaw": 0,
+      "pitch": 40,
+      "roll": 0
+     },
+     {
+      "at": 26.5,
+      "pos": [
+       0,
+       -7,
+       1.1
+      ],
+      "yaw": 0,
+      "pitch": 20,
+      "roll": 0
+     },
+     {
+      "at": 37.34,
+      "pos": [
+       0,
+       -7,
+       1.1
+      ],
+      "yaw": 0,
+      "pitch": 20,
+      "roll": 0
+     }
+    ]
+   },
+   "at": [
+    0.99,
+    1.4,
+    0.2
+   ],
+   "rates": [
+    [
+     19,
+     45
+    ],
+    [
+     22,
+     45
+    ],
+    [
+     24,
+     12
+    ],
+    [
+     26,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "bubM",
+   "kind": "lakebubbles",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "mode": "mouth",
+   "from": 19,
+   "to": 26.4,
+   "at": [
+    1.2,
+    -1.5,
+    0.3
+   ]
+  },
+  {
+   "id": "foam",
+   "kind": "wakefoam",
+   "x": 1.4,
+   "y": 0,
+   "z": 1,
+   "r": 1.4
+  },
+  {
+   "id": "smoke",
+   "kind": "cabinsmoke",
+   "x": 0,
+   "y": 100,
+   "z": -240,
+   "x0": -2,
+   "x1": 2,
+   "z0": -2.5,
+   "z1": 2.5,
+   "top": 2.6
+  },
+  {
+   "id": "curtL",
+   "kind": "firecurtain",
+   "x": -0.45,
+   "y": 100,
+   "z": -242.3,
+   "w": 0.5,
+   "h": 1.7,
+   "edge": 1,
+   "staged": "the bedroom wall stands in the smoke"
+  },
+  {
+   "id": "curtR",
+   "kind": "firecurtain",
+   "x": 0.55,
+   "y": 100,
+   "z": -242.3,
+   "w": 0.5,
+   "h": 1.7,
+   "edge": -1,
+   "color": "#8c6fb8",
+   "staged": "the bedroom wall stands in the smoke"
+  },
+  {
+   "id": "stand",
+   "kind": "nightstand",
+   "x": -0.95,
+   "y": 100,
+   "z": -240.4
+  },
+  {
+   "id": "bed2",
+   "kind": "bed",
+   "x": 0,
+   "y": 100,
+   "z": -239.25,
+   "rot": 180,
+   "blanket": "#4f6a8f",
+   "dots": "#c9b98a"
+  },
+  {
+   "id": "clock2",
+   "kind": "digiclock",
+   "x": -0.95,
+   "y": 100.5,
+   "z": -240.35,
+   "text": "03:12"
+  },
+  {
+   "id": "lids2",
+   "staged": "a first-person overlay",
+   "kind": "eyelids",
+   "cam": {
+    "pos": [
+     0,
+     100.85,
+     -239.5
+    ],
+    "look": [
+     0.1,
+     101.05,
+     -242.4
+    ],
+    "fov": 68
+   }
+  },
+  {
+   "id": "spudWC",
+   "kind": "carrier",
+   "x": 0.9,
+   "y": -2,
+   "z": 0.1
+  },
+  {
+   "id": "mashWC",
+   "kind": "carrier",
+   "x": 0.9,
+   "y": -3,
+   "z": -0.4
+  },
+  {
+   "id": "chipWC",
+   "kind": "carrier",
+   "x": 1.1,
+   "y": -1.4,
+   "z": 0.5
+  }
+ ],
+ "captions": [
+  {
+   "from": 3.3,
+   "to": 3.71,
+   "text": "1:00",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 3.71,
+   "to": 4.12,
+   "text": "0:59",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 4.12,
+   "to": 4.53,
+   "text": "0:58",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 4.53,
+   "to": 4.94,
+   "text": "0:57",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 4.94,
+   "to": 5.35,
+   "text": "0:56",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 5.35,
+   "to": 5.76,
+   "text": "0:55",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 5.76,
+   "to": 6.17,
+   "text": "0:54",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 6.17,
+   "to": 6.58,
+   "text": "0:53",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 6.58,
+   "to": 6.99,
+   "text": "0:52",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 6.99,
+   "to": 7.4,
+   "text": "0:51",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 7.4,
+   "to": 7.81,
+   "text": "0:50",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 7.81,
+   "to": 8.22,
+   "text": "0:49",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 8.22,
+   "to": 8.63,
+   "text": "0:48",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 8.63,
+   "to": 9.04,
+   "text": "0:47",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 9.04,
+   "to": 9.45,
+   "text": "0:46",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 9.45,
+   "to": 9.86,
+   "text": "0:45",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 9.86,
+   "to": 10.27,
+   "text": "0:44",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 10.27,
+   "to": 10.68,
+   "text": "0:43",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 10.68,
+   "to": 11.09,
+   "text": "0:42",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 11.09,
+   "to": 11.5,
+   "text": "0:41",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 11.5,
+   "to": 11.8,
+   "text": "0:40",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 11.8,
+   "to": 12.1,
+   "text": "0:39",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 12.1,
+   "to": 12.4,
+   "text": "0:38",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 12.4,
+   "to": 12.7,
+   "text": "0:37",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 12.7,
+   "to": 13,
+   "text": "0:36",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 13.3,
+   "text": "0:35",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 13.3,
+   "to": 13.6,
+   "text": "0:34",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 13.6,
+   "to": 13.9,
+   "text": "0:33",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 13.9,
+   "to": 14.2,
+   "text": "0:32",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 14.2,
+   "to": 14.5,
+   "text": "0:31",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 14.5,
+   "to": 14.8,
+   "text": "0:30",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 14.8,
+   "to": 15.1,
+   "text": "0:29",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 15.1,
+   "to": 15.4,
+   "text": "0:28",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 15.4,
+   "to": 15.7,
+   "text": "0:27",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 15.7,
+   "to": 16,
+   "text": "0:26",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 16.3,
+   "text": "0:25",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 16.3,
+   "to": 16.6,
+   "text": "0:24",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 16.6,
+   "to": 16.9,
+   "text": "0:23",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 16.9,
+   "to": 17.2,
+   "text": "0:22",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 17.2,
+   "to": 17.5,
+   "text": "0:21",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 17.5,
+   "to": 17.8,
+   "text": "0:20",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 17.8,
+   "to": 18.1,
+   "text": "0:19",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 18.4,
+   "text": "0:18",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 18.7,
+   "text": "0:17",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 18.7,
+   "to": 19,
+   "text": "0:16",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 19,
+   "to": 19.533,
+   "text": "0:15",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 19.533,
+   "to": 20.067,
+   "text": "0:14",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 20.067,
+   "to": 20.6,
+   "text": "0:13",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 20.6,
+   "to": 21.133,
+   "text": "0:12",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 21.133,
+   "to": 21.667,
+   "text": "0:11",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 21.667,
+   "to": 22.2,
+   "text": "0:10",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 22.2,
+   "to": 22.733,
+   "text": "0:09",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 22.733,
+   "to": 23.267,
+   "text": "0:08",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 23.267,
+   "to": 23.8,
+   "text": "0:07",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 23.8,
+   "to": 24.333,
+   "text": "0:06",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 24.333,
+   "to": 24.867,
+   "text": "0:05",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 24.867,
+   "to": 25.4,
+   "text": "0:04",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 25.4,
+   "to": 25.933,
+   "text": "0:03",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 25.933,
+   "to": 26.467,
+   "text": "0:02",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 26.467,
+   "to": 27,
+   "text": "0:01",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 27,
+   "to": 30,
+   "text": "0:00",
+   "pos": 1220,
+   "pop": false,
+   "x": 205,
+   "size": 92,
+   "kinetic": false
+  },
+  {
+   "from": 0.05,
+   "to": 1.605,
+   "text": "You wake up...",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.605,
+   "to": 3.41,
+   "text": "mid car crash.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.4,
+   "to": 4.55,
+   "text": "One minute.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.55,
+   "to": 5.74,
+   "text": "Belt off.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.55,
+   "to": 8.73,
+   "text": "No phone.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.7,
+   "to": 10.97,
+   "text": "Not the door.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.75,
+   "to": 13.016,
+   "text": "Window.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.016,
+   "to": 13.99,
+   "text": "Now.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.35,
+   "to": 17.99,
+   "text": "Small ones first.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 19.5,
+   "to": 20.23,
+   "text": "Out.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 21.95,
+   "to": 22.99,
+   "text": "Leave it!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 24.5,
+   "to": 25.25,
+   "text": "Up.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 30.5,
+   "to": 31.565,
+   "text": "One minute.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 31.565,
+   "to": 33.75,
+   "text": "That is all you get.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 34.3,
+   "to": 35.036,
+   "text": "You wake up",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 35.036,
+   "to": 36.29,
+   "text": "mid house fire.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "the fall",
+   "at": 0,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     5,
+     2.5,
+     7.5
+    ],
+    "look": [
+     0,
+     9.5,
+     -7
+    ],
+    "fov": 55,
+    "to": {
+     "look": [
+      0,
+      1,
+      -0.5
+     ]
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "seat-pas",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "seat-rl",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0,
+      "hiss": 0,
+      "dim": 0,
+      "agit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0,
+      "pour": 1,
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.7,
+     "loud": true,
+     "reason": "frame 0: tyres leaving the broken bridge (EP01's last sound, the loop)",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-lake",
+     "gain": 0.3,
+     "dur": 3.3,
+     "reason": "rain and wind over the lake",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.85,
+       0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You wake up... mid car crash.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "spray",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "foam",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "fx": "shake",
+     "amp": 0.05,
+     "dur": 0.4,
+     "at": 1.45
+    },
+    {
+     "sfx": "ai/car-lake-impact",
+     "gain": 1,
+     "loud": true,
+     "reason": "the car hits the lake nose first",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.93
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the blink",
+   "at": 1.95,
+   "len": 0.65,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.55,
+     1.3,
+     0.55
+    ],
+    "look": [
+     0.5,
+     0.9,
+     8
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.7
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.03
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.5,
+     "reason": "Mash screams (a sharp breath, no cartoon)",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "pov",
+     "on": false,
+     "at": 0.63
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "his face",
+   "at": 2.6,
+   "len": 0.7,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.55,
+     1.8,
+     2.95
+    ],
+    "look": [
+     0.55,
+     1.25,
+     0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.55,
+      1.75,
+      2.7
+     ]
+    },
+    "dur": 1.25,
+    "ease": "out"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.85
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0.9,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0.44
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0.44
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "hiss": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.68
+    }
+   ]
+  },
+  {
+   "name": "it floats",
+   "at": 3.3,
+   "len": 3.7,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.05,
+     2.15,
+     3.3
+    ],
+    "look": [
+     0.05,
+     1,
+     -0.2
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0.52
+     },
+     "dur": 3.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0.52
+     },
+     "dur": 3.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/water-leak-hiss",
+     "gain": 0.5,
+     "dur": 10.5,
+     "reason": "water hissing in under the dash",
+     "at": 0
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0.3,
+     "dur": 15.7,
+     "reason": "rain drumming on the roof",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "One minute. Belt off.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "wheel",
+     "to": [
+      0.55,
+      0.88,
+      0.63
+     ],
+     "dur": 0,
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.2,
+       0.38,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 1.9
+    },
+    {
+     "sfx": "ai/seatbelt-click",
+     "gain": 0.5,
+     "reason": "his belt clicks open",
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "no phone",
+   "at": 7,
+   "len": 2,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.05,
+     1.8,
+     3
+    ],
+    "look": [
+     0,
+     1.2,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0.66
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0.66
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.78,
+       0.08
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "phone",
+     "hand": "L",
+     "pose": null,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.75,
+       0.72,
+       0.3
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "macro": "narrate",
+     "line": "No phone.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.55
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.45,
+     "reason": "his mitten knocks the phone out of Mash's hand",
+     "at": 0.57
+    },
+    {
+     "who": "mash",
+     "do": "release",
+     "at": 0.58
+    },
+    {
+     "do": "physics",
+     "prop": "phone",
+     "mode": "drop",
+     "to": [
+      -0.5,
+      0.5,
+      0.35
+     ],
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/drip",
+     "gain": 0.4,
+     "reason": "the phone drops into the cabin water",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "not the door",
+   "at": 9,
+   "len": 2.5,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -2.3,
+     1.4,
+     0.35
+    ],
+    "look": [
+     -0.4,
+     1.15,
+     0.25
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0.8
+     },
+     "dur": 2.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0.8
+     },
+     "dur": 2.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.6,
+       0.35
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.6,
+       0.35
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.12,
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/car-door-shove",
+     "gain": 0.5,
+     "reason": "he shoves the stuck door",
+     "at": 0.45
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "macro": "narrate",
+     "line": "Not the door.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "sfx": "ai/car-door-shove",
+     "gain": 0.5,
+     "reason": "he shoves the stuck door",
+     "at": 1.05
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.15
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.12,
+     "at": 1.55
+    },
+    {
+     "sfx": "ai/car-door-shove",
+     "gain": 0.5,
+     "reason": "he shoves the stuck door",
+     "at": 1.65
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1.75
+    }
+   ]
+  },
+  {
+   "name": "window now",
+   "at": 11.5,
+   "len": 1.4,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     1,
+     1.6,
+     2.4
+    ],
+    "look": [
+     0.65,
+     1,
+     0.25
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 0.9
+     },
+     "dur": 2.3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 0.9
+     },
+     "dur": 2.3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.3
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.4,
+       0.3,
+       0.15
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "click",
+     "gain": 0.3,
+     "reason": "the window button",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "drop": 0.02
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Window. Now.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0.7
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.733
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.867
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.933
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "on": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.133
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "dim": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.133
+    }
+   ]
+  },
+  {
+   "name": "the burst",
+   "at": 12.9,
+   "len": 3.1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     2.4,
+     1.2,
+     0.5
+    ],
+    "look": [
+     0.6,
+     1.15,
+     0.2
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rest",
+     "hand": "R",
+     "pose": null,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rest",
+     "hand": "L",
+     "pose": null,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "rest",
+     "set": {
+      "y": 1.25,
+      "z": 0
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "rest",
+     "set": {
+      "x": 0.5,
+      "y": 1,
+      "z": 0.05,
+      "rot": 90,
+      "tip": 0
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "rest",
+     "set": {
+      "x": 0.6
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "burst": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "hiss": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 1.02
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 1.02
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "agit": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.08,
+     "at": 0.9
+    },
+    {
+     "fx": "shake",
+     "amp": 0.03,
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/glass-shatter-car",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "the side window bursts under the prongs",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.75,
+     "dur": 3.4,
+     "reason": "the lake pours in",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 1.1
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 1.1
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "agit": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rest",
+     "to": [
+      0.08,
+      0.62,
+      0.6
+     ],
+     "dur": 0,
+     "at": 3.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 200,
+     "dur": 0.01,
+     "at": 3.08
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "small ones first",
+   "at": 16,
+   "len": 3,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.3,
+     1.45,
+     -0.25
+    ],
+    "look": [
+     0.45,
+     1.2,
+     -0.98
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 1.2
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 1.2
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.1,
+      0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.32,
+       0.62,
+       -0.75
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.55,
+       0.62,
+       -0.75
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "Small ones first.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/seatbelt-click",
+     "gain": 0.5,
+     "reason": "Chip's belt open",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 1.55
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 1.55
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "water",
+     "set": {
+      "level": 1.94
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "glass",
+     "set": {
+      "level": 1.94
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.98
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 2.98
+    },
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 2.98
+    },
+    {
+     "who": "chipW",
+     "do": "show",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.3,
+      "y": -1.9,
+      "z": 1.1,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 1.6,
+      "y": -1.5,
+      "z": 2.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.98
+    },
+    {
+     "who": "spudW",
+     "do": "ride",
+     "prop": "spudWC",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 2.98
+    },
+    {
+     "who": "chipW",
+     "do": "ride",
+     "prop": "chipWC",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 2.98
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": -20,
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "chipW",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.01,
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "out",
+   "at": 19,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     4.5,
+     -1.4,
+     2.8
+    ],
+    "look": [
+     1.2,
+     -1.4,
+     1
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 2.2,
+      "y": -0.8,
+      "z": 2.4
+     },
+     "dur": 2.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.7,
+      "y": -1.5
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.5,
+     "dur": 8,
+     "reason": "underwater, muffled",
+     "at": 0
+    },
+    {
+     "sfx": "ai/bubbles-burst",
+     "gain": 0.55,
+     "reason": "air bursting out of the car",
+     "at": 0.05
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "Out.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.23
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.23
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.45,
+      "y": -2.6,
+      "z": 1.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.48
+    },
+    {
+     "who": "spudW",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.48
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "leave it",
+   "at": 21.5,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     4.2,
+     -2.2,
+     3.2
+    ],
+    "look": [
+     1,
+     -2.5,
+     1.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.55,
+       0.35
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       0.35
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Leave it!",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.45
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.6,
+       0.55
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 1.38
+    },
+    {
+     "who": "mashW",
+     "do": "show",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 1.3,
+      "y": -3.6,
+      "z": 1.37
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.8,
+      "y": -3,
+      "z": 1.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "mashW",
+     "do": "ride",
+     "prop": "mashWC",
+     "off": [
+      0,
+      0,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 1.38
+    },
+    {
+     "who": "mashW",
+     "do": "pitch",
+     "to": -30,
+     "dur": 0.01,
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "the pull",
+   "at": 22.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.5,
+     -2.8,
+     4
+    ],
+    "look": [
+     1.4,
+     -3,
+     1.3
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 1.8,
+      "y": -2.8
+     },
+     "dur": 1.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 2.2,
+      "y": -2.3
+     },
+     "dur": 1.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 2.6,
+      "y": -2,
+      "z": 2.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.08
+    },
+    {
+     "who": "chipW",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.8,
+      "y": -2.3,
+      "z": 1.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.08
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 1.1,
+      "y": -2.75,
+      "z": 0.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.08
+    },
+    {
+     "who": "mashW",
+     "do": "pitch",
+     "to": -10,
+     "dur": 0.01,
+     "at": 1.08
+    }
+   ]
+  },
+  {
+   "name": "up",
+   "at": 24,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     5,
+     -5.2,
+     4.5
+    ],
+    "look": [
+     1.5,
+     -2.5,
+     1.2
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "y": -0.9
+     },
+     "dur": 2.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "y": -1.2
+     },
+     "dur": 2.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "y": -1.65
+     },
+     "dur": 2.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "Up.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 0.2
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 0.8
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.1
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 0.2
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       0.1
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 0.6
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 1.5
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 2.6,
+      "y": -1.1,
+      "z": 2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 1.9,
+      "y": -1.5,
+      "z": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 1.2,
+      "y": -1.85,
+      "z": 0.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.38
+    }
+   ]
+  },
+  {
+   "name": "the light",
+   "at": 26.4,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     3.5,
+     -3.4,
+     3.5
+    ],
+    "look": [
+     1.9,
+     -0.6,
+     1
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "y": -0.7
+     },
+     "dur": 0.58,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "y": -1.1
+     },
+     "dur": 0.58,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "y": -1.45
+     },
+     "dur": 0.58,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beams",
+     "set": {
+      "lamps": 0.15
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 1.5,
+      "y": -0.65,
+      "z": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "chipW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 2.1,
+      "y": -1.15,
+      "z": 0.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 2.7,
+      "y": -1.3,
+      "z": -0.2
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "mashW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    }
+   ]
+  },
+  {
+   "name": "the surface",
+   "at": 27,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     4.6,
+     0.5,
+     3.4
+    ],
+    "look": [
+     2,
+     0.1,
+     0.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "y": -0.35
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "y": -0.85
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "y": -1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.9
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.7,
+     "loud": true,
+     "reason": "they burst up, gasping",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-lake",
+     "gain": 0.3,
+     "dur": 7,
+     "reason": "the storm over the lake again",
+     "at": 0
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.5,
+     "reason": "the second one up",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 24,
+      "y": -0.4,
+      "z": -2.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "chipW",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "chipW",
+     "do": "pitch",
+     "to": 25,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 24,
+      "y": -0.9,
+      "z": -3.5
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "spudW",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": 25,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 24,
+      "y": -1.05,
+      "z": -4.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.18
+    },
+    {
+     "who": "mashW",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "mashW",
+     "do": "pitch",
+     "to": 25,
+     "dur": 0.01,
+     "at": 1.18
+    }
+   ]
+  },
+  {
+   "name": "the swim",
+   "at": 28.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     23,
+     1,
+     0.5
+    ],
+    "look": [
+     26.5,
+     0.1,
+     -3.8
+    ],
+    "fov": 45,
+    "to": {
+     "pos": [
+      28.5,
+      1,
+      -0.5
+     ],
+     "look": [
+      32,
+      0.2,
+      -5
+     ]
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 31.5,
+      "z": -4.6
+     },
+     "dur": 1.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 31.5,
+      "z": -5.5
+     },
+     "dur": 1.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 31.5,
+      "z": -6.4
+     },
+     "dur": 1.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.35,
+     "reason": "swim strokes",
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.35,
+     "reason": "swim strokes",
+     "at": 0.35
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.35,
+     "reason": "swim strokes",
+     "at": 0.7
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.35,
+     "reason": "swim strokes",
+     "at": 1.05
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.35,
+     "reason": "swim strokes",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "mashWC",
+     "set": {
+      "x": 33.6,
+      "y": 0.4,
+      "z": -5.7,
+      "rot": 200
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "mashW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "who": "mashW",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "chipWC",
+     "set": {
+      "x": 35.5,
+      "y": 0.4,
+      "z": -6.4,
+      "rot": 160
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "chipW",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "who": "chipW",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "do": "prop",
+     "id": "spudWC",
+     "set": {
+      "x": 34.5,
+      "y": 0.4,
+      "z": -6,
+      "rot": 180
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.78
+    },
+    {
+     "who": "spudW",
+     "do": "pitch",
+     "to": -55,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "who": "spudW",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 1.78
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.12,
+       0.05
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.12,
+       0.05
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.25,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.25,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.25,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.25,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "alive",
+   "at": 30,
+   "len": 3.55,
+   "shot": {
+    "pos": [
+     37.6,
+     2.4,
+     -3.6
+    ],
+    "look": [
+     34.4,
+     1.3,
+     -6
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.6,
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chipW",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mashW",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/wet-cough",
+     "gain": 0.45,
+     "reason": "mashW coughs up water",
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "One minute. That is all you get.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "chipW",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/wet-cough",
+     "gain": 0.45,
+     "reason": "chipW coughs up water",
+     "at": 0.9
+    },
+    {
+     "who": "mashW",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.25,
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/wet-cough",
+     "gain": 0.45,
+     "reason": "mashW coughs up water",
+     "at": 1.6
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "eyes close",
+   "at": 33.55,
+   "len": 0.45,
+   "shot": {
+    "pos": [
+     34.5,
+     2.3,
+     -7.6
+    ],
+    "look": [
+     34.5,
+     0.9,
+     -5.4
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lids2",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0.8,
+      "fire": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "curtL",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "curtR",
+     "set": {
+      "fire": 0.7
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.43
+    }
+   ]
+  },
+  {
+   "name": "the next one",
+   "at": 34,
+   "len": 3.34,
+   "shot": {
+    "pos": [
+     0,
+     100.85,
+     -239.5
+    ],
+    "look": [
+     0.1,
+     101.05,
+     -242.4
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lids2",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "You wake up mid house fire.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.65
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 1.2
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 1.75
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 2.3
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 2.85
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 2.15,
+   "to": 2.6,
+   "see": [
+    "mash.face"
+   ],
+   "why": "first person at the wheel: his eyes open on the lake over the bonnet, Mash screams"
+  },
+  {
+   "from": 2.7,
+   "to": 3.3,
+   "see": [
+    "spud.face",
+    "wheel"
+   ],
+   "why": "his face at the wheel, eyes wide, the lake through the windscreen"
+  },
+  {
+   "from": 0.1,
+   "to": 1.95,
+   "see": [
+    "beams",
+    "spray",
+    "bridge"
+   ],
+   "why": "frame 0: the red car already off the snapped bridge, it hits the lake in a wall of spray"
+  },
+  {
+   "from": 3.4,
+   "to": 7,
+   "see": [
+    "spud.face",
+    "mash.face",
+    "chip.face",
+    "water"
+   ],
+   "why": "inside: all three, water hissing in round their feet, the clock starts"
+  },
+  {
+   "from": 7.1,
+   "to": 9,
+   "see": [
+    "mash.face",
+    "spud.face",
+    "phone"
+   ],
+   "why": "Mash dials, Spud knocks the phone down"
+  },
+  {
+   "from": 9.2,
+   "to": 11.5,
+   "see": [
+    "mash.face",
+    "glass"
+   ],
+   "why": "Mash shoves the door; it does not move, the lake halfway up outside"
+  },
+  {
+   "from": 11.6,
+   "to": 12.9,
+   "see": [
+    "spud.R",
+    "dash"
+   ],
+   "why": "the window moves 2 cm, then the dash lights flicker out"
+  },
+  {
+   "from": 13.1,
+   "to": 16,
+   "see": [
+    "spud.face",
+    "rest",
+    "glass"
+   ],
+   "why": "he rips out the headrest and rams its prongs into the side window's corner: it bursts, the lake pours in"
+  },
+  {
+   "from": 16.1,
+   "to": 19,
+   "see": [
+    "chip.face",
+    "spud.face",
+    "water"
+   ],
+   "why": "the water at Chip's chest; Spud unclips him to get him out first"
+  },
+  {
+   "from": 19.1,
+   "to": 21.5,
+   "see": [
+    "chipW.face",
+    "spudW.face",
+    "beams"
+   ],
+   "why": "underwater: the car tilts nose down, Chip kicks free, Spud squeezes out after him"
+  },
+  {
+   "from": 21.6,
+   "to": 24,
+   "see": [
+    "mash.face",
+    "spudW.face",
+    "mashW.face"
+   ],
+   "why": "Mash still pulls at his door; Spud drags him out of the window"
+  },
+  {
+   "from": 24.1,
+   "to": 26.4,
+   "see": [
+    "chipW",
+    "spudW",
+    "mashW",
+    "beams"
+   ],
+   "why": "the car sinks away into the dark, lights fading; the three kick up to the light"
+  },
+  {
+   "from": 26.45,
+   "to": 27,
+   "see": [
+    "spudW",
+    "chipW",
+    "mashW"
+   ],
+   "why": "they rise into the bright ceiling"
+  },
+  {
+   "from": 27.05,
+   "to": 30,
+   "see": [
+    "spudW.face",
+    "chipW.face",
+    "mashW.face"
+   ],
+   "why": "they burst through the surface and swim for the reeds"
+  },
+  {
+   "from": 30.1,
+   "to": 33.55,
+   "see": [
+    "spudW.face",
+    "chipW.face",
+    "mashW.face"
+   ],
+   "why": "on the muddy shore, all three alive"
+  },
+  {
+   "from": 33.6,
+   "to": 34,
+   "see": [
+    "spudW.face"
+   ],
+   "why": "his eyes close"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 19,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "they sit in the car seats"
+  },
+  {
+   "who": "mash",
+   "with": "seat-pas",
+   "from": 0,
+   "to": 19,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "they sit in the car seats"
+  },
+  {
+   "who": "chip",
+   "with": "seat-rl",
+   "from": 0,
+   "to": 19,
+   "checks": [
+    "clipping",
+    "costume-in-prop",
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "they sit in the car seats"
+  },
+  {
+   "who": "spud",
+   "with": "water",
+   "from": 3.3,
+   "to": 19,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the water inside the car rises round them (the beat)"
+  },
+  {
+   "who": "mash",
+   "with": "water",
+   "from": 3.3,
+   "to": 19,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the water inside the car rises round them (the beat)"
+  },
+  {
+   "who": "chip",
+   "with": "water",
+   "from": 3.3,
+   "to": 19,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "the water inside the car rises round them (the beat)"
+  },
+  {
+   "who": "spud",
+   "with": "wheel",
+   "from": 0,
+   "to": 3.3,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "both mittens on the wheel"
+  },
+  {
+   "who": "spudW",
+   "with": "mashW",
+   "from": 22.9,
+   "to": 27,
+   "checks": [
+    "character-overlap"
+   ],
+   "reason": "he drags Mash up by the hoodie (the beat)"
+  },
+  {
+   "who": "spud",
+   "with": "rest",
+   "from": 12.9,
+   "to": 16,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "he holds the headrest in both mittens (the beat)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/you-wake-up-mid/02-sinking-car/make-sinking-car.mjs. Spec: PANELS.md, DESIGN.md."
+}

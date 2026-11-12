@@ -90,6 +90,9 @@ const SIZE = {
   // HP_GRIPS.hptongs through an arm pose (len 0.55, handle bundle r 0.06); the proof is make-hotpotato-bench.mjs
   hpcoal: { rim: -0.0375, wall: [[-0.1, 0.02], [-0.07, 0.06], [-0.03, 0.08], [0.03, 0.084], [0.1, 0.02]] },
   hptongs: { len: 0.55, r: 0.06 },
+  // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
+  // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
+  headrest: { w: 0.28, h: 0, d: 0.1 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
