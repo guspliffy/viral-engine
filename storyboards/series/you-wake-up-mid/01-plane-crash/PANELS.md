@@ -16,12 +16,12 @@ and run, so it goes over and blows up; he wakes up in the next crash.
 | Panel | Shot (s, cut A) | What is on screen | Departure, with the reason |
 | --- | --- | --- | --- |
 | 01 | 0.0-1.0 | first person through blinking eyelids: the cabin nose-down, alarm strips, bags flying at him | the drinks trolley is a suitcase and bags (no trolley prop; nothing new built for one second) |
-| 02 | 1.0-2.5 | Spud's terror, Viking screaming beside him, the Wizard floating off his seat | the title's second half sits top right, off the faces |
+| 02 | 1.0-2.5 | Spud's terror, Viking screaming beside him, the Wizard floating off his seat | the title's second half sits top right, off the faces; the Wizard floats flat, face down (upright his hat is in the luggage bins) |
 | 03 | 2.5-4.8 | outside: the airliner falls nose first through the thunderstorm, one engine a tail of fire | the storm plate is paler than the drawing's black sky |
 | 04 | 4.8-7.0 | the tail tears off; the unbelted Wizard goes with the air, Spud (belted) has him by the hand | seen from the front (a camera behind the row sees only seat backs); by the hand, not the cape |
 | 05 | 7.0-10.5 | 0:15: Spud's mask is on, he slams the second one on Viking, who is passing out | clock top left (the bodies fill the lower frame) |
 | 06 | 10.5-12.2 | outside: no tail, on fire, out of the cloud, the mountain behind, treetops under the wing | the outline's version (see PANEL-NOTES) |
-| 07 | 12.2-14.7 | both folded in the brace position, the Wizard upright and screaming | |
+| 07 | 12.2-14.7 | both folded in the brace position, the Wizard upright and screaming | the Wizard leans over their seat backs (upright his hat is in the luggage bins) |
 | 08 | 14.7-16.5 | outside: belly first into the slope, a wing torn off in fire | side-on and high: a white hull seen from uphill behind is invisible on snow |
 | 09 | 16.5-18.3 | inside at the same moment: bins burst, the Wizard thrown the length of the cabin past us | |
 | 10 | 18.3-20.1 | outside: stopped with the nose over the cliff edge, rocking, 1:30 | the abyss is a plain blue-grey wall |

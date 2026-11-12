@@ -709,6 +709,28 @@ const SFX = {
     }
     return x;
   },
+  // a big fuel explosion close by (You wake up mid plane crash, Jonny 12 Nov 2026: "when the plane is exploding we need
+  // an explosion sound"): a hard crack on its first frame, a fireball roar whose pitch sinks as it grows (four noise
+  // bands, the higher the shorter), a boom sinking 62->34 Hz, a second smaller blast after 0.4 s, then debris ticks
+  // and a tail of burning. The bands round 380 and 900 Hz carry it on a phone speaker.
+  explosion(r, d = 3.0) {
+    const x = buf(d), hp = biquad("hp", 2400, 0.7), hi = biquad("bp", 900, 0.6), mid = biquad("bp", 380, 0.7), lo = biquad("lp", 130, 0.8), tk = biquad("hp", 3000, 0.8), fire = biquad("bp", 600, 0.5);
+    const ticks = Array.from({ length: 40 }, (_, j) => 0.3 + Math.pow(j / 40, 1.4) * (d - 0.9) + r() * 0.05);
+    const blast = (t, k) => t < 0 ? 0 : Math.min(1, t / 0.003) * Math.exp(-t / k);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, n = r() * 2 - 1, u = t - 0.4;
+      const b1 = (k) => blast(t, k) + 0.45 * blast(u, k * 0.8);
+      let v = run(hp, n) * (blast(t, 0.03) + 0.4 * blast(u, 0.03)) * 3.4          // the crack
+        + run(hi, n) * b1(0.22) * 2.6                                             // the fireball, bright at first
+        + run(mid, r() * 2 - 1) * b1(0.6) * 3.2                                   // its roar (phone band)
+        + run(lo, r() * 2 - 1) * b1(1.0) * 1.6                                    // its weight
+        + Math.sin(TAU * (62 - 28 * Math.min(1, t / 0.7)) * t) * blast(t, 0.75) * 0.9;   // the boom, sinking
+      let c = 0; for (const [j, h] of ticks.entries()) c += env(t - h, 0.0003, 0.006, d) * (1 - j / 55);
+      v += run(tk, r() * 2 - 1) * c * 0.5 + run(fire, r() * 2 - 1) * 0.22 * Math.min(1, t / 0.5) * (0.7 + 0.3 * Math.sin(TAU * 7 * t + 3 * Math.sin(TAU * 1.3 * t)));   // debris, burning
+      x[i] = v * Math.min(1, (d - t) / 0.5);
+    }
+    return x;
+  },
   // a small weak firework far away: a dull little "pff" and a thin sputter that dies at once
   fizzle(r, d = 0.6) {
     const x = buf(d), bp = biquad("bp", 900, 0.9), hp = biquad("hp", 4000, 0.8), ticks = Array.from({ length: 7 }, () => 0.06 + r() * 0.35);

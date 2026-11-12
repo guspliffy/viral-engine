@@ -82,31 +82,25 @@
   "satsuei": true
  },
  "music": {
-  "style": "danger",
+  "file": "ai/disaster/disaster-04.ogg",
+  "from": 0,
+  "until": 18.9,
   "lowCut": 150,
-  "gain": 0.4,
-  "parts": [
-   {
-    "at": 0,
-    "part": "main"
-   },
-   {
-    "at": 12.2,
-    "part": "build"
-   },
-   {
-    "at": 15,
-    "part": "drop"
-   },
-   {
-    "at": 27.2,
-    "part": "build"
-   },
-   {
-    "at": 29.4,
-    "part": "drop"
+  "gain": 0.6,
+  "duck": {
+   "db": -8,
+   "voice": -5
+  },
+  "then": {
+   "file": "ai/car-chase/car-chase-03.ogg",
+   "from": 20.1,
+   "until": 29.4,
+   "gain": 0.6,
+   "duck": {
+    "db": -8,
+    "voice": -5
    }
-  ]
+  }
  },
  "sound": {
   "sfx": 0.65,
@@ -402,14 +396,6 @@
     2.34,
     0.4
    ]
-  },
-  {
-   "id": "neck",
-   "staged": "worn round his neck",
-   "kind": "neckmask",
-   "x": 2.09,
-   "y": -40,
-   "z": 0.3
   },
   {
    "id": "phone",
@@ -757,7 +743,7 @@
    "from": 1,
    "to": 2.47,
    "text": "mid plane crash.",
-   "pos": 470,
+   "pos": 262,
    "pop": false,
    "size": 62,
    "kinetic": false,
@@ -845,7 +831,7 @@
    "from": 12.3,
    "to": 13.769,
    "text": "Head down.",
-   "pos": 1272,
+   "pos": 1280,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -854,7 +840,7 @@
    "from": 13.769,
    "to": 14.67,
    "text": "Brace!",
-   "pos": 1272,
+   "pos": 1280,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1392,15 +1378,27 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": -14,
+     "to": 60,
      "dur": 0.01,
      "at": 0.2
     },
     {
      "who": "wiz",
      "do": "lean",
-     "to": 8,
+     "to": 0,
      "dur": 0.01,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "wizC",
+     "set": {
+      "x": 1.5,
+      "y": 1.2,
+      "z": -1.6
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 0.2
     },
     {
@@ -1693,8 +1691,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.4,
-      "rot": 25
+      "y": 1.32,
+      "rot": 8
      },
      "dur": 1.5,
      "ease": "linear",
@@ -2094,7 +2092,7 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": 10,
+     "to": 60,
      "dur": 0.01,
      "at": 0.5
     },
@@ -2305,8 +2303,8 @@
      "id": "wizC",
      "set": {
       "x": 1.64,
-      "y": 1,
-      "z": -1.45,
+      "y": 1.3,
+      "z": -1.5,
       "rot": 0
      },
      "dur": 0,
@@ -2506,19 +2504,11 @@
      "at": 0.25
     },
     {
-     "who": "wiz",
-     "do": "pitch",
-     "to": 24,
-     "dur": 0.25,
-     "ease": "in",
-     "at": 0.25
-    },
-    {
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.1,
-      "z": -2.3
+      "y": 1.38,
+      "z": -1.95
      },
      "dur": 0.3,
      "ease": "in",
@@ -2542,12 +2532,12 @@
       "prop": "wizC",
       "grip": [
        0.36,
-       0.57,
+       0.36,
        1.12
       ]
      },
-     "dur": 0.15,
-     "ease": "out",
+     "dur": 0.3,
+     "ease": "inOut",
      "at": 0.25
     },
     {
@@ -2556,9 +2546,9 @@
      "side": "R",
      "pose": {
       "o": [
+       0.45,
        0.3,
-       0.75,
-       0.2
+       0.3
       ]
      },
      "dur": 0.15,
@@ -2604,7 +2594,7 @@
       "prop": "wizC",
       "grip": [
        0.36,
-       0.57,
+       0.36,
        1.12
       ]
      },
@@ -2677,8 +2667,8 @@
      "id": "wizC",
      "set": {
       "x": 1.64,
-      "y": 1,
-      "z": -1.25
+      "y": 1.3,
+      "z": -1.5
      },
      "dur": 0.14,
      "ease": "out",
@@ -2708,8 +2698,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.06,
-      "z": -1.33
+      "y": 1.36,
+      "z": -1.58
      },
      "dur": 0.38,
      "ease": "inOut",
@@ -2731,8 +2721,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 0.95,
-      "z": -1.28
+      "y": 1.25,
+      "z": -1.53
      },
      "dur": 0.38,
      "ease": "inOut",
@@ -2849,8 +2839,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.06,
-      "z": -1.33
+      "y": 1.36,
+      "z": -1.58
      },
      "dur": 0.38,
      "ease": "inOut",
@@ -2866,8 +2856,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 0.95,
-      "z": -1.28
+      "y": 1.25,
+      "z": -1.53
      },
      "dur": 0.38,
      "ease": "inOut",
@@ -2935,8 +2925,8 @@
      "id": "wizC",
      "set": {
       "x": 1.59,
-      "y": 1.2,
-      "z": -0.95,
+      "y": 1.32,
+      "z": -1.5,
       "rot": 0
      },
      "dur": 0,
@@ -2946,7 +2936,7 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": 35,
+     "to": 55,
      "dur": 0.01,
      "at": 2.18
     },
@@ -2956,9 +2946,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.35,
+       1.17,
        1.62,
-       -0.38
+       -0.4
       ]
      },
      "dur": 0.01,
@@ -2970,9 +2960,9 @@
      "side": "L",
      "pose": {
       "world": [
-       1.83,
+       2.01,
        1.62,
-       -0.38
+       -0.4
       ]
      },
      "dur": 0.01,
@@ -2993,10 +2983,10 @@
     ],
     "look": [
      1.56,
-     0.8,
+     0.97,
      0.2
     ],
-    "fov": 52
+    "fov": 56
    },
    "do": [
     {
@@ -3021,7 +3011,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.26
+      "y": 1.36
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3119,7 +3109,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.13
+      "y": 1.28
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3182,7 +3172,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.26
+      "y": 1.36
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3207,7 +3197,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.13
+      "y": 1.28
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3251,7 +3241,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.26
+      "y": 1.36
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3280,7 +3270,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.13
+      "y": 1.28
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3318,7 +3308,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.26
+      "y": 1.36
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3385,7 +3375,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.13
+      "y": 1.28
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3419,7 +3409,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.26
+      "y": 1.36
      },
      "dur": 0.36,
      "ease": "inOut",
@@ -3590,19 +3580,6 @@
     },
     {
      "do": "prop",
-     "id": "neck",
-     "set": {
-      "x": 2.09,
-      "y": 0.52,
-      "z": 0.4,
-      "tip": -50
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 1.68
-    },
-    {
-     "do": "prop",
      "id": "hall",
      "set": {
       "feed": 1
@@ -3616,8 +3593,8 @@
      "id": "wizC",
      "set": {
       "x": 1.59,
-      "y": 0.56,
-      "z": -1.2,
+      "y": 1.05,
+      "z": -1.5,
       "rot": 0
      },
      "dur": 0,
@@ -3627,7 +3604,7 @@
     {
      "who": "wiz",
      "do": "pitch",
-     "to": -10,
+     "to": 52,
      "dur": 0.01,
      "at": 1.68
     },
@@ -3637,7 +3614,7 @@
      "side": "R",
      "pose": {
       "world": [
-       1.09,
+       1.14,
        1.62,
        -0.4
       ]
@@ -3651,7 +3628,7 @@
      "side": "L",
      "pose": {
       "world": [
-       2.09,
+       2.04,
        1.62,
        -0.4
       ]
@@ -3673,20 +3650,12 @@
     ],
     "look": [
      1.62,
-     0.72,
+     0.8,
      -0.1
     ],
-    "fov": 56
+    "fov": 62
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "neck",
-     "hand": "hat",
-     "keep": true,
-     "at": 0
-    },
     {
      "who": "wiz",
      "do": "expr",
@@ -7213,10 +7182,17 @@
    },
    "do": [
     {
-     "sfx": "impact",
+     "sfx": "explosion",
      "gain": 1,
      "loud": true,
-     "reason": "0:00: it blows up at the bottom of the cliff",
+     "reason": "0:00: it blows up at the bottom of the cliff (Jonny 12 Nov: a real explosion sound)",
+     "at": 0
+    },
+    {
+     "sfx": "impact",
+     "gain": 0.8,
+     "loud": true,
+     "reason": "the thump under the blast",
      "at": 0
     },
     {

@@ -106,3 +106,24 @@ slide sound; cut B must make clear he does not survive (blown away). Done in 77c
   43178028896 B). A B preflight right after the edit still named the old arm-in-prop finding; a partial layout and
   the farm gate did not (stale layout, not looked into).
 Delivery: project files videos/you-wake-up-mid/01-plane-crash/ (FINAL files replaced, DELIVERY.md round 2). Ledger row added.
+
+## Round 3 after Jonny's notes (12 Nov 2026 09:15-09:19 Berlin)
+
+Jonny: "wizard is still glitching" (0:02 and 0:05, hat cut), "what is this ring", "when the plane is exploding we
+need a explosion sound", "the video needs more dramatic music".
+
+- Wizard, the real cause: the luggage bins over the seats hang down to y 2.35 (flat ceiling 2.75 only over the
+  aisle) and he is 1.75 tall with the hat, eyes to hat tip 1.07. Between seat tops (1.6) and bins there are 0.75 m:
+  upright over the seats he can never fit, at any height (round 2 only lowered him). Now he is pitched forward 52-60
+  and leans over the seat backs (wizC y 1.05-1.38, z -1.5, hands on the seat tops at y 1.62). Judge this on stills:
+  the layout's `top` ignores the pitch (it said 2.6-2.8 while the hat was whole on every still).
+  Knife edges found: pitch over about 62, or hands at +-0.3 on the seat tops, hide his eyes behind brim or sleeves
+  (face-hidden); HOLD y 0.36 keeps the caught hand over Spud's seat top; the reach for Spud takes 0.3 s inOut
+  (0.15 "out" was a 53 cm rig-jump).
+- Cameras 05 and 07 look higher and wider (masks look y 0.97 fov 56; brace look y 0.95 fov 62) so his hat tip is
+  inside the picture.
+- The ring: the `neck` mask prop (worn from the brace on) read as a hoop outside. Removed for the whole clip.
+- Explosion: new built-in `explosion` (engine/audio.mjs, whitelist family fire): crack, fireball roar in four bands,
+  boom 62->34 Hz, second blast at 0.4 s, debris, burning tail; measured 2.8 s, 57 % under 200 Hz, peak on frame one.
+- Music: recorded beds instead of the code style `danger`: ai/disaster/disaster-04 from 0 to T.edge + 0.6, then
+  ai/car-chase/car-chase-03 from T.trunk to T.boom, gain 0.6, duck -8 (voice -5). Nothing after the explosion.
