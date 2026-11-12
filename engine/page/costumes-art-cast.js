@@ -850,8 +850,8 @@ function dragonSheet(C, ch, out) {
 // strokes with its own place, length, width and strength (hash by column and row, so the same every render), some
 // stitches are faint, some carry a pencil line under one leg, and a soft wash of light and dark runs under all of it.
 // cols run along x and wrap (the seam round a body or a sleeve doesn't show); swap: columns along y (a sleeve).
-const hash2 = (a, b) => { const v = Math.sin(a * 127.1 + b * 311.7 + 74.7) * 43758.5453; return v - Math.floor(v); };
-function texOf(buf, W, H, swap) {
+export const hash2 = (a, b) => { const v = Math.sin(a * 127.1 + b * 311.7 + 74.7) * 43758.5453; return v - Math.floor(v); };
+export function texOf(buf, W, H, swap) {
   const w = swap ? H : W, h = swap ? W : H, data = new Uint8Array(w * h * 4);
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const g = Math.round(255 * Math.max(0, Math.min(1, swap ? buf[x * W + y] : buf[y * W + x]))), k = (y * w + x) * 4; data[k] = data[k + 1] = data[k + 2] = g; data[k + 3] = 255; }
   const t = new THREE.DataTexture(data, w, h, THREE.RGBAFormat);
@@ -860,7 +860,7 @@ function texOf(buf, W, H, swap) {
   return t;
 }
 // the wash: smooth value noise, period `p` px, wrapping in x
-function wash(W, H, p, seed, amp) {
+export function wash(W, H, p, seed, amp) {
   const nx = Math.max(1, Math.round(W / p)), at = (ix, iy) => hash2(((ix % nx) + nx) % nx + seed * 13.1, iy + seed * 7.3), buf = new Float32Array(W * H);
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const fx = (x / W) * nx, fy = y / p, ix = Math.floor(fx), iy = Math.floor(fy), ux = fx - ix, uy = fy - iy, sx = ux * ux * (3 - 2 * ux), sy = uy * uy * (3 - 2 * uy);
@@ -901,7 +901,7 @@ function knitTexture(cols, rows, W, H, seed, swap = false) {
   return texOf(buf, W, H, swap);
 }
 // the ribbing of a rolled collar, hem or cuff: n pencil lines across the roll, each a little bent, some broken
-function ribTexture(n, W, H, seed) {
+export function ribTexture(n, W, H, seed) {
   const buf = wash(W, H, 70, seed, 0.04), dark = new Float32Array(W * H);
   for (let i = 0; i < n; i++) {
     const h = (m) => hash2(i * 4.37 + m * 2.9 + seed, m * 6.1 + 0.3), x0 = ((i + 0.5 + (h(1) - 0.5) * 0.35) / n) * W, bend = (h(2) - 0.5) * 0.5 * (W / n), ph = h(3) * 6.28;
@@ -915,7 +915,7 @@ function ribTexture(n, W, H, seed) {
   return texOf(buf, W, H, false);
 }
 // uv for a costumes-art.js grid (rows of nu + 1 points): fn(i, j) -> [u, v]
-function gridUv(g, nu, nv, fn) {
+export function gridUv(g, nu, nv, fn) {
   const uv = new Float32Array((nu + 1) * (nv + 1) * 2);
   for (let j = 0; j <= nv; j++) for (let i = 0; i <= nu; i++) { const [u, v] = fn(i, j), k = (j * (nu + 1) + i) * 2; uv[k] = u; uv[k + 1] = v; }
   g.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); return g;
