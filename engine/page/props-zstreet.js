@@ -11,9 +11,13 @@ import { taperedTube } from "./geo.js";
 //   the railing line, z 0 the middle of the balcony). The street runs along z (z -22 far end .. z 14 near end).
 //   spec  depth 15 (the street floor is at y -depth),
 //         car [0.6, 1.5] (x, z of the ONE askew car, standing on the street floor), carRot 24 (its turn, degrees)
+//         parked [0..5]  which of the six parked cars stand there (indices into the list below; default all six):
+//                      a street packed wall to wall with zombies wants only two or three
 //   state alarm 0..1   that car's four indicators and two headlights flash at 2 Hz from t (on in the first half of each
 //                      half second), with orange and white glows and a flashing patch of light on the asphalt; 0 = off
 //         dent 0..1    a dent in that car's roof (0.11 m deep dish with creases, darker paint); 1 = the full dent
+//         fog 0..1 (1) how thick the three fog cards down the street are (1 = as painted; a shot that looks down the
+//                      street from above crosses two of them and wants about 0.3)
 //         dawn 0..1    0 flat grey overcast; 1 early dawn: a warm light from +x on the roof, the shop parapet and the
 //                      upper facade (a spot light), the street and the lower floors stay blue-grey
 //   OUR HOUSE   left. Facade plane at x -4.9, y -depth..6, z -22..14: plastered storeys 3 m (floors at y 3, 0, -3, ...,
@@ -75,7 +79,7 @@ import { taperedTube } from "./geo.js";
 export const ZSTREET_GRIPS = {};
 // state keys of these kinds that a "prop" action may tween, with their defaults: { kind: { key: default } }
 export const ZSTREET_STATE = {
-  zstreet: { alarm: 0, dent: 0, dawn: 0 },
+  zstreet: { alarm: 0, dent: 0, dawn: 0, fog: 1 },
   zhorde: { gx: 0, gz: 0, adv: 0, up: 0, reach: 0 },
   zladder: { sag: 0, crack: 0, drop: 0 },
 };
@@ -468,6 +472,7 @@ export const ZSTREET_KINDS = {
       roof.add(BX(0.4, 0.3, 0.4), { p: [10.2, 0.15, 1.2], c: "#74787a" });
       const rm = tint(stdM({ vertexColors: true }), warmMats); roof.mesh(G, rm);
     }
+    const fogs = [];   // [card, its full opacity]: the `fog` state scales them
     // --- backdrop buildings behind the roof and the cross street at the far end
     {
       const b1 = basicM("#ffffff", { map: townTex(31, 2048, 1024, 60, 25, 0.35), fog: false });
@@ -477,7 +482,7 @@ export const ZSTREET_KINDS = {
       const far = basicM("#ffffff", { map: townTex(33, 1536, 768, 60, 29, 0.28), fog: false });
       put(G, PL(60, 29), far, 0, -DEPTH + 14.5, -22.05);
       const fogM = basicM("#ffffff", { map: fogTex(), transparent: true, depthWrite: false, fog: false });
-      for (const [z, k] of [[-21.5, 1], [-15, 0.5], [-8, 0.28]]) { const f = glow(new THREE.Mesh(PL(8.0, Hw), fogM.clone()), 3); f.material.opacity = k; f.material.userData.noOutline = true; f.position.set(-0.95, 3 - DEPTH / 2, z); G.add(f); }
+      for (const [z, k] of [[-21.5, 1], [-15, 0.5], [-8, 0.28]]) { const f = glow(new THREE.Mesh(PL(8.0, Hw), fogM.clone()), 3); f.material.opacity = k; f.material.userData.noOutline = true; f.position.set(-0.95, 3 - DEPTH / 2, z); G.add(f); fogs.push([f, k]); }
     }
     // --- the street
     {
@@ -501,7 +506,7 @@ export const ZSTREET_KINDS = {
       lt.mesh(G, stdM({ vertexColors: true }));
       // the parked cars, merged into one mesh
       const cars = [];
-      for (const [x, z, ry, col] of CARS) { const g = carGeo(col, false); g.applyMatrix4(new M4().compose(new V3(x, -DEPTH, z), new Qt().setFromAxisAngle(new V3(0, 1, 0), rad(ry)), new V3(1, 1, 1))); cars.push(g); }
+      for (const [x, z, ry, col] of (S.parked ? S.parked.map((i) => CARS[i]) : CARS)) { const g = carGeo(col, false); g.applyMatrix4(new M4().compose(new V3(x, -DEPTH, z), new Qt().setFromAxisAngle(new V3(0, 1, 0), rad(ry)), new V3(1, 1, 1))); cars.push(g); }
       put(G, mergeGeometries(cars), stdM({ vertexColors: true }));
     }
     // --- the alarm car: body, a dented roof sheet, flashing lights
@@ -539,6 +544,7 @@ export const ZSTREET_KINDS = {
     return {
       grip: 0,
       apply(ps, t) {
+        const fk = clamp(ps.fog ?? 1); for (const [f, k] of fogs) f.material.opacity = k * fk;
         const al = clamp(ps.alarm ?? 0), dawn = clamp(ps.dawn ?? 0), ph = (((t ?? 0) * 2) % 1 + 1) % 1, on = ph < 0.5 ? 1 : 0;
         setDent(clamp(ps.dent ?? 0));
         lights.forEach(([box, sp], i) => { const k = al * on * (i < 4 ? 1 : 0.9); box.material.opacity = k; sp.material.opacity = k * 0.95; box.visible = k > 0.01; sp.visible = k > 0.01; });
