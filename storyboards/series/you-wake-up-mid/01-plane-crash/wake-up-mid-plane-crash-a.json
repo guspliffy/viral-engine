@@ -89,16 +89,16 @@
   "gain": 0.6,
   "duck": {
    "db": -8,
-   "voice": -5
+   "voice": -10
   },
   "then": {
    "file": "ai/car-chase/car-chase-03.ogg",
    "from": 20.1,
-   "until": 29.4,
+   "until": 29,
    "gain": 0.6,
    "duck": {
     "db": -8,
-    "voice": -5
+    "voice": -10
    }
   }
  },
@@ -7118,16 +7118,9 @@
    "do": [
     {
      "sfx": "explosion",
-     "gain": 1,
+     "gain": 1.2,
      "loud": true,
      "reason": "0:00: it blows up at the bottom of the cliff (Jonny 12 Nov: a real explosion sound)",
-     "at": 0
-    },
-    {
-     "sfx": "impact",
-     "gain": 0.8,
-     "loud": true,
-     "reason": "the thump under the blast",
      "at": 0
     },
     {

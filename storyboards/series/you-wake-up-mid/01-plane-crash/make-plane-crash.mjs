@@ -495,7 +495,7 @@ see(T.run + 0.3, T.boom - 0.1, ["spud.face", "jet"], "they run at us through the
 
 // ================================================================ 15 / 16 THE BLAST: two endings
 prop(cut(T.boom), "blast", { on: 1 }, 0, "linear"); prop(cut(T.boom + 0.3), "blast2", { on: 1 }, 0, "linear");
-sfx(T.boom, "explosion", { gain: 1, loud: true, reason: "0:00: it blows up at the bottom of the cliff (Jonny 12 Nov: a real explosion sound)" }); sfx(T.boom, "impact", { gain: 0.8, loud: true, reason: "the thump under the blast" }); sfx(T.boom + 0.05, "rumble", { gain: 0.9, dur: 2.2, reason: "the blast rolling up the mountain" });
+sfx(T.boom, "explosion", { gain: 1.2, loud: true, reason: "0:00: it blows up at the bottom of the cliff (Jonny 12 Nov: a real explosion sound)" }); sfx(T.boom + 0.05, "rumble", { gain: 0.9, dur: 2.2, reason: "the blast rolling up the mountain" });
 c.at(T.boom, { fx: "flash", peak: 0.55, dur: 0.14, sound: false });
 clock(T.boom, r3(T.boom + 0.8), 0, 205, 480);
 if (SAFE) {
@@ -607,8 +607,8 @@ write(import.meta.url, {
   // dramatic orchestra, timpani and trumpets, chase music). So: recorded orchestral beds, louder. The disaster score (taiko and
   // timpani, staccato strings, brass stabs) from 0.0 through the fall and the crash; it stops on the cliff edge; the chase score
   // (pounding drums, staccato strings, brass hits, 140 BPM) from the suitcase to 0:00; the explosion ends it and rings alone.
-  music: { file: "ai/disaster/disaster-04.ogg", from: 0, until: r3(T.edge + 0.6), lowCut: 150, gain: 0.6, duck: { db: -8, voice: -5 },
-    then: { file: "ai/car-chase/car-chase-03.ogg", from: T.trunk, until: T.boom, gain: 0.6, duck: { db: -8, voice: -5 } } },
+  music: { file: "ai/disaster/disaster-04.ogg", from: 0, until: r3(T.edge + 0.6), lowCut: 150, gain: 0.6, duck: { db: -8, voice: -10 },
+    then: { file: "ai/car-chase/car-chase-03.ogg", from: T.trunk, until: r3(T.boom - 0.4), gain: 0.6, duck: { db: -8, voice: -10 } } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true },
   creative: { length: [T.end, T.end] },
   hook: { show: ["fly1"], hint: 0, what: "through his own blinking eyelids: the cabin pointing down, alarm lights, bags flying at him" },

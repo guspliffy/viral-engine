@@ -720,9 +720,9 @@ const SFX = {
     for (let i = 0; i < x.length; i++) {
       const t = i / SR, n = r() * 2 - 1, u = t - 0.4;
       const b1 = (k) => blast(t, k) + 0.45 * blast(u, k * 0.8);
-      let v = run(hp, n) * (blast(t, 0.03) + 0.4 * blast(u, 0.03)) * 3.4          // the crack
-        + run(hi, n) * b1(0.22) * 2.6                                             // the fireball, bright at first
-        + run(mid, r() * 2 - 1) * b1(0.6) * 3.2                                   // its roar (phone band)
+      let v = run(hp, n) * (blast(t, 0.03) + 0.4 * blast(u, 0.03)) * 1.3          // the crack (kept low: a tall crack only makes the limiter squash the roar)
+        + run(hi, n) * b1(0.22) * 2.2                                             // the fireball, bright at first
+        + run(mid, r() * 2 - 1) * b1(0.6) * 3.6                                   // its roar (phone band)
         + run(lo, r() * 2 - 1) * b1(1.0) * 1.6                                    // its weight
         + Math.sin(TAU * (62 - 28 * Math.min(1, t / 0.7)) * t) * blast(t, 0.75) * 0.9;   // the boom, sinking
       let c = 0; for (const [j, h] of ticks.entries()) c += env(t - h, 0.0003, 0.006, d) * (1 - j / 55);
