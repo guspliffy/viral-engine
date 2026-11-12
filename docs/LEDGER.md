@@ -33,6 +33,9 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   before; golden unchanged.
 - Every draft prints its own `pops` line (11 Nov, from Doomscroll 01; waits for Jonny's word): three videos lost
   farm renders to single frames their drafts already showed. Should keep `renders` at 1.
+- Recorded orchestra beds for danger scenes, named in the clip template (12 Nov, from There's a catch 05, #210; waits
+  for Jonny's word): three of his rounds went on synthesised chase music he heard as game music. Should bring the
+  music rounds by his ear to 0 in the next danger clip.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
