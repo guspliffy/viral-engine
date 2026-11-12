@@ -63,6 +63,21 @@
 //               the door) is not drawn, a clean seam on the z = 0 line over the dome; the poles stay, the floor tub rim on that side
 //               drops to a 4 cm lip, the door half shows its darker inner green, the side window keeps its front half. A camera
 //               outside behind the tent (about 2 m) sees straight in. Not solid there: only the cloth that is drawn counts.
+//   lyingbag    a navy mummy sleeping bag (spec.color #3c4a7a) for a rider LYING ON HIS BACK: lies flat on the grass, 1.25 m long
+//               (hood back z -0.5 to the tied foot end z 0.8, the knot to 0.88: 1.3 m), 0.86 wide x 0.6 high at the chest, quilted baffles across it,
+//               puffy. Origin on the ground under the middle of the face opening, the head/hood end toward -z, the foot end
+//               toward +z, so a clip turns it with `rot` (rot 90 = the foot end toward +x). A drawstring hood round an oval
+//               opening on top (z -0.30 to 0.27 at cover 0; the eyes at z -0.08, the mouth at 0.06) where the rider's FACE shows; the rest of him is inside. The tail
+//               past the feet (z 0.5 to 0.8) is empty cloth, gathered and tied at the end (a knot, a loop of cord).
+//               cover 0..1 (default 0) the hood pulls tight: the opening shrinks to a slit round the eyes and nose;
+//               drag 0..1 (default 0) the foot end is pulled up: the tail rises 0.25 m (the body stays flat on the grass).
+//               GRIPS foot [0, 0.07, 0.82] at drag 0 (the knot); at drag d add [0, 0.25 d, -0.02 d] (the tied end follows the tail).
+//               RIDER: the real rigged Chip lying on his back inside (route 1), three calls: { do: "ride", prop: "bag", off: [0, -0.19, -0.05],
+//                 dur: 0 }, { do: "pitch", to: -90, dur: 0 } (about his middle: face up, head toward -z, his feet toward the tied end),
+//                 { do: "arm", side: "R" and "L", pose: { o: [-0.02, 0.3, -0.12] } } (hands behind his hips, under the cloth), and
+//                 { do: "face", lid: 1 } for shut eyes (his expression and lids are his own rig). The bag's rot, x, z carry him (ride
+//                 turns the offset and the yaw). Cut for Chip (body 0.57 x 0.52 x 0.53, legs 0.14): only his face, sprout and hoodie
+//                 strings show through the opening, nothing else; a bigger rider breaks through the shell at the shoulders.
 // Solid: the car, the door, the cooler, the pot, the branch, the lantern's metal, the trunk and branches. See-through (userData.steam):
 // the window mesh, the beams, flames, glows, smoke. The tent is an enclosing shell (the potatoes sit inside): list it for
 // the contact checks. Sizes of the held props: storyboards/lib/grips.mjs SIZE.
@@ -206,6 +221,7 @@ export const BEARCAMP_GRIPS = {
   cardoor: { edge: [0.03, 1.6, -0.08] },       // the top corner at the hinge edge, where the bear's paw pulls
   cookpot: { handle: [0.28, 0.115, 0] },       // the handle near its end: a fist round it, like a frying pan
   burnbranch: { hold: [0, 0.08, 0] },          // 0.08 up from the held end
+  lyingbag: { foot: [0, 0.07, 0.82] },          // the tied foot end at drag 0 (at drag d add [0, 0.25 d, -0.02 d]): the bear's mouth
 };
 
 // the hatchback's driver door in its hinge frame: origin at the hinge edge on the bottom edge, the door runs back along -z
@@ -750,6 +766,75 @@ export const BEARCAMP_KINDS = {
           const p = clamp(snap - i); b.g.visible = p > 0.001;
           b.g.position.set(b.x0 + b.vx * p, lerp(b.y0, 0.05, p * p), b.z0 + b.vz * p); b.g.rotation.set(0, b.yaw, -b.sp * p * (1 - 0.3 * p));
         }
+      },
+    };
+  },
+  // ---------------------------------------------------------------------------------------------------------------
+  // lyingbag: a mummy bag for a rider lying on his back. One shell: rings along z, each ring a pillowy superellipse
+  // (flat underneath) round the cross-section centre; over the face the ring is left open by the oval's half width, so
+  // the opening is cut out of the shell itself and the hood's rim is a tube along its edge. The rider is not part of it.
+  lyingbag(P) {
+    const S = P.spec, col = new THREE.Color(S.color ?? "#3c4a7a");
+    const hx = col.getHex(), css = (k) => `rgb(${[hx >> 16, (hx >> 8) & 255, hx & 255].map((v) => Math.round(Math.min(255, v * k))).join(",")})`;   // sRGB bytes (Color.r is linear)
+    const [c, g] = canvas(256, 512);   // baffles across the bag (along the texture's v), each lighter in the middle, a dark stitch between
+    for (let i = 0; i < 8; i++) { const gr = g.createLinearGradient(0, i * 64, 0, i * 64 + 64); gr.addColorStop(0, css(0.66)); gr.addColorStop(0.5, css(1.14)); gr.addColorStop(1, css(0.7)); g.fillStyle = gr; g.fillRect(0, i * 64, 256, 64); }
+    const fab = mat("#ffffff", { map: tex(c), roughness: 0.78, side: THREE.DoubleSide });
+    const trim = mat(css(0.58), { roughness: 0.8 }), cordM = mat("#d9d4c4", { roughness: 0.9 });
+    const ZB = -0.5, ZF = 0.8, RW = 0.43, KH = 0.72, SN = 2.7, NA = 40, NB = 84, CAPL = 0.4;
+    // half width of the bag at z: a domed hood end, the chest, the legs, then the gathered tail
+    const TAB = [[0.2, 0.43], [0.4, 0.38], [0.5, 0.28], [0.6, 0.2], [0.7, 0.14], [0.8, 0.07]];
+    const halfW = (z) => {
+      if (z < ZB + CAPL) { const s = (ZB + CAPL - z) / CAPL; return RW * Math.sqrt(Math.max(0, 1 - s * s)); }
+      if (z <= TAB[0][0]) return RW;
+      for (let i = 1; i < TAB.length; i++) if (z <= TAB[i][0]) return lerp(TAB[i - 1][1], TAB[i][1], smooth((z - TAB[i - 1][0]) / (TAB[i][0] - TAB[i - 1][0])));
+      return TAB[TAB.length - 1][1];
+    };
+    const halfH = (z) => halfW(z) * (z < 0.5 ? lerp(0.66, KH, smooth((z - ZB) / 0.44)) : lerp(KH, 0.42, smooth((z - 0.5) / 0.22))) * lerp(1, 1.5, smooth((z - 0.72) / 0.08));   // the empty tail lies flat, the tied end is round again
+    const sp = (v, e) => sgn(v) * Math.abs(v) ** e;
+    // the opening on top: z from zT (the head end) to zB (the chin end), a half width a, an oval with a fuller shoulder
+    const opening = (cv) => ({ zT: lerp(-0.3, -0.17, cv), zB: lerp(0.27, 0.04, cv), a: lerp(0.27, 0.16, cv) });
+    const xRim = (O, z) => { const zc = (O.zT + O.zB) / 2, b = (O.zB - O.zT) / 2, q = (z - zc) / b; return Math.abs(q) >= 1 ? 0 : O.a * (1 - q * q) ** 0.6; };
+    const shell = gridGeo(NA, NB), shellM = mesh(shell, fab, P.whole); shellM.frustumCulled = false;
+    const rimM = mesh(new THREE.BufferGeometry(), trim, P.whole); rimM.frustumCulled = false;
+    const tail = new THREE.Group(); P.whole.add(tail);   // the knot and the cord loop at the tied end, tilting with the lifted tail
+    mesh(new THREE.SphereGeometry(0.05, 12, 9), fab, tail, 0, 0, 0.025).scale.set(1, 1, 0.9);
+    mesh(new THREE.TorusGeometry(0.058, 0.014, 6, 16), trim, tail, 0, 0, -0.03);
+    mesh(new THREE.ConeGeometry(0.045, 0.07, 10), fab, tail, 0, 0, 0.085).rotation.x = Math.PI / 2;
+    for (const s of [-1, 1]) { const st = mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.16, 6), cordM, tail, s * 0.03, -0.07, 0.07); st.rotation.set(0, 0, s * 0.35); st.castShadow = false; }
+    const tog = new THREE.Group(); P.whole.add(tog);   // the drawstring's two cord ends and the toggle, hanging at the chin side of the hood
+    for (const s of [-1, 1]) { mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.13, 6), cordM, tog, s * 0.022, 0, -0.05).rotation.x = Math.PI / 2; mesh(new THREE.SphereGeometry(0.016, 8, 6), trim, tog, s * 0.022, 0, 0.02); }
+    let last = "";
+    return {
+      grip: 0,
+      apply(ps) {
+        const cv = clamp(num(ps, S, "cover")), dg = clamp(num(ps, S, "drag")), key = cv.toFixed(4) + "|" + dg.toFixed(4); if (key === last) return; last = key;
+        const O = opening(cv), lift = (z) => dg * 0.25 * smooth((z - 0.45) / 0.35) ** 1.25;
+        const yc = (z) => halfH(z) + 0.004 + lift(z);
+        const ring = (z, ph) => {   // the point of the ring at z, ph from the top (0) round through +x to the bottom (pi)
+          const w = halfW(z), h = halfH(z), sx = Math.sin(ph), cy = Math.cos(ph), ripple = 1 + (z > 0.45 ? 0.05 * Math.sin(z * 31 + ph * 3) * smooth((z - 0.45) / 0.2) : 0);
+          return [w * sp(sx, 2 / SN) * ripple, yc(z) + h * sp(cy, 2 / SN) * ripple, z];
+        };
+        const gap = (z) => { const w = halfW(z), x = xRim(O, z); return x > 1e-4 && w > 1e-3 ? Math.asin(Math.min(0.999, (x / w) ** (SN / 2))) : 0; };
+        const pos = shell.attributes.position.array;
+        const zs = []; for (let j = 0; j <= NB; j++) zs.push(lerp(ZB, ZF, j / NB));
+        for (let i = 0; i <= NA; i++) for (let j = 0; j <= NB; j++) {
+          const z = zs[j], gp = gap(z), ph = gp + (Math.PI * 2 - 2 * gp) * (i / NA), p = ring(z, ph), k = (i * (NB + 1) + j) * 3;
+          pos[k] = p[0]; pos[k + 1] = p[1]; pos[k + 2] = p[2];
+        }
+        shell.attributes.position.needsUpdate = true; shell.computeVertexNormals();
+        const nrm = shell.attributes.normal.array;   // the closed rings: the first and last column are one seam
+        for (let j = 0; j <= NB; j++) if (gap(zs[j]) < 1e-4) { const a = j * 3, b = (NA * (NB + 1) + j) * 3; for (let q = 0; q < 3; q++) { const v = (nrm[a + q] + nrm[b + q]) / 2; nrm[a + q] = nrm[b + q] = v; } }
+        shell.attributes.normal.needsUpdate = true; shell.computeBoundingBox(); shell.computeBoundingSphere();
+        // the hood's rim: a tube along the opening's edge (left side down, right side back up), thicker as it tightens
+        const rim = [], z0 = O.zT, z1 = O.zB, nr = 28;
+        for (let i = 0; i <= nr; i++) { const z = lerp(z0, z1, i / nr), gp = Math.max(gap(z), 0.02); rim.push(ring(z, gp)); }
+        for (let i = nr; i >= 0; i--) { const z = lerp(z0, z1, i / nr), gp = Math.max(gap(z), 0.02); rim.push(ring(z, Math.PI * 2 - gp)); }
+        const rp = rim.filter((p, i) => i === 0 || Math.hypot(p[0] - rim[i - 1][0], p[1] - rim[i - 1][1], p[2] - rim[i - 1][2]) > 0.004).map((p) => new THREE.Vector3(...p));
+        rimM.geometry.dispose(); rimM.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(rp, true), 120, lerp(0.024, 0.04, cv), 8, true);
+        // the cord ends at the chin side of the rim
+        const ch = ring(O.zB, 0), cz = O.zB; tog.position.set(0, ch[1] + 0.03, cz + 0.06); tog.rotation.x = -0.1;
+        // the tied end: where the tail's centre line ends, tilted along its slope
+        const ty = yc(ZF), ts = (yc(ZF) - yc(ZF - 0.05)) / 0.05; tail.position.set(0, ty, ZF - 0.04); tail.rotation.x = -Math.atan(ts);
       },
     };
   },
