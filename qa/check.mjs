@@ -152,6 +152,22 @@ const run = (cmd, argv) => { const r = spawnSync(cmd, argv, { encoding: argv.inc
 // parts that swap). Measured on a 36x64 grey copy, in overlapping 12x12 blocks (a third of the width):
 // score = min(|F[i]-F[i-1]|, |F[i]-F[i+1]|) - max(|F[i+1]-F[i-1]|, |F[i-1]-F[i-2]|, |F[i+2]-F[i+1]|), mean per pixel.
 // Steady motion, cuts and fades score near 0; a quick symmetric bounce scores low because its neighbours move too.
+// every frame at low resolution: { t, YMIN, YMAX, YAVG, YDIF } (blank frames, strobe; the draft's pops line too)
+export function lumaFrames(clip) {
+  const st = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", "scale=108:192,signalstats,metadata=print:file=-", "-an", "-f", "null", "-"]).stdout;
+  const frames = []; let cur = null;
+  for (const ln of st.split("\n")) {
+    const m = ln.match(/pts_time:([\d.]+)/); if (m) { cur = { t: Number(m[1]) }; frames.push(cur); continue; }
+    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG|YDIF)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
+  }
+  return frames;
+}
+// the most big brightness jumps (over RULES.strobeJump) inside any 1 s, and where that second starts
+export function strobeOf(frames) {
+  const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
+  let n = 0, at = 0; for (const t of jumps) { const k = jumps.filter((u) => u >= t && u < t + 1).length; if (k > n) { n = k; at = t; } }
+  return { n, at };
+}
 export function oddFrames(clip, fps = 30) {
   const W = 36, H = 64, B = 12, N = W * H;
   const raw = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", `scale=${W}:${H}:flags=area,format=gray`, "-f", "rawvideo", "-"]);
@@ -481,12 +497,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
   } else add("pass", "duration", `${dur.toFixed(3)} s (no storyboard to compare)`);
 
   // --- every frame, at low resolution: blank white or empty black frames
-  const st = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", "scale=108:192,signalstats,metadata=print:file=-", "-an", "-f", "null", "-"]).stdout;
-  const frames = []; let cur = null;
-  for (const ln of st.split("\n")) {
-    const m = ln.match(/pts_time:([\d.]+)/); if (m) { cur = { t: Number(m[1]) }; frames.push(cur); continue; }
-    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG|YDIF)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
-  }
+  const frames = lumaFrames(clip);
   const white = frames.filter((f) => f.YMIN >= RULES.whiteY), black = frames.filter((f) => f.YMAX <= RULES.blackY);
   const ts = (l) => l.slice(0, 6).map((f) => f.t.toFixed(2) + "s").join(", ") + (l.length > 6 ? ", ..." : "");
   if (white.length) add("fail", "white-frames", `${white.length} blank white frame(s) at ${ts(white)}`);
@@ -534,8 +545,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // no exceptions for cuts, flashes or shakes: none of them makes a single odd frame when it works as it should
     const pops = oddFrames(clip, fps).filter((o) => o.score > RULES.oddFrame);
     add(pops.some((o) => o.score > RULES.oddFrameFail) ? "fail" : pops.length ? "warn" : "pass", "pops", pops.length ? `odd single frames at ${pops.slice(0, 6).map((o) => `${o.t.toFixed(2)}s (${o.score.toFixed(0)}, ${o.where})`).join(", ")}: something pops, flickers or strobes for one frame` : "no odd single frames");
-    const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
-    let worstJ = 0, atJ = 0; for (const t of jumps) { const n = jumps.filter((u) => u >= t && u < t + 1).length; if (n > worstJ) { worstJ = n; atJ = t; } }
+    const { n: worstJ, at: atJ } = strobeOf(frames);
     add(worstJ > RULES.strobeMax ? "fail" : "pass", "strobe", worstJ > RULES.strobeMax ? `${worstJ} big brightness jumps within 1 s from ${atJ.toFixed(2)} s: strobing reads as a glitch` : `at most ${worstJ} big brightness jumps per second`);
     // optical flow (qa/flow.py via qa/glitches.mjs, item 15): a part that pops out and back, snaps while all around it is
     // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
