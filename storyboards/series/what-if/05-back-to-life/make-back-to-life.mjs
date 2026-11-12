@@ -71,6 +71,7 @@ const CALMPOSE = { lean: 15, neckP: 21, headP: 8, neckY: 10, headY: 14 };   // t
 // where the T. rex stands so that its snout is at `snout` (world), for a pose and a heading
 const RUNPOSE = { lean: 4, neckP: 6, headP: 8, headY: 14 };   // the hunting run: spine level, head low and forward, jaws at the potatoes
 const RG = (v) => v / (2 * 0.72 * REXK);            // walk cycles a second at v m/s (props-rex.js: a planted foot travels stride * scale per half cycle)
+const GAITK = { mam: (v) => v / (1.7 * MAMK), sab: (v) => v / (1.3 * SABK) };   // walk cycles a second at v m/s without sliding feet (props-iceage.js header: metres per cycle at scale 1)
 const rexFor = (snout, pose, rot, y = 0) => { const q = trexPoints({ ...pose, scale: REXK }).snout, a = rad(rot); return { x: r3(snout[0] - (q[0] * Math.cos(a) + q[2] * Math.sin(a))), y, z: r3(snout[2] - (-q[0] * Math.sin(a) + q[2] * Math.cos(a))), rot, ...pose }; };
 if (process.env.DEBUG) console.log("calm snout", trexPoints({ ...CALMPOSE, scale: REXK }).snout.map(r3), "run", trexPoints({ ...RUNPOSE, scale: REXK }).snout.map(r3));
 if (process.env.DEBUG) console.log("rex rest snout", trexPoints({ scale: REXK }).snout.map(r3), "lean30", trexPoints({ scale: REXK, lean: 30, neckP: 34, headP: 18 }).snout.map(r3));
@@ -136,7 +137,7 @@ function street(t0, from) {
   P(t0, "rex", { z: rz(from + dur) }, dur);
   for (let k = 0, t = t0; t < t0 + dur - 0.05; k++, t = r3(t0 + k * 0.3)) { if (!has("rex")) { P(t, "rex", { step: 1 }, 0.14, "out"); P(r3(t + 0.14), "rex", { step: 0 }, 0.14, "in"); } sfx(r3(t + 0.28), "dinostomp", { gain: 0.5 }); }
   ANI(t0, "rex", { gait: r3(from * RG(3.6)), drool: 1, glow: 0 }); ANI(t0, "rex", { gait: r3((from + dur) * RG(3.6)) }, dur);
-  for (const [id, k] of [["mam", 1.4], ["sab", 2.2]]) { ANI(t0, id, { ...HUNGRY, jaw: 0.8, lookY: 0, gait: r3(from * k), glow: 0 }); ANI(t0, id, { gait: r3((from + dur) * k) }, dur); }
+  for (const [id, k] of [["mam", GAITK.mam(2.4)], ["sab", GAITK.sab(3.0)]]) { ANI(t0, id, { ...HUNGRY, jaw: 0.8, lookY: 0, gait: r3(from * k), glow: 0 }); ANI(t0, id, { gait: r3((from + dur) * k) }, dur); }
   for (const id of ["pt1", "pt2", "pt3"]) { ANI(t0, id, { flap: r3(from * 2.5), jaw: 0.6, glow: 0 }); ANI(t0, id, { flap: r3((from + dur) * 2.5) }, dur); }
   P(t0, "fishW", { scale: 1 });
   P(t0, "mam", { x: 4.6, y: 0, z: r3(SZ - 3 + from * 2.4), rot: -6 }); P(t0, "mam", { z: r3(SZ - 3 + (from + dur) * 2.4) }, dur);
@@ -292,7 +293,7 @@ for (const [who, x, z0] of [["spud", SPUD4[0], SPUD4[1]], ["rea", REA4[0], REA4[
 }
 P(r3(CHASE - 0.02), "rex", { x: 0.4, y: 0, z: -11.6, rot: 0, ...RUNPOSE, jaw: 0.9, squint: 0.2 }); P(CHASE, "rex", { z: r3(-11.6 + CH * 3.6) }, CH);
 ANI(CHASE, "rex", { gait: 0 }); ANI(CHASE, "rex", { gait: r3(CH * RG(3.6)) }, CH);
-for (const [id, k] of [["mam", 1.4], ["sab", 2.2]]) { ANI(r3(CHASE - 0.02), id, { ...HUNGRY, jaw: 0.8, lookY: 0, headP: 0, headY: 0, trunk: 0.6, lick: 0, gait: 0 }); ANI(CHASE, id, { gait: r3(CH * k) }, CH); }
+for (const [id, k] of [["mam", GAITK.mam(3.4)], ["sab", GAITK.sab(3.7)]]) { ANI(r3(CHASE - 0.02), id, { ...HUNGRY, jaw: 0.8, lookY: 0, headP: 0, headY: 0, trunk: 0.6, lick: 0, gait: 0 }); ANI(CHASE, id, { gait: r3(CH * k) }, CH); }
 for (const id of ["pt1", "pt2"]) { ANI(CHASE, id, { flap: 0, jaw: 0.6 }); ANI(CHASE, id, { flap: r3(CH * 2.5) }, CH); }
 for (let k = 0; k < 5; k++) { const t = r3(CHASE + k * 0.3); if (!has("rex")) { P(t, "rex", { step: 1 }, 0.14, "out"); P(r3(t + 0.14), "rex", { step: 0 }, 0.14, "in"); } sfx(r3(t + 0.28), "dinostomp", { gain: 0.6 }); c.at(r3(t + 0.28), { fx: "shake", dur: 0.15, amp: 0.02 }); }
 P(r3(CHASE - 0.02), "mam", { x: 3.2, z: -8.4, rot: -4 }); P(CHASE, "mam", { z: r3(-8.4 + CH * 3.4) }, CH);

@@ -22,6 +22,25 @@ life?", the turn stays "But there's a catch."
   qa/lines.mjs); 44 visible-glitch warnings to read (hand-pop, palm-turn, foot-slide); pops probe at 8.3 and 19.5.
 - Renders so far: drafts 2 (the first was superseded by the review notes), farm 0; layouts 9 full + 2 partial
 
+### Rework after Jonny's notes on rough draft 1 (12 Nov 2026 08:21 Berlin)
+His words: "i dont like the ringing sound when the sythe touches, there is not commentator so far, the music dosnt fit
+the dangerous scene when chasing, the t rex looks guite bad- make it look like a real t-rex / witzard and phoenix are
+floating in this scene / the animals should look more real and not like bowl fit together- rework them".
+- ANIMALS REAL: `makeLoft` in engine/page/geo.js (one continuous skin through cross-sections, moved by joints).
+  BRIEF-REAL.md + R1 (kind `rex`, engine/page/props-rex.js, rig engine/shared/rex-rig.js: the generator imports
+  rexPoints AS trexPoints), R2 (mammoth + sabretooth replaced in props-iceage.js), R3 (`pterosaur` in props-ptero.js,
+  registered after iceage so it wins; the old pterosaur code in props-iceage.js is dead and can go in polish), and the
+  `hillneck` head in props-museumstreet.js. The old `trex` is untouched (other clips + golden).
+- Clip on `rex`: REXK 1.7, RUNPOSE / CALMPOSE, RG(v) and GAITK give the step rate for a speed (no sliding feet), gait 0
+  = standing (whole numbers are walk poses now), headY turns the head a little in head-on shots so the eye reads.
+- LAMP: CLING puts Reaper and Phoenix ON the post (0.42 beside it, a little behind), both gloves on it, the crossing
+  arm low under the face.
+- SOUND: no "bell", "shing", "tink" on the scythe: "zap" (+ "ai/heartbeat" for the T. rex and the ending).
+- MUSIC: named style "chase" added to puppet/beat.mjs (minor, 148-156 bpm, pounding bass, no lead).
+- NARRATOR in (voice setup works in the cloud container): four lines; the catch line was cut (the catch is SHOWN);
+  every beat after the cold open moved +0.5 s so the 2.7 s title question has room (clip 22.5 s).
+- Run before the PR: `node qa/golden.mjs` (geo.js, beat.mjs and props3d.js changed; all additive).
+
 ## The improvement loop
 
 - Fixes on test: vocab sheet + notes (lookups), layout reuse (machine min), eight rules (layouts, fix rounds, waits),

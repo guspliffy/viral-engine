@@ -1106,7 +1106,7 @@
       "jaw": 0.8,
       "drool": 1,
       "lookY": 0,
-      "gait": 1.12,
+      "gait": 0.869,
       "glow": 0
      },
      "dur": 0.01,
@@ -1117,7 +1117,7 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "gait": 3.22
+      "gait": 2.498
      },
      "dur": 1.5,
      "ease": "linear",
@@ -1132,7 +1132,7 @@
       "jaw": 0.8,
       "drool": 1,
       "lookY": 0,
-      "gait": 1.76,
+      "gait": 1.154,
       "glow": 0
      },
      "dur": 0.01,
@@ -1143,7 +1143,7 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "gait": 5.06
+      "gait": 3.317
      },
      "dur": 1.5,
      "ease": "linear",
@@ -4441,7 +4441,7 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "gait": 2.24
+      "gait": 2.462
      },
      "dur": 1.6,
      "ease": "linear",
@@ -4451,7 +4451,7 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "gait": 3.52
+      "gait": 2.846
      },
      "dur": 1.6,
      "ease": "linear",
@@ -4919,7 +4919,7 @@
      "do": "prop",
      "id": "mam",
      "set": {
-      "gait": 2.52
+      "gait": 1.955
      },
      "dur": 1.8,
      "ease": "linear",
@@ -4945,7 +4945,7 @@
      "do": "prop",
      "id": "sab",
      "set": {
-      "gait": 3.96
+      "gait": 2.596
      },
      "dur": 1.8,
      "ease": "linear",
