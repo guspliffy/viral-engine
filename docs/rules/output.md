@@ -147,6 +147,10 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
   more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
+- **A dramatic scene gets a recorded-sounding orchestra, never a synth bed** (Jonny 12 Nov: "this sounds like game
+  music"). `qa/check.mjs --ears` ("ears-music") plays the music bed alone to earshot: a code-synthesized bed warns
+  when the clip is dramatic (style `chase` / `orchestra` / `danger` / `dread`, or `"music": { "mood": "dramatic" }`),
+  else it is a note. It hears synth against recording, not whether the music fits: that stays Jonny's ear.
 - **Every named sound is chosen for what happens on screen**, and the delivery says it in Jonny's words (splort,
   dö-döm, crunch). The payoff's sound is always picked by hand. Both "bling"s Jonny caught on 29 Oct came from a
   library name that lied (`kenney/slime` is a sci-fi blip) and an automatic signature sparkle on a payoff.
