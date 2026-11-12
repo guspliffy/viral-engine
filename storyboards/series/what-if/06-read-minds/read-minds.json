@@ -1,0 +1,3852 @@
+{
+ "id": "read-minds",
+ "title": "What if you could read minds? But there's a catch.",
+ "idea": "There's a catch, episode 6: Spud can suddenly read minds at a casino poker table; he wins everything, then the power spreads to the whole city and he loses it all because he can't find the one thought that matters",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  470,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#2a1418",
+  "floor": "#5a1a1e",
+  "light": "warm",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sos-tension/sos-tension-01.ogg",
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "until": 10.15,
+  "then": {
+   "file": "ai/disaster/disaster-01.ogg",
+   "from": 10.15,
+   "gain": 0.7
+  }
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "carpet",
+  "room": "room",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "wdg",
+   "spud",
+   "pot"
+  ],
+  "hint": 0,
+  "what": "a poker all-in already running: Wedge shoves every chip into the pot, Spud with three chips left"
+ },
+ "cast": [
+  {
+   "id": "wdg",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.65,
+    -0.92
+   ],
+   "face": 38,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.45,
+    -0.98
+   ],
+   "face": -25,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1.15,
+    0.3
+   ],
+   "face": 75,
+   "expr": "eager",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.25,
+    -0.5
+   ],
+   "face": -60,
+   "expr": "deadpan",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "casinohall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "w": 20,
+   "d": 24,
+   "h": 7.5,
+   "dim": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "pokerlamp",
+   "x": 0,
+   "y": 0,
+   "z": -0.05,
+   "dome": 2.65
+  },
+  {
+   "id": "table",
+   "kind": "pokertable",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "w": 1.6,
+   "d": 1.1,
+   "h": 0.62
+  },
+  {
+   "id": "chW",
+   "kind": "sschair",
+   "x": -0.65,
+   "z": -0.92,
+   "rot": 38,
+   "tip": 0
+  },
+  {
+   "id": "chS",
+   "kind": "sschair",
+   "x": 0.45,
+   "z": -0.98,
+   "rot": -25,
+   "tip": 0
+  },
+  {
+   "id": "chC",
+   "kind": "sschair",
+   "x": -1.15,
+   "z": 0.3,
+   "rot": 75,
+   "tip": 0
+  },
+  {
+   "id": "chM",
+   "kind": "sschair",
+   "x": 1.25,
+   "z": -0.5,
+   "rot": -60,
+   "tip": 0
+  },
+  {
+   "id": "g0",
+   "kind": "casinoguest",
+   "x": -5.6,
+   "y": 0,
+   "z": -4.2,
+   "rot": 90,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g1",
+   "kind": "casinoguest",
+   "x": -5.6,
+   "y": 0,
+   "z": -7.4,
+   "rot": 90,
+   "h": 0.9,
+   "dress": "gown",
+   "color": "#7a1f3d",
+   "sway": 1
+  },
+  {
+   "id": "g2",
+   "kind": "casinoguest",
+   "x": -5.6,
+   "y": 0,
+   "z": -10.2,
+   "rot": 90,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g3",
+   "kind": "casinoguest",
+   "x": 5.6,
+   "y": 0,
+   "z": -5,
+   "rot": -90,
+   "h": 0.9,
+   "dress": "gown",
+   "color": "#1f4f7a",
+   "sway": 1
+  },
+  {
+   "id": "g4",
+   "kind": "casinoguest",
+   "x": 5.6,
+   "y": 0,
+   "z": -9.6,
+   "rot": -90,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g5",
+   "kind": "casinoguest",
+   "x": 1.6,
+   "y": 0,
+   "z": -4.6,
+   "rot": -20,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g6",
+   "kind": "casinoguest",
+   "x": -1,
+   "y": 0,
+   "z": -4.3,
+   "rot": 15,
+   "h": 0.9,
+   "dress": "gown",
+   "color": "#5a2a7a",
+   "sway": 1
+  },
+  {
+   "id": "g7",
+   "kind": "casinoguest",
+   "x": 2.4,
+   "y": 0,
+   "z": -6.6,
+   "rot": -30,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g8",
+   "kind": "casinoguest",
+   "x": -0.2,
+   "y": 0,
+   "z": -6.2,
+   "rot": 5,
+   "h": 0.9,
+   "dress": "gown",
+   "color": "#2a6a4a",
+   "sway": 1
+  },
+  {
+   "id": "g9",
+   "kind": "casinoguest",
+   "x": 0.6,
+   "y": 0,
+   "z": -8,
+   "rot": -10,
+   "h": 0.9,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "pot",
+   "kind": "chippile",
+   "x": 0,
+   "y": 0.62,
+   "z": -0.05,
+   "r": 0.32,
+   "amount": 0.5
+  },
+  {
+   "id": "wS1",
+   "kind": "chipstack",
+   "x": -0.32,
+   "y": 0.62,
+   "z": -0.47,
+   "n": 14,
+   "color": "#222"
+  },
+  {
+   "id": "wS2",
+   "kind": "chipstack",
+   "x": -0.25,
+   "y": 0.62,
+   "z": -0.53,
+   "n": 12,
+   "color": "#c62828"
+  },
+  {
+   "id": "sS1",
+   "kind": "chipstack",
+   "x": 0.24,
+   "y": 0.62,
+   "z": -0.42,
+   "n": 3,
+   "color": "#1e4fb5"
+  },
+  {
+   "id": "sS2",
+   "kind": "chipstack",
+   "x": 0.04,
+   "y": 0.62,
+   "z": -0.24,
+   "n": 0,
+   "color": "#c62828"
+  },
+  {
+   "id": "sS3",
+   "kind": "chipstack",
+   "x": 0.17,
+   "y": 0.62,
+   "z": -0.27,
+   "n": 0,
+   "color": "#2e7d32"
+  },
+  {
+   "id": "sS4",
+   "kind": "chipstack",
+   "x": 0.1,
+   "y": 0.62,
+   "z": -0.15,
+   "n": 0,
+   "color": "#222"
+  },
+  {
+   "id": "mount",
+   "kind": "chipmountain",
+   "x": 0.48,
+   "y": 0.62,
+   "z": -0.12,
+   "w": 0.48,
+   "d": 0.36,
+   "h": 1.45,
+   "grow": 0
+  },
+  {
+   "id": "sFan",
+   "kind": "cardfan",
+   "cards": [
+    "Kh",
+    "Kc"
+   ],
+   "back": true,
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "spread": 0.6
+  },
+  {
+   "id": "sC1",
+   "kind": "playcard",
+   "card": "Kh",
+   "x": 0.38,
+   "y": 0.622,
+   "z": -0.28,
+   "rot": 8,
+   "tip": -90,
+   "scale": 0.001
+  },
+  {
+   "id": "sC2",
+   "kind": "playcard",
+   "card": "Kc",
+   "x": 0.5,
+   "y": 0.622,
+   "z": -0.24,
+   "rot": 8,
+   "tip": -90,
+   "scale": 0.001
+  },
+  {
+   "id": "keys",
+   "kind": "carkeys",
+   "x": -0.25,
+   "y": 0.62,
+   "z": -0.38,
+   "rot": 30,
+   "scale": 0.001
+  },
+  {
+   "id": "aces",
+   "kind": "cardfan",
+   "cards": [
+    "As",
+    "Ah",
+    "Ad",
+    "Ac"
+   ],
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "scale": 1.6,
+   "spread": 0
+  },
+  {
+   "id": "mphone",
+   "kind": "phone",
+   "x": 0.978,
+   "y": 0.86,
+   "z": -0.251,
+   "rot": 300,
+   "tip": -35,
+   "scale": 1.6,
+   "case": "#3a7bd5"
+  },
+  {
+   "id": "glow",
+   "kind": "eyeglow",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.61,
+   "z": 0.36,
+   "gap": 0.2,
+   "ew": 0.08,
+   "eh": 0.095,
+   "on": 0,
+   "pulse": 0
+  },
+  {
+   "id": "bW",
+   "kind": "thoughtbubble",
+   "x": -0.65,
+   "y": 1.82,
+   "z": -0.92,
+   "r": 0.2,
+   "obj": "cards27",
+   "pop": 0,
+   "still": true
+  },
+  {
+   "id": "bC",
+   "kind": "thoughtbubble",
+   "x": -1.15,
+   "y": 1.3,
+   "z": 0.3,
+   "r": 0.17,
+   "obj": "pizza",
+   "pop": 0
+  },
+  {
+   "id": "bM",
+   "kind": "thoughtbubble",
+   "x": 1.25,
+   "y": 2.01,
+   "z": -0.5,
+   "r": 0.17,
+   "obj": "phone",
+   "pop": 0
+  },
+  {
+   "id": "gb0",
+   "kind": "thoughtbubble",
+   "x": -5.6,
+   "y": 1.8,
+   "z": -4.2,
+   "r": 0.4,
+   "obj": "shoe",
+   "pop": 0,
+   "seed": 0
+  },
+  {
+   "id": "gb1",
+   "kind": "thoughtbubble",
+   "x": -5.6,
+   "y": 1.8,
+   "z": -7.4,
+   "r": 0.4,
+   "obj": "fish",
+   "pop": 0,
+   "seed": 1
+  },
+  {
+   "id": "gb2",
+   "kind": "thoughtbubble",
+   "x": -5.6,
+   "y": 1.8,
+   "z": -10.2,
+   "r": 0.4,
+   "obj": "clock",
+   "pop": 0,
+   "seed": 2
+  },
+  {
+   "id": "gb3",
+   "kind": "thoughtbubble",
+   "x": 5.6,
+   "y": 1.8,
+   "z": -5,
+   "r": 0.4,
+   "obj": "heart",
+   "pop": 0,
+   "seed": 3
+  },
+  {
+   "id": "gb4",
+   "kind": "thoughtbubble",
+   "x": 5.6,
+   "y": 1.8,
+   "z": -9.6,
+   "r": 0.4,
+   "obj": "sandwich",
+   "pop": 0,
+   "seed": 4
+  },
+  {
+   "id": "gb5",
+   "kind": "thoughtbubble",
+   "x": 1.6,
+   "y": 1.8,
+   "z": -4.6,
+   "r": 0.4,
+   "obj": "football",
+   "pop": 0,
+   "seed": 5
+  },
+  {
+   "id": "gb6",
+   "kind": "thoughtbubble",
+   "x": -1,
+   "y": 1.8,
+   "z": -4.3,
+   "r": 0.4,
+   "obj": "coin",
+   "pop": 0,
+   "seed": 6
+  },
+  {
+   "id": "gb7",
+   "kind": "thoughtbubble",
+   "x": 2.4,
+   "y": 1.8,
+   "z": -6.6,
+   "r": 0.4,
+   "obj": "crown",
+   "pop": 0,
+   "seed": 7
+  },
+  {
+   "id": "gb8",
+   "kind": "thoughtbubble",
+   "x": -0.2,
+   "y": 1.8,
+   "z": -6.2,
+   "r": 0.4,
+   "obj": "gift",
+   "pop": 0,
+   "seed": 8
+  },
+  {
+   "id": "gb9",
+   "kind": "thoughtbubble",
+   "x": 0.6,
+   "y": 1.8,
+   "z": -8,
+   "r": 0.4,
+   "obj": "cat",
+   "pop": 0,
+   "seed": 9
+  },
+  {
+   "id": "fHall",
+   "kind": "bubblefield",
+   "x": 0,
+   "y": 1.3,
+   "z": -7.5,
+   "w": 14,
+   "h": 4,
+   "d": 11,
+   "n": 260,
+   "r": [
+    0.12,
+    0.3
+   ],
+   "objs": 0.7,
+   "seed": 6,
+   "fill": 0,
+   "rise": 0
+  },
+  {
+   "id": "fNear",
+   "kind": "bubblefield",
+   "x": 0,
+   "y": 1.25,
+   "z": -0.8,
+   "w": 3.6,
+   "h": 1.8,
+   "d": 3.2,
+   "n": 150,
+   "r": [
+    0.08,
+    0.2
+   ],
+   "objs": 0.75,
+   "seed": 9,
+   "fill": 0,
+   "rise": 0
+  },
+  {
+   "id": "fWdg",
+   "kind": "bubblefield",
+   "x": -0.65,
+   "y": 1.55,
+   "z": -0.92,
+   "w": 1.2,
+   "h": 1,
+   "d": 0.9,
+   "n": 70,
+   "r": [
+    0.06,
+    0.13
+   ],
+   "objs": 0.85,
+   "seed": 13,
+   "fill": 0,
+   "rise": 0
+  },
+  {
+   "id": "city",
+   "kind": "neoncity",
+   "x": 1000,
+   "y": 0,
+   "z": 0,
+   "w": 120,
+   "d": 120,
+   "casino": [
+    0,
+    0
+   ]
+  },
+  {
+   "id": "fCity",
+   "kind": "bubblefield",
+   "x": 1000,
+   "y": 14,
+   "z": -25,
+   "w": 110,
+   "h": 28,
+   "d": 90,
+   "n": 600,
+   "r": [
+    0.9,
+    2.4
+   ],
+   "objs": 0.6,
+   "seed": 21,
+   "fill": 0,
+   "rise": 0,
+   "glow": 1
+  },
+  {
+   "id": "room",
+   "kind": "hotelroom",
+   "x": 2000,
+   "y": 0,
+   "z": 0,
+   "bed": 0
+  },
+  {
+   "id": "bed",
+   "kind": "hotelbed",
+   "x": 1999.8,
+   "y": 0,
+   "z": -1.25
+  },
+  {
+   "id": "sky",
+   "kind": "nightskyline",
+   "x": 2000,
+   "y": -1,
+   "z": 13,
+   "w": 30,
+   "h": 14,
+   "r": 18
+  },
+  {
+   "id": "pillow",
+   "kind": "hotelpillow",
+   "x": 2000,
+   "y": -60,
+   "z": 0,
+   "scale": 1.3
+  },
+  {
+   "id": "fRoom",
+   "kind": "bubblefield",
+   "x": 2000.2,
+   "y": 1.75,
+   "z": -0.9,
+   "w": 3.6,
+   "h": 1.2,
+   "d": 2.6,
+   "n": 110,
+   "r": [
+    0.07,
+    0.17
+   ],
+   "objs": 0.7,
+   "seed": 31,
+   "fill": 0,
+   "rise": 0,
+   "glow": 1
+  },
+  {
+   "id": "fStream",
+   "kind": "bubblefield",
+   "x": 2000.5,
+   "y": 0.8,
+   "z": -5.5,
+   "w": 6,
+   "h": 2.5,
+   "d": 5,
+   "n": 160,
+   "r": [
+    0.07,
+    0.16
+   ],
+   "objs": 0.6,
+   "seed": 37,
+   "fill": 0,
+   "rise": 0,
+   "pull": 0,
+   "to": [
+    -0.7,
+    0.7,
+    4.3
+   ],
+   "glow": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.7,
+   "to": 2.27,
+   "text": "Trust me.",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.75,
+   "to": 5.4,
+   "text": "Call!",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.4,
+   "to": 6.4,
+   "text": "Let's go!",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.65,
+   "to": 14.75,
+   "text": "Too loud!",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 15.2,
+   "to": 15.9,
+   "text": "Car keys. All in.",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 15.9,
+   "to": 16.87,
+   "text": "Which one is yours?!",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.2,
+   "to": 18.3,
+   "text": "Four aces.",
+   "pos": 540,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 21.9,
+   "text": "Would you still want it?",
+   "pos": 540,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 all-in",
+   "at": 0,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.6,
+     2.2,
+     2.9
+    ],
+    "look": [
+     -0.15,
+     0.8,
+     -0.5
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.5,
+      2.1,
+      2.6
+     ],
+     "look": [
+      -0.15,
+      0.82,
+      -0.5
+     ],
+     "fov": 52
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "pulse": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "dim": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS2",
+     "set": {
+      "n": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "n": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS4",
+     "set": {
+      "n": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sC1",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sC2",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "sit",
+     "seat": "chW",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "chS",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "chC",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "chM",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mphone",
+      "grip": [
+       -0.061,
+       0.065,
+       -0.006
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "mphone",
+     "hand": "L",
+     "grip": [
+      -0.061,
+      0.065,
+      -0.006
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sFan",
+     "set": {
+      "x": 0.496,
+      "y": 0.66,
+      "z": -0.605,
+      "rot": 155
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "sFan",
+      "grip": [
+       0,
+       0.03,
+       -0.02
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.06,
+       0.655,
+       -0.46
+      ],
+      "palm": [
+       0.06,
+       0.22,
+       -0.46
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.45,
+       0.655,
+       -0.4
+      ],
+      "palm": [
+       -0.45,
+       0.22,
+       -0.4
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.33,
+       0.655,
+       -0.6
+      ],
+      "palm": [
+       -0.33,
+       0.22,
+       -0.6
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wS1",
+     "set": {
+      "x": -0.32,
+      "z": -0.47
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wS2",
+     "set": {
+      "x": -0.25,
+      "z": -0.53
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "lid": 0.45,
+      "curve": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.2,
+      "brow": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "What if you could read minds?",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "sfx": "ai/step-carpet",
+     "gain": 0.001,
+     "reason": "placeholder so the sound pass knows the floor is carpet",
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.3,
+       0.655,
+       -0.14
+      ],
+      "palm": [
+       -0.3,
+       0.22,
+       -0.14
+      ]
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.18,
+       0.655,
+       -0.34
+      ],
+      "palm": [
+       -0.18,
+       0.22,
+       -0.34
+      ]
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "wS1",
+     "set": {
+      "x": -0.17,
+      "z": -0.21
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "wS2",
+     "set": {
+      "x": -0.1,
+      "z": -0.27
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.5,
+     "reason": "two tall stacks of chips slid over the felt",
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 2,
+     "height": 0.05,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "fx": "sweat",
+     "who": "spud",
+     "dur": 1.2,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "amount": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.35,
+     "reason": "the stacks topple into the pot",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "wS1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "wS2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.85
+    },
+    {
+     "who": "wdg",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0.9
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.05
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 Wedge stares",
+   "at": 1.6,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     -0.1,
+     1.35,
+     1.5
+    ],
+    "look": [
+     -0.1,
+     1.1,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "lid": 0.55,
+      "curve": 0.55,
+      "brow": -0.2
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "talk",
+     "line": "trust me.",
+     "tone": "calm",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "02 Spud gulps",
+   "at": 2.3,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.25,
+     1.2,
+     0.8
+    ],
+    "look": [
+     0.35,
+     1,
+     -1
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.25,
+      1.17,
+      0.62
+     ],
+     "look": [
+      0.35,
+      1.02,
+      -1
+     ],
+     "fov": 44
+    },
+    "dur": 0.7,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2,
+      "eye": 1.15,
+      "brow": 0.6,
+      "curve": -0.3
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 0.2
+    },
+    {
+     "sfx": "gulp",
+     "gain": 0.6,
+     "at": 0.22
+    }
+   ]
+  },
+  {
+   "name": "03 the eyes glow",
+   "at": 3,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     0.27,
+     1.12,
+     0.5
+    ],
+    "look": [
+     0.35,
+     1.05,
+     -1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.28,
+      1.1,
+      0.28
+     ],
+     "look": [
+      0.35,
+      1.05,
+      -1
+     ],
+     "fov": 40
+    },
+    "dur": 0.7,
+    "ease": "in"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": -0.3,
+      "eye": 1.25
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/magic-zap",
+     "gain": 0.45,
+     "reason": "the power switches on: a soft magic shimmer, no ringing bell",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "on": 1,
+      "pulse": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bW",
+     "set": {
+      "spin": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    }
+   ]
+  },
+  {
+   "name": "03 the bubble over Wedge",
+   "at": 3.7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     1.3,
+     0.25
+    ],
+    "look": [
+     -0.62,
+     1.42,
+     -0.95
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bW",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.35,
+     "ease": "back",
+     "at": 0.1
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.4,
+     "reason": "the thought bubble pops in over Wedge",
+     "at": 0.12
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "04 the call",
+   "at": 4.7,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.35,
+     1.7,
+     1.9
+    ],
+    "look": [
+     0.3,
+     0.9,
+     -0.75
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.44,
+       0.68,
+       -0.27
+      ],
+      "palm": [
+       0.44,
+       0.22,
+       -0.27
+      ]
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "call!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "voice": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sFan",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "sC1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.24
+    },
+    {
+     "do": "prop",
+     "id": "sC2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.24
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 0.25
+    },
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.9,
+      "eye": 1.4
+     },
+     "dur": 0.12,
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "wdg",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "count": 3,
+     "height": 0.07,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.22,
+       0.655,
+       0.12
+      ],
+      "palm": [
+       0.22,
+       0.22,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.12,
+       0.655,
+       0.08
+      ],
+      "palm": [
+       -0.12,
+       0.22,
+       0.08
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "let's go!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.3,
+       0.655,
+       -0.26
+      ],
+      "palm": [
+       0.3,
+       0.22,
+       -0.26
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.02,
+       0.655,
+       -0.32
+      ],
+      "palm": [
+       -0.02,
+       0.22,
+       -0.32
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "x": 0.12,
+      "z": -0.22
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.5,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.36,
+       0.655,
+       -0.36
+      ],
+      "palm": [
+       0.36,
+       0.22,
+       -0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.06,
+       0.655,
+       -0.46
+      ],
+      "palm": [
+       0.06,
+       0.22,
+       -0.46
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sC1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sC2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS1",
+     "set": {
+      "n": 12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS2",
+     "set": {
+      "n": 12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "n": 12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS4",
+     "set": {
+      "n": 12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "bW",
+     "set": {
+      "spin": 15
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "05 every head",
+   "at": 6.5,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.05,
+     2.3,
+     3.6
+    ],
+    "look": [
+     0,
+     1.25,
+     -0.5
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bC",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.2
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.35,
+     "at": 0.22
+    },
+    {
+     "do": "prop",
+     "id": "bM",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.45
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.35,
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "sS1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "sS2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "sS4",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "mount",
+     "set": {
+      "grow": 0.35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.57
+    }
+   ]
+  },
+  {
+   "name": "06 the mountain",
+   "at": 8.1,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.1,
+     0.95,
+     1
+    ],
+    "look": [
+     0.35,
+     1.5,
+     -0.8
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      0.1,
+      0.9,
+      0.85
+     ],
+     "look": [
+      0.35,
+      1.65,
+      -0.8
+     ],
+     "fov": 60
+    },
+    "dur": 1.8,
+    "ease": "out"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mount",
+     "set": {
+      "grow": 1
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.6,
+     "reason": "the chips piling up into a tower",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "back",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "back",
+     "at": 0.15
+    },
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.3,
+      0.4
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "You'd never lose again.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 0.35
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.3,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "07 the spread",
+   "at": 9.9,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.15,
+     1.5,
+     0.9
+    ],
+    "look": [
+     0.3,
+     1.6,
+     -3
+    ],
+    "fov": 55,
+    "to": {
+     "pos": [
+      0.15,
+      1.55,
+      1.1
+     ],
+     "look": [
+      0.3,
+      1.7,
+      -3
+     ],
+     "fov": 58
+    },
+    "dur": 2,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.06,
+       0.655,
+       -0.46
+      ],
+      "palm": [
+       0.06,
+       0.22,
+       -0.46
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.86,
+       0.14
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "curve": -0.2,
+      "brow": 0.3
+     },
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "But there's a catch.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "gb0",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.35
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 0.37
+    },
+    {
+     "do": "prop",
+     "id": "gb1",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.47
+    },
+    {
+     "do": "prop",
+     "id": "gb2",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.59
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "fHall",
+     "set": {
+      "fill": 0.35
+     },
+     "dur": 1.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "gb3",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.71
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 0.81
+    },
+    {
+     "do": "prop",
+     "id": "gb4",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "gb5",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.95
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "gb6",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 1.07
+    },
+    {
+     "do": "prop",
+     "id": "gb7",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 1.19
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "gb8",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 1.31
+    },
+    {
+     "do": "prop",
+     "id": "gb9",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 1.43
+    },
+    {
+     "sfx": "ringpop",
+     "gain": 0.25,
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "fCity",
+     "set": {
+      "fill": 0.25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "08 the city",
+   "at": 11.9,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1000,
+     40,
+     25
+    ],
+    "look": [
+     1000,
+     10,
+     -40
+    ],
+    "fov": 55,
+    "to": {
+     "pos": [
+      1000,
+      41,
+      21
+     ],
+     "look": [
+      1000,
+      11,
+      -40
+     ],
+     "fov": 55
+    },
+    "dur": 1.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fCity",
+     "set": {
+      "fill": 1,
+      "rise": 6
+     },
+     "dur": 1.4,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "windswell",
+     "gain": 0.5,
+     "reason": "the sky over the city filling with thoughts",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hat",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/magic-zap",
+     "gain": 0.3,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "fHall",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "fNear",
+     "set": {
+      "fill": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3,
+      "eye": 0.6,
+      "squint": 0.8
+     },
+     "dur": 0.01,
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "09 the flood",
+   "at": 13.3,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.1,
+     1.3,
+     0.45
+    ],
+    "look": [
+     0.22,
+     1.2,
+     -1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fNear",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "reason": "a roar of thousands of thoughts at once",
+     "at": 0
+    },
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "too loud!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.36,
+       0.655,
+       -0.36
+      ],
+      "palm": [
+       0.36,
+       0.22,
+       -0.36
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.06,
+       0.655,
+       -0.46
+      ],
+      "palm": [
+       0.06,
+       0.22,
+       -0.46
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.25,
+       0.68,
+       -0.38
+      ],
+      "palm": [
+       -0.25,
+       0.22,
+       -0.38
+      ]
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.55
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "10 the keys",
+   "at": 14.9,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.3,
+     1.65,
+     1.9
+    ],
+    "look": [
+     0,
+     1.15,
+     -0.85
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6,
+      "lid": 0.4
+     },
+     "dur": 0.12,
+     "at": 0.1
+    },
+    {
+     "who": "wdg",
+     "do": "look",
+     "to": [
+      0.9,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "keys",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.7,
+     "at": 0.16
+    },
+    {
+     "who": "wdg",
+     "do": "talk",
+     "line": "car keys. all in.",
+     "tone": "calm",
+     "dur": 0.8,
+     "blink": false,
+     "voice": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "fWdg",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.9,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "which one is yours?!",
+     "tone": "excited",
+     "dur": 0.8,
+     "blink": false,
+     "voice": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.85,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.06,
+       1,
+       0.18
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.6,
+       0.655,
+       -0.36
+      ],
+      "palm": [
+       0.6,
+       0.22,
+       -0.36
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.38,
+       0.655,
+       -0.38
+      ],
+      "palm": [
+       0.38,
+       0.22,
+       -0.38
+      ]
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.15,
+       0.655,
+       -0.24
+      ],
+      "palm": [
+       0.15,
+       0.22,
+       -0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.07,
+       0.655,
+       -0.26
+      ],
+      "palm": [
+       -0.07,
+       0.22,
+       -0.26
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "mount",
+     "set": {
+      "x": 0.03,
+      "z": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.6,
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "aces",
+     "set": {
+      "x": -0.539,
+      "y": 1,
+      "z": -0.55,
+      "rot": 0,
+      "spread": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.97
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "aces",
+      "grip": [
+       0,
+       0.03,
+       -0.02
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 1.97
+    },
+    {
+     "who": "wdg",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 1.97
+    }
+   ]
+  },
+  {
+   "name": "11 four aces",
+   "at": 16.9,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.45,
+     1.55,
+     1.6
+    ],
+    "look": [
+     -0.15,
+     1.05,
+     -0.85
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.7,
+      "lid": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "wdg",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "aces",
+     "set": {
+      "spread": 1
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "papercut",
+     "gain": 0.5,
+     "reason": "four cards fanned out",
+     "at": 0.1
+    },
+    {
+     "who": "wdg",
+     "do": "talk",
+     "line": "four aces.",
+     "tone": "calm",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.24,
+       0.655,
+       -0.2
+      ],
+      "palm": [
+       -0.24,
+       0.22,
+       -0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "macro": "sigh",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.12
+     },
+     "dur": 0.35,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "brow": -0.25,
+     "dur": 0.4,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.44,
+       0.655,
+       -0.5
+      ],
+      "palm": [
+       -0.44,
+       0.22,
+       -0.5
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "mount",
+     "set": {
+      "x": -0.17,
+      "z": -0.3
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.6,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.5,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1.3,
+     "idle": 0.1,
+     "sink": 0.012,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 1.94
+    },
+    {
+     "do": "prop",
+     "id": "pillow",
+     "set": {
+      "x": 1999.8,
+      "y": 1.4,
+      "z": -1.27,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pillow",
+      "grip": [
+       0.24,
+       0.05,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pillow",
+      "grip": [
+       -0.24,
+       0.05,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1999.8,
+      -1.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "wdg",
+     "do": "hide",
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.98
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.05,
+      "eye": 1.35,
+      "curve": -0.3
+     },
+     "dur": 0.01,
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "fRoom",
+     "set": {
+      "fill": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "fStream",
+     "set": {
+      "fill": 1,
+      "pull": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.98
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bed",
+     "height": 0.5,
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 1.99
+    }
+   ]
+  },
+  {
+   "name": "12 the hotel room",
+   "at": 18.9,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1999.85,
+     1.75,
+     1.8
+    ],
+    "look": [
+     1999.8,
+     1.3,
+     -1.3
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      1999.85,
+      1.7,
+      1.4
+     ],
+     "look": [
+      1999.8,
+      1.3,
+      -1.3
+     ],
+     "fov": 52
+    },
+    "dur": 3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fRoom",
+     "set": {
+      "fill": 1
+     },
+     "dur": 2.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fStream",
+     "set": {
+      "pull": 1
+     },
+     "dur": 3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "dur": 3,
+     "gain": 0.25,
+     "reason": "the city's thoughts murmuring through the window",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.15,
+     "at": 0.68
+    },
+    {
+     "macro": "narrate",
+     "line": "Would you still want it?",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.5
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.6,
+   "see": [
+    "wdg.face",
+    "spud.face",
+    "pot"
+   ],
+   "why": "frame 0: Wedge shoves every chip into the pot, Spud with three chips left"
+  },
+  {
+   "from": 1.6,
+   "to": 2.3,
+   "see": [
+    "wdg.face",
+    "spud.face"
+   ],
+   "why": "Wedge stares him down, smug: trust me"
+  },
+  {
+   "from": 2.3,
+   "to": 3,
+   "see": [
+    "spud.face"
+   ],
+   "why": "Spud gulps, sweating, three chips left"
+  },
+  {
+   "from": 3,
+   "to": 3.7,
+   "see": [
+    "spud.face",
+    "glow"
+   ],
+   "why": "Spud's eyes light up blue-white"
+  },
+  {
+   "from": 3.7,
+   "to": 4.7,
+   "see": [
+    "wdg.face",
+    "bW"
+   ],
+   "why": "over Wedge's head a bubble: the 2 and the 7, a bluff; Wedge still grins"
+  },
+  {
+   "from": 4.7,
+   "to": 6.5,
+   "see": [
+    "spud.face",
+    "pot"
+   ],
+   "why": "Spud calls, slaps his cards down and rakes the pot in; Chip cheers"
+  },
+  {
+   "from": 6.5,
+   "to": 8.1,
+   "see": [
+    "spud.face",
+    "bW",
+    "bC",
+    "bM"
+   ],
+   "why": "a bubble over every friend: cards, pizza, a phone; Spud grins behind his stacks"
+  },
+  {
+   "from": 8.1,
+   "to": 9.9,
+   "see": [
+    "spud.face",
+    "mount"
+   ],
+   "why": "a mountain of chips towers beside Spud, arms up; the others have nothing"
+  },
+  {
+   "from": 9.9,
+   "to": 11.9,
+   "see": [
+    "spud.face",
+    "gb6",
+    "gb8"
+   ],
+   "why": "his smile gone: a bubble over every guest on the casino floor, more and more"
+  },
+  {
+   "from": 11.9,
+   "to": 13.3,
+   "see": [
+    "fCity"
+   ],
+   "why": "the neon city at night: a glowing bubble over every roof and window, thousands"
+  },
+  {
+   "from": 13.3,
+   "to": 14.9,
+   "see": [
+    "spud.face"
+   ],
+   "why": "the casino packed wall to wall with bubbles; Spud's gloves on his head"
+  },
+  {
+   "from": 14.9,
+   "to": 16.9,
+   "see": [
+    "wdg.face",
+    "spud.face",
+    "keys"
+   ],
+   "why": "Wedge slams his car keys down; Spud, both gloves up, swats through the bubbles over Wedge's head, then pushes it all in"
+  },
+  {
+   "from": 16.9,
+   "to": 18.9,
+   "see": [
+    "wdg.face",
+    "aces",
+    "spud.face"
+   ],
+   "why": "Wedge fans four aces at us and scoops the mountain away; Spud slumps, empty gloves"
+  },
+  {
+   "from": 18.9,
+   "to": 21.9,
+   "see": [
+    "spud.face",
+    "glow"
+   ],
+   "why": "night, a hotel room high above the city: Spud awake, pillow on his head, the thoughts streaming in"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "wdg",
+   "with": "chW",
+   "from": 0,
+   "to": 18.9,
+   "reason": "seated in his chair"
+  },
+  {
+   "who": "spud",
+   "with": "chS",
+   "from": 0,
+   "to": 18.9,
+   "reason": "seated in his chair"
+  },
+  {
+   "who": "chip",
+   "with": "chC",
+   "from": 0,
+   "to": 18.9,
+   "reason": "seated in his chair"
+  },
+  {
+   "who": "mash",
+   "with": "chM",
+   "from": 0,
+   "to": 18.9,
+   "reason": "seated in his chair"
+  },
+  {
+   "who": "mash",
+   "with": "mphone",
+   "from": 0,
+   "to": 18.9,
+   "reason": "his phone in his glove (he never looks up)"
+  },
+  {
+   "who": "spud",
+   "with": "sFan",
+   "from": 0,
+   "to": 5,
+   "reason": "his two cards held to his chest"
+  },
+  {
+   "who": "spud",
+   "with": "sS1",
+   "from": 0,
+   "to": 6.5,
+   "reason": "his last three chips beside his resting glove"
+  },
+  {
+   "who": "wdg",
+   "with": "wS1",
+   "from": 0,
+   "to": 1.2,
+   "reason": "shoving his stacks into the loose chips of the pot"
+  },
+  {
+   "who": "wdg",
+   "with": "wS2",
+   "from": 0,
+   "to": 1.2,
+   "reason": "shoving his stacks into the loose chips of the pot"
+  },
+  {
+   "who": "wdg",
+   "with": "pot",
+   "from": 0,
+   "to": 1.2,
+   "reason": "shoving his stacks into the loose chips of the pot"
+  },
+  {
+   "who": "spud",
+   "with": "pot",
+   "from": 4.7,
+   "to": 6.5,
+   "reason": "slapping his cards down and raking the loose chips in"
+  },
+  {
+   "who": "spud",
+   "with": "sC1",
+   "from": 4.7,
+   "to": 6.5,
+   "reason": "slapping his cards down and raking the loose chips in"
+  },
+  {
+   "who": "spud",
+   "with": "sC2",
+   "from": 4.7,
+   "to": 6.5,
+   "reason": "slapping his cards down and raking the loose chips in"
+  },
+  {
+   "who": "spud",
+   "with": "mount",
+   "from": 14.9,
+   "to": 16.9,
+   "reason": "both gloves pushing the chip tower into the middle"
+  },
+  {
+   "who": "wdg",
+   "with": "mount",
+   "from": 16.9,
+   "to": 18.9,
+   "reason": "his glove scooping the chip tower to his side"
+  },
+  {
+   "who": "wdg",
+   "with": "aces",
+   "from": 16.9,
+   "to": 18.9,
+   "reason": "four aces fanned in his glove"
+  },
+  {
+   "who": "spud",
+   "with": "bed",
+   "from": 18.9,
+   "to": 21.9,
+   "reason": "sitting up on the hotel bed"
+  },
+  {
+   "who": "spud",
+   "with": "pillow",
+   "from": 18.9,
+   "to": 21.9,
+   "reason": "the pillow pressed on his head with both gloves"
+  },
+  {
+   "who": "spud",
+   "with": "glow",
+   "from": 0,
+   "to": 21.9,
+   "reason": "the glowing eyes are worn on his face"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/06-read-minds/make-read-minds.mjs."
+}

@@ -33,15 +33,15 @@ At = seconds in `read-minds-no-vo`. Filled from `qa/panelfit.mjs` after the stag
 
 | Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | 0.3 | wdg | | | | | wdg, spud, chip, mash | above | Spud sits on the right side of the table, not at the back: the call and the mountain need him facing us |
-| 02 | 1.7 / 2.4 | wdg, spud | | | | | wdg / spud | level | two close singles instead of one two-shot: across the table they sit 2.9 m apart |
-| 03 | 3.1 / 3.8 | spud, wdg | | | | | spud / wdg | level | the reveal is a POV over Spud's shoulder on Wedge and his bubble |
+| 01 | 0.3 | wdg | | | | | wdg, spud, chip, mash | above | all four in an arc on the far side, Chip small at the front left (a tall frame is narrow) |
+| 02 | 1.7 / 2.4 | wdg, spud | | | | | wdg, spud / spud | level | the two-shot, then a close single on Spud's gulp |
+| 03 | 3.1 / 3.8 | spud, wdg | | | | | spud / wdg | level | the reveal is Spud's point of view on Wedge and his bubble |
 | 04 | 4.8 | spud | | | | | spud, wdg, chip | level | |
 | 05 | 6.6 | spud | | | | | all four | above | |
-| 06 | 8.2 | spud | | | | | spud | level | over Wedge's and Mash's backs (the sheet shows three backs; Chip sits on the far side) |
+| 06 | 8.2 | spud | | | | | spud | below | low and close on Spud instead of over three backs: the tower stands beside him on the felt |
 | 07 | 10.0 | spud | | | | | spud | level | |
 | 08 | 12.0 | city | | | | | - | above | |
 | 09 | 13.4 | spud | | | | | spud | level | |
-| 10 | 15.0 | wdg | | | | | wdg, spud | level | Spud stands across the table, not behind Wedge |
+| 10 | 15.0 | wdg | | | | | wdg, spud | level | Spud swats the bubbles from his chair, not standing (standing put him into the table); Wedge beside him, not in front |
 | 11 | 17.0 | wdg | | | | | wdg, spud | level | |
 | 12 | 19.0 | spud | | | | | spud | level | Spud sits up in bed with the pillow pressed on his head, not lying under the blanket (a lying rig pose is not built) |
