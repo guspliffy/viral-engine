@@ -3328,6 +3328,149 @@
      "loudnessLUFS": -18.5
     }
    ]
+  },
+  {
+   "id": "car-flooding",
+   "kind": "sfx",
+   "files": [
+    "car-flooding/car-flooding-01.wav",
+    "car-flooding/car-flooding-02.wav",
+    "car-flooding/car-flooding-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "water",
+    "flood",
+    "car",
+    "gurgle"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "inside a car sinking in a lake, cold water flooding in through the doors and floor, heavy deep gurgling flow filling the footwells, low and full, muffled, realistic film sound effect, no spraying, no hissing",
+    "water pouring and gurgling into a flooded car interior, deep rushing inflow under the seats, bubbling, heavy volume of water, realistic recording"
+   ],
+   "seed": [
+    912,
+    913,
+    911
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.3,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "car-flooding/car-flooding-01.wav",
+     "take": "p0-s912",
+     "prompt": "inside a car sinking in a lake, cold water flooding in through the doors and floor, heavy deep gurgling flow filling the footwells, low and full, muffled, realistic film sound effect, no spraying, no hissing",
+     "seed": 912,
+     "startSec": 0.5,
+     "durationSec": 6.0,
+     "clap": 0.236,
+     "snrDb": null,
+     "loudnessLUFS": -20.6
+    },
+    {
+     "file": "car-flooding/car-flooding-02.wav",
+     "take": "p0-s913",
+     "prompt": "inside a car sinking in a lake, cold water flooding in through the doors and floor, heavy deep gurgling flow filling the footwells, low and full, muffled, realistic film sound effect, no spraying, no hissing",
+     "seed": 913,
+     "startSec": 0.5,
+     "durationSec": 6.0,
+     "clap": 0.159,
+     "snrDb": null,
+     "loudnessLUFS": -22.3
+    },
+    {
+     "file": "car-flooding/car-flooding-03.wav",
+     "take": "p0-s911",
+     "prompt": "inside a car sinking in a lake, cold water flooding in through the doors and floor, heavy deep gurgling flow filling the footwells, low and full, muffled, realistic film sound effect, no spraying, no hissing",
+     "seed": 911,
+     "startSec": 0.5,
+     "durationSec": 6.0,
+     "clap": 0.138,
+     "snrDb": null,
+     "loudnessLUFS": -23.3
+    }
+   ]
+  },
+  {
+   "id": "house-fire",
+   "kind": "sfx",
+   "files": [
+    "house-fire/house-fire-01.wav",
+    "house-fire/house-fire-02.wav",
+    "house-fire/house-fire-03.wav",
+    "house-fire/house-fire-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "fire",
+    "house",
+    "crackle",
+    "roar"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "a house fire inside a bedroom, loud crackling and roaring flames, wood popping and burning, close, realistic film sound effect",
+    "room on fire, big roaring blaze with crackling timber and snapping wood, realistic recording, no music"
+   ],
+   "seed": [
+    921,
+    922,
+    923,
+    923
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -30.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "house-fire/house-fire-01.wav",
+     "take": "p1-s921",
+     "prompt": "room on fire, big roaring blaze with crackling timber and snapping wood, realistic recording, no music",
+     "seed": 921,
+     "startSec": 2.5,
+     "durationSec": 6.0,
+     "clap": 0.189,
+     "snrDb": null,
+     "loudnessLUFS": -27.8
+    },
+    {
+     "file": "house-fire/house-fire-02.wav",
+     "take": "p1-s922",
+     "prompt": "room on fire, big roaring blaze with crackling timber and snapping wood, realistic recording, no music",
+     "seed": 922,
+     "startSec": 0.5,
+     "durationSec": 6.0,
+     "clap": 0.169,
+     "snrDb": null,
+     "loudnessLUFS": -32.2
+    },
+    {
+     "file": "house-fire/house-fire-03.wav",
+     "take": "p1-s923",
+     "prompt": "room on fire, big roaring blaze with crackling timber and snapping wood, realistic recording, no music",
+     "seed": 923,
+     "startSec": 0.5,
+     "durationSec": 6.0,
+     "clap": 0.13,
+     "snrDb": null,
+     "loudnessLUFS": -31.5
+    },
+    {
+     "file": "house-fire/house-fire-04.wav",
+     "take": "p0-s923",
+     "prompt": "a house fire inside a bedroom, loud crackling and roaring flames, wood popping and burning, close, realistic film sound effect",
+     "seed": 923,
+     "startSec": 1.5,
+     "durationSec": 6.0,
+     "clap": 0.083,
+     "snrDb": null,
+     "loudnessLUFS": -29.4
+    }
+   ]
   }
  ]
 }

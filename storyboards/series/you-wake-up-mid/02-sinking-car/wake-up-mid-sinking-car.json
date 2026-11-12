@@ -37,7 +37,7 @@
     null
    ],
    [
-    1.43,
+    2.29,
     [
      0,
      0.8,
@@ -129,8 +129,8 @@
  },
  "creative": {
   "length": [
-   37.34,
-   37.34
+   34,
+   34
   ]
  },
  "hook": {
@@ -139,7 +139,7 @@
    "beams"
   ],
   "hint": 0,
-  "what": "frame 0: the red car already in the air off the snapped bridge, nose down toward the storm lake"
+  "what": "frame 0: the red car races over the snapped end of a bridge in a storm, the lake 14 m below"
  },
  "panels": {
   "md": "storyboards/series/you-wake-up-mid/02-sinking-car/PANELS.md"
@@ -159,37 +159,70 @@
      "at": 0,
      "pos": [
       0,
-      11.6,
-      -8.6
+      14,
+      -19.1
      ],
      "yaw": 0,
-     "pitch": 16,
+     "pitch": 0,
      "roll": 0
     },
     {
-     "at": 0.6,
+     "at": 0.62,
      "pos": [
       0,
-      8.6,
-      -5.4
+      14,
+      -14
+     ],
+     "yaw": 0,
+     "pitch": 2,
+     "roll": 0
+    },
+    {
+     "at": 0.95,
+     "pos": [
+      0,
+      13.47,
+      -11.26
+     ],
+     "yaw": 0,
+     "pitch": 8,
+     "roll": 0
+    },
+    {
+     "at": 1.3,
+     "pos": [
+      0,
+      11.73,
+      -8.36
+     ],
+     "yaw": 0,
+     "pitch": 15,
+     "roll": 0
+    },
+    {
+     "at": 1.65,
+     "pos": [
+      0,
+      8.8,
+      -5.45
      ],
      "yaw": 0,
      "pitch": 22,
      "roll": 0
     },
     {
-     "at": 1.15,
+     "at": 2,
      "pos": [
       0,
-      3.2,
-      -1.6
+      4.67,
+      -2.55
      ],
      "yaw": 0,
-     "pitch": 30,
+     "pitch": 29,
      "roll": 0
     },
     {
-     "at": 1.45,
+     "at": 2.31,
      "pos": [
       0,
       -0.25,
@@ -200,7 +233,7 @@
      "roll": 0
     },
     {
-     "at": 1.8,
+     "at": 2.65,
      "pos": [
       0,
       -1,
@@ -211,7 +244,7 @@
      "roll": 0
     },
     {
-     "at": 2.3,
+     "at": 3.15,
      "pos": [
       0,
       -0.25,
@@ -222,7 +255,7 @@
      "roll": 0
     },
     {
-     "at": 2.8,
+     "at": 3.6,
      "pos": [
       0,
       -0.55,
@@ -233,7 +266,7 @@
      "roll": 0
     },
     {
-     "at": 3.3,
+     "at": 4.05,
      "pos": [
       0,
       -0.45,
@@ -343,7 +376,7 @@
      "roll": 0
     },
     {
-     "at": 37.34,
+     "at": 34,
      "pos": [
       0,
       -7,
@@ -630,37 +663,70 @@
       "at": 0,
       "pos": [
        0,
-       11.6,
-       -8.6
+       14,
+       -19.1
       ],
       "yaw": 0,
-      "pitch": 16,
+      "pitch": 0,
       "roll": 0
      },
      {
-      "at": 0.6,
+      "at": 0.62,
       "pos": [
        0,
-       8.6,
-       -5.4
+       14,
+       -14
+      ],
+      "yaw": 0,
+      "pitch": 2,
+      "roll": 0
+     },
+     {
+      "at": 0.95,
+      "pos": [
+       0,
+       13.47,
+       -11.26
+      ],
+      "yaw": 0,
+      "pitch": 8,
+      "roll": 0
+     },
+     {
+      "at": 1.3,
+      "pos": [
+       0,
+       11.73,
+       -8.36
+      ],
+      "yaw": 0,
+      "pitch": 15,
+      "roll": 0
+     },
+     {
+      "at": 1.65,
+      "pos": [
+       0,
+       8.8,
+       -5.45
       ],
       "yaw": 0,
       "pitch": 22,
       "roll": 0
      },
      {
-      "at": 1.15,
+      "at": 2,
       "pos": [
        0,
-       3.2,
-       -1.6
+       4.67,
+       -2.55
       ],
       "yaw": 0,
-      "pitch": 30,
+      "pitch": 29,
       "roll": 0
      },
      {
-      "at": 1.45,
+      "at": 2.31,
       "pos": [
        0,
        -0.25,
@@ -671,7 +737,7 @@
       "roll": 0
      },
      {
-      "at": 1.8,
+      "at": 2.65,
       "pos": [
        0,
        -1,
@@ -682,7 +748,7 @@
       "roll": 0
      },
      {
-      "at": 2.3,
+      "at": 3.15,
       "pos": [
        0,
        -0.25,
@@ -693,7 +759,7 @@
       "roll": 0
      },
      {
-      "at": 2.8,
+      "at": 3.6,
       "pos": [
        0,
        -0.55,
@@ -704,7 +770,7 @@
       "roll": 0
      },
      {
-      "at": 3.3,
+      "at": 4.05,
       "pos": [
        0,
        -0.45,
@@ -814,7 +880,7 @@
       "roll": 0
      },
      {
-      "at": 37.34,
+      "at": 34,
       "pos": [
        0,
        -7,
@@ -874,84 +940,6 @@
    "r": 1.4
   },
   {
-   "id": "smoke",
-   "kind": "cabinsmoke",
-   "x": 0,
-   "y": 100,
-   "z": -240,
-   "x0": -2,
-   "x1": 2,
-   "z0": -2.5,
-   "z1": 2.5,
-   "top": 2.6
-  },
-  {
-   "id": "curtL",
-   "kind": "firecurtain",
-   "x": -0.45,
-   "y": 100,
-   "z": -242.3,
-   "w": 0.5,
-   "h": 1.7,
-   "edge": 1,
-   "staged": "the bedroom wall stands in the smoke"
-  },
-  {
-   "id": "curtR",
-   "kind": "firecurtain",
-   "x": 0.55,
-   "y": 100,
-   "z": -242.3,
-   "w": 0.5,
-   "h": 1.7,
-   "edge": -1,
-   "color": "#8c6fb8",
-   "staged": "the bedroom wall stands in the smoke"
-  },
-  {
-   "id": "stand",
-   "kind": "nightstand",
-   "x": -0.95,
-   "y": 100,
-   "z": -240.4
-  },
-  {
-   "id": "bed2",
-   "kind": "bed",
-   "x": 0,
-   "y": 100,
-   "z": -239.25,
-   "rot": 180,
-   "blanket": "#4f6a8f",
-   "dots": "#c9b98a"
-  },
-  {
-   "id": "clock2",
-   "kind": "digiclock",
-   "x": -0.95,
-   "y": 100.5,
-   "z": -240.35,
-   "text": "03:12"
-  },
-  {
-   "id": "lids2",
-   "staged": "a first-person overlay",
-   "kind": "eyelids",
-   "cam": {
-    "pos": [
-     0,
-     100.85,
-     -239.5
-    ],
-    "look": [
-     0.1,
-     101.05,
-     -242.4
-    ],
-    "fov": 68
-   }
-  },
-  {
    "id": "spudWC",
    "kind": "carrier",
    "x": 0.9,
@@ -975,8 +963,8 @@
  ],
  "captions": [
   {
-   "from": 3.3,
-   "to": 3.71,
+   "from": 4.05,
+   "to": 4.422,
    "text": "1:00",
    "pos": 1220,
    "pop": false,
@@ -985,8 +973,8 @@
    "kinetic": false
   },
   {
-   "from": 3.71,
-   "to": 4.12,
+   "from": 4.422,
+   "to": 4.795,
    "text": "0:59",
    "pos": 1220,
    "pop": false,
@@ -995,8 +983,8 @@
    "kinetic": false
   },
   {
-   "from": 4.12,
-   "to": 4.53,
+   "from": 4.795,
+   "to": 5.167,
    "text": "0:58",
    "pos": 1220,
    "pop": false,
@@ -1005,8 +993,8 @@
    "kinetic": false
   },
   {
-   "from": 4.53,
-   "to": 4.94,
+   "from": 5.167,
+   "to": 5.54,
    "text": "0:57",
    "pos": 1220,
    "pop": false,
@@ -1015,8 +1003,8 @@
    "kinetic": false
   },
   {
-   "from": 4.94,
-   "to": 5.35,
+   "from": 5.54,
+   "to": 5.913,
    "text": "0:56",
    "pos": 1220,
    "pop": false,
@@ -1025,8 +1013,8 @@
    "kinetic": false
   },
   {
-   "from": 5.35,
-   "to": 5.76,
+   "from": 5.913,
+   "to": 6.285,
    "text": "0:55",
    "pos": 1220,
    "pop": false,
@@ -1035,8 +1023,8 @@
    "kinetic": false
   },
   {
-   "from": 5.76,
-   "to": 6.17,
+   "from": 6.285,
+   "to": 6.658,
    "text": "0:54",
    "pos": 1220,
    "pop": false,
@@ -1045,8 +1033,8 @@
    "kinetic": false
   },
   {
-   "from": 6.17,
-   "to": 6.58,
+   "from": 6.658,
+   "to": 7.03,
    "text": "0:53",
    "pos": 1220,
    "pop": false,
@@ -1055,8 +1043,8 @@
    "kinetic": false
   },
   {
-   "from": 6.58,
-   "to": 6.99,
+   "from": 7.03,
+   "to": 7.403,
    "text": "0:52",
    "pos": 1220,
    "pop": false,
@@ -1065,8 +1053,8 @@
    "kinetic": false
   },
   {
-   "from": 6.99,
-   "to": 7.4,
+   "from": 7.403,
+   "to": 7.775,
    "text": "0:51",
    "pos": 1220,
    "pop": false,
@@ -1075,8 +1063,8 @@
    "kinetic": false
   },
   {
-   "from": 7.4,
-   "to": 7.81,
+   "from": 7.775,
+   "to": 8.148,
    "text": "0:50",
    "pos": 1220,
    "pop": false,
@@ -1085,8 +1073,8 @@
    "kinetic": false
   },
   {
-   "from": 7.81,
-   "to": 8.22,
+   "from": 8.148,
+   "to": 8.52,
    "text": "0:49",
    "pos": 1220,
    "pop": false,
@@ -1095,8 +1083,8 @@
    "kinetic": false
   },
   {
-   "from": 8.22,
-   "to": 8.63,
+   "from": 8.52,
+   "to": 8.893,
    "text": "0:48",
    "pos": 1220,
    "pop": false,
@@ -1105,8 +1093,8 @@
    "kinetic": false
   },
   {
-   "from": 8.63,
-   "to": 9.04,
+   "from": 8.893,
+   "to": 9.265,
    "text": "0:47",
    "pos": 1220,
    "pop": false,
@@ -1115,8 +1103,8 @@
    "kinetic": false
   },
   {
-   "from": 9.04,
-   "to": 9.45,
+   "from": 9.265,
+   "to": 9.638,
    "text": "0:46",
    "pos": 1220,
    "pop": false,
@@ -1125,8 +1113,8 @@
    "kinetic": false
   },
   {
-   "from": 9.45,
-   "to": 9.86,
+   "from": 9.638,
+   "to": 10.01,
    "text": "0:45",
    "pos": 1220,
    "pop": false,
@@ -1135,8 +1123,8 @@
    "kinetic": false
   },
   {
-   "from": 9.86,
-   "to": 10.27,
+   "from": 10.01,
+   "to": 10.383,
    "text": "0:44",
    "pos": 1220,
    "pop": false,
@@ -1145,8 +1133,8 @@
    "kinetic": false
   },
   {
-   "from": 10.27,
-   "to": 10.68,
+   "from": 10.383,
+   "to": 10.755,
    "text": "0:43",
    "pos": 1220,
    "pop": false,
@@ -1155,8 +1143,8 @@
    "kinetic": false
   },
   {
-   "from": 10.68,
-   "to": 11.09,
+   "from": 10.755,
+   "to": 11.128,
    "text": "0:42",
    "pos": 1220,
    "pop": false,
@@ -1165,7 +1153,7 @@
    "kinetic": false
   },
   {
-   "from": 11.09,
+   "from": 11.128,
    "to": 11.5,
    "text": "0:41",
    "pos": 1220,
@@ -1603,8 +1591,8 @@
    "kinetic": false
   },
   {
-   "from": 3.4,
-   "to": 4.55,
+   "from": 4.15,
+   "to": 5.3,
    "text": "One minute.",
    "pos": 470,
    "pop": false,
@@ -1612,8 +1600,8 @@
    "kinetic": false
   },
   {
-   "from": 4.55,
-   "to": 5.74,
+   "from": 5.3,
+   "to": 6.49,
    "text": "Belt off.",
    "pos": 470,
    "pop": false,
@@ -1709,51 +1697,33 @@
    "pop": false,
    "size": 62,
    "kinetic": false
-  },
-  {
-   "from": 34.3,
-   "to": 35.036,
-   "text": "You wake up",
-   "pos": 470,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 35.036,
-   "to": 36.29,
-   "text": "mid house fire.",
-   "pos": 470,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
   }
  ],
  "beats": [
   {
-   "name": "the fall",
+   "name": "the crash",
    "at": 0,
-   "len": 1.95,
+   "len": 0.95,
    "shot": {
     "pos": [
-     5,
-     2.5,
-     7.5
+     4.3,
+     15.3,
+     -11.2
     ],
     "look": [
      0,
-     9.5,
-     -7
+     14.5,
+     -18.5
     ],
-    "fov": 55,
+    "fov": 48,
     "to": {
      "look": [
-      0,
-      1,
-      -0.5
+      -0.3,
+      13.6,
+      -11
      ]
     },
-    "dur": 1.5,
+    "dur": 0.95,
     "ease": "inOut"
    },
    "do": [
@@ -1891,7 +1861,7 @@
     {
      "sfx": "ai/storm-lake",
      "gain": 0.3,
-     "dur": 3.3,
+     "dur": 4.05,
      "reason": "rain and wind over the lake",
      "at": 0
     },
@@ -1950,7 +1920,37 @@
      "voice": "narrator",
      "caption": false,
      "at": 0.05
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the fall",
+   "at": 0.95,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     5,
+     2.5,
+     7.5
+    ],
+    "look": [
+     0,
+     13,
+     -10.5
+    ],
+    "fov": 55,
+    "to": {
+     "look": [
+      0,
+      1,
+      -0.5
+     ]
     },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "do": "prop",
      "id": "spray",
@@ -1959,7 +1959,7 @@
      },
      "dur": 0.9,
      "ease": "out",
-     "at": 1.45
+     "at": 1.36
     },
     {
      "do": "prop",
@@ -1969,20 +1969,20 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 1.45
+     "at": 1.36
     },
     {
      "fx": "shake",
      "amp": 0.05,
      "dur": 0.4,
-     "at": 1.45
+     "at": 1.36
     },
     {
      "sfx": "ai/car-lake-impact",
      "gain": 1,
      "loud": true,
      "reason": "the car hits the lake nose first",
-     "at": 1.45
+     "at": 1.36
     },
     {
      "do": "prop",
@@ -1992,14 +1992,13 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 1.93
+     "at": 1.78
     }
-   ],
-   "kind": "hook"
+   ]
   },
   {
    "name": "the blink",
-   "at": 1.95,
+   "at": 2.75,
    "len": 0.65,
    "shot": {
     "rig": "car",
@@ -2063,8 +2062,8 @@
   },
   {
    "name": "his face",
-   "at": 2.6,
-   "len": 0.7,
+   "at": 3.4,
+   "len": 0.65,
    "shot": {
     "rig": "car",
     "pos": [
@@ -2125,7 +2124,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.68
+     "at": 0.63
     },
     {
      "do": "prop",
@@ -2135,7 +2134,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.68
+     "at": 0.63
     },
     {
      "do": "prop",
@@ -2145,14 +2144,14 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 0.68
+     "at": 0.63
     }
    ]
   },
   {
    "name": "it floats",
-   "at": 3.3,
-   "len": 3.7,
+   "at": 4.05,
+   "len": 2.95,
    "shot": {
     "rig": "car",
     "pos": [
@@ -2174,7 +2173,7 @@
      "set": {
       "level": 0.52
      },
-     "dur": 3.7,
+     "dur": 2.95,
      "ease": "linear",
      "at": 0
     },
@@ -2184,21 +2183,21 @@
      "set": {
       "level": 0.52
      },
-     "dur": 3.7,
+     "dur": 2.95,
      "ease": "linear",
      "at": 0
     },
     {
-     "sfx": "ai/water-leak-hiss",
-     "gain": 0.5,
-     "dur": 10.5,
-     "reason": "water hissing in under the dash",
+     "sfx": "ai/car-flooding",
+     "gain": 0.55,
+     "dur": 9.75,
+     "reason": "the lake gurgling in under the doors and seats (Jonny: the hiss sounded like sprinkling)",
      "at": 0
     },
     {
      "sfx": "ai/rain-car-roof",
      "gain": 0.3,
-     "dur": 15.7,
+     "dur": 14.95,
      "reason": "rain drumming on the roof",
      "at": 0
     },
@@ -4932,7 +4931,7 @@
      "do": "prop",
      "id": "chipWC",
      "set": {
-      "x": 24,
+      "x": 21.5,
       "y": -0.4,
       "z": -2.6
      },
@@ -4958,7 +4957,7 @@
      "do": "prop",
      "id": "spudWC",
      "set": {
-      "x": 24,
+      "x": 21.5,
       "y": -0.9,
       "z": -3.5
      },
@@ -4984,7 +4983,7 @@
      "do": "prop",
      "id": "mashWC",
      "set": {
-      "x": 24,
+      "x": 21.5,
       "y": -1.05,
       "z": -4.4
      },
@@ -5014,26 +5013,26 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     23,
+     19.8,
      1,
-     0.5
+     0.8
     ],
     "look": [
-     26.5,
+     22.8,
      0.1,
-     -3.8
+     -3.6
     ],
     "fov": 45,
     "to": {
      "pos": [
-      28.5,
+      23.8,
       1,
-      -0.5
+      0.4
      ],
      "look": [
-      32,
-      0.2,
-      -5
+      26.8,
+      0.15,
+      -4.4
      ]
     },
     "dur": 1.8,
@@ -5044,8 +5043,8 @@
      "do": "prop",
      "id": "chipWC",
      "set": {
-      "x": 31.5,
-      "z": -4.6
+      "x": 26.3,
+      "z": -3.6
      },
      "dur": 1.7,
      "ease": "linear",
@@ -5070,8 +5069,8 @@
      "do": "prop",
      "id": "spudWC",
      "set": {
-      "x": 31.5,
-      "z": -5.5
+      "x": 26.3,
+      "z": -4.5
      },
      "dur": 1.7,
      "ease": "linear",
@@ -5096,8 +5095,8 @@
      "do": "prop",
      "id": "mashWC",
      "set": {
-      "x": 31.5,
-      "z": -6.4
+      "x": 26.3,
+      "z": -5.4
      },
      "dur": 1.7,
      "ease": "linear",
@@ -5626,136 +5625,22 @@
      },
      "dur": 0.35,
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "lids2",
-     "set": {
-      "open": 0.15
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.43
-    },
-    {
-     "do": "prop",
-     "id": "smoke",
-     "set": {
-      "fill": 0.8,
-      "fire": 0.8
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.43
-    },
-    {
-     "do": "prop",
-     "id": "curtL",
-     "set": {
-      "fire": 1
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.43
-    },
-    {
-     "do": "prop",
-     "id": "curtR",
-     "set": {
-      "fire": 0.7
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0.43
-    }
-   ]
-  },
-  {
-   "name": "the next one",
-   "at": 34,
-   "len": 3.34,
-   "shot": {
-    "pos": [
-     0,
-     100.85,
-     -239.5
-    ],
-    "look": [
-     0.1,
-     101.05,
-     -242.4
-    ],
-    "fov": 68
-   },
-   "do": [
-    {
-     "do": "prop",
-     "id": "lids2",
-     "set": {
-      "open": 1
-     },
-     "dur": 0.6,
-     "ease": "out",
-     "at": 0.05
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 0.1
-    },
-    {
-     "macro": "narrate",
-     "line": "You wake up mid house fire.",
-     "voice": "narrator",
-     "caption": false,
-     "at": 0.3
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 0.65
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 1.2
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 1.75
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 2.3
-    },
-    {
-     "sfx": "ai/smoke-alarm",
-     "gain": 0.45,
-     "reason": "the smoke alarm",
-     "at": 2.85
     }
    ]
   }
  ],
  "visible": [
   {
-   "from": 2.15,
-   "to": 2.6,
+   "from": 2.95,
+   "to": 3.4,
    "see": [
     "mash.face"
    ],
    "why": "first person at the wheel: his eyes open on the lake over the bonnet, Mash screams"
   },
   {
-   "from": 2.7,
-   "to": 3.3,
+   "from": 3.5,
+   "to": 4.05,
    "see": [
     "spud.face",
     "wheel"
@@ -5764,16 +5649,24 @@
   },
   {
    "from": 0.1,
-   "to": 1.95,
+   "to": 0.95,
    "see": [
     "beams",
-    "spray",
     "bridge"
    ],
-   "why": "frame 0: the red car already off the snapped bridge, it hits the lake in a wall of spray"
+   "why": "frame 0: the red car races over the snapped end of the bridge"
   },
   {
-   "from": 3.4,
+   "from": 1,
+   "to": 2.75,
+   "see": [
+    "beams",
+    "spray"
+   ],
+   "why": "the car flies nose down and hits the lake in a wall of spray"
+  },
+  {
+   "from": 4.15,
    "to": 7,
    "see": [
     "spud.face",
@@ -5944,7 +5837,7 @@
   {
    "who": "spud",
    "with": "water",
-   "from": 3.3,
+   "from": 4.05,
    "to": 19,
    "checks": [
     "clipping"
@@ -5954,7 +5847,7 @@
   {
    "who": "mash",
    "with": "water",
-   "from": 3.3,
+   "from": 4.05,
    "to": 19,
    "checks": [
     "clipping"
@@ -5964,7 +5857,7 @@
   {
    "who": "chip",
    "with": "water",
-   "from": 3.3,
+   "from": 4.05,
    "to": 19,
    "checks": [
     "clipping"
@@ -5975,7 +5868,7 @@
    "who": "spud",
    "with": "wheel",
    "from": 0,
-   "to": 3.3,
+   "to": 4.05,
    "checks": [
     "hand-in-prop"
    ],

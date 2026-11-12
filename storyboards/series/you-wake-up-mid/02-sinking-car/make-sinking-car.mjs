@@ -13,6 +13,7 @@
 // near bridge stump's broken lip at z -14, deck top y 14; the shore (SHORE) about 34 m toward +x. The car is a rig
 // ("hatchback", front +z, the driver at +x); the three inside it are rig cast (spud, mash, chip); outside the car the same
 // three are world cast (spudW, mashW, chipW), swapped on cuts.
+import { readFileSync } from "node:fs";
 import { clip, write, r3, SUB_STYLE } from "../../../lib/clip.mjs";
 
 const FACES = "strong";
@@ -23,7 +24,8 @@ const LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = t
 
 const c = clip({ faces: FACES, lines: LINES }), { A, see, prop } = c;
 // NOAI=1: leave out the T3 sounds (staging runs before they are generated and whitelisted)
-const sfx = (t, name, o) => (process.env.NOAI && name.startsWith("ai/") ? null : c.sfx(t, name, o));
+const WL = readFileSync(new URL("../../../../assets/sfx/whitelist.json", import.meta.url), "utf8");   // a sound still being made (T4) is left out until it is whitelisted
+const sfx = (t, name, o) => ((process.env.NOAI && name.startsWith("ai/")) || (name.startsWith("ai/") && !WL.includes(`"${name}"`)) ? null : c.sfx(t, name, o));
 const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- the timeline (s)
@@ -32,11 +34,15 @@ const DUR = { wake: 3.11, belt: 2.09, phone: 0.93, door: 1.02, window: 1.99, sma
 const T = {
   // OPENS ON THE CRASH (storytelling-study input 12 Nov: EP01's eyelid opening lost most viewers by 0:02; danger at
   // frame 0 held best). Panel order 03, 01, 02, 04... (asked Jonny; the panel-order cut is make-sinking-car.panel-order.mjs.bak)
-  fall: 0,        // 03 outside: the car is already off the snapped bridge at frame 0
-  hit: 1.45,      //    the impact (a real fall from the deck takes about 1.5 s)
-  pov: 1.95,      // 01 inside, through his opening eyelids: the lake over the bonnet, Mash screaming
-  face: 2.6,      // 02 his face at the wheel
-  cabin: 3.3,     // 04 inside: it floats, water at their feet, 1:00
+  // Jonny 12 Nov 18:56 on draft 1: "the first second should be one see the car crashing over the bridge and then the
+  // second scene the car flying" -> two outside shots before the eyelids.
+  crash: 0,       // 03a on the deck: the car races past and over the broken end
+  fly: 0.95,      // 03b wide: the car flying, nose dropping, into the lake
+  lip: 0.62,      //    the front wheels leave the deck (8.3 m/s, a 14 m fall takes 1.69 s)
+  hit: 2.31,      //    the impact
+  pov: 2.75,      // 01 inside, through his opening eyelids: the lake over the bonnet, Mash screaming
+  face: 3.4,      // 02 his face at the wheel
+  cabin: 4.05,    // 04 inside: it floats, water at their feet, 1:00
   phone: 7.0,     // 05 Mash dials, Spud knocks the phone down
   door: 9.0,      // 06 Mash shoves his door
   button: 11.5,   // 07 the window button, the lights die, 0:40
@@ -54,12 +60,14 @@ const T = {
   close: 33.55,   //    his eyes close
   fire: 34.0,     //    POV: a smoky bedroom, the alarm
 };
-T.end = r3(T.fire + 0.3 + DUR.fire + 1.3);
+T.end = T.fire;   // the burning house is its own clip (make-sinking-car-fire.mjs, set energyroom), joined after this one
 
 // ---------------------------------------------------------------- the car (DESIGN 2 "The car's fall"; pitch = nose down, degrees)
 const CARKEYS = [
-  [0, [0, 11.6, -8.6], 16], [0.6, [0, 8.6, -5.4], 22], [1.15, [0, 3.2, -1.6], 30], [T.hit, [0, -0.25, 0], 34],
-  [1.8, [0, -1.0, 0.5], 18], [2.3, [0, -0.25, 0.8], -2], [2.8, [0, -0.55, 0.8], 4], [T.cabin, [0, -0.45, 0.8], 3],
+  // on the deck (y 14) at 8.3 m/s, off the lip at z -14, then a free fall: y = 14 - 4.9 (t - lip)^2, z on at 8.3 m/s
+  [0, [0, 14.0, -19.1], 0], [T.lip, [0, 14.0, -14.0], 2], [0.95, [0, 13.47, -11.26], 8], [1.3, [0, 11.73, -8.36], 15],
+  [1.65, [0, 8.8, -5.45], 22], [2.0, [0, 4.67, -2.55], 29], [T.hit, [0, -0.25, 0], 34],
+  [2.65, [0, -1.0, 0.5], 18], [3.15, [0, -0.25, 0.8], -2], [3.6, [0, -0.55, 0.8], 4], [T.cabin, [0, -0.45, 0.8], 3],
   [7.0, [0, -0.7, 0.8], 5], [9.0, [0, -1.1, 0.8], 7], [11.5, [0, -1.3, 0.8], 9], [T.burst, [0, -1.47, 0.8], 10],
   [T.back, [0, -1.7, 0.8], 14], [T.out, [0, -2.2, 0.8], 25], [T.drag, [0, -3.2, 0.9], 35], [T.deep, [0, -5.0, 1.0], 40],
   [26.5, [0, -7.0, 1.1], 20], [T.end, [0, -7.0, 1.1], 20],
@@ -92,7 +100,8 @@ const LEVEL = [[T.cabin, 0.44], [7.0, 0.52], [9.0, 0.66], [11.5, 0.8], [T.burst,
 const CAM = {
   pov: { rig: "car", pos: [0.55, 1.3, 0.55], look: [0.5, 0.9, 8], fov: 66 },                                                // 01
   face: { rig: "car", pos: [0.55, 1.8, 2.95], look: [0.55, 1.25, 0.2], fov: 40, to: { pos: [0.55, 1.75, 2.7] }, dur: 1.25, ease: "out" },   // 02
-  fall: { pos: [5, 2.5, 7.5], look: [0, 9.5, -7], fov: 55, to: { look: [0, 1.0, -0.5] }, dur: 1.5, ease: "inOut" },             // 03
+  crash: { pos: [4.3, 15.3, -11.2], look: [0, 14.5, -18.5], fov: 48, to: { look: [-0.3, 13.6, -11.0] }, dur: 0.95, ease: "inOut" },   // on the deck by the broken end
+  fall: { pos: [5, 2.5, 7.5], look: [0, 13.0, -10.5], fov: 55, to: { look: [0, 1.0, -0.5] }, dur: 1.4, ease: "inOut" },             // 03
   cabin: { rig: "car", pos: [0.05, 2.15, 3.3], look: [0.05, 1.0, -0.2], fov: 58 },                                                 // 04 through the windscreen
   phone: { rig: "car", pos: [0.05, 1.8, 3.0], look: [0.0, 1.2, 0.2], fov: 50 },                                               // 05
   door: { rig: "car", pos: [-2.3, 1.4, 0.35], look: [-0.4, 1.15, 0.25], fov: 42 }, // outside his window water halfway up the door,                                            // 06
@@ -105,10 +114,9 @@ const CAM = {
   deep: { pos: [5.0, -5.2, 4.5], look: [1.5, -2.5, 1.2], fov: 60 },                                                          // 11
   rise: { pos: [3.5, -3.4, 3.5], look: [1.9, -0.6, 1.0], fov: 60 },
   surf: { pos: [4.6, 0.5, 3.4], look: [2.0, 0.1, 0.4], fov: 40 },
-  swim: { pos: [23, 1.0, 0.5], look: [26.5, 0.1, -3.8], fov: 45, to: { pos: [28.5, 1.0, -0.5], look: [32, 0.2, -5.0] }, dur: 1.8, ease: "inOut" },
+  swim: { pos: [19.8, 1.0, 0.8], look: [22.8, 0.1, -3.6], fov: 45, to: { pos: [23.8, 1.0, 0.4], look: [26.8, 0.15, -4.4] }, dur: 1.8, ease: "inOut" },
   shore: { pos: [37.6, 2.4, -3.6], look: [34.4, 1.3, -6.0], fov: 45 },                                                       // 12
   close: { pos: [34.5, 2.3, -7.6], look: [34.5, 0.9, -5.4], fov: 38 },
-  fire: { pos: [0, 100.85, -239.5], look: [0.1, 101.05, -242.4], fov: 68 }   // from his pillow toward the burning back wall,
 };
 
 // ---------------------------------------------------------------- cast
@@ -143,14 +151,6 @@ const props = [
   { id: "bubW", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "stream", car: null, at: [0.99, 1.4, 0.2], rates: [[T.out, 45], [22, 45], [T.deep, 12], [26, 0]] },
   { id: "bubM", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "mouth", from: T.out, to: T.rise, at: [1.2, -1.5, 0.3] },
   { id: "foam", kind: "wakefoam", x: 1.4, y: 0, z: 1.0, r: 1.4 },
-  // the last shot: a bedroom far away on land, behind the abutment (the alarm, smoke under the ceiling)
-  { id: "smoke", kind: "cabinsmoke", x: 0, y: 100, z: -240, x0: -2, x1: 2, z0: -2.5, z1: 2.5, top: 2.6 },
-  { id: "curtL", kind: "firecurtain", x: -0.45, y: 100, z: -242.3, w: 0.5, h: 1.7, edge: 1, staged: "the bedroom wall stands in the smoke" },
-  { id: "curtR", kind: "firecurtain", x: 0.55, y: 100, z: -242.3, w: 0.5, h: 1.7, edge: -1, color: "#8c6fb8", staged: "the bedroom wall stands in the smoke" },
-  { id: "stand", kind: "nightstand", x: -0.95, y: 100, z: -240.4 },
-  { id: "bed2", kind: "bed", x: 0, y: 100, z: -239.25, rot: 180, blanket: "#4f6a8f", dots: "#c9b98a" },
-  { id: "clock2", kind: "digiclock", x: -0.95, y: 100.5, z: -240.35, text: "03:12" },
-  { id: "lids2", staged: "a first-person overlay", kind: "eyelids", cam: { pos: CAM.fire.pos, look: CAM.fire.look, fov: CAM.fire.fov } },
   // invisible carriers for the swimmers
   { id: "spudWC", kind: "carrier", x: 0.9, y: -2, z: 0.1 },
   { id: "mashWC", kind: "carrier", x: 0.9, y: -3, z: -0.4 },
@@ -211,7 +211,8 @@ prop(T.hit, "spray", { puff: 1 }, 0.9, "out");
 prop(T.hit, "foam", { on: 1 }, 0.4, "out");
 shake(T.hit, 0.05, 0.4);
 sfx(T.hit, "ai/car-lake-impact", { gain: 1.0, loud: true, reason: "the car hits the lake nose first" });
-see(0.1, T.pov, ["beams", "spray", "bridge"], "frame 0: the red car already off the snapped bridge, it hits the lake in a wall of spray");
+see(0.1, T.fly, ["beams", "bridge"], "frame 0: the red car races over the snapped end of the bridge");
+see(r3(T.fly + 0.05), T.pov, ["beams", "spray"], "the car flies nose down and hits the lake in a wall of spray");
 
 // ================================================================ 04 INSIDE, IT FLOATS 4.5-7.0: water at their feet, 1:00
 for (const id of ["water", "glass"]) {
@@ -219,7 +220,7 @@ for (const id of ["water", "glass"]) {
   for (let k = 0; k < LEVEL.length - 1; k++) prop(LEVEL[k][0], id, { level: LEVEL[k + 1][1] }, r3(LEVEL[k + 1][0] - LEVEL[k][0]), "linear");
 }
 set(T.cabin, "water", { hiss: 1 });
-sfx(T.cabin, "ai/water-leak-hiss", { gain: 0.5, dur: r3(T.burst - T.cabin), reason: "water hissing in under the dash" });
+sfx(T.cabin, "ai/car-flooding", { gain: 0.55, dur: r3(T.burst - T.cabin), reason: "the lake gurgling in under the doors and seats (Jonny: the hiss sounded like sprinkling)" });
 sfx(T.cabin, "ai/rain-car-roof", { gain: 0.3, dur: r3(T.out - T.cabin), reason: "rain drumming on the roof" });
 for (const w of ["spud", "mash", "chip"]) { A(T.cabin, w, "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0 }); }
 A(T.cabin, "spud", "look", { to: [0, -0.6], dur: 0, blink: false });
@@ -345,7 +346,7 @@ sfx(T.surf, "ai/surface-gasp", { gain: 0.7, loud: true, reason: "they burst up, 
 sfx(T.surf, "ai/storm-lake", { gain: 0.3, dur: r3(T.fire - T.surf), reason: "the storm over the lake again" });
 // the swim: heads toward the reeds
 for (const [w, dz] of [["chipW", 0.9], ["spudW", 0], ["mashW", -0.9]]) {
-  set(T.swim, `${w}C`, { x: 24, y: { chipW: -0.4, spudW: -0.9, mashW: -1.05 }[w], z: r3(-3.5 + dz) }); prop(T.swim, `${w}C`, { x: 31.5, z: r3(-5.5 + dz) }, r3(T.shore - T.swim - 0.1), "linear");
+  set(T.swim, `${w}C`, { x: 21.5, y: { chipW: -0.4, spudW: -0.9, mashW: -1.05 }[w], z: r3(-3.5 + dz) }); prop(T.swim, `${w}C`, { x: 26.3, z: r3(-4.5 + dz) }, r3(T.shore - T.swim - 0.1), "linear");   // stays in the water: the waterline is x 30 + 5 sin(z/19), ~28.8 here
   A(cut(T.swim), w, "turn", { to: 80, dur: 0.01 }); A(cut(T.swim), w, "pitch", { to: 25, dur: 0.01 });
   // strokes end 0.2 s before the cut: an anime-timing front-loaded drawing must not reach the shore cheat at cut(T.shore)
   for (let k = 0; k < 3; k++) { c.arm(r3(T.swim + 0.6 * k), w, "R", { o: [0.2, 0.9, 0.5] }, 0.3, "inOut"); if (k < 2) c.arm(r3(T.swim + 0.3 + 0.6 * k), w, "L", { o: [0.2, 0.9, 0.5] }, 0.3, "inOut"); }
@@ -369,15 +370,12 @@ see(r3(T.shore + 0.1), T.close, ["spudW.face", "chipW.face", "mashW.face"], "on 
 A(T.close, "spudW", "expr", { expr: "serene", set: { open: 0 }, dur: 0.35 });
 see(r3(T.close + 0.05), T.fire, ["spudW.face"], "his eyes close");
 
-// ================================================================ THE NEXT ONE 34.0-end: a smoky bedroom, the alarm
-set(T.fire, "lids2", { open: 0.15 }); prop(r3(T.fire + 0.05), "lids2", { open: 1 }, 0.6, "out");
-set(T.fire, "smoke", { fill: 0.8, fire: 0.8 }); set(T.fire, "curtL", { fire: 1 }); set(T.fire, "curtR", { fire: 0.7 });
-for (let t = T.fire + 0.1; t < T.end - 0.2; t += 0.55) sfx(r3(t), "ai/smoke-alarm", { gain: 0.45, reason: "the smoke alarm" });
-narr(r3(T.fire + 0.3), "You wake up mid house fire.", DUR.fire, ["You wake up", "mid house fire."]);
+// THE NEXT ONE (the burning house) is make-sinking-car-fire.mjs, joined after this clip.
 
 // ---------------------------------------------------------------- shots
 const beats = c.beats([
-  ["the fall", 0, CAM.fall, "hook"],
+  ["the crash", 0, CAM.crash, "hook"],
+  ["the fall", T.fly, CAM.fall],
   ["the blink", T.pov, CAM.pov, "reveal"],
   ["his face", T.face, CAM.face],
   ["it floats", T.cabin, CAM.cabin],
@@ -395,7 +393,6 @@ const beats = c.beats([
   ["the swim", T.swim, CAM.swim],
   ["alive", T.shore, CAM.shore, "payoff"],
   ["eyes close", T.close, CAM.close],
-  ["the next one", T.fire, CAM.fire],
 ], T.end);
 
 // ---------------------------------------------------------------- check windows (only what a beat needs, or a shell the check boxes)
@@ -420,7 +417,7 @@ write(import.meta.url, {
   // realistic sounds only (Jonny 12 Nov 16:02): no signature jingles, no movement markers
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [T.end, T.end] },
-  hook: { show: ["bridge", "beams"], hint: 0, what: "frame 0: the red car already in the air off the snapped bridge, nose down toward the storm lake" },
+  hook: { show: ["bridge", "beams"], hint: 0, what: "frame 0: the red car races over the snapped end of a bridge in a storm, the lake 14 m below" },
   panels: { md: "storyboards/series/you-wake-up-mid/02-sinking-car/PANELS.md" },
   rigs,
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

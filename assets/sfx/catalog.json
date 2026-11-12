@@ -3247,6 +3247,41 @@
     "ambience"
    ]
   },
+  "ai/car-flooding": {
+   "family": "wet",
+   "says": "a car interior filling with water: a deep, full, gurgling inflow, almost all energy under 500 Hz, no spray or hiss; steady bed, 6 s with 0.2 s soft edges (AI, EP02; replaces the sprinkling ai/water-leak-hiss)",
+   "source": "ai",
+   "files": [
+    "ai/car-flooding/car-flooding-01.wav",
+    "ai/car-flooding/car-flooding-02.wav",
+    "ai/car-flooding/car-flooding-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "water",
+    "flood",
+    "car",
+    "gurgle"
+   ]
+  },
+  "ai/house-fire": {
+   "family": "fire",
+   "says": "a house fire close by: a steady roar of flames with crackling and popping timber, 6 s with 0.2 s soft edges (AI, EP02, the last shot)",
+   "source": "ai",
+   "files": [
+    "ai/house-fire/house-fire-01.wav",
+    "ai/house-fire/house-fire-02.wav",
+    "ai/house-fire/house-fire-03.wav",
+    "ai/house-fire/house-fire-04.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "fire",
+    "house",
+    "crackle",
+    "roar"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",

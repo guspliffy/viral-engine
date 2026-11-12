@@ -2,7 +2,7 @@
 
 ## Where the build stands
 
-- Step: staging proof done (stills out/sc-stills4/5/6.png); waiting on T3 sounds (whitelist) for the rough draft.
+- Step: ROUGH DRAFT 1 SENT 12 Nov 18:47 Berlin (videos/you-wake-up-mid/02-sinking-car/); waiting on his notes + the opening card.
 - Next: drop NOAI, rough draft (`--draft`), pops line, strip, send to Jonny; no polish until his OK.
 - Layout runs: 3 full + 5 window rounds. Renders so far: drafts 0, farm renders 0; fix rounds used: 0 of 3.
 - Open for polish (not beat-hiding): spud hands in the dash/wheel (0-11.5), hand R over his own eyes 9.0-11.5 (door
@@ -38,3 +38,4 @@
 - eyelids, bridgeend (props-wakeup-fx/out), carseat, steer (props-road), splash, bubbles (props-shark),
   rainstreaks (props-freefall), rainfall (props-okilied), cabinsmoke (props-wakeup-fx), hatchback rig (car-hatchback.js).
 - Draft 1 rendered with --force: the 11 gate fails are hand/contact polish (mittens in the dash, hand over eyes in a shot where Mash is the subject, the hoodie drag merge); workflow rule 2: the rough draft fixes only fails that hide a beat.
+- Draft 2 rendered with --force (same 12 polish fails as draft 1, none hides a beat).
