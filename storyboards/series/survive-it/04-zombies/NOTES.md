@@ -103,3 +103,16 @@ research on what music could fit this and then add it".
   cartoon, game and pop music; picks in the .ogg.json). No ears were involved: Jonny judges it.
   If T.hit or T.roof move, edit score-zombies.json and run score.py again (the raw takes are not in the repo:
   generate.py with the same recipe and seeds makes them again, about 6 minutes).
+
+## 12 Nov 2026: polish after Jonny's OK on draft 2 ("way better i like it")
+
+- Cut cheats popped two frames into each shot: the timing layer's offsets (timing.offsets) shift actions that several
+  actors start at the same moment by one or two frames, cheats included. The generator's `A` now marks every instant
+  action (dur <= 0.012) `sync: true`. Any clip that places a group on a cut needs the same.
+- Hands into neighbours: the check allows 4 cm with a "reach" window, so spacing fixes it, not windows. Groups now
+  stand a body-width plus a hand apart (0.9-1.0 m); the Phoenix's arms reach far (REST or close poses only).
+- P06's turn to the wardrobe takes 0.5 s (0.22 s threw the arms 50 cm a frame).
+- Props that hang on purpose carry `staged` reasons (STAGED in the generator).
+- Pops: the door's fall (`burst`) needs 0.75 s or the leaf jumps across the lens; the police lights ramp 0.25 s.
+- Windows with reasons: the sheet's huddles (hats in depth), its steep angles (brims over eyes), the snap's flash
+  (both bodies placed inside it), the sofa's slam.

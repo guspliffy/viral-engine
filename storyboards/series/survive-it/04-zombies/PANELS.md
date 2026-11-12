@@ -61,9 +61,10 @@ Brief: /mnt/project-files/video-scripts/2026-11-08-survive-it/11-zombie-apocalyp
 - P11b (between panels 11 and 12) is NOT on the sheet: the panels do not show how the Samurai, Wizard and Phoenix get
   from the balcony to the roof, and Jonny's note on the lift draft was "the ending dosnt make sense". Two short cuts:
   the door gives way, all five cross the V. Named to Jonny in the draft message.
-- 04: the blanket on the line is a flat board stand-in, the toilet roll is not placed, Phoenix sits higher than in
-  the panel. 06: the wardrobe is half hidden behind the four backs. 09: Spud is half hidden behind the Gunslinger's
-  hat. 10: boots and a sleeve at the bottom edge are whole bodies on the ladder, kept just out of frame. All four are
-  rough-draft states, fixed in the polish after Jonny's OK (workflow rule 2).
-- The police car has no dent yet (panel 10 shows one), the sky has no pink at dawn (panel 12): polish.
-- Captions sit in the engine's caption band (TikTok's buttons cover the strip where the sheet draws them).
+- 04: the blanket on the line is a flat board (no hanging-cloth prop exists; the bonfire blanket is a lap blanket),
+  Phoenix sits higher than in the panel. 06: the wardrobe is half hidden behind the four backs. 10: boots and a
+  sleeve at the bottom edge are whole bodies on the ladder, kept just out of frame.
+- The police car has no dent (the `policecar` prop has no dent state; the street's own alarm car does, but it is not
+  a police car) and the dawn sky is a warm light, not pink (the street's `dawn` state). Left for a later prop pass.
+- Captions sit in the upper third (Jonny 12 Nov: never over eyes or faces), above the sheet's heads.
+- 11: the camera is wider than the panel (fov 62) so "Drop it!" fits above Spud and both faces stay in the frame.
