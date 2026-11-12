@@ -27,7 +27,11 @@ const LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = t
 const MUSIC = { file: "ai/zombies-score/zombies-score-01.ogg", lock: false, dip: false, gain: 0.45 };
 const SUB_STYLE = {};
 
-const c = clip({ faces: FACES, lines: LINES }), { A, sfx, see, prop } = c;
+const c = clip({ faces: FACES, lines: LINES }), { A: A0, sfx, see, prop } = c;
+// an instant cheat (dur <= 0.012: a pose placed on a cut) is sync: true, or the timing layer's offsets start it one or
+// two frames late and it pops two frames into the new shot (rig-jump at 8.37 s and five other cuts, 12 Nov 2026)
+const A = (t, who, verb, o) => A0(t, who, verb, o && o.dur != null && o.dur <= 0.012 && !("sync" in o) ? { ...o, sync: true } : o);
+const arm = (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, dur, ...(ease && { ease }) });
 const fr = (s) => Math.floor((Math.round(s * 30) / 30) * 1000) / 1000;   // a cut: a frame's time rounded DOWN to ms
 
 // ---------------------------------------------------------------- the timeline (story seconds)
@@ -91,15 +95,15 @@ const toward = ([x, z], [tx, tz]) => r3(Math.atan2(tx - x, tz - z) * 180 / Math.
 // who stands where in each scene: [x, z, yaw]
 const S = {
   p01: { sam: [WALLX + 0.62, -0.65, 55], spud: [XH - 0.55, 0.05, -110] },
-  p01sofa: { wiz: [XH - 1.2, -1.45], phx: [XH - 0.65, -2.0], gun: [XH - 0.1, -1.45] },   // staggered: the middle one behind
-  p02: { spud: [-3.45, -0.25, 60], wiz: [-4.2, 1.15, 165], phx: [-3.55, 0.6, 162], gun: [-3.45, 1.5, 165], sam: far(0) },
-  p03: { spud: [XB - 0.45, 0.5, 55], sam: [XB + 0.85, 0.6, -60], wiz: [XB - 0.3, -0.9, 10], phx: [XB + 0.15, -1.75, 0], gun: [XB + 0.55, -0.95, -10] },
-  p04: { gun: [-4.4, -0.35, 8], phx: [-4.1, -1.15, 15], spud: [-3.4, -0.7, 35], sam: far(0), wiz: far(1) },
-  p05: { phx: [XH - 0.5, DZ + 1.15], spud: [XH - 1.3, DZ + 0.75], wiz: [XH - 0.67, DZ], sam: [XH - 1.3, DZ - 0.75], gun: [XH - 0.5, DZ - 1.15] },
-  p06: { phx: [XH - 0.5, DZ - 0.42, 90], spud: [XH - 0.77, DZ + 1.3, 90], wiz: [XH - 1.42, DZ + 0.85, 90], sam: [XH - 0.77, DZ + 0.4, 90], gun: [XH - 1.42, DZ - 0.05, 90] },
-  p07: { sam: [-3.6, -0.5, 90], wiz: [-3.6, 0.5, 90], phx: [-4.3, 0, 90] },
+  p01sofa: { wiz: [XH - 1.2, -1.45], phx: [XH - 0.55, -2.1], gun: [XH - 0.04, -1.45] },   // staggered: the middle one behind
+  p02: { spud: [-3.45, -0.25, 60], wiz: [-4.2, 1.15, 165], phx: [-3.55, 0.6, 162], gun: [-3.3, 1.65, 165], sam: far(0) },
+  p03: { spud: [XB - 0.45, 0.5, 55], sam: [XB + 0.85, 0.6, -60], wiz: [XB - 0.55, -0.9, 10], phx: [XB + 0.05, -1.85, 0], gun: [XB + 0.5, -1.0, -10] },
+  p04: { gun: [-4.4, -0.35, 8], phx: [-4.1, -1.25, 15], spud: [-3.4, -0.7, 35], sam: far(0), wiz: far(1) },
+  p05: { phx: [XH - 0.5, DZ + 1.15], spud: [XH - 1.3, DZ + 0.75], wiz: [XH - 0.67, DZ - 0.05], sam: [XH - 1.35, DZ - 0.85], gun: [XH - 0.5, DZ - 1.15] },
+  p06: { phx: [XH - 0.5, DZ - 0.42, 90], spud: [XH - 0.6, DZ + 1.55, 90], wiz: [XH - 1.42, DZ + 0.85, 90], sam: [XH - 0.6, DZ + 0.5, 90], gun: [XH - 1.42, DZ - 0.2, 90] },
+  p07: { sam: [-3.6, -0.5, 90], wiz: [-3.6, 0.5, 90], phx: [-4.4, -0.25, 90] },
   p08: { gun: [XS - 1.9, -0.45, 75], spud: [XS - 0.6, -0.5, -65], sam: far(0), wiz: far(1), phx: far(2) },
-  p12: { wiz: [3.75, 1.8, 90], spud: [4.5, 1.4, 90], sam: [3.75, 0.95, 90], phx: [3.75, -0.05, 90], gun: [4.5, 0.3, 90] },
+  p12: { wiz: [3.75, 1.8, 90], spud: [4.5, 1.4, 90], sam: [3.75, 0.95, 90], phx: [3.75, -0.17, 90], gun: [4.5, 0.3, 90] },
 };
 Object.entries(S.p05).forEach(([w, p]) => p.push(toward(p, TINF)));
 
@@ -156,22 +160,33 @@ const props = [
   { id: "cistern", kind: "zcistern", x: XB + 0.15, y: 0, z: 0.9, rot: 180, scale: 0.85, lid: 0, water: 1 },
   { id: "candleB", kind: "pillarcandle", x: XB - 1.0, y: 0.86, z: 0.68, lit: 1 },   // on the basin's rim
   { id: "glass", ...GLASS, x: XB + 0.45, y: 0.62, z: 0.62, fill: 0 },
-  { id: "glassW", ...GLASS, x: XB - 0.24, y: 0.5, z: -0.5, fill: 0 },
-  { id: "glassP", ...GLASS, x: XB + 0.15, y: 0.52, z: -1.35, fill: 0 },
-  { id: "glassG", ...GLASS, x: XB + 0.5, y: 0.5, z: -0.55, fill: 0 },
+  { id: "glassW", ...GLASS, x: XB - 0.49, y: 0.5, z: -0.5, fill: 0 },
+  { id: "glassP", ...GLASS, x: XB + 0.05, y: 0.52, z: -1.45, fill: 0 },
+  { id: "glassG", ...GLASS, x: XB + 0.72, y: 0.5, z: -0.6, fill: 0 },
   // the shop
   { id: "shop", kind: "zshop", x: XS, y: 0, z: 0, dim: 0.25 },
-  { id: "bag", kind: "tinbag", x: XS - 1.25, y: 0, z: -0.1, fill: 0.35, scale: 1.2 },
+  { id: "bag", kind: "tinbag", x: XS - 1.38, y: 0, z: -0.1, fill: 0.35, scale: 1.2 },
   { id: "tinS", kind: "tin", scale: 1.6, x: XS - 0.85, y: 0.2, z: -0.08, open: 0 },    // Spud's one tin
   { id: "tinG", kind: "tin", scale: 1.6, x: XS - 1.75, y: 0.6, z: -0.1, open: 0 },      // the tin in the Gunslinger's hand, later the one that falls
   { id: "tinL", kind: "tin", scale: 1.6, x: FAR[0], y: 0, z: 10, open: 1 },            // the last tin of day 5, the one tin of day 7
   { id: "spoon", kind: "spoon", x: FAR[0], y: 0.02, z: 12 },
 ];
 
+// props that hang on purpose (qa/support.mjs): each says why
+const STAGED = {
+  flood2: "zombies on the balcony one floor up (the balcony slab is part of the street set's facade)",
+  ladder: "the ladder bridges the gap from our balcony to the shop roof; its ends rest on the railing and the parapet",
+  line: "a washing line strung across the balcony", cloth: "the blanket hung on the washing line as a screen",
+  roll: "the toilet roll stands on the balcony railing", bath: "the bathroom set, built away from the street like every room",
+  dark: "the dark hallway card behind the bathroom doorway", candleB: "the candle stands on the cistern lid",
+  glass: "held, or standing on the cistern", glassW: "held (rough grips: a glass at the hand)", glassP: "held, or parked far away",
+  glassG: "held (a glass at the hand)", tinS: "Spud's one tin, in his hand", tinG: "in the Gunslinger's hand, then falling, then on the police car's roof",
+  spoon: "held, or lying on the tin", bag: "the sack in the Gunslinger's hand, hanging under the V, then falling",
+};
 // small helpers
 const expr = (t, who, e, set, dur = 0.15) => A(t, who, "expr", { expr: e, ...(set && { set }), dur });
 const look = (t, who, to, dur = 0.15) => A(t, who, "look", { to, dur, blink: false });
-const both = (t, who, pose, dur = 0.25, ease = "inOut") => { c.arm(t, who, "R", pose, dur, ease); c.arm(t, who, "L", pose, dur, ease); };
+const both = (t, who, pose, dur = 0.25, ease = "inOut") => { arm(t, who, "R", pose, dur, ease); arm(t, who, "L", pose, dur, ease); };
 const REST = "rest";
 const sat = new Set();
 // the cut cheat: on the ground at [x, z, yaw] two hundredths before the cut, upright, arms down
@@ -217,7 +232,7 @@ expr(0, "sam", "terrified", { open: 0.3 }, 0); gaze(0, "sam", S.p01.sam, [WALLX,
 both(0, "spud", { o: [0.14, 0.55, 0.4] }, 0); expr(0, "spud", "angry", { open: 0.2 }, 0);
 Object.entries(S.p01sofa).forEach(([w, [x, z]]) => {
   air(0, w, [x, SEAT, z], 0, 0, 0); expr(0, w, "terrified", { open: 0.28 }, 0); gaze(0, w, [x, z, 0], [WALLX, DZ], -0.2, 0);
-  both(0, w, w === "wiz" ? "cheeks" : { o: [0.2, 0.42, 0.3] }, 0);
+  both(0, w, w === "wiz" ? "cheeks" : w === "phx" ? REST : { o: [0.1, 0.3, 0.28] }, 0);
 });
 for (let i = 0; i < 5; i++) A(r3(0.05 + i * 0.28), "sam", "lean", { to: i % 2 ? -5 : -12, dur: 0.14 });   // against the grip
 sfx(0, "knock-tap", { gain: 0.5, reason: "fists and bodies against the flat door" });
@@ -226,7 +241,7 @@ c.at(0.02, { fx: "shake", dur: 0.5, amp: 0.03 });
 sfx(T.free, "sirenwail", { gain: 0.3, dur: 1.2, reason: "a police car's siren starts down in the street" });
 FIVE.forEach((w) => look(r3(T.free + 0.1), w, [0.6, 0.2], 0.15));   // every head turns to the sound
 prop(r3(T.free + 0.15), "door", { arm: 0, hands: 0 }, 0.3, "in");
-A(r3(T.free + 0.2), "sam", "lean", { to: 0, dur: 0.2 }); A(r3(T.free + 0.2), "sam", "move", { to: [XH - 1.55, 0.3], dur: 0.35, steps: 2 });
+A(r3(T.free + 0.2), "sam", "lean", { to: 0, dur: 0.2 }); A(r3(T.free + 0.2), "sam", "move", { to: [XH - 1.55, 0.3], dur: 0.45, steps: 3 });
 expr(r3(T.free + 0.2), "sam", "shocked", { open: 0.2 });
 // Spud shoves the sofa to the door wall, the three ride on it
 const SH = r3(T.shut - T.free - 0.1);
@@ -235,7 +250,7 @@ Object.entries(S.p01sofa).forEach(([w, [x, z]]) => A(r3(T.free + 0.1), w, "move"
 prop(r3(T.shut - 0.12), "door", { ajar: 0 }, 0.1, "in");
 sfx(T.shut, "slam", { gain: 0.6, loud: true, reason: "the sofa hits the door wall, the door slams shut" });
 c.at(T.shut, { fx: "shake", dur: 0.25, amp: 0.05 });
-expr(r3(T.shut + 0.1), "spud", "shocked", { open: 0.12 });
+expr(r3(T.shut + 0.1), "spud", "shocked", { open: 0.12 }); both(r3(T.shut + 0.05), "spud", REST, 0.6);
 A(r3(T.shut + 0.15), "spud", "turn", { to: -20, dur: 0.3 });
 see(0, T.free, ["sam.face", "spud", "door"], "P01: the door fight: hands in the gap, the arm on the Samurai's sash, Spud and the sofa, three faces over its back");
 see(T.free, T.look, ["spud.face", "door", "couch"], "the siren outside: the hands let go, the sofa shuts the door");
@@ -246,7 +261,7 @@ prop(T.free, "pcarA", { lights: 1 }, 0.05); putProp(T.look, "street", { fog: 0.3
 prop(T.free, "horde", { adv: 6 }, r3(T.bath - T.free), "linear");
 FIVE.forEach((w) => expr(r3(T.look - 0.02), w, "shocked", { open: 0.1 }, 0.01));
 gaze(r3(T.look - 0.01), "spud", S.p02.spud, [-3.8, 1.2], 0, 0.01);                      // he looks back at the others
-c.arm(r3(T.look - 0.02), "spud", "R", { o: [0.03, 0.62, 0.2] }, 0.01);   // a finger on his lips
+arm(r3(T.look - 0.02), "spud", "R", { o: [0.03, 0.62, 0.2] }, 0.01);   // a finger on his lips
 c.say(T.sound, "spud", "They follow sound.", 1.1, "whisper", { sub: false });
 cap(T.sound, r3(T.bath - 0.03), "They follow sound.", "p02");
 sfx(T.look, "sirenwail", { gain: 0.2, dur: 2.0, reason: "the police siren, far up the street" });
@@ -259,22 +274,22 @@ putProp(T.bath, "pcarA", { lights: 0 });
 c.at(T.bath, { macro: "narrate", line: "Day three. No water.", voice: "narrator", caption: false });
 cap(T.bath, r3(T.bucket - 0.03), "Day three. No water.", "p03");
 FIVE.forEach((w) => { expr(r3(T.bath - 0.02), w, "sad", { curve: -0.2 }, 0.01); gaze(r3(T.bath - 0.01), w, S.p03[w], [XB + 0.15, 0.5], -0.35, 0.01); });
-["wiz", "phx", "gun"].forEach((w) => c.arm(r3(T.bath - 0.02), w, "R", "hold", 0.01));   // an empty glass each
+["wiz", "phx", "gun"].forEach((w) => arm(r3(T.bath - 0.02), w, w === "gun" ? "L" : "R", "hold", 0.01)); arm(r3(T.bath - 0.02), "gun", "R", { o: [0.04, 0.3, 0.16] }, 0.01);   // an empty glass each (his left: the right reached into the Wizard)
 // Spud lifts the china lid (its end is at (XB + 0.01, 0.87, 0.53) when lifted), the Samurai dips the glass
 both(r3(T.bath - 0.02), "spud", { o: [0.2, 0.5, 0.3] }, 0.01);
 both(T.lid, "spud", { o: [0.22, 0.82, 0.28] }, 0.45); prop(T.lid, "cistern", { lid: 1 }, 0.5, "inOut");
 sfx(T.lid, "scrape", { gain: 0.3, reason: "the china lid comes off the cistern" });
-c.arm(r3(T.bath - 0.02), "sam", "L", { o: [0.26, 0.5, 0.3] }, 0.01);
-c.arm(r3(T.lid + 0.45), "sam", "L", { o: [0.34, 0.34, 0.34] }, 0.35); prop(r3(T.lid + 0.45), "glass", { x: XB + 0.2, y: 0.44, z: 1.155 }, 0.4, "inOut");
+arm(r3(T.bath - 0.02), "sam", "L", { o: [0.26, 0.5, 0.3] }, 0.01);
+arm(r3(T.lid + 0.45), "sam", "L", { o: [0.34, 0.34, 0.34] }, 0.35); prop(r3(T.lid + 0.45), "glass", { x: XB + 0.2, y: 0.44, z: 1.155 }, 0.4, "inOut");
 prop(r3(T.lid + 0.8), "glass", { fill: 1 }, 0.1);
-prop(r3(T.lid + 1.0), "glass", { x: XB + 0.42, y: 0.66, z: 1.1 }, 0.35, "inOut"); c.arm(r3(T.lid + 1.0), "sam", "L", { o: [0.26, 0.54, 0.3] }, 0.35);
+prop(r3(T.lid + 1.0), "glass", { x: XB + 0.42, y: 0.66, z: 1.1 }, 0.35, "inOut"); arm(r3(T.lid + 1.0), "sam", "L", { o: [0.26, 0.54, 0.3] }, 0.35);
 sfx(r3(T.lid + 0.85), "plunk", { gain: 0.3, reason: "the glass dips into the last clean water" });
 expr(r3(T.lid + 1.0), "sam", "kind", { curve: 0.1 });
 see(T.bath, T.bucket, ["spud.face", "sam.face", "cistern"], "P03: the tap is dry; the last water is in the toilet cistern, three wait in the doorway with empty glasses");
 
 // ================================================================ P04 DAY 3 (6.6 - 8.3): no toilet. The queue on the balcony.
 scene(T.bucket, S.p04);
-putProp(T.bucket, "line", { x: -3.95 }); putProp(T.bucket, "cloth", { x: -4.3 }); putProp(T.bucket, "chair", { x: -4.1, z: -1.15 }); putProp(T.bucket, "roll", { x: -3.03 });
+putProp(T.bucket, "line", { x: -3.95 }); putProp(T.bucket, "cloth", { x: -4.3 }); putProp(T.bucket, "chair", { x: -4.1, z: -1.25 }); putProp(T.bucket, "roll", { x: -3.03 });
 putProp(T.bucket, "horde", { adv: 0, gx: PB[0] - HX, gz: PB[1] - HZ });
 A(r3(T.bucket - 0.02), "phx", "sit", { height: 0.45, rot: 15, dur: 0.01, hands: "lap" }); sat.add("phx");
 expr(r3(T.bucket - 0.02), "gun", "deadpan", { lidL: 0.45, lidR: 0.45 }, 0.01); both(r3(T.bucket - 0.02), "gun", "hips", 0.01);
@@ -293,8 +308,8 @@ putProp(T.tin, "candle", { x: XH + 0.45, z: DZ + 0.15 }); putProp(T.tin, "tinL",
 ["line", "cloth", "chair", "roll"].forEach((id) => putProp(T.tin, id, { x: FAR[0] }));
 c.at(T.tin, { macro: "narrate", line: "Day five.", voice: "narrator", caption: false });
 FIVE.forEach((w) => { expr(r3(T.tin - 0.01), w, "sad", { curve: -0.25, lidL: 0.3, lidR: 0.3 }, 0.01); both(r3(T.tin - 0.01), w, "lap", 0.01); look(r3(T.tin - 0.01), w, [0, -0.45], 0.01); });
-A(r3(T.tin - 0.01), "wiz", "lean", { to: 14, dur: 0.01 });                 // slumped in his cape
-c.arm(r3(T.tin + 0.1), "spud", "R", { o: [0.26, 0.42, 0.34] }, 0.5); prop(r3(T.tin + 0.1), "spoon", { x: XH - 0.88, y: 0.36, z: DZ + 0.55 }, 0.6, "inOut");
+A(r3(T.tin - 0.01), "wiz", "lean", { to: 0, dur: 0.01 }); A(r3(T.tin - 0.01), "wiz", "pitch", { to: 10, dur: 0.01 });                 // slumped in his cape
+arm(r3(T.tin + 0.1), "spud", "L", { o: [0.06, 0.4, 0.42] }, 0.5); prop(r3(T.tin + 0.1), "spoon", { x: XH - 0.88, y: 0.36, z: DZ + 0.55 }, 0.6, "inOut");
 c.say(T.last, "spud", "Last one.", 0.7, "whisper", { sub: false });
 cap(T.last, r3(T.growl - 0.03), "Last one.", "p05");
 see(T.tin, T.growl, ["spud.face", "wiz.face", "tinL"], "P05: one tin for five by candlelight, one spoon; the Wizard slumped; the barricade behind them");
@@ -314,8 +329,8 @@ sfx(r3(T.press + 0.3), "creak", { gain: 0.5, reason: "the door bows inward" });
 sfx(r3(T.press + 0.9), "crumble", { gain: 0.4, reason: "the frame splits" });
 c.at(r3(T.press + 0.3), { fx: "shake", dur: 0.9, amp: 0.025 });
 ["spud", "sam", "wiz", "gun"].forEach((w, i) => {                          // backs to us, against the wardrobe
-  A(r3(T.press + 0.1 + i * 0.04), w, "turn", { to: -90, dur: 0.22 }); A(r3(T.press + 0.2 + i * 0.04), w, "move", { to: [S.p06[w][0] - 0.07, S.p06[w][1]], dur: 0.3, steps: 2 });
-  both(r3(T.press + 0.35), w, { o: [0.14, 0.55, 0.36] }, 0.2); look(r3(T.press + 0.1), w, [0, 0], 0.1);
+  A(r3(T.press + 0.1 + i * 0.04), w, "turn", { to: -90, dur: 0.5 }); A(r3(T.press + 0.2 + i * 0.04), w, "move", { to: [S.p06[w][0] - 0.07, S.p06[w][1]], dur: 0.3, steps: 2 });
+  both(r3(T.press + 0.35), w, w === "spud" || w === "sam" ? { o: [0.06, 0.4, 0.2] } : { o: [0.12, 0.55, 0.36] }, 0.45); look(r3(T.press + 0.1), w, [0, 0], 0.1);
 });
 expr(r3(T.press + 0.2), "phx", "terrified", { open: 0.3 });
 c.say(T.hold, "spud", "It won't hold.", 0.8, "excited", { sub: false });
@@ -336,7 +351,7 @@ crawl(T.cross, "spud", 0.3, 1.5, r3(T.shop - T.cross), 0.7);
 crawl(T.cross, "gun", -1.7, -0.6, r3(T.shop - T.cross), 0.7);
 prop(T.cross, "ladder", { sag: 0.8 }, 1.2, "inOut");
 ["spud", "gun"].forEach((w) => expr(r3(T.cross - 0.02), w, "terrified", { open: 0.08 }, 0.01));
-["sam", "wiz", "phx"].forEach((w) => { expr(r3(T.cross - 0.02), w, "terrified", { open: 0.1 }, 0.01); both(r3(T.cross - 0.01), w, { o: [0.18, 0.5, 0.34] }, 0.01); });
+["sam", "wiz", "phx"].forEach((w) => { expr(r3(T.cross - 0.02), w, "terrified", { open: 0.1 }, 0.01); both(r3(T.cross - 0.01), w, w === "phx" ? REST : { o: [0.18, 0.5, 0.34] }, 0.01); });
 sfx(T.cross, "windswell", { gain: 0.12, reason: "wind five floors up" });
 sfx(r3(T.cross + 0.4), "creak", { gain: 0.35, reason: "the ladder bends under two" });
 sfx(T.cross, "groan", { gain: 0.2, dur: 2.2, reason: "the street, far below" });
@@ -347,13 +362,13 @@ scene(T.shop, S.p08);
 ["gun", "spud"].forEach((w) => A(r3(T.shop - 0.02), w, "crouch", { to: 1, dur: 0.01 }));
 expr(r3(T.shop - 0.02), "gun", "delighted", { curve: 0.5, lidL: 0.9, lidR: 0.9 }, 0.01); expr(r3(T.shop - 0.02), "spud", "shocked", { open: 0.12, browL: 0.3 }, 0.01);
 both(r3(T.shop - 0.02), "gun", { o: [0.2, 0.4, 0.34] }, 0.01);
-c.arm(r3(T.shop - 0.02), "spud", "L", { o: [0.22, 0.4, 0.3] }, 0.01); c.arm(r3(T.shop - 0.02), "spud", "R", { o: [0.3, 0.66, 0.2] }, 0.01);   // one tin; a flat hand: enough
-gaze(r3(T.shop - 0.01), "gun", S.p08.gun, [XS - 1.25, -0.1], -0.3, 0.01); gaze(r3(T.shop - 0.01), "spud", S.p08.spud, S.p08.gun, 0, 0.01);
+arm(r3(T.shop - 0.02), "spud", "L", { o: [0.22, 0.4, 0.3] }, 0.01); arm(r3(T.shop - 0.02), "spud", "R", { o: [0.3, 0.66, 0.2] }, 0.01);   // one tin; a flat hand: enough
+gaze(r3(T.shop - 0.01), "gun", S.p08.gun, [XS - 1.38, -0.1], -0.3, 0.01); gaze(r3(T.shop - 0.01), "spud", S.p08.spud, S.p08.gun, 0, 0.01);
 prop(T.shop, "bag", { fill: 1 }, r3(T.back - T.shop - 0.3), "linear");
 for (let i = 0; i < 4; i++) {                                              // tin after tin into the sack
   const t = r3(T.shop + 0.05 + i * 0.42);
-  c.arm(t, "gun", "R", { o: [0.3, 0.62, 0.3] }, 0.16, "out"); c.arm(r3(t + 0.2), "gun", "R", { o: [0.26, 0.36, 0.38] }, 0.16, "in");
-  prop(t, "tinG", { x: XS - 1.78, y: 0.78, z: -0.1 }, 0.16, "out"); prop(r3(t + 0.2), "tinG", { x: XS - 1.3, y: 0.66, z: -0.1 }, 0.16, "in");
+  arm(t, "gun", "R", { o: [0.3, 0.62, 0.3] }, 0.16, "out"); arm(r3(t + 0.2), "gun", "R", { o: [0.26, 0.36, 0.38] }, 0.16, "in");
+  prop(t, "tinG", { x: XS - 1.78, y: 0.78, z: -0.1 }, 0.16, "out"); prop(r3(t + 0.2), "tinG", { x: XS - 1.42, y: 0.66, z: -0.1 }, 0.16, "in");
   sfx(r3(t + 0.36), "tink", { gain: 0.3, reason: "a tin drops into the sack" });
 }
 c.say(T.free2, "gun", "It's free!", 0.7, "excited", { sub: false });
@@ -367,7 +382,7 @@ const BD = r3(T.down - T.back), G0 = GX + 0.5, S0 = GX + 1.7, S1 = GX + 1.2;
 ["gun", "spud"].forEach((w) => A(r3(T.back - 0.03), w, "crouch", { to: 0, dur: 0.01 }));
 crawl(T.back, "gun", G0, GX, BD, 1, 0, -1, 40);
 crawl(T.back, "spud", S0, S1, BD, 1, 0, -1, 40);
-["sam", "wiz", "phx"].forEach((w) => { stand(T.back, w, S.p07[w]); both(r3(T.back - 0.01), w, { o: [0.18, 0.5, 0.34] }, 0.01); });
+["sam", "wiz", "phx"].forEach((w) => { stand(T.back, w, S.p07[w]); both(r3(T.back - 0.01), w, w === "phx" ? REST : { o: [0.18, 0.5, 0.34] }, 0.01); });
 putProp(T.back, "bag", { x: G0 + 0.28, y: r3(ladY(G0, 1) + 0.74), z: 0, fill: 1 });               // the sack on his back
 prop(T.back, "bag", { x: GX + 0.28, y: r3(ladY(GX, 1) + 0.74) }, BD, "linear");
 putProp(T.back, "tinS", { x: FAR[0] });
@@ -399,18 +414,19 @@ sfx(T.crack, "crumble", { gain: 0.7, loud: true, reason: "both rails snap in the
 c.at(T.crack, { fx: "impact", dur: r3(2 / 30) }); c.at(r3(T.crack + 0.07), { fx: "shake", dur: 0.35, amp: 0.07 });
 const SPX = r3(MID + 0.3), SPY = r3(ladY(SPX, 1, 1) + 0.02);                 // Spud lies at the break
 const HANG = [MID, r3(SPY - 1.6), 0.4];                                     // the Gunslinger hangs from Spud's hands
-A(r3(T.crack + 0.03), "spud", "lean", { to: 0, dur: 0.01 }); air(r3(T.crack + 0.03), "spud", [SPX, SPY, 0], 0, 42, 0.01);   // inside the snap's two flash frames both(r3(T.crack + 0.1), "spud", { o: [0.1, 0.1, 0.5] }, 0.15);
-A(r3(T.crack + 0.03), "gun", "lean", { to: 0, dur: 0.01 }); air(r3(T.crack + 0.03), "gun", HANG, 0, -22, 0.01); c.arm(r3(T.crack + 0.02), "gun", "R", "up", 0.12); c.arm(r3(T.crack + 0.02), "gun", "L", { o: [0.34, 0.2, 0.05] }, 0.12);
+A(r3(T.crack + 0.03), "spud", "lean", { to: 0, dur: 0.01 }); air(r3(T.crack + 0.03), "spud", [SPX, SPY, 0], 0, 42, 0.01);   // inside the snap's two flash frames
+both(r3(T.crack + 0.1), "spud", { o: [0.22, 0.12, 0.4] }, 0.15);
+A(r3(T.crack + 0.03), "gun", "lean", { to: 0, dur: 0.01 }); air(r3(T.crack + 0.03), "gun", HANG, 0, -22, 0.01); arm(r3(T.crack + 0.02), "gun", "R", { o: [0.46, 0.66, 0.12] }, 0.01); arm(r3(T.crack + 0.02), "gun", "L", { o: [0.34, 0.2, 0.05] }, 0.01);
 prop(r3(T.crack + 0.03), "bag", { x: r3(HANG[0] - 0.62), y: r3(HANG[1] - 0.55), z: HANG[2] + 0.05, hang: 1 }, 0.01, "linear");
 expr(r3(T.crack + 0.05), "gun", "terrified", { open: 0.4 }); expr(r3(T.crack + 0.05), "spud", "angry", { open: 0.3 });
 look(r3(T.crack + 0.1), "gun", [0, 0.8], 0.1); look(r3(T.crack + 0.1), "spud", [0, -0.7], 0.1);
 c.say(T.drop, "spud", "Drop it!", 0.6, "excited", { sub: false });
 cap(T.drop, r3(T.let - 0.03), "Drop it!", "p11", true);
 prop(r3(T.drop + 0.1), "horde", { reach: 1 }, 0.5);
-expr(r3(T.let - 0.2), "gun", "sad", { curve: -0.4 }); c.arm(T.let, "gun", "L", REST, 0.2);
+expr(r3(T.let - 0.2), "gun", "sad", { curve: -0.4 }); arm(T.let, "gun", "L", { o: [0.3, 0.12, 0.08] }, 0.6);
 prop(T.let, "bag", { y: -14.6, roll: 200 }, 1.7, "in");
 sfx(T.let, "whoosh", { gain: 0.3, reason: "the sack falls into the street" });
-A(r3(T.let + 0.3), "gun", "move", { to: [HANG[0], HANG[2]], y: r3(HANG[1] + 0.75), dur: 0.6, steps: 0, ease: "out" });   // Spud hauls him up
+A(r3(T.let + 0.3), "gun", "move", { to: [HANG[0], HANG[2]], y: r3(HANG[1] + 0.3), dur: 0.6, steps: 0, ease: "out" });   // Spud hauls him up
 see(T.crack, T.burst, ["gun.face", "spud.face", "bag", "ladder"], "P11: the ladder hangs in a V; Spud holds the Gunslinger by the hand, the sack in his other hand, until he lets it go");
 
 // ================================================================ P11b DAY 6 (22.9 - 25.3): the door gives way; all five cross
@@ -422,7 +438,7 @@ sfx(T.burst, "slam", { gain: 0.8, loud: true, reason: "the flat door bursts in" 
 c.at(r3(T.burst + 0.1), { fx: "shake", dur: 0.3, amp: 0.06 });
 sfx(r3(T.burst + 0.1), "groan", { gain: 0.6, dur: 2.2, reason: "the zombies pour into the flat" });
 // the scramble over the V: the Samurai, Wizard and Phoenix lead, the Gunslinger, Spud last
-const RUNX = { sam: [1.75, 3.6], wiz: [0.5, 2.5], phx: [-0.75, 1.25], gun: [-2.0, 0.0], spud: [-3.25, -1.25] };   // a body length apart
+const RUNX = { sam: [1.75, 3.6], wiz: [0.4, 2.35], phx: [-0.75, 1.25], gun: [-2.0, 0.0], spud: [-3.25, -1.25] };   // a body length apart
 Object.entries(RUNX).forEach(([w, [x0, x1]]) => {
   crawl(T.run, w, x0, x1, r3(T.roof - T.run), 1, 1, 1, 60);
   expr(r3(T.run - 0.02), w, "terrified", { open: 0.3 }, 0.01);
@@ -441,11 +457,11 @@ scene(T.roof, S.p12);
 Object.entries(S.p12).forEach(([w, p]) => sitDown(r3(T.roof - 0.015), w, p[2]));
 putProp(T.roof, "street", { dawn: 1 }); putProp(T.roof, "pcarB", { lights: 0 }); putProp(T.roof, "ladder", { x: FAR[0], crack: 0 }); putProp(T.roof, "half", { x: 5.4, z: 2.3, rot: 100 });
 putProp(T.roof, "flood", { x: -3.95, adv: 0, gx: 9, gz: 0, reach: 1 }); putProp(T.roof, "flood2", { x: -3.95, reach: 1 }); putProp(T.roof, "horde", { up: 0, reach: 0 });
-putProp(T.roof, "tinL", { x: 4.95, y: 0, z: 1.35, open: 1 }); putProp(T.roof, "spoon", { x: 4.85, y: 0.36, z: 1.3 });
+putProp(T.roof, "tinL", { x: 5.0, y: 0, z: 1.3, open: 1 }); putProp(T.roof, "spoon", { x: 4.85, y: 0.36, z: 1.3 });
 c.at(T.roof, { macro: "narrate", line: "Day seven.", voice: "narrator", caption: false });
 FIVE.forEach((w) => { expr(r3(T.roof - 0.01), w, "sad", { curve: -0.1, lidL: 0.4, lidR: 0.4 }, 0.01); both(r3(T.roof - 0.01), w, "lap", 0.01); gaze(r3(T.roof - 0.01), w, S.p12[w], [4.95, 1.35], -0.3, 0.01); });
 ["wiz", "gun"].forEach((w) => expr(r3(T.roof - 0.005), w, "serene", { lidL: 1, lidR: 1 }, 0.005));
-c.arm(r3(T.roof - 0.005), "spud", "R", { o: [0.2, 0.4, 0.36] }, 0.005);
+arm(r3(T.roof - 0.005), "spud", "R", { o: [0.2, 0.4, 0.36] }, 0.005);
 both(r3(T.roof - 0.005), "gun", { o: [0.06, 0.34, 0.2] }, 0.005);
 look(r3(T.less - 0.2), "spud", [0, 0.1], 0.2);
 c.say(T.less, "spud", "Tomorrow we take less.", 1.0, "whisper", { sub: false });
@@ -492,9 +508,38 @@ write(import.meta.url, {
   creative: { length: [T.end, T.end] },
   hook: { show: ["sam", "spud", "door"], hint: 0, what: "opener A: the flat door is being forced at frame 0, a zombie arm holds the Samurai by the sash, Spud shoves a sofa at the door" },
   hud: HUD,
-  cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
+  cast, props: props.map((q) => (STAGED[q.id] ? { ...q, staged: STAGED[q.id] } : q)), captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     ...["street", "horde", "flood", "flood2", "inflat", "flat", "bath", "shop", "ladder", "half", "door", "dark", "line", "cloth", "couch", "robe", "pcarA", "pcarB", "chair"].map((who) => ({ who, from: 0, to: T.end, checks: WORN, reason: "the world the cast stands in, on and against (rooms, balcony, roof, ladder, door, barricade, crowd): not a body" })),
+    // hats in the sheet's huddles: the brims cross a neighbour in DEPTH (behind or in front), bodies stand a body-width apart
+    { who: "gun", with: "phx", from: T.bucket, to: T.tin, checks: ["character-overlap"], reason: "P04 queue: the Gunslinger stands big in front, Phoenix sits behind him (panel 04); the brim passes in front of Phoenix's body, not his face" },
+    { who: "gun", with: "phx", from: 0, to: T.look, checks: ["character-overlap"], reason: "P01: three faces over the sofa back side by side (panel 01); brims touch, faces clear" },
+    { who: "wiz", with: "phx", from: 0, to: T.look, checks: ["character-overlap"], reason: "P01: three faces over the sofa back side by side (panel 01); brims touch, faces clear" },
+    { who: "wiz", with: "phx", from: T.tin, to: T.growl, checks: ["character-overlap"], reason: "P05: five in a tight half circle round one candle (panel 05); the hat tip passes behind Phoenix" },
+    { who: "gun", with: "phx", from: T.tin, to: T.growl, checks: ["character-overlap"], reason: "P05: five in a tight half circle round one candle (panel 05)" },
+    { who: "gun", with: "phx", from: T.roof, to: T.end, checks: ["character-overlap"], reason: "P12: five sitting close on the roof (panel 12); the brim crosses Phoenix's flame in depth" },
+    { who: "wiz", with: "sam", from: T.growl, to: T.end, checks: ["character-overlap"], reason: "P06, P11b, P12: rows in depth; the Wizard's hat tip crosses the Samurai behind or in front, faces clear" },
+    { who: "gun", with: "sam", from: T.growl, to: T.cross, checks: ["character-overlap"], reason: "P06: the back row against the wardrobe, backs to us; the brim crosses the Samurai's back" },
+    { who: "phx", from: 0, to: T.end, checks: ["character-overlap"], with: "wiz", reason: "Phoenix's flame crest and wing-hands brush the Wizard's cape in the huddles (P01, P07 holding the ladder end, P09)" },
+    { who: "gun", with: "spud", from: T.crack, to: T.run, checks: ["character-overlap", "limb-through-costume", "reach"], reason: "P11: Spud holds the hanging Gunslinger by the raised hand right at his hat (panel 11); there is no fitted hand-to-hand grip, the hands meet by placement" },
+    { who: "gun", with: "wiz", from: T.look, to: T.growl, checks: ["character-overlap"], reason: "P02-P04: the balcony and the bathroom doorway are tight; hands at the sides touch a neighbour's cape behind" },
+    { who: "spud", from: T.growl, to: T.cross, checks: ["character-overlap", "face-covered"], reason: "P06: the front row braces against the back row at the wardrobe, backs to us (panel 06: four backs against it); seen from behind, no face acts" },
+    { who: "sam", from: T.growl, to: T.cross, checks: ["character-overlap", "face-covered"], reason: "P06: the front row braces against the back row at the wardrobe, backs to us (panel 06); seen from behind, no face acts" },
+    { who: "phx", with: "gun", from: T.roof, to: T.end, checks: ["character-overlap"], reason: "P12: hands in laps, sitting shoulder to shoulder on the roof (panel 12)" },
+    { who: "sam", with: "phx", from: T.burst, to: T.run, checks: ["face-covered"], reason: "P11b burst: the flat empties, Phoenix and the Samurai are not in the BURST shot (the door only); the check reads a hidden pose" },
+    // the sheet's steep high angles (panels 07, 09, 11b): from above, hats cover the eyes of the two in hats
+    { who: "gun", from: T.cross, to: T.shop, checks: ["face-hidden"], reason: "P07: the ladder from high above (panel 07); his brim covers his eyes from that angle, the crawl is the beat" },
+    { who: "gun", from: T.run, to: T.roof, checks: ["face-hidden"], reason: "P11b: all five crawl over the V seen from high above; the crawl is the beat, not a face" },
+    { who: "wiz", from: T.run, to: T.roof, checks: ["face-hidden"], reason: "P11b: all five crawl over the V seen from high above; the crawl is the beat, not a face" },
+    { who: "wiz", from: T.bath, to: T.bucket, checks: ["face-hidden"], reason: "P03: the Wizard waits in the doorway behind Spud (panel 03: three wait behind with empty glasses); he has no line, only the shot's opening face" },
+    ...["wiz", "phx", "gun"].map((who) => ({ who, from: T.shut, to: r3(T.shut + 0.15), checks: ["rig-jump"], reason: "P01: the sofa slams into the door wall; the three riding it stop dead with the slam and its shake" })),
+    ...["wiz", "phx", "gun"].map((who) => ({ who, from: T.growl, to: r3(T.growl + 0.1), checks: ["rig-jump"], reason: "P06 cut: from sitting (P05) to standing; the stand cheat's settle shows in the first frames, 5 cm" })),
+    { who: "spud", from: T.shut, to: T.look, checks: ["palm-turn"], reason: "P01: Spud lets go of the sofa after the slam, his arms drop (0.6 s)" },
+    { who: "sam", from: T.free, to: T.look, checks: ["foot-slide"], reason: "P01: the Samurai stumbles back off the door as the arm lets go" },
+    ...["sam", "wiz"].map((who) => ({ who, from: T.press, to: T.cross, checks: ["stance-slide"], reason: "P06: they turn and shove against the wardrobe, 3 cm" })),
+    { who: "sam", with: "wiz", from: T.tin, to: T.growl, checks: ["reach"], reason: "P05: five in a tight half circle round one candle (panel 05); a glove brushes the Wizard's cape, 2 cm" },
+    // the cheat at the snap: both bodies are placed inside the impact flash's two frames (T.crack + 0.03)
+    { who: "gun", from: T.crack, to: r3(T.crack + 0.2), checks: ["rig-jump"], reason: "P11: the snap; the Gunslinger is placed hanging inside the impact flash (two white frames at 20.4 s)" },
     ...["bag", "tinG", "tinS", "spoon", "glass", "glassW", "glassP", "glassG"].map((who) => ({ who, from: 0, to: T.end, checks: WORN, reason: "rough draft: carried things sit at the hand without a fitted grip yet (the sack on his back and at his side, a tin, a glass, the spoon); grips are fitted in the polish after Jonny's OK" })),
   ],
   panels: { md: "storyboards/series/survive-it/04-zombies/PANELS.md" },
