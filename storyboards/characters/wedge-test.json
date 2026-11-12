@@ -1,0 +1,342 @@
+{
+ "id": "wedge-test",
+ "title": "Wedge test",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#f3d9a4",
+  "floor": "#d9b27a",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "shade": "soft"
+ },
+ "drawn": {
+  "lines": {
+   "width": 5.4,
+   "pressure": 1.2,
+   "taper": 0.85,
+   "tint": 0.4
+  },
+  "brush": {
+   "glow": 0,
+   "wrap": 0.12,
+   "cool": 0.2
+  },
+  "paint": {
+   "edge": 0.35
+  },
+  "paper": {
+   "grain": 0.12,
+   "wash": 0.09,
+   "pool": 0.15
+  }
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0
+ },
+ "creative": {
+  "length": [
+   4,
+   20
+  ],
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "c",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 1.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -4.45,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 2.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -3.55,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 3.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -2.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 4.2
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -1.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 5.6
+  }
+ ],
+ "beats": [
+  {
+   "name": "turn",
+   "at": 0,
+   "len": 6.68,
+   "do": [
+    {
+     "who": "c",
+     "do": "look",
+     "at": 0.2,
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.12
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 0.35,
+     "to": 5.172413793103448,
+     "dur": 0.25,
+     "ease": "in"
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 0.6,
+     "to": 90,
+     "dur": 1.3667,
+     "ease": "linear"
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 1.9667,
+     "to": 180,
+     "dur": 1.45,
+     "ease": "linear"
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 3.4167,
+     "to": 270,
+     "dur": 1.45,
+     "ease": "linear"
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 4.8667,
+     "to": 354.82758620689657,
+     "dur": 1.3667,
+     "ease": "linear"
+    },
+    {
+     "who": "c",
+     "do": "turn",
+     "at": 6.2333,
+     "to": 360,
+     "dur": 0.25,
+     "ease": "out"
+    },
+    {
+     "who": "c",
+     "do": "look",
+     "at": 6.51,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.12
+    }
+   ]
+  },
+  {
+   "name": "faces",
+   "at": 6.68,
+   "len": 3.55,
+   "do": [
+    {
+     "who": "c",
+     "do": "expr",
+     "at": 0.7,
+     "expr": "shocked"
+    },
+    {
+     "who": "c",
+     "do": "expr",
+     "at": 1.7,
+     "expr": "sad"
+    },
+    {
+     "who": "c",
+     "do": "droop",
+     "at": 1.7,
+     "to": 1,
+     "dur": 0.3
+    },
+    {
+     "who": "c",
+     "do": "expr",
+     "at": 2.7,
+     "expr": "happy"
+    },
+    {
+     "who": "c",
+     "do": "droop",
+     "at": 2.7,
+     "to": 0,
+     "dur": 0.2
+    }
+   ]
+  },
+  {
+   "name": "size",
+   "at": 10.23,
+   "len": 3.9,
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "at": 0.6,
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "at": 0.9,
+     "to": [
+      -0.6,
+      0.4
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "at": 1.4,
+     "to": [
+      -0.6,
+      -0.2
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "at": 1.7,
+     "to": [
+      -0.6,
+      -0.3
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "at": 2.6,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "at": 2.75,
+     "expr": "happy"
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "at": 2.9,
+     "expr": "happy"
+    }
+   ]
+  }
+ ],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0,
+    0.9,
+    4.722
+   ],
+   "look": [
+    0,
+    0.747,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 6.68,
+   "pos": [
+    0,
+    0.988,
+    3.184
+   ],
+   "look": [
+    0,
+    0.922,
+    0
+   ],
+   "fov": 30
+  },
+  {
+   "at": 10.23,
+   "pos": [
+    -2.98,
+    0.86,
+    14.2
+   ],
+   "look": [
+    -2.98,
+    0.7,
+    0
+   ],
+   "fov": 30
+  }
+ ]
+}
