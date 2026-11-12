@@ -140,6 +140,9 @@
    "ponchos": 0.4,
    "spacing": 0.55,
    "hole": -0.6,
+   "holeW": 1,
+   "holeRows": 2,
+   "dim": 0.62,
    "cheer": 0,
    "boo": 0,
    "empty": 0,
@@ -305,7 +308,7 @@
    "x": 1,
    "y": -60,
    "z": -1.2,
-   "r": 6,
+   "r": 3.5,
    "h": 8,
    "n": 600,
    "snow": 1,
@@ -364,7 +367,9 @@
     0.9,
     0,
     1.1
-   ]
+   ],
+   "cableColor": "#e0661c",
+   "cableR": 0.05
   },
   {
    "id": "amb",
@@ -487,8 +492,8 @@
    "pop": false
   },
   {
-   "from": 14.75,
-   "to": 15.97,
+   "from": 15.95,
+   "to": 17.17,
    "text": "Hey... you ran great.",
    "pos": 320,
    "pop": false,
@@ -496,15 +501,15 @@
    "kinetic": false
   },
   {
-   "from": 25.9,
-   "to": 27.5,
+   "from": 27.1,
+   "to": 28.7,
    "text": "1 YEAR AGO",
    "pos": 300,
    "pop": false
   },
   {
-   "from": 28,
-   "to": 29.4,
+   "from": 29.2,
+   "to": 30.6,
    "text": "Do I know you?",
    "pos": 540,
    "pop": false,
@@ -512,8 +517,8 @@
    "kinetic": false
   },
   {
-   "from": 32.3,
-   "to": 33.4,
+   "from": 33.5,
+   "to": 34.6,
    "text": "You okay? I'm Chip.",
    "pos": 540,
    "pop": false,
@@ -521,8 +526,8 @@
    "kinetic": false
   },
   {
-   "from": 33.4,
-   "to": 36.8,
+   "from": 34.6,
+   "to": 38,
    "text": "Would you still want it?",
    "pos": 540,
    "pop": false
@@ -535,28 +540,28 @@
    "len": 2.4,
    "shot": {
     "pos": [
-     1.4,
-     1,
-     1.7
+     3,
+     1.15,
+     1.2
     ],
     "look": [
-     -0.4,
+     -0.5,
      1,
-     -4
+     -3.4
     ],
-    "fov": 44,
+    "fov": 42,
     "to": {
      "pos": [
-      1.3,
-      1,
-      1.45
+      2.85,
+      1.15,
+      1.05
      ],
      "look": [
-      -0.4,
+      -0.5,
       1,
-      -4
+      -3.4
      ],
-     "fov": 44
+     "fov": 42
     },
     "dur": 2.4,
     "ease": "linear"
@@ -861,7 +866,7 @@
      "id": "screen",
      "set": {
       "pic": 0,
-      "show": 1
+      "show": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -952,6 +957,46 @@
       "boom": 14,
       "yank": 0,
       "tally": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "amb",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "str",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "med1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "med2",
+     "set": {
+      "y": -60
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1294,9 +1339,9 @@
      "do": "prop",
      "id": "rain",
      "set": {
-      "time": 36.8
+      "time": 38
      },
-     "dur": 34.4,
+     "dur": 35.6,
      "ease": "linear",
      "at": 0
     },
@@ -1651,7 +1696,29 @@
     {
      "who": "wdg",
      "do": "turn",
-     "to": -45,
+     "to": -146,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.8,
+      0.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1684,7 +1751,22 @@
      "who": "wdg",
      "do": "arm",
      "side": "L",
-     "pose": "fist",
+     "pose": {
+      "prop": "crane",
+      "grip": [
+       0.53,
+       0.47,
+       0.9
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "wdg",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
      "dur": 0.01,
      "at": 2.58
     },
@@ -1697,25 +1779,42 @@
      },
      "dur": 0.01,
      "at": 2.58
+    },
+    {
+     "do": "prop",
+     "id": "crane",
+     "set": {
+      "yank": 0.85
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.58
+    },
+    {
+     "who": "wdg",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.01,
+     "at": 2.58
     }
    ]
   },
   {
-   "name": "04 the crane",
+   "name": "04 the yank",
    "at": 6.6,
-   "len": 2.1,
+   "len": 1,
    "shot": {
     "pos": [
-     5.6,
-     1.2,
-     1.8
+     2.4,
+     1.5,
+     -3.6
     ],
     "look": [
-     2,
-     1.4,
-     -4.4
+     4,
+     0.7,
+     -2.7
     ],
-    "fov": 58
+    "fov": 50
    },
    "do": [
     {
@@ -1731,7 +1830,7 @@
     {
      "who": "wdg",
      "do": "lean",
-     "to": -12,
+     "to": -14,
      "dur": 0.3,
      "at": 0.3
     },
@@ -1777,7 +1876,7 @@
      "set": {
       "fall": 1
      },
-     "dur": 1.9,
+     "dur": 2.6,
      "ease": "in",
      "at": 0.7
     },
@@ -1786,13 +1885,33 @@
      "gain": 0.45,
      "reason": "the crane's steel pivot giving way",
      "at": 0.7
-    },
+    }
+   ]
+  },
+  {
+   "name": "04b the arm comes down",
+   "at": 7.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.6,
+     0.7,
+     -1
+    ],
+    "look": [
+     -0.4,
+     1.9,
+     -5
+    ],
+    "fov": 55
+   },
+   "do": [
     {
      "sfx": "impact",
      "gain": 0.9,
      "loud": true,
      "reason": "the crane's arm crashing into the front row (cut before it lands)",
-     "at": 1.98
+     "at": 1.28
     },
     {
      "who": "chip",
@@ -1804,7 +1923,51 @@
       0
      ],
      "dur": 0.01,
-     "at": 2.06
+     "at": 1.36
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wdg",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wdg",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "wdg",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.38
     },
     {
      "who": "chip",
@@ -1818,7 +1981,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.72,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "chip",
@@ -1827,14 +1990,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "chip",
      "do": "pitch",
      "to": -85,
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "chip",
@@ -1848,7 +2011,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "chip",
@@ -1862,7 +2025,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "chip",
@@ -1873,7 +2036,7 @@
       "curve": -0.3
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1886,7 +2049,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1895,7 +2058,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "do": "prop",
@@ -1905,7 +2068,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1919,7 +2082,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1933,7 +2096,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1947,7 +2110,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1955,7 +2118,7 @@
      "side": "R",
      "shape": "fist",
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1967,7 +2130,7 @@
       "curve": -0.4
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -1978,7 +2141,47 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 2.08
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "amb",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "str",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "med1",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "med2",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
     },
     {
      "do": "prop",
@@ -1988,7 +2191,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.08
+     "at": 1.38
     },
     {
      "do": "prop",
@@ -1999,7 +2202,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.08
+     "at": 1.38
     },
     {
      "who": "spud",
@@ -2009,14 +2212,14 @@
      "grip": "case",
      "dur": 0,
      "pose": null,
-     "at": 2.09
+     "at": 1.39
     }
    ]
   },
   {
    "name": "05 the ambulance",
-   "at": 8.7,
-   "len": 2.3,
+   "at": 9,
+   "len": 3.2,
    "shot": {
     "pos": [
      4.2,
@@ -2089,7 +2292,7 @@
   },
   {
    "name": "06a jump two",
-   "at": 11,
+   "at": 12.2,
    "len": 0.7,
    "shot": {
     "pos": [
@@ -2135,7 +2338,7 @@
      "do": "prop",
      "id": "rain",
      "set": {
-      "time": 8.5,
+      "time": 9.7,
       "streak": 0
      },
      "dur": 0.55,
@@ -2196,7 +2399,7 @@
      "set": {
       "x": 4,
       "z": -8,
-      "time": 11.7,
+      "time": 12.9,
       "streak": 1
      },
      "dur": 0.01,
@@ -2336,7 +2539,7 @@
   },
   {
    "name": "06 the drag",
-   "at": 11.7,
+   "at": 12.9,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -2356,7 +2559,7 @@
      "do": "prop",
      "id": "rain",
      "set": {
-      "time": 36.8
+      "time": 38
      },
      "dur": 25.1,
      "ease": "linear",
@@ -2503,7 +2706,7 @@
   },
   {
    "name": "07 Wedge sobs",
-   "at": 13.3,
+   "at": 14.5,
    "len": 1.3,
    "shot": {
     "pos": [
@@ -2621,7 +2824,7 @@
   },
   {
    "name": "08a the hug",
-   "at": 14.6,
+   "at": 15.8,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -2684,7 +2887,7 @@
   },
   {
    "name": "08 the screen",
-   "at": 16,
+   "at": 17.2,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -2934,7 +3137,7 @@
   },
   {
    "name": "09 the boos",
-   "at": 17.4,
+   "at": 18.6,
    "len": 2,
    "shot": {
     "pos": [
@@ -3079,7 +3282,7 @@
   },
   {
    "name": "10 the choice",
-   "at": 19.4,
+   "at": 20.6,
    "len": 2.2,
    "shot": {
     "pos": [
@@ -3221,7 +3424,7 @@
   },
   {
    "name": "11 winding",
-   "at": 21.6,
+   "at": 22.8,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -3285,7 +3488,7 @@
   },
   {
    "name": "12 the seasons",
-   "at": 23,
+   "at": 24.2,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -3391,7 +3594,7 @@
   },
   {
    "name": "13 the burst",
-   "at": 24.6,
+   "at": 25.8,
    "len": 1.3,
    "shot": {
     "pos": [
@@ -3608,7 +3811,7 @@
   },
   {
    "name": "14 one year ago",
-   "at": 25.9,
+   "at": 27.1,
    "len": 3.9,
    "shot": {
     "pos": [
@@ -3911,7 +4114,7 @@
   },
   {
    "name": "15 I'm Chip",
-   "at": 29.8,
+   "at": 31,
    "len": 7,
    "shot": {
     "pos": [
@@ -4087,17 +4290,25 @@
   },
   {
    "from": 6.6,
-   "to": 8.7,
+   "to": 7.6,
    "see": [
     "wdg.face",
+    "crane"
+   ],
+   "why": "close: Wedge, furious, yanks the orange cable of the TV crane with both gloves"
+  },
+  {
+   "from": 7.6,
+   "to": 9,
+   "see": [
     "crane",
     "chip.face"
    ],
-   "why": "Wedge yanks the crane's cable in rage; its arm comes down toward Chip in the front row"
+   "why": "the crane's long arm swings down at Chip, alone at the barrier with his sign, looking up in fear"
   },
   {
-   "from": 8.7,
-   "to": 11,
+   "from": 9,
+   "to": 12.2,
    "see": [
     "spud.face",
     "amb",
@@ -4107,8 +4318,8 @@
    "why": "rain, blue light: medics load Chip into the ambulance; Spud, gold medal round his neck, frozen"
   },
   {
-   "from": 11,
-   "to": 11.7,
+   "from": 12.2,
+   "to": 12.9,
    "see": [
     "spud.face",
     "watch"
@@ -4116,8 +4327,8 @@
    "why": "the watch clicks again; the rain rises"
   },
   {
-   "from": 11.7,
-   "to": 13.3,
+   "from": 12.9,
+   "to": 14.5,
    "see": [
     "spud",
     "chip.face"
@@ -4125,8 +4336,8 @@
    "why": "Spud drags Chip by the arm up the stand steps to the empty top row"
   },
   {
-   "from": 13.3,
-   "to": 14.6,
+   "from": 14.5,
+   "to": 15.8,
    "see": [
     "wdg",
     "chip"
@@ -4134,8 +4345,8 @@
    "why": "Wedge alone on the wet track, face in his gloves; far above, Chip starts down the steps"
   },
   {
-   "from": 14.6,
-   "to": 16,
+   "from": 15.8,
+   "to": 17.2,
    "see": [
     "chip.face",
     "wdg.face"
@@ -4143,16 +4354,16 @@
    "why": "Chip comforts the sobbing Wedge on the track"
   },
   {
-   "from": 16,
-   "to": 17.4,
+   "from": 17.2,
+   "to": 18.6,
    "see": [
     "screen"
    ],
    "why": "the giant screen: Chip hugging Wedge, the packed stadium cheering"
   },
   {
-   "from": 17.4,
-   "to": 19.4,
+   "from": 18.6,
+   "to": 20.6,
    "see": [
     "spud",
     "screen"
@@ -4160,8 +4371,8 @@
    "why": "the replay on the screen shows Spud dragging Chip; the whole stadium boos him"
   },
   {
-   "from": 19.4,
-   "to": 21.6,
+   "from": 20.6,
+   "to": 22.8,
    "see": [
     "spud.face",
     "watch",
@@ -4171,8 +4382,8 @@
    "why": "Spud alone in the rain, the watch shaking in his glove; Chip walks off under Wedge's arm"
   },
   {
-   "from": 21.6,
-   "to": 23,
+   "from": 22.8,
+   "to": 24.2,
    "see": [
     "spud.face",
     "watch"
@@ -4180,8 +4391,8 @@
    "why": "close: Spud winds the crown hard with both gloves, a crack runs across the glass"
   },
   {
-   "from": 23,
-   "to": 24.6,
+   "from": 24.2,
+   "to": 25.8,
    "see": [
     "spud",
     "swirl"
@@ -4189,8 +4400,8 @@
    "why": "the stadium empties round Spud, floodlights die, snow, leaves and rain swirl at once"
   },
   {
-   "from": 24.6,
-   "to": 25.9,
+   "from": 25.8,
+   "to": 27.1,
    "see": [
     "spud.face",
     "watch"
@@ -4198,8 +4409,8 @@
    "why": "close: the watch bursts in his glove, glass, gears and springs flying"
   },
   {
-   "from": 25.9,
-   "to": 29.8,
+   "from": 27.1,
+   "to": 31,
    "see": [
     "spud.face",
     "chip.face"
@@ -4207,8 +4418,8 @@
    "why": "grey dawn, the empty stadium in the rain: Chip jogging; Spud grabs him; Chip shoves him off, scared"
   },
   {
-   "from": 29.8,
-   "to": 36.8,
+   "from": 31,
+   "to": 38,
    "see": [
     "spud.face",
     "chip.face",
@@ -4222,77 +4433,77 @@
    "who": "spud",
    "with": "watch",
    "from": 0,
-   "to": 25.9,
+   "to": 27.1,
    "reason": "the pocket watch in his glove"
   },
   {
    "who": "chip",
    "with": "sign",
    "from": 0,
-   "to": 8.7,
+   "to": 9,
    "reason": "his sign in his glove"
   },
   {
    "who": "chip",
    "with": "stad",
    "from": 0,
-   "to": 8.7,
+   "to": 9,
    "reason": "standing on the front tier's tread behind the barrier"
   },
   {
    "who": "spud",
    "with": "stad",
-   "from": 11.7,
-   "to": 14.6,
+   "from": 12.9,
+   "to": 15.8,
    "reason": "climbing the aisle steps of the stand"
   },
   {
    "who": "chip",
    "with": "stad",
-   "from": 11.7,
-   "to": 14.6,
+   "from": 12.9,
+   "to": 15.8,
    "reason": "climbing the aisle steps of the stand"
   },
   {
    "who": "wdg",
    "with": "crane",
    "from": 6.6,
-   "to": 8.7,
+   "to": 9,
    "reason": "his glove round the crane's cable"
   },
   {
    "who": "spud",
    "with": "medal",
-   "from": 8.7,
-   "to": 25.9,
+   "from": 9,
+   "to": 27.1,
    "reason": "the medal worn round his neck"
   },
   {
    "who": "spud",
    "with": "chip",
-   "from": 11.7,
-   "to": 13.3,
+   "from": 12.9,
+   "to": 14.5,
    "reason": "dragging Chip by the glove up the steps"
   },
   {
    "who": "chip",
    "with": "wdg",
-   "from": 14.6,
-   "to": 16,
+   "from": 15.8,
+   "to": 17.2,
    "reason": "the hug"
   },
   {
    "who": "chip",
    "with": "spud",
-   "from": 27.2,
-   "to": 29.8,
+   "from": 28.4,
+   "to": 31,
    "reason": "Spud grabs Chip, Chip shoves him off"
   },
   {
    "who": "chip",
    "with": "spud",
-   "from": 33,
-   "to": 36.8,
+   "from": 34.2,
+   "to": 38,
    "reason": "the handshake"
   }
  ],

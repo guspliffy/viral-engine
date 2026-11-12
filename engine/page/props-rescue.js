@@ -24,7 +24,7 @@ import { clamp } from "./util.js";
 //              direction); the head's middle is the boom tip, the camera's middle is 0.5 under it. A thick cable (r 0.04,
 //              ghost): from the camera head under the boom to the turntable, down the column's +z side to the dolly, then along
 //              the ground to its free end at spec.cableEnd.
-//              Spec: len 5.5, cableEnd [-2, 0, 0.3] (the free end at rest, relative to the origin), pull [-1.5, 0.55, 0.9] (where
+//              Spec: len 5.5, cableColor "#3a3f52", cableR 0.04, cableEnd [-2, 0, 0.3] (the free end at rest, relative to the origin), pull [-1.5, 0.55, 0.9] (where
 //              the yanked end is: relative to the origin, NOT rotated by swing; the cable's tail does not follow swing), drop 40
 //              (the final pitch of the fallen boom, degrees down), land 1.0 (the head's height when it has landed).
 //              Params: swing 0 (deg yaw of the boom, + turns the tip toward -z, the stands), boom 18 (deg pitch, + up), yank 0..1
@@ -159,7 +159,8 @@ function tvcrane(P) {
   const yel = std("#ffffff", { map: WEIGHT_TEX(), roughness: 0.85 });
   const hazard = std("#e8b830", { roughness: 0.6 });
   const rubber = std("#262a35", { roughness: 0.5 });
-  const cableM = std("#3a3f52", { roughness: 0.25, metalness: 0.1, emissive: new THREE.Color("#1c2236"), emissiveIntensity: 0.9 });
+  const cableC = S.cableColor ?? "#3a3f52";   // spec.cableColor: a jacketed cable that reads at night (EP07: hazard orange)
+  const cableM = std(cableC, { roughness: 0.25, metalness: 0.1, emissive: new THREE.Color(S.cableColor ? cableC : "#1c2236"), emissiveIntensity: S.cableColor ? 0.45 : 0.9 });
   const hub = std("#9aa2b4", { roughness: 0.4, metalness: 0.5 });
 
   // ---- dolly, wheels, column, turntable (solid)
@@ -228,7 +229,7 @@ function tvcrane(P) {
           pts.push([B[0] + (E[0] - B[0]) * t, Math.max(0.045, B[1] + (E[1] - B[1]) * t - (1 - yank) * 0.01), B[2] + (E[2] - B[2]) * t + wob]);
         }
         pts.push(E);
-        rest.geometry.dispose(); rest.geometry = tube(pts, 0.04, 80);
+        rest.geometry.dispose(); rest.geometry = tube(pts, S.cableR ?? 0.04, 80);
         plug.position.set(E[0], E[1] + 0.02, E[2]); plug.rotation.z = Math.atan2(E[1] - pts[pts.length - 2][1], E[0] - pts[pts.length - 2][0]) + Math.PI / 2;
       }
     },

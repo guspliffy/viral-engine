@@ -30,7 +30,7 @@ import { clamp, lerp, rng } from "./util.js";
 //                 the tread; the front row 0.85 standing on the apron at z -4.4). Origin (0, 0, 0) as the stadium. InstancedMesh in
 //                 four x chunks, see-through (the cast never touches it). Spec: x0 -50, x1 50, rows 28, top 0 (top rows left
 //                 empty), gap [3.4, 4.6] (the aisle), seed 1, umbrellas 0.35, ponchos 0.4, spacing 0.55, front false (true: a standing
-//                 row on the apron), hole null (x of a 1.2 m gap in the front row), target [0, 0] ([x, z] boo points at), dim 0.8
+//                 row on the apron), hole null (x of a 1.2 m gap in the front row; holeW 0.6 its half width, holeRows 0 how many tiers it also clears), target [0, 0] ([x, z] boo points at), dim 0.8
 //                 (brightness of the whole crowd). Params (spec defaults, 0 at rest): cheer 0..1 (arms up, a small bounce),
 //                 boo 0..1 (one arm out toward target with a thumb down, the body leans and turns that way), empty 0..1 (spectators
 //                 vanish in a seeded order until none are left), flash 0..1 (camera flashes twinkle across the stands with the clip
@@ -426,12 +426,13 @@ function buildCrowd(P) {
     for (let k = 0; k <= n; k++) {
       const x = x0 + k * sp + (t % 2 ? sp * 0.5 : 0) + (hs(t * 400 + k, seed) - 0.5) * 0.08;
       if (x > x1 || (x > g0 && x < g1)) continue;
+      if (S.hole != null && t < (S.holeRows ?? 0) && Math.abs(x - S.hole) < (S.holeW ?? 0.6)) continue;   // spec.holeRows: the gap runs up the first tiers too
       add(x, tierY(t), tierZf(t) - 0.42, 0.92 + hs(t * 400 + k, seed + 3) * 0.2, t * 400 + k + 1);
     }
   }
   if (S.front) for (let k = 0; k <= n; k++) {
     const x = x0 + k * sp + (hs(9000 + k, seed) - 0.5) * 0.1;
-    if (S.hole != null && Math.abs(x - S.hole) < 0.6) continue;
+    if (S.hole != null && Math.abs(x - S.hole) < (S.holeW ?? 0.6)) continue;
     add(x, 0, -4.4, 1.2 + hs(9000 + k, seed + 3) * 0.08, 9000 + k + 1);
   }
   const CH = 25, d = new THREE.Color("#ffffff").multiplyScalar(dim);

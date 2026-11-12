@@ -42,9 +42,9 @@ const Pk = (pack, t, id, set, dur, ease) => { if (has(pack)) P(t, id, set, dur, 
 // 07 Wedge sobs | 08a the hug | 08 the screen | 09 the boos | 10 the choice | 11 winding | 12 the seasons | 13 the burst |
 // 14 one year ago | 15 "I'm Chip"
 const T = {
-  click: 0.4, back: 0.85, start: 2.4, bang: 3.15, win: 4.0, tape: 4.5, crane: 6.6, amb: 8.7, j2: 11.0, drag: 11.7,
-  sob: 13.3, hug: 14.6, screen: 16.0, boo: 17.4, choice: 19.4, wind: 21.6, seasons: 23.0, burst: 24.6, dawn: 25.9,
-  shove: 28.4, end15: 29.8, END: 36.8,
+  click: 0.4, back: 0.85, start: 2.4, bang: 3.15, win: 4.0, tape: 4.5, crane: 6.6, fall: 7.6, amb: 9.0, j2: 12.2, drag: 12.9,
+  sob: 14.5, hug: 15.8, screen: 17.2, boo: 18.6, choice: 20.6, wind: 22.8, seasons: 24.2, burst: 25.8, dawn: 27.1,
+  shove: 29.6, end15: 31.0, END: 38.0,
 };
 const END = T.END;
 const DOWN = -60;   // parked under the floor
@@ -86,7 +86,7 @@ const RAIN = { kind: "rainbox", box: [9, 7, 9], n: 1600, speed: 9, slant: [0.08,
 const props = [
   // ---- the night stadium (T1 props-stadium.js)
   ph("stadium", { id: "stad", kind: "stadium", x: 0, y: 0, z: 0, start: START_X, mood: "night", wet: 1 }, { ...box(100, 0.02, 12), y: -0.02, z: -1 }),
-  ph("stadium", { id: "crowd", kind: "stadiumcrowd", x: 0, y: 0, z: 0, x0: -50, x1: 50, rows: 28, top: 0, gap: [3.4, 4.6], seed: 11, umbrellas: 0.35, ponchos: 0.4, spacing: 0.55, hole: CHIP_T1[0], cheer: 0, boo: 0, empty: 0, flash: 1, sway: 1, target: [LONE[0], LONE[1]] }, NIL),
+  ph("stadium", { id: "crowd", kind: "stadiumcrowd", x: 0, y: 0, z: 0, x0: -50, x1: 50, rows: 28, top: 0, gap: [3.4, 4.6], seed: 11, umbrellas: 0.35, ponchos: 0.4, spacing: 0.55, hole: CHIP_T1[0], holeW: 1.0, holeRows: 2, dim: 0.62, cheer: 0, boo: 0, empty: 0, flash: 1, sway: 1, target: [LONE[0], LONE[1]] }, NIL),
   ph("stadium", { id: "screen", kind: "bigscreen", x: 6.25, y: 0, z: -30, scale: 0.72, bottom: 18, photo: "storyboards/series/what-if/07-time-travel/screen-hug.png", photo2: "storyboards/series/what-if/07-time-travel/screen-drag.png", show: 1, pic: 0, glow: 1 }, NIL),
   ...[[-45, -30, 20], [45, -30, -20], [-45, 45, 160], [45, 45, -160]].map(([x, z, rot], i) => ph("stadium", { id: `fl${i}`, kind: "floodlight", x, y: 0, z, rot, lit: 1 }, NIL)),
   ph("stadium", { id: "barL", kind: "crowdbarrier", x: -13.8, y: 0, z: -4.0, len: 32 }, { ...box(32, 1.0, 0.1), x: -13.8, z: -4.0 }),
@@ -100,12 +100,12 @@ const props = [
   // ---- the watch, the rain, the seasons, the medal (T2 props-timewatch.js)
   ph("watch", { id: "watch", kind: "pocketwatch", x: 0, y: DOWN, z: 0, hands: 0, crack: 0, wind: 0, shake: 0, burst: 0, glint: 0, floor: -0.62 }, box(0.075, 0.075, 0.022)),
   ph("watch", { id: "rain", kind: "rainbox", x: 0, y: 0, z: 0, ...RAIN, time: 0 }, NIL),
-  ph("watch", { id: "swirl", kind: "seasonswirl", x: LONE[0], y: DOWN, z: LONE[1], r: 6, h: 8, n: 600, snow: 1, leaves: 1, rain: 1 }, NIL),
+  ph("watch", { id: "swirl", kind: "seasonswirl", x: LONE[0], y: DOWN, z: LONE[1], r: 3.5, h: 8, n: 600, snow: 1, leaves: 1, rain: 1 }, NIL),
   ph("watch", { id: "medal", kind: "goldmedal", wear: "spud", x: 0, y: 0.34, z: 0.4, swing: 1, scale: 0.001 }, NIL),
   ph("watch", { id: "wreck", kind: "watchwreck", x: r3(DX + 1.25), y: 0, z: -0.55, rot: 20 }, NIL),
   { id: "puddle", kind: "wetpuddle", x: r3(DX + 0.95), y: 0.003, z: -0.85, rx: 1.0, rz: 0.7, splash: 0, ring: 0 },
   // ---- the crane, the ambulance, the stretcher, the medics, the starter (T3 props-rescue.js)
-  ph("rescue", { id: "crane", kind: "tvcrane", x: CRANE[0], y: 0, z: CRANE[1], len: 4.2, swing: 161, boom: 14, yank: 0, fall: 0, tally: 1, drop: 12, land: 1.3, pull: PULL, cableEnd: [0.9, 0, 1.1] }, box(1.3, 1.8, 0.9)),
+  ph("rescue", { id: "crane", kind: "tvcrane", x: CRANE[0], y: 0, z: CRANE[1], len: 4.2, swing: 161, boom: 14, yank: 0, fall: 0, tally: 1, drop: 12, land: 1.3, pull: PULL, cableEnd: [0.9, 0, 1.1], cableColor: "#e0661c", cableR: 0.05 }, box(1.3, 1.8, 0.9)),
   ph("rescue", { id: "amb", kind: "ambulance", x: AMB[0], y: 0, z: AMB[1], rot: 0, doors: 1, siren: 1, wet: 1 }, box(2.0, 2.3, 4.6)),
   ph("rescue", { id: "str", kind: "stretcher", x: AMB[0], y: 0, z: 3.4, rot: 90, blanket: 1 }, box(1.5, 0.65, 0.55)),
   ph("rescue", { id: "med1", kind: "medic", x: AMB[0], y: 0, z: 2.45, rot: 180, h: 0.9, lug: 1, walk: 0, sway: 1 }, NIL),
@@ -142,7 +142,7 @@ Pk("watch", 0, "swirl", { y: DOWN });
 // shards died on the tape's NaN vertices at its snap)
 for (const [pk, id, set] of [["rescue", "crane", { fall: 0 }], ["stadium", "crowd", { hole: CHIP_T1[0] }], ["stadium", "fl0", { lit: 1 }], ["stadium", "fl1", { lit: 1 }],
   ["stadium", "fl2", { lit: 1 }], ["stadium", "fl3", { lit: 1 }], ["stadium", "fw0", { burst: 0 }], ["stadium", "fw1", { burst: 0 }], ["stadium", "fw2", { burst: 0 }],
-  ["watch", "rain", { alpha: 0.55 }], ["stadium", "screen", { pic: 0, show: 1 }], ["rescue", "starter", { fire: 0 }], ["stadium", "tape", { snap: 0 }],
+  ["watch", "rain", { alpha: 0.55 }], ["stadium", "screen", { pic: 0, show: 0 }], ["rescue", "starter", { fire: 0 }], ["stadium", "tape", { snap: 0 }],
   ["rescue", "wash", { on: 0 }], ["watch", "watch", { burst: 0, crack: 0, glint: 0, hands: 0 }]]) Pk(pk, 0, id, set);
 Pk("stadium", 0, "tape", { wave: 1 });
 // the rain: forward with the clock, frozen at the click, then running backward (rising); the watch's hands spin back
@@ -196,20 +196,24 @@ see(T.win, T.crane, ["spud.face", "wdg.face", "tape"], "Spud breaks the tape fir
 
 // ================================================================= 04 THE CRANE (6.6-8.7): Wedge's rage, Chip below
 // Wedge, beaten, yanks the cable of the TV crane; its long arm comes down toward the front tier where Chip stands.
-place(T.crane, "wdg", [r3(CRANE[0] + PULL[0] + 0.3), r3(CRANE[1] + PULL[2] + 0.45)], -45);
+place(T.crane, "wdg", [r3(CRANE[0] + PULL[0] + 0.3), r3(CRANE[1] + PULL[2] + 0.45)], -146);   // the cable straight ahead of him
+place(T.crane, "spud", [0.8, 0.4], 60);   // celebrating out on the infield side, clear of both crane shots
 Pk("rescue", 0, "crane", { swing: 161, boom: 14, yank: 0, tally: 1 });
 c.arm(r3(T.crane - 0.02), "wdg", "R", has("rescue") ? { prop: "crane", grip: PULL } : { o: [0.1, 0.55, 0.3] }, 0.01); A(r3(T.crane - 0.02), "wdg", "grip", { side: "R", shape: "fist", dur: 0.01 });
 // no grab: the crane must not follow his glove; the glove goes to the cable's yanked end
-c.arm(r3(T.crane - 0.02), "wdg", "L", "fist", 0.01);
+c.arm(r3(T.crane - 0.02), "wdg", "L", has("rescue") ? { prop: "crane", grip: [r3(PULL[0] - 0.07), r3(PULL[1] - 0.08), r3(PULL[2] - 0.1)] } : "fist", 0.01); A(r3(T.crane - 0.02), "wdg", "grip", { side: "L", shape: "fist", dur: 0.01 });
 expr(r3(T.crane - 0.02), "wdg", "angry", { brow: 1 }, 0.01);
-Pk("rescue", r3(T.crane + 0.3), "crane", { yank: 1 }, 0.35, "in");
-A(r3(T.crane + 0.3), "wdg", "lean", { to: -12, dur: 0.3 });
-Pk("rescue", r3(T.crane + 0.7), "crane", { fall: 1 }, 1.9, "in");   // still short of Chip at the cut (fall 0.75 at 8.65)
+Pk("rescue", r3(T.crane - 0.02), "crane", { yank: 0.85 }); Pk("rescue", r3(T.crane + 0.3), "crane", { yank: 1 }, 0.35, "in");   // the cable already in his fists at the cut
+A(r3(T.crane - 0.02), "wdg", "lean", { to: -8, dur: 0.01 }); A(r3(T.crane + 0.3), "wdg", "lean", { to: -14, dur: 0.3 });   // already hauling at the cut, then the big yank
+Pk("rescue", r3(T.crane + 0.7), "crane", { fall: 1 }, 2.6, "in");   // still short of Chip at the cut
 sfx(r3(T.crane + 0.7), "hit-metal", { gain: 0.45, reason: "the crane's steel pivot giving way" });
 look(r3(T.crane + 0.6), "chip", [0.5, 0.6], 0.2); expr(r3(T.crane + 0.6), "chip", "terrified", { open: 0.6, eye: 1.3 }, 0.12);
 c.arm(r3(T.crane + 0.65), "chip", "L", { o: [0.05, 0.9, 0.2] }, 0.2);
 sfx(r3(T.amb - 0.12), "impact", { gain: 0.9, loud: true, reason: "the crane's arm crashing into the front row (cut before it lands)" });
-see(T.crane, T.amb, ["wdg.face", "crane", "chip.face"], "Wedge yanks the crane's cable in rage; its arm comes down toward Chip in the front row");
+see(T.crane, T.fall, ["wdg.face", "crane"], "close: Wedge, furious, yanks the orange cable of the TV crane with both gloves");
+c.arm(r3(T.amb - 0.02), "wdg", "L", { o: [0.12, 0.3, 0.1] }, 0.01); c.arm(r3(T.amb - 0.02), "wdg", "R", { o: [0.12, 0.3, 0.1] }, 0.01);   // off the cable
+A(r3(T.amb - 0.02), "wdg", "grip", { side: "L", shape: "relaxed", dur: 0.01 }); A(r3(T.amb - 0.02), "wdg", "grip", { side: "R", shape: "relaxed", dur: 0.01 });
+see(T.fall, T.amb, ["crane", "chip.face"], "the crane's long arm swings down at Chip, alone at the barrier with his sign, looking up in fear");
 
 // ================================================================= 05 THE AMBULANCE (8.7-11.0): the first catch, shown
 // Rain, blue light: two medics carry Chip on a stretcher into the ambulance; Spud in the foreground with his gold medal.
@@ -227,6 +231,8 @@ Pk("watch", r3(T.amb - 0.02), "medal", { scale: 1 });
 c.arm(r3(T.amb - 0.02), "spud", "R", { o: [0.06, 0.4, 0.08] }, 0.01); c.arm(r3(T.amb - 0.02), "spud", "L", { o: [0.06, 0.38, 0.05] }, 0.01);
 watchIn(r3(T.amb - 0.02), "spud", "R", { o: [0.06, 0.4, 0.08] });
 expr(r3(T.amb - 0.02), "spud", "shocked", { open: 0.25, eye: 1.2, curve: -0.4 }, 0.01); look(r3(T.amb - 0.02), "spud", [0.6, 0.05], 0.01);
+// the ambulance and its crew come only after the crash (they stood in the win and crane shots' background)
+for (const id of ["amb", "str", "med1", "med2"]) { Pk("rescue", 0, id, { y: DOWN }); Pk("rescue", r3(T.amb - 0.02), id, { y: 0 }); }
 Pk("rescue", T.amb, "str", { x: STR1[0], z: STR1[1] }, 1.6, "inOut");
 Pk("rescue", T.amb, "med1", { z: r3(STR1[1] - 0.95), walk: 1.1 }, 1.6, "inOut"); Pk("rescue", T.amb, "med2", { z: r3(STR1[1] + 0.95), walk: 1.1 }, 1.6, "inOut");
 P(r3(T.amb - 0.02), "wash", { on: 1 });
@@ -383,10 +389,11 @@ see(T.end15, END, ["spud.face", "chip.face", "wreck"], "Spud on his knees in a p
 
 // ---------------------------------------------------------------- shots (camera A looks -z from the infield side)
 const SH = {
-  finish:  { pos: [1.4, 1.0, 1.7], look: [-0.4, 1.0, -4.0], fov: 44, to: { pos: [1.3, 1.0, 1.45], look: [-0.4, 1.0, -4.0], fov: 44 }, dur: T.start, ease: "linear" },
+  finish:  { pos: [3.0, 1.15, 1.2], look: [-0.5, 1.0, -3.4], fov: 42, to: { pos: [2.85, 1.15, 1.05], look: [-0.5, 1.0, -3.4], fov: 42 }, dur: T.start, ease: "linear" },
   start:   { pos: [r3(START_X + 2.8), 0.45, 1.4], look: [r3(START_X - 0.4), 0.45, -2.4], fov: 52 },
   win:     { pos: [5.6, 1.1, 0.4], look: [1.2, 1.2, -2.6], fov: 46, to: { pos: [5.3, 1.2, 0.3], look: [1.6, 1.5, -2.6], fov: 48 }, dur: r3(T.crane - T.win), ease: "out" },
-  crane:   { pos: [5.6, 1.2, 1.8], look: [2.0, 1.4, -4.4], fov: 58 },
+  crane:   { pos: [2.4, 1.5, -3.6], look: [4.0, 0.7, -2.7], fov: 50 },
+  fall:    { pos: [0.6, 0.7, -1.0], look: [-0.4, 1.9, -5.0], fov: 55 },
   amb:     { pos: [4.2, 1.0, 7.2], look: [7.0, 1.0, 1.0], fov: 46 },
   j2:      { pos: [4.6, 0.85, 6.45], look: [4.85, 0.62, 4.7], fov: 46 },
   drag:    { pos: [4.6, 6.0, -5.0], look: [4.0, 4.4, -11.5], fov: 48 },
@@ -405,7 +412,8 @@ const CUTS = [
   ["01 the photo finish", 0, SH.finish, "hook"],
   ["02 the start", T.start, SH.start],
   ["03 he wins", T.win, SH.win],
-  ["04 the crane", T.crane, SH.crane],
+  ["04 the yank", T.crane, SH.crane],
+  ["04b the arm comes down", T.fall, SH.fall],
   ["05 the ambulance", T.amb, SH.amb, "reveal"],
   ["06a jump two", T.j2, SH.j2],
   ["06 the drag", T.drag, SH.drag],
