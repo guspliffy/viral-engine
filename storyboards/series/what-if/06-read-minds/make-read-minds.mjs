@@ -488,7 +488,7 @@ write(import.meta.url, {
   // a triumphant hero theme from the call while he keeps winning (Jonny 12 Nov 15:34), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
   music: { file: process.env.MUSIC ?? "read-minds/read-minds-casino.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
     then: { file: process.env.MUSIC2 ?? "ai/disaster/disaster-01.ogg", from: r3(CATCH + 0.1), gain: 0.7 } },
-  sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "party", guard: true },
+  sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "hall", guard: true },
   hook: { show: ["wdg", "spud", "pot"], hint: 0, what: "a poker all-in already running: Wedge shoves a huge heap and his gold watch into the pot, Spud with three chips left" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip,

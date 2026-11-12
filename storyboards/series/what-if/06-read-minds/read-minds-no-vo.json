@@ -65,7 +65,7 @@
   "sfx": 0.65,
   "ambience": 0.2,
   "surface": "carpet",
-  "room": "party",
+  "room": "hall",
   "guard": true
  },
  "hook": {
