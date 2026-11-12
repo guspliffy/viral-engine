@@ -74,6 +74,10 @@ import { REX_KINDS } from "./props-rex.js";         // there's a catch 05: rex (
 import { PTERO_KINDS } from "./props-ptero.js";     // there's a catch 05: pterosaur (real anatomy; replaces the one in props-iceage.js)
 import { FOSSILS_KINDS } from "./props-fossils.js";   // there's a catch 05: trexbones, mammothbones, sabrebones, pterobones, lifesparks
 import { MUSEUMSTREET_KINDS } from "./props-museumstreet.js";   // there's a catch 05: museumfront, townsquare, hillneck, streetcracks
+import { CASINO_KINDS } from "./props-casino.js";       // there's a catch 06: casinohall, pokertable, casinoguest, chipstack, chippile, playcard, cardfan, carkeys
+import { MIND_KINDS } from "./props-mind.js";           // there's a catch 06: thoughtbubble, bubblefield, eyeglow
+import { NIGHTCITY_KINDS } from "./props-nightcity.js"; // there's a catch 06: neoncity, nightskyline, hotelroom
+import { NEONSTREET_KINDS } from "./props-neonstreet.js"; // there's a catch 06: neonstreet, streetpotato
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
@@ -1403,6 +1407,7 @@ Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
+Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
 Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)
