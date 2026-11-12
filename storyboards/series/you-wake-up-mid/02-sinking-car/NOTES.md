@@ -2,11 +2,14 @@
 
 ## Where the build stands
 
-- Step: ROUGH DRAFT 1 SENT 12 Nov 18:47 Berlin (videos/you-wake-up-mid/02-sinking-car/); waiting on his notes + the opening card.
-- Next: drop NOAI, rough draft (`--draft`), pops line, strip, send to Jonny; no polish until his OK.
-- Layout runs: 3 full + 5 window rounds. Renders so far: drafts 0, farm renders 0; fix rounds used: 0 of 3.
-- Open for polish (not beat-hiding): spud hands in the dash/wheel (0-11.5), hand R over his own eyes 9.0-11.5 (door
-  shot, Mash is the subject), headrest grip slips 13.4-13.7, spudW/mashW merge 40 % in the pull 22.9-23.9, phone grip.
+- Step: FINAL DELIVERED 12 Nov 2026 22:30 Berlin (videos/you-wake-up-mid/02-sinking-car/, DELIVERY.md); waits for his
+  verdict and "merge it". Farm renders: lake 2 (render 1 failed strobe at the surfacing + a cartoon-only false alarm on
+  Mash), fire 1. Joined with join.sh.
+- Known, named in the delivery: the "Window." shot's first 0.3 s (11.5-11.8) shows a cream slab: CAM.button sits at the
+  lake surface and dips under it as the car bobs. Raising it to y 1.95 made the waves cover his face (worse): the fix is
+  a new angle (inside the cabin or well above the waves), only on his word.
+- Headrest pattern that passed: no grab; both arms aimed at the prop's grips ({ prop, grip, palm }), the prop's own
+  tweens with a "reason" carry it, and the hands follow (attach.js "stay"). A grab plus prop tweens = hold-owner + slips.
 
 ## The improvement loop
 
