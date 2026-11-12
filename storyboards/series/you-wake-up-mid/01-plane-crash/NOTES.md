@@ -133,3 +133,7 @@ need a explosion sound", "the video needs more dramatic music".
   explosion plays alone at gain 1.2 (a layered `impact` and a tall crack only fed the limiter). Its 100 ms peak
   stays 2.5 dB under the crash slam (noise has a 10 dB crest, the slam is a sine); it roars for 1.4 s. Note, not fail.
 - Farm render 4: PASS on both cuts (runs 43191784573 A, 43191798612 B) at d452029. Delivered, DELIVERY.md round 3.
+- Jonny 12 Nov 11:31: "keep the music and dont change it at second 20 the music was good as it is". One bed now,
+  disaster-04 from 0 to T.boom - 0.4, `skip: 1.698` = where the lock started it in render 4 (a new `until` moves the
+  lock's pick, so it is pinned). Sound redone with --audio-only on render 4's picture (video stream copied from the
+  farm mp4 to out/<id>-anime-pro.video.mp4); qa/check PASS on both.

@@ -604,11 +604,10 @@ write(import.meta.url, {
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
   set: { type: "snowslope", cliff: { x: CLIFF }, at: [OX, 0, 0], dark: DARK, para: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   // Jonny 12 Nov: "the video needs more dramatic music" (and, on the T. rex clip: a code score "sounds like game music", he wants a
-  // dramatic orchestra, timpani and trumpets, chase music). So: recorded orchestral beds, louder. The disaster score (taiko and
-  // timpani, staccato strings, brass stabs) from 0.0 through the fall and the crash; it stops on the cliff edge; the chase score
-  // (pounding drums, staccato strings, brass hits, 140 BPM) from the suitcase to 0:00; the explosion ends it and rings alone.
-  music: { file: "ai/disaster/disaster-04.ogg", from: 0, until: r3(T.edge + 0.6), lowCut: 150, gain: 0.6, duck: { db: -8, voice: -10 },
-    then: { file: "ai/car-chase/car-chase-03.ogg", from: T.trunk, until: r3(T.boom - 0.4), gain: 0.6, duck: { db: -8, voice: -10 } } },
+  // dramatic orchestra, timpani and trumpets, chase music). So: the recorded disaster score (taiko and timpani, staccato strings,
+  // brass stabs), louder, from 0.0 to just before the explosion, which rings alone. Jonny 12 Nov 11:31 on render 4: "keep the
+  // music and dont change it at second 20 the music was good as it is" (render 4 switched to a chase score at 20.1 s): one bed.
+  music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: r3(T.boom - 0.4), lowCut: 150, gain: 0.6, duck: { db: -8, voice: -10 } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true },
   creative: { length: [T.end, T.end] },
   hook: { show: ["fly1"], hint: 0, what: "through his own blinking eyelids: the cabin pointing down, alarm lights, bags flying at him" },

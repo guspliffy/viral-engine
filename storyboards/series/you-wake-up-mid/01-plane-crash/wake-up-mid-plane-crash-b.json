@@ -84,22 +84,13 @@
  "music": {
   "file": "ai/disaster/disaster-04.ogg",
   "from": 0,
-  "until": 18.9,
+  "skip": 1.698,
+  "until": 29,
   "lowCut": 150,
   "gain": 0.6,
   "duck": {
    "db": -8,
    "voice": -10
-  },
-  "then": {
-   "file": "ai/car-chase/car-chase-03.ogg",
-   "from": 20.1,
-   "until": 29,
-   "gain": 0.6,
-   "duck": {
-    "db": -8,
-    "voice": -10
-   }
   }
  },
  "sound": {
