@@ -40,6 +40,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   height, so its next move runs in mid-air; Jonny found it on a final cut that passed every check. A preflight warning
   (visible-glitch) names the move and the height. Should keep the glitches Jonny finds on final cuts at 0. Proof: it
   flags all three runners on the old storyboard and none on the fixed one.
+- Instant cut cheats stay on their beat (12 Nov, from Survive it zombies; waits for Jonny's word): the timing layer
+  shifted a group's poses placed on a cut (dur <= 0.012) one or two frames late, so they popped two frames into the new
+  shot (rig-jump fails at five cuts, about 3 layout runs to find). `engine/page/timeline.js` no longer shifts them.
+  Should lower `layouts` and `fix rounds` for clips that place groups on cuts. Proof: on the zombie storyboard with
+  every `sync` removed, 8 arms missed their cut pose on the 8.3 s cut frame before, 0 after; golden and regress unchanged.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
