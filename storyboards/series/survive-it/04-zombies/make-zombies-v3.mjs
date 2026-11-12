@@ -443,7 +443,7 @@ sfx(r3(T.press + 0.3), "creak", { gain: 0.45, reason: "the door bows inward agai
 c.at(r3(T.press + 0.3), { fx: "shake", dur: 0.6, amp: 0.02 });
 expr(r3(T.press + 0.2), "phx", "terrified", { open: 0.2 }); look(r3(T.press + 0.1), "phx", [-0.6, 0.1], 0.12);
 // Spud turns from the door to Phoenix, then to us: they must go out
-A(r3(T.water - 0.45), "spud", "turn", { to: -160, dur: 0.4 }); look(r3(T.water - 0.3), "spud", [0, 0], 0.15);
+A(r3(T.water - 0.55), "spud", "turn", { to: -160, dur: 0.6 });   // slower turn: the palms do not flip on screen look(r3(T.water - 0.3), "spud", [0, 0], 0.15);
 expr(r3(T.water - 0.25), "spud", "stern", { curve: -0.2, browL: 0.3 });
 c.say(T.water, "spud", "We need water.", 0.9, "calm", { sub: false });
 cap(T.water, r3(T.throw - 0.03), "We need water.", "p07");
@@ -483,7 +483,7 @@ putProp(T.sneak, "horde", { x: FAR[0] }); putProp(T.sneak, "pcar3", { x: -1.65, 
 putProp(T.sneak, "hordeS", { x: HS[0], z: HS[1], adv: 1.5, gx: CLK[0] - HX, gz: CLK[1] - HS[1] });
 ["spud", "wiz", "gun"].forEach((w) => {
   A(r3(T.sneak - 0.02), w, "crouch", { to: 1, dur: 0.01 }); expr(r3(T.sneak - 0.02), w, "focused", { curve: -0.15 }, 0.01);
-  A(T.sneak, w, "move", { to: [S.p09[w][0], r3(S.p09[w][1] - 2.6)], y: PY, dur: r3(T.shop - T.sneak - 0.1), steps: 6, ease: "linear" });
+  A(T.sneak, w, "move", { to: [S.p09[w][0], r3(S.p09[w][1] - 2.6)], y: PY, dur: r3(T.shop - T.sneak - 0.1), steps: 10 });   // short crouched steps, default ease: no skating feet
 });
 look(r3(T.sneak + 0.9), "spud", [0.5, 0], 0.2); look(r3(T.sneak + 1.6), "spud", [0, 0], 0.2);
 sfx(T.sneak, "alarmbell", { gain: 0.12, dur: 2.4, reason: "the alarm clock still ringing far up the street" });
@@ -572,7 +572,7 @@ putProp(T.chase, "sdoor", { open: 1, shake: 0 });
 // the horde follows them down the street to the door
 prop(T.chase, "hordeS", { gx: r3(-3.6 - HS[0]), gz: r3(DOORZ - HS[1]), adv: 6, reach: 1 }, 0.01);
 prop(r3(T.chase + 0.05), "hordeS", { adv: 13 }, r3(T.slam - T.chase), "linear");   // a few metres behind them all the way
-const runTo = (w, t0, t1, path) => { let t = t0; const leg = r3((t1 - t0) / path.length); path.forEach(([x, z, y = SY]) => { A(r3(t), w, "move", { to: [x, z], y, dur: leg, steps: 4, ease: "linear" }); t += leg; }); };
+const runTo = (w, t0, t1, path) => { let t = t0, [px, pz] = S.p13[w]; const leg = r3((t1 - t0) / path.length); path.forEach(([x, z, y = SY]) => { const steps = Math.max(4, Math.round(Math.hypot(x - px, z - pz) / 0.5)); A(r3(t), w, "move", { to: [x, z], y, dur: leg, steps, ease: "linear" }); t += leg; [px, pz] = [x, z]; }); };   // ~0.5 m strides however long the leg, so the feet never skate
 ["spud", "wiz", "gun"].forEach((w) => { expr(r3(T.chase - 0.02), w, "terrified", { open: 0.35 }, 0.01); both(r3(T.chase - 0.02), w, { o: [0.2, 0.5, 0.25] }, 0.01); });
 both(r3(T.chase - 0.02), "gun", "rest", 0.01); arm(r3(T.chase - 0.02), "gun", "L", { o: [0.18, 0.7, -0.12] }, 0.01);
 // one after the other through the door (each goes up the stairs as it arrives), so no two bodies meet in the porch
@@ -620,14 +620,14 @@ narrate(T.recap, "Water. Silence. High ground.");
 cap(T.recap, r3(T.less - 0.05), "Water. Silence. High ground.", "p14");
 FIVE.forEach((w) => { expr(r3(T.dawn - 0.01), w, "sad", { curve: -0.1, lidL: 0.4, lidR: 0.4 }, 0.01); both(r3(T.dawn - 0.01), w, ["wiz", "phx"].includes(w) ? "rest" : "lap", 0.01); look(r3(T.dawn - 0.01), w, [0, -0.2], 0.01); });
 ["wiz", "gun"].forEach((w) => expr(r3(T.dawn - 0.005), w, "serene", { lidL: 1, lidR: 1 }, 0.005));
-look(r3(T.dawn - 0.005), "gun", [0, 0.4], 0.005);   // his eyes up, out from under the hat brim (the camera is above)
+look(r3(T.dawn - 0.005), "gun", [0, 0.65], 0.005);   // his eyes up, out from under the hat brim (the camera is above)
 sfx(T.dawn, "patter", { gain: 0.1, dur: 2.0, reason: "the last drops of rain into the bucket" });
 sfx(r3(T.dawn + 1.0), "ai/zombie-horde", { gain: 0.25, reason: "the horde far below, quiet now" });
 look(r3(T.less - 0.25), "spud", [0, 0.1], 0.2); expr(r3(T.less - 0.2), "spud", "kind", { curve: 0.05 });
 c.say(T.less, "spud", "Tomorrow we take less.", 1.0, "whisper", { sub: false });
 cap(T.less, r3(T.end - 0.05), "Tomorrow we take less.", "p14");
 sfx(T.belly, "rumble", { gain: 0.45, dur: 0.5, reason: "the Gunslinger's stomach" });
-expr(r3(T.belly + 0.05), "gun", "shocked", { open: 0.1 });
+expr(r3(T.belly + 0.05), "gun", "shocked", { open: 0.1 }); look(r3(T.belly + 0.05), "gun", [0, 0.65], 0.1);
 ["spud", "phx"].forEach((w) => gaze(r3(T.belly + 0.25), w, S.p14[w], S.p14.gun, -0.1, 0.15));
 see(T.dawn, T.end, ["spud.face", "gun.face", "packE", "rainb", "tinL"], "P14: day 7, all five alive on their balcony at sunrise with the water they brought, rain in a bucket and one tin");
 
