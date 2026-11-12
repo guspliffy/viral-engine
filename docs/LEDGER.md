@@ -45,6 +45,11 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   shot (rig-jump fails at five cuts, about 3 layout runs to find). `engine/page/timeline.js` no longer shifts them.
   Should lower `layouts` and `fix rounds` for clips that place groups on cuts. Proof: on the zombie storyboard with
   every `sync` removed, 8 arms missed their cut pose on the 8.3 s cut frame before, 0 after; golden and regress unchanged.
+- `realistic-sounds` (12 Nov, from There's a catch 06 read minds; Jonny's "add it"): `qa/sound.mjs` (run by preflight
+  and check) warns on every sound that only marks movement or magic (pops, chimes, zaps, boings, whooshes, signature
+  jingles, stings), the automatic ones too, and says how to switch each off. Should bring Jonny's sound notes on drafts
+  to 0. Proof: read minds draft 2 warns on 20 (hop boings, magic zaps, bubble pops, a party horn, a wind swell), the
+  final storyboard passes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.

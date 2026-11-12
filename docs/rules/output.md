@@ -151,6 +151,10 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   music"). `qa/check.mjs --ears` ("ears-music") plays the music bed alone to earshot: a code-synthesized bed warns
   when the clip is dramatic (style `chase` / `orchestra` / `danger` / `dread`, or `"music": { "mood": "dramatic" }`),
   else it is a note. It hears synth against recording, not whether the music fits: that stays Jonny's ear.
+- **Realistic sounds only** (Jonny 12 Nov: "bling sounds, magic sounds, squirking sounds ... annoy me ... they should
+  be realistic or come close"): no sound that only marks movement or magic, the automatic hop boing, signature jingles
+  and stings included. A magic moment is silent or gets a real sound (a heartbeat). `qa/sound.mjs` warns
+  ("realistic-sounds") and says how to switch an automatic one off. This wins over the signature rule below.
 - **Every named sound is chosen for what happens on screen**, and the delivery says it in Jonny's words (splort,
   dö-döm, crunch). The payoff's sound is always picked by hand. Both "bling"s Jonny caught on 29 Oct came from a
   library name that lied (`kenney/slime` is a sci-fi blip) and an automatic signature sparkle on a payoff.
