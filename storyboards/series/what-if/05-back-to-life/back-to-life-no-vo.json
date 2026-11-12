@@ -60,35 +60,35 @@
     "part": "intro"
    },
    {
-    "at": 5.9,
+    "at": 6.4,
     "part": "build"
    },
    {
-    "at": 8.9,
+    "at": 9.4,
     "part": "drop"
    },
    {
-    "at": 10.8,
+    "at": 11.3,
     "part": "musicbox"
    },
    {
-    "at": 11.95,
+    "at": 12.45,
     "part": "hold"
    },
    {
-    "at": 14,
+    "at": 14.5,
     "part": "drop"
    },
    {
-    "at": 17.4,
+    "at": 17.9,
     "part": "main"
    },
    {
-    "at": 19.5,
+    "at": 20,
     "part": "stop"
    },
    {
-    "at": 20,
+    "at": 20.5,
     "part": "hold"
    }
   ]
@@ -292,7 +292,7 @@
    "y": 0.3,
    "z": -11,
    "rot": 0,
-   "scale": 1.5,
+   "scale": 1.7,
    "rods": false
   },
   {
@@ -313,18 +313,18 @@
   },
   {
    "id": "rex",
-   "kind": "trex",
+   "kind": "rex",
    "x": 1.4,
    "y": 0,
    "z": 98.5,
    "rot": 0,
-   "scale": 1.5,
+   "scale": 1.7,
    "jaw": 0.9,
    "brow": -1,
-   "neckP": 5,
-   "headP": -8,
-   "lean": 14,
-   "skin": "brown"
+   "lean": 4,
+   "neckP": 6,
+   "headP": 8,
+   "headY": 14
   },
   {
    "id": "mam",
@@ -469,8 +469,8 @@
  ],
  "captions": [
   {
-   "from": 1.8,
-   "to": 2.35,
+   "from": 2.3,
+   "to": 2.85,
    "text": "Ooh, bones!",
    "pos": 930,
    "pop": false,
@@ -478,8 +478,8 @@
    "kinetic": false
   },
   {
-   "from": 2.35,
-   "to": 3.35,
+   "from": 2.85,
+   "to": 3.85,
    "text": "Don't touch it!",
    "pos": 930,
    "pop": false,
@@ -487,8 +487,8 @@
    "kinetic": false
   },
   {
-   "from": 3.7,
-   "to": 4.7,
+   "from": 4.2,
+   "to": 5.2,
    "text": "Do the fish!",
    "pos": 930,
    "pop": false,
@@ -496,8 +496,8 @@
    "kinetic": false
   },
   {
-   "from": 5.25,
-   "to": 6,
+   "from": 5.75,
+   "to": 6.5,
    "text": "AAAH!",
    "pos": 930,
    "pop": false,
@@ -505,8 +505,8 @@
    "kinetic": false
   },
   {
-   "from": 6,
-   "to": 6.27,
+   "from": 6.5,
+   "to": 6.77,
    "text": "AAAAAH!",
    "pos": 640,
    "pop": false,
@@ -514,8 +514,8 @@
    "kinetic": false
   },
   {
-   "from": 11.15,
-   "to": 12.25,
+   "from": 11.65,
+   "to": 12.75,
    "text": "He's friendly!",
    "pos": 900,
    "pop": false,
@@ -523,8 +523,8 @@
    "kinetic": false
   },
   {
-   "from": 13.35,
-   "to": 13.97,
+   "from": 13.85,
+   "to": 14.47,
    "text": "...We're potatoes.",
    "pos": 1180,
    "pop": false,
@@ -532,8 +532,8 @@
    "kinetic": false
   },
   {
-   "from": 17.9,
-   "to": 19,
+   "from": 18.4,
+   "to": 19.5,
    "text": "D-don't look down!",
    "pos": 1180,
    "pop": false,
@@ -541,8 +541,8 @@
    "kinetic": false
   },
   {
-   "from": 20.6,
-   "to": 22,
+   "from": 21.1,
+   "to": 22.5,
    "text": "Would you still want it?",
    "pos": 920,
    "pop": false
@@ -1051,13 +1051,14 @@
      "set": {
       "x": 0.9999999999999999,
       "y": 0,
-      "z": 99.92,
+      "z": 99.57,
       "rot": -6,
       "jaw": 0.9,
       "brow": -1,
-      "lean": 14,
-      "neckP": 5,
-      "headP": -8,
+      "lean": 4,
+      "neckP": 6,
+      "headP": 8,
+      "headY": 14,
       "squint": 0.2
      },
      "dur": 0.01,
@@ -1068,7 +1069,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "z": 105.32
+      "z": 104.97
      },
      "dur": 1.5,
      "ease": "linear",
@@ -1078,7 +1079,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "gait": 1.336,
+      "gait": 1.176,
       "drool": 1,
       "glow": 0
      },
@@ -1090,7 +1091,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "gait": 3.841
+      "gait": 3.382
      },
      "dur": 1.5,
      "ease": "linear",
@@ -1573,7 +1574,7 @@
   {
    "name": "the hall: the plant",
    "at": 1.5,
-   "len": 2.1,
+   "len": 2.6,
    "shot": {
     "pos": [
      -0.5,
@@ -1674,7 +1675,7 @@
       ]
      },
      "dur": 0.3,
-     "at": 0.25
+     "at": 0.75
     },
     {
      "who": "phx",
@@ -1684,7 +1685,7 @@
      "dur": 0.6,
      "blink": false,
      "voice": false,
-     "at": 0.3
+     "at": 0.8
     },
     {
      "who": "rea",
@@ -1692,7 +1693,7 @@
      "to": -9,
      "dur": 0.14,
      "ease": "out",
-     "at": 0.7
+     "at": 1.2
     },
     {
      "do": "prop",
@@ -1702,7 +1703,7 @@
      },
      "dur": 0.2,
      "ease": "out",
-     "at": 0.75
+     "at": 1.25
     },
     {
      "who": "rea",
@@ -1712,7 +1713,7 @@
      "dur": 0.6,
      "blink": false,
      "voice": false,
-     "at": 0.85
+     "at": 1.35
     },
     {
      "who": "rea",
@@ -1720,21 +1721,21 @@
      "to": 0,
      "dur": 0.3,
      "ease": "settle",
-     "at": 0.85
+     "at": 1.35
     },
     {
      "sfx": "zap",
      "gain": 0.5,
-     "at": 0.95
+     "at": 1.45
     },
     {
      "sfx": "whoosh",
      "gain": 0.3,
-     "at": 0.95
+     "at": 1.45
     },
     {
      "fx": "sparkle",
-     "at": 0.95,
+     "at": 1.45,
      "color": "#7dff6a",
      "dur": 0.6
     },
@@ -1746,7 +1747,7 @@
      },
      "dur": 0.5,
      "ease": "back",
-     "at": 0.95
+     "at": 1.45
     },
     {
      "who": "rea",
@@ -1757,7 +1758,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 1.15
+     "at": 1.65
     },
     {
      "who": "rea",
@@ -1768,7 +1769,7 @@
       "eye": 1.3
      },
      "dur": 0.12,
-     "at": 1.25
+     "at": 1.75
     },
     {
      "who": "spud",
@@ -1779,7 +1780,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 1.25
+     "at": 1.75
     },
     {
      "who": "spud",
@@ -1790,7 +1791,7 @@
       "eye": 1.25
      },
      "dur": 0.12,
-     "at": 1.35
+     "at": 1.85
     },
     {
      "who": "phx",
@@ -1801,7 +1802,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 1.4
+     "at": 1.9
     },
     {
      "do": "prop",
@@ -1811,7 +1812,7 @@
      },
      "dur": 0.3,
      "ease": "linear",
-     "at": 1.45
+     "at": 1.95
     },
     {
      "who": "phx",
@@ -1822,7 +1823,7 @@
       "curve": 1
      },
      "dur": 0.12,
-     "at": 1.5
+     "at": 2
     },
     {
      "who": "spud",
@@ -1835,7 +1836,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "spud",
@@ -1844,7 +1845,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "rea",
@@ -1857,7 +1858,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "rea",
@@ -1866,7 +1867,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "phx",
@@ -1879,7 +1880,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "phx",
@@ -1888,7 +1889,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "phx",
@@ -1896,7 +1897,7 @@
      "side": "R",
      "pose": "rest",
      "dur": 0.01,
-     "at": 2.08
+     "at": 2.58
     },
     {
      "who": "phx",
@@ -1910,13 +1911,13 @@
       ]
      },
      "dur": 0.01,
-     "at": 2.08
+     "at": 2.58
     }
    ]
   },
   {
    "name": "the fish",
-   "at": 3.6,
+   "at": 4.1,
    "len": 2.7,
    "shot": {
     "pos": [
@@ -2452,7 +2453,7 @@
   },
   {
    "name": "the run along the row",
-   "at": 6.3,
+   "at": 6.8,
    "len": 1.55,
    "shot": {
     "pos": [
@@ -2861,7 +2862,7 @@
   },
   {
    "name": "the crash into the T. rex",
-   "at": 7.85,
+   "at": 8.35,
    "len": 1.45,
    "shot": {
     "pos": [
@@ -3110,6 +3111,8 @@
       "lean": 0,
       "neckP": 0,
       "headP": 0,
+      "headY": 0,
+      "neckY": 0,
       "squint": 0,
       "step": 0
      },
@@ -3218,7 +3221,7 @@
   },
   {
    "name": "everything alive",
-   "at": 9.3,
+   "at": 9.8,
    "len": 1.5,
    "shot": {
     "pos": [
@@ -3238,9 +3241,11 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "neckP": -12,
-      "headP": -10,
-      "jaw": 0.5,
+      "lean": -6,
+      "neckP": 0,
+      "headP": 4,
+      "headY": 16,
+      "jaw": 0.9,
       "arms": 1
      },
      "dur": 0.4,
@@ -3459,9 +3464,10 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "jaw": 0.15,
-      "neckP": 0,
-      "headP": 6
+      "jaw": 0.3,
+      "lean": 0,
+      "neckP": 6,
+      "headP": 14
      },
      "dur": 0.3,
      "ease": "linear",
@@ -3579,13 +3585,15 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "x": -0.146,
+      "x": -1.082,
       "y": 0,
-      "z": -11.043,
+      "z": -11.57,
       "rot": 6,
-      "lean": 20,
-      "neckP": 25,
-      "headP": 10,
+      "lean": 15,
+      "neckP": 21,
+      "headP": 8,
+      "neckY": 10,
+      "headY": 14,
       "jaw": 0,
       "brow": 0.5,
       "squint": 0.3,
@@ -3647,7 +3655,7 @@
   },
   {
    "name": "the calm",
-   "at": 10.8,
+   "at": 11.3,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -3840,7 +3848,7 @@
   },
   {
    "name": "the catch",
-   "at": 12.6,
+   "at": 13.1,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -3866,10 +3874,11 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "lean": 6,
-      "neckP": 8,
-      "headP": 32,
+      "lean": -4,
+      "neckP": 10,
+      "headP": 40,
       "neckY": 0,
+      "headY": -12,
       "squint": 0.75,
       "brow": -1,
       "jaw": 0.6
@@ -4103,11 +4112,12 @@
      "set": {
       "x": 0.4,
       "y": 0,
-      "z": -11.2,
+      "z": -11.6,
       "rot": 0,
-      "lean": 16,
+      "lean": 4,
       "neckP": 6,
-      "headP": -6,
+      "headP": 8,
+      "headY": 14,
       "jaw": 0.9,
       "squint": 0.2
      },
@@ -4208,7 +4218,7 @@
   },
   {
    "name": "the chase",
-   "at": 14,
+   "at": 14.5,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -4401,7 +4411,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "z": -5.44
+      "z": -5.84
      },
      "dur": 1.6,
      "ease": "linear",
@@ -4421,7 +4431,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "gait": 2.672
+      "gait": 2.353
      },
      "dur": 1.6,
      "ease": "linear",
@@ -4662,7 +4672,7 @@
   },
   {
    "name": "the street, from the side",
-   "at": 15.6,
+   "at": 16.1,
    "len": 0.9,
    "shot": {
     "pos": [
@@ -4843,13 +4853,14 @@
      "set": {
       "x": 0.9999999999999999,
       "y": 0,
-      "z": 97.4,
+      "z": 97.05,
       "rot": -6,
       "jaw": 0.9,
       "brow": -1,
-      "lean": 14,
-      "neckP": 5,
-      "headP": -8,
+      "lean": 4,
+      "neckP": 6,
+      "headP": 8,
+      "headY": 14,
       "squint": 0.2
      },
      "dur": 0.01,
@@ -4860,7 +4871,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "z": 103.52
+      "z": 103.17
      },
      "dur": 1.8,
      "ease": "linear",
@@ -4882,7 +4893,7 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "gait": 3.006
+      "gait": 2.647
      },
      "dur": 1.8,
      "ease": "linear",
@@ -5201,7 +5212,7 @@
   },
   {
    "name": "the street, from the front",
-   "at": 16.5,
+   "at": 17,
    "len": 0.9,
    "shot": {
     "pos": [
@@ -5374,13 +5385,14 @@
      "do": "prop",
      "id": "rex",
      "set": {
-      "x": -7.293,
+      "x": -7.236,
       "y": 0,
-      "z": 106.528,
+      "z": 106.781,
       "rot": 65,
-      "lean": 6,
-      "neckP": -12,
+      "lean": -3,
+      "neckP": -4,
       "headP": -30,
+      "headY": 0,
       "jaw": 0.2,
       "squint": 0.4,
       "brow": -1,
@@ -5505,7 +5517,7 @@
   },
   {
    "name": "the lamp",
-   "at": 17.4,
+   "at": 17.9,
    "len": 2,
    "shot": {
     "pos": [
@@ -5628,7 +5640,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -15
+      "neckP": -10
      },
      "dur": 0.16,
      "ease": "out",
@@ -5653,7 +5665,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -12
+      "neckP": -4
      },
      "dur": 0.07,
      "ease": "in",
@@ -5693,7 +5705,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -15
+      "neckP": -10
      },
      "dur": 0.16,
      "ease": "out",
@@ -5711,7 +5723,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -12
+      "neckP": -4
      },
      "dur": 0.07,
      "ease": "in",
@@ -5801,7 +5813,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -15
+      "neckP": -10
      },
      "dur": 0.16,
      "ease": "out",
@@ -5819,7 +5831,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -12
+      "neckP": -4
      },
      "dur": 0.07,
      "ease": "in",
@@ -5835,7 +5847,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.95,
-      "neckP": -15
+      "neckP": -10
      },
      "dur": 0.16,
      "ease": "out",
@@ -5846,7 +5858,7 @@
      "id": "rex",
      "set": {
       "jaw": 0.05,
-      "neckP": -12
+      "neckP": -4
      },
      "dur": 0.07,
      "ease": "in",
@@ -5857,7 +5869,7 @@
   },
   {
    "name": "the scythe and the long neck",
-   "at": 19.4,
+   "at": 19.9,
    "len": 2.6,
    "shot": {
     "pos": [
@@ -6002,7 +6014,7 @@
   },
   {
    "from": 1.5,
-   "to": 3.6,
+   "to": 4.1,
    "see": [
     "rea.face",
     "plant",
@@ -6011,8 +6023,8 @@
    "why": "Reaper flinches from Phoenix and the scythe makes the dead plant bloom"
   },
   {
-   "from": 3.6,
-   "to": 5.9,
+   "from": 4.1,
+   "to": 6.4,
    "see": [
     "spud.face",
     "rea.face",
@@ -6021,16 +6033,16 @@
    "why": "the scythe taps the case and the fossil fish flops alive into Spud's arms"
   },
   {
-   "from": 6.3,
-   "to": 8.3,
+   "from": 6.8,
+   "to": 8.8,
    "see": [
     "rea.face"
    ],
    "why": "Reaper runs screaming along the row, each skeleton lighting up behind him"
   },
   {
-   "from": 9.3,
-   "to": 10.8,
+   "from": 9.8,
+   "to": 11.3,
    "see": [
     "rex",
     "mam",
@@ -6042,8 +6054,8 @@
    "why": "the whole museum alive, the three tiny below"
   },
   {
-   "from": 10.8,
-   "to": 12.6,
+   "from": 11.3,
+   "to": 13.1,
    "see": [
     "spud.face",
     "phx.face",
@@ -6052,8 +6064,8 @@
    "why": "the fake-out: the T. rex sniffs Spud gently, Phoenix pets the mammoth"
   },
   {
-   "from": 12.6,
-   "to": 14,
+   "from": 13.1,
+   "to": 14.5,
    "see": [
     "spud.face",
     "rea.face",
@@ -6063,8 +6075,8 @@
    "why": "the catch: every animal looks down at them, hungry"
   },
   {
-   "from": 14,
-   "to": 15.6,
+   "from": 14.5,
+   "to": 16.1,
    "see": [
     "spud.face",
     "rea.face",
@@ -6074,16 +6086,16 @@
    "why": "the whole museum chases them down the hall"
   },
   {
-   "from": 15.6,
-   "to": 16.5,
+   "from": 16.1,
+   "to": 17,
    "see": [
     "rex"
    ],
    "why": "the T. rex comes through the museum's front wall behind them (from the side)"
   },
   {
-   "from": 16.5,
-   "to": 17.4,
+   "from": 17,
+   "to": 17.9,
    "see": [
     "rex",
     "spud.face",
@@ -6093,8 +6105,8 @@
    "why": "the cold open's moment again: they run at us, the T. rex right behind"
   },
   {
-   "from": 17.4,
-   "to": 19.4,
+   "from": 17.9,
+   "to": 19.9,
    "see": [
     "spud.face",
     "rea.face",
@@ -6104,8 +6116,8 @@
    "why": "the three cling to the lamp top, the T. rex snapping below; the scythe slips"
   },
   {
-   "from": 20,
-   "to": 22,
+   "from": 20.5,
+   "to": 22.5,
    "see": [
     "neck",
     "scyF"
@@ -6118,62 +6130,62 @@
    "who": "rea",
    "with": "scy",
    "from": 0,
-   "to": 22,
+   "to": 22.5,
    "reason": "his scythe, in his fist (worn)"
   },
   {
    "who": "spud",
    "with": "fishW",
    "from": 0,
-   "to": 22,
+   "to": 22.5,
    "reason": "the fish hugged in both arms (worn)"
   },
   {
    "who": "spud",
    "with": "lamp",
-   "from": 17.4,
-   "to": 22,
+   "from": 17.9,
+   "to": 22.5,
    "reason": "they cling to the lamp's lantern"
   },
   {
    "who": "rea",
    "with": "lamp",
-   "from": 17.4,
-   "to": 22,
+   "from": 17.9,
+   "to": 22.5,
    "reason": "they cling to the lamp's lantern"
   },
   {
    "who": "phx",
    "with": "lamp",
-   "from": 17.4,
-   "to": 22,
+   "from": 17.9,
+   "to": 22.5,
    "reason": "they cling to the lamp's lantern"
   },
   {
    "who": "spud",
    "with": "rea",
-   "from": 17.35,
-   "to": 22,
+   "from": 17.85,
+   "to": 22.5,
    "reason": "three friends cling together on one lamp top (panel 11)"
   },
   {
    "who": "spud",
    "with": "phx",
-   "from": 17.35,
-   "to": 22,
+   "from": 17.85,
+   "to": 22.5,
    "reason": "three friends cling together on one lamp top (panel 11)"
   },
   {
    "who": "rea",
    "with": "phx",
-   "from": 17.35,
-   "to": 22,
+   "from": 17.85,
+   "to": 22.5,
    "reason": "three friends cling together on one lamp top (panel 11)"
   },
   {
    "who": "spud",
-   "from": 17.34,
-   "to": 17.44,
+   "from": 17.84,
+   "to": 17.94,
    "checks": [
     "rig-jump",
     "motion"
@@ -6182,8 +6194,8 @@
   },
   {
    "who": "rea",
-   "from": 17.34,
-   "to": 17.44,
+   "from": 17.84,
+   "to": 17.94,
    "checks": [
     "rig-jump",
     "motion"
@@ -6192,8 +6204,8 @@
   },
   {
    "who": "phx",
-   "from": 17.34,
-   "to": 17.44,
+   "from": 17.84,
+   "to": 17.94,
    "checks": [
     "rig-jump",
     "motion"
@@ -6203,15 +6215,15 @@
   {
    "who": "phx",
    "with": "rea",
-   "from": 3.6,
-   "to": 6.05,
+   "from": 4.1,
+   "to": 6.55,
    "reason": "Phoenix shoves Reaper's scythe arm at the fish case (panel 03): his glove is on Reaper's sleeve"
   },
   {
    "who": "rea",
    "with": "spud",
-   "from": 15.6,
-   "to": 16.5,
+   "from": 16.1,
+   "to": 17,
    "checks": [
     "face-hidden"
    ],
@@ -6219,8 +6231,8 @@
   },
   {
    "who": "phx",
-   "from": 6.45,
-   "to": 6.7,
+   "from": 6.95,
+   "to": 7.2,
    "checks": [
     "rig-jump",
     "motion"
@@ -6230,8 +6242,8 @@
   {
    "who": "rea",
    "with": "scyF",
-   "from": 18.45,
-   "to": 19.05,
+   "from": 18.95,
+   "to": 19.55,
    "reason": "the scythe slips out of his glove and falls past his robe"
   }
  ],

@@ -23,7 +23,7 @@
 // world 100 m along z: the museum front is the plane z 100 facing +z, the breach at x 4, the lamp at [-2.5, 108].
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
-import { trexPoints } from "../../../../engine/shared/trex-rig.js";
+import { rexPoints as trexPoints } from "../../../../engine/shared/rex-rig.js";   // the real-anatomy `rex` (Jonny 12 Nov: "make it look like a real t-rex")
 
 // ---------------------------------------------------------------- the template's picks (storyboards/templates)
 const LOOK = "sheet", LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = true;
@@ -37,8 +37,8 @@ const box = (w, h, d) => ({ kind: "stoneblock", w, h, d });
 const has = (pack) => READY.has(pack);
 
 // ---------------------------------------------------------------- the beats (video s = story s: no ramps)
-const HALL = 1.5, TOUCH = 2.45, FISH = 3.6, FLOP = 4.55, CATCHF = 5.0, SHRIEK = 5.25, RUN = 5.9, CRASH = 8.3, ALIVE = 9.3, STOMP = 9.95;
-const CALM = 10.8, CATCH = 12.6, CHASE = 14.0, STREET = 15.6, FRONT = 16.5, LAMP = 17.4, SLIP = 18.5, SCYTHE = 19.4, RISE = 20.0, END = 22.0;
+const HALL = 1.5, TOUCH = 2.95, FISH = 4.1, FLOP = 5.05, CATCHF = 5.5, SHRIEK = 5.75, RUN = 6.4, CRASH = 8.8, ALIVE = 9.8, STOMP = 10.45;
+const CALM = 11.3, CATCH = 13.1, CHASE = 14.5, STREET = 16.1, FRONT = 17.0, LAMP = 17.9, SLIP = 19.0, SCYTHE = 19.9, RISE = 20.5, END = 22.5;
 const COLD = r3(FRONT - 0.1);   // the cold open shows the street burst from this moment of its staging
 const SZ = 100;                 // the street's z offset
 const DOWN = -60;               // parked under the floor
@@ -54,7 +54,7 @@ const HUNGRY = { brow: -1, squint: 0.7, jaw: 0.3, drool: 1, lookY: -0.8 }, CURIO
 
 // ---------------------------------------------------------------- places
 // the hall
-const ROPE_X = 1.6, SAB = [3.4, 0.5], MAM = [3.6, -4.2], REXP = [1.0, -11.0], REXK = 1.5, PLINTH = { w: 3.4, h: 0.3, d: 3.0 };
+const ROPE_X = 1.6, SAB = [3.4, 0.5], MAM = [3.6, -4.2], REXP = [1.0, -11.0], REXK = 1.7, PLINTH = { w: 3.4, h: 0.3, d: 3.0 };
 const PT = [[2.0, 5.5, -1.0], [2.2, 5.8, -6.5]];
 const CASE = [-1.9, 0.3], PLANT = [-1.1, 1.25];
 const SPUD1 = [-1.75, 2.4], REA1 = [-0.15, 1.15], PHX1 = [1.0, 1.1];                    // 02: the plant
@@ -67,8 +67,12 @@ const MAM4 = [3.0, -9.6], SAB4 = [-1.6, -8.6], SABK = 1.6, MAMK = 1.3;   // the 
 const BREACH_X = 1.4, LAMP_AT = [-2.5, SZ + 8], LAMP_H = 7.5;
 const SCY_END = [0.0, SZ + 15.4];
 const rad = (d) => (d * Math.PI) / 180;
+const CALMPOSE = { lean: 15, neckP: 21, headP: 8, neckY: 10, headY: 14 };   // the head down at Spud's leaf
 // where the T. rex stands so that its snout is at `snout` (world), for a pose and a heading
+const RUNPOSE = { lean: 4, neckP: 6, headP: 8, headY: 14 };   // the hunting run: spine level, head low and forward, jaws at the potatoes
+const RG = (v) => v / (2 * 0.72 * REXK);            // walk cycles a second at v m/s (props-rex.js: a planted foot travels stride * scale per half cycle)
 const rexFor = (snout, pose, rot, y = 0) => { const q = trexPoints({ ...pose, scale: REXK }).snout, a = rad(rot); return { x: r3(snout[0] - (q[0] * Math.cos(a) + q[2] * Math.sin(a))), y, z: r3(snout[2] - (-q[0] * Math.sin(a) + q[2] * Math.cos(a))), rot, ...pose }; };
+if (process.env.DEBUG) console.log("calm snout", trexPoints({ ...CALMPOSE, scale: REXK }).snout.map(r3), "run", trexPoints({ ...RUNPOSE, scale: REXK }).snout.map(r3));
 if (process.env.DEBUG) console.log("rex rest snout", trexPoints({ scale: REXK }).snout.map(r3), "lean30", trexPoints({ scale: REXK, lean: 30, neckP: 34, headP: 18 }).snout.map(r3));
 
 const cast = [
@@ -97,7 +101,7 @@ const props = [
   ph("fossils", { id: "rexB", kind: "trexbones", x: REXP[0], y: 0.3, z: REXP[1], rot: 0, scale: REXK, rods: false }, { kind: "trex", y: 0.3, rot: 0, scale: REXK }),
   ph("fossils", { id: "ptB1", kind: "pterobones", x: PT[0][0], y: PT[0][1], z: PT[0][2], rot: -60 }, { ...box(2.6, 0.25, 0.8), y: PT[0][1], rot: -60 }),
   ph("fossils", { id: "ptB2", kind: "pterobones", x: PT[1][0], y: PT[1][1], z: PT[1][2], rot: -110 }, { ...box(2.6, 0.25, 0.8), y: PT[1][1], rot: -110 }),
-  { id: "rex", kind: "trex", x: BREACH_X, y: 0, z: SZ - 1.5, rot: 0, scale: REXK, jaw: 0.9, brow: -1, neckP: 5, headP: -8, lean: 14, ...(READY.has("rex") && { skin: "brown" }) },
+  { id: "rex", kind: "rex", x: BREACH_X, y: 0, z: SZ - 1.5, rot: 0, scale: REXK, jaw: 0.9, brow: -1, ...RUNPOSE },
   ph("iceage", { id: "mam", kind: "mammoth", x: 6.6, y: 0, z: SZ - 2.5, rot: 0, scale: MAMK }, { ...box(1.7, 3.1, 3.4) }),
   ph("iceage", { id: "sab", kind: "sabretooth", x: 1.2, y: 0, z: SZ - 3, rot: 0, scale: SABK }, { ...box(0.6, 1.1, 1.8) }),
   ph("iceage", { id: "pt1", kind: "pterosaur", x: 3.4, y: 6.5, z: SZ - 1, rot: 0 }, { ...box(2.6, 0.25, 0.8), y: 6.5 }),
@@ -127,11 +131,11 @@ function street(t0, from) {
     A(t0, who, "look", { to: [0, 0.1], dur: 0.01, blink: false });
   }
   // the T. rex: through the wall at from 0.3, then after them at 3.6 m/s
-  const rz = (f) => r3(SZ - 2.6 + Math.max(0, f - 0.1) * 3.6);
-  P(t0, "rex", { x: BREACH_X - 0.4, y: 0, z: rz(from), rot: -6, jaw: 0.9, brow: -1, lean: 14, neckP: 5, headP: -8, squint: 0.2 });
+  const rz = (f) => r3(SZ - 2.95 + Math.max(0, f - 0.1) * 3.6);
+  P(t0, "rex", { x: BREACH_X - 0.4, y: 0, z: rz(from), rot: -6, jaw: 0.9, brow: -1, ...RUNPOSE, squint: 0.2 });
   P(t0, "rex", { z: rz(from + dur) }, dur);
   for (let k = 0, t = t0; t < t0 + dur - 0.05; k++, t = r3(t0 + k * 0.3)) { if (!has("rex")) { P(t, "rex", { step: 1 }, 0.14, "out"); P(r3(t + 0.14), "rex", { step: 0 }, 0.14, "in"); } sfx(r3(t + 0.28), "dinostomp", { gain: 0.5 }); }
-  ANI(t0, "rex", { gait: r3(from * 1.67), drool: 1, glow: 0 }); ANI(t0, "rex", { gait: r3((from + dur) * 1.67) }, dur);
+  ANI(t0, "rex", { gait: r3(from * RG(3.6)), drool: 1, glow: 0 }); ANI(t0, "rex", { gait: r3((from + dur) * RG(3.6)) }, dur);
   for (const [id, k] of [["mam", 1.4], ["sab", 2.2]]) { ANI(t0, id, { ...HUNGRY, jaw: 0.8, lookY: 0, gait: r3(from * k), glow: 0 }); ANI(t0, id, { gait: r3((from + dur) * k) }, dur); }
   for (const id of ["pt1", "pt2", "pt3"]) { ANI(t0, id, { flap: r3(from * 2.5), jaw: 0.6, glow: 0 }); ANI(t0, id, { flap: r3((from + dur) * 2.5) }, dur); }
   P(t0, "fishW", { scale: 1 });
@@ -167,9 +171,9 @@ A(HALL, "phx", "crouch", { to: 0.35, dur: 0.01 }); expr(HALL, "phx", "eager", nu
 A(HALL, "phx", "look", { to: [0.8, 0.1], dur: 0.01, blink: false });
 A(HALL, "spud", "look", { to: [0.7, 0.0], dur: 0.01, blink: false }); A(HALL, "rea", "look", { to: [0.75, -0.1], dur: 0.01, blink: false });
 expr(HALL, "rea", "terrified", { open: 0.15, eye: 1.15, curve: -0.2 }, 0.01);
-c.arm(r3(HALL + 0.25), "phx", "R", { o: [0.25, 0.35, 0.45] }, 0.3);                      // he reaches under the rope for a bone
-c.say(r3(HALL + 0.3), "phx", "ooh, bones!", 0.6, "excited", { voice: false, sub: "Ooh, bones!", pos: 930 });
-c.say(r3(HALL + 0.85), "rea", "don't touch it!", 0.6, "excited", { voice: false, sub: "Don't touch it!", pos: 930 });
+c.arm(r3(HALL + 0.75), "phx", "R", { o: [0.25, 0.35, 0.45] }, 0.3);                      // he reaches under the rope for a bone
+c.say(r3(HALL + 0.8), "phx", "ooh, bones!", 0.6, "excited", { voice: false, sub: "Ooh, bones!", pos: 930 });
+c.say(r3(HALL + 1.35), "rea", "don't touch it!", 0.6, "excited", { voice: false, sub: "Don't touch it!", pos: 930 });
 // he flinches: the scythe's tip dips into the dead plant
 A(r3(TOUCH - 0.25), "rea", "lean", { to: -9, dur: 0.14, ease: "out" }); A(r3(TOUCH - 0.1), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
 P(r3(TOUCH - 0.2), "scy", { tilt: 38 }, 0.2, "out");
@@ -239,10 +243,10 @@ sfx(CRASH, "slam", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "zap", { gain: 0.7, lou
 c.at(CRASH, { fx: "sparkle", at: [0.95, 0.9, -9.7], color: "#7dff6a", dur: 0.6 }); c.at(CRASH, { fx: "shake", dur: 0.3, amp: 0.03 });
 expr(r3(CRASH + 0.3), "spud", "terrified", TERROR); expr(r3(CRASH + 0.3), "phx", "delighted", { open: 0.7, curve: 1 });
 Pk("fossils", CRASH, "rexB", { glow: 1 }, 0.45, "out"); Pk("fossils", r3(CRASH + 0.1), "rexB", { rattle: 1 }, 0.4); Pk("fossils", CRASH, "spRex", { rise: 1 }, 0.9, "out");
-P(r3(CRASH + 0.6), "rex", { x: REXP[0], y: 0.3, z: REXP[1], rot: 0, jaw: 0, brow: 0.3, lean: 0, neckP: 0, headP: 0, squint: 0, step: 0 }); park(r3(CRASH + 0.62), "rexB");
+P(r3(CRASH + 0.6), "rex", { x: REXP[0], y: 0.3, z: REXP[1], rot: 0, jaw: 0, brow: 0.3, lean: 0, neckP: 0, headP: 0, headY: 0, neckY: 0, squint: 0, step: 0 }); park(r3(CRASH + 0.62), "rexB");
 ANI(r3(CRASH + 0.58), "rex", { glow: 1, gait: 0, drool: 0 }); ANI(r3(CRASH + 0.62), "rex", { glow: 0 }, 0.5, "out");
 // 06: everything alive
-P(ALIVE, "rex", { neckP: -12, headP: -10, jaw: 0.5, arms: 1 }, 0.4, "out"); P(r3(ALIVE + 0.4), "rex", { jaw: 0.15, neckP: 0, headP: 6 }, 0.3);
+P(ALIVE, "rex", { lean: -6, neckP: 0, headP: 4, headY: 16, jaw: 0.9, arms: 1 }, 0.4, "out"); P(r3(ALIVE + 0.4), "rex", { jaw: 0.3, lean: 0, neckP: 6, headP: 14 }, 0.3);
 P(STOMP - 0.14, "rex", { step: 1 }, 0.14, "out"); P(STOMP, "rex", { step: 0 }, 0.08, "in"); sfx(STOMP, "dinostomp", { gain: 0.9, loud: true }); c.at(STOMP, { fx: "shake", dur: 0.35, amp: 0.04 });
 sfx(r3(ALIVE + 0.05), "snort", { gain: 0.6 });
 P(ALIVE, "mam", { x: MAM4[0], y: 0, z: MAM4[1], rot: -70 }); P(ALIVE, "sab", { x: SAB4[0], y: 0, z: SAB4[1], rot: 65 });
@@ -257,7 +261,7 @@ see(ALIVE, CALM, ["rex", "mam", "sab", "spud", "rea", "phx"], "the whole museum 
 
 // ================================================================= 5 THE CALM (10.8-12.6): it only sniffs him
 place(CALM, "spud", SPUD4, 6); place(CALM, "rea", REA4, 14); place(CALM, "phx", PHX4, -30);
-P(r3(CALM - 0.02), "rex", { ...rexFor([0.3, 1.6, -6.8], { lean: 20, neckP: 25, headP: 10 }, 6), jaw: 0, brow: 0.5, squint: 0.3, arms: 0 });
+P(r3(CALM - 0.02), "rex", { ...rexFor([0.3, 1.6, -6.8], CALMPOSE, 6), jaw: 0, brow: 0.5, squint: 0.3, arms: 0 });
 P(r3(CALM - 0.02), "mam", { x: 3.1, z: -9.0, rot: -75 }); P(r3(CALM - 0.02), "sab", { x: -2.5, z: -8.6, rot: 68 });
 ANI(r3(CALM - 0.02), "mam", { trunk: -0.8, headY: 0, headP: 10 }); ANI(r3(CALM - 0.02), "sab", { jaw: 0, headP: 10 });
 for (const k of [0, 0.5, 1.0]) { P(r3(CALM + 0.15 + k), "rex", { sniff: 1 }, 0.15); P(r3(CALM + 0.3 + k), "rex", { sniff: 0 }, 0.25); sfx(r3(CALM + 0.15 + k), "snort", { gain: 0.5 }); }
@@ -270,7 +274,7 @@ see(CALM, CATCH, ["spud.face", "phx.face", "rex"], "the fake-out: the T. rex sni
 
 // ================================================================= 6 THE CATCH (12.6-14.0): they are all starving
 sfx(CATCH, "groan", { gain: 0.9, loud: true }); sfx(r3(CATCH + 0.1), "rumble", { gain: 0.7 }); c.at(r3(CATCH + 0.05), { fx: "shake", dur: 0.7, amp: 0.015 });
-P(CATCH, "rex", { lean: 6, neckP: 8, headP: 32, neckY: 0, squint: 0.75, brow: -1, jaw: 0.6 }, 0.4, "inOut");
+P(CATCH, "rex", { lean: -4, neckP: 10, headP: 40, neckY: 0, headY: -12, squint: 0.75, brow: -1, jaw: 0.6 }, 0.4, "inOut");
 ANI(CATCH, "rex", { drool: 1 }, 0.5); for (const id of ["mam", "sab"]) ANI(CATCH, id, { ...HUNGRY, jaw: 0.5, headP: 22, trunk: -1 }, 0.4, "inOut");
 ANI(r3(CATCH + 0.5), "sab", { lick: 1 }, 0.5);
 for (const w of ["spud", "phx", "rea"]) { A(r3(CATCH + 0.45), w, "look", { to: [0.1, 0.95], dur: 0.12, blink: false }); expr(r3(CATCH + 0.6), w, "terrified", TERROR, 0.1); }
@@ -286,8 +290,8 @@ for (const [who, x, z0] of [["spud", SPUD4[0], SPUD4[1]], ["rea", REA4[0], REA4[
   A(CHASE, who, "run", { pts: [[0, x, z0], [CH, x, r3(z0 + CH * CV)]], dur: CH, rate: [[0, 4.4], [CH, 4.4]], stride: 1.7 });
   expr(CHASE, who, "terrified", TERROR, 0.01); A(CHASE, who, "look", { to: [0, 0.1], dur: 0.01, blink: false });
 }
-P(r3(CHASE - 0.02), "rex", { x: 0.4, y: 0, z: -11.2, rot: 0, lean: 16, neckP: 6, headP: -6, jaw: 0.9, squint: 0.2 }); P(CHASE, "rex", { z: r3(-11.2 + CH * 3.6) }, CH);
-ANI(CHASE, "rex", { gait: 0 }); ANI(CHASE, "rex", { gait: r3(CH * 1.67) }, CH);
+P(r3(CHASE - 0.02), "rex", { x: 0.4, y: 0, z: -11.6, rot: 0, ...RUNPOSE, jaw: 0.9, squint: 0.2 }); P(CHASE, "rex", { z: r3(-11.6 + CH * 3.6) }, CH);
+ANI(CHASE, "rex", { gait: 0 }); ANI(CHASE, "rex", { gait: r3(CH * RG(3.6)) }, CH);
 for (const [id, k] of [["mam", 1.4], ["sab", 2.2]]) { ANI(r3(CHASE - 0.02), id, { ...HUNGRY, jaw: 0.8, lookY: 0, headP: 0, headY: 0, trunk: 0.6, lick: 0, gait: 0 }); ANI(CHASE, id, { gait: r3(CH * k) }, CH); }
 for (const id of ["pt1", "pt2"]) { ANI(CHASE, id, { flap: 0, jaw: 0.6 }); ANI(CHASE, id, { flap: r3(CH * 2.5) }, CH); }
 for (let k = 0; k < 5; k++) { const t = r3(CHASE + k * 0.3); if (!has("rex")) { P(t, "rex", { step: 1 }, 0.14, "out"); P(r3(t + 0.14), "rex", { step: 0 }, 0.14, "in"); } sfx(r3(t + 0.28), "dinostomp", { gain: 0.6 }); c.at(r3(t + 0.28), { fx: "shake", dur: 0.15, amp: 0.02 }); }
@@ -319,10 +323,10 @@ for (const who of ["rea", "phx"]) {   // the post in the body's own frame (x to 
   c.arm(r3(LAMP - 0.02), who, near, { x: [px, 0.2, r3(pz + 0.1)] }, 0.01); c.arm(r3(LAMP - 0.02), who, far, { x: [px, 0.0, r3(pz + 0.1)] }, 0.01); if (process.env.DEBUG) console.log("cling", who, px, pz);
 }
 for (const side of ["L", "R"]) c.arm(r3(LAMP - 0.02), "spud", side, { o: [0.12, 0.3, 0.34] }, 0.01);   // both arms round the fish, clear of the two beside him
-const REXL = { lean: 6, neckP: -12, headP: -30 };
-P(r3(LAMP - 0.02), "rex", { ...rexFor([LAMP_AT[0] - 1.1, 0, LAMP_AT[1] + 0.25], REXL, 65), jaw: 0.2, squint: 0.4, brow: -1, step: 0 });
+const REXL = { lean: +(process.env.LLEAN ?? -3), neckP: -4, headP: -30, headY: 0 };   // head thrown back, jaws up at the two on the post
+P(r3(LAMP - 0.02), "rex", { ...rexFor([LAMP_AT[0] - 0.3, 0, LAMP_AT[1] + 0.85], REXL, 65), jaw: 0.2, squint: 0.4, brow: -1, step: 0 });
 if (process.env.DEBUG) console.log("lamp snout y", r3(trexPoints({ ...REXL, scale: REXK }).snout[1]));
-for (let k = 0; k < 4; k++) { const t = r3(LAMP + 0.25 + k * 0.5); P(t, "rex", { jaw: 0.95, neckP: -15 }, 0.16, "out"); P(r3(t + 0.2), "rex", { jaw: 0.05, neckP: -12 }, 0.07, "in"); sfx(r3(t + 0.27), "slap", { gain: 0.6 }); }
+for (let k = 0; k < 4; k++) { const t = r3(LAMP + 0.25 + k * 0.5); P(t, "rex", { jaw: 0.95, neckP: -10 }, 0.16, "out"); P(r3(t + 0.2), "rex", { jaw: 0.05, neckP: -4 }, 0.07, "in"); sfx(r3(t + 0.27), "slap", { gain: 0.6 }); }
 P(r3(LAMP - 0.02), "mam", { x: 1.3, z: SZ + 7.0, rot: -70 }); P(r3(LAMP - 0.02), "sab", { x: -0.6, z: SZ + 9.4, rot: -100 });
 ANI(r3(LAMP - 0.02), "rex", { gait: 0 }); Pk("street", r3(LAMP - 0.02), "front", { burst: 2 });
 ANI(r3(LAMP - 0.02), "mam", { ...HUNGRY, gait: 0, headP: -25, trunk: 1, jaw: 0.5 }); ANI(r3(LAMP - 0.02), "sab", { ...HUNGRY, gait: 0, headP: -30, crouch: 0.6, jaw: 0.7, lookY: 0.8 });
@@ -385,10 +389,8 @@ const CUTS = [
 const NG = 4.0;
 const NARR = !VO ? [] : [
   [0, process.env.TITLE ?? "What if you could bring anything back to life?", 1, 2.9, NG],
-  [r3(FISH - 0.45), "A dead plant.", 1, 1.0, NG],
-  [r3(RUN + 0.55), "Or everything in the museum.", 1, 1.9, NG],
-  [r3(CALM + 1.15), "But there's a catch.", 1, 1.3, NG],
-  [r3(CATCH + 0.02), "Nothing here has eaten for a million years.", 1, 2.4, NG],
+  [r3(RUN + 0.55), "Even a whole museum.", 1, 1.6, NG],
+  [r3(CALM + 1.15), "But there's a catch.", 1, 1.1, NG],   // the catch itself is SHOWN (hungry faces, the growl, "We're potatoes."): no line explains it
   [r3(RISE + 0.6), "Would you still want it?", 1, 1.33, NG],
 ];
 for (const [t, line, take, , gain] of NARR) c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
