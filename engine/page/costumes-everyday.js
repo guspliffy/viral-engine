@@ -5,13 +5,15 @@ import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
 // friend type the viewer can tag, told apart by body shape and size (characters/potatobrawl/*.json), ONE garment in one
 // colour of its own, the leaf, and one everyday thing. Skin, eyes and face are Spud's (castLook "sheet"). Their
-// reference sheets: references/cast/{chip,wedge,mash}-reference-sheet-2026-11-12.png.
-//   chip   too much energy: the smallest, a round ball; sunny yellow hoodie, hood down, two white drawstrings; two
-//          leaves in a V; white trainers with a red stripe
-//   wedge  "trust me": the biggest, broad on top and narrow below, a rounded crown; red bomber jacket with cream ribbed
-//          collar, cuffs and hem; sunglasses pushed up on top of his head beside the leaf, never on the forehead
+// approved reference sheets (12 Nov 2026) are on Jonny's PC, not in the repo; they were measured there and the numbers
+// below and in the character files are those measurements, set against Spud's own sheet and build.
+//   chip   too much energy: the smallest, a round ball; sunny yellow hoodie, the hood down as a rolled cowl that closes
+//          in a V, two white drawstrings, a pouch pocket; two leaves in a V; brown trousers, white trainers, a red stripe
+//   wedge  "trust me": the biggest, broad on top and narrow below, a rounded crown; red bomber jacket with a cream ribbed
+//          shawl collar in a deep V to the zip, cream cuffs and hem, two flap pockets; brown sunglasses pushed up on top of
+//          his head beside the leaf, never on the forehead; dark brown trousers and boots
 //   mash   never looks up: a tall narrow oval; charcoal hoodie, hood down; big light-blue headphones round the neck;
-//          the phone is a prop he is handed in a clip, not part of him
+//          brown trousers, chunky white trainers; the phone is a prop he is handed in a clip, not part of him
 // Spud's rules hold for every piece (Jonny, 11 Nov): each mark drawn once by hand, no repeating pattern; a sleeve ends a
 // fixed distance before the hand and carries one twist-free frame; coloured limbs take no ink hull.
 
