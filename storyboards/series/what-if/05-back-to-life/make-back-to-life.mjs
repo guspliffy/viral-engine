@@ -168,7 +168,7 @@ for (const id of ["rex", "mam", "sab", "pt1", "pt2", "pt3"]) park(HALL, id);
 P(r3(HALL - 0.02), "fishW", { scale: 0.001 });
 place(HALL, "spud", SPUD1, 20); place(HALL, "rea", REA1, 8); place(HALL, "phx", PHX1, 78);
 for (const w of ["spud", "rea", "phx"]) expr(r3(HALL - 0.02), w, "kind", null, 0.01);
-A(HALL, "phx", "crouch", { to: 0.35, dur: 0.01 }); expr(HALL, "phx", "eager", null, 0.01);
+A(r3(HALL - 0.02), "phx", "crouch", { to: 0.35, dur: 0.01 }); expr(HALL, "phx", "eager", null, 0.01);
 A(HALL, "phx", "look", { to: [0.8, 0.1], dur: 0.01, blink: false });
 A(HALL, "spud", "look", { to: [0.7, 0.0], dur: 0.01, blink: false }); A(HALL, "rea", "look", { to: [0.75, -0.1], dur: 0.01, blink: false });
 expr(HALL, "rea", "terrified", { open: 0.15, eye: 1.15, curve: -0.2 }, 0.01);
@@ -205,7 +205,7 @@ P(FLOP, "fish", { x: r3((CASE[0] + SPUD2[0]) / 2), y: 2.3, z: r3((CASE[1] + SPUD
 P(r3((FLOP + CATCHF) / 2), "fish", { x: SPUD2[0], y: 0.34, z: r3(SPUD2[1] + 0.42), rot: 380 }, r3((CATCHF - FLOP) / 2), "in");
 sfx(FLOP, "splash", { gain: 0.5 }); sfx(CATCHF, "slap", { gain: 0.45 });
 park(r3(CATCHF + 0.02), "fish"); P(CATCHF, "fishW", { scale: 1 });
-c.arm(r3(CATCHF - 0.3), "spud", "L", { o: [0.12, 0.3, 0.34] }, 0.25); c.arm(r3(CATCHF - 0.3), "spud", "R", { o: [0.12, 0.3, 0.34] }, 0.25);
+c.arm(r3(CATCHF - 0.38), "spud", "L", { o: [0.12, 0.3, 0.34] }, 0.34); c.arm(r3(CATCHF - 0.38), "spud", "R", { o: [0.12, 0.3, 0.34] }, 0.34);   // 10 frames: no fast palm turn
 A(CATCHF, "spud", "squash", { amount: 0.05, dur: 0.15 }); expr(CATCHF, "spud", "shocked", { open: 0.45, eye: 1.3 });
 expr(SHRIEK, "rea", "terrified", TERROR, 0.08); A(SHRIEK, "rea", "hop", { count: 1, height: 0.18, dur: 0.3 });
 c.say(SHRIEK, "rea", "AAAH!", 0.6, "excited", { voice: false, sub: "AAAH!", pos: 930 });
@@ -214,7 +214,7 @@ see(FISH, RUN, ["spud.face", "rea.face", "case"], "the scythe taps the case and 
 // ================================================================= 3 THE RUN (5.9-8.3): the scythe rattles along the row
 const RUNLEN = r3(CRASH - RUN - 0.1);
 A(RUN, "rea", "run", { pts: [[0, REA2[0], REA2[1]], [0.4, RUN0[0], RUN0[1]], [RUNLEN, RUN1[0], RUN1[1]]], dur: RUNLEN, rate: [[0, 3.6], [0.4, 4.6], [RUNLEN, 4.4]], stride: 1.7 });
-A(RUN, "rea", "turn", { to: 150, dur: 0.2 }); A(r3(RUN + 0.3), "rea", "turn", { to: 180, dur: 0.2 });
+A(RUN, "rea", "turn", { to: 150, dur: 0.3 }); A(r3(RUN + 0.3), "rea", "turn", { to: 180, dur: 0.25 });
 c.say(r3(RUN + 0.1), "rea", "AAAAAH!", 1.6, "excited", { voice: false, sub: "AAAAAH!", pos: 640 });
 Pk("museum", r3(RUN + 0.45), "rope", { rattle: 1 }, 0.25, "out"); Pk("museum", r3(CRASH - 0.1), "rope", { rattle: 0 }, 0.5);
 P(r3(RUN + 0.2), "scy", { tilt: -55, x: -0.62 }, 0.25);                                  // trailing behind him, its tip out to the row
@@ -231,7 +231,7 @@ for (const [bones, alive, t, at] of WAKE) {
 }
 // Spud and Phoenix come after him
 c.arm(r3(RUN + 0.15), "phx", "L", "rest", 0.3);
-A(r3(RUN + 0.45), "spud", "turn", { to: 190, dur: 0.25 }); A(r3(RUN + 0.5), "phx", "turn", { to: 185, dur: 0.25 });
+A(r3(RUN + 0.45), "spud", "turn", { to: 190, dur: 0.25 }); A(r3(RUN + 0.2), "phx", "turn", { to: 199, dur: 0.38 });   // done before his run starts (heading of its first leg): no one-frame arm swap
 A(r3(RUN + 0.5), "spud", "run", { pts: [[0, SPUD2[0], SPUD2[1]], [0.45, -3.0, 1.0], [0.8, -3.0, -0.6], [1.9, SPUD3[0], SPUD3[1]]], dur: 1.9, rate: [[0, 3.4], [1.9, 3.4]], stride: 1.5 });
 A(r3(RUN + 0.6), "phx", "run", { pts: [[0, PHX2[0], PHX2[1]], [0.5, -0.2, 0.0], [1.8, PHX3[0], PHX3[1]]], dur: 1.8, rate: [[0, 4.2], [1.8, 4.2]], stride: 1.5 });
 see(r3(RUN + 0.4), CRASH, ["rea.face"], "Reaper runs screaming along the row, each skeleton lighting up behind him");
@@ -419,13 +419,13 @@ write(import.meta.url, {
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   set: { type: "plain", color: "#9fcdf0", floor: "#d9cfc0", light: "golden", para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
-  // music that supports the story (Jonny 11 Nov): from 0.0, a part per beat. Style "orchestra" (a dramatic film orchestra: string ostinato, low brass, timpani; Jonny 12 Nov on the "chase" style:
-  // "there is still no dramatic music, it should be somewhat of a dramatic orchestra music"; first asked for with:
-  // Jonny 12 Nov "the music doesn't fit the dangerous scene when chasing"), the series key 10 kept
-  // of the chain and a change at the turn ("But there's a catch")
-  music: { style: "orchestra", key: 10, lowCut: 150, gain: 0.45, parts: [
-    { at: 0, part: "drop" }, { at: HALL, part: "intro" }, { at: RUN, part: "build" }, { at: r3(CRASH + 0.6), part: "drop" }, { at: CALM, part: "musicbox" },
-    { at: r3(CALM + 1.15), part: "hold", gain: 0.5 }, { at: CHASE, part: "drop" }, { at: LAMP, part: "main" }, { at: r3(SCYTHE + 0.1), part: "stop" }, { at: RISE, part: "hold" }] },
+  // music that supports the story (Jonny 11 Nov): from 0.0, changes at the turn. A RECORDED-SOUNDING ORCHESTRA SCORE laid against
+  // the beats by make-score.py (the chase at frame 0, suspense in the hall, the chase rising into the crash, the suspense take's
+  // own crescendo through "But there's a catch", the full chase through the city, dead silence when the scythe drops, the chase
+  // again as the hill rises). Jonny 12 Nov on the two beds synthesised in puppet/beat.mjs (styles chase, orchestra): "this sounds
+  // like game music and not dramatic. it should be a dramatic orchestra with piano trumpets and timpani. really dramatic
+  // chasing music". MUSIC=<file under assets/music> swaps in another take for an A/B by ear.
+  music: { file: process.env.MUSIC ?? "back-to-life/back-to-life-score.ogg", gain: 0.6, lowCut: 90, dip: false },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "concrete", room: "room", guard: true },
   hook: { show: ["spud", "rea", "rex"], hint: 0, what: "a living T. rex smashes out of the museum right behind Spud and Reaper, who run at the camera screaming" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

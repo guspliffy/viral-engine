@@ -10,7 +10,11 @@
         "dramatic orchestral chase film score, frantic pounding piano ostinato, blaring trumpets, thundering timpani, fast staccato strings, real symphony orchestra recording, danger and panic, cinematic, 150 BPM",
         "intense symphonic chase scene music, aggressive low piano octaves, trumpet fanfare stabs, rolling timpani, racing violins, live orchestra in a concert hall, hollywood action film score, dark and urgent, 150 BPM"
       ],
-      "seeds": [501, 502, 503],
+      "seeds": [
+        501,
+        502,
+        503
+      ],
       "mood": "drama"
     },
     {
@@ -20,7 +24,24 @@
       "prompts": [
         "dark suspense film score, slow ominous low piano notes, quiet tremolo strings, soft timpani heartbeat, muted trumpet far away, something terrible is about to happen, real orchestra, no drum kit, 75 BPM"
       ],
-      "seeds": [511, 512],
+      "seeds": [
+        511,
+        512
+      ],
+      "mood": "drama"
+    },
+    {
+      "id": "orchestra-piano-chase",
+      "bpm": 150,
+      "bars": 8,
+      "prompts": [
+        "fast dramatic piano-led chase film score, hammering grand piano low octaves ostinato in a minor key, loud timpani hits, trumpet section stabs, symphony orchestra behind, danger, relentless, 150 BPM",
+        "relentless thriller chase music, pounding grand piano chords and racing piano runs, blaring trumpets, thunderous timpani rolls, full symphony orchestra, live recording, terrifying and urgent, 150 BPM"
+      ],
+      "seeds": [
+        521,
+        522
+      ],
       "mood": "drama"
     }
   ]

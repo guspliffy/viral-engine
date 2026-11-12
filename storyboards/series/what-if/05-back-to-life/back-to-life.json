@@ -46,53 +46,10 @@
   "satsuei": true
  },
  "music": {
-  "style": "orchestra",
-  "key": 10,
-  "lowCut": 150,
-  "gain": 0.45,
-  "parts": [
-   {
-    "at": 0,
-    "part": "drop"
-   },
-   {
-    "at": 1.5,
-    "part": "intro"
-   },
-   {
-    "at": 6.4,
-    "part": "build"
-   },
-   {
-    "at": 9.4,
-    "part": "drop"
-   },
-   {
-    "at": 11.3,
-    "part": "musicbox"
-   },
-   {
-    "at": 12.45,
-    "part": "hold",
-    "gain": 0.5
-   },
-   {
-    "at": 14.5,
-    "part": "drop"
-   },
-   {
-    "at": 17.9,
-    "part": "main"
-   },
-   {
-    "at": 20,
-    "part": "stop"
-   },
-   {
-    "at": 20.5,
-    "part": "hold"
-   }
-  ]
+  "file": "back-to-life/back-to-life-score.ogg",
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false
  },
  "sound": {
   "sfx": 0.65,
@@ -1577,6 +1534,13 @@
      "expr": "kind",
      "dur": 0.01,
      "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 1.48
     }
    ],
    "kind": "hook"
@@ -1614,13 +1578,6 @@
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "phx",
-     "do": "crouch",
-     "to": 0.35,
-     "dur": 0.01,
-     "at": 0
-    },
     {
      "who": "phx",
      "do": "expr",
@@ -2118,18 +2075,6 @@
      "at": 0.95
     },
     {
-     "do": "prop",
-     "id": "fish",
-     "set": {
-      "flop": -1,
-      "gasp": 1,
-      "wet": 1
-     },
-     "dur": 0.09,
-     "ease": "linear",
-     "at": 1.04
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "L",
@@ -2140,8 +2085,8 @@
        0.34
       ]
      },
-     "dur": 0.25,
-     "at": 1.1
+     "dur": 0.34,
+     "at": 1.02
     },
     {
      "who": "spud",
@@ -2154,8 +2099,20 @@
        0.34
       ]
      },
-     "dur": 0.25,
-     "at": 1.1
+     "dur": 0.34,
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.04
     },
     {
      "do": "prop",
@@ -2420,7 +2377,7 @@
      "who": "rea",
      "do": "turn",
      "to": 150,
-     "dur": 0.2,
+     "dur": 0.3,
      "at": 2.3
     },
     {
@@ -2453,10 +2410,17 @@
      "at": 2.5
     },
     {
+     "who": "phx",
+     "do": "turn",
+     "to": 199,
+     "dur": 0.38,
+     "at": 2.5
+    },
+    {
      "who": "rea",
      "do": "turn",
      "to": 180,
-     "dur": 0.2,
+     "dur": 0.25,
      "at": 2.6
     }
    ]
@@ -2509,13 +2473,6 @@
      "to": 190,
      "dur": 0.25,
      "at": 0.05
-    },
-    {
-     "who": "phx",
-     "do": "turn",
-     "to": 185,
-     "dur": 0.25,
-     "at": 0.1
     },
     {
      "who": "spud",

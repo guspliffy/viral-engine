@@ -15,7 +15,7 @@ import glob, json, os, subprocess, sys, tempfile
 import numpy as np, librosa, soundfile as sf, pyloudnorm as pyln
 
 SR = 44100
-HALL, RUN, CRASH, CALM, CATCHLINE, CHASE, SCYTHE, RISE, END = 1.5, 6.4, 8.8, 11.3, 12.45, 14.5, 19.9, 20.5, 22.5
+HALL, RUN, CRASH, CALM, CHASE, SCYTHE, RISE, END = 1.5, 6.4, 8.8, 11.3, 14.5, 19.9, 20.5, 22.5
 
 WANT = "a dramatic film score played by a real symphony orchestra with piano, trumpets and timpani"
 NOT = ["video game music played by a synthesizer", "chiptune music", "electronic dance music with a drum machine",
@@ -23,8 +23,23 @@ NOT = ["video game music played by a synthesizer", "chiptune music", "electronic
 
 
 def load(f):
+    """a take without its silent tail (the model plays about 14 s of the 18.8 s it is asked for)."""
     y, _ = librosa.load(f, sr=SR, mono=False)
-    return (y.T if y.ndim == 2 else np.stack([y, y], 1)).astype(np.float32)
+    y = (y.T if y.ndim == 2 else np.stack([y, y], 1)).astype(np.float32)
+    r = librosa.feature.rms(y=y.mean(1), frame_length=4096, hop_length=1024)[0]
+    live = np.nonzero(r > r.max() * 10 ** (-30 / 20))[0]
+    return y[: int(min(len(y), (live[-1] + 1) * 1024 - 0.25 * SR))]
+
+
+def quiet_and_swell(y, need_quiet, need_swell):
+    """where a suspense take is quietest for need_quiet seconds, and where the stretch of need_swell seconds
+    ends loudest compared with its start (its own crescendo)."""
+    mono, h = y.mean(1), int(0.25 * SR)
+    e = np.array([np.sqrt(np.mean(mono[i:i + h] ** 2)) for i in range(0, len(mono) - h, h)])
+    q, w = int(need_quiet / 0.25), int(need_swell / 0.25)
+    qi = min(range(0, len(e) - q), key=lambda i: e[i:i + q].mean())
+    wi = max(range(0, len(e) - w), key=lambda i: e[i + w - 4:i + w].mean() / (e[i:i + 4].mean() + 1e-6))
+    return qi * h, wi * h
 
 
 def rank(raw):
@@ -93,16 +108,16 @@ def lay(chase_f, susp_f, out):
         return int(b[max(ok, key=lambda i: e[i])]) if ok else int(b[0])
 
     # 0 cold open: the chase at its hardest, cut dead on the cut back to the hall
-    put(ch, hit(HALL), 0, HALL, 1.0, 1.0, fin=0.005, fout=0.05)
-    # 1 the hall: suspense, low
-    put(su, 0, HALL, RUN + 0.25, 0.55, 0.7, fin=0.2, fout=0.3)
+    put(ch, hit(HALL), 0, HALL, 1.15, 1.15, fin=0.005, fout=0.05)
+    # 1 the hall: the quietest stretch of the suspense take
+    quiet, swell = quiet_and_swell(su, RUN + 0.25 - HALL, CHASE + 0.05 - CALM)
+    put(su, quiet, HALL, RUN + 0.25, 1.5, 1.7, fin=0.2, fout=0.3)
     # 2 Reaper runs and the row wakes: the chase comes up, one of its beats on the crash, full to the calm
     at = beat_before(hit(CALM - CRASH + 0.5))
     start = max(0, at - int((CRASH - RUN) * SR))
     put(ch, start, CRASH - (at - start) / SR, CALM + 0.2, 0.45, 1.0, fin=0.25, fout=0.3, full_at=CRASH)
-    # 3 the calm and "But there's a catch.": back to the suspense, almost nothing under the line, then it swells
-    put(su, int(4.0 * SR), CALM, CATCHLINE + 0.1, 0.5, 0.35, fin=0.3, fout=0.1)
-    put(su, int(4.0 * SR) + int((CATCHLINE + 0.1 - CALM) * SR), CATCHLINE + 0.1, CHASE + 0.05, 0.35, 0.95, fin=0.1, fout=0.08)
+    # 3 the calm and "But there's a catch.": the suspense take's own crescendo, ending on the cut to the chase
+    put(su, swell, CALM, CHASE + 0.05, 0.75, 1.0, fin=0.3, fout=0.08)
     # 4 the chase through the city: the hardest stretch, a beat on the cut, cut dead when the scythe drops
     put(ch, hit(SCYTHE - CHASE), CHASE, SCYTHE, 1.12, 1.12, fin=0.005, fout=0.04)
     # 5 silence under the heartbeat, then the hill rises: the chase again, growing to the last frame
@@ -115,7 +130,7 @@ def lay(chase_f, susp_f, out):
     with tempfile.NamedTemporaryFile(suffix=".wav") as t:
         sf.write(t.name, mix, SR, subtype="PCM_16")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", t.name, "-c:a", "libvorbis", "-q:a", "6", out], check=True)
-    print(json.dumps(dict(out=out, seconds=END, chaseBeats=len(b), lufs=round(float(meter.integrated_loudness(mix)), 1),
+    print(json.dumps(dict(out=out, seconds=END, chaseBeats=len(b), lufs=round(float(meter.integrated_loudness(mix)), 1), suspenseQuietAt=round(quiet / SR, 2), suspenseSwellAt=round(swell / SR, 2),
                           peakDb=round(float(20 * np.log10(np.abs(mix).max())), 1))))
 
 

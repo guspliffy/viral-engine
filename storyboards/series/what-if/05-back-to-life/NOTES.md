@@ -98,6 +98,18 @@ CATCH 12.6 | CHASE 14.0 | STREET 15.6 | LAMP 17.4 | SCYTHE 19.4 | END 22.0
 
 -
 
+## Music: Jonny's ear (12 Nov)
+
+- 09:20 on draft 2 (style "chase", drum-and-bass): "everything is good except there is still no dramatic music, it
+  should be somewhat of a dramatic orchestra music" = picture, animals, lamp, sounds and commentator are OK'd.
+- 09:27 on draft 3 (style "orchestra", synthesised in puppet/beat.mjs): "this sounds like game music and not dramatic.
+  it should be a dramatic orchestra with piano trumpets and timpani. really dramatic chasing music".
+- Lesson: oscillator instruments read as game music for danger. The score is now a recorded-sounding bed from the local
+  model: `engine/soundgen/recipes-back-to-life.json` (prompts, seeds), takes probed with CLAP (dramatic, piano, trumpets,
+  timpani, game, synth) and laid against the beats by `make-score.py` into `assets/music/back-to-life/` (README there).
+  `MUSIC=<file> node make-back-to-life.mjs` swaps a take for an A/B by ear. The model plays about 14 s per take.
+- Polish done with it: Phoenix's turn ends before his run starts (the one-frame arm swap at 7.07 s; waiver deleted).
+
 ## Names looked up that docs/VOCAB.md didn't answer
 
 - stand-in box: `stoneblock` (props-guard.js) spec w, h, d. `stanchions` spec.posts [[x,z],...] (props-duo.js).
