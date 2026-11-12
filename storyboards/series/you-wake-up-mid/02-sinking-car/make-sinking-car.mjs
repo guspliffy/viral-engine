@@ -435,7 +435,7 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [240, 1440],   // narration in the upper third (Jonny 12 Nov), the clock lower left
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
-  set: { type: "stormlake", lip: false, under: "auto", hole: HOLE, shafts: [[T.out, [1.0, 0.2]], [T.deep, [1.6, 0.4]]], wipe: [[r3(T.surf - 0.04), 0], [T.surf, 1], [r3(T.surf + 0.033), 0.6], [r3(T.surf + 0.066), 0]], para: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
+  set: { type: "stormlake", lip: false, under: "auto", hole: HOLE, shafts: [[T.out, [1.0, 0.2]], [T.deep, [1.6, 0.4]]], wipe: [[r3(T.surf - 0.45), 0], [T.surf, 0.75], [r3(T.surf + 0.4), 0]], para: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   // Jonny liked disaster-04 on EP01 ("keep the music"); a dramatic scenario = recorded orchestra from 0.0 (12 Nov)
   music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: T.end, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
   // realistic sounds only (Jonny 12 Nov 16:02): no signature jingles, no movement markers
