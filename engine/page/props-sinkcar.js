@@ -685,8 +685,8 @@ export const SINKCAR_KINDS = {
     const amb = basic("#ffb347"), tri = basic("#e0362c"), dot = basic("#ffb347");
     const g = new THREE.Group(); P.whole.add(g);
     // the binnacle: a dark hood on the dash in front of the driver, its face toward the cabin (-z)
-    const bz = 0.55, bx = 0.55, by = 1.0;   // above the lake at the dash: with 9 degrees of pitch the surface at z 0.5 is 0.13 over its level at z -0.3
-    const hood = new THREE.Mesh(new THREE.BoxGeometry(0.33, 0.11, 0.1), std("#1b1f23", { roughness: 0.8 })); hood.position.set(bx, by, bz + 0.01); g.add(hood);
+    const bz = 0.78, bx = 0.55, by = 0.94;   // tucked into the dash beyond the wheel (at 0.55 / 1.0 it stood in the wheel and hid his mouth from the windscreen shots)   // above the lake at the dash: with 9 degrees of pitch the surface at z 0.5 is 0.13 over its level at z -0.3
+    const hood = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.085, 0.08), std("#1b1f23", { roughness: 0.8 })); hood.position.set(bx, by, bz + 0.01); g.add(hood);
     const needles = [];
     for (const dx of [-0.075, 0.075]) {
       const d = new THREE.Group(); d.position.set(bx + dx, by, bz - 0.042); d.rotation.y = Math.PI; g.add(d);

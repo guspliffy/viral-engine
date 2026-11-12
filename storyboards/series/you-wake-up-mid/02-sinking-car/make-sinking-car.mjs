@@ -148,8 +148,8 @@ const props = [
   { id: "bridge", staged: "the near stump's broken lip (the set's own deck ends in a clean cut at z -17)", kind: "bridgeend", x: 0, y: 14, z: -14, len: 3, at: 0 },
   { id: "rain", staged: "rain", kind: "rainstreaks", x: 0, y: 6, z: 0, n: 160, box: [14, 14, 14], v: [1.9, -9, 0], len: 0.35, width: 0.02, opacity: 0.35 },
   { id: "spray", kind: "splash", x: 0, y: 0, z: 0.9, scale: 4.5 },
-  { id: "bubW", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "stream", car: null, at: [0.99, 1.4, 0.2], rates: [[T.out, 45], [22, 45], [T.deep, 12], [26, 0]] },
-  { id: "bubM", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "mouth", from: T.out, to: T.rise, at: [1.2, -1.5, 0.3] },
+  { id: "bubW", staged: "air bubbles rising in the water", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "stream", car: null, at: [0.99, 1.4, 0.2], rates: [[T.out, 45], [22, 45], [T.deep, 12], [26, 0]] },
+  { id: "bubM", staged: "air bubbles from their mouths, rising in the water", kind: "lakebubbles", x: 0, y: 0, z: 0, mode: "mouth", from: T.out, to: T.rise, at: [1.2, -1.5, 0.3] },
   { id: "foam", kind: "wakefoam", x: 1.4, y: 0, z: 1.0, r: 1.4 },
   // invisible carriers for the swimmers
   { id: "spudWC", kind: "carrier", x: 0.9, y: -2, z: 0.1 },
@@ -224,7 +224,7 @@ sfx(T.cabin, "ai/rain-car-roof", { gain: 0.3, dur: r3(T.out - T.cabin), reason: 
 for (const w of ["spud", "mash", "chip"]) { A(T.cabin, w, "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0 }); }
 A(T.cabin, "spud", "look", { to: [0, -0.6], dur: 0, blink: false });
 A(r3(T.cabin + 1.15), "spud", "release", { prop: "wheel", to: [0.55, 0.88, 0.63], dur: 0 });   // back on its column
-c.arm(r3(T.cabin + 1.2), "spud", "R", { x: [-0.2, 0.38, 0.12] }, 0.3, "out");   // to the buckle at his right hip (pose x is body-local: +x his left)
+c.arm(r3(T.cabin + 1.2), "spud", "R", { x: [-0.32, 0.38, 0.24] }, 0.3, "out");   // to the buckle at his right hip (pose x is body-local: +x his left)
 A(r3(T.cabin + 1.9), "spud", "squash", { amount: 0.05, dur: 0.2 });
 sfx(r3(T.cabin + 1.9), "ai/seatbelt-click", { gain: 0.5, reason: "his belt clicks open" });
 A(T.cabin, "chip", "look", { to: [0, -0.4], dur: 0, blink: false });
@@ -238,6 +238,7 @@ A(T.phone, "mash", "expr", { expr: "terrified", set: { open: 0.4 }, dur: 0 }); A
 A(T.phone, "spud", "expr", { expr: "angry", set: { open: 0.6 }, dur: 0 }); A(T.phone, "spud", "look", { to: [-0.8, 0.1], dur: 0, blink: false });
 c.arm(r3(T.phone + 0.45), "spud", "R", { x: [-0.75, 0.72, 0.3] }, 0.12, "out");   // the swipe at the phone, his right mitten (Mash is on his right)
 A(r3(T.phone + 0.58), "mash", "release", {});
+c.arm(r3(T.phone + 0.9), "spud", "R", { x: [-0.32, 0.4, 0.26] }, 0.3, "inOut");   // his mitten back down, off his face
 sfx(r3(T.phone + 0.57), "slap", { gain: 0.45, reason: "his mitten knocks the phone out of Mash's hand" });
 c.drop?.(r3(T.phone + 0.6), "phone", { to: [-0.5, 0.5, 0.35] });
 sfx(r3(T.phone + 0.95), "ai/drip", { gain: 0.4, reason: "the phone drops into the cabin water" });
@@ -264,13 +265,28 @@ narr(r3(T.button + 0.25), "Window. Now.", DUR.window, ["Window.", "Now."]);
 see(r3(T.button + 0.1), T.rest, ["spud.R", "dash"], "the window moves 2 cm, then the dash lights flicker out");
 
 // ================================================================ 08 THE HEADREST 12.9-16.0: the side window bursts, the lake pours in
-A(T.rest, "spud", "turn", { to: 160, dur: 0.25, ease: "inOut" });
-A(r3(T.rest + 0.25), "spud", "grab", { prop: "rest", hand: "R", pose: null }); A(r3(T.rest + 0.25), "spud", "grab", { prop: "rest", hand: "L", pose: null });
-prop(r3(T.rest + 0.35), "rest", { y: 1.25, z: 0.0 }, 0.2, "out");
+A(T.rest, "spud", "turn", { to: 160, dur: 0.3, ease: "inOut" });
+// both palms on the headrest's short sides (grips.box's grips), the arms aimed at it: it keeps its own path below and
+// the hands follow it. No grab: a held prop with its own tween has two writers (hold-owner) and slipped in the hand
+// (draft 3's 52 cm grip gap). rot -90 = his yaw 70 + 180, so the hands never cross on the turn.
+const RESTG = { R: [0.185, 0, 0], L: [-0.185, 0, 0] };
+const restTo = (t, set, dur, ease, reason = "in both his hands (the arms aim at it)") => c.at(t, { do: "prop", id: "rest", set, dur, ease, reason });
+A(T.rest, "spud", "look", { to: [0.2, 0.1], dur: 0.1, blink: false });   // the eyes on the headrest first
+for (const s of ["R", "L"]) {
+  A(r3(T.rest + 0.1), "spud", "grip", { side: s, shape: "open", dur: 0.15 });
+  c.arm(r3(T.rest + 0.1), "spud", s, { prop: "rest", grip: RESTG[s], palm: true, off: [s === "R" ? 0.08 : -0.08, 0.02, 0.03] }, 0.18, "inOut");
+  c.arm(r3(T.rest + 0.28), "spud", s, { prop: "rest", grip: RESTG[s], palm: true }, 0.1, "settle");
+  A(r3(T.rest + 0.34), "spud", "grip", { side: s, shape: "press", dur: 0.1 });
+}
+// the headrest's own path in the car (DRIVER = x 0.55, his chest about 0.3 m round him): up out of the seat back, over
+// his right shoulder, then held out in front of him at the side window (x 0.97) and rammed into its corner
+restTo(r3(T.rest + 0.48), { y: 1.6 }, 0.12, "out");
 A(r3(T.rest + 0.55), "spud", "turn", { to: 70, dur: 0.25, ease: "inOut" });
-prop(r3(T.rest + 0.6), "rest", { x: 0.5, y: 1.0, z: 0.05, rot: 90, tip: 0 }, 0.3, "inOut");
+restTo(r3(T.rest + 0.6), { x: 0.86, y: 1.42, z: -0.12, rot: -45, tip: 0 }, 0.12, "linear");
+restTo(r3(T.rest + 0.72), { x: 0.9, y: 0.9, z: 0.12, rot: -90 }, 0.12, "out");
 A(r3(T.burst - 0.12), "spud", "lean", { to: 14, dur: 0.12, ease: "in" });
-prop(r3(T.burst - 0.12), "rest", { x: 0.6 }, 0.12, "in");
+restTo(r3(T.burst - 0.06), { x: 0.95 }, 0.06, "in");
+restTo(r3(T.burst + 0.3), { x: 0.91 }, 0.4, "out");   // he pulls it back as the water comes in
 set(T.burst, "glass", { burst: 1 });   // the pour follows the prop's own schedule from t0 (pour 1 = as designed)
 prop(T.burst, "water", { agit: 1 }, 0.1, "out"); prop(r3(T.burst + 1), "water", { agit: 0 }, 0.5, "inOut");
 set(T.burst, "water", { hiss: 0 });
@@ -281,8 +297,8 @@ sfx(r3(T.burst + 0.08), "ai/water-gush", { gain: 0.75, dur: 3.4, reason: "the la
 see(r3(T.rest + 0.2), T.back, ["spud.face", "rest", "glass"], "he rips out the headrest and rams its prongs into the side window's corner: it bursts, the lake pours in");
 
 // ================================================================ 09 SMALL ONES FIRST 16.0-19.0
-A(cut(T.back), "spud", "release", { prop: "rest", to: [0.08, 0.62, 0.6], dur: 0 });   // the headrest dropped on the console behind the cut
-A(cut(T.back), "spud", "turn", { to: 200, dur: 0.01 }); A(T.back, "spud", "expr", { expr: "focused", set: { open: 0.3 }, dur: 0 });
+restTo(cut(T.back), { x: 0.08, y: 0.62, z: 0.6, rot: 0 }, 0, "linear", "dropped on the console behind the cut");   // the headrest dropped on the console behind the cut
+A(cut(T.back), "spud", "turn", { to: 200, dur: 0.01 }); both(cut(T.back), "spud", { o: [0.3, 0.6, 0.25] }, 0.01); A(T.back, "spud", "expr", { expr: "focused", set: { open: 0.3 }, dur: 0 });
 A(T.back, "chip", "expr", { expr: "terrified", set: { open: 0.4 }, dur: 0 }); A(T.back, "chip", "look", { to: [0.1, 0.2], dur: 0, blink: false });
 both(r3(T.back + 0.2), "spud", (s) => ({ x: [s === "R" ? 0.32 : 0.55, 0.62, -0.75] }), 0.3, "out");   // both mittens to Chip's buckle
 sfx(r3(T.back + 0.8), "ai/seatbelt-click", { gain: 0.5, reason: "Chip's belt open" });
@@ -299,7 +315,7 @@ A(cut(T.out), "spudW", "ride", { prop: "spudWC", off: [0, 0, 0], yaw: 0, dur: 0 
 A(cut(T.out), "spudW", "pitch", { to: -20, dur: 0.01 }); A(cut(T.out), "chipW", "pitch", { to: -10, dur: 0.01 });
 prop(T.out, "chipWC", { x: 2.2, y: -0.8, z: 2.4 }, 2.4, "out");
 prop(T.out, "spudWC", { x: 1.7, y: -1.5 }, 1.2, "out");
-for (const w of ["spudW", "chipW"]) { A(T.out, w, "expr", { expr: "focused", set: { open: 0 }, dur: 0 }); both(T.out, w, { o: [0.35, 0.9, 0.1] }, 0.01); }
+for (const w of ["spudW", "chipW"]) { A(T.out, w, "expr", { expr: "focused", set: { open: 0 }, dur: 0 }); both(cut(T.out), w, { o: [0.35, 0.9, 0.1] }, 0.01); }
 for (let k = 0; k < 4; k++) { both(r3(T.out + 0.3 + 0.55 * k), "chipW", { o: [0.5, 0.55, 0.15] }, 0.25, "inOut"); both(r3(T.out + 0.58 + 0.55 * k), "chipW", { o: [0.3, 0.95, 0.1] }, 0.25, "inOut"); }
 sfx(T.out, "ai/underwater-amb", { gain: 0.5, dur: r3(T.surf - T.out), reason: "underwater, muffled" });
 sfx(r3(T.out + 0.05), "ai/bubbles-burst", { gain: 0.55, reason: "air bursting out of the car" });
@@ -310,17 +326,17 @@ see(r3(T.out + 0.1), T.drag, ["chipW.face", "spudW.face", "beams"], "underwater:
 A(cut(T.drag), "mash", "turn", { to: -70, dur: 0.01 });
 both(T.drag, "mash", (s) => ({ o: [s === "R" ? -0.05 : 0.25, 0.55, 0.35] }), 0.01);
 A(T.drag, "mash", "expr", { expr: "terrified", set: { open: 0.1 }, dur: 0 });
-set(T.drag, "spudWC", { x: 1.45, y: -2.6, z: 1.3 });   // the window at 21.5: about (1.0, -2.22, 1.29)
+set(T.drag, "spudWC", { x: 1.62, y: -2.6, z: 1.3 });   // the window at 21.5: about (1.0, -2.22, 1.29)
 A(cut(T.drag), "spudW", "turn", { to: -90, dur: 0.01 }); A(cut(T.drag), "spudW", "pitch", { to: 0, dur: 0.01 });
 c.arm(r3(T.drag + 0.5), "spudW", "R", { o: [0.1, 0.6, 0.55] }, 0.3, "out");
-narr(r3(T.drag + 0.45), "Leave it!", DUR.leave, ["Leave it!"]);
+narr(r3(T.drag + 0.45), "Leave it!", DUR.leave, ["Leave it!"], 300);   // high: Spud rises into the upper frame in the pull shot
 // the pull: Mash comes out of the window (world Mash from here)
 A(cut(T.pull), "mash", "hide"); A(cut(T.pull), "mashW", "show");
-set(T.pull, "mashWC", { x: 1.3, y: -3.6, z: 1.37 }); set(T.pull, "spudWC", { x: 1.8, y: -3.0, z: 1.4 });   // the window at 22.9: about (1.0, -3.25, 1.37)
+set(T.pull, "mashWC", { x: 1.3, y: -3.6, z: 1.37 }); set(T.pull, "spudWC", { x: 2.1, y: -2.95, z: 1.65 });   // the window at 22.9: about (1.0, -3.25, 1.37)
 A(cut(T.pull), "mashW", "ride", { prop: "mashWC", off: [0, 0, 0], yaw: 0, dur: 0 }); A(cut(T.pull), "mashW", "pitch", { to: -30, dur: 0.01 });
 prop(T.pull, "mashWC", { x: 1.8, y: -2.8 }, 1.1, "out");
-prop(T.pull, "spudWC", { x: 2.2, y: -2.3 }, 1.1, "out");
-A(T.pull, "mashW", "expr", { expr: "terrified", set: { open: 0 }, dur: 0 }); both(T.pull, "mashW", { o: [0.3, 0.9, 0.1] }, 0.01);
+prop(T.pull, "spudWC", { x: 2.5, y: -2.25 }, 1.1, "out");
+A(T.pull, "mashW", "expr", { expr: "terrified", set: { open: 0 }, dur: 0 }); both(cut(T.pull), "mashW", { o: [0.3, 0.9, 0.1] }, 0.01);
 see(r3(T.drag + 0.1), T.deep, ["mash.face", "spudW.face", "mashW.face"], "Mash still pulls at his door; Spud drags him out of the window");
 
 // ================================================================ 11 UP 24.0-26.4: the car sinks away, they kick up
@@ -344,8 +360,8 @@ for (const [w, x, z, y] of [["chipW", 1.5, 1.0, -0.35], ["spudW", 2.1, 0.4, -0.8
 sfx(T.surf, "ai/surface-gasp", { gain: 0.7, loud: true, reason: "they burst up, gasping" }); sfx(r3(T.surf + 0.25), "ai/surface-gasp", { gain: 0.5, reason: "the second one up" });
 sfx(T.surf, "ai/storm-lake", { gain: 0.3, dur: r3(T.fire - T.surf), reason: "the storm over the lake again" });
 // the swim: heads toward the reeds
-for (const [w, dz] of [["chipW", 0.9], ["spudW", 0], ["mashW", -0.9]]) {
-  set(T.swim, `${w}C`, { x: 21.5, y: { chipW: -0.4, spudW: -0.9, mashW: -1.05 }[w], z: r3(-3.5 + dz) }); prop(T.swim, `${w}C`, { x: 26.3, z: r3(-4.5 + dz) }, r3(T.shore - T.swim - 0.1), "linear");   // stays in the water: the waterline is x 30 + 5 sin(z/19), ~28.8 here
+for (const [w, dz] of [["chipW", 1.3], ["spudW", 0], ["mashW", -0.9]]) {
+  set(T.swim, `${w}C`, { x: 21.5, y: { chipW: -0.4, spudW: -0.9, mashW: -1.05 }[w], z: r3(-3.5 + dz) }); prop(T.swim, `${w}C`, { x: 26.3, z: r3(-4.5 + dz) }, r3(cut(T.shore) - T.swim), "out");   // stays in the water: the waterline is x 30 + 5 sin(z/19), ~28.8 here
   A(cut(T.swim), w, "turn", { to: 80, dur: 0.01 }); A(cut(T.swim), w, "pitch", { to: 25, dur: 0.01 });
   // strokes end 0.2 s before the cut: an anime-timing front-loaded drawing must not reach the shore cheat at cut(T.shore)
   for (let k = 0; k < 3; k++) { c.arm(r3(T.swim + 0.6 * k), w, "R", { o: [0.2, 0.9, 0.5] }, 0.3, "inOut"); if (k < 2) c.arm(r3(T.swim + 0.3 + 0.6 * k), w, "L", { o: [0.2, 0.9, 0.5] }, 0.3, "inOut"); }
@@ -354,7 +370,7 @@ for (let k = 0; k < 5; k++) sfx(r3(T.swim + 0.35 * k), "ai/swim-splash", { gain:
 see(r3(T.surf + 0.05), T.shore, ["spudW.face", "chipW.face", "mashW.face"], "they burst through the surface and swim for the reeds");
 
 // ================================================================ 12 THE SHORE 30.0-33.55: all alive
-for (const [w, dx, dz, yaw] of [["mashW", -0.9, 0.3, 200], ["chipW", 1.0, -0.4, 160], ["spudW", 0, 0, 180]]) {
+for (const [w, dx, dz, yaw] of [["mashW", -0.9, 0.3, 190], ["chipW", 1.0, -0.4, 160], ["spudW", 0, 0, 180]]) {
   set(T.shore, `${w}C`, { x: r3(SHORE[0] + dx), y: SHORE[1], z: r3(SHORE[2] + dz), rot: yaw });
   A(cut(T.shore), w, "pitch", { to: w === "spudW" ? -55 : 0, dur: 0 }); A(cut(T.shore), w, "turn", { to: 0, dur: 0 });
 }
@@ -398,8 +414,18 @@ const WINDOWS = [
   ...["spud", "mash", "chip"].map((who) => ({ who, with: `seat-${{ spud: "drv", mash: "pas", chip: "rl" }[who]}`, from: 0, to: T.out, checks: ["clipping", "costume-in-prop", "arm-in-prop", "hand-in-prop"], reason: "they sit in the car seats" })),
   ...["spud", "mash", "chip"].map((who) => ({ who, with: "water", from: T.cabin, to: T.out, checks: ["clipping"], reason: "the water inside the car rises round them (the beat)" })),
   { who: "spud", with: "wheel", from: 0, to: T.cabin, checks: ["hand-in-prop"], reason: "both mittens on the wheel" },
+  { who: "spud", with: "spud", from: 0, to: T.face, checks: ["face-covered"], reason: "first person (the camera is his eyes), then the wide flying shot where the car is a tenth of the frame" },
+  { who: "spud", with: "spud", from: 5.25, to: 5.6, checks: ["face-covered"], reason: "his mitten passes his face for 0.3 s on its way from the wheel to the buckle" },
+  { who: "spud", with: "dash", from: 0, to: r3(T.button + 0.1), checks: ["hand-in-prop"], reason: "the mittens on the wheel rim brush the instrument hood just beyond it (2 cm, hidden behind the rim)" },
+  { who: "spud", with: "wheel", from: T.rest, to: T.back, checks: ["arm-in-prop"], reason: "his forearm passes the wheel's rim edge (5 cm) while he swings the headrest; the shot is outside the side window" },
   { who: "spudW", with: "mashW", from: T.pull, to: T.surf, checks: ["character-overlap"], reason: "he drags Mash up by the hoodie (the beat)" },
   { who: "spud", with: "rest", from: T.rest, to: T.back, checks: ["hand-in-prop"], reason: "he holds the headrest in both mittens (the beat)" },
+  { who: "spud", with: "spud", from: 13.85, to: 14.3, checks: ["face-covered"], reason: "he holds the headrest low at the burst window; the stills at 14.0 and 14.4 show both eyes clear above his mittens (the check takes the hand's box from outside the glass)" },
+  { who: "spudW", with: "spudW", from: T.close, to: T.end, checks: ["payoff-face"], reason: "he lies on his back up the bank, face up to the close camera at his feet: the still at 33.8 shows his whole face as his eyes shut (the check reads his yaw, not that he lies face up)" },
+  { who: "mashW", with: "mashW", from: 28.45, to: 28.6, checks: ["rig-jump"], reason: "Mash's first swim stroke in the waves: a 6 cm elbow step, looked at in the 15 fps strip" },
+  { who: "chipW", with: "chipW", from: T.out, to: cut(T.shore), checks: ["motion"], reason: "Chip swims, under water and then at the surface: the feet move with the body, there is no floor to slide on" },
+  { who: "spudW", with: "spudW", from: T.out, to: cut(T.shore), checks: ["motion"], reason: "Spud swims, under water and then at the surface: the feet move with the body, there is no floor to slide on" },
+  { who: "mashW", with: "mashW", from: T.out, to: cut(T.shore), checks: ["motion"], reason: "Mash swims, under water and then at the surface: the feet move with the body, there is no floor to slide on" },
 ];
 write(import.meta.url, {
   id: "wake-up-mid-sinking-car",

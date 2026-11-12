@@ -53,7 +53,7 @@ const props = [
 
 // 0-0.8 first person: his eyes open on the fire (Spud hidden, the camera is his eyes)
 A(0, "spud", "hide"); A(r3(T.up - 0.02), "spud", "show");
-c.prop(0, "lids", { open: 0.1 }, 0, "linear"); c.prop(0.05, "lids", { open: 0.7 }, 0.15, "out"); c.prop(0.3, "lids", { open: 0.25 }, 0.08, "in"); c.prop(0.4, "lids", { open: 1 }, 0.25, "out");
+c.prop(0, "lids", { open: 0.1 }, 0, "linear"); c.prop(0.05, "lids", { open: 0.6 }, 0.2, "out"); c.prop(0.35, "lids", { open: 1 }, 0.3, "inOut");   // one smooth opening (a re-blink at 0.3-0.4 read as a one-frame pop)
 for (const id of ["curtL", "curtR"]) c.prop(0, id, { fire: 1, scorch: 0.6 }, 0, "linear");
 c.prop(0, "glow", { glow: 1 }, 0, "linear");
 c.prop(0, "fireW", { fire: 1 }, 0, "linear"); c.prop(0, "fireR", { fire: 0.8 }, 0, "linear");
@@ -61,7 +61,7 @@ c.prop(0, "smoke", { fill: 0.6, fire: 0.8 }, 0, "linear");
 // 0.8 on his feet by the bed, the fire behind him
 A(T.up, "spud", "expr", { expr: "terrified", set: { open: 0.6 }, dur: 0 });
 A(T.up, "spud", "look", { to: [0, 0], dur: 0, blink: false });
-both(T.up, { o: [0.3, 0.6, 0.25] }, 0.01);
+both(r3(T.up - 0.02), { o: [0.3, 0.6, 0.25] }, 0.01);   // behind the cut
 A(r3(T.look - 0.13), "spud", "look", { to: [0.7, 0.15], dur: 0.15, blink: false });
 A(T.look, "spud", "turn", { to: 30, dur: 0.35, ease: "out" });
 narr(T.line, "You wake up and your house is burning.", LINE_DUR, ["You wake up", "and your house is burning."]);
@@ -84,7 +84,7 @@ write(import.meta.url, {
   set: { type: "energyroom", night: true, seed: 6, aperture: 0, bloom: "emissive" },
   // the episode's orchestra runs on from the lake clip (disaster-04 is 14.99 s and loops: (1.698 + 34.0) mod 14.988 = 5.722)
   music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 5.722, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
-  sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
+  sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false, surface: "carpet" },
   creative: { length: [END, END] },
   hook: { show: ["curtL", "glow"], hint: 0, what: "first person: his eyes open in a burning bedroom" },
   cast, props, captions: c.captions, beats, visible: c.visible,

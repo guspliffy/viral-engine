@@ -644,6 +644,7 @@
   },
   {
    "id": "bubW",
+   "staged": "air bubbles rising in the water",
    "kind": "lakebubbles",
    "x": 0,
    "y": 0,
@@ -918,6 +919,7 @@
   },
   {
    "id": "bubM",
+   "staged": "air bubbles from their mouths, rising in the water",
    "kind": "lakebubbles",
    "x": 0,
    "y": 0,
@@ -1666,7 +1668,7 @@
    "from": 21.95,
    "to": 22.99,
    "text": "Leave it!",
-   "pos": 470,
+   "pos": 300,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -2255,9 +2257,9 @@
      "side": "R",
      "pose": {
       "x": [
-       -0.2,
+       -0.32,
        0.38,
-       0.12
+       0.24
       ]
      },
      "dur": 0.3,
@@ -2426,6 +2428,21 @@
       0.35
      ],
      "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.32,
+       0.4,
+       0.26
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.9
     },
     {
      "sfx": "ai/drip",
@@ -2791,36 +2808,141 @@
      "who": "spud",
      "do": "turn",
      "to": 160,
-     "dur": 0.25,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 0
     },
     {
      "who": "spud",
-     "do": "grab",
-     "prop": "rest",
-     "hand": "R",
-     "pose": null,
-     "at": 0.25
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
     },
     {
      "who": "spud",
-     "do": "grab",
-     "prop": "rest",
-     "hand": "L",
-     "pose": null,
-     "at": 0.25
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "rest",
+      "grip": [
+       0.185,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rest",
+      "grip": [
+       -0.185,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "rest",
+      "grip": [
+       0.185,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rest",
+      "grip": [
+       -0.185,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.1,
+     "ease": "settle",
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 0.34
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.1,
+     "at": 0.34
     },
     {
      "do": "prop",
      "id": "rest",
      "set": {
-      "y": 1.25,
-      "z": 0
+      "y": 1.6
      },
-     "dur": 0.2,
+     "dur": 0.12,
      "ease": "out",
-     "at": 0.35
+     "reason": "in both his hands (the arms aim at it)",
+     "at": 0.48
     },
     {
      "who": "spud",
@@ -2834,15 +2956,30 @@
      "do": "prop",
      "id": "rest",
      "set": {
-      "x": 0.5,
-      "y": 1,
-      "z": 0.05,
-      "rot": 90,
+      "x": 0.86,
+      "y": 1.42,
+      "z": -0.12,
+      "rot": -45,
       "tip": 0
      },
-     "dur": 0.3,
-     "ease": "inOut",
+     "dur": 0.12,
+     "ease": "linear",
+     "reason": "in both his hands (the arms aim at it)",
      "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "rest",
+     "set": {
+      "x": 0.9,
+      "y": 0.9,
+      "z": 0.12,
+      "rot": -90
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "reason": "in both his hands (the arms aim at it)",
+     "at": 0.72
     },
     {
      "who": "spud",
@@ -2856,11 +2993,12 @@
      "do": "prop",
      "id": "rest",
      "set": {
-      "x": 0.6
+      "x": 0.95
      },
-     "dur": 0.12,
+     "dur": 0.06,
      "ease": "in",
-     "at": 0.78
+     "reason": "in both his hands (the arms aim at it)",
+     "at": 0.84
     },
     {
      "do": "prop",
@@ -2952,6 +3090,17 @@
     },
     {
      "do": "prop",
+     "id": "rest",
+     "set": {
+      "x": 0.91
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "reason": "in both his hands (the arms aim at it)",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
      "id": "water",
      "set": {
       "level": 1.1
@@ -2981,21 +3130,51 @@
      "at": 1.9
     },
     {
-     "who": "spud",
-     "do": "release",
-     "prop": "rest",
-     "to": [
-      0.08,
-      0.62,
-      0.6
-     ],
+     "do": "prop",
+     "id": "rest",
+     "set": {
+      "x": 0.08,
+      "y": 0.62,
+      "z": 0.6,
+      "rot": 0
+     },
      "dur": 0,
+     "ease": "linear",
+     "reason": "dropped on the console behind the cut",
      "at": 3.08
     },
     {
      "who": "spud",
      "do": "turn",
      "to": 200,
+     "dur": 0.01,
+     "at": 3.08
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.6,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.08
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.6,
+       0.25
+      ]
+     },
      "dur": 0.01,
      "at": 3.08
     }
@@ -3239,6 +3418,62 @@
      "to": -10,
      "dur": 0.01,
      "at": 2.98
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "spudW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "chipW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.98
     }
    ]
   },
@@ -3294,34 +3529,6 @@
      "at": 0
     },
     {
-     "who": "spudW",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.35,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spudW",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.35,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
      "who": "chipW",
      "do": "expr",
      "expr": "focused",
@@ -3329,34 +3536,6 @@
       "open": 0
      },
      "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "chipW",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.35,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chipW",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.35,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
      "at": 0
     },
     {
@@ -3630,7 +3809,7 @@
      "do": "prop",
      "id": "spudWC",
      "set": {
-      "x": 1.45,
+      "x": 1.62,
       "y": -2.6,
       "z": 1.3
      },
@@ -3759,9 +3938,9 @@
      "do": "prop",
      "id": "spudWC",
      "set": {
-      "x": 1.8,
-      "y": -3,
-      "z": 1.4
+      "x": 2.1,
+      "y": -2.95,
+      "z": 1.65
      },
      "dur": 0,
      "ease": "linear",
@@ -3784,6 +3963,34 @@
      "who": "mashW",
      "do": "pitch",
      "to": -30,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "mashW",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.1
+      ]
+     },
      "dur": 0.01,
      "at": 1.38
     }
@@ -3822,8 +4029,8 @@
      "do": "prop",
      "id": "spudWC",
      "set": {
-      "x": 2.2,
-      "y": -2.3
+      "x": 2.5,
+      "y": -2.25
      },
      "dur": 1.1,
      "ease": "out",
@@ -3837,34 +4044,6 @@
       "open": 0
      },
      "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "mashW",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.3,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mashW",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.3,
-       0.9,
-       0.1
-      ]
-     },
-     "dur": 0.01,
      "at": 0
     },
     {
@@ -4910,7 +5089,7 @@
      "set": {
       "x": 21.5,
       "y": -0.4,
-      "z": -2.6
+      "z": -2.2
      },
      "dur": 0,
      "ease": "linear",
@@ -5021,10 +5200,10 @@
      "id": "chipWC",
      "set": {
       "x": 26.3,
-      "z": -3.6
+      "z": -3.2
      },
-     "dur": 1.7,
-     "ease": "linear",
+     "dur": 1.78,
+     "ease": "out",
      "at": 0
     },
     {
@@ -5049,8 +5228,8 @@
       "x": 26.3,
       "z": -4.5
      },
-     "dur": 1.7,
-     "ease": "linear",
+     "dur": 1.78,
+     "ease": "out",
      "at": 0
     },
     {
@@ -5075,8 +5254,8 @@
       "x": 26.3,
       "z": -5.4
      },
-     "dur": 1.7,
-     "ease": "linear",
+     "dur": 1.78,
+     "ease": "out",
      "at": 0
     },
     {
@@ -5311,7 +5490,7 @@
       "x": 33.6,
       "y": 0.4,
       "z": -5.7,
-      "rot": 200
+      "rot": 190
      },
      "dur": 0,
      "ease": "linear",
@@ -5843,6 +6022,46 @@
    "reason": "both mittens on the wheel"
   },
   {
+   "who": "spud",
+   "with": "spud",
+   "from": 0,
+   "to": 3,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "first person (the camera is his eyes), then the wide flying shot where the car is a tenth of the frame"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 5.25,
+   "to": 5.6,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "his mitten passes his face for 0.3 s on its way from the wheel to the buckle"
+  },
+  {
+   "who": "spud",
+   "with": "dash",
+   "from": 0,
+   "to": 11.6,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "the mittens on the wheel rim brush the instrument hood just beyond it (2 cm, hidden behind the rim)"
+  },
+  {
+   "who": "spud",
+   "with": "wheel",
+   "from": 12.9,
+   "to": 16,
+   "checks": [
+    "arm-in-prop"
+   ],
+   "reason": "his forearm passes the wheel's rim edge (5 cm) while he swings the headrest; the shot is outside the side window"
+  },
+  {
    "who": "spudW",
    "with": "mashW",
    "from": 22.9,
@@ -5861,6 +6080,66 @@
     "hand-in-prop"
    ],
    "reason": "he holds the headrest in both mittens (the beat)"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 13.85,
+   "to": 14.3,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "he holds the headrest low at the burst window; the stills at 14.0 and 14.4 show both eyes clear above his mittens (the check takes the hand's box from outside the glass)"
+  },
+  {
+   "who": "spudW",
+   "with": "spudW",
+   "from": 33.55,
+   "to": 34,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "he lies on his back up the bank, face up to the close camera at his feet: the still at 33.8 shows his whole face as his eyes shut (the check reads his yaw, not that he lies face up)"
+  },
+  {
+   "who": "mashW",
+   "with": "mashW",
+   "from": 28.45,
+   "to": 28.6,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "Mash's first swim stroke in the waves: a 6 cm elbow step, looked at in the 15 fps strip"
+  },
+  {
+   "who": "chipW",
+   "with": "chipW",
+   "from": 19,
+   "to": 29.98,
+   "checks": [
+    "motion"
+   ],
+   "reason": "Chip swims, under water and then at the surface: the feet move with the body, there is no floor to slide on"
+  },
+  {
+   "who": "spudW",
+   "with": "spudW",
+   "from": 19,
+   "to": 29.98,
+   "checks": [
+    "motion"
+   ],
+   "reason": "Spud swims, under water and then at the surface: the feet move with the body, there is no floor to slide on"
+  },
+  {
+   "who": "mashW",
+   "with": "mashW",
+   "from": 19,
+   "to": 29.98,
+   "checks": [
+    "motion"
+   ],
+   "reason": "Mash swims, under water and then at the surface: the feet move with the body, there is no floor to slide on"
   }
  ],
  "notes": "Generated by storyboards/series/you-wake-up-mid/02-sinking-car/make-sinking-car.mjs. Spec: PANELS.md, DESIGN.md."
