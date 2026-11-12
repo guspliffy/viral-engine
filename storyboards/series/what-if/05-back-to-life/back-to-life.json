@@ -47,9 +47,12 @@
  },
  "music": {
   "file": "back-to-life/back-to-life-score.ogg",
-  "gain": 0.6,
+  "gain": 0.8,
   "lowCut": 90,
-  "dip": false
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
  },
  "sound": {
   "sfx": 0.65,

@@ -424,8 +424,10 @@ write(import.meta.url, {
   // own crescendo through "But there's a catch", the full chase through the city, dead silence when the scythe drops, the chase
   // again as the hill rises). Jonny 12 Nov on the two beds synthesised in puppet/beat.mjs (styles chase, orchestra): "this sounds
   // like game music and not dramatic. it should be a dramatic orchestra with piano trumpets and timpani. really dramatic
-  // chasing music". MUSIC=<file under assets/music> swaps in another take for an A/B by ear.
-  music: { file: process.env.MUSIC ?? "back-to-life/back-to-life-score.ogg", gain: 0.6, lowCut: 90, dip: false },
+  // chasing music". Of two scores he picked A (piano, trumpets, timpani) 12 Nov 09:54: "i like draft a more and make the
+  // music a bit louder" = gain 0.6 -> 0.8, the bed gives way 6 dB under the voices so the commentator stays clear.
+  // MUSIC=<file under assets/music> swaps in another take for an A/B by ear.
+  music: { file: process.env.MUSIC ?? "back-to-life/back-to-life-score.ogg", gain: 0.8, lowCut: 90, dip: false, duck: { voice: -6 } },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "concrete", room: "room", guard: true },
   hook: { show: ["spud", "rea", "rex"], hint: 0, what: "a living T. rex smashes out of the museum right behind Spud and Reaper, who run at the camera screaming" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
