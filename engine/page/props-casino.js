@@ -29,6 +29,13 @@ import { clamp, lerp } from "./util.js";
 //                 leather rail 0.11 wide x 0.06 high round the edge, green felt with a soft hand-drawn texture and one thin
 //                 gold oval line 0.18 in from the rail, two dark wood pedestals on round bases. Origin: the table's middle
 //                 on the floor. Solid.
+//   goldwatch     Wedge's gold wristwatch lying flat on the felt, face up (panel 01): case 0.07 across (0.016 tall, a bezel ring and a
+//                 white face with 12 tick marks and two hands, no numerals, a little crown), a chunky gold link band opened out
+//                 along x to 0.16 long (4 links each side, 0.036 wide, tapering a little), a bright glint star on the bezel.
+//                 12 o'clock points to +x, the crown (3 o'clock) to +z, so from the main camera it lies like a watch on a table
+//                 with its band left and right; turn it with the prop's rot. Origin: bottom centre on the felt (the case's
+//                 middle). Solid. Spec: glint 1 (0..1, the star's strength; it breathes a little with t, so it twinkles).
+//                 Held by nothing (no SIZE entry: it is dropped in the pot, not gripped).
 //   casinoguest   a background guest: a plain golden potato (the cast's skin, #e2a95c) in evening clothes. Spec: h 0.9 (the
 //                 top of the head, the sprout excluded... the sprout stands 0.06 above), dress "tux" (black jacket, white shirt
 //                 front, red bow tie) | "gown" (spec.color, default "#7a1f3d"). Two dot eyes with blush and a small smile
@@ -668,6 +675,39 @@ function potatoBody(rx, ry, rz, seed) {
   }
   g.computeVertexNormals(); return g;
 }
+// the watch's own canvases: gold with brushed streaks, a white face with 12 ticks and two hands (no numerals), a glint star
+function watchGoldTex() {
+  return tex(cvs(128, 128, (g, W) => {
+    const gr = g.createLinearGradient(0, 0, W, W); [[0, "#c88a1e"], [0.3, "#ffe27a"], [0.55, "#f0b230"], [0.8, "#ffdc6a"], [1, "#b87a14"]].forEach(([o, c]) => gr.addColorStop(o, c)); g.fillStyle = gr; g.fillRect(0, 0, W, W);
+    for (let i = 0; i < 70; i++) { g.strokeStyle = `rgba(${hs(i, 1) < 0.5 ? "255,246,190" : "120,70,10"},${0.1 + 0.2 * hs(i, 2)})`; g.lineWidth = 0.8 + hs(i, 3); g.beginPath(); g.moveTo(0, hs(i, 4) * W); g.lineTo(W, hs(i, 4) * W + (hs(i, 5) - 0.5) * 10); g.stroke(); }
+  }));
+}
+function watchFaceTex() {
+  return tex(cvs(256, 256, (g, W) => {
+    const c = W / 2; g.fillStyle = "#fffdf4"; g.fillRect(0, 0, W, W);
+    const rg = g.createRadialGradient(c, c, 4, c, c, c); rg.addColorStop(0, "rgba(255,255,255,0)"); rg.addColorStop(1, "rgba(200,170,110,0.45)"); g.fillStyle = rg; g.fillRect(0, 0, W, W);
+    for (let i = 0; i < 12; i++) {
+      const a = (i * Math.PI) / 6, big = i % 3 === 0, r0 = c * (big ? 0.62 : 0.7), r1 = c * 0.86;
+      g.strokeStyle = big ? "#2a1a08" : "#5a3a12"; g.lineWidth = big ? 11 : 7; g.lineCap = "round";
+      g.beginPath(); g.moveTo(c + Math.sin(a) * r0, c - Math.cos(a) * r0); g.lineTo(c + Math.sin(a) * r1, c - Math.cos(a) * r1); g.stroke();
+    }
+    g.strokeStyle = "#1a1208"; g.lineCap = "round";
+    g.lineWidth = 14; g.beginPath(); g.moveTo(c, c); g.lineTo(c + Math.sin(-1.05) * c * 0.42, c - Math.cos(-1.05) * c * 0.42); g.stroke();   // hour hand (10 o'clock)
+    g.lineWidth = 9; g.beginPath(); g.moveTo(c, c); g.lineTo(c + Math.sin(0.35) * c * 0.66, c - Math.cos(0.35) * c * 0.66); g.stroke();       // minute hand (just past 12)
+    g.fillStyle = "#c88a1e"; g.beginPath(); g.arc(c, c, 11, 0, TAU); g.fill();
+    g.fillStyle = "rgba(255,255,255,0.38)"; g.beginPath(); g.moveTo(c - c * 0.9, c * 0.55); g.lineTo(c - c * 0.35, c * 0.1); g.lineTo(c - c * 0.15, c * 0.2); g.lineTo(c - c * 0.7, c * 0.78); g.closePath(); g.fill();   // a glass glare
+  }));
+}
+function glintTex() {
+  return tex(cvs(128, 128, (g, W) => {
+    const c = W / 2, rg = g.createRadialGradient(c, c, 0, c, c, c * 0.5); rg.addColorStop(0, "rgba(255,255,255,1)"); rg.addColorStop(0.3, "rgba(255,240,170,0.55)"); rg.addColorStop(1, "rgba(255,220,120,0)"); g.fillStyle = rg; g.fillRect(0, 0, W, W);
+    for (const [a, l] of [[0, 1], [Math.PI / 2, 1], [Math.PI / 4, 0.5], [-Math.PI / 4, 0.5]]) {
+      g.save(); g.translate(c, c); g.rotate(a); const lg = g.createLinearGradient(-c * l, 0, c * l, 0); lg.addColorStop(0, "rgba(255,255,255,0)"); lg.addColorStop(0.5, "rgba(255,255,255,1)"); lg.addColorStop(1, "rgba(255,255,255,0)");
+      g.fillStyle = lg; g.beginPath(); g.moveTo(-c * l, 0); g.lineTo(0, -3); g.lineTo(c * l, 0); g.lineTo(0, 3); g.closePath(); g.fill(); g.restore();
+    }
+  }));
+}
+
 const strHash = (s) => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 9973, 7);
 
 // ------------------------------------------------------------------------------------------------ kinds
@@ -863,6 +903,33 @@ export const CASINO_KINDS = {
     for (let k = 0; k < 5; k++) put(key, new THREE.BoxGeometry(0.005, 0.004, 0.003 + 0.003 * hs(k, 1)), silver, -0.02 - k * 0.0085, 0, 0.0065 + 0.0007 * k, true);
     void blade;
     return { grip: 0.0075 };
+  },
+
+  goldwatch(P) {
+    const g = P.whole, CASE_R = 0.035, CASE_H = 0.016, LINK_T = 0.0075, glint = P.spec.glint ?? 1;
+    const gold = std("#ffffff", { map: watchGoldTex(), roughness: 0.28, metalness: 0.35, emissive: new THREE.Color("#ffb52e"), emissiveIntensity: 0.55 });
+    const goldDk = std("#c88a1e", { roughness: 0.35, metalness: 0.3, emissive: new THREE.Color("#7a4a0c"), emissiveIntensity: 0.6 });
+    // the band: 4 rounded links each side along x (case edge 0.036 out to 0.08), a little narrower toward the ends
+    for (const sx of [-1, 1]) for (let i = 0; i < 4; i++) {
+      const len = 0.0105, x0 = 0.036 + i * (len + 0.0008), wd = 0.036 - 0.0016 * i;
+      const lg = new THREE.ExtrudeGeometry(rrShape(len, wd, 0.0032), { depth: LINK_T - 0.002, bevelEnabled: true, bevelThickness: 0.001, bevelSize: 0.0009, bevelSegments: 2, curveSegments: 6 }); lg.rotateX(-Math.PI / 2);
+      put(g, lg, gold, sx * (x0 + len / 2), 0.001, 0, true);
+      const pin = put(g, new THREE.CylinderGeometry(0.0012, 0.0012, wd * 0.8, 6), goldDk, sx * (x0 + len + 0.0004), LINK_T / 2 + 0.001, 0, true); pin.rotation.x = Math.PI / 2;   // the hinge pins between links
+    }
+    // the case: a drum, a bezel ring on top, two lugs where the band joins
+    put(g, new THREE.CylinderGeometry(CASE_R, CASE_R * 0.97, 0.0125, 28), gold, 0, 0.00625, 0, true);   // its top (0.0125) lies under the face
+    const bez = put(g, new THREE.TorusGeometry(CASE_R * 0.9, 0.0042, 8, 32), gold, 0, 0.0138, 0, true); bez.rotation.x = Math.PI / 2;
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) put(g, new THREE.BoxGeometry(0.012, 0.011, 0.007), gold, sx * 0.034, 0.0075, sz * 0.0165, true);
+    // the face: a flat disc just under the bezel, 12 at +x
+    const fg = new THREE.CircleGeometry(CASE_R * 0.86, 36); fg.rotateZ(-Math.PI / 2); fg.rotateX(-Math.PI / 2);
+    const face = put(g, fg, std("#ffffff", { map: watchFaceTex(), roughness: 0.4, emissive: new THREE.Color("#ffffff"), emissiveIntensity: 0.42 }), 0, 0.0129, 0); face.material.emissiveMap = face.material.map;
+    // the crown at 3 o'clock (+z) with a ridged cap
+    const crown = put(g, new THREE.CylinderGeometry(0.0055, 0.0055, 0.01, 12), goldDk, 0, 0.009, CASE_R + 0.004, true); crown.rotation.x = Math.PI / 2;
+    const cap = put(g, new THREE.CylinderGeometry(0.0065, 0.0065, 0.003, 12), gold, 0, 0.009, CASE_R + 0.0105, true); cap.rotation.x = Math.PI / 2;
+    // the glint: a four-point star on the bezel's upper left (as the camera sees it), additive, see-through
+    const gl = new THREE.Sprite(new THREE.SpriteMaterial({ map: glintTex(), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false, fog: false, opacity: 0 }));
+    gl.material.userData.noOutline = true; gl.position.set(-0.012, CASE_H + 0.012, -0.022); ghost(gl, 5); g.add(gl);
+    return { grip: 0, apply(ps, t) { const k = clamp(ps.glint ?? P.spec.glint ?? glint); const tw = 0.82 + 0.18 * Math.sin((t ?? 0) * 2.3); gl.material.opacity = k * tw; gl.scale.setScalar(0.08 * (0.9 + 0.1 * tw)); gl.visible = k > 0.002; } };
   },
 
   casinoguest(P) {

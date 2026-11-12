@@ -1,47 +1,42 @@
-# PANELS: read-minds (There's a catch, episode 6)
+# PANELS: read-minds (There's a catch, episode 6), v5
 
 Next to the generator. Jonny's panels are the target, and this file is how the clip is held to them by line and by
 number, not from memory.
-Board: board.png here (4x3 grid, 9:16 panels; `qa/panels.mjs --grid 4x3`), Jonny's go 12 Nov 2026 11:28 Berlin.
-Brief: /mnt/project-files/video-scripts/2026-11-08-what-if/06-read-minds-V2-POKER-12-PANEL-IMAGE-PROMPT.md (v3 CASINO).
-Opener type A (contest running at frame 0): Wedge is already shoving his chips into the pot.
-Not to copy from the sheet (image-model slips): dark-suited human guests in 02/03 (all guests are potatoes), panel 05
-numbered "03", bubble tails (bubbles float free), Wedge drawn no bigger than Spud (Wedge 0.98 m, Spud 0.88 m), two aces
-of hearts in 11 (four different aces).
+Board: board.png here (5x3 grid, 9:16 panels; `qa/panels.mjs --grid 5x3`), the v5 Hold'em sheet; Jonny's "create the
+video" 12 Nov 2026 14:14 Berlin. Earlier boards: v3 casino 12-panel (go 11:28), v4 (Hold'em/Omaha mix, replaced).
+Brief: /mnt/project-files/video-scripts/2026-11-08-what-if/06-read-minds-V5-HOLDEM-15-PANEL-IMAGE-PROMPT.md
+Jonny's notes on draft 1 (memory feedback-read-minds-draft1-notes-2026-11-12): 30-35 s; cards held face to the holder,
+shown only over the shoulder or face up on the felt; gloves ON the felt; Texas Hold'em only, Spud 3-3, Wedge 8-3.
+Opener type A (contest running at frame 0): Wedge is already shoving his heap and gold watch into the pot.
+Not to copy from the sheet (image-model slips): Mash missing in 01, Spud's big stacks in 02, comic lines in 11,
+letter-like squiggles on signs, the hotel window not clearly open.
 
 ## Checklist: what these panels stand on
 
 | # | Line | Staging proof | Before full render |
 | --- | --- | --- | --- |
-| 1 | Frame 0 (01): the four at the green oval table under a brass lamp in a red-and-gold casino; Wedge shoves two tall stacks into the pot, Spud with his cards to his chest, Chip cheering, Mash on his phone; slots, roulette, chandelier behind | | |
-| 2 | The stare (02): Wedge smug, "Trust me."; Spud sweating, gulps, his cards in his gloves | | |
-| 3 | The read (03): Spud's eyes glow blue-white; a soap bubble over Wedge's head with a 2 and a 7 inside; Wedge still grins | | |
-| 4 | The call (04): Spud slaps his two cards face up and rakes the pot; Chip cheers, Wedge's jaw drops | | |
-| 5 | Every head (05): a bubble over Wedge (2-7), Chip (pizza), Mash (phone); Spud grins behind his stacks, eyes still glowing | | |
-| 6 | The mountain (06): over the others' backs at Spud, arms up, a chip mountain towering over him under the chandelier | | |
-| 7 | The spread (07): Spud alone, face to us, smile gone, one glove at his temple; a bubble with a thing in it over every guest behind him, more popping in | | |
-| 8 | The city (08): night, neon city round the casino's gold dome; a glowing bubble over every roof, thousands | | |
-| 9 | The flood (09): the casino crammed wall to wall with bubbles; Spud's gloves on his head, eyes squeezed, "Too loud!"; the others stare | | |
-| 10 | The keys (10): Wedge slams his car keys on the felt, "Car keys. All in."; Spud on his feet swatting through hundreds of bubbles, can't find Wedge's, pushes the mountain in | | |
-| 11 | Four aces (11): Wedge fans four different aces at us, sweeps the mountain to his side; Spud slumps, empty | | |
-| 12 | The end (12): night, hotel room high above the neon city; Spud awake in bed, pillow pressed on his head, eyes open; the thoughts stream in through the window; "Would you still want it?" | | |
-| 13 | Every guest is a potato (no humans); Spud's eyes glow from 03 to the last frame; the bubbles are round soap bubbles with one small object inside, no text | | |
+| 1 | 01 (0.0): all-in; a crowd of potato guests round the table; board Ks 9h 5d Jc 2s face up; Wedge shoves a huge heap + gold watch; Spud sweating, cards to his chest (backs out), three chips | stills 0.3 | |
+| 2 | 02 (2.0): two-shot, Wedge smug "Trust me.", Spud gulps | 2.6 | |
+| 3 | 03 (3.5): over Spud's shoulder: his 3c 3d faces to him | 3.6 | |
+| 4 | 04 (5.0): his eyes glow | 5.8 | |
+| 5 | 05 (6.5): Wedge from Spud's view, bubble with 8c 3h | 7.2 | |
+| 6 | 06 (8.0): 3-3 face up beside the board, Wedge shows 8-3, the pot raked in, jaw drop, crowd cheers | 8.9 | |
+| 7 | 07 (10.0): bubbles over the friends (cards, pizza, phone); Spud behind tall stacks | 10.8 | |
+| 8 | 08 (12.0): the chip mountain, arms up; "You'd never lose again." | 12.9 | |
+| 9 | 09 (14.0): "But there's a catch." "You would hear everyone's mind."; a bubble over every guest | 15.2 | |
+| 10 | 10 (16.5): casino crammed, "Too loud!" | 17.3 | |
+| 11 | 11 (18.5): new hand, board Ad Ac Kc 7h 2d; Wedge slams car keys "Car keys. All in."; Spud pushes through the bubbles, then all in | 19.8 | |
+| 12 | 12 (21.0): from above: Wedge As Ah (four aces), Spud Ks Kh (kings full); Wedge drags the mountain | 21.6, 22.2 | |
+| 13 | 13 (23.5): night neon street, Spud walks toward us, gloves on his head; bubbles over passers-by, in windows | | |
+| 14 | 14 (26.5): the city from above, thousands of bubbles | | |
+| 15 | 15 (29.0): hotel room, pillow on his head, bubbles stream in; "It would never be quiet again." "Would you still want it?" | | |
+| 16 | Every guest is a potato; Spud's eyes glow from 04 to the last frame; bubbles are round, one object inside, no text | | |
 
-## Numbers: read off each panel before any code
+## Departures (with reasons)
 
-At = seconds in `read-minds-no-vo`. Filled from `qa/panelfit.mjs` after the staging proof.
-
-| Panel | At | Subject | Top | Eyes | Bottom | X | Faces | Camera | Departure |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | 0.3 | wdg | | | | | wdg, spud, chip, mash | above | all four in an arc on the far side, Chip small at the front left (a tall frame is narrow) |
-| 02 | 1.7 / 2.4 | wdg, spud | | | | | wdg, spud / spud | level | the two-shot, then a close single on Spud's gulp |
-| 03 | 3.1 / 3.8 | spud, wdg | | | | | spud / wdg | level | the reveal is Spud's point of view on Wedge and his bubble |
-| 04 | 4.8 | spud | | | | | spud, wdg, chip | level | |
-| 05 | 6.6 | spud | | | | | all four | above | |
-| 06 | 8.2 | spud | | | | | spud | below | low and close on Spud instead of over three backs: the tower stands beside him on the felt |
-| 07 | 10.0 | spud | | | | | spud | level | |
-| 08 | 12.0 | city | | | | | - | above | |
-| 09 | 13.4 | spud | | | | | spud | level | |
-| 10 | 15.0 | wdg | | | | | wdg, spud | level | Spud swats the bubbles from his chair, not standing (standing put him into the table); Wedge beside him, not in front |
-| 11 | 17.0 | wdg | | | | | wdg, spud | level | |
-| 12 | 19.0 | spud | | | | | spud | level | Spud sits up in bed with the pillow pressed on his head, not lying under the blanket (a lying rig pose is not built) |
+- 03: the background past the cards is the pot and Wedge's glove, not Wedge's face (he sits beside Spud in the arc: a
+  9:16 frame cannot hold players on opposite sides).
+- 12: seen from above the front of the table (under the lamp, which blinds a straight-down camera); Spud's empty gloves
+  get their own close (12b, 22.7 s) instead of the frame edge.
+- 12b (added): Spud slumps, a 0.8 s close, so the loss reads before the street.
+- 14: no tiny Spud in the street from 40 m up (he would be one pixel).

@@ -14,7 +14,8 @@ import { clamp } from "./util.js";
 //                  left and a small round one bottom right. Inside, ONE solid object facing +z, centred, about 1.2 r across
 //                  (60 % of the bubble's width), swinging slowly about y (+-50 deg, 20 deg/s at its fastest) so it never
 //                  turns its back. Spec: r 0.2 (the bubble's radius), obj one of
-//                    cards27 (the 2 of hearts and the 7 of spades side by side), aces (four aces in a fan), pizza (a slice),
+//                    cards27 (the 2 of hearts and the 7 of spades side by side), cards83 (the 8 of clubs and the 3 of hearts
+//                    side by side: Wedge's bluff; NOT in the bubblefield's object list), aces (four aces in a fan), pizza (a slice),
 //                    phone (a smartphone, lit screen), shoe, fish, clock (red alarm clock), heart, sandwich, football
 //                    (black and white), coin, crown, gift, book, car (red), guitar, camera, watch, burger, cat, bag
 //                    (handbag), cake, plane;
@@ -59,6 +60,7 @@ export const MIND_OBJECTS = ["cards27", "aces", "pizza", "phone", "shoe", "fish"
 const ATLAS_W = 1024, ATLAS_H = 512, CARD_W = 128, CARD_H = 180;
 const RECT = {};
 ["2h", "7s", "As", "Ah", "Ad", "Ac", "back"].forEach((n, i) => { RECT[n] = [i * 132 + 2, 2, CARD_W, CARD_H]; });
+RECT["8c"] = [500, 190, CARD_W, CARD_H]; RECT["3h"] = [634, 190, CARD_W, CARD_H];   // cards83: free space right of the watch and phone cells
 RECT.clock = [2, 190, 160, 160]; RECT.watch = [172, 190, 160, 160]; RECT.screen = [342, 190, 110, 200]; RECT.white = [470, 200, 24, 24];
 const uvOf = (n) => { const [x, y, w, h] = RECT[n]; return [x / ATLAS_W, 1 - (y + h) / ATLAS_H, (x + w) / ATLAS_W, 1 - y / ATLAS_H]; };
 
@@ -107,6 +109,7 @@ function atlas() {
   g.fillStyle = "#ffffff"; g.fillRect(0, 0, ATLAS_W, ATLAS_H);
   drawCard(g, "2h", "2", "h"); drawCard(g, "7s", "7", "s");
   drawCard(g, "As", "A", "s"); drawCard(g, "Ah", "A", "h"); drawCard(g, "Ad", "A", "d"); drawCard(g, "Ac", "A", "c");
+  drawCard(g, "8c", "8", "c"); drawCard(g, "3h", "3", "h");
   { // card back: blue with a diamond lattice and a white border, every mark hand-placed from a seeded hash
     const [x0, y0, w, h] = RECT.back; g.save(); g.translate(x0, y0);
     g.fillStyle = "#f7f5ee"; g.beginPath(); g.roundRect(0, 0, w, h, 12); g.fill();
@@ -184,6 +187,13 @@ const SHAPES = {
       add(RB(0.44, 0.62, 0.024, 0.012), "#f1efe6"); add(PL(0.425, 0.6), "#ffffff", { p: [0, 0, 0.0125], tex }); add(PL(0.425, 0.6), "#ffffff", { p: [0, 0, -0.0125], r: [0, 180, 0], tex: "back" });
     });
     card(-0.26, 9, "2h", -0.01); card(0.26, -9, "7s", 0.02);
+  },
+  cards83(b) {   // Wedge's real hand (a bluff): the 8 of clubs and the 3 of hearts side by side, like cards27
+    const { add, grp } = b;
+    const card = (x, rot, tex, z) => grp([x, 0, z], [0, 0, rot], () => {
+      add(RB(0.44, 0.62, 0.024, 0.012), "#f1efe6"); add(PL(0.425, 0.6), "#ffffff", { p: [0, 0, 0.0125], tex }); add(PL(0.425, 0.6), "#ffffff", { p: [0, 0, -0.0125], r: [0, 180, 0], tex: "back" });
+    });
+    card(-0.26, 9, "8c", -0.01); card(0.26, -9, "3h", 0.02);
   },
   aces(b) {
     const { add, grp } = b;
