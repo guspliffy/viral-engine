@@ -47,3 +47,24 @@ spec keys, so a wrong size is a number in the generator.
   "narrator". Set without ground: `{ type: "plain", floor: "none" }`.
 - Existing props used: wardrobe (props-ikea, doors face +z), couch, pillarcandle (`lit`), campmug, sandbucket,
   curtain (shower curtain on a rail, hangs 1.6 down), spoon (props-chef).
+
+## 12 Nov 2026: every shot re-staged to Jonny's sheet B (panels-sheet.png, PANELS.md)
+
+- The sheet came by upload (08:09 Berlin). Each shot now copies its panel; the numbers and grades are in PANELS.md
+  (`node qa/panelfit.mjs` on the layout: 6 yes, 4 partial, 2 no before the last camera round).
+- World changes: the flat door is in the LEFT wall (zdoor rot 90, sunk 0.25 so the arm is at a potato's waist), the
+  bathroom is shot from behind the cistern (rot 180, scale 0.85) with a doorway in the back wall and a dark board
+  behind it, the street keeps three of its six parked cars (`parked`) so the horde fills it, its fog cards thin for
+  the balcony shot (`fog` 0.3), two `policecar` props (heist set): one up the street for panel 02, one under the
+  ladder for panel 10. The street prop's own loose car is parked at the kerb.
+- Names looked up (so nobody searches again): a `look` is an offset in the face ([-1..1 left (+), up (+)]), NOT a
+  place in the world; a cast `follow` turns the body by 0.14 x that look, so a world coordinate spins the body round.
+  A `fly` hovers, flaps and tucks the feet: for a body off the floor use `move` with `y`. The body's rotation order
+  is yaw, pitch, lean: a pitch tips forward the way the body faces, about its middle (move the base to 0.5 under
+  the middle). Sit on the ground: `sit` with `height: -0.06`, undo with `stand`. `wardrobe` needs `apart: 0`
+  (the prop state starts at 1 = scattered). `sirenwail` is the police siren.
+- ROUGH DRAFT: rendered with `--force`. Reason: workflow rule 2, the draft goes to Jonny before any hand, arm or
+  hat polish; the open fails are hands and arms into a neighbour, hat brims, a face behind a neighbour for a few
+  frames, and held things without a fitted grip. No fail hides a story beat.
+- Stand-ins to replace in the polish: the blanket on the line (a flat board), the toilet roll (not placed), a dent
+  in the police car's roof, pink in the dawn sky, the wardrobe's flat-pack look (panel shows dark wood).
