@@ -780,7 +780,8 @@
    "id": "zombies-score",
    "kind": "music",
    "files": [
-    "zombies-score/zombies-score-01.ogg"
+    "zombies-score/zombies-score-01.ogg",
+    "zombies-score/zombies-score-02.ogg"
    ],
    "tags": [
     "dread",
