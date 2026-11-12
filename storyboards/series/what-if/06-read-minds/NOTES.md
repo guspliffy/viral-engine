@@ -2,9 +2,11 @@
 
 ## Where the build stands
 
-- Step: rough draft (local draft 1 had gibberish narrator: no voice model here; farm draft run 43209643838 with --draft)
-- Next: rough draft SENT 12 Nov (project files videos/what-if/06-read-minds/read-minds-rough-draft.mp4); wait for Jonny's OK, then polish
-- Renders so far: drafts 1 local + 1 farm, full 0; fix rounds used: 0 of 3 (staging rounds: 5 still sets, 6 layouts)
+- v5 (Jonny "create the video" 12 Nov 14:14 Berlin on the 15-panel Hold'em sheet): generator rebuilt to 32.6 s, 16 cuts;
+  T4 builder added neonstreet + streetpotato (props-neonstreet.js), goldwatch, the cards83 thought.
+- Staging proof: layout gate 0 fails, preflight 0 fails (commit 9be151d). Farm draft 2 = run 43234678928.
+- Next: rough draft 2 to Jonny (project files videos/what-if/06-read-minds/); on his OK: polish, checks, one full render.
+- Draft 1 (v1, 21.9 s) notes from Jonny: memory feedback-read-minds-draft1-notes-2026-11-12.
 - Local voice: engine/voice not set up (VoxCPM narrator needs --vox, ~6.5 GB): narrated drafts go to the farm
 
 ## The improvement loop
@@ -45,6 +47,9 @@
 
 ## Tried and dropped
 
+- v5: the call as a hand slapped over cards held in the air: a 120-174 deg palm flip in 2 frames. Now the cards are laid
+  face down off screen (the POV shot) and flip face up under his glove on "Call!".
+- v5: a straight-down showdown camera above the lamp: blinded by the lamp. Now under it, from the front, steep.
 - Players on the table's two long sides (x +-1.45): out of a 9:16 frame (fov 42 sees +-0.78 m at 3.7 m). Arc on the far side instead.
 - Wedge at the near left end facing Spud: his back to every front camera.
 - Spud standing to swat (10): "stand" drove him 38 % into the table; he swats seated.

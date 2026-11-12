@@ -46,17 +46,17 @@
   "satsuei": true
  },
  "music": {
-  "file": "ai/sos-tension/sos-tension-01.ogg",
+  "file": "read-minds/read-minds-casino.ogg",
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
   },
-  "until": 14.1,
+  "until": 10.7,
   "then": {
    "file": "ai/disaster/disaster-01.ogg",
-   "from": 14.1,
+   "from": 10.7,
    "gain": 0.7
   }
  },
@@ -1510,8 +1510,8 @@
  ],
  "captions": [
   {
-   "from": 2.1,
-   "to": 3.1,
+   "from": 1.7,
+   "to": 2.47,
    "text": "Trust me.",
    "pos": 540,
    "pop": false,
@@ -1519,8 +1519,8 @@
    "kinetic": false
   },
   {
-   "from": 8.05,
-   "to": 8.95,
+   "from": 5.65,
+   "to": 6.55,
    "text": "Call!",
    "pos": 540,
    "pop": false,
@@ -1528,8 +1528,8 @@
    "kinetic": false
   },
   {
-   "from": 9,
-   "to": 9.97,
+   "from": 6.6,
+   "to": 7.37,
    "text": "Let's go!",
    "pos": 540,
    "pop": false,
@@ -1537,8 +1537,8 @@
    "kinetic": false
   },
   {
-   "from": 17.2,
-   "to": 18.3,
+   "from": 13.8,
+   "to": 14.57,
    "text": "Too loud!",
    "pos": 540,
    "pop": false,
@@ -1546,8 +1546,8 @@
    "kinetic": false
   },
   {
-   "from": 18.8,
-   "to": 19.7,
+   "from": 14.9,
+   "to": 15.5,
    "text": "Car keys. All in.",
    "pos": 540,
    "pop": false,
@@ -1555,8 +1555,8 @@
    "kinetic": false
   },
   {
-   "from": 19.7,
-   "to": 20.9,
+   "from": 15.5,
+   "to": 16.6,
    "text": "Which one is yours?!",
    "pos": 540,
    "pop": false,
@@ -1564,8 +1564,8 @@
    "kinetic": false
   },
   {
-   "from": 22,
-   "to": 22.67,
+   "from": 17.9,
+   "to": 18.57,
    "text": "Four aces.",
    "pos": 1250,
    "pop": false,
@@ -1573,8 +1573,8 @@
    "kinetic": false
   },
   {
-   "from": 31.05,
-   "to": 32.6,
+   "from": 28.1,
+   "to": 30,
    "text": "Would you still want it?",
    "pos": 540,
    "pop": false
@@ -1584,7 +1584,7 @@
   {
    "name": "01 all-in",
    "at": 0,
-   "len": 2,
+   "len": 1.6,
    "shot": {
     "pos": [
      -0.5,
@@ -1610,7 +1610,7 @@
      ],
      "fov": 54
     },
-    "dur": 2,
+    "dur": 1.6,
     "ease": "linear"
    },
    "do": [
@@ -2781,8 +2781,8 @@
   },
   {
    "name": "02 the stare",
-   "at": 2,
-   "len": 1.5,
+   "at": 1.6,
+   "len": 0.9,
    "shot": {
     "pos": [
      -0.1,
@@ -2808,7 +2808,7 @@
      ],
      "fov": 46
     },
-    "dur": 1.5,
+    "dur": 0.9,
     "ease": "linear"
    },
    "do": [
@@ -2863,8 +2863,8 @@
   },
   {
    "name": "03 his cards over his shoulder",
-   "at": 3.5,
-   "len": 1.5,
+   "at": 2.5,
+   "len": 1,
    "shot": {
     "pos": [
      1.094,
@@ -2890,7 +2890,7 @@
      ],
      "fov": 31
     },
-    "dur": 1.5,
+    "dur": 1,
     "ease": "linear"
    },
    "do": [
@@ -2916,8 +2916,8 @@
   },
   {
    "name": "04 the eyes glow",
-   "at": 5,
-   "len": 1.5,
+   "at": 3.5,
+   "len": 0.9,
    "shot": {
     "pos": [
      0.27,
@@ -2943,7 +2943,7 @@
      ],
      "fov": 40
     },
-    "dur": 1.5,
+    "dur": 0.9,
     "ease": "in"
    },
    "do": [
@@ -2994,14 +2994,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.48
+     "at": 0.88
     }
    ]
   },
   {
    "name": "05 Wedge's thought",
-   "at": 6.5,
-   "len": 1.5,
+   "at": 4.4,
+   "len": 1.2,
    "shot": {
     "pos": [
      0.5,
@@ -3051,7 +3051,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.05
+     "at": 0.75
     },
     {
      "do": "prop",
@@ -3061,7 +3061,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.05
+     "at": 0.75
     },
     {
      "do": "prop",
@@ -3071,7 +3071,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.05
+     "at": 0.75
     },
     {
      "who": "spud",
@@ -3092,15 +3092,15 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 1.05
+     "at": 0.75
     }
    ],
    "kind": "reveal"
   },
   {
    "name": "06 the call",
-   "at": 8,
-   "len": 2,
+   "at": 5.6,
+   "len": 1.8,
    "shot": {
     "pos": [
      0.3,
@@ -3571,6 +3571,24 @@
      "at": 1.5
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
      "do": "prop",
      "id": "cr1",
      "set": {
@@ -3611,48 +3629,6 @@
      "at": 1.6
     },
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "table",
-      "grip": [
-       0.42,
-       0.72,
-       -0.36
-      ],
-      "palm": [
-       0.42,
-       0.22,
-       -0.36
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 1.65
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "table",
-      "grip": [
-       0,
-       0.72,
-       -0.4
-      ],
-      "palm": [
-       0,
-       0.22,
-       -0.4
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 1.65
-    },
-    {
      "do": "prop",
      "id": "cr2",
      "set": {
@@ -3683,24 +3659,6 @@
      "at": 1.7
     },
     {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "lap",
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.7
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "lap",
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.7
-    },
-    {
      "do": "prop",
      "id": "pot",
      "set": {
@@ -3708,7 +3666,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3718,7 +3676,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3728,7 +3686,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3738,7 +3696,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3748,7 +3706,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3758,7 +3716,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3768,7 +3726,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3778,7 +3736,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3788,7 +3746,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3798,7 +3756,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3808,7 +3766,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3818,47 +3776,47 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
      "id": "sS2",
      "set": {
-      "n": 28
+      "n": 4
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
      "id": "sS3",
      "set": {
-      "n": 28
+      "n": 4
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
      "id": "sS4",
      "set": {
-      "n": 28
+      "n": 4
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
      "id": "sS5",
      "set": {
-      "n": 24
+      "n": 4
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -3868,28 +3826,85 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.98
+     "at": 1.78
     }
    ]
   },
   {
    "name": "07 every head",
-   "at": 10,
-   "len": 2,
+   "at": 7.4,
+   "len": 1.4,
    "shot": {
     "pos": [
-     0,
-     2.5,
-     4.4
+     0.05,
+     1.85,
+     2.6
     ],
     "look": [
-     0,
-     1.35,
-     -0.5
+     0.15,
+     1.25,
+     -0.8
     ],
-    "fov": 58
+    "fov": 56,
+    "to": {
+     "pos": [
+      0.1,
+      1.6,
+      1.7
+     ],
+     "look": [
+      0.25,
+      1.2,
+      -0.8
+     ],
+     "fov": 54
+    },
+    "dur": 1.4,
+    "ease": "out"
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.5,
+       0.72,
+       -0.12
+      ],
+      "palm": [
+       0.5,
+       0.22,
+       -0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       -0.05,
+       0.72,
+       -0.16
+      ],
+      "palm": [
+       -0.05,
+       0.22,
+       -0.16
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "expr",
@@ -3931,14 +3946,62 @@
      "set": {
       "pop": 1
      },
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "back",
-     "at": 0.2
+     "at": 0.1
     },
     {
      "sfx": "ringpop",
      "gain": 0.35,
-     "at": 0.22
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0.42,
+       0.72,
+       -0.36
+      ],
+      "palm": [
+       0.42,
+       0.22,
+       -0.36
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "table",
+      "grip": [
+       0,
+       0.72,
+       -0.4
+      ],
+      "palm": [
+       0,
+       0.22,
+       -0.4
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.5,
+     "reason": "another pot raked in",
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -3946,14 +4009,78 @@
      "set": {
       "pop": 1
      },
-     "dur": 0.3,
+     "dur": 0.25,
      "ease": "back",
-     "at": 0.45
+     "at": 0.3
     },
     {
      "sfx": "ringpop",
      "gain": 0.35,
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "sS2",
+     "set": {
+      "n": 28
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.45,
+     "reason": "chips stacking up",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "n": 28
+     },
+     "dur": 0.7,
+     "ease": "out",
      "at": 0.47
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.45,
+     "reason": "chips stacking up",
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "sS4",
+     "set": {
+      "n": 28
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "sS5",
+     "set": {
+      "n": 24
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 0.71
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.45,
+     "reason": "chips stacking up",
+     "at": 0.72
+    },
+    {
+     "sfx": "coins",
+     "gain": 0.45,
+     "reason": "chips stacking up",
+     "at": 0.88
     },
     {
      "do": "prop",
@@ -3963,7 +4090,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     },
     {
      "do": "prop",
@@ -3973,7 +4100,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     },
     {
      "do": "prop",
@@ -3983,7 +4110,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     },
     {
      "do": "prop",
@@ -3993,7 +4120,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     },
     {
      "do": "prop",
@@ -4003,7 +4130,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     },
     {
      "do": "prop",
@@ -4013,14 +4140,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.37
     }
    ]
   },
   {
    "name": "08 the mountain",
-   "at": 12,
-   "len": 2,
+   "at": 8.8,
+   "len": 1.8,
    "shot": {
     "pos": [
      0.1,
@@ -4046,7 +4173,7 @@
      ],
      "fov": 60
     },
-    "dur": 2,
+    "dur": 1.8,
     "ease": "out"
    },
    "do": [
@@ -4278,7 +4405,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4288,7 +4415,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4298,7 +4425,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4308,7 +4435,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4318,7 +4445,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4328,7 +4455,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4338,7 +4465,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4348,7 +4475,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4358,7 +4485,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4368,7 +4495,7 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     },
     {
      "do": "prop",
@@ -4378,14 +4505,14 @@
      },
      "dur": 0.35,
      "ease": "inOut",
-     "at": 1.6
+     "at": 1.4
     }
    ]
   },
   {
    "name": "09 the catch",
-   "at": 14,
-   "len": 2.5,
+   "at": 10.6,
+   "len": 2.2,
    "shot": {
     "pos": [
      1.6,
@@ -4411,7 +4538,7 @@
      ],
      "fov": 60
     },
-    "dur": 2.5,
+    "dur": 2.2,
     "ease": "inOut"
    },
    "do": [
@@ -4678,6 +4805,15 @@
      "at": 1.3
     },
     {
+     "macro": "narrate",
+     "line": "You would hear everyone's mind.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 1.3
+    },
+    {
      "sfx": "ringpop",
      "gain": 0.25,
      "at": 1.32
@@ -4690,15 +4826,6 @@
      },
      "dur": 0.3,
      "ease": "back",
-     "at": 1.4
-    },
-    {
-     "macro": "narrate",
-     "line": "You would hear everyone's mind.",
-     "voice": "narrator",
-     "take": 1,
-     "caption": false,
-     "gain": 4,
      "at": 1.4
     },
     {
@@ -4759,7 +4886,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.48
+     "at": 2.18
     },
     {
      "do": "prop",
@@ -4769,7 +4896,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.48
+     "at": 2.18
     },
     {
      "who": "spud",
@@ -4777,7 +4904,7 @@
      "side": "L",
      "pose": "hat",
      "dur": 0.01,
-     "at": 2.48
+     "at": 2.18
     },
     {
      "who": "spud",
@@ -4785,7 +4912,7 @@
      "side": "R",
      "pose": "hat",
      "dur": 0.01,
-     "at": 2.48
+     "at": 2.18
     },
     {
      "who": "spud",
@@ -4797,14 +4924,14 @@
       "squint": 0.8
      },
      "dur": 0.01,
-     "at": 2.48
+     "at": 2.18
     }
    ]
   },
   {
    "name": "10 the flood",
-   "at": 16.5,
-   "len": 2,
+   "at": 12.8,
+   "len": 1.8,
    "shot": {
     "pos": [
      0.1,
@@ -4863,7 +4990,7 @@
      "dur": 0.7,
      "blink": false,
      "voice": false,
-     "at": 0.7
+     "at": 1
     },
     {
      "who": "wdg",
@@ -4884,7 +5011,7 @@
      },
      "dur": 0.2,
      "ease": "in",
-     "at": 1.95
+     "at": 1.75
     },
     {
      "do": "prop",
@@ -4894,7 +5021,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4904,7 +5031,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4914,7 +5041,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4924,7 +5051,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4934,7 +5061,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4944,7 +5071,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4954,7 +5081,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4964,7 +5091,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "do": "prop",
@@ -4974,7 +5101,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.97
+     "at": 1.77
     },
     {
      "who": "spud",
@@ -4994,7 +5121,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 1.97
+     "at": 1.77
     },
     {
      "who": "spud",
@@ -5014,7 +5141,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 1.97
+     "at": 1.77
     },
     {
      "who": "spud",
@@ -5024,15 +5151,15 @@
       "brow": 0.6
      },
      "dur": 0.01,
-     "at": 1.97
+     "at": 1.77
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "11 the keys",
-   "at": 18.5,
-   "len": 2.5,
+   "at": 14.6,
+   "len": 2.3,
    "shot": {
     "pos": [
      0,
@@ -5120,7 +5247,7 @@
      "pose": "up",
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.8
+     "at": 0.65
     },
     {
      "who": "spud",
@@ -5135,7 +5262,7 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 0.8
+     "at": 0.65
     },
     {
      "who": "spud",
@@ -5146,7 +5273,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.8
+     "at": 0.65
     },
     {
      "who": "spud",
@@ -5156,7 +5283,17 @@
       "open": 0.5
      },
      "dur": 0.12,
-     "at": 0.8
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "which one is yours?!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.9
     },
     {
      "who": "spud",
@@ -5169,9 +5306,9 @@
        0.25
       ]
      },
-     "dur": 0.3,
+     "dur": 0.28,
      "ease": "inOut",
-     "at": 1.1
+     "at": 0.92
     },
     {
      "who": "spud",
@@ -5186,26 +5323,16 @@
      },
      "dur": 0.25,
      "ease": "inOut",
-     "at": 1.1
-    },
-    {
-     "who": "spud",
-     "do": "talk",
-     "line": "which one is yours?!",
-     "tone": "excited",
-     "dur": 0.8,
-     "blink": false,
-     "voice": false,
-     "at": 1.2
+     "at": 0.92
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": "up",
-     "dur": 0.25,
+     "dur": 0.22,
      "ease": "inOut",
-     "at": 1.4
+     "at": 1.2
     },
     {
      "who": "spud",
@@ -5218,9 +5345,9 @@
        0.3
       ]
      },
-     "dur": 0.25,
+     "dur": 0.22,
      "ease": "inOut",
-     "at": 1.4
+     "at": 1.2
     },
     {
      "who": "spud",
@@ -5241,7 +5368,7 @@
      },
      "dur": 0.15,
      "ease": "in",
-     "at": 1.6
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -5262,7 +5389,7 @@
      },
      "dur": 0.15,
      "ease": "in",
-     "at": 1.6
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -5281,9 +5408,9 @@
        -0.21
       ]
      },
-     "dur": 0.38,
+     "dur": 0.36,
      "ease": "inOut",
-     "at": 1.75
+     "at": 1.6
     },
     {
      "who": "spud",
@@ -5302,9 +5429,9 @@
        -0.23
       ]
      },
-     "dur": 0.38,
+     "dur": 0.36,
      "ease": "inOut",
-     "at": 1.75
+     "at": 1.6
     },
     {
      "do": "prop",
@@ -5313,32 +5440,32 @@
       "x": 0,
       "z": -0.06
      },
-     "dur": 0.38,
+     "dur": 0.36,
      "ease": "inOut",
-     "at": 1.75
+     "at": 1.6
     },
     {
      "sfx": "ai/bowl-scrape",
      "gain": 0.6,
-     "at": 1.75
+     "at": 1.6
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": "lap",
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 2.13
+     "at": 1.96
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "R",
      "pose": "lap",
-     "dur": 0.35,
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 2.13
+     "at": 1.96
     },
     {
      "do": "prop",
@@ -5348,7 +5475,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.47
+     "at": 2.27
     },
     {
      "do": "prop",
@@ -5358,13 +5485,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.47
+     "at": 2.27
     }
    ]
   },
   {
    "name": "12 four aces",
-   "at": 21,
+   "at": 16.9,
    "len": 1.7,
    "shot": {
     "pos": [
@@ -5685,7 +5812,7 @@
   },
   {
    "name": "12 Spud slumps",
-   "at": 22.7,
+   "at": 18.6,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -5773,12 +5900,6 @@
      "at": 0.5
     },
     {
-     "who": "spud",
-     "do": "stand",
-     "dur": 0.01,
-     "at": 0.74
-    },
-    {
      "do": "prop",
      "id": "w0",
      "set": {
@@ -5795,7 +5916,7 @@
       "z": -2,
       "walk": 7
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5815,7 +5936,7 @@
      "set": {
       "z": -2
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5836,7 +5957,7 @@
       "z": -5.5,
       "walk": 6.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5856,7 +5977,7 @@
      "set": {
       "z": -5.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5877,7 +5998,7 @@
       "z": 3,
       "walk": 5.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5897,7 +6018,7 @@
      "set": {
       "z": 3
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5918,7 +6039,7 @@
       "z": -6,
       "walk": 6
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5938,7 +6059,7 @@
      "set": {
       "z": -6
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5959,7 +6080,7 @@
       "z": -9.5,
       "walk": 4.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -5979,7 +6100,7 @@
      "set": {
       "z": -9.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6000,7 +6121,7 @@
       "z": -11,
       "walk": 6.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6020,7 +6141,7 @@
      "set": {
       "z": -11
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6041,7 +6162,7 @@
       "z": -12,
       "walk": 4
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6061,7 +6182,7 @@
      "set": {
       "z": -12
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6082,7 +6203,7 @@
       "z": -14.5,
       "walk": 3.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
@@ -6102,23 +6223,33 @@
      "set": {
       "z": -14.5
      },
-     "dur": 3.08,
+     "dur": 3.48,
      "ease": "linear",
      "at": 0.76
     },
     {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "sync": true,
+     "at": 0.78
+    },
+    {
      "who": "wdg",
      "do": "hide",
+     "sync": true,
      "at": 0.78
     },
     {
      "who": "chip",
      "do": "hide",
+     "sync": true,
      "at": 0.78
     },
     {
      "who": "mash",
      "do": "hide",
+     "sync": true,
      "at": 0.78
     },
     {
@@ -6141,22 +6272,6 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 0.78
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "hat",
-     "dur": 0.01,
-     "at": 0.78
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "hat",
-     "dur": 0.01,
      "at": 0.78
     },
     {
@@ -6205,8 +6320,8 @@
   },
   {
    "name": "13 the street",
-   "at": 23.5,
-   "len": 3,
+   "at": 19.4,
+   "len": 3.4,
    "shot": {
     "pos": [
      3000,
@@ -6232,10 +6347,28 @@
      ],
      "fov": 52
     },
-    "dur": 3,
+    "dur": 3.4,
     "ease": "linear"
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hat",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "move",
@@ -6243,7 +6376,7 @@
       3000.05,
       -1
      ],
-     "dur": 2.9,
+     "dur": 3.3,
      "steps": 12,
      "at": 0.05
     },
@@ -6323,14 +6456,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 3.38
     }
    ]
   },
   {
    "name": "14 the city",
-   "at": 26.5,
-   "len": 2.5,
+   "at": 22.8,
+   "len": 2.4,
    "shot": {
     "pos": [
      1000,
@@ -6356,7 +6489,7 @@
      ],
      "fov": 58
     },
-    "dur": 2.5,
+    "dur": 2.4,
     "ease": "linear"
    },
    "do": [
@@ -6393,7 +6526,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.47
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -6409,7 +6542,7 @@
       "palm": true
      },
      "dur": 0.01,
-     "at": 2.47
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -6425,7 +6558,7 @@
       "palm": true
      },
      "dur": 0.01,
-     "at": 2.47
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -6433,7 +6566,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0,
-     "at": 2.47
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -6441,7 +6574,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0,
-     "at": 2.47
+     "at": 2.37
     },
     {
      "who": "spud",
@@ -6454,7 +6587,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.48
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -6463,7 +6596,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.48
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -6475,7 +6608,7 @@
       "curve": -0.3
      },
      "dur": 0.01,
-     "at": 2.48
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -6486,7 +6619,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 2.48
+     "at": 2.38
     },
     {
      "do": "prop",
@@ -6496,7 +6629,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.48
+     "at": 2.38
     },
     {
      "do": "prop",
@@ -6507,7 +6640,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.48
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -6516,14 +6649,14 @@
      "height": 0.5,
      "dur": 0.01,
      "hands": "keep",
-     "at": 2.49
+     "at": 2.39
     }
    ]
   },
   {
    "name": "15 the hotel room",
-   "at": 29,
-   "len": 3.6,
+   "at": 25.2,
+   "len": 4.8,
    "shot": {
     "pos": [
      1999.85,
@@ -6549,7 +6682,7 @@
      ],
      "fov": 52
     },
-    "dur": 3.6,
+    "dur": 4.8,
     "ease": "linear"
    },
    "do": [
@@ -6559,7 +6692,7 @@
      "set": {
       "fill": 1
      },
-     "dur": 3,
+     "dur": 4.2,
      "ease": "linear",
      "at": 0
     },
@@ -6569,13 +6702,13 @@
      "set": {
       "pull": 1
      },
-     "dur": 3.6,
+     "dur": 4.8,
      "ease": "linear",
      "at": 0
     },
     {
      "sfx": "rumble",
-     "dur": 3.6,
+     "dur": 4.8,
      "gain": 0.25,
      "reason": "the city's thoughts murmuring through the window",
      "at": 0
@@ -6598,13 +6731,13 @@
      ],
      "dur": 0.3,
      "blink": false,
-     "at": 1.6
+     "at": 2.2
     },
     {
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.7
+     "at": 2.3
     },
     {
      "macro": "narrate",
@@ -6613,7 +6746,7 @@
      "take": 1,
      "caption": false,
      "gain": 4,
-     "at": 2.05
+     "at": 2.9
     }
    ],
    "kind": "reaction"
@@ -6622,7 +6755,7 @@
  "visible": [
   {
    "from": 0,
-   "to": 2,
+   "to": 1.6,
    "see": [
     "wdg.face",
     "spud.face",
@@ -6631,8 +6764,8 @@
    "why": "frame 0: Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left"
   },
   {
-   "from": 2,
-   "to": 3.5,
+   "from": 1.6,
+   "to": 2.5,
    "see": [
     "wdg.face",
     "spud.face"
@@ -6640,16 +6773,16 @@
    "why": "Wedge leans in, smug: trust me; Spud gulps, sweating"
   },
   {
-   "from": 3.5,
-   "to": 5,
+   "from": 2.5,
+   "to": 3.5,
    "see": [
     "sFan"
    ],
    "why": "over Spud's shoulder: his two cards, the 3 of clubs and the 3 of diamonds; Wedge's heap past them"
   },
   {
-   "from": 5,
-   "to": 6.5,
+   "from": 3.5,
+   "to": 4.4,
    "see": [
     "spud.face",
     "glow"
@@ -6657,8 +6790,8 @@
    "why": "Spud's eyes light up blue-white"
   },
   {
-   "from": 6.5,
-   "to": 8,
+   "from": 4.4,
+   "to": 5.6,
    "see": [
     "wdg.face",
     "bW"
@@ -6666,8 +6799,8 @@
    "why": "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge still grins"
   },
   {
-   "from": 8,
-   "to": 10,
+   "from": 5.6,
+   "to": 7.4,
    "see": [
     "spud.face",
     "pot",
@@ -6677,8 +6810,8 @@
    "why": "Spud slaps his threes face up, Wedge has to show 8 and 3; Spud rakes the pot in, the crowd cheers"
   },
   {
-   "from": 10,
-   "to": 12,
+   "from": 7.4,
+   "to": 8.8,
    "see": [
     "spud.face",
     "bW",
@@ -6688,8 +6821,8 @@
    "why": "a bubble over every friend: cards, pizza, a phone; Spud grins behind stacks as tall as his chest"
   },
   {
-   "from": 12,
-   "to": 14,
+   "from": 8.8,
+   "to": 10.6,
    "see": [
     "spud.face",
     "mount"
@@ -6697,8 +6830,8 @@
    "why": "a mountain of chips towers beside Spud, arms up; the crowd amazed"
   },
   {
-   "from": 14,
-   "to": 16.5,
+   "from": 10.6,
+   "to": 12.8,
    "see": [
     "spud.face",
     "cb1",
@@ -6707,16 +6840,16 @@
    "why": "his smile gone: a bubble pops up over every guest, more and more"
   },
   {
-   "from": 16.5,
-   "to": 18.5,
+   "from": 12.8,
+   "to": 14.6,
    "see": [
     "spud.face"
    ],
    "why": "the casino packed wall to wall with bubbles; Spud's gloves on his head, eyes squeezed shut"
   },
   {
-   "from": 18.5,
-   "to": 21,
+   "from": 14.6,
+   "to": 16.9,
    "see": [
     "wdg.face",
     "spud.face",
@@ -6725,8 +6858,8 @@
    "why": "Wedge slams his car keys down; Spud pushes through the bubbles over Wedge's head, can't find his thought, pushes it all in"
   },
   {
-   "from": 21,
-   "to": 22.7,
+   "from": 16.9,
+   "to": 18.6,
    "see": [
     "sK1",
     "wA1",
@@ -6736,16 +6869,16 @@
    "why": "from above: four aces (two in Wedge's hand, two on the board) beat Spud's kings; Wedge drags the mountain away"
   },
   {
-   "from": 22.7,
-   "to": 23.5,
+   "from": 18.6,
+   "to": 19.4,
    "see": [
     "spud.face"
    ],
    "why": "Spud slumps, empty gloves, the bubbles still everywhere"
   },
   {
-   "from": 23.5,
-   "to": 26.5,
+   "from": 19.4,
+   "to": 22.8,
    "see": [
     "spud.face",
     "wb1",
@@ -6754,16 +6887,16 @@
    "why": "night: Spud walks down a busy neon street, gloves on his head; a bubble over every passer-by and in every window"
   },
   {
-   "from": 26.5,
-   "to": 29,
+   "from": 22.8,
+   "to": 25.2,
    "see": [
     "fCity"
    ],
    "why": "the neon city from above: a glowing bubble over every roof and window, thousands"
   },
   {
-   "from": 29,
-   "to": 32.6,
+   "from": 25.2,
+   "to": 30,
    "see": [
     "spud.face",
     "glow"
@@ -6776,42 +6909,42 @@
    "who": "wdg",
    "with": "chW",
    "from": 0,
-   "to": 23.5,
+   "to": 19.4,
    "reason": "seated in his chair"
   },
   {
    "who": "spud",
    "with": "chS",
    "from": 0,
-   "to": 23.5,
+   "to": 19.4,
    "reason": "seated in his chair"
   },
   {
    "who": "chip",
    "with": "chC",
    "from": 0,
-   "to": 23.5,
+   "to": 19.4,
    "reason": "seated in his chair"
   },
   {
    "who": "mash",
    "with": "chM",
    "from": 0,
-   "to": 23.5,
+   "to": 19.4,
    "reason": "seated in his chair"
   },
   {
    "who": "mash",
    "with": "mphone",
    "from": 0,
-   "to": 23.5,
+   "to": 19.4,
    "reason": "his phone in his glove (he never looks up)"
   },
   {
    "who": "spud",
    "with": "sFan",
    "from": 0,
-   "to": 7.6,
+   "to": 5.2,
    "reason": "his two cards held up in his glove"
   },
   {
@@ -6838,92 +6971,92 @@
   {
    "who": "spud",
    "with": "pot",
-   "from": 7.5,
-   "to": 10,
+   "from": 5.1,
+   "to": 7.4,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "spud",
    "with": "sC1",
-   "from": 7.5,
-   "to": 10,
+   "from": 5.1,
+   "to": 7.4,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "spud",
    "with": "sC2",
-   "from": 7.5,
-   "to": 10,
+   "from": 5.1,
+   "to": 7.4,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "wdg",
    "with": "wC1",
-   "from": 8,
-   "to": 10,
+   "from": 5.6,
+   "to": 7.4,
    "reason": "turning his two cards over"
   },
   {
    "who": "wdg",
    "with": "wC2",
-   "from": 8,
-   "to": 10,
+   "from": 5.6,
+   "to": 7.4,
    "reason": "turning his two cards over"
   },
   {
    "who": "wdg",
    "with": "wA1",
-   "from": 21,
-   "to": 23.5,
+   "from": 16.9,
+   "to": 19.4,
    "reason": "turning his two aces over"
   },
   {
    "who": "wdg",
    "with": "wA2",
-   "from": 21,
-   "to": 23.5,
+   "from": 16.9,
+   "to": 19.4,
    "reason": "turning his two aces over"
   },
   {
    "who": "wdg",
    "with": "keys",
-   "from": 18.5,
-   "to": 19.1,
+   "from": 14.6,
+   "to": 15.2,
    "reason": "slamming his keys on the felt"
   },
   {
    "who": "spud",
    "with": "mount",
-   "from": 18.5,
-   "to": 21,
+   "from": 14.6,
+   "to": 16.9,
    "reason": "both gloves pushing the chip tower into the middle"
   },
   {
    "who": "wdg",
    "with": "mount",
-   "from": 21,
-   "to": 23.5,
+   "from": 16.9,
+   "to": 19.4,
    "reason": "his glove dragging the chip tower to his side"
   },
   {
    "who": "spud",
    "with": "bed",
-   "from": 29,
-   "to": 32.6,
+   "from": 25.2,
+   "to": 30,
    "reason": "sitting up on the hotel bed"
   },
   {
    "who": "spud",
    "with": "pillow",
-   "from": 29,
-   "to": 32.6,
+   "from": 25.2,
+   "to": 30,
    "reason": "the pillow pressed on his head with both gloves"
   },
   {
    "who": "spud",
    "with": "glow",
    "from": 0,
-   "to": 32.6,
+   "to": 30,
    "reason": "the glowing eyes are worn on his face"
   }
  ],

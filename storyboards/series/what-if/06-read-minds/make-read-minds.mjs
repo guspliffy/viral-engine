@@ -45,8 +45,9 @@ const Pk = (pack, t, id, set, dur, ease) => { if (has(pack)) P(t, id, set, dur, 
 // 01 all-in | 02 the stare | 03 his cards (over the shoulder) | 04 the eyes | 05 Wedge's thought | 06 the call |
 // 07 every head | 08 the mountain | 09 the catch | 10 the flood | 11 the keys | 12 four aces | 13 the street |
 // 14 the city | 15 the hotel room
-const STARE = 2.0, OTS = 3.5, READ = 5.0, POV = 6.5, CALL = 8.0, HEADS = 10.0, MOUNT = 12.0, CATCH = 14.0;
-const FLOOD = 16.5, KEYS = 18.5, SHOW = 21.0, SLUMP = 22.7, STREET = 23.5, CITY = 26.5, NIGHT = 29.0, END = 32.6;
+// rough draft 3 (Jonny 12 Nov 15:34 Berlin): the first half faster, high-low-high, no long quiet cuts on nothing
+const STARE = 1.6, OTS = 2.5, READ = 3.5, POV = 4.4, CALL = 5.6, HEADS = 7.4, MOUNT = 8.8, CATCH = 10.6;
+const FLOOD = 12.8, KEYS = 14.6, SHOW = 16.9, SLUMP = 18.6, STREET = 19.4, CITY = 22.8, NIGHT = 25.2, END = 30.0;
 const DOWN = -60;   // parked under the floor
 const CX = 1000, HX = 2000, SX = 3000;   // the city's, the hotel's and the street's x offsets
 const BED = [-0.2, -1.25];    // the hotel bed's sitter spot in the room (props-nightcity.js HOTEL.bed)
@@ -277,12 +278,16 @@ see(CALL, HEADS, ["spud.face", "pot", "sC1", "wC1"], "Spud slaps his threes face
 
 // ================================================================= 07 EVERY HEAD (10.0-12.0): he reads the whole table, hand after hand
 c.arm(r3(HEADS - 0.3), "chip", "L", "lap", 0.4, "inOut"); c.arm(r3(HEADS - 0.3), "chip", "R", "lap", 0.4, "inOut");
-c.arm(r3(HEADS - 0.35), "spud", "L", felt(0.42, -0.36), 0.35, "inOut"); c.arm(r3(HEADS - 0.35), "spud", "R", felt(0.0, -0.4), 0.35, "inOut");
+c.arm(HEADS, "spud", "L", felt(0.5, -0.12), 0.25, "inOut"); c.arm(HEADS, "spud", "R", felt(-0.05, -0.16), 0.25, "inOut");
+c.arm(r3(HEADS + 0.3), "spud", "L", felt(0.42, -0.36), 0.45, "inOut"); c.arm(r3(HEADS + 0.3), "spud", "R", felt(0.0, -0.4), 0.45, "inOut");
+sfx(r3(HEADS + 0.3), "ai/bowl-scrape", { gain: 0.5, reason: "another pot raked in" });
 P(r3(HEADS - 0.03), "pot", { scale: 0.001 }); for (const p of [...S1, ...W1, ...BOARD1]) P(r3(HEADS - 0.03), p.id, { scale: 0.001 });
 Pk("street", r3(HEADS - 0.03), "watch", { scale: 0.001 });
-for (const id of ["sS1", "sS2", "sS3", "sS4", "sS5"]) Pk("casino", r3(HEADS - 0.03), id, { n: id === "sS1" ? 3 : id === "sS5" ? 24 : 28 }, 0.01);
-Pk("mind", r3(HEADS + 0.2), "bC", { pop: 1 }, 0.3, "back"); Pk("mind", r3(HEADS + 0.45), "bM", { pop: 1 }, 0.3, "back");
-sfx(r3(HEADS + 0.22), "ringpop", { gain: 0.35 }); sfx(r3(HEADS + 0.47), "ringpop", { gain: 0.35 });
+Pk("casino", r3(HEADS - 0.03), "sS1", { n: 3 });
+["sS2", "sS3", "sS4", "sS5"].forEach((id, i) => { Pk("casino", r3(HEADS - 0.03), id, { n: 4 }); Pk("casino", r3(HEADS + 0.35 + i * 0.12), id, { n: id === "sS5" ? 24 : 28 }, 0.7, "out"); });
+for (let i = 0; i < 4; i++) sfx(r3(HEADS + 0.4 + i * 0.16), "coins", { gain: 0.45, reason: "chips stacking up" });
+Pk("mind", r3(HEADS + 0.1), "bC", { pop: 1 }, 0.25, "back"); Pk("mind", r3(HEADS + 0.3), "bM", { pop: 1 }, 0.25, "back");
+sfx(r3(HEADS + 0.12), "ringpop", { gain: 0.35 }); sfx(r3(HEADS + 0.32), "ringpop", { gain: 0.35 });
 expr(HEADS, "spud", "cocky", { curve: 0.6 }); look(HEADS, "spud", [-0.5, 0.35], 0.3);
 expr(HEADS, "wdg", "annoyed"); expr(HEADS, "chip", "eager");
 see(HEADS, MOUNT, ["spud.face", "bW", "bC", "bM"], "a bubble over every friend: cards, pizza, a phone; Spud grins behind stacks as tall as his chest");
@@ -314,7 +319,7 @@ see(CATCH, FLOOD, ["spud.face", "cb1", "cb2"], "his smile gone: a bubble pops up
 Pk("mind", r3(FLOOD - 0.02), "fHall", { fill: 1 }); Pk("mind", r3(FLOOD - 0.02), "fNear", { fill: 0.7 }); Pk("mind", FLOOD, "fNear", { fill: 1 }, 0.8);
 c.arm(r3(FLOOD - 0.02), "spud", "L", "hat", 0.01); c.arm(r3(FLOOD - 0.02), "spud", "R", "hat", 0.01);
 expr(r3(FLOOD - 0.02), "spud", "terrified", { open: 0.3, eye: 0.6, squint: 0.8 }, 0.01);
-say(FLOOD + 0.7, "spud", "too loud!", 0.7, "excited", "Too loud!");
+say(FLOOD + 1.0, "spud", "too loud!", 0.7, "excited", "Too loud!");
 sfx(FLOOD, "rumble", { gain: 0.5, reason: "a roar of thousands of thoughts at once" });
 for (const w of ["wdg", "chip"]) expr(FLOOD, w, "shocked", { open: 0.4 });
 see(FLOOD, KEYS, ["spud.face"], "the casino packed wall to wall with bubbles; Spud's gloves on his head, eyes squeezed shut");
@@ -330,16 +335,16 @@ say(KEYS + 0.3, "wdg", "car keys. all in.", 0.8, "calm", "Car keys. All in.");
 expr(r3(KEYS + 0.1), "wdg", "cocky", { curve: 0.6, lid: 0.4 }); look(r3(KEYS + 0.1), "wdg", [0.9, -0.2], 0.2);
 Pk("mind", r3(KEYS + 0.3), "fWdg", { fill: 1 }, 0.5, "out"); Pk("mind", r3(SHOW - 0.03), "fWdg", { fill: 0 }); Pk("mind", r3(SHOW - 0.03), "fNear", { fill: 0 }); Pk("mind", r3(SLUMP - 0.03), "fNear", { fill: 0.8 });
 // Spud searches the bubbles over Wedge: both gloves up, pushing them apart
-c.arm(r3(KEYS + 0.8), "spud", "L", "up", 0.25, "inOut"); c.arm(r3(KEYS + 0.8), "spud", "R", { o: [0.1, 0.9, 0.3] }, 0.25, "inOut");
-c.arm(r3(KEYS + 1.1), "spud", "L", { o: [0.2, 0.95, 0.25] }, 0.3, "inOut"); c.arm(r3(KEYS + 1.1), "spud", "R", { o: [0.06, 1.0, 0.18] }, 0.25, "inOut");
-c.arm(r3(KEYS + 1.4), "spud", "L", "up", 0.25, "inOut"); c.arm(r3(KEYS + 1.4), "spud", "R", { o: [0.1, 0.9, 0.3] }, 0.25, "inOut");
-look(r3(KEYS + 0.8), "spud", [-0.8, 0.5], 0.2); expr(r3(KEYS + 0.8), "spud", "terrified", { open: 0.5 });
-say(KEYS + 1.2, "spud", "which one is yours?!", 0.8, "excited", "Which one is yours?!");
+c.arm(r3(KEYS + 0.65), "spud", "L", "up", 0.25, "inOut"); c.arm(r3(KEYS + 0.65), "spud", "R", { o: [0.1, 0.9, 0.3] }, 0.25, "inOut");
+c.arm(r3(KEYS + 0.92), "spud", "L", { o: [0.2, 0.95, 0.25] }, 0.28, "inOut"); c.arm(r3(KEYS + 0.92), "spud", "R", { o: [0.06, 1.0, 0.18] }, 0.25, "inOut");
+c.arm(r3(KEYS + 1.2), "spud", "L", "up", 0.22, "inOut"); c.arm(r3(KEYS + 1.2), "spud", "R", { o: [0.1, 0.9, 0.3] }, 0.22, "inOut");
+look(r3(KEYS + 0.65), "spud", [-0.8, 0.5], 0.2); expr(r3(KEYS + 0.65), "spud", "terrified", { open: 0.5 });
+say(KEYS + 0.9, "spud", "which one is yours?!", 0.7, "excited", "Which one is yours?!");
 // he can't find it, so he guesses: all in, the whole mountain pushed to the middle
-c.arm(r3(KEYS + 1.6), "spud", "L", felt(0.62, -0.1), 0.15, "in"); c.arm(r3(KEYS + 1.6), "spud", "R", felt(0.44, -0.12), 0.15, "in");
-c.arm(r3(KEYS + 1.75), "spud", "L", felt(0.04, -0.21), 0.38, "inOut"); c.arm(r3(KEYS + 1.75), "spud", "R", felt(-0.14, -0.23), 0.38, "inOut");
-P(r3(KEYS + 1.75), "mount", { x: 0.0, z: -0.06 }, 0.38, "inOut"); sfx(r3(KEYS + 1.75), "ai/bowl-scrape", { gain: 0.6 });
-c.arm(r3(KEYS + 2.13), "spud", "L", "lap", 0.35, "inOut"); c.arm(r3(KEYS + 2.13), "spud", "R", "lap", 0.35, "inOut");
+c.arm(r3(KEYS + 1.45), "spud", "L", felt(0.62, -0.1), 0.15, "in"); c.arm(r3(KEYS + 1.45), "spud", "R", felt(0.44, -0.12), 0.15, "in");
+c.arm(r3(KEYS + 1.6), "spud", "L", felt(0.04, -0.21), 0.36, "inOut"); c.arm(r3(KEYS + 1.6), "spud", "R", felt(-0.14, -0.23), 0.36, "inOut");
+P(r3(KEYS + 1.6), "mount", { x: 0.0, z: -0.06 }, 0.36, "inOut"); sfx(r3(KEYS + 1.6), "ai/bowl-scrape", { gain: 0.6 });
+c.arm(r3(KEYS + 1.96), "spud", "L", "lap", 0.3, "inOut"); c.arm(r3(KEYS + 1.96), "spud", "R", "lap", 0.3, "inOut");
 see(KEYS, SHOW, ["wdg.face", "spud.face", "keys"], "Wedge slams his car keys down; Spud pushes through the bubbles over Wedge's head, can't find his thought, pushes it all in");
 
 // ================================================================= 12 FOUR ACES (21.0-23.5): the showdown from above; Wedge takes it all
@@ -361,12 +366,12 @@ see(SHOW, SLUMP, ["sK1", "wA1", "b20", "mount"], "from above: four aces (two in 
 see(SLUMP, STREET, ["spud.face"], "Spud slumps, empty gloves, the bubbles still everywhere");
 
 // ================================================================= 13 THE STREET (23.5-26.5): outside, every passer-by's mind
-A(r3(STREET - 0.06), "spud", "stand", { dur: 0.01 });
-for (const w of ["wdg", "chip", "mash"]) A(r3(STREET - 0.02), w, "hide");
+A(r3(STREET - 0.02), "spud", "stand", { dur: 0.01, sync: true });
+for (const w of ["wdg", "chip", "mash"]) A(r3(STREET - 0.02), w, "hide", { sync: true });
 const SWALK = [[SX + 0.15, -2.9], [SX + 0.05, -1.0]];
 place(STREET, "spud", SWALK[0], 0);
-A(r3(STREET + 0.05), "spud", "move", { to: SWALK[1], dur: 2.9, steps: 12 });
-c.arm(r3(STREET - 0.02), "spud", "L", "hat", 0.01); c.arm(r3(STREET - 0.02), "spud", "R", "hat", 0.01);
+A(r3(STREET + 0.05), "spud", "move", { to: SWALK[1], dur: 3.3, steps: 12 });
+c.arm(STREET, "spud", "L", "hat", 0.35, "out"); c.arm(STREET, "spud", "R", "hat", 0.35, "out");   // he grabs his head as the street hits him
 expr(r3(STREET - 0.02), "spud", "terrified", { open: 0.2, eye: 1.3, curve: -0.3 }, 0.01);
 look(r3(STREET + 0.4), "spud", [-0.6, 0.3], 0.3); look(r3(STREET + 1.3), "spud", [0.6, 0.35], 0.3); look(r3(STREET + 2.2), "spud", [0, 0.1], 0.3);
 WALKERS.forEach(([x, z0, z1, h], i) => {
@@ -392,11 +397,11 @@ P(r3(NIGHT - 0.03), "pillow", { x: PILLOW_AT[0], y: PILLOW_AT[1], z: PILLOW_AT[2
 c.arm(r3(NIGHT - 0.03), "spud", "L", { prop: "pillow", grip: [0.24, 0.05, 0.0], palm: true }, 0.01); c.arm(r3(NIGHT - 0.03), "spud", "R", { prop: "pillow", grip: [-0.24, 0.05, 0.0], palm: true }, 0.01);
 A(r3(NIGHT - 0.03), "spud", "grip", { side: "L", shape: "hold", dur: 0 }); A(r3(NIGHT - 0.03), "spud", "grip", { side: "R", shape: "hold", dur: 0 });
 expr(r3(NIGHT - 0.02), "spud", "terrified", { open: 0.05, eye: 1.35, curve: -0.3 }, 0.01); look(r3(NIGHT - 0.02), "spud", [0, 0.1], 0.01);
-Pk("mind", r3(NIGHT - 0.02), "fRoom", { fill: 0.6 }); Pk("mind", NIGHT, "fRoom", { fill: 1 }, 3.0, "linear");
-Pk("mind", r3(NIGHT - 0.02), "fStream", { fill: 1, pull: 0 }); Pk("mind", NIGHT, "fStream", { pull: 1 }, 3.6, "linear");
-sfx(NIGHT, "rumble", { dur: 3.6, gain: 0.25, reason: "the city's thoughts murmuring through the window" });
-look(r3(NIGHT + 1.6), "spud", [0.3, 0.2], 0.3); A(r3(NIGHT + 1.7), "spud", "blink", { dur: 0.22 });
-cap(r3(NIGHT + 2.05), END, "Would you still want it?", SUBY);
+Pk("mind", r3(NIGHT - 0.02), "fRoom", { fill: 0.6 }); Pk("mind", NIGHT, "fRoom", { fill: 1 }, 4.2, "linear");
+Pk("mind", r3(NIGHT - 0.02), "fStream", { fill: 1, pull: 0 }); Pk("mind", NIGHT, "fStream", { pull: 1 }, 4.8, "linear");
+sfx(NIGHT, "rumble", { dur: 4.8, gain: 0.25, reason: "the city's thoughts murmuring through the window" });
+look(r3(NIGHT + 2.2), "spud", [0.3, 0.2], 0.3); A(r3(NIGHT + 2.3), "spud", "blink", { dur: 0.22 });
+cap(r3(NIGHT + 2.9), END, "Would you still want it?", SUBY);
 see(NIGHT, END, ["spud.face", "glow"], "night, a hotel room high above the city: Spud awake, pillow on his head, the thoughts streaming in");
 
 // ---------------------------------------------------------------- shots (camera A looks -z from the front of the table)
@@ -409,7 +414,7 @@ const SH = {
   read:   { pos: [0.27, 1.12, 0.5], look: [0.35, 1.05, -1.0], fov: 40, to: { pos: [0.28, 1.1, 0.25], look: [0.35, 1.05, -1.0], fov: 40 }, dur: r3(POV - READ), ease: "in" },
   pov:    { pos: [0.5, 1.3, 0.25], look: [-0.66, 1.42, -0.97], fov: 55 },
   call:   { pos: [0.3, 1.8, 2.0], look: [0.15, 0.85, -0.6], fov: 56 },
-  heads:  { pos: [0.0, 2.5, 4.4], look: [0.0, 1.35, -0.5], fov: 58 },
+  heads:  { pos: [0.05, 1.85, 2.6], look: [0.15, 1.25, -0.8], fov: 56, to: { pos: [0.1, 1.6, 1.7], look: [0.25, 1.2, -0.8], fov: 54 }, dur: r3(MOUNT - HEADS), ease: "out" },
   mount:  { pos: [0.1, 0.95, 1.0], look: [0.35, 1.5, -0.8], fov: 58, to: { pos: [0.1, 0.9, 0.85], look: [0.35, 1.65, -0.8], fov: 60 }, dur: r3(CATCH - MOUNT), ease: "out" },
   catch:  { pos: [1.6, 1.7, 1.7], look: [-0.2, 1.3, -2.4], fov: 56, to: { pos: [1.9, 1.9, 2.3], look: [-0.4, 1.4, -3.0], fov: 60 }, dur: r3(FLOOD - CATCH), ease: "inOut" },
   flood:  { pos: [0.1, 1.3, 0.45], look: [0.22, 1.2, -1.0], fov: 52 },
@@ -446,9 +451,9 @@ const NARR = !VO ? [] : [
   [0, process.env.TITLE ?? "What if you could read minds?", 1, 2.0, NG],
   [r3(MOUNT + 0.35), "You'd never lose again.", 1, 1.5, NG],
   [r3(CATCH + 0.15), "But there's a catch.", 1, 1.1, NG],
-  [r3(CATCH + 1.4), "You would hear everyone's mind.", 1, 1.7, NG],   // Jonny 12 Nov
+  [r3(CATCH + 1.3), "You would hear everyone's mind.", 1, 1.7, NG],   // Jonny 12 Nov
   [r3(NIGHT + 0.3), "It would never be quiet again.", 1, 1.6, NG],     // Jonny 12 Nov
-  [r3(NIGHT + 2.05), "Would you still want it?", 1, 1.33, NG],
+  [r3(NIGHT + 2.9), "Would you still want it?", 1, 1.33, NG],   // a clear gap after the line before (Jonny 12 Nov)
 ];
 for (const [t, line, take, , gain] of NARR) c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
 
@@ -483,8 +488,8 @@ write(import.meta.url, {
   set: { type: "plain", color: "#2a1418", floor: "#5a1a1e", light: "warm", para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
   // music that supports the story (Jonny 11 Nov): from 0.0, changes at the turn. Tense poker suspense under the game,
-  // then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
-  music: { file: process.env.MUSIC ?? "ai/sos-tension/sos-tension-01.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
+  // a triumphant hero theme from the call while he keeps winning (Jonny 12 Nov 15:34), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
+  music: { file: process.env.MUSIC ?? "read-minds/read-minds-casino.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
     then: { file: process.env.MUSIC2 ?? "ai/disaster/disaster-01.ogg", from: r3(CATCH + 0.1), gain: 0.7 } },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "party", guard: true },
   hook: { show: ["wdg", "spud", "pot"], hint: 0, what: "a poker all-in already running: Wedge shoves a huge heap and his gold watch into the pot, Spud with three chips left" },
