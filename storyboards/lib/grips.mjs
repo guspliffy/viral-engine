@@ -55,6 +55,7 @@ const SIZE = {
   cocoacup: { r: 0.045, h: 0.115 },                // props-winter.js hot chocolate to go: the mug hold round the sleeve
   teamug: { r: 0.045, h: 0.085 },                  // props-bonfire.js: campmug's size and handle, white china with steam
   papercup: { r: 0.039, h: 0.1 },                  // props-juice.js CUP (0.032 at the foot, 0.042 at the rim): held round its body like a mug
+  cardsign: { len: 0.35, r: 0.008 },                // props-stadium.js Chip's cardboard sign on a 0.35 m stick (origin = the stick's bottom, board y 0.2..0.5): the thin pinch on the stick (grip "stick" 0.1 up)
   toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
   mallowstick: { len: 0.9, r: 0.01 },              // props-dino.js: a long green toasting stick, marshmallows at the tip; the thin pinch near its butt
   // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
@@ -79,6 +80,7 @@ const SIZE = {
   producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
   coin: { len: -0.1417, r: 0.008 },                // props-money.js gold coin r 0.085, origin its CENTRE: thin hold, the default from 0.6 lands on the rim's bottom (0.6 x -0.1417 = -0.085), the pads on the two faces (half thickness 0.008)
   banknote: { len: 0.2, r: 0.002 },                // props-money.js one note standing on its short edge (0.1 wide, 0.2 tall), origin its bottom edge's middle: the thin pinch low on it (from 0.15)
+  stretcher: { w: 1.41, h: 1.418, d: 0.55 },       // props-rescue.js (There's a catch 07): both gloves on the bar handles at x +-0.75, y 0.78 (box hold: w/2 + 0.045 gap = 0.75, height 0.55 x h = 0.78: h is NOT its height, 0.65 is the mattress top)
   cashbrick: { w: 0.34, h: 0.11, d: 0.2 },         // props-money.js three bundles side by side, origin bottom centre: box hold (two palms on the ends); a one-hand top carry uses grips.rest(top: 0.11)
   wheelbarrow: { r: -0.76, h: 0.74 },              // props-twist.js: ONE handle for the mug hold with the right glove; r < 0 (like coin's len) turns its point toward the handles: (0.966, 0.66h, 0.259) x (r + 0.05) = (-0.686, 0.488, -0.184), the left handle 0.03 before its end; a clip puts both gloves on TWIST_GRIPS.wheelbarrow.handleL / handleR
   // props-survive-snow.js (Survive it 01, snowed in)
@@ -94,6 +96,7 @@ const SIZE = {
   // HP_GRIPS.hptongs through an arm pose (len 0.55, handle bundle r 0.06); the proof is make-hotpotato-bench.mjs
   hpcoal: { rim: -0.0375, wall: [[-0.1, 0.02], [-0.07, 0.06], [-0.03, 0.08], [0.03, 0.084], [0.1, 0.02]] },
   hptongs: { len: 0.55, r: 0.06 },
+  pocketwatch: { r: 0.0375, h: 0, len: 0.062 },    // props-timewatch.js: the origin is the case CENTRE (0.075 across, face +z): mug hold = round the case at its centre height from the +x side (placeFor turn 180 shows the face to the camera), thin hold = the pinch on the crown (from 0.6)
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
