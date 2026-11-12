@@ -1,3 +1,41 @@
+# There's a catch 06: "What if you could read minds?" FINAL v2 (new opening, 12 Nov 2026 evening)
+
+- Video: `read-minds-FINAL-v2.mp4` (32.2 s, 1080x1920, 30 fps). Cover without text: `read-minds-cover-v2.png` (2.6 s,
+  the bubble over Wedge with his bluff). This replaces `read-minds-FINAL.mp4` (v1, hall echo on the voices).
+- Branch `theres-a-catch-06-read-minds-opening`, farm run 43277728716 (full render), draft run 43269137580.
+- Jonny's words: 18:08 "the voice ... sounding like in a hall. it should be like in v3"; 18:01 "change the opening
+  ... like you suggested" ("he or you" instead of Spud); 19:04 on the draft "the story is good i like it" + two glitches.
+
+## What changed against v1
+
+- Voices dry again as in rough draft 3: sound.room "open" (v1 had "hall"; draft 3's "party" was not a room, so open).
+- New opening: 0.0 Spud's glowing eyes close, "ALL IN. BY MIDNIGHT." in the upper third (0-1.6 s); 1.6 the bubble
+  over Wedge (8 and 3, the bluff); narrator 0.0-4.7 s "You can hear every thought at this table. By midnight, it costs
+  you everything." (quick storyteller style); 3.4 the all-in; 5.2 "Trust me."; 6.1 his 3-3 over the shoulder; 7.1 one
+  more look at the bubble; 7.8 "Call!". From the call on it is the approved cut (+2.2 s). Music bed rebuilt so the
+  hero theme still starts on the call.
+- Glitch fixes (Jonny 19:04): 0:06 the glove pinches the cards' edge (was inside the cards); 0:20 Wedge's right glove
+  goes round the tower's side (his hand came out through the chip stacks).
+
+## Hook trial (state it when posting)
+
+Opener **B** (cold open on the power), a stake-first "you" line with a deadline. Judge it against the There's a catch
+median at 0:03 / 0:05 and the T. rex episode's 46 % / 38 %.
+
+## Check
+
+`qa/check.mjs` PASS, 0 fails (27 notes); -14.0 LUFS, true peak -2.5 dBTP, no pops, no dropout, realistic-sounds ok.
+Left as warnings: Spud's feet slide a little in the street walk (as v1); the eye line in the 0.0 close-up sits at 73 %
+down (the text needed the top of the frame).
+
+## Listen at
+
+0:03.5-0:04.7 "it costs you everything" (Whisper sometimes heard "cost"); 0:02.8 and 0:28.2 the loudest narrator lines.
+
+## Post pack: as v1 below (title, caption, poll, playlist unchanged).
+
+---
+
 # There's a catch 06: "What if you could read minds?" (delivery, 12 Nov 2026)
 
 - Video: `read-minds-FINAL.mp4` (30.0 s, 1080x1920, 30 fps). Cover without text: `read-minds-cover.png` (1.0 s, the
@@ -58,6 +96,6 @@ the bubbles (5.2 s, 15.9 s); costume 3 cm into the table rail while seated; Spud
 
 - Ledger row 11 (docs/LEDGER.md on the branch). Fix on test: the draft pops line: **kept** (draft 2 printed the
   one-frame pop at 23.47 s, fixed before the full render; renders stayed at 1).
-- One fix from this video (waits for Jonny's word, not built): a preflight note that lists every non-realistic sound
+- One fix from this video (Jonny's "add it" 12 Nov 16:52, built as PR #217, waits for "merge it"): a preflight warning that lists every non-realistic sound
   in a clip (pop and chime effects, magic zaps, party horns, hop boings, signature jingles, auto stings), so his new
   sound rule is checked by the machine instead of by memory. Should bring his sound notes on drafts to 0.
