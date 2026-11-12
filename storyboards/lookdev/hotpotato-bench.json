@@ -1,0 +1,555 @@
+{
+ "id": "hotpotato-bench",
+ "title": "Hot Potato props bench",
+ "idea": "Prop bench (task T2), not a clip: the coal, the tongs, the bow tie and the fry-basket lift",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "plain",
+  "color": "#8fc4ee",
+  "floor": "#4a4350",
+  "para": 0,
+  "bloom": "emissive",
+  "key": [
+   0.6,
+   6.5,
+   4
+  ],
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "host",
+   "hostB"
+  ],
+  "hint": 0,
+  "what": "prop bench"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.9
+  },
+  {
+   "id": "host",
+   "character": "halloween/wizard-host",
+   "at": [
+    1.25,
+    0
+   ],
+   "face": -20,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 0.4
+  },
+  {
+   "id": "hostB",
+   "character": "halloween/wizard-host",
+   "at": [
+    3.9,
+    0
+   ],
+   "y": 0.5,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 0.9
+  }
+ ],
+ "props": [
+  {
+   "id": "coalA",
+   "kind": "hpcoal",
+   "x": -3.6,
+   "y": 0.094,
+   "z": 0,
+   "glow": 1,
+   "smoke": 1
+  },
+  {
+   "id": "plinth",
+   "kind": "stoneblock",
+   "x": -1.6,
+   "y": 0,
+   "z": 0.42,
+   "w": 0.3,
+   "h": 0.14,
+   "d": 0.3,
+   "cap": 0
+  },
+  {
+   "id": "coalS",
+   "kind": "hpcoal",
+   "x": -1.6,
+   "y": 0.234,
+   "z": 0.42,
+   "glow": 1,
+   "smoke": 0.6
+  },
+  {
+   "id": "tongs",
+   "kind": "hptongs",
+   "x": 0.72,
+   "y": 0.5,
+   "z": 0.45,
+   "rot": -90,
+   "tip": 10,
+   "open": 0.25,
+   "staged": "the host's hand follows the tongs (the coal is carried by them, which a hand-held carrier cannot do)"
+  },
+  {
+   "id": "coalT",
+   "kind": "hpcoal",
+   "x": 0.72,
+   "y": 0.5,
+   "z": 0.45,
+   "glow": 1,
+   "smoke": 0.6
+  },
+  {
+   "id": "tie0",
+   "kind": "hpbowtie",
+   "wear": "host",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.33,
+   "singe": 0
+  },
+  {
+   "id": "tie1",
+   "kind": "hpbowtie",
+   "wear": "hostB",
+   "x": 0,
+   "y": 0.42,
+   "z": 0.33,
+   "singe": 1
+  },
+  {
+   "id": "lift",
+   "kind": "hplift",
+   "x": 3.9,
+   "y": 0.5,
+   "z": 0,
+   "drip": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "coal alone",
+   "at": 0,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -3.6,
+     0.495,
+     1.856
+    ],
+    "look": [
+     -3.6,
+     0.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.08,
+       0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       -0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true,
+      "off": [
+       -0.06,
+       0.08,
+       0.03
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "carry",
+     "prop": "coalT",
+     "by": "tongs",
+     "off": [
+      0,
+      -0.087,
+      0.492
+     ],
+     "at": 0
+    },
+    {
+     "who": "host",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tongs",
+      "grip": "hold",
+      "palm": [
+       0,
+       0,
+       0.13
+      ]
+     },
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "host",
+     "do": "grip",
+     "side": "R",
+     "shape": "clasp",
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "host",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "hostB",
+     "do": "ride",
+     "prop": "lift",
+     "off": [
+      0,
+      0.02,
+      0
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       -0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "carry",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "carry",
+     "dur": 0.12,
+     "at": 0.42
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "coalS",
+     "hand": "both",
+     "grip": [
+      0,
+      -0.03,
+      0.013
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.56
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true,
+      "at": [
+       -1.6,
+       0.34,
+       0.34
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "coalS",
+      "grip": [
+       -0.149,
+       -0.03,
+       0.013
+      ],
+      "palm": true,
+      "at": [
+       -1.6,
+       0.34,
+       0.34
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "Spud cups the coal",
+   "at": 1.8,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -1.6,
+     0.695,
+     3.092
+    ],
+    "look": [
+     -1.6,
+     0.5,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tongs, front",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     0.658,
+     3.428
+    ],
+    "look": [
+     0.5,
+     0.45,
+     0.45
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tongs, from above",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.059,
+     2.032,
+     2.445
+    ],
+    "look": [
+     0.5,
+     0.45,
+     0.45
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bow tie, singe 0",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.25,
+     0.572,
+     2.351
+    ],
+    "look": [
+     1.25,
+     0.5,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "the lift, singe 1",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4,
+     1.387,
+     4.162
+    ],
+    "look": [
+     4,
+     0.95,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "coalS",
+   "from": 0,
+   "to": 7,
+   "reason": "the cupped gloves hold the coal on their lower sides"
+  },
+  {
+   "who": "spud",
+   "with": "plinth",
+   "from": 0,
+   "to": 1.2,
+   "reason": "the gloves reach over the plinth's top to cup the coal that lies on it"
+  },
+  {
+   "who": "host",
+   "with": "tongs",
+   "from": 0,
+   "to": 7,
+   "reason": "the glove closes on the tongs' handle (the hand follows the prop)"
+  },
+  {
+   "who": "hostB",
+   "with": "lift",
+   "from": 0,
+   "to": 7,
+   "reason": "the host stands in the wire basket: his feet on the floor wires, the walls round him"
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-hotpotato-bench.mjs (prop bench, no reviews)."
+}

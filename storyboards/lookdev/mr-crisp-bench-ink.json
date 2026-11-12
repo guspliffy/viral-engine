@@ -1,0 +1,473 @@
+{
+ "id": "mr-crisp-bench-ink",
+ "title": "Mr. Crisp bench",
+ "idea": "Lookdev bench (task T3), not a clip: the evil clown potato host, his costume and four faces",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "plain",
+  "color": "#8fc4ee",
+  "floor": "#4a4350",
+  "para": 0,
+  "bloom": "emissive",
+  "key": [
+   0.6,
+   6.5,
+   4
+  ],
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "cF"
+  ],
+  "hint": 0,
+  "what": "lookdev bench"
+ },
+ "cast": [
+  {
+   "id": "cF",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    -4.5,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "c3",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    -3,
+    0
+   ],
+   "face": -35,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "cS",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    -1.5,
+    0
+   ],
+   "face": -90,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "cR",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    0,
+    0
+   ],
+   "face": 180,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "cE",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    1.5,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "cD",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    3,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1,
+   "expr": "delighted"
+  },
+  {
+   "id": "cG",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    4.5,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1,
+   "expr": "angry"
+  },
+  {
+   "id": "cL",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    6,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1,
+   "expr": "delighted"
+  },
+  {
+   "id": "cA",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    7.5,
+    0
+   ],
+   "face": 0,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "cB",
+   "character": "hot-potato/mr-crisp",
+   "at": [
+    9.4,
+    0
+   ],
+   "face": -10,
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    10.55,
+    0
+   ],
+   "face": 10,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.9
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "front",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.5,
+     0.85,
+     4.289
+    ],
+    "look": [
+     -4.5,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "cD",
+     "do": "face",
+     "lid": 0.05,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cG",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.55,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cG",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cL",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 1,
+      "curve": 1,
+      "wide": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "cL",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "three-quarter",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -3,
+     0.85,
+     4.289
+    ],
+    "look": [
+     -3,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "side",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     0.85,
+     4.289
+    ],
+    "look": [
+     -1.5,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "rear",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.85,
+     4.289
+    ],
+    "look": [
+     0,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "evil grin",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     0.384,
+     3.157
+    ],
+    "look": [
+     1.5,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "delighted",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     0.384,
+     3.157
+    ],
+    "look": [
+     3,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "furious",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.5,
+     0.384,
+     3.157
+    ],
+    "look": [
+     4.5,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "laugh",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6,
+     0.384,
+     3.157
+    ],
+    "look": [
+     6,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "arm move",
+   "at": 8,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     7.5,
+     0.384,
+     3.157
+    ],
+    "look": [
+     7.5,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "cA",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.07,
+       0.3,
+       0.62
+      ]
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "cA",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.07,
+       0.3,
+       0.62
+      ]
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "gloves in front",
+   "at": 9.5,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     7.5,
+     0.384,
+     3.157
+    ],
+    "look": [
+     7.5,
+     0.8,
+     0.2
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "next to Spud",
+   "at": 10.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     9.9,
+     0.971,
+     6.341
+    ],
+    "look": [
+     9.9,
+     0.75,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-mr-crisp-bench.mjs (lookdev bench, no reviews)."
+}

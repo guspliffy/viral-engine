@@ -17,9 +17,10 @@
 //         part, the chord's root, nothing else: the world holding its breath before the music snaps back; Never Looks
 //         Up 07, 8 Nov 2026)
 //   named styles (only by name, never picked by a seed, so adding one changes no other clip): surf (fast surf rock
-//         with a fairground organ, 156-164 bpm), polka, chase (danger: fast minor, a pounding low bass with a
-//         semitone growl, heavy kick, no lead melody, 148-156 bpm), orchestra (a dramatic film orchestra: string
-//         ostinato, low brass swells, timpani; minor, 150-156 bpm; its parts are described at the style)
+//         with a fairground organ, 156-164 bpm), polka, dread (horror: drone, heartbeat, a creeping high cluster),
+//         chase (danger: fast minor, a pounding low bass with a semitone growl, heavy kick, no lead melody,
+//         148-156 bpm), orchestra (a dramatic film orchestra: string ostinato, low brass swells, timpani; minor,
+//         150-156 bpm; its parts are described at the style)
 //   sleigh: true adds jingle bells (a sleigh-bell shake on the off-beats) in the full parts: a holiday flavour
 const SR = 44100, TAU = Math.PI * 2;
 
@@ -172,6 +173,11 @@ const NAMED = {
   // it turns), "hold" = shaking strings and a brass note that swells (something is coming). The steps are in renderBeat.
   orchestra: { bpm: [150, 156], orch: true, minor: true, noLead: true, kick: [], hatOpen: [], hat: "none", bass: [], chord: [], chordInst: "stab" },
   polka: { bpm: [124, 132], kick: [0, 8], snare: [], hatOpen: [], hat: "none", bass: [0, 4, 8, 12], bassLen: 0.14, fifths: true, chord: [2, 6, 10, 14], chordInst: "organ" },
+  // horror dread (Doomscroll to survive pilot, 11 Nov 2026): no groove at all. A low drone with a semitone rubbing
+  // against it (A2, so a phone still plays it), a slow double thump like a heartbeat on every beat, and a thin high cluster of three neighbouring
+  // notes that trembles and creeps upward through each part. "main" = slow; "drop" = the heartbeat twice as fast and
+  // the cluster a tritone higher; "hush" cuts it dead; "musicbox" works as everywhere
+  dread: { bpm: [60, 60], kick: [], snare: [], hatOpen: [], hat: "none", bass: [], chord: [], chordInst: "organ", dread: true },
 };
 const styleOf = (name) => STYLE[name] || NAMED[name];
 const hashStr = (str) => { let h = 2166136261; for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };
@@ -219,6 +225,24 @@ export function renderBeat(music, duration, id = "") {
       add(P.at, INST.strings(r, [c.root + 24, c.root + 31], len, 0.7), 0.45 * g, 0.1); add(P.at, INST.brass(r, [c.root, c.root + 12], len, 0.8), 0.75 * g, -0.1); add(P.at, INST.timp(r, c.root, 0.8), 0.6 * g); return; }
     add(P.at, INST.held(chordAt(bar).root + 24, len), 0.3, -0.05);
   });
+  if (F.S.dread) parts.forEach((P, i) => {
+    if (!["main", "intro", "drop", "build"].includes(P.part)) return;
+    const len = Math.max(0, Math.min(duration, parts[i + 1]?.at ?? duration) - P.at), fast = P.part === "drop", x = new Float32Array(Math.ceil(len * SR)), y = new Float32Array(x.length);
+    const root = 45 + F.key, lp = onePole(1500), f0 = midi(root), f1 = midi(root + 13), top = [0, 1, 2].map((k) => 84 + F.key + k + (fast ? 6 : 0));
+    let p0 = 0, p1 = 0, p2 = 0; const ph = [0, 0, 0];
+    for (let n = 0; n < x.length; n++) {
+      const t = n / SR, k = t / Math.max(len, 0.01), edge = Math.min(1, t / (P.at < 0.01 ? 0.03 : 0.25), (len - t) / 0.06);
+      p0 += f0 / SR; p1 += f0 * 1.006 / SR; p2 += f1 / SR;
+      x[n] = (lp(((p0 % 1) * 2 - 1) + ((p1 % 1) * 2 - 1)) * 0.5 + Math.sin(TAU * p2) * 0.16) * (0.75 + 0.25 * Math.sin(TAU * 0.13 * t)) * edge * (fast ? 1.15 : 1);
+      // the cluster slides up two semitones over the part and grows from nothing; a fast uneven tremolo
+      let c = 0; top.forEach((m, j) => { ph[j] += midi(m + 2 * k) / SR; c += Math.sin(TAU * ph[j]); });
+      y[n] = c * 0.09 * (fast ? 0.8 : 0.25 + 0.75 * k) * (0.6 + 0.4 * Math.sin(TAU * (fast ? 9.3 : 6.7) * t) * Math.sin(TAU * 0.9 * t)) * edge;
+    }
+    add(P.at, x, 0.6, -0.1); add(P.at, y, 0.5, 0.2);
+    // the heartbeat: lub-dub, on every beat (twice as fast in "drop")
+    const step = spb / (fast ? 2 : 1);
+    for (let t = 0; t < len - 0.3; t += step) { add(P.at + t, K, fast ? 0.75 : 0.6); add(P.at + t + (fast ? 0.17 : 0.26), K, fast ? 0.45 : 0.36); }
+  });
   for (let b = Math.floor(-off / spb); off + b * spb < duration; b++) {
     for (let e = 0; e < 4; e++) {   // sixteenth notes; odd ones are pushed late by the swing
       const t = off + (b + e / 4 + (e % 2 ? F.swing / 4 : 0)) * spb;
@@ -247,6 +271,7 @@ export function renderBeat(music, duration, id = "") {
         continue;
       }
       const full = part === "main" || part === "drop", step = beatInBar * 4 + e, Y = F.S, soft = Y.soft ? 0.6 : 1;
+      if (Y.dread) continue;   // no groove: its layers are laid above, one stretch per part
       if (part === "drop" && e === 0 && Math.abs(t - P.at) < 0.02) add(t, INST.crash(r), 0.35, -0.1);
       if (Y.orch) {
         const acc = [0, 3, 6, 8, 11, 14].includes(step), tri = ch.notes;
