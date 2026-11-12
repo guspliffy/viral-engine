@@ -697,6 +697,101 @@
     }
    ],
    "note": "warm from the first 0.3 s (first03Db/a03_05Db = level of that window vs the 1-6 s body, dB); not a crescendo; decays naturally from ~4.5 s"
+  },
+  {
+   "id": "zombies-score",
+   "kind": "music",
+   "files": [
+    "zombies-score/zombies-score-01.ogg"
+   ],
+   "tags": [
+    "dread",
+    "panic",
+    "aftermath"
+   ],
+   "mood": "dramatic score",
+   "bpm": null,
+   "bars": null,
+   "key": null,
+   "loopable": false,
+   "durationSec": 28.2,
+   "prompt": [
+    "dark suspense film score, slow ominous cello and double bass ostinato, lonely sparse piano notes, soft timpani heartbeat pulse, tremolo violins, dread slowly building, post-apocalyptic survival drama, orchestra, cinematic, 72 BPM",
+    "tense dramatic orchestral underscore, low strings pulsing like a heartbeat, dark minor piano motif, distant timpani rolls, quiet menacing french horns, siege and fear, serious horror drama film score, 72 BPM",
+    "really dramatic orchestral chase music, frantic racing string ostinato, blaring trumpets and trombones, pounding timpani, hammering dramatic piano chords, panic and mortal danger, horror action film score, full symphony orchestra, 150 BPM",
+    "intense dramatic symphony orchestra, furious staccato strings, heroic desperate trumpet fanfare, thundering timpani rolls, crashing piano, escape from the horde, epic cinematic climax, 150 BPM",
+    "solemn slow piano with warm low strings, exhausted relief at dawn after a terrible night, sad and quiet, minor key, dramatic film score ending, orchestra, no drums"
+   ],
+   "seed": [
+    411,
+    412,
+    421,
+    422,
+    431,
+    432
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": null,
+   "sections": [
+    {
+     "section": "zombie-dread",
+     "take": "p1-s412.wav",
+     "clap": 0.313,
+     "others": [
+      [
+       "p0-s412.wav",
+       0.232
+      ],
+      [
+       "p0-s411.wav",
+       0.221
+      ],
+      [
+       "p1-s411.wav",
+       0.214
+      ]
+     ],
+     "from": 0,
+     "lufs": -18
+    },
+    {
+     "section": "zombie-panic",
+     "take": "p0-s422.wav",
+     "clap": 0.187,
+     "others": [
+      [
+       "p1-s422.wav",
+       0.185
+      ],
+      [
+       "p0-s421.wav",
+       0.154
+      ],
+      [
+       "p1-s421.wav",
+       0.141
+      ]
+     ],
+     "from": 18.95,
+     "lufs": -15
+    },
+    {
+     "section": "zombie-dawn",
+     "take": "p0-s432.wav",
+     "clap": 0.088,
+     "others": [
+      [
+       "p0-s431.wav",
+       -0.124
+      ]
+     ],
+     "from": 25.3,
+     "lufs": -18
+    }
+   ],
+   "madeBy": "engine/soundgen/score.py from recipes-zombies.json + score-zombies.json",
+   "pickedBy": "Claude 12 Nov 2026 (no ears): best CLAP margin per part against cartoon, game and pop music; for Survive it 04 zombies only (cut to its seconds)"
   }
  ]
 }

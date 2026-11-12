@@ -10,8 +10,8 @@
  "loop": false,
  "captionStyle": "kinetic",
  "captionBand": [
-  470,
-  1360
+  230,
+  640
  ],
  "cleanStart": true,
  "motion": {
@@ -44,8 +44,9 @@
   "satsuei": true
  },
  "music": {
-  "style": "sneaky",
-  "lowCut": 150,
+  "file": "ai/zombies-score/zombies-score-01.ogg",
+  "lock": false,
+  "dip": false,
   "gain": 0.45
  },
  "sound": {
@@ -581,77 +582,77 @@
    "from": 0,
    "to": 2.67,
    "text": "How to survive a zombie apocalypse",
-   "pos": 1330,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 3.2,
    "to": 4.77,
    "text": "They follow sound.",
-   "pos": 1330,
+   "pos": 310,
    "pop": false
   },
   {
    "from": 4.8,
    "to": 6.57,
    "text": "Day three. No water.",
-   "pos": 1340,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 7.1,
    "to": 8.27,
    "text": "Nobody talks about this.",
-   "pos": 1340,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 9,
    "to": 10.27,
    "text": "Last one.",
-   "pos": 1250,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 11.75,
    "to": 12.67,
    "text": "It won't hold.",
-   "pos": 1340,
+   "pos": 320,
    "pop": false
   },
   {
    "from": 15.45,
    "to": 16.87,
    "text": "It's free!",
-   "pos": 1340,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 19.55,
    "to": 20.37,
    "text": "...Don't move.",
-   "pos": 1250,
+   "pos": 330,
    "pop": false
   },
   {
    "from": 21,
    "to": 21.72,
    "text": "Drop it!",
-   "pos": 1340,
+   "pos": 250,
    "pop": true
   },
   {
    "from": 23.9,
    "to": 24.82,
    "text": "GO! GO!",
-   "pos": 1340,
+   "pos": 250,
    "pop": true
   },
   {
    "from": 26.15,
    "to": 28.15,
    "text": "Tomorrow we take less.",
-   "pos": 1340,
+   "pos": 330,
    "pop": false
   }
  ],
@@ -2341,7 +2342,7 @@
     ],
     "look": [
      70.12,
-     -0.05,
+     0.35,
      -0.3
     ],
     "fov": 44
@@ -6834,7 +6835,7 @@
     ],
     "look": [
      0.05,
-     -0.8,
+     -0.55,
      0.2
     ],
     "fov": 50

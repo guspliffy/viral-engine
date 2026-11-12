@@ -15,6 +15,11 @@ VENV/bin/python engine/soundgen/sheet.py . sound-test.mp4                       
 # (engine-sounds.mjs renders the old code effects and Kenney sounds for the sheet through engine/audio.mjs)
 ```
 
+**A score that follows one clip** (12 Nov 2026): a looping bed keeps one mood, a story turns. `score.py SPEC.json
+RAW_DIR assets/music/ai` picks one generated take per section (CLAP margin against the spec's `against` list) and
+joins them at the story's seconds with crossfades; the storyboard plays it with
+`music: { file: "ai/<out>", lock: false, dip: false }`. Example: `recipes-zombies.json` + `score-zombies.json`.
+
 ## How a sound is made
 
 1. **recipes.json** lists each sound: 2 prompts x 2-3 seeds, 8-10 s per take. Stable Audio makes poor 1-3 s clips

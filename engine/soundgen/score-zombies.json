@@ -1,0 +1,10 @@
+{
+  "out": "zombies-score/zombies-score-01.ogg",
+  "duration": 28.2,
+  "against": ["playful cartoon music", "video game chiptune music", "happy upbeat pop music", "electronic dance music", "silence", "people talking"],
+  "sections": [
+    { "id": "zombie-dread", "from": 0, "label": "dark tense orchestral film score with low strings, piano and timpani", "lufs": -18, "fadeIn": 0.02 },
+    { "id": "zombie-panic", "from": 18.95, "label": "dramatic orchestral chase music with trumpets, timpani, strings and piano", "lufs": -15, "fadeIn": 0.06, "onset": true },
+    { "id": "zombie-dawn", "from": 25.3, "label": "sad slow piano with soft orchestral strings", "lufs": -18, "fadeIn": 0.5 }
+  ]
+}

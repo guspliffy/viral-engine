@@ -20,7 +20,11 @@ const LINES = { sub: true, blink: false, pos: 1180 };
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
 const RIG = { hand: 2, eyes: 2, hold: 2 };
 const LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, ANIME_TIMING = true, INK = true, SATSUEI = true;
-const MUSIC = { style: "sneaky", lowCut: 150, gain: 0.45 };   // stand-in: tense from 0.0, under the voice (sound pass after the draft)
+// Jonny 12 Nov 2026: a dramatic scenario gets dramatic music. One orchestral score in three parts, joined at the story's
+// seconds by engine/soundgen/score.py (score-zombies.json): dread from 0.0 (low strings, piano, timpani pulse), full
+// orchestra from the tin's hit at 18.95 s (the turn), slow piano and strings on the roof from 25.3 s. If T.hit or
+// T.roof move, change score-zombies.json and join again.
+const MUSIC = { file: "ai/zombies-score/zombies-score-01.ogg", lock: false, dip: false, gain: 0.45 };
 const SUB_STYLE = {};
 
 const c = clip({ faces: FACES, lines: LINES }), { A, sfx, see, prop } = c;
@@ -102,7 +106,7 @@ Object.entries(S.p05).forEach(([w, p]) => p.push(toward(p, TINF)));
 const CAM = {
   DOOR: { pos: [XH - 0.98, 1.7, 3.0], look: [XH - 1.1, 0.95, -1.0], fov: 54 },       // P01: the door at the frame's left edge
   BALC: { pos: [-3.4, 2.75, 1.55], look: [-0.75, -15, -9.4], fov: 60 },            // P02: above and behind the group, down the street
-  BATH: { pos: [XB + 0.15, 1.85, 3.9], look: [XB + 0.12, -0.05, -0.3], fov: 44 },      // P03: over the cistern to the doorway
+  BATH: { pos: [XB + 0.15, 1.85, 3.9], look: [XB + 0.12, 0.35, -0.3], fov: 44 },      // P03: over the cistern to the doorway
   QUEUE: { pos: [-3.9, 0.78, 1.5], look: [-3.95, 0.62, -1.0], fov: 74 },             // P04: on the balcony, along it
   TIN: { pos: [XH + 1.95, 1.75, DZ], look: [XH - 1.2, 0.25, DZ], fov: 78 },           // P05: over the candle and tin to the barricade
   GROWL: { pos: [XH + 2.05, 0.8, DZ], look: [XH - 1.5, 0.88, DZ], fov: 56 },         // P06: Phoenix close, the door wall behind
@@ -110,7 +114,7 @@ const CAM = {
   SHOP: { pos: [XS - 1.2, 0.85, 3.5], look: [XS - 1.25, 0.62, -0.6], fov: 52 },     // P08
   LADC: { pos: [-2.6, 1.9, 2.9], look: [0.45, 0.65, 0], fov: 50 },                   // P09: he crawls toward us
   DOWN: { pos: [0.4, 2.7, -1.12], look: [0.4, -15, -1.17], fov: 50 },               // P10: straight down, the ladder at the bottom edge
-  VEE: { pos: [MID, 2.0, 3.2], look: [MID, -0.8, 0.2], fov: 50 },                  // P11: the V from the street side, the drop below
+  VEE: { pos: [MID, 2.0, 3.2], look: [MID, -0.55, 0.2], fov: 50 },                  // P11: the V from the street side, the drop below
   BURST: { pos: [XH + 2.0, 1.4, DZ + 0.3], look: [XH - 1.6, 0.8, DZ], fov: 56 },    // P11b: the door gives way
   ROOF: { pos: [8.4, 2.3, 1.0], look: [0, -0.3, 0.8], fov: 50 },                    // P12: the roof, the old house across the street
 };
@@ -195,7 +199,8 @@ const scene = (t, places) => Object.entries(places).forEach(([w, p]) => stand(t,
 const putProp = (t, id, set) => prop(r3(t - 0.02), id, set, 0.01, "linear");
 // where feet stand on the ladder at world x (the formula in props-zstreet.js's header)
 const ladY = (x, sag = 0, crack = 0) => { const u = Math.min(1, Math.max(0, (x - LAD.x0) / LAD.len)); return r3(LAD.y + 0.056 - 0.35 * sag * 4 * u * (1 - u) * (1 - crack) - 1.3 * crack * (1 - Math.abs(2 * u - 1))); };
-const CAPY = { p01: 1330, p02: 1330, p03: 1340, p04: 1340, p05: 1250, p06: 1340, p08: 1340, p10: 1250, p11: 1340, run: 1340, p12: 1340 };
+// Jonny 12 Nov 2026: speech lettering in the upper third, never over eyes or faces (tops from qa/camfit.mjs, under the DAY tag)
+const CAPY = { p01: 330, p02: 310, p03: 330, p04: 330, p05: 330, p06: 320, p08: 330, p10: 330, p11: 250, run: 250, p12: 330 };
 const cap = (from, to, text, k, pop = false) => c.cap(from, to, text, CAPY[k], pop, SUB_STYLE);
 
 // ---------------------------------------------------------------- the narrator (voice 1): the title from 0.0, then only the days
@@ -479,7 +484,7 @@ write(import.meta.url, {
   idea: "Survive it (realistic): five friends in a fifth-floor flat over a street full of zombies that hunt by sound; hunger sends them over a ladder to the shop roof, and one greedy sack of tins nearly kills them",
   format: "series: Survive it (title spoken at 0.0, day HUD, one cause-and-effect chain, realistic, stands alone)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
-  captionBand: [470, 1360],
+  captionBand: [230, 640],
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
   set: { type: "plain", color: "#a9afb3", floor: "none", aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   music: MUSIC,

@@ -80,3 +80,26 @@ turning up can be read (P10); the burst shot holds 0.35 s longer, the zombies co
 Not applied (the reviewer's numbers put the cast out of frame): BATH camera at z 2.6, GROWL camera at x XH + 1.5.
 For the polish: the door pane's silhouettes read pale at 12.0 s (darker shadows or a closer cut), and the ladder's
 fall behind the five is only a sound at 24.85 s.
+
+## 12 Nov 2026: Jonny on rough draft 1 (lettering, music)
+
+His words: "the lettering of the speach should be in the upper third of the video not covering eyes or faces. add a
+bit dramatic music- zombie apocalyspse is a dramatic scenario so we need dramatic music fitting the situation. do
+research on what music could fit this and then add it".
+
+- Lettering: `captionBand: [230, 640]`, every caption top in `CAPY` at 250-330 (under the DAY tag, above every eye
+  line; tops read from `node qa/camfit.mjs <sb> --at <s> --w 620 --h 110`). Two cameras tilted to free the top
+  third: BATH look y -0.05 to 0.35 (the three in the doorway had their eyes at y 460-545), VEE look y -0.8 to -0.55
+  (Spud's head filled the top). A caption may cross a hat tip or the Phoenix's flame, never eyes or a face.
+- Music research (film scores for this scenario): dread comes from low register, repetition and a slow build (low
+  string ostinato, a pulse like a heartbeat, tremolo, sparse piano), and the break-out is fast strings with brass and
+  drums ("28 Days Later" builds one figure to a climax; "World War Z" runs a pulse under the orchestra). He also
+  rejected code-synthesised beds as "game music" the same morning (T. rex thread) and asked for orchestra with piano,
+  trumpets and timpani.
+- The score: `assets/music/ai/zombies-score/zombies-score-01.ogg`, three parts joined at the story's seconds:
+  dread 0-18.95 s (-18 LUFS), full orchestra from the tin's hit at 18.95 s (-15 LUFS, the turn), slow piano and
+  strings on the roof from 25.3 s. Made with engine/soundgen: `recipes-zombies.json` (prompts, seeds),
+  `generate.py`, then the new `score.py` with `score-zombies.json` (one take per part, picked by CLAP margin against
+  cartoon, game and pop music; picks in the .ogg.json). No ears were involved: Jonny judges it.
+  If T.hit or T.roof move, edit score-zombies.json and run score.py again (the raw takes are not in the repo:
+  generate.py with the same recipe and seeds makes them again, about 6 minutes).
