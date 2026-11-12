@@ -420,12 +420,13 @@ write(import.meta.url, {
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   set: { type: "plain", color: "#9fcdf0", floor: "#d9cfc0", light: "golden", para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
-  // music that supports the story (Jonny 11 Nov): from 0.0, a part per beat. Style "chase" (fast, minor, pounding bass:
+  // music that supports the story (Jonny 11 Nov): from 0.0, a part per beat. Style "orchestra" (a dramatic film orchestra: string ostinato, low brass, timpani; Jonny 12 Nov on the "chase" style:
+  // "there is still no dramatic music, it should be somewhat of a dramatic orchestra music"; first asked for with:
   // Jonny 12 Nov "the music doesn't fit the dangerous scene when chasing"), the series key 10 kept
   // of the chain and a change at the turn ("But there's a catch")
-  music: { style: "chase", key: 10, lowCut: 150, gain: 0.45, parts: [
+  music: { style: "orchestra", key: 10, lowCut: 150, gain: 0.45, parts: [
     { at: 0, part: "drop" }, { at: HALL, part: "intro" }, { at: RUN, part: "build" }, { at: r3(CRASH + 0.6), part: "drop" }, { at: CALM, part: "musicbox" },
-    { at: r3(CALM + 1.15), part: "hold" }, { at: CHASE, part: "drop" }, { at: LAMP, part: "main" }, { at: r3(SCYTHE + 0.1), part: "stop" }, { at: RISE, part: "hold" }] },
+    { at: r3(CALM + 1.15), part: "hold", gain: 0.5 }, { at: CHASE, part: "drop" }, { at: LAMP, part: "main" }, { at: r3(SCYTHE + 0.1), part: "stop" }, { at: RISE, part: "hold" }] },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "concrete", room: "room", guard: true },
   hook: { show: ["spud", "rea", "rex"], hint: 0, what: "a living T. rex smashes out of the museum right behind Spud and Reaper, who run at the camera screaming" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

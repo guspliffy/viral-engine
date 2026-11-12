@@ -46,7 +46,7 @@
   "satsuei": true
  },
  "music": {
-  "style": "chase",
+  "style": "orchestra",
   "key": 10,
   "lowCut": 150,
   "gain": 0.45,
@@ -73,7 +73,8 @@
    },
    {
     "at": 12.45,
-    "part": "hold"
+    "part": "hold",
+    "gain": 0.5
    },
    {
     "at": 14.5,
