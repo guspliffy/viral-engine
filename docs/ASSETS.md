@@ -12,6 +12,7 @@ Rule for models: CC0 or self-made only, with the licence file next to them (`ass
 | `sfx/nature/` | birds, stream, lake beds; leaves | OpenGameArt (thimras, randommind); leaves synthesised by `tools/sound/nature-synth.py` | CC0; own work | `README.md` |
 | `sfx/ai/`, `sfx/ai-package/` | generated effects | Stable Audio 3 Small, run locally (`engine/soundgen`) | Stability AI Community License: free under $1M yearly revenue, commercial use to be registered with Stability AI | `manifest.json` |
 | `music/ai/`, `music/ai-package/` | generated music beds | Stable Audio 3 Small, run locally | as above | `manifest.json` |
+| `music/read-minds/` | a bed cut from two `music/ai` beds (tension into hero) | ffmpeg, from `music/ai` | as above | `README.md` |
 | `music/duel/`, `music/back-to-life/` | one clip's score, laid from generated takes | Stable Audio 3 Small, run locally | as above | `README.md` |
 | (code) music beds | seeded beds per clip | `puppet/beat.mjs` | own work | |
 | `sfx/whitelist.json` | what each sound really sounds like | own measurements | own work | `engine/sfx/whitelist.mjs` |

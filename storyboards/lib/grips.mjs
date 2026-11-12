@@ -39,11 +39,15 @@ const SIZE = {
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
   sscardfan: { w: 0.44, h: 0.3, t: 0.02 },        // props-sos.js: SHARE and STEAL fanned about the bottom middle (the pivot = the origin; 0.32 wide, spec.solid 0.44): the phone hold on the lower edge
+  cardfan: { w: 0.22, h: 0.16, t: 0.03 },          // props-casino.js: 2-4 playing cards fanned 14 degrees apart about the bottom middle (the pivot = the origin; 0.11 x 0.155 cards): the phone hold on the lower edge
+  playcard: { w: 0.11, h: 0.155, t: 0.004 },       // props-casino.js: one card standing upright (the origin = its bottom edge's middle): the phone hold
+  carkeys: { len: 0.0125, r: 0.0075 },             // props-casino.js: a key fob lying flat on its back (0.015 thick, origin = its centre underneath): the thin pinch at its middle (from 0.6 = 7.5 mm up)
   ravenphoto: { w: 0.1, h: 0.13, t: 0.004 },       // props-raven.js photo print: held with the phone hold, its picture (-z) faces away from the holder
   // a small thing pinched by the thin hold (Candy Bodyguard): len = the height the pinch's `from` is measured on, r =
   // the half-width the pads close on
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
+  hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)

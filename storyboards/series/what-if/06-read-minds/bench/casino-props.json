@@ -1,0 +1,631 @@
+{
+ "id": "casino-props",
+ "title": "Casino props bench",
+ "idea": "Props bench for There's a catch EP06 (casinohall, pokertable, chips, cards, guests), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#0a0608",
+  "floor": "#120a0a"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "hud": {
+  "sky": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "casinohall",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 20,
+   "d": 24,
+   "h": 7.5,
+   "dim": 0
+  },
+  {
+   "id": "table",
+   "kind": "pokertable",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 2.4,
+   "d": 1.4,
+   "h": 0.62
+  },
+  {
+   "id": "lamp",
+   "kind": "pokerlamp",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "chairA",
+   "kind": "sschair",
+   "x": -0.55,
+   "y": 0,
+   "z": -1.05,
+   "rot": 0
+  },
+  {
+   "id": "chairB",
+   "kind": "sschair",
+   "x": 0.55,
+   "y": 0,
+   "z": -1.05,
+   "rot": 0
+  },
+  {
+   "id": "chairC",
+   "kind": "sschair",
+   "x": -1.6,
+   "y": 0,
+   "z": 0.05,
+   "rot": 90
+  },
+  {
+   "id": "chairD",
+   "kind": "sschair",
+   "x": 1.6,
+   "y": 0,
+   "z": 0.05,
+   "rot": -90
+  },
+  {
+   "id": "pot",
+   "kind": "chippile",
+   "x": 0.05,
+   "y": 0.62,
+   "z": -0.05,
+   "rot": 20,
+   "r": 0.36,
+   "amount": 1
+  },
+  {
+   "id": "stk1",
+   "kind": "chipstack",
+   "x": 0.62,
+   "y": 0.62,
+   "z": 0.28,
+   "rot": 0,
+   "n": 12,
+   "color": "#c62828"
+  },
+  {
+   "id": "stk2",
+   "kind": "chipstack",
+   "x": 0.74,
+   "y": 0.62,
+   "z": 0.22,
+   "rot": 0,
+   "n": 7,
+   "color": "#1e4fb5"
+  },
+  {
+   "id": "stk3",
+   "kind": "chipstack",
+   "x": 0.9,
+   "y": 0.62,
+   "z": 0.3,
+   "rot": 0,
+   "n": 9,
+   "color": "#2e7d32"
+  },
+  {
+   "id": "stk4",
+   "kind": "chipstack",
+   "x": 0.8,
+   "y": 0.62,
+   "z": 0.42,
+   "rot": 0,
+   "n": 5,
+   "color": "#f2f2f2"
+  },
+  {
+   "id": "stk5",
+   "kind": "chipstack",
+   "x": 0.68,
+   "y": 0.62,
+   "z": 0.44,
+   "rot": 0,
+   "n": 10,
+   "color": "#222"
+  },
+  {
+   "id": "mtn",
+   "kind": "chipmountain",
+   "x": -0.78,
+   "y": 0.62,
+   "z": -0.05,
+   "rot": 0,
+   "w": 0.9,
+   "d": 0.6,
+   "h": 1.9,
+   "grow": 0.5
+  },
+  {
+   "id": "c2h",
+   "kind": "playcard",
+   "x": 0.2,
+   "y": 0.622,
+   "z": 0.52,
+   "rot": 24,
+   "tip": -90,
+   "flip": 1,
+   "card": "2h"
+  },
+  {
+   "id": "c7s",
+   "kind": "playcard",
+   "x": 0.36,
+   "y": 0.622,
+   "z": 0.5,
+   "rot": -12,
+   "tip": -90,
+   "flip": 1,
+   "card": "7s"
+  },
+  {
+   "id": "fan",
+   "kind": "cardfan",
+   "x": -0.2,
+   "y": 0.62,
+   "z": 0.34,
+   "rot": 0,
+   "cards": [
+    "As",
+    "Ah",
+    "Ad",
+    "Ac"
+   ],
+   "spread": 1
+  },
+  {
+   "id": "keys",
+   "kind": "carkeys",
+   "x": -0.05,
+   "y": 0.62,
+   "z": 0.2,
+   "rot": 25
+  },
+  {
+   "id": "g1",
+   "kind": "casinoguest",
+   "x": -5.4,
+   "y": 0,
+   "z": -4,
+   "rot": -90,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g2",
+   "kind": "casinoguest",
+   "x": -5.5,
+   "y": 0,
+   "z": -8,
+   "rot": -90,
+   "dress": "gown",
+   "color": "#7a1f3d",
+   "sway": 1
+  },
+  {
+   "id": "g3",
+   "kind": "casinoguest",
+   "x": 5.5,
+   "y": 0,
+   "z": -5,
+   "rot": 90,
+   "dress": "gown",
+   "color": "#1f5a7a",
+   "sway": 1
+  },
+  {
+   "id": "g4",
+   "kind": "casinoguest",
+   "x": 5.4,
+   "y": 0,
+   "z": -9,
+   "rot": 90,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "g5",
+   "kind": "casinoguest",
+   "x": -3.2,
+   "y": 0,
+   "z": -11,
+   "rot": 20,
+   "dress": "gown",
+   "color": "#5a2a7a",
+   "sway": 1
+  },
+  {
+   "id": "g6",
+   "kind": "casinoguest",
+   "x": 2,
+   "y": 0,
+   "z": -12,
+   "rot": -15,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "h1",
+   "kind": "casinoguest",
+   "x": 3.45,
+   "y": 0,
+   "z": 2,
+   "rot": 10,
+   "dress": "tux",
+   "sway": 1
+  },
+  {
+   "id": "h2",
+   "kind": "casinoguest",
+   "x": 3.95,
+   "y": 0,
+   "z": 2,
+   "rot": 0,
+   "dress": "gown",
+   "color": "#7a1f3d",
+   "cheer": 1
+  },
+  {
+   "id": "h3",
+   "kind": "casinoguest",
+   "x": 4.45,
+   "y": 0,
+   "z": 2,
+   "rot": -10,
+   "dress": "gown",
+   "color": "#1f6a5a",
+   "sway": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "wide1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.6,
+     6
+    ],
+    "look": [
+     0,
+     1.2,
+     -6
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "dim": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "c2h",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "c7s",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "wide of the hall"
+  },
+  {
+   "name": "table2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.2,
+     2
+    ],
+    "look": [
+     0,
+     0.72,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [],
+   "kind": "table close, pile 1, mountain 0.5"
+  },
+  {
+   "name": "table3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.2,
+     2
+    ],
+    "look": [
+     0,
+     0.72,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "amount": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mtn",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "pile 0.3, mountain 1"
+  },
+  {
+   "name": "cards4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     0.98,
+     0.98
+    ],
+    "look": [
+     0.1,
+     0.68,
+     0.3
+    ],
+    "fov": 32
+   },
+   "do": [],
+   "kind": "cards on the felt"
+  },
+  {
+   "name": "keys5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.05,
+     0.86,
+     0.6
+    ],
+    "look": [
+     -0.05,
+     0.64,
+     0.2
+    ],
+    "fov": 24
+   },
+   "do": [],
+   "kind": "car keys"
+  },
+  {
+   "name": "guests6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.9,
+     1.15,
+     4.2
+    ],
+    "look": [
+     3.9,
+     0.55,
+     2
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "guests close"
+  },
+  {
+   "name": "wide7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.6,
+     6
+    ],
+    "look": [
+     0,
+     1.2,
+     -6
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "dim": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "amount": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "wide, dim 1"
+  },
+  {
+   "name": "low8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.9,
+     2.6
+    ],
+    "look": [
+     -0.75,
+     0.9,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pot",
+     "set": {
+      "amount": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "mtn",
+     "set": {
+      "grow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "dim": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "mountain from low"
+  },
+  {
+   "name": "slots9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     1.3,
+     -1
+    ],
+    "look": [
+     -6.5,
+     0.9,
+     -7.5
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "left slot bank, two guests"
+  },
+  {
+   "name": "roul10",
+   "at": 9,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.8,
+     2.3,
+     -4.2
+    ],
+    "look": [
+     3.2,
+     0.7,
+     -8
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "roulette table"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/06-read-minds/bench/make-casino-props.mjs (props bench, no reviews)."
+}
