@@ -1,0 +1,9126 @@
+{
+ "id": "fff-01-bank-robbery-stake",
+ "title": "You just robbed a bank. Fight, flight or freeze?",
+ "idea": "Fight, Flight or Freeze pilot: three friends hide in a house after a bank robbery; Viking storms out to fight (netted in seconds), Phoenix runs out of the door (every police car chases him; caught three days later at the airport, one step from a plane), and because they all chase Phoenix nobody searches the house where Reaper froze",
+ "format": "series: Fight, Flight or Freeze (one extreme situation, three instincts, all three outcomes in one video)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  470,
+  1360
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "cover": 19.65,
+ "set": {
+  "type": "env",
+  "env": "dusk-bus-stop",
+  "swap": [
+   {
+    "at": 0,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ],
+     "window": {
+      "x": 0,
+      "y": 1,
+      "w": 1.9,
+      "h": 1.15
+     }
+    }
+   },
+   {
+    "at": 2.866,
+    "env": "dusk-bus-stop"
+   },
+   {
+    "at": 3.666,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ],
+     "window": {
+      "x": 0,
+      "y": 1,
+      "w": 1.9,
+      "h": 1.15
+     }
+    }
+   },
+   {
+    "at": 8.766,
+    "env": "dusk-bus-stop"
+   },
+   {
+    "at": 13.466,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ],
+     "window": {
+      "x": 0,
+      "y": 1,
+      "w": 1.9,
+      "h": 1.15
+     }
+    }
+   },
+   {
+    "at": 18.5,
+    "env": "dusk-bus-stop"
+   },
+   {
+    "at": 20.1,
+    "env": "airport-apron-sunrise"
+   },
+   {
+    "at": 25.1,
+    "room": {
+     "type": "nighthall",
+     "pos": [
+      0,
+      0,
+      3
+     ],
+     "window": {
+      "x": 0,
+      "y": 1,
+      "w": 1.9,
+      "h": 1.15
+     }
+    }
+   }
+  ],
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "style": "sneaky",
+  "lowCut": 150,
+  "gain": 0.26,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 25.1,
+    "part": "stop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "surface": "wood",
+  "room": "street",
+  "signature": {
+   "entrances": false
+  }
+ },
+ "creative": {
+  "length": [
+   29.7,
+   29.7
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "phx",
+   "rea",
+   "bagL",
+   "bagM"
+  ],
+  "hint": 0,
+  "what": "three masked potatoes high-five over open money bags in a dark house hall, a bank alarm ringing"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "duo/viking",
+   "at": [
+    0,
+    -1.15
+   ],
+   "face": 12,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 3.3
+  },
+  {
+   "id": "phx",
+   "character": "duo/phoenix",
+   "at": [
+    -0.92,
+    -0.4
+   ],
+   "face": 16,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "rea",
+   "character": "never-has-money/reaper",
+   "at": [
+    0.88,
+    -0.4
+   ],
+   "face": -16,
+   "expr": "happy",
+   "follow": 0.25,
+   "seed": 3.1
+  },
+  {
+   "id": "sam",
+   "character": "duo/samurai",
+   "at": [
+    40,
+    44
+   ],
+   "face": 0,
+   "expr": "stern",
+   "follow": 0.3,
+   "seed": 2.2
+  },
+  {
+   "id": "god",
+   "character": "potatobrawl/allfather",
+   "at": [
+    43,
+    44
+   ],
+   "face": 0,
+   "expr": "stern",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "dra",
+   "character": "potatobrawl/dragon",
+   "at": [
+    46,
+    44
+   ],
+   "face": 0,
+   "expr": "stern",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "crateL",
+   "kind": "producecrate",
+   "x": -0.92,
+   "z": 0.45,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.34
+  },
+  {
+   "id": "crateM",
+   "kind": "producecrate",
+   "x": 0,
+   "z": 0.45,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.34
+  },
+  {
+   "id": "crateR",
+   "kind": "producecrate",
+   "x": 0.92,
+   "z": 0.45,
+   "w": 0.9,
+   "d": 0.5,
+   "h": 0.34
+  },
+  {
+   "id": "bagL",
+   "kind": "moneybag",
+   "x": -0.72,
+   "z": 1.02,
+   "rot": 14,
+   "open": true
+  },
+  {
+   "id": "bagM",
+   "kind": "moneybag",
+   "x": 0.38,
+   "z": 1.06,
+   "rot": -10,
+   "open": true
+  },
+  {
+   "id": "bagR",
+   "kind": "moneybag",
+   "x": 0.77,
+   "y": 0.2,
+   "z": -0.015,
+   "rot": 164,
+   "back": true
+  },
+  {
+   "id": "shield",
+   "kind": "producecrate",
+   "x": 0,
+   "z": -0.7,
+   "w": 0.5,
+   "d": 0.36,
+   "h": 0.3,
+   "scale": 0.85,
+   "rot": 180
+  },
+  {
+   "id": "washL",
+   "kind": "sirenwash",
+   "x": -1.37,
+   "y": 0.3,
+   "z": -1.2,
+   "rot": 90,
+   "w": 4.5,
+   "h": 2.2,
+   "on": 0
+  },
+  {
+   "id": "washR",
+   "kind": "sirenwash",
+   "x": 1.37,
+   "y": 0.3,
+   "z": -1.2,
+   "rot": -90,
+   "w": 4.5,
+   "h": 2.2,
+   "on": 0
+  },
+  {
+   "id": "washG",
+   "kind": "sirenwash",
+   "x": -0.3,
+   "z": 1.6,
+   "w": 2.4,
+   "h": 2.4,
+   "flat": true,
+   "on": 0
+  },
+  {
+   "id": "pool",
+   "kind": "lightpool",
+   "x": -1.45,
+   "y": 0.2,
+   "z": 0.72,
+   "w": 1.1,
+   "d": 0.6,
+   "face": "z",
+   "on": 0
+  },
+  {
+   "id": "search",
+   "kind": "lightpool",
+   "x": -1.2,
+   "y": 0.01,
+   "z": 1.5,
+   "w": 1.5,
+   "d": 1.1,
+   "on": 0
+  },
+  {
+   "id": "winA",
+   "kind": "policecar",
+   "x": 0.1,
+   "y": 0.5,
+   "z": -19.6,
+   "rot": 0,
+   "lights": 0,
+   "staged": "the street outside the window lies half a metre above the hall floor"
+  },
+  {
+   "id": "winB",
+   "kind": "policecar",
+   "x": -2.3,
+   "y": 0.5,
+   "z": -20.6,
+   "rot": 24,
+   "lights": 0,
+   "staged": "the street outside the window lies half a metre above the hall floor"
+  },
+  {
+   "id": "winC",
+   "kind": "policecar",
+   "x": 2.5,
+   "y": 0.5,
+   "z": -21.6,
+   "rot": -24,
+   "lights": 0,
+   "staged": "the street outside the window lies half a metre above the hall floor"
+  },
+  {
+   "id": "winwash",
+   "kind": "sirenwash",
+   "x": 0,
+   "y": 1.7,
+   "z": -4.8,
+   "w": 4.6,
+   "h": 3,
+   "on": 0
+  },
+  {
+   "id": "doorcar",
+   "kind": "policecar",
+   "x": -4.4,
+   "z": 6.6,
+   "rot": 150,
+   "lights": 1,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "mask-vik",
+   "kind": "eyemask",
+   "wear": "vik",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "vik"
+  },
+  {
+   "id": "mask-phx",
+   "kind": "eyemask",
+   "wear": "phx",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "phx"
+  },
+  {
+   "id": "mask-rea",
+   "kind": "eyemask",
+   "wear": "rea",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fit": "rea"
+  },
+  {
+   "id": "cap-sam",
+   "kind": "policecap",
+   "wear": "sam",
+   "x": 0,
+   "y": 1.09,
+   "z": 0.02,
+   "r": 0.2
+  },
+  {
+   "id": "cap-god",
+   "kind": "policecap",
+   "wear": "god",
+   "x": 0,
+   "y": 1.26,
+   "z": 0.02,
+   "r": 0.2
+  },
+  {
+   "id": "cap-dra",
+   "kind": "policecap",
+   "wear": "dra",
+   "x": 0,
+   "y": 1.06,
+   "z": 0.02,
+   "r": 0.2
+  },
+  {
+   "id": "shield-god",
+   "kind": "riotshield",
+   "wear": "god",
+   "x": 0,
+   "y": 0.27,
+   "z": 0.56,
+   "scale": 0.001
+  },
+  {
+   "id": "shield-dra",
+   "kind": "riotshield",
+   "wear": "dra",
+   "x": 0,
+   "y": 0.27,
+   "z": 0.56,
+   "scale": 0.001
+  },
+  {
+   "id": "car1",
+   "kind": "policecar",
+   "x": -7.5,
+   "z": -6.8,
+   "rot": 62,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "car2",
+   "kind": "policecar",
+   "x": 7.5,
+   "z": -6.8,
+   "rot": -62,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "car3",
+   "kind": "policecar",
+   "x": 0,
+   "z": -15.2,
+   "rot": 0,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "wall0",
+   "kind": "riotshield",
+   "x": -1.5,
+   "y": -30,
+   "z": -4.800000000000001,
+   "scale": 0.001
+  },
+  {
+   "id": "wall1",
+   "kind": "riotshield",
+   "x": -0.75,
+   "y": -30,
+   "z": -4.800000000000001,
+   "scale": 0.001
+  },
+  {
+   "id": "wall2",
+   "kind": "riotshield",
+   "x": 0.75,
+   "y": -30,
+   "z": -4.800000000000001,
+   "scale": 0.001
+  },
+  {
+   "id": "wall3",
+   "kind": "riotshield",
+   "x": 1.5,
+   "y": -30,
+   "z": -4.800000000000001,
+   "scale": 0.001
+  },
+  {
+   "id": "washS",
+   "kind": "sirenwash",
+   "x": 0,
+   "y": -30,
+   "z": -4,
+   "w": 7,
+   "h": 4.5,
+   "on": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "netfly",
+   "kind": "policenet",
+   "x": 0,
+   "y": -30,
+   "z": -5,
+   "r": 0.75,
+   "open": 0,
+   "wrap": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "netwrap",
+   "kind": "policenet",
+   "wear": "vik",
+   "x": 0,
+   "y": 1.12,
+   "z": 0,
+   "r": 0.75,
+   "open": 1,
+   "wrap": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "shot0",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -0.03,
+    0.207,
+    1.706
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico0",
+   "kind": "spellbolt",
+   "x": -0.14,
+   "y": -30,
+   "z": 2.567,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -1.153,
+    1.16,
+    -1.856
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "shot1",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    0.017,
+    0.207,
+    1.459
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico1",
+   "kind": "spellbolt",
+   "x": 0,
+   "y": -30,
+   "z": 1.828,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    1.1,
+    1.36,
+    -1.943
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "shot2",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    0.063,
+    0.207,
+    1.213
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico2",
+   "kind": "spellbolt",
+   "x": 0.14,
+   "y": -30,
+   "z": 1.09,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    0.653,
+    -0.14,
+    -0.963
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "shot3",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -0.007,
+    0.207,
+    0.967
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico3",
+   "kind": "spellbolt",
+   "x": -0.07,
+   "y": -30,
+   "z": 0.352,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -0.91,
+    1.46,
+    -0.784
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "shot4",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    0.04,
+    0.207,
+    0.721
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico4",
+   "kind": "spellbolt",
+   "x": 0.07,
+   "y": -30,
+   "z": -0.387,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    1.243,
+    0.827,
+    -1.538
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "shot5",
+   "kind": "spellbolt",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.55,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -0.03,
+    0.207,
+    0.573
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a bullet in flight"
+  },
+  {
+   "id": "rico5",
+   "kind": "spellbolt",
+   "x": -0.14,
+   "y": -30,
+   "z": -0.83,
+   "from": [
+    0,
+    0,
+    0
+   ],
+   "to": [
+    -1.353,
+    0.893,
+    -1.057
+   ],
+   "scale": 0.001,
+   "rise": 0,
+   "staged": "a ricochet in flight"
+  },
+  {
+   "id": "muzzle",
+   "kind": "lightpool",
+   "x": -0.05,
+   "y": -30,
+   "z": -2.4499999999999997,
+   "w": 1.5,
+   "d": 1.5,
+   "face": "z",
+   "on": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "spark",
+   "kind": "lightpool",
+   "x": 0,
+   "y": -30,
+   "z": 3.9,
+   "w": 1.1,
+   "d": 1.1,
+   "face": "z",
+   "on": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "carX",
+   "kind": "policecar",
+   "x": 2.7,
+   "z": -3.6,
+   "rot": 0,
+   "lights": 1,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "boom",
+   "kind": "carburst",
+   "x": 2.2,
+   "y": -30,
+   "z": -2,
+   "at": 9.276,
+   "r": 1.5,
+   "on": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "fire",
+   "kind": "firesmoke",
+   "x": 2,
+   "y": -30,
+   "z": -2,
+   "w": 2.6,
+   "h": 4.6,
+   "fire": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "carY",
+   "kind": "policecar",
+   "x": 2.7,
+   "z": -3.6,
+   "rot": 0,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "fireY",
+   "kind": "firesmoke",
+   "x": 2,
+   "y": -30,
+   "z": -2,
+   "w": 2.6,
+   "h": 4.6,
+   "fire": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "boom2",
+   "kind": "carburst",
+   "x": 1.7,
+   "y": -30,
+   "z": -4.8,
+   "at": 19.35,
+   "r": 1.8,
+   "on": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "chase1",
+   "kind": "policecar",
+   "x": 0,
+   "z": -30,
+   "rot": 0,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "chase2",
+   "kind": "policecar",
+   "x": 0,
+   "z": -30,
+   "rot": 0,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "chase3",
+   "kind": "policecar",
+   "x": 0,
+   "z": -30,
+   "rot": 0,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "spot",
+   "kind": "lightpool",
+   "x": 0,
+   "y": -30,
+   "z": -6,
+   "w": 2.2,
+   "d": 1.5,
+   "on": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "beam",
+   "kind": "lightbeam",
+   "x": 0.6,
+   "y": -30,
+   "z": -6,
+   "tip": 0,
+   "len": 9.2,
+   "w": 1.6,
+   "color": "#ffffff",
+   "glow": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "case",
+   "kind": "suitcase",
+   "x": 0.6,
+   "y": -30,
+   "z": 2.3,
+   "color": "#c8452e",
+   "scale": 0.001
+  },
+  {
+   "id": "air1",
+   "kind": "policecar",
+   "x": -9.5,
+   "z": -2.3,
+   "rot": 62,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "air2",
+   "kind": "policecar",
+   "x": 9.5,
+   "z": -2.6,
+   "rot": -62,
+   "lights": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "washA",
+   "kind": "sirenwash",
+   "x": 0,
+   "y": -30,
+   "z": -1.2,
+   "w": 7,
+   "h": 3.5,
+   "on": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "washB",
+   "kind": "sirenwash",
+   "x": 0,
+   "z": 3.2,
+   "w": 6,
+   "h": 4,
+   "flat": true,
+   "on": 0,
+   "scale": 0.001,
+   "y": -30
+  }
+ ],
+ "captions": [
+  {
+   "from": 2.916,
+   "to": 4.3,
+   "text": "The police are here.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 6.416,
+   "to": 8.166,
+   "text": "Only one of them gets away.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 8.196,
+   "to": 9.096,
+   "text": "RAAAGH!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.116,
+   "to": 10.916,
+   "text": "HA!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.3,
+   "to": 13.466,
+   "text": "Fight lasted four seconds.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 13.766,
+   "to": 15.466,
+   "text": "COME OUT WITH YOUR HANDS UP!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.2,
+   "to": 17.3,
+   "text": "HE'S RUNNING! AFTER HIM!",
+   "pos": 560,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.4,
+   "to": 19.9,
+   "text": "Everyone chased Flight.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 20.2,
+   "to": 21.8,
+   "text": "Three days later.",
+   "pos": 480,
+   "pop": true,
+   "size": 58,
+   "kinetic": false,
+   "style": "label"
+  },
+  {
+   "from": 22.5,
+   "to": 25.1,
+   "text": "Flight lasted three days.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 25.4,
+   "to": 28.2,
+   "text": "Nobody ever searched the house.",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "from": 28.22,
+   "to": 29.7,
+   "text": "Which one are you?",
+   "pos": 520,
+   "pop": false
+  },
+  {
+   "pop": false,
+   "from": 0,
+   "to": 2.866,
+   "text": "ONLY ONE *ESCAPES*",
+   "pos": 520
+  }
+ ],
+ "beats": [
+  {
+   "name": "1 you just robbed a bank",
+   "at": 0,
+   "len": 2.866,
+   "shot": {
+    "pos": [
+     0.06,
+     0.95,
+     5.3
+    ],
+    "look": [
+     0.06,
+     1.172,
+     -4.698
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "alarmbell",
+     "dur": 1.7,
+     "gain": 0.5,
+     "reason": "the bank's alarm ringing a street away",
+     "at": 0
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.8,
+     "reason": "the high-five",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.85,
+       0.375
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.13,
+       0.85,
+       -0.23
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.85,
+       0.1
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "bagR",
+     "hand": "both",
+     "grip": [
+      0,
+      0.17,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.6,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.92,
+       0.1
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "height": 0.06,
+     "dur": 0.26,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.34
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.1,
+     "dur": 0.28,
+     "at": 0.5
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.95,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.1
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.2
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "sfx": "siren",
+     "gain": 0.75,
+     "reason": "a police car's whoop at the alley's mouth, behind the lens",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "z": -10.6,
+      "len": 9
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      0.25
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.64
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.2,
+      0.25
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.64
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.25
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.64
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.65
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.65
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.65
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.68
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.68
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.68
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 1.7
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.5,
+       0.2
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "z": -11.4,
+      "len": 9
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.72
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.72
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.25,
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "z": -12,
+      "len": 9
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1.84
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.6,
+     "reason": "tyres stopping at the alley's mouth",
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "on": 0.45
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.95
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.22,
+     "at": 2.02
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.22,
+     "steps": 0,
+     "ease": "out",
+     "at": 2.02
+    },
+    {
+     "sfx": "sirenwail",
+     "dur": 6,
+     "gain": 0.5,
+     "reason": "more sirens closing in, far off, under the voice",
+     "at": 2.1
+    },
+    {
+     "who": "vik",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.22,
+     "at": 2.1
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -1.15
+     ],
+     "y": -0.18,
+     "dur": 0.22,
+     "steps": 0,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.4,
+     "reason": "three bodies dropping behind the crates",
+     "at": 2.15
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.22,
+     "at": 2.18
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.22,
+     "steps": 0,
+     "ease": "out",
+     "at": 2.18
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.569,
+       0.02,
+       -0.083
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.18
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.569,
+       0.02,
+       -0.083
+      ]
+     },
+     "dur": 0.22,
+     "ease": "out",
+     "at": 2.18
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "shield-god",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "shield-dra",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "wall0",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "wall1",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "wall2",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "wall3",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "washS",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.846
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0,
+      -5.95
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.846
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.846
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 2.846
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -0.9,
+      -6.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.846
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.846
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 2.846
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      0.9,
+      -6.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.846
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.846
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 2.846
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "z": -13.5,
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.846
+    },
+    {
+     "macro": "narrate",
+     "line": "Only one of you escapes.",
+     "voice": "narrator",
+     "take": 0,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "2 the police are here",
+   "at": 2.866,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     0,
+     1.1,
+     -1.8
+    ],
+    "look": [
+     0,
+     1.257,
+     -11.799
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0,
+      -5.5
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "z": -9.4
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "the officer's boot on the cobbles",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "The police are here.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0.05
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -0.9,
+      -6.3
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      0.9,
+      -6.3
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "on": 0.7
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "x": -1.15
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.55,
+      -0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "step",
+     "gain": 0.55,
+     "reason": "another step, closer",
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.434
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.534
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.584
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 1,
+      "y": 0.01
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 1,
+      "y": 1.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "shield-god",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "shield-dra",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "wall0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "wall1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "wall2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "wall3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "washS",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "z": -15.2,
+      "lights": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 0.78
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 0.78
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.78
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.78
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.78
+    }
+   ]
+  },
+  {
+   "name": "3 three faces",
+   "at": 3.666,
+   "len": 0.634,
+   "shot": {
+    "pos": [
+     0,
+     0.6,
+     3
+    ],
+    "look": [
+     0,
+     0.822,
+     -6.998
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.7,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "vik",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.15,
+     "at": 0.534
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -1.15
+     ],
+     "y": 0,
+     "dur": 0.15,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.534
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 0.554
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.33,
+       0.2,
+       0.46
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.554
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.584
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0.604
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 0.604
+    }
+   ]
+  },
+  {
+   "name": "4 fight",
+   "at": 4.3,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0,
+     0.8,
+     1.85
+    ],
+    "look": [
+     0,
+     1.022,
+     -8.148
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Fight.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "fx": "pop",
+     "text": "FIGHT",
+     "who": "vik",
+     "size": 150,
+     "dur": 0.6,
+     "angle": -5,
+     "dy": -1.25,
+     "dx": 0,
+     "color": "#ff5a3c",
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 2.8000000000000003,
+     "idle": 0.06,
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.14,
+     "at": 0.18
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.5,
+     "reason": "knuckles cracking",
+     "at": 0.18
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.14,
+     "at": 0.4
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.5,
+     "reason": "knuckles cracking",
+     "at": 0.4
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.66,
+      -0.4
+     ],
+     "y": 0,
+     "dur": 0.15,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.35,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "4 flight",
+   "at": 4.9,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     -0.66,
+     0.8,
+     2.6
+    ],
+    "look": [
+     -0.66,
+     1.022,
+     -7.398
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Flight.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "tap",
+     "count": 9,
+     "every": 0.14,
+     "side": "R",
+     "at": 0
+    },
+    {
+     "fx": "pop",
+     "text": "FLIGHT",
+     "who": "phx",
+     "size": 150,
+     "dur": 0.6,
+     "angle": -5,
+     "dy": -1.25,
+     "dx": 0,
+     "color": "#ffb02e",
+     "at": 0.02
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.2
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "tap",
+     "count": 9,
+     "every": 0.14,
+     "side": "L",
+     "at": 0.07
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      0.3
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.58
+    }
+   ]
+  },
+  {
+   "name": "4 freeze",
+   "at": 5.5,
+   "len": 0.866,
+   "shot": {
+    "pos": [
+     0.66,
+     1.05,
+     2.6
+    ],
+    "look": [
+     0.66,
+     -0.64,
+     -7.256
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Or freeze.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.02,
+      "eye": 1.5,
+      "curve": -0.02
+     },
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0.55,
+     "dur": 0.08,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.02
+     ],
+     "dur": 0.06,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": -0.06,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "sfx": "tink",
+     "gain": 0.6,
+     "reason": "Reaper freezing solid",
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 20.1,
+     "idle": 0,
+     "at": 0.1
+    },
+    {
+     "fx": "pop",
+     "text": "FREEZE",
+     "who": "rea",
+     "size": 150,
+     "dur": 0.6,
+     "angle": -5,
+     "dy": -1.25,
+     "dx": 0,
+     "color": "#8fd8ff",
+     "at": 0.25
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.65
+    },
+    {
+     "who": "phx",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.12,
+     "dur": 0.01,
+     "at": 0.846
+    }
+   ]
+  },
+  {
+   "name": "5 only one gets away",
+   "at": 6.366,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     4.3
+    ],
+    "look": [
+     0,
+     1.122,
+     -5.698
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "x": -0.95
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "tap",
+     "count": 6,
+     "every": 0.16,
+     "side": "R",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Only one of them gets away.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0.05
+    },
+    {
+     "sfx": "step",
+     "gain": 0.6,
+     "reason": "the officer one step from the crates",
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0,
+       -0.7
+      ]
+     },
+     "dur": 0.38,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       -0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0,
+       -0.7
+      ]
+     },
+     "dur": 0.38,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.478
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 1.478
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       -0.72
+      ]
+     },
+     "dur": 0.32,
+     "ease": "out",
+     "at": 1.68
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       -0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       -0.72
+      ]
+     },
+     "dur": 0.32,
+     "ease": "out",
+     "at": 1.68
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "shield",
+     "hand": "both",
+     "grip": [
+      0,
+      0.15,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.69
+    }
+   ]
+  },
+  {
+   "name": "6 the roar",
+   "at": 8.166,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     4.3
+    ],
+    "look": [
+     0,
+     1.122,
+     -5.698
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.75
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "raaagh!",
+     "tone": "excited",
+     "dur": 0.5,
+     "blink": false,
+     "at": 0.03
+    },
+    {
+     "who": "vik",
+     "do": "hop",
+     "height": 0.3,
+     "dur": 0.33,
+     "at": 0.25
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.6,
+     "reason": "Viking launching himself at the street",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shield-god",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shield-dra",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "wall0",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "wall1",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "wall2",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "wall3",
+     "set": {
+      "scale": 1,
+      "y": -1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "washS",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot0",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico0",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot1",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico1",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot2",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico2",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot3",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico3",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot4",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico4",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot5",
+     "set": {
+      "scale": 3,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "rico5",
+     "set": {
+      "scale": 3,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "scale": 1,
+      "y": 1.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "carX",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "boom",
+     "set": {
+      "scale": 1,
+      "y": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "scale": 1,
+      "y": 0.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.58
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      4.6
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 0.58
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.58
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 0.58
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      46,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -0.66,
+      -1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 0.58
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      0.66,
+      -1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "dra",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "dra",
+     "do": "show",
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -0.1,
+      -3.0999999999999996
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.37,
+       0.3,
+       0.5
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "sam",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "boom",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       4.17
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       -0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       4.17
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "who": "god",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.58
+    },
+    {
+     "who": "dra",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.58
+    }
+   ]
+  },
+  {
+   "name": "6 the charge",
+   "at": 8.766,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.7,
+     1.25,
+     7
+    ],
+    "look": [
+     0.7,
+     1.407,
+     -2.999
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -0.30000000000000004
+     ],
+     "dur": 0.75,
+     "ease": "linear",
+     "stride": 1.8,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       -0.63
+      ]
+     },
+     "dur": 0.65,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       -0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       1.12,
+       -0.63
+      ]
+     },
+     "dur": 0.65,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dra",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "shot0",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": -0.14,
+      "z": 2.517
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.18
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.19
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "rico0",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.19
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "shot1",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": 0,
+      "z": 1.778
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.29
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.29
+    },
+    {
+     "do": "prop",
+     "id": "rico1",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.29
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "shot2",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "god",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "god",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "god",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "dra",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": 0.14,
+      "z": 1.04
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.38
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.39
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.39
+    },
+    {
+     "do": "prop",
+     "id": "rico2",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.39
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "shot3",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": -0.07,
+      "z": 0.302
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.49
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "rico3",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.49
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "shot4",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "sfx": "firework",
+     "gain": 0.85,
+     "reason": "the patrol car blowing up behind the line",
+     "at": 0.51
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.9,
+     "reason": "the blast",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "carX",
+     "set": {
+      "lights": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.53
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.08,
+     "blink": false,
+     "at": 0.56
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": 0.07,
+      "z": -0.437
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "sfx": "gunshot",
+     "gain": 0.75,
+     "reason": "the police open fire on the charging Viking",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "shot5",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.59
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "rico4",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.59
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.61
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.63
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.04,
+     "ease": "linear",
+     "at": 0.63
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.5,
+       -0.78
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "shield",
+      "grip": [
+       -0.303,
+       0.15,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.5,
+       -0.78
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "x": -0.14,
+      "z": -0.88
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.66
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.67
+    },
+    {
+     "sfx": "ting",
+     "gain": 0.5,
+     "reason": "a bullet ringing off his crate",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "rico5",
+     "set": {
+      "rise": 1
+     },
+     "dur": 0.12,
+     "ease": "linear",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.71
+    },
+    {
+     "sfx": "hit-wood",
+     "gain": 0.9,
+     "reason": "the crate hitting the shield line",
+     "at": 0.75
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.7,
+     "reason": "two riot shields going over",
+     "at": 0.75
+    },
+    {
+     "fx": "impact",
+     "dur": 0.067,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "smash": 1
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.817
+    },
+    {
+     "who": "vik",
+     "do": "release",
+     "prop": "shield",
+     "dur": 0,
+     "at": 0.817
+    },
+    {
+     "do": "physics",
+     "prop": "shield",
+     "mode": "drop",
+     "at": 0.817
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -2.6,
+      -2.9
+     ],
+     "y": 1.7,
+     "dur": 0.46,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0.817
+    },
+    {
+     "who": "god",
+     "do": "pitch",
+     "to": -360,
+     "dur": 0.74,
+     "ease": "linear",
+     "at": 0.817
+    },
+    {
+     "who": "god",
+     "do": "expr",
+     "expr": "dizzy",
+     "dur": 0.15,
+     "at": 0.817
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      2.6,
+      -0.7999999999999999
+     ],
+     "y": 1.7,
+     "dur": 0.46,
+     "ease": "linear",
+     "steps": 0,
+     "at": 0.817
+    },
+    {
+     "who": "dra",
+     "do": "pitch",
+     "to": 360,
+     "dur": 0.74,
+     "ease": "linear",
+     "at": 0.817
+    },
+    {
+     "who": "dra",
+     "do": "expr",
+     "expr": "dizzy",
+     "dur": 0.15,
+     "at": 0.817
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -0.5999999999999999
+     ],
+     "dur": 0.25,
+     "ease": "out",
+     "steps": 2,
+     "at": 0.817
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.2,
+       0.55,
+       0.25
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.837
+    },
+    {
+     "do": "prop",
+     "id": "boom",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.06
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      -5.4,
+      -3.62
+     ],
+     "y": 0.3,
+     "dur": 0.26,
+     "ease": "in",
+     "steps": 0,
+     "at": 1.277
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      5.4,
+      -0.2599999999999998
+     ],
+     "y": 0.3,
+     "dur": 0.26,
+     "ease": "in",
+     "steps": 0,
+     "at": 1.277
+    },
+    {
+     "do": "prop",
+     "id": "shot0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "shot1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "shot2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "shot3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "shot4",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico4",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "shot5",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "rico5",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "muzzle",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "spark",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6,
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 1.28
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "sam",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      0,
+      -0.5999999999999999
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "show",
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.12
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.28
+    }
+   ]
+  },
+  {
+   "name": "6 fighting works",
+   "at": 10.066,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     0,
+     1.15,
+     4.4
+    ],
+    "look": [
+     0,
+     1.307,
+     -5.599
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       1.02,
+       0.12
+      ]
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.02
+    },
+    {
+     "who": "vik",
+     "do": "talk",
+     "line": "ha!",
+     "tone": "excited",
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 0.237
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.237
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 0.237
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.237
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "x": -2.5
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.6,
+     "reason": "a police car sliding in behind Viking",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "x": 2.5
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.67
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "washS",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.6,
+     "reason": "a police car sliding in behind Viking",
+     "at": 0.77
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      0,
+      -5.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.83
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.83
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "wall0",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.18,
+     "ease": "back",
+     "at": 0.85
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "z": -7.800000000000001
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.89
+    },
+    {
+     "do": "prop",
+     "id": "wall1",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.18,
+     "ease": "back",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 0.92
+    },
+    {
+     "do": "prop",
+     "id": "wall2",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.18,
+     "ease": "back",
+     "at": 0.95
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.5,
+     "reason": "the second line of shields slamming down",
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.1,
+      "open": 0.05
+     },
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.3,
+       0.7,
+       0.12
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.6,
+     "reason": "a police car sliding in behind Viking",
+     "at": 0.99
+    },
+    {
+     "do": "prop",
+     "id": "wall3",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.18,
+     "ease": "back",
+     "at": 1
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.85,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.13
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.14
+    },
+    {
+     "do": "prop",
+     "id": "netfly",
+     "set": {
+      "scale": 1,
+      "y": 0.9
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.214
+    },
+    {
+     "sfx": "netshot",
+     "gain": 0.8,
+     "reason": "the net launcher behind him",
+     "at": 1.234
+    },
+    {
+     "do": "prop",
+     "id": "netfly",
+     "set": {
+      "x": 0,
+      "y": 1.25,
+      "z": -0.5999999999999999,
+      "open": 1,
+      "spin": 200
+     },
+     "dur": 0.34,
+     "ease": "linear",
+     "at": 1.234
+    },
+    {
+     "macro": "narrate",
+     "line": "Fight lasted four seconds.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 1.234
+    },
+    {
+     "do": "prop",
+     "id": "netfly",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.574
+    },
+    {
+     "do": "prop",
+     "id": "netwrap",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.25,
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.15,
+     "at": 1.574
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.7,
+     "reason": "the net landing on him",
+     "at": 1.574
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": -90,
+     "dur": 0.42,
+     "ease": "in",
+     "at": 1.874
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      -0.6,
+      -0.5999999999999999
+     ],
+     "y": 0.4,
+     "dur": 0.42,
+     "ease": "in",
+     "steps": 0,
+     "at": 1.874
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "reason": "Viking tipping over like a sack",
+     "at": 2.294
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.02,
+      -0.35
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 2.294
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.15,
+     "at": 2.324
+    },
+    {
+     "sfx": "cuffs",
+     "gain": 0.8,
+     "reason": "handcuffs",
+     "at": 2.574
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "shield",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 1,
+      "y": 0.01
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 1,
+      "y": 1.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "doorcar",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "shield-god",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "shield-dra",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "car1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "car2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "car3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "wall0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "wall1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "wall2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "wall3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "washS",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "netwrap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "carX",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "boom",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "fire",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.38
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       -0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "vik",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "vik",
+     "do": "move",
+     "to": [
+      40,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "dra",
+     "do": "hide",
+     "at": 3.38
+    },
+    {
+     "who": "dra",
+     "do": "move",
+     "to": [
+      46,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      5.6,
+      -7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "x": -1.2,
+      "on": 0.75
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 3.391
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 3.391
+    }
+   ]
+  },
+  {
+   "name": "7 come out with your hands up",
+   "at": 13.466,
+   "len": 2.034,
+   "shot": {
+    "pos": [
+     0,
+     0.95,
+     4.6
+    ],
+    "look": [
+     0,
+     1.172,
+     -5.398
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "x": 1.1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "feedback",
+     "gain": 0.5,
+     "reason": "the police megaphone squealing on outside the window",
+     "at": 0.05
+    },
+    {
+     "who": "phx",
+     "do": "tap",
+     "count": 10,
+     "every": 0.14,
+     "side": "R",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "reason": "Phoenix's heart, faster and faster",
+     "at": 0.2
+    },
+    {
+     "who": "sam",
+     "do": "talk",
+     "line": "come out with your hands up!",
+     "tone": "excited",
+     "dur": 1.3,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "fx": "sweat",
+     "who": "phx",
+     "dur": 0.9,
+     "count": 5,
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.7,
+      0.2
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "reason": "Phoenix's heart, faster and faster",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "x": -0.6
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.8,
+      -0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "reason": "Phoenix's heart, faster and faster",
+     "at": 1.25
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "reason": "Phoenix's heart, faster and faster",
+     "at": 1.65
+    }
+   ]
+  },
+  {
+   "name": "7 phoenix bolts",
+   "at": 15.5,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.95,
+     1.25,
+     -2.9
+    ],
+    "look": [
+     -0.7,
+     0.72,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -0.75,
+      "y": 1.2,
+      "z": 0.85
+     },
+     "dur": 0.24,
+     "ease": "linear",
+     "at": 0.12
+    },
+    {
+     "sfx": "rocket",
+     "gain": 0.55,
+     "dur": 0.5,
+     "reason": "Phoenix bursting out of the hiding place",
+     "at": 0.12
+    },
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.03,
+     "at": 0.14
+    },
+    {
+     "who": "phx",
+     "do": "fly",
+     "to": {
+      "x": -2.6,
+      "y": 0.8,
+      "z": 1.9
+     },
+     "dur": 0.26,
+     "ease": "linear",
+     "at": 0.36
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 0.62
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0.62
+    },
+    {
+     "who": "sam",
+     "do": "talk",
+     "line": "he's running! after him!",
+     "tone": "excited",
+     "dur": 0.9,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "sfx": "sirenwail",
+     "dur": 4.2,
+     "gain": 0.6,
+     "reason": "every siren starting up after Phoenix",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "doorcar",
+     "set": {
+      "x": -3.2,
+      "z": 24,
+      "len": 12
+     },
+     "dur": 0.65,
+     "ease": "in",
+     "at": 0.95
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.7,
+     "reason": "the car outside the door tearing off after him",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "doorcar",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 1.58
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 1.591
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 1.591
+    }
+   ]
+  },
+  {
+   "name": "8 left behind",
+   "at": 17.1,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.3,
+     0.9,
+     4.4
+    ],
+    "look": [
+     0.3,
+     1.122,
+     -5.598
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.4,
+      0.85,
+      3.8
+     ],
+     "look": [
+      0.4,
+      1.072,
+      -6.198
+     ],
+     "fov": 46
+    },
+    "dur": 1.4,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "x": -16,
+      "len": 14
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.55,
+     "reason": "the cars outside the window tearing off",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "x": -16,
+      "len": 14
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0.22
+    },
+    {
+     "macro": "narrate",
+     "line": "Everyone chased Flight.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "x": 16,
+      "len": 14
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "carY",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "fireY",
+     "set": {
+      "scale": 1,
+      "y": 0.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "boom2",
+     "set": {
+      "scale": 1,
+      "y": 0.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase3",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "spot",
+     "set": {
+      "scale": 1,
+      "y": 0.01
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "scale": 1,
+      "y": 9
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.2,
+      -9.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "hide",
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      46,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0.6,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "fireY",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase1",
+     "set": {
+      "x": -1.5,
+      "z": -19,
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase2",
+     "set": {
+      "x": 1.35,
+      "z": -22,
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "chase3",
+     "set": {
+      "x": -0.1,
+      "z": -27,
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "spot",
+     "set": {
+      "on": 1,
+      "x": 1.6,
+      "z": -10.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "glow": 0.7,
+      "x": 1.6,
+      "z": -10.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "boom2",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "9 the chase",
+   "at": 18.5,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     7
+    ],
+    "look": [
+     0,
+     1.407,
+     -2.999
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      -0.3,
+      2.4
+     ],
+     "dur": 1.6,
+     "ease": "linear",
+     "stride": 1.9,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "chopper",
+     "dur": 1.6,
+     "gain": 0.6,
+     "reason": "the police helicopter over the street",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chase1",
+     "set": {
+      "z": -6.5,
+      "len": 14
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chase2",
+     "set": {
+      "z": -5.6,
+      "len": 14
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chase3",
+     "set": {
+      "z": -12,
+      "len": 14
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spot",
+     "set": {
+      "x": -0.3,
+      "z": 2
+     },
+     "dur": 1.6,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "x": -0.3,
+      "z": 2
+     },
+     "dur": 1.6,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.6,
+     "reason": "three patrol cars sliding into the street behind him",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.5,
+      0.6
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "sfx": "firework",
+     "gain": 0.85,
+     "reason": "a chasing patrol car clipping the burning wreck and going up",
+     "at": 0.85
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.9,
+     "reason": "the second blast",
+     "at": 0.85
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.04,
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "chase2",
+     "set": {
+      "lights": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.85
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "boom2",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "carY",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "fireY",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "boom2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "chase1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "chase2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "chase3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "spot",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "beam",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "scale": 1,
+      "y": 0.24
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "air1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "air2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "washA",
+     "set": {
+      "scale": 1,
+      "y": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "washB",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "show",
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "x": 0.6,
+      "z": 2.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "10 three days later, the airport",
+   "at": 20.1,
+   "len": 5,
+   "shot": {
+    "pos": [
+     0,
+     1.4,
+     8
+    ],
+    "look": [
+     0,
+     0.537,
+     -1.963
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 1.55,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "z": 0.7
+     },
+     "dur": 1.55,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "dur": 4.95,
+     "gain": 0.3,
+     "reason": "a jet's engines idling on the apron",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "air1",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "air2",
+     "set": {
+      "lights": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "air1",
+     "set": {
+      "x": -1.75,
+      "len": 9
+     },
+     "dur": 0.36,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "sfx": "sirenwail",
+     "dur": 3.4,
+     "gain": 0.5,
+     "reason": "sirens all round him on the apron",
+     "at": 1.4
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.7,
+     "reason": "a patrol car sliding in between him and the plane",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "air2",
+     "set": {
+      "x": 1.9,
+      "len": 9
+     },
+     "dur": 0.36,
+     "ease": "out",
+     "at": 1.52
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.7,
+     "reason": "a patrol car sliding in between him and the plane",
+     "at": 1.57
+    },
+    {
+     "do": "prop",
+     "id": "washA",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "still",
+     "dur": 0.4,
+     "idle": 0.08,
+     "at": 1.7
+    },
+    {
+     "who": "phx",
+     "do": "hop",
+     "height": 0.1,
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "x": 0.7
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.74
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "tilt": 88
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.8
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.15,
+     "at": 2
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -2.9,
+      0.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "sam",
+     "do": "show",
+     "at": 2.28
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      3.1,
+      0.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "god",
+     "do": "show",
+     "at": 2.28
+    },
+    {
+     "who": "sam",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "sam",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "god",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "god",
+     "do": "expr",
+     "expr": "stern",
+     "set": {
+      "browY": -0.012
+     },
+     "dur": 0.01,
+     "at": 2.28
+    },
+    {
+     "who": "sam",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.3
+    },
+    {
+     "who": "god",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.3
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0,
+      1.25
+     ],
+     "dur": 0.3,
+     "ease": "out",
+     "stride": 1.4,
+     "at": 2.35
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      -1.1,
+      0.35
+     ],
+     "dur": 0.9,
+     "ease": "out",
+     "at": 2.35
+    },
+    {
+     "macro": "narrate",
+     "line": "Flight lasted three days.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 2.4
+    },
+    {
+     "sfx": "siren",
+     "gain": 0.8,
+     "reason": "another patrol car whooping right in front of him, behind the lens",
+     "at": 2.45
+    },
+    {
+     "do": "prop",
+     "id": "washB",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 2.45
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      1.5,
+      0.3
+     ],
+     "dur": 0.9,
+     "ease": "out",
+     "at": 2.45
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 2.5
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.8
+    },
+    {
+     "who": "sam",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.25,
+     "at": 3
+    },
+    {
+     "who": "god",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.25,
+     "at": 3.1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 3.15
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 3.15
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.3
+    },
+    {
+     "sfx": "cuffs",
+     "gain": 0.8,
+     "reason": "handcuffs",
+     "at": 4.15
+    },
+    {
+     "do": "prop",
+     "id": "crateL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "crateM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "crateR",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "bagL",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "bagM",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "bagR",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "washL",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "washR",
+     "set": {
+      "scale": 1,
+      "y": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "washG",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "pool",
+     "set": {
+      "scale": 1,
+      "y": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "search",
+     "set": {
+      "scale": 1,
+      "y": 0.01
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winwash",
+     "set": {
+      "scale": 1,
+      "y": 1.7
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "air1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "air2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "washA",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "washB",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.98
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": -0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.98
+    },
+    {
+     "who": "rea",
+     "do": "show",
+     "at": 4.98
+    },
+    {
+     "who": "phx",
+     "do": "hide",
+     "at": 4.98
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "sam",
+     "do": "hide",
+     "at": 4.98
+    },
+    {
+     "who": "sam",
+     "do": "move",
+     "to": [
+      40,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "god",
+     "do": "hide",
+     "at": 4.98
+    },
+    {
+     "who": "god",
+     "do": "move",
+     "to": [
+      43,
+      44
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winA",
+     "set": {
+      "lights": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winB",
+     "set": {
+      "lights": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "do": "prop",
+     "id": "winC",
+     "set": {
+      "lights": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.98
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 4.991
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.02,
+       -0.07
+      ]
+     },
+     "dur": 0.008,
+     "ease": "linear",
+     "at": 4.991
+    }
+   ]
+  },
+  {
+   "name": "11 nobody searched the house",
+   "at": 25.1,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     0.5,
+     0.8,
+     3.4
+    ],
+    "look": [
+     0.5,
+     1.022,
+     -6.598
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.6,
+      0.75,
+      2.7
+     ],
+     "look": [
+      0.6,
+      0.972,
+      -7.298
+     ],
+     "fov": 46
+    },
+    "dur": 4.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Nobody ever searched the house.",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.02
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.8,
+      0.02
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.02
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.25,
+     "at": 2.25
+    },
+    {
+     "who": "rea",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      0.66,
+      -0.4
+     ],
+     "y": 0,
+     "dur": 0.5,
+     "steps": 0,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.2,
+       -0.07
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       -0.195,
+       0.17,
+       0
+      ],
+      "palm": true,
+      "at": [
+       0.66,
+       0.2,
+       -0.07
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.25,
+      "open": 0.12,
+      "eye": 1
+     },
+     "dur": 0.4,
+     "at": 2.75
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.4,
+     "at": 2.75
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.5,
+     "at": 2.8
+    },
+    {
+     "sfx": "deflate",
+     "gain": 0.3,
+     "reason": "Reaper finally breathing out",
+     "at": 2.8
+    },
+    {
+     "macro": "narrate",
+     "line": "Which one are you?",
+     "voice": "narrator",
+     "caption": false,
+     "gain": 4,
+     "at": 3.12
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "vik.face",
+    "phx.face",
+    "rea.face",
+    "bagL",
+    "bagM"
+   ],
+   "why": "frame 0: three masked friends, the loot open at their feet, mid high-five"
+  },
+  {
+   "from": 2.4,
+   "to": 2.866,
+   "see": [
+    "vik.face",
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "hiding: three pairs of eyes over the crate row, police light on the walls"
+  },
+  {
+   "from": 2.866,
+   "to": 3.666,
+   "see": [
+    "sam.face",
+    "cap-sam",
+    "car3"
+   ],
+   "why": "the police, front on: caps, riot shields, a torch, a patrol car's light bar"
+  },
+  {
+   "from": 3.666,
+   "to": 4.3,
+   "see": [
+    "vik.face",
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "the close row of three faces, eyes wide"
+  },
+  {
+   "from": 4.3,
+   "to": 4.9,
+   "see": [
+    "vik.face"
+   ],
+   "why": "FIGHT: Viking cracks his knuckles"
+  },
+  {
+   "from": 4.9,
+   "to": 5.5,
+   "see": [
+    "phx.face"
+   ],
+   "why": "FLIGHT: Phoenix's legs are already going"
+  },
+  {
+   "from": 5.5,
+   "to": 6.366,
+   "see": [
+    "rea.face"
+   ],
+   "why": "FREEZE: Reaper goes stiff behind his crate, eyes wide"
+  },
+  {
+   "from": 6.366,
+   "to": 8.166,
+   "see": [
+    "vik.face",
+    "phx.face",
+    "rea.face"
+   ],
+   "why": "the big question: the beam one step away, all three in frame"
+  },
+  {
+   "from": 8.166,
+   "to": 8.766,
+   "see": [
+    "vik.face"
+   ],
+   "why": "Viking roars and charges the lens with a crate for a shield"
+  },
+  {
+   "from": 10.066,
+   "to": 10.666,
+   "see": [
+    "vik.face"
+   ],
+   "why": "the head fake: fighting works, Viking grins at us"
+  },
+  {
+   "from": 10.516,
+   "to": 11.3,
+   "see": [
+    "vik.face",
+    "car1",
+    "car2"
+   ],
+   "why": "the snap: the wall of cars and shields behind his grin"
+  },
+  {
+   "from": 12.39,
+   "to": 13.466,
+   "see": [
+    "vik.face"
+   ],
+   "why": "Viking netted, on his side, face to us"
+  },
+  {
+   "from": 13.466,
+   "to": 15.5,
+   "see": [
+    "phx.face",
+    "rea.face",
+    "winA"
+   ],
+   "why": "police cars and their lights fill the window, a megaphone orders them out; Phoenix's eyes go to the door, Reaper has not moved"
+  },
+  {
+   "from": 15.6,
+   "to": 16,
+   "see": [
+    "phx"
+   ],
+   "why": "Phoenix bursts up over the crates and out of the open front door"
+  },
+  {
+   "from": 16.2,
+   "to": 17.1,
+   "see": [
+    "doorcar"
+   ],
+   "why": "'He's running! After him!': the police car outside the door tears off; Reaper's back, frozen, in the corner"
+  },
+  {
+   "from": 17.1,
+   "to": 18.5,
+   "see": [
+    "rea.face",
+    "winA"
+   ],
+   "why": "Reaper alone behind the crates; through the window every police car pulls away after Phoenix"
+  },
+  {
+   "from": 18.8,
+   "to": 20.1,
+   "see": [
+    "phx.face",
+    "chase1",
+    "chase2"
+   ],
+   "why": "THE CHASE: Phoenix sprints at us, three police cars and a helicopter's beam behind him, a car going up in flames"
+  },
+  {
+   "from": 20.1,
+   "to": 21.5,
+   "see": [
+    "phx",
+    "case"
+   ],
+   "why": "three days later: Phoenix walks out to a waiting plane, a suitcase rolling beside him"
+  },
+  {
+   "from": 21.8,
+   "to": 22.3,
+   "see": [
+    "phx",
+    "air1",
+    "air2"
+   ],
+   "why": "two patrol cars slide in between Phoenix and the plane; the suitcase falls"
+  },
+  {
+   "from": 23.4,
+   "to": 25.1,
+   "see": [
+    "phx.face",
+    "cap-sam",
+    "cap-god"
+   ],
+   "why": "Phoenix, turned back to us, hands up; police lights all round, two officers walking up behind him"
+  },
+  {
+   "from": 25.1,
+   "to": 29.7,
+   "see": [
+    "rea.face",
+    "bagR"
+   ],
+   "why": "the payoff: the house is silent, the window dark; Reaper comes up from behind the crates with the bag and breathes out"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 9.5,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "phx",
+   "from": 0,
+   "to": 0.3,
+   "reason": "the high-five: their two gloves meet"
+  },
+  {
+   "who": "rea",
+   "with": "bagR",
+   "from": 0,
+   "to": 29.8,
+   "reason": "Reaper hugs his money bag against his belly from frame 0 to the end (the frozen pose)"
+  },
+  {
+   "who": "vik",
+   "with": "shield",
+   "from": 12.44,
+   "to": 13.566,
+   "reason": "Viking, netted, lies on the splinters of his crate: a glove rests in them"
+  },
+  {
+   "who": "phx",
+   "with": "case",
+   "from": 20.2,
+   "to": 22.35,
+   "reason": "Phoenix pulls his suitcase along by its handle, then lets go of it"
+  },
+  {
+   "who": "god",
+   "with": "cap-god",
+   "from": 0,
+   "to": 29.8,
+   "reason": "the officer's cap sits in his hair (worn)"
+  },
+  {
+   "who": "dra",
+   "with": "cap-dra",
+   "from": 0,
+   "to": 29.8,
+   "reason": "the officer's cap (worn)"
+  },
+  {
+   "who": "sam",
+   "with": "cap-sam",
+   "from": 0,
+   "to": 29.8,
+   "reason": "the officer's cap (worn)"
+  }
+ ],
+ "notes": [
+  "Generated by storyboards/series/fight-flight-freeze/01-bank-robbery/make-bank-robbery.mjs. Title added in TikTok's text tool.",
+  "Hook trial 1 re-cut: first line \"Only one of you escapes.\" + text \"ONLY ONE *ESCAPES*\"; everything after 3 s as posted (fight-flight-freeze/01-bank-robbery/fff-01-bank-robbery.json)."
+ ]
+}
