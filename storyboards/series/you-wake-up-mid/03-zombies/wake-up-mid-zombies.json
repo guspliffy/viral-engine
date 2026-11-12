@@ -1,0 +1,5993 @@
+{
+ "id": "wake-up-mid-zombies",
+ "title": "You wake up mid zombie apocalypse",
+ "idea": "You wake up mid EP03: you wake on a zombie street with six bullets and your best friend dragged away; every shot brings more; a door, the stairs, the roof, the last bullet; you jump from standing and fall short into the alley of zombies, eyes close, and wake up mid a psycho experiment",
+ "format": "series: You wake up mid (first-person frame 0, stake-and-count line at 0.0, short narrator commands, bullet counter, one mistake = the bad end, ends in the next scenario)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  240,
+  1440
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#a9afb3",
+  "floor": "none",
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/disaster/disaster-04.ogg",
+  "from": 0,
+  "skip": 1.698,
+  "until": 36.1,
+  "lowCut": 150,
+  "gain": 0.55,
+  "duck": {
+   "db": -8,
+   "voice": -10
+  }
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false
+ },
+ "creative": {
+  "length": [
+   43.9,
+   43.9
+  ]
+ },
+ "hook": {
+  "show": [
+   "chip",
+   "grabber",
+   "gunR"
+  ],
+  "hint": 0,
+  "what": "frame 0, first person on the asphalt: a zombie drags your best friend away by the hood, the revolver by your hand; 'Six bullets to get your best friend out.'"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.4,
+    2.6
+   ],
+   "face": 180,
+   "expr": "terrified",
+   "follow": 0.25,
+   "seed": 2.9
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.4,
+    0.75
+   ],
+   "face": 180,
+   "expr": "terrified",
+   "follow": 0.25,
+   "seed": 3.4
+  }
+ ],
+ "props": [
+  {
+   "id": "street",
+   "kind": "zstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "car": [
+    0.5,
+    -13.5
+   ],
+   "parked": [
+    0,
+    2,
+    5
+   ],
+   "clear": [
+    [
+     -2.6,
+     -4,
+     1.6,
+     8
+    ]
+   ],
+   "alarm": 0,
+   "dent": 0,
+   "dawn": 0,
+   "fog": 1
+  },
+  {
+   "id": "hordeA",
+   "kind": "zhorde",
+   "x": -0.5,
+   "y": -15,
+   "z": -9,
+   "n": 60,
+   "box": [
+    4,
+    9
+   ],
+   "seed": 3,
+   "gx": 0.1,
+   "gz": 11,
+   "adv": 0,
+   "up": 0,
+   "reach": 1
+  },
+  {
+   "id": "hordeB",
+   "kind": "zhorde",
+   "x": 200,
+   "y": -15,
+   "z": 16,
+   "n": 40,
+   "box": [
+    4,
+    5
+   ],
+   "seed": 8,
+   "gx": 0,
+   "gz": -6,
+   "adv": 0,
+   "up": 0,
+   "reach": 1
+  },
+  {
+   "id": "grabber",
+   "kind": "zshot",
+   "x": -0.4,
+   "y": -15,
+   "z": -0.05,
+   "rot": 0,
+   "n": 1,
+   "gap": 1.1,
+   "seed": 4,
+   "stop": [
+    0.2
+   ],
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie standing on the street"
+  },
+  {
+   "id": "gunR",
+   "kind": "zrevolver",
+   "x": -0.05,
+   "y": -14.98,
+   "z": 2.85,
+   "rot": 160,
+   "tip": 90,
+   "flash": 0,
+   "smoke": 0,
+   "staged": "lying on the asphalt, then in Spud's hand"
+  },
+  {
+   "id": "sdoor",
+   "kind": "zstreetdoor",
+   "x": -4.88,
+   "y": -15,
+   "z": 9,
+   "rot": 90,
+   "open": 0,
+   "shake": 0,
+   "staged": "our building's street entrance, a porch against the facade"
+  },
+  {
+   "id": "inside",
+   "kind": "zshot",
+   "x": 200,
+   "y": -15,
+   "z": 40,
+   "rot": 90,
+   "n": 1,
+   "gap": 1.1,
+   "seed": 11,
+   "stop": [
+    0.45
+   ],
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie standing in the porch"
+  },
+  {
+   "id": "hall",
+   "kind": "zroom",
+   "x": 0,
+   "y": 0,
+   "z": -400,
+   "w": 3.2,
+   "d": 3.4,
+   "dress": "hall",
+   "open": [
+    {
+     "wall": "back",
+     "at": -0.2,
+     "w": 1,
+     "h": 2.1,
+     "y0": 0
+    }
+   ],
+   "dim": 0.55,
+   "glowx": 0,
+   "glowz": -1,
+   "staged": "the hallway set, built away from the street"
+  },
+  {
+   "id": "hdoor",
+   "kind": "zdoor",
+   "x": -0.2,
+   "y": 0,
+   "z": -401.7,
+   "rot": 0,
+   "ajar": 0,
+   "hands": 4,
+   "hole": 0,
+   "arm": 0,
+   "bulge": 0,
+   "shadows": 1,
+   "burst": 0,
+   "staged": "the hall's front door in its wall opening"
+  },
+  {
+   "id": "cab",
+   "kind": "wardrobe",
+   "x": 1,
+   "y": 0,
+   "z": -401,
+   "rot": -90,
+   "scale": 0.7,
+   "apart": 0
+  },
+  {
+   "id": "stairs",
+   "kind": "zstairs",
+   "x": -400,
+   "y": 0,
+   "z": 0,
+   "crack": 0,
+   "lamp": 1,
+   "flicker": 1,
+   "flash": 0,
+   "staged": "the stairwell set, built away from the street"
+  },
+  {
+   "id": "sdoor2",
+   "kind": "zdoor",
+   "x": -399.5,
+   "y": 0,
+   "z": 3.4,
+   "rot": 180,
+   "ajar": 0,
+   "hands": 3,
+   "hole": 0,
+   "arm": 0,
+   "bulge": 0,
+   "shadows": 1,
+   "burst": 0,
+   "staged": "the stairwell's street door in its wall opening"
+  },
+  {
+   "id": "land1",
+   "kind": "zshot",
+   "x": -399.3,
+   "y": 1.5,
+   "z": -2.6,
+   "rot": 0,
+   "n": 1,
+   "seed": 21,
+   "stop": [
+    0.15
+   ],
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie standing on the half landing"
+  },
+  {
+   "id": "land2",
+   "kind": "zshot",
+   "x": -400.65,
+   "y": 1.5,
+   "z": -3.2,
+   "rot": 35,
+   "n": 1,
+   "seed": 23,
+   "stop": [
+    0.9
+   ],
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie standing on the half landing"
+  },
+  {
+   "id": "low",
+   "kind": "zshot",
+   "x": 212,
+   "y": 0,
+   "z": 40,
+   "rot": 180,
+   "n": 1,
+   "seed": 25,
+   "stop": [
+    0.35
+   ],
+   "adv": 0,
+   "d1": 0
+  },
+  {
+   "id": "roof",
+   "kind": "zroof",
+   "x": 600,
+   "y": 0,
+   "z": 0,
+   "open": 0,
+   "shake": 0,
+   "behind": 0,
+   "fire": 1,
+   "smoke": 1,
+   "dusk": 1,
+   "staged": "the roofs set, built away from the street"
+  },
+  {
+   "id": "alley",
+   "kind": "zhorde",
+   "x": 600,
+   "y": -12,
+   "z": -2,
+   "n": 90,
+   "box": [
+    1.9,
+    17.6
+   ],
+   "seed": 5,
+   "gx": 0,
+   "gz": 2,
+   "adv": 0,
+   "up": 0,
+   "reach": 0,
+   "staged": "zombies standing in the alley 12 m down"
+  },
+  {
+   "id": "front",
+   "kind": "zhorde",
+   "x": 600,
+   "y": -12,
+   "z": 11.5,
+   "n": 400,
+   "box": [
+    44,
+    7
+   ],
+   "seed": 9,
+   "avoid": [
+    [
+     9,
+     0,
+     4.4,
+     2
+    ]
+   ],
+   "gx": 0,
+   "gz": -4,
+   "adv": 0,
+   "up": 0,
+   "reach": 0,
+   "staged": "zombies standing in the front street 12 m down"
+  },
+  {
+   "id": "kz1",
+   "kind": "zshot",
+   "x": 216,
+   "y": 0,
+   "z": 40,
+   "rot": 90,
+   "n": 1,
+   "seed": 31,
+   "stop": [
+    0.4
+   ],
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie in the roof door"
+  },
+  {
+   "id": "kz2",
+   "kind": "zshot",
+   "x": 220,
+   "y": 0,
+   "z": 40,
+   "rot": 90,
+   "n": 1,
+   "seed": 33,
+   "adv": 0,
+   "d1": 0,
+   "staged": "a zombie in the roof door"
+  },
+  {
+   "id": "wait",
+   "kind": "zwait",
+   "x": 0,
+   "y": 0,
+   "z": 400,
+   "smoke": 0,
+   "watch": 0,
+   "staged": "the waiting room set, built away from the street"
+  }
+ ],
+ "captions": [
+  {
+   "from": 2.766,
+   "to": 5.55,
+   "text": "6",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 5.55,
+   "to": 13.9,
+   "text": "5",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 13.9,
+   "to": 19.35,
+   "text": "4",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 19.35,
+   "to": 20.45,
+   "text": "3",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 20.45,
+   "to": 22.5,
+   "text": "2",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 22.5,
+   "to": 30.3,
+   "text": "1",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 30.3,
+   "to": 33.4,
+   "text": "0",
+   "pos": 250,
+   "pop": false,
+   "x": 820,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 0.05,
+   "to": 0.769,
+   "text": "Six bullets",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0.769,
+   "to": 2.85,
+   "text": "to get your best friend out.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 2.726,
+   "text": "6 BULLETS · BEST FRIEND",
+   "pos": 300,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.85,
+   "to": 3.58,
+   "text": "You wake up",
+   "pos": 330,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.58,
+   "to": 5.29,
+   "text": "mid zombie apocalypse.",
+   "pos": 330,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 6.588,
+   "text": "Only shoot",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.588,
+   "to": 7.78,
+   "text": "what's in reach.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.1,
+   "to": 9.949,
+   "text": "Every shot is loud.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.949,
+   "to": 11.95,
+   "text": "Noise brings more.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 15.75,
+   "to": 16.765,
+   "text": "Close it.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.765,
+   "to": 18.03,
+   "text": "Block it.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 18.75,
+   "to": 19.225,
+   "text": "Go up.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 19.225,
+   "to": 20.731,
+   "text": "On stairs they come",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 20.731,
+   "to": 22.09,
+   "text": "one at a time.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 24.4,
+   "to": 25.73,
+   "text": "No way down.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 27.1,
+   "to": 28.293,
+   "text": "One bullet.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 28.293,
+   "to": 30.17,
+   "text": "What do you do?",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 33.55,
+   "to": 35.155,
+   "text": "You stopped to shoot.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 35.155,
+   "to": 36.17,
+   "text": "No run-up.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 39.55,
+   "to": 40.287,
+   "text": "You wake up",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 40.287,
+   "to": 42.01,
+   "text": "mid psycho experiment.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P01 POV: the friend dragged by the hood",
+   "at": 0,
+   "len": 2.766,
+   "shot": {
+    "pos": [
+     -0.4,
+     -14.25,
+     2.3
+    ],
+    "look": [
+     -0.4,
+     -14.4,
+     -2
+    ],
+    "fov": 66,
+    "to": {
+     "fov": 66,
+     "look": [
+      -0.4,
+      -14.3,
+      -2.4
+     ]
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "pov",
+     "on": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.4,
+      2.6
+     ],
+     "y": -15,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.4,
+      0.75
+     ],
+     "y": -15,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -58,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.4,
+      2.6
+     ],
+     "y": -15.18,
+     "dur": 0,
+     "steps": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.05,
+       -0.2
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.05,
+       -0.2
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.45
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -12,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.45,
+       0.5
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hordeA",
+     "set": {
+      "adv": 1
+     },
+     "dur": 7.9,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-groan",
+     "gain": 1,
+     "loud": true,
+     "reason": "frame 0: the one that has him, right over us",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.4,
+      0.45
+     ],
+     "y": -15,
+     "dur": 2.6,
+     "steps": 3,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "grabber",
+     "set": {
+      "z": -0.35
+     },
+     "dur": 2.6,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "Six bullets to get your best friend out.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 0.7,
+     "dur": 4,
+     "reason": "more of them up the street",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "at": 2.746
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0.9,
+     "dur": 0.01,
+     "at": 2.746
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.756
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P02 his eyes open, the gun",
+   "at": 2.766,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -0.4,
+     -13.95,
+     1.25
+    ],
+    "look": [
+     -0.4,
+     -14.45,
+     2.55
+    ],
+    "fov": 40,
+    "to": {
+     "fov": 40,
+     "look": [
+      -0.4,
+      -14.45,
+      2.55
+     ],
+     "pos": [
+      -0.4,
+      -13.9,
+      1.45
+     ]
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "pov",
+     "on": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You wake up mid zombie apocalypse.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.084
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.42,
+       0.05,
+       0.15
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.634
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 0.919
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "open": 0.2,
+      "browL": 0.5,
+      "browR": 0.5
+     },
+     "dur": 0.15,
+     "at": 1.134
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.48
+    }
+   ]
+  },
+  {
+   "name": "P03 the shot from the ground",
+   "at": 5.266,
+   "len": 2.634,
+   "shot": {
+    "pos": [
+     1.6,
+     -14.2,
+     4.6
+    ],
+    "look": [
+     -0.3,
+     -14.35,
+     2
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.284
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 0.284
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.284
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 0.284
+    },
+    {
+     "do": "prop",
+     "id": "grabber",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 0.324
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.354
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.364
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 10,
+     "dur": 0.2,
+     "at": 0.384
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.45,
+      1.7
+     ],
+     "y": -15,
+     "dur": 0.6,
+     "steps": 2,
+     "ease": "out",
+     "at": 0.484
+    },
+    {
+     "macro": "narrate",
+     "line": "Only shoot what's in reach.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.734
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 1.084
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.134
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.334
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "out",
+     "at": 1.484
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.4,
+      2.45
+     ],
+     "y": -15,
+     "dur": 0.5,
+     "ease": "out",
+     "at": 1.484
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1,
+      2
+     ],
+     "y": -15,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.15,
+      1.4
+     ],
+     "y": -15,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 2.614
+    },
+    {
+     "do": "prop",
+     "id": "hordeB",
+     "set": {
+      "x": -0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.614
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 2.629
+    }
+   ]
+  },
+  {
+   "name": "P04 the run",
+   "at": 7.9,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -0.5,
+     -13.85,
+     6.8
+    ],
+    "look": [
+     -0.5,
+     -14.2,
+     -2
+    ],
+    "fov": 60,
+    "to": {
+     "fov": 60,
+     "look": [
+      -0.5,
+      -14.2,
+      -2
+     ],
+     "pos": [
+      -0.8,
+      -13.85,
+      9.5
+     ]
+    },
+    "dur": 3,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.3,
+      6.4
+     ],
+     "y": -15,
+     "dur": 3,
+     "steps": 7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.15,
+      5.9
+     ],
+     "y": -15,
+     "dur": 3,
+     "steps": 8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.35,
+       0.35
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hordeA",
+     "set": {
+      "adv": 3
+     },
+     "dur": 4.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 1,
+     "dur": 4.5,
+     "reason": "groans from every side of the street, closer",
+     "at": 0
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.5,
+     "reason": "running feet on the asphalt",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Every shot is loud. Noise brings more.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.45
+    }
+   ]
+  },
+  {
+   "name": "P04 b the seed: two roofs",
+   "at": 10.9,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     600,
+     -10.6,
+     13.5
+    ],
+    "look": [
+     600,
+     0.5,
+     4
+    ],
+    "fov": 50,
+    "to": {
+     "fov": 44,
+     "look": [
+      600,
+      0.5,
+      4
+     ]
+    },
+    "dur": 1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -3.4,
+      8.3
+     ],
+     "y": -14.85,
+     "dur": 0.7,
+     "steps": 3,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -3,
+      9.3
+     ],
+     "y": -14.85,
+     "dur": 0.7,
+     "steps": 3,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -4.15,
+      8.45
+     ],
+     "y": -14.85,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -3.35,
+      9.85
+     ],
+     "y": -14.85,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -100,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "inside",
+     "set": {
+      "x": -4.55,
+      "y": -14.85,
+      "z": 9,
+      "rot": 90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "sdoor",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.68
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 1.695
+    }
+   ]
+  },
+  {
+   "name": "P05 the door",
+   "at": 12.6,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -1.2,
+     -13.8,
+     7.1
+    ],
+    "look": [
+     -4.3,
+     -14.15,
+     9.4
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sdoor",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "door-open",
+     "gain": 0.7,
+     "reason": "the heavy street door yanked open",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "inside",
+     "set": {
+      "adv": 0.45
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/zombie-groan",
+     "gain": 1,
+     "loud": true,
+     "reason": "the one inside lunges",
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.6,
+       0.7
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "inside",
+     "set": {
+      "adv": 0.25
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "inside",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 1.34
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.37
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.15,
+      -401.35
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.5,
+      -400.95
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "gunR",
+     "to": [
+      200,
+      0,
+      60
+     ],
+     "dur": 0,
+     "at": 2.78
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "x": 0.15,
+      "y": 0.7,
+      "z": -401.1,
+      "rot": 0,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.3,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.35,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.01,
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.45,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 2.795
+    }
+   ]
+  },
+  {
+   "name": "P06 the hall",
+   "at": 15.4,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     0.55,
+     1.45,
+     -397.4
+    ],
+    "look": [
+     0.3,
+     0.95,
+     -401.6
+    ],
+    "fov": 60,
+    "to": {
+     "fov": 60,
+     "look": [
+      0.3,
+      0.95,
+      -401.6
+     ],
+     "pos": [
+      0.3,
+      1.4,
+      -397.8
+     ]
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "door-slam",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "the door slammed shut behind them",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 0.6,
+     "dur": 3,
+     "reason": "the horde outside the door, muffled",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.25,
+      -401
+     ],
+     "dur": 2.2,
+     "steps": 6,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "cab",
+     "set": {
+      "x": 0.65,
+      "z": -401.35
+     },
+     "dur": 2.2,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.7,
+     "dur": 2.2,
+     "reason": "the heavy cabinet dragged over the floor",
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "Close it. Block it.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0.6
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "sfx": "knock",
+     "gain": 1,
+     "reason": "fists on the door",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0.6
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "sfx": "knock",
+     "gain": 1,
+     "reason": "fists on the door",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0.6
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "sfx": "knock",
+     "gain": 1,
+     "reason": "fists on the door",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.18
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0.6
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 2.7
+    },
+    {
+     "sfx": "knock",
+     "gain": 1,
+     "reason": "fists on the door",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 2.7
+    },
+    {
+     "do": "prop",
+     "id": "hdoor",
+     "set": {
+      "bulge": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -399.25,
+      -0.84
+     ],
+     "y": 0.5,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -399.55,
+      0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "gunR",
+     "to": [
+      200,
+      0,
+      60
+     ],
+     "dur": 0,
+     "at": 3.18
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "x": -399.25,
+      "y": 1.2,
+      "z": -1.3399999999999999,
+      "rot": 180,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.72,
+       0.6
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.19
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 3.195
+    }
+   ]
+  },
+  {
+   "name": "P07 the stairwell",
+   "at": 18.6,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -399.3,
+     0.35,
+     2.6
+    ],
+    "look": [
+     -399.3,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -399.55,
+      -0.28
+     ],
+     "y": 0.17,
+     "dur": 0.6,
+     "steps": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-groan",
+     "gain": 0.9,
+     "reason": "a zombie on the landing above",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "land1",
+     "set": {
+      "adv": 0.15
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Go up. On stairs they come one at a time.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "land1",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 0.79
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.82
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.82
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "land2",
+     "set": {
+      "adv": 0.9
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 1.55
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 1.85
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 1.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 1.85
+    },
+    {
+     "do": "prop",
+     "id": "land2",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 1.89
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.92
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 1.92
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.93
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "crack": 0.6
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "sdoor2",
+     "set": {
+      "ajar": 0.3
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.8,
+     "reason": "the street door below gives way",
+     "at": 2.3
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 0.9,
+     "reason": "they pour into the hall below",
+     "at": 2.6
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 2.65
+    },
+    {
+     "do": "prop",
+     "id": "low",
+     "set": {
+      "x": -399.5,
+      "y": 0,
+      "z": 2.9,
+      "adv": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -399.15,
+      -1.4
+     ],
+     "y": 0.83,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 3.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -399.7,
+      -1.96
+     ],
+     "y": 1.17,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.39
+    }
+   ]
+  },
+  {
+   "name": "P07 b the door below",
+   "at": 22,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -399.8,
+     3.6,
+     -3.4
+    ],
+    "look": [
+     -399.4,
+     0.2,
+     1.2
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "crack": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sdoor2",
+     "set": {
+      "ajar": 0.7
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "low",
+     "set": {
+      "adv": 0.35
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "low",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 0.54
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.57
+    },
+    {
+     "do": "prop",
+     "id": "stairs",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.57
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.58
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      594.6,
+      -0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      594.4,
+      0.65
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "gunR",
+     "to": [
+      200,
+      0,
+      60
+     ],
+     "dur": 0,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "x": 595,
+      "y": 0.65,
+      "z": -0.25,
+      "rot": 90,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.4,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      593.4,
+      -0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      593.1,
+      0.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 1.395
+    }
+   ]
+  },
+  {
+   "name": "P08 the roof door",
+   "at": 23.4,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     598.2,
+     1,
+     2.8
+    ],
+    "look": [
+     594,
+     1.2,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "door-slam",
+     "gain": 1,
+     "loud": true,
+     "reason": "the steel roof door bursts open against the wall",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 0.8,
+     "dur": 6,
+     "reason": "the whole city: groans from every street below",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      595.6,
+      -0.25
+     ],
+     "y": 0,
+     "dur": 0.9,
+     "steps": 3,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "open": 0.9
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.13
+    },
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      595.1,
+      0.55
+     ],
+     "y": 0,
+     "dur": 0.9,
+     "steps": 3,
+     "ease": "out",
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "P08 b the gap",
+   "at": 24.1,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     593.8,
+     2.4,
+     1.9
+    ],
+    "look": [
+     600.5,
+     -0.3,
+     -1.3
+    ],
+    "fov": 56,
+    "to": {
+     "fov": 56,
+     "look": [
+      600.5,
+      -0.3,
+      -1.3
+     ],
+     "pos": [
+      594.4,
+      2.6,
+      2.1
+     ]
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      596.8,
+      -0.2
+     ],
+     "y": 0,
+     "dur": 1.2,
+     "steps": 3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      596.3,
+      0.6
+     ],
+     "y": 0,
+     "dur": 1.2,
+     "steps": 3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "No way down.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "P08 c every street",
+   "at": 25.6,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     598.5,
+     6,
+     5.5
+    ],
+    "look": [
+     603.5,
+     -12,
+     12
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      597,
+      -0.1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      597.45,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 95,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "x": 596.65,
+      "y": 0.62,
+      "z": -0.15,
+      "rot": -95,
+      "tip": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.5,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "kz1",
+     "set": {
+      "x": 593.4,
+      "y": 0,
+      "z": 0,
+      "adv": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "behind": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "gunR",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 1.295
+    }
+   ]
+  },
+  {
+   "name": "P09 one bullet",
+   "at": 26.9,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     602.6,
+     1.7,
+     0.7
+    ],
+    "look": [
+     594,
+     1,
+     -0.2
+    ],
+    "fov": 50,
+    "to": {
+     "fov": 50,
+     "look": [
+      594,
+      1,
+      -0.2
+     ],
+     "pos": [
+      602.2,
+      1.6,
+      0.6
+     ]
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "behind": 0.6
+     },
+     "dur": 3,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-groan",
+     "gain": 1,
+     "reason": "one steps out of the roof door",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kz1",
+     "set": {
+      "adv": 0.4
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "One bullet. What do you do?",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "fx": "vote",
+     "dur": 2,
+     "question": "",
+     "options": [
+      {
+       "key": "1",
+       "text": "SHOOT"
+      },
+      {
+       "key": "2",
+       "text": "JUMP"
+      }
+     ],
+     "y": 300,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.39
+    }
+   ]
+  },
+  {
+   "name": "P10 the last shot",
+   "at": 30.3,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     602.6,
+     1.7,
+     0.7
+    ],
+    "look": [
+     594,
+     1,
+     -0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 1
+     },
+     "dur": 0.02,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/revolver-shot",
+     "gain": 1,
+     "loud": true,
+     "reason": "the revolver fires",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.74,
+       0.52
+      ]
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "fx": "shake",
+     "dur": 0.12,
+     "amp": 0.02,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "kz1",
+     "set": {
+      "d1": 1
+     },
+     "dur": 0.85,
+     "ease": "in",
+     "at": 0.19
+    },
+    {
+     "do": "prop",
+     "id": "gunR",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.6
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "roof",
+     "set": {
+      "behind": 1
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "kz2",
+     "set": {
+      "x": 593.1,
+      "y": 0,
+      "z": 0.1,
+      "adv": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "kz2",
+     "set": {
+      "adv": 1
+     },
+     "dur": 1.3,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 1,
+     "loud": true,
+     "reason": "more push out of the door, close",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.45,
+     "reason": "the zombie falls",
+     "at": 0.95
+    },
+    {
+     "sfx": "kenney/metal-click",
+     "gain": 0.6,
+     "reason": "the empty revolver's hammer falls: click",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      598.8,
+      -0.45
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      598.8,
+      0.5
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "gunR",
+     "to": [
+      200,
+      0,
+      60
+     ],
+     "dur": 0,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.2,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.2,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.2,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.2,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "kz2",
+     "set": {
+      "x": 597.6,
+      "adv": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "P11 the jump",
+   "at": 32.2,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     603,
+     1.3,
+     3.6
+    ],
+    "look": [
+     599.1,
+     0.2,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.18,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kz2",
+     "set": {
+      "adv": 0.5
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "alley",
+     "set": {
+      "up": 1
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.9,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.4,
+      -0.45
+     ],
+     "y": 0.75,
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      599.4,
+      0.5
+     ],
+     "y": 0.75,
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "step-concrete",
+     "gain": 0.6,
+     "reason": "the push-off from the low lip",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      600.15,
+      -0.45
+     ],
+     "y": -0.2,
+     "dur": 0.6,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.15,
+      0.5
+     ],
+     "y": -0.2,
+     "dur": 0.6,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.95,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.95,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.95,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.95,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      600.15,
+      -0.45
+     ],
+     "y": -0.2,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 1.18
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.15,
+      0.5
+     ],
+     "y": -0.25,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.19
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.19
+    }
+   ]
+  },
+  {
+   "name": "P12 a out of reach",
+   "at": 33.4,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     603.2,
+     1,
+     1.4
+    ],
+    "look": [
+     600.3,
+     0.4,
+     -0.2
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      600.05,
+      -0.45
+     ],
+     "y": -1.6,
+     "dur": 2.7,
+     "steps": 0,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.05,
+      0.5
+     ],
+     "y": -1.65,
+     "dur": 2.7,
+     "steps": 0,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "alley",
+     "set": {
+      "reach": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "fx": "ramp",
+     "len": 2.7,
+     "rate": 0.5,
+     "in": 0.15,
+     "out": 0.2,
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 1,
+     "loud": true,
+     "dur": 5,
+     "reason": "the alley below, every one of them groaning up at them",
+     "at": 0
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.7,
+     "reason": "his heartbeat in the slow fall",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You stopped to shoot. No run-up.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.7,
+      -0.3
+     ],
+     "y": -3.6,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 2.68
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.4,
+      0.3
+     ],
+     "y": -3.7,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -70,
+     "dur": 0.01,
+     "at": 2.68
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -70,
+     "dur": 0.01,
+     "at": 2.68
+    }
+   ]
+  },
+  {
+   "name": "P13 eyes close, the fall",
+   "at": 36.1,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     600,
+     -0.9,
+     0.35
+    ],
+    "look": [
+     600,
+     -4.4,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "fov": 36,
+     "look": [
+      600,
+      -12,
+      0
+     ],
+     "pos": [
+      600,
+      3,
+      0.2
+     ]
+    },
+    "dur": 3.2,
+    "ease": "in"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.7,
+      -0.3
+     ],
+     "y": -5,
+     "dur": 0.7,
+     "steps": 0,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.4,
+      0.3
+     ],
+     "y": -5.1,
+     "dur": 0.7,
+     "steps": 0,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "fx": "ramp",
+     "len": 3.2,
+     "rate": 0.6,
+     "in": 0.1,
+     "out": 0.1,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "lidL": 1,
+      "lidR": 1
+     },
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.7,
+      -0.3
+     ],
+     "y": -5,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 0.68
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.4,
+      0.3
+     ],
+     "y": -5.1,
+     "dur": 0.01,
+     "steps": 0,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      599.7,
+      -0.3
+     ],
+     "y": -9.5,
+     "dur": 2.3,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      600.4,
+      0.3
+     ],
+     "y": -9.6,
+     "dur": 2.3,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "alley",
+     "set": {
+      "reach": 1,
+      "up": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200,
+      80
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      202,
+      80
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.18
+    }
+   ]
+  },
+  {
+   "name": "P14 the smoke room",
+   "at": 39.3,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     401.5
+    ],
+    "look": [
+     0,
+     1.35,
+     397.8
+    ],
+    "fov": 68
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "pov",
+     "on": true,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wait",
+     "set": {
+      "smoke": 0.1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "hiss",
+     "gain": 0.35,
+     "dur": 4.5,
+     "reason": "smoke hissing out of the wall vent",
+     "at": 0
+    },
+    {
+     "sfx": "scribble",
+     "gain": 0.3,
+     "dur": 3.5,
+     "reason": "pencils on clipboards, calm",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You wake up mid psycho experiment.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "wait",
+     "set": {
+      "smoke": 1
+     },
+     "dur": 3,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "wait",
+     "set": {
+      "watch": 1
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 3.1
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.766,
+   "see": [
+    "chip.face",
+    "grabber",
+    "gunR"
+   ],
+   "why": "P01 frame 0, first person on the asphalt: a zombie has your best friend by the hood and drags him away; the revolver by your hand"
+  },
+  {
+   "from": 2.766,
+   "to": 5.266,
+   "see": [
+    "spud.face",
+    "gunR"
+   ],
+   "why": "P02: his eyes snap open, his hand closes on the revolver"
+  },
+  {
+   "from": 5.266,
+   "to": 7.9,
+   "see": [
+    "spud.face",
+    "grabber",
+    "chip.face"
+   ],
+   "why": "P03: he fires up from the ground; the zombie lets go and drops; the friend scrambles to him"
+  },
+  {
+   "from": 7.9,
+   "to": 10.9,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "hordeA"
+   ],
+   "why": "P04: they run at us, the friend stumbling; behind them the street fills"
+  },
+  {
+   "from": 10.9,
+   "to": 11.9,
+   "see": [
+    "roof"
+   ],
+   "why": "P04 b: high above, the roofs of two buildings almost touch across a narrow gap"
+  },
+  {
+   "from": 12.6,
+   "to": 15.4,
+   "see": [
+    "sdoor",
+    "inside",
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "P05: the door: one inside lunges and grabs the friend's sleeve; shoved off, shot"
+  },
+  {
+   "from": 15.4,
+   "to": 18.6,
+   "see": [
+    "hdoor",
+    "spud.face",
+    "chip",
+    "cab"
+   ],
+   "why": "P06: inside, his back against the door; the friend drags the cabinet over; fists on the door"
+  },
+  {
+   "from": 18.6,
+   "to": 22,
+   "see": [
+    "spud.face",
+    "land1",
+    "land2"
+   ],
+   "why": "P07: up the stairwell; two on the landing, one at a time, each drops"
+  },
+  {
+   "from": 22,
+   "to": 23.4,
+   "see": [
+    "low",
+    "sdoor2"
+   ],
+   "why": "P07 b: below, the street door gives way; the first one through drops"
+  },
+  {
+   "from": 23.4,
+   "to": 24.1,
+   "see": [
+    "roof",
+    "spud.face"
+   ],
+   "why": "P08: the roof door bursts open; dusk, the city burning"
+  },
+  {
+   "from": 24.1,
+   "to": 25.6,
+   "see": [
+    "spud",
+    "chip",
+    "roof"
+   ],
+   "why": "P08 b: the gap to the next roof; no ladder, no way down"
+  },
+  {
+   "from": 25.6,
+   "to": 26.9,
+   "see": [
+    "front",
+    "alley"
+   ],
+   "why": "P08 c: zombies in every street below"
+  },
+  {
+   "from": 26.9,
+   "to": 30.3,
+   "see": [
+    "spud.face",
+    "kz1",
+    "roof"
+   ],
+   "why": "P09: between the roof door, where one steps out, and the gap: one bullet"
+  },
+  {
+   "from": 30.3,
+   "to": 32.2,
+   "see": [
+    "spud.face",
+    "kz1",
+    "kz2",
+    "roof"
+   ],
+   "why": "P10: the last shot; it drops; three more push out of the door, too close"
+  },
+  {
+   "from": 32.2,
+   "to": 33.4,
+   "see": [
+    "spud",
+    "chip",
+    "kz2"
+   ],
+   "why": "P11: hand in hand, no run-up: they jump from standing; hands grab the air behind them"
+  },
+  {
+   "from": 33.4,
+   "to": 34.9,
+   "see": [
+    "spud",
+    "chip",
+    "roof"
+   ],
+   "why": "P12 a: mid-air, the far roof's edge just out of reach"
+  },
+  {
+   "from": 34.9,
+   "to": 36.1,
+   "see": [
+    "spud",
+    "chip",
+    "roof"
+   ],
+   "why": "P12: still reaching, the hands below"
+  },
+  {
+   "from": 36.1,
+   "to": 36.8,
+   "see": [
+    "spud.face"
+   ],
+   "why": "P13: falling, his eyes squeeze shut"
+  },
+  {
+   "from": 36.8,
+   "to": 39.3,
+   "see": [
+    "spud",
+    "chip",
+    "alley"
+   ],
+   "why": "P13: the camera pulls up, they fall toward a sea of reaching hands; nothing after that"
+  },
+  {
+   "from": 39.3,
+   "to": 43.9,
+   "see": [
+    "wait"
+   ],
+   "why": "P14: first person, a new place: a calm waiting room filling with smoke; nobody moves; a man in a lab coat watches"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "street",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "hordeA",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "hordeB",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "grabber",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "sdoor",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "inside",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "hall",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "hdoor",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "cab",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "stairs",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "sdoor2",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "land1",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "land2",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "low",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "roof",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "alley",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "front",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "kz1",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "kz2",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "wait",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "gunR",
+   "from": 0,
+   "to": 43.9,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "rough draft: the revolver held where the hand closes on its grip"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 0,
+   "to": 2.766,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "first person (the camera is his eyes)"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 39.3,
+   "to": 43.9,
+   "checks": [
+    "face-covered",
+    "face-hidden"
+   ],
+   "reason": "first person in the waiting room"
+  },
+  {
+   "who": "chip",
+   "with": "spud",
+   "from": 5.95,
+   "to": 12.6,
+   "checks": [
+    "reach",
+    "character-overlap"
+   ],
+   "reason": "the friend takes his hand, pulls him up and holds his sleeve on the run"
+  },
+  {
+   "who": "spud",
+   "with": "chip",
+   "from": 32.2,
+   "to": 39.3,
+   "checks": [
+    "reach",
+    "character-overlap"
+   ],
+   "reason": "hand in hand, the jump and the fall"
+  }
+ ],
+ "notes": "Generated by storyboards/series/you-wake-up-mid/03-zombies/make-wake-zombies.mjs. Spec: OUTLINE.md, DESIGN.md, NOTES.md."
+}
