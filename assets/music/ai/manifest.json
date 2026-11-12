@@ -697,6 +697,84 @@
     }
    ],
    "note": "warm from the first 0.3 s (first03Db/a03_05Db = level of that window vs the 1-6 s body, dB); not a crescendo; decays naturally from ~4.5 s"
+  },
+  {
+   "id": "orchestra-chase",
+   "kind": "music",
+   "files": [
+    "orchestra-chase/orchestra-chase-01.ogg"
+   ],
+   "tags": [
+    "danger"
+   ],
+   "mood": "danger",
+   "bpm": 148.7,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 150,
+   "loopable": true,
+   "durationSec": 6.455,
+   "prompt": [
+    "relentless thriller chase music, pounding grand piano chords and racing piano runs, blaring trumpets, thunderous timpani rolls, full symphony orchestra, live recording, terrifying and urgent, 150 BPM"
+   ],
+   "seed": [
+    522
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "orchestra-chase/orchestra-chase-01.ogg",
+     "seed": 522,
+     "durationSec": 6.455,
+     "bars": 4,
+     "bpm": 148.7,
+     "beatSpread": 0.056,
+     "steadyBeat": true,
+     "clap": 0.082,
+     "loudnessLUFS": -16.0
+    }
+   ]
+  },
+  {
+   "id": "orchestra-suspense",
+   "kind": "music",
+   "files": [
+    "orchestra-suspense/orchestra-suspense-01.ogg"
+   ],
+   "tags": [
+    "suspense"
+   ],
+   "mood": "suspense",
+   "bpm": 86.6,
+   "bars": 4,
+   "key": null,
+   "askedBpm": 75,
+   "loopable": true,
+   "durationSec": 11.088,
+   "prompt": [
+    "dark suspense film score, slow ominous low piano notes, quiet tremolo strings, soft timpani heartbeat, muted trumpet far away, something terrible is about to happen, real orchestra, no drum kit, 75 BPM"
+   ],
+   "seed": [
+    511
+   ],
+   "model": "stable-audio-3-small-music (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.0,
+   "takes": [
+    {
+     "file": "orchestra-suspense/orchestra-suspense-01.ogg",
+     "seed": 511,
+     "durationSec": 11.088,
+     "bars": 4,
+     "bpm": 86.6,
+     "beatSpread": 0.029,
+     "steadyBeat": true,
+     "clap": -0.004,
+     "loudnessLUFS": -21.2
+    }
+   ]
   }
  ]
 }

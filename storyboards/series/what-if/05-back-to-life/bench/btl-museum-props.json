@@ -1,0 +1,697 @@
+{
+ "id": "btl-museum-props",
+ "title": "Museum props bench",
+ "idea": "Props bench for There's a catch EP05 (museumhall, plinth, exhibitrope, glasscase, livefish, wiltplant), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "rex"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.6,
+    2.3
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 1,
+   "y": 0,
+   "z": -2,
+   "rot": 0,
+   "w": 12,
+   "d": 28,
+   "h": 9
+  },
+  {
+   "id": "plinth",
+   "kind": "plinth",
+   "x": 1,
+   "y": 0,
+   "z": -11,
+   "rot": 0,
+   "w": 3.4,
+   "h": 0.3,
+   "d": 3
+  },
+  {
+   "id": "rex",
+   "kind": "trex",
+   "x": 1,
+   "y": 0.3,
+   "z": -11,
+   "rot": 0,
+   "scale": 1.5
+  },
+  {
+   "id": "rope",
+   "kind": "exhibitrope",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "posts": [
+    [
+     1.6,
+     3
+    ],
+    [
+     1.6,
+     1
+    ],
+    [
+     1.6,
+     -1
+    ],
+    [
+     1.6,
+     -3
+    ],
+    [
+     1.6,
+     -5
+    ],
+    [
+     1.6,
+     -7
+    ]
+   ]
+  },
+  {
+   "id": "case",
+   "kind": "glasscase",
+   "x": -1.2,
+   "y": 0,
+   "z": 0.3,
+   "rot": 0
+  },
+  {
+   "id": "plant",
+   "kind": "wiltplant",
+   "x": 1.25,
+   "y": 0,
+   "z": 2.55,
+   "rot": 0
+  },
+  {
+   "id": "fish",
+   "kind": "livefish",
+   "x": 0,
+   "y": 1.2,
+   "z": 4,
+   "rot": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0.75,
+     1.5,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "fossil": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "wet": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "A bloom 0"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.1,
+     7.6
+    ],
+    "look": [
+     0.75,
+     1.5,
+     0
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.1,
+      -1.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ],
+   "kind": "A bloom 1"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.3,
+     0.3,
+     2.6
+    ],
+    "look": [
+     0.8,
+     2.9,
+     -10.6
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      2.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ],
+   "kind": "B low wide, rattle 0.8"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.9,
+     -3.6
+    ],
+    "look": [
+     1.4,
+     1.4,
+     2.6
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "C the other way"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.15,
+     1.15,
+     7
+    ],
+    "look": [
+     -1.15,
+     1.35,
+     1.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "fossil": 1,
+      "glow": 0,
+      "burst": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D fossil 1"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.15,
+     1.15,
+     7
+    ],
+    "look": [
+     -1.15,
+     1.35,
+     1.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D glow 1"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.15,
+     1.15,
+     7
+    ],
+    "look": [
+     -1.15,
+     1.35,
+     1.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 0,
+      "burst": 0.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D burst 0.4"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.15,
+     1.15,
+     7
+    ],
+    "look": [
+     -1.15,
+     1.35,
+     1.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "burst": 0,
+      "fossil": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "D fossil 0"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     5
+    ],
+    "look": [
+     0,
+     1.2,
+     4
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 0,
+      "wet": 0.45
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "E flop -1, wet 0.45"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     5
+    ],
+    "look": [
+     0,
+     1.2,
+     4
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 0,
+      "wet": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "E flop 0"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     5
+    ],
+    "look": [
+     0,
+     1.2,
+     4
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 1,
+      "gasp": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.6,
+      3.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ],
+   "kind": "E flop 1, gasp 1"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.1,
+     1,
+     4.6
+    ],
+    "look": [
+     1.6,
+     0.6,
+     -1.5
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "F rope rattle 1"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.3,
+     1.15,
+     5.3
+    ],
+    "look": [
+     1.25,
+     1,
+     2.55
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 0.55
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "G plant bloom 0.55"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/05-back-to-life/bench/make-museum-props.mjs (props bench, no reviews)."
+}

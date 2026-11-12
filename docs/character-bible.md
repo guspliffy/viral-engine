@@ -18,6 +18,31 @@ fighters as side characters. `characters/potatobrawl/spud.json`, costume type `s
   elbow), brown boots, one leaf on the sprout, about 85 % of a fighter's height. The sprout shows his mood (`droop`).
 - *Proposal until a pilot video is judged*: the same short sound at 0.0 of every video, and his voice numbers.
 
+## Chip, Wedge and Mash, Spud's everyday friends
+
+Jonny, 12 Nov 2026: everyday potatoes for the "that one friend who…" jokes, where the costumed fighters do not fit.
+His picks; all three wear **Spud's skin, eyes and hands** ("a same skin color makes them more easy identifiable"),
+so a friend is told apart by body shape and size, ONE garment in one colour of its own, the leaf and one everyday
+thing. Files `characters/potatobrawl/{chip,wedge,mash}.json`, costume types `chip`, `wedge`, `mash`
+(`engine/page/costumes-everyday.js`), test clips from `storyboards/characters/make-everyday-test.mjs`. The approved
+reference sheets (12 Nov) are on Jonny's PC; their measurements are the numbers in those files.
+
+| | Chip | Wedge | Mash |
+|---|---|---|---|
+| **Friend type** | Too much energy | "Trust me": sure of himself, usually wrong | Never looks up from his phone |
+| **Shape** | The smallest, a round ball, 0.65 of Spud | The biggest, broad on top and narrow below, 1.1 of Spud | A tall narrow oval, 1.35 of Spud |
+| **Garment** | Sunny yellow hoodie, hood down, two white drawstrings | Red bomber jacket, cream shawl collar, cuffs and hem | Charcoal hoodie, hood down |
+| **Leaf** | Two leaves in a V | One big leaf swept to the side | One leaf drooping to the side |
+| **Everyday thing** | White trainers with a red stripe | Brown sunglasses on TOP of the head | Light-blue headphones round the neck; a phone when a clip hands him one |
+| **Catchphrase** *(proposal)* | "Let's go!" | "Trust me." | "One sec." |
+
+- The default face of all three is neutral and open, as Spud's. A type look (smug lids, eyes on the phone) is an
+  expression a clip sets, never the resting face.
+- Catchphrases are gibberish with the same subtitle every time; voices are proposals until Jonny has heard them.
+- Departures from the sheets, both said to Jonny: Wedge is drawn 1.24 of Spud and built 1.1; Mash is drawn 1.43 and
+  built 1.35. Wedge's body stays at or under 0.88 wide, or his hands jump in a turn.
+- Later, not picked yet: Russ (never has money) and Lottie (has it together).
+
 ## The series: Phoenix and Reaper
 
 Their relationship carries the series. **Phoenix reads Reaper's restraint as disapproval. Reaper finds Phoenix

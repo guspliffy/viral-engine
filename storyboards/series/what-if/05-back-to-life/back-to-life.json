@@ -1,0 +1,6251 @@
+{
+ "id": "back-to-life",
+ "title": "What if you could bring anything back to life? But there's a catch.",
+ "idea": "There's a catch, episode 5: the scared friend's scythe brings anything back to life: a plant, a fossil fish, then every skeleton in the museum; they all come back starving, and the three are potatoes",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  470,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "back-to-life/back-to-life-score.ogg",
+  "gain": 0.8,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "concrete",
+  "room": "room",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "rea",
+   "rex"
+  ],
+  "hint": 0,
+  "what": "a living T. rex smashes out of the museum right behind Spud and Reaper, who run at the camera screaming"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.2,
+    105.2
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -1.1,
+    105.7
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0.25,
+   "seed": 3.3
+  },
+  {
+   "id": "phx",
+   "character": "potatobrawl/phoenix",
+   "at": [
+    1.5,
+    106
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 1,
+   "y": 0,
+   "z": -2,
+   "w": 12,
+   "d": 28,
+   "h": 9
+  },
+  {
+   "id": "hallR",
+   "kind": "stoneblock",
+   "x": 7.15,
+   "y": -60,
+   "z": -4
+  },
+  {
+   "id": "hallE",
+   "kind": "stoneblock",
+   "x": 1,
+   "y": -60,
+   "z": -16.15
+  },
+  {
+   "id": "rope",
+   "kind": "exhibitrope",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "posts": [
+    [
+     1.6,
+     3
+    ],
+    [
+     1.6,
+     1
+    ],
+    [
+     1.6,
+     -1
+    ],
+    [
+     1.6,
+     -3
+    ],
+    [
+     1.6,
+     -5
+    ],
+    [
+     1.6,
+     -7
+    ]
+   ]
+  },
+  {
+   "id": "sabP",
+   "kind": "plinth",
+   "x": 3.4,
+   "y": 0,
+   "z": 0.5,
+   "w": 2.6,
+   "h": 0.3,
+   "d": 1.6
+  },
+  {
+   "id": "mamP",
+   "kind": "plinth",
+   "x": 3.6,
+   "y": 0,
+   "z": -4.2,
+   "w": 3.2,
+   "h": 0.3,
+   "d": 4.4
+  },
+  {
+   "id": "rexP",
+   "kind": "plinth",
+   "x": 1,
+   "y": 0,
+   "z": -11,
+   "w": 3.4,
+   "h": 0.3,
+   "d": 3
+  },
+  {
+   "id": "case",
+   "kind": "glasscase",
+   "x": -1.9,
+   "y": 0,
+   "z": 0.3,
+   "fossil": 1
+  },
+  {
+   "id": "plant",
+   "kind": "wiltplant",
+   "x": -1.1,
+   "y": 0,
+   "z": 1.25,
+   "bloom": 0
+  },
+  {
+   "id": "fish",
+   "kind": "livefish",
+   "x": -1.9,
+   "y": -60,
+   "z": 0.3
+  },
+  {
+   "id": "fishW",
+   "kind": "livefish",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.26,
+   "z": 0.42,
+   "scale": 0.001
+  },
+  {
+   "id": "sabB",
+   "kind": "sabrebones",
+   "x": 3.4,
+   "y": 0.3,
+   "z": 0.5,
+   "rot": -90,
+   "scale": 1.6
+  },
+  {
+   "id": "mamB",
+   "kind": "mammothbones",
+   "x": 3.6,
+   "y": 0.3,
+   "z": -4.2,
+   "rot": -55,
+   "scale": 1.3
+  },
+  {
+   "id": "rexB",
+   "kind": "trexbones",
+   "x": 1,
+   "y": 0.3,
+   "z": -11,
+   "rot": 0,
+   "scale": 1.7,
+   "rods": false
+  },
+  {
+   "id": "ptB1",
+   "kind": "pterobones",
+   "x": 2,
+   "y": 5.5,
+   "z": -1,
+   "rot": -60
+  },
+  {
+   "id": "ptB2",
+   "kind": "pterobones",
+   "x": 2.2,
+   "y": 5.8,
+   "z": -6.5,
+   "rot": -110
+  },
+  {
+   "id": "rex",
+   "kind": "rex",
+   "x": 1.4,
+   "y": 0,
+   "z": 98.5,
+   "rot": 0,
+   "scale": 1.7,
+   "jaw": 0.9,
+   "brow": -1,
+   "lean": 4,
+   "neckP": 6,
+   "headP": 8,
+   "headY": 14
+  },
+  {
+   "id": "mam",
+   "kind": "mammoth",
+   "x": 6.6,
+   "y": 0,
+   "z": 97.5,
+   "rot": 0,
+   "scale": 1.3
+  },
+  {
+   "id": "sab",
+   "kind": "sabretooth",
+   "x": 1.2,
+   "y": 0,
+   "z": 97,
+   "rot": 0,
+   "scale": 1.6
+  },
+  {
+   "id": "pt1",
+   "kind": "pterosaur",
+   "x": 3.4,
+   "y": 6.5,
+   "z": 99,
+   "rot": 0
+  },
+  {
+   "id": "pt2",
+   "kind": "pterosaur",
+   "x": 5.6,
+   "y": 7.6,
+   "z": 98,
+   "rot": 0
+  },
+  {
+   "id": "pt3",
+   "kind": "pterosaur",
+   "x": 2,
+   "y": 8.4,
+   "z": 97,
+   "rot": 0
+  },
+  {
+   "id": "front",
+   "kind": "museumfront",
+   "x": 0,
+   "y": 0,
+   "z": 100,
+   "w": 34,
+   "h": 10,
+   "breachX": 1.4,
+   "breachW": 9,
+   "breachH": 7.5,
+   "breach": 0,
+   "burst": 0
+  },
+  {
+   "id": "square",
+   "kind": "townsquare",
+   "x": 0,
+   "y": 0,
+   "z": 110,
+   "w": 40,
+   "d": 34
+  },
+  {
+   "id": "neck",
+   "kind": "hillneck",
+   "x": 2.5,
+   "y": 0,
+   "z": 82,
+   "rise": 0,
+   "headH": 23,
+   "headZ": 11
+  },
+  {
+   "id": "cracks",
+   "kind": "streetcracks",
+   "x": 0,
+   "y": 0.01,
+   "z": 115.4,
+   "r": 4,
+   "grow": 0
+  },
+  {
+   "id": "spSab",
+   "kind": "lifesparks",
+   "x": 3.4,
+   "y": 0.3,
+   "z": 0.5,
+   "r": 1.3,
+   "h": 2.2,
+   "rise": 0
+  },
+  {
+   "id": "spMam",
+   "kind": "lifesparks",
+   "x": 3.6,
+   "y": 0.3,
+   "z": -4.2,
+   "r": 2.4,
+   "h": 3.6,
+   "rise": 0
+  },
+  {
+   "id": "spRex",
+   "kind": "lifesparks",
+   "x": 1,
+   "y": 0.3,
+   "z": -11,
+   "r": 3,
+   "h": 5.6,
+   "rise": 0
+  },
+  {
+   "id": "lamp",
+   "kind": "streetlamp",
+   "x": -2.5,
+   "y": 0,
+   "z": 108,
+   "h": 7.5,
+   "lit": 0
+  },
+  {
+   "id": "scy",
+   "kind": "parkedscythe",
+   "wear": "rea",
+   "x": -0.5,
+   "y": 0.5,
+   "z": 0.12,
+   "rot": 0
+  },
+  {
+   "id": "scyF",
+   "kind": "parkedscythe",
+   "x": 0,
+   "y": -60,
+   "z": 115.4,
+   "rot": 20
+  }
+ ],
+ "captions": [
+  {
+   "from": 2.3,
+   "to": 2.85,
+   "text": "Ooh, bones!",
+   "pos": 930,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.85,
+   "to": 3.85,
+   "text": "Don't touch it!",
+   "pos": 930,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.2,
+   "to": 5.2,
+   "text": "Do the fish!",
+   "pos": 930,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.75,
+   "to": 6.5,
+   "text": "AAAH!",
+   "pos": 930,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.5,
+   "to": 6.77,
+   "text": "AAAAAH!",
+   "pos": 640,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.65,
+   "to": 12.75,
+   "text": "He's friendly!",
+   "pos": 900,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.85,
+   "to": 14.47,
+   "text": "...We're potatoes.",
+   "pos": 1180,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 19.5,
+   "text": "D-don't look down!",
+   "pos": 1180,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 21.1,
+   "to": 22.5,
+   "text": "Would you still want it?",
+   "pos": 920,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "cold open: the T. rex bursts out behind them",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     0,
+     0.5,
+     112.56
+    ],
+    "look": [
+     0.1,
+     2.3,
+     102.96
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0,
+      0.5,
+      116.46
+     ],
+     "look": [
+      0.1,
+      2.5,
+      106.86
+     ],
+     "fov": 46
+    },
+    "dur": 1.5,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "gait": 0,
+      "trunk": 0,
+      "trunkY": 0,
+      "ears": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "gait": 0,
+      "crouch": 0,
+      "bound": 0,
+      "lick": 0,
+      "tail": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "jaw": 0,
+      "brow": 0,
+      "squint": 0,
+      "blink": 0,
+      "lookX": 0,
+      "lookY": 0,
+      "headY": 0,
+      "headP": 0,
+      "drool": 0,
+      "breath": 0,
+      "glow": 0,
+      "flap": 0,
+      "bank": 0,
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0,
+      "drool": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "glow": 0,
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spSab",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spMam",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spRex",
+     "set": {
+      "rise": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "fossil": 1,
+      "glow": 0,
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 0,
+      "gasp": 0,
+      "wet": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "breach": 0,
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "neck",
+     "set": {
+      "rise": 0,
+      "jaw": 0,
+      "blink": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cracks",
+     "set": {
+      "grow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.1,
+       106.51
+      ],
+      [
+       1.5,
+       0.1,
+       111.31
+      ]
+     ],
+     "dur": 1.5,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.5,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -0.95,
+       105.56
+      ],
+      [
+       1.5,
+       -0.95,
+       110.36
+      ]
+     ],
+     "dur": 1.5,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.5,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.15,
+       105.66
+      ],
+      [
+       1.5,
+       1.15,
+       110.46
+      ]
+     ],
+     "dur": 1.5,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.5,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.9999999999999999,
+      "y": 0,
+      "z": 99.57,
+      "rot": -6,
+      "jaw": 0.9,
+      "brow": -1,
+      "lean": 4,
+      "neckP": 6,
+      "headP": 8,
+      "headY": 14,
+      "squint": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "z": 104.97
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 1.176,
+      "drool": 1,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 3.382
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 0.869,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 2.498
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 1.154,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 3.317
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 2,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 5.75
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 4.6,
+      "y": 0,
+      "z": 98.92,
+      "rot": -6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "z": 102.52
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -2.2,
+      "y": 0,
+      "z": 98.4,
+      "rot": 4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "z": 102.9
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": -1.2,
+      "y": 6.6,
+      "z": 101.4,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "z": 105.9,
+      "y": 7.4
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 3.6,
+      "y": 7.8,
+      "z": 100.2,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "z": 104.7,
+      "y": 8.6
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "x": 0.6,
+      "y": 8.8,
+      "z": 99,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "z": 103.5,
+      "y": 9.6
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "breach": 1,
+      "burst": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 2
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "slam",
+     "gain": 0.9,
+     "loud": true,
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "What if you could bring anything back to life?",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.5,
+     "amp": 0.045,
+     "at": 0.02
+    },
+    {
+     "sfx": "dinoroar",
+     "gain": 0.8,
+     "at": 0.05
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.28
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.58
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.88
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 1.18
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.75,
+      2.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.15,
+      1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1,
+      1.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 78,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.01,
+     "at": 1.48
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the hall: the plant",
+   "at": 1.5,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.7,
+     8.7
+    ],
+    "look": [
+     -0.4,
+     1.15,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -0.9,
+      1.3,
+      6
+     ],
+     "look": [
+      -0.7,
+      1.1,
+      0.6
+     ],
+     "fov": 50
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.75,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.15,
+      "eye": 1.15,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.45
+      ]
+     },
+     "dur": 0.3,
+     "at": 0.75
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "ooh, bones!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": -9,
+     "dur": 0.14,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": 38
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "don't touch it!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 1.35
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.35
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.5,
+     "at": 1.45
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.3,
+     "at": 1.45
+    },
+    {
+     "fx": "sparkle",
+     "at": 1.45,
+     "color": "#7dff6a",
+     "dur": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "plant",
+     "set": {
+      "bloom": 1
+     },
+     "dur": 0.5,
+     "ease": "back",
+     "at": 1.45
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.5
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.3
+     },
+     "dur": 0.12,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.25
+     },
+     "dur": 0.12,
+     "at": 1.85
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": 0
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.6,
+      "curve": 1
+     },
+     "dur": 0.12,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.75,
+      2.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.3,
+      1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      0.5,
+      2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -65,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.4,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.58
+    }
+   ]
+  },
+  {
+   "name": "the fish",
+   "at": 4.1,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -1,
+     1.5,
+     6.2
+    ],
+    "look": [
+     -1.05,
+     1.2,
+     0.8
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "phx",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "open": 0.4,
+      "curve": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2,
+      "eye": 1.2,
+      "curve": -0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.12,
+      "eye": 1.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "do the fish!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": -30
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "sfx": "knock-tap",
+     "gain": 0.4,
+     "at": 0.75
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.55,
+     "at": 0.78
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.78,
+     "color": "#7dff6a",
+     "dur": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.78
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "x": -1.9,
+      "y": 1.55,
+      "z": 0.8,
+      "rot": 30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.93
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "burst": 1,
+      "fossil": 0
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "x": -1.825,
+      "y": 2.3,
+      "z": 1.65,
+      "rot": 200
+     },
+     "dur": 0.225,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "sfx": "splash",
+     "gain": 0.5,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.34,
+     "at": 1.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.34,
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.04
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.13
+    },
+    {
+     "do": "prop",
+     "id": "case",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "x": -1.75,
+      "y": 0.34,
+      "z": 2.82,
+      "rot": 380
+     },
+     "dur": 0.225,
+     "ease": "in",
+     "at": 1.175
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": -1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "flop": 1,
+      "gasp": 1,
+      "wet": 1
+     },
+     "dur": 0.09,
+     "ease": "linear",
+     "at": 1.31
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.45,
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "fish",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.15,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.3
+     },
+     "dur": 0.12,
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -1,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.51
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.62
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.08,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "hop",
+     "count": 1,
+     "height": 0.18,
+     "dur": 0.3,
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "AAAH!",
+     "tone": "excited",
+     "dur": 0.6,
+     "blink": false,
+     "voice": false,
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -1,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.73
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 1,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.84
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -0.4,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": 0.4,
+      "gasp": 0
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 2.06
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "flop": -0.4,
+      "gasp": 1
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 2.17
+    },
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -0.3,
+       1
+      ],
+      [
+       0.4,
+       0.9,
+       0.6
+      ],
+      [
+       2.3,
+       0.95,
+       -8.9
+      ]
+     ],
+     "dur": 2.3,
+     "rate": [
+      [
+       0,
+       3.6
+      ],
+      [
+       0.4,
+       4.6
+      ],
+      [
+       2.3,
+       4.4
+      ]
+     ],
+     "stride": 1.7,
+     "at": 2.3
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.3,
+     "at": 2.3
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "AAAAAH!",
+     "tone": "excited",
+     "dur": 1.6,
+     "blink": false,
+     "voice": false,
+     "at": 2.4
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.45
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": -55,
+      "x": -0.62
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 2.5
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 199,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    }
+   ]
+  },
+  {
+   "name": "the run along the row",
+   "at": 6.8,
+   "len": 1.584,
+   "shot": {
+    "pos": [
+     0.3,
+     1,
+     -2.8
+    ],
+    "look": [
+     1.5,
+     1,
+     1.6
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.3,
+      1,
+      -9.4
+     ],
+     "look": [
+      1.5,
+      1,
+      -6.1
+     ]
+    },
+    "dur": 1.55,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 190,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -1.75,
+       2.4
+      ],
+      [
+       0.45,
+       -3,
+       1
+      ],
+      [
+       0.8,
+       -3,
+       -0.6
+      ],
+      [
+       1.9,
+       -2.5,
+       -5
+      ]
+     ],
+     "dur": 1.9,
+     "rate": [
+      [
+       0,
+       3.4
+      ],
+      [
+       1.9,
+       3.4
+      ]
+     ],
+     "stride": 1.5,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Even a whole museum.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.45,
+     "at": 0.2
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.2,
+     "color": "#7dff6a",
+     "dur": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "spSab",
+     "set": {
+      "rise": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "phx",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.5,
+       2
+      ],
+      [
+       0.5,
+       -0.2,
+       0
+      ],
+      [
+       1.8,
+       -1,
+       -4.3
+      ]
+     ],
+     "dur": 1.8,
+     "rate": [
+      [
+       0,
+       4.2
+      ],
+      [
+       1.8,
+       4.2
+      ]
+     ],
+     "stride": 1.5,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.45,
+     "at": 0.35
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.35,
+     "color": "#7dff6a",
+     "dur": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "sabB",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": 3.4,
+      "y": 0.3,
+      "z": 0.5,
+      "rot": -90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0.72
+    },
+    {
+     "do": "prop",
+     "id": "ptB1",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.83
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 1.2,
+      "y": 5.2,
+      "z": -1,
+      "rot": 180
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0.87
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.45,
+     "at": 0.95
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.95,
+     "color": "#7dff6a",
+     "dur": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "spMam",
+     "set": {
+      "rise": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "mamB",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.6,
+      "y": 0.3,
+      "z": -4.2,
+      "rot": -55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.45
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.45,
+     "at": 1.45
+    },
+    {
+     "fx": "sparkle",
+     "at": 1.45,
+     "color": "#7dff6a",
+     "dur": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.55
+    }
+   ]
+  },
+  {
+   "name": "the crash into the T. rex",
+   "at": 8.384,
+   "len": 1.416,
+   "shot": {
+    "pos": [
+     1,
+     0.8,
+     -12.7
+    ],
+    "look": [
+     1,
+     1.55,
+     -8
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      1,
+      -9.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.296
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 168,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.296
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": -80,
+      "x": -0.5
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.296
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "rattle": 0
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.316
+    },
+    {
+     "do": "prop",
+     "id": "ptB2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.346
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "glow": 1,
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.346
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 0.6,
+      "y": 5,
+      "z": -6.5,
+      "rot": 180
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.366
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0.386
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.416
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.14,
+     "at": 0.416
+    },
+    {
+     "sfx": "slam",
+     "gain": 1,
+     "loud": true,
+     "at": 0.416
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 0.416
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.416,
+     "color": "#7dff6a",
+     "dur": 0.6
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.03,
+     "at": 0.416
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.416
+    },
+    {
+     "do": "prop",
+     "id": "spRex",
+     "set": {
+      "rise": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.416
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.7,
+     "loud": true,
+     "at": 0.446
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "life comes back into the biggest one: one deep heartbeat",
+     "at": 0.516
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "rattle": 1
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.516
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.12,
+     "at": 0.716
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.7,
+      "curve": 1
+     },
+     "dur": 0.12,
+     "at": 0.716
+    },
+    {
+     "who": "rea",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.766
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "glow": 1,
+      "gait": 0,
+      "drool": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.996
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 1,
+      "y": 0.3,
+      "z": -11,
+      "rot": 0,
+      "jaw": 0,
+      "brow": 0.3,
+      "lean": 0,
+      "neckP": 0,
+      "headP": 0,
+      "headY": 0,
+      "neckY": 0,
+      "squint": 0,
+      "step": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.016
+    },
+    {
+     "do": "prop",
+     "id": "rexB",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.016
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.36,
+     "ease": "linear",
+     "at": 1.036
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.1,
+      -6.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.85,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 172,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1.05,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 186,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.396
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "tilt": 0,
+      "x": -0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.396
+    }
+   ]
+  },
+  {
+   "name": "everything alive",
+   "at": 9.8,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.3,
+     -0.6
+    ],
+    "look": [
+     0.6,
+     3,
+     -10.6
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "lean": -6,
+      "neckP": 0,
+      "headP": 4,
+      "headY": 16,
+      "jaw": 0.9,
+      "arms": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3,
+      "y": 0,
+      "z": -9.6,
+      "rot": -70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -1.6,
+      "y": 0,
+      "z": -8.6,
+      "rot": 65
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": -2,
+      "y": 6.2,
+      "z": -9,
+      "rot": 90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 3.5,
+      "y": 6.8,
+      "z": -7.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 4.2,
+      "y": 5.4,
+      "z": -11,
+      "rot": -90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": -1.5,
+      "y": 6,
+      "z": -12
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": 0.5,
+      "squint": 0,
+      "jaw": 0,
+      "drool": 0,
+      "lookY": -0.4,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "trunk": 1
+     },
+     "dur": 0.5,
+     "ease": "back",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 3.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 3.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.6,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0.8
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.3,
+      "lean": 0,
+      "neckP": 6,
+      "headP": 14
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 1
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.51
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "step": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.9,
+     "loud": true,
+     "at": 0.65
+    },
+    {
+     "fx": "shake",
+     "dur": 0.35,
+     "amp": 0.04,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0.1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.1,
+      -6.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 6,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.85,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 14,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1.05,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": -1.082,
+      "y": 0,
+      "z": -11.57,
+      "rot": 6,
+      "lean": 15,
+      "neckP": 21,
+      "headP": 8,
+      "neckY": 10,
+      "headY": 14,
+      "jaw": 0,
+      "brow": 0.5,
+      "squint": 0.3,
+      "arms": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.1,
+      "z": -9,
+      "rot": -75
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -2.5,
+      "z": -8.6,
+      "rot": 68
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "trunk": -0.8,
+      "headY": 0,
+      "headP": 10
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "jaw": 0,
+      "headP": 10
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "the calm",
+   "at": 11.3,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -0.1,
+     1,
+     -0.4
+    ],
+    "look": [
+     -0.15,
+     1.75,
+     -7.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.05,
+      "eye": 1.2,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.5,
+      "curve": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.8,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.1,
+      "eye": 1.2,
+      "curve": -0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.7,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.5,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "phx",
+     "do": "talk",
+     "line": "he's friendly!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 0.65
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.5,
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.3,
+      "curve": 0.8,
+      "eye": 0.9
+     },
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 1
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 1.15
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.5,
+     "at": 1.15
+    },
+    {
+     "macro": "narrate",
+     "line": "But there's a catch.",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "sniff": 0
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 1.3
+    }
+   ]
+  },
+  {
+   "name": "the catch",
+   "at": 13.1,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.1,
+     0.45,
+     -2.5
+    ],
+    "look": [
+     0.05,
+     2.45,
+     -7
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "sfx": "groan",
+     "gain": 0.9,
+     "loud": true,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "lean": -4,
+      "neckP": 10,
+      "headP": 40,
+      "neckY": 0,
+      "headY": -12,
+      "squint": 0.75,
+      "brow": -1,
+      "jaw": 0.6
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "drool": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.5,
+      "drool": 1,
+      "lookY": -0.8,
+      "headP": 22,
+      "trunk": -1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.5,
+      "drool": 1,
+      "lookY": -0.8,
+      "headP": 22,
+      "trunk": -1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "fx": "shake",
+     "dur": 0.7,
+     "amp": 0.015,
+     "at": 0.05
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.95
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.1,
+      0.95
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      0.95
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "lick": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "we're potatoes.",
+     "tone": "sad",
+     "dur": 0.55,
+     "blink": false,
+     "voice": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.1,
+      -6.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.85,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1.05,
+      -7.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.4,
+      "y": 0,
+      "z": -11.6,
+      "rot": 0,
+      "lean": 4,
+      "neckP": 6,
+      "headP": 8,
+      "headY": 14,
+      "jaw": 0.9,
+      "squint": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "headP": 0,
+      "headY": 0,
+      "trunk": 0.6,
+      "lick": 0,
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "headP": 0,
+      "headY": 0,
+      "trunk": 0.6,
+      "lick": 0,
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 3.2,
+      "z": -8.4,
+      "rot": -4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -2.3,
+      "z": -9,
+      "rot": 6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": -1.5,
+      "y": 5.2,
+      "z": -9,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 3,
+      "y": 6,
+      "z": -11,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the chase",
+   "at": 14.5,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.35,
+     0.5,
+     -0.3
+    ],
+    "look": [
+     0.2,
+     2.5,
+     -6.3
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      0.35,
+      0.5,
+      5.8
+     ],
+     "look": [
+      0.2,
+      2.6,
+      -0.2
+     ]
+    },
+    "dur": 1.6,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.1,
+       -6.3
+      ],
+      [
+       1.6,
+       0.1,
+       -0.22
+      ]
+     ],
+     "dur": 1.6,
+     "rate": [
+      [
+       0,
+       4.4
+      ],
+      [
+       1.6,
+       4.4
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -0.85,
+       -7.1
+      ],
+      [
+       1.6,
+       -0.85,
+       -1.02
+      ]
+     ],
+     "dur": 1.6,
+     "rate": [
+      [
+       0,
+       4.4
+      ],
+      [
+       1.6,
+       4.4
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.05,
+       -7.1
+      ],
+      [
+       1.6,
+       1.05,
+       -1.02
+      ]
+     ],
+     "dur": 1.6,
+     "rate": [
+      [
+       0,
+       4.4
+      ],
+      [
+       1.6,
+       4.4
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "z": -5.84
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 2.353
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 2.462
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 2.846
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 4
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 4
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "z": -2.96
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "z": -3.08
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "y": 3.4,
+      "z": -1.5
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "y": 4.2,
+      "z": -4
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "dinoroar",
+     "gain": 0.9,
+     "loud": true,
+     "at": 0
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.6,
+     "at": 0.28
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.02,
+     "at": 0.28
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.6,
+     "at": 0.58
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.02,
+     "at": 0.58
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.6,
+     "at": 0.88
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.02,
+     "at": 0.88
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.6,
+     "at": 1.18
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.02,
+     "at": 1.18
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.6,
+     "at": 1.48
+    },
+    {
+     "fx": "shake",
+     "dur": 0.15,
+     "amp": 0.02,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.1,
+      103.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "move",
+     "to": [
+      -0.95,
+      103
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "rea",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "move",
+     "to": [
+      1.15,
+      103.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "phx",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "the street, from the side",
+   "at": 16.1,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     10.5,
+     1.4,
+     109.5
+    ],
+    "look": [
+     0.8,
+     2.5,
+     104
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       0.1,
+       103.95
+      ],
+      [
+       1.8,
+       0.1,
+       109.71
+      ]
+     ],
+     "dur": 1.8,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.8,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       -0.95,
+       103
+      ],
+      [
+       1.8,
+       -0.95,
+       108.76
+      ]
+     ],
+     "dur": 1.8,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.8,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "run",
+     "pts": [
+      [
+       0,
+       1.15,
+       103.1
+      ],
+      [
+       1.8,
+       1.15,
+       108.86
+      ]
+     ],
+     "dur": 1.8,
+     "rate": [
+      [
+       0,
+       3.2
+      ],
+      [
+       1.8,
+       3.2
+      ]
+     ],
+     "stride": 1.7,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": 0.9999999999999999,
+      "y": 0,
+      "z": 97.05,
+      "rot": -6,
+      "jaw": 0.9,
+      "brow": -1,
+      "lean": 4,
+      "neckP": 6,
+      "headP": 8,
+      "headY": 14,
+      "squint": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "z": 103.17
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0,
+      "drool": 1,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 2.647
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "gait": 1.955
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.8,
+      "drool": 1,
+      "lookY": 0,
+      "gait": 0,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "gait": 2.596
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 0,
+      "jaw": 0.6,
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "flap": 4.5
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fishW",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 4.6,
+      "y": 0,
+      "z": 97,
+      "rot": -6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "z": 101.32
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -2.2,
+      "y": 0,
+      "z": 96,
+      "rot": 4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "z": 101.4
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": -1.2,
+      "y": 6.6,
+      "z": 99,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "z": 104.4,
+      "y": 7.4
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "x": 3.6,
+      "y": 7.8,
+      "z": 97.8,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "z": 103.2,
+      "y": 8.6
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "x": 0.6,
+      "y": 8.8,
+      "z": 96.6,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "z": 102,
+      "y": 9.6
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "breach": 0,
+      "burst": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.28
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "breach": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 1.5
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "sfx": "slam",
+     "gain": 1,
+     "loud": true,
+     "at": 0.3
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 0.3
+    },
+    {
+     "fx": "shake",
+     "dur": 0.5,
+     "amp": 0.045,
+     "at": 0.3
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.7,
+     "at": 0.35
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.58
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.88
+    }
+   ]
+  },
+  {
+   "name": "the street, from the front",
+   "at": 17,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     0,
+     0.5,
+     112.88
+    ],
+    "look": [
+     0.1,
+     2.3,
+     103.28
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0,
+      0.5,
+      114.86
+     ],
+     "look": [
+      0.1,
+      2.5,
+      105.26
+     ],
+     "fov": 46
+    },
+    "dur": 0.8999999999999986,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.28
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.58
+    },
+    {
+     "sfx": "dinostomp",
+     "gain": 0.5,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "lamp",
+     "off": [
+      0,
+      7.75,
+      0.05
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "ride",
+     "prop": "lamp",
+     "off": [
+      -0.42,
+      6.55,
+      -0.22
+     ],
+     "yaw": 20,
+     "dur": 0,
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "ride",
+     "prop": "lamp",
+     "off": [
+      0.42,
+      5.7,
+      -0.22
+     ],
+     "yaw": -20,
+     "dur": 0,
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.319,
+       0.2,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.319,
+       0,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.319,
+       0.2,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.319,
+       0,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "x": -7.236,
+      "y": 0,
+      "z": 106.781,
+      "rot": 65,
+      "lean": -3,
+      "neckP": -4,
+      "headP": -30,
+      "headY": 0,
+      "jaw": 0.2,
+      "squint": 0.4,
+      "brow": -1,
+      "step": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "x": 1.3,
+      "z": 107,
+      "rot": -70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "x": -0.6,
+      "z": 109.4,
+      "rot": -100
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "gait": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "burst": 2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "mam",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.5,
+      "drool": 1,
+      "lookY": -0.8,
+      "gait": 0,
+      "headP": -25,
+      "trunk": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "sab",
+     "set": {
+      "brow": -1,
+      "squint": 0.7,
+      "jaw": 0.7,
+      "drool": 1,
+      "lookY": 0.8,
+      "gait": 0,
+      "headP": -30,
+      "crouch": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": -6,
+      "y": 9,
+      "z": 104,
+      "rot": 90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "pt2",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "pt3",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.88
+    }
+   ]
+  },
+  {
+   "name": "the lamp",
+   "at": 17.9,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.4,
+     2.5,
+     112
+    ],
+    "look": [
+     -2.6,
+     6.2,
+     108
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1.5,
+      "eye": 1.4,
+      "curve": -0.3,
+      "wide": 1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "flap": 5
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pt1",
+     "set": {
+      "x": 5
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.95,
+      "neckP": -10
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.3
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.434
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.05,
+      "neckP": -4
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 0.45
+    },
+    {
+     "who": "rea",
+     "do": "talk",
+     "line": "don't look down!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.5
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 0.52
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.568
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.702
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.95,
+      "neckP": -10
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.836
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.05,
+      "neckP": -4
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 0.95
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 0.97
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "scy",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "scyF",
+     "set": {
+      "x": -3.6,
+      "y": 7.35,
+      "z": 108.2,
+      "rot": 20
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.08
+    },
+    {
+     "do": "prop",
+     "id": "scyF",
+     "set": {
+      "x": 0,
+      "y": 0.5,
+      "z": 115.4,
+      "rot": 380,
+      "tip": 12
+     },
+     "dur": 1,
+     "ease": "in",
+     "at": 1.1
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.4,
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 1.104
+    },
+    {
+     "who": "rea",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.4
+     },
+     "dur": 0.12,
+     "at": 1.2
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 1.238
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.95,
+      "neckP": -10
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "rea",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.067,
+     "at": 1.372
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.05,
+      "neckP": -4
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.45
+    },
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 1.52
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.95,
+      "neckP": -10
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "jaw": 0.05,
+      "neckP": -4
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.95
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "the scythe and the long neck",
+   "at": 19.9,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0.4,
+     0.3,
+     117.4
+    ],
+    "look": [
+     -0.9,
+     4.4,
+     106
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "sfx": "slap",
+     "gain": 0.6,
+     "at": 0.02
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "at": 0.1
+    },
+    {
+     "fx": "sparkle",
+     "at": 0.1,
+     "color": "#7dff6a",
+     "dur": 0.6
+    },
+    {
+     "sfx": "zap",
+     "gain": 0.8,
+     "loud": true,
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "cracks",
+     "set": {
+      "y": 0,
+      "grow": 1
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 1,
+     "loud": true,
+     "reason": "the scythe wakes what lies under the city: one deep heartbeat, no ringing",
+     "at": 0.2
+    },
+    {
+     "sfx": "rumble",
+     "gain": 1,
+     "loud": true,
+     "at": 0.6
+    },
+    {
+     "fx": "shake",
+     "dur": 1.6,
+     "amp": 0.03,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "neck",
+     "set": {
+      "y": 0,
+      "rise": 1
+     },
+     "dur": 1.9,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "rex",
+     "set": {
+      "neckY": 80,
+      "neckP": -15,
+      "headP": -10,
+      "jaw": 0.3,
+      "brow": 0.8,
+      "squint": 0,
+      "lean": 0
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "phx",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "macro": "narrate",
+     "line": "Would you still want it?",
+     "voice": "narrator",
+     "take": 1,
+     "caption": false,
+     "gain": 4,
+     "at": 1.2
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "spud.face",
+    "rea.face",
+    "rex"
+   ],
+   "why": "the cold open: a living T. rex right behind the screaming friends"
+  },
+  {
+   "from": 1.5,
+   "to": 4.1,
+   "see": [
+    "rea.face",
+    "plant",
+    "phx"
+   ],
+   "why": "Reaper flinches from Phoenix and the scythe makes the dead plant bloom"
+  },
+  {
+   "from": 4.1,
+   "to": 6.4,
+   "see": [
+    "spud.face",
+    "rea.face",
+    "case"
+   ],
+   "why": "the scythe taps the case and the fossil fish flops alive into Spud's arms"
+  },
+  {
+   "from": 6.8,
+   "to": 8.8,
+   "see": [
+    "rea.face"
+   ],
+   "why": "Reaper runs screaming along the row, each skeleton lighting up behind him"
+  },
+  {
+   "from": 9.8,
+   "to": 11.3,
+   "see": [
+    "rex",
+    "mam",
+    "sab",
+    "spud",
+    "rea",
+    "phx"
+   ],
+   "why": "the whole museum alive, the three tiny below"
+  },
+  {
+   "from": 11.3,
+   "to": 13.1,
+   "see": [
+    "spud.face",
+    "phx.face",
+    "rex"
+   ],
+   "why": "the fake-out: the T. rex sniffs Spud gently, Phoenix pets the mammoth"
+  },
+  {
+   "from": 13.1,
+   "to": 14.5,
+   "see": [
+    "spud.face",
+    "rea.face",
+    "phx.face",
+    "rex"
+   ],
+   "why": "the catch: every animal looks down at them, hungry"
+  },
+  {
+   "from": 14.5,
+   "to": 16.1,
+   "see": [
+    "spud.face",
+    "rea.face",
+    "phx.face",
+    "rex"
+   ],
+   "why": "the whole museum chases them down the hall"
+  },
+  {
+   "from": 16.1,
+   "to": 17,
+   "see": [
+    "rex"
+   ],
+   "why": "the T. rex comes through the museum's front wall behind them (from the side)"
+  },
+  {
+   "from": 17,
+   "to": 17.9,
+   "see": [
+    "rex",
+    "spud.face",
+    "rea.face",
+    "phx.face"
+   ],
+   "why": "the cold open's moment again: they run at us, the T. rex right behind"
+  },
+  {
+   "from": 17.9,
+   "to": 19.9,
+   "see": [
+    "spud.face",
+    "rea.face",
+    "phx.face",
+    "rex"
+   ],
+   "why": "the three cling to the lamp top, the T. rex snapping below; the scythe slips"
+  },
+  {
+   "from": 20.5,
+   "to": 22.5,
+   "see": [
+    "neck",
+    "scyF"
+   ],
+   "why": "the scythe stands in the cracked street; a long neck as big as a hill rises behind the museum"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rea",
+   "with": "scy",
+   "from": 0,
+   "to": 22.5,
+   "reason": "his scythe, in his fist (worn)"
+  },
+  {
+   "who": "spud",
+   "with": "fishW",
+   "from": 0,
+   "to": 22.5,
+   "reason": "the fish hugged in both arms (worn)"
+  },
+  {
+   "who": "spud",
+   "with": "lamp",
+   "from": 17.9,
+   "to": 22.5,
+   "reason": "they cling to the lamp's lantern"
+  },
+  {
+   "who": "rea",
+   "with": "lamp",
+   "from": 17.9,
+   "to": 22.5,
+   "reason": "they cling to the lamp's lantern"
+  },
+  {
+   "who": "phx",
+   "with": "lamp",
+   "from": 17.9,
+   "to": 22.5,
+   "reason": "they cling to the lamp's lantern"
+  },
+  {
+   "who": "spud",
+   "with": "rea",
+   "from": 17.85,
+   "to": 22.5,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "spud",
+   "with": "phx",
+   "from": 17.85,
+   "to": 22.5,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "rea",
+   "with": "phx",
+   "from": 17.85,
+   "to": 22.5,
+   "reason": "three friends cling together on one lamp top (panel 11)"
+  },
+  {
+   "who": "spud",
+   "from": 17.84,
+   "to": 17.94,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "rea",
+   "from": 17.84,
+   "to": 17.94,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "phx",
+   "from": 17.84,
+   "to": 17.94,
+   "checks": [
+    "rig-jump",
+    "motion"
+   ],
+   "reason": "placed on the lamp top on the cut to the lamp shot"
+  },
+  {
+   "who": "phx",
+   "with": "rea",
+   "from": 4.1,
+   "to": 6.55,
+   "reason": "Phoenix shoves Reaper's scythe arm at the fish case (panel 03): his glove is on Reaper's sleeve"
+  },
+  {
+   "who": "rea",
+   "with": "spud",
+   "from": 16.1,
+   "to": 17,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "0.9 s from the side: three run abreast, the subject is the T. rex coming through the wall; the next shot has all three faces"
+  },
+  {
+   "who": "rea",
+   "with": "scyF",
+   "from": 18.95,
+   "to": 19.55,
+   "reason": "the scythe slips out of his glove and falls past his robe"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/05-back-to-life/make-back-to-life.mjs."
+}
