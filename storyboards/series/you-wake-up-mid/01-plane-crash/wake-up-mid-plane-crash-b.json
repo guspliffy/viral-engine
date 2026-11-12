@@ -2435,7 +2435,7 @@
     {
      "fx": "flash",
      "peak": 0.6,
-     "dur": 0.14,
+     "dur": 0.24,
      "sound": false,
      "at": 0.25
     },
@@ -2517,8 +2517,8 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.8,
-      "z": -1.9
+      "y": 1.1,
+      "z": -2.3
      },
      "dur": 0.3,
      "ease": "in",
@@ -2542,7 +2542,7 @@
       "prop": "wizC",
       "grip": [
        0.36,
-       0.45,
+       0.57,
        1.12
       ]
      },
@@ -2604,7 +2604,7 @@
       "prop": "wizC",
       "grip": [
        0.36,
-       0.45,
+       0.57,
        1.12
       ]
      },
@@ -2677,7 +2677,7 @@
      "id": "wizC",
      "set": {
       "x": 1.64,
-      "y": 1.5,
+      "y": 1,
       "z": -1.25
      },
      "dur": 0.14,
@@ -2708,7 +2708,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.56,
+      "y": 1.06,
       "z": -1.33
      },
      "dur": 0.38,
@@ -2731,7 +2731,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.45,
+      "y": 0.95,
       "z": -1.28
      },
      "dur": 0.38,
@@ -2849,7 +2849,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.56,
+      "y": 1.06,
       "z": -1.33
      },
      "dur": 0.38,
@@ -2866,7 +2866,7 @@
      "do": "prop",
      "id": "wizC",
      "set": {
-      "y": 1.45,
+      "y": 0.95,
       "z": -1.28
      },
      "dur": 0.38,
@@ -3025,6 +3025,17 @@
      },
      "dur": 0.36,
      "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
      "at": 0
     },
     {
@@ -3212,9 +3223,9 @@
      "do": "prop",
      "id": "maskV",
      "set": {
-      "x": 1.17,
-      "y": 0.82,
-      "z": 0.46,
+      "x": 1.08,
+      "y": 0.74,
+      "z": 0.52,
       "tilt": 0
      },
      "dur": 0.16,
@@ -3227,9 +3238,9 @@
      "side": "R",
      "pose": {
       "world": [
-       1.37,
-       0.74,
-       0.62
+       1.28,
+       0.66,
+       0.68
       ]
      },
      "dur": 0.16,
@@ -3263,14 +3274,6 @@
      "sfx": "timer-beep",
      "gain": 0.22,
      "reason": "the cabin alarm",
-     "at": 1.6
-    },
-    {
-     "who": "vik",
-     "do": "grab",
-     "prop": "maskV",
-     "hand": "hat",
-     "keep": true,
      "at": 1.6
     },
     {
@@ -3337,6 +3340,18 @@
      "at": 2.2
     },
     {
+     "do": "prop",
+     "id": "maskV",
+     "set": {
+      "x": 1.07,
+      "y": 0.88,
+      "z": 0.47
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
      "who": "vik",
      "do": "lean",
      "to": 0,
@@ -3384,9 +3399,17 @@
     },
     {
      "who": "vik",
+     "do": "grab",
+     "prop": "maskV",
+     "hand": "hat",
+     "keep": true,
+     "at": 2.7
+    },
+    {
+     "who": "vik",
      "do": "look",
      "to": [
-      0.8,
+      0.25,
       0
      ],
      "dur": 0.2,
@@ -6574,9 +6597,9 @@
      "at": 1.02
     },
     {
-     "sfx": "zip",
-     "gain": 0.5,
-     "reason": "spud down the slide",
+     "sfx": "whoosh",
+     "gain": 0.35,
+     "reason": "spud down the slide (a rush of air; Jonny 12 Nov disliked the zip)",
      "at": 1.02
     },
     {
@@ -6603,12 +6626,6 @@
      "dur": 1,
      "ease": "in",
      "at": 1.05
-    },
-    {
-     "sfx": "whistle",
-     "gain": 0.35,
-     "reason": "the suitcase falling into the abyss",
-     "at": 1.1
     },
     {
      "who": "vik",
@@ -6722,9 +6739,9 @@
      "at": 1.75
     },
     {
-     "sfx": "zip",
-     "gain": 0.5,
-     "reason": "vik down the slide",
+     "sfx": "whoosh",
+     "gain": 0.35,
+     "reason": "vik down the slide (a rush of air; Jonny 12 Nov disliked the zip)",
      "at": 1.75
     },
     {
@@ -6814,6 +6831,7 @@
       139.5,
       56
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6862,6 +6880,7 @@
       138.1,
       54.6
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6910,6 +6929,7 @@
       140.8,
       55
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -7025,6 +7045,7 @@
       138.1,
       65.2
      ],
+     "y": 0,
      "dur": 2.5,
      "ease": "linear",
      "at": 0
@@ -7036,6 +7057,7 @@
       140.8,
       65.4
      ],
+     "y": 0,
      "dur": 2.5,
      "ease": "linear",
      "at": 0
@@ -7282,13 +7304,6 @@
      "at": 0.2
     },
     {
-     "who": "spud",
-     "do": "droop",
-     "to": 1,
-     "dur": 0.15,
-     "at": 0.25
-    },
-    {
      "do": "prop",
      "id": "blast2",
      "set": {
@@ -7299,34 +7314,85 @@
      "at": 0.28
     },
     {
-     "who": "spud",
-     "do": "expr",
-     "expr": "serene",
-     "set": {
-      "open": 0.35,
-      "curve": -0.5
-     },
-     "dur": 0.12,
+     "fx": "speedlines",
+     "dur": 1.2,
      "at": 0.3
     },
     {
      "who": "spud",
-     "do": "face",
-     "brow": -0.7,
-     "dur": 0.12,
-     "at": 0.3
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.06,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.75,
+       0.1
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.75,
+       0.1
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      142.5,
+      23.2
+     ],
+     "y": 5.5,
+     "dur": 0.6,
+     "steps": 0,
+     "ease": "in",
+     "at": 0.4
     },
     {
      "who": "spud",
      "do": "pitch",
-     "to": 14,
-     "dur": 0.2,
-     "at": 0.3
+     "to": 70,
+     "dur": 0.6,
+     "ease": "in",
+     "at": 0.4
     },
     {
-     "fx": "speedlines",
-     "dur": 1.2,
-     "at": 0.3
+     "who": "spud",
+     "do": "turn",
+     "to": 250,
+     "dur": 0.6,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.8,
+     "loud": true,
+     "reason": "the blast throws him away",
+     "at": 0.4
     },
     {
      "macro": "narrate",
@@ -7334,6 +7400,19 @@
      "voice": "narrator",
      "caption": false,
      "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      154.5,
+      23.2
+     ],
+     "y": 25.5,
+     "dur": 1.2,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1
     },
     {
      "fx": "flash",

@@ -264,12 +264,12 @@ park(T.tear, "phone"); for (const [id, x, z] of [["fly2", -1.2, -2.6], ["fly3", 
 prop(RIP, "hall", key("tear", 1), 0, "linear"); prop(RIP, "hall", key("lights", 0.5), 0.1, "linear");
 sfx(RIP, "slam", { gain: 1, loud: true, reason: "the tail tears off" }); sfx(r3(RIP + 0.03), "crumble", { gain: 0.7, reason: "metal ripping" });
 sfx(r3(RIP + 0.05), "windswell", { gain: 0.85, dur: r3(T.slam - RIP), reason: "the open sky howling through the hole" });
-c.at(RIP, { fx: "flash", peak: 0.6, dur: 0.14, sound: false }); shake(RIP, 0.13, 0.7); shake(RIP + 0.7, 0.06, 1.3);
+c.at(RIP, { fx: "flash", peak: 0.6, dur: 0.24, sound: false }); shake(RIP, 0.13, 0.7); shake(RIP + 0.7, 0.06, 1.3);
 for (const [id, to] of [["fly2", [-3, 2.5, -24]], ["fly3", [4, 4, -28]], ["fly4", [0.5, 5, -20]], ["fly5", [-1, 3, -18]]]) fling(RIP, r3(RIP + 0.7), id, to, [1, 2, 1]);
 thunder(RIP + 0.9, "holeSky", "holeBolt", 0.5);
 // the Wizard goes with the air; Spud, belted, twists round and catches him
-const CATCH = { x: r3(AX - 0.45), y: 1.5, z: -1.25 }, HOLD = [0.36, 0.45, 1.12];   // HOLD: where their hands meet, from the Wizard's carrier (over the seat back)
-A(RIP, "wiz", "pitch", { to: 24, dur: 0.25, ease: "in" }); prop(RIP, "wizC", { y: 1.8, z: -1.9 }, 0.3, "in");
+const CATCH = { x: r3(AX - 0.45), y: 1.0, z: -1.25 }, HOLD = [0.36, 0.57, 1.12];   // HOLD: where their hands meet, from the Wizard's carrier (over the seat back)
+A(RIP, "wiz", "pitch", { to: 24, dur: 0.25, ease: "in" }); prop(RIP, "wizC", { y: 1.1, z: -2.3 }, 0.3, "in");   // back toward the hole, not up: at y 1.8 his hat went into the ceiling (Jonny 12 Nov)
 A(RIP, "wiz", "expr", { expr: "terrified", set: { open: 1 }, dur: 0.06 });
 c.arm(RIP, "wiz", "L", { prop: "wizC", grip: HOLD }, 0.15, "out"); c.arm(RIP, "wiz", "R", { o: [0.3, 0.75, 0.2] }, 0.15, "out");
 prop(RIP, "spudC", { rot: -55 }, 0.22, "out"); A(RIP, "spud", "look", { to: [0.5, 0.7], dur: 0.12, blink: false });
@@ -284,7 +284,7 @@ narr(r3(RIP + 0.4), "Belt. Tight.", DUR.belt, ["Belt.", "Tight."], 560, 0.04, 23
 see(r3(RIP + 0.5), T.mask - 0.1, ["spud.face", "wiz", "belt"], "the tail is gone: the unbelted Wizard flies at the hole and Spud, held by his belt, has him by the cape");
 
 // ================================================================ 05 MASK 7.0-10.5 (panel 05)
-const FACE_S = [AX, 0.81, 0.45], FACE_V = [1.17, 0.82, 0.46];   // where a mask cup sits on each seated face (peek)
+const FACE_S = [AX, 0.81, 0.45], FACE_V = [1.08, 0.74, 0.52];   // where a mask cup sits on each seated face (peek)
 set(T.mask, "spudC", { rot: 0 }); c.arm(cut(T.mask), "spud", "R", "lap", 0.01); c.arm(cut(T.mask), "spud", "L", "lap", 0.01); A(cut(T.mask), "spud", "grip", { side: "R", shape: "relaxed", dur: 0 });
 set(T.mask, "maskS", { x: FACE_S[0], y: FACE_S[1], z: FACE_S[2], tilt: 0 }); A(T.mask, "spud", "grab", { prop: "maskS", hand: "hat", keep: true });
 set(T.mask, "maskV", { tilt: 0 });
@@ -293,7 +293,7 @@ set(T.mask, "wizC", { x: r3(AX - 0.5), y: 1.2, z: -0.95, rot: 0 }); A(cut(T.mask
 both(cut(T.mask), "wiz", (s) => ({ world: [r3(AX - 0.5 + (s === "R" ? -0.24 : 0.24)), 1.62, -0.38] }), 0);
 A(T.mask, "wiz", "expr", { expr: "terrified", set: { open: 0.6 }, dur: 0 }); for (let k = 0; k < 9; k++) prop(r3(T.mask + 0.36 * k), "wizC", { y: k % 2 ? 1.13 : 1.26 }, 0.36, "inOut");
 clock(r3(T.mask + 0.1), T.ridge, 15, 200, 250);
-A(T.mask, "vik", "expr", { expr: "dizzy", dur: 0 }); A(T.mask, "vik", "lean", { to: 7, dur: 0.25 }); both(T.mask, "vik", () => ({ o: [0.03, 0.02, 0.32] }), 0.4, "inOut");
+A(T.mask, "vik", "look", { to: [0, 0], dur: 0, blink: false }); A(T.mask, "vik", "expr", { expr: "dizzy", dur: 0 }); A(T.mask, "vik", "lean", { to: 7, dur: 0.25 }); both(T.mask, "vik", () => ({ o: [0.03, 0.02, 0.32] }), 0.4, "inOut");
 A(T.mask + 0.3, "vik", "lean", { to: 3, dur: 0.4 }); A(T.mask + 0.7, "vik", "expr", { expr: "serene", set: { open: 0.12 }, dur: 0.25 });
 A(T.mask + 0.7, "vik", "lean", { to: 0, dur: 0.45, ease: "in" }); A(T.mask + 0.7, "vik", "pitch", { to: 15, dur: 0.45, ease: "in" });
 A(T.mask, "spud", "expr", { expr: "focused", dur: 0 }); A(T.mask + 0.5, "spud", "look", { to: [-0.9, 0.1], dur: 0.15, blink: false }); A(T.mask + 0.7, "spud", "expr", { expr: "shocked", set: { open: 0 }, dur: 0.12 });
@@ -301,11 +301,13 @@ c.arm(T.mask + 1.0, "spud", "R", { world: [r3(BX + 0.2), r3(HANG + 0.04), 0.52] 
 prop(T.mask + 1.4, "maskV", { x: FACE_V[0], y: FACE_V[1], z: FACE_V[2], tilt: 0 }, 0.16, "in");
 c.arm(T.mask + 1.4, "spud", "R", { world: [r3(FACE_V[0] + 0.2), r3(FACE_V[1] - 0.08), r3(FACE_V[2] + 0.16)] }, 0.16, "in");
 sfx(T.mask + 1.56, "slap", { gain: 0.6, reason: "he slams the mask onto Viking's face" }); A(T.mask + 1.56, "vik", "squash", { amount: 0.12, dur: 0.3 });
-A(T.mask + 1.6, "vik", "grab", { prop: "maskV", hand: "hat", keep: true });
+// (Jonny 12 Nov: the mask sat on his eye once he sat up.) It follows him up onto his mouth, then it is fixed to him
+prop(T.mask + 2.3, "maskV", { x: 1.07, y: 0.88, z: 0.47 }, 0.35, "inOut"); A(T.mask + 2.7, "vik", "grab", { prop: "maskV", hand: "hat", keep: true });
 c.arm(T.mask + 2.0, "spud", "R", { o: [0.08, 0.3, 0.42] }, 0.2, "inOut"); c.arm(T.mask + 2.2, "spud", "R", { o: [0.05, 0.05, 0.32] }, 0.3, "inOut"); A(T.mask + 2.0, "spud", "expr", { expr: "focused", dur: 0.2 });
 A(T.mask + 2.3, "vik", "lean", { to: 0, dur: 0.35 }); A(T.mask + 2.3, "vik", "pitch", { to: 0, dur: 0.35 });
 A(T.mask + 2.5, "vik", "expr", { expr: "shocked", set: { open: 0 }, dur: 0.12 }); sfx(T.mask + 2.5, "gasp", { gain: 0.6, reason: "Viking comes round" });
-A(T.mask + 2.8, "vik", "look", { to: [0.8, 0], dur: 0.2 }); A(T.mask + 3.0, "spud", "look", { to: [0, 0.1], dur: 0.2 });
+A(T.mask + 2.8, "vik", "look", { to: [0.25, 0], dur: 0.2 });   // a small look: a big one slides his face out from under the mask (Jonny 12 Nov: mask on his eye)
+ A(T.mask + 3.0, "spud", "look", { to: [0, 0.1], dur: 0.2 });
 shake(T.mask, 0.035, 3.4);
 narr(T.mask + 0.1, "Mask. Fifteen seconds.", DUR.mask, ["Mask.", "Fifteen seconds."], 1272, 0.0);
 see(T.mask + 1.3, T.mask + 2.4, ["spud.face", "vik.face", "maskV"], "his own mask is on; he slams the second one onto Viking, who is passing out");
@@ -452,10 +454,9 @@ for (const t of [0.12, 0.36]) { prop(r3(T.door + t), "trunk", { z: r3(DOOR[2] + 
 sfx(KICK, "slam", { gain: 0.9, loud: true, reason: "Spud kicks it out with both feet" });
 prop(KICK, "trunk", { x: r3(DOOR[0] - 5.5), y: 3.0, z: r3(DOOR[2] + 3.4), rot: 220, tip: 300, roll: 200 }, 0.45, "out");
 prop(r3(KICK + 0.45), "trunk", { x: r3(DOOR[0] - 9), y: -30, z: r3(DOOR[2] + 5), rot: 500, tip: 700 }, 1.0, "in");
-sfx(r3(KICK + 0.5), "whistle", { gain: 0.35, reason: "the suitcase falling into the abyss" });
 // Spud comes out feet first and goes down the slide
 const slideAt = (u) => [DOOR[0], r3(DOOR[1] * (1 - u)), r3(DOOR[2] + (SLIDE_END[2] - DOOR[2]) * u)];
-const rideSlide = (who, t0, t1, off = 0.15) => { const a = slideAt(0.1), b = slideAt(1); prop(r3(t0 - 0.1), `${who}C`, { x: a[0], y: a[1], z: a[2] }, 0.1, "inOut"); prop(r3(t0 + 0.02), `${who}C`, { y: b[1], z: b[2] }, r3(t1 - t0), "linear"); A(t0, who, "ride", { prop: `${who}C`, off: [0, off, 0], yaw: 0, sit: true, dur: 0 }); sfx(t0, "zip", { gain: 0.5, reason: `${who} down the slide` }); };
+const rideSlide = (who, t0, t1, off = 0.15) => { const a = slideAt(0.1), b = slideAt(1); prop(r3(t0 - 0.1), `${who}C`, { x: a[0], y: a[1], z: a[2] }, 0.1, "inOut"); prop(r3(t0 + 0.02), `${who}C`, { y: b[1], z: b[2] }, r3(t1 - t0), "linear"); A(t0, who, "ride", { prop: `${who}C`, off: [0, off, 0], yaw: 0, sit: true, dur: 0 }); sfx(t0, "whoosh", { gain: 0.35, reason: `${who} down the slide (a rush of air; Jonny 12 Nov disliked the zip)` }); };
 const IN = (dz, dx = 0) => ({ x: r3(DOOR[0] + dx), y: r3(DOOR[1] + 0.02), z: r3(DOOR[2] - dz) });   // a place inside the hull, behind the door
 set(T.door, "spudC", { ...IN(0.75), y: r3(DOOR[1] + 0.1), rot: 0 }); A(cut(T.door), "spud", "ride", { prop: "spudC", off: [0, 0.15, 0], yaw: 0, sit: true, dur: 0 });
 both(cut(T.door), "spud", () => ({ o: [0.06, 0.3, 0.05] }), 0);
@@ -480,10 +481,11 @@ park(T.run, "slideP", "trunk");
 const LANE = { spud: -10.5, vik: -11.9, wiz: -9.2 }, RUN = { spud: [56, 66.6], vik: [54.6, 65.2], wiz: [55, 65.4] };
 for (const w of ["spud", "vik", "wiz"]) {
   A(cut(T.run), w, "ride", { prop: null, dur: 0 }); pose0(T.run, w);
-  A(cut(T.run), w, "move", { to: [r3(LANE[w] + OX), RUN[w][0]], dur: 0.01, steps: 0, ease: "linear" }); A(cut(T.run), w, "turn", { to: 0, dur: 0.01, ease: "linear" });
+  A(cut(T.run), w, "move", { to: [r3(LANE[w] + OX), RUN[w][0]], y: 0, dur: 0.01, steps: 0, ease: "linear" });   // y 0: off the slide carriers they kept their height and ran in the air (Jonny 12 Nov)
+  A(cut(T.run), w, "turn", { to: 0, dur: 0.01, ease: "linear" });
   A(T.run, w, "expr", { expr: "terrified", set: { open: 0.6 }, dur: 0 }); A(T.run, w, "look", { to: [0, 0.1], dur: 0, blink: false });
 }
-for (const w of SAFE ? ["spud", "vik", "wiz"] : ["vik", "wiz"]) A(T.run, w, "move", { to: [r3(LANE[w] + OX), RUN[w][1]], dur: r3(T.boom + 0.3 - T.run), ease: "linear" });
+for (const w of SAFE ? ["spud", "vik", "wiz"] : ["vik", "wiz"]) A(T.run, w, "move", { to: [r3(LANE[w] + OX), RUN[w][1]], y: 0, dur: r3(T.boom + 0.3 - T.run), ease: "linear" });
 // the hull tips over the edge behind them
 prop(T.run, "jet", { tip: 16, x: OX - 4 }, 1.5, "in"); prop(T.run + 1.5, "jet", { tip: 62, x: OX - 17, y: -16 }, 0.6, "in"); prop(T.run + 2.1, "jet", { y: -90, x: OX - 24, tip: 85 }, 0.3, "linear");
 sfx(T.run + 0.2, "creak", { gain: 0.9, loud: true, reason: "the hull going over" }); sfx(T.run + 1.5, "crumble", { gain: 0.8, reason: "the edge breaking away under it" });
@@ -524,9 +526,14 @@ if (SAFE) {
   for (const w of ["vik", "wiz"]) { A(T.boom + 0.2, w, "pitch", { to: 80, dur: 0.3, ease: "in" }); }
   shake(T.boom, 0.1, 0.9);
   A(T.boom + 0.04, "spud", "turn", { to: 25, dur: 0.22, ease: "out" }); A(T.boom + 0.04, "spud", "expr", { expr: "terrified", set: { open: 0.3 }, dur: 0.08 });
-  A(T.boom + 0.3, "spud", "expr", { expr: "serene", set: { open: 0.35, curve: -0.5 }, dur: 0.12 }); A(T.boom + 0.3, "spud", "face", { brow: -0.7, dur: 0.12 });
-  A(T.boom + 0.25, "spud", "droop", { to: 1, dur: 0.15 }); A(T.boom + 0.3, "spud", "pitch", { to: 14, dur: 0.2 });
+  // (Jonny 12 Nov: make it clear he does not survive.) The near blast throws him up and away, out of the picture
   both(T.boom + 0.2, "spud", () => ({ o: [0.32, 0.3, 0.2] }), 0.2, "out");
+  const HIT = r3(T.boom + 0.4), FLY = out(-7.5, 5.5, 23.2);
+  A(HIT, "spud", "expr", { expr: "terrified", set: { open: 1 }, dur: 0.06 }); both(HIT, "spud", () => ({ o: [0.5, 0.75, 0.1] }), 0.15, "out");
+  A(HIT, "spud", "move", { to: [FLY[0], FLY[2]], y: FLY[1], dur: 0.6, steps: 0, ease: "in" }); A(HIT, "spud", "pitch", { to: 70, dur: 0.6, ease: "in" });
+  A(HIT, "spud", "turn", { to: 250, dur: 0.6, ease: "in" });
+  A(r3(HIT + 0.6), "spud", "move", { to: [r3(FLY[0] + 12), FLY[2]], y: r3(FLY[1] + 20), dur: r3(T.car - HIT - 0.6), steps: 0, ease: "linear" });   // keeps going, far off screen, until the cut
+  sfx(HIT, "whoosh", { gain: 0.8, loud: true, reason: "the blast throws him away" });
   c.at(r3(T.boom + 0.3), { fx: "speedlines", dur: 1.2 });
   c.at(r3(T.car - 0.75), { fx: "flash", peak: 1, dur: 0.75, sound: false });
   narr(T.boom + 0.5, "You looked back.", DUR.looked, ["You looked back."], 640);
