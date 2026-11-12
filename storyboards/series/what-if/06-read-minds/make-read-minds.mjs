@@ -200,7 +200,10 @@ const felt = (x, z, up = UP) => ({ prop: "table", grip: [r3(x), r3(TH + up), r3(
 // Spud's two hole cards held up before his chest in his left glove, faces to him, backs to the front cameras
 const SFAN_AT = (() => { const [x, z] = P2(SEAT.spud, YAW.spud, 0.4, 0.3); return [x, 0.72, z]; })();
 P(0, "sFan", { x: SFAN_AT[0], y: SFAN_AT[1], z: SFAN_AT[2], rot: YAW.spud, tip: -15 });
-c.arm(0, "spud", "L", { prop: "sFan", grip: [0, 0.03, -0.02], palm: true }, 0); A(0, "spud", "grip", { side: "L", shape: "hold", dur: 0 });
+// the cardfan's own hold (grips.mjs SIZE cardfan: the phone hold on the lower edge), so the glove pinches the fan's side
+// edge instead of standing inside the cards (Jonny 12 Nov 19:04: the glove went through the cards in the shoulder shot)
+const sfh = grips.phone(c, "spud", { id: "sFan", kind: "cardfan", x: SFAN_AT[0], y: SFAN_AT[1], z: SFAN_AT[2], rot: YAW.spud, tip: -15 }, { side: "L" });
+c.arm(0, "spud", "L", { prop: "sFan", grip: sfh.hands.L.grip, palm: true }, 0); A(0, "spud", "grip", { side: "L", shape: "hold", dur: 0 });
 c.arm(0, "spud", "R", felt(0.14, -0.38), 0);
 c.arm(0, "chip", "L", "lap", 0); c.arm(0, "chip", "R", "lap", 0);
 const SUBY = 540;   // speech lettering in the upper third, never over a face (Jonny 12 Nov)
@@ -359,10 +362,11 @@ Pk("casino", r3(SHOW + 0.75), "wA1", { flip: 1 }, 0.2, "inOut"); Pk("casino", r3
 sfx(r3(SHOW + 0.77), "papercut", { gain: 0.5, reason: "Wedge turns his two aces" });
 c.say(r3(SHOW + 1.0), "wdg", "four aces.", 0.7, "calm", { voice: false, sub: "Four aces.", pos: 1250 });   // low: the faces are at the top of this shot
 expr(r3(SHOW + 0.8), "wdg", "smug", { curve: 0.7, lid: 0.5 });
-// his left glove hooks the tower's near flank and drags it to his side
-c.arm(r3(SHOW + 0.9), "wdg", "L", felt(0.02, 0.13), 0.3, "inOut"); c.arm(r3(SHOW + 1.2), "wdg", "L", felt(-0.1, 0.07), 0.55, "inOut");
+// from his cards his right glove (the tower is on his right: he sits turned 38 degrees) goes round the tower's left
+// side to its near corner and drags it to him; the arm never crosses the tower (Jonny 12 Nov 19:04: his hand came out
+// through the chip stacks)
+c.arm(r3(SHOW + 0.95), "wdg", "R", felt(-0.25, 0.1), 0.25, "inOut"); c.arm(r3(SHOW + 1.2), "wdg", "R", felt(-0.37, 0.04), 0.55, "inOut");
 P(r3(SHOW + 1.2), "mount", { x: -0.12, z: -0.12 }, 0.55, "inOut"); sfx(r3(SHOW + 1.2), "ai/bowl-scrape", { gain: 0.6 });
-c.arm(r3(SHOW + 1.05), "wdg", "R", "lap", 0.5, "inOut");
 act.defeated(c, SLUMP, "spud", { turn: -10, hold: 0.9 });
 for (const w of ["chip", "mash"]) expr(r3(SHOW + 0.9), w, "shocked", { open: 0.5 });
 CROWD.forEach((g, i) => Pk("casino", r3(SHOW + 0.9 + (i % 4) * 0.06), `cr${i}`, { cheer: 0.4 }, 0.25, "back"));
