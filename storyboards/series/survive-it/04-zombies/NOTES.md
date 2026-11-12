@@ -68,3 +68,15 @@ spec keys, so a wrong size is a number in the generator.
   frames, and held things without a fitted grip. No fail hides a story beat.
 - Stand-ins to replace in the polish: the blanket on the line (a flat board), the toilet roll (not placed), a dent
   in the police car's roof, pink in the dawn sky, the wardrobe's flat-pack look (panel shows dark wood).
+
+## 12 Nov 2026: review A on the staging stills (one round)
+
+Verdict: nothing blocks the rough draft. Applied: Samurai 0.4 m nearer the door so the arm reaches him (P01); the
+cistern stands in FRONT of the cast line (z 0.9, was 0.3: the bodies hid half of it) (P03); the HIGH camera looks
+further down (look y -4.1, fov 60) so the horde is under the ladder in P07 and the crossing; the falling tin starts
+at the sack's near flank, in frame (P09); the straight-down shot pushes in (fov 50 to 31 in 1.0 s) so the faces
+turning up can be read (P10); the burst shot holds 0.35 s longer, the zombies come through the door opening only
+(box 0.9 wide).
+Not applied (the reviewer's numbers put the cast out of frame): BATH camera at z 2.6, GROWL camera at x XH + 1.5.
+For the polish: the door pane's silhouettes read pale at 12.0 s (darker shadows or a closer cut), and the ladder's
+fall behind the five is only a sound at 24.85 s.

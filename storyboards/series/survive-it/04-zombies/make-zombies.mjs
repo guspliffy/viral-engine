@@ -54,7 +54,7 @@ const T = {
   drop: 21.0,          // Spud: "Drop it!"
   let: 21.75,          // the sack falls
   burst: fr(22.9),     // P11b the flat door gives way
-  run: fr(23.45),      // all five over the cracked ladder
+  run: fr(23.8),      // all five over the cracked ladder
   gone: 24.85,         // the zombies reach the ladder's end
   roof: fr(25.3),      // P12 day 7, the shop roof
   less: 26.15,         // Spud: "Tomorrow we take less."
@@ -86,7 +86,7 @@ const MID = r3(LAD.x0 + LAD.len / 2);              // the ladder's middle, where
 const toward = ([x, z], [tx, tz]) => r3(Math.atan2(tx - x, tz - z) * 180 / Math.PI);
 // who stands where in each scene: [x, z, yaw]
 const S = {
-  p01: { sam: [WALLX + 1.02, -0.65, 30], spud: [XH - 0.55, 0.05, -110] },
+  p01: { sam: [WALLX + 0.62, -0.65, 55], spud: [XH - 0.55, 0.05, -110] },
   p01sofa: { wiz: [XH - 1.2, -1.45], phx: [XH - 0.65, -2.0], gun: [XH - 0.1, -1.45] },   // staggered: the middle one behind
   p02: { spud: [-3.45, -0.25, 60], wiz: [-4.2, 1.15, 165], phx: [-3.55, 0.6, 162], gun: [-3.45, 1.5, 165], sam: far(0) },
   p03: { spud: [XB - 0.45, 0.5, 55], sam: [XB + 0.85, 0.6, -60], wiz: [XB - 0.3, -0.9, 10], phx: [XB + 0.15, -1.75, 0], gun: [XB + 0.55, -0.95, -10] },
@@ -102,11 +102,11 @@ Object.entries(S.p05).forEach(([w, p]) => p.push(toward(p, TINF)));
 const CAM = {
   DOOR: { pos: [XH - 0.98, 1.7, 3.0], look: [XH - 1.1, 0.95, -1.0], fov: 54 },       // P01: the door at the frame's left edge
   BALC: { pos: [-3.4, 2.75, 1.55], look: [-0.75, -15, -9.4], fov: 60 },            // P02: above and behind the group, down the street
-  BATH: { pos: [XB + 0.15, 2.0, 3.9], look: [XB + 0.12, -0.05, -0.3], fov: 44 },      // P03: over the cistern to the doorway
+  BATH: { pos: [XB + 0.15, 1.85, 3.9], look: [XB + 0.12, -0.05, -0.3], fov: 44 },      // P03: over the cistern to the doorway
   QUEUE: { pos: [-3.9, 0.78, 1.5], look: [-3.95, 0.62, -1.0], fov: 74 },             // P04: on the balcony, along it
   TIN: { pos: [XH + 1.95, 1.75, DZ], look: [XH - 1.2, 0.25, DZ], fov: 78 },           // P05: over the candle and tin to the barricade
   GROWL: { pos: [XH + 2.05, 0.8, DZ], look: [XH - 1.5, 0.88, DZ], fov: 56 },         // P06: Phoenix close, the door wall behind
-  HIGH: { pos: [3.5, 6.0, 4.5], look: [-1.9, -1.4, -1.3], fov: 50 },               // P07, P11b: steep, the ladder a diagonal
+  HIGH: { pos: [3.5, 6.0, 4.5], look: [-1.9, -4.1, -1.3], fov: 60 },               // P07, P11b: steep, the ladder a diagonal
   SHOP: { pos: [XS - 1.2, 0.85, 3.5], look: [XS - 1.25, 0.62, -0.6], fov: 52 },     // P08
   LADC: { pos: [-2.6, 1.9, 2.9], look: [0.45, 0.65, 0], fov: 50 },                   // P09: he crawls toward us
   DOWN: { pos: [0.4, 2.7, -1.12], look: [0.4, -15, -1.17], fov: 50 },               // P10: straight down, the ladder at the bottom edge
@@ -144,12 +144,12 @@ const props = [
   { id: "door", kind: "zdoor", x: WALLX, y: DOORY, z: DZ, rot: 90, ajar: 1, hands: 4, hole: 1, arm: 1, bulge: 0, shadows: 0, burst: 0 },
   { id: "couch", kind: "couch", x: SOFA0[0], y: 0, z: SOFA0[1], rot: 180, scale: SOFAK, color: "#7b4b35", color2: "#8f5b43" },
   { id: "robe", kind: "wardrobe", x: FAR[0], y: 0, z: 20, rot: 90, scale: 0.9, apart: 0 },
-  { id: "inflat", kind: "zhorde", x: FAR[0], y: 0, z: 30, n: 7, box: [1.5, 0.6], seed: 11, gx: 6, gz: 0, adv: 0, up: 0, reach: 1 },   // through the burst door (P11b)
+  { id: "inflat", kind: "zhorde", x: FAR[0], y: 0, z: 30, n: 7, box: [0.9, 0.6], seed: 11, gx: 6, gz: 0, adv: 0, up: 0, reach: 1 },   // through the burst door (P11b)
   { id: "candle", kind: "pillarcandle", x: FAR[0], y: 0, z: 2, lit: 1 },
   // the bathroom: the doorway in the back wall, the cistern in front, its back to the camera
   { id: "bath", kind: "zroom", x: XB, y: 0, z: 0.9, w: 2.4, d: 4.4, floor: "tiles", dress: "bath", open: [{ wall: "back", at: 0.15, w: 1.0, h: 1.6, y0: 0 }], dim: 1, glowx: -0.6, glowz: -0.8 },   // back wall at z -1.3, the floor runs on under the camera
   { id: "dark", kind: "plank", x: XB + 0.15, y: 0, z: -1.95, w: 2.2, h: 2.3, t: 0.02, color: "#15110e" },
-  { id: "cistern", kind: "zcistern", x: XB + 0.15, y: 0, z: 0.3, rot: 180, scale: 0.85, lid: 0, water: 1 },
+  { id: "cistern", kind: "zcistern", x: XB + 0.15, y: 0, z: 0.9, rot: 180, scale: 0.85, lid: 0, water: 1 },
   { id: "candleB", kind: "pillarcandle", x: XB - 1.0, y: 0.86, z: 0.68, lit: 1 },   // on the basin's rim
   { id: "glass", ...GLASS, x: XB + 0.45, y: 0.62, z: 0.62, fill: 0 },
   { id: "glassW", ...GLASS, x: XB - 0.24, y: 0.5, z: -0.5, fill: 0 },
@@ -260,9 +260,9 @@ both(r3(T.bath - 0.02), "spud", { o: [0.2, 0.5, 0.3] }, 0.01);
 both(T.lid, "spud", { o: [0.22, 0.82, 0.28] }, 0.45); prop(T.lid, "cistern", { lid: 1 }, 0.5, "inOut");
 sfx(T.lid, "scrape", { gain: 0.3, reason: "the china lid comes off the cistern" });
 c.arm(r3(T.bath - 0.02), "sam", "L", { o: [0.26, 0.5, 0.3] }, 0.01);
-c.arm(r3(T.lid + 0.45), "sam", "L", { o: [0.34, 0.34, 0.34] }, 0.35); prop(r3(T.lid + 0.45), "glass", { x: XB + 0.2, y: 0.44, z: 0.555 }, 0.4, "inOut");
+c.arm(r3(T.lid + 0.45), "sam", "L", { o: [0.34, 0.34, 0.34] }, 0.35); prop(r3(T.lid + 0.45), "glass", { x: XB + 0.2, y: 0.44, z: 1.155 }, 0.4, "inOut");
 prop(r3(T.lid + 0.8), "glass", { fill: 1 }, 0.1);
-prop(r3(T.lid + 1.0), "glass", { x: XB + 0.42, y: 0.66, z: 0.6 }, 0.35, "inOut"); c.arm(r3(T.lid + 1.0), "sam", "L", { o: [0.26, 0.54, 0.3] }, 0.35);
+prop(r3(T.lid + 1.0), "glass", { x: XB + 0.42, y: 0.66, z: 1.1 }, 0.35, "inOut"); c.arm(r3(T.lid + 1.0), "sam", "L", { o: [0.26, 0.54, 0.3] }, 0.35);
 sfx(r3(T.lid + 0.85), "plunk", { gain: 0.3, reason: "the glass dips into the last clean water" });
 expr(r3(T.lid + 1.0), "sam", "kind", { curve: 0.1 });
 see(T.bath, T.bucket, ["spud.face", "sam.face", "cistern"], "P03: the tap is dry; the last water is in the toilet cistern, three wait in the doorway with empty glasses");
@@ -366,8 +366,8 @@ crawl(T.back, "spud", S0, S1, BD, 1, 0, -1, 40);
 putProp(T.back, "bag", { x: G0 + 0.28, y: r3(ladY(G0, 1) + 0.74), z: 0, fill: 1 });               // the sack on his back
 prop(T.back, "bag", { x: GX + 0.28, y: r3(ladY(GX, 1) + 0.74) }, BD, "linear");
 putProp(T.back, "tinS", { x: FAR[0] });
-putProp(T.back, "tinG", { x: G0 + 0.35, y: r3(ladY(G0, 1) + 1.72), z: 0.2 });
-prop(T.back, "tinG", { x: GX + 0.6, y: r3(ladY(GX, 1) + 1.72), z: 0.35 }, r3(T.slip - T.back), "linear");
+putProp(T.back, "tinG", { x: G0 + 0.35, y: r3(ladY(G0, 1) + 1.0), z: 0.5 });
+prop(T.back, "tinG", { x: GX + 0.6, y: r3(ladY(GX, 1) + 1.0), z: 0.55 }, r3(T.slip - T.back), "linear");
 // the fall: 15 m in about 1.7 s (free fall), down onto the police car's roof
 prop(T.slip, "tinG", { x: PB[0] - 0.25, y: -12.75, z: PB[1] + 0.2, roll: 540 }, r3(T.hit - T.slip), "in");
 expr(r3(T.back - 0.02), "gun", "angry", { open: 0.25 }, 0.01); expr(r3(T.back - 0.02), "spud", "terrified", { open: 0.1 }, 0.01);
@@ -411,7 +411,7 @@ see(T.crack, T.burst, ["gun.face", "spud.face", "bag", "ladder"], "P11: the ladd
 // ================================================================ P11b DAY 6 (22.9 - 25.3): the door gives way; all five cross
 // NOT in the panels: how the other three reach the roof (Jonny is told in the draft message).
 putProp(T.burst, "flat", { dim: 0.35 }); putProp(T.burst, "door", { shadows: 12, bulge: 1 }); putProp(T.burst, "inflat", { x: WALLX - 0.95, z: DZ });
-prop(T.burst, "door", { burst: 1 }, 0.3, "in"); prop(T.burst, "robe", { z: DZ + 1.5, rot: 60, bend: -0.6 }, 0.3, "out");
+prop(T.burst, "door", { burst: 1 }, 0.3, "out"); prop(T.burst, "robe", { z: DZ + 1.5, rot: 60, bend: -0.6 }, 0.3, "out");
 prop(r3(T.burst + 0.1), "inflat", { adv: 2.4 }, 0.45, "linear");
 sfx(T.burst, "slam", { gain: 0.8, loud: true, reason: "the flat door bursts in" });
 c.at(r3(T.burst + 0.1), { fx: "shake", dur: 0.3, amp: 0.06 });
@@ -465,7 +465,7 @@ const beats = c.beats([
   ["P07 the ladder", T.cross, sh("HIGH")],
   ["P08 it's free", T.shop, sh("SHOP")],
   ["P09 a tin slips", T.back, sh("LADC")],
-  ["P10 every face turns up", T.down, sh("DOWN")],
+  ["P10 every face turns up", T.down, sh("DOWN", { fov: 31 }, 1.0, "inOut")],
   ["P11 the ladder cracks", T.crack, sh("VEE")],
   ["P11b the door gives way", T.burst, sh("BURST")],
   ["P11b all five cross", T.run, sh("HIGH")],
