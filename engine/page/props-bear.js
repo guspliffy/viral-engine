@@ -149,6 +149,7 @@ const LEGS = [
 // arm poses [phiH, phiF, wr, ex, wx] (degrees; metres sideways, + outward)
 const ARM = { hang: [15, 55, -25, 0.06, -0.02], reach: [69, 84, 0, 0.08, 0.06], high: [132, 170, -25, 0.16, 0.26] };
 const SWIPE = [[120, 175, -30, 0.22, 0.34], [80, 95, -15, 0.02, -0.26], [35, 60, 10, -0.02, -0.34]];   // A wind-up, B strike, C follow-through
+const CLIMB = { pitch: 74, pv: [0, 0.90, -0.46], foreA: 66, foreY: 2.30, hindA: 50, hindY: 0.62 };   // leaning 16 deg off the trunk, chest on the bark
 const BARK = { x: 0, z: 0.50, r: 0.35 };   // the climbed trunk's axis and radius, in the prop's frame
 const barkAt = (s, a, off, y) => [s * (BARK.r + off) * Math.sin(a), y, BARK.z - (BARK.r + off) * Math.cos(a)];
 const barkN = (s, a) => [s * Math.sin(a), 0, -Math.cos(a)];
@@ -170,8 +171,8 @@ function solve(ps) {
   const swipe = clamp(ps.swipe ?? 0), swS = (ps.swipeSide ?? 1) >= 0 ? 1 : -1, bell = Math.sin(Math.PI * swipe), swAct = sstep(swipe / 0.05) * (1 - sstep((swipe - 0.95) / 0.05));
   const sf = (((ps.sniff ?? 0) % 1) + 1) % 1, sk = Math.sin(Math.PI * sf) ** 2;
   // ---- trunk: pitch about the hips (negative = chest up), the hips move for the rear and the climb, roll and shift
-  const thDeg = -(82 * sr) * (1 - sc) - 86 * sc + 7 * bd * Math.sin(TAU * (g + 0.15)) * wk * (1 - sr) * (1 - sc), th = rad(thDeg);
-  const PV = mix3([0, 0.80 + 0.07 * sr, -0.76 + 0.06 * sr], [0, 0.90, -0.35], sc);
+  const thDeg = -(82 * sr) * (1 - sc) - CLIMB.pitch * sc + 7 * bd * Math.sin(TAU * (g + 0.15)) * wk * (1 - sr) * (1 - sc), th = rad(thDeg);
+  const PV = mix3([0, 0.80 + 0.07 * sr, -0.76 + 0.06 * sr], CLIMB.pv, sc);
   const valL = Math.cos(TAU * (g - 0.06)) * wk * (1 - sr);
   let rollD = -2 * valL + 5 * swS * bell, shx = 0.02 * valL - 0.04 * swS * bell;
   const cs = Math.cos(TAU * (ck - 0.3)) * wc; rollD += -4 * cs; shx += -0.03 * cs;
@@ -219,8 +220,8 @@ function solve(ps) {
       const qy = qY(yaw), zP = new THREE.Vector3(...arm.p).applyQuaternion(qy), yP = new THREE.Vector3(0, arm.p[2], -arm.p[1]).applyQuaternion(qy);
       let W = arm.W, E = arm.E, fq = basisQ(zP.toArray(), yP.toArray());
       if (sc > 0) {   // the climb: fore wrist on the bark at 60 deg, palm on it, toes up, claws in
-        const f = ((((ck + l.c) % 1) + 1) % 1), [dy, lf] = footPath(f, 0.36, 0.60, 0.06), a60 = rad(60), n = barkN(s, a60);
-        const Wc = barkAt(s, a60, 0.07, 2.17 + dy * wc); Wc[0] += n[0] * lf * wc; Wc[2] += n[2] * lf * wc;
+        const f = ((((ck + l.c) % 1) + 1) % 1), [dy, lf] = footPath(f, 0.36, 0.60, 0.06), a60 = rad(CLIMB.foreA), n = barkN(s, a60);
+        const Wc = barkAt(s, a60, 0.07, CLIMB.foreY + dy * wc); Wc[0] += n[0] * lf * wc; Wc[2] += n[2] * lf * wc;
         const Ec = ik3(Sh, Wc, FRONT.L1, FRONT.L2, [s, -0.6, -0.3]);
         E = mix3(E, Ec, sc); W = mix3(W, Wc, sc); fq = fq.slerp(basisQ([0, 1, 0], n), sc);
       }
@@ -231,8 +232,8 @@ function solve(ps) {
     const pitch = Math.min(rad(25), Math.asin(clamp(l.lift / 0.24)) * 0.95);
     let H = heel, fq = qY(s * rad(5 + 10 * sr)).multiply(qX(pitch)), pole = [0, 0, 1];
     if (sc > 0) {   // the climb: heel on the bark at 50 deg, sole flat on it, toes up
-      const f = ((((ck + l.c) % 1) + 1) % 1), [dy, lf] = footPath(f, 0.36, 0.60, 0.06), a50 = rad(50), n = barkN(s, a50);
-      const Hc = barkAt(s, a50, 0.10, 0.62 + dy * wc); Hc[0] += n[0] * lf * wc; Hc[2] += n[2] * lf * wc;
+      const f = ((((ck + l.c) % 1) + 1) % 1), [dy, lf] = footPath(f, 0.36, 0.60, 0.06), a50 = rad(CLIMB.hindA), n = barkN(s, a50);
+      const Hc = barkAt(s, a50, 0.10, CLIMB.hindY + dy * wc); Hc[0] += n[0] * lf * wc; Hc[2] += n[2] * lf * wc;
       H = mix3(heel, Hc, sc); fq = fq.slerp(basisQ([0, 1, 0], n), sc); pole = mix3(pole, [s, 0.3, 0.2], sc);
     }
     const Kn = ik3(Hp, H, HIND.L1, HIND.L2, pole), up = new THREE.Vector3(0, 0.09, 0).applyQuaternion(q), dK = nrm3([H[0] - Kn[0], H[1] - Kn[1], H[2] - Kn[2]]);
@@ -295,20 +296,20 @@ const bodyTex = () => once("bearBodyT2", () => cvs(1024, 512, (g, W, H) => {
   // the tan muzzle: a soft uneven edge from the top of row 14.6 down and back to the mouth corner at row 13.6
   const nz = (y, k) => 0.5 + 0.5 * (0.6 * Math.sin(y * 0.09 + rnd(k) * 6) + 0.4 * Math.sin(y * 0.31 + rnd(k + 5) * 6));
   for (let y = 0; y < H; y += 2) {
-    const d = Math.abs(y / H - 0.5) * 2, b = W * rowU(14.6) + (W * rowU(13.6) - W * rowU(14.6)) * sstep(d / 0.9) + (nz(y, 3) - 0.5) * 16;
-    const gg = g.createLinearGradient(b - 16, 0, b + 14, 0); gg.addColorStop(0, "rgba(110,75,42,0)"); gg.addColorStop(0.45, "rgba(110,75,42,0.95)"); gg.addColorStop(1, css(rgbOf(TAN), 1));
-    g.fillStyle = gg; g.fillRect(b - 16, y, W - b + 16, 2.2);
+    const d = Math.abs(y / H - 0.5) * 2, b = W * rowU(15.15) + (W * rowU(14.75) - W * rowU(15.15)) * sstep(d / 0.9) + (nz(y, 3) - 0.5) * 12;
+    const gg = g.createLinearGradient(b - 14, 0, b + 12, 0); gg.addColorStop(0, "rgba(110,75,42,0)"); gg.addColorStop(0.45, "rgba(110,75,42,0.95)"); gg.addColorStop(1, css(rgbOf(TAN), 1));
+    g.fillStyle = gg; g.fillRect(b - 14, y, W - b + 14, 2.2);
   }
   const lx = W * rowU(15.4);   // lighter tan beside the nose and along the lips' edge
   for (const [y0, dir] of [[0, 1], [H, -1]]) { const gg = g.createLinearGradient(0, y0, 0, y0 + dir * H * 0.32); gg.addColorStop(0, "rgba(201,160,104,0.85)"); gg.addColorStop(1, "rgba(201,160,104,0)"); g.fillStyle = gg; g.fillRect(lx, dir > 0 ? y0 : y0 - H * 0.32, W - lx, H * 0.32); }
-  const bx0 = W * rowU(14.6), bx1 = bx0 + (W - bx0) * 0.6;   // the bridge: darker along the top of the nose
+  const bx0 = W * rowU(15.2), bx1 = bx0 + (W - bx0) * 0.6;   // the bridge: darker along the top of the nose
   { const gg = g.createLinearGradient(0, H * 0.44, 0, H * 0.56); gg.addColorStop(0, "rgba(90,61,36,0)"); gg.addColorStop(0.5, "rgba(90,61,36,0.95)"); gg.addColorStop(1, "rgba(90,61,36,0)"); g.fillStyle = gg; g.fillRect(bx0, H * 0.4, bx1 - bx0, H * 0.2); g.fillStyle = gg; g.fillRect(bx1, H * 0.46, 40, H * 0.08); }
   for (let i = 0; i < 500; i++) {   // very short strokes in the tan
     const x = bx0 + rnd(i * 3 + 9001) * (W - bx0), y = rnd(i * 3 + 9002) * H, l = 4 + 2 * rnd(i + 9003); g.strokeStyle = i % 2 ? "rgba(138,95,51,0.5)" : "rgba(201,160,104,0.5)"; g.lineWidth = 1.3;
     g.beginPath(); g.moveTo(x, y); g.lineTo(x - l, y + (y < H / 2 ? -1 : 1) * l * 0.25); g.stroke();
   }
-  g.fillStyle = "#15110f"; g.fillRect(W * rowU(17.3), 0, W, H);   // rows 17-18: the nose pad is black (from the middle of row 17: the pad is 0.07 wide)
-  { const gg = g.createLinearGradient(W * rowU(16.8), 0, W * rowU(17.3), 0); gg.addColorStop(0, "rgba(21,17,15,0)"); gg.addColorStop(1, "rgba(21,17,15,1)"); g.fillStyle = gg; g.fillRect(W * rowU(16.8), 0, W * (rowU(17.3) - rowU(16.8)), H); }
+  g.fillStyle = "#15110f"; g.fillRect(W * rowU(17.85), 0, W, H);   // rows 17-18: the nose pad is black (from the middle of row 17: the pad is 0.07 wide)
+  { const gg = g.createLinearGradient(W * rowU(17.45), 0, W * rowU(17.85), 0); gg.addColorStop(0, "rgba(21,17,15,0)"); gg.addColorStop(1, "rgba(21,17,15,1)"); g.fillStyle = gg; g.fillRect(W * rowU(17.45), 0, W * (rowU(17.85) - rowU(17.45)), H); }
   // the mouth roof (4.5 % of H each side) and the black lip line beside it
   const rx0 = W * rowU(13.6), rx1 = W * rowU(16.4);
   g.fillStyle = INSIDE; g.fillRect(rx0, 0, rx1 - rx0, H * 0.03); g.fillRect(rx0, H * 0.97, rx1 - rx0, H * 0.03);
@@ -351,7 +352,7 @@ const clawTex = () => once("bearClawT2", () => cvs(8, 64, (g, W, H) => { const g
 const noseTex = () => once("bearNoseT2", () => cvs(128, 64, (g, W, H) => {   // the front of the sphere is u 0.25; the comma nostrils
   g.fillStyle = "#15110f"; g.fillRect(0, 0, W, H);
   const gr = g.createRadialGradient(W * 0.25, H * 0.3, 2, W * 0.25, H * 0.3, 16); gr.addColorStop(0, "rgba(90,84,78,0.5)"); gr.addColorStop(1, "rgba(90,84,78,0)"); g.fillStyle = gr; g.fillRect(0, 0, W, H);
-  g.fillStyle = "#040302"; for (const k of [-1, 1]) { g.beginPath(); g.ellipse(W * (0.25 + k * 0.05), H * 0.58, 4.5, 3.2, k * 0.5, 0, TAU); g.fill(); g.beginPath(); g.ellipse(W * (0.25 + k * 0.07), H * 0.64, 2.6, 1.6, k * 0.9, 0, TAU); g.fill(); }
+  g.fillStyle = "#040302"; for (const k of [-1, 1]) { g.beginPath(); g.ellipse(W * (0.25 + k * 0.045), H * 0.55, 6, 4, k * 0.5, 0, TAU); g.fill(); g.beginPath(); g.ellipse(W * (0.25 + k * 0.07), H * 0.62, 3.4, 2, k * 0.9, 0, TAU); g.fill(); }
 }));
 const fleck = (base, seed = 1, n = 60, a = 0.14) => once(`bf${base}${seed}`, () => cvs(64, 64, (g, W, H) => {
   g.fillStyle = base; g.fillRect(0, 0, W, H);
@@ -542,7 +543,7 @@ export const BEAR_KINDS = {
     const tongue = makeLoft([[0.80, 0.03, 0.006], [0.85, 0.042, 0.006], [0.91, 0.045, 0.006], [0.95, 0.035, 0.006], [0.975, 0.02, 0.005]].map(([z, w, u]) => mkSec([0, 0.769 - JH[1], z - JH[2]], w, u, u, 2.2)), { sub: 3, radial: 12 });
     mesh(tongue, tongueM, jawG).castShadow = false;
     // nose pad cap: a wet squashed sphere with two comma nostrils
-    const nose = mesh(new THREE.SphereGeometry(1, 20, 12).scale(0.0375, 0.025, 0.015), noseM, headG, ...rel([0, 0.845, 1.03]));
+    const nose = mesh(new THREE.SphereGeometry(1, 20, 12).scale(0.027, 0.014, 0.013), noseM, headG, ...rel([0, 0.84, 1.034]));
     // snarl wrinkles: three dark arcs across the bridge
     const wrinkles = [0.90, 0.925, 0.95].map((z) => {
       const pts = [-0.05, -0.025, 0, 0.025, 0.05].map((x) => new THREE.Vector3(x, muzzleTop(z, x) - muzzleTop(z, 0) + 0.002, 0));
@@ -589,7 +590,7 @@ export const BEAR_KINDS = {
           e.g.rotation.set(rad(fwd), 0, -e.s * rad(out)); e.g.scale.set(1, ev >= 0 ? 1 : 1 + 0.4 * ev, 1);
         }
         // nose: wet cap lifts and flares with sniff, rises with snarl
-        nose.position.set(...rel([0, 0.845 + 0.012 * Z.sk + 0.008 * sn, 1.03])); nose.scale.set(1 + 0.12 * Z.sk, 1, 1);
+        nose.position.set(...rel([0, 0.84 + 0.012 * Z.sk + 0.008 * sn, 1.034])); nose.scale.set(1 + 0.12 * Z.sk, 1, 1);
         wrinkles.forEach((g) => { g.visible = sn > 0.02; g.scale.set(Math.max(sn, 0.001), Math.max(sn, 0.001), Math.max(sn, 0.001)); });
         face.apply(ps);
         // legs: lofts and rigid paws

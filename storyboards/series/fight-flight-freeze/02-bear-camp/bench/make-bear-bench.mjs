@@ -16,7 +16,7 @@ const CAMS = {
   size: { pos: [3.2, 0.9, 9.0], look: [-0.5, 0.6, 1.5], fov: 40 },
   rside: { pos: [8.2, 1.3, -0.2], look: [0, 1.3, -0.2], fov: 40 }, rfront: { pos: [0.5, 1.4, 7.5], look: [0, 1.3, -0.3], fov: 40 }, rtq: { pos: [4.6, 1.5, 6.2], look: [0, 1.3, -0.2], fov: 40 },
   sw: { pos: [3.4, 1.0, 4.4], look: [0, 0.7, 0.5], fov: 40 }, swr: { pos: [3.8, 1.5, 5.0], look: [0, 1.3, 0.2], fov: 40 }, bound: { pos: [7.5, 0.7, 0.1], look: [0, 0.7, 0.1], fov: 40 },
-  climb: { pos: [7.5, 1.5, 0.55], look: [0, 1.5, 0.55], fov: 40 }, face: { pos: [1.4, 1.0, 3.3], look: [0, 0.85, 1.0], fov: 22 }, faceF: { pos: [0.3, 0.95, 3.6], look: [0, 0.82, 1.0], fov: 20 },
+  climb: { pos: [-2.8, 1.9, -6.0], look: [0.1, 1.7, 0.4], fov: 40 }, face: { pos: [1.4, 1.0, 3.3], look: [0, 0.85, 1.0], fov: 22 }, faceF: { pos: [0.3, 0.95, 3.6], look: [0, 0.82, 1.0], fov: 20 },
   hold: { pos: [2.7, 0.9, 1.9], look: [0, 0.72, 1.0], fov: 28 },
 };
 const REST = { gait: 0, bound: 0, rear: 0, pawL: 0, pawR: 0, swipe: 0, swipeSide: 1, climb: 0, climbStep: 0, jaw: 0, snarl: 0, ears: 0, sniff: 0, claws: 0, brow: 0, squint: 0, blink: 0, lookX: 0, lookY: 0, headY: 0, headP: 0, breath: 0 };
@@ -36,7 +36,7 @@ const HOLD_I = SHOTS.length - 1;
 
 const props = [
   { id: "bear", kind: "bear", x: 0, y: 0, z: 0, rot: 0, scale: SC, ...REST },
-  { id: "pine", kind: "climbpine", x: FAR, y: 0, z: 0.5 * SC, rot: 0, scale: 1 },
+  { id: "pine", kind: "climbpine", x: FAR, y: 0, z: 0.5 * SC, rot: 180, scale: 1 },
   { id: "held", kind: "cardbox", x: FAR, y: 0, z: 0, rot: 0, scale: 1, ...BOX, empty: true },
 ];
 c.prop(0, "bear", { ...REST }, 0, "linear");
