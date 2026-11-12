@@ -58,8 +58,8 @@
  },
  "creative": {
   "length": [
-   66,
-   66
+   64.6,
+   64.6
   ]
  },
  "hook": {
@@ -86,7 +86,7 @@
     6
    ],
    [
-    57,
+    55.7,
     7
    ]
   ],
@@ -99,8 +99,8 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    130.35,
-    -0.2
+    130.68,
+    -0.15
    ],
    "face": "camera",
    "expr": "shocked",
@@ -147,8 +147,8 @@
    "id": "gun",
    "character": "never-has-money/gunslinger",
    "at": [
-    129.45,
-    -0.25
+    129.7,
+    -0.3
    ],
    "face": "camera",
    "expr": "deadpan",
@@ -166,6 +166,20 @@
    "parked": [
     0,
     5
+   ],
+   "clear": [
+    [
+     -4.9,
+     3.5,
+     -2.6,
+     12.5
+    ],
+    [
+     -2.6,
+     -0.5,
+     1.6,
+     9.5
+    ]
    ],
    "car": [
     -1.65,
@@ -845,31 +859,31 @@
    "pop": false
   },
   {
-   "from": 48.8,
-   "to": 51.97,
+   "from": 48.3,
+   "to": 51.47,
    "text": "Every shot calls the horde.",
    "pos": 330,
    "pop": false
   },
   {
-   "from": 52.75,
-   "to": 54.9,
+   "from": 52.25,
+   "to": 54.4,
    "text": "Drop it!",
    "pos": 330,
    "pop": true
   },
   {
-   "from": 58.3,
-   "to": 62.8,
+   "from": 57,
+   "to": 61.5,
    "text": "Water. Silence. High ground.",
-   "pos": 330,
+   "pos": 260,
    "pop": false
   },
   {
-   "from": 62.85,
-   "to": 65.95,
+   "from": 61.55,
+   "to": 64.55,
    "text": "Tomorrow we take less.",
-   "pos": 330,
+   "pos": 260,
    "pop": false
   }
  ],
@@ -1080,8 +1094,8 @@
      "who": "gun",
      "do": "move",
      "to": [
-      129.45,
-      -0.25
+      129.7,
+      -0.3
      ],
      "dur": 0,
      "steps": 0,
@@ -1108,7 +1122,7 @@
      "who": "gun",
      "do": "look",
      "to": [
-      0.381,
+      0.166,
       0.1
      ],
      "dur": 0,
@@ -1119,8 +1133,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      130.35,
-      -0.2
+      130.68,
+      -0.15
      ],
      "dur": 0,
      "steps": 0,
@@ -1147,7 +1161,7 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.484,
+      -0.585,
       0.1
      ],
      "dur": 0,
@@ -2953,7 +2967,7 @@
   {
    "name": "P03 step 1: barricade",
    "at": 6.3,
-   "len": 5.8,
+   "len": 2.7,
    "shot": {
     "pos": [
      41.9,
@@ -3042,13 +3056,33 @@
      "y": 300,
      "angle": -2,
      "at": 0.3
-    },
+    }
+   ]
+  },
+  {
+   "name": "P03 b: closer on the barricade",
+   "at": 9,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     40,
+     2.2,
+     -0.65
+    ],
+    "look": [
+     38.3,
+     1.15,
+     -0.9
+    ],
+    "fov": 50
+   },
+   "do": [
     {
      "sfx": "sirenwail",
      "gain": 0.3,
      "dur": 1.2,
      "reason": "a police car's alarm starts down in the street",
-     "at": 3.6
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3058,7 +3092,7 @@
      },
      "dur": 0.05,
      "ease": "inOut",
-     "at": 3.6
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3069,7 +3103,7 @@
      },
      "dur": 0.3,
      "ease": "in",
-     "at": 3.7
+     "at": 1
     },
     {
      "who": "spud",
@@ -3080,7 +3114,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 3.7
+     "at": 1
     },
     {
      "who": "sam",
@@ -3091,7 +3125,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 3.7
+     "at": 1
     },
     {
      "who": "wiz",
@@ -3102,7 +3136,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 3.7
+     "at": 1
     },
     {
      "who": "phx",
@@ -3113,7 +3147,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 3.7
+     "at": 1
     },
     {
      "who": "gun",
@@ -3124,7 +3158,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 3.7
+     "at": 1
     },
     {
      "do": "prop",
@@ -3134,20 +3168,20 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 4.18
+     "at": 1.48
     },
     {
      "sfx": "slam",
      "gain": 0.6,
      "loud": true,
      "reason": "the wardrobe hits the door, the door shuts",
-     "at": 4.3
+     "at": 1.6
     },
     {
      "fx": "shake",
      "dur": 0.25,
      "amp": 0.035,
-     "at": 4.3
+     "at": 1.6
     },
     {
      "do": "prop",
@@ -3159,7 +3193,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.4
+     "at": 1.7
     },
     {
      "do": "prop",
@@ -3171,7 +3205,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.4
+     "at": 1.7
     },
     {
      "who": "spud",
@@ -3179,21 +3213,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3206,7 +3240,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3214,7 +3248,7 @@
      "to": -6,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3223,7 +3257,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3232,7 +3266,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3243,7 +3277,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3251,21 +3285,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3278,7 +3312,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3286,7 +3320,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3295,7 +3329,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3304,7 +3338,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "wiz",
@@ -3315,7 +3349,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3323,21 +3357,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3350,7 +3384,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3358,7 +3392,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3367,7 +3401,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3376,7 +3410,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "gun",
@@ -3387,7 +3421,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3395,21 +3429,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3422,7 +3456,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3430,7 +3464,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3439,7 +3473,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3448,7 +3482,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "sam",
@@ -3459,7 +3493,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3467,21 +3501,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3494,7 +3528,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3502,7 +3536,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3511,7 +3545,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3520,7 +3554,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "phx",
@@ -3531,7 +3565,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3541,7 +3575,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3551,7 +3585,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3562,7 +3596,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3572,7 +3606,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3582,7 +3616,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3592,7 +3626,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "do": "prop",
@@ -3602,7 +3636,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3612,7 +3646,7 @@
       "curve": -0.2
      },
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3626,7 +3660,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 5.78
+     "at": 3.08
     },
     {
      "who": "spud",
@@ -3637,14 +3671,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.79
+     "at": 3.09
     }
    ]
   },
   {
    "name": "P04 step 2: no sound",
    "at": 12.1,
-   "len": 5.4,
+   "len": 1.9,
    "shot": {
     "pos": [
      -3.75,
@@ -3698,7 +3732,46 @@
      "y": 300,
      "angle": -2,
      "at": 0.25
-    },
+    }
+   ]
+  },
+  {
+   "name": "P04 b: the street flows to the noise",
+   "at": 14,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     -2.85,
+     2.3,
+     -1.45
+    ],
+    "look": [
+     0.2,
+     -15,
+     -11.5
+    ],
+    "fov": 60
+   },
+   "do": []
+  },
+  {
+   "name": "P04 c: they follow sound",
+   "at": 15.95,
+   "len": 1.55,
+   "shot": {
+    "pos": [
+     -3.75,
+     2.65,
+     0.35
+    ],
+    "look": [
+     -0.9,
+     -15,
+     -19
+    ],
+    "fov": 66
+   },
+   "do": [
     {
      "who": "spud",
      "do": "talk",
@@ -3706,7 +3779,7 @@
      "tone": "whisper",
      "dur": 0.9,
      "blink": false,
-     "at": 4.1
+     "at": 0.25
     },
     {
      "who": "gun",
@@ -3714,21 +3787,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -3741,7 +3814,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -3749,7 +3822,7 @@
      "to": 150,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -3758,7 +3831,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -3767,7 +3840,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -3778,7 +3851,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3786,21 +3859,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3813,7 +3886,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3821,7 +3894,7 @@
      "to": -150,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3830,7 +3903,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3839,7 +3912,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -3850,7 +3923,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3858,21 +3931,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3885,7 +3958,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3893,7 +3966,7 @@
      "to": -130,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3902,7 +3975,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3911,7 +3984,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -3922,7 +3995,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3930,21 +4003,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3957,7 +4030,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3965,7 +4038,7 @@
      "to": 130,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3974,7 +4047,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3983,7 +4056,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -3994,7 +4067,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4002,21 +4075,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4029,7 +4102,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4037,7 +4110,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4046,7 +4119,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4055,7 +4128,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4066,7 +4139,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "do": "prop",
@@ -4076,7 +4149,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "do": "prop",
@@ -4088,7 +4161,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -4102,7 +4175,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -4116,7 +4189,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -4131,7 +4204,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -4146,7 +4219,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -4161,7 +4234,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -4176,7 +4249,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -4184,7 +4257,7 @@
      "side": "R",
      "pose": "point",
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "spud",
@@ -4192,7 +4265,7 @@
      "expr": "focused",
      "set": {},
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "sam",
@@ -4200,7 +4273,7 @@
      "expr": "focused",
      "set": {},
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "wiz",
@@ -4208,7 +4281,7 @@
      "expr": "focused",
      "set": {},
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "phx",
@@ -4216,7 +4289,7 @@
      "expr": "focused",
      "set": {},
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -4224,7 +4297,7 @@
      "expr": "focused",
      "set": {},
      "dur": 0.01,
-     "at": 5.38
+     "at": 1.53
     },
     {
      "who": "gun",
@@ -4234,7 +4307,7 @@
      "grip": "hand",
      "dur": 0,
      "pose": null,
-     "at": 5.385
+     "at": 1.535
     },
     {
      "who": "gun",
@@ -4245,7 +4318,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.39
+     "at": 1.54
     },
     {
      "who": "phx",
@@ -4256,7 +4329,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.39
+     "at": 1.54
     },
     {
      "who": "wiz",
@@ -4267,7 +4340,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.39
+     "at": 1.54
     },
     {
      "who": "spud",
@@ -4278,14 +4351,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.39
+     "at": 1.54
     }
    ]
   },
   {
    "name": "P05 step 3: fill the bathtub",
    "at": 17.5,
-   "len": 6.066,
+   "len": 2.9,
    "shot": {
     "pos": [
      70.05,
@@ -4404,28 +4477,48 @@
      },
      "dur": 0.2,
      "at": 1.9
-    },
+    }
+   ]
+  },
+  {
+   "name": "P05 b: the tub fills",
+   "at": 20.4,
+   "len": 3.166,
+   "shot": {
+    "pos": [
+     70.05,
+     2.15,
+     0.45
+    ],
+    "look": [
+     70.15,
+     0.45,
+     -0.9
+    ],
+    "fov": 54
+   },
+   "do": [
     {
      "who": "spud",
      "do": "pitch",
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4438,7 +4531,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4446,7 +4539,7 @@
      "to": -160,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4455,7 +4548,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4464,7 +4557,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4475,7 +4568,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4483,21 +4576,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4510,7 +4603,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4518,7 +4611,7 @@
      "to": -120,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4527,7 +4620,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4536,7 +4629,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4547,7 +4640,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4555,21 +4648,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4582,7 +4675,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4590,7 +4683,7 @@
      "to": 140,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4599,7 +4692,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4608,7 +4701,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4619,7 +4712,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4627,21 +4720,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4654,7 +4747,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4662,7 +4755,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4671,7 +4764,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4680,7 +4773,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4691,7 +4784,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4699,21 +4792,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4726,7 +4819,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4734,7 +4827,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4743,7 +4836,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4752,7 +4845,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4763,7 +4856,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4775,7 +4868,7 @@
       40
      ],
      "dur": 0,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4785,7 +4878,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4797,7 +4890,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4808,7 +4901,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4818,7 +4911,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4830,7 +4923,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4842,7 +4935,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "do": "prop",
@@ -4854,7 +4947,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4866,7 +4959,7 @@
       "lidR": 0.25
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "sam",
@@ -4878,7 +4971,7 @@
       "lidR": 0.25
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4890,7 +4983,7 @@
       "lidR": 0.25
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "phx",
@@ -4902,7 +4995,7 @@
       "lidR": 0.25
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "gun",
@@ -4914,7 +5007,7 @@
       "lidR": 0.25
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "wiz",
@@ -4928,7 +5021,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4942,7 +5035,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 6.046
+     "at": 3.146
     },
     {
      "who": "spud",
@@ -4952,7 +5045,7 @@
      "grip": "hand",
      "dur": 0,
      "pose": null,
-     "at": 6.051
+     "at": 3.151
     },
     {
      "who": "wiz",
@@ -4962,7 +5055,7 @@
      "grip": "hand",
      "dur": 0,
      "pose": null,
-     "at": 6.051
+     "at": 3.151
     },
     {
      "who": "spud",
@@ -4973,7 +5066,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.056
+     "at": 3.156
     },
     {
      "who": "sam",
@@ -4984,7 +5077,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.056
+     "at": 3.156
     },
     {
      "who": "wiz",
@@ -4995,7 +5088,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.056
+     "at": 3.156
     },
     {
      "who": "phx",
@@ -5006,7 +5099,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.056
+     "at": 3.156
     },
     {
      "who": "gun",
@@ -5017,7 +5110,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.056
+     "at": 3.156
     }
    ]
   },
@@ -5036,7 +5129,22 @@
      0.6,
      -0.7
     ],
-    "fov": 64
+    "fov": 64,
+    "to": {
+     "fov": 64,
+     "look": [
+      70,
+      0.6,
+      -0.7
+     ],
+     "pos": [
+      70.05,
+      1.75,
+      2.9
+     ]
+    },
+    "dur": 4.734,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -8484,7 +8592,7 @@
   {
    "name": "P11 step 6: the gun fight",
    "at": 42.2,
-   "len": 6.4,
+   "len": 3.1,
    "shot": {
     "pos": [
      -4.6,
@@ -8801,7 +8909,7 @@
     },
     {
      "fx": "rule",
-     "dur": 3.8,
+     "dur": 3.3,
      "title": "STEP 6",
      "text": "SHOOT ONLY IF YOU MUST",
      "y": 300,
@@ -8813,7 +8921,27 @@
      "gain": 0.45,
      "reason": "the zombie falls on the asphalt",
      "at": 2.75
-    },
+    }
+   ]
+  },
+  {
+   "name": "P11 b: the smoking revolver",
+   "at": 45.3,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     2.5,
+     -13.95,
+     5
+    ],
+    "look": [
+     0.3,
+     -14.35,
+     2.75
+    ],
+    "fov": 54
+   },
+   "do": [
     {
      "who": "gun",
      "do": "arm",
@@ -8826,7 +8954,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 6.37
+     "at": 2.77
     },
     {
      "who": "gun",
@@ -8840,7 +8968,7 @@
       ]
      },
      "dur": 0.01,
-     "at": 6.37
+     "at": 2.77
     },
     {
      "who": "gun",
@@ -8848,34 +8976,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
      "do": "move",
      "to": [
-      0.5,
-      2.6
+      0.65,
+      2.75
      ],
      "y": -15,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -8883,7 +9011,7 @@
      "to": 180,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -8892,7 +9020,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -8901,7 +9029,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -8912,7 +9040,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -8920,34 +9048,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      -0.35,
-      2
+      -0.25,
+      2.4
      ],
      "y": -15,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -8955,7 +9083,7 @@
      "to": 175,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -8964,7 +9092,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -8973,7 +9101,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -8984,7 +9112,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -8992,34 +9120,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
      "do": "move",
      "to": [
-      -1.35,
-      2.65
+      -1.45,
+      2.85
      ],
      "y": -15,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -9027,7 +9155,7 @@
      "to": 185,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -9036,7 +9164,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -9045,7 +9173,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -9056,7 +9184,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9064,21 +9192,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9091,7 +9219,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9099,7 +9227,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9108,7 +9236,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9117,7 +9245,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9128,7 +9256,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9136,21 +9264,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9163,7 +9291,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9171,7 +9299,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9180,7 +9308,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9189,7 +9317,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9200,7 +9328,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -9212,7 +9340,7 @@
       40
      ],
      "dur": 0,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -9224,34 +9352,34 @@
       40
      ],
      "dur": 0,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": 0.55,
+      "x": 0.7000000000000001,
       "y": -14.65,
-      "z": 3.02,
+      "z": 3.17,
       "fill": 1
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "do": "prop",
      "id": "gunR",
      "set": {
-      "x": 0.58,
+      "x": 0.73,
       "y": -14.55,
-      "z": 2.35,
+      "z": 2.5,
       "rot": 180,
       "smoke": 1
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "spud",
@@ -9261,7 +9389,7 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "sam",
@@ -9271,7 +9399,7 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "wiz",
@@ -9281,7 +9409,7 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "phx",
@@ -9291,7 +9419,7 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     },
     {
      "who": "gun",
@@ -9301,13 +9429,13 @@
       "open": 0.3
      },
      "dur": 0.01,
-     "at": 6.38
+     "at": 2.78
     }
    ]
   },
   {
    "name": "P12 every shot calls the horde",
-   "at": 48.6,
+   "at": 48.1,
    "len": 3.4,
    "shot": {
     "pos": [
@@ -9347,8 +9475,8 @@
      "do": "prop",
      "id": "hordeS",
      "set": {
-      "gx": 1.45,
-      "gz": 15.6,
+      "gx": 1.6,
+      "gz": 15.75,
       "adv": 2,
       "reach": 1
      },
@@ -10052,8 +10180,8 @@
   },
   {
    "name": "P13 the chase, drop it",
-   "at": 52,
-   "len": 5,
+   "at": 51.5,
+   "len": 4.2,
    "shot": {
     "pos": [
      0.9,
@@ -10841,34 +10969,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
      "do": "move",
      "to": [
-      -4.55,
+      -4.38,
       -1.15
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
@@ -10876,7 +11004,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
@@ -10885,7 +11013,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
@@ -10894,7 +11022,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "wiz",
@@ -10905,7 +11033,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10913,21 +11041,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10940,7 +11068,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10948,7 +11076,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10957,7 +11085,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10966,7 +11094,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "phx",
@@ -10977,7 +11105,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -10985,34 +11113,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
      "do": "move",
      "to": [
-      -4.55,
+      -4.45,
       -0.3
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -11020,7 +11148,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -11029,7 +11157,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -11038,7 +11166,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -11049,7 +11177,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
@@ -11057,34 +11185,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
      "do": "move",
      "to": [
-      -3.45,
+      -3.6,
       -0.3
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
@@ -11092,7 +11220,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
@@ -11101,7 +11229,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
@@ -11110,7 +11238,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "gun",
@@ -11121,7 +11249,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -11129,34 +11257,34 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      -4,
+      -4.02,
       0.45
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -11164,7 +11292,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -11173,7 +11301,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -11182,7 +11310,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -11193,7 +11321,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11204,7 +11332,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11214,7 +11342,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11224,7 +11352,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11239,7 +11367,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11252,7 +11380,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11262,7 +11390,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11274,7 +11402,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11287,7 +11415,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11299,7 +11427,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11309,7 +11437,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -11319,7 +11447,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.98
+     "at": 4.18
     },
     {
      "who": "sam",
@@ -11328,7 +11456,7 @@
      "rot": 0,
      "dur": 0.01,
      "hands": "keep",
-     "at": 4.985
+     "at": 4.185
     },
     {
      "who": "gun",
@@ -11337,7 +11465,7 @@
      "rot": 0,
      "dur": 0.01,
      "hands": "keep",
-     "at": 4.985
+     "at": 4.185
     },
     {
      "who": "spud",
@@ -11346,7 +11474,7 @@
      "rot": 0,
      "dur": 0.01,
      "hands": "keep",
-     "at": 4.985
+     "at": 4.185
     },
     {
      "who": "spud",
@@ -11358,7 +11486,7 @@
       "lidR": 0.4
      },
      "dur": 0.01,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "spud",
@@ -11367,7 +11495,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "spud",
@@ -11376,7 +11504,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "spud",
@@ -11387,7 +11515,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "sam",
@@ -11399,7 +11527,7 @@
       "lidR": 0.4
      },
      "dur": 0.01,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "sam",
@@ -11408,7 +11536,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "sam",
@@ -11417,7 +11545,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "sam",
@@ -11428,7 +11556,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "wiz",
@@ -11440,7 +11568,7 @@
       "lidR": 0.4
      },
      "dur": 0.01,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "wiz",
@@ -11449,7 +11577,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "wiz",
@@ -11458,7 +11586,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "wiz",
@@ -11469,7 +11597,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "phx",
@@ -11481,7 +11609,7 @@
       "lidR": 0.4
      },
      "dur": 0.01,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "phx",
@@ -11490,7 +11618,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "phx",
@@ -11499,7 +11627,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "phx",
@@ -11510,7 +11638,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "gun",
@@ -11522,7 +11650,7 @@
       "lidR": 0.4
      },
      "dur": 0.01,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "gun",
@@ -11531,7 +11659,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "gun",
@@ -11540,7 +11668,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "gun",
@@ -11551,7 +11679,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.99
+     "at": 4.19
     },
     {
      "who": "wiz",
@@ -11562,7 +11690,7 @@
       "lidR": 1
      },
      "dur": 0.005,
-     "at": 4.995
+     "at": 4.195
     },
     {
      "who": "gun",
@@ -11573,7 +11701,7 @@
       "lidR": 1
      },
      "dur": 0.005,
-     "at": 4.995
+     "at": 4.195
     },
     {
      "who": "gun",
@@ -11584,14 +11712,14 @@
      ],
      "dur": 0.005,
      "blink": false,
-     "at": 4.995
+     "at": 4.195
     }
    ]
   },
   {
    "name": "P14 day 7, the balcony",
-   "at": 57,
-   "len": 9,
+   "at": 55.7,
+   "len": 8.9,
    "shot": {
     "pos": [
      -3.95,
@@ -11603,7 +11731,22 @@
      -1,
      -2.6
     ],
-    "fov": 64
+    "fov": 64,
+    "to": {
+     "fov": 64,
+     "look": [
+      -3.95,
+      -0.6,
+      -2.6
+     ],
+     "pos": [
+      -3.95,
+      2.55,
+      2.1
+     ]
+    },
+    "dur": 8.9,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -11684,7 +11827,7 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0.532,
+      0.44,
       -0.1
      ],
      "dur": 0.15,
@@ -11695,7 +11838,7 @@
      "who": "phx",
      "do": "look",
      "to": [
-      -0.021,
+      -0.177,
       -0.1
      ],
      "dur": 0.15,
@@ -11871,7 +12014,7 @@
   },
   {
    "from": 44.15,
-   "to": 48.6,
+   "to": 48.1,
    "see": [
     "gun.face",
     "bad",
@@ -11880,8 +12023,8 @@
    "why": "the street is quiet for a second: three shots, very loud"
   },
   {
-   "from": 48.6,
-   "to": 52,
+   "from": 48.1,
+   "to": 51.5,
    "see": [
     "hordeS",
     "gun",
@@ -11891,8 +12034,8 @@
    "why": "P12: high above the three: the whole horde up the street has turned to the shots and comes running"
   },
   {
-   "from": 52,
-   "to": 52.75,
+   "from": 51.5,
+   "to": 52.25,
    "see": [
     "spud.face",
     "gun",
@@ -11902,8 +12045,8 @@
    "why": "P13: they run for their building's door, the horde a few metres behind; the Samurai and Phoenix hold it open"
   },
   {
-   "from": 52.75,
-   "to": 55.15,
+   "from": 52.25,
+   "to": 54.65,
    "see": [
     "spud",
     "gun",
@@ -11913,8 +12056,8 @@
    "why": "'Drop it!': the sack goes, the Gunslinger runs faster; all through the door"
   },
   {
-   "from": 55.15,
-   "to": 57,
+   "from": 54.65,
+   "to": 55.7,
    "see": [
     "sdoor",
     "hordeS"
@@ -11922,8 +12065,8 @@
    "why": "the door slams; fists on it; they are safe inside"
   },
   {
-   "from": 57,
-   "to": 66,
+   "from": 55.7,
+   "to": 64.6,
    "see": [
     "spud.face",
     "gun.face",
@@ -11938,7 +12081,7 @@
   {
    "who": "street",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -11950,7 +12093,7 @@
   {
    "who": "pcar3",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -11962,7 +12105,7 @@
   {
    "who": "horde",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -11974,7 +12117,7 @@
   {
    "who": "hordeS",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -11986,7 +12129,7 @@
   {
    "who": "first",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -11998,7 +12141,7 @@
   {
    "who": "civil",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12010,7 +12153,7 @@
   {
    "who": "grab",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12022,7 +12165,7 @@
   {
    "who": "crash",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12034,7 +12177,7 @@
   {
    "who": "flat",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12046,7 +12189,7 @@
   {
    "who": "living",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12058,7 +12201,7 @@
   {
    "who": "bath",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12070,7 +12213,7 @@
   {
    "who": "shop",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12082,7 +12225,7 @@
   {
    "who": "door",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12094,7 +12237,7 @@
   {
    "who": "robe",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12106,7 +12249,7 @@
   {
    "who": "ktable",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12118,7 +12261,7 @@
   {
    "who": "sofa",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12130,7 +12273,7 @@
   {
    "who": "tv",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12142,7 +12285,7 @@
   {
    "who": "tub",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12154,7 +12297,7 @@
   {
    "who": "bottles",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12166,7 +12309,7 @@
   {
    "who": "potA",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12178,7 +12321,7 @@
   {
    "who": "potB",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12190,7 +12333,7 @@
   {
    "who": "pcarA",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12202,7 +12345,7 @@
   {
    "who": "chairA",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12214,7 +12357,7 @@
   {
    "who": "chairB",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12226,7 +12369,7 @@
   {
    "who": "shoeA",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12238,7 +12381,7 @@
   {
    "who": "shoeB",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12250,7 +12393,7 @@
   {
    "who": "bad",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12262,7 +12405,7 @@
   {
    "who": "sdoor",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12274,7 +12417,7 @@
   {
    "who": "packE",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12286,7 +12429,7 @@
   {
    "who": "packF",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12298,7 +12441,7 @@
   {
    "who": "rainb",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12310,7 +12453,7 @@
   {
    "who": "tinL",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12322,7 +12465,7 @@
   {
    "who": "tinE",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12334,7 +12477,7 @@
   {
    "who": "bag",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12346,7 +12489,7 @@
   {
    "who": "tinG",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12358,7 +12501,7 @@
   {
    "who": "pack",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12370,7 +12513,7 @@
   {
    "who": "clock",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12382,7 +12525,7 @@
   {
    "who": "potG",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12394,7 +12537,7 @@
   {
    "who": "cupS",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12406,7 +12549,7 @@
   {
    "who": "cupW",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12418,7 +12561,7 @@
   {
    "who": "packW",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12430,7 +12573,7 @@
   {
    "who": "gunR",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12442,7 +12585,7 @@
   {
    "who": "ph_spud",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12454,7 +12597,7 @@
   {
    "who": "ph_sam",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12466,7 +12609,7 @@
   {
    "who": "ph_wiz",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12478,7 +12621,7 @@
   {
    "who": "ph_phx",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12490,7 +12633,7 @@
   {
    "who": "ph_gun",
    "from": 0,
-   "to": 66,
+   "to": 64.6,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -12607,8 +12750,8 @@
   {
    "who": "wiz",
    "with": "spud",
-   "from": 51.95,
-   "to": 52.2,
+   "from": 51.45,
+   "to": 51.7,
    "checks": [
     "reach"
    ],
@@ -12618,8 +12761,8 @@
   {
    "who": "spud",
    "with": "wiz",
-   "from": 54,
-   "to": 54.15,
+   "from": 53.5,
+   "to": 53.65,
    "checks": [
     "reach"
    ],
@@ -12629,8 +12772,8 @@
   {
    "who": "sam",
    "with": "gun",
-   "from": 54.35,
-   "to": 54.8,
+   "from": 53.85,
+   "to": 54.3,
    "checks": [
     "reach"
    ],
@@ -12638,8 +12781,8 @@
   },
   {
    "who": "gun",
-   "from": 57,
-   "to": 66,
+   "from": 55.7,
+   "to": 64.6,
    "checks": [
     "face-hidden"
    ],
@@ -12647,8 +12790,8 @@
   },
   {
    "who": "spud",
-   "from": 53.9,
-   "to": 55.2,
+   "from": 53.4,
+   "to": 54.7,
    "checks": [
     "rig-jump"
    ],
@@ -12656,8 +12799,8 @@
   },
   {
    "who": "sam",
-   "from": 53.9,
-   "to": 55.2,
+   "from": 53.4,
+   "to": 54.7,
    "checks": [
     "rig-jump"
    ],
@@ -12665,8 +12808,8 @@
   },
   {
    "who": "wiz",
-   "from": 53.9,
-   "to": 55.2,
+   "from": 53.4,
+   "to": 54.7,
    "checks": [
     "rig-jump"
    ],
@@ -12674,8 +12817,8 @@
   },
   {
    "who": "phx",
-   "from": 53.9,
-   "to": 55.2,
+   "from": 53.4,
+   "to": 54.7,
    "checks": [
     "rig-jump"
    ],
@@ -12683,8 +12826,8 @@
   },
   {
    "who": "gun",
-   "from": 53.9,
-   "to": 55.2,
+   "from": 53.4,
+   "to": 54.7,
    "checks": [
     "rig-jump"
    ],
@@ -12700,9 +12843,20 @@
    "reason": "P10: the Gunslinger hugs the sack up to his chin, stuffing it (panel 10)"
   },
   {
+   "who": "phx",
+   "with": "wiz",
+   "from": 55.7,
+   "to": 64.6,
+   "checks": [
+    "reach"
+   ],
+   "maxReach": 0.1,
+   "reason": "P14: they stand shoulder to shoulder at the railing; Phoenix's wing tip rests on the Wizard's cloak"
+  },
+  {
    "who": "wiz",
-   "from": 57,
-   "to": 66,
+   "from": 55.7,
+   "to": 64.6,
    "checks": [
     "face-hidden"
    ],
@@ -12710,8 +12864,8 @@
   },
   {
    "who": "phx",
-   "from": 57,
-   "to": 66,
+   "from": 55.7,
+   "to": 64.6,
    "checks": [
     "face-hidden"
    ],

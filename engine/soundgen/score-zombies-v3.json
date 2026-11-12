@@ -1,6 +1,6 @@
 {
   "out": "zombies-score/zombies-score-03.ogg",
-  "duration": 66.0,
+  "duration": 64.6,
   "against": [
     "playful cartoon music",
     "video game chiptune music",
@@ -27,11 +27,11 @@
     },
     {
       "id": "zombie-dawn",
-      "from": 57.0,
+      "from": 55.7,
       "label": "sad slow piano with soft orchestral strings",
       "lufs": -18,
       "fadeIn": 0.5
     }
   ],
-  "_note": "v3 (12 Nov 2026): a longer dread take (recipes-zombies-v3.json) to the first shot 42.95, the v1 panic take to the sunrise 57.0, the v1 dawn take to the end 66.0 (held 2 s after the last line)"
+  "_note": "v3 (12 Nov 2026): a longer dread take (recipes-zombies-v3.json) to the first shot 42.95, the v1 panic take to the sunrise 55.7, the v1 dawn take to the end 64.6 (held 2 s after the last line)"
 }

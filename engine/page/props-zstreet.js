@@ -11,6 +11,8 @@ import { taperedTube } from "./geo.js";
 //   the railing line, z 0 the middle of the balcony). The street runs along z (z -22 far end .. z 14 near end).
 //   spec  depth 15 (the street floor is at y -depth),
 //         car [0.6, 1.5] (x, z of the ONE askew car, standing on the street floor), carRot 24 (its turn, degrees)
+//         clear [[x0, z0, x1, z1], ...]  street-floor rectangles kept free of litter (boxes, bags, cans), so a walk or a run
+//                      through them never steps on or through one; the other litter stays where it was (default none)
 //         parked [0..5]  which of the six parked cars stand there (indices into the list below; default all six):
 //                      a street packed wall to wall with zombies wants only two or three
 //   state alarm 0..1   that car's four indicators and two headlights flash at 2 Hz from t (on in the first half of each
@@ -498,6 +500,7 @@ export const ZSTREET_KINDS = {
       const lt = bake();
       for (let i = 0; i < 70; i++) {
         const r = (k) => hash(i * 7 + k), onPav = r(0) < 0.6, x = onPav ? (r(1) < 0.7 ? -4.7 + r(2) * 2.0 : 1.7 + r(2) * 1.2) : -2.5 + r(2) * 4.0, z = -21 + r(3) * 34, y = -DEPTH + (onPav ? 0.15 : 0), kind = (r(4) * 4) | 0;
+        if ((S.clear || []).some(([x0, z0, x1, z1]) => x > x0 - 0.3 && x < x1 + 0.3 && z > z0 - 0.3 && z < z1 + 0.3)) continue;   // a path the cast walks: no litter there
         if (kind === 0) lt.add(BX(0.3, 0.01, 0.22), { p: [x, y + 0.006, z], r: [0, r(5) * 6, 0], c: ["#d8d2bc", "#c8c0a0", "#9ab0c4"][(r(6) * 3) | 0] });
         else if (kind === 1) lt.add(CY(0.033, 0.033, 0.12, 8), { p: [x, y + 0.033, z], r: [0, r(5) * 6, Math.PI / 2], c: ["#b04a3a", "#8d9aa4", "#3d6c52"][(r(6) * 3) | 0] });
         else if (kind === 2) lt.add(new THREE.SphereGeometry(0.2, 8, 6), { p: [x, y + 0.12, z], s: [1, 0.6, 0.9], c: "#202226" });

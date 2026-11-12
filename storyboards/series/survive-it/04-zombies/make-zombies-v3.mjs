@@ -70,19 +70,19 @@ const T = {
   fight: fr(42.2),     // P11 the gun fight: three zombies block the way
   shot1: 42.95, shot2: 43.55, shot3: 44.15,
   s6: 44.75,           // STEP 6
-  turn: fr(48.6),      // P12 the horde turns: every shot calls the horde
-  calls: 48.8,         // narrator: "Every shot calls the horde."
-  chase: fr(52.0),     // P13 the chase back to the building door
-  drop: 52.75,         // Spud: "Drop it!" (0.6)
-  bagGo: 53.35,        // the sack goes
-  inside: 54.9,        // the last one is through the door
-  slam: 55.15,         // the door slams
-  dawn: fr(57.0),      // P14 day 7, the balcony at sunrise
-  day7: 57.2,          // narrator: "Day seven." (0.76)
-  recap: 58.3,         // narrator: "Water. Silence. High ground." (4.22)
-  less: 62.85,         // Spud: "Tomorrow we take less." (1.0)
-  belly: 64.2,         // a stomach growls
-  end: 66.0,           // held 2 s after the last line (Jonny: "the ending is abit cut off")
+  turn: fr(48.1),      // P12 the horde turns: every shot calls the horde
+  calls: 48.3,         // narrator: "Every shot calls the horde."
+  chase: fr(51.5),     // P13 the chase back to the building door
+  drop: 52.25,         // Spud: "Drop it!" (0.6)
+  bagGo: 52.85,        // the sack goes
+  inside: 54.4,        // the last one is through the door
+  slam: 54.65,         // the door slams
+  dawn: fr(55.7),      // P14 day 7, the balcony at sunrise
+  day7: 55.9,          // narrator: "Day seven." (0.76)
+  recap: 57.0,         // narrator: "Water. Silence. High ground." (4.22)
+  less: 61.55,         // Spud: "Tomorrow we take less." (1.0)
+  belly: 62.9,         // a stomach growls
+  end: 64.6,           // held 2 s after the last line (Jonny: "the ending is abit cut off")
 };
 
 
@@ -123,7 +123,7 @@ const CARS_S = [[-1.65, -15], [0.7, -6], KERB].map(([x, z]) => [r3(x - HS[0]), r
 // who stands where in each scene: [x, z, yaw, y]
 const S = {
   p01sofa: { wiz: [XL - 0.95, -1.35], sam: [XL - 0.1, -1.35], phx: [XL + 0.75, -1.35] },   // P01: three on the sofa,
-  p01: { gun: [XL - 0.55, -0.25, -40], spud: [XL + 0.35, -0.2, -25] },                         // two standing in front of it
+  p01: { gun: [XL - 0.3, -0.3, -40], spud: [XL + 0.68, -0.15, -25] },                         // two standing in front of it
   p02: { gun: [-3.85, -0.8, 120], spud: [-3.4, 0.6, 128], phx: far(2), sam: far(0), wiz: far(1) },   // looking down over their shoulders: heads at the top corners, the street between   // P02: at the railing, backs to us, phones up
   p03: { spud: [WALLX + 1.45, DZ - 0.45, -90], sam: [WALLX + 1.45, DZ + 0.45, -90], wiz: [WALLX + 1.25, DZ + 1.32, -130], phx: [WALLX + 2.15, DZ - 1.15, -60], gun: [WALLX + 2.3, DZ + 0.85, -120] },
   p04: { spud: [-3.6, -1.05, -6], wiz: far(3), gun: far(0), sam: far(1), phx: far(2) },   // Spud faces us; the street behind and above his head
@@ -137,11 +137,11 @@ const S = {
   p10: { gun: [XS - 1.9, -0.45, 75], spud: [XS - 0.6, -0.5, -65], wiz: [XS - 1.35, -1.4, 20], sam: far(0), phx: far(1) },
   // P11: just out of the supermarket, on their way home; the zombies step out ahead (+z)
   p11: { gun: [0.4, 2.85, -20, SY], spud: [-1.75, 1.0, -110, SY], wiz: [-2.4, 0.15, -120, SY], sam: far(0), phx: far(1) },   // the Gunslinger left in profile, the zombies right; Spud and the Wizard crouched on our pavement in front
-  p12: { gun: [0.5, 2.6, 180, SY], spud: [-0.35, 2.0, 175, SY], wiz: [-1.35, 2.65, 185, SY], sam: far(0), phx: far(1) },
+  p12: { gun: [0.65, 2.75, 180, SY], spud: [-0.25, 2.4, 175, SY], wiz: [-1.45, 2.85, 185, SY], sam: far(0), phx: far(1) },
   // P13: they run for the street door; the Samurai and Phoenix hold it open
   p13: { spud: [-0.5, 3.0, 0, SY], wiz: [0.6, 2.75, 0, SY], gun: [0.45, 1.7, 0, SY], sam: [-4.1, DOORZ - 1.5, 60, PY], phx: [-3.65, DOORZ + 1.35, 120, PY] },
   // P14: day 7 on our balcony at sunrise, backs to the railing, facing in
-  p14: { wiz: [-4.55, -1.15, 0], phx: [-3.43, -1.15, 0], sam: [-4.55, -0.3, 0], gun: [-3.45, -0.3, 0], spud: [-4.0, 0.45, 0] },   // backs to the railing at the street end, facing along the balcony
+  p14: { wiz: [-4.38, -1.15, 0], phx: [-3.43, -1.15, 0], sam: [-4.45, -0.3, 0], gun: [-3.6, -0.3, 0], spud: [-4.02, 0.45, 0] },   // hat brims 0.45 m: clear of the facade (x -4.9) and the railing (x -3.03)   // backs to the railing at the street end, facing along the balcony
 };
 
 const CAM = {
@@ -157,6 +157,10 @@ const CAM = {
   FIGHT: { pos: [-4.6, -13.3, -1.2], look: [-0.4, -14.4, 3.6], fov: 62 },                // P11: over the Gunslinger's shoulder
   TURN: { pos: [0.4, -11.0, 6.8], look: [-0.5, -15.0, -7.0], fov: 60 },                   // P12: high behind them, the horde coming
   CHASE: { pos: [0.9, -12.8, -0.8], look: [-3.4, -14.3, 9.2], fov: 58 },               // P13: behind them, the door ahead, Spud turns back                 // P13: by our door, down the street
+  DOOR2: { pos: [WALLX + 2.2, 2.2, DZ + 0.25], look: [WALLX + 0.5, 1.15, DZ], fov: 50 },            // P03 b: closer, over their heads at the wardrobe and the door
+  STREET4: { pos: [-2.85, 2.3, -1.45], look: [0.2, -15, -11.5], fov: 60 },                 // P04 b: from the railing down the street, the horde flowing to the police car
+  TUB2: { pos: [XB + 0.05, 2.15, 0.45], look: [XB + 0.15, 0.45, -0.9], fov: 54 },              // P05 b: from above, the tub filling, pots and bottles
+  FIGHT2: { pos: [2.5, -13.95, 5.0], look: [0.3, -14.35, 2.75], fov: 54 },                     // P11 b: the Gunslinger lowers the smoking revolver
   DAWN: { pos: [-3.95, 2.75, 2.5], look: [-3.95, -1.0, -2.6], fov: 64 },                     // P14: from the balcony's other end, the street and the sunrise behind them
 };
 
@@ -173,7 +177,7 @@ const cast = [
 const PHONES = FIVE.map((w) => ({ id: `ph_${w}`, kind: "zphone", x: FAR[0], y: 0, z: 20, alert: 0, glow: 1 }));
 const props = [
   // the street world (v1)
-  { id: "street", kind: "zstreet", x: 0, y: 0, z: 0, parked: PARKED, car: KERB, carRot: 5, alarm: 0, dent: 0, dawn: 0, fog: 0.3 },
+  { id: "street", kind: "zstreet", x: 0, y: 0, z: 0, parked: PARKED, clear: [[-4.9, 3.5, -2.6, 12.5], [-2.6, -0.5, 1.6, 9.5]], car: KERB, carRot: 5, alarm: 0, dent: 0, dawn: 0, fog: 0.3 },
   { id: "horde", kind: "zhorde", x: FAR[0], y: -15, z: HZ, n: 620, box: HBOX, seed: 3, avoid: CARS, gx: PA[0] - HX, gz: PA[1] - HZ, adv: 0, up: 0, reach: 0 },
   // the horde at street level (P09-P13): packed round the clock far up the street, then running at the shots
   { id: "hordeS", kind: "zhorde", x: FAR[0], y: -15, z: HS[1], n: 300, box: [5.6, 9], seed: 21, avoid: CARS_S, gx: CLK[0] - HX, gz: CLK[1] - HS[1], adv: 0, up: 0, reach: 0 },
@@ -274,7 +278,7 @@ const crawl = (t, who, x0, x1, dur, sag, crack = 0, dir = 1, th = 62) => {
 };
 // Jonny 12 Nov 2026: speech lettering in the upper third, never over eyes or faces. A STEP card sits at y 300-480, the
 // spoken line under it (tops from qa/camfit.mjs)
-const CAPY = { p01: 330, p02: 330, p03: 520, p04: 520, p05: 520, p06: 520, p07: 330, p08: 520, p09: 330, p10: 330, p11: 520, p12: 330, p13: 330, p14: 330 };
+const CAPY = { p01: 330, p02: 330, p03: 520, p04: 520, p05: 520, p06: 520, p07: 330, p08: 520, p09: 330, p10: 330, p11: 520, p12: 330, p13: 330, p14: 260 };
 const cap = (from, to, text, k, pop = false) => c.cap(from, to, text, CAPY[k], pop, SUB_STYLE);
 const narrate = (t, line) => c.at(t, { macro: "narrate", line, voice: "narrator", caption: false });
 const step = (t, to, n, text) => rule(c, t, r3(to - t), `STEP ${n}`, text, { y: 300, angle: -2 });
@@ -636,17 +640,22 @@ const beats = c.beats([
   ["P01 the news: stay indoors", 0, sh("NEWS"), "hook"],
   ["P02 every phone, the outbreak, the flu", T.look, sh("WIN")],
   ["P03 step 1: barricade", T.door, sh("DOOR")],
+  ["P03 b: closer on the barricade", 9.0, sh("DOOR2")],
   ["P04 step 2: no sound", T.balc, sh("BALC")],
+  ["P04 b: the street flows to the noise", 14.0, sh("STREET4")],
+  ["P04 c: they follow sound", 15.95, sh("BALC")],
   ["P05 step 3: fill the bathtub", T.fill, sh("TUBC")],
-  ["P06 step 4: ration it", T.dry, sh("TUBC")],
+  ["P05 b: the tub fills", 20.4, sh("TUB2")],
+  ["P06 step 4: ration it", T.dry, sh("TUBC", { pos: [XB + 0.05, 1.75, 2.9] }, r3(T.growl - T.dry), "inOut")],   // a slow push in, so the picture never stands still
   ["P07 day 6: we need water", T.growl, sh("GROWL")],
   ["P08 step 5: the alarm clock", T.throw, sh("THROW")],
   ["P09 down in the street", T.sneak, sh("SNEAK")],
   ["P10 the supermarket", T.shop, sh("SHOP")],
   ["P11 step 6: the gun fight", T.fight, sh("FIGHT")],
+  ["P11 b: the smoking revolver", 45.3, sh("FIGHT2")],
   ["P12 every shot calls the horde", T.turn, sh("TURN")],
   ["P13 the chase, drop it", T.chase, sh("CHASE")],
-  ["P14 day 7, the balcony", T.dawn, sh("DAWN"), "payoff"],
+  ["P14 day 7, the balcony", T.dawn, sh("DAWN", { pos: [-3.95, 2.55, 2.1], look: [-3.95, -0.6, -2.6] }, r3(T.end - T.dawn), "inOut"), "payoff"],   // a slow push in on the five
 ], T.end);
 
 const WORN = ["clipping", "arm-in-prop", "hand-in-prop", "costume-in-prop"];
@@ -681,6 +690,7 @@ write(import.meta.url, {
     { who: "gun", from: T.dawn, to: T.end, checks: ["face-hidden"], reason: "P14: the camera is above the five; the Gunslinger's hat brim covers his eyes when he looks down (rough draft, to fix in the polish)" },
     ...FIVE.map((who) => ({ who, from: r3(T.inside - 1.0), to: r3(T.slam + 0.05), checks: ["rig-jump"], reason: "P13: each one is gone up the stairs as it reaches the dark porch (the cut-away inside the door)" })),
     { who: "gun", from: T.shop, to: T.fight, checks: ["face-hidden"], reason: "P10: the Gunslinger hugs the sack up to his chin, stuffing it (panel 10)" },
+    { who: "phx", with: "wiz", from: T.dawn, to: T.end, checks: ["reach"], maxReach: 0.1, reason: "P14: they stand shoulder to shoulder at the railing; Phoenix's wing tip rests on the Wizard's cloak" },
     ...["wiz", "phx"].map((who) => ({ who, from: T.dawn, to: T.end, checks: ["face-hidden"], reason: "P14 as panel 14: the two standing at the railing behind the two sitting; their hats and crest show over them" })),
   ],
   panels: { md: "storyboards/series/survive-it/04-zombies/PANELS-v3.md" },
