@@ -2,7 +2,7 @@
 // "create the video" on the 15-panel Hold'em sheet board.png, after his notes on rough draft 1: 30-35 s, a clearer and
 // more extreme casino, cards never shown to the camera in a hand (an over-the-shoulder close-up instead), gloves ON the
 // felt, "You would hear everyone's mind." after the catch, a street scene, "It would never be quiet again." in bed;
-// Texas Hold'em only, Spud's hand a low pair 3-3, Wedge's bluff 8-3). Opener type A: the all-in is running at frame 0.
+// Texas Hold'em only, Spud's hand a low pair 3-3, Wedge's bluff 8-3). Opener type B since 12 Nov 18:01 (cold open on the power, the all-in follows at 3.4 s).
 // Brief + image prompt: /mnt/project-files/video-scripts/2026-11-08-what-if/06-read-minds-V5-HOLDEM-15-PANEL-IMAGE-PROMPT.md
 // Panels: board.png + PANELS.md here. Places, cameras and reasons: NOTES.md here.
 //   node storyboards/series/what-if/06-read-minds/make-read-minds.mjs            -> read-minds.json
@@ -46,8 +46,11 @@ const Pk = (pack, t, id, set, dur, ease) => { if (has(pack)) P(t, id, set, dur, 
 // 07 every head | 08 the mountain | 09 the catch | 10 the flood | 11 the keys | 12 four aces | 13 the street |
 // 14 the city | 15 the hotel room
 // rough draft 3 (Jonny 12 Nov 15:34 Berlin): the first half faster, high-low-high, no long quiet cuts on nothing
-const STARE = 1.6, OTS = 2.5, READ = 3.5, POV = 4.4, CALL = 5.6, HEADS = 7.4, MOUNT = 8.8, CATCH = 10.6;
-const FLOOD = 12.8, KEYS = 14.6, SHOW = 16.9, SLUMP = 18.6, STREET = 19.4, CITY = 22.8, NIGHT = 25.2, END = 30.0;
+// NEW OPENING (Jonny 12 Nov 18:01 Berlin, "change the opening ... like you suggested"): frame 0 is his glowing eyes,
+// then the bubble over Wedge with the bluff, under a stake-first "you" line; the all-in follows; a second look at
+// Wedge's thought (POV2) before the call hides the cards going down. Everything from the call on is the approved cut.
+const READ = 0, POV = 1.6, AI = 3.4, STARE = 5.2, OTS = 6.1, POV2 = 7.1, CALL = 7.8, HEADS = 9.6, MOUNT = 11.0, CATCH = 12.8;
+const FLOOD = 15.0, KEYS = 16.8, SHOW = 19.1, SLUMP = 20.8, STREET = 21.6, CITY = 25.0, NIGHT = 27.4, END = 32.2;
 const DOWN = -60;   // parked under the floor
 const CX = 1000, HX = 2000, SX = 3000;   // the city's, the hotel's and the street's x offsets
 const BED = [-0.2, -1.25];    // the hotel bed's sitter spot in the room (props-nightcity.js HOTEL.bed)
@@ -203,25 +206,25 @@ c.arm(0, "chip", "L", "lap", 0); c.arm(0, "chip", "R", "lap", 0);
 const SUBY = 540;   // speech lettering in the upper third, never over a face (Jonny 12 Nov)
 const say = (t, who, line, dur, tone, sub) => c.say(r3(t), who, line, dur, tone, { voice: false, sub, pos: SUBY });
 
-// ================================================================= 01 ALL-IN (0-2.0): Wedge shoves a huge heap and his gold watch into the pot
-// frame 0 is mid-shove: both his gloves behind the heap, the heap and the watch already sliding to the pot
+// ================================================================= 01 ALL-IN (AI, after the bubble): Wedge shoves a huge heap and his gold watch into the pot
+// at AI he is mid-shove (from frame 0 his gloves wait behind the heap): both his gloves behind the heap, the heap and the watch already sliding to the pot
 const hb = (dx, dz) => felt(HEAP[0] + dx, HEAP[1] + dz);
 c.arm(0, "wdg", "R", hb(-0.16, -0.02), 0); c.arm(0, "wdg", "L", hb(0.0, -0.17), 0);
-c.arm(0.05, "wdg", "R", hb(-0.16 + SHOVE[0], -0.02 + SHOVE[1]), 0.8, "inOut"); c.arm(0.05, "wdg", "L", hb(SHOVE[0], -0.17 + SHOVE[1]), 0.8, "inOut");
-P(0.05, "heap", { x: r3(HEAP[0] + SHOVE[0]), z: r3(HEAP[1] + SHOVE[1]) }, 0.8, "inOut");
-Pk("street", 0.05, "watch", { x: r3(HEAP[0] + 0.12 + SHOVE[0]), z: r3(HEAP[1] + 0.13 + SHOVE[1]) }, 0.8, "inOut");
-A(0, "wdg", "lean", { to: 6, dur: 0.01 }); A(0.95, "wdg", "lean", { to: 0, dur: 0.5 });
-c.arm(1.05, "wdg", "R", "lap", 0.45, "inOut"); c.arm(1.1, "wdg", "L", "lap", 0.45, "inOut");
-P(0.9, "heap", { scale: 0.001 }); Pk("casino", 0.86, "pot", { amount: 1 }, 0.14, "out"); P(0.9, "pot", { r: 0.3 });
-sfx(0.05, "ai/bowl-scrape", { gain: 0.55, reason: "a heap of chips slid over the felt" }); sfx(0.88, "crumble", { gain: 0.4, reason: "the heap spills into the pot" });
-CROWD.forEach((g, i) => Pk("casino", r3(0.3 + (i % 4) * 0.08), `cr${i}`, { cheer: 0.35 }, 0.25, "out"));   // the crowd gasps
-CROWD.forEach((g, i) => Pk("casino", r3(1.2 + (i % 3) * 0.1), `cr${i}`, { cheer: 0 }, 0.4, "inOut"));
+c.arm(r3(AI + 0.05), "wdg", "R", hb(-0.16 + SHOVE[0], -0.02 + SHOVE[1]), 0.8, "inOut"); c.arm(r3(AI + 0.05), "wdg", "L", hb(SHOVE[0], -0.17 + SHOVE[1]), 0.8, "inOut");
+P(r3(AI + 0.05), "heap", { x: r3(HEAP[0] + SHOVE[0]), z: r3(HEAP[1] + SHOVE[1]) }, 0.8, "inOut");
+Pk("street", r3(AI + 0.05), "watch", { x: r3(HEAP[0] + 0.12 + SHOVE[0]), z: r3(HEAP[1] + 0.13 + SHOVE[1]) }, 0.8, "inOut");
+A(0, "wdg", "lean", { to: 6, dur: 0.01 }); A(r3(AI + 0.95), "wdg", "lean", { to: 0, dur: 0.5 });
+c.arm(r3(AI + 1.05), "wdg", "R", "lap", 0.45, "inOut"); c.arm(r3(AI + 1.1), "wdg", "L", "lap", 0.45, "inOut");
+P(r3(AI + 0.9), "heap", { scale: 0.001 }); Pk("casino", r3(AI + 0.86), "pot", { amount: 1 }, 0.14, "out"); P(r3(AI + 0.9), "pot", { r: 0.3 });
+sfx(r3(AI + 0.05), "ai/bowl-scrape", { gain: 0.55, reason: "a heap of chips slid over the felt" }); sfx(r3(AI + 0.88), "crumble", { gain: 0.4, reason: "the heap spills into the pot" });
+CROWD.forEach((g, i) => Pk("casino", r3(AI + 0.3 + (i % 4) * 0.08), `cr${i}`, { cheer: 0.35 }, 0.25, "out"));   // the crowd gasps
+CROWD.forEach((g, i) => Pk("casino", r3(AI + 1.2 + (i % 3) * 0.1), `cr${i}`, { cheer: 0 }, 0.4, "inOut"));
 expr(0, "wdg", "smug", { lid: 0.45, curve: 0.45 }, 0.01); look(0, "wdg", [0.5, 0.0], 0.01);
-expr(0, "spud", "shocked", { open: 0.4, eye: 1.2, brow: 0.4 }, 0.01); look(0, "spud", [-0.7, 0.0], 0.01);
-A(0.3, "spud", "squash", { amount: 0.05, dur: 0.2 });
-c.at(0.4, { fx: "sweat", who: "spud", dur: 1.4 });
-look(0, "chip", [0.3, 0.1], 0.01); A(0.2, "chip", "hop", { count: 2, height: 0.05, quiet: true });
-see(0, STARE, ["wdg.face", "spud.face", "pot"], "frame 0: Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left");
+expr(r3(AI - 0.02), "spud", "shocked", { open: 0.4, eye: 1.2, brow: 0.4 }, 0.01); look(r3(AI - 0.02), "spud", [-0.7, 0.0], 0.01);
+A(r3(AI + 0.3), "spud", "squash", { amount: 0.05, dur: 0.2 });
+c.at(r3(AI + 0.4), { fx: "sweat", who: "spud", dur: 1.4 });
+look(0, "chip", [0.3, 0.1], 0.01); A(r3(AI + 0.2), "chip", "hop", { count: 2, height: 0.05, quiet: true });
+see(AI, STARE, ["wdg.face", "spud.face", "pot"], "Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left");
 
 // ================================================================= 02 THE STARE (2.0-3.5): he bluffs, Spud gulps
 say(STARE + 0.1, "wdg", "trust me.", 0.6, "calm", "Trust me.");
@@ -236,19 +239,23 @@ A(r3(OTS + 0.4), "spud", "squash", { amount: 0.04, dur: 0.25 });
 see(OTS, READ, ["sFan"], "over Spud's shoulder: his two cards, the 3 of clubs and the 3 of diamonds; Wedge's heap past them");
 
 // ================================================================= 04 THE EYES (5.0-6.5): his eyes glow
-look(READ, "spud", [-0.6, 0.15], 0.2);
-Pk("mind", r3(READ + 0.25), "glow", { on: 1, pulse: 1 }, 0.3, "out");
-sfx(r3(READ + 0.05), "ai/heartbeat", { gain: 0.55, reason: "the power switches on: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)" });
-expr(r3(READ + 0.2), "spud", "focused", { brow: -0.3, eye: 1.25 });
-see(READ, POV, ["spud.face", "glow"], "Spud's eyes light up blue-white");
+// frame 0 of the new opening: his eyes already glow, his heartbeat under the narrator's stake-first line
+look(READ, "spud", [-0.6, 0.15], 0.01);
+Pk("mind", READ, "glow", { on: 1, pulse: 1 });
+sfx(READ, "ai/heartbeat", { gain: 0.55, reason: "the power: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)" });
+expr(READ, "spud", "focused", { brow: -0.3, eye: 1.25 }, 0.01);
+see(READ, POV, ["spud.face", "glow"], "frame 0: Spud's eyes glow blue-white");
+cap(READ, POV, "ALL IN. BY MIDNIGHT.", 480);   // stake + clock in 2-4 words, upper third (hook study 12 Nov)
 
 // ================================================================= 05 WEDGE'S THOUGHT (6.5-8.0): a bubble with his real cards, 8 and 3
 Pk("mind", r3(POV - 0.02), "bW", { spin: 70 }); Pk("mind", r3(HEADS - 0.02), "bW", { spin: 15 });   // the cards turned to each camera
 Pk("mind", r3(POV + 0.15), "bW", { pop: 1 }, 0.35, "back"); expr(POV, "wdg", "smug", { lid: 0.5, curve: 0.6 });
-see(POV, CALL, ["wdg.face", "bW"], "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge still grins");
+see(POV, AI, ["wdg.face", "bW"], "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge grins");
+expr(POV2, "wdg", "smug", { lid: 0.55, curve: 0.65 });
+see(POV2, CALL, ["wdg.face", "bW"], "Spud reads him once more: the bubble still shows the 8 and the 3");
 
 // ================================================================= 06 THE CALL (8.0-10.0): both hands face up, the pot raked in, the crowd cheers
-// off screen (the POV shot): he lays his two cards face down on the felt under his glove...
+// off screen (the second POV shot): he lays his two cards face down on the felt under his glove...
 P(r3(CALL - 0.45), "sFan", { scale: 0.001 }); for (const p of S1) P(r3(CALL - 0.45), p.id, { scale: 1 });
 c.arm(r3(CALL - 0.45), "spud", "L", felt(SC[0][0] + 0.06, SC[0][1]), 0.3, "inOut");
 // ...and on "Call!" his glove slaps down beside them and turns them face up
@@ -405,10 +412,11 @@ see(NIGHT, END, ["spud.face", "glow"], "night, a hotel room high above the city:
 const SPUD_HEAD = [SEAT.spud[0], 1.12, SEAT.spud[1]];
 const OTS_POS = (() => { const [x, z] = P2(SEAT.spud, YAW.spud, -0.25, 0.55); return [x, 1.45, z]; })();
 const SH = {
-  allin:  { pos: [-0.5, 2.25, 3.1], look: [-0.15, 0.8, -0.5], fov: 54, to: { pos: [-0.42, 2.15, 2.8], look: [-0.15, 0.82, -0.5], fov: 54 }, dur: STARE, ease: "linear" },
+  allin:  { pos: [-0.5, 2.25, 3.1], look: [-0.15, 0.8, -0.5], fov: 54, to: { pos: [-0.42, 2.15, 2.8], look: [-0.15, 0.82, -0.5], fov: 54 }, dur: r3(STARE - AI), ease: "linear" },
   stare:  { pos: [-0.1, 1.35, 1.5], look: [-0.1, 1.1, -1.0], fov: 46, to: { pos: [-0.1, 1.32, 1.3], look: [-0.1, 1.1, -1.0], fov: 46 }, dur: r3(OTS - STARE), ease: "linear" },
-  ots:    { pos: OTS_POS, look: [r3(SFAN_AT[0] - 0.12), 0.74, r3(SFAN_AT[2] + 0.12)], fov: 34, to: { pos: OTS_POS.map((v, i) => r3(v + [-0.02, -0.03, 0.05][i])), look: [r3(SFAN_AT[0] - 0.12), 0.74, r3(SFAN_AT[2] + 0.12)], fov: 31 }, dur: r3(READ - OTS), ease: "linear" },
-  read:   { pos: [0.27, 1.12, 0.5], look: [0.35, 1.05, -1.0], fov: 40, to: { pos: [0.28, 1.1, 0.25], look: [0.35, 1.05, -1.0], fov: 40 }, dur: r3(POV - READ), ease: "in" },
+  ots:    { pos: OTS_POS, look: [r3(SFAN_AT[0] - 0.12), 0.74, r3(SFAN_AT[2] + 0.12)], fov: 34, to: { pos: OTS_POS.map((v, i) => r3(v + [-0.02, -0.03, 0.05][i])), look: [r3(SFAN_AT[0] - 0.12), 0.74, r3(SFAN_AT[2] + 0.12)], fov: 31 }, dur: r3(POV2 - OTS), ease: "linear" },
+  // frame 0: close on his glowing eyes, the top of the frame kept free for "ALL IN. BY MIDNIGHT." (qa/camfit: text 470-530)
+  read:   { pos: [0.3, 1.2, 1.25], look: [0.4, 1.28, -1.0], fov: 42, to: { pos: [0.3, 1.2, 1.18], look: [0.4, 1.28, -1.0], fov: 42 }, dur: r3(POV - READ), ease: "linear" },
   pov:    { pos: [0.5, 1.3, 0.25], look: [-0.66, 1.42, -0.97], fov: 55 },
   call:   { pos: [0.3, 1.8, 2.0], look: [0.15, 0.85, -0.6], fov: 56 },
   heads:  { pos: [0.05, 1.85, 2.6], look: [0.15, 1.25, -0.8], fov: 56, to: { pos: [0.1, 1.6, 1.7], look: [0.25, 1.2, -0.8], fov: 54 }, dur: r3(MOUNT - HEADS), ease: "out" },
@@ -424,11 +432,12 @@ const SH = {
 };
 void SPUD_HEAD;
 const CUTS = [
-  ["01 all-in", 0, SH.allin, "hook"],
+  ["04 the eyes glow", READ, SH.read, "hook"],
+  ["05 Wedge's thought", POV, SH.pov, "reveal"],
+  ["01 all-in", AI, SH.allin],
   ["02 the stare", STARE, SH.stare],
   ["03 his cards over his shoulder", OTS, SH.ots],
-  ["04 the eyes glow", READ, SH.read],
-  ["05 Wedge's thought", POV, SH.pov, "reveal"],
+  ["05 his thought again", POV2, SH.pov],
   ["06 the call", CALL, SH.call],
   ["07 every head", HEADS, SH.heads],
   ["08 the mountain", MOUNT, SH.mount],
@@ -445,14 +454,16 @@ const CUTS = [
 // ---------------------------------------------------------------- the commentator (voice 1, "narrator"), in the gaps
 const NG = 4.0;
 const NARR = !VO ? [] : [
-  [0, process.env.TITLE ?? "What if you could read minds?", 1, 2.0, NG],
+  // stake-first "you" line at 0.0 (Jonny 12 Nov 17:58: "instead of spud i would say he or you"); the quick style keeps it
+  // near 4.4 s so it ends before Wedge's "Trust me." (the slow style runs 5.8 s)
+  [0, "You can hear every thought at this table. By midnight, it costs you everything.", 1, 4.4, NG, "intrigued, mysterious storyteller, urgent and quick"],
   [r3(MOUNT + 0.35), "You'd never lose again.", 1, 1.5, NG],
   [r3(CATCH + 0.15), "But there's a catch.", 1, 1.1, NG],
   [r3(CATCH + 1.3), "You would hear everyone's mind.", 1, 1.7, NG],   // Jonny 12 Nov
   [r3(NIGHT + 0.3), "It would never be quiet again.", 1, 1.6, NG],     // Jonny 12 Nov
   [r3(NIGHT + 2.9), "Would you still want it?", 1, 1.33, NG],   // a clear gap after the line before (Jonny 12 Nov)
 ];
-for (const [t, line, take, , gain] of NARR) c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain });
+for (const [t, line, take, , gain, style] of NARR) c.at(t, { macro: "narrate", line, voice: "narrator", take, caption: false, gain, ...(style && { style }) });
 
 sfx(0, "ai/step-carpet", { gain: 0.001, reason: "placeholder so the sound pass knows the floor is carpet" });
 
@@ -463,7 +474,7 @@ const allowClip = [
   ...Object.entries(CHAIR).map(([who, ch]) => ({ who, with: ch, from: 0, to: STREET, reason: "seated in his chair" })),
   { who: "mash", with: "mphone", from: 0, to: STREET, reason: "his phone in his glove (he never looks up)" },
   { who: "spud", with: "sFan", from: 0, to: r3(CALL - 0.4), reason: "his two cards held up in his glove" },
-  ...["heap", "watch", "pot"].map((id) => ({ who: "wdg", with: id, from: 0, to: 1.3, reason: "shoving his heap and watch into the pot" })),
+  ...["heap", "watch", "pot"].map((id) => ({ who: "wdg", with: id, from: 0, to: r3(AI + 1.3), reason: "his gloves behind his heap and watch, then shoving them into the pot" })),
   ...["pot", "sC1", "sC2"].map((id) => ({ who: "spud", with: id, from: r3(CALL - 0.5), to: HEADS, reason: "slapping his cards down and raking the loose chips in" })),
   ...["wC1", "wC2"].map((id) => ({ who: "wdg", with: id, from: CALL, to: HEADS, reason: "turning his two cards over" })),
   ...["wA1", "wA2"].map((id) => ({ who: "wdg", with: id, from: SHOW, to: STREET, reason: "turning his two aces over" })),
@@ -488,8 +499,8 @@ write(import.meta.url, {
   // a triumphant hero theme from the call while he keeps winning (Jonny 12 Nov 15:34), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
   music: { file: process.env.MUSIC ?? "read-minds/read-minds-casino.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
     then: { file: process.env.MUSIC2 ?? "ai/disaster/disaster-01.ogg", from: r3(CATCH + 0.1), gain: 0.7 } },
-  sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "hall", guard: true },
-  hook: { show: ["wdg", "spud", "pot"], hint: 0, what: "a poker all-in already running: Wedge shoves a huge heap and his gold watch into the pot, Spud with three chips left" },
+  sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "open", guard: true },   // nearly dry, as draft 3 (Jonny 12 Nov 18:08: the hall echo made the voices sound like a hall),
+  hook: { show: ["spud", "glow"], hint: 0, what: "close on Spud's glowing eyes at a poker table: he can hear every thought; ALL IN. BY MIDNIGHT." },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip,
   notes: "Generated by storyboards/series/what-if/06-read-minds/make-read-minds.mjs.",

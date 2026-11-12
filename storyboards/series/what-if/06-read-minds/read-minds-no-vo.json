@@ -53,10 +53,10 @@
   "duck": {
    "voice": -6
   },
-  "until": 10.7,
+  "until": 12.9,
   "then": {
    "file": "ai/disaster/disaster-01.ogg",
-   "from": 10.7,
+   "from": 12.9,
    "gain": 0.7
   }
  },
@@ -65,17 +65,16 @@
   "sfx": 0.65,
   "ambience": 0.2,
   "surface": "carpet",
-  "room": "hall",
+  "room": "open",
   "guard": true
  },
  "hook": {
   "show": [
-   "wdg",
    "spud",
-   "pot"
+   "glow"
   ],
   "hint": 0,
-  "what": "a poker all-in already running: Wedge shoves a huge heap and his gold watch into the pot, Spud with three chips left"
+  "what": "close on Spud's glowing eyes at a poker table: he can hear every thought; ALL IN. BY MIDNIGHT."
  },
  "cast": [
   {
@@ -1511,8 +1510,8 @@
  ],
  "captions": [
   {
-   "from": 1.7,
-   "to": 2.47,
+   "from": 5.3,
+   "to": 6.07,
    "text": "Trust me.",
    "pos": 540,
    "pop": false,
@@ -1520,8 +1519,15 @@
    "kinetic": false
   },
   {
-   "from": 5.65,
-   "to": 6.55,
+   "from": 0,
+   "to": 1.57,
+   "text": "ALL IN. BY MIDNIGHT.",
+   "pos": 480,
+   "pop": false
+  },
+  {
+   "from": 7.85,
+   "to": 8.75,
    "text": "Call!",
    "pos": 540,
    "pop": false,
@@ -1529,8 +1535,8 @@
    "kinetic": false
   },
   {
-   "from": 6.6,
-   "to": 7.37,
+   "from": 8.8,
+   "to": 9.57,
    "text": "Let's go!",
    "pos": 540,
    "pop": false,
@@ -1538,8 +1544,8 @@
    "kinetic": false
   },
   {
-   "from": 13.8,
-   "to": 14.57,
+   "from": 16,
+   "to": 16.77,
    "text": "Too loud!",
    "pos": 540,
    "pop": false,
@@ -1547,8 +1553,8 @@
    "kinetic": false
   },
   {
-   "from": 14.9,
-   "to": 15.5,
+   "from": 17.1,
+   "to": 17.7,
    "text": "Car keys. All in.",
    "pos": 540,
    "pop": false,
@@ -1556,8 +1562,8 @@
    "kinetic": false
   },
   {
-   "from": 15.5,
-   "to": 16.6,
+   "from": 17.7,
+   "to": 18.8,
    "text": "Which one is yours?!",
    "pos": 540,
    "pop": false,
@@ -1565,8 +1571,8 @@
    "kinetic": false
   },
   {
-   "from": 17.9,
-   "to": 18.57,
+   "from": 20.1,
+   "to": 20.77,
    "text": "Four aces.",
    "pos": 1250,
    "pop": false,
@@ -1574,8 +1580,8 @@
    "kinetic": false
   },
   {
-   "from": 28.1,
-   "to": 30,
+   "from": 30.3,
+   "to": 32.2,
    "text": "Would you still want it?",
    "pos": 540,
    "pop": false
@@ -1583,33 +1589,33 @@
  ],
  "beats": [
   {
-   "name": "01 all-in",
+   "name": "04 the eyes glow",
    "at": 0,
    "len": 1.6,
    "shot": {
     "pos": [
-     -0.5,
-     2.25,
-     3.1
+     0.3,
+     1.2,
+     1.25
     ],
     "look": [
-     -0.15,
-     0.8,
-     -0.5
+     0.4,
+     1.28,
+     -1
     ],
-    "fov": 54,
+    "fov": 42,
     "to": {
      "pos": [
-      -0.42,
-      2.15,
-      2.8
+      0.3,
+      1.2,
+      1.18
      ],
      "look": [
-      -0.15,
-      0.82,
-      -0.5
+      0.4,
+      1.28,
+      -1
      ],
-     "fov": 54
+     "fov": 42
     },
     "dur": 1.6,
     "ease": "linear"
@@ -2398,29 +2404,6 @@
      "at": 0
     },
     {
-     "who": "spud",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.4,
-      "eye": 1.2,
-      "brow": 0.4
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      -0.7,
-      0
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 0
-    },
-    {
      "who": "chip",
      "do": "look",
      "to": [
@@ -2432,11 +2415,161 @@
      "at": 0
     },
     {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "on": 1,
+      "pulse": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.55,
+     "reason": "the power: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": -0.3,
+      "eye": 1.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
      "sfx": "ai/step-carpet",
      "gain": 0.001,
      "reason": "placeholder so the sound pass knows the floor is carpet",
      "at": 0
     },
+    {
+     "do": "prop",
+     "id": "bW",
+     "set": {
+      "spin": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "05 Wedge's thought",
+   "at": 1.6,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.5,
+     1.3,
+     0.25
+    ],
+    "look": [
+     -0.66,
+     1.42,
+     -0.97
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "who": "wdg",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "lid": 0.5,
+      "curve": 0.6
+     },
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bW",
+     "set": {
+      "pop": 1
+     },
+     "dur": 0.35,
+     "ease": "back",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.2,
+      "brow": 0.4
+     },
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.78
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "01 all-in",
+   "at": 3.4,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     -0.5,
+     2.25,
+     3.1
+    ],
+    "look": [
+     -0.15,
+     0.8,
+     -0.5
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      -0.42,
+      2.15,
+      2.8
+     ],
+     "look": [
+      -0.15,
+      0.82,
+      -0.5
+     ],
+     "fov": 54
+    },
+    "dur": 1.8,
+    "ease": "linear"
+   },
+   "do": [
     {
      "who": "wdg",
      "do": "arm",
@@ -2809,12 +2942,11 @@
      "ease": "inOut",
      "at": 1.4
     }
-   ],
-   "kind": "hook"
+   ]
   },
   {
    "name": "02 the stare",
-   "at": 1.6,
+   "at": 5.2,
    "len": 0.9,
    "shot": {
     "pos": [
@@ -2896,7 +3028,7 @@
   },
   {
    "name": "03 his cards over his shoulder",
-   "at": 2.5,
+   "at": 6.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -2948,93 +3080,9 @@
    ]
   },
   {
-   "name": "04 the eyes glow",
-   "at": 3.5,
-   "len": 0.9,
-   "shot": {
-    "pos": [
-     0.27,
-     1.12,
-     0.5
-    ],
-    "look": [
-     0.35,
-     1.05,
-     -1
-    ],
-    "fov": 40,
-    "to": {
-     "pos": [
-      0.28,
-      1.1,
-      0.25
-     ],
-     "look": [
-      0.35,
-      1.05,
-      -1
-     ],
-     "fov": 40
-    },
-    "dur": 0.9,
-    "ease": "in"
-   },
-   "do": [
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      -0.6,
-      0.15
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.55,
-     "reason": "the power switches on: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)",
-     "at": 0.05
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "focused",
-     "set": {
-      "brow": -0.3,
-      "eye": 1.25
-     },
-     "dur": 0.12,
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "glow",
-     "set": {
-      "on": 1,
-      "pulse": 1
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0.25
-    },
-    {
-     "do": "prop",
-     "id": "bW",
-     "set": {
-      "spin": 70
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.88
-    }
-   ]
-  },
-  {
-   "name": "05 Wedge's thought",
-   "at": 4.4,
-   "len": 1.2,
+   "name": "05 his thought again",
+   "at": 7.1,
+   "len": 0.7,
    "shot": {
     "pos": [
      0.5,
@@ -3054,21 +3102,11 @@
      "do": "expr",
      "expr": "smug",
      "set": {
-      "lid": 0.5,
-      "curve": 0.6
+      "lid": 0.55,
+      "curve": 0.65
      },
      "dur": 0.12,
      "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "bW",
-     "set": {
-      "pop": 1
-     },
-     "dur": 0.35,
-     "ease": "back",
-     "at": 0.15
     },
     {
      "do": "prop",
@@ -3078,7 +3116,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.75
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -3088,7 +3126,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.75
+     "at": 0.25
     },
     {
      "do": "prop",
@@ -3098,7 +3136,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 0.75
+     "at": 0.25
     },
     {
      "who": "spud",
@@ -3119,14 +3157,13 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 0.75
+     "at": 0.25
     }
-   ],
-   "kind": "reveal"
+   ]
   },
   {
    "name": "06 the call",
-   "at": 5.6,
+   "at": 7.8,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -3894,7 +3931,7 @@
   },
   {
    "name": "07 every head",
-   "at": 7.4,
+   "at": 9.6,
    "len": 1.4,
    "shot": {
     "pos": [
@@ -4198,7 +4235,7 @@
   },
   {
    "name": "08 the mountain",
-   "at": 8.8,
+   "at": 11,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -4554,7 +4591,7 @@
   },
   {
    "name": "09 the catch",
-   "at": 10.6,
+   "at": 12.8,
    "len": 2.2,
    "shot": {
     "pos": [
@@ -4915,7 +4952,7 @@
   },
   {
    "name": "10 the flood",
-   "at": 12.8,
+   "at": 15,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -5143,7 +5180,7 @@
   },
   {
    "name": "11 the keys",
-   "at": 14.6,
+   "at": 16.8,
    "len": 2.3,
    "shot": {
     "pos": [
@@ -5476,7 +5513,7 @@
   },
   {
    "name": "12 four aces",
-   "at": 16.9,
+   "at": 19.1,
    "len": 1.7,
    "shot": {
     "pos": [
@@ -5797,7 +5834,7 @@
   },
   {
    "name": "12 Spud slumps",
-   "at": 18.6,
+   "at": 20.8,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -6305,7 +6342,7 @@
   },
   {
    "name": "13 the street",
-   "at": 19.4,
+   "at": 21.6,
    "len": 3.4,
    "shot": {
     "pos": [
@@ -6447,7 +6484,7 @@
   },
   {
    "name": "14 the city",
-   "at": 22.8,
+   "at": 25,
    "len": 2.4,
    "shot": {
     "pos": [
@@ -6642,7 +6679,7 @@
   },
   {
    "name": "15 the hotel room",
-   "at": 25.2,
+   "at": 27.4,
    "len": 4.8,
    "shot": {
     "pos": [
@@ -6723,18 +6760,18 @@
  ],
  "visible": [
   {
-   "from": 0,
-   "to": 1.6,
+   "from": 3.4,
+   "to": 5.2,
    "see": [
     "wdg.face",
     "spud.face",
     "pot"
    ],
-   "why": "frame 0: Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left"
+   "why": "Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left"
   },
   {
-   "from": 1.6,
-   "to": 2.5,
+   "from": 5.2,
+   "to": 6.1,
    "see": [
     "wdg.face",
     "spud.face"
@@ -6742,34 +6779,43 @@
    "why": "Wedge leans in, smug: trust me; Spud gulps, sweating"
   },
   {
-   "from": 2.5,
-   "to": 3.5,
+   "from": 6.1,
+   "to": 0,
    "see": [
     "sFan"
    ],
    "why": "over Spud's shoulder: his two cards, the 3 of clubs and the 3 of diamonds; Wedge's heap past them"
   },
   {
-   "from": 3.5,
-   "to": 4.4,
+   "from": 0,
+   "to": 1.6,
    "see": [
     "spud.face",
     "glow"
    ],
-   "why": "Spud's eyes light up blue-white"
+   "why": "frame 0: Spud's eyes glow blue-white"
   },
   {
-   "from": 4.4,
-   "to": 5.6,
+   "from": 1.6,
+   "to": 3.4,
    "see": [
     "wdg.face",
     "bW"
    ],
-   "why": "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge still grins"
+   "why": "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge grins"
   },
   {
-   "from": 5.6,
-   "to": 7.4,
+   "from": 7.1,
+   "to": 7.8,
+   "see": [
+    "wdg.face",
+    "bW"
+   ],
+   "why": "Spud reads him once more: the bubble still shows the 8 and the 3"
+  },
+  {
+   "from": 7.8,
+   "to": 9.6,
    "see": [
     "spud.face",
     "pot",
@@ -6779,8 +6825,8 @@
    "why": "Spud slaps his threes face up, Wedge has to show 8 and 3; Spud rakes the pot in, the crowd cheers"
   },
   {
-   "from": 7.4,
-   "to": 8.8,
+   "from": 9.6,
+   "to": 11,
    "see": [
     "spud.face",
     "bW",
@@ -6790,8 +6836,8 @@
    "why": "a bubble over every friend: cards, pizza, a phone; Spud grins behind stacks as tall as his chest"
   },
   {
-   "from": 8.8,
-   "to": 10.6,
+   "from": 11,
+   "to": 12.8,
    "see": [
     "spud.face",
     "mount"
@@ -6799,8 +6845,8 @@
    "why": "a mountain of chips towers beside Spud, arms up; the crowd amazed"
   },
   {
-   "from": 10.6,
-   "to": 12.8,
+   "from": 12.8,
+   "to": 15,
    "see": [
     "spud.face",
     "cb1",
@@ -6809,16 +6855,16 @@
    "why": "his smile gone: a bubble pops up over every guest, more and more"
   },
   {
-   "from": 12.8,
-   "to": 14.6,
+   "from": 15,
+   "to": 16.8,
    "see": [
     "spud.face"
    ],
    "why": "the casino packed wall to wall with bubbles; Spud's gloves on his head, eyes squeezed shut"
   },
   {
-   "from": 14.6,
-   "to": 16.9,
+   "from": 16.8,
+   "to": 19.1,
    "see": [
     "wdg.face",
     "spud.face",
@@ -6827,8 +6873,8 @@
    "why": "Wedge slams his car keys down; Spud pushes through the bubbles over Wedge's head, can't find his thought, pushes it all in"
   },
   {
-   "from": 16.9,
-   "to": 18.6,
+   "from": 19.1,
+   "to": 20.8,
    "see": [
     "sK1",
     "wA1",
@@ -6838,16 +6884,16 @@
    "why": "from above: four aces (two in Wedge's hand, two on the board) beat Spud's kings; Wedge drags the mountain away"
   },
   {
-   "from": 18.6,
-   "to": 19.4,
+   "from": 20.8,
+   "to": 21.6,
    "see": [
     "spud.face"
    ],
    "why": "Spud slumps, empty gloves, the bubbles still everywhere"
   },
   {
-   "from": 19.4,
-   "to": 22.8,
+   "from": 21.6,
+   "to": 25,
    "see": [
     "spud.face",
     "wb1",
@@ -6856,16 +6902,16 @@
    "why": "night: Spud walks down a busy neon street, gloves on his head; a bubble over every passer-by and in every window"
   },
   {
-   "from": 22.8,
-   "to": 25.2,
+   "from": 25,
+   "to": 27.4,
    "see": [
     "fCity"
    ],
    "why": "the neon city from above: a glowing bubble over every roof and window, thousands"
   },
   {
-   "from": 25.2,
-   "to": 30,
+   "from": 27.4,
+   "to": 32.2,
    "see": [
     "spud.face",
     "glow"
@@ -6878,154 +6924,154 @@
    "who": "wdg",
    "with": "chW",
    "from": 0,
-   "to": 19.4,
+   "to": 21.6,
    "reason": "seated in his chair"
   },
   {
    "who": "spud",
    "with": "chS",
    "from": 0,
-   "to": 19.4,
+   "to": 21.6,
    "reason": "seated in his chair"
   },
   {
    "who": "chip",
    "with": "chC",
    "from": 0,
-   "to": 19.4,
+   "to": 21.6,
    "reason": "seated in his chair"
   },
   {
    "who": "mash",
    "with": "chM",
    "from": 0,
-   "to": 19.4,
+   "to": 21.6,
    "reason": "seated in his chair"
   },
   {
    "who": "mash",
    "with": "mphone",
    "from": 0,
-   "to": 19.4,
+   "to": 21.6,
    "reason": "his phone in his glove (he never looks up)"
   },
   {
    "who": "spud",
    "with": "sFan",
    "from": 0,
-   "to": 5.2,
+   "to": 7.4,
    "reason": "his two cards held up in his glove"
   },
   {
    "who": "wdg",
    "with": "heap",
    "from": 0,
-   "to": 1.3,
-   "reason": "shoving his heap and watch into the pot"
+   "to": 4.7,
+   "reason": "his gloves behind his heap and watch, then shoving them into the pot"
   },
   {
    "who": "wdg",
    "with": "watch",
    "from": 0,
-   "to": 1.3,
-   "reason": "shoving his heap and watch into the pot"
+   "to": 4.7,
+   "reason": "his gloves behind his heap and watch, then shoving them into the pot"
   },
   {
    "who": "wdg",
    "with": "pot",
    "from": 0,
-   "to": 1.3,
-   "reason": "shoving his heap and watch into the pot"
+   "to": 4.7,
+   "reason": "his gloves behind his heap and watch, then shoving them into the pot"
   },
   {
    "who": "spud",
    "with": "pot",
-   "from": 5.1,
-   "to": 7.4,
+   "from": 7.3,
+   "to": 9.6,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "spud",
    "with": "sC1",
-   "from": 5.1,
-   "to": 7.4,
+   "from": 7.3,
+   "to": 9.6,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "spud",
    "with": "sC2",
-   "from": 5.1,
-   "to": 7.4,
+   "from": 7.3,
+   "to": 9.6,
    "reason": "slapping his cards down and raking the loose chips in"
   },
   {
    "who": "wdg",
    "with": "wC1",
-   "from": 5.6,
-   "to": 7.4,
+   "from": 7.8,
+   "to": 9.6,
    "reason": "turning his two cards over"
   },
   {
    "who": "wdg",
    "with": "wC2",
-   "from": 5.6,
-   "to": 7.4,
+   "from": 7.8,
+   "to": 9.6,
    "reason": "turning his two cards over"
   },
   {
    "who": "wdg",
    "with": "wA1",
-   "from": 16.9,
-   "to": 19.4,
+   "from": 19.1,
+   "to": 21.6,
    "reason": "turning his two aces over"
   },
   {
    "who": "wdg",
    "with": "wA2",
-   "from": 16.9,
-   "to": 19.4,
+   "from": 19.1,
+   "to": 21.6,
    "reason": "turning his two aces over"
   },
   {
    "who": "wdg",
    "with": "keys",
-   "from": 14.6,
-   "to": 15.2,
+   "from": 16.8,
+   "to": 17.4,
    "reason": "slamming his keys on the felt"
   },
   {
    "who": "spud",
    "with": "mount",
-   "from": 14.6,
-   "to": 16.9,
+   "from": 16.8,
+   "to": 19.1,
    "reason": "both gloves pushing the chip tower into the middle"
   },
   {
    "who": "wdg",
    "with": "mount",
-   "from": 16.9,
-   "to": 19.4,
+   "from": 19.1,
+   "to": 21.6,
    "reason": "his glove dragging the chip tower to his side"
   },
   {
    "who": "spud",
    "with": "bed",
-   "from": 25.2,
-   "to": 30,
+   "from": 27.4,
+   "to": 32.2,
    "reason": "sitting up on the hotel bed"
   },
   {
    "who": "spud",
    "with": "pillow",
-   "from": 25.2,
-   "to": 30,
+   "from": 27.4,
+   "to": 32.2,
    "reason": "the pillow pressed on his head with both gloves"
   },
   {
    "who": "spud",
    "with": "glow",
    "from": 0,
-   "to": 30,
+   "to": 32.2,
    "reason": "the glowing eyes are worn on his face"
   }
  ],
