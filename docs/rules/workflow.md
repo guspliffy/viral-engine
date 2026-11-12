@@ -279,11 +279,11 @@ waiver for the whole clip.
    `node qa/check.mjs out/<id>-draft.mp4 --sb <sb> --layout out/<id>.layout.json`.
 4. **Fix loop**: fix what failed, then repeat step 3. **At most 3 rounds.** If it still fails after the third, stop
    and send Jonny the check output and what you tried. Warnings don't block, but mention them.
-   **The one-second proof of rule 6** (Survive it EP1: all three fix rounds were one-frame pops, each a farm render):
-   for every flash, impact frame, card that lands on an effect and big prop passing the lens, and after a review
-   note that adds or moves one: `node engine/render.mjs <sb> --draft --from <s> --to <s+1>`, then
-   `node qa/pops.mjs out/<id>-<s>-<s+1>-draft.mp4 --from <s>` (30 s). A flash at its peak one frame before a dark
-   card fades in at the same spot is an odd frame: start the flash two frames earlier.
+   **One-frame pops** (Survive it EP1, Share or Steal 02 and Doomscroll 01 each lost farm renders to them): every
+   `--draft` render prints its own `pops` line since 11 Nov 2026, a `--from/--to` window too. `pops FAIL` there means
+   the full render's check fails: fix it before the farm. Usual causes: an instant change written exactly on a cut
+   (it lands one frame late: write it 0.03 s before the cut), a flash at its peak one frame before a dark card
+   fades in at the same spot (start the flash two frames earlier).
 5. **Strips and review B on the passing draft, before the full render** (trial from 10 Nov 2026, Jonny; before, both
    came after the full render). `node qa/contact.mjs out/<id>-draft.mp4 --sb <sb> --contacts` cuts a 15 fps strip of
    every grab, release and drop and of whatever appears or vanishes inside a shot (`--at 3.8,11.3` adds a raise or a

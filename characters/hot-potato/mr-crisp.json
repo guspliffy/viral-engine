@@ -1,0 +1,133 @@
+{
+  "id": "hot-potato/mr-crisp",
+  "name": "Mr. Crisp",
+  "franchise": "Hot Potato",
+  "source": "Jonny's reference sheet, 11 Nov 2026 (storyboards/series/hot-potato/01-hot-potato/mr-crisp-reference.png)",
+  "rig": "potato",
+  "body": {
+    "color": "#e9b04f",
+    "height": 1.12,
+    "width": 0.9,
+    "depth": 0.76,
+    "lump": 0.03,
+    "seed": 33,
+    "specks": 14,
+    "taper": 0.1,
+    "keepSkin": true
+  },
+  "limbs": {
+    "color": "#7fa6d8",
+    "width": 0.036,
+    "shoulder": -0.7
+  },
+  "face": {
+    "default": "evil",
+    "iris": "#f2c21a",
+    "cheeks": "#f0b49c",
+    "size": 0.95,
+    "lockLayout": true,
+    "layout": {
+      "eyeU": 0.46,
+      "eyeV": 0.15,
+      "browV": 0.7,
+      "mouthV": -0.27,
+      "mouthW": 0.36
+    },
+    "neutral": {
+      "tilt": -0.5,
+      "browY": -0.01,
+      "curve": 0.8,
+      "open": 0.35,
+      "eye": 0.8,
+      "pupil": 0.75,
+      "smirk": 0.3,
+      "raise": 0,
+      "lidL": 0.5,
+      "lidR": 0.5
+    },
+    "eye": {
+      "iris": 0.7,
+      "oval": 1.0,
+      "lash": 1.8,
+      "flick": 0.5,
+      "tilt": 0.15,
+      "pupilZ": 0.12
+    },
+    "browShape": {
+      "thick": 1.9,
+      "arch": 0.02,
+      "inner": 0.15,
+      "outer": 0.66
+    },
+    "mouth": {
+      "sharp": 1
+    },
+    "blush": 0.3,
+    "final": {
+      "size": 0.95,
+      "iris": "#f2c21a",
+      "eye": {
+        "iris": 0.7,
+        "oval": 1.0,
+        "lash": 1.8,
+        "flick": 0.5,
+        "tilt": 0.15,
+        "pupilZ": 0.12
+      },
+      "browShape": {
+        "thick": 1.9,
+        "arch": 0.02,
+        "inner": 0.15,
+        "outer": 0.66
+      },
+      "freckles": 0,
+      "blush": 0.3
+    }
+  },
+  "arms": {
+    "R": {
+      "o": [
+        0.03,
+        0.16,
+        0.08
+      ]
+    },
+    "L": {
+      "o": [
+        0.03,
+        0.16,
+        0.08
+      ]
+    }
+  },
+  "sprout": {
+    "color": "#3f5a2a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "clown",
+    "seed": 7
+  },
+  "hands": {
+    "type": "glove",
+    "size": 1.3,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "personality": "The host of Hot Potato. A sweet pastel kids' show costume and an evil grin: warm voice, cold eyes. Smiles when anyone loses, gets furious the moment the game stops being fun for him. Calls the losers 'friend'.",
+  "voice": {
+    "pitch": 108,
+    "rate": 3.0,
+    "formant": 0.95,
+    "range": 6,
+    "breath": 0.06,
+    "vibrato": 0.012,
+    "seed": 71
+  },
+  "voiceNote": "placeholder numbers (voices are out of scope of the costume task): a low, warm, smooth gibberish until Jonny has heard it",
+  "notes": "Costume: engine/page/costumes-clown.js (type clown), the same in every castLook. Face: default 'evil' plus neutral = the sheet's evil grin, lids about half down (lidL/lidR 0.5; set { do: 'face', lid: 0 } for the TV smile); pointed teeth = face.mouth.sharp (face.js). The layout is locked so every look draws the same face. 1.12 m tall (Viking 1.02). Hands: the cast's 3-finger glove, white, size 1.3. Shoulder -0.7: the arms leave under the collar."
+}
