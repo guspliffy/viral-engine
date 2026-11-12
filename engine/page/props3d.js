@@ -68,6 +68,8 @@ import { HEIST_KINDS, HEIST_GRIPS } from "./props-heist.js";   // fight flight o
 import { HEISTSET_KINDS, HEISTSET_GRIPS } from "./props-heistset.js";   // fight flight or freeze 01: producecrate, spudbin, policevan, lightbar, sirenwash, lightpool, copshadow, roofblock
 import { MUSEUM_KINDS } from "./props-museum.js";   // there's a catch 05: museumhall, plinth, exhibitrope, glasscase, livefish, wiltplant
 import { ICEAGE_KINDS } from "./props-iceage.js";   // there's a catch 05: mammoth, sabretooth, pterosaur
+import { REX_KINDS } from "./props-rex.js";         // there's a catch 05: rex (the real-anatomy T. rex, one lofted skin)
+import { PTERO_KINDS } from "./props-ptero.js";     // there's a catch 05: pterosaur (real anatomy; replaces the one in props-iceage.js)
 import { FOSSILS_KINDS } from "./props-fossils.js";   // there's a catch 05: trexbones, mammothbones, sabrebones, pterobones, lifesparks
 import { MUSEUMSTREET_KINDS } from "./props-museumstreet.js";   // there's a catch 05: museumfront, townsquare, hillneck, streetcracks
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
@@ -1392,7 +1394,7 @@ Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
-Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
+Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
 Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)

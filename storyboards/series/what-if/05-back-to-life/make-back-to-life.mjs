@@ -15,7 +15,8 @@
 //   Ending:      up a street lamp, the T. rex snapping below; Reaper shakes so hard he drops the scythe; it sticks
 //                in the street, the ground glows green and something as big as a hill rises behind the museum.
 //   Callback:    frame 0 (the cold open) is the chase the whole clip explains; the last frame is the next, bigger one.
-// The power: the scythe's touch = a low bell, a green spark, a green glow sweeping up the thing.
+// The power: the scythe's touch = a dark magic buzz ("zap", never a ringing bell: Jonny 12 Nov), a green spark, a green
+// glow sweeping up the thing; the big ones get a deep heartbeat (life coming back).
 //
 // WORLD (x right, z toward camera A; yaw 0 faces +z, 90 faces +x). HALL: x -5..7, z -16..8, 9 m high; the skeleton
 // row on the right behind a rope at x 1.6; the T. rex at the end of the hall [1, -11] facing +z. STREET: the same
@@ -172,7 +173,7 @@ c.say(r3(HALL + 0.85), "rea", "don't touch it!", 0.6, "excited", { voice: false,
 // he flinches: the scythe's tip dips into the dead plant
 A(r3(TOUCH - 0.25), "rea", "lean", { to: -9, dur: 0.14, ease: "out" }); A(r3(TOUCH - 0.1), "rea", "lean", { to: 0, dur: 0.3, ease: "settle" });
 P(r3(TOUCH - 0.2), "scy", { tilt: 38 }, 0.2, "out");
-sfx(TOUCH, "bell", { gain: 0.6 }); sfx(TOUCH, "shing", { gain: 0.35 });
+sfx(TOUCH, "zap", { gain: 0.5 }); sfx(TOUCH, "whoosh", { gain: 0.3 });
 c.at(TOUCH, { fx: "sparkle", at: [PLANT[0], 0.9, PLANT[1]], color: "#7dff6a", dur: 0.6 });
 P(TOUCH, "plant", { bloom: 1 }, 0.5, "back");
 A(r3(TOUCH + 0.2), "rea", "look", { to: [0.5, -0.5], dur: 0.12, blink: false }); expr(r3(TOUCH + 0.3), "rea", "shocked", { open: 0.3, eye: 1.3 });
@@ -188,7 +189,7 @@ expr(FISH, "phx", "eager", { open: 0.4, curve: 0.9 }, 0.01); expr(FISH, "rea", "
 A(FISH, "phx", "look", { to: [-0.7, 0.1], dur: 0.01, blink: false }); A(FISH, "rea", "look", { to: [-0.6, 0.0], dur: 0.01, blink: false }); A(FISH, "spud", "look", { to: [0.6, 0.2], dur: 0.01, blink: false });
 c.say(r3(FISH + 0.1), "phx", "do the fish!", 0.6, "excited", { voice: false, sub: "Do the fish!", pos: 930 });
 P(r3(FISH + 0.45), "scy", { tilt: -30 }, 0.3, "out");                    // Phoenix shoves his scythe arm: the tip taps the glass
-sfx(r3(FISH + 0.75), "tink", { gain: 0.5 }); sfx(r3(FISH + 0.78), "bell", { gain: 0.65 });
+sfx(r3(FISH + 0.75), "knock-tap", { gain: 0.4 }); sfx(r3(FISH + 0.78), "zap", { gain: 0.55 });
 c.at(r3(FISH + 0.78), { fx: "sparkle", at: [CASE[0], 1.75, CASE[1] + 0.55], color: "#7dff6a", dur: 0.6 });
 // the fish flops out over the top of the case and into Spud's arms
 Pk("museum", r3(FISH + 0.78), "case", { glow: 1 }, 0.2, "out"); Pk("museum", FLOP, "case", { burst: 1, fossil: 0 }, 0.6); Pk("museum", r3(FLOP + 0.2), "case", { glow: 0 }, 0.5);
@@ -215,7 +216,7 @@ P(r3(RUN + 0.2), "scy", { tilt: -55, x: -0.62 }, 0.25);                         
 // each skeleton he passes: a spark, the glow, and it is alive half a second later (the swap sits inside the glow)
 const WAKE = [["ptB1", "pt1", r3(RUN + 0.75), [1.2, 5.2, -1.0]], ["sabB", "sab", r3(RUN + 0.6), SAB], ["mamB", "mam", r3(RUN + 1.35), MAM], ["ptB2", "pt2", r3(RUN + 1.85), [0.6, 5.0, -6.5]]];
 for (const [bones, alive, t, at] of WAKE) {
-  sfx(t, "bell", { gain: 0.5 }); c.at(t, { fx: "sparkle", at: at.length === 2 ? [ROPE_X + 0.3, 0.6, at[1]] : at, color: "#7dff6a", dur: 0.5 });
+  sfx(t, "zap", { gain: 0.45 }); c.at(t, { fx: "sparkle", at: at.length === 2 ? [ROPE_X + 0.3, 0.6, at[1]] : at, color: "#7dff6a", dur: 0.5 });
   Pk("fossils", t, bones, { glow: 1 }, 0.4, "out"); Pk("fossils", r3(t + 0.1), bones, { rattle: 1 }, 0.3);
   park(r3(t + 0.5), bones);
   ANI(r3(t + 0.48), alive, { glow: 1, ...CURIOUS }); ANI(r3(t + 0.52), alive, { glow: 0 }, 0.45, "out");
@@ -234,7 +235,7 @@ see(r3(RUN + 0.4), CRASH, ["rea.face"], "Reaper runs screaming along the row, ea
 place(r3(CRASH - 0.1), "rea", [1.0, -9.15], 168);
 P(r3(CRASH - 0.12), "scy", { tilt: -80, x: -0.5 }, 0.1);
 A(CRASH, "rea", "lean", { to: 12, dur: 0.12, ease: "out" }); A(r3(CRASH + 0.35), "rea", "lean", { to: 0, dur: 0.35, ease: "inOut" }); A(CRASH, "rea", "squash", { amount: 0.1, dur: 0.14 });
-sfx(CRASH, "slam", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "bell", { gain: 0.9, loud: true });
+sfx(CRASH, "slam", { gain: 0.6 }); sfx(r3(CRASH + 0.03), "zap", { gain: 0.7, loud: true }); sfx(r3(CRASH + 0.1), "ai/heartbeat", { gain: 0.9, loud: true, reason: "life comes back into the biggest one: one deep heartbeat" });
 c.at(CRASH, { fx: "sparkle", at: [0.95, 0.9, -9.7], color: "#7dff6a", dur: 0.6 }); c.at(CRASH, { fx: "shake", dur: 0.3, amp: 0.03 });
 expr(r3(CRASH + 0.3), "spud", "terrified", TERROR); expr(r3(CRASH + 0.3), "phx", "delighted", { open: 0.7, curve: 1 });
 Pk("fossils", CRASH, "rexB", { glow: 1 }, 0.45, "out"); Pk("fossils", r3(CRASH + 0.1), "rexB", { rattle: 1 }, 0.4); Pk("fossils", CRASH, "spRex", { rise: 1 }, 0.9, "out");
@@ -304,9 +305,18 @@ see(FRONT, LAMP, ["rex", "spud.face", "rea.face", "phx.face"], "the cold open's 
 
 // ================================================================= 9 THE LAMP (17.4-19.4)
 const TOP = r3(LAMP_H - 0.25);
-for (const [who, off, yaw] of [["spud", [0, TOP + 0.5, 0.05], 0], ["rea", [-0.8, TOP - 0.45, 0.12], 12], ["phx", [0.8, TOP - 0.4, 0.12], -12]]) {
+// Jonny 12 Nov: "wizard and phoenix are floating in this scene" (they hung 0.8 m beside the post, hands on nothing).
+// Now a column ON the post: Spud sits on the lantern, Reaper hugs the post just under him from its left, Phoenix from
+// its right a body lower; each body touches the post and both gloves are on it, one above the other.
+const CLING = { rea: [-0.42, r3(TOP - 0.7), -0.22, +(process.env.RYAW ?? 20)], phx: [0.42, r3(TOP - 1.55), -0.22, +(process.env.PYAW ?? -20)] };
+for (const [who, off, yaw] of [["spud", [0, TOP + 0.5, 0.05], 0], ["rea", CLING.rea.slice(0, 3), CLING.rea[3]], ["phx", CLING.phx.slice(0, 3), CLING.phx[3]]]) {
   A(r3(LAMP - 0.02), who, "ride", { prop: "lamp", off, yaw, dur: 0 });
   expr(LAMP, who, "terrified", TERROR, 0.01); A(LAMP, who, "look", { to: [0.1, -0.9], dur: 0.01, blink: false });
+}
+for (const who of ["rea", "phx"]) {   // the post in the body's own frame (x to its left... see the yaw), gloves one above the other on it
+  const [ox, , oz, yaw] = CLING[who], a = rad(yaw), px = r3(-ox * Math.cos(a) + oz * Math.sin(a)), pz = r3(-ox * Math.sin(a) - oz * Math.cos(a));
+  const near = px > 0 ? "L" : "R", far = px > 0 ? "R" : "L";   // the arm that has to cross the body goes low, under the face
+  c.arm(r3(LAMP - 0.02), who, near, { x: [px, 0.2, r3(pz + 0.1)] }, 0.01); c.arm(r3(LAMP - 0.02), who, far, { x: [px, 0.0, r3(pz + 0.1)] }, 0.01); if (process.env.DEBUG) console.log("cling", who, px, pz);
 }
 for (const side of ["L", "R"]) c.arm(r3(LAMP - 0.02), "spud", side, { o: [0.12, 0.3, 0.34] }, 0.01);   // both arms round the fish, clear of the two beside him
 const REXL = { lean: 6, neckP: -12, headP: -30 };
@@ -327,7 +337,7 @@ sfx(SLIP, "whoosh", { gain: 0.4 }); expr(r3(SLIP + 0.1), "rea", "shocked", { ope
 see(LAMP, SCYTHE, ["spud.face", "rea.face", "phx.face", "rex"], "the three cling to the lamp top, the T. rex snapping below; the scythe slips");
 
 // ================================================================= 10 THE SCYTHE (19.4-22.0): something bigger wakes
-sfx(r3(SCYTHE + 0.1), "shing", { gain: 0.8 }); sfx(r3(SCYTHE + 0.12), "bell", { gain: 1, loud: true });
+sfx(r3(SCYTHE + 0.1), "thud", { gain: 0.8 }); sfx(r3(SCYTHE + 0.12), "zap", { gain: 0.8, loud: true }); sfx(r3(SCYTHE + 0.2), "ai/heartbeat", { gain: 1, loud: true, reason: "the scythe wakes what lies under the city: one deep heartbeat, no ringing" });
 c.at(r3(SCYTHE + 0.1), { fx: "sparkle", at: [SCY_END[0], 0.3, SCY_END[1]], color: "#7dff6a", dur: 0.6 });
 P(r3(SCYTHE + 0.15), "cracks", { y: 0, grow: 1 }, 0.9, "out");
 sfx(RISE, "rumble", { gain: 1, loud: true }); c.at(RISE, { fx: "shake", dur: 1.6, amp: 0.03 });
@@ -407,9 +417,10 @@ write(import.meta.url, {
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
   set: { type: "plain", color: "#9fcdf0", floor: "#d9cfc0", light: "golden", para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
-  // music that supports the story (Jonny 11 Nov): from 0.0, the series theme (bounce in key 10, as EP04), a part per beat
+  // music that supports the story (Jonny 11 Nov): from 0.0, a part per beat. Style "chase" (fast, minor, pounding bass:
+  // Jonny 12 Nov "the music doesn't fit the dangerous scene when chasing"), the series key 10 kept
   // of the chain and a change at the turn ("But there's a catch")
-  music: { style: "bounce", key: 10, lowCut: 150, gain: 0.45, parts: [
+  music: { style: "chase", key: 10, lowCut: 150, gain: 0.45, parts: [
     { at: 0, part: "drop" }, { at: HALL, part: "intro" }, { at: RUN, part: "build" }, { at: r3(CRASH + 0.6), part: "drop" }, { at: CALM, part: "musicbox" },
     { at: r3(CALM + 1.15), part: "hold" }, { at: CHASE, part: "drop" }, { at: LAMP, part: "main" }, { at: r3(SCYTHE + 0.1), part: "stop" }, { at: RISE, part: "hold" }] },
   sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "concrete", room: "room", guard: true },

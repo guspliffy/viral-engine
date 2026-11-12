@@ -17,7 +17,8 @@
 //         part, the chord's root, nothing else: the world holding its breath before the music snaps back; Never Looks
 //         Up 07, 8 Nov 2026)
 //   named styles (only by name, never picked by a seed, so adding one changes no other clip): surf (fast surf rock
-//         with a fairground organ, 156-164 bpm)
+//         with a fairground organ, 156-164 bpm), polka, chase (danger: fast minor, a pounding low bass with a
+//         semitone growl, heavy kick, no lead melody, 148-156 bpm)
 //   sleigh: true adds jingle bells (a sleigh-bell shake on the off-beats) in the full parts: a holiday flavour
 const SR = 44100, TAU = Math.PI * 2;
 
@@ -114,6 +115,11 @@ const NAMED = {
   surf: { bpm: [156, 164], kick: [0, 6, 8, 14], snare: [4, 12], hatOpen: [], hat: "even", bass: [0, 2, 4, 6, 8, 10, 12, 14], bassLen: 0.2, octaves: "alt", chord: [2, 6, 10, 14], chordInst: "organ" },
   // a cosy oom-pah polka (Survive it EP1, snowed in): the bass on every beat swapping root and fifth (oom), a reedy
   // organ chord on every off-beat like an accordion (pah), a light kick on 1 and 3; pair it with "sleigh": true
+  // a chase that sounds dangerous (There's a catch 05, a museum of starving animals after three potatoes; Jonny 12 Nov
+  // 2026: "the music doesn't fit the dangerous scene when chasing"): always minor, a kick on every beat and a pounding
+  // bass on every eighth that keeps growling up a semitone (the shark-in-the-water move), low stabs in a 3+3+2
+  // pattern, sixteenth hats, and no cheerful lead melody at all
+  chase: { bpm: [148, 156], kick: [0, 4, 8, 12, 14], snare: [4, 12], hatOpen: [], hat: "all", bass: [0, 2, 4, 6, 8, 10, 12, 14], bassLen: 0.24, ost: [0, 0, 1, 0, 0, 1, 0, -2], chord: [0, 6, 12], chordInst: "stab", minor: true, noLead: true },
   polka: { bpm: [124, 132], kick: [0, 8], snare: [], hatOpen: [], hat: "none", bass: [0, 4, 8, 12], bassLen: 0.14, fifths: true, chord: [2, 6, 10, 14], chordInst: "organ" },
 };
 const styleOf = (name) => STYLE[name] || NAMED[name];
@@ -195,12 +201,12 @@ export function renderBeat(music, duration, id = "") {
       if (music.sleigh && full && e % 2 === 1) add(t, SL, (e === 3 ? 0.16 : 0.11) * soft, -0.3);
       if (Y.bass.includes(step)) {
         const i = Y.bass.indexOf(step);
-        const up = Y.octaves === "alt" ? (i % 2 ? 12 : 0) : Y.octaves === "funk" ? (i % 3 === 1 ? 12 : 0) : Y.fifths ? (i % 2 ? 7 : 0) : Y.walk ? [0, 3, 5, 7][i % 4] : beatInBar === 3 ? 12 : 0;
+        const up = Y.ost ? Y.ost[i % Y.ost.length] : Y.octaves === "alt" ? (i % 2 ? 12 : 0) : Y.octaves === "funk" ? (i % 3 === 1 ? 12 : 0) : Y.fifths ? (i % 2 ? 7 : 0) : Y.walk ? [0, 3, 5, 7][i % 4] : beatInBar === 3 ? 12 : 0;
         add(t, INST.bass(r, ch.root + up, spb * (Y.bassLen ?? 0.45)), (full ? 0.5 : 0.25) * soft);
       }
       if (Y.chord.includes(step)) add(t, chord(ch.notes), (full ? 0.28 : 0.18) * soft, -0.15);
       // lead motif: on every second bar, only in the full parts
-      if (full && bar % 2 === 1 && e % 2 === 0) { const m = F.motif[(beatInBar * 2 + e / 2) % 8]; if (m) add(t, INST.lead(r, m + F.key, F.leadInst), 0.16 * soft, 0.12); }
+      if (full && !Y.noLead && bar % 2 === 1 && e % 2 === 0) { const m = F.motif[(beatInBar * 2 + e / 2) % 8]; if (m) add(t, INST.lead(r, m + F.key, F.leadInst), 0.16 * soft, 0.12); }
     }
   }
   // same loudness whatever the style, so "gain" means the same in every clip

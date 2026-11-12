@@ -46,7 +46,7 @@
   "satsuei": true
  },
  "music": {
-  "style": "bounce",
+  "style": "chase",
   "key": 10,
   "lowCut": 150,
   "gain": 0.45,
@@ -1723,13 +1723,13 @@
      "at": 0.85
     },
     {
-     "sfx": "bell",
-     "gain": 0.6,
+     "sfx": "zap",
+     "gain": 0.5,
      "at": 0.95
     },
     {
-     "sfx": "shing",
-     "gain": 0.35,
+     "sfx": "whoosh",
+     "gain": 0.3,
      "at": 0.95
     },
     {
@@ -2027,13 +2027,13 @@
      "at": 0.45
     },
     {
-     "sfx": "tink",
-     "gain": 0.5,
+     "sfx": "knock-tap",
+     "gain": 0.4,
      "at": 0.75
     },
     {
-     "sfx": "bell",
-     "gain": 0.65,
+     "sfx": "zap",
+     "gain": 0.55,
      "at": 0.78
     },
     {
@@ -2546,8 +2546,8 @@
      "at": 0.1
     },
     {
-     "sfx": "bell",
-     "gain": 0.5,
+     "sfx": "zap",
+     "gain": 0.45,
      "at": 0.2
     },
     {
@@ -2621,8 +2621,8 @@
      "at": 0.3
     },
     {
-     "sfx": "bell",
-     "gain": 0.5,
+     "sfx": "zap",
+     "gain": 0.45,
      "at": 0.35
     },
     {
@@ -2748,8 +2748,8 @@
      "at": 0.87
     },
     {
-     "sfx": "bell",
-     "gain": 0.5,
+     "sfx": "zap",
+     "gain": 0.45,
      "at": 0.95
     },
     {
@@ -2827,8 +2827,8 @@
      "at": 1.45
     },
     {
-     "sfx": "bell",
-     "gain": 0.5,
+     "sfx": "zap",
+     "gain": 0.45,
      "at": 1.45
     },
     {
@@ -3031,10 +3031,17 @@
      "at": 0.45
     },
     {
-     "sfx": "bell",
-     "gain": 0.9,
+     "sfx": "zap",
+     "gain": 0.7,
      "loud": true,
      "at": 0.48
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "life comes back into the biggest one: one deep heartbeat",
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -5258,11 +5265,11 @@
      "do": "ride",
      "prop": "lamp",
      "off": [
-      -0.8,
-      6.8,
-      0.12
+      -0.42,
+      6.55,
+      -0.22
      ],
-     "yaw": 12,
+     "yaw": 20,
      "dur": 0,
      "at": 0.88
     },
@@ -5271,12 +5278,68 @@
      "do": "ride",
      "prop": "lamp",
      "off": [
-      0.8,
-      6.85,
-      0.12
+      0.42,
+      5.7,
+      -0.22
      ],
-     "yaw": -12,
+     "yaw": -20,
      "dur": 0,
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.319,
+       0.2,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.319,
+       0,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.319,
+       0.2,
+       0.45
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.88
+    },
+    {
+     "who": "phx",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.319,
+       0,
+       0.45
+      ]
+     },
+     "dur": 0.01,
      "at": 0.88
     },
     {
@@ -5816,7 +5879,7 @@
      "at": 0.02
     },
     {
-     "sfx": "shing",
+     "sfx": "thud",
      "gain": 0.8,
      "at": 0.1
     },
@@ -5827,8 +5890,8 @@
      "dur": 0.6
     },
     {
-     "sfx": "bell",
-     "gain": 1,
+     "sfx": "zap",
+     "gain": 0.8,
      "loud": true,
      "at": 0.12
     },
@@ -5842,6 +5905,13 @@
      "dur": 0.9,
      "ease": "out",
      "at": 0.15
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 1,
+     "loud": true,
+     "reason": "the scythe wakes what lies under the city: one deep heartbeat, no ringing",
+     "at": 0.2
     },
     {
      "sfx": "rumble",
