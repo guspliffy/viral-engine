@@ -110,6 +110,31 @@ export async function motionJumps(sb, fps = 30) {
   return out.sort((a, b) => a.t - b.t);
 }
 
+// walking on air (You wake up mid 01, 12 Nov 2026: Jonny saw two characters run in the air; every check had passed):
+// a character let go by a carrier ("ride" without a prop) keeps the carrier's height, so its next move, walk or run
+// without a "y" steps along in mid-air. [{ who, t, y }] where that move starts more than 5 cm up and nothing carries it
+export async function airWalks(sb) {
+  const { actorState, registerCast } = await import("../engine/page/timeline.js");
+  const defOf = (c) => { const f = path.join(ROOT, "characters", `${c.character}.json`); return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null; };
+  registerCast(sb, (sb.cast || []).map((c) => ({ c, def: defOf(c) })).filter((o) => o.def));
+  const out = [], acts = (sb.actions || []).slice().sort((a, b) => a.at - b.at);
+  for (const c of sb.cast || []) {
+    const def = defOf(c); if (!def) continue;
+    let riding = false, released = false;
+    for (const a of acts.filter((x) => x.who === c.id)) {
+      if (a.do === "ride") { if (riding && !a.prop) released = true; riding = !!a.prop; if (riding) released = false; continue; }
+      if (!released) continue;
+      if (a.y != null || ["fly", "drop", "jump", "hop", "land", "fall"].includes(a.do)) { released = false; continue; }
+      if (!["move", "walk", "run"].includes(a.do)) continue;
+      released = false;
+      if (a.dur === 0) continue;   // a place, not a walk (a double swapped in off screen)
+      const st = actorState(sb, c, def, a.at + 0.05);
+      if (!st.riding && st.y > 0.05) out.push({ who: c.id, t: a.at, y: Math.round(st.y * 100) / 100 });
+    }
+  }
+  return out;
+}
+
 // the jumps as check results (qa/check.mjs, qa/preflight.mjs): "motion" warns as before; a body lean or pitch jump in
 // a still moment is a "lean-jump", and a pose jump between frame 0 and frame 1 a "frame0-jump" (fail at "gate": 2,
 // quality plan item 3; an allowClip window naming the check waives it)
@@ -126,6 +151,8 @@ export async function motionResults(sb, fps = 30) {
   const say = (x) => `${x.who} ${x.what} ${typeof x.size === "number" ? `${x.size.toFixed(2)} ` : ""}at ${x.t.toFixed(2)}s`;
   if (lean.length) out.push({ group: "technical", level: gateLevel(sb), check: "lean-jump", msg: `the body tips in one frame while everything round it is still: ${lean.slice(0, 6).map(say).join(", ")}${lean.length > 6 ? ", ..." : ""} (radians): ease the lean over 0.2 s or more${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });
   if (f0.length) out.push({ group: "technical", level: gateLevel(sb), check: "frame0-jump", msg: `the opening pose jumps between frame 0 and frame 1: ${f0.slice(0, 6).map(say).join(", ")}${f0.length > 6 ? ", ..." : ""}: start it instantly ("dur": 0 at t = 0, not 0.01 s)${gateLevel(sb) === "warn" ? '; fails at "gate": 2' : ""}` });
+  const air = (await airWalks(sb)).filter((x) => !windowFor(sb, "air-walk", x.who, x.t));
+  if (air.length) out.push({ group: "technical", level: "warn", check: "air-walk", msg: `walks on air after leaving a carrier (it keeps the carrier's height): ${air.slice(0, 6).map((x) => `${x.who} ${x.y} m up at ${x.t.toFixed(2)}s`).join(", ")}: give that move "y": 0 (or the floor's height)` });
   out.push({ group: "technical", level: rest.length ? "warn" : "pass", check: "motion", msg: rest.length ? `jumps in one frame: ${rest.slice(0, 6).map((x) => `${x.who} ${x.what} at ${x.t.toFixed(2)}s`).join(", ")}${rest.length > 6 ? ", ..." : ""}` : "no part of any character jumps between two frames" });
   return out;
 }

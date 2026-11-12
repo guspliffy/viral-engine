@@ -83,6 +83,9 @@ import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, 
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
 import { COASTER_KINDS } from "./props-coaster.js";   // never looks up 07, the roller coaster: coastertrack, coastercar, photopost, photoscreen
 import { CITY_KINDS } from "./props-city.js";
+import { WAKECABIN_KINDS } from "./props-wakeup-cabin.js";
+import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
+import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
@@ -1416,6 +1419,7 @@ Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.j
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
+Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, BAND_KINDS);   // never looks up S2 E1 (props-band.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)

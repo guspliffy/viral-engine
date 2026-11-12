@@ -948,7 +948,9 @@ function chainMove(st, ch, a, t, at) {
 }
 // the storyboard's actions as the timeline reads them (cached per storyboard): with timing.offsets, characters who
 // start a reaction on the same moment (a look, a face, an arm gesture, a turn or lean) start a frame or two apart,
-// in an order seeded from their names, unless the beat says sync: true; contacts never move (an actor with a grab,
+// in an order seeded from their names, unless the beat says sync: true; an instant action (dur <= 0.012: a pose
+// placed on a cut) never moves, or it pops one or two frames into the new shot (Survive it zombies, 12 Nov 2026:
+// rig-jumps at five cuts until every cheat said sync: true); contacts never move (an actor with a grab,
 // release, sit, ride, move, hop, talk or an arm onto a prop at that moment keeps all its starts there). With
 // timing.splines, back-to-back moves of one actor with no ease of their own form chains (chainMove).
 const TIMED = new WeakMap();
@@ -967,7 +969,7 @@ function timedActions(sb) {
       const who = [...new Set(list.map((a) => a.who))];
       const ok = who.filter((w) => {
         const mine = list.filter((a) => a.who === w);
-        return mine.some((a) => SHIFTABLE.has(a.do)) && mine.every((a) => SHIFTABLE.has(a.do) && !a.sync && !(a.do === "arm" && a.pose && typeof a.pose === "object" && (a.pose.prop || a.pose.world)));
+        return mine.some((a) => SHIFTABLE.has(a.do)) && mine.every((a) => SHIFTABLE.has(a.do) && !a.sync && !(a.dur != null && a.dur <= 0.012) && !(a.do === "arm" && a.pose && typeof a.pose === "object" && (a.pose.prop || a.pose.world)));
       });
       if (ok.length + (who.length - ok.length) < 2 || !ok.length) continue;
       // the seeded order: each shifted actor gets 0, 1 or 2 frames; the first in order stays on the beat

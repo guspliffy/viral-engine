@@ -1,0 +1,420 @@
+{
+ "id": "tear-bench",
+ "title": "Tear bench: torn-off cabin, storm, emergency light, eyelids",
+ "idea": "Props bench for engine/page/props-wakeup-cabin.js and props-wakeup-fx.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "cleanStart": true,
+ "music": false,
+ "sound": {
+  "auto": false,
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "set": {
+  "type": "snowslope",
+  "dark": 0,
+  "light": "golden",
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "creative": {
+  "length": [
+   1,
+   30
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "cabinhall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "lids",
+   "kind": "eyelids",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "cam": {
+    "pos": [
+     0,
+     1.25,
+     -1
+    ],
+    "look": [
+     0,
+     0.9,
+     9
+    ],
+    "fov": 62
+   },
+   "open": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "1 tear + alarm + storm + masks, back down the aisle",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     1.3,
+     2.2
+    ],
+    "look": [
+     1,
+     1.4,
+     -4
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 1,
+      "alarm": 1,
+      "feed": 3,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "2 same camera, new keys at their defaults",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.2,
+     1.3,
+     2.2
+    ],
+    "look": [
+     1,
+     1.4,
+     -4
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 0,
+      "feed": 0,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "3 tear from outside",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7,
+     3,
+     -9
+    ],
+    "look": [
+     0,
+     1.3,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 1,
+      "alarm": 0,
+      "feed": 0,
+      "level": 1,
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "4 alarm + storm + masks, up the aisle",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     -1
+    ],
+    "look": [
+     0,
+     0.9,
+     9
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 1,
+      "feed": 3,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "5 eyelids open 0.2",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     -1
+    ],
+    "look": [
+     0,
+     0.9,
+     9
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 1,
+      "feed": 3,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "6 eyelids open 0.55",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     -1
+    ],
+    "look": [
+     0,
+     0.9,
+     9
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 1,
+      "feed": 3,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "7 eyelids open 1",
+   "at": 6,
+   "len": 1.72,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     -1
+    ],
+    "look": [
+     0,
+     0.9,
+     9
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 1,
+      "feed": 3,
+      "level": 1,
+      "drop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "8 window, storm feed 3",
+   "at": 7.72,
+   "len": 2.75,
+   "shot": {
+    "pos": [
+     1.4,
+     1.35,
+     0.4
+    ],
+    "look": [
+     2.65,
+     1.3,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 0,
+      "feed": 3,
+      "level": 1,
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  },
+  {
+   "name": "9 window, storm feed 3 (later)",
+   "at": 10.47,
+   "len": 1.03,
+   "shot": {
+    "pos": [
+     1.4,
+     1.35,
+     0.4
+    ],
+    "look": [
+     2.65,
+     1.3,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "hall",
+     "set": {
+      "tear": 0,
+      "alarm": 0,
+      "feed": 3,
+      "level": 1,
+      "drop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.01
+    }
+   ]
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/you-wake-up-mid/01-plane-crash/bench/make-tear-bench.mjs (task T4)."
+}
