@@ -127,3 +127,9 @@ need a explosion sound", "the video needs more dramatic music".
   boom 62->34 Hz, second blast at 0.4 s, debris, burning tail; measured 2.8 s, 57 % under 200 Hz, peak on frame one.
 - Music: recorded beds instead of the code style `danger`: ai/disaster/disaster-04 from 0 to T.edge + 0.6, then
   ai/car-chase/car-chase-03 from T.trunk to T.boom, gain 0.6, duck -8 (voice -5). Nothing after the explosion.
+- Subtitles after the restaging: "mid plane crash." y 262 (above the hat), "Head down." / "Brace!" y 1280 with the
+  brace camera at look y 0.8 (preflight failed caption-overlap on both once).
+- Mix: bed ducks 10 dB under the narrator (phone-line warned at -5); the chase bed stops 0.4 s before T.boom; the
+  explosion plays alone at gain 1.2 (a layered `impact` and a tall crack only fed the limiter). Its 100 ms peak
+  stays 2.5 dB under the crash slam (noise has a 10 dB crest, the slam is a sine); it roars for 1.4 s. Note, not fail.
+- Farm render 4: PASS on both cuts (runs 43191784573 A, 43191798612 B) at d452029. Delivered, DELIVERY.md round 3.
