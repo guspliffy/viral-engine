@@ -2990,6 +2990,271 @@
     "bird"
    ]
   },
+  "ai/bear-growl": {
+   "family": "animal",
+   "says": "an AI deep bear growl, 2.5 s, dark and low (measured: pitch about 190-290 Hz, half the energy under 200 Hz); the AI is not sure it sounds like a bear, it may read as a big dog or a rumble (weak CLAP score)",
+   "source": "ai",
+   "files": [
+    "ai/bear-growl/bear-growl-01.wav",
+    "ai/bear-growl/bear-growl-02.wav",
+    "ai/bear-growl/bear-growl-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "bear",
+    "growl",
+    "animal",
+    "menace"
+   ]
+  },
+  "ai/bear-roar": {
+   "family": "animal",
+   "says": "an AI loud bear bellow, 2.5 s, rising from 260 to 420 Hz, dark; 3 takes, not heard by Claude (CLAP score about 0.1)",
+   "source": "ai",
+   "files": [
+    "ai/bear-roar/bear-roar-01.wav",
+    "ai/bear-roar/bear-roar-02.wav",
+    "ai/bear-roar/bear-roar-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "bear",
+    "roar",
+    "animal",
+    "attack"
+   ]
+  },
+  "ai/bear-huff": {
+   "family": "animal",
+   "says": "an AI short low huff or jaw pop of a big animal, 0.5-0.8 s, mostly under 200 Hz (about 80 Hz); several takes, one cut each",
+   "source": "ai",
+   "files": [
+    "ai/bear-huff/bear-huff-01.wav",
+    "ai/bear-huff/bear-huff-02.wav",
+    "ai/bear-huff/bear-huff-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "bear",
+    "huff",
+    "breath",
+    "jaw"
+   ]
+  },
+  "ai/bear-charge": {
+   "family": "animal",
+   "says": "an AI run of heavy paw thuds, about 1.5-1.8 s, 6 hits, very low (85 % of the energy under 200 Hz): a big animal galloping",
+   "source": "ai",
+   "files": [
+    "ai/bear-charge/bear-charge-01.wav",
+    "ai/bear-charge/bear-charge-02.wav",
+    "ai/bear-charge/bear-charge-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "bear",
+    "charge",
+    "gallop",
+    "paws",
+    "run"
+   ]
+  },
+  "ai/canvas-rip": {
+   "family": "crash",
+   "says": "an AI fabric rip, 0.8-1.3 s, part noise part tone, mid brightness (about 2.3 kHz): tent nylon torn by claws",
+   "source": "ai",
+   "files": [
+    "ai/canvas-rip/canvas-rip-01.wav",
+    "ai/canvas-rip/canvas-rip-02.wav",
+    "ai/canvas-rip/canvas-rip-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "tent",
+    "rip",
+    "tear",
+    "fabric",
+    "nylon"
+   ]
+  },
+  "ai/glass-smash": {
+   "family": "crash",
+   "says": "an AI glass smash, 1.4 s, hard hit at the start then crackling shards, bright (about 2.9 kHz): a car windscreen breaking",
+   "source": "ai",
+   "files": [
+    "ai/glass-smash/glass-smash-01.wav",
+    "ai/glass-smash/glass-smash-02.wav",
+    "ai/glass-smash/glass-smash-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "glass",
+    "smash",
+    "windscreen",
+    "car",
+    "crash"
+   ]
+  },
+  "ai/metal-tear": {
+   "family": "crash",
+   "says": "an AI sheet-metal wrench, 1.6 s, tonal groan rising 120 to 240 Hz with a tearing screech; weak CLAP score, may read as a creak rather than a tear",
+   "source": "ai",
+   "files": [
+    "ai/metal-tear/metal-tear-01.wav",
+    "ai/metal-tear/metal-tear-02.wav",
+    "ai/metal-tear/metal-tear-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "metal",
+    "tear",
+    "car",
+    "door",
+    "bend"
+   ]
+  },
+  "ai/car-alarm": {
+   "family": "crash",
+   "says": "an AI car alarm, 4 s, steady siren wail around 420-1300 Hz, tail crossfaded into its head so it loops",
+   "source": "ai",
+   "files": [
+    "ai/car-alarm/car-alarm-01.wav",
+    "ai/car-alarm/car-alarm-02.wav",
+    "ai/car-alarm/car-alarm-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "alarm",
+    "car",
+    "siren",
+    "loop"
+   ]
+  },
+  "ai/thunder": {
+   "family": "weather",
+   "says": "an AI thunder, 6 s, a low rolling rumble (about 200-230 Hz, 42 % under 200 Hz); peaks 2.4 s in, so the crack sits mid-cut",
+   "source": "ai",
+   "files": [
+    "ai/thunder/thunder-01.wav",
+    "ai/thunder/thunder-02.wav",
+    "ai/thunder/thunder-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "thunder",
+    "storm",
+    "weather",
+    "crack"
+   ]
+  },
+  "ai/grass-fire": {
+   "family": "weather",
+   "says": "an AI crackling grass fire, 4 s, a steady low roar (about 90 Hz, 93 % under 200 Hz) with crackle; tail crossfaded so it loops",
+   "source": "ai",
+   "files": [
+    "ai/grass-fire/grass-fire-01.wav",
+    "ai/grass-fire/grass-fire-02.wav",
+    "ai/grass-fire/grass-fire-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "fire",
+    "grass",
+    "flames",
+    "crackle",
+    "loop"
+   ]
+  },
+  "ai/branch-snap": {
+   "family": "weather",
+   "says": "an AI short dry snap or scrape, 0.2-0.6 s, noisy and very bright (about 7 kHz): pine twigs breaking; weak CLAP score",
+   "source": "ai",
+   "files": [
+    "ai/branch-snap/branch-snap-01.wav",
+    "ai/branch-snap/branch-snap-02.wav",
+    "ai/branch-snap/branch-snap-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "branch",
+    "snap",
+    "wood",
+    "tree",
+    "climb"
+   ]
+  },
+  "ai/pot-bang": {
+   "family": "crash",
+   "says": "an AI metal pot bang, 0.4-0.5 s, one hit that rings at about 1.8-2 kHz and decays (best CLAP score of the set)",
+   "source": "ai",
+   "files": [
+    "ai/pot-bang/pot-bang-01.wav",
+    "ai/pot-bang/pot-bang-02.wav",
+    "ai/pot-bang/pot-bang-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "pot",
+    "bang",
+    "metal",
+    "clang",
+    "camp"
+   ]
+  },
+  "ai/pot-bite": {
+   "family": "crash",
+   "says": "an AI metal crunch, 0.7-0.9 s, noisy and bright (about 6 kHz), 4 hits: teeth on a thin steel pot; weak CLAP score",
+   "source": "ai",
+   "files": [
+    "ai/pot-bite/pot-bite-01.wav",
+    "ai/pot-bite/pot-bite-02.wav",
+    "ai/pot-bite/pot-bite-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "pot",
+    "bite",
+    "metal",
+    "crunch",
+    "bear"
+   ]
+  },
+  "ai/bag-drag": {
+   "family": "handling",
+   "says": "an AI nylon rustle dragged over ground, 0.8-1.0 s, noisy and bright (about 5 kHz): a sleeping bag pulled fast; weak CLAP score",
+   "source": "ai",
+   "files": [
+    "ai/bag-drag/bag-drag-01.wav",
+    "ai/bag-drag/bag-drag-02.wav",
+    "ai/bag-drag/bag-drag-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "bag",
+    "drag",
+    "grass",
+    "nylon",
+    "rustle"
+   ]
+  },
+  "ai/storm-wind": {
+   "family": "weather",
+   "says": "an AI quiet night wind in pines, 6 s, low gusty rumble (about 60-90 Hz) with a mid rustle; tail crossfaded so it loops; to play very quietly (wind scores low against 'wind' distractors by design)",
+   "source": "ai",
+   "files": [
+    "ai/storm-wind/storm-wind-01.wav",
+    "ai/storm-wind/storm-wind-02.wav",
+    "ai/storm-wind/storm-wind-03.wav"
+   ],
+   "gain": 0.2,
+   "tags": [
+    "wind",
+    "ambience",
+    "night",
+    "pines",
+    "loop"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
