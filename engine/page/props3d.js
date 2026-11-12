@@ -61,6 +61,7 @@ import { WHATIFFLAME_KINDS } from "./props-whatif-flame.js";   // what if 02: fl
 import { WHATIFBLAST_KINDS } from "./props-whatif-blast.js";   // what if 02: bookstorm, pagefall, bookpile (the BOOM's books)
 import { CINEMA_KINDS, CINEMA_GRIPS } from "./props-cinema.js";   // too much energy 02, the cinema: seats, tiers, bucket, popcorn
 import { CAMP_KINDS, CAMP_GRIPS, CAMP_PARTS } from "./props-camp.js";   // too much energy 03, camping at 6 am: ridge tent, sleeping bags, cord, clock
+import { BEARCAMP_KINDS, BEARCAMP_GRIPS } from "./props-bearcamp.js";   // fight flight or freeze 02, bear in the camp: domecamp, campcar, cardoor, cooler, cookpot, burnbranch, gaslantern, grassfire, clawmarks, climbpine
 import { BEAR_KINDS } from "./props-bear.js";   // fight flight or freeze 02: the black bear (bear; bearMouth() for a prop that follows its mouth)
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
@@ -1409,6 +1410,7 @@ Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // t
 Object.assign(KINDS, WHATIFLIB_KINDS, WHATIFFLAME_KINDS, WHATIFBLAST_KINDS); Object.assign(GRIPS, WHATIFLIB_GRIPS);   // what if 02 faster than sound (props-whatif-library/-flame/-blast.js)
 Object.assign(KINDS, CINEMA_KINDS); Object.assign(GRIPS, CINEMA_GRIPS);   // too much energy 02 (props-cinema.js)
 Object.assign(KINDS, CAMP_KINDS); Object.assign(GRIPS, CAMP_GRIPS);   // too much energy 03: ridgetent, sleepbag, tentcord, campclock (props-camp.js)
+Object.assign(KINDS, BEARCAMP_KINDS); Object.assign(GRIPS, BEARCAMP_GRIPS);   // fight flight or freeze 02 (props-bearcamp.js)
 Object.assign(KINDS, BEAR_KINDS);   // fight flight or freeze 02: bear (props-bear.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)

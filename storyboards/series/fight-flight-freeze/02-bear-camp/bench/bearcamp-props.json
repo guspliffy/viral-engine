@@ -1,0 +1,1087 @@
+{
+ "id": "bearcamp-props",
+ "title": "Bear camp props bench",
+ "idea": "Props bench for Fight, Flight or Freeze 02 (domecamp, campcar, cardoor, cooler, cookpot, burnbranch, gaslantern, grassfire, clawmarks, climbpine), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#0b101c",
+  "floor": "#1b2119"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "tent"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.4,
+    2.4
+   ],
+   "face": 25,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -3.3,
+    2.6
+   ],
+   "face": 25,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -4.2,
+    2.4
+   ],
+   "face": 25,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.2
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "at": [
+    61.1,
+    0.3
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "tent",
+   "kind": "domecamp",
+   "x": 0,
+   "z": 0
+  },
+  {
+   "id": "carW",
+   "kind": "campcar",
+   "x": -10,
+   "z": 0,
+   "rot": -35
+  },
+  {
+   "id": "doorW",
+   "kind": "cardoor",
+   "x": -7.8,
+   "y": 0.045,
+   "z": 0.9,
+   "rot": 10,
+   "tilt": -90
+  },
+  {
+   "id": "car",
+   "kind": "campcar",
+   "x": 30,
+   "z": 0
+  },
+  {
+   "id": "doorC",
+   "kind": "cardoor",
+   "x": 33.4,
+   "y": 0.045,
+   "z": 1.3,
+   "rot": -20,
+   "tilt": -90
+  },
+  {
+   "id": "cooler",
+   "kind": "cooler",
+   "x": 60,
+   "z": 0
+  },
+  {
+   "id": "pot0",
+   "kind": "cookpot",
+   "x": 63.66,
+   "z": 0
+  },
+  {
+   "id": "pot1",
+   "kind": "cookpot",
+   "x": 64.34,
+   "z": 0
+  },
+  {
+   "id": "branch",
+   "kind": "burnbranch",
+   "x": 68,
+   "z": 0
+  },
+  {
+   "id": "lan0",
+   "kind": "gaslantern",
+   "x": 79.45,
+   "z": 0
+  },
+  {
+   "id": "lan1",
+   "kind": "gaslantern",
+   "x": 80,
+   "z": 0
+  },
+  {
+   "id": "lan2",
+   "kind": "gaslantern",
+   "x": 80.55,
+   "z": 0
+  },
+  {
+   "id": "grass",
+   "kind": "grassfire",
+   "x": 90,
+   "z": 0,
+   "w": 2.5,
+   "d": 0.8,
+   "seed": 3
+  },
+  {
+   "id": "pine",
+   "kind": "climbpine",
+   "x": 110,
+   "z": 0
+  },
+  {
+   "id": "claws",
+   "kind": "clawmarks",
+   "x": 110,
+   "y": 2,
+   "z": 0.29952,
+   "r": 0.312
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "domecamp: closed (open 0)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "domecamp: open 1, the three friends beside it",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "domecamp: rip 1, flutter 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "domecamp: push 1 (the front fly bulges in)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "from inside through the window: smashed car, torn door, lights",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "domecamp: the window (-x wall) from outside",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "campcar: parked",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "campcar: smash 1, door 1, lights 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "campcar: torn 1, the cardoor on the grass",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.1,
+   "to": 10,
+   "text": "campcar: lights 1, beams 6 m (from the side)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10.1,
+   "to": 11,
+   "text": "campcar: flash 0.75 (the off half of a blink)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11.1,
+   "to": 12,
+   "text": "cardoor on the grass (tilt -90): shattered glass, torn hinge edge",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12.1,
+   "to": 13,
+   "text": "cooler (Spud beside for scale; lid top 0.48)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13.1,
+   "to": 14,
+   "text": "cooler: dent 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14.1,
+   "to": 15,
+   "text": "cookpot: dent 0 | dent 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15.1,
+   "to": 16,
+   "text": "cookpot: the dented rim from the -x side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16.1,
+   "to": 17,
+   "text": "burnbranch: fire 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17.1,
+   "to": 18,
+   "text": "gaslantern: lit 1 at tip 0 | 0.3 | 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 19,
+   "text": "grassfire: fire 1, spread 0.5",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 19.1,
+   "to": 20,
+   "text": "grassfire: spread 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 20.1,
+   "to": 21,
+   "text": "climbpine, whole (climb side +z)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 21.1,
+   "to": 22,
+   "text": "clawmarks on the trunk (r 0.31)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 22.1,
+   "to": 23,
+   "text": "climbpine: sway 1, snap 3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 23.1,
+   "to": 24,
+   "text": "climbpine: sway -1, shake 1 (the top)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "tentClosed",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.6,
+     1.35,
+     5.8
+    ],
+    "look": [
+     0,
+     0.7,
+     0
+    ],
+    "fov": 38
+   },
+   "do": []
+  },
+  {
+   "name": "tentOpen",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.1,
+     7
+    ],
+    "look": [
+     -1.6,
+     0.55,
+     0.5
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tentRip",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.3,
+     1.2,
+     3.3
+    ],
+    "look": [
+     0,
+     0.85,
+     0.4
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "open": 0,
+      "rip": 1,
+      "flutter": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tentPush",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.2,
+     1.5,
+     4.6
+    ],
+    "look": [
+     0,
+     0.65,
+     0.5
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "rip": 0,
+      "flutter": 0,
+      "push": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tentWin",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     0.75,
+     0
+    ],
+    "look": [
+     -1.5,
+     0.65,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "push": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "carW",
+     "set": {
+      "smash": 1,
+      "torn": 1,
+      "lights": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tentWinOut",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.4,
+     1,
+     -3
+    ],
+    "look": [
+     -1.2,
+     0.65,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "car0",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     34.2,
+     1.5,
+     6
+    ],
+    "look": [
+     30,
+     0.9,
+     0.3
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "car1",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     35,
+     1.3,
+     5.6
+    ],
+    "look": [
+     30,
+     0.9,
+     0.3
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "smash": 1,
+      "door": 1,
+      "lights": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "car2",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     37.2,
+     1.5,
+     3.6
+    ],
+    "look": [
+     31.2,
+     0.5,
+     0.6
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "door": 0,
+      "torn": 1,
+      "lights": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "carBeam",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     25,
+     1.3,
+     3
+    ],
+    "look": [
+     31.5,
+     0.5,
+     3.4
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "torn": 0,
+      "lights": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "carFlash",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     34.2,
+     1.3,
+     6
+    ],
+    "look": [
+     30,
+     0.8,
+     0.5
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "flash": 0.75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "door",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     33.4,
+     1.6,
+     4.4
+    ],
+    "look": [
+     33.4,
+     0.05,
+     1.3
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "cooler",
+   "at": 12.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     62.6,
+     1.2,
+     3.4
+    ],
+    "look": [
+     60.3,
+     0.4,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "coolerDent",
+   "at": 13.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     61.4,
+     0.95,
+     1.6
+    ],
+    "look": [
+     60.2,
+     0.35,
+     0.1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cooler",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pots",
+   "at": 14.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     64.1,
+     0.55,
+     1.9
+    ],
+    "look": [
+     64,
+     0.08,
+     0
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pot1",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "potsSide",
+   "at": 15.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     63.45,
+     0.4,
+     0.75
+    ],
+    "look": [
+     64.34,
+     0.1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "branch",
+   "at": 16.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     68,
+     0.62,
+     2.8
+    ],
+    "look": [
+     68,
+     0.5,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "branch",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "lantern",
+   "at": 17.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80.3,
+     0.45,
+     3
+    ],
+    "look": [
+     80.3,
+     0.13,
+     0
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lan0",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lan1",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lan2",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lan1",
+     "set": {
+      "tip": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lan2",
+     "set": {
+      "tip": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "grass5",
+   "at": 18.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     90.4,
+     0.9,
+     4
+    ],
+    "look": [
+     90,
+     0.2,
+     0
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "grass",
+     "set": {
+      "fire": 1,
+      "spread": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "grass10",
+   "at": 19.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     92,
+     0.8,
+     4
+    ],
+    "look": [
+     90,
+     0.2,
+     0
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "grass",
+     "set": {
+      "spread": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pine",
+   "at": 20.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     110,
+     5.2,
+     20
+    ],
+    "look": [
+     110,
+     5,
+     0
+    ],
+    "fov": 38
+   },
+   "do": []
+  },
+  {
+   "name": "claws",
+   "at": 21.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     110.8,
+     2,
+     2.9
+    ],
+    "look": [
+     110,
+     2,
+     0.3
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "pineSway",
+   "at": 22.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     109,
+     5.2,
+     20
+    ],
+    "look": [
+     110,
+     5,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pine",
+     "set": {
+      "sway": 1,
+      "snap": 3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "pineTop",
+   "at": 23.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     111,
+     8.6,
+     11
+    ],
+    "look": [
+     110,
+     8.4,
+     0
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pine",
+     "set": {
+      "shake": 1,
+      "sway": -1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/fight-flight-freeze/02-bear-camp/bench/make-bearcamp-props.mjs (props bench, no reviews)."
+}
