@@ -36,13 +36,13 @@ const T = {
   // frame 0 held best). Panel order 03, 01, 02, 04... (asked Jonny; the panel-order cut is make-sinking-car.panel-order.mjs.bak)
   // Jonny 12 Nov 18:56 on draft 1: "the first second should be one see the car crashing over the bridge and then the
   // second scene the car flying" -> two outside shots before the eyelids.
-  crash: 0,       // 03a on the deck: the car races past and over the broken end
-  fly: 0.95,      // 03b wide: the car flying, nose dropping, into the lake
-  lip: 0.62,      //    the front wheels leave the deck (8.3 m/s, a 14 m fall takes 1.69 s)
-  hit: 2.31,      //    the impact
-  pov: 2.75,      // 01 inside, through his opening eyelids: the lake over the bonnet, Mash screaming
-  face: 3.4,      // 02 his face at the wheel
-  cabin: 4.05,    // 04 inside: it floats, water at their feet, 1:00
+  // Jonny 19:55 on draft 2: "the first scene should be 1st person perspective" -> 01 POV over the edge, then 03 outside.
+  crash: 0,       // 01 first person at the wheel, his eyes snap open: the broken end rushes up, over the edge
+  fly: 1.2,       // 03 wide: the car flying, nose dropping, into the lake
+  lip: 0.9,       //    the front wheels leave the deck (10 m/s on the deck; a 14 m fall takes 1.69 s)
+  hit: 2.59,      //    the impact
+  face: 3.0,      // 02 his face at the wheel, after the impact
+  cabin: 4.3,     // 04 inside: it floats, water at their feet, 1:00
   phone: 7.0,     // 05 Mash dials, Spud knocks the phone down
   door: 9.0,      // 06 Mash shoves his door
   button: 11.5,   // 07 the window button, the lights die, 0:40
@@ -64,10 +64,10 @@ T.end = T.fire;   // the burning house is its own clip (make-sinking-car-fire.mj
 
 // ---------------------------------------------------------------- the car (DESIGN 2 "The car's fall"; pitch = nose down, degrees)
 const CARKEYS = [
-  // on the deck (y 14) at 8.3 m/s, off the lip at z -14, then a free fall: y = 14 - 4.9 (t - lip)^2, z on at 8.3 m/s
-  [0, [0, 14.0, -19.1], 0], [T.lip, [0, 14.0, -14.0], 2], [0.95, [0, 13.47, -11.26], 8], [1.3, [0, 11.73, -8.36], 15],
-  [1.65, [0, 8.8, -5.45], 22], [2.0, [0, 4.67, -2.55], 29], [T.hit, [0, -0.25, 0], 34],
-  [2.65, [0, -1.0, 0.5], 18], [3.15, [0, -0.25, 0.8], -2], [3.6, [0, -0.55, 0.8], 4], [T.cabin, [0, -0.45, 0.8], 3],
+  // on the deck (y 14) at 10 m/s, off the lip at z -14, then a free fall: y = 14 - 4.9 (t - lip)^2 (z slows to 8.3 m/s so it lands on the origin)
+  [0, [0, 14.0, -23.0], 0], [T.lip, [0, 14.0, -14.0], 2], [1.2, [0, 13.56, -11.5], 7], [1.6, [0, 11.6, -8.2], 14],
+  [2.0, [0, 8.07, -4.9], 22], [2.3, [0, 4.4, -2.4], 29], [T.hit, [0, -0.25, 0], 34],
+  [2.93, [0, -1.0, 0.5], 18], [3.43, [0, -0.25, 0.8], -2], [3.9, [0, -0.55, 0.8], 4], [T.cabin, [0, -0.45, 0.8], 3],
   [7.0, [0, -0.7, 0.8], 5], [9.0, [0, -1.1, 0.8], 7], [11.5, [0, -1.3, 0.8], 9], [T.burst, [0, -1.47, 0.8], 10],
   [T.back, [0, -1.7, 0.8], 14], [T.out, [0, -2.2, 0.8], 25], [T.drag, [0, -3.2, 0.9], 35], [T.deep, [0, -5.0, 1.0], 40],
   [26.5, [0, -7.0, 1.1], 20], [T.end, [0, -7.0, 1.1], 20],
@@ -98,7 +98,7 @@ const LEVEL = [[T.cabin, 0.44], [7.0, 0.52], [9.0, 0.66], [11.5, 0.8], [T.burst,
 
 // ---------------------------------------------------------------- cameras (pos, look, fov), one per panel; rig ones in the car's frame
 const CAM = {
-  pov: { rig: "car", pos: [0.55, 1.3, 0.55], look: [0.5, 0.9, 8], fov: 66 },                                                // 01
+  pov: { rig: "car", pos: [0.55, 1.3, 0.55], look: [0.25, 1.1, 8], fov: 70 },                                                // 01
   face: { rig: "car", pos: [0.55, 1.8, 2.95], look: [0.55, 1.25, 0.2], fov: 40, to: { pos: [0.55, 1.75, 2.7] }, dur: 1.25, ease: "out" },   // 02
   crash: { pos: [4.3, 15.3, -11.2], look: [0, 14.5, -18.5], fov: 48, to: { look: [-0.3, 13.6, -11.0] }, dur: 0.95, ease: "inOut" },   // on the deck by the broken end
   fall: { pos: [5, 2.5, 7.5], look: [0, 13.0, -10.5], fov: 55, to: { look: [0, 1.0, -0.5] }, dur: 1.4, ease: "inOut" },             // 03
@@ -187,19 +187,19 @@ A(0, "spud", "grab", { prop: "wheel", hand: "R", pose: null, grip: "R" }); A(0, 
 c.arm(0, "spud", "R", { prop: "wheel", grip: "R" }, 0.01); c.arm(0, "spud", "L", { prop: "wheel", grip: "L" }, 0.01);
 prop(0, "water", { level: 0, hiss: 0, dim: 0, agit: 0 }, 0, "linear"); prop(0, "glass", { level: 0, pour: 1, drop: 0 }, 0, "linear");
 prop(0, "dash", { on: 1 }, 0, "linear");
-prop(0, "beams", { lamps: 1 }, 0, "linear");
+prop(0, "beams", { lamps: 0.25 }, 0, "linear"); prop(T.fly, "beams", { lamps: 1 }, 0.01, "linear");   // dim in his own view, so the road and the drop read
 sfx(0, "screech", { gain: 0.7, loud: true, reason: "frame 0: tyres leaving the broken bridge (EP01's last sound, the loop)" });
 sfx(0, "ai/storm-lake", { gain: 0.3, dur: r3(T.cabin), reason: "rain and wind over the lake" });
 
 // ================================================================ 01 THE BLINK 0-1.2: through his own eyelids at the wheel
-const P0 = T.pov;
-A(cut(0.01), "spud", "pov", { on: true }); A(cut(T.face), "spud", "pov", { on: false });
+const P0 = 0;
+A(0, "spud", "pov", { on: true }); A(cut(T.fly), "spud", "pov", { on: false });
 set(0, "lids", { open: 0 }); set(P0, "lids", { open: 0.15 }); prop(r3(P0 + 0.03), "lids", { open: 0.7 }, 0.15, "out"); prop(r3(P0 + 0.25), "lids", { open: 0.2 }, 0.08, "in"); prop(r3(P0 + 0.35), "lids", { open: 1 }, 0.25, "out");
 A(0, "mash", "expr", { expr: "terrified", set: { open: 1 }, dur: 0 }); A(0, "mash", "look", { to: [0.4, -0.2], dur: 0, blink: false });
 both(0, "mash", { o: [0.25, 0.85, 0.15] }, 0.01);
 sfx(r3(P0 + 0.1), "gasp", { gain: 0.5, reason: "Mash screams (a sharp breath, no cartoon)" });
 narr(0.05, "You wake up... mid car crash.", DUR.wake, ["You wake up...", "mid car crash."]);
-see(r3(P0 + 0.2), T.face, ["mash.face"], "first person at the wheel: his eyes open on the lake over the bonnet, Mash screams");
+see(0.2, T.fly, ["bridge"], "first person at the wheel: his eyes snap open as the car races over the snapped end of the bridge, Mash screams");
 
 // ================================================================ 02 HIS FACE 1.2-2.45
 A(T.face, "spud", "expr", { expr: "terrified", set: { open: 0.85 }, dur: 0 }); A(T.face, "spud", "droop", { to: 0.9, dur: 0 });   // the sprout whipped flat
@@ -211,8 +211,7 @@ prop(T.hit, "spray", { puff: 1 }, 0.9, "out");
 prop(T.hit, "foam", { on: 1 }, 0.4, "out");
 shake(T.hit, 0.05, 0.4);
 sfx(T.hit, "ai/car-lake-impact", { gain: 1.0, loud: true, reason: "the car hits the lake nose first" });
-see(0.1, T.fly, ["beams", "bridge"], "frame 0: the red car races over the snapped end of the bridge");
-see(r3(T.fly + 0.05), T.pov, ["beams", "spray"], "the car flies nose down and hits the lake in a wall of spray");
+see(r3(T.fly + 0.05), T.face, ["beams", "spray"], "the car flies nose down and hits the lake in a wall of spray");
 
 // ================================================================ 04 INSIDE, IT FLOATS 4.5-7.0: water at their feet, 1:00
 for (const id of ["water", "glass"]) {
@@ -220,7 +219,7 @@ for (const id of ["water", "glass"]) {
   for (let k = 0; k < LEVEL.length - 1; k++) prop(LEVEL[k][0], id, { level: LEVEL[k + 1][1] }, r3(LEVEL[k + 1][0] - LEVEL[k][0]), "linear");
 }
 set(T.cabin, "water", { hiss: 1 });
-sfx(T.cabin, "ai/car-flooding", { gain: 0.55, dur: r3(T.burst - T.cabin), reason: "the lake gurgling in under the doors and seats (Jonny: the hiss sounded like sprinkling)" });
+sfx(T.cabin, "ai/car-waves", { gain: 0.6, dur: r3(T.burst - T.cabin), reason: "lake waves sloshing against and into the floating car (Jonny: a wave, not a flush or a sprinkle)" });
 sfx(T.cabin, "ai/rain-car-roof", { gain: 0.3, dur: r3(T.out - T.cabin), reason: "rain drumming on the roof" });
 for (const w of ["spud", "mash", "chip"]) { A(T.cabin, w, "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0 }); }
 A(T.cabin, "spud", "look", { to: [0, -0.6], dur: 0, blink: false });
@@ -374,9 +373,8 @@ see(r3(T.close + 0.05), T.fire, ["spudW.face"], "his eyes close");
 
 // ---------------------------------------------------------------- shots
 const beats = c.beats([
-  ["the crash", 0, CAM.crash, "hook"],
-  ["the fall", T.fly, CAM.fall],
-  ["the blink", T.pov, CAM.pov, "reveal"],
+  ["the crash", 0, CAM.pov, "hook"],
+  ["the fall", T.fly, CAM.fall, "reveal"],
   ["his face", T.face, CAM.face],
   ["it floats", T.cabin, CAM.cabin],
   ["no phone", T.phone, CAM.phone],
@@ -413,11 +411,11 @@ write(import.meta.url, {
   cleanStart: true, motion: MOTION, rig: RIG, physics: true, animeTiming: ANIME_TIMING,
   set: { type: "stormlake", lip: false, under: "auto", hole: HOLE, shafts: [[T.out, [1.0, 0.2]], [T.deep, [1.6, 0.4]]], wipe: [[r3(T.surf - 0.04), 0], [T.surf, 1], [r3(T.surf + 0.033), 0.6], [r3(T.surf + 0.066), 0]], para: 0, aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   // Jonny liked disaster-04 on EP01 ("keep the music"); a dramatic scenario = recorded orchestra from 0.0 (12 Nov)
-  music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: r3(T.close), lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
+  music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: T.end, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
   // realistic sounds only (Jonny 12 Nov 16:02): no signature jingles, no movement markers
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [T.end, T.end] },
-  hook: { show: ["bridge", "beams"], hint: 0, what: "frame 0: the red car races over the snapped end of a bridge in a storm, the lake 14 m below" },
+  hook: { show: ["bridge", "beams"], hint: 0, what: "frame 0, first person at the wheel: his eyes snap open as the car races over the snapped end of a bridge, the storm lake 14 m below" },
   panels: { md: "storyboards/series/you-wake-up-mid/02-sinking-car/PANELS.md" },
   rigs,
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

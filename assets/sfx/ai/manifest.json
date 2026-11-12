@@ -3471,6 +3471,84 @@
      "loudnessLUFS": -29.4
     }
    ]
+  },
+  {
+   "id": "car-waves",
+   "kind": "sfx",
+   "files": [
+    "car-waves/car-waves-01.wav",
+    "car-waves/car-waves-02.wav",
+    "car-waves/car-waves-03.wav",
+    "car-waves/car-waves-04.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "water",
+    "waves",
+    "car",
+    "slosh"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "slow heavy waves surging and sloshing against metal, steady continuous swells, close, realistic recording, lake in a storm",
+    "waves breaking and sloshing, heavy water surging in slow swells against metal, close, realistic recording, lake in a storm"
+   ],
+   "seed": [
+    934,
+    933,
+    932,
+    931
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "car-waves/car-waves-01.wav",
+     "take": "p1-s934",
+     "prompt": "waves breaking and sloshing, heavy water surging in slow swells against metal, close, realistic recording, lake in a storm",
+     "seed": 934,
+     "startSec": 1.5,
+     "durationSec": 6.0,
+     "clap": 0.258,
+     "snrDb": null,
+     "loudnessLUFS": -14.8
+    },
+    {
+     "file": "car-waves/car-waves-02.wav",
+     "take": "p0-s933",
+     "prompt": "slow heavy waves surging and sloshing against metal, steady continuous swells, close, realistic recording, lake in a storm",
+     "seed": 933,
+     "startSec": 1.5,
+     "durationSec": 6.0,
+     "clap": 0.217,
+     "snrDb": null,
+     "loudnessLUFS": -14.0
+    },
+    {
+     "file": "car-waves/car-waves-03.wav",
+     "take": "p0-s932",
+     "prompt": "slow heavy waves surging and sloshing against metal, steady continuous swells, close, realistic recording, lake in a storm",
+     "seed": 932,
+     "startSec": 1.5,
+     "durationSec": 6.0,
+     "clap": 0.184,
+     "snrDb": null,
+     "loudnessLUFS": -15.1
+    },
+    {
+     "file": "car-waves/car-waves-04.wav",
+     "take": "p1-s931",
+     "prompt": "waves breaking and sloshing, heavy water surging in slow swells against metal, close, realistic recording, lake in a storm",
+     "seed": 931,
+     "startSec": 1.5,
+     "durationSec": 6.0,
+     "clap": 0.174,
+     "snrDb": null,
+     "loudnessLUFS": -14.6
+    }
+   ]
   }
  ]
 }

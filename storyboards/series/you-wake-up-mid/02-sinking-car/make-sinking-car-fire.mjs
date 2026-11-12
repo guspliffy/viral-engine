@@ -5,9 +5,11 @@
 // Reuses: energyroom, bedframe, tipmattress, nightstand, digiclock, winglass, firecurtain, outglow (props-energy),
 // flames (props3d), cabinsmoke (props-wakeup-fx). No new design.
 //
-// 0.00  Spud asleep in bed, eyes shut; the curtains and the wall by the window burn, smoke under the ceiling, the
-//       window glows orange (the house outside burns too), the smoke alarm beeps
-// 0.35  his eyes snap open; 0.75 he looks at the burning window; narrator "You wake up and your house is burning."
+// Jonny 19:55 on draft 2: "the character has no legs" (sitting in bed, the blanket hid them) and "the music is friendly
+// in a dangerous scene" -> he wakes in first person, then stands by the bed, whole body in shot; the episode's
+// orchestra bed (disaster-04) runs on from the lake clip.
+// 0.00  first person from his pillow, eyes opening: the curtains and the window on fire, smoke under the ceiling
+// 0.80  Spud on his feet in front of the bed, terrified, the fire behind him; the smoke alarm beeps throughout
 import { readFileSync } from "node:fs";
 import { clip, write, frame, r3, SUB_STYLE } from "../../../lib/clip.mjs";
 import { ENERGY as E } from "../../../../engine/page/set-energy.js";
@@ -24,12 +26,14 @@ const narr = (t, line, dur, chunks, y = LINES.pos, tail = 0.25) => {
 };
 
 const LINE_DUR = 2.45;   // estimate until the narrator reads it (the render measures; adjust after the first draft)
-const T = { open: 0.35, look: 0.75, line: 0.2 };
+const T = { up: 0.8, look: 1.3, line: 0.2 };
 const END = r3(T.line + LINE_DUR + 0.25 + 0.75);
 
 const BED = E.bed, WZ = E.wallZ, WIN_X = (E.win.x0 + E.win.x1) / 2;
 const MAT = [BED[0] - M.w / 2, RAIL_Y, BED[1]];
-const cast = [{ id: "spud", character: "potatobrawl/spud", at: BED, face: "camera", expr: "serene", follow: 0.3, seed: 2.9 }];
+const STAND = [0.55, -0.55];   // on the floor beside the bed (the bed would hide his legs), facing the camera
+const POV = { pos: [-0.85, 1.1, -1.25], look: [0.6, 1.2, -2.3], fov: 66 };   // from his pillow toward the burning window
+const cast = [{ id: "spud", character: "potatobrawl/spud", at: STAND, face: "camera", expr: "terrified", follow: 0.3, seed: 2.9 }];
 const props = [
   { id: "frame", kind: "bedframe", x: BED[0], z: BED[1] },
   { id: "mat", kind: "tipmattress", x: MAT[0], y: MAT[1], z: MAT[2], cover: 1 },
@@ -43,32 +47,33 @@ const props = [
   { id: "fireW", kind: "flames", x: 1.45, y: 0, z: r3(WZ + 0.25), scale: 1.5 },
   { id: "fireR", kind: "flames", x: r3(E.right - 0.25), y: 0, z: -1.2, rot: 90, scale: 1.3 },
   // smoke under the ceiling, the glow on the back wall (cabinsmoke's box in the room's frame; z0 = the back wall)
+  { id: "lids", staged: "a first-person overlay", kind: "eyelids", cam: POV },
   { id: "smoke", kind: "cabinsmoke", x: 0, y: 0, z: 0, x0: -2.4, x1: E.right, z0: WZ, z1: 2.5, top: 2.6 },
 ];
 
-A(0, "spud", "sit", { seat: "frame", dur: 0, hands: "keep" });
-A(0, "spud", "face", { lid: 1, dur: 0 });
-A(0, "spud", "look", { to: [0, -0.15], dur: 0, blink: false });
-c.arm(0, "spud", "R", { x: [-0.2, 0.3, 0.38] }, 0); c.arm(0, "spud", "L", { x: [0.2, 0.3, 0.38] }, 0);
+// 0-0.8 first person: his eyes open on the fire (Spud hidden, the camera is his eyes)
+A(0, "spud", "hide"); A(r3(T.up - 0.02), "spud", "show");
+c.prop(0, "lids", { open: 0.1 }, 0, "linear"); c.prop(0.05, "lids", { open: 0.7 }, 0.15, "out"); c.prop(0.3, "lids", { open: 0.25 }, 0.08, "in"); c.prop(0.4, "lids", { open: 1 }, 0.25, "out");
 for (const id of ["curtL", "curtR"]) c.prop(0, id, { fire: 1, scorch: 0.6 }, 0, "linear");
 c.prop(0, "glow", { glow: 1 }, 0, "linear");
 c.prop(0, "fireW", { fire: 1 }, 0, "linear"); c.prop(0, "fireR", { fire: 0.8 }, 0, "linear");
 c.prop(0, "smoke", { fill: 0.6, fire: 0.8 }, 0, "linear");
-// he wakes
-A(T.open, "spud", "face", { lid: 0, dur: 0.1 });
-A(T.open, "spud", "expr", { expr: "terrified", set: { open: 0.5 }, dur: 0.1 });
-A(r3(T.look - 0.13), "spud", "look", { to: [0.7, 0.1], dur: 0.15, blink: false });
-A(T.look, "spud", "turn", { to: 25, dur: 0.3, ease: "out" });
-both(T.look, { o: [0.3, 0.55, 0.3] }, 0.3, "out");
+// 0.8 on his feet by the bed, the fire behind him
+A(T.up, "spud", "expr", { expr: "terrified", set: { open: 0.6 }, dur: 0 });
+A(T.up, "spud", "look", { to: [0, 0], dur: 0, blink: false });
+both(T.up, { o: [0.3, 0.6, 0.25] }, 0.01);
+A(r3(T.look - 0.13), "spud", "look", { to: [0.7, 0.15], dur: 0.15, blink: false });
+A(T.look, "spud", "turn", { to: 30, dur: 0.35, ease: "out" });
 narr(T.line, "You wake up and your house is burning.", LINE_DUR, ["You wake up", "and your house is burning."]);
-see(0.1, END, ["spud.face", "curtL", "glow"], "Spud wakes in bed: the curtains, the wall and the window behind him on fire, smoke under the ceiling");
+see(0.1, T.up, ["curtL", "glow"], "first person from the pillow: his eyes open on the curtains and the window on fire");
+see(r3(T.up + 0.05), END, ["spud.face", "curtL", "glow"], "Spud on his feet by the bed, the room on fire behind him");
 // sound: realistic only (Jonny 12 Nov) - the fire, the smoke alarm
 sfx(0, "ai/house-fire", { gain: 0.6, dur: END, reason: "the room burning" });
 for (let t = 0.05; t < END - 0.2; t += 0.55) sfx(r3(t), "ai/smoke-alarm", { gain: 0.45, reason: "the smoke alarm" });
 function both(t, pose, dur, ease) { for (const s of ["R", "L"]) c.arm(t, "spud", s, pose, dur, ease); }
 
-const MASTER = frame([-0.3, 0.95, -1.5], { az: -8, el: 10, h: 3.6, fov: 36 });
-const beats = c.beats([["the next one", 0, MASTER, "hook"]], END);
+const MASTER = frame([0.35, 0.75, -1.0], { az: -8, el: 8, h: 3.4, fov: 38 });
+const beats = c.beats([["his eyes open", 0, POV, "hook"], ["the house is burning", T.up, MASTER]], END);
 
 write(import.meta.url, {
   id: "wake-up-mid-sinking-car-fire",
@@ -77,13 +82,13 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [240, 1440], cleanStart: true, motion: { feet: 2, overlap: true, timing: true, solve: true }, animeTiming: true,
   set: { type: "energyroom", night: true, seed: 6, aperture: 0, bloom: "emissive" },
+  // the episode's orchestra runs on from the lake clip (disaster-04 is 14.99 s and loops: (1.698 + 34.0) mod 14.988 = 5.722)
+  music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 5.722, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [END, END] },
-  hook: { show: ["spud", "curtL", "glow"], hint: 0, what: "his eyes open in a burning bedroom" },
+  hook: { show: ["curtL", "glow"], hint: 0, what: "first person: his eyes open in a burning bedroom" },
   cast, props, captions: c.captions, beats, visible: c.visible,
   allowClip: [
-    { who: "spud", with: "frame", from: 0, to: END, reason: "Spud sits in bed (legs under the blanket, over the frame)" },
-    { who: "spud", with: "mat", from: 0, to: END, reason: "Spud sits in bed on the mattress, under the blanket" },
   ],
   notes: "Generated by storyboards/series/you-wake-up-mid/02-sinking-car/make-sinking-car-fire.mjs. Joined after wake-up-mid-sinking-car (one set per storyboard).",
 });

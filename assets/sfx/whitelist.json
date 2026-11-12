@@ -333,6 +333,7 @@
   "ai/seatbelt-click": { "family": "handling", "says": "a car seatbelt buckle: one small metal-and-plastic click, 0.1 to 0.3 s, quiet (AI, EP02)" },
   "ai/car-door-shove": { "family": "hit", "says": "a dull heavy thud on a car door from inside, muffled, about 0.4 s (AI, EP02: shoving the stuck door)" },
   "ai/car-flooding": { "family": "wet", "says": "a car interior filling with water: a deep, full, gurgling inflow, almost all energy under 500 Hz, no spray or hiss; steady bed, 6 s with 0.2 s soft edges (AI, EP02; replaces the sprinkling ai/water-leak-hiss)" },
+  "ai/car-waves": { "family": "wet", "says": "lake waves washing against and into a floating car: slow heavy surging, sloshing swells, steady bed, 6 s with 0.2 s soft edges, no gurgle, drain or flush (AI, EP02; replaces the flushing ai/car-flooding)" },
   "ai/house-fire": { "family": "fire", "says": "a house fire close by: a steady roar of flames with crackling and popping timber, 6 s with 0.2 s soft edges (AI, EP02, the last shot)" },
   "oga/fart-viking": { "family": "body", "says": "a short low fart, a few flutters (recorded by mouth, 2 semitones down)", "words": ["fart", "pups"] },
   "oga/fart-viking-2": { "family": "body", "says": "a short low fart, two pulses (3 semitones down)" },

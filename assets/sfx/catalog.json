@@ -3282,6 +3282,24 @@
     "roar"
    ]
   },
+  "ai/car-waves": {
+   "family": "wet",
+   "says": "lake waves washing against and into a floating car: slow heavy surging, sloshing swells, steady bed, 6 s with 0.2 s soft edges, no gurgle, drain or flush (AI, EP02; replaces the flushing ai/car-flooding)",
+   "source": "ai",
+   "files": [
+    "ai/car-waves/car-waves-01.wav",
+    "ai/car-waves/car-waves-02.wav",
+    "ai/car-waves/car-waves-03.wav",
+    "ai/car-waves/car-waves-04.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "water",
+    "waves",
+    "car",
+    "slosh"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",

@@ -39,3 +39,4 @@
   rainstreaks (props-freefall), rainfall (props-okilied), cabinsmoke (props-wakeup-fx), hatchback rig (car-hatchback.js).
 - Draft 1 rendered with --force: the 11 gate fails are hand/contact polish (mittens in the dash, hand over eyes in a shot where Mash is the subject, the hoodie drag merge); workflow rule 2: the rough draft fixes only fails that hide a beat.
 - Draft 2 rendered with --force (same 12 polish fails as draft 1, none hides a beat).
+- Draft 3 rendered with --force (the same polish fails, none hides a beat).
