@@ -39,6 +39,8 @@ floating in this scene / the animals should look more real and not like bowl fit
 - MUSIC: named style "chase" added to puppet/beat.mjs (minor, 148-156 bpm, pounding bass, no lead).
 - NARRATOR in (voice setup works in the cloud container): four lines; the catch line was cut (the catch is SHOWN);
   every beat after the cold open moved +0.5 s so the 2.7 s title question has room (clip 22.5 s).
+- ROUGH DRAFT 2 SENT 12 Nov 09:10 Berlin (narrated, 22.5 s, preflight 0 fails; drafts 3, farm 0). Told Jonny the
+  sabre-tooth is the weakest animal (reads bear-cat, round face). WAITING for his OK or notes; nothing polished before.
 - Run before the PR: `node qa/golden.mjs` (geo.js, beat.mjs and props3d.js changed; all additive).
 
 ## The improvement loop
