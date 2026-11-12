@@ -312,12 +312,16 @@ function lockMeshes(list, mats, parent) {
 // drops for brow. o: x, y, z (the left eye centre in parent), R, spread (turn outward, rad), tilt (rad, + looks down), sclera, rim,
 // iris, pupilTh (pupil cap, rad), irisTh, lidM, browGeo (a loft along x), browM, browUp (the brow's height over the eye in R), lashes (n)
 function realEyes(S, parent, o) {
-  const R = o.R, sclM = S.b(o.sclera), rimM = S.b(o.rim), irisM = S.b(o.iris), pupM = S.b("#120c08"), glM = S.b("#fdfcf6"), lashM = S.b("#1a0f08");
+  const R = o.R, sclM = S.b(o.sclera), rimM = S.b(o.rim), irisM = S.b(o.iris), pupM = S.b("#120c08"), glM = S.b("#fdfcf6"), lashM = S.b("#1a0f08"), darkM = S.b("#120a06");
   [rimM, irisM, pupM, glM].forEach((m, k) => { m.polygonOffset = true; m.polygonOffsetFactor = -(k + 1); m.polygonOffsetUnits = -(k + 1); });
   const cap = (r, th, m) => { const g = new THREE.SphereGeometry(r, 24, 14, 0, TAU, 0, th); g.rotateX(Math.PI / 2); return new THREE.Mesh(g, m); };
   const eyes = [-1, 1].map((s) => {
     const g = new THREE.Group(); g.position.set(s * o.x, o.y, o.z); g.rotation.order = "YXZ"; g.rotation.set(o.tilt ?? 0, s * o.spread, 0); parent.add(g);
     g.add(new THREE.Mesh(new THREE.SphereGeometry(R, 24, 16), sclM));
+    if (o.ringM) {   // a paler bare-skin ring round the eye and a dark lash line
+      const rg = new THREE.Mesh(new THREE.CircleGeometry(R * 2.1, 28), o.ringM); rg.position.z = -R * 0.3; rg.castShadow = false; g.add(rg);
+      const dk = new THREE.Mesh(new THREE.RingGeometry(R * 1.08, R * 1.3, 28), darkM); dk.position.z = -R * 0.25; g.add(dk);
+    }
     const pup = new THREE.Group(); g.add(pup);
     pup.add(cap(R * 1.004, o.irisTh + 0.12, rimM), cap(R * 1.008, o.irisTh, irisM), cap(R * 1.012, o.pupilTh, pupM));
     const gl = new THREE.Mesh(new THREE.SphereGeometry(R * 0.11, 8, 6), glM); gl.position.set(R * 0.3, R * 0.32, R * 0.92); pup.add(gl);
@@ -338,7 +342,7 @@ function realEyes(S, parent, o) {
         e.pup.rotation.set(-ly * 0.4, lx * 0.45 - e.s * 0.06, 0);
         e.lidP.rotation.x = rad(35 + 140 * lidK);
         e.browT.rotation.z = e.s * -0.4 * bw;
-        e.browG.position.y = o.y + R * (o.browUp + 0.55 * Math.max(0, bw) - 0.45 * Math.max(0, -bw));
+        e.browG.position.y = o.y + R * (o.browUp + 0.55 * Math.max(0, bw) - (o.browDrop ?? 0.45) * Math.max(0, -bw));
       }
     },
   };
@@ -485,8 +489,10 @@ export const ICEAGE_KINDS = {
     mesh(makeLoft(jr.map(([z, y, w, u, dn]) => mkSec([0, y - J[1], z - J[2]], w, u, dn, 2.4)), { sub: 4, radial: 20 }), jawM, jawG);
     const drool = makeDrool(jawG, [[-0.1, -0.3, 0.6], [0.08, -0.31, 0.64], [0, -0.32, 0.52]]);
     // ears: small, furry, close to the head (a thin loft hanging from the side of the skull; `ears` flares them)
-    const earGeo = makeLoft([[0, 0.05, 0, 0.02, 0.08, 0.08], [0.015, -0.03, -0.005, 0.03, 0.085, 0.085], [0.04, -0.1, -0.012, 0.03, 0.08, 0.08], [0.06, -0.17, -0.016, 0.022, 0.058, 0.058], [0.068, -0.215, -0.016, 0.008, 0.02, 0.02]].map(([x, y, z, w, u, dn]) => mkSec([x, y, z], w, u, dn, 2.0)), { sub: 3, radial: 14, ref: [0, 0, 1] });
-    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.40, 2.50, 1.12])); g.scale.x = s; headG.add(g); mesh(earGeo, coat, g); return { g, s }; });
+    const earGeo = makeLoft([[0, 0.05, 0, 0.03, 0.08, 0.08], [0.015, -0.03, -0.005, 0.05, 0.09, 0.09], [0.04, -0.1, -0.012, 0.055, 0.085, 0.085], [0.06, -0.17, -0.016, 0.045, 0.062, 0.062], [0.068, -0.215, -0.016, 0.015, 0.022, 0.022]].map(([x, y, z, w, u, dn]) => mkSec([x, y, z], w, u, dn, 2.0)), { sub: 3, radial: 14, ref: [0, 0, 1] });
+    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.40, 2.50, 1.12])); g.scale.x = s; headG.add(g); mesh(earGeo, coat, g);
+      const el = []; for (let i = 0; i < 12; i++) { const t = i / 11, front = i % 2; lk(el, [0.02 + 0.05 * t, -0.02 - 0.19 * t, front ? 0.075 : -0.075], front ? 0 : Math.PI, -0.35, 0.07 + 0.06 * rnd(i + 150), 0.06); }
+      lockMeshes(el, lockM, g); return { g, s }; });
     // tusks: out of the cheeks DOWN and outward, then sweeping forward, up and inward (a wide spiral), 1.5 m, ivory stained brown at the root
     const swapUV = (g) => { const a = g.attributes.uv.array; for (let i = 0; i < a.length; i += 2) { const t = a[i]; a[i] = a[i + 1]; a[i + 1] = t; } return g; };
     for (const s of [-1, 1]) {
@@ -494,7 +500,7 @@ export const ICEAGE_KINDS = {
       mesh(swapUV(makeLoft(Array.from({ length: 14 }, (_, i) => { const u = i / 13, r = 0.075 + (0.011 - 0.075) * Math.pow(u, 0.85); return mkSec(cv.getPointAt(u).toArray(), r, r, r, 2); }), { sub: 3, radial: 16 })), ivory, headG);
     }
     // eyes: small (r 0.035), dark brown, deep in the side of the skull under a heavy hairy brow, with lashes
-    const face = realEyes(S, headG, { x: 0.372, y: -0.10, z: 0.54, R: 0.035, spread: 1.2, sclera: "#2b190e", rim: "#160d07", iris: "#6a4220", irisTh: 0.78, pupilTh: 0.34, lidM: browM, lashes: 6, browGeo: browLoft([[-0.10, 0.014, 0.014], [-0.05, 0.042, 0.03], [0, 0.052, 0.036], [0.05, 0.042, 0.03], [0.10, 0.014, 0.014]]), browM, browUp: 1.45 });
+    const face = realEyes(S, headG, { x: 0.376, y: -0.10, z: 0.54, R: 0.05, ringM: S.m("#b08c6c", { roughness: 0.9, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 }), browDrop: 1.1, spread: 1.2, sclera: "#2b190e", rim: "#160d07", iris: "#6a4220", irisTh: 0.78, pupilTh: 0.34, lidM: browM, lashes: 6, browGeo: browLoft([[-0.13, 0.016, 0.02], [-0.065, 0.05, 0.045], [0, 0.065, 0.055], [0.065, 0.05, 0.045], [0.13, 0.016, 0.02]]), browM, browUp: 1.75 });
 
     // ---- trunk: ONE loft from the forehead down, 1.9 m, 0.20 -> 0.07, wrinkles painted, two finger tips; bent segment by segment
     const TR = [0, 2.25, 1.66], TS = [-0.1, -0.08, 0, 0.08, 0.15, 0.1, 0, -0.1, -0.2, -0.25], TC = [0.1, 0.05, 0, -0.1, -0.2, -0.35, -0.5, -0.6, -0.65, -0.7], TU = [-1.9, -0.3, -0.25, -0.2, -0.15, -0.1, -0.1, -0.1, -0.1, -0.1];
@@ -563,8 +569,9 @@ export const ICEAGE_KINDS = {
     // heavy high shoulders (back 1.10, chest 0.70 deep) sloping down to a lighter hip (0.95), a thick neck, a long flat forehead into a broad muzzle
     const NB = [
       [-0.70, 0.77, 0.13, 0.13, 0.13, 2.2, 0], [-0.50, 0.76, 0.20, 0.17, 0.17, 2.2, 0], [-0.25, 0.765, 0.19, 0.18, 0.18, 2.2, 0], [0.05, 0.74, 0.25, 0.30, 0.30, 2.2, 0],
-      [0.28, 0.745, 0.30, 0.355, 0.355, 2.2, 0], [0.45, 0.75, 0.275, 0.325, 0.325, 2.2, 0], [0.50, 0.75, 0.25, 0.26, 0.27, 2.2, 0.45],
-      [0.62, 0.79, 0.235, 0.20, 0.21, 2.5, 1], [0.76, 0.775, 0.265, 0.21, 0.205, 2.5, 1], [0.90, 0.765, 0.195, 0.16, 0.15, 2.5, 1], [1.00, 0.75, 0.13, 0.11, 0.10, 2.5, 1], [1.04, 0.74, 0.06, 0.05, 0.055, 2.5, 1],
+      [0.28, 0.75, 0.30, 0.37, 0.36, 2.2, 0], [0.42, 0.75, 0.30, 0.34, 0.34, 2.2, 0], [0.52, 0.755, 0.29, 0.29, 0.30, 2.2, 0.45],
+      // the head: SHORT broad muzzle (rows 0.89 -> 1.045, 40 % of the head), a step (stop) from the forehead to the nose bridge at 0.82 -> 0.89, widest (0.27) under the eyes, two whisker pads
+      [0.62, 0.79, 0.235, 0.20, 0.21, 2.5, 1], [0.72, 0.78, 0.27, 0.205, 0.215, 2.5, 1], [0.82, 0.77, 0.265, 0.195, 0.195, 2.5, 1], [0.89, 0.755, 0.22, 0.15, 0.165, 2.5, 1], [0.96, 0.745, 0.215, 0.115, 0.13, 2.4, 1], [1.015, 0.735, 0.17, 0.09, 0.105, 2.4, 1], [1.045, 0.73, 0.075, 0.05, 0.065, 2.4, 1],
     ];
     const NN = NT + NB.length, uOf = (i) => i / (NN - 1);
     const coatTex = once("sabCoatR", () => cvs(1024, 512, (g, W, H) => {
@@ -585,15 +592,17 @@ export const ICEAGE_KINDS = {
         for (let k = 0; k < 5; k++) { const a = (k / 5) * TAU + rnd(i + k) * 1.2; g.fillStyle = css([122, 80, 36], 0.1 + 0.07 * rnd(i + k + 3)); g.beginPath(); g.ellipse(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.8, r * 0.55, r * 0.42, a, 0, TAU); g.fill(); }
         g.fillStyle = css([205, 160, 100], 0.2); g.beginPath(); g.ellipse(x, y, r * 0.5, r * 0.4, 0, 0, TAU); g.fill();
       }
-      for (const v of [0.35, 0.65]) {   // dark rims round the eyes, a tear line down the muzzle, whisker spots
-        const y = (1 - v) * H, x = W * uOf(NT + 8.25);
-        
-        g.lineWidth = 3; g.strokeStyle = "rgba(60,38,18,0.3)"; g.beginPath(); g.moveTo(x + W * 0.012, y + (v < 0.5 ? 1 : -1) * H * 0.03); g.quadraticCurveTo(x + W * 0.05, y + (v < 0.5 ? 1 : -1) * H * 0.07, x + W * 0.085, y + (v < 0.5 ? 1 : -1) * H * 0.09); g.stroke();
-        for (let k = 0; k < 9; k++) { g.fillStyle = "rgba(70,44,22,0.55)"; g.beginPath(); g.arc(W * uOf(NT + 9.5) + (k % 3) * 11 + rnd(k) * 4, (1 - (v < 0.5 ? 0.27 : 0.73)) * H + Math.floor(k / 3) * 12 - 10, 2.2, 0, TAU); g.fill(); }
+      for (const v of [0.28, 0.72]) {   // the big-cat tear line from the inner eye corner down to the mouth corner, a whisker pad with its dots
+        const dn = v < 0.5 ? 1 : -1, y0 = (1 - v) * H, x0 = W * uOf(NT + 9.65), yE = (1 - (v < 0.5 ? 0.13 : 0.87)) * H;
+        g.strokeStyle = "rgba(52,32,16,0.8)"; g.lineWidth = 4; g.lineCap = "round"; g.beginPath(); g.moveTo(x0 - W * 0.002, y0 - dn * H * 0.025); g.quadraticCurveTo(x0 + W * 0.006, y0 + dn * (yE - y0) * dn * 0.5, W * uOf(NT + 10.9), yE); g.stroke();
+        g.strokeStyle = "rgba(52,32,16,0.55)"; g.lineWidth = 3; g.beginPath(); g.ellipse(x0, y0, W * 0.012, H * 0.034, 0, 0, TAU); g.stroke();   // the eye liner
+        const px = W * uOf(NT + 11.3), py = (1 - (v < 0.5 ? 0.2 : 0.8)) * H;
+        const pg = g.createRadialGradient(px, py, 2, px, py, W * 0.03); pg.addColorStop(0, "rgba(250,240,214,0.85)"); pg.addColorStop(1, "rgba(250,240,214,0)"); g.fillStyle = pg; g.beginPath(); g.ellipse(px, py, W * 0.03, H * 0.08, 0, 0, TAU); g.fill();
+        for (let k = 0; k < 9; k++) { g.fillStyle = "rgba(70,44,22,0.6)"; g.beginPath(); g.arc(px + ((k % 3) - 1) * 10 + rnd(k) * 3, py + (Math.floor(k / 3) - 1) * 11, 2.2, 0, TAU); g.fill(); }
       }
       g.fillStyle = "rgba(78,50,26,0.9)"; g.fillRect(0, 0, W * uOf(1.6), H);   // the tail tip is dark
-      const mu = W * uOf(NN - 1.1), no = g.createLinearGradient(mu, 0, W, 0); no.addColorStop(0, "rgba(185,115,122,0)"); no.addColorStop(0.5, "#b9737a"); no.addColorStop(1, "#a05f68"); g.fillStyle = no; g.fillRect(mu, 0, W - mu, H);   // the nose pad
-      g.fillStyle = "rgba(120,70,70,0.55)"; for (const k of [-1, 1]) { g.beginPath(); g.ellipse(W * 0.985, H * (0.5 + k * 0.035), 7, 4, 0, 0, TAU); g.fill(); }   // nostrils
+      const mu = W * uOf(NN - 1.3); g.fillStyle = "#8f5c58"; g.beginPath(); g.moveTo(mu - 8, H * 0.5 - H * 0.06); g.lineTo(W, H * 0.5 - H * 0.09); g.lineTo(W, H * 0.5 + H * 0.09); g.lineTo(mu - 8, H * 0.5 + H * 0.06); g.closePath(); g.fill();   // the small dark pink-brown nose pad
+      g.fillStyle = "rgba(40,22,20,0.7)"; for (const k of [-1, 1]) { g.beginPath(); g.ellipse(W * 0.975, H * (0.5 + k * 0.035), 7, 4, 0, 0, TAU); g.fill(); }   // nostrils
       // mouth roof: the underside of the muzzle
       g.fillStyle = "rgba(160,80,92,0.95)"; g.fillRect(W * uOf(NN - 4.6), 0, W * (uOf(NN - 1.5) - uOf(NN - 4.6)), H * 0.045); g.fillRect(W * uOf(NN - 4.6), H * 0.955, W * (uOf(NN - 1.5) - uOf(NN - 4.6)), H * 0.045);
     }));
@@ -635,7 +644,7 @@ export const ICEAGE_KINDS = {
 
     // ---- legs: ONE loft each. Front: shoulder -> elbow (back) -> wrist -> big paw. Hind: hip -> knee (forward) -> hock (back, high) -> paw
     const LEG = {
-      f: { hy: 0.80, hz: 0.28, hx: 0.15, fz: 0.30, L1: 0.38, L2: 0.38, fh: 0.10, bend: -1, hock: 0, toe: 0.04, rows: [[0.085, 0.12, 0.12], [0.125, 0.17, 0.17], [0.12, 0.16, 0.16], [0.10, 0.125, 0.115], [0.095, 0.115, 0.105], [0.075, 0.085, 0.08], [0.085, 0.105, 0.08], [0.085, 0.115, 0.07]] },
+      f: { hy: 0.80, hz: 0.28, hx: 0.16, fz: 0.30, L1: 0.38, L2: 0.38, fh: 0.10, bend: -1, hock: 0, toe: 0.04, rows: [[0.10, 0.14, 0.14], [0.16, 0.22, 0.22], [0.155, 0.21, 0.21], [0.13, 0.16, 0.15], [0.12, 0.15, 0.14], [0.095, 0.11, 0.105], [0.105, 0.135, 0.10], [0.105, 0.15, 0.09]] },
       b: { hy: 0.78, hz: -0.50, hx: 0.14, fz: -0.52, L1: 0.35, L2: 0.37, fh: 0.20, bend: 1, hock: -0.10, toe: 0.03, rows: [[0.05, 0.07, 0.07], [0.10, 0.14, 0.14], [0.10, 0.13, 0.12], [0.075, 0.09, 0.085], [0.06, 0.075, 0.07], [0.05, 0.06, 0.06], [0.047, 0.056, 0.052], [0.052, 0.062, 0.057], [0.058, 0.09, 0.055]] },
     };
     const legPts = (d, H, K, sole) => {
@@ -660,7 +669,7 @@ export const ICEAGE_KINDS = {
     const headG = new THREE.Group(); headG.rotation.order = "YXZ"; root.add(headG);
     // sabres: two flat curved blades 0.26 m long out of the upper jaw, tips well below the chin when the mouth is closed
     for (const s of [-1, 1]) {
-      const pts = [[0.085, 0.75, 0.905], [0.088, 0.66, 0.925], [0.09, 0.56, 0.925], [0.09, 0.46, 0.91], [0.09, 0.385, 0.89]];
+      const pts = [[0.09, 0.70, 0.955], [0.092, 0.60, 0.965], [0.094, 0.50, 0.96], [0.094, 0.43, 0.945], [0.094, 0.365, 0.93]];
       const wd = [0.016, 0.014, 0.011, 0.007, 0.002], zz = [0.04, 0.036, 0.028, 0.018, 0.004];
       mesh(makeLoft(pts.map((p, i) => mkSec(rel([s * p[0], p[1], p[2]]), wd[i], zz[i], zz[i], 2.2)), { sub: 4, radial: 12, ref: [0, 0, 1] }), fang, headG);
     }
@@ -673,14 +682,14 @@ export const ICEAGE_KINDS = {
     const drool = makeDrool(jawG, [[-0.05, -0.04, 0.26], [0.05, -0.04, 0.29], [0, -0.04, 0.2]]);
     // whiskers: a few thin short ones
     for (const s of [-1, 1]) for (let k = 0; k < 3; k++) {
-      const dir = new THREE.Vector3(s * 0.95, 0.12 * (1 - k), -0.2 + 0.16 * (k - 1)).normalize(), b0 = new THREE.Vector3(...rel([s * 0.1, 0.735 - k * 0.012, 0.97]));
+      const dir = new THREE.Vector3(s * 0.95, 0.12 * (1 - k), -0.2 + 0.16 * (k - 1)).normalize(), b0 = new THREE.Vector3(...rel([s * 0.14, 0.735 - k * 0.012, 0.96]));
       const w = mesh(new THREE.CylinderGeometry(0.0025, 0.0012, 0.16, 4), whisk, headG, ...b0.clone().addScaledVector(dir, 0.08).toArray()); w.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dir); w.castShadow = false;
     }
     // ears: small, round, set low on the sides of the skull (a flat rounded loft; dark back, cream inside)
-    const earGeo = makeLoft([[0, -0.02, 0.045, 0.04, 0.04], [0, 0.03, 0.058, 0.032, 0.032], [0, 0.075, 0.056, 0.024, 0.024], [0, 0.108, 0.04, 0.016, 0.016], [0, 0.122, 0.014, 0.006, 0.006]].map(([x, y, w, u, dn]) => mkSec([x, y, 0], w, u, dn, 2.4)), { sub: 3, radial: 14, ref: [0, 0, 1] });
-    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.17, 0.945, 0.64])); g.scale.setScalar(0.9); g.rotation.set(0, s * 0.6, -s * 0.22); headG.add(g); mesh(earGeo, s > 0 ? earML : earMR, g, 0, 0, 0); return { g, s }; });
+    const earGeo = makeLoft([[0, -0.03, 0.05, 0.04, 0.04], [0, 0.02, 0.062, 0.042, 0.042], [0, 0.065, 0.062, 0.04, 0.04], [0, 0.10, 0.05, 0.032, 0.032], [0, 0.125, 0.03, 0.02, 0.02], [0, 0.135, 0.01, 0.008, 0.008]].map(([x, y, w, u, dn]) => mkSec([x, y, 0], w, u, dn, 2.0)), { sub: 3, radial: 16, ref: [0, 0, 1] });
+    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.19, 0.90, 0.62])); g.scale.setScalar(0.9); g.rotation.set(0, s * 0.2, -s * 0.45); headG.add(g); mesh(earGeo, s > 0 ? earML : earMR, g, 0, 0, 0); return { g, s }; });
     // eyes: small (r 0.03), pale amber, round pupil, dark rim, forward-facing
-    const face = realEyes(S, headG, { x: 0.185, y: 0.94 - HP[1], z: 0.79 - HP[2], R: 0.03, spread: 0.35, tilt: 0.05, sclera: "#e8dcb8", rim: "#2a1a0a", iris: "#e8b84a", irisTh: 0.86, pupilTh: 0.4, lidM: coat, browGeo: browLoft([[-0.045, 0.01, 0.008], [-0.02, 0.022, 0.014], [0.02, 0.022, 0.014], [0.045, 0.01, 0.008]]), browM: brownM, browUp: 1.35, lashes: 0 });
+    const face = realEyes(S, headG, { x: 0.205, y: 0.795 - HP[1], z: 0.865 - HP[2], R: 0.03, spread: 0.45, tilt: 0.05, sclera: "#e8dcb8", rim: "#2a1a0a", iris: "#e8b84a", irisTh: 0.86, pupilTh: 0.4, lidM: coat, browGeo: browLoft([[-0.055, 0.012, 0.012], [-0.025, 0.03, 0.022], [0.025, 0.03, 0.022], [0.055, 0.012, 0.012]]), browM: brownM, browUp: 1.6, lashes: 0 });
     const haloS = halo(P.whole, 2.4, 0, 0.7, 0);
     const qHead = new THREE.Quaternion(), qI = new THREE.Quaternion(), qP = new THREE.Quaternion(), vv = new THREE.Vector3(), hv = new THREE.Vector3(...HP);
     const TLR = [-0.5, -0.1, 0.1], TLU = [0.5, 0.55, 0.6], TLT = [-1.3, -0.4, -0.2];
