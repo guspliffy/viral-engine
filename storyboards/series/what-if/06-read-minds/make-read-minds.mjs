@@ -135,7 +135,7 @@ const props = [
   ph("casino", { id: "heap", kind: "chippile", x: HEAP[0], y: TH, z: HEAP[1], r: 0.15, amount: 1 }, { ...box(0.3, 0.15, 0.3), y: TH }),
   ph("street", { id: "watch", kind: "goldwatch", x: r3(HEAP[0] + 0.12), y: TH, z: r3(HEAP[1] + 0.13), rot: 30 }, { ...box(0.16, 0.02, 0.07), y: TH }),
   chip("sS1", [0.2, -0.36], 3, "#1e4fb5"),
-  chip("sS2", [0.12, -0.3], 28, "#c62828", 0), chip("sS3", [0.26, -0.24], 28, "#2e7d32", 0), chip("sS4", [0.4, -0.26], 28, "#222", 0), chip("sS5", [0.2, -0.17], 24, "#1e4fb5", 0),
+  chip("sS2", [0.2, -0.04], 28, "#c62828"), chip("sS3", [0.32, -0.01], 28, "#2e7d32"), chip("sS4", [0.44, -0.07], 28, "#222"), chip("sS5", [0.26, 0.07], 24, "#1e4fb5"),
   ph("casino", { id: "mount", kind: "chipmountain", x: MOUNT_AT[0], y: TH, z: MOUNT_AT[1], w: 0.36, d: 0.3, h: 1.35, grow: 0, staged: "a tower of chips standing on the felt" }, { ...box(0.36, 0.01, 0.3), y: TH }),
   ...ALLCARDS,
   // Spud's two hole cards (3c 3d) held up in his left glove, their faces to HIM: the front cameras see the red backs
@@ -175,7 +175,7 @@ const props = [
 
 // params props3d.js propState has no default for jump on their first tween: seed them at 0
 Pk("mind", 0, "glow", { pulse: 0 }); Pk("casino", 0, "hall", { dim: 0 });
-for (const id of ["sS2", "sS3", "sS4", "sS5"]) Pk("casino", 0, id, { n: 0 });
+for (const id of ["sS2", "sS3", "sS4", "sS5"]) { Pk("casino", 0, id, { n: 0 }); P(0, id, { scale: 0.001 }); }   // dealt in at 07
 for (const p of ALLCARDS) Pk("casino", 0, p.id, { flip: 1 });            // face up...
 for (const id of ["sC1", "sC2", "wC1", "wC2", "sK1", "sK2", "wA1", "wA2"]) Pk("casino", 0, id, { flip: 0 });   // ...except the hole cards, face down
 CROWD.forEach((g, i) => Pk("casino", 0, `cr${i}`, { cheer: 0 }));
@@ -220,7 +220,7 @@ expr(0, "wdg", "smug", { lid: 0.45, curve: 0.45 }, 0.01); look(0, "wdg", [0.5, 0
 expr(0, "spud", "shocked", { open: 0.4, eye: 1.2, brow: 0.4 }, 0.01); look(0, "spud", [-0.7, 0.0], 0.01);
 A(0.3, "spud", "squash", { amount: 0.05, dur: 0.2 });
 c.at(0.4, { fx: "sweat", who: "spud", dur: 1.4 });
-look(0, "chip", [0.3, 0.1], 0.01); A(0.2, "chip", "hop", { count: 2, height: 0.05 });
+look(0, "chip", [0.3, 0.1], 0.01); A(0.2, "chip", "hop", { count: 2, height: 0.05, quiet: true });
 see(0, STARE, ["wdg.face", "spud.face", "pot"], "frame 0: Wedge shoves a huge heap and his gold watch into the pot, the crowd round the table, Spud with three chips left");
 
 // ================================================================= 02 THE STARE (2.0-3.5): he bluffs, Spud gulps
@@ -238,14 +238,13 @@ see(OTS, READ, ["sFan"], "over Spud's shoulder: his two cards, the 3 of clubs an
 // ================================================================= 04 THE EYES (5.0-6.5): his eyes glow
 look(READ, "spud", [-0.6, 0.15], 0.2);
 Pk("mind", r3(READ + 0.25), "glow", { on: 1, pulse: 1 }, 0.3, "out");
-sfx(r3(READ + 0.22), "ai/magic-zap", { gain: 0.45, reason: "the power switches on: a soft magic shimmer, no ringing bell" });
+sfx(r3(READ + 0.05), "ai/heartbeat", { gain: 0.55, reason: "the power switches on: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)" });
 expr(r3(READ + 0.2), "spud", "focused", { brow: -0.3, eye: 1.25 });
 see(READ, POV, ["spud.face", "glow"], "Spud's eyes light up blue-white");
 
 // ================================================================= 05 WEDGE'S THOUGHT (6.5-8.0): a bubble with his real cards, 8 and 3
 Pk("mind", r3(POV - 0.02), "bW", { spin: 70 }); Pk("mind", r3(HEADS - 0.02), "bW", { spin: 15 });   // the cards turned to each camera
-Pk("mind", r3(POV + 0.15), "bW", { pop: 1 }, 0.35, "back"); sfx(r3(POV + 0.17), "ringpop", { gain: 0.4, reason: "the thought bubble pops in over Wedge" });
-expr(POV, "wdg", "smug", { lid: 0.5, curve: 0.6 });
+Pk("mind", r3(POV + 0.15), "bW", { pop: 1 }, 0.35, "back"); expr(POV, "wdg", "smug", { lid: 0.5, curve: 0.6 });
 see(POV, CALL, ["wdg.face", "bW"], "over Wedge's head a bubble: his real cards, the 8 and the 3, a bluff; Wedge still grins");
 
 // ================================================================= 06 THE CALL (8.0-10.0): both hands face up, the pot raked in, the crowd cheers
@@ -270,24 +269,23 @@ expr(r3(CALL + 0.3), "spud", "delighted");
 expr(r3(CALL + 0.75), "wdg", "shocked", { open: 0.9, eye: 1.4 }); A(r3(CALL + 0.8), "wdg", "lean", { to: -8, dur: 0.2 });
 c.arm(r3(CALL + 0.35), "chip", "L", "up", 0.3, "back"); c.arm(r3(CALL + 0.35), "chip", "R", "up", 0.3, "back");
 say(CALL + 1.0, "chip", "let's go!", 0.6, "excited", "Let's go!");
-A(r3(CALL + 0.4), "chip", "hop", { count: 3, height: 0.07 });
+A(r3(CALL + 0.4), "chip", "hop", { count: 3, height: 0.07, quiet: true });
 CROWD.forEach((g, i) => Pk("casino", r3(CALL + 0.35 + (i % 4) * 0.06), `cr${i}`, { cheer: 1 }, 0.25, "back"));
 CROWD.forEach((g, i) => Pk("casino", r3(CALL + 1.5 + (i % 3) * 0.1), `cr${i}`, { cheer: 0 }, 0.4, "inOut"));
-sfx(r3(CALL + 0.4), "gasp", { gain: 0.5, reason: "the crowd round the table gasps at the call" }); sfx(r3(CALL + 0.5), "partyhorn", { gain: 0.25, reason: "a cheer at the table" });
+sfx(r3(CALL + 0.4), "gasp", { gain: 0.5, reason: "the crowd round the table gasps at the call" });
 see(CALL, HEADS, ["spud.face", "pot", "sC1", "wC1"], "Spud slaps his threes face up, Wedge has to show 8 and 3; Spud rakes the pot in, the crowd cheers");
 
 // ================================================================= 07 EVERY HEAD (10.0-12.0): he reads the whole table, hand after hand
 c.arm(r3(HEADS - 0.3), "chip", "L", "lap", 0.4, "inOut"); c.arm(r3(HEADS - 0.3), "chip", "R", "lap", 0.4, "inOut");
-c.arm(HEADS, "spud", "L", felt(0.5, -0.12), 0.25, "inOut"); c.arm(HEADS, "spud", "R", felt(-0.05, -0.16), 0.25, "inOut");
+c.arm(HEADS, "spud", "L", felt(0.58, -0.24), 0.25, "inOut"); c.arm(HEADS, "spud", "R", felt(-0.05, -0.16), 0.25, "inOut");
 c.arm(r3(HEADS + 0.3), "spud", "L", felt(0.42, -0.36), 0.45, "inOut"); c.arm(r3(HEADS + 0.3), "spud", "R", felt(0.0, -0.4), 0.45, "inOut");
 sfx(r3(HEADS + 0.3), "ai/bowl-scrape", { gain: 0.5, reason: "another pot raked in" });
 P(r3(HEADS - 0.03), "pot", { scale: 0.001 }); for (const p of [...S1, ...W1, ...BOARD1]) P(r3(HEADS - 0.03), p.id, { scale: 0.001 });
 Pk("street", r3(HEADS - 0.03), "watch", { scale: 0.001 });
-Pk("casino", r3(HEADS - 0.03), "sS1", { n: 3 });
+Pk("casino", r3(HEADS - 0.03), "sS1", { n: 3 }); for (const id of ["sS2", "sS3", "sS4", "sS5"]) P(r3(HEADS - 0.03), id, { scale: 1 });
 ["sS2", "sS3", "sS4", "sS5"].forEach((id, i) => { Pk("casino", r3(HEADS - 0.03), id, { n: 4 }); Pk("casino", r3(HEADS + 0.35 + i * 0.12), id, { n: id === "sS5" ? 24 : 28 }, 0.7, "out"); });
 for (let i = 0; i < 4; i++) sfx(r3(HEADS + 0.4 + i * 0.16), "coins", { gain: 0.45, reason: "chips stacking up" });
 Pk("mind", r3(HEADS + 0.1), "bC", { pop: 1 }, 0.25, "back"); Pk("mind", r3(HEADS + 0.3), "bM", { pop: 1 }, 0.25, "back");
-sfx(r3(HEADS + 0.12), "ringpop", { gain: 0.35 }); sfx(r3(HEADS + 0.32), "ringpop", { gain: 0.35 });
 expr(HEADS, "spud", "cocky", { curve: 0.6 }); look(HEADS, "spud", [-0.5, 0.35], 0.3);
 expr(HEADS, "wdg", "annoyed"); expr(HEADS, "chip", "eager");
 see(HEADS, MOUNT, ["spud.face", "bW", "bC", "bM"], "a bubble over every friend: cards, pizza, a phone; Spud grins behind stacks as tall as his chest");
@@ -311,7 +309,6 @@ expr(r3(CATCH + 0.05), "spud", "focused", { curve: -0.2, brow: 0.3 });
 look(r3(CATCH + 0.3), "spud", [0.4, 0.35], 0.3);
 CROWD.forEach((g, i) => { Pk("mind", r3(CATCH + 0.3 + i * 0.1), `cb${i}`, { pop: 1 }, 0.3, "back"); });
 GUESTS.forEach((g, i) => { Pk("mind", r3(CATCH + 0.9 + i * 0.1), `gb${i}`, { pop: 1 }, 0.3, "back"); });
-for (let i = 0; i < 8; i++) sfx(r3(CATCH + 0.32 + i * 0.2), "ringpop", { gain: 0.25 });
 Pk("mind", r3(CATCH + 1.2), "fHall", { fill: 0.4 }, 1.3, "inOut");
 see(CATCH, FLOOD, ["spud.face", "cb1", "cb2"], "his smile gone: a bubble pops up over every guest, more and more");
 
@@ -386,7 +383,7 @@ see(STREET, CITY, ["spud.face", "wb1", "wb2"], "night: Spud walks down a busy ne
 
 // ================================================================= 14 THE CITY (26.5-29.0): every roof, every window
 Pk("mind", r3(CITY - 0.02), "fCity", { fill: 0.45 }); Pk("mind", CITY, "fCity", { fill: 1, rise: 6 }, 1.6, "in");
-sfx(CITY, "windswell", { gain: 0.5, reason: "the sky over the city filling with thoughts" }); sfx(r3(CITY + 0.4), "ai/magic-zap", { gain: 0.3 });
+sfx(CITY, "rumble", { dur: 2.4, gain: 0.35, reason: "a whole city murmuring at once" }); sfx(r3(CITY + 0.6), "horn", { gain: 0.15, reason: "a far car horn below" });
 see(CITY, NIGHT, ["fCity"], "the neon city from above: a glowing bubble over every roof and window, thousands");
 
 // ================================================================= 15 THE HOTEL ROOM (29.0-32.6): it is never quiet again
@@ -491,7 +488,7 @@ write(import.meta.url, {
   // a triumphant hero theme from the call while he keeps winning (Jonny 12 Nov 15:34), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
   music: { file: process.env.MUSIC ?? "read-minds/read-minds-casino.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
     then: { file: process.env.MUSIC2 ?? "ai/disaster/disaster-01.ogg", from: r3(CATCH + 0.1), gain: 0.7 } },
-  sound: { sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "party", guard: true },
+  sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "party", guard: true },
   hook: { show: ["wdg", "spud", "pot"], hint: 0, what: "a poker all-in already running: Wedge shoves a huge heap and his gold watch into the pot, Spud with three chips left" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip,

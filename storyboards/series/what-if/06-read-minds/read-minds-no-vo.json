@@ -61,6 +61,7 @@
   }
  },
  "sound": {
+  "signature": false,
   "sfx": 0.65,
   "ambience": 0.2,
   "surface": "carpet",
@@ -477,36 +478,36 @@
   {
    "id": "sS2",
    "kind": "chipstack",
-   "x": 0.12,
+   "x": 0.2,
    "y": 0.62,
-   "z": -0.3,
+   "z": -0.04,
    "n": 28,
    "color": "#c62828"
   },
   {
    "id": "sS3",
    "kind": "chipstack",
-   "x": 0.26,
+   "x": 0.32,
    "y": 0.62,
-   "z": -0.24,
+   "z": -0.01,
    "n": 28,
    "color": "#2e7d32"
   },
   {
    "id": "sS4",
    "kind": "chipstack",
-   "x": 0.4,
+   "x": 0.44,
    "y": 0.62,
-   "z": -0.26,
+   "z": -0.07,
    "n": 28,
    "color": "#222"
   },
   {
    "id": "sS5",
    "kind": "chipstack",
-   "x": 0.2,
+   "x": 0.26,
    "y": 0.62,
-   "z": -0.17,
+   "z": 0.07,
    "n": 24,
    "color": "#1e4fb5"
   },
@@ -1646,9 +1647,29 @@
     },
     {
      "do": "prop",
+     "id": "sS2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "sS3",
      "set": {
       "n": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "scale": 0.001
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1666,9 +1687,29 @@
     },
     {
      "do": "prop",
+     "id": "sS4",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "sS5",
      "set": {
       "n": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS5",
+     "set": {
+      "scale": 0.001
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2471,6 +2512,7 @@
      "do": "hop",
      "count": 2,
      "height": 0.05,
+     "quiet": true,
      "at": 0.2
     },
     {
@@ -2950,6 +2992,12 @@
      "at": 0
     },
     {
+     "sfx": "ai/heartbeat",
+     "gain": 0.55,
+     "reason": "the power switches on: his own heartbeat in the hush (realistic sounds only, Jonny 12 Nov)",
+     "at": 0.05
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "focused",
@@ -2959,12 +3007,6 @@
      },
      "dur": 0.12,
      "at": 0.2
-    },
-    {
-     "sfx": "ai/magic-zap",
-     "gain": 0.45,
-     "reason": "the power switches on: a soft magic shimmer, no ringing bell",
-     "at": 0.22
     },
     {
      "do": "prop",
@@ -3027,12 +3069,6 @@
      "dur": 0.35,
      "ease": "back",
      "at": 0.15
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.4,
-     "reason": "the thought bubble pops in over Wedge",
-     "at": 0.17
     },
     {
      "do": "prop",
@@ -3264,6 +3300,7 @@
      "do": "hop",
      "count": 3,
      "height": 0.07,
+     "quiet": true,
      "at": 0.4
     },
     {
@@ -3331,12 +3368,6 @@
      "dur": 0.25,
      "ease": "back",
      "at": 0.47
-    },
-    {
-     "sfx": "partyhorn",
-     "gain": 0.25,
-     "reason": "a cheer at the table",
-     "at": 0.5
     },
     {
      "do": "prop",
@@ -3773,6 +3804,46 @@
      "do": "prop",
      "id": "sS2",
      "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS4",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS5",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.77
+    },
+    {
+     "do": "prop",
+     "id": "sS2",
+     "set": {
       "n": 4
      },
      "dur": 0.01,
@@ -3861,14 +3932,14 @@
      "pose": {
       "prop": "table",
       "grip": [
-       0.5,
+       0.58,
        0.72,
-       -0.12
+       -0.24
       ],
       "palm": [
-       0.5,
+       0.58,
        0.22,
-       -0.12
+       -0.24
       ]
      },
      "dur": 0.25,
@@ -3942,11 +4013,6 @@
      "at": 0.1
     },
     {
-     "sfx": "ringpop",
-     "gain": 0.35,
-     "at": 0.12
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "L",
@@ -4003,11 +4069,6 @@
      "dur": 0.25,
      "ease": "back",
      "at": 0.3
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.35,
-     "at": 0.32
     },
     {
      "do": "prop",
@@ -4593,11 +4654,6 @@
      "at": 0.3
     },
     {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 0.32
-    },
-    {
      "do": "prop",
      "id": "cb1",
      "set": {
@@ -4618,11 +4674,6 @@
      "at": 0.5
     },
     {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 0.52
-    },
-    {
      "do": "prop",
      "id": "cb3",
      "set": {
@@ -4641,11 +4692,6 @@
      "dur": 0.3,
      "ease": "back",
      "at": 0.7
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 0.72
     },
     {
      "do": "prop",
@@ -4676,11 +4722,6 @@
      "dur": 0.3,
      "ease": "back",
      "at": 0.9
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 0.92
     },
     {
      "do": "prop",
@@ -4721,11 +4762,6 @@
      "dur": 0.3,
      "ease": "back",
      "at": 1.1
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 1.12
     },
     {
      "do": "prop",
@@ -4778,11 +4814,6 @@
      "at": 1.3
     },
     {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 1.32
-    },
-    {
      "do": "prop",
      "id": "gb5",
      "set": {
@@ -4803,11 +4834,6 @@
      "at": 1.5
     },
     {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 1.52
-    },
-    {
      "do": "prop",
      "id": "gb7",
      "set": {
@@ -4826,11 +4852,6 @@
      "dur": 0.3,
      "ease": "back",
      "at": 1.7
-    },
-    {
-     "sfx": "ringpop",
-     "gain": 0.25,
-     "at": 1.72
     },
     {
      "do": "prop",
@@ -6469,15 +6490,17 @@
      "at": 0
     },
     {
-     "sfx": "windswell",
-     "gain": 0.5,
-     "reason": "the sky over the city filling with thoughts",
+     "sfx": "rumble",
+     "dur": 2.4,
+     "gain": 0.35,
+     "reason": "a whole city murmuring at once",
      "at": 0
     },
     {
-     "sfx": "ai/magic-zap",
-     "gain": 0.3,
-     "at": 0.4
+     "sfx": "horn",
+     "gain": 0.15,
+     "reason": "a far car horn below",
+     "at": 0.6
     },
     {
      "do": "prop",
