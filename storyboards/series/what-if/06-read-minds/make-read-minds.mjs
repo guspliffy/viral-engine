@@ -500,7 +500,7 @@ write(import.meta.url, {
   set: { type: "plain", color: "#2a1418", floor: "#5a1a1e", light: "warm", para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
   // music that supports the story (Jonny 11 Nov): from 0.0, changes at the turn. Tense poker suspense under the game,
-  // a triumphant hero theme from the call while he keeps winning (Jonny 12 Nov 15:34), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
+  // a triumphant hero theme from 0.0 while he keeps winning (Jonny 12 Nov 15:34; from 0.0: 19:51), then a frantic orchestra from "But there's a catch" (recorded beds, never a synthesised style for danger: Jonny 12 Nov)
   music: { file: process.env.MUSIC ?? "read-minds/read-minds-casino.ogg", gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, until: r3(CATCH + 0.1),
     then: { file: process.env.MUSIC2 ?? "ai/disaster/disaster-01.ogg", from: r3(CATCH + 0.1), gain: 0.7 } },
   sound: { signature: false, sfx: 0.65, ambience: VO ? 0.06 : 0.2, surface: "carpet", room: "open", guard: true },   // nearly dry, as draft 3 (Jonny 12 Nov 18:08: the hall echo made the voices sound like a hall),
