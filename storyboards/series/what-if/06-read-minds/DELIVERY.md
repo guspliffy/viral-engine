@@ -1,3 +1,12 @@
+# FINAL v4 (12 Nov 2026, 20:20 Berlin): the card hold fixed
+
+- Video: `read-minds-FINAL-v4.mp4` (32.2 s). Same as v3 (hero music from 0.0) except Spud's card hold: his glove now
+  wraps the bottom of the two cards from the backs' side (Jonny 20:04: "the card hood is glitchy again", the v2/v3
+  hold left the cards stuck to the side of the glove). Checked in stills at 0.8, 4.2, 5.6 and 6.6 s.
+- Farm run 43287388119: `qa/check.mjs` PASS, 0 fails; -14.0 LUFS, true peak -2.0 dBTP, no pops.
+
+---
+
 # FINAL v3 (12 Nov 2026, 20:05 Berlin): triumphant music from 0.0
 
 - Video: `read-minds-FINAL-v3.mp4` (32.2 s). Same cut, cover and post pack as v2 below; only the music changed.
