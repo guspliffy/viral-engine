@@ -37,6 +37,7 @@ import { motionResults, storyNotes } from "./motion.mjs";
 import { visibility, frontResults, eyesResults } from "./framing.mjs";
 import { cameraLint } from "./camera.mjs";
 import { panelResults } from "./panelfit.mjs";
+import { cheatResults } from "./cheats.mjs";
 import { lockMusic } from "../engine/music.mjs";
 import { sayChanged } from "./say.mjs";
 
@@ -95,6 +96,7 @@ export async function preflight(sb, lay, { quick = false, sbFile = null } = {}) 
   if (!sb.music?.lock && sb.music !== false) sb.music = lockMusic(sb);   // the grid the render uses (dance moves follow it)
   for (const r of await motionResults(sb, sb.fps ?? 30)) add(r, "motion");
   for (const r of await storyNotes(sb, sb.fps ?? 30)) add(r, "motion");
+  for (const r of cheatResults(sb)) add(r, "motion");   // a move running into a cheat behind a cut (qa/cheats.mjs)
   for (const r of cameraLint(sb, chars)) add({ ...r, level: r.level === "pass" ? "pass" : "note" }, "camera");
   // Jonny's panels by number (qa/panelfit.mjs): when the storyboard names its PANELS.md ("panels": { "md": path from
   // the repo root or the storyboard's folder }), each panel's Numbers row against the layout at its time

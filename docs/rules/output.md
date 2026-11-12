@@ -26,7 +26,8 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
   hand or prop touching another character, a fist holding a prop over a head on screen (it reads as stuck on the
-  head), and a prop whose fist is hidden behind another character (it reads as growing out of them).
+  head), a prop whose fist is hidden behind another character (it reads as growing out of them), and a move still
+  running in the 0.2 s before a cheat behind a cut (`qa/cheats.mjs`: anime timing can draw the new place early).
   Hands (palm, wrist, fingers, thumb), arms and costume parts (hat, brim, beard, raven, hood, wings, the costume's own
   weapon) are measured against every scene prop on its real surface, including props someone else holds (stage.js
   inProps). Closed meshes count as solid, a bowl's wall as a thin skin. Going in fails: a hand part over 2 cm for 0.15
