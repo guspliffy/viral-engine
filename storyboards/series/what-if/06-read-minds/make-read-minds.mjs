@@ -106,7 +106,7 @@ const cast = [
 
 // ---------------------------------------------------------------- props
 const NIL = { ...box(0.01, 0.01, 0.01), y: DOWN };
-const chip = (id, at, n, color, show = n) => ph("casino", { id, kind: "chipstack", x: at[0], y: TH, z: at[1], n: show, color }, { ...box(0.09, 0.012 * n, 0.09), y: TH });
+const chip = (id, at, n, color) => ph("casino", { id, kind: "chipstack", x: at[0], y: TH, z: at[1], n, color }, { ...box(0.09, 0.012 * n, 0.09), y: TH });
 // a card lying on the felt (tip -90): flip 0 face down, flip 1 face up; scale 0.001 = not dealt yet
 const card = (id, cd, x, z, rot, show) => ph("casino", { id, kind: "playcard", card: cd, x, y: r3(TH + 0.002), z, rot, tip: -90, scale: show ? 1 : 0.001 }, { ...box(0.11, 0.004, 0.155), y: DOWN });
 const BOARD1 = B1.map((cd, i) => card(`b1${i}`, cd, BOARD_X(i), BOARD_Z, 0, true));
