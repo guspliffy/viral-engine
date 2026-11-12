@@ -8,7 +8,8 @@
 //               2.6 w (x) x 2.2 d (z), peak 1.45, two crossing poles under the fly (ridges corner to corner). Origin the middle of
 //               the footprint. Front (+z): a D-shaped door 1.0 wide, 0.95 high. Left wall (-x): a 0.7 x 0.5 window (z -0.35..0.35,
 //               y 0.4..0.9) of fine dark mesh, see-through (userData.steam) and cut out of the fly, so a camera inside (a few
-//               metres in, eye 0.75) looks out through it. Inside is open: floor at y 0.03, nothing in the way of three seated
+//               metres in, eye 0.75) looks out through it. The door has a mesh window too, like a real tent door: its upper 60% (y 0.38
+//               up, a D inset 6 cm from the door's outline) is the same see-through mesh, the lower part solid; it rolls down with open. Inside is open: floor at y 0.03, nothing in the way of three seated
 //               potatoes. The fly is cut out of its own map's alpha (the look drops alphaMap) and has no ink line.
 //               open 0..1 (propState default 0) rolls the door panel down from the top into a roll at the sill (1 = open, the
 //               D shows the dark green inside); rip 0..1 (seed) four parallel claw slits 0.9 m long down the front-top fly (0.55 of
@@ -177,6 +178,17 @@ function doorPoly(k = 1) {
   for (let y = DOOR.top * k; y >= 0; y -= 0.05) pts.push(frontPt(-doorHW(y / k) * k, y));
   return pts;
 }
+// the door's mesh window: the upper 60% of the door (y 0.38 and up) as a D inset 6 cm from the door's outline (straight sides
+// to 0.45, a half ellipse above, top 0.89), as a polygon in the door panel's texture (u = x / half width at y, v = y / 0.97)
+const DMESH = { y0: 0.38, hw: DOOR.hw - 0.06, top: DOOR.top - 0.06 };
+const dmeshHW = (y) => (y <= DOOR.hs ? DMESH.hw : DMESH.hw * Math.sqrt(Math.max(0, 1 - ((y - DOOR.hs) / (DMESH.top - DOOR.hs)) ** 2)));
+function dmeshPath(g, cw, ch) {
+  const pt = (sgn, y) => { const yy = Math.min(y, DMESH.top - 0.0005), u = 0.5 + 0.5 * sgn * dmeshHW(yy) / doorHW(Math.min(yy, DOOR.top - 0.001)); return [u * cw, ch - (y / 0.97) * ch]; };
+  g.beginPath(); let first = true;
+  for (let y = DMESH.y0; y <= DMESH.top + 1e-6; y += 0.01) { const [x, py] = pt(1, y); first ? g.moveTo(x, py) : g.lineTo(x, py); first = false; }
+  for (let y = DMESH.top; y >= DMESH.y0 - 1e-6; y -= 0.01) { const [x, py] = pt(-1, y); g.lineTo(x, py); }
+  g.closePath();
+}
 function winPoly(k = 1) {
   const pts = [], h = 0.5 * (WIN.y1 + WIN.y0), dh = 0.5 * (WIN.y1 - WIN.y0) * k, hz = 0.5 * (WIN.z1 - WIN.z0) * k;
   for (let i = 0; i <= 8; i++) pts.push(leftPt(-hz + (2 * hz * i) / 8, h - dh));
@@ -282,9 +294,16 @@ export const BEARCAMP_KINDS = {
       for (let y = DOOR.top; y >= 0; y -= 0.02) { const px = 128 - (doorHW(y) / 0.52) * 128, py = 288 - (y / 0.97) * 288; g.lineTo(px, py); } g.stroke();
       g.strokeStyle = "#b9c4a8"; g.lineWidth = 2; g.setLineDash([6, 5]); g.beginPath();
       for (let y = 0.03; y <= DOOR.top - 0.03; y += 0.02) { const px = 128 + ((doorHW(y) - 0.045) / 0.52) * 128, py = 288 - (y / 0.97) * 288; y > 0.03 ? g.lineTo(px, py) : g.moveTo(px, py); }
-      g.stroke(); g.setLineDash([]); g.fillStyle = "#c9ccd2"; g.fillRect(34, 150, 14, 26);   // the zip pull
-      return mat("#ffffff", { map: tex(c), roughness: 0.72, side: THREE.DoubleSide }); })();
+      g.stroke(); g.setLineDash([]); g.fillStyle = "#c9ccd2"; g.fillRect(34, 212, 14, 26);   // the zip pull
+      g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000"; dmeshPath(g, 256, 288); g.fill();   // the mesh window cut out of the cloth (alpha)
+      g.globalCompositeOperation = "source-over"; g.strokeStyle = "#2c4a2a"; g.lineWidth = 5; g.lineJoin = "round"; dmeshPath(g, 256, 288); g.stroke();   // its binding
+      const m = mat("#ffffff", { map: tex(c), alphaTest: 0.5, roughness: 0.72, side: THREE.DoubleSide }); m.userData.noOutline = true; return m; })();
+    // the same cut filled with fine dark mesh (a faint grid, see-through), on the panel's own grid so it rolls down with it
+    const dmeshM = (() => { const [c, g] = canvas(256, 288); g.save(); dmeshPath(g, 256, 288); g.clip(); g.fillStyle = "rgba(10,14,12,0.1)"; g.fillRect(0, 0, 256, 288);
+      g.strokeStyle = "rgba(8,10,8,0.55)"; g.lineWidth = 1.4; for (let i = 0; i <= 256; i += 5) { g.beginPath(); g.moveTo(i, 0); g.lineTo(i, 288); g.stroke(); } for (let i = 0; i <= 288; i += 5) { g.beginPath(); g.moveTo(0, i); g.lineTo(256, i); g.stroke(); } g.restore();
+      const m = new THREE.MeshBasicMaterial({ map: tex(c), transparent: true, depthWrite: false, side: THREE.DoubleSide, toneMapped: true }); m.userData.noOutline = true; return m; })();
     const NDX = 14, NDY = 20, panel = gridGeo(NDX, NDY), panelMesh = mesh(panel, panelM, P.whole); panelMesh.frustumCulled = false;
+    const dmeshMesh = steamy(new THREE.Mesh(panel, dmeshM), 4); P.whole.add(dmeshMesh);
     const rollM = mat("#3a6436", { roughness: 0.8 }), roll = mesh(new THREE.BufferGeometry(), rollM, P.whole); roll.frustumCulled = false;
     // the mesh window on the left wall: see-through, a faint dark grid
     const winM = (() => { const [c, g] = canvas(128, 92); g.fillStyle = "rgba(10,14,12,0.1)"; g.fillRect(0, 0, 128, 92);
@@ -336,7 +355,7 @@ export const BEARCAMP_KINDS = {
         const Y = Math.max(0.06, DOOR.top * (1 - op)), cutK = 1.04;
         fill(panel, NDX, NDY, (u, v) => { const y = Y * v, x = (u * 2 - 1) * doorHW(Math.min(y, DOOR.top - 0.001)) * cutK, p = frontPt(x, y); return flyAt(p, 0.014, disp(p[0], p[1], p[2])); });
         { const uv = panel.attributes.uv.array; for (let i = 0; i <= NDX; i++) for (let j = 0; j <= NDY; j++) { const k = (i * (NDY + 1) + j) * 2; uv[k] = i / NDX; uv[k + 1] = (Y * (j / NDY)) / 0.97; } panel.attributes.uv.needsUpdate = true; }
-        panelMesh.visible = op < 0.995;
+        panelMesh.visible = dmeshMesh.visible = op < 0.995;
         roll.visible = op > 0.02;
         if (roll.visible) { const rr = 0.012 + 0.05 * op, hw = Math.max(0.1, doorHW(Math.min(Y, DOOR.top - 0.001))) * cutK, pts = [];
           for (let i = 0; i <= 12; i++) { const x = (i / 6 - 1) * hw, p = frontPt(x, Y); pts.push(flyAt(p, 0.014 + rr * 0.9, disp(p[0], p[1], p[2]))); } roll.geometry.dispose(); roll.geometry = tubeGeo(pts, rr, 10); }

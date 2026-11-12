@@ -101,6 +101,13 @@
    "rot": -35
   },
   {
+   "id": "carD",
+   "kind": "campcar",
+   "x": 0.4,
+   "z": 6.6,
+   "rot": 180
+  },
+  {
    "id": "doorW",
    "kind": "cardoor",
    "x": -7.8,
@@ -234,7 +241,7 @@
   {
    "from": 5.1,
    "to": 6,
-   "text": "domecamp: the window (-x wall) from outside",
+   "text": "from inside through the door mesh: the smashed car outside",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -242,7 +249,7 @@
   {
    "from": 6.1,
    "to": 7,
-   "text": "campcar: parked",
+   "text": "domecamp: the window (-x wall) from outside",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -250,7 +257,7 @@
   {
    "from": 7.1,
    "to": 8,
-   "text": "campcar: smash 1, door 1, lights 1",
+   "text": "campcar: parked",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -258,7 +265,7 @@
   {
    "from": 8.1,
    "to": 9,
-   "text": "campcar: torn 1, the cardoor on the grass",
+   "text": "campcar: smash 1, door 1, lights 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -266,7 +273,7 @@
   {
    "from": 9.1,
    "to": 10,
-   "text": "campcar: lights 1, beams 6 m (from the side)",
+   "text": "campcar: torn 1, the cardoor on the grass",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -274,7 +281,7 @@
   {
    "from": 10.1,
    "to": 11,
-   "text": "campcar: flash 0.75 (the off half of a blink)",
+   "text": "campcar: lights 1, beams 6 m (from the side)",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -282,7 +289,7 @@
   {
    "from": 11.1,
    "to": 12,
-   "text": "cardoor on the grass (tilt -90): shattered glass, torn hinge edge",
+   "text": "campcar: flash 0.75 (the off half of a blink)",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -290,7 +297,7 @@
   {
    "from": 12.1,
    "to": 13,
-   "text": "cooler (Spud beside for scale; lid top 0.48)",
+   "text": "cardoor on the grass (tilt -90): shattered glass, torn hinge edge",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -298,7 +305,7 @@
   {
    "from": 13.1,
    "to": 14,
-   "text": "cooler: dent 1",
+   "text": "cooler (Spud beside for scale; lid top 0.48)",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -306,7 +313,7 @@
   {
    "from": 14.1,
    "to": 15,
-   "text": "cookpot: dent 0 | dent 1",
+   "text": "cooler: dent 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -314,7 +321,7 @@
   {
    "from": 15.1,
    "to": 16,
-   "text": "cookpot: the dented rim from the -x side",
+   "text": "cookpot: dent 0 | dent 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -322,7 +329,7 @@
   {
    "from": 16.1,
    "to": 17,
-   "text": "burnbranch: fire 1",
+   "text": "cookpot: the dented rim from the -x side",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -330,7 +337,7 @@
   {
    "from": 17.1,
    "to": 18,
-   "text": "gaslantern: lit 1 at tip 0 | 0.3 | 1",
+   "text": "burnbranch: fire 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -338,7 +345,7 @@
   {
    "from": 18.1,
    "to": 19,
-   "text": "grassfire: fire 1, spread 0.5",
+   "text": "gaslantern: lit 1 at tip 0 | 0.3 | 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -346,7 +353,7 @@
   {
    "from": 19.1,
    "to": 20,
-   "text": "grassfire: spread 1",
+   "text": "grassfire: fire 1, spread 0.5",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -354,7 +361,7 @@
   {
    "from": 20.1,
    "to": 21,
-   "text": "climbpine, whole (climb side +z)",
+   "text": "grassfire: spread 1",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -362,7 +369,7 @@
   {
    "from": 21.1,
    "to": 22,
-   "text": "clawmarks on the trunk (r 0.31)",
+   "text": "climbpine, whole (climb side +z)",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -370,7 +377,7 @@
   {
    "from": 22.1,
    "to": 23,
-   "text": "climbpine: sway 1, snap 3",
+   "text": "clawmarks on the trunk (r 0.31)",
    "pos": 240,
    "pop": false,
    "kinetic": false
@@ -378,6 +385,14 @@
   {
    "from": 23.1,
    "to": 24,
+   "text": "climbpine: sway 1, snap 3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 24.1,
+   "to": 25,
    "text": "climbpine: sway -1, shake 1 (the top)",
    "pos": 240,
    "pop": false,
@@ -542,8 +557,40 @@
    ]
   },
   {
-   "name": "tentWinOut",
+   "name": "tentDoor",
    "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.72,
+     -0.5
+    ],
+    "look": [
+     0.2,
+     0.7,
+     6.6
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "carD",
+     "set": {
+      "smash": 1,
+      "torn": 1,
+      "lights": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "tentWinOut",
+   "at": 6.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -562,7 +609,7 @@
   },
   {
    "name": "car0",
-   "at": 6.1,
+   "at": 7.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -581,7 +628,7 @@
   },
   {
    "name": "car1",
-   "at": 7.1,
+   "at": 8.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -613,7 +660,7 @@
   },
   {
    "name": "car2",
-   "at": 8.1,
+   "at": 9.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -645,7 +692,7 @@
   },
   {
    "name": "carBeam",
-   "at": 9.1,
+   "at": 10.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -676,7 +723,7 @@
   },
   {
    "name": "carFlash",
-   "at": 10.1,
+   "at": 11.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -706,7 +753,7 @@
   },
   {
    "name": "door",
-   "at": 11.1,
+   "at": 12.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -725,7 +772,7 @@
   },
   {
    "name": "cooler",
-   "at": 12.1,
+   "at": 13.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -744,7 +791,7 @@
   },
   {
    "name": "coolerDent",
-   "at": 13.1,
+   "at": 14.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -774,7 +821,7 @@
   },
   {
    "name": "pots",
-   "at": 14.1,
+   "at": 15.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -804,7 +851,7 @@
   },
   {
    "name": "potsSide",
-   "at": 15.1,
+   "at": 16.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -823,7 +870,7 @@
   },
   {
    "name": "branch",
-   "at": 16.1,
+   "at": 17.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -853,7 +900,7 @@
   },
   {
    "name": "lantern",
-   "at": 17.1,
+   "at": 18.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -923,7 +970,7 @@
   },
   {
    "name": "grass5",
-   "at": 18.1,
+   "at": 19.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -954,7 +1001,7 @@
   },
   {
    "name": "grass10",
-   "at": 19.1,
+   "at": 20.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -984,7 +1031,7 @@
   },
   {
    "name": "pine",
-   "at": 20.1,
+   "at": 21.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -1003,7 +1050,7 @@
   },
   {
    "name": "claws",
-   "at": 21.1,
+   "at": 22.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -1022,7 +1069,7 @@
   },
   {
    "name": "pineSway",
-   "at": 22.1,
+   "at": 23.1,
    "len": 1,
    "shot": {
     "pos": [
@@ -1053,7 +1100,7 @@
   },
   {
    "name": "pineTop",
-   "at": 23.1,
+   "at": 24.1,
    "len": 1.1,
    "shot": {
     "pos": [

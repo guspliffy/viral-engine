@@ -1,7 +1,7 @@
 // Bench for the bear-camp props (engine/page/props-bearcamp.js, task T1 of ../BRIEF-T1.md): one group per camera on a dark
 // plain set, 30 m apart so each camera sees only its own group. Not a clip. Each shot is one beat; the still is 0.55 s in.
 //   tent     domecamp closed | door open (the three friends beside it) | rip 1 | push 1 (side) | from inside through the
-//            mesh window, the smashed car and its torn door outside (the car group of panel 03)
+//            mesh window, the smashed car and its torn door outside | from inside through the door's mesh window
 //   car      campcar parked | smash 1 + door 1 + lights 1 | torn 1 and the cardoor on the grass | beams from the side |
 //            flash off-phase
 //   camp     cooler (Spud beside it for scale) | dent 1 | cookpot dent 0 and dent 1 | burnbranch fire 1
@@ -28,6 +28,7 @@ const R2 = 0.312;   // the pine's radius at 2 m (0.36 -> 0.12 over 9 m), where t
 const props = [
   { id: "tent", kind: "domecamp", x: GX.tent, z: 0 },
   { id: "carW", kind: "campcar", x: GX.tent - 10, z: 0.0, rot: -35 },
+  { id: "carD", kind: "campcar", x: GX.tent + 0.4, z: 6.6, rot: 180 },
   { id: "doorW", kind: "cardoor", x: GX.tent - 7.8, y: 0.045, z: 0.9, rot: 10, tilt: -90 },
   { id: "car", kind: "campcar", x: GX.car, z: 0 },
   { id: "doorC", kind: "cardoor", x: GX.car + 3.4, y: 0.045, z: 1.3, rot: -20, tilt: -90 },
@@ -45,7 +46,7 @@ const props = [
 // params that propState has no default for are seeded at 0 (a dur-0 set), then tweened
 const SEED = (t) => {
   c.prop(t, "tent", { open: 0, rip: 0, push: 0, flutter: 0 }, 0);
-  for (const id of ["carW", "car"]) c.prop(t, id, { smash: 0, door: 0, torn: 0, lights: 0, flash: 0 }, 0);
+  for (const id of ["carW", "carD", "car"]) c.prop(t, id, { smash: 0, door: 0, torn: 0, lights: 0, flash: 0 }, 0);
   c.prop(t, "cooler", { dent: 0 }, 0); c.prop(t, "pot0", { dent: 0 }, 0); c.prop(t, "pot1", { dent: 0 }, 0); c.prop(t, "branch", { fire: 0 }, 0);
   for (const id of ["lan0", "lan1", "lan2"]) c.prop(t, id, { lit: 0, tip: 0 }, 0);
   c.prop(t, "grass", { fire: 0, spread: 0 }, 0); c.prop(t, "pine", { sway: 0, shake: 0, snap: 0 }, 0);
@@ -60,6 +61,7 @@ const SHOTS = [
   ["tentRip", () => c.prop(T, "tent", { open: 0, rip: 1, flutter: 0.5 }, 0), camFor(GX.tent, { p: [1.3, 1.2, 3.3], l: [0, 0.85, 0.4], f: 32 }), "domecamp: rip 1, flutter 0.5"],
   ["tentPush", () => c.prop(T, "tent", { rip: 0, flutter: 0, push: 1 }, 0), camFor(GX.tent, { p: [4.2, 1.5, 4.6], l: [0, 0.65, 0.5], f: 40 }), "domecamp: push 1 (the front fly bulges in)"],
   ["tentWin", () => { c.prop(T, "tent", { push: 0, open: 0 }, 0); c.prop(T, "carW", { smash: 1, torn: 1, lights: 1 }, 0); }, { pos: [GX.tent + 0.6, 0.75, 0.0], look: [GX.tent - 1.5, 0.65, 0], fov: 55 }, "from inside through the window: smashed car, torn door, lights"],
+  ["tentDoor", () => { c.prop(T, "carD", { smash: 1, torn: 1, lights: 1 }, 0); }, { pos: [GX.tent, 0.72, -0.5], look: [GX.tent + 0.2, 0.7, 6.6], fov: 50 }, "from inside through the door mesh: the smashed car outside"],
   ["tentWinOut", () => {}, camFor(GX.tent, { p: [-4.4, 1.0, -3.0], l: [-1.2, 0.65, 0], f: 36 }), "domecamp: the window (-x wall) from outside"],
   ["car0", () => {}, camFor(GX.car, { p: [4.2, 1.5, 6.0], l: [0, 0.9, 0.3], f: 36 }), "campcar: parked"],
   ["car1", () => c.prop(T, "car", { smash: 1, door: 1, lights: 1 }, 0), camFor(GX.car, { p: [5.0, 1.3, 5.6], l: [0, 0.9, 0.3], f: 38 }), "campcar: smash 1, door 1, lights 1"],
