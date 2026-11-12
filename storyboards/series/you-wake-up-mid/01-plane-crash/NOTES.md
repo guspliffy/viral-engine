@@ -89,3 +89,20 @@
   check-A.txt, check-B.txt). Post pack in DELIVERY.md.
 - Tool lessons for the ledger: qa/check's strobe line names only its worst window (each render showed the next one);
   the picture check never ran on a draft of this clip. Candidate fix: qa/pops.mjs also prints every strobe window.
+
+## Round 2 after Jonny's notes (12 Nov 2026, 08:14 Berlin), farm render 3 = PASS
+
+Jonny: Wizard in the wall (0:05), mask on Viking's eye (0:09), Wizard and Viking run in the air (0:27), dislikes the
+slide sound; cut B must make clear he does not survive (blown away). Done in 77cc38b:
+- Wizard: after RIP he goes back toward the hole (wizC y 1.1, z -2.3), CATCH y 1.0 (was 1.5: hat in the ceiling),
+  HOLD y 0.57 (0.45 put his arm 7 cm into Spud's seat top).
+- Mask: FACE_V [1.08, 0.74, 0.52] for the slumped face; at T.mask + 2.3 the mask moves to [1.07, 0.88, 0.47] with
+  him and is grabbed (hat, keep) only at + 2.7. Measured on face crops: about 450 px per metre in that shot.
+- Run: both `move`s of shot 14 carry `y: 0` (off a carrier a character keeps its height).
+- Sound: rideSlide plays `whoosh` 0.35 (was `zip`), the suitcase `whistle` is out.
+- Cut B: HIT = T.boom + 0.4, Spud is thrown to out(-7.5, 5.5, 23.2) in 0.6 s ("in"), pitch 70, turn 250, then keeps
+  going off screen until the cut. The deadpan face beat is gone.
+- Flash at RIP fades over 0.24 s: no strobe window left (qa/check PASS on both farm renders, runs 43178025951 A and
+  43178028896 B). A B preflight right after the edit still named the old arm-in-prop finding; a partial layout and
+  the farm gate did not (stale layout, not looked into).
+Delivery: project files videos/you-wake-up-mid/01-plane-crash/ (FINAL files replaced, DELIVERY.md round 2). Ledger row added.
