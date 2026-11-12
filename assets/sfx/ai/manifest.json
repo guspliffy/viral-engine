@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
     }
    ]
   },
@@ -2023,6 +2023,279 @@
      "clap": 0.282,
      "snrDb": 75.0,
      "loudnessLUFS": -15.1
+    }
+   ]
+  },
+  {
+   "id": "zombie-groan",
+   "kind": "sfx",
+   "files": [
+    "zombie-groan/zombie-groan-01.wav",
+    "zombie-groan/zombie-groan-02.wav",
+    "zombie-groan/zombie-groan-03.wav",
+    "zombie-groan/zombie-groan-04.wav",
+    "zombie-groan/zombie-groan-05.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "zombie",
+    "groan",
+    "growl",
+    "undead"
+   ],
+   "durationSec": 2.081,
+   "prompt": [
+    "single zombie groaning and moaning, raspy guttural undead growl, horror film foley, close up, dry, no music",
+    "zombie snarling growl and hoarse rattling breath, horror movie creature vocal, close up, no music"
+   ],
+   "seed": [
+    502,
+    503,
+    502,
+    501,
+    502
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.4,
+   "replaces": "groan",
+   "takes": [
+    {
+     "file": "zombie-groan/zombie-groan-01.wav",
+     "take": "p1-s502",
+     "prompt": "zombie snarling growl and hoarse rattling breath, horror movie creature vocal, close up, no music",
+     "seed": 502,
+     "startSec": 6.978,
+     "durationSec": 2.081,
+     "clap": 0.174,
+     "snrDb": 38.8,
+     "loudnessLUFS": -16.1
+    },
+    {
+     "file": "zombie-groan/zombie-groan-02.wav",
+     "take": "p1-s503",
+     "prompt": "zombie snarling growl and hoarse rattling breath, horror movie creature vocal, close up, no music",
+     "seed": 503,
+     "startSec": 6.854,
+     "durationSec": 2.19,
+     "clap": 0.152,
+     "snrDb": 40.7,
+     "loudnessLUFS": -17.3
+    },
+    {
+     "file": "zombie-groan/zombie-groan-03.wav",
+     "take": "p0-s502",
+     "prompt": "single zombie groaning and moaning, raspy guttural undead growl, horror film foley, close up, dry, no music",
+     "seed": 502,
+     "startSec": 5.128,
+     "durationSec": 2.302,
+     "clap": 0.112,
+     "snrDb": 74.9,
+     "loudnessLUFS": -12.5
+    },
+    {
+     "file": "zombie-groan/zombie-groan-04.wav",
+     "take": "p1-s501",
+     "prompt": "zombie snarling growl and hoarse rattling breath, horror movie creature vocal, close up, no music",
+     "seed": 501,
+     "startSec": 0.235,
+     "durationSec": 1.219,
+     "clap": 0.093,
+     "snrDb": 35.1,
+     "loudnessLUFS": -14.4
+    },
+    {
+     "file": "zombie-groan/zombie-groan-05.wav",
+     "take": "p0-s502",
+     "prompt": "single zombie groaning and moaning, raspy guttural undead growl, horror film foley, close up, dry, no music",
+     "seed": 502,
+     "startSec": 7.765,
+     "durationSec": 1.319,
+     "clap": -0.005,
+     "snrDb": 75.1,
+     "loudnessLUFS": -11.3
+    }
+   ]
+  },
+  {
+   "id": "zombie-horde",
+   "kind": "sfx",
+   "files": [
+    "zombie-horde/zombie-horde-01.wav",
+    "zombie-horde/zombie-horde-02.wav",
+    "zombie-horde/zombie-horde-03.wav",
+    "zombie-horde/zombie-horde-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "zombie",
+    "horde",
+    "crowd",
+    "moan"
+   ],
+   "durationSec": 7.0,
+   "prompt": [
+    "a large horde of zombies moaning and groaning together in a city street, many undead voices, distant crowd, horror film ambience, no music",
+    "crowd of hundreds of zombies growling and shuffling, low guttural moans overlapping, eerie horror movie atmosphere, no music"
+   ],
+   "seed": [
+    512,
+    511,
+    513,
+    512
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -12.3,
+   "replaces": "groan",
+   "takes": [
+    {
+     "file": "zombie-horde/zombie-horde-01.wav",
+     "take": "p1-s512",
+     "prompt": "crowd of hundreds of zombies growling and shuffling, low guttural moans overlapping, eerie horror movie atmosphere, no music",
+     "seed": 512,
+     "startSec": 0.745,
+     "durationSec": 7.0,
+     "clap": 0.037,
+     "snrDb": 54.6,
+     "loudnessLUFS": -12.6
+    },
+    {
+     "file": "zombie-horde/zombie-horde-02.wav",
+     "take": "p1-s511",
+     "prompt": "crowd of hundreds of zombies growling and shuffling, low guttural moans overlapping, eerie horror movie atmosphere, no music",
+     "seed": 511,
+     "startSec": 0.866,
+     "durationSec": 7.0,
+     "clap": 0.028,
+     "snrDb": 57.7,
+     "loudnessLUFS": -12.1
+    },
+    {
+     "file": "zombie-horde/zombie-horde-03.wav",
+     "take": "p1-s513",
+     "prompt": "crowd of hundreds of zombies growling and shuffling, low guttural moans overlapping, eerie horror movie atmosphere, no music",
+     "seed": 513,
+     "startSec": 0.946,
+     "durationSec": 7.0,
+     "clap": 0.018,
+     "snrDb": 51.3,
+     "loudnessLUFS": -11.3
+    },
+    {
+     "file": "zombie-horde/zombie-horde-04.wav",
+     "take": "p0-s512",
+     "prompt": "a large horde of zombies moaning and groaning together in a city street, many undead voices, distant crowd, horror film ambience, no music",
+     "seed": 512,
+     "startSec": 5.878,
+     "durationSec": 3.045,
+     "clap": -0.014,
+     "snrDb": 23.9,
+     "loudnessLUFS": -13.3
+    }
+   ]
+  },
+  {
+   "id": "revolver-shot",
+   "kind": "sfx",
+   "files": [
+    "revolver-shot/revolver-shot-01.wav",
+    "revolver-shot/revolver-shot-02.wav",
+    "revolver-shot/revolver-shot-03.wav",
+    "revolver-shot/revolver-shot-04.wav",
+    "revolver-shot/revolver-shot-05.wav",
+    "revolver-shot/revolver-shot-08.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "gunshot",
+    "revolver",
+    "pistol",
+    "shot"
+   ],
+   "durationSec": 1.165,
+   "prompt": [
+    "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+    "pistol shots fired outdoors, punchy realistic gunshot with short street reverb tail, one at a time, no music"
+   ],
+   "seed": [
+    522,
+    521,
+    521,
+    521,
+    522,
+    521
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.7,
+   "replaces": "gunshot",
+   "takes": [
+    {
+     "file": "revolver-shot/revolver-shot-01.wav",
+     "take": "p0-s522",
+     "prompt": "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+     "seed": 522,
+     "startSec": 4.319,
+     "durationSec": 1.332,
+     "clap": 0.062,
+     "snrDb": 84.0,
+     "loudnessLUFS": -22.6
+    },
+    {
+     "file": "revolver-shot/revolver-shot-02.wav",
+     "take": "p0-s521",
+     "prompt": "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+     "seed": 521,
+     "startSec": 3.885,
+     "durationSec": 0.997,
+     "clap": 0.041,
+     "snrDb": 95.9,
+     "loudnessLUFS": -21.9
+    },
+    {
+     "file": "revolver-shot/revolver-shot-03.wav",
+     "take": "p0-s521",
+     "prompt": "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+     "seed": 521,
+     "startSec": 6.029,
+     "durationSec": 1.149,
+     "clap": 0.034,
+     "snrDb": 94.3,
+     "loudnessLUFS": -21.2
+    },
+    {
+     "file": "revolver-shot/revolver-shot-04.wav",
+     "take": "p0-s521",
+     "prompt": "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+     "seed": 521,
+     "startSec": 1.631,
+     "durationSec": 1.181,
+     "clap": 0.022,
+     "snrDb": 95.0,
+     "loudnessLUFS": -21.6
+    },
+    {
+     "file": "revolver-shot/revolver-shot-05.wav",
+     "take": "p0-s522",
+     "prompt": "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+     "seed": 522,
+     "startSec": 1.634,
+     "durationSec": 1.216,
+     "clap": 0.012,
+     "snrDb": 89.3,
+     "loudnessLUFS": -20.2
+    },
+    {
+     "file": "revolver-shot/revolver-shot-08.wav",
+     "take": "p1-s521",
+     "prompt": "pistol shots fired outdoors, punchy realistic gunshot with short street reverb tail, one at a time, no music",
+     "seed": 521,
+     "startSec": 0.546,
+     "durationSec": 0.569,
+     "clap": -0.094,
+     "snrDb": 59.9,
+     "loudnessLUFS": -14.9
     }
    ]
   }

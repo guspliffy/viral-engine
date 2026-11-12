@@ -33,49 +33,54 @@ const arm = (t, who, side, pose, dur, ease) => A(t, who, "arm", { side, pose, du
 const fr = (s) => Math.floor((Math.round(s * 30) / 30) * 1000) / 1000;   // a cut: a frame's time rounded DOWN to ms
 
 // ---------------------------------------------------------------- the timeline (story seconds)
+// Jonny 12 Nov 16:15 Berlin on rough draft 1: "the voices are overlaying and the story dosnt matches the panels ...
+// the lenght is less important than the quality". So: ONE SHOT PER PANEL (the sheet's 12, nothing added), and every
+// voice line on its own: the narrator's measured lengths (VoxCPM, voice 1) are below; a character speaks only after
+// the narrator has finished, with a breath between.
+const NAR = { title: 2.75, s1: 5.13, s2: 3.55, s3: 5.39, s4: 2.99, day6: 2.85, s5: 3.73, s6: 4.97, day7: 0.76, recap: 4.22 };
 const T = {
-  banner: 1.15,        // P01 the TV: STAY INDOORS
-  look: fr(2.6),       // P02a the street from the balcony: the outbreak
-  faces: fr(3.55),     // P02b the five at the railing, every phone with the alert
-  buzz: 2.85,          // every phone buzzes at once
-  flu: 3.7,            // Gunslinger: "It's just the flu."
-  bang: 4.75,          // something bangs on their own door
-  door: fr(5.2),       // P03 the door splinters: the barricade
-  s1: 5.45,            // STEP 1
-  free: 7.05,          // a car alarm in the street, the arm lets go
-  shut: 7.55,          // the wardrobe is against the door
-  balc: fr(8.0),       // P04 the balcony: they follow sound
-  s2: 8.2,             // STEP 2
-  sound: 9.75,         // Spud: "They follow sound."
-  fill: fr(10.8),      // P05 the bathroom: fill everything
-  s3: 11.0,            // STEP 3
-  dry: fr(13.4),       // P06 day 3: the tap is dry, one cup each
-  s4: 13.6,            // STEP 4
-  one: 14.85,          // Spud: "One cup each."
-  growl: fr(16.1),     // P07 day 6: the empty tin, the growl
-  press: 16.6,         // the door bulges
-  hold: 17.45,         // Spud: "It won't hold."
-  throw: fr(18.4),     // P08 the balcony: the alarm clock
-  s5: 18.6,            // STEP 5
-  let: 19.45,          // the clock leaves his hand
-  land: 20.55,         // it lands far up the street, ringing
-  shop: fr(21.3),      // P09 the shop
-  run: 21.75,          // Spud: "Only what you can run with."
-  back: fr(23.3),      // P10 back on the ladder with the bag
-  slip: 23.65,         // a tin slips out
-  down: fr(24.1),      // P10b straight down
-  hit: 24.75,          // the tin hits the police car's roof: the turn
-  up: 24.95,           // every face turns up
-  drop: fr(25.6),      // P10c Spud: "Drop it!"
-  bagGo: 26.15,        // the bag falls
-  fight: fr(26.9),     // P11 the door gives way: the fight in the hall
-  s6: 27.1,            // STEP 6
-  cross: fr(30.0),     // P11b all five over the ladder
-  roof: fr(31.4),      // P12 day 7, the shop roof
-  recap: 31.65,        // narrator: "Water. Silence. High ground."
-  less: 33.55,         // Spud: "Tomorrow we take less."
-  belly: 34.6,         // a stomach growls
-  end: 35.5,
+  banner: 1.4,         // P01 the TV: STAY INDOORS
+  look: fr(3.3),       // P02 the window: phones over their shoulders, the outbreak below
+  buzz: 3.5,           // every phone buzzes at once
+  flu: 4.4,            // Gunslinger: "It's just the flu." (1.0)
+  bang: 5.75,          // something bangs on their own door
+  door: fr(6.3),       // P03 the door splinters: the barricade
+  s1: 6.6,             // STEP 1 (5.13)
+  free: 9.9,           // a car alarm in the street, the arms let go
+  shut: 10.6,          // the wardrobe is against the door
+  balc: fr(12.1),      // P04 the balcony: make no sound
+  s2: 12.35,           // STEP 2 (3.55)
+  sound: 16.2,         // Spud: "They follow sound." (0.9)
+  fill: fr(17.5),      // P05 the bathroom: fill everything
+  s3: 17.75,           // STEP 3 (5.39)
+  dry: fr(23.55),      // P06 day 3: the tap is dry, one cup each
+  s4: 23.8,            // STEP 4 (2.99)
+  one: 27.1,           // Spud: "One cup each." (0.8)
+  growl: fr(28.3),     // P07 day 6: the empty tin, the growl, the door bulges
+  day6: 28.45,         // narrator: "Day six. The food is gone." (2.85)
+  press: 31.35,        // the door bulges
+  hold: 32.3,          // Spud: "It won't hold." (0.8)
+  throw: fr(33.5),     // P08 the balcony: the alarm clock
+  s5: 33.7,            // STEP 5 (3.73)
+  let: 34.6,           // the clock leaves his hand
+  land: 35.7,          // it lands far up the street, ringing
+  shop: fr(37.8),      // P09 the shop
+  run: 38.3,           // Spud: "Only what you can run with." (1.2)
+  back: fr(40.0),      // P10 back on the ladder with the bag
+  slip: 40.5,          // a tin slips out
+  hit: 41.4,           // the tin hits the police car's roof: the turn
+  up: 41.6,            // every face turns up
+  drop: 42.25,         // Spud: "Drop it!" (0.6)
+  bagGo: 42.9,         // the bag falls
+  fight: fr(44.4),     // P11 the door gives way: the fight in the doorway
+  s6: 44.7,            // STEP 6 (4.97)
+  go: 50.0,            // Spud: "GO!" (0.5)
+  roof: fr(50.9),      // P12 day 7, the shop roof
+  day7: 51.1,          // narrator: "Day seven." (0.76)
+  recap: 52.2,         // narrator: "Water. Silence. High ground." (4.22)
+  less: 56.75,         // Spud: "Tomorrow we take less." (1.0)
+  belly: 58.05,        // a stomach growls
+  end: 59.0,
 };
 
 // ---------------------------------------------------------------- places (the v1 sets: the street world at the origin,
@@ -99,16 +104,17 @@ const GX = -0.25;
 const MID = r3(LAD.x0 + LAD.len / 2);
 const toward = ([x, z], [tx, tz]) => r3(Math.atan2(tx - x, tz - z) * 180 / Math.PI);
 // the living room (P01): the sofa against the back wall facing +z, the TV in the front left corner turned to it
-const SOFA = [XL - 0.1, -1.35], TV = [XL - 0.8, 0.6];
-const TVROT = 100;   // turned between the sofa and the camera: the screen reads in the shot
+const SOFA = [XL - 0.1, -1.35], TV = [XL - 1.0, 0.7];
+const SOFA_SEAT = 0.61;   // the couch's cushion top: SEAT_Y 0.42 x its scale 1.45
+const TVROT = 140;   // on a cabinet in the front left corner, turned to the sofa: the screen reads in the shot's upper left
 // the bathroom (P05, P06): the tub along the back wall, its tap at the -x end
 const TUB = [XB + 0.25, -0.88];
 // who stands where in each scene: [x, z, yaw]
 const S = {
-  p01sofa: { wiz: [XL - 0.95, -1.15], spud: [XL - 0.1, -1.15], phx: [XL + 0.75, -1.15] },
-  p01: { gun: far(1), sam: far(0) },
-  p02: { spud: [-3.45, -1.1, 80], phx: [-3.45, 0.0, 90], gun: [-3.45, 1.1, 100], sam: [-4.35, -0.7, 85], wiz: [-4.35, 0.8, 95] },
-  p03: { spud: [WALLX + 1.45, DZ - 0.45, -90], sam: [WALLX + 1.45, DZ + 0.45, -90], wiz: [WALLX + 2.4, DZ + 1.25, -90], phx: [XH + 0.4, DZ - 0.25, -100], gun: [XH + 0.75, DZ + 2.3, -120] },
+  p01sofa: { wiz: [XL - 0.95, -1.35], sam: [XL - 0.1, -1.35], phx: [XL + 0.75, -1.35] },   // P01: three on the sofa,
+  p01: { gun: [XL - 0.55, -0.25, -40], spud: [XL + 0.35, -0.2, -25] },                         // two standing in front of it
+  p02: { spud: [-3.5, -0.75, 70], phx: [-3.5, 0.25, 80], gun: [-4.1, 1.05, 70], sam: [-4.25, -1.3, 60], wiz: [-4.4, -0.3, 70] },   // P02: at the railing, backs to us
+  p03: { spud: [WALLX + 1.45, DZ - 0.45, -90], sam: [WALLX + 1.45, DZ + 0.45, -90], wiz: [WALLX + 1.25, DZ + 1.32, -130], phx: [WALLX + 2.3, DZ - 0.55, -60], gun: [WALLX + 2.4, DZ + 0.6, -120] },
   p04: { spud: [-3.4, -0.25, 60], wiz: [-4.3, -0.6, 120], phx: [-4.25, 0.35, 150], sam: far(1), gun: far(0) },
   p05: { gun: [XB - 0.75, -0.15, 150], phx: [XB + 0.85, -0.2, -150], wiz: [XB + 0.8, 1.0, -130], spud: [XB - 0.8, 1.0, 130], sam: far(0) },
   p06: { spud: [XB - 0.25, -0.05, -160], wiz: [XB + 0.75, 0.55, -120], gun: [XB - 0.95, 0.5, 140], sam: far(0), phx: far(1) },
@@ -120,10 +126,9 @@ const S = {
 };
 
 const CAM = {
-  NEWS: { pos: [XL + 0.7, 1.3, 2.6], look: [XL - 0.45, 0.8, -0.6], fov: 62 },           // P01: the five on the sofa, the TV at the frame's left
-  WIN: { pos: [-3.1, 2.4, -1.6], look: [0.3, -15, -10.0], fov: 58 },                         // P02a: the street from the railing, nobody in front
-  FACES: { pos: [0.2, 1.6, 0.0], look: [-3.8, 0.85, 0.0], fov: 62 },                     // P02b: from outside the railing, the five with their phones                     // P02: over their shoulders, down at the street
-  DOOR: { pos: [XH + 0.6, 1.8, DZ + 3.4], look: [WALLX + 0.5, 0.85, DZ], fov: 60 },               // P03: the door at the frame's left, the barricade
+  NEWS: { pos: [XL + 1.0, 1.75, 2.7], look: [XL - 0.3, 0.75, -0.6], fov: 60 },           // P01: three on the sofa, two in front, the TV upper left
+  WIN: { pos: [-4.8, 2.3, 1.2], look: [0.2, -15, -8.5], fov: 62 },                         // P02: over their shoulders and phones, down at the street
+  DOOR: { pos: [WALLX + 3.4, 2.0, DZ + 0.15], look: [WALLX + 0.2, 0.85, DZ], fov: 62 },           // P03: facing the door, the wardrobe rammed at it, two with chairs in front
   BALC: { pos: [-3.4, 2.75, 1.55], look: [-0.75, -15, -9.4], fov: 60 },                      // P04: above and behind, down the street
   TUBC: { pos: [XB + 0.05, 1.9, 3.9], look: [XB, 0.6, -0.7], fov: 64 },               // P05 + P06: the tub at the back
   GROWL: { pos: [XH + 2.05, 0.8, DZ], look: [XH - 1.5, 0.88, DZ], fov: 56 },                  // P07
@@ -137,8 +142,8 @@ const CAM = {
 };
 
 const cast = [
-  { id: "spud", character: "potatobrawl/spud", at: S.p01sofa.spud, face: "camera", expr: "shocked", follow: 0.3, seed: 1.4 },
-  { id: "sam", character: "duo/samurai", at: [S.p01.sam[0], S.p01.sam[1]], face: "camera", expr: "shocked", follow: 0.3, seed: 2.3 },
+  { id: "spud", character: "potatobrawl/spud", at: [S.p01.spud[0], S.p01.spud[1]], face: "camera", expr: "shocked", follow: 0.3, seed: 1.4 },
+  { id: "sam", character: "duo/samurai", at: S.p01sofa.sam, face: "camera", expr: "shocked", follow: 0.3, seed: 2.3 },
   { id: "wiz", character: "never-has-money/wizard", at: S.p01sofa.wiz, face: "camera", expr: "shocked", follow: 0.3, seed: 3.1 },
   { id: "phx", character: "duo/phoenix", at: S.p01sofa.phx, face: "camera", expr: "shocked", follow: 0.3, seed: 4.7 },
   { id: "gun", character: "never-has-money/gunslinger", at: [S.p01.gun[0], S.p01.gun[1]], face: "camera", expr: "deadpan", follow: 0.3, seed: 5.2 },
@@ -164,9 +169,6 @@ const props = [
   { id: "living", kind: "zroom", x: XL, y: 0, z: 0, w: 4.4, d: 4.4, dress: "living", dim: 0, glowx: 0, glowz: 0 },
   { id: "sofa", kind: "couch", x: SOFA[0], y: 0, z: SOFA[1], rot: 0, scale: 1.45, color: "#7b4b35", color2: "#8f5b43" },
   { id: "tv", kind: "ztv", x: TV[0], y: 0, z: TV[1], rot: TVROT, news: 1, glow: 1 },
-  { id: "ctable", kind: "coffeetable", x: XL - 0.15, y: 0, z: -0.25, rot: 0 },
-  { id: "mug1", kind: "teamug", x: XL - 0.35, y: 0.42, z: -0.2, rot: 30, steam: 1 },
-  { id: "mug2", kind: "teamug", x: XL + 0.1, y: 0.42, z: -0.3, rot: -20, steam: 1 },
   // the hall and the front door (P03, P07, P11)
   { id: "flat", kind: "zroom", x: XH, y: 0, z: 0, w: 4.4, d: 4.4, dress: "living", open: [{ wall: "left", at: DZ, w: 1.0, h: 1.85, y0: 0 }], dim: 0, glowx: 0.3, glowz: DZ + 0.12 },
   { id: "door", kind: "zdoor", x: WALLX, y: DOORY, z: DZ, rot: 90, ajar: 1, hands: 4, hole: 1, arm: 1, bulge: 0, shadows: 0, burst: 0 },
@@ -214,7 +216,7 @@ const STAGED = {
   ladder: "the ladder bridges the gap from our balcony to the shop roof; its ends rest on the railing and the parapet",
   bath: "the bathroom set, built away from the street like every room", living: "the living room set, built away from the street",
   tally: "marker strokes on the bathroom's back wall", candleB: "the candle stands on the bathtub's rim",
-  mug1: "a mug on the coffee table", mug2: "a mug on the coffee table", pack: "the backpack hangs from Spud's hand",
+  pack: "the backpack hangs from Spud's hand",
   tinG: "in the Gunslinger's hand, then falling, then on the police car's roof", clock: "in Spud's hand, then thrown",
   spoon: "lying on the tin", bag: "the sack in the Gunslinger's hand, on his back on the ladder, then falling",
   potG: "in the Gunslinger's hands under the tap", cupS: "in Spud's hand", cupW: "in the Wizard's hand",
@@ -264,10 +266,13 @@ cap(0.0, r3(T.look - 0.03), "How to survive a zombie apocalypse", "p01");
 // ================================================================ P01 DAY 1 (0 - 2.6): a normal morning. STAY INDOORS.
 // Opener A: the outbreak is already on the TV at frame 0. Three on the sofa, the Gunslinger and Spud in front of it.
 Object.entries(S.p01sofa).forEach(([w, [x, z]]) => {
-  sitDown(0, w, 0, 0.0); A(0, w, "move", { to: [x, z], dur: 0, steps: 0 });
+  sitDown(0, w, 0, SOFA_SEAT); A(0, w, "move", { to: [x, z], dur: 0, steps: 0 });   // ON the cushions (Jonny 12 Nov: they sat IN the sofa)
   expr(0, w, "shocked", { open: 0.12 }, 0); gaze(0, w, [x, z, 0], TV, 0, 0); both(0, w, "lap", 0);
 });
-A(0, "sam", "move", { to: [S.p01.sam[0], S.p01.sam[1]], dur: 0, steps: 0 }); A(0, "gun", "move", { to: [S.p01.gun[0], S.p01.gun[1]], dur: 0, steps: 0 });
+Object.entries(S.p01).forEach(([w, [x, z, yaw]]) => {
+  A(0, w, "move", { to: [x, z], dur: 0, steps: 0 }); A(0, w, "turn", { to: yaw, dur: 0 });
+  expr(0, w, "shocked", { open: 0.12 }, 0); gaze(0, w, [x, z, yaw], TV, 0.1, 0);
+});
 sfx(0, "radio", { gain: 0.35, dur: 2.5, reason: "the TV news, urgent, too low to understand" });
 prop(T.banner, "tv", { news: 2 }, 0.12);
 FIVE.forEach((w, i) => expr(r3(T.banner + 0.15 + i * 0.05), w, "terrified", { open: 0.15 }));
@@ -290,7 +295,7 @@ prop(T.buzz, "ph_spud", { alert: 1 }, 0.06); ["sam", "wiz", "phx", "gun"].forEac
 sfx(T.buzz, "ringtone", { gain: 0.45, dur: 1.2, reason: "every phone's emergency alert at once" });
 sfx(T.look, "screech", { gain: 0.25, reason: "a car's tyres far below" });
 sfx(r3(T.look + 0.2), "horn", { gain: 0.2, reason: "the crashed car's horn stuck on" });
-sfx(r3(T.look + 0.4), "groan", { gain: 0.2, dur: 2.0, reason: "screams and groans far below" });
+sfx(r3(T.look + 0.4), "ai/zombie-horde", { gain: 1, dur: 2.0, reason: "screams and groans far below" });
 FIVE.forEach((w) => look(r3(T.buzz + 0.15), w, [0, -0.3], 0.15));
 expr(r3(T.flu - 0.2), "gun", "deadpan", { lidL: 0.4, lidR: 0.4 }); A(r3(T.flu - 0.15), "gun", "lean", { to: -4, dur: 0.3 });
 c.say(T.flu, "gun", "It's just the flu.", 1.0, "calm", { sub: false });
@@ -298,8 +303,7 @@ cap(T.flu, r3(T.bang - 0.03), "It's just the flu.", "p02");
 sfx(T.bang, "knock", { gain: 0.8, loud: true, reason: "something bangs on their own front door" });
 c.at(T.bang, { fx: "shake", dur: 0.25, amp: 0.025 });
 FIVE.forEach((w) => { expr(r3(T.bang + 0.08), w, "terrified", { open: 0.3 }); look(r3(T.bang + 0.1), w, [-0.7, 0.1], 0.1); });
-see(T.look, T.faces, ["civil", "grab", "crash"], "P02: below, a car in a lamp post, people running, the first one caught");
-see(T.faces, T.flu, ["spud.face", "gun.face", "ph_spud"], "the five at the railing, every phone buzzing with the same alert");
+see(T.look, T.flu, ["civil", "grab", "crash", "ph_spud", "ph_phx"], "P02: over their shoulders: every phone shows the same alert; below, a car in a lamp post, people running, the first one caught");
 see(T.flu, T.door, ["gun.face"], "the Gunslinger shrugs: 'It's just the flu.' Then a bang on their own door");
 
 // ================================================================ P03 DAY 1 (5.2 - 8.0): STEP 1, barricade, don't hold
@@ -308,16 +312,17 @@ FIVE.forEach((w) => letGo(r3(T.door - 0.02), w, `ph_${w}`));
 FIVE.forEach((w) => putProp(T.door, `ph_${w}`, { x: FAR[0] }));
 // Spud and the Samurai drive the wardrobe at the door; the Wizard pushes the table in behind it; Phoenix and the Gunslinger bring chairs
 ["spud", "sam"].forEach((w) => { A(r3(T.door - 0.02), w, "lean", { to: 14, dur: 0.01 }); both(r3(T.door - 0.02), w, { o: [0.14, 0.55, 0.42] }, 0.01); expr(r3(T.door - 0.02), w, "angry", { open: 0.25 }, 0.01); });
-both(r3(T.door - 0.02), "wiz", { o: [0.18, 0.45, 0.4] }, 0.01); expr(r3(T.door - 0.02), "wiz", "terrified", { open: 0.2 }, 0.01);
-["phx", "gun"].forEach((w) => { both(r3(T.door - 0.02), w, "cheeks", 0.01); expr(r3(T.door - 0.02), w, "terrified", { open: 0.2 }, 0.01); });
+both(r3(T.door - 0.02), "wiz", "cheeks", 0.01); expr(r3(T.door - 0.02), "wiz", "terrified", { open: 0.2 }, 0.01);
+["phx", "gun"].forEach((w) => { both(r3(T.door - 0.02), w, { o: [0.16, 0.42, 0.34] }, 0.01); expr(r3(T.door - 0.02), w, "terrified", { open: 0.2 }, 0.01); });
+// the two chairs stand ready in front of Phoenix and the Gunslinger, then go on the barricade
+putProp(T.door, "chairA", { x: WALLX + 1.95, z: DZ - 0.75, rot: 90 }); putProp(T.door, "chairB", { x: WALLX + 2.05, z: DZ + 0.95, rot: 90 });
+putProp(T.door, "ktable", { x: FAR[0] });
 // the chairs go on the barricade once the wardrobe is home
 prop(r3(T.shut + 0.1), "chairA", { x: WALLX + 0.75, z: DZ - 0.75, rot: 0 }, 0.01); prop(r3(T.shut + 0.1), "chairB", { x: WALLX + 0.75, z: DZ + 0.65, rot: 180 }, 0.01);
 prop(T.door, "robe", { x: WALLX + 0.32 }, r3(T.shut - T.door), "in");
 ["spud", "sam"].forEach((w) => A(T.door, w, "move", { to: [r3(S.p03[w][0] - 0.5), S.p03[w][1]], dur: r3(T.shut - T.door), steps: 6, ease: "in" }));
-prop(r3(T.door + 0.4), "ktable", { x: WALLX + 1.25 }, 1.3, "inOut");
-A(r3(T.door + 0.4), "wiz", "move", { to: [r3(S.p03.wiz[0] - 0.45), S.p03.wiz[1]], dur: 1.3, steps: 4, ease: "inOut" });
 sfx(T.door, "knock", { gain: 1, reason: "fists and bodies against the flat door" });
-sfx(r3(T.door + 0.05), "groan", { gain: 0.45, dur: 1.8, reason: "the zombies at the door" });
+sfx(r3(T.door + 0.05), "ai/zombie-groan", { gain: 1, dur: 1.8, reason: "the zombies at the door" });
 sfx(r3(T.door + 0.3), "scrape", { gain: 0.45, reason: "the wardrobe scrapes over the boards" });
 c.at(r3(T.door + 0.02), { fx: "shake", dur: 0.5, amp: 0.03 });
 narrate(T.s1, "Step one: barricade the door. Don't hold it.");
@@ -347,7 +352,7 @@ step(T.s2, r3(T.fill - 0.05), 2, "MAKE NO SOUND");
 c.say(T.sound, "spud", "They follow sound.", 0.9, "whisper", { sub: false });
 cap(T.sound, r3(T.fill - 0.03), "They follow sound.", "p04");
 sfx(T.balc, "sirenwail", { gain: 0.2, dur: 2.5, reason: "the police car's alarm, far up the street" });
-sfx(T.balc, "groan", { gain: 0.25, dur: 2.6, reason: "hundreds of zombies shuffling toward the alarm" });
+sfx(T.balc, "ai/zombie-horde", { gain: 1, dur: 2.6, reason: "hundreds of zombies shuffling toward the alarm" });
 see(T.balc, T.fill, ["spud.face", "horde", "pcarA", "shoeA"], "P04: shoes off, a finger on the lips; the whole street flows to the noise");
 
 // ================================================================ P05 DAY 1 (10.8 - 13.4): STEP 3, fill the bathtub now
@@ -407,7 +412,7 @@ both(r3(T.growl - 0.02), "phx", { o: [0.06, 0.34, 0.2] }, 0.01); expr(r3(T.growl
 ["spud", "sam", "wiz", "gun"].forEach((w) => { gaze(r3(T.growl + 0.45), w, S.p07[w], S.p07.phx, 0, 0.12); expr(r3(T.growl + 0.5), w, "terrified", { open: 0.15 }); });
 prop(T.press, "door", { shadows: 12 }, 0.6, "linear"); prop(r3(T.press + 0.15), "door", { bulge: 0.85 }, 1.2, "in");
 prop(r3(T.press + 0.2), "robe", { bend: 0.5 }, 1.0, "inOut");
-sfx(T.press, "groan", { gain: 0.5, dur: 1.6, reason: "a dozen zombies press on the door" });
+sfx(T.press, "ai/zombie-horde", { gain: 1, dur: 1.6, reason: "a dozen zombies press on the door" });
 sfx(r3(T.press + 0.3), "creak", { gain: 0.5, reason: "the door bows inward" });
 c.at(r3(T.press + 0.3), { fx: "shake", dur: 0.9, amp: 0.025 });
 ["spud", "sam", "wiz", "gun"].forEach((w, i) => {
@@ -424,8 +429,10 @@ see(T.press, T.throw, ["phx.face", "door", "robe"], "the door bulges with silhou
 scene(T.throw, S.p08);
 putProp(T.throw, "ladder", { x: LAD.x0, sag: 0.3 }); putProp(T.throw, "tinE", { x: FAR[0] });
 putProp(T.throw, "horde", { adv: 0, gx: PB[0] - HX, gz: PB[1] - HZ, up: 0 }); putProp(T.throw, "pcarA", { lights: 0 });
-putProp(T.throw, "clock", { x: S.p08.spud[0] + 0.15, y: 0.55, z: S.p08.spud[1] + 0.2, ring: 1 }); hold(T.throw, "spud", "clock", "R");
-arm(r3(T.throw - 0.02), "spud", "R", { o: [0.2, 0.45, 0.3] }, 0.01); expr(r3(T.throw - 0.02), "spud", "focused", { curve: -0.1 }, 0.01);
+// the clock held out in front of him at arm's length, never against the body (Jonny 12 Nov: "the clock is in the character")
+const FWD = ((y) => [r3(Math.sin(y * Math.PI / 180)), r3(Math.cos(y * Math.PI / 180))])(S.p08.spud[2]);
+arm(r3(T.throw - 0.03), "spud", "R", { o: [0.12, 0.5, 0.55] }, 0.01);
+putProp(r3(T.throw - 0.01), "clock", { x: r3(S.p08.spud[0] + FWD[0] * 0.62), y: 0.38, z: r3(S.p08.spud[1] + FWD[1] * 0.62), ring: 1 }); hold(r3(T.throw + 0.005), "spud", "clock", "R"); expr(r3(T.throw - 0.02), "spud", "focused", { curve: -0.1 }, 0.01);
 sfx(T.throw, "alarmbell", { gain: 0.35, dur: 1.2, reason: "the alarm clock rings in his hand" });
 arm(r3(T.throw + 0.4), "spud", "R", { o: [0.12, 0.8, -0.2] }, 0.45, "inOut");           // wind back
 A(r3(T.throw + 0.4), "spud", "lean", { to: -10, dur: 0.45 });
@@ -486,7 +493,7 @@ prop(r3(T.hit + 0.05), "pcarB", { lights: 1 }, 0.25);
 c.at(T.hit, { fx: "shake", dur: 0.25, amp: 0.04 });
 sfx(r3(T.hit + 0.1), "sirenwail", { gain: 0.5, dur: 1.4, reason: "the police car's alarm goes off" });
 prop(T.up, "horde", { up: 1 }, 0.5, "linear");
-sfx(T.up, "groan", { gain: 0.6, dur: 1.4, reason: "hundreds of zombies, all looking up" });
+sfx(T.up, "ai/zombie-horde", { gain: 1, dur: 1.4, reason: "hundreds of zombies, all looking up" });
 // Drop it!: Spud reaches back and pulls the strap, the sack goes
 arm(r3(T.drop + 0.05), "spud", "R", { o: [0.25, 0.3, 0.6] }, 0.2, "out");
 c.say(r3(T.drop + 0.05), "spud", "Drop it!", 0.6, "excited", { sub: false });
@@ -511,7 +518,7 @@ putProp(T.fight, "guardW", { x: S.p11.wiz[0], y: 0.5, z: S.p11.wiz[1] }); hold(T
 ["spud", "wiz"].forEach((w) => { both(r3(T.fight - 0.02), w, { o: [0.12, 0.45, 0.45] }, 0.01); expr(r3(T.fight - 0.02), w, "angry", { open: 0.2 }, 0.01); A(r3(T.fight - 0.02), w, "crouch", { to: 0.4, dur: 0.01 }); });
 sfx(T.fight, "slam", { gain: 0.8, loud: true, reason: "the flat door bursts in" });
 c.at(r3(T.fight + 0.02), { fx: "shake", dur: 0.3, amp: 0.05 });
-sfx(r3(T.fight + 0.1), "groan", { gain: 0.6, dur: 2.8, reason: "zombies in the doorway, one at a time" });
+sfx(r3(T.fight + 0.1), "ai/zombie-groan", { gain: 1, dur: 2.8, reason: "zombies in the doorway, one at a time" });
 // push, they stumble back, they come again: three shoves
 [0.35, 1.25, 2.15].forEach((d, i) => {
   const t = r3(T.fight + d);
@@ -567,8 +574,7 @@ const HUD = { ...hud({ label: "SURVIVE IT", day: [[0, 1], [T.dry, 3], [T.growl, 
 const sh = (k, to, dur, ease = "linear") => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov, ...(to && { to: { fov: CAM[k].fov, look: CAM[k].look, ...to }, dur, ease }) });
 const beats = c.beats([
   ["P01 the news: stay indoors", 0, sh("NEWS"), "hook"],
-  ["P02a the outbreak in the street", T.look, sh("WIN")],
-  ["P02b every phone, the flu", T.faces, sh("FACES")],
+  ["P02 every phone, the outbreak, the flu", T.look, sh("WIN")],
   ["P03 step 1: barricade", T.door, sh("DOOR")],
   ["P04 step 2: no sound", T.balc, sh("BALC")],
   ["P05 step 3: fill the bathtub", T.fill, sh("TUBC")],
@@ -585,7 +591,7 @@ const beats = c.beats([
 ], T.end);
 
 const WORN = ["clipping", "arm-in-prop", "hand-in-prop", "costume-in-prop"];
-const WORLD = ["street", "horde", "flood", "flood2", "inflat", "first", "civil", "grab", "crash", "flat", "living", "bath", "shop", "ladder", "half", "door", "robe", "ktable", "sofa", "tv", "ctable", "tub", "bottles", "potA", "potB", "pcarA", "pcarB", "chairA", "chairB", "shoeA", "shoeB"];
+const WORLD = ["street", "horde", "flood", "flood2", "inflat", "first", "civil", "grab", "crash", "flat", "living", "bath", "shop", "ladder", "half", "door", "robe", "ktable", "sofa", "tv", "tub", "bottles", "potA", "potB", "pcarA", "pcarB", "chairA", "chairB", "shoeA", "shoeB"];
 const HELD = ["bag", "tinG", "pack", "clock", "potG", "cupS", "cupW", "broom", "mop", "guardS", "guardW", ...FIVE.map((w) => `ph_${w}`)];
 write(import.meta.url, {
   id: "zombies-v2",
@@ -607,7 +613,7 @@ write(import.meta.url, {
     ...HELD.map((who) => ({ who, from: 0, to: T.end, checks: WORN, reason: "rough draft: carried things held where the hand closed on them (grab keep or the prop's grip), not a fitted hold yet" })),
     { who: "gun", with: "wiz", from: T.press, to: T.throw, checks: ["character-overlap"], reason: "P07: four shoulder to shoulder against the wardrobe; a glove brushes the Wizard's cape for two frames" },
     { who: "spud", from: r3(T.let - 0.2), to: r3(T.let + 0.1), checks: ["rig-jump"], reason: "P08: the throw; the arm snaps forward and lets the clock go (a throw is fast)" },
-    { who: "wiz", from: T.faces, to: T.door, checks: ["face-covered"], reason: "P02b crowd beat: the Wizard stands in the back row behind five raised phones; the Gunslinger speaks, every face that matters is clear" },
+    ...FIVE.map((who) => ({ who, from: T.look, to: T.door, checks: ["face-hidden", "face-covered"], reason: "P02 as panel 2: the camera looks over their shoulders and phones down at the street; their backs are the shot" })),
     ...["wiz", "gun"].map((who) => ({ who, from: T.cross, to: T.roof, checks: ["face-hidden"], reason: "P11b: all five crawl over the ladder seen from high above; the crawl is the beat, not a face" })),
   ],
   panels: { md: "storyboards/series/survive-it/04-zombies/PANELS-v2.md" },
