@@ -461,7 +461,7 @@ export const ICEAGE_KINDS = {
       }
     }
     for (let i = 0; i < 12; i++) lk(bodyLocks, [(rnd(i + 60) - 0.5) * 0.8, 1.6 - 0.03 * (i % 3), 0.84 + 0.02 * (i % 4) + (rnd(i + 61) - 0.5) * 0.1], (rnd(i + 62) - 0.5) * 0.9, -0.12 - rnd(i + 63) * 0.12, 0.5 + 0.4 * rnd(i + 64), 0.17 + 0.07 * rnd(i + 65));   // the throat and brisket mane
-    for (let i = 0; i < 30; i++) { const z = -1.4 + i * 0.077, r = bodyAt(z); lk(bodyLocks, [(rnd(i + 70) - 0.5) * 0.14, r.cy + r.up - 0.04, z], (rnd(i + 71) - 0.5) * 0.5, 2.0 + rnd(i + 72) * 0.2, 0.2 + 0.18 * rnd(i + 73), 0.12 + 0.04 * rnd(i + 74), 0.02, 1.4 + rnd(i + 75) * 0.4); }   // the shaggy back, laid backward
+    for (let i = 0; i < 30; i++) { const z = -1.4 + i * 0.077, r = bodyAt(z); lk(bodyLocks, [(rnd(i + 70) - 0.5) * 0.14, r.cy + r.up - 0.04, z], (rnd(i + 71) - 0.5) * 0.5, 2.3 + rnd(i + 72) * 0.2, 0.12 + 0.12 * rnd(i + 73), 0.11 + 0.04 * rnd(i + 74), 0.02, 1.4 + rnd(i + 75) * 0.4); }   // the shaggy back, laid backward
     for (const l of legs) for (let i = 0; i < 10; i++) {   // a ring of locks round the top of every leg hides the joint with the body
       const a = (i / 10) * TAU + rnd(i + l.x * 9 + l.d.z * 5) * 0.3, r = 0.3, bd = bodyAt(l.d.z);
       lk(bodyLocks, [l.x + Math.sin(a) * r, bd.cy - bd.dn * 0.92 + 0.12, l.d.z + Math.cos(a) * r], a, -0.2 - rnd(i + 80) * 0.12, 0.4 + 0.22 * rnd(i + 81), 0.16 + 0.07 * rnd(i + 82));
@@ -562,9 +562,9 @@ export const ICEAGE_KINDS = {
     // ---- the profile (side view), rump to the nose: [z, centre y, half width, up, down, n, share of the head's turn]; back = y + up, belly = y - dn
     // heavy high shoulders (back 1.10, chest 0.70 deep) sloping down to a lighter hip (0.95), a thick neck, a long flat forehead into a broad muzzle
     const NB = [
-      [-0.70, 0.77, 0.13, 0.13, 0.13, 2.2, 0], [-0.50, 0.75, 0.20, 0.19, 0.19, 2.2, 0], [-0.25, 0.755, 0.19, 0.20, 0.20, 2.2, 0], [0.05, 0.74, 0.25, 0.30, 0.30, 2.2, 0],
-      [0.28, 0.745, 0.30, 0.355, 0.355, 2.2, 0], [0.45, 0.75, 0.275, 0.325, 0.325, 2.2, 0], [0.55, 0.75, 0.245, 0.24, 0.25, 2.2, 0.45],
-      [0.64, 0.79, 0.215, 0.185, 0.195, 2.5, 1], [0.77, 0.775, 0.245, 0.195, 0.19, 2.5, 1], [0.90, 0.765, 0.18, 0.15, 0.14, 2.5, 1], [1.00, 0.75, 0.12, 0.10, 0.09, 2.5, 1], [1.04, 0.74, 0.055, 0.045, 0.05, 2.5, 1],
+      [-0.70, 0.77, 0.13, 0.13, 0.13, 2.2, 0], [-0.50, 0.76, 0.20, 0.17, 0.17, 2.2, 0], [-0.25, 0.765, 0.19, 0.18, 0.18, 2.2, 0], [0.05, 0.74, 0.25, 0.30, 0.30, 2.2, 0],
+      [0.28, 0.745, 0.30, 0.355, 0.355, 2.2, 0], [0.45, 0.75, 0.275, 0.325, 0.325, 2.2, 0], [0.50, 0.75, 0.25, 0.26, 0.27, 2.2, 0.45],
+      [0.62, 0.79, 0.235, 0.20, 0.21, 2.5, 1], [0.76, 0.775, 0.265, 0.21, 0.205, 2.5, 1], [0.90, 0.765, 0.195, 0.16, 0.15, 2.5, 1], [1.00, 0.75, 0.13, 0.11, 0.10, 2.5, 1], [1.04, 0.74, 0.06, 0.05, 0.055, 2.5, 1],
     ];
     const NN = NT + NB.length, uOf = (i) => i / (NN - 1);
     const coatTex = once("sabCoatR", () => cvs(1024, 512, (g, W, H) => {
@@ -592,7 +592,7 @@ export const ICEAGE_KINDS = {
         for (let k = 0; k < 9; k++) { g.fillStyle = "rgba(70,44,22,0.55)"; g.beginPath(); g.arc(W * uOf(NT + 9.5) + (k % 3) * 11 + rnd(k) * 4, (1 - (v < 0.5 ? 0.27 : 0.73)) * H + Math.floor(k / 3) * 12 - 10, 2.2, 0, TAU); g.fill(); }
       }
       g.fillStyle = "rgba(78,50,26,0.9)"; g.fillRect(0, 0, W * uOf(1.6), H);   // the tail tip is dark
-      const mu = W * uOf(NN - 1.25), no = g.createLinearGradient(mu, 0, W, 0); no.addColorStop(0, "rgba(185,115,122,0)"); no.addColorStop(0.5, "#b9737a"); no.addColorStop(1, "#a05f68"); g.fillStyle = no; g.fillRect(mu, 0, W - mu, H);   // the nose pad
+      const mu = W * uOf(NN - 1.1), no = g.createLinearGradient(mu, 0, W, 0); no.addColorStop(0, "rgba(185,115,122,0)"); no.addColorStop(0.5, "#b9737a"); no.addColorStop(1, "#a05f68"); g.fillStyle = no; g.fillRect(mu, 0, W - mu, H);   // the nose pad
       g.fillStyle = "rgba(120,70,70,0.55)"; for (const k of [-1, 1]) { g.beginPath(); g.ellipse(W * 0.985, H * (0.5 + k * 0.035), 7, 4, 0, 0, TAU); g.fill(); }   // nostrils
       // mouth roof: the underside of the muzzle
       g.fillStyle = "rgba(160,80,92,0.95)"; g.fillRect(W * uOf(NN - 4.6), 0, W * (uOf(NN - 1.5) - uOf(NN - 4.6)), H * 0.045); g.fillRect(W * uOf(NN - 4.6), H * 0.955, W * (uOf(NN - 1.5) - uOf(NN - 4.6)), H * 0.045);
@@ -628,7 +628,7 @@ export const ICEAGE_KINDS = {
 
     // ---- skin: tail (a 0.25 m bobtail), body, neck and skull, ONE loft
     const mkSec = (c, w, up, dn, n = 2.2) => ({ c, w, up, dn, n });
-    const PV = [0, 0.75, -0.5], HP = [0, 0.80, 0.56];   // the body pitches about the hips; the head turns about the atlas
+    const PV = [0, 0.75, -0.5], HP = [0, 0.80, 0.52];   // the body pitches about the hips; the head turns about the atlas
     const rel = (p) => [p[0] - HP[0], p[1] - HP[1], p[2] - HP[2]];
     const bodyRest = [...[[0, 0.78, -1.02], [0, 0.78, -0.95], [0, 0.82, -0.88], [0, 0.86, -0.78]].map((c, i) => mkSec(c, 0.025 + 0.02 * i, 0.025 + 0.02 * i, 0.025 + 0.02 * i)), ...NB.map((r) => mkSec([0, r[1], r[0]], r[2], r[3], r[4], r[5]))];
     const bodyGeo = makeLoft(bodyRest, { sub: 5, radial: 26 }); mesh(bodyGeo, coat, root);
@@ -665,8 +665,8 @@ export const ICEAGE_KINDS = {
       mesh(makeLoft(pts.map((p, i) => mkSec(rel([s * p[0], p[1], p[2]]), wd[i], zz[i], zz[i], 2.2)), { sub: 4, radial: 12, ref: [0, 0, 1] }), fang, headG);
     }
     // lower jaw: short, with a chin flange; hinged under the skull; its top is the inside of the mouth
-    const J = [0, 0.69, 0.72], jawG = new THREE.Group(); jawG.position.set(...rel(J)); headG.add(jawG);
-    const jr = [[0.70, 0.675, 0.09, 0.05, 0.045], [0.78, 0.645, 0.095, 0.05, 0.05], [0.88, 0.635, 0.08, 0.045, 0.055], [0.95, 0.625, 0.06, 0.04, 0.065], [0.985, 0.63, 0.04, 0.03, 0.05]];
+    const J = [0, 0.66, 0.72], jawG = new THREE.Group(); jawG.position.set(...rel(J)); headG.add(jawG);
+    const jr = [[0.70, 0.645, 0.10, 0.05, 0.045], [0.78, 0.615, 0.105, 0.05, 0.05], [0.88, 0.605, 0.09, 0.045, 0.055], [0.95, 0.595, 0.065, 0.04, 0.065], [0.985, 0.60, 0.04, 0.03, 0.05]];
     mesh(makeLoft(jr.map(([z, y, w, u, dn]) => mkSec([0, y - J[1], z - J[2]], w, u, dn, 2.4)), { sub: 4, radial: 16 }), jawM, jawG);
     const lickG = new THREE.Group(); lickG.position.set(0, 0.04, 0.26); jawG.add(lickG);
     mesh(makeLoft([[0, 0, 0, 0.03, 0.006], [0, 0, 0.06, 0.036, 0.008], [0, 0, 0.12, 0.03, 0.006], [0, 0, 0.16, 0.012, 0.003]].map(([x, y, z, w, u]) => mkSec([x, y, z], w, u, u, 2.2)), { sub: 3, radial: 12 }), tongueM, lickG);
@@ -678,9 +678,9 @@ export const ICEAGE_KINDS = {
     }
     // ears: small, round, set low on the sides of the skull (a flat rounded loft; dark back, cream inside)
     const earGeo = makeLoft([[0, -0.02, 0.045, 0.04, 0.04], [0, 0.03, 0.058, 0.032, 0.032], [0, 0.075, 0.056, 0.024, 0.024], [0, 0.108, 0.04, 0.016, 0.016], [0, 0.122, 0.014, 0.006, 0.006]].map(([x, y, w, u, dn]) => mkSec([x, y, 0], w, u, dn, 2.4)), { sub: 3, radial: 14, ref: [0, 0, 1] });
-    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.155, 0.925, 0.66])); g.scale.setScalar(0.8); g.rotation.z = -s * 0.22; headG.add(g); mesh(earGeo, s > 0 ? earML : earMR, g, 0, 0, 0); return { g, s }; });
+    const ears = [-1, 1].map((s) => { const g = new THREE.Group(); g.position.set(...rel([s * 0.17, 0.945, 0.64])); g.scale.setScalar(0.9); g.rotation.set(0, s * 0.6, -s * 0.22); headG.add(g); mesh(earGeo, s > 0 ? earML : earMR, g, 0, 0, 0); return { g, s }; });
     // eyes: small (r 0.03), pale amber, round pupil, dark rim, forward-facing
-    const face = realEyes(S, headG, { x: 0.17, y: 0.925 - HP[1], z: 0.80 - HP[2], R: 0.03, spread: 0.35, tilt: 0.05, sclera: "#e8dcb8", rim: "#2a1a0a", iris: "#e8b84a", irisTh: 0.86, pupilTh: 0.4, lidM: coat, browGeo: browLoft([[-0.045, 0.01, 0.008], [-0.02, 0.022, 0.014], [0.02, 0.022, 0.014], [0.045, 0.01, 0.008]]), browM: brownM, browUp: 1.35, lashes: 0 });
+    const face = realEyes(S, headG, { x: 0.185, y: 0.94 - HP[1], z: 0.79 - HP[2], R: 0.03, spread: 0.35, tilt: 0.05, sclera: "#e8dcb8", rim: "#2a1a0a", iris: "#e8b84a", irisTh: 0.86, pupilTh: 0.4, lidM: coat, browGeo: browLoft([[-0.045, 0.01, 0.008], [-0.02, 0.022, 0.014], [0.02, 0.022, 0.014], [0.045, 0.01, 0.008]]), browM: brownM, browUp: 1.35, lashes: 0 });
     const haloS = halo(P.whole, 2.4, 0, 0.7, 0);
     const qHead = new THREE.Quaternion(), qI = new THREE.Quaternion(), qP = new THREE.Quaternion(), vv = new THREE.Vector3(), hv = new THREE.Vector3(...HP);
     const TLR = [-0.5, -0.1, 0.1], TLU = [0.5, 0.55, 0.6], TLT = [-1.3, -0.4, -0.2];
