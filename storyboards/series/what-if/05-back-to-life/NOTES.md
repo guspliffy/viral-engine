@@ -120,6 +120,12 @@ CATCH 12.6 | CHASE 14.0 | STREET 15.6 | LAMP 17.4 | SCYTHE 19.4 | END 22.0
 - The draft's own pops line (the fix on test) names both fails (37, 36) on draft 2; this branch was cut before it was
   merged, so nobody saw it. Tested each fix with `--draft --from --to` (1-3 min) before render 2.
 
+## DELIVERED 12 Nov 2026
+
+Farm render 2 PASS (0 fails), local sound on the farm picture, final in project files
+`videos/what-if/05-back-to-life/back-to-life-FINAL.mp4` with cover, phone sheet and DELIVERY.md. Score A by Jonny's
+ear, music gain 0.8. Ledger row 9. Merge only on his "merge it".
+
 ## Names looked up that docs/VOCAB.md didn't answer
 
 - stand-in box: `stoneblock` (props-guard.js) spec w, h, d. `stanchions` spec.posts [[x,z],...] (props-duo.js).
