@@ -37,7 +37,7 @@
     "env": "storm-pine-clearing"
    },
    {
-    "at": 28.7,
+    "at": 29.9,
     "env": "lake-sunset"
    }
   ],
@@ -62,10 +62,10 @@
    "voice": -6
   },
   "dip": false,
-  "until": 28.7,
+  "until": 29.9,
   "then": {
    "file": "ai/sad/sad-02.ogg",
-   "from": 28.7,
+   "from": 29.9,
    "gain": 0.55
   }
  },
@@ -80,8 +80,8 @@
  },
  "creative": {
   "length": [
-   35.2,
-   35.2
+   36.4,
+   36.4
   ]
  },
  "hook": {
@@ -140,6 +140,7 @@
    "x": 0,
    "z": 0,
    "rot": 0,
+   "scale": 1.35,
    "open": 1,
    "rip": 0,
    "push": 0,
@@ -149,7 +150,7 @@
   {
    "id": "car",
    "kind": "campcar",
-   "x": 1.3,
+   "x": 0.3,
    "z": -5.6,
    "rot": 0,
    "smash": 0,
@@ -169,7 +170,7 @@
    "id": "lantern",
    "kind": "gaslantern",
    "x": 0.9,
-   "z": -1.45,
+   "z": -1.95,
    "lit": 1,
    "tip": 0
   },
@@ -177,7 +178,7 @@
    "id": "grass",
    "kind": "grassfire",
    "x": 1.6,
-   "z": -1.9,
+   "z": -2.4,
    "w": 2.6,
    "d": 0.9,
    "seed": 4,
@@ -230,6 +231,16 @@
    "recline": 18
   },
   {
+   "id": "lbag",
+   "kind": "lyingbag",
+   "x": 50,
+   "z": 46,
+   "rot": 0,
+   "color": "#3c4a7a",
+   "cover": 0,
+   "drag": 0
+  },
+  {
    "id": "phone",
    "kind": "phone",
    "style": "iphone",
@@ -246,16 +257,20 @@
   {
    "id": "pot",
    "kind": "cookpot",
-   "x": 54,
-   "z": 41,
-   "dent": 0
+   "dent": 0,
+   "x": 39.76,
+   "y": 0.36,
+   "z": 40.3,
+   "rot": 180
   },
   {
    "id": "branch",
    "kind": "burnbranch",
-   "x": 56,
-   "z": 42,
-   "fire": 1
+   "fire": 0,
+   "x": 40.24,
+   "y": 0.36,
+   "z": 40.3,
+   "rot": 180
   },
   {
    "id": "bolt",
@@ -277,12 +292,12 @@
   },
   {
    "id": "bag12",
-   "kind": "sleepbag",
+   "kind": "lyingbag",
    "x": 40,
    "z": 44,
    "color": "#3c4a7a",
    "cover": 0,
-   "recline": 0
+   "drag": 0
   },
   {
    "id": "pine12",
@@ -372,22 +387,22 @@
    "kinetic": false
   },
   {
-   "from": 29,
-   "to": 31.25,
+   "from": 30.2,
+   "to": 32.45,
    "text": "You can't beat a black bear.",
    "pos": 400,
    "pop": false
   },
   {
-   "from": 31.25,
-   "to": 32.7,
+   "from": 32.45,
+   "to": 33.9,
    "text": "But you can scare it.",
    "pos": 400,
    "pop": false
   },
   {
-   "from": 32.7,
-   "to": 35.2,
+   "from": 33.9,
+   "to": 36.4,
    "text": "Would you survive against a black bear?",
    "pos": 300,
    "pop": false
@@ -401,17 +416,27 @@
    "shot": {
     "pos": [
      0,
-     0.72,
-     3.9
+     1.6,
+     4.2
     ],
     "look": [
      0,
-     2.783,
-     -5.885
+     2.629,
+     -5.747
     ],
     "fov": 50
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "tent",
+     "set": {
+      "scale": 1.15
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "bear",
@@ -431,7 +456,7 @@
       "ears": -0.6,
       "breath": 0.5,
       "x": 0,
-      "z": -0.95,
+      "z": -0.85,
       "rot": 0
      },
      "dur": 0.01,
@@ -480,8 +505,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.85,
-      0.35
+      -0.74,
+      0.7
      ],
      "y": 0,
      "dur": 0.01,
@@ -527,7 +552,7 @@
      "do": "move",
      "to": [
       0,
-      0.55
+      0.98
      ],
      "y": 0,
      "dur": 0.01,
@@ -572,8 +597,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      0.88,
-      0.35
+      0.76,
+      0.7
      ],
      "y": 0,
      "dur": 0.01,
@@ -689,6 +714,16 @@
     },
     {
      "do": "prop",
+     "id": "tent",
+     "set": {
+      "scale": 1.35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
      "id": "bear",
      "set": {
       "gait": 0,
@@ -705,7 +740,7 @@
       "headP": 10,
       "ears": 0,
       "breath": 0.5,
-      "x": 2.65,
+      "x": 1.65,
       "z": -4.9,
       "rot": -70
      },
@@ -868,11 +903,11 @@
      "do": "prop",
      "id": "phone",
      "set": {
-      "x": -0.05,
-      "y": 0.48,
-      "z": 0.62,
+      "x": 0.05,
+      "y": 0.38,
+      "z": 0.9,
       "rot": 0,
-      "tip": -8
+      "tip": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -880,11 +915,65 @@
     },
     {
      "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       -0.039,
+       0.078,
+       -0.006
+      ],
+      "frame": {
+       "y": [
+        0.996,
+        0.087,
+        0
+       ],
+       "z": [
+        0,
+        0,
+        1
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ],
+       "elbow": 1
+      },
+      "at": [
+       0.05,
+       0.38,
+       0.9
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "phoneEdge",
+     "dur": 0,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
      "do": "grab",
      "prop": "phone",
      "hand": "R",
-     "dur": 0.01,
-     "at": 1.48
+     "grip": [
+      -0.039,
+      0.078,
+      -0.006
+     ],
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 1.495
     }
    ],
    "kind": "hook"
@@ -957,9 +1046,9 @@
       "headP": 10,
       "ears": 0,
       "breath": 0.5,
-      "x": 2.1,
-      "z": -4.3,
-      "rot": -140
+      "x": 1.6,
+      "z": -4.2,
+      "rot": -135
      },
      "dur": 0.01,
      "ease": "linear",
@@ -993,16 +1082,16 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     1.7,
-     0.8,
-     -1.2
+     0.15,
+     0.85,
+     0.1
     ],
     "look": [
-     2.046,
-     2.175,
-     -11.099
+     1.185,
+     2.225,
+     -9.751
     ],
-    "fov": 44
+    "fov": 50
    },
    "do": [
     {
@@ -1083,7 +1172,7 @@
      "do": "prop",
      "id": "door",
      "set": {
-      "x": 2.35,
+      "x": 1.35,
       "y": 0.6,
       "z": -5.1,
       "rot": 20
@@ -1096,7 +1185,7 @@
      "do": "prop",
      "id": "door",
      "set": {
-      "x": 3.5,
+      "x": 2.5,
       "y": 0,
       "z": -4,
       "rot": 75,
@@ -1125,16 +1214,10 @@
     },
     {
      "who": "spud",
-     "do": "release",
-     "dur": 0.01,
-     "at": 1.87
-    },
-    {
-     "who": "spud",
      "do": "move",
      "to": [
-      -0.62,
-      0.1
+      -0.55,
+      0.2
      ],
      "y": 0,
      "dur": 0.01,
@@ -1159,7 +1242,7 @@
      "do": "move",
      "to": [
       0,
-      0.35
+      0.75
      ],
      "y": 0,
      "dur": 0.01,
@@ -1183,8 +1266,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      0.7,
-      0.1
+      0.58,
+      0.2
      ],
      "y": 0,
      "dur": 0.01,
@@ -1205,14 +1288,64 @@
      "at": 1.88
     },
     {
-     "do": "prop",
-     "id": "phone",
-     "set": {
-      "x": 52,
-      "z": 40
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "phone",
+      "grip": [
+       -0.039,
+       0.078,
+       -0.006
+      ],
+      "frame": {
+       "y": [
+        0.996,
+        0.087,
+        0
+       ],
+       "z": [
+        0,
+        0,
+        1
+       ],
+       "at": [
+        0.02,
+        0.04,
+        0.0215
+       ],
+       "elbow": 1
+      },
+      "at": [
+       -0.9,
+       0.32,
+       0.45
+      ]
      },
      "dur": 0.01,
      "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "x": 0,
+      "z": 0.75,
+      "rot": -40,
+      "cover": 0,
+      "recline": 8,
+      "scale": 0.64
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.88
+    },
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": "bag",
+     "sit": true,
      "at": 1.88
     },
     {
@@ -1254,15 +1387,15 @@
    "shot": {
     "pos": [
      0,
-     0.8,
-     3.6
+     0.85,
+     3.9
     ],
     "look": [
      0,
-     1.481,
-     -6.377
+     1.531,
+     -6.077
     ],
-    "fov": 46
+    "fov": 48
    },
    "do": [
     {
@@ -1282,7 +1415,7 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": "fist",
      "dur": 0.25,
      "ease": "out",
@@ -1292,10 +1425,10 @@
      "fx": "pop",
      "text": "FIGHT",
      "who": "spud",
-     "size": 120,
-     "dur": 0.5,
+     "size": 110,
+     "dur": 0.6,
      "angle": -4,
-     "dy": -1.15,
+     "dy": -0.7,
      "dx": 0,
      "color": "#ffffff",
      "at": 0.15
@@ -1323,10 +1456,10 @@
      "fx": "pop",
      "text": "FLIGHT",
      "who": "wedge",
-     "size": 120,
-     "dur": 0.5,
+     "size": 110,
+     "dur": 0.6,
      "angle": -4,
-     "dy": -1.15,
+     "dy": -0.7,
      "dx": 0,
      "color": "#ffffff",
      "at": 0.95
@@ -1343,10 +1476,10 @@
      "fx": "pop",
      "text": "FREEZE",
      "who": "chip",
-     "size": 120,
-     "dur": 0.5,
+     "size": 110,
+     "dur": 0.6,
      "angle": -4,
-     "dy": -1.15,
+     "dy": -0.7,
      "dx": 0,
      "color": "#ffffff",
      "at": 1.75
@@ -1409,11 +1542,23 @@
      "do": "prop",
      "id": "bag",
      "set": {
-      "x": -0.35,
-      "z": -0.4,
-      "rot": 70,
-      "cover": 0.85,
-      "recline": 30
+      "x": 50,
+      "z": 40
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.58
+    },
+    {
+     "do": "prop",
+     "id": "lbag",
+     "set": {
+      "x": -0.25,
+      "z": -0.9,
+      "rot": 90,
+      "cover": 0.3,
+      "drag": 0,
+      "roll": 60
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1421,9 +1566,56 @@
     },
     {
      "who": "chip",
+     "do": "lean",
+     "to": 60,
+     "dur": 0,
+     "at": 4.58
+    },
+    {
+     "who": "chip",
      "do": "ride",
-     "prop": "bag",
-     "sit": true,
+     "prop": "lbag",
+     "off": [
+      0,
+      -0.19,
+      -0.05
+     ],
+     "dur": 0,
+     "at": 4.58
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -90,
+     "dur": 0,
+     "at": 4.58
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 4.58
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
      "at": 4.58
     },
     {
@@ -1435,35 +1627,15 @@
     },
     {
      "who": "spud",
-     "do": "move",
-     "to": [
-      -0.9,
-      0.75
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
+     "do": "hide",
      "at": 4.58
     },
     {
      "who": "spud",
-     "do": "turn",
-     "to": 15,
-     "dur": 0.01,
-     "at": 4.58
-    },
-    {
-     "who": "spud",
-     "do": "show",
-     "at": 4.58
-    },
-    {
-     "who": "wedge",
      "do": "move",
      "to": [
-      0.9,
-      0.75
+      40,
+      40
      ],
      "y": 0,
      "dur": 0.01,
@@ -1473,14 +1645,20 @@
     },
     {
      "who": "wedge",
-     "do": "turn",
-     "to": -15,
-     "dur": 0.01,
+     "do": "hide",
      "at": 4.58
     },
     {
      "who": "wedge",
-     "do": "show",
+     "do": "move",
+     "to": [
+      46,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
      "at": 4.58
     }
    ]
@@ -1492,13 +1670,13 @@
    "shot": {
     "pos": [
      0.1,
-     0.8,
-     3
+     1,
+     2.6
     ],
     "look": [
      0.1,
-     1.481,
-     -6.977
+     1.681,
+     -7.377
     ],
     "fov": 46
    },
@@ -1570,9 +1748,9 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "z": -1.05,
-      "x": 0.1,
-      "headP": 35,
+      "z": -1.15,
+      "x": -0.2,
+      "headP": 40,
       "jaw": 0.2
      },
      "dur": 0.7,
@@ -1623,16 +1801,24 @@
     },
     {
      "do": "prop",
-     "id": "bag",
+     "id": "lbag",
      "set": {
-      "x": 3.639,
-      "z": -2.147,
-      "rot": -95,
-      "recline": 40,
-      "cover": 0.95
+      "x": 3.24,
+      "z": -2.081,
+      "rot": -137.5,
+      "drag": 1,
+      "cover": 0.3,
+      "roll": -60
      },
      "dur": 0.01,
      "ease": "linear",
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -60,
+     "dur": 0,
      "at": 1.98
     },
     {
@@ -1691,13 +1877,13 @@
    "shot": {
     "pos": [
      2,
-     1,
-     1
+     1.2,
+     1.2
     ],
     "look": [
      2,
-     2.375,
-     -8.905
+     1.881,
+     -8.777
     ],
     "fov": 50
    },
@@ -1716,11 +1902,11 @@
     },
     {
      "do": "prop",
-     "id": "bag",
+     "id": "lbag",
      "set": {
-      "x": 1.237,
-      "z": -2.434,
-      "rot": -95
+      "x": 0.839,
+      "z": -2.369,
+      "rot": -137.5
      },
      "dur": 2.5,
      "ease": "linear",
@@ -1733,12 +1919,192 @@
      "at": 0
     },
     {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "phone",
+     "keep": "air",
+     "reason": "the phone is put away off set while he is parked",
+     "dur": 0,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "phone",
+     "set": {
+      "x": 52,
+      "y": 0,
+      "z": 40
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.08
+    },
+    {
      "macro": "narrate",
      "line": "Freeze lasted ten seconds.",
      "voice": "narrator",
      "caption": false,
      "gain": 4,
      "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.82
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.82
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "branch",
+     "hand": "R",
+     "grip": [
+      0.077,
+      0.08,
+      0.021
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.96
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "pot",
+     "hand": "L",
+     "grip": [
+      -0.28,
+      0.115,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.96
+    },
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": null,
+     "dur": 0,
+     "at": 2.47
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0,
+     "at": 2.47
     },
     {
      "who": "chip",
@@ -1762,8 +2128,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      1.8,
-      1.7
+      1,
+      2
      ],
      "y": 0,
      "dur": 0.01,
@@ -1774,7 +2140,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": -105,
+     "to": -46,
      "dur": 0.01,
      "at": 2.48
     },
@@ -1822,21 +2188,9 @@
       "headP": 10,
       "ears": -0.6,
       "breath": 0.5,
-      "x": 3.4,
-      "z": 1.9,
-      "rot": -95
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.48
-    },
-    {
-     "do": "prop",
-     "id": "bag",
-     "set": {
       "x": 2.6,
-      "z": -2.4,
-      "recline": 40
+      "z": 0.4,
+      "rot": -43
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1844,10 +2198,12 @@
     },
     {
      "do": "prop",
-     "id": "cooler",
+     "id": "lbag",
      "set": {
-      "x": -0.15,
-      "z": 2.35
+      "x": 2.9,
+      "z": -3.4,
+      "rot": -95,
+      "drag": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1862,13 +2218,13 @@
    "shot": {
     "pos": [
      0.2,
-     0.9,
+     1,
      5.4
     ],
     "look": [
-     -0.487,
-     2.62,
-     -4.427
+     0.716,
+     2.72,
+     -4.437
     ],
     "fov": 48
    },
@@ -1877,8 +2233,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      -2.2,
-      1.3
+      -1.1,
+      4
      ],
      "dur": 1.7,
      "ease": "linear",
@@ -1889,8 +2245,8 @@
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": -0.6,
-      "z": 1.5,
+      "x": 0.3,
+      "z": 2.9,
       "gait": 3
      },
      "dur": 1.7,
@@ -2132,6 +2488,17 @@
      "at": 3.65
     },
     {
+     "do": "prop",
+     "id": "cooler",
+     "set": {
+      "x": -0.15,
+      "z": 2.35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.58
+    },
+    {
      "who": "wedge",
      "do": "hide",
      "at": 5.58
@@ -2175,6 +2542,16 @@
      "at": 5.58
     },
     {
+     "do": "prop",
+     "id": "branch",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.58
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "angry",
@@ -2197,56 +2574,6 @@
     },
     {
      "do": "prop",
-     "id": "branch",
-     "set": {
-      "x": -0.57,
-      "y": 1.2,
-      "z": 2.35,
-      "fire": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 5.58
-    },
-    {
-     "do": "prop",
-     "id": "pot",
-     "set": {
-      "x": 0.27,
-      "y": 0.85,
-      "z": 2.45
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 5.58
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "branch",
-     "hand": "L",
-     "dur": 0.01,
-     "at": 5.58
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "pot",
-     "hand": "R",
-     "dur": 0.01,
-     "at": 5.58
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 5.58
-    },
-    {
-     "do": "prop",
      "id": "bear",
      "set": {
       "gait": 0,
@@ -2263,13 +2590,57 @@
       "headP": 5,
       "ears": 0,
       "breath": 0.5,
-      "x": 1.2,
-      "z": -0.4,
+      "x": 1.9,
+      "z": -2.2,
       "rot": -160
      },
      "dur": 0.01,
      "ease": "linear",
      "at": 5.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.293,
+       1.32,
+       2.641
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.585
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.314,
+       0.86,
+       2.211
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.585
     }
    ]
   },
@@ -2284,9 +2655,9 @@
      5.6
     ],
     "look": [
-     -0.1,
+     0.417,
      2.648,
-     -4.279
+     -4.266
     ],
     "fov": 46
    },
@@ -2315,22 +2686,92 @@
      "at": 0.3
     },
     {
-     "sfx": "ai/pot-bang",
-     "gain": 0.9,
-     "reason": "Spud banging the pot on the branch",
-     "at": 0.4
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.103,
+       1.3,
+       2.701
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.35
     },
     {
-     "sfx": "ai/pot-bang",
-     "gain": 0.9,
-     "reason": "again",
-     "at": 0.8
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.293,
+       1.32,
+       2.641
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
     },
     {
-     "sfx": "ai/pot-bang",
-     "gain": 0.9,
-     "reason": "again",
-     "at": 1.2
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.103,
+       1.3,
+       2.701
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.293,
+       1.32,
+       2.641
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.25
     },
     {
      "who": "spud",
@@ -2408,6 +2849,50 @@
      "dur": 0.01,
      "ease": "linear",
      "at": 2.08
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       0.17,
+       1.32,
+       2.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.085
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -0.53,
+       0.86,
+       2.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.085
     }
    ]
   },
@@ -2557,35 +3042,79 @@
       "brow": -1,
       "squint": 0,
       "headY": 0,
-      "headP": 0,
+      "headP": 5,
       "ears": -1,
       "breath": 0.5,
-      "x": 0.5,
-      "z": 2.35,
+      "x": 1.027,
+      "z": 2.21,
       "rot": -90
      },
      "dur": 0.01,
      "ease": "linear",
      "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "branch",
+      "grip": [
+       0.077,
+       0.08,
+       0.021
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.1,
+       1.32,
+       2.67
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.385
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.15,
+       0.86,
+       1.97
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.385
     }
    ]
   },
   {
    "name": "11 a metre away",
    "at": 25.4,
-   "len": 3.3,
+   "len": 1.6,
    "shot": {
     "pos": [
-     0.2,
-     1.3,
-     5.6
+     0.35,
+     1.5,
+     5.5
     ],
     "look": [
-     0.2,
-     3.02,
-     -4.251
+     0.35,
+     3.048,
+     -4.379
     ],
-    "fov": 50
+    "fov": 52
    },
    "do": [
     {
@@ -2597,12 +3126,19 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
-      "o": [
-       0.18,
-       0.95,
-       0.3
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.25,
+       1.25,
+       2.21
       ]
      },
      "dur": 0.3,
@@ -2613,12 +3149,13 @@
      "do": "prop",
      "id": "bear",
      "set": {
+      "rear": 0.4,
       "jaw": 0.35,
-      "headP": 15
+      "headP": 30
      },
-     "dur": 0.15,
+     "dur": 0.35,
      "ease": "in",
-     "at": 0.75
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -2640,48 +3177,168 @@
      "do": "prop",
      "id": "bear",
      "set": {
+      "jaw": 0.7,
+      "headP": 5
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.15,
+       0.86,
+       1.97
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "bear",
+     "set": {
+      "gait": 0,
+      "bound": 0,
+      "rear": 0.4,
+      "swipe": 0,
+      "climb": 0,
+      "climbStep": 0,
+      "jaw": 0.5,
+      "snarl": 0,
+      "brow": 0,
+      "squint": 0,
+      "headY": 0,
+      "headP": 20,
+      "ears": -1,
+      "breath": 0.5,
+      "x": 1.027,
+      "z": 2.21,
+      "rot": -90
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "11b the bear runs",
+   "at": 27,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     1,
+     1.4,
+     4.6
+    ],
+    "look": [
+     1,
+     3.292,
+     -5.219
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bear",
+     "set": {
       "rear": 0,
-      "jaw": 0.2,
-      "x": 1.5
+      "jaw": 0.15,
+      "x": 1.6,
+      "z": 1.95
      },
-     "dur": 0.45,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 1.6
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/bear-huff",
+     "gain": 0.8,
+     "reason": "the bear huffing as it backs off",
+     "at": 0.25
     },
     {
      "do": "prop",
      "id": "bear",
      "set": {
-      "rot": -193
+      "rot": -205
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 2.05
+     "at": 0.65
     },
     {
      "do": "prop",
      "id": "bear",
      "set": {
-      "x": 1.8,
-      "z": -3.2,
+      "x": 3.3,
+      "z": -4.6,
       "gait": 2.5,
       "bound": 0.6
      },
-     "dur": 1.6,
+     "dur": 1.7,
      "ease": "in",
-     "at": 2.5
+     "at": 1.1
     },
     {
      "sfx": "ai/bear-charge",
      "gain": 0.6,
      "reason": "the bear running off into the forest",
-     "at": 2.5
+     "at": 1.1
     },
     {
      "who": "spud",
      "do": "release",
+     "prop": "branch",
+     "keep": "air",
+     "reason": "the branch is put away off screen before the dawn cut",
+     "dur": 0,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.52
+    },
+    {
+     "do": "prop",
+     "id": "branch",
+     "set": {
+      "x": 56,
+      "y": 0,
+      "z": 42,
+      "fire": 0
+     },
      "dur": 0.01,
-     "at": 3.27
+     "ease": "linear",
+     "at": 2.55
     },
     {
      "who": "spud",
@@ -2694,68 +3351,19 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "who": "spud",
      "do": "turn",
      "to": 12,
      "dur": 0.01,
-     "at": 3.28
+     "at": 2.88
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 3.28
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.28
-    },
-    {
-     "do": "prop",
-     "id": "branch",
-     "set": {
-      "x": 56,
-      "z": 42
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.28
-    },
-    {
-     "do": "prop",
-     "id": "pot",
-     "set": {
-      "x": 0.1,
-      "y": 0.32,
-      "z": 0.85
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.28
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "pot",
-     "hand": "R",
-     "dur": 0.01,
-     "at": 3.28
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "hold",
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "who": "spud",
@@ -2765,7 +3373,7 @@
       "open": 0.05
      },
      "dur": 0.01,
-     "at": 3.28
+     "at": 2.88
     },
     {
      "who": "spud",
@@ -2776,7 +3384,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2788,7 +3396,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2800,7 +3408,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2812,7 +3420,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2823,7 +3431,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2834,7 +3442,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2845,7 +3453,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2856,7 +3464,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2867,7 +3475,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2878,7 +3486,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2889,7 +3497,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2900,7 +3508,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2911,7 +3519,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2922,7 +3530,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
@@ -2933,25 +3541,57 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
     },
     {
      "do": "prop",
-     "id": "bolt",
+     "id": "lbag",
      "set": {
       "x": 110,
       "z": 70
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.28
+     "at": 2.88
+    },
+    {
+     "do": "prop",
+     "id": "bolt",
+     "set": {
+      "x": 114,
+      "z": 70
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pot",
+      "grip": [
+       -0.28,
+       0.115,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       0.118,
+       0.22,
+       0.655
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.885
     }
-   ],
-   "kind": "payoff"
+   ]
   },
   {
    "name": "12 sunrise",
-   "at": 28.7,
+   "at": 29.9,
    "len": 6.5,
    "shot": {
     "pos": [
@@ -2992,16 +3632,16 @@
     },
     {
      "who": "spud",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.6,
      "at": 1.6
-    },
-    {
-     "who": "spud",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.9
     },
     {
      "macro": "narrate",
@@ -3071,7 +3711,7 @@
    "see": [
     "bear",
     "lantern",
-    "bag"
+    "lbag"
    ],
    "why": "the lantern goes over, the grass burns, the bear's head comes in over Chip in his bag"
   },
@@ -3080,7 +3720,7 @@
    "to": 14.6,
    "see": [
     "bear",
-    "bag"
+    "lbag"
    ],
    "why": "Freeze: the bear drags Chip away in his sleeping bag"
   },
@@ -3125,17 +3765,25 @@
   },
   {
    "from": 25.45,
-   "to": 27.9,
+   "to": 27,
    "see": [
     "bear",
     "spud.face",
     "pot"
    ],
-   "why": "a metre away on its hind legs: it bites the pot Spud holds up, then gives up"
+   "why": "a metre away on its hind legs: it bites the pot Spud holds up"
   },
   {
-   "from": 28.8,
-   "to": 35.2,
+   "from": 27.05,
+   "to": 29.9,
+   "see": [
+    "bear"
+   ],
+   "why": "the bear gives up and runs off into the forest"
+  },
+  {
+   "from": 30,
+   "to": 36.4,
    "see": [
     "spud.face",
     "pot",
@@ -3148,9 +3796,16 @@
   {
    "who": "chip",
    "with": "bag",
+   "from": 5.5,
+   "to": 10.1,
+   "reason": "Chip sits inside his sleeping bag (enclosing prop)"
+  },
+  {
+   "who": "chip",
+   "with": "lbag",
    "from": 10.1,
    "to": 14.6,
-   "reason": "Chip rides inside his sleeping bag (enclosing prop) until he is dragged off"
+   "reason": "Chip lies zipped inside the lying bag (enclosing prop) until he is dragged off"
   },
   {
    "who": "spud",
@@ -3198,7 +3853,7 @@
    "who": "spud",
    "with": "cooler",
    "from": 21.9,
-   "to": 28.7,
+   "to": 29.9,
    "reason": "Spud stands on the cooler's lid"
   },
   {
