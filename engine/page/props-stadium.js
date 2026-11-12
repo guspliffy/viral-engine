@@ -643,13 +643,13 @@ function buildTape(P) {
   const S = P.spec, g = P.whole, w = S.w ?? 2.6, Y = 0.85, SEG = 30, post = std("#d7deea", { roughness: 0.4 }), baseM = std("#47506a", { roughness: 0.6 });
   for (const sx of [-1, 1]) { put(g, new THREE.CylinderGeometry(0.014, 0.016, 1.0, 10), post, sx * w / 2, 0.5, 0, true); put(g, new THREE.CylinderGeometry(0.06, 0.07, 0.02, 14), baseM, sx * w / 2, 0.01, 0, true); put(g, new THREE.SphereGeometry(0.022, 10, 8), post, sx * w / 2, 1.0, 0, true); }
   const tm = new THREE.MeshStandardMaterial({ map: tapeTex(), roughness: 0.45, side: THREE.DoubleSide });
-  const mk = () => { const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 0.07, SEG, 1), tm); ghost(m, 2); g.add(m); return m; };
+  const mk = () => { const m = new THREE.Mesh(new THREE.PlaneGeometry(1, 0.07, SEG, 1), tm); m.userData.base = m.geometry.attributes.position.array.slice(); ghost(m, 2); g.add(m); return m; };
   const A = mk(), B = mk();
   // a half hangs from its post (p0) and runs `len` toward the cut (dir +-1); snap swings it back (-z) and lets it hang
   const lay = (mesh, p0, dir, len, snap, wave, t) => {
-    const pos = mesh.geometry.attributes.position;
+    const pos = mesh.geometry.attributes.position, base = mesh.userData.base;   // read the flat strip, never the last frame's bend
     for (let i = 0; i < pos.count; i++) {
-      const u = pos.getX(i) + 0.5, vy = pos.getY(i), dd = u * len, k = len > 0 ? dd / len : 0, ang = 1.2 * snap;
+      const u = base[i * 3] + 0.5, vy = base[i * 3 + 1], dd = u * len, k = len > 0 ? dd / len : 0, ang = 1.2 * snap;
       const rip = wave * 0.05 * Math.sin(dd * 7 - t * 9) * (0.3 + 0.7 * k);
       pos.setXYZ(i, p0 + dir * dd * Math.cos(ang), Y + vy - snap * 0.5 * k * k + rip * 0.4, -dd * Math.sin(ang) + rip);
     }
@@ -659,7 +659,9 @@ function buildTape(P) {
   return {
     grip: 0,
     apply(ps, t) {
-      const snap = clamp(ps.snap ?? S.snap ?? 0), wave = ps.wave ?? S.wave ?? 0, cut = S.cut ?? 0, key = `${snap},${wave},${wave ? t : 0}`;
+      const fin = (v, d) => (Number.isFinite(v) ? v : d);   // a param or the clock arriving undefined/NaN must not reach the vertices
+      t = fin(t, 0);
+      const snap = clamp(fin(ps.snap ?? S.snap, 0)), wave = fin(ps.wave ?? S.wave, 0), cut = fin(S.cut, 0), key = `${snap},${wave},${wave ? t : 0}`;
       if (key === last) return; last = key;
       lay(A, -w / 2, 1, cut + w / 2, snap, wave, t); lay(B, w / 2, -1, w / 2 - cut, snap, wave, t);
     },
@@ -718,7 +720,7 @@ function buildSign(P) {
   return {
     grip: 0,
     apply(ps) {
-      const c = clamp(ps.crush ?? S.crush ?? 0); if (c === last) return; last = c;
+      const cr = ps.crush ?? S.crush, c = clamp(Number.isFinite(cr) ? cr : 0); if (c === last) return; last = c;
       up.rotation.z = -0.7 * c; up.position.y = 0.2 - 0.02 * c;
       const p = geo.attributes.position;
       for (let i = 0; i < p.count; i++) {
