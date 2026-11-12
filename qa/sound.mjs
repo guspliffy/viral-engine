@@ -7,6 +7,8 @@
 //
 // soundNotes(sb), from the storyboard alone:
 //   whoosh-repeat  the same whoosh more than twice reads cheap: vary it or drop the quieter ones
+//   realistic-sounds  a sound that only marks movement or magic (pops, chimes, zaps, boings, whooshes, signatures,
+//                  stings; the automatic ones too, with how to switch them off): Jonny 12 Nov, realistic sounds only
 //   sound-event    a named sound with nothing happening on screen near it (no action starting or ending, no effect);
 //                  give it an action, move it, or say why in "reason" (an off-screen horn)
 //   floor          footsteps on a floor the engine had to guess (set type not in library.mjs SURFACES)
@@ -45,6 +47,14 @@
 //   ears-floor     each footstep, heard on its own as the engine placed it, against the other floors: does it sound
 //                  like the set's floor (wood, carpet, concrete...). Earshot can't tell grass from snow or carpet
 //                  from other indoor floors (qa/ears.py SAME), so those only fail on a clear contradiction.
+//   ears-music     the music bed alone, as the engine plays it: earshot's realness (a real recording or
+//                  pro-produced, against code-synthesized) and what it sounds most like among a dramatic film
+//                  orchestra, video game music, synth music and pop (shown, not judged: it rated a real orchestral
+//                  take 69 % "video game music"). Jonny 12 Nov 2026: a dramatic scenario needs a recorded-sounding
+//                  orchestra, never a synth bed ("this sounds like game music"). A code-synthesized bed warns when the
+//                  clip is dramatic (a beat style in DRAMATIC_STYLES, or "music": { "mood": "dramatic" / "danger" /
+//                  "chase" / "tense" / "horror" / "epic" }), else it is a note (a playful synth bed is a choice).
+//                  Trial 12 Nov: both rejected synth beds p_real 0.14 / 0.19, both orchestra beds 0.96 / 0.97.
 //                  Install once: clone earshot next to this repo (../earshot), make its .venv with CPU torch,
 //                  pip install -e ., earshot doctor --fetch. Or point EARSHOT_PYTHON at a Python that has it.
 import fs from "node:fs";
@@ -55,7 +65,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { renderAudio, soundEvents, writeWav } from "../engine/audio.mjs";
 import { isHit, floorOf, SURFACES } from "../engine/sfx/library.mjs";
-import { lockMusic } from "../engine/music.mjs";
+import { lockMusic, addMusic } from "../engine/music.mjs";
 import { mixClip, effectLevelsOverMix, loudestMoments } from "../engine/sfx/guard.mjs";
 import { soundClock } from "../engine/shared/holds.js";
 import { lineLevels, lineResults, loopSeam } from "./lines.mjs";
@@ -65,6 +75,10 @@ const SR = 44100, FRAME = 1 / 30;
 const NOT_PHYSICAL = /^(sting|sadslide|jingle|ui-|notify|ringtone|gasp|speech|magic-up|kenney\/(tone|two-tone|three-tone|pep-sound|power-up))/;
 const WHOOSH = /whoosh|swish/;
 const QUIET_ACTIONS = new Set(["look", "blink", "noblink", "expr", "still"]);
+// sounds that only mark movement or magic, the early clips' blings, chimes, squeaks and boings (Jonny 12 Nov 2026: "if
+// we use sounds they should be realistic or come close to atleast"); the hint says how to switch off an automatic one
+const UNREAL = /^(ringpop|pop|poof|tink|ting|ding|zap|magic-up|force-field|laser|charge|sting|sadslide|partyhorn|jingle|hop|flutter|recordscratch|whistletune|timestop|timego|flash|shing|whoosh|swish|windswell|sig-|ui-|notify|ai\/magic-zap|ai\/blep|ai\/flare|ai\/dundun|kenney\/(tone|two-tone|three-tone|pep-sound|power-up|phaser|zap|slime))/;
+const UNREAL_HINT = { hop: "the hop's own boing: `quiet: true` on the hop", pop: "a swap's pop", charge: "a charge's hum: `quiet: true`", sting: "the shocked face's sting: `sound.autoSting` off", sadslide: "a droop's trombone: `sound.autoTrombone` off", poof: "a poof effect: `sound: false` on it", whoosh: "a hat's whoosh: `quiet: true` on it", tink: "a hat landing: `quiet: true`" };
 // the physical moments of the storyboard: actions starting and ending, and every footfall of a walk (a foot lands
 // every half step cycle, as in audio.mjs foley and page/potato.js)
 function physicalMoments(sb) {
@@ -85,6 +99,12 @@ export function soundNotes(sb) {
   const ev = soundEvents(sb);
   const wh = ev.filter((e) => WHOOSH.test(e.kind));
   if (wh.length > 2) add("warn", "whoosh-repeat", `${wh.length} whooshes (${list(wh.map((e) => e.at))}): more than two of the same air sound reads cheap; vary them (shing, cloth, flutter) or drop the quieter ones`);
+  // realistic sounds only: every sound that only marks movement or magic, the automatic ones included
+  const unreal = ev.filter((e) => UNREAL.test(e.kind));
+  if (unreal.length) {
+    const kinds = [...new Set(unreal.map((e) => e.kind))].map((k) => { const at = unreal.filter((e) => e.kind === k).map((e) => e.at); const h = /^sig-/.test(k) ? "a lead's signature: `sound.signature: false`" : UNREAL_HINT[k]; return `${k} at ${list(at)}${h && !(sb.sfx || []).some((x) => x.sound === k) ? ` (${h})` : ""}`; });
+    add("warn", "realistic-sounds", `${unreal.length} sound${unreal.length > 1 ? "s" : ""} that only mark movement or magic: ${kinds.join("; ")}. Jonny 12 Nov: realistic sounds only, no blings, chimes, squeaks or boings; use the real sound of the thing or none (docs/rules/output.md)`);
+  } else add("pass", "realistic-sounds", "no sound that only marks movement or magic");
   // physical moments: actions starting and ending, effects
   const moments = physicalMoments(sb), spans = [];
   for (const a of sb.actions || []) if (!QUIET_ACTIONS.has(a.do)) spans.push([a.at, a.at + (a.dur ?? 0.3)]);
@@ -316,6 +336,24 @@ export function earshotPython() {
   return c.find((p) => p && fs.existsSync(p)) ?? null;
 }
 
+// ears-music: beat styles that are a dramatic scene's music (puppet/beat.mjs) and the "mood" words that say so
+export const DRAMATIC_STYLES = new Set(["chase", "orchestra", "danger", "dread"]);
+const DRAMATIC_MOOD = /dramatic|danger|chase|tense|horror|epic|thrill/i;
+export function dramaticMusic(sb) {
+  const m = sb.music || {};
+  return DRAMATIC_STYLES.has(m.style) || DRAMATIC_MOOD.test(String(m.mood ?? ""));
+}
+// the music bed alone, as the mix plays it (locked, ducked under the voices), peak 0.9; null when there is none
+function musicBed(sb, a, file) {
+  if (sb.music === false) return null;
+  const n = a.L.length, mus = { L: new Float32Array(n), R: new Float32Array(n), sr: a.sr ?? SR, events: a.events };
+  addMusic({ ...sb, music: sb.music?.lock ? sb.music : lockMusic(sb) }, mus, { norm: false });
+  let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(mus.L[i]), Math.abs(mus.R[i]));
+  if (pk < 1e-4) return null;
+  for (let i = 0; i < n; i++) { mus.L[i] *= 0.9 / pk; mus.R[i] *= 0.9 / pk; }
+  writeWav(file, mus.L, mus.R, mus.sr); return file;
+}
+
 export function soundEars(clip, sb, chars) {
   sb = soundClock(sb);
   const out = [], add = (level, check, msg) => out.push({ group: "technical", level, check, msg });
@@ -329,7 +367,8 @@ export function soundEars(clip, sb, chars) {
   const steps = a.events.filter((e) => e.samples && /^step/.test(e.kind)).slice(0, 12).map((e, i) => { const f = path.join(dir, `step-${i}.wav`), y = norm(e.samples); writeWav(f, y, y, SR); return { t: +e.at.toFixed(3), file: f }; });
   const fl = floorOf(sb), floors = [...new Set(Object.values(SURFACES).concat("grass", "snow"))];
   const job = { mix: path.resolve(clip), fps: sb.fps ?? 30, cues: hits.map((e) => ({ t: +e.at.toFixed(3), kind: "hit", id: `${e.kind}@${e.at}` })),
-    floor: steps.length ? { surface: fl.surface, alts: floors, steps } : null };
+    floor: steps.length ? { surface: fl.surface, alts: floors, steps } : null,
+    music: (() => { const f = musicBed(sb, a, path.join(dir, "music.wav")); return f ? { file: f } : null; })() };
   fs.writeFileSync(path.join(dir, "job.json"), JSON.stringify(job));
   const r = spawnSync(py, [path.join(ROOT, "qa/ears.py"), path.join(dir, "job.json"), path.join(dir, "out.json")], { encoding: "utf8", maxBuffer: 64 << 20 });
   if (r.status !== 0) { add("warn", "ears", `earshot failed: ${(r.stderr || "").trim().split("\n").pop()}`); return out; }
@@ -345,6 +384,15 @@ export function soundEars(clip, sb, chars) {
     const heard = Object.entries(f.heard).sort((x, y) => y[1] - x[1]).map(([k, v]) => `${v}x "${k}"`).join(", ");
     const kinds = [...new Set(a.events.filter((e) => e.samples && /^step/.test(e.kind)).map((e) => e.kind))].join(", ");
     add(f.share >= 0.5 ? "pass" : "warn", "ears-floor", `${f.top} of ${f.n} footsteps (${kinds}) sound like ${fl.surface}${["grass", "snow", "carpet", "indoor"].includes(fl.surface) ? " or a floor earshot can't tell from it" : ""} against the other floors (heard: ${heard}; median p ${f.median_p})${f.share < 0.5 && !kinds.includes(`step-${fl.surface}`) ? `: the clip uses ${kinds}, not step-${fl.surface}` : ""}`);
+  }
+  const mu = res.music;
+  if (mu?.verdict) {
+    const synth = /synthesized/.test(mu.verdict), drama = dramaticMusic(sb), top = (mu.choice || [])[0];
+    const heard = (mu.choice || []).slice(0, 2).map((c) => `"${c.text}" ${Math.round(c.p * 100)}%`).join(", ");
+    const what = sb.music?.file || sb.music?.pool ? `music ${sb.music.file ?? sb.music.pool}` : `music style "${sb.music?.style ?? "auto"}"`;
+    add(synth && drama ? "warn" : synth ? "note" : "pass", "ears-music",
+      `${what}: earshot hears ${mu.verdict} (p_real ${mu.p_real}); closest of four: ${heard}` +
+      (synth && drama ? `. This clip is dramatic: Jonny wants a recorded-sounding orchestra, not a synth bed (use a "file" bed from assets/music/ai or engine/soundgen)` : synth ? " (a synth bed: fine for a playful clip, not for a dramatic one)" : ""));
   }
   return out;
 }
