@@ -27,6 +27,10 @@ const LOOK = "sheet";               // the cast from Jonny's design sheets with 
 const MUSIC = { style: "warm", lowCut: 150, gain: 0.3 };   // a bed from 0:00 (Jonny, 29 Oct: music on every video); pick
                                     // the style per clip (bounce, sneaky, warm, disco: engine/music.mjs); lowCut keeps it
                                     // off the phone speaker's mud; false: none
+// Danger, a chase, a monster: a RECORDED orchestra bed, never a puppet/beat.mjs style (Jonny 12 Nov 2026 on two synthesised
+// beds under a T. rex chase: "this sounds like game music and not dramatic"; he picked this take by ear and wanted it louder):
+//   { file: "ai/orchestra-chase/orchestra-chase-01.ogg", lowCut: 90, gain: 0.8, duck: { voice: -6 }, dip: false }
+// the quiet before it: "ai/orchestra-suspense/orchestra-suspense-01.ogg" (`until` + `then` switch beds: engine/music.mjs).
 // lines (clip.mjs clip({ lines })): c.say and the opener subtitle every line, gibberish included, low at SUB_POS (y px,
 // clear of the title Jonny adds at the top in the app), and no automatic blink lands on a line
 const LINES = { sub: true, blink: false };
