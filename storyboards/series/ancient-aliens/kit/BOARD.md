@@ -39,7 +39,8 @@ World axes for every Giza piece: **north = -z, south = +z (toward the default ca
   Khafre (-334, +354) base 215.3 h 136.4, casing cap on its top 22 %; Menkaure (-574, +739) base 103.4 h 61.
   Menkaure sits 125 m east of the line through the other two: that offset is a story point (clue 5), keep it exact.
 - Giza 2560 BC: Khufu's pyramid ALONE. "building" = built to half height (flat working top at 73 m), white casing on the
-  lower 45 % of what is built, stepped yellow core above. "finished" = all white, sharp tip, 146.6.
+  lower 45 % of what is built, stepped yellow core above. "finished" = all white with drawn masonry, a gold capstone (top 10 %), 146.6, and the
+  complex around it (court wall, temple + causeway east, three queens' pyramids, tomb rows, a town in the south).
 - Ring ship: 30 m across (outer r 15), hovers 40 m above its work. Lift beam r 2.0. Cargo ship: 12 m wide half ring.
 - Granite beam: 8.0 long x 1.5 wide x 2.2 high (about 70 t). King's Chamber: 10.47 (x, east-west) x 5.23 (z) x 5.82 high.
 - Aliens: crew 0.60 tall round; foreman 1.05 tall narrow; lifter 0.75 tall, 0.85 wide.
