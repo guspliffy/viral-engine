@@ -873,7 +873,7 @@
      "y": 1.977,
      "dur": 1.05,
      "steps": 3,
-     "ease": "linear",
+     "ease": "inOut",
      "at": 1.9
     },
     {
@@ -1253,8 +1253,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      1000.6,
-      -2.15
+      1000.55,
+      -2.05
      ],
      "y": 0,
      "dur": 0.01,
@@ -1265,7 +1265,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 90,
+     "to": 130,
      "dur": 0.01,
      "ease": "linear",
      "at": 2.58
@@ -1307,26 +1307,26 @@
    "len": 3.5,
    "shot": {
     "pos": [
-     1002.5,
+     1002.6,
      0.85,
-     -1.15
+     -1.05
     ],
     "look": [
-     1000.6,
-     0.72,
-     -2.2
+     1000.8,
+     0.68,
+     -2.3
     ],
     "fov": 46,
     "to": {
      "pos": [
-      1002.35,
+      1002.45,
       0.86,
-      -1.22
+      -1.12
      ],
      "look": [
-      1000.6,
-      0.72,
-      -2.2
+      1000.8,
+      0.68,
+      -2.3
      ],
      "fov": 46
     },
@@ -1351,9 +1351,9 @@
      "side": "L",
      "pose": {
       "world": [
-       1000.72,
-       0.5,
-       -2.585
+       1000.88,
+       0.46,
+       -2.59
       ]
      },
      "dur": 0.45,
@@ -1432,12 +1432,12 @@
    "shot": {
     "pos": [
      1999.4,
-     13.6,
+     14.6,
      12
     ],
     "look": [
      1999.4,
-     13.6,
+     14.6,
      0
     ],
     "fov": 44,
@@ -1700,9 +1700,9 @@
       3000.75,
       9.6
      ],
-     "dur": 0.6,
-     "steps": 2,
-     "ease": "out",
+     "dur": 0.8,
+     "steps": 3,
+     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -1768,7 +1768,7 @@
      "do": "arm",
      "side": "L",
      "pose": "wave",
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 0.8
     },
@@ -1797,9 +1797,9 @@
       3001.05,
       10.6
      ],
-     "dur": 0.5,
-     "steps": 2,
-     "ease": "out",
+     "dur": 0.75,
+     "steps": 3,
+     "ease": "inOut",
      "at": 1.05
     },
     {
@@ -1807,7 +1807,7 @@
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.3,
+     "dur": 0.5,
      "ease": "inOut",
      "at": 2
     },
@@ -2199,7 +2199,7 @@
      "do": "arm",
      "side": "R",
      "pose": "up",
-     "dur": 0.3,
+     "dur": 0.45,
      "ease": "inOut",
      "at": 0.1
     },
@@ -2244,7 +2244,7 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.3,
+     "dur": 0.5,
      "ease": "inOut",
      "at": 1.8
     },
@@ -2261,8 +2261,9 @@
     },
     {
      "who": "spud",
-     "macro": "shrug",
-     "hold": 0.6,
+     "do": "face",
+     "browR": 0.6,
+     "dur": 0.3,
      "at": 2.7
     },
     {
@@ -2397,34 +2398,34 @@
      "do": "arm",
      "side": "R",
      "pose": "up",
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1.3
+     "at": 1.1
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.25,
+     "dur": 0.45,
      "ease": "inOut",
-     "at": 2.7
+     "at": 2.6
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": "up",
-     "dur": 0.25,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 3.5
+     "at": 3.3
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.25,
+     "dur": 0.45,
      "ease": "inOut",
      "at": 4.9
     },
@@ -2593,7 +2594,8 @@
     "clipping",
     "arm-in-prop",
     "hand-in-prop",
-    "costume-in-prop"
+    "costume-in-prop",
+    "shell"
    ],
    "reason": "the headlamp band is worn on his head (built on his skin)"
   },

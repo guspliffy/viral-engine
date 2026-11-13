@@ -38,7 +38,7 @@ const who = (id, character, o, x, z, face, extra = {}) => ({ id, character, at: 
 const SP = {
   gal: [0, -1.8, 180],                 // on the ramp, his back to us, climbing to -z
   room: [4.4, 0.6, -90],               // he walks in from the east end of the King's Chamber, facing west
-  wall: [0.6, -2.15, 90],               // at the north wall (on his left), palm on the granite
+  wall: [0.55, -2.05, 130],               // at the north wall (on his left), palm on the granite
   quarry: [1.05, 10.6, -25],           // in front of the cutter, watching it
 };
 const cast = [
@@ -115,7 +115,7 @@ A(0.05, "spud", "move", { to: [P.gal[0], -2.6], y: galY(-2.6), dur: 1.2, steps: 
 A(1.3, "spud", "move", { to: [P.gal[0], -2.25], y: galY(-2.25), dur: 0.25, steps: 0, ease: "out" });   // slips back
 A(1.3, "spud", "expr", { expr: "shocked", dur: 0.12 }); arm(1.3, "spud", "R", { o: [0.25, 0.55, 0.2] }, 0.15); arm(1.3, "spud", "L", { o: [0.25, 0.55, 0.2] }, 0.15);
 arm(1.75, "spud", "R", "rest", 0.3); arm(1.75, "spud", "L", "rest", 0.3); A(1.8, "spud", "expr", { expr: "focused", dur: 0.2 });
-A(1.9, "spud", "move", { to: [P.gal[0], -4.0], y: galY(-4.0), dur: 1.05, steps: 3, ease: "linear" });
+A(1.9, "spud", "move", { to: [P.gal[0], -4.0], y: galY(-4.0), dur: 1.05, steps: 3, ease: "inOut" });
 sfx(1.32, "step", { gain: 0.5, reason: "his foot slides on the polished ramp" });
 see(0.2, 2.9, ["spud", "gal"], "P13: up the gallery; he slips back a step on the slope");
 
@@ -143,7 +143,7 @@ see(T.nine, T.palm, ["spud.face", "kc"], "P14 c: nine beams over him; he steps o
 // 11.6-12.4 close on the speckled granite, his palm comes in and lands flat (the evidence first); 12.4 back to him, the reveal
 place(T.palm, P.room, SP.wall);
 look(r3(T.palm + 0.05), "spud", [0.75, 0.1], 0.01);
-arm(r3(T.palm + 0.1), "spud", "L", { world: [r3(P.room[0] + 0.72), 0.5, -2.585] }, 0.45, "out");   // his palm flat on the stone
+arm(r3(T.palm + 0.1), "spud", "L", { world: [r3(P.room[0] + 0.88), 0.46, -2.59] }, 0.45, "out");   // his palm flat on the stone
 sfx(r3(T.palm + 0.55), "step", { gain: 0.25, reason: "his palm pats the granite" });
 look(r3(T.face + 0.05), "spud", [0, 0.05], 0.2);
 say(T.nogranite, "There is no granite at Giza.", "nogranite", "excited");
@@ -166,12 +166,12 @@ sfx(T.quarry, "kenney/space-engine-low", { gain: 0.1, dur: 5.0, reason: "the cut
 land(r3(T.quarry + 4.65));
 // 23.0-25.8 wide: he steps in to look at the cut; the foreman turns and waves him back; he steps back, then tells us
 look(T.look, "spud", [-0.4, -0.1], 0.2);
-A(r3(T.look + 0.1), "spud", "move", { to: [r3(P.quarry[0] + 0.75), 9.6], dur: 0.6, steps: 2, ease: "out" });
+A(r3(T.look + 0.1), "spud", "move", { to: [r3(P.quarry[0] + 0.75), 9.6], dur: 0.8, steps: 3, ease: "inOut" });
 look(r3(T.look + 0.6), "fore", [0.6, 0], 0.2); A(r3(T.look + 0.7), "fore", "expr", { expr: "annoyed", dur: 0.15 });
-arm(r3(T.look + 0.8), "fore", "L", "wave", 0.25);
-arm(r3(T.look + 2.0), "fore", "L", "rest", 0.3); look(r3(T.look + 2.1), "fore", [0, -0.35], 0.3);
+arm(r3(T.look + 0.8), "fore", "L", "wave", 0.4);
+arm(r3(T.look + 2.0), "fore", "L", "rest", 0.5); look(r3(T.look + 2.1), "fore", [0, -0.35], 0.3);
 look(r3(T.look + 0.85), "spud", [-0.5, 0.15], 0.15); A(r3(T.look + 0.9), "spud", "expr", { expr: "sad", dur: 0.15 });
-A(r3(T.look + 1.05), "spud", "move", { to: [r3(P.quarry[0] + 1.05), 10.6], dur: 0.5, steps: 2, ease: "out" });
+A(r3(T.look + 1.05), "spud", "move", { to: [r3(P.quarry[0] + 1.05), 10.6], dur: 0.75, steps: 3, ease: "inOut" });
 look(r3(T.saws - 0.2), "spud", [0.3, 0.05], 0.2); A(r3(T.saws - 0.2), "spud", "expr", { expr: "deadpan", dur: 0.2 });
 say(T.saws, "They tell you: copper saws and wooden boats...", "saws", "dry");
 look(r3(T.look + 0.2), "crew", [0.5, 0], 0.3);                    // the crew alien copies his lean
@@ -194,12 +194,12 @@ see(T.nile, T.boat, ["span", "cargo"], "P17: 80 tonnes of granite going over");
 look(r3(T.boat - 0.02), "fishA", [-0.3, 1.0], 0.01); look(r3(T.boat - 0.02), "fishB", [-0.1, 1.0], 0.01);
 A(r3(T.boat - 0.02), "fishA", "expr", { expr: "shocked", dur: 0.01 }); A(r3(T.boat + 0.2), "fishB", "expr", { expr: "terrified", dur: 0.15 });
 look(r3(T.boat - 0.02), "spud", [-0.2, 0.9], 0.01);
-arm(r3(T.boat + 0.1), "spud", "R", "up", 0.3);
+arm(r3(T.boat + 0.1), "spud", "R", "up", 0.45);
 look(r3(T.tonnes - 0.2), "spud", [0.3, 0.1], 0.2); A(r3(T.tonnes - 0.2), "spud", "expr", { expr: "deadpan", dur: 0.2 });
 say(T.tonnes, "For eighty tonnes.", "tonnes", "dry");
-arm(r3(T.tonnes + 1.3), "spud", "R", "rest", 0.3);
+arm(r3(T.tonnes + 1.3), "spud", "R", "rest", 0.5);
 look(r3(T.tonnes + 1.5), "fishA", [-0.8, 0], 0.2);               // fisherman A turns to look at the stranger in his boat
-c.macro(r3(T.tonnes + 2.2), "spud", "shrug", { hold: 0.6 });
+A(r3(T.tonnes + 2.2), "spud", "face", { browR: 0.6, dur: 0.3 });   // (a shrug flipped his palms in 3 frames: a brow instead)
 see(T.boat, T.ask, ["fishA.face", "fishB.face", "spud.face"], "P17 b: the fishermen stare up, he says it");
 
 // ---------------------------------------------------------------- P18 the ask 33.8-44.0: Aliens 1, Humans 2; one finger, two fingers
@@ -207,8 +207,8 @@ look(r3(T.ask - 0.02), "spud", [0, 0], 0.01); A(r3(T.ask - 0.02), "spud", "expr"
 say(T.askLine, "Aliens? Type one. Humans? Type two.", "ask", "question");
 punch(r3(T.askLine + 0.9), T.end, "ALIENS = 1", { y: 250, size: 84 });
 punch(r3(T.askLine + 3.1), T.end, "HUMANS = 2", { y: 345, size: 84 });
-arm(r3(T.askLine + 0.8), "spud", "R", "up", 0.25); arm(r3(T.askLine + 2.2), "spud", "R", "rest", 0.25);
-arm(r3(T.askLine + 3.0), "spud", "L", "up", 0.25); arm(r3(T.askLine + 4.4), "spud", "L", "rest", 0.25);
+arm(r3(T.askLine + 0.6), "spud", "R", "up", 0.4); arm(r3(T.askLine + 2.1), "spud", "R", "rest", 0.45);
+arm(r3(T.askLine + 2.8), "spud", "L", "up", 0.4); arm(r3(T.askLine + 4.4), "spud", "L", "rest", 0.45);
 say(T.wait, "I'll wait.", "wait", "dry");
 A(r3(T.wait + DUR.wait + 0.5), "spud", "face", { browL: 0.6, dur: 0.3 });
 look(r3(T.wait + DUR.wait + 1.6), "spud", [-0.7, 0], 0.25); look(r3(T.wait + DUR.wait + 2.4), "spud", [0, 0], 0.2);   // a side glance at the ship, back to us
@@ -224,8 +224,8 @@ const beats = c.beats([
   ["P14 granite beams, then he walks in", T.room, mv([R - 2.4, 0.9, 1.6], [R - 1.0, 5.8, -0.6], [R - 2.4, 1.0, 1.6], [R + 1.8, 1.4, 0.2], T.up - T.room, 64)],
   ["P14 b past his face to the beams", T.up, mv([R + 0.1, 0.3, 0.95], [R + 1.6, 1.25, 0.35], [R + 0.25, 0.3, 0.9], [R + 1.6, 1.45, 0.3], T.nine - T.up, 72)],
   ["P14 c nine beams over him", T.nine, mv([R - 4.6, 1.7, 0.2], [R + 1.0, 2.6, 0.6], [R - 3.8, 1.5, 0.2], [R + 1.0, 2.3, 0.7], T.palm - T.nine, 72)],
-  ["P15 palm on the granite, the reveal", T.palm, mv([R + 2.5, 0.85, -1.15], [R + 0.6, 0.72, -2.2], [R + 2.35, 0.86, -1.22], [R + 0.6, 0.72, -2.2], T.map - T.palm, 46)],
-  ["P15 b Aswan, 800 km up the Nile", T.map, mv([M - 0.6, 13.6, 12], [M - 0.6, 13.6, 0], [M + 1.5, 4.9, 12], [M + 1.5, 4.9, 0], T.quarry - T.map, 44)],
+  ["P15 palm on the granite, the reveal", T.palm, mv([R + 2.6, 0.85, -1.05], [R + 0.8, 0.68, -2.3], [R + 2.45, 0.86, -1.12], [R + 0.8, 0.68, -2.3], T.map - T.palm, 46)],
+  ["P15 b Aswan, 800 km up the Nile", T.map, mv([M - 0.6, 14.6, 12], [M - 0.6, 14.6, 0], [M + 1.5, 4.9, 12], [M + 1.5, 4.9, 0], T.quarry - T.map, 44)],
   ["P16 the cut", T.quarry, mv([Q + 3.6, 2.2, 8.6], [Q + 1.4, 2.1, 6.0], [Q + 3.3, 2.15, 8.2], [Q + 1.4, 2.1, 6.0], T.look - T.quarry, 50)],
   ["P16 the foreman waves him off", T.look, mv([Q - 0.4, 1.5, 16.2], [Q - 0.4, 1.5, 7.5], [Q - 0.25, 1.4, 15.4], [Q - 0.3, 1.45, 7.5], T.close - T.look, 54)],
   ["P16 b his doubt", T.close, mv([Q + 1.4, 0.95, 13.2], [Q + 1.05, 0.75, 10.6], [Q + 1.3, 0.9, 12.6], [Q + 1.05, 0.75, 10.6], T.nile - T.close, 44)],
@@ -252,7 +252,7 @@ write(import.meta.url, {
   cast, props: props.map((q) => (STAGED[q.id] ? { ...q, staged: STAGED[q.id] } : q)), captions: c.captions, beats, visible: c.visible,
   allowClip: [
     ...lampClip(["spud"], T.end),
-    { who: "spud-lamp", from: 0, to: T.end, checks: WORN, reason: "the headlamp band is worn on his head (built on his skin)" },
+    { who: "spud-lamp", from: 0, to: T.end, checks: [...WORN, "shell"], reason: "the headlamp band is worn on his head (built on his skin)" },
     { who: "boat", from: 0, to: T.end, checks: ["shell"], reason: "the fishermen and Spud sit on the reed boat's deck" },
     ...WORLD.map((w) => ({ who: w, from: 0, to: T.end, checks: WORN, reason: "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)" })),
     { who: "spud", with: "kc", from: T.palm, to: T.map, checks: ["reach", "hand-in-prop", "arm-in-prop"], reason: "P15: his palm flat on the granite wall" },

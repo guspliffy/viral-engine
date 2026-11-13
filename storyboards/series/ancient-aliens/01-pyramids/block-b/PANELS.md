@@ -16,3 +16,13 @@ STORY.md lines word for word in Reaper's voice (`say` macro, voice `reaper`), ca
 Counter "CLUE 2/5" top left 0.3-33.8. Sounds: steps (auto), cutter scrape + low hum (scifi scene), stone thud, Nile water
 (`ai/car-waves`, the closest whitelisted lapping), cargo ship hum. Voice takes: "saws" and "tonnes" are take 2 (take 1 heard
 as "für 80 Tonnen").
+
+## v2 (Jonny 13 Nov: block A v2 rules "way more interesting", block B v2 "i like it")
+
+Music: the pilot score, `score(56)`. 12 shots with a move each (kit BLOCKS.md "How we explain"): the gallery roof down to
+him (he slips back a step); the granite ceiling first, he walks in; past his upturned face, 80 t counts; nine beams, a
+grain ticks from the cracked beam, he sidesteps; palm on the granite in profile, "There is no granite at Giza." (excited);
+the map with an 800 km count (the map's own label removed); close on the cut; the foreman waves him off; his doubt; 80 t
+overhead; the boat, he points up; the ask with ALIENS = 1 / HUMANS = 2 on the words and finger counts (question tone).
+Full render: qa/check.mjs PASS. Kept warnings: lean-jump at 2.2 / 2.7 s (his steps up the 26 deg ramp), hand-jump on
+the foreman's wave and Spud's finger counts (anime timing snaps the pose; the moves are 0.4-0.5 s).
