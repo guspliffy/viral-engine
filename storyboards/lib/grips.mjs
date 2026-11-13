@@ -94,6 +94,11 @@ const SIZE = {
   // HP_GRIPS.hptongs through an arm pose (len 0.55, handle bundle r 0.06); the proof is make-hotpotato-bench.mjs
   hpcoal: { rim: -0.0375, wall: [[-0.1, 0.02], [-0.07, 0.06], [-0.03, 0.08], [0.03, 0.084], [0.1, 0.02]] },
   hptongs: { len: 0.55, r: 0.06 },
+  // props-zshop.js (Survive it 04, zombies): the 400 g food tin (7.5 cm across, 11 cm high), held round its side with the mug hold (0.66 up = the label's lower middle)
+  tin: { r: 0.0375, h: 0.11 },
+  // the jute bag held by ONE fist at its gathered neck, the sack hanging under it: r = the neck ring (0.085); h is NOT the sack's height: the mug hold's
+  // default height 0.66 x 1.0795 = 0.7125 = 0.95 x 0.75, the neck (props-zshop.js ZSHOP_GRIPS.tinbag.neck), so `grips.mug(c, who, BAG)` needs no height option
+  tinbag: { r: 0.085, h: 1.0795 },
   // props-bearcamp.js (Fight, Flight or Freeze 02, bear in the camp). cookpot: the steel pot's ONE handle lies along +x (its grip
   // "handle" at x 0.28, y 0.115): w / h / t are chosen so the phone hold's defaults (x = w / 2 + 0.035, y = 0.42 h, z -0.01) land
   // on the handle, a fist round it like a frying pan (the proof: make-grip-tests.mjs --prop cookpot --hold phone); r / h do the same

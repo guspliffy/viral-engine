@@ -1,0 +1,86 @@
+{
+  "_note": "Survive it 04 zombies v3 (Jonny 12 Nov 2026: 'the noices of the zombies are not zombie noises its jsut a weird sound'; every sound realistic, no movement markers). Real-sounding zombie voices for single zombies and the horde, a revolver shot for the gun fight.",
+  "sfx": [
+    {
+      "id": "zombie-groan",
+      "kind": "split",
+      "len": [
+        0.8,
+        2.6
+      ],
+      "duration": 10,
+      "replaces": "groan",
+      "prompts": [
+        "single zombie groaning and moaning, raspy guttural undead growl, horror film foley, close up, dry, no music",
+        "zombie snarling growl and hoarse rattling breath, horror movie creature vocal, close up, no music"
+      ],
+      "seeds": [
+        501,
+        502,
+        503
+      ],
+      "tags": [
+        "zombie",
+        "groan",
+        "growl",
+        "undead"
+      ],
+      "gain": 0.5,
+      "label": "a single zombie groaning, a raspy guttural undead moan"
+    },
+    {
+      "id": "zombie-horde",
+      "kind": "oneshot",
+      "len": [
+        3.0,
+        7.0
+      ],
+      "duration": 10,
+      "replaces": "groan",
+      "prompts": [
+        "a large horde of zombies moaning and groaning together in a city street, many undead voices, distant crowd, horror film ambience, no music",
+        "crowd of hundreds of zombies growling and shuffling, low guttural moans overlapping, eerie horror movie atmosphere, no music"
+      ],
+      "seeds": [
+        511,
+        512,
+        513
+      ],
+      "tags": [
+        "zombie",
+        "horde",
+        "crowd",
+        "moan"
+      ],
+      "gain": 0.45,
+      "label": "a crowd of many zombies moaning and groaning together"
+    },
+    {
+      "id": "revolver-shot",
+      "kind": "split",
+      "len": [
+        0.4,
+        1.4
+      ],
+      "duration": 10,
+      "replaces": "gunshot",
+      "prompts": [
+        "single revolver gunshots in a city street, loud sharp crack with echo off buildings, separate shots, realistic, no music",
+        "pistol shots fired outdoors, punchy realistic gunshot with short street reverb tail, one at a time, no music"
+      ],
+      "seeds": [
+        521,
+        522
+      ],
+      "tags": [
+        "gunshot",
+        "revolver",
+        "pistol",
+        "shot"
+      ],
+      "gain": 0.6,
+      "label": "a single loud gunshot from a revolver"
+    }
+  ],
+  "music": []
+}

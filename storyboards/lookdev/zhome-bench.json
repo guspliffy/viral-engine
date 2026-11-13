@@ -1,0 +1,448 @@
+{
+ "id": "zhome-bench",
+ "title": "Survive it zombies v2: the flat's things (TV, phone, tub, bottles, pot, cup, tally, mop, guard, bucket) bench",
+ "idea": "Engine look bench for task T4, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#aab0b4",
+  "floor": "none",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "tv0",
+   "kind": "ztv",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "news": 0
+  },
+  {
+   "id": "tv1",
+   "kind": "ztv",
+   "x": 0,
+   "y": 1.2,
+   "z": 0,
+   "news": 1
+  },
+  {
+   "id": "tv2",
+   "kind": "ztv",
+   "x": 0,
+   "y": 2.4,
+   "z": 0,
+   "news": 2
+  },
+  {
+   "id": "ph0",
+   "kind": "zphone",
+   "x": 9.94,
+   "y": 1,
+   "z": 0,
+   "alert": 0
+  },
+  {
+   "id": "ph1",
+   "kind": "zphone",
+   "x": 10.06,
+   "y": 1,
+   "z": 0,
+   "alert": 1
+  },
+  {
+   "id": "tubA",
+   "kind": "ztub",
+   "x": 19,
+   "y": 0,
+   "z": 0,
+   "fill": 0,
+   "run": 1
+  },
+  {
+   "id": "tubB",
+   "kind": "ztub",
+   "x": 21,
+   "y": 0,
+   "z": 0,
+   "fill": 1,
+   "run": 0
+  },
+  {
+   "id": "tubC",
+   "kind": "ztub",
+   "x": 26,
+   "y": 0,
+   "z": 0,
+   "fill": 0.55,
+   "run": 1
+  },
+  {
+   "id": "bt0",
+   "kind": "zbottles",
+   "x": 29.75,
+   "y": 0,
+   "z": 0,
+   "full": 0
+  },
+  {
+   "id": "bt1",
+   "kind": "zbottles",
+   "x": 30.25,
+   "y": 0,
+   "z": 0,
+   "full": 1
+  },
+  {
+   "id": "pot0",
+   "kind": "zpot",
+   "x": 39.78,
+   "y": 0,
+   "z": 0,
+   "fill": 0
+  },
+  {
+   "id": "pot1",
+   "kind": "zpot",
+   "x": 40.22,
+   "y": 0,
+   "z": 0,
+   "fill": 1
+  },
+  {
+   "id": "cup0",
+   "kind": "zcup",
+   "x": 49.92,
+   "y": 0,
+   "z": 0,
+   "fill": 0,
+   "rot": -35
+  },
+  {
+   "id": "cup1",
+   "kind": "zcup",
+   "x": 50.08,
+   "y": 0,
+   "z": 0,
+   "fill": 1,
+   "rot": -35
+  },
+  {
+   "id": "ty12",
+   "kind": "ztally",
+   "x": 60,
+   "y": 0.25,
+   "z": 0,
+   "n": 12
+  },
+  {
+   "id": "ty7",
+   "kind": "ztally",
+   "x": 60,
+   "y": 0.8,
+   "z": 0,
+   "n": 7
+  },
+  {
+   "id": "ty0",
+   "kind": "ztally",
+   "x": 60,
+   "y": 1.35,
+   "z": 0,
+   "n": 0
+  },
+  {
+   "id": "mop",
+   "kind": "zmop",
+   "x": 70,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "gd0",
+   "kind": "zguard",
+   "x": 79.88,
+   "y": 0.3,
+   "z": 0,
+   "cover": 0
+  },
+  {
+   "id": "gd2",
+   "kind": "zguard",
+   "x": 80.12,
+   "y": 0.3,
+   "z": 0,
+   "cover": 2
+  },
+  {
+   "id": "bk0",
+   "kind": "zbucket",
+   "x": 89.8,
+   "y": 0,
+   "z": 0,
+   "fill": 0,
+   "rain": 0
+  },
+  {
+   "id": "bk1",
+   "kind": "zbucket",
+   "x": 90.2,
+   "y": 0,
+   "z": 0,
+   "fill": 1,
+   "rain": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "tvstack",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.65,
+     4.4
+    ],
+    "look": [
+     0,
+     1.65,
+     0
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "tvclose",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.19,
+     2.7
+    ],
+    "look": [
+     0,
+     3.19,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "phone",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     10,
+     1.075,
+     0.85
+    ],
+    "look": [
+     10,
+     1.075,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tubwide",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     3.4,
+     9
+    ],
+    "look": [
+     20,
+     0.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "tubclose",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     25.75,
+     1.45,
+     1.5
+    ],
+    "look": [
+     25.45,
+     0.45,
+     -0.2
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "bottles",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     30,
+     0.7,
+     2.9
+    ],
+    "look": [
+     30,
+     0.17,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "pot",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     0.9,
+     2.1
+    ],
+    "look": [
+     40,
+     0.08,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "cup",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     50,
+     0.28,
+     0.95
+    ],
+    "look": [
+     50,
+     0.045,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tally",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60,
+     0.8,
+     2.7
+    ],
+    "look": [
+     60,
+     0.8,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "mop",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     70,
+     0.6,
+     3
+    ],
+    "look": [
+     70,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "guard",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     80,
+     0.2,
+     1.9
+    ],
+    "look": [
+     80,
+     0.2,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bucket",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     90,
+     1.1,
+     1.6
+    ],
+    "look": [
+     90,
+     0.15,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-zhome-bench.mjs (engine bench, no reviews)."
+}

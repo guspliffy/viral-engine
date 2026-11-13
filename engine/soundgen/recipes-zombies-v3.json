@@ -1,0 +1,14 @@
+{
+  "_note": "Survive it 04 zombies v3 (12 Nov 2026): the dread section now runs ~43 s (one shot per panel, no two voices at once), longer than the v1 takes; one longer dread bed. Panic and dawn reuse the v1 takes (recipes-zombies.json).",
+  "sfx": [],
+  "music": [
+    {
+      "id": "zombie-dread-long", "bpm": 72, "bars": 14, "mood": "dread",
+      "prompts": [
+        "dark suspense film score, slow ominous cello and double bass ostinato, lonely sparse piano notes, soft timpani heartbeat pulse, tremolo violins, dread slowly building, post-apocalyptic survival drama, orchestra, cinematic, 72 BPM",
+        "tense dramatic orchestral underscore, low strings pulsing like a heartbeat, dark minor piano motif, distant timpani rolls, quiet menacing french horns, siege and fear, serious horror drama film score, 72 BPM"
+      ],
+      "seeds": [441, 442]
+    }
+  ]
+}
