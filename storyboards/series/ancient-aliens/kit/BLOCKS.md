@@ -83,6 +83,8 @@ Bench: `kit/bench/make-aa-finished.mjs`.
   frame (8.767 > 263/30) lands one frame late, a `place()` teleport shows for a frame and the pops check fails.
 - An automatic blink on the last frames before a cut also flags pops: `A(t, who, "noblink", { dur })` over the end of
   the shot.
+- `hostSay` keeps a subtitle 0.4 s past the voice. Two lines closer than that fail caption-collide on the FULL render
+  (preflight does not catch it): pass `{ hold: <gap to the next line> }` on the first of the two.
 
 ## The join (one pass, after the four blocks are approved)
 

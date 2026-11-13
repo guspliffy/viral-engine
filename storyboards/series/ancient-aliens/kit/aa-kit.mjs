@@ -43,9 +43,9 @@ export const CAST = {
 // length + 0.4 s. dur = the spoken length the render prints (speech: "..." lasts Xs spoken); o.sub false = no subtitle,
 // a string = other subtitle text; o.pos = the caption's y (400).
 export const HOST_VOICE = "reaper";
-export function hostSay(c, t, who, line, dur, tone = "calm", { sub = true, pos = 400, size = 62 } = {}) {
+export function hostSay(c, t, who, line, dur, tone = "calm", { sub = true, pos = 400, size = 62, hold = 0.4 } = {}) {
   c.at(r3(t), { macro: "say", who, line, tone, dur, voice: HOST_VOICE, caption: false });
-  if (sub) c.cap(r3(t), r3(t + dur + 0.4), sub === true ? line : sub, pos, false, { size, kinetic: false });
+  if (sub) c.cap(r3(t), r3(t + dur + hold), sub === true ? line : sub, pos, false, { size, kinetic: false });   // hold: the subtitle stays this long past the voice; pass a smaller one when the next line starts sooner (caption-collide on the full render)
 }
 // THE SCORE. One recorded-orchestra score for the whole pilot, laid on STORY.md's times (assets/music/ancient-aliens/
 // README.md): a storyboard takes its slice with `music: score(<the story time in seconds its first frame stands at>)`,
