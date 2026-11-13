@@ -37,6 +37,8 @@ export const CAST = {
   crew: "ancient-aliens/alien-crew", foreman: "ancient-aliens/alien-foreman", lifter: "ancient-aliens/alien-lifter",
   workerA: "ancient-aliens/worker-a", workerB: "ancient-aliens/worker-b",
 };
+// Spud hosts with Reaper's voice: c.say(t, "spud", line, dur, tone, { voice: HOST_VOICE })
+export const HOST_VOICE = "reaper";
 const r3 = (x) => Math.round(x * 1000) / 1000;
 
 // Camera spots that are proven on the benches, relative to a place's origin (Khufu's centre for the far ones).
