@@ -41,7 +41,7 @@ const T = {
   burst: 0.8, chip: 1.0, ins: 1.9, click: 1.95, rew: 2.3, calm: 3.1, run2: 5.0, lobby2: 6.4, stair2: 7.4, face2: 9.4,
   click2: 11.45, rew2: 11.7, l3: 12.2, hall: 13.2, ndoor: 14.6, slam: 16.0, hfire: 16.2, fall: 16.9, low: 19.0,
   turn: 23.5, boxin: 24.9, ins3: 26.0, click3: 26.35, rew3: 26.6, fin: 27.1, pull: 27.75, out: 29.5, pay: 33.0,
-  tag: 37.0, END: 39.0,
+  tag: 34.6, END: 39.0,
 };
 const END = T.END;
 const DOWN = -60;   // parked under the floor
@@ -62,7 +62,7 @@ const KNEEL = [-0.5, 1.9];              // where loop 1 threw him (frame 0); he 
 const DOOR = [2.3, -0.12], DOOR_Y = 0.3;   // the threshold on the landing (steps 0.15 + 0.15)
 const LEVER = [3.45, 0.58];            // where he stands to pull the box's lever
 const LOWKNEEL = [2.75, 1.45];         // the low: on his knees 1.2 m from the box
-const CHIP_PERCH = [-0.3, -0.3], CHIP_PERCH_Y = 2.9, CHIP_UP = 3.02, CHIP_LEAN = [-0.3, -0.16];   // left of the sash's middle bar
+const CHIP_PERCH = [-0.3, -0.45], CHIP_PERCH_Y = 2.9, CHIP_UP = 2.9, CHIP_LEAN = [-0.3, -0.48];   // on his window seat, his front behind the sash planes (z -0.10/-0.13): Jonny 13 Nov "glitch in the window"   // left of the sash's middle bar
 const BESIDE = { spud: [-0.6, 1.95], chip: [0.2, 2.25] };   // the payoff, in the frame-0 camera (16)
 // frame B: the inside (local numbers + LOB)
 const LOB = [0, 0, -40];
@@ -81,10 +81,10 @@ const cast = [
 // ---------------------------------------------------------------- props
 const NIL = { ...box(0.01, 0.01, 0.01), y: DOWN };
 const CROWD = [   // DESIGN 4.1: h, dress, colour, hat, cap, angry; out of the door to their spot on the pavement
-  [0.90, "pyjamas", "#7f9fd0", 0, null, 0.8, [3.6, 1.5]], [0.78, "bathrobe", "#d9c7a3", 2, "#a85a5a", 0.8, [1.9, 1.1]],
-  [0.86, "pyjamas", "#9fc3a0", 2, "#9fc3a0", 0.3, [4.2, 2.3]], [0.74, "bathrobe", "#8a7fb4", 0, null, 0.8, [2.6, 2.6]],
-  [0.92, "bathrobe", "#5f7f8f", 0, null, 0.8, [3.3, 2.9]], [0.80, "pyjamas", "#e0b3a0", 1, null, 0.3, [1.4, 2.5]],
-  [0.84, "bathrobe", "#b7a1c8", 2, "#7a6a94", 0.8, [4.0, 1.0]],
+  [0.90, "pyjamas", "#7f9fd0", 0, null, 0.8, [3.6, 1.5]], [0.78, "bathrobe", "#d9c7a3", 2, "#a85a5a", 0.8, [2.9, 0.6]],
+  [0.86, "pyjamas", "#9fc3a0", 2, "#9fc3a0", 0.3, [4.3, 2.3]], [0.74, "bathrobe", "#8a7fb4", 0, null, 0.8, [3.0, 2.6]],
+  [0.92, "bathrobe", "#5f7f8f", 0, null, 0.8, [3.5, 3.0]], [0.80, "pyjamas", "#e0b3a0", 1, null, 0.3, [4.6, 1.4]],
+  [0.84, "bathrobe", "#b7a1c8", 2, "#7a6a94", 0.8, [4.0, 0.6]],   // every spot >= 0.85 m from the next, off the others' paths (Jonny 13 Nov: nobody walks through anybody)
 ];
 const MUG = { id: "mug", kind: "teamug", x: 0, y: DOWN, z: 0, steam: 1 }, MUGB = { ...MUG, id: "mug2" };
 const props = [
@@ -116,7 +116,7 @@ const props = [
 
 // seed every param that is first tweened later: an unseeded tween starts from undefined and writes NaN (stadium lesson)
 for (const [pk, id, set] of [
-  ["block", "blk", { sash: 0, door: 0, pull: 0, ring: 0, lights: 0.75, chip: 1, lobby: 1, fireroom: 0.15 }], ["block", "lob", { ndoor: 0 }], ["block", "clk", { minutes: 610 }],
+  ["block", "blk", { sash: 1, door: 0, pull: 0, ring: 0, lights: 0.75, chip: 1, lobby: 1, fireroom: 0.15 }], ["block", "lob", { ndoor: 0 }], ["block", "clk", { minutes: 610 }],
   ["fire", "ff", { time: 10, grow: 1, curl: 0, low: 0 }], ["fire", "bf", { time: 0, spread: 0 }], ["fire", "sf", { time: 0, grow: 0, front: 0.25 }],
   ["fire", "fsL", { time: 0, level: 0 }], ["fire", "fsH", { time: 0, level: 0 }]]) Pk(pk, 0, id, set);
 P(0, "watch", { hands: 0, crack: 0, shake: 0, glint: 0, wind: 0 }); P(0, "wdown", { hands: -3, crack: 0, shake: 0, glint: 0, wind: 0 }); P(0, "hfire", { fire: 0 });
@@ -154,13 +154,12 @@ Pk("fire", 0, "ff", { time: 10, grow: 1, low: 0 }); Pk("fire", 0.01, "ff", { tim
 Pk("fire", T.chip, "ff", { low: 0.6 }, 0.8, "inOut");
 sfx(T.burst, "ai/glass-smash", { gain: 0.6, reason: "the window under Chip's bursts" });
 fireBed(0, T.click + 0.05, 0.55); smokeAlarm(0.1, T.click + 0.05);
-cap(0, T.rew, "BEST FRIEND · 1 MINUTE", 255);
+cap(0, T.rew, "BEST FRIEND IN DANGER", 255);
 see(0, T.chip, ["spud.face", "chip.face", "ff"], "frame 0: the fire under Chip's window, Chip at the glass, Spud thrown back with the watch");
 // 02 Chip at the glass (1.0-1.9): the smoke lowers, he presses his glove flat, his eyes go down to Spud
 c.arm(T.chip + 0.2, "chip", "R", { o: [0.04, 0.6, 0.32] }, 0.25, "inOut");
-sfx(r3(T.chip + 0.3), "ai/knock", { gain: 0.35, reason: "Chip's glove banging the glass, muffled" });
 look(T.chip + 0.15, "chip", [0.2, -0.75], 0.15); expr(T.chip + 0.4, "chip", "terrified", { open: 0.45, eye: 1.3, brow: 0.9 }, 0.15);
-see(T.chip, T.ins, ["chip.face"], "Chip behind the glass, the smoke coming down over his window");
+see(T.chip, T.ins, ["chip.face"], "Chip at his open window, the smoke coming down over it");
 // 03 the click (1.9-2.3): the watch in Spud's glove, his thumb on the crown, the hands spin back
 P(T.click, "watch", { hands: -3, glint: 1 }, r3(T.calm - T.click), "in");
 click(T.click, "the watch crown clicks: the rewind");
@@ -182,8 +181,8 @@ const CALM0 = r3(T.calm - 0.05);
 Pk("block", CALM0, "blk", { sash: 1 });
 A(CALM0, "chip", "move", { to: CHIP_LEAN, y: CHIP_PERCH_Y, dur: 0.01, steps: 0, ease: "linear", sync: true });
 c.arm(CALM0, "chip", "L", "rest", 0.01); A(CALM0, "chip", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
-const hMug = grips.mug(c, "chip", { ...MUG, ...grips.placeFor("teamug", [-0.55, CHIP_PERCH_Y + 0.25, -0.02], 0) }, { side: "R" });
-P(r3(CALM0 - 0.01), "mug", { ...grips.placeFor("teamug", [-0.55, CHIP_PERCH_Y + 0.25, -0.02], 0) });
+const hMug = grips.mug(c, "chip", { ...MUG, ...grips.placeFor("teamug", [-0.55, CHIP_PERCH_Y + 0.25, -0.32], 0) }, { side: "R" });
+P(r3(CALM0 - 0.01), "mug", { ...grips.placeFor("teamug", [-0.55, CHIP_PERCH_Y + 0.25, -0.32], 0) });
 hMug.secure(CALM0, 0.01);
 expr(T.calm, "chip", "happy", { curve: 0.6 }, 0.01); look(T.calm, "chip", [0.35, -0.55], 0.01);
 c.arm(T.calm + 0.35, "chip", "L", "wave", 0.3, "out"); c.arm(T.calm + 0.8, "chip", "L", { o: [0.2, 1.05, 0.1] }, 0.25); c.arm(T.calm + 1.1, "chip", "L", "wave", 0.25);
@@ -353,25 +352,25 @@ A(r3(T.out - 0.02), "spud", "crouch", { to: 0, dur: 0.01 }); c.arm(r3(T.out - 0.
 c.arm(r3(T.out - 0.02), "spud", "L", { o: [0.12, 0.42, 0.18] }, 0.01);   // the cracked watch still in his glove
 place(T.out, "spud", [1.5, 2.3], 160, 0); expr(T.out, "spud", "sheepish", null, 0.01);
 CROWD.forEach(([, , , , , , to], i) => {
-  const t0 = r3(T.out + 0.15 * i), from = [2.3, -0.6], d = r3(Math.hypot(to[0] - from[0], to[1] - from[1]));
+  const t0 = r3(T.out + 0.45 + 0.33 * i), from = [2.3, -0.6], d = r3(Math.hypot(to[0] - from[0], to[1] - from[1]));
   P(r3(t0 - 0.02), `n${i}`, { x: from[0], y: DOOR_Y, z: from[1], rot: yawTo(from, to), walk: 0 });
   P(t0, `n${i}`, { x: to[0], y: 0, z: to[1], walk: d }, r3(d / 1.1), "linear");
   P(r3(t0 + d / 1.1), `n${i}`, { rot: yawTo(to, [1.5, 2.3]) }, 0.25);
 });
 place(T.out, "nbr", [2.3, -0.4], 0, DOOR_Y);
-A(r3(T.out + 0.3), "nbr", "move", { to: [3.0, 1.0], y: 0, dur: 1.0, ease: "inOut", stride: 0.9 });
-A(r3(T.out + 1.3), "nbr", "turn", { to: yawTo([3.0, 1.0], [1.5, 2.3]), dur: 0.2 });
+A(r3(T.out + 0.1), "nbr", "move", { to: [2.15, 1.55], y: 0, dur: 1.3, ease: "inOut", stride: 0.9 });
+A(r3(T.out + 1.4), "nbr", "turn", { to: yawTo([2.15, 1.55], [1.5, 2.3]), dur: 0.2 });
 expr(r3(T.out + 1.3), "nbr", "angry", { brow: -0.6 }, 0.15);
 c.arm(r3(T.out + 1.5), "nbr", "R", "point", 0.2, "out");
 for (let k = 0; k < 3; k++) c.arm(r3(T.out + 1.8 + k * 0.3), "nbr", "R", { o: [0.2, 0.62 + (k % 2) * 0.06, 0.42] }, 0.12);
 sfx(r3(T.out + 0.2), "ai/step-concrete", { gain: 0.35, reason: "slippers on the steps" });
 // Chip last, with his mug, confused
-place(r3(T.out + 1.4), "chip", [2.3, -0.5], 0, DOOR_Y);
+place(r3(T.out + 2.75), "chip", [2.3, -0.5], 0, DOOR_Y);
 const MUG2 = { ...MUGB, ...grips.placeFor("teamug", [2.52, DOOR_Y + 0.3, -0.3], 0) };
-P(r3(T.out + 1.36), "mug2", MUG2); grips.mug(c, "chip", MUG2, { side: "L" }).secure(r3(T.out + 1.38), 0.01);
-c.arm(r3(T.out + 1.5), "chip", "L", { o: [0.1, 0.5, 0.24] }, 0.25);   // carried at his chest, on the side away from Spud
-A(r3(T.out + 1.5), "chip", "move", { to: [1.85, 1.3], y: 0, dur: 1.4, ease: "inOut", stride: 0.6 });
-expr(r3(T.out + 1.5), "chip", "shocked", { open: 0.1, brow: 0.3 }, 0.1);
+P(r3(T.out + 2.71), "mug2", MUG2); grips.mug(c, "chip", MUG2, { side: "L" }).secure(r3(T.out + 2.73), 0.01);
+c.arm(r3(T.out + 2.8), "chip", "L", { o: [0.1, 0.5, 0.24] }, 0.25);   // carried at his chest, on the side away from Spud
+A(r3(T.out + 2.8), "chip", "move", { to: [2.4, -0.15], y: DOOR_Y, dur: 0.5, ease: "inOut", stride: 0.5 });   // out onto the top step, last, mug in hand, above the crowd
+expr(r3(T.out + 2.8), "chip", "shocked", { open: 0.1, brow: 0.3 }, 0.1);
 see(r3(T.out + 1.5), T.pay, ["nbr.face", "spud"], "everyone out before any fire: furious neighbours, the curler neighbour points at Spud, Chip last with his mug");
 
 // ================================================================= 17 "YOU'RE CRAZY." (33.0-37.0): frame 0 again, the block whole
@@ -380,37 +379,48 @@ place(T.pay, "spud", BESIDE.spud, 25); place(T.pay, "chip", BESIDE.chip, -10);
 expr(T.pay, "spud", "sad", { curve: 0.1 }, 0.01); look(T.pay, "spud", [0.5, -0.1], 0.01);
 expr(T.pay, "chip", "annoyed", { brow: 0.4 }, 0.01); look(T.pay, "chip", [-0.5, 0.1], 0.01);
 c.arm(r3(T.pay - 0.02), "chip", "L", "rest", 0.01);
-say(r3(T.pay + 2.5), "chip", "You're crazy.", 1.0, "deadpan");
-expr(r3(T.pay + 3.0), "spud", "kind", { curve: 0.5 }, 0.3);   // he looks at Chip, alive, and smiles
+say(r3(T.pay + 0.4), "chip", "You're crazy.", 1.0, "deadpan");
+expr(r3(T.pay + 1.2), "spud", "kind", { curve: 0.5 }, 0.3);   // he looks at Chip, alive, and smiles
 see(T.pay, T.tag, ["spud.face", "chip.face", "mug2"], "the frame-0 camera again, the block dark and whole: Chip alive beside him: You're crazy.");
-// 18 the tag (37.0-39.0): a thin curl of smoke out of the ground-floor window that nobody sees
-Pk("fire", r3(T.tag - 0.5), "ff", { time: T.tag, curl: 0 }); Pk("fire", r3(T.tag - 0.49), "ff", { time: END, curl: 1 }, r3(END - T.tag + 0.49), "linear");
-sfx(r3(T.tag + 0.3), "ai/grass-fire", { gain: 0.12, dur: 1.6, reason: "a faint crackle under the last note" });
-see(T.tag, END, ["ff", "spud", "chip"], "a thin curl of smoke slips out of the ground-floor window behind them; nobody sees it");
+// 18 the tag (34.6-39.0): the ground-floor window bursts behind them, the fire climbs the block. Everyone is out.
+Pk("fire", r3(T.pay - 0.02), "ff", { time: 10.2, grow: 0, curl: 0, low: 0 });
+Pk("fire", T.tag, "ff", { time: r3(10.4 + END - T.tag) }, r3(END - T.tag), "linear");   // the glass bursts at time 10.8 = clip 35.0
+Pk("fire", T.tag, "ff", { grow: 1 }, 1.4, "out"); Pk("fire", r3(T.tag + 1.4), "ff", { low: 0.5 }, 1.5, "inOut");
+Pk("fire", r3(T.pay - 0.02), "bf", { time: 19, spread: 0 }); Pk("fire", r3(T.tag + 0.8), "bf", { time: r3(19 + END - T.tag - 0.8) }, r3(END - T.tag - 0.8), "linear");
+Pk("fire", r3(T.tag + 0.8), "bf", { spread: 0.7 }, r3(END - T.tag - 0.8), "in");
+Pk("block", r3(T.tag + 0.4), "blk", { fireroom: 1 }, 0.4, "out");
+sfx(r3(T.tag + 0.4), "ai/glass-smash", { gain: 0.6, reason: "the ground-floor window bursts behind them" });
+fireBed(r3(T.tag + 0.4), END, 0.5);
+sfx(r3(T.tag + 2.2), "siren", { gain: 0.14, reason: "the fire engines the alarm called, on their way" });
+expr(r3(T.tag + 0.45), "chip", "shocked", { open: 0.5, eye: 1.2 }, 0.08); A(r3(T.tag + 0.45), "chip", "squash", { amount: 0.08, dur: 0.25 });
+A(r3(T.tag + 0.45), "spud", "squash", { amount: 0.06, dur: 0.25 }); look(r3(T.tag + 0.5), "spud", [0.6, 0.0], 0.2);
+look(r3(T.tag + 1.1), "chip", [-0.6, 0.0], 0.25);   // Chip slowly turns his eyes to Spud: he was right
+expr(r3(T.tag + 1.6), "spud", "kind", { curve: 0.35, brow: 0.3 }, 0.3);
+see(T.tag, END, ["ff", "spud.face", "chip.face"], "the ground-floor window bursts behind them and the block burns; everyone is safe outside");
 
 // ---------------------------------------------------------------- shots (frame A: the street; frame B: inside)
 const SH = {
   hook:   { pos: [0.5, 0.5, 5.6], look: [-0.45, 2.3, -0.35], fov: 56 },   // Spud low left, Chip's window upper right
-  chip:   { pos: [-0.1, 3.1, 1.3], look: [-0.3, 3.25, -0.3], fov: 38 },
+  chip:   { pos: [-0.1, 3.2, 1.3], look: [-0.3, 3.3, -0.45], fov: 40 },
   ins:    { pos: [-0.75, 0.82, 2.72], look: [-0.88, 0.7, 2.33], fov: 34 },
   calm:   { pos: [0.5, 0.55, 5.2], look: [-0.45, 2.35, -0.35], fov: 54, to: { pos: [0.45, 0.6, 4.8], look: [-0.42, 2.4, -0.35], fov: 52 }, dur: 1.9, ease: "inOut" },
   door:   { pos: [1.2, 1.0, 3.1], look: [2.6, 0.9, 0], fov: 46 },
   lobby:  { pos: [0.3, 1.6, -40.2], look: [0.5, 1.3, -46.5], fov: 66 },
   face2:  { pos: [-0.6, 0.8, -43.9], look: [0.4, 0.62, -42.1], fov: 42 },
-  l3:     { pos: [0.1, 1.3, -40.15], look: [1.79, 1.1, -43.78], fov: 64 },
+  l3:     { pos: [-1.6, 1.4, -41.0], look: [1.0, 1.0, -42.0], fov: 64 },
   hall:   { pos: [1.2, 3.1, -47.6], look: [2.1, 2.8, -50.2], fov: 50 },
   nbr:    { pos: [1.1, 2.95, -48.2], look: [2.6, 2.85, -50.0], fov: 48 },
   hfire:  { pos: [1.05, 2.7, -48.6], look: [1.9, 3.0, -54.4], fov: 56 },
-  fall:   { pos: [1.5, 0.9, -40.8], look: [1.7, 1.2, -44.5], fov: 52 },
+  fall:   { pos: [-0.4, 1.9, -41.6], look: [1.6, 1.0, -43.8], fov: 56 },
   low:    { pos: [0.8, 1.15, 9.6], look: [0.6, 4.4, 0], fov: 56 },
   turn:   { pos: [4.5, 0.62, 0.3], look: [2.66, 0.5, 1.15], fov: 40 },
   boxin:  { pos: [3.05, 0.85, 0.7], look: [3.45, 0.72, 0.05], fov: 36 },
   ins3:   { pos: [2.45, 1.0, 0.96], look: [2.55, 0.59, 1.09], fov: 34 },
   rew3:   { pos: [0.8, 1.15, 9.6], look: [0.6, 4.4, 0], fov: 56 },
-  pull:   { pos: [4.6, 0.95, 1.7], look: [3.3, 0.75, 0.25], fov: 46 },
-  out:    { pos: [1.0, 1.0, 5.2], look: [2.8, 0.7, 0.9], fov: 46 },
+  pull:   { pos: [5.3, 1.2, 3.0], look: [3.1, 0.8, 0.4], fov: 44 },
+  out:    { pos: [3.6, 1.1, 5.6], look: [2.4, 0.8, 1.1], fov: 56 },
   wcrack: { pos: [0.5, 0.42, -40.98], look: [0.55, 0.01, -41.25], fov: 36 },
-  pay:    { pos: [0.5, 0.5, 5.6], look: [-0.45, 2.3, -0.35], fov: 56 },
+  pay:    { pos: [0.45, 1.25, 5.8], look: [-0.2, 1.4, -0.35], fov: 58 },   // higher than frame 0, so the burning window stands over their heads, never behind them
 };
 const CUTS = [
   ["01 loop 1 peak", 0, SH.hook, "hook"],
@@ -441,17 +451,17 @@ const CUTS = [
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
 const NARR = !VO ? [] : [
-  [0, "Your best friend. One minute.", 2.4],
-  [2.6, "You rewind. Only you remember.", 2.3],
+  [0, "Your best friend is in danger!", 2.2],
+  [2.35, "But you can rewind time.", 1.9],
   [T.stair2 + 0.2, "But there's a catch.", 1.8],
   [T.face2 + 0.1, "Every rewind, the fire starts earlier.", 2.7],
   [T.low + 0.5, "You can't outrun it.", 1.8],
-  [T.pay + 0.2, "Only you remember.", 1.7],
+  [T.tag + 1.4, "Only you remember.", 1.7],
 ];
 for (const [t, line, dur] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: SUBY, gain: NG });
 
 const beats = c.beats(CUTS, END);
-for (const cp of c.captions) for (const [, cut] of CUTS) if (cp.from < cut - 0.05 && cp.to > cut - 0.03 && cp.text === "BEST FRIEND · 1 MINUTE") cp.to = r3(cut - 0.03);
+for (const cp of c.captions) for (const [, cut] of CUTS) if (cp.from < cut - 0.05 && cp.to > cut - 0.03 && cp.text === "BEST FRIEND IN DANGER") cp.to = r3(cut - 0.03);
 
 const allowClip = [
   { who: "spud", with: "watch", from: 0, to: END, reason: "the pocket watch in his glove" },
@@ -464,7 +474,7 @@ const allowClip = [
   { who: "spud", with: "blk", from: T.pull - 0.3, to: T.out, reason: "his glove on the alarm box's lever" },
   { who: "nbr", with: "lob", from: T.ndoor, to: T.slam, reason: "standing in his door crack" },
   { who: "nbr", with: "blk", from: T.out, to: T.out + 1.4, reason: "coming down the front steps" },
-  { who: "chip", with: "blk", from: T.out + 1.4, to: T.out + 3.0, reason: "coming down the front steps" },
+  { who: "chip", with: "blk", from: T.out + 2.7, to: T.out + 3.6, reason: "coming down the front steps" },
 ];
 
 write(import.meta.url, {
