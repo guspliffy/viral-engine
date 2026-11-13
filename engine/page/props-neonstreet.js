@@ -43,7 +43,17 @@ import { clamp } from "./util.js";
 //                 Spec: h 0.85 (0.6-1.1, the head's top), dress "coat" (default; a long coat with a collar, belt and buttons) |
 //                 "hoodie" (hood at the back, a pocket, drawstrings) | "dress" (a flared skirt that stops above the feet) |
 //                 "suit" (jacket, white shirt, tie), color (the clothes, default "#c8452e"), hat 0 | 1 (a beanie with a pompom,
-//                 hides the leaf), bag 0 | 1 (a shoulder bag on a strap).
+//                 hides the leaf) | 2 (a nightcap: a soft cone 0.22 long bent over to one side, a pompom, in spec.capColor,
+//                 default "#a85a5a"; hides the leaf), bag 0 | 1 (a shoulder bag on a strap).
+//                 EP07 neighbours (storyboards/series/what-if/07-fire-rewind/DESIGN.md 4.1), two more dresses, same skin:
+//                 "pyjamas" (a buttoned top and trousers in one colour, vertical stripes 0.03 m wide every 0.06 m in spec.stripe,
+//                 default color x 0.72; a small flat collar, 3 buttons; striped sleeves and trouser legs) |
+//                 "bathrobe" (a wrap robe with a bell skirt to 0.06 m above the ground, a shawl collar crossing left over right
+//                 in spec.trim, default color x 1.18, a belt with a knot and two ends 0.10 m long, a trim cuff).
+//                 Spec angry 0 (0..1, also a param): brows (two dark strokes, drawn only when angry > 0) tilt in 18 degrees and
+//                 drop 0.01, the smile turns to a frown (flat at 0.31, a full frown at 0.63); above 0.5 one arm (spec.angryArm
+//                 1 | -1, 1 = the arm on the right of the picture at rot 0, default from the id) rises 60 degrees to point forward
+//                 and shakes +-8 degrees at 5 Hz (clip time, as sway). angry 0 draws exactly as before.
 //                 Params: walk (metres walked, default spec.walk 0: drives the feet, the arm swing and a small bob; the stride
 //                 is 0.28 m, a foot's whole cycle 0.56 m; the stance foot moves back exactly as fast as the body goes forward
 //                 so it does not slide. The director tweens x/z and walk together with the SAME distance: walk is the distance
@@ -518,15 +528,45 @@ function potatoBody(rx, ry, rz, seed) {
 }
 const lerpHex = (a, b, t) => { const c = new THREE.Color(a).lerp(new THREE.Color(b), t); return "#" + c.getHexString(); };
 const STRIDE = 0.28;
+const sstepW = (x) => x * x * (3 - 2 * x);
+const mulHex = (c, k) => "#" + new THREE.Color(c).multiplyScalar(k).getHexString();
+// a cloth map with n vertical stripes (half a pitch wide, each a hair different in width and place, by hash), the cloth's own
+// flecks over it; for pyjamas. n is the count round the map's width
+const STRIPED = new Map();
+function stripeTex(color, stripe, n) {
+  const key = `${color}|${stripe}|${n}`;
+  if (!STRIPED.has(key)) STRIPED.set(key, tex(cvs(1024, 128, (g, W, H) => {
+    g.fillStyle = color; g.fillRect(0, 0, W, H);
+    const pitch = W / n; g.fillStyle = stripe;
+    for (let i = 0; i < n; i++) g.fillRect(i * pitch + pitch * 0.25 + (rnd(i, 31) - 0.5) * pitch * 0.07, 0, pitch * 0.5 * (0.94 + 0.12 * rnd(i, 32)), H);
+    for (let i = 0; i < 300; i++) { g.fillStyle = rnd(i, 1) < 0.5 ? `rgba(255,255,255,${0.03 + 0.05 * rnd(i, 2)})` : `rgba(0,0,0,${0.04 + 0.06 * rnd(i, 2)})`; g.fillRect(rnd(i, 3) * W, rnd(i, 4) * H, 1 + 4 * rnd(i, 5), 1 + 4 * rnd(i, 6)); }
+  }), { aniso: 4 }));
+  return STRIPED.get(key);
+}
+// a tube along a curve whose radius is rf(t), t 0..1 (a nightcap's cone); open at both ends
+function taperedCone(curve, rf, nu = 18, nr = 16) {
+  const fr = curve.computeFrenetFrames(nu, false), pos = [], uv = [], idx = [];
+  for (let i = 0; i <= nu; i++) {
+    const t = i / nu, c = curve.getPointAt(t), N = fr.normals[i], B = fr.binormals[i], R = rf(t);
+    for (let j = 0; j <= nr; j++) { const a = (j / nr) * TAU; pos.push(c.x + R * (Math.cos(a) * N.x + Math.sin(a) * B.x), c.y + R * (Math.cos(a) * N.y + Math.sin(a) * B.y), c.z + R * (Math.cos(a) * N.z + Math.sin(a) * B.z)); uv.push(t, j / nr); }
+  }
+  for (let i = 0; i < nu; i++) for (let j = 0; j < nr; j++) { const a = i * (nr + 1) + j, b = a + nr + 1; idx.push(a, a + 1, b, a + 1, b + 1, b); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
 
 function buildPotato(P) {
-  const LIFT = 0.03, S = P.spec, h = S.h ?? 0.85, k = h / (0.9 + LIFT), dress = S.dress ?? "coat", col = S.color ?? "#c8452e", hat = S.hat ? 1 : 0, bag = S.bag ? 1 : 0, ident = strHash(S.id ?? "p");
+  const LIFT = 0.03, S = P.spec, h = S.h ?? 0.85, k = h / (0.9 + LIFT), dress = S.dress ?? "coat", col = S.color ?? "#c8452e", hat = S.hat ? 1 : 0, nightcap = S.hat === 2, bag = S.bag ? 1 : 0, ident = strHash(S.id ?? "p");
   const RX = 0.39, RY = 0.4, RZ = 0.34, CY = 0.5, root = new THREE.Group(); root.scale.setScalar(k); P.whole.add(root);
   const feetG = new THREE.Group(); root.add(feetG);   // does not bob
   const body = new THREE.Group(); root.add(body);
   const lit = (c, e = 0.22, o = {}) => std({ color: "#ffffff", map: clothTex(c), roughness: 0.65, emissive: new THREE.Color(c), emissiveIntensity: e, ...o });
   const skin = std({ color: "#ffffff", map: skinTex(), roughness: 0.75, emissive: new THREE.Color(SKIN), emissiveIntensity: 0.22 });
   const acc = lerpHex(col, "#fff2d0", 0.45), dk = lerpHex(col, "#14101c", 0.55), clothM = lit(col), accM = lit(acc), dkM = lit(dk, 0.2);
+  // EP07 neighbours: pyjama stripes, the robe's trim and belt
+  const stripeCol = S.stripe ?? mulHex(col, 0.72), trimCol = S.trim ?? mulHex(col, 1.18);
+  const striped = (n) => std({ color: "#ffffff", map: stripeTex(col, stripeCol, n), roughness: 0.65, emissive: new THREE.Color("#ffffff"), emissiveMap: stripeTex(col, stripeCol, n), emissiveIntensity: 0.22 });
+  const pjM = dress === "pyjamas" ? striped(Math.max(8, Math.round(2.41 * k / 0.06))) : null, trimM = dress === "bathrobe" ? lit(trimCol, 0.25) : null, beltM = dress === "bathrobe" ? lit(mulHex(trimCol, 0.8), 0.22) : null, btnM = dress === "pyjamas" ? lit("#f4ecd8", 0.3) : null;
   put(body, potatoBody(RX, RY, RZ, ident % 50), skin, 0, CY, 0);
   const shell = (th0, th1, grow, m, parent = body) => { const sg = new THREE.SphereGeometry(1, 28, 14, 0, TAU, th0, th1 - th0); sg.scale(RX * grow, RY * grow, RZ * grow); return put(parent, sg, m, 0, CY, 0); };
   const surfZ = (x, y, grow = 1) => RZ * grow * Math.sqrt(Math.max(0, 1 - (x / (RX * grow)) ** 2 - ((y - CY) / (RY * grow)) ** 2));
@@ -544,6 +584,23 @@ function buildPotato(P) {
     shell(1.64, 2.5, 1.045, clothM); ring(1.64, 1.045, accM, 0.018); ring(2.5, 1.045, accM, 0.02);
     const prof = [[0.3, 0.44], [0.4, 0.34], [0.47, 0.22], [0.5, 0.13]].map(([x, y]) => new THREE.Vector2(x, y)), sk = put(body, new THREE.LatheGeometry(prof, 28), clothM, 0, 0, 0); sk.material = clothM.clone(); sk.material.side = THREE.DoubleSide;
     const hem = put(body, new THREE.TorusGeometry(0.5, 0.014, 6, 32), accM, 0, 0.13, 0); hem.rotation.x = Math.PI / 2;
+  } else if (dress === "pyjamas") {   // a buttoned top and trousers in one colour, vertical stripes (EP07 neighbours)
+    shell(1.64, Math.PI, 1.05, pjM);
+    for (const sx of [-1, 1]) { const cl = new RoundedBoxGeometry(0.1, 0.045, 0.014, 2, 0.006); const o = put(body, cl, accM, sx * 0.07, 0.43, surfZ(sx * 0.07, 0.43, 1.05) + 0.008); o.rotation.set(0, sx * -0.3, sx * 0.55); }
+    put(body, new RoundedBoxGeometry(0.014, 0.25, 0.006, 2, 0.003), dkM, 0, 0.30, surfZ(0, 0.30, 1.05) + 0.004);   // the placket
+    for (const dy of [0.37, 0.28, 0.19]) { const b = put(body, new THREE.SphereGeometry(0.02, 10, 8), btnM, 0, dy, surfZ(0, dy, 1.05) + 0.006); b.scale.z = 0.55; }
+  } else if (dress === "bathrobe") {   // a wrap robe: bell skirt to 0.06 m above the ground, shawl collar, belt, knot and ends
+    shell(1.64, Math.PI, 1.06, clothM);
+    const prof = [[0.41, 0.45], [0.43, 0.34], [0.46, 0.22], [0.485, 0.11], [0.495, 0.03]].map(([x, y]) => new THREE.Vector2(x, y)), sk = put(body, new THREE.LatheGeometry(prof, 28), clothM, 0, 0, 0); sk.material = clothM.clone(); sk.material.side = THREE.DoubleSide;
+    const hem = put(body, new THREE.TorusGeometry(0.495, 0.014, 6, 32), trimM, 0, 0.03, 0); hem.rotation.x = Math.PI / 2;
+    ring(1.64, 1.07, trimM, 0.04);   // the shawl collar rolls all round the neck line ...
+    for (const sx of [-1, 1]) {   // ... and crosses left over right on the chest: the left (+x) lapel lies on top
+      const lap = new RoundedBoxGeometry(0.075, 0.2, 0.026, 2, 0.01), o = put(body, lap, trimM, sx * 0.082, 0.35, surfZ(sx * 0.082, 0.35, 1.085) + (sx > 0 ? 0.014 : 0.004));
+      o.rotation.set(0, sx * -0.35, sx * 0.4);
+    }
+    const belt = ring(2.0, 1.085, beltM, 0.03); belt.scale.z = 0.75;
+    put(body, new THREE.SphereGeometry(0.044, 12, 10), beltM, 0, 0.32, surfZ(0, 0.32, 1.085) + 0.03).scale.set(1, 0.85, 0.7);   // the knot
+    for (const sx of [-1, 1]) { const e = put(body, new RoundedBoxGeometry(0.034, 0.1, 0.012, 2, 0.005), beltM, sx * 0.03, 0.255, surfZ(0, 0.3, 1.085) + 0.036); e.rotation.z = sx * 0.16; }
   } else {   // suit
     shell(1.64, Math.PI, 1.045, clothM);
     const shirt = std({ color: "#ffffff", map: clothTex("#f4f2ec"), roughness: 0.6, emissive: new THREE.Color("#ffffff"), emissiveIntensity: 0.3 });
@@ -562,11 +619,20 @@ function buildPotato(P) {
     const bl = put(body, new THREE.CircleGeometry(0.045, 14), blushM, bx, by, bz + 0.002); bl.rotation.y = sx * 0.55; bl.scale.set(1.2, 0.8, 1);
   }
   const sm = put(body, new THREE.TorusGeometry(0.04, 0.0065, 6, 14, Math.PI), std({ color: "#4a2008" }), 0, 0.54, RZ * Math.sqrt(1 - (0.06 / RY) ** 2)); sm.rotation.z = Math.PI; sm.rotation.x = -0.1;
+  // angry (EP07 neighbours): two dark brow strokes that tilt in and drop, the smile turning to a frown (see apply); hidden at 0
+  const browG = new THREE.CapsuleGeometry(0.0095, 0.062, 3, 6); browG.rotateZ(Math.PI / 2);
+  const browM = std({ color: "#2a1608", roughness: 0.4 }), brows = [-1, 1].map((sx) => { const b = put(body, browG, browM, sx * 0.125, 0.69, 0.28); b.visible = false; return [sx, b]; });
   // leaf sprout, or a beanie with a pompom
   if (!hat) {
     const leafM = std({ color: "#6cbf3a", roughness: 0.55, emissive: new THREE.Color("#2a5a10"), emissiveIntensity: 0.3 });
     const stem = put(body, new THREE.CylinderGeometry(0.01, 0.015, 0.07, 6), leafM, 0.01, 0.92, 0); stem.rotation.z = -0.15;
     for (const sx of [-1, 1]) { const lf = new THREE.SphereGeometry(0.05, 10, 8); lf.scale(1.5, 0.28, 0.8); const l = put(body, lf, leafM, sx * 0.055 + 0.01, 0.97, 0); l.rotation.z = sx * 0.55; }
+  } else if (nightcap) {   // a soft cone bent over to one side with a pompom, in spec.capColor
+    const cc = S.capColor ?? "#a85a5a", capM = lit(cc, 0.3), bandM = lit(lerpHex(cc, "#fff2d0", 0.4), 0.3);
+    shell(0, 0.98, 1.07, capM); ring(0.98, 1.07, bandM, 0.034);
+    const spine = new THREE.CatmullRomCurve3([[0, 0.87, 0], [0.012, 0.945, 0], [0.05, 0.995, 0], [0.105, 1.012, 0], [0.16, 0.99, 0]].map(([x, y, z]) => new THREE.Vector3(x, y, z)));
+    put(body, taperedCone(spine, (t) => 0.15 * (1 - t) ** 0.95 + 0.012), capM, 0, 0, 0);
+    put(body, new THREE.SphereGeometry(0.052, 12, 10), bandM, 0.172, 0.975, 0);
   } else {
     const cap = [["#ffd44a", "#ff4a8a"], ["#27d6c4", "#ffd44a"], ["#ff5a8a", "#fff0d0"], ["#7a6cff", "#ffd44a"]][ident % 4], capM = lit(cap[0], 0.3), pomM = lit(cap[1], 0.3);
     shell(0, 0.95, 1.07, capM); ring(0.95, 1.07, lit(cap[1], 0.25), 0.036); put(body, new THREE.SphereGeometry(0.07, 12, 10), pomM, 0, 0.96, 0);
@@ -579,13 +645,15 @@ function buildPotato(P) {
     const bg = put(body, new RoundedBoxGeometry(0.17, 0.14, 0.07, 2, 0.03), bm, -0.36, 0.34, 0.09); bg.rotation.z = 0.2; put(body, new RoundedBoxGeometry(0.17, 0.045, 0.075, 2, 0.02), lit(dk, 0.25), -0.36 + 0.0, 0.39, 0.09).rotation.z = 0.2;
   }
   // arms: sleeve and hand hanging from the shoulders, swung about x
-  const handM = std({ color: "#ffffff", map: skinTex(), roughness: 0.75, emissive: new THREE.Color(SKIN), emissiveIntensity: 0.22 }), armM = clothM, arms = [];
+  const handM = std({ color: "#ffffff", map: skinTex(), roughness: 0.75, emissive: new THREE.Color(SKIN), emissiveIntensity: 0.22 }), armM = dress === "pyjamas" ? striped(4) : clothM, arms = [];
   for (const sx of [-1, 1]) {
     const pv = new THREE.Group(); pv.position.set(sx * (RX * 0.92), 0.62, 0.02); body.add(pv); arms.push([sx, pv]);
     put(pv, new THREE.CapsuleGeometry(0.045, 0.14, 4, 8), armM, 0, -0.12, 0); put(pv, new THREE.SphereGeometry(0.05, 10, 8), handM, 0, -0.245, 0);
+    if (dress === "bathrobe") { const cf = put(pv, new THREE.TorusGeometry(0.047, 0.014, 6, 14), trimM, 0, -0.205, 0); cf.rotation.x = Math.PI / 2; }   // the turned cuff
   }
+  const angryArm = S.angryArm ?? (ident % 2 ? 1 : -1);
   // legs (hip in the body, toward the foot) and dark shoes (on the ground, not bobbing)
-  const shoeM = std({ color: lerpHex("#1a1620", col, 0.1), roughness: 0.35 }), legM = dress === "dress" ? std({ color: "#3a2a24", roughness: 0.6 }) : dress === "hoodie" ? lit("#2a3050", 0.2) : lit(dk, 0.2), legs = [], shoes = [];
+  const shoeM = std({ color: lerpHex("#1a1620", col, 0.1), roughness: 0.35 }), legM = dress === "pyjamas" ? striped(4) : dress === "dress" ? std({ color: "#3a2a24", roughness: 0.6 }) : dress === "hoodie" ? lit("#2a3050", 0.2) : lit(dk, 0.2), legs = [], shoes = [];
   const legG = new THREE.CylinderGeometry(0.032, 0.036, 1, 8); legG.translate(0, -0.5, 0);
   for (const sx of [-1, 1]) {
     const lg = put(body, legG, legM, sx * 0.1, 0.13, 0.02); legs.push([sx, lg]);   // (the body stands LIFT above the ground: the legs show)
@@ -615,6 +683,19 @@ function buildPotato(P) {
         lg.rotation.x = -Math.atan2(dz, dyy); lg.scale.y = Math.hypot(dz, dyy);
       }
       for (const [sx, pv] of arms) pv.rotation.set(3.2 * zr[sx], 0, sx * 0.22);
+      // angry: brows tilt in and drop, the smile turns to a frown; above 0.5 one arm rises and shakes. 0 leaves every transform as it was
+      const an = clamp(ps.angry ?? S.angry ?? 0);
+      if (an > 0) {
+        const a2 = clamp(an * 1.6), grow = clamp(an * 6);
+        for (const [sx, br] of brows) {
+          const by = 0.685 - 0.01 * an, ex = sx * 0.125;
+          br.position.set(ex, by, RZ * Math.sqrt(Math.max(0, 1 - (ex / RX) ** 2 - ((by - CY) / RY) ** 2)) + 0.004);
+          br.rotation.set(0, sx * 0.25, sx * 18 * Math.PI / 180 * an); br.scale.set(grow, 1, 1); br.visible = true;
+        }
+        sm.rotation.z = a2 < 0.5 ? Math.PI : 0; sm.scale.y = a2 < 0.5 ? 1 - 2 * a2 : 2 * a2 - 1; sm.position.y = 0.54 - 0.035 * a2;
+        const w = clamp((an - 0.5) * 4);
+        if (w > 0) for (const [sx, pv] of arms) if (sx === angryArm) { const sw = sstepW(w); pv.rotation.set(3.2 * zr[sx] * (1 - sw) - (60 * Math.PI / 180) * sw + (8 * Math.PI / 180) * sw * Math.sin(2 * Math.PI * 5 * tt), 0, sx * 0.22); }
+      } else { for (const [, br] of brows) br.visible = false; sm.rotation.z = Math.PI; sm.scale.y = 1; sm.position.y = 0.54; }
     },
   };
 }
