@@ -49,13 +49,20 @@ World axes for every Giza piece: **north = -z, south = +z (toward the default ca
 
 ## 3. Pieces and their owner files
 
-| File | Kinds |
-|---|---|
-| `engine/page/props-aa-giza.js` | gizaplateau, pyramid, gizatoday, nilevalley, cairohaze, blockrows, potatocrowd, orion, starfield, moon |
-| `engine/page/props-aa-ship.js` | ringship, cargoship, limeblock, granitebeam, granitecutter, roughgranite, aswanquarry, northline |
-| `engine/page/props-aa-inside.js` | kingschamber, grandgallery, pyramidentrance, starshaft, relievingchamber, gangmarks, worklamp, oillamp, paintbowl, reedbrush |
-| `engine/page/props-aa-items.js` | headlamp, spiritlevel, camel, reedboat, sunhat |
-| `engine/page/costumes-aliens.js` + `characters/ancient-aliens/*.json` | aliencrew (crew, foreman, lifter), egyptworker (worker-a, worker-b) |
+| File | Kinds | Task |
+|---|---|---|
+| `engine/page/props-aa-giza.js` | far scenery, built at `spec.s` scale: aasky, gizaplateau, pyramid, gizatoday, nilevalley, cairohaze, potatocrowd, orion, starfield, moon | T1 |
+| `engine/page/props-aa-site.js` | real-scale close pieces: pyramidbase, worktop, limeblock, casingpair, blockrows, pavement, northline | T2 |
+| `engine/page/props-aa-ship.js` | ringship, cargoship, granitebeam, granitecutter, roughgranite, aswanquarry | T3 |
+| `engine/page/props-aa-inside.js` | kingschamber, grandgallery, pyramidentrance, starshaft, relievingchamber, gangmarks, worklamp, oillamp, paintbowl, reedbrush | T4 |
+| `engine/page/costumes-aliens.js` + `characters/ancient-aliens/*.json` | aliencrew (crew, foreman, lifter), egyptworker (worker-a, worker-b) | T5 |
+| `engine/page/props-aa-items.js` | headlamp, sunhat, spiritlevel, camel, reedboat, nilewater | T6 |
+
+**Forced perspective (the engine's camera sees 300 m, hard-coded in stage.js):** everything far is a miniature. The
+far-scenery kinds and the two ships take `spec.s` (default 1 = real metres) and the block threads use **s 0.2** for
+wide shots: the whole of Giza then fits inside 250 m. Close shots (Spud beside a block, on the working top, at the
+base) use the real-scale pieces of props-aa-site.js. Never mix a real-scale character INTO a miniature: characters
+stand on the real-scale foreground, the miniature starts 25 m or more behind them.
 
 The detailed spec of each kind is in the TASK brief of its file (`kit/briefs/T1..T5.md`); the usage header of each
 file is what the block threads read.
