@@ -99,7 +99,7 @@ const CAM = {
   RUN: { pos: [-0.5, -13.85, 6.8], look: [-0.5, -14.2, -2.0], fov: 60 },                          // P04 ahead of them, running at us
   SEED: { pos: R([0, -10.6, 13.5]), look: R([0, 0.5, 4.0]), fov: 50 },                             // P04 b DESIGN "04 SEED"
   DOOR: { pos: [-1.2, -13.8, DOORZ - 1.9], look: [-4.3, -14.15, DOORZ + 0.4], fov: 60 },           // P05 the porch, side on
-  HALL: { pos: [0.55, 1.45, -400 + 2.6], look: [0.3, 0.95, -400 - 1.6], fov: 60 },                 // P06 into the hall, the door at the back
+  HALL: { pos: [0.05, 1.45, -400 + 2.6], look: [-0.2, 0.95, -400 - 1.6], fov: 60 },                 // P06 into the hall, the door at the back
   STA: { pos: [sx(0.7), 0.35, 2.6], look: [sx(0.7), 2.2, -2.6], fov: 55 },                        // P07 DESIGN camera A, low
   STB: { pos: [sx(0.2), 3.6, -3.4], look: [sx(0.6), 0.2, 1.2], fov: 60 },                        // P07 b DESIGN camera B, down at the door
   BURST: { pos: R([-1.8, 1.0, 2.8]), look: R([-6.0, 1.2, 0]), fov: 50 },                          // P08 DESIGN "08 burst"
@@ -174,8 +174,8 @@ const stand = (t, who, [x, z, yaw = 0, y = 0]) => {
   both(t0, who, "rest", 0.01); look(t0, who, [0, 0], 0.01);
 };
 const scene = (t, places) => Object.entries(places).forEach(([w, p]) => stand(t, w, p));
-const narr = (t, line, key, chunks, y = LINES.pos, tail = 0.25) => {
-  c.at(t, { macro: "narrate", line, voice: "narrator", style: STYLE, caption: false });
+const narr = (t, line, key, chunks, y = LINES.pos, tail = 0.25, take) => {
+  c.at(t, { macro: "narrate", line, voice: "narrator", style: STYLE, caption: false, ...(take && { take }) });
   const dur = DUR[key], n = chunks.reduce((k, x) => k + x.length, 0); let a = t;
   chunks.forEach((text, i) => { const b = i === chunks.length - 1 ? t + dur + tail : a + (dur * text.length) / n; c.cap(r3(a), r3(b), text, Array.isArray(y) ? y[i] : y, false, SUB_STYLE); a = b; });
 };
@@ -254,8 +254,9 @@ see(T.fire, T.run, ["spud.face", "grabber", "chip.face"], "P03: he fires up from
 scene(T.run, S.p04);
 regrab(T.run, [S.p04.spud[0], S.p04.spud[1], SY], 0);
 ["spud", "chip"].forEach((w) => expr(r3(T.run - 0.02), w, "terrified", { open: 0.35 }, 0.01));
-A(T.run, "spud", "move", { to: [-1.3, 6.4], y: SY, dur: r3(T.seed - T.run), steps: 7, ease: "linear" });
-A(T.run, "chip", "move", { to: [-0.15, 5.9], y: SY, dur: r3(T.seed - T.run), steps: 8, ease: "linear" });
+const RUNDUR = r3(T.seed - T.run);   // polish: the run verb (footfalls from a step rate) instead of a stepped move: draft 2 slid its feet
+A(T.run, "spud", "run", { pts: [[0, S.p04.spud[0], S.p04.spud[1]], [RUNDUR, -1.3, 6.4]], dur: RUNDUR, rate: [[0, 3.0], [RUNDUR, 3.0]], stride: 1.5 });
+A(T.run, "chip", "run", { pts: [[0, S.p04.chip[0], S.p04.chip[1]], [RUNDUR, -0.15, 5.9]], dur: RUNDUR, rate: [[0, 3.3], [RUNDUR, 3.3]], stride: 1.5 });
 arm(T.run, "chip", "R", { o: [0.3, 0.35, 0.35] }, 0.2);       // reaching for Spud's sleeve
 A(r3(T.run + 1.2), "chip", "lean", { to: 14, dur: 0.15 }); A(r3(T.run + 1.45), "chip", "lean", { to: 0, dur: 0.3 });   // he stumbles
 putProp(T.run, "hordeB", { x: -0.3 });
@@ -303,8 +304,11 @@ prop(T.hall, "hdoor", { bulge: 1 }, 0.1, "out"); prop(r3(T.hall + 0.1), "hdoor",
 // Chip drags the cabinet across to the door
 both(r3(T.hall - 0.02), "chip", { o: [0.2, 0.45, 0.4] }, 0.01);
 A(T.hall, "chip", "lean", { to: 16, dur: 0.2 });
-A(r3(T.hall + 0.2), "chip", "move", { to: [1.25, -400 - 1.0], dur: 2.2, steps: 6, ease: "inOut" });
-prop(r3(T.hall + 0.2), "cab", { x: 0.65, z: r3(-400 - 1.35) }, 2.2, "inOut");
+A(r3(T.hall + 0.2), "chip", "move", { to: [0.6, -400 - 1.0], dur: 2.2, steps: 7, ease: "inOut" });
+prop(r3(T.hall + 0.2), "cab", { x: -0.2, z: r3(-400 - 1.35) }, 2.2, "inOut");   // right in front of the door (polish: draft 2 stopped it beside the door)
+// Spud steps aside as it comes, his hands still on the door frame side
+A(r3(T.hall + 0.75), "spud", "lean", { to: 0, dur: 0.2 }); look(r3(T.hall + 0.65), "spud", [0.6, 0], 0.15);
+A(r3(T.hall + 0.8), "spud", "move", { to: [-0.95, -400 - 1.3], dur: 0.55, steps: 2, ease: "inOut" });
 sfx(r3(T.hall + 0.2), "scrape", { gain: 0.7, dur: 2.2, reason: "the heavy cabinet dragged over the floor" });
 expr(T.hall, "chip", "focused", { open: 0.3 }); expr(T.hall, "spud", "terrified", { open: 0.3 });
 narr(15.75, "Close it. Block it.", "block", ["Close it.", "Block it."]);
@@ -385,7 +389,8 @@ see(T.shot6, T.jump, ["spud.face", "kz1", "kz2", "roof"], "P10: the last shot; i
 scene(T.jump, S.p11);
 letGo(r3(T.jump - 0.02), "spud", "gunR"); A(r3(T.jump - 0.02), "spud", "grip", { side: "R", shape: "open", dur: 0.01 });
 ["spud", "chip"].forEach((w) => { expr(r3(T.jump - 0.02), w, "terrified", { open: 0.5 }, 0.01); both(r3(T.jump - 0.02), w, { o: [0.3, 0.2, -0.2] }, 0.01); });
-["spud", "chip"].forEach((w) => { A(T.jump, w, "crouch", { to: 0.6, dur: 0.18 }); A(r3(T.jump + 0.18), w, "crouch", { to: 0, dur: 0.1 }); both(r3(T.jump + 0.18), w, { o: [0.3, 0.9, 0.5] }, 0.15, "out"); });
+["spud", "chip"].forEach((w) => { A(T.jump, w, "crouch", { to: 0.6, dur: 0.18 }); A(r3(T.jump + 0.18), w, "crouch", { to: 0, dur: 0.1 }); both(r3(T.jump + 0.1), w, { o: [0.3, 0.9, 0.5] }, 0.27, "inOut"); });   // polish: the palm turn over 8 frames
+arm(r3(T.jump + 0.1), "spud", "R", { o: [0.14, 0.92, 0.5] }, 0.27, "inOut");   // his right hand (the friend's side) kept off the friend
 const JUMP = (w, z) => {
   A(r3(T.jump + 0.2), w, "move", { to: [rx(-0.6), z], y: 0.75, dur: 0.35, steps: 0, ease: "out" });
   A(r3(T.jump + 0.55), w, "move", { to: [rx(0.15), z], y: -0.2, dur: 0.6, steps: 0, ease: "in" });
@@ -404,7 +409,7 @@ fallTo(T.reach, "spud", -0.45, -0.2, -1.6, r3(T.close - T.reach));
 fallTo(T.reach, "chip", 0.5, -0.25, -1.65, r3(T.close - T.reach));
 prop(T.reach, "alley", { reach: 1 }, 0.6, "out");
 ramp(c, T.reach, r3(T.close - T.reach), 0.5, { in: 0.15, out: 0.2 });
-narr(33.55, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."]);
+narr(33.55, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."], LINES.pos, 0.25, 2);   // take 2: take 1 was heard as "You've stopped"
 sfx(T.reach, "ai/zombie-horde", { gain: 1, loud: true, dur: 5, reason: "the alley below, every one of them groaning up at them" });
 sfx(T.reach, "ai/heartbeat", { gain: 0.7, reason: "his heartbeat in the slow fall" });
 see(T.reach, T.hands, ["spud", "chip", "roof"], "P12 a: mid-air, the far roof's edge just out of reach");
@@ -441,7 +446,7 @@ const beats = c.beats([
   ["P04 the run", T.run, sh("RUN", { pos: [-0.8, -13.85, 9.5] }, r3(T.seed - T.run))],
   ["P04 b the seed: two roofs", T.seed, sh("SEED", { fov: 44 }, 1.0, "inOut")],
   ["P05 the door", T.door, sh("DOOR")],
-  ["P06 the hall", T.hall, sh("HALL", { pos: [0.3, 1.4, -400 + 2.2] }, r3(T.stairs - T.hall), "inOut")],
+  ["P06 the hall", T.hall, sh("HALL", { pos: [-0.15, 1.4, -400 + 2.2] }, r3(T.stairs - T.hall), "inOut")],
   ["P07 the stairwell", T.stairs, sh("STA")],
   ["P07 b the door below", T.below, sh("STB")],
   ["P08 the roof door", T.roof, sh("BURST")],
