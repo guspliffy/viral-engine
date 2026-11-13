@@ -1771,14 +1771,29 @@
      "side": "L",
      "pose": {
       "world": [
-       0.23,
-       0.52,
-       62.38
+       0.62,
+       0.4,
+       62.32
       ]
      },
-     "dur": 0.5,
+     "dur": 0.3,
      "ease": "inOut",
      "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.24,
+       0.45,
+       62.39
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.55
     },
     {
      "who": "spud",
@@ -1790,7 +1805,7 @@
       5
      ],
      "dur": 0.01,
-     "at": 1.8
+     "at": 2
     },
     {
      "do": "prop",
@@ -1800,13 +1815,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.81
+     "at": 2.01
     },
     {
      "sfx": "ai/ring-box-snap",
      "gain": 0.3,
      "reason": "the rings settle in the velvet",
-     "at": 1.82
+     "at": 2.02
     },
     {
      "who": "spud",
@@ -1814,22 +1829,22 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.15,
-     "at": 1.85
+     "at": 2.05
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.05,
-       0.3,
-       0.3
+      "world": [
+       0.79,
+       0.4,
+       61.94
       ]
      },
-     "dur": 0.35,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "spud",
@@ -1839,7 +1854,7 @@
       "curve": 0.7
      },
      "dur": 0.15,
-     "at": 1.9
+     "at": 2.1
     },
     {
      "who": "spud",
@@ -1850,7 +1865,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 2
+     "at": 2.2
     },
     {
      "who": "spud",
@@ -1892,6 +1907,20 @@
      "ease": "linear",
      "sync": true,
      "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.59
     },
     {
      "who": "spud",

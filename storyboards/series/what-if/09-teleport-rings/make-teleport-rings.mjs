@@ -43,7 +43,7 @@ const Pk = (pack, t, id, set, dur, ease) => { if (has(pack)) P(t, id, set, dur, 
 // 07 the box presented | 08 "...Again." | 09 jump 3, the box | 10 hall, the rule | 11 the cactus | 12 the leaf |
 // 13 bald | 14 rings on | 15 the photo | 16 the leaf on the shelf
 const S = {
-  ins: 1.3, two: 2.3, tie: 3.0, j1: 4.45, hall: 6.3, scoop: 7.0, drop: 8.1, j2: 8.9, spin: 9.0, alt2: 12.0, snap: 12.3,
+  ins: 1.3, two: 2.3, tie: 3.0, j1: 4.45, hall: 6.3, scoop: 7.0, drop: 8.3, j2: 8.9, spin: 9.0, alt2: 12.0, snap: 12.3,
   pres: 12.7, open: 13.3, cu: 14.85, again: 15.4, two3: 16.6, grab3: 16.9, j3: 17.6, hall3: 18.8, look1: 20.4,
   look2: 21.5, close: 23.4, flinch1: 24.6, flinch2: 26.3, hallm: 27.8, scratch: 28.4, j4: 29.4, alt4: 31.2, fist: 31.8,
   stare: 33.2, pat: 34.4, gasp: 35.2, arrive: 37.6, rings: 38.6, photo: 40.2, flash: 41.0, shelf: 43.2, END: 46.5,
@@ -183,7 +183,7 @@ if (has("props")) {
 
 // ================================================================= OPENER B (story -3.0..0): Spud pops in beside Chip
 if (B) {
-  place(0, "spud", PARK, 0);
+  place(0.02, "spud", PARK, 0);   // (place() keys at t - 0.02: at 0 it was dropped and he stood there before popping in)
   look(0, "chip", [-0.1, 0.1], 0.01); expr(0, "chip", "kind", null, 0.01);
   jumpIn(0.4, "spud", SPUD, -8);
   expr(0.6, "spud", "cocky", { curve: 0.5 }, 0.15);
@@ -241,12 +241,14 @@ expr(r3(T.hall + 0.2), "spud", "eager", { curve: 0.4 }, 0.15); look(r3(T.hall + 
 // left glove takes the pair off the shelf, drops them in the open box
 c.arm(T.scoop, "spud", "L", { prop: "rings", grip: [0, 0.035, 0.02] }, 0.4, "inOut"); A(r3(T.scoop + 0.25), "spud", "grip", { side: "L", shape: "pinch", dur: 0.15 });
 A(r3(T.scoop + 0.45), "spud", "grab", { prop: "rings", hand: "L", keep: true, dur: 0, pose: null });
-c.arm(r3(T.scoop + 0.46), "spud", "L", { world: [1.05, 0.535, 61.99] }, 0.01);   // (the rings' free spot drifts to FAR before the drop)
+c.arm(r3(T.scoop + 0.46), "spud", "L", { world: [1.05, 0.535, 61.99] }, 0.01);   // the same point as a world aim (an aim at the held rings follows their free spot)
+c.arm(r3(T.scoop + 0.55), "spud", "L", { world: [0.62, 0.4, 62.32] }, 0.3, "inOut");   // down first: the hand passes under his face, not across it
 c.arm(r3(T.scoop + 0.45), "spud", "R", { o: [-0.14, 0.16, 0.46] }, 0.45, "inOut");   // the box to his middle (R arm: +o.x is outward, -x)
-toBox(r3(T.scoop + 0.55), "spud", "L", BOX_HALL, [0.02, 0.2, 0.02], 0.5);   // the rings over the open box
+toBox(r3(T.scoop + 0.85), "spud", "L", BOX_HALL, [0.03, 0.13, 0.03], 0.3);   // the rings just over the open box
 look(r3(T.scoop + 0.5), "spud", [-0.1, -0.4], 0.2);
 A(T.drop, "spud", "release", { prop: "rings", to: FAR, dur: 0.01 });   // the pair goes into the box: shown by the box's rings param
-A(r3(T.drop + 0.05), "spud", "grip", { side: "L", shape: "relaxed", dur: 0.15 }); c.arm(r3(T.drop + 0.1), "spud", "L", { o: [0.05, 0.3, 0.3] }, 0.35, "inOut");
+A(r3(T.drop + 0.05), "spud", "grip", { side: "L", shape: "relaxed", dur: 0.15 }); c.arm(r3(T.drop + 0.1), "spud", "L", { world: [0.79, 0.4, 61.94] }, 0.4, "inOut");   // back to his side (a world aim: an o pose here snapped)
+c.arm(r3(T.j2 - 0.01), "spud", "L", { o: [0.05, 0.3, 0.3] }, 0.01);   // parked from j2: his own pose again
 Pk("props", r3(T.drop + 0.01), "rbox", { rings: 2 });
 sfx(r3(T.drop + 0.02), "ai/ring-box-snap", { gain: 0.3, reason: "the rings settle in the velvet" });
 expr(r3(T.drop + 0.1), "spud", "happy", { curve: 0.7 }, 0.15); look(r3(T.drop + 0.2), "spud", [0, 0.1], 0.15);
