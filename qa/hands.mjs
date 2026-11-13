@@ -44,7 +44,7 @@ export function handResults(layout, sb = null) {
   const fps = layout.fps || 30, n = rows.length, T = (i) => rows[i]?.t ?? i / fps, P = proj(sb);
   const ids = [...new Set(rows.flatMap((r) => (r.actors || []).map((a) => a.id)))];
   const travelLim = GATE.handTravel * 1000 * 30 / fps;   // mm a frame
-  const onScreen = (p) => p && p[0] >= 0 && p[0] <= 1080 && p[1] >= 0 && p[1] <= 1920;
+  const onScreen = (p) => p && p[0] >= 0 && p[0] <= (layout.width || 1080) && p[1] >= 0 && p[1] <= (layout.height || 1920);
   const cut = (i) => cutIn(sb, storyTime(sb.holds, T(i - 1)), storyTime(sb.holds, T(i)));
   const level = gateLevel(sb, "hands");
   const span = (a, b) => `${T(a - 1).toFixed(2)}-${T(b).toFixed(2)}s`;

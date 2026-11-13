@@ -16,10 +16,12 @@
 // Slam words (fx "slam", at the end of this file): one or two huge words over the action in place of a hook caption.
 import { clamp, ease, lerp } from "./util.js";
 import { isPunch, shown } from "../shared/captions.js";
+import { captionSpots, frameSafe } from "../shared/frame.js";
 
-const W = 1080;
+// the frame's caption spots and safe zone (a tall frame unless the storyboard says "frame": "wide")
+let SPOT = captionSpots(null), SAFE = frameSafe(null);
 let ctx, sb;
-export function bindText(c, storyboard) { ctx = c; sb = storyboard; }
+export function bindText(c, storyboard) { ctx = c; sb = storyboard; SPOT = captionSpots(sb); SAFE = frameSafe(sb); SLAM.x = (SAFE.x0 + SAFE.x1) / 2; }
 
 const CAP = {
   main: { font: '900 74px "CapBlack"', size: 74, stroke: 14 },
@@ -44,9 +46,9 @@ function capStyle(c) {
 }
 function captionLayout(c) {
   const st = capStyle(c), pos = c.pos || "top";
-  const top = typeof pos === "number" ? pos : { top: 250, mid: 860, low: 1150 }[pos] ?? 250;
+  const top = typeof pos === "number" ? pos : SPOT[pos] ?? SPOT.top;
   // full width at the top; lower down, keep clear of TikTok's right-hand buttons
-  const cx = c.x ?? (pos === "top" ? W / 2 : 480), maxW = pos === "top" ? 860 : 780;
+  const cx = c.x ?? (pos === "top" ? SPOT.cxTop : SPOT.cxLow), maxW = pos === "top" ? SPOT.maxTop : SPOT.maxLow;
   ctx.font = st.font; ctx.letterSpacing = "-0.5px";
   // kinetic words pop in one by one, outlined and shadowed: a wider gap keeps them from running together
   ctx.wordSpacing = kinetic(c) ? "14px" : "0px";
@@ -120,7 +122,7 @@ function drawKinetic(c, t) {
 }
 
 // --- text pops
-const POP_SIZE = 120, POP_GROW = 1.15, SAFE = { x0: 60, y0: 210, x1: 920, y1: 1360 };
+const POP_SIZE = 120, POP_GROW = 1.15;
 const popIn = 0.12, popOut = 0.16;
 // where a pop sits at time t (its anchor is a point beside the head, from stage.js), pushed inside the safe zone so
 // that even at its biggest the word stays clear of the app's buttons. [x, y, w, h] at that biggest size.
@@ -193,7 +195,7 @@ function drawHeart(f, size, k) {
 // its place by the third frame with a short shake, holds, and shrinks out over the last 0.14 s. "size" is the cap
 // letters' font size in px (at least 300 on the 1080 frame); a word too wide for the safe zone is drawn smaller,
 // and qa/hook.mjs notes it. "color": "speaker" uses the caption colour of "who".
-const SLAM = { size: 300, x: (SAFE.x0 + SAFE.x1) / 2, y: 230, start: 1.1, land: 0.07, settle: 0.3, out: 0.14, squash: [1.06, 0.86], track: -0.02, cap: 0.73, line: 0.86, ink: 0.13, drop: 0.06 };
+const SLAM = { size: 300, x: 490, y: 230, start: 1.1, land: 0.07, settle: 0.3, out: 0.14, squash: [1.06, 0.86], track: -0.02, cap: 0.73, line: 0.86, ink: 0.13, drop: 0.06 };
 const slamLines = (f) => String(f.text || "").trim().split(/\n|\s+/).filter(Boolean);
 // the size it is drawn at, its line height, and its ink box [x, y, w, h] at its biggest (frame 0), tilt included,
 // inside the safe zone. Capital letters only, so the box is the cap height, not the font's full line.

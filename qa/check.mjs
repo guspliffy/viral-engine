@@ -39,6 +39,7 @@ import { pixelGlitches, describe as describePixel } from "./glitches.mjs";
 import { storyTime } from "../engine/shared/holds.js";
 import { seedOf } from "../puppet/beat.mjs";
 import { lockMusic } from "../engine/music.mjs";
+import { frameSize, frameSafe } from "../engine/shared/frame.js";
 
 export const RULES = {
   size: [1080, 1920],
@@ -504,7 +505,8 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
   const v = (probe.streams || []).find((s) => s.codec_type === "video"), a = (probe.streams || []).find((s) => s.codec_type === "audio");
   if (!v) { add("fail", "video", "no video stream"); return res; }
   const [fw, fh] = [v.width, v.height], [rn, rd] = (v.r_frame_rate || "30/1").split("/").map(Number), fps = rn / (rd || 1);
-  if (fw !== RULES.size[0] || fh !== RULES.size[1]) add("fail", "size", `${fw}x${fh}, expected ${RULES.size.join("x")}`);
+  const want = sb ? frameSize(sb) : { W: RULES.size[0], H: RULES.size[1] };   // a "frame": "wide" storyboard is 1920 x 1080
+  if (fw !== want.W || fh !== want.H) add("fail", "size", `${fw}x${fh}, expected ${want.W}x${want.H}`);
   else add("pass", "size", `${fw}x${fh} @ ${fps.toFixed(2)} fps`);
   const dur = Number(probe.format?.duration ?? v.duration);
   if (sb?.duration != null) {
@@ -685,7 +687,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
 export function captionResults(sb, layout) {
   const out = [], add = (level, check, msg) => out.push({ level, check, msg });
   if (!layout?.samples?.length) return out;
-  const { x0, y0, x1, y1 } = RULES.safe, outside = new Map(), held = new Map(), worst = new Map(), band = new Map();
+  const { x0, y0, x1, y1 } = frameSafe(sb), outside = new Map(), held = new Map(), worst = new Map(), band = new Map();
   const B = Array.isArray(sb?.captionBand) && sb.captionBand.length === 2 ? sb.captionBand.map(Number) : null;
   const step = layout.samples.length > 1 ? layout.samples[1].t - layout.samples[0].t : 0.1;
   for (const s of layout.samples) {

@@ -204,7 +204,7 @@ export class DrawnLinesPass extends Pass {
     if (B) { u.art.value = 1; u.lic.value = B.lic; u.bleed.value = B.bleed; u.stroke.value = B.stroke; u.chars.value = B.chars; u.cool.value = B.cool; u.wrap.value = B.wrap; }
   }
   set seed(v) { this.quad.material.uniforms.seed.value = v; }
-  setSize(w, h) { this.nd.setSize(w, h); this.quad.material.uniforms.res.value.set(w, h); this.quad.material.uniforms.scale.value = w / 1080; }
+  setSize(w, h) { this.nd.setSize(w, h); this.quad.material.uniforms.res.value.set(w, h); this.quad.material.uniforms.scale.value = Math.min(w, h) / 1080; }
   matFor(m, ink) {
     const key = `${ink}|${m.side}|${m.polygonOffset ? `${m.polygonOffsetFactor},${m.polygonOffsetUnits}` : ""}`;
     let t = this.mats.get(key);
@@ -300,7 +300,7 @@ export const PaperShader = {
     uniform sampler2D tDiffuse; uniform vec2 res; uniform float grain, wash, pool; varying vec2 vUv;
     ${NOISE}
     void main() {
-      float sc = res.x / 1080.0; vec2 px = vUv * res / sc;
+      float sc = min(res.x, res.y) / 1080.0; vec2 px = vUv * res / sc;
       vec3 c = texture2D(tDiffuse, vUv).rgb, avg = vec3(0.0);
       for (int i = 0; i < 8; i++) { float a = float(i) * 0.785398; avg += texture2D(tDiffuse, vUv + vec2(cos(a), sin(a)) * 3.5 * sc / res).rgb; }
       avg /= 8.0;

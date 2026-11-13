@@ -13,6 +13,7 @@ import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
+import { frameSize } from "../shared/frame.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, accentOf } from "./text.js";
 import { drawHud, hudBoxes, hudKey } from "./hud.js";
 import { drawCards, cardBoxes, cardKey } from "./card.js";
@@ -31,7 +32,7 @@ import { makeAttach } from "./attach.js";
 import { makeVfx } from "./vfx.js";
 import { buildCel } from "./fxcel.js";
 
-const W = 1080, H = 1920;
+let W = 1080, H = 1920;   // the output frame; "frame": "wide" in the storyboard makes it 1920 x 1080 (init)
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let attach2 = null;
 let vfx = null, vfxOver = false;       // Effekseer particle effects (vfx.js): a storyboard with "do": "vfx" fx items
@@ -467,7 +468,9 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, animeCuts(sb)); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; ({ W, H } = frameSize(sb));
+  if (W !== 1080) for (const id of ["stage", "gl", "out"]) { const e = document.getElementById(id); e.style.width = `${W}px`; e.style.height = `${H}px`; if (id !== "stage") { e.width = W; e.height = H; } }
+  drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, animeCuts(sb)); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
