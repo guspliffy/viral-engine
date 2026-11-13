@@ -72,6 +72,12 @@ const T = {
 // earlier; the times in the comments above are the draft-3 times.
 const SHIFT = 2.8;
 for (const k of Object.keys(T)) if (T[k] >= 5.2) T[k] = r3(T[k] - SHIFT);
+// Draft 5 (Jonny 13 Nov 08:15 Berlin: "the jumping from the roof situation looks weird", "sec 30-35 could be cut out",
+// "the slowmotion looks just off"): no slow motion and no out-of-reach shot. The jump runs at full speed and cuts to the
+// fall as they drop past the far edge; the fall is 2.3 s at full speed, then the bed.
+T.close = T.reach; T.fall = r3(T.close + 0.6);
+const CUT5 = r3(T.wake - (T.fall + 1.7));
+for (const k of ["wake", "relief", "lie", "sleep", "end"]) T[k] = r3(T[k] - CUT5);
 
 // ---------------------------------------------------------------- places
 const SY = -15, PY = -14.85;                        // zstreet: the asphalt, the pavements
@@ -114,7 +120,7 @@ const CAM = {
   REVEAL: { pos: R([-6.2, 2.4, 1.9]), look: R([0.5, -0.3, -1.3]), fov: 56 },                          // P08 b "08 reveal"
   STREETS: { pos: R([-1.5, 6.0, 5.5]), look: R([3.5, -12, 12.0]), fov: 55 },                      // P08 c "08 streets"
   FROMB: { pos: R([2.6, 1.7, 0.7]), look: R([-6.0, 1.0, -0.2]), fov: 50 },                        // P09, P10 "on B"
-  JUMP: { pos: R([3.0, 1.3, 3.6]), look: R([-0.9, 0.2, 0]), fov: 52 },                             // P11, P12 b
+  JUMP: { pos: R([0.5, 0.75, 5.0]), look: R([-0.4, -0.05, 0]), fov: 55 },   // draft 5: from the side, the gap across the frame (from behind the leap read as hanging in the air)                             // P11, P12 b
   MISS: { pos: R([3.2, 1.0, 1.4]), look: R([0.3, 0.4, -0.2]), fov: 54 },                          // P12 a "12a reach"
   CLOSE: { pos: R([0.0, -0.9, 0.35]), look: R([0.0, -4.4, 0.0]), fov: 40 },                         // P13 a his face, falling with him
   DOWN: { pos: R([0, 3.0, 0.2]), look: R([0, -12, 0.0]), fov: 36 },                               // P13 b straight down
@@ -225,8 +231,9 @@ A(0, "spud", "pov", { on: true }); A(T.face, "spud", "pov", { on: false });
 // three blinks through his own eyelids (props-wakeup-fx.js eyelids, needs the still POV camera); frame 0 already open and
 // bright (the plane crash lost viewers on a dark first frame), open fully before the cut
 prop(0, "lids", { open: 0.82 }, 0, "linear");
-[0.3, 0.75].forEach((b) => { prop(b, "lids", { open: 0.04 }, 0.08, "in"); prop(r3(b + 0.15), "lids", { open: 0.82 }, 0.16, "out"); });   // shut for two frames
-prop(1.0, "lids", { open: 1 }, 0.25, "out");
+// draft 5: slow lids (the draft's strobe check counted 6, then 4, big brightness jumps in the first second)
+[0.08, 0.7].forEach((b) => { prop(b, "lids", { open: 0.3 }, 0.3, "linear"); prop(r3(b + 0.31), "lids", { open: 0.82 }, 0.3, "linear"); });   // 9 frames each way, linear, to 0.3 (a full shut darkens 70 luma, over the strobe limit per frame)
+prop(1.31, "lids", { open: 1 }, 0.03, "linear");
 scene(0.02, S.p01);
 A(0, "spud", "pitch", { to: -58, dur: 0 }); A(0, "spud", "move", { to: [S.p01.spud[0], S.p01.spud[1]], y: r3(SY - 0.18), dur: 0, steps: 0 });   // propped on his elbows
 both(0, "spud", { o: [0.3, 0.05, -0.2] }, 0);
@@ -404,28 +411,24 @@ letGo(r3(T.jump - 0.02), "spud", "gunR"); A(r3(T.jump - 0.02), "spud", "grip", {
 ["spud", "chip"].forEach((w) => { A(T.jump, w, "crouch", { to: 0.6, dur: 0.18 }); A(r3(T.jump + 0.18), w, "crouch", { to: 0, dur: 0.1 }); both(r3(T.jump + 0.1), w, { o: [0.3, 0.9, 0.5] }, 0.27, "inOut"); });   // polish: the palm turn over 8 frames
 arm(r3(T.jump + 0.1), "spud", "R", { o: [0.14, 0.92, 0.5] }, 0.27, "inOut");   // his right hand (the friend's side) kept off the friend
 const JUMP = (w, z) => {
-  A(r3(T.jump + 0.2), w, "move", { to: [rx(-0.6), z], y: 0.75, dur: 0.35, steps: 0, ease: "out" });
-  A(r3(T.jump + 0.55), w, "move", { to: [rx(0.15), z], y: -0.2, dur: 0.6, steps: 0, ease: "in" });
+  // draft 5: one fast, flat leap (draft 4 rose 0.75 m and hung in the air): out over the gap and down past the far lip
+  A(r3(T.jump + 0.2), w, "move", { to: [rx(-0.35), z], y: 0.4, dur: 0.25, steps: 0, ease: "out" });
+  A(r3(T.jump + 0.45), w, "move", { to: [rx(0.1), z], y: -0.7, dur: 0.6, steps: 0, ease: "in" });
 };
 JUMP("spud", -0.45); JUMP("chip", 0.5);
 putProp(T.jump, "kz2", { x: rx(-2.4), adv: 0 }); prop(T.jump, "kz2", { adv: 0.5 }, 1.0, "linear");
 prop(T.jump, "alley", { up: 1 }, 1.5, "inOut");
 sfx(r3(T.jump + 0.2), "step-concrete", { gain: 0.6, reason: "the push-off from the low lip" });
-see(T.jump, T.reach, ["spud", "chip", "kz2"], "P11: hand in hand, no run-up: they jump from standing; hands grab the air behind them");
+see(T.jump, T.close, ["spud", "chip", "kz2"], "P11: hand in hand, no run-up: they jump from standing; hands grab the air behind them");
 
-// ================================================================ P12 33.4-36.1: just out of reach; the hands below. Slow.
+// ================================================================ (draft 5: the out-of-reach shot and its slow motion are cut)
 const fallTo = (t, w, z, y0, y1, dur, x0 = 0.15, x1 = 0.05) => { A(r3(t - 0.02), w, "move", { to: [rx(x0), z], y: y0, dur: 0.01, steps: 0 }); A(t, w, "move", { to: [rx(x1), z], y: y1, dur, steps: 0, ease: "in" }); };
-["spud", "chip"].forEach((w) => { both(r3(T.reach - 0.02), w, { o: [0.25, 0.95, 0.45] }, 0.01); expr(r3(T.reach - 0.02), w, "terrified", { open: 0.6 }, 0.01); look(r3(T.reach - 0.01), w, [0.3, 0.4], 0.01); });
-A(r3(T.reach - 0.02), "spud", "turn", { to: 90, dur: 0.01 }); A(r3(T.reach - 0.02), "chip", "turn", { to: 90, dur: 0.01 });
-fallTo(T.reach, "spud", -0.45, -0.2, -1.6, r3(T.close - T.reach));
-fallTo(T.reach, "chip", 0.5, -0.25, -1.65, r3(T.close - T.reach));
-prop(T.reach, "alley", { reach: 1 }, 0.6, "out");
-ramp(c, T.reach, r3(T.close - T.reach), 0.5, { in: 0.15, out: 0.2 });
-narr(30.75, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."], LINES.pos, 0.25, 2);   // take 2: take 1 was heard as "You've stopped"
-sfx(T.reach, "ai/zombie-horde", { gain: 1, loud: true, dur: 5, reason: "the alley below, every one of them groaning up at them" });
-sfx(T.reach, "ai/heartbeat", { gain: 0.7, reason: "his heartbeat in the slow fall" });
-see(T.reach, T.hands, ["spud", "chip", "roof"], "P12 a: mid-air, the far roof's edge just out of reach");
-see(T.hands, T.close, ["spud", "chip", "roof"], "P12: still reaching, the hands below");
+["spud", "chip"].forEach((w) => { both(r3(T.close - 0.02), w, { o: [0.25, 0.95, 0.45] }, 0.01); look(r3(T.close - 0.01), w, [0.3, 0.4], 0.01); });
+A(r3(T.close - 0.02), "spud", "turn", { to: 90, dur: 0.01 }); A(r3(T.close - 0.02), "chip", "turn", { to: 90, dur: 0.01 });
+prop(T.close, "alley", { reach: 1 }, 0.4, "out");
+narr(28.0, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."], [LINES.pos, 340], 0, 2);   // take 2: take 1 was heard as "You've stopped"
+sfx(T.close, "ai/zombie-horde", { gain: 1, loud: true, dur: 3, reason: "the alley below, every one of them groaning up at them" });
+sfx(T.close, "ai/heartbeat", { gain: 0.7, reason: "his heartbeat in the fall" });
 
 // ================================================================ P13 36.1-39.3: his eyes close; straight down over the hands
 fallTo(T.close, "spud", -0.3, -3.6, -5.0, r3(T.fall - T.close), -0.3, -0.3);
@@ -435,7 +438,6 @@ A(r3(T.close + 0.25), "spud", "expr", { expr: "terrified", set: { lidL: 1, lidR:
 fallTo(T.fall, "spud", -0.3, -5.0, -9.5, r3(T.wake - T.fall - 0.2), -0.3, -0.3);
 fallTo(T.fall, "chip", 0.3, -5.1, -9.6, r3(T.wake - T.fall - 0.2), 0.4, 0.4);
 prop(T.fall, "alley", { reach: 1, up: 1 }, 0.01);
-ramp(c, T.close, r3(T.wake - T.close), 0.6, { in: 0.1, out: 0.1 });
 see(T.close, T.fall, ["spud.face"], "P13: falling, his eyes squeeze shut");
 see(T.fall, T.wake, ["spud", "chip", "alley"], "P13: the camera pulls up, they fall toward a sea of reaching hands; nothing after that");
 
@@ -459,7 +461,7 @@ A(T.relief, "spud", "squash", { amount: 0.06, dur: 0.5 });
 both(T.relief, "spud", "rest", 0.4);
 // he lies back and the eyes get heavy
 A(T.lie, "spud", "pitch", { to: -6, dur: 0.75, ease: "inOut" }); A(T.lie, "spud", "squash", { amount: 0.05, dur: 0.75 });   // sinks back into the pillow (a deeper pitch lifts his feet out over the blanket)
-prop(r3(T.lie + 0.2), "bed", { cover: 0.9 }, 0.5, "inOut");
+prop(r3(T.lie + 0.2), "bed", { cover: 0.6 }, 0.5, "inOut");   // draft 5: 0.9 cut through his sweater (Jonny 13 Nov)
 sfx(r3(T.lie + 0.1), "kenney/cloth", { gain: 0.4, reason: "he pulls the blanket up" });
 A(r3(T.lie + 0.5), "spud", "expr", { expr: "kind", set: { lidL: 0.75, lidR: 0.75 }, dur: 0.4 });
 see(T.wake, T.sleep, ["spud.face", "bed"], "P14: he jolts awake in his own bed; it was a dream; he breathes out and lies back down");
@@ -489,7 +491,6 @@ const beats = c.beats([
   ["P09 one bullet", T.choice, sh("FROMB", { pos: R([2.2, 1.6, 0.6]) }, r3(T.shot6 - T.choice), "inOut")],
   ["P10 the last shot", T.shot6, sh("FROMB")],
   ["P11 the jump", T.jump, sh("JUMP")],
-  ["P12 a out of reach", T.reach, sh("MISS")],
   ["P13 eyes close, the fall", T.close, sh("CLOSE", { pos: CAM.DOWN.pos, look: CAM.DOWN.look, fov: CAM.DOWN.fov }, r3(T.wake - T.close), "in")],
   ["P14 awake in his own bed", T.wake, sh("BED", { pos: [0.25, 1.35, 520 + 1.4] }, r3(T.sleep - T.wake), "inOut"), "payoff"],
   ["P14 b his lids close (the loop)", T.sleep, sh("BEDPOV")],
@@ -508,7 +509,7 @@ write(import.meta.url, {
   set: { type: "plain", color: "#a9afb3", floor: "none", aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   // a dramatic scenario: recorded orchestra from 0.0 (Jonny 12 Nov); disaster-04 is the bed he kept on EP01. It ends at the
   // fall: the fall and the teaser have only their own sounds.
-  hud: { ammo: { keys: COUNT, max: 6 }, pos: "top", show: [0, T.reach] },
+  hud: { ammo: { keys: COUNT, max: 6 }, pos: "top", show: [0, T.close] },
   music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: T.close, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [T.end, T.end] },
@@ -521,6 +522,10 @@ write(import.meta.url, {
     { who: "spud", with: "bed", from: T.wake, to: r3(T.end + 5), checks: WORN, reason: "in bed: his hands and sweater rest under the blanket (3 cm); to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)" },
     { who: "spud", with: "spud", from: T.sleep, to: r3(T.end + 5), checks: ["face-covered", "face-hidden"], reason: "first person on the pillow (the loop); to past the end for the video clock" },
     { who: "chip", with: "spud", from: r3(T.shot1 + 0.4), to: T.door, checks: ["reach", "character-overlap"], reason: "the friend takes his hand, pulls him up and holds his sleeve on the run" },
+    { who: "inside", with: "spud", from: r3(T.door - 0.2), to: T.hall, checks: ["shell"], reason: "the shove at the street door: his back against the door leaf's surface, not seen on the sheets (shell check from #222)" },
+    { who: "hall", with: "chip", from: T.hall, to: T.stairs, checks: ["shell"], reason: "the friend off screen at the hall wall while Spud blocks the door (shell check from #222)" },
+    { who: "stairs", with: "chip", from: T.stairs, to: T.roof, checks: ["shell"], reason: "the friend climbing: the next riser behind his body, his feet on the tread (looked at on the 18.0 s still)" },
+    { who: "chip", with: "spud", from: T.jump, to: T.close, checks: ["face-covered"], reason: "the leap seen from behind and above: Spud's face is turned away to the far roof, the friend's raised hand passes his head (stills 29.9-30.3)" },
     { who: "spud", with: "chip", from: T.jump, to: T.wake, checks: ["reach", "character-overlap"], reason: "hand in hand, the jump and the fall" },
   ],
   notes: "Generated by storyboards/series/you-wake-up-mid/03-zombies/make-wake-zombies.mjs. Spec: OUTLINE.md, DESIGN.md, NOTES.md.",

@@ -88,7 +88,7 @@
   "file": "ai/disaster/disaster-04.ogg",
   "from": 0,
   "skip": 1.698,
-  "until": 33.3,
+  "until": 30.6,
   "lowCut": 150,
   "gain": 0.55,
   "duck": {
@@ -104,8 +104,8 @@
  },
  "creative": {
   "length": [
-   41.4,
-   41.4
+   37.8,
+   37.8
   ]
  },
  "hook": {
@@ -704,8 +704,8 @@
    "kinetic": false
   },
   {
-   "from": 30.75,
-   "to": 32.355,
+   "from": 28,
+   "to": 29.605,
    "text": "You stopped to shoot.",
    "pos": 470,
    "pop": false,
@@ -713,10 +713,10 @@
    "kinetic": false
   },
   {
-   "from": 32.355,
-   "to": 33.37,
+   "from": 29.605,
+   "to": 30.37,
    "text": "No run-up.",
-   "pos": 470,
+   "pos": 340,
    "pop": false,
    "size": 62,
    "kinetic": false
@@ -1067,11 +1067,11 @@
      "do": "prop",
      "id": "lids",
      "set": {
-      "open": 0.04
+      "open": 0.3
      },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.3
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.08
     },
     {
      "do": "prop",
@@ -1079,9 +1079,9 @@
      "set": {
       "open": 0.82
      },
-     "dur": 0.16,
-     "ease": "out",
-     "at": 0.45
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.39
     },
     {
      "sfx": "ai/zombie-horde",
@@ -1094,11 +1094,11 @@
      "do": "prop",
      "id": "lids",
      "set": {
-      "open": 0.04
+      "open": 0.3
      },
-     "dur": 0.08,
-     "ease": "in",
-     "at": 0.75
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.7
     },
     {
      "do": "prop",
@@ -1106,9 +1106,9 @@
      "set": {
       "open": 0.82
      },
-     "dur": 0.16,
-     "ease": "out",
-     "at": 0.9
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.01
     },
     {
      "do": "prop",
@@ -1116,9 +1116,9 @@
      "set": {
       "open": 1
      },
-     "dur": 0.25,
-     "ease": "out",
-     "at": 1
+     "dur": 0.03,
+     "ease": "linear",
+     "at": 1.31
     },
     {
      "who": "spud",
@@ -4759,6 +4759,15 @@
      "at": 0.48
     },
     {
+     "macro": "narrate",
+     "line": "You stopped to shoot. No run-up.",
+     "voice": "narrator",
+     "style": "intrigued, mysterious storyteller, urgent and quick",
+     "caption": false,
+     "take": 2,
+     "at": 0.5
+    },
+    {
      "do": "prop",
      "id": "kz2",
      "set": {
@@ -5060,16 +5069,16 @@
    "len": 1.2,
    "shot": {
     "pos": [
-     603,
-     1.3,
-     3.6
+     600.5,
+     0.75,
+     5
     ],
     "look": [
-     599.1,
-     0.2,
+     599.6,
+     -0.05,
      0
     ],
-    "fov": 52
+    "fov": 55
    },
    "do": [
     {
@@ -5199,11 +5208,11 @@
      "who": "spud",
      "do": "move",
      "to": [
-      599.4,
+      599.65,
       -0.45
      ],
-     "y": 0.75,
-     "dur": 0.35,
+     "y": 0.4,
+     "dur": 0.25,
      "steps": 0,
      "ease": "out",
      "at": 0.2
@@ -5212,11 +5221,11 @@
      "who": "chip",
      "do": "move",
      "to": [
-      599.4,
+      599.65,
       0.5
      ],
-     "y": 0.75,
-     "dur": 0.35,
+     "y": 0.4,
+     "dur": 0.25,
      "steps": 0,
      "ease": "out",
      "at": 0.2
@@ -5231,27 +5240,27 @@
      "who": "spud",
      "do": "move",
      "to": [
-      600.15,
+      600.1,
       -0.45
      ],
-     "y": -0.2,
+     "y": -0.7,
      "dur": 0.6,
      "steps": 0,
      "ease": "in",
-     "at": 0.55
+     "at": 0.45
     },
     {
      "who": "chip",
      "do": "move",
      "to": [
-      600.15,
+      600.1,
       0.5
      ],
-     "y": -0.2,
+     "y": -0.7,
      "dur": 0.6,
      "steps": 0,
      "ease": "in",
-     "at": 0.55
+     "at": 0.45
     },
     {
      "who": "spud",
@@ -5284,16 +5293,6 @@
      "at": 1.18
     },
     {
-     "who": "spud",
-     "do": "expr",
-     "expr": "terrified",
-     "set": {
-      "open": 0.6
-     },
-     "dur": 0.01,
-     "at": 1.18
-    },
-    {
      "who": "chip",
      "do": "arm",
      "side": "R",
@@ -5324,16 +5323,6 @@
      "at": 1.18
     },
     {
-     "who": "chip",
-     "do": "expr",
-     "expr": "terrified",
-     "set": {
-      "open": 0.6
-     },
-     "dur": 0.01,
-     "at": 1.18
-    },
-    {
      "who": "spud",
      "do": "turn",
      "to": 90,
@@ -5346,139 +5335,6 @@
      "to": 90,
      "dur": 0.01,
      "at": 1.18
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      600.15,
-      -0.45
-     ],
-     "y": -0.2,
-     "dur": 0.01,
-     "steps": 0,
-     "at": 1.18
-    },
-    {
-     "who": "chip",
-     "do": "move",
-     "to": [
-      600.15,
-      0.5
-     ],
-     "y": -0.25,
-     "dur": 0.01,
-     "steps": 0,
-     "at": 1.18
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.3,
-      0.4
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 1.19
-    },
-    {
-     "who": "chip",
-     "do": "look",
-     "to": [
-      0.3,
-      0.4
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 1.19
-    }
-   ]
-  },
-  {
-   "name": "P12 a out of reach",
-   "at": 30.6,
-   "len": 2.7,
-   "shot": {
-    "pos": [
-     603.2,
-     1,
-     1.4
-    ],
-    "look": [
-     600.3,
-     0.4,
-     -0.2
-    ],
-    "fov": 54
-   },
-   "do": [
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      600.05,
-      -0.45
-     ],
-     "y": -1.6,
-     "dur": 2.7,
-     "steps": 0,
-     "ease": "in",
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "move",
-     "to": [
-      600.05,
-      0.5
-     ],
-     "y": -1.65,
-     "dur": 2.7,
-     "steps": 0,
-     "ease": "in",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "alley",
-     "set": {
-      "reach": 1
-     },
-     "dur": 0.6,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "fx": "ramp",
-     "len": 2.7,
-     "rate": 0.5,
-     "in": 0.15,
-     "out": 0.2,
-     "at": 0
-    },
-    {
-     "sfx": "ai/zombie-horde",
-     "gain": 1,
-     "loud": true,
-     "dur": 5,
-     "reason": "the alley below, every one of them groaning up at them",
-     "at": 0
-    },
-    {
-     "sfx": "ai/heartbeat",
-     "gain": 0.7,
-     "reason": "his heartbeat in the slow fall",
-     "at": 0
-    },
-    {
-     "macro": "narrate",
-     "line": "You stopped to shoot. No run-up.",
-     "voice": "narrator",
-     "style": "intrigued, mysterious storyteller, urgent and quick",
-     "caption": false,
-     "take": 2,
-     "at": 0.15
     },
     {
      "who": "spud",
@@ -5490,7 +5346,7 @@
      "y": -3.6,
      "dur": 0.01,
      "steps": 0,
-     "at": 2.68
+     "at": 1.18
     },
     {
      "who": "chip",
@@ -5502,28 +5358,50 @@
      "y": -3.7,
      "dur": 0.01,
      "steps": 0,
-     "at": 2.68
+     "at": 1.18
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": -70,
      "dur": 0.01,
-     "at": 2.68
+     "at": 1.18
     },
     {
      "who": "chip",
      "do": "pitch",
      "to": -70,
      "dur": 0.01,
-     "at": 2.68
+     "at": 1.18
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.19
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.19
     }
    ]
   },
   {
    "name": "P13 eyes close, the fall",
-   "at": 33.3,
-   "len": 3.2,
+   "at": 30.6,
+   "len": 2.3,
    "shot": {
     "pos": [
      600,
@@ -5549,10 +5427,34 @@
       0.2
      ]
     },
-    "dur": 3.2,
+    "dur": 2.3,
     "ease": "in"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "alley",
+     "set": {
+      "reach": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "ai/zombie-horde",
+     "gain": 1,
+     "loud": true,
+     "dur": 3,
+     "reason": "the alley below, every one of them groaning up at them",
+     "at": 0
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.7,
+     "reason": "his heartbeat in the fall",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "move",
@@ -5561,7 +5463,7 @@
       -0.3
      ],
      "y": -5,
-     "dur": 0.7,
+     "dur": 0.6,
      "steps": 0,
      "ease": "in",
      "at": 0
@@ -5574,17 +5476,9 @@
       0.3
      ],
      "y": -5.1,
-     "dur": 0.7,
+     "dur": 0.6,
      "steps": 0,
      "ease": "in",
-     "at": 0
-    },
-    {
-     "fx": "ramp",
-     "len": 3.2,
-     "rate": 0.6,
-     "in": 0.1,
-     "out": 0.1,
      "at": 0
     },
     {
@@ -5608,7 +5502,7 @@
      "y": -5,
      "dur": 0.01,
      "steps": 0,
-     "at": 0.68
+     "at": 0.58
     },
     {
      "who": "chip",
@@ -5620,7 +5514,7 @@
      "y": -5.1,
      "dur": 0.01,
      "steps": 0,
-     "at": 0.68
+     "at": 0.58
     },
     {
      "who": "spud",
@@ -5630,10 +5524,10 @@
       -0.3
      ],
      "y": -9.5,
-     "dur": 2.3,
+     "dur": 1.5,
      "steps": 0,
      "ease": "in",
-     "at": 0.7
+     "at": 0.6
     },
     {
      "who": "chip",
@@ -5643,10 +5537,10 @@
       0.3
      ],
      "y": -9.6,
-     "dur": 2.3,
+     "dur": 1.5,
      "steps": 0,
      "ease": "in",
-     "at": 0.7
+     "at": 0.6
     },
     {
      "do": "prop",
@@ -5657,7 +5551,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.7
+     "at": 0.6
     },
     {
      "who": "spud",
@@ -5665,21 +5559,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5692,7 +5586,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5700,7 +5594,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5709,7 +5603,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5718,7 +5612,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5729,7 +5623,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5737,21 +5631,21 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
      "do": "lean",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
      "do": "crouch",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5764,7 +5658,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5772,7 +5666,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5781,7 +5675,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5790,7 +5684,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -5801,7 +5695,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5816,7 +5710,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5831,21 +5725,21 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": 12,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
      "do": "droop",
      "to": 0,
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5855,7 +5749,7 @@
       "open": 0.6
      },
      "dur": 0.01,
-     "at": 3.18
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -5863,7 +5757,7 @@
      "seat": "bed",
      "dur": 0,
      "hands": "keep",
-     "at": 3.19
+     "at": 2.29
     },
     {
      "who": "spud",
@@ -5874,13 +5768,13 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 3.19
+     "at": 2.29
     }
    ]
   },
   {
    "name": "P14 awake in his own bed",
-   "at": 36.5,
+   "at": 32.9,
    "len": 3.3,
    "shot": {
     "pos": [
@@ -6048,7 +5942,7 @@
      "do": "prop",
      "id": "bed",
      "set": {
-      "cover": 0.9
+      "cover": 0.6
      },
      "dur": 0.5,
      "ease": "inOut",
@@ -6080,7 +5974,7 @@
   },
   {
    "name": "P14 b his lids close (the loop)",
-   "at": 39.8,
+   "at": 36.2,
    "len": 1.6,
    "shot": {
     "pos": [
@@ -6291,35 +6185,15 @@
   },
   {
    "from": 30.6,
-   "to": 32.1,
-   "see": [
-    "spud",
-    "chip",
-    "roof"
-   ],
-   "why": "P12 a: mid-air, the far roof's edge just out of reach"
-  },
-  {
-   "from": 32.1,
-   "to": 33.3,
-   "see": [
-    "spud",
-    "chip",
-    "roof"
-   ],
-   "why": "P12: still reaching, the hands below"
-  },
-  {
-   "from": 33.3,
-   "to": 34,
+   "to": 31.2,
    "see": [
     "spud.face"
    ],
    "why": "P13: falling, his eyes squeeze shut"
   },
   {
-   "from": 34,
-   "to": 36.5,
+   "from": 31.2,
+   "to": 32.9,
    "see": [
     "spud",
     "chip",
@@ -6328,8 +6202,8 @@
    "why": "P13: the camera pulls up, they fall toward a sea of reaching hands; nothing after that"
   },
   {
-   "from": 36.5,
-   "to": 39.8,
+   "from": 32.9,
+   "to": 36.2,
    "see": [
     "spud.face",
     "bed"
@@ -6337,8 +6211,8 @@
    "why": "P14: he jolts awake in his own bed; it was a dream; he breathes out and lies back down"
   },
   {
-   "from": 39.8,
-   "to": 41.4,
+   "from": 36.2,
+   "to": 37.8,
    "see": [
     "broom"
    ],
@@ -6349,7 +6223,7 @@
   {
    "who": "street",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6361,7 +6235,7 @@
   {
    "who": "hordeA",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6373,7 +6247,7 @@
   {
    "who": "hordeB",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6385,7 +6259,7 @@
   {
    "who": "grabber",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6397,7 +6271,7 @@
   {
    "who": "sdoor",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6409,7 +6283,7 @@
   {
    "who": "inside",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6421,7 +6295,7 @@
   {
    "who": "hall",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6433,7 +6307,7 @@
   {
    "who": "hdoor",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6445,7 +6319,7 @@
   {
    "who": "cab",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6457,7 +6331,7 @@
   {
    "who": "stairs",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6469,7 +6343,7 @@
   {
    "who": "sdoor2",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6481,7 +6355,7 @@
   {
    "who": "land1",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6493,7 +6367,7 @@
   {
    "who": "land2",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6505,7 +6379,7 @@
   {
    "who": "low",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6517,7 +6391,7 @@
   {
    "who": "roof",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6529,7 +6403,7 @@
   {
    "who": "alley",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6541,7 +6415,7 @@
   {
    "who": "front",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6553,7 +6427,7 @@
   {
    "who": "kz1",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6565,7 +6439,7 @@
   {
    "who": "kz2",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6577,7 +6451,7 @@
   {
    "who": "broom",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6589,7 +6463,7 @@
   {
    "who": "bed",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6601,7 +6475,7 @@
   {
    "who": "night",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6613,7 +6487,7 @@
   {
    "who": "gunR",
    "from": 0,
-   "to": 41.4,
+   "to": 37.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6636,8 +6510,8 @@
   {
    "who": "spud",
    "with": "bed",
-   "from": 36.5,
-   "to": 46.4,
+   "from": 32.9,
+   "to": 42.8,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6649,8 +6523,8 @@
   {
    "who": "spud",
    "with": "spud",
-   "from": 39.8,
-   "to": 46.4,
+   "from": 36.2,
+   "to": 42.8,
    "checks": [
     "face-covered",
     "face-hidden"
@@ -6669,10 +6543,50 @@
    "reason": "the friend takes his hand, pulls him up and holds his sleeve on the run"
   },
   {
+   "who": "inside",
+   "with": "spud",
+   "from": 9.6,
+   "to": 12.6,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the shove at the street door: his back against the door leaf's surface, not seen on the sheets (shell check from #222)"
+  },
+  {
+   "who": "hall",
+   "with": "chip",
+   "from": 12.6,
+   "to": 15.8,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the friend off screen at the hall wall while Spud blocks the door (shell check from #222)"
+  },
+  {
+   "who": "stairs",
+   "with": "chip",
+   "from": 15.8,
+   "to": 20.6,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the friend climbing: the next riser behind his body, his feet on the tread (looked at on the 18.0 s still)"
+  },
+  {
+   "who": "chip",
+   "with": "spud",
+   "from": 29.4,
+   "to": 30.6,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the leap seen from behind and above: Spud's face is turned away to the far roof, the friend's raised hand passes his head (stills 29.9-30.3)"
+  },
+  {
    "who": "spud",
    "with": "chip",
    "from": 29.4,
-   "to": 36.5,
+   "to": 32.9,
    "checks": [
     "reach",
     "character-overlap"
