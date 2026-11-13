@@ -1,0 +1,378 @@
+{
+ "id": "zshop-bench",
+ "title": "Corner shop bench: shop, tin, bag",
+ "idea": "Engine look bench for the zombie shop kit (task T3), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#aab0b4",
+  "floor": "none"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "shop",
+   "kind": "zshop",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tin1",
+   "kind": "tin",
+   "x": -0.07,
+   "y": 0,
+   "z": 0.5,
+   "rot": 25,
+   "scale": 0.001
+  },
+  {
+   "id": "tin2",
+   "kind": "tin",
+   "x": 0.07,
+   "y": 0,
+   "z": 0.5,
+   "rot": -15,
+   "open": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "bag0",
+   "kind": "tinbag",
+   "x": -0.72,
+   "y": 0,
+   "z": 1.5,
+   "rot": 8,
+   "fill": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "bag1",
+   "kind": "tinbag",
+   "x": 0,
+   "y": 0,
+   "z": 1.5,
+   "rot": -12,
+   "fill": 0.5,
+   "scale": 0.001
+  },
+  {
+   "id": "bag2",
+   "kind": "tinbag",
+   "x": 0.72,
+   "y": 0,
+   "z": 1.5,
+   "rot": 8,
+   "fill": 1,
+   "scale": 0.001
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "wide",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     5.6
+    ],
+    "look": [
+     0,
+     1.1,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "shop",
+     "set": {
+      "dim": 0.25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shelf",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.4,
+     1.2,
+     3.4
+    ],
+    "look": [
+     -2.4,
+     1.1,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "counter",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.4,
+     1.5,
+     3.6
+    ],
+    "look": [
+     1.9,
+     0.95,
+     1.2
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "tins",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.3,
+     1.1
+    ],
+    "look": [
+     0,
+     0.08,
+     0.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tin1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tin2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bags",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     8.5
+    ],
+    "look": [
+     0,
+     0.4,
+     1.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag0",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tin1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tin2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag0",
+     "set": {
+      "y": 0.3,
+      "hang": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "bag1",
+     "set": {
+      "y": 0.3,
+      "hang": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "bag2",
+     "set": {
+      "y": 0.3,
+      "hang": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "hung",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     8.5
+    ],
+    "look": [
+     0,
+     0.62,
+     1.5
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "dark",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     5.6
+    ],
+    "look": [
+     0,
+     1.1,
+     -1
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "shop",
+     "set": {
+      "dim": 0.8
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag0",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-zshop-bench.mjs (engine bench, no reviews)."
+}

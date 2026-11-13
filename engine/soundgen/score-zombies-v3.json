@@ -1,0 +1,37 @@
+{
+  "out": "zombies-score/zombies-score-03.ogg",
+  "duration": 64.6,
+  "against": [
+    "playful cartoon music",
+    "video game chiptune music",
+    "happy upbeat pop music",
+    "electronic dance music",
+    "silence",
+    "people talking"
+  ],
+  "sections": [
+    {
+      "id": "zombie-dread-long",
+      "from": 0,
+      "label": "dark tense orchestral film score with low strings, piano and timpani",
+      "lufs": -18,
+      "fadeIn": 0.02
+    },
+    {
+      "id": "zombie-panic",
+      "from": 42.95,
+      "label": "dramatic orchestral chase music with trumpets, timpani, strings and piano",
+      "lufs": -15,
+      "fadeIn": 0.06,
+      "onset": false
+    },
+    {
+      "id": "zombie-dawn",
+      "from": 55.7,
+      "label": "sad slow piano with soft orchestral strings",
+      "lufs": -18,
+      "fadeIn": 0.5
+    }
+  ],
+  "_note": "v3 (12 Nov 2026): a longer dread take (recipes-zombies-v3.json) to the first shot 42.95, the v1 panic take to the sunrise 55.7, the v1 dawn take to the end 64.6 (held 2 s after the last line)"
+}

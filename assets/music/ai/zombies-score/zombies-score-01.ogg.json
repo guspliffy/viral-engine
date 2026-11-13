@@ -1,0 +1,60 @@
+{
+ "spec": "score-zombies.json",
+ "sections": [
+  {
+   "section": "zombie-dread",
+   "take": "p1-s412.wav",
+   "clap": 0.313,
+   "others": [
+    [
+     "p0-s412.wav",
+     0.232
+    ],
+    [
+     "p0-s411.wav",
+     0.221
+    ],
+    [
+     "p1-s411.wav",
+     0.214
+    ]
+   ],
+   "from": 0,
+   "lufs": -18
+  },
+  {
+   "section": "zombie-panic",
+   "take": "p0-s422.wav",
+   "clap": 0.187,
+   "others": [
+    [
+     "p1-s422.wav",
+     0.185
+    ],
+    [
+     "p0-s421.wav",
+     0.154
+    ],
+    [
+     "p1-s421.wav",
+     0.141
+    ]
+   ],
+   "from": 18.95,
+   "lufs": -15
+  },
+  {
+   "section": "zombie-dawn",
+   "take": "p0-s432.wav",
+   "clap": 0.088,
+   "others": [
+    [
+     "p0-s431.wav",
+     -0.124
+    ]
+   ],
+   "from": 25.3,
+   "lufs": -18
+  }
+ ]
+}
