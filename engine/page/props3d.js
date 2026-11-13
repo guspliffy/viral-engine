@@ -64,6 +64,11 @@ import { CAMP_KINDS, CAMP_GRIPS, CAMP_PARTS } from "./props-camp.js";   // too m
 import { BEARCAMP_KINDS, BEARCAMP_GRIPS } from "./props-bearcamp.js";   // fight flight or freeze 02, bear in the camp: domecamp, campcar, cardoor, cooler, cookpot, burnbranch, gaslantern, grassfire, clawmarks, climbpine
 import { BEAR_KINDS } from "./props-bear.js";   // fight flight or freeze 02: the black bear (bear; bearMouth() for a prop that follows its mouth)
 import { MOTT_KINDS } from "./props-mott.js";   // Mott the moth, a standalone character built as a prop (mott, stickynote, dustprint)
+import { AA_GIZA_KINDS, AA_GIZA_GRIPS } from "./props-aa-giza.js";   // ancient aliens shared kit (giza): storyboards/series/ancient-aliens/kit/BOARD.md
+import { AA_SITE_KINDS, AA_SITE_GRIPS } from "./props-aa-site.js";   // ancient aliens shared kit (site): storyboards/series/ancient-aliens/kit/BOARD.md
+import { AA_SHIP_KINDS, AA_SHIP_GRIPS } from "./props-aa-ship.js";   // ancient aliens shared kit (ship): storyboards/series/ancient-aliens/kit/BOARD.md
+import { AA_INSIDE_KINDS, AA_INSIDE_GRIPS } from "./props-aa-inside.js";   // ancient aliens shared kit (inside): storyboards/series/ancient-aliens/kit/BOARD.md
+import { AA_ITEMS_KINDS, AA_ITEMS_GRIPS } from "./props-aa-items.js";   // ancient aliens shared kit (items): storyboards/series/ancient-aliens/kit/BOARD.md
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
@@ -1446,6 +1451,7 @@ Object.assign(KINDS, BEARCAMP_KINDS); Object.assign(GRIPS, BEARCAMP_GRIPS);   //
 Object.assign(KINDS, BEAR_KINDS);   // fight flight or freeze 02: bear (props-bear.js)
 Object.assign(KINDS, XMAS_KINDS); Object.assign(GRIPS, XMAS_GRIPS);   // friends try to 07: xtree, xstar, fairylights, ornabox (props-xmas.js)
 Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprint (props-mott.js)
+Object.assign(KINDS, AA_GIZA_KINDS, AA_SITE_KINDS, AA_SHIP_KINDS, AA_INSIDE_KINDS, AA_ITEMS_KINDS); Object.assign(GRIPS, AA_GIZA_GRIPS, AA_SITE_GRIPS, AA_SHIP_GRIPS, AA_INSIDE_GRIPS, AA_ITEMS_GRIPS);   // ancient aliens shared kit (props-aa-*.js)
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
