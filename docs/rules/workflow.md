@@ -299,6 +299,8 @@ waiver for the whole clip.
    (earshot listens: hits on their frame, footsteps on the right floor, a synth music bed in a dramatic clip). Look at its contact sheet and phone sheet
    yourself for what only the final look shows (lines, grade, blur, a caption's edge). No second review B unless the
    cut changed after the one on the draft. Count the farm renders after review B in the ledger row: the target is one.
+   The farm's first job runs `qa/preflight.mjs` on a full render and stops before any shard on a FAIL (not on
+   `--draft`, a range or `--force`): run it yourself on the head commit first, the farm is only the net.
    The background command of rule 7: `until [ "$(gh run view <id> --json status -q .status)" = completed ]; do
    sleep 30; done`, no check-ins beside it (about 100 of Survive it EP1's 853 steps only waited). Open the pull
    request when the final clip has passed, not during the build (each check event wakes the thread), and run
