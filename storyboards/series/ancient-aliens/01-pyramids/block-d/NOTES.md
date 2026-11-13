@@ -25,3 +25,7 @@ closed 1.21, nobody 1.45.
 ## Open for polish (after Jonny's OK on the animatic)
 - worker's brush strokes and hand on the wall; Spud's arm-spread hands; deadpan face at the end (Spud has no lids).
 - next round: merge ancient-aliens-kit (6c2339d+) and replace the CLUE 5/5 cap with the kit's clueTag(c, 0, 17, 5) (one style for all blocks).
+- next round (kit f3c0ef3+, after Jonny reacts to block A v2 or to this animatic): music: score(138) from aa-kit.mjs (one
+  pilot score: swell under the ship going home, out before the tag, small pizzicato under the tag); apply kit/BLOCKS.md
+  "How we explain" (Jonny on block A: "we need some background music ... right now it's pretty plain and boring"): show
+  the fact happening, Spud never a talking statue, start on the evidence, a change every 3 s, numbers move.
