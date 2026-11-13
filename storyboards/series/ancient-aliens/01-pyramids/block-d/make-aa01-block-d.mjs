@@ -19,7 +19,7 @@
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import * as act from "../../../../lib/acting.mjs";
 import * as grips from "../../../../lib/grips.mjs";
-import { S, SET_NIGHT, CAST, VIEW, TOP, cam, far, giza2560, liftShip, host, nightOver, hostSay, lampClip } from "../../kit/aa-kit.mjs";
+import { S, SET_NIGHT, CAST, VIEW, TOP, cam, far, giza2560, liftShip, host, nightOver, hostSay, lampClip, score, clueTag } from "../../kit/aa-kit.mjs";
 
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
 const RIG = { hand: 2, eyes: 2, hold: 2 };
@@ -28,19 +28,30 @@ const c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
 // every host line through the kit's hostSay (the say macro, voice "reaper", subtitle at y 400); a subtitle ends where the
 // next one starts (two never stand on each other)
 const subs = [];
-const say = (t, line, dur, who, o = {}) => { hostSay(c, t, who, line, dur, "calm", o); subs.push(c.captions[c.captions.length - 1]); };
+const say = (t, line, dur, who, o = {}) => { hostSay(c, t, who, line, dur, o.tone ?? "calm", { pos: SUBY, ...o }); if (o.sub !== false) subs.push(c.captions[c.captions.length - 1]); };
 const trimSubs = () => subs.sort((a, b) => a.from - b.from).forEach((q, i) => { const n = subs[i + 1]; if (n && q.to > n.from - 0.05) q.to = r3(n.from - 0.05); });
 
 // ---------------------------------------------------------------- timing (block time; story time = 2:18 + t)
-// spoken lengths from the render's "speech: ... lasts Xs spoken" lines (VoxCPM2, voice reaper)
-const LEN = { belt: 1.36, star: 2.51, pyr: 1.76, shaft: 2.44, years: 2.29, us: 1.97, home: 2.51, closed: 1.21, nobody: 1.45 };   // measure-lines.mjs
+// spoken lengths: measure-lines.mjs (VoxCPM2, voice reaper; "Orion's Belt." read excited, the clue reveal)
+const LEN = { belt: 1.38, star: 2.51, pyr: 1.76, shaft: 2.44, years: 2.29, us: 1.97, home: 2.51, closed: 1.21, nobody: 1.45 };
+// v2 (kit/BLOCKS.md "How we explain", Jonny's OK on block A v2): a change at least every 3 s, every cut on a whole frame
 const T = {
-  night: 0, belt: 1.3, star: 2.95, pyr: 5.8,                        // 2:18 panels 26-27
-  room: 9.0, shaft: 9.4, pov: 12.1, years: 12.5,                   // 2:27 panels 28-29
-  home: 17.0, lift: 17.9, rise: 18.4, us: 19.4, home2: 21.7,       // 2:35 panels 30-31 (2 s with no voice from 17.0)
-  pay: 26.0, turn: 26.25, closed: 27.0,                            // 2:44 panel 32, hold 2 s
-  tag: 30.0, read: 31.7, see: 32.5, cover: 33.0, close: 34.2, nobody: 34.6,   // 2:48 panels 33-36
-  end: 37.0,                                                       // 2:55
+  night: 0, belt: 1.3, star: 3.0, starL: 3.15, pyr: 5.7, pyrL: 5.85,      // 2:18 panels 26-27
+  room: 9.0, shaft: 9.4, hop: 9.55, pov: 12.0, years: 12.4,              // 2:27 panels 28-29
+  home: 17.0, lift: 17.6, rise: 18.0, faces: 19.5, us: 19.6, climb: 22.0, home2: 22.1,   // 2:35 panels 30-31 (2 s with no voice)
+  pay: 26.0, turn: 26.25, closed: 27.0,                                  // 2:44 panel 32, hold 2 s
+  tag: 30.0, read: 31.8, see: 32.5, cover: 33.0, close: 34.2, nobody: 34.6,   // 2:48 panels 33-36
+  end: 37.0,                                                             // 2:55
+};
+const TONE = { belt: "excited" };
+// the number texts (read without English): big in the upper third, subtitles under them
+const SUBY = 470, TXT = 300, TXTS = { size: 96, kinetic: false };
+const count = (t0, t1, hold, a, b, fmt, o = {}) => {
+  const n = Math.max(1, Math.round((t1 - t0) / 0.1));
+  for (let i = 0; i <= n; i++) {
+    const v = a + (b - a) * (1 - Math.pow(1 - i / n, 3)), ts = r3(t0 + i * 0.1);
+    cap(ts, i === n ? hold : r3(ts + 0.1), fmt(i === n ? b : v), o.pos ?? TXT, false, { ...TXTS, ...o });
+  }
 };
 
 // ---------------------------------------------------------------- places, 1000 m apart (aa-kit.mjs: one origin per place)
@@ -115,39 +126,64 @@ c.prop(0, "marks", { paint: 0.55 }, 0);
 c.prop(0, "spudK-lamp", { lit: 1 }, 0); c.prop(0, "spudT-lamp", { lit: 1 }, 0);
 
 // ================================================================ 1 CLUE 5, THE STARS (2:18, panels 26-27)
-// Orion climbs over the three pyramids; the Belt is three stars in a line over the three pyramids, the faint one off it
-cap(0, 17.0, "CLUE 5/5", 230, false, { x: 250, size: 54, kinetic: false });
+// Start on the evidence: the sky, Orion's Belt climbing; the stars count in one by one; Spud points up. Then the camera
+// pushes in on the Belt (the faint one off the line), then tilts down to the three pyramids: the same pattern below.
+clueTag(c, 0, 17.0, 5);
 c.prop(0.1, "n-orion", { show: 1, y: NIGHT_BELT.y }, 2.6, "out");
 sfx(0, "ai/storm-wind", { gain: 0.06, dur: 9.0, reason: "the desert night, far under" });
-A(0.6, "spudN", "look", { to: [0.2, 0.6], dur: 0.4 });
-say(T.belt, "Orion's Belt.", LEN.belt, "spudN");
-say(T.star, "The smallest star sits off the line.", LEN.star, "spudN");
-say(T.pyr, "So does the smallest pyramid.", LEN.pyr, "spudN");
-A(T.pyr, "spudN", "look", { to: [0.15, 0.2], dur: 0.5 });
-see(0.3, 9.0, ["n-orion", "spudN"], "Orion over the three pyramids, Spud watching");
+for (const [t, k] of [[0.5, 1], [0.9, 2], [1.3, 3]]) cap(t, k === 3 ? 2.95 : r3(t + 0.4), Array(k).fill("☆").join(" "), TXT, false, { ...TXTS, size: 110 });
+A(0.3, "spudN", "look", { to: [0.2, 0.7], dur: 0.35 });
+A(0.6, "spudN", "grip", { side: "R", shape: "point", dur: 0.2 });
+c.arm(0.6, "spudN", "R", { o: [0.18, 0.78, 0.22] }, 0.45, "out");
+say(T.belt, "Orion's Belt.", LEN.belt, "spudN", { tone: TONE.belt });
+say(T.starL, "The smallest star sits off the line.", LEN.star, "spudN");
+cap(4.3, T.pyr - 0.05, "1 OFF THE LINE", TXT, false, { ...TXTS, size: 84 });
+// he swings his point from the Belt down to the small pyramid on the left
+c.arm(T.pyr + 0.1, "spudN", "R", { o: [0.3, 0.35, 0.3] }, 0.6, "inOut");
+A(T.pyr + 0.1, "spudN", "look", { to: [-0.2, 0.15], dur: 0.4 });
+say(T.pyrL, "So does the smallest pyramid.", LEN.pyr, "spudN");
+cap(8.05, T.room - 0.05, "SAME PATTERN", TXT, false, { ...TXTS, size: 104 });
+c.arm(8.3, "spudN", "R", "rest", 0.5, "inOut");
+A(8.5, "spudN", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+A(T.room - 0.25, "spudN", "noblink", { dur: 0.25 });
+see(0.3, 3.0, ["n-orion"], "Orion's Belt rising, Spud pointing up");
+see(T.pyr, T.room, ["n-orion", "spudN"], "the Belt over the three pyramids");
 
 // ================================================================ 2 THE SHAFT (2:27, panels 28-29)
-// King's Chamber: his headlamp finds the south shaft; then up the shaft to the same three stars
-sfx(T.room, "ai/step-concrete", { gain: 0.25, reason: "he steps up to the south wall" });
-A(T.room + 0.1, "spudK", "look", { to: [0, 0.9], dur: 0.35 });
-A(T.room + 0.1, "spudK", "pitch", { to: -9, dur: 0.4 });
+// Start on the evidence: the dark square of the south shaft in the granite; his headlamp beam finds it from below and he
+// hops to see in (the sill is above his head: 0.92 m, he is 0.88). Then up the shaft to the same three stars, while the
+// years count back from today to 2560 BC.
+sfx(T.room + 0.05, "ai/step-concrete", { gain: 0.25, reason: "he steps up to the south wall" });
+A(T.room + 0.05, "spudK", "look", { to: [0, 0.9], dur: 0.3 });
+A(T.room + 0.05, "spudK", "pitch", { to: -9, dur: 0.4 });
 say(T.shaft, "And this shaft pointed right at them.", LEN.shaft, "spudK");
-see(T.room, T.pov, ["spudK", "kc"], "his headlamp on the south shaft");
+A(T.hop, "spudK", "hop", { count: 2, height: 0.16, dur: 0.9 });
+cap(10.4, T.pov - 0.05, "45°", TXT, false, { ...TXTS, size: 110 });
+A(T.pov - 0.25, "spudK", "noblink", { dur: 0.25 });
+see(T.room, T.pov, ["spudK", "kc"], "the south shaft, his headlamp on it, he hops to see in");
 say(T.years, "Four and a half thousand years ago.", LEN.years, "spudK");
+count(12.5, 14.6, T.home - 0.05, 2026, -2560, (v) => { const y = Math.round(v); return y < 0 ? `${-y} BC` : `${Math.max(1, y)} AD`; }, { size: 110 });
 see(T.pov, T.home, ["sh-belt"], "the three stars at the top of the shaft");
 
 // ================================================================ 3 THE SHIP GOES HOME (2:35, panels 30-31, 2560 BC)
-// the beam goes out, the ring lifts off the tip and climbs toward the Belt; 2 s with no voice
-const SHIP0 = { x: P.home[0], y: r3(TOP(S, 1) + 70 * S), z: P.home[1] };
-c.prop(T.lift, "sh-ship", { beam: 0, wobble: 0 }, 0.5, "inOut");
-sfx(T.home, "rumble", { gain: 0.3, dur: 2.0, reason: "the ship's low hum over the pyramid" });
-sfx(T.rise, "rumble", { gain: 0.45, dur: 3.0, reason: "the hum swells as the ring lifts away" });
+// The beam goes out, the ring lifts off the tip; a crew alien waves it off and Spud copies the wave; the faces looking up;
+// the ring climbs toward the Belt.
+c.prop(T.lift, "sh-ship", { beam: 0, wobble: 0 }, 0.4, "inOut");
+sfx(T.home, "rumble", { gain: 0.3, dur: 1.6, reason: "the ship's low hum over the pyramid" });
+sfx(T.rise, "rumble", { gain: 0.45, dur: 3.5, reason: "the hum swells as the ring lifts away" });
 c.prop(T.rise, "sh-ship", { x: P.home[0] - 4, y: 64, z: P.home[1] - 30 }, T.pay - T.rise, "in");
-for (const id of ["spudH", "wkH", "crewH", "liftH"]) A(T.home + 0.2, id, "look", { to: [0, 0.8], dur: 0.4 });
-A(T.rise + 0.4, "spudH", "look", { to: [0.05, 1.0], dur: 1.2 });
+for (const id of ["spudH", "wkH", "crewH", "liftH"]) A(T.home + 0.1, id, "look", { to: [0, 0.8], dur: 0.4 });
+c.arm(18.2, "crewH", "R", "wave", 0.35, "out");
+c.arm(18.9, "spudH", "R", "wave", 0.35, "out");
+A(18.85, "spudH", "look", { to: [0.4, 0.4], dur: 0.2 });
+A(19.2, "spudH", "look", { to: [0.05, 0.9], dur: 0.3 });
+c.arm(21.3, "crewH", "R", "rest", 0.5, "inOut"); c.arm(21.4, "spudH", "R", "rest", 0.5, "inOut");
 say(T.us, "They didn't build it for us.", LEN.us, "spudH");
 say(T.home2, "They built a signpost home.", LEN.home, "spudH");
-see(T.home, T.pay, ["sh-ship", "gh-pyr"], "the ring over the white pyramid, then climbing toward the Belt");
+A(T.pay - 0.25, "spudH", "noblink", { dur: 0.25 });
+see(T.home, T.faces, ["sh-ship", "gh-pyr"], "the ring over the white pyramid lifts off");
+see(T.faces, T.climb, ["spudH.face", "crewH.face"], "the faces looking up, the alien and Spud waving");
+see(T.climb, T.pay, ["sh-ship", "h-belt"], "the ring climbs toward the Belt");
 
 // ================================================================ 4 PAYOFF (2:44, panel 32)
 // the big ring is gone; a point of light glides into line with the Belt; Spud turns to us: "Case closed."
@@ -158,11 +194,15 @@ c.prop(T.pay + 0.05, "dot", { x: r3(DOT1[0]), y: r3(DOT1[1]), z: DOT1[2] }, 2.4,
 A(T.turn, "spudH", "turn", { to: 0, dur: 0.5 });
 A(T.turn + 0.2, "spudH", "look", { to: [0, 0], dur: 0.3 });
 A(T.turn + 0.4, "spudH", "expr", { expr: "deadpan", dur: 0.3 });
-say(T.closed, "Case closed.", LEN.closed, "spudH");
+say(T.closed, "Case closed.", LEN.closed, "spudH", { sub: false });
+cap(27.35, T.tag - 0.05, "CASE CLOSED", TXT, false, { ...TXTS, size: 120 });
+sfx(27.35, "step", { gain: 0.5, reason: "a dull stamp as the words land" });
+A(T.tag - 0.25, "spudH", "noblink", { dur: 0.25 });
 see(T.closed, T.tag, ["spudH.face", "dot"], "his face, the point of light in line with the Belt");
 
 // ================================================================ 5 TAG (2:48, panels 33-36): the real answer
-// a worker finishes the red marks; Spud reads them, sees what they say, slides over and presses his back flat on them
+// Start on the evidence: the reed brush finishing the red marks, close. Spud leans in to read; the translation punches in
+// ("FRIENDS OF KHUFU": the workers' own gang name); he slides over and presses his back flat on it; the words go with it.
 const brush = grips.thin(c, "wkT", BRUSH, { side: "L" });
 brush.take(0.0, { reach: 0.01, settle: 0.01 });
 const stroke = (t, x, y) => brush.carry(t, [r3(P.tag[0] + x), y, -2.36], 0.35, "inOut");
@@ -174,10 +214,10 @@ A(T.tag, "spudT", "look", { to: [0.5, 0.2], dur: 0.01 });
 A(T.read - 0.15, "spudT", "look", { to: [0.55, 0.3], dur: 0.15 });
 A(T.read, "spudT", "move", { to: at(P.tag, -0.6, -1.95), dur: 0.5, steps: 2 });
 A(T.read + 0.2, "spudT", "look", { to: [0.6, 0.4], dur: 0.3 });
+cap(32.1, 33.25, "“FRIENDS OF KHUFU”", TXT, false, { ...TXTS, size: 84 });
 A(T.see - 0.05, "spudT", "turn", { to: 330, dur: 0.35 });
 act.shock(c, T.see, "spudT", { open: 0.15, eye: 1.2, curve: null, brow: 0.35, dur: 0.15, hold: 0.4 });
 A(T.see + 0.1, "spudT", "look", { to: [0, 0], dur: 0.2 });
-// he slides in front of the marks, back to the wall, arms spread; the worker steps back, brush still up
 brush.carry(T.cover - 0.1, [r3(P.tag[0] + 0.62), 0.4, -1.75], 0.45);
 A(T.cover - 0.25, "wkT", "look", { to: [-0.5, 0.1], dur: 0.2 });
 A(T.cover - 0.1, "wkT", "move", { to: at(P.tag, 1.0, -1.7), dur: 0.45, steps: 2 });
@@ -191,26 +231,45 @@ A(T.cover + 0.3, "spudT", "grip", { side: "L", shape: "flat", dur: 0.15 });
 A(T.cover + 0.5, "wkT", "look", { to: [-0.6, 0.1], dur: 0.25 });
 A(T.cover + 0.6, "spudT", "expr", { expr: "deadpan", dur: 0.3 });
 A(T.cover + 0.6, "spudT", "look", { to: [0, 0], dur: 0.2 });
+A(T.close - 0.25, "spudT", "noblink", { dur: 0.25 });
 A(T.close, "spudT", "expr", { expr: "deadpan", dur: 0.2 });
 A(T.close + 0.05, "spudT", "face", { brow: -0.4, press: 0.6, dur: 0.25 });
 say(T.nobody, "...nobody saw that.", LEN.nobody, "spudT", { sub: "...Nobody saw that." });
+A(T.end - 0.3, "spudT", "noblink", { dur: 0.3 });
 trimSubs();
-see(T.tag, T.cover, ["marks", "wkT", "spudT"], "the worker painting the red marks, Spud beside him");
+see(T.tag, T.read, ["marks"], "the brush finishing the red marks");
+see(T.read, T.cover, ["marks", "spudT"], "Spud reads the marks");
 see(T.close, T.end, ["spudT.face"], "his deadpan look to us, the marks hidden behind him");
 
-// ---------------------------------------------------------------- shots
+// ---------------------------------------------------------------- shots (a push or a move on every one)
 const shot = (o, pos, look, fov, extra = {}) => ({ ...cam(o, { pos, look, fov }), ...extra });
-const NIGHT_A = shot(P.night, [-150, 1.2, 232], [-56, 40, 56], 32);
-const NIGHT_B = { ...NIGHT_A, to: { ...shot(P.night, [-150, 1.0, 232], [-56, 22, 56], 30) } };
+const move = (a, b, dur, ease = "inOut") => ({ ...a, to: { pos: b.pos, look: b.look, fov: b.fov }, dur, ease });
+const NB = [P.night[0] + NIGHT_BELT.x - P.night[0], NIGHT_BELT.y, NIGHT_BELT.z];   // the Belt in world metres
+const SKY_A = shot(P.night, [-150, 0.9, 232], [-60, 58, 48], 34), SKY_B = shot(P.night, [-150, 1.0, 232], [-60, 44, 54], 32);
+const BELT_A = { pos: SKY_B.pos, look: [r3(NB[0]), NB[1], r3(NB[2])], fov: 22 }, BELT_B = { ...BELT_A, fov: 15 };
+const PYR_A = shot(P.night, [-150, 1.2, 232], [-56, 40, 56], 32), PYR_B = shot(P.night, [-150, 1.0, 230.5], [-56, 24, 56], 30);
+const ROOM_A = shot(P.room, [4.0, 1.05, 1.7], [2.735, 1.0, 2.6], 42), ROOM_B = shot(P.room, [4.9, 0.85, 1.85], [2.7, 0.9, 2.4], 55);
+const POV_A = shot(P.shaft, [0, 0.5, 0], [0, 10.5, 10], 26), POV_B = shot(P.shaft, [0, 1.9, 1.4], [0, 11.9, 11.4], 22);
+const HOME_A = shot(P.home, [-30, 1.0, 216], [0, 31, 0], 26), HOME_B = shot(P.home, [-30, 1.0, 215.2], [0, 33, 0], 26);
+const FACE_A = shot(P.home, [-29.0, 0.35, 205.9], [-29.0, 0.95, 209.5], 52), FACE_B = shot(P.home, [-29.0, 0.4, 206.4], [-29.0, 0.95, 209.5], 46);
+const CLIMB_A = shot(P.home, [-30, 1.0, 216], [-2, 40, -10], 28), CLIMB_B = shot(P.home, [-30, 1.0, 216], [2, 58, -16], 26);
+const PAY_A = shot(P.home, [-29.3, 0.62, 213.3], [-28.8, 1.95, 200], 30), PAY_B = shot(P.home, [-29.3, 0.62, 212.4], [-28.8, 1.95, 200], 30);
+const MARK_A = shot(P.tag, [0.35, 0.65, -1.35], [0.15, 0.6, -2.6], 48), MARK_B = shot(P.tag, [0.3, 0.66, -1.15], [0.1, 0.6, -2.6], 52);
+const WIDE_A = shot(P.tag, [0.25, 0.75, 0.9], [-0.15, 0.6, -2.6], 70), WIDE_B = shot(P.tag, [0.2, 0.74, 0.55], [-0.15, 0.6, -2.6], 70);
+const CU_A = shot(P.tag, [0, 0.55, -0.35], [0, 0.78, -2.6], 50), CU_B = shot(P.tag, [0, 0.56, -0.6], [0, 0.76, -2.6], 50);
 const beats = c.beats([
-  ["orion rises", T.night, NIGHT_A, "hook"],
-  ["the smallest star", T.star - 0.2, { ...NIGHT_B, dur: 4.2, ease: "inOut" }],
-  ["the south shaft", T.room, shot(P.room, [4.9, 0.8, 2.0], [2.7, 0.85, 2.35], 55)],
-  ["up the shaft", T.pov, { ...shot(P.shaft, [0, 0.5, 0], [0, 0.5 + 10, 10], 26), to: shot(P.shaft, [0, 0.5 + 1.2, 1.2], [0, 0.5 + 11.2, 11.2], 24), dur: 5.0, ease: "inOut" }],
-  ["the ship goes home", T.home, { ...shot(P.home, [-30, 1.0, 216], [0, 30, 0], 26), to: shot(P.home, [-30, 1.0, 216], [0, 36, 0], 26), dur: 9.0, ease: "inOut" }, "reveal"],
-  ["case closed", T.pay, shot(P.home, [-29.3, 0.62, 213.3], [-28.8, 1.95, 200], 30), "payoff"],
-  ["the marks", T.tag, shot(P.tag, [0.25, 0.75, 0.9], [-0.15, 0.6, -2.6], 70)],
-  ["nobody saw that", T.close, shot(P.tag, [0, 0.55, -0.35], [0, 0.78, -2.6], 50), "reaction"],
+  ["orion rises", T.night, move(SKY_A, SKY_B, 3.0), "hook"],
+  ["the smallest star", T.star, move(BELT_A, BELT_B, 2.7)],
+  ["the smallest pyramid", T.pyr, move(PYR_A, PYR_B, 3.3)],
+  ["the south shaft", T.room, move(ROOM_A, ROOM_B, 3.0)],
+  ["up the shaft", T.pov, move(POV_A, POV_B, 5.0)],
+  ["the ship goes home", T.home, move(HOME_A, HOME_B, 2.5), "reveal"],
+  ["faces up", T.faces, move(FACE_A, FACE_B, 2.5)],
+  ["toward the Belt", T.climb, move(CLIMB_A, CLIMB_B, 4.0)],
+  ["case closed", T.pay, move(PAY_A, PAY_B, 4.0), "payoff"],
+  ["the brush", T.tag, move(MARK_A, MARK_B, 1.8)],
+  ["the marks", T.read, move(WIDE_A, WIDE_B, 2.4)],
+  ["nobody saw that", T.close, move(CU_A, CU_B, 2.8), "reaction"],
 ], T.end);
 
 write(import.meta.url, {
@@ -219,16 +278,17 @@ write(import.meta.url, {
   idea: "Who really built the pyramids? 2:18-2:55: Orion's Belt over the three pyramids, the south shaft, the ring ship leaves for the Belt in 2560 BC, 'Case closed', and the workers' red marks Spud covers with his back",
   format: "series: Ancient aliens (Spud hosts with Reaper's voice, five numbered clues, the alien answer is the premise, the tag winks at the real one); block D of four, joined later",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
-  captionBand: [210, 640],   // speech lettering in the upper third (Jonny 12 Nov)
+  captionBand: [210, 640],   // numbers at y 300, subtitles at y 470   // speech lettering in the upper third (Jonny 12 Nov)
   cleanStart: true, motion: MOTION, rig: RIG, physics: false, animeTiming: true,
   set: { ...SET_NIGHT, aperture: 0, focus: false, bloom: "emissive", hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
-  music: false,   // the join pass lays ONE orchestra bed over the whole film (kit/BLOCKS.md)
+  music: score(138),   // the pilot score from story 2:18 (kit score(): swell under the ship, out before the tag, pizzicato under it)
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [T.end, T.end] },
   hook: { show: ["spudN", "n-orion"], hint: 0, what: "block D opens mid-film on a hard cut: night over the three pyramids, Orion rising" },
   cast, props, captions: c.captions, beats, visible: c.visible,
   allowClip: [
     ...lampClip(["spudN", "spudK", "spudH", "spudT"], T.end),
+    { who: "spudK", with: "spudK-lamp", from: T.room, to: T.pov, checks: ["shell"], reason: "the worn headlamp band squashes with his body as he hops (it sits on the skin)" },
     ...["spudN"].map((w) => ({ who: w, with: "n-ground", from: 0, to: T.end, checks: WORN, reason: "he stands on the plateau's far ground (its rubble humps)" })),
     ...["spudH", "wkH", "crewH", "liftH"].map((w) => ({ who: w, with: "fh-ground", from: 0, to: T.end, checks: WORN, reason: "they stand on the plateau's far ground (its rubble humps)" })),
     { who: "wkT", with: "rel", from: T.tag, to: T.cover, checks: ["arm-in-prop"], reason: "the brush hand paints on the wall" },

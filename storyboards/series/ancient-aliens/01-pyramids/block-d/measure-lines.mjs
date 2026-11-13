@@ -13,7 +13,9 @@ export const LINES = {
   closed: "Case closed.",
   nobody: "...nobody saw that.",
 };
-const sb = { beats: [{ at: 0, do: Object.values(LINES).map((line) => ({ macro: "say", who: "spud", line, tone: "calm", voice: HOST_VOICE })) }] };
+// v2 (How we explain): each clue reveal is read "excited"
+export const TONES = { belt: "excited" };
+const sb = { beats: [{ at: 0, do: Object.entries(LINES).map(([k, line]) => ({ macro: "say", who: "spud", line, tone: TONES[k] ?? "calm", voice: HOST_VOICE })) }] };
 const out = withSpeech(sb, {});
 const keys = Object.keys(LINES);
 out.beats[0].do.forEach((it, i) => console.log(keys[i].padEnd(8), String(it.dur).padEnd(6), it.line));
