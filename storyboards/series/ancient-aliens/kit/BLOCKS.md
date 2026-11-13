@@ -30,7 +30,7 @@ it (`ancient-aliens-01-sheet-1..3.png`, approved by Jonny), `kit/BOARD.md`, the 
   Time everything after a line from the spoken length the render prints (`speech: "..." lasts Xs spoken`).
 - Each block starts and ends on a hard cut at its story time; keep the block's length within 1 s of its slot. First
   and last 0.3 s: no line running, no move half done.
-- Captions: speech lettering in the upper third, never over eyes or faces. Clue counter "CLUE n/5" top corner in the
+- Captions: speech lettering in the upper third, never over eyes or faces. Clue counter `clueTag(c, t0, t1, n)` from aa-kit.mjs (one style for all blocks) in the
   block where the clue starts (1 in A, 2 in B, 3 and 4 in C, 5 in D); numbers as text as STORY.md says. Most viewers
   are German speakers: the picture and the numbers must tell the clue without the English.
 - Sound: `music: false` in every block (the join pass lays ONE orchestra bed over the whole film). Realistic sounds
