@@ -1,0 +1,1420 @@
+{
+ "id": "aa01-block-b",
+ "title": "Ancient Aliens EP01 block B: the granite",
+ "idea": "Who really built the pyramids? Block B (0:56-1:40): the granite beams of the King's Chamber came 800 km from Aswan; the alien cutter slices one, a ship carries it over the Nile; Aliens 1, Humans 2",
+ "format": "series: Ancient Aliens (Spud hosts in Reaper's voice, 5 numbered clues, the sun as the clock); block B of four, joined later",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  200,
+  1440
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#8fc3ee",
+  "floor": "shadow",
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "scenes": [
+   "scifi"
+  ]
+ },
+ "creative": {
+  "length": [
+   44,
+   44
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "block B opens mid-film (after block A's walk into the dark): he climbs the Grand Gallery"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -1.2
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1,
+   "y": 0.593
+  },
+  {
+   "id": "fore",
+   "character": "ancient-aliens/alien-foreman",
+   "at": [
+    2998.4,
+    9.25
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "crew",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    2997.4,
+    8.2
+   ],
+   "face": 150,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "fishA",
+   "character": "ancient-aliens/worker-a",
+   "at": [
+    4000,
+    1.1
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "fishB",
+   "character": "ancient-aliens/worker-b",
+   "at": [
+    4000,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "gal",
+   "kind": "grandgallery",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "len": 24,
+   "slope": 26.3,
+   "staged": "the Grand Gallery set"
+  },
+  {
+   "id": "kc",
+   "kind": "kingschamber",
+   "x": 1000,
+   "y": 0,
+   "z": 0,
+   "staged": "the King's Chamber set"
+  },
+  {
+   "id": "map",
+   "kind": "stormsky",
+   "x": 2000,
+   "y": 9.6,
+   "z": 0,
+   "src": "storyboards/series/ancient-aliens/01-pyramids/block-b/nile-map.png",
+   "h": 19.2,
+   "staged": "a painted map card"
+  },
+  {
+   "id": "q-sky",
+   "kind": "aasky",
+   "x": 3000,
+   "z": 12,
+   "time": "day"
+  },
+  {
+   "id": "quarry",
+   "kind": "aswanquarry",
+   "x": 3000,
+   "y": 0,
+   "z": 0,
+   "staged": "the Aswan quarry backdrop"
+  },
+  {
+   "id": "cutter",
+   "kind": "granitecutter",
+   "x": 3000,
+   "y": 0,
+   "z": 6,
+   "slide": 1,
+   "pedestal": [
+    -1.6,
+    0,
+    2.6
+   ]
+  },
+  {
+   "id": "stone",
+   "kind": "roughgranite",
+   "x": 3000.6,
+   "y": 0,
+   "z": 6
+  },
+  {
+   "id": "n-sky",
+   "kind": "aasky",
+   "x": 4000,
+   "z": 14,
+   "time": "day"
+  },
+  {
+   "id": "river",
+   "kind": "nilewater",
+   "x": 4000,
+   "y": 0,
+   "z": 0,
+   "size": [
+    120,
+    120
+   ],
+   "reflect": [
+    [
+     4000,
+     1.6,
+     1.3,
+     5.2
+    ]
+   ],
+   "wake": [
+    [
+     4000,
+     2.45,
+     0.9
+    ],
+    [
+     4000,
+     -2.45,
+     0.8
+    ]
+   ],
+   "staged": "the Nile's surface"
+  },
+  {
+   "id": "boat",
+   "kind": "reedboat",
+   "x": 4000,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "bob": 0.5
+  },
+  {
+   "id": "cargo",
+   "kind": "cargoship",
+   "x": 3991,
+   "y": 11,
+   "z": -20,
+   "rot": 0,
+   "staged": "the aliens' cargo ship in the sky"
+  },
+  {
+   "id": "span",
+   "kind": "granitespan",
+   "x": 3991,
+   "y": 5.05,
+   "z": -20,
+   "rot": 0,
+   "staged": "the granite beam hanging under the ship"
+  },
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.3,
+   "to": 33.8,
+   "text": "CLUE 2/5",
+   "pos": 236,
+   "pop": false,
+   "x": 250,
+   "size": 52,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 11.55,
+   "text": "80 t = 13 elephants",
+   "pos": 1150,
+   "pop": false,
+   "x": 490,
+   "size": 70,
+   "kinetic": false
+  },
+  {
+   "from": 34,
+   "to": 44,
+   "text": "ALIENS 1 · HUMANS 2",
+   "pos": 236,
+   "pop": false,
+   "size": 64,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "P13 the Grand Gallery",
+   "at": 0,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     0.3,
+     0.95,
+     1
+    ],
+    "look": [
+     0,
+     2.6,
+     -7
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      0.2,
+      1.95,
+      -1.2
+     ],
+     "look": [
+      0,
+      4,
+      -9
+     ],
+     "fov": 58
+    },
+    "dur": 4.55,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "beam": 1,
+      "wobble": 0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cutter",
+     "set": {
+      "slide": 1,
+      "cut": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "cut": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "fishA",
+     "do": "ride",
+     "prop": "boat",
+     "off": [
+      0,
+      0.12,
+      1.1
+     ],
+     "yaw": -90,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fishB",
+     "do": "ride",
+     "prop": "boat",
+     "off": [
+      0,
+      0.12,
+      0
+     ],
+     "yaw": -90,
+     "sit": true,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "fishA",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fishB",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.1
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       2998.4,
+       0.6,
+       8.6
+      ]
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0,
+      -4.2
+     ],
+     "y": 2.076,
+     "dur": 4.4,
+     "steps": 7,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1000.9,
+      0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 4.58
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "P14 the King's Chamber",
+   "at": 4.6,
+   "len": 7,
+   "shot": {
+    "pos": [
+     1004.9,
+     1.5,
+     0.15
+    ],
+    "look": [
+     996,
+     2,
+     0
+    ],
+    "fov": 74,
+    "to": {
+     "pos": [
+      1004.9,
+      1.3,
+      0.15
+     ],
+     "look": [
+      998,
+      4.6,
+      0
+     ],
+     "fov": 74
+    },
+    "dur": 5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.95
+     ],
+     "dur": 0.5,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The ceiling: granite beams. Up to eighty tonnes each.",
+     "tone": "calm",
+     "dur": 4.43,
+     "voice": "reaper",
+     "pos": 430,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1000.6,
+      -2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 6.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.98
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 6.98
+    }
+   ]
+  },
+  {
+   "name": "P15 palm on the granite",
+   "at": 11.6,
+   "len": 4.05,
+   "shot": {
+    "pos": [
+     1002.5,
+     0.85,
+     -1.15
+    ],
+    "look": [
+     1000.6,
+     0.72,
+     -2.2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.75,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       1000.72,
+       0.5,
+       -2.585
+      ]
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "There is no granite at Giza.",
+     "tone": "calm",
+     "dur": 3.43,
+     "voice": "reaper",
+     "pos": 430,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 4.03
+    }
+   ]
+  },
+  {
+   "name": "P15 b Aswan, 800 km up the Nile",
+   "at": 15.65,
+   "len": 5.35,
+   "shot": {
+    "pos": [
+     1999.4,
+     13.6,
+     12
+    ],
+    "look": [
+     1999.4,
+     13.6,
+     0
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      2001.5,
+      4.9,
+      12
+     ],
+     "look": [
+      2001.5,
+      4.9,
+      0
+     ],
+     "fov": 44
+    },
+    "dur": 5.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It comes from Aswan, more than eight hundred kilometres up the Nile.",
+     "tone": "calm",
+     "dur": 3.78,
+     "voice": "reaper",
+     "pos": 430,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3001.05,
+      10.6
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 5.33
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 5.33
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.33
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.33
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 5.33
+    }
+   ]
+  },
+  {
+   "name": "P16 Aswan 2560 BC: the cutter",
+   "at": 21,
+   "len": 6.6,
+   "shot": {
+    "pos": [
+     3000.1,
+     1.5,
+     16.5
+    ],
+    "look": [
+     3000.1,
+     1.8,
+     7
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      3000.9,
+      1.25,
+      14.2
+     ],
+     "look": [
+      3000.8,
+      1.5,
+      8
+     ],
+     "fov": 54
+    },
+    "dur": 6.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.12,
+     "dur": 5.6,
+     "reason": "the cutter's low physical hum",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "cutter",
+     "set": {
+      "cut": 1
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.22,
+     "dur": 4.6,
+     "reason": "the cutter grinds through the granite",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "cut": 1
+     },
+     "dur": 4.4,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "They tell you: copper saws and wooden boats...",
+     "tone": "dry",
+     "dur": 2.85,
+     "voice": "reaper",
+     "pos": 430,
+     "take": 2,
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "cutter",
+     "set": {
+      "cut": 0
+     },
+     "dur": 0.15,
+     "ease": "linear",
+     "at": 4.8
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.85,
+     "reason": "the cut half settles 2 cm",
+     "at": 4.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      4000,
+      0
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 6.58
+    },
+    {
+     "do": "prop",
+     "id": "spud-lamp",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "boat",
+     "off": [
+      0,
+      0.12,
+      -1.1
+     ],
+     "yaw": -90,
+     "sit": true,
+     "dur": 0,
+     "at": 6.59
+    }
+   ]
+  },
+  {
+   "name": "P17 80 tonnes over the Nile",
+   "at": 27.6,
+   "len": 6.2,
+   "shot": {
+    "pos": [
+     4000.3,
+     1.25,
+     6.8
+    ],
+    "look": [
+     3999.8,
+     2.9,
+     -6
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "x": 3999.5
+     },
+     "dur": 6.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "span",
+     "set": {
+      "x": 3999.5
+     },
+     "dur": 6.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "fishA",
+     "do": "look",
+     "to": [
+      -0.3,
+      1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.16,
+     "dur": 6,
+     "reason": "the Nile lapping at the reed boat",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.08,
+     "dur": 15.9,
+     "reason": "the cargo ship's low hum overhead",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.8
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "fishB",
+     "do": "look",
+     "to": [
+      -0.1,
+      1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "fishA",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "fishB",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "For eighty tonnes.",
+     "tone": "dry",
+     "dur": 1.21,
+     "voice": "reaper",
+     "pos": 430,
+     "take": 2,
+     "at": 2.4
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.16,
+     "dur": 6,
+     "reason": "the Nile lapping at the reed boat",
+     "at": 5.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 6.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.01,
+     "at": 6.18
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.3,
+     "dur": 0.01,
+     "at": 6.18
+    }
+   ]
+  },
+  {
+   "name": "P18 the ask",
+   "at": 33.8,
+   "len": 10.2,
+   "shot": {
+    "pos": [
+     3999.05,
+     1,
+     3.6
+    ],
+    "look": [
+     3998.9,
+     1.5,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "x": 4003.5
+     },
+     "dur": 10.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "span",
+     "set": {
+      "x": 4003.5
+     },
+     "dur": 10.2,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Aliens? Type one. Humans? Type two.",
+     "tone": "dry",
+     "dur": 4.77,
+     "voice": "reaper",
+     "pos": 430,
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.16,
+     "dur": 5.2,
+     "reason": "the Nile lapping at the reed boat",
+     "at": 5
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "I'll wait.",
+     "tone": "dry",
+     "dur": 0.71,
+     "voice": "reaper",
+     "pos": 430,
+     "at": 6.27
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "browL": 0.6,
+     "dur": 0.3,
+     "at": 7.58
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 2.52,
+     "idle": 0.2,
+     "at": 7.58
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0.2,
+   "to": 4.4,
+   "see": [
+    "spud",
+    "gal"
+   ],
+   "why": "P13: he climbs the ramp up the gallery, only his headlamp lights it"
+  },
+  {
+   "from": 4.6,
+   "to": 11.6,
+   "see": [
+    "spud",
+    "kc"
+   ],
+   "why": "P14: the room of granite, the nine beams overhead"
+  },
+  {
+   "from": 11.6,
+   "to": 15.65,
+   "see": [
+    "spud.face",
+    "kc"
+   ],
+   "why": "P15: his palm flat on the granite wall"
+  },
+  {
+   "from": 15.65,
+   "to": 21,
+   "see": [
+    "map"
+   ],
+   "why": "P15 b: the route on the map, Giza to Aswan"
+  },
+  {
+   "from": 21,
+   "to": 27.6,
+   "see": [
+    "spud.face",
+    "cutter",
+    "stone",
+    "fore"
+   ],
+   "why": "P16: the alien cutter slices the beam dead straight, he watches, then tells us"
+  },
+  {
+   "from": 27.6,
+   "to": 33.8,
+   "see": [
+    "fishA.face",
+    "fishB.face",
+    "span",
+    "cargo"
+   ],
+   "why": "P17: two fishermen stare up at the granite going by"
+  },
+  {
+   "from": 33.8,
+   "to": 44,
+   "see": [
+    "spud.face"
+   ],
+   "why": "P18: close on him, the ask, then he waits"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud-lamp",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the headlamp band is worn on his head (built on his skin)"
+  },
+  {
+   "who": "boat",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the fishermen and Spud sit on the reed boat's deck"
+  },
+  {
+   "who": "gal",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "kc",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "map",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "quarry",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "river",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "boat",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the sets the cast stands in and on (gallery ramp, chamber, quarry, boat)"
+  },
+  {
+   "who": "spud",
+   "with": "kc",
+   "from": 11.6,
+   "to": 15.65,
+   "checks": [
+    "reach",
+    "hand-in-prop",
+    "arm-in-prop"
+   ],
+   "reason": "P15: his palm flat on the granite wall"
+  },
+  {
+   "who": "fore",
+   "with": "cutter",
+   "from": 0,
+   "to": 44,
+   "checks": [
+    "reach",
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the foreman's palm on the cutter's control slab (his cuff touches it)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-b/make-block-b.mjs (block B of four; music false; kit: ../../kit)."
+}
