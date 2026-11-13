@@ -110,11 +110,12 @@ const props = [
   ...liftShip("s8c", CAR, { top: PAVE, s: 1, beam: 0, block: null }), ...liftShip("s8b", BLK, { top: PAVE, s: 1, beam: 0, block: null }),
   // 09  2560 BC at the foot: white casing; the same block comes down in the beam onto the same spot
   ...far("f9", [PL.casing[0], 12], { seed: 6 }), ...site("t9", PL.casing, { era: "past", core: 3, seed: 2 }),
-  ...liftShip("s9", BLK9, { top: PAVE, s: 1, beam: 0.8, block: { y: 7.5, k: 1, look: "core" } }),
+  ...liftShip("s9", BLK9, { top: PAVE, s: 1, beam: 0.65, block: { y: 7.5, k: 1, look: "core" } }),
   // 10  up today's face from behind him
   ...far("f10", C10, { tracks: true, seed: 7 }), ...gizaToday("g10", PL.up, { haze: false }),
   // 11  the finished white pyramid from high above, the ship crossing
   ...far("f11", view(PL.high, VIEW.finishedHigh), { seed: 8 }), ...giza2560("g11", PL.high, { state: "finished" }),
+  { id: "workers11", kind: "potatocrowd", x: PL.high[0] + 2, z: 8, who: "workers", n: 40, box: [6, 2], seed: 11, h: r3(0.85 * S), lookAt: [0, 10, -8] },
   ...liftShip("s11", at(PL.high, -60, 10), { top: TOP(S, 1), hover: 16, beam: 0, lit: 0.4, block: null, shipK: 2.5 }),
   // 12  the robbers' tunnel from inside, the day outside the mouth
   ...far("f12", at(PL.door, 0, 12), { tracks: true, seed: 9 }),
@@ -133,7 +134,7 @@ for (const id of ["g1a-pyr", "g1b-pyr"]) prop(id).y = DOWN;
 
 // seed every param that is tweened later
 for (const id of ["s1-ship", "s2-ship", "s9-ship", "s11-ship", "s8c-ship", "s8b-ship"]) P(0, id, { wobble: 0 });
-P(0, "s1-ship", { beam: 1 }); P(0, "s2-ship", { beam: 0.5 }); P(0, "s9-ship", { beam: 0.8 }); P(0, "s11-ship", { beam: 0 }); P(0, "s8c-ship", { beam: 0 }); P(0, "s8b-ship", { beam: 0 });
+P(0, "s1-ship", { beam: 1 }); P(0, "s2-ship", { beam: 0.5 }); P(0, "s9-ship", { beam: 0.65 }); P(0, "s11-ship", { beam: 0 }); P(0, "s8c-ship", { beam: 0 }); P(0, "s8b-ship", { beam: 0 });
 for (const id of ["s1-block", "s2-block", "s9-block", "blk7"]) P(0, id, { dust: 0 });
 P(0, "spud-lamp", { lit: 0 }); P(0, "n6-stars", { show: 1 }); P(0, "n6-orion", { show: 0 });
 P(0, "camel5", { headY: 0, headP: 0 }); P(0, "camel6a", { lie: 1 });
@@ -322,7 +323,8 @@ see(T.p10, T.p11, ["spud", "g10-giza"], "the camera climbs the stepped face from
 say(r3(T.p11 + 0.15), "l7b");
 count(39.5, 43.6, 43.7, -2560, 1311, (v) => { const y = Math.round(v); return y < 0 ? `${-y} BC` : `${Math.max(1, y)} AD`; });
 cap(43.7, T.p12, "#1 · 3,800 YEARS", TXT, false, { ...TXTS, size: 84 });
-P(T.p11, "s11-ship", { x: r3(PL.high[0] - 60) }); P(r3(T.p11 + 0.02), "s11-ship", { x: r3(PL.high[0] + 20) }, r3(T.p12 - T.p11 - 0.05), "linear");
+// the ship stays off the gold tip: it drifts away over the west tombs, climbing (kit thread 13 Nov)
+P(T.p11, "s11-ship", { x: r3(PL.high[0] - 48), y: 40, z: 18 }); P(r3(T.p11 + 0.02), "s11-ship", { x: r3(PL.high[0] - 78), y: 52, z: -30 }, r3(T.p12 - T.p11 - 0.05), "linear");
 sfx(T.p11, "kenney/space-engine-low", { gain: 0.08, dur: r3(T.p12 - T.p11 - 0.2), reason: "the ship's hum, far" });
 see(T.p11, T.p12, ["g11-pyr", "s11-ship"], "the finished white pyramid, the camera circling, the ship crossing");
 
@@ -365,7 +367,7 @@ const SHOTS = [
   ["08 heavier than a car", T.p08, push(C08, 0.9, r3(T.p09 - T.p08))],
   ["09 2560 BC", T.p09, same(PL.foot, PL.casing, push(C08, 1.2, r3(T.p10 - T.p09))), "reveal"],
   ["10 the mountain", T.p10, { pos: [C10[0], 0.45, C10[1]], look: [PL.up[0], 0.7, 40], fov: 58, to: { pos: [C10[0], 5.5, C10[1] + 1], look: [PL.up[0], 25, 0] }, dur: 2.6 }],
-  ["11 tallest", T.p11, { ...cam(PL.high, { pos: [-62, 82, 150], look: [8, 6, -12], fov: 34 }), to: { pos: [PL.high[0] + 30, 78, 160] }, dur: r3(T.p12 - T.p11) }],
+  ["11 tallest", T.p11, { ...cam(PL.high, VIEW.finishedHigh), to: { pos: [r3(PL.high[0] + VIEW.finishedHighEnd.pos[0]), VIEW.finishedHighEnd.pos[1], VIEW.finishedHighEnd.pos[2]] }, dur: r3(T.p12 - T.p11) }],   // kit 3d1a66b: the whole complex, the gold tip, sky on top
   ["12 into the dark", T.p12, { pos: [PL.door[0], 1.0, -6.3], look: [PL.door[0], 0.85, 0], fov: 56, to: { pos: [PL.door[0], 1.0, -6.75] }, dur: 9.6 }],
 ];
 const beats = c.beats(SHOTS, END);
