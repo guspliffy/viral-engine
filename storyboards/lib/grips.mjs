@@ -99,6 +99,9 @@ const SIZE = {
   // the jute bag held by ONE fist at its gathered neck, the sack hanging under it: r = the neck ring (0.085); h is NOT the sack's height: the mug hold's
   // default height 0.66 x 1.0795 = 0.7125 = 0.95 x 0.75, the neck (props-zshop.js ZSHOP_GRIPS.tinbag.neck), so `grips.mug(c, who, BAG)` needs no height option
   tinbag: { r: 0.085, h: 1.0795 },
+  // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
+  // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
+  headrest: { w: 0.28, h: 0, d: 0.1 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

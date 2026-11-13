@@ -1,0 +1,58 @@
+{
+ "_note": "You wake up mid EP02 sinking car, round 2 (Jonny 12 Nov 18:56 Berlin on rough draft 1): the water coming into the floating car sounded like sprinkling water, not a car filling up; the last shot needs a real burning house. Same pipeline as recipes-sinking-car.json.",
+ "sfx": [
+  {
+   "id": "car-flooding",
+   "kind": "oneshot",
+   "len": [
+    4.0,
+    8.0
+   ],
+   "duration": 10,
+   "tags": [
+    "water",
+    "flood",
+    "car",
+    "gurgle"
+   ],
+   "prompts": [
+    "inside a car sinking in a lake, cold water flooding in through the doors and floor, heavy deep gurgling flow filling the footwells, low and full, muffled, realistic film sound effect, no spraying, no hissing",
+    "water pouring and gurgling into a flooded car interior, deep rushing inflow under the seats, bubbling, heavy volume of water, realistic recording"
+   ],
+   "seeds": [
+    911,
+    912,
+    913
+   ],
+   "gain": 0.55,
+   "label": "a car interior flooding: deep gurgling water pouring in under the seats"
+  },
+  {
+   "id": "house-fire",
+   "kind": "oneshot",
+   "len": [
+    4.0,
+    8.0
+   ],
+   "duration": 10,
+   "tags": [
+    "fire",
+    "house",
+    "crackle",
+    "roar"
+   ],
+   "prompts": [
+    "a house fire inside a bedroom, loud crackling and roaring flames, wood popping and burning, close, realistic film sound effect",
+    "room on fire, big roaring blaze with crackling timber and snapping wood, realistic recording, no music"
+   ],
+   "seeds": [
+    921,
+    922,
+    923
+   ],
+   "gain": 0.6,
+   "label": "a bedroom on fire: roaring flames, crackling and popping wood"
+  }
+ ],
+ "music": []
+}

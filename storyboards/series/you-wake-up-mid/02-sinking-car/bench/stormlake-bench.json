@@ -1,0 +1,529 @@
+{
+ "id": "stormlake-bench",
+ "title": "Stormlake bench: the storm lake world above and under the water (stand-ins, no cast)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 31,
+ "cleanStart": true,
+ "set": {
+  "type": "stormlake",
+  "lip": true,
+  "under": "auto",
+  "shafts": [
+   [
+    0,
+    [
+     1,
+     0
+    ]
+   ],
+   [
+    23.5,
+    [
+     1,
+     0
+    ]
+   ],
+   [
+    23.5,
+    [
+     2.5,
+     0
+    ]
+   ]
+  ],
+  "hole": [
+   [
+    0,
+    null
+   ],
+   [
+    2,
+    [
+     0,
+     0.3,
+     0,
+     1.6,
+     0.52
+    ]
+   ],
+   [
+    3,
+    [
+     0,
+     0.3,
+     0,
+     1.6,
+     0.52
+    ]
+   ],
+   [
+    3,
+    null
+   ]
+  ],
+  "wipe": [
+   [
+    26.9,
+    0
+   ],
+   [
+    26.9,
+    1
+   ],
+   [
+    26.97,
+    1
+   ],
+   [
+    26.97,
+    0
+   ]
+  ],
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   31
+  ],
+  "notes": false
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "s1-0",
+   "kind": "stoneblock",
+   "w": 1.1,
+   "h": 1.6,
+   "d": 3.3,
+   "x": 0,
+   "y": -0.5,
+   "z": 0.3,
+   "tip": 28,
+   "scale": 0
+  },
+  {
+   "id": "s2-0",
+   "kind": "stoneblock",
+   "w": 1.1,
+   "h": 1.6,
+   "d": 3.3,
+   "x": 0,
+   "y": -2.2,
+   "z": 0,
+   "tip": 25,
+   "scale": 0
+  },
+  {
+   "id": "s3-0",
+   "kind": "stoneblock",
+   "w": 1.1,
+   "h": 1.6,
+   "d": 3.3,
+   "x": 0,
+   "y": -5,
+   "z": 0,
+   "tip": 40,
+   "scale": 0
+  },
+  {
+   "id": "s3-1",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 1.3,
+   "y": -2.4,
+   "z": 0.6,
+   "scale": 0
+  },
+  {
+   "id": "s3-2",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 0.6,
+   "y": -2,
+   "z": -0.5,
+   "scale": 0
+  },
+  {
+   "id": "s3-3",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 1.9,
+   "y": -2.9,
+   "z": -0.2,
+   "scale": 0
+  },
+  {
+   "id": "s4-0",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 2.6,
+   "y": -0.154,
+   "z": 1.8,
+   "scale": 0
+  },
+  {
+   "id": "s4-1",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 1.7,
+   "y": -0.176,
+   "z": 0.6,
+   "scale": 0
+  },
+  {
+   "id": "s4-2",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 3.2,
+   "y": -0.363,
+   "z": 0.3,
+   "scale": 0
+  },
+  {
+   "id": "s5-0",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 34.4,
+   "y": 0.4,
+   "z": -7.2,
+   "scale": 0
+  },
+  {
+   "id": "s5-1",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 34.6,
+   "y": 0.4,
+   "z": -6,
+   "scale": 0
+  },
+  {
+   "id": "s5-2",
+   "w": 0.65,
+   "h": 0.65,
+   "d": 0.65,
+   "kind": "boulder",
+   "x": 34.4,
+   "y": 0.4,
+   "z": -4.8,
+   "scale": 0
+  }
+ ],
+ "actions": [
+  {
+   "do": "prop",
+   "id": "s1-0",
+   "at": 2,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s1-0",
+   "at": 18.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s2-0",
+   "at": 18.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s2-0",
+   "at": 23.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-0",
+   "at": 23.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-0",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-1",
+   "at": 23.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-1",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-2",
+   "at": 23.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-2",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-3",
+   "at": 23.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s3-3",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-0",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-0",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-1",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-1",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-2",
+   "at": 26.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s4-2",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 0
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s5-0",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s5-1",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  },
+  {
+   "do": "prop",
+   "id": "s5-2",
+   "at": 29.5,
+   "dur": 0,
+   "set": {
+    "scale": 1
+   }
+  }
+ ],
+ "captions": [],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    0.3,
+    8,
+    -7
+   ],
+   "look": [
+    -1.501,
+    3,
+    1.471
+   ],
+   "fov": 55
+  },
+  {
+   "at": 2,
+   "pos": [
+    7,
+    1.4,
+    14
+   ],
+   "look": [
+    0,
+    4.5,
+    -2
+   ],
+   "fov": 55
+  },
+  {
+   "at": 18.5,
+   "pos": [
+    4.5,
+    -2,
+    1.2
+   ],
+   "look": [
+    0.4,
+    -1.6,
+    0
+   ],
+   "fov": 50
+  },
+  {
+   "at": 23.5,
+   "pos": [
+    5.5,
+    -4,
+    2
+   ],
+   "look": [
+    0,
+    -2.8,
+    0
+   ],
+   "fov": 65
+  },
+  {
+   "at": 26.5,
+   "pos": [
+    9,
+    0.35,
+    8
+   ],
+   "look": [
+    2,
+    0.2,
+    1
+   ],
+   "fov": 45
+  },
+  {
+   "at": 29.5,
+   "pos": [
+    37.5,
+    0.9,
+    -5
+   ],
+   "look": [
+    33.5,
+    0.45,
+    -6.5
+   ],
+   "fov": 50
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/you-wake-up-mid/02-sinking-car/bench/make-stormlake-bench.mjs (task T1)."
+}
