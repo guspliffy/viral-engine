@@ -33,7 +33,12 @@ const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : 
 const SUBY = 470;   // speech lettering in the upper third, under the number texts, never over a face (Jonny 12 Nov)
 const TXT = 300, TXTS = { size: 96, kinetic: false };   // the number texts (read without English)
 // hostSay (kit): the say MACRO in Reaper's voice (a plain c.say talk action is never voiced in a beat storyboard) + its subtitle
-const say = (t, k) => { hostSay(c, r3(t), "spud", LINES[k], DUR[k], toneOf(k), { pos: SUBY }); return r3(t + DUR[k]); };
+// capEnd: end the subtitle where the next line starts (hostSay holds it 0.4 s past the voice, which can collide)
+const say = (t, k, capEnd) => {
+  if (capEnd == null) hostSay(c, r3(t), "spud", LINES[k], DUR[k], toneOf(k), { pos: SUBY });
+  else { hostSay(c, r3(t), "spud", LINES[k], DUR[k], toneOf(k), { sub: false }); c.cap(r3(t), r3(capEnd), LINES[k], SUBY, false, { size: 62, kinetic: false }); }
+  return r3(t + DUR[k]);
+};
 // a number that counts: from a to b over [t0, t1] in steps of 0.1 s (eased out), then holds to `hold`
 const count = (t0, t1, hold, a, b, fmt, o = {}) => {
   const n = Math.max(1, Math.round((t1 - t0) / 0.1));
@@ -181,7 +186,7 @@ const PYR = ["g1a-pyr", "g1b-pyr", "g1-pyr"];
 A(r3(T.tl2 - 0.02), "spud", "crouch", { to: 0.6, dur: 0.01 });
 A(r3(T.tl3 - 0.02), "spud", "crouch", { to: 0, dur: 0.01 });
 c.arm(r3(T.tl3 - 0.02), "spud", "R", "hips", 0.01); c.arm(r3(T.tl3 - 0.02), "spud", "L", "hips", 0.01);
-say(3.15, "l2");
+say(3.15, "l2", 6.3);
 count(3.1, 3.9, T.tl2, 0, 600000, (v) => big(v).toLocaleString("en-US"));
 count(T.tl2, 4.9, T.tl3, 600000, 1400000, (v) => big(v).toLocaleString("en-US"));
 count(T.tl3, 5.6, T.p04, 1400000, 2300000, (v) => big(v).toLocaleString("en-US"));
