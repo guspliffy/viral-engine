@@ -1,0 +1,1468 @@
+{
+ "id": "aa01-c-day",
+ "title": "Ancient Aliens 01 block C (day)",
+ "idea": "Clue 3: precision, one line north",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  200,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#8fc3ee",
+  "floor": "shadow"
+ },
+ "music": {
+  "file": "ancient-aliens/aa01-score.ogg",
+  "from": 0,
+  "skip": 100,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "scenes": [
+   "scifi"
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud1",
+   "level1"
+  ],
+  "hint": 0,
+  "what": "block C opens on the base and the level (mid-film, no hook)"
+ },
+ "cast": [
+  {
+   "id": "spud1",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.6,
+    1.35
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1,
+   "y": 0.12
+  },
+  {
+   "id": "spud2",
+   "character": "potatobrawl/spud",
+   "at": [
+    2000.54,
+    1.02
+   ],
+   "face": -140,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spud3",
+   "character": "potatobrawl/spud",
+   "at": [
+    3001.2,
+    0.9
+   ],
+   "face": 60,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "crewA",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    2998.75,
+    0.35
+   ],
+   "face": 120,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "crewB",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    2998.8,
+    -1
+   ],
+   "face": 140,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "f1-sky",
+   "kind": "aasky",
+   "x": 0.4,
+   "z": 5,
+   "time": "afternoon",
+   "night": 0
+  },
+  {
+   "id": "f1-ground",
+   "kind": "gizaplateau",
+   "x": 0.4,
+   "z": 5,
+   "tracks": true,
+   "seed": 3,
+   "night": 0
+  },
+  {
+   "id": "b1-base",
+   "kind": "pyramidbase",
+   "x": 0,
+   "z": 0,
+   "state": "today",
+   "seed": 1
+  },
+  {
+   "id": "b1-pave",
+   "kind": "gizapavement",
+   "x": 0,
+   "z": 4.7,
+   "size": [
+    36,
+    10
+   ],
+   "state": "today",
+   "seed": 1
+  },
+  {
+   "id": "level1",
+   "kind": "spiritlevel",
+   "x": 1.6,
+   "y": 0.12,
+   "z": 2.15,
+   "rot": 0,
+   "bubble": 0
+  },
+  {
+   "id": "spud1-lamp",
+   "kind": "headlamp",
+   "wear": "spud1",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "f2-sky",
+   "kind": "aasky",
+   "x": 1028,
+   "z": 35,
+   "time": "afternoon",
+   "night": 0
+  },
+  {
+   "id": "f2-ground",
+   "kind": "gizaplateau",
+   "x": 1028,
+   "z": 35,
+   "tracks": true,
+   "seed": 2,
+   "night": 0
+  },
+  {
+   "id": "g2-giza",
+   "kind": "gizatoday",
+   "x": 1000,
+   "z": 0,
+   "s": 0.2,
+   "sunAz": 215,
+   "night": 0
+  },
+  {
+   "id": "sW",
+   "kind": "northline",
+   "x": 976.97,
+   "y": 0.15,
+   "z": 23.03,
+   "rot": 0,
+   "len": 46.06,
+   "width": 0.35,
+   "staged": "a measuring line lying on the sand along the base"
+  },
+  {
+   "id": "sN",
+   "kind": "northline",
+   "x": 976.97,
+   "y": 0.15,
+   "z": -23.03,
+   "rot": -90,
+   "len": 46.06,
+   "width": 0.35,
+   "staged": "a measuring line lying on the sand along the base"
+  },
+  {
+   "id": "sE",
+   "kind": "northline",
+   "x": 1023.03,
+   "y": 0.15,
+   "z": -23.03,
+   "rot": 180,
+   "len": 46.06,
+   "width": 0.35,
+   "staged": "a measuring line lying on the sand along the base"
+  },
+  {
+   "id": "sS",
+   "kind": "northline",
+   "x": 1023.03,
+   "y": 0.15,
+   "z": 23.03,
+   "rot": 90,
+   "len": 46.06,
+   "width": 0.35,
+   "staged": "a measuring line lying on the sand along the base"
+  },
+  {
+   "id": "f3-sky",
+   "kind": "aasky",
+   "x": 2000,
+   "z": 2,
+   "time": "afternoon",
+   "night": 0
+  },
+  {
+   "id": "f3-ground",
+   "kind": "gizaplateau",
+   "x": 2000,
+   "z": 2,
+   "tracks": true,
+   "seed": 5,
+   "night": 0
+  },
+  {
+   "id": "pair3",
+   "kind": "casingpair",
+   "x": 2000,
+   "y": 0,
+   "z": 0,
+   "state": "today",
+   "seed": 2
+  },
+  {
+   "id": "spud2-lamp",
+   "kind": "headlamp",
+   "wear": "spud2",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "f4-sky",
+   "kind": "aasky",
+   "x": 3002,
+   "z": 8,
+   "time": "afternoon",
+   "night": 0
+  },
+  {
+   "id": "f4-ground",
+   "kind": "gizaplateau",
+   "x": 3002,
+   "z": 8,
+   "tracks": false,
+   "seed": 4,
+   "night": 0,
+   "rubble": 0
+  },
+  {
+   "id": "s4-ship",
+   "kind": "ringship",
+   "x": 3000,
+   "y": 10,
+   "z": 0,
+   "s": 1,
+   "beam": 0.5,
+   "lit": 0.4,
+   "beamLen": 10,
+   "beamR": 3.5
+  },
+  {
+   "id": "s4-block",
+   "kind": "limeblock",
+   "x": 3000,
+   "y": 3,
+   "z": 0,
+   "look": "casing",
+   "size": [
+    1.3,
+    1.05,
+    1.3
+   ],
+   "seed": 5,
+   "staged": "the ship's beam carries the corner stone down"
+  },
+  {
+   "id": "line4",
+   "kind": "northline",
+   "x": 3000,
+   "y": 0.02,
+   "z": -0.7,
+   "len": 120,
+   "width": 0.16,
+   "staged": "a line of light lying on the sand"
+  },
+  {
+   "id": "true4",
+   "kind": "northline",
+   "x": 3000,
+   "y": 0.03,
+   "z": -0.7,
+   "len": 120,
+   "width": 0.04,
+   "color": "#ffffff",
+   "rot": 0.05,
+   "staged": "true north drawn on the map view"
+  },
+  {
+   "id": "spud3-lamp",
+   "kind": "headlamp",
+   "wear": "spud3",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.3,
+   "text": "CLUE 3/5",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 0.3,
+   "to": 2.77,
+   "text": "Two hundred and thirty metres a side.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0.6,
+   "to": 0.7,
+   "text": "0 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 0.7,
+   "to": 0.8,
+   "text": "53 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 0.8,
+   "to": 0.9,
+   "text": "97 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 0.9,
+   "to": 1,
+   "text": "133 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 1.1,
+   "text": "162 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.1,
+   "to": 1.2,
+   "text": "184 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.2,
+   "to": 1.3,
+   "text": "201 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.3,
+   "to": 1.4,
+   "text": "213 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.4,
+   "to": 1.5,
+   "text": "221 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.5,
+   "to": 1.6,
+   "text": "226 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.6,
+   "to": 1.7,
+   "text": "229 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.7,
+   "to": 1.8,
+   "text": "230 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.8,
+   "to": 2.35,
+   "text": "230 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 2.4,
+   "to": 5.3,
+   "text": "CLUE 3/5",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 2.8,
+   "to": 5.45,
+   "text": "All four within twenty centimetres.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.6,
+   "to": 3.2,
+   "text": "W 230.36 m",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 3.2,
+   "to": 3.8,
+   "text": "N 230.25 m",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 3.8,
+   "to": 4.4,
+   "text": "E 230.39 m",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 5,
+   "text": "S 230.45 m",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 5.35,
+   "text": "Δ 20 cm",
+   "pos": 300,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.6,
+   "to": 7.95,
+   "text": "0.5 mm",
+   "pos": 300,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 10.99,
+   "text": "And it points to true north.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.2,
+   "to": 14.3,
+   "text": "N",
+   "pos": 700,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 11.5,
+   "to": 14.07,
+   "text": "Off by less than a tenth of a degree.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 12.6,
+   "to": 12.7,
+   "text": "3.00°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 12.7,
+   "to": 12.8,
+   "text": "2.20°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 12.8,
+   "to": 12.9,
+   "text": "1.56°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 12.9,
+   "to": 13,
+   "text": "1.06°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 13.1,
+   "text": "0.69°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.1,
+   "to": 13.2,
+   "text": "0.42°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.2,
+   "to": 13.3,
+   "text": "0.24°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.3,
+   "to": 13.4,
+   "text": "0.13°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.4,
+   "to": 13.5,
+   "text": "0.07°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.5,
+   "to": 13.6,
+   "text": "0.05°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.6,
+   "to": 14.3,
+   "text": "0.05°",
+   "pos": 1180,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.6,
+   "to": 15.99,
+   "text": "No compass.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "crane",
+   "at": 0,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0.7,
+     7,
+     6.8
+    ],
+    "look": [
+     1.2,
+     5.6,
+     -3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.45,
+      1.5,
+      5.5
+     ],
+     "look": [
+      1.5,
+      0.5,
+      1.4
+     ],
+     "fov": 40
+    },
+    "dur": 2.2
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s4-ship",
+     "set": {
+      "beam": 0.5,
+      "wobble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s4-block",
+     "set": {
+      "dust": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "line4",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "true4",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sW",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sN",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sE",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sS",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud1",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud1",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud1",
+     "line": "Two hundred and thirty metres a side.",
+     "tone": "excited",
+     "dur": 2.07,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud1",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "spud1",
+     "do": "expr",
+     "set": {
+      "raise": 0.06
+     },
+     "dur": 0.15,
+     "at": 1.75
+    },
+    {
+     "who": "spud1",
+     "do": "noblink",
+     "dur": 0.5,
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "sides",
+   "at": 2.4,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1022,
+     118,
+     40
+    ],
+    "look": [
+     1000,
+     0,
+     2
+    ],
+    "fov": 55,
+    "to": {
+     "pos": [
+      1034,
+      108,
+      30
+     ],
+     "look": [
+      1000,
+      0,
+      2
+     ],
+     "fov": 55
+    },
+    "dur": 3
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sW",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud1",
+     "line": "All four within twenty centimetres.",
+     "tone": "calm",
+     "dur": 2.25,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "sN",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "sE",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "sS",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "joint",
+   "at": 5.4,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     1999.25,
+     0.62,
+     3.1
+    ],
+    "look": [
+     1999.98,
+     0.55,
+     0.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1999.55,
+      0.58,
+      2.1
+     ],
+     "look": [
+      1999.98,
+      0.55,
+      0.45
+     ],
+     "fov": 30
+    },
+    "dur": 2.6
+   },
+   "do": [
+    {
+     "who": "spud2",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       2000.03,
+       0.47,
+       0.49
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud2",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "spud2",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "past",
+   "at": 8,
+   "len": 3,
+   "shot": {
+    "pos": [
+     3000.7,
+     3,
+     7.8
+    ],
+    "look": [
+     2999.9,
+     1.6,
+     -8
+    ],
+    "fov": 55,
+    "to": {
+     "pos": [
+      3000.7,
+      3.4,
+      7.8
+     ],
+     "look": [
+      2999.8,
+      0.6,
+      -14
+     ],
+     "fov": 55
+    },
+    "dur": 3
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s4-block",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.5999999999999996,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.14,
+     "dur": 6,
+     "reason": "the ship's low hum",
+     "at": 0
+    },
+    {
+     "who": "crewA",
+     "do": "look",
+     "to": [
+      0.2,
+      0.5
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crewB",
+     "do": "look",
+     "to": [
+      0.2,
+      0.5
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.9,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "s4-block",
+     "set": {
+      "dust": 1
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.5,
+     "reason": "grit under the block",
+     "at": 0.62
+    },
+    {
+     "who": "spud3",
+     "do": "expr",
+     "set": {
+      "lid": 0.7
+     },
+     "dur": 0.1,
+     "at": 0.7
+    },
+    {
+     "macro": "say",
+     "who": "spud3",
+     "line": "And it points to true north.",
+     "tone": "calm",
+     "dur": 1.59,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1
+    },
+    {
+     "who": "spud3",
+     "do": "expr",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "s4-ship",
+     "set": {
+      "z": -120.7
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "line4",
+     "set": {
+      "draw": 1
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 1.3
+    },
+    {
+     "who": "spud3",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.4,
+       0.62,
+       0.12
+      ]
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "crewA",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.6,
+     "at": 1.5
+    },
+    {
+     "who": "crewB",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.6,
+     "at": 1.6
+    },
+    {
+     "who": "spud3",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.4,
+     "at": 1.6
+    },
+    {
+     "who": "crewA",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.4,
+       0.6,
+       0.12
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "crewA",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 2.4
+    },
+    {
+     "who": "spud3",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 2.4
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 11,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     3000.2,
+     104,
+     26
+    ],
+    "look": [
+     3000,
+     0,
+     -56
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      3000.2,
+      86,
+      20
+     ],
+     "look": [
+      3000,
+      0,
+      -56
+     ],
+     "fov": 50
+    },
+    "dur": 3.4
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud3",
+     "line": "Off by less than a tenth of a degree.",
+     "tone": "calm",
+     "dur": 2.17,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "true4",
+     "set": {
+      "draw": 1
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "rest",
+   "at": 14.4,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     3002.7,
+     1,
+     3.7
+    ],
+    "look": [
+     3001,
+     0.7,
+     0.4
+    ],
+    "fov": 45,
+    "to": {
+     "pos": [
+      3002.3,
+      3,
+      5.6
+     ],
+     "look": [
+      3000.3,
+      0.7,
+      -18
+     ],
+     "fov": 50
+    },
+    "dur": 3.6
+   },
+   "do": [
+    {
+     "who": "spud3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud3",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "crewA",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "crewA",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud3",
+     "line": "No compass.",
+     "tone": "calm",
+     "dur": 0.99,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud3",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud3",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.24,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud3",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "spud3",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud3",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud3",
+     "do": "noblink",
+     "dur": 0.7,
+     "at": 2.9
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud1",
+   "with": "spud1-lamp",
+   "from": 0,
+   "to": 18,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud2",
+   "with": "spud2-lamp",
+   "from": 0,
+   "to": 18,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud3",
+   "with": "spud3-lamp",
+   "from": 0,
+   "to": 18,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud1",
+   "with": "b1-base",
+   "from": 0,
+   "to": 18,
+   "reason": "he crouches on the platform in front of the base; the base piece is one 36 m box (its foot line is 1.35 m behind him)"
+  },
+  {
+   "who": "spud2",
+   "with": "pair3",
+   "from": 5.4,
+   "to": 8,
+   "reason": "his fingertip on the joint, his sweater against the stone"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-c/make-block-c.mjs (block C, day light)."
+}
