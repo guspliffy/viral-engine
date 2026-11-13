@@ -1019,9 +1019,9 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.02,
-       0.52,
-       0.3
+       -0.06,
+       0.3,
+       0.42
       ]
      },
      "dur": 0.01,
@@ -1152,7 +1152,7 @@
      "line": "No rings. She's twenty steps away.",
      "voice": "narrator",
      "take": 1,
-     "dur": 2.6,
+     "dur": 3.5,
      "caption": true,
      "pos": 455,
      "gain": 4,
@@ -1221,25 +1221,14 @@
      "at": 0.4
     },
     {
-     "macro": "narrate",
-     "line": "You can teleport. Every jump keeps one thing.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 3.3,
-     "caption": true,
-     "pos": 360,
-     "gain": 4,
-     "at": 0.6
-    },
-    {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       -0.02,
-       0.62,
-       0.36
+      "world": [
+       0.57,
+       0.47,
+       0.39
       ]
      },
      "dur": 0.3,
@@ -1272,8 +1261,8 @@
      "do": "grip",
      "side": "L",
      "shape": "pinch",
-     "dur": 0.1,
-     "at": 1
+     "dur": 0.15,
+     "at": 0.9
     },
     {
      "who": "spud",
@@ -1287,24 +1276,44 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0,
-       0.6,
-       0.37
+      "world": [
+       0.59,
+       0.455,
+       0.395
       ]
      },
      "dur": 0.15,
      "at": 1.3
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.143,
+       0.297,
+       0.191
+      ],
+      "palm": [
+       0.143,
+       1.3,
+       0.191
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       -0.03,
-       0.61,
-       0.36
+      "world": [
+       0.57,
+       0.47,
+       0.39
       ]
      },
      "dur": 0.15,
@@ -1324,26 +1333,22 @@
     },
     {
      "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.12,
-       0.3,
-       0.26
-      ]
-     },
-     "dur": 0.25,
-     "ease": "out",
-     "at": 1.85
-    },
-    {
-     "who": "chip",
      "do": "grip",
      "side": "L",
-     "shape": "cup",
-     "dur": 0.15,
-     "at": 1.85
+     "shape": "flat",
+     "dur": 0.4,
+     "at": 1.6
+    },
+    {
+     "macro": "narrate",
+     "line": "You can teleport. Every jump keeps one thing.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": true,
+     "pos": 360,
+     "gain": 4,
+     "at": 2
     },
     {
      "who": "spud",
@@ -1351,6 +1356,20 @@
      "amount": 0.22,
      "dur": 0.05,
      "at": 2.083
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.32,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.1
     },
     {
      "who": "spud",
@@ -1447,9 +1466,9 @@
      "prop": "tieLoose",
      "mode": "throw",
      "to": [
-      0.06,
-      0.34,
-      0.26
+      0.143,
+      0.33,
+      0.2
      ],
      "in": 0.3,
      "spin": [
@@ -1487,12 +1506,8 @@
      "do": "grab",
      "prop": "tieLoose",
      "hand": "L",
-     "grip": [
-      0,
-      0.03,
-      0
-     ],
-     "dur": 0.05,
+     "keep": true,
+     "dur": 0,
      "pose": null,
      "at": 2.55
     },
@@ -1512,6 +1527,26 @@
      "dur": 0.15,
      "blink": false,
      "at": 2.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0,
+       0.2,
+       0.32
+      ],
+      "palm": [
+       0,
+       1.3,
+       0.32
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.85
     }
    ]
   },
@@ -1533,6 +1568,42 @@
     "fov": 46
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.16,
+       0.44
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.06
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0.06
+    },
     {
      "who": "spud",
      "do": "move",
@@ -1576,28 +1647,6 @@
      "sfx": "ai/air-push",
      "gain": 0.3,
      "reason": "he lands: a softer push of air",
-     "at": 0.1
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.02,
-       0.52,
-       0.3
-      ]
-     },
-     "dur": 0.01,
-     "at": 0.1
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.01,
      "at": 0.1
     },
     {
@@ -1669,13 +1718,14 @@
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.4,
-       0.6,
-       0.24
+      "prop": "rings",
+      "grip": [
+       0,
+       0.035,
+       0.02
       ]
      },
-     "dur": 0.35,
+     "dur": 0.4,
      "ease": "inOut",
      "at": 0.7
     },
@@ -1684,37 +1734,47 @@
      "do": "grip",
      "side": "L",
      "shape": "pinch",
-     "dur": 0.1,
-     "at": 1
+     "dur": 0.15,
+     "at": 0.95
     },
     {
      "who": "spud",
      "do": "grab",
      "prop": "rings",
      "hand": "L",
-     "grip": [
-      0,
-      0.01,
-      0
-     ],
-     "dur": 0.05,
+     "keep": true,
+     "dur": 0,
      "pose": null,
-     "at": 1.1
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.14,
+       0.16,
+       0.46
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.15
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "L",
      "pose": {
-      "o": [
-       0.02,
-       0.6,
-       0.34
+      "world": [
+       1.05,
+       0.535,
+       61.99
       ]
      },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 1.2
+     "dur": 0.01,
+     "at": 1.16
     },
     {
      "who": "spud",
@@ -1726,6 +1786,21 @@
      "dur": 0.2,
      "blink": false,
      "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.23,
+       0.52,
+       62.38
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.25
     },
     {
      "who": "spud",
@@ -1754,6 +1829,29 @@
      "gain": 0.3,
      "reason": "the rings settle in the velvet",
      "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.15,
+     "at": 1.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.9
     },
     {
      "who": "spud",
@@ -1854,9 +1952,9 @@
      "do": "prop",
      "id": "ringA",
      "set": {
-      "x": 0.37,
-      "y": 0.92,
-      "z": 62.12
+      "x": 0.18,
+      "y": 0.4,
+      "z": 62.36
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1866,9 +1964,9 @@
      "do": "prop",
      "id": "ringB",
      "set": {
-      "x": 0.43,
-      "y": 0.92,
-      "z": 62.14
+      "x": 0.24,
+      "y": 0.4,
+      "z": 62.35
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2004,6 +2102,28 @@
     },
     {
      "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.01,
+     "at": 2.96
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.96
+    },
+    {
+     "who": "spud",
      "do": "move",
      "to": [
       0.5,
@@ -2029,7 +2149,7 @@
   {
    "name": "07 the box presented",
    "at": 12,
-   "len": 2.3,
+   "len": 2.85,
    "shot": {
     "pos": [
      -0.2,
@@ -2065,28 +2185,6 @@
      "sfx": "ai/air-push",
      "gain": 0.3,
      "reason": "he lands: a softer push of air",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.02,
-       0.52,
-       0.3
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.01,
      "at": 0
     },
     {
@@ -2155,26 +2253,18 @@
     },
     {
      "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.05,
-     "at": 0.3
-    },
-    {
-     "who": "spud",
      "do": "arm",
-     "side": "L",
+     "side": "R",
      "pose": {
       "o": [
-       0,
-       0.62,
-       0.36
+       -0.06,
+       0.27,
+       0.42
       ]
      },
-     "dur": 0.12,
-     "ease": "out",
-     "at": 0.3
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.32
     },
     {
      "do": "prop",
@@ -2187,6 +2277,21 @@
      "at": 0.4
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.3,
+       0.42
+      ]
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 0.42
+    },
+    {
      "sfx": "ai/ring-box-snap",
      "gain": 0.7,
      "reason": "he snaps the box shut without looking",
@@ -2195,20 +2300,12 @@
     {
      "who": "spud",
      "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.25,
-     "at": 0.55
-    },
-    {
-     "who": "spud",
-     "do": "arm",
      "side": "R",
      "pose": {
       "o": [
        -0.12,
-       0.5,
-       0.42
+       0.07,
+       0.46
       ]
      },
      "dur": 0.35,
@@ -2235,26 +2332,51 @@
     },
     {
      "who": "chip",
+     "do": "turn",
+     "to": 65,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "chip",
      "do": "arm",
      "side": "R",
      "pose": {
-      "o": [
-       -0.1,
-       0.42,
-       0.34
-      ]
+      "world": [
+       0.155,
+       0.385,
+       0.51
+      ],
+      "point": "pinch"
      },
-     "dur": 0.3,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1.3
+     "at": 1.2
     },
     {
      "who": "chip",
      "do": "grip",
      "side": "R",
      "shape": "pinch",
-     "dur": 0.08,
-     "at": 1.55
+     "dur": 0.15,
+     "at": 1.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.155,
+       0.475,
+       0.374
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.6
     },
     {
      "do": "prop",
@@ -2306,17 +2428,26 @@
     },
     {
      "who": "chip",
-     "do": "grab",
-     "prop": "rbox",
-     "hand": "R",
-     "grip": [
-      0,
-      -0.075,
-      0
-     ],
-     "dur": 0.1,
-     "pose": null,
-     "at": 1.9
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 1.8
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.02,
+       0.295,
+       0.41
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.8
     },
     {
      "who": "mash",
@@ -2329,22 +2460,86 @@
      "steps": 1,
      "ease": "inOut",
      "at": 2.01
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.02
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 2.16
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.3,
+       0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.24
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.17,
+       0.25
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.25
     }
    ]
   },
   {
    "name": "08 ...Again.",
-   "at": 14.3,
-   "len": 2.3,
+   "at": 14.85,
+   "len": 1.75,
    "shot": {
     "pos": [
-     -0.2,
+     -0.28,
      0.5,
      2.4
     ],
     "look": [
-     -0.2,
-     0.52,
+     -0.28,
+     0.5,
      0
     ],
     "fov": 34
@@ -2373,27 +2568,51 @@
     },
     {
      "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.02,
-       0.36,
-       0.28
-      ]
-     },
-     "dur": 0.2,
-     "at": 0
-    },
-    {
-     "who": "chip",
      "do": "talk",
      "line": "…Again.",
      "tone": "deadpan",
      "dur": 0.9,
      "blink": false,
      "voice": false,
-     "at": 1.1
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.02,
+       0.28,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.21,
+       0.335,
+       0.37
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.7
     }
    ],
    "kind": "reaction"
@@ -2418,17 +2637,29 @@
    "do": [
     {
      "who": "spud",
-     "do": "arm",
+     "do": "grip",
      "side": "R",
-     "pose": {
-      "o": [
-       -0.12,
-       0.45,
-       0.36
-      ]
-     },
-     "dur": 0.2,
-     "at": 0
+     "shape": "hold",
+     "dur": 0.1,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 0.25
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.12,
+     "at": 0.28
     },
     {
      "who": "spud",
@@ -2443,17 +2674,38 @@
     },
     {
      "who": "spud",
-     "do": "grab",
-     "prop": "rbox",
-     "hand": "R",
-     "grip": [
-      0,
-      -0.075,
-      0
-     ],
-     "dur": 0.08,
-     "pose": null,
-     "at": 0.45
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.24,
+       0.34,
+       0.45
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.18,
+       0.21,
+       0.47
+      ],
+      "palm": [
+       -0.18,
+       1.3,
+       0.47
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.35
     },
     {
      "do": "prop",
@@ -2461,45 +2713,16 @@
      "set": {
       "lid": 0
      },
-     "dur": 0.1,
+     "dur": 0.12,
      "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.02,
-       0.55,
-       0.3
-      ]
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0.55
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.12,
-       0.3,
-       0.26
-      ]
-     },
-     "dur": 0.2,
-     "at": 0.6
+     "at": 0.4
     },
     {
      "who": "chip",
      "do": "grip",
      "side": "R",
-     "shape": "cup",
-     "dur": 0.1,
+     "shape": "flat",
+     "dur": 0.4,
      "at": 0.6
     },
     {
@@ -2577,9 +2800,9 @@
      "do": "prop",
      "id": "rbox",
      "set": {
-      "x": 0.48,
-      "y": 0.55,
-      "z": 0.42
+      "x": 0.184,
+      "y": 0.31,
+      "z": 0.507
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2590,42 +2813,28 @@
      "prop": "rbox",
      "mode": "throw",
      "to": [
-      -0.05,
-      0.36,
-      0.28
+      -0.18,
+      0.28,
+      0.47
      ],
-     "in": 0.28,
+     "in": 0.3,
      "spin": [
       0,
       0,
       0
      ],
-     "at": 1.1
+     "at": 1.07
     },
     {
      "macro": "narrate",
      "line": "It keeps the last thing you touch.",
      "voice": "narrator",
      "take": 1,
-     "dur": 3,
+     "dur": 2.1,
      "caption": true,
      "pos": 360,
      "gain": 4,
      "at": 1.3
-    },
-    {
-     "who": "chip",
-     "do": "grab",
-     "prop": "rbox",
-     "hand": "R",
-     "grip": [
-      0,
-      -0.075,
-      0
-     ],
-     "dur": 0.05,
-     "pose": null,
-     "at": 1.38
     },
     {
      "sfx": "ai/cloth-catch",
@@ -2642,6 +2851,16 @@
      },
      "dur": 0.2,
      "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "keep": true,
+     "dur": 0,
+     "pose": null,
+     "at": 1.48
     },
     {
      "who": "chip",
@@ -3412,6 +3631,28 @@
     },
     {
      "who": "bald",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 3.35
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.4,
+       0.34
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.35
+    },
+    {
+     "who": "bald",
      "do": "move",
      "to": [
       0.5,
@@ -3477,28 +3718,6 @@
     },
     {
      "who": "bald",
-     "do": "grip",
-     "side": "R",
-     "shape": "fist",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "bald",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.14,
-       0.45,
-       0.28
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "bald",
      "do": "expr",
      "expr": "happy",
      "set": {
@@ -3542,8 +3761,8 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.14,
-       0.5,
+       -0.06,
+       0.45,
        0.42
       ]
      },
@@ -3978,6 +4197,34 @@
     },
     {
      "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.15,
+       0.27,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.57
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.17,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.57
+    },
+    {
+     "who": "chip",
      "do": "move",
      "to": [
       -0.6,
@@ -4383,7 +4630,7 @@
      "line": "Would you still jump?",
      "voice": "narrator",
      "take": 1,
-     "dur": 1.6,
+     "dur": 1.3,
      "caption": true,
      "pos": 360,
      "gain": 4,
@@ -4451,7 +4698,7 @@
   },
   {
    "from": 12,
-   "to": 14.3,
+   "to": 14.85,
    "see": [
     "spud.face",
     "chip.face",
@@ -4461,7 +4708,7 @@
    "why": "the box presented, Chip opens it: empty again; the bride much closer"
   },
   {
-   "from": 14.3,
+   "from": 14.85,
    "to": 16.6,
    "see": [
     "chip.face",
