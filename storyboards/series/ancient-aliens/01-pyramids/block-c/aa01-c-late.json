@@ -1,0 +1,461 @@
+{
+ "id": "aa01-c-late",
+ "title": "Ancient Aliens 01 block C (sunset)",
+ "idea": "The low at sunset, clue 4: the latitude is the speed of light",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  200,
+  1560
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "music": false,
+ "set": {
+  "type": "plain",
+  "color": "#8fc3ee",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "light": "#ffd2a0",
+   "shadow": "#7a5a8c",
+   "exposure": 0.95
+  }
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud5"
+  ],
+  "hint": 0,
+  "what": "block C's sunset half (mid-film, no hook)"
+ },
+ "cast": [
+  {
+   "id": "spud5",
+   "character": "potatobrawl/spud",
+   "at": [
+    92.4,
+    35.75
+   ],
+   "face": 75,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "f5-sky",
+   "kind": "aasky",
+   "x": 100,
+   "z": 35,
+   "time": "sunset",
+   "night": 0,
+   "sun": [
+    264,
+    4
+   ]
+  },
+  {
+   "id": "f5-ground",
+   "kind": "gizaplateau",
+   "x": 100,
+   "z": 35,
+   "tracks": false,
+   "seed": 4,
+   "night": 0
+  },
+  {
+   "id": "g5-giza",
+   "kind": "gizatoday",
+   "x": 0,
+   "z": 0,
+   "s": 0.2,
+   "sunAz": 264,
+   "night": 0
+  },
+  {
+   "id": "seat5",
+   "kind": "limeblock",
+   "x": 92.4,
+   "z": 35.4,
+   "look": "weathered",
+   "size": [
+    1.1,
+    0.42,
+    0.8
+   ],
+   "seed": 4,
+   "rot": 75
+  },
+  {
+   "id": "camel5",
+   "kind": "camel",
+   "x": 91.7,
+   "z": 33.4,
+   "rot": 100,
+   "lie": 1,
+   "grass": false
+  },
+  {
+   "id": "spud5-lamp",
+   "kind": "headlamp",
+   "wear": "spud5",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "f6-sky",
+   "kind": "aasky",
+   "x": 1000,
+   "z": 2,
+   "time": "dusk",
+   "night": 0
+  },
+  {
+   "id": "f6-ground",
+   "kind": "gizaplateau",
+   "x": 1000,
+   "z": 2,
+   "tracks": true,
+   "seed": 6,
+   "night": 0
+  },
+  {
+   "id": "g6-giza",
+   "kind": "gizatoday",
+   "x": 1000,
+   "z": 0,
+   "s": 0.2,
+   "sunAz": 264,
+   "night": 0.25
+  },
+  {
+   "id": "lat6",
+   "kind": "northline",
+   "x": 1070,
+   "y": 28.6,
+   "z": 0,
+   "rot": 90,
+   "len": 140,
+   "width": 0.3,
+   "staged": "the latitude line drawn over the map view, seen straight from above"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.8,
+   "to": 5.69,
+   "text": "Sunset. Three clues. And still no proof.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.7,
+   "to": 8.73,
+   "text": "Then I checked where I was standing.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
+   "to": 15.25,
+   "text": "29.9792458° N",
+   "pos": 430,
+   "pop": false,
+   "style": "label",
+   "size": 78,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 15.25,
+   "text": "299 792 458 m/s",
+   "pos": 1250,
+   "pop": false,
+   "style": "label",
+   "size": 78,
+   "kinetic": false
+  },
+  {
+   "from": 15.3,
+   "to": 19.8,
+   "text": "299 792 458 m/s",
+   "pos": 250,
+   "pop": false,
+   "style": "label",
+   "size": 64,
+   "kinetic": false
+  },
+  {
+   "from": 15.6,
+   "to": 17.69,
+   "text": "The speed of light.",
+   "pos": 360,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "low",
+   "at": 0,
+   "len": 6.5,
+   "shot": {
+    "pos": [
+     100,
+     1.3,
+     35
+    ],
+    "look": [
+     0,
+     12,
+     37
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      98.8,
+      1.25,
+      35.1
+     ],
+     "look": [
+      0,
+      12,
+      37
+     ],
+     "fov": 36
+    },
+    "dur": 6.5
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "seat5",
+     "set": {
+      "dust": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lat6",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud5",
+     "do": "sit",
+     "seat": "seat5",
+     "height": 0.42,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "spud5",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "chew": 0.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud5",
+     "line": "Sunset. Three clues. And still no proof.",
+     "tone": "sad",
+     "dur": 4.49,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud5",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.25
+     ],
+     "dur": 0.5,
+     "at": 5.5
+    }
+   ]
+  },
+  {
+   "name": "top",
+   "at": 6.5,
+   "len": 8.8,
+   "shot": {
+    "pos": [
+     1000,
+     140,
+     2
+    ],
+    "look": [
+     1000,
+     0,
+     0
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud5",
+     "line": "Then I checked where I was standing.",
+     "tone": "calm",
+     "dur": 1.63,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "lat6",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "macro": "say",
+     "who": "spud5",
+     "line": "Twenty-nine point nine seven nine two four five eight.",
+     "tone": "calm",
+     "dur": 4.36,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3
+    }
+   ]
+  },
+  {
+   "name": "face",
+   "at": 15.3,
+   "len": 4.7,
+   "shot": {
+    "pos": [
+     95.2,
+     1.1,
+     36.8
+    ],
+    "look": [
+     92.4,
+     1.1,
+     35.5
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud5",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud5",
+     "do": "expr",
+     "set": {
+      "curve": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud5",
+     "line": "The speed of light.",
+     "tone": "calm",
+     "dur": 1.69,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud5",
+     "do": "expr",
+     "set": {
+      "raise": 0.08
+     },
+     "dur": 0.25,
+     "at": 2.3
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud5",
+   "with": "seat5",
+   "from": 0,
+   "to": 20,
+   "reason": "Spud sits on the fallen block"
+  },
+  {
+   "who": "spud5",
+   "with": "spud5-lamp",
+   "from": 0,
+   "to": 20,
+   "reason": "the headlamp band is worn on his head"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-c/make-block-c.mjs (block C, sunset light)."
+}
