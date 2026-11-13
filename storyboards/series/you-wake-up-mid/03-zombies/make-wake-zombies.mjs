@@ -88,6 +88,7 @@ const RF = [600, 0];                                // zroof origin (middle of t
 const BR = [0, 520];                                // the bedroom (zroom, dress living) floor centre
 const BED = [0.35, 520 - 1.35];                     // the bed: where the sleeper sits up against the pillow; it runs 1.6 m to +z
 const FAR = [200, 0, 80];
+const BEDH = { jolt: { o: [-0.16, 0.32, 0.34] }, up: { o: [-0.16, 0.27, 0.34] }, relax: { o: [-0.09, 0.25, 0.27] }, pull: { o: [-0.16, 0.285, 0.34] } };   // P14: his hands on the blanket
 const far = (i) => [FAR[0] + i * 2, FAR[2], 0, 0];
 const rx = (x) => r3(RF[0] + x), sx = (x) => r3(ST[0] + x);
 
@@ -163,7 +164,7 @@ const props = [
   { id: "lids", kind: "eyelids", x: 0, y: 0, z: 0, open: 0.82, cam: { pos: CAM.POV.pos, look: CAM.POV.look, fov: CAM.POV.fov } },   // P01 his eyelids
   // the bedroom (P14, the loop)
   { id: "broom", kind: "zroom", x: BR[0], y: 0, z: BR[1], w: 3.6, d: 3.6, dress: "living", floor: "boards", wall: "#e3d6c2", dim: 0, glowx: 0, glowz: 0 },
-  { id: "bed", kind: "bed", x: BED[0], y: 0, z: BED[1], cover: 0.7, blanket: "#3f7f86", dots: "#e9dcc0" },
+  { id: "bed", kind: "bed", x: BED[0], y: 0, z: BED[1], cover: 0.45, drape: true, fold: "#efe6d2", blanket: "#3f7f86", dots: "#e9dcc0" },   // drape: the blanket lies over his lap, its cream turned-down fold resting on his sweater (Jonny 13 Nov: "glitchy with the blanket"; the flat slab and its upright flap cut through him)
   { id: "night", kind: "nightstand", x: -0.5, y: 0, z: r3(BR[1] - 1.5) },
   { id: "lids2", kind: "eyelids", x: 0, y: 0, z: 0, open: 1, cam: { pos: CAM.BEDPOV.pos, look: CAM.BEDPOV.look, fov: CAM.BEDPOV.fov } },
 ];
@@ -445,23 +446,24 @@ see(T.fall, T.wake, ["spud", "chip", "alley"], "P13: the camera pulls up, they f
 // asleep again: his lids close on the last frames and frame 0 opens them on the street (Jonny 13 Nov: standalone episodes that loop)
 scene(T.wake, { spud: [BED[0], BED[1], 0, 0], chip: far(1) });
 A(r3(T.wake - 0.01), "spud", "sit", { seat: "bed", dur: 0, hands: "keep" });
-both(r3(T.wake - 0.02), "spud", { o: [0.27, 0.1, 0.32] }, 0.01);
-A(r3(T.wake - 0.02), "spud", "pitch", { to: 12, dur: 0.01 }); A(r3(T.wake - 0.02), "spud", "droop", { to: 0, dur: 0.01 });
+// his hands lie ON the blanket's fold in front of his belly the whole scene (BEDH: [out, up, fwd] of the hand; the body's
+// pitch turns about his middle and carries the hands with it, so `up` is set per pitch to keep them on the cloth)
+both(r3(T.wake - 0.02), "spud", BEDH.jolt, 0.01);
+A(r3(T.wake - 0.02), "spud", "pitch", { to: 8, dur: 0.01 }); A(r3(T.wake - 0.02), "spud", "droop", { to: 0, dur: 0.01 });
 expr(r3(T.wake - 0.02), "spud", "terrified", { open: 0.6 }, 0.01); look(r3(T.wake - 0.01), "spud", [0, 0.1], 0.01);
 A(T.wake, "spud", "squash", { amount: 0.08, dur: 0.2 });
-prop(T.wake, "bed", { cover: 0.45 }, 0.2, "out");
 sfx(T.wake, "gasp", { gain: 0.8, reason: "he jolts awake, gasping" });
-sfx(r3(T.wake + 0.1), "kenney/cloth", { gain: 0.5, reason: "the blanket thrown back" });
+sfx(r3(T.wake + 0.1), "kenney/cloth", { gain: 0.5, reason: "the bedclothes rustle as he jolts upright" });
 sfx(T.wake, "ai/heartbeat", { gain: 0.5, reason: "his heart still racing, slowing" });
 look(r3(T.wake + 0.5), "spud", [-0.6, 0.1], 0.2); look(r3(T.wake + 0.95), "spud", [0.6, 0.1], 0.2);   // his own room
-A(r3(T.wake + 0.4), "spud", "pitch", { to: 0, dur: 0.5, ease: "inOut" });
+A(r3(T.wake + 0.4), "spud", "pitch", { to: 0, dur: 0.5, ease: "inOut" }); both(r3(T.wake + 0.4), "spud", BEDH.up, 0.5, "inOut");
 // it was a dream
 expr(T.relief, "spud", "kind", { lidL: 0.3, lidR: 0.3 }, 0.3); look(T.relief, "spud", [0, -0.1], 0.3);
 A(T.relief, "spud", "squash", { amount: 0.06, dur: 0.5 });
-both(T.relief, "spud", "rest", 0.4);
+both(T.relief, "spud", BEDH.relax, 0.4);   // the grip lets go: his hands slide a little apart on the blanket
 // he lies back and the eyes get heavy
 A(T.lie, "spud", "pitch", { to: -6, dur: 0.75, ease: "inOut" }); A(T.lie, "spud", "squash", { amount: 0.05, dur: 0.75 });   // sinks back into the pillow (a deeper pitch lifts his feet out over the blanket)
-prop(r3(T.lie + 0.2), "bed", { cover: 0.6 }, 0.5, "inOut");   // draft 5: 0.9 cut through his sweater (Jonny 13 Nov)
+prop(T.lie, "bed", { cover: 0.6 }, 0.75, "inOut"); both(T.lie, "spud", BEDH.pull, 0.75, "inOut");   // he draws the blanket up with both hands as he sinks back: the fold, the hands and the pitch move as one
 sfx(r3(T.lie + 0.1), "kenney/cloth", { gain: 0.4, reason: "he pulls the blanket up" });
 A(r3(T.lie + 0.5), "spud", "expr", { expr: "kind", set: { lidL: 0.75, lidR: 0.75 }, dur: 0.4 });
 see(T.wake, T.sleep, ["spud.face", "bed"], "P14: he jolts awake in his own bed; it was a dream; he breathes out and lies back down");
@@ -519,7 +521,7 @@ write(import.meta.url, {
     ...WORLD.map((who) => ({ who, from: 0, to: T.end, checks: WORN, reason: "the world the cast stands in and on (sets, crowds, doors)" })),
     { who: "gunR", from: 0, to: T.end, checks: WORN, reason: "rough draft: the revolver held where the hand closes on its grip" },
     { who: "spud", with: "spud", from: 0, to: T.face, checks: ["face-covered", "face-hidden"], reason: "first person (the camera is his eyes)" },
-    { who: "spud", with: "bed", from: T.wake, to: r3(T.end + 5), checks: WORN, reason: "in bed: his hands and sweater rest under the blanket (3 cm); to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)" },
+    { who: "spud", with: "bed", from: T.wake, to: r3(T.end + 5), checks: WORN, reason: "in bed: the draped blanket's fold rests on his sweater (the cloth is cut round his body, the checks read the bed as a box) and his hands lie on the fold; to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)" },
     { who: "spud", with: "spud", from: T.sleep, to: r3(T.end + 5), checks: ["face-covered", "face-hidden"], reason: "first person on the pillow (the loop); to past the end for the video clock" },
     { who: "chip", with: "spud", from: r3(T.shot1 + 0.4), to: T.door, checks: ["reach", "character-overlap"], reason: "the friend takes his hand, pulls him up and holds his sleeve on the run" },
     { who: "inside", with: "spud", from: r3(T.door - 0.2), to: T.hall, checks: ["shell"], reason: "the shove at the street door: his back against the door leaf's surface, not seen on the sheets (shell check from #222)" },

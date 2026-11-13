@@ -522,7 +522,9 @@
    "x": 0.35,
    "y": 0,
    "z": 518.65,
-   "cover": 0.7,
+   "cover": 0.45,
+   "drape": true,
+   "fold": "#efe6d2",
    "blanket": "#3f7f86",
    "dots": "#e9dcc0",
    "staged": "his bed in the bedroom"
@@ -5703,9 +5705,9 @@
      "side": "R",
      "pose": {
       "o": [
-       0.27,
-       0.1,
-       0.32
+       -0.16,
+       0.32,
+       0.34
       ]
      },
      "dur": 0.01,
@@ -5718,9 +5720,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.27,
-       0.1,
-       0.32
+       -0.16,
+       0.32,
+       0.34
       ]
      },
      "dur": 0.01,
@@ -5730,7 +5732,7 @@
     {
      "who": "spud",
      "do": "pitch",
-     "to": 12,
+     "to": 8,
      "dur": 0.01,
      "at": 2.28
     },
@@ -5813,16 +5815,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "bed",
-     "set": {
-      "cover": 0.45
-     },
-     "dur": 0.2,
-     "ease": "out",
-     "at": 0
-    },
-    {
      "sfx": "gasp",
      "gain": 0.8,
      "reason": "he jolts awake, gasping",
@@ -5837,13 +5829,43 @@
     {
      "sfx": "kenney/cloth",
      "gain": 0.5,
-     "reason": "the blanket thrown back",
+     "reason": "the bedclothes rustle as he jolts upright",
      "at": 0.1
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": 0,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.27,
+       0.34
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.27,
+       0.34
+      ]
+     },
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.4
@@ -5903,7 +5925,13 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       -0.09,
+       0.25,
+       0.27
+      ]
+     },
      "dur": 0.4,
      "ease": "inOut",
      "at": 1.5
@@ -5912,7 +5940,13 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       -0.09,
+       0.25,
+       0.27
+      ]
+     },
      "dur": 0.4,
      "ease": "inOut",
      "at": 1.5
@@ -5933,20 +5967,50 @@
      "at": 2.3
     },
     {
-     "sfx": "kenney/cloth",
-     "gain": 0.4,
-     "reason": "he pulls the blanket up",
-     "at": 2.4
-    },
-    {
      "do": "prop",
      "id": "bed",
      "set": {
       "cover": 0.6
      },
-     "dur": 0.5,
+     "dur": 0.75,
      "ease": "inOut",
-     "at": 2.5
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.285,
+       0.34
+      ]
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.16,
+       0.285,
+       0.34
+      ]
+     },
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "sfx": "kenney/cloth",
+     "gain": 0.4,
+     "reason": "he pulls the blanket up",
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -6518,7 +6582,7 @@
     "hand-in-prop",
     "costume-in-prop"
    ],
-   "reason": "in bed: his hands and sweater rest under the blanket (3 cm); to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)"
+   "reason": "in bed: the draped blanket's fold rests on his sweater (the cloth is cut round his body, the checks read the bed as a box) and his hands lie on the fold; to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)"
   },
   {
    "who": "spud",
