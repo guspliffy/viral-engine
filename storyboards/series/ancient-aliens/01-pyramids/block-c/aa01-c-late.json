@@ -9,7 +9,7 @@
  "captionStyle": "kinetic",
  "captionBand": [
   200,
-  1560
+  1360
  ],
  "castLook": "sheet",
  "cleanStart": true,
@@ -26,7 +26,6 @@
  },
  "physics": false,
  "animeTiming": true,
- "music": false,
  "set": {
   "type": "plain",
   "color": "#8fc3ee",
@@ -39,6 +38,18 @@
    "shadow": "#7a5a8c",
    "exposure": 0.95
   }
+ },
+ "music": {
+  "file": "ancient-aliens/aa01-score.ogg",
+  "from": 0,
+  "skip": 118,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
  },
  "sound": {
   "sfx": 0.6,
@@ -173,53 +184,169 @@
    "from": 0.8,
    "to": 5.69,
    "text": "Sunset. Three clues. And still no proof.",
-   "pos": 400,
+   "pos": 470,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 6.7,
-   "to": 8.73,
+   "from": 6.9,
+   "to": 15.85,
+   "text": "CLUE 4/5",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 7.1,
+   "to": 9.13,
    "text": "Then I checked where I was standing.",
-   "pos": 400,
+   "pos": 380,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 9.3,
-   "to": 15.25,
+   "from": 9.4,
+   "to": 9.5,
+   "text": "0.0000000° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 9.5,
+   "to": 9.6,
+   "text": "6.8875929° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 9.6,
+   "to": 9.7,
+   "text": "12.6301452° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 9.7,
+   "to": 9.8,
+   "text": "17.3317515° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 9.8,
+   "to": 9.9,
+   "text": "21.0965063° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 9.9,
+   "to": 10,
+   "text": "24.0285043° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 10.1,
+   "text": "26.2318401° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.1,
+   "to": 10.2,
+   "text": "27.8106082° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.2,
+   "to": 10.3,
+   "text": "28.8689034° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.3,
+   "to": 10.4,
+   "text": "29.5108201° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.4,
+   "to": 10.5,
+   "text": "29.8404530° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.5,
+   "to": 10.6,
+   "text": "29.9618967° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 10.6,
+   "to": 15.85,
    "text": "29.9792458° N",
+   "pos": 300,
+   "pop": false,
+   "size": 88,
+   "kinetic": false
+  },
+  {
+   "from": 14.9,
+   "to": 15.85,
+   "text": "299 792 458 m/s",
    "pos": 430,
    "pop": false,
-   "style": "label",
-   "size": 78,
+   "size": 88,
    "kinetic": false
   },
   {
-   "from": 14,
-   "to": 15.25,
-   "text": "299 792 458 m/s",
-   "pos": 1250,
-   "pop": false,
-   "style": "label",
-   "size": 78,
-   "kinetic": false
-  },
-  {
-   "from": 15.3,
-   "to": 19.8,
+   "from": 15.9,
+   "to": 19.9,
    "text": "299 792 458 m/s",
    "pos": 250,
    "pop": false,
-   "style": "label",
    "size": 64,
    "kinetic": false
   },
   {
-   "from": 15.6,
-   "to": 17.69,
+   "from": 16.1,
+   "to": 18.19,
    "text": "The speed of light.",
    "pos": 360,
    "pop": false,
@@ -231,7 +358,7 @@
   {
    "name": "low",
    "at": 0,
-   "len": 6.5,
+   "len": 6.9,
    "shot": {
     "pos": [
      100,
@@ -257,7 +384,7 @@
      ],
      "fov": 36
     },
-    "dur": 6.5
+    "dur": 6.9
    },
    "do": [
     {
@@ -275,6 +402,16 @@
      "id": "lat6",
      "set": {
       "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "ears": 0
      },
      "dur": 0,
      "ease": "inOut",
@@ -322,34 +459,133 @@
     },
     {
      "who": "spud5",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.55,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "spud5",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "who": "spud5",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.3
+    },
+    {
+     "who": "spud5",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.3
+    },
+    {
+     "who": "spud5",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 4.3
+    },
+    {
+     "who": "spud5",
      "do": "look",
      "to": [
       -0.15,
-      -0.25
+      -0.3
      ],
      "dur": 0.5,
-     "at": 5.5
+     "at": 4.3
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "ears": 1
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 4.8
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "tail": 0
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 5.6
+    },
+    {
+     "who": "spud5",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 6.3
     }
    ]
   },
   {
-   "name": "top",
-   "at": 6.5,
-   "len": 8.8,
+   "name": "check",
+   "at": 6.9,
+   "len": 2.1,
    "shot": {
     "pos": [
-     1000,
-     140,
-     2
+     95.6,
+     1.2,
+     36.9
     ],
     "look": [
-     1000,
-     0,
-     0
+     92.4,
+     1.15,
+     35.5
     ],
-    "fov": 45
+    "fov": 30,
+    "to": {
+     "pos": [
+      95.1,
+      1.18,
+      36.7
+     ],
+     "look": [
+      92.4,
+      1.15,
+      35.5
+     ],
+     "fov": 30
+    },
+    "dur": 2.1
    },
    "do": [
+    {
+     "who": "spud5",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud5",
+     "do": "expr",
+     "set": {
+      "eye": 1.15
+     },
+     "dur": 0.12,
+     "at": 0
+    },
     {
      "macro": "say",
      "who": "spud5",
@@ -361,6 +597,57 @@
      "at": 0.2
     },
     {
+     "who": "spud5",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "spud5",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "map",
+   "at": 9,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     1000,
+     260,
+     3
+    ],
+    "look": [
+     1000,
+     0,
+     0
+    ],
+    "fov": 45,
+    "to": {
+     "pos": [
+      1000,
+      150,
+      2
+     ],
+     "look": [
+      1000,
+      0,
+      0
+     ],
+     "fov": 45
+    },
+    "dur": 3.6
+   },
+   "do": [
+    {
      "do": "prop",
      "id": "lat6",
      "set": {
@@ -368,7 +655,7 @@
      },
      "dur": 0.9,
      "ease": "inOut",
-     "at": 1.8
+     "at": 0.2
     },
     {
      "macro": "say",
@@ -378,14 +665,47 @@
      "dur": 4.36,
      "voice": "reaper",
      "caption": false,
-     "at": 3
+     "at": 1.4
     }
    ]
   },
   {
+   "name": "match",
+   "at": 12.6,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     1000,
+     132,
+     2
+    ],
+    "look": [
+     1000,
+     0,
+     0
+    ],
+    "fov": 45,
+    "to": {
+     "pos": [
+      1000,
+      118,
+      2
+     ],
+     "look": [
+      1000,
+      0,
+      0
+     ],
+     "fov": 45
+    },
+    "dur": 3.3
+   },
+   "do": []
+  },
+  {
    "name": "face",
-   "at": 15.3,
-   "len": 4.7,
+   "at": 15.9,
+   "len": 4.1,
    "shot": {
     "pos": [
      95.2,
@@ -397,7 +717,21 @@
      1.1,
      35.5
     ],
-    "fov": 30
+    "fov": 30,
+    "to": {
+     "pos": [
+      94.8,
+      1.08,
+      36.6
+     ],
+     "look": [
+      92.4,
+      1.08,
+      35.5
+     ],
+     "fov": 30
+    },
+    "dur": 4.1
    },
    "do": [
     {
@@ -414,7 +748,8 @@
      "who": "spud5",
      "do": "expr",
      "set": {
-      "curve": 0.2
+      "curve": 0.2,
+      "eye": 1
      },
      "dur": 0.01,
      "at": 0
@@ -427,7 +762,7 @@
      "dur": 1.69,
      "voice": "reaper",
      "caption": false,
-     "at": 0.3
+     "at": 0.2
     },
     {
      "who": "spud5",
@@ -436,7 +771,13 @@
       "raise": 0.08
      },
      "dur": 0.25,
-     "at": 2.3
+     "at": 2
+    },
+    {
+     "who": "spud5",
+     "do": "noblink",
+     "dur": 0.7,
+     "at": 3.4
     }
    ]
   }
