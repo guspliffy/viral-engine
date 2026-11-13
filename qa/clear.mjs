@@ -14,12 +14,17 @@
 // (a carried or lifted body). A floor prop counts when the storyboard gives its footprint ("w" and "d" in metres, or
 // "r" for a round one) and a height "h" of 10 cm or more (a floor or a rug is walked on), or --prop does; it stays
 // where the storyboard puts it (a prop carried or pushed later isn't followed), and isn't checked against whoever sits
-// on it. Clearance is a staging guide: the layout's contact checks (render.mjs --layout) stay the gate.
+// on it. A prop that walks (its spec has a numeric "walk": a crowd of passers-by, There's a catch 07's neighbours) is
+// a body too: it is followed through its "prop" tweens of x, y and z and checked against the cast and the other walkers,
+// on a circle 0.6 x its height "h" (default 0.85) across (a streetpotato is about that wide), while it stands within 0.3 m of the floor (13 Nov 2026: the
+// neighbours walked through each other in a draft Jonny saw, and no check could see props).
+// Clearance is a staging guide: the layout's contact checks (render.mjs --layout) stay the gate.
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { windowFor } from "./gate.mjs";
 import { pathToFileURL } from "node:url";
+import { ease, prog, lerp } from "../engine/page/util.js";
 
 function args() {
   const a = process.argv.slice(2), o = { sb: null, from: 0, to: null, gap: 0.03, props: {}, json: false };
@@ -58,6 +63,14 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
     const k = p.scale ?? 1;
     return { id: p.id, x: p.x ?? 0, z: p.z ?? 0, yaw: ((p.rot ?? 0) * Math.PI) / 180, a: (o.r ?? o.w / 2) * k, b: (o.r ?? o.d / 2) * k };
   }).filter(Boolean);
+  // walkers: a prop's floor spot at story time s after its "prop" tweens (the same lerp and ease as props3d.js propState)
+  const walkers = (sb.props || []).filter((p) => typeof p.walk === "number").map((p) => ({ id: p.id, r: 0.3 * (p.h ?? 0.85) * (p.scale ?? 1), p,
+    acts: (sb.actions || []).filter((a) => a.do === "prop" && a.id === p.id && a.set && ("x" in a.set || "y" in a.set || "z" in a.set)).sort((a, b) => a.at - b.at) }));
+  const walkerAt = (w, s) => {
+    const o = { x: w.p.x ?? 0, y: w.p.y ?? 0, z: w.p.z ?? 0 };
+    for (const a of w.acts) { if (a.at > s) break; const e = ease(a.ease || "inOut")(prog(s, a.at, a.dur ?? 0.3)); for (const k of ["x", "y", "z"]) if (typeof a.set[k] === "number") o[k] = lerp(o[k], a.set[k], e); }
+    return o;
+  };
   const mark = (key, t, pen) => {
     const runs = hits.get(key) || hits.set(key, []).get(key), r = runs[runs.length - 1];
     if (r && t - r.to < 1.5 / fps) { r.to = t; if (pen > r.worst) { r.worst = pen; r.at = t; } } else runs.push({ from: t, to: t, worst: pen, at: t });
@@ -72,6 +85,19 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
       if (pen <= gap) continue;
       if (windowFor(sb, "character-overlap", A.c.id, t, B.c.id) || windowFor(sb, "character-overlap", B.c.id, t, A.c.id)) continue;
       mark(`${A.c.id} / ${B.c.id}`, t, pen);
+    }
+    const ws = walkers.map((w) => ({ w, at: walkerAt(w, s) })).filter((q) => Math.abs(q.at.y) <= 0.3);
+    for (let x = 0; x < ws.length; x++) {
+      const W = ws[x];
+      for (let y = x + 1; y < ws.length; y++) {
+        const V = ws[y], pen = W.w.r + V.w.r - Math.hypot(V.at.x - W.at.x, V.at.z - W.at.z);
+        if (pen > gap) mark(`${W.w.id} / ${V.w.id}`, t, pen);
+      }
+      for (const A of st) {
+        if ((A.s.y ?? 0) > 0.8) continue;
+        const dx = W.at.x - A.s.x, dz = W.at.z - A.s.z, pen = reach(A.a, A.b, A.s.yaw, dx, dz) + W.w.r - Math.hypot(dx, dz);
+        if (pen > gap && !windowFor(sb, "character-overlap", A.c.id, t, W.w.id)) mark(`${A.c.id} / ${W.w.id}`, t, pen);
+      }
     }
     for (const A of st) for (const P of floor) {
       if (A.s.seat === P.id || (A.s.y ?? 0) > 0.3) continue;

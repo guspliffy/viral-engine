@@ -12,6 +12,8 @@ import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 //   wedge  "trust me": the biggest, broad on top and narrow below, a rounded crown; red bomber jacket with a cream ribbed
 //          shawl collar in a deep V to the zip, cream cuffs and hem, two flap pockets; brown sunglasses pushed up on top of
 //          his head beside the leaf, never on the forehead; dark brown trousers and boots
+//   bathrobe (storyboards/series/what-if/07-fire-rewind, the grumpy neighbour, characters/what-if/grumpy-neighbour.json): a
+//          striped lilac wrap robe to the floor, shawl collar, belt and knot, pink fluffy slippers, pink hair curlers on his head
 //   mash   never looks up: a tall narrow oval; charcoal hoodie, hood down; big light-blue headphones round the neck;
 //          brown trousers, chunky white trainers; the phone is a prop he is handed in a clip, not part of him
 // Spud's rules hold for every piece (Jonny, 11 Nov): each mark drawn once by hand, no repeating pattern; a sleeve ends a
@@ -267,8 +269,136 @@ function headphones(C, ch, P) {
   }
 }
 
+// ---------- the bathrobe (the grumpy neighbour, "There's a catch" EP07, DESIGN.md 4.2) --------------------------------------
+// A striped wrap robe that hangs from the shoulders as a bell to 0.06 m above the floor (the garment() kit on a body that is the
+// potato down to the belt and a flared skirt below it), a rolled shawl collar crossing left over right with a trim band down the
+// front, a belt with a knot and two ends, striped sleeves with a turned cuff; pink fluffy slippers over the feet; eight pink
+// curlers on top of the head (the sprout hides under them); two short lines under each eye. C: robe, stripe, collar, belt,
+// slippers, curler, curlerLine, hair (the grey wisp), lines (under-eye colour), hands. Nothing here moves with the face.
+
+// the potato down to ph phJ, below it a bell skirt to height yHem (floor 0): one surface for garment(); ph runs on to phEnd
+function robeSurface(ch, phJ, phEnd, yHem, flare) {
+  const pt = (th, ph) => {
+    if (ph >= phJ) return ch.surf(th, ph).pos;
+    const s0 = ch.surf(th, phJ).pos, t = Math.min(1.3, (phJ - ph) / (phJ - phEnd)), f = 1 + (flare - 1) * Math.sin(Math.min(1, t) * Math.PI / 2) ** 1.6;
+    return V(s0.x * f, s0.y + (yHem - s0.y) * t, s0.z * f);
+  };
+  return Object.assign(Object.create(ch), { surf(th, ph) {
+    if (ph >= phJ + 0.004) return ch.surf(th, ph);
+    const p = pt(th, ph), e = 2e-3, a = pt(th + e, ph).sub(pt(th - e, ph)), b = pt(th, ph + e).sub(pt(th, ph - e)), n = a.cross(b).normalize();
+    if (n.x * p.x + n.z * p.z < 0) n.negate();
+    return { pos: p, normal: n };
+  } });
+}
+// a flat ribbon lying on a surface along path(t) -> [th, ph], w wide, `lift` off the cloth (a trim band down the front)
+function ribbonOn(surf, path, w, lift, n = 30) {
+  const pos = [], idx = [], P = [], N = [];
+  for (let i = 0; i <= n; i++) { const [th, ph] = path(i / n), q = surf.surf(th, ph); P.push(q.pos.clone().addScaledVector(q.normal, lift)); N.push(q.normal); }
+  for (let i = 0; i <= n; i++) {
+    const d = P[Math.min(n, i + 1)].clone().sub(P[Math.max(0, i - 1)]).normalize(), sd = d.cross(N[i]).normalize();
+    for (const k of [-1, 1]) { const q = P[i].clone().addScaledVector(sd, k * w / 2); pos.push(q.x, q.y, q.z); }
+  }
+  for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  return g;
+}
+// the robe's cloth: vertical stripes `sw` m wide every `pitch` m round a body `circ` m round (each a hair different, by hash), a soft
+// wash and a few fibre flecks; `across`: the stripes run along the map's width instead (a sleeve: u runs along the arm)
+function robeTex(base, stripe, circ, pitch, sw, seed, across = false) {
+  const W = 1024, H = across ? 256 : 512, c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d"), n = Math.round(circ / pitch), len = across ? H : W, pi = len / n;
+  g.fillStyle = base; g.fillRect(0, 0, W, H);
+  g.fillStyle = stripe;
+  for (let i = 0; i < n; i++) {
+    const x = i * pi + pi * 0.5 - (pi * sw / pitch) / 2 + (hash2(i * 1.7 + seed, 3.3) - 0.5) * pi * 0.05, w = (pi * sw / pitch) * (0.93 + 0.14 * hash2(i * 2.9 + seed, 1.1));
+    if (across) g.fillRect(0, x, W, w); else g.fillRect(x, 0, w, H);
+  }
+  for (let i = 0; i < 520; i++) { const x = hash2(i * 3.1 + seed, 1.3) * W, y = hash2(i * 1.9 + seed, 7.7) * H, dark = hash2(i, seed) < 0.45; g.fillStyle = dark ? `rgba(40,20,60,${0.04 + 0.07 * hash2(i, 4.4)})` : `rgba(255,240,255,${0.04 + 0.07 * hash2(i, 5.5)})`; g.fillRect(x, y, across ? 5 + 9 * hash2(i, 6.1) : 1.5, across ? 1.5 : 5 + 9 * hash2(i, 6.1)); }
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+function robe(C, ch, P) {
+  const parts = ch.potatoParts, col = C.robe || P.color, stripe = C.stripe || P.stripe, collar = C.collar || P.collar, beltC = C.belt || P.beltC;
+  const phJ = P.phBelt, phEnd = -1.5, hyb = robeSurface(ch, phJ, phEnd, P.hem, P.flare);
+  const neck = (th) => P.front + (P.back - P.front) * Math.pow(0.5 * (1 - Math.cos(th)), P.vee), NU = 180, NV = 40;
+  const G = garment(hyb, { topFn: neck, top: P.front, hem: phEnd, folds: 6, depth: 0.011, flare: 0.012, lift: 0.024, lift0: 0.02, wave: 0.004, thick: 0.016, phase: P.phase, grad: 0.2, segs: NU, rows: NV, liftRamp: 0.1 });
+  gridUv(G.outer, NU, NV, (i) => [i / NU, 0.5]);
+  const body = clothMat("#ffffff", { side: THREE.DoubleSide, vertexColors: true }); body.map = robeTex(col, stripe, P.circ, 0.08, 0.035, P.seed);
+  parts.add(mesh(G.outer, body)); parts.add(mesh(G.inner, liningMat(shade(col, 0.6)), false)); parts.add(mesh(G.hem, clothMat(col, { side: THREE.DoubleSide }), false));
+  { const ig = foldInk(G, { width: 0.006 }); if (ig) parts.add(inkMesh(ig, col)); }
+  const cm = () => clothMat(collar, { side: THREE.DoubleSide });
+  // the shawl collar: a rolled band all round the neck line, closing in the V; thick at the back and shoulders, thinning toward the belt
+  const open = 0.06, fat = (th) => sstep(0.3, 1, 1 - Math.abs(th - Math.PI) / Math.PI), end = (th) => sstep(0, 0.2, Math.min(th - open, Math.PI * 2 - open - th));
+  const cr = (th) => 0.004 + (0.016 + 0.014 * fat(th)) * end(th), cw = (th) => 1.9 + 0.8 * fat(th);
+  parts.add(mesh(rollOn(ch, { th0: open, th1: Math.PI * 2 - open, ph: (th) => neck(th) - (cr(th) * cw(th) * 0.85) / ch.ry, r: cr, wide: cw, lift: 0.016, sink: 0.85, segs: 140, radial: 14 }), cm()));
+  // left over right: the trim band down the front edge of the lapping (left, +x) panel, from the V's point across the belt to the hem
+  const lap = mesh(ribbonOn(hyb, (t) => [-0.6 * t * t, P.front + t * (-1.4 - P.front)], 0.052, 0.04), cm(), false);
+  parts.add(lap);
+  // the belt, its knot and two ends
+  parts.add(mesh(band(hyb, { ph: phJ, w: 0.024, t: 0.018, lift: 0.04, round: 0.55, segs: 120 }), clothMat(beltC, { side: THREE.DoubleSide })));
+  const bm = clothMat(beltC, { roughness: 0.85 }), kq = hyb.surf(0.1, phJ), knot = new THREE.Mesh(new THREE.SphereGeometry(0.036, 14, 10), bm);
+  knot.position.copy(kq.pos).addScaledVector(kq.normal, 0.062); knot.scale.set(1.15, 0.9, 0.8); knot.lookAt(kq.pos.clone().addScaledVector(kq.normal, 1)); knot.castShadow = true; parts.add(knot);
+  const ends = new THREE.Group();
+  for (const s of [-1, 1]) {
+    const g = cordDown(hyb, 0.1 + s * 0.05, phJ - 0.05, phJ - 0.05 - 0.4, 0.013, 0.058, { sway: s * 0.02, hang: 0.01 }), e = mesh(g, bm); e.userData.flat = 0.4; ends.add(e);
+    const tip = new THREE.Mesh(new THREE.SphereGeometry(0.0145, 8, 6), bm); tip.position.copy(g.userData.end); tip.scale.y = 1.3; ends.add(tip);
+  }
+  parts.add(ends); softFollow(ch, ends, 0.9);
+  slippers(C, ch, P); curlers(C, ch, P); tiredEyes(C, ch);
+  const arm = new THREE.MeshStandardMaterial({ color: "#ffffff", roughness: 0.95, side: THREE.DoubleSide }); arm.userData.lookRole = "cloth"; arm.map = robeTex(col, stripe, 0.4, 0.08, 0.035, P.seed + 5, true);
+  return sleeves(ch, arm, clothMat(collar, { side: THREE.DoubleSide }), { from: 0.04, gap: C.cuffGap ?? P.gap ?? 0.062, r0: P.r0, r1: P.r1, rc: P.r1 * 0.95, cuff: 0.012, cuffAt: 0.8 });
+}
+
+// pink fluffy slippers over the feet (children of each foot, so they take its step, roll and turn): a round slipper body and a
+// ring of soft tufts round the ankle and across the toe
+function slippers(C, ch, P) {
+  const col = C.slippers || "#e9a9bd", fluff = shade(col, 1.07), bodyM = clothMat(col, { roughness: 1 }), fluffM = clothMat(fluff, { roughness: 1 }), inkM = clothMat(shade(col, 0.72), { roughness: 1 });
+  for (const m of [bodyM, fluffM, inkM]) m.userData.noOutline = true;
+  const tuft = new THREE.SphereGeometry(0.019, 8, 6);
+  for (const s of ["L", "R"]) {
+    const f = ch.legs?.[s]?.foot; if (!f) continue;
+    const b = new THREE.Mesh(new THREE.SphereGeometry(0.085, 22, 14), bodyM); b.scale.set(1, 1, 1.02); b.castShadow = true; f.add(b);
+    for (let i = 0; i < 12; i++) { const a = (i / 12) * Math.PI * 2, t = new THREE.Mesh(tuft, fluffM); t.position.set(Math.cos(a) * 0.062, 0.058, -0.012 + Math.sin(a) * 0.052); t.scale.set(1, 1.15, 1); f.add(t); }
+    for (let i = 0; i < 7; i++) { const a = -0.95 + (i / 6) * 1.9, t = new THREE.Mesh(tuft, fluffM); t.position.set(Math.sin(a) * 0.066, 0.036 + 0.018 * Math.cos(a), 0.052 + Math.cos(a) * 0.02); t.scale.set(0.95, 1.05, 0.95); f.add(t); }
+    const so = new THREE.Mesh(new THREE.TorusGeometry(0.078, 0.01, 8, 30), inkM); so.rotation.x = Math.PI / 2; so.position.y = -0.03; f.add(so);   // a darker sole line
+  }
+}
+
+// eight rollers in two rows of four across the top of the head, their axes along x, lying on the head's curve; each with three
+// darker ring lines, a dark clip dot on its outer side and a wisp of grey hair wrapped round it (a paler stripe)
+function curlers(C, ch, P) {
+  const R = P.curlerR ?? 0.032, L = P.curlerL ?? 0.075, pink = C.curler || "#e58fb0", line = C.curlerLine || "#c76a93", grey = C.hair || "#b9b3ad";
+  const pm = clothMat(pink, { roughness: 0.55 }), lm = clothMat(line, { roughness: 0.6 }), gm = clothMat(grey, { roughness: 0.9 }), dm = clothMat("#4a2a38", { roughness: 0.5 });
+  const cyl = new THREE.CylinderGeometry(R, R, L, 20, 1), capG = new THREE.SphereGeometry(R, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), ringG = new THREE.TorusGeometry(R + 0.0008, 0.0032, 6, 20), wispG = new THREE.TorusGeometry(R + 0.002, 0.0052, 6, 20), clipG = new THREE.SphereGeometry(0.0072, 8, 6);
+  const at = (xi, al) => { const d = V(xi / ch.rx, Math.cos(al), Math.sin(al)).normalize(); return ch.surf(Math.atan2(d.x, d.z), Math.asin(d.y)); };
+  const Y = V(0, 1, 0), grp = new THREE.Group();
+  P.rows.forEach((al, r) => {
+    for (let i = 0; i < 4; i++) {
+      const xi = (i - 1.5) * (L + 0.004), q = at(xi, al), a = at(xi + 0.01, al).pos.sub(at(xi - 0.01, al).pos).normalize(), n = q.normal.clone().addScaledVector(a, -q.normal.dot(a)).normalize();
+      const x = new THREE.Vector3().crossVectors(a, n).normalize(), g = new THREE.Group(), cu = new THREE.Mesh(cyl, pm); cu.castShadow = true; g.add(cu);
+      for (const sg of [-1, 1]) { const cp = new THREE.Mesh(capG, pm); cp.scale.set(1, 0.18, 1); cp.position.y = sg * L / 2; if (sg < 0) cp.rotation.x = Math.PI; g.add(cp); }
+      for (const dy of [-0.022, 0, 0.022]) { const rg = new THREE.Mesh(ringG, lm); rg.rotation.x = Math.PI / 2; rg.position.y = dy; g.add(rg); }
+      const w = new THREE.Mesh(wispG, gm); w.rotation.set(Math.PI / 2 + 0.38, 0, 0.12 * (i % 2 ? 1 : -1)); w.position.y = 0.012 * (i % 2 ? -1 : 1); g.add(w);
+      const cl = new THREE.Mesh(clipG, dm); cl.position.set(0, 0.0, R + 0.002); cl.scale.set(1, 1.7, 0.55); g.add(cl);
+      g.matrixAutoUpdate = false; g.matrix.makeBasis(x, a, n); g.matrix.setPosition(q.pos.clone().addScaledVector(n, R + 0.003)); grp.add(g);
+    }
+  });
+  ch.potatoParts.add(grp);
+}
+
+// two short lines under each eye (a tired old face), lying on the skin where the face puts its eyes
+function tiredEyes(C, ch) {
+  const pl = ch.face?.place; if (!pl) return;
+  const m = clothMat(C.lines || "#a8743c", { roughness: 0.8 });
+  for (const s of [-1, 1]) for (const [a, b] of [[[0.25, 0.07], [0.36, 0.045]], [[0.29, 0.0], [0.38, -0.02]]]) {
+    const p0 = pl(s * a[0], a[1]), p1 = pl(s * b[0], b[1]), pts = [p0.pos.clone().addScaledVector(p0.normal, 0.002), p1.pos.clone().addScaledVector(p1.normal, 0.002)];
+    parts_add(ch, new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([pts[0], pts[0].clone().lerp(pts[1], 0.5).addScaledVector(p0.normal, 0.001), pts[1]]), 6, 0.0026, 5, false), m));
+  }
+}
+const parts_add = (ch, o) => ch.potatoParts.add(o);
+
 // numbers from their sheets (measured 12 Nov 2026), set against Spud's own sheet and his build
 const KIT = {
+  bathrobe: (C, ch) => robe(C, ch, { color: "#b79ac8", stripe: "#8a6aa6", collar: "#cdb6da", beltC: "#9a7ab4", phBelt: -0.62, seed: 53.4, front: -0.4, back: 0.25, vee: 0.75, hem: 0.06, flare: 1.36, circ: 2.45, phase: 0.8, r0: 0.074, r1: 0.059, rows: [0.78, 0.46] }),
   chip: (C, ch) => hoodie(C, ch, { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true }),
   mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); return sl; },
   wedge: (C, ch) => { const sl = bomber(C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 }); return sl; },
