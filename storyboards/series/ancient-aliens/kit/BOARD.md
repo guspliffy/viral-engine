@@ -64,8 +64,13 @@ wide shots: the whole of Giza then fits inside 250 m. Close shots (Spud beside a
 base) use the real-scale pieces of props-aa-site.js. Never mix a real-scale character INTO a miniature: characters
 stand on the real-scale foreground, the miniature starts 25 m or more behind them.
 
-The detailed spec of each kind is in the TASK brief of its file (`kit/briefs/T1..T5.md`); the usage header of each
+The detailed spec of each kind is in the TASK brief of its file (`kit/briefs/T1..T6.md`); the usage header of each
 file is what the block threads read.
+
+**Build scenes from `kit/aa-kit.mjs`** (far layer, Giza today / 2560 BC, lift ship, the pyramid's foot, headlamp,
+hats, car, the night over the pyramids, the three lights SET / SET_LATE / SET_NIGHT, proven camera spots). Its header
+is the manual; `kit/bench/make-aa-proof.mjs` is the worked example and `kit/bench/aa-proof-sheet.png` the look Jonny
+judged. The cast's light is one value per storyboard: a block that changes light is one storyboard per light.
 
 ## 4. What stays out of the kit (block threads do these in their generators)
 
