@@ -49,6 +49,12 @@ import { clamp } from "./util.js";
 //               lashes on the upper edge. KEY open 0..1 (default spec.open ?? 0; it tweens): 0 fully shut (the whole frame is
 //               lid, the darkest at the frame's edge), 0.5 the almond is half the frame's height in the middle and 80 % of its
 //               width, 1 fully open (the card is hidden; at 0.99 both lids are already outside the frame).
+//               BLINKS vs THE STROBE CHECK (You wake up mid EP03, 13 Nov: two draft renders lost): on a bright shot the frame
+//               darkens about 260 luma per unit of `open` while the lid edge crosses the middle, and the full render fails
+//               over 3 frame-to-frame jumps of 20 luma in a second (qa/check.mjs strobe). Two blinks to 0.04 over 2-4 frames
+//               gave 6 jumps, eased blinks to 0.12 over 4-6 frames gave 4 (ease in/out is steepest mid-travel); a linear blink
+//               to 0.3 over 9 frames each way passed. On a dark shot (a cabin, a car at night) the swing is smaller. Check the
+//               blinks alone: render.mjs <sb> --draft --from 0 --to 2 prints the strobe line in about a minute.
 //   Sizes: enginefire about 6 x 2.1 x 7.5 m with its smoke; cabinsmoke the spec box (5.3 x 2.75 x 15.45 m);
 //   neckmask 0.15 m cup, 0.68 m loop; eyelids a card about 0.5 m in front of the lens (0.5 m * tan(fov/2) * 1.15 tall).
 
