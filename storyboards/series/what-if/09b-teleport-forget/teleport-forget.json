@@ -650,10 +650,10 @@
     },
     {
      "macro": "narrate",
-     "line": "Your best friend is about to fall.",
+     "line": "Your best friend is falling.",
      "voice": "narrator",
      "take": 1,
-     "dur": 2.4,
+     "dur": 2.3,
      "caption": true,
      "pos": 470,
      "gain": 4,

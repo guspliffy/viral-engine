@@ -346,7 +346,7 @@ const CUTS = [
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
 const NARR = !VO ? [] : [
-  [0.15, "Your best friend is about to fall.", 2.4],
+  [0.15, "Your best friend is falling.", 2.3],
   [2.75, "But you can teleport.", 1.5],
   [4.8, "But there's a catch.", 1.4],
   [6.45, "Every jump, someone forgets you.", 2.2],

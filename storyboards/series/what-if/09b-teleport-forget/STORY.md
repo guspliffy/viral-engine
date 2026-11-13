@@ -35,7 +35,7 @@ his eyes passing over Spud like a stranger's, and the lip breaks under Spud, SO 
 | 16 | 25.6-28.6 | Phone photo again: three friends and a gap | 16 |
 
 Narrator (voice "narrator", deep storyteller), never over another voice:
-0.0 "Your best friend is about to fall." · 2.6 "But you can teleport." · 4.5 "But there's a catch." ·
+0.15 "Your best friend is falling." (the longer line ran 3.25 s spoken, into the next one) · 2.6 "But you can teleport." · 4.5 "But there's a catch." ·
 6.4 "Every jump, someone forgets you." · after Chip's line (+1 s) "Would you still jump?"
 Stake text at the top 0-4 s: "BEST FRIEND FALLING".
 
