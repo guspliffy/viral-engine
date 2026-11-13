@@ -638,7 +638,9 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   left free for Jonny's in-app title; a top hook caption goes at y 316 or lower under it. A clock jump shows a
   "+26 min" tag beside the clock for a second (`"clockTag": false`). The battery goes amber under 20 %, red under 10 %,
   kicks on every drop and at 0 reads DEAD and blinks twice. `"pos": "bottom"` (y 1288-1356) or `"y"` moves it,
-  `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture.
+  `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture. `"ammo": { "keys": [[0, 6],
+  [2.75, 5]], "max": 6 }` puts a row of cartridges first in the right chip (brass loaded, outline fired, the slot just
+  fired glows red), a counter that reads without English.
 - **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
   as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
   04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted
