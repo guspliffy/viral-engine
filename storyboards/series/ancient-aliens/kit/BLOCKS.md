@@ -23,8 +23,10 @@ it (`ancient-aliens-01-sheet-1..3.png`, approved by Jonny), `kit/BOARD.md`, the 
   north line, not a square), 30 (an open ring, not a saucer), 06 (the noon sun is in the sky), 13 (the gallery is a
   ramp, not stairs).
 - Host: Spud (`potatobrawl/spud`) with the headlamp band in every scene (`host()`), lit only in the dark. He holds
-  nothing: he points or lays a palm flat on stone. He speaks with Reaper's voice: every `c.say` of his takes
-  `{ voice: HOST_VOICE }` (aa-kit.mjs). Lines are STORY.md's, word for word. No narrator, never two voices at once.
+  nothing: he points or lays a palm flat on stone. He speaks with Reaper's voice: write every line of his with
+  `hostSay(c, t, who, line, dur)` from aa-kit.mjs (NOT `c.say`: in a beat storyboard a `c.say` line is never voiced and
+  plays as gibberish without a warning). The headlamp needs `allowClip: lampClip([...], END)`; a prop in the air on
+  purpose needs `staged: "<why>"`. Lines are STORY.md's, word for word. No narrator, never two voices at once.
   Time everything after a line from the spoken length the render prints (`speech: "..." lasts Xs spoken`).
 - Each block starts and ends on a hard cut at its story time; keep the block's length within 1 s of its slot. First
   and last 0.3 s: no line running, no move half done.
