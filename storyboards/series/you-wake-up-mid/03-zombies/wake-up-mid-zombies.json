@@ -1,7 +1,7 @@
 {
  "id": "wake-up-mid-zombies",
  "title": "You wake up mid zombie apocalypse",
- "idea": "You wake up mid EP03: you wake on a zombie street with six bullets and your best friend dragged away; every shot brings more; a door, the stairs, the roof, the last bullet; you jump from standing and fall short into the alley of zombies, eyes close, and wake up mid a psycho experiment",
+ "idea": "You wake up mid EP03: you wake on a zombie street with six bullets and your best friend dragged away; every shot brings more; a door, the stairs, the roof, the last bullet; you jump from standing and fall short into the alley of zombies, eyes close, and he wakes in his own bed: a dream; he falls asleep again and the loop opens his eyes on the street",
  "format": "series: You wake up mid (first-person frame 0, stake-and-count line at 0.0, short narrator commands, bullet counter, one mistake = the bad end, ends in the next scenario)",
  "fps": 30,
  "look": "anime-pro",
@@ -64,8 +64,8 @@
  },
  "creative": {
   "length": [
-   43.9,
-   43.9
+   44.2,
+   44.2
   ]
  },
  "hook": {
@@ -461,14 +461,61 @@
    "staged": "a first-person overlay"
   },
   {
-   "id": "wait",
-   "kind": "zwait",
+   "id": "broom",
+   "kind": "zroom",
    "x": 0,
    "y": 0,
-   "z": 400,
-   "smoke": 0,
-   "watch": 0,
-   "staged": "the waiting room set, built away from the street"
+   "z": 520,
+   "w": 3.6,
+   "d": 3.6,
+   "dress": "living",
+   "floor": "boards",
+   "wall": "#e3d6c2",
+   "dim": 0,
+   "glowx": 0,
+   "glowz": 0,
+   "staged": "the bedroom set, built away from the street"
+  },
+  {
+   "id": "bed",
+   "kind": "bed",
+   "x": 0.35,
+   "y": 0,
+   "z": 518.65,
+   "cover": 0.7,
+   "blanket": "#3f7f86",
+   "dots": "#e9dcc0",
+   "staged": "his bed in the bedroom"
+  },
+  {
+   "id": "night",
+   "kind": "nightstand",
+   "x": -0.5,
+   "y": 0,
+   "z": 518.5,
+   "staged": "a bedside table"
+  },
+  {
+   "id": "lids2",
+   "kind": "eyelids",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "open": 1,
+   "cam": {
+    "pos": [
+     0.3,
+     1.05,
+     518.9
+    ],
+    "look": [
+     -1.2,
+     1.35,
+     518.3
+    ],
+    "fov": 66
+   },
+   "staged": "a first-person overlay"
   }
  ],
  "captions": [
@@ -708,24 +755,6 @@
    "from": 35.155,
    "to": 36.17,
    "text": "No run-up.",
-   "pos": 470,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 39.55,
-   "to": 40.287,
-   "text": "You wake up",
-   "pos": 470,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 40.287,
-   "to": 42.01,
-   "text": "mid psycho experiment.",
    "pos": 470,
    "pop": false,
    "size": 62,
@@ -5715,8 +5744,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      200,
-      80
+      0.35,
+      518.65
      ],
      "y": 0,
      "dur": 0.01,
@@ -5832,25 +5861,298 @@
      "dur": 0.01,
      "blink": false,
      "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.35,
+       0.35,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.35,
+       0.35,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 12,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bed",
+     "dur": 0,
+     "hands": "keep",
+     "at": 3.19
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 3.19
     }
    ]
   },
   {
-   "name": "P14 the smoke room",
+   "name": "P14 awake in his own bed",
    "at": 39.3,
-   "len": 4.6,
+   "len": 3.3,
    "shot": {
     "pos": [
-     0,
-     1,
-     401.5
+     0.25,
+     1.45,
+     521.75
     ],
     "look": [
-     0,
-     1.35,
-     397.8
+     0.15,
+     0.85,
+     518.7
     ],
-    "fov": 68
+    "fov": 56,
+    "to": {
+     "fov": 56,
+     "look": [
+      0.15,
+      0.85,
+      518.7
+     ],
+     "pos": [
+      0.25,
+      1.35,
+      521.4
+     ]
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "cover": 0.45
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "gasp",
+     "gain": 0.8,
+     "reason": "he jolts awake, gasping",
+     "at": 0
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.5,
+     "reason": "his heart still racing, slowing",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/cloth",
+     "gain": 0.5,
+     "reason": "the blanket thrown back",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "lidL": 0.3,
+      "lidR": 0.3
+     },
+     "dur": 0.3,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.5,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.75,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.75,
+     "at": 2.3
+    },
+    {
+     "sfx": "kenney/cloth",
+     "gain": 0.4,
+     "reason": "he pulls the blanket up",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "bed",
+     "set": {
+      "cover": 0.9
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "lidL": 0.75,
+      "lidR": 0.75
+     },
+     "dur": 0.4,
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "lids2",
+     "set": {
+      "open": 0.7
+     },
+     "dur": 0.005,
+     "ease": "linear",
+     "at": 3.29
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "P14 b his lids close (the loop)",
+   "at": 42.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0.3,
+     1.05,
+     518.9
+    ],
+    "look": [
+     -1.2,
+     1.35,
+     518.3
+    ],
+    "fov": 66
    },
    "do": [
     {
@@ -5860,59 +6162,42 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "wait",
-     "set": {
-      "smoke": 0.1
-     },
-     "dur": 0.4,
-     "ease": "out",
-     "at": 0
-    },
-    {
-     "sfx": "hiss",
-     "gain": 0.35,
-     "dur": 4.5,
-     "reason": "smoke hissing out of the wall vent",
-     "at": 0
-    },
-    {
-     "sfx": "scribble",
-     "gain": 0.3,
-     "dur": 3.5,
-     "reason": "pencils on clipboards, calm",
-     "at": 0
-    },
-    {
-     "macro": "narrate",
-     "line": "You wake up mid psycho experiment.",
-     "voice": "narrator",
-     "style": "intrigued, mysterious storyteller, urgent and quick",
-     "caption": false,
-     "at": 0.25
+     "sfx": "kenney/cloth",
+     "gain": 0.25,
+     "reason": "he settles into the pillow",
+     "at": 0.2
     },
     {
      "do": "prop",
-     "id": "wait",
+     "id": "lids2",
      "set": {
-      "smoke": 1
+      "open": 0.25
      },
-     "dur": 3,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "wait",
-     "set": {
-      "watch": 1
-     },
-     "dur": 0.6,
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 3.1
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "lids2",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "lids2",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.53,
+     "ease": "inOut",
+     "at": 1.05
     }
-   ],
-   "kind": "payoff"
+   ]
   }
  ],
  "visible": [
@@ -6103,18 +6388,27 @@
   },
   {
    "from": 39.3,
-   "to": 43.9,
+   "to": 42.6,
    "see": [
-    "wait"
+    "spud.face",
+    "bed"
    ],
-   "why": "P14: first person, a new place: a calm waiting room filling with smoke; nobody moves; a man in a lab coat watches"
+   "why": "P14: he jolts awake in his own bed; it was a dream; he breathes out and lies back down"
+  },
+  {
+   "from": 42.6,
+   "to": 44.2,
+   "see": [
+    "broom"
+   ],
+   "why": "P14 b: first person on the pillow: his eyes close; the loop opens them on the street again"
   }
  ],
  "allowClip": [
   {
    "who": "street",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6126,7 +6420,7 @@
   {
    "who": "hordeA",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6138,7 +6432,7 @@
   {
    "who": "hordeB",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6150,7 +6444,7 @@
   {
    "who": "grabber",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6162,7 +6456,7 @@
   {
    "who": "sdoor",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6174,7 +6468,7 @@
   {
    "who": "inside",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6186,7 +6480,7 @@
   {
    "who": "hall",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6198,7 +6492,7 @@
   {
    "who": "hdoor",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6210,7 +6504,7 @@
   {
    "who": "cab",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6222,7 +6516,7 @@
   {
    "who": "stairs",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6234,7 +6528,7 @@
   {
    "who": "sdoor2",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6246,7 +6540,7 @@
   {
    "who": "land1",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6258,7 +6552,7 @@
   {
    "who": "land2",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6270,7 +6564,7 @@
   {
    "who": "low",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6282,7 +6576,7 @@
   {
    "who": "roof",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6294,7 +6588,7 @@
   {
    "who": "alley",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6306,7 +6600,7 @@
   {
    "who": "front",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6318,7 +6612,7 @@
   {
    "who": "kz1",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6330,7 +6624,7 @@
   {
    "who": "kz2",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6340,9 +6634,33 @@
    "reason": "the world the cast stands in and on (sets, crowds, doors)"
   },
   {
-   "who": "wait",
+   "who": "broom",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "bed",
+   "from": 0,
+   "to": 44.2,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the world the cast stands in and on (sets, crowds, doors)"
+  },
+  {
+   "who": "night",
+   "from": 0,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6354,7 +6672,7 @@
   {
    "who": "gunR",
    "from": 0,
-   "to": 43.9,
+   "to": 44.2,
    "checks": [
     "clipping",
     "arm-in-prop",
@@ -6376,14 +6694,27 @@
   },
   {
    "who": "spud",
-   "with": "spud",
+   "with": "bed",
    "from": 39.3,
-   "to": 43.9,
+   "to": 49.2,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "in bed: his hands and sweater rest under the blanket (3 cm); to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)"
+  },
+  {
+   "who": "spud",
+   "with": "spud",
+   "from": 42.6,
+   "to": 49.2,
    "checks": [
     "face-covered",
     "face-hidden"
    ],
-   "reason": "first person in the waiting room"
+   "reason": "first person on the pillow (the loop); to past the end for the video clock"
   },
   {
    "who": "chip",

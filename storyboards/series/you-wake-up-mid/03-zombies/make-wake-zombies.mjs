@@ -8,11 +8,11 @@
 // front -> up the stairwell, two on the landing (3, 2), the street door gives way below, one more (1) -> the roof: zombies
 // in every street, no way down -> "One bullet. What do you do?" (1 SHOOT / 2 JUMP) -> he shoots (0), three more push out,
 // no room for a run-up -> they jump from standing, fall short -> his eyes close over the reaching hands -> "You wake up
-// mid psycho experiment." Stake line at 0.0 (stake-first rule): "Six bullets to get your best friend out."
+// mid psycho experiment." -> LOOP (13 Nov): he wakes in his own bed, sleeps again, frame 0 opens his eyes. Stake line at 0.0 (stake-first rule): "Six bullets to get your best friend out."
 //
 // Places (each look far from the others; the far plane is 300 m): the street (zstreet) at the origin, street floor y -15;
 // the hallway (zroom, dress hall) at z -400; the stairwell (zstairs) at x -400; the roofs (zroof) at x 600; the waiting room
-// (zwait) at z 400. Run: node storyboards/series/you-wake-up-mid/03-zombies/make-wake-zombies.mjs
+// (zwait, unused since the loop) at z 400; the bedroom at z 520. Run: node storyboards/series/you-wake-up-mid/03-zombies/make-wake-zombies.mjs
 import { readFileSync } from "node:fs";
 import { clip, write, r3, SUB_STYLE } from "../../../lib/clip.mjs";
 import { vote } from "../../../lib/overlay.mjs";
@@ -61,9 +61,11 @@ const T = {
   hands: fr(34.9),     // P12 b: the hands below
   close: fr(36.1),     // P13 a: his eyes close (0.7 s)
   fall: fr(36.8),      // P13 b: straight down over the hands, slow
-  wake: fr(39.3),      // P14 the teaser: bright POV, the smoke room                  narr next 39.55-41.76
-  watch: 42.4,
-  end: 43.9,           // held ~2 s after the last line
+  wake: fr(39.3),      // P14 LOOP (Jonny 13 Nov 06:50 Berlin, "Loop on this episode"): he jolts awake in his own bed
+  relief: 40.8,        //   it was a dream: he breathes out
+  lie: 41.6,           //   lies back, eyes heavy
+  sleep: fr(42.6),     //   first person: his lids close, and the clip starts again on frame 0 (lids open on the street)
+  end: 44.2,
 };
 
 // ---------------------------------------------------------------- places
@@ -72,7 +74,8 @@ const DOORZ = 9.0;                                  // our building's street doo
 const HALL = [0, -400];                             // zroom (dress hall) floor centre
 const ST = [-400, 0];                               // zstairs origin (hall floor, first riser of flight 1)
 const RF = [600, 0];                                // zroof origin (middle of the gap at deck height, jump line z 0)
-const WT = [0, 400];                                // zwait floor centre
+const BR = [0, 520];                                // the bedroom (zroom, dress living) floor centre
+const BED = [0.35, 520 - 1.35];                     // the bed: where the sleeper sits up against the pillow; it runs 1.6 m to +z
 const FAR = [200, 0, 80];
 const far = (i) => [FAR[0] + i * 2, FAR[2], 0, 0];
 const rx = (x) => r3(RF[0] + x), sx = (x) => r3(ST[0] + x);
@@ -110,7 +113,8 @@ const CAM = {
   MISS: { pos: R([3.2, 1.0, 1.4]), look: R([0.3, 0.4, -0.2]), fov: 54 },                          // P12 a "12a reach"
   CLOSE: { pos: R([0.0, -0.9, 0.35]), look: R([0.0, -4.4, 0.0]), fov: 40 },                         // P13 a his face, falling with him
   DOWN: { pos: R([0, 3.0, 0.2]), look: R([0, -12, 0.0]), fov: 36 },                               // P13 b straight down
-  WAIT: { pos: [0, 1.0, 400 + 1.5], look: [0, 1.35, 400 - 2.2], fov: 68 },                        // P14 DESIGN 3 POV
+  BED: { pos: [0.25, 1.45, 520 + 1.75], look: [0.15, 0.85, 520 - 1.3], fov: 56 },                    // P14 from the foot of the bed
+  BEDPOV: { pos: [0.3, 1.05, 520 - 1.1], look: [-1.2, 1.35, 520 - 1.7], fov: 66 },                  // P14 b his eyes on the pillow, toward the window (still: the eyelids need it)
 };
 
 // ---------------------------------------------------------------- cast
@@ -146,10 +150,14 @@ const props = [
   { id: "kz1", kind: "zshot", x: FAR[0] + 16, y: 0, z: 40, rot: 90, n: 1, seed: 31, stop: [0.4], adv: 0, d1: 0 },              // P09-P10 in the kiosk door
   { id: "kz2", kind: "zshot", x: FAR[0] + 20, y: 0, z: 40, rot: 90, n: 1, seed: 33, adv: 0, d1: 0 },                         // P10 the next one out
   { id: "lids", kind: "eyelids", x: 0, y: 0, z: 0, open: 0.82, cam: { pos: CAM.POV.pos, look: CAM.POV.look, fov: CAM.POV.fov } },   // P01 his eyelids
-  // the waiting room (P14)
-  { id: "wait", kind: "zwait", x: WT[0], y: 0, z: WT[1], smoke: 0, watch: 0 },
+  // the bedroom (P14, the loop)
+  { id: "broom", kind: "zroom", x: BR[0], y: 0, z: BR[1], w: 3.6, d: 3.6, dress: "living", floor: "boards", wall: "#e3d6c2", dim: 0, glowx: 0, glowz: 0 },
+  { id: "bed", kind: "bed", x: BED[0], y: 0, z: BED[1], cover: 0.7, blanket: "#3f7f86", dots: "#e9dcc0" },
+  { id: "night", kind: "nightstand", x: -0.5, y: 0, z: r3(BR[1] - 1.5) },
+  { id: "lids2", kind: "eyelids", x: 0, y: 0, z: 0, open: 1, cam: { pos: CAM.BEDPOV.pos, look: CAM.BEDPOV.look, fov: CAM.BEDPOV.fov } },
 ];
 const STAGED = {
+  lids2: "a first-person overlay", broom: "the bedroom set, built away from the street", bed: "his bed in the bedroom", night: "a bedside table",
   lids: "a first-person overlay",
   gunR: "lying on the asphalt, then in Spud's hand", grabber: "a zombie standing on the street", inside: "a zombie standing in the porch",
   land1: "a zombie standing on the half landing", land2: "a zombie standing on the half landing", kz1: "a zombie in the roof door", kz2: "a zombie in the roof door",
@@ -427,15 +435,37 @@ ramp(c, T.close, r3(T.wake - T.close), 0.6, { in: 0.1, out: 0.1 });
 see(T.close, T.fall, ["spud.face"], "P13: falling, his eyes squeeze shut");
 see(T.fall, T.wake, ["spud", "chip", "alley"], "P13: the camera pulls up, they fall toward a sea of reaching hands; nothing after that");
 
-// ================================================================ P14 39.3-43.9: you wake up mid psycho experiment
-scene(T.wake, { spud: far(0), chip: far(1) });
-A(T.wake, "spud", "pov", { on: true });
-prop(T.wake, "wait", { smoke: 0.1 }, 0.4, "out"); prop(r3(T.wake + 0.4), "wait", { smoke: 1 }, 3.0, "linear");
-prop(T.watch, "wait", { watch: 1 }, 0.6, "inOut");
-sfx(T.wake, "hiss", { gain: 0.35, dur: 4.5, reason: "smoke hissing out of the wall vent" });
-sfx(T.wake, "scribble", { gain: 0.3, dur: 3.5, reason: "pencils on clipboards, calm" });
-narr(39.55, "You wake up mid psycho experiment.", "next", ["You wake up", "mid psycho experiment."]);
-see(T.wake, T.end, ["wait"], "P14: first person, a new place: a calm waiting room filling with smoke; nobody moves; a man in a lab coat watches");
+// ================================================================ P14 39.3-44.2: THE LOOP. He wakes in his own bed, it was a dream, he falls
+// asleep again: his lids close on the last frames and frame 0 opens them on the street (Jonny 13 Nov: standalone episodes that loop)
+scene(T.wake, { spud: [BED[0], BED[1], 0, 0], chip: far(1) });
+A(r3(T.wake - 0.01), "spud", "sit", { seat: "bed", dur: 0, hands: "keep" });
+both(r3(T.wake - 0.02), "spud", { o: [0.35, 0.35, 0.25] }, 0.01);
+A(r3(T.wake - 0.02), "spud", "pitch", { to: 12, dur: 0.01 }); A(r3(T.wake - 0.02), "spud", "droop", { to: 0, dur: 0.01 });
+expr(r3(T.wake - 0.02), "spud", "terrified", { open: 0.6 }, 0.01); look(r3(T.wake - 0.01), "spud", [0, 0.1], 0.01);
+A(T.wake, "spud", "squash", { amount: 0.08, dur: 0.2 });
+prop(T.wake, "bed", { cover: 0.45 }, 0.2, "out");
+sfx(T.wake, "gasp", { gain: 0.8, reason: "he jolts awake, gasping" });
+sfx(r3(T.wake + 0.1), "kenney/cloth", { gain: 0.5, reason: "the blanket thrown back" });
+sfx(T.wake, "ai/heartbeat", { gain: 0.5, reason: "his heart still racing, slowing" });
+look(r3(T.wake + 0.5), "spud", [-0.6, 0.1], 0.2); look(r3(T.wake + 0.95), "spud", [0.6, 0.1], 0.2);   // his own room
+A(r3(T.wake + 0.4), "spud", "pitch", { to: 0, dur: 0.5, ease: "inOut" });
+// it was a dream
+expr(T.relief, "spud", "kind", { lidL: 0.3, lidR: 0.3 }, 0.3); look(T.relief, "spud", [0, -0.1], 0.3);
+A(T.relief, "spud", "squash", { amount: 0.06, dur: 0.5 });
+both(T.relief, "spud", "rest", 0.4);
+// he lies back and the eyes get heavy
+A(T.lie, "spud", "pitch", { to: -6, dur: 0.75, ease: "inOut" }); A(T.lie, "spud", "squash", { amount: 0.05, dur: 0.75 });   // sinks back into the pillow (a deeper pitch lifts his feet out over the blanket)
+prop(r3(T.lie + 0.2), "bed", { cover: 0.9 }, 0.5, "inOut");
+sfx(r3(T.lie + 0.1), "kenney/cloth", { gain: 0.4, reason: "he pulls the blanket up" });
+A(r3(T.lie + 0.5), "spud", "expr", { expr: "kind", set: { lidL: 0.75, lidR: 0.75 }, dur: 0.4 });
+see(T.wake, T.sleep, ["spud.face", "bed"], "P14: he jolts awake in his own bed; it was a dream; he breathes out and lies back down");
+// b: his eyes: the lids close slowly, two heavy blinks, then shut on the last frames (the replay opens them on the street)
+A(T.sleep, "spud", "pov", { on: true });
+prop(r3(T.sleep - 0.01), "lids2", { open: 0.7 }, 0.005, "linear");
+prop(r3(T.sleep + 0.35), "lids2", { open: 0.25 }, 0.3, "inOut"); prop(r3(T.sleep + 0.7), "lids2", { open: 0.5 }, 0.25, "out");
+prop(r3(T.sleep + 1.05), "lids2", { open: 0 }, r3(T.end - T.sleep - 1.05 - 0.02), "inOut");   // shut on the very last frame: the loop opens them on frame 0
+sfx(r3(T.sleep + 0.2), "kenney/cloth", { gain: 0.25, reason: "he settles into the pillow" });
+see(T.sleep, T.end, ["broom"], "P14 b: first person on the pillow: his eyes close; the loop opens them on the street again");
 
 // ---------------------------------------------------------------- beats (one shot per panel; b/c inserts named in PANELS.md)
 const sh = (k, to, dur, ease = "linear") => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov, ...(to && { to: { fov: CAM[k].fov, look: CAM[k].look, ...to }, dur, ease }) });
@@ -457,15 +487,16 @@ const beats = c.beats([
   ["P11 the jump", T.jump, sh("JUMP")],
   ["P12 a out of reach", T.reach, sh("MISS")],
   ["P13 eyes close, the fall", T.close, sh("CLOSE", { pos: CAM.DOWN.pos, look: CAM.DOWN.look, fov: CAM.DOWN.fov }, r3(T.wake - T.close), "in")],
-  ["P14 the smoke room", T.wake, sh("WAIT"), "payoff"],
+  ["P14 awake in his own bed", T.wake, sh("BED", { pos: [0.25, 1.35, 520 + 1.4] }, r3(T.sleep - T.wake), "inOut"), "payoff"],
+  ["P14 b his lids close (the loop)", T.sleep, sh("BEDPOV")],
 ], T.end);
 
-const WORLD = ["street", "hordeA", "hordeB", "grabber", "sdoor", "inside", "hall", "hdoor", "cab", "stairs", "sdoor2", "land1", "land2", "low", "roof", "alley", "front", "kz1", "kz2", "wait"];
+const WORLD = ["street", "hordeA", "hordeB", "grabber", "sdoor", "inside", "hall", "hdoor", "cab", "stairs", "sdoor2", "land1", "land2", "low", "roof", "alley", "front", "kz1", "kz2", "broom", "bed", "night"];
 const WORN = ["clipping", "arm-in-prop", "hand-in-prop", "costume-in-prop"];
 write(import.meta.url, {
   id: "wake-up-mid-zombies",
   title: "You wake up mid zombie apocalypse",
-  idea: "You wake up mid EP03: you wake on a zombie street with six bullets and your best friend dragged away; every shot brings more; a door, the stairs, the roof, the last bullet; you jump from standing and fall short into the alley of zombies, eyes close, and wake up mid a psycho experiment",
+  idea: "You wake up mid EP03: you wake on a zombie street with six bullets and your best friend dragged away; every shot brings more; a door, the stairs, the roof, the last bullet; you jump from standing and fall short into the alley of zombies, eyes close, and he wakes in his own bed: a dream; he falls asleep again and the loop opens his eyes on the street",
   format: "series: You wake up mid (first-person frame 0, stake-and-count line at 0.0, short narrator commands, bullet counter, one mistake = the bad end, ends in the next scenario)",
   fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, captionStyle: "kinetic",
   captionBand: [240, 1440],   // narration in the upper third (Jonny 12 Nov), the counter lower left
@@ -482,7 +513,8 @@ write(import.meta.url, {
     ...WORLD.map((who) => ({ who, from: 0, to: T.end, checks: WORN, reason: "the world the cast stands in and on (sets, crowds, doors)" })),
     { who: "gunR", from: 0, to: T.end, checks: WORN, reason: "rough draft: the revolver held where the hand closes on its grip" },
     { who: "spud", with: "spud", from: 0, to: T.face, checks: ["face-covered", "face-hidden"], reason: "first person (the camera is his eyes)" },
-    { who: "spud", with: "spud", from: T.wake, to: T.end, checks: ["face-covered", "face-hidden"], reason: "first person in the waiting room" },
+    { who: "spud", with: "bed", from: T.wake, to: r3(T.end + 5), checks: WORN, reason: "in bed: his hands and sweater rest under the blanket (3 cm); to past the end because the prop checks read the window on the video clock (ramps add ~4.8 s)" },
+    { who: "spud", with: "spud", from: T.sleep, to: r3(T.end + 5), checks: ["face-covered", "face-hidden"], reason: "first person on the pillow (the loop); to past the end for the video clock" },
     { who: "chip", with: "spud", from: r3(T.shot1 + 0.4), to: T.door, checks: ["reach", "character-overlap"], reason: "the friend takes his hand, pulls him up and holds his sleeve on the run" },
     { who: "spud", with: "chip", from: T.jump, to: T.wake, checks: ["reach", "character-overlap"], reason: "hand in hand, the jump and the fall" },
   ],
