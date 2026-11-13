@@ -1536,7 +1536,7 @@
      "clap": 0.039,
      "snrDb": 69.6,
      "loudnessLUFS": -17,
-     "note": "trimmed to its two hits (0-1.4 s) by hand: d\u00f6 ... d\u00f6m"
+     "note": "trimmed to its two hits (0-1.4 s) by hand: dö ... döm"
     }
    ]
   },
@@ -3547,6 +3547,991 @@
      "clap": 0.174,
      "snrDb": null,
      "loudnessLUFS": -14.6
+    }
+   ]
+  },
+  {
+   "id": "bear-growl",
+   "kind": "sfx",
+   "files": [
+    "bear-growl/bear-growl-01.wav",
+    "bear-growl/bear-growl-02.wav",
+    "bear-growl/bear-growl-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "bear",
+    "growl",
+    "animal",
+    "menace"
+   ],
+   "durationSec": 2.5,
+   "prompt": [
+    "a deep low growl of a black bear, close up, throaty rumbling animal growl, field recording, outdoors at night, no music",
+    "a large angry bear growling low and menacingly, chest rumble, wildlife recording, close microphone, no music"
+   ],
+   "seed": [
+    301,
+    302,
+    301
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -13.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bear-growl/bear-growl-01.wav",
+     "take": "p0-s301",
+     "prompt": "a deep low growl of a black bear, close up, throaty rumbling animal growl, field recording, outdoors at night, no music",
+     "seed": 301,
+     "startSec": 1.007,
+     "durationSec": 2.5,
+     "clap": -0.015,
+     "snrDb": 38.8,
+     "loudnessLUFS": -13.7
+    },
+    {
+     "file": "bear-growl/bear-growl-02.wav",
+     "take": "p0-s302",
+     "prompt": "a deep low growl of a black bear, close up, throaty rumbling animal growl, field recording, outdoors at night, no music",
+     "seed": 302,
+     "startSec": 1.045,
+     "durationSec": 2.5,
+     "clap": -0.05,
+     "snrDb": 35.8,
+     "loudnessLUFS": -12.7
+    },
+    {
+     "file": "bear-growl/bear-growl-03.wav",
+     "take": "p1-s301",
+     "prompt": "a large angry bear growling low and menacingly, chest rumble, wildlife recording, close microphone, no music",
+     "seed": 301,
+     "startSec": 0.226,
+     "durationSec": 2.5,
+     "clap": -0.069,
+     "snrDb": 51.4,
+     "loudnessLUFS": -14.8
+    }
+   ]
+  },
+  {
+   "id": "bear-roar",
+   "kind": "sfx",
+   "files": [
+    "bear-roar/bear-roar-01.wav",
+    "bear-roar/bear-roar-02.wav",
+    "bear-roar/bear-roar-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "bear",
+    "roar",
+    "animal",
+    "attack"
+   ],
+   "durationSec": 2.5,
+   "prompt": [
+    "a black bear bellowing a loud roaring bawl as it rears up, raw animal roar, close up, wildlife field recording, no music",
+    "an angry bear roaring loudly, hoarse bellow with a rasp, real animal sound, outdoors, no music"
+   ],
+   "seed": [
+    311,
+    312,
+    312
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -13.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bear-roar/bear-roar-01.wav",
+     "take": "p0-s311",
+     "prompt": "a black bear bellowing a loud roaring bawl as it rears up, raw animal roar, close up, wildlife field recording, no music",
+     "seed": 311,
+     "startSec": 0.324,
+     "durationSec": 2.5,
+     "clap": 0.099,
+     "snrDb": 55.6,
+     "loudnessLUFS": -13.2
+    },
+    {
+     "file": "bear-roar/bear-roar-02.wav",
+     "take": "p1-s312",
+     "prompt": "an angry bear roaring loudly, hoarse bellow with a rasp, real animal sound, outdoors, no music",
+     "seed": 312,
+     "startSec": 0.172,
+     "durationSec": 2.5,
+     "clap": 0.082,
+     "snrDb": 55.8,
+     "loudnessLUFS": -14.3
+    },
+    {
+     "file": "bear-roar/bear-roar-03.wav",
+     "take": "p0-s312",
+     "prompt": "a black bear bellowing a loud roaring bawl as it rears up, raw animal roar, close up, wildlife field recording, no music",
+     "seed": 312,
+     "startSec": 0.224,
+     "durationSec": 2.5,
+     "clap": 0.064,
+     "snrDb": 50.0,
+     "loudnessLUFS": -12.1
+    }
+   ]
+  },
+  {
+   "id": "bear-huff",
+   "kind": "sfx",
+   "files": [
+    "bear-huff/bear-huff-01.wav",
+    "bear-huff/bear-huff-02.wav",
+    "bear-huff/bear-huff-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "bear",
+    "huff",
+    "breath",
+    "jaw"
+   ],
+   "durationSec": 0.641,
+   "prompt": [
+    "a bear's sharp huffing breaths and jaw popping, snorting through the nose, close up, wildlife field recording, outdoors at night, no music",
+    "a large bear huffing and snorting, short loud exhaled breaths, teeth clacking and jaw pops, real animal, no music"
+   ],
+   "seed": [
+    321,
+    322,
+    321
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.1,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bear-huff/bear-huff-01.wav",
+     "take": "p0-s321",
+     "prompt": "a bear's sharp huffing breaths and jaw popping, snorting through the nose, close up, wildlife field recording, outdoors at night, no music",
+     "seed": 321,
+     "startSec": 3.978,
+     "durationSec": 0.538,
+     "clap": 0.175,
+     "snrDb": 76.7,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "bear-huff/bear-huff-02.wav",
+     "take": "p1-s322",
+     "prompt": "a large bear huffing and snorting, short loud exhaled breaths, teeth clacking and jaw pops, real animal, no music",
+     "seed": 322,
+     "startSec": 2.186,
+     "durationSec": 0.8,
+     "clap": 0.126,
+     "snrDb": 80.2,
+     "loudnessLUFS": -16.1
+    },
+    {
+     "file": "bear-huff/bear-huff-03.wav",
+     "take": "p0-s321",
+     "prompt": "a bear's sharp huffing breaths and jaw popping, snorting through the nose, close up, wildlife field recording, outdoors at night, no music",
+     "seed": 321,
+     "startSec": 1.194,
+     "durationSec": 0.641,
+     "clap": 0.117,
+     "snrDb": 82.3,
+     "loudnessLUFS": -13.4
+    }
+   ]
+  },
+  {
+   "id": "bear-charge",
+   "kind": "sfx",
+   "files": [
+    "bear-charge/bear-charge-01.wav",
+    "bear-charge/bear-charge-02.wav",
+    "bear-charge/bear-charge-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "bear",
+    "charge",
+    "gallop",
+    "paws",
+    "run"
+   ],
+   "durationSec": 1.8,
+   "prompt": [
+    "heavy fast paws pounding on dirt and grass, a big animal charging and galloping towards the microphone, field recording, no music",
+    "a large bear running at full speed over dry grass and dirt, heavy thudding footfalls, ground thumping, no music"
+   ],
+   "seed": [
+    332,
+    331,
+    331
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bear-charge/bear-charge-01.wav",
+     "take": "p0-s332",
+     "prompt": "heavy fast paws pounding on dirt and grass, a big animal charging and galloping towards the microphone, field recording, no music",
+     "seed": 332,
+     "startSec": 0.969,
+     "durationSec": 1.8,
+     "clap": 0.159,
+     "snrDb": 82.5,
+     "loudnessLUFS": -25.9
+    },
+    {
+     "file": "bear-charge/bear-charge-02.wav",
+     "take": "p1-s331",
+     "prompt": "a large bear running at full speed over dry grass and dirt, heavy thudding footfalls, ground thumping, no music",
+     "seed": 331,
+     "startSec": 3.115,
+     "durationSec": 1.8,
+     "clap": 0.137,
+     "snrDb": 82.9,
+     "loudnessLUFS": -23.5
+    },
+    {
+     "file": "bear-charge/bear-charge-03.wav",
+     "take": "p1-s331",
+     "prompt": "a large bear running at full speed over dry grass and dirt, heavy thudding footfalls, ground thumping, no music",
+     "seed": 331,
+     "startSec": 0.506,
+     "durationSec": 1.549,
+     "clap": 0.109,
+     "snrDb": 79.4,
+     "loudnessLUFS": -22.5
+    }
+   ]
+  },
+  {
+   "id": "canvas-rip",
+   "kind": "sfx",
+   "files": [
+    "canvas-rip/canvas-rip-01.wav",
+    "canvas-rip/canvas-rip-02.wav",
+    "canvas-rip/canvas-rip-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "tent",
+    "rip",
+    "tear",
+    "fabric",
+    "nylon"
+   ],
+   "durationSec": 1.3,
+   "prompt": [
+    "tent nylon fabric torn open by claws, a loud ripping tear of thick synthetic cloth, close up, dry, no music",
+    "claws slashing and ripping through a nylon tent wall, fabric tearing, real foley recording, no music"
+   ],
+   "seed": [
+    341,
+    342,
+    342
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "canvas-rip/canvas-rip-01.wav",
+     "take": "p0-s341",
+     "prompt": "tent nylon fabric torn open by claws, a loud ripping tear of thick synthetic cloth, close up, dry, no music",
+     "seed": 341,
+     "startSec": 3.585,
+     "durationSec": 1.3,
+     "clap": 0.181,
+     "snrDb": 66.8,
+     "loudnessLUFS": -19.2
+    },
+    {
+     "file": "canvas-rip/canvas-rip-02.wav",
+     "take": "p0-s342",
+     "prompt": "tent nylon fabric torn open by claws, a loud ripping tear of thick synthetic cloth, close up, dry, no music",
+     "seed": 342,
+     "startSec": 3.66,
+     "durationSec": 1.3,
+     "clap": 0.138,
+     "snrDb": 68.1,
+     "loudnessLUFS": -15.9
+    },
+    {
+     "file": "canvas-rip/canvas-rip-03.wav",
+     "take": "p0-s342",
+     "prompt": "tent nylon fabric torn open by claws, a loud ripping tear of thick synthetic cloth, close up, dry, no music",
+     "seed": 342,
+     "startSec": 2.059,
+     "durationSec": 0.803,
+     "clap": 0.053,
+     "snrDb": 65.2,
+     "loudnessLUFS": -20.9
+    }
+   ]
+  },
+  {
+   "id": "glass-smash",
+   "kind": "sfx",
+   "files": [
+    "glass-smash/glass-smash-01.wav",
+    "glass-smash/glass-smash-02.wav",
+    "glass-smash/glass-smash-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "glass",
+    "smash",
+    "windscreen",
+    "car",
+    "crash"
+   ],
+   "durationSec": 1.4,
+   "prompt": [
+    "a car windscreen smashed by a heavy blow, cracking and shattering safety glass, close up, real recording, no music",
+    "a heavy impact breaking a car windshield, glass crunching and crackling, dry, no music"
+   ],
+   "seed": [
+    351,
+    352,
+    351
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "glass-smash/glass-smash-01.wav",
+     "take": "p1-s351",
+     "prompt": "a heavy impact breaking a car windshield, glass crunching and crackling, dry, no music",
+     "seed": 351,
+     "startSec": 3.365,
+     "durationSec": 1.4,
+     "clap": 0.212,
+     "snrDb": 57.7,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "glass-smash/glass-smash-02.wav",
+     "take": "p1-s352",
+     "prompt": "a heavy impact breaking a car windshield, glass crunching and crackling, dry, no music",
+     "seed": 352,
+     "startSec": 1.403,
+     "durationSec": 1.4,
+     "clap": 0.199,
+     "snrDb": 74.9,
+     "loudnessLUFS": -19.6
+    },
+    {
+     "file": "glass-smash/glass-smash-03.wav",
+     "take": "p0-s351",
+     "prompt": "a car windscreen smashed by a heavy blow, cracking and shattering safety glass, close up, real recording, no music",
+     "seed": 351,
+     "startSec": 0.04,
+     "durationSec": 1.4,
+     "clap": 0.114,
+     "snrDb": 46.8,
+     "loudnessLUFS": -14.7
+    }
+   ]
+  },
+  {
+   "id": "metal-tear",
+   "kind": "sfx",
+   "files": [
+    "metal-tear/metal-tear-01.wav",
+    "metal-tear/metal-tear-02.wav",
+    "metal-tear/metal-tear-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "metal",
+    "tear",
+    "car",
+    "door",
+    "bend"
+   ],
+   "durationSec": 1.6,
+   "prompt": [
+    "a car door wrenched off its hinges, groaning bending sheet metal and a loud metallic tearing screech, real recording, no music",
+    "heavy sheet metal being torn and bent, a car door ripped off, metal creaking and snapping, close up, no music"
+   ],
+   "seed": [
+    362,
+    361,
+    362
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -21.4,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "metal-tear/metal-tear-01.wav",
+     "take": "p0-s362",
+     "prompt": "a car door wrenched off its hinges, groaning bending sheet metal and a loud metallic tearing screech, real recording, no music",
+     "seed": 362,
+     "startSec": 4.845,
+     "durationSec": 1.6,
+     "clap": 0.057,
+     "snrDb": 46.9,
+     "loudnessLUFS": -21.4
+    },
+    {
+     "file": "metal-tear/metal-tear-02.wav",
+     "take": "p0-s361",
+     "prompt": "a car door wrenched off its hinges, groaning bending sheet metal and a loud metallic tearing screech, real recording, no music",
+     "seed": 361,
+     "startSec": 4.845,
+     "durationSec": 1.6,
+     "clap": 0.032,
+     "snrDb": 60.2,
+     "loudnessLUFS": -19.3
+    },
+    {
+     "file": "metal-tear/metal-tear-03.wav",
+     "take": "p0-s362",
+     "prompt": "a car door wrenched off its hinges, groaning bending sheet metal and a loud metallic tearing screech, real recording, no music",
+     "seed": 362,
+     "startSec": 0.579,
+     "durationSec": 1.6,
+     "clap": 0.005,
+     "snrDb": 50.3,
+     "loudnessLUFS": -23.6
+    }
+   ]
+  },
+  {
+   "id": "car-alarm",
+   "kind": "sfx",
+   "files": [
+    "car-alarm/car-alarm-01.wav",
+    "car-alarm/car-alarm-02.wav",
+    "car-alarm/car-alarm-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "alarm",
+    "car",
+    "siren",
+    "loop"
+   ],
+   "durationSec": 4.0,
+   "prompt": [
+    "a real car alarm siren blaring in the night, repeating electronic horn wail with the horn honking, outdoors, recorded from a distance, no music",
+    "a car burglar alarm going off, loud pulsing siren and honking, street at night, field recording, no music"
+   ],
+   "seed": [
+    371,
+    371,
+    372
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -13.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "car-alarm/car-alarm-01.wav",
+     "take": "p1-s371",
+     "prompt": "a car burglar alarm going off, loud pulsing siren and honking, street at night, field recording, no music",
+     "seed": 371,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.126,
+     "snrDb": 40.0,
+     "loudnessLUFS": -15.4
+    },
+    {
+     "file": "car-alarm/car-alarm-02.wav",
+     "take": "p0-s371",
+     "prompt": "a real car alarm siren blaring in the night, repeating electronic horn wail with the horn honking, outdoors, recorded from a distance, no music",
+     "seed": 371,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.114,
+     "snrDb": 40.0,
+     "loudnessLUFS": -13.6
+    },
+    {
+     "file": "car-alarm/car-alarm-03.wav",
+     "take": "p1-s372",
+     "prompt": "a car burglar alarm going off, loud pulsing siren and honking, street at night, field recording, no music",
+     "seed": 372,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.086,
+     "snrDb": 40.0,
+     "loudnessLUFS": -13.3
+    }
+   ]
+  },
+  {
+   "id": "thunder",
+   "kind": "sfx",
+   "files": [
+    "thunder/thunder-01.wav",
+    "thunder/thunder-02.wav",
+    "thunder/thunder-03.wav"
+   ],
+   "gain": 0.55,
+   "tags": [
+    "thunder",
+    "storm",
+    "weather",
+    "crack"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "a close thunder crack followed by a long deep rolling rumble, thunderstorm at night, outdoors field recording, no rain, no music",
+    "a sharp loud thunderclap then low rolling thunder echoing across the sky, dry thunderstorm, real recording, no music"
+   ],
+   "seed": [
+    381,
+    382,
+    382
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.8,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "thunder/thunder-01.wav",
+     "take": "p0-s381",
+     "prompt": "a close thunder crack followed by a long deep rolling rumble, thunderstorm at night, outdoors field recording, no rain, no music",
+     "seed": 381,
+     "startSec": 0.577,
+     "durationSec": 6.0,
+     "clap": 0.175,
+     "snrDb": 45.2,
+     "loudnessLUFS": -19.0
+    },
+    {
+     "file": "thunder/thunder-02.wav",
+     "take": "p1-s382",
+     "prompt": "a sharp loud thunderclap then low rolling thunder echoing across the sky, dry thunderstorm, real recording, no music",
+     "seed": 382,
+     "startSec": 0.279,
+     "durationSec": 6.0,
+     "clap": 0.171,
+     "snrDb": 39.3,
+     "loudnessLUFS": -19.8
+    },
+    {
+     "file": "thunder/thunder-03.wav",
+     "take": "p0-s382",
+     "prompt": "a close thunder crack followed by a long deep rolling rumble, thunderstorm at night, outdoors field recording, no rain, no music",
+     "seed": 382,
+     "startSec": 0.626,
+     "durationSec": 6.0,
+     "clap": 0.158,
+     "snrDb": 45.8,
+     "loudnessLUFS": -19.9
+    }
+   ]
+  },
+  {
+   "id": "grass-fire",
+   "kind": "sfx",
+   "files": [
+    "grass-fire/grass-fire-01.wav",
+    "grass-fire/grass-fire-02.wav",
+    "grass-fire/grass-fire-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "fire",
+    "grass",
+    "flames",
+    "crackle",
+    "loop"
+   ],
+   "durationSec": 4.0,
+   "prompt": [
+    "dry grass catching fire, crackling flames and whooshing fire, a grass fire spreading, close up, field recording, no music",
+    "a crackling wildfire in dry grass, popping and roaring flames, wind and fire, real recording, no music"
+   ],
+   "seed": [
+    392,
+    392,
+    391
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.3,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "grass-fire/grass-fire-01.wav",
+     "take": "p0-s392",
+     "prompt": "dry grass catching fire, crackling flames and whooshing fire, a grass fire spreading, close up, field recording, no music",
+     "seed": 392,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.241,
+     "snrDb": 40.0,
+     "loudnessLUFS": -19.0
+    },
+    {
+     "file": "grass-fire/grass-fire-02.wav",
+     "take": "p1-s392",
+     "prompt": "a crackling wildfire in dry grass, popping and roaring flames, wind and fire, real recording, no music",
+     "seed": 392,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.196,
+     "snrDb": 40.0,
+     "loudnessLUFS": -20.3
+    },
+    {
+     "file": "grass-fire/grass-fire-03.wav",
+     "take": "p0-s391",
+     "prompt": "dry grass catching fire, crackling flames and whooshing fire, a grass fire spreading, close up, field recording, no music",
+     "seed": 391,
+     "startSec": 0.4,
+     "durationSec": 4.0,
+     "clap": 0.195,
+     "snrDb": 40.0,
+     "loudnessLUFS": -27.8
+    }
+   ]
+  },
+  {
+   "id": "branch-snap",
+   "kind": "sfx",
+   "files": [
+    "branch-snap/branch-snap-01.wav",
+    "branch-snap/branch-snap-02.wav",
+    "branch-snap/branch-snap-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "branch",
+    "snap",
+    "wood",
+    "tree",
+    "climb"
+   ],
+   "durationSec": 0.256,
+   "prompt": [
+    "pine branches snapping and cracking loudly and bark scraping as something heavy climbs a tree, close up, forest at night, no music",
+    "dry tree branches breaking one after another, wood snapping, bark scraping, a heavy animal climbing a pine, no music"
+   ],
+   "seed": [
+    401,
+    401,
+    402
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -23.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "branch-snap/branch-snap-01.wav",
+     "take": "p0-s401",
+     "prompt": "pine branches snapping and cracking loudly and bark scraping as something heavy climbs a tree, close up, forest at night, no music",
+     "seed": 401,
+     "startSec": 0.772,
+     "durationSec": 0.256,
+     "clap": 0.055,
+     "snrDb": 74.8,
+     "loudnessLUFS": -24.2
+    },
+    {
+     "file": "branch-snap/branch-snap-02.wav",
+     "take": "p0-s401",
+     "prompt": "pine branches snapping and cracking loudly and bark scraping as something heavy climbs a tree, close up, forest at night, no music",
+     "seed": 401,
+     "startSec": 4.801,
+     "durationSec": 0.194,
+     "clap": -0.016,
+     "snrDb": 81.4,
+     "loudnessLUFS": -23.5
+    },
+    {
+     "file": "branch-snap/branch-snap-03.wav",
+     "take": "p1-s402",
+     "prompt": "dry tree branches breaking one after another, wood snapping, bark scraping, a heavy animal climbing a pine, no music",
+     "seed": 402,
+     "startSec": 2.651,
+     "durationSec": 0.574,
+     "clap": -0.026,
+     "snrDb": 63.4,
+     "loudnessLUFS": -23.6
+    }
+   ]
+  },
+  {
+   "id": "pot-bang",
+   "kind": "sfx",
+   "files": [
+    "pot-bang/pot-bang-01.wav",
+    "pot-bang/pot-bang-02.wav",
+    "pot-bang/pot-bang-03.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "pot",
+    "bang",
+    "metal",
+    "clang",
+    "camp"
+   ],
+   "durationSec": 0.474,
+   "prompt": [
+    "a metal cooking pot banged hard with a wooden stick, loud clanging pot, close up, dry, real recording, no music",
+    "banging a steel saucepan with a stick, loud ringing clang, camp kitchen, outdoors, no music"
+   ],
+   "seed": [
+    411,
+    411,
+    411
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "pot-bang/pot-bang-01.wav",
+     "take": "p1-s411",
+     "prompt": "banging a steel saucepan with a stick, loud ringing clang, camp kitchen, outdoors, no music",
+     "seed": 411,
+     "startSec": 6.425,
+     "durationSec": 0.474,
+     "clap": 0.264,
+     "snrDb": 49.0,
+     "loudnessLUFS": -20.6
+    },
+    {
+     "file": "pot-bang/pot-bang-02.wav",
+     "take": "p1-s411",
+     "prompt": "banging a steel saucepan with a stick, loud ringing clang, camp kitchen, outdoors, no music",
+     "seed": 411,
+     "startSec": 5.768,
+     "durationSec": 0.516,
+     "clap": 0.26,
+     "snrDb": 49.2,
+     "loudnessLUFS": -20.5
+    },
+    {
+     "file": "pot-bang/pot-bang-03.wav",
+     "take": "p1-s411",
+     "prompt": "banging a steel saucepan with a stick, loud ringing clang, camp kitchen, outdoors, no music",
+     "seed": 411,
+     "startSec": 0.577,
+     "durationSec": 0.438,
+     "clap": 0.257,
+     "snrDb": 49.1,
+     "loudnessLUFS": -19.9
+    }
+   ]
+  },
+  {
+   "id": "pot-bite",
+   "kind": "sfx",
+   "files": [
+    "pot-bite/pot-bite-01.wav",
+    "pot-bite/pot-bite-02.wav",
+    "pot-bite/pot-bite-03.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "pot",
+    "bite",
+    "metal",
+    "crunch",
+    "bear"
+   ],
+   "durationSec": 0.837,
+   "prompt": [
+    "animal teeth biting into a thin steel cooking pot, a metal crunch and dent, close up, dry, no music",
+    "a heavy bite crushing a thin steel pot, crunching metal and scraping teeth, real foley recording, no music"
+   ],
+   "seed": [
+    421,
+    422,
+    421
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -24.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "pot-bite/pot-bite-01.wav",
+     "take": "p0-s421",
+     "prompt": "animal teeth biting into a thin steel cooking pot, a metal crunch and dent, close up, dry, no music",
+     "seed": 421,
+     "startSec": 6.007,
+     "durationSec": 0.837,
+     "clap": -0.028,
+     "snrDb": 52.2,
+     "loudnessLUFS": -24.0
+    },
+    {
+     "file": "pot-bite/pot-bite-02.wav",
+     "take": "p1-s422",
+     "prompt": "a heavy bite crushing a thin steel pot, crunching metal and scraping teeth, real foley recording, no music",
+     "seed": 422,
+     "startSec": 3.423,
+     "durationSec": 0.876,
+     "clap": -0.063,
+     "snrDb": 64.5,
+     "loudnessLUFS": -22.7
+    },
+    {
+     "file": "pot-bite/pot-bite-03.wav",
+     "take": "p1-s421",
+     "prompt": "a heavy bite crushing a thin steel pot, crunching metal and scraping teeth, real foley recording, no music",
+     "seed": 421,
+     "startSec": 4.836,
+     "durationSec": 0.748,
+     "clap": -0.074,
+     "snrDb": 60.2,
+     "loudnessLUFS": -25.8
+    }
+   ]
+  },
+  {
+   "id": "bag-drag",
+   "kind": "sfx",
+   "files": [
+    "bag-drag/bag-drag-01.wav",
+    "bag-drag/bag-drag-02.wav",
+    "bag-drag/bag-drag-03.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "bag",
+    "drag",
+    "grass",
+    "nylon",
+    "rustle"
+   ],
+   "durationSec": 0.891,
+   "prompt": [
+    "a sleeping bag dragged fast across grass and dirt, rustling nylon fabric scraping the ground, close up, real foley recording, no music",
+    "something heavy and soft dragged quickly over dry grass, nylon bag rustling and swishing along the ground, no music"
+   ],
+   "seed": [
+    431,
+    432,
+    432
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "bag-drag/bag-drag-01.wav",
+     "take": "p1-s431",
+     "prompt": "something heavy and soft dragged quickly over dry grass, nylon bag rustling and swishing along the ground, no music",
+     "seed": 431,
+     "startSec": 1.796,
+     "durationSec": 0.787,
+     "clap": 0.022,
+     "snrDb": 42.3,
+     "loudnessLUFS": -13.1
+    },
+    {
+     "file": "bag-drag/bag-drag-02.wav",
+     "take": "p1-s432",
+     "prompt": "something heavy and soft dragged quickly over dry grass, nylon bag rustling and swishing along the ground, no music",
+     "seed": 432,
+     "startSec": 3.852,
+     "durationSec": 0.891,
+     "clap": 0.021,
+     "snrDb": 36.3,
+     "loudnessLUFS": -14.9
+    },
+    {
+     "file": "bag-drag/bag-drag-03.wav",
+     "take": "p0-s432",
+     "prompt": "a sleeping bag dragged fast across grass and dirt, rustling nylon fabric scraping the ground, close up, real foley recording, no music",
+     "seed": 432,
+     "startSec": 5.454,
+     "durationSec": 1.009,
+     "clap": -0.03,
+     "snrDb": 48.6,
+     "loudnessLUFS": -19.6
+    }
+   ]
+  },
+  {
+   "id": "storm-wind",
+   "kind": "sfx",
+   "files": [
+    "storm-wind/storm-wind-01.wav",
+    "storm-wind/storm-wind-02.wav",
+    "storm-wind/storm-wind-03.wav"
+   ],
+   "gain": 0.2,
+   "tags": [
+    "wind",
+    "ambience",
+    "night",
+    "pines",
+    "loop"
+   ],
+   "durationSec": 6.0,
+   "prompt": [
+    "low gusty wind in tall pine trees at night, soft steady wind ambience, distant, outdoors field recording, no music, no voices",
+    "a quiet night forest with low wind gusting through pines, needles rustling, calm ambience, no music"
+   ],
+   "seed": [
+    441,
+    442,
+    441
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -16.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "storm-wind/storm-wind-01.wav",
+     "take": "p0-s441",
+     "prompt": "low gusty wind in tall pine trees at night, soft steady wind ambience, distant, outdoors field recording, no music, no voices",
+     "seed": 441,
+     "startSec": 0.4,
+     "durationSec": 6.0,
+     "clap": -0.122,
+     "snrDb": 40.0,
+     "loudnessLUFS": -16.2
+    },
+    {
+     "file": "storm-wind/storm-wind-02.wav",
+     "take": "p0-s442",
+     "prompt": "low gusty wind in tall pine trees at night, soft steady wind ambience, distant, outdoors field recording, no music, no voices",
+     "seed": 442,
+     "startSec": 0.4,
+     "durationSec": 6.0,
+     "clap": -0.148,
+     "snrDb": 40.0,
+     "loudnessLUFS": -13.8
+    },
+    {
+     "file": "storm-wind/storm-wind-03.wav",
+     "take": "p1-s441",
+     "prompt": "a quiet night forest with low wind gusting through pines, needles rustling, calm ambience, no music",
+     "seed": 441,
+     "startSec": 0.4,
+     "durationSec": 6.0,
+     "clap": -0.16,
+     "snrDb": 40.0,
+     "loudnessLUFS": -17.1
     }
    ]
   }

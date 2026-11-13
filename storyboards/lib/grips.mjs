@@ -94,6 +94,13 @@ const SIZE = {
   // HP_GRIPS.hptongs through an arm pose (len 0.55, handle bundle r 0.06); the proof is make-hotpotato-bench.mjs
   hpcoal: { rim: -0.0375, wall: [[-0.1, 0.02], [-0.07, 0.06], [-0.03, 0.08], [0.03, 0.084], [0.1, 0.02]] },
   hptongs: { len: 0.55, r: 0.06 },
+  // props-bearcamp.js (Fight, Flight or Freeze 02, bear in the camp). cookpot: the steel pot's ONE handle lies along +x (its grip
+  // "handle" at x 0.28, y 0.115): w / h / t are chosen so the phone hold's defaults (x = w / 2 + 0.035, y = 0.42 h, z -0.01) land
+  // on the handle, a fist round it like a frying pan (the proof: make-grip-tests.mjs --prop cookpot --hold phone); r / h do the same
+  // for the mug hold when it is called with { angle: 90, height: 0.42 } (x = r + 0.05 = 0.28, y = 0.42 h = 0.115).
+  cookpot: { w: 0.49, h: 0.274, t: 0.02, r: 0.23 },
+  // burnbranch: the dry pine branch up +y from the held end, r 0.03 there: the mug hold's fist at 0.66 h = 0.08 up the stick
+  burnbranch: { r: 0.03, h: 0.121 },
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },

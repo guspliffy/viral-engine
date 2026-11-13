@@ -1,0 +1,568 @@
+{
+ "id": "lyingbag",
+ "title": "Lying bag bench",
+ "idea": "Props bench for FFF 02 Bear in the camp (the `lyingbag` prop with Chip lying inside), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#5d8a45",
+  "light": "golden"
+ },
+ "sky": [
+  [
+   0,
+   1
+  ]
+ ],
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "chip",
+   "bag"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "bag",
+   "kind": "lyingbag",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "color": "#3c4a7a",
+   "cover": 0,
+   "drag": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.3,
+     0.55
+    ],
+    "look": [
+     0,
+     0.4,
+     0.05
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": "bag",
+     "off": [
+      0,
+      -0.19,
+      -0.05
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -90,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.3,
+       -0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0,
+      "drag": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    }
+   ],
+   "kind": "top: cover 0"
+  },
+  {
+   "name": "s2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.3,
+     0.55
+    ],
+    "look": [
+     0,
+     0.4,
+     0.05
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "top: cover 0.6"
+  },
+  {
+   "name": "s3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     2.3,
+     0.55
+    ],
+    "look": [
+     0,
+     0.4,
+     0.05
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "top: cover 1"
+  },
+  {
+   "name": "s4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     0.25
+    ],
+    "look": [
+     0,
+     0.3,
+     0.25
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0,
+      "drag": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "side: cover 0, drag 0"
+  },
+  {
+   "name": "s5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     1.9,
+     2.4
+    ],
+    "look": [
+     0,
+     0.35,
+     0.05
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "3/4 foot side, high: cover 0"
+  },
+  {
+   "name": "s6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.4,
+     1.3,
+     -2.2
+    ],
+    "look": [
+     0,
+     0.35,
+     -0.05
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "3/4 head side: cover 0"
+  },
+  {
+   "name": "s7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.5,
+     1
+    ],
+    "look": [
+     0,
+     0.4,
+     -0.02
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "face close: cover 0"
+  },
+  {
+   "name": "s8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     0.25
+    ],
+    "look": [
+     0,
+     0.3,
+     0.25
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "side: cover 0.6, drag 0"
+  },
+  {
+   "name": "s9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     1.9,
+     2.4
+    ],
+    "look": [
+     0,
+     0.35,
+     0.05
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "3/4 foot side, high: cover 0.6"
+  },
+  {
+   "name": "s10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.4,
+     1.3,
+     -2.2
+    ],
+    "look": [
+     0,
+     0.35,
+     -0.05
+    ],
+    "fov": 46
+   },
+   "do": [],
+   "kind": "3/4 head side: cover 0.6"
+  },
+  {
+   "name": "s11",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.5,
+     1
+    ],
+    "look": [
+     0,
+     0.4,
+     -0.02
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "face close: cover 0.6"
+  },
+  {
+   "name": "s12",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.5,
+     1
+    ],
+    "look": [
+     0,
+     0.4,
+     -0.02
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "face close: cover 1"
+  },
+  {
+   "name": "s13",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     0.9,
+     0.25
+    ],
+    "look": [
+     0,
+     0.3,
+     0.25
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0.6,
+      "drag": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "side: cover 0.6, drag 1"
+  },
+  {
+   "name": "s14",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     1.9,
+     2.4
+    ],
+    "look": [
+     0,
+     0.35,
+     0.05
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "3/4 foot side, high: cover 0.6, drag 1"
+  },
+  {
+   "name": "s15",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1,
+     1,
+     3
+    ],
+    "look": [
+     1,
+     0.3,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0.6,
+      "drag": 1,
+      "x": 1,
+      "rot": 90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "rot 90, moved +1 m on x (a drag), drag 1"
+  },
+  {
+   "name": "s16",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1,
+     1.8
+    ],
+    "look": [
+     0.8,
+     0.3,
+     0
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bag",
+     "set": {
+      "cover": 0.6,
+      "drag": 0.5,
+      "x": 1,
+      "rot": 90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.01
+    }
+   ],
+   "kind": "rot 90, x 1, drag 0.5, from the head end"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "chip",
+   "with": "bag",
+   "from": 0,
+   "to": 16,
+   "reason": "Chip lies zipped inside the bag (an enclosing prop)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/fight-flight-freeze/02-bear-camp/bench/make-lyingbag.mjs (props bench, no reviews)."
+}
