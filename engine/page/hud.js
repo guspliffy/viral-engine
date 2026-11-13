@@ -16,6 +16,11 @@
 // a kick on every rise); "gauge": { "kind": "warmth", "keys": [[t, celsius, dur?]] } (a thermometer and "12 °C" after
 // the clock in the right chip: green, amber under 8, blue under 0).
 //
+// What if EP09 (13 Nov 2026) adds one more opt-in part: "steps": { "keys": [[t, n, dur?]], "pulse": [from, to] } (a
+// footsteps counter: a chip [704, 214, 204, 96] in the safe zone's top-right, two shoe prints and round(n) in two fixed
+// digit cells; cream, amber at 6 or less, red at 3 or less; a 5 px kick up on every drop of the number; from..to it
+// beats twice a second with a red ring and a dark red fill). Alone it is the only chip; with a right chip it sits under it.
+//
 // pos "top" (default): DAY in the safe zone's top-left corner and the clock + battery in its top-right, y 214-284, the
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
@@ -30,6 +35,26 @@ const CHIP = "rgba(18,16,24,0.66)", EDGE = "rgba(255,255,255,0.16)", TXT = "#fff
 const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
 const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)}h${d % 60 ? ` ${d % 60}m` : ""}` : `+${d} min`);
 
+const STEPS = { w: 204, h: 96, r: 26, font: '900 68px "CapBlack"', end: 180, icon: 24, kick: 0.2, beat: 0.5 };
+const inOut = ease("inOut");   // = keyed()'s count (shared/sky.js)
+// when the shown number (round of the keyed value) last dropped, at or before t; null if it never has. Pure in (K, t):
+// a counting key crosses n + 0.5 at a time found by bisection on its ease.
+function lastDrop(K, i, t) {
+  for (let j = i; j > 0; j--) {
+    const [t0, v, d] = K[j], prev = K[j - 1][1];
+    if (!(v < prev)) continue;
+    const k = d > 0 ? clamp((t - t0) / d) : 1, n = Math.round(prev + (v - prev) * inOut(k));
+    if (n >= Math.round(prev)) continue;
+    if (!(d > 0)) return t0;
+    const f = (n + 0.5 - prev) / (v - prev);
+    let a = 0, b = 1;
+    for (let m = 0; m < 40; m++) { const c = (a + b) / 2; if (inOut(c) < f) a = c; else b = c; }
+    return t0 + b * d;
+  }
+  return null;
+}
+const stepColour = (n) => (n <= 3 ? "#ff4d4d" : n <= 6 ? "#ffb02e" : TXT);
+
 const shown = (H, t) => !H.show || (t >= H.show[0] && t < H.show[1]);
 
 // what the HUD shows at t (also the frame cache's key for it)
@@ -43,6 +68,12 @@ export function hudState(sb, t) {
   if (H.label) out.label = String(H.label);
   const thr = H.threat ? keyed(H.threat.keys, t) : null, gau = H.gauge ? keyed(H.gauge.keys, t) : null;
   if (thr) { const rose = thr.i > 0 && thr.K[thr.i][1] > thr.K[thr.i - 1][1]; out.threat = { kind: H.threat.kind || "snow", v: thr.v, kick: rose && thr.since >= 0 ? thr.since : null }; }
+  const stp = H.steps ? keyed(H.steps.keys, t) : null;
+  if (stp) {
+    const n = Math.round(stp.v), dt = stp.since === -Infinity ? null : lastDrop(stp.K, stp.i, t), P = H.steps.pulse;
+    out.steps = { n, kick: dt != null && t - dt >= 0 && t - dt < STEPS.kick ? t - dt : null,
+      pulse: P && t >= P[0] && t < P[1] ? (((t - P[0]) / STEPS.beat) % 1 + 1) % 1 : null };
+  }
   if (gau) out.gauge = { kind: H.gauge.kind || "warmth", v: gau.v };
   if (clock) {
     out.clock = { text: hhmm(clock.v), mins: clock.v };
@@ -78,13 +109,14 @@ function layout(ctx, S) {
     left,
     threat: S.threat ? [SAFE.x0 + 12, y + (left ? hL + 10 : 0), thrW, THR_H] : null,
     right: S.clock || S.battery || S.gauge ? [SAFE.x1 - 12 - rw, y, rw, CH] : null,
+    steps: S.steps ? [SAFE.x1 - 12 - STEPS.w, y + (S.clock || S.battery || S.gauge ? CH + 10 : 0), STEPS.w, STEPS.h] : null,
   };
 }
 export function hudBoxes(ctx, sb, t) {
   const S = hudState(sb, t);
   if (!S) return [];
   const L = layout(ctx, S);
-  return [L.left, L.threat, L.right].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  return [L.left, L.threat, L.right, L.steps].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h]) {
@@ -133,6 +165,13 @@ function thermo(ctx, cx, cy, v) {
   ctx.beginPath(); ctx.roundRect(cx - 5, cy - 18, 10, 26, 5); ctx.stroke();
   ctx.beginPath(); ctx.arc(cx, cy + 12, 8, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill(); ctx.stroke();
   ctx.fillStyle = col; ctx.fillRect(cx - 2, cy + 6 - 20 * k, 4, 20 * k + 2);
+  ctx.restore();
+}
+// a shoe print: a sole 16 x 30 and a heel 14 x 12 under it, turned by deg about its middle; (cx, top) its top centre
+function shoe(ctx, cx, top, deg) {
+  ctx.save(); ctx.translate(cx, top + 22); ctx.rotate((deg * Math.PI) / 180);
+  ctx.beginPath(); ctx.ellipse(0, -7, 8, 15, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(-7, 10, 14, 12, [3, 3, 7, 7]); ctx.fill();
   ctx.restore();
 }
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
@@ -206,6 +245,28 @@ export function drawHud(ctx, sb, t) {
       ctx.fillStyle = "#1a1720"; ctx.fillText(S.clock.tag.text, tx + tw / 2, ty + th / 2 + 2);
       ctx.restore();
     }
+  }
+  if (L.steps) {
+    const T = S.steps, [x, y, w, h] = L.steps, cx = x + w / 2, cy = y + h / 2, col = stepColour(T.n);
+    const kick = T.kick != null ? Math.sin((T.kick / STEPS.kick) * Math.PI) : 0, k = T.pulse;
+    const sc = k != null ? 1 + 0.14 * Math.sin(Math.PI * Math.min(1, k / 0.36)) : 1;
+    ctx.save(); ctx.translate(0, -kick * 5);
+    ctx.translate(cx, cy); ctx.scale(sc, sc); ctx.translate(-cx, -cy);
+    ctx.beginPath(); ctx.roundRect(x, y, w, h, STEPS.r);
+    ctx.fillStyle = k != null ? "rgba(60,14,18,0.78)" : CHIP; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+    if (k != null) {
+      const g = 16 * k;
+      ctx.save(); ctx.globalAlpha = 0.85 * (1 - k); ctx.lineWidth = 6; ctx.strokeStyle = "#ff4d4d";
+      ctx.beginPath(); ctx.roundRect(x - g, y - g, w + 2 * g, h + 2 * g, STEPS.r + g); ctx.stroke(); ctx.restore();
+    }
+    // the icon: two prints in a 58 px box from x + 24, the right one 14 px higher
+    ctx.fillStyle = col;
+    shoe(ctx, x + STEPS.icon + 15, cy - 15, -12); shoe(ctx, x + STEPS.icon + 43, cy - 29, 12);
+    // the number, right-aligned in two fixed digit cells ending at x + 180
+    ctx.font = STEPS.font; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.fillStyle = col;
+    const dig = Math.max(...[..."0123456789"].map((d) => ctx.measureText(d).width)), s = String(T.n);
+    digits(ctx, s, x + STEPS.end - dig * s.length, cy + 3, dig, dig);
+    ctx.restore();
   }
   ctx.restore();
 }

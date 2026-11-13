@@ -639,6 +639,10 @@ may use are in docs/CAMERA-MOVES.md). All are off unless a storyboard asks; time
   "+26 min" tag beside the clock for a second (`"clockTag": false`). The battery goes amber under 20 %, red under 10 %,
   kicks on every drop and at 0 reads DEAD and blinks twice. `"pos": "bottom"` (y 1288-1356) or `"y"` moves it,
   `"show": [from, to]` limits it. A hit-stop or freeze stops the clock with the picture.
+  `"steps": { "keys": [[t, n, dur?]], "pulse": [from, to] }` (What if EP09) is a footsteps counter: a chip at
+  [704, 214, 204, 96] with two shoe prints and round(n) in two fixed digit cells, cream, amber at 6 or less, red at 3
+  or less, a 5 px kick up on each drop; from..to it beats twice a second with a red ring. It may stand alone (no other
+  chip is drawn or reserved); with a clock or battery it sits under that chip. Captions go at y 342 or lower.
 - **Night outside follows the clock** (Jonny 8 Nov: "when we go night time in the scene the outdoor time should change
   as well"): the HUD clock sets how dark it is outside (`engine/shared/sky.js`: dusk from 19:30, night from 21:30, dawn
   04:30-06:30; the HUD shows the moon from 20:30). A plate with a night picture next to it (`<name>.night.png`, painted

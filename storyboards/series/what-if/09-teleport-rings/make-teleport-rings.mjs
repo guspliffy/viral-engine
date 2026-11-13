@@ -155,7 +155,7 @@ const boxIn = (t, who = "spud", side = "R", o = { o: [-0.02, 0.52, 0.3] }) => {
 // ---------------------------------------------------------------- Mash walks on the clock (story points -> video)
 for (let i = 1; i < STEPS.length; i++) {
   const [t0] = STEPS[i - 1], [t1, n1] = STEPS[i];
-  A(r3(t0 + O + 0.02), "mash", "move", { to: BRIDE(n1), dur: r3(t1 - t0 - 0.04), steps: 1, ease: "linear" });
+  A(r3(t0 + O + 0.01), "mash", "move", { to: BRIDE(n1), dur: r3(t1 - t0 - 0.01), steps: 1, ease: "inOut" });   // the counter counts inOut too (shared/sky.js keyed)
 }
 A(0, "mash", "turn", { to: 0, dur: 0.01 });
 // her bouquet in both gloves at her waist, the veil worn
