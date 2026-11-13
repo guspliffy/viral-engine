@@ -60,7 +60,8 @@ export const cam = (o, v) => ({ pos: [r3(o[0] + v.pos[0]), v.pos[1], r3(o[1] + v
 // nothing for a camera more than 281 m from it, so two far() layers 600 m apart never show together).
 //   time "day" | "afternoon" | "sunset" | "dusk" | "night"; night 0..1 darkens a day sky and the ground (tween `night` on
 //   `${id}-sky` and `${id}-ground`); tracks true = today's tyre tracks; stars n > 0 adds the starfield (hole = the gap for
-//   orion, [az, el, radius]); moon [az, el] adds the moon; sun [az, el] moves the sunset disc.
+//   orion, [az, el, radius]); moon [az, el] adds the moon; sun [az, el] moves the sunset disc, and on "day" / "afternoon"
+//   it puts a white sun in the sky there (none without it): the noon sun of panel 06 is far(..., { sun: [200, 20] }).
 export function far(id, camXZ, { time = "day", night = 0, tracks = false, seed = 1, stars = 0, hole = null, moon = null, sun = null, rubble } = {}) {
   const [x, z] = camXZ, dark = time === "night" ? 1 : night;
   return [
