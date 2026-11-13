@@ -1,0 +1,664 @@
+{
+ "id": "neighbours-bench",
+ "title": "EP07 neighbours bench",
+ "idea": "Props and costume bench for There's a catch EP07 (streetpotato pyjamas, bathrobe, nightcap, angry; the grumpy neighbour), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#46506a",
+  "floor": "#8a8494",
+  "light": "warm",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0
+ },
+ "hud": {
+  "sky": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.75,
+    0
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "grump",
+   "character": "what-if/grumpy-neighbour",
+   "at": [
+    0.8,
+    0
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 5.3
+  },
+  {
+   "id": "spudside",
+   "character": "potatobrawl/spud",
+   "at": [
+    -60,
+    0.85
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "grumpside",
+   "character": "what-if/grumpy-neighbour",
+   "at": [
+    -60,
+    -0.75
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 5.3
+  },
+  {
+   "id": "spudrow",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    0
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "spuddoor",
+   "character": "potatobrawl/spud",
+   "at": [
+    119.3,
+    1
+   ],
+   "face": 165,
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "grumpdoor",
+   "character": "what-if/grumpy-neighbour",
+   "at": [
+    120.02,
+    -0.5
+   ],
+   "face": 0,
+   "follow": 0.2,
+   "seed": 5.3
+  }
+ ],
+ "props": [
+  {
+   "id": "n1",
+   "kind": "streetpotato",
+   "x": 37.48,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.9,
+   "dress": "pyjamas",
+   "color": "#7f9fd0",
+   "hat": 0,
+   "skin": "#f9b75c",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": -1
+  },
+  {
+   "id": "n2",
+   "kind": "streetpotato",
+   "x": 38.32,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.78,
+   "dress": "bathrobe",
+   "color": "#d9c7a3",
+   "hat": 2,
+   "skin": "#f9b75c",
+   "capColor": "#a85a5a",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": 1
+  },
+  {
+   "id": "n3",
+   "kind": "streetpotato",
+   "x": 39.16,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.86,
+   "dress": "pyjamas",
+   "color": "#9fc3a0",
+   "hat": 2,
+   "skin": "#f9b75c",
+   "capColor": "#9fc3a0",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": -1
+  },
+  {
+   "id": "n4",
+   "kind": "streetpotato",
+   "x": 40.84,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.74,
+   "dress": "bathrobe",
+   "color": "#8a7fb4",
+   "hat": 0,
+   "skin": "#f9b75c",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": 1
+  },
+  {
+   "id": "n5",
+   "kind": "streetpotato",
+   "x": 41.68,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.92,
+   "dress": "bathrobe",
+   "color": "#5f7f8f",
+   "hat": 0,
+   "skin": "#f9b75c",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": -1
+  },
+  {
+   "id": "n6",
+   "kind": "streetpotato",
+   "x": 42.52,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.8,
+   "dress": "pyjamas",
+   "color": "#e0b3a0",
+   "hat": 1,
+   "skin": "#f9b75c",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": 1
+  },
+  {
+   "id": "n7",
+   "kind": "streetpotato",
+   "x": 43.36,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "h": 0.84,
+   "dress": "bathrobe",
+   "color": "#b7a1c8",
+   "hat": 2,
+   "skin": "#f9b75c",
+   "capColor": "#7a6a94",
+   "walk": 0,
+   "angry": 0,
+   "angryArm": -1
+  },
+  {
+   "id": "pj0",
+   "kind": "streetpotato",
+   "x": 14.575,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "pyjamas",
+   "color": "#7f9fd0",
+   "h": 0.9,
+   "hat": 0,
+   "walk": 0
+  },
+  {
+   "id": "pj1",
+   "kind": "streetpotato",
+   "x": 15.525,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "pyjamas",
+   "color": "#7f9fd0",
+   "h": 0.9,
+   "hat": 0,
+   "walk": 0.14
+  },
+  {
+   "id": "pj2",
+   "kind": "streetpotato",
+   "x": 16.475,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "pyjamas",
+   "color": "#7f9fd0",
+   "h": 0.9,
+   "hat": 0,
+   "walk": 0.28
+  },
+  {
+   "id": "pj3",
+   "kind": "streetpotato",
+   "x": 17.425,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "pyjamas",
+   "color": "#7f9fd0",
+   "h": 0.9,
+   "hat": 0,
+   "walk": 0.42
+  },
+  {
+   "id": "rb0",
+   "kind": "streetpotato",
+   "x": 22.575,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "bathrobe",
+   "color": "#d9c7a3",
+   "h": 0.86,
+   "hat": 2,
+   "capColor": "#a85a5a",
+   "walk": 0
+  },
+  {
+   "id": "rb1",
+   "kind": "streetpotato",
+   "x": 23.525,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "bathrobe",
+   "color": "#d9c7a3",
+   "h": 0.86,
+   "hat": 2,
+   "capColor": "#a85a5a",
+   "walk": 0.14
+  },
+  {
+   "id": "rb2",
+   "kind": "streetpotato",
+   "x": 24.475,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "bathrobe",
+   "color": "#d9c7a3",
+   "h": 0.86,
+   "hat": 2,
+   "capColor": "#a85a5a",
+   "walk": 0.28
+  },
+  {
+   "id": "rb3",
+   "kind": "streetpotato",
+   "x": 25.425,
+   "y": 0,
+   "z": 0,
+   "rot": 90,
+   "dress": "bathrobe",
+   "color": "#d9c7a3",
+   "h": 0.86,
+   "hat": 2,
+   "capColor": "#a85a5a",
+   "walk": 0.42
+  },
+  {
+   "id": "wallL",
+   "kind": "sidewall",
+   "x": 118.985,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 1.6,
+   "h": 2.2
+  },
+  {
+   "id": "wallR",
+   "kind": "sidewall",
+   "x": 121.015,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 1.6,
+   "h": 2.2
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "crowdL1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     38.74,
+     0.5,
+     11.943
+    ],
+    "look": [
+     38.74,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "7 crowd potatoes (left half) and Spud, angry 0"
+  },
+  {
+   "name": "crowdR2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     41.68,
+     0.5,
+     11.943
+    ],
+    "look": [
+     41.68,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "right half, angry 0"
+  },
+  {
+   "name": "crowdL3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     38.74,
+     0.5,
+     11.943
+    ],
+    "look": [
+     38.74,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "n1",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n2",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n3",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n4",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n5",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n6",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n7",
+     "set": {
+      "angry": 0.8
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "left half, angry 0.8"
+  },
+  {
+   "name": "crowdR4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     41.68,
+     0.5,
+     11.943
+    ],
+    "look": [
+     41.68,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "right half, angry 0.8"
+  },
+  {
+   "name": "stripP5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     16,
+     0.42,
+     12.689
+    ],
+    "look": [
+     16,
+     0.42,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "walking strip, pyjamas, walk 0 .14 .28 .42"
+  },
+  {
+   "name": "stripR6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     24,
+     0.42,
+     12.689
+    ],
+    "look": [
+     24,
+     0.42,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "walking strip, bathrobe + nightcap"
+  },
+  {
+   "name": "front7",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.5,
+     11.695
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "the grumpy neighbour next to Spud, front"
+  },
+  {
+   "name": "tq8",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7.2,
+     0.5,
+     9.216
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "3/4"
+  },
+  {
+   "name": "side9",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -48.305,
+     0.5,
+     0
+    ],
+    "look": [
+     -60,
+     0.5,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [],
+   "kind": "side"
+  },
+  {
+   "name": "head10",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.32,
+     1.167,
+     4.177
+    ],
+    "look": [
+     0.8,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": [],
+   "kind": "his head: curlers, face, collar"
+  },
+  {
+   "name": "crack11",
+   "at": 10,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     121.342,
+     1.037,
+     5.726
+    ],
+    "look": [
+     119.7,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [],
+   "kind": "his head through a 0.43 m door crack"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/07-fire-rewind/bench/make-neighbours-bench.mjs (props bench, no reviews)."
+}

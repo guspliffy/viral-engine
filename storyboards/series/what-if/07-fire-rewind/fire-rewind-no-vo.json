@@ -145,10 +145,10 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    1.05,
-    1.75
+    -0.5,
+    1.9
    ],
-   "face": 25,
+   "face": 18,
    "expr": "terrified",
    "follow": 0.3,
    "seed": 1.3
@@ -157,9 +157,10 @@
    "id": "chip",
    "character": "potatobrawl/chip",
    "at": [
-    0,
-    -0.42
+    -0.3,
+    -0.3
    ],
+   "y": 3.02,
    "face": 0,
    "expr": "terrified",
    "follow": 0.3,
@@ -167,7 +168,7 @@
   },
   {
    "id": "nbr",
-   "character": "potatobrawl/mash",
+   "character": "what-if/grumpy-neighbour",
    "at": [
     206,
     0
@@ -181,13 +182,19 @@
  "props": [
   {
    "id": "blk",
+   "kind": "fireblock",
    "x": 0,
    "y": 0,
-   "z": -0.125,
-   "kind": "stoneblock",
-   "w": 12,
-   "h": 10.6,
-   "d": 0.25
+   "z": 0,
+   "sash": 0,
+   "door": 0,
+   "pull": 0,
+   "ring": 0,
+   "lights": 0.75,
+   "chip": 1,
+   "lobby": 1,
+   "fireroom": 0.15,
+   "lamp": 1
   },
   {
    "id": "lamp",
@@ -222,73 +229,85 @@
   },
   {
    "id": "lob",
+   "kind": "firelobby",
    "x": 0,
    "y": 0,
-   "z": -43.6,
-   "kind": "stoneblock",
-   "w": 5,
-   "h": 0.02,
-   "d": 7.2
+   "z": -40,
+   "ndoor": 0,
+   "lit": 1
   },
   {
    "id": "clk",
+   "kind": "lobbyclock",
    "x": -0.9,
-   "y": 3.15,
+   "y": 3.6,
    "z": -47.17,
-   "kind": "stoneblock",
-   "w": 0.9,
-   "h": 0.9,
-   "d": 0.04
+   "r": 0.45,
+   "minutes": 610
   },
   {
    "id": "ff",
+   "kind": "facadefire",
    "x": 0,
-   "y": -60,
+   "y": 1.15,
    "z": 0,
-   "kind": "stoneblock",
-   "w": 0.01,
-   "h": 0.01,
-   "d": 0.01
+   "time": 10,
+   "grow": 1,
+   "curl": 0,
+   "low": 0,
+   "burstAt": 10.8
   },
   {
    "id": "bf",
+   "kind": "blockfire",
    "x": 0,
-   "y": -60,
+   "y": 0,
    "z": 0,
-   "kind": "stoneblock",
-   "w": 0.01,
-   "h": 0.01,
-   "d": 0.01
+   "time": 0,
+   "spread": 0
   },
   {
    "id": "sf",
+   "kind": "stairfire",
    "x": 1.7,
-   "y": -60,
+   "y": 0,
    "z": -42.4,
-   "kind": "stoneblock",
-   "w": 0.01,
-   "h": 0.01,
-   "d": 0.01
+   "time": 0,
+   "grow": 0,
+   "front": 0.25,
+   "at": 10,
+   "steps": 16,
+   "rise": 0.14,
+   "tread": 0.3,
+   "w": 1.6
   },
   {
    "id": "fsL",
+   "kind": "floorsmoke",
    "x": 0,
-   "y": -60,
+   "y": 0,
    "z": -43.6,
-   "kind": "stoneblock",
-   "w": 0.01,
-   "h": 0.01,
-   "d": 0.01
+   "box": [
+    5,
+    7.2
+   ],
+   "time": 0,
+   "level": 0,
+   "drift": 0.25
   },
   {
    "id": "fsH",
+   "kind": "floorsmoke",
    "x": 1.7,
-   "y": -60,
+   "y": 2.24,
    "z": -51.2,
-   "kind": "stoneblock",
-   "w": 0.01,
-   "h": 0.01,
-   "d": 0.01
+   "box": [
+    1.6,
+    8
+   ],
+   "time": 0,
+   "level": 0,
+   "drift": 0.25
   },
   {
    "id": "hfire",
@@ -314,7 +333,32 @@
    "floor": -0.62
   },
   {
+   "id": "wdown",
+   "kind": "pocketwatch",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "hands": -3,
+   "crack": 1,
+   "wind": 0,
+   "shake": 0,
+   "burst": 0,
+   "glint": 0,
+   "floor": -0.62,
+   "tip": -90,
+   "rot": 20,
+   "staged": "lies flat on the lobby tiles"
+  },
+  {
    "id": "mug",
+   "kind": "teamug",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "steam": 1
+  },
+  {
+   "id": "mug2",
    "kind": "teamug",
    "x": 0,
    "y": -60,
@@ -330,8 +374,10 @@
    "rot": 0,
    "h": 0.9,
    "color": "#7f9fd0",
-   "dress": "coat",
+   "skin": "#f9b75c",
+   "dress": "pyjamas",
    "hat": 0,
+   "angry": 0.8,
    "walk": 0,
    "sway": 0
   },
@@ -344,8 +390,11 @@
    "rot": 0,
    "h": 0.78,
    "color": "#d9c7a3",
-   "dress": "coat",
-   "hat": 1,
+   "skin": "#f9b75c",
+   "dress": "bathrobe",
+   "hat": 2,
+   "capColor": "#a85a5a",
+   "angry": 0.8,
    "walk": 0,
    "sway": 0
   },
@@ -358,8 +407,11 @@
    "rot": 0,
    "h": 0.86,
    "color": "#9fc3a0",
-   "dress": "coat",
-   "hat": 1,
+   "skin": "#f9b75c",
+   "dress": "pyjamas",
+   "hat": 2,
+   "capColor": "#9fc3a0",
+   "angry": 0.3,
    "walk": 0,
    "sway": 0
   },
@@ -372,8 +424,10 @@
    "rot": 0,
    "h": 0.74,
    "color": "#8a7fb4",
-   "dress": "coat",
+   "skin": "#f9b75c",
+   "dress": "bathrobe",
    "hat": 0,
+   "angry": 0.8,
    "walk": 0,
    "sway": 0
   },
@@ -386,8 +440,10 @@
    "rot": 0,
    "h": 0.92,
    "color": "#5f7f8f",
-   "dress": "coat",
+   "skin": "#f9b75c",
+   "dress": "bathrobe",
    "hat": 0,
+   "angry": 0.8,
    "walk": 0,
    "sway": 0
   },
@@ -400,8 +456,10 @@
    "rot": 0,
    "h": 0.8,
    "color": "#e0b3a0",
-   "dress": "coat",
+   "skin": "#f9b75c",
+   "dress": "pyjamas",
    "hat": 1,
+   "angry": 0.3,
    "walk": 0,
    "sway": 0
   },
@@ -414,8 +472,11 @@
    "rot": 0,
    "h": 0.84,
    "color": "#b7a1c8",
-   "dress": "coat",
-   "hat": 1,
+   "skin": "#f9b75c",
+   "dress": "bathrobe",
+   "hat": 2,
+   "capColor": "#7a6a94",
+   "angry": 0.8,
    "walk": 0,
    "sway": 0
   }
@@ -425,7 +486,7 @@
    "from": 0,
    "to": 0.97,
    "text": "BEST FRIEND · 1 MINUTE",
-   "pos": 300,
+   "pos": 255,
    "pop": false
   },
   {
@@ -438,8 +499,8 @@
    "kinetic": false
   },
   {
-   "from": 35.3,
-   "to": 36.7,
+   "from": 35.5,
+   "to": 36.9,
    "text": "You're crazy.",
    "pos": 470,
    "pop": false,
@@ -454,23 +515,132 @@
    "len": 1,
    "shot": {
     "pos": [
-     1.4,
-     0.45,
-     3
+     0.5,
+     0.5,
+     5.6
     ],
     "look": [
-     0.25,
-     2.55,
-     0
+     -0.45,
+     2.3,
+     -0.35
     ],
-    "fov": 52
+    "fov": 56
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "sash": 0,
+      "door": 0,
+      "pull": 0,
+      "ring": 0,
+      "lights": 0.75,
+      "chip": 1,
+      "lobby": 1,
+      "fireroom": 0.15
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lob",
+     "set": {
+      "ndoor": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk",
+     "set": {
+      "minutes": 610
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 10,
+      "grow": 1,
+      "curl": 0,
+      "low": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bf",
+     "set": {
+      "time": 0,
+      "spread": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 0,
+      "grow": 0,
+      "front": 0.25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fsL",
+     "set": {
+      "time": 0,
+      "level": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fsH",
+     "set": {
+      "time": 0,
+      "level": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "watch",
      "set": {
       "hands": 0,
+      "crack": 0,
+      "shake": 0,
+      "glint": 0,
+      "wind": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wdown",
+     "set": {
+      "hands": -3,
       "crack": 0,
       "shake": 0,
       "glint": 0,
@@ -494,7 +664,8 @@
      "do": "prop",
      "id": "n0",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -504,7 +675,8 @@
      "do": "prop",
      "id": "n1",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -514,7 +686,8 @@
      "do": "prop",
      "id": "n2",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
@@ -524,7 +697,8 @@
      "do": "prop",
      "id": "n3",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -534,7 +708,8 @@
      "do": "prop",
      "id": "n4",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -544,7 +719,8 @@
      "do": "prop",
      "id": "n5",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.3
      },
      "dur": 0.01,
      "ease": "linear",
@@ -554,7 +730,8 @@
      "do": "prop",
      "id": "n6",
      "set": {
-      "walk": 0
+      "walk": 0,
+      "angry": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -636,10 +813,10 @@
      "who": "chip",
      "do": "move",
      "to": [
-      0,
-      -0.42
+      -0.3,
+      -0.3
      ],
-     "y": 2.9,
+     "y": 3.02,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -713,10 +890,42 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 10,
+      "grow": 1,
+      "low": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "sfx": "ai/house-fire",
      "gain": 0.55,
      "dur": 2,
      "reason": "the fire burning",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk",
+     "set": {
+      "minutes": 600
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -727,6 +936,16 @@
      "grip": "case",
      "dur": 0,
      "pose": null,
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 12.29
+     },
+     "dur": 2.28,
+     "ease": "linear",
      "at": 0.01
     },
     {
@@ -789,18 +1008,28 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     0.3,
-     3.05,
-     1.35
+     -0.1,
+     3.1,
+     1.3
     ],
     "look": [
-     0,
-     3.2,
+     -0.3,
+     3.25,
      -0.3
     ],
     "fov": 38
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "low": 0.6
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "sfx": "ai/smoke-alarm",
      "gain": 0.18,
@@ -860,14 +1089,14 @@
    "len": 0.4,
    "shot": {
     "pos": [
-     1.32,
-     0.72,
-     2.25
+     -0.75,
+     0.82,
+     2.72
     ],
     "look": [
-     1.18,
-     0.5,
-     1.95
+     -0.88,
+     0.7,
+     2.33
     ],
     "fov": 34
    },
@@ -909,18 +1138,39 @@
    "len": 0.8,
    "shot": {
     "pos": [
-     1.4,
-     0.45,
-     3
+     0.5,
+     0.5,
+     5.6
     ],
     "look": [
-     0.25,
-     2.55,
-     0
+     -0.45,
+     2.3,
+     -0.35
     ],
-    "fov": 52
+    "fov": 56
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 9.9
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "grow": 0,
+      "low": 0
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "crouch",
@@ -958,7 +1208,7 @@
      "do": "prop",
      "id": "mug",
      "set": {
-      "x": 0.2,
+      "x": -0.55,
       "y": 3.15,
       "z": -0.02,
       "rot": 55
@@ -968,10 +1218,20 @@
      "at": 0.74
     },
     {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "sash": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.75
+    },
+    {
      "who": "chip",
      "do": "move",
      "to": [
-      0,
+      -0.3,
       -0.16
      ],
      "y": 2.9,
@@ -1026,8 +1286,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      1.05,
-      1.75
+      -0.5,
+      1.9
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1060,28 +1320,28 @@
    "len": 1.9,
    "shot": {
     "pos": [
-     1.3,
+     0.5,
      0.55,
-     2.7
+     5.2
     ],
     "look": [
-     0.15,
-     2.7,
-     0
+     -0.45,
+     2.35,
+     -0.35
     ],
-    "fov": 46,
+    "fov": 54,
     "to": {
      "pos": [
-      1.2,
+      0.45,
       0.6,
-      2.4
+      4.8
      ],
      "look": [
-      0.12,
-      2.75,
-      0
+      -0.42,
+      2.4,
+      -0.35
      ],
-     "fov": 44
+     "fov": 52
     },
     "dur": 1.9,
     "ease": "inOut"
@@ -1197,12 +1457,6 @@
     },
     {
      "who": "chip",
-     "do": "release",
-     "hand": "R",
-     "at": 1.87
-    },
-    {
-     "who": "chip",
      "do": "move",
      "to": [
       203,
@@ -1222,16 +1476,6 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.88
-    },
-    {
-     "do": "prop",
-     "id": "mug",
-     "set": {
-      "y": -60
-     },
-     "dur": 0.01,
-     "ease": "linear",
      "at": 1.88
     }
    ]
@@ -1257,7 +1501,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 146.239,
+     "to": 125.808,
      "dur": 0.15,
      "at": 0
     },
@@ -1271,6 +1515,18 @@
      },
      "dur": 0.1,
      "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "release",
+     "prop": "mug",
+     "to": [
+      203.5,
+      0,
+      0.6
+     ],
+     "dur": 0.2,
+     "at": 0.05
     },
     {
      "who": "spud",
@@ -1304,6 +1560,16 @@
      "at": 0.7
     },
     {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "door": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
      "sfx": "slam",
      "gain": 0.35,
      "reason": "the front door banging open",
@@ -1326,13 +1592,14 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
+      0.2,
       -40.4
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
+     "y": 0,
      "at": 1.38
     },
     {
@@ -1352,24 +1619,24 @@
    "len": 3,
    "shot": {
     "pos": [
-     -1.4,
-     1.3,
-     -40.5
+     0.3,
+     1.6,
+     -40.2
     ],
     "look": [
-     0.8,
-     1.8,
-     -46
+     0.5,
+     1.3,
+     -46.5
     ],
-    "fov": 54
+    "fov": 66
    },
    "do": [
     {
      "who": "spud",
      "do": "move",
      "to": [
-      1,
-      -41.7
+      0.5,
+      -41.9
      ],
      "dur": 0.9,
      "ease": "out",
@@ -1383,12 +1650,35 @@
      "at": 0.1
     },
     {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 9.7,
+      "grow": 1,
+      "front": 0.25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 14.29
+     },
+     "dur": 4.59,
+     "ease": "linear",
+     "at": 0.71
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
-      0.9,
-      -41.3
+      0.4,
+      -41.5
      ],
+     "y": 0,
      "dur": 0.35,
      "ease": "out",
      "steps": 0,
@@ -1457,16 +1747,16 @@
    "len": 2.3,
    "shot": {
     "pos": [
-     0.1,
-     0.72,
-     -42.5
+     -0.6,
+     0.8,
+     -43.9
     ],
     "look": [
-     0.95,
+     0.4,
      0.62,
-     -41.75
+     -42.1
     ],
-    "fov": 38
+    "fov": 42
    },
    "do": [
     {
@@ -1584,35 +1874,79 @@
    "len": 0.5,
    "shot": {
     "pos": [
-     -1.4,
-     1.3,
-     -40.5
+     0.3,
+     1.6,
+     -40.2
     ],
     "look": [
-     0.8,
-     1.8,
-     -46
+     0.5,
+     1.3,
+     -46.5
     ],
-    "fov": 54
+    "fov": 66
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 9.9,
+      "grow": 0
+     },
+     "dur": 0.48,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "clk",
+     "set": {
+      "minutes": 590
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "fsL",
+     "set": {
+      "time": 12.2,
+      "level": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "fsH",
+     "set": {
+      "time": 12.2,
+      "level": 0.75
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.48
+    },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      1,
-      -41.6
+      0.6,
+      -41.3
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
+     "y": 0,
      "at": 0.48
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 180,
+     "to": 150,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1641,18 +1975,38 @@
    "len": 1,
    "shot": {
     "pos": [
-     -1.6,
-     1.5,
-     -40.4
+     0.1,
+     1.3,
+     -40.15
     ],
     "look": [
-     1,
-     1,
-     -44.5
+     1.79,
+     1.1,
+     -43.78
     ],
-    "fov": 54
+    "fov": 64
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "fsL",
+     "set": {
+      "time": 39
+     },
+     "dur": 26.8,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fsH",
+     "set": {
+      "time": 39
+     },
+     "dur": 26.8,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "expr",
@@ -1865,6 +2219,16 @@
      "at": 0.48
     },
     {
+     "do": "prop",
+     "id": "fsL",
+     "set": {
+      "level": 0.12
+     },
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
      "sfx": "ai/knock",
      "gain": 0.7,
      "reason": "Spud banging on the neighbour's door",
@@ -1983,7 +2347,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 90,
+     "to": 35,
      "dur": 0.01,
      "at": 1.38
     }
@@ -1995,22 +2359,43 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     1.15,
+     1.1,
      2.95,
-     -49
+     -48.2
     ],
     "look": [
-     2.55,
+     2.6,
      2.85,
      -50
     ],
-    "fov": 44
+    "fov": 48
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "lob",
+     "set": {
+      "ndoor": 0.45
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0
+    },
     {
      "sfx": "creak",
      "gain": 0.25,
      "reason": "the neighbour's door opening a crack",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
      "at": 0
     },
     {
@@ -2115,9 +2500,35 @@
      "at": 1
     },
     {
+     "do": "prop",
+     "id": "lob",
+     "set": {
+      "ndoor": 0
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 1.25
+    },
+    {
      "sfx": "slam",
      "gain": 0.6,
      "reason": "the neighbour slams his door",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
      "at": 1.4
     },
     {
@@ -2151,16 +2562,16 @@
    "len": 0.7,
    "shot": {
     "pos": [
-     1.7,
-     3,
-     -48.2
+     1.05,
+     2.7,
+     -48.6
     ],
     "look": [
-     1.7,
-     2.9,
+     1.9,
+     3,
      -54.4
     ],
-    "fov": 50
+    "fov": 56
    },
    "do": [
     {
@@ -2183,8 +2594,8 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -90,
-     "dur": 0.12,
+     "to": 180,
+     "dur": 0.35,
      "at": 0
     },
     {
@@ -2197,6 +2608,18 @@
      },
      "dur": 0.08,
      "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 9.95,
+      "grow": 1,
+      "front": 0.1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.68
     },
     {
      "who": "spud",
@@ -2220,13 +2643,45 @@
      "ease": "linear",
      "sync": true,
      "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.55,
+       0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "watch",
+     "hand": "R",
+     "grip": "case",
+     "dur": 0,
+     "pose": null,
+     "at": 0.69
     }
    ]
   },
   {
    "name": "11 the fall",
    "at": 16.9,
-   "len": 2.1,
+   "len": 1.05,
    "shot": {
     "pos": [
      1.5,
@@ -2241,6 +2696,26 @@
     "fov": 52
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "time": 12.05
+     },
+     "dur": 2.1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sf",
+     "set": {
+      "front": 0.8
+     },
+     "dur": 1.8,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "expr",
@@ -2261,28 +2736,6 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.18,
-       0.55,
-       0.15
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "fist",
-     "dur": 0.01,
      "at": 0
     },
     {
@@ -2310,16 +2763,6 @@
      "dur": 2.1,
      "reason": "the fire burning",
      "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "watch",
-     "hand": "R",
-     "grip": "case",
-     "dur": 0,
-     "pose": null,
-     "at": 0.01
     },
     {
      "who": "spud",
@@ -2360,26 +2803,47 @@
     {
      "who": "spud",
      "do": "release",
-     "hand": "R",
+     "prop": "watch",
+     "to": [
+      0.55,
+      0,
+      -41.25
+     ],
+     "dur": 0.5,
      "at": 0.62
     },
     {
-     "do": "physics",
-     "prop": "watch",
-     "mode": "throw",
-     "to": [
-      0.6,
-      0,
-      -41.6
-     ],
-     "in": 0.55,
-     "spin": [
-      0,
-      6,
-      2
-     ],
-     "at": 0.64
-    },
+     "do": "prop",
+     "id": "wdown",
+     "set": {
+      "x": 0.55,
+      "y": 0.011,
+      "z": -41.25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
+    }
+   ]
+  },
+  {
+   "name": "11b the watch cracks",
+   "at": 17.95,
+   "len": 1.05,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     -40.98
+    ],
+    "look": [
+     0.55,
+     0.01,
+     -41.25
+    ],
+    "fov": 36
+   },
+   "do": [
     {
      "who": "spud",
      "do": "move",
@@ -2391,7 +2855,7 @@
      "dur": 0.3,
      "ease": "out",
      "steps": 0,
-     "at": 1.1
+     "at": 0.05
     },
     {
      "who": "spud",
@@ -2399,19 +2863,29 @@
      "to": -70,
      "dur": 0.3,
      "ease": "out",
-     "at": 1.1
+     "at": 0.05
     },
     {
      "sfx": "ai/crunch",
      "gain": 0.3,
      "reason": "landing on the tiles",
-     "at": 1.1
+     "at": 0.05
     },
     {
      "sfx": "hit-glass",
      "gain": 0.6,
      "reason": "the watch glass cracking on the tiles",
-     "at": 1.19
+     "at": 0.14
+    },
+    {
+     "do": "prop",
+     "id": "wdown",
+     "set": {
+      "crack": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -2421,7 +2895,7 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 1.2
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -2431,7 +2905,17 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.07
+     "at": 1.02
+    },
+    {
+     "do": "prop",
+     "id": "wdown",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
     },
     {
      "who": "spud",
@@ -2444,7 +2928,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 1.03
     },
     {
      "who": "spud",
@@ -2453,21 +2937,87 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.08
+     "at": 1.03
     },
     {
      "who": "spud",
      "do": "pitch",
      "to": 6,
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.03
     },
     {
      "who": "spud",
      "do": "crouch",
      "to": 0.9,
      "dur": 0.01,
-     "at": 2.08
+     "at": 1.03
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.45,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.03
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "sash": 0,
+      "door": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 19,
+      "grow": 1,
+      "low": 0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "bf",
+     "set": {
+      "time": 19,
+      "spread": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.03
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "watch",
+     "hand": "L",
+     "grip": "case",
+     "dur": 0,
+     "pose": null,
+     "at": 1.04
     }
    ]
   },
@@ -2489,28 +3039,6 @@
     "fov": 56
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.1,
-       0.45,
-       0.22
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "fist",
-     "dur": 0.01,
-     "at": 0
-    },
     {
      "who": "spud",
      "do": "expr",
@@ -2537,10 +3065,10 @@
      "who": "chip",
      "do": "move",
      "to": [
-      0,
-      -0.42
+      -0.3,
+      -0.3
      ],
-     "y": 2.9,
+     "y": 3.02,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -2593,6 +3121,26 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 26.6
+     },
+     "dur": 7.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bf",
+     "set": {
+      "time": 26.6
+     },
+     "dur": 7.6,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "sfx": "ai/house-fire",
      "gain": 0.6,
      "dur": 6,
@@ -2605,16 +3153,6 @@
      "dur": 0.45,
      "reason": "the smoke alarm behind the glass",
      "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "watch",
-     "hand": "R",
-     "grip": "case",
-     "dur": 0,
-     "pose": null,
-     "at": 0.01
     },
     {
      "sfx": "ai/smoke-alarm",
@@ -2666,16 +3204,16 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     3.7,
-     0.72,
-     0.42
+     4.5,
+     0.62,
+     0.3
     ],
     "look": [
-     2.75,
-     0.58,
-     1.45
+     2.66,
+     0.5,
+     1.15
     ],
-    "fov": 42
+    "fov": 40
    },
    "do": [
     {
@@ -2692,7 +3230,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 160,
+     "to": 153.435,
      "dur": 0.6,
      "ease": "inOut",
      "at": 0.2
@@ -2754,6 +3292,38 @@
      "dur": 0.45,
      "reason": "the smoke alarm behind the glass",
      "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.1,
+       0.6,
+       0.26
+      ]
+     },
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "watch",
+     "hand": "L",
+     "grip": "case",
+     "dur": 0,
+     "pose": null,
+     "at": 1.09
     }
    ]
   },
@@ -2763,14 +3333,14 @@
    "len": 0.6,
    "shot": {
     "pos": [
-     2.9,
-     0.62,
-     1.95
+     2.45,
+     1,
+     0.96
     ],
     "look": [
-     2.78,
-     0.42,
-     1.62
+     2.55,
+     0.59,
+     1.09
     ],
     "fov": 34
    },
@@ -2824,6 +3394,29 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 10,
+      "grow": 0,
+      "low": 0
+     },
+     "dur": 0.48,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bf",
+     "set": {
+      "time": 0,
+      "spread": 0
+     },
+     "dur": 0.48,
+     "ease": "in",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "crouch",
      "to": 0,
@@ -2837,6 +3430,26 @@
      "to": 0,
      "dur": 0.35,
      "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "fsL",
+     "set": {
+      "level": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.49
+    },
+    {
+     "do": "prop",
+     "id": "fsH",
+     "set": {
+      "level": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.49
     }
    ]
   },
@@ -2846,14 +3459,14 @@
    "len": 2.4,
    "shot": {
     "pos": [
-     2.2,
-     0.9,
-     2.3
+     4.6,
+     0.95,
+     1.7
     ],
     "look": [
-     3.4,
+     3.3,
      0.75,
-     0.2
+     0.25
     ],
     "fov": 46
    },
@@ -2902,12 +3515,6 @@
     },
     {
      "who": "spud",
-     "do": "release",
-     "hand": "R",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -2920,16 +3527,6 @@
      "dur": 0.15,
      "ease": "out",
      "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "watch",
-     "set": {
-      "y": -60
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.52
     },
     {
      "who": "spud",
@@ -2969,6 +3566,16 @@
      "at": 0.65
     },
     {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "pull": 1
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 0.65
+    },
+    {
      "who": "spud",
      "do": "expr",
      "expr": "focused",
@@ -2986,11 +3593,33 @@
      "at": 0.83
     },
     {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "ring": 1
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 0.85
+    },
+    {
      "sfx": "alarmbell",
      "gain": 0.45,
      "dur": 2,
      "reason": "the building's fire bell ringing",
      "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "door": 1,
+      "pull": 1,
+      "ring": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
     },
     {
      "who": "spud",
@@ -3009,9 +3638,23 @@
     },
     {
      "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.18
+      ]
+     },
      "dur": 0.01,
      "at": 2.38
     },
@@ -3019,19 +3662,20 @@
      "who": "spud",
      "do": "move",
      "to": [
-      2.55,
-      1.7
+      1.5,
+      2.3
      ],
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
+     "y": 0,
      "at": 2.38
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 200,
+     "to": 160,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -3068,7 +3712,7 @@
     {
      "who": "nbr",
      "do": "turn",
-     "to": 180,
+     "to": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -3082,16 +3726,16 @@
    "len": 3.5,
    "shot": {
     "pos": [
-     1.3,
-     0.85,
-     4.4
+     1,
+     1,
+     5.2
     ],
     "look": [
-     2.6,
+     2.8,
      0.7,
-     0.8
+     0.9
     ],
-    "fov": 50
+    "fov": 46
    },
    "do": [
     {
@@ -3305,7 +3949,7 @@
     {
      "who": "nbr",
      "do": "turn",
-     "to": -32.735,
+     "to": -49.086,
      "dur": 0.2,
      "at": 1.3
     },
@@ -3321,11 +3965,11 @@
     },
     {
      "do": "prop",
-     "id": "mug",
+     "id": "mug2",
      "set": {
-      "id": "mug",
+      "id": "mug2",
       "kind": "teamug",
-      "x": 2.5,
+      "x": 2.52,
       "y": 0.6,
       "z": -0.3,
       "steam": 1,
@@ -3352,7 +3996,7 @@
     {
      "who": "chip",
      "do": "turn",
-     "to": 180,
+     "to": 0,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -3361,13 +4005,13 @@
     {
      "who": "chip",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
-      "prop": "mug",
+      "prop": "mug2",
       "grip": [
-       -0.032,
+       0.073,
        0.056,
-       -0.089
+       0.061
       ],
       "palm": "wrap"
      },
@@ -3378,7 +4022,7 @@
     {
      "who": "chip",
      "do": "grip",
-     "side": "R",
+     "side": "L",
      "shape": "hold",
      "dur": 0.12,
      "at": 1.386
@@ -3386,12 +4030,12 @@
     {
      "who": "chip",
      "do": "grab",
-     "prop": "mug",
-     "hand": "R",
+     "prop": "mug2",
+     "hand": "L",
      "grip": [
-      -0.032,
+      0.073,
       0.056,
-      -0.089
+      0.061
      ],
      "dur": 0,
      "pose": null,
@@ -3408,10 +4052,24 @@
     },
     {
      "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.5,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 1.5
+    },
+    {
+     "who": "chip",
      "do": "move",
      "to": [
-      1.45,
-      1.95
+      1.85,
+      1.3
      ],
      "y": 0,
      "dur": 1.4,
@@ -3434,7 +4092,7 @@
      "do": "prop",
      "id": "n1",
      "set": {
-      "rot": 47.291
+      "rot": -18.435
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3472,7 +4130,7 @@
      "do": "prop",
      "id": "n0",
      "set": {
-      "rot": -79.216
+      "rot": -69.146
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3503,7 +4161,7 @@
      "do": "prop",
      "id": "n6",
      "set": {
-      "rot": -64.231
+      "rot": -62.526
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3513,7 +4171,7 @@
      "do": "prop",
      "id": "n3",
      "set": {
-      "rot": -176.82
+      "rot": -105.255
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3523,39 +4181,29 @@
      "do": "prop",
      "id": "n2",
      "set": {
-      "rot": -109.983
+      "rot": -90
      },
      "dur": 0.25,
      "ease": "linear",
      "at": 3.452
     },
     {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      0.8,
-      1.7
-     ],
+     "do": "prop",
+     "id": "blk",
+     "set": {
+      "lights": 0.17,
+      "chip": 0.25,
+      "ring": 0
+     },
      "dur": 0.01,
-     "steps": 0,
      "ease": "linear",
-     "sync": true,
      "at": 3.48
     },
     {
      "who": "spud",
-     "do": "turn",
-     "to": 20,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.48
-    },
-    {
-     "who": "chip",
      "do": "move",
      "to": [
-      1.45,
+      -0.6,
       1.95
      ],
      "dur": 0.01,
@@ -3565,9 +4213,31 @@
      "at": 3.48
     },
     {
+     "who": "spud",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.2,
+      2.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
      "who": "chip",
      "do": "turn",
-     "to": -25,
+     "to": -10,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -3589,16 +4259,16 @@
    "len": 6,
    "shot": {
     "pos": [
-     1.4,
-     0.45,
-     3
+     0.5,
+     0.5,
+     5.6
     ],
     "look": [
-     0.25,
-     2.55,
-     0
+     -0.45,
+     2.3,
+     -0.35
     ],
-    "fov": 52
+    "fov": 56
    },
    "do": [
     {
@@ -3647,7 +4317,7 @@
      "do": "prop",
      "id": "n5",
      "set": {
-      "rot": 124.824
+      "rot": 153.435
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3657,7 +4327,7 @@
      "do": "prop",
      "id": "n4",
      "set": {
-      "rot": -147.995
+      "rot": -108.435
      },
      "dur": 0.25,
      "ease": "linear",
@@ -3671,7 +4341,7 @@
      "dur": 1,
      "blink": false,
      "voice": false,
-     "at": 2.3
+     "at": 2.5
     },
     {
      "who": "spud",
@@ -3682,6 +4352,28 @@
      },
      "dur": 0.3,
      "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 37,
+      "curl": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.5
+    },
+    {
+     "do": "prop",
+     "id": "ff",
+     "set": {
+      "time": 39,
+      "curl": 1
+     },
+     "dur": 2.49,
+     "ease": "linear",
+     "at": 3.51
     },
     {
      "sfx": "ai/grass-fire",
@@ -3735,7 +4427,7 @@
    "to": 5,
    "see": [
     "chip.face",
-    "spud.face",
+    "spud",
     "mug"
    ],
    "why": "the same block, no fire: Chip leans out with a mug and waves; Spud stares up"
@@ -3763,8 +4455,7 @@
    "from": 9.4,
    "to": 11.7,
    "see": [
-    "spud.face",
-    "watch"
+    "spud.face"
    ],
    "why": "his eyes go from the flames up to the clock; he clicks the watch"
   },
@@ -3797,11 +4488,10 @@
   },
   {
    "from": 16.9,
-   "to": 19,
+   "to": 17.95,
    "see": [
     "spud.face",
-    "sf",
-    "watch"
+    "sf"
    ],
    "why": "the fire rolls down the stairs; he falls; the watch cracks on the tiles"
   },
@@ -3817,10 +4507,9 @@
   },
   {
    "from": 23.5,
-   "to": 26,
+   "to": 24.9,
    "see": [
-    "spud.face",
-    "blk"
+    "spud.face"
    ],
    "why": "his eyes land on the red alarm box beside the door"
   },
@@ -3834,11 +4523,10 @@
    "why": "the last loop: he lands and pulls the alarm before any fire shows; the bell rings"
   },
   {
-   "from": 29.5,
+   "from": 31,
    "to": 33,
    "see": [
     "nbr.face",
-    "chip.face",
     "spud"
    ],
    "why": "everyone out before any fire: furious neighbours, the curler neighbour points at Spud, Chip last with his mug"
@@ -3849,7 +4537,7 @@
    "see": [
     "spud.face",
     "chip.face",
-    "mug"
+    "mug2"
    ],
    "why": "the frame-0 camera again, the block dark and whole: Chip alive beside him: You're crazy."
   },
@@ -3869,13 +4557,20 @@
    "who": "spud",
    "with": "watch",
    "from": 0,
-   "to": 27.700000000000003,
+   "to": 39,
    "reason": "the pocket watch in his glove"
   },
   {
    "who": "chip",
    "with": "mug",
-   "from": 3.1,
+   "from": 3,
+   "to": 5.1,
+   "reason": "his mug in his glove"
+  },
+  {
+   "who": "chip",
+   "with": "mug2",
+   "from": 29.5,
    "to": 39,
    "reason": "his mug in his glove"
   },
