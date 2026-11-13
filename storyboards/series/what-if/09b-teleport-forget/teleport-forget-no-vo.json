@@ -957,6 +957,7 @@
      "sparks": 0,
      "size": 0.3,
      "lift": 0.05,
+     "sound": false,
      "at": 1.82
     },
     {
@@ -1111,6 +1112,7 @@
      "sparks": 0,
      "size": 0.2,
      "lift": 0.05,
+     "sound": false,
      "at": 2.15
     },
     {
@@ -1707,8 +1709,8 @@
      "at": 0.4
     },
     {
-     "sfx": "windswell",
-     "gain": 0.35,
+     "sfx": "ai/storm-wind",
+     "gain": 0.3,
      "dur": 1.9,
      "reason": "air rushing past them as they fall",
      "at": 0.4
@@ -1758,6 +1760,7 @@
      "sparks": 0,
      "size": 0.3,
      "lift": 0.05,
+     "sound": false,
      "at": 1.72
     },
     {
@@ -1784,6 +1787,7 @@
      "sparks": 0,
      "size": 0.3,
      "lift": 0.05,
+     "sound": false,
      "at": 1.72
     },
     {
@@ -2022,6 +2026,7 @@
      "sparks": 0,
      "size": 0.2,
      "lift": 0.05,
+     "sound": false,
      "at": 0
     },
     {
@@ -2044,6 +2049,7 @@
      "sparks": 0,
      "size": 0.2,
      "lift": 0.05,
+     "sound": false,
      "at": 0
     },
     {
@@ -2678,8 +2684,8 @@
      "at": 0.65
     },
     {
-     "sfx": "windswell",
-     "gain": 0.35,
+     "sfx": "ai/storm-wind",
+     "gain": 0.3,
      "dur": 2.4,
      "reason": "air rushing past him as he falls",
      "at": 0.7
@@ -2740,6 +2746,7 @@
      "sparks": 0,
      "size": 0.3,
      "lift": 0.05,
+     "sound": false,
      "at": 2.22
     },
     {
@@ -2937,6 +2944,7 @@
      "sparks": 0,
      "size": 0.2,
      "lift": 0.05,
+     "sound": false,
      "at": 0
     },
     {

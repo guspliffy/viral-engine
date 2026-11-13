@@ -101,7 +101,7 @@ const props = [
 Pk("gorge", 0, "gorge", { lipbreak: 0, crumble: 0 }); Pk("gorge", 0, "rope", { strands: 3, snap: 0, sway: 0, nearfall: 0 });
 
 // a jump: the body gone in one frame (hidden + parked), a puff of dust where he was; never a fade, flash or flicker
-const puff = (t, pos, leave) => c.at(r3(t), { fx: "poof", pos, dur: leave ? 0.6 : 0.45, color: "#cdbfa6", puffs: leave ? 12 : 7, sparks: 0, size: leave ? 0.3 : 0.2, lift: 0.05 });
+const puff = (t, pos, leave) => c.at(r3(t), { fx: "poof", pos, dur: leave ? 0.6 : 0.45, color: "#cdbfa6", puffs: leave ? 12 : 7, sparks: 0, size: leave ? 0.3 : 0.2, lift: 0.05, sound: false });
 const scuff = (t, why) => sfx(r3(t), "ai/step-concrete", { gain: 0.35, reason: why });
 const jumpOut = (t, who, pos) => { A(r3(t), who, "squash", { amount: 0.12, dur: 0.07 }); A(r3(t + 0.07), who, "hide"); puff(r3(t + 0.07), pos, true); scuff(r3(t + 0.07), "dust scuffing up where he was"); };
 const jumpIn = (t, who, pos) => { A(r3(t - 0.01), who, "show"); puff(t, pos, false); A(r3(t), who, "squash", { amount: 0.08, dur: 0.12 }); };
@@ -201,7 +201,7 @@ arm(T.snap + 0.05, "spud", "L", { o: [0.25, 0.75, 0.05] }, 0.25, "out"); grip(T.
 arm(T.snap + 0.05, "chip", "L", { world: [WRIST[0], r3(WRIST[1] + FALL_DY), WRIST[2]] }, FALL, "in");
 arm(T.snap + 0.05, "spud", "R", { world: [WRIST[0], r3(WRIST[1] + FALL_DY), WRIST[2]] }, FALL, "in");
 expr(T.snap + 0.1, "chip", "terrified", { open: 0.7, eye: 1.4 }, 0.06); expr(T.snap + 0.1, "spud", "terrified", { open: 0.5, eye: 1.3 }, 0.06);
-sfx(r3(T.snap + 0.1), "windswell", { gain: 0.35, dur: 1.9, reason: "air rushing past them as they fall" });
+sfx(r3(T.snap + 0.1), "ai/storm-wind", { gain: 0.3, dur: 1.9, reason: "air rushing past them as they fall" });
 see(T.fall, T.j2, ["spud", "chip"], "looking down the gorge: they fall together, small against the cliffs, his glove on Chip's wrist");
 
 // ================================================================= 10 JUMP 2 (12.45-13.5) + 11 WEDGE FORGETS (13.5-15.6)
@@ -269,7 +269,7 @@ A(T.off, "spud", "pitch", { to: -35, dur: 0.6, ease: "out" });   // falling on h
 grip(T.off, "spud", "R", "open", 0.06);
 arm(T.off, "spud", "R", { o: [0.3, 0.8, 0.2] }, 0.3, "out"); arm(T.off, "spud", "L", { o: [0.3, 0.8, 0.2] }, 0.3, "out");
 look(T.off + 0.1, "spud", [0, 1], 0.2);
-sfx(r3(T.off + 0.05), "windswell", { gain: 0.35, dur: 2.4, reason: "air rushing past him as he falls" });
+sfx(r3(T.off + 0.05), "ai/storm-wind", { gain: 0.3, dur: 2.4, reason: "air rushing past him as he falls" });
 see(T.alone, T.j3, ["spud.face"], "from above: Spud falls away alone into the gorge, his face up to the two at the edge");
 
 // ================================================================= 14 JUMP 3 (18.75-21.0) + 15 "...WHO ARE YOU?" + 16 THE GAP
