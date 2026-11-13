@@ -57,7 +57,14 @@
 //                          0.045 (+ ruin). spec.cap 0..1 (default 0): smooth casing #dccfb0 (pale cream, hairline joints, dirtier at the
 //                          edge) on the top fraction (Khafre 0.22), its lower edge cut in straight block-sized notches (1-3 courses
 //                          high, 4-9 m wide).
-//                finished: four smooth white faces #f2efe6 with hairline course joints (0.7 m) and a sharp tip at spec.h; no steps.
+//                finished: 2560 BC, the day it was done. Four smooth white faces #f2efe6 with masonry drawn to read from a kilometre
+//                          (course lines every 2.1 m, staggered block joints, a faint tone per block) and a GILDED CAPSTONE on the top
+//                          spec.gold 0.1 of the height (flat painted gold #f5c33a, a shaded side, a dark seam, one pale brush stroke;
+//                          no glow; 0 = a white tip). spec.court true (default): the complex around it, all painted with the sun baked
+//                          in: a paved court and the enclosure wall, the mortuary temple and the causeway to a valley temple in the
+//                          east (x to +325), three small white queens' pyramids (x +179, z 52..156), mastaba rows west (x -150..-350),
+//                          east and south, a mud-brick town with palms and roads in the south (z +220..+350). With the court, give
+//                          nilevalley spec.houses 0 (the causeway crosses its village; aa-kit's giza2560 does). No steps anywhere.
 //                building: spec.built 0.5 (fraction of spec.h reached: a flat working top, 73 m of 146.6), spec.casing 0.45 (lower
 //                          fraction of the built part in white casing, snapped to a course); above it the stepped yellow core #d8bd7a
 //                          (courses of 1.05 m, joints #a88f58), on the flat top a few loose core blocks (1.3 x 1.05 x 1.3) at the edge.
@@ -75,7 +82,7 @@
 //               centres z +851 (60 m south of Menkaure's south edge). spec.sunAz / sunEl / shadow as the pyramid. Inside 300 m at
 //               s 0.2 from anywhere in the area (the whole group is 1.2 km long, 250 m at s 0.2).
 //   nilevalley  2560 BC, east of the plateau: origin the plateau's east edge on the ground, x east 0..900, z -700..700 (1400 long);
-//               place it at x +160 * s of the pyramid. x 12..132 a mud-brick workers' village (spec.houses 36 flat-roofed boxes
+//               place it at x +160 * s of the pyramid. x 12..132 a mud-brick workers' village (spec.houses 36, 0 = none and no dry strip; flat-roofed boxes
 //               #b98a5a, 4-7 m, dark doors and windows, irregular grid, z about -90..90); 132..430 field strips (parcels,
 //               crop rows; field strips in three greens #6f9b45 / #86a84f / #5d8a3e and a few tan fallow ones; thin irrigation channels on every
 //               second boundary, in broken runs, #3f7fa8 at half strength, and a few feeder canals; 40 date palms: spec.palms 40); 430..830 the Nile #3f7fa8 (hand-drawn
@@ -516,9 +523,9 @@ function casingFaces(G, o) {
     const sh = faceShade(k, sunAz, sunEl), uo = hs(seed * 7 + k * 3.1) * tile.tw, vo = hs(seed * 5 + k * 1.7) * tile.th;
     for (let b = 0; b < nB; b++) {
       const ya = lerp(y0, y1, b / nB), yb = lerp(y0, y1, (b + 1) / nB), wa = hw(ya), wb = hw(yb);
-      const dirt = (y) => { const q = clamp(1 - (y - y0) / (grime ?? 5)); return [1 - 0.16 * q, 1 - 0.19 * q, 1 - 0.24 * q]; };
+      const lift = o.lift ?? 0, dirt = (y) => { const q = clamp(1 - (y - y0) / (grime ?? 5)), u = 1 - lift * (1 - clamp((y - y0) / (y1 - y0))); return [(1 - 0.16 * q) * u, (1 - 0.19 * q) * u, (1 - 0.24 * q) * u * (1 - lift * 0.3 * (1 - clamp((y - y0) / (y1 - y0))))]; };   // lift: the foot a little dustier and warmer than the top
       for (let c = 0; c < nCol; c++) {
-        const t0 = c / nCol, t1 = (c + 1) / nCol, tone = 0.97 + hs(seed * 3 + k * 31 + b * 5.1 + c * 1.3) * 0.06, m = [tone, tone, tone];
+        const t0 = c / nCol, t1 = (c + 1) / nCol, ta = o.tone ?? 0.06, tone = 1 - ta / 2 + hs(seed * 3 + k * 31 + b * 5.1 + c * 1.3) * ta, m = [tone, tone, tone];
         const pa0 = wa * (2 * t0 - 1), pa1 = wa * (2 * t1 - 1), pb0 = wb * (2 * t0 - 1), pb1 = wb * (2 * t1 - 1), ca = mulc(dirt(ya), mulc(m, sh)), cb = mulc(dirt(yb), mulc(m, sh));
         gb.quad(P3(k, pa0, wa, ya), P3(k, pa1, wa, ya), P3(k, pb1, wb, yb), P3(k, pb0, wb, yb), [[(pa0 + uo) / tile.tw, (ya + vo) / tile.th], [(pa1 + uo) / tile.tw, (ya + vo) / tile.th], [(pb1 + uo) / tile.tw, (yb + vo) / tile.th], [(pb0 + uo) / tile.tw, (yb + vo) / tile.th]], [ca, ca, cb, cb], [NK[k][0], 0.8, NK[k][1]]);
       }
@@ -527,12 +534,131 @@ function casingFaces(G, o) {
   put(G, gb.geo(), basicm({ map: tile.tex, vertexColors: true, side: THREE.DoubleSide }));
 }
 
+// the FINISHED pyramid's casing, drawn to read from a kilometre: 32 m x 16.8 m = 8 drawn courses of 2.1 m (three real courses as one
+// line), blocks of 3-6 m with staggered joints and a tone each (warm cream, cool grey-white, clean white). Wraps both ways.
+function casingFar() {
+  if (SHARED.casingFar) return SHARED.casingFar;
+  const W = 1024, H = 512, [c, g] = canvas(W, H), R = rng(8103), RW = H / 8, J = "158,144,116";
+  g.fillStyle = "#f2efe6"; g.fillRect(0, 0, W, H);
+  for (let r = 0; r < 8; r++) {
+    const y = r * RW, lens = []; let tot = 0; while (tot < W) { const L = 96 + R() * 100; lens.push(L); tot += L; }
+    let x = 0; const fit = W / tot;
+    for (const L0 of lens) {
+      const L = L0 * fit, q = R();
+      g.fillStyle = q < 0.2 ? `rgba(226,212,184,${0.14 + R() * 0.14})` : q < 0.36 ? `rgba(210,218,228,${0.12 + R() * 0.12})` : q < 0.6 ? "rgba(255,255,255,0.5)" : "rgba(0,0,0,0)"; g.fillRect(x, y, L, RW);
+      g.fillStyle = `rgba(${J},${0.42 + R() * 0.2})`; g.fillRect(x - 1.5, y, 3, RW); if (x === 0) g.fillRect(W - 1.5, y, 1.5, RW);
+      x += L;
+    }
+  }
+  for (let r = 0; r <= 8; r++) { g.fillStyle = `rgba(${J},0.72)`; g.fillRect(0, r * RW - 2.5, W, 5); }   // the course lines (the first and the last are one line across the wrap)
+  for (let i = 0; i < 10; i++) { const x = R() * W, y = R() * H; g.fillStyle = `rgba(${J},${0.1 + R() * 0.1})`; g.fillRect(x, y, 3 + R() * 4, 40 + R() * 120); }   // a few faint rain stains
+  return (SHARED.casingFar = { tex: ctex(c, { wrap: true }), tw: 32, th: 16.8 });
+}
+// 1 toward the sun, 0 away: the horizontal part of a face's turn to the sun
+function sunTurn(nx, nz, sunAz) { const t = clamp((nx * Math.sin(sunAz * DEG) + nz * -Math.cos(sunAz * DEG) + 0.55) / 1.2); return t * t * (3 - 2 * t); }
+// the gilded capstone: the top capH metres in flat painted gold, a lit and a shaded side, a dark seam where it sits on the casing, one pale
+// brush stroke up each sunlit face. Paint only: no glow, no sparkle.
+function goldCap(G, B, H, capH, sunAz) {
+  const gb = GB(), hi = GB(), y0 = H - capH, lit = rgb("#f5c33a"), pale = rgb("#ffe68c"), deep = rgb("#a9701f"), seam = rgb("#7d5216"), ys = y0 + 0.07 * capH, hw = (y) => (B / 2) * (1 - y / H);
+  for (let k = 0; k < 4; k++) {
+    const s = sunTurn(NK[k][0], NK[k][1], sunAz), base = mixc(deep, lit, s), top = mixc(base, pale, 0.25 + 0.4 * s), out = [NK[k][0], 0.8, NK[k][1]];
+    gb.quad(P3(k, -hw(y0), hw(y0), y0), P3(k, hw(y0), hw(y0), y0), P3(k, hw(ys), hw(ys), ys), P3(k, -hw(ys), hw(ys), ys), null, mixc(base, seam, 0.7), out);
+    gb.quad(P3(k, -hw(ys), hw(ys), ys), P3(k, hw(ys), hw(ys), ys), P3(k, 0.01, 0, H), P3(k, -0.01, 0, H), null, [base, base, top, top], out);
+    if (s > 0.45) { const ya = y0 + 0.16 * capH, yb = y0 + 0.86 * capH, wa = hw(ya), wb = hw(yb); hi.quad(P3(k, -0.62 * wa, wa, ya), P3(k, -0.36 * wa, wa, ya), P3(k, -0.2 * wb, wb, yb), P3(k, -0.5 * wb, wb, yb), null, mixc(base, pale, 0.85), out); }
+  }
+  put(G, gb.geo(), basicm({ vertexColors: true, side: THREE.DoubleSide }));
+  if (hi.count()) put(G, hi.geo(), basicm({ vertexColors: true, side: THREE.DoubleSide, ...offs(3) }));
+}
+// a box whose top is drawn in by `batter` metres on every side (a mastaba's sloping walls), bottom centre at (x, y, z)
+function batterPart(w, h, d, x, y, z, rot, color, batter = 0) {
+  const g = new THREE.BoxGeometry(w, h, d); g.translate(0, h / 2, 0);
+  if (batter) { const p = g.attributes.position; for (let i = 0; i < p.count; i++) if (p.getY(i) > h * 0.5) { p.setX(i, p.getX(i) - Math.sign(p.getX(i)) * batter); p.setZ(i, p.getZ(i) - Math.sign(p.getZ(i)) * batter); } }
+  if (rot) g.rotateY(rot);
+  g.translate(x, y, z);
+  const n = g.attributes.position.count, a = new Float32Array(n * 3), c = Array.isArray(color) ? color : rgb(color);
+  for (let i = 0; i < n; i++) { a[i * 3] = c[0]; a[i * 3 + 1] = c[1]; a[i * 3 + 2] = c[2]; }
+  g.setAttribute("color", new THREE.BufferAttribute(a, 3)); return g;
+}
+// the sun painted into a merged geometry of boxes: every vertex colour times the shade of its (box face) normal
+function bakeSun(g, sunAz, sunEl) {
+  const n = g.attributes.normal, c = g.attributes.color, sx = Math.sin(sunAz * DEG), sz = -Math.cos(sunAz * DEG);
+  for (let i = 0; i < c.count; i++) { const m = n.getY(i) > 0.5 ? [1.03, 1.03, 1.01] : shadeD(n.getX(i) * sx + n.getZ(i) * sz, sunEl); c.setXYZ(i, c.getX(i) * m[0], c.getY(i) * m[1], c.getZ(i) * m[2]); }
+  return g;
+}
+// the court's paving: slabs of 3 m in pale limestone, one 512 px tile of 24 m that wraps
+function paveTile() {
+  if (SHARED.pave) return SHARED.pave;
+  const size = 512, [c, g] = canvas(size, size), R = rng(8104), rw = size / 8;
+  g.fillStyle = "#e7e0cc"; g.fillRect(0, 0, size, size);
+  for (let r = 0; r < 8; r++) {
+    const lens = []; let tot = 0; while (tot < size) { const L = rw * (0.8 + R() * 1.1); lens.push(L); tot += L; }
+    let x = 0; const fit = size / tot;
+    for (const L0 of lens) { const L = L0 * fit, q = R(); g.fillStyle = q < 0.3 ? `rgba(206,194,164,${0.25 + R() * 0.25})` : q < 0.55 ? "rgba(255,252,240,0.45)" : "rgba(0,0,0,0)"; g.fillRect(x, r * rw, L, rw); g.fillStyle = "rgba(168,154,122,0.6)"; g.fillRect(x - 1.5, r * rw, 3, rw); x += L; }
+    g.fillStyle = "rgba(168,154,122,0.7)"; g.fillRect(0, r * rw - 1.5, size, 3);
+  }
+  g.fillRect(0, size - 1.5, size, 1.5);
+  return (SHARED.pave = { tex: ctex(c, { wrap: true }), tw: 24 });
+}
+// GIZA 2560 BC around the finished Great Pyramid (metres, origin the pyramid's centre, x east, z south): a paved court and the enclosure
+// wall, the mortuary temple and the causeway down to a valley temple in the east, three small white queens' pyramids, the tomb rows
+// (mastabas) west, east and south, a mud-brick town with palms in the south foreground and its roads. All painted: the sun is baked into
+// the boxes, each has a short ground shadow away from the sun.
+function buildCourt(G, o) {
+  const { B, sunAz, sunEl, seed } = o, r = B / 2 + 13.5, parts = [], foot = [], lime = rgb("#e9e3d0"), limeD = rgb("#dcd3bb"), limeW = rgb("#f0ebdc");
+  const box = (w, h, d, x, z, rot, col, batter = 0, y = 0) => { parts.push(batterPart(w, h, d, x, y, z, rot, col, batter)); if (!y) foot.push([x, z, w, d, rot, h]); };
+  const tone = (c, i) => c.map((v) => v * (0.95 + hs(seed * 3 + i * 7.3) * 0.08));
+  // the paved court (24 m around the base) under the wall
+  { const half = B / 2 + 24, pv = paveTile(), g = new THREE.PlaneGeometry(half * 2, half * 2); g.rotateX(-Math.PI / 2); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * half * 2 / pv.tw, uv.getY(i) * half * 2 / pv.tw); put(G, g, basicm({ map: pv.tex, ...offs(5) }), { pos: [0, 0.14, 0] }); }
+  // the enclosure wall, 7 m high and 3 m thick, 12 m off the base, its gate in the east at the temple
+  box(2 * r + 3, 7, 3, 0, -r, 0, limeW); box(2 * r + 3, 7, 3, 0, r, 0, limeW); box(3, 7, 2 * r - 3, -r, 0, 0, limeW);
+  for (const sg of [-1, 1]) box(3, 7, r - 6.5, r, sg * (5 + (r - 6.5) / 2), 0, limeW);
+  // the mortuary temple against the east wall: a block with an open court and a porch
+  box(50, 9, 40, r + 26.5, 0, 0, lime, 0.8); box(26, 0.4, 20, r + 24, 0, 0, rgb("#c9bb98"), 0, 9); box(8, 6.5, 14, r + 55.5, 0, 0, limeW, 0.5);
+  for (let i = 0; i < 6; i++) for (const sg of [-1, 1]) box(1.4, 2.4, 1.4, r + 14 + i * 4, sg * 8.2, 0, limeW, 0, 9.4);   // the court's pillars
+  // the causeway down to the valley temple at the fields' edge
+  { const x0 = r + 59, x1 = 296, z1 = -42, L = Math.hypot(x1 - x0, z1), rot = Math.atan2(-z1, x1 - x0); box(L, 3.2, 8, (x0 + x1) / 2, z1 / 2, rot, limeD); box(L, 0.5, 4, (x0 + x1) / 2, z1 / 2, rot, limeW, 0, 3.2); box(30, 8, 26, x1 + 14, z1 - 6, rot, lime, 0.8); box(12, 0.4, 12, x1 + 14, z1 - 6, rot, rgb("#c9bb98"), 0, 8); }
+  // three queens' pyramids south of the temple
+  for (let i = 0; i < 3; i++) { const q = buildPyramid({ base: 44, h: 29, state: "finished", court: false, gold: 0, sunAz, sunEl, seed: seed + 11 + i, shadow: o.shadow }); q.position.x = r + 50; q.position.z = 52 + i * 52; G.add(q); }
+  // the east tombs: two rows of large twin mastabas beyond them
+  for (let i = 0; i < 8; i++) box(16, 5.2, 36, r + 94 + (i % 2) * 40, 46 + Math.floor(i / 2) * 44, 0, tone(lime, i), 1.1);
+  // the west tombs: streets of mastabas in a grid, a few lots still empty, a chapel on some
+  for (let i = 0; i < 11; i++) for (let j = 0; j < 8; j++) {
+    const q = i * 8 + j; if (hs(seed * 13 + q * 3.7) < 0.13) continue;
+    const x = -(r + 22 + i * 20), z = -112 + j * 32, big = hs(seed * 5 + q * 1.9) < 0.12;
+    box(big ? 12.5 : 10.5, big ? 5.6 : 4.6, big ? 26 : 23.5, x, z, 0, tone(q % 3 ? lime : limeD, q), 0.9);
+    if (hs(seed * 7 + q * 2.3) < 0.35) box(3, 3, 5, x + 6.6, z + 5, 0, tone(limeD, q + 50));
+  }
+  // the south row of mastabas along the wall
+  for (let i = 0; i < 9; i++) box(30, 5, 14, -150 + i * 37.5, r + 34, 0, tone(i % 2 ? lime : limeD, i + 200), 1);
+  // the town in the south foreground: mud-brick houses in loose rows, a low wall on its north side
+  { const cols = 15, nH = 120; for (let i = 0; i < nH; i++) { if (hs(seed * 17 + i * 5.1) < 0.14) continue; const row = Math.floor(i / cols); housePart(parts, i, seed + 3, -112 + (i % cols) * 15.5 + (row % 2) * 6 + (hs(seed * 5 + i * 1.3) - 0.5) * 10, r + 90 + row * 17 + (hs(seed * 9 + i * 2.1) - 0.5) * 10, foot); } }
+  put(G, bakeSun(merge(parts), sunAz, sunEl), basicm({ vertexColors: true }));
+  // the roads: trodden paler strips on the sand
+  { const l = [], c = rgb("#efe2bc"), strip = (x0, x1, z0, z1) => { const g = new THREE.PlaneGeometry(x1 - x0, z1 - z0); g.rotateX(-Math.PI / 2); g.translate((x0 + x1) / 2, 0.14, (z0 + z1) / 2); const n = g.attributes.position.count, a = new Float32Array(n * 3); for (let i = 0; i < n; i++) { a[i * 3] = c[0]; a[i * 3 + 1] = c[1]; a[i * 3 + 2] = c[2]; } g.setAttribute("color", new THREE.BufferAttribute(a, 3)); g.deleteAttribute("uv"); l.push(g); };
+    strip(-190, 250, r + 60, r + 68); strip(6, 14, r + 68, r + 240); strip(-(r + 16), -(r + 9), -130, r + 60); strip(-380, -(r + 9), -134, -127);
+    const me = put(G, merge(l), basicm({ vertexColors: true, transparent: true, depthWrite: false, opacity: 0.55, ...offs(5) }), { order: 1 }); me.userData.decal = 0.55; }   // fades with the night like the shadows
+  // date palms in the town and along its road
+  { const palms = []; for (let i = 0; i < 16; i++) palms.push(palmGeo(8 + hs(seed * 3 + i) * 5, (hs(i * 9 + seed) - 0.5) * 2.2, hs(i * 11) * TAU, i < 6 ? 18 + hs(i + 3) * 5 : -120 + hs(seed * 31 + i * 2.3) * 250, 0.06, i < 6 ? r + 76 + i * 26 : r + 84 + hs(seed * 13 + i * 3.7) * 140, i + seed * 70)); put(G, merge(palms), basicm({ vertexColors: true, side: THREE.DoubleSide })); }
+  // the painted ground shadows: each footprint swept away from the sun by its height
+  { const pos = [], idx = [], L = 1 / Math.tan(clamp(sunEl, 20, 80) * DEG), ax = -Math.sin(sunAz * DEG), az = Math.cos(sunAz * DEG);
+    for (const [x, z, w, d, rot, h] of foot) {
+      const c = Math.cos(rot), s = Math.sin(rot), pts = [];
+      for (const [lx, lz] of [[-w / 2, -d / 2], [w / 2, -d / 2], [w / 2, d / 2], [-w / 2, d / 2]]) { const px = x + lx * c + lz * s, pz = z - lx * s + lz * c; pts.push([px, pz], [px + ax * h * L, pz + az * h * L]); }
+      const hull = convexHull(pts), n0 = pos.length / 3; for (const [px, pz] of hull) pos.push(px, 0.16, pz); for (let q = 1; q < hull.length - 1; q++) idx.push(n0, n0 + q + 1, n0 + q);
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+    const k = 0.4 * (o.shadow ?? 1), me = put(G, g, basicm({ color: 0x3a3358, transparent: true, depthWrite: false, opacity: k, side: THREE.DoubleSide, ...offs(7) }), { order: 2 }); me.userData.decal = k; }
+}
+
 // one pyramid, in metres, origin the centre of its base (sunk 10 cm)
 function buildPyramid(o) {
   const B = o.base ?? 230.3, H = o.h ?? 146.6, state = o.state ?? "today", seed = o.seed ?? 1, G = new THREE.Group(), sunAz = o.sunAz ?? 90, sunEl = o.sunEl ?? 45;
   let topY = H, topHalf = 0;
   if (state === "finished") {
-    casingFaces(G, { y0: 0, y1: H, hw: (y) => (B / 2) * (1 - y / H), seed, tile: casingTile("white"), sunAz, sunEl, grime: 6 });
+    const capH = clamp(o.gold ?? 0.1, 0, 0.3) * H;   // the gilded capstone: the top fraction of the height (0: a white tip)
+    casingFaces(G, { y0: 0, y1: H - capH, hw: (y) => (B / 2) * (1 - y / H), seed, tile: casingFar(), sunAz, sunEl, grime: 6, tone: 0.02, lift: 0.05 });
+    if (capH > 0) goldCap(G, B, H, capH, sunAz);
+    if (o.court ?? true) buildCourt(G, { B, sunAz, sunEl, seed, shadow: o.shadow });
     topHalf = 0;
   } else if (state === "building") {
     const built = clamp(o.built ?? 0.5, 0.05, 0.95), yB = built * H, dh = 1.05, nC = Math.round(yB / dh), yBt = nC * dh, cas = clamp(o.casing ?? 0.45), iS = Math.floor(cas * yBt / dh), yc = iS * dh;
@@ -686,12 +812,27 @@ function paintRiver(seed) {
   for (let i = 0; i < 7; i++) { const x = (0.1 + 0.8 * R()) * W, y = R() * H, rx = 6 + R() * 20, ry = 20 + R() * 60; g.fillStyle = "rgba(205,191,148,0.8)"; g.beginPath(); g.ellipse(x, y, rx, ry, R() * 0.4 - 0.2, 0, TAU); g.fill(); g.fillStyle = "rgba(226,214,174,0.6)"; g.beginPath(); g.ellipse(x - 1, y - 2, rx * 0.7, ry * 0.8, 0, 0, TAU); g.fill(); }   // shoals
   return c;
 }
+// one flat-roofed mud-brick house of 4-7 m at (cx, cz): walls, roof slab, parapets, a door (south), two windows, a roof room or a clay pot.
+// foot (optional) collects [x, z, w, d, rot, h] for a painted ground shadow.
+function housePart(parts, i, seed, cx, cz, foot) {
+  const wallC = rgb("#b98a5a"), roofC = rgb("#a97c4e"), dark = rgb("#33261c");
+  const w = 4 + hs(seed + i * 3.3) * 3, d = 4 + hs(seed * 3 + i * 4.1) * 3, h = 3 + hs(seed * 7 + i * 5.3) * 1.8, rot = (hs(seed * 11 + i * 6.7) - 0.5) * 0.4;
+  const t = 0.9 + hs(i * 13 + seed) * 0.2, wc = wallC.map((v) => v * t), c = Math.cos(rot), s = Math.sin(rot), at = (lx, lz) => [cx + lx * c + lz * s, cz - lx * s + lz * c];
+  parts.push(boxPart(w, h, d, cx, 0, cz, rot, wc));
+  parts.push(boxPart(w + 0.4, 0.3, d + 0.4, cx, h, cz, rot, roofC.map((v) => v * t)));   // roof slab
+  for (const [lx, lz, bw, bd] of [[0, d / 2 + 0.05, w + 0.4, 0.3], [0, -d / 2 - 0.05, w + 0.4, 0.3]]) { const [px, pz] = at(lx, lz); parts.push(boxPart(bw, 0.5, bd, px, h + 0.3, pz, rot, wc)); }
+  { const [px, pz] = at(0, d / 2 + 0.08); parts.push(boxPart(1.0, 1.9, 0.12, px, 0, pz, rot, dark)); }   // the door, front (south)
+  for (const sx of [-1, 1]) { const [px, pz] = at(sx * (w / 2 + 0.05), 0); parts.push(boxPart(0.12, 0.7, 0.7, px, 1.7, pz, rot, dark)); }
+  if (hs(i * 17 + seed) < 0.3) { const [px, pz] = at(w * 0.2, -d * 0.2); parts.push(boxPart(w * 0.45, 1.6, d * 0.45, px, h + 0.3, pz, rot, wc.map((v) => v * 0.96))); }   // a roof room
+  else if (hs(i * 19 + seed) < 0.35) { const [px, pz] = at(-w * 0.25, d * 0.2); parts.push(boxPart(0.7, 0.55, 0.7, px, h + 0.3, pz, rot, rgb("#a8654a"))); }   // a clay pot
+  if (foot) foot.push([cx, cz, w + 0.4, d + 0.4, rot, h + 0.5]);
+}
 function buildValley(G, S) {
   const seed = S.seed ?? 1, nH = S.houses ?? 36, nP = S.palms ?? 40, R = rng(seed * 997 + 3);
   const strip = (list, x0, x1, z0, z1, y, c) => { list.push(boxQuad(x0, x1, z0, z1, y, c)); };
   function boxQuad(x0, x1, z0, z1, y, c) { const g = new THREE.PlaneGeometry(x1 - x0, z1 - z0); g.rotateX(-Math.PI / 2); g.translate((x0 + x1) / 2, y, (z0 + z1) / 2); const n = g.attributes.position.count, a = new Float32Array(n * 3), cc = Array.isArray(c) ? c : rgb(c); for (let i = 0; i < n; i++) { a[i * 3] = cc[0]; a[i * 3 + 1] = cc[1]; a[i * 3 + 2] = cc[2]; } g.setAttribute("color", new THREE.BufferAttribute(a, 3)); g.deleteAttribute("uv"); return g; }
   // the dry ground between the plateau and the fields, and the pale far bank
-  { const l = []; strip(l, 0, 130, -700, 700, 0.03, "#cdb788"); strip(l, 830, 900, -700, 700, 0.03, "#d6c9a4"); strip(l, 130, 430, -700, 700, 0.03, "#8aa856"); strip(l, 410, 440, -700, 700, 0.04, "#8a9a5a"); put(G, merge(l), stdm({ vertexColors: true, ...offs(5) }), { recv: true }); }
+  { const l = []; if (nH > 0) strip(l, 0, 130, -700, 700, 0.03, "#cdb788"); strip(l, 830, 900, -700, 700, 0.03, "#d6c9a4"); strip(l, 130, 430, -700, 700, 0.03, "#8aa856"); strip(l, 410, 440, -700, 700, 0.04, "#8a9a5a"); put(G, merge(l), stdm({ vertexColors: true, ...offs(5) }), { recv: true }); }
   // the fields: strips running north-south, parcels with their own green, crop rows, irrigation channels
   const fl = [], ch = [], greens = ["#6f9b45", "#86a84f", "#5d8a3e"], fallow = ["#c4ab72", "#b8a068"], chanCol = mixc(rgb("#6f9b45"), rgb("#3f7fa8"), 0.5);   // channels: #3f7fa8 at half strength over the green
   let x = 134, col = 0;
@@ -715,20 +856,10 @@ function buildValley(G, S) {
   // the river, its reed banks
   { const rg = new THREE.PlaneGeometry(400, 1400); rg.rotateX(-Math.PI / 2); rg.translate(630, 0.05, 0); put(G, rg, stdm({ map: ctex(paintRiver(seed)), ...offs(7), roughness: 0.5 })); }
   { const l = []; for (let z = -700; z < 700; z += 14) { const w = 4 + hs(z * 3 + seed) * 8; strip(l, 424, 430 + w * 0.4, z, z + 14.2, 0.1, mixc(rgb("#4f7a3a"), rgb("#6f9b45"), hs(z + 5))); strip(l, 830 - w * 0.4, 836, z, z + 14.2, 0.1, mixc(rgb("#6d8a4a"), rgb("#8da35a"), hs(z + 9))); } put(G, merge(l), stdm({ vertexColors: true, ...offs(8) })); }
-  // the village: an irregular grid of flat-roofed mud-brick boxes
-  { const parts = [], wallC = rgb("#b98a5a"), roofC = rgb("#a97c4e"), dark = rgb("#33261c"), cols = 6, rowsN = Math.ceil(nH / cols);
-    for (let i = 0; i < nH; i++) {
-      const cx = 22 + (i % cols) * 19 + (hs(seed * 5 + i * 1.3) - 0.5) * 8, cz = -rowsN * 15 / 2 + Math.floor(i / cols) * 30 + (hs(seed * 9 + i * 2.1) - 0.5) * 10 + 8, w = 4 + hs(seed + i * 3.3) * 3, d = 4 + hs(seed * 3 + i * 4.1) * 3, h = 3 + hs(seed * 7 + i * 5.3) * 1.8, rot = (hs(seed * 11 + i * 6.7) - 0.5) * 0.4;
-      const t = 0.9 + hs(i * 13 + seed) * 0.2, wc = wallC.map((v) => v * t), c = Math.cos(rot), s = Math.sin(rot), at = (lx, lz) => [cx + lx * c + lz * s, cz - lx * s + lz * c];
-      parts.push(boxPart(w, h, d, cx, 0, cz, rot, wc));
-      parts.push(boxPart(w + 0.4, 0.3, d + 0.4, cx, h, cz, rot, roofC.map((v) => v * t)));   // roof slab
-      for (const [lx, lz, bw, bd] of [[0, d / 2 + 0.05, w + 0.4, 0.3], [0, -d / 2 - 0.05, w + 0.4, 0.3]]) { const [px, pz] = at(lx, lz); parts.push(boxPart(bw, 0.5, bd, px, h + 0.3, pz, rot, wc)); }
-      { const [px, pz] = at(0, d / 2 + 0.08); parts.push(boxPart(1.0, 1.9, 0.12, px, 0, pz, rot, dark)); }   // the door, front (south)
-      for (const sx of [-1, 1]) { const [px, pz] = at(sx * (w / 2 + 0.05), 0); parts.push(boxPart(0.12, 0.7, 0.7, px, 1.7, pz, rot, dark)); }
-      if (hs(i * 17 + seed) < 0.3) { const [px, pz] = at(w * 0.2, -d * 0.2); parts.push(boxPart(w * 0.45, 1.6, d * 0.45, px, h + 0.3, pz, rot, wc.map((v) => v * 0.96))); }   // a roof room
-      else if (hs(i * 19 + seed) < 0.35) { const [px, pz] = at(-w * 0.25, d * 0.2); parts.push(boxPart(0.7, 0.55, 0.7, px, h + 0.3, pz, rot, rgb("#a8654a"))); }   // a clay pot
-    }
-    put(G, merge(parts), stdm({ vertexColors: true })); }
+  // the village: an irregular grid of flat-roofed mud-brick boxes (spec.houses 0: none)
+  { const parts = [], cols = 6, rowsN = Math.ceil(nH / cols);
+    for (let i = 0; i < nH; i++) housePart(parts, i, seed, 22 + (i % cols) * 19 + (hs(seed * 5 + i * 1.3) - 0.5) * 8, -rowsN * 15 / 2 + Math.floor(i / cols) * 30 + (hs(seed * 9 + i * 2.1) - 0.5) * 10 + 8);
+    if (parts.length) put(G, merge(parts), stdm({ vertexColors: true })); }
   // date palms along the field edges and the channels
   { const palms = [];
     for (let i = 0; i < nP; i++) {
@@ -1000,7 +1131,7 @@ export const AA_GIZA_KINDS = {
 
   pyramid(P) {
     const S = P.spec; P.whole.scale.setScalar(S.s ?? 1);
-    P.whole.add(buildPyramid({ base: S.base, h: S.h, state: S.state, courses: S.courses, cap: S.cap, built: S.built, casing: S.casing, sunAz: S.sunAz, sunEl: S.sunEl, shadow: S.shadow, ruin: S.ruin, seed: S.seed }));
+    P.whole.add(buildPyramid({ base: S.base, h: S.h, state: S.state, courses: S.courses, cap: S.cap, built: S.built, casing: S.casing, sunAz: S.sunAz, sunEl: S.sunEl, shadow: S.shadow, ruin: S.ruin, seed: S.seed, gold: S.gold, court: S.court }));
     return { grip: 0, apply: nightApply(P, S) };
   },
 

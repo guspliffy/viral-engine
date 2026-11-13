@@ -63,12 +63,14 @@ const r3 = (x) => Math.round(x * 1000) / 1000;
 // Camera spots that are proven on the benches, relative to a place's origin (Khufu's centre for the far ones).
 //   todayWide   the three pyramids of today from the south-west (panels 06, 26-27): stand the host at about [-146, 205]
 //   pastWide    the half-built pyramid alone, 2560 BC (panels 01-03): host at about [-26, 190]
-//   finishedHigh the finished white pyramid from high above (panel 11)
+//   finishedHigh the finished white pyramid and its whole complex from high above (panel 11); finishedHighEnd = the end of a
+//                slow orbit from it (same look point): { ...cam(o, VIEW.finishedHigh), to: { pos: <finishedHighEnd pos + o> } }
 //   sunset      the silhouettes against the low sun (panel 23): host at about [90, 36]
 export const VIEW = {
   todayWide: { pos: [-150, 1.7, 232], look: [-56, 24, 56], fov: 32 },
   pastWide: { pos: [-30, 1.7, 215], look: [0, 12, 0], fov: 32 },
-  finishedHigh: { pos: [-70, 130, 150], look: [30, 0, -30], fov: 34 },
+  finishedHigh: { pos: [-70, 130, 150], look: [22, 0, -24], fov: 34 },
+  finishedHighEnd: { pos: [-28, 128, 166], look: [22, 0, -24], fov: 34 },
   sunset: { pos: [100, 1.7, 35], look: [0, 12, 38], fov: 32 },
 };
 // a camera of a place: cam(o, VIEW.todayWide) or cam(o, { pos, look, fov })
@@ -100,13 +102,16 @@ export function gizaToday(id, o, { sunAz = SUN.day, night = 0, haze = true, s = 
 }
 
 // GIZA 2560 BC as a miniature: Khufu's pyramid ALONE. state "building" (half built, casing on the lower part) | "finished"
-// (white, sharp tip); valley = the workers' village, the fields and the Nile in the east. o = the pyramid's centre.
+// (white casing with drawn masonry, the GOLD capstone, and the complex around it: court wall, temple, causeway, queens'
+// pyramids, tomb rows, a town in the south out to 70 m (x S) from the centre: keep the cast and the camera south of that);
+// valley = the workers' village (building only), the fields and the Nile in the east. o = the pyramid's centre.
+// At night use valley: false (the fields do not darken) and night about 0.72 on the finished pyramid.
 // TOP(s, built) is the height of the working top (what liftShip hovers over).
 export const TOP = (s = S, built = 0.5) => r3(146.6 * built * s);
 export function giza2560(id, o, { state = "building", built = 0.5, casing = 0.45, sunAz = SUN.day, night = 0, valley = true, s = S } = {}) {
   return [
     { id: `${id}-pyr`, kind: "pyramid", x: o[0], z: o[1], s, state, sunAz, night, ...(state === "building" && { built, casing }) },
-    ...(valley ? [{ id: `${id}-nile`, kind: "nilevalley", x: r3(o[0] + 160 * s), z: o[1], s, night }] : []),
+    ...(valley ? [{ id: `${id}-nile`, kind: "nilevalley", x: r3(o[0] + 160 * s), z: o[1], s, night, ...(state === "finished" && { houses: 0 }) }] : []),
   ];
 }
 
