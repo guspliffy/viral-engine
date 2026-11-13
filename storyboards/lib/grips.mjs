@@ -99,6 +99,13 @@ const SIZE = {
   // the jute bag held by ONE fist at its gathered neck, the sack hanging under it: r = the neck ring (0.085); h is NOT the sack's height: the mug hold's
   // default height 0.66 x 1.0795 = 0.7125 = 0.95 x 0.75, the neck (props-zshop.js ZSHOP_GRIPS.tinbag.neck), so `grips.mug(c, who, BAG)` needs no height option
   tinbag: { r: 0.085, h: 1.0795 },
+  // props-bearcamp.js (Fight, Flight or Freeze 02, bear in the camp). cookpot: the steel pot's ONE handle lies along +x (its grip
+  // "handle" at x 0.28, y 0.115): w / h / t are chosen so the phone hold's defaults (x = w / 2 + 0.035, y = 0.42 h, z -0.01) land
+  // on the handle, a fist round it like a frying pan (the proof: make-grip-tests.mjs --prop cookpot --hold phone); r / h do the same
+  // for the mug hold when it is called with { angle: 90, height: 0.42 } (x = r + 0.05 = 0.28, y = 0.42 h = 0.115).
+  cookpot: { w: 0.49, h: 0.274, t: 0.02, r: 0.23 },
+  // burnbranch: the dry pine branch up +y from the held end, r 0.03 there: the mug hold's fist at 0.66 h = 0.08 up the stick
+  burnbranch: { r: 0.03, h: 0.121 },
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
