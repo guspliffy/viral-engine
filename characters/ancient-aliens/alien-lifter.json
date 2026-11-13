@@ -1,0 +1,77 @@
+{
+  "id": "ancient-aliens/alien-lifter",
+  "name": "Alien lifter",
+  "franchise": "Ancient Aliens",
+  "source": "Ancient Aliens series kit (13 Nov 2026): BOARD.md sections 1-2, DESIGNS.md section 1, task T5; the look target is the three approved panel sheets (ancient-aliens-01-sheet-1..3.png)",
+  "rig": "potato",
+  "body": {
+    "color": "#9fb3c4",
+    "height": 0.75,
+    "width": 0.85,
+    "depth": 0.66,
+    "lump": 0.02,
+    "seed": 7,
+    "taper": 0.05,
+    "speckColor": "#6f8496",
+    "specks": 12,
+    "speckSize": 1.1
+  },
+  "limbs": {
+    "color": "#c8581f",
+    "width": 0.032,
+    "shoulder": -0.34
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#2a9d94",
+    "cheeks": "#b7a6d6",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.4,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.7
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.8
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "aliencrew",
+    "variant": "lifter",
+    "coverall": "#c8581f",
+    "trim": "#efe6cf",
+    "knob": "#1f6f6b"
+  },
+  "personality": "The alien lifter: wide and squat, carries the load. Same coverall as the crew plus a boxy cream backpack with two orange shoulder straps (proposal until Jonny has seen it).",
+  "voice": {
+    "pitch": 120,
+    "rate": 3.9,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 78
+  },
+  "voiceNote": "gibberish, proposal",
+  "hands": {
+    "type": "glove",
+    "size": 1.1,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Costume type aliencrew, variant lifter: as the crew, 0.75 x 0.85 m, a cream backpack 0.34 x 0.30 x 0.16 on the back with two orange straps over the shoulders."
+}

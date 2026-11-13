@@ -5,6 +5,7 @@ import { rad } from "./util.js";
 import { ART_CAST } from "./costumes-art-cast.js";
 import { clown } from "./costumes-clown.js";
 import { everyday, EVERYDAY } from "./costumes-everyday.js";
+import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
 // Norse god (Odin-like, with raven), Samurai and Sorcerer, plus the Gunslinger's two pistols (`pistols: true`).
@@ -313,7 +314,7 @@ export function addBeard(ch, B) {
   return beard;
 }
 
-export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY];
+export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY, ...ALIEN_TYPES];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
 export function castCostume(C, ch) {
@@ -321,6 +322,7 @@ export function castCostume(C, ch) {
   const T = C.type;
   // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
   if (EVERYDAY.includes(T)) return everyday(C, ch, out);   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
+  if (ALIEN_TYPES.includes(T)) return aliens(C, ch, out);   // the alien crew and the Egyptian workers (costumes-aliens.js, Ancient Aliens kit)
   if (T === "clown") return clown(C, ch, out);   // Mr. Crisp (costumes-clown.js): the same in every look
   if ((C.art || T === "spud") && ART_CAST[T]) return ART_CAST[T](C, ch, out);   // Spud has no plain version: his sweater is the same in every look
   if (T === "astronaut") {
