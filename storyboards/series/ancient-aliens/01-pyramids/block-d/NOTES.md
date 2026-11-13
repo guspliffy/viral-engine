@@ -24,3 +24,4 @@ closed 1.21, nobody 1.45.
 
 ## Open for polish (after Jonny's OK on the animatic)
 - worker's brush strokes and hand on the wall; Spud's arm-spread hands; deadpan face at the end (Spud has no lids).
+- next round: merge ancient-aliens-kit (6c2339d+) and replace the CLUE 5/5 cap with the kit's clueTag(c, 0, 17, 5) (one style for all blocks).
