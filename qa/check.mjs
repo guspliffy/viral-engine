@@ -632,8 +632,11 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
       const step = (360 * (x.turns ?? 1) * 1.6) / ((x.dur ?? 1) * fps);
       if (step > RULES.spinStep) add("warn", "spin-speed", `${x.who}'s spin at ${x.at}s turns up to ${step.toFixed(0)}° a frame (max ${RULES.spinStep}): give it more time or fewer turns`);
     }
-    // tested without `who`: a cast id is a name, not an effect (the everyday friend "mash" matched \bmash: read minds, 12 Nov 2026)
-    const bad = [...(sb.fx || []), ...(sb.actions || [])].filter(({ who, ...x }) => RULES.gore.test(JSON.stringify(x)));
+    // tested without `who`: a cast id is a name, not an effect (the everyday friend "mash" matched \bmash: read minds, 12 Nov 2026);
+    // nor where another field names one (a carrier "mashWC" ridden, "with": "mashW": You wake up mid EP02, 12 Nov 2026)
+    const ids = (sb.cast || []).map((c) => c.id).filter(Boolean).sort((x, y) => y.length - x.length).map((x) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    const castRe = ids.length ? new RegExp(`"(with|prop|id|target|of|by|at|to|on|seat)":"(${ids.join("|")})\\w*"`, "gi") : null;
+    const bad = [...(sb.fx || []), ...(sb.actions || [])].filter(({ who, ...x }) => RULES.gore.test(castRe ? JSON.stringify(x).replace(castRe, "") : JSON.stringify(x)));
     if (bad.length) add("fail", "cartoon-only", `graphic-looking effects (${bad.map((x) => x.do).join(", ")}): use stars, dust or squash instead (graphic violence isn't eligible for For You)`);
     else add("pass", "cartoon-only", "no graphic-looking effects");
   }

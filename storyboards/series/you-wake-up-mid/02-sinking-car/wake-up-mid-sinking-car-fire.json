@@ -1,0 +1,505 @@
+{
+ "id": "wake-up-mid-sinking-car-fire",
+ "title": "You wake up mid sinking car (the next one)",
+ "idea": "You wake up mid EP02's last shot: Spud wakes in bed and his house is burning (the loop into EP03); joined after wake-up-mid-sinking-car",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  240,
+  1440
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "animeTiming": true,
+ "set": {
+  "type": "energyroom",
+  "night": true,
+  "seed": 6,
+  "aperture": 0,
+  "bloom": "emissive"
+ },
+ "music": {
+  "file": "ai/disaster/disaster-04.ogg",
+  "from": 0,
+  "skip": 5.722,
+  "lowCut": 150,
+  "gain": 0.55,
+  "duck": {
+   "db": -8,
+   "voice": -10
+  }
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "surface": "carpet"
+ },
+ "creative": {
+  "length": [
+   3.65,
+   3.65
+  ]
+ },
+ "hook": {
+  "show": [
+   "curtL",
+   "glow"
+  ],
+  "hint": 0,
+  "what": "first person: his eyes open in a burning bedroom"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.55,
+    -0.55
+   ],
+   "face": "camera",
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "frame",
+   "kind": "bedframe",
+   "x": -0.75,
+   "z": -1.5
+  },
+  {
+   "id": "mat",
+   "kind": "tipmattress",
+   "x": -1.3,
+   "y": 0.28,
+   "z": -1.5,
+   "cover": 1
+  },
+  {
+   "id": "stand",
+   "kind": "nightstand",
+   "x": 0.1,
+   "z": -2.05
+  },
+  {
+   "id": "clock",
+   "kind": "digiclock",
+   "x": 0.1,
+   "y": 0.5,
+   "z": -1.9899999999999998,
+   "scale": 1.25,
+   "text": "03:12"
+  },
+  {
+   "id": "glass",
+   "kind": "winglass",
+   "x": 0.7000000000000001,
+   "y": 0.55,
+   "z": -2.375,
+   "w": 0.8,
+   "h": 1.05
+  },
+  {
+   "id": "curtL",
+   "kind": "firecurtain",
+   "x": 0.09999999999999998,
+   "y": 0.55,
+   "z": -2.2199999999999998,
+   "w": 0.32,
+   "h": 1.3,
+   "edge": 1
+  },
+  {
+   "id": "curtR",
+   "kind": "firecurtain",
+   "x": 1.3,
+   "y": 0.12,
+   "z": -2.2199999999999998,
+   "w": 0.34,
+   "h": 1.73,
+   "edge": -1
+  },
+  {
+   "id": "glow",
+   "kind": "outglow",
+   "x": 0.7000000000000001,
+   "y": 1.05,
+   "z": -3,
+   "w": 1.9,
+   "h": 1.9
+  },
+  {
+   "id": "fireW",
+   "kind": "flames",
+   "x": 1.45,
+   "y": 0,
+   "z": -2.05,
+   "scale": 1.5
+  },
+  {
+   "id": "fireR",
+   "kind": "flames",
+   "x": 1.65,
+   "y": 0,
+   "z": -1.2,
+   "rot": 90,
+   "scale": 1.3
+  },
+  {
+   "id": "lids",
+   "staged": "a first-person overlay",
+   "kind": "eyelids",
+   "cam": {
+    "pos": [
+     -0.85,
+     1.1,
+     -1.25
+    ],
+    "look": [
+     0.6,
+     1.2,
+     -2.3
+    ],
+    "fov": 66
+   }
+  },
+  {
+   "id": "smoke",
+   "kind": "cabinsmoke",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "x0": -2.4,
+   "x1": 1.9,
+   "z0": -2.3,
+   "z1": 2.5,
+   "top": 2.6
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 0.928,
+   "text": "You wake up",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0.928,
+   "to": 2.9,
+   "text": "and your house is burning.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "his eyes open",
+   "at": 0,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     -0.85,
+     1.1,
+     -1.25
+    ],
+    "look": [
+     0.6,
+     1.2,
+     -2.3
+    ],
+    "fov": 66
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "curtL",
+     "set": {
+      "fire": 1,
+      "scorch": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "curtR",
+     "set": {
+      "fire": 1,
+      "scorch": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glow",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fireW",
+     "set": {
+      "fire": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fireR",
+     "set": {
+      "fire": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "smoke",
+     "set": {
+      "fill": 0.6,
+      "fire": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/house-fire",
+     "gain": 0.6,
+     "dur": 3.65,
+     "reason": "the room burning",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "You wake up and your house is burning.",
+     "voice": "narrator",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "lids",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.6,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.6,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.78
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the house is burning",
+   "at": 0.8,
+   "len": 2.85,
+   "shot": {
+    "pos": [
+     -0.33,
+     1.437,
+     3.842
+    ],
+    "look": [
+     0.35,
+     0.75,
+     -1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.37
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 1.45
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 2
+    },
+    {
+     "sfx": "ai/smoke-alarm",
+     "gain": 0.45,
+     "reason": "the smoke alarm",
+     "at": 2.55
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0.1,
+   "to": 0.8,
+   "see": [
+    "curtL",
+    "glow"
+   ],
+   "why": "first person from the pillow: his eyes open on the curtains and the window on fire"
+  },
+  {
+   "from": 0.85,
+   "to": 3.65,
+   "see": [
+    "spud.face",
+    "curtL",
+    "glow"
+   ],
+   "why": "Spud on his feet by the bed, the room on fire behind him"
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/you-wake-up-mid/02-sinking-car/make-sinking-car-fire.mjs. Joined after wake-up-mid-sinking-car (one set per storyboard)."
+}
