@@ -1,0 +1,3613 @@
+{
+ "id": "teleport-forget",
+ "title": "He saves his best friend. Then they forget him",
+ "idea": "There's a catch, episode 9: Spud can teleport to save his best friend Chip from a snapping rope bridge, but every jump someone forgets him; Mash fades him out of a photo, Wedge leaves him on the lip, and the friend he saved asks who he is",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  250,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9ec3e6",
+  "floor": "none",
+  "light": "sunset",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "teleport-forget/teleport-forget-score.ogg",
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "chip",
+   "spud",
+   "wedge",
+   "rope"
+  ],
+  "hint": 0,
+  "what": "Chip hanging by one glove from the last frayed rope of a broken bridge over a deep gorge; Spud and Wedge frozen at the edge"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.75,
+    0.8
+   ],
+   "face": 180,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0,
+    -4.42
+   ],
+   "y": -1.76,
+   "face": 60,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.8,
+    0.88
+   ],
+   "face": 185,
+   "expr": "terrified",
+   "follow": 0.3,
+   "seed": 2.2
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    309,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "pwedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    4.85,
+    1.5
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 6
+  },
+  {
+   "id": "pspud",
+   "character": "potatobrawl/spud",
+   "at": [
+    5.78,
+    1.5
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 7
+  },
+  {
+   "id": "pchip",
+   "character": "potatobrawl/chip",
+   "at": [
+    6.6,
+    1.5
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 8
+  },
+  {
+   "id": "pmash",
+   "character": "potatobrawl/mash",
+   "at": [
+    7.28,
+    1.5
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 9
+  }
+ ],
+ "props": [
+  {
+   "id": "gorge",
+   "kind": "gorge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lipbreak": 0
+  },
+  {
+   "id": "farcliff",
+   "kind": "stoneblock",
+   "x": 0,
+   "y": -200,
+   "z": 0,
+   "w": 0.01,
+   "h": 0.01,
+   "d": 0.01
+  },
+  {
+   "id": "rope",
+   "kind": "bridgerope",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "strands": 3,
+   "snap": 0,
+   "sway": 0
+  },
+  {
+   "id": "planks",
+   "kind": "planks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "starts": [
+    0.15,
+    0.9,
+    2.2,
+    3.6,
+    9.4,
+    10.35
+   ]
+  },
+  {
+   "id": "room",
+   "kind": "zroom",
+   "x": 0,
+   "y": 0,
+   "z": -260,
+   "w": 4.4,
+   "d": 3.6,
+   "h": 2.6,
+   "dress": "living",
+   "floor": "boards",
+   "seed": 3,
+   "dim": 0.35,
+   "glowx": 1.3,
+   "glowz": -261.1
+  },
+  {
+   "id": "couch",
+   "kind": "couch",
+   "x": 0,
+   "y": 0,
+   "z": -261,
+   "rot": 0,
+   "color": "#4f6b45",
+   "color2": "#668a5a"
+  },
+  {
+   "id": "lamp",
+   "kind": "sidelamp",
+   "x": 1.3,
+   "z": -261.3
+  },
+  {
+   "id": "mphone",
+   "kind": "phone",
+   "x": 0,
+   "y": -200,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 4.35,
+   "text": "BEST FRIEND FALLING",
+   "pos": 255,
+   "pop": false
+  },
+  {
+   "from": 21.9,
+   "to": 23.6,
+   "text": "...who are you?",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 Chip on the rope",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.35,
+     1.85,
+     4.1
+    ],
+    "look": [
+     0,
+     -1.6,
+     -4.5
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "sway": 0,
+      "nearfall": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0,
+      -4.42
+     ],
+     "y": -1.76,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0,
+       -0.9,
+       -4.55
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.35,
+       0.12
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.45,
+      "eye": 1.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      0.65
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.15,
+       0.45,
+       0.25
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 5.6,
+     "reason": "wind in the gorge, far under",
+     "at": 0
+    },
+    {
+     "who": "pwedge",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "pwedge",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "pwedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pwedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pspud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "pspud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "pspud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pspud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pchip",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "pchip",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "pchip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pchip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pmash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "pmash",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "pmash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pmash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pspud",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "pchip",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.4,
+     "reason": "the last rope creaking under the weight",
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "Your best friend is about to fall.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.45,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "plank-rattle",
+     "gain": 0.25,
+     "reason": "a plank clattering down the rock face far below",
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the last rope creaking under the weight",
+     "at": 1.2
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 the fray",
+   "at": 1.4,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.3,
+     -1.05,
+     -3.55
+    ],
+    "look": [
+     0,
+     -1.2,
+     -4.5
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 2
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.45,
+     "reason": "a rope strand parting",
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.2,
+     "at": 0.62
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6,
+      "eye": 1.35
+     },
+     "dur": 0.06,
+     "at": 0.65
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.45,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.7
+    }
+   ]
+  },
+  {
+   "name": "03 Spud decides",
+   "at": 2.6,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -0.55,
+     1.05,
+     -2.3
+    ],
+    "look": [
+     -0.45,
+     0.55,
+     0.8
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "But you can teleport.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 1,
+      "open": 0.05
+     },
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.9,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.12
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.05,
+       0.6,
+       0.85
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.7
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3,
+      "brow": 0.8
+     },
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.45,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.07,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 1.82
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.75,
+      0.05,
+      0.8
+     ],
+     "dur": 0.6,
+     "color": "#cdbfa6",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 1.82
+    },
+    {
+     "sfx": "ai/step-concrete",
+     "gain": 0.35,
+     "reason": "dust scuffing up where he was",
+     "at": 1.82
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.12,
+     "at": 1.85
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.3,
+       0.58,
+       0.82
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.3
+     },
+     "dur": 0.08,
+     "at": 1.9
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.2
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.18,
+      -5.12
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": -2.01,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0,
+       -0.89,
+       -5.15
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.12
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 2.12
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.3,
+       -0.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.12
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 1,
+      "open": 0.2
+     },
+     "dur": 0.01,
+     "at": 2.12
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.12
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.14
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      -1.39,
+      -5.12
+     ],
+     "dur": 0.45,
+     "color": "#cdbfa6",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.2,
+     "lift": 0.05,
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.12,
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sway": 0.06
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.5,
+     "reason": "the rope taking his weight",
+     "at": 2.2
+    },
+    {
+     "macro": "narrate",
+     "line": "But there's a catch.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 2.2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.1,
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sway": 0
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "mphone",
+     "set": {
+      "x": 0.1,
+      "y": 0.78,
+      "z": -260.57,
+      "rot": 360,
+      "tip": -25
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.97
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -260.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mphone",
+      "grip": [
+       0.074,
+       0.065,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 2.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.98
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "mphone",
+     "hand": "R",
+     "grip": [
+      0.074,
+      0.065,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 2.99
+    }
+   ]
+  },
+  {
+   "name": "05 Mash",
+   "at": 5.6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.6,
+     1.05,
+     -258.4
+    ],
+    "look": [
+     0,
+     0.6,
+     -261
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "couch",
+     "dur": 0.01,
+     "hands": "keep",
+     "feet": [
+      0.36,
+      0.08
+     ],
+     "at": 0.01
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.45,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "tap",
+     "count": 2,
+     "every": 0.35,
+     "side": "L",
+     "at": 0.5
+    },
+    {
+     "macro": "narrate",
+     "line": "Every jump, someone forgets you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.85
+    }
+   ]
+  },
+  {
+   "name": "06 the photo",
+   "at": 6.6,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     0.6,
+     1.05,
+     -258.4
+    ],
+    "look": [
+     0,
+     0.6,
+     -261
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.3,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "fx": "photo",
+     "style": "screen",
+     "dur": 1.8,
+     "shot": 0.5,
+     "cam": {
+      "pos": [
+       6,
+       1,
+       7.8
+      ],
+      "look": [
+       6,
+       1.05,
+       1.5
+      ],
+      "fov": 50
+     },
+     "aspect": 1,
+     "w": 900,
+     "pos": [
+      540,
+      960
+     ],
+     "fade": {
+      "hide": [
+       "pspud"
+      ],
+      "at": 0.4,
+      "dur": 1
+     },
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.32,
+       0.45,
+       0.15
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "07 the wrist",
+   "at": 8.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     3.3,
+     -0.7,
+     -3.7
+    ],
+    "look": [
+     0,
+     -1.45,
+     -4.8
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.08,
+       -1.09,
+       -4.67
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.45,
+     "reason": "the last rope creaking under the weight",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0,
+       -1.04,
+       -4.59
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2,
+      "brow": 0.6
+     },
+     "dur": 0.15,
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 1
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.45,
+     "reason": "a rope strand parting",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "08 the snap",
+   "at": 10,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     1.05,
+     -0.6,
+     -4.72
+    ],
+    "look": [
+     0,
+     -0.77,
+     -4.44
+    ],
+    "fov": 22
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 0
+     },
+     "dur": 0.06,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.45,
+     "reason": "a rope strand parting",
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.8,
+     "loud": true,
+     "reason": "the last strand snapping",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "snap": 1
+     },
+     "dur": 1,
+     "ease": "out",
+     "at": 0.33
+    },
+    {
+     "who": "spud",
+     "do": "drop",
+     "to": -18.01,
+     "dur": 2.1,
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "drop",
+     "to": -17.76,
+     "dur": 2.1,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.75,
+       0.05
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0,
+       -17.04,
+       -4.59
+      ]
+     },
+     "dur": 2.1,
+     "ease": "in",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0,
+       -17.04,
+       -4.59
+      ]
+     },
+     "dur": 2.1,
+     "ease": "in",
+     "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.7,
+      "eye": 1.4
+     },
+     "dur": 0.06,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.5,
+      "eye": 1.3
+     },
+     "dur": 0.06,
+     "at": 0.4
+    },
+    {
+     "sfx": "windswell",
+     "gain": 0.35,
+     "dur": 1.9,
+     "reason": "air rushing past them as they fall",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "09 the fall",
+   "at": 10.8,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     3,
+     0.8,
+     -4.6
+    ],
+    "look": [
+     0,
+     -12,
+     -4.6
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.07,
+     "at": 1.65
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 1.72
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      -14,
+      -4.95
+     ],
+     "dur": 0.6,
+     "color": "#cdbfa6",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 1.72
+    },
+    {
+     "sfx": "ai/step-concrete",
+     "gain": 0.35,
+     "reason": "dust scuffing up where he was",
+     "at": 1.72
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 1.72
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      -14.5,
+      -4.4
+     ],
+     "dur": 0.6,
+     "color": "#cdbfa6",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 1.72
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.2,
+      0.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.76
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -160,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.75,
+      0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.76
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 175,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.76
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.8,
+      0.88
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.76
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -82.648,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.76
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.25,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.45,
+       0.12
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.25,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.28,
+       0.45,
+       0.12
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 16,
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.79
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.79
+    }
+   ]
+  },
+  {
+   "name": "10 jump 2, the lip",
+   "at": 12.6,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -1.3,
+     0.95,
+     -1.7
+    ],
+    "look": [
+     -0.3,
+     0.5,
+     0.6
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      0.2,
+      0.05,
+      0.15
+     ],
+     "dur": 0.45,
+     "color": "#cdbfa6",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.2,
+     "lift": 0.05,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -0.75,
+      0.05,
+      0.2
+     ],
+     "dur": 0.45,
+     "color": "#cdbfa6",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.2,
+     "lift": 0.05,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      -0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.4,
+      "brow": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.75,
+      1.08
+     ],
+     "dur": 0.65,
+     "ease": "out",
+     "stride": 1.2,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.15,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.82,
+       0.55,
+       0.68
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.68,
+       0.55,
+       0.68
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.82,
+       0.45,
+       0.56
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.68,
+       0.45,
+       0.56
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 0.98
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 0.98
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.3,
+     "reason": "Wedge's fists closing on the hoodie",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.75,
+      0.75
+     ],
+     "dur": 0.8,
+     "steps": 0,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.75,
+      1.45
+     ],
+     "dur": 0.8,
+     "ease": "inOut",
+     "stride": 0.6,
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.82,
+       0.45,
+       1.11
+      ]
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.68,
+       0.45,
+       1.11
+      ]
+     },
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.2
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 2.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.1
+     },
+     "dur": 0.3,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -0.15,
+       0.62,
+       0.55
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.08,
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 1
+     },
+     "dur": 2.44,
+     "ease": "linear",
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 1
+     },
+     "dur": 2.44,
+     "ease": "linear",
+     "at": 2.1
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.6,
+     "loud": true,
+     "reason": "the rock lip breaking under him",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.25
+     },
+     "dur": 0.12,
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.15
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.1,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.18,
+     "at": 2.35
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.12,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.2,
+      0
+     ],
+     "y": -1,
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "in",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.7,
+      "eye": 1.4
+     },
+     "dur": 0.06,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.12,
+       0,
+       0.25
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.52,
+       0,
+       0.25
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.55
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.4
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 2.7
+    }
+   ]
+  },
+  {
+   "name": "12 the glove slips",
+   "at": 15.6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     1.15,
+     1.35
+    ],
+    "look": [
+     0.2,
+     -0.75,
+     0
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "crumble": 1
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.52,
+       -0.08,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.3,
+     "reason": "his glove sliding over the rock",
+     "at": 0.3
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.3,
+     "reason": "the flake under his glove breaking away",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "drop",
+     "to": -21,
+     "dur": 2.45,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "y": -1,
+     "dur": 0.4,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -35,
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.06,
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.8,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.65
+    },
+    {
+     "sfx": "windswell",
+     "gain": 0.35,
+     "dur": 2.4,
+     "reason": "air rushing past him as he falls",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "13 the fall alone",
+   "at": 16.6,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0.3,
+     2.6,
+     0.9
+    ],
+    "look": [
+     0.2,
+     -9,
+     -0.6
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.12,
+     "dur": 0.07,
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 2.22
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.2,
+      -19,
+      -0.55
+     ],
+     "dur": 0.6,
+     "color": "#cdbfa6",
+     "puffs": 12,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 2.22
+    },
+    {
+     "sfx": "ai/step-concrete",
+     "gain": 0.35,
+     "reason": "dust scuffing up where he was",
+     "at": 2.22
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      0.75
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.36
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -140,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.36
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.8,
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.12,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.12,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.3,
+      "brow": 0.6
+     },
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.3,
+      0.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 140,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.95,
+      1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.38
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 155,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 2.39
+    }
+   ]
+  },
+  {
+   "name": "14 jump 3",
+   "at": 19,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.1,
+     0.95,
+     -1.5
+    ],
+    "look": [
+     0.1,
+     0.45,
+     0.8
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "fx": "poof",
+     "pos": [
+      0.55,
+      0.05,
+      0.75
+     ],
+     "dur": 0.45,
+     "color": "#cdbfa6",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.2,
+     "lift": 0.05,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.8,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/heartbeat",
+     "gain": 0.45,
+     "reason": "his heart after the fall",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.45,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.45,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.45,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.4
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "eye": 1.1
+     },
+     "dur": 0.3,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "15 who are you",
+   "at": 21,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.95,
+     -1.4
+    ],
+    "look": [
+     0,
+     0.55,
+     0.75
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.8,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.8,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.15,
+       0.42,
+       0.36
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {},
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -10,
+     "dur": 0.4,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.15,
+      "brow": 0.35
+     },
+     "dur": 0.3,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "...who are you?",
+     "tone": "question",
+     "dur": 1.3,
+     "blink": false,
+     "voice": false,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "open": 0.15,
+      "brow": 0.8,
+      "curve": -0.3
+     },
+     "dur": 0.35,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.22
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 2.4
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "15b Spud",
+   "at": 23.6,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.75,
+     0.8,
+     -0.85
+    ],
+    "look": [
+     0.55,
+     0.62,
+     0.75
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Would you still jump?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.4
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "16 the gap",
+   "at": 25.6,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.6,
+     1.05,
+     -258.4
+    ],
+    "look": [
+     0,
+     0.6,
+     -261
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "fx": "photo",
+     "style": "screen",
+     "dur": 3,
+     "shot": 0.5,
+     "cam": {
+      "pos": [
+       6,
+       1,
+       7.8
+      ],
+      "look": [
+       6,
+       1.05,
+       1.5
+      ],
+      "fov": 50
+     },
+     "aspect": 1,
+     "w": 900,
+     "pos": [
+      540,
+      960
+     ],
+     "hide": [
+      "pspud"
+     ],
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.4,
+   "see": [
+    "chip.face",
+    "spud",
+    "wedge"
+   ],
+   "why": "frame 0: Chip hangs by one glove from the last rope over the gorge; Spud and Wedge frozen at the lip"
+  },
+  {
+   "from": 1.4,
+   "to": 2.6,
+   "see": [
+    "chip.face",
+    "rope"
+   ],
+   "why": "his glove on the rope, the strands beside it popping; his face below, looking up at it"
+  },
+  {
+   "from": 2.6,
+   "to": 4.35,
+   "see": [
+    "spud.face",
+    "wedge.face"
+   ],
+   "why": "Spud at the lip, eyes shut, fists clenched; Wedge reaching for him"
+  },
+  {
+   "from": 4.35,
+   "to": 5.6,
+   "see": [
+    "wedge.face"
+   ],
+   "why": "jump 1: Spud gone from the ledge in a puff of dust, Wedge's glove closes on air"
+  },
+  {
+   "from": 5.6,
+   "to": 6.6,
+   "see": [
+    "mash.face",
+    "mphone"
+   ],
+   "why": "Mash at home on his sofa, bored, scrolling his phone at chest height"
+  },
+  {
+   "from": 6.6,
+   "to": 8.4,
+   "see": [
+    "mphone"
+   ],
+   "why": "the photo of the four friends on Mash's phone: Spud fades out of it"
+  },
+  {
+   "from": 8.4,
+   "to": 10,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "rope"
+   ],
+   "why": "Spud hangs beside Chip and grabs his wrist; another strand pops"
+  },
+  {
+   "from": 10,
+   "to": 10.8,
+   "see": [
+    "rope"
+   ],
+   "why": "close on the rope: the last strand snaps, the ends fly apart"
+  },
+  {
+   "from": 10.8,
+   "to": 12.45,
+   "see": [
+    "spud",
+    "chip"
+   ],
+   "why": "looking down the gorge: they fall together, small against the cliffs, his glove on Chip's wrist"
+  },
+  {
+   "from": 12.6,
+   "to": 15.6,
+   "see": [
+    "wedge.face",
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "Wedge pulls Chip up by the hood, his eyes passing over Spud as if he isn't there"
+  },
+  {
+   "from": 15.6,
+   "to": 16.25,
+   "see": [
+    "spud.face"
+   ],
+   "why": "close from above: his gloves slipping off the broken lip, pebbles falling, his wide eyes"
+  },
+  {
+   "from": 16.6,
+   "to": 18.75,
+   "see": [
+    "spud.face"
+   ],
+   "why": "from above: Spud falls away alone into the gorge, his face up to the two at the edge"
+  },
+  {
+   "from": 19,
+   "to": 21,
+   "see": [
+    "spud",
+    "chip.face",
+    "wedge"
+   ],
+   "why": "jump 3: Spud on his knees on the ledge, panting; Chip and Wedge a step away"
+  },
+  {
+   "from": 21,
+   "to": 23.6,
+   "see": [
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "Spud reaches for Chip with a relieved smile; Chip leans back from a stranger: ...who are you?"
+  },
+  {
+   "from": 23.6,
+   "to": 25.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "close on Spud: it lands"
+  },
+  {
+   "from": 25.6,
+   "to": 28.6,
+   "see": [
+    "mphone"
+   ],
+   "why": "the photo on Mash's phone: three friends and an empty gap where Spud stood"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "chip",
+   "with": "rope",
+   "from": 0,
+   "to": 10.3,
+   "reason": "his glove round the rope"
+  },
+  {
+   "who": "spud",
+   "with": "rope",
+   "from": 4.75,
+   "to": 10.3,
+   "reason": "his glove round the rope"
+  },
+  {
+   "who": "spud",
+   "with": "chip",
+   "from": 8.65,
+   "to": 12.45,
+   "reason": "his glove round Chip's wrist"
+  },
+  {
+   "who": "wedge",
+   "with": "chip",
+   "from": 13.5,
+   "to": 14.6,
+   "reason": "his fists on Chip's hood"
+  },
+  {
+   "who": "pwedge",
+   "from": 0,
+   "to": 28.6,
+   "reason": "the photo's four, arm to arm (DESIGN 6); only the snapshot camera sees them"
+  },
+  {
+   "who": "pspud",
+   "from": 0,
+   "to": 28.6,
+   "reason": "the photo's four, arm to arm (DESIGN 6); only the snapshot camera sees them"
+  },
+  {
+   "who": "pchip",
+   "from": 0,
+   "to": 28.6,
+   "reason": "the photo's four, arm to arm (DESIGN 6); only the snapshot camera sees them"
+  },
+  {
+   "who": "pmash",
+   "from": 0,
+   "to": 28.6,
+   "reason": "the photo's four, arm to arm (DESIGN 6); only the snapshot camera sees them"
+  },
+  {
+   "who": "spud",
+   "with": "gorge",
+   "from": 14.7,
+   "to": 16.25,
+   "reason": "his gloves on the broken lip"
+  },
+  {
+   "who": "spud",
+   "from": 11.5,
+   "to": 12.55,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "free fall: 10-15 m/s at the end of the drop is 35-50 cm a frame"
+  },
+  {
+   "who": "chip",
+   "from": 11.5,
+   "to": 12.55,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "free fall: 10-15 m/s at the end of the drop is 35-50 cm a frame"
+  },
+  {
+   "who": "spud",
+   "from": 17.25,
+   "to": 18.85,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "free fall alone: 12-16 m/s at the end of the drop"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/09b-teleport-forget/make-teleport-forget.mjs."
+}

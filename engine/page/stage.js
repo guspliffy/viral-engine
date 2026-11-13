@@ -261,9 +261,9 @@ function inkGlows() { const out = []; for (const a of actors) a.ch.root.traverse
 //   { fx: "photo", dur, cam: { pos, look, fov }, look: "normal" | "dark" | "ink", hide: [actor or prop ids], pos: [x, y], w, tilt }
 // "dark" is underexposed; "ink" shows whoever is left as black silhouettes against a blinding glow (overexposed).
 // The picture is the middle square of what that camera sees. It is drawn once and kept: every frame shows the same photo.
-function snapshot(f, i) {
-  if (photos.has(i)) return;
-  const c = f.cam || {}, hideIds = f.hide || [], hidden = [];
+function snapshot(f, i, key = i, extra = []) {
+  if (photos.has(key)) return;
+  const c = f.cam || {}, hideIds = [...(f.hide || []), ...extra], hidden = [];
   pose(f.shot ?? f.at);
   const pc = new THREE.PerspectiveCamera(c.fov ?? 40, W / H, 0.05, 300);
   pc.position.fromArray(c.pos || [0, 1, 3]); pc.lookAt(new THREE.Vector3().fromArray(c.look || [0, 0.8, 0]));
@@ -277,7 +277,14 @@ function snapshot(f, i) {
     const bg = scene.background; scene.background = new THREE.Color("#ffffff"); scene.overrideMaterial = inkMat;
     R.render(scene, pc);
     scene.overrideMaterial = null; scene.background = bg;
-  } else { const progs = R.info.programs.length; styler.prepare(scene); styler.render(scene, pc); if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, pc); } }
+  } else {
+    // a look (looks.js) keeps the main camera it was made with for its passes (ink, depth): lend it the photo camera's
+    // place for this one render, then put it back (13 Nov 2026: the snapshot showed the main view under "anime-pro")
+    const keep = { p: camera.position.clone(), q: camera.quaternion.clone(), fov: camera.fov, near: camera.near, far: camera.far };
+    camera.position.copy(pc.position); camera.quaternion.copy(pc.quaternion); camera.fov = pc.fov; camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+    const progs = R.info.programs.length; styler.prepare(scene); styler.render(scene, camera); if (R.info.programs.length !== progs) { styler.prepare(scene); styler.render(scene, camera); }
+    camera.position.copy(keep.p); camera.quaternion.copy(keep.q); camera.fov = keep.fov; camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+  }
   for (const o of hidden) o.visible = true;
   // aspect: the picture's height over its width (1, a square, by default; a print can be 1.25, portrait)
   const S = 720, A = f.aspect ?? 1, cv = document.createElement("canvas"); cv.width = S; cv.height = Math.round(S * A);
@@ -290,7 +297,7 @@ function snapshot(f, i) {
     gr.addColorStop(0, "#fffdf4"); gr.addColorStop(0.55, "#ffeab0"); gr.addColorStop(1, "#ffbf66");
     g.fillStyle = gr; g.fillRect(0, 0, S, S); g.globalCompositeOperation = "source-over";
   }
-  photos.set(i, cv);
+  photos.set(key, cv);
 }
 // style "print": the photo as a printed picture with a white border (thicker at the bottom) filling the frame's width,
 // over the scene dimmed by `dim` (0.6); it drops in with a little settle, develops from white over `develop` (0.35 s)
@@ -310,10 +317,38 @@ function printCard(f, pic, k, d) {
   if (dev > 0) { ctx.globalAlpha *= dev; ctx.fillStyle = "#fffdf6"; ctx.fillRect(-pw / 2, -h / 2 + m, pw, ph); }
   ctx.restore();
 }
+// style "screen" (There's a catch 09, 13 Nov 2026): an insert of a phone held up to us, filling the frame: the dark
+// phone and a gallery screen showing the snapshot, no pop, a slow push of `push` (0.02). `fade: { hide: [ids], at, dur }`
+// cross-fades to a second snapshot of the same shot with those ids hidden, from `at` (s after the effect starts) over
+// `dur`: someone fading out of the photo. No letters: the screen's bars are plain shapes.
+function screenCard(f, pic, picB, k, d) {
+  const [cx, cy] = f.pos || [W / 2, H / 2], w = f.w ?? 900, h = Math.min(H - 40, w * 2.05), m = 26, pw = w - 2 * m, ph = pw * (pic.height / pic.width);
+  const s = 1 + (f.push ?? 0.02) * clamp(k / d);
+  ctx.save();
+  ctx.fillStyle = f.bg ?? "#2a2230"; ctx.fillRect(0, 0, W, H);
+  ctx.translate(cx, cy); ctx.scale(s, s);
+  ctx.fillStyle = "#17171e"; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 96); ctx.fill();
+  ctx.lineWidth = 8; ctx.strokeStyle = "#4a4a55"; ctx.stroke();
+  ctx.fillStyle = "#050507"; ctx.beginPath(); ctx.roundRect(-w / 2 + m, -h / 2 + m, pw, h - 2 * m, 70); ctx.fill();
+  ctx.fillStyle = "#17171e"; ctx.beginPath(); ctx.roundRect(-70, -h / 2 + m + 18, 140, 34, 17); ctx.fill();
+  ctx.fillStyle = "rgba(255,255,255,0.22)"; ctx.beginPath(); ctx.roundRect(-pw / 2 + 40, -h / 2 + m + 110, 46, 46, 23); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(-pw / 2 + 110, -h / 2 + m + 122, 220, 22, 11); ctx.fill();
+  const py = -ph / 2 - 30;
+  ctx.drawImage(pic, -pw / 2, py, pw, ph);
+  if (picB && f.fade) {
+    const a = clamp((k - (f.fade.at ?? 0)) / (f.fade.dur ?? 1)), e = a * a * (3 - 2 * a);
+    if (e > 0) { ctx.globalAlpha = e; ctx.drawImage(picB, -pw / 2, py, pw, ph); ctx.globalAlpha = 1; }
+  }
+  ctx.fillStyle = "rgba(255,255,255,0.18)";
+  for (let j = 0; j < 4; j++) { ctx.beginPath(); ctx.roundRect(-pw / 2 + 30 + j * ((pw - 60) / 4), py + ph + 60, (pw - 60) / 4 - 16, (pw - 60) / 4 - 16, 12); ctx.fill(); }
+  ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.beginPath(); ctx.roundRect(-110, h / 2 - m - 40, 220, 12, 6); ctx.fill();
+  ctx.restore();
+}
 function photoCard(f, i, t) {
   const d = f.dur ?? 1.5, k = t - f.at, pic = photos.get(i);
   if (k < 0 || k > d || !pic) return;
   if (f.style === "print") return printCard(f, pic, k, d);
+  if (f.style === "screen") return screenCard(f, pic, photos.get(`${i}f`), k, d);
   const [cx, cy] = f.pos || [500, 1000], w = f.w ?? 560, h = w * 1.5, m = 24, pw = w - 2 * m;
   // pops in with a little overshoot and tilt, drops away at the end
   const inK = ease("back")(clamp(k / 0.22)), outK = clamp((d - k) / 0.18), s = 0.6 + 0.4 * inK;
@@ -739,7 +774,7 @@ function pose(t0) {
 
 let drawnQ = null, smearRaw = false;   // smearRaw: pose() takes the time as given (the in-betweens of a smear drawing)   // the held drawing on the canvas (drawn look on 2s): a frame that shows the same drawing only redraws the captions
 function frame(t) {
-  (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) snapshot(f, i); });
+  (sb.fx || []).forEach((f, i) => { if (f.do === "photo" && fxActive(f, t)) { snapshot(f, i); if (f.fade) snapshot(f, i, `${i}f`, f.fade.hide || []); } });
   const q = drawnD && drawnD.twos > 1 && drawnD.camera !== 1 ? onTwos(drawnD, t) : null;
   if (q !== null && q === drawnQ) { composite(t); return true; }
   drawnQ = null;
