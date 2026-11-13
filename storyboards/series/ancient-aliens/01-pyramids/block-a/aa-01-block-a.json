@@ -1,7 +1,7 @@
 {
  "id": "aa-01-block-a",
  "title": "Who really built the pyramids? (block A)",
- "idea": "Ancient aliens EP01 block A (0:00-0:56): a block lands every two minutes in 2560 BC; snap to today; Spud's contract (five clues, answered when three stars rise tonight); clue 1 the mountain: blocks heavier than a car, his touch takes him back as the same block lands; 146 m, tallest for almost 4,000 years; the headlamp clicks on and he walks into the dark",
+ "idea": "Ancient aliens EP01 block A (0:00-0:56): a block lands every two minutes in 2560 BC and the pyramid climbs; snap to today; Spud's contract (five clues, answered when three stars rise tonight); clue 1: the beam weighs a car and a block, his touch takes him back as the same block lands; 146 m, tallest for 3,800 years; the headlamp clicks on and he walks into the dark",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
@@ -31,7 +31,18 @@
   "color": "#8fc3ee",
   "floor": "shadow"
  },
- "music": false,
+ "music": {
+  "file": "ancient-aliens/aa01-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
  "sound": {
   "scenes": [
    "scifi"
@@ -189,6 +200,32 @@
    "z": 0,
    "s": 0.2,
    "night": 0
+  },
+  {
+   "id": "g1a-pyr",
+   "kind": "pyramid",
+   "x": 0,
+   "z": 0,
+   "s": 0.2,
+   "state": "building",
+   "sunAz": 130,
+   "night": 0,
+   "built": 0.2,
+   "casing": 0.45,
+   "y": -400
+  },
+  {
+   "id": "g1b-pyr",
+   "kind": "pyramid",
+   "x": 0,
+   "z": 0,
+   "s": 0.2,
+   "state": "building",
+   "sunAz": 130,
+   "night": 0,
+   "built": 0.35,
+   "casing": 0.45,
+   "y": -400
   },
   {
    "id": "s1-ship",
@@ -483,6 +520,61 @@
    "grass": false
   },
   {
+   "id": "n6-sky",
+   "kind": "aasky",
+   "x": 8850,
+   "z": 232,
+   "time": "night"
+  },
+  {
+   "id": "n6-ground",
+   "kind": "gizaplateau",
+   "x": 8850,
+   "z": 232,
+   "tracks": true,
+   "seed": 1,
+   "night": 1
+  },
+  {
+   "id": "n6-stars",
+   "kind": "starfield",
+   "x": 8850,
+   "z": 232,
+   "n": 5000,
+   "seed": 2,
+   "hole": [
+    33,
+    22,
+    5
+   ]
+  },
+  {
+   "id": "n6-moon",
+   "kind": "moon",
+   "x": 8850,
+   "z": 232,
+   "at": [
+    24,
+    21
+   ]
+  },
+  {
+   "id": "n6-giza",
+   "kind": "gizatoday",
+   "x": 9000,
+   "z": 0,
+   "s": 0.2,
+   "sunAz": 130,
+   "night": 1
+  },
+  {
+   "id": "n6-orion",
+   "kind": "orion",
+   "x": 8968,
+   "y": 80,
+   "z": 51
+  },
+  {
    "id": "f7-sky",
    "kind": "aasky",
    "x": 4000,
@@ -531,7 +623,8 @@
     1.5,
     1.3
    ],
-   "seed": 9
+   "seed": 9,
+   "staged": "lifted a hand's width by the beam for the weighing (08), then dropped"
   },
   {
    "id": "car7",
@@ -540,7 +633,34 @@
    "z": 2.9,
    "rot": 78,
    "color": "#f4f4f2",
-   "y": 0.12
+   "y": 0.12,
+   "staged": "lifted by the beam for the weighing (08), then dropped back on its wheels"
+  },
+  {
+   "id": "s8c-ship",
+   "kind": "ringship",
+   "x": 4002.55,
+   "y": 40.12,
+   "z": 2.9,
+   "s": 1,
+   "beam": 0,
+   "lit": 0.4,
+   "beamLen": 40,
+   "beamR": 1.5,
+   "staged": "the alien ring ship hovers over its work"
+  },
+  {
+   "id": "s8b-ship",
+   "kind": "ringship",
+   "x": 3999.4,
+   "y": 40.12,
+   "z": 3.4,
+   "s": 1,
+   "beam": 0,
+   "lit": 0.4,
+   "beamLen": 40,
+   "beamR": 1,
+   "staged": "the alien ring ship hovers over its work"
   },
   {
    "id": "f9-sky",
@@ -733,7 +853,7 @@
    "text": "1 BLOCK = 2:00",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
@@ -746,233 +866,242 @@
    "kinetic": false
   },
   {
-   "from": 3.3,
-   "to": 3.4,
+   "from": 3.1,
+   "to": 3.2,
    "text": "0",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 3.2,
+   "to": 3.3,
+   "text": "198,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 3.3,
+   "to": 3.4,
+   "text": "347,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.4,
    "to": 3.5,
-   "text": "276,000",
+   "text": "454,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.5,
    "to": 3.6,
-   "text": "528,000",
+   "text": "525,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.6,
    "to": 3.7,
-   "text": "759,000",
+   "text": "568,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.7,
    "to": 3.8,
-   "text": "969,000",
+   "text": "591,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.8,
    "to": 3.9,
-   "text": "1,159,000",
+   "text": "599,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 3.9,
    "to": 4,
-   "text": "1,330,000",
+   "text": "600,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4,
    "to": 4.1,
-   "text": "1,483,000",
+   "text": "600,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.1,
    "to": 4.2,
-   "text": "1,619,000",
+   "text": "838,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.2,
    "to": 4.3,
-   "text": "1,738,000",
+   "text": "1,024,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.3,
    "to": 4.4,
-   "text": "1,843,000",
+   "text": "1,163,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.4,
    "to": 4.5,
-   "text": "1,934,000",
+   "text": "1,263,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.5,
    "to": 4.6,
-   "text": "2,013,000",
+   "text": "1,330,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.6,
    "to": 4.7,
-   "text": "2,079,000",
+   "text": "1,370,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.7,
    "to": 4.8,
-   "text": "2,134,000",
+   "text": "1,391,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.8,
    "to": 4.9,
-   "text": "2,179,000",
+   "text": "1,399,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 4.9,
    "to": 5,
-   "text": "2,215,000",
+   "text": "1,400,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5,
    "to": 5.1,
-   "text": "2,243,000",
+   "text": "1,400,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.1,
    "to": 5.2,
-   "text": "2,264,000",
+   "text": "1,779,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.2,
    "to": 5.3,
-   "text": "2,279,000",
+   "text": "2,033,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.3,
    "to": 5.4,
-   "text": "2,289,000",
+   "text": "2,188,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.4,
    "to": 5.5,
-   "text": "2,296,000",
+   "text": "2,267,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.5,
    "to": 5.6,
-   "text": "2,299,000",
+   "text": "2,296,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 5.6,
-   "to": 5.7,
-   "text": "2,300,000",
-   "pos": 300,
-   "pop": false,
-   "size": 92,
-   "kinetic": false
-  },
-  {
-   "from": 5.7,
    "to": 6,
    "text": "2,300,000",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 6.3,
-   "to": 8.99,
+   "to": 8.93,
    "text": "And they tell you humans built this.",
    "pos": 470,
    "pop": false,
@@ -990,35 +1119,36 @@
   },
   {
    "from": 11.3,
-   "to": 14.2,
+   "to": 12.3,
    "text": "5 CLUES",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 110,
    "kinetic": false
   },
   {
-   "from": 14.2,
-   "to": 18,
-   "text": "☆ ☆ ☆  TONIGHT",
+   "from": 12.8,
+   "to": 14.6,
+   "text": "☆ ☆ ☆",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 110,
    "kinetic": false
   },
   {
    "from": 18,
    "to": 56,
    "text": "CLUE 1/5",
-   "pos": 232,
+   "pos": 240,
    "pop": false,
-   "size": 46,
+   "style": "label",
+   "size": 44,
    "kinetic": false,
-   "x": 800
+   "x": 250
   },
   {
-   "from": 18.4,
-   "to": 20.8,
+   "from": 18.6,
+   "to": 20.92,
    "text": "Two point three million blocks.",
    "pos": 470,
    "pop": false,
@@ -1026,17 +1156,125 @@
    "kinetic": false
   },
   {
-   "from": 18.4,
-   "to": 21.9,
-   "text": "2,300,000",
+   "from": 19,
+   "to": 19.1,
+   "text": "0",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
-   "from": 22.1,
-   "to": 24.73,
+   "from": 19.1,
+   "to": 19.2,
+   "text": "528,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.2,
+   "to": 19.3,
+   "text": "969,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.3,
+   "to": 19.4,
+   "text": "1,330,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.4,
+   "to": 19.5,
+   "text": "1,619,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.5,
+   "to": 19.6,
+   "text": "1,843,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.6,
+   "to": 19.7,
+   "text": "2,013,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.7,
+   "to": 19.8,
+   "text": "2,134,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.8,
+   "to": 19.9,
+   "text": "2,215,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 19.9,
+   "to": 20,
+   "text": "2,264,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 20.1,
+   "text": "2,289,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 20.1,
+   "to": 20.2,
+   "text": "2,299,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 20.2,
+   "to": 21,
+   "text": "2,300,000",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 21.5,
+   "to": 24.13,
    "text": "On average, heavier than a car.",
    "pos": 470,
    "pop": false,
@@ -1044,13 +1282,24 @@
    "kinetic": false
   },
   {
-   "from": 22.1,
-   "to": 27,
-   "text": "1 BLOCK ≈ 2.5 t",
+   "from": 22.4,
+   "to": 25.3,
+   "text": "1.2 t",
    "pos": 300,
    "pop": false,
-   "size": 92,
-   "kinetic": false
+   "size": 76,
+   "kinetic": false,
+   "x": 770
+  },
+  {
+   "from": 23,
+   "to": 25.3,
+   "text": "2.5 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false,
+   "x": 300
   },
   {
    "from": 27.4,
@@ -1067,7 +1316,7 @@
    "text": "0:04",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
@@ -1076,7 +1325,7 @@
    "text": "0:03",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
@@ -1085,7 +1334,7 @@
    "text": "0:02",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
@@ -1094,7 +1343,7 @@
    "text": "0:01",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
@@ -1103,7 +1352,7 @@
    "text": "0:00",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 124,
    "kinetic": false
   },
   {
@@ -1112,12 +1361,12 @@
    "text": "1 BLOCK = 2:00",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
    "kinetic": false
   },
   {
    "from": 36.3,
-   "to": 38.71,
+   "to": 38.73,
    "text": "A hundred and forty-six metres.",
    "pos": 470,
    "pop": false,
@@ -1126,11 +1375,191 @@
   },
   {
    "from": 36.5,
+   "to": 36.6,
+   "text": "0 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 36.6,
+   "to": 36.7,
+   "text": "21 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 36.7,
+   "to": 36.8,
+   "text": "40 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 36.8,
+   "to": 36.9,
+   "text": "56 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 36.9,
+   "to": 37,
+   "text": "71 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37,
+   "to": 37.1,
+   "text": "84 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.1,
+   "to": 37.2,
+   "text": "96 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.2,
+   "to": 37.3,
+   "text": "106 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.3,
+   "to": 37.4,
+   "text": "114 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.4,
+   "to": 37.5,
+   "text": "122 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.5,
+   "to": 37.6,
+   "text": "128 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.6,
+   "to": 37.7,
+   "text": "133 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.7,
+   "to": 37.8,
+   "text": "137 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.8,
+   "to": 37.9,
+   "text": "140 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 37.9,
+   "to": 38,
+   "text": "142 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38,
+   "to": 38.1,
+   "text": "144 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38.1,
+   "to": 38.2,
+   "text": "145 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38.2,
+   "to": 38.3,
+   "text": "146 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38.3,
+   "to": 38.4,
+   "text": "146 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38.4,
+   "to": 38.5,
+   "text": "146 m",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 38.5,
    "to": 39.2,
    "text": "146 m",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 110,
    "kinetic": false
   },
   {
@@ -1143,12 +1572,390 @@
    "kinetic": false
   },
   {
-   "from": 39.35,
-   "to": 46,
-   "text": "3,800 YEARS",
+   "from": 39.5,
+   "to": 39.6,
+   "text": "2560 BC",
    "pos": 300,
    "pop": false,
-   "size": 92,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 39.6,
+   "to": 39.7,
+   "text": "2284 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 39.7,
+   "to": 39.8,
+   "text": "2021 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 39.8,
+   "to": 39.9,
+   "text": "1771 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 39.9,
+   "to": 40,
+   "text": "1534 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40,
+   "to": 40.1,
+   "text": "1309 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.1,
+   "to": 40.2,
+   "text": "1097 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.2,
+   "to": 40.3,
+   "text": "897 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.3,
+   "to": 40.4,
+   "text": "707 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.4,
+   "to": 40.5,
+   "text": "529 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.5,
+   "to": 40.6,
+   "text": "362 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.6,
+   "to": 40.7,
+   "text": "205 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.7,
+   "to": 40.8,
+   "text": "59 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.8,
+   "to": 40.9,
+   "text": "78 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 40.9,
+   "to": 41,
+   "text": "205 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41,
+   "to": 41.1,
+   "text": "324 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.1,
+   "to": 41.2,
+   "text": "433 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.2,
+   "to": 41.3,
+   "text": "535 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.3,
+   "to": 41.4,
+   "text": "628 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.4,
+   "to": 41.5,
+   "text": "713 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.5,
+   "to": 41.6,
+   "text": "791 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.6,
+   "to": 41.7,
+   "text": "862 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.7,
+   "to": 41.8,
+   "text": "926 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.8,
+   "to": 41.9,
+   "text": "983 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 41.9,
+   "to": 42,
+   "text": "1035 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42,
+   "to": 42.1,
+   "text": "1081 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.1,
+   "to": 42.2,
+   "text": "1121 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.2,
+   "to": 42.3,
+   "text": "1157 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.3,
+   "to": 42.4,
+   "text": "1188 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.4,
+   "to": 42.5,
+   "text": "1214 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.5,
+   "to": 42.6,
+   "text": "1236 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.6,
+   "to": 42.7,
+   "text": "1255 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.7,
+   "to": 42.8,
+   "text": "1270 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.8,
+   "to": 42.9,
+   "text": "1282 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 42.9,
+   "to": 43,
+   "text": "1292 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43,
+   "to": 43.1,
+   "text": "1299 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.1,
+   "to": 43.2,
+   "text": "1304 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.2,
+   "to": 43.3,
+   "text": "1307 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.3,
+   "to": 43.4,
+   "text": "1309 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.4,
+   "to": 43.5,
+   "text": "1311 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.5,
+   "to": 43.6,
+   "text": "1311 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.6,
+   "to": 43.7,
+   "text": "1311 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 96,
+   "kinetic": false
+  },
+  {
+   "from": 43.7,
+   "to": 46,
+   "text": "#1 · 3,800 YEARS",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
    "kinetic": false
   },
   {
@@ -1177,7 +1984,15 @@
      15.9,
      0
     ],
-    "fov": 24
+    "fov": 24,
+    "to": {
+     "pos": [
+      -29.917,
+      0.9,
+      214.406
+     ]
+    },
+    "dur": 1.3
    },
    "do": [
     {
@@ -1192,7 +2007,47 @@
     },
     {
      "do": "prop",
+     "id": "s2-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s9-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "s11-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s8c-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s8b-ship",
      "set": {
       "wobble": 0
      },
@@ -1214,8 +2069,7 @@
      "do": "prop",
      "id": "s2-ship",
      "set": {
-      "beam": 0.5,
-      "wobble": 0
+      "beam": 0.5
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1225,8 +2079,7 @@
      "do": "prop",
      "id": "s9-ship",
      "set": {
-      "beam": 0.8,
-      "wobble": 0
+      "beam": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1235,6 +2088,26 @@
     {
      "do": "prop",
      "id": "s11-ship",
+     "set": {
+      "beam": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s8c-ship",
+     "set": {
+      "beam": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s8b-ship",
      "set": {
       "beam": 0
      },
@@ -1287,6 +2160,47 @@
      "id": "spud-lamp",
      "set": {
       "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n6-stars",
+     "set": {
+      "show": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n6-orion",
+     "set": {
+      "show": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "headY": 0,
+      "headP": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "camel6a",
+     "set": {
+      "lie": 1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1473,6 +2387,29 @@
      "at": 0.25
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.92,
+       0.18
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
      "macro": "say",
      "who": "spud",
      "line": "One block. Every two minutes.",
@@ -1510,9 +2447,34 @@
      31.1,
      2
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      1000.7,
+      31.5,
+      8.8
+     ]
+    },
+    "dur": 1.7
    },
    "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.2
+    },
     {
      "do": "prop",
      "id": "s2-block",
@@ -1556,8 +2518,8 @@
     },
     {
      "sfx": "kenney/impact-mining",
-     "gain": 0.35,
-     "reason": "grit under the block",
+     "gain": 0.45,
+     "reason": "grit under the block (the crack a phone speaker can carry)",
      "at": 1.22
     },
     {
@@ -1731,13 +2693,63 @@
      "ease": "linear",
      "sync": true,
      "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "g1a-pyr",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "g1b-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "g1-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "s1-ship",
+     "set": {
+      "y": 13.864
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 7.464
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.68
     }
    ]
   },
   {
-   "name": "03 the site",
+   "name": "03 time-lapse 1",
    "at": 3,
-   "len": 3,
+   "len": 1,
    "shot": {
     "pos": [
      -30.6,
@@ -1757,10 +2769,20 @@
      "do": "look",
      "to": [
       0,
-      0.35
+      0.45
      ],
      "dur": 0.01,
      "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 5.864
+     },
+     "dur": 0.55,
+     "ease": "in",
      "at": 0
     },
     {
@@ -1781,6 +2803,222 @@
      "at": 0.15
     },
     {
+     "sfx": "thud",
+     "gain": 0.6,
+     "reason": "the far block lands on the growing pyramid",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "g1a-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "g1b-pyr",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "g1-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "s1-ship",
+     "set": {
+      "y": 18.262
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 11.862
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.01,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "03 time-lapse 2",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -30.35,
+     1.5,
+     213.9
+    ],
+    "look": [
+     0,
+     12,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 10.262
+     },
+     "dur": 0.55,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.6,
+     "reason": "the far block lands on the growing pyramid",
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "g1a-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "g1b-pyr",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "g1-pyr",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "s1-ship",
+     "set": {
+      "y": 22.66
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 16.26
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "03 time-lapse 3",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -30.1,
+     1.5,
+     213.3
+    ],
+    "look": [
+     0,
+     12,
+     0
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -30.044,
+      1.5,
+      212.904
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "s1-block",
+     "set": {
+      "y": 14.66
+     },
+     "dur": 0.55,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.6,
+     "reason": "the far block lands on the growing pyramid",
+     "at": 0.55
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
@@ -1791,7 +3029,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 0.98
     },
     {
      "who": "spud",
@@ -1800,14 +3038,30 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0.98
     }
    ]
   },
   {
    "name": "04 he points",
    "at": 6,
-   "len": 2.767,
+   "len": 2.7,
    "shot": {
     "pos": [
      -30,
@@ -1822,12 +3076,12 @@
     "fov": 24,
     "to": {
      "pos": [
-      -29.85,
+      -29.876,
       0.9,
-      214.3
+      214.109
      ]
     },
-    "dur": 2.6
+    "dur": 2.7
    },
    "do": [
     {
@@ -1878,11 +3132,22 @@
      "macro": "say",
      "who": "spud",
      "line": "And they tell you humans built this.",
-     "tone": "calm",
-     "dur": 2.29,
+     "tone": "question",
+     "dur": 2.23,
      "voice": "reaper",
      "caption": false,
      "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.7,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 1.93
     },
     {
      "who": "chip",
@@ -1895,7 +3160,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "chip",
@@ -1904,7 +3169,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "wedge",
@@ -1917,7 +3182,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "wedge",
@@ -1926,7 +3191,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "mash",
@@ -1939,7 +3204,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "mash",
@@ -1948,7 +3213,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "spud",
@@ -1961,7 +3226,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     },
     {
      "who": "spud",
@@ -1970,14 +3235,14 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.747
+     "at": 2.68
     }
    ]
   },
   {
    "name": "05 today",
-   "at": 8.767,
-   "len": 2.233,
+   "at": 8.7,
+   "len": 2.3,
    "shot": {
     "pos": [
      1970,
@@ -1989,7 +3254,15 @@
      15.9,
      0
     ],
-    "fov": 24
+    "fov": 24,
+    "to": {
+     "pos": [
+      1970.124,
+      0.9,
+      214.109
+     ]
+    },
+    "dur": 2.3
    },
    "do": [
     {
@@ -2003,13 +3276,6 @@
      "at": 0
     },
     {
-     "sfx": "ai/storm-wind",
-     "gain": 0.06,
-     "dur": 6,
-     "reason": "far desert wind under the scene",
-     "at": 0.233
-    },
-    {
      "who": "chip",
      "do": "arm",
      "side": "R",
@@ -2019,14 +3285,21 @@
      "at": 0.3
     },
     {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.5,
-      0.25
-     ],
-     "dur": 0.18,
-     "blink": false,
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 3.3,
+     "reason": "far desert wind under the scene",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "headY": 0.55,
+      "headP": 0.45
+     },
+     "dur": 0.8,
+     "ease": "inOut",
      "at": 0.5
     },
     {
@@ -2050,23 +3323,53 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0,
-      0.1
+      0.55,
+      0.3
      ],
-     "dur": 0.2,
+     "dur": 0.18,
      "blink": false,
-     "at": 1.5
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -6,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "neutral",
      "set": {
-      "brow": 0.4,
-      "lid": 0.25
+      "lid": 0.4,
+      "brow": 0.2
      },
      "dur": 0.2,
-     "at": 1.5
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "camel5",
+     "set": {
+      "headY": 0.1,
+      "headP": 0
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
     },
     {
      "who": "spud",
@@ -2079,7 +3382,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "spud",
@@ -2088,7 +3391,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -2101,7 +3404,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "chip",
@@ -2110,7 +3413,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "wedge",
@@ -2123,7 +3426,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "wedge",
@@ -2132,7 +3435,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "mash",
@@ -2145,7 +3448,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     },
     {
      "who": "mash",
@@ -2154,15 +3457,15 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.213
+     "at": 2.28
     }
    ],
    "kind": "reveal"
   },
   {
-   "name": "06 the contract",
+   "name": "06 five clues",
    "at": 11,
-   "len": 7,
+   "len": 1.3,
    "shot": {
     "pos": [
      2850,
@@ -2177,12 +3480,12 @@
     "fov": 34,
     "to": {
      "pos": [
-      2850.6,
+      2850.466,
       1.5,
-      210.3
+      210.73
      ]
     },
-    "dur": 6.8
+    "dur": 1.3
    },
    "do": [
     {
@@ -2224,29 +3527,204 @@
     },
     {
      "who": "spud",
-     "do": "turn",
-     "to": 160,
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 3.25
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
     },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.28
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.28
+    }
+   ]
+  },
+  {
+   "name": "06 tonight",
+   "at": 12.3,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     8850,
+     1.2,
+     232
+    ],
+    "look": [
+     8944,
+     36,
+     56
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      8850,
+      1.2,
+      232
+     ],
+     "look": [
+      8944,
+      44,
+      56
+     ]
+    },
+    "dur": 2.3
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "n6-orion",
+     "set": {
+      "show": 1
+     },
+     "dur": 1.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n6-orion",
+     "set": {
+      "y": 66
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n6-orion",
+     "set": {
+      "y": 80
+     },
+     "dur": 2.2,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2855,
+      203.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -31.045,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "06 who built them",
+   "at": 14.6,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     2853.14,
+     0.75,
+     206.29
+    ],
+    "look": [
+     2944,
+     24,
+     56
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      2853.554,
+      0.75,
+      205.605
+     ]
+    },
+    "dur": 3.4
+   },
+   "do": [
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.2,
-      0.1
+      0,
+      0.05
      ],
-     "dur": 0.2,
+     "dur": 0.01,
      "blink": false,
-     "at": 3.45
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
      "dur": 6,
      "reason": "far desert wind under the scene",
-     "at": 4
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.75,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 1.55
+    },
+    {
+     "do": "prop",
+     "id": "camel6a",
+     "set": {
+      "lie": 0
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.8,
+     "at": 2.6
     },
     {
      "who": "chip",
@@ -2260,7 +3738,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "chip",
@@ -2269,7 +3747,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "wedge",
@@ -2283,7 +3761,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "wedge",
@@ -2292,7 +3770,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "mash",
@@ -2306,7 +3784,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "mash",
@@ -2315,13 +3793,13 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      3997,
+      3997.3,
       4.75
      ],
      "dur": 0.01,
@@ -2329,7 +3807,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.12,
-     "at": 6.98
+     "at": 3.38
     },
     {
      "who": "spud",
@@ -2338,26 +3816,39 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 6.98
+     "at": 3.38
     }
    ]
   },
   {
    "name": "07 clue 1",
    "at": 18,
-   "len": 3.9,
+   "len": 3,
    "shot": {
     "pos": [
-     3997.4,
-     0.95,
-     9.4
+     3997.6,
+     5.5,
+     9
     ],
     "look": [
-     3999.6,
-     1,
-     4
+     3999.4,
+     5,
+     0
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      3997.4,
+      0.95,
+      9.4
+     ],
+     "look": [
+      3999.6,
+      1,
+      4
+     ]
+    },
+    "dur": 2.2
    },
    "do": [
     {
@@ -2378,53 +3869,53 @@
       4000.42,
       4.55
      ],
-     "dur": 2.6,
+     "dur": 2.2,
      "stride": 0.75,
      "ease": "inOut",
-     "at": 0.2
+     "at": 0.6
     },
     {
      "macro": "say",
      "who": "spud",
      "line": "Two point three million blocks.",
-     "tone": "calm",
-     "dur": 2,
+     "tone": "excited",
+     "dur": 1.92,
      "voice": "reaper",
      "caption": false,
-     "at": 0.4
+     "at": 0.6
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
       -0.6,
-      0.45
+      0.5
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 1.2
+     "at": 1.3
     },
     {
      "who": "spud",
      "do": "turn",
      "to": 10,
-     "dur": 0.5,
+     "dur": 0.45,
      "ease": "inOut",
-     "at": 3
+     "at": 2.4
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
      "dur": 6,
      "reason": "far desert wind under the scene",
-     "at": 3
+     "at": 2.6
     }
    ]
   },
   {
    "name": "08 heavier than a car",
-   "at": 21.9,
-   "len": 5.1,
+   "at": 21,
+   "len": 6,
    "shot": {
     "pos": [
      4000.55,
@@ -2436,7 +3927,15 @@
      1.15,
      3.4
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      4000.55,
+      1,
+      13.6
+     ]
+    },
+    "dur": 6
    },
    "do": [
     {
@@ -2451,6 +3950,33 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "s8c-ship",
+     "set": {
+      "beam": 0.6
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 3.1,
+     "reason": "the ship's low hum far over the two beams",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "s8b-ship",
+     "set": {
+      "beam": 0.6
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
      "macro": "say",
      "who": "spud",
      "line": "On average, heavier than a car.",
@@ -2458,29 +3984,207 @@
      "dur": 2.23,
      "voice": "reaper",
      "caption": false,
-     "at": 0.2
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 1.3
+     },
+     "dur": 0.9,
+     "ease": "out",
+     "at": 1
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.6,
-      0
+      0.55,
+      0.65
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.53
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "blk7",
+     "set": {
+      "y": 0.3
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "s8b-ship",
+     "set": {
+      "wobble": 1
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 1.1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.9
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0,
-      0.1
+      -0.55,
+      0.2
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 2.63
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "blk7",
+     "set": {
+      "y": 0.24
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 1.22
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "s8c-ship",
+     "set": {
+      "beam": 0
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 0.38,
+     "ease": "in",
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "s8b-ship",
+     "set": {
+      "beam": 0,
+      "wobble": 0
+     },
+     "dur": 0.15,
+     "ease": "in",
+     "at": 3.05
+    },
+    {
+     "do": "prop",
+     "id": "blk7",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 3.05
+    },
+    {
+     "do": "prop",
+     "id": "blk7",
+     "set": {
+      "dust": 1
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 3.25
+    },
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "loud": true,
+     "reason": "the block slams back down",
+     "at": 3.25
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.5,
+     "reason": "grit under the block",
+     "at": 3.27
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.25,
+     "at": 3.27
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 0.22
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.38
+    },
+    {
+     "sfx": "ai/car-door-shove",
+     "gain": 0.45,
+     "reason": "the car lands on its springs",
+     "at": 3.38
+    },
+    {
+     "do": "prop",
+     "id": "car7",
+     "set": {
+      "y": 0.12
+     },
+     "dur": 0.14,
+     "ease": "in",
+     "at": 3.5
     },
     {
      "who": "spud",
@@ -2488,7 +4192,7 @@
      "to": -55,
      "dur": 0.4,
      "ease": "inOut",
-     "at": 3.5
+     "at": 4.4
     },
     {
      "who": "spud",
@@ -2499,7 +4203,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 3.5
+     "at": 4.4
     },
     {
      "who": "spud",
@@ -2520,7 +4224,7 @@
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 3.75
+     "at": 4.65
     },
     {
      "who": "spud",
@@ -2528,13 +4232,13 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.3,
-     "at": 3.75
+     "at": 4.65
     },
     {
      "sfx": "cloth",
      "gain": 0.25,
      "reason": "his glove on the stone",
-     "at": 4.2
+     "at": 5.1
     },
     {
      "who": "spud",
@@ -2545,7 +4249,14 @@
       "brow": 0.2
      },
      "dur": 0.3,
-     "at": 4.3
+     "at": 5.2
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far desert wind under the scene",
+     "at": 5.6
     },
     {
      "who": "spud",
@@ -2559,16 +4270,38 @@
      "ease": "linear",
      "sync": true,
      "y": 0.12,
-     "at": 5.08
+     "at": 5.98
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": -55,
+     "to": 10,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 5.08
+     "at": 5.98
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      5003.4,
+      5.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "fore",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
     }
    ]
   },
@@ -2587,7 +4320,15 @@
      1.15,
      3.4
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      5000.55,
+      1,
+      13.3
+     ]
+    },
+    "dur": 9
    },
    "do": [
     {
@@ -2616,8 +4357,8 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.5,
-      0.15
+      -0.4,
+      0.2
      ],
      "dur": 0.01,
      "blink": false,
@@ -2641,13 +4382,6 @@
      "at": 0
     },
     {
-     "sfx": "ai/storm-wind",
-     "gain": 0.06,
-     "dur": 6,
-     "reason": "far desert wind under the scene",
-     "at": 0
-    },
-    {
      "do": "prop",
      "id": "s9-block",
      "set": {
@@ -2656,6 +4390,23 @@
      "dur": 4.45,
      "ease": "inOut",
      "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.4
     },
     {
      "macro": "say",
@@ -2669,50 +4420,134 @@
     },
     {
      "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.3,
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 10,
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      -0.25,
-      0.75
-     ],
-     "dur": 0.3,
-     "blink": false,
-     "at": 0.7
-    },
-    {
-     "who": "spud",
      "do": "look",
      "to": [
       0,
       0.1
      ],
-     "dur": 0.25,
+     "dur": 0.15,
      "blink": false,
-     "at": 3.18
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -8,
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 26,
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0.13,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      5001.85,
+      5
+     ],
+     "dur": 0.9,
+     "stride": 0.5,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "wave",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.55,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.15,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      5000.9,
+      5.2
+     ],
+     "dur": 0.6,
+     "stride": 0.4,
+     "ease": "inOut",
+     "at": 2.55
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.4
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.5
     },
     {
      "do": "prop",
@@ -2744,13 +4579,20 @@
     {
      "who": "spud",
      "do": "squash",
-     "amount": 0.04,
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 5
+    },
+    {
+     "who": "fore",
+     "do": "squash",
+     "amount": 0.05,
      "dur": 0.25,
      "at": 5
     },
     {
      "sfx": "kenney/impact-mining",
-     "gain": 0.4,
+     "gain": 0.5,
      "reason": "grit under the block",
      "at": 5.02
     },
@@ -2759,18 +4601,62 @@
      "do": "expr",
      "expr": "neutral",
      "set": {
-      "brow": 0.55,
-      "lid": 0.3
+      "lid": 0.7
      },
-     "dur": 0.2,
-     "at": 5.6
+     "dur": 0.1,
+     "at": 5.15
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
      "dur": 6,
      "reason": "far desert wind under the scene",
-     "at": 6
+     "at": 5.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 6.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.7,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 6.2
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      -479,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 8.98
+    },
+    {
+     "who": "fore",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.98
     },
     {
      "who": "spud",
@@ -2804,23 +4690,28 @@
    "shot": {
     "pos": [
      6000,
-     0.55,
+     0.45,
      53
     ],
     "look": [
      6000,
-     18,
-     0
+     0.7,
+     40
     ],
     "fov": 58,
     "to": {
      "pos": [
       6000,
-      0.55,
-      54.2
+      5.5,
+      54
+     ],
+     "look": [
+      6000,
+      25,
+      0
      ]
     },
-    "dur": 4.4
+    "dur": 2.6
    },
    "do": [
     {
@@ -2828,7 +4719,7 @@
      "do": "look",
      "to": [
       0,
-      0.9
+      0.5
      ],
      "dur": 0.01,
      "blink": false,
@@ -2838,11 +4729,57 @@
      "macro": "say",
      "who": "spud",
      "line": "A hundred and forty-six metres.",
-     "tone": "calm",
-     "dur": 2.01,
+     "tone": "excited",
+     "dur": 2.03,
      "voice": "reaper",
      "caption": false,
      "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.95
+     ],
+     "dur": 1.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -12,
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      6000,
+      50.75
+     ],
+     "dur": 0.35,
+     "stride": 0.3,
+     "ease": "out",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 0.6,
+     "reason": "far desert wind under the scene",
+     "at": 2.6
     }
    ]
   },
@@ -2861,7 +4798,15 @@
      6,
      -12
     ],
-    "fov": 34
+    "fov": 34,
+    "to": {
+     "pos": [
+      7030,
+      78,
+      160
+     ]
+    },
+    "dur": 6.8
    },
    "do": [
     {
@@ -2969,6 +4914,13 @@
      "set": {
       "brow": 0.3
      },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
      "dur": 0.01,
      "at": 0
     },
@@ -3085,58 +5037,77 @@
    "to": 6,
    "see": [
     "s1-ship",
-    "workers1",
+    "g1-pyr",
     "spud"
    ],
-   "why": "the whole site: ship, pyramid, workers, Spud from behind"
+   "why": "the time-lapse: the pyramid climbs at each cut, a block lands each time"
   },
   {
-   "from": 8.767,
+   "from": 8.7,
    "to": 11,
    "see": [
     "spud.face",
     "camel5",
     "g5-giza"
    ],
-   "why": "the same frame today: the weathered pyramid, tourists, a camel chewing beside him"
+   "why": "the same frame today: weathered pyramid, tourists, the camel sniffing his leaf"
   },
   {
    "from": 11,
-   "to": 18,
+   "to": 12.3,
    "see": [
     "g6-giza",
     "spud",
     "f6-sky"
    ],
-   "why": "the three pyramids of today at noon, Spud among the tourists"
+   "why": "the three pyramids of today at noon, Spud's five fingers up"
   },
   {
-   "from": 18,
-   "to": 21.9,
+   "from": 12.3,
+   "to": 14.6,
+   "see": [
+    "n6-orion",
+    "n6-giza"
+   ],
+   "why": "tonight: Orion's Belt rises over the three pyramids"
+  },
+  {
+   "from": 14.6,
+   "to": 18,
+   "see": [
+    "spud.face",
+    "g6-giza"
+   ],
+   "why": "Spud to us, the pyramids behind him"
+  },
+  {
+   "from": 19.5,
+   "to": 21,
    "see": [
     "spud",
     "blk7"
    ],
-   "why": "Spud walks past a block taller than he is"
+   "why": "the crane down the wall finds Spud passing a block taller than he is"
   },
   {
-   "from": 21.9,
+   "from": 21,
    "to": 27,
    "see": [
     "spud.face",
     "blk7",
     "car7"
    ],
-   "why": "block, Spud and the car side by side; his palm flat on the stone"
+   "why": "the beams weigh car and block: the car flies up, the block barely moves; his palm on the stone"
   },
   {
    "from": 27,
    "to": 36,
    "see": [
     "spud.face",
-    "s9-block"
+    "s9-block",
+    "fore"
    ],
-   "why": "2560 BC: the same block comes down in the beam onto the same spot and lands"
+   "why": "2560 BC: the same block comes down, the foreman waves Spud off, it lands at 0:00"
   },
   {
    "from": 36,
@@ -3145,7 +5116,7 @@
     "spud",
     "g10-giza"
    ],
-   "why": "the stepped face rising over him to the top"
+   "why": "the camera climbs the stepped face from Spud to the top, 0 to 146 m"
   },
   {
    "from": 39.2,
@@ -3154,7 +5125,7 @@
     "g11-pyr",
     "s11-ship"
    ],
-   "why": "the finished white pyramid, the ship crossing over it"
+   "why": "the finished white pyramid, the camera circling, the ship crossing"
   },
   {
    "from": 46,
@@ -3546,5 +5517,5 @@
    "reason": "standing and walking inside the tunnel (pyramidentrance is a closed shell around him)"
   }
  ],
- "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-a/make-block-a.mjs. Block A of four (kit/BLOCKS.md); music false, one bed at the join."
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-a/make-block-a.mjs (v2). Block A of four (kit/BLOCKS.md); music = the pilot score's first 56 s (kit score(0))."
 }

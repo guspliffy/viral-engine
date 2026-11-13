@@ -4,8 +4,8 @@
 import { writeFileSync } from "node:fs";
 import { withSpeech } from "../../../../../engine/voice/speech.mjs";
 import { HOST_VOICE } from "../../kit/aa-kit.mjs";
-import { LINES, TONE } from "./lines.mjs";
-const sb = { beats: [{ at: 0, do: Object.values(LINES).map((line) => ({ who: "spud", macro: "say", line, voice: HOST_VOICE, tone: TONE })) }] };
+import { LINES, toneOf } from "./lines.mjs";
+const sb = { beats: [{ at: 0, do: Object.entries(LINES).map(([k, line]) => ({ who: "spud", macro: "say", line, voice: HOST_VOICE, tone: toneOf(k) })) }] };
 const out = withSpeech(sb, {});
 const keys = Object.keys(LINES), dur = {};
 out.beats[0].do.forEach((it, i) => { dur[keys[i]] = it.dur; console.log(keys[i].padEnd(4), String(it.dur).padEnd(6), it.line); });

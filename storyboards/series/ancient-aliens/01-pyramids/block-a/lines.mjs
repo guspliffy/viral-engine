@@ -1,4 +1,5 @@
 // Spud's lines in block A, word for word from STORY.md (two long lines split at their full stop, so a cut can sit there).
+// Tones (BLOCKS.md "How we explain" 6: deadpan, not flat): the doubt as a question, each clue's reveal excited.
 export const TONE = "calm";
 export const LINES = {
   l1: "One block. Every two minutes.",
@@ -12,3 +13,5 @@ export const LINES = {
   l7b: "For almost four thousand years, nothing on Earth stood taller.",
   l8: "But the heaviest stones... aren't out here.",
 };
+export const TONES = { l3: "question", l5a: "excited", l7a: "excited" };
+export const toneOf = (k) => TONES[k] ?? TONE;
