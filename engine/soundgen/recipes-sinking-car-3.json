@@ -1,0 +1,10 @@
+{
+  "_note": "You wake up mid EP02 sinking car, round 3 (Jonny 12 Nov 19:55 Berlin on draft 2): the water coming into the car 'should be more like a wave and not a flushing toilet' (ai/car-flooding gurgled like a flush). Same pipeline as recipes-sinking-car.json. First try's prompt 0 (car/lake wording, CLAP 0.02-0.10, bursty) and a 'boat hull sloshing' try (CLAP negative) were dropped; the storm-lake wording (prompt 1) ranks best, prompt 0 is a 'steady, continuous' variant of it.",
+  "sfx": [
+    {"id": "car-waves", "kind": "oneshot", "len": [4.0, 8.0], "duration": 10, "tags": ["water", "waves", "car", "slosh"],
+     "prompts": ["slow heavy waves surging and sloshing against metal, steady continuous swells, close, realistic recording, lake in a storm",
+                 "waves breaking and sloshing, heavy water surging in slow swells against metal, close, realistic recording, lake in a storm"],
+     "seeds": [931, 932, 933, 934], "gain": 0.55, "label": "lake waves surging and sloshing against and into a floating car"}
+  ],
+  "music": []
+}
