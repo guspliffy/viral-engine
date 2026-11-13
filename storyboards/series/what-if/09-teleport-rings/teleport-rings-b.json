@@ -1099,6 +1099,28 @@
      "at": 0.4
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0.4
+    },
+    {
      "do": "prop",
      "id": "dr0",
      "set": {
@@ -1106,6 +1128,20 @@
      },
      "dur": 0.35,
      "ease": "linear",
+     "at": 0.41
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
      "at": 0.41
     },
     {
@@ -1180,28 +1216,6 @@
    },
    "do": [
     {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       -0.02,
-       0.52,
-       0.3
-      ]
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
      "do": "prop",
      "id": "rbox",
      "set": {
@@ -1267,20 +1281,6 @@
      "dur": 4.59,
      "steps": 1,
      "ease": "inOut",
-     "at": 0.01
-    },
-    {
-     "who": "spud",
-     "do": "grab",
-     "prop": "rbox",
-     "hand": "R",
-     "grip": [
-      0,
-      -0.075,
-      0
-     ],
-     "dur": 0,
-     "pose": null,
      "at": 0.01
     },
     {

@@ -181,7 +181,7 @@ if (B) {
 // ================================================================= 01-02 THE EMPTY BOX (0-2.8): stake + clock at frame 0
 // Frame 0 (panel 01): the altar from in front, Chip left, Spud right with the box in his glove snapping open; Mash small
 // under the far arch, walking; the counter 20 top right; NO RINGS over the aisle.
-boxIn(O);
+boxIn(B ? 0.4 : 0);   // opener B: he pops in already holding the shut box
 Pk("props", O, "rbox", { lid: 0, rings: 0 });
 Pk("props", r3(O + 0.15), "rbox", { lid: 1 }, 0.12, "out");
 sfx(r3(O + 0.15), "ai/ring-box-snap", { gain: 0.8, reason: "the box snaps open: empty" });
