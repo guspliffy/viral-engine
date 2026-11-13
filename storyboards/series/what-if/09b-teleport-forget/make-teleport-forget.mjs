@@ -59,12 +59,12 @@ const ROPE_Y = -0.9;                                  // the rope's lowest point
 const ropeY = (z) => r3(ROPE_Y + 0.12 * ((z + 4.5) / 5) ** 2 * 5);   // a shallow sag either side of z -4.5 (stand-in until DESIGN 2's curve)
 const CHIP_GLOVE = [0, ropeY(-4.55), -4.55];          // Chip's L glove round the rope
 const SPUD_GLOVE = [0, ropeY(-5.15), -5.15];          // Spud's L glove round the rope
-const HANG = { chip: 0.86, spud: 1.12 };              // root under the glove (glove y - root y) for a straight hanging arm (layout)
-const CHIP_HANG = [0.0, -4.42], SPUD_HANG = [0.18, -5.12];   // Spud a little to the side, so his reach to the wrist passes beside Chip
+const HANG = { chip: 0.86, spud: 0.8 };   // spud higher (L elbow a little bent): his reach to the wrist passes over Chip, not through him (polish)              // root under the glove (glove y - root y) for a straight hanging arm (layout)
+const CHIP_HANG = [0.0, -4.42], SPUD_HANG = [-0.3, -5.12];   // on -x of the rope line: facing 60 his left side is +x, so the rope glove sits on his left and the right hand faces Chip   // Spud a little to the side, so his reach to the wrist passes beside Chip
 const LEDGE = { spud: [-0.75, 0.8], wedge: [0.8, 0.88] };   // panel 01: the two friends at the lip, backs to us
 const LIP = { spud: [0.2, 0.15], chip: [-0.75, 0.2] };          // DESIGN 1.5 SPUD_LIP (on the chunk), CHIP_LIP
 const PULLED = [-0.75, 0.75];                                  // where Wedge drags Chip back to
-const WEDGE_PULL = [-0.75, 1.08];                              // Wedge behind Chip, reaching for the hood
+const WEDGE_PULL = [-0.3, 1.05];   // behind Chip on Spud's side: a step from Spud, he looks straight through him (polish; straight behind, Chip hid him)                              // Wedge behind Chip, reaching for the hood
 const KNEEL3 = [0.55, 0.75];                                   // jump 3: Spud on his knees on the ledge
 const MEET = { chip: [-0.3, 0.7], wedge: [-0.95, 1.15] };
 const ROOM = [0, 0, -260];                                     // Mash's flat (zroom), far off the gorge
@@ -147,7 +147,7 @@ expr(T.j1 + 0.15, "wedge", "shocked", { open: 0.5, eye: 1.3 }, 0.08); look(T.j1 
 // he arrives hanging by his left glove, 0.5 m beyond Chip on the rope
 place(T.a1 - 0.03, "spud", SPUD_HANG, 60, r3(SPUD_GLOVE[1] - HANG.spud));
 arm(r3(T.a1 - 0.03), "spud", "L", { world: SPUD_GLOVE }, 0.01); grip(T.a1 - 0.03, "spud", "L", "fist", 0.01);
-arm(r3(T.a1 - 0.03), "spud", "R", { o: [0.32, 0.3, -0.05] }, 0.01);
+arm(r3(T.a1 - 0.03), "spud", "R", "rest", 0.01);   // the free arm at his side until the reach   // the free arm down at his side until the reach (it pointed into Chip)
 expr(T.a1 - 0.03, "spud", "focused", { brow: 1, open: 0.2 }, 0.01); look(T.a1 - 0.03, "spud", [0.6, 0.0], 0.01);
 jumpIn(T.a1, "spud", [0, r3(SPUD_GLOVE[1] - 0.5), SPUD_HANG[1]]);
 Pk("gorge", T.a1, "rope", { sway: 0.06 }, 0.25, "out"); Pk("gorge", r3(T.a1 + 0.25), "rope", { sway: 0 }, 0.8, "inOut");
@@ -178,7 +178,7 @@ see(T.photo, T.rope, ["mphone"], "the photo of the four friends on Mash's phone:
 // ================================================================= 07 THE WRIST (8.4-10.0) + 08 THE SNAP (10.0-10.8)
 // Spud hangs by his left glove and grabs Chip's left wrist with his right; another strand pops
 const WRIST = [0, r3(CHIP_GLOVE[1] - 0.14), r3(CHIP_GLOVE[2] - 0.04)];
-arm(T.grab - 0.25, "spud", "R", { world: [0.08, r3(WRIST[1] - 0.05), r3(WRIST[2] - 0.08)] }, 0.25, "out");
+arm(T.grab - 0.25, "spud", "R", { world: [-0.08, r3(WRIST[1] - 0.05), r3(WRIST[2] - 0.08)] }, 0.25, "out");
 arm(T.grab, "spud", "R", { world: WRIST }, 0.12, "in"); grip(T.grab + 0.05, "spud", "R", "fist", 0.08);
 look(T.rope, "spud", [0.6, 0.15], 0.01); look(T.rope, "chip", [-0.7, 0.15], 0.01);
 expr(T.grab + 0.1, "chip", "terrified", { open: 0.2, brow: 0.6 }, 0.15);
@@ -189,7 +189,7 @@ expr(T.pop2 + 0.05, "spud", "terrified", { open: 0.3 }, 0.08); look(T.pop2 + 0.0
 const SWING = [[8.42, 0.15], [8.8, -0.11], [9.18, 0.09], [9.42, 0.17], [9.78, -0.12], [10.0, 0.06]];
 for (const [who, at] of [["chip", CHIP_HANG], ["spud", SPUD_HANG]]) {
   let t0 = T.rope;
-  for (const [t1, dx] of SWING) { A(r3(t0), who, "move", { to: [r3(at[0] + (who === "spud" ? dx * 0.8 : dx)), at[1]], dur: r3(t1 - t0), steps: 3.2 }); t0 = t1; }
+  for (const [t1, dx] of SWING) { A(r3(t0), who, "move", { to: [r3(at[0] + (who === "spud" ? 0.45 * dx - 0.02 : dx)), at[1]], dur: r3(t1 - t0), steps: 3.2 }); t0 = t1; }
 }
 expr(T.rope, "spud", "terrified", { open: 0.35, brow: 0.9 }, 0.01); expr(T.rope, "chip", "terrified", { open: 0.75, eye: 1.4 }, 0.01);
 for (let t = T.rope; t < T.snapC; t = r3(t + 0.3)) A(r3(t), "chip", "squash", { amount: 0.03, dur: 0.15 });   // sobbing breaths
@@ -231,13 +231,14 @@ expr(T.lip, "chip", "terrified", { open: 0.6 }, 0.01); look(T.lip, "chip", [0, -
 expr(T.lip, "spud", "terrified", { open: 0.4 }, 0.01); look(T.lip, "spud", [0.4, -0.4], 0.01);
 A(r3(T.lip + 0.3), "spud", "crouch", { to: 0.15, dur: 0.4 });
 // Wedge runs in from where he stood, behind Chip, both fists to the hood on Chip's back
-place(T.lip - 0.02, "wedge", LEDGE.wedge, yawTo(LEDGE.wedge, WEDGE_PULL), 0);
-for (const side of ["R", "L"]) { arm(T.lip - 0.02, "wedge", side, "rest", 0.01); grip(T.lip - 0.02, "wedge", side, "open", 0.01); }
+const WEDGE_LIP = [-0.65, 1.85];   // he comes in from Chip's side, never past Spud   // a step further back than at the start (the cut hides it): his run passes Spud a body clear
+place(T.lip - 0.02, "wedge", WEDGE_LIP, yawTo(WEDGE_LIP, WEDGE_PULL), 0);
+for (const side of ["R", "L"]) { arm(T.lip - 0.02, "wedge", side, { o: [0.06, 0.3, 0.2] }, 0.01); grip(T.lip - 0.02, "wedge", side, "open", 0.01); }   // running in with both arms out in front, reaching for Chip
 expr(T.lip, "wedge", "terrified", { open: 0.4, brow: 0.9 }, 0.01); look(T.lip, "wedge", [0.0, -0.4], 0.01);
 A(r3(T.lip + 0.05), "wedge", "move", { to: WEDGE_PULL, dur: 0.65, ease: "out", stride: 1.2 });
-A(r3(T.lip + 0.6), "wedge", "turn", { to: 180, dur: 0.2 });
-const HOOD0 = [LIP.chip[0], 0.45, r3(LIP.chip[1] + 0.36)], HOOD1 = [PULLED[0], 0.45, r3(PULLED[1] + 0.36)];   // the rolled hood on his back (Chip 0.53 tall)
-const fists = (t, at, dur, ease) => { arm(t, "wedge", "R", { world: [r3(at[0] - 0.07), at[1], at[2]] }, dur, ease); arm(t, "wedge", "L", { world: [r3(at[0] + 0.07), at[1], at[2]] }, dur, ease); };
+A(r3(T.lip + 0.3), "wedge", "turn", { to: yawTo(WEDGE_PULL, [LIP.chip[0], r3(LIP.chip[1] + 0.3)]), dur: 0.25 });   // turned before the fists come up (they went through him mid-turn)
+const HOOD0 = [LIP.chip[0], 0.5, r3(LIP.chip[1] + 0.45)], HOOD1 = [PULLED[0], 0.5, r3(PULLED[1] + 0.45)];   // the rolled hood on his back (Chip 0.53 tall)
+const fists = (t, at, dur, ease) => { arm(t, "wedge", "R", { world: [r3(at[0] + 0.07), at[1], at[2]] }, dur, ease); arm(t, "wedge", "L", { world: [r3(at[0] - 0.07), at[1], at[2]] }, dur, ease); };   // facing -x from Spud's side, his right fist is the +x one
 fists(T.hood - 0.3, [HOOD0[0], r3(HOOD0[1] + 0.1), r3(HOOD0[2] + 0.12)], 0.3, "out");
 fists(T.hood, HOOD0, 0.1, "in");
 grip(T.hood + 0.08, "wedge", "R", "fist"); grip(T.hood + 0.08, "wedge", "L", "fist");
@@ -245,11 +246,12 @@ sfx(r3(T.hood + 0.1), "crinkle", { gain: 0.3, reason: "Wedge's fists closing on 
 // the pull: Chip back onto the rock; Wedge's fists stay on the hood (both on the same ease and clock)
 const PULL = 0.8, P0 = r3(T.hood + 0.2);
 A(P0, "chip", "move", { to: PULLED, dur: PULL, steps: 0, ease: "inOut" }); A(P0, "chip", "pitch", { to: 0, dur: PULL, ease: "inOut" });
-A(P0, "wedge", "move", { to: [PULLED[0], r3(PULLED[1] + 0.7)], dur: PULL, ease: "inOut", stride: 0.6 });
+A(P0, "wedge", "move", { to: [WEDGE_PULL[0], r3(WEDGE_PULL[1] + PULLED[1] - LIP.chip[1])], dur: PULL, ease: "inOut", stride: 0.6 });
 fists(P0, HOOD1, PULL, "inOut");
-for (const side of ["R", "L"]) arm(r3(P0 + PULL + 0.15), "wedge", side, { o: [0.12, 0.42, 0.22] }, 0.35);   // he lets go, gloves on Chip's shoulders
+for (const side of ["R", "L"]) arm(r3(P0 + PULL + 0.15), "wedge", side, "rest", 0.4);   // he lets go
 grip(P0 + PULL + 0.1, "wedge", "R", "open"); grip(P0 + PULL + 0.1, "wedge", "L", "open");
 // his eyes pass over Spud like over a stranger: nothing in his face changes
+A(r3(P0 + PULL + 0.5), "wedge", "turn", { to: yawTo([WEDGE_PULL[0], r3(WEDGE_PULL[1] + PULLED[1] - LIP.chip[1])], LIP.spud), dur: 0.35 });   // he turns to the edge, to Spud, and sees no one he knows
 look(r3(P0 + PULL + 0.2), "wedge", [0.8, -0.2], 0.35); expr(r3(P0 + PULL + 0.2), "wedge", "deadpan", { lid: 0.1 }, 0.3);
 look(r3(P0 + PULL + 0.8), "wedge", [-0.2, -0.4], 0.3);
 arm(r3(P0 + PULL + 0.2), "spud", "L", { world: [-0.15, 0.62, 0.55] }, 0.3, "out"); grip(P0 + PULL + 0.2, "spud", "L", "open");   // Spud reaching for Wedge
@@ -262,9 +264,9 @@ Pk("gorge", T.lipbreak, "gorge", { lipbreak: 1 }, LB, "linear"); Pk("gorge", T.l
 sfx(r3(T.lipbreak), "crumble", { gain: 0.6, loud: true, reason: "the rock lip breaking under him" });
 const HANG_EDGE = [0.2, 0.0], EDGE_HANG_Y = -1.0, EDGE_R = [-0.12, 0.0, 0.25], EDGE_L = [0.52, 0.0, 0.25];
 A(r3(T.lipbreak + 0.3), "spud", "crouch", { to: 0, dur: 0.12 });
-A(r3(T.lipbreak + 0.25), "spud", "turn", { to: 0, dur: 0.18 });
+A(r3(T.lipbreak + 0.05), "spud", "turn", { to: 0, dur: 0.5 });   // slower: the palms turned over in two frames
 A(r3(T.lipbreak + 0.3), "spud", "move", { to: HANG_EDGE, y: EDGE_HANG_Y, dur: 0.35, steps: 0, ease: "in" });
-arm(T.lipbreak + 0.45, "spud", "R", { world: EDGE_R }, 0.25, "out"); arm(T.lipbreak + 0.45, "spud", "L", { world: EDGE_L }, 0.25, "out");
+arm(T.lipbreak + 0.25, "spud", "R", { world: EDGE_R }, 0.45, "inOut"); arm(T.lipbreak + 0.25, "spud", "L", { world: EDGE_L }, 0.45, "inOut");   // with the turn, so the palms don't flip
 grip(T.lipbreak + 0.6, "spud", "R", "fist"); grip(T.lipbreak + 0.6, "spud", "L", "fist");
 expr(T.lipbreak + 0.3, "spud", "terrified", { open: 0.7, eye: 1.4 }, 0.06); look(T.lipbreak + 0.4, "spud", [0, 0.9], 0.2);
 // the two step back from the edge: Chip shaken, Wedge holding him
@@ -334,12 +336,12 @@ const SH = {
   rope:  { pos: [3.3, -0.7, -3.7], look: [0, -1.45, -4.8], fov: 50, to: { pos: [2.5, -0.95, -4.1], look: [0, -1.4, -4.8], fov: 46 }, dur: 1.6, ease: "linear" },   // board 07: side on, the drop below
   snap:  { pos: [1.05, -0.6, -4.72], look: [0, -0.77, -4.44], fov: 22 },
   fall:  { pos: [3.0, 0.8, -4.6], look: [0, -12, -4.6], fov: 60 },   // board 09: straight down, the walls left and right
-  lip:   { pos: [-1.3, 0.95, -1.7], look: [-0.3, 0.5, 0.6], fov: 52 },
+  lip:   { pos: [-0.2, 1.0, -2.4], look: [-0.45, 0.5, 0.8], fov: 60 },   // all three faces: Spud left, Chip, Wedge beside him
   slip:  { pos: [0.2, 1.15, 1.35], look: [0.2, -0.75, 0.0], fov: 46 },
   alone: { pos: [0.3, 1.0, -1.2], look: [0.2, -6, -0.45], fov: 60, to: { pos: [0.3, -15, -1.2], look: [0.2, -28, -0.45], fov: 60 }, dur: 2.15, ease: "in" },   // Jonny: he must really fall; the camera chases him down corridor B
   a3:    { pos: [0.1, 0.95, -1.5], look: [0.1, 0.45, 0.8], fov: 52 },
   meet:  { pos: [-0.1, 0.95, -1.4], look: [0.0, 0.55, 0.75], fov: 54 },
-  close: { pos: [-0.75, 0.8, -0.85], look: [0.55, 0.62, 0.75], fov: 34 },
+  close: { pos: [-0.75, 0.8, -0.85], look: [0.55, 0.74, 0.75], fov: 36 },   // Spud low in the frame: "Would you still jump?" sits above him
 };
 const CUTS = [
   ["01 Chip on the rope", 0, SH.hook, "hook"],
@@ -365,10 +367,10 @@ const NARR = !VO ? [] : [
   [0.15, "Your best friend is falling.", 2.3],
   [2.75, "But you can teleport.", 1.5],
   [4.8, "But there's a catch.", 1.4],
-  [6.45, "Every jump, someone forgets you.", 2.2],
+  [T.photo, "Every jump, someone forgets you.", 2.2, 330],   // on the phone's dark top, off the photo   // with the phone shot: a caption ends with its beat (compile.mjs), and he fades while it is said
   [T.still, "Would you still jump?", 1.4],
 ];
-for (const [t, line, dur] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: SUBY, gain: NG });
+for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 
 const beats = c.beats(CUTS, END);
 
@@ -378,7 +380,7 @@ const allowClip = [
   { who: "spud", with: "chip", from: T.grab, to: T.j2, reason: "his glove round Chip's wrist" },
   { who: "wedge", with: "chip", from: T.hood, to: r3(P0 + PULL + 0.1), reason: "his fists on Chip's hood" },
   ...["pwedge", "pspud", "pchip", "pmash"].map((who) => ({ who, from: 0, to: END, reason: "the photo's four, arm to arm (DESIGN 6); only the snapshot camera sees them" })),
-  { who: "spud", with: "gorge", from: T.lipbreak, to: T.off, reason: "his gloves on the broken lip" },
+  { who: "spud", with: "gorge", from: T.lipbreak, to: r3(T.off + 0.1), reason: "his gloves on the broken lip, scraping off it as he lets go" },
   { who: "spud", from: r3(T.snap + 1.2), to: r3(T.j2 + 0.1), checks: ["rig-jump"], reason: "free fall: 10-15 m/s at the end of the drop is 35-50 cm a frame" },
   { who: "chip", from: r3(T.snap + 1.2), to: r3(T.j2 + 0.1), checks: ["rig-jump"], reason: "free fall: 10-15 m/s at the end of the drop is 35-50 cm a frame" },
   { who: "spud", from: r3(T.off + 1.0), to: r3(T.j3 + 0.1), checks: ["rig-jump"], reason: "free fall alone: 12-16 m/s at the end of the drop" },
