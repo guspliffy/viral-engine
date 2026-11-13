@@ -82,7 +82,7 @@ const S = {
   p01: { spud: [-0.4, 2.6, 180, SY], chip: [-0.4, 0.75, 180, SY] },               // Spud propped on his elbows, feet to -z; Chip in front of him, dragged toward -z
   p03: { spud: [-0.4, 2.6, 180, SY], chip: [-0.4, 0.45, 180, SY] },
   p04: { spud: [-1.0, 2.0, 0, SY], chip: [0.15, 1.4, 0, SY] },
-  p05: { spud: [-4.15, DOORZ - 0.55, -90, PY], chip: [-3.35, DOORZ + 0.85, -100, PY] },
+  p05: { spud: [-3.6, DOORZ - 0.95, -60, PY], chip: [-2.95, DOORZ + 0.85, -100, PY] },
   p06: { spud: [-0.15, -400 - 1.35, 0, 0], chip: [1.5, -400 - 0.95, -90, 0] },  // Spud's back against the door (back wall), Chip drags the cabinet
   p07: { spud: [sx(0.75), -0.84, 180, 0.5], chip: [sx(0.45), 0.25, 180, 0.0] },   // Spud on the 3rd step, Chip at the foot
   p08: { spud: [rx(-5.4), -0.25, 90, 0], chip: [rx(-5.6), 0.65, 90, 0] },
@@ -145,10 +145,12 @@ const props = [
   { id: "front", kind: "zhorde", x: RF[0], y: -12, z: 11.5, n: 400, box: [44, 7.0], seed: 9, avoid: [[9.0, 0, 4.4, 2.0]], gx: 0, gz: -4, adv: 0, up: 0, reach: 0 },
   { id: "kz1", kind: "zshot", x: FAR[0] + 16, y: 0, z: 40, rot: 90, n: 1, seed: 31, stop: [0.4], adv: 0, d1: 0 },              // P09-P10 in the kiosk door
   { id: "kz2", kind: "zshot", x: FAR[0] + 20, y: 0, z: 40, rot: 90, n: 1, seed: 33, adv: 0, d1: 0 },                         // P10 the next one out
+  { id: "lids", kind: "eyelids", x: 0, y: 0, z: 0, open: 0.82, cam: { pos: CAM.POV.pos, look: CAM.POV.look, fov: CAM.POV.fov } },   // P01 his eyelids
   // the waiting room (P14)
   { id: "wait", kind: "zwait", x: WT[0], y: 0, z: WT[1], smoke: 0, watch: 0 },
 ];
 const STAGED = {
+  lids: "a first-person overlay",
   gunR: "lying on the asphalt, then in Spud's hand", grabber: "a zombie standing on the street", inside: "a zombie standing in the porch",
   land1: "a zombie standing on the half landing", land2: "a zombie standing on the half landing", kz1: "a zombie in the roof door", kz2: "a zombie in the roof door",
   hall: "the hallway set, built away from the street", stairs: "the stairwell set, built away from the street", roof: "the roofs set, built away from the street", wait: "the waiting room set, built away from the street",
@@ -167,7 +169,8 @@ const letGo = (t, who, id) => A(t, who, "release", { prop: id, to: [FAR[0], 0, 6
 const stand = (t, who, [x, z, yaw = 0, y = 0]) => {
   const t0 = r3(t - 0.02);
   A(t0, who, "pitch", { to: 0, dur: 0.01, ease: "linear" }); A(t0, who, "lean", { to: 0, dur: 0.01 }); A(t0, who, "crouch", { to: 0, dur: 0.01 });
-  A(t0, who, "move", { to: [x, z], y, dur: 0.01, steps: 0, ease: "linear" }); A(t0, who, "turn", { to: r3(yaw), dur: 0.01, ease: "linear" });
+  A(t0, who, "move", { to: [x, z], y, dur: t0 === 0 ? 0 : 0.01, steps: 0, ease: "linear" }); A(t0, who, "turn", { to: r3(yaw), dur: 0.01, ease: "linear" });
+  // (the move is dur 0 at the clip start: frame 0 already on the street; a 0.01 move from y 0 hid the friend for 3 frames)
   both(t0, who, "rest", 0.01); look(t0, who, [0, 0], 0.01);
 };
 const scene = (t, places) => Object.entries(places).forEach(([w, p]) => stand(t, w, p));
@@ -177,11 +180,26 @@ const narr = (t, line, key, chunks, y = LINES.pos, tail = 0.25) => {
   chunks.forEach((text, i) => { const b = i === chunks.length - 1 ? t + dur + tail : a + (dur * text.length) / n; c.cap(r3(a), r3(b), text, Array.isArray(y) ? y[i] : y, false, SUB_STYLE); a = b; });
 };
 // a revolver shot from Spud's right hand: the flash, the sound, the recoil, a small shake
-const GUNARM = { o: [0.12, 0.62, 0.6] };
-const shoot = (t, who = "spud") => {
+const GUNARM = { o: [0.12, 0.62, 0.6] }, LOW = { o: [0.2, 0.3, 0.32] };
+// Jonny 13 Nov on draft 1: "the gun hold needs work". A grip-held prop keeps the world turn it had at the grab and turns with the
+// hand after (engine/page/attach.js seat), so every scene takes the revolver afresh in the AIM pose with the barrel level along
+// his facing (tip turns it up for the shot from the ground), then the arm goes to the scene's pose: the gun stays in line with
+// the forearm. All of it inside the last frame before the cut (t is a cut on the frame grid).
+const GUN_TIP = Number(process.env.GUN_TIP ?? 0);
+// The gun is first put where the aiming hand will be (a grab of a prop parked 200 m away turned him round on draft 2).
+const regrab = (t, [x, z, y], yaw, pose = LOW, tip = 0) => {
+  const f = [Math.sin((yaw * Math.PI) / 180), Math.cos((yaw * Math.PI) / 180)];
+  // after the scene's own pose (stand at t - 0.02, 0.01 long), so the grab measures his turned hand (draft 2 turned him round)
+  arm(r3(t - 0.009), "spud", "R", GUNARM, 0.001);
+  letGo(r3(t - 0.008), "spud", "gunR");
+  prop(r3(t - 0.007), "gunR", { x: r3(x + f[0] * 0.55), y: r3(y + 0.65), z: r3(z + f[1] * 0.55), rot: yaw, tip }, 0.001, "linear");
+  A(r3(t - 0.005), "spud", "grab", { prop: "gunR", hand: "R", grip: "hand", dur: 0, pose: null });
+  if (pose !== GUNARM) arm(r3(t - 0.004), "spud", "R", pose, 0.003);
+};
+const shoot = (t, who = "spud", aim = GUNARM) => {
   prop(t, "gunR", { flash: 1 }, 0.02, "linear"); prop(r3(t + 0.07), "gunR", { flash: 0 }, 0.03, "linear");
   sfx(t, "ai/revolver-shot", { gain: 1, loud: true, reason: "the revolver fires" });
-  arm(t, who, "R", { o: [0.12, 0.74, 0.52] }, 0.05, "out"); arm(r3(t + 0.08), who, "R", GUNARM, 0.18);
+  arm(t, who, "R", { o: [aim.o[0], r3(aim.o[1] + 0.12), r3(aim.o[2] - 0.08)] }, 0.05, "out"); arm(r3(t + 0.08), who, "R", aim, 0.18);
   c.at(t, { fx: "shake", dur: 0.12, amp: 0.02 });
 };
 const drop = (t, id) => { prop(r3(t + 0.04), id, { d1: 1 }, 0.85, "in"); sfx(r3(t + 0.8), "thud", { gain: 0.45, reason: "the zombie falls" }); };
@@ -191,6 +209,11 @@ COUNT.forEach(([t, n], i) => { const b = i + 1 < COUNT.length ? COUNT[i + 1][0] 
 
 // ================================================================ P01 0-2.75: POV on the asphalt; the friend dragged by the hood
 A(0, "spud", "pov", { on: true }); A(T.face, "spud", "pov", { on: false });
+// three blinks through his own eyelids (props-wakeup-fx.js eyelids, needs the still POV camera); frame 0 already open and
+// bright (the plane crash lost viewers on a dark first frame), open fully before the cut
+prop(0, "lids", { open: 0.82 }, 0, "linear");
+[0.45, 1.25, 2.0].forEach((b) => { prop(b, "lids", { open: 0.04 }, 0.08, "in"); prop(r3(b + 0.15), "lids", { open: 0.82 }, 0.16, "out"); });   // shut for two frames
+prop(2.4, "lids", { open: 1 }, 0.3, "out");
 scene(0.02, S.p01);
 A(0, "spud", "pitch", { to: -58, dur: 0 }); A(0, "spud", "move", { to: [S.p01.spud[0], S.p01.spud[1]], y: r3(SY - 0.18), dur: 0, steps: 0 });   // propped on his elbows
 both(0, "spud", { o: [0.3, 0.05, -0.2] }, 0);
@@ -211,25 +234,25 @@ see(0, T.face, ["chip.face", "grabber", "gunR"], "P01 frame 0, first person on t
 expr(r3(T.face - 0.02), "spud", "terrified", { open: 0.5 }, 0.01); look(r3(T.face - 0.01), "spud", [0, 0.25], 0.01);
 A(r3(T.face - 0.02), "spud", "droop", { to: 0.9, dur: 0.01 });     // the sprout flat
 arm(r3(T.grip - 0.3), "spud", "R", { o: [0.42, 0.05, 0.15] }, 0.3);
-hold(T.grip, "spud", "gunR", "R", "hand");
+hold(T.grip, "spud", "gunR", "R", "hand"); A(r3(T.grip - 0.12), "spud", "grip", { side: "R", shape: "hold", dur: 0.12 });
 expr(r3(T.grip + 0.2), "spud", "angry", { open: 0.2, browL: 0.5, browR: 0.5 });
 narr(2.85, "You wake up mid zombie apocalypse.", "wake", ["You wake up", "mid zombie apocalypse."], 330);   // above his face in the close-up
 see(T.face, T.fire, ["spud.face", "gunR"], "P02: his eyes snap open, his hand closes on the revolver");
 
 // ================================================================ P03 5.25-7.9: he fires from the ground (5)
-arm(r3(T.fire - 0.02), "spud", "R", GUNARM, 0.01);
+A(r3(T.fire - 0.032), "spud", "pitch", { to: -30, dur: 0.003 }); regrab(T.fire, [S.p01.spud[0], S.p01.spud[1], SY], 180, GUNARM, GUN_TIP);
 shoot(T.shot1); drop(T.shot1, "grabber");
 A(r3(T.shot1 + 0.1), "chip", "lean", { to: 10, dur: 0.2 });
 A(r3(T.shot1 + 0.2), "chip", "move", { to: [0.45, 1.7], y: SY, dur: 0.6, steps: 2, ease: "out" });
 narr(6.0, "Only shoot what's in reach.", "reach", ["Only shoot", "what's in reach."]);
 // Chip pulls him up by the left hand
-arm(T.pull, "chip", "R", { o: [0.15, 0.4, 0.3] }, 0.2); arm(r3(T.pull - 0.2), "spud", "R", { o: [0.25, 0.35, 0.2] }, 0.25);   // the gun comes down, the friend takes his free hand
+arm(T.pull, "chip", "R", { o: [0.15, 0.4, 0.3] }, 0.2); arm(r3(T.pull - 0.2), "spud", "R", { o: [0.24, 0.12, 0.22] }, 0.25);   // the gun comes down (muzzle to the ground, away from the friend)
 A(r3(T.pull + 0.15), "spud", "pitch", { to: 0, dur: 0.5, ease: "out" }); A(r3(T.pull + 0.15), "spud", "move", { to: [S.p01.spud[0], 2.45], y: SY, dur: 0.5, ease: "out" });
 see(T.fire, T.run, ["spud.face", "grabber", "chip.face"], "P03: he fires up from the ground; the zombie lets go and drops; the friend scrambles to him");
 
 // ================================================================ P04 7.9-12.6: they run; every street turns. The seed: two roofs.
 scene(T.run, S.p04);
-hold(r3(T.run + 0.01), "spud", "gunR", "R", "hand"); arm(r3(T.run - 0.02), "spud", "R", { o: [0.2, 0.4, 0.3] }, 0.01);
+regrab(T.run, [S.p04.spud[0], S.p04.spud[1], SY], 0);
 ["spud", "chip"].forEach((w) => expr(r3(T.run - 0.02), w, "terrified", { open: 0.35 }, 0.01));
 A(T.run, "spud", "move", { to: [-1.3, 6.4], y: SY, dur: r3(T.seed - T.run), steps: 7, ease: "linear" });
 A(T.run, "chip", "move", { to: [-0.15, 5.9], y: SY, dur: r3(T.seed - T.run), steps: 8, ease: "linear" });
@@ -250,7 +273,7 @@ arm(T.back, "chip", "R", "rest", 0.25); A(T.back, "spud", "turn", { to: -60, dur
 
 // ================================================================ P05 12.6-15.4: the door; one inside grabs his sleeve; shove, shot (4)
 scene(T.door, S.p05);
-hold(r3(T.door + 0.01), "spud", "gunR", "R", "hand");
+regrab(T.door, [S.p05.spud[0], S.p05.spud[1], PY], -60);
 putProp(T.door, "inside", { x: -4.55, y: PY, z: DOORZ, rot: 90 });
 putProp(T.door, "sdoor", { open: 0 });
 arm(r3(T.door - 0.02), "spud", "L", { o: [0.25, 0.55, 0.45] }, 0.01);
@@ -261,17 +284,18 @@ sfx(r3(T.door + 0.35), "ai/zombie-groan", { gain: 1, loud: true, reason: "the on
 expr(r3(T.door + 0.4), "chip", "terrified", { open: 0.6 }); A(r3(T.door + 0.5), "chip", "lean", { to: -12, dur: 0.15 });
 arm(r3(T.door + 0.45), "chip", "R", { o: [0.35, 0.45, 0.4] }, 0.12);    // his sleeve caught
 arm(T.shove, "spud", "L", { o: [0.15, 0.6, 0.7] }, 0.12, "out");          // the shove
-prop(T.shove, "inside", { adv: 0.25 }, 0.2, "out");
+prop(T.shove, "inside", { adv: 0 }, 0.2, "out");
 arm(r3(T.shove + 0.2), "spud", "L", "rest", 0.3);
-arm(r3(T.shot2 - 0.15), "spud", "R", GUNARM, 0.12);
-shoot(T.shot2); drop(T.shot2, "inside");
+const SHORT = { o: [0.12, 0.62, 0.42] };
+arm(r3(T.shot2 - 0.15), "spud", "R", SHORT, 0.12);
+shoot(T.shot2, "spud", SHORT); drop(T.shot2, "inside");
 A(r3(T.shot2 + 0.2), "chip", "lean", { to: 0, dur: 0.3 });
 see(T.door, T.hall, ["sdoor", "inside", "spud.face", "chip.face"], "P05: the door: one inside lunges and grabs the friend's sleeve; shoved off, shot");
 
 // ================================================================ P06 15.4-18.6: inside; the door shut, the cabinet against it
 scene(T.hall, S.p06);
-letGo(r3(T.hall - 0.02), "spud", "gunR"); putProp(T.hall, "gunR", { x: S.p06.spud[0] + 0.3, y: 0.7, z: S.p06.spud[1] + 0.25, rot: 0, tip: 0 }); hold(r3(T.hall + 0.01), "spud", "gunR", "R", "hand");
-arm(r3(T.hall - 0.02), "spud", "R", { o: [0.25, 0.3, 0.2] }, 0.01); arm(r3(T.hall - 0.02), "spud", "L", { o: [0.35, 0.35, -0.2] }, 0.01);   // his back against the door
+regrab(T.hall, [S.p06.spud[0], S.p06.spud[1], 0], 0, { o: [0.25, 0.3, 0.2] });
+arm(r3(T.hall - 0.02), "spud", "L", { o: [0.35, 0.35, -0.2] }, 0.01);   // his back against the door
 A(r3(T.hall - 0.02), "spud", "lean", { to: -6, dur: 0.01 });
 sfx(T.hall, "door-slam", { gain: 0.9, loud: true, reason: "the door slammed shut behind them" });
 prop(T.hall, "hdoor", { bulge: 1 }, 0.1, "out"); prop(r3(T.hall + 0.1), "hdoor", { bulge: 0 }, 0.25);
@@ -289,8 +313,7 @@ see(T.hall, T.stairs, ["hdoor", "spud.face", "chip", "cab"], "P06: inside, his b
 
 // ================================================================ P07 18.6-23.4: the stairwell. Go up. (3, 2) the door below gives way (1)
 scene(T.stairs, S.p07);
-letGo(r3(T.stairs - 0.02), "spud", "gunR"); putProp(T.stairs, "gunR", { x: S.p07.spud[0], y: 1.2, z: S.p07.spud[1] - 0.5, rot: 180, tip: 0 }); hold(r3(T.stairs + 0.01), "spud", "gunR", "R", "hand");
-arm(r3(T.stairs - 0.02), "spud", "R", { o: [0.12, 0.72, 0.6] }, 0.01);
+regrab(T.stairs, [S.p07.spud[0], S.p07.spud[1], 0.5], 180, GUNARM);
 ["spud", "chip"].forEach((w) => expr(r3(T.stairs - 0.02), w, "terrified", { open: 0.3 }, 0.01));
 look(r3(T.stairs - 0.01), "spud", [0, 0.4], 0.01);
 A(T.stairs, "chip", "move", { to: [sx(0.45), -0.28], y: 0.17, dur: 0.6, steps: 2, ease: "linear" });   // up onto the first step behind him
@@ -316,8 +339,7 @@ see(T.below, T.roof, ["low", "sdoor2"], "P07 b: below, the street door gives way
 
 // ================================================================ P08 23.4-26.9: the roof. No way down.
 scene(T.roof, S.p08);
-letGo(r3(T.roof - 0.02), "spud", "gunR"); putProp(T.roof, "gunR", { x: rx(-5.0), y: 0.65, z: -0.25, rot: 90, tip: 0 }); hold(r3(T.roof + 0.01), "spud", "gunR", "R", "hand");
-arm(r3(T.roof - 0.02), "spud", "R", { o: [0.2, 0.4, 0.3] }, 0.01);
+regrab(T.roof, [rx(-6.6), -0.25, 0], 90);
 putProp(T.roof, "roof", { open: 0 });
 prop(T.roof, "roof", { open: 1 }, 0.13, "out"); prop(r3(T.roof + 0.13), "roof", { open: 0.9 }, 0.1); prop(r3(T.roof + 0.23), "roof", { open: 1 }, 0.15);
 sfx(T.roof, "door-slam", { gain: 1, loud: true, reason: "the steel roof door bursts open against the wall" });
@@ -337,8 +359,7 @@ see(T.streets, T.choice, ["front", "alley"], "P08 c: zombies in every street bel
 
 // ================================================================ P09 26.9-30.3: one bullet. What do you do?
 scene(T.choice, S.p09);
-hold(r3(T.choice + 0.01), "spud", "gunR", "R", "hand"); putProp(T.choice, "gunR", { x: rx(-3.35), y: 0.62, z: -0.15, rot: -95, tip: 0 });
-arm(r3(T.choice - 0.02), "spud", "R", { o: [0.15, 0.5, 0.4] }, 0.01);          // half raised
+regrab(T.choice, [S.p09.spud[0], S.p09.spud[1], 0], S.p09.spud[2], { o: [0.15, 0.45, 0.4] });          // half raised
 both(r3(T.choice - 0.02), "chip", { o: [0.25, 0.45, 0.25] }, 0.01);
 putProp(T.choice, "kz1", { x: rx(-6.6), y: 0, z: 0, adv: 0 }); putProp(T.choice, "roof", { behind: 0.3 });
 prop(r3(T.choice + 0.2), "kz1", { adv: 0.4 }, 2.4, "linear");
@@ -351,7 +372,7 @@ vote(c, 28.0, 2.0, "", [["1", "SHOOT"], ["2", "JUMP"]], { y: 300 });
 see(T.choice, T.shot6, ["spud.face", "kz1", "roof"], "P09: between the roof door, where one steps out, and the gap: one bullet");
 
 // ================================================================ P10 30.3-32.2: he shoots (0); three more push out
-arm(r3(T.shot6 - 0.02), "spud", "R", GUNARM, 0.01); A(r3(T.shot6 - 0.02), "spud", "turn", { to: -90, dur: 0.01 }); look(r3(T.shot6 - 0.01), "spud", [0, 0], 0.01);
+A(r3(T.shot6 - 0.031), "spud", "turn", { to: -90, dur: 0.003 }); regrab(T.shot6, [S.p09.spud[0], S.p09.spud[1], 0], -90, GUNARM); look(r3(T.shot6 - 0.01), "spud", [0, 0], 0.01);
 shoot(r3(T.shot6 + 0.15)); drop(r3(T.shot6 + 0.15), "kz1");
 prop(r3(T.shot6 + 0.4), "roof", { behind: 1 }, 0.8, "out");
 putProp(r3(T.shot6 + 0.5), "kz2", { x: rx(-6.9), y: 0, z: 0.1, adv: 0 }); prop(r3(T.shot6 + 0.6), "kz2", { adv: 1.0 }, 1.3, "linear");
@@ -362,7 +383,7 @@ see(T.shot6, T.jump, ["spud.face", "kz1", "kz2", "roof"], "P10: the last shot; i
 
 // ================================================================ P11 32.2-33.4: no room for a run-up: they jump from standing
 scene(T.jump, S.p11);
-letGo(r3(T.jump - 0.02), "spud", "gunR");
+letGo(r3(T.jump - 0.02), "spud", "gunR"); A(r3(T.jump - 0.02), "spud", "grip", { side: "R", shape: "open", dur: 0.01 });
 ["spud", "chip"].forEach((w) => { expr(r3(T.jump - 0.02), w, "terrified", { open: 0.5 }, 0.01); both(r3(T.jump - 0.02), w, { o: [0.3, 0.2, -0.2] }, 0.01); });
 ["spud", "chip"].forEach((w) => { A(T.jump, w, "crouch", { to: 0.6, dur: 0.18 }); A(r3(T.jump + 0.18), w, "crouch", { to: 0, dur: 0.1 }); both(r3(T.jump + 0.18), w, { o: [0.3, 0.9, 0.5] }, 0.15, "out"); });
 const JUMP = (w, z) => {
@@ -414,7 +435,7 @@ see(T.wake, T.end, ["wait"], "P14: first person, a new place: a calm waiting roo
 // ---------------------------------------------------------------- beats (one shot per panel; b/c inserts named in PANELS.md)
 const sh = (k, to, dur, ease = "linear") => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov, ...(to && { to: { fov: CAM[k].fov, look: CAM[k].look, ...to }, dur, ease }) });
 const beats = c.beats([
-  ["P01 POV: the friend dragged by the hood", 0, sh("POV", { look: [-0.4, -14.3, -2.4] }, 2.7, "inOut"), "hook"],
+  ["P01 POV: the friend dragged by the hood", 0, sh("POV"), "hook"],
   ["P02 his eyes open, the gun", T.face, sh("FACE", { pos: [-0.4, -13.9, 1.45] }, 2.4, "inOut")],
   ["P03 the shot from the ground", T.fire, sh("FIRE")],
   ["P04 the run", T.run, sh("RUN", { pos: [-0.8, -13.85, 9.5] }, r3(T.seed - T.run))],
