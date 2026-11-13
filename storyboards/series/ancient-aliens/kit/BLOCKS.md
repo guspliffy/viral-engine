@@ -69,6 +69,14 @@ the point.
 Block A proves this first (it has Jonny's note). B applies it before its animatic goes out. C and D keep their sent
 animatics until Jonny has reacted to block A's new one, then apply what he approved: no round on a guess.
 
+## The finished pyramid (Jonny 13 Nov on block A 0:39-0:45: "more detailed... look really good... the golden top")
+
+`giza2560(id, o, { state: "finished" })` now carries the gold capstone, drawn masonry and the whole 2560 BC complex
+(court wall, temple, causeway, queens' pyramids, tomb rows, a town with palms in the south). Nothing to set: re-run
+the generator on the new kit head. Frame it so the complex shows: `VIEW.finishedHigh` (orbit to
+`VIEW.finishedHighEnd`), keep the ship off the tip so the gold reads, and by night pass `valley: false`.
+Bench: `kit/bench/make-aa-finished.mjs`.
+
 ## Engine lessons from block A (read before you cut shots)
 
 - Put every cut on a time whose frame rounds down or is exact (8.7, 18.0): a cut time that `r3` rounds up past its
