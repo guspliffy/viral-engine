@@ -1,0 +1,393 @@
+{
+ "id": "zstairs-bench",
+ "title": "Stairwell bench: zstairs, zdoor in D, zshot on the landing",
+ "idea": "Engine look bench for the EP03 stairwell (task T2), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#aab0b4",
+  "floor": "none"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "st",
+   "kind": "zstairs",
+   "x": 400,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "dr",
+   "kind": "zdoor",
+   "x": 400.5,
+   "y": 0,
+   "z": 3.4,
+   "rot": 180
+  },
+  {
+   "id": "z1",
+   "kind": "zshot",
+   "x": 400.7,
+   "y": 1.5,
+   "z": -2.6,
+   "n": 1,
+   "seed": 3
+  },
+  {
+   "id": "z2",
+   "kind": "zshot",
+   "x": 399.35,
+   "y": 1.5,
+   "z": -3.2,
+   "rot": 35,
+   "n": 1,
+   "seed": 5
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "A-crack0",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.7,
+     0.35,
+     2.6
+    ],
+    "look": [
+     400.7,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 0,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 0.5,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "A-crack-half",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.7,
+     0.35,
+     2.6
+    ],
+    "look": [
+     400.7,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 1,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "A-crack1",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.7,
+     0.35,
+     2.6
+    ],
+    "look": [
+     400.7,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 1,
+      "flash": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "A-flash",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.7,
+     0.35,
+     2.6
+    ],
+    "look": [
+     400.7,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 0,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 100
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "B-crack0",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.75,
+     2.6,
+     -2.9
+    ],
+    "look": [
+     400.5,
+     0.7,
+     3.3
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 0.5,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 100
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "B-crack-half",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.75,
+     2.6,
+     -2.9
+    ],
+    "look": [
+     400.5,
+     0.7,
+     3.3
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 1,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 100
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "B-crack1",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.75,
+     2.6,
+     -2.9
+    ],
+    "look": [
+     400.5,
+     0.7,
+     3.3
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "st",
+     "set": {
+      "crack": 0,
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "z1",
+     "set": {
+      "y": 1.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "A-dark-tick",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     400.7,
+     0.35,
+     2.6
+    ],
+    "look": [
+     400.7,
+     2.2,
+     -2.6
+    ],
+    "fov": 55
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/lookdev/make-zstairs-bench.mjs (engine bench, no reviews)."
+}

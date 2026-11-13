@@ -73,6 +73,9 @@ import { HEISTSET_KINDS, HEISTSET_GRIPS } from "./props-heistset.js";   // fight
 import { ZFLAT_KINDS, ZFLAT_GRIPS, ZFLAT_STATE } from "./props-zflat.js";
 import { ZHOME_KINDS, ZHOME_GRIPS, ZHOME_STATE } from "./props-zhome.js";   // survive it zombies v2: the flat's things
 import { ZFIGHT_KINDS, ZFIGHT_GRIPS, ZFIGHT_STATE } from "./props-zfight.js";   // survive it zombies v3: the gun fight
+import { ZROOF_KINDS, ZROOF_GRIPS, ZROOF_STATE } from "./props-zroof.js";   // you wake up mid 03: the two roofs over the alley
+import { ZSTAIRS_KINDS, ZSTAIRS_GRIPS, ZSTAIRS_STATE } from "./props-zstairs.js";   // you wake up mid 03: the stairwell
+import { ZWAIT_KINDS, ZWAIT_GRIPS, ZWAIT_STATE } from "./props-zwait.js";   // you wake up mid 03: the smoke-room teaser
 import { ZOUTBREAK_KINDS, ZOUTBREAK_GRIPS, ZOUTBREAK_STATE } from "./props-zoutbreak.js";   // survive it zombies v2: the outbreak street   // survive it zombies: the flat (rooms, front door, cistern)
 import { ZSTREET_KINDS, ZSTREET_GRIPS, ZSTREET_STATE } from "./props-zstreet.js";   // survive it zombies: street canyon, balcony, shop roof, horde, ladder
 import { ZSHOP_KINDS, ZSHOP_GRIPS, ZSHOP_STATE } from "./props-zshop.js";   // survive it zombies: the shop, tins, the bag
@@ -725,6 +728,11 @@ const KINDS = {
   // a single bed seen from its foot: the origin is where its sleeper sits up (against the pillow), the mattress top is at
   // SEAT_Y so "sit" works, and the bed runs 1.6 m towards +z (the camera). cover 0..1 pulls the blanket up to the
   // sleeper's chest; over 0..1 throws it over their head (a lump); smash 0..1 breaks the legs (it drops, tipped)
+  // spec.drape (opt-in; true or { rx, ry, rz, cy, pad }: the sitter's body half-sizes, its centre's height and the
+  // thickness of its clothes, default Spud in his sweater): instead of the flat slab and the upright flap, the blanket
+  // is one draped cloth. It lies flat to the foot, rises in a tent to the sitter's waist, and its turned-down fold
+  // (spec.fold: its colour) runs across the bed and round the front of the body, resting on it at the height `cover`
+  // gives. Nothing of it stands inside the body's outline. A bed without spec.drape is built exactly as before.
   bed(P) {
     const wood = mat("#a8744a", { roughness: 0.7 }), sheet = mat("#f4f1ea", { roughness: 0.8 }), pillowM = mat("#ffffff", { roughness: 0.8 });
     const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
@@ -741,15 +749,18 @@ const KINDS = {
     const pil = mesh(new THREE.SphereGeometry(0.3, 18, 10), pillowM, frame, 0, top + 0.06, Z0 + 0.14); pil.scale.set(1.45, 0.32, 0.6);
     const legs = [[-1, 0], [1, 0], [-1, 1], [1, 1]].map(([sx, k]) => mesh(new THREE.BoxGeometry(0.08, top - 0.28, 0.08), wood, frame, sx * (W / 2), (top - 0.28) / 2, Z0 + 0.06 + k * (L - 0.12)));
     // the blanket: flat over the bed, and its turned-down top edge that rises to the sleeper's chest
-    mesh(new THREE.BoxGeometry(W + 0.06, 0.06, L - 0.5), blanketM, frame, 0, top + 0.02, Z0 + 0.5 + (L - 0.5) / 2);
+    const slab = mesh(new THREE.BoxGeometry(W + 0.06, 0.06, L - 0.5), blanketM, frame, 0, top + 0.02, Z0 + 0.5 + (L - 0.5) / 2);
     const edge = new THREE.Group(); edge.position.set(0, top, 0.16); frame.add(edge);
     const flap = mesh(new THREE.BoxGeometry(W + 0.06, 1, 0.07), blanketM, edge, 0, 0.5, 0);
     const lump = mesh(new THREE.SphereGeometry(0.5, 22, 14), blanketM, frame, 0, top + 0.05, 0.05);
+    const drape = P.spec.drape ? bedDrape(P.spec, frame, blanketM, { top, W, L, Z0 }) : null;
+    if (drape) slab.visible = false;
     return {
       grip: 0,
       apply(ps) {
         const cv = clamp(ps.cover ?? 0), ov = clamp(ps.over ?? 0), sm = clamp(ps.smash ?? 0);
-        flap.scale.y = Math.max(0.05, 0.08 + 0.32 * cv); flap.position.y = flap.scale.y / 2; edge.visible = cv > 0.02 && ov < 0.98;
+        flap.scale.y = Math.max(0.05, 0.08 + 0.32 * cv); flap.position.y = flap.scale.y / 2; edge.visible = !drape && cv > 0.02 && ov < 0.98;
+        if (drape) drape(cv);
         lump.visible = ov > 0.02; lump.scale.set(1.05 * ov, 1.25 * ov, 0.95 * ov);
         for (const l of legs) l.scale.y = Math.max(0.05, 1 - sm);
         frame.position.y = -(top - 0.28) * 0.95 * sm; frame.rotation.z = 0.06 * sm;
@@ -1418,9 +1429,9 @@ Object.assign(KINDS, WHATIF_KINDS);   // what if 01 pause time (props-whatif.js)
 Object.assign(KINDS, RACE_KINDS); Object.assign(GRIPS, RACE_GRIPS);   // what if 03 light-speed race (props-race.js)
 Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight flight or freeze 01 (props-heist.js)
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
-Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
+Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
@@ -1583,7 +1594,65 @@ function physInto(ps, id, t) {
 
 // a prop's state at time t: its numbers after the "prop" tweens, and who holds it (grab / release)
 // kinds that stand on nothing: effects, light, weather and air (holds 2's support record treats them as staged)
-export const FX_KINDS = /^(facadefire|blockfire|stairfire|lightpool|copshadow|roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
+export const FX_KINDS = /^(facadefire|blockfire|stairfire|sirenwash|lightpool|copshadow|roarlines|bubbles|confetti|dustmotes|fogveil|lightbeam|torchbeam|shadowpool|spellaura|splash|wakefoam|windleaves|xstar|fleck|sum|blob|fairylights|stringlights|flagway|overhead|cabinwall|street|kerb|rowback)$|burst|puff|smoke|spark|glow|beam|zap|poof|steam|halo|rain|snow|ripple/i;
+// the bed's draped blanket (bed, spec.drape). One cloth in two meshes, the dotted blanket and its plain turned-down
+// fold, rebuilt only when `cover` changes. In plan the cloth's top edge is the line d = 0 of a distance field: the
+// half-plane behind the sitter's middle joined smoothly to the body's outline at the edge's height, so the edge runs
+// straight across the bed and bows forward round the body's front. Rows follow lines of equal distance from that edge
+// (the fold is as wide all the way round), then run out to the foot. The height falls from the edge's height at the
+// body to the flat blanket in a tent, longer over the lap than at the sides. Returns update(cover 0..1).
+function bedDrape(spec, frame, blanketM, { top, W, L, Z0 }) {
+  const o = typeof spec.drape === "object" ? spec.drape : {};
+  const B = { rx: o.rx ?? 0.38, ry: o.ry ?? 0.44, rz: o.rz ?? 0.33, cy: o.cy ?? 0.88, zc: o.z ?? 0.03, pad: o.pad ?? 0.03, taper: o.taper ?? 0.07 };
+  const foldM = mat(spec.fold || "#f4f1ea", { roughness: 0.85 }); foldM.side = THREE.DoubleSide;
+  const clothM = blanketM.clone(); clothM.side = THREE.DoubleSide;
+  const Wh = W / 2 + 0.03, zF = Z0 + L - 0.02, base = top + 0.05, FW = 0.11, FT = 0.024;   // the fold: its width and how far it stands proud
+  const NX = 156, LV = [0, 0.05, 0.15, 0.3, 0.5, 0.7, 0.85, 0.95, 1].map((v) => v * FW), NB = LV.length, NC = 28;
+  const xs = [-Wh]; for (let i = 0; i <= NX; i++) xs.push(-Wh + (2 * Wh * i) / NX); xs.push(Wh);   // first and last: the cloth's drop over the bed's sides
+  const NI = xs.length;
+  const grid = (rows, m) => {
+    const g = new THREE.BufferGeometry(), idx = [];
+    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(NI * rows * 3), 3)); g.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(NI * rows * 2), 2));
+    for (let j = 0; j < rows - 1; j++) for (let i = 0; i < NI - 1; i++) { const a = j * NI + i, b = a + NI; idx.push(a, b, a + 1, a + 1, b, b + 1); }
+    g.setIndex(idx); const me = new THREE.Mesh(g, m); me.castShadow = me.receiveShadow = true; me.frustumCulled = false; frame.add(me); return g;
+  };
+  const gFold = grid(NB + 1, foldM), gCloth = grid(NC + 2, clothM);
+  const smin = (a, b, k) => { const h = Math.max(k - Math.abs(a - b), 0) / k; return Math.min(a, b) - h * h * k * 0.25; };
+  let last = null;
+  return (cv) => {
+    if (cv === last) return; last = cv;
+    const hE = top + 0.08 + 0.32 * cv, dy = clamp((hE - B.cy) / B.ry, -0.98, 0.98), kx = Math.sqrt(1 - dy * dy) * (1 - B.taper * dy);
+    const a = B.rx * kx + B.pad, c = B.rz * kx + B.pad;   // the body's outline (clothes on) at the edge's height
+    const dBody = (x, z) => { const u = x / a, v = (z - B.zc) / c, r = Math.hypot(u, v); return r < 1e-4 ? -Math.min(a, c) : (r - 1) * r / Math.hypot(u / a, v / c); };
+    const dEdge = (x, z) => smin(z - B.zc, dBody(x, z), 0.09);
+    const zAt = (x, lv) => { let lo = B.zc - 0.3, hi = zF + 0.5; for (let n = 0; n < 26; n++) { const m = (lo + hi) / 2; if (dEdge(x, m) < lv) lo = m; else hi = m; } return (lo + hi) / 2; };
+    const height = (x, z) => {
+      const d = Math.max(0, dBody(x, z)), fz = Math.max(0, z - B.zc) / (Math.hypot(x, z - B.zc) + 1e-6), lam = 0.085 + 0.15 * fz * fz;
+      const f = Math.exp(-d / lam), th = Math.atan2(x, z - B.zc);
+      return base + (hE - base) * f + 0.011 * 4 * f * (1 - f) * Math.sin(th * 9 + 0.7) * clamp(d / 0.05);   // soft creases down the slope, none at the fold
+    };
+    const pf = gFold.attributes.position.array, uf = gFold.attributes.uv.array, pc = gCloth.attributes.position.array, uc = gCloth.attributes.uv.array;
+    const put = (arr, uv, k, x, y, z) => { arr[k * 3] = x; arr[k * 3 + 1] = y; arr[k * 3 + 2] = z; uv[k * 2] = (x + Wh) / (2 * Wh); uv[k * 2 + 1] = (z - (Z0 + 0.5)) / (L - 0.5); };
+    for (let i = 0; i < NI; i++) {
+      const x = xs[i], side = i === 0 || i === NI - 1, dropY = top - 0.01;
+      // the fold: row 0 is its under edge (tucked in against the body, down on the sheet elsewhere), then across it
+      const z0 = zAt(x, 0), w = clamp(1 - dBody(x, z0) / 0.1);
+      put(pf, uf, i, x * (1 - 0.35 * w), side ? dropY : Math.max(top, height(x, z0) - 0.05), B.zc + (z0 - B.zc) * (1 - 0.35 * w));
+      let zb = z0;
+      for (let j = 0; j < NB; j++) {
+        const z = j ? zAt(x, LV[j]) : z0, s = LV[j] / FW, lift = FT * Math.pow(Math.max(0, 1 - Math.pow(2 * s - 1, 4)), 0.6);
+        put(pf, uf, (j + 1) * NI + i, x, side ? dropY : height(x, z) + lift, z); zb = z;
+      }
+      for (let j = 0; j <= NC; j++) {
+        const t = j / NC, z = zb + (zF - zb) * Math.pow(t, 1.35);
+        put(pc, uc, j * NI + i, x, side ? dropY : height(x, z), z);
+      }
+      put(pc, uc, (NC + 1) * NI + i, x, dropY, zF);   // the drop over the foot
+    }
+    for (const g of [gFold, gCloth]) { g.attributes.position.needsUpdate = true; g.attributes.uv.needsUpdate = true; g.computeVertexNormals(); }
+  };
+}
+
 export function propState(sb, spec, t) {
   const ps = { x: spec.x ?? 0, y: spec.y ?? 0, z: spec.z ?? 0, rot: spec.rot ?? 0, tilt: spec.tilt ?? 0, tip: spec.tip ?? 0, squash: 0, lights: spec.lights ?? 0, rock: 0, shh: 0, crook: spec.crook ?? 0, wrap: spec.wrap ?? 0, ...(typeof spec.look === "number" && { look: spec.look }), steam: spec.steam ?? 0, roll: spec.roll ?? 0, scale: spec.scale ?? 1, slices: spec.slices ?? 10, burst: spec.burst ?? 0, drop: spec.drop ?? 0, char: spec.char ?? 0, burn: 0, flap: spec.flap ?? 0, peck: 0, tug: 0, happy: 0, fall: 0, unfold: spec.unfold ?? 0, print: spec.print ?? 0, toast: 0, len: spec.len ?? 0, apples: spec.apples ?? 10, steps: spec.steps ?? 0, split: 0, open: spec.open ?? 0, latch: 0, slice: 0, smash: 0, scorch: 0, on: 0, fire: 0, glow: spec.glow ?? 0, lid: spec.lid ?? 0, fill: spec.fill ?? 1, spill: 0, twist: spec.twist ?? 0, lit: spec.lit ?? 0, spin: spec.spin ?? 0, shred: spec.shred ?? 0, bulge: 0, ring: 0, cover: spec.cover ?? 0, over: 0, time: spec.time ?? 2.75, write: spec.write ?? 0, stock: spec.stock ?? 1, unroll: 0, cut: 0, bump: 0, tiny: 0, chop: 0, fried: spec.fried ?? 0, yolks: spec.yolks ?? 1, big: 0, flip: 0, crack: 0, unplug: spec.unplug ?? 0, knot: 0, plates: spec.plates ?? 2, bend: 0, balloon: 0, count: spec.count ?? 0, wheelie: 0, broken: 0, level: spec.level ?? 1, splash: 0, magic: 0, name: 0, holes: 0, blot: 0, stack: 0, full: spec.full ?? 0, tail: spec.tail ?? 1, apart: spec.apart ?? 1, rise: spec.rise ?? 0, wobble: spec.wobble ?? 0, puff: spec.puff ?? 0, fade: spec.fade ?? 0, gap: spec.gap ?? 0, feed: spec.feed ?? 0, nextFeed: spec.nextFeed ?? 0, scroll: 0, lean: spec.lean ?? 0, neckY: spec.neckY ?? 0, neckP: spec.neckP ?? 0, headY: spec.headY ?? 0, headP: spec.headP ?? 0, headR: spec.headR ?? 0, jaw: spec.jaw ?? 0, sniff: 0, squint: spec.squint ?? 0, blink: 0, brow: spec.brow ?? 0, lookX: spec.lookX ?? 0, lookY: spec.lookY ?? 0, curl: 0, arms: 0, breath: spec.breath ?? 0, step: 0, wag: 0, part: spec.part ?? 0, pop: spec.pop ?? 0, mouth: spec.mouth ?? 0, hope: spec.hope ?? 0, sad: spec.sad ?? 0, wilt: spec.wilt ?? 0, bank: spec.bank ?? 0, bob: spec.bob ?? 1, squeeze: 0, jet: 0, port: 0, straw: spec.straw ?? 0, ...kitState(spec), hold: null, left: null, carry: null, pull: spec.pull ?? 0, alarm: spec.alarm ?? 0 };
   // Sprout Man's own numbers (engine/shared/sprout-rig.js): only on his prop, so no other prop's state changes
