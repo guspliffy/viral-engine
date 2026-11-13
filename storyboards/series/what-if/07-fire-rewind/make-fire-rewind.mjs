@@ -40,8 +40,8 @@ const Pk = (pack, t, id, set, dur, ease) => { if (has(pack)) P(t, id, set, dur, 
 const T = {
   burst: 0.8, chip: 1.0, ins: 1.9, click: 1.95, rew: 2.3, calm: 3.1, run2: 5.0, lobby2: 6.4, stair2: 7.4, face2: 9.4,
   click2: 11.45, rew2: 11.7, l3: 12.2, hall: 13.2, ndoor: 14.6, slam: 16.0, hfire: 16.2, fall: 16.9, low: 19.0,
-  turn: 23.5, boxin: 24.9, ins3: 26.0, click3: 26.35, rew3: 26.6, fin: 27.1, pull: 27.75, out: 29.5, pay: 33.0,
-  tag: 34.6, END: 39.0,
+  turn: 23.5, boxin: 24.9, ins3: 26.0, click3: 26.35, rew3: 26.6, fin: 27.1, pull: 27.75, out: 29.5, pay: 33.7,
+  tag: 35.3, END: 39.7,
 };
 const END = T.END;
 const DOWN = -60;   // parked under the floor
@@ -351,11 +351,15 @@ Pk("block", r3(T.out - 0.02), "blk", { door: 1, pull: 1, ring: 1 });
 A(r3(T.out - 0.02), "spud", "crouch", { to: 0, dur: 0.01 }); c.arm(r3(T.out - 0.02), "spud", "R", "rest", 0.01); A(r3(T.out - 0.02), "spud", "grip", { side: "R", shape: "relaxed", dur: 0.01 });
 c.arm(r3(T.out - 0.02), "spud", "L", { o: [0.12, 0.42, 0.18] }, 0.01);   // the cracked watch still in his glove
 place(T.out, "spud", [1.5, 2.3], 160, 0); expr(T.out, "spud", "sheepish", null, 0.01);
+// out of the door one by one, 0.45 s apart at 1.4 m/s, in the order that keeps every pair >= 0.63 m apart all the way
+// (searched over every order: Jonny 13 Nov "characters walking through each other"); n3 stays inside
+const OUT_ORDER = [2, 4, 0, 5, 6, 1];
 CROWD.forEach(([, , , , , , to], i) => {
-  const t0 = r3(T.out + 0.45 + 0.33 * i), from = [2.3, -0.6], d = r3(Math.hypot(to[0] - from[0], to[1] - from[1]));
+  const n = OUT_ORDER.indexOf(i); if (n < 0) return;
+  const t0 = r3(T.out + 0.5 + 0.45 * n), from = [2.3, -0.6], d = r3(Math.hypot(to[0] - from[0], to[1] - from[1]));
   P(r3(t0 - 0.02), `n${i}`, { x: from[0], y: DOOR_Y, z: from[1], rot: yawTo(from, to), walk: 0 });
-  P(t0, `n${i}`, { x: to[0], y: 0, z: to[1], walk: d }, r3(d / 1.1), "linear");
-  P(r3(t0 + d / 1.1), `n${i}`, { rot: yawTo(to, [1.5, 2.3]) }, 0.25);
+  P(t0, `n${i}`, { x: to[0], y: 0, z: to[1], walk: d }, r3(d / 1.4), "linear");
+  P(r3(t0 + d / 1.4), `n${i}`, { rot: yawTo(to, [1.5, 2.3]) }, 0.25);
 });
 place(T.out, "nbr", [2.3, -0.4], 0, DOOR_Y);
 A(r3(T.out + 0.1), "nbr", "move", { to: [2.15, 1.55], y: 0, dur: 1.3, ease: "inOut", stride: 0.9 });
@@ -365,12 +369,12 @@ c.arm(r3(T.out + 1.5), "nbr", "R", "point", 0.2, "out");
 for (let k = 0; k < 3; k++) c.arm(r3(T.out + 1.8 + k * 0.3), "nbr", "R", { o: [0.2, 0.62 + (k % 2) * 0.06, 0.42] }, 0.12);
 sfx(r3(T.out + 0.2), "ai/step-concrete", { gain: 0.35, reason: "slippers on the steps" });
 // Chip last, with his mug, confused
-place(r3(T.out + 2.75), "chip", [2.3, -0.5], 0, DOOR_Y);
+place(r3(T.out + 3.2), "chip", [2.3, -0.5], 0, DOOR_Y);
 const MUG2 = { ...MUGB, ...grips.placeFor("teamug", [2.52, DOOR_Y + 0.3, -0.3], 0) };
-P(r3(T.out + 2.71), "mug2", MUG2); grips.mug(c, "chip", MUG2, { side: "L" }).secure(r3(T.out + 2.73), 0.01);
-c.arm(r3(T.out + 2.8), "chip", "L", { o: [0.1, 0.5, 0.24] }, 0.25);   // carried at his chest, on the side away from Spud
-A(r3(T.out + 2.8), "chip", "move", { to: [2.4, -0.15], y: DOOR_Y, dur: 0.5, ease: "inOut", stride: 0.5 });   // out onto the top step, last, mug in hand, above the crowd
-expr(r3(T.out + 2.8), "chip", "shocked", { open: 0.1, brow: 0.3 }, 0.1);
+P(r3(T.out + 3.16), "mug2", MUG2); grips.mug(c, "chip", MUG2, { side: "L" }).secure(r3(T.out + 3.18), 0.01);
+c.arm(r3(T.out + 3.25), "chip", "L", { o: [0.1, 0.5, 0.24] }, 0.25);   // carried at his chest, on the side away from Spud
+A(r3(T.out + 3.3), "chip", "move", { to: [2.4, -0.15], y: DOOR_Y, dur: 0.5, ease: "inOut", stride: 0.5 });   // out onto the top step, last, mug in hand, above the crowd
+expr(r3(T.out + 3.3), "chip", "shocked", { open: 0.1, brow: 0.3 }, 0.1);
 see(r3(T.out + 1.5), T.pay, ["nbr.face", "spud"], "everyone out before any fire: furious neighbours, the curler neighbour points at Spud, Chip last with his mug");
 
 // ================================================================= 17 "YOU'RE CRAZY." (33.0-37.0): frame 0 again, the block whole
@@ -418,7 +422,7 @@ const SH = {
   ins3:   { pos: [2.45, 1.0, 0.96], look: [2.55, 0.59, 1.09], fov: 34 },
   rew3:   { pos: [0.8, 1.15, 9.6], look: [0.6, 4.4, 0], fov: 56 },
   pull:   { pos: [5.3, 1.2, 3.0], look: [3.1, 0.8, 0.4], fov: 44 },
-  out:    { pos: [3.6, 1.1, 5.6], look: [2.4, 0.8, 1.1], fov: 56 },
+  out:    { pos: [3.7, 1.35, 6.8], look: [2.4, 0.8, 1.1], fov: 50 },
   wcrack: { pos: [0.5, 0.42, -40.98], look: [0.55, 0.01, -41.25], fov: 36 },
   pay:    { pos: [0.45, 1.25, 5.8], look: [-0.2, 1.4, -0.35], fov: 58 },   // higher than frame 0, so the burning window stands over their heads, never behind them
 };
@@ -474,7 +478,7 @@ const allowClip = [
   { who: "spud", with: "blk", from: T.pull - 0.3, to: T.out, reason: "his glove on the alarm box's lever" },
   { who: "nbr", with: "lob", from: T.ndoor, to: T.slam, reason: "standing in his door crack" },
   { who: "nbr", with: "blk", from: T.out, to: T.out + 1.4, reason: "coming down the front steps" },
-  { who: "chip", with: "blk", from: T.out + 2.7, to: T.out + 3.6, reason: "coming down the front steps" },
+  { who: "chip", with: "blk", from: T.out + 3.15, to: T.pay, reason: "coming down the front steps" },
 ];
 
 write(import.meta.url, {

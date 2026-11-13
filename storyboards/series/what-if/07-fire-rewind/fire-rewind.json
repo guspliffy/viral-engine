@@ -499,8 +499,8 @@
    "kinetic": false
   },
   {
-   "from": 33.4,
-   "to": 34.8,
+   "from": 34.1,
+   "to": 35.5,
    "text": "You're crazy.",
    "pos": 470,
    "pop": false,
@@ -2029,9 +2029,9 @@
      "do": "prop",
      "id": "fsL",
      "set": {
-      "time": 39
+      "time": 39.7
      },
-     "dur": 26.8,
+     "dur": 27.5,
      "ease": "linear",
      "at": 0
     },
@@ -2039,9 +2039,9 @@
      "do": "prop",
      "id": "fsH",
      "set": {
-      "time": 39
+      "time": 39.7
      },
-     "dur": 26.8,
+     "dur": 27.5,
      "ease": "linear",
      "at": 0
     },
@@ -3758,19 +3758,19 @@
   {
    "name": "16 everyone out",
    "at": 29.5,
-   "len": 3.5,
+   "len": 4.2,
    "shot": {
     "pos": [
-     3.6,
-     1.1,
-     5.6
+     3.7,
+     1.35,
+     6.8
     ],
     "look": [
      2.4,
      0.8,
      1.1
     ],
-    "fov": 56
+    "fov": 50
    },
    "do": [
     {
@@ -3800,65 +3800,11 @@
      "at": 0.2
     },
     {
-     "do": "prop",
-     "id": "n0",
-     "set": {
-      "x": 2.3,
-      "y": 0.3,
-      "z": -0.6,
-      "rot": 31.759,
-      "walk": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.43
-    },
-    {
      "sfx": "alarmbell",
      "gain": 0.45,
      "dur": 2,
      "reason": "the building's fire bell ringing",
      "at": 0.45
-    },
-    {
-     "do": "prop",
-     "id": "n0",
-     "set": {
-      "x": 3.6,
-      "y": 0,
-      "z": 1.5,
-      "walk": 2.47
-     },
-     "dur": 2.245,
-     "ease": "linear",
-     "at": 0.45
-    },
-    {
-     "do": "prop",
-     "id": "n1",
-     "set": {
-      "x": 2.3,
-      "y": 0.3,
-      "z": -0.6,
-      "rot": 26.565,
-      "walk": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 0.76
-    },
-    {
-     "do": "prop",
-     "id": "n1",
-     "set": {
-      "x": 2.9,
-      "y": 0,
-      "z": 0.6,
-      "walk": 1.342
-     },
-     "dur": 1.22,
-     "ease": "linear",
-     "at": 0.78
     },
     {
      "do": "prop",
@@ -3872,7 +3818,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.09
+     "at": 0.48
     },
     {
      "do": "prop",
@@ -3883,62 +3829,9 @@
       "z": 2.3,
       "walk": 3.523
      },
-     "dur": 3.203,
+     "dur": 2.516,
      "ease": "linear",
-     "at": 1.11
-    },
-    {
-     "who": "nbr",
-     "do": "expr",
-     "expr": "angry",
-     "set": {
-      "brow": -0.6
-     },
-     "dur": 0.15,
-     "at": 1.3
-    },
-    {
-     "who": "nbr",
-     "do": "turn",
-     "to": -40.914,
-     "dur": 0.2,
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "n3",
-     "set": {
-      "x": 2.3,
-      "y": 0.3,
-      "z": -0.6,
-      "rot": 12.339,
-      "walk": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 1.42
-    },
-    {
-     "do": "prop",
-     "id": "n3",
-     "set": {
-      "x": 3,
-      "y": 0,
-      "z": 2.6,
-      "walk": 3.276
-     },
-     "dur": 2.978,
-     "ease": "linear",
-     "at": 1.44
-    },
-    {
-     "who": "nbr",
-     "do": "arm",
-     "side": "R",
-     "pose": "point",
-     "dur": 0.2,
-     "ease": "out",
-     "at": 1.5
+     "at": 0.5
     },
     {
      "do": "prop",
@@ -3952,7 +3845,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.75
+     "at": 0.93
     },
     {
      "do": "prop",
@@ -3963,9 +3856,62 @@
       "z": 3,
       "walk": 3.795
      },
-     "dur": 3.45,
+     "dur": 2.711,
      "ease": "linear",
-     "at": 1.77
+     "at": 0.95
+    },
+    {
+     "who": "nbr",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "brow": -0.6
+     },
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "n0",
+     "set": {
+      "x": 2.3,
+      "y": 0.3,
+      "z": -0.6,
+      "rot": 31.759,
+      "walk": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "n0",
+     "set": {
+      "x": 3.6,
+      "y": 0,
+      "z": 1.5,
+      "walk": 2.47
+     },
+     "dur": 1.764,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "who": "nbr",
+     "do": "turn",
+     "to": -40.914,
+     "dur": 0.2,
+     "at": 1.4
+    },
+    {
+     "who": "nbr",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.5
     },
     {
      "who": "nbr",
@@ -3983,16 +3929,6 @@
     },
     {
      "do": "prop",
-     "id": "n1",
-     "set": {
-      "rot": -39.472
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
      "id": "n5",
      "set": {
       "x": 2.3,
@@ -4003,7 +3939,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.08
+     "at": 1.83
     },
     {
      "do": "prop",
@@ -4014,9 +3950,9 @@
       "z": 1.4,
       "walk": 3.048
      },
-     "dur": 2.771,
+     "dur": 2.177,
      "ease": "linear",
-     "at": 2.1
+     "at": 1.85
     },
     {
      "who": "nbr",
@@ -4033,6 +3969,33 @@
      "at": 2.1
     },
     {
+     "do": "prop",
+     "id": "n6",
+     "set": {
+      "x": 2.3,
+      "y": 0.3,
+      "z": -0.6,
+      "rot": 54.782,
+      "walk": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "do": "prop",
+     "id": "n6",
+     "set": {
+      "x": 4,
+      "y": 0,
+      "z": 0.6,
+      "walk": 2.081
+     },
+     "dur": 1.486,
+     "ease": "linear",
+     "at": 2.3
+    },
+    {
      "who": "nbr",
      "do": "arm",
      "side": "R",
@@ -4047,48 +4010,48 @@
      "at": 2.4
     },
     {
-     "do": "prop",
-     "id": "n6",
-     "set": {
-      "x": 2.3,
-      "y": 0.3,
-      "z": -0.6,
-      "rot": 54.782,
-      "walk": 0
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.41
-    },
-    {
-     "do": "prop",
-     "id": "n6",
-     "set": {
-      "x": 4,
-      "y": 0,
-      "z": 0.6,
-      "walk": 2.081
-     },
-     "dur": 1.892,
-     "ease": "linear",
-     "at": 2.43
-    },
-    {
      "sfx": "alarmbell",
      "gain": 0.45,
-     "dur": 1.05,
+     "dur": 1.75,
      "reason": "the building's fire bell ringing",
      "at": 2.45
     },
     {
      "do": "prop",
-     "id": "n0",
+     "id": "n1",
      "set": {
-      "rot": -69.146
+      "x": 2.3,
+      "y": 0.3,
+      "z": -0.6,
+      "rot": 26.565,
+      "walk": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.73
+    },
+    {
+     "do": "prop",
+     "id": "n1",
+     "set": {
+      "x": 2.9,
+      "y": 0,
+      "z": 0.6,
+      "walk": 1.342
+     },
+     "dur": 0.959,
+     "ease": "linear",
+     "at": 2.75
+    },
+    {
+     "do": "prop",
+     "id": "n2",
+     "set": {
+      "rot": -90
      },
      "dur": 0.25,
      "ease": "linear",
-     "at": 2.695
+     "at": 3.016
     },
     {
      "do": "prop",
@@ -4104,7 +4067,17 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.71
+     "at": 3.16
+    },
+    {
+     "do": "prop",
+     "id": "n0",
+     "set": {
+      "rot": -69.146
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 3.164
     },
     {
      "who": "chip",
@@ -4118,7 +4091,7 @@
      "ease": "linear",
      "sync": true,
      "y": 0.3,
-     "at": 2.73
+     "at": 3.18
     },
     {
      "who": "chip",
@@ -4127,7 +4100,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.73
+     "at": 3.18
     },
     {
      "who": "chip",
@@ -4144,7 +4117,7 @@
      },
      "dur": 0.01,
      "ease": "settle",
-     "at": 2.73
+     "at": 3.18
     },
     {
      "who": "chip",
@@ -4152,7 +4125,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.12,
-     "at": 2.736
+     "at": 3.186
     },
     {
      "who": "chip",
@@ -4166,7 +4139,7 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 2.8
+     "at": 3.25
     },
     {
      "who": "chip",
@@ -4180,7 +4153,7 @@
       ]
      },
      "dur": 0.25,
-     "at": 2.8
+     "at": 3.25
     },
     {
      "who": "chip",
@@ -4193,7 +4166,7 @@
      "dur": 0.5,
      "ease": "inOut",
      "stride": 0.5,
-     "at": 2.8
+     "at": 3.3
     },
     {
      "who": "chip",
@@ -4204,7 +4177,47 @@
       "brow": 0.3
      },
      "dur": 0.1,
-     "at": 2.8
+     "at": 3.3
+    },
+    {
+     "do": "prop",
+     "id": "n4",
+     "set": {
+      "rot": -109.29
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 3.661
+    },
+    {
+     "do": "prop",
+     "id": "n1",
+     "set": {
+      "rot": -39.472
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 3.709
+    },
+    {
+     "do": "prop",
+     "id": "n6",
+     "set": {
+      "rot": -55.784
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 3.786
+    },
+    {
+     "do": "prop",
+     "id": "n5",
+     "set": {
+      "rot": -73.811
+     },
+     "dur": 0.25,
+     "ease": "linear",
+     "at": 4.027
     },
     {
      "do": "prop",
@@ -4216,7 +4229,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -4229,7 +4242,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.48
+     "at": 4.18
     },
     {
      "who": "spud",
@@ -4238,7 +4251,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.48
+     "at": 4.18
     },
     {
      "who": "chip",
@@ -4251,7 +4264,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.48
+     "at": 4.18
     },
     {
      "who": "chip",
@@ -4260,7 +4273,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.48
+     "at": 4.18
     },
     {
      "who": "chip",
@@ -4268,7 +4281,7 @@
      "side": "L",
      "pose": "rest",
      "dur": 0.01,
-     "at": 3.48
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -4281,7 +4294,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.18
     },
     {
      "do": "prop",
@@ -4292,13 +4305,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.48
+     "at": 4.18
     }
    ]
   },
   {
    "name": "17 You're crazy",
-   "at": 33,
+   "at": 33.7,
    "len": 6,
    "shot": {
     "pos": [
@@ -4367,36 +4380,6 @@
      "at": 0.4
     },
     {
-     "do": "prop",
-     "id": "n2",
-     "set": {
-      "rot": -90
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 0.813
-    },
-    {
-     "do": "prop",
-     "id": "n6",
-     "set": {
-      "rot": -55.784
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 0.822
-    },
-    {
-     "do": "prop",
-     "id": "n3",
-     "set": {
-      "rot": -101.31
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 0.918
-    },
-    {
      "who": "spud",
      "do": "expr",
      "expr": "kind",
@@ -4405,16 +4388,6 @@
      },
      "dur": 0.3,
      "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "n5",
-     "set": {
-      "rot": -73.811
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 1.371
     },
     {
      "do": "prop",
@@ -4435,16 +4408,6 @@
      "dur": 1.4,
      "ease": "out",
      "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "n4",
-     "set": {
-      "rot": -109.29
-     },
-     "dur": 0.25,
-     "ease": "linear",
-     "at": 1.72
     },
     {
      "do": "prop",
@@ -4716,7 +4679,7 @@
   },
   {
    "from": 31,
-   "to": 33,
+   "to": 33.7,
    "see": [
     "nbr.face",
     "spud"
@@ -4724,8 +4687,8 @@
    "why": "everyone out before any fire: furious neighbours, the curler neighbour points at Spud, Chip last with his mug"
   },
   {
-   "from": 33,
-   "to": 34.6,
+   "from": 33.7,
+   "to": 35.3,
    "see": [
     "spud.face",
     "chip.face",
@@ -4734,8 +4697,8 @@
    "why": "the frame-0 camera again, the block dark and whole: Chip alive beside him: You're crazy."
   },
   {
-   "from": 34.6,
-   "to": 39,
+   "from": 35.3,
+   "to": 39.7,
    "see": [
     "ff",
     "spud.face",
@@ -4749,7 +4712,7 @@
    "who": "spud",
    "with": "watch",
    "from": 0,
-   "to": 39,
+   "to": 39.7,
    "reason": "the pocket watch in his glove"
   },
   {
@@ -4763,7 +4726,7 @@
    "who": "chip",
    "with": "mug2",
    "from": 29.5,
-   "to": 39,
+   "to": 39.7,
    "reason": "his mug in his glove"
   },
   {
@@ -4818,8 +4781,8 @@
   {
    "who": "chip",
    "with": "blk",
-   "from": 32.2,
-   "to": 33.1,
+   "from": 32.65,
+   "to": 33.7,
    "reason": "coming down the front steps"
   }
  ],
