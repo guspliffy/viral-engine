@@ -386,8 +386,9 @@ function pauseMask(t, L) {
     if (!pauseMats.has(k)) pauseMats.set(k, new THREE.MeshBasicMaterial({ color: keep ? "#ffffff" : "#000000", colorWrite: !!keep, side }));
     return pauseMats.get(k);
   };
-  const keepIds = L.w.keep, propIds = new Set(keptProps(L.w, t)), keep = new Set();
-  for (const a of actors) if (keepIds.has(a.c.id) && a.ch.root.visible) {
+  // "frozen" (your friend pauses YOU) is the inverse: the mask is the actors the window freezes and what they hold
+  const fr = L.look === "frozen", keepIds = L.w.keep, propIds = new Set(keptProps(L.w, t)), keep = new Set();
+  for (const a of actors) if (keepIds.has(a.c.id) !== fr && a.ch.root.visible) {
     if (L.look === "dark") for (const e of a.ch.face?.eyes || []) e.root.traverse((o) => keep.add(o));
     else a.ch.root.traverse((o) => keep.add(o));
   }
@@ -412,6 +413,24 @@ function pauseMask(t, L) {
   const g = pauseA.getContext("2d"), img = g.createImageData(w, h);
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const v = px[((h - 1 - y) * w + x) * 4], j = (y * w + x) * 4; img.data[j] = img.data[j + 1] = img.data[j + 2] = 255; img.data[j + 3] = v; }
   g.putImageData(img, 0, 0);
+  if (fr) {
+    // the frozen body's box on screen (frame px) and the points the look spreads from and floods back from: `hit` /
+    // `thawHit` (world metres) or the first frozen actor's chest
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (px[((h - 1 - y) * w + x) * 4]) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    const sx = W / w, sy = H / h, box = x1 >= x0 ? [x0 * sx, y0 * sy, (x1 + 1) * sx, (y1 + 1) * sy] : null;
+    const f = actors.find((a) => !keepIds.has(a.c.id));
+    const at = (p) => {
+      let v;
+      if (p) v = new THREE.Vector3(...p);
+      else if (f) { f.ch.root.updateMatrixWorld(true); v = f.ch.root.localToWorld(new THREE.Vector3(0, 0.5 * (f.def.body?.height ?? 1) * (f.c.scale ?? 1), 0)); }
+      else return [W / 2, H * 0.55];
+      v.project(camera); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H];
+    };
+    const [cx, cy] = at(L.w.hit), [tx, ty] = at(L.w.thawHit);
+    pauseState = { t, cx, cy, tx, ty, box };
+    return;
+  }
   // the wave's centre: the origin keeper's chest on screen
   const o = actors.find((a) => a.c.id === L.origin);
   let cx = W / 2, cy = H * 0.55;
@@ -422,6 +441,7 @@ function pauseGrade(t) {
   const L = pauseLookAt(sb, t);
   if (!L || !pauseState || pauseState.t !== t) return;
   if (!pauseCol) { for (const k of ["pauseCol", "pauseTmp"]) { const c = document.createElement("canvas"); c.width = W; c.height = H; if (k === "pauseCol") pauseCol = c; else pauseTmp = c; } }
+  if (L.look === "frozen") return frozenGrade(L);
   const G = L.w.grade, { cx, cy } = pauseState;
   const far = Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(([x, y]) => Math.hypot(x - cx, y - cy))) + 40;
   const ease3 = (u) => 1 - Math.pow(1 - u, 3);
@@ -445,6 +465,35 @@ function pauseGrade(t) {
   // the wave fronts: a pale ring going out, and one where the colour floods back
   const ring = (r, a) => { if (r <= 1 || r >= far || a <= 0) return; ctx.save(); ctx.strokeStyle = G.ring || "#e8f1ff"; for (const [lw, k] of [[34, 0.12], [14, 0.3], [5, 0.75]]) { ctx.globalAlpha = a * k; ctx.lineWidth = lw; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); } ctx.restore(); };
   if (L.look !== "dark") { if (L.ring < 1) ring(rIn, 1 - L.ring * 0.6); if (L.back > 0) ring(rOut, 1 - L.back * 0.6); }
+}
+
+// "frozen": only the frozen body (the mask) goes grey-cool, inside a ring growing from `hit` over the body's box and
+// outside one flooding the colour back from `thawHit`; a pale front runs across the body with each ring
+function frozenGrade(L) {
+  const G = L.w.grade, { cx, cy, tx, ty, box } = pauseState;
+  if (!box) return;
+  const far = (x, y) => Math.max(...[[box[0], box[1]], [box[2], box[1]], [box[0], box[3]], [box[2], box[3]]].map(([u, v]) => Math.hypot(u - x, v - y))) + 4;
+  const ease3 = (u) => 1 - Math.pow(1 - u, 3);
+  const rIn = ease3(L.ring) * far(cx, cy), rOut = ease3(L.back) * far(tx, ty);
+  const gc = pauseCol.getContext("2d"); gc.clearRect(0, 0, W, H); gc.drawImage(out, 0, 0);   // the frame in colour
+  const tc = pauseTmp.getContext("2d");
+  tc.globalCompositeOperation = "source-over"; tc.globalAlpha = 1; tc.clearRect(0, 0, W, H);
+  tc.filter = `saturate(${G.sat ?? 0.35}) brightness(${G.bright ?? 0.94}) contrast(${G.contrast ?? 0.95})`; tc.drawImage(pauseCol, 0, 0); tc.filter = "none";
+  tc.globalAlpha = G.tintK ?? 0.18; tc.fillStyle = G.tint || "#9fb4d8"; tc.fillRect(0, 0, W, H); tc.globalAlpha = 1;   // the cool wash
+  tc.globalCompositeOperation = "destination-in"; tc.filter = "blur(0.6px)"; tc.drawImage(pauseA, 0, 0, W, H); tc.filter = "none";   // only the frozen
+  if (L.ring < 1) { tc.beginPath(); tc.arc(cx, cy, Math.max(0.01, rIn), 0, Math.PI * 2); tc.fill(); }   // only where the wave has reached
+  if (rOut > 0) { tc.globalCompositeOperation = "destination-out"; tc.beginPath(); tc.arc(tx, ty, rOut, 0, Math.PI * 2); tc.fill(); }   // the colour back
+  tc.globalCompositeOperation = "source-over";
+  ctx.drawImage(pauseTmp, 0, 0);
+  // the fronts, on the body only
+  const fronts = [];
+  if (L.ring < 1 && rIn > 1) fronts.push([cx, cy, rIn, 1 - L.ring * 0.6]);
+  if (L.back > 0 && rOut > 1) fronts.push([tx, ty, rOut, 1 - L.back * 0.6]);
+  if (!fronts.length) return;
+  gc.clearRect(0, 0, W, H); gc.strokeStyle = G.ring || "#e8f1ff";
+  for (const [x, y, r, a] of fronts) for (const [lw, k] of [[18, 0.15], [8, 0.35], [3, 0.8]]) { gc.globalAlpha = a * k; gc.lineWidth = lw; gc.beginPath(); gc.arc(x, y, r, 0, Math.PI * 2); gc.stroke(); }
+  gc.globalAlpha = 1; gc.globalCompositeOperation = "destination-in"; gc.drawImage(pauseA, 0, 0, W, H); gc.globalCompositeOperation = "source-over";
+  ctx.drawImage(pauseCol, 0, 0);
 }
 
 function composite(t) {

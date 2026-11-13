@@ -597,6 +597,13 @@ The world stops for everyone but the keepers, who walk around in it; then it car
 - `look`: `"grey"` drains the colour from everything but the keepers (and the `props` listed while they're listed),
   spreading from `origin` as a ring over `wave` s (0.3), flooding back over `back` s (0.2); `"dark"` turns every light
   off but the keepers' eyes (light stops too); `"none"` stops the world with no look.
+- **Your friend pauses YOU** (There's a catch EP08, 13 Nov 2026; bench `node storyboards/env/make-pause-frozen-demo.mjs`):
+  `{ "from": 1.0, "to": 2.6, "keep": ["wiz"], "world": false, "look": "frozen", "hit": [x, y, z] }` freezes only the
+  cast not kept. `world: false` keeps the world clock running (set life, prop idles, dust, particles), and physics runs on
+  as always, so a prop thrown before `from` keeps flying. `look: "frozen"` greys ONLY the frozen actors (and the `props`
+  listed: what they hold); keepers, set and props stay in colour. It spreads from `hit` (world metres; default the
+  frozen actor's chest) over `wave` s (0.12) and floods back from `thawHit` (default `hit`) over `back` s (0.15).
+  `grade`: `sat` 0.35, `bright` 0.94, `contrast` 0.95, `tint` "#9fb4d8" at `tintK` 0.18, `ring` (the front's colour).
 - Sound: the generated music doesn't stop by itself: give each pause a `{ "at": from, "part": "hush" }` and the
   next part at `to`. The ambience bed (wind, birds) is silenced in every pause (engine/audio.mjs). The power's sounds
   are `timestop` (a wooden tock and a tape-stop slide) and `timego` (a rising vwip into one tick).

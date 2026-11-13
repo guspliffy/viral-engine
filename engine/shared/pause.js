@@ -19,6 +19,14 @@
 // "dark": every light stops, so the frame goes black but the keepers' eyes (the eye whites, irises and lids: what
 // still sees). "none": the world stops without a look.
 //
+// "Your friend pauses YOU" (There's a catch EP08, 13 Nov 2026): `world: false` keeps the world clock running through the
+// window (worldTime ignores it: set life, prop idles, particle effects play on), so only the cast it doesn't keep stop.
+// `look: "frozen"` is the inverse of "grey": ONLY the actors the window freezes (cast not in `keep`, plus the props
+// listed in `props`: what the frozen actor holds) go grey-cool, the keepers, set and props stay in colour. It spreads
+// over the frozen body from `hit` ([x, y, z] world metres; default the first frozen actor's chest) as a ring over
+// `wave` s (0.12) and floods back from `thawHit` (default `hit`) over `back` s (0.15). grade: sat 0.35, bright 0.94,
+// contrast 0.95, tint "#9fb4d8" mixed in at tintK 0.18.
+//
 // Pure and deterministic: shared by Node (load.mjs checks) and the page (timeline.js, stage.js).
 
 const r6 = (x) => Math.round(x * 1e6) / 1e6;
@@ -29,10 +37,14 @@ export function pausesOf(sb) {
   if (!sb || !Array.isArray(sb.pause) || !sb.pause.length) return null;
   let P = PLANS.get(sb);
   if (P) return P;
-  P = sb.pause.map((p) => ({
-    from: p.from, to: p.to, keep: new Set([].concat(p.keep || [])), props: p.props || [], look: p.look ?? "grey",
-    origin: p.origin ?? [].concat(p.keep || [])[0] ?? null, wave: p.wave ?? 0.3, back: p.back ?? 0.2, grade: p.grade || {},
-  })).sort((a, b) => a.from - b.from);
+  P = sb.pause.map((p) => {
+    const look = p.look ?? "grey", fr = look === "frozen";
+    return {
+      from: p.from, to: p.to, keep: new Set([].concat(p.keep || [])), props: p.props || [], look,
+      origin: p.origin ?? [].concat(p.keep || [])[0] ?? null, wave: p.wave ?? (fr ? 0.12 : 0.3), back: p.back ?? (fr ? 0.15 : 0.2), grade: p.grade || {},
+      world: p.world !== false, hit: p.hit ?? null, thawHit: p.thawHit ?? p.hit ?? null,
+    };
+  }).sort((a, b) => a.from - b.from);
   PLANS.set(sb, P);
   return P;
 }
@@ -40,10 +52,10 @@ export function pausesOf(sb) {
 // the paused time before t of the windows `ws` (each counts from its start up to t)
 const pausedBefore = (ws, t) => ws.reduce((s, w) => s + Math.max(0, Math.min(t, w.to) - w.from), 0);
 
-// the world's clock: stopped in every pause
+// the world's clock: stopped in every pause that stops the world (all but `world: false`)
 export function worldTime(sb, t) {
   const P = pausesOf(sb);
-  return P ? r6(t - pausedBefore(P, t)) : t;
+  return P ? r6(t - pausedBefore(P.filter((w) => w.world), t)) : t;
 }
 
 // the windows that freeze actor `id` (every pause that doesn't keep it), or null
@@ -101,7 +113,7 @@ export function pauseLookAt(sb, t) {
   return null;
 }
 
-// the props a pause keeps in colour at t (what a keeper carries)
+// the props a pause keeps in colour at t (what a keeper carries; for "frozen": the props that go grey with the frozen)
 export function keptProps(w, t) { return w.props.filter((p) => t >= (p.from ?? w.from) && t < (p.to ?? w.to)).map((p) => p.id); }
 
 // load.mjs: windows inside the clip, in order, not overlapping, keepers that exist
@@ -116,7 +128,9 @@ export function checkPauses(sb) {
     for (const k of w.keep) if (!ids.has(k)) err.push(`pause ${i}: keeper "${k}" is not in the cast`);
     if (w.origin && !ids.has(w.origin)) err.push(`pause ${i}: origin "${w.origin}" is not in the cast`);
     for (const p of w.props) if (!props.has(p.id)) err.push(`pause ${i}: prop "${p.id}" is not in the props`);
-    if (!["grey", "dark", "none"].includes(w.look)) err.push(`pause ${i}: look "${w.look}" (grey, dark or none)`);
+    if (!["grey", "dark", "none", "frozen"].includes(w.look)) err.push(`pause ${i}: look "${w.look}" (grey, dark, frozen or none)`);
+    for (const k of ["hit", "thawHit"]) if (w[k] != null && !(Array.isArray(w[k]) && w[k].length === 3 && w[k].every(Number.isFinite))) err.push(`pause ${i}: ${k} must be [x, y, z] (metres)`);
+    if (w.look === "frozen" && ![...ids].some((id) => !w.keep.has(id))) err.push(`pause ${i}: look "frozen" but it keeps the whole cast (nobody to freeze)`);
     // a frozen actor doesn't act inside a pause (its clock is stopped: the action would only start when it ends)
     for (const a of sb.actions || []) if (a.who != null && !w.keep.has(a.who) && a.at > w.from + 1e-6 && a.at < w.to - 1e-6)
       err.push(`pause ${i}: ${a.who} is frozen ${w.from}-${w.to} s but has a "${a.do}" at ${a.at} s`);
