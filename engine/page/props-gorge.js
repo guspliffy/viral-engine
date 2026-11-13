@@ -4,6 +4,8 @@ import { clamp, rng } from "./util.js";
 // There's a catch EP09b "Every jump, someone forgets you" (storyboards/series/what-if/09b-teleport-forget/DESIGN.md sections 1, 2, 3, 7): the gorge
 // of the broken rope bridge. Three kinds. World frame (DESIGN): x along the gorge, y up, z toward the near ledge; the near lip at z 0,
 // the bridge middle at the origin, far lip z -9, river y -70. Every kind is placed at [0, 0, 0], rot 0, scale 1.
+// V2 look (DESIGN-GORGE-V2.md): wall relief R(x, y) (buttresses, fins, chimneys + fine crags), 3-tone shade, dark-blue depth grade, rocky clifftop painted per
+// fragment, greenery on the walls. Spec key debugCount: true logs the triangle count at build. The build throws if rock or flora touches fall corridor A or B.
 // Everything is a pure function of the params and the clip time (second argument of apply); no Math.random, no wall clock.
 // Hand-drawn look: ONE cel shader (sun from (-0.55, 0.45, 0.70) #ffd9a0, sky fill, three flat steps lit / half / shade, the near rim's
 // shadow line on the far wall, depth haze by y, distance haze, ink lines on ledges); no texture, no canvas, no engine outline (lookOnly).
@@ -48,15 +50,19 @@ const Q = (h = 0, e1 = 99, e2 = 99, mode = 0) => [h, e1, e2, mode];
 // shader modes (vP.w): 0 plain, 1 wall bed, 2 thin wall bed, 3 ridge (unlit, distance haze only), 5 unlit (sky, fleck), 6 ink along edge e1,
 // 7 ledge top (path, hatch), 8 rope (twist)
 
-const TONE = { A: PT("#a7b0bc", "#4d5a73", "#7d8aa0"), B: PT("#98a3b2", "#44506a", "#707d94"), C: PT("#b4bdc8", "#55627b", "#8996ab"), D: PT("#8691a3", "#3b4a66", "#667592") };
-const SLAB = PT("#cdb893", "#8e8088"), CRACK = FLAT("#3d3640"), FRESH = PT("#dcc9a6", "#a99a8c"), UNDER = PT("#8f7f7e", "#7f7180", "#877888");
+// DESIGN-GORGE-V2 3.1: rock A is the blue-grey key; B, C, D are today's tones 50 % toward A
+const lerpPT = (a, b, t) => ({ l: mixc(a.l, b.l, t), m: mixc(a.m, b.m, t), s: mixc(a.s, b.s, t) });
+const TONE_A = PT("#b4bcc8", "#47536f", "#7c88a0");
+const TONE = { A: TONE_A, B: lerpPT(PT("#98a3b2", "#44506a", "#707d94"), TONE_A, 0.5), C: lerpPT(PT("#b4bdc8", "#55627b", "#8996ab"), TONE_A, 0.5), D: lerpPT(PT("#8691a3", "#3b4a66", "#667592"), TONE_A, 0.5) };
+const SLAB = PT("#cdb893", "#8e8088"), CRACK = FLAT("#3d3640"), FRESH = PT("#dcc9a6", "#a99a8c"), UNDER = FLAT("#2a2733");
+const SLABFACE = PT("#6a6672", "#34303f", "#4c4857"), ROCKTOP = PT("#b9b4a6", "#5f5a6a", "#8f8a8c");
 const GRASS = { dry: PT("#c8a64e", "#a8873f"), green: PT("#8fa257", "#6e7f47") };
 const EARTH = PT("#b3a15a", "#6f6a4a"), EARTH2 = PT("#c2ad68", "#7b7050");
 const PINE = { f: { l: col3("#4f7a4a"), m: col3("#2f5a3c"), s: col3("#1f3f2e") }, t: PT("#5b4636", "#3e3038") };
 const ROOT = PT("#6a5240", "#5a4332", "#5a4332");
 const PEB = [PT("#a59a8a", "#6f665f", "#8d8377"), PT("#8d8377", "#5c544e"), PT("#b2a797", "#7a7168")];
 const CLOD = PT("#b39d82", "#7d6a55", "#a08a70");
-const SHRUB = PT("#86a35a", "#3f5a36", "#5d7f4a"), SHRUBDRY = PT("#c9ab62", "#7b6a3e", "#b99a55");
+const SHRUB = PT("#86a652", "#33604a", "#4f7a48"), SHRUBDRY = PT("#c9ab62", "#7b6a3e", "#b99a55");
 const ROPE = { l: col3("#d4b382"), m: col3("#b08a5a"), s: col3("#7d5f3c") };
 const WOOD = PT("#8d6b48", "#5d4838"), ENDG = PT("#a98a63", "#7a5f45"), LASH = FLAT("#3b2f28");
 
@@ -158,18 +164,30 @@ function boxGeo(G, c, s, ry, pt, q = Q(0.5)) {
     [[-1, -1, -1], [-1, -1, 1], [-1, 1, 1], [-1, 1, -1], [-1, 0, 0]], [[-1, 1, 1], [1, 1, 1], [1, 1, -1], [-1, 1, -1], [0, 1, 0]], [[-1, -1, -1], [1, -1, -1], [1, -1, 1], [-1, -1, 1], [0, -1, 0]]];
   for (const f of F) { const h = [f[4][0] * co + f[4][2] * si, f[4][1], -f[4][0] * si + f[4][2] * co]; G.quad(P(...f[0].map((v, i) => v * 0.5)), P(...f[1].map((v) => v * 0.5)), P(...f[2].map((v) => v * 0.5)), P(...f[3].map((v) => v * 0.5)), h, pt, q); }
 }
+// a stand-alone box (centre, size) turned about y, then tilted about x and z: a loose rock block (DESIGN-GORGE-V2 2)
+function tiltBox(G, c, s, ry, rx, rz, pt, q = Q(0.5)) {
+  const co = Math.cos(ry), si = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx), cz = Math.cos(rz), sz = Math.sin(rz);
+  const T = (v) => {
+    let x = v[0] * s[0] * 0.5, y = v[1] * s[1] * 0.5, z = v[2] * s[2] * 0.5;
+    [y, z] = [y * cx - z * sx, y * sx + z * cx]; [x, y] = [x * cz - y * sz, x * sz + y * cz];
+    return [c[0] + x * co + z * si, c[1] + y, c[2] - x * si + z * co];
+  };
+  const F = [[[-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]], [[1, -1, -1], [-1, -1, -1], [-1, 1, -1], [1, 1, -1]], [[1, -1, 1], [1, -1, -1], [1, 1, -1], [1, 1, 1]], [[-1, -1, -1], [-1, -1, 1], [-1, 1, 1], [-1, 1, -1]], [[-1, 1, 1], [1, 1, 1], [1, 1, -1], [-1, 1, -1]], [[-1, -1, -1], [1, -1, -1], [1, -1, 1], [-1, -1, 1]]];
+  for (const f of F) { const P = f.map(T), m = [0, 1, 2, 3].reduce((a, i) => add(a, P[i]), [0, 0, 0]); G.quad(P[0], P[1], P[2], P[3], sub(mul(m, 0.25), c), pt, q); }
+}
 
 // ------------------------------------------------------------------------------------------------ the cel shader
+const GL = (hex) => `vec3(${col3(hex).map((v) => v.toFixed(4)).join(", ")})`;   // a linear colour literal for the shader
 const GVS = `
 attribute vec3 aLit; attribute vec3 aMid; attribute vec3 aShade; attribute vec4 aP;
-varying vec3 vW; varying vec3 vN; varying vec3 vLit; varying vec3 vMid; varying vec3 vShade; varying vec4 vP; varying vec3 vTint;
+varying vec3 vW; varying vec3 vO; varying vec3 vN; varying vec3 vLit; varying vec3 vMid; varying vec3 vShade; varying vec4 vP; varying vec3 vTint;
 void main() {
   mat4 M = modelMatrix;
 #ifdef USE_INSTANCING
   M = M * instanceMatrix;
 #endif
   vec4 w = M * vec4(position, 1.0);
-  vW = w.xyz; vN = normalize(mat3(M) * normal);
+  vW = w.xyz; vO = position; vN = normalize(mat3(M) * normal);
   vLit = aLit; vMid = aMid; vShade = aShade; vP = aP;
 #ifdef USE_INSTANCING_COLOR
   vTint = instanceColor;
@@ -180,15 +198,26 @@ void main() {
 }`;
 const GFS = `
 uniform vec3 uWL, uWM, uWS; uniform vec3 uL; uniform float uSlope; uniform vec3 uHazeC; uniform vec3 uDistC; uniform vec4 uStreak[10];
-varying vec3 vW; varying vec3 vN; varying vec3 vLit; varying vec3 vMid; varying vec3 vShade; varying vec4 vP; varying vec3 vTint;
+varying vec3 vW; varying vec3 vO; varying vec3 vN; varying vec3 vLit; varying vec3 vMid; varying vec3 vShade; varying vec4 vP; varying vec3 vTint;
+const vec3 CREVICE = ${GL("#1e2338")}, WARM = ${GL("#e9d3a4")}, SHOULDER = ${GL("#d8c79c")}, MIST = ${GL("#6f8fb5")};
+const vec3 ROCKL = ${GL("#b9b4a6")}, TWARM = ${GL("#c4b596")}, TCOOL = ${GL("#a3a6a8")}, TCRACK = ${GL("#2f2b36")}, MOSS = ${GL("#7d9150")};
+const vec3 EARTH1 = ${GL("#b3a15a")}, EARTH2 = ${GL("#c2ad68")}, PATHC = ${GL("#a8946c")}, RIMC = ${GL("#ddd3bd")}, SLABTOP = ${GL("#d8ceb6")};
 float hs1(float n) { return fract(sin(n * 127.1 + 17.3) * 43758.5453); }
 float bandStep(float e, float x) { float w = fwidth(x) * 0.9 + 0.003; return smoothstep(e - w, e + w, x); }
 float rimJag(float x) { return (hs1(floor(x / 1.3)) - 0.5) * 0.8; }
-float depthHaze(float y) {
-  if (y >= -2.0) return 0.0;
-  if (y > -30.0) return mix(0.0, 0.60, (-2.0 - y) / 28.0);
-  if (y > -70.0) return mix(0.60, 0.80, (-30.0 - y) / 40.0);
-  return 0.80;
+// prof() of the wall planes, ported (DESIGN-GORGE-V2 3.2): the mean plane z by y, near and far
+float profN(float y) {
+  if (y >= -30.0) return 0.25; if (y >= -40.0) return mix(0.25, -0.6, (-30.0 - y) / 10.0); if (y >= -55.0) return mix(-0.6, -2.2, (-40.0 - y) / 15.0);
+  if (y >= -70.0) return mix(-2.2, -3.2, (-55.0 - y) / 15.0); return -3.2;
+}
+float profF(float y) {
+  if (y >= -30.0) return -9.25; if (y >= -40.0) return mix(-9.25, -8.4, (-30.0 - y) / 10.0); if (y >= -55.0) return mix(-8.4, -6.8, (-40.0 - y) / 15.0);
+  if (y >= -70.0) return mix(-6.8, -5.8, (-55.0 - y) / 15.0); return -5.8;
+}
+// DESIGN-GORGE-V2 3.3: the depth grade replaces the old pale haze: dark blue deep down
+float depthGrade(float y) {
+  if (y >= -3.0) return 0.0; if (y > -20.0) return mix(0.0, 0.30, (-3.0 - y) / 17.0); if (y > -40.0) return mix(0.30, 0.55, (-20.0 - y) / 20.0);
+  if (y > -70.0) return mix(0.55, 0.70, (-40.0 - y) / 30.0); return 0.70;
 }
 void main() {
   float mode = vP.w, h = vP.x;
@@ -198,16 +227,32 @@ void main() {
     #include <colorspace_fragment>
     return;
   }
+  bool noGrade = mode > 3.5 && mode < 4.5;   // 4: the river's boulders, final colours
   if (mode > 2.5 && mode < 3.5) c = vLit;
   else {
     vec3 N = normalize(vN); if (!gl_FrontFacing) N = -N;
     float ndl = dot(N, uL);
     bool wallM = mode > 0.5 && mode < 2.5;
-    if (wallM) ndl -= 0.5 * h;
-    float kL = bandStep(0.35, ndl), kH = bandStep(0.0, ndl);
-    if (vW.z < 0.05) { float sh = bandStep(rimJag(vW.x), vW.y + (-vW.z) * uSlope); kL *= sh; kH *= sh; }
-    c = mix(mix(vShade, vMid, kH), vLit, kL);
-    if (mode > 0.5 && mode < 2.5 || (mode > 5.5 && mode < 6.5)) { float ww = smoothstep(-1.5, -0.5, vW.y); vec3 wc = mix(mix(uWS, uWM, kH), uWL, kL); c = mix(c, wc, ww); }
+    bool rockM = wallM || (mode > 5.5 && mode < 6.5) || (mode > 8.5 && mode < 9.5);   // the wall modes of the V2 shading: 1, 2, 6, 9
+    if (wallM) ndl -= 0.15 * h;
+    float kL = bandStep(0.35, ndl), kH = bandStep(0.0, ndl), shd = 1.0;
+    if (vW.z < 0.05) { shd = bandStep(rimJag(vW.x), vW.y + (-vW.z) * uSlope); kL *= shd; kH *= shd; }
+    vec3 sh = vShade, lt = vLit;
+    if (mode < 0.5) sh = mix(vShade, vMid, 0.4);   // plants in shade catch some sky
+    if (rockM && mode < 8.5) {
+      lt = mix(vMid, vLit, 0.72);   // the sunlit face is a blue-grey with a pale edge, not paper
+      // shade has three tones: the +x flank of every rib goes dark (a vertical shape), the rest is the shade tone
+      float kF = bandStep(0.15, dot(N, normalize(vec3(-0.80, 0.35, 0.0))));
+      sh = mix(vShade * 0.55, vShade, kF);
+    }
+    c = mix(mix(sh, vMid, kH), lt, kL);
+    if (rockM && mode < 8.5) {
+      float r = (vW.z > -4.5) ? profN(vW.y) - vW.z : vW.z - profF(vW.y);   // relief depth, + out into the gap
+      c = mix(c, CREVICE, 0.85 * (1.0 - bandStep(-0.45, r)));              // chimneys and recesses are dark slots
+      c = mix(c, vMid, 0.35 * bandStep(0.9, r) * (1.0 - kH));              // proud buttress fronts catch the sky
+      c = mix(c, WARM, 0.20 * smoothstep(-4.0, -0.5, vW.y) * kL);          // the sun's warm tops
+      c = mix(c, SHOULDER, smoothstep(0.5, 0.7, N.y) * shd * smoothstep(-8.0, -1.0, vW.y));   // shoulders and ledge tops above the rim shadow
+    }
     c *= vTint;
     float lit = kH;
     if (wallM) {
@@ -215,38 +260,68 @@ void main() {
       float hh = fract(h * 7.13);
       if (kH < 0.5 && hh < 0.25) {
         float a = dot(vW.xy, vec2(0.866, 0.5)), b = dot(vW.xy, vec2(-0.5, 0.866)), li = floor(b / 0.11);
-        if (fract(b / 0.11) < 0.14 && fract(a / 0.25 + hs1(li)) < 0.6) c = mix(c, vec3(0.159, 0.137, 0.144), 0.7);
+        if (fract(b / 0.11) < 0.14 && fract(a / 0.25 + hs1(li)) < 0.6) c = mix(c, vec3(0.159, 0.137, 0.144), 0.5);
       }
       if (vW.y > -12.0 && fract(h * 13.7) < 0.06) {
         vec2 cell = floor(vW.xy / 0.8); vec2 cc = (cell + 0.5 + 0.35 * (vec2(hs1(cell.x * 7.0 + cell.y), hs1(cell.y * 3.0 + cell.x + 9.0)) - 0.5)) * 0.8;
-        if (length(vW.xy - cc) < 0.15 + 0.25 * hs1(cell.x + cell.y * 5.0)) c = vec3(0.397, 0.381, 0.144) * mix(0.62, 1.0, lit);
+        if (length(vW.xy - cc) < 0.15 + 0.25 * hs1(cell.x + cell.y * 5.0)) c = mix(c, MOSS * mix(0.45, 0.8, lit), 0.75);
       }
       for (int i = 0; i < 10; i++) {
         vec4 s = uStreak[i];
         if (abs(vW.x - s.x + 0.04 * sin(vW.y * 2.1 + s.x)) < 0.15 && vW.y < s.y && vW.y > s.y - s.z && ((vW.z > -4.6) == (s.w > 0.0))) c = mix(c, vec3(0.147, 0.112, 0.108), 0.85);
       }
       if (mode > 1.5) {
-        if (vP.y < 0.04) c = mix(vec3(0.745, 0.597, 0.381), c, 0.35);
-        if (vP.z < 0.04) c = vec3(0.047, 0.036, 0.042);
+        if (vP.y < 0.04) c = mix(c, vec3(0.745, 0.597, 0.381), 0.18);
+        if (vP.z < 0.04) c = mix(c, vec3(0.047, 0.036, 0.042), 0.45);
       } else if (vP.z < 0.02) c = mix(c, vec3(0.047, 0.036, 0.042), 0.85);
     } else if (mode > 5.5 && mode < 6.5) {
-      if (vP.y < 0.025) c = vec3(0.047, 0.036, 0.042);
+      if (vP.y < 0.025) c = mix(c, vec3(0.047, 0.036, 0.042), 0.5);
+    } else if (mode > 8.5 && mode < 9.5) {
+      // a lip slab's front face: the dark slab-face tones, the top 0.06 m a pale chipped edge, a thin ink line over it
+      if (vP.y < 0.06) c = SLABTOP * mix(0.7, 1.0, kH);
+      if (vP.y < 0.012) c = vec3(0.047, 0.036, 0.042);
     } else if (mode > 6.5 && mode < 7.5) {
-      vec2 cell = floor(vW.xz / 1.2);
-      if (hs1(cell.x * 13.0 + cell.y * 7.0 + 3.0) < 0.15) {
+      // a rocky clifftop, painted per fragment (DESIGN-GORGE-V2 5): jittered Voronoi slabs with cracks, moss, earth, a worn rim
+      vec2 p = vO.xz * vec2(0.5, 0.7692);
+      vec2 ip = floor(p); float d1 = 9.0, d2 = 9.0, id1 = 0.0, id2 = 0.0;
+      for (int j = -1; j <= 1; j++) for (int i = 0; i < 3; i++) {
+        vec2 n = ip + vec2(float(i - 1), float(j));
+        vec2 pt = n + vec2(hs1(n.x * 17.0 + n.y * 131.0 + 3.0), hs1(n.x * 53.0 + n.y * 29.0 + 11.0));
+        float d = length(p - pt), idn = hs1(n.x * 13.1 + n.y * 71.7 + 9.0);
+        if (d < d1) { d2 = d1; id2 = id1; d1 = d; id1 = idn; } else if (d < d2) { d2 = d; id2 = idn; }
+      }
+      float lf = mix(mix(0.55, 0.8, kH), 1.0, kL);
+      float tn = hs1(id1 * 91.0 + 1.0);
+      vec3 tone = tn < 0.25 ? vec3(1.0) : (tn < 0.5 ? vec3(0.86) : (tn < 0.75 ? TWARM / ROCKL : TCOOL / ROCKL));
+      c *= tone;
+      float nearTop = vW.z > -4.5 ? 1.0 : 0.0;
+      float mossP = mix(0.12, 0.45, smoothstep(2.5, 6.0, vW.z));
+      if (nearTop > 0.5 && hs1(id1 * 37.0 + 5.0) < mossP) c = mix(c, MOSS * lf, 0.6);
+      float earthF = nearTop > 0.5 ? smoothstep(6.0, 16.0, vW.z) : smoothstep(10.0, 18.0, -vW.z);
+      c = mix(c, mix(EARTH1, EARTH2, step(0.5, hs1(id1 * 53.0 + 2.0))) * lf, earthF);
+      float e = d2 - d1;
+      if (hs1((id1 + id2) * 917.0 + 3.0) < 0.55) c = mix(c, TCRACK, (1.0 - smoothstep(0.010, 0.014 + fwidth(e), e)) * (1.0 - 0.6 * earthF));
+      vec2 pcell = floor(vW.xz / 1.2);
+      if (hs1(pcell.x * 13.0 + pcell.y * 7.0 + 3.0) < 0.15) {
         float a = dot(vW.xz, vec2(0.866, 0.5)), b = dot(vW.xz, vec2(-0.5, 0.866)), li = floor(b / 0.11);
-        if (fract(b / 0.11) < 0.14 && fract(a / 0.25 + hs1(li)) < 0.6) c = mix(c, vec3(0.159, 0.137, 0.144), 0.55);
+        if (fract(b / 0.11) < 0.14 && fract(a / 0.25 + hs1(li)) < 0.6) c = mix(c, vec3(0.159, 0.137, 0.144), 0.35);
       }
       float pa = (1.0 - smoothstep(0.45, 0.75, abs(vW.x + 0.12 * sin(vW.z * 1.7)))) * smoothstep(0.35, 0.65, vW.z) * (1.0 - smoothstep(10.0, 10.6, vW.z)) * step(vW.y, 0.02) * step(-0.5, vW.y);
-      c = mix(c, vec3(0.658, 0.512, 0.296) * mix(0.62, 1.0, lit), pa * vP.y);
-    } else if (mode > 7.5) {
+      c = mix(c, PATHC * lf, pa * 0.6 * vP.y);
+      if (vP.z < 0.10 + 0.12 * hs1(floor(vO.x / 0.23))) c = mix(c, RIMC * lf, 0.5);   // the worn, chipped rim
+    } else if (mode > 7.5 && mode < 8.5) {
       float tw = fract((vP.y + vP.z * 1.4324) / 0.09);
       if (tw < 0.13) c *= 0.55;
     }
   }
-  float dh = (mode > 2.5 && mode < 3.5) ? 0.0 : depthHaze(vW.y);
-  float gh = clamp((length(cameraPosition - vW) - 30.0) / 120.0, 0.0, 1.0) * 0.7;
-  c = mix(c, uHazeC, dh); c = mix(c, uDistC, gh);
+  if (!noGrade) {
+    if (!(mode > 2.5 && mode < 3.5)) {
+      c = mix(c, uHazeC, depthGrade(vW.y));
+      c = mix(c, MIST, 0.12 * smoothstep(-25.0, -60.0, vW.y));
+    }
+    float gh = clamp((length(cameraPosition - vW) - 45.0) / 125.0, 0.0, 1.0) * 0.40;
+    c = mix(c, uDistC, gh);
+  }
   gl_FragColor = vec4(c, 1.0);
   #include <colorspace_fragment>
 }`;
@@ -254,7 +329,7 @@ const SUN = new THREE.Vector3(-0.55, 0.45, 0.70).normalize();
 function gorgeMat(streaks = []) {
   const st = Array.from({ length: 10 }, (_, i) => new THREE.Vector4(...(streaks[i] || [0, 99, 0, 1])));
   const m = new THREE.ShaderMaterial({
-    uniforms: { uL: { value: SUN.clone() }, uSlope: { value: SUN.y / SUN.z }, uHazeC: { value: C("#8fa6c4") }, uDistC: { value: C("#b8c8dc") }, uWL: { value: C("#d8c39a") }, uWM: { value: C("#b0a08e") }, uWS: { value: C("#8e8088") }, uStreak: { value: st } },
+    uniforms: { uL: { value: SUN.clone() }, uSlope: { value: SUN.y / SUN.z }, uHazeC: { value: C("#1d2a47") }, uDistC: { value: C("#a9bdd6") }, uWL: { value: C("#d8c39a") }, uWM: { value: C("#b0a08e") }, uWS: { value: C("#8e8088") }, uStreak: { value: st } },
     vertexShader: GVS, fragmentShader: GFS, side: THREE.DoubleSide, toneMapped: false, fog: false,
   });
   m.userData.noOutline = true; m.userData.outlineParameters = { visible: false };
@@ -318,13 +393,72 @@ function farH(x, z, clr) {
 const union = (...arrs) => [...new Set(arrs.flat().map((v) => Math.round(v * 1e5) / 1e5))].sort((a, b) => a - b);
 const range = (a, b, s) => { const o = []; for (let v = a; v < b - 1e-9; v += s) o.push(v); o.push(b); return o; };
 // x columns for the near lip: 0.1 m inside |x| 2, 0.5 to 8, 2 beyond
-const LIPX = union(range(-150, -8, 2), range(-8, -2, 0.5), range(-2, 2, 0.1), range(2, 8, 0.5), range(8, 150, 2), [-1.17, -1.03, -0.82, -0.68, 0.98, 1.12]);
-const FARX = union(range(-150, -70, 4), range(-70, -8, 2), range(-8, 8, 0.5), range(8, 70, 2), range(70, 150, 4));
+const LIPX = union(range(-150, -12, 2), range(-12, -2, 0.25), range(-2, 2, 0.1), range(2, 12, 0.25), range(12, 150, 2), [-1.17, -1.03, -0.82, -0.68, 0.98, 1.12]);
+const FARX = union(range(-150, -70, 4), range(-70, -8, 1), range(-8, 8, 0.5), range(8, 70, 1), range(70, 150, 4));
 const interp = (xs, zs, x) => { let lo = 0, hi = xs.length - 1; if (x <= xs[0]) return zs[0]; if (x >= xs[hi]) return zs[hi]; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xs[m] <= x) lo = m; else hi = m; } return lerp(zs[lo], zs[hi], (x - xs[lo]) / (xs[hi] - xs[lo])); };
+
+// ------------------------------------------------------------------------------------------------ wall relief (DESIGN-GORGE-V2 1)
+// R(x, y) in metres, + = out into the gap: a sum of buttresses, fins (trapezoids in x) and chimneys (V recesses), each amp(y) * shape(x) with
+// shape piecewise linear at fixed breakpoints. `breaks` are those breakpoints (|x| <= BRK_X) for every bed's xs, so R is exact on every shared edge.
+const BRK_X = 36, FINE_DX = 0.65, FINE_X = 20;
+const HERO = {
+  near: { B: [[-4.3, 1.3, 1.7, -1.4], [3.9, 1.1, 1.6, -2.0], [-8.8, 1.6, 1.8, -3.5], [8.2, 1.4, 1.5, -1.2], [0, 1.4, -0.5, -6]], F: [[-6.4, 0.5, 1.6, -5], [6.0, 0.45, 1.3, -8]], C: [[-2.3, 0.4, 1.1, -0.45, -50], [2.4, 0.35, 0.9, -3, -38]] },
+  far: { B: [[-3.8, 1.5, 2.0, -2.2], [3.6, 1.2, 1.7, -4.5], [-9.5, 1.8, 2.2, -1.5], [8.9, 1.5, 1.9, -7]], F: [[-6.3, 0.5, 1.8, -3], [6.1, 0.55, 1.5, -1.0], [1.9, 0.3, 0.9, -10]], C: [[-1.9, 0.4, 1.2, -3, -45], [2.6, 0.35, 1.3, -0.05, -60], [-7.4, 0.5, 1.4, -0.05, -40]] },
+};
+function buildRelief(near, hz, xMax) {
+  const feats = [], K0 = near ? 610 : 640, hero = near ? HERO.near : HERO.far;
+  const addB = (c, hw, A, top, fl, fr, fin) => feats.push({ chim: false, fin, c, hw, A, top, bot: -1e9, bk: [c - hw, c - hw * (1 - fl), c + hw * (1 - fr), c + hw], sh: [0, 1, 1, 0], nk: K0 + 20 + feats.length });
+  const addC = (c, hw, D, top, bot) => feats.push({ chim: true, fin: false, c, hw, A: D, top, bot, bk: [c - hw, c, c + hw], sh: [0, -1, 0], nk: K0 + 20 + feats.length });
+  hero.B.forEach(([c, hw, A, top], i) => addB(c, hw, A, top, 0.18 + 0.27 * hz(i, K0 + 1), 0.18 + 0.27 * hz(i, K0 + 2), false));
+  hero.F.forEach(([c, hw, A, top]) => addB(c, hw, A, top, 0.45, 0.45, true));
+  hero.C.forEach(([c, hw, D, top, bot]) => addC(c, hw, D, top, bot));
+  const kLo = (w) => Math.floor(-xMax / w) - 1, kHi = (w) => Math.ceil(xMax / w) + 1;
+  for (let k = kLo(7.5); k <= kHi(7.5); k++) {   // a buttress per 7.5 m cell, p 0.8
+    const c = (k + hz(k, K0 + 3)) * 7.5, h = hz(k, K0 + 5); if (Math.abs(c) <= 11 || Math.abs(c) > xMax || hz(k, K0 + 4) >= 0.8) continue;
+    addB(c, 1.0 + 1.2 * hz(k, K0 + 6), near ? 0.7 + 1.1 * hz(k, K0 + 7) : 0.8 + 1.4 * hz(k, K0 + 7), -1 - 13 * h * h, 0.18 + 0.27 * hz(k, K0 + 8), 0.18 + 0.27 * hz(k, K0 + 9), false);
+  }
+  for (let k = kLo(11); k <= kHi(11); k++) {   // a fin per 11 m cell, p 0.5
+    const c = (k + hz(k, K0 + 10)) * 11, h = hz(k, K0 + 12); if (Math.abs(c) <= 11 || Math.abs(c) > xMax || hz(k, K0 + 11) >= 0.5) continue;
+    addB(c, 0.35 + 0.25 * hz(k, K0 + 13), 1.2 + 0.8 * hz(k, K0 + 14), -1 - 19 * h * h, 0.45, 0.45, true);
+  }
+  for (let k = kLo(4.3); k <= kHi(4.3); k++) {   // a chimney per 4.3 m cell, p 0.6
+    const c = (k + hz(k, K0 + 15)) * 4.3; if (Math.abs(c) <= 11 || Math.abs(c) > xMax || hz(k, K0 + 16) >= 0.6) continue;
+    addC(c, 0.3 + 0.3 * hz(k, K0 + 17), 0.6 + 0.8 * hz(k, K0 + 18), -0.45 - 9.55 * hz(k, K0 + 19), -25 - 40 * hz(k, K0 + 20));
+  }
+  const vn = (t, k) => { const i = Math.floor(t); return lerp(hz(i, k), hz(i + 1, k), t - i); };
+  const cap = (ax) => (near ? 1.8 * clamp((ax - 1.5) / 1.1) : 1.2 + 1.0 * clamp((ax - 2.2) / 1.0));
+  const R = (x, y) => {
+    let r = 0;
+    for (const f of feats) {
+      const bk = f.bk, n = bk.length - 1;
+      if (x <= bk[0] || x >= bk[n] || y >= f.top || y <= f.bot) continue;
+      let i = 0; while (i < n - 1 && x >= bk[i + 1]) i++;
+      const sh = lerp(f.sh[i], f.sh[i + 1], (x - bk[i]) / (bk[i + 1] - bk[i]));
+      r += f.chim ? f.A * clamp((f.top - y) / 1.5) * clamp((y - f.bot) / 3) * sh : f.A * clamp((f.top - y) / 1.2) * (0.8 + 0.4 * vn(y / 7 + f.c, f.nk)) * sh;
+    }
+    const ax = Math.abs(x);
+    if (ax <= FINE_X) {   // fine crags: a value noise in x (a breakpoint every FINE_DX m) by y (rows of 2 m), -0.5..0.5 m, so the big ribs are not smooth columns
+      const u = x / FINE_DX, i = Math.floor(u), v = y / 2.0, j = Math.floor(v), fy = v - j;
+      const nz = (ii) => lerp(hz(ii + j * 131, K0 + 30), hz(ii + (j + 1) * 131, K0 + 30), fy);
+      r += 0.5 * (lerp(nz(i), nz(i + 1), u - i) - 0.5) * sm(-0.8, -2.4, y) * 2;
+    }
+    r = clamp(r, -1.5, cap(ax));
+    const wb = (1 - sm(1.6, 2.2, ax)) * (1 - sm(-6, -8, y));   // both walls, |x| <= 1.6 and y > -6: R in [-0.15, 0] (flat behind the bridge and the notch)
+    if (wb > 0) r = lerp(r, clamp(r, -0.15, 0), wb);
+    if (r > 0) r *= 1 - 0.85 * sm(-40, -70, y);   // the gorge narrows toward the river: the proud relief fades out so the two walls never meet
+    return r;
+  };
+  const breaks = new Set([1.5, 1.6, near ? 2.6 : 2.2, near ? 2.6 : 3.2].flatMap((v) => [v, -v]));
+  for (const f of feats) for (const x of f.bk) if (Math.abs(x) <= BRK_X) breaks.add(Math.round(x * 1e5) / 1e5);
+  for (let i = Math.ceil(-FINE_X / FINE_DX); i * FINE_DX <= FINE_X; i++) breaks.add(Math.round(i * FINE_DX * 1e5) / 1e5);
+  const shoulders = feats.filter((f) => !f.chim && f.A > 0 && Math.abs(f.c) <= 30).map((f) => ({ c: f.c, top: f.top, hw: f.hw, fin: f.fin }));
+  return { R, breaks: [...breaks].sort((a, b) => a - b), shoulders, feats };
+}
 
 // ------------------------------------------------------------------------------------------------ a wall (DESIGN 1.1, 1.2)
 function buildWall(G, near, hz) {
   const side = near ? 1 : -1, off = near ? 0 : 0.7, xMax = near ? 120 : 70, yTopW = near ? -0.45 : -0.05, yBotW = -70, hint = [0, 0, -side];
+  const relief = buildRelief(near, hz, xMax), R = relief.R;
   const J = []; { let x = -xMax - 3, k = 0; while (x < xMax + 3) { J.push({ x, yc: -hz(k, 41 + side) * 60, h: 2 + 7 * hz(k, 42 + side), w: 0.03 + 0.05 * hz(k, 43 + side) }); x += 1.6 + 2.2 * hz(k, 44 + side); k++; } }
   const beds = []; let o = 0, bi = 0;
   for (let c = -1; c <= 6; c++) {
@@ -346,13 +480,20 @@ function buildWall(G, near, hz) {
       xs.push({ x, dz: lo + (0.10 - lo) * hz(k + b.bi * 53, 77), w: Math.abs(mid - jt.yc) < jt.h / 2 ? jt.w : 0, k });
     });
     xs.push({ x: xMax, dz: 0, w: 0, k: -2 }); xs[0].dz = lo + (0.10 - lo) * hz(b.bi, 78); xs[xs.length - 1].dz = lo + (0.10 - lo) * hz(b.bi, 79);
-    b.xs = xs;
+    // the relief's breakpoints go into every bed's xs (dz interpolated, no joint): R is then exact on every shared edge
+    const add = [];
+    for (const x of relief.breaks) {
+      if (x <= -xMax + 0.05 || x >= xMax - 0.05) continue;
+      let lo = 0, hi = xs.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xs[m].x <= x) lo = m; else hi = m; }
+      add.push({ x, dz: lerp(xs[lo].dz, xs[hi].dz, (x - xs[lo].x) / (xs[hi].x - xs[lo].x)), w: 0, k: -3 });
+    }
+    b.xs = xs.concat(add).sort((p, q) => p.x - q.x);
   }
   const clampB = (z, x, y) => (near && y < -0.4 && y > -41 ? z + (1 - sm(1.5, 2.4, Math.abs(x))) * Math.max(0, -0.10 - z) : z);
   const zIn = (b, x, y) => {
     const xs = b.xs; let lo = 0, hi = xs.length - 1; while (hi - lo > 1) { const m = (lo + hi) >> 1; if (xs[m].x <= x) lo = m; else hi = m; }
     const a = xs[lo], c = xs[hi], t = clamp((x - a.x) / (c.x - a.x)), dz = lerp(a.dz, c.dz, t);
-    return clampB(prof(near, y) - side * (b.step - dz), x, y);
+    return clampB(prof(near, y) - side * (R(x, y) + b.step * 0.5 - dz), x, y);
   };
   const findBed = (x, y) => { const yy = y + TAN3 * x; let best = beds[0], bd = 1e9; for (const b of beds) { if (b.yT >= yy && yy > b.yB) return b; const d = Math.min(Math.abs(b.yT - yy), Math.abs(b.yB - yy)); if (d < bd) { bd = d; best = b; } } return best; };
   const zAt = (x, y) => zIn(findBed(x, y), x, y);
@@ -366,7 +507,13 @@ function buildWall(G, near, hz) {
       const ta = yT(b, xa), ba = yB(b, xa), tb = yT(b, xb), bb = yB(b, xb);
       if (ta - ba < 1e-3 && tb - bb < 1e-3) continue;
       const h = hz(i * 13 + b.bi * 7.7 + side, 11);
-      G.quad(Pn(b, xa, ta), Pn(b, xb, tb), Pn(b, xb, bb), Pn(b, xa, ba), hint, tone, Q(h, 0, ta - ba, mode), Q(h, 0, tb - bb, mode), Q(h, tb - bb, 0, mode), Q(h, ta - ba, 0, mode));
+      // rows: one where the wall is flat, else one per ~0.75 m so the relief's shoulders and ramps have vertices
+      let m = 1; const hh = Math.max(ta - ba, tb - bb);
+      if (hh > 0.8 && [R(xa, ta), R(xa, ba), R(xb, tb), R(xb, bb), R(xa, (ta + ba) / 2), R(xb, (tb + bb) / 2)].some((v) => Math.abs(v) > 1e-4)) m = Math.ceil(hh / 0.75);
+      for (let j = 0; j < m; j++) {
+        const y0a = lerp(ta, ba, j / m), y1a = lerp(ta, ba, (j + 1) / m), y0b = lerp(tb, bb, j / m), y1b = lerp(tb, bb, (j + 1) / m);
+        G.quad(Pn(b, xa, y0a), Pn(b, xb, y0b), Pn(b, xb, y1b), Pn(b, xa, y1a), hint, tone, Q(h, ta - y0a, y0a - ba, mode), Q(h, tb - y0b, y0b - bb, mode), Q(h, tb - y1b, y1b - bb, mode), Q(h, ta - y1a, y1a - ba, mode));
+      }
       if (i > 0 && a.w) {   // the joint's crack: a dark flat strip between the blocks
         const xl = a.x - a.w / 2, xr = a.x + a.w / 2, tl = yT(b, xl), bl = yB(b, xl), tr = yT(b, xr), br = yB(b, xr);
         G.quad(Pn(b, xl, tl), Pn(b, xr, tr), Pn(b, xr, br), Pn(b, xl, bl), hint, CRACK, Q(0.5));
@@ -382,14 +529,15 @@ function buildWall(G, near, hz) {
       const zU0 = zIn(b, x0, yb(x0)), zU1 = zIn(b, x1, yb(x1)), zL0 = zIn(b2, x0, yb(x0)), zL1 = zIn(b2, x1, yb(x1));
       if (Math.abs(zU0 - zL0) < 0.002 && Math.abs(zU1 - zL1) < 0.002) continue;
       const lowerProud = near ? zL0 + zL1 < zU0 + zU1 : zL0 + zL1 > zU0 + zU1, w0 = Math.abs(zU0 - zL0), w1 = Math.abs(zU1 - zL1);
+      const lm = Math.max(w0, w1) < 0.10 ? 1 : 6;   // a thin ledge is plain wall (no ink line, no sunlit top): the strata stay a faint second read
       G.quad([x0, yb(x0), zU0], [x1, yb(x1), zU1], [x1, yb(x1), zL1], [x0, yb(x0), zL0], [0, lowerProud ? 1 : -1, 0], lowerProud ? TONE[b2.tone] : TONE[b.tone],
-        Q(0.5, lowerProud ? w0 : 0, 0, 6), Q(0.5, lowerProud ? w1 : 0, 0, 6), Q(0.5, lowerProud ? 0 : w1, 0, 6), Q(0.5, lowerProud ? 0 : w0, 0, 6));
+        Q(0.5, lowerProud ? w0 : 0, 0, lm), Q(0.5, lowerProud ? w1 : 0, 0, lm), Q(0.5, lowerProud ? 0 : w1, 0, lm), Q(0.5, lowerProud ? 0 : w0, 0, lm));
     }
   }
   // a dark backing sheet well inside the rock: nothing seen through a seam
-  const bz = (y) => prof(near, y) + side * 0.8, ys = [yTopW, -30, -40, -55, -70];
+  const bz = (y) => prof(near, y) + side * 3.2, ys = [yTopW, -30, -40, -55, -70];
   for (let i = 0; i < ys.length - 1; i++) G.quad([-xMax, ys[i], bz(ys[i])], [xMax, ys[i], bz(ys[i])], [xMax, ys[i + 1], bz(ys[i + 1])], [-xMax, ys[i + 1], bz(ys[i + 1])], hint, TONE.D, Q(0.5));
-  return { near, side, beds, zAt, findBed, zIn, xMax, yTopW, yT, yB };
+  return { near, side, beds, zAt, findBed, zIn, xMax, yTopW, yT, yB, R, shoulders: relief.shoulders };
 }
 
 // the lip slab of a wall (0.45 thick, overhanging) along the lip polyline lip [[x, z]]; `skip` leaves out [x0, x1] (the chunk takes it)
@@ -399,14 +547,14 @@ function buildSlab(G, wall, lip, skip) {
   const lx = lip.map((p) => p[0]), lz = lip.map((p) => p[1]), zl = (x) => interp(lx, lz, x);
   for (let i = 0; i < xs.length - 1; i++) {
     const x0 = xs[i], x1 = xs[i + 1]; if (skip && x0 >= skip[0] - 1e-6 && x1 <= skip[1] + 1e-6) continue;
-    G.quad([x0, topY, zl(x0)], [x1, topY, zl(x1)], [x1, botY, zl(x1)], [x0, botY, zl(x0)], hint, SLAB, Q(0.5, 0, 0, 6), Q(0.5, 0, 0, 6), Q(0.5, 0.45, 0, 6), Q(0.5, 0.45, 0, 6));
-    // the underside: from the lip back to the wall
-    G.quad([x0, botY, zl(x0)], [x1, botY, zl(x1)], [x1, botY, wall.zAt(x1, botY - 0.001)], [x0, botY, wall.zAt(x0, botY - 0.001)], [0, -1, 0], UNDER, Q(0.5));
+    G.quad([x0, topY, zl(x0)], [x1, topY, zl(x1)], [x1, botY, zl(x1)], [x0, botY, zl(x0)], hint, SLABFACE, Q(0.5, 0, 0, 9), Q(0.5, 0, 0, 9), Q(0.5, 0.45, 0, 9), Q(0.5, 0.45, 0, 9));
+    // the underside: from the lip back to 1.8 m behind the wall plane (a recess below the slab stays closed, DESIGN-GORGE-V2 1)
+    const zb = (x) => wall.zAt(x, botY - 0.001) + wall.side * 1.8;
+    G.quad([x0, botY, zl(x0)], [x1, botY, zl(x1)], [x1, botY, zb(x1)], [x0, botY, zb(x0)], [0, -1, 0], UNDER, Q(0.5));
   }
 }
 
 // ------------------------------------------------------------------------------------------------ plants and small things
-const lerpPT = (a, b, t) => ({ l: mixc(a.l, b.l, t), m: mixc(a.m, b.m, t), s: mixc(a.s, b.s, t) });
 const inPoly = (p, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < ((b[0] - a[0]) * (p[1] - a[1])) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
 
 // a tuft of dry grass: n blades, a flat triangle each
@@ -465,9 +613,18 @@ function buildGorge(spec) {
 
   // ---- the lips
   const NOTCH = [[-1.1, 0.12], [-0.75, 0.15], [1.05, 0.10]];
+  const vnx = (t, k) => { const i = Math.floor(t); return lerp(hz(i, k), hz(i + 1, k), t - i); };
+  // DESIGN-GORGE-V2 2: the lips are jagged outside the stage (|x| > 1.5): out to -0.6 / in to +0.2 on the near lip, -9.2..-8.4 on the far one
+  const jag = (x) => (0.6 * vnx(x / 2.3, 11) + 0.25 * vnx(x / 0.7, 12)) / 0.85;
   const lipAmp = (x) => (Math.abs(x) > 120 ? 0 : Math.abs(x) <= 1.5 ? 0.06 : 0.03);
-  const lipN = LIPX.map((x) => { let z = (hz(Math.round(x * 10), 5) * 2 - 1) * lipAmp(x); for (const [nx, d] of NOTCH) if (Math.abs(x - nx) <= 0.0701) z += d; return [x, z]; });
-  const farN = FARX.map((x) => [x, -9 + (Math.abs(x) > 70 ? 0 : (hz(Math.round(x * 2), 6) * 2 - 1) * 0.08)]);
+  const lipN = LIPX.map((x) => {
+    const ax = Math.abs(x); let z;
+    if (ax <= 1.5 || ax > 120) z = (hz(Math.round(x * 10), 5) * 2 - 1) * lipAmp(x);
+    else z = lerp(-0.6, 0.2, jag(x)) * lerp(0.12, 1, sm(1.5, 4, ax));
+    for (const [nx, d] of NOTCH) if (Math.abs(x - nx) <= 0.0701) z += d;
+    return [x, z];
+  });
+  const farN = FARX.map((x) => { const ax = Math.abs(x); return [x, ax <= 2 ? -9 + (hz(Math.round(x * 2), 6) * 2 - 1) * 0.08 : ax > 70 ? -9 : -9 + (lerp(-9.2, -8.4, jag(x + 40)) + 9) * sm(2, 3.5, ax)]; });
   const lx = lipN.map((p) => p[0]), lz = lipN.map((p) => p[1]), lipZ = (x) => interp(lx, lz, x);
   const fx = farN.map((p) => p[0]), fz = farN.map((p) => p[1]), farLipZ = (x) => interp(fx, fz, x);
 
@@ -491,16 +648,17 @@ function buildGorge(spec) {
   const tris2 = (poly) => THREE.ShapeUtils.triangulateShape(poly.map((p) => new THREE.Vector2(p[0], p[1])), []);
   const yb = (z) => -(0.30 + 0.15 * clamp(z / 0.64));
   const cen = [0.2, 0.3];
+  const rd = (x, z) => clamp(z - lipZ(x));   // depth behind the lip, for the worn rim of the shader (mode 7, vP.z)
   {
     for (const f of tris2(chunkPoly)) {
       const [a, b, c] = f.map((i) => chunkPoly[i]);
-      chunkG.tri([a[0], 0, a[1]], [b[0], 0, b[1]], [c[0], 0, c[1]], [0, 1, 0], SLAB, Q(0.5, 1, 0, 7));
+      chunkG.tri([a[0], 0, a[1]], [b[0], 0, b[1]], [c[0], 0, c[1]], [0, 1, 0], ROCKTOP, Q(0.5, 1, rd(a[0], a[1]), 7), Q(0.5, 1, rd(b[0], b[1]), 7), Q(0.5, 1, rd(c[0], c[1]), 7));
       chunkG.tri([a[0], yb(a[1]), a[1]], [b[0], yb(b[1]), b[1]], [c[0], yb(c[1]), c[1]], [0, -1, 0], UNDER, Q(0.5));
     }
     for (let i = 0; i < chunkPoly.length; i++) {
       const a = chunkPoly[i], b = chunkPoly[(i + 1) % chunkPoly.length], isFront = i >= arcPts.length - 1 && i < chunkPoly.length;   // the arc ends at index arcPts.length-1 (the point a1)
       const mx = (a[0] + b[0]) / 2 - cen[0], mz = (a[1] + b[1]) / 2 - cen[1], hn = [mx, 0, mz];
-      chunkG.quad([a[0], 0, a[1]], [b[0], 0, b[1]], [b[0], yb(b[1]), b[1]], [a[0], yb(a[1]), a[1]], hn, isFront ? SLAB : FRESH, Q(0.5, 0, 0, isFront ? 6 : 0), Q(0.5, 0, 0, isFront ? 6 : 0), Q(0.5, 0.3, 0, isFront ? 6 : 0), Q(0.5, 0.3, 0, isFront ? 6 : 0));
+      chunkG.quad([a[0], 0, a[1]], [b[0], 0, b[1]], [b[0], yb(b[1]), b[1]], [a[0], yb(a[1]), a[1]], hn, isFront ? SLABFACE : FRESH, Q(0.5, 0, 0, isFront ? 9 : 0), Q(0.5, 0, 0, isFront ? 9 : 0), Q(0.5, 0.3, 0, isFront ? 9 : 0), Q(0.5, 0.3, 0, isFront ? 9 : 0));
     }
     // the notch the chunk leaves: a pale slope from the jagged outline (y 0) down to the wall (y -0.5), and its two end caps
     const bot = arcPts.map((p) => [p[0], -0.5, nearW.zAt(p[0], -0.5)]);
@@ -516,14 +674,13 @@ function buildGorge(spec) {
 
   // ---- the near ledge top: a grid with the lip's jag, the chunk's patch cut out and filled by its own triangulation
   const RZ = [0.35, 0.8, 1.2, 2, 3.5, 5.5, 8, 10, 12, 16, 20, 25, 32, 38, 45];
-  const nearPaint = (zc, h) => lerpPT(SLAB, h > 0.5 ? EARTH : EARTH2, sm(6, 16, zc));
   for (let i = 0; i < lipN.length - 1; i++) {
     const x0 = lipN[i][0], x1 = lipN[i + 1][0];
     for (let r = 0; r < RZ.length; r++) {
       if (r < 3 && x0 >= -1.6 - 1e-6 && x1 <= 1.6 + 1e-6) continue;   // the patch
-      const z00 = r === 0 ? lipN[i][1] : RZ[r - 1], z10 = r === 0 ? lipN[i + 1][1] : RZ[r - 1], z0 = RZ[r], zc = (z00 + z0) / 2, h = hz(i * 31 + r, 91);
+      const z00 = r === 0 ? lipN[i][1] : RZ[r - 1], z10 = r === 0 ? lipN[i + 1][1] : RZ[r - 1], z0 = RZ[r];
       const a = [x0, nearH(x0, z00), z00], b = [x1, nearH(x1, z10), z10], c = [x1, nearH(x1, z0), z0], d = [x0, nearH(x0, z0), z0];
-      rock.quad(a, b, c, d, [0, 1, 0], nearPaint(zc, h), Q(h, 1, 0, 7));
+      rock.quad(a, b, c, d, [0, 1, 0], ROCKTOP, Q(0.5, 1, rd(a[0], a[2]), 7), Q(0.5, 1, rd(b[0], b[2]), 7), Q(0.5, 1, rd(c[0], c[2]), 7), Q(0.5, 1, rd(d[0], d[2]), 7));
     }
   }
   {   // the patch: x -1.6..1.6, z lip..1.2, minus the chunk's outline
@@ -531,7 +688,7 @@ function buildGorge(spec) {
     for (let i = 1; i < arcPts.length - 1; i++) patch.push(arcPts[i]);
     for (const p of lipN) if (p[0] >= 0.6 - 1e-6 && p[0] <= 1.6 + 1e-6) patch.push(p);
     patch.push([1.6, 0.35], [1.6, 0.8], [1.6, 1.2], [-1.6, 1.2], [-1.6, 0.8], [-1.6, 0.35]);
-    for (const f of tris2(patch)) { const [a, b, c] = f.map((i) => patch[i]); rock.tri([a[0], 0, a[1]], [b[0], 0, b[1]], [c[0], 0, c[1]], [0, 1, 0], SLAB, Q(0.5, 1, 0, 7)); }
+    for (const f of tris2(patch)) { const [a, b, c] = f.map((i) => patch[i]); rock.tri([a[0], 0, a[1]], [b[0], 0, b[1]], [c[0], 0, c[1]], [0, 1, 0], ROCKTOP, Q(0.5, 1, rd(a[0], a[1]), 7), Q(0.5, 1, rd(b[0], b[1]), 7), Q(0.5, 1, rd(c[0], c[1]), 7)); }
   }
   // ---- the far top
   const FRZ = [-9.6, -10.5, -12, -14, -17, -20, -25, -30, -37, -45];
@@ -540,7 +697,7 @@ function buildGorge(spec) {
     for (let r = 0; r < FRZ.length; r++) {
       const z00 = r === 0 ? farN[i][1] : FRZ[r - 1], z10 = r === 0 ? farN[i + 1][1] : FRZ[r - 1], z0 = FRZ[r], zc = (z00 + z0) / 2, h = hz(i * 29 + r, 92);
       const a = [x0, farH(x0, z00, clr), z00], b = [x1, farH(x1, z10, clr), z10], c = [x1, farH(x1, z0, clr), z0], d = [x0, farH(x0, z0, clr), z0];
-      rock.quad(a, b, c, d, [0, 1, 0], lerpPT(SLAB, h > 0.5 ? EARTH : EARTH2, sm(10, 18, -zc)), Q(h, 1, 0, 7));
+      rock.quad(a, b, c, d, [0, 1, 0], ROCKTOP, Q(0.5, 1, 1, 7));
     }
   }
   // ---- the spurs that close the gorge: far wall at x +-70 (out to z -3.5), near wall at +-120 (out to z -6)
@@ -553,7 +710,7 @@ function buildGorge(spec) {
         rock.quad([X, t, za(t)], [X, t, zEnd], [X, bt, zEnd], [X, bt, za(bt)], [-sx, 0, 0], tone, Q(0.5, t - bt, 0, 6), Q(0.5, t - bt, 0, 6), Q(0.5, 0, 0, 6), Q(0.5, 0, 0, 6));
       }
       const top = W.near ? 0 : 0.4, zs = W.near ? 0 : -9, X2 = sx * 150;
-      rock.quad([X, top, zs], [X2, top, zs], [X2, top, zEnd], [X, top, zEnd], [0, 1, 0], SLAB, Q(0.5, 1, 0, 7));
+      rock.quad([X, top, zs], [X2, top, zs], [X2, top, zEnd], [X, top, zEnd], [0, 1, 0], ROCKTOP, Q(0.5, 1, 1, 7));
     }
   }
 
@@ -565,9 +722,7 @@ function buildGorge(spec) {
       G.quad([ax - nx, y, az - nzz], [ax + nx, y, az + nzz], [bx + nx, y, bz + nzz], [bx - nx, y, bz - nzz], [0, 1, 0], pt, Q(0.5));
     }
   };
-  const JOINT = FLAT("#6b5f62");
-  { let x = -8 + 0.4; for (let k = 0; x < 8; k++) { x += 1.2 + 1.4 * hz(k, 95); if (x < 8) dec(x, 1.0, x + (hz(k, 96) - 0.5) * 0.3, 10, 0.02, JOINT); }
-    let z = 0.6; for (let k = 0; z < 10; k++) { z += 1.2 + 1.4 * hz(k, 97); if (z < 10) dec(-8, z, 8, z + (hz(k, 98) - 0.5) * 0.3, 0.02, JOINT); }
+  {   // the lip's two cracks (the straight joint decals are gone: the top is painted per fragment)
     for (const zc of [0.35, 0.80]) { let xx = -1.5, k = 0; while (xx < 1.5) { const len = 0.25 + 0.35 * hz(k + zc * 10, 99); dec(xx, zc + (hz(k, 100) - 0.5) * 0.02, Math.min(1.5, xx + len), zc + (hz(k + 1, 100) - 0.5) * 0.02, 0.02, CRACK); xx += len + 0.1 + 0.2 * hz(k, 101); k++; } } }
   for (let k = 0; k < 6; k++) {   // painted grass mats 0.8..1.6 m
     const mx = (hz(k, 102) - 0.5) * 14, mz = 2 + 7 * hz(k, 103), w = 0.8 + 0.8 * hz(k, 104); if (Math.abs(mx) < 1.0) continue;
@@ -635,10 +790,68 @@ function buildGorge(spec) {
     for (let j = 0; j < 2; j++) { const x2 = seg + 12 * hz(k + j, 193 + W.side), y2 = -3 - 62 * hz(k + j, 194), s = shelf(rock, W, x2, y2, 0.4, 0.7); shrub(flora, s[0], s[1], s[2], 0.2 + 0.15 * hz(k + j, 195), 1600 + k + j, j === 1); }
   }
 
+  // ---- DESIGN-GORGE-V2 2 and 4: the clifftop's loose blocks, the far rim's teeth, grass tufts, and the clinging greenery of both walls
+  const ROCKB = [TONE.A, TONE.C, TONE.B];
+  for (let k = 0; k < 14; k++) {   // near rim blocks: none in x -3..3, <= 0.45 m high and z <= 0.9 inside |x| 8
+    const x = (hz(k, 800) > 0.5 ? 1 : -1) * (3.2 + 26.8 * hz(k, 801)), inner = Math.abs(x) < 8, w = 0.25 + 0.65 * hz(k, 802), zl = lipZ(x);
+    const hgt = Math.min(inner ? 0.45 : 0.8, w * (0.5 + 0.5 * hz(k, 803))), z = zl + 0.15 + hz(k, 804) * ((inner ? 0.9 : 1.6) - zl - 0.15);
+    tiltBox(flora, [x, nearH(x, z) + hgt * 0.35, z], [w, hgt, w * (0.7 + 0.5 * hz(k, 805))], hz(k, 806) * TAU, (hz(k, 807) - 0.5) * 0.4, (hz(k, 808) - 0.5) * 0.4, ROCKB[k % 3], Q(hz(k, 809)));
+  }
+  for (let k = 0; k < 22; k++) {   // far rim teeth: z -9.3..-11, 0.4..2.2 m high, 0.5..1.4 wide, none in |x| < 1.6, <= 0.5 m high in the clearing
+    const x = (hz(k, 810) > 0.5 ? 1 : -1) * (1.8 + 28 * hz(k, 811)), z = -9.3 - 1.7 * hz(k, 812), w = 0.5 + 0.9 * hz(k, 813);
+    const hgt = x > clr[0] - 0.6 && x < clr[1] + 0.6 ? Math.min(0.5, 0.4 + 0.1 * hz(k, 814)) : 0.4 + 1.8 * hz(k, 814), y0 = farH(x, z, clr) - 0.1;
+    if (k % 2) tiltBox(flora, [x, y0 + hgt * 0.45, z], [w, hgt, w * 0.8], hz(k, 815) * TAU, (hz(k, 816) - 0.5) * 0.3, (hz(k, 817) - 0.5) * 0.3, ROCKB[k % 3], Q(hz(k, 818)));
+    else ico(flora, [x, y0 + hgt * 0.35, z], [w * 0.55, hgt * 0.7, w * 0.45], hz(k, 815) * TAU, ROCKB[k % 3], 0, Q(hz(k, 818)));
+  }
+  for (let k = 0; k < 60; k++) {   // stage-side tufts, 0.10..0.25 m, none in x -3..3
+    const x = (hz(k, 820) > 0.5 ? 1 : -1) * (3 + 11 * hz(k, 821)), zl = Math.max(0.1, lipZ(x) + 0.08), z = zl + hz(k, 822) * (9 - zl);
+    tuft(flora, x, nearH(x, z), z, 0.10 + 0.15 * hz(k, 823), 2000 + k, hz(k, 824) > 0.5 ? GRASS.dry : GRASS.green);
+  }
+  for (let k = 0; k < 12; k++) {   // along the lip at 1.7 <= |x| <= 3, z < 0.22, <= 0.14 m
+    const x = (hz(k, 825) > 0.5 ? 1 : -1) * (1.7 + 1.3 * hz(k, 826)), zl = lipZ(x), z = zl + 0.03 + hz(k, 827) * Math.max(0.01, Math.min(0.22, zl + 0.2) - zl - 0.03);
+    tuft(flora, x, 0, z, 0.08 + 0.06 * hz(k, 828), 2100 + k, GRASS.dry, 7);
+  }
+  // greenery: a shrub is 2..3 squashed icos (d 1 above y -20, d 0 below)
+  const clump = (x, y, z, k, side) => {
+    const n = 2 + (hz(k, 830) > 0.5 ? 1 : 0);
+    for (let i = 0; i < n; i++) {
+      const r = 0.35 + 0.55 * hz(k * 3 + i, 831), ox = (hz(k * 3 + i, 832) - 0.5) * 0.9, oy = hz(k * 3 + i, 833) * 0.25;
+      ico(flora, [x + ox, y + oy + r * 0.45, z - side * r * 0.3], [r, r * 0.7, r], hz(k * 3 + i, 834) * TAU, SHRUB, y > -20 ? 1 : 0, Q(hz(k * 3 + i, 835)));
+    }
+  };
+  for (const [W, nS, nP, base] of [[nearW, 26, 9, 0], [farW, 40, 14, 1]]) {
+    const side = W.side, okAt = (x, z, reach) => (W.near ? Math.abs(x) >= 2.2 : Math.abs(x) >= 2.2 || z + reach <= -6.2);
+    let ns = 0, np = 0;
+    W.shoulders.forEach((sh, i) => {   // a clump on every buttress and fin shoulder, a pine on every third
+      if (ns >= nS) return;
+      const x = sh.c + (hz(i, 840 + base) - 0.5) * sh.hw, y = sh.top - 0.55, z = W.zAt(x, y);
+      if (!okAt(x, z, 1.4)) return;
+      clump(x, y, z, 2200 + i + base * 100, side); ns++;
+      if (i % 3 === 0 && np < nP) { const px = sh.c + (hz(i, 842 + base) - 0.5) * sh.hw * 1.2; pine(flora, px, y - 0.1, W.zAt(px, y - 0.1), 1.5 + 2.0 * hz(i, 843 + base), 2300 + i + base * 100, { out: [0, 0, -side], rad: 0.22 }); np++; }
+    });
+    for (let k = 0, t = 0; (ns < nS || np < nP) && t < 400; t++) {   // the rest on bed ledges: 60 % above y -15, 30 % to -30, 10 % below
+      const kk = k * 9 + (t % 9), u = hz(kk, 850 + base), x = (hz(kk, 851 + base) - 0.5) * 60;
+      const y0 = u < 0.6 ? -3 - 12 * hz(kk, 852 + base) : u < 0.9 ? -15 - 15 * hz(kk, 852 + base) : -30 - 30 * hz(kk, 852 + base);
+      const bed = W.findBed(x, y0), y = bed.yB - TAN3 * x - 0.02;
+      if (y > -2.5 || y < -62 || Math.abs(x) < 2.2 && W.near || Math.abs(W.zAt(x - 0.45, y) - W.zAt(x + 0.45, y)) > 0.25) continue;
+      const wantPine = np < nP && (ns >= nS || hz(kk, 853 + base) < 0.3);
+      if (wantPine) { pine(flora, x, y, W.zAt(x, y), 1.5 + 2.0 * hz(kk, 854 + base), 2400 + kk + base * 500, { out: [0, 0, -side], rad: 0.22 }); np++; k++; continue; }
+      if (ns >= nS) break;
+      const m = shelf(rock, W, x, y, 0.5, 0.9);
+      if (!okAt(x, m[2], 1.4)) continue;
+      clump(m[0], m[1], m[2], 2500 + kk + base * 500, side); ns++; k++;
+    }
+  }
+  for (let k = 0; k < 10; k++) {   // far rim: junipers between the teeth
+    const x = (hz(k, 860) > 0.5 ? 1 : -1) * (2.0 + 26 * hz(k, 861)), z = -9.4 - 1.0 * hz(k, 862);
+    if (x > clr[0] - 0.6 && x < clr[1] + 0.6) continue;
+    for (let i = 0; i < 2; i++) { const r = 0.35 + 0.35 * hz(k * 2 + i, 863); ico(flora, [x + (i - 0.5) * 0.6, farH(x, z, clr) + r * 0.3, z - i * 0.2], [r, r * 0.75, r], hz(k, 864 + i) * TAU, SHRUB, 1, Q(hz(k, 866))); }
+  }
+
   // ---- river floor and boulders (the water is its own shader), ridges and clouds
   for (let k = 0; k < 28; k++) {
     const x = (hz(k, 200) - 0.5) * 140, side = hz(k, 201) > 0.5 ? 1 : -1, r = 0.3 + 0.5 * hz(k, 202), z = -4.5 + side * (0.8 + 0.4 * hz(k, 203));
-    ico(flora, [x, -70 + r * 0.3, z], [r, r * 0.7, r * 0.9], hz(k, 204) * TAU, PT("#7d7a7a", "#4f4d52", "#6d6a6a"), 1, Q(hz(k, 205)));
+    ico(flora, [x, -70 + r * 0.3, z], [r, r * 0.7, r * 0.9], hz(k, 204) * TAU, PT("#2c3442", "#232a36", "#283040"), 1, Q(hz(k, 205), 99, 99, 4));
   }
   const ridge = (z, x0, x1, tmin, tmax, ph, c1, c2) => {
     const prof2 = (x) => lerp(tmin, tmax, 0.5 + 0.28 * Math.sin(x * 0.045 + ph) + 0.22 * Math.sin(x * 0.13 + ph * 2.3)), A = FLAT(c1), B = FLAT(c2);
@@ -670,6 +883,21 @@ function buildGorge(spec) {
   };
   [[-14, 8.5, 70, 20], [9, 10.5, 100, 26], [-38, 17, 65, 18], [33, 9, 80, 21], [180, 14, 90, 22], [95, 26, 70, 18], [-100, 31, 85, 20]].forEach(([az, el, W, ht], k) => cloud(az, el, W, ht, k));
 
+  // ---- the corridors stay free (DESIGN-GORGE-V2 0): no rock or flora triangle may touch fall corridor A or B
+  {
+    const CORR = [{ n: "A", x: [-1.2, 1.2], z: [-5.6, -3.4], y: [-40, 0] }, { n: "B", x: [-1.2, 1.2], z: [-1.6, -0.15], y: [-40, -0.5] }];
+    for (const [nm, G] of [["rock", rock], ["flora", flora]]) {
+      const P = G.P; let bad = 0, first = null;
+      for (let i = 0; i + 2 < G.nv; i += 3) {
+        for (let u = 0; u <= 6; u++) for (let v = 0; v <= 6 - u; v++) {
+          const w0 = u / 6, w1 = v / 6, w2 = 1 - w0 - w1, x = P[i * 3] * w0 + P[i * 3 + 3] * w1 + P[i * 3 + 6] * w2, y = P[i * 3 + 1] * w0 + P[i * 3 + 4] * w1 + P[i * 3 + 7] * w2, z = P[i * 3 + 2] * w0 + P[i * 3 + 5] * w1 + P[i * 3 + 8] * w2;
+          for (const C2 of CORR) if (x > C2.x[0] && x < C2.x[1] && z > C2.z[0] && z < C2.z[1] && y > C2.y[0] && y < C2.y[1]) { if (!bad++) first = [C2.n, x, y, z]; }
+        }
+      }
+      if (bad) throw new Error(`gorge: ${nm} touches fall corridor ${first[0]} at ${first.slice(1).map((v) => v.toFixed(2))} (${bad} samples)`);
+    }
+  }
+  if (spec.debugCount) console.log(`gorge triangles: rock ${rock.nv / 3}, flora ${flora.nv / 3}, decal ${decal.nv / 3}, back ${back.nv / 3}, chunk ${chunkG.nv / 3}`);
   return { rock, flora, decal, back, chunkG, streaks, arcPts, lipZ, nearW, farW, chunkPoly };
 }
 
@@ -692,13 +920,13 @@ void main() {
 }
 function waterMat() {
   const m = new THREE.ShaderMaterial({
-    uniforms: { uT: { value: 0 }, uBase: { value: C("#e6f6f2") }, uDeep: { value: C("#7fc6c0") }, uFoam: { value: C("#ffffff") }, uGravel: { value: C("#9aa6b0") }, uDist: { value: C("#b8c8dc") } },
+    uniforms: { uT: { value: 0 }, uBase: { value: C("#d6efe6") }, uDeep: { value: C("#8fc7b4") }, uFoam: { value: C("#ffffff") }, uGravel: { value: C("#46505e") }, uFloor: { value: C("#22343a") }, uDist: { value: C("#a9bdd6") } },
     vertexShader: `varying vec3 vW; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
-    fragmentShader: `uniform float uT; uniform vec3 uBase, uDeep, uFoam, uGravel, uDist; varying vec3 vW;
+    fragmentShader: `uniform float uT; uniform vec3 uBase, uDeep, uFoam, uGravel, uFloor, uDist; varying vec3 vW;
 float hs1(float n) { return fract(sin(n * 127.1 + 17.3) * 43758.5453); }
 void main() {
-  float cx = -4.5 + 0.35 * sin(vW.x * 0.15708), dz = vW.z - cx, halfW = 0.95;
-  vec3 c = uGravel;
+  float cx = -4.5 + 0.35 * sin(vW.x * 0.15708), dz = vW.z - cx, halfW = 0.9;
+  vec3 c = abs(dz) < 1.3 ? uGravel : uFloor;   // banks, then the floor beyond them (final colours, no grade)
   if (abs(dz) <= halfW) {
     float deepC = 0.25 * sin(vW.x * 0.31 + 1.0);
     c = abs(dz - deepC) < 0.285 ? uDeep : uBase;
@@ -706,7 +934,7 @@ void main() {
     float fz = abs(fract((dz + halfW) / 0.3) - 0.5);
     if (hs1(lane * 3.0 + cell * 1.7) > 0.12 && s < 0.3 && fz < 0.333) c = uFoam;
   }
-  float gh = clamp((length(cameraPosition - vW) - 30.0) / 120.0, 0.0, 1.0) * 0.7;
+  float gh = clamp((length(cameraPosition - vW) - 45.0) / 125.0, 0.0, 1.0) * 0.40;
   gl_FragColor = vec4(mix(c, uDist, gh), 1.0);
   #include <colorspace_fragment>
 }`,
@@ -755,7 +983,7 @@ function gorge(P) {
   const chunk = add(B.chunkG, true, 0, mat, "gorge-chunk");
   if (S.sky !== false) { const d = mark(new THREE.Mesh(new THREE.SphereGeometry(280, 48, 32), skyMat()), false, -1000); d.position.set(0, 0, -4.5); d.name = "gorge-sky"; g.add(d); }
   const water = waterMat();
-  if (S.river !== false) { const w = new THREE.PlaneGeometry(140, 2.6); w.rotateX(-Math.PI / 2); const o = mark(new THREE.Mesh(w, water), false, 0); o.position.set(0, -70, -4.5); o.name = "gorge-river"; g.add(o); }
+  if (S.river !== false) { const w = new THREE.PlaneGeometry(300, 24); w.rotateX(-Math.PI / 2); const o = mark(new THREE.Mesh(w, water), false, 0); o.position.set(0, -70, -4.5); o.name = "gorge-river"; g.add(o); }
 
   // the crack along the chunk's outline: a ribbon rewritten while the chunk is still on
   const crackG = new Geo(2048), crack = new THREE.Mesh(new THREE.BufferGeometry(), decalM);

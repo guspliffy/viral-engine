@@ -326,7 +326,7 @@ arm(0, "pspud", "R", "wave", 0.01); arm(0, "pchip", "L", "up", 0.01);   // a wav
 
 // ---------------------------------------------------------------- shots
 const SH = {
-  hook:  { pos: [-0.35, 1.85, 4.1], look: [0.0, -1.6, -4.5], fov: 52 },   // board 01: from just behind the two, down into the gorge
+  hook:  { pos: [0.0, 5.6, 2.4], look: [0.0, -3.2, -4.6], fov: 54 },   // Jonny 13 Nov: the cliff must read; from above the two, down the drop past Chip (DESIGN-GORGE-V2 camera A)
   fray:  { pos: [1.3, -1.05, -3.55], look: [0, -1.2, -4.5], fov: 40 },
   decide:{ pos: [-0.55, 1.05, -2.3], look: [-0.45, 0.55, 0.8], fov: 56 },
   j1:    { pos: [1.6, 3.0, 3.6], look: [0.0, -1.4, -3.4], fov: 58 },
