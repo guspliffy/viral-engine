@@ -120,6 +120,7 @@ const props = [
   // the leaf places itself in world metres relative to its own x, y, z: parked 200 m off until the vanish frame
   ph("props", { id: "leaf", kind: "spudleaf", from: H(0.4, 1.02, 1.8), to: H(1.05, 0.5, 1.97), x: 200, y: 0, z: 0, fall: 0, staged: "a leaf on the air" }, NIL),
 ];
+if (has("set")) { Pk("set", 0, "archA", { on: 0 }); for (const [id] of GUESTS) Pk("set", 0, `g${id}`, { rot: 0, gasp: 0, cheer: 0 }); }
 if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { x: 200, fall: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
 // dust rings: one per jump and arrival (DESIGN 5); the fallback is a flat poof
 const DUST = [];
@@ -337,14 +338,14 @@ c.arm(T.pat, "bald", "L", { o: [0.04, 0.98, 0.04] }, 0.3, "inOut"); A(T.pat, "ba
 c.arm(r3(T.pat + 0.35), "bald", "L", { o: [0.04, 0.95, 0.06] }, 0.1); c.arm(r3(T.pat + 0.5), "bald", "L", { o: [0.04, 0.98, 0.04] }, 0.1);
 sfx(r3(T.pat + 0.35), "pat", { gain: 0.25, reason: "his glove pats the bare dome" });
 expr(r3(T.pat + 0.3), "bald", "shocked", { open: 0.2, eye: 1.2 }, 0.15); look(r3(T.pat + 0.2), "bald", [0, 0.6], 0.2);
-for (const [g, d] of [["gR1a", 0], ["gL1a", 0.12], ["gR1b", 0.2]]) { Pk("set", r3(T.gasp + d - 0.3), g, { turn: g.includes("L") ? -150 : 150 }, 0.35, "inOut"); Pk("set", r3(T.gasp + d), g, { gasp: 1 }, 0.2, "out"); }
+for (const [g, d] of [["gR1a", 0], ["gL1a", 0.12], ["gR1b", 0.2]]) { Pk("set", r3(T.gasp + d - 0.3), g, { rot: g.includes("L") ? -150 : 150 }, 0.35, "inOut"); Pk("set", r3(T.gasp + d), g, { gasp: 1 }, 0.2, "out"); }
 sfx(T.gasp, "ai/guest-gasp", { gain: 0.6, reason: "the front row gasps" });
 c.arm(r3(T.gasp + 1.0), "bald", "L", "rest", 0.4); expr(r3(T.gasp + 1.2), "bald", "cocky", { curve: 0.6 }, 0.3);   // proud anyway
 see(T.alt4, T.arrive, ["bald.face", "chip.face", "rings", "mash"], "rings in his palm; Chip stares above his eyes; he pats his head: bald; guests turn");
 
 // ================================================================= 14-15 RINGS ON, THE PHOTO (37.6-43.2)
 look(T.arrive, "chip", [0.2, 0.2], 0.2); look(T.arrive, "bald", [-0.4, 0.2], 0.2); expr(T.arrive, "mash", "delighted", null, 0.2);
-for (const g of ["gR1a", "gL1a", "gR1b"]) Pk("set", T.arrive, g, { gasp: 0 }, 0.4);
+for (const g of ["gR1a", "gL1a", "gR1b"]) { Pk("set", T.arrive, g, { gasp: 0 }); Pk("set", T.arrive, g, { rot: 0 }, 0.4, "inOut"); }
 see(T.arrive, T.rings, ["mash.face", "chip.face", "bald.face"], "the bride arrives");
 // 14 insert: a gold ring slides onto Mash's glove (Chip's right glove, the tie still pinched in his left)
 see(T.rings, T.photo, ["ringA"], "one close shot of the ring going on");
@@ -353,7 +354,7 @@ for (const [who, at] of [["chip", PHOTO.chip], ["bald", PHOTO.spud], ["mash", PH
 Pk("set", r3(T.photo - 0.02), "archA", { on: 1 });
 c.arm(T.photo, "bald", "L", "up", 0.25); A(T.photo, "bald", "grip", { side: "L", shape: "thumb", dur: 0.1 });
 c.arm(T.photo, "bald", "R", "up", 0.25); A(T.photo, "bald", "grip", { side: "R", shape: "thumb", dur: 0.1 });
-for (const [id] of GUESTS) Pk("set", T.photo, `g${id}`, { turn: 0, gasp: 0, cheer: 1 }, 0.3);
+for (const [id] of GUESTS) { Pk("set", T.photo, `g${id}`, { rot: 0, gasp: 0, cheer: 1 }); }
 c.at(T.flash, { fx: "flash", dur: 0.2, peak: 0.8, color: "#ffffff" });
 sfx(T.flash, "ai/camera-shutter", { gain: 0.8, reason: "the wedding photo" });
 see(T.photo, T.shelf, ["chip.face", "bald.face", "mash.face", "rbox", "tieLoose"], "the photo: Chip holding tie + empty box, Spud bald and proud");
@@ -432,7 +433,8 @@ write(import.meta.url, {
   fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", captionBand: [342, 640],
   castLook: LOOK, cleanStart: true,
   motion: MOTION, rig: RIG, physics: PHYSICS, animeTiming: ANIME_TIMING, loopIdle: false,
-  set: { type: "plain", color: "#a9d6f0", floor: "#8fc65a", light: "golden", para: 0, bloom: "emissive", aperture: 0,
+  // the set block T1 asks for (props-wedding-set.js header): golden light, key from the front left, no window panes
+  set: { type: "plain", color: "#a9d6f0", floor: "#8fc65a", light: "golden", key: [-5, 7, 5], windows: false, focus: false, para: 0, bloom: "emissive", aperture: 0,
     lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true },
   ...(has("hud") && { hud: { ...hud({ show: [0, r3(T.flash)] }), steps: { keys: stepKeys, pulse: [r3(24 + O), r3(31 + O)] } } }),
   // a string quartet from 0.0 that turns nervous at the jump, holds its breath at the bald reveal and resolves on the
