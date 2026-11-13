@@ -482,7 +482,7 @@ export const BEAR_KINDS = {
     // ---- skin: tail stub, body, neck and skull, ONE loft
     const mkSec = (c, w, up, dn, n = 2.2) => ({ c, w, up, dn, n });
     const bodyRest = [...TAILS.map(([x, y, z, r]) => mkSec([x, y, z], r, r, r)), ...NB.map((r) => mkSec([0, r[1], r[0]], r[2], r[3], r[4], r[5]))];
-    const bodyGeo = makeLoft(bodyRest, { sub: 5, radial: 28 }); mesh(bodyGeo, coat, root);
+    const bodyGeo = makeLoft(bodyRest, { sub: 5, radial: 28 }), trunk = mesh(bodyGeo, coat, root);
     // fur locks: the outline is not a smooth tube
     lockMeshes(bodyLocks(), lockM, bodyG);
 
@@ -579,7 +579,7 @@ export const BEAR_KINDS = {
           if (i === 16 || i === 17) cy += 0.006 * Z.sk;
           sec[NT + i] = { c: place([0, cy, r[0]], r[6]), w: w * k, up: up * k, dn: dn * k, n: r[5] };
         });
-        bodyGeo.userData.set(sec);
+        bodyGeo.userData.set(sec); trunk.userData.cores = sec;   // the checks' creature-in-prop test (stage.js clipping)
         bodyG.position.copy(Z.o); bodyG.quaternion.copy(Z.q);
         headG.position.set(...Z.headPos); headG.quaternion.copy(Z.qHeadW);
         jawG.rotation.x = rad(42) * jw; jawGeo.userData.set(jawSec(sn));

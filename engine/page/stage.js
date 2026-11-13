@@ -1140,8 +1140,42 @@ function clipping() {
     for (let i = 0; i < pos.count; i += step) { v.fromBufferAttribute(pos, i).applyMatrix4(m).sub(c); best = Math.min(best, (v.x / h.x) ** 2 + (v.y / h.y) ** 2 + (v.z / h.z) ** 2); }
     return { depth: best < 1 ? 1 - Math.sqrt(best) : 0, touch: best < 1.1 ** 2 };
   };
+  // the exact surface of a mesh against a unit sphere: U maps the mesh's own space to the sphere's (an ellipsoid scaled to
+  // the unit sphere stays exact, a triangle stays a triangle). Returns the depth of the triangle nearest the centre
+  // (0 = touching, 1 = through the centre). A box says nothing for a mesh round a body (a tent's cloth, a car's shell:
+  // the body is always "inside" its box), the cloth itself does (bear camp draft 1, 12 Nov 2026: the tent's roof
+  // through three heads, waived by the "inside the tent" window).
+  const U = new THREE.Matrix4(), vq = new THREE.Vector3();
+  const surfIn = (o, M) => {
+    const g = o.geometry, pos = g.attributes.position; if (!pos || o.isInstancedMesh) return 0;
+    if (!g.boundingBox) g.computeBoundingBox();
+    // cheap reject: the mesh's box (its 8 corners in the sphere's space, re-boxed) clear of the sphere
+    const bb = g.boundingBox, lo = [1e9, 1e9, 1e9], hi = [-1e9, -1e9, -1e9];
+    for (let k = 0; k < 8; k++) { vq.set(k & 1 ? bb.max.x : bb.min.x, k & 2 ? bb.max.y : bb.min.y, k & 4 ? bb.max.z : bb.min.z).applyMatrix4(M); const a = [vq.x, vq.y, vq.z]; for (let i = 0; i < 3; i++) { lo[i] = Math.min(lo[i], a[i]); hi[i] = Math.max(hi[i], a[i]); } }
+    let dd = 0; for (let i = 0; i < 3; i++) { const v = lo[i] > 0 ? lo[i] : hi[i] < 0 ? -hi[i] : 0; dd += v * v; }
+    if (dd >= 1) return 0;
+    const n = pos.count, P = new Float32Array(n * 3), e = M.elements;
+    for (let i = 0; i < n; i++) { const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i); P[i * 3] = e[0] * x + e[4] * y + e[8] * z + e[12]; P[i * 3 + 1] = e[1] * x + e[5] * y + e[9] * z + e[13]; P[i * 3 + 2] = e[2] * x + e[6] * y + e[10] * z + e[14]; }
+    const ix = g.index ? g.index.array : null, nt = ix ? ix.length / 3 : n / 3;
+    // a cloth cut by its texture's alpha (the tent's door, window and claw slits: alphaTest) has no cloth there
+    const cut = alphaCut(o), uv = cut && g.attributes.uv;
+    let best = 1;
+    for (let t = 0; t < nt; t++) {
+      const a = ix ? ix[t * 3] : t * 3, b = ix ? ix[t * 3 + 1] : t * 3 + 1, cc = ix ? ix[t * 3 + 2] : t * 3 + 2, ia = a * 3, ib = b * 3, ic = cc * 3;
+      const d2 = triOrigin2(P[ia], P[ia + 1], P[ia + 2], P[ib], P[ib + 1], P[ib + 2], P[ic], P[ic + 1], P[ic + 2]);
+      if (d2 < best && !(uv && cut((uv.getX(a) + uv.getX(b) + uv.getX(cc)) / 3, (uv.getY(a) + uv.getY(b) + uv.getY(cc)) / 3))) best = d2;
+    }
+    return best < 1 ? 1 - Math.sqrt(best) : 0;
+  };
+  // a body's ellipsoid as the unit sphere: world -> unit space
+  const unitOf = (b) => {
+    const eb = b.mesh.geometry.boundingBox, c = eb.getCenter(new THREE.Vector3()), h = eb.getSize(new THREE.Vector3()).multiplyScalar(0.5);
+    return new THREE.Matrix4().makeScale(1 / h.x, 1 / h.y, 1 / h.z).multiply(new THREE.Matrix4().makeTranslation(-c.x, -c.y, -c.z)).multiply(new THREE.Matrix4().copy(b.mesh.matrixWorld).invert());
+  };
   for (const b of bodies) {
     b.a.ch.root.updateMatrixWorld(true);
+    if (!b.mesh.geometry.boundingBox) b.mesh.geometry.computeBoundingBox();
+    const W2U = unitOf(b);
     for (const p of props) {
       const st = poseStates[b.id] && poseStates[b.id].st;
       // a held prop sits in its holder's hand on purpose, but it must not go through anyone else; sitting on it is fine.
@@ -1164,11 +1198,19 @@ function clipping() {
         continue;
       }
       if ((p.held && p.holder === b.id) || !p.root.visible || (st && st.sit > 0 && st.seat === p.spec.id)) continue;
-      let worst = 0;
+      let worst = 0, shell = 0;
       p.root.updateMatrixWorld(true);
       // (a mesh a prop marks see-through for the checks, userData.steam: a cloth mask on a face, a net, a glow, is not a body in a body)
-      p.root.traverseVisible((o) => { if (o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam) worst = Math.max(worst, depthIn(b, o)); });
+      // Each part that reaches in is also measured by its own surface ("shell": a tent's cloth or a torn strip of it
+      // through a head), which an "inside the tent" window does not waive: a box says nothing for a part round a body
+      const seen = new Set(); let part = null;
+      p.root.traverseVisible((o) => {
+        if (!(o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam)) return;
+        const d = depthIn(b, o); worst = Math.max(worst, d);
+        if (d > 0.05 && !seen.has(o.geometry)) { seen.add(o.geometry); const sd = surfIn(o, U.multiplyMatrices(W2U, o.matrixWorld)); if (sd > shell) { shell = sd; part = o.name || null; } }
+      });
       if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });
+      if (shell > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(shell * 100) / 100, shell: true, mesh: part });
     }
     // touch: within about 10% of the body's size of each other (a warning; going in is a failure)
     for (const o of bodies) if (o !== b && o.id > b.id) {
@@ -1184,7 +1226,76 @@ function clipping() {
       if (touch) out.push({ who: o.id, with: b.id, part: "hat", depth: Math.round(worst * 100) / 100, touch: true });
     }
   }
+  // a creature prop in another prop (bear camp draft 1, 12 Nov 2026: the bear's body inside the car). A creature's
+  // trunk mesh lists its loft sections in userData.cores ({ c, w, up, dn } in the mesh's space, props-bear.js); each
+  // section is a sphere inside the trunk, tested against the other prop's surface: only crossing it shows, a bear
+  // wholly hidden in a box or a cloth draped over it is not a glitch of this kind. Record: who = the creature.
+  for (const p of props) {
+    if (!p.root.visible) continue;
+    const trunks = []; p.root.traverseVisible((o) => { if (o.isMesh && Array.isArray(o.userData.cores)) trunks.push(o); });
+    if (!trunks.length) continue;
+    p.root.updateMatrixWorld(true);
+    const spheres = [];
+    for (const o of trunks) {
+      const sc = new THREE.Vector3().setFromMatrixScale(o.matrixWorld), k = Math.min(sc.x, sc.y, sc.z);
+      for (const s of o.userData.cores) { if (!s || !s.c) continue; const r = Math.min(s.w, s.up, s.dn) * k; if (r > 0.02) spheres.push({ c: new THREE.Vector3(...s.c).applyMatrix4(o.matrixWorld), r }); }
+    }
+    for (const q of props) {
+      if (q === p || !q.root.visible || (q.held && q.holder === (p.spec.id || p.spec.kind))) continue;
+      q.root.updateMatrixWorld(true);
+      let worst = 0, part = null;
+      q.root.traverseVisible((o) => {
+        if (!(o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam && !o.userData.cores)) return;
+        for (const s of spheres) { const d = surfIn(o, U.makeScale(1 / s.r, 1 / s.r, 1 / s.r).multiply(m.makeTranslation(-s.c.x, -s.c.y, -s.c.z)).multiply(o.matrixWorld)); if (d > worst) { worst = d; part = o.name || null; } }
+      });
+      if (worst > 0.05) out.push({ who: p.spec.id || p.spec.kind, with: q.spec.id || q.spec.kind, depth: Math.round(worst * 100) / 100, creature: true, mesh: part });
+    }
+  }
   return out;
+}
+// a mesh's alpha cut (material alphaTest with a map's alpha or an alphaMap's green): (u, v) -> true where the texture
+// leaves no surface, or null for a mesh without one. The texture is read once per version, at most 512 px wide
+const alphaCache = new Map();
+function alphaCut(o) {
+  const m = Array.isArray(o.material) ? null : o.material, at = m && m.alphaTest;
+  const tx = at > 0 && (m.alphaMap || m.map), img = tx && tx.image;
+  if (!img || !(img.width > 0) || typeof document === "undefined") return null;
+  const key = tx.uuid, hit = alphaCache.get(key);
+  let A = hit && hit.v === tx.version ? hit : null;
+  if (!A) {
+    const w = Math.min(512, img.width), h = Math.max(1, Math.round((img.height * w) / img.width)), cv = document.createElement("canvas");
+    cv.width = w; cv.height = h;
+    const g2 = cv.getContext("2d", { willReadFrequently: true });
+    try { g2.drawImage(img, 0, 0, w, h); } catch { return null; }
+    A = { v: tx.version, w, h, d: g2.getImageData(0, 0, w, h).data, ch: tx === m.alphaMap ? 1 : 3 };
+    alphaCache.set(key, A);
+  }
+  tx.updateMatrix(); const e = tx.matrix.elements, op = m.opacity ?? 1;
+  return (u, v) => {
+    let x = e[0] * u + e[3] * v + e[6], y = e[1] * u + e[4] * v + e[7];
+    x -= Math.floor(x); y -= Math.floor(y);
+    const px = Math.min(A.w - 1, Math.floor(x * A.w)), py = Math.min(A.h - 1, Math.floor((tx.flipY ? 1 - y : y) * A.h));
+    return (A.d[(py * A.w + px) * 4 + A.ch] / 255) * op < at;
+  };
+}
+// the squared distance from the origin to the triangle abc (Ericson, Real-Time Collision Detection 5.1.5)
+function triOrigin2(ax, ay, az, bx, by, bz, cx, cy, cz) {
+  const abx = bx - ax, aby = by - ay, abz = bz - az, acx = cx - ax, acy = cy - ay, acz = cz - az;
+  const d1 = -(abx * ax + aby * ay + abz * az), d2 = -(acx * ax + acy * ay + acz * az);
+  const sq = (x, y, z) => x * x + y * y + z * z;
+  if (d1 <= 0 && d2 <= 0) return sq(ax, ay, az);
+  const d3 = -(abx * bx + aby * by + abz * bz), d4 = -(acx * bx + acy * by + acz * bz);
+  if (d3 >= 0 && d4 <= d3) return sq(bx, by, bz);
+  const vc = d1 * d4 - d3 * d2;
+  if (vc <= 0 && d1 >= 0 && d3 <= 0) { const v = d1 / (d1 - d3); return sq(ax + abx * v, ay + aby * v, az + abz * v); }
+  const d5 = -(abx * cx + aby * cy + abz * cz), d6 = -(acx * cx + acy * cy + acz * cz);
+  if (d6 >= 0 && d5 <= d6) return sq(cx, cy, cz);
+  const vb = d5 * d2 - d1 * d6;
+  if (vb <= 0 && d2 >= 0 && d6 <= 0) { const w = d2 / (d2 - d6); return sq(ax + acx * w, ay + acy * w, az + acz * w); }
+  const va = d3 * d6 - d5 * d4;
+  if (va <= 0 && d4 - d3 >= 0 && d5 - d6 >= 0) { const w = (d4 - d3) / ((d4 - d3) + (d5 - d6)); return sq(bx + (cx - bx) * w, by + (cy - by) * w, bz + (cz - bz) * w); }
+  const den = 1 / (va + vb + vc), v = vb * den, w = vc * den;
+  return sq(ax + abx * v + acx * w, ay + aby * v + acy * w, az + abz * v + acz * w);
 }
 
 let silRT, silMat, silBlack;

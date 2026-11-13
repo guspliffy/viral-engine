@@ -21,7 +21,10 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   glove more than 4 cm into another character's body or face fails, inside a window as well (`RULES.allowReach`), and
   a hand reaching more than 45 cm across its own body for 0.3 s fails (35 cm warns): the shoulder hides and the arm
   reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
-  body on its own side. An arm up inside a helmet glass fails too. Warnings to look at:
+  body on its own side. A prop round a body (a tent, a car, a bag) is also measured by its own surface: cloth through
+  a head fails as `shell`, which only a window naming `"shell"` waives, never an "inside the tent" one; a creature
+  prop (the bear) through another prop's surface fails as `prop-in-prop`; a held prop more than 6 cm off its glove
+  fails as `grip-gap` at any gate (bear camp draft 1, 12 Nov). An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
