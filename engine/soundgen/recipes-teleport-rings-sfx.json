@@ -1,0 +1,201 @@
+{
+  "_note": "There's a catch EP09 teleport rings (13 Nov 2026): real-sounding foley for a garden wedding. No blings, chimes, boings or whooshes (Jonny's house rule). air-push stands in for the teleport: displaced air, not a magic sound.",
+  "sfx": [
+    {
+      "id": "ring-box-snap",
+      "kind": "oneshot",
+      "len": [
+        0.1,
+        1.2
+      ],
+      "duration": 8,
+      "prompts": [
+        "a small velvet jewellery ring box snapping open and shut, spring hinge click, close up, dry, foley, no music",
+        "a single small hinged ring box lid snapping closed with a soft crisp click, close microphone, quiet room, no music",
+        "a jewellery box lid closing with one short firm click, small hinge and velvet, close up, foley, no music",
+        "a wooden ring box clasp snapping shut, crisp click then quiet, close microphone, no music"
+      ],
+      "seeds": [
+        601,
+        602,
+        603
+      ],
+      "tags": [
+        "ring",
+        "box",
+        "snap",
+        "jewellery",
+        "click"
+      ],
+      "gain": 0.4,
+      "label": "a small velvet jewellery ring box snapping shut with a click"
+    },
+    {
+      "id": "ring-spin-wood",
+      "kind": "oneshot",
+      "len": [
+        1.5,
+        3.2
+      ],
+      "duration": 10,
+      "prompts": [
+        "a gold metal ring dropped on a wooden floor, ringing and spinning, wobbling faster and faster down to rest, close up, foley, no music",
+        "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music"
+      ],
+      "seeds": [
+        611,
+        612,
+        613
+      ],
+      "tags": [
+        "ring",
+        "spin",
+        "wood",
+        "floor",
+        "metal"
+      ],
+      "gain": 0.4,
+      "label": "a metal ring dropped on a wooden floor, spinning and wobbling to rest"
+    },
+    {
+      "id": "camera-shutter",
+      "kind": "oneshot",
+      "len": [
+        0.05,
+        0.6
+      ],
+      "duration": 8,
+      "prompts": [
+        "a single DSLR camera shutter click, mirror slap, close up, dry, realistic, no music",
+        "one photograph taken with a digital SLR camera, crisp shutter click, quiet room, no music"
+      ],
+      "seeds": [
+        621,
+        622,
+        623
+      ],
+      "tags": [
+        "camera",
+        "shutter",
+        "photo",
+        "click"
+      ],
+      "gain": 0.4,
+      "label": "a single DSLR camera shutter click"
+    },
+    {
+      "id": "air-push",
+      "kind": "oneshot",
+      "len": [
+        0.4,
+        2.0
+      ],
+      "duration": 8,
+      "prompts": [
+        "a soft low push of displaced air, like a heavy door closing in another room, muffled thump, no whoosh, realistic, no music",
+        "a deep muffled thud and a pressure of air, a heavy wooden door shutting far away inside a house, dull low thump, no music",
+        "a heavy wooden door slamming shut in the next room of a house, muffled dull thud with room reverb, heard through a wall, no music",
+        "a muffled thump through a wall, a big door closing in another room, soft low thud with some body, quiet, no music"
+      ],
+      "seeds": [
+        631,
+        632,
+        633
+      ],
+      "tags": [
+        "air",
+        "push",
+        "thump",
+        "door",
+        "pressure"
+      ],
+      "gain": 0.5,
+      "label": "a soft low muffled thump like a heavy door closing in another room"
+    },
+    {
+      "id": "clock-tick",
+      "kind": "split",
+      "len": [
+        0.05,
+        0.4
+      ],
+      "duration": 10,
+      "prompts": [
+        "a quiet mechanical clock ticking, steady tick tock, close up, dry, no music",
+        "a wall clock ticking slowly in a silent room, single dry ticks one second apart, realistic, no music",
+        "an old wind-up alarm clock ticking loudly, mechanical tick tick tick, close up, no music",
+        "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music"
+      ],
+      "seeds": [
+        641,
+        642,
+        643
+      ],
+      "tags": [
+        "clock",
+        "tick",
+        "mechanical",
+        "time"
+      ],
+      "gain": 0.3,
+      "label": "a single tick of a mechanical clock"
+    },
+    {
+      "id": "guest-gasp",
+      "kind": "oneshot",
+      "len": [
+        0.3,
+        1.6
+      ],
+      "duration": 8,
+      "prompts": [
+        "a small group of people at a garden party gasping in surprise together, short sharp intake of breath, outdoors, no music",
+        "wedding guests all gasping in shock at once, a few men and women, quick inhale, birds in a garden, no music",
+        "several women and men gasping sharply in shock, quick audible inhale, ah, crowd reaction, reverberant outdoors, no music",
+        "a group of people inhaling sharply in surprise, collective gasp, human voices, close crowd, no music"
+      ],
+      "seeds": [
+        651,
+        652,
+        653
+      ],
+      "tags": [
+        "gasp",
+        "guests",
+        "crowd",
+        "surprise"
+      ],
+      "gain": 0.45,
+      "label": "a small group of people gasping in surprise"
+    },
+    {
+      "id": "cloth-catch",
+      "kind": "split",
+      "len": [
+        0.1,
+        0.8
+      ],
+      "duration": 10,
+      "prompts": [
+        "a soft fabric item landing in an open hand, small cloth pat, one at a time, close up, dry, foley, no music",
+        "a folded handkerchief caught in a palm, soft cloth slap, quiet, separate catches, no music",
+        "a person catches a thrown cloth napkin in one hand, soft fabric slap and light cotton rustle, close up, foley, no music",
+        "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music"
+      ],
+      "seeds": [
+        661,
+        662,
+        663
+      ],
+      "tags": [
+        "cloth",
+        "catch",
+        "fabric",
+        "pat"
+      ],
+      "gain": 0.4,
+      "label": "a soft piece of cloth landing in a hand with a small pat"
+    }
+  ],
+  "music": []
+}

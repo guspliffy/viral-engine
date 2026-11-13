@@ -3565,6 +3565,196 @@
     "loop"
    ]
   },
+  "ai/zombie-groan": {
+   "family": "voice",
+   "says": "one zombie's groan: a raspy, hoarse throat moan with breath noise, 1.2-2.3 s, swelling in over 0.3-0.5 s (bright rasp, centre near 2.5-3.5 kHz); five takes",
+   "source": "ai",
+   "files": [
+    "ai/zombie-groan/zombie-groan-01.wav",
+    "ai/zombie-groan/zombie-groan-02.wav",
+    "ai/zombie-groan/zombie-groan-03.wav",
+    "ai/zombie-groan/zombie-groan-04.wav",
+    "ai/zombie-groan/zombie-groan-05.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "zombie",
+    "groan",
+    "growl",
+    "undead"
+   ]
+  },
+  "ai/zombie-horde": {
+   "family": "voice",
+   "says": "a crowd of zombies moaning together: many low overlapping voices swelling slowly over 2-7 s (dark, centre near 1.1 kHz); four takes",
+   "source": "ai",
+   "files": [
+    "ai/zombie-horde/zombie-horde-01.wav",
+    "ai/zombie-horde/zombie-horde-02.wav",
+    "ai/zombie-horde/zombie-horde-03.wav",
+    "ai/zombie-horde/zombie-horde-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "zombie",
+    "horde",
+    "crowd",
+    "moan"
+   ]
+  },
+  "ai/revolver-shot": {
+   "family": "hit",
+   "says": "one revolver shot outdoors: a sharp crack (rise in 3-9 ms) and a short street echo, 0.6-1.3 s, bright (centre 2-4 kHz); six takes",
+   "source": "ai",
+   "files": [
+    "ai/revolver-shot/revolver-shot-01.wav",
+    "ai/revolver-shot/revolver-shot-02.wav",
+    "ai/revolver-shot/revolver-shot-03.wav",
+    "ai/revolver-shot/revolver-shot-04.wav",
+    "ai/revolver-shot/revolver-shot-05.wav",
+    "ai/revolver-shot/revolver-shot-08.wav"
+   ],
+   "gain": 0.6,
+   "tags": [
+    "gunshot",
+    "revolver",
+    "pistol",
+    "shot"
+   ]
+  },
+  "ai/ring-box-snap": {
+   "family": "handling",
+   "says": "a small ring box snapping shut or open: one short dry click with a faint hinge snap, 0.16-0.23 s, mid to bright (centre 1.4-8.7 kHz), part tone, part noise (AI, weak: CLAP margin below 0); four takes",
+   "source": "ai",
+   "files": [
+    "ai/ring-box-snap/ring-box-snap-01.wav",
+    "ai/ring-box-snap/ring-box-snap-02.wav",
+    "ai/ring-box-snap/ring-box-snap-03.wav",
+    "ai/ring-box-snap/ring-box-snap-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "ring",
+    "box",
+    "snap",
+    "jewellery",
+    "click"
+   ]
+  },
+  "ai/ring-spin-wood": {
+   "family": "hit",
+   "says": "a metal ring dropped on a wooden floor, rattling and spinning down to rest: a bright, noisy metallic rattle of 10-30 tiny hits that speeds up and fades, 1.9-2.8 s, centre near 9-10 kHz, almost no body under 1 kHz (AI); four takes",
+   "source": "ai",
+   "files": [
+    "ai/ring-spin-wood/ring-spin-wood-01.wav",
+    "ai/ring-spin-wood/ring-spin-wood-02.wav",
+    "ai/ring-spin-wood/ring-spin-wood-03.wav",
+    "ai/ring-spin-wood/ring-spin-wood-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "ring",
+    "spin",
+    "wood",
+    "floor",
+    "metal"
+   ]
+  },
+  "ai/camera-shutter": {
+   "family": "handling",
+   "says": "one DSLR shutter click: a sharp noisy double snap (mirror and shutter) 0.2-0.24 s, bright (centre 5.4-6.5 kHz), no tone; four takes (AI)",
+   "source": "ai",
+   "files": [
+    "ai/camera-shutter/camera-shutter-01.wav",
+    "ai/camera-shutter/camera-shutter-02.wav",
+    "ai/camera-shutter/camera-shutter-03.wav",
+    "ai/camera-shutter/camera-shutter-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "camera",
+    "shutter",
+    "photo",
+    "click"
+   ]
+  },
+  "ai/air-push": {
+   "family": "hit",
+   "says": "a muffled thump of air like a heavy door closing in another room: a sub-bass pulse, 0.7-0.85 s, steady about 45-70 Hz, 98-100 % of energy under 200 Hz, so a phone speaker plays little of it (AI; use it with a sub-capable mix or layer it); four takes",
+   "source": "ai",
+   "files": [
+    "ai/air-push/air-push-01.wav",
+    "ai/air-push/air-push-02.wav",
+    "ai/air-push/air-push-03.wav",
+    "ai/air-push/air-push-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "air",
+    "push",
+    "thump",
+    "door",
+    "pressure"
+   ]
+  },
+  "ai/clock-tick": {
+   "family": "handling",
+   "says": "one tick of a mechanical clock: a dry, short woody tick, 0.11-0.12 s, dark to mid (centre 530-1000 Hz, a small tone near 550-590 Hz), 1 hit; five takes (AI)",
+   "source": "ai",
+   "files": [
+    "ai/clock-tick/clock-tick-04.wav",
+    "ai/clock-tick/clock-tick-05.wav",
+    "ai/clock-tick/clock-tick-06.wav",
+    "ai/clock-tick/clock-tick-07.wav",
+    "ai/clock-tick/clock-tick-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "clock",
+    "tick",
+    "mechanical",
+    "time"
+   ]
+  },
+  "ai/guest-gasp": {
+   "family": "body",
+   "says": "a small group of people gasping: breathy, voiced vowel-like intakes, 1.2-1.6 s, dark (centre 570-820 Hz), 4-9 pulses with a falling pitch; CLAP margin below 0, may read as a vocal drone more than a gasp (AI); four takes",
+   "source": "ai",
+   "files": [
+    "ai/guest-gasp/guest-gasp-01.wav",
+    "ai/guest-gasp/guest-gasp-02.wav",
+    "ai/guest-gasp/guest-gasp-03.wav",
+    "ai/guest-gasp/guest-gasp-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "gasp",
+    "guests",
+    "crowd",
+    "surprise"
+   ]
+  },
+  "ai/cloth-catch": {
+   "family": "handling",
+   "says": "a soft cloth landing in a hand: a short dull pat with a little fabric rustle, 0.2-0.5 s, mixed (centre 0.4-4.6 kHz, most energy under 200 Hz), 1-3 hits; seven takes (AI)",
+   "source": "ai",
+   "files": [
+    "ai/cloth-catch/cloth-catch-01.wav",
+    "ai/cloth-catch/cloth-catch-02.wav",
+    "ai/cloth-catch/cloth-catch-03.wav",
+    "ai/cloth-catch/cloth-catch-04.wav",
+    "ai/cloth-catch/cloth-catch-05.wav",
+    "ai/cloth-catch/cloth-catch-06.wav",
+    "ai/cloth-catch/cloth-catch-07.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "cloth",
+    "catch",
+    "fabric",
+    "pat"
+   ]
+  },
   "ai-package/cardboard-rustle": {
    "family": "handling",
    "says": "a cardboard parcel snatched or handled: dry rustle and scrape (AI)",
@@ -3696,63 +3886,6 @@
    ],
    "gain": 0.45,
    "anchor": "hit"
-  },
-  "ai/zombie-groan": {
-   "family": "voice",
-   "says": "one zombie's groan: a raspy, hoarse throat moan with breath noise, 1.2-2.3 s, swelling in over 0.3-0.5 s (bright rasp, centre near 2.5-3.5 kHz); five takes",
-   "source": "ai",
-   "files": [
-    "ai/zombie-groan/zombie-groan-01.wav",
-    "ai/zombie-groan/zombie-groan-02.wav",
-    "ai/zombie-groan/zombie-groan-03.wav",
-    "ai/zombie-groan/zombie-groan-04.wav",
-    "ai/zombie-groan/zombie-groan-05.wav"
-   ],
-   "gain": 0.5,
-   "tags": [
-    "zombie",
-    "groan",
-    "growl",
-    "undead"
-   ]
-  },
-  "ai/zombie-horde": {
-   "family": "voice",
-   "says": "a crowd of zombies moaning together: many low overlapping voices swelling slowly over 2-7 s (dark, centre near 1.1 kHz); four takes",
-   "source": "ai",
-   "files": [
-    "ai/zombie-horde/zombie-horde-01.wav",
-    "ai/zombie-horde/zombie-horde-02.wav",
-    "ai/zombie-horde/zombie-horde-03.wav",
-    "ai/zombie-horde/zombie-horde-04.wav"
-   ],
-   "gain": 0.45,
-   "tags": [
-    "zombie",
-    "horde",
-    "crowd",
-    "moan"
-   ]
-  },
-  "ai/revolver-shot": {
-   "family": "hit",
-   "says": "one revolver shot outdoors: a sharp crack (rise in 3-9 ms) and a short street echo, 0.6-1.3 s, bright (centre 2-4 kHz); six takes",
-   "source": "ai",
-   "files": [
-    "ai/revolver-shot/revolver-shot-01.wav",
-    "ai/revolver-shot/revolver-shot-02.wav",
-    "ai/revolver-shot/revolver-shot-03.wav",
-    "ai/revolver-shot/revolver-shot-04.wav",
-    "ai/revolver-shot/revolver-shot-05.wav",
-    "ai/revolver-shot/revolver-shot-08.wav"
-   ],
-   "gain": 0.6,
-   "tags": [
-    "gunshot",
-    "revolver",
-    "pistol",
-    "shot"
-   ]
   }
  }
 }

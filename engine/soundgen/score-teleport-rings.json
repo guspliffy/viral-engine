@@ -1,0 +1,12 @@
+{
+  "out": "wedding-score/wedding-score-a.ogg",
+  "duration": 46.5,
+  "against": ["playful cartoon music", "video game chiptune music", "electronic music", "synthesizer", "drum kit", "silence", "people talking"],
+  "sections": [
+    { "id": "quartet-processional", "from": 0.0, "label": "an elegant acoustic string quartet playing a slow wedding processional", "lufs": -18, "fadeIn": 0.02 },
+    { "id": "quartet-nervous", "from": 2.8, "label": "nervous pizzicato plucked strings of a string quartet, anxious and comic", "lufs": -19, "fadeIn": 0.05, "onset": true },
+    { "id": "quartet-hold", "from": 31.0, "label": "one quiet sustained high violin note with soft tremolo", "lufs": -26, "fadeIn": 0.4 },
+    { "id": "quartet-resolve", "from": 38.0, "label": "a string quartet resolving warmly into a joyful major chord ending", "lufs": -17, "fadeIn": 0.3 }
+  ],
+  "_note": "EP09 teleport rings, score A (13 Nov 2026): processional to the first beat of the story, nervous pizzicato 2.8-31.0, held violin 31.0-38.0, resolve from 38.0 with its final chord near 44.6 and a ring-out to 46.5. Score B is the same 3.0 s later."
+}

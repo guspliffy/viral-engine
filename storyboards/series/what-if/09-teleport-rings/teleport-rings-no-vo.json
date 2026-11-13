@@ -1,0 +1,4647 @@
+{
+ "id": "teleport-rings-no-vo",
+ "title": "What if you could teleport? There's a catch",
+ "idea": "There's a catch, episode 9: the best man can teleport home for the forgotten rings, but every jump leaves behind the last thing he touched (his bow tie, the rings, the box, his leaf); the bride is twenty steps away",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  342,
+  640
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#a9d6f0",
+  "floor": "#8fc65a",
+  "light": "golden",
+  "key": [
+   -5,
+   7,
+   5
+  ],
+  "windows": false,
+  "focus": false,
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "hud": {
+  "show": [
+   0,
+   41
+  ],
+  "steps": {
+   "keys": [
+    [
+     0,
+     20
+    ],
+    [
+     0.01,
+     17,
+     4.59
+    ],
+    [
+     4.61,
+     15,
+     4.39
+    ],
+    [
+     9.01,
+     12,
+     4.99
+    ],
+    [
+     14.01,
+     6,
+     6.49
+    ],
+    [
+     20.51,
+     3,
+     6.49
+    ],
+    [
+     27.01,
+     1,
+     5.49
+    ],
+    [
+     32.51,
+     0,
+     5.69
+    ]
+   ],
+   "pulse": [
+    24,
+    31
+   ]
+  }
+ },
+ "music": {
+  "file": "ai/wedding-score/wedding-score-a.ogg",
+  "gain": 0.45,
+  "lowCut": 90,
+  "dip": false,
+  "lock": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "chip",
+   "rbox",
+   "mash"
+  ],
+  "hint": 0,
+  "what": "a garden wedding: the best man snaps the ring box open, it is empty, the bride is far down the aisle walking toward them"
+ },
+ "panels": {
+  "md": "storyboards/series/what-if/09-teleport-rings/PANELS.md"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": -8,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "bald",
+   "character": "what-if/spud-bald",
+   "at": [
+    204,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.48,
+    0
+   ],
+   "face": 8,
+   "expr": "shocked",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0,
+    -10.65
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 7.1
+  }
+ ],
+ "props": [
+  {
+   "id": "gar",
+   "kind": "gardenaltar",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "archE",
+   "kind": "flowerarch",
+   "x": 0,
+   "y": 0,
+   "z": -10.95,
+   "on": 1
+  },
+  {
+   "id": "archA",
+   "kind": "flowerarch",
+   "x": 0,
+   "y": 0,
+   "z": 1.55,
+   "on": 0
+  },
+  {
+   "id": "gR1a",
+   "kind": "weddingguest",
+   "x": 1.25,
+   "y": 0,
+   "z": -2.15,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#34466b",
+   "hat": 0,
+   "glasses": true,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR1b",
+   "kind": "weddingguest",
+   "x": 2,
+   "y": 0,
+   "z": -2.15,
+   "size": 1,
+   "dress": "dress",
+   "color": "#c98a8f",
+   "hat": 3,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL1a",
+   "kind": "weddingguest",
+   "x": -1.25,
+   "y": 0,
+   "z": -2.15,
+   "size": 1,
+   "dress": "dress",
+   "color": "#a892c0",
+   "hat": 1,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL1b",
+   "kind": "weddingguest",
+   "x": -2,
+   "y": 0,
+   "z": -2.15,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#7a2f3a",
+   "hat": 2,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR2a",
+   "kind": "weddingguest",
+   "x": 1.25,
+   "y": 0,
+   "z": -3.65,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#6b4a36",
+   "hat": 1,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR2b",
+   "kind": "weddingguest",
+   "x": 2,
+   "y": 0,
+   "z": -3.65,
+   "size": 1,
+   "dress": "dress",
+   "color": "#9fb78a",
+   "hat": 0,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL2a",
+   "kind": "weddingguest",
+   "x": -1.25,
+   "y": 0,
+   "z": -3.65,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#6f7044",
+   "hat": 0,
+   "glasses": true,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL2b",
+   "kind": "weddingguest",
+   "x": -2,
+   "y": 0,
+   "z": -3.65,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#5d3f5f",
+   "hat": 3,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR3a",
+   "kind": "weddingguest",
+   "x": 1.25,
+   "y": 0,
+   "z": -5.15,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#5f6f86",
+   "hat": 2,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL3a",
+   "kind": "weddingguest",
+   "x": -1.25,
+   "y": 0,
+   "z": -5.15,
+   "size": 1,
+   "dress": "dress",
+   "color": "#c98a8f",
+   "hat": 1,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL3b",
+   "kind": "weddingguest",
+   "x": -2,
+   "y": 0,
+   "z": -5.15,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#34466b",
+   "hat": 0,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR4b",
+   "kind": "weddingguest",
+   "x": 2,
+   "y": 0,
+   "z": -6.65,
+   "size": 1,
+   "dress": "dress",
+   "color": "#a892c0",
+   "hat": 2,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gL4a",
+   "kind": "weddingguest",
+   "x": -1.25,
+   "y": 0,
+   "z": -6.65,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#6b4a36",
+   "hat": 3,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "gR5a",
+   "kind": "weddingguest",
+   "x": 1.25,
+   "y": 0,
+   "z": -8.15,
+   "size": 1,
+   "dress": "jacket",
+   "color": "#6f7044",
+   "hat": 1,
+   "glasses": false,
+   "turn": 0,
+   "gasp": 0,
+   "cheer": 0,
+   "sway": 0.5
+  },
+  {
+   "id": "hall",
+   "kind": "ringhall",
+   "x": 0,
+   "y": 0,
+   "z": 60
+  },
+  {
+   "id": "rbox",
+   "kind": "ringbox",
+   "x": 210,
+   "y": -60,
+   "z": 0,
+   "lid": 0,
+   "rings": 0
+  },
+  {
+   "id": "rings",
+   "kind": "goldring",
+   "n": 2,
+   "pose": "lean",
+   "x": 1.05,
+   "y": 0.5,
+   "z": 61.97,
+   "spin": -1
+  },
+  {
+   "id": "ringA",
+   "kind": "goldring",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "spin": -1,
+   "seed": 0.13
+  },
+  {
+   "id": "ringB",
+   "kind": "goldring",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "spin": -1,
+   "seed": 0.61
+  },
+  {
+   "id": "ringOn",
+   "kind": "goldring",
+   "up": true,
+   "x": 0.2,
+   "y": -60,
+   "z": -0.3,
+   "staged": "slid onto her glove in the close shot"
+  },
+  {
+   "id": "tieWorn",
+   "kind": "bowtie",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.47,
+   "z": 0.335,
+   "color": "#201e26"
+  },
+  {
+   "id": "tieLoose",
+   "kind": "bowtie",
+   "x": 0,
+   "y": -60,
+   "z": 0,
+   "color": "#201e26"
+  },
+  {
+   "id": "pin",
+   "kind": "flowerpin",
+   "wear": "chip",
+   "x": -0.12,
+   "y": 0.36,
+   "z": 0.25
+  },
+  {
+   "id": "veil",
+   "kind": "bridalveil",
+   "wear": "mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "swing": 0
+  },
+  {
+   "id": "bq",
+   "kind": "bouquet",
+   "x": 0,
+   "y": -60,
+   "z": 0
+  },
+  {
+   "id": "leaf",
+   "kind": "spudleaf",
+   "from": [
+    205,
+    0.5,
+    5
+   ],
+   "to": [
+    205,
+    0.5,
+    5
+   ],
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fall": 0,
+   "staged": "a leaf on the air"
+  },
+  {
+   "id": "dr0",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.5,
+   "y": 0,
+   "z": 0,
+   "n": 14,
+   "r0": 0.3,
+   "r1": 0.6,
+   "s0": 0.12,
+   "s1": 0.22,
+   "a": 0.7,
+   "color": "#efe3c6",
+   "puff": 0
+  },
+  {
+   "id": "dr1",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.28,
+   "y": 0,
+   "z": 61.8,
+   "n": 10,
+   "r0": 0.2,
+   "r1": 0.42,
+   "s0": 0.09,
+   "s1": 0.16,
+   "a": 0.5,
+   "color": "#f3eada",
+   "puff": 0
+  },
+  {
+   "id": "dr2",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.28,
+   "y": 0,
+   "z": 61.8,
+   "n": 14,
+   "r0": 0.3,
+   "r1": 0.6,
+   "s0": 0.12,
+   "s1": 0.22,
+   "a": 0.7,
+   "color": "#f3eada",
+   "puff": 0
+  },
+  {
+   "id": "dr3",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.5,
+   "y": 0,
+   "z": 0,
+   "n": 10,
+   "r0": 0.2,
+   "r1": 0.42,
+   "s0": 0.09,
+   "s1": 0.16,
+   "a": 0.5,
+   "color": "#efe3c6",
+   "puff": 0
+  },
+  {
+   "id": "dr4",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.5,
+   "y": 0,
+   "z": 0,
+   "n": 14,
+   "r0": 0.3,
+   "r1": 0.6,
+   "s0": 0.12,
+   "s1": 0.22,
+   "a": 0.7,
+   "color": "#efe3c6",
+   "puff": 0
+  },
+  {
+   "id": "dr5",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.36,
+   "y": 0,
+   "z": 62.6,
+   "n": 10,
+   "r0": 0.2,
+   "r1": 0.42,
+   "s0": 0.09,
+   "s1": 0.16,
+   "a": 0.5,
+   "color": "#f3eada",
+   "puff": 0
+  },
+  {
+   "id": "dr6",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.28,
+   "y": 0,
+   "z": 61.8,
+   "n": 14,
+   "r0": 0.3,
+   "r1": 0.6,
+   "s0": 0.12,
+   "s1": 0.22,
+   "a": 0.7,
+   "color": "#f3eada",
+   "puff": 0
+  },
+  {
+   "id": "dr7",
+   "kind": "dustring",
+   "staged": "dust on the ground",
+   "x": 0.5,
+   "y": 0,
+   "z": 0,
+   "n": 10,
+   "r0": 0.2,
+   "r1": 0.42,
+   "s0": 0.09,
+   "s1": 0.16,
+   "a": 0.5,
+   "color": "#efe3c6",
+   "puff": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 1.27,
+   "text": "NO RINGS",
+   "pos": 344,
+   "pop": false
+  },
+  {
+   "from": 15.4,
+   "to": 16.7,
+   "text": "…Again.",
+   "pos": 360,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 24.65,
+   "to": 25.45,
+   "text": "ah!",
+   "pos": 360,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 26.35,
+   "to": 27.15,
+   "text": "ah!",
+   "pos": 360,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the empty box",
+   "at": 0,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     -0.35,
+     0.8,
+     4.6
+    ],
+    "look": [
+     0.1,
+     0.82,
+     -4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "archA",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR2a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR2b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL2a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL2b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR3a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL3a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL3b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR4b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL4a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR5a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 0,
+      "rings": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tieWorn",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "fall": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ringA",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ringB",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "veil",
+     "set": {
+      "swing": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.05,
+       0.38,
+       0.24
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 0,
+      "rings": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.25,
+      "brow": 0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -9.15
+     ],
+     "dur": 4.59,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "bq",
+     "hand": "R",
+     "grip": [
+      0,
+      0.045,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/ring-box-snap",
+     "gain": 0.8,
+     "reason": "the box snaps open: empty",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.05,
+      0.2
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 0.9
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 insert: empty",
+   "at": 1.3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.09,
+     1.08,
+     0.78
+    ],
+    "look": [
+     0.09,
+     0.66,
+     0.24
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "03 the bow tie",
+   "at": 2.3,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.78,
+     3.7
+    ],
+    "look": [
+     0.12,
+     0.74,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.9,
+      "open": 0.02
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.02,
+       0.62,
+       0.36
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.55,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.15,
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       0.6,
+       0.37
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.03,
+       0.61,
+       0.36
+      ]
+     },
+     "dur": 0.15,
+     "at": 1.55
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.3,
+      0
+     ],
+     "dur": 0.4,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.26
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.85
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "cup",
+     "dur": 0.15,
+     "at": 1.85
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.05,
+     "at": 2.083
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rbox",
+     "to": [
+      205,
+      0.5,
+      5
+     ],
+     "dur": 0.01,
+     "at": 2.11
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.13
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.13
+    },
+    {
+     "do": "prop",
+     "id": "tieWorn",
+     "set": {
+      "scale": 0.0001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.14
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.01,
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "dr0",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.15
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.5,
+     "reason": "the soft push of air where he stood",
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "tieLoose",
+     "set": {
+      "x": 0.5,
+      "y": 0.47,
+      "z": 0.335,
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "dr0",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 2.16
+    },
+    {
+     "do": "physics",
+     "prop": "tieLoose",
+     "mode": "throw",
+     "to": [
+      0.06,
+      0.34,
+      0.26
+     ],
+     "in": 0.3,
+     "spin": [
+      0,
+      0,
+      0.3
+     ],
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2,
+      "eye": 1.3
+     },
+     "dur": 0.1,
+     "at": 2.3
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -8.15
+     ],
+     "dur": 4.39,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 2.31
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "tieLoose",
+     "hand": "L",
+     "grip": [
+      0,
+      0.03,
+      0
+     ],
+     "dur": 0.05,
+     "pose": null,
+     "at": 2.55
+    },
+    {
+     "sfx": "ai/cloth-catch",
+     "gain": 0.6,
+     "reason": "the tie lands in Chip's glove",
+     "at": 2.55
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.55
+    }
+   ]
+  },
+  {
+   "name": "05 hall: rings into the box",
+   "at": 6.3,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.05,
+     65.4
+    ],
+    "look": [
+     0.5,
+     0.62,
+     61.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.28,
+      61.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.08
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "dr1",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.3,
+     "reason": "he lands: a softer push of air",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 1,
+      "rings": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "dr1",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.11
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.11
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.4,
+       0.6,
+       0.24
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.1,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rings",
+     "hand": "L",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0.05,
+     "pose": null,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.6,
+       0.34
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rings",
+     "to": [
+      205,
+      0.5,
+      5
+     ],
+     "dur": 0.01,
+     "at": 1.8
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "rings": 2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.81
+    },
+    {
+     "sfx": "ai/ring-box-snap",
+     "gain": 0.3,
+     "reason": "the rings settle in the velvet",
+     "at": 1.82
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.15,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.05,
+     "at": 2.533
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rbox",
+     "to": [
+      205,
+      0.5,
+      5
+     ],
+     "dur": 0.01,
+     "at": 2.56
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.01,
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "dr2",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.5,
+     "reason": "the soft push of air where he stood",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "rings": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "ringA",
+     "set": {
+      "x": 0.37,
+      "y": 0.92,
+      "z": 62.12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "ringB",
+     "set": {
+      "x": 0.43,
+      "y": 0.92,
+      "z": 62.14
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "dr2",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 2.61
+    }
+   ]
+  },
+  {
+   "name": "06 the rings spin",
+   "at": 9,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -0.25,
+     1.15,
+     64.4
+    ],
+    "look": [
+     0.38,
+     0.15,
+     62
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "physics",
+     "prop": "ringA",
+     "mode": "throw",
+     "to": [
+      0.2,
+      0.015,
+      62.15
+     ],
+     "in": 0.42,
+     "spin": [
+      1,
+      0,
+      2
+     ],
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "ringB",
+     "mode": "throw",
+     "to": [
+      0.52,
+      0.015,
+      62.3
+     ],
+     "in": 0.45,
+     "spin": [
+      -1,
+      0,
+      2
+     ],
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -6.65
+     ],
+     "dur": 4.99,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 0.01
+    },
+    {
+     "do": "prop",
+     "id": "ringA",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.42
+    },
+    {
+     "sfx": "ai/ring-spin-wood",
+     "gain": 0.8,
+     "reason": "ring A hits the boards and spins down",
+     "at": 0.42
+    },
+    {
+     "do": "prop",
+     "id": "ringA",
+     "set": {
+      "spin": 2.2
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.43
+    },
+    {
+     "do": "prop",
+     "id": "ringB",
+     "set": {
+      "spin": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "ringB",
+     "set": {
+      "spin": 2.2
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.46
+    },
+    {
+     "sfx": "ai/ring-spin-wood",
+     "gain": 0.6,
+     "reason": "ring B, a beat later",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "07 the box presented",
+   "at": 12,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.78,
+     3.7
+    ],
+    "look": [
+     0.12,
+     0.74,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr3",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.3,
+     "reason": "he lands: a softer push of air",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.52,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 1,
+      "rings": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr3",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.05,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0,
+       0.62,
+       0.36
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.08,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/ring-box-snap",
+     "gain": 0.7,
+     "reason": "he snaps the box shut without looking",
+     "at": 0.48
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.35,
+     "ease": "back",
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.3
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.1,
+       0.42,
+       0.34
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.08,
+     "at": 1.55
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/ring-box-snap",
+     "gain": 0.6,
+     "reason": "Chip lifts the lid",
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.35,
+      -0.4
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.5
+     },
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.3
+     },
+     "dur": 0.12,
+     "at": 1.8
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0.1,
+     "pose": null,
+     "at": 1.9
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -3.65
+     ],
+     "dur": 6.49,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 2.01
+    }
+   ]
+  },
+  {
+   "name": "08 ...Again.",
+   "at": 14.3,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.5,
+     2.4
+    ],
+    "look": [
+     -0.2,
+     0.52,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.55
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.02,
+       0.36,
+       0.28
+      ]
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "…Again.",
+     "tone": "deadpan",
+     "dur": 0.9,
+     "blink": false,
+     "voice": false,
+     "at": 1.1
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "09 the box stays",
+   "at": 16.6,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.78,
+     3.7
+    ],
+    "look": [
+     0.12,
+     0.74,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.45,
+       0.36
+      ]
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 1,
+      "open": 0.05
+     },
+     "dur": 0.1,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0.08,
+     "pose": null,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "lid": 0
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.3,
+       0.26
+      ]
+     },
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "cup",
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.05,
+     "at": 0.933
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.01,
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "dr4",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.5,
+     "reason": "the soft push of air where he stood",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "dr4",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.01
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rbox",
+     "dur": 0.01,
+     "keep": "air",
+     "reason": "the box hangs one blink where he held it",
+     "at": 1.01
+    },
+    {
+     "do": "prop",
+     "id": "rbox",
+     "set": {
+      "x": 0.48,
+      "y": 0.55,
+      "z": 0.42
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.02
+    },
+    {
+     "do": "physics",
+     "prop": "rbox",
+     "mode": "throw",
+     "to": [
+      -0.05,
+      0.36,
+      0.28
+     ],
+     "in": 0.28,
+     "spin": [
+      0,
+      0,
+      0
+     ],
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "rbox",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.075,
+      0
+     ],
+     "dur": 0.05,
+     "pose": null,
+     "at": 1.38
+    },
+    {
+     "sfx": "ai/cloth-catch",
+     "gain": 0.5,
+     "reason": "the velvet box lands in Chip's other glove",
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.6
+     },
+     "dur": 0.2,
+     "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.35
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.36,
+      62.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.18
+    }
+   ]
+  },
+  {
+   "name": "10 hall: the rule",
+   "at": 18.8,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.05,
+     65.4
+    ],
+    "look": [
+     0.5,
+     0.62,
+     61.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr5",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.3,
+     "reason": "he lands: a softer push of air",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr5",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.05,
+       0.12,
+       0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "ringB",
+     "hand": "R",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0.05,
+     "pose": null,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "ringB",
+     "to": [
+      205,
+      0.5,
+      5
+     ],
+     "dur": 0.01,
+     "at": 0.74
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "ringA",
+     "hand": "R",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0.05,
+     "pose": null,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.08,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.6
+     },
+     "dur": 0.2,
+     "at": 1.6
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -2.15
+     ],
+     "dur": 6.49,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 1.71
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.8,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.2,
+     "at": 3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.28,
+      61.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.58
+    }
+   ]
+  },
+  {
+   "name": "11 the cactus",
+   "at": 23.4,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.9,
+     64.4
+    ],
+    "look": [
+     0.7,
+     0.66,
+     61.75
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.85,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.04,
+       0.45,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.64,
+       0.12
+      ]
+     },
+     "dur": 0.75,
+     "ease": "in",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.62,
+       0.2
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2,
+      "eye": 0.6,
+      "brow": 0.8
+     },
+     "dur": 0.05,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "ah!",
+     "tone": "excited",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 1.25
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.8
+     },
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.32,
+       0.64,
+       0.12
+      ]
+     },
+     "dur": 0.75,
+     "ease": "in",
+     "at": 2.1
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 2.1
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.62,
+       0.2
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.2,
+      "eye": 0.6,
+      "brow": 0.8
+     },
+     "dur": 0.05,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "ah!",
+     "tone": "excited",
+     "dur": 0.35,
+     "blink": false,
+     "voice": false,
+     "at": 2.95
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 3.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.8
+     },
+     "dur": 0.2,
+     "at": 3.5
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 3.6
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -1.15
+     ],
+     "dur": 5.49,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 3.61
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 4.1
+    }
+   ]
+  },
+  {
+   "name": "12 the leaf",
+   "at": 27.8,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.05,
+     65.4
+    ],
+    "look": [
+     0.5,
+     0.62,
+     61.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.05,
+       1,
+       0
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       1.02,
+       -0.02
+      ]
+     },
+     "dur": 0.12,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       1,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "at": 1.1
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.22,
+     "dur": 0.05,
+     "at": 1.533
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "ringA",
+     "to": [
+      205,
+      0.5,
+      5
+     ],
+     "dur": 0.01,
+     "at": 1.56
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      200,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "from": [
+       0.28,
+       1.02,
+       61.8
+      ],
+      "to": [
+       1.05,
+       0.5,
+       61.97
+      ],
+      "fall": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.59
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.01,
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "dr6",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.5,
+     "reason": "the soft push of air where he stood",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "dr6",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.61
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "fall": 1
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 1.7
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 2.2
+    },
+    {
+     "sfx": "ai/clock-tick",
+     "gain": 0.22,
+     "reason": "the clock ticking under the plucked strings",
+     "at": 2.7
+    },
+    {
+     "who": "bald",
+     "do": "move",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "bald",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "13 bald",
+   "at": 31.2,
+   "len": 6.4,
+   "shot": {
+    "pos": [
+     0.1,
+     0.95,
+     3.7
+    ],
+    "look": [
+     0.05,
+     0.8,
+     -2
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "bald",
+     "do": "squash",
+     "amount": 0.16,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr7",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/air-push",
+     "gain": 0.3,
+     "reason": "he lands: a softer push of air",
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.14,
+       0.45,
+       0.28
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "look",
+     "to": [
+      -0.6,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dr7",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 0.01
+    },
+    {
+     "who": "bald",
+     "do": "squash",
+     "amount": 0,
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.02
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.14,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.3,
+     "ease": "back",
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "rings",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.89
+    },
+    {
+     "who": "bald",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.9
+    },
+    {
+     "who": "bald",
+     "do": "grab",
+     "prop": "rings",
+     "hand": "R",
+     "grip": [
+      0,
+      0.01,
+      0
+     ],
+     "dur": 0.01,
+     "pose": null,
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      -0.65
+     ],
+     "dur": 5.69,
+     "steps": 1,
+     "ease": "inOut",
+     "at": 1.31
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.55,
+      0.45
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15,
+      "eye": 1.2
+     },
+     "dur": 0.2,
+     "at": 2
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.98,
+       0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "bald",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 3.2
+    },
+    {
+     "who": "bald",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.4
+    },
+    {
+     "who": "bald",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 3.5
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.95,
+       0.06
+      ]
+     },
+     "dur": 0.1,
+     "at": 3.55
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.25,
+     "reason": "his glove pats the bare dome",
+     "at": 3.55
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.04,
+       0.98,
+       0.04
+      ]
+     },
+     "dur": 0.1,
+     "at": 3.7
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "rot": 150
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 3.7
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "rot": -150
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 3.82
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "rot": 150
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 3.9
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "gasp": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 4
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.45,
+     "reason": "one guest gasps (ai/guest-gasp came out a drone: sound test 01)",
+     "at": 4
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "gasp": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 4.12
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "gasp": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 4.2
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 5
+    },
+    {
+     "who": "bald",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.3,
+     "at": 5.2
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "13b the bride arrives",
+   "at": 37.6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.05,
+     1.05,
+     3.6
+    ],
+    "look": [
+     0.02,
+     0.85,
+     -1
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "gasp": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "gasp": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "gasp": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.02,
+       0.5,
+       0.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "14 rings on",
+   "at": 38.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     0,
+     0.9,
+     0.3
+    ],
+    "look": [
+     0.25,
+     0.76,
+     -0.3
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ringOn",
+     "set": {
+      "x": 0.25,
+      "y": 0.77,
+      "z": -0.23
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ringOn",
+     "set": {
+      "z": -0.31
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.6,
+      2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "bald",
+     "do": "move",
+     "to": [
+      0.62,
+      2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "bald",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0,
+      1.55
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "do": "prop",
+     "id": "archA",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "15 the photo",
+   "at": 40.2,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0,
+     1.35,
+     6.6
+    ],
+    "look": [
+     0,
+     0.85,
+     1.9
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ringOn",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "grip",
+     "side": "L",
+     "shape": "thumb",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "bald",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR1b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL1b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR2a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR2b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL2a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL2b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR3a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL3a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL3b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR4b",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gL4a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gR5a",
+     "set": {
+      "rot": 0,
+      "gasp": 0,
+      "cheer": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "fx": "flash",
+     "dur": 0.2,
+     "peak": 0.8,
+     "color": "#ffffff",
+     "at": 0.8
+    },
+    {
+     "sfx": "ai/camera-shutter",
+     "gain": 0.8,
+     "reason": "the wedding photo",
+     "at": 0.8
+    }
+   ]
+  },
+  {
+   "name": "16 the leaf on the shelf",
+   "at": 43.2,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     0.35,
+     0.85,
+     63.1
+    ],
+    "look": [
+     1.07,
+     0.6,
+     62
+    ],
+    "fov": 40
+   },
+   "do": []
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.3,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "rbox",
+    "mash"
+   ],
+   "why": "frame 0: the empty box, both faces, the bride far down the aisle"
+  },
+  {
+   "from": 1.3,
+   "to": 2.3,
+   "see": [
+    "rbox",
+    "chip.face"
+   ],
+   "why": "the box is empty"
+  },
+  {
+   "from": 3,
+   "to": 4.45,
+   "see": [
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "Spud straightens his bow tie, eyes shut"
+  },
+  {
+   "from": 4.45,
+   "to": 6.3,
+   "see": [
+    "chip.face",
+    "tieLoose"
+   ],
+   "why": "Spud is gone, the tie drops into Chip's glove"
+  },
+  {
+   "from": 6.3,
+   "to": 8.9,
+   "see": [
+    "spud.face",
+    "rbox"
+   ],
+   "why": "the hall: rings on the shelf by the cactus, into the box"
+  },
+  {
+   "from": 9,
+   "to": 12,
+   "see": [
+    "ringA",
+    "ringB"
+   ],
+   "why": "the empty hall: the rings spinning on the floor"
+  },
+  {
+   "from": 12,
+   "to": 14.3,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "rbox",
+    "mash"
+   ],
+   "why": "the box presented, Chip opens it: empty again; the bride much closer"
+  },
+  {
+   "from": 14.3,
+   "to": 16.6,
+   "see": [
+    "chip.face",
+    "rbox",
+    "tieLoose"
+   ],
+   "why": "Chip looks straight at us: …Again."
+  },
+  {
+   "from": 16.6,
+   "to": 18.8,
+   "see": [
+    "chip.face",
+    "rbox",
+    "tieLoose",
+    "mash"
+   ],
+   "why": "Spud clutches the box and is gone; the box drops into Chip's other glove"
+  },
+  {
+   "from": 18.8,
+   "to": 23.4,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he scoops up the rings, stops, looks at his hand, looks at the cactus"
+  },
+  {
+   "from": 23.4,
+   "to": 27.8,
+   "see": [
+    "spud.face"
+   ],
+   "why": "rings in his fist, one finger toward the cactus: flinch, again, flinch"
+  },
+  {
+   "from": 28.4,
+   "to": 31.2,
+   "see": [
+    "spud",
+    "leaf"
+   ],
+   "why": "he scratches his leaf and vanishes; the leaf drifts down beside the cactus"
+  },
+  {
+   "from": 31.2,
+   "to": 37.6,
+   "see": [
+    "bald.face",
+    "chip.face",
+    "rings",
+    "mash"
+   ],
+   "why": "rings in his palm; Chip stares above his eyes; he pats his head: bald; guests turn"
+  },
+  {
+   "from": 37.6,
+   "to": 38.6,
+   "see": [
+    "mash.face",
+    "chip.face",
+    "bald.face"
+   ],
+   "why": "the bride arrives"
+  },
+  {
+   "from": 38.6,
+   "to": 40.2,
+   "see": [
+    "ringOn"
+   ],
+   "why": "one close shot of the ring going on"
+  },
+  {
+   "from": 40.2,
+   "to": 43.2,
+   "see": [
+    "chip.face",
+    "bald.face",
+    "mash.face",
+    "rbox",
+    "tieLoose"
+   ],
+   "why": "the photo: Chip holding tie + empty box, Spud bald and proud"
+  },
+  {
+   "from": 43.2,
+   "to": 46.5,
+   "see": [
+    "leaf"
+   ],
+   "why": "the leaf beside the cactus, under the old photo of Spud with his leaf"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "bald",
+   "with": "chip",
+   "from": 31.17,
+   "to": 31.26,
+   "reason": "ROUGH DRAFT: his arrival frame grazes Chip's hood 3 cm"
+  },
+  {
+   "who": "spud",
+   "with": "hall",
+   "from": 7.15,
+   "to": 7.45,
+   "reason": "ROUGH DRAFT: his sleeve brushes the shelf edge reaching for the rings"
+  },
+  {
+   "who": "spud",
+   "with": "rbox",
+   "from": 4.4,
+   "to": 4.53,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "a teleport: he and what he holds vanish (or land) in one frame"
+  },
+  {
+   "who": "spud",
+   "with": "rbox",
+   "from": 6.35,
+   "to": 6.48,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "a teleport: he and what he holds vanish (or land) in one frame"
+  },
+  {
+   "who": "spud",
+   "with": "rbox",
+   "from": 8.85,
+   "to": 8.98,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "a teleport: he and what he holds vanish (or land) in one frame"
+  },
+  {
+   "who": "spud",
+   "with": "rbox",
+   "from": 11.95,
+   "to": 12.08,
+   "checks": [
+    "prop-pop"
+   ],
+   "reason": "a teleport: he and what he holds vanish (or land) in one frame"
+  },
+  {
+   "who": "spud",
+   "with": "rbox",
+   "from": 0,
+   "to": 17.700000000000003,
+   "reason": "the ring box in his glove"
+  },
+  {
+   "who": "chip",
+   "with": "rbox",
+   "from": 13.3,
+   "to": 46.5,
+   "reason": "the ring box in his glove"
+  },
+  {
+   "who": "chip",
+   "with": "tieLoose",
+   "from": 4.45,
+   "to": 46.5,
+   "reason": "the bow tie in his glove"
+  },
+  {
+   "who": "spud",
+   "with": "tieWorn",
+   "from": 0,
+   "to": 4.45,
+   "reason": "the bow tie worn at his collar"
+  },
+  {
+   "who": "spud",
+   "with": "rings",
+   "from": 7,
+   "to": 9,
+   "reason": "the rings in his glove, then into the box"
+  },
+  {
+   "who": "spud",
+   "from": 23.35,
+   "to": 23.52,
+   "checks": [
+    "rig-jump"
+   ],
+   "reason": "the cut to the cactus close: his new pose starts on the cut"
+  },
+  {
+   "who": "spud",
+   "with": "ringA",
+   "from": 18.8,
+   "to": 29.4,
+   "reason": "the rings in his fist"
+  },
+  {
+   "who": "bald",
+   "with": "rings",
+   "from": 31.8,
+   "to": 46.5,
+   "reason": "the rings in his palm"
+  },
+  {
+   "who": "mash",
+   "with": "ringOn",
+   "from": 38.6,
+   "to": 40.2,
+   "reason": "the ring slides onto her finger"
+  },
+  {
+   "who": "mash",
+   "with": "bq",
+   "from": 0,
+   "to": 46.5,
+   "reason": "her bouquet in her gloves"
+  },
+  {
+   "who": "mash",
+   "with": "veil",
+   "from": 0,
+   "to": 46.5,
+   "reason": "her veil, worn"
+  },
+  {
+   "who": "chip",
+   "with": "pin",
+   "from": 0,
+   "to": 46.5,
+   "reason": "the flower pinned on his hoodie"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/09-teleport-rings/make-teleport-rings.mjs."
+}

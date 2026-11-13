@@ -1,0 +1,121 @@
+{
+ "spec": "score-teleport-rings.json",
+ "sections": [
+  {
+   "section": "quartet-processional",
+   "take": "p1-s903.wav",
+   "clap": 0.24,
+   "others": [
+    [
+     "p0-s901.wav",
+     0.158
+    ],
+    [
+     "p1-s902.wav",
+     0.152
+    ],
+    [
+     "p0-s902.wav",
+     0.098
+    ],
+    [
+     "p1-s901.wav",
+     0.038
+    ],
+    [
+     "p0-s903.wav",
+     0.038
+    ]
+   ],
+   "from": 0.0,
+   "lufs": -18
+  },
+  {
+   "section": "quartet-nervous",
+   "take": "p1-s913.wav",
+   "clap": 0.109,
+   "others": [
+    [
+     "p1-s911.wav",
+     0.086
+    ],
+    [
+     "p1-s912.wav",
+     0.069
+    ],
+    [
+     "p0-s913.wav",
+     0.039
+    ],
+    [
+     "p0-s912.wav",
+     0.039
+    ],
+    [
+     "p0-s911.wav",
+     0.017
+    ]
+   ],
+   "from": 2.8,
+   "lufs": -19
+  },
+  {
+   "section": "quartet-hold",
+   "take": "p0-s923.wav",
+   "clap": 0.091,
+   "others": [
+    [
+     "p0-s922.wav",
+     0.054
+    ],
+    [
+     "p1-s923.wav",
+     0.013
+    ],
+    [
+     "p0-s921.wav",
+     0.008
+    ],
+    [
+     "p1-s921.wav",
+     -0.03
+    ],
+    [
+     "p1-s922.wav",
+     -0.036
+    ]
+   ],
+   "from": 31.0,
+   "lufs": -26
+  },
+  {
+   "section": "quartet-resolve",
+   "take": "p1-s931.wav",
+   "clap": 0.192,
+   "others": [
+    [
+     "p0-s931.wav",
+     0.178
+    ],
+    [
+     "p1-s932.wav",
+     0.177
+    ],
+    [
+     "p1-s933.wav",
+     0.148
+    ],
+    [
+     "p0-s932.wav",
+     0.136
+    ],
+    [
+     "p0-s933.wav",
+     0.108
+    ]
+   ],
+   "from": 38.0,
+   "lufs": -17
+  }
+ ]
+}

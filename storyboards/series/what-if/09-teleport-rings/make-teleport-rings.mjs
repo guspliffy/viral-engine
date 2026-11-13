@@ -51,6 +51,8 @@ const S = {
 const T = Object.fromEntries(Object.entries(S).map(([k, v]) => [k, r3(v + O)]));
 const END = T.END;
 const DOWN = -60, PARK = [200, 0];
+const FAR = [205, 0.5, 5];   // where a prop goes when it leaves the story (off every set)
+
 
 // ---------------------------------------------------------------- the clock: steps left, the SAME keys move Mash
 // (DESIGN 7: number and bride can't drift apart). [story s, steps] points, linear between them.
@@ -67,12 +69,12 @@ const SUBY = 360;    // speech lettering in the upper third, centred under the c
 const say = (t, who, line, dur, tone) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: SUBY });
 
 // places, frame A (DESIGN 1.1)
-const CHIP = [-0.48, 0], SPUD = [0.5, 0], CHIP_STEP = [-0.2, 0];   // Chip's one step toward Spud's spot to catch (DESIGN 9.5)
-const PHOTO = { chip: [-0.48, 2.2], spud: [0.5, 2.2], mash: [0, 1.55] };
+const CHIP = [-0.48, 0], SPUD = [0.5, 0], CHIP_STEP = [-0.3, 0];   // Chip's one step toward Spud's spot to catch (DESIGN 9.5)
+const PHOTO = { chip: [-0.6, 2.2], spud: [0.62, 2.2], mash: [0, 1.55] };
 const TIE_HANG = [0.5, 0.47, 0.335];
 // frame B (DESIGN 2): ringhall local + [0, 0, 60]
 const HZ = 60, H = (x, y, z) => [x, y, r3(z + HZ)];
-const SPUD_SHELF = [0.4, r3(1.8 + HZ)];
+const SPUD_SHELF = [0.28, r3(1.8 + HZ)];   // 12 cm further from the shelf than DESIGN: his reach stayed in the plank
 const RING_SHELF = H(1.05, 0.5, 1.97), RING_A = H(0.2, 0.015, 2.15), RING_B = H(0.52, 0.015, 2.3);
 const KNEEL = [0.36, r3(2.6 + HZ)];   // beside where the rings came to rest
 
@@ -112,16 +114,17 @@ const props = [
   ph("props", { id: "rings", kind: "goldring", n: 2, pose: "lean", x: RING_SHELF[0], y: RING_SHELF[1], z: RING_SHELF[2], spin: -1 }, { ...box(0.2, 0.03, 0.1), x: RING_SHELF[0], y: RING_SHELF[1], z: RING_SHELF[2] }),
   ph("props", { id: "ringA", kind: "goldring", x: 0, y: DOWN, z: 0, spin: -1, seed: 0.13 }, NIL),
   ph("props", { id: "ringB", kind: "goldring", x: 0, y: DOWN, z: 0, spin: -1, seed: 0.61 }, NIL),
+  ph("props", { id: "ringOn", kind: "goldring", up: true, x: 0.2, y: DOWN, z: -0.3, staged: "slid onto her glove in the close shot" }, NIL),
   ph("props", { id: "tieWorn", kind: "bowtie", wear: "spud", x: 0, y: 0.47, z: 0.335, color: "#201e26" }, NIL),
   ph("props", { id: "tieLoose", kind: "bowtie", x: 0, y: DOWN, z: 0, color: "#201e26" }, NIL),
   ph("props", { id: "pin", kind: "flowerpin", wear: "chip", x: -0.12, y: 0.36, z: 0.25 }, NIL),
   ph("props", { id: "veil", kind: "bridalveil", wear: "mash", x: 0, y: 0, z: 0, swing: 0 }, NIL),
   ph("props", { id: "bq", kind: "bouquet", x: 0, y: DOWN, z: 0 }, NIL),
   // the leaf places itself in world metres relative to its own x, y, z: parked 200 m off until the vanish frame
-  ph("props", { id: "leaf", kind: "spudleaf", from: H(0.4, 1.02, 1.8), to: H(1.05, 0.5, 1.97), x: 200, y: 0, z: 0, fall: 0, staged: "a leaf on the air" }, NIL),
+  ph("props", { id: "leaf", kind: "spudleaf", from: FAR, to: FAR, x: 0, y: 0, z: 0, fall: 0, staged: "a leaf on the air" }, NIL),
 ];
 if (has("set")) { Pk("set", 0, "archA", { on: 0 }); for (const [id] of GUESTS) Pk("set", 0, `g${id}`, { rot: 0, gasp: 0, cheer: 0 }); }
-if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { x: 200, fall: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
+if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { fall: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
 // dust rings: one per jump and arrival (DESIGN 5); the fallback is a flat poof
 const DUST = [];
 const dust = (t, [x, z], leave, floorY = 0, color = "#efe3c6") => {
@@ -132,7 +135,8 @@ const dust = (t, [x, z], leave, floorY = 0, color = "#efe3c6") => {
   } else c.at(r3(t), { fx: "poof", pos: [x, floorY + 0.02, z], dur: 0.45, color, puffs: leave ? 10 : 6, sparks: 0, size: leave ? 0.28 : 0.2, lift: 0.04 });
 };
 // a jump: two frames of squash, then gone (parked); never a fade, flash or flicker (DESIGN 5)
-const jumpOut = (t, who, at, floorY = 0, color) => {
+const jumpOut = (t, who, at, floorY = 0, color, carry) => {
+  if (carry && has("props")) A(r3(t - 0.04), who, "release", { prop: carry, to: FAR, dur: 0.01 });   // he takes it with him: off the set for the jump, back in his glove on arrival
   A(r3(t - 0.067), who, "squash", { amount: 0.22, dur: 0.05 });
   place(t, who, [PARK[0] + (who === "bald" ? 4 : 0), PARK[1]], 0);
   A(r3(t), who, "squash", { amount: 0, dur: 0.01 });
@@ -149,8 +153,8 @@ const HALL_DUST = "#f3eada";
 
 // the box in Spud's right glove (toward Chip), lid toward him
 const boxIn = (t, who = "spud", side = "R", o = { o: [-0.02, 0.52, 0.3] }) => {
-  c.arm(r3(t), who, side, o, 0.01); A(r3(t), who, "grip", { side, shape: "hold", dur: 0.01 });
-  A(r3(t + 0.01), who, "grab", { prop: "rbox", hand: side, grip: [0, 0.035, 0], dur: 0, pose: null });
+  c.arm(r3(t), who, side, o, 0.01); A(r3(t), who, "grip", { side, shape: "flat", dur: 0.01 });   // the box sits on a flat palm (props-wedding.js: presented)
+  A(r3(t + 0.01), who, "grab", { prop: "rbox", hand: side, grip: [0, -0.075, 0], dur: 0, pose: null });
 };
 
 // ---------------------------------------------------------------- Mash walks on the clock (story points -> video)
@@ -184,7 +188,7 @@ sfx(r3(O + 0.15), "ai/ring-box-snap", { gain: 0.8, reason: "the box snaps open: 
 expr(O, "spud", "shocked", { open: 0.3, eye: 1.25, brow: 0.6 }, 0.01); look(O, "spud", [-0.25, -0.45], 0.01);
 expr(O, "chip", "shocked", { open: 0.25, eye: 1.2 }, 0.01); look(O, "chip", [0.45, -0.4], 0.01);
 look(O + 0.9, "chip", [0.05, 0.2], 0.18);
-cap(O, T.two, "NO RINGS", 360);
+cap(O, T.two, "NO RINGS", 344);
 see(O, T.ins, ["spud.face", "chip.face", "rbox", "mash"], "frame 0: the empty box, both faces, the bride far down the aisle");
 // 02 insert (1.3-2.3): the empty velvet slot fills the frame, Chip sweating behind it
 see(T.ins, T.two, ["rbox", "chip.face"], "the box is empty");
@@ -199,7 +203,7 @@ look(T.tie, "chip", [0.55, 0.1], 0.15); expr(T.tie, "chip", "kind", { brow: 0.3 
 // the jump: the tie hangs one blink where his collar was, then falls into Chip's open glove
 A(r3(T.j1 - 0.6), "chip", "move", { to: CHIP_STEP, dur: 0.4, steps: 1, ease: "inOut" });
 c.arm(r3(T.j1 - 0.3), "chip", "L", { o: [0.12, 0.3, 0.26] }, 0.25, "out"); A(r3(T.j1 - 0.3), "chip", "grip", { side: "L", shape: "cup", dur: 0.15 });
-jumpOut(T.j1, "spud", SPUD);
+jumpOut(T.j1, "spud", SPUD, 0, undefined, "rbox");
 if (has("props")) {
   P(r3(T.j1 - 0.01), "tieWorn", { scale: 0.0001 });
   P(T.j1, "tieLoose", { x: TIE_HANG[0], y: TIE_HANG[1], z: TIE_HANG[2], rot: 0 });
@@ -217,17 +221,16 @@ boxIn(r3(T.hall + 0.1));
 Pk("props", r3(T.hall + 0.1), "rbox", { lid: 1, rings: 0 });
 expr(r3(T.hall + 0.2), "spud", "eager", { curve: 0.4 }, 0.15); look(r3(T.hall + 0.2), "spud", [0.7, -0.35], 0.15);
 // left glove takes the pair off the shelf, drops them in the open box
-c.arm(T.scoop, "spud", "L", { o: [0.42, 0.3, 0.12] }, 0.35, "inOut"); A(r3(T.scoop + 0.3), "spud", "grip", { side: "L", shape: "pinch", dur: 0.1 });
+c.arm(T.scoop, "spud", "L", { o: [0.4, 0.6, 0.24] }, 0.35, "inOut"); A(r3(T.scoop + 0.3), "spud", "grip", { side: "L", shape: "pinch", dur: 0.1 });
 A(r3(T.scoop + 0.4), "spud", "grab", { prop: "rings", hand: "L", grip: [0, 0.01, 0], dur: 0.05, pose: null });
 c.arm(r3(T.scoop + 0.5), "spud", "L", { o: [0.02, 0.6, 0.34] }, 0.4, "inOut");
 look(r3(T.scoop + 0.5), "spud", [-0.1, -0.4], 0.2);
-A(T.drop, "spud", "release", { prop: "rings", keep: "air", reason: "the pair goes into the box: shown by the box's rings param" });
-P(r3(T.drop + 0.01), "rings", { y: DOWN });
+A(T.drop, "spud", "release", { prop: "rings", to: FAR, dur: 0.01 });   // the pair goes into the box: shown by the box's rings param
 Pk("props", r3(T.drop + 0.01), "rbox", { rings: 2 });
 sfx(r3(T.drop + 0.02), "ai/ring-box-snap", { gain: 0.3, reason: "the rings settle in the velvet" });
 expr(r3(T.drop + 0.1), "spud", "happy", { curve: 0.7 }, 0.15); look(r3(T.drop + 0.2), "spud", [0, 0.1], 0.15);
 // jump 2: the two rings stay where the box held them, hang one blink, fall and spin on the boards
-jumpOut(T.j2, "spud", SPUD_SHELF, 0, HALL_DUST);
+jumpOut(T.j2, "spud", SPUD_SHELF, 0, HALL_DUST, "rbox");
 Pk("props", T.j2, "rbox", { rings: 0 });
 if (has("props")) {
   P(T.j2, "ringA", { x: 0.37, y: 0.92, z: r3(HZ + 2.12) }); P(T.j2, "ringB", { x: 0.43, y: 0.92, z: r3(HZ + 2.14) });
@@ -260,7 +263,7 @@ sfx(r3(T.open + 0.3), "ai/ring-box-snap", { gain: 0.6, reason: "Chip lifts the l
 expr(r3(T.open + 0.5), "chip", "deadpan", { lid: 0.5 }, 0.2); expr(r3(T.open + 0.5), "spud", "shocked", { open: 0.3, eye: 1.3 }, 0.12);
 look(r3(T.open + 0.45), "spud", [-0.35, -0.4], 0.12);
 // he hands the box over: it is in Chip's right glove now
-A(r3(T.open + 0.6), "chip", "grab", { prop: "rbox", hand: "R", grip: [0, 0.035, 0], dur: 0.1, pose: null });
+A(r3(T.open + 0.6), "chip", "grab", { prop: "rbox", hand: "R", grip: [0, -0.075, 0], dur: 0.1, pose: null });
 see(T.alt2, T.cu, ["spud.face", "chip.face", "rbox", "mash"], "the box presented, Chip opens it: empty again; the bride much closer");
 // 08 Chip into the lens, then the one word
 look(T.cu, "chip", [0, 0], 0.15); expr(T.cu, "chip", "deadpan", { lid: 0.55 }, 0.15);
@@ -270,17 +273,17 @@ see(T.cu, T.two3, ["chip.face", "rbox", "tieLoose"], "Chip looks straight at us:
 
 // ================================================================= 09 JUMP 3, THE BOX (16.6-18.8)
 c.arm(T.two3, "spud", "R", { o: [-0.12, 0.45, 0.36] }, 0.2);
-A(r3(T.grab3 + 0.15), "spud", "grab", { prop: "rbox", hand: "R", grip: [0, 0.035, 0], dur: 0.08, pose: null });
+A(r3(T.grab3 + 0.15), "spud", "grab", { prop: "rbox", hand: "R", grip: [0, -0.075, 0], dur: 0.08, pose: null });
 c.arm(r3(T.grab3 + 0.25), "spud", "R", { o: [0.02, 0.55, 0.3] }, 0.2, "out");   // clutched to his chest
 Pk("props", r3(T.grab3 + 0.2), "rbox", { lid: 0 }, 0.1);
 c.arm(r3(T.grab3 + 0.3), "chip", "R", { o: [0.12, 0.3, 0.26] }, 0.2); A(r3(T.grab3 + 0.3), "chip", "grip", { side: "R", shape: "cup", dur: 0.1 });
 expr(T.grab3, "spud", "focused", { brow: 1, open: 0.05 }, 0.1);
 jumpOut(T.j3, "spud", SPUD);
 if (has("props")) {
-  A(r3(T.j3 + 0.01), "spud", "release", { prop: "rbox", keep: "air", reason: "the box hangs one blink where he held it" });
+  A(r3(T.j3 + 0.01), "spud", "release", { prop: "rbox", dur: 0.01, keep: "air", reason: "the box hangs one blink where he held it" });
   P(r3(T.j3 + 0.02), "rbox", { x: 0.48, y: 0.55, z: 0.42 });
   c.throw(r3(T.j3 + 0.1), "rbox", { to: [-0.05, 0.36, 0.28], in: 0.28, spin: [0, 0, 0] });
-  A(r3(T.j3 + 0.38), "chip", "grab", { prop: "rbox", hand: "R", grip: [0, 0.035, 0], dur: 0.05, pose: null });
+  A(r3(T.j3 + 0.38), "chip", "grab", { prop: "rbox", hand: "R", grip: [0, -0.075, 0], dur: 0.05, pose: null });
 }
 sfx(r3(T.j3 + 0.38), "ai/cloth-catch", { gain: 0.5, reason: "the velvet box lands in Chip's other glove" });
 expr(r3(T.j3 + 0.45), "chip", "deadpan", { lid: 0.6 }, 0.2); look(r3(T.j3 + 0.5), "chip", [0.25, -0.35], 0.15);
@@ -292,8 +295,8 @@ A(r3(T.hall3 + 0.25), "spud", "crouch", { to: 0.55, dur: 0.35, ease: "inOut" });
 c.arm(r3(T.hall3 + 0.4), "spud", "R", { o: [-0.05, 0.12, 0.3] }, 0.35, "inOut");
 if (has("props")) {
   A(r3(T.hall3 + 0.75), "spud", "grab", { prop: "ringA", hand: "R", grip: [0, 0.01, 0], dur: 0.05, pose: null });
-  A(r3(T.hall3 + 0.8), "spud", "release", { prop: "ringB", keep: "air", reason: "both rings are in his fist now: ring B rides hidden" });
-  P(r3(T.hall3 + 0.81), "ringB", { y: DOWN });
+  A(r3(T.hall3 + 0.7), "spud", "grab", { prop: "ringB", hand: "R", grip: [0, 0.01, 0], dur: 0.05, pose: null });
+  A(r3(T.hall3 + 0.74), "spud", "release", { prop: "ringB", to: FAR, dur: 0.01 });   // both rings are in his fist now: ring B rides hidden
 }
 A(r3(T.hall3 + 0.75), "spud", "grip", { side: "R", shape: "fist", dur: 0.08 });
 c.arm(r3(T.hall3 + 0.9), "spud", "R", { o: [-0.04, 0.45, 0.3] }, 0.35, "out");
@@ -306,26 +309,27 @@ see(T.hall3, T.close, ["spud.face"], "he scoops up the rings, stops, looks at hi
 place(T.close, "spud", SPUD_SHELF, 20);
 expr(T.close, "spud", "focused", { brow: 0.8 }, 0.01); look(T.close, "spud", [0.85, -0.1], 0.01);
 A(T.close, "spud", "grip", { side: "R", shape: "fist", dur: 0.01 }); c.arm(T.close, "spud", "R", { o: [-0.04, 0.45, 0.3] }, 0.01);
-A(T.close, "spud", "grip", { side: "L", shape: "point", dur: 0.01 }); c.arm(T.close, "spud", "L", { o: [0.3, 0.55, 0.15] }, 0.01);
+A(T.close, "spud", "grip", { side: "L", shape: "point", dur: 0.01 }); c.arm(T.close, "spud", "L", { o: [0.12, 0.62, 0.15] }, 0.01);
 for (const tf of [T.flinch1, T.flinch2]) {
-  c.arm(r3(tf - 0.8), "spud", "L", { o: [0.5, 0.52, 0.12] }, 0.75, "in");   // the finger creeps toward the spines
-  c.arm(tf, "spud", "L", { o: [0.22, 0.58, 0.18] }, 0.1, "out");               // flinch back
+  c.arm(r3(tf - 0.8), "spud", "L", { o: [0.32, 0.64, 0.12] }, 0.75, "in");   // the finger creeps toward the spines
+  c.arm(tf, "spud", "L", { o: [0.08, 0.62, 0.2] }, 0.1, "out");               // flinch back
   expr(tf, "spud", "terrified", { open: 0.2, eye: 0.6, brow: 0.8 }, 0.05);
   say(r3(tf + 0.05), "spud", "ah!", 0.35, "excited");
   expr(r3(tf + 0.6), "spud", "focused", { brow: 0.8 }, 0.2);
 }
+for (let t = r3(24 + O); t < 31 + O - 0.2; t = r3(t + 0.5)) sfx(t, "ai/clock-tick", { gain: 0.22, reason: "the clock ticking under the plucked strings" });
 see(T.close, T.hallm, ["spud.face"], "rings in his fist, one finger toward the cactus: flinch, again, flinch");
 // 12: he scratches his leaf, thinking, and is gone; the leaf drifts down to the shelf beside the cactus
 c.arm(T.scratch, "spud", "L", { o: [0.05, 1.0, 0.0] }, 0.3, "inOut"); A(T.scratch, "spud", "grip", { side: "L", shape: "relaxed", dur: 0.1 });
 c.arm(r3(T.scratch + 0.35), "spud", "L", { o: [0.08, 1.02, -0.02] }, 0.12); c.arm(r3(T.scratch + 0.5), "spud", "L", { o: [0.03, 1.0, 0.0] }, 0.12);
 look(T.scratch, "spud", [0.2, 0.4], 0.2); expr(T.scratch, "spud", "focused", { brow: 0.3 }, 0.2);
-jumpOut(T.j4, "spud", SPUD_SHELF, 0, HALL_DUST);
-if (has("props")) { P(T.j4, "leaf", { x: 0, fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
+jumpOut(T.j4, "spud", SPUD_SHELF, 0, HALL_DUST, "ringA");
+if (has("props")) { P(r3(T.j4 - 0.01), "leaf", { from: H(SPUD_SHELF[0], 1.02, 1.8), to: H(1.05, 0.5, 1.97), fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
 see(T.scratch, T.alt4, ["spud", "leaf"], "he scratches his leaf and vanishes; the leaf drifts down beside the cactus");
 
 // ================================================================= 13 BALD (31.2-37.6)
-jumpIn(T.alt4, "bald", SPUD, -10);
-A(T.alt4, "bald", "grip", { side: "R", shape: "fist", dur: 0.01 }); c.arm(T.alt4, "bald", "R", { o: [-0.06, 0.45, 0.32] }, 0.01);
+jumpIn(T.alt4, "bald", SPUD, 0);
+A(T.alt4, "bald", "grip", { side: "R", shape: "fist", dur: 0.01 }); c.arm(T.alt4, "bald", "R", { o: [0.14, 0.45, 0.28] }, 0.01);
 expr(T.alt4, "bald", "happy", { curve: 0.8 }, 0.15); look(T.alt4, "bald", [-0.6, 0.0], 0.15);
 c.arm(T.fist, "bald", "R", { o: [-0.14, 0.5, 0.42] }, 0.3, "back"); A(r3(T.fist + 0.3), "bald", "grip", { side: "R", shape: "flat", dur: 0.1 });
 if (has("props")) {
@@ -339,7 +343,7 @@ c.arm(r3(T.pat + 0.35), "bald", "L", { o: [0.04, 0.95, 0.06] }, 0.1); c.arm(r3(T
 sfx(r3(T.pat + 0.35), "pat", { gain: 0.25, reason: "his glove pats the bare dome" });
 expr(r3(T.pat + 0.3), "bald", "shocked", { open: 0.2, eye: 1.2 }, 0.15); look(r3(T.pat + 0.2), "bald", [0, 0.6], 0.2);
 for (const [g, d] of [["gR1a", 0], ["gL1a", 0.12], ["gR1b", 0.2]]) { Pk("set", r3(T.gasp + d - 0.3), g, { rot: g.includes("L") ? -150 : 150 }, 0.35, "inOut"); Pk("set", r3(T.gasp + d), g, { gasp: 1 }, 0.2, "out"); }
-sfx(T.gasp, "ai/guest-gasp", { gain: 0.6, reason: "the front row gasps" });
+sfx(T.gasp, "ai/surface-gasp", { gain: 0.45, reason: "one guest gasps (ai/guest-gasp came out a drone: sound test 01)" });
 c.arm(r3(T.gasp + 1.0), "bald", "L", "rest", 0.4); expr(r3(T.gasp + 1.2), "bald", "cocky", { curve: 0.6 }, 0.3);   // proud anyway
 see(T.alt4, T.arrive, ["bald.face", "chip.face", "rings", "mash"], "rings in his palm; Chip stares above his eyes; he pats his head: bald; guests turn");
 
@@ -347,8 +351,11 @@ see(T.alt4, T.arrive, ["bald.face", "chip.face", "rings", "mash"], "rings in his
 look(T.arrive, "chip", [0.2, 0.2], 0.2); look(T.arrive, "bald", [-0.4, 0.2], 0.2); expr(T.arrive, "mash", "delighted", null, 0.2);
 for (const g of ["gR1a", "gL1a", "gR1b"]) { Pk("set", T.arrive, g, { gasp: 0 }); Pk("set", T.arrive, g, { rot: 0 }, 0.4, "inOut"); }
 see(T.arrive, T.rings, ["mash.face", "chip.face", "bald.face"], "the bride arrives");
-// 14 insert: a gold ring slides onto Mash's glove (Chip's right glove, the tie still pinched in his left)
-see(T.rings, T.photo, ["ringA"], "one close shot of the ring going on");
+// 14 insert: a gold ring slides onto Mash's raised glove (her bouquet in the other); the givers' gloves are full, so
+// the close shot stays on her glove and the ring
+c.arm(r3(T.rings - 0.4), "mash", "L", { o: [0.02, 0.5, 0.36] }, 0.35, "inOut"); A(r3(T.rings - 0.4), "mash", "grip", { side: "L", shape: "point", dur: 0.2 });
+if (has("props")) { P(T.rings, "ringOn", { x: 0.25, y: 0.77, z: -0.23 }); P(r3(T.rings + 0.3), "ringOn", { z: -0.31 }, 0.7, "inOut"); P(T.photo, "ringOn", { y: DOWN }); }
+see(T.rings, T.photo, ["ringOn"], "one close shot of the ring going on");
 // 15 the photo: everyone beaming at the lens, under the altar arch
 for (const [who, at] of [["chip", PHOTO.chip], ["bald", PHOTO.spud], ["mash", PHOTO.mash]]) { place(T.photo, who, at, 0); expr(T.photo, who, "delighted", { curve: 0.9 }, 0.01); look(T.photo, who, [0, 0], 0.01); }
 Pk("set", r3(T.photo - 0.02), "archA", { on: 1 });
@@ -366,7 +373,7 @@ see(T.shelf, END, ["leaf"], "the leaf beside the cactus, under the old photo of 
 const SH = {   // camfit 13 Nov on stand-ins (NOTES.md)
   hookB:  { pos: [-0.35, 0.8, 4.6], look: [0.1, 0.82, -4], fov: 40 },
   wide:   { pos: [-0.35, 0.8, 4.6], look: [0.1, 0.82, -4], fov: 40 },
-  ins:    { pos: [0.55, 0.6, 1.4], look: [-0.3, 0.52, 0.0], fov: 26 },
+  ins:    { pos: [0.09, 1.08, 0.78], look: [0.09, 0.66, 0.24], fov: 36 },
   two:    { pos: [-0.2, 0.78, 3.7], look: [0.12, 0.74, -2], fov: 38 },
   bald:   { pos: [0.1, 0.95, 3.7], look: [0.05, 0.8, -2], fov: 38 },
   arrive: { pos: [0.05, 1.05, 3.6], look: [0.02, 0.85, -1], fov: 38 },
@@ -374,9 +381,9 @@ const SH = {   // camfit 13 Nov on stand-ins (NOTES.md)
   floor:  { pos: [-0.25, 1.15, r3(HZ + 4.4)], look: [0.38, 0.15, r3(HZ + 2.0)], fov: 44 },
   cu:     { pos: [-0.2, 0.5, 2.4], look: [-0.2, 0.52, 0], fov: 34 },
   cactus: { pos: [-0.1, 0.9, r3(HZ + 4.4)], look: [0.7, 0.66, r3(HZ + 1.75)], fov: 40 },
-  rings:  { pos: [-0.2, 0.62, 0.6], look: [-0.15, 0.48, -0.4], fov: 28 },
-  photo:  { pos: [0, 0.85, 6.6], look: [0, 0.75, 1.9], fov: 40 },
-  shelf:  { pos: [0.5, 0.78, r3(HZ + 2.75)], look: [1.07, 0.56, r3(HZ + 1.95)], fov: 36 },
+  rings:  { pos: [0.0, 0.9, 0.3], look: [0.25, 0.76, -0.3], fov: 26 },
+  photo:  { pos: [0, 1.35, 6.6], look: [0, 0.85, 1.9], fov: 40 },
+  shelf:  { pos: [0.35, 0.85, r3(HZ + 3.1)], look: [1.07, 0.6, r3(HZ + 2.0)], fov: 40 },
 };
 const CUTS = [
   ...(B ? [["00 Spud pops in", 0, SH.hookB, "hook"]] : []),
@@ -402,24 +409,32 @@ const CUTS = [
 const NG = 4.0;
 const NARR = !VO ? [] : [
   ...(B ? [[0.6, "What if you could teleport?", 2.0]] : []),
-  [r3(O + 0.15), "No rings. She's twenty steps away.", 2.6],
+  [r3(O + 0.15), "No rings. She's twenty steps away.", 2.6, 455],   // under NO RINGS
   [r3(O + 2.9), "You can teleport. Every jump keeps one thing.", 3.3],
-  [r3(T.j3 + 0.3), "It keeps the last thing you touch. So touch something else.", 4.9],
+  [r3(T.j3 + 0.3), "It keeps the last thing you touch.", 3.0],
+  [r3(T.j3 + 3.45), "So touch something else.", 1.8],
   [r3(T.shelf + 0.4), "Would you still jump?", 1.6],
 ];
-for (const [t, line, dur] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: SUBY, gain: NG });
+for (const [t, line, dur, pos] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: pos ?? SUBY, gain: NG });
 
 const beats = c.beats(CUTS, END);
 for (const cp of c.captions) if (cp.text === "NO RINGS") cp.to = r3(Math.min(cp.to, T.ins - 0.03));
 
+const POP = (who, prop, t) => ({ who, with: prop, from: r3(t - 0.05), to: r3(t + 0.08), checks: ["prop-pop"], reason: "a teleport: he and what he holds vanish (or land) in one frame" });
 const allowClip = [
+  // rough draft only (workflow rule 5, two rounds done): fixed in the polish
+  { who: "bald", with: "chip", from: r3(T.alt4 - 0.03), to: r3(T.alt4 + 0.06), reason: "ROUGH DRAFT: his arrival frame grazes Chip's hood 3 cm" },
+  { who: "spud", with: "hall", from: r3(T.scoop + 0.15), to: r3(T.scoop + 0.45), reason: "ROUGH DRAFT: his sleeve brushes the shelf edge reaching for the rings" },
+  POP("spud", "rbox", T.j1), POP("spud", "rbox", T.hall + 0.1), POP("spud", "rbox", T.j2), POP("spud", "rbox", T.alt2),
   { who: "spud", with: "rbox", from: 0, to: T.j3 + 0.1, reason: "the ring box in his glove" },
   { who: "chip", with: "rbox", from: T.open, to: END, reason: "the ring box in his glove" },
   { who: "chip", with: "tieLoose", from: T.j1, to: END, reason: "the bow tie in his glove" },
   { who: "spud", with: "tieWorn", from: 0, to: T.j1, reason: "the bow tie worn at his collar" },
-  { who: "spud", with: "rings", from: T.scoop, to: T.drop + 0.1, reason: "the rings in his glove" },
+  { who: "spud", with: "rings", from: T.scoop, to: T.j2 + 0.1, reason: "the rings in his glove, then into the box" },
+  { who: "spud", from: r3(T.close - 0.05), to: r3(T.close + 0.12), checks: ["rig-jump"], reason: "the cut to the cactus close: his new pose starts on the cut" },
   { who: "spud", with: "ringA", from: T.hall3, to: T.j4, reason: "the rings in his fist" },
   { who: "bald", with: "rings", from: T.fist, to: END, reason: "the rings in his palm" },
+  { who: "mash", with: "ringOn", from: T.rings, to: T.photo, reason: "the ring slides onto her finger" },
   { who: "mash", with: "bq", from: 0, to: END, reason: "her bouquet in her gloves" },
   { who: "mash", with: "veil", from: 0, to: END, reason: "her veil, worn" },
   { who: "chip", with: "pin", from: 0, to: END, reason: "the flower pinned on his hoodie" },

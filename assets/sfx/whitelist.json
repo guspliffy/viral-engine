@@ -365,6 +365,14 @@
   "ai-package/flat-exhale": { "family": "body", "says": "a flat, deflated exhale (AI)", "words": ["sigh", "seufz"] },
   "wing-flap": { "family": "cartoon", "says": "one big feathered wing beat with a whoosh of air (AI 'AI B'; auto on Phoenix's downstrokes)", "words": ["flap"] },
 
+  "ai/ring-box-snap": { "family": "handling", "says": "a small ring box snapping shut or open: one short dry click with a faint hinge snap, 0.16-0.23 s, mid to bright (centre 1.4-8.7 kHz), part tone, part noise (AI, weak: CLAP margin below 0); four takes", "words": ["ring box", "box snap", "jewellery box"] },
+  "ai/ring-spin-wood": { "family": "hit", "says": "a metal ring dropped on a wooden floor, rattling and spinning down to rest: a bright, noisy metallic rattle of 10-30 tiny hits that speeds up and fades, 1.9-2.8 s, centre near 9-10 kHz, almost no body under 1 kHz (AI); four takes", "words": ["ring spin", "ring drop", "spinning ring"] },
+  "ai/camera-shutter": { "family": "handling", "says": "one DSLR shutter click: a sharp noisy double snap (mirror and shutter) 0.2-0.24 s, bright (centre 5.4-6.5 kHz), no tone; four takes (AI)", "words": ["shutter", "camera click", "photo click"] },
+  "ai/air-push": { "family": "hit", "says": "a muffled thump of air like a heavy door closing in another room: a sub-bass pulse, 0.7-0.85 s, steady about 45-70 Hz, 98-100 % of energy under 200 Hz, so a phone speaker plays little of it (AI; use it with a sub-capable mix or layer it); four takes", "words": ["air push", "door thump", "pressure thump"] },
+  "ai/clock-tick": { "family": "handling", "says": "one tick of a mechanical clock: a dry, short woody tick, 0.11-0.12 s, dark to mid (centre 530-1000 Hz, a small tone near 550-590 Hz), 1 hit; five takes (AI)", "words": ["clock tick", "ticking clock"] },
+  "ai/guest-gasp": { "family": "body", "says": "a small group of people gasping: breathy, voiced vowel-like intakes, 1.2-1.6 s, dark (centre 570-820 Hz), 4-9 pulses with a falling pitch; CLAP margin below 0, may read as a vocal drone more than a gasp (AI); four takes", "words": ["guest gasp", "crowd gasp"] },
+  "ai/cloth-catch": { "family": "handling", "says": "a soft cloth landing in a hand: a short dull pat with a little fabric rustle, 0.2-0.5 s, mixed (centre 0.4-4.6 kHz, most energy under 200 Hz), 1-3 hits; seven takes (AI)", "words": ["cloth catch", "cloth pat", "catch"] },
+
   "speech": { "family": "body", "says": "not a sound effect: a narrator's line from engine/voice (sfx entries with a speech id)" }
  }
 }

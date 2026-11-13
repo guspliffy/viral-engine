@@ -1,0 +1,38 @@
+{
+  "_note": "There's a catch EP09 teleport rings (13 Nov 2026): a garden wedding comedy, 45 s. Music must sound like a recorded acoustic string quartet (Jonny: never synth). Four sections joined by score.py (score-teleport-rings.json and -b.json). Take lengths: processional 9.2 s, nervous 36 s (28.2 s are used), hold 8 s (7.3 s used), resolve 9 s (8.5 s used; the final chord should land near the end of the take).",
+  "sfx": [],
+  "music": [
+    {
+      "id": "quartet-processional", "bpm": 76, "bars": 1, "mood": "elegant",
+      "prompts": [
+        "elegant string quartet wedding processional, two violins, viola and cello, warm major key, graceful and stately, live chamber music recording in a hall, acoustic, about 76 BPM, no drums, no piano",
+        "graceful classical string quartet playing a slow wedding march, warm major key, gentle legato bowing, natural room reverb, recorded acoustic instruments, 76 BPM, no drums, no piano, no synth"
+      ],
+      "seeds": [901, 902, 903]
+    },
+    {
+      "id": "quartet-nervous", "bpm": 120, "bars": 15, "mood": "nervous",
+      "prompts": [
+        "nervous plucked strings, pizzicato string quartet, anxious and comic, quick light steps, a ticking clock feel in the rhythm, about 120 BPM, live chamber recording, acoustic violins viola and cello, no drums, no synth",
+        "tiptoeing pizzicato violins and cello, comic suspense, staccato plucked string quartet, tense and playful, steady ticking pulse, 120 BPM, recorded in a room, acoustic instruments only, no drums, no synthesizer"
+      ],
+      "seeds": [911, 912, 913]
+    },
+    {
+      "id": "quartet-hold", "bpm": 120, "bars": 1, "mood": "tense",
+      "prompts": [
+        "one quiet sustained high violin note with soft tremolo, breath held, almost silent, tense, solo violin, chamber recording, acoustic, no drums, no synth",
+        "a single very soft high violin note held, gentle trembling tremolo, hushed suspense, quiet, live acoustic recording, nothing else"
+      ],
+      "seeds": [921, 922, 923]
+    },
+    {
+      "id": "quartet-resolve", "bpm": 80, "bars": 1, "mood": "joyful",
+      "prompts": [
+        "the string quartet resolving warmly into a happy wedding cadence, joyful major key, ending on a final chord that rings out, live chamber recording, acoustic violins viola and cello, no drums",
+        "warm joyful string quartet finale, bright major key cadence, full bowed chords, ends on a final held chord, recorded acoustic strings in a hall, no drums, no synth"
+      ],
+      "seeds": [931, 932, 933]
+    }
+  ]
+}

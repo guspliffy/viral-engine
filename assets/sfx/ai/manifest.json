@@ -4807,6 +4807,617 @@
      "loudnessLUFS": -14.9
     }
    ]
+  },
+  {
+   "id": "ring-box-snap",
+   "kind": "sfx",
+   "files": [
+    "ring-box-snap/ring-box-snap-01.wav",
+    "ring-box-snap/ring-box-snap-02.wav",
+    "ring-box-snap/ring-box-snap-03.wav",
+    "ring-box-snap/ring-box-snap-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "ring",
+    "box",
+    "snap",
+    "jewellery",
+    "click"
+   ],
+   "durationSec": 0.212,
+   "prompt": [
+    "a small velvet jewellery ring box snapping open and shut, spring hinge click, close up, dry, foley, no music",
+    "a single small hinged ring box lid snapping closed with a soft crisp click, close microphone, quiet room, no music",
+    "a jewellery box lid closing with one short firm click, small hinge and velvet, close up, foley, no music",
+    "a wooden ring box clasp snapping shut, crisp click then quiet, close microphone, no music"
+   ],
+   "seed": [
+    602,
+    602,
+    601,
+    602
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -25.7,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "ring-box-snap/ring-box-snap-01.wav",
+     "take": "p1-s602",
+     "prompt": "a single small hinged ring box lid snapping closed with a soft crisp click, close microphone, quiet room, no music",
+     "seed": 602,
+     "startSec": 6.706,
+     "durationSec": 0.168,
+     "clap": -0.104,
+     "snrDb": 62.7,
+     "loudnessLUFS": -28.9
+    },
+    {
+     "file": "ring-box-snap/ring-box-snap-02.wav",
+     "take": "p0-s602",
+     "prompt": "a small velvet jewellery ring box snapping open and shut, spring hinge click, close up, dry, foley, no music",
+     "seed": 602,
+     "startSec": 0.21,
+     "durationSec": 0.199,
+     "clap": -0.128,
+     "snrDb": 79.8,
+     "loudnessLUFS": -24.7
+    },
+    {
+     "file": "ring-box-snap/ring-box-snap-03.wav",
+     "take": "p0-s601",
+     "prompt": "a small velvet jewellery ring box snapping open and shut, spring hinge click, close up, dry, foley, no music",
+     "seed": 601,
+     "startSec": 2.747,
+     "durationSec": 0.224,
+     "clap": -0.141,
+     "snrDb": 88.1,
+     "loudnessLUFS": -26.0
+    },
+    {
+     "file": "ring-box-snap/ring-box-snap-04.wav",
+     "take": "p2-s602",
+     "prompt": "a jewellery box lid closing with one short firm click, small hinge and velvet, close up, foley, no music",
+     "seed": 602,
+     "startSec": 1.673,
+     "durationSec": 0.228,
+     "clap": -0.154,
+     "snrDb": 73.6,
+     "loudnessLUFS": -25.4
+    }
+   ]
+  },
+  {
+   "id": "ring-spin-wood",
+   "kind": "sfx",
+   "files": [
+    "ring-spin-wood/ring-spin-wood-01.wav",
+    "ring-spin-wood/ring-spin-wood-02.wav",
+    "ring-spin-wood/ring-spin-wood-03.wav",
+    "ring-spin-wood/ring-spin-wood-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "ring",
+    "spin",
+    "wood",
+    "floor",
+    "metal"
+   ],
+   "durationSec": 2.266,
+   "prompt": [
+    "a gold metal ring dropped on a wooden floor, ringing and spinning, wobbling faster and faster down to rest, close up, foley, no music",
+    "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music"
+   ],
+   "seed": [
+    611,
+    613,
+    612,
+    612
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -19.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "ring-spin-wood/ring-spin-wood-01.wav",
+     "take": "p1-s611",
+     "prompt": "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music",
+     "seed": 611,
+     "startSec": 6.584,
+     "durationSec": 2.524,
+     "clap": 0.402,
+     "snrDb": 70.7,
+     "loudnessLUFS": -19.3
+    },
+    {
+     "file": "ring-spin-wood/ring-spin-wood-02.wav",
+     "take": "p1-s613",
+     "prompt": "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music",
+     "seed": 613,
+     "startSec": 6.881,
+     "durationSec": 2.009,
+     "clap": 0.391,
+     "snrDb": 58.8,
+     "loudnessLUFS": -24.9
+    },
+    {
+     "file": "ring-spin-wood/ring-spin-wood-03.wav",
+     "take": "p1-s612",
+     "prompt": "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music",
+     "seed": 612,
+     "startSec": 1.251,
+     "durationSec": 1.924,
+     "clap": 0.334,
+     "snrDb": 56.4,
+     "loudnessLUFS": -18.2
+    },
+    {
+     "file": "ring-spin-wood/ring-spin-wood-04.wav",
+     "take": "p1-s612",
+     "prompt": "a wedding ring falls and spins on a hardwood floor, metallic rattle that speeds up and stops, realistic, dry, no music",
+     "seed": 612,
+     "startSec": 6.436,
+     "durationSec": 2.806,
+     "clap": 0.305,
+     "snrDb": 57.4,
+     "loudnessLUFS": -20.4
+    }
+   ]
+  },
+  {
+   "id": "camera-shutter",
+   "kind": "sfx",
+   "files": [
+    "camera-shutter/camera-shutter-01.wav",
+    "camera-shutter/camera-shutter-02.wav",
+    "camera-shutter/camera-shutter-03.wav",
+    "camera-shutter/camera-shutter-04.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "camera",
+    "shutter",
+    "photo",
+    "click"
+   ],
+   "durationSec": 0.218,
+   "prompt": [
+    "a single DSLR camera shutter click, mirror slap, close up, dry, realistic, no music",
+    "one photograph taken with a digital SLR camera, crisp shutter click, quiet room, no music"
+   ],
+   "seed": [
+    622,
+    623,
+    623,
+    622
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.5,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "camera-shutter/camera-shutter-01.wav",
+     "take": "p1-s622",
+     "prompt": "one photograph taken with a digital SLR camera, crisp shutter click, quiet room, no music",
+     "seed": 622,
+     "startSec": 1.274,
+     "durationSec": 0.209,
+     "clap": 0.334,
+     "snrDb": 31.3,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "camera-shutter/camera-shutter-02.wav",
+     "take": "p0-s623",
+     "prompt": "a single DSLR camera shutter click, mirror slap, close up, dry, realistic, no music",
+     "seed": 623,
+     "startSec": 7.283,
+     "durationSec": 0.238,
+     "clap": 0.27,
+     "snrDb": 71.2,
+     "loudnessLUFS": -17.9
+    },
+    {
+     "file": "camera-shutter/camera-shutter-03.wav",
+     "take": "p0-s623",
+     "prompt": "a single DSLR camera shutter click, mirror slap, close up, dry, realistic, no music",
+     "seed": 623,
+     "startSec": 0.649,
+     "durationSec": 0.228,
+     "clap": 0.251,
+     "snrDb": 72.9,
+     "loudnessLUFS": -20.5
+    },
+    {
+     "file": "camera-shutter/camera-shutter-04.wav",
+     "take": "p1-s622",
+     "prompt": "one photograph taken with a digital SLR camera, crisp shutter click, quiet room, no music",
+     "seed": 622,
+     "startSec": 6.255,
+     "durationSec": 0.2,
+     "clap": 0.252,
+     "snrDb": 33.1,
+     "loudnessLUFS": -20.5
+    }
+   ]
+  },
+  {
+   "id": "air-push",
+   "kind": "sfx",
+   "files": [
+    "air-push/air-push-01.wav",
+    "air-push/air-push-02.wav",
+    "air-push/air-push-03.wav",
+    "air-push/air-push-04.wav"
+   ],
+   "gain": 0.5,
+   "tags": [
+    "air",
+    "push",
+    "thump",
+    "door",
+    "pressure"
+   ],
+   "durationSec": 0.787,
+   "prompt": [
+    "a soft low push of displaced air, like a heavy door closing in another room, muffled thump, no whoosh, realistic, no music",
+    "a deep muffled thud and a pressure of air, a heavy wooden door shutting far away inside a house, dull low thump, no music",
+    "a heavy wooden door slamming shut in the next room of a house, muffled dull thud with room reverb, heard through a wall, no music",
+    "a muffled thump through a wall, a big door closing in another room, soft low thud with some body, quiet, no music"
+   ],
+   "seed": [
+    633,
+    631,
+    633,
+    632
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.2,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "air-push/air-push-01.wav",
+     "take": "p0-s633",
+     "prompt": "a soft low push of displaced air, like a heavy door closing in another room, muffled thump, no whoosh, realistic, no music",
+     "seed": 633,
+     "startSec": 5.764,
+     "durationSec": 0.761,
+     "clap": 0.144,
+     "snrDb": 65.1,
+     "loudnessLUFS": -19.9
+    },
+    {
+     "file": "air-push/air-push-02.wav",
+     "take": "p2-s631",
+     "prompt": "a heavy wooden door slamming shut in the next room of a house, muffled dull thud with room reverb, heard through a wall, no music",
+     "seed": 631,
+     "startSec": 3.384,
+     "durationSec": 0.833,
+     "clap": 0.138,
+     "snrDb": 90.8,
+     "loudnessLUFS": -18.2
+    },
+    {
+     "file": "air-push/air-push-03.wav",
+     "take": "p0-s633",
+     "prompt": "a soft low push of displaced air, like a heavy door closing in another room, muffled thump, no whoosh, realistic, no music",
+     "seed": 633,
+     "startSec": 0.842,
+     "durationSec": 0.696,
+     "clap": 0.132,
+     "snrDb": 62.8,
+     "loudnessLUFS": -21.8
+    },
+    {
+     "file": "air-push/air-push-04.wav",
+     "take": "p1-s632",
+     "prompt": "a deep muffled thud and a pressure of air, a heavy wooden door shutting far away inside a house, dull low thump, no music",
+     "seed": 632,
+     "startSec": 4.335,
+     "durationSec": 0.813,
+     "clap": 0.104,
+     "snrDb": 63.8,
+     "loudnessLUFS": -20.6
+    }
+   ]
+  },
+  {
+   "id": "clock-tick",
+   "kind": "sfx",
+   "files": [
+    "clock-tick/clock-tick-04.wav",
+    "clock-tick/clock-tick-05.wav",
+    "clock-tick/clock-tick-06.wav",
+    "clock-tick/clock-tick-07.wav",
+    "clock-tick/clock-tick-08.wav"
+   ],
+   "gain": 0.3,
+   "tags": [
+    "clock",
+    "tick",
+    "mechanical",
+    "time"
+   ],
+   "durationSec": 0.121,
+   "prompt": [
+    "a quiet mechanical clock ticking, steady tick tock, close up, dry, no music",
+    "a wall clock ticking slowly in a silent room, single dry ticks one second apart, realistic, no music",
+    "an old wind-up alarm clock ticking loudly, mechanical tick tick tick, close up, no music",
+    "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music"
+   ],
+   "seed": [
+    641,
+    641,
+    642,
+    641,
+    641
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -20.9,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "clock-tick/clock-tick-04.wav",
+     "take": "p3-s641",
+     "prompt": "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music",
+     "seed": 641,
+     "startSec": 4.026,
+     "durationSec": 0.122,
+     "clap": -0.052,
+     "snrDb": 39.2,
+     "loudnessLUFS": -18.4
+    },
+    {
+     "file": "clock-tick/clock-tick-05.wav",
+     "take": "p3-s641",
+     "prompt": "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music",
+     "seed": 641,
+     "startSec": 7.012,
+     "durationSec": 0.11,
+     "clap": -0.057,
+     "snrDb": 37.0,
+     "loudnessLUFS": -21.0
+    },
+    {
+     "file": "clock-tick/clock-tick-06.wav",
+     "take": "p3-s642",
+     "prompt": "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music",
+     "seed": 642,
+     "startSec": 8.214,
+     "durationSec": 0.07,
+     "clap": -0.048,
+     "snrDb": 27.4,
+     "loudnessLUFS": -19.6
+    },
+    {
+     "file": "clock-tick/clock-tick-07.wav",
+     "take": "p3-s641",
+     "prompt": "a grandfather clock pendulum ticking, deep wooden tick tock, quiet room, no music",
+     "seed": 641,
+     "startSec": 9.012,
+     "durationSec": 0.119,
+     "clap": -0.057,
+     "snrDb": 35.8,
+     "loudnessLUFS": -21.3
+    },
+    {
+     "file": "clock-tick/clock-tick-08.wav",
+     "take": "p1-s641",
+     "prompt": "a wall clock ticking slowly in a silent room, single dry ticks one second apart, realistic, no music",
+     "seed": 641,
+     "startSec": 0.022,
+     "durationSec": 0.12,
+     "clap": -0.066,
+     "snrDb": 63.7,
+     "loudnessLUFS": -22.5
+    }
+   ]
+  },
+  {
+   "id": "guest-gasp",
+   "kind": "sfx",
+   "files": [
+    "guest-gasp/guest-gasp-01.wav",
+    "guest-gasp/guest-gasp-02.wav",
+    "guest-gasp/guest-gasp-03.wav",
+    "guest-gasp/guest-gasp-04.wav"
+   ],
+   "gain": 0.45,
+   "tags": [
+    "gasp",
+    "guests",
+    "crowd",
+    "surprise"
+   ],
+   "durationSec": 1.6,
+   "prompt": [
+    "a small group of people at a garden party gasping in surprise together, short sharp intake of breath, outdoors, no music",
+    "wedding guests all gasping in shock at once, a few men and women, quick inhale, birds in a garden, no music",
+    "several women and men gasping sharply in shock, quick audible inhale, ah, crowd reaction, reverberant outdoors, no music",
+    "a group of people inhaling sharply in surprise, collective gasp, human voices, close crowd, no music"
+   ],
+   "seed": [
+    653,
+    652,
+    653,
+    651
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -14.0,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "guest-gasp/guest-gasp-01.wav",
+     "take": "p2-s653",
+     "prompt": "several women and men gasping sharply in shock, quick audible inhale, ah, crowd reaction, reverberant outdoors, no music",
+     "seed": 653,
+     "startSec": 6.676,
+     "durationSec": 1.173,
+     "clap": -0.071,
+     "snrDb": 40.8,
+     "loudnessLUFS": -14.6
+    },
+    {
+     "file": "guest-gasp/guest-gasp-02.wav",
+     "take": "p1-s652",
+     "prompt": "wedding guests all gasping in shock at once, a few men and women, quick inhale, birds in a garden, no music",
+     "seed": 652,
+     "startSec": 3.384,
+     "durationSec": 1.6,
+     "clap": -0.088,
+     "snrDb": 67.2,
+     "loudnessLUFS": -12.3
+    },
+    {
+     "file": "guest-gasp/guest-gasp-03.wav",
+     "take": "p1-s653",
+     "prompt": "wedding guests all gasping in shock at once, a few men and women, quick inhale, birds in a garden, no music",
+     "seed": 653,
+     "startSec": 1.77,
+     "durationSec": 1.6,
+     "clap": -0.096,
+     "snrDb": 63.9,
+     "loudnessLUFS": -17.3
+    },
+    {
+     "file": "guest-gasp/guest-gasp-04.wav",
+     "take": "p0-s651",
+     "prompt": "a small group of people at a garden party gasping in surprise together, short sharp intake of breath, outdoors, no music",
+     "seed": 651,
+     "startSec": 3.37,
+     "durationSec": 1.6,
+     "clap": -0.101,
+     "snrDb": 36.6,
+     "loudnessLUFS": -13.4
+    }
+   ]
+  },
+  {
+   "id": "cloth-catch",
+   "kind": "sfx",
+   "files": [
+    "cloth-catch/cloth-catch-01.wav",
+    "cloth-catch/cloth-catch-02.wav",
+    "cloth-catch/cloth-catch-03.wav",
+    "cloth-catch/cloth-catch-04.wav",
+    "cloth-catch/cloth-catch-05.wav",
+    "cloth-catch/cloth-catch-06.wav",
+    "cloth-catch/cloth-catch-07.wav"
+   ],
+   "gain": 0.4,
+   "tags": [
+    "cloth",
+    "catch",
+    "fabric",
+    "pat"
+   ],
+   "durationSec": 0.351,
+   "prompt": [
+    "a soft fabric item landing in an open hand, small cloth pat, one at a time, close up, dry, foley, no music",
+    "a folded handkerchief caught in a palm, soft cloth slap, quiet, separate catches, no music",
+    "a person catches a thrown cloth napkin in one hand, soft fabric slap and light cotton rustle, close up, foley, no music",
+    "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music"
+   ],
+   "seed": [
+    661,
+    661,
+    662,
+    662,
+    662,
+    662,
+    663
+   ],
+   "model": "stable-audio-3-small-sfx (sa3.cpp GGUF F16, 8 steps)",
+   "license": "Stability AI Community License (free for organisations under $1M total annual revenue; register commercial use with Stability AI)",
+   "loudnessLUFS": -22.6,
+   "replaces": null,
+   "takes": [
+    {
+     "file": "cloth-catch/cloth-catch-01.wav",
+     "take": "p0-s661",
+     "prompt": "a soft fabric item landing in an open hand, small cloth pat, one at a time, close up, dry, foley, no music",
+     "seed": 661,
+     "startSec": 1.397,
+     "durationSec": 0.438,
+     "clap": 0.099,
+     "snrDb": 53.6,
+     "loudnessLUFS": -20.9
+    },
+    {
+     "file": "cloth-catch/cloth-catch-02.wav",
+     "take": "p2-s661",
+     "prompt": "a person catches a thrown cloth napkin in one hand, soft fabric slap and light cotton rustle, close up, foley, no music",
+     "seed": 661,
+     "startSec": 2.232,
+     "durationSec": 0.209,
+     "clap": 0.094,
+     "snrDb": 63.6,
+     "loudnessLUFS": -28.2
+    },
+    {
+     "file": "cloth-catch/cloth-catch-03.wav",
+     "take": "p3-s662",
+     "prompt": "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music",
+     "seed": 662,
+     "startSec": 8.037,
+     "durationSec": 0.342,
+     "clap": 0.09,
+     "snrDb": 40.6,
+     "loudnessLUFS": -23.1
+    },
+    {
+     "file": "cloth-catch/cloth-catch-04.wav",
+     "take": "p3-s662",
+     "prompt": "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music",
+     "seed": 662,
+     "startSec": 4.204,
+     "durationSec": 0.512,
+     "clap": 0.08,
+     "snrDb": 54.6,
+     "loudnessLUFS": -21.9
+    },
+    {
+     "file": "cloth-catch/cloth-catch-05.wav",
+     "take": "p3-s662",
+     "prompt": "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music",
+     "seed": 662,
+     "startSec": 6.301,
+     "durationSec": 0.342,
+     "clap": 0.079,
+     "snrDb": 46.4,
+     "loudnessLUFS": -22.2
+    },
+    {
+     "file": "cloth-catch/cloth-catch-06.wav",
+     "take": "p2-s662",
+     "prompt": "a person catches a thrown cloth napkin in one hand, soft fabric slap and light cotton rustle, close up, foley, no music",
+     "seed": 662,
+     "startSec": 7.587,
+     "durationSec": 0.424,
+     "clap": 0.072,
+     "snrDb": 47.5,
+     "loudnessLUFS": -24.2
+    },
+    {
+     "file": "cloth-catch/cloth-catch-07.wav",
+     "take": "p3-s663",
+     "prompt": "a silk handkerchief landing in a palm, one small soft pat and quiet fabric rustle, dry, close microphone, no music",
+     "seed": 663,
+     "startSec": 0.544,
+     "durationSec": 0.298,
+     "clap": 0.072,
+     "snrDb": 48.1,
+     "loudnessLUFS": -21.0
+    }
+   ]
   }
  ]
 }
