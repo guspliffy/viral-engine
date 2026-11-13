@@ -1,0 +1,609 @@
+{
+ "id": "pauseyou-props",
+ "title": "Pause you props bench",
+ "idea": "Props bench for There's a catch EP08 (magicremote, pauseray, cookiehalf), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#c9d4df",
+  "floor": "#a8967a"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "wiz",
+   "remote"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "wiz",
+   "character": "notyet/wizard-nostaff",
+   "at": [
+    -14,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.4
+  }
+ ],
+ "props": [
+  {
+   "id": "tableB",
+   "kind": "coffeetable",
+   "x": -7,
+   "z": 0.5,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.5
+  },
+  {
+   "id": "tableH",
+   "kind": "coffeetable",
+   "x": 14,
+   "z": 0.4,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.6
+  },
+  {
+   "id": "tableC",
+   "kind": "coffeetable",
+   "x": 17.6,
+   "z": 0.4,
+   "h": 0.36,
+   "w": 1.3,
+   "d": 0.6
+  },
+  {
+   "id": "remote",
+   "kind": "magicremote",
+   "x": -13.98,
+   "y": 0.5,
+   "z": 0.44,
+   "rot": 180,
+   "scale": 1,
+   "staged": "held in the Wizard's left glove from the start"
+  },
+  {
+   "id": "rA",
+   "kind": "magicremote",
+   "x": -7.2,
+   "y": 0.38,
+   "z": 0.5,
+   "rot": 90,
+   "press": 0,
+   "lit": 0
+  },
+  {
+   "id": "rB",
+   "kind": "magicremote",
+   "x": -6.8,
+   "y": 0.38,
+   "z": 0.5,
+   "rot": 90,
+   "press": 1,
+   "lit": 1
+  },
+  {
+   "id": "ray",
+   "kind": "pauseray",
+   "x": -0.5,
+   "y": 0.7,
+   "z": 0.42,
+   "to": [
+    0,
+    -0.11,
+    0
+   ],
+   "via": [
+    0.8,
+    -0.056,
+    0
+   ],
+   "glow": 1,
+   "staged": "a light ray, stands on nothing"
+  },
+  {
+   "id": "rise0",
+   "kind": "pauseray",
+   "x": 6.5,
+   "y": 1,
+   "z": 0.42,
+   "to": [
+    0,
+    -0.11,
+    0
+   ],
+   "via": [
+    0.8,
+    -0.056,
+    0
+   ],
+   "glow": 1,
+   "staged": "a light ray, stands on nothing"
+  },
+  {
+   "id": "rise1",
+   "kind": "pauseray",
+   "x": 6.5,
+   "y": 0.6,
+   "z": 0.42,
+   "to": [
+    0,
+    -0.11,
+    0
+   ],
+   "via": [
+    0.8,
+    -0.056,
+    0
+   ],
+   "glow": 1,
+   "staged": "a light ray, stands on nothing"
+  },
+  {
+   "id": "rise2",
+   "kind": "pauseray",
+   "x": 6.5,
+   "y": 0.19999999999999996,
+   "z": 0.42,
+   "to": [
+    0,
+    -0.11,
+    0
+   ],
+   "via": [
+    0.8,
+    -0.056,
+    0
+   ],
+   "glow": 1,
+   "staged": "a light ray, stands on nothing"
+  },
+  {
+   "id": "hL",
+   "kind": "cookiehalf",
+   "side": "L",
+   "x": 13.822,
+   "y": 0.376,
+   "z": 0.4,
+   "scale": 1.25,
+   "rot": 0
+  },
+  {
+   "id": "hR",
+   "kind": "cookiehalf",
+   "side": "R",
+   "x": 13.901,
+   "y": 0.376,
+   "z": 0.4,
+   "scale": 1.25,
+   "rot": 180
+  },
+  {
+   "id": "hcut",
+   "kind": "cookiehalf",
+   "side": "L",
+   "x": 17.6,
+   "y": 0.376,
+   "z": 0.4,
+   "scale": 1.25,
+   "cut": 1,
+   "crumbs": 1
+  },
+  {
+   "id": "whole",
+   "kind": "chunkcookie",
+   "x": 14.19,
+   "y": 0.37625,
+   "z": 0.4,
+   "scale": 1.25
+  }
+ ],
+ "captions": [
+  {
+   "from": 3.4,
+   "to": 4.4,
+   "text": "magicremote: press 0 lit 0 | press 1 lit 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5.4,
+   "to": 6.4,
+   "text": "pauseray via a bounce: rise 1, glint 1, hit 1 (medium-wide, fov 48)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7.4,
+   "to": 8.4,
+   "text": "pauseray rise 0.3 (top) | 0.6 | 0.85: the head blob travelling",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9.4,
+   "to": 10.4,
+   "text": "cookiehalf L + R fitted | chunkcookie",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11.4,
+   "to": 12.4,
+   "text": "cookiehalf L cut 1 with 7 crumbs",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "remote",
+   "at": 0,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -13.25,
+     1.05,
+     2.3
+    ],
+    "look": [
+     -13.95,
+     0.55,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "wiz",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.8
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "remote",
+     "set": {
+      "press": 0,
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ray",
+     "set": {
+      "rise": 1,
+      "glint": 1,
+      "hit": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rise0",
+     "set": {
+      "rise": 0.3,
+      "glint": 0,
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rise1",
+     "set": {
+      "rise": 0.6,
+      "glint": 1,
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rise2",
+     "set": {
+      "rise": 0.85,
+      "glint": 1,
+      "hit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hcut",
+     "set": {
+      "cut": 1,
+      "crumbs": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remote",
+      "grip": [
+       -0.085,
+       0,
+       -0.01
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remote",
+      "grip": [
+       -0.085,
+       0,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.6
+    },
+    {
+     "who": "wiz",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.72
+    },
+    {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "remote",
+     "hand": "L",
+     "grip": [
+      -0.085,
+      0,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.86
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remote",
+      "grip": [
+       -0.085,
+       0,
+       -0.01
+      ],
+      "palm": true,
+      "at": [
+       -13.98,
+       0.52,
+       0.4
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "remote",
+     "set": {
+      "press": 1,
+      "lit": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "buttons",
+   "at": 3.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -7,
+     1.5,
+     2.8
+    ],
+    "look": [
+     -7,
+     0.4,
+     0.5
+    ],
+    "fov": 42
+   },
+   "do": []
+  },
+  {
+   "name": "ray",
+   "at": 5.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -0.1,
+     0.8,
+     4
+    ],
+    "look": [
+     -0.1,
+     0.6,
+     0
+    ],
+    "fov": 48
+   },
+   "do": []
+  },
+  {
+   "name": "rise",
+   "at": 7.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     6.9,
+     0.7,
+     4
+    ],
+    "look": [
+     6.9,
+     0.55,
+     0
+    ],
+    "fov": 48
+   },
+   "do": []
+  },
+  {
+   "name": "halves",
+   "at": 9.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     14.03,
+     1.2,
+     1.9
+    ],
+    "look": [
+     14.03,
+     0.37,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "cut",
+   "at": 11.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     17.650000000000002,
+     1.05,
+     1.6
+    ],
+    "look": [
+     17.650000000000002,
+     0.37,
+     0.4
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0.1
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/08-pause-you/bench/make-pauseyou-props.mjs (props bench, no reviews)."
+}

@@ -109,6 +109,9 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-pauseyou.js (There's a catch EP08): the Wizard's magic remote, 0.1 wide x 0.04 thick, ORIGIN = the fist's centre (the middle of the rear
+  // grip zone), so h 0 puts the phone hold's height on the origin; held long axis up (spec tip 90: lens up, button toward the holder)
+  magicremote: { w: 0.1, h: 0, t: 0.04 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
