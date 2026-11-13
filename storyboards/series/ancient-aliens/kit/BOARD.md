@@ -53,7 +53,7 @@ World axes for every Giza piece: **north = -z, south = +z (toward the default ca
 |---|---|---|
 | `engine/page/props-aa-giza.js` | far scenery, built at `spec.s` scale: aasky, gizaplateau, pyramid, gizatoday, nilevalley, cairohaze, potatocrowd, orion, starfield, moon | T1 |
 | `engine/page/props-aa-site.js` | real-scale close pieces: pyramidbase, worktop, limeblock, casingpair, blockrows, pavement, northline | T2 |
-| `engine/page/props-aa-ship.js` | ringship, cargoship, granitebeam, granitecutter, roughgranite, aswanquarry | T3 |
+| `engine/page/props-aa-ship.js` | ringship, cargoship, granitespan, granitecutter, roughgranite, aswanquarry | T3 |
 | `engine/page/props-aa-inside.js` | kingschamber, grandgallery, pyramidentrance, starshaft, relievingchamber, gangmarks, worklamp, oillamp, paintbowl, reedbrush | T4 |
 | `engine/page/costumes-aliens.js` + `characters/ancient-aliens/*.json` | aliencrew (crew, foreman, lifter), egyptworker (worker-a, worker-b) | T5 |
 | `engine/page/props-aa-items.js` | headlamp, sunhat, spiritlevel, camel, reedboat, nilewater | T6 |
