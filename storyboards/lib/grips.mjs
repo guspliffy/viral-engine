@@ -58,6 +58,7 @@ const SIZE = {
   pocketwatch: { r: 0.0375, h: 0, len: 0.062 },    // props-timewatch.js: the origin is the case CENTRE (0.075 across, face +z): mug hold = round the case at its centre height from the +x side (placeFor turn 180 shows the face to the camera), thin hold = the pinch on the crown (from 0.6)
   toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
   mallowstick: { len: 0.9, r: 0.01 },              // props-dino.js: a long green toasting stick, marshmallows at the tip; the thin pinch near its butt
+  reedbrush: { len: 0.35, r: 0.007 },              // props-aa-inside.js: a reed brush 0.30 long, plain end at the origin, painted tip up: len 0.35 puts the default thin pinch (0.6) at 0.21 up, so the 9 cm tip shows beyond the fist
   // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
   sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
   manual: { w: 0.34, h: 0.24, t: 0.004 },          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)

@@ -1,0 +1,695 @@
+{
+ "id": "aa-inside",
+ "title": "Ancient aliens inside bench",
+ "idea": "Props bench for the pyramid interior (kingschamber, worklamp, grandgallery, pyramidentrance, starshaft, relievingchamber, gangmarks, oillamp, paintbowl, reedbrush), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#243865",
+  "floor": "none"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spudA",
+   "kc"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.9,
+    0.5
+   ],
+   "face": 150,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    -4
+   ],
+   "y": 1.977,
+   "face": 15,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.3
+  },
+  {
+   "id": "spudD",
+   "character": "potatobrawl/spud",
+   "at": [
+    80.3,
+    -1.2
+   ],
+   "face": 200,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.4
+  },
+  {
+   "id": "spudF",
+   "character": "potatobrawl/spud",
+   "at": [
+    158.7,
+    -1.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.5
+  },
+  {
+   "id": "spudH",
+   "character": "potatobrawl/spud",
+   "at": [
+    30,
+    -0.55
+   ],
+   "face": 25,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "kc",
+   "kind": "kingschamber",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "gal",
+   "kind": "grandgallery",
+   "x": 40,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "ent",
+   "kind": "pyramidentrance",
+   "x": 80,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "shaft",
+   "kind": "starshaft",
+   "x": 120,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "rel",
+   "kind": "relievingchamber",
+   "x": 160,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "gm",
+   "kind": "gangmarks",
+   "x": 160,
+   "y": 0.75,
+   "z": -2.611
+  },
+  {
+   "id": "oil",
+   "kind": "oillamp",
+   "x": 159.45,
+   "y": 0,
+   "z": -2.2,
+   "wall": 0.41
+  },
+  {
+   "id": "bowl",
+   "kind": "paintbowl",
+   "x": 160.95,
+   "y": 0,
+   "z": -2.25
+  },
+  {
+   "id": "lamp",
+   "kind": "worklamp",
+   "x": 60,
+   "y": 0,
+   "z": -1.5,
+   "rot": 200
+  },
+  {
+   "id": "oil2",
+   "kind": "oillamp",
+   "x": 60,
+   "y": 0,
+   "z": -0.45
+  },
+  {
+   "id": "bowl2",
+   "kind": "paintbowl",
+   "x": 60,
+   "y": 0,
+   "z": -0.45
+  },
+  {
+   "id": "brush",
+   "kind": "reedbrush",
+   "x": 60,
+   "y": 0.009,
+   "z": -0.75,
+   "tip": 90,
+   "rot": 25
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "A",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     5,
+     1.3,
+     2.5
+    ],
+    "look": [
+     -3,
+     3.1,
+     -0.7
+    ],
+    "fov": 100
+   },
+   "do": []
+  },
+  {
+   "name": "A2",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.7,
+     1.7,
+     2.3
+    ],
+    "look": [
+     2.4,
+     2.4,
+     -1.2
+    ],
+    "fov": 80
+   },
+   "do": []
+  },
+  {
+   "name": "A3",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.3,
+     1
+    ],
+    "look": [
+     0,
+     5.8,
+     -0.1
+    ],
+    "fov": 122
+   },
+   "do": []
+  },
+  {
+   "name": "A4",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.6,
+     1.9,
+     2.1
+    ],
+    "look": [
+     -3.7,
+     0.8,
+     0.5
+    ],
+    "fov": 48
+   },
+   "do": []
+  },
+  {
+   "name": "A5",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -4.7,
+     1.7,
+     2.3
+    ],
+    "look": [
+     2.4,
+     2.4,
+     -1.2
+    ],
+    "fov": 80
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "A6",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -1.5,
+     1.5,
+     -9.5
+    ],
+    "look": [
+     -1.5,
+     2,
+     0
+    ],
+    "fov": 70
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "B",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1,
+     1,
+     0.7
+    ],
+    "look": [
+     2.7,
+     0.85,
+     2.4
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kc",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spudA",
+     "do": "move",
+     "to": [
+      2.7,
+      2.3
+     ],
+     "dur": 0,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "C",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40,
+     0.9,
+     3.4
+    ],
+    "look": [
+     40,
+     5.4,
+     -17
+    ],
+    "fov": 82
+   },
+   "do": []
+  },
+  {
+   "name": "C2",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     39.65,
+     2.55,
+     -1.6
+    ],
+    "look": [
+     40.3,
+     4.2,
+     -13
+    ],
+    "fov": 66
+   },
+   "do": []
+  },
+  {
+   "name": "D",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     79.9,
+     0.95,
+     -5.6
+    ],
+    "look": [
+     80,
+     1,
+     4
+    ],
+    "fov": 74
+   },
+   "do": []
+  },
+  {
+   "name": "E",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     120,
+     0.6363961030678928,
+     -0.07071067811865472
+    ],
+    "look": [
+     120,
+     14.495689014324224,
+     13.788582233137678
+    ],
+    "fov": 58
+   },
+   "do": []
+  },
+  {
+   "name": "F0",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     161.2,
+     0.8,
+     1.2
+    ],
+    "look": [
+     159.8,
+     0.7,
+     -2.6
+    ],
+    "fov": 74
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gm",
+     "set": {
+      "paint": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F5",
+   "at": 12.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     164.8,
+     1.05,
+     -2.2
+    ],
+    "look": [
+     159,
+     0.45,
+     1.6
+    ],
+    "fov": 82
+   },
+   "do": []
+  },
+  {
+   "name": "F3",
+   "at": 13.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     160,
+     0.78,
+     -0.9
+    ],
+    "look": [
+     160,
+     0.75,
+     -2.6
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gm",
+     "set": {
+      "paint": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F7",
+   "at": 14.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     160,
+     0.78,
+     -0.9
+    ],
+    "look": [
+     160,
+     0.75,
+     -2.6
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gm",
+     "set": {
+      "paint": 0.7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F10",
+   "at": 15.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     160,
+     0.78,
+     -0.9
+    ],
+    "look": [
+     160,
+     0.75,
+     -2.6
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gm",
+     "set": {
+      "paint": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "H",
+   "at": 16.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.75,
+     0.75,
+     1.7
+    ],
+    "look": [
+     -0.55,
+     0.2,
+     -0.8
+    ],
+    "fov": 62
+   },
+   "do": [
+    {
+     "who": "spudH",
+     "do": "move",
+     "to": [
+      -1.15,
+      -0.55
+     ],
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lamp",
+     "set": {
+      "x": -0.6
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "oil2",
+     "set": {
+      "x": -0.05
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bowl2",
+     "set": {
+      "x": 0.17
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "brush",
+     "set": {
+      "x": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "H2",
+   "at": 17.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.13,
+     0.3,
+     0.4
+    ],
+    "look": [
+     0.13,
+     0.03,
+     -0.6
+    ],
+    "fov": 56
+   },
+   "do": []
+  },
+  {
+   "name": "H3",
+   "at": 18.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.16,
+     0.13,
+     -0.2
+    ],
+    "look": [
+     0,
+     0.07,
+     -0.45
+    ],
+    "fov": 34
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/kit/bench/make-aa-inside.mjs (props bench, no reviews)."
+}
