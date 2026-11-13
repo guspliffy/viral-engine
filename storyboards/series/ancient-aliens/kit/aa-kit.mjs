@@ -3,7 +3,7 @@
 // (engine/page/props-aa-{giza,site,ship,inside,items}.js, costumes-aliens.js). Proof that it all works together:
 // bench/make-aa-proof.mjs (aa-proof-sheet.png), which is also the worked example to copy from.
 //
-//   import { S, SET, SET_LATE, SET_NIGHT, SUN, CAST, VIEW, TOP, cam, far, gizaToday, giza2560, liftShip, site, host, hostSay, lampClip, hat, whiteCar, nightOver } from "../kit/aa-kit.mjs";
+//   import { S, SET, SET_LATE, SET_NIGHT, SUN, CAST, VIEW, TOP, cam, far, gizaToday, giza2560, liftShip, site, host, hostSay, clueTag, score, lampClip, hat, whiteCar, nightOver } from "../kit/aa-kit.mjs";
 //
 // HOW A BLOCK IS LAID OUT. A block is one clip with several places. Give each place its own origin o = [x, z], 1000 m or more
 // apart (the camera sees 300 m, so a place never shows the next one), and build it with the helpers below. Every helper
@@ -47,6 +47,13 @@ export function hostSay(c, t, who, line, dur, tone = "calm", { sub = true, pos =
   c.at(r3(t), { macro: "say", who, line, tone, dur, voice: HOST_VOICE, caption: false });
   if (sub) c.cap(r3(t), r3(t + dur + 0.4), sub === true ? line : sub, pos, false, { size, kinetic: false });
 }
+// THE SCORE. One recorded-orchestra score for the whole pilot, laid on STORY.md's times (assets/music/ancient-aliens/
+// README.md): a storyboard takes its slice with `music: score(<the story time in seconds its first frame stands at>)`,
+// e.g. block B score(56), block C's second storyboard score(118). From 0.0 under the voice; the join pass lays the same
+// file once over the joined film, so what Jonny hears in an animatic is what the film gets.
+export const score = (storyTime = 0, o = {}) => ({ file: "ancient-aliens/aa01-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic", ...o });
+// The clue counter, the same in every block: "CLUE n/5" as a label top left (y 240, x 250, size 44) from t0 to t1.
+export const clueTag = (c, t0, t1, n) => c.cap(r3(t0), r3(t1), `CLUE ${n}/5`, 240, false, { style: "label", size: 44, kinetic: false, x: 250 });
 // The worn headlamp sits on the skin, so the contact gate reads it as clipping: spread lampClip([...host ids], END) into
 // the storyboard's `allowClip`. (A prop that hangs or lies in the air on purpose, a block in the beam, a northline over a
 // map view, takes a `staged: "<why>"` key on its spec, or preflight fails it as floating.)
