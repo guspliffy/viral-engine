@@ -1,0 +1,96 @@
+{
+ "id": "what-if/grumpy-neighbour",
+ "name": "The grumpy old neighbour (There's a catch EP07, Only you remember): striped bathrobe, pink curlers, fluffy slippers",
+ "franchise": "PotatoBrawl",
+ "source": "storyboards/series/what-if/07-fire-rewind/DESIGN.md 4.2 (13 Nov 2026), Jonny's board panels 09 and 15; a variant file in the way characters/what-if/viking-old.json is",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 0.92,
+  "width": 0.8,
+  "depth": 0.7,
+  "lump": 0.04,
+  "seed": 53
+ },
+ "limbs": {
+  "color": "#6b4a2b",
+  "width": 0.032,
+  "shoulder": -0.32
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#4a3a2a",
+  "cheeks": "#f08a8a",
+  "blush": 0.6,
+  "neutral": {
+   "tilt": 0,
+   "curve": -0.35,
+   "smirk": 0,
+   "eye": 0.8,
+   "browL": -0.45,
+   "browR": -0.45
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 0.9
+  },
+  "layout": {
+   "browV": 0.68
+  },
+  "brow": "#8a8078",
+  "browShape": {
+   "arch": -0.02,
+   "thick": 1.5
+  },
+  "final": {
+   "blush": 0.6,
+   "browShape": {
+    "arch": -0.02,
+    "thick": 1.5
+   }
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top",
+  "leaves": 1,
+  "lift": [
+   -0.09,
+   -0.1
+  ]
+ },
+ "costume": {
+  "type": "bathrobe",
+  "robe": "#b79ac8",
+  "stripe": "#8a6aa6",
+  "collar": "#cdb6da",
+  "belt": "#9a7ab4",
+  "slippers": "#e9a9bd",
+  "curler": "#e58fb0",
+  "curlerLine": "#c76a93",
+  "hair": "#b9b3ad",
+  "noProp": true
+ },
+ "personality": "The grumpy old neighbour (EP07 proposal): half-lidded, disappointed in everyone, sure the kid is playing a trick. Opens his door a crack and sends Spud away; later jabs a glove at him in front of the whole building.",
+ "voice": {
+  "pitch": 92,
+  "rate": 2.6,
+  "formant": 0.96,
+  "range": 3,
+  "breath": 0.12,
+  "vibrato": 0.02,
+  "seed": 61
+ },
+ "voiceNote": "a placeholder (low, slow, creaky) until the director's proposal to Jonny: not designed in T3",
+ "hands": {
+  "type": "glove",
+  "size": 1.3,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ },
+ "notes": "Same skin (#e2a95c) and glove as Spud, a little taller (0.92) and wider (0.80). The curlers and the robe are the bathrobe type of costumes-everyday.js. The face neutral is the design's 'grumpy' (curve -0.35, brows -0.45, eye 0.8) written as JSON neutral numbers on the 'kind' default, since a new named expression would be an engine face change."
+}
