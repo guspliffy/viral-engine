@@ -43,7 +43,18 @@
   "ink": true,
   "satsuei": true
  },
- "music": false,
+ "music": {
+  "file": "ancient-aliens/aa01-score.ogg",
+  "from": 0,
+  "skip": 56,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
  "sound": {
   "sfx": 0.6,
   "ambience": 0.06,
@@ -64,7 +75,7 @@
    "spud"
   ],
   "hint": 0,
-  "what": "block B opens mid-film (after block A's walk into the dark): he climbs the Grand Gallery"
+  "what": "block B opens mid-film (after block A's walk into the dark): the gallery's corbelled roof, then he climbs"
  },
  "cast": [
   {
@@ -72,13 +83,13 @@
    "character": "potatobrawl/spud",
    "at": [
     0,
-    -1.2
+    -1.8
    ],
    "face": 180,
    "expr": "kind",
    "follow": 0.3,
    "seed": 2.1,
-   "y": 0.593
+   "y": 0.89
   },
   {
    "id": "fore",
@@ -275,63 +286,378 @@
    "from": 0.3,
    "to": 33.8,
    "text": "CLUE 2/5",
-   "pos": 236,
+   "pos": 240,
    "pop": false,
-   "x": 250,
-   "size": 52,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 6.2,
+   "to": 11.03,
+   "text": "The ceiling: granite beams. Up to eighty tonnes each.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
    "kinetic": false
   },
   {
-   "from": 8,
+   "from": 8.5,
+   "to": 8.6,
+   "text": "0 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 8.6,
+   "to": 8.7,
+   "text": "30 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 8.7,
+   "to": 8.8,
+   "text": "51 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 8.8,
+   "to": 8.9,
+   "text": "65 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 8.9,
+   "to": 9,
+   "text": "74 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 9.1,
+   "text": "78 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 9.1,
+   "to": 9.2,
+   "text": "80 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 9.2,
+   "to": 8.95,
+   "text": "80 t",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 9,
    "to": 11.55,
-   "text": "80 t = 13 elephants",
-   "pos": 1150,
-   "pop": false,
-   "x": 490,
-   "size": 70,
+   "text": "80 t × 9",
+   "pos": 300,
+   "pop": true,
+   "size": 112,
    "kinetic": false
   },
   {
-   "from": 34,
-   "to": 44,
-   "text": "ALIENS 1 · HUMANS 2",
-   "pos": 236,
-   "pop": false,
+   "from": 10,
+   "to": 11.55,
+   "text": "= 13 elephants each",
+   "pos": 1150,
+   "pop": true,
    "size": 64,
+   "kinetic": false
+  },
+  {
+   "from": 12.6,
+   "to": 15.33,
+   "text": "There is no granite at Giza.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 15.4,
+   "to": 19.58,
+   "text": "It comes from Aswan, more than eight hundred kilometres up the Nile.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.8,
+   "to": 16.9,
+   "text": "0 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 16.9,
+   "to": 17,
+   "text": "141 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17,
+   "to": 17.1,
+   "text": "264 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.1,
+   "to": 17.2,
+   "text": "371 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.2,
+   "to": 17.3,
+   "text": "463 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.3,
+   "to": 17.4,
+   "text": "540 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.4,
+   "to": 17.5,
+   "text": "605 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.5,
+   "to": 17.6,
+   "text": "658 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.6,
+   "to": 17.7,
+   "text": "700 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.7,
+   "to": 17.8,
+   "text": "733 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.8,
+   "to": 17.9,
+   "text": "758 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 17.9,
+   "to": 18,
+   "text": "776 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 18,
+   "to": 18.1,
+   "text": "788 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 18.2,
+   "text": "795 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 18.2,
+   "to": 18.3,
+   "text": "798 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 18.3,
+   "to": 18.4,
+   "text": "800 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 20.95,
+   "text": "800 km",
+   "pos": 300,
+   "pop": false,
+   "size": 124,
+   "kinetic": false
+  },
+  {
+   "from": 23.6,
+   "to": 26.85,
+   "text": "They tell you: copper saws and wooden boats...",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 28.1,
+   "to": 29.65,
+   "text": "80 t",
+   "pos": 300,
+   "pop": true,
+   "size": 140,
+   "kinetic": false
+  },
+  {
+   "from": 30.2,
+   "to": 31.81,
+   "text": "For eighty tonnes.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 34.3,
+   "to": 38.79,
+   "text": "Aliens? Type one. Humans? Type two.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 35.2,
+   "to": 44,
+   "text": "ALIENS = 1",
+   "pos": 250,
+   "pop": true,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 37.4,
+   "to": 44,
+   "text": "HUMANS = 2",
+   "pos": 345,
+   "pop": true,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 39.39,
+   "to": 40.5,
+   "text": "I'll wait.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
    "kinetic": false
   }
  ],
  "beats": [
   {
-   "name": "P13 the Grand Gallery",
+   "name": "P13 the gallery: corbelled roof down to him",
    "at": 0,
-   "len": 4.6,
+   "len": 3,
    "shot": {
     "pos": [
-     0.3,
-     0.95,
-     1
+     0.2,
+     0.7,
+     0.6
     ],
     "look": [
      0,
-     2.6,
-     -7
+     7.5,
+     -5
     ],
-    "fov": 58,
+    "fov": 60,
     "to": {
      "pos": [
       0.2,
-      1.95,
-      -1.2
+      1.4,
+      0.4
      ],
      "look": [
       0,
-      4,
-      -9
+      2.6,
+      -6
      ],
-     "fov": 58
+     "fov": 60
     },
-    "dur": 4.55,
+    "dur": 2.95,
     "ease": "inOut"
    },
    "do": [
@@ -448,37 +774,150 @@
      "do": "move",
      "to": [
       0,
-      -4.2
+      -2.6
      ],
-     "y": 2.076,
-     "dur": 4.4,
-     "steps": 7,
+     "y": 1.285,
+     "dur": 1.2,
+     "steps": 3,
      "ease": "linear",
      "at": 0.05
     },
     {
      "who": "spud",
-     "do": "look",
+     "do": "move",
      "to": [
       0,
-      0.35
+      -2.25
      ],
-     "dur": 0.4,
-     "blink": false,
-     "at": 0.1
+     "y": 1.112,
+     "dur": 0.25,
+     "steps": 0,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.25,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "his foot slides on the polished ramp",
+     "at": 1.32
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.2,
+     "at": 1.8
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      1000.9,
-      0.25
+      0,
+      -4
+     ],
+     "y": 1.977,
+     "dur": 1.05,
+     "steps": 3,
+     "ease": "linear",
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1004.4,
+      0.6
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 4.58
+     "at": 2.98
     },
     {
      "who": "spud",
@@ -486,7 +925,7 @@
      "to": -90,
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.58
+     "at": 2.98
     },
     {
      "who": "spud",
@@ -495,7 +934,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.58
+     "at": 2.98
     },
     {
      "who": "spud",
@@ -504,7 +943,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 4.58
+     "at": 2.98
     },
     {
      "who": "spud",
@@ -515,66 +954,142 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 4.58
+     "at": 2.98
     }
    ],
    "kind": "hook"
   },
   {
-   "name": "P14 the King's Chamber",
-   "at": 4.6,
-   "len": 7,
+   "name": "P14 granite beams, then he walks in",
+   "at": 3,
+   "len": 3,
    "shot": {
     "pos": [
-     1004.9,
-     1.5,
-     0.15
+     997.6,
+     0.9,
+     1.6
     ],
     "look": [
-     996,
-     2,
-     0
+     999,
+     5.8,
+     -0.6
     ],
-    "fov": 74,
+    "fov": 64,
     "to": {
      "pos": [
-      1004.9,
-      1.3,
-      0.15
+      997.6,
+      1,
+      1.6
      ],
      "look": [
-      998,
-      4.6,
-      0
+      1001.8,
+      1.4,
+      0.2
      ],
-     "fov": 74
+     "fov": 64
     },
-    "dur": 5,
+    "dur": 2.95,
     "ease": "inOut"
    },
    "do": [
     {
      "who": "spud",
-     "do": "look",
+     "do": "move",
      "to": [
-      0,
-      0.2
+      1001.6,
+      0.4
      ],
-     "dur": 0.3,
-     "blink": false,
-     "at": 0.3
+     "dur": 1.7,
+     "steps": 4,
+     "ease": "out",
+     "at": 0.2
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
       0,
-      0.95
+      0.9
      ],
-     "dur": 0.5,
+     "dur": 0.4,
      "blink": false,
-     "at": 1
+     "at": 2
     },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    }
+   ]
+  },
+  {
+   "name": "P14 b past his face to the beams",
+   "at": 6,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1000.1,
+     0.3,
+     0.95
+    ],
+    "look": [
+     1001.6,
+     1.25,
+     0.35
+    ],
+    "fov": 72,
+    "to": {
+     "pos": [
+      1000.25,
+      0.3,
+      0.9
+     ],
+     "look": [
+      1001.6,
+      1.45,
+      0.3
+     ],
+     "fov": 72
+    },
+    "dur": 2.95,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "macro": "say",
      "who": "spud",
@@ -582,21 +1097,170 @@
      "tone": "calm",
      "dur": 4.43,
      "voice": "reaper",
-     "pos": 430,
-     "at": 1.4
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.65
+    }
+   ]
+  },
+  {
+   "name": "P14 c nine beams over him",
+   "at": 9,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     995.4,
+     1.7,
+     0.2
+    ],
+    "look": [
+     1001,
+     2.6,
+     0.6
+    ],
+    "fov": 72,
+    "to": {
+     "pos": [
+      996.2,
+      1.5,
+      0.2
+     ],
+     "look": [
+      1001,
+      2.3,
+      0.7
+     ],
+     "fov": 72
+    },
+    "dur": 2.55,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.12,
+     "reason": "a grain of granite ticks down from the beam's hairline crack",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1000.7,
+      1.1
+     ],
+     "dur": 0.5,
+     "steps": 2,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.25
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.25
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.25
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.25
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.25
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
       1000.6,
-      -2
+      -2.15
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.98
+     "at": 2.58
     },
     {
      "who": "spud",
@@ -604,7 +1268,7 @@
      "to": 90,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.98
+     "at": 2.58
     },
     {
      "who": "spud",
@@ -613,7 +1277,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.98
+     "at": 2.58
     },
     {
      "who": "spud",
@@ -622,7 +1286,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.98
+     "at": 2.58
     },
     {
      "who": "spud",
@@ -633,14 +1297,14 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.98
+     "at": 2.58
     }
    ]
   },
   {
-   "name": "P15 palm on the granite",
+   "name": "P15 palm on the granite, the reveal",
    "at": 11.6,
-   "len": 4.05,
+   "len": 3.5,
    "shot": {
     "pos": [
      1002.5,
@@ -652,7 +1316,22 @@
      0.72,
      -2.2
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      1002.35,
+      0.86,
+      -1.22
+     ],
+     "look": [
+      1000.6,
+      0.72,
+      -2.2
+     ],
+     "fov": 46
+    },
+    "dur": 3.45,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -677,19 +1356,15 @@
        -2.585
       ]
      },
-     "dur": 0.5,
+     "dur": 0.45,
      "ease": "out",
-     "at": 0.2
+     "at": 0.1
     },
     {
-     "macro": "say",
-     "who": "spud",
-     "line": "There is no granite at Giza.",
-     "tone": "calm",
-     "dur": 3.43,
-     "voice": "reaper",
-     "pos": 430,
-     "at": 0.5
+     "sfx": "step",
+     "gain": 0.25,
+     "reason": "his palm pats the granite",
+     "at": 0.55
     },
     {
      "who": "spud",
@@ -698,16 +1373,62 @@
       0,
       0.05
      ],
-     "dur": 0.25,
+     "dur": 0.2,
      "blink": false,
-     "at": 4.03
+     "at": 0.85
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "There is no granite at Giza.",
+     "tone": "excited",
+     "dur": 2.33,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "macro": "nod",
+     "times": 1,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.15
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.15
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.15
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.15
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.15
     }
    ]
   },
   {
    "name": "P15 b Aswan, 800 km up the Nile",
-   "at": 15.65,
-   "len": 5.35,
+   "at": 15.1,
+   "len": 5.9,
    "shot": {
     "pos": [
      1999.4,
@@ -733,7 +1454,7 @@
      ],
      "fov": 44
     },
-    "dur": 5.3,
+    "dur": 5.85,
     "ease": "inOut"
    },
    "do": [
@@ -744,8 +1465,48 @@
      "tone": "calm",
      "dur": 3.78,
      "voice": "reaper",
-     "pos": 430,
+     "caption": false,
      "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 5.55
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 5.55
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 5.55
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 5.55
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 5.55
+    },
+    {
+     "do": "prop",
+     "id": "cutter",
+     "set": {
+      "cut": 1
+     },
+     "dur": 0.05,
+     "ease": "linear",
+     "at": 5.8
     },
     {
      "who": "spud",
@@ -758,7 +1519,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 5.33
+     "at": 5.88
     },
     {
      "who": "spud",
@@ -766,7 +1527,7 @@
      "to": -25,
      "dur": 0.01,
      "ease": "linear",
-     "at": 5.33
+     "at": 5.88
     },
     {
      "who": "spud",
@@ -775,7 +1536,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.33
+     "at": 5.88
     },
     {
      "who": "spud",
@@ -784,7 +1545,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.33
+     "at": 5.88
     },
     {
      "who": "spud",
@@ -795,40 +1556,129 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 5.33
+     "at": 5.88
     }
    ]
   },
   {
-   "name": "P16 Aswan 2560 BC: the cutter",
+   "name": "P16 the cut",
    "at": 21,
-   "len": 6.6,
+   "len": 2,
    "shot": {
     "pos": [
-     3000.1,
-     1.5,
-     16.5
+     3003.6,
+     2.2,
+     8.6
     ],
     "look": [
-     3000.1,
-     1.8,
-     7
+     3001.4,
+     2.1,
+     6
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      3003.3,
+      2.15,
+      8.2
+     ],
+     "look": [
+      3001.4,
+      2.1,
+      6
+     ],
+     "fov": 50
+    },
+    "dur": 1.95,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "cut": 1
+     },
+     "dur": 4.6,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "scrape",
+     "gain": 0.24,
+     "dur": 4.6,
+     "reason": "the cutter grinds through the granite",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 5,
+     "reason": "the cutter's low hum",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.65
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.65
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.65
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.65
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.65
+    }
+   ]
+  },
+  {
+   "name": "P16 the foreman waves him off",
+   "at": 23,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     2999.6,
+     1.5,
+     16.2
+    ],
+    "look": [
+     2999.6,
+     1.5,
+     7.5
     ],
     "fov": 54,
     "to": {
      "pos": [
-      3000.9,
-      1.25,
-      14.2
+      2999.75,
+      1.4,
+      15.4
      ],
      "look": [
-      3000.8,
-      1.5,
-      8
+      2999.7,
+      1.45,
+      7.5
      ],
      "fov": 54
     },
-    "dur": 6.6,
+    "dur": 2.75,
     "ease": "inOut"
    },
    "do": [
@@ -836,57 +1686,64 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.5,
-      0.05
+      -0.4,
+      -0.1
      ],
-     "dur": 0.01,
+     "dur": 0.2,
      "blink": false,
-     "at": 0.05
+     "at": 0
     },
     {
-     "sfx": "kenney/space-engine-low",
-     "gain": 0.12,
-     "dur": 5.6,
-     "reason": "the cutter's low physical hum",
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3000.75,
+      9.6
+     ],
+     "dur": 0.6,
+     "steps": 2,
+     "ease": "out",
      "at": 0.1
     },
     {
-     "do": "prop",
-     "id": "cutter",
-     "set": {
-      "cut": 1
-     },
-     "dur": 0.1,
-     "ease": "linear",
+     "who": "crew",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
      "at": 0.2
-    },
-    {
-     "sfx": "scrape",
-     "gain": 0.22,
-     "dur": 4.6,
-     "reason": "the cutter grinds through the granite",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "stone",
-     "set": {
-      "cut": 1
-     },
-     "dur": 4.4,
-     "ease": "inOut",
-     "at": 0.3
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.5,
-      0.1
+      0.3,
+      0.05
      ],
-     "dur": 0.3,
+     "dur": 0.2,
      "blink": false,
-     "at": 2.2
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.6
     },
     {
      "macro": "say",
@@ -895,10 +1752,153 @@
      "tone": "dry",
      "dur": 2.85,
      "voice": "reaper",
-     "pos": 430,
-     "take": 2,
-     "at": 2.5
+     "caption": false,
+     "at": 0.6,
+     "take": 2
     },
+    {
+     "who": "fore",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.15,
+     "at": 0.7
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "wave",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.15
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3001.05,
+      10.6
+     ],
+     "dur": 0.5,
+     "steps": 2,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.45
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.45
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.45
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.45
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 2.45
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.8,
+     "reason": "granite settles",
+     "at": 2.65
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.5,
+     "reason": "the stone's knock (carries on a phone)",
+     "at": 2.65
+    }
+   ]
+  },
+  {
+   "name": "P16 b his doubt",
+   "at": 25.8,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     3001.4,
+     0.95,
+     13.2
+    ],
+    "look": [
+     3001.05,
+     0.75,
+     10.6
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      3001.3,
+      0.9,
+      12.6
+     ],
+     "look": [
+      3001.05,
+      0.75,
+      10.6
+     ],
+     "fov": 44
+    },
+    "dur": 1.75,
+    "ease": "inOut"
+   },
+   "do": [
     {
      "do": "prop",
      "id": "cutter",
@@ -907,13 +1907,44 @@
      },
      "dur": 0.15,
      "ease": "linear",
-     "at": 4.8
+     "at": 0
     },
     {
-     "sfx": "thud",
-     "gain": 0.85,
-     "reason": "the cut half settles 2 cm",
-     "at": 4.9
+     "who": "spud",
+     "do": "face",
+     "browL": 0.6,
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.45
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.45
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.45
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.45
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -926,7 +1957,7 @@
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
-     "at": 6.58
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -934,7 +1965,7 @@
      "to": 0,
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.58
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -943,7 +1974,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.58
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -952,7 +1983,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 6.58
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -963,7 +1994,7 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.58
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -973,7 +2004,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 6.58
+     "at": 1.78
     },
     {
      "who": "spud",
@@ -987,26 +2018,41 @@
      "yaw": -90,
      "sit": true,
      "dur": 0,
-     "at": 6.59
+     "at": 1.79
     }
    ]
   },
   {
-   "name": "P17 80 tonnes over the Nile",
+   "name": "P17 80 tonnes overhead",
    "at": 27.6,
-   "len": 6.2,
+   "len": 2.1,
    "shot": {
     "pos": [
-     4000.3,
-     1.25,
-     6.8
-    ],
-    "look": [
-     3999.8,
-     2.9,
+     4002.5,
+     0.5,
      -6
     ],
-    "fov": 60
+    "look": [
+     3992,
+     8.5,
+     -20
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      4002.5,
+      0.5,
+      -6
+     ],
+     "look": [
+      3994.5,
+      8.4,
+      -20
+     ],
+     "fov": 58
+    },
+    "dur": 2.05,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -1030,14 +2076,10 @@
      "at": 0
     },
     {
-     "who": "fishA",
-     "do": "look",
-     "to": [
-      -0.3,
-      1
-     ],
-     "dur": 0.3,
-     "blink": false,
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 15.9,
+     "reason": "the cargo ship's low hum overhead",
      "at": 0
     },
     {
@@ -1048,22 +2090,45 @@
      "at": 0
     },
     {
-     "sfx": "kenney/space-engine-low",
-     "gain": 0.08,
-     "dur": 15.9,
-     "reason": "the cargo ship's low hum overhead",
-     "at": 0
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.75
     },
     {
-     "who": "spud",
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.75
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.75
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.75
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 1.75
+    },
+    {
+     "who": "fishA",
      "do": "look",
      "to": [
-      -0.2,
-      0.8
+      -0.3,
+      1
      ],
-     "dur": 0.3,
+     "dur": 0.01,
      "blink": false,
-     "at": 0.1
+     "at": 2.08
     },
     {
      "who": "fishB",
@@ -1072,34 +2137,96 @@
       -0.1,
       1
      ],
-     "dur": 0.3,
+     "dur": 0.01,
      "blink": false,
-     "at": 0.15
+     "at": 2.08
     },
     {
      "who": "fishA",
      "do": "expr",
      "expr": "shocked",
-     "dur": 0.2,
-     "at": 0.4
-    },
-    {
-     "who": "fishB",
-     "do": "expr",
-     "expr": "terrified",
-     "dur": 0.2,
-     "at": 0.55
+     "dur": 0.01,
+     "at": 2.08
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.5,
+      -0.2,
+      0.9
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 2.08
+    }
+   ]
+  },
+  {
+   "name": "P17 b the boat",
+   "at": 29.7,
+   "len": 4.1,
+   "shot": {
+    "pos": [
+     4000.3,
+     1.25,
+     6.8
+    ],
+    "look": [
+     3999.8,
+     2.9,
+     -6
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      4000.2,
+      1.2,
+      6
+     ],
+     "look": [
+      3999.8,
+      2.7,
+      -6
+     ],
+     "fov": 60
+    },
+    "dur": 4.05,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "fishB",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
       0.1
      ],
-     "dur": 0.3,
+     "dur": 0.2,
      "blink": false,
-     "at": 2
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0.3
     },
     {
      "macro": "say",
@@ -1108,16 +2235,72 @@
      "tone": "dry",
      "dur": 1.21,
      "voice": "reaper",
-     "pos": 430,
-     "take": 2,
-     "at": 2.4
+     "caption": false,
+     "at": 0.5,
+     "take": 2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "fishA",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "macro": "shrug",
+     "hold": 0.6,
+     "at": 2.7
     },
     {
      "sfx": "ai/car-waves",
      "gain": 0.16,
      "dur": 6,
      "reason": "the Nile lapping at the reed boat",
-     "at": 5.6
+     "at": 3.5
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.75
+    },
+    {
+     "who": "fishA",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.75
+    },
+    {
+     "who": "fishB",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.75
+    },
+    {
+     "who": "fore",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.75
+    },
+    {
+     "who": "crew",
+     "do": "noblink",
+     "dur": 0.33,
+     "at": 3.75
     },
     {
      "who": "spud",
@@ -1128,21 +2311,21 @@
      ],
      "dur": 0.01,
      "blink": false,
-     "at": 6.18
+     "at": 4.08
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "deadpan",
      "dur": 0.01,
-     "at": 6.18
+     "at": 4.08
     },
     {
      "who": "spud",
      "do": "face",
      "lid": 0.3,
      "dur": 0.01,
-     "at": 6.18
+     "at": 4.08
     }
    ]
   },
@@ -1154,14 +2337,29 @@
     "pos": [
      3999.05,
      1,
-     3.6
+     3.9
     ],
     "look": [
      3998.9,
      1.5,
      0
     ],
-    "fov": 42
+    "fov": 42,
+    "to": {
+     "pos": [
+      3999.05,
+      1,
+      3.3
+     ],
+     "look": [
+      3998.9,
+      1.45,
+      0
+     ],
+     "fov": 42
+    },
+    "dur": 10.15,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -1188,11 +2386,47 @@
      "macro": "say",
      "who": "spud",
      "line": "Aliens? Type one. Humans? Type two.",
-     "tone": "dry",
-     "dur": 4.77,
+     "tone": "question",
+     "dur": 4.09,
      "voice": "reaper",
-     "pos": 430,
+     "caption": false,
      "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 4.9
     },
     {
      "sfx": "ai/car-waves",
@@ -1208,22 +2442,37 @@
      "tone": "dry",
      "dur": 0.71,
      "voice": "reaper",
-     "pos": 430,
-     "at": 6.27
+     "caption": false,
+     "at": 5.59
     },
     {
      "who": "spud",
      "do": "face",
      "browL": 0.6,
      "dur": 0.3,
-     "at": 7.58
+     "at": 6.8
     },
     {
      "who": "spud",
-     "do": "still",
-     "dur": 2.52,
-     "idle": 0.2,
-     "at": 7.58
+     "do": "look",
+     "to": [
+      -0.7,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 7.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 8.7
     }
    ],
    "kind": "payoff"
@@ -1232,60 +2481,92 @@
  "visible": [
   {
    "from": 0.2,
-   "to": 4.4,
+   "to": 2.9,
    "see": [
     "spud",
     "gal"
    ],
-   "why": "P13: he climbs the ramp up the gallery, only his headlamp lights it"
+   "why": "P13: up the gallery; he slips back a step on the slope"
   },
   {
-   "from": 4.6,
-   "to": 11.6,
+   "from": 3,
+   "to": 6,
    "see": [
-    "spud",
-    "kc"
+    "kc",
+    "spud"
    ],
-   "why": "P14: the room of granite, the nine beams overhead"
+   "why": "P14: the granite ceiling first, then he walks in under it"
   },
   {
-   "from": 11.6,
-   "to": 15.65,
+   "from": 6,
+   "to": 9,
    "see": [
     "spud.face",
     "kc"
    ],
-   "why": "P15: his palm flat on the granite wall"
+   "why": "P14 b: he looks up at the beams; 80 t counts up"
   },
   {
-   "from": 15.65,
+   "from": 9,
+   "to": 11.6,
+   "see": [
+    "spud.face",
+    "kc"
+   ],
+   "why": "P14 c: nine beams over him; he steps out from under the cracked one"
+  },
+  {
+   "from": 12.4,
+   "to": 15.1,
+   "see": [
+    "spud.face"
+   ],
+   "why": "P15: his palm on the granite, the reveal to us"
+  },
+  {
+   "from": 15.1,
    "to": 21,
    "see": [
     "map"
    ],
-   "why": "P15 b: the route on the map, Giza to Aswan"
+   "why": "P15 b: the route on the map, Giza to Aswan, 800 km counting"
   },
   {
-   "from": 21,
-   "to": 27.6,
+   "from": 23,
+   "to": 25.8,
    "see": [
     "spud.face",
-    "cutter",
-    "stone",
-    "fore"
+    "fore.face",
+    "cutter"
    ],
-   "why": "P16: the alien cutter slices the beam dead straight, he watches, then tells us"
+   "why": "P16: the foreman waves him off the cut"
+  },
+  {
+   "from": 25.8,
+   "to": 27.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "P16 b: his doubt, brow up"
   },
   {
    "from": 27.6,
+   "to": 29.7,
+   "see": [
+    "span",
+    "cargo"
+   ],
+   "why": "P17: 80 tonnes of granite going over"
+  },
+  {
+   "from": 29.7,
    "to": 33.8,
    "see": [
     "fishA.face",
     "fishB.face",
-    "span",
-    "cargo"
+    "spud.face"
    ],
-   "why": "P17: two fishermen stare up at the granite going by"
+   "why": "P17 b: the fishermen stare up, he says it"
   },
   {
    "from": 33.8,
@@ -1293,10 +2574,17 @@
    "see": [
     "spud.face"
    ],
-   "why": "P18: close on him, the ask, then he waits"
+   "why": "P18: the ask, one finger, two fingers, then he waits"
   }
  ],
  "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 44,
+   "reason": "the headlamp band is worn on his head"
+  },
   {
    "who": "spud-lamp",
    "from": 0,
@@ -1394,7 +2682,7 @@
    "who": "spud",
    "with": "kc",
    "from": 11.6,
-   "to": 15.65,
+   "to": 15.1,
    "checks": [
     "reach",
     "hand-in-prop",
@@ -1416,5 +2704,5 @@
    "reason": "the foreman's palm on the cutter's control slab (his cuff touches it)"
   }
  ],
- "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-b/make-block-b.mjs (block B of four; music false; kit: ../../kit)."
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-b/make-block-b.mjs (block B of four, v2 by kit/BLOCKS.md How we explain; music = the pilot score's slice)."
 }

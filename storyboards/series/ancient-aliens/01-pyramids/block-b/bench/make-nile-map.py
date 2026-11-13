@@ -70,7 +70,7 @@ def label(x, y, s, f, fill="#2b2118"):
 label(gx - 60 * K, gy + 75 * K, "GIZA", F)
 label(ax - 30 * K, ay + 80 * K, "ASWAN", F)
 mx, my = P(28.25, 31.85)
-label(mx, my, "800 km", F2, "#b3261e")
+# (v2: the km count on screen replaces the "800 km" label)
 # a faint vignette, like an old sheet
 v = Image.new("L", (W, H), 0); vd = ImageDraw.Draw(v)
 vd.rectangle([60 * K, 60 * K, W - 60 * K, H - 60 * K], fill=255)
