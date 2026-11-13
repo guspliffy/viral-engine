@@ -146,7 +146,7 @@ function build() {
     `Grip sizes exist for (grips.mjs SIZE; a new held prop needs its entry): ${keysOf("storyboards/lib/grips.mjs", /\nconst SIZE = \{/).join(", ")}.`,
   ].join("\n\n"));
   sec("Prop kinds", "engine/page/props*.js", propKinds().map(([f, k]) => `- \`${f}\`: ${k.join(", ")}`).join("\n"));
-  sec("Checks", "qa/gate.mjs GATE", `Stop a render: ${list("fails").join(", ")}.\n\nVisible glitches (may not ship as warnings): ${list("visible").join(", ")}.\n\nA window: \`{ "who": id, "with": id, "from": s, "to": s, "checks": ["<check>"], "reason": "..." }\` in \`allowClip\`, on the story's clock; only the director writes one (\`docs/rules/workflow.md\` "Check windows"). \`node qa/waivers.mjs <sb>\` counts them.`);
+  sec("Checks", "qa/gate.mjs GATE", `Stop a render: ${list("fails").join(", ")}.\n\nVisible glitches (may not ship as warnings): ${list("visible").join(", ")}.\n\nA window: \`{ "who": id, "with": id, "from": s, "to": s, "checks": ["<check>"], "reason": "..." }\` in \`allowClip\`, on the video clock (story time plus hit-stops, freezes and ramps; at \`"gate": 2\` the story's clock, qa/gate.mjs windowFor); only the director writes one (\`docs/rules/workflow.md\` "Check windows"). \`node qa/waivers.mjs <sb>\` counts them.`);
   L.push("", "## Where to read more", "", "`docs/STORYBOARD.md` by heading and line: " + heads.join(" · ") + ".", "");
   return L.join("\n");
 }
