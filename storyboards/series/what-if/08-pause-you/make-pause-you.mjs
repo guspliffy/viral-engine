@@ -41,7 +41,7 @@ const TRAY = { k: 1.2, x: 0.1, z: -0.5, y: TABLE.h };   // scale 1.2 (0.43 acros
 const PLATE_ON_TRAY = [r3(TRAY.x - 0.09), r3(TABLE.h + 0.012), r3(TRAY.z - 0.07)], PLATE_K = 0.7;
 const PLATE_OFF = [0.06, TABLE.h, -0.28];                            // where Reaper slides the plate (20 s): the front middle, in reach of both
 const COOKIE_ON = (p) => [p[0], r3(p[1] + 0.02 + 0.013), p[2]];
-const CUSH_AT = [r3(REA_SEAT[0] - ax[0] * 0.45), 0.6, r3(REA_SEAT[1] - ax[1] * 0.45 + 0.06)];   // the cushion on the seat at his right
+const CUSH_AT = [r3(REA_SEAT[0] - ax[0] * 0.45), 0.54, r3(REA_SEAT[1] - ax[1] * 0.45 + 0.06)];   // the cushion on the seat at his right
 const WIN = [-1.95, -1.08];
 
 // the remote in the Wizard's right glove, its lens (REMOTE.tip, 0.282 ahead of the fist) aimed at Reaper's chest
@@ -115,7 +115,7 @@ const PAUSES = [];
 A(0, "rea", "sit", { seat: "sofaR", dur: 0.01, hands: "keep", along: ALONG });
 A(0, "wiz", "sit", { seat: "chair", dur: 0.01, hands: "keep" });
 const COOKIE0 = COOKIE_ON(PLATE_ON_TRAY);
-const REACH = { world: [r3(COOKIE0[0] - 0.05), r3(COOKIE0[1] + 0.04), r3(COOKIE0[2] - 0.02)] };   // fingers ~3 cm short of it
+const REACH = { world: [r3(COOKIE0[0] - 0.2), r3(COOKIE0[1] + 0.12), r3(COOKIE0[2] + 0.02)] };   // a few cm short of it, above the plate
 A(0, "rea", "turn", { to: 45, dur: 0.01 });
 if (O) { c.arm(0, "rea", "R", "lap", 0); c.arm(0.2, "rea", "R", REACH, r3(O + 0.2), "inOut"); }
 else c.arm(0, "rea", "R", REACH, 0);
@@ -136,8 +136,9 @@ PAUSES.push({ from: HIT1, to: T(3.4), keep: ["wiz"], world: false, look: "frozen
 const COOKIE_UP = [0.78, 1.05, -0.25];   // in front of his left shoulder: beside his face on screen, clear of his body
 look(T(1.1), "wiz", [-0.5, -0.45], 0.2);
 // the cookie is moved by its own tweens while he has it, his glove posed on it (physics let it bounce off the cushion)
-const onK = { prop: "cookie", grip: [0.09, 0, 0], palm: true };
-c.arm(T(1.25), "wiz", "L", onK, 0.55, "inOut"); A(T(1.7), "wiz", "grip", { side: "L", shape: "hold", dur: 0.1 });
+const onK = { prop: "cookie", grip: [0.07, 0.08, 0], palm: true };   // the glove on top of its rim, not sunk in it
+c.arm(T(1.25), "wiz", "L", { ...onK, off: [0.03, 0.08, 0.02] }, 0.45, "inOut");   // over it first, then down onto it
+c.arm(T(1.7), "wiz", "L", onK, 0.14, "out"); A(T(1.74), "wiz", "grip", { side: "L", shape: "hold", dur: 0.1 });
 c.prop(T(1.85), "cookie", { y: r3(COOKIE0[1] + 0.06) }, 0.15, "out");
 c.prop(T(2.0), "cookie", { x: r3(COOKIE_UP[0] - 0.09), y: COOKIE_UP[1], z: COOKIE_UP[2] }, 0.5, "inOut");
 look(T(2.3), "wiz", [-0.85, 0.05], 0.2); expr(T(2.3), "wiz", "smug", { curve: 0.7, eye: 0.6 }, 0.2);
@@ -174,7 +175,10 @@ c.prop(T(7.54), "cush", { x: CUSH_REL[0], y: CUSH_REL[1], z: CUSH_REL[2] }, r3(T
 c.prop(THROW, "cush", { x: CUSH_MID[0], y: CUSH_MID[1], z: CUSH_MID[2] }, r3((HIT_W - THROW) / 2), "linear");
 c.prop(r3(THROW + (HIT_W - THROW) / 2), "cush", { x: CUSH_HIT[0], y: CUSH_HIT[1], z: CUSH_HIT[2] }, r3((HIT_W - THROW) / 2), "in");
 A(THROW, "rea", "grip", { side: "R", shape: "open", dur: 0.06 });
-c.arm(THROW, "rea", "R", { world: [0.12, 0.95, -0.5] }, 0.15, "out");   // the follow-through, frozen there at F2
+// in the swing the glove leads the cushion as a world point (aimed at the flying cushion it flipped at the release)
+c.arm(T(7.42), "rea", "R", { world: [r3(SWING[0] - 0.1), SWING[1], r3(SWING[2] - 0.04)] }, 0.12, "in");
+c.arm(T(7.54), "rea", "R", { world: [r3(CUSH_REL[0] - 0.1), CUSH_REL[1], r3(CUSH_REL[2] - 0.04)] }, r3(THROW - T(7.54)), "linear");
+c.arm(THROW, "rea", "R", { world: [0.0, 0.8, -0.36] }, 0.3, "out");   // the follow-through, frozen there at F2   // the follow-through, frozen there at F2
 // he freezes Reaper in the follow-through, clearly after the release
 const F2 = T(7.85);
 look(T(7.5), "wiz", [-0.85, 0.0], 0.1); expr(T(7.5), "wiz", "shocked", { eye: 1.2 }, 0.1);
@@ -191,15 +195,15 @@ c.prop(r3(HIT_W + 0.21), "cookie", { x: COOKIE0[0], y: COOKIE0[1], z: COOKIE0[2]
 c.prop(r3(HIT_W + 0.48), "cookie", { squash: 0.05 }, 0.05, "out"); c.prop(r3(HIT_W + 0.53), "cookie", { squash: 0 }, 0.15, "settle");
 sfx(r3(HIT_W + 0.48), "tink", { gain: 0.3 });   // the cookie on the plate (T3: a small ceramic tap)
 // his free glove catches the cushion on his face (the cookie has just left it) and holds it there a beat
-c.arm(r3(HIT_W + 0.05), "wiz", "L", { world: [r3(CUSH_HIT[0] + 0.04), CUSH_HIT[1], r3(CUSH_HIT[2] + 0.08)] }, 0.12, "out");
-A(r3(HIT_W + 0.22), "wiz", "grab", { prop: "cush", hand: "L", dur: 0, pose: null, keep: true });
+c.arm(r3(HIT_W + 0.03), "wiz", "L", { world: [r3(CUSH_HIT[0] + 0.04), CUSH_HIT[1], r3(CUSH_HIT[2] + 0.08)] }, 0.12, "out");
+A(r3(HIT_W + 0.13), "wiz", "grab", { prop: "cush", hand: "L", dur: 0, pose: null, keep: true });
 expr(T(9.6), "wiz", "annoyed", { eye: 0.85 }, 0.3); look(T(9.6), "wiz", [-0.4, -0.45], 0.25);   // the cookie, back on its plate
 see(T(7.5), T(10.0), ["wiz.face", "cush", "cookie"], "the cushion keeps flying through the freeze and knocks the cookie home");
 // 10.2 he pulls it down off his face (annoyed), 12.6 drops it on the floor beside his chair
 c.arm(T(10.2), "wiz", "L", { world: [0.5, 0.66, -0.3] }, 0.5, "inOut");
-c.arm(T(12.6), "wiz", "L", { world: [1.25, 0.42, 0.08] }, 0.5, "inOut");   // down beside the chair (a thrown cushion bounced back onto the table)
+c.arm(T(12.55), "wiz", "L", { world: [1.25, 0.42, 0.08] }, 0.6, "inOut");   // down beside the chair (a thrown cushion bounced back onto the table)
 A(T(13.15), "wiz", "release", { prop: "cush", dur: 0 });   // it drops the last bit to the floor
-c.arm(T(13.25), "wiz", "L", "lap", 0.4, "inOut");
+c.arm(T(13.25), "wiz", "L", "lap", 0.55, "inOut");
 look(T(13.6), "wiz", [-0.85, 0.0], 0.2); expr(T(13.6), "wiz", "stern", { eye: 0.85 }, 0.2);   // now it's a contest
 
 // ---------------------------------------------------------------- 15-20 THE OBSERVATION (panels 09-10)
@@ -215,7 +219,7 @@ see(T(16.0), T(18.6), ["tray", "rea.face"], "Reaper sees the Wizard in the tray"
 // ---------------------------------------------------------------- 20-26 THE REVERSAL (panels 11-13)
 // he turns to the table (the reaches stay on their own side of his body) and slides the plate off the tray
 A(T(19.3), "rea", "turn", { to: 60, dur: 0.35 });
-const PL = (p, dy = 0.05, dz = 0.1) => ({ world: [r3(p[0] - 0.03), r3(TABLE.h + dy), r3(p[2] + dz)] });
+const PL = (p, dy = 0.085, dz = 0.1) => ({ world: [r3(p[0] - 0.03), r3(TABLE.h + dy), r3(p[2] + dz)] });
 c.arm(T(19.6), "rea", "R", PL(PLATE_ON_TRAY), 0.4, "inOut");
 A(T(20.0), "rea", "grab", { prop: "plate", hand: "R", grip: [0, 0.01, 0.1], dur: 0.1, pose: null });
 A(T(20.05), "rea", "grab", { prop: "cookie", hand: "R", grip: [0, 0.03, 0.1], dur: 0.1, pose: null });
@@ -226,21 +230,24 @@ c.arm(T(20.75), "rea", "R", "lap", 0.35, "inOut");
 // he takes the tray by its far handle and draws it to his edge of the table, then the near handle too. The tray moves
 // by its own tweens (it is not grabbed); the gloves are posed on its handles, which the arm poses follow every frame
 const HL = [-0.218, 0.012, 0], HR = [0.218, 0.012, 0];   // props-tray.js TRAY_GRIPS.silvertray (rot SHROT: HL near the camera)
-const onH = (g) => ({ prop: "tray", grip: g, palm: true });
+const RIM = { prop: "tray", grip: [0, -0.03, 0.2], palm: true };   // stood up: the rim's bottom, from behind
+const onH = (g, up = 0.035) => ({ prop: "tray", grip: [g[0], r3(g[1] + up), g[2]], palm: true });   // up: along the mirror normal (flat: above; stood up: -0.03 = behind it)
 const PULL = [-0.06, TABLE.h, -0.56];
-c.arm(T(20.9), "rea", "L", onH(HR), 0.35, "inOut"); A(T(21.2), "rea", "grip", { side: "L", shape: "hold", dur: 0.08 });
+c.arm(T(20.9), "rea", "L", { prop: "tray", grip: [HR[0], 0.1, HR[2]] }, 0.28, "inOut"); c.arm(T(21.06), "rea", "L", onH(HR), 0.2, "out");   // over it, then the palm onto it A(T(21.2), "rea", "grip", { side: "L", shape: "hold", dur: 0.08 });
 c.prop(T(21.3), "tray", { x: PULL[0], z: PULL[2] }, 0.4, "inOut");
 sfx(T(21.3), "ai/cookie-scrape", { gain: 0.15 });   // metal over wood (a real scrape)
-c.arm(T(21.75), "rea", "R", onH(HL), 0.3, "inOut"); A(T(22.0), "rea", "grip", { side: "R", shape: "hold", dur: 0.08 });
-c.prop(T(22.15), "tray", { y: 0.55 }, 0.3, "inOut");   // lifted, held low and flat: ready
+c.prop(T(21.72), "tray", { y: 0.55 }, 0.3, "inOut");   // lifted, held low and flat: ready
+c.arm(T(21.8), "rea", "R", { prop: "tray", grip: [HL[0], 0.12, HL[2]] }, 0.22, "inOut"); c.arm(T(21.98), "rea", "R", onH(HL), 0.14, "out"); A(T(22.1), "rea", "grip", { side: "R", shape: "hold", dur: 0.08 });
+// (lifted by the far handle before the near glove comes: a glove closing on a handle that lies on the table goes into it)
 // departure: he leans in on the sofa's edge instead of standing and stepping over (no room between sofa, table and chair
 // in a 9:16 two-shot: standing put him in the sofa and the chair)
 A(T(21.7), "rea", "lean", { to: 0.22, dur: 0.4 });
 look(T(22.2), "rea", [0.6, 0.05], 0.2);
 look(T(22.9), "wiz", [-0.6, 0.0], 0.15); expr(T(23.0), "wiz", "cocky", { eye: 0.8 }, 0.15);
 // he swings the tray up on its rim across the ray's line just in time; the ray bounces back onto the Wizard
-const SHIELD = T(23.7), F3 = T(23.9);
-c.prop(SHIELD, "tray", { x: SH[0], y: SH[1], z: SH[2], tip: SHTIP }, 0.18, "out");
+const SHIELD = T(23.6), F3 = T(23.9);
+c.prop(SHIELD, "tray", { x: SH[0], y: SH[1], z: SH[2], tip: SHTIP }, 0.3, "inOut");   // a swing over 9 frames: faster jumped the gloves
+c.arm(SHIELD, "rea", "R", RIM, 0.3, "inOut"); A(r3(SHIELD - 0.05), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.1 }); c.arm(r3(SHIELD - 0.02), "rea", "L", "lap", 0.5, "inOut");
 A(r3(F3 - 0.05), "wiz", "grip", { side: "R", shape: "press", dur: 0.05 }); click(F3);
 press(F3); ray(F3, TIP, surf(BOUNCE, WIZ_CHEST, 0.12), { via: BOUNCE, grow: 0.2 });
 const HIT3 = r3(F3 + 0.2);
@@ -251,15 +258,16 @@ see(T(23.6), T(25.5), ["wiz.face", "tray", "remote"], "remote, tray and the retu
 
 // ---------------------------------------------------------------- 26-32 THE CHOICE (panel 14)
 // he lowers the tray back onto the table, sees the frozen face
-const TRAY_DOWN = [-0.04, TABLE.h, -0.54];
-c.prop(T(25.4), "tray", { x: TRAY_DOWN[0], y: TRAY_DOWN[1], z: TRAY_DOWN[2], tip: 0 }, 0.45, "inOut");
+const TRAY_DOWN = [-0.07, TABLE.h, -0.54], DOWNROT = 21;   // turned so the near handle sticks out past the table's left edge (a glove can close on it)
+c.prop(T(25.4), "tray", { x: TRAY_DOWN[0], y: TRAY_DOWN[1], z: TRAY_DOWN[2], tip: 0, rot: DOWNROT }, 0.45, "inOut");
+c.arm(T(25.4), "rea", "R", onH(HL, 0.08), 0.45, "inOut"); // one hand sets it down
 sfx(T(25.85), "tink", { gain: 0.15 });   // the tray set down (sound pick: a soft metal-on-wood set-down)
 A(T(25.9), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.15 }); A(T(25.9), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.15 });
-c.arm(T(25.95), "rea", "R", "rest", 0.35, "inOut"); c.arm(T(25.95), "rea", "L", "rest", 0.35, "inOut");
+c.arm(T(25.95), "rea", "R", "lap", 0.5, "inOut");
 A(T(26.0), "rea", "turn", { to: 45, dur: 0.4 });
 look(T(26.0), "rea", [0.5, 0.05], 0.2); expr(T(26.2), "rea", "smug", { curve: 0.3, eye: 0.85 }, 0.2);
-c.arm(T(27.0), "rea", "R", { world: [r3(PLATE_OFF[0] - 0.08), r3(TABLE.h + 0.05), PLATE_OFF[2]] }, 0.45, "inOut");
-A(T(27.5), "rea", "grab", { prop: "cookie", hand: "R", grip: [-0.09, 0, 0], dur: 0.1, pose: null });
+c.arm(T(27.0), "rea", "R", { world: [r3(PLATE_OFF[0] - 0.08), r3(TABLE.h + 0.12), PLATE_OFF[2]] }, 0.45, "inOut");
+A(T(27.5), "rea", "grab", { prop: "cookie", hand: "R", grip: [-0.12, 0, 0], dur: 0.1, pose: null });
 const MOUTH = { world: [-0.04, 0.84, -0.44] };   // in front of his mouth (layout: -0.19, 0.93, -0.66), toward the Wizard
 c.arm(T(27.7), "rea", "R", MOUTH, 0.5, "inOut");   // toward his mouth
 look(T(28.0), "rea", [0.0, -0.3], 0.2);
@@ -273,53 +281,55 @@ const SNAP = T(32.6);
 c.arm(T(32.0), "rea", "L", { world: [-0.02, 0.9, -0.6] }, 0.35, "inOut");
 A(T(32.3), "rea", "grip", { side: "L", shape: "pinch", dur: 0.08 });
 A(r3(SNAP - 0.02), "rea", "release", { prop: "cookie", to: [0, -5, 0], dur: 0 });   // gone: it becomes the two halves
-A(SNAP, "rea", "grab", { prop: "halfR", hand: "R", grip: [-0.05, 0, 0], dur: 0, pose: null });
-A(SNAP, "rea", "grab", { prop: "halfL", hand: "L", grip: [-0.05, 0, 0], dur: 0, pose: null });
+A(SNAP, "rea", "grab", { prop: "halfR", hand: "R", grip: [-0.075, 0, 0], dur: 0, pose: null });
+A(SNAP, "rea", "grab", { prop: "halfL", hand: "L", grip: [-0.075, 0, 0], dur: 0, pose: null });
 c.arm(SNAP, "rea", "R", { o: [0.12, 0.6, 0.24] }, 0.12, "out"); c.arm(SNAP, "rea", "L", { o: [0.12, 0.6, 0.24] }, 0.12, "out");   // the halves part
 sfx(SNAP, "ai/crunch", { gain: 0.3 });   // the snap (sound pick: a real dry biscuit crack)
 // the Wizard's half onto the plate (left glove), his own onto the table's front corner (right glove)
 A(T(32.8), "rea", "turn", { to: 35, dur: 0.3 });
-c.arm(T(33.1), "rea", "L", { world: [r3(PLATE_OFF[0] - 0.02), r3(TABLE.h + 0.07), PLATE_OFF[2]] }, 0.5, "inOut");
-A(T(33.65), "rea", "release", { prop: "halfL", to: COOKIE_ON(PLATE_OFF), dur: 0.12 });
+c.arm(T(33.1), "rea", "L", { world: [r3(PLATE_OFF[0] - 0.02), r3(TABLE.h + 0.14), PLATE_OFF[2]] }, 0.5, "inOut");
+A(T(33.65), "rea", "release", { prop: "halfL", dur: 0 });   // set down, then let go
 sfx(T(33.77), "tink", { gain: 0.25 });
-const MYHALF = [-0.17, r3(TABLE.h + 0.013), -0.25];
-c.arm(T(33.1), "rea", "R", { world: [MYHALF[0], r3(TABLE.h + 0.06), MYHALF[2]] }, 0.5, "inOut");
-A(T(33.65), "rea", "release", { prop: "halfR", to: MYHALF, dur: 0.12 });
-c.arm(T(33.8), "rea", "L", "lap", 0.35, "inOut");
+const MYHALF = [-0.12, r3(TABLE.h + 0.013), -0.3];
+c.arm(T(33.1), "rea", "R", { world: [MYHALF[0], r3(TABLE.h + 0.12), MYHALF[2]] }, 0.5, "inOut");
+A(T(33.65), "rea", "release", { prop: "halfR", dur: 0 });
+c.arm(T(33.7), "rea", "L", "rest", 0.55, "inOut"); c.arm(T(33.7), "rea", "R", { world: [r3(MYHALF[0] - 0.05), r3(TABLE.h + 0.2), r3(MYHALF[2] + 0.04)] }, 0.25, "out");
 // the tray back up to the same angle by its near handle (right glove); the left presses the button in the Wizard's
 // frozen glove, and the same ray comes back off the same mirror onto him
-c.arm(T(34.0), "rea", "R", onH(HL), 0.35, "inOut"); A(T(34.3), "rea", "grip", { side: "R", shape: "hold", dur: 0.08 });
-c.prop(T(34.45), "tray", { x: SH[0], y: SH[1], z: SH[2], tip: SHTIP }, 0.5, "inOut");
+c.arm(T(33.95), "rea", "R", { prop: "tray", grip: [HL[0], 0.14, HL[2]] }, 0.25, "inOut"); c.arm(T(34.17), "rea", "R", onH(HL, 0.08), 0.14, "out"); A(T(34.3), "rea", "grip", { side: "R", shape: "hold", dur: 0.08 });
+c.prop(T(34.45), "tray", { x: SH[0], y: SH[1], z: SH[2], tip: SHTIP, rot: SHROT }, 0.5, "inOut"); c.arm(T(34.45), "rea", "R", RIM, 0.5, "inOut");
 A(T(34.5), "rea", "lean", { to: 0.28, dur: 0.5 });
 const BTN = [r3(REM[0] - Math.sin(REM_ROT * Math.PI / 180) * 0.165), r3(REM[1] + 0.03), r3(REM[2] - Math.cos(REM_ROT * Math.PI / 180) * 0.165)];   // REMOTE.button
-c.arm(T(35.6), "rea", "L", { world: [BTN[0], r3(BTN[1] + 0.05), BTN[2]] }, 0.5, "inOut");
+const ROUND = [-0.03, 0.9, -1.06];   // round the tray's back edge (behind its far handle), clear of the mirror
+c.arm(T(35.4), "rea", "L", { world: ROUND }, 0.4, "inOut");
+c.arm(T(35.85), "rea", "L", { world: [BTN[0], r3(BTN[1] + 0.06), BTN[2]] }, 0.35, "inOut");
 A(T(36.0), "rea", "grip", { side: "L", shape: "point", dur: 0.12 });
 c.arm(T(36.75), "rea", "L", { world: [BTN[0], r3(BTN[1] + 0.012), BTN[2]] }, 0.1, "in");
 const F4 = T(36.9); click(F4);
 press(F4); ray(F4, TIP, surf(BOUNCE, WIZ_CHEST, 0.12), { via: BOUNCE, grow: 0.2 });
-c.arm(T(37.25), "rea", "L", "lap", 0.4, "inOut"); A(T(37.3), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+c.arm(T(37.2), "rea", "L", { world: ROUND }, 0.3, "inOut"); c.arm(T(37.55), "rea", "L", "rest", 0.4, "inOut"); A(T(37.3), "rea", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
 A(T(37.3), "rea", "lean", { to: 0.15, dur: 0.5 });
 expr(T(37.45), "wiz", "shocked", { eye: 1.1 }, 0.15);
 look(T(37.9), "wiz", [-0.4, -0.45], 0.2);   // the half-cookie on the plate
 look(T(38.8), "wiz", [-0.8, 0.05], 0.2); expr(T(38.9), "wiz", "kind", { eye: 0.9 }, 0.35);   // then Reaper: he softens
 
 // ---------------------------------------------------------------- 40-45 THE FINAL JOKE (panel 16)
-c.arm(T(40.4), "wiz", "R", { world: [TIP[0], r3(TIP[1] + 0.08), TIP[2]], palm: true }, 0.3, "inOut");   // one more trick?
+c.arm(T(40.4), "wiz", "R", { world: [r3(REM[0] - 0.03), r3(REM[1] + 0.1), r3(REM[2] + 0.03)] }, 0.35, "inOut");   // one more trick?
 expr(T(40.5), "wiz", "cocky", { eye: 0.75 }, 0.2);
 c.prop(T(41.2), "tray", { tip: r3(SHTIP - 14), rot: r3(SHROT + 8) }, 0.25, "inOut");   // a casual tilt: he sees himself
 expr(T(41.6), "wiz", "shocked", { eye: 1.15 }, 0.1);
-c.arm(T(42.0), "wiz", "R", "lap", 0.45, "inOut");
-c.prop(T(42.05), "tray", { x: TRAY_DOWN[0], y: TRAY_DOWN[1], z: TRAY_DOWN[2], tip: 0, rot: SHROT }, 0.4, "inOut");
+c.arm(T(42.0), "wiz", "R", { world: [r3(REM[0] + 0.05), 0.7, r3(REM[2] + 0.1)] }, 0.45, "inOut");   // lowered, still in hand
+c.prop(T(42.05), "tray", { x: TRAY_DOWN[0], y: TRAY_DOWN[1], z: TRAY_DOWN[2], tip: 0, rot: DOWNROT }, 0.4, "inOut"); c.arm(T(42.05), "rea", "R", onH(HL, 0.08), 0.4, "inOut");
 A(T(42.5), "rea", "grip", { side: "R", shape: "relaxed", dur: 0.1 });
 // both take their halves and tap them together, then eat
 A(T(42.2), "wiz", "turn", { to: -70, dur: 0.3 });
-c.arm(T(42.55), "rea", "R", { world: [MYHALF[0] + 0.05, r3(TABLE.h + 0.04), MYHALF[2]] }, 0.35, "inOut");
-A(T(42.95), "rea", "grab", { prop: "halfR", hand: "R", grip: [-0.05, 0, 0], dur: 0.08, pose: null });
-c.arm(T(42.4), "wiz", "L", { world: [r3(PLATE_OFF[0] + 0.05), r3(TABLE.h + 0.05), PLATE_OFF[2]] }, 0.4, "inOut");
-A(T(42.85), "wiz", "grab", { prop: "halfL", hand: "L", grip: [-0.05, 0, 0], dur: 0.08, pose: null });
+c.arm(T(42.55), "rea", "R", { world: [r3(MYHALF[0] - 0.05), r3(TABLE.h + 0.13), MYHALF[2]] }, 0.35, "inOut");
+A(T(42.95), "rea", "grab", { prop: "halfR", hand: "R", grip: [-0.075, 0, 0], dur: 0.08, pose: null });
+c.arm(T(42.4), "wiz", "L", { world: [r3(PLATE_OFF[0] + 0.05), r3(TABLE.h + 0.12), PLATE_OFF[2]] }, 0.4, "inOut");
+A(T(42.85), "wiz", "grab", { prop: "halfL", hand: "L", grip: [-0.075, 0, 0], dur: 0.08, pose: null });
 const TAP = [0.16, 0.95, -0.55];   // over the table's middle, between them
-c.arm(T(43.15), "rea", "R", { world: [r3(TAP[0] - 0.06), TAP[1], TAP[2]] }, 0.4, "inOut");
-c.arm(T(43.15), "wiz", "L", { world: [r3(TAP[0] + 0.06), TAP[1], TAP[2]] }, 0.4, "inOut");
+c.arm(T(43.15), "rea", "R", { world: [r3(TAP[0] - 0.11), TAP[1], TAP[2]] }, 0.4, "inOut");
+c.arm(T(43.15), "wiz", "L", { world: [r3(TAP[0] + 0.11), TAP[1], TAP[2]] }, 0.4, "inOut");
 sfx(T(43.6), "tink", { gain: 0.15 });   // the halves tap (sound pick: a soft biscuit knock)
 expr(T(43.0), "wiz", "happy", { curve: 0.7 }, 0.2); expr(T(43.0), "rea", "happy", { curve: 0.6 }, 0.2);
 c.arm(T(43.8), "rea", "R", MOUTH, 0.35, "inOut"); c.arm(T(43.8), "wiz", "L", { o: [0.02, 0.6, 0.22] }, 0.35, "inOut");
@@ -374,6 +384,7 @@ write(import.meta.url.replace("make-pause-you.mjs", OPEN === "B" ? "make-pause-y
   ...(!process.env.NOPAUSE && { pause: PAUSES }),
   cast, props: [...props, ...rays], captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
+    { who: "rea", with: "remote", from: T(35.95), to: T(37.35), reason: "his fingertip presses the button on the remote in the Wizard's frozen glove" },
     { who: "rea", with: "sofaR", from: 0, to: END, reason: "Reaper sits on the sofa" },
     { who: "wiz", with: "chair", from: 0, to: END, reason: "the Wizard sits in the armchair" },
     { who: "wiz", with: "remote", from: 0, to: END, reason: "the Wizard holds the remote" },

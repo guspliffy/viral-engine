@@ -254,7 +254,7 @@
    "id": "cush",
    "kind": "pillow",
    "x": -0.811,
-   "y": 0.6,
+   "y": 0.54,
    "z": -0.638,
    "scale": 0.9,
    "color": "#e9c46a",
@@ -718,9 +718,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.04,
-       0.505,
-       -0.59
+       -0.19,
+       0.585,
+       -0.55
       ]
      },
      "dur": 1.2,
@@ -811,15 +811,37 @@
      "pose": {
       "prop": "cookie",
       "grip": [
-       0.09,
-       0,
+       0.07,
+       0.08,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.03,
+       0.08,
+       0.02
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "wiz",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cookie",
+      "grip": [
+       0.07,
+       0.08,
        0
       ],
       "palm": true
      },
-     "dur": 0.55,
-     "ease": "inOut",
-     "at": 2.25
+     "dur": 0.14,
+     "ease": "out",
+     "at": 2.7
     },
     {
      "who": "wiz",
@@ -827,7 +849,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.1,
-     "at": 2.7
+     "at": 2.74
     },
     {
      "do": "prop",
@@ -944,9 +966,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.010000000000000002,
-       0.485,
-       -0.59
+       -0.16,
+       0.565,
+       -0.55
       ]
      },
      "dur": 0.2,
@@ -1208,6 +1230,21 @@
      "at": 0.42
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.45,
+       1,
+       -0.26
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 0.42
+    },
+    {
      "who": "wiz",
      "do": "look",
      "to": [
@@ -1241,6 +1278,21 @@
      "at": 0.54
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.02,
+       1.06,
+       -0.42
+      ]
+     },
+     "dur": 0.11,
+     "ease": "linear",
+     "at": 0.54
+    },
+    {
      "do": "prop",
      "id": "cush",
      "set": {
@@ -1266,12 +1318,12 @@
      "side": "R",
      "pose": {
       "world": [
-       0.12,
-       0.95,
-       -0.5
+       0,
+       0.8,
+       -0.36
       ]
      },
-     "dur": 0.15,
+     "dur": 0.3,
      "ease": "out",
      "at": 0.65
     },
@@ -1394,7 +1446,7 @@
      },
      "dur": 0.12,
      "ease": "out",
-     "at": 1.25
+     "at": 1.23
     },
     {
      "do": "prop",
@@ -1408,6 +1460,16 @@
      "at": 1.3
     },
     {
+     "who": "wiz",
+     "do": "grab",
+     "prop": "cush",
+     "hand": "L",
+     "dur": 0,
+     "pose": null,
+     "keep": true,
+     "at": 1.33
+    },
+    {
      "do": "prop",
      "id": "cookie",
      "set": {
@@ -1418,16 +1480,6 @@
      "dur": 0.27,
      "ease": "in",
      "at": 1.41
-    },
-    {
-     "who": "wiz",
-     "do": "grab",
-     "prop": "cush",
-     "hand": "L",
-     "dur": 0,
-     "pose": null,
-     "keep": true,
-     "at": 1.42
     },
     {
      "do": "prop",
@@ -1543,9 +1595,9 @@
        0.08
       ]
      },
-     "dur": 0.5,
+     "dur": 0.6,
      "ease": "inOut",
-     "at": 3.1
+     "at": 3.05
     },
     {
      "who": "wiz",
@@ -1559,7 +1611,7 @@
      "do": "arm",
      "side": "L",
      "pose": "lap",
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "inOut",
      "at": 3.75
     }
@@ -1790,7 +1842,7 @@
      "pose": {
       "world": [
        -0.02,
-       0.47,
+       0.505,
        -0.47
       ]
      },
@@ -1833,7 +1885,7 @@
      "pose": {
       "world": [
        0.03,
-       0.47,
+       0.505,
        -0.18
       ]
      },
@@ -1882,22 +1934,30 @@
       "prop": "tray",
       "grip": [
        0.218,
-       0.012,
+       0.1,
        0
-      ],
-      "palm": true
+      ]
      },
-     "dur": 0.35,
+     "dur": 0.28,
      "ease": "inOut",
      "at": 2.1
     },
     {
      "who": "rea",
-     "do": "grip",
+     "do": "arm",
      "side": "L",
-     "shape": "hold",
-     "dur": 0.08,
-     "at": 2.4
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       0.218,
+       0.047,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 2.26
     },
     {
      "do": "prop",
@@ -1923,31 +1983,6 @@
      "at": 2.9
     },
     {
-     "who": "rea",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "tray",
-      "grip": [
-       -0.218,
-       0.012,
-       0
-      ],
-      "palm": true
-     },
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 2.95
-    },
-    {
-     "who": "rea",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.08,
-     "at": 3.2
-    },
-    {
      "do": "prop",
      "id": "tray",
      "set": {
@@ -1955,7 +1990,48 @@
      },
      "dur": 0.3,
      "ease": "inOut",
-     "at": 3.35
+     "at": 2.92
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.218,
+       0.12,
+       0
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 3
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.218,
+       0.047,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 3.18
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.08,
+     "at": 3.3
     },
     {
      "who": "rea",
@@ -2010,6 +2086,23 @@
    },
    "do": [
     {
+     "who": "rea",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.1,
+     "at": 0.15
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.18
+    },
+    {
      "do": "prop",
      "id": "tray",
      "set": {
@@ -2018,9 +2111,26 @@
       "z": -0.671,
       "tip": 91.78
      },
-     "dur": 0.18,
-     "ease": "out",
-     "at": 0.3
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       0,
+       -0.03,
+       0.2
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -2155,10 +2265,28 @@
      "do": "prop",
      "id": "tray",
      "set": {
-      "x": -0.04,
+      "x": -0.07,
       "y": 0.42,
       "z": -0.54,
-      "tip": 0
+      "tip": 0,
+      "rot": 21
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.218,
+       0.092,
+       0
+      ],
+      "palm": true
      },
      "dur": 0.45,
      "ease": "inOut",
@@ -2189,17 +2317,8 @@
      "who": "rea",
      "do": "arm",
      "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 1.35
-    },
-    {
-     "who": "rea",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
+     "pose": "lap",
+     "dur": 0.5,
      "ease": "inOut",
      "at": 1.35
     },
@@ -2260,7 +2379,7 @@
      "pose": {
       "world": [
        -0.02,
-       0.47,
+       0.54,
        -0.28
       ]
      },
@@ -2274,7 +2393,7 @@
      "prop": "cookie",
      "hand": "R",
      "grip": [
-      -0.09,
+      -0.12,
       0,
       0
      ],
@@ -2411,7 +2530,7 @@
      "prop": "halfR",
      "hand": "R",
      "grip": [
-      -0.05,
+      -0.075,
       0,
       0
      ],
@@ -2425,7 +2544,7 @@
      "prop": "halfL",
      "hand": "L",
      "grip": [
-      -0.05,
+      -0.075,
       0,
       0
      ],
@@ -2482,7 +2601,7 @@
      "pose": {
       "world": [
        0.04,
-       0.49,
+       0.56,
        -0.28
       ]
      },
@@ -2496,9 +2615,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.17,
-       0.48,
-       -0.25
+       -0.12,
+       0.54,
+       -0.3
       ]
      },
      "dur": 0.5,
@@ -2509,25 +2628,39 @@
      "who": "rea",
      "do": "release",
      "prop": "halfL",
-     "to": [
-      0.06,
-      0.453,
-      -0.28
-     ],
-     "dur": 0.12,
+     "dur": 0,
      "at": 2.05
     },
     {
      "who": "rea",
      "do": "release",
      "prop": "halfR",
-     "to": [
-      -0.17,
-      0.433,
-      -0.25
-     ],
-     "dur": 0.12,
+     "dur": 0,
      "at": 2.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.17,
+       0.62,
+       -0.26
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.1
     },
     {
      "sfx": "tink",
@@ -2537,11 +2670,18 @@
     {
      "who": "rea",
      "do": "arm",
-     "side": "L",
-     "pose": "lap",
-     "dur": 0.35,
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.218,
+       0.14,
+       0
+      ]
+     },
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 2.2
+     "at": 2.35
     },
     {
      "who": "rea",
@@ -2551,14 +2691,14 @@
       "prop": "tray",
       "grip": [
        -0.218,
-       0.012,
+       0.092,
        0
       ],
       "palm": true
      },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 2.4
+     "dur": 0.14,
+     "ease": "out",
+     "at": 2.57
     },
     {
      "who": "rea",
@@ -2575,7 +2715,25 @@
       "x": -0.087,
       "y": 0.869,
       "z": -0.671,
-      "tip": 91.78
+      "tip": 91.78,
+      "rot": 76.406
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       0,
+       -0.03,
+       0.2
+      ],
+      "palm": true
      },
      "dur": 0.5,
      "ease": "inOut",
@@ -2594,14 +2752,14 @@
      "side": "L",
      "pose": {
       "world": [
-       0.191,
-       0.96,
-       -0.594
+       -0.03,
+       0.9,
+       -1.06
       ]
      },
-     "dur": 0.5,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 4
+     "at": 3.8
     }
    ]
   },
@@ -2623,6 +2781,21 @@
     "fov": 36
    },
    "do": [
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       0.191,
+       0.97,
+       -0.594
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
     {
      "who": "rea",
      "do": "grip",
@@ -2696,10 +2869,16 @@
      "who": "rea",
      "do": "arm",
      "side": "L",
-     "pose": "lap",
-     "dur": 0.4,
+     "pose": {
+      "world": [
+       -0.03,
+       0.9,
+       -1.06
+      ]
+     },
+     "dur": 0.3,
      "ease": "inOut",
-     "at": 1.45
+     "at": 1.4
     },
     {
      "who": "rea",
@@ -2759,6 +2938,15 @@
      "at": 1.65
     },
     {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
      "who": "wiz",
      "do": "look",
      "to": [
@@ -2816,13 +3004,12 @@
      "side": "R",
      "pose": {
       "world": [
-       0.078,
-       0.96,
-       -0.625
-      ],
-      "palm": true
+       0.32,
+       0.98,
+       -0.52
+      ]
      },
-     "dur": 0.3,
+     "dur": 0.35,
      "ease": "inOut",
      "at": 0.4
     },
@@ -2861,7 +3048,13 @@
      "who": "wiz",
      "do": "arm",
      "side": "R",
-     "pose": "lap",
+     "pose": {
+      "world": [
+       0.4,
+       0.7,
+       -0.45
+      ]
+     },
      "dur": 0.45,
      "ease": "inOut",
      "at": 2
@@ -2870,11 +3063,28 @@
      "do": "prop",
      "id": "tray",
      "set": {
-      "x": -0.04,
+      "x": -0.07,
       "y": 0.42,
       "z": -0.54,
       "tip": 0,
-      "rot": 76.406
+      "rot": 21
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tray",
+      "grip": [
+       -0.218,
+       0.092,
+       0
+      ],
+      "palm": true
      },
      "dur": 0.4,
      "ease": "inOut",
@@ -2894,7 +3104,7 @@
      "pose": {
       "world": [
        0.11,
-       0.47,
+       0.54,
        -0.28
       ]
      },
@@ -2916,9 +3126,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.12000000000000001,
-       0.46,
-       -0.25
+       -0.17,
+       0.55,
+       -0.3
       ]
      },
      "dur": 0.35,
@@ -2931,7 +3141,7 @@
      "prop": "halfL",
      "hand": "L",
      "grip": [
-      -0.05,
+      -0.075,
       0,
       0
      ],
@@ -2945,7 +3155,7 @@
      "prop": "halfR",
      "hand": "R",
      "grip": [
-      -0.05,
+      -0.075,
       0,
       0
      ],
@@ -2979,7 +3189,7 @@
      "side": "R",
      "pose": {
       "world": [
-       0.1,
+       0.05,
        0.95,
        -0.55
       ]
@@ -2994,7 +3204,7 @@
      "side": "L",
      "pose": {
       "world": [
-       0.22,
+       0.27,
        0.95,
        -0.55
       ]
@@ -3128,6 +3338,13 @@
   }
  ],
  "allowClip": [
+  {
+   "who": "rea",
+   "with": "remote",
+   "from": 36.95,
+   "to": 38.35,
+   "reason": "his fingertip presses the button on the remote in the Wizard's frozen glove"
+  },
   {
    "who": "rea",
    "with": "sofaR",
