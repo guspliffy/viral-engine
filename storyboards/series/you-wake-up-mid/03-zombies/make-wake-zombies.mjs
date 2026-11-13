@@ -36,8 +36,8 @@ const DUR = { six: 2.55, wake: 2.19, reach: 1.53, loud: 3.6, block: 2.03, up: 3.
 // ---------------------------------------------------------------- the timeline (story seconds; picture placed on the lines)
 const T = {
   pov: 0,              // P01 POV on the asphalt: the friend dragged by the hood     narr six 0.05-2.60
-  face: fr(2.75),      // P02 close: his eyes open, the hand finds the revolver     narr wake 2.85-5.04
-  grip: 3.7,
+  face: fr(1.35),      // P02 close: his eyes open, the hand finds the revolver     narr wake 2.85-5.04
+  grip: 1.75,
   fire: fr(5.25),      // P03 he fires from the ground (5)
   shot1: 5.55,         //                                                            narr reach 6.0-7.53
   pull: 6.6,           // Chip scrambles to him, pulls him up
@@ -67,6 +67,11 @@ const T = {
   sleep: fr(42.6),     //   first person: his lids close, and the clip starts again on frame 0 (lids open on the street)
   end: 44.2,
 };
+// Draft 4 (Jonny 13 Nov 07:33 Berlin, "how would you change the beginning" after the 24 h pilot read: viewers leave by
+// 0:02 before anything happens): the first shot moves from 5.55 s to 2.75 s. Everything from the shot on is 2.8 s
+// earlier; the times in the comments above are the draft-3 times.
+const SHIFT = 2.8;
+for (const k of Object.keys(T)) if (T[k] >= 5.2) T[k] = r3(T[k] - SHIFT);
 
 // ---------------------------------------------------------------- places
 const SY = -15, PY = -14.85;                        // zstreet: the asphalt, the pavements
@@ -97,7 +102,7 @@ const S = {
 const R = (p) => [rx(p[0]), p[1], p[2]];
 const CAM = {
   POV: { pos: [-0.4, -14.25, 2.3], look: [-0.4, -14.4, -2.0], fov: 66 },                       // P01 his eyes, propped on the asphalt
-  FACE: { pos: [-0.4, -13.95, 1.25], look: [-0.4, -14.45, 2.55], fov: 40 },                      // P02 above his face, from his feet
+  FACE: { pos: [-0.4, -13.65, 1.0], look: [-0.4, -14.45, 2.55], fov: 50 },   // draft 4: wider, the stake line's second half sits over his head                      // P02 above his face, from his feet
   FIRE: { pos: [1.6, -14.2, 4.6], look: [-0.3, -14.35, 2.0], fov: 56 },                          // P03 low from the side: the shot up, the zombie falls back
   RUN: { pos: [-0.5, -13.85, 6.8], look: [-0.5, -14.2, -2.0], fov: 60 },                          // P04 ahead of them, running at us
   SEED: { pos: R([0, -10.6, 13.5]), look: R([0, 0.5, 4.0]), fov: 50 },                             // P04 b DESIGN "04 SEED"
@@ -212,16 +217,16 @@ const shoot = (t, who = "spud", aim = GUNARM) => {
 };
 const drop = (t, id) => { prop(r3(t + 0.04), id, { d1: 1 }, 0.85, "in"); sfx(r3(t + 0.8), "thud", { gain: 0.45, reason: "the zombie falls" }); };
 // the bullet counter, top right (clear of the bodies; the sheet had it lower left), from his wake-up on
-const COUNT = [[T.face, 6], [T.shot1, 5], [T.shot2, 4], [T.shot3, 3], [T.shot4, 2], [T.shot5, 1], [T.shot6, 0]];
-COUNT.forEach(([t, n], i) => { const b = i + 1 < COUNT.length ? COUNT[i + 1][0] : T.reach; c.cap(r3(t), r3(b), `${n}`, 250, false, { x: 820, size: 84, kinetic: false }); });
+const COUNT = [[0, 6], [T.shot1, 5], [T.shot2, 4], [T.shot3, 3], [T.shot4, 2], [T.shot5, 1], [T.shot6, 0]];
+// draft 4: six cartridges in the HUD from frame 0 (engine/page/hud.js "ammo"), no English needed (82 % of the viewers are DACH)
 
 // ================================================================ P01 0-2.75: POV on the asphalt; the friend dragged by the hood
 A(0, "spud", "pov", { on: true }); A(T.face, "spud", "pov", { on: false });
 // three blinks through his own eyelids (props-wakeup-fx.js eyelids, needs the still POV camera); frame 0 already open and
 // bright (the plane crash lost viewers on a dark first frame), open fully before the cut
 prop(0, "lids", { open: 0.82 }, 0, "linear");
-[0.45, 1.25, 2.0].forEach((b) => { prop(b, "lids", { open: 0.04 }, 0.08, "in"); prop(r3(b + 0.15), "lids", { open: 0.82 }, 0.16, "out"); });   // shut for two frames
-prop(2.4, "lids", { open: 1 }, 0.3, "out");
+[0.3, 0.75].forEach((b) => { prop(b, "lids", { open: 0.04 }, 0.08, "in"); prop(r3(b + 0.15), "lids", { open: 0.82 }, 0.16, "out"); });   // shut for two frames
+prop(1.0, "lids", { open: 1 }, 0.25, "out");
 scene(0.02, S.p01);
 A(0, "spud", "pitch", { to: -58, dur: 0 }); A(0, "spud", "move", { to: [S.p01.spud[0], S.p01.spud[1]], y: r3(SY - 0.18), dur: 0, steps: 0 });   // propped on his elbows
 both(0, "spud", { o: [0.3, 0.05, -0.2] }, 0);
@@ -235,7 +240,6 @@ prop(0, "hordeA", { adv: 1.0 }, r3(T.run), "linear");
 sfx(0, "ai/zombie-groan", { gain: 1, loud: true, reason: "frame 0: the one that has him, right over us" });
 sfx(0.6, "ai/zombie-horde", { gain: 0.7, dur: 4, reason: "more of them up the street" });
 narr(0.05, "Six bullets to get your best friend out.", "six", ["Six bullets", "to get your best friend out."]);
-c.cap(0, r3(T.face - 0.04), "6 BULLETS · BEST FRIEND", 300, false, { size: 62, kinetic: false });
 see(0, T.face, ["chip.face", "grabber", "gunR"], "P01 frame 0, first person on the asphalt: a zombie has your best friend by the hood and drags him away; the revolver by your hand");
 
 // ================================================================ P02 2.75-5.25: his eyes open, the hand finds the gun
@@ -252,7 +256,7 @@ A(r3(T.fire - 0.032), "spud", "pitch", { to: -30, dur: 0.003 }); regrab(T.fire, 
 shoot(T.shot1); drop(T.shot1, "grabber");
 A(r3(T.shot1 + 0.1), "chip", "lean", { to: 10, dur: 0.2 });
 A(r3(T.shot1 + 0.2), "chip", "move", { to: [0.45, 1.7], y: SY, dur: 0.6, steps: 2, ease: "out" });
-narr(6.0, "Only shoot what's in reach.", "reach", ["Only shoot", "what's in reach."]);
+narr(5.15, "Only shoot what's in reach.", "reach", ["Only shoot", "what's in reach."]);
 // Chip pulls him up by the left hand
 arm(T.pull, "chip", "R", { o: [0.15, 0.4, 0.3] }, 0.2); arm(r3(T.pull - 0.2), "spud", "R", { o: [0.24, 0.12, 0.22] }, 0.25);   // the gun comes down (muzzle to the ground, away from the friend)
 A(r3(T.pull + 0.15), "spud", "pitch", { to: 0, dur: 0.5, ease: "out" }); A(r3(T.pull + 0.15), "spud", "move", { to: [S.p01.spud[0], 2.45], y: SY, dur: 0.5, ease: "out" });
@@ -271,7 +275,7 @@ putProp(T.run, "hordeB", { x: -0.3 });
 prop(T.run, "hordeA", { adv: 3.0 }, r3(T.door - T.run), "linear");
 sfx(T.run, "ai/zombie-horde", { gain: 1, dur: 4.5, reason: "groans from every side of the street, closer" });
 sfx(T.run, "step-concrete", { gain: 0.5, reason: "running feet on the asphalt" });
-narr(8.1, "Every shot is loud. Noise brings more.", "loud", ["Every shot is loud.", "Noise brings more."]);
+narr(7.0, "Every shot is loud. Noise brings more.", "loud", ["Every shot is loud.", "Noise brings more."]);
 see(T.run, T.seed, ["spud.face", "chip.face", "hordeA"], "P04: they run at us, the friend stumbling; behind them the street fills");
 // b: the seed: from the street, two flat roofs almost touching against the dusk
 see(T.seed, T.back, ["roof"], "P04 b: high above, the roofs of two buildings almost touch across a narrow gap");
@@ -319,7 +323,7 @@ A(r3(T.hall + 0.75), "spud", "lean", { to: 0, dur: 0.2 }); look(r3(T.hall + 0.65
 A(r3(T.hall + 0.8), "spud", "move", { to: [-0.95, -400 - 1.3], dur: 0.55, steps: 2, ease: "inOut" });
 sfx(r3(T.hall + 0.2), "scrape", { gain: 0.7, dur: 2.2, reason: "the heavy cabinet dragged over the floor" });
 expr(T.hall, "chip", "focused", { open: 0.3 }); expr(T.hall, "spud", "terrified", { open: 0.3 });
-narr(15.75, "Close it. Block it.", "block", ["Close it.", "Block it."]);
+narr(12.95, "Close it. Block it.", "block", ["Close it.", "Block it."]);
 sfx(T.hall, "ai/zombie-horde", { gain: 0.6, dur: 3.0, reason: "the horde outside the door, muffled" });
 see(T.hall, T.stairs, ["hdoor", "spud.face", "chip", "cab"], "P06: inside, his back against the door; the friend drags the cabinet over; fists on the door");
 
@@ -330,7 +334,7 @@ regrab(T.stairs, [S.p07.spud[0], S.p07.spud[1], 0.5], 180, GUNARM);
 look(r3(T.stairs - 0.01), "spud", [0, 0.4], 0.01);
 A(T.stairs, "chip", "move", { to: [sx(0.45), -0.28], y: 0.17, dur: 0.6, steps: 2, ease: "linear" });   // up onto the first step behind him
 sfx(T.stairs, "ai/zombie-groan", { gain: 0.9, reason: "a zombie on the landing above" });
-narr(18.75, "Go up. On stairs they come one at a time.", "up", ["Go up.", "On stairs they come", "one at a time."]);
+narr(15.95, "Go up. On stairs they come one at a time.", "up", ["Go up.", "On stairs they come", "one at a time."]);
 prop(T.stairs, "land1", { adv: 0.15 }, 0.6, "linear");
 shoot(T.shot3); drop(T.shot3, "land1"); prop(T.shot3, "stairs", { flash: 1 }, 0.02, "linear"); prop(r3(T.shot3 + 0.07), "stairs", { flash: 0 }, 0.05, "linear");
 prop(r3(T.shot3 + 0.3), "land2", { adv: 0.9 }, r3(T.shot4 - T.shot3 - 0.3), "linear");
@@ -363,7 +367,7 @@ sfx(T.roof, "ai/zombie-horde", { gain: 0.8, dur: 6, reason: "the whole city: gro
 A(T.reveal, "spud", "move", { to: [rx(-3.2), -0.2], y: 0, dur: 1.2, steps: 3, ease: "out" });
 A(T.reveal, "chip", "move", { to: [rx(-3.7), 0.6], y: 0, dur: 1.2, steps: 3, ease: "out" });
 A(r3(T.reveal + 0.3), "spud", "turn", { to: 60, dur: 0.4 }); look(r3(T.reveal + 0.4), "spud", [0.3, -0.5], 0.2);
-narr(24.4, "No way down.", "down", ["No way down."]);
+narr(21.6, "No way down.", "down", ["No way down."]);
 expr(T.reveal, "spud", "terrified", { open: 0.3 }); expr(T.reveal, "chip", "terrified", { open: 0.4 });
 see(T.roof, T.reveal, ["roof", "spud.face"], "P08: the roof door bursts open; dusk, the city burning");
 see(T.reveal, T.streets, ["spud", "chip", "roof"], "P08 b: the gap to the next roof; no ladder, no way down");
@@ -379,8 +383,8 @@ prop(T.choice, "roof", { behind: 0.6 }, 3.0, "linear");
 sfx(T.choice, "ai/zombie-groan", { gain: 1, reason: "one steps out of the roof door" });
 expr(T.choice, "spud", "terrified", { open: 0.2 }); expr(T.choice, "chip", "terrified", { open: 0.4 });
 look(r3(T.choice + 0.4), "spud", [-0.7, 0], 0.15); look(r3(T.choice + 1.4), "spud", [0.1, -0.3], 0.15); look(r3(T.choice + 2.3), "spud", [-0.7, 0], 0.15);   // over his shoulder to the door, the gap, the door
-narr(27.1, "One bullet. What do you do?", "one", ["One bullet.", "What do you do?"]);
-vote(c, 28.0, 2.0, "", [["1", "SHOOT"], ["2", "JUMP"]], { y: 300 });
+narr(24.3, "One bullet. What do you do?", "one", ["One bullet.", "What do you do?"]);
+vote(c, 25.2, 2.0, "", [["1", "SHOOT"], ["2", "JUMP"]], { y: 300 });
 see(T.choice, T.shot6, ["spud.face", "kz1", "roof"], "P09: between the roof door, where one steps out, and the gap: one bullet");
 
 // ================================================================ P10 30.3-32.2: he shoots (0); three more push out
@@ -417,7 +421,7 @@ fallTo(T.reach, "spud", -0.45, -0.2, -1.6, r3(T.close - T.reach));
 fallTo(T.reach, "chip", 0.5, -0.25, -1.65, r3(T.close - T.reach));
 prop(T.reach, "alley", { reach: 1 }, 0.6, "out");
 ramp(c, T.reach, r3(T.close - T.reach), 0.5, { in: 0.15, out: 0.2 });
-narr(33.55, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."], LINES.pos, 0.25, 2);   // take 2: take 1 was heard as "You've stopped"
+narr(30.75, "You stopped to shoot. No run-up.", "stopped", ["You stopped to shoot.", "No run-up."], LINES.pos, 0.25, 2);   // take 2: take 1 was heard as "You've stopped"
 sfx(T.reach, "ai/zombie-horde", { gain: 1, loud: true, dur: 5, reason: "the alley below, every one of them groaning up at them" });
 sfx(T.reach, "ai/heartbeat", { gain: 0.7, reason: "his heartbeat in the slow fall" });
 see(T.reach, T.hands, ["spud", "chip", "roof"], "P12 a: mid-air, the far roof's edge just out of reach");
@@ -471,7 +475,7 @@ see(T.sleep, T.end, ["broom"], "P14 b: first person on the pillow: his eyes clos
 const sh = (k, to, dur, ease = "linear") => ({ pos: CAM[k].pos, look: CAM[k].look, fov: CAM[k].fov, ...(to && { to: { fov: CAM[k].fov, look: CAM[k].look, ...to }, dur, ease }) });
 const beats = c.beats([
   ["P01 POV: the friend dragged by the hood", 0, sh("POV"), "hook"],
-  ["P02 his eyes open, the gun", T.face, sh("FACE", { pos: [-0.4, -13.9, 1.45] }, 2.4, "inOut")],
+  ["P02 his eyes open, the gun", T.face, sh("FACE", { pos: [-0.4, -13.6, 1.1] }, 1.1, "inOut")],
   ["P03 the shot from the ground", T.fire, sh("FIRE")],
   ["P04 the run", T.run, sh("RUN", { pos: [-0.8, -13.85, 9.5] }, r3(T.seed - T.run))],
   ["P04 b the seed: two roofs", T.seed, sh("SEED", { fov: 44 }, 1.0, "inOut")],
@@ -504,6 +508,7 @@ write(import.meta.url, {
   set: { type: "plain", color: "#a9afb3", floor: "none", aperture: 0, focus: false, bloom: "emissive", lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: INK, satsuei: SATSUEI },
   // a dramatic scenario: recorded orchestra from 0.0 (Jonny 12 Nov); disaster-04 is the bed he kept on EP01. It ends at the
   // fall: the fall and the teaser have only their own sounds.
+  hud: { ammo: { keys: COUNT, max: 6 }, pos: "top", show: [0, T.reach] },
   music: { file: "ai/disaster/disaster-04.ogg", from: 0, skip: 1.698, until: T.close, lowCut: 150, gain: 0.55, duck: { db: -8, voice: -10 } },
   sound: { sfx: 0.65, ambience: 0.06, guard: true, signature: false },
   creative: { length: [T.end, T.end] },

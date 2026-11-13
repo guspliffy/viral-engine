@@ -15,6 +15,9 @@
 // the day chip: a little house whose blue fill rises with the snow, buried at 7 m, "SNOW 2.0 m", red text from 7 m,
 // a kick on every rise); "gauge": { "kind": "warmth", "keys": [[t, celsius, dur?]] } (a thermometer and "12 °C" after
 // the clock in the right chip: green, amber under 8, blue under 0).
+// You wake up mid EP03 (13 Nov 2026) adds "ammo": { "keys": [[t, rounds]], "max": 6 } (opt-in): a row of cartridges
+// first in the right chip, brass while loaded, a faint outline once fired; a drop kicks the chip and the slot just
+// fired glows red for 0.4 s. A counter that needs no English (82 % of the TikTok viewers are DACH).
 //
 // pos "top" (default): DAY in the safe zone's top-left corner and the clock + battery in its top-right, y 214-284, the
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
@@ -44,6 +47,8 @@ export function hudState(sb, t) {
   const thr = H.threat ? keyed(H.threat.keys, t) : null, gau = H.gauge ? keyed(H.gauge.keys, t) : null;
   if (thr) { const rose = thr.i > 0 && thr.K[thr.i][1] > thr.K[thr.i - 1][1]; out.threat = { kind: H.threat.kind || "snow", v: thr.v, kick: rose && thr.since >= 0 ? thr.since : null }; }
   if (gau) out.gauge = { kind: H.gauge.kind || "warmth", v: gau.v };
+  const am = H.ammo ? keyed(H.ammo.keys, t) : null;
+  if (am) { const fell = am.i > 0 && am.K[am.i][1] < am.K[am.i - 1][1]; out.ammo = { n: Math.max(0, Math.round(am.v)), max: H.ammo.max || 6, kick: fell && am.since >= 0 && am.since < 0.4 ? am.since : null }; }
   if (clock) {
     out.clock = { text: hhmm(clock.v), mins: clock.v };
     // the jump tag: a key that moves the clock on by a minute or more shows "+N min" for a second from its start
@@ -69,15 +74,16 @@ function layout(ctx, S) {
   ctx.font = THR_FONT; const thrW = S.threat ? 40 + 12 + ctx.measureText("SNOW 0.0 m").width + PAD * 2 : 0;
   ctx.restore();
   const clockW = S.clock ? 34 + 12 + dig * 4 + colon : 0, batW = S.battery ? 56 + 10 + pctW : 0;
-  const parts = [clockW, batW, gauW].filter((w) => w > 0);
+  const ammoW = S.ammo ? S.ammo.max * AMMO_STEP - (AMMO_STEP - AMMO_W) : 0;
+  const parts = [ammoW, clockW, batW, gauW].filter((w) => w > 0);
   const rw = parts.reduce((a, w) => a + w, 0) + 26 * Math.max(0, parts.length - 1) + PAD * 2;
   const hL = S.part != null || S.label ? CH + 22 : CH;
   const left = S.day || S.part != null || S.label ? [SAFE.x0 + 12, y, Math.max(dayW, 150), hL] : null;
   return {
-    y, dig, colon, clockW, batW, gauW,
+    y, dig, colon, clockW, batW, gauW, ammoW,
     left,
     threat: S.threat ? [SAFE.x0 + 12, y + (left ? hL + 10 : 0), thrW, THR_H] : null,
-    right: S.clock || S.battery || S.gauge ? [SAFE.x1 - 12 - rw, y, rw, CH] : null,
+    right: S.clock || S.battery || S.gauge || S.ammo ? [SAFE.x1 - 12 - rw, y, rw, S.ammo ? AMMO_H + 26 : CH] : null,
   };
 }
 export function hudBoxes(ctx, sb, t) {
@@ -135,6 +141,21 @@ function thermo(ctx, cx, cy, v) {
   ctx.fillStyle = col; ctx.fillRect(cx - 2, cy + 6 - 20 * k, 4, 20 * k + 2);
   ctx.restore();
 }
+const AMMO_W = 26, AMMO_H = 74, AMMO_STEP = 38;
+// one revolver cartridge standing up, centred on cy: a brass case and a copper nose; spent = a faint outline
+function cartridge(ctx, x, cy, live, glow) {
+  const w = AMMO_W, h = AMMO_H, nose = 24, y = cy - h / 2;
+  const shape = () => { ctx.beginPath(); ctx.moveTo(x, y + h); ctx.lineTo(x, y + nose); ctx.quadraticCurveTo(x, y, x + w / 2, y); ctx.quadraticCurveTo(x + w, y, x + w, y + nose); ctx.lineTo(x + w, y + h); ctx.closePath(); };
+  ctx.save();
+  if (live) {
+    shape(); ctx.fillStyle = "#e0ac46"; ctx.fill();
+    ctx.save(); shape(); ctx.clip(); ctx.fillStyle = "#c56f3e"; ctx.fillRect(x - 1, y - 1, w + 2, nose + 1); ctx.fillStyle = "rgba(255,255,255,0.35)"; ctx.fillRect(x + 4, y + nose + 4, 4, h - nose - 12); ctx.restore();
+    ctx.fillStyle = "#b9862f"; ctx.fillRect(x - 1, y + h - 7, w + 2, 7);
+  } else {
+    shape(); ctx.lineWidth = 3; ctx.strokeStyle = glow > 0 ? `rgba(255,77,77,${0.35 + 0.65 * glow})` : "rgba(255,248,236,0.32)"; ctx.stroke();
+  }
+  ctx.restore();
+}
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
 
 export function drawHud(ctx, sb, t) {
@@ -164,12 +185,18 @@ export function drawHud(ctx, sb, t) {
     ctx.restore();
   }
   if (L.right) {
-    const [x, y, w, h] = L.right, kick = S.battery && S.battery.kick != null && S.battery.kick < 0.18 ? Math.sin((S.battery.kick / 0.18) * Math.PI) : 0;
+    const [x, y, w, h] = L.right, kick = S.battery && S.battery.kick != null && S.battery.kick < 0.18 ? Math.sin((S.battery.kick / 0.18) * Math.PI)
+      : S.ammo && S.ammo.kick != null && S.ammo.kick < 0.18 ? Math.sin((S.ammo.kick / 0.18) * Math.PI) : 0;
     ctx.save(); ctx.translate(kick * 5, 0);
     chip(ctx, L.right);
     let cx = x + PAD;
     const mid = y + h / 2 + 2;
     ctx.font = FONT; ctx.letterSpacing = "0px"; ctx.fillStyle = TXT;
+    if (S.ammo) {
+      const A = S.ammo, glow = A.kick != null ? 1 - clamp(A.kick / 0.4) : 0;
+      for (let i = 0; i < A.max; i++) cartridge(ctx, cx + i * AMMO_STEP, mid - 2, i < A.n, i === A.n ? glow : 0);
+      cx += L.ammoW + 26;
+    }
     if (S.clock) {
       sky(ctx, cx + 17, mid - 2, S.clock.mins); cx += 34 + 12;
       digits(ctx, S.clock.text, cx, mid, L.dig, L.colon); cx += L.clockW - 46 + 26;
