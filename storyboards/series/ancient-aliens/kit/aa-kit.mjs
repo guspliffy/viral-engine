@@ -3,7 +3,7 @@
 // (engine/page/props-aa-{giza,site,ship,inside,items}.js, costumes-aliens.js). Proof that it all works together:
 // bench/make-aa-proof.mjs (aa-proof-sheet.png), which is also the worked example to copy from.
 //
-//   import { S, SET, SET_LATE, SET_NIGHT, SUN, CAST, VIEW, TOP, cam, far, gizaToday, giza2560, liftShip, site, host, hat, whiteCar, nightOver } from "../kit/aa-kit.mjs";
+//   import { S, SET, SET_LATE, SET_NIGHT, SUN, CAST, VIEW, TOP, cam, far, gizaToday, giza2560, liftShip, site, host, hostSay, clueTag, score, lampClip, hat, whiteCar, nightOver } from "../kit/aa-kit.mjs";
 //
 // HOW A BLOCK IS LAID OUT. A block is one clip with several places. Give each place its own origin o = [x, z], 1000 m or more
 // apart (the camera sees 300 m, so a place never shows the next one), and build it with the helpers below. Every helper
@@ -37,8 +37,27 @@ export const CAST = {
   crew: "ancient-aliens/alien-crew", foreman: "ancient-aliens/alien-foreman", lifter: "ancient-aliens/alien-lifter",
   workerA: "ancient-aliens/worker-a", workerB: "ancient-aliens/worker-b",
 };
-// Spud hosts with Reaper's voice: c.say(t, "spud", line, dur, tone, { voice: HOST_VOICE })
+// Spud hosts with Reaper's voice. In a beat storyboard c.say writes a plain "talk" action, which the voice step never
+// speaks (engine/voice/speech.mjs voices only the say MACRO there): the line would play as gibberish with no warning.
+// Use hostSay: the say macro in the host voice, plus its subtitle as a classic caption in the upper third for the spoken
+// length + 0.4 s. dur = the spoken length the render prints (speech: "..." lasts Xs spoken); o.sub false = no subtitle,
+// a string = other subtitle text; o.pos = the caption's y (400).
 export const HOST_VOICE = "reaper";
+export function hostSay(c, t, who, line, dur, tone = "calm", { sub = true, pos = 400, size = 62 } = {}) {
+  c.at(r3(t), { macro: "say", who, line, tone, dur, voice: HOST_VOICE, caption: false });
+  if (sub) c.cap(r3(t), r3(t + dur + 0.4), sub === true ? line : sub, pos, false, { size, kinetic: false });
+}
+// THE SCORE. One recorded-orchestra score for the whole pilot, laid on STORY.md's times (assets/music/ancient-aliens/
+// README.md): a storyboard takes its slice with `music: score(<the story time in seconds its first frame stands at>)`,
+// e.g. block B score(56), block C's second storyboard score(118). From 0.0 under the voice; the join pass lays the same
+// file once over the joined film, so what Jonny hears in an animatic is what the film gets.
+export const score = (storyTime = 0, o = {}) => ({ file: "ancient-aliens/aa01-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic", ...o });
+// The clue counter, the same in every block: "CLUE n/5" as a label top left (y 240, x 250, size 44) from t0 to t1.
+export const clueTag = (c, t0, t1, n) => c.cap(r3(t0), r3(t1), `CLUE ${n}/5`, 240, false, { style: "label", size: 44, kinetic: false, x: 250 });
+// The worn headlamp sits on the skin, so the contact gate reads it as clipping: spread lampClip([...host ids], END) into
+// the storyboard's `allowClip`. (A prop that hangs or lies in the air on purpose, a block in the beam, a northline over a
+// map view, takes a `staged: "<why>"` key on its spec, or preflight fails it as floating.)
+export const lampClip = (actors, end) => [].concat(actors).map((w) => ({ who: w, with: `${w}-lamp`, from: 0, to: end, reason: "the headlamp band is worn on his head" }));
 const r3 = (x) => Math.round(x * 1000) / 1000;
 
 // Camera spots that are proven on the benches, relative to a place's origin (Khufu's centre for the far ones).
@@ -60,7 +79,8 @@ export const cam = (o, v) => ({ pos: [r3(o[0] + v.pos[0]), v.pos[1], r3(o[1] + v
 // nothing for a camera more than 281 m from it, so two far() layers 600 m apart never show together).
 //   time "day" | "afternoon" | "sunset" | "dusk" | "night"; night 0..1 darkens a day sky and the ground (tween `night` on
 //   `${id}-sky` and `${id}-ground`); tracks true = today's tyre tracks; stars n > 0 adds the starfield (hole = the gap for
-//   orion, [az, el, radius]); moon [az, el] adds the moon; sun [az, el] moves the sunset disc.
+//   orion, [az, el, radius]); moon [az, el] adds the moon; sun [az, el] moves the sunset disc, and on "day" / "afternoon"
+//   it puts a white sun in the sky there (none without it): the noon sun of panel 06 is far(..., { sun: [200, 20] }).
 export function far(id, camXZ, { time = "day", night = 0, tracks = false, seed = 1, stars = 0, hole = null, moon = null, sun = null, rubble } = {}) {
   const [x, z] = camXZ, dark = time === "night" ? 1 : night;
   return [

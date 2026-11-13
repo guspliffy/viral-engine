@@ -31,7 +31,8 @@
 //                 #e8d9b8 (cream clouds); sunset #4a5fa8 / #e98a52 / #f6b24a + a clean sun disc 3 deg across (warm white, halo to 3 radii,
 //                 no glare) + 9 long thin horizontal streaks (purple top, orange underside) + 5 small clouds; dusk #2a3566 / #6a5a8a /
 //                 #d98a6a + streaks; night #0b1438 / #14204f / #1c2b5e. Clouds and streaks are sprites on the dome (2048 px atlases).
-//               spec.sun [azimuthDeg, elevationDeg] (default [270, 4]; az 0 = north -z, 90 = east +x): the sunset disc.
+//               spec.sun [azimuthDeg, elevationDeg] (default [270, 4]; az 0 = north -z, 90 = east +x): the sunset disc. On "day" and
+//               "afternoon" a sun is drawn ONLY when spec.sun is given: a clean white disc with a soft pale halo (the noon sun of panel 06).
 //               param night 0..1 (spec.night, default 0; not in propState: seed it with a dur-0 set at 0): cross-fades the gradient
 //               toward night and fades the clouds and the sun out, so a shot can darken.
 //   gizaplateau the ground: a sand-limestone disc r 290, top at y 0, not scaled (centre it on the stage). Painted wash, wind ripples,
@@ -925,15 +926,16 @@ function nightApply(P, S) {
 export const AA_GIZA_KINDS = {
   aasky(P) {
     const S = P.spec, time = SKY[S.time] ? S.time : "day", T = SKY[time], N = SKY.night, sun = S.sun ?? [270, 4], sd = dirOf(sun[0], sun[1]), sinD = (v) => Math.sin(v * DEG);
+    const daySun = !!S.sun && (time === "day" || time === "afternoon");   // the high sun of the day sky, only when spec.sun is given
     const U = {
       zen: { value: new THREE.Color(T.zen) }, mid: { value: new THREE.Color(T.mid) }, hor: { value: new THREE.Color(T.hor) }, hh: { value: sinD(T.hh) }, midAt: { value: sinD(T.midAt) }, zenAt: { value: sinD(T.zenAt) },
-      sunDir: { value: new THREE.Vector3(...sd) }, sunK: { value: time === "sunset" ? 1 : 0 },
+      sunDir: { value: new THREE.Vector3(...sd) }, sunK: { value: time === "sunset" ? 1 : 0 }, dayK: { value: daySun ? 1 : 0 },
     };
     const m = new THREE.ShaderMaterial({
       side: THREE.BackSide, depthWrite: false, depthTest: false, fog: false, uniforms: U,
       vertexShader: "varying vec3 vD; void main(){ vD = normalize(position); vec4 p = projectionMatrix * modelViewMatrix * vec4(position, 1.0); p.z = p.w * 0.99995; gl_Position = p; if (distance(cameraPosition, (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz) > 281.0) gl_Position = vec4(0.0, 0.0, 2.0, 1.0); }",
       fragmentShader: [
-        "uniform vec3 zen; uniform vec3 mid; uniform vec3 hor; uniform float hh; uniform float midAt; uniform float zenAt; uniform vec3 sunDir; uniform float sunK; varying vec3 vD;",
+        "uniform vec3 zen; uniform vec3 mid; uniform vec3 hor; uniform float hh; uniform float midAt; uniform float zenAt; uniform vec3 sunDir; uniform float sunK; uniform float dayK; varying vec3 vD;",
         "void main(){ vec3 d = normalize(vD); float h = d.y;",
         // the horizon tint ends at hh, the mid colour holds to midAt, the zenith colour is reached at zenAt
         "  vec3 c = mix(hor, mid, smoothstep(0.0, hh, h)); c = mix(c, zen, smoothstep(midAt, zenAt, h));",
@@ -942,6 +944,9 @@ export const AA_GIZA_KINDS = {
         "  c = mix(c, vec3(0.97, 0.62, 0.3), 0.3 * sw * sunK);",
         "  float halo = 1.0 - smoothstep(R, R * 3.0, ang); c = mix(c, vec3(1.0, 0.84, 0.52), 0.55 * halo * halo * sunK);",
         "  float disc = 1.0 - smoothstep(R * 0.93, R, ang); c = mix(c, vec3(1.0, 0.95, 0.76), disc * sunK);",
+        // the day sun (spec.sun on "day" / "afternoon"): a clean white disc, a soft pale halo to 4 radii, no glare, no rays
+        "  float dh = 1.0 - smoothstep(R, R * 4.0, ang); c = mix(c, vec3(1.0, 0.98, 0.9), 0.5 * dh * dh * dayK);",
+        "  c = mix(c, vec3(1.0, 0.99, 0.93), disc * dayK);",
         "  gl_FragColor = vec4(c, 1.0);",
         "  #include <colorspace_fragment>",
         "}",
@@ -960,7 +965,7 @@ export const AA_GIZA_KINDS = {
         const night = clamp(num(ps, S, "night", time === "night" ? 1 : 0));
         U.zen.value.copy(c0[0]).lerp(c1[0], night); U.mid.value.copy(c0[1]).lerp(c1[1], night); U.hor.value.copy(c0[2]).lerp(c1[2], night);
         U.hh.value = sinD(lerp(T.hh, N.hh, night)); U.midAt.value = sinD(lerp(T.midAt, N.midAt, night)); U.zenAt.value = sinD(lerp(T.zenAt, N.zenAt, night));
-        U.sunK.value = (time === "sunset" ? 1 : 0) * (1 - night); for (const q of sprites) q.uniforms.k.value = 1 - night;
+        U.sunK.value = (time === "sunset" ? 1 : 0) * (1 - night); U.dayK.value = (daySun ? 1 : 0) * (1 - night); for (const q of sprites) q.uniforms.k.value = 1 - night;
       },
     };
   },
