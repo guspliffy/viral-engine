@@ -479,6 +479,13 @@ const allowClip = [
   { who: "nbr", with: "lob", from: T.ndoor, to: T.slam, reason: "standing in his door crack" },
   { who: "nbr", with: "blk", from: T.out, to: T.out + 1.4, reason: "coming down the front steps" },
   { who: "chip", with: "blk", from: T.out + 3.15, to: T.pay, reason: "coming down the front steps" },
+  // the shell check (#222, merged after Jonny approved draft 2) on door passages; stills 6.1, 14.8, 27.7, 29.9, 33.3 show
+  // each body clear in the doorway or behind the jamb, nothing drawn through anyone
+  { who: "spud", with: "blk", from: r3(T.run2 + 0.6), to: T.lobby2, checks: ["shell"], reason: "running in through the open front door: the doorway's frame, he is drawn clear of the jamb (still 6.1)" },
+  { who: "spud", with: "blk", from: r3(T.pull - 0.2), to: r3(T.pull + 0.4), checks: ["shell"], reason: "his glove on the alarm lever against the wall (still 27.7)" },
+  { who: "nbr", with: "lob", from: T.ndoor, to: T.slam, checks: ["shell"], reason: "in her door crack, half hidden behind the jamb as drawn (stills 14.8, 15.6)" },
+  { who: "nbr", with: "blk", from: T.out, to: r3(T.out + 1.0), checks: ["shell"], reason: "coming out through the open front door (still 29.9)" },
+  { who: "chip", with: "blk", from: r3(T.out + 3.15), to: T.pay, checks: ["shell"], reason: "last out, on the top step in the open front door (still 33.3)" },
 ];
 
 write(import.meta.url, {
