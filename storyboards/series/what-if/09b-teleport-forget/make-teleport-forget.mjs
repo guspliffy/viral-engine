@@ -341,14 +341,15 @@ const SH = {
   alone: { pos: [0.3, 1.0, -1.2], look: [0.2, -6, -0.45], fov: 60, to: { pos: [0.3, -15, -1.2], look: [0.2, -28, -0.45], fov: 60 }, dur: 2.15, ease: "in" },   // Jonny: he must really fall; the camera chases him down corridor B
   a3:    { pos: [0.1, 0.95, -1.5], look: [0.1, 0.45, 0.8], fov: 52 },
   meet:  { pos: [-0.1, 0.95, -1.4], look: [0.0, 0.55, 0.75], fov: 54 },
-  close: { pos: [-0.75, 0.8, -0.85], look: [0.55, 0.74, 0.75], fov: 36 },   // Spud low in the frame: "Would you still jump?" sits above him
+  sky:   { pos: [0, 30, 40], look: [0, 60, 20], fov: 40 },   // under the phone card: empty sky (the caption check measures the 3D frame under it)
+  close: { pos: [-0.75, 0.8, -0.85], look: [0.55, 0.9, 0.75], fov: 36 },   // Spud low in the frame: "Would you still jump?" sits above him
 };
 const CUTS = [
   ["01 Chip on the rope", 0, SH.hook, "hook"],
   ["02 the fray", T.fray, SH.fray],
   ["03 Spud decides", T.decide, SH.decide],
     ["05 Mash", T.mash, SH.mash],
-  ["06 the photo", T.photo, SH.mash],
+  ["06 the photo", T.photo, SH.sky],
   ["07 the wrist", T.rope, SH.rope],
   ["08 the snap", T.snapC, SH.snap],
   ["09 the fall", T.fall, SH.fall],
@@ -358,7 +359,7 @@ const CUTS = [
   ["14 jump 3", T.a3, SH.a3],
   ["15 who are you", T.meet, SH.meet, "payoff"],
   ["15b Spud", T.close, SH.close, "reaction"],
-  ["16 the gap", T.gap, SH.mash],
+  ["16 the gap", T.gap, SH.sky],
 ];
 
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
@@ -368,7 +369,7 @@ const NARR = !VO ? [] : [
   [2.75, "But you can teleport.", 1.5],
   [4.8, "But there's a catch.", 1.4],
   [T.photo, "Every jump, someone forgets you.", 2.2, 330],   // on the phone's dark top, off the photo   // with the phone shot: a caption ends with its beat (compile.mjs), and he fades while it is said
-  [T.still, "Would you still jump?", 1.4],
+  [T.still, "Would you still jump?", 1.4, 255],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 
