@@ -1,0 +1,61 @@
+// Bench for the Ancient Aliens cast (engine/page/costumes-aliens.js, task T5 of ../briefs/T5.md): the alien crew, foreman, lifter and
+// the two Egyptian workers. Not a clip: one beat per still, each group on its own spot 30 m apart on a plain set; the still is 0.55 s in.
+//   line-up   Spud, crew, foreman, lifter, worker-a, worker-b, 1.2 m apart, front (all six; then the left three and the right three close)
+//   solo (each of the five): front | 3/4 | side | back | face neutral | face happy | face surprised | one arm raised, palm forward
+//   node storyboards/series/ancient-aliens/kit/bench/make-aa-cast.mjs
+//   node engine/render.mjs storyboards/series/ancient-aliens/kit/bench/aa-cast.json --stills <times> --draft --out <dir>
+//   node qa/contact.mjs <dir>/aa-cast-*.png --out storyboards/series/ancient-aliens/kit/bench/aa-cast-sheet.png
+import { clip, write, r3, frame } from "../../../../lib/clip.mjs";
+
+const c = clip();
+const RIG = { hand: 2, eyes: 2, hold: 2 };
+const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
+const LEG = 0.14;
+const CHARS = [   // id, file, body height, group x, body width
+  ["crew", "ancient-aliens/alien-crew", 0.60, 30, 0.60],
+  ["fore", "ancient-aliens/alien-foreman", 1.05, 60, 0.58],
+  ["lift", "ancient-aliens/alien-lifter", 0.75, 90, 0.85],
+  ["wa", "ancient-aliens/worker-a", 0.82, 120, 0.60],
+  ["wb", "ancient-aliens/worker-b", 0.95, 150, 0.52],
+];
+const LINE = [["spud", "potatobrawl/spud", 0.88], ["crewL", "ancient-aliens/alien-crew", 0.6], ["foreL", "ancient-aliens/alien-foreman", 1.05], ["liftL", "ancient-aliens/alien-lifter", 0.75], ["waL", "ancient-aliens/worker-a", 0.82], ["wbL", "ancient-aliens/worker-b", 0.95]];
+const cast = [
+  ...LINE.map(([id, character], i) => ({ id, character, at: [r3(-3 + i * 1.2), 0], face: 0, expr: "kind", follow: 0.2, seed: 2.1 + i })),
+  { id: "spudP", character: "potatobrawl/spud", at: [180, 0], face: 0, expr: "kind", follow: 0.2, seed: 9.1 },
+  ...CHARS.map(([id, character, , gx], i) => ({ id, character, at: [gx, 0], face: 0, expr: "kind", follow: 0.2, seed: 7.3 + i })),
+];
+
+const SHOTS = [];
+const T0 = (i) => r3(0.1 + i * 1.0);
+// line-up: all six, then the left three and the right three
+SHOTS.push(["lineAll", () => {}, { pos: [0, 0.8, 26], look: [0, 0.55, 0], fov: 30 }, "line-up: Spud, crew, foreman, lifter, worker A, worker B (1.2 m apart)"]);
+SHOTS.push(["lineL", () => {}, { pos: [-1.8, 0.85, 7.4], look: [-1.8, 0.55, 0], fov: 30 }, "line-up, left half: Spud, crew, foreman"]);
+SHOTS.push(["lineR", () => {}, { pos: [1.8, 0.85, 7.4], look: [1.8, 0.55, 0], fov: 30 }, "line-up, right half: lifter, worker A, worker B"]);
+for (const [id, , h, gx, w] of CHARS) {
+  const mid = LEG + h / 2, full = { target: [gx, mid + 0.08, 0], h: Math.max(1.3, (LEG + h) * 1.45, w * 2.3), fov: 26 };
+  const sh = (az) => frame(full.target, { az, h: full.h, fov: full.fov });
+  const face = frame([gx, LEG + h * 0.6, 0], { az: 0, h: Math.max(0.95, h * 1.25, w * 1.7), fov: 22 });
+  SHOTS.push([`${id}Front`, () => {}, sh(0), `${id}: front`]);
+  SHOTS.push([`${id}Q`, () => {}, sh(40), `${id}: 3/4`]);
+  SHOTS.push([`${id}Side`, () => {}, sh(90), `${id}: side`]);
+  SHOTS.push([`${id}Back`, () => {}, sh(180), `${id}: back`]);
+  SHOTS.push([`${id}Neutral`, () => {}, face, `${id}: face, neutral`]);
+  SHOTS.push([`${id}Happy`, (t) => c.A(t, id, "expr", { expr: "happy", dur: 0.1 }), face, `${id}: face, happy`]);
+  SHOTS.push([`${id}Surprised`, (t) => c.A(t, id, "expr", { expr: "shocked", dur: 0.1 }), face, `${id}: face, surprised`]);
+  SHOTS.push([`${id}Palm`, (t) => { c.A(t, id, "expr", { expr: "kind", dur: 0.1 }); c.A(t, id, "grip", { side: "L", shape: "open", dur: 0.1 }); c.arm(t, id, "L", { o: [0.12, 0.7, 0.3] }, 0.25, "out"); }, sh(25), `${id}: one arm raised, palm forward`]);
+}
+SHOTS.push(["spudPalm", (t) => { c.A(t, "spudP", "grip", { side: "L", shape: "open", dur: 0.1 }); c.arm(t, "spudP", "L", { o: [0.12, 0.7, 0.3] }, 0.25, "out"); }, frame([180, 0.62, 0], { az: 25, h: 1.5, fov: 26 }), "Spud: the same pose, for the hand"]);
+const shots = [];
+SHOTS.forEach(([name, set, cam, label], i) => { const T = T0(i); set(T); shots.push([name, T, cam]); c.cap(T, T + 0.9, label, 1760, false, { kinetic: false, size: 44 }); });
+const END = r3(0.1 + SHOTS.length + 0.1);
+console.log("stills:", shots.map(([, t]) => r3(t + 0.55)).join(","));
+console.log("names:", shots.map(([n]) => n).join(","));
+
+write(import.meta.url, {
+  id: "aa-cast", title: "Ancient Aliens cast bench", idea: "Cast bench for the Ancient Aliens kit (alien crew, foreman, lifter, Egyptian workers), not a clip",
+  fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", motion: MOTION, rig: RIG, physics: false,
+  set: { type: "plain", color: "#c9c0a8", floor: "#a89a78" }, music: false, sound: { auto: false },
+  hook: { show: ["spud", "crew"], hint: 0, what: "engine test" },
+  cast, props: [], captions: c.captions, beats: c.beats(shots, END),
+  notes: "Generated by storyboards/series/ancient-aliens/kit/bench/make-aa-cast.mjs (cast bench, no reviews).",
+});

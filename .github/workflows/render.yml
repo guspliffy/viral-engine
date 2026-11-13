@@ -58,6 +58,14 @@ jobs:
       # the contact gate once for all shards (they skip it), and real speech into out/speech for all of them
       - name: Contact gate and speech
         run: node engine/render.mjs "$SB" --layout $COST $FLAGS
+      # One verdict before any shard starts, on the layout the step above just wrote (seconds). Ancient aliens EP01
+      # block A (13 Nov 2026): a storyboard went from draft windows straight to the farm, preflight had never run on
+      # that version, and the first full caption check was the join step: all shards rendered a clip that then failed
+      # on two subtitles standing on each other, and the farm ran twice. Full renders only: a draft, a range
+      # (--from/--to) and a forced render (--force, with its written reason) skip it.
+      - name: Preflight
+        if: ${{ !contains(inputs.flags, '--draft') && !contains(inputs.flags, '--from') && !contains(inputs.flags, '--to') && !contains(inputs.flags, '--force') }}
+        run: node qa/preflight.mjs "$SB"
       - id: read
         if: ${{ !cancelled() }}
         run: echo "n=$(ls out/speech 2>/dev/null | wc -l)" >> "$GITHUB_OUTPUT"

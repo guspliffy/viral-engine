@@ -311,6 +311,58 @@
     "thick": 0.72,
     "arch": 0.05
    }
+  },
+  "egyptworker": {
+   "rest": {
+    "tilt": 0,
+    "browY": 0.012,
+    "curve": 0.5,
+    "open": 0,
+    "eye": 1.08,
+    "pupil": 1.05,
+    "smirk": 0,
+    "raise": 0.02
+   },
+   "lids": [
+    0.04,
+    0.04
+   ],
+   "browShape": {
+    "thick": 0.72,
+    "arch": 0.05
+   }
+  },
+  "aliencrew": {
+   "rest": {
+    "tilt": 0,
+    "browY": 0.012,
+    "curve": 0.55,
+    "open": 0,
+    "eye": 1.1,
+    "pupil": 1.05,
+    "smirk": 0,
+    "raise": 0.02
+   },
+   "lids": [
+    0.04,
+    0.04
+   ],
+   "browShape": {
+    "thick": 0.72,
+    "arch": 0.05
+   },
+   "iris": "#2a9d94",
+   "eye": {
+    "oval": 1.0,
+    "iris": 0.82,
+    "lash": 0.8,
+    "flick": 0,
+    "corner": 0,
+    "glintSize": 1.4,
+    "glints": 2
+   },
+   "freckles": 6,
+   "blush": 0.55
   }
  }
 }

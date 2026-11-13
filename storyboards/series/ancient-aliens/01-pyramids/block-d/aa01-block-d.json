@@ -1,0 +1,2520 @@
+{
+ "id": "aa01-block-d",
+ "title": "Ancient aliens EP01 block D",
+ "idea": "Who really built the pyramids? 2:18-2:55: Orion's Belt over the three pyramids, the south shaft, the ring ship leaves for the Belt in 2560 BC, 'Case closed', and the workers' red marks Spud covers with his back",
+ "format": "series: Ancient aliens (Spud hosts with Reaper's voice, five numbered clues, the alien answer is the premise, the tag winks at the real one); block D of four, joined later",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  210,
+  640
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#8fc3ee",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "light": "#7f92d6",
+   "shadow": "#27336e",
+   "exposure": 0.5,
+   "night": true
+  },
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ancient-aliens/aa01-score.ogg",
+  "from": 0,
+  "skip": 138,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false
+ },
+ "creative": {
+  "length": [
+   37,
+   37
+  ]
+ },
+ "hook": {
+  "show": [
+   "spudN",
+   "n-orion"
+  ],
+  "hint": 0,
+  "what": "block D opens mid-film on a hard cut: night over the three pyramids, Orion rising"
+ },
+ "cast": [
+  {
+   "id": "spudN",
+   "character": "potatobrawl/spud",
+   "at": [
+    -146.6,
+    225.6
+   ],
+   "face": 152,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudK",
+   "character": "potatobrawl/spud",
+   "at": [
+    1002.735,
+    2.12
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudH",
+   "character": "potatobrawl/spud",
+   "at": [
+    2970.7,
+    208.5
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "wkH",
+   "character": "ancient-aliens/worker-b",
+   "at": [
+    2969.25,
+    208.1
+   ],
+   "face": 175,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "crewH",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    2972.05,
+    207.9
+   ],
+   "face": 185,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "liftH",
+   "character": "ancient-aliens/alien-lifter",
+   "at": [
+    2973.35,
+    207.1
+   ],
+   "face": 190,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudT",
+   "character": "potatobrawl/spud",
+   "at": [
+    3999.05,
+    -1.75
+   ],
+   "face": 225,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "wkT",
+   "character": "ancient-aliens/worker-a",
+   "at": [
+    4000.66,
+    -2.2
+   ],
+   "face": 185,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "n-sky",
+   "kind": "aasky",
+   "x": -150,
+   "z": 232,
+   "time": "night"
+  },
+  {
+   "id": "n-ground",
+   "kind": "gizaplateau",
+   "x": -150,
+   "z": 232,
+   "tracks": true,
+   "seed": 1,
+   "night": 1
+  },
+  {
+   "id": "n-stars",
+   "kind": "starfield",
+   "x": -150,
+   "z": 232,
+   "n": 5000,
+   "seed": 2,
+   "hole": [
+    33,
+    22,
+    5
+   ]
+  },
+  {
+   "id": "n-moon",
+   "kind": "moon",
+   "x": -150,
+   "z": 232,
+   "at": [
+    352,
+    26
+   ]
+  },
+  {
+   "id": "n-giza",
+   "kind": "gizatoday",
+   "x": 0,
+   "z": 0,
+   "s": 0.2,
+   "sunAz": 130,
+   "night": 1
+  },
+  {
+   "id": "n-orion",
+   "kind": "orion",
+   "x": -41.174,
+   "y": 64.6,
+   "z": 39.651,
+   "belt": true,
+   "roll": 148,
+   "deg": 12
+  },
+  {
+   "id": "spudN-lamp",
+   "kind": "headlamp",
+   "wear": "spudN",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "kc",
+   "kind": "kingschamber",
+   "x": 1000,
+   "y": 0,
+   "z": 0,
+   "lamps": false
+  },
+  {
+   "id": "spudK-lamp",
+   "kind": "headlamp",
+   "wear": "spudK",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "sh-sky",
+   "kind": "aasky",
+   "x": 2000,
+   "z": 0,
+   "time": "night"
+  },
+  {
+   "id": "sh-stars",
+   "kind": "starfield",
+   "x": 2000,
+   "z": 0,
+   "n": 900,
+   "seed": 4
+  },
+  {
+   "id": "shaft",
+   "kind": "starshaft",
+   "x": 2000,
+   "y": 0,
+   "z": 0,
+   "len": 18
+  },
+  {
+   "id": "sh-belt",
+   "kind": "orion",
+   "x": 2000,
+   "y": 57.069,
+   "z": 56.569,
+   "rot": 180,
+   "belt": true,
+   "deg": 1.2,
+   "size": 3.2
+  },
+  {
+   "id": "fh-sky",
+   "kind": "aasky",
+   "x": 2970,
+   "z": 215,
+   "time": "night"
+  },
+  {
+   "id": "fh-ground",
+   "kind": "gizaplateau",
+   "x": 2970,
+   "z": 215,
+   "tracks": false,
+   "seed": 2,
+   "night": 1
+  },
+  {
+   "id": "fh-stars",
+   "kind": "starfield",
+   "x": 2970,
+   "z": 215,
+   "n": 4000,
+   "seed": 2,
+   "hole": [
+    9,
+    17,
+    4
+   ]
+  },
+  {
+   "id": "fh-moon",
+   "kind": "moon",
+   "x": 2970,
+   "z": 215,
+   "at": [
+    358,
+    22
+   ]
+  },
+  {
+   "id": "gh-pyr",
+   "kind": "pyramid",
+   "x": 3000,
+   "z": 0,
+   "s": 0.2,
+   "state": "finished",
+   "sunAz": 70,
+   "night": 0.72
+  },
+  {
+   "id": "sh-ship",
+   "kind": "ringship",
+   "x": 3000,
+   "y": 43.32,
+   "z": 0,
+   "s": 0.5,
+   "beam": 1,
+   "lit": 1,
+   "beamLen": 28,
+   "beamR": 2.214
+  },
+  {
+   "id": "h-belt",
+   "kind": "orion",
+   "x": 3006,
+   "y": 70,
+   "z": -12,
+   "belt": true,
+   "deg": 8
+  },
+  {
+   "id": "dot",
+   "kind": "ringship",
+   "x": 3000,
+   "y": -300,
+   "z": 0,
+   "s": 0.09,
+   "beam": 0,
+   "lit": 1
+  },
+  {
+   "id": "h-workers",
+   "kind": "potatocrowd",
+   "x": 2976,
+   "z": 192,
+   "who": "workers",
+   "n": 60,
+   "box": [
+    22,
+    10
+   ],
+   "seed": 5,
+   "lookAt": [
+    24,
+    40,
+    -192
+   ]
+  },
+  {
+   "id": "h-aliens",
+   "kind": "potatocrowd",
+   "x": 2988,
+   "z": 194,
+   "who": "aliens",
+   "n": 22,
+   "box": [
+    10,
+    6
+   ],
+   "seed": 8,
+   "lookAt": [
+    12,
+    40,
+    -194
+   ]
+  },
+  {
+   "id": "spudH-lamp",
+   "kind": "headlamp",
+   "wear": "spudH",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "rel",
+   "kind": "relievingchamber",
+   "x": 4000,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "marks",
+   "kind": "gangmarks",
+   "x": 4000,
+   "y": 0.62,
+   "z": -2.611
+  },
+  {
+   "id": "oil",
+   "kind": "oillamp",
+   "x": 3999.45,
+   "y": 0,
+   "z": -2.2,
+   "wall": 0.41
+  },
+  {
+   "id": "bowl",
+   "kind": "paintbowl",
+   "x": 4000.95,
+   "y": 0,
+   "z": -2.25
+  },
+  {
+   "id": "brush",
+   "kind": "reedbrush",
+   "x": 4000.42,
+   "y": 0.42,
+   "z": -2.36,
+   "tip": -60,
+   "rot": 0
+  },
+  {
+   "id": "spudT-lamp",
+   "kind": "headlamp",
+   "wear": "spudT",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 17,
+   "text": "CLUE 5/5",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 0.5,
+   "to": 0.9,
+   "text": "☆",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 0.9,
+   "to": 1.3,
+   "text": "☆ ☆",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.3,
+   "to": 2.95,
+   "text": "☆ ☆ ☆",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 1.3,
+   "to": 3.08,
+   "text": "Orion's Belt.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.15,
+   "to": 5.8,
+   "text": "The smallest star sits off the line.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.3,
+   "to": 5.65,
+   "text": "1 OFF THE LINE",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 5.85,
+   "to": 8.01,
+   "text": "So does the smallest pyramid.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.05,
+   "to": 8.95,
+   "text": "SAME PATTERN",
+   "pos": 300,
+   "pop": false,
+   "size": 104,
+   "kinetic": false
+  },
+  {
+   "from": 9.4,
+   "to": 12.24,
+   "text": "And this shaft pointed right at them.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.4,
+   "to": 11.95,
+   "text": "45°",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.4,
+   "to": 15.09,
+   "text": "Four and a half thousand years ago.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 12.5,
+   "to": 12.6,
+   "text": "2026 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.6,
+   "to": 12.7,
+   "text": "1402 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.7,
+   "to": 12.8,
+   "text": "837 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.8,
+   "to": 12.9,
+   "text": "328 AD",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.9,
+   "to": 13,
+   "text": "127 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 13.1,
+   "text": "532 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.1,
+   "to": 13.2,
+   "text": "889 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.2,
+   "to": 13.3,
+   "text": "1201 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.3,
+   "to": 13.4,
+   "text": "1472 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.4,
+   "to": 13.5,
+   "text": "1704 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.5,
+   "to": 13.6,
+   "text": "1901 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.6,
+   "to": 13.7,
+   "text": "2065 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.7,
+   "to": 13.8,
+   "text": "2199 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.8,
+   "to": 13.9,
+   "text": "2306 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 13.9,
+   "to": 14,
+   "text": "2390 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 14.1,
+   "text": "2453 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.1,
+   "to": 14.2,
+   "text": "2498 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.2,
+   "to": 14.3,
+   "text": "2528 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.3,
+   "to": 14.4,
+   "text": "2547 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.4,
+   "to": 14.5,
+   "text": "2556 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.5,
+   "to": 14.6,
+   "text": "2560 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 14.6,
+   "to": 16.95,
+   "text": "2560 BC",
+   "pos": 300,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 19.6,
+   "to": 21.97,
+   "text": "They didn't build it for us.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 22.1,
+   "to": 25.01,
+   "text": "They built a signpost home.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 27.35,
+   "to": 29.95,
+   "text": "CASE CLOSED",
+   "pos": 300,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 32.1,
+   "to": 33.25,
+   "text": "“FRIENDS OF KHUFU”",
+   "pos": 300,
+   "pop": false,
+   "size": 84,
+   "kinetic": false
+  },
+  {
+   "from": 34.6,
+   "to": 36.45,
+   "text": "...Nobody saw that.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "orion rises",
+   "at": 0,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -150,
+     0.9,
+     232
+    ],
+    "look": [
+     -60,
+     58,
+     48
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      -150,
+      1,
+      232
+     ],
+     "look": [
+      -60,
+      44,
+      54
+     ],
+     "fov": 32
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "n-orion",
+     "set": {
+      "show": 0,
+      "y": 52
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "n-stars",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh-stars",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh-belt",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "fh-stars",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h-belt",
+     "set": {
+      "show": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sh-ship",
+     "set": {
+      "beam": 1,
+      "wobble": 0.4
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dot",
+     "set": {
+      "beam": 0,
+      "wobble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "paint": 0.55
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudK-lamp",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudT-lamp",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 9,
+     "reason": "the desert night, far under",
+     "at": 0
+    },
+    {
+     "who": "wkT",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": -20,
+      "lean": 30,
+      "thin": 0.004,
+      "close": 0,
+      "curl": 0.7,
+      "index": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "off": [
+       -0.07,
+       0.07,
+       0.04
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 0.01
+    },
+    {
+     "who": "wkT",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.004
+     },
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "wkT",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "L",
+     "grip": [
+      0,
+      0.21,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.08
+    },
+    {
+     "do": "prop",
+     "id": "n-orion",
+     "set": {
+      "show": 1,
+      "y": 64.6
+     },
+     "dur": 2.6,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "spudN",
+     "do": "look",
+     "to": [
+      0.2,
+      0.7
+     ],
+     "dur": 0.35,
+     "at": 0.3
+    },
+    {
+     "who": "spudN",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "spudN",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.78,
+       0.22
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.6
+    },
+    {
+     "macro": "say",
+     "who": "spudN",
+     "line": "Orion's Belt.",
+     "tone": "excited",
+     "dur": 1.38,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.3
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the smallest star",
+   "at": 3,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -150,
+     1,
+     232
+    ],
+    "look": [
+     -41.174,
+     64.6,
+     39.651
+    ],
+    "fov": 22,
+    "to": {
+     "pos": [
+      -150,
+      1,
+      232
+     ],
+     "look": [
+      -41.174,
+      64.6,
+      39.651
+     ],
+     "fov": 15
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spudN",
+     "line": "The smallest star sits off the line.",
+     "tone": "calm",
+     "dur": 2.51,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "the smallest pyramid",
+   "at": 5.7,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     -150,
+     1.2,
+     232
+    ],
+    "look": [
+     -56,
+     40,
+     56
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -150,
+      1,
+      230.5
+     ],
+     "look": [
+      -56,
+      24,
+      56
+     ],
+     "fov": 30
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudN",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.35,
+       0.3
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spudN",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.15
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spudN",
+     "line": "So does the smallest pyramid.",
+     "tone": "calm",
+     "dur": 1.76,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spudN",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "who": "spudN",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.8
+    },
+    {
+     "who": "spudN",
+     "do": "noblink",
+     "dur": 0.25,
+     "at": 3.05
+    }
+   ]
+  },
+  {
+   "name": "the south shaft",
+   "at": 9,
+   "len": 3,
+   "shot": {
+    "pos": [
+     1004,
+     1.05,
+     1.7
+    ],
+    "look": [
+     1002.735,
+     1,
+     2.6
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      1004.9,
+      0.85,
+      1.85
+     ],
+     "look": [
+      1002.7,
+      0.9,
+      2.4
+     ],
+     "fov": 55
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/step-concrete",
+     "gain": 0.25,
+     "reason": "he steps up to the south wall",
+     "at": 0.05
+    },
+    {
+     "who": "spudK",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "spudK",
+     "do": "pitch",
+     "to": -9,
+     "dur": 0.4,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spudK",
+     "line": "And this shaft pointed right at them.",
+     "tone": "calm",
+     "dur": 2.44,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "who": "spudK",
+     "do": "hop",
+     "count": 2,
+     "height": 0.16,
+     "dur": 0.9,
+     "at": 0.55
+    },
+    {
+     "who": "spudK",
+     "do": "noblink",
+     "dur": 0.25,
+     "at": 2.75
+    }
+   ]
+  },
+  {
+   "name": "up the shaft",
+   "at": 12,
+   "len": 5,
+   "shot": {
+    "pos": [
+     2000,
+     0.5,
+     0
+    ],
+    "look": [
+     2000,
+     10.5,
+     10
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      2000,
+      1.9,
+      1.4
+     ],
+     "look": [
+      2000,
+      11.9,
+      11.4
+     ],
+     "fov": 22
+    },
+    "dur": 5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spudK",
+     "line": "Four and a half thousand years ago.",
+     "tone": "calm",
+     "dur": 2.29,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "the ship goes home",
+   "at": 17,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     2970,
+     1,
+     216
+    ],
+    "look": [
+     3000,
+     31,
+     0
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      2970,
+      1,
+      215.2
+     ],
+     "look": [
+      3000,
+      33,
+      0
+     ],
+     "fov": 26
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "rumble",
+     "gain": 0.3,
+     "dur": 1.6,
+     "reason": "the ship's low hum over the pyramid",
+     "at": 0
+    },
+    {
+     "who": "spudH",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "wkH",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "crewH",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "liftH",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sh-ship",
+     "set": {
+      "beam": 0,
+      "wobble": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.45,
+     "dur": 3.5,
+     "reason": "the hum swells as the ring lifts away",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sh-ship",
+     "set": {
+      "x": 2996,
+      "y": 64,
+      "z": -30
+     },
+     "dur": 8,
+     "ease": "in",
+     "at": 1
+    },
+    {
+     "who": "crewH",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "spudH",
+     "do": "look",
+     "to": [
+      0.4,
+      0.4
+     ],
+     "dur": 0.2,
+     "at": 1.85
+    },
+    {
+     "who": "spudH",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "who": "spudH",
+     "do": "look",
+     "to": [
+      0.05,
+      0.9
+     ],
+     "dur": 0.3,
+     "at": 2.2
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "faces up",
+   "at": 19.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     2971,
+     0.35,
+     205.9
+    ],
+    "look": [
+     2971,
+     0.95,
+     209.5
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      2971,
+      0.4,
+      206.4
+     ],
+     "look": [
+      2971,
+      0.95,
+      209.5
+     ],
+     "fov": 46
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spudH",
+     "line": "They didn't build it for us.",
+     "tone": "calm",
+     "dur": 1.97,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "crewH",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spudH",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "toward the Belt",
+   "at": 22,
+   "len": 4,
+   "shot": {
+    "pos": [
+     2970,
+     1,
+     216
+    ],
+    "look": [
+     2998,
+     40,
+     -10
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      2970,
+      1,
+      216
+     ],
+     "look": [
+      3002,
+      58,
+      -16
+     ],
+     "fov": 26
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spudH",
+     "line": "They built a signpost home.",
+     "tone": "calm",
+     "dur": 2.51,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spudH",
+     "do": "noblink",
+     "dur": 0.25,
+     "at": 3.75
+    }
+   ]
+  },
+  {
+   "name": "case closed",
+   "at": 26,
+   "len": 4,
+   "shot": {
+    "pos": [
+     2970.7,
+     0.62,
+     213.3
+    ],
+    "look": [
+     2971.2,
+     1.95,
+     200
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      2970.7,
+      0.62,
+      212.4
+     ],
+     "look": [
+      2971.2,
+      1.95,
+      200
+     ],
+     "fov": 30
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "sh-ship",
+     "set": {
+      "y": -400
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dot",
+     "set": {
+      "x": 2996,
+      "y": 64,
+      "z": -30
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dot",
+     "set": {
+      "x": 3021.64,
+      "y": 80.064,
+      "z": -12
+     },
+     "dur": 2.4,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spudH",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.5,
+     "at": 0.25
+    },
+    {
+     "who": "spudH",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "spudH",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 0.65
+    },
+    {
+     "who": "spudH",
+     "do": "face",
+     "lid": 0.4,
+     "brow": -0.25,
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "macro": "say",
+     "who": "spudH",
+     "line": "Case closed.",
+     "tone": "calm",
+     "dur": 1.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1
+    },
+    {
+     "sfx": "step",
+     "gain": 0.5,
+     "reason": "a dull stamp as the words land",
+     "at": 1.35
+    },
+    {
+     "who": "spudH",
+     "do": "noblink",
+     "dur": 0.25,
+     "at": 3.75
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "the brush",
+   "at": 30,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     4000.35,
+     0.65,
+     -1.35
+    ],
+    "look": [
+     4000.15,
+     0.6,
+     -2.6
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      4000.3,
+      0.66,
+      -1.15
+     ],
+     "look": [
+      4000.1,
+      0.6,
+      -2.6
+     ],
+     "fov": 52
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.42,
+       0.5,
+       -2.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "paint": 1
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "sfx": "crinkle",
+     "gain": 0.08,
+     "dur": 1.8,
+     "reason": "a dry reed brush on limestone, very soft",
+     "at": 0.1
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.42,
+       0.34,
+       -2.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.48
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.36,
+       0.48,
+       -2.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.36,
+       0.32,
+       -2.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.24
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.4,
+       0.42,
+       -2.36
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0.55,
+      0.3
+     ],
+     "dur": 0.15,
+     "at": 1.65
+    }
+   ]
+  },
+  {
+   "name": "the marks",
+   "at": 31.8,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     4000.25,
+     0.75,
+     0.9
+    ],
+    "look": [
+     3999.85,
+     0.6,
+     -2.6
+    ],
+    "fov": 70,
+    "to": {
+     "pos": [
+      4000.2,
+      0.74,
+      0.55
+     ],
+     "look": [
+      3999.85,
+      0.6,
+      -2.6
+     ],
+     "fov": 70
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudT",
+     "do": "move",
+     "to": [
+      3999.4,
+      -1.95
+     ],
+     "dur": 0.5,
+     "steps": 2,
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "spudT",
+     "do": "turn",
+     "to": 330,
+     "dur": 0.35,
+     "at": 0.65
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.368
+     },
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "spudT",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "spudT",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.08,
+     "at": 0.7
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "wkT",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 0.95
+    },
+    {
+     "who": "wkT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0,
+       0.21,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       4000.62,
+       0.4,
+       -1.75
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "wkT",
+     "do": "move",
+     "to": [
+      4001,
+      -1.7
+     ],
+     "dur": 0.45,
+     "steps": 2,
+     "at": 1.1
+    },
+    {
+     "who": "spudT",
+     "do": "move",
+     "to": [
+      4000,
+      -2.25
+     ],
+     "dur": 0.45,
+     "steps": 2,
+     "at": 1.2
+    },
+    {
+     "who": "spudT",
+     "do": "turn",
+     "to": 360,
+     "dur": 0.35,
+     "at": 1.2
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.5,
+       0.5,
+       -0.12
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.5,
+       0.5,
+       -0.12
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "sfx": "pat",
+     "gain": 0.5,
+     "reason": "his back meets the stone",
+     "at": 1.65
+    },
+    {
+     "who": "wkT",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.1
+     ],
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 1.8
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "spudT",
+     "do": "noblink",
+     "dur": 0.25,
+     "at": 2.15
+    }
+   ]
+  },
+  {
+   "name": "nobody saw that",
+   "at": 34.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     4000,
+     0.55,
+     -0.35
+    ],
+    "look": [
+     4000,
+     0.78,
+     -2.6
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      4000,
+      0.56,
+      -0.6
+     ],
+     "look": [
+      4000,
+      0.76,
+      -2.6
+     ],
+     "fov": 50
+    },
+    "dur": 2.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "face",
+     "lid": 0.48,
+     "brow": -0.4,
+     "press": 0.6,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spudT",
+     "line": "...nobody saw that.",
+     "tone": "calm",
+     "dur": 1.45,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "who": "spudT",
+     "do": "noblink",
+     "dur": 0.3,
+     "at": 2.5
+    }
+   ],
+   "kind": "reaction"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0.3,
+   "to": 3,
+   "see": [
+    "n-orion"
+   ],
+   "why": "Orion's Belt rising, Spud pointing up"
+  },
+  {
+   "from": 5.7,
+   "to": 9,
+   "see": [
+    "n-orion",
+    "spudN"
+   ],
+   "why": "the Belt over the three pyramids"
+  },
+  {
+   "from": 9,
+   "to": 12,
+   "see": [
+    "spudK",
+    "kc"
+   ],
+   "why": "the south shaft, his headlamp on it, he hops to see in"
+  },
+  {
+   "from": 12,
+   "to": 17,
+   "see": [
+    "sh-belt"
+   ],
+   "why": "the three stars at the top of the shaft"
+  },
+  {
+   "from": 17,
+   "to": 19.5,
+   "see": [
+    "sh-ship",
+    "gh-pyr"
+   ],
+   "why": "the ring over the white pyramid lifts off"
+  },
+  {
+   "from": 19.5,
+   "to": 22,
+   "see": [
+    "spudH.face",
+    "crewH.face"
+   ],
+   "why": "the faces looking up, the alien and Spud waving"
+  },
+  {
+   "from": 22,
+   "to": 26,
+   "see": [
+    "sh-ship",
+    "h-belt"
+   ],
+   "why": "the ring climbs toward the Belt"
+  },
+  {
+   "from": 27,
+   "to": 30,
+   "see": [
+    "spudH.face",
+    "dot"
+   ],
+   "why": "his face, the point of light in line with the Belt"
+  },
+  {
+   "from": 30,
+   "to": 31.8,
+   "see": [
+    "marks"
+   ],
+   "why": "the brush finishing the red marks"
+  },
+  {
+   "from": 31.8,
+   "to": 33,
+   "see": [
+    "marks",
+    "spudT"
+   ],
+   "why": "Spud reads the marks"
+  },
+  {
+   "from": 34.2,
+   "to": 37,
+   "see": [
+    "spudT.face"
+   ],
+   "why": "his deadpan look to us, the marks hidden behind him"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spudN",
+   "with": "spudN-lamp",
+   "from": 0,
+   "to": 37,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudK",
+   "with": "spudK-lamp",
+   "from": 0,
+   "to": 37,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudH",
+   "with": "spudH-lamp",
+   "from": 0,
+   "to": 37,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudT",
+   "with": "spudT-lamp",
+   "from": 0,
+   "to": 37,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudK",
+   "with": "spudK-lamp",
+   "from": 9,
+   "to": 12,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the worn headlamp band squashes with his body as he hops (it sits on the skin)"
+  },
+  {
+   "who": "spudN",
+   "with": "n-ground",
+   "from": 0,
+   "to": 37,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "he stands on the plateau's far ground (its rubble humps)"
+  },
+  {
+   "who": "spudH",
+   "with": "fh-ground",
+   "from": 0,
+   "to": 37,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "they stand on the plateau's far ground (its rubble humps)"
+  },
+  {
+   "who": "wkH",
+   "with": "fh-ground",
+   "from": 0,
+   "to": 37,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "they stand on the plateau's far ground (its rubble humps)"
+  },
+  {
+   "who": "crewH",
+   "with": "fh-ground",
+   "from": 0,
+   "to": 37,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "they stand on the plateau's far ground (its rubble humps)"
+  },
+  {
+   "who": "liftH",
+   "with": "fh-ground",
+   "from": 0,
+   "to": 37,
+   "checks": [
+    "clipping",
+    "arm-in-prop",
+    "hand-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "they stand on the plateau's far ground (its rubble humps)"
+  },
+  {
+   "who": "wkT",
+   "with": "rel",
+   "from": 30,
+   "to": 33,
+   "checks": [
+    "arm-in-prop"
+   ],
+   "reason": "the brush hand paints on the wall"
+  },
+  {
+   "who": "spudT",
+   "with": "rel",
+   "from": 33,
+   "to": 37,
+   "reason": "his back pressed flat on the north wall over the marks (panel 35)"
+  },
+  {
+   "who": "spudT",
+   "with": "marks",
+   "from": 33,
+   "to": 37,
+   "reason": "his back covers the painted marks, 4 mm off the wall (panel 35)"
+  },
+  {
+   "who": "wkT",
+   "with": "brush",
+   "from": 0,
+   "to": 37,
+   "reason": "the worker holds the reed brush (grips.thin, kit grip bench)"
+  },
+  {
+   "who": "spudK",
+   "with": "kc",
+   "from": 9,
+   "to": 12,
+   "reason": "he stands at the south wall of the closed granite room"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/01-pyramids/block-d/make-aa01-block-d.mjs. Spec: NOTES.md, PANELS.md next to it; kit/BLOCKS.md."
+}
