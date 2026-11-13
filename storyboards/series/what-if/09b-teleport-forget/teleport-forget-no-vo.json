@@ -263,6 +263,15 @@
    "pop": false
   },
   {
+   "from": 9.45,
+   "to": 10.6,
+   "text": "Don't let go!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
    "from": 21.9,
    "to": 23.6,
    "text": "...who are you?",
@@ -1449,7 +1458,22 @@
      -1.45,
      -4.8
     ],
-    "fov": 50
+    "fov": 50,
+    "to": {
+     "pos": [
+      2.5,
+      -0.95,
+      -4.1
+     ],
+     "look": [
+      0,
+      -1.4,
+      -4.8
+     ],
+     "fov": 46
+    },
+    "dur": 1.6,
+    "ease": "linear"
    },
    "do": [
     {
@@ -1490,6 +1514,79 @@
      "at": 0
     },
     {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.15,
+      -4.42
+     ],
+     "dur": 0.02,
+     "steps": 3.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.3,
+      -5.12
+     ],
+     "dur": 0.02,
+     "steps": 3.2,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35,
+      "brow": 0.9
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.75,
+      "eye": 1.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.11,
+      -4.42
+     ],
+     "dur": 0.38,
+     "steps": 3.2,
+     "at": 0.02
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.092,
+      -5.12
+     ],
+     "dur": 0.38,
+     "steps": 3.2,
+     "at": 0.02
+    },
+    {
      "sfx": "creak",
      "gain": 0.45,
      "reason": "the last rope creaking under the weight",
@@ -1520,6 +1617,19 @@
     },
     {
      "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "sfx": "crumble",
+     "gain": 0.2,
+     "reason": "grit from the rope fibres pattering down the wall",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
      "do": "expr",
      "expr": "terrified",
      "set": {
@@ -1528,6 +1638,57 @@
      },
      "dur": 0.15,
      "at": 0.35
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.09,
+      -4.42
+     ],
+     "dur": 0.38,
+     "steps": 3.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.252,
+      -5.12
+     ],
+     "dur": 0.38,
+     "steps": 3.2,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.17,
+      -4.42
+     ],
+     "dur": 0.24,
+     "steps": 3.2,
+     "at": 0.78
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.316,
+      -5.12
+     ],
+     "dur": 0.24,
+     "steps": 3.2,
+     "at": 0.78
     },
     {
      "do": "prop",
@@ -1543,6 +1704,39 @@
      "sfx": "ai/branch-snap",
      "gain": 0.45,
      "reason": "a rope strand parting",
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.18,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.18,
+     "at": 0.9
+    },
+    {
+     "fx": "shake",
+     "dur": 0.35,
+     "amp": 0.05,
+     "at": 0.9
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.45,
+     "reason": "the last rope creaking under the weight",
      "at": 0.9
     },
     {
@@ -1565,6 +1759,91 @@
      "dur": 0.1,
      "blink": false,
      "at": 0.95
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.9,
+      "eye": 1.5
+     },
+     "dur": 0.06,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.12,
+      -4.42
+     ],
+     "dur": 0.36,
+     "steps": 3.2,
+     "at": 1.02
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.084,
+      -5.12
+     ],
+     "dur": 0.36,
+     "steps": 3.2,
+     "at": 1.02
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "Don't let go!",
+     "tone": "excited",
+     "dur": 0.75,
+     "blink": false,
+     "voice": false,
+     "at": 1.05
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.55,
+     "reason": "the rope groaning after the strand parts",
+     "at": 1.15
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.06,
+      -4.42
+     ],
+     "dur": 0.22,
+     "steps": 3.2,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.228,
+      -5.12
+     ],
+     "dur": 0.22,
+     "steps": 3.2,
+     "at": 1.38
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.03,
+     "dur": 0.15,
+     "at": 1.5
     }
    ]
   },
@@ -1607,6 +1886,12 @@
      "gain": 0.8,
      "loud": true,
      "reason": "the last strand snapping",
+     "at": 0.3
+    },
+    {
+     "fx": "shake",
+     "dur": 0.45,
+     "amp": 0.06,
      "at": 0.3
     },
     {
@@ -2631,7 +2916,6 @@
       0.2,
       -0.55
      ],
-     "y": -1,
      "dur": 0.4,
      "steps": 0,
      "ease": "out",
@@ -2710,15 +2994,30 @@
    "shot": {
     "pos": [
      0.3,
-     2.6,
-     0.9
+     1,
+     -1.2
     ],
     "look": [
      0.2,
-     -9,
-     -0.6
+     -6,
+     -0.45
     ],
-    "fov": 64
+    "fov": 60,
+    "to": {
+     "pos": [
+      0.3,
+      -15,
+      -1.2
+     ],
+     "look": [
+      0.2,
+      -28,
+      -0.45
+     ],
+     "fov": 60
+    },
+    "dur": 2.15,
+    "ease": "in"
    },
    "do": [
     {

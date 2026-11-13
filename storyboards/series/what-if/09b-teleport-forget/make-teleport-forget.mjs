@@ -184,9 +184,25 @@ look(T.rope, "spud", [0.6, 0.15], 0.01); look(T.rope, "chip", [-0.7, 0.15], 0.01
 expr(T.grab + 0.1, "chip", "terrified", { open: 0.2, brow: 0.6 }, 0.15);
 popStrand(T.pop2, 1); creak(T.rope + 0.2, 0.45);
 expr(T.pop2 + 0.05, "spud", "terrified", { open: 0.3 }, 0.08); look(T.pop2 + 0.05, "spud", [0.8, 0.3], 0.1);
+// Jonny 13 Nov (draft 1): "not enough motion ... no drama". The two swing under the rope, legs kicking, both terrified;
+// the pop jolts them and the camera; Chip screams.
+const SWING = [[8.42, 0.15], [8.8, -0.11], [9.18, 0.09], [9.42, 0.17], [9.78, -0.12], [10.0, 0.06]];
+for (const [who, at] of [["chip", CHIP_HANG], ["spud", SPUD_HANG]]) {
+  let t0 = T.rope;
+  for (const [t1, dx] of SWING) { A(r3(t0), who, "move", { to: [r3(at[0] + (who === "spud" ? dx * 0.8 : dx)), at[1]], dur: r3(t1 - t0), steps: 3.2 }); t0 = t1; }
+}
+expr(T.rope, "spud", "terrified", { open: 0.35, brow: 0.9 }, 0.01); expr(T.rope, "chip", "terrified", { open: 0.75, eye: 1.4 }, 0.01);
+for (let t = T.rope; t < T.snapC; t = r3(t + 0.3)) A(r3(t), "chip", "squash", { amount: 0.03, dur: 0.15 });   // sobbing breaths
+A(r3(T.pop2), "chip", "squash", { amount: 0.1, dur: 0.18 }); A(r3(T.pop2), "spud", "squash", { amount: 0.1, dur: 0.18 });
+c.at(r3(T.pop2), { fx: "shake", dur: 0.35, amp: 0.05 });
+expr(T.pop2 + 0.1, "chip", "terrified", { open: 0.9, eye: 1.5 }, 0.06);
+say(T.pop2 + 0.15, "chip", "Don't let go!", 0.75, "excited");
+sfx(r3(T.rope + 0.3), "crumble", { gain: 0.2, reason: "grit from the rope fibres pattering down the wall" });
+creak(T.rope + 0.9, 0.45); creak(T.pop2 + 0.25, 0.55, "the rope groaning after the strand parts");
 see(T.rope, T.snapC, ["spud.face", "chip.face", "rope"], "Spud hangs beside Chip and grabs his wrist; another strand pops");
 popStrand(T.snap, 0); Pk("gorge", r3(T.snap + 0.03), "rope", { snap: 1 }, 1.0, "out");
 sfx(r3(T.snap), "ai/branch-snap", { gain: 0.8, loud: true, reason: "the last strand snapping" });
+c.at(r3(T.snap), { fx: "shake", dur: 0.45, amp: 0.06 });
 see(T.snapC, T.fall, ["rope"], "close on the rope: the last strand snaps, the ends fly apart");
 
 // ================================================================= 09 THE FALL (10.8-12.45): together, he holds Chip's wrist
@@ -264,7 +280,7 @@ sfx(r3(T.off - 0.15), "crumble", { gain: 0.3, reason: "the flake under his glove
 see(T.slip, T.off, ["spud.face"], "close from above: his gloves slipping off the broken lip, pebbles falling, his wide eyes");
 const FALL2 = r3(T.j3 - T.off - 0.05), FALL2_DY = -20;
 A(T.off, "spud", "drop", { to: r3(EDGE_HANG_Y + FALL2_DY), dur: FALL2 });
-A(T.off, "spud", "move", { to: [0.2, -0.55], y: EDGE_HANG_Y, dur: 0.4, steps: 0, ease: "out" });   // out into corridor B, off the wall
+A(T.off, "spud", "move", { to: [0.2, -0.55], dur: 0.4, steps: 0, ease: "out" });   // no y: a y here held him at the lip (draft 1)   // out into corridor B, off the wall
 A(T.off, "spud", "pitch", { to: -35, dur: 0.6, ease: "out" });   // falling on his back, face up to them
 grip(T.off, "spud", "R", "open", 0.06);
 arm(T.off, "spud", "R", { o: [0.3, 0.8, 0.2] }, 0.3, "out"); arm(T.off, "spud", "L", { o: [0.3, 0.8, 0.2] }, 0.3, "out");
@@ -315,12 +331,12 @@ const SH = {
   decide:{ pos: [-0.55, 1.05, -2.3], look: [-0.45, 0.55, 0.8], fov: 56 },
   j1:    { pos: [1.6, 3.0, 3.6], look: [0.0, -1.4, -3.4], fov: 58 },
   mash:  { pos: [0.6, 1.05, r3(ROOM[2] + 1.6)], look: [0.0, 0.6, r3(ROOM[2] - 1.0)], fov: 46 },
-  rope:  { pos: [3.3, -0.7, -3.7], look: [0, -1.45, -4.8], fov: 50 },   // board 07: side on, the drop below
+  rope:  { pos: [3.3, -0.7, -3.7], look: [0, -1.45, -4.8], fov: 50, to: { pos: [2.5, -0.95, -4.1], look: [0, -1.4, -4.8], fov: 46 }, dur: 1.6, ease: "linear" },   // board 07: side on, the drop below
   snap:  { pos: [1.05, -0.6, -4.72], look: [0, -0.77, -4.44], fov: 22 },
   fall:  { pos: [3.0, 0.8, -4.6], look: [0, -12, -4.6], fov: 60 },   // board 09: straight down, the walls left and right
   lip:   { pos: [-1.3, 0.95, -1.7], look: [-0.3, 0.5, 0.6], fov: 52 },
   slip:  { pos: [0.2, 1.15, 1.35], look: [0.2, -0.75, 0.0], fov: 46 },
-  alone: { pos: [0.3, 2.6, 0.9], look: [0.2, -9, -0.6], fov: 64 },
+  alone: { pos: [0.3, 1.0, -1.2], look: [0.2, -6, -0.45], fov: 60, to: { pos: [0.3, -15, -1.2], look: [0.2, -28, -0.45], fov: 60 }, dur: 2.15, ease: "in" },   // Jonny: he must really fall; the camera chases him down corridor B
   a3:    { pos: [0.1, 0.95, -1.5], look: [0.1, 0.45, 0.8], fov: 52 },
   meet:  { pos: [-0.1, 0.95, -1.4], look: [0.0, 0.55, 0.75], fov: 54 },
   close: { pos: [-0.75, 0.8, -0.85], look: [0.55, 0.62, 0.75], fov: 34 },
