@@ -109,6 +109,11 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-wedding.js (What if 09, teleport rings): the ring box (origin bottom centre; box hold on the BASE's two short ends, never the lid; one hand = mug hold at half height), a wide gold band standing on edge (origin its centre, 0.6 x -0.08 = the rim's bottom, the pads on the two faces), the daisy bouquet (a fist on the handle, 0.09 long), the small black bow tie (origin the knot's centre: grips.mug with { height: 0 })
+  ringbox: { w: 0.18, h: 0.07, d: 0.15, r: 0.08 },
+  goldring: { len: -0.08, r: 0.015 },
+  bouquet: { r: 0.016, h: 0.09 },
+  bowtie: { r: 0.028, h: 0.053 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

@@ -105,6 +105,8 @@ import { SOS_VAT_KINDS } from "./props-sos-vat.js";   // share or steal v2: the 
 import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dark studio and the deep fryer (props-sos-set.js)
 import { HP_SET_KINDS } from "./props-hotpotato-set.js";   // hot potato: the felt studio, trapdoor tiles and the vat
 import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the coal, tongs, bow tie and basket lift
+import { WEDDING_KINDS } from "./props-wedding.js";   // what if 09 teleport rings: ringbox, goldring, bowtie, flowerpin, bouquet, bridalveil, spudleaf, dustring
+import { WEDDINGSET_KINDS } from "./props-wedding-set.js";   // what if 09 teleport rings: gardenaltar, flowerarch, weddingguest, ringhall
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1444,6 +1446,8 @@ Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props 
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
+Object.assign(KINDS, WEDDING_KINDS);   // what if 09 teleport rings (props-wedding.js)
+Object.assign(KINDS, WEDDINGSET_KINDS);   // what if 09 teleport rings: the garden and the hall (props-wedding-set.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

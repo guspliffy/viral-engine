@@ -1,0 +1,1146 @@
+{
+ "id": "props-bench",
+ "title": "Wedding props bench",
+ "idea": "Props bench for What if EP09 (ringbox, goldring, bowtie, flowerpin, bouquet, bridalveil, spudleaf, dustring), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#cfe0ee",
+  "floor": "#c48c54"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "r1"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "s1",
+   "character": "potatobrawl/spud",
+   "at": [
+    28,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "s2",
+   "character": "potatobrawl/spud",
+   "at": [
+    35,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.7
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    42,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    48.52,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    49.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.5
+  },
+  {
+   "id": "mashB",
+   "character": "potatobrawl/mash",
+   "at": [
+    49,
+    -0.65
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "chipB",
+   "character": "potatobrawl/chip",
+   "at": [
+    54.3,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.2
+  },
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    55.4,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.4
+  },
+  {
+   "id": "bald",
+   "character": "what-if/spud-bald",
+   "at": [
+    56.6,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.4
+  },
+  {
+   "id": "mashC",
+   "character": "potatobrawl/mash",
+   "at": [
+    57.8,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.4
+  },
+  {
+   "id": "chipC",
+   "character": "potatobrawl/chip",
+   "at": [
+    62.52,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.3
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "at": [
+    63.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "s3",
+   "character": "potatobrawl/spud",
+   "at": [
+    70,
+    -0.25
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.9
+  }
+ ],
+ "props": [
+  {
+   "id": "b00",
+   "kind": "ringbox",
+   "x": -0.17,
+   "y": 0,
+   "z": 0.22,
+   "rot": 0,
+   "lid": 0,
+   "rings": 0
+  },
+  {
+   "id": "b02",
+   "kind": "ringbox",
+   "x": 0.17,
+   "y": 0,
+   "z": 0.22,
+   "rot": 0,
+   "lid": 0,
+   "rings": 2
+  },
+  {
+   "id": "b10",
+   "kind": "ringbox",
+   "x": -0.17,
+   "y": 0,
+   "z": -0.22,
+   "rot": 0,
+   "lid": 1,
+   "rings": 0
+  },
+  {
+   "id": "b12",
+   "kind": "ringbox",
+   "x": 0.17,
+   "y": 0,
+   "z": -0.22,
+   "rot": 0,
+   "lid": 1,
+   "rings": 2
+  },
+  {
+   "id": "r1",
+   "kind": "goldring",
+   "x": 6.9,
+   "y": 0.015,
+   "z": 0,
+   "rot": 0,
+   "seed": 0.13,
+   "spin": 0
+  },
+  {
+   "id": "r2",
+   "kind": "goldring",
+   "x": 7.12,
+   "y": 0.015,
+   "z": 0,
+   "rot": 0,
+   "seed": 0.61,
+   "spin": 0
+  },
+  {
+   "id": "leaf",
+   "kind": "spudleaf",
+   "staged": "bench: a leaf on the air",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "from": [
+    13.35,
+    1.02,
+    1.8
+   ],
+   "to": [
+    14,
+    0.5,
+    1.97
+   ],
+   "fall": 0
+  },
+  {
+   "id": "shelf",
+   "kind": "dinercounter",
+   "x": 14,
+   "z": 1.95,
+   "w": 0.3,
+   "d": 1.3,
+   "h": 0.5,
+   "rot": 0
+  },
+  {
+   "id": "lawn",
+   "kind": "rug",
+   "x": 21,
+   "z": 0,
+   "w": 3.2,
+   "d": 3,
+   "color": "#8fc65a",
+   "pattern": "quiet"
+  },
+  {
+   "id": "tie",
+   "kind": "bowtie",
+   "staged": "bench: a tie hanging in the air",
+   "x": 21,
+   "y": 0.47,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "dleave",
+   "kind": "dustring",
+   "x": 21,
+   "y": 0,
+   "z": 0,
+   "puff": 0
+  },
+  {
+   "id": "darrive",
+   "kind": "dustring",
+   "mode": "arrive",
+   "x": 21,
+   "y": 0,
+   "z": 0,
+   "puff": 0
+  },
+  {
+   "id": "pl",
+   "kind": "goldring",
+   "n": 2,
+   "pose": "lean",
+   "x": 28,
+   "y": 0.46,
+   "z": 0.4,
+   "rot": 0
+  },
+  {
+   "id": "pk",
+   "kind": "goldring",
+   "n": 2,
+   "pose": "link",
+   "x": 35,
+   "y": 0.46,
+   "z": 0.4,
+   "rot": 0
+  },
+  {
+   "id": "bq",
+   "kind": "bouquet",
+   "staged": "bench: carried by Mash",
+   "x": 42.3,
+   "y": 0.5,
+   "z": 0.5,
+   "rot": 180
+  },
+  {
+   "id": "veil",
+   "kind": "bridalveil",
+   "wear": "mash",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "pin",
+   "kind": "flowerpin",
+   "wear": "chip",
+   "x": 0.14,
+   "y": 0.33,
+   "z": 0.235
+  },
+  {
+   "id": "tieW",
+   "kind": "bowtie",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.47,
+   "z": 0.335
+  },
+  {
+   "id": "veilB",
+   "kind": "bridalveil",
+   "wear": "mashB",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "pinC",
+   "kind": "flowerpin",
+   "wear": "chipC",
+   "x": 0.14,
+   "y": 0.33,
+   "z": 0.235
+  },
+  {
+   "id": "tieC",
+   "kind": "bowtie",
+   "wear": "spudC",
+   "x": 0,
+   "y": 0.47,
+   "z": 0.335
+  },
+  {
+   "id": "tieH",
+   "kind": "bowtie",
+   "staged": "bench: carried by Spud",
+   "x": 70,
+   "y": 0.5,
+   "z": 0.4,
+   "rot": 180
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "boxes",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.9,
+     1.9
+    ],
+    "look": [
+     0,
+     0.06,
+     -0.02
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "s1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pl",
+      "grip": [
+       0,
+       -0.045,
+       0
+      ],
+      "palm": [
+       0,
+       1,
+       0
+      ],
+      "at": [
+       28,
+       0.46,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "s1",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "s2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pk",
+      "grip": [
+       0,
+       0.012,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       35,
+       0.46,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "s2",
+     "do": "grip",
+     "side": "R",
+     "shape": "tip",
+     "set": {
+      "roll": 30,
+      "lean": 30,
+      "thin": 0.0165
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "s1",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "s2",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "s3",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "s1",
+     "do": "grab",
+     "prop": "pl",
+     "hand": "R",
+     "grip": [
+      0,
+      -0.045,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.05
+    },
+    {
+     "who": "s2",
+     "do": "grab",
+     "prop": "pk",
+     "hand": "R",
+     "grip": [
+      0,
+      0.012,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.05
+    },
+    {
+     "who": "s1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pl",
+      "grip": [
+       0,
+       -0.045,
+       0
+      ],
+      "palm": [
+       0,
+       1,
+       0
+      ],
+      "at": [
+       28,
+       0.46,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.06
+    },
+    {
+     "who": "s2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pk",
+      "grip": [
+       0,
+       0.012,
+       0
+      ],
+      "point": "pinch",
+      "at": [
+       35,
+       0.46,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0.06
+    }
+   ]
+  },
+  {
+   "name": "spin",
+   "at": 1,
+   "len": 3,
+   "shot": {
+    "pos": [
+     7.05,
+     0.9,
+     1
+    ],
+    "look": [
+     7,
+     0,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "r1",
+     "set": {
+      "spin": 2.2
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "r2",
+     "set": {
+      "spin": 2.2
+     },
+     "dur": 2.2,
+     "ease": "linear",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "fall",
+   "at": 4,
+   "len": 3,
+   "shot": {
+    "pos": [
+     13.649999999999999,
+     0.95,
+     4
+    ],
+    "look": [
+     13.75,
+     0.72,
+     1.9
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "leaf",
+     "set": {
+      "fall": 1
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "dust",
+   "at": 7,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     21,
+     1.3,
+     2.8
+    ],
+    "look": [
+     21,
+     0.22,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "dleave",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "darrive",
+     "set": {
+      "puff": 1
+     },
+     "dur": 0.35,
+     "ease": "linear",
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "lean",
+   "at": 9.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     27.3,
+     1,
+     3.3
+    ],
+    "look": [
+     28,
+     0.5,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bq",
+      "grip": [
+       0.064,
+       0.059,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.068,
+       0.02,
+       -0.018
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bq",
+      "grip": [
+       0.064,
+       0.059,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.5
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.62
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "bq",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.059,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.76
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bq",
+      "grip": [
+       0.064,
+       0.059,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       42.16,
+       0.62,
+       0.56
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.85
+    }
+   ]
+  },
+  {
+   "name": "link",
+   "at": 10.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     34.3,
+     1,
+     3.3
+    ],
+    "look": [
+     35,
+     0.5,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "veilFront",
+   "at": 11.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42,
+     0.95,
+     4.2
+    ],
+    "look": [
+     42,
+     0.72,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "veil34",
+   "at": 12.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     44.5,
+     1,
+     3.4
+    ],
+    "look": [
+     42,
+     0.72,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "veilBack",
+   "at": 13.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42.3,
+     1,
+     -4.2
+    ],
+    "look": [
+     42,
+     0.72,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "veilFar",
+   "at": 14.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42,
+     1,
+     21
+    ],
+    "look": [
+     42,
+     0.7,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "cast",
+   "at": 15.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     49,
+     0.9,
+     4.2
+    ],
+    "look": [
+     49,
+     0.6,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bald",
+   "at": 16.5,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     56,
+     0.9,
+     4.6
+    ],
+    "look": [
+     56,
+     0.6,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "quartet",
+   "at": 17,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     56,
+     0.9,
+     9.5
+    ],
+    "look": [
+     56,
+     0.6,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "s3",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.45
+    }
+   ]
+  },
+  {
+   "name": "close",
+   "at": 17.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     63,
+     0.7,
+     3.6
+    ],
+    "look": [
+     63,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "s3",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "s3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tieH",
+      "grip": [
+       0,
+       0,
+       -0.078
+      ],
+      "palm": "wrap",
+      "off": [
+       0,
+       0.02,
+       0.07
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "s3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tieH",
+      "grip": [
+       0,
+       0,
+       -0.078
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "s3",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.52
+    },
+    {
+     "who": "s3",
+     "do": "grab",
+     "prop": "tieH",
+     "hand": "R",
+     "grip": [
+      0,
+      0,
+      -0.078
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.66
+    },
+    {
+     "who": "s3",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tieH",
+      "grip": [
+       0,
+       0,
+       -0.078
+      ],
+      "palm": "wrap",
+      "at": [
+       70,
+       0.42,
+       0.55
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.75
+    }
+   ]
+  },
+  {
+   "name": "tiehold",
+   "at": 18.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     69.5,
+     0.95,
+     2.6
+    ],
+    "look": [
+     70,
+     0.55,
+     0.3
+    ],
+    "fov": 24
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/09-teleport-rings/bench/make-props-bench.mjs (props bench, no reviews)."
+}

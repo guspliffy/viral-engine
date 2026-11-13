@@ -73,7 +73,7 @@ const TIE_HANG = [0.5, 0.47, 0.335];
 // frame B (DESIGN 2): ringhall local + [0, 0, 60]
 const HZ = 60, H = (x, y, z) => [x, y, r3(z + HZ)];
 const SPUD_SHELF = [0.4, r3(1.8 + HZ)];
-const RING_SHELF = H(1.05, 0.5, 1.97), RING_A = H(0.2, 0, 2.15), RING_B = H(0.52, 0, 2.3);
+const RING_SHELF = H(1.05, 0.5, 1.97), RING_A = H(0.2, 0.015, 2.15), RING_B = H(0.52, 0.015, 2.3);
 const KNEEL = [0.36, r3(2.6 + HZ)];   // beside where the rings came to rest
 
 // ---------------------------------------------------------------- cast
@@ -117,15 +117,16 @@ const props = [
   ph("props", { id: "pin", kind: "flowerpin", wear: "chip", x: -0.12, y: 0.36, z: 0.25 }, NIL),
   ph("props", { id: "veil", kind: "bridalveil", wear: "mash", x: 0, y: 0, z: 0, swing: 0 }, NIL),
   ph("props", { id: "bq", kind: "bouquet", x: 0, y: DOWN, z: 0 }, NIL),
-  ph("props", { id: "leaf", kind: "spudleaf", from: H(0.4, 1.02, 1.8), to: H(1.05, 0.5, 1.97), x: 0, y: DOWN, z: 0, fall: 0 }, NIL),
-  ph("props", { id: "leafRest", kind: "spudleaf", from: H(1.05, 0.5, 1.97), to: H(1.05, 0.5, 1.97), x: RING_SHELF[0], y: DOWN, z: RING_SHELF[2], fall: 1 }, NIL),
+  // the leaf places itself in world metres relative to its own x, y, z: parked 200 m off until the vanish frame
+  ph("props", { id: "leaf", kind: "spudleaf", from: H(0.4, 1.02, 1.8), to: H(1.05, 0.5, 1.97), x: 200, y: 0, z: 0, fall: 0, staged: "a leaf on the air" }, NIL),
 ];
+if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { x: 200, fall: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
 // dust rings: one per jump and arrival (DESIGN 5); the fallback is a flat poof
 const DUST = [];
 const dust = (t, [x, z], leave, floorY = 0, color = "#efe3c6") => {
   if (has("props")) {
     const id = `dr${DUST.length}`; DUST.push(id);
-    props.push({ id, kind: "dustring", x, y: floorY, z, n: leave ? 14 : 10, r0: leave ? 0.3 : 0.2, r1: leave ? 0.6 : 0.42, s0: leave ? 0.12 : 0.09, s1: leave ? 0.22 : 0.16, a: leave ? 0.7 : 0.5, color, puff: 0 });
+    props.push({ id, kind: "dustring", staged: "dust on the ground", x, y: floorY, z, n: leave ? 14 : 10, r0: leave ? 0.3 : 0.2, r1: leave ? 0.6 : 0.42, s0: leave ? 0.12 : 0.09, s1: leave ? 0.22 : 0.16, a: leave ? 0.7 : 0.5, color, puff: 0 });
     P(t, id, { puff: 0 }); P(r3(t + 0.01), id, { puff: 1 }, leave ? 0.5 : 0.35, "linear");
   } else c.at(r3(t), { fx: "poof", pos: [x, floorY + 0.02, z], dur: 0.45, color, puffs: leave ? 10 : 6, sparks: 0, size: leave ? 0.28 : 0.2, lift: 0.04 });
 };
@@ -318,7 +319,7 @@ c.arm(T.scratch, "spud", "L", { o: [0.05, 1.0, 0.0] }, 0.3, "inOut"); A(T.scratc
 c.arm(r3(T.scratch + 0.35), "spud", "L", { o: [0.08, 1.02, -0.02] }, 0.12); c.arm(r3(T.scratch + 0.5), "spud", "L", { o: [0.03, 1.0, 0.0] }, 0.12);
 look(T.scratch, "spud", [0.2, 0.4], 0.2); expr(T.scratch, "spud", "focused", { brow: 0.3 }, 0.2);
 jumpOut(T.j4, "spud", SPUD_SHELF, 0, HALL_DUST);
-if (has("props")) { P(T.j4, "leaf", { x: 0.4, y: 1.02, z: r3(HZ + 1.8), fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
+if (has("props")) { P(T.j4, "leaf", { x: 0, fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
 see(T.scratch, T.alt4, ["spud", "leaf"], "he scratches his leaf and vanishes; the leaf drifts down beside the cactus");
 
 // ================================================================= 13 BALD (31.2-37.6)
@@ -358,8 +359,7 @@ sfx(T.flash, "ai/camera-shutter", { gain: 0.8, reason: "the wedding photo" });
 see(T.photo, T.shelf, ["chip.face", "bald.face", "mash.face", "rbox", "tieLoose"], "the photo: Chip holding tie + empty box, Spud bald and proud");
 
 // ================================================================= 16 THE LEAF ON THE SHELF (43.2-46.5)
-if (has("props")) { P(T.shelf, "leaf", { y: DOWN }); P(T.shelf, "leafRest", { y: RING_SHELF[1] }); }
-see(T.shelf, END, ["leafRest"], "the leaf beside the cactus, under the old photo of Spud with his leaf");
+see(T.shelf, END, ["leaf"], "the leaf beside the cactus, under the old photo of Spud with his leaf");
 
 // ---------------------------------------------------------------- shots
 const SH = {   // camfit 13 Nov on stand-ins (NOTES.md)
