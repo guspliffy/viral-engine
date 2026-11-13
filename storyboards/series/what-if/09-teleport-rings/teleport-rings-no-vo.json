@@ -121,7 +121,13 @@
   "ambience": 0.06,
   "surface": "grass",
   "room": "open",
-  "guard": true
+  "guard": true,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.12
+   }
+  ]
  },
  "hook": {
   "show": [
@@ -532,19 +538,20 @@
    "id": "leaf",
    "kind": "spudleaf",
    "from": [
-    205,
-    0.5,
-    5
+    0.28,
+    1.02,
+    61.8
    ],
    "to": [
-    205,
+    1.05,
     0.5,
-    5
+    61.97
    ],
    "x": 0,
    "y": 0,
    "z": 0,
    "fall": 0,
+   "show": 0,
    "staged": "a leaf on the air"
   },
   {
@@ -934,7 +941,8 @@
      "do": "prop",
      "id": "leaf",
      "set": {
-      "fall": 0
+      "fall": 0,
+      "show": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3290,16 +3298,7 @@
      "do": "prop",
      "id": "leaf",
      "set": {
-      "from": [
-       0.28,
-       1.02,
-       61.8
-      ],
-      "to": [
-       1.05,
-       0.5,
-       61.97
-      ],
+      "show": 1,
       "fall": 0
      },
      "dur": 0.01,

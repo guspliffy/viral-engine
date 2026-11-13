@@ -120,11 +120,12 @@ const props = [
   ph("props", { id: "pin", kind: "flowerpin", wear: "chip", x: -0.12, y: 0.36, z: 0.25 }, NIL),
   ph("props", { id: "veil", kind: "bridalveil", wear: "mash", x: 0, y: 0, z: 0, swing: 0 }, NIL),
   ph("props", { id: "bq", kind: "bouquet", x: 0, y: DOWN, z: 0 }, NIL),
-  // the leaf places itself in world metres relative to its own x, y, z: parked 200 m off until the vanish frame
-  ph("props", { id: "leaf", kind: "spudleaf", from: FAR, to: FAR, x: 0, y: 0, z: 0, fall: 0, staged: "a leaf on the air" }, NIL),
+  // the leaf places itself in world metres from its spec (from/to are build-time, not tweenable): hidden (show 0)
+  // until the vanish frame, then it stands where it grew on his head and drifts down beside the cactus
+  ph("props", { id: "leaf", kind: "spudleaf", from: H(SPUD_SHELF[0], 1.02, 1.8), to: H(1.05, 0.5, 1.97), x: 0, y: 0, z: 0, fall: 0, show: 0, staged: "a leaf on the air" }, NIL),
 ];
 if (has("set")) { Pk("set", 0, "archA", { on: 0 }); for (const [id] of GUESTS) Pk("set", 0, `g${id}`, { rot: 0, gasp: 0, cheer: 0 }); }
-if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { fall: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
+if (has("props")) { P(0, "rbox", { lid: 0, rings: 0 }); P(0, "tieWorn", { scale: 1 }); P(0, "leaf", { fall: 0, show: 0 }); P(0, "ringA", { spin: 0 }); P(0, "ringB", { spin: 0 }); P(0, "veil", { swing: 0 }); }
 // dust rings: one per jump and arrival (DESIGN 5); the fallback is a flat poof
 const DUST = [];
 const dust = (t, [x, z], leave, floorY = 0, color = "#efe3c6") => {
@@ -324,7 +325,7 @@ c.arm(T.scratch, "spud", "L", { o: [0.05, 1.0, 0.0] }, 0.3, "inOut"); A(T.scratc
 c.arm(r3(T.scratch + 0.35), "spud", "L", { o: [0.08, 1.02, -0.02] }, 0.12); c.arm(r3(T.scratch + 0.5), "spud", "L", { o: [0.03, 1.0, 0.0] }, 0.12);
 look(T.scratch, "spud", [0.2, 0.4], 0.2); expr(T.scratch, "spud", "focused", { brow: 0.3 }, 0.2);
 jumpOut(T.j4, "spud", SPUD_SHELF, 0, HALL_DUST, "ringA");
-if (has("props")) { P(r3(T.j4 - 0.01), "leaf", { from: H(SPUD_SHELF[0], 1.02, 1.8), to: H(1.05, 0.5, 1.97), fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
+if (has("props")) { P(r3(T.j4 - 0.01), "leaf", { show: 1, fall: 0 }); P(r3(T.j4 + 0.1), "leaf", { fall: 1 }, 1.6, "linear"); }
 see(T.scratch, T.alt4, ["spud", "leaf"], "he scratches his leaf and vanishes; the leaf drifts down beside the cactus");
 
 // ================================================================= 13 BALD (31.2-37.6)
@@ -455,7 +456,8 @@ write(import.meta.url, {
   // a string quartet from 0.0 that turns nervous at the jump, holds its breath at the bald reveal and resolves on the
   // photo (STORY.md); recorded-sounding strings, never a synth bed (Jonny 12 Nov)
   music: has("sound") ? { file: process.env.MUSIC ?? `ai/wedding-score/wedding-score-${B ? "b" : "a"}.ogg`, gain: 0.45, lowCut: 90, dip: false, lock: false, duck: { voice: -6 } } : { style: "warm", lowCut: 150, gain: 0.3 },
-  sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "grass", room: "open", guard: true },
+  // garden birdsong under the whole clip: the score's held note and its ring-out dip under -50 LUFS (audio-dropout)
+  sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "grass", room: "open", guard: true, nature: [{ id: "birds", gain: 0.12 }] },
   hook: { show: ["spud", "chip", "rbox", "mash"], hint: 0, what: "a garden wedding: the best man snaps the ring box open, it is empty, the bride is far down the aisle walking toward them" },
   panels: { md: "storyboards/series/what-if/09-teleport-rings/PANELS.md" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),

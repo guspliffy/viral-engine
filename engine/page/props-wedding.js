@@ -70,6 +70,7 @@ import { clamp, lerp } from "./util.js";
 //               spec  from  [0.40, 1.02, 1.80]  LEAF_FROM (the base of the stem, where it stood on his head)
 //                     to    [1.05, 0.50, 1.97]  LEAF_LAND (the surface: the leaf lies on it, CENTRED, 0.007 up, rib up, tip +z, the
 //                                              stem's base 0.11 behind `to`)
+//               param show  1   0 hides it (before the vanish frame, while the head leaf is still on him)
 //               param fall  0   0..1, tween it linearly over 1.6 s after the 3-frame hang. At 0 it stands exactly as on his head
 //                     (leaf turn -0.15, 0.25, -0.5 rad): no pop. place = lerp(from, to, fall) + 0.07 sin(2 pi 2.5 fall)(1-fall)
 //                     across the path (in the picture plane) + 0.10 sin(pi fall) toward +z; height = from.y + (to.y - from.y)
@@ -413,6 +414,7 @@ WEDDING_KINDS.spudleaf = (P) => {
       qa.setFromAxisAngle(yAx, 200 * f * DEG); qb.setFromAxisAngle(zAx, 35 * sw * DEG); qa.multiply(qb);
       qa.slerp(lie, sm((f - 0.85) / 0.15));
       G.quaternion.copy(qa); G.position.set(pos.x - ps.x, pos.y - ps.y, pos.z - ps.z);
+      G.visible = (ps.show ?? 1) > 0.5;   // show 0 hides it until the vanish frame (it still sits on his head before)
     },
   };
 };
