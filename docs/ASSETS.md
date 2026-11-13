@@ -14,6 +14,7 @@ Rule for models: CC0 or self-made only, with the licence file next to them (`ass
 | `music/ai/`, `music/ai-package/` | generated music beds | Stable Audio 3 Small, run locally | as above | `manifest.json` |
 | `music/read-minds/` | a bed cut from two `music/ai` beds (tension into hero) | ffmpeg, from `music/ai` | as above | `README.md` |
 | `music/duel/`, `music/back-to-life/` | one clip's score, laid from generated takes | Stable Audio 3 Small, run locally | as above | `README.md` |
+| `music/ancient-aliens/` | the pilot's score, laid with ffmpeg from `music/ai` takes | ffmpeg, from `music/ai` | as above | `README.md` |
 | (code) music beds | seeded beds per clip | `puppet/beat.mjs` | own work | |
 | `sfx/whitelist.json` | what each sound really sounds like | own measurements | own work | `engine/sfx/whitelist.mjs` |
 | `models/nature/` | 59 trees, plants, rocks | Quaternius Stylized Nature MegaKit (free) | CC0 | `LICENSE-Quaternius-CC0.txt` |
