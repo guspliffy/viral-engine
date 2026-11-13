@@ -439,7 +439,7 @@ see(T.fall, T.wake, ["spud", "chip", "alley"], "P13: the camera pulls up, they f
 // asleep again: his lids close on the last frames and frame 0 opens them on the street (Jonny 13 Nov: standalone episodes that loop)
 scene(T.wake, { spud: [BED[0], BED[1], 0, 0], chip: far(1) });
 A(r3(T.wake - 0.01), "spud", "sit", { seat: "bed", dur: 0, hands: "keep" });
-both(r3(T.wake - 0.02), "spud", { o: [0.35, 0.35, 0.25] }, 0.01);
+both(r3(T.wake - 0.02), "spud", { o: [0.27, 0.1, 0.32] }, 0.01);
 A(r3(T.wake - 0.02), "spud", "pitch", { to: 12, dur: 0.01 }); A(r3(T.wake - 0.02), "spud", "droop", { to: 0, dur: 0.01 });
 expr(r3(T.wake - 0.02), "spud", "terrified", { open: 0.6 }, 0.01); look(r3(T.wake - 0.01), "spud", [0, 0.1], 0.01);
 A(T.wake, "spud", "squash", { amount: 0.08, dur: 0.2 });
