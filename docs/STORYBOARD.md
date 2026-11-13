@@ -484,7 +484,8 @@ t = h.put(t + 0.6, [-0.13, 0.36, 0.42]);          // place + release, returns wh
 | `phone` | phone, iphone | Upright in the palm, screen to the holder, fingers round the back; lying on its back (`tip` -90) it is taken by its edge and rolls into the palm, and `put` lays it back down | Charger |
 
 Each hold has `approach`, `secure`, `take`, `carry`, `regrip`, `place`, `release` and `put`; options per hold (side,
-gap, height) are in the file. `node storyboards/lookdev/make-grip-tests.mjs` writes a close-up test bench per hold
+gap, height) are in the file. A `carry` without `rot` turns the prop by as much as its holder turned (`"turn"` actions
+written before the carry) since the hold or the last `rot`; `rot: false` keeps it as it is. `node storyboards/lookdev/make-grip-tests.mjs` writes a close-up test bench per hold
 (`storyboards/lookdev/grip-<hold>.json`). A new hold is added there and approved by Jonny from its close-up video
 before a clip uses it.
 

@@ -130,6 +130,22 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
   // a grip shape: a GRIPS name, or { shape, set } with the shape's fields overridden (a pinch's roll, its thumb open)
   const shp = (x) => (typeof x === "string" ? { shape: x } : x);
   const each = (f) => sides.forEach(f);
+  // the holder's facing (its latest "turn" by story time t, null before the first) and the prop's turn (its latest
+  // rot tween, else its spec's), from the clip's items so far: carry() turns the prop with its holder by itself
+  // (bear camp drafts 1-2, 12 Nov 2026: Spud turned, the pot did not, and the glove sat off its handle)
+  const latest = (t, f) => { let v = null, a = -Infinity; for (const x of c.items || []) if (x.at <= t + 1e-6 && x.at >= a && f(x)) { v = x; a = x.at; } return v; };
+  // (inside a turn, between its start and its end, linearly: a carry that steps through a turn turns the prop a step)
+  const isTurn = (x) => x.who === who && x.do === "turn" && x.to != null;
+  const yawAt = (t) => {
+    const x = latest(t, isTurn); if (!x) return null;
+    const u = (t - x.at) / (x.dur || 1e-9); if (u >= 1) return x.to;
+    const p = latest(x.at - 1e-3, isTurn); return p ? p.to + (x.to - p.to) * Math.max(0, u) : x.to;
+  };
+  const rotAt = (t) => latest(t, (x) => x.do === "prop" && x.id === id && x.set?.rot != null)?.set.rot ?? spec.rot ?? 0;
+  // { t, yaw, rot } when the hold was made, or when a carry last turned it on purpose; null while the holder's facing is
+  // not known from a "turn" (the cast's own face is not in the items): then a carry turns the prop only by its rot
+  let base = null;
+  const mark = (t) => { const yaw = yawAt(t); base = yaw == null ? null : { t, rot: rotAt(t), yaw }; };
   const h = {
     sides, hand, hands,
     // 01 approach: the hand opens on the way and stops a few centimetres off its grip, on the side it closes from
@@ -148,6 +164,7 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
       // a hand locked to the prop (frame) holds it exactly where it touched it (keep), not at the middle of the hand; a
       // pinch holds it at the pinch (point)
       c.A(t + dur + 0.06, who, "grab", { prop: id, hand, grip: grab, dur: 0, pose: null, ...(point ? { point } : sides.some((s) => hands[s].frame) && { keep: true }) });
+      mark(t + dur + 0.06);
       return r3(t + dur + 0.1);
     },
     take(t, { reach = 0.3, settle = 0.2 } = {}) { const e = h.secure(h.approach(t, reach), settle); return take ? take(h, e) : e; },
@@ -161,7 +178,15 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
     },
     // 03 lift / 04 hold / carry: the prop's bottom centre to `at` (world), the hands staying on their grips. rot turns
     // the prop on the way (the hands turn with it); keep turns slow and small, a held prop is rigid in the hand.
+    // Without rot, a holder who turned since the hold (or since the last rot given) turns the prop by as much, so
+    // the grips stay where the hands are; rot: false keeps the prop's turn as it is
     carry(t, at, dur, ease = "inOut", { rot, tip } = {}) {
+      if (rot === false) { const yaw = yawAt(t + dur); base = yaw == null ? null : { t, rot: rotAt(t), yaw }; rot = null; }
+      else if (rot != null) { const yaw = yawAt(t + dur); base = yaw == null ? null : { t: t + dur, rot, yaw }; }
+      else if (base) {
+        const yaw = yawAt(t + dur), want = yaw == null ? null : base.rot + (yaw - base.yaw);
+        if (want != null && Math.abs(want - rotAt(t)) > 0.5 && rotAt(t) === rotAt(base.t)) { rot = want; base = { t, rot: want, yaw }; }
+      }
       each((s) => c.arm(t, who, s, pose(s, { at: at.map(r3) }), dur, ease));
       if (rot != null || tip != null) c.prop(t, id, { ...(rot != null && { rot: r3(rot) }), ...(tip != null && { tip: r3(tip) }) }, dur, ease);
       return r3(t + dur);

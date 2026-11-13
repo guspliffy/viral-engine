@@ -194,7 +194,9 @@ export function rigFindings(layout, sb) {
     for (let i = 0; i <= n; i++) {
       const g = i < n && gap[i] != null && gap[i] > GATE.gripGap && !handling(h.who, h.prop, S(i)) && !waived("grip-gap", h.who, i);
       if (g) { run++; continue; }
-      if (run / fps >= GATE.gripGapHold) { const a = i - run, m = Math.max(...gap.slice(a, i)); out.push({ level: gateLevel(sb, "holds"), check: "grip-gap", who: h.who, what: `${h.prop} floats off the glove`, t: Math.round(T(a) * 1000) / 1000, size: Math.round(m * 1000), to: Math.round(T(i - 1) * 1000) / 1000 }); }
+      // a gap over GATE.gripGapFail fails at any gate: the hand plainly misses what it holds (bear camp drafts 1-2, 12 Nov
+      // 2026: the pot off the glove; the warning was there and did not stop it)
+      if (run / fps >= GATE.gripGapHold) { const a = i - run, m = Math.max(...gap.slice(a, i)); out.push({ level: m > GATE.gripGapFail ? "fail" : gateLevel(sb, "holds"), check: "grip-gap", who: h.who, what: `${h.prop} floats off the glove`, t: Math.round(T(a) * 1000) / 1000, size: Math.round(m * 1000), to: Math.round(T(i - 1) * 1000) / 1000 }); }
       run = 0;
     }
     // a change of hand (R to both, a pass) re-anchors the prop on purpose: only the frames of one hold count
@@ -238,7 +240,8 @@ export function rigResults(layout, sb) {
     // a visible-glitch check that only warns: say when it starts to fail
     const when = x.level === "warn" && ((x.check === "foot-slide" && max > GATE.footSlide * 1000) || (x.check === "prop-pop" && x.what.includes("slips") && max > GATE.propSlip * 1000) || ["frame0-jump", "stance-slide", "grip-gap"].includes(x.check))
       ? (gateOf(sb) >= 2 ? `; fails once the ${later[x.check]} fix is on (quality plan item ${later[x.check] === "feet" ? 10 : 7})` : `; fails at "gate": 2${later[x.check] ? ` once the ${later[x.check]} fix is on` : ""}`) : "";
-    out.push({ level: x.level, check: x.check, msg: `${x.who}: ${what} at ${list}s, up to ${(max / 10).toFixed(1)} cm ${unit} (final drawn rig): ${tips[x.check]}${when}` });
+    const over = x.check === "grip-gap" && x.level === "fail" ? ` (fails over ${GATE.gripGapFail * 100} cm at any gate)` : "";
+    out.push({ level: x.level, check: x.check, msg: `${x.who}: ${what} at ${list}s, up to ${(max / 10).toFixed(1)} cm ${unit} (final drawn rig)${over}: ${tips[x.check]}${when}` });
   }
   if (!out.length) out.push({ level: "pass", check: "rig-jump", msg: "the drawn hands, elbows, feet and held props move without one-frame pops" });
   return out;

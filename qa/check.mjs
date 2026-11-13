@@ -53,6 +53,7 @@ export const RULES = {
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
+  shellFail: 0.1,     // a prop's own surface (a tent's cloth, a car's shell) this deep into a body or a creature, for clipHold s, fails
   selfEyes: 0.55, selfDeep: 0.25, selfHold: 0.2, // a held prop in its own holder: from this height of the body up is the eyes; this deep reads as through; this long
   bodyClip: 0.1, // two characters this far into each other (0..1) fail outright, unless an allowClip window with a reason covers it
   // inside an allowClip window (a hug, a hide) contact is fine but merging is not (Zombie Too, 4 Nov: the hug window let
@@ -194,19 +195,29 @@ export function clipResults(sb, layout) {
   const windows = sb?.allowClip || [];
   for (const w of windows) if (!w.reason) out.push({ level: "warn", check: "clipping", msg: `allowClip ${w.who}${w.with ? " / " + w.with : ""} ${w.from}-${w.to}s has no reason, so it is ignored` });
   const actors = new Set((sb?.cast || []).map((c) => c.id));
-  const win = (c, t) => windowFor(sb, actors.has(c.with) ? "character-overlap" : "clipping", c.who, t, c.with);
+  // which check a record is: a prop's surface through a body round which it stands ("shell", stage.js: the tent's cloth
+  // through a head, waived only by a window naming "shell", never by an "inside the tent" one), a creature prop through
+  // another prop ("prop-in-prop": the bear in the car), bodies, or a body in a prop
+  const kindOf = (c) => (c.shell ? "shell" : c.creature ? "prop-in-prop" : actors.has(c.with) ? "character-overlap" : "clipping");
+  const win = (c, t) => windowFor(sb, kindOf(c), c.who, t, c.with);
   const runs = new Map();
   const self = new Map();   // a held prop going into its own holder (stage.js clipping() "self"), judged apart below
-  for (const x of samples) for (const c of x.clips || []) {
+  // a part's surface ("shell") counts only where its box record is waived or absent: else that record already reports it
+  for (const x of samples) {
+    const open = new Set((x.clips || []).filter((c) => !c.self && !c.shell && !c.creature && !c.touch && !win(c, x.t)).map((c) => `${c.who}|${c.with}`));
+    for (const c of x.clips || []) {
+    if (c.shell && open.has(`${c.who}|${c.with}`)) continue;
     if (c.self) { const k = `${c.who} / ${c.with}`, r = self.get(k) || { rows: [] }; r.rows.push({ t: x.t, d: c.depth, z: c.zone }); self.set(k, r); continue; }
     const w = win(c, x.t), body = actors.has(c.with);
     // a window allows contact with a prop, and bodies pressing together; bodies merging still fail
     if (w && (!body || c.depth <= (w.max ?? RULES.allowBody))) continue;
-    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
-    if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
+    const check = kindOf(c), surf = check === "shell" || check === "prop-in-prop";
+    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${surf ? " [" + check + "]" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, check, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
+    if (c.depth > r.max) { r.max = c.depth; r.at = x.t; r.mesh = c.mesh; }
     r.to = x.t;
-    if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
+    if (c.depth > (surf ? RULES.shellFail : RULES.clipFail)) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
     runs.set(k, r);
+    }
   }
   for (const [k, r] of runs) {
     const pct = Math.round(r.max * 100);
@@ -220,6 +231,11 @@ export function clipResults(sb, layout) {
       continue;
     }
     const lvl = r.held + 1e-6 >= RULES.clipHold ? "fail" : r.max > RULES.clipWarn ? "warn" : "pass";
+    if (r.check === "shell" || r.check === "prop-in-prop") {
+      const [a, b] = k.split(" [")[0].split(" / "), what = r.check === "shell" ? `${b}'s own surface goes through ${a}` : `${a} goes through ${b}'s surface`;
+      out.push({ level: lvl === "pass" ? "warn" : lvl, check: r.check, msg: `${what}${r.mesh ? " (its " + r.mesh + ")" : ""}: up to ${pct}% deep at ${r.at.toFixed(1)}s (${r.from.toFixed(1)}-${r.to.toFixed(1)}s)${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}: move them apart, or a window naming "${r.check}" with a reason` });
+      continue;
+    }
     out.push({ level: lvl, check: "clipping", msg: `${k}: up to ${pct}% into each other at ${r.at.toFixed(1)}s${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}` });
   }
   if (!runs.size) out.push({ level: "pass", check: "clipping", msg: "nobody passes through props or each other" });
