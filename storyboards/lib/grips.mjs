@@ -39,11 +39,15 @@ const SIZE = {
   hotsauce: { r: 0.023, h: 0.112 },                // props-copycat.js: a small sauce bottle, held round its label like a mug
   phone: { w: 0.078, h: 0.155, t: 0.012 },         // props3d.js phone (and style "iphone")
   sscardfan: { w: 0.44, h: 0.3, t: 0.02 },        // props-sos.js: SHARE and STEAL fanned about the bottom middle (the pivot = the origin; 0.32 wide, spec.solid 0.44): the phone hold on the lower edge
+  cardfan: { w: 0.22, h: 0.16, t: 0.03 },          // props-casino.js: 2-4 playing cards fanned 14 degrees apart about the bottom middle (the pivot = the origin; 0.11 x 0.155 cards): the phone hold on the lower edge
+  playcard: { w: 0.11, h: 0.155, t: 0.004 },       // props-casino.js: one card standing upright (the origin = its bottom edge's middle): the phone hold
+  carkeys: { len: 0.0125, r: 0.0075 },             // props-casino.js: a key fob lying flat on its back (0.015 thick, origin = its centre underneath): the thin pinch at its middle (from 0.6 = 7.5 mm up)
   ravenphoto: { w: 0.1, h: 0.13, t: 0.004 },       // props-raven.js photo print: held with the phone hold, its picture (-z) faces away from the holder
   // a small thing pinched by the thin hold (Candy Bodyguard): len = the height the pinch's `from` is measured on, r =
   // the half-width the pads close on
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
+  hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
   deskplate: { w: 0.36, h: 0.1, d: 0.1 },          // props-busy.js MANAGER sign: both palms on its two ends (box hold)          // props-notyet.js PAD: held in both hands with the box hold (palms on its two grips)
@@ -95,6 +99,16 @@ const SIZE = {
   // the jute bag held by ONE fist at its gathered neck, the sack hanging under it: r = the neck ring (0.085); h is NOT the sack's height: the mug hold's
   // default height 0.66 x 1.0795 = 0.7125 = 0.95 x 0.75, the neck (props-zshop.js ZSHOP_GRIPS.tinbag.neck), so `grips.mug(c, who, BAG)` needs no height option
   tinbag: { r: 0.085, h: 1.0795 },
+  // props-bearcamp.js (Fight, Flight or Freeze 02, bear in the camp). cookpot: the steel pot's ONE handle lies along +x (its grip
+  // "handle" at x 0.28, y 0.115): w / h / t are chosen so the phone hold's defaults (x = w / 2 + 0.035, y = 0.42 h, z -0.01) land
+  // on the handle, a fist round it like a frying pan (the proof: make-grip-tests.mjs --prop cookpot --hold phone); r / h do the same
+  // for the mug hold when it is called with { angle: 90, height: 0.42 } (x = r + 0.05 = 0.28, y = 0.42 h = 0.115).
+  cookpot: { w: 0.49, h: 0.274, t: 0.02, r: 0.23 },
+  // burnbranch: the dry pine branch up +y from the held end, r 0.03 there: the mug hold's fist at 0.66 h = 0.08 up the stick
+  burnbranch: { r: 0.03, h: 0.121 },
+  // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
+  // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
+  headrest: { w: 0.28, h: 0, d: 0.1 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
@@ -121,6 +135,22 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
   // a grip shape: a GRIPS name, or { shape, set } with the shape's fields overridden (a pinch's roll, its thumb open)
   const shp = (x) => (typeof x === "string" ? { shape: x } : x);
   const each = (f) => sides.forEach(f);
+  // the holder's facing (its latest "turn" by story time t, null before the first) and the prop's turn (its latest
+  // rot tween, else its spec's), from the clip's items so far: carry() turns the prop with its holder by itself
+  // (bear camp drafts 1-2, 12 Nov 2026: Spud turned, the pot did not, and the glove sat off its handle)
+  const latest = (t, f) => { let v = null, a = -Infinity; for (const x of c.items || []) if (x.at <= t + 1e-6 && x.at >= a && f(x)) { v = x; a = x.at; } return v; };
+  // (inside a turn, between its start and its end, linearly: a carry that steps through a turn turns the prop a step)
+  const isTurn = (x) => x.who === who && x.do === "turn" && x.to != null;
+  const yawAt = (t) => {
+    const x = latest(t, isTurn); if (!x) return null;
+    const u = (t - x.at) / (x.dur || 1e-9); if (u >= 1) return x.to;
+    const p = latest(x.at - 1e-3, isTurn); return p ? p.to + (x.to - p.to) * Math.max(0, u) : x.to;
+  };
+  const rotAt = (t) => latest(t, (x) => x.do === "prop" && x.id === id && x.set?.rot != null)?.set.rot ?? spec.rot ?? 0;
+  // { t, yaw, rot } when the hold was made, or when a carry last turned it on purpose; null while the holder's facing is
+  // not known from a "turn" (the cast's own face is not in the items): then a carry turns the prop only by its rot
+  let base = null;
+  const mark = (t) => { const yaw = yawAt(t); base = yaw == null ? null : { t, rot: rotAt(t), yaw }; };
   const h = {
     sides, hand, hands,
     // 01 approach: the hand opens on the way and stops a few centimetres off its grip, on the side it closes from
@@ -139,6 +169,7 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
       // a hand locked to the prop (frame) holds it exactly where it touched it (keep), not at the middle of the hand; a
       // pinch holds it at the pinch (point)
       c.A(t + dur + 0.06, who, "grab", { prop: id, hand, grip: grab, dur: 0, pose: null, ...(point ? { point } : sides.some((s) => hands[s].frame) && { keep: true }) });
+      mark(t + dur + 0.06);
       return r3(t + dur + 0.1);
     },
     take(t, { reach = 0.3, settle = 0.2 } = {}) { const e = h.secure(h.approach(t, reach), settle); return take ? take(h, e) : e; },
@@ -152,7 +183,15 @@ function holder(c, who, spec, { hands, shape, ready = "open", grab, point, take 
     },
     // 03 lift / 04 hold / carry: the prop's bottom centre to `at` (world), the hands staying on their grips. rot turns
     // the prop on the way (the hands turn with it); keep turns slow and small, a held prop is rigid in the hand.
+    // Without rot, a holder who turned since the hold (or since the last rot given) turns the prop by as much, so
+    // the grips stay where the hands are; rot: false keeps the prop's turn as it is
     carry(t, at, dur, ease = "inOut", { rot, tip } = {}) {
+      if (rot === false) { const yaw = yawAt(t + dur); base = yaw == null ? null : { t, rot: rotAt(t), yaw }; rot = null; }
+      else if (rot != null) { const yaw = yawAt(t + dur); base = yaw == null ? null : { t: t + dur, rot, yaw }; }
+      else if (base) {
+        const yaw = yawAt(t + dur), want = yaw == null ? null : base.rot + (yaw - base.yaw);
+        if (want != null && Math.abs(want - rotAt(t)) > 0.5 && rotAt(t) === rotAt(base.t)) { rot = want; base = { t, rot: want, yaw }; }
+      }
       each((s) => c.arm(t, who, s, pose(s, { at: at.map(r3) }), dur, ease));
       if (rot != null || tip != null) c.prop(t, id, { ...(rot != null && { rot: r3(rot) }), ...(tip != null && { tip: r3(tip) }) }, dur, ease);
       return r3(t + dur);

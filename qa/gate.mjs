@@ -11,7 +11,7 @@ import { storyTime, renderTime } from "../engine/shared/holds.js";
 export const GATE = {
   // the checks render.mjs refuses to render on (engine/render.mjs contactGate), and qa/preflight.mjs's verdict
   fails: ["character-overlap", "grip", "limb-through-costume", "hand-in-prop", "arm-in-prop", "costume-in-prop", "limb-in-surface", "thin-prop-hidden", "face-covered", "face-hidden", "rig-jump",
-    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner", "palm-turn", "payoff-face"],
+    "frame0-jump", "hand-turn", "foot-slide", "prop-pop", "lean-jump", "must-see", "front", "prop-support", "hold-owner", "palm-turn", "payoff-face", "shell", "prop-in-prop", "grip-gap"],
   // visible at full speed: a delivery may carry none of these as a warning (each needs a fix or a named window)
   visible: ["rig-jump", "air-walk", "frame0-jump", "hand-turn", "foot-slide", "stance-slide", "prop-pop", "grip-gap", "lean-jump", "eyes-readable", "motion", "prop-support", "palm-turn", "payoff-face"],
   handTurn: 90,        // degrees in one frame, on screen and not smeared by motion blur (fails)
@@ -25,6 +25,7 @@ export const GATE = {
   propSlip: 0.03,      // metres a held prop slips in the hand in one frame (fails once item 7 is in)
   gripGap: 0.01,       // metres between a held prop and the glove on a held frame, for gripGapHold s (warns)
   gripGapHold: 0.2,
+  gripGapFail: 0.06,   // ... and over this many metres it fails at any gate (bear camp drafts 1-2: the pot off the glove)
   frame0: 0.05,        // metres a hand, arm, foot, body or held prop moves between frame 0 and frame 1 (fails)
   front: 0.15,         // share of the acting subject's silhouette a nearer actor or prop covers, for frontHold s (fails)
   frontHold: 0.3,
@@ -55,8 +56,9 @@ export const gateLevel = (sb, root = null) => (gateOf(sb) >= 2 && (!root || root
 export const storyAt = (sb, t) => storyTime(sb?.holds, t);
 // which checks a window waives: the ones its "checks" list names (a check's name or its kind), else the contact kinds a
 // window always waived (body, reach, prop, face). The visible-glitch checks of GATE are waived only by name, so an old
-// hug window doesn't hide a hand that flips inside it.
-const KIND = { "character-overlap": "body", clipping: "prop", reach: "reach", "limb-through-costume": "reach", "hand-in-prop": "prop", "arm-in-prop": "prop", "costume-in-prop": "prop", "limb-in-surface": "prop", "thin-prop-hidden": "prop", "face-covered": "face", "face-hidden": "face" };
+// hug window doesn't hide a hand that flips inside it, and so is "shell" (a tent's cloth through a head), so an "inside
+// the tent" window doesn't hide the roof going through one (bear camp draft 1, 12 Nov 2026).
+const KIND = { "character-overlap": "body", clipping: "prop", reach: "reach", "limb-through-costume": "reach", "hand-in-prop": "prop", "arm-in-prop": "prop", "costume-in-prop": "prop", "limb-in-surface": "prop", "thin-prop-hidden": "prop", "face-covered": "face", "face-hidden": "face", "prop-in-prop": "prop" };
 export const OLD_KINDS = ["body", "reach", "prop", "face"];
 export function waives(w, check) {
   if (!w?.reason) return false;

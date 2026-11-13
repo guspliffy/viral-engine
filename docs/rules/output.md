@@ -21,7 +21,10 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   glove more than 4 cm into another character's body or face fails, inside a window as well (`RULES.allowReach`), and
   a hand reaching more than 45 cm across its own body for 0.3 s fails (35 cm warns): the shoulder hides and the arm
   reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
-  body on its own side. An arm up inside a helmet glass fails too. Warnings to look at:
+  body on its own side. A prop round a body (a tent, a car, a bag) is also measured by its own surface: cloth through
+  a head fails as `shell`, which only a window naming `"shell"` waives, never an "inside the tent" one; a creature
+  prop (the bear) through another prop's surface fails as `prop-in-prop`; a held prop more than 6 cm off its glove
+  fails as `grip-gap` at any gate (bear camp draft 1, 12 Nov). An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a
   held staff for 0.4 s or more (the setup for a fist flip), a hand turning more than 60° in one frame, an automatic
   blink on a key line (`qa/motion.mjs`), a hop whose crouch lasts over 0.4 s (use `fly` for a long lift-off), a
@@ -147,6 +150,14 @@ diagnostics and adds notes, never failures. A storyboard changes them in a `crea
   sits): put a named hit on the contact frame, not before it. `qa/sound.mjs` (run by `qa/check.mjs`) warns on more
   than two whooshes, a named sound with nothing happening on screen (say why in `"reason"`), a guessed floor, a hit
   more than a frame off its action, a buried or blaring effect, and fails a file whose sound is out of sync.
+- **A dramatic scene gets a recorded-sounding orchestra, never a synth bed** (Jonny 12 Nov: "this sounds like game
+  music"). `qa/check.mjs --ears` ("ears-music") plays the music bed alone to earshot: a code-synthesized bed warns
+  when the clip is dramatic (style `chase` / `orchestra` / `danger` / `dread`, or `"music": { "mood": "dramatic" }`),
+  else it is a note. It hears synth against recording, not whether the music fits: that stays Jonny's ear.
+- **Realistic sounds only** (Jonny 12 Nov: "bling sounds, magic sounds, squirking sounds ... annoy me ... they should
+  be realistic or come close"): no sound that only marks movement or magic, the automatic hop boing, signature jingles
+  and stings included. A magic moment is silent or gets a real sound (a heartbeat). `qa/sound.mjs` warns
+  ("realistic-sounds") and says how to switch an automatic one off. This wins over the signature rule below.
 - **Every named sound is chosen for what happens on screen**, and the delivery says it in Jonny's words (splort,
   dö-döm, crunch). The payoff's sound is always picked by hand. Both "bling"s Jonny caught on 29 Oct came from a
   library name that lied (`kenney/slime` is a sci-fi blip) and an automatic signature sparkle on a payoff.

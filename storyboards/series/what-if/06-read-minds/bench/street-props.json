@@ -1,0 +1,399 @@
+{
+ "id": "street-props",
+ "title": "Neon street props bench",
+ "idea": "Props bench for There's a catch EP06 (neonstreet, streetpotato, goldwatch, cards83), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#05081e",
+  "floor": "none"
+ },
+ "hud": {
+  "sky": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -2
+   ],
+   "face": 0,
+   "expr": "terrified",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "street",
+   "kind": "neonstreet",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "len": 36,
+   "seed": 6,
+   "cars": 6,
+   "light": 1
+  },
+  {
+   "id": "p1",
+   "kind": "streetpotato",
+   "x": -3.3,
+   "y": 0,
+   "z": -11,
+   "rot": 0,
+   "h": 0.85,
+   "dress": "coat",
+   "color": "#d8452e",
+   "walk": 0
+  },
+  {
+   "id": "p2",
+   "kind": "streetpotato",
+   "x": 3.4,
+   "y": 0,
+   "z": -12.5,
+   "rot": 180,
+   "h": 0.8,
+   "dress": "hoodie",
+   "color": "#1fb5a8",
+   "walk": 0.14,
+   "bag": 1
+  },
+  {
+   "id": "p3",
+   "kind": "streetpotato",
+   "x": -3.2,
+   "y": 0,
+   "z": -15.5,
+   "rot": 0,
+   "h": 0.9,
+   "dress": "dress",
+   "color": "#ff6fb0",
+   "walk": 0.28,
+   "bag": 1
+  },
+  {
+   "id": "p4",
+   "kind": "streetpotato",
+   "x": 3.5,
+   "y": 0,
+   "z": -16.5,
+   "rot": 15,
+   "h": 0.85,
+   "dress": "suit",
+   "color": "#2b3a78",
+   "walk": 0.42,
+   "hat": 1
+  },
+  {
+   "id": "p5",
+   "kind": "streetpotato",
+   "x": 1.3,
+   "y": 0,
+   "z": -7.5,
+   "rot": 0,
+   "h": 0.8,
+   "dress": "coat",
+   "color": "#e8b830",
+   "walk": 0.07,
+   "hat": 1
+  },
+  {
+   "id": "p6",
+   "kind": "streetpotato",
+   "x": -1.2,
+   "y": 0,
+   "z": -5,
+   "rot": -25,
+   "h": 0.95,
+   "dress": "hoodie",
+   "color": "#8a5cff",
+   "walk": 0.35
+  },
+  {
+   "id": "close",
+   "kind": "streetpotato",
+   "x": -1,
+   "y": 0,
+   "z": -24,
+   "rot": 0,
+   "h": 0.85,
+   "dress": "coat",
+   "color": "#c8452e",
+   "walk": 0,
+   "hat": 1,
+   "bag": 1
+  },
+  {
+   "id": "l1",
+   "kind": "streetpotato",
+   "x": 79.2,
+   "y": 0,
+   "z": 0,
+   "rot": 12,
+   "dress": "coat",
+   "color": "#2fa8c8",
+   "walk": 0.1,
+   "bag": 1
+  },
+  {
+   "id": "l2",
+   "kind": "streetpotato",
+   "x": 80.3,
+   "y": 0,
+   "z": 0,
+   "rot": -12,
+   "dress": "dress",
+   "color": "#ff6fb0",
+   "walk": 0.3,
+   "hat": 1
+  },
+  {
+   "id": "l3",
+   "kind": "streetpotato",
+   "x": 79.7,
+   "y": 0,
+   "z": -0.5,
+   "rot": 8,
+   "dress": "hoodie",
+   "color": "#e8a020",
+   "walk": 0.2
+  },
+  {
+   "id": "l4",
+   "kind": "streetpotato",
+   "x": 80.8,
+   "y": 0,
+   "z": -0.5,
+   "rot": -8,
+   "dress": "suit",
+   "color": "#c8305e",
+   "walk": 0.4
+  },
+  {
+   "id": "lamp",
+   "kind": "pokerlamp",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "table",
+   "kind": "pokertable",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "w": 2.4,
+   "d": 1.4,
+   "h": 0.62
+  },
+  {
+   "id": "pot",
+   "kind": "chippile",
+   "x": 40.05,
+   "y": 0.62,
+   "z": -0.05,
+   "rot": 20,
+   "r": 0.36,
+   "amount": 1
+  },
+  {
+   "id": "watch",
+   "kind": "goldwatch",
+   "x": 40.28,
+   "y": 0.62,
+   "z": 0.4,
+   "rot": 12,
+   "glint": 1
+  },
+  {
+   "id": "bub",
+   "kind": "thoughtbubble",
+   "x": 60,
+   "y": 1.5,
+   "z": 0,
+   "rot": 0,
+   "r": 0.35,
+   "obj": "cards83",
+   "pop": 1,
+   "glow": 1
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "walk1",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     3.5
+    ],
+    "look": [
+     0,
+     1.1,
+     -8
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "walking shot, Spud in the road, six passers-by"
+  },
+  {
+   "name": "high2",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     4,
+     6
+    ],
+    "look": [
+     0,
+     1,
+     -12
+    ],
+    "fov": 55
+   },
+   "do": [],
+   "kind": "higher shot"
+  },
+  {
+   "name": "side3",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.5,
+     -24
+    ],
+    "look": [
+     -1,
+     0.4,
+     -24
+    ],
+    "fov": 36
+   },
+   "do": [],
+   "kind": "a streetpotato mid-step from the side"
+  },
+  {
+   "name": "table4",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40.1,
+     1.2,
+     2.3
+    ],
+    "look": [
+     40.1,
+     0.68,
+     0.1
+    ],
+    "fov": 45
+   },
+   "do": [],
+   "kind": "goldwatch next to the pot, medium wide"
+  },
+  {
+   "name": "watch5",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40.28,
+     0.95,
+     1.05
+    ],
+    "look": [
+     40.28,
+     0.63,
+     0.4
+    ],
+    "fov": 40
+   },
+   "do": [],
+   "kind": "goldwatch close"
+  },
+  {
+   "name": "bubble6",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     60,
+     1.5,
+     1.8
+    ],
+    "look": [
+     60,
+     1.5,
+     0
+    ],
+    "fov": 38
+   },
+   "do": [],
+   "kind": "thoughtbubble cards83"
+  },
+  {
+   "name": "lineup7",
+   "at": 6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     80,
+     0.75,
+     4.3
+    ],
+    "look": [
+     80,
+     0.45,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [],
+   "kind": "coat, dress, hoodie, suit"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/06-read-minds/bench/make-street-props.mjs (props bench, no reviews)."
+}

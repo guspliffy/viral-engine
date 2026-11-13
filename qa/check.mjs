@@ -53,6 +53,7 @@ export const RULES = {
   gore: /blood|gore|splat|guts|\bmash|sever|dismember|decapit/i,
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
+  shellFail: 0.1,     // a prop's own surface (a tent's cloth, a car's shell) this deep into a body or a creature, for clipHold s, fails
   selfEyes: 0.55, selfDeep: 0.25, selfHold: 0.2, // a held prop in its own holder: from this height of the body up is the eyes; this deep reads as through; this long
   bodyClip: 0.1, // two characters this far into each other (0..1) fail outright, unless an allowClip window with a reason covers it
   // inside an allowClip window (a hug, a hide) contact is fine but merging is not (Zombie Too, 4 Nov: the hug window let
@@ -152,6 +153,22 @@ const run = (cmd, argv) => { const r = spawnSync(cmd, argv, { encoding: argv.inc
 // parts that swap). Measured on a 36x64 grey copy, in overlapping 12x12 blocks (a third of the width):
 // score = min(|F[i]-F[i-1]|, |F[i]-F[i+1]|) - max(|F[i+1]-F[i-1]|, |F[i-1]-F[i-2]|, |F[i+2]-F[i+1]|), mean per pixel.
 // Steady motion, cuts and fades score near 0; a quick symmetric bounce scores low because its neighbours move too.
+// every frame at low resolution: { t, YMIN, YMAX, YAVG, YDIF } (blank frames, strobe; the draft's pops line too)
+export function lumaFrames(clip) {
+  const st = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", "scale=108:192,signalstats,metadata=print:file=-", "-an", "-f", "null", "-"]).stdout;
+  const frames = []; let cur = null;
+  for (const ln of st.split("\n")) {
+    const m = ln.match(/pts_time:([\d.]+)/); if (m) { cur = { t: Number(m[1]) }; frames.push(cur); continue; }
+    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG|YDIF)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
+  }
+  return frames;
+}
+// the most big brightness jumps (over RULES.strobeJump) inside any 1 s, and where that second starts
+export function strobeOf(frames) {
+  const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
+  let n = 0, at = 0; for (const t of jumps) { const k = jumps.filter((u) => u >= t && u < t + 1).length; if (k > n) { n = k; at = t; } }
+  return { n, at };
+}
 export function oddFrames(clip, fps = 30) {
   const W = 36, H = 64, B = 12, N = W * H;
   const raw = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", `scale=${W}:${H}:flags=area,format=gray`, "-f", "rawvideo", "-"]);
@@ -194,19 +211,29 @@ export function clipResults(sb, layout) {
   const windows = sb?.allowClip || [];
   for (const w of windows) if (!w.reason) out.push({ level: "warn", check: "clipping", msg: `allowClip ${w.who}${w.with ? " / " + w.with : ""} ${w.from}-${w.to}s has no reason, so it is ignored` });
   const actors = new Set((sb?.cast || []).map((c) => c.id));
-  const win = (c, t) => windowFor(sb, actors.has(c.with) ? "character-overlap" : "clipping", c.who, t, c.with);
+  // which check a record is: a prop's surface through a body round which it stands ("shell", stage.js: the tent's cloth
+  // through a head, waived only by a window naming "shell", never by an "inside the tent" one), a creature prop through
+  // another prop ("prop-in-prop": the bear in the car), bodies, or a body in a prop
+  const kindOf = (c) => (c.shell ? "shell" : c.creature ? "prop-in-prop" : actors.has(c.with) ? "character-overlap" : "clipping");
+  const win = (c, t) => windowFor(sb, kindOf(c), c.who, t, c.with);
   const runs = new Map();
   const self = new Map();   // a held prop going into its own holder (stage.js clipping() "self"), judged apart below
-  for (const x of samples) for (const c of x.clips || []) {
+  // a part's surface ("shell") counts only where its box record is waived or absent: else that record already reports it
+  for (const x of samples) {
+    const open = new Set((x.clips || []).filter((c) => !c.self && !c.shell && !c.creature && !c.touch && !win(c, x.t)).map((c) => `${c.who}|${c.with}`));
+    for (const c of x.clips || []) {
+    if (c.shell && open.has(`${c.who}|${c.with}`)) continue;
     if (c.self) { const k = `${c.who} / ${c.with}`, r = self.get(k) || { rows: [] }; r.rows.push({ t: x.t, d: c.depth, z: c.zone }); self.set(k, r); continue; }
     const w = win(c, x.t), body = actors.has(c.with);
     // a window allows contact with a prop, and bodies pressing together; bodies merging still fail
     if (w && (!body || c.depth <= (w.max ?? RULES.allowBody))) continue;
-    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
-    if (c.depth > r.max) { r.max = c.depth; r.at = x.t; }
+    const check = kindOf(c), surf = check === "shell" || check === "prop-in-prop";
+    const k = `${c.who} / ${c.with}${c.part ? " (" + c.part + ")" : ""}${surf ? " [" + check + "]" : ""}${w ? " in the allowClip window" : ""}`, r = runs.get(k) || { body, check, win: w, part: c.part ? `${c.who} / ${c.with}` : null, max: 0, at: 0, run: 0, held: 0, last: -1, from: x.t, to: x.t };
+    if (c.depth > r.max) { r.max = c.depth; r.at = x.t; r.mesh = c.mesh; }
     r.to = x.t;
-    if (c.depth > RULES.clipFail) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
+    if (c.depth > (surf ? RULES.shellFail : RULES.clipFail)) { r.run = Math.abs(x.t - r.last - step) < 1e-3 ? r.run + step : step; r.last = x.t; r.held = Math.max(r.held, r.run); }
     runs.set(k, r);
+    }
   }
   for (const [k, r] of runs) {
     const pct = Math.round(r.max * 100);
@@ -220,6 +247,11 @@ export function clipResults(sb, layout) {
       continue;
     }
     const lvl = r.held + 1e-6 >= RULES.clipHold ? "fail" : r.max > RULES.clipWarn ? "warn" : "pass";
+    if (r.check === "shell" || r.check === "prop-in-prop") {
+      const [a, b] = k.split(" [")[0].split(" / "), what = r.check === "shell" ? `${b}'s own surface goes through ${a}` : `${a} goes through ${b}'s surface`;
+      out.push({ level: lvl === "pass" ? "warn" : lvl, check: r.check, msg: `${what}${r.mesh ? " (its " + r.mesh + ")" : ""}: up to ${pct}% deep at ${r.at.toFixed(1)}s (${r.from.toFixed(1)}-${r.to.toFixed(1)}s)${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}: move them apart, or a window naming "${r.check}" with a reason` });
+      continue;
+    }
     out.push({ level: lvl, check: "clipping", msg: `${k}: up to ${pct}% into each other at ${r.at.toFixed(1)}s${lvl === "fail" ? ", held " + r.held.toFixed(1) + "s" : ""}` });
   }
   if (!runs.size) out.push({ level: "pass", check: "clipping", msg: "nobody passes through props or each other" });
@@ -481,12 +513,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
   } else add("pass", "duration", `${dur.toFixed(3)} s (no storyboard to compare)`);
 
   // --- every frame, at low resolution: blank white or empty black frames
-  const st = run("ffmpeg", ["-v", "error", "-i", clip, "-vf", "scale=108:192,signalstats,metadata=print:file=-", "-an", "-f", "null", "-"]).stdout;
-  const frames = []; let cur = null;
-  for (const ln of st.split("\n")) {
-    const m = ln.match(/pts_time:([\d.]+)/); if (m) { cur = { t: Number(m[1]) }; frames.push(cur); continue; }
-    const k = ln.match(/lavfi\.signalstats\.(YMIN|YMAX|YAVG|YDIF)=([\d.]+)/); if (k && cur) cur[k[1]] = Number(k[2]);
-  }
+  const frames = lumaFrames(clip);
   const white = frames.filter((f) => f.YMIN >= RULES.whiteY), black = frames.filter((f) => f.YMAX <= RULES.blackY);
   const ts = (l) => l.slice(0, 6).map((f) => f.t.toFixed(2) + "s").join(", ") + (l.length > 6 ? ", ..." : "");
   if (white.length) add("fail", "white-frames", `${white.length} blank white frame(s) at ${ts(white)}`);
@@ -534,8 +561,7 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // no exceptions for cuts, flashes or shakes: none of them makes a single odd frame when it works as it should
     const pops = oddFrames(clip, fps).filter((o) => o.score > RULES.oddFrame);
     add(pops.some((o) => o.score > RULES.oddFrameFail) ? "fail" : pops.length ? "warn" : "pass", "pops", pops.length ? `odd single frames at ${pops.slice(0, 6).map((o) => `${o.t.toFixed(2)}s (${o.score.toFixed(0)}, ${o.where})`).join(", ")}: something pops, flickers or strobes for one frame` : "no odd single frames");
-    const jumps = []; for (let i = 1; i < frames.length; i++) if (Math.abs((frames[i].YAVG || 0) - (frames[i - 1].YAVG || 0)) > RULES.strobeJump) jumps.push(frames[i].t);
-    let worstJ = 0, atJ = 0; for (const t of jumps) { const n = jumps.filter((u) => u >= t && u < t + 1).length; if (n > worstJ) { worstJ = n; atJ = t; } }
+    const { n: worstJ, at: atJ } = strobeOf(frames);
     add(worstJ > RULES.strobeMax ? "fail" : "pass", "strobe", worstJ > RULES.strobeMax ? `${worstJ} big brightness jumps within 1 s from ${atJ.toFixed(2)} s: strobing reads as a glitch` : `at most ${worstJ} big brightness jumps per second`);
     // optical flow (qa/flow.py via qa/glitches.mjs, item 15): a part that pops out and back, snaps while all around it is
     // calm, moves against its neighbours or flickers without moving; cuts, hit-stops, flashes and captions left out.
@@ -622,7 +648,11 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
       const step = (360 * (x.turns ?? 1) * 1.6) / ((x.dur ?? 1) * fps);
       if (step > RULES.spinStep) add("warn", "spin-speed", `${x.who}'s spin at ${x.at}s turns up to ${step.toFixed(0)}° a frame (max ${RULES.spinStep}): give it more time or fewer turns`);
     }
-    const bad = [...(sb.fx || []), ...(sb.actions || [])].filter((x) => RULES.gore.test(JSON.stringify(x)));
+    // tested without `who`: a cast id is a name, not an effect (the everyday friend "mash" matched \bmash: read minds, 12 Nov 2026);
+    // nor where another field names one (a carrier "mashWC" ridden, "with": "mashW": You wake up mid EP02, 12 Nov 2026)
+    const ids = (sb.cast || []).map((c) => c.id).filter(Boolean).sort((x, y) => y.length - x.length).map((x) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    const castRe = ids.length ? new RegExp(`"(with|prop|id|target|of|by|at|to|on|seat)":"(${ids.join("|")})\\w*"`, "gi") : null;
+    const bad = [...(sb.fx || []), ...(sb.actions || [])].filter(({ who, ...x }) => RULES.gore.test(castRe ? JSON.stringify(x).replace(castRe, "") : JSON.stringify(x)));
     if (bad.length) add("fail", "cartoon-only", `graphic-looking effects (${bad.map((x) => x.do).join(", ")}): use stars, dust or squash instead (graphic violence isn't eligible for For You)`);
     else add("pass", "cartoon-only", "no graphic-looking effects");
   }

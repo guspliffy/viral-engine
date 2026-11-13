@@ -50,7 +50,7 @@ import { mixClip } from "./sfx/guard.mjs";
 import { beatTimes } from "../qa/contact.mjs";
 import { loadStoryboard, loadCharacters } from "./load.mjs";
 import { lockMusic } from "./music.mjs";
-import { gateResults, oddFrames, RULES } from "../qa/check.mjs";
+import { gateResults, oddFrames, lumaFrames, strobeOf, RULES } from "../qa/check.mjs";
 import { GATE } from "../qa/gate.mjs";
 import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
@@ -683,12 +683,18 @@ async function finish(audio, videoFile, wavFile, outFile, o, dur, note) {
 // Every draft tests itself for one-frame pops (the "pops" line of qa/check.mjs, about a second): the full render's
 // check fails on them, and two videos in a row lost a farm render to a single frame the draft already showed
 // (Share or Steal 02, Doomscroll 01, 11 Nov 2026). Times are seconds of the video, also for a --from/--to window.
+// It counts the check's strobe too (brightness jumps per second): You wake up mid EP02's farm render failed on a
+// one-frame white surface wipe between two cuts that the draft already had (12 Nov 2026).
 function popsLine(file, from) {
   try {
     const worst = oddFrames(file, 30).filter((x) => x.score > RULES.oddFrame).slice(0, 6), top = worst[0]?.score ?? 0;
-    if (!worst.length) return console.log("pops: no odd single frames in this draft");
-    console.log(`pops ${top > RULES.oddFrameFail ? "FAIL (the full render's check fails on this: fix it before the farm)" : "warn"}: odd single frames at ${worst.map((x) => `${(x.t + from).toFixed(2)}s (${x.score.toFixed(0)}, ${x.where})`).join(", ")}; look at the frames round each (node qa/contact.mjs <draft> --times ...)`);
+    if (!worst.length) console.log("pops: no odd single frames in this draft");
+    else console.log(`pops ${top > RULES.oddFrameFail ? "FAIL (the full render's check fails on this: fix it before the farm)" : "warn"}: odd single frames at ${worst.map((x) => `${(x.t + from).toFixed(2)}s (${x.score.toFixed(0)}, ${x.where})`).join(", ")}; look at the frames round each (node qa/contact.mjs <draft> --times ...)`);
   } catch (e) { console.log(`pops: not measured (${e.message || e})`); }
+  try {
+    const s = strobeOf(lumaFrames(file));
+    console.log(s.n > RULES.strobeMax ? `strobe FAIL (the full render's check fails on this: fix it before the farm): ${s.n} big brightness jumps within 1 s from ${(s.at + from).toFixed(2)} s` : `strobe: at most ${s.n} big brightness jumps per second`);
+  } catch (e) { console.log(`strobe: not measured (${e.message || e})`); }
 }
 
 main().catch((e) => { console.error(e.message || e); process.exit(1); });

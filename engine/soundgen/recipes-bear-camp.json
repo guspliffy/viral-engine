@@ -1,0 +1,406 @@
+{
+ "_note": "Fight, Flight or Freeze 02 'Bear in the camp' (12 Nov 2026): realistic sound effects, no blings or whooshes. Same pipeline as recipes.json (Stable Audio 3 Small SFX, local). Jonny: every sound realistic or close to it. 'label' = the CLAP label each cut is scored against. car-alarm, grass-fire and storm-wind are kind 'steady' (sustained noise: pick.py's event finder sees no events in it, so a patched pick.py cuts fixed windows of len[1] s and crossfades the 0.25 s tail into the head so the cut loops).",
+ "sfx": [
+  {
+   "id": "bear-growl",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    2.5
+   ],
+   "duration": 8,
+   "label": "a deep low growl of a black bear",
+   "replaces": null,
+   "tags": [
+    "bear",
+    "growl",
+    "animal",
+    "menace"
+   ],
+   "prompts": [
+    "a deep low growl of a black bear, close up, throaty rumbling animal growl, field recording, outdoors at night, no music",
+    "a large angry bear growling low and menacingly, chest rumble, wildlife recording, close microphone, no music"
+   ],
+   "seeds": [
+    301,
+    302
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "bear-roar",
+   "kind": "oneshot",
+   "len": [
+    1.5,
+    2.5
+   ],
+   "duration": 8,
+   "label": "a loud roar of a black bear",
+   "replaces": null,
+   "tags": [
+    "bear",
+    "roar",
+    "animal",
+    "attack"
+   ],
+   "prompts": [
+    "a black bear bellowing a loud roaring bawl as it rears up, raw animal roar, close up, wildlife field recording, no music",
+    "an angry bear roaring loudly, hoarse bellow with a rasp, real animal sound, outdoors, no music"
+   ],
+   "seeds": [
+    311,
+    312
+   ],
+   "gain": 0.55
+  },
+  {
+   "id": "bear-huff",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.8
+   ],
+   "duration": 8,
+   "label": "a bear's sharp huff, a short exhaled breath of a large animal",
+   "replaces": null,
+   "tags": [
+    "bear",
+    "huff",
+    "breath",
+    "jaw"
+   ],
+   "prompts": [
+    "a bear's sharp huffing breaths and jaw popping, snorting through the nose, close up, wildlife field recording, outdoors at night, no music",
+    "a large bear huffing and snorting, short loud exhaled breaths, teeth clacking and jaw pops, real animal, no music"
+   ],
+   "seeds": [
+    321,
+    322
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "bear-charge",
+   "kind": "oneshot",
+   "len": [
+    1.2,
+    1.8
+   ],
+   "duration": 8,
+   "label": "a big animal galloping, heavy paws pounding on dirt and grass",
+   "replaces": null,
+   "tags": [
+    "bear",
+    "charge",
+    "gallop",
+    "paws",
+    "run"
+   ],
+   "prompts": [
+    "heavy fast paws pounding on dirt and grass, a big animal charging and galloping towards the microphone, field recording, no music",
+    "a large bear running at full speed over dry grass and dirt, heavy thudding footfalls, ground thumping, no music"
+   ],
+   "seeds": [
+    331,
+    332
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "canvas-rip",
+   "kind": "oneshot",
+   "len": [
+    0.7,
+    1.3
+   ],
+   "duration": 8,
+   "label": "tent nylon fabric torn and ripped by claws",
+   "replaces": null,
+   "tags": [
+    "tent",
+    "rip",
+    "tear",
+    "fabric",
+    "nylon"
+   ],
+   "prompts": [
+    "tent nylon fabric torn open by claws, a loud ripping tear of thick synthetic cloth, close up, dry, no music",
+    "claws slashing and ripping through a nylon tent wall, fabric tearing, real foley recording, no music"
+   ],
+   "seeds": [
+    341,
+    342
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "glass-smash",
+   "kind": "oneshot",
+   "len": [
+    0.8,
+    1.4
+   ],
+   "duration": 8,
+   "label": "a car windscreen smashed by a heavy blow, cracking safety glass",
+   "replaces": null,
+   "tags": [
+    "glass",
+    "smash",
+    "windscreen",
+    "car",
+    "crash"
+   ],
+   "prompts": [
+    "a car windscreen smashed by a heavy blow, cracking and shattering safety glass, close up, real recording, no music",
+    "a heavy impact breaking a car windshield, glass crunching and crackling, dry, no music"
+   ],
+   "seeds": [
+    351,
+    352
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "metal-tear",
+   "kind": "oneshot",
+   "len": [
+    1.0,
+    1.6
+   ],
+   "duration": 8,
+   "label": "a car door wrenched off its hinges, bending and tearing sheet metal",
+   "replaces": null,
+   "tags": [
+    "metal",
+    "tear",
+    "car",
+    "door",
+    "bend"
+   ],
+   "prompts": [
+    "a car door wrenched off its hinges, groaning bending sheet metal and a loud metallic tearing screech, real recording, no music",
+    "heavy sheet metal being torn and bent, a car door ripped off, metal creaking and snapping, close up, no music"
+   ],
+   "seeds": [
+    361,
+    362
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "car-alarm",
+   "kind": "steady",
+   "len": [
+    3.5,
+    4.0
+   ],
+   "duration": 8,
+   "label": "a car alarm siren blaring",
+   "replaces": null,
+   "tags": [
+    "alarm",
+    "car",
+    "siren",
+    "loop"
+   ],
+   "prompts": [
+    "a real car alarm siren blaring in the night, repeating electronic horn wail with the horn honking, outdoors, recorded from a distance, no music",
+    "a car burglar alarm going off, loud pulsing siren and honking, street at night, field recording, no music"
+   ],
+   "seeds": [
+    371,
+    372
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "thunder",
+   "kind": "oneshot",
+   "len": [
+    4.0,
+    6.0
+   ],
+   "duration": 10,
+   "label": "a close crack of thunder with a long rumble",
+   "replaces": null,
+   "tags": [
+    "thunder",
+    "storm",
+    "weather",
+    "crack"
+   ],
+   "prompts": [
+    "a close thunder crack followed by a long deep rolling rumble, thunderstorm at night, outdoors field recording, no rain, no music",
+    "a sharp loud thunderclap then low rolling thunder echoing across the sky, dry thunderstorm, real recording, no music"
+   ],
+   "seeds": [
+    381,
+    382
+   ],
+   "gain": 0.55
+  },
+  {
+   "id": "grass-fire",
+   "kind": "steady",
+   "len": [
+    3.5,
+    4.0
+   ],
+   "duration": 8,
+   "label": "dry grass catching fire, crackling and whooshing flames",
+   "replaces": null,
+   "tags": [
+    "fire",
+    "grass",
+    "flames",
+    "crackle",
+    "loop"
+   ],
+   "prompts": [
+    "dry grass catching fire, crackling flames and whooshing fire, a grass fire spreading, close up, field recording, no music",
+    "a crackling wildfire in dry grass, popping and roaring flames, wind and fire, real recording, no music"
+   ],
+   "seeds": [
+    391,
+    392
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "branch-snap",
+   "kind": "split",
+   "len": [
+    0.15,
+    0.7
+   ],
+   "duration": 8,
+   "label": "a pine branch snapping loudly",
+   "replaces": null,
+   "tags": [
+    "branch",
+    "snap",
+    "wood",
+    "tree",
+    "climb"
+   ],
+   "prompts": [
+    "pine branches snapping and cracking loudly and bark scraping as something heavy climbs a tree, close up, forest at night, no music",
+    "dry tree branches breaking one after another, wood snapping, bark scraping, a heavy animal climbing a pine, no music"
+   ],
+   "seeds": [
+    401,
+    402
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "pot-bang",
+   "kind": "split",
+   "len": [
+    0.2,
+    0.9
+   ],
+   "duration": 8,
+   "label": "a metal cooking pot banged hard with a stick",
+   "replaces": null,
+   "tags": [
+    "pot",
+    "bang",
+    "metal",
+    "clang",
+    "camp"
+   ],
+   "prompts": [
+    "a metal cooking pot banged hard with a wooden stick, loud clanging pot, close up, dry, real recording, no music",
+    "banging a steel saucepan with a stick, loud ringing clang, camp kitchen, outdoors, no music"
+   ],
+   "seeds": [
+    411,
+    412
+   ],
+   "gain": 0.45
+  },
+  {
+   "id": "pot-bite",
+   "kind": "oneshot",
+   "len": [
+    0.7,
+    1.3
+   ],
+   "duration": 8,
+   "label": "teeth biting and crunching a thin steel pot",
+   "replaces": null,
+   "tags": [
+    "pot",
+    "bite",
+    "metal",
+    "crunch",
+    "bear"
+   ],
+   "prompts": [
+    "animal teeth biting into a thin steel cooking pot, a metal crunch and dent, close up, dry, no music",
+    "a heavy bite crushing a thin steel pot, crunching metal and scraping teeth, real foley recording, no music"
+   ],
+   "seeds": [
+    421,
+    422
+   ],
+   "gain": 0.5
+  },
+  {
+   "id": "bag-drag",
+   "kind": "oneshot",
+   "len": [
+    0.7,
+    1.8
+   ],
+   "duration": 8,
+   "label": "a sleeping bag dragged fast over grass and dirt",
+   "replaces": null,
+   "tags": [
+    "bag",
+    "drag",
+    "grass",
+    "nylon",
+    "rustle"
+   ],
+   "prompts": [
+    "a sleeping bag dragged fast across grass and dirt, rustling nylon fabric scraping the ground, close up, real foley recording, no music",
+    "something heavy and soft dragged quickly over dry grass, nylon bag rustling and swishing along the ground, no music"
+   ],
+   "seeds": [
+    431,
+    432
+   ],
+   "gain": 0.4
+  },
+  {
+   "id": "storm-wind",
+   "kind": "steady",
+   "len": [
+    5.5,
+    6.0
+   ],
+   "duration": 10,
+   "label": "low gusty wind in pine trees at night",
+   "replaces": null,
+   "tags": [
+    "wind",
+    "ambience",
+    "night",
+    "pines",
+    "loop"
+   ],
+   "prompts": [
+    "low gusty wind in tall pine trees at night, soft steady wind ambience, distant, outdoors field recording, no music, no voices",
+    "a quiet night forest with low wind gusting through pines, needles rustling, calm ambience, no music"
+   ],
+   "seeds": [
+    441,
+    442
+   ],
+   "gain": 0.2
+  }
+ ],
+ "music": []
+}
