@@ -379,7 +379,7 @@
    "x": 3000,
    "y": -300,
    "z": 0,
-   "s": 0.05,
+   "s": 0.09,
    "beam": 0,
    "lit": 1
   },
@@ -1749,6 +1749,14 @@
      "at": 0.65
     },
     {
+     "who": "spudH",
+     "do": "face",
+     "lid": 0.4,
+     "brow": -0.25,
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
      "macro": "say",
      "who": "spudH",
      "line": "Case closed.",
@@ -2114,22 +2122,6 @@
     },
     {
      "who": "spudT",
-     "do": "grip",
-     "side": "R",
-     "shape": "flat",
-     "dur": 0.15,
-     "at": 1.5
-    },
-    {
-     "who": "spudT",
-     "do": "grip",
-     "side": "L",
-     "shape": "flat",
-     "dur": 0.15,
-     "at": 1.5
-    },
-    {
-     "who": "spudT",
      "do": "arm",
      "side": "R",
      "pose": {
@@ -2139,9 +2131,9 @@
        -0.12
       ]
      },
-     "dur": 0.45,
-     "ease": "out",
-     "at": 1.55
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.6
     },
     {
      "who": "spudT",
@@ -2154,9 +2146,25 @@
        -0.12
       ]
      },
-     "dur": 0.45,
-     "ease": "out",
-     "at": 1.55
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.5,
+     "at": 1.6
     },
     {
      "sfx": "pat",
@@ -2242,6 +2250,7 @@
     {
      "who": "spudT",
      "do": "face",
+     "lid": 0.48,
      "brow": -0.4,
      "press": 0.6,
      "dur": 0.25,

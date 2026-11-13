@@ -106,7 +106,7 @@ const props = [
   ...liftShip("sh", P.home, { top: TOP(S, 1), hover: 70, beam: 1, lit: 1, block: null, shipK: 2.5 }),
   { id: "h-belt", kind: "orion", x: BELT_H[0], y: BELT_H[1], z: BELT_H[2], belt: true, deg: ORI_DEG },
   // the ship far away as a point of light (panel 32): a tiny ring, hidden under the plateau until the cut
-  { id: "dot", kind: "ringship", x: P.home[0], y: -300, z: P.home[1], s: 0.05, beam: 0, lit: 1 },
+  { id: "dot", kind: "ringship", x: P.home[0], y: -300, z: P.home[1], s: 0.09, beam: 0, lit: 1 },
   { id: "h-workers", kind: "potatocrowd", x: P.home[0] - 24, z: 192, who: "workers", n: 60, box: [22, 10], seed: 5, lookAt: [24, 40, -192] },
   { id: "h-aliens", kind: "potatocrowd", x: P.home[0] - 12, z: 194, who: "aliens", n: 22, box: [10, 6], seed: 8, lookAt: [12, 40, -194] },
   host("spudH", 0),
@@ -194,6 +194,7 @@ c.prop(T.pay + 0.05, "dot", { x: r3(DOT1[0]), y: r3(DOT1[1]), z: DOT1[2] }, 2.4,
 A(T.turn, "spudH", "turn", { to: 0, dur: 0.5 });
 A(T.turn + 0.2, "spudH", "look", { to: [0, 0], dur: 0.3 });
 A(T.turn + 0.4, "spudH", "expr", { expr: "deadpan", dur: 0.3 });
+A(T.turn + 0.45, "spudH", "face", { lid: 0.4, brow: -0.25, dur: 0.3 });
 say(T.closed, "Case closed.", LEN.closed, "spudH", { sub: false });
 cap(27.35, T.tag - 0.05, "CASE CLOSED", TXT, false, { ...TXTS, size: 120 });
 sfx(27.35, "step", { gain: 0.5, reason: "a dull stamp as the words land" });
@@ -224,16 +225,16 @@ A(T.cover - 0.1, "wkT", "move", { to: at(P.tag, 1.0, -1.7), dur: 0.45, steps: 2 
 A(T.cover, "spudT", "move", { to: at(P.tag, 0, -2.25), dur: 0.45, steps: 2 });
 A(T.cover, "spudT", "turn", { to: 360, dur: 0.35 });
 sfx(T.cover + 0.45, "pat", { gain: 0.5, reason: "his back meets the stone" });
-c.arm(T.cover + 0.35, "spudT", "R", { o: [0.5, 0.5, -0.12] }, 0.45, "out");
-c.arm(T.cover + 0.35, "spudT", "L", { o: [0.5, 0.5, -0.12] }, 0.45, "out");
-A(T.cover + 0.3, "spudT", "grip", { side: "R", shape: "flat", dur: 0.15 });
-A(T.cover + 0.3, "spudT", "grip", { side: "L", shape: "flat", dur: 0.15 });
+c.arm(T.cover + 0.4, "spudT", "R", { o: [0.5, 0.5, -0.12] }, 0.6, "inOut");
+c.arm(T.cover + 0.4, "spudT", "L", { o: [0.5, 0.5, -0.12] }, 0.6, "inOut");
+A(T.cover + 0.4, "spudT", "grip", { side: "R", shape: "flat", dur: 0.5 });
+A(T.cover + 0.4, "spudT", "grip", { side: "L", shape: "flat", dur: 0.5 });
 A(T.cover + 0.5, "wkT", "look", { to: [-0.6, 0.1], dur: 0.25 });
 A(T.cover + 0.6, "spudT", "expr", { expr: "deadpan", dur: 0.3 });
 A(T.cover + 0.6, "spudT", "look", { to: [0, 0], dur: 0.2 });
 A(T.close - 0.25, "spudT", "noblink", { dur: 0.25 });
 A(T.close, "spudT", "expr", { expr: "deadpan", dur: 0.2 });
-A(T.close + 0.05, "spudT", "face", { brow: -0.4, press: 0.6, dur: 0.25 });
+A(T.close + 0.05, "spudT", "face", { lid: 0.48, brow: -0.4, press: 0.6, dur: 0.25 });
 say(T.nobody, "...nobody saw that.", LEN.nobody, "spudT", { sub: "...Nobody saw that." });
 A(T.end - 0.3, "spudT", "noblink", { dur: 0.3 });
 trimSubs();

@@ -29,3 +29,4 @@ closed 1.21, nobody 1.45.
   pilot score: swell under the ship going home, out before the tag, small pizzicato under the tag); apply kit/BLOCKS.md
   "How we explain" (Jonny on block A: "we need some background music ... right now it's pretty plain and boring"): show
   the fact happening, Spud never a talking statue, start on the evidence, a change every 3 s, numbers move.
+- POLISH DONE 13 Nov: deadpan via face lid 0.4-0.48 (expr deadpan alone is capped by the half-lid rule), arm spread 0.6 s (one 2-frame palm turn on hand R at 33.57 left, two rounds = rule 5), dot s 0.09; full render local 19.5 min, qa/check PASS.
