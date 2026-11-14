@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { clamp, rng } from "./util.js";
+import { KIND_POSTS } from "../shared/obstacles.js";
 
 // There's a catch EP09b "Every jump, someone forgets you" (storyboards/series/what-if/09b-teleport-forget/DESIGN.md sections 1, 2, 3, 7): the gorge
 // of the broken rope bridge. Three kinds. World frame (DESIGN): x along the gorge, y up, z toward the near ledge; the near lip at z 0,
@@ -1116,7 +1117,7 @@ export const BRIDGE = {
   ropeAt: (z, sway = 0, sag = 1.40) => ropeP((0.5 - z) / 10, sway, sag),
   GLOVE: { chip: -4.5, spud: -4.75, fray: -4.25, spudAlt: -4.0 },
   hangers: [{ z: -2.6, y: -1.31, plank: 5 }, { z: -6.4, y: -1.16, plank: 6 }],
-  STAKE_NEAR: [0, 0, 0.5], STAKE_FAR: [0, 0.4, -9.5], POSTS: [[-0.9, 0, 0.5], [0.9, 0, 0.5], [-0.9, 0.4, -9.5], [0.9, 0.4, -9.5]],
+  STAKE_NEAR: [0, 0, 0.5], STAKE_FAR: [0, 0.4, -9.5], POSTS: KIND_POSTS.bridgerope.map(([x, y, z]) => [x, y, z]),   // engine/shared/obstacles.js: qa/clear.mjs reads the same posts
   FRAY_Z: [-4.37, -4.13],
 };
 const E3 = (k) => { k = clamp(k); return k * k * (3 - 2 * k); };
