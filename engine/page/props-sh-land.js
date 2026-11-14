@@ -28,24 +28,40 @@
 //               stars. 18-28 thin hand-painted winter cloud streaks (8 hand-drawn shapes), lit from below near the sun; times c and d
 //               add 7 thin cloud bars stacked near the sun, lit gold from below. d is a gradient: deep rose-red horizon band, peach and gold
 //               close round the sun, dusky rose, violet-blue at the top.
+//               DAPPLED CLOUDS (a mackerel sky, every time): ~170 loose rows and 90 drifts of small soft hand-drawn flecks (24 painted shapes, each fleck
+//               its own place, size, turn and strength from a hash), thickest in the lower-middle sky (el 6-36), thinning toward the horizon, fixed on the
+//               dome. Colour by time: a white with pale blue shade; b cream with warm gold undersides; c peach and orange lit from below on the sun's side,
+//               grey-violet on the far side; d orange-pink undersides on rose to violet; dusk dim violet-grey with a last pink edge in the west and the stars
+//               between them (they cross-fade with param dusk). A 6 degree gap stays clear round the sun disc. The streaks and bars above stay.
 //               THE SUN: params sunAz (spec default 14), sunEl (6.5), both tween; a sharp disc 1.6 deg across (three times its true
 //               size so it reads on a phone) that is always brighter than the sky behind it: a glowing core inside a rim, by el (>8 pale
 //               #fff3c4, 3-8 #ffc66a, <3 core #ffe27e with an orange-red rim #ff7a30), a soft halo twice its size and a warm glow; below el 0 the disc is cut by the horizon. param dusk 0..1 (spec default 0; 1 when
 //               spec.time is "dusk") cross-fades any sky toward dusk; the first stars fade in above dusk 0.45.
 //   salisburyplain  the ground, a disc r 290 at y 0 (follows nothing, never scaled). Winter grass #7a8852 with drawn tufts, sheep-cropped
-//               patches, frost #e4ecea in drawn patches (densest inside a 60 m ring around the origin), molehills, flints, and
+//               patches, frost #e0eaf0 in drawn patches (densest inside a 60 m ring around the origin), molehills, flints, and
 //               three painted layers (r 290 / 100 / 32 around the origin, 3.5 / 10 / 32 px per metre) plus a 3-D grass carpet that FOLLOWS THE
 //               CAMERA to 110 m (world-anchored hashed cells, rebuilt before each render; draws nothing for a camera more than 400 m from
 //               the ground's origin, so places 2000 m apart do not mix).
 //               Lit by the scene (toon), receives shadows. spec.era "today" (default: short even turf, a worn visitor path as a ring
 //               at r 38-41) | "new" (rougher, tussocks, 22 scrub bushes). Winter colours: muted olive grass with straw-coloured dead-grass
-//               patches and tufts; below sun el 5 (param sunEl) the albedo turns warm gold-olive. FROST is a fine silvery dusting of ~1000 small
-//               wind-streaked feathered patches (thick in hollows and the 60 m ring, thinning irregularly), warm glints toward the sun. spec.slope 0 (as S1: the fall from -x to +x across the circle,
+//               patches and tufts; below sun el 5 (param sunEl) the albedo turns warm gold-olive. FROST (sheet look: the winter grass reads frosted in every light, green showing
+//               through): ~1700 wind-streaked feathered patches (1.3-5.5 m near, 2.4-10 m far; thick in hollows and the 60 m ring), a pale blue-white veil
+//               over every painted layer, pale-blue tips on ~60% of the 3-D tufts (all of them inside a patch), warm glints and warm-tinted tips toward a low sun. spec.slope 0 (as S1: the fall from -x to +x across the circle,
 //               y = -slope * clamp(x, -15.5, 15.5) / 31 inside r 25, blended flat by r 45; 1.2 is the film's drawn-too-strong value).
 //               spec.sunAz / sunEl tint the frost glints (static). spec.clear [r] (a number or [r], default 0): no 3-D props
 //               within r of the origin. spec.ditch true (default): the ground has a ring-shaped HOLE at r 49-55 (entrance gap 12 deg
 //               on +z kept closed) that `henge` fills (the hole is the whole earthwork annulus r 39-56 on the ground layers; bank t 7..353, ditch t 6..354); spec.ditch false closes it. param dusk 0..1 (colour multiplier, as the sky).
 //               The 3-D tufts, molehills and scrub keep out of r 40-56 and out of the Avenue strip (|x| < 12.5, z > 50).
+//               THE GROVE: spec.trees (default true; default false when spec.slope is set; `trees: false` turns it off) puts 8 `bareoak` (detail 0.55, ~6-10k triangles
+//               each, ~62k together) at fixed place-local spots in three loose groups, all at r 79-133, none within |x| < 30 of the axis for z > 0, none between the
+//               centre and the sunset (az -5..30 left of -z stays clear; the nearest stand at az 39-46): west (-52, -60) (-96, -22) (-84, -80), east (52, -64)
+//               (104, -30) (118, 14), far north (-62, 118) (78, 104). They follow the plain's params sunAz / sunEl / dusk.
+//   bareoak     one big winter oak: spec h (11, 6-20 m; 9-13 reads right), seed (1: every fork, turn and length comes from it), det (1: share of the fine
+//               levels kept, 0.2-1; 1 = ~21-26k triangles, 0.55 = 6-10k), frost (true: a little on the upper side of the big limbs), shadow (true: a see-through ground
+//               decal pointing away from the sun, length h * 0.72 / tan(sunEl), gone at sunEl 0 and dusk 1), sunAz (14) / sunEl (6.5) / dusk (0): as the plain, params
+//               (seed them with a dur-0 prop set to tween), sun side warm, shade side cool. Origin: the centre of the trunk's foot at (x, 0, z), y 0; the crown is
+//               about 1.0 h wide, the trunk 0.06 h thick at the foot and 0.2 h tall before the 4-5 limbs fork. Bark #4a3f38, twigs #6b5c50. lookOnly, solid false,
+//               trunk and limbs surfaceOnly, twigs steam. (spec.at [x, z] is the plain's own use: a place-local offset; leave it out for a placed prop.)
 //   henge       the earthwork, origin the centre of the circle. spec.era "new": chalk bank (crest r 46, 1.2 high, white with grass
 //               creeping in, 500 drawn chalk lumps) inside a ditch (r 49-55, 1.4 deep, white chalk sides, rubble bottom); entrance gap
 //               11 m on +z, bank ends rounded, the ditch ends run out in a ramp. White chalk with drawn chips, flints and rubble (a painted chalk map).
@@ -66,16 +82,17 @@
 //               Avenue line (a 0) is kept low. spec.era "today" (default): 9 grass-covered burial mounds crowned with bare beeches along
 //               the +x skyline, hedges, a wood on the far north horizon (+z), and in the -x quarter a far road with 5 tiny lorries
 //               and cars that creep along on the clip clock (spec.traffic true, default); 30 crows circle over one beech clump (clip
-//               clock). "new": bare oak and ash clumps, no mounds, a river valley in the +x +z quarter (river, 14 round thatched
-//               huts, 14 thin smoke columns that drift on the clip clock). spec.time (optional palette of the sky, else from sunEl),
+//               clock). "new": bare oak and ash clumps, no mounds, TWO river valleys: A in the +x +z quarter (a 308: a river, 14 round thatched huts) and B right of
+//               the sunset line (a 186-218, in the axis cameras' frame: a silver river bend across the near face of the first down, 7 huts on its crest), 21 thin smoke
+//               columns in all that drift on the clip clock. spec.time (optional palette of the sky, else from sunEl),
 //               spec.sunAz / sunEl / param dusk as the sky (tween them together). Origin the place's centre, never scaled.
 //   pitcut      the cut-away of panel 08: a block of ground 9 wide (x) x 3 deep (y 0..-3) x 4 (z -4..0) whose +z face (z 0) is the
 //               cut through the middle of a pit: 0.35 of turf and soil on top, white chalk below with three drawn flint bands, and a
 //               pit notch 1.4 wide (x +-0.7) x 2.4 deep with its back wall at z -0.7, packing stones at its bottom. Origin: top centre
 //               of the pit's mouth (x 0, y 0, z 0). The top face sits at y 0.004 over a ground disc. lookOnly, not solid.
 //   sunshaft    the low shaft of sunset light: a soft see-through red-gold beam 0.5 wide x 2.2 high (y 0.2..2.4) along the axis from
-//               z -7 (the slit) to +110, brighter where it crosses the Altar Stone (z -4.2), 200 frost motes drifting through it on the
-//               clip clock. param show 0..1 (spec.show default 1) grows it from the slit outward along +z. No glow sprite, no sparkle.
+//               z -7 (the slit) to +110, brighter where it crosses the Altar Stone (z -4.2), a soft red-gold strip of light lying ON the ground along the axis (0.9 wide, over the Altar Stone too),
+//               66 faint small motes drifting through it on the clip clock. param show 0..1 (spec.show default 1) grows it from the slit outward along +z. No glow sprite, no sparkle.
 //               Transparent shaders, drawn after the scene's opaque parts. spec.s none (never scaled).
 // THE PLAIN SET'S FLOOR MASK: sets of type "plain" with floor "shadow" carry an invisible depth mask (r 60 at the world origin) that hides
 // everything below y 0. A place near the origin would lose its ditch and dip, so `salisburyplain` hides that mask (a scene object named
@@ -115,7 +132,7 @@ const offs = (k) => ({ polygonOffset: true, polygonOffsetFactor: -k, polygonOffs
 
 // palette (BOARD section 2)
 const C = {
-  grass: rgb("#7a8852"), grassD: rgb("#627340"), grassY: rgb("#8c9459"), grassDry: rgb("#b0a368"), frost: rgb("#e4ecea"), fshade: rgb("#9fb5cf"),
+  grass: rgb("#7a8852"), grassD: rgb("#627340"), grassY: rgb("#8c9459"), grassDry: rgb("#b0a368"), frost: rgb("#e0eaf0"), fshade: rgb("#9fb5cf"),
   chalk: rgb("#f4f1e6"), rubble: rgb("#dcd7c6"), chalkShade: rgb("#c9c5b4"), tree: rgb("#4a3f38"), twig: rgb("#6b5c50"), beech: rgb("#7b7468"),
   soil: rgb("#5a4531"), flint: rgb("#3d4147"), thatch: [rgb("#a38a4c"), rgb("#8c7740"), rgb("#b89c5a"), rgb("#7f6a3a")], daub: rgb("#b49b78"),
 };
@@ -185,12 +202,80 @@ function dotTex() {
   g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
   return (DOT = ctex(c, { nomip: true }));
 }
+// DAPPLED CLOUDS (a mackerel sky): 24 hand-drawn fleck shapes on 4 x 6 cells of 512 x 256. alpha = the soft lumpy puffs, red = how high on a puff
+// (white top, grey underside), so the shader can light the undersides. Cells 0-15: one fleck (a flat row of lumpy puffs, a few heaped on top, torn
+// wisps at the ends); cells 16-23: a loose drift of 8-14 small flecks.
+let FLECKS = null;
+function fleckAtlas() {
+  if (FLECKS) return FLECKS;
+  const CW = 512, CH = 256, [c, g] = canvas(CW * 4, CH * 6), R = rng(8841);
+  for (let n = 0; n < 24; n++) {
+    const [cc, cg] = canvas(CW, CH);
+    const puff = (x, y, rx, ry, a) => {
+      const gr = cg.createLinearGradient(0, y - ry, 0, y + ry); gr.addColorStop(0, "#ffffff"); gr.addColorStop(0.45, "#ececec"); gr.addColorStop(1, "#5c5c5c");
+      cg.globalAlpha = a; cg.fillStyle = gr; blob(cg, x, y, rx, ry, (R() - 0.5) * 0.14, Math.floor(R() * 4000), 9); cg.fill();
+    };
+    cg.filter = "blur(3px)";
+    if (n < 16) {
+      const np = 3 + Math.floor(R() * 4), x0 = 150 + R() * 40, x1 = 360 - R() * 40, y0 = CH / 2 + 8;
+      for (let k = 0; k < np; k++) {
+        const u = k / (np - 1), x = lerp(x0, x1, u) + (R() - 0.5) * 22, env = Math.sin(Math.PI * (0.12 + 0.76 * u)), rx = 30 + 40 * env * (0.6 + 0.6 * R()), ry = rx * (0.3 + 0.2 * R());
+        puff(x, y0 + (R() - 0.5) * 8, rx, ry, 0.78 + 0.22 * R());
+        if (R() < 0.75) puff(x + (R() - 0.5) * 26, y0 - ry * 0.7, rx * 0.55, ry * 0.8, 0.65 + 0.3 * R());
+      }
+      cg.filter = "blur(1.4px)"; cg.strokeStyle = "#f0f0f0"; cg.lineCap = "round";
+      for (let k = 0; k < 7; k++) {   // torn wisps trailing off the ends and the underside
+        const left = R() < 0.5, xs = left ? x0 - 20 - R() * 60 : x1 + 20 + R() * 60, L = 30 + R() * 60;
+        cg.globalAlpha = 0.25 + 0.4 * R(); cg.lineWidth = 2 + R() * 4; cg.beginPath(); cg.moveTo(xs, y0 + (R() - 0.3) * 20); cg.quadraticCurveTo(xs + (left ? L / 2 : -L / 2), y0 + (R() - 0.5) * 14, xs + (left ? L : -L), y0 + (R() - 0.2) * 16); cg.stroke();
+      }
+    } else {
+      const m = 8 + Math.floor(R() * 7), tilt = (R() - 0.5) * 120, wob = 24 + R() * 40, ph = R() * TAU;
+      for (let k = 0; k < m; k++) {
+        const u = (k + R() * 0.7) / m, x = 40 + 430 * u, y = CH / 2 + (u - 0.5) * tilt + wob * Math.sin(u * 6 + ph) * 0.6 + (R() - 0.5) * 36, rx = 12 + 20 * R() * Math.sin(Math.PI * (0.1 + 0.8 * u)), ry = rx * (0.32 + 0.22 * R());
+        puff(x, y, rx, ry, 0.7 + 0.3 * R()); if (R() < 0.6) puff(x + rx * 0.6, y - ry * 0.5, rx * 0.6, ry * 0.8, 0.6 + 0.3 * R());
+      }
+    }
+    g.drawImage(cc, (n % 4) * CW, Math.floor(n / 4) * CH);
+  }
+  return (FLECKS = ctex(c, { nomip: true }));
+}
+// the fleck quads of one sky: ~170 loose rows (three in four in the lower sky where the cameras look) and 90 drifts, every fleck its own place, size, turn and
+// strength from the rng; none below el 1.5, fewer near the horizon, flatter and smaller there. tint.x = strength, tint.y = brightness jitter.
+function fleckQuads(R) {
+  const out = [], cell = (n, flip) => { const col = n % 4, row = Math.floor(n / 4), u0 = col / 4, u1 = (col + 1) / 4, v0 = 1 - (row + 1) / 6, v1 = 1 - row / 6; return flip ? [u1, v0, u0, v1] : [u0, v0, u1, v1]; };
+  const add = (az, el, w, n, roll, str) => {
+    if (el < 1.5 || el > 87) return;
+    if (R() > Math.pow(smooth(1.5, 10, el), 0.55)) return;   // thinning toward the horizon
+    const k = smooth(2, 38, el), ww = w * (0.62 + 0.38 * k), hh = ww * 0.5 * (0.55 + 0.45 * k);
+    out.push({ d: dirOf(az, el), w: ww, h: hh, rect: cell(n, R() < 0.5), roll, tint: [str, R(), 0] });
+  };
+  for (let r = 0; r < 170; r++) {
+    const el0 = r < 128 ? 6 + 30 * Math.pow(R(), 1.1) : 30 + 56 * R(), az0 = R() * 360, tilt = (R() - 0.5) * 0.5, len = 22 + 60 * R(), n = Math.max(3, Math.floor(len / (3.4 + 3 * R()))), ph = R() * TAU, amp = 1 + 3 * R();
+    for (let k = 0; k < n; k++) {
+      const u = k / (n - 1) - 0.5, s = u * len, el = el0 + s * Math.sin(tilt) * 0.5 + amp * Math.sin(s * 0.11 + ph) + (R() - 0.5) * 2.2;
+      const az = az0 + (s * Math.cos(tilt) + (R() - 0.5) * 1.8) / Math.max(0.3, Math.cos(el0 * DEG)), w = (6 + 5 * R()) * (0.55 + 0.6 * Math.cos(u * Math.PI));
+      add(az, el, w, Math.floor(R() * 16), tilt * 0.6 + (R() - 0.5) * 0.25, 0.55 + 0.45 * R());
+    }
+  }
+  for (let i = 0; i < 90; i++) add(R() * 360, 7 + 63 * Math.pow(R(), 1.2), 16 + 18 * R(), 16 + Math.floor(R() * 8), (R() - 0.5) * 0.8, 0.5 + 0.4 * R());
+  return out;
+}
+// fleck colours by light: body (the lit top) and underside, sun side (near) and far side
+const FLK = {
+  a: { near: "#ffffff", far: "#f2f8ff", nearS: "#e6e3d6", farS: "#a9c3e3", k: 0.9 },
+  b: { near: "#fff3d2", far: "#f2e6d0", nearS: "#f2c070", farS: "#c9ad8c", k: 0.9 },
+  c: { near: "#ffc8a0", far: "#c8aab6", nearS: "#ff9446", farS: "#8a7aa2", k: 0.9 },
+  d: { near: "#fba8a0", far: "#b47ea2", nearS: "#ff884c", farS: "#7a5a94", k: 0.85 },
+  dusk: { near: "#8c6a96", far: "#56567f", nearS: "#e5698a", farS: "#323260", k: 0.62 },
+};
 // quads tangent to a dome of radius r about the origin, facing the middle: {d, w, h (deg), rect [u0, v0, u1, v1], tint}
 function domeQuads(list, r) {
   const pos = [], uv = [], loc = [], tint = [], idx = [];
-  for (const { d, w, h, rect, tint: t } of list) {
+  for (const { d, w, h, rect, tint: t, roll = 0 } of list) {
     const dv = new THREE.Vector3(...d), right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), dv); if (right.lengthSq() < 1e-6) right.set(1, 0, 0); right.normalize();
-    const up = new THREE.Vector3().crossVectors(dv, right).normalize(), hw = r * Math.tan(w * DEG / 2), hh = r * Math.tan(h * DEG / 2), n = pos.length / 3, ctr = dv.clone().multiplyScalar(r);
+    const up = new THREE.Vector3().crossVectors(dv, right).normalize();
+    if (roll) { const rc = Math.cos(roll), rs = Math.sin(roll), r2 = right.clone().multiplyScalar(rc).addScaledVector(up, rs), u2 = up.clone().multiplyScalar(rc).addScaledVector(right, -rs); right.copy(r2); up.copy(u2); }
+    const hw = r * Math.tan(w * DEG / 2), hh = r * Math.tan(h * DEG / 2), n = pos.length / 3, ctr = dv.clone().multiplyScalar(r);
     for (const [sx, sy, u, v] of [[-1, -1, rect[0], rect[1]], [1, -1, rect[2], rect[1]], [1, 1, rect[2], rect[3]], [-1, 1, rect[0], rect[3]]]) {
       const p = ctr.clone().addScaledVector(right, sx * hw).addScaledVector(up, sy * hh); pos.push(p.x, p.y, p.z); uv.push(u, v); loc.push((sx + 1) / 2, (sy + 1) / 2); tint.push(t[0], t[1], t[2]);
     }
@@ -352,6 +437,13 @@ export const SH_LAND_KINDS = {
       fragmentShader: "uniform sampler2D map; uniform vec3 uTop; uniform vec3 uShade; uniform vec3 uLit; uniform vec3 sunDir; uniform float k; varying vec2 vUv; varying vec2 vLoc; varying vec3 vT; varying vec3 vD; void main(){ vec4 t = texture2D(map, vUv); vec3 d = normalize(vD); float sp = pow(max(dot(normalize(d.xz + vec2(1e-5)), normalize(sunDir.xz + vec2(1e-5))), 0.0), 3.0); float under = 1.0 - vLoc.y; float lit = clamp(sp * (0.35 + 0.65 * under) * 1.35, 0.0, 1.0); vec3 c = mix(uTop, uShade, 0.6 * under); c = mix(c, uLit, lit); gl_FragColor = vec4(c, t.a * k * vT.x);\n#include <colorspace_fragment>\n }",
     });
     cm.userData.noOutline = true; put(P.whole, domeQuads(st, 278), cm, { order: -999, steam: true });
+    // the dappled flecks (a mackerel sky): hand-drawn fleck shapes in loose rows, lit from below on the sun's side, a 6 degree gap round the disc; drawn over the stars so they hide some
+    const FU = { map: { value: fleckAtlas() }, uNear: { value: new THREE.Color() }, uFar: { value: new THREE.Color() }, uNearS: { value: new THREE.Color() }, uFarS: { value: new THREE.Color() }, sunDir: U.sunDir, k: { value: 0.9 }, uReach: U.uReach };
+    const fm = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, depthTest: true, fog: false, side: THREE.DoubleSide, uniforms: FU, vertexShader: SPR_VS,
+      fragmentShader: "uniform sampler2D map; uniform vec3 uNear; uniform vec3 uFar; uniform vec3 uNearS; uniform vec3 uFarS; uniform vec3 sunDir; uniform float k; varying vec2 vUv; varying vec2 vLoc; varying vec3 vT; varying vec3 vD; void main(){ vec4 t = texture2D(map, vUv); vec3 d = normalize(vD); float ang = acos(clamp(dot(d, normalize(sunDir)), -1.0, 1.0)); float gap = smoothstep(0.105, 0.17, ang); float hz = smoothstep(0.015, 0.12, d.y); float sp = pow(max(dot(normalize(d.xz + vec2(1e-5)), normalize(sunDir.xz + vec2(1e-5))), 0.0), 2.2) * mix(1.0, 0.6, smoothstep(0.25, 0.9, d.y)); float top = smoothstep(0.2, 0.85, t.r); vec3 body = mix(uFar, uNear, sp); vec3 under = mix(uFarS, uNearS, sp); vec3 c = mix(under, body, top) * (0.94 + 0.12 * vT.y); gl_FragColor = vec4(c, t.a * k * vT.x * gap * hz);\n#include <colorspace_fragment>\n }",
+    });
+    fm.userData.noOutline = true; put(P.whole, domeQuads(fleckQuads(rng(3100 + ["a", "b", "c", "d", "dusk"].indexOf(time))), 277.5), fm, { order: -989, steam: true });
     // the first stars
     const sl = [], RS = rng(9), TINT = [[1, 1, 1], [1, 0.9, 0.78], [0.82, 0.89, 1]];
     for (let i = 0; i < nStars; i++) { const west = i % 2 === 0, az = west ? (RS() * 2 - 1) * 50 : RS() * 360, el = west ? 7 + 38 * RS() ** 1.2 : 12 + 66 * RS() ** 0.8, t = TINT[i % 3], br = 0.55 + 0.45 * RS(), w = 0.3 + 0.28 * RS(); sl.push({ d: dirOf(az, el), w, h: w, rect: [0, 0, 1, 1], tint: t.map((v) => v * br) }); }   // half of them in the afternoon's west, where a wide frame looks
@@ -370,6 +462,7 @@ export const SH_LAND_KINDS = {
         SU.uTop.value.copy(pal.mid).lerp(col("#ffffff"), 0.55).multiplyScalar(lerp(1, 0.42, E.dusk)); SU.uShade.value.copy(pal.zen).lerp(pal.hor, 0.55).lerp(col("#ffffff"), 0.25).multiplyScalar(lerp(1, 0.5, E.dusk));
         SU.uLit.value.copy(col("#ffc874")).lerp(col("#fff3d0"), smooth(3, 10, E.el)).lerp(pal.hor, E.dusk * 0.6); SU.k.value = lerp(0.9, 0.7, E.dusk);
         STU.show.value = smooth(0.45, 0.95, E.dusk); stars.visible = STU.show.value > 0.002;
+        { const f0 = FLK[time], f1 = FLK.dusk, e = E.dusk; FU.uNear.value.copy(col(f0.near)).lerp(col(f1.near), e); FU.uFar.value.copy(col(f0.far)).lerp(col(f1.far), e); FU.uNearS.value.copy(col(f0.nearS)).lerp(col(f1.nearS), e); FU.uFarS.value.copy(col(f0.farS)).lerp(col(f1.farS), e); FU.k.value = lerp(f0.k, f1.k, e); }
       },
     };
   },
@@ -382,12 +475,14 @@ export const SH_LAND_KINDS = {
     put(P.whole, groundGeo(100, 100, slope, ditch, 0.004), stdm({ map: T[1], transparent: true, depthWrite: false, ...offs(2) }), { recv: true, order: 1 });
     put(P.whole, groundGeo(32, 32, slope, ditch, 0.008), stdm({ map: T[2], transparent: true, depthWrite: false, ...offs(4) }), { recv: true, order: 2 });
     const upd = groundProps(S, era, patches, sc, P.whole);
+    const oaks = S.trees === false || (slope && S.trees !== true) ? [] : GROVE.map(([x, z, h, seed]) => buildOak(P.whole, { at: [x, z], h, seed, det: 0.55, fadeR: 60, sunAz: S.sunAz, sunEl: S.sunEl, dusk: S.dusk }));
     let meshes = null, hooked = false, maskDone = false;
     return {
       grip: 0,
       apply(ps) {
         const d = clamp(num(ps, S, "dusk", 0));
         if (!hooked) hooked = hookScene(P.root, upd);
+        for (const o of oaks) o(ps);
         if (!maskDone) {   // the plain set's depth mask (r 60 at the world origin, hides everything below y 0) would swallow the ditch and the dip of a place near the origin
           let sc = P.root; while (sc.parent) sc = sc.parent; const mk = sc.getObjectByName ? sc.getObjectByName("set-floor-mask") : null;
           if (mk) { const w = P.root.getWorldPosition(new THREE.Vector3()); if (Math.hypot(w.x, w.z) < 120) mk.visible = false; maskDone = true; }
@@ -397,6 +492,11 @@ export const SH_LAND_KINDS = {
         for (const me of meshes) if (me.material.color) me.material.color.setRGB(lerp(lerp(1, 1.06, wk), 0.3, d), lerp(lerp(1, 0.9, wk), 0.34, d), lerp(lerp(1, 0.52, wk), 0.55, d));
       },
     };
+  },
+
+  bareoak(P) {
+    const S = P.spec, ap = buildOak(P.whole, S);
+    return { grip: 0, apply: (ps) => ap(ps) };
   },
 
   henge(P) { buildHenge(P.whole, P.spec.era === "new" ? "new" : "today", P.spec); return { grip: 0, apply: duskApply(P, P.spec) }; },
@@ -446,6 +546,142 @@ export const SH_LAND_KINDS = {
   },
 };
 
+
+// ---------------------------------------------------------------------------------------------- the big bare oak
+// one winter oak as hand-forked tubes: a short thick trunk with root flare, 4-5 primary limbs that fork again and again down to fine twigs (every
+// fork, turn and length from rng(seed)), bark #4a3f38 grading to twigs #6b5c50, a little frost on the upper side of the big limbs, lit by the sun
+// params (the skyline's lit shader: sun side warm, shade side cool) and with a see-through ground shadow pointing away from the sun.
+function OB() {   // a triangle soup with its own smooth normals (the oak's tubes are round, not faceted)
+  const P = [], Cl = [], N = [], H = [];
+  return {
+    tri(a, b, c, ca, cb, cc, na, nb, nc) { P.push(...a, ...b, ...c); Cl.push(...ca, ...cb, ...cc); N.push(...na, ...nb, ...nc); H.push(0, 0, 0); },
+    count: () => P.length / 9,
+    geo() { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(P, 3)); g.setAttribute("color", new THREE.Float32BufferAttribute(Cl, 3)); g.setAttribute("normal", new THREE.Float32BufferAttribute(N, 3)); g.setAttribute("aH", new THREE.Float32BufferAttribute(H, 1)); g.computeBoundingSphere(); return g; },
+  };
+}
+function tube(st, P, Rd, c0, c1, sides = 5, twig = false) {   // a tube along the polyline P with radii Rd (parallel-transported rings); depth 5 and up go to the twig soup
+  const gb = twig ? st.T : st.W, rings = [], nrms = []; let pu = null;
+  for (let i = 0; i < P.length; i++) {
+    const a = P[Math.max(0, i - 1)], b = P[Math.min(P.length - 1, i + 1)];
+    let tx = b[0] - a[0], ty = b[1] - a[1], tz = b[2] - a[2]; const tl = Math.hypot(tx, ty, tz) || 1e-6; tx /= tl; ty /= tl; tz /= tl;
+    let ux, uy, uz, ul = 0;
+    if (pu) { const d = pu[0] * tx + pu[1] * ty + pu[2] * tz; ux = pu[0] - tx * d; uy = pu[1] - ty * d; uz = pu[2] - tz * d; ul = Math.hypot(ux, uy, uz); }
+    if (ul < 1e-4) { if (Math.abs(ty) < 0.9) { ux = -tz; uy = 0; uz = tx; } else { ux = 1; uy = 0; uz = 0; } ul = Math.hypot(ux, uy, uz); }
+    ux /= ul; uy /= ul; uz /= ul; pu = [ux, uy, uz];
+    const wx = ty * uz - tz * uy, wy = tz * ux - tx * uz, wz = tx * uy - ty * ux, ring = [], rn = [];
+    for (let k = 0; k < sides; k++) { const an = (k / sides) * TAU, cs = Math.cos(an), sn = Math.sin(an), nx = cs * ux + sn * wx, ny = cs * uy + sn * wy, nz = cs * uz + sn * wz; rn.push([nx, ny, nz]); ring.push([P[i][0] + Rd[i] * nx, P[i][1] + Rd[i] * ny, P[i][2] + Rd[i] * nz]); }
+    rings.push(ring); nrms.push(rn); if (P[i][1] + Rd[i] > st.maxY) st.maxY = P[i][1] + Rd[i];
+  }
+  const base = st.cnt; st.cnt += P.length * 7;
+  const vcol = (cc, i, k, ny, rr) => {   // one vertex's bark: streaks that follow the limb (hash by ring and side, shared by neighbours), frost on the upper side of the big limbs
+    const c = shade(cc, 0.84 + 0.3 * hs(st.seed * 3.1 + base * 0.37 + Math.floor(i / 2) * 2.3 + k * 5.9));
+    return st.frost > 0 && rr > 0.075 && ny > 0.35 ? mixc(c, C.frost, st.frost * 0.42 * smooth(0.35, 0.9, ny) * smooth(0.075, 0.2, rr)) : c;
+  };
+  for (let i = 0; i < rings.length - 1; i++) {
+    const ca = mixc(c0, c1, i / (rings.length - 1)), cb = mixc(c0, c1, (i + 1) / (rings.length - 1));
+    for (let k = 0; k < sides; k++) {
+      const j = (k + 1) % sides, A = rings[i][k], B = rings[i][j], D = rings[i + 1][k], E2 = rings[i + 1][j], nA = nrms[i][k], nB = nrms[i][j], nD = nrms[i + 1][k], nE = nrms[i + 1][j];
+      const cA = vcol(ca, i, k, nA[1], Rd[i]), cB = vcol(ca, i, j, nB[1], Rd[i]), cD = vcol(cb, i + 1, k, nD[1], Rd[i + 1]), cE = vcol(cb, i + 1, j, nE[1], Rd[i + 1]);
+      gb.tri(A, B, E2, cA, cB, cE, nA, nB, nE); gb.tri(A, E2, D, cA, cE, cD, nA, nE, nD);
+    }
+  }
+}
+const nrm3 = (v) => { const l = Math.hypot(v[0], v[1], v[2]) || 1; return [v[0] / l, v[1] / l, v[2] / l]; };
+const barkOf = (r) => mixc(C.twig, C.tree, smooth(0.02, 0.2, r));
+// the forking plan by depth (0 = a primary limb ... 6 = a twig): segments, children that leave the tip (the fork), children from the middle, child length / parent length.
+// A fixed plan, so every tree lands near the same triangle count whatever its seed; the seed only moves the turns, lengths and which middle nodes sprout.
+const OLEV = [{ n: 4, tip: 2, side: 2, lk: 0.72 }, { n: 3, tip: 2, side: 1, lk: 0.7 }, { n: 3, tip: 2, side: 1, lk: 0.68 }, { n: 2, tip: 2, side: 1, lk: 0.66 }, { n: 2, tip: 1, side: 1, lk: 0.64 }, { n: 1, tip: 1, side: 1, lk: 0.62 }, { n: 1, tip: 0, side: 0, lk: 0 }];
+function oakBranch(st, p, d, len, r0, depth) {   // a gnarled limb from p along d; it forks at its tip and sends side limbs from its middle, level by level, down to the twigs
+  const R = st.R, L = OLEV[depth], thin = depth >= 4, rEnd = Math.max(0.015, r0 * (0.6 + 0.12 * R())), P = [p], Rd = [r0], nodes = [];
+  let q = p, dd = d;
+  for (let i = 1; i <= L.n; i++) {
+    const w = thin ? 0.4 : 0.42;
+    dd = nrm3([dd[0] + (R() - 0.5) * 2 * w, dd[1] + (R() - 0.5) * 2 * w * 0.7 + (thin ? 0.13 : dd[1] > 0.5 ? -0.16 : 0.07), dd[2] + (R() - 0.5) * 2 * w]);
+    q = [q[0] + dd[0] * len / L.n, q[1] + dd[1] * len / L.n, q[2] + dd[2] * len / L.n]; P.push(q); Rd.push(lerp(r0, rEnd, i / L.n)); nodes.push([q, dd, Rd[i]]);
+  }
+  tube(st, P, Rd, barkOf(r0), barkOf(rEnd), [7, 6, 5, 5, 3, 3, 3][depth], depth >= 5);
+  if (depth >= 6) return;
+  const child = (node, spread) => {
+    if (depth >= 2 && R() > st.det) return;   // the fine levels thin out with det
+    const [pq, pd, pr] = node, ax = nrm3([R() - 0.5, R() - 0.5, R() - 0.5]), dot = ax[0] * pd[0] + ax[1] * pd[1] + ax[2] * pd[2], perp = nrm3([ax[0] - pd[0] * dot, ax[1] - pd[1] * dot, ax[2] - pd[2] * dot]);
+    const nd = nrm3([pd[0] + perp[0] * spread, pd[1] + perp[1] * spread + 0.18, pd[2] + perp[2] * spread]), rc = Math.max(0.026, pr * (0.64 + 0.12 * R())), lc = len * L.lk * (0.8 + 0.4 * R());
+    oakBranch(st, pq, nd, depth === 5 ? Math.max(lc, 0.3) : lc, rc, depth + 1);
+  };
+  const tip = nodes[nodes.length - 1], mid = nodes.slice(0, -1);
+  for (let k = 0; k < L.tip; k++) child(tip, 0.5 + 0.6 * R());
+  for (let k = 0; k < L.side && mid.length; k++) child(mid[Math.floor(R() * mid.length) % mid.length], 0.7 + 0.7 * R());
+}
+function buildOak(root, S) {
+  const h = clamp(S.h ?? 11, 6, 20), seed = S.seed ?? 1, det = clamp(S.det ?? 1, 0.2, 1), R = rng(Math.floor(seed * 7919) + 17), grp = new THREE.Group();
+  if (S.at) grp.position.set(S.at[0], 0, S.at[1]); root.add(grp);
+  const st = { W: OB(), T: OB(), R, h, det, seed, cnt: 0, maxY: 0, frost: S.frost === false ? 0 : 1 };
+  const th = 0.2 * h, rb = 0.06 * h, rt = 0.046 * h, tp = [[0, -0.15, 0], [(R() - 0.5) * 0.04 * h, th * 0.3, (R() - 0.5) * 0.04 * h], [(R() - 0.5) * 0.06 * h, th * 0.65, (R() - 0.5) * 0.06 * h], [(R() - 0.5) * 0.06 * h, th, (R() - 0.5) * 0.06 * h]];
+  tube(st, tp, [rb * 1.12, rb * 0.82, rt * 0.95, rt], mixc(C.tree, C.soil, 0.25), C.tree, 8);
+  st.frost = 0;   // none on the roots
+  for (let k = 0; k < 5; k++) { const a = (k / 5 + R() * 0.15) * TAU, L = rb * (2.6 + 1.6 * R()), cs = Math.cos(a), sn = Math.sin(a); tube(st, [[cs * rb * 0.5, rb * 0.9, sn * rb * 0.5], [cs * rb * 1.4, rb * 0.3, sn * rb * 1.4], [cs * L, -0.05, sn * L]], [rb * 0.55, rb * 0.35, rb * 0.12], C.tree, mixc(C.tree, C.soil, 0.4), 5); }
+  st.frost = S.frost === false ? 0 : 1;
+  const np = 4 + (R() < 0.5 ? 1 : 0), top = tp[tp.length - 1];
+  for (let k = 0; k < np; k++) {
+    const a = (k / np + (R() - 0.5) * 0.22) * TAU, e = (26 + 32 * R()) * DEG, y0 = th - R() * 0.1 * h, f = (th - y0) / th;
+    const base = [top[0] * (1 - f * 0.3), y0, top[2] * (1 - f * 0.3)];
+    oakBranch(st, base, [Math.cos(a) * Math.cos(e), Math.sin(e), Math.sin(a) * Math.cos(e)], h * (0.3 + 0.1 * R()), rt * (0.78 + 0.18 * R()), 0);
+  }
+  const fit = clamp(h / Math.max(st.maxY, 1), 0.7, 1.5);
+  const SU = { uSun: { value: new THREE.Vector3() }, uSunL: { value: new THREE.Color() }, uAmb: { value: new THREE.Color() }, uHaze: { value: new THREE.Color() }, uCool: { value: new THREE.Color() }, uMap: { value: null } };
+  const lm = new THREE.ShaderMaterial({ uniforms: SU, side: THREE.DoubleSide, vertexShader: LIT_VS, fragmentShader: LIT_FS }); lm.userData.noOutline = true;
+  const mk = (gb, steam) => { const me = put(grp, gb.geo(), lm, { order: 4, steam }); me.scale.setScalar(fit); me.frustumCulled = true; return me; };   // frustum culling on: a far place's trees cost nothing
+  mk(st.W, false); mk(st.T, true);
+  const tris = st.W.count() + st.T.count();
+  // the ground shadow: a see-through strip from the foot away from the sun; the trunk's thin line, then the crown's long soft blob with branch streaks
+  let setShadow = null;
+  if (S.shadow !== false) {
+    const NS = 14, pos = new Float32Array((NS + 1) * 2 * 3), uv = new Float32Array((NS + 1) * 2 * 2), aF = new Float32Array((NS + 1) * 2), idx = [];
+    for (let i = 0; i <= NS; i++) for (let k = 0; k < 2; k++) { uv[(i * 2 + k) * 2] = k; uv[(i * 2 + k) * 2 + 1] = i / NS; }
+    for (let i = 0; i < NS; i++) { const a = i * 2; idx.push(a, a + 1, a + 3, a, a + 3, a + 2); }
+    const sg = new THREE.BufferGeometry(), pa = new THREE.BufferAttribute(pos, 3); pa.setUsage(THREE.DynamicDrawUsage);
+    const fa = new THREE.BufferAttribute(aF, 1); fa.setUsage(THREE.DynamicDrawUsage);
+    sg.setAttribute("position", pa); sg.setAttribute("uv", new THREE.BufferAttribute(uv, 2)); sg.setAttribute("aF", fa); sg.setIndex(idx); sg.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 400);
+    const SH = { map: { value: shadowTex() }, uCol: { value: new THREE.Color("#26324e") }, uK: { value: 0.5 } };
+    const sm = new THREE.ShaderMaterial({ uniforms: SH, transparent: true, depthWrite: false, side: THREE.DoubleSide, fog: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6,
+      vertexShader: "attribute float aF; varying vec2 vUv; varying float vF; void main(){ vUv = uv; vF = aF; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+      fragmentShader: "uniform sampler2D map; uniform vec3 uCol; uniform float uK; varying vec2 vUv; varying float vF; void main(){ gl_FragColor = vec4(uCol, texture2D(map, vUv).a * uK * vF);\n#include <colorspace_fragment>\n }" });
+    sm.userData.noOutline = true; const sh = put(grp, sg, sm, { order: 3, steam: true }); sh.frustumCulled = false;
+    setShadow = (E) => {
+      const dx = -E.dir.x, dz = -E.dir.z, hl = Math.hypot(dx, dz) || 1, ux = dx / hl, uz = dz / hl, W = h * 1.0, L = clamp(h * 0.72 / Math.tan(Math.max(E.el, 2.5) * DEG), W * 0.8, h * 6.5), px = -uz, pz = ux;
+      const ox = S.at ? S.at[0] : 0, oz = S.at ? S.at[1] : 0;
+      for (let i = 0; i <= NS; i++) for (let k = 0; k < 2; k++) {
+        const u = (i / NS) * L, s = (k - 0.5) * W, x = ux * u + px * s, z = uz * u + pz * s, o = (i * 2 + k) * 3;
+        pos[o] = x; pos[o + 1] = 0.035; pos[o + 2] = z;
+        aF[i * 2 + k] = S.fadeR ? smooth(S.fadeR - 6, S.fadeR + 8, Math.hypot(ox + x, oz + z)) : 1;
+      }
+      pa.needsUpdate = fa.needsUpdate = true;
+      SH.uK.value = 0.6 * smooth(0, 3, E.el) * (1 - E.dusk); sh.visible = SH.uK.value > 0.004;
+    };
+  }
+  const apply = (ps) => {
+    const E = envOf(S, ps); SU.uSun.value.copy(E.dir); SU.uSunL.value.copy(E.sunL); SU.uAmb.value.copy(E.amb); SU.uHaze.value.copy(E.haze); SU.uCool.value.copy(E.pal.mid).lerp(col("#8fa6c2"), 0.55).lerp(E.pal.hor, 0.12).multiplyScalar(lerp(0.95, 0.5, E.dusk));
+    if (setShadow) setShadow(E);
+  };
+  apply.tris = tris; return apply;
+}
+let SHTEX = null;
+function shadowTex() {   // 128 x 512: u across, v along (v 0 = the foot = the canvas bottom); the trunk's line, then the crown's blob with branch streaks
+  if (SHTEX) return SHTEX;
+  const W = 128, H = 512, [c, g] = canvas(W, H), R = rng(5533);
+  g.filter = "blur(3px)"; g.fillStyle = "#fff"; g.strokeStyle = "#fff"; g.lineCap = "round";
+  g.globalAlpha = 0.9; g.fillRect(W / 2 - 3, H * 0.55, 6, H * 0.45);
+  g.globalAlpha = 0.5; g.beginPath(); g.ellipse(W / 2, H * 0.3, W * 0.38, H * 0.27, 0, 0, TAU); g.fill();
+  g.globalAlpha = 0.35; g.beginPath(); g.ellipse(W / 2, H * 0.26, W * 0.2, H * 0.18, 0, 0, TAU); g.fill();
+  g.filter = "blur(1.5px)";
+  for (let i = 0; i < 90; i++) { const a = R() * TAU, r1 = R() * 0.34, r2 = r1 + 0.05 + R() * 0.13, cx = W / 2, cy = H * 0.3; g.globalAlpha = 0.25 + 0.4 * R(); g.lineWidth = 1 + R() * 2; g.beginPath(); g.moveTo(cx + Math.cos(a) * W * r1, cy + Math.sin(a) * H * r1 * 0.75); g.lineTo(cx + Math.cos(a + (R() - 0.5) * 0.5) * W * r2, cy + Math.sin(a + (R() - 0.5) * 0.5) * H * r2 * 0.75); g.stroke(); }
+  g.filter = "none"; g.globalAlpha = 1; g.globalCompositeOperation = "destination-in";
+  const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(0.1, "rgba(0,0,0,1)"); gr.addColorStop(1, "rgba(0,0,0,1)"); g.fillStyle = gr; g.fillRect(0, 0, W, H);   // the far end fades out
+  return (SHTEX = ctex(c, { nomip: true }));
+}
+// the default grove of `salisburyplain`: x, z (place-local), h, seed. Three loose groups (west, east, far north), none within |x| < 30 of the axis for z > 0,
+// none within the sun line (az -5..30 left of -z; the nearest stand at az 39-46), all at r 79-133.
+const GROVE = [[-52, -60, 11.5, 3], [-96, -22, 10, 5], [-84, -80, 12.4, 8], [52, -64, 10.6, 12], [104, -30, 12.8, 14], [118, 14, 9.6, 17], [-62, 118, 11.8, 21], [78, 104, 10.2, 24]];
+
 // ---------------------------------------------------------------------------------------------- the ground
 const GCACHE = {};
 const slopeY = (x, z, slope) => { if (!slope) return 0; const r = Math.hypot(x, z); return -slope * clamp(x, -15.5, 15.5) / 31 * (1 - smooth(25, 45, r)); };
@@ -466,12 +702,12 @@ function groundGeo(R, texR, slope, ditch, lift) {
 // frost patches: one list for every painted layer and the 3-D tufts (x, z, radius m, squash, turn, strength)
 function frostPatches() {   // a fine silvery dusting: many small wind-streaked patches, thick in the hollows and round the 60 m ring, thinning out irregularly
   const out = [];
-  for (let i = 0; i < 7200; i++) {
+  for (let i = 0; i < 10500; i++) {
     const a = hs(i * 3.17 + 1) * TAU, u = hs(i * 5.31 + 2), r = 290 * Math.sqrt(u), x = Math.cos(a) * r, z = Math.sin(a) * r;
-    const hollow = vn(x * 0.021 + 3, z * 0.021 + 7), ring = r < 60 ? 1 : 0.2 + 0.8 * Math.exp(-(r - 60) / 80), dens = ring * smooth(0.22, 0.66, hollow) * (0.55 + 0.45 * vn(x * 0.11, z * 0.11));
+    const hollow = vn(x * 0.021 + 3, z * 0.021 + 7), ring = r < 60 ? 1 : 0.4 + 0.6 * Math.exp(-(r - 60) / 120), dens = ring * smooth(0.1, 0.5, hollow) * (0.6 + 0.4 * vn(x * 0.11, z * 0.11));
     if (hs(i * 7.7 + 3) > dens) continue;
-    const near = r < 70, rad = near ? 0.8 + 2.6 * hs(i * 2.3 + 4) ** 1.5 : 2 + 7 * hs(i * 2.3 + 4) ** 1.4;
-    out.push({ x, z, rad, sq: 0.16 + 0.26 * hs(i * 1.9 + 5), rot: 0.5 + (hs(i * 4.1 + 6) - 0.5) * 0.9 + (hs(i * 8.3 + 9) < 0.15 ? 1.4 : 0), str: 0.45 + 0.4 * hs(i * 6.1 + 7), i });
+    const near = r < 70, rad = near ? 1.3 + 4.2 * hs(i * 2.3 + 4) ** 1.4 : 2.4 + 8 * hs(i * 2.3 + 4) ** 1.3;
+    out.push({ x, z, rad, sq: 0.2 + 0.3 * hs(i * 1.9 + 5), rot: 0.5 + (hs(i * 4.1 + 6) - 0.5) * 0.9 + (hs(i * 8.3 + 9) < 0.15 ? 1.4 : 0), str: 0.55 + 0.4 * hs(i * 6.1 + 7), i });
   }
   return out;
 }
@@ -499,7 +735,7 @@ function paintGround(W, Rm, base, baseR, era, patches, sun, k) {
     for (let k = 0; k < ns; k++) {
       const off = (hs(p.i * 3.1 + k * 1.7) * 2 - 1) * ry * 0.95, len = rx * (0.35 + 0.6 * hs(p.i * 5.3 + k)), sh = (hs(p.i * 2.7 + k * 0.9) * 2 - 1) * rx * 0.55;
       const x0 = x + (sh - len / 2) * cr - off * sr, y0 = y + (sh - len / 2) * sr + off * cr, x1 = x + (sh + len / 2) * cr - off * sr, y1 = y + (sh + len / 2) * sr + off * cr, mx = (x0 + x1) / 2 - sr * (hs(p.i + k) - 0.5) * ry * 0.5, my = (y0 + y1) / 2 + cr * (hs(p.i + k) - 0.5) * ry * 0.5;
-      g.strokeStyle = srgbStr(hs(p.i * 5 + k) < 0.55 ? "#f2f6f6" : hs(p.i * 5 + k) < 0.85 ? "#e0e9ea" : "#c7d6e0", (0.3 + 0.28 * hs(p.i * 9 + k)) * a * p.str);
+      g.strokeStyle = srgbStr(hs(p.i * 5 + k) < 0.55 ? "#f2f6f6" : hs(p.i * 5 + k) < 0.85 ? "#e0e9ea" : "#c7d6e0", (0.26 + 0.24 * hs(p.i * 9 + k)) * a * p.str);
       g.lineWidth = Math.max(1, (0.05 + 0.1 * hs(p.i * 4 + k)) * px * (Rm > 100 ? 2.2 : 1)); g.beginPath(); g.moveTo(x0, y0); g.quadraticCurveTo(mx, my, x1, y1); g.stroke();
     }
     const rf = Rm > 100 ? 0.8 : Rm > 50 ? 0.3 : 0.1, area = Math.PI * p.rad * p.rad * p.sq, n = Math.min(260, Math.floor(area * 0.9 / (rf * rf * 4)));
@@ -511,11 +747,13 @@ function paintGround(W, Rm, base, baseR, era, patches, sun, k) {
   if (!base) {
     wash(220, 25, 90, ["#627340", "#8c9459", "#b0a368", "#566a3b", "#8a8a58"], 0.35);
     wash(260, 8, 40, ["#b8aa70", "#a89a62", "#c2b47c", "#9c9060"], 0.5);   // straw-coloured dead grass
+    wash(420, 10, 50, ["#c9d9e0", "#d8e4e8", "#b9ccd8", "#cfdde2"], 0.16);   // the cold: a pale blue-white veil over the whole plain, green showing through
     // sheep-cropped patches: paler, shorter grass
     for (let i = 0; i < 260; i++) { const x = R() * W, y = R() * W, rx = (4 + R() * 12) * px, ry = rx * (0.3 + 0.5 * R()); blob(g, x, y, rx, ry, R() * 3, i); g.fillStyle = srgbStr(R() < 0.5 ? "#9aa660" : "#aaa86a", 0.45); g.fill(); }
   } else if (Rm < 150) {
     wash(Rm > 50 ? 180 : 140, 1.2, Rm > 50 ? 7 : 4, ["#b8aa70", "#a89a62", "#c2b47c", "#9c9060"], 0.5);
     wash(Rm > 50 ? 700 : 500, 0.8, Rm > 50 ? 5 : 3, ["#627340", "#8c9459", "#b0a368", "#566a3b", "#838d50", "#7a8852"], 0.32);
+    wash(Rm > 50 ? 520 : 420, 1.5, Rm > 50 ? 9 : 5, ["#c9d9e0", "#d8e4e8", "#b9ccd8", "#cfdde2"], 0.15);   // the cold veil, finer
     for (let i = 0; i < (Rm > 50 ? 420 : 220); i++) { const x = R() * W, y = R() * W, rx = (0.8 + R() * (Rm > 50 ? 4 : 2.2)) * px, ry = rx * (0.3 + 0.5 * R()); blob(g, x, y, rx, ry, R() * 3, i + 400); g.fillStyle = srgbStr(R() < 0.5 ? "#9ea962" : "#aeab70", 0.4); g.fill(); }
   }
   if (!today) {   // 2500 BC: rougher: darker tussock clumps and bare patches
@@ -543,7 +781,7 @@ function paintGround(W, Rm, base, baseR, era, patches, sun, k) {
     for (let i = 0; i < nB; i++) {
       const x = R() * W, y = R() * W, mx = (x / W - 0.5) * 2 * Rm, mz = (y / W - 0.5) * 2 * Rm, fp = near(mx, mz), a = -1.57 + (R() - 0.5) * 1.5, l = (0.05 + R() * 0.11) * px * (Rm > 50 ? 1.5 : 1);
       g.lineWidth = Math.max(0.9, (0.012 + R() * 0.012) * px * (Rm > 50 ? 2 : 1));
-      g.strokeStyle = fp && R() < 0.8 ? srgbStr(R() < 0.5 ? "#f4f8f6" : "#dbe6e8", 0.55 + 0.3 * R()) : srgbStr(GP[Math.floor(R() * GP.length)], 0.5 + 0.4 * R());
+      g.strokeStyle = fp && R() < 0.85 ? srgbStr(R() < 0.5 ? "#f4f8f6" : "#d3e1e8", 0.6 + 0.3 * R()) : R() < 0.28 ? srgbStr(R() < 0.5 ? "#d5e2e8" : "#c3d3dc", 0.45 + 0.3 * R()) : srgbStr(GP[Math.floor(R() * GP.length)], 0.5 + 0.4 * R());
       g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
     }
     if (Rm <= 50) {   // frost glints (warm toward the sun), soil specks, flints
@@ -555,12 +793,12 @@ function paintGround(W, Rm, base, baseR, era, patches, sun, k) {
     for (let i = 0; i < (Rm > 50 ? 300 : 160); i++) {   // dark tufts: a fan of strokes with a shadow foot
       const x = R() * W, y = R() * W, s = (0.18 + R() * 0.3) * px * (Rm > 50 ? 1.4 : 1), fp = near((x / W - 0.5) * 2 * Rm, (y / W - 0.5) * 2 * Rm);
       g.fillStyle = srgbStr("#3f5230", 0.3); g.beginPath(); g.ellipse(x, y + s * 0.1, s * 0.5, s * 0.2, 0, 0, TAU); g.fill();
-      for (let b = 0; b < 9; b++) { const a = -1.57 + (b - 4) * 0.28 + (R() - 0.5) * 0.2; g.strokeStyle = fp ? srgbStr("#e6eeee", 0.8) : srgbStr(R() < 0.5 ? "#566a3b" : "#7a8852", 0.85); g.lineWidth = Math.max(1, 0.025 * px); g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * s, y + Math.sin(a) * s); g.stroke(); }
+      for (let b = 0; b < 9; b++) { const a = -1.57 + (b - 4) * 0.28 + (R() - 0.5) * 0.2; g.strokeStyle = fp ? srgbStr("#e6eef2", 0.85) : R() < 0.35 ? srgbStr("#b9cbd3", 0.8) : srgbStr(R() < 0.5 ? "#566a3b" : "#7a8852", 0.85); g.lineWidth = Math.max(1, 0.025 * px); g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * s, y + Math.sin(a) * s); g.stroke(); }
     }
   }
   if (Rm < 290) {   // fade out toward the rim (this layer lies over a coarser one)
     g.globalCompositeOperation = "destination-in";
-    const gr = g.createRadialGradient(W / 2, W / 2, W * 0.34, W / 2, W / 2, W / 2); gr.addColorStop(0, "rgba(0,0,0,1)"); gr.addColorStop(0.55, "rgba(0,0,0,1)"); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(0, 0, W, W);
+    const gr = g.createRadialGradient(W / 2, W / 2, W * 0.2, W / 2, W / 2, W / 2); gr.addColorStop(0, "rgba(0,0,0,1)"); gr.addColorStop(0.5, "rgba(0,0,0,1)"); gr.addColorStop(1, "rgba(0,0,0,0)"); g.fillStyle = gr; g.fillRect(0, 0, W, W);
   }
   return c;
 }
@@ -569,7 +807,7 @@ function groundProps(S, era, patches, sun, root) {
   const frostAt = frostLookup(patches);
   const okXZ = (x, z, minR = 0) => { const r = Math.hypot(x, z); return r >= Math.max(clear, minR) && (today ? true : !(r > 40 && r < 56)); };
   const sunLin = sunColor(S.sunEl ?? 6.5).clone().lerp(col("#ffffff"), 0.3), warm = [sunLin.r, sunLin.g, sunLin.b];
-  return carpet(root, okXZ, frostAt, slope, today, warm);
+  return carpet(root, okXZ, frostAt, slope, today, warm, 0.6 * (1 - smooth(5, 15, S.sunEl ?? 6.5)));
   // molehills: a rough dome of soil, frosted on top
   for (let i = 0; i < 46; i++) {
     const a = hs(i * 7.1 + 31) * TAU, r = 22 + 58 * Math.sqrt(hs(i * 2.9 + 32)), x = Math.cos(a) * r, z = Math.sin(a) * r;
@@ -770,6 +1008,7 @@ function terrain(era) {
     const t = a * DEG, ph = li * 2.1;
     let f = 0.5 + 0.5 * (0.45 * Math.sin(2 * t + ph) + 0.3 * Math.sin(5 * t + ph * 1.7 + 1) + 0.2 * Math.sin(9 * t + ph * 0.6 + 2) + 0.15 * Math.sin(17 * t + ph + 4)) / 1.1;
     f = Math.pow(clamp(f), 1.25);
+    if (era === "new") f = Math.max(f, 0.55 * (1 - smooth(7, 24, adiff(a, 200))));   // a rise right of the sunset line: the village's hill, seen from the axis
     let m = lerp(0.1, 1, smooth(2, 30, adiff(a, 180)));    // the sunset gap: 1-2 m on the axis so the sun sits on the horizon, rising to full by 30 deg
     m *= lerp(0.25, 1, smooth(4, 13, adiff(a, 0)));         // the Avenue line
     if (era === "new") m *= lerp(li < 2 ? 0.06 : 0.3, 1, smooth(9, 28, adiff(a, 308)));   // the river valley, a = -52
@@ -857,15 +1096,15 @@ function Bill(n, map, o = {}) {
   const mesh = new THREE.Mesh(g, m); mesh.frustumCulled = false; mesh.userData.solid = false; mesh.userData.lookOnly = true; mesh.userData.steam = true; mesh.renderOrder = o.order ?? 5;
   return { mesh, U, set(i, x, y, z, sx, sy, a) { for (let k = 0; k < 4; k++) { pos.set([x, y, z], (i * 4 + k) * 3); siz.set([sx, sy], (i * 4 + k) * 2); alp[i * 4 + k] = a; } }, commit() { pa.needsUpdate = sa.needsUpdate = aa.needsUpdate = true; } };
 }
-function hutInto(gb, x, y, z, sz, sd, hz) {   // a round thatched hut: daub wall, conical thatch in hand-drawn strips, a dark door; returns the chimney top
+function hutInto(gb, x, y, z, sz, sd, hz, lift = 1) {   // a round thatched hut: daub wall, conical thatch in hand-drawn strips, a dark door; returns the chimney top
   gb.hz = hz;
   const rw = 2.6 * sz, hw = 1.8 * sz, N = 10, ap = [x, y + hw + 3.5 * sz, z], rot = hs(sd) * TAU;
   for (let k = 0; k < N; k++) {
     const a0 = rot + (k / N) * TAU, a1 = rot + ((k + 1) / N) * TAU, p0 = [x + Math.cos(a0) * rw, y, z + Math.sin(a0) * rw], p1 = [x + Math.cos(a1) * rw, y, z + Math.sin(a1) * rw];
-    const q0 = [p0[0], y + hw, p0[2]], q1 = [p1[0], y + hw, p1[2]], dc = shade(mixc(C.daub, rgb("#8f7b5e"), hs(sd * 3 + k) * 0.6), 0.9 + 0.2 * hs(sd + k));
+    const q0 = [p0[0], y + hw, p0[2]], q1 = [p1[0], y + hw, p1[2]], dc = shade(mixc(C.daub, rgb("#8f7b5e"), hs(sd * 3 + k) * 0.6), (0.9 + 0.2 * hs(sd + k)) * lift);
     gb.quad(p0, p1, q1, q0, dc);
     const e0 = [x + Math.cos(a0) * (rw + 0.7 * sz), y + hw - 0.25 * sz, z + Math.sin(a0) * (rw + 0.7 * sz)], e1 = [x + Math.cos(a1) * (rw + 0.7 * sz), y + hw - 0.25 * sz, z + Math.sin(a1) * (rw + 0.7 * sz)];
-    const tc = C.thatch[Math.floor(hs(sd * 5 + k) * 4)], tk = shade(tc, 0.85 + 0.3 * hs(sd * 7 + k));
+    const tc = C.thatch[Math.floor(hs(sd * 5 + k) * 4)], tk = shade(tc, (0.85 + 0.3 * hs(sd * 7 + k)) * lift);
     gb.tri(e0, e1, ap, shade(tk, 0.8), shade(tk, 0.8), shade(tk, 1.12)); gb.tri(e0, e1, [(e0[0] + e1[0]) / 2, y + hw - 0.9 * sz, (e0[2] + e1[2]) / 2], shade(tk, 0.62));
   }
   const da = rot + 0.5 * TAU / N * 3; gb.quad([x + Math.cos(da - 0.12) * (rw + 0.02), y, z + Math.sin(da - 0.12) * (rw + 0.02)], [x + Math.cos(da + 0.12) * (rw + 0.02), y, z + Math.sin(da + 0.12) * (rw + 0.02)], [x + Math.cos(da + 0.12) * (rw + 0.02), y + 1.3 * sz, z + Math.sin(da + 0.12) * (rw + 0.02)], [x + Math.cos(da - 0.12) * (rw + 0.02), y + 1.3 * sz, z + Math.sin(da - 0.12) * (rw + 0.02)], rgb("#2c2218"));
@@ -900,20 +1139,20 @@ function buildSkyline(root, S) {
   const clumps = era === "new" ? 52 : 60;
   for (let i = 0; i < clumps; i++) {
     const a = hs(i * 3.7 + 100) * 360, r = 150 + 120 * hs(i * 5.3 + 101);
-    if (!okA(a, r)) continue; if (era === "new" && adiff(a, 308) < 20 && r > 150 && hs(i) < 0.7) continue; if (era === "today" && adiff(a, 90) < 30) continue;
+    if (!okA(a, r)) continue; if (era === "new" && ((adiff(a, 308) < 20 && r > 150 && hs(i) < 0.7) || (adiff(a, 200) < 24 && r > 196 && hs(i) < 0.85))) continue; if (era === "today" && adiff(a, 90) < 30) continue;
     const n = 3 + Math.floor(hs(i * 2.9 + 102) * 4), [cx, cy, cz] = place(a, r); gb.hz = hazeOf(r);
     for (let k = 0; k < n; k++) { const b = hs(i * 9 + k) * TAU, d = 2 + 7 * hs(i * 7 + k + 3), h = Math.min(9 + 5 * hs(i * 11 + k), capH(a)); gb.hz = hazeOf(r); tree(gb, cx + Math.cos(b) * d, cy, cz + Math.sin(b) * d, h, hs(i * 13 + k) < 0.55 ? "oak" : "ash", i * 31 + k); }
   }
   for (let i = 0; i < 14; i++) {   // shelter belts: a row of trees along a hedge
     const a = hs(i * 6.7 + 150) * 360, r = 168 + 100 * hs(i * 4.3 + 151);
-    if (!okA(a, r) || (era === "new" && adiff(a, 308) < 18) || (era === "today" && adiff(a, 90) < 30)) continue;
+    if (!okA(a, r) || (era === "new" && (adiff(a, 308) < 18 || adiff(a, 200) < 24)) || (era === "today" && adiff(a, 90) < 30)) continue;
     const ang = hs(i * 2.3 + 152) * 3.14, nt = 5 + Math.floor(hs(i * 8.1 + 153) * 5), [bx, by, bz] = place(a, r);
     for (let k = 0; k < nt; k++) { const tx = bx + Math.cos(ang) * (k - nt / 2) * 6.5, tz = bz + Math.sin(ang) * (k - nt / 2) * 6.5, tr = Math.hypot(tx, tz), ta = (Math.atan2(-tx, tz) / DEG + 360) % 360; gb.hz = hazeOf(tr); tree(gb, tx, T.hAt(tr, ta), tz, Math.min(8 + 5 * hs(i * 5 + k), capH(ta)), hs(i + k) < 0.5 ? "ash" : "oak", i * 77 + k + 300); }
   }
   const hedges = era === "today" ? 130 : 70;
   for (let i = 0; i < hedges; i++) {
     const a = hs(i * 4.9 + 200) * 360, r = 182 + 85 * hs(i * 6.1 + 201);
-    if (!okA(a, r) || (era === "new" && adiff(a, 308) < 14) || (era === "today" && adiff(a, 90) < 26)) continue;
+    if (!okA(a, r) || (era === "new" && (adiff(a, 308) < 14 || adiff(a, 200) < 22)) || (era === "today" && adiff(a, 90) < 26)) continue;
     const [x, y, z] = place(a, r), ang = (hs(i * 3.3 + 202) < 0.5 ? 0 : 1.5708) + (Math.atan2(-x, z)) * 0 + hs(i + 203) * 0.2, len = 30 + 60 * hs(i * 2.1 + 204);
     gb.hz = hazeOf(r); const n = Math.floor(len / 8);
     for (let k = 0; k < n; k++) { const t = (k - n / 2) * 8, hx = x + Math.cos(ang) * t, hz2 = z + Math.sin(ang) * t, hr = Math.hypot(hx, hz2), ha = Math.atan2(-hx, hz2) / DEG; gb.hz = hazeOf(hr); const hy = T.hAt(hr, (ha + 360) % 360), hh = 1.5 + 0.9 * hs(i * 5 + k);
@@ -939,11 +1178,24 @@ function buildSkyline(root, S) {
     clusters.forEach(([rc, cnt], ci) => {
       for (let k = 0; k < cnt; k++) {
         const r = rc + (hs(ci * 17 + k * 3.1) - 0.5) * 26, side = hs(ci * 5 + k * 7.7) < 0.5 ? -1 : 1, off = side * (13 + 24 * hs(ci * 11 + k * 2.3)), a = ra(r), [x, z] = polar(r, a), tx = -Math.cos(a * DEG), tz = -Math.sin(a * DEG);
-        const hx = x + tx * off, hz2 = z + tz * off, hr = Math.hypot(hx, hz2), ha = (Math.atan2(-hx, hz2) / DEG + 360) % 360, ap = hutInto(gb, hx, T.hAt(hr, ha), hz2, 0.9 + 0.3 * hs(hn * 3.3), hn * 7 + 1, hazeOf(hr));
+        const hx = x + tx * off, hz2 = z + tz * off, hr = Math.hypot(hx, hz2), ha = (Math.atan2(-hx, hz2) / DEG + 360) % 360, ap = hutInto(gb, hx, T.hAt(hr, ha), hz2, 1.2 + 0.4 * hs(hn * 3.3), hn * 7 + 1, hazeOf(hr), 1.25);
         smokeSrc.push(ap); hn++;
         if (hn >= 14) return;
       }
     });
+    // VALLEY B, the one the axis cameras see (right of the sunset line, a 186-218): a silver river bend lying across the near face of the first down (r 183-192), a village
+    // of round huts on its crest with thin smoke. From eye height only a slope shows water, so the ribbon is draped on that face and drawn wide and light.
+    const rb = (a) => 185.5 + 2.4 * Math.sin((a - 186) * 0.3) + 1 * Math.sin((a - 186) * 0.8), wB = (a) => 2.9 + 0.9 * Math.sin(a * 0.4), pB = (a, off) => { const r = rb(a) + off, [x, z] = polar(r, a); return [x, T.hAt(r, a) + 0.07, z]; };
+    for (let a = 184; a < 218; a++) {
+      const a1 = a + 1, wd = wB(a), wd1 = wB(a1); gb.hz = hazeOf(rb(a));
+      gb.quad(pB(a, -wd - 1.5), pB(a1, -wd1 - 1.5), pB(a1, -wd1), pB(a, -wd), rgb("#6e7a55")); gb.quad(pB(a, wd), pB(a1, wd1), pB(a1, wd1 + 1.5), pB(a, wd + 1.5), rgb("#6e7a55"));
+      gb.quad(pB(a, -wd), pB(a1, -wd1), pB(a1, wd1), pB(a, wd), shade(mixc(rgb("#b4dcec"), rgb("#e4f4f8"), hs(a * 1.3) * 0.8), 1.55));
+      if (hs(a * 3.7) < 0.55) gb.quad(pB(a, -wd * 0.3), pB(a1, -wd1 * 0.1), pB(a1, wd1 * 0.3), pB(a, wd * 0.1), shade(rgb("#f2fafc"), 1.6));
+    }
+    for (let k = 0; k < 7; k++) {
+      const a = 187.5 + k * 2.8 + (hs(k * 3.3 + 61) - 0.5) * 1.6, r = rb(a) + 6.5 + 4 * hs(k * 5.1 + 62) + (k % 2) * 2.5, [x, z] = polar(r, a), hr = Math.hypot(x, z), ha = (Math.atan2(-x, z) / DEG + 360) % 360;
+      smokeSrc.push(hutInto(gb, x, T.hAt(hr, ha), z, 1.2 + 0.25 * hs(k * 2.9 + 63), 300 + k * 7, hazeOf(hr), 1.3));
+    }
     const NS = smokeSrc.length * 12; smoke = Bill(NS, puffTex(), { order: 6 }); root.add(smoke.mesh);
   } else {
     // ---- today: burial mounds crowned with bare beeches along the +x skyline, a far wood to the north, a far road in the -x quarter, crows
@@ -994,7 +1246,7 @@ function buildSkyline(root, S) {
     const E = envOf(S, ps); SU.uSun.value.copy(E.dir); SU.uSunL.value.copy(E.sunL); SU.uAmb.value.copy(E.amb); SU.uHaze.value.copy(E.haze); SU.uCool.value.copy(E.pal.mid).lerp(col("#8fa6c2"), 0.55).lerp(E.pal.hor, 0.12).multiplyScalar(lerp(0.95, 0.5, E.dusk));
     if (smoke) {
       const cl = E.haze.clone().lerp(col("#b9aea0"), 0.5).lerp(E.sunL, 0.1); smoke.U.uTint.value.copy(cl);
-      smokeSrc.forEach((ap, c) => { for (let k = 0; k < 12; k++) { const u = (t * 0.07 + k / 12 + hs(c * 3.1) ) % 1, sw = Math.sin(t * 0.4 + c + u * 5) * 1.5; smoke.set(c * 12 + k, ap[0] + (6 + 3 * hs(c)) * u + sw, ap[1] + 0.3 + 30 * u, ap[2] + 2 * u, lerp(0.8, 3.4, u), lerp(0.8, 3.6, u), 0.5 * smooth(0, 0.1, u) * (1 - smooth(0.5, 1, u))); } });
+      smokeSrc.forEach((ap, c) => { for (let k = 0; k < 12; k++) { const u = (t * 0.07 + k / 12 + hs(c * 3.1) ) % 1, sw = Math.sin(t * 0.4 + c + u * 5) * 1.5; smoke.set(c * 12 + k, ap[0] + (6 + 3 * hs(c)) * u + sw, ap[1] + 0.3 + 30 * u, ap[2] + 2 * u, lerp(1.0, 4.2, u), lerp(1.0, 4.6, u), 0.62 * smooth(0, 0.1, u) * (1 - smooth(0.5, 1, u))); } });
       smoke.commit();
     }
     if (crows) {
@@ -1101,20 +1353,20 @@ function frostLookup(patches) {
     for (let j = Math.floor((p.z - r) / C + N / 2); j <= Math.floor((p.z + r) / C + N / 2); j++) for (let i = Math.floor((p.x - r) / C + N / 2); i <= Math.floor((p.x + r) / C + N / 2); i++) {
       if (i < 0 || j < 0 || i >= N || j >= N) continue;
       const dx = (i - N / 2 + 0.5) * C - p.x, dz = (j - N / 2 + 0.5) * C - p.z, u = dx * cr + dz * sr, w = -dx * sr + dz * cr;
-      if ((u * u) / (r * r) + (w * w) / (v * v) < 1 && hs(i * 7.3 + j * 3.1) < 0.45 + 0.5 * p.str) grid[j * N + i] = 1;   // broken up: not every cell of a patch carries frost
+      if ((u * u) / (r * r) + (w * w) / (v * v) < 1 && hs(i * 7.3 + j * 3.1) < 0.62 + 0.4 * p.str) grid[j * N + i] = 1;   // broken up: not every cell of a patch carries frost
     }
   }
   return (x, z) => { const i = Math.floor(x / C + N / 2), j = Math.floor(z / C + N / 2); return i >= 0 && j >= 0 && i < N && j < N && grid[j * N + i] === 1; };
 }
 // the grass carpet: 3-D tufts that follow the camera (three rings of cells in world-anchored hashed places, so nothing swims when the camera moves),
 // rebuilt in scene.onBeforeRender (hookScene) from the render camera's position only: the same frame is the same picture in any order
-function carpet(root, okXZ, frostAt, slope, today, warm) {
+function carpet(root, okXZ, frostAt, slope, today, warm, warmP) {
   const RINGS = [[0.5, 0, 14, 0.75, 6], [1.3, 14, 45, 1.4, 5], [3.0, 45, 110, 2.5, 4]], MAXV = 330000, pos = new Float32Array(MAXV * 3), clr = new Float32Array(MAXV * 3), nrm = new Float32Array(MAXV * 3);
   for (let i = 0; i < MAXV; i++) nrm[i * 3 + 1] = 1;
   const g = new THREE.BufferGeometry(), pa = new THREE.BufferAttribute(pos, 3), ca = new THREE.BufferAttribute(clr, 3); pa.setUsage(THREE.DynamicDrawUsage); ca.setUsage(THREE.DynamicDrawUsage);
   g.setAttribute("position", pa); g.setAttribute("color", ca); g.setAttribute("normal", new THREE.BufferAttribute(nrm, 3)); g.setDrawRange(0, 0);
   const me = put(root, g, stdm({ vertexColors: true }), { recv: true, steam: true }), v = new THREE.Vector3(); let last = null;
-  const G0 = C.grassD, G1 = C.grass, TIPY = C.grassY, TIPD = C.grassDry, FR = mixc(C.frost, C.grassY, 0.42);
+  const G0 = C.grassD, G1 = C.grass, TIPY = C.grassY, TIPD = C.grassDry, FR = mixc(C.frost, C.grassY, 0.3), FT = mixc(C.frost, C.grassY, 0.5), FOOT = mixc(C.fshade, C.grass, 0.6);   // FR: tips in a frost patch, FT: tips elsewhere (most tufts are frosted)
   return (camera) => {   // called from scene.onBeforeRender (before the scene's objects are projected and their buffers uploaded)
      if (!camera || !camera.isPerspectiveCamera) return;
     root.worldToLocal(v.copy(camera.position)); const cx = v.x, cz = v.z; 
@@ -1126,7 +1378,7 @@ function carpet(root, okXZ, frostAt, slope, today, warm) {
       for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) {
         const h0 = hs(i * 12.9898 + j * 78.233 + cell * 3.1), x = (i + hs(h0 * 91.7 + 1.3)) * cell, z = (j + hs(h0 * 57.3 + 2.9)) * cell, dx = x - cx, dz = z - cz, d2 = dx * dx + dz * dz;
         if (d2 < r0 * r0 || d2 >= r1 * r1 || n + nb * 6 > MAXV || !okXZ(x, z)) continue;
-        const y = slopeY(x, z, slope) + (today ? reliefToday(x, z) : 0), fr = frostAt(x, z), f2 = fr ? 1 : 0, sd = hs(h0 * 13.7), straw = hs(h0 * 17.1) < 0.2, g0 = straw ? mixc(C.grassDry, G1, 0.35 + 0.3 * sd) : mixc(G0, G1, sd), tip = fr ? (hs(h0 * 7.9) < 0.3 ? mixc(FR, warm, 0.55) : FR) : mixc(straw ? C.grassDry : TIPY, TIPD, hs(h0 * 5.3) * 0.7), s = sc * (today ? 1 : 1.3) * (0.7 + 0.6 * hs(h0 * 3.9));
+        const y = slopeY(x, z, slope) + (today ? reliefToday(x, z) : 0), fr = frostAt(x, z), sd = hs(h0 * 13.7), straw = hs(h0 * 17.1) < 0.2, frT = fr || hs(h0 * 9.1) < 0.62, g0 = fr ? mixc(straw ? C.grassDry : mixc(G0, G1, sd), FOOT, 0.3) : straw ? mixc(C.grassDry, G1, 0.35 + 0.3 * sd) : mixc(G0, G1, sd), tip = fr ? (hs(h0 * 7.9) < warmP ? mixc(FR, warm, 0.6) : FR) : frT ? (hs(h0 * 7.9) < warmP * 0.6 ? mixc(FT, warm, 0.5) : FT) : mixc(straw ? C.grassDry : TIPY, TIPD, hs(h0 * 5.3) * 0.7), s = sc * (today ? 1 : 1.3) * (0.7 + 0.6 * hs(h0 * 3.9));
         for (let k = 0; k < nb; k++) {
           const a = (k / nb + hs(h0 + k * 1.3) * 0.2) * TAU, lean = 0.25 + 0.5 * hs(h0 * 2 + k), hh = s * (0.12 + 0.2 * hs(h0 * 3 + k)), w = s * (0.02 + 0.016 * hs(h0 * 4 + k)), ca2 = Math.cos(a), sa = Math.sin(a), bx = x + ca2 * s * 0.03, bz = z + sa * s * 0.03;
           const o = n * 3; pos[o] = bx - sa * w; pos[o + 1] = y; pos[o + 2] = bz + ca2 * w; pos[o + 3] = bx + sa * w; pos[o + 4] = y; pos[o + 5] = bz - ca2 * w; pos[o + 6] = bx + ca2 * hh * lean; pos[o + 7] = y + hh; pos[o + 8] = bz + sa * hh * lean;

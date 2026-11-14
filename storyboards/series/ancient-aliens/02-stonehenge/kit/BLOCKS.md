@@ -94,6 +94,9 @@ least every 3 seconds, numbers count or punch in, the voice is deadpan not flat,
   window with `r<id>-ship` and a reason. A prop in the air on purpose carries `staged` (the kit's ships and lifted
   stones already do). `bench/make-sh-proof.mjs` passes preflight in both frames: copy from it (map cameras
   `MAP_VIEW.south` / `.north` in wide, `.all` in tall; the plant shot = `ringShip(id, o, { hover: 16 })`).
+  An insert place WITHOUT a plain (the parchment desk, the map board) never stands at `PLACE(0)`: at the world's origin
+  the set's own floor mask lands in the caption-cover silhouette and preflight fails every caption as "hidden behind
+  characters" (block D, 14 Nov). Any `PLACE(i > 0)` is fine.
 - Each block starts and ends on a hard cut at its story time; keep its length within 1 s of its slot. First and last
   0.3 s: no line running, no move half done. Each block's first 2.5 s must work alone as a TikTok opening.
 - Captions in the upper third, never over eyes or faces. `clueTag(c, F, t0, t1, n)` in the block where the clue
@@ -116,6 +119,10 @@ not have, then the block as in the film, every time 3.0 s later (`const H = hook
 Write the generator with H from the start, also for the wide animatic (there H is 0). Block A's film opening already is
 its hook. The hook follows the stake-first rule: the part's strongest picture at frame 0, the line done by 2.7 s, a text
 of numbers in the upper third that reads without English, sound at 0.0, never the payoff, never the ship landing.
+The pilot's numbers (read 14 Nov, /mnt/project-files/analytics/2026-11-14-pyramids-parts/READ.md): part 1 (voice at 0.0,
+a block lands at 2 s) held 35 % at 0:05 and 25 % at 0:10; part 2 (a silent walk-in, first word at 6.2 s) held 30 % and
+about 15 %, 2 % to the end. So: the hook line STARTS at 0.0, something lands inside the first 2 s, and the block's own
+first line follows by about second 4.5; no silent walk-in anywhere in a tall part's first 10 s.
 
 | Part | Hook picture (3.0 s, tall) | Line (hostSay, 6 words at most) | Text, top third |
 |---|---|---|---|

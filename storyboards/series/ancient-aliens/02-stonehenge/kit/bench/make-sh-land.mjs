@@ -4,7 +4,9 @@
 //   A  today, time a, sun (26, 12)        B  today, time c, sun (9, 4)        C  today, time d, sun (0, 0.3): the disc on the axis horizon;
 //   C2 the same look direction from [0, 1.6, 140] (the sun must stand at the same height)        D  dusk (stars)
 //   E  era new, time b, from [40, 70, 80] at the centre: white bank, ditch ring, Avenue   E2  the same camera toward the +x +z valley: river, huts, smoke
+//   E6 the proof's axis view in 2500 BC: valley B, the river bend and the village right of the sunset line
 //   F  today from above: path ring, barrows with beeches (look +x)   F2  the same toward the -x quarter: the far road and lorries
+//   J  bareoak at 15 m, frame edge (time a, sun (26, 12), the plain's grove off), 3 trees of different h and seed   K  bareoak as a silhouette against the sunset (time d, sun (0, 0.3)), grove off
 //   G  Avenue "ridges" (today)   G2  Avenue "cut" (2500 BC) from [0, 1.6, 150] looking down -z   H  pitcut from 6 m   I  sunshaft, time d, era new, from [8, 2, 40]
 //   node storyboards/series/ancient-aliens/02-stonehenge/kit/bench/make-sh-land.mjs [A,B,...]      (a list writes only those groups to sh-land-<list>.json)
 //   node engine/render.mjs <json> --stills <times> --draft --out out/sh-land
@@ -14,7 +16,7 @@ import { clip, write, r3 } from "../../../../../lib/clip.mjs";
 const c = clip();
 const RIG = { hand: 2, eyes: 2, hold: 2 };
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
-const NAMES = ["A", "B", "C", "D", "E", "F", "G", "G2", "H", "I"], want = (process.argv[2] || NAMES.join(",")).split(",");
+const NAMES = ["A", "B", "C", "D", "E", "F", "G", "G2", "H", "I", "J", "K"], want = (process.argv[2] || NAMES.join(",")).split(",");
 const GX = Object.fromEntries(NAMES.map((n, i) => [n, i * 2500]));
 const on = (g) => want.includes(g);
 
@@ -23,9 +25,9 @@ const spud = (g, x, z, face = 180) => cast.push({ id: `spud${g}`, character: "po
 const boxes = (g) => {   // 30 stand-ins on the r 15.5 ring: stone n at a = 6 + 12 (n - 1) deg from +z toward -x, facing the centre
   for (let n = 1; n <= 30; n++) { const a = 6 + 12 * (n - 1), r = a * Math.PI / 180; props.push({ id: `st${g}${n}`, kind: "limeblock", x: r3(GX[g] - 15.5 * Math.sin(r)), z: r3(15.5 * Math.cos(r)), rot: r3(180 - a), size: [2.1, 4.1, 1.1], look: "weathered" }); }
 };
-const land = (g, { era, time, sun, ground = true, henge = true, avenue = true, skyline = true, grooves = "none", dusk, slope }) => {
+const land = (g, { era, time, sun, ground = true, henge = true, avenue = true, skyline = true, grooves = "none", dusk, slope, trees }) => {
   props.push({ id: `sky${g}`, kind: "shsky", x: GX[g], z: 0, time, sunAz: sun[0], sunEl: sun[1], ...(dusk != null && { dusk }) });
-  if (ground) props.push({ id: `ground${g}`, kind: "salisburyplain", x: GX[g], z: 0, era, sunAz: sun[0], sunEl: sun[1], ...(slope && { slope }), ...(dusk != null && { dusk }) });
+  if (ground) props.push({ id: `ground${g}`, kind: "salisburyplain", x: GX[g], z: 0, era, sunAz: sun[0], sunEl: sun[1], ...(slope && { slope }), ...(trees === false && { trees: false }), ...(dusk != null && { dusk }) });
   if (henge) props.push({ id: `henge${g}`, kind: "henge", x: GX[g], z: 0, era });
   if (avenue) props.push({ id: `avenue${g}`, kind: "avenue", x: GX[g], z: 0, era, grooves });
   if (skyline) props.push({ id: `skyline${g}`, kind: "skyline", x: GX[g], z: 0, era, sunAz: sun[0], sunEl: sun[1], time, ...(dusk != null && { dusk }) });
@@ -41,7 +43,7 @@ if (on("C")) {
 if (on("D")) { land("D", { era: "today", time: "dusk", sun: [0, -4], dusk: 1 }); boxes("D"); spud("D", -2.5, 60); SHOTS.push(["D", cam("D", [0, 1.6, 70], [0, 3, 0]), "D dusk: violet-blue, red band, first stars"]); }
 if (on("E")) {
   land("E", { era: "new", time: "b", sun: [14, 6.5] }); boxes("E"); spud("E", 6, 30, 200);
-  SHOTS.push(["E", cam("E", [40, 70, 80], [0, 3, 0], 40), "E era new from above: bank, ditch, Avenue"], ["E2", cam("E", [40, 70, 80], [120, 0, 130], 40), "E2 toward the valley: river, huts, smoke"], ["E3", cam("E", [-6, 1.7, 66], [-30, 0, 48], 40), "E3 eye height at the ditch, causeway to the left"], ["E4", cam("E", [0, 1.6, 66], [0, 4.4, 0], 27), "E4 the kit axis camera: ditch ends either side of the causeway"], ["E5", cam("E", [-4, 40, 60], [-4, 0, 52], 40), "E5 from above the causeway end"]);
+  SHOTS.push(["E", cam("E", [40, 70, 80], [0, 3, 0], 40), "E era new from above: bank, ditch, Avenue"], ["E2", cam("E", [40, 70, 80], [120, 0, 130], 40), "E2 toward the valley: river, huts, smoke"], ["E3", cam("E", [-6, 1.7, 66], [-30, 0, 48], 40), "E3 eye height at the ditch, causeway to the left"], ["E4", cam("E", [0, 1.6, 66], [0, 4.4, 0], 27), "E4 the kit axis camera: ditch ends either side of the causeway"], ["E5", cam("E", [-4, 40, 60], [-4, 0, 52], 40), "E5 from above the causeway end"], ["E6", cam("E", [0, 1.6, 70], [0, 4.4, 0], 27), "E6 the axis eye view (as the proof): the village and river bend right of the sunset line"]);
 }
 if (on("F")) {
   land("F", { era: "today", time: "a", sun: [26, 12] }); boxes("F"); spud("F", 4, 24, 180);
@@ -58,6 +60,16 @@ if (on("I")) {
   props.push({ id: "shaftI", kind: "sunshaft", x: GX.I, z: 0, show: 1 }, { id: "altarI", kind: "limeblock", x: GX.I, z: -4.2, size: [4.9, 0.5, 1.0], look: "weathered" },
     { id: "pairLI", kind: "limeblock", x: GX.I - 1.45, z: -6.3, size: [2.4, 6.7, 1.2], look: "weathered" }, { id: "pairRI", kind: "limeblock", x: GX.I + 1.45, z: -6.3, size: [2.4, 6.7, 1.2], look: "weathered" });
   spud("I", 4, 30, 180); SHOTS.push(["I", cam("I", [8, 2, 40], [0, 1.5, -6], 34), "I sunshaft, time d, era new"]);
+}
+if (on("J")) {
+  land("J", { era: "today", time: "a", sun: [26, 12], trees: false }); boxes("J"); spud("J", 0, 40, 170);
+  props.push({ id: "oakJ1", kind: "bareoak", x: GX.J - 9.5, z: 36, h: 11, seed: 1, sunAz: 26, sunEl: 12 }, { id: "oakJ2", kind: "bareoak", x: GX.J + 17, z: 12, h: 13, seed: 5, sunAz: 26, sunEl: 12 }, { id: "oakJ3", kind: "bareoak", x: GX.J - 30, z: 8, h: 9, seed: 3, sunAz: 26, sunEl: 12 });
+  SHOTS.push(["J", cam("J", [0, 1.6, 52], [-1, 4.5, 30], 44), "J bareoak at 15 m (frame edge), day"], ["J2", cam("J", [0, 1.6, 66], [0, 4.4, 0], 27), "J2 the axis view with two more oaks"]);
+}
+if (on("K")) {
+  land("K", { era: "today", time: "d", sun: [0, 0.3], trees: false }); boxes("K"); spud("K", 0, 46, 180);
+  props.push({ id: "oakK1", kind: "bareoak", x: GX.K + 6, z: 12, h: 11, seed: 2, sunAz: 0, sunEl: 0.3 }, { id: "oakK2", kind: "bareoak", x: GX.K - 14, z: 20, h: 12.4, seed: 8, sunAz: 0, sunEl: 0.3 });
+  SHOTS.push(["K", cam("K", [0, 1.6, 66], [0, 6, 0], 40), "K oaks as silhouettes against the sunset"], ["K2", cam("K", [-20, 1.6, 50], [4, 6, 0], 40), "K2 from beside: the sun-side limbs lit, the shadow on the ground"]);
 }
 const shots = [];
 SHOTS.forEach(([name, cm, label], i) => { const T = r3(0.1 + i * 1.0); shots.push([name, T, cm]); c.cap(T, T + 0.9, label, 1000, false, { kinetic: false, size: 30 }); });

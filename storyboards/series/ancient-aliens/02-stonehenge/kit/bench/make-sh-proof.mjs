@@ -66,7 +66,7 @@ for (const F of [FRAME.wide, FRAME.tall]) for (const [name, T, names] of SETS) {
   const cast = places.flatMap((p) => p.cast), props = places.flatMap((p) => p.props);
   // params with no default are seeded at 0
   for (const p of props) { if (p.kind === "ringship" || p.kind === "cargoship") c.prop(0, p.id, { beam: p.beam ?? 0, wobble: 0 }, 0); if (p.kind === "granitecutter") c.prop(0, p.id, { slide: 1, cut: 0.5 }, 0); }
-  names.forEach((n, i) => { const t = r3(0.1 + i), [pl, v, text] = SHOT[n]; shots.push([n, t, shot(F, P[pl].o, v)]); c.cap(t, t + 0.9, text, F.key === "wide" ? 880 : 1290, false, { kinetic: false, size: 30 }); });
+  names.forEach((n, i) => { const t = r3(0.1 + i), [pl, v, text] = SHOT[n]; shots.push([n, t, shot(F, P[pl].o, v)]); c.cap(t, t + 0.9, text, F.key === "wide" ? 880 : 330, false, { kinetic: false, size: 30 }); });
   const END = r3(0.1 + names.length + 0.1);
   sunsetClock(c, F, 150, 0, END); clueTag(c, F, 0, END, 3);
   const id = `sh-proof-${name}-${F.key}`, lamps = cast.filter((a) => a.character === CAST.spud).map((a) => a.id);
