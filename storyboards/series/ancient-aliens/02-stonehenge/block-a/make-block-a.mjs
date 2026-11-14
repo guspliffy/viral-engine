@@ -128,7 +128,7 @@ function build(F) {
   c.arm(T.p02, "spud", "L", "rest", 0.01); A(T.p02, "spud", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
   P(T.p02 + 0.05, "h1-stone", { y: 0 }, r3(T.land - T.p02 - 0.05), "in");
   c.at(r3(T.land + H), { fx: "shake", dur: 0.3, amp: 0.05 });
-  for (const [dx, dz] of [[0, 0.9], [-1.1, 0.6], [1.1, 0.6]]) c.at(r3(T.land + H), { fx: "poof", pos: [r3(S30[0] + dx), 0.05, r3(S30[1] + dz)], dur: 1.5, color: "#e4ecea", puffs: 22, sparks: 0, size: 2.2, lift: 0.1, sound: false });
+  for (const [dx, dz] of [[0, 0.9], [-1.1, 0.6], [1.1, 0.6]]) c.at(r3(T.land + H), { fx: "poof", pos: [r3(S30[0] + dx), 0.05, r3(S30[1] + dz)], dur: 1.5, color: "#e4ecea", puffs: 18, sparks: 0, size: 1.5, lift: 0.1, sound: false });
   sfx(T.land, "thud", { gain: 1, loud: true, reason: "thirty tonnes of stone land in their pit" });
   sfx(r3(T.land + 0.02), "kenney/impact-mining", { gain: 0.5, reason: "grit and chalk under the stone (the crack a phone speaker carries)" });
   A(r3(T.land - 0.12), "fore", "move", { to: at(PL.build, 4.0, 18.1), dur: 0.35, stride: 0.5, ease: "out" });
@@ -256,7 +256,7 @@ function build(F) {
   }
   A(r3(T.p09 - 0.02), "spud", "pitch", { to: 14, dur: 0.01 }); expr(r3(T.p09 - 0.02), "spud", "focused", { lid: 0.6, brow: -0.3 }, 0.01);
   say(29.45, "l6", T.p10a + 0.25);
-  cap(29.6, T.p10a, "30 t = 2 × BUS", F.NUM, false, NUM);
+  cap(29.6, T.p10a, "30 t = 2 × BUS", F.key === "tall" ? F.NUM + 90 : F.NUM, false, NUM);   // tall: under the 3-line subtitle
   // he pushes harder (squash), his boots slide back on the frost, he digs in again; the sheep butts the stone beside him
   A(30.1, "spud", "squash", { amount: 0.05, dur: 0.4 });
   A(30.6, "spud", "move", { to: [r3(SP9[0] + 0.12), SP9[1]], dur: 0.45, steps: 0, ease: "out" });
@@ -280,7 +280,7 @@ function build(F) {
   see(T.p10a, T.p10b, ["s-stones"], "high over the ruin, north over the frosty downs to the far woods");
   // b: the map, a push in on Stonehenge, the short red line north, 0 -> 25 km
   P(r3(T.p10b + 0.5), "m-map", { woods: 1 }, 1.3, "inOut");
-  count(c, F, r3(T.p10b + 0.5 + H), r3(T.p10b + 1.8 + H), r3(T.p11 + H), 0, 25, (v) => `${Math.round(v)} km`);
+  count(c, F, r3(T.p10b + 0.5 + H), r3(T.p10b + 1.8 + H), r3(T.p11 + H), 0, 25, (v) => `${Math.round(v)} km`, F.key === "tall" ? { pos: F.NUM + 90 } : {});
   see(T.p10b, T.p11, ["m-map"], "the map: a red line 25 km north from Stonehenge");
 
   // ================================================================= 11 NO CRANES, NO IRON (38.0-45.0): 2500 BC time-lapse in jump cuts
@@ -344,24 +344,41 @@ function build(F) {
   const o = (pl, v) => ({ pos: [r3(pl[0] + v.pos[0]), v.pos[1], r3(pl[1] + v.pos[2])], look: [r3(pl[0] + v.look[0]), v.look[1], r3(pl[1] + v.look[2])], fov: v.fov, ...(v.to && { to: { pos: [r3(pl[0] + v.to.pos[0]), v.to.pos[1], r3(pl[1] + v.to.pos[2])], ...(v.to.look && { look: [r3(pl[0] + v.to.look[0]), v.to.look[1], r3(pl[1] + v.to.look[2])] }) } }), ...(v.dur && { dur: v.dur }) });
   const C01 = { pos: [-2.1, 0.5, 50.1], look: [-0.2, 3.0, 15.4], fov: 44 };
   const C04 = { pos: [-2.6, 0.6, 50.1], look: [-1.75, 1.7, 33], fov: 38 };
+  // the TALL cut: its own cameras (fov is vertical, so a tall frame sees ~1/3 of the width): closer, aimed at the subject
+  const tall = F.key === "tall", pick = (w, t) => (tall ? t : w);
+  const T01 = { pos: [-1.9, 0.5, 53.0], look: [-3.5, 6.0, 15.4], fov: 58 };   // him lower left, the hanging stone clear of his head
+  const T04 = { pos: [-2.75, 0.6, 51.2], look: [-1.6, 2.6, 33], fov: 56 };
+  const TLC = [3.5, 1.2, 4.5], tlLook = (deg) => ({ pos: TLC, look: [r3(TLC[0] + 10 * Math.sin((deg * Math.PI) / 180)), 2.0, r3(TLC[2] + 10 * Math.cos((deg * Math.PI) / 180))], fov: 64 });
   const SHOTS = [
-    ["01 hook", T.p01, o(PL.build, { ...C01, to: { pos: [-2.05, 0.5, 49.65] }, dur: T.p02 }), "hook"],
-    ["02 the drop", T.p02, o(PL.build, { pos: [2.3, 0.45, 21.9], look: [S30[0] - PL.build[0], 0.95, S30[1]], fov: 42, to: { pos: [2.32, 0.45, 22.3] }, dur: 1.5 })],
-    ["03 the ring goes up", T.p03, o(PL.build, { pos: [30, 40, 74], look: [0, 3, 2], fov: 30, to: { pos: [27, 38, 70] }, dur: 3.9 })],
-    ["04 he points", T.p04, o(PL.build, { ...C04, to: { pos: [-2.45, 0.6, 49.45] }, dur: r3(SNAP - T.p04) })],
-    ["05 today", SNAP, o(PL.today, { ...C04, to: { pos: [-2.41, 0.6, 49.15] }, dur: r3(T.p06a - SNAP) }), "reveal"],
-    ["06 five clues", T.p06a, o(PL.today, { pos: [-0.9, 0.85, 62.0], look: [-1.6, 1.25, 50], fov: 34, to: { pos: [-0.95, 0.85, 61.6] }, dur: r3(T.p06b - T.p06a) })],
-    ["06 the low sun", T.p06b, o(PL.today, { pos: [-0.5, 1.6, 70], look: [-8, 5.5, 0], fov: 28, to: { pos: [-0.5, 1.6, 68.6] }, dur: r3(T.p06b2 - T.p06b) })],
-    ["06 the sun and the tallest stone", T.p06b2, o(PL.today, { ...VIEW.axisLong.wide, to: { pos: [0, 1.6, 146] }, dur: r3(T.p06c - T.p06b2) })],
-    ["06 you'll know", T.p06c, o(PL.today, { pos: [-1.05, 0.72, 61.3], look: [-1.75, 1.05, 52], fov: 32, to: { pos: [-1.1, 0.72, 60.8] }, dur: r3(T.p07a - T.p06c) })],
+    ["01 hook", T.p01, o(PL.build, pick({ ...C01, to: { pos: [-2.05, 0.5, 49.65] }, dur: T.p02 }, { ...T01, to: { pos: [-1.9, 0.5, 52.6] }, dur: T.p02 })), "hook"],
+    ["02 the drop", T.p02, o(PL.build, pick({ pos: [2.3, 0.45, 21.9], look: [S30[0] - PL.build[0], 0.95, S30[1]], fov: 42, to: { pos: [2.32, 0.45, 22.3] }, dur: 1.5 },
+      { pos: [2.6, 0.5, 24.5], look: [2.4, 1.6, 16], fov: 62, to: { pos: [2.62, 0.5, 24.9] }, dur: 1.5 }))],
+    ["03 the ring goes up", T.p03, o(PL.build, pick({ pos: [30, 40, 74], look: [0, 3, 2], fov: 30, to: { pos: [27, 38, 70] }, dur: 3.9 },
+      { ...VIEW.high.tall, to: { pos: [27, 66, 78] }, dur: 3.9 }))],
+    ["04 he points", T.p04, o(PL.build, pick({ ...C04, to: { pos: [-2.45, 0.6, 49.45] }, dur: r3(SNAP - T.p04) }, { ...T04, to: { pos: [-2.71, 0.6, 50.8] }, dur: r3(SNAP - T.p04) }))],
+    ["05 today", SNAP, o(PL.today, pick({ ...C04, to: { pos: [-2.41, 0.6, 49.15] }, dur: r3(T.p06a - SNAP) }, { ...T04, to: { pos: [-2.68, 0.6, 50.5] }, dur: r3(T.p06a - SNAP) })), "reveal"],
+    ["06 five clues", T.p06a, o(PL.today, pick({ pos: [-0.9, 0.85, 62.0], look: [-1.6, 1.25, 50], fov: 34, to: { pos: [-0.95, 0.85, 61.6] }, dur: r3(T.p06b - T.p06a) },
+      { pos: [-1.35, 0.85, 62.3], look: [-1.6, 1.9, 50], fov: 50, to: { pos: [-1.37, 0.85, 61.9] }, dur: r3(T.p06b - T.p06a) }))],
+    ["06 the low sun", T.p06b, o(PL.today, pick({ pos: [-0.5, 1.6, 70], look: [-8, 5.5, 0], fov: 28, to: { pos: [-0.5, 1.6, 68.6] }, dur: r3(T.p06b2 - T.p06b) },
+      { ...VIEW.axis.tall, to: { pos: [0, 1.6, 76.4] }, dur: r3(T.p06b2 - T.p06b) }))],
+    ["06 the sun and the tallest stone", T.p06b2, o(PL.today, { ...pick(VIEW.axisLong.wide, VIEW.axisLong.tall), to: { pos: [0, 1.6, 146] }, dur: r3(T.p06c - T.p06b2) })],
+    ["06 you'll know", T.p06c, o(PL.today, pick({ pos: [-1.05, 0.72, 61.3], look: [-1.75, 1.05, 52], fov: 32, to: { pos: [-1.1, 0.72, 60.8] }, dur: r3(T.p07a - T.p06c) },
+      { pos: [-1.4, 0.72, 61.7], look: [-1.55, 1.5, 52], fov: 44, to: { pos: [-1.42, 0.72, 61.3] }, dur: r3(T.p07a - T.p06c) }))],
     ["07 up the tallest stone", T.p07a, o(PL.s56, { pos: [2.35, 0.45, -2.6], look: [2.05, 0.6, -5.3], fov: 46, to: { pos: [2.2, 4.4, -2.5], look: [1.55, 7.4, -6.2] }, dur: r3(T.p07b - T.p07a - 0.2) })],
-    ["07 his palm on the stone", T.p07b, o(PL.s56, { pos: [3.45, 0.25, -4.45], look: [1.8, 3.2, -6.1], fov: 60, to: { pos: [3.35, 0.25, -4.55] }, dur: r3(T.p08 - T.p07b) })],
-    ["08 2500 BC the pit", T.p08, o(PL.pit, { pos: [0.25, 0.75, 5.6], look: [0, 0.1, 0], fov: 46, to: { pos: [0.22, 0.72, 5.2] }, dur: r3(T.p09 - T.p08) }), "reveal"],
-    ["09 the push", T.p09, o(PL.today, { pos: [-12.0, 0.9, 65.0], look: [-15.8, 1.5, 59.6], fov: 40, to: { pos: [-12.25, 0.9, 64.6] }, dur: r3(T.p10a - T.p09) })],
-    ["10 the downs to the north", T.p10a, o(PL.s56, { pos: [2, 26, -52], look: [0, 0, 50], fov: 36, to: { pos: [2, 25, -48] }, dur: r3(T.p10b - T.p10a) })],
+    ["07 his palm on the stone", T.p07b, o(PL.s56, pick({ pos: [3.45, 0.25, -4.45], look: [1.8, 3.2, -6.1], fov: 60, to: { pos: [3.35, 0.25, -4.55] }, dur: r3(T.p08 - T.p07b) },
+      { pos: [3.45, 0.25, -4.45], look: [1.5, 3.0, -5.7], fov: 68, to: { pos: [3.38, 0.25, -4.52] }, dur: r3(T.p08 - T.p07b) }))],
+    ["08 2500 BC the pit", T.p08, o(PL.pit, pick({ pos: [0.25, 0.75, 5.6], look: [0, 0.1, 0], fov: 46, to: { pos: [0.22, 0.72, 5.2] }, dur: r3(T.p09 - T.p08) },
+      { pos: [0.15, 1.2, 11.5], look: [0, 2.0, 0], fov: 56, to: { pos: [0.14, 1.15, 10.9] }, dur: r3(T.p09 - T.p08) })), "reveal"],
+    ["09 the push", T.p09, o(PL.today, pick({ pos: [-12.0, 0.9, 65.0], look: [-15.8, 1.5, 59.6], fov: 40, to: { pos: [-12.25, 0.9, 64.6] }, dur: r3(T.p10a - T.p09) },
+      { pos: [-12.6, 0.9, 65.6], look: [-16.8, 2.2, 57], fov: 52, to: { pos: [-12.8, 0.9, 65.2] }, dur: r3(T.p10a - T.p09) }))],
+    ["10 the downs to the north", T.p10a, o(PL.s56, pick({ pos: [2, 26, -52], look: [0, 0, 50], fov: 36, to: { pos: [2, 25, -48] }, dur: r3(T.p10b - T.p10a) },
+      { pos: [2, 30, -56], look: [0, 4, 30], fov: 50, to: { pos: [2, 29, -52] }, dur: r3(T.p10b - T.p10a) }))],
     ["10 the map", T.p10b, { ...shot(F, PL.map, MAP_VIEW.south), to: shot(F, PL.map, MAP_VIEW.stub), dur: 1.4 }],
-    ...cuts.map((t, i) => [`11 time-lapse ${i + 1}`, t, o(PL.tl, { pos: [3.6, 0.95, 8.2], look: [0.6, 1.9, 15.0], fov: 46, ...(i === 3 && { to: { pos: [3.45, 0.95, 8.7] }, dur: 2.8 }) })]),
-    ["12 the small ones", T.p12, o(PL.s56, { pos: [0.3, 1.0, 13.4], look: [-2.0, 1.9, 0], fov: 42, to: { pos: [0.15, 1.0, 12.8] }, dur: r3(END - T.p12) })],
+    // tall: him, the foreman, slots 29-30 and upright 1 (27 and 28 land off frame, heard), a push in for the last
+    ...cuts.map((t, i) => [`11 time-lapse ${i + 1}`, t, o(PL.tl, pick({ pos: [3.6, 0.95, 8.2], look: [0.6, 1.9, 15.0], fov: 46, ...(i === 3 && { to: { pos: [3.45, 0.95, 8.7] }, dur: 2.8 }) },
+      { ...tlLook([-9, -9, -9, -12][i]), ...(i === 3 && { to: { pos: [3.4, 1.2, 5.2] }, dur: 2.8 }) }))]),
+    ["12 the small ones", T.p12, o(PL.s56, pick({ pos: [0.3, 1.0, 13.4], look: [-2.0, 1.9, 0], fov: 42, to: { pos: [0.15, 1.0, 12.8] }, dur: r3(END - T.p12) },
+      { pos: [0.3, 1.0, 13.4], look: [-4.6, 2.4, 1.4], fov: 56, to: { pos: [0.15, 1.0, 12.8] }, dur: r3(END - T.p12) }))],
   ];
   const beats = c.beats(SHOTS.map(([n, t, s, k]) => [n, r3(t + H), s, k]), r3(END + H));
 
