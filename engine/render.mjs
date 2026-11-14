@@ -494,7 +494,7 @@ async function main() {
       console.log(`frame keys: ${n} in ${((Date.now() - th) / 1000).toFixed(1)}s -> ${o.hashes}`);
       return;
     }
-    if (o.layoutOnly) { const tl = Date.now(), lay = await writeLayout(); if (win) console.log(`window laid out in ${((Date.now() - tl) / 1000).toFixed(0)} s`); if (o.cost && !win) await writeCost(); if (contactGate(lay).length) process.exitCode = 1; return; }
+    if (o.layoutOnly) { const tl = Date.now(), lay = await writeLayout(); if (win) console.log(`window laid out in ${((Date.now() - tl) / 1000).toFixed(0)} s`); if (o.cost && !win) await writeCost(); if (contactGate(lay).length && !o.force) process.exitCode = 1; return; }
     if (o.stills) {
       for (const t of o.stills) {
         const f = path.join(o.out, `${base}-t${t.toFixed(2)}.png`); fs.writeFileSync(f, await shot(t)); console.log("wrote", f);
