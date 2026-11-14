@@ -63,7 +63,8 @@
 //               (lichen). SOLID.
 //   fallensarsen a lying broken stone, long axis x, origin the middle of its length on the ground: spec.size [l, w, t] (4.7, 2.1, 1.1: lies on
 //               its broad face, t high), spec.pieces 1 | 2 | 3 (broken across with jagged oblique ends, a few cm to 25 cm apart, slightly
-//               turned), spec.sink 0.2 (fraction of t sunk in the turf, with a grass fringe), spec.look "today" (default) | "new", spec.seed.
+//               turned), spec.sink 0.2 (fraction of t sunk in the turf, with a grass fringe; spec.fringe false leaves the grass out, for a
+//               stone that lies on a sledge or hangs), spec.look "today" (default) | "new", spec.seed.
 //               SOLID, the top at t.
 // PARAMS (seed with a dur-0 set at 0 when a clip animates them; each also reads spec.<name> as its start value): built, dusk. The
 //   decals are redrawn only when what they show changes (a stone appears, dusk or the prop's rot / y moves).
@@ -795,7 +796,7 @@ export const SH_STONES_KINDS = {
   fallensarsen: single((P, S, cfg, A, G) => {
     const [l, w, t] = S.size ?? [4.7, 2.1, 1.1], look = S.look === "new" ? "new" : "today", seed = S.seed ?? 1, { S: soup, foot } = fallenSoup({ l, w, t, pieces: S.pieces ?? 1, seed, look, sink: S.sink ?? 0.2 });
     emit(A, soup, new THREE.Matrix4(), { seed, cfg: { ...cfg, today: look === "today" }, crease: 62 });
-    tufts(G, foot, cfg, seed + 5);
+    if (S.fringe !== false) tufts(G, foot, cfg, seed + 5);   // fringe false: no grass at its foot (a stone on a sledge or in the air)
     return { key: look, top: t, cast: (y) => [rectCast(0, 0, l / 2, w / 2, 0, y, y + t)] };
   }, (S) => (S.look === "new" ? "new" : "today")),
 };
