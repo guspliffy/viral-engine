@@ -90,7 +90,7 @@ function charm(o = {}) { const m = new THREE.MeshStandardMaterial({ roughness: 0
 const offs = (k) => ({ polygonOffset: true, polygonOffsetFactor: -k, polygonOffsetUnits: -k });
 function put(parent, geo, mat, o = {}) {
   const me = new THREE.Mesh(geo, mat);
-  me.castShadow = false; me.receiveShadow = !!o.recv; me.frustumCulled = false; me.userData.solid = false; me.userData.lookOnly = true;
+  me.castShadow = false; me.receiveShadow = !!o.recv; me.frustumCulled = false; me.userData.solid = false; me.userData.lookOnly = true; me.userData.surfaceOnly = true;   /* scenery: the contact gate judges it by its surface, not its box */
   if (o.order != null) me.renderOrder = o.order;
   if (o.steam) me.userData.steam = true;
   if (o.pos) me.position.set(...o.pos);
