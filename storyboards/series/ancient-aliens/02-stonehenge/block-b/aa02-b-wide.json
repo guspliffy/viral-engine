@@ -1,0 +1,4852 @@
+{
+ "id": "aa02-b-wide",
+ "title": "Who really built Stonehenge? (block B)",
+ "idea": "Ancient aliens EP02 block B (0:50-1:42): the bluestone rings; clue 2, eighty of them, two tonnes; the map runs 240 km to Wales; the cutter frees a pillar and the cargo ship carries them over the hills; the Altar Stone, tested in 2024, came 750 km from Scotland; nobody knows how; aliens type 1, humans type 2; I'll wait",
+ "frame": "wide",
+ "far": 700,
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#d9d2b8",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -2.811,
+    1.435,
+    -9.489
+   ],
+   "light": "#ffe1a0",
+   "shadow": "#7b80ba",
+   "exposure": 0.98
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa02-score.ogg",
+  "from": 0,
+  "skip": 50,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "scenes": [
+   "scifi"
+  ],
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "ks"
+  ],
+  "hint": 0,
+  "what": "today, inside Stonehenge: Spud knocks on a small dark stone and it rings"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.68,
+    8.52
+   ],
+   "face": -77.431,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.75,
+    55.4
+   ],
+   "face": -4,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 7.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.85,
+    55
+   ],
+   "face": -10,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 8.2
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    2.95,
+    55.5
+   ],
+   "face": -16,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 9.9
+  },
+  {
+   "id": "crew1",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    3998.55,
+    7.9
+   ],
+   "face": 50,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "crew2",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    4001.45,
+    8
+   ],
+   "face": -50,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 4.4
+  }
+ ],
+ "props": [
+  {
+   "id": "t-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "b",
+   "sunAz": 16.5,
+   "sunEl": 8.25,
+   "dusk": 0
+  },
+  {
+   "id": "t-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 16.5,
+   "sunEl": 8.25,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "t-henge",
+   "kind": "henge",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today"
+  },
+  {
+   "id": "t-avenue",
+   "kind": "avenue",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "grooves": "ridges"
+  },
+  {
+   "id": "t-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 16.5,
+   "sunEl": 8.25,
+   "dusk": 0,
+   "traffic": true
+  },
+  {
+   "id": "t-stones",
+   "kind": "stonehenge",
+   "x": 0,
+   "z": 0,
+   "era": "today",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 16.5,
+   "sunEl": 8.25,
+   "sunColor": "#fff3c4",
+   "dusk": 0
+  },
+  {
+   "id": "t-rope",
+   "kind": "ropeline",
+   "x": 0,
+   "z": 0,
+   "arc": [
+    36,
+    -60,
+    60
+   ]
+  },
+  {
+   "id": "t-crowd",
+   "kind": "visitorcrowd",
+   "x": 0,
+   "z": 0,
+   "n": 24,
+   "arc": [
+    39,
+    -39.6,
+    39.6
+   ],
+   "seed": 3
+  },
+  {
+   "id": "t-bus",
+   "kind": "shuttlebus",
+   "x": -34,
+   "z": 96,
+   "rot": 115
+  },
+  {
+   "id": "ks",
+   "kind": "bluestone",
+   "x": -2.6,
+   "z": 8.4,
+   "rot": 0,
+   "era": "today",
+   "size": [
+    0.72,
+    0.86,
+    0.46
+   ],
+   "seed": 7
+  },
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "sheepK",
+   "kind": "sheep",
+   "x": -3.95,
+   "z": 9.55,
+   "rot": 125,
+   "chew": 0.6,
+   "grass": true
+  },
+  {
+   "id": "sheepW",
+   "kind": "sheep",
+   "x": -2.45,
+   "z": 58.9,
+   "rot": 70,
+   "chew": 0,
+   "grass": true
+  },
+  {
+   "id": "rope24",
+   "kind": "ropeline",
+   "x": 0,
+   "z": 0,
+   "pts": [
+    [
+     0.1,
+     56.5
+    ],
+    [
+     2.6,
+     56.75
+    ],
+    [
+     5.1,
+     56.6
+    ]
+   ]
+  },
+  {
+   "id": "crowA",
+   "kind": "crow",
+   "x": 4.1,
+   "z": -5.5,
+   "rot": -110
+  },
+  {
+   "id": "chip-hat",
+   "kind": "bobblehat",
+   "wear": "chip",
+   "fit": "potatobrawl/chip",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#c23b3b"
+  },
+  {
+   "id": "chip-scarf",
+   "kind": "scarf",
+   "wear": "chip",
+   "fit": "potatobrawl/chip",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#2f6fb0"
+  },
+  {
+   "id": "wedge-hat",
+   "kind": "bobblehat",
+   "wear": "wedge",
+   "fit": "potatobrawl/wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#2f6fb0"
+  },
+  {
+   "id": "wedge-scarf",
+   "kind": "scarf",
+   "wear": "wedge",
+   "fit": "potatobrawl/wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#e0b030"
+  },
+  {
+   "id": "mash-hat",
+   "kind": "bobblehat",
+   "wear": "mash",
+   "fit": "potatobrawl/mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#e0b030"
+  },
+  {
+   "id": "mash-scarf",
+   "kind": "scarf",
+   "wear": "mash",
+   "fit": "potatobrawl/mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#c23b3b"
+  },
+  {
+   "id": "m-map",
+   "kind": "britainmap",
+   "x": 2000,
+   "y": 8,
+   "z": 0,
+   "woods": 1,
+   "wales": 0,
+   "scotland": 0,
+   "staged": "the map is a full-frame insert"
+  },
+  {
+   "id": "w-hills",
+   "kind": "welshhills",
+   "x": 4000,
+   "z": 0
+  },
+  {
+   "id": "w-crag",
+   "kind": "preselicrag",
+   "x": 4000,
+   "z": 0,
+   "out": 0
+  },
+  {
+   "id": "w-cutter",
+   "kind": "granitecutter",
+   "x": 4000,
+   "y": 0,
+   "z": 8.5
+  },
+  {
+   "id": "cargo",
+   "kind": "cargoship",
+   "x": 3945,
+   "y": -278,
+   "z": -12,
+   "rot": 0,
+   "s": 1.3,
+   "beam": 1,
+   "lit": 0.5,
+   "beamLen": 2.6,
+   "staged": "it flies over the Welsh hills"
+  },
+  {
+   "id": "hang0",
+   "kind": "bluestone",
+   "x": 3939.8,
+   "y": -283.4,
+   "z": -12,
+   "rot": -15,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 11,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "hang1",
+   "kind": "bluestone",
+   "x": 3941.88,
+   "y": -283.4,
+   "z": -12,
+   "rot": -8,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 12,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "hang2",
+   "kind": "bluestone",
+   "x": 3943.96,
+   "y": -283.4,
+   "z": -12,
+   "rot": -1,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 13,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "hang3",
+   "kind": "bluestone",
+   "x": 3946.04,
+   "y": -283.4,
+   "z": -12,
+   "rot": 6,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 14,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "hang4",
+   "kind": "bluestone",
+   "x": 3948.12,
+   "y": -283.4,
+   "z": -12,
+   "rot": 13,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 15,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "hang5",
+   "kind": "bluestone",
+   "x": 3950.2,
+   "y": -283.4,
+   "z": -12,
+   "rot": -10,
+   "era": "new",
+   "size": [
+    0.62,
+    1.9,
+    0.42
+   ],
+   "seed": 16,
+   "staged": "it hangs in the cargo ship's beam"
+  },
+  {
+   "id": "shep",
+   "kind": "stonefolk",
+   "who": "shepherd",
+   "x": 4001.6,
+   "z": 32,
+   "rot": 95,
+   "lookAt": [
+    43.536,
+    22,
+    7.222
+   ],
+   "seed": 2
+  },
+  {
+   "id": "ws1",
+   "kind": "sheep",
+   "x": 4000.4,
+   "z": 31.2,
+   "rot": 80,
+   "chew": 0,
+   "headP": -1,
+   "headY": -0.2
+  },
+  {
+   "id": "ws2",
+   "kind": "sheep",
+   "x": 4002.6,
+   "z": 32.9,
+   "rot": 100,
+   "chew": 0,
+   "headP": -1,
+   "headY": -0.4
+  },
+  {
+   "id": "ws3",
+   "kind": "sheep",
+   "x": 3999.3,
+   "z": 32.5,
+   "rot": 70,
+   "chew": 0,
+   "headP": -0.8,
+   "headY": 0.2
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.4,
+   "to": 4.27,
+   "text": "This stone does not belong here.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 52,
+   "text": "CLUE 2/5",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 210
+  },
+  {
+   "from": 4.3,
+   "to": 6.61,
+   "text": "Clue two. Bluestone.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.61,
+   "to": 10.1,
+   "text": "About eighty of them. Two tonnes and more.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.71,
+   "to": 6.81,
+   "text": "0",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.81,
+   "to": 6.91,
+   "text": "20",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.91,
+   "to": 7.01,
+   "text": "36",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.01,
+   "to": 7.11,
+   "text": "49",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.11,
+   "to": 7.21,
+   "text": "59",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.21,
+   "to": 7.31,
+   "text": "67",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.31,
+   "to": 7.41,
+   "text": "72",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.41,
+   "to": 7.51,
+   "text": "76",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.51,
+   "to": 7.61,
+   "text": "78",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.61,
+   "to": 7.71,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.71,
+   "to": 7.81,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.81,
+   "to": 8,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 8.55,
+   "to": 10,
+   "text": "2 t +",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false,
+   "x": 1450
+  },
+  {
+   "from": 10.3,
+   "to": 12.85,
+   "text": "The rock matches one place on Earth.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 12.85,
+   "to": 15.16,
+   "text": "The Preseli Hills, in Wales.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 15.16,
+   "to": 17.87,
+   "text": "Two hundred and forty kilometres away.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 13.05,
+   "to": 13.15,
+   "text": "0 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.15,
+   "to": 13.25,
+   "text": "17 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.25,
+   "to": 13.35,
+   "text": "33 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.35,
+   "to": 13.45,
+   "text": "48 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.45,
+   "to": 13.55,
+   "text": "62 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.55,
+   "to": 13.65,
+   "text": "76 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.65,
+   "to": 13.75,
+   "text": "89 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.75,
+   "to": 13.85,
+   "text": "101 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.85,
+   "to": 13.95,
+   "text": "113 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 13.95,
+   "to": 14.05,
+   "text": "124 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.05,
+   "to": 14.15,
+   "text": "134 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.15,
+   "to": 14.25,
+   "text": "143 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.25,
+   "to": 14.35,
+   "text": "153 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.35,
+   "to": 14.45,
+   "text": "161 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.45,
+   "to": 14.55,
+   "text": "169 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.55,
+   "to": 14.65,
+   "text": "176 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.65,
+   "to": 14.75,
+   "text": "183 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.75,
+   "to": 14.85,
+   "text": "189 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.85,
+   "to": 14.95,
+   "text": "195 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 14.95,
+   "to": 15.05,
+   "text": "201 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.05,
+   "to": 15.15,
+   "text": "206 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.15,
+   "to": 15.25,
+   "text": "210 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.25,
+   "to": 15.35,
+   "text": "214 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.35,
+   "to": 15.45,
+   "text": "218 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.45,
+   "to": 15.55,
+   "text": "221 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.55,
+   "to": 15.65,
+   "text": "224 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.65,
+   "to": 15.75,
+   "text": "227 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.75,
+   "to": 15.85,
+   "text": "229 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.85,
+   "to": 15.95,
+   "text": "231 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.95,
+   "to": 16.05,
+   "text": "233 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.05,
+   "to": 16.15,
+   "text": "234 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.15,
+   "to": 16.25,
+   "text": "236 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.25,
+   "to": 16.35,
+   "text": "237 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.35,
+   "to": 16.45,
+   "text": "238 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.45,
+   "to": 16.55,
+   "text": "238 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.55,
+   "to": 16.65,
+   "text": "239 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.65,
+   "to": 16.75,
+   "text": "239 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.75,
+   "to": 16.85,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.85,
+   "to": 16.95,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 16.95,
+   "to": 17.05,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.05,
+   "to": 17.15,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.15,
+   "to": 17.25,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.25,
+   "to": 18,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 21.01,
+   "text": "They tell you: dragged here.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 21.41,
+   "to": 26.58,
+   "text": "Over mountains. Across rivers. Eighty times.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 25.18,
+   "to": 27,
+   "text": "× 80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.3,
+   "to": 29.23,
+   "text": "And then there is this one.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 30.2,
+   "to": 32.8,
+   "text": "The Altar Stone. Six tonnes.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 31.55,
+   "to": 32.8,
+   "text": "6 t",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 33,
+   "to": 36.5,
+   "text": "In 2024, scientists tested it.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 33.2,
+   "to": 36.3,
+   "text": "2024",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.5,
+   "to": 38.03,
+   "text": "It is not from Wales.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 38.03,
+   "to": 41.03,
+   "text": "It came from the far north of Scotland.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 41.03,
+   "to": 43.48,
+   "text": "Seven hundred and fifty kilometres.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 36.3,
+   "to": 38.03,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.03,
+   "to": 38.13,
+   "text": "240 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.13,
+   "to": 38.23,
+   "text": "270 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.23,
+   "to": 38.33,
+   "text": "299 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.33,
+   "to": 38.43,
+   "text": "326 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.43,
+   "to": 38.53,
+   "text": "353 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.53,
+   "to": 38.63,
+   "text": "378 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.63,
+   "to": 38.73,
+   "text": "402 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.73,
+   "to": 38.83,
+   "text": "426 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.83,
+   "to": 38.93,
+   "text": "448 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.93,
+   "to": 39.03,
+   "text": "469 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.03,
+   "to": 39.13,
+   "text": "489 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.13,
+   "to": 39.23,
+   "text": "508 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.23,
+   "to": 39.33,
+   "text": "526 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.33,
+   "to": 39.43,
+   "text": "543 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.43,
+   "to": 39.53,
+   "text": "560 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.53,
+   "to": 39.63,
+   "text": "575 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.63,
+   "to": 39.73,
+   "text": "590 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.73,
+   "to": 39.83,
+   "text": "603 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.83,
+   "to": 39.93,
+   "text": "616 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 39.93,
+   "to": 40.03,
+   "text": "628 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.03,
+   "to": 40.13,
+   "text": "640 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.13,
+   "to": 40.23,
+   "text": "650 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.23,
+   "to": 40.33,
+   "text": "660 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.33,
+   "to": 40.43,
+   "text": "670 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.43,
+   "to": 40.53,
+   "text": "678 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.53,
+   "to": 40.63,
+   "text": "686 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.63,
+   "to": 40.73,
+   "text": "694 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.73,
+   "to": 40.83,
+   "text": "700 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.83,
+   "to": 40.93,
+   "text": "707 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 40.93,
+   "to": 41.03,
+   "text": "712 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.03,
+   "to": 41.13,
+   "text": "717 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.13,
+   "to": 41.23,
+   "text": "722 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.23,
+   "to": 41.33,
+   "text": "726 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.33,
+   "to": 41.43,
+   "text": "730 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.43,
+   "to": 41.53,
+   "text": "733 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.53,
+   "to": 41.63,
+   "text": "736 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.63,
+   "to": 41.73,
+   "text": "739 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.73,
+   "to": 41.83,
+   "text": "741 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.83,
+   "to": 41.93,
+   "text": "743 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 41.93,
+   "to": 42.03,
+   "text": "745 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.03,
+   "to": 42.13,
+   "text": "746 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.13,
+   "to": 42.23,
+   "text": "747 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.23,
+   "to": 42.33,
+   "text": "748 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.33,
+   "to": 42.43,
+   "text": "749 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.43,
+   "to": 42.53,
+   "text": "749 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.53,
+   "to": 42.63,
+   "text": "749 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.63,
+   "to": 42.73,
+   "text": "750 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.73,
+   "to": 42.83,
+   "text": "750 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.83,
+   "to": 42.93,
+   "text": "750 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 42.93,
+   "to": 43.03,
+   "text": "750 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 43.03,
+   "to": 43.4,
+   "text": "750 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 44.1,
+   "to": 45.64,
+   "text": "Nobody knows how.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 45.8,
+   "to": 50.4,
+   "text": "ALIENS 1 · HUMANS 2",
+   "pos": 250,
+   "pop": false,
+   "size": 74,
+   "kinetic": false
+  },
+  {
+   "from": 45.95,
+   "to": 48.11,
+   "text": "Aliens? Type one.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 48.11,
+   "to": 50.66,
+   "text": "Humans? Type two.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 50.7,
+   "to": 51.81,
+   "text": "I'll wait.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 1,
+   "text": "SUNSET 2:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "SUNSET 2:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "SUNSET 2:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "SUNSET 2:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "SUNSET 2:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "text": "SUNSET 2:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "SUNSET 2:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "SUNSET 2:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "SUNSET 2:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "SUNSET 2:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "SUNSET 2:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "SUNSET 1:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "SUNSET 1:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13,
+   "to": 14,
+   "text": "SUNSET 1:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "SUNSET 1:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "SUNSET 1:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16,
+   "to": 17,
+   "text": "SUNSET 1:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17,
+   "to": 18,
+   "text": "SUNSET 1:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18,
+   "to": 19,
+   "text": "SUNSET 1:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19,
+   "to": 20,
+   "text": "SUNSET 1:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "SUNSET 1:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21,
+   "to": 22,
+   "text": "SUNSET 1:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22,
+   "to": 23,
+   "text": "SUNSET 1:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23,
+   "to": 24,
+   "text": "SUNSET 1:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24,
+   "to": 25,
+   "text": "SUNSET 1:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25,
+   "to": 26,
+   "text": "SUNSET 1:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 26,
+   "to": 27,
+   "text": "SUNSET 1:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 27,
+   "to": 28,
+   "text": "SUNSET 1:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 28,
+   "to": 29,
+   "text": "SUNSET 1:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 29,
+   "to": 30,
+   "text": "SUNSET 1:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 30,
+   "to": 31,
+   "text": "SUNSET 1:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 31,
+   "to": 32,
+   "text": "SUNSET 1:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 32,
+   "to": 33,
+   "text": "SUNSET 1:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 33,
+   "to": 34,
+   "text": "SUNSET 1:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 34,
+   "to": 35,
+   "text": "SUNSET 1:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 35,
+   "to": 36,
+   "text": "SUNSET 1:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 36,
+   "to": 37,
+   "text": "SUNSET 1:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 37,
+   "to": 38,
+   "text": "SUNSET 1:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 38,
+   "to": 39,
+   "text": "SUNSET 1:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 39,
+   "to": 40,
+   "text": "SUNSET 1:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 40,
+   "to": 41,
+   "text": "SUNSET 1:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 41,
+   "to": 42,
+   "text": "SUNSET 1:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 42,
+   "to": 43,
+   "text": "SUNSET 1:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 43,
+   "to": 44,
+   "text": "SUNSET 1:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 44,
+   "to": 45,
+   "text": "SUNSET 1:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 45,
+   "to": 46,
+   "text": "SUNSET 1:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 46,
+   "to": 47,
+   "text": "SUNSET 1:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 47,
+   "to": 48,
+   "text": "SUNSET 1:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 48,
+   "to": 49,
+   "text": "SUNSET 1:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 49,
+   "to": 50,
+   "text": "SUNSET 1:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 50,
+   "to": 51,
+   "text": "SUNSET 1:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 51,
+   "to": 52,
+   "text": "SUNSET 1:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  }
+ ],
+ "beats": [
+  {
+   "name": "13 the knock",
+   "at": 0,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -1.75,
+     0.85,
+     11.4
+    ],
+    "look": [
+     -2.3,
+     0.62,
+     8.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.8,
+      0.84,
+      11
+     ]
+    },
+    "dur": 4
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "beam": 1,
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "w-cutter",
+     "set": {
+      "slide": 0.25,
+      "cut": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "w-crag",
+     "set": {
+      "out": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "m-map",
+     "set": {
+      "woods": 1,
+      "wales": 0,
+      "scotland": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spud-lamp",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sheepK",
+     "set": {
+      "ears": 0,
+      "headY": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sheepW",
+     "set": {
+      "chew": 0,
+      "headY": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crowA",
+     "set": {
+      "hop": 0,
+      "caw": 0,
+      "headY": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 19,
+      "sunEl": 10
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 14,
+      "sunEl": 6.5
+     },
+     "dur": 52,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "fist",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.48,
+       0.6,
+       0.12
+      ],
+      "palm": [
+       0.2,
+       0.6,
+       0.12
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.42,
+       0.22
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      0,
+      0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.38,
+       0.58,
+       0.1
+      ],
+      "palm": [
+       0.1,
+       0.58,
+       0.1
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "sfx": "knock-hit",
+     "gain": 0.5,
+     "reason": "his knuckle on the stone",
+     "at": 0.3
+    },
+    {
+     "sfx": "bell-heavy",
+     "gain": 0.16,
+     "reason": "the bluestone rings: a dull far bell (real: spotted dolerite rings when struck)",
+     "at": 0.31
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.48,
+       0.6,
+       0.12
+      ],
+      "palm": [
+       0.2,
+       0.6,
+       0.12
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.32
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.38,
+       0.58,
+       0.1
+      ],
+      "palm": [
+       0.1,
+       0.58,
+       0.1
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.62
+    },
+    {
+     "sfx": "knock-hit",
+     "gain": 0.5,
+     "reason": "his knuckle on the stone",
+     "at": 0.72
+    },
+    {
+     "sfx": "bell-heavy",
+     "gain": 0.16,
+     "reason": "the bluestone rings: a dull far bell (real: spotted dolerite rings when struck)",
+     "at": 0.73
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.48,
+       0.6,
+       0.12
+      ],
+      "palm": [
+       0.2,
+       0.6,
+       0.12
+      ]
+     },
+     "dur": 0.14,
+     "ease": "out",
+     "at": 0.74
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "brow": 0.8,
+      "open": 0.05
+     },
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "sheepK",
+     "set": {
+      "ears": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sheepK",
+     "set": {
+      "headY": 0.45
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "sheepK",
+     "set": {
+      "ears": 0
+     },
+     "dur": 0.18,
+     "ease": "in",
+     "at": 1.12
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.5,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "This stone does not belong here.",
+     "tone": "calm",
+     "dur": 2.47,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.8,
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.45,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 3.37
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      10.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "14 eighty of them",
+   "at": 4,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.3,
+     13.9
+    ],
+    "look": [
+     -0.4,
+     1.3,
+     8
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      0.9,
+      1.35,
+      13.9
+     ]
+    },
+    "dur": 4
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sheepK",
+     "set": {
+      "headY": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.42,
+       0.55,
+       0.06
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.42,
+       0.55,
+       0.06
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.12
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue two. Bluestone.",
+     "tone": "excited",
+     "dur": 2.06,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "About eighty of them. Two tonnes and more.",
+     "tone": "calm",
+     "dur": 3.09,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.61
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.8,
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.6,
+      9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       -0.17,
+       0.52,
+       0.245
+      ],
+      "palm": [
+       -0.17,
+       0.52,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.17,
+       0.52,
+       0.245
+      ],
+      "palm": [
+       0.17,
+       0.52,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 3.98
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 10,
+     "dur": 0.01,
+     "at": 3.98
+    }
+   ]
+  },
+  {
+   "name": "14b two tonnes",
+   "at": 8,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -1.1,
+     0.8,
+     7.6
+    ],
+    "look": [
+     -2.45,
+     0.55,
+     8.8
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -1.2,
+      0.8,
+      7.75
+     ]
+    },
+    "dur": 2
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": -0.4,
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.6,
+      9.06
+     ],
+     "dur": 0.35,
+     "steps": 0,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.3,
+     "reason": "his boots slip on the frosty grass",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       -0.17,
+       0.5,
+       0.245
+      ],
+      "palm": [
+       -0.17,
+       0.5,
+       0
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "ks",
+      "grip": [
+       0.17,
+       0.5,
+       0.245
+      ],
+      "palm": [
+       0.17,
+       0.5,
+       0
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.7,
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.32
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 340,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.35
+     },
+     "dur": 0.2,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "15 the map, Wales",
+   "at": 10,
+   "len": 8,
+   "shot": {
+    "pos": [
+     2001,
+     3.35,
+     5
+    ],
+    "look": [
+     2001,
+     3.35,
+     0
+    ],
+    "fov": 19,
+    "to": {
+     "pos": [
+      2000,
+      3.8,
+      10.15
+     ],
+     "look": [
+      2000,
+      3.8,
+      0
+     ]
+    },
+    "dur": 2.6
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The rock matches one place on Earth.",
+     "tone": "calm",
+     "dur": 2.35,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The Preseli Hills, in Wales.",
+     "tone": "calm",
+     "dur": 2.01,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.85
+    },
+    {
+     "do": "prop",
+     "id": "m-map",
+     "set": {
+      "wales": 1
+     },
+     "dur": 2.61,
+     "ease": "inOut",
+     "at": 3.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Two hundred and forty kilometres away.",
+     "tone": "calm",
+     "dur": 2.31,
+     "voice": "reaper",
+     "caption": false,
+     "at": 5.16
+    }
+   ]
+  },
+  {
+   "name": "16 Wales, the crag",
+   "at": 18,
+   "len": 4,
+   "shot": {
+    "pos": [
+     3997,
+     1.9,
+     11.6
+    ],
+    "look": [
+     4000.3,
+     1.4,
+     7.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      3997.3,
+      1.85,
+      11.1
+     ]
+    },
+    "dur": 4
+   },
+   "do": [
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "w-cutter",
+     "set": {
+      "cut": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "w-cutter",
+     "set": {
+      "slide": 0.75
+     },
+     "dur": 1.95,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.07,
+     "dur": 1.95,
+     "reason": "the cutter's low hum while its line cuts",
+     "at": 0.15
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "They tell you: dragged here.",
+     "tone": "calm",
+     "dur": 2.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "w-cutter",
+     "set": {
+      "cut": 0
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.1
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.45,
+     "reason": "the pillar cracks free at its foot",
+     "at": 2.15
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.13,
+     "blink": false,
+     "at": 2.15
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.13,
+     "blink": false,
+     "at": 2.15
+    },
+    {
+     "do": "prop",
+     "id": "w-crag",
+     "set": {
+      "out": 1
+     },
+     "dur": 0.95,
+     "ease": "in",
+     "at": 2.35
+    },
+    {
+     "who": "crew1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "crew1",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 2.35
+    },
+    {
+     "who": "crew2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "crew2",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 2.35
+    },
+    {
+     "who": "crew1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.37
+    },
+    {
+     "who": "crew2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.37
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.45
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.45
+    },
+    {
+     "who": "crew1",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 3.3
+    },
+    {
+     "who": "crew2",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 3.3
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "the pillar lands flat on the turf",
+     "at": 3.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Over mountains. Across rivers. Eighty times.",
+     "tone": "calm",
+     "dur": 4.77,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3.41
+    }
+   ]
+  },
+  {
+   "name": "17 over the hills",
+   "at": 22,
+   "len": 5,
+   "shot": {
+    "pos": [
+     4001,
+     0.9,
+     36
+    ],
+    "look": [
+     4006,
+     9,
+     0
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      4001,
+      0.9,
+      36
+     ],
+     "look": [
+      4014,
+      11,
+      0
+     ]
+    },
+    "dur": 5
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "x": 3945,
+      "y": 22,
+      "z": -12
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang0",
+     "set": {
+      "x": 3939.8,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang1",
+     "set": {
+      "x": 3941.88,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang2",
+     "set": {
+      "x": 3943.96,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang3",
+     "set": {
+      "x": 3946.04,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang4",
+     "set": {
+      "x": 3948.12,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hang5",
+     "set": {
+      "x": 3950.2,
+      "y": 16.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 4.8,
+     "reason": "the cargo ship's low hum crossing the sky",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cargo",
+     "set": {
+      "x": 4060,
+      "z": -12
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang0",
+     "set": {
+      "x": 4054.8
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang1",
+     "set": {
+      "x": 4056.88
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang2",
+     "set": {
+      "x": 4058.96
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang3",
+     "set": {
+      "x": 4061.04
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang4",
+     "set": {
+      "x": 4063.12
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "hang5",
+     "set": {
+      "x": 4065.2
+     },
+     "dur": 5.1,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "ws2",
+     "set": {
+      "headY": 0.3
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "ws1",
+     "set": {
+      "headY": 0.4
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.85,
+      -4.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -110,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.98
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.7,
+     "dur": 0.01,
+     "at": 4.98
+    }
+   ]
+  },
+  {
+   "name": "18 the Altar Stone",
+   "at": 27,
+   "len": 3,
+   "shot": {
+    "pos": [
+     0.4,
+     1.1,
+     -5.3
+    ],
+    "look": [
+     2.6,
+     0.45,
+     -3.9
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.7,
+      1.05,
+      -5.15
+     ]
+    },
+    "dur": 3
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "And then there is this one.",
+     "tone": "calm",
+     "dur": 1.53,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "crowA",
+     "set": {
+      "hop": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "crowA",
+     "set": {
+      "hop": 0
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.15
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.43
+    },
+    {
+     "do": "prop",
+     "id": "crowA",
+     "set": {
+      "caw": 1
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.25,
+     "reason": "the crow on the fallen giant caws once",
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "crowA",
+     "set": {
+      "caw": 0
+     },
+     "dur": 0.2,
+     "ease": "in",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 2.4
+    }
+   ]
+  },
+  {
+   "name": "19 palm on the slab",
+   "at": 30,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     1.35,
+     1,
+     -5.3
+    ],
+    "look": [
+     2.5,
+     0.55,
+     -4.1
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      1.45,
+      0.98,
+      -5.2
+     ]
+    },
+    "dur": 2.8
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "t-stones",
+      "grip": [
+       2.3,
+       0.21,
+       -4.3
+      ],
+      "palm": [
+       2.3,
+       0,
+       -4.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.3,
+     "at": 0.15
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The Altar Stone. Six tonnes.",
+     "tone": "calm",
+     "dur": 2.2,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.22,
+     "reason": "his glove on the stone",
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "19b 2024",
+   "at": 32.8,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     0.3,
+     0.9,
+     -5.25
+    ],
+    "look": [
+     2.9,
+     0.75,
+     -3.9
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0.5,
+      0.9,
+      -5.1
+     ]
+    },
+    "dur": 3.5
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -112.38,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In 2024, scientists tested it.",
+     "tone": "calm",
+     "dur": 3.12,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.75,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 2.92
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far wind over the plain",
+     "at": 3.2
+    }
+   ]
+  },
+  {
+   "name": "20 the map, Scotland",
+   "at": 36.3,
+   "len": 7.1,
+   "shot": {
+    "pos": [
+     2000,
+     3.8,
+     10.15
+    ],
+    "look": [
+     2000,
+     3.8,
+     0
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      2000,
+      11.6,
+      10.15
+     ],
+     "look": [
+      2000,
+      11.6,
+      0
+     ]
+    },
+    "dur": 7
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It is not from Wales.",
+     "tone": "excited",
+     "dur": 1.28,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It came from the far north of Scotland.",
+     "tone": "calm",
+     "dur": 2.75,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.73
+    },
+    {
+     "do": "prop",
+     "id": "m-map",
+     "set": {
+      "scotland": 1
+     },
+     "dur": 4.97,
+     "ease": "inOut",
+     "at": 1.73
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Seven hundred and fifty kilometres.",
+     "tone": "calm",
+     "dur": 2.05,
+     "voice": "reaper",
+     "caption": false,
+     "at": 4.73
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.45,
+      -2.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.08
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 7.08
+    }
+   ]
+  },
+  {
+   "name": "21 nobody knows how",
+   "at": 43.4,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     1,
+     0.85,
+     0.2
+    ],
+    "look": [
+     0.7,
+     0.95,
+     -6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1,
+      0.85,
+      -0.2
+     ]
+    },
+    "dur": 2.3
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 1,
+     "dur": 0.6,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Nobody knows how.",
+     "tone": "calm",
+     "dur": 1.14,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.04
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.2,
+      58.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 5,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "22 type one",
+   "at": 45.7,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.72,
+     61.2
+    ],
+    "look": [
+     -1.2,
+     0.82,
+     58.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.2,
+      0.72,
+      60.9
+     ]
+    },
+    "dur": 2.2
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3,
+      "lid": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Aliens? Type one.",
+     "tone": "question",
+     "dur": 1.96,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.5,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.5,
+     "at": 1.7
+    }
+   ]
+  },
+  {
+   "name": "23 type two",
+   "at": 47.9,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -1.2,
+     0.7,
+     60.6
+    ],
+    "look": [
+     -1.2,
+     0.82,
+     58.5
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.2,
+      0.7,
+      60.35
+     ]
+    },
+    "dur": 2.5
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.5,
+       0.2
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 4,
+     "reason": "far wind over the plain",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Humans? Type two.",
+     "tone": "question",
+     "dur": 2.15,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.21
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.5,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 2.48
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.48
+    }
+   ]
+  },
+  {
+   "name": "24 I'll wait",
+   "at": 50.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.3,
+     64
+    ],
+    "look": [
+     -0.8,
+     0.5,
+     40
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.6,
+      1.3,
+      63.4
+     ]
+    },
+    "dur": 1.6
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "I'll wait.",
+     "tone": "calm",
+     "dur": 0.71,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "sheepW",
+     "set": {
+      "chew": 1,
+      "headY": -0.35
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.11
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 4,
+   "see": [
+    "spud.face",
+    "ks",
+    "sheepK"
+   ],
+   "why": "panel 13: his knuckle on the small dark stone, it rings; the sheep's ears flick"
+  },
+  {
+   "from": 4,
+   "to": 8,
+   "see": [
+    "spud",
+    "t-stones"
+   ],
+   "why": "panel 14: the dark bluestones among the grey giants, his arms spread, the counter to 80"
+  },
+  {
+   "from": 8,
+   "to": 10,
+   "see": [
+    "spud.face",
+    "ks"
+   ],
+   "why": "he pushes the small stone with both palms, slides back: it does not move (2 t +)"
+  },
+  {
+   "from": 10,
+   "to": 18,
+   "see": [
+    "m-map"
+   ],
+   "why": "panel 15: the painted map, the 25 km stub, the red line runs west to Wales, 240 km"
+  },
+  {
+   "from": 18,
+   "to": 22,
+   "see": [
+    "w-crag",
+    "w-cutter",
+    "crew1",
+    "crew2"
+   ],
+   "why": "panel 16: the cutter frees a pillar, two crew guide it down"
+  },
+  {
+   "from": 22,
+   "to": 27,
+   "see": [
+    "cargo",
+    "shep",
+    "ws1"
+   ],
+   "why": "panel 17: the cargo ship carries a row of bluestones over the Welsh hills, the shepherd and his sheep stare up"
+  },
+  {
+   "from": 27,
+   "to": 30,
+   "see": [
+    "spud.face",
+    "t-stones",
+    "crowA"
+   ],
+   "why": "panel 18: the fallen giant across the flat slab, he crouches at its end"
+  },
+  {
+   "from": 30,
+   "to": 32.8,
+   "see": [
+    "spud",
+    "t-stones"
+   ],
+   "why": "panel 19: close down on the slab, his palm flat on it"
+  },
+  {
+   "from": 32.8,
+   "to": 36.3,
+   "see": [
+    "spud.face",
+    "t-stones"
+   ],
+   "why": "he stands up to us: 2024, scientists tested it"
+  },
+  {
+   "from": 36.3,
+   "to": 43.4,
+   "see": [
+    "m-map"
+   ],
+   "why": "panel 20: the line turns north and runs up the whole island, the camera follows it, 750 km"
+  },
+  {
+   "from": 43.4,
+   "to": 45.7,
+   "see": [
+    "spud.face",
+    "t-stones"
+   ],
+   "why": "panel 21: he stares into the distance, the leaf drooping, the low gold sun behind the stones"
+  },
+  {
+   "from": 45.7,
+   "to": 47.9,
+   "see": [
+    "spud.face"
+   ],
+   "why": "panel 22: close on him, one finger: aliens? type one"
+  },
+  {
+   "from": 47.9,
+   "to": 50.4,
+   "see": [
+    "spud.face"
+   ],
+   "why": "panel 23: two fingers: humans? type two"
+  },
+  {
+   "from": 50.4,
+   "to": 52,
+   "see": [
+    "spud.face",
+    "sheepW",
+    "chip.face"
+   ],
+   "why": "panel 24: he waits; only the sheep chews; the tourists look at us too"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "ks",
+   "from": 0,
+   "to": 1.3,
+   "reason": "his knuckle knocks on the stone's face"
+  },
+  {
+   "who": "spud",
+   "with": "ks",
+   "from": 8,
+   "to": 10,
+   "reason": "both palms flat on the stone, pushing"
+  },
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 52,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "crew1",
+   "with": "w-hills",
+   "from": 0,
+   "to": 52,
+   "reason": "standing on the kit's Welsh moor (welshhills ground / preselicrag grass apron, scenery)"
+  },
+  {
+   "who": "crew1",
+   "with": "w-crag",
+   "from": 0,
+   "to": 52,
+   "reason": "standing on the kit's Welsh moor (welshhills ground / preselicrag grass apron, scenery)"
+  },
+  {
+   "who": "crew2",
+   "with": "w-hills",
+   "from": 0,
+   "to": 52,
+   "reason": "standing on the kit's Welsh moor (welshhills ground / preselicrag grass apron, scenery)"
+  },
+  {
+   "who": "crew2",
+   "with": "w-crag",
+   "from": 0,
+   "to": 52,
+   "reason": "standing on the kit's Welsh moor (welshhills ground / preselicrag grass apron, scenery)"
+  },
+  {
+   "who": "crew2",
+   "with": "w-crag",
+   "from": 0,
+   "to": 52,
+   "checks": [
+    "shell"
+   ],
+   "reason": "his boots in the crag's moor-grass apron, the flat painted ground disc round the tor (no rock there: still 20.0 shows him on grass)"
+  },
+  {
+   "who": "chip",
+   "with": "chip-hat",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  },
+  {
+   "who": "chip",
+   "with": "chip-scarf",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  },
+  {
+   "who": "wedge",
+   "with": "wedge-hat",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  },
+  {
+   "who": "wedge",
+   "with": "wedge-scarf",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  },
+  {
+   "who": "mash",
+   "with": "mash-hat",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  },
+  {
+   "who": "mash",
+   "with": "mash-scarf",
+   "from": 0,
+   "to": 52,
+   "reason": "the winter things he wears (kit winter())"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/02-stonehenge/block-b/make-block-b.mjs. Block B of four (kit/BLOCKS.md); music = the EP02 score from 0:50 (kit score(50))."
+}
