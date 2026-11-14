@@ -92,9 +92,12 @@ Today the sun at (0, 0.3) touches the LEFT edge of Stone 56 (the lone tallest st
 | File | Kinds | Task |
 |---|---|---|
 | `engine/page/props-sh-stones.js` | stonehenge (era "new" / "today"; `built` 0..1 puts the stones up in story order; `slope`), and single real-scale pieces for close work: sarsen (knobs), toplintel (holes, ridge, groove), giantpair, bluestone, altarstone, heelstone, fallensarsen | S1 |
-| `engine/page/props-sh-land.js` | shsky (sun az/el as params, the five skies), salisburyplain (frost, long shadows, `slope`), henge (bank + ditch, era), avenue (banks, grooves era), skyline (barrows with bare beeches, tree lines, 2500 BC: far round huts with smoke; today: a far road with tiny lorries), pitcut (the cut-away pit of panel 08), sunshaft (panel 43), ropeline (the visitors' rope), shuttlebus | S2 |
-| `engine/page/props-sh-far.js` | preselicrag (pillar outcrop), welshhills (far layer with a river), britainmap (painted map; `wales` 0..1 and `scotland` 0..1 draw the two lines), manuscript (parchment page; `drawing` 1, 2, 3), haulteam (20 far Stone Age workers on two ropes + stone on a sledge on logs; `along` 0..1, walk on the clip clock), visitorcrowd (far tourists behind the rope) | S3 |
-| `engine/page/props-sh-items.js` + `engine/page/costumes-stoneage.js` + `characters/ancient-aliens/stoneage-*.json` | sheep (chew, headY, lie, blink), crow (perch, hop), bobblehat + scarf (worn, fit Chip / Wedge / Mash), shepherdcrook (planted); stoneage worker and shepherd (fur cape, cord, fur boots on the pilot's worker bodies) | S4 |
+| `engine/page/props-sh-land.js` | shsky (sun az/el as params, the five skies), salisburyplain (frost, `slope`), henge (bank + ditch, era), avenue (banks, grooves era, `cut`), skyline (barrows with bare beeches, tree lines, 2500 BC: far round huts with smoke; today: a far road with tiny lorries), pitcut (the cut-away pit of panel 08), sunshaft (panel 43) | S2 |
+| `engine/page/props-sh-far.js` | preselicrag (pillar outcrop), welshhills (far layer with a river), britainmap (painted map; `wales` 0..1 and `scotland` 0..1 draw the two lines), manuscript (parchment page; `drawing` 1, 2, 3), haulteam (20 far Stone Age workers on two ropes + stone on a sledge on logs; `along` 0..1, walk on the clip clock), stonefolk (far shepherd, watchers, far sheep), visitorcrowd (far tourists behind the rope) | S3 |
+| `engine/page/props-sh-items.js` | sheep (chew, graze, lie, headY, blink), crow (hop, caw, wings), bobblehat + scarf (worn, fit Chip / Wedge / Mash / Spud), ropeline (the visitors' rope), shuttlebus | S4 |
+
+No rigged Stone Age costume (lean): every Stone Age potato in this film is far away, so they are drawn far figures
+in S3's file. Briefs: `briefs/COMMON.md` + `S1.md` .. `S4.md`.
 
 Reused, not rebuilt: `ringship`, `cargoship`, `granitecutter`, alien crew / foreman / lifter, `headlamp`, `limeblock`
 is NOT used here. Near tourists = Chip, Wedge, Mash with bobblehat and scarf. The Wizard on the parchment is drawn in
