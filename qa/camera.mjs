@@ -68,7 +68,8 @@ export function cameraLint(sb, chars = null) {
   }
 
   // across each cut: jump cuts and crossing the line
-  const hfov = (c) => 2 * Math.atan(Math.tan((c.fov * Math.PI) / 360) * LINT.aspect);
+  const aspect = sb.frame === "wide" ? 16 / 9 : LINT.aspect;
+  const hfov = (c) => 2 * Math.atan(Math.tan((c.fov * Math.PI) / 360) * aspect);
   const inView = (c, p) => { const d = sub(p, c.pos), D = len(d); if (D < 1e-6) return false; const a = (angle(c.dir, d.map((x) => x / D)) * Math.PI) / 180; return a < Math.max(hfov(c), (c.fov * Math.PI) / 360) * 0.95 && d[0] * c.dir[0] + d[1] * c.dir[1] + d[2] * c.dir[2] > 0; };
   const people = (t) => (sb.cast || []).flatMap((c) => { const def = chars?.[c.character]; if (!def) return []; const s = actorState(sb, c, def, t); return s.visible === false ? [] : [{ id: c.id, p: [s.x, s.y + 0.5, s.z] }]; });
   for (const i of cuts) {

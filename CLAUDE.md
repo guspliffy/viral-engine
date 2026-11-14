@@ -1,6 +1,6 @@
 # viral-engine
 
-Characters + storyboards in, 1080x1920 30 fps MP4s out: Three.js in headless Chromium (CPU, Mesa llvmpipe) + ffmpeg.
+Characters + storyboards in, 1080x1920 30 fps MP4s out (1920x1080 with `"frame": "wide"`): Three.js in headless Chromium (CPU, Mesa llvmpipe) + ffmpeg.
 Background music `puppet/beat.mjs`, voices `engine/voice/` (VoxCPM2 / Kokoro). Jonny (producer) owns the premise,
 characters, look, new art, rights and money (zero paid AI). State: `docs/STATE.md`. Roadmap: `docs/PLAN.md`.
 

@@ -22,7 +22,9 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   a hand reaching more than 45 cm across its own body for 0.3 s fails (35 cm warns): the shoulder hides and the arm
   reads as coming out of the chest (the fixed Zombie Too hug, Jonny 4 Nov). In a hug each arm goes round the other
   body on its own side. A prop round a body (a tent, a car, a bag) is also measured by its own surface: cloth through
-  a head fails as `shell`, which only a window naming `"shell"` waives, never an "inside the tent" one; a creature
+  a head fails as `shell`, which only a window naming `"shell"` waives, never an "inside the tent" one; a merged
+  scenery mesh as wide as its place (a stone circle, a plain) is marked `userData.surfaceOnly` by its kind and judged
+  by that surface alone, so standing in it needs no window (Stonehenge kit, 14 Nov); a creature
   prop (the bear) through another prop's surface fails as `prop-in-prop`; a held prop more than 6 cm off its glove
   fails as `grip-gap` at any gate (bear camp draft 1, 12 Nov). An arm up inside a helmet glass fails too. Warnings to look at:
   characters touching (a body, hat or helmet within a few centimetres of another body), a forearm running along a

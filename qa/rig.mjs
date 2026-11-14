@@ -30,6 +30,7 @@ import { loadCharacters } from "../engine/load.mjs";
 import { GATE, gateOf, gateLevel, windowFor } from "./gate.mjs";
 import { makeAnimeTiming } from "../engine/shared/anime-timing.js";
 import { rigState, rigRotation, rigOrigin } from "../engine/page/vehicle.js";
+import { frameSize } from "../engine/shared/frame.js";
 // a cast member's character file (cached per storyboard), {} when it can't be loaded
 const DEFS = new WeakMap();
 function defOf(sb, cast) {
@@ -41,12 +42,12 @@ function defOf(sb, cast) {
 const PROJ = new WeakMap();
 export function proj(sb) {
   if (PROJ.has(sb)) return PROJ.get(sb);
-  const cam = new THREE.PerspectiveCamera(32, 1080 / 1920, 0.05, 300), v = new THREE.Vector3(), l = new THREE.Vector3();
+  const { W, H } = frameSize(sb), cam = new THREE.PerspectiveCamera(32, W / H, 0.05, 300), v = new THREE.Vector3(), l = new THREE.Vector3();
   const f = (t, p) => {
     const k = cameraState(sb, storyTime(sb.holds, t));
     cam.position.fromArray(k.pos); cam.fov = k.fov ?? 32; cam.updateProjectionMatrix(); cam.lookAt(l.fromArray(k.look)); cam.updateMatrixWorld(true);
     const q = v.set(p[0] / 1000, p[1] / 1000, p[2] / 1000).project(cam);
-    return q.z > 1 ? null : [((q.x + 1) / 2) * 1080, ((1 - q.y) / 2) * 1920];
+    return q.z > 1 ? null : [((q.x + 1) / 2) * W, ((1 - q.y) / 2) * H];
   };
   PROJ.set(sb, f); return f;
 }

@@ -21,6 +21,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { holdsOf, renderTime } from "../engine/shared/holds.js";
+import { frameSize } from "../engine/shared/frame.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 // effects that change much of the picture at once on purpose (skipped), and particle effects (soft)
@@ -68,7 +69,7 @@ export function pixelPlan(sb, layout) {
   } else if (sb) {
     // no layout: a full-width band at each caption's height
     const holds = sb.holds || holdsOf(sb), R = (s) => renderTime(holds, s);
-    for (const c of sb.captions || []) plan.masks.push({ from: R(c.from), to: R(c.to ?? sb.duration), box: [0, (c.pos ?? 1180) - 80, 1080, 260] });
+    for (const c of sb.captions || []) plan.masks.push({ from: R(c.from), to: R(c.to ?? sb.duration), box: [0, (c.pos ?? 1180) - 80, frameSize(sb).W, 260] });
   }
   return plan;
 }

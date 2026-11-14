@@ -23,6 +23,7 @@ import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState, cameraState } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { RULES } from "./check.mjs";
+import { frameSize, frameSafe } from "../engine/shared/frame.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const vec = (s) => s.split(",").map(Number);
@@ -45,14 +46,14 @@ function args() {
 }
 
 // a lens: world point (metres) -> [x, y] px in the 1080 x 1920 frame, null behind the camera
-export function lens({ pos, look, fov }) {
-  const cam = new THREE.PerspectiveCamera(fov ?? 32, 1080 / 1920, 0.05, 300), v = new THREE.Vector3();
+export function lens({ pos, look, fov }, { W = 1080, H = 1920 } = {}) {
+  const cam = new THREE.PerspectiveCamera(fov ?? 32, W / H, 0.05, 300), v = new THREE.Vector3();
   cam.position.fromArray(pos); cam.lookAt(new THREE.Vector3().fromArray(look)); cam.updateMatrixWorld(true); cam.updateProjectionMatrix();
-  return (p) => { const q = v.set(p[0], p[1], p[2]).project(cam); return q.z > 1 ? null : [((q.x + 1) / 2) * 1080, ((1 - q.y) / 2) * 1920]; };
+  return (p) => { const q = v.set(p[0], p[1], p[2]).project(cam); return q.z > 1 ? null : [((q.x + 1) / 2) * W, ((1 - q.y) / 2) * H]; };
 }
 
 export function camfit(sb, chars, lay, t, cam, { w = 700, h = 100 } = {}) {
-  const P = lens(cam), smp = lay.samples.reduce((b, s) => (Math.abs(s.t - t) < Math.abs(b.t - t) ? s : b), lay.samples[0]);
+  const FR = frameSize(sb), P = lens(cam, FR), smp = lay.samples.reduce((b, s) => (Math.abs(s.t - t) < Math.abs(b.t - t) ? s : b), lay.samples[0]);
   const s = storyTime(sb.holds, t), rows = [];
   for (const c of sb.cast || []) {
     const def = chars[c.character] || {}, st = actorState(sb, c, def, s);
@@ -65,7 +66,7 @@ export function camfit(sb, chars, lay, t, cam, { w = 700, h = 100 } = {}) {
     rows.push({ id: c.id, eyes: L.eyes ? P(L.eyes) : null, mouth: L.mouth ? P(L.mouth) : null, head: P([st.x, top, st.z]), feet: P([st.x, y0, st.z]), box, layoutEyes: L.eyesPx || null });
   }
   // subtitle tops that clear every face and leave each body at most coverWarn covered
-  const band = Array.isArray(sb.captionBand) ? sb.captionBand : [RULES.safe.y0, RULES.safe.y1], x0 = 540 - w / 2, x1 = 540 + w / 2, free = [];
+  const band = Array.isArray(sb.captionBand) ? sb.captionBand : [frameSafe(sb).y0, frameSafe(sb).y1], x0 = FR.W / 2 - w / 2, x1 = FR.W / 2 + w / 2, free = [];
   for (let y = band[0]; y + h <= band[1]; y += 10) {
     const ok = rows.every((r) => {
       const faces = [r.eyes, r.mouth].filter(Boolean);
@@ -89,11 +90,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const r = camfit(sb, chars, lay, o.at, cam, o), px = (p) => (p ? `${Math.round(p[0])},${Math.round(p[1])}` : "behind");
   const tried = !!(o.pos || o.look || o.fov != null);
   console.log(`camfit ${sb.id} at ${o.at} s (layout sample ${r.sample} s), ${tried ? "camera tried" : "the storyboard's camera"}: pos ${cam.pos.join(",")} look ${cam.look.join(",")} fov ${cam.fov}`);
-  const { x0, y0, x1, y1 } = RULES.safe;
+  const { x0, y0, x1, y1 } = frameSafe(sb), FR = frameSize(sb);
   for (const a of r.rows) {
-    const inF = (p) => p && p[0] >= 0 && p[0] <= 1080 && p[1] >= 0 && p[1] <= 1920, safe = a.eyes && a.eyes[0] >= x0 && a.eyes[0] <= x1 && a.eyes[1] >= y0 && a.eyes[1] <= y1;
-    const tall = a.head && a.feet ? Math.round((Math.abs(a.feet[1] - a.head[1]) / 1920) * 100) : null;
-    console.log(`  ${a.id}: eyes ${px(a.eyes)}${a.eyes ? ` (eye line ${Math.round((a.eyes[1] / 1920) * 100)} % down${inF(a.eyes) ? "" : ", OUT OF FRAME"}${inF(a.eyes) && !safe ? ", outside the safe zone" : ""})` : ""}, head top ${px(a.head)}, feet ${px(a.feet)}${tall != null ? `, ${tall} % of the frame tall` : ""}${!tried && a.layoutEyes ? ` [layout eyes ${px(a.layoutEyes)}]` : ""}`);
+    const inF = (p) => p && p[0] >= 0 && p[0] <= FR.W && p[1] >= 0 && p[1] <= FR.H, safe = a.eyes && a.eyes[0] >= x0 && a.eyes[0] <= x1 && a.eyes[1] >= y0 && a.eyes[1] <= y1;
+    const tall = a.head && a.feet ? Math.round((Math.abs(a.feet[1] - a.head[1]) / FR.H) * 100) : null;
+    console.log(`  ${a.id}: eyes ${px(a.eyes)}${a.eyes ? ` (eye line ${Math.round((a.eyes[1] / FR.H) * 100)} % down${inF(a.eyes) ? "" : ", OUT OF FRAME"}${inF(a.eyes) && !safe ? ", outside the safe zone" : ""})` : ""}, head top ${px(a.head)}, feet ${px(a.feet)}${tall != null ? `, ${tall} % of the frame tall` : ""}${!tried && a.layoutEyes ? ` [layout eyes ${px(a.layoutEyes)}]` : ""}`);
   }
   console.log(r.free.length ? `subtitle tops ("pos") clear of every face and body, a ${o.w} x ${o.h} px box in y ${r.band.join("-")}: ${r.free.map(([a, b]) => (a === b ? `${a}` : `${a}-${b}`)).join(", ")}` : `no subtitle top in y ${r.band.join("-")} clears every face and body for a ${o.w} x ${o.h} px box: move the camera, the cast, or shorten the line`);
 }
