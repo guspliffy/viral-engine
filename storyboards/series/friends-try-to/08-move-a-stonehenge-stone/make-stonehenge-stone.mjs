@@ -209,7 +209,7 @@ see(T.creep, T.mash, ["sledge", "chip"], "the runner's tail: a bare 5 cm strip i
 place(T.mash, "mash", WP(-4.9, 1.9), TO_CAM, 0);
 arm(T.mash - 0.02, "mash", "L", "rest", 0.01); arm(T.mash - 0.02, "mash", "R", "rest", 0.01);
 expr(T.mash - 0.02, "mash", "deadpan", { lid: 0.3 }, 0.01); look(T.mash - 0.02, "mash", [0.05, -0.55], 0.01);
-look(T.shade + 0.25, "mash", [0, 0.9], 0.15); expr(T.shade + 0.3, "mash", "shocked", { open: 0.55, eye: 1.3 }, 0.1);
+look(T.shade + 0.25, "mash", [0, 0.6], 0.15); expr(T.shade + 0.3, "mash", "shocked", { open: 0.55, eye: 1.3 }, 0.1);
 c.at(T.shade, { fx: "shade", dur: 1.6, from: -1.4, to: 0.6, width: 2.6, angle: 0, peak: 0.5 });
 sfx(r3(T.shade), "rumble", { gain: 0.35, reason: "a deep hum from far above as something huge comes over" });
 see(T.mash, T.beam, ["mash.face"], "Mash looks up, mouth open, as a giant shadow slides over him");
@@ -258,7 +258,7 @@ const SH = {
   creep: cam([-0.5, 0.26, 1.9], [-2.5, 0.42, 0.75], 44),
   mash:  cam([-4.9, 1.2, 6.4], [-4.9, 1.3, 1.9], 32),
   beam:  cam([14, 0.6, 2.0], [0, 7.5, 0], 66),
-  tag:   cam([0, 1.6, 9.5], [0, 1.0, -6], 48),
+  tag:   cam([0.5, 3.4, 9.5], [-3.5, 0.5, -14], 48),   // high enough that the crew shows over the friends' heads
 };
 const CUTS = [
   ["01 the pull", 0, SH.pull, "hook"],
