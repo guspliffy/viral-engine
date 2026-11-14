@@ -635,7 +635,7 @@ function symbolTex(kind) {
 }
 function buildMap(P) {
   const S = P.spec, G = P.whole, T = mapTextures();
-  const edge = new THREE.Mesh(new THREE.BoxGeometry(MAPW + 0.1, MAPH + 0.1, 0.06), stdm({ color: "#c9b48a" })); edge.position.z = -0.031; edge.userData.solid = false; edge.userData.lookOnly = true; edge.frustumCulled = false; G.add(edge);
+  const edge = new THREE.Mesh(new THREE.BoxGeometry(MAPW + 0.1, MAPH + 0.1, 0.06), stdm({ color: "#c9b48a" })); edge.position.z = -0.08;   /* its front face 5 cm behind the painting: at 1 mm the two fought from 30 m */ edge.userData.solid = false; edge.userData.lookOnly = true; edge.frustumCulled = false; G.add(edge);
   put(G, new THREE.PlaneGeometry(MAPW, MAPH), basicm({ map: T.base }));
   { const W = MAPWIN; put(G, new THREE.PlaneGeometry(W.w, W.h), basicm({ map: T.inset, transparent: true, depthWrite: false, ...offs(2) }), { order: 1 }).position.set(W.x0 + W.w / 2, W.y1 - W.h / 2, 0.003); }
   const INK = "#8f2a1f", st = MAPDOT.stonehenge;

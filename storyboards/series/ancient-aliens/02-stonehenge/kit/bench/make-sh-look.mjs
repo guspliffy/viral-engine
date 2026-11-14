@@ -2,9 +2,9 @@
 // The director's quick check that S1 + S2 sit together; stills only.
 //   node storyboards/series/ancient-aliens/02-stonehenge/kit/bench/make-sh-look.mjs
 import { clip, write, r3 } from "../../../../../lib/clip.mjs";
-import { FRAME, SET_OF, CAST, VIEW, shot, today, past, host, lampClip } from "../sh-kit.mjs";
+import { FRAME, SET_OF, CAST, VIEW, shot, today, past, host, lampClip, PLACE } from "../sh-kit.mjs";
 const F = FRAME[process.env.SH_FRAME || "wide"];
-const O = (i) => [i * 1000, 0];
+const O = PLACE;
 const who = (id, o, x, z, face) => ({ id, character: CAST.spud, at: [r3(o[0] + x), r3(o[1] + z)], face, expr: "kind", follow: 0.2, seed: 2.1 });
 const PLACES = [
   ["todayA", 25, "today", ["axis", "high", "inside"]], ["pastA", 25, "new", ["axis", "high"]],

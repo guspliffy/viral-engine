@@ -5,7 +5,7 @@
 // (sh-proof-wide-sheet.png, sh-proof-tall-sheet.png).
 //
 //   import { FRAME, FAR, SET_OF, sunAt, sunTrack, CAST, VIEW, shot, plain, stones, today, past, visitors, winter, sheep, liftStone,
-//            ringShip, wales, mapBoard, page, haul, host, hostSay, clueTag, sunsetClock, count, score, lampClip } from "../kit/sh-kit.mjs";
+//            ringShip, wales, mapBoard, page, haul, host, hostSay, clueTag, sunsetClock, count, score, lampClip, placeClip, winterClip } from "../kit/sh-kit.mjs";
 //
 // TWO FRAMES, ONE GENERATOR. The film is WIDE (1920 x 1080); each block is also cut TALL (1080 x 1920) as a TikTok part.
 // A block's generator builds its clip in a function of F (FRAME.wide or FRAME.tall) and writes two storyboards:
@@ -15,7 +15,8 @@
 // shows 3.2 times the width in wide, so a tall shot stands closer or pans instead). The WIDE one is the master: Jonny
 // judges its animatic; the tall cut follows after his OK with its own cameras, same timing, same sound.
 //
-// PLACES. One place = one origin o = [x, z], 1000 m apart (the cameras see FAR = 700 m). Everything is REAL scale. Axes
+// PLACES. One place = one origin o = [x, z] = PLACE(i), 2000 m apart (the cameras see FAR = 700 m, and a plain's far skirt
+// reaches 1100 m at y -1.6: closer places would lie over each other's skirt, and the support check reads it as a floor). Everything is REAL scale. Axes
 // (BOARD section 1): the monument's axis is z; +z north-east (entrance, Heel Stone, the default camera), -z south-west
 // (the tallest pair, the sunset), +x screen right from the default camera. Every helper takes an id prefix and returns an
 // ARRAY of prop specs: spread them into `props`.
@@ -30,6 +31,7 @@ import { CAST, HOST_VOICE, host, lampClip, cam } from "../../kit/aa-kit.mjs";
 export { CAST, HOST_VOICE, host, lampClip, cam };
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
+export const PLACE = (i) => [i * 2000, 0];
 export const FAR = 700;
 export const FRAME = {
   wide: { key: "wide", sb: { frame: "wide", far: FAR }, W: 1920, H: 1080, SUB: 150, subSize: 54, NUM: 250, numSize: 120, tag: { y: 52, x: 210, size: 38 }, clock: { y: 52, x: 1690, size: 38 } },
@@ -109,25 +111,31 @@ export const VIEW = {
 };
 export const shot = (F, o, v) => cam(o, v[F.key] ?? v);
 
+// THE CONTACT GATE AND THE KIT'S SCENERY. The land and the stones are merged meshes as wide as the place, so the gate judges
+// them by their real surface only (userData.surfaceOnly; a body that goes THROUGH a stone fails as "shell", and no window
+// waives that), grass is see-through for the checks, and so are the worn hat and scarf. A block needs NO allowClip window
+// for standing on the plain or among the stones, only the pilot's lampClip([...host ids], END) for the headlamp.
+const SCENERY = "kit scenery: the land and the monument";
+
 // ---- the plain: sky, ground, earthwork, Avenue, skyline ----
 // era "today" | "new" (2500 BC). T = story time (sets the sky's painting, the sun, the ground's tint). grooves: "ridges"
 // (today's default) | "cut" (2500 BC, param `cut` on `${id}-avenue`) | "none" (2500 BC default). slope: BOARD's 1.2 for
 // panels 29-30 only. dusk 0..1 (params on `${id}-sky`, `-ground`, `-skyline`).
 export function plain(id, o, { era = "today", T = 25, dusk = 0, slope = 0, grooves = era === "today" ? "ridges" : "none", traffic = true, seed = 1 } = {}) {
-  const [x, z] = o, [sunAz, sunEl] = sunAt(T), time = timeOf(T);
+  const [x, z] = o, [sunAz, sunEl] = sunAt(T), time = timeOf(T), staged = SCENERY;
   return [
     { id: `${id}-sky`, kind: "shsky", x, z, time, sunAz, sunEl, dusk, ...(time === "dusk" && { stars: 40 }) },
-    { id: `${id}-ground`, kind: "salisburyplain", x, z, era, sunAz, sunEl, dusk, seed, ...(slope && { slope }) },
-    { id: `${id}-henge`, kind: "henge", x, z, era },
-    { id: `${id}-avenue`, kind: "avenue", x, z, era, grooves, ...(grooves === "cut" && { cut: 1 }) },
-    { id: `${id}-skyline`, kind: "skyline", x, z, era, dusk, ...(era === "today" && { traffic }) },
+    { id: `${id}-ground`, kind: "salisburyplain", x, z, staged, era, sunAz, sunEl, dusk, seed, ...(slope && { slope }) },
+    { id: `${id}-henge`, kind: "henge", x, z, staged, era },
+    { id: `${id}-avenue`, kind: "avenue", x, z, staged, era, grooves, ...(grooves === "cut" && { cut: 1 }) },
+    { id: `${id}-skyline`, kind: "skyline", x, z, staged, era, sunAz, sunEl, dusk, ...(era === "today" && { traffic }) },
   ];
 }
 // THE STONES of a place: era "today" (the ruin) | "new" (2500 BC; built 0..1 = how far the build is, a param on
 // `${id}-stones`; gap / gapUprights = top stones / uprights left off for a single stone the clip lowers in itself).
 export function stones(id, o, { era = "today", T = 25, built = 1, gap, gapUprights, slope = 0, dusk = 0 } = {}) {
   const [sunAz, sunEl] = sunAt(T);
-  return [{ id: `${id}-stones`, kind: "stonehenge", x: o[0], z: o[1], era, sunAz, sunEl, sunColor: sunEl > 8 ? "#fff3c4" : sunEl > 3 ? "#ffc66a" : "#f0502a", dusk, ...(era === "new" && { built }), ...(gap && { gap }), ...(gapUprights && { gapUprights }), ...(slope && { slope }) }];
+  return [{ id: `${id}-stones`, kind: "stonehenge", x: o[0], z: o[1], era, staged: SCENERY, sunAz, sunEl, sunColor: sunEl > 8 ? "#fff3c4" : sunEl > 3 ? "#ffc66a" : "#f0502a", dusk, ...(era === "new" && { built }), ...(gap && { gap }), ...(gapUprights && { gapUprights }), ...(slope && { slope }) }];
 }
 // today's Stonehenge, complete: the plain + the ruin (+ the visitors' side with rope: true)
 export const today = (id, o, opt = {}) => [...plain(id, o, { ...opt, era: "today" }), ...stones(id, o, { ...opt, era: "today" }), ...(opt.rope ? visitors(id, o, opt.rope === true ? {} : opt.rope) : [])];
@@ -157,7 +165,7 @@ export const sheep = (id, x, z, rot = 0, o = {}) => ({ id, kind: "sheep", x, z, 
 // otherwise it hovers `hover` m over the ring's top. Land it by tweening `${id}-ship` y to RING_SHIP.y.
 export const RING_SHIP = { s: 1.1, y: 6.26 };
 export function ringShip(id, o, { parked = false, hover = 40, beam = 0, lit = 0.4, s = RING_SHIP.s } = {}) {
-  return [{ id: `${id}-ship`, kind: "ringship", x: o[0], y: parked ? RING_SHIP.y : r3(4.9 + hover), z: o[1], s, beam, lit, beamLen: r3(hover / s), beamR: r3(1.4 / s) }];
+  return [{ id: `${id}-ship`, kind: "ringship", x: o[0], y: parked ? RING_SHIP.y : r3(4.9 + hover), z: o[1], s, beam, lit, staged: parked ? "it rests on the ring of top stones" : "it hovers over the ring", beamLen: r3(hover / s), beamR: r3(1.4 / s) }];
 }
 // A SHIP LOWERING ONE STONE into its place: at = [x, z], yaw = the stone's facing (stoneAt gives both), h = how high the
 // stone's foot hangs over the ground. piece "sarsen" (an upright; under = the buried part that shows while it hangs) |
@@ -165,7 +173,7 @@ export function ringShip(id, o, { parked = false, hover = 40, beam = 0, lit = 0.
 export function liftStone(id, at, { piece = "sarsen", yaw = 0, h = 6, hover = 40, beam = 0.5, look = "new", size, under = 0, knobs = 2, shipS = 1 } = {}) {
   const base = piece === "toplintel" ? 4.1 : 0;
   return [
-    { id: `${id}-ship`, kind: "ringship", x: at[0], y: r3(base + hover), z: at[1], s: shipS, beam, lit: 0.4, beamLen: r3(hover / shipS), beamR: r3(1.6 / shipS) },
+    { id: `${id}-ship`, kind: "ringship", x: at[0], y: r3(base + hover), z: at[1], s: shipS, beam, lit: 0.4, staged: "the lift ship hovers over its work", beamLen: r3(hover / shipS), beamR: r3(1.6 / shipS) },
     { id: `${id}-stone`, kind: piece, x: at[0], y: r3(base + h), z: at[1], rot: yaw, look, ...(size && { size }), ...(piece === "sarsen" && { under, knobs }), staged: "it hangs in the lift ship's beam" },
   ];
 }

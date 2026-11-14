@@ -572,6 +572,8 @@ function fuzz(centre, rad, n, len, seed, up = 1) {
 }
 
 // the knitted winter hat: a ribbed turned-up cuff round the head just above the brows, a stitched cap, a pom-pom behind the crown and a slit for the leaf
+// Knitwear sits on the skin on purpose: see-through for the contact checks (userData.steam), like the cloth mask of stage.js clipping()
+const worn = (P) => P.whole.traverse((o) => { if (o.isMesh) o.userData.steam = true; });
 function bobblehat(P) {
   const S = P.spec, BD = wornDef(S), B = wornBody(BD), C = S.color ?? "#c23b3b", POM = S.pom ?? "#f4f1e6";
   const yb = B.frontY(S.rim ?? 33), CUFF = S.cuff ?? 0.062, yt = yb + CUFF;
@@ -616,6 +618,7 @@ function bobblehat(P) {
   { const fm = mat(C, { roughness: 1, side: THREE.DoubleSide }); fm.userData.noOutline = true;
     const L = []; for (let i = 0; i < 46; i++) { const a = rnd(i * 3 + 500) * TAU, y = lerp(yt, B.crown - 0.04, rnd(i * 3 + 501) ** 1.3), p = B.ring(a, y), n = B.normal(a, y); L.push([p.addScaledVector(n, 0.01), n.clone().add(V(rnd(i + 3) - 0.5, rnd(i + 5) - 0.3, rnd(i + 7) - 0.5).multiplyScalar(0.8)).normalize(), 0.014 + 0.012 * rnd(i * 3 + 502), 0.0022, 0.3, V().crossVectors(n, V(0, 1, 0)).normalize(), 0.7, 2]); }
     mesh(cardGeo(L), fm, g).castShadow = false; }
+  worn(P);
   return { grip: 0 };
 }
 
@@ -666,6 +669,7 @@ function scarf(P) {
     mesh(cardGeo(fr), fm, hang).castShadow = false;
     ends.push({ hang, ph: i * 1.7 + 0.4, al });
   }
+  worn(P);
   return {
     grip: 0,
     apply(ps, t) {

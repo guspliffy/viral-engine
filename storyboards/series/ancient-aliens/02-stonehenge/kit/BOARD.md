@@ -82,10 +82,11 @@ Today the sun at (0, 0.3) touches the LEFT edge of Stone 56 (the lone tallest st
 - **The slope (panels 29-30 only):** the real ground falls about 0.5 across the circle while the ring's top is level
   to a few centimetres. For that one place the kinds take `slope` 1.2 (the fall from -x to +x across the circle,
   uprights longer on the low side, ring top level): drawn 2.4 times too strong so it reads on a phone.
-- **Ring ship on the ring (climax):** the pilot's `ringship` at s 1.03 (r 15.5) settles with its hull's underside at
-  y 4.9. Past scenes of the build: it hovers 40 above its work, lift beam r 1.4 (a stone is 2.1 wide).
-- Everything is REAL scale: the earthwork is 110 across and the camera sees 300, so no miniature. The far layer
-  (plain, skyline) is a dome on the camera as in the pilot.
+- **Ring ship on the ring (climax):** the pilot's `ringship` at s 1.1, origin y 6.26 (`RING_SHIP` in sh-kit.mjs, proven
+  on the proof: its hull rests on the ring of top stones, the giant pairs stand in its hole). Past scenes of the build:
+  it hovers 40 above its work, lift beam r 1.4 (a stone is 2.1 wide).
+- Everything is REAL scale: the earthwork is 110 across and the cameras see 700 (`"far": 700`), so no miniature.
+  The sky follows the camera; the plain reaches r 290 and the painted skyline stands behind it.
 
 ## 4. Pieces and owner files
 

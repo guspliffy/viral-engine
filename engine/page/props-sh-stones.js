@@ -555,7 +555,7 @@ function geoOf(A) {
   g.computeBoundingSphere(); return g;
 }
 const mkMat = (key) => { const m = new THREE.MeshBasicMaterial({ color: "#ffffff", map: sheet(key), vertexColors: true, toneMapped: false, side: THREE.DoubleSide }); m.userData.noOutline = true; return m; };
-const place = (parent, geo, m, solid) => { const o = new THREE.Mesh(geo, m); o.castShadow = o.receiveShadow = false; o.frustumCulled = false; o.userData.lookOnly = true; o.userData.solid = !!solid; parent.add(o); return o; };
+const place = (parent, geo, m, solid) => { const o = new THREE.Mesh(geo, m); o.castShadow = o.receiveShadow = false; o.frustumCulled = false; o.userData.lookOnly = true; o.userData.solid = !!solid; o.userData.surfaceOnly = true; parent.add(o); return o; };
 const mat4 = (x, y, z, yawDeg = 0, tipDeg = 0, tiltDeg = 0) => new THREE.Matrix4().compose(new THREE.Vector3(x, y, z), new THREE.Quaternion().setFromEuler(new THREE.Euler(tipDeg * DEG, yawDeg * DEG, tiltDeg * DEG, "YXZ")), new THREE.Vector3(1, 1, 1));
 // grass tufts along a ring of ground points [[x, z]] (world), y from the ground function
 function tufts(G, pts, cfg, seed, y0 = 0) {

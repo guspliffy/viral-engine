@@ -86,8 +86,14 @@ least every 3 seconds, numbers count or punch in, the voice is deadpan not flat,
 - Host: Spud (`potatobrawl/spud`) with the headlamp band in every scene (`host()`), lamp off (it is day). He holds
   nothing: he points, knocks, or lays a palm flat on stone (the palm on a stone is the cut to 2500 BC, same frame).
   Reaper's voice: every line with `hostSay(c, F, t, who, line, dur)` (never `c.say`). Lines are STORY.md's, word for
-  word. `allowClip: lampClip([...], END)`; a prop in the air on purpose carries `staged`. Never two voices at once.
-  Time everything after a line from the spoken length the render prints.
+  word. Never two voices at once. Time everything after a line from the spoken length the render prints.
+- **Places and the checks.** One place per origin `PLACE(i)` (2000 m apart, never closer: a plain's far skirt reaches
+  1100 m). The kit's land and stones need NO check window: the gate judges them by their real surface, so a body that
+  goes through a stone fails as "shell" and must be moved, not waived. Hat and scarf are see-through for the checks.
+  The only standing window is `allowClip: lampClip([...host ids], END)`; a crew member ON the parked ship takes one
+  window with `r<id>-ship` and a reason. A prop in the air on purpose carries `staged` (the kit's ships and lifted
+  stones already do). `bench/make-sh-proof.mjs` passes preflight in both frames: copy from it (map cameras
+  `MAP_VIEW.south` / `.north` in wide, `.all` in tall; the plant shot = `ringShip(id, o, { hover: 16 })`).
 - Each block starts and ends on a hard cut at its story time; keep its length within 1 s of its slot. First and last
   0.3 s: no line running, no move half done. Each block's first 2.5 s must work alone as a TikTok opening.
 - Captions in the upper third, never over eyes or faces. `clueTag(c, F, t0, t1, n)` in the block where the clue
