@@ -18,11 +18,17 @@
 // a body too: it is followed through its "prop" tweens of x, y and z and checked against the cast and the other walkers,
 // on a circle 0.6 x its height "h" (default 0.85) across (a streetpotato is about that wide), while it stands within 0.3 m of the floor (13 Nov 2026: the
 // neighbours walked through each other in a draft Jonny saw, and no check could see props).
+// A set kind's upright posts that its mesh draws but no footprint describes (engine/shared/obstacles.js: the gorge's bridge
+// posts) are round floor props too, checked against every body that stands between the post's foot and its top, wherever
+// the body's height puts it (14 Nov 2026: Chip was pulled through a bridge post in the final Jonny saw, There's a catch 09b).
+// A post counts from 12 cm in (or --gap if larger): the ellipse is the body's widest slice and the post is a line, so a body
+// whose back only touches a post reads 4-10 cm here (09b's final, clean in every frame), the post Jonny saw read 24 cm.
 // Clearance is a staging guide: the layout's contact checks (render.mjs --layout) stay the gate.
 import { loadStoryboard, loadCharacters } from "../engine/load.mjs";
 import { actorState } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { windowFor } from "./gate.mjs";
+import { postsOf } from "../engine/shared/obstacles.js";
 import { pathToFileURL } from "node:url";
 import { ease, prog, lerp } from "../engine/page/util.js";
 
@@ -54,7 +60,7 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
   const fps = sb.fps ?? 30, end = to ?? sb.duration, hits = new Map();
   const cast = (sb.cast || []).map((c) => {
     const def = chars[c.character] || {}, B = def.body || {}, k = c.scale ?? def.scale ?? 1;
-    return { c, def, a: ((B.width ?? 0.8) / 2) * k, b: ((B.depth ?? B.width ?? 0.7) / 2) * k };
+    return { c, def, a: ((B.width ?? 0.8) / 2) * k, b: ((B.depth ?? B.width ?? 0.7) / 2) * k, h: (B.height ?? 1) * k };
   });
   const floor = (sb.props || []).map((p) => {
     // a footprint, and a height that stands up off the floor (a floor or a rug has none: it is walked on)
@@ -71,6 +77,7 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
     for (const a of w.acts) { if (a.at > s) break; const e = ease(a.ease || "inOut")(prog(s, a.at, a.dur ?? 0.3)); for (const k of ["x", "y", "z"]) if (typeof a.set[k] === "number") o[k] = lerp(o[k], a.set[k], e); }
     return o;
   };
+  const posts = (sb.props || []).flatMap((p) => postsOf(p).map((q) => ({ ...q, id: p.id, name: `${p.id} post (${q.x.toFixed(1)}, ${q.z.toFixed(1)})` })));
   const mark = (key, t, pen) => {
     const runs = hits.get(key) || hits.set(key, []).get(key), r = runs[runs.length - 1];
     if (r && t - r.to < 1.5 / fps) { r.to = t; if (pen > r.worst) { r.worst = pen; r.at = t; } } else runs.push({ from: t, to: t, worst: pen, at: t });
@@ -105,6 +112,12 @@ export function clearance(sb, chars, { from = 0, to = null, gap = 0.03, props = 
       const pen = reach(A.a, A.b, A.s.yaw, dx, dz) + reach(P.a, P.b, P.yaw, -dx, -dz) - d;
       if (pen > gap && !windowFor(sb, "character-overlap", A.c.id, t, P.id) && !windowFor(sb, "clipping", A.c.id, t, P.id)) mark(`${A.c.id} / ${P.id}`, t, pen);
     }
+    for (const A of st) for (const P of posts) {
+      const y = A.s.y ?? 0;
+      if (y > P.y + P.h || y + A.h < P.y) continue;
+      const dx = P.x - A.s.x, dz = P.z - A.s.z, pen = reach(A.a, A.b, A.s.yaw, dx, dz) + P.r - Math.hypot(dx, dz);
+      if (pen > Math.max(gap, 0.12) && !windowFor(sb, "character-overlap", A.c.id, t, P.id) && !windowFor(sb, "clipping", A.c.id, t, P.id)) mark(`${A.c.id} / ${P.name}`, t, pen);
+    }
   }
   const out = [];
   for (const [key, runs] of hits) for (const r of runs) out.push({ pair: key, from: +r.from.toFixed(2), to: +r.to.toFixed(2), worst: +r.worst.toFixed(2), at: +r.at.toFixed(2) });
@@ -116,5 +129,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   const res = clearance(sb, chars, o), checked = (sb.props || []).filter((p) => o.props[p.id] || ((p.h ?? 0) >= 0.1 && (p.y ?? 0) <= 0.3 && (p.r != null || (p.w != null && p.d != null)))).map((p) => p.id);
   if (o.json) { console.log(JSON.stringify(res, null, 2)); process.exit(0); }
   for (const r of res) console.log(`  ${r.pair}: ${Math.round(r.worst * 100)} cm into each other at ${r.from.toFixed(2)}-${r.to.toFixed(2)} s (worst at ${r.at.toFixed(2)} s)`);
-  console.log(`${res.length ? `${res.length} overlap${res.length === 1 ? "" : "s"}` : "clear"} on the floor plan (bodies${checked.length ? `, floor props ${checked.join(", ")}` : ", no floor prop has a footprint: give one with --prop id=w,d"}) in ${Date.now() - t0} ms`);
+  const sets = (sb.props || []).filter((p) => postsOf(p).length).map((p) => p.id);
+  console.log(`${res.length ? `${res.length} overlap${res.length === 1 ? "" : "s"}` : "clear"} on the floor plan (bodies${sets.length ? `, set posts of ${sets.join(", ")}` : ""}${checked.length ? `, floor props ${checked.join(", ")}` : ", no floor prop has a footprint: give one with --prop id=w,d"}) in ${Date.now() - t0} ms`);
 }

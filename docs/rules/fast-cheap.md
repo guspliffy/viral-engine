@@ -6,7 +6,8 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
   missed every grip glitch, so look at grabs, raises and touches as a 10–15 fps strip.
 - Sound-only changes: `--audio-only` (seconds) instead of a re-render.
 - **Fewer layout passes** (9 Nov 2026: a clip ran about 28, each about 2 min and several turns of a long context):
-  - `node qa/clear.mjs <sb>` after every staging edit: bodies in each other, in floor props or in walking props (a crowd) on a floor plan, 1-2 s.
+  - `node qa/clear.mjs <sb>` after every staging edit: bodies in each other, in floor props, in walking props (a crowd) or in
+    a set's posts (`engine/shared/obstacles.js`: list a new set's uprights there) on a floor plan, 1-2 s.
   - `node qa/camfit.mjs <sb> --at <s> --pos ... --look ... --fov ...` to try a camera or a subtitle spot: the faces,
     eye lines and free subtitle tops for that camera from the last layout, in a second (eyes match the layout's px).
   - Fix rounds: `node engine/render.mjs <sb> --layout --from 3 --to 4.5` lays out only those seconds into the last full
