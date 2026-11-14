@@ -12,7 +12,10 @@
   "feet": 2,
   "overlap": true,
   "timing": true,
-  "solve": true
+  "solve": true,
+  "feetTune": {
+   "tip": 0
+  }
  },
  "rig": {
   "hand": 2,

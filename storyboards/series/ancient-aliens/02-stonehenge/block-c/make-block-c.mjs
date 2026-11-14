@@ -22,7 +22,13 @@
 //   27  the crew alien taps the joint with his boot (no reach to his feet on a 1 m wide top stone); Spud hops on it.
 //   29  no drawn level line (the kit has no standing line); the long lens shows it, and 30's spirit level proves it.
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
-import { FRAME, SET_OF, CAST, PLACE, shot, today, past, sheep, liftStone, ringShip, stoneAt, host, hostSay, clueTag, sunsetClock, score, lampClip } from "../kit/sh-kit.mjs";
+import { FRAME, SET_OF, CAST, PLACE, shot, today, past, sheep, liftStone, ringShip, stoneAt, host, hostSay, clueTag, sunsetClock, score, partScore, hookOf, lampClip } from "../kit/sh-kit.mjs";
+
+// THE TALL PART'S HOOK (kit BLOCKS.md "The vertical parts open on their own hook"): the tall c1 starts with a 3.0 s hook
+// shot the film does not have; everything after it runs H later. shifted(c, H) is the clip with every time moved by H.
+const shifted = (c, H) => (!H ? c : { ...c,
+  at: (t, it) => c.at(t + H, it), A: (t, w, d, o) => c.A(t + H, w, d, o), prop: (t, ...r) => c.prop(t + H, ...r), sfx: (t, ...r) => c.sfx(t + H, ...r),
+  arm: (t, ...r) => c.arm(t + H, ...r), still: (t, ...r) => c.still(t + H, ...r), cap: (f, t, ...r) => c.cap(f + H, t + H, ...r) });
 
 const TALL = process.argv.includes("--tall");
 const FRAMES = TALL ? [FRAME.wide, FRAME.tall] : [FRAME.wide];
@@ -58,7 +64,7 @@ const num = (c, F, t0, t1, text, o = {}) => c.cap(r3(t0), r3(t1), text, o.pos ??
 
 const META = {
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", cleanStart: true,
-  motion: { feet: 2, overlap: true, timing: true, solve: true }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: false, animeTiming: true,
+  motion: { feet: 2, overlap: true, timing: true, solve: true, feetTune: { tip: 0 } }, rig: { hand: 2, eyes: 2, hold: 2 }, physics: false, animeTiming: true,
 };
 const who = (id, character, o, x, z, face, extra = {}) => ({ id, character, at: [r3(o[0] + x), r3(o[1] + z)], face: r3(face), expr: "kind", follow: 0.2, seed: 2.1, ...extra });
 // a point on a circle round a place's centre: angle a in degrees from +z toward -x (BOARD section 1), radius r
@@ -75,7 +81,7 @@ const resun = (props, sunAz, sunEl, sunColor) => props.map((p) => (p.sunAz != nu
 
 // ===================================================================== aa02-c1: story 1:42-2:14 (32.0 s)
 function c1(F) {
-  const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A } = c, W = F.key === "wide";
+  const H = hookOf(F, "c"), c0 = clip({ faces: "strong", lines: { sub: true, blink: false } }), c = shifted(c0, H), { A } = c, W = F.key === "wide";
   const P = { knobs: PLACE(0), lift: PLACE(1), joint: PLACE(2), top: PLACE(3), slope: PLACE(4), plant: PLACE(5) };
   const T = { knobs: 0, palm: 2.2, past: 3.0, knobsPast: 3.8, lift: 6.0, joint: 9.0, top: 14.0, slope: 21.0, kneel: 25.0, plant: 28.0, END: 32.0 };
   const TS = (t) => T0.c1 + t;   // story time of a clip time
@@ -91,7 +97,9 @@ function c1(F) {
   const camPalm = (o, k = 0) => at(o, [...ringXYZ(r3(195.5 - 1.2 * k), 13.4, 0.8)], [...ringXYZ(186.5, 14.6, 0.8)], W ? 44 : 58);
   function ringXYZ(a, r, y) { const [x, z] = ring([0, 0], a, r); return [x, y, z]; }
   const [l16x, l16z] = ring(P.lift, 192), L16YAW = r3(180 - 192);
-  const crowAt = ring(P.knobs, A16 + 1.85, 15.5);   // on the +x knob of Stone 16 (knobs at +-0.5 m along the stone)
+  // on the knob of today's Stone 16 that is left (its +x knob is worn away): local x -0.5 = 1.85 deg back along the ring;
+  // its top: 4.1 + the domed top there (0.097) - 0.02 + 0.16 (props-sh-stones.js uprightSoup, seed 1 * 131 + 16)
+  const crowAt = ring(P.knobs, A16 - 1.85, 15.5), CROW_Y = 4.335;
 
   // ---- 27: the joint between top stones 19 and 20, over upright 20 (angle 234); 20 comes down
   const [l20x, l20z] = ring(P.joint, 240), L20YAW = r3(180 - 240);
@@ -113,15 +121,15 @@ function c1(F) {
   const props = [
     // 25 today: the ruin, a crow on Stone 16's knob
     ...today("k0", P.knobs, { T: TS(0) }),
-    { id: "crow0", kind: "crow", x: crowAt[0], y: 4.27, z: crowAt[1], rot: 120, staged: "it sits on the knob, then flies off" },
+    { id: "crow0", kind: "crow", x: crowAt[0], y: CROW_Y, z: crowAt[1], rot: 120, staged: "it sits on the knob, then flies off" },
     host("spud1"),
     // 26 2500 BC: top stones 15 and 16 still off; the ship lowers 16 onto its knobs
     ...past("p1", P.lift, { T: TS(4), gap: [15, 16] }),
-    ...liftStone("l1", [l16x, l16z], { piece: "toplintel", yaw: L16YAW, h: 3.2, hover: 40, beam: 0.35 }),
+    ...liftStone("l1", [l16x, l16z], { piece: "toplintel", yaw: L16YAW, h: 3.2, hover: 40, beam: 0.22 }),
     host("spud2"),
     // 27 top stone 20 comes down beside 19; Spud and a crew alien stand on 19
     ...past("p2", P.joint, { T: TS(11), gap: [20] }),
-    ...liftStone("l2", [l20x, l20z], { piece: "toplintel", yaw: L20YAW, h: 1.1, hover: 40, beam: 0.35 }),
+    ...liftStone("l2", [l20x, l20z], { piece: "toplintel", yaw: L20YAW, h: 1.1, hover: 40, beam: 0.22 }),
     host("spud3"),
     // 28 from high (the sheet's three-quarter view): the ring of top stones closes (built 0.7 -> 0.95), a small ship lowers the last one (15, south-west)
     ...past("p3", P.top, { T: TS(16), built: 0.7, gap: [15] }),
@@ -135,7 +143,9 @@ function c1(F) {
     ...past("p5", P.plant, { T: TS(30) }), ...ringShip("r5", P.plant, { hover: 22 }),
     host("spud5"),
   ];
-  c.prop(0, "l1-ship", { beam: 0.35, wobble: 0 }, 0); c.prop(0, "l2-ship", { beam: 0.35, wobble: 0 }, 0); c.prop(0, "r5-ship", { beam: 0, wobble: 0 }, 0); c.prop(0, "last3-ship", { beam: 0.6, wobble: 0 }, 0);
+  // the beam stays faint on the close shots (a strong beam washes out the stone inside it) and opens for the lift
+  c.prop(0, "l1-ship", { beam: 0.08, wobble: 0 }, 0); c.prop(0, "l2-ship", { beam: 0.08, wobble: 0 }, 0);
+  c.prop(T.lift, "l1-ship", { beam: 0.3 }, 0); c.prop(T.joint, "l1-ship", { beam: 0.08 }, 0); c.prop(0, "r5-ship", { beam: 0, wobble: 0 }, 0); c.prop(0, "last3-ship", { beam: 0.35, wobble: 0 }, 0);
   c.prop(0, "p3-stones", { built: 0.7 }, 0); c.prop(0, "dia3", { draw: 0 }, 0); c.prop(0, "lev4", { bubble: -1 }, 0);
   c.prop(0, "crow0", { hop: 0, caw: 0, wings: 0, headY: 0 }, 0);
 
@@ -242,7 +252,7 @@ function c1(F) {
   say(c, F, 28.5, "why", "spud5");
   A(31.4, "spud5", "noblink", { dur: 0.6 });
 
-  sunsetClock(c, F, T0.c1, 0, T.END);
+  sunsetClock(c0, F, T0.c1 - H, 0, T.END + H);
   const shots = [
     ["knobs", T.knobs, move(camKnobs(P.knobs), camKnobs(P.knobs, 1), 2.2)],
     ["palm", T.palm, move(camPalm(P.knobs), camPalm(P.knobs, 0.4), 0.8)],
@@ -261,11 +271,27 @@ function c1(F) {
     ["plant", T.plant, W
       ? move(at(P.plant, [0.6, 0.75, 10.8], [0, 10.5, -8], 72), at(P.plant, [0.6, 0.7, 10.3], [0, 11.5, -8], 72), 4.0)
       : move(at(P.plant, [0.5, 0.75, 11.0], [0, 10.5, -8], 76), at(P.plant, [0.5, 0.7, 10.5], [0, 11.5, -8], 76), 4.0)],
-  ];
-  return { id: `aa02-c1-${F.key}`, set: SET_OF(T0.c1 + 16), music: score(T0.c1), cast, props, c, shots, END: T.END,
+  ].map(([n, t, v]) => [n, r3(t + H), v]);
+  if (H) {
+    // 2500 BC, close: a top stone comes down in the beam onto two knobs (uprights 5 and 6): CLACK; "4,500 YEARS OLD"
+    const o = PLACE(6), [lx, lz] = ring(o, 60);
+    props.push(...past("hk", o, { T: TS(2), gap: [5] }), ...liftStone("hk", [lx, lz], { piece: "toplintel", yaw: 120, h: 2.4, hover: 40, beam: 0.3 }));
+    cast.push(who("spudH", CAST.spud, o, ...rel(o, ring(o, 66, 13.3)), faceTo(ring(o, 66, 13.3), ring(o, 66, 16))));
+    props.push(host("spudH"));
+    c0.prop(0, "hk-ship", { beam: 0.08, wobble: 0 }, 0);
+    c0.prop(0, "hk-stone", { y: 4.1 }, 1.9, "in");
+    c0.sfx(0, "kenney/space-engine-low", { gain: 0.12, dur: 2.9, reason: "the ship's low hum" });
+    c0.sfx(1.9, "kenney/impact-mining", { gain: 0.85, reason: "stone holes onto stone knobs: the clack" }); c0.sfx(1.92, "thud", { gain: 0.55, reason: "its weight" });
+    hostSay(c0, F, 0.2, "spudH", "Who taught the Stone Age this?", 1.7, "question", { hold: 0.2 });
+    num(c0, F, 0.3, 2.95, "4,500 YEARS OLD", { size: Math.round(F.numSize * 0.8) });
+    shots.unshift(["hook", 0, move(at(o, [...ringXYZ(60, 20.6, 5.3)], [...ringXYZ(60, 15.5, 4.5)], 50), at(o, [...ringXYZ(60, 20.0, 5.2)], [...ringXYZ(60, 15.5, 4.45)], 50), 3.0)]);
+  }
+  return { id: `aa02-c1-${F.key}`, set: SET_OF(T0.c1 + 16), music: H ? partScore("c") : score(T0.c1), cast, props, c: c0, shots, END: T.END + H,
     lamps: cast.filter((x) => x.character === CAST.spud).map((x) => x.id),
     hook: { show: ["crow0"], hint: 0, what: "part 3 opens on the knobs (\"Look at the top of this stone.\")" },
-    windows: [{ who: "spud2", with: "spud2-lamp", from: 6.4, to: 8.9, checks: ["shell"], reason: "the worn headlamp band while the beam carries him through the air, arms out (worn on his head as in every scene)" }] };
+    windows: [...(H ? [{ who: "spud2", from: r3(6.0 + H), to: r3(9.0 + H), checks: ["face-covered"], reason: "tall lift shot: the beam lifts him, his arms fly out and back down; his hand passes his eyes for a few frames on the way (a flinch, from the side)" }] : []),
+      { who: "spud4", from: r3(21.0 + H), to: r3(25.0 + H), checks: ["lean-jump"], reason: "the walk's own start and stop tip on the ring's top in the long-lens slope shot, where he is about 30 px tall (feetTune tip 0 did not change it)" },
+      { who: "spud2", with: "spud2-lamp", from: r3(6.4 + H), to: r3(8.9 + H), checks: ["shell"], reason: "the worn headlamp band while the beam carries him through the air, arms out (worn on his head as in every scene)" }] };
 }
 
 // ===================================================================== aa02-c2: story 2:14-2:36 (22.0 s)
@@ -381,7 +407,7 @@ function c2(F) {
     ["rise", T.rise, W ? move(at(P.rise, [0, 9, -34], [0, 3.2, 120], 30), at(P.rise, [0, 8.4, -30], [0, 2.9, 120], 30), 3.5)
       : move(at(P.rise, [0, 9, -40], [0, 5, 120], 44), at(P.rise, [0, 8.4, -36], [0, 4.6, 120], 44), 3.5)],
     ["set", T.set, W ? move(at(P.set, [-1.5, 9.0, 52], [0, 4.2, -30], 30), at(P.set, [-1.4, 8.6, 49], [0, 4.2, -30], 30), 3.5)
-      : move(at(P.set, [1.2, 6, 110], [0, 5.5, -30], 38), at(P.set, [1.2, 5.6, 104], [0, 5.5, -30], 38), 3.5)],
+      : move(at(P.set, [-1.0, 9.0, 56], [0, 5.6, -30], 40), at(P.set, [-0.9, 8.6, 53], [0, 5.6, -30], 40), 3.5)],
     ["now", T.now, W ? move(at(P.now, [0.2, 1.3, 84.5], [0.4, 2.0, 20], 30), at(P.now, [0.2, 1.25, 82.5], [0.4, 1.9, 20], 30), 4.0)
       : move(at(P.now, [0.6, 1.3, 81], [0.6, 2.6, 20], 50), at(P.now, [0.6, 1.25, 79.5], [0.6, 2.5, 20], 50), 4.0)],
     ["then", T.then, W ? move(at(P.then, [0.2, 1.25, 82.5], [0.4, 1.9, 20], 30), at(P.then, [0.2, 1.22, 81.5], [0.4, 1.85, 20], 30), 3.5)

@@ -12,7 +12,10 @@
   "feet": 2,
   "overlap": true,
   "timing": true,
-  "solve": true
+  "solve": true,
+  "feetTune": {
+   "tip": 0
+  }
  },
  "rig": {
   "hand": 2,
@@ -225,9 +228,9 @@
   {
    "id": "crow0",
    "kind": "crow",
-   "x": 2.117,
-   "y": 4.27,
-   "z": -15.355,
+   "x": 1.122,
+   "y": 4.335,
+   "z": -15.459,
    "rot": 120,
    "staged": "it sits on the knob, then flies off"
   },
@@ -315,7 +318,7 @@
    "y": 44.1,
    "z": -15.161,
    "s": 1,
-   "beam": 0.35,
+   "beam": 0.22,
    "lit": 0.4,
    "staged": "the lift ship hovers over its work",
    "beamLen": 40,
@@ -414,7 +417,7 @@
    "y": 44.1,
    "z": -7.75,
    "s": 1,
-   "beam": 0.35,
+   "beam": 0.22,
    "lit": 0.4,
    "staged": "the lift ship hovers over its work",
    "beamLen": 40,
@@ -1628,7 +1631,7 @@
      "do": "prop",
      "id": "l1-ship",
      "set": {
-      "beam": 0.35,
+      "beam": 0.08,
       "wobble": 0
      },
      "dur": 0,
@@ -1639,7 +1642,7 @@
      "do": "prop",
      "id": "l2-ship",
      "set": {
-      "beam": 0.35,
+      "beam": 0.08,
       "wobble": 0
      },
      "dur": 0,
@@ -1661,7 +1664,7 @@
      "do": "prop",
      "id": "last3-ship",
      "set": {
-      "beam": 0.6,
+      "beam": 0.35,
       "wobble": 0
      },
      "dur": 0,
@@ -2131,6 +2134,16 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "l1-ship",
+     "set": {
+      "beam": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
      "who": "spud2",
      "do": "arm",
      "side": "R",
@@ -2315,6 +2328,16 @@
     "dur": 5
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "l1-ship",
+     "set": {
+      "beam": 0.08
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
     {
      "do": "prop",
      "id": "l2-stone",
@@ -2913,6 +2936,15 @@
    "from": 0,
    "to": 32,
    "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud4",
+   "from": 21,
+   "to": 25,
+   "checks": [
+    "lean-jump"
+   ],
+   "reason": "the walk's own start and stop tip on the ring's top in the long-lens slope shot, where he is about 30 px tall (feetTune tip 0 did not change it)"
   },
   {
    "who": "spud2",
