@@ -1,6 +1,6 @@
 // Friends try to 08 "How could 4 friends move a Stonehenge stone?": the haul set (14 Nov 2026). Design:
 // storyboards/series/friends-try-to/08-move-a-stonehenge-stone/DESIGN.md (sections 1-4; hands section 5). Bench:
-// storyboards/series/friends-try-to/08-move-a-stonehenge-stone/bench (make-ftt-haul.mjs, ftt-haul-sheet.png). SIX kinds, nothing is held (FTT_HAUL_GRIPS = {}).
+// storyboards/series/friends-try-to/08-move-a-stonehenge-stone/bench (make-ftt-haul.mjs, ftt-haul-sheet.png). SEVEN kinds, nothing is held (FTT_HAUL_GRIPS = {}).
 //
 // THE SET FRAME (every number below, metres): s = forward along the travel line (local +x), r = to the RIGHT of travel (local +z), y up;
 // G = the ground under the middle of the stone. Place every kind at the same prop position and `rot: 180` (haullash: rot 0, as the stone), then
@@ -50,8 +50,27 @@
 //   pivotstone  origin bottom centre: a lumpy round boulder 1.05 (s) x 0.93 high x 1.00 (r), sunk 0.05, its top exactly at local (0, 0.93, 0) with a
 //               worn saddle 0.12 wide for the pole; flat-shaded facets, ~260 flecks, frost on its upper -r (shade) side, 24 grass tufts at the foot.
 //               Set (-2.64, 0, 0). spec.seed 1. SOLID.
+//   haulcrew    origin = the middle of the sledge's front bar on the ground (place it at set s 2.5, rot 180: local +x = forward, local x = set s - 2.5, local z = r).
+//               A crowd of far Stone Age potatoes hauling OUR sledge on two ropes. The figures are the far figures of haulteam (props-sh-far.js: golden
+//               egg 0.85 tall, two-brown fur cape with a cord, fur boots, dot eyes, stick arms, round hands) at a lighter tessellation, one instanced
+//               mesh per unit (body, cape, cord+face, boots x2, arms x2, hands x2, ground blob), facing +x, leaning into the ropes.
+//               spec.n 40 (1..260): figures, alternating the -z file (even index) and the +z file (odd), so row = floor(i / 2).
+//               spec.fileZ 1.25: the ropes' z (+-); the figures stand 0.32 outside it (z +-1.57). spec.rowGap 1.05 (m along x). spec.start 3.2 (x of row 0).
+//               250 figures = 125 rows, x 3.2..133.4. The two ropes (0.07 thick, twisted, brown #a8875a, 6 sides, sampled every 0.1 m) run from
+//               (0, 0.77, +-0.88) (the sledge's rope collars) to each file's first hand (x start + 0.62, y 0.5, z +-fileZ), then straight at y 0.5 along the file;
+//               1.0 m past the last SHOWN figure's x (the hands reach 0.62..0.73 ahead of a figure) the end sinks and lies on the ground (y 0.035).
+//               Every hand sits on its rope. Variety per figure from a hash of its index: height 0.85 +-6 %, cape colour (haulteam's two browns),
+//               lean 18-26 deg, step phase, body tone.
+//               PARAMS (each also reads spec.<name> as its start value; tween as any number):
+//                 heave 0..1 (1): 0 standing upright (hands still on the ropes), 1 full lean into the rope; scales lean and the lean pulse.
+//                 walk  0..1 (0): 0 feet planted, straining (the lean pulses, no steps, no bob); 1 stepping forward at 1.15 steps a second with bob, sway, roll.
+//                 grow  0..1 (1): figures shown = round(n * grow), the first (nearest the sledge) rows first, so 40 -> 250 lengthens the line; the ropes follow.
+//                                 grow 0 hides the whole prop. The clip clock (t) drives step phase and pulse: the same time gives the same pose.
+//               Not solid; every mesh lookOnly + surfaceOnly + steam (out of the body checks, ground blobs and light box), no shadow-map shadows.
+//               Triangles at n 260, grow 1: see userData.triangles (unique geometry: 7 unit meshes + 2 rope meshes) and userData.trianglesDrawn (instances x geometry).
 // Prop sizes the director's staging uses: see DESIGN section 2 (stone) and 5 (hands). Triangles (bench): see the delivery report.
 import * as THREE from "three";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 
 const TAU = Math.PI * 2, DEG = Math.PI / 180;
 const hs = (i, k = 0) => { const x = Math.sin(i * 127.1 + k * 311.7 + 17.3) * 43758.5453; return x - Math.floor(x); };
@@ -634,10 +653,122 @@ function buildPivot(P) {
   return finish(P, g, [B, T]);
 }
 
+// ================================================================================================================ haulcrew
+// The figure kit is COPIED from engine/page/props-sh-far.js (haulteam's far potatoes: FIG, units(), armMat, buildHaul's instanced frame()), at a lighter
+// tessellation for 260 of them. Parts face +z at the origin there; the frame() below turns them to +x exactly as haulteam does.
+const CW = { rx: 0.34, ry: 0.4, rz: 0.31, cy: 0.44 }, CW_GOLD = "#e2a95c", CW_FUR = ["#7a5a3c", "#8d8478"], CW_BOOT = "#5d4630";
+const cwColored = (g, c) => {   // plain geometry: no index, no uv, a vertex colour (a flat colour or a function (x, y, z) -> [r, g, b])
+  g = g.index ? g.toNonIndexed() : g; g.deleteAttribute("uv");
+  const p = g.attributes.position, a = new Float32Array(p.count * 3), flat = typeof c !== "function", cc = flat ? col(c) : null;
+  for (let i = 0; i < p.count; i++) { const q = flat ? cc : c(p.getX(i), p.getY(i), p.getZ(i)); a[i * 3] = q[0]; a[i * 3 + 1] = q[1]; a[i * 3 + 2] = q[2]; }
+  g.setAttribute("color", new THREE.BufferAttribute(a, 3)); return g;
+};
+let CW_UNITS = null;
+function crewUnits() {
+  if (CW_UNITS) return CW_UNITS;
+  const { rx, ry, rz, cy } = CW, white = [1, 1, 1];
+  const egg = new THREE.SphereGeometry(1, 14, 10);
+  { const p = egg.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + 0.07 * (hs(Math.round(p.getX(i) * 40) * 3.1 + Math.round(p.getY(i) * 40) * 7.7 + Math.round(p.getZ(i) * 40) * 11.3) - 0.5); p.setXYZ(i, p.getX(i) * k * rx, p.getY(i) * k * ry + cy, p.getZ(i) * k * rz); } egg.computeVertexNormals(); }
+  const body = cwColored(egg, (x, y) => { const k = 0.93 + 0.14 * clamp((y - 0.1) / 0.7); return [k, k, k]; });
+  // cape: rings from the neck down, back and sides, front open, an uneven fur hem
+  const cape = new Soup(), TH = [1.0, 1.25, 1.5, 1.7, 1.85], NJ = 14, SPAN = 1.55, K = 1.1;
+  const capeP = (th, ph) => [rx * K * Math.sin(th) * Math.sin(ph), cy + ry * K * Math.cos(th), -rz * K * Math.sin(th) * Math.cos(ph)];
+  for (let k = 0; k < TH.length - 1; k++) for (let j = 0; j < NJ; j++) {
+    const ph0 = -SPAN + (2 * SPAN * j) / NJ, ph1 = -SPAN + (2 * SPAN * (j + 1)) / NJ, hemA = k === TH.length - 2, t0 = TH[k], t1 = TH[k + 1];
+    const h = (jj) => (hemA ? 0.2 * (jj % 2) + 0.1 * (hs(jj * 3.3) - 0.5) : 0), sh = (kk, jj) => 0.82 + 0.18 * hs(kk * 19.1 + jj * 5.3);
+    const q = (sh(k, j) + sh(k, j + 1) + sh(k + 1, j) * (hemA ? 0.8 : 1) + sh(k + 1, j + 1) * (hemA ? 0.8 : 1)) / 4;
+    cape.quad(capeP(t0, ph0), capeP(t0, ph1), capeP(t1 + h(j + 1), ph1), capeP(t1 + h(j), ph0), [q, q, q], null);
+  }
+  for (let j = 0; j < NJ; j++) { const ph0 = -SPAN + (2 * SPAN * j) / NJ, ph1 = -SPAN + (2 * SPAN * (j + 1)) / NJ; cape.tri(capeP(1.85, ph0), capeP(1.85, ph1), capeP(2.05 + 0.12 * hs(j * 7.7), (ph0 + ph1) / 2), [0.7, 0.7, 0.7], null); }
+  // cord at the neck: a thin ring and a bead at the front
+  const cordP = [];
+  { const t = new THREE.TorusGeometry(1, 0.045, 4, 14); t.rotateX(Math.PI / 2); t.scale(rx * K * Math.sin(1.0), 1, rz * K * Math.sin(1.0)); t.translate(0, cy + ry * K * Math.cos(1.0) - 0.01, 0); cordP.push(cwColored(t, "#c9b48a"));
+    const b = new THREE.SphereGeometry(0.035, 5, 4); b.translate(0, cy + ry * K * Math.cos(1.0) - 0.03, rz * K * Math.sin(1.0)); cordP.push(cwColored(b, "#b89a68")); }
+  // the face: two dot eyes, a small mouth
+  const faceP = [];
+  for (const x of [-0.11, 0.11]) { const e = new THREE.SphereGeometry(0.036, 5, 4); e.translate(x, cy + 0.12, 0.262); faceP.push(cwColored(e, "#2b1d14")); }
+  { const m = new THREE.SphereGeometry(1, 6, 4); m.scale(0.05, 0.022, 0.03); m.translate(0, cy - 0.04, 0.3); faceP.push(cwColored(m, "#6a2e22")); }
+  const boot = (() => { const g = new THREE.SphereGeometry(1, 6, 5), p = g.attributes.position; for (let i = 0; i < p.count; i++) { const k = 1 + 0.18 * (hs(Math.round(p.getX(i) * 20) * 3 + Math.round(p.getY(i) * 20) * 5 + Math.round(p.getZ(i) * 20) * 7) - 0.5); p.setXYZ(i, p.getX(i) * 0.1 * k, p.getY(i) * 0.07 * k + 0.07, p.getZ(i) * 0.15 * k + 0.03); } g.computeVertexNormals(); return cwColored(g, (x, y) => { const k = 0.8 + 0.4 * clamp(y / 0.15); return [k, k, k]; }); })();
+  const arm = (() => { const c = new THREE.CylinderGeometry(0.034, 0.03, 1, 5); c.translate(0, 0.5, 0); return cwColored(c, white); })();
+  const hand = cwColored(new THREE.SphereGeometry(0.055, 6, 4), white);
+  const sd = new THREE.CircleGeometry(1, 10); sd.rotateX(-Math.PI / 2);
+  const capeG = cape.geo(); capeG.deleteAttribute("uv");
+  return (CW_UNITS = { body, cape: capeG, det: mergeGeometries([...cordP, ...faceP]), boot, arm, hand, sd });
+}
+// a stick arm from world point a to b as the unit arm (length along +y)
+function cwArm(a, b, th) {
+  const d = new THREE.Vector3(b[0] - a[0], b[1] - a[1], b[2] - a[2]), L = d.length() || 0.001, q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+  return new THREE.Matrix4().compose(new THREE.Vector3(a[0], a[1], a[2]), q, new THREE.Vector3(th, L, th));
+}
+function buildCrew(P) {
+  const S = P.spec, U = crewUnits(), N = Math.max(1, Math.min(260, Math.round(num(S.n, 40)))), fz = num(S.fileZ, 1.25), gap = num(S.rowGap, 1.05), x0 = num(S.start, 3.2), HY = 0.5;
+  const F = [];
+  for (let i = 0; i < N; i++) {
+    const f = i % 2 ? 1 : -1, row = i >> 1, s = (0.85 * (0.94 + 0.12 * hs(i, 21))) / 0.85;
+    F.push({ f, x: x0 + row * gap, z: f * (fz + 0.32), s, lean: (18 + 8 * hs(i, 22)) * DEG, ph: hs(i, 23) * TAU, tone: 0.92 + 0.16 * hs(i, 24), fur: hs(i, 25) < 0.5 ? 0 : 1 });
+    const q = F[i]; q.hx = q.x + 0.62 * s; q.hz = f * fz;
+  }
+  const g = new THREE.Group(), flag = (m) => { m.castShadow = false; m.receiveShadow = false; m.frustumCulled = false; m.userData.solid = false; m.userData.lookOnly = true; m.userData.surfaceOnly = true; m.userData.steam = true; return m; };
+  const charm = (o = {}) => { const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.9, ...o }); m.userData.noOutline = true; m.userData.noHatch = true; m.userData.lookRole = "char"; return m; };
+  const mk = (geo, mat, count) => { const im = new THREE.InstancedMesh(geo, mat, count); g.add(flag(im)); return im; };
+  const shM = new THREE.MeshBasicMaterial({ color: "#1c1814", transparent: true, opacity: 0.3, depthWrite: false, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -6, polygonOffsetUnits: -6 }); shM.userData.noOutline = true;
+  const bodyIM = mk(U.body, charm(), N), capeIM = mk(U.cape, charm({ side: THREE.DoubleSide }), N), detIM = mk(U.det, charm(), N), bootIM = mk(U.boot, charm(), N * 2), armIM = mk(U.arm, charm(), N * 2), handIM = mk(U.hand, charm(), N * 2), shIM = mk(U.sd, shM, N);
+  shIM.renderOrder = 2;
+  const IMS = [bodyIM, capeIM, detIM, bootIM, armIM, handIM, shIM], C = new THREE.Color();
+  F.forEach((q, i) => {
+    bodyIM.setColorAt(i, C.set(CW_GOLD).multiplyScalar(q.tone)); capeIM.setColorAt(i, C.set(CW_FUR[q.fur])); detIM.setColorAt(i, C.set("#ffffff")); shIM.setColorAt(i, C.set("#ffffff"));
+    for (let s = 0; s < 2; s++) { bootIM.setColorAt(i * 2 + s, C.set(CW_BOOT)); armIM.setColorAt(i * 2 + s, C.set(CW_GOLD).multiplyScalar(q.tone)); handIM.setColorAt(i * 2 + s, C.set(CW_GOLD).multiplyScalar(q.tone)); }
+  });
+  for (const m of IMS) m.instanceColor.needsUpdate = true;
+  // the two ropes: rebuilt when the number of shown figures changes (their length follows the last shown row)
+  const mR = std(); let rope = null, ropeKey = -1, ropeTris = 0;
+  const ropes = (m) => {
+    const B = new Soup(), xl = x0 + Math.floor((Math.max(m, 1) - 1) / 2) * gap, xe = xl + 1.0, xd = xl + 0.8;
+    for (const f of [-1, 1]) {
+      const A = [0, 0.77, f * 0.88], H = [x0 + 0.62, HY, f * fz], pts = [], n1 = Math.max(2, Math.ceil(len(sub(H, A)) / 0.1));
+      for (let i = 0; i < n1; i++) pts.push(mix3(A, H, i / n1));
+      for (let x = H[0]; x < xd - 1e-6; x += 0.1) pts.push([x, HY, f * fz]);
+      for (let j = 0; j <= 6; j++) { const k = sm(j / 6); pts.push([lerp(xd, xe, j / 6), lerp(HY, 0.035, k), f * fz]); }
+      ropeTube(B, pts, 0.035, { sides: 6, ridge: 0.1, pitch: 0.9, seed: f + 3 });
+    }
+    if (rope) { rope.geometry.dispose(); g.remove(rope); }
+    rope = mesh(g, B, mR, { cast: false }); rope.userData.steam = true; ropeTris = B.n;
+  };
+  const V = new THREE.Vector3(), Q = new THREE.Quaternion(), Q1 = new THREE.Quaternion(), Q2 = new THREE.Quaternion(), Q3 = new THREE.Quaternion(), Sv = new THREE.Vector3(), M = new THREE.Matrix4(), Z = new THREE.Vector3(0, 0, 1), X = new THREE.Vector3(1, 0, 0), Y = new THREE.Vector3(0, 1, 0);
+  const tri = (geo) => geo.attributes.position.count / 3, perFig = tri(U.body) + tri(U.cape) + tri(U.det) + 2 * (tri(U.boot) + tri(U.arm) + tri(U.hand)) + tri(U.sd);
+  const uniq = tri(U.body) + tri(U.cape) + tri(U.det) + tri(U.boot) + tri(U.arm) + tri(U.hand) + tri(U.sd);
+  const shown = (grow) => Math.round(N * clamp(grow));
+  let last = "";
+  const set = (t, heave, walk, grow) => {
+    const m = shown(grow), key = `${t}|${heave}|${walk}|${m}`; if (key === last) return; last = key;
+    g.visible = m > 0; if (m !== ropeKey) { ropeKey = m; ropes(m); }
+    P.whole.userData.triangles = Math.round(uniq * 1 + ropeTris); P.whole.userData.trianglesDrawn = Math.round(perFig * m + ropeTris);
+    for (const im of IMS) im.count = im === bootIM || im === armIM || im === handIM ? m * 2 : m;
+    for (let i = 0; i < m; i++) {
+      const q = F[i], s = q.s, phi = t * 1.15 * TAU + q.ph, pulse = Math.sin(2 * phi), bob = 0.022 * (0.5 + 0.5 * pulse) * walk, lean = heave * (q.lean + 0.05 * pulse), roll = 0.05 * Math.sin(phi) * walk, dx = 0.04 * Math.cos(2 * phi + 0.8) * (0.35 + 0.65 * walk) * heave;
+      Q1.setFromAxisAngle(Z, -lean); Q2.setFromAxisAngle(X, roll); Q3.setFromAxisAngle(Y, Math.PI / 2); Q.copy(Q1).multiply(Q2).multiply(Q3);
+      V.set(q.x + dx, bob, q.z); Sv.set(s, s, s); const Mb = new THREE.Matrix4().compose(V, Q, Sv);
+      bodyIM.setMatrixAt(i, Mb); capeIM.setMatrixAt(i, Mb); detIM.setMatrixAt(i, Mb);
+      for (let sd2 = 0; sd2 < 2; sd2++) {
+        const sg = sd2 ? 1 : -1, fp = phi + (sd2 ? 0 : Math.PI), fx = q.x + 0.15 * s * Math.sin(fp) * walk, lift = 0.06 * Math.max(0, Math.cos(fp)) * walk;
+        Q1.setFromAxisAngle(Y, Math.PI / 2); Q2.setFromAxisAngle(Z, -0.3 * Math.max(0, Math.cos(fp)) * walk); Q3.copy(Q2).multiply(Q1);
+        bootIM.setMatrixAt(i * 2 + sd2, M.compose(V.set(fx, lift, q.z + sg * 0.13 * s), Q3, Sv.set(s, s, s)));
+        const sh = new THREE.Vector3(sg * 0.3, 0.5, 0.03).applyMatrix4(Mb), hp = [q.hx + sg * 0.07, HY, q.hz + (sd2 ? 0.03 : -0.03)];
+        armIM.setMatrixAt(i * 2 + sd2, cwArm(sh.toArray(), hp, s)); handIM.setMatrixAt(i * 2 + sd2, M.compose(V.set(hp[0], hp[1], hp[2]), Q.identity(), Sv.set(s, s, s)));
+      }
+      shIM.setMatrixAt(i, M.compose(V.set(q.x + 0.18, 0.02, q.z), Q.identity(), Sv.set(0.5 * s, 1, 0.34 * s)));
+    }
+    for (const im of IMS) im.instanceMatrix.needsUpdate = true;
+  };
+  set(0, clamp(num(S.heave, 1)), clamp(num(S.walk, 0)), clamp(num(S.grow, 1)));
+  P.whole.add(g);
+  return { grip: 0, apply(ps, t = 0) { set(t, clamp(num(ps.heave, num(S.heave, 1))), clamp(num(ps.walk, num(S.walk, 0))), clamp(num(ps.grow, num(S.grow, 1)))); } };
+}
+
 const wrap = (fn) => (P) => { const d = fn(P); return d && d.apply ? d : { grip: 0 }; };
 const plainKind = (fn) => (P) => { const g = fn(P); void g; return { grip: 0 }; };
 export const FTT_HAUL_KINDS = {
-  haulsledge: plainKind(buildSledge), haullash: plainKind(buildLash), haulrails: wrap(buildRails), haulrope: wrap(buildRope), haullever: wrap(buildLever), pivotstone: plainKind(buildPivot),
+  haulsledge: plainKind(buildSledge), haullash: plainKind(buildLash), haulrails: wrap(buildRails), haulrope: wrap(buildRope), haullever: wrap(buildLever), pivotstone: plainKind(buildPivot), haulcrew: wrap(buildCrew),
 };
 export const FTT_HAUL_GRIPS = {};
-export const FTT_HAUL_STATE = { haulrope: { slack: 0 }, haullever: { pump: 0 }, haulrails: { creep: 0, skid: 0 } };
+export const FTT_HAUL_STATE = { haulrope: { slack: 0 }, haullever: { pump: 0 }, haulrails: { creep: 0, skid: 0 }, haulcrew: { heave: 1, walk: 0, grow: 1 } };

@@ -1,0 +1,542 @@
+{
+ "id": "ftt-haul-crew",
+ "title": "Friends try to 08: haulcrew bench",
+ "idea": "Props bench for the haulcrew kind, not a clip",
+ "far": 700,
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd4ea",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -3.438,
+    1.908,
+    -9.195
+   ],
+   "light": "#fff2d6",
+   "shadow": "#8090c4",
+   "exposure": 1
+  }
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spudA"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    130,
+    4.2
+   ],
+   "face": -102,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "p-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "a",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0
+  },
+  {
+   "id": "p-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0,
+   "seed": 1,
+   "trees": false,
+   "ditch": false
+  },
+  {
+   "id": "p-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0
+  },
+  {
+   "id": "stone",
+   "kind": "fallensarsen",
+   "x": 124,
+   "y": 0.84,
+   "z": 0,
+   "rot": 0,
+   "size": [
+    4.25,
+    2.1,
+    1.1
+   ],
+   "look": "new",
+   "pieces": 1,
+   "sink": 0,
+   "seed": 3,
+   "fringe": false,
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "sunColor": "#fff3c4",
+   "staged": "it lies on the sledge's deck (SOLID)"
+  },
+  {
+   "id": "lash",
+   "kind": "haullash",
+   "x": 124,
+   "y": 0.84,
+   "z": 0,
+   "rot": 0,
+   "size": [
+    4.25,
+    2.1,
+    1.1
+   ],
+   "seed": 1,
+   "staged": "the lashing rides the stone"
+  },
+  {
+   "id": "sledge",
+   "kind": "haulsledge",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "staged": "it rides on the rail tops (the rails are scenery, not solid)"
+  },
+  {
+   "id": "rails",
+   "kind": "haulrails",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180
+  },
+  {
+   "id": "crew",
+   "kind": "haulcrew",
+   "x": 121.5,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "n": 250,
+   "staged": "250 far potatoes in two files on two ropes from the sledge's front bar; grow shows round(250 * grow) of them, nearest rows first"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "A40 grow 0.16 (40), 6 m to the side at 1.5 m, first rows, straining",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "A250 grow 1 (250), same camera",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "W40 grow 0.16 walk 1 (stepping)",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "S40 grow 0.16 heave 0 (standing)",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "H40 grow 0.16, 40 m up, the line",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "H250 grow 1, 40 m up, the whole line",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "L40 grow 0.16, low beside the line looking along it",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "L250 grow 1 walking, low beside the line, long lens",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "F250 the far end of the 250 line, from the side",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  }
+ ],
+ "beats": [
+  {
+   "name": "A40",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     115,
+     1.5,
+     -8
+    ],
+    "look": [
+     113.5,
+     0.7,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 0.16,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "A250",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     115,
+     1.5,
+     -8
+    ],
+    "look": [
+     113.5,
+     0.7,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 1,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "W40",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     115,
+     1.5,
+     -8
+    ],
+    "look": [
+     113.5,
+     0.7,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 0.16,
+      "heave": 1,
+      "walk": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "S40",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     115,
+     1.5,
+     -8
+    ],
+    "look": [
+     113.5,
+     0.7,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 0.16,
+      "heave": 0,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "H40",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     138,
+     40,
+     0
+    ],
+    "look": [
+     110,
+     0,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 0.16,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "H250",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     138,
+     40,
+     0
+    ],
+    "look": [
+     54,
+     0,
+     0
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 1,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "L40",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     121,
+     1.1,
+     4.2
+    ],
+    "look": [
+     102,
+     0.7,
+     1.2
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 0.16,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "L250",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     121,
+     1.1,
+     4.2
+    ],
+    "look": [
+     54,
+     0.7,
+     1.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 1,
+      "heave": 1,
+      "walk": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F250",
+   "at": 8.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     64,
+     1.5,
+     -8
+    ],
+    "look": [
+     62,
+     0.7,
+     0
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "crew",
+     "set": {
+      "grow": 1,
+      "heave": 1,
+      "walk": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/friends-try-to/08-move-a-stonehenge-stone/bench/make-ftt-haul-crew.mjs (props bench, no reviews)."
+}
