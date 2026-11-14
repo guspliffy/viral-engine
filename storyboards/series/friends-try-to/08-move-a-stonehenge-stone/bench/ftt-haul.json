@@ -1,0 +1,2018 @@
+{
+ "id": "ftt-haul",
+ "title": "Friends try to 08: haul set bench",
+ "idea": "Props bench for the haul set (haulsledge, haullash, haulrails, haulrope, haullever, pivotstone), not a clip",
+ "far": 700,
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd4ea",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -3.438,
+    1.908,
+    -9.195
+   ],
+   "light": "#fff2d6",
+   "shadow": "#8090c4",
+   "exposure": 1
+  }
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spudA"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spudA",
+   "character": "potatobrawl/spud",
+   "at": [
+    113.5,
+    1.8
+   ],
+   "face": -99,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudB",
+   "character": "potatobrawl/spud",
+   "at": [
+    114.8,
+    -1.7
+   ],
+   "face": 68,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "at": [
+    128.6,
+    2.1
+   ],
+   "face": 147,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudF",
+   "character": "potatobrawl/spud",
+   "at": [
+    111.5,
+    -1.3
+   ],
+   "face": -70,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "p-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "a",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0
+  },
+  {
+   "id": "p-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0,
+   "seed": 1,
+   "trees": false,
+   "ditch": false
+  },
+  {
+   "id": "p-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "dusk": 0
+  },
+  {
+   "id": "p-stones",
+   "kind": "stonehenge",
+   "x": 0,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "sunColor": "#fff3c4",
+   "dusk": 0,
+   "built": 0.5,
+   "scale": 0.4
+  },
+  {
+   "id": "stone",
+   "kind": "fallensarsen",
+   "x": 124,
+   "y": 0.84,
+   "z": 0,
+   "rot": 0,
+   "size": [
+    4.25,
+    2.1,
+    1.1
+   ],
+   "look": "new",
+   "pieces": 1,
+   "sink": 0,
+   "seed": 3,
+   "fringe": false,
+   "sunAz": 20.5,
+   "sunEl": 11,
+   "sunColor": "#fff3c4",
+   "staged": "it lies on the sledge's deck (SOLID); lifted in proof F it hangs in the ring ship's beam"
+  },
+  {
+   "id": "lash",
+   "kind": "haullash",
+   "x": 124,
+   "y": 0.84,
+   "z": 0,
+   "rot": 0,
+   "size": [
+    4.25,
+    2.1,
+    1.1
+   ],
+   "seed": 1,
+   "staged": "the lashing rides the stone (same x, y, z, tilt): on the deck, lifted in proof F"
+  },
+  {
+   "id": "sledge",
+   "kind": "haulsledge",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "staged": "it rides on the rail tops (the rails are scenery, not solid)"
+  },
+  {
+   "id": "rails",
+   "kind": "haulrails",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "skidAt": [
+    6.35,
+    -1.04
+   ],
+   "staged": "the rails and sleepers are laid on the plain"
+  },
+  {
+   "id": "ropeA",
+   "kind": "haulrope",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "side": 1
+  },
+  {
+   "id": "ropeB",
+   "kind": "haulrope",
+   "x": 124,
+   "y": 0,
+   "z": 0,
+   "rot": 180,
+   "side": -1
+  },
+  {
+   "id": "lever",
+   "kind": "haullever",
+   "x": 126.64,
+   "y": 0.986,
+   "z": 0,
+   "rot": 180,
+   "staged": "the pole rests on the pivot boulder's saddle"
+  },
+  {
+   "id": "boulder",
+   "kind": "pivotstone",
+   "x": 126.64,
+   "y": 0,
+   "z": 0,
+   "rot": 180
+  },
+  {
+   "id": "ship",
+   "kind": "ringship",
+   "x": 124,
+   "y": 15,
+   "z": 0,
+   "s": 0.35,
+   "beam": 0,
+   "wobble": 0,
+   "lit": 0.4,
+   "beamLen": 43,
+   "beamR": 7.1,
+   "staged": "it hovers over the sledge in proof F"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1,
+   "text": "A1 camera 01: the whole set, back down the rails",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 1.1,
+   "to": 2,
+   "text": "A2 camera 04: from behind and above, the ring ahead",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 2.1,
+   "to": 3,
+   "text": "A3 sledge and stone from the side (+r)",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 3.1,
+   "to": 4,
+   "text": "A4 runner detail",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 4.1,
+   "to": 5,
+   "text": "B0 ropes slack 0: taut",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 5.1,
+   "to": 6,
+   "text": "B1 ropes slack 0.5: sagging, grips taut",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 6.1,
+   "to": 7,
+   "text": "B2 ropes slack 1: all on the frost",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 7.1,
+   "to": 8,
+   "text": "C0 lever pump 0, stone down",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 8.1,
+   "to": 9,
+   "text": "C1 lever pump 1, back end up 12 cm",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 9.1,
+   "to": 10,
+   "text": "D0 runner tail, creep 0",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 10.1,
+   "to": 11,
+   "text": "D1 creep 0.05: 5 cm bare band",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 11.1,
+   "to": 12,
+   "text": "D2 rail behind the tail, creep 0",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 12.1,
+   "to": 13,
+   "text": "D3 creep 0.05",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 13.1,
+   "to": 14,
+   "text": "E skid 1, camera 02",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 14.1,
+   "to": 15,
+   "text": "E2 skid from above",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 15.1,
+   "to": 16,
+   "text": "E3 apron decal from above",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  },
+  {
+   "from": 16.1,
+   "to": 17,
+   "text": "F stone and lash at y 8.84, bare sledge, camera 09",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 30
+  }
+ ],
+ "beats": [
+  {
+   "name": "A1",
+   "at": 0.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     102,
+     0.35,
+     0
+    ],
+    "look": [
+     120,
+     2.4,
+     0
+    ],
+    "fov": 29
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "A2",
+   "at": 1.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     145,
+     9.5,
+     -5.5
+    ],
+    "look": [
+     110,
+     2,
+     0.5
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "A3",
+   "at": 2.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     123.5,
+     1.2,
+     -12
+    ],
+    "look": [
+     123.5,
+     0.9,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "A4",
+   "at": 3.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     121.4,
+     0.9,
+     -2.4
+    ],
+    "look": [
+     122.2,
+     0.55,
+     -0.5
+    ],
+    "fov": 45
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "B0",
+   "at": 4.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     125,
+     11,
+     0
+    ],
+    "look": [
+     119,
+     0,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "B1",
+   "at": 5.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     125,
+     11,
+     0
+    ],
+    "look": [
+     119,
+     0,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "B2",
+   "at": 6.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     125,
+     11,
+     0
+    ],
+    "look": [
+     119,
+     0,
+     0
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "C0",
+   "at": 7.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     133.2,
+     0.6,
+     -5
+    ],
+    "look": [
+     127.9,
+     1.2,
+     0.1
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "C1",
+   "at": 8.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     133.2,
+     0.6,
+     -5
+    ],
+    "look": [
+     127.9,
+     1.2,
+     0.1
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.9,
+      "tilt": -1.62
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.9,
+      "tilt": -1.62
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "D0",
+   "at": 9.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     124.5,
+     0.26,
+     -1.9
+    ],
+    "look": [
+     126.5,
+     0.42,
+     -0.75
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "D1",
+   "at": 10.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     124.5,
+     0.26,
+     -1.9
+    ],
+    "look": [
+     126.5,
+     0.42,
+     -0.75
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0.05,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "D2",
+   "at": 11.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     126.9,
+     0.55,
+     -1.15
+    ],
+    "look": [
+     126,
+     0.3,
+     -0.52
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "D3",
+   "at": 12.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     126.9,
+     0.55,
+     -1.15
+    ],
+    "look": [
+     126,
+     0.3,
+     -0.52
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0.05,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "E",
+   "at": 13.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     114.8,
+     0.42,
+     0.5
+    ],
+    "look": [
+     117.65,
+     0.42,
+     1.15
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "E2",
+   "at": 14.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     117.8,
+     2.2,
+     0.6
+    ],
+    "look": [
+     117.9,
+     0,
+     1.04
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "E3",
+   "at": 15.1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     121,
+     5.5,
+     3.2
+    ],
+    "look": [
+     120.8,
+     0,
+     3
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 0.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 0,
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "F",
+   "at": 16.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     108,
+     0.4,
+     0
+    ],
+    "look": [
+     124,
+     8.2,
+     0
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "ropeA",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ropeB",
+     "set": {
+      "slack": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lever",
+     "set": {
+      "pump": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rails",
+     "set": {
+      "creep": 0,
+      "skid": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "stone",
+     "set": {
+      "y": 8.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "lash",
+     "set": {
+      "y": 8.84,
+      "tilt": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ship",
+     "set": {
+      "beam": 1,
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "allowClip": [],
+ "notes": "Generated by storyboards/series/friends-try-to/08-move-a-stonehenge-stone/bench/make-ftt-haul.mjs (props bench, no reviews)."
+}
