@@ -53,6 +53,8 @@ function captionLayout(c) {
   const lines = wrap(shown(c.text), maxW), lh = st.size * 1.12;
   return { st, top, cx, lines, lh };
 }
+// one line of the caption in output pixels (its box is that times its lines, plus stroke and padding)
+export function captionLine(c) { return Math.round(capStyle(c).size * 1.12); }
 // the caption's ink box in output pixels [x, y, w, h], stroke included
 export function captionBox(c) {
   ctx.save();

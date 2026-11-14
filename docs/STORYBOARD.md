@@ -34,7 +34,8 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
 - **`"captionBand": [470, 1360]`** (top level; the clip template sets it): the y band (px) every subtitle stays inside,
   top to bottom, as Jonny's series briefs give it. `qa/preflight.mjs` and `qa/check.mjs` fail a subtitle outside it
   (`caption-band`); text pops and cards are free. Without the field only the app's safe zone is checked.
-  Two captions that are up in the same frames with crossing boxes fail too (`caption-collide`, even for one frame);
+  Two captions that are up in the same frames with crossing boxes fail too (`caption-collide`, even for one frame),
+  and so does a number or a word that is up under a subtitle and stands in its lettering (a count under two lines);
   `c.say` ends a line's subtitle where the next caption in its band starts, a `c.cap` ends where you say.
 - **`"captionStyle": "kinetic"`** (top level; the clip template sets it) animates the captions the TikTok way: each
   word pops in as it is said (timed from the talk line it matches: with a real voice, from the voice model's own

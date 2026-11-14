@@ -682,6 +682,13 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
 //                      from the layout. Fight, Flight or Freeze 01 (11 Nov 2026): a shout's subtitle and the
 //                      narrator's line stood on each other for 3 frames; every check passed and the full render
 //                      had to be done twice
+//                      A caption that is up for the whole time of another one (a counting number under a
+//                      subtitle) is judged too when the layout gives each box its line height (`lh`):
+//                      it fails when the boxes cross by over that share of ONE LINE of the smaller lettering,
+//                      because a share of the whole box grows with every line a subtitle wraps to. Ancient
+//                      aliens EP02 Stonehenge (14 Nov 2026): the year counter stood 37 px into a two-line
+//                      subtitle in part 4's finals, every check passed, and Jonny saw it ("the lettering are
+//                      overlaying"): four farm renders again
 export function captionResults(sb, layout) {
   const out = [], add = (level, check, msg) => out.push({ level, check, msg });
   if (!layout?.samples?.length) return out;
@@ -722,29 +729,44 @@ export function captionResults(sb, layout) {
     else add("pass", "caption-overlap", msg);
   }
   const fps = sb?.fps || 30, caps = (sb?.captions || []).filter((c) => c && !c.pop && !c.card && c.text && c.to > c.from);
-  const boxOf = (c) => {   // the caption's largest box while it is up: [x0, y0, x1, y1], or null when no sample caught it
+  // a layout of this engine gives each box its caption's start (`from`) and one line's height (`lh`)
+  const named = layout.samples.some((s) => (s.captions || []).some((k) => !Array.isArray(k) && k.from != null && k.lh > 0));
+  const mine = (c, k) => k.text === c.text && !Array.isArray(k) && !k.pop && !k.card;
+  const boxOf = (c) => {   // the caption's largest box while it is up: [x0, y0, x1, y1] (+ .lh), or null when no sample caught it
     let b = null;
+    // two captions with the same text keep their own boxes when the layout knows this one's start
+    const own = named && layout.samples.some((s) => (s.captions || []).some((k) => mine(c, k) && Math.abs(k.from - c.from) < 1e-3));
     for (const s of layout.samples) {
       if (s.t < c.from - 0.15 || s.t > c.to + 0.15) continue;
       for (const k of s.captions || []) {
-        if (Array.isArray(k) || k.pop || k.card || k.text !== c.text) continue;
+        if (!mine(c, k) || (own && Math.abs(k.from - c.from) >= 1e-3)) continue;
         const [x, y, w, h] = k.box;
         b = b ? [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x + w), Math.max(b[3], y + h)] : [x, y, x + w, y + h];
+        b.lh = k.lh;
       }
     }
     return b;
   };
   const boxes = caps.map(boxOf);
   let collide = 0;
+  const under = new Map();   // a counting number is one caption per step: one line for the whole count
   for (let i = 0; i < caps.length; i++) for (let j = i + 1; j < caps.length; j++) {
     const a = caps[i], b = caps[j], t0 = Math.max(a.from, b.from), t1 = Math.min(a.to, b.to), A = boxes[i], Bx = boxes[j];
     if (t1 - t0 < 0.5 / fps || !A || !Bx) continue;
-    if ((a.from - b.from) * (a.to - b.to) <= 1e-9) continue;   // one holds the other (or they start or end together): shown together on purpose
+    // one holds the other (or they start or end together): shown together on purpose, so only real lettering on lettering fails
+    const inside = (a.from - b.from) * (a.to - b.to) <= 1e-9;
+    if (inside && !named) continue;
     const ix = Math.min(A[2], Bx[2]) - Math.max(A[0], Bx[0]), iy = Math.min(A[3], Bx[3]) - Math.max(A[1], Bx[1]);
-    if (ix <= 8 || iy <= RULES.captionCross * Math.min(A[3] - A[1], Bx[3] - Bx[1])) continue;
+    const room = RULES.captionCross * (inside ? Math.min(A.lh, Bx.lh) : Math.min(A[3] - A[1], Bx[3] - Bx[1]));
+    if (ix <= 8 || iy <= room) continue;
     collide++;
-    add("fail", "caption-collide", `"${a.text.slice(0, 40)}" and "${b.text.slice(0, 40)}" stand on each other at ${t0.toFixed(2)}-${t1.toFixed(2)}s (${Math.max(1, Math.round((t1 - t0) * fps))} frames): end the first where the second starts, or move one (pos)`);
+    if (inside) {
+      const [hold, inner, I] = a.to - a.from >= b.to - b.from ? [a, b, Bx] : [b, a, A], key = `${caps.indexOf(hold)}|${I[1]}|${I[3]}`, u = under.get(key);
+      if (u) { u.n++; u.t0 = Math.min(u.t0, t0); u.t1 = Math.max(u.t1, t1); u.iy = Math.max(u.iy, iy); u.last = inner.text; }
+      else under.set(key, { hold: hold.text, first: inner.text, last: inner.text, n: 1, t0, t1, iy });
+    } else add("fail", "caption-collide", `"${a.text.slice(0, 40)}" and "${b.text.slice(0, 40)}" stand on each other at ${t0.toFixed(2)}-${t1.toFixed(2)}s (${Math.max(1, Math.round((t1 - t0) * fps))} frames): end the first where the second starts, or move one (pos)`);
   }
+  for (const u of under.values()) add("fail", "caption-collide", `"${u.hold.slice(0, 40)}" and "${u.first.slice(0, 24)}"${u.n > 1 ? ` (to "${u.last.slice(0, 24)}", ${u.n} captions)` : ""} stand ${Math.round(u.iy)} px into each other at ${u.t0.toFixed(2)}-${u.t1.toFixed(2)}s, lettering on lettering: move one (pos) by ${Math.ceil(u.iy)} px or more`);
   if (!collide && caps.length > 1) add("pass", "caption-collide", "no two captions stand on each other");
   if (!worst.size) add("pass", "captions", "no captions");
   return out;
