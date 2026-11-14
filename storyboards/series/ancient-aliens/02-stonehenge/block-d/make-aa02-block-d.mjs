@@ -269,7 +269,7 @@ function buildDusk(F) {
   sfx(T.clunk, "thud", { gain: 0.95, reason: "a 30 m ring settles on the stone ring" });
   sfx(r3(T.clunk + 0.03), "kenney/impact-mining", { gain: 0.6, reason: "stone under the hull" });
   for (const a of [-70, -45, -20, 0, 20, 45, 70]) { const r = 17.2, x = -r * Math.sin(a * Math.PI / 180), z = r * Math.cos(a * Math.PI / 180);
-    c.at(r3(T.clunk + 0.02), { fx: "poof", pos: [r3(P.park[0] + x), 0.05, r3(P.park[1] + z)], dur: 0.9, color: "#e4ecea", puffs: 9, sparks: 0, size: 1.4, lift: 0.4 }); }
+    c.at(r3(T.clunk + 0.02), { fx: "poof", pos: [r3(P.park[0] + x), 0.05, r3(P.park[1] + z)], dur: 0.9, color: "#e4ecea", puffs: 9, sparks: 0, size: 1.4, lift: 0.4, sound: false }); }
   A(r3(T.clunk + 0.05), "spudK", "squash", { to: 0.12, dur: 0.15 });
   sfx(0, "ai/storm-wind", { gain: 0.05, dur: T.end, reason: "far wind at dusk" });
   see(0, T.crew, ["rk-ship", "k-stones"], "the ring ship settles on the stone ring");

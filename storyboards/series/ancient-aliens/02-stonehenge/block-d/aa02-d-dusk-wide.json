@@ -645,6 +645,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -660,6 +661,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -675,6 +677,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -690,6 +693,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -705,6 +709,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -720,6 +725,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
@@ -735,6 +741,7 @@
      "sparks": 0,
      "size": 1.4,
      "lift": 0.4,
+     "sound": false,
      "at": 3.52
     },
     {
