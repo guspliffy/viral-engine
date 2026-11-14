@@ -185,9 +185,20 @@ export function wales(id, o, { out = 0, cutter = true } = {}) {
 // Wide frames show the island's whole height with room for the km counter beside it; tall frames fill the frame.
 // For the 25 km stub push in to about 5 m from the board on the Stonehenge dot (SH_FAR_PARTS.map.dot in props-sh-far.js).
 export const mapBoard = (id, o, { woods = 0, wales = 0, scotland = 0 } = {}) => [{ id: `${id}-map`, kind: "britainmap", x: o[0], y: 8, z: o[1], woods, wales, scotland, staged: "the map is a full-frame insert" }];
-export const MAP_VIEW = { wide: { pos: [0, 8, 34], look: [0, 8, 0], fov: 28 }, tall: { pos: [0, 8, 30], look: [0, 8, 0], fov: 31 } };
-// THE PARCHMENT (clue 5): the page standing upright facing +z, o = its foot; drawing 1 | 2 | 3 (switch on a cut).
-export const page = (id, o, drawing = 1) => [{ id: `${id}-page`, kind: "manuscript", x: o[0], y: 1.2, z: o[1], upright: true, drawing, staged: "the page is a full-frame insert" }];
-export const PAGE_VIEW = { wide: { pos: [0, 1.2, 1.25], look: [0, 1.2, 0], fov: 38 }, tall: { pos: [0, 1.2, 1.05], look: [0, 1.2, 0], fov: 46 } };
+// Cameras for the board (relative to o). In WIDE the 9 m board fills the frame's width and shows 5 m of its height:
+// start on `south` (Stonehenge, Wales), and for Scotland move to `north` ({ ...shot(F, o, MAP_VIEW.south), to: { pos, look } }):
+// the camera has to travel up the whole island, which IS the point. In TALL the board fills the frame (south = north = all).
+// `stub` = the push-in on Stonehenge for the 25 km line.
+const mapCam = (y, d, fov, x = 0) => ({ pos: [x, r3(8 + y), d], look: [x, r3(8 + y), 0], fov });
+export const MAP_VIEW = {
+  south: { wide: mapCam(-4.2, 10.15, 28), tall: mapCam(0, 30, 30) },
+  north: { wide: mapCam(3.6, 10.15, 28), tall: mapCam(0, 30, 30) },
+  all: { wide: mapCam(0, 34, 27), tall: mapCam(0, 30, 30) },
+  stub: { wide: mapCam(-4.65, 5, 19, 1.0), tall: mapCam(-4.6, 5, 56, 1.0) },
+};
+// THE PARCHMENT (clue 5): the page lying on its oak desk, o = the page's centre; drawing 1 | 2 | 3. Use one page per
+// drawing (10 m apart) and cut between them; the camera looks straight down and drifts or pushes in a little.
+export const page = (id, o, drawing = 1) => [{ id: `${id}-page`, kind: "manuscript", x: o[0], z: o[1], drawing }];
+export const PAGE_VIEW = { wide: { pos: [0, 2.4, 0.03], look: [0, 0, 0], fov: 20 }, tall: { pos: [0, 2.4, 0.03], look: [0, 0, 0], fov: 25 } };
 // THE TAG: twenty Stone Age workers drag a stone on a sledge along +x; o = the middle of their 40 m track.
 export const haul = (id, o, along = 0) => [{ id: `${id}-haul`, kind: "haulteam", x: r3(o[0] - 20), z: o[1], along }];

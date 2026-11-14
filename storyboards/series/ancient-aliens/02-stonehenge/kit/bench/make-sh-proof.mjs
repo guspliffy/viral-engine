@@ -50,13 +50,14 @@ const SHOT = {
   slit: ["slit", VIEW.axisLong, "2500 BC: the sun in the slit, the shaft (panel 42)"],
   parked: ["parked", VIEW.axis, "ring on ring: the parking space (panels 44-46)"],
   tag: ["tag", { wide: at([0, 1.2, 62], [0, 2.4, 30], 34), tall: at([0, 1.2, 63], [0, 3.6, 30], 52) }, "the tag: the haul team behind him (panels 47-48)"],
-  map: ["map", MAP_VIEW, "the map: 25, 240, 750 km (panels 10, 15, 20)"],
+  map: ["map", MAP_VIEW.south, "the map: 25 and 240 km (panels 10, 15)"],
+  mapN: ["map", MAP_VIEW.north, "the map: 750 km up the island (panel 20)"],
   page: ["page", PAGE_VIEW, "the oldest picture (panels 37-39)"],
   wales: ["wales", { wide: at([10, 2.2, 26], [-2, 5, 0], 40), tall: at([6, 2.2, 28], [-3, 7, 0], 58) }, "Wales: the crag, the cargo ship (panels 16-17)"],
   joint: ["joint", { wide: at([3.4, 3.6, 5.2], [0.6, 4.3, 0], 40), tall: at([2.4, 3.4, 5.6], [0.4, 4.2, 0], 50) }, "knobs and holes (panels 25-27)"],
 };
 // one storyboard per light and frame
-const SETS = [["a", 25, ["today", "inside", "build", "map", "wales"]], ["c", 125, ["high", "top", "avenue", "slope", "joint"]], ["d", 175, ["low", "slit", "page"]], ["dusk", 195, ["parked", "tag"]]];
+const SETS = [["a", 25, ["today", "inside", "build", "map", "mapN", "wales"]], ["c", 125, ["high", "top", "avenue", "slope", "joint"]], ["d", 175, ["low", "slit", "page"]], ["dusk", 195, ["parked", "tag"]]];
 for (const F of [FRAME.wide, FRAME.tall]) for (const [name, T, names] of SETS) {
   const c = clip(), shots = [], places = [...new Set(names.map((n) => SHOT[n][0]))].map((p) => P[p]);
   const cast = places.flatMap((p) => p.cast), props = places.flatMap((p) => p.props);

@@ -57,7 +57,7 @@ Today the sun at (0, 0.3) touches the LEFT edge of Stone 56 (the lone tallest st
   seen from above, Stone 1 is the first one south-east of the entrance): angle a = 6 + 12 (n - 1) degrees from +z toward
   -x, at x = -15.5 sin a, z = 15.5 cos a, facing the centre. The axis passes between 30 and 1 and between 15 and 16.
 - **Top stones (lintels):** 30, each 3.25 long x 1.0 wide x 0.8 high, curved to the ring, ring top at 4.9. Every upright
-  has TWO round knobs (tenons, r 0.11, 0.12 high) on its top; every top stone two round holes underneath and a
+  has TWO round knobs (tenons, r 0.16, 0.16 high: drawn stronger so they read) on its top; every top stone two round holes underneath and a
   vertical ridge (one end) and groove (other end) that lock it to its neighbours.
 - **Five giant pairs (horseshoe, open to +z),** each pair two uprights 2.4 wide x 1.2 thick with a 0.45 slit and one
   top stone 4.8 x 1.3 x 1.0, facing the centre. Centres (x, z), height of the uprights above ground:
