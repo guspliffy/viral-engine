@@ -8,6 +8,7 @@ import { setFaceRig } from "./face.js";
 import { buildSet, buildLights } from "./sets.js";
 import { preloadModels } from "./assets-gltf.js";
 import { actorState, cameraState, flashAt, flashColorAt, captionsAt, lightsAt, registerCast } from "./timeline.js";
+import { captionLine } from "./text.js";
 import { radialTexture } from "./geo.js";
 import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
@@ -1108,7 +1109,9 @@ function layout(t) {
     const support = (phys && phys.support(p, t)) || (attach2 && p.ps ? attach2.support(p, p.ps) : null);
     return { id: p.spec.id, at: p.root.position.toArray().map(r3), px, visible: p.root.visible, ...(support && { support }) };
   });
-  const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c) }));
+  // `from` tells two captions with the same text apart (a countdown shown big, then small in the corner) and `lh` is one
+  // of its lines in px: qa/check.mjs gives each caption its own box and measures a crossing in lines
+  const caps = captionsAt(sb, t).map((c) => ({ text: c.text, box: captionBox(c), from: c.from, lh: captionLine(c) }));
   // text pops are checked for the safe zone; they sit beside a character on purpose, so not for covering one
   const pops = (sb.fx || []).filter((f) => f.do === "pop" && t >= f.at && t <= f.at + (f.dur ?? 0.8)).map((f) => ({ text: f.text, box: popBox(f, popAnchor(f)), pop: true })).filter((p) => p.box);
   // slam words are over the action on purpose too: checked for the safe zone here, for the faces by qa/hook.mjs

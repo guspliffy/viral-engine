@@ -66,6 +66,14 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   frame pinned Spud at the lip (y -0.90 at 18.9 s instead of -20.9), Jonny saw that he never fell, and no check could.
   Should keep "he didn't really fall" notes at 0 and save the draft round it cost. Proof: of the 455 storyboards in
   the repo none has such a move (no existing render changes); draft 1's storyboard now falls to -20.9.
+- Lettering on lettering under a subtitle (14 Nov, from Ancient aliens EP02 Stonehenge; waits for Jonny's word):
+  `caption-collide` now also judges a caption that is up for the whole time of another one (a counting number under
+  a subtitle) and measures the crossing in lines of the smaller lettering, not in a share of the whole box; the
+  layout gives each caption box its start and line height (`from`, `lh`; frames and cache keys untouched). In part
+  4's finals the year counter stood 37 px into a two-line subtitle, every check passed, and Jonny saw it ("the
+  lettering are overlaying"): four farm renders again. Should keep "lettering overlays" notes at 0 and the renders
+  they cost. Proof: part 4's first finals pass on main and fail here (wide 37 px, tall 44 px, one line for the whole
+  count); the approved v2 passes, wide and tall, the tall one with its big and small countdown of the same text.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
