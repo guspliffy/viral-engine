@@ -149,7 +149,7 @@ P(T.tip - 0.02, "stone", tipAt(0)); P(T.tip - 0.02, "lash", tipAt(0));
 const AT_GAP = { wedge: [20.69, 5.52], spud: [21.5, 4.51], chip: [22.3, 3.49], mash: [23.11, 2.48] };   // world x, z: outside the ring, one row square to the tip camera, watching
 for (const [k, [who, at]] of Object.entries(AT_GAP).entries()) { place(T.tip, who, at, -140 + k * 4, 0); expr(T.tip - 0.02, who, "focused", { brow: 0.8 }, 0.01); look(T.tip - 0.02, who, [-0.3, 0.6], 0.01); }
 const tip = (t, a, dur, ease) => { for (const id of ["stone", "lash"]) P(t, id, tipAt(a), dur, ease); };
-tip(T.up, 76, 1.3, "inOut"); tip(r3(T.up + 1.3), 83, 0.3, "out"); tip(r3(T.up + 1.6), 79, 0.25, "inOut"); tip(r3(T.up + 1.85), 81, 0.2, "inOut");
+tip(T.up, 76, 0.8, "inOut"); tip(r3(T.up + 0.8), 83, 0.25, "out"); tip(r3(T.up + 1.05), 79, 0.2, "inOut"); tip(r3(T.up + 1.25), 81, 0.15, "inOut");
 tip(T.wob, 72, 0.25, "in"); tip(r3(T.wob + 0.25), 0, 0.45, "in");   // it goes over backwards: crash at T.crash + 0.25
 groan(T.up, "the crew", 0.35); creak(T.up + 0.6, 0.45, "ropes straining as the stone rises");
 sfx(r3(T.crash), "rumble", { gain: 0.6, reason: "25 tonnes hitting the ground" }); sfx(r3(T.crash), "land", { gain: 0.7, reason: "the stone's crash" });
@@ -190,8 +190,8 @@ const SH = {
   chip:  cam([9.2, 0.42, -0.5], [6.35, 0.42, -1.15], 32),
   slip:  cam([11.4, 1.5, -2.6], [6.0, 0.45, -0.6], 44),
   wide:  cam([-21, 9.5, 5.5], [14, 2.0, -0.5], 52),
-  forty: cam([1.0, 1.7, 9.0], [8.0, 0.7, 0], 52),
-  many:  wcam([178, 34, 44], [100, 0, 0], 46, { to: { pos: [168, 30, 40], look: [92, 0, 0], fov: 46 }, dur: 4.2, ease: "linear" }),
+  forty: cam([-3.0, 2.5, 10.0], [4.0, 0.7, 0], 52),
+  many:  wcam([175, 12, 5], [135, 0, -0.5], 54, { to: { pos: [168, 13, 5], look: [125, 0, -0.5], fov: 54 }, dur: 4.2, ease: "linear" }),
   tip:   wcam([27.5, 1.1, 8.5], [17.5, 2.6, 0], 52),
   shade: wcam([16.7, 1.9, -0.7], [21.9, 1.0, 4.0], 50),
   beam:  wcam([31, 1.0, 11], [16.5, 7.5, 0], 62),
