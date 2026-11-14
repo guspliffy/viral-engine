@@ -9,6 +9,7 @@ export const LINES = {
   parking: "It's a parking space.",
   closed: "Case closed.",
   nobody: "...nobody saw that.",
+  hook: "Wait for the sunset. Trust me.",   // the tall part's own hook (kit BLOCKS.md)
 };
 // the clue reveal is read excited; the low is quiet
 export const TONES = { giants: "excited", low: "sad" };

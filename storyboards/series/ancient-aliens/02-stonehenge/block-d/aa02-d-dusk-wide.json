@@ -818,6 +818,24 @@
      "at": 0.3
     },
     {
+     "who": "crewK1",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "crewK1",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
      "macro": "say",
      "who": "spudK",
      "line": "Thirty metres across. Perfectly level. It was never a temple.",
@@ -826,24 +844,6 @@
      "voice": "reaper",
      "caption": false,
      "at": 0.3
-    },
-    {
-     "who": "crewK1",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.6,
-     "ease": "out",
-     "at": 0.4
-    },
-    {
-     "who": "crewK1",
-     "do": "arm",
-     "side": "L",
-     "pose": "up",
-     "dur": 0.6,
-     "ease": "out",
-     "at": 0.4
     },
     {
      "who": "crewK2",
@@ -953,7 +953,7 @@
        -0.15
       ]
      },
-     "dur": 0.4,
+     "dur": 0.55,
      "ease": "out",
      "at": 0.05
     },
@@ -962,8 +962,8 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.4,
-     "at": 2.2
+     "dur": 0.55,
+     "at": 2.05
     },
     {
      "who": "spudK",
@@ -1179,7 +1179,7 @@
      "who": "spudT",
      "do": "turn",
      "to": 150,
-     "dur": 0.4,
+     "dur": 0.6,
      "at": 1.7
     },
     {
@@ -1209,7 +1209,7 @@
      "who": "spudT",
      "do": "turn",
      "to": 0,
-     "dur": 0.35,
+     "dur": 0.55,
      "at": 3
     },
     {
@@ -1295,9 +1295,9 @@
        0.2
       ]
      },
-     "dur": 0.4,
+     "dur": 0.7,
      "ease": "out",
-     "at": 1.5
+     "at": 1.3
     },
     {
      "who": "spudT",
@@ -1310,9 +1310,9 @@
        0.2
       ]
      },
-     "dur": 0.4,
+     "dur": 0.7,
      "ease": "out",
-     "at": 1.5
+     "at": 1.3
     },
     {
      "who": "spudT",

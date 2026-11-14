@@ -1603,16 +1603,16 @@
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.5,
-     "at": 2
+     "dur": 0.75,
+     "at": 1.95
     },
     {
      "who": "liftM",
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.5,
-     "at": 2.05
+     "dur": 0.75,
+     "at": 2
     },
     {
      "who": "spudM",
@@ -1824,9 +1824,9 @@
        0.5
       ]
      },
-     "dur": 0.35,
+     "dur": 0.5,
      "ease": "out",
-     "at": 1.75
+     "at": 1.6
     },
     {
      "who": "spudA",

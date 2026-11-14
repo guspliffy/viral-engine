@@ -60,7 +60,7 @@ function buildSun(F) {
     who("spudL", CAST.spud, P.low, SEAT[0], SEAT[1], 10),
     who("spudA", CAST.spud, P.altar, ALT[0], ALT[1], 160),
     who("spudP", CAST.spud, P.slit, ALT[0], ALT[1], 160),
-    ...(H ? [who("spudH", CAST.spud, P.hook, -1.2, 40, 175)] : []),
+    ...(H ? [who("spudH", CAST.spud, P.hook, -0.9, 118, 0)] : []),
   ];
   const lin = liftStone("lm", [LIN[0], LIN[1]], { piece: "toplintel", yaw: 168, h: 1.3, beam: 0.6 });
   const props = [
@@ -77,7 +77,7 @@ function buildSun(F) {
     // THE SHIP COMES DOWN THE SUN LINE (panel 44), 3:03
     ...past("c", P.come, { T: 183 }), ...ringShip("rc", P.come, { hover: 120, lit: 0.5 }),
     // the tall part's hook: today, the red sun a finger from the tallest stone, Spud small in front
-    ...(H ? [...today("h", P.hook, { T: 177 }), host("spudH")] : []),
+    ...(H ? [...today("h", P.hook, { T: 153 }), host("spudH")] : []),
   ];
   // each actor is shown only in its own shots (the checks then never project a body from another place)
   const only = (id, t0, t1) => { if (t0 > 0) { A(0, id, "hide"); A(t0, id, "show"); } if (t1 < T.end) A(t1, id, "hide"); };
@@ -89,7 +89,7 @@ function buildSun(F) {
 
   // ================================================================ the tall hook (3.0 s, part 4 only)
   if (H) {
-    hostSay(c, F, 0.2, "spudH", "Wait for the sunset. Trust me.", 2.2, "calm", { hold: 0.3 });
+    hostSay(c, F, 0.05, "spudH", LINES.hook, LEN.hook, "calm", { hold: 0.05 });
     sfx(0, "ai/storm-wind", { gain: 0.06, dur: H, reason: "far wind over the plain" });
     A(0, "spudH", "look", { to: [0, 0], dur: 0.01 });
   }
@@ -122,7 +122,7 @@ function buildSun(F) {
   A(T.match, "spudM", "look", { to: [0, 0], dur: 0.01 });
   A(r3(T.match + 0.3), "spudM", "face", { brow: 0.35, dur: 0.3 });
   A(r3(T.clack + 0.05), "spudM", "expr", { expr: "deadpan", dur: 0.25 });
-  c.arm(r3(T.clack + 0.15), "liftM", "R", "rest", 0.5); c.arm(r3(T.clack + 0.2), "liftM", "L", "rest", 0.5);
+  c.arm(r3(T.clack + 0.1), "liftM", "R", "rest", 0.75); c.arm(r3(T.clack + 0.15), "liftM", "L", "rest", 0.75);
   A(r3(T.low - 0.3), "spudM", "noblink", { dur: 0.3 });
   see(T.match, T.low, ["liftM.face", "lm-stone", "spudM.face"], "the lifter's raised gloves under the top stone, Spud beside him");
 
@@ -146,7 +146,7 @@ function buildSun(F) {
   // tallest stone; SAME frame: 2500 BC, the sun exactly in the slit, and the red shaft runs down the line toward us.
   A(T.altar, "spudA", "look", { to: [-0.35, 0.45], dur: 0.01 });
   A(T.crouch, "spudA", "crouch", { to: 0.55, dur: 0.4 });
-  c.arm(T.palm, "spudA", "R", { o: [0.05, 0.25, 0.5] }, 0.35, "out");
+  c.arm(r3(T.palm - 0.15), "spudA", "R", { o: [0.05, 0.25, 0.5] }, 0.5, "out");
   A(T.palm, "spudA", "grip", { side: "R", shape: "flat", dur: 0.3 });
   sfx(r3(T.palm + 0.33), "pat", { gain: 0.35, reason: "his palm on cold stone" });
   sfx(T.altar, "ai/storm-wind", { gain: 0.06, dur: 3.0, reason: "only the wind under the last seconds" });
@@ -176,8 +176,8 @@ function buildSun(F) {
 
   // ---- the countdown, top right; a big countdown in the tall hook
   if (H) {
-    for (const [a, b, s] of [[0, 1.0, "0:27"], [1.0, 2.0, "0:26"], [2.0, 2.6, "0:25"]]) cap(a, b, `SUNSET ${s}`, F.NUM, false, { size: 96, kinetic: false });
-    sunsetClock(c, F, T0 - H, 2.6, T.end);
+    for (const [a, b, s] of [[0, 1.0, "0:27"], [1.0, 2.0, "0:26"], [2.0, 2.8, "0:25"]]) cap(a, b, `SUNSET ${s}`, F.NUM, false, { size: 96, kinetic: false });
+    sunsetClock(c, F, T0 - H, 2.8, T.end);
   } else sunsetClock(c, F, T0, 0, T.end);
 
   // ---- shots (wide frames; tall pairs after Jonny's OK on the wide animatic)
@@ -189,14 +189,14 @@ function buildSun(F) {
     p2b: { wide: PG(10, [0.1, 1.15, 0.06], [0.1, 0, 0.03], 22), tall: PG(10, [0.1, 1.5, 0.03], [0.1, 0, 0], 25) },
     p2c: { wide: PG(10, [0.02, 0.9, -0.05], [0.02, 0, -0.08], 22), tall: PG(10, [0, 1.2, 0.03], [0, 0, 0], 25) },
     p2d: { wide: PG(10, [0.05, 0.8, -0.06], [0.05, 0, -0.09], 22), tall: PG(10, [0, 1.1, 0.03], [0, 0, 0], 25) },
-    p3a: { wide: PG(20, [0, 1.45, 0.05], [0, 0, 0.02], 22), tall: PG(20, [0, 1.9, 0.03], [0, 0, 0], 25) },
-    p3b: { wide: PG(20, [0.02, 1.2, 0.05], [0.02, 0, 0.02], 22), tall: PG(20, [0, 1.6, 0.03], [0, 0, 0], 25) },
+    p3a: { wide: PG(20, [0, 1.45, 0.05], [0, 0, 0.02], 22), tall: PG(20, [-0.05, 1.9, 0.03], [-0.05, 0, 0], 25) },
+    p3b: { wide: PG(20, [0.02, 1.2, 0.05], [0.02, 0, 0.02], 22), tall: PG(20, [-0.04, 1.7, 0.03], [-0.04, 0, 0], 25) },
     ma: { wide: at([onRing(24.8, 0.6)[0], 0.85, onRing(24.8, 0.6)[1]], [onRing(17.5, 0.4)[0], 2.3, onRing(17.5, 0.4)[1]], 44), tall: at([onRing(25.6, 0.6)[0], 0.85, onRing(25.6, 0.6)[1]], [onRing(17.5, 0.4)[0], 2.8, onRing(17.5, 0.4)[1]], 62) },
     mb: { wide: at([onRing(24.4, 0.6)[0], 0.85, onRing(24.4, 0.6)[1]], [onRing(17.5, 0.4)[0], 2.35, onRing(17.5, 0.4)[1]], 43), tall: at([onRing(25.2, 0.6)[0], 0.85, onRing(25.2, 0.6)[1]], [onRing(17.5, 0.4)[0], 2.85, onRing(17.5, 0.4)[1]], 61) },
-    la: { wide: at([0.2, 1.5, 12.0], [-0.6, 1.75, -6.3], 34), tall: at([0.1, 1.5, 13.0], [-0.8, 2.3, -6.3], 52) },
-    lb: { wide: at([0.2, 1.48, 11.2], [-0.6, 1.72, -6.3], 33), tall: at([0.1, 1.48, 12.2], [-0.8, 2.25, -6.3], 51) },
-    aa: { wide: at([0.15, 3.0, 4.0], [0.5, 1.3, -8], 40), tall: at([0.15, 3.0, 4.6], [0.7, 1.8, -8], 58) },
-    ab: { wide: at([0.15, 3.0, 3.6], [0.5, 1.3, -8], 40), tall: at([0.15, 3.0, 4.2], [0.7, 1.8, -8], 58) },
+    la: { wide: at([0.2, 1.5, 12.0], [-0.6, 1.75, -6.3], 34), tall: at([-0.6, 1.5, 11.2], [-2.5, 2.2, -6.3], 60) },
+    lb: { wide: at([0.2, 1.48, 11.2], [-0.6, 1.72, -6.3], 33), tall: at([-0.6, 1.48, 10.6], [-2.5, 2.15, -6.3], 59) },
+    aa: { wide: at([0.15, 3.0, 4.0], [0.5, 1.3, -8], 40), tall: at([0.15, 3.0, 5.2], [0.5, 2.3, -8], 62) },
+    ab: { wide: at([0.15, 3.0, 3.6], [0.5, 1.3, -8], 40), tall: at([0.15, 3.0, 4.8], [0.5, 2.3, -8], 62) },
     ca: { wide: at([12, 17, 118], [-3, 9, -40], 34), tall: at([9, 17, 118], [-3, 14, -40], 50) },
     cb: { wide: at([10, 15, 104], [-2, 10, -30], 34), tall: at([8, 15, 104], [-2, 14, -30], 50) },
   };
@@ -208,10 +208,10 @@ function buildSun(F) {
     ["the lifter in the same pose", T.match, mv(F, P.match, V.ma, V.mb, 2.4), "reveal"],
     ["the low", T.low, mv(F, P.low, V.la, V.lb, 6.0)],
     ["sunset", T.altar, mv(F, P.altar, V.aa, V.ab, 3.0)],
-    ["the sun in the slit", T.past, mv(F, P.slit, V.ab, { wide: at([0.15, 3.05, 3.2], [0.5, 1.35, -8], 40), tall: at([0.15, 3.05, 3.8], [0.7, 1.85, -8], 58) }, 3.0)],
+    ["the sun in the slit", T.past, mv(F, P.slit, V.ab, { wide: at([0.15, 3.05, 3.2], [0.5, 1.35, -8], 40), tall: at([0.15, 3.05, 4.4], [0.5, 2.35, -8], 62) }, 3.0)],
     ["down the sun line", T.ship, mv(F, P.come, V.ca, V.cb, r3(T.end - T.ship))],
   ];
-  if (H) shots.unshift(["hook: wait for the sunset", 0, mv(F, P.hook, { wide: at([0, 1.6, 150], [0, 3.6, -6.3], 5.6), tall: at([0, 1.6, 150], [0, 4.6, -6.3], 9) }, { wide: at([0, 1.6, 146], [0, 3.6, -6.3], 5.4), tall: at([0, 1.6, 146], [0, 4.6, -6.3], 8.6) }, H), "hook"]);
+  if (H) shots.unshift(["hook: wait for the sunset", 0, mv(F, P.hook, { wide: at([0, 1.6, 150], [0, 3.6, -6.3], 5.6), tall: at([0, 1.6, 150], [-6.5, 4.6, -6.3], 14) }, { wide: at([0, 1.6, 146], [0, 3.6, -6.3], 5.4), tall: at([0, 1.6, 150], [-6.5, 4.6, -6.3], 13.4) }, H), "hook"]);
   const spuds = cast.filter((a) => a.character === CAST.spud).map((a) => a.id);
   return {
     set: setOf(SH_D), music: H ? score(0, { file: "ancient-aliens/aa02-part-d.ogg" }) : score(T0),
@@ -279,7 +279,7 @@ function buildDusk(F) {
   // "Thirty metres across. Perfectly level. It was never a temple." Silence. "It's a parking space." "Case closed."
   for (const id of ["crewK1", "crewK2", "foreK"]) A(r3(T.crew - 0.05), id, "show");
   A(r3(T.crew + 0.3), "crewK1", "look", { to: [0, 0.5], dur: 0.3 });
-  for (const s of ["R", "L"]) c.arm(r3(T.crew + 0.4), "crewK1", s, "up", 0.6, "out");
+  for (const s of ["R", "L"]) c.arm(r3(T.crew + 0.3), "crewK1", s, "up", 0.8, "out");
   A(r3(T.crew + 0.6), "crewK2", "expr", { expr: "shocked", dur: 0.4 });
   A(r3(T.crew + 0.6), "crewK2", "face", { open: 0.6, lid: 0.45, dur: 0.4 });
   A(r3(T.crew + 1.8), "crewK2", "expr", { expr: "kind", dur: 0.4 });
@@ -291,13 +291,13 @@ function buildDusk(F) {
   A(r3(T.crew + 1.0), "spudK", "turn", { to: 0, dur: 0.5 });
   A(r3(T.point - 0.05), "spudK", "look", { to: [0, 0], dur: 0.01 });
   A(T.point, "spudK", "grip", { side: "R", shape: "point", dur: 0.2 });
-  c.arm(r3(T.point + 0.05), "spudK", "R", { o: [0.3, 0.95, -0.15] }, 0.4, "out");
-  c.arm(r3(T.parking - 0.4), "spudK", "R", "rest", 0.4);
+  c.arm(r3(T.point + 0.05), "spudK", "R", { o: [0.3, 0.95, -0.15] }, 0.55, "out");
+  c.arm(r3(T.parking - 0.55), "spudK", "R", "rest", 0.55);
   A(r3(T.parking - 0.4), "spudK", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
   A(r3(T.parking - 0.2), "spudK", "expr", { expr: "deadpan", dur: 0.25 });
   A(r3(T.parking - 0.15), "spudK", "face", { lid: 0.42, brow: -0.25, dur: 0.25 });
   say(T.parking, "parking", { who: "spudK", hold: 0.3 });
-  cap(T.pcap, r3(T.closedS - 0.05), "P", 225, false, { style: "label", size: 130, kinetic: false, x: F.key === "wide" ? 1450 : 820 });
+  cap(T.pcap, r3(T.closedS - 0.05), "P", F.key === "wide" ? 225 : 240, false, { style: "label", size: F.key === "wide" ? 130 : 110, kinetic: false, x: F.key === "wide" ? 1450 : 490 });
   say(T.closed, "closed", { who: "spudK", sub: false });
   cap(r3(T.closed + 0.3), r3(T.tag - 0.05), "CASE CLOSED", F.key === "wide" ? 110 : F.SUB, false, { size: F.numSize, kinetic: false });
   sfx(r3(T.closed + 0.3), "step", { gain: 0.45, reason: "a dull stamp as the words land" });
@@ -314,14 +314,14 @@ function buildDusk(F) {
   sfx(T.tag, "ai/bag-drag", { gain: 0.25, dur: r3(T.end - T.tag), reason: "a stone sledge scraping over logs, far behind" });
   sfx(r3(T.tag + 0.9), "kenney/creak", { gain: 0.2, reason: "timber under the weight" });
   sfx(r3(T.tag + 2.9), "kenney/creak", { gain: 0.2, reason: "timber under the weight" });
-  A(T.sees, "spudT", "turn", { to: 150, dur: 0.4 });
+  A(T.sees, "spudT", "turn", { to: 150, dur: 0.6 });
   A(r3(T.sees + 0.3), "spudT", "look", { to: [0.4, 0.1], dur: 0.25 });
   A(r3(T.sees + 0.7), "spudT", "expr", { expr: "shocked", dur: 0.15 });
-  A(T.back, "spudT", "turn", { to: 0, dur: 0.35 });
+  A(T.back, "spudT", "turn", { to: 0, dur: 0.55 });
   A(r3(T.back + 0.2), "spudT", "look", { to: [0, 0], dur: 0.2 });
   A(T.walk, "spudT", "move", { to: [r3(P.tag[0] - 0.4), r3(P.tag[1] + 61.0)], dur: 1.7, steps: 5 });
   sfx(r3(T.walk + 0.2), "ai/step-grass", { gain: 0.3, reason: "quick steps on frosty grass" });
-  for (const s of ["R", "L"]) { c.arm(r3(T.walk + 1.5), "spudT", s, { o: [0.45, 0.55, 0.2] }, 0.4, "out"); }
+  for (const s of ["R", "L"]) { c.arm(r3(T.walk + 1.3), "spudT", s, { o: [0.45, 0.55, 0.2] }, 0.7, "out"); }
   A(r3(T.walk + 1.6), "spudT", "expr", { expr: "happy", dur: 0.2 });
   A(r3(T.walk + 1.8), "spudT", "look", { to: [0.55, 0], dur: 0.25 });
   say(T.nobody, "nobody", { who: "spudT", sub: "...Nobody saw that." });
