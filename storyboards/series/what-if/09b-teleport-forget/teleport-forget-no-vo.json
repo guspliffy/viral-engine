@@ -251,7 +251,8 @@
    "kind": "phone",
    "x": 0,
    "y": -200,
-   "z": 0
+   "z": 0,
+   "scale": 1.6
   }
  ],
  "captions": [
@@ -1188,20 +1189,6 @@
      "at": 2.4
     },
     {
-     "do": "prop",
-     "id": "mphone",
-     "set": {
-      "x": 0.1,
-      "y": 0.78,
-      "z": -260.57,
-      "rot": 360,
-      "tip": -25
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 2.97
-    },
-    {
      "who": "mash",
      "do": "move",
      "to": [
@@ -1212,7 +1199,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 2.88
     },
     {
      "who": "mash",
@@ -1221,18 +1208,44 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 2.88
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "couch",
+     "dur": 0.01,
+     "hands": "keep",
+     "feet": [
+      0.36,
+      0.08
+     ],
+     "at": 2.92
+    },
+    {
+     "do": "prop",
+     "id": "mphone",
+     "set": {
+      "x": 0.08,
+      "y": 0.68,
+      "z": -260.55,
+      "rot": 180,
+      "tip": -35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.97
     },
     {
      "who": "mash",
      "do": "arm",
-     "side": "R",
+     "side": "L",
      "pose": {
       "prop": "mphone",
       "grip": [
-       0.074,
+       -0.061,
        0.065,
-       -0.01
+       -0.006
       ],
       "palm": true
      },
@@ -1242,7 +1255,7 @@
     {
      "who": "mash",
      "do": "grip",
-     "side": "R",
+     "side": "L",
      "shape": "hold",
      "dur": 0.01,
      "at": 2.98
@@ -1250,14 +1263,8 @@
     {
      "who": "mash",
      "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.08,
-       0.42,
-       0.24
-      ]
-     },
+     "side": "R",
+     "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
      "at": 2.98
@@ -1266,11 +1273,11 @@
      "who": "mash",
      "do": "grab",
      "prop": "mphone",
-     "hand": "R",
+     "hand": "L",
      "grip": [
-      0.074,
+      -0.061,
       0.065,
-      -0.01
+      -0.006
      ],
      "dur": 0,
      "pose": null,
@@ -1318,18 +1325,6 @@
      "at": 0
     },
     {
-     "who": "mash",
-     "do": "sit",
-     "seat": "couch",
-     "dur": 0.01,
-     "hands": "keep",
-     "feet": [
-      0.36,
-      0.08
-     ],
-     "at": 0.01
-    },
-    {
      "who": "chip",
      "do": "arm",
      "side": "R",
@@ -1343,14 +1338,6 @@
      "dur": 0.35,
      "ease": "inOut",
      "at": 0.1
-    },
-    {
-     "who": "mash",
-     "do": "tap",
-     "count": 2,
-     "every": 0.35,
-     "side": "L",
-     "at": 0.5
     }
    ]
   },
@@ -2096,7 +2083,7 @@
      "who": "chip",
      "do": "move",
      "to": [
-      -0.75,
+      -0.56,
       0.2
      ],
      "dur": 0.01,
@@ -2119,8 +2106,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      -0.65,
-      1.85
+      -1.05,
+      1.95
      ],
      "dur": 0.01,
      "steps": 0,
@@ -2132,7 +2119,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": 156.371,
+     "to": 135,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -2144,9 +2131,9 @@
      "side": "R",
      "pose": {
       "o": [
+       0.1,
        0.2,
-       0.25,
-       0.22
+       0.2
       ]
      },
      "dur": 0.01,
@@ -2165,47 +2152,47 @@
      "who": "chip",
      "do": "arm",
      "side": "R",
+     "pose": {
+      "o": [
+       -0.06,
+       0.28,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.06,
+       0.26,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
      "pose": {
       "o": [
        0.12,
-       0.45,
-       0.12
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 1.78
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.2,
-       0.25,
-       0.22
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 1.78
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.01,
-     "at": 1.78
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.28,
        0.45,
        0.12
       ]
@@ -2330,7 +2317,7 @@
     {
      "fx": "poof",
      "pos": [
-      -0.75,
+      -0.56,
       0.05,
       0.2
      ],
@@ -2412,7 +2399,7 @@
      "do": "move",
      "to": [
       -0.3,
-      1.05
+      1.2
      ],
      "dur": 0.65,
      "ease": "out",
@@ -2429,7 +2416,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": -140.711,
+     "to": -159.624,
      "dur": 0.25,
      "at": 0.3
     },
@@ -2439,8 +2426,8 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.68,
-       0.6,
+       -0.49,
+       0.52,
        0.77
       ]
      },
@@ -2454,8 +2441,8 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.82,
-       0.6,
+       -0.63,
+       0.52,
        0.77
       ]
      },
@@ -2469,8 +2456,8 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.68,
-       0.5,
+       -0.49,
+       0.42,
        0.65
       ]
      },
@@ -2484,8 +2471,8 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.82,
-       0.5,
+       -0.63,
+       0.42,
        0.65
       ]
      },
@@ -2519,8 +2506,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      -0.75,
-      0.75
+      -0.52,
+      0.8
      ],
      "dur": 0.8,
      "steps": 0,
@@ -2540,7 +2527,7 @@
      "do": "move",
      "to": [
       -0.3,
-      1.6
+      1.8
      ],
      "dur": 0.8,
      "ease": "inOut",
@@ -2553,9 +2540,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -0.68,
-       0.5,
-       1.2
+       -0.45,
+       0.42,
+       1.25
       ]
      },
      "dur": 0.8,
@@ -2568,9 +2555,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.82,
-       0.5,
-       1.2
+       -0.59,
+       0.42,
+       1.25
       ]
      },
      "dur": 0.8,
@@ -2638,21 +2625,13 @@
      "side": "L",
      "pose": {
       "world": [
-       -0.15,
-       0.62,
-       0.55
+       0,
+       0.72,
+       0.75
       ]
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 2.1
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "open",
-     "dur": 0.08,
      "at": 2.1
     },
     {
@@ -2765,7 +2744,7 @@
     {
      "who": "wedge",
      "do": "turn",
-     "to": 160.974,
+     "to": 163.142,
      "dur": 0.35,
      "at": 2.4
     },
@@ -3029,6 +3008,58 @@
      "at": 2.15
     },
     {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.2
+    },
+    {
      "who": "spud",
      "do": "hide",
      "at": 2.22
@@ -3252,58 +3283,6 @@
      "do": "squash",
      "amount": 0.08,
      "dur": 0.12,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
      "at": 0
     },
     {

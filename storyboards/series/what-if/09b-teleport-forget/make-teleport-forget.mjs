@@ -62,9 +62,9 @@ const SPUD_GLOVE = [0, ropeY(-5.15), -5.15];          // Spud's L glove round th
 const HANG = { chip: 0.86, spud: 0.8 };   // spud higher (L elbow a little bent): his reach to the wrist passes over Chip, not through him (polish)              // root under the glove (glove y - root y) for a straight hanging arm (layout)
 const CHIP_HANG = [0.0, -4.42], SPUD_HANG = [-0.3, -5.12];   // on -x of the rope line: facing 60 his left side is +x, so the rope glove sits on his left and the right hand faces Chip   // Spud a little to the side, so his reach to the wrist passes beside Chip
 const LEDGE = { spud: [-0.75, 0.8], wedge: [0.8, 0.88] };   // panel 01: the two friends at the lip, backs to us
-const LIP = { spud: [0.2, 0.15], chip: [-0.75, 0.2] };          // DESIGN 1.5 SPUD_LIP (on the chunk), CHIP_LIP
-const PULLED = [-0.75, 0.75];                                  // where Wedge drags Chip back to
-const WEDGE_PULL = [-0.3, 1.05];   // behind Chip on Spud's side: a step from Spud, he looks straight through him (polish; straight behind, Chip hid him)                              // Wedge behind Chip, reaching for the hood
+const LIP = { spud: [0.2, 0.15], chip: [-0.56, 0.2] };   // Chip 0.25 nearer the middle than CHIP_LIP: his pull path stays 0.4 m off the near post at x -0.9 (Jonny 14 Nov: "pulled through the wood")          // DESIGN 1.5 SPUD_LIP (on the chunk), CHIP_LIP
+const PULLED = [-0.52, 0.8];                                  // where Wedge drags Chip back to
+const WEDGE_PULL = [-0.3, 1.2];   // behind Chip on Spud's side: a step from Spud, he looks straight through him (polish; straight behind, Chip hid him)                              // Wedge behind Chip, reaching for the hood
 const KNEEL3 = [0.55, 0.75];                                   // jump 3: Spud on his knees on the ledge
 const MEET = { chip: [-0.3, 0.7], wedge: [-0.95, 1.15] };
 const ROOM = [0, 0, -260];                                     // Mash's flat (zroom), far off the gorge
@@ -94,7 +94,7 @@ const props = [
   { id: "room", kind: "zroom", x: ROOM[0], y: 0, z: ROOM[2], w: 4.4, d: 3.6, h: 2.6, dress: "living", floor: "boards", seed: 3, dim: 0.35, glowx: 1.3, glowz: r3(ROOM[2] - 1.1) },
   { id: "couch", kind: "couch", x: COUCH[0], y: 0, z: COUCH[1], rot: 0, color: "#4f6b45", color2: "#668a5a" },   // board 05: a green sofa
   { id: "lamp", kind: "sidelamp", x: 1.3, z: r3(ROOM[2] - 1.3) },
-  { id: "mphone", kind: "phone", x: 0, y: DOWN, z: 0 },
+  { id: "mphone", kind: "phone", x: 0, y: DOWN, z: 0, scale: 1.6 },
 ];
 
 // seed every param that is first tweened later (an unseeded tween writes NaN)
@@ -158,16 +158,16 @@ see(T.j1, T.mash, ["wedge.face"], "jump 1: Spud gone from the ledge in a puff of
 // ================================================================= 05 MASH (5.6-6.6) + 06 THE PHOTO FADES (6.6-8.4)
 // Far away at home, Mash on his sofa scrolling: he never notices. The cut away is the catch made visible.
 const SOFA = [COUCH[0], r3(COUCH[1] + 0.05)];
-place(T.mash, "mash", SOFA, 0);
-A(r3(T.mash + 0.01), "mash", "sit", { seat: "couch", dur: 0.01, hands: "keep", feet: [0.36, 0.08] });
-const PHONE = { id: "mphone", kind: "phone", ...grips.placeFor("phone", [0.1, 0.78, r3(SOFA[1] + 0.38)], 180), tip: -25 };
+place(r3(T.mash - 0.1), "mash", SOFA, 0);
+A(r3(T.mash - 0.08), "mash", "sit", { seat: "couch", dur: 0.01, hands: "keep", feet: [0.36, 0.08] });
+const PHONE = { id: "mphone", kind: "phone", ...grips.placeFor("phone", [0.08, 0.68, r3(SOFA[1] + 0.4)], 0), tip: -35, scale: 1.6 };   // EP06's hold (Jonny OK'd), was a right-hand fist round it
 P(r3(T.mash - 0.03), "mphone", { x: PHONE.x, y: PHONE.y, z: PHONE.z, rot: PHONE.rot, tip: PHONE.tip });
-const hPh = grips.phone(c, "mash", PHONE, { side: "R" });
-c.arm(r3(T.mash - 0.02), "mash", "R", { prop: "mphone", grip: hPh.hands.R.grip, palm: true }, 0.01); grip(T.mash - 0.02, "mash", "R", "hold", 0.01);
-A(r3(T.mash - 0.01), "mash", "grab", { prop: "mphone", hand: "R", grip: hPh.hands.R.grip, dur: 0, pose: null });
-arm(T.mash - 0.02, "mash", "L", { o: [0.08, 0.42, 0.24] }, 0.01);
+const hPh = grips.phone(c, "mash", PHONE, { side: "L" });
+c.arm(r3(T.mash - 0.02), "mash", "L", { prop: "mphone", grip: hPh.hands.L.grip, palm: true }, 0.01); grip(T.mash - 0.02, "mash", "L", "hold", 0.01);
+A(r3(T.mash - 0.01), "mash", "grab", { prop: "mphone", hand: "L", grip: hPh.hands.L.grip, dur: 0, pose: null });
+arm(T.mash - 0.02, "mash", "R", "lap", 0.01);
 expr(T.mash, "mash", "deadpan", { lid: 0.3 }, 0.01); look(T.mash, "mash", [0.05, -0.55], 0.01);
-A(r3(T.mash + 0.5), "mash", "tap", { count: 2, every: 0.35, side: "L" });
+// (no tap: the left hand holds the phone, as in EP06 read-minds, approved)
 see(T.mash, T.photo, ["mash.face", "mphone"], "Mash at home on his sofa, bored, scrolling his phone at chest height");
 // the phone: the friends' photo; Spud fades out of it, the others stay. Snapshot of the doubles on the ledge.
 const PHOTO_CAM = { pos: [6.0, 1.0, 7.8], look: [6.0, 1.05, 1.5], fov: 50 };   // DESIGN 6
@@ -224,20 +224,20 @@ see(T.fall, T.j2, ["spud", "chip"], "looking down the gorge: they fall together,
 // The camera hangs over the gorge looking back at the ledge (frame of 10-15): faces turned toward the drop read.
 jumpOut(T.j2, "spud", [0, -14, -4.95]); A(r3(T.j2 + 0.07), "chip", "hide"); puff(r3(T.j2 + 0.07), [0, -14.5, -4.4], true);
 place(T.lip - 0.02, "spud", LIP.spud, -160, 0); place(T.lip - 0.02, "chip", LIP.chip, 175, 0);
-for (const side of ["R", "L"]) { arm(T.lip - 0.02, "spud", side, { o: [0.2, 0.25, 0.22] }, 0.01); grip(T.lip - 0.02, "spud", side, "open", 0.01); arm(T.lip - 0.02, "chip", side, { o: [side === "R" ? 0.12 : 0.28, 0.45, 0.12] }, 0.01); }
+for (const side of ["R", "L"]) { arm(T.lip - 0.02, "spud", side, side === "L" ? { o: [-0.06, 0.26, 0.4] } : { o: [0.1, 0.2, 0.2] }, 0.01); grip(T.lip - 0.02, "spud", side, "open", 0.01); arm(T.lip - 0.02, "chip", side, side === "R" ? { o: [-0.06, 0.28, 0.4] } : { o: [0.12, 0.45, 0.12] }, 0.01); }   // Chip's arms in: the left one swept through the post
 A(r3(T.lip - 0.02), "spud", "crouch", { to: 0.5, dur: 0.01 }); A(r3(T.lip - 0.02), "chip", "pitch", { to: 16, dur: 0.01 });   // Chip tipping toward the drop
 jumpIn(T.lip, "spud", [LIP.spud[0], 0.05, LIP.spud[1]]); A(r3(T.lip - 0.01), "chip", "show"); puff(T.lip, [LIP.chip[0], 0.05, LIP.chip[1]], false);
 expr(T.lip, "chip", "terrified", { open: 0.6 }, 0.01); look(T.lip, "chip", [0, -0.8], 0.01);
 expr(T.lip, "spud", "terrified", { open: 0.4 }, 0.01); look(T.lip, "spud", [0.4, -0.4], 0.01);
 A(r3(T.lip + 0.3), "spud", "crouch", { to: 0.15, dur: 0.4 });
 // Wedge runs in from where he stood, behind Chip, both fists to the hood on Chip's back
-const WEDGE_LIP = [-0.65, 1.85];   // he comes in from Chip's side, never past Spud   // a step further back than at the start (the cut hides it): his run passes Spud a body clear
+const WEDGE_LIP = [-1.05, 1.95];   // he comes in from Chip's side, never past Spud   // a step further back than at the start (the cut hides it): his run passes Spud a body clear
 place(T.lip - 0.02, "wedge", WEDGE_LIP, yawTo(WEDGE_LIP, WEDGE_PULL), 0);
 for (const side of ["R", "L"]) { arm(T.lip - 0.02, "wedge", side, { o: [0.06, 0.3, 0.2] }, 0.01); grip(T.lip - 0.02, "wedge", side, "open", 0.01); }   // running in with both arms out in front, reaching for Chip
 expr(T.lip, "wedge", "terrified", { open: 0.4, brow: 0.9 }, 0.01); look(T.lip, "wedge", [0.0, -0.4], 0.01);
 A(r3(T.lip + 0.05), "wedge", "move", { to: WEDGE_PULL, dur: 0.65, ease: "out", stride: 1.2 });
 A(r3(T.lip + 0.3), "wedge", "turn", { to: yawTo(WEDGE_PULL, [LIP.chip[0], r3(LIP.chip[1] + 0.3)]), dur: 0.25 });   // turned before the fists come up (they went through him mid-turn)
-const HOOD0 = [LIP.chip[0], 0.5, r3(LIP.chip[1] + 0.45)], HOOD1 = [PULLED[0], 0.5, r3(PULLED[1] + 0.45)];   // the rolled hood on his back (Chip 0.53 tall)
+const HOOD0 = [LIP.chip[0], 0.42, r3(LIP.chip[1] + 0.45)], HOOD1 = [PULLED[0], 0.42, r3(PULLED[1] + 0.45)];   // low: higher fists crossed his own eyes   // the rolled hood on his back (Chip 0.53 tall)
 const fists = (t, at, dur, ease) => { arm(t, "wedge", "R", { world: [r3(at[0] + 0.07), at[1], at[2]] }, dur, ease); arm(t, "wedge", "L", { world: [r3(at[0] - 0.07), at[1], at[2]] }, dur, ease); };   // facing -x from Spud's side, his right fist is the +x one
 fists(T.hood - 0.3, [HOOD0[0], r3(HOOD0[1] + 0.1), r3(HOOD0[2] + 0.12)], 0.3, "out");
 fists(T.hood, HOOD0, 0.1, "in");
@@ -254,7 +254,7 @@ grip(P0 + PULL + 0.1, "wedge", "R", "open"); grip(P0 + PULL + 0.1, "wedge", "L",
 A(r3(P0 + PULL + 0.5), "wedge", "turn", { to: yawTo([WEDGE_PULL[0], r3(WEDGE_PULL[1] + PULLED[1] - LIP.chip[1])], LIP.spud), dur: 0.35 });   // he turns to the edge, to Spud, and sees no one he knows
 look(r3(P0 + PULL + 0.2), "wedge", [0.8, -0.2], 0.35); expr(r3(P0 + PULL + 0.2), "wedge", "deadpan", { lid: 0.1 }, 0.3);
 look(r3(P0 + PULL + 0.8), "wedge", [-0.2, -0.4], 0.3);
-arm(r3(P0 + PULL + 0.2), "spud", "L", { world: [-0.15, 0.62, 0.55] }, 0.3, "out"); grip(P0 + PULL + 0.2, "spud", "L", "open");   // Spud reaching for Wedge
+arm(r3(P0 + PULL + 0.2), "spud", "L", { world: [0.0, 0.72, 0.75] }, 0.3, "out");   // past Chip's shoulder, toward Wedge grip(P0 + PULL + 0.2, "spud", "L", "open");   // Spud reaching for Wedge
 expr(r3(P0 + PULL + 0.25), "spud", "shocked", { open: 0.4, eye: 1.25 }, 0.12); look(r3(P0 + PULL + 0.25), "spud", [-0.7, 0.3], 0.15);
 see(T.lip, T.slip, ["wedge.face", "spud.face", "chip.face"], "Wedge pulls Chip up by the hood, his eyes passing over Spud as if he isn't there");
 // the lip breaks under Spud (DESIGN 1.3: p linear over 2.44 s is real gravity); he drops into the notch and catches
@@ -299,7 +299,7 @@ for (const side of ["R", "L"]) { arm(T.a3 - 0.02, "spud", side, { o: [0.2, 0.12,
 expr(T.a3 - 0.02, "spud", "sad", { open: 0.3, brow: 0.6 }, 0.01); look(T.a3 - 0.02, "spud", [0, -0.6], 0.01);
 jumpIn(T.a3, "spud", [KNEEL3[0], 0.05, KNEEL3[1]]);
 place(T.a3, "chip", MEET.chip, 140, 0); place(T.a3, "wedge", MEET.wedge, 155, 0);
-for (const side of ["R", "L"]) { arm(T.a3, "wedge", side, "rest", 0.01); arm(T.a3, "chip", side, "rest", 0.01); grip(T.a3, "wedge", side, "relaxed", 0.01); }
+for (const side of ["R", "L"]) { arm(T.a3 - 0.2, "wedge", side, "rest", 0.01); arm(T.a3 - 0.2, "chip", side, "rest", 0.01); grip(T.a3 - 0.2, "wedge", side, "relaxed", 0.01); }   // off screen, before the cut (on it, the hand jumped)
 look(T.a3, "chip", [0.8, -0.2], 0.01); look(T.a3, "wedge", [0.8, -0.2], 0.01);
 expr(T.a3 + 0.15, "chip", "shocked", { open: 0.3 }, 0.1); expr(T.a3 + 0.15, "wedge", "shocked", { open: 0.2 }, 0.1);
 for (const t of [T.a3 + 0.3, T.a3 + 0.9, T.a3 + 1.5]) A(r3(t), "spud", "squash", { amount: 0.05, dur: 0.45 });   // panting
