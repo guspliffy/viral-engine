@@ -128,7 +128,7 @@ function build(F) {
   c.arm(T.p02, "spud", "L", "rest", 0.01); A(T.p02, "spud", "grip", { side: "L", shape: "relaxed", dur: 0.01 });
   P(T.p02 + 0.05, "h1-stone", { y: 0 }, r3(T.land - T.p02 - 0.05), "in");
   c.at(r3(T.land + H), { fx: "shake", dur: 0.3, amp: 0.05 });
-  for (const [dx, dz] of [[0, 0.9], [-1.1, 0.6], [1.1, 0.6]]) c.at(r3(T.land + H), { fx: "poof", pos: [r3(S30[0] + dx), 0.05, r3(S30[1] + dz)], dur: 1.5, color: "#e4ecea", puffs: 22, sparks: 0, size: 2.2, lift: 0.1 });
+  for (const [dx, dz] of [[0, 0.9], [-1.1, 0.6], [1.1, 0.6]]) c.at(r3(T.land + H), { fx: "poof", pos: [r3(S30[0] + dx), 0.05, r3(S30[1] + dz)], dur: 1.5, color: "#e4ecea", puffs: 22, sparks: 0, size: 2.2, lift: 0.1, sound: false });
   sfx(T.land, "thud", { gain: 1, loud: true, reason: "thirty tonnes of stone land in their pit" });
   sfx(r3(T.land + 0.02), "kenney/impact-mining", { gain: 0.5, reason: "grit and chalk under the stone (the crack a phone speaker carries)" });
   A(r3(T.land - 0.12), "fore", "move", { to: at(PL.build, 4.0, 18.1), dur: 0.35, stride: 0.5, ease: "out" });
@@ -236,7 +236,7 @@ function build(F) {
   sfx(T.p08, "kenney/space-engine-low", { gain: 0.1, dur: 2.8, reason: "the ship's hum far above the beam" });
   sfx(T.land8, "thud", { gain: 0.85, loud: true, reason: "the stone settles on the pit's packing stones" });
   c.at(r3(T.land8 + H), { fx: "shake", dur: 0.2, amp: 0.025 });
-  c.at(r3(T.land8 + H), { fx: "poof", pos: [PL.pit[0], 0.05, 0.9], dur: 1.2, color: "#f4f1e6", puffs: 16, sparks: 0, size: 1.2, lift: 0.05 });
+  c.at(r3(T.land8 + H), { fx: "poof", pos: [PL.pit[0], 0.05, 0.9], dur: 1.2, color: "#f4f1e6", puffs: 16, sparks: 0, size: 1.2, lift: 0.05, sound: false });
   look(r3(T.land8 + 0.3), "spud", [0, 0.1], 0.2); expr(r3(T.land8 + 0.3), "spud", "neutral", { brow: 0.6 }, 0.2);
   look(r3(T.land8 + 0.5), "crew", [-0.5, 0.1], 0.2);
   cap(r3(T.p08 + 0.05), r3(T.p08 + 0.9), "6.7 m", F.NUM, false, NUM);
@@ -301,7 +301,7 @@ function build(F) {
     if (last) { P(t + 0.02, id, { y: 2.2 }, r3(T.land11 - 0.45 - t), "inOut"); P(r3(T.land11 - 0.45), id, { y: 0 }, 0.45, "in"); }
     else P(t + 0.02, id, { y: 0 }, r3(landAt - t - 0.02), "in");
     sfx(landAt, "thud", { gain: last ? 1 : 0.7, ...(last && { loud: true }), reason: "an upright lands in its place on the ring" });
-    c.at(r3(landAt + H), { fx: "poof", pos: [x, 0.05, z], dur: 1.2, color: "#e4ecea", puffs: 16, sparks: 0, size: 1.6, lift: 0.08 });
+    c.at(r3(landAt + H), { fx: "poof", pos: [x, 0.05, z], dur: 1.2, color: "#e4ecea", puffs: 16, sparks: 0, size: 1.6, lift: 0.08, sound: false });
   });
   sfx(T.p11, "kenney/space-engine-low", { gain: 0.1, dur: 6.6, reason: "the ship's hum over the ring" });
   say(38.25, "l8a", 42.35);
@@ -343,7 +343,7 @@ function build(F) {
   // ---------------------------------------------------------------- shots (a push or a move on every one: something changes every 3 s)
   const o = (pl, v) => ({ pos: [r3(pl[0] + v.pos[0]), v.pos[1], r3(pl[1] + v.pos[2])], look: [r3(pl[0] + v.look[0]), v.look[1], r3(pl[1] + v.look[2])], fov: v.fov, ...(v.to && { to: { pos: [r3(pl[0] + v.to.pos[0]), v.to.pos[1], r3(pl[1] + v.to.pos[2])], ...(v.to.look && { look: [r3(pl[0] + v.to.look[0]), v.to.look[1], r3(pl[1] + v.to.look[2])] }) } }), ...(v.dur && { dur: v.dur }) });
   const C01 = { pos: [-2.1, 0.5, 50.1], look: [-0.2, 3.0, 15.4], fov: 44 };
-  const C04 = { pos: [-2.55, 0.6, 50.0], look: [-1.25, 1.7, 33], fov: 38 };
+  const C04 = { pos: [-2.6, 0.6, 50.1], look: [-1.75, 1.7, 33], fov: 38 };
   const SHOTS = [
     ["01 hook", T.p01, o(PL.build, { ...C01, to: { pos: [-2.05, 0.5, 49.65] }, dur: T.p02 }), "hook"],
     ["02 the drop", T.p02, o(PL.build, { pos: [2.3, 0.45, 21.9], look: [S30[0] - PL.build[0], 0.95, S30[1]], fov: 42, to: { pos: [2.32, 0.45, 22.3] }, dur: 1.5 })],

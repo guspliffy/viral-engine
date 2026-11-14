@@ -1136,7 +1136,7 @@
   {
    "from": 20.75,
    "to": 21,
-   "text": "SUNSET 2:40",
+   "text": "SUNSET IN 2:40",
    "pos": 250,
    "pop": false,
    "size": 108,
@@ -1145,7 +1145,7 @@
   {
    "from": 21,
    "to": 21.4,
-   "text": "SUNSET 2:39",
+   "text": "SUNSET IN 2:39",
    "pos": 250,
    "pop": false,
    "size": 108,
@@ -2345,6 +2345,7 @@
      "sparks": 0,
      "size": 2.2,
      "lift": 0.1,
+     "sound": false,
      "at": 0.4
     },
     {
@@ -2360,6 +2361,7 @@
      "sparks": 0,
      "size": 2.2,
      "lift": 0.1,
+     "sound": false,
      "at": 0.4
     },
     {
@@ -2375,6 +2377,7 @@
      "sparks": 0,
      "size": 2.2,
      "lift": 0.1,
+     "sound": false,
      "at": 0.4
     },
     {
@@ -2747,12 +2750,12 @@
    "len": 1.167,
    "shot": {
     "pos": [
-     -2.55,
+     -2.6,
      0.6,
-     50
+     50.1
     ],
     "look": [
-     -1.25,
+     -1.75,
      1.7,
      33
     ],
@@ -2816,17 +2819,9 @@
        -0.05
       ]
      },
-     "dur": 0.35,
-     "ease": "out",
-     "at": 0.15
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "point",
-     "dur": 0.2,
-     "at": 0.15
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.1
     },
     {
      "macro": "say",
@@ -2837,6 +2832,14 @@
      "voice": "reaper",
      "caption": false,
      "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 0.2
     },
     {
      "who": "chip",
@@ -2934,12 +2937,12 @@
    "len": 2.933,
    "shot": {
     "pos": [
-     1997.45,
+     1997.4,
      0.6,
-     50
+     50.1
     ],
     "look": [
-     1998.75,
+     1998.25,
      1.7,
      33
     ],
@@ -3838,6 +3841,7 @@
      "sparks": 0,
      "size": 1.2,
      "lift": 0.05,
+     "sound": false,
      "at": 1.4
     },
     {
@@ -4517,6 +4521,7 @@
      "sparks": 0,
      "size": 1.6,
      "lift": 0.08,
+     "sound": false,
      "at": 0.75
     },
     {
@@ -4632,6 +4637,7 @@
      "sparks": 0,
      "size": 1.6,
      "lift": 0.08,
+     "sound": false,
      "at": 0.75
     },
     {
@@ -4731,6 +4737,7 @@
      "sparks": 0,
      "size": 1.6,
      "lift": 0.08,
+     "sound": false,
      "at": 0.75
     },
     {
@@ -4935,6 +4942,7 @@
      "sparks": 0,
      "size": 1.6,
      "lift": 0.08,
+     "sound": false,
      "at": 1.95
     },
     {
