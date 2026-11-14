@@ -384,3 +384,14 @@ All: VOCAB lines for new kinds and keys; seed every new param with a dur-0 set a
    the hall clock; no fridge, no bedroom.]
 4. Panel 07's caps show a badge; the brief says none. [None.]
 5. Painted sky plates may not match the drawn gradient. [Use them; the drawn cloud bars are the fallback.]
+
+## 10. DIRECTOR'S DECISIONS (14 Nov 2026, win over the sections above)
+- The coupe is a PROP kind `coupe` in engine/page/props-coupe.js (`COUPE_KINDS`, already wired into props3d.js), not a
+  rig: it is parked or rolls in a straight line (spec `len` metres rolled turns the wheels), and the cast sits in it by
+  placement. No vehicle.js or stage.js change. Its usage header gives the seat point (driver's hip, in the car's frame).
+- Sets are rooms for `set.swap` (the FFF01 pattern): `coast`, `vault`, `mansionhall` are set types already wired into
+  sets.js (stubs: set-coast.js, set-vault.js, set-mansionhall.js). Each builds into the group it is given at the
+  swap's `pos` and brings its own `scene.background`; lights a set needs are added inside its own group.
+- Q1 bag on his right (09 wins). Q2 CHANGED: no police on screen at the gate (S8): only red/blue light washing the
+  wet drive from beyond the gate (a source we never see), the coupe parked INSIDE the drive; nobody is there, so the
+  ambulance reveal stays true. Q3, Q4, Q5: the defaults.
