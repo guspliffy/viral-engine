@@ -37,6 +37,16 @@ picture 3.59, low 5.29 (sad), across 4.17, parking 1.39, closed 1.21, nobody 1.4
 - No arm pose "spread": use `{ o: [0.45, 0.55, 0.2] }` on both sides. Expressions: "shocked" (not "shock"/"surprised").
   "nod" is a macro (`c.macro(t, who, "nod")`).
 
+## Finals v1 (14 Nov, commit 4b06c09, farm runs 315-320)
+- Wide 52.0 s = sun-wide 31.0 + dusk-wide 21.0; tall 55.0 s = sun-tall 34.0 (3 s hook) + dusk-tall 21.0; files in
+  /mnt/project-files/videos/ancient-aliens/02-stonehenge/block-d/ (block-d-wide-FINAL-v1.mp4, block-d-tall-part4-FINAL-v1.mp4).
+- The frost poofs at the landing are `sound: false` (realistic-sounds warn).
+- The farm's dusk-wide had ONE flashing frame (a white glow over the stones at 17.97 s, "pops" warn) that a local
+  `--stills 17.9667` does not show: a farm-shard glitch, not the storyboard. Patched by overlaying that local still on the
+  frame (ffmpeg overlay, enable eq(n,540): the filter's n is one more than select's n here). Re-render = check pops again.
+- Warns left (named in the delivery): shell on the headlamps, hand-jump / palm-turn on the tag turn, blink-on-line,
+  the "...Nobody saw that." subtitle over his forehead in the last 2 s (panel 48: the face fills the frame).
+
 ## Open for polish (after Jonny's notes on block A, applied to all four)
 - hand-jump warns (lifter's arms down 14.6, Spud's arm on the palm, the point, the tag's spread arms), blinks on lines.
 - the subtitle over his face in the last 2 s (the face fills the frame, panel 48).
