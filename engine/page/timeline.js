@@ -978,6 +978,13 @@ function timedActions(sb) {
     }
     if (shift.size) T.actions = src.map((a) => { const d = shift.get(`${a.who}|${Math.round(a.at * 1000)}`); return d ? { ...a, at: a.at + d } : a; });
   }
+  // a move's `y` never holds a body that is falling, flying or climbing (There's a catch EP09 teleport, 13 Nov 2026:
+  // a `move` with `y` started on the same frame as a `drop` ran after it and pinned Spud at the lip, so in draft 1 he
+  // never fell, and no check saw it; Jonny did). A move that starts while a drop or land, or a fly or climb with a
+  // `to.y`, of the same actor is still running leaves the height to that action and only moves x and z.
+  const air = (a) => a.do === "drop" || a.do === "land" || ((a.do === "fly" || a.do === "climb") && a.to?.y != null);
+  const airs = T.actions.filter(air);
+  if (airs.length) T.actions = T.actions.map((a) => a.do === "move" && a.y != null && airs.some((b) => b.who === a.who && b.at <= a.at && a.at < b.at + (b.dur ?? 0.3)) ? { ...a, y: undefined } : a);
   if (ML?.timing?.splines) {
     const STOP = new Set(["run", "sit", "stand", "ride", "fly", "drop", "land", "climb", "hover"]);
     const byWho = new Map();
