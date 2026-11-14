@@ -20,7 +20,7 @@ import { clamp } from "./util.js";
 //               toward its top edge, a band #11162a 0.04 tall with one small gold five-point star on the front, a glossy
 //               black visor reaching 0.09 forward, tipped 12 deg down. Origin: the middle of the band's bottom edge (the
 //               ring that sits on the head). spec.tilt (deg, sideways, about the origin) is the engine's own prop tilt.
-//               No letters, no chequer band.
+//               No letters, no chequer band. spec.badge (true): false = no star on the band (Happiness 01's police).
 //   moneybag    a cream canvas sack #d9c9a3, 0.34 tall, 0.30 wide, 0.26 deep, widest at 0.16 up, a tied neck with a rope at
 //               0.26 and a bold dark green #1f6b3a "$" 0.14 tall on the front (+z). spec.open (false) / param open: true
 //               = the neck stands open (the rope loose) and three bundles of green banknotes (#3f9b5a, a paper band)
@@ -28,6 +28,17 @@ import { clamp } from "./util.js";
 //               gloves, one each side), .sideR / .sideL = [+-0.15, 0.16, 0] (the sides themselves); grips.mjs SIZE.moneybag
 //               for the box hold. spec.back (false): the "$" on the back (-z), for a sack whose holder hugs it facing
 //               the camera (the box hold wants the prop's front toward its holder: rot = the holder's yaw + 180).
+//               spec.mark (true): false = a plain sack with no "$" at all (Happiness 01: the board's sacks are plain).
+//   balaclava   (worn: spec.wear = an actor id, x 0, y 0, z 0) a full black knit hood #1b1a20 (Happiness 01 "Does money make you
+//               happy?", panel 03, 14 Nov 2026): the head's shell from spec.low (0.36: where it tucks under the sweater collar) up
+//               over the crown, spec.out (0.009: the face's blush stands 6 mm off the skin, so 5 mm let the cheeks show through) off the skin, rib lines #33303c every 1.2 cm running up to the crown (one hand-
+//               drawn canvas, no tile), THREE real openings each with a rolled rim 1.2 cm #26242c: two eye holes (spec.eye
+//               { x 0.108, y 0.65, w 0.17, h 0.26 }: Spud's eyes are 0.17 wide) and one mouth hole (spec.mouth { y 0.435, w
+//               0.21, h 0.11 }, 0.03 below the eye holes), plus a 0.05 hole on top (spec.leaf { r 0.025 }, at the crown) that the leaf passes through. The eyes stay on show: they stand out of the face. Every part is
+//               userData.steam (see-through for the checks). Fit: spec.fit: "spud" (default) | an object { rx, rz, cy, ry,
+//               taper, lumps } = the body's half width and depth, its centre height and half height, the egg's taper and the
+//               lump list [{ d, a, k }] (potato.js bodyPoint exactly: the shell follows the real skin). Spud's row is
+//               measured from potato.js with his seed 29. Other keys: color, rib, rim, low, out. Budget about 3k triangles.
 //   riotshield  (worn or standing) a curved rounded-rectangle shield 0.62 wide, 0.86 tall, 0.02 thick, bowed 0.06 toward
 //               +z, smoky blue-grey #8fa3b8 at 0.45 opacity in a dark frame #1c2440 0.03 wide with a white band across it
 //               at 0.55-0.68 up and the word POLICE in dark navy capitals (readable from both sides). Origin: bottom
@@ -122,6 +133,30 @@ export const MASK_FITS = {
     k: [0.0005, 0.0005, 0, -0.0005, -0.001, -0.0015, -0.001, -0.0005, 0.0005, 0.002, 0.004, 0.0065, 0.0085, 0.0095, 0.0085, 0.0065, 0.004, 0.0015, 0, -0.0005, -0.001, -0.001, -0.002, -0.0025, -0.003, -0.002, -0.001, 0, 0.0005, 0.0005, 0, -0.0005, -0.001, -0.001, -0.0005, 0] },
 };
 
+// ------------------------------------------------------------------------------------------------ the balaclava
+// potato.js bodyPoint() for a body: rx, rz = half width and depth, cy, ry = centre height and half height, taper (the egg's narrower
+// top, def.body.taper 0.07), lumps = [{ d: unit direction, a: height, k: tightness }]. Spud's lumps are measured from his seed (29),
+// lump 0.03, with potato.js's own generator, so the shell follows his real skin to the millimetre.
+export const BALA_FITS = {
+  spud: { rx: 0.38, rz: 0.33, cy: 0.58, ry: 0.44, taper: 0.07, lumps: [
+    { d: [0.6855, -0.6998, 0.2009], a: -0.006, k: 4.77 }, { d: [0.7454, 0.6444, 0.1709], a: -0.01467, k: 7.397 }, { d: [0.6888, -0.6998, -0.1892], a: -0.00673, k: 6.628 },
+    { d: [-0.7062, -0.4034, 0.5819], a: 0.01452, k: 5.341 }, { d: [0.2792, -0.8165, 0.5054], a: 0.023, k: 4.38 }, { d: [0.7635, -0.617, -0.1908], a: -0.02188, k: 3.273 },
+    { d: [-0.4535, -0.2353, -0.8596], a: -0.00082, k: 5.446 }, { d: [-0.3129, 0.4265, 0.8486], a: -0.01956, k: 5.143 }, { d: [0.4648, -0.1194, -0.8773], a: 0.0132, k: 7.867 }] },
+};
+// the body's skin at polar angle th (0 = front, + toward +x) and elevation el, plus its outward normal pushed `out`
+function bodyAt(F, th, el, out = 0) {
+  const at = (a, b) => {
+    const dx = Math.sin(a) * Math.cos(b), dy = Math.sin(b), dz = Math.cos(a) * Math.cos(b);
+    let r = 1; for (const L of F.lumps || []) r += L.a * Math.exp(-L.k * (1 - (dx * L.d[0] + dy * L.d[1] + dz * L.d[2])));
+    const tp = 1 - (F.taper ?? 0.07) * dy;
+    return new THREE.Vector3(dx * F.rx * tp * r, F.cy + dy * F.ry * r, dz * F.rz * tp * r);
+  };
+  const p = at(th, el);
+  if (!out) return p;
+  const e = 0.003, n = at(th + e, el).sub(at(th - e, el)).cross(at(th, el + e).sub(at(th, el - e))).normalize();
+  return p.addScaledVector(n, out);
+}
+
 // ------------------------------------------------------------------------------------------------ the bag
 const BAG = { w: 0.30, d: 0.26, h: 0.34, neck: 0.26, kz: 0.26 / 0.30 };   // kz: the depth squeeze of the round sack
 // the sack's half width from the floor up to the tied neck (closed) and to the open mouth: [y, r]
@@ -200,6 +235,56 @@ export const HEIST_KINDS = {
     return { grip: 0 };
   },
 
+  // ---------------------------------------------------------------------------------------------- balaclava
+  balaclava(P) {
+    const S = P.spec, F = { ...BALA_FITS.spud, ...(typeof S.fit === "string" ? BALA_FITS[S.fit] : S.fit) };
+    const OUT = S.out ?? 0.009, LOW = S.low ?? 0.36, LEAF = S.leaf || {}, LR = LEAF.r ?? 0.025;
+    const EYE = { x: 0.108, y: 0.65, w: 0.17, h: 0.26, ...S.eye }, MOUTH = { x: 0, y: 0.435, w: 0.21, h: 0.11, ...S.mouth }, RIM = 0.012;
+    const elLow = Math.asin(clamp((LOW - F.cy) / F.ry, -1, 1)), elTop = Math.acos(clamp(LR / F.rx, 0, 1));   // the shell ends in the leaf's ring at the crown
+    // a hole's centre in (th, el) from its body-frame spot (x across, y up on the front), and its half size in the same two angles
+    const spot = (x, y) => { const el = Math.asin(clamp((y - F.cy) / F.ry, -1, 1)); return [Math.asin(clamp(x / (F.rx * Math.cos(el)), -1, 1)), el]; };
+    const holes = [];
+    for (const sd of [-1, 1]) { const [th, el] = spot(sd * EYE.x, EYE.y); holes.push({ th, el, a: (EYE.w / 2) / (F.rx * Math.cos(el)), b: (EYE.h / 2) / F.ry, round: 1 }); }
+    { const [th, el] = spot(MOUTH.x, MOUTH.y); holes.push({ th, el, a: (MOUTH.w / 2) / (F.rx * Math.cos(el)), b: (MOUTH.h / 2) / F.ry, round: 0.45 }); }   // a rounded slot
+    // the outline of a hole in (th, el): a superellipse (round 1 = an ellipse, less = squarer), grown by `g` metres
+    const edge = (h, i, n, g = 0) => { const q = (i / n) * 2 * Math.PI, c = Math.cos(q), sn = Math.sin(q), e = 2 / (2 + 2 * (1 - h.round) * 3);
+      return [h.th + (h.a + g / (F.rx * Math.cos(h.el))) * Math.sign(c) * Math.abs(c) ** e, h.el + (h.b + g / F.ry) * Math.sign(sn) * Math.abs(sn) ** e]; };
+    // the one drawing on the shell: the knit's rib lines (every 1.2 cm at the equator, each a little bent, some faint, a few broken,
+    // converging on the crown because the columns are meridians), the rolled rims round the three holes, and the holes cut out
+    const TW = 2048, TH = 1024, sp = (elTop - elLow);
+    const tex = canvasTex(TW, TH, (g, w, h) => {
+      const hs = (a, b) => { const v = Math.sin(a * 127.1 + b * 311.7) * 43758.5453; return v - Math.floor(v); };
+      g.fillStyle = S.color || "#1b1a20"; g.fillRect(0, 0, w, h);
+      const N = Math.round((2 * Math.PI * F.rx) / 0.012);
+      g.lineCap = "round";
+      for (let i = 0; i < N; i++) {
+        const x0 = ((i + 0.5 + (hs(i, 1) - 0.5) * 0.3) / N) * w, bend = (hs(i, 2) - 0.5) * 0.9 * (w / N), ph = hs(i, 3) * 6.28, a = hs(i, 4) < 0.12 ? 0.2 + 0.5 * hs(i, 5) : 0;
+        g.strokeStyle = S.rib || "#33303c"; g.globalAlpha = 0.5 + 0.5 * hs(i, 6); g.lineWidth = 1.5 + 1.1 * hs(i, 7);
+        g.beginPath();
+        for (let y = a * h; y <= h; y += 16) { const xx = x0 + bend * Math.sin(ph + (y / h) * 3.4); y === a * h ? g.moveTo(xx, h - y) : g.lineTo(xx, h - y); }
+        g.stroke();
+      }
+      g.globalAlpha = 1;
+      const px = (th, el) => [((th + Math.PI) / (2 * Math.PI)) * w, h - ((el - elLow) / sp) * h];
+      const trace = (hh, gr) => { g.beginPath(); for (let i = 0; i <= 64; i++) { const [a, b] = edge(hh, i, 64, gr), [x, y] = px(a, b); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.closePath(); };
+      g.fillStyle = S.rimColor || "#26242c"; for (const hh of holes) { trace(hh, RIM); g.fill(); }
+      g.globalCompositeOperation = "destination-out"; g.fillStyle = "#000"; for (const hh of holes) { trace(hh, 0); g.fill(); }
+      g.globalCompositeOperation = "source-over";
+    });
+    const m = new THREE.MeshStandardMaterial({ color: "#ffffff", map: tex, alphaTest: 0.5, roughness: 0.95, side: THREE.DoubleSide }); m.userData.noOutline = true; m.userData.lookRole = "cloth";
+    const NU = 60, NV = 18;
+    thru(mesh(surfGrid((u, v) => bodyAt(F, -Math.PI + u * 2 * Math.PI, elLow + v * sp, OUT), NU, NV), m, P.whole));
+    // the rolled rims: a soft tube round each hole, and round the leaf's ring at the crown
+    const rimM = mat(S.rimColor || "#26242c", { roughness: 0.9 }); rimM.userData.noOutline = true;
+    for (const hh of holes) {
+      const pts = []; for (let i = 0; i < 40; i++) { const [a, b] = edge(hh, i, 40, 0.004); pts.push(bodyAt(F, a, b, OUT + 0.002)); }
+      thru(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 40, 0.0058, 4, true), rimM, P.whole));
+    }
+    { const pts = []; for (let i = 0; i < 20; i++) pts.push(bodyAt(F, (i / 20) * 2 * Math.PI, elTop, OUT + 0.002));
+      thru(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 20, 0.0058, 4, true), rimM, P.whole)); }
+    return { grip: 0 };
+  },
+
   // ---------------------------------------------------------------------------------------------- policecap
   policecap(P) {
     const S = P.spec, R = S.r ?? 0.2, navy = mat("#1c2440", { roughness: 0.7 }), band = mat("#11162a", { roughness: 0.65 });
@@ -211,7 +296,7 @@ export const HEIST_KINDS = {
     const star = new THREE.Shape(), so = 0.026, si = 0.0108;
     for (let i = 0; i < 10; i++) { const a = Math.PI / 2 + (i * Math.PI) / 5, r = i % 2 ? si : so; star[i ? "lineTo" : "moveTo"](r * Math.cos(a), r * Math.sin(a)); }
     star.closePath();
-    mesh(new THREE.ExtrudeGeometry(star, { depth: 0.007, bevelEnabled: false }), gold, P.whole, 0, 0.032, R - 0.001).castShadow = false;
+    if (S.badge !== false) mesh(new THREE.ExtrudeGeometry(star, { depth: 0.007, bevelEnabled: false }), gold, P.whole, 0, 0.032, R - 0.001).castShadow = false;   // spec.badge: false = no star
     // the visor: a half-moon plate from the band's bottom front, 0.09 forward at the middle, tipped 12 deg down about its root
     const NV = 18, back = [], front = [], RV = R * 0.995, vis = new THREE.Group(); vis.position.set(0, 0.004, RV); vis.rotation.x = 12 * DEG; P.whole.add(vis);
     for (let i = 0; i <= NV; i++) {
@@ -286,9 +371,12 @@ export const HEIST_KINDS = {
       const r0 = sackAt(closedP, k, 0).z / BAG.kz, th = Math.asin(clamp(x / Math.max(r0, 0.02), -1, 1));
       return sackAt(closedP, k, th, 0.0035);
     }, 14, 14);
-    const d = mesh(dec, decalM, P.whole); d.castShadow = false; d.userData.sack = true;
-    // spec.back: the "$" on the back (-z) instead: a sack hugged with the box hold turns its front to its holder
-    if (P.spec.back) d.rotation.y = Math.PI;
+    // spec.mark: false = a plain sack (no decal at all)
+    if (S.mark !== false) {
+      const d = mesh(dec, decalM, P.whole); d.castShadow = false; d.userData.sack = true;
+      // spec.back: the "$" on the back (-z) instead: a sack hugged with the box hold turns its front to its holder
+      if (P.spec.back) d.rotation.y = Math.PI;
+    }
     return {
       grip: 0,
       apply(ps) {
