@@ -282,7 +282,7 @@ function build(F) {
     ["13 the knock", T.p13, pair(T2(PT, { pos: [-1.75, 0.85, 11.4], look: [-2.3, 0.62, 8.5], fov: 30 }, { pos: [-1.8, 0.84, 11.0] }, 4.0),
       T2(PT, { pos: [-1.6, 0.9, 11.6], look: [-2.35, 0.95, 8.5], fov: 52 }, { pos: [-1.65, 0.9, 11.2] }, 4.0)), "hook"],
     ["14 eighty of them", T.p14, pair(T2(PT, { pos: [-2.4, 1.3, 13.9], look: [-0.4, 1.3, 8.0], fov: 44 }, { pos: [0.9, 1.35, 13.9] }, r3(T.p14b - T.p14)),
-      T2(PT, { pos: [-1.2, 1.4, 15.5], look: [-0.6, 2.2, 10.4], fov: 62 }, { pos: [-0.2, 1.45, 15.5] }, r3(T.p14b - T.p14)))],
+      T2(PT, { pos: [-1.2, 1.4, 14.2], look: [-0.6, 2.2, 9.4], fov: 66 }, { pos: [-0.2, 1.45, 14.2] }, r3(T.p14b - T.p14)))],
     ["14b two tonnes", T.p14b, pair(T2(PT, { pos: [-2.6, 1.1, 6.6], look: [-2.0, 0.6, 8.4], fov: 40 }, { pos: [-2.75, 1.1, 6.75] }, r3(T.p15 - T.p14b)),
       T2(PT, { pos: [-2.7, 1.15, 6.3], look: [-2.0, 1.1, 8.4], fov: 62 }, { pos: [-2.85, 1.15, 6.45] }, r3(T.p15 - T.p14b)))],
     ["15 the map, Wales", T.p15, pair(mv(map(MAP_VIEW.stub.wide), map(MAP_VIEW.south.wide), 2.6), mv(map(MAP_VIEW.stub.tall), map(MAP_VIEW.south.tall), 2.6))],
