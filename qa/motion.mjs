@@ -19,6 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadStoryboard } from "../engine/load.mjs";
+import { frameSize } from "../engine/shared/frame.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // how far a value may move between two frames before it counts as a jump (metres, radians, or 0..1 levels),
@@ -51,7 +52,7 @@ export async function motionJumps(sb, fps = 30) {
   const { actorState, flashAt } = await import("../engine/page/timeline.js");
   const { handTarget } = await import("../engine/page/potato.js");
   const { isDance } = await import("../engine/page/dance.js");
-  const THREE = await import("three"), cam = new THREE.PerspectiveCamera(32, 1080 / 1920, 0.05, 300), v3 = new THREE.Vector3();
+  const THREE = await import("three"), cam = new THREE.PerspectiveCamera(32, frameSize(sb).W / frameSize(sb).H, 0.05, 300), v3 = new THREE.Vector3();
   const { cameraState, cutBetween } = await import("../engine/page/timeline.js");
   // off camera (a cheat behind a cut is fine): the body's middle projects outside the frame with a margin
   const offScreen = (st, t) => {

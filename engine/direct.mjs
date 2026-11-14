@@ -42,6 +42,7 @@ import { propState, gripWorld } from "./page/props3d.js";
 import { handTarget } from "./page/potato.js";
 import { ease } from "./page/util.js";
 import { lockMusic, payoffOf } from "./music.mjs";
+import { frameSize } from "./shared/frame.js";
 
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const LEG_H = 0.14, EYE_K = 0.56;   // potato.js: legs, and the eyes' height on the body (measured from the layout)
@@ -125,10 +126,10 @@ function frame(sb, ctx, { who, size, eyeOf, t0, t1, caps }) {
   const x0 = Math.min(...samples.map((s) => s.x - half(s))), x1 = Math.max(...samples.map((s) => s.x + half(s)));
   const zc = samples.reduce((m, s) => m + s.z, 0) / samples.length;
   // a caption over the shot: heads (and a hat's brim) stay under its box; a hat's tip may reach into it
-  const capBottom = Math.max(0, ...caps.filter((c) => c.from < t1 && c.to > t0).map((c) => (c.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(c.text).length / 20)) + 20)) / 1920;
+  const capBottom = Math.max(0, ...caps.filter((c) => c.from < t1 && c.to > t0).map((c) => (c.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(c.text).length / 20)) + 20)) / FH;
   const Tc = Math.max(...samples.map((s) => Math.min(s.hat, s.body + 0.1)));
   // the smallest picture that fits: the size's own, the width of everyone in it, the head and feet room
-  let V = Math.max(Z.V, Z.fit && who.length > 1 ? ((x1 - x0) + 2 * SIDE) * 16 / 9 : 0);
+  let V = Math.max(Z.V, Z.fit && who.length > 1 ? ((x1 - x0) + 2 * SIDE) / AR : 0);
   V = Math.max(V, (T - E) / (Z.eye + EYE_GIVE - HEADROOM));
   if (capBottom) V = Math.max(V, (Tc - E) / (Z.eye + EYE_GIVE - capBottom));
   if (Z.feet != null) V = Math.max(V, (T - F) / (Z.feet - HEADROOM), (E - F) / (Z.feet - Z.eye));
@@ -137,7 +138,7 @@ function frame(sb, ctx, { who, size, eyeOf, t0, t1, caps }) {
   // feet are near the bottom of the safe zone rather than leaving half the frame to the floor
   const f = Math.max(Z.eye, top, Z.feet != null ? Math.min(0.45, 0.6 - (E - F) / V) : 0);
   // look room: a single face in a close-up sits a little off centre, away from where it faces
-  const W = V * 9 / 16, single = who.length === 1 && Z.head === "body";
+  const W = V * AR, single = who.length === 1 && Z.head === "body";
   const yaw = single ? lead[0].yaw : 0, cx = single ? lead[0].x + Math.max(-1, Math.min(1, 1.6 * Math.sin(yaw))) * (W / 6) * 0.8 : (x0 + x1) / 2;
   const look = [cx, E - (0.5 - f) * V, zc], d = V / k;
   return { pos: look.map((v, i) => r3(v + D[i] * d)), look: look.map(r3), fov, V, size, who };
@@ -176,13 +177,16 @@ function movesOn(sb, id, t0, t1) {
     (sb.props || []).some((p) => p.target === id && (sb.actions || []).some((a) => live(a) && a.do === "prop" && a.id === p.id));
 }
 
+// the picture the director frames for: width over height and the frame's height in px (a tall frame unless "frame": "wide")
+let AR = 9 / 16, FH = 1920;
+const frameOf = (sb) => { const f = frameSize(sb); AR = f.W / f.H; FH = f.H; };
 const sub = (a, b) => a.map((v, i) => v - b[i]), dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const unit = (v) => { const l = Math.hypot(...v) || 1; return v.map((c) => c / l); };
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 // where a world point lands in a camera's picture: [across from the left, down from the top] (shares of the frame)
 function project(pos, look, fov, p) {
   const f = unit(sub(look, pos)), r = unit(cross(f, [0, 1, 0])), u = cross(r, f), d = sub(p, pos), z = dot(d, f), k = 2 * Math.tan((fov * Math.PI) / 360);
-  return [0.5 + dot(d, r) / z / (k * 9 / 16), 0.5 - dot(d, u) / z / k, z];
+  return [0.5 + dot(d, r) / z / (k * AR), 0.5 - dot(d, u) / z / k, z];
 }
 
 // does the picture stay on the set's painted plate? (a low or wide lens would show past its edges) The four corner
@@ -194,7 +198,7 @@ function onPlate(sb, pos, look, fov, roll = 0) {
   const f = unit(sub(look, pos)), r0 = unit(cross(f, [0, 1, 0])), u0 = cross(r0, f), k = Math.tan((fov * Math.PI) / 360);
   const q = (roll * Math.PI) / 180, r = r0.map((v, i) => v * Math.cos(q) - u0[i] * Math.sin(q)), u = u0.map((v, i) => v * Math.cos(q) + r0[i] * Math.sin(q));
   for (const [a, b] of [[-1, -1], [-1, 1], [1, -1], [1, 1]]) {
-    const d = f.map((v, i) => v + r[i] * a * k * 9 / 16 + u[i] * b * k);
+    const d = f.map((v, i) => v + r[i] * a * k * AR + u[i] * b * k);
     if (d[2] >= -1e-6) return false;
     const s = (z - pos[2]) / d[2], x = pos[0] + d[0] * s, y = pos[1] + d[1] * s;
     if (y < 0) continue;   // it meets the floor first
@@ -211,7 +215,7 @@ function frameInsert(sb, ctx, { on, at, t0, t1, size }) {
   if (!pts.length) return null;
   const med = (i) => { const v = pts.map((p) => p[i]).sort((a, b) => a - b); return v[v.length >> 1]; }, P = [med(0), med(1), med(2)];
   const span = (i) => Math.max(...pts.map((p) => p[i])) - Math.min(...pts.map((p) => p[i]));
-  const Z = SIZES.insert, V = Math.max(Z.V, span(1) + 0.25, (span(0) + 0.2) * 16 / 9), { fov } = ctx, k = 2 * Math.tan((fov * Math.PI) / 360);
+  const Z = SIZES.insert, V = Math.max(Z.V, span(1) + 0.25, (span(0) + 0.2) / AR), { fov } = ctx, k = 2 * Math.tan((fov * Math.PI) / 360);
   const el = Math.max(Math.asin(ctx.D[1]), (18 * Math.PI) / 180), h = unit([ctx.D[0], 0, ctx.D[2]]);
   const D = [h[0] * Math.cos(el), Math.sin(el), h[2] * Math.cos(el)], look = [P[0], P[1] - (0.5 - Z.at) * V, P[2]], d = V / k;
   return { pos: look.map((v, i) => r3(v + D[i] * d)), look: look.map(r3), fov, V, size, who: [], on, focus: P.map(r3) };
@@ -239,7 +243,7 @@ function frameOts(sb, ctx, { who, over, t0, t1, caps, size }) {
   // the near one by its body's middle (anchors' x and z sit on the face, in front of it)
   const bs = actorState(sb, B, ctx.chars[B.character], tm), b = { ...b0, x: bs.x, z: bs.z };
   const u = unit([b.x - a.x, 0, b.z - a.z]), n0 = [-u[2], 0, u[0]], n = dot(n0, ctx.D) >= 0 ? n0 : n0.map((v) => -v), Z = SIZES.ots;
-  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / 1920;
+  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / FH;
   const others = Object.values(ctx.cast).filter((c) => c.id !== who && c.id !== over).map((c) => anchors(sb, c, ctx.chars[c.character], tm));
   let best = null;
   for (let back = 0.2; back <= 1.6 + 1e-6; back += 0.1) for (let side = 0.15; side <= 1.4 + 1e-6; side += 0.05) for (const lift of [0.04, 0.12]) {
@@ -289,7 +293,7 @@ function frameLow(sb, ctx, { who, t0, t1, caps, size }) {
   const a = { ...mid, eye: eyes[eyes.length >> 1], hat: Math.max(...all.map((q) => q.hat)), feet: Math.min(...all.map((q) => q.feet)), half: Math.max(...all.map((q) => q.half)) };
   const s = actorState(sb, c, def, ts[ts.length >> 1]).scale ?? 1, h0 = unit([ctx.D[0], 0, ctx.D[2]]);
   const lo = a.feet + 0.5 * LEG_H * s, hi = a.feet + 0.25 * (a.hat - a.feet), heights = [0, 0.25, 0.5, 0.75, 1].map((q) => lo + (hi - lo) * q);
-  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / 1920;
+  const capBottom = Math.max(0, ...caps.filter((q) => q.from < t1 && q.to > t0).map((q) => (q.pos ?? 250) + 90 * Math.max(1, Math.ceil(String(q.text).length / 20)) + 20)) / FH;
   const E = [a.x, a.eye, a.z], turns = [0, ...[5, 10, 15, 20, 25, 30].flatMap((v) => [v, -v])];
   // the eye line drops below the third only as far as the headroom needs (as frame() does, up to EYE_GIVE)
   const eyesAt = [0, 0.25, 0.5, 0.75, 1].map((q) => Z(size).eye + EYE_GIVE * q);
@@ -367,6 +371,7 @@ const beatMs = (grid, t) => (grid.length ? { beatMs: Math.round((t - nearest(gri
 // resolves the directed shots ({ direct, at } placeholders from compile.mjs) into cameras. Returns sb with
 // sb.shots replaced and sb.directed listing what was chosen (for reviews and qa).
 export function direct(sb, chars) {
+  frameOf(sb);
   if (!sb.direct || !(sb.shots || []).some((s) => s.direct)) return sb;
   const fps = sb.fps ?? 30, dur = sb.duration, cfg = sb.direct === true ? {} : sb.direct;
   const master = cfg.master || (sb.shots || []).find((s) => s.pos) || { pos: [0, 0.97, 5.9], look: [0, 0.76, 0], fov: 36 };
@@ -536,6 +541,7 @@ function lines(text, px, maxW) {
 const cardHeight = (f) => (f.do === "rule" ? 68 + (f.title ? 56 : 0) + lines(f.text, 64, 700) * 70
   : 72 + lines(f.question, 52, 728) * 60 + 22 + (f.options || []).length * 108 - 16 + (f.prompt === false ? 0 : 78));
 export function placeCards(sb, chars) {
+  frameOf(sb);
   const cards = (sb.fx || []).filter((f) => (f.do === "rule" || f.do === "vote") && f.y == null);
   if (!cards.length) return sb;
   const directed = [...(sb.directed || [])], end = sb.duration ?? Infinity;
@@ -551,7 +557,7 @@ export function placeCards(sb, chars) {
         const def = chars[c.character]; if (!def) continue;
         const a = anchors(sb, c, def, t); if (!a.visible) continue;
         const [x, y, z] = project(cam.pos, cam.look, cam.fov ?? 32, [a.x, a.eye, a.z]);
-        if (z > 0.05 && x > -0.05 && x < 1.05 && y > -0.05 && y < 1.05) eyes.push(y * 1920);
+        if (z > 0.05 && x > -0.05 && x < 1.05 && y > -0.05 && y < 1.05) eyes.push(y * FH);
       }
     }
     const hits = (y0) => eyes.filter((e) => e + FACE_PAD > y0 && e - FACE_PAD < y0 + h).length;

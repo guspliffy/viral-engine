@@ -18,3 +18,5 @@ docs/VOCAB.md
 storyboards/lookdev/grip-proof-*.json
 # ancient aliens kit benches: props benches, not clips; written by kit/bench/make-aa-*.mjs (episode preflight judges every committed storyboard with a cast)
 storyboards/series/ancient-aliens/kit/bench/*.json
+# ancient aliens EP02 kit benches (written by 02-stonehenge/kit/bench/make-sh-*.mjs)
+storyboards/series/ancient-aliens/02-stonehenge/kit/bench/*.json

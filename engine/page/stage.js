@@ -14,6 +14,7 @@ import { buildProp, propState, gripWorld, setPhysicsPose } from "./props3d.js";
 import { rng, clamp, ease, setLoop } from "./util.js";
 import { makeStyle, STYLE_PALETTES } from "./styles.js";
 import { makeLook } from "./looks.js";
+import { frameSize } from "../shared/frame.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, accentOf } from "./text.js";
 import { drawHud, hudBoxes, hudKey } from "./hud.js";
 import { drawCards, cardBoxes, cardKey } from "./card.js";
@@ -32,7 +33,7 @@ import { makeAttach } from "./attach.js";
 import { makeVfx } from "./vfx.js";
 import { buildCel } from "./fxcel.js";
 
-const W = 1080, H = 1920;
+let W = 1080, H = 1920;   // the output frame; "frame": "wide" in the storyboard makes it 1920 x 1080 (init)
 let R, scene, camera, sb, actors = [], poofs = [], styler, setObjs = [], inkMat, poseStates = {}, props = [];
 let attach2 = null;
 let vfx = null, vfxOver = false;       // Effekseer particle effects (vfx.js): a storyboard with "do": "vfx" fx items
@@ -266,7 +267,7 @@ function snapshot(f, i, key = i, extra = []) {
   if (photos.has(key)) return;
   const c = f.cam || {}, hideIds = [...(f.hide || []), ...extra], hidden = [];
   pose(f.shot ?? f.at);
-  const pc = new THREE.PerspectiveCamera(c.fov ?? 40, W / H, 0.05, 300);
+  const pc = new THREE.PerspectiveCamera(c.fov ?? 40, W / H, 0.05, sb.far ?? 300);
   pc.position.fromArray(c.pos || [0, 1, 3]); pc.lookAt(new THREE.Vector3().fromArray(c.look || [0, 0.8, 0]));
   const hide = (o) => { if (o.visible) { o.visible = false; hidden.push(o); } };
   for (const a of actors) if (hideIds.includes(a.c.id)) hide(a.ch.root);
@@ -503,7 +504,9 @@ function composite(t) {
 }
 
 async function init(data) {
-  sb = data.sb; drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, animeCuts(sb)); charMats = []; photos.clear(); plateShots.clear();
+  sb = data.sb; ({ W, H } = frameSize(sb));
+  if (W !== 1080) for (const id of ["stage", "gl", "out"]) { const e = document.getElementById(id); e.style.width = `${W}px`; e.style.height = `${H}px`; if (id !== "stage") { e.width = W; e.height = H; } }
+  drawnD = drawnSpec(sb.drawn, sb.actions); animeT = makeAnimeTiming(sb.animeTiming, sb.actions, sb.fps || 30, animeCuts(sb)); charMats = []; photos.clear(); plateShots.clear();
   setRig(sb);    // the rig options (potato.js): "rig": { "hand": 2 } turns on the hand that can't flip (quality plan item 2)
   setFaceRig(sb);   // the eye rig options (face.js): "rig": { "eyes": 2 } (quality plan item 4)
   setLoop(sb);   // loop-safe idle rhythms for the costumes, props and sets (util.js), before any of them is built
@@ -525,7 +528,7 @@ async function init(data) {
   const pm = new THREE.PMREMGenerator(R);
   // image-based lighting only on the characters: on the ground and background it cost more than half the frame time
   const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-  camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
+  camera = new THREE.PerspectiveCamera(32, W / H, 0.05, sb.far ?? 300);   // "far": how far the cameras see (300 m; a real-scale landscape asks for more, docs/STORYBOARD.md "The frame")
   await preloadHumans(data.chars, sb); await preloadVrms(data.chars, sb);   // rigs/human.js: a person's body and the motion clips the cast performs
   await preloadModels(sb, data.chars);   // assets-gltf.js: glTF models the set and costumes name, loaded before anything is built
   buildLights(scene, sb.set);
@@ -1242,9 +1245,11 @@ function clipping() {
       // Each part that reaches in is also measured by its own surface ("shell": a tent's cloth or a torn strip of it
       // through a head), which an "inside the tent" window does not waive: a box says nothing for a part round a body
       const seen = new Set(); let part = null;
+      // A merged scenery mesh (a whole stone circle, a plain 580 m across: userData.surfaceOnly) has a box that holds every
+      // body that stands in it, so its box says nothing either: it is judged by its surface alone (Stonehenge kit, 14 Nov 2026)
       p.root.traverseVisible((o) => {
         if (!(o.isMesh && o.geometry && !(o.material && o.material.transparent) && !o.userData.steam)) return;
-        const d = depthIn(b, o); worst = Math.max(worst, d);
+        const d = depthIn(b, o); if (!o.userData.surfaceOnly) worst = Math.max(worst, d);
         if (d > 0.05 && !seen.has(o.geometry)) { seen.add(o.geometry); const sd = surfIn(o, U.multiplyMatrices(W2U, o.matrixWorld)); if (sd > shell) { shell = sd; part = o.name || null; } }
       });
       if (worst > 0.05) out.push({ who: b.id, with: p.spec.id || p.spec.kind, depth: Math.round(worst * 100) / 100 });

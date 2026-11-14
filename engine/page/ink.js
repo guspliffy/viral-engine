@@ -104,7 +104,7 @@ class InkEffect {
 			'	vec2 d = ( pos.xy / pos.w - pos2.xy / pos2.w ) * inkRes;',
 			'	float l = length( d );',
 			'	if ( l < 1e-6 ) return pos;',
-			'	float px = outlineThickness * inkRes.x / 1080.0;',
+			'	float px = outlineThickness * min( inkRes.x, inkRes.y ) / 1080.0;',
 			'	if ( inkFar.x > 0.0 ) px *= clamp( pow( inkFar.x / pos.w, inkFar.y ), inkFar.z, inkFar.w );',
 			// px pixels on screen = 2 px / res in NDC, times w in clip space
 			'	pos.xy += ( d / l ) * ( 2.0 * px / inkRes ) * pos.w;',

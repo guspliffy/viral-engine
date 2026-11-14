@@ -79,11 +79,11 @@ const GradeShader = {
   uniforms: {
     tDiffuse: { value: null }, contrast: { value: 1.06 }, saturation: { value: 1.08 }, lift: { value: new THREE.Vector3(0, 0, 0) },
     shadowTint: { value: new THREE.Vector3(-0.01, 0.0, 0.025) }, highTint: { value: new THREE.Vector3(0.025, 0.01, -0.02) },
-    vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, paraPos: { value: new THREE.Vector2(0.15, 1.05) }, aspect: { value: 1080 / 1920 },
+    vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, paraPos: { value: new THREE.Vector2(0.15, 1.05) }, aspect: { value: 1080 / 1920 }, aspectY: { value: 1.0 },   // the frame measured against its long side: (9/16, 1) tall, (1, 9/16) wide
   },
   vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: /* glsl */`
-    uniform sampler2D tDiffuse; uniform float contrast, saturation, vignette, para, aspect;
+    uniform sampler2D tDiffuse; uniform float contrast, saturation, vignette, para, aspect, aspectY;
     uniform vec3 lift, shadowTint, highTint, paraColor; uniform vec2 paraPos; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb;
@@ -92,10 +92,10 @@ const GradeShader = {
       c = (c - 0.5) * contrast + 0.5 + lift;
       c += shadowTint * (1.0 - smoothstep(0.0, 0.55, l)) + highTint * smoothstep(0.45, 1.0, l);
       // light falling in from the top left (paraPos), screen-blended
-      vec2 p = vUv - paraPos; p.x *= aspect;
+      vec2 p = vUv - paraPos; p.x *= aspect; p.y *= aspectY;
       float g = para * pow(clamp(1.0 - length(p) / 1.15, 0.0, 1.0), 1.6);
       c = 1.0 - (1.0 - c) * (1.0 - paraColor * g);
-      vec2 q = (vUv - 0.5) * vec2(aspect, 1.0) * 1.6;
+      vec2 q = (vUv - 0.5) * vec2(aspect, aspectY) * 1.6;
       c *= 1.0 - vignette * smoothstep(0.35, 1.05, dot(q, q));
       gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
     }`,
@@ -116,7 +116,7 @@ const SatsueiShader = {
     uniform sampler2D tDiffuse; uniform vec2 res; uniform float hal, halThr, diffuse, diffThr; uniform vec3 halCol, shade, high, lift; varying vec2 vUv;
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb, h = vec3(0.0), g = vec3(0.0);
-      float sc = res.x / 1080.0;
+      float sc = min(res.x, res.y) / 1080.0;
       for (int i = 0; i < 12; i++) {
         float a = float(i) * 0.5236 + 0.26; vec2 o = vec2(cos(a), sin(a)) * sc / res;
         vec3 s1 = texture2D(tDiffuse, vUv + o * 5.0).rgb, s2 = texture2D(tDiffuse, vUv + o * 14.0).rgb, s3 = texture2D(tDiffuse, vUv + o * 32.0).rgb;
@@ -355,7 +355,7 @@ function patchToon(m, o) {
           {
             // pixels at 1080 wide, measured from the part's own origin on screen
             vec2 o2 = (vHatchO.xy / vHatchO.w * 0.5 + 0.5) * uHatchRes;
-            vec2 sp = (gl_FragCoord.xy - o2) * (1080.0 / uHatchRes.x);
+            vec2 sp = (gl_FragCoord.xy - o2) * (1080.0 / min(uHatchRes.x, uHatchRes.y));
             float sh = smoothstep(0.78, 0.45, litK), deep = smoothstep(0.42, 0.2, litK) * smoothstep(-0.1, -0.6, ndl);
             float hs = 0.0;
             for (int L = 0; L < 2; L++) {
@@ -809,6 +809,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
   }
   composer.addPass(new OutputPass());
   const grade = new ShaderPass(GradeShader);
+  if (W > H) { grade.uniforms.aspect.value = 1.0; grade.uniforms.aspectY.value = H / W; }
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
   if (golden) {

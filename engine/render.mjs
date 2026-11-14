@@ -56,6 +56,7 @@ import { visibility } from "../qa/framing.mjs";
 import { cameraLint } from "../qa/camera.mjs";
 import { sayChanged } from "../qa/say.mjs";
 import { renderTime } from "./shared/holds.js";
+import { frameSize } from "./shared/frame.js";
 import os from "node:os";
 import { renderFingerprint, writePartMeta, checkParts, FrameCache, TIMELINE_KEYS, STATE_KEYS, CHECK_KEYS, PIXEL_FLAGS, filesHash, frameKey, sha, frameDiff, SAME_FRAME, pageCode } from "./cache.mjs";
 
@@ -172,9 +173,9 @@ function glArgs(mode) {
 }
 
 // a virtual X display for --gl llvmpipe; Xvfb prints the display number it picked on fd 3
-function startXvfb() {
+function startXvfb(screen = "1280x2000") {
   return new Promise((ok, bad) => {
-    const p = spawn("Xvfb", ["-displayfd", "3", "-screen", "0", "1280x2000x24", "-nolisten", "tcp"], { stdio: ["ignore", "ignore", "ignore", "pipe"] });
+    const p = spawn("Xvfb", ["-displayfd", "3", "-screen", "0", `${screen}x24`, "-nolisten", "tcp"], { stdio: ["ignore", "ignore", "ignore", "pipe"] });
     p.on("error", (e) => bad(new Error(`--gl llvmpipe needs Xvfb (apt install xvfb): ${e.message}`)));
     p.stdio[3].once("data", (d) => ok({ proc: p, display: ":" + String(d).trim() }));
   });
@@ -324,13 +325,14 @@ async function main() {
   }
 
   const srv = await serve();
-  const xvfb = o.gl === "llvmpipe" ? await startXvfb() : null;
+  const FR = frameSize(sb);   // 1080 x 1920, or 1920 x 1080 for a storyboard with "frame": "wide"
+  const xvfb = o.gl === "llvmpipe" ? await startXvfb(FR.W > FR.H ? "2000x1280" : undefined) : null;
   // the 2D layer (captions, speed lines, flashes, the composed frame) is drawn on the CPU: Chrome's GPU canvas changes how
   // it draws paths as its caches fill, so after a few minutes of frames the same speed lines came out up to 22 levels
   // different from the same frame drawn early in a page (a farm shard's start, a cached frame)
   const browser = await chromium.launch({ executablePath: findChrome(), args: [...glArgs(o.gl), "--disable-accelerated-2d-canvas"], ...(xvfb ? { env: { ...process.env, DISPLAY: xvfb.display, LIBGL_ALWAYS_SOFTWARE: "1" } } : {}) });
   try {
-    const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
+    const page = await browser.newPage({ viewport: { width: FR.W, height: FR.H }, deviceScaleFactor: 1 });
     const errors = [];
     page.on("pageerror", (e) => errors.push(String(e)));
     page.on("console", (m) => { if (m.type() === "error" && !/status of 404/.test(m.text())) errors.push(m.text()); });
@@ -411,7 +413,7 @@ async function main() {
       // extra samples at the storyboard's "aimAt" times (a generator script aims throws and cuts from them)
       const aims = [];
       for (const t of sb.aimAt || []) aims.push(await page.evaluate((tt) => window.ENGINE.layout(tt), t));
-      const lay = { fps, duration: dur, width: 1080, height: 1920, samples, contacts, ...(aims.length ? { aims } : {}), ...(win ? { window: win, base: path.basename(full) } : { key: layoutKey(), deps: layoutDeps() }) };
+      const lay = { fps, duration: dur, width: FR.W, height: FR.H, samples, contacts, ...(aims.length ? { aims } : {}), ...(win ? { window: win, base: path.basename(full) } : { key: layoutKey(), deps: layoutDeps() }) };
       fs.writeFileSync(f, JSON.stringify(lay));
       console.log("wrote", f);
       return lay;

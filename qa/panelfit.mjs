@@ -25,9 +25,10 @@ import { actorState, cameraState } from "../engine/page/timeline.js";
 import { storyTime } from "../engine/shared/holds.js";
 import { VISIBLE } from "./framing.mjs";
 import { lens } from "./camfit.mjs";
+import { frameSize } from "../engine/shared/frame.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const W = 1080, H = 1920;
+let W = 1080, H = 1920;   // set from the storyboard's frame in the run
 
 // the "Numbers" table of a PANELS.md: rows of { panel, at, subject, top, eyes, bottom, x, faces, camera }
 export function readNumbers(md) {
@@ -61,7 +62,7 @@ export function panelFit(sb, lay, rows, chars = loadCharacters(sb)) {
     if (!a || !a.box || !a.eyesPx) { out.push({ ...r, grade: "no", ours: null, notes: [`${r.subject} isn't in the frame at ${r.at} s`] }); continue; }
     // the silhouette top (the layout's "top", hat included) and the feet, straight above and below the eyes, through the
     // shot's lens (the layout's box is a projected bounding box, a good deal bigger than the silhouette)
-    const s = storyTime(sb.holds, r.at), cam = cameraState(sb, s), P = lens({ pos: cam.pos, look: cam.look, fov: cam.fov ?? 32 });
+    const s = storyTime(sb.holds, r.at), cam = cameraState(sb, s), P = (({ W, H } = frameSize(sb)), lens({ pos: cam.pos, look: cam.look, fov: cam.fov ?? 32 }, { W, H }));
     const c = cast[r.subject], st = chars?.[c?.character] ? actorState(sb, c, chars[c.character], s) : null;
     const base = a.eyes ? [a.eyes[0], st?.y ?? 0, a.eyes[2]] : null, head = a.eyes && a.top != null ? P([a.eyes[0], a.top, a.eyes[2]]) : null, feet = base ? P(base) : null;
     const clip = (v) => Math.max(0, Math.min(1, v));

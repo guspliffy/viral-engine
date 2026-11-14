@@ -1,0 +1,1668 @@
+{
+ "id": "aa02-c2-tall",
+ "title": "Ancient Aliens 02 block C2 (tall)",
+ "idea": "Clue 3 the joints and the level ring, clue 4 the line and the grooves",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true,
+  "feetTune": {
+   "tip": 0
+  }
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "far": 700,
+ "set": {
+  "type": "plain",
+  "color": "#e2b98a",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -1.641,
+    1.045,
+    -9.809
+   ],
+   "light": "#ffbd70",
+   "shadow": "#6f69a8",
+   "exposure": 0.95
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa02-score.ogg",
+  "from": 0,
+  "skip": 134,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "scenes": [
+   "scifi"
+  ]
+ },
+ "hook": {
+  "show": [
+   "line6"
+  ],
+  "hint": 0,
+  "what": "clue 4 opens on the top view of the whole monument"
+ },
+ "cast": [
+  {
+   "id": "spud9",
+   "character": "potatobrawl/spud",
+   "at": [
+    4000.6,
+    33
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spud10",
+   "character": "potatobrawl/spud",
+   "at": [
+    6001.05,
+    70
+   ],
+   "face": 12,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spud11",
+   "character": "potatobrawl/spud",
+   "at": [
+    8001.05,
+    70
+   ],
+   "face": 12,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "crew11",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    7998.75,
+    74.4
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "p6-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "c",
+   "sunAz": 8.333,
+   "sunEl": 3.981,
+   "dusk": 0
+  },
+  {
+   "id": "p6-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 8.333,
+   "sunEl": 3.981,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "p6-henge",
+   "kind": "henge",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "p6-avenue",
+   "kind": "avenue",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "p6-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 8.333,
+   "sunEl": 3.981,
+   "dusk": 0
+  },
+  {
+   "id": "p6-stones",
+   "kind": "stonehenge",
+   "x": 0,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 8.333,
+   "sunEl": 3.981,
+   "sunColor": "#ffc66a",
+   "dusk": 0,
+   "built": 1
+  },
+  {
+   "id": "heel6",
+   "kind": "heelstone",
+   "x": 1.6,
+   "z": 77,
+   "era": "new"
+  },
+  {
+   "id": "line6",
+   "kind": "northline",
+   "x": 0,
+   "y": 0.06,
+   "z": 100,
+   "len": 180,
+   "width": 0.9,
+   "color": "#c8341f",
+   "staged": "the axis drawn on the ground"
+  },
+  {
+   "id": "p7-sky",
+   "kind": "shsky",
+   "x": 2000,
+   "z": 0,
+   "time": "c",
+   "sunAz": 180,
+   "sunEl": 1.4,
+   "dusk": 0
+  },
+  {
+   "id": "p7-ground",
+   "kind": "salisburyplain",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 180,
+   "sunEl": 1.4,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "p7-henge",
+   "kind": "henge",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "p7-avenue",
+   "kind": "avenue",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "p7-skyline",
+   "kind": "skyline",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 180,
+   "sunEl": 1.4,
+   "dusk": 0
+  },
+  {
+   "id": "p7-stones",
+   "kind": "stonehenge",
+   "x": 2000,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 180,
+   "sunEl": 1.4,
+   "sunColor": "#f0502a",
+   "dusk": 0,
+   "built": 1
+  },
+  {
+   "id": "heel7",
+   "kind": "heelstone",
+   "x": 2001.6,
+   "z": 77,
+   "era": "new",
+   "sunAz": 180,
+   "sunEl": 1.4
+  },
+  {
+   "id": "p8-sky",
+   "kind": "shsky",
+   "x": 4000,
+   "z": 0,
+   "time": "c",
+   "sunAz": 7,
+   "sunEl": 3.389,
+   "dusk": 0
+  },
+  {
+   "id": "p8-ground",
+   "kind": "salisburyplain",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 7,
+   "sunEl": 3.389,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "p8-henge",
+   "kind": "henge",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "p8-avenue",
+   "kind": "avenue",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "p8-skyline",
+   "kind": "skyline",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 7,
+   "sunEl": 3.389,
+   "dusk": 0
+  },
+  {
+   "id": "p8-stones",
+   "kind": "stonehenge",
+   "x": 4000,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 7,
+   "sunEl": 3.389,
+   "sunColor": "#ffc66a",
+   "dusk": 0,
+   "built": 1
+  },
+  {
+   "id": "heel8",
+   "kind": "heelstone",
+   "x": 4001.6,
+   "z": 77,
+   "era": "new"
+  },
+  {
+   "id": "spud9-lamp",
+   "kind": "headlamp",
+   "wear": "spud9",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "t9-sky",
+   "kind": "shsky",
+   "x": 6000,
+   "z": 0,
+   "time": "c",
+   "sunAz": 6.333,
+   "sunEl": 3.093,
+   "dusk": 0
+  },
+  {
+   "id": "t9-ground",
+   "kind": "salisburyplain",
+   "x": 6000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 6.333,
+   "sunEl": 3.093,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "t9-henge",
+   "kind": "henge",
+   "x": 6000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today"
+  },
+  {
+   "id": "t9-avenue",
+   "kind": "avenue",
+   "x": 6000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "grooves": "ridges"
+  },
+  {
+   "id": "t9-skyline",
+   "kind": "skyline",
+   "x": 6000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 6.333,
+   "sunEl": 3.093,
+   "dusk": 0,
+   "traffic": true
+  },
+  {
+   "id": "t9-stones",
+   "kind": "stonehenge",
+   "x": 6000,
+   "z": 0,
+   "era": "today",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 6.333,
+   "sunEl": 3.093,
+   "sunColor": "#ffc66a",
+   "dusk": 0
+  },
+  {
+   "id": "t9-rope",
+   "kind": "ropeline",
+   "x": 6000,
+   "z": 0,
+   "arc": [
+    36,
+    -60,
+    60
+   ]
+  },
+  {
+   "id": "t9-crowd",
+   "kind": "visitorcrowd",
+   "x": 6000,
+   "z": 0,
+   "n": 24,
+   "arc": [
+    39,
+    -39.6,
+    39.6
+   ],
+   "seed": 3
+  },
+  {
+   "id": "t9-bus",
+   "kind": "shuttlebus",
+   "x": 5966,
+   "z": 96,
+   "rot": 115
+  },
+  {
+   "id": "sheep9",
+   "kind": "sheep",
+   "x": 5998.6,
+   "z": 67.2,
+   "rot": 150,
+   "chew": 0.6,
+   "graze": 1
+  },
+  {
+   "id": "spud10-lamp",
+   "kind": "headlamp",
+   "wear": "spud10",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "p9-sky",
+   "kind": "shsky",
+   "x": 8000,
+   "z": 0,
+   "time": "c",
+   "sunAz": 5.833,
+   "sunEl": 2.87,
+   "dusk": 0
+  },
+  {
+   "id": "p9-ground",
+   "kind": "salisburyplain",
+   "x": 8000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 5.833,
+   "sunEl": 2.87,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "p9-henge",
+   "kind": "henge",
+   "x": 8000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "p9-avenue",
+   "kind": "avenue",
+   "x": 8000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "cut",
+   "cut": 1
+  },
+  {
+   "id": "p9-skyline",
+   "kind": "skyline",
+   "x": 8000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 5.833,
+   "sunEl": 2.87,
+   "dusk": 0
+  },
+  {
+   "id": "p9-stones",
+   "kind": "stonehenge",
+   "x": 8000,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 5.833,
+   "sunEl": 2.87,
+   "sunColor": "#f0502a",
+   "dusk": 0,
+   "built": 1
+  },
+  {
+   "id": "cutter9",
+   "kind": "granitecutter",
+   "x": 7997,
+   "y": 0,
+   "z": 72,
+   "rot": 90,
+   "drop": 3
+  },
+  {
+   "id": "spud11-lamp",
+   "kind": "headlamp",
+   "wear": "spud11",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 21.9,
+   "text": "CLUE 4/5",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 0.3,
+   "to": 1.5,
+   "text": "Clue four.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.5,
+   "to": 3.3,
+   "text": "The whole thing is aimed.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.5,
+   "to": 5.1,
+   "text": "Along one line.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.2,
+   "to": 8.5,
+   "text": "One end points at sunrise on the longest day.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.9,
+   "to": 8.45,
+   "text": "21 JUN",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 8.7,
+   "to": 11.88,
+   "text": "The other, at sunset on the shortest.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.3,
+   "to": 11.95,
+   "text": "21 DEC",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.1,
+   "to": 16.01,
+   "text": "And under that line, they found grooves in the rock.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.25,
+   "to": 17.75,
+   "text": "Pointing the same way.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.85,
+   "to": 19.46,
+   "text": "Natural, they say.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 1,
+   "text": "SUNSET 0:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1,
+   "to": 2,
+   "text": "SUNSET 0:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2,
+   "to": 3,
+   "text": "SUNSET 0:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3,
+   "to": 4,
+   "text": "SUNSET 0:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "SUNSET 0:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "text": "SUNSET 0:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "SUNSET 0:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "SUNSET 0:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "SUNSET 0:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "SUNSET 0:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "SUNSET 0:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "SUNSET 0:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "SUNSET 0:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13,
+   "to": 14,
+   "text": "SUNSET 0:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "SUNSET 0:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "SUNSET 0:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16,
+   "to": 17,
+   "text": "SUNSET 0:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17,
+   "to": 18,
+   "text": "SUNSET 0:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18,
+   "to": 19,
+   "text": "SUNSET 0:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19,
+   "to": 20,
+   "text": "SUNSET 0:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "SUNSET 0:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21,
+   "to": 22,
+   "text": "SUNSET 0:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  }
+ ],
+ "beats": [
+  {
+   "name": "line",
+   "at": 0,
+   "len": 5,
+   "shot": {
+    "pos": [
+     -80,
+     96,
+     0
+    ],
+    "look": [
+     0,
+     0,
+     22
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      -76,
+      92,
+      3
+     ],
+     "look": [
+      0,
+      0,
+      22
+     ],
+     "fov": 56
+    },
+    "dur": 5
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "line6",
+     "set": {
+      "draw": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p9-avenue",
+     "set": {
+      "cut": 0.042
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cutter9",
+     "set": {
+      "slide": 0.47,
+      "cut": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud9",
+     "line": "Clue four.",
+     "tone": "excited",
+     "dur": 1,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "line6",
+     "set": {
+      "draw": 1
+     },
+     "dur": 2.9,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "macro": "say",
+     "who": "spud9",
+     "line": "The whole thing is aimed.",
+     "tone": "calm",
+     "dur": 1.6,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.5
+    },
+    {
+     "macro": "say",
+     "who": "spud9",
+     "line": "Along one line.",
+     "tone": "calm",
+     "dur": 1.2,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3.5
+    }
+   ]
+  },
+  {
+   "name": "rise",
+   "at": 5,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     2000,
+     9,
+     -40
+    ],
+    "look": [
+     2000,
+     5,
+     120
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      2000,
+      8.4,
+      -36
+     ],
+     "look": [
+      2000,
+      4.6,
+      120
+     ],
+     "fov": 44
+    },
+    "dur": 3.5
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud9",
+     "line": "One end points at sunrise on the longest day.",
+     "tone": "calm",
+     "dur": 2.9,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "set",
+   "at": 8.5,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     3999,
+     6.5,
+     50
+    ],
+    "look": [
+     4000,
+     4.6,
+     -30
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      3999.1,
+      6.2,
+      47
+     ],
+     "look": [
+      4000,
+      4.6,
+      -30
+     ],
+     "fov": 44
+    },
+    "dur": 3.5
+   },
+   "do": [
+    {
+     "who": "spud9",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud9",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud9",
+     "line": "The other, at sunset on the shortest.",
+     "tone": "calm",
+     "dur": 2.78,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud9",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 0.4
+    }
+   ]
+  },
+  {
+   "name": "now",
+   "at": 12,
+   "len": 4,
+   "shot": {
+    "pos": [
+     6000.6,
+     1.3,
+     81
+    ],
+    "look": [
+     6000.6,
+     2.6,
+     20
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      6000.6,
+      1.25,
+      79.5
+     ],
+     "look": [
+      6000.6,
+      2.5,
+      20
+     ],
+     "fov": 50
+    },
+    "dur": 4
+   },
+   "do": [
+    {
+     "who": "spud10",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sheep9",
+     "set": {
+      "headY": 0.4
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud10",
+     "line": "And under that line, they found grooves in the rock.",
+     "tone": "calm",
+     "dur": 3.81,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud10",
+     "do": "arm",
+     "side": "L",
+     "pose": "point",
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "spud10",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.35
+     ],
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "spud10",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "spud10",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.3
+    },
+    {
+     "who": "spud10",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "do": "prop",
+     "id": "sheep9",
+     "set": {
+      "graze": 0
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "who": "spud10",
+     "do": "crouch",
+     "to": 0.8,
+     "dur": 0.4,
+     "at": 2.9
+    },
+    {
+     "who": "spud10",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       6001.62,
+       0.26,
+       70.15
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "sheep9",
+     "set": {
+      "headY": -0.3
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "spud10",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 3.25
+    },
+    {
+     "who": "spud10",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 3.4
+    }
+   ]
+  },
+  {
+   "name": "then",
+   "at": 16,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     8000.6,
+     1.25,
+     79.5
+    ],
+    "look": [
+     8000.6,
+     2.5,
+     20
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      8000.6,
+      1.22,
+      78.8
+     ],
+     "look": [
+      8000.6,
+      2.45,
+      20
+     ],
+     "fov": 50
+    },
+    "dur": 3.5
+   },
+   "do": [
+    {
+     "who": "spud11",
+     "do": "crouch",
+     "to": 0.8,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud11",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.35
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud11",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       8001.62,
+       0.26,
+       70.15
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud11",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew11",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       7997.95,
+       0.6,
+       74.4
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew11",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew11",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p9-avenue",
+     "set": {
+      "cut": 0.054
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cutter9",
+     "set": {
+      "slide": 0.5
+     },
+     "dur": 0.7,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-small",
+     "gain": 0.08,
+     "dur": 0.75,
+     "reason": "the cutter's low whine on the chalk",
+     "at": 0
+    },
+    {
+     "sfx": "ai/bowl-scrape",
+     "gain": 0.25,
+     "dur": 0.75,
+     "reason": "chalk scraped out of the groove",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud11",
+     "line": "Pointing the same way.",
+     "tone": "calm",
+     "dur": 1.4,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "cutter9",
+     "set": {
+      "cut": 0
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0.7
+    },
+    {
+     "who": "crew11",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.35,
+     "at": 0.75
+    },
+    {
+     "who": "crew11",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "at": 0.8
+    },
+    {
+     "who": "crew11",
+     "do": "expr",
+     "set": {
+      "eye": 1.2
+     },
+     "dur": 0.1,
+     "at": 0.85
+    },
+    {
+     "who": "spud10",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.5,
+     "at": 1
+    },
+    {
+     "who": "spud10",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud10",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "spud11",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.3,
+     "at": 1.1
+    },
+    {
+     "who": "spud10",
+     "do": "turn",
+     "to": 62,
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "crew11",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.7
+    },
+    {
+     "who": "crew11",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "macro": "say",
+     "who": "spud11",
+     "line": "Natural, they say.",
+     "tone": "calm",
+     "dur": 1.61,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.85
+    },
+    {
+     "who": "crew11",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3
+    },
+    {
+     "who": "crew11",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 3
+    }
+   ]
+  },
+  {
+   "name": "look",
+   "at": 19.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     6001.55,
+     0.66,
+     72.6
+    ],
+    "look": [
+     6001,
+     0.64,
+     69.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      6001.5,
+      0.66,
+      72.3
+     ],
+     "look": [
+      6001,
+      0.64,
+      69.6
+     ],
+     "fov": 40
+    },
+    "dur": 2.5
+   },
+   "do": [
+    {
+     "who": "spud10",
+     "do": "look",
+     "to": [
+      0.55,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud10",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud10",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud10",
+     "do": "look",
+     "to": [
+      -0.75,
+      0.02
+     ],
+     "dur": 1.1,
+     "ease": "inOut",
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "spud10",
+     "do": "noblink",
+     "dur": 1.7,
+     "at": 0.8
+    }
+   ]
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud9",
+   "with": "spud9-lamp",
+   "from": 0,
+   "to": 22,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud10",
+   "with": "spud10-lamp",
+   "from": 0,
+   "to": 22,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud11",
+   "with": "spud11-lamp",
+   "from": 0,
+   "to": 22,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "crew11",
+   "with": "cutter9",
+   "from": 16,
+   "to": 22,
+   "checks": [
+    "hand-in-prop",
+    "arm-in-prop",
+    "costume-in-prop"
+   ],
+   "reason": "the operator's palm rests on the cutter's control slab and he stands at its pedestal (pilot kit: AA_SHIP_PARTS.slab is where the palm aims)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/02-stonehenge/block-c/make-block-c.mjs (block C)."
+}
