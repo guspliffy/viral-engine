@@ -102,6 +102,7 @@ import { TIMEWATCH_KINDS, TIMEWATCH_GRIPS } from "./props-timewatch.js";   // th
 import { FIREBLOCK_KINDS, FIREBLOCK_GRIPS } from "./props-fireblock.js";   // there's a catch 07 fire rewind: fireblock, firelobby, lobbyclock
 import { FIREREWIND_KINDS, FIREREWIND_GRIPS } from "./props-firerewind.js";   // there's a catch 07 fire rewind: facadefire, blockfire, stairfire, floorsmoke
 import { GORGE_KINDS } from "./props-gorge.js";   // there's a catch 09b teleport forget: gorge, bridgerope, planks
+import { FTT_HAUL_KINDS, FTT_HAUL_GRIPS, FTT_HAUL_STATE } from "./props-ftt-haul.js";   // friends try to 08 stonehenge stone: haulsledge, haullash, haulrails, haulrope, haullever, pivotstone
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
@@ -1441,12 +1442,13 @@ Object.assign(KINDS, HEIST_KINDS); Object.assign(GRIPS, HEIST_GRIPS);   // fight
 Object.assign(KINDS, HEISTSET_KINDS); Object.assign(GRIPS, HEISTSET_GRIPS);   // fight flight or freeze 01 (props-heistset.js)
 Object.assign(KINDS, ZFLAT_KINDS, ZSTREET_KINDS, ZSHOP_KINDS, ZHOME_KINDS, ZOUTBREAK_KINDS, ZFIGHT_KINDS, ZROOF_KINDS, ZSTAIRS_KINDS, ZWAIT_KINDS); Object.assign(GRIPS, ZFLAT_GRIPS, ZSTREET_GRIPS, ZSHOP_GRIPS, ZHOME_GRIPS, ZOUTBREAK_GRIPS, ZFIGHT_GRIPS, ZROOF_GRIPS, ZSTAIRS_GRIPS, ZWAIT_GRIPS);   // survive it zombies (props-zflat/-zstreet/-zshop.js)
 // their own state keys ({ kind: { key: default } }), so a "prop" action tweens them; only on those kinds
-const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE };
+const KIT_STATE = { ...ZFLAT_STATE, ...ZSTREET_STATE, ...ZSHOP_STATE, ...ZHOME_STATE, ...ZOUTBREAK_STATE, ...ZFIGHT_STATE, ...ZROOF_STATE, ...ZSTAIRS_STATE, ...ZWAIT_STATE, ...FTT_HAUL_STATE };
 const kitState = (spec) => { const d = KIT_STATE[spec.kind]; return d ? Object.fromEntries(Object.entries(d).map(([k, v]) => [k, spec[k] ?? v])) : null; };
 Object.assign(KINDS, MUSEUM_KINDS, ICEAGE_KINDS, FOSSILS_KINDS, MUSEUMSTREET_KINDS, REX_KINDS, PTERO_KINDS);   // there's a catch 05 (props-museum.js, props-iceage.js, props-fossils.js, props-museumstreet.js)
 Object.assign(KINDS, CASINO_KINDS, MIND_KINDS, NIGHTCITY_KINDS, NEONSTREET_KINDS);   // there's a catch 06 (props-casino.js, props-mind.js, props-nightcity.js)
 Object.assign(KINDS, TIMEWATCH_KINDS); Object.assign(GRIPS, TIMEWATCH_GRIPS);   // there's a catch 07 (props-timewatch.js)
 Object.assign(KINDS, GORGE_KINDS);   // there's a catch 09b (props-gorge.js)
+Object.assign(KINDS, FTT_HAUL_KINDS); Object.assign(GRIPS, FTT_HAUL_GRIPS);   // friends try to 08 (props-ftt-haul.js)
 Object.assign(KINDS, FIREBLOCK_KINDS, FIREREWIND_KINDS); Object.assign(GRIPS, FIREBLOCK_GRIPS, FIREREWIND_GRIPS);   // there's a catch 07 fire rewind (props-fireblock.js, props-firerewind.js)
 Object.assign(KINDS, SNEAK_KINDS); Object.assign(GRIPS, SNEAK_GRIPS);   // friends-try-to 06 (props-sneak.js)
 Object.assign(KINDS, LIBRARY_KINDS); Object.assign(GRIPS, LIBRARY_GRIPS);   // too much energy 01 (props-library.js)
