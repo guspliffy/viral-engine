@@ -1,7 +1,7 @@
 # There's a catch EP09: teleport, "Every jump, someone forgets you" (delivery, 13-14 Nov 2026)
 
 Final: /mnt/project-files/videos/what-if/09b-teleport-forget/teleport-forget-FINAL.mp4 (28.6 s, 1080x1920, 30 fps),
-farm run 43525870533, qa/check PASS (27 creative notes, CHECK-FINAL.txt beside it). Opener A (the stake at frame 0).
+farm run 43573367991 (14 Nov fix), qa/check PASS (28 creative notes, CHECK-FINAL.txt beside it). Opener A (the stake at frame 0).
 Post pack: POST-PACK.md beside the video.
 
 ## Rounds
@@ -12,6 +12,12 @@ Post pack: POST-PACK.md beside the video.
   from Chip's side and pulls the hood beside Spud, where his blank look is in view), the catch line starts with the
   phone shot (a caption ends with its beat in compile.mjs), sky camera under the phone inserts (the caption check
   measures the 3D frame under the card), the last close-up reframed.
+
+## Jonny's notes on the final (14 Nov 07:34 Berlin), fixed
+- 0:14 "he gets pulled through the wood": Chip stood and was pulled through the near bridge post (x -0.9). Chip now
+  stands at x -0.56 and is pulled to x -0.52, 0.4 m off the post; his arms stay in.
+- 0:05 "phone hold": Mash now holds the phone the way he did in EP06 read-minds (left hand on the edge, chest height,
+  screen toward him); the right glove rests in his lap.
 
 ## Departures from the board (with reasons)
 - 01: from above the two, straight down the drop (Jonny's note: the cliff must read; from behind them the lip hides the walls).
