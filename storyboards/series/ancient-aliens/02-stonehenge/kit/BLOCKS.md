@@ -16,6 +16,14 @@ sections once.
 | C | 1:42-2:36 | clue 3 the joints and the level ring, clue 4 the line and the grooves | 25-36 | SH_C | "Look at the top of this stone." |
 | D | 2:36-3:28 | clue 5 the old story, the low, sunset, the landing, "Case closed", the tag | 37-48 | SH_D, SH_DUSK from 3:06 | "Nine hundred years ago, nobody believed humans built this either." |
 
+## What this series lives off (Jonny 14 Nov): "images with love to the detail and nice to look at... + good interesting commentary + music supporting the scenes"
+
+Three things, in this order, outrank speed. (1) **Every shot is a picture worth looking at on its own:** composed, rich
+in drawn detail (frost, lichen, tool marks, long shadows, the skyline, crows, the sun), lit by the low sun; before an
+animatic goes out, look at one still per shot and send back any that looks plain or empty. (2) **Commentary that is
+interesting:** STORY.md's lines, each over the picture that proves it. (3) **Music that supports the scene:** the score
+changes with every chapter; time your cuts and landings to it.
+
 ## Jonny's order for this film (14 Nov): "use the kind of explaining we used for the pyramid and use music this needs to be as interesting as possible"
 
 So the pilot's seven "How we explain" rules are the brief, from the FIRST animatic (no plain first pass):
