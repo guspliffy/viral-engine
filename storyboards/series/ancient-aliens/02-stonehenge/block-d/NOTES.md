@@ -47,6 +47,13 @@ picture 3.59, low 5.29 (sad), across 4.17, parking 1.39, closed 1.21, nobody 1.4
 - Warns left (named in the delivery): shell on the headlamps, hand-jump / palm-turn on the tag turn, blink-on-line,
   the "...Nobody saw that." subtitle over his forehead in the last 2 s (panel 48: the face fills the frame).
 
+## Finals v2 (14 Nov, commit 62295d9) = APPROVED ("well done merge it", 18:41 Berlin)
+- Jonny: "the lettering are overlaying" (both shapes). The year and metre counters now sit UNDER the subtitle: `NUM_Y` 330 wide /
+  660 tall (top of the text), captionBand widened to [30, 490] / [200, 820]. The kit's F.NUM sits inside a 2-3 line subtitle.
+- The farm flashed at dusk-wide 17.97 s again (every farm run, never locally): patched the same way. One sun-tall farm shard
+  hung in setup for 20+ min: cancel the run and dispatch a fresh one.
+- Files: block-d-wide-FINAL-v2.mp4 (52.0 s), block-d-tall-part4-FINAL-v2.mp4 (55.0 s). The kit thread merges this branch at the join.
+
 ## Open for polish (after Jonny's notes on block A, applied to all four)
 - hand-jump warns (lifter's arms down 14.6, Spud's arm on the palm, the point, the tag's spread arms), blinks on lines.
 - the subtitle over his face in the last 2 s (the face fills the frame, panel 48).
