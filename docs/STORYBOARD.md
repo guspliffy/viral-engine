@@ -18,6 +18,9 @@ shots, actions, fx, sfx, captions) that the renderers and `qa/` read. Example: `
   frame (defaults top 70, mid 470, low 800; the safe zone is x 80-1840, y 40-960). Lines and hatching keep their pixel
   size. Freeze labels, cards and the phone-screen prop are tall only. One story in both shapes = one generator that
   writes two storyboards (ids `-wide` and `-tall`) with a camera and caption spots per shape.
+- **How far the cameras see:** 300 m. `"far": 700` (top level, metres) lets a real-scale landscape reach its own
+  horizon (Stonehenge: skyline at 270 m, cameras up to 150 m off the middle). Depth precision hangs on the near plane, so
+  a larger `far` costs nothing visible; leave it out and nothing changes.
 - **Beats run one after another.** A beat starts where the previous one ended (or at its own `"at"`), and lasts
   `"len"` seconds, or until its last item ends plus `"hold"` (default 0.15 s). Changing one beat moves everything after it.
 - **Times inside a beat** are relative: `"at": 0.3` (seconds from the beat's start), `"+0.2"` (0.2 s after the

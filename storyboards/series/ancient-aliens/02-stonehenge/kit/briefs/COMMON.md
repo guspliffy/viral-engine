@@ -27,7 +27,7 @@ House rules for every piece:
   default, the size, the origin, params, standable tops with their height.
 - Bench: `storyboards/series/ancient-aliens/02-stonehenge/kit/bench/make-sh-<name>.mjs` (pattern:
   storyboards/series/ancient-aliens/kit/bench/make-aa-items.mjs; one group per camera; the bench storyboard carries
-  `frame: "wide"` at its top level so stills are 1920 x 1080; base set `{ type: "plain", color: "#bcd4ea", floor: "shadow" }`;
+  `frame: "wide"` and `far: 700` at its top level: stills are 1920 x 1080 and the cameras see 700 m, as in the episode; base set `{ type: "plain", color: "#bcd4ea", floor: "shadow" }`;
   include Spud, cast id potatobrawl/spud, for scale where it makes sense, 1.2 m clear of anything). Generated bench
   JSON is not committed. Render stills with
   `node engine/render.mjs <bench.json> --stills <times> --draft --out out/sh-<name>` and make `bench/sh-<name>-sheet.png`

@@ -266,7 +266,7 @@ function snapshot(f, i) {
   if (photos.has(i)) return;
   const c = f.cam || {}, hideIds = f.hide || [], hidden = [];
   pose(f.shot ?? f.at);
-  const pc = new THREE.PerspectiveCamera(c.fov ?? 40, W / H, 0.05, 300);
+  const pc = new THREE.PerspectiveCamera(c.fov ?? 40, W / H, 0.05, sb.far ?? 300);
   pc.position.fromArray(c.pos || [0, 1, 3]); pc.lookAt(new THREE.Vector3().fromArray(c.look || [0, 0.8, 0]));
   const hide = (o) => { if (o.visible) { o.visible = false; hidden.push(o); } };
   for (const a of actors) if (hideIds.includes(a.c.id)) hide(a.ch.root);
@@ -492,7 +492,7 @@ async function init(data) {
   const pm = new THREE.PMREMGenerator(R);
   // image-based lighting only on the characters: on the ground and background it cost more than half the frame time
   const envTex = pm.fromScene(new RoomEnvironment(), 0.04).texture;
-  camera = new THREE.PerspectiveCamera(32, W / H, 0.05, 300);
+  camera = new THREE.PerspectiveCamera(32, W / H, 0.05, sb.far ?? 300);   // "far": how far the cameras see (300 m; a real-scale landscape asks for more, docs/STORYBOARD.md "The frame")
   await preloadHumans(data.chars, sb); await preloadVrms(data.chars, sb);   // rigs/human.js: a person's body and the motion clips the cast performs
   await preloadModels(sb, data.chars);   // assets-gltf.js: glTF models the set and costumes name, loaded before anything is built
   buildLights(scene, sb.set);
