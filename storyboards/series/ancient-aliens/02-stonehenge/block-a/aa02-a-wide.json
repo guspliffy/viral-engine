@@ -1,0 +1,5436 @@
+{
+ "id": "aa02-a-wide",
+ "frame": "wide",
+ "far": 700,
+ "title": "Who really built Stonehenge? (block A)",
+ "idea": "Ancient aliens EP02 block A (0:00-0:50): a 30-tonne stone drops in the ring ship's beam, the ring goes up to 80; snap to today's ruin; the contract (five clues, answered when the sun of the shortest day touches the tallest stone); clue 1: 6.7 m up, 2.4 m down into its pit, as heavy as two buses, from 25 km away; the jump-cut build ends with a stone landing where he stood; he turns to the small stones",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd4ea",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -3.438,
+    1.908,
+    -9.195
+   ],
+   "light": "#fff2d6",
+   "shadow": "#8090c4",
+   "exposure": 1
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa02-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "scenes": [
+   "scifi"
+  ],
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "h1-stone",
+   "h1-ship"
+  ],
+  "hint": 0,
+  "what": "2500 BC: Spud in front of the half-built Stonehenge, a 30-tonne stone hanging in the ring ship's beam behind him"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.9,
+    47.4
+   ],
+   "face": 4,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "fore",
+   "character": "ancient-aliens/alien-foreman",
+   "at": [
+    3.5,
+    17.4
+   ],
+   "face": -136.556,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "crew",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    -2.6,
+    37
+   ],
+   "face": 160,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -900,
+    30
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 7.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -897,
+    30
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 8.2
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -894,
+    30
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 9.9
+  }
+ ],
+ "props": [
+  {
+   "id": "b-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "a",
+   "sunAz": 21.88,
+   "sunEl": 11.92,
+   "dusk": 0
+  },
+  {
+   "id": "b-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 21.88,
+   "sunEl": 11.92,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "b-henge",
+   "kind": "henge",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "b-avenue",
+   "kind": "avenue",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "b-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 21.88,
+   "sunEl": 11.92,
+   "dusk": 0
+  },
+  {
+   "id": "b-stones",
+   "kind": "stonehenge",
+   "x": 0,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 21.88,
+   "sunEl": 11.92,
+   "sunColor": "#fff3c4",
+   "dusk": 0,
+   "built": 0.58,
+   "gap": [
+    29
+   ],
+   "gapUprights": [
+    30
+   ]
+  },
+  {
+   "id": "h1-ship",
+   "kind": "ringship",
+   "x": 1.62,
+   "y": 10,
+   "z": 15.415,
+   "s": 1,
+   "beam": 0.5,
+   "lit": 0.4,
+   "staged": "the lift ship hovers over its work",
+   "beamLen": 10,
+   "beamR": 1.6
+  },
+  {
+   "id": "h1-stone",
+   "kind": "sarsen",
+   "x": 1.62,
+   "y": 2.6,
+   "z": 15.415,
+   "rot": -174,
+   "look": "new",
+   "under": 1.2,
+   "knobs": 2,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "lin4",
+   "kind": "toplintel",
+   "x": 3.223,
+   "y": 9.6,
+   "z": 15.161,
+   "rot": -168,
+   "look": "new",
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "aliens3",
+   "kind": "potatocrowd",
+   "x": -26,
+   "z": 6,
+   "who": "aliens",
+   "n": 14,
+   "box": [
+    9,
+    6
+   ],
+   "seed": 8,
+   "lookAt": [
+    26,
+    4,
+    -6
+   ]
+  },
+  {
+   "id": "crow1",
+   "kind": "crow",
+   "x": -1.1,
+   "y": 0,
+   "z": 46.6,
+   "rot": -150,
+   "staged": "it takes off when the stone lands"
+  },
+  {
+   "id": "t-sky",
+   "kind": "shsky",
+   "x": 2000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 21.4,
+   "sunEl": 11.6,
+   "dusk": 0
+  },
+  {
+   "id": "t-ground",
+   "kind": "salisburyplain",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 21.4,
+   "sunEl": 11.6,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "t-henge",
+   "kind": "henge",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today"
+  },
+  {
+   "id": "t-avenue",
+   "kind": "avenue",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "grooves": "ridges"
+  },
+  {
+   "id": "t-skyline",
+   "kind": "skyline",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 21.4,
+   "sunEl": 11.6,
+   "dusk": 0,
+   "traffic": true
+  },
+  {
+   "id": "t-stones",
+   "kind": "stonehenge",
+   "x": 2000,
+   "z": 0,
+   "era": "today",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 21.4,
+   "sunEl": 11.6,
+   "sunColor": "#fff3c4",
+   "dusk": 0
+  },
+  {
+   "id": "t-rope",
+   "kind": "ropeline",
+   "x": 2000,
+   "z": 0,
+   "arc": [
+    36,
+    -60,
+    60
+   ]
+  },
+  {
+   "id": "t-crowdL",
+   "kind": "visitorcrowd",
+   "x": 2000,
+   "z": 0,
+   "n": 12,
+   "arc": [
+    39,
+    -42,
+    -7
+   ],
+   "seed": 3
+  },
+  {
+   "id": "t-crowdR",
+   "kind": "visitorcrowd",
+   "x": 2000,
+   "z": 0,
+   "n": 12,
+   "arc": [
+    39,
+    7,
+    42
+   ],
+   "seed": 5
+  },
+  {
+   "id": "chip-hat",
+   "kind": "bobblehat",
+   "wear": "chip",
+   "fit": "potatobrawl/chip",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#c23b3b"
+  },
+  {
+   "id": "chip-scarf",
+   "kind": "scarf",
+   "wear": "chip",
+   "fit": "potatobrawl/chip",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#2f6fb0"
+  },
+  {
+   "id": "wedge-hat",
+   "kind": "bobblehat",
+   "wear": "wedge",
+   "fit": "potatobrawl/wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#2f6fb0"
+  },
+  {
+   "id": "wedge-scarf",
+   "kind": "scarf",
+   "wear": "wedge",
+   "fit": "potatobrawl/wedge",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#e0b030"
+  },
+  {
+   "id": "mash-hat",
+   "kind": "bobblehat",
+   "wear": "mash",
+   "fit": "potatobrawl/mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#e0b030"
+  },
+  {
+   "id": "mash-scarf",
+   "kind": "scarf",
+   "wear": "mash",
+   "fit": "potatobrawl/mash",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "color": "#c23b3b"
+  },
+  {
+   "id": "sheep",
+   "kind": "sheep",
+   "x": 1998.9,
+   "z": 45.4,
+   "rot": -115,
+   "chew": 1,
+   "grass": true
+  },
+  {
+   "id": "push9",
+   "kind": "sarsen",
+   "x": 1984,
+   "y": 0,
+   "z": 60,
+   "rot": 90,
+   "look": "today",
+   "knobs": 1,
+   "seed": 7
+  },
+  {
+   "id": "bus9",
+   "kind": "shuttlebus",
+   "x": 1974.5,
+   "z": 48.5,
+   "rot": 104
+  },
+  {
+   "id": "s-sky",
+   "kind": "shsky",
+   "x": 4000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 20.62,
+   "sunEl": 11.08,
+   "dusk": 0
+  },
+  {
+   "id": "s-ground",
+   "kind": "salisburyplain",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 20.62,
+   "sunEl": 11.08,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "s-henge",
+   "kind": "henge",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today"
+  },
+  {
+   "id": "s-avenue",
+   "kind": "avenue",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "grooves": "ridges"
+  },
+  {
+   "id": "s-skyline",
+   "kind": "skyline",
+   "x": 4000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "today",
+   "sunAz": 20.62,
+   "sunEl": 11.08,
+   "dusk": 0,
+   "traffic": true
+  },
+  {
+   "id": "s-stones",
+   "kind": "stonehenge",
+   "x": 4000,
+   "z": 0,
+   "era": "today",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 20.62,
+   "sunEl": 11.08,
+   "sunColor": "#fff3c4",
+   "dusk": 0
+  },
+  {
+   "id": "crow7",
+   "kind": "crow",
+   "x": 4001.05,
+   "y": 6.72,
+   "z": -6.45,
+   "rot": 25,
+   "staged": "perched on the top of Stone 56"
+  },
+  {
+   "id": "blue12",
+   "kind": "bluestone",
+   "x": 3997.8,
+   "y": 0,
+   "z": 8.6,
+   "rot": 20,
+   "era": "today",
+   "size": [
+    0.8,
+    0.72,
+    0.5
+   ],
+   "seed": 4
+  },
+  {
+   "id": "pit-sky",
+   "kind": "shsky",
+   "x": 6000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 20.38,
+   "sunEl": 10.92
+  },
+  {
+   "id": "pit-skyline",
+   "kind": "skyline",
+   "x": 6000,
+   "z": 0,
+   "staged": "kit scenery",
+   "era": "new",
+   "sunAz": 20.38,
+   "sunEl": 10.92
+  },
+  {
+   "id": "pit8",
+   "kind": "pitcut",
+   "x": 6000,
+   "z": 0
+  },
+  {
+   "id": "p8-ship",
+   "kind": "ringship",
+   "x": 6000,
+   "y": 40,
+   "z": 0.5,
+   "s": 1,
+   "beam": 0.5,
+   "lit": 0.4,
+   "staged": "the lift ship hovers over its work",
+   "beamLen": 40,
+   "beamR": 1.6
+  },
+  {
+   "id": "p8-stone",
+   "kind": "sarsen",
+   "x": 6000,
+   "y": 2.4,
+   "z": 0.5,
+   "rot": 90,
+   "look": "new",
+   "size": [
+    2.4,
+    6.7,
+    1.2
+   ],
+   "under": 2.4,
+   "knobs": 0,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "m-map",
+   "kind": "britainmap",
+   "x": 8000,
+   "y": 8,
+   "z": 0,
+   "woods": 0,
+   "wales": 0,
+   "scotland": 0,
+   "staged": "the map is a full-frame insert"
+  },
+  {
+   "id": "tl-sky",
+   "kind": "shsky",
+   "x": 10000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 19.54,
+   "sunEl": 10.36,
+   "dusk": 0
+  },
+  {
+   "id": "tl-ground",
+   "kind": "salisburyplain",
+   "x": 10000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 19.54,
+   "sunEl": 10.36,
+   "dusk": 0,
+   "seed": 1
+  },
+  {
+   "id": "tl-henge",
+   "kind": "henge",
+   "x": 10000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "tl-avenue",
+   "kind": "avenue",
+   "x": 10000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "tl-skyline",
+   "kind": "skyline",
+   "x": 10000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 19.54,
+   "sunEl": 10.36,
+   "dusk": 0
+  },
+  {
+   "id": "tl-stones",
+   "kind": "stonehenge",
+   "x": 10000,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 19.54,
+   "sunEl": 10.36,
+   "sunColor": "#fff3c4",
+   "dusk": 0,
+   "built": 0.635
+  },
+  {
+   "id": "tl-ship",
+   "kind": "ringship",
+   "x": 10010.372,
+   "y": 40,
+   "z": 11.519,
+   "s": 1,
+   "beam": 0.5,
+   "lit": 0.4,
+   "staged": "the lift ship hovers over its work",
+   "beamLen": 40,
+   "beamR": 1.6
+  },
+  {
+   "id": "tl-st0",
+   "kind": "sarsen",
+   "x": 10010.372,
+   "y": -400,
+   "z": 11.519,
+   "rot": -138,
+   "look": "new",
+   "under": 0.8,
+   "knobs": 2,
+   "seed": 30,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "tl-st1",
+   "kind": "sarsen",
+   "x": 10007.75,
+   "y": -400,
+   "z": 13.423,
+   "rot": -150,
+   "look": "new",
+   "under": 0.8,
+   "knobs": 2,
+   "seed": 31,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "tl-st2",
+   "kind": "sarsen",
+   "x": 10004.79,
+   "y": -400,
+   "z": 14.741,
+   "rot": -162,
+   "look": "new",
+   "under": 0.8,
+   "knobs": 2,
+   "seed": 32,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "tl-st3",
+   "kind": "sarsen",
+   "x": 10001.62,
+   "y": -400,
+   "z": 15.415,
+   "rot": -174,
+   "look": "new",
+   "under": 0.8,
+   "knobs": 2,
+   "seed": 33,
+   "staged": "it hangs in the lift ship's beam"
+  },
+  {
+   "id": "aliens11",
+   "kind": "potatocrowd",
+   "x": 10018,
+   "z": 2,
+   "who": "aliens",
+   "n": 8,
+   "box": [
+    4,
+    3
+   ],
+   "seed": 11,
+   "lookAt": [
+    -6,
+    3,
+    9
+   ]
+  },
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 3.73,
+   "text": "Thirty tonnes. No wheel. No metal.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 2.3,
+   "text": "30 t · NO WHEEL",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 8.467,
+   "text": "2500 BC",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 960
+  },
+  {
+   "from": 3.8,
+   "to": 7.4,
+   "text": "Eighty of them. Stood up in a perfect ring.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.8,
+   "to": 3.9,
+   "text": "0",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 3.9,
+   "to": 4,
+   "text": "9",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 4.1,
+   "text": "17",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.1,
+   "to": 4.2,
+   "text": "25",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.2,
+   "to": 4.3,
+   "text": "32",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.3,
+   "to": 4.4,
+   "text": "38",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 4.5,
+   "text": "44",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.5,
+   "to": 4.6,
+   "text": "49",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.6,
+   "to": 4.7,
+   "text": "53",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.7,
+   "to": 4.8,
+   "text": "58",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.8,
+   "to": 4.9,
+   "text": "61",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.9,
+   "to": 5,
+   "text": "65",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 5.1,
+   "text": "68",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 5.2,
+   "text": "70",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.2,
+   "to": 5.3,
+   "text": "72",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.3,
+   "to": 5.4,
+   "text": "74",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.4,
+   "to": 5.5,
+   "text": "75",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.5,
+   "to": 5.6,
+   "text": "77",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.6,
+   "to": 5.7,
+   "text": "78",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.7,
+   "to": 5.8,
+   "text": "78",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.8,
+   "to": 5.9,
+   "text": "79",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.9,
+   "to": 6,
+   "text": "79",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 6.1,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.1,
+   "to": 6.2,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.2,
+   "to": 6.3,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.3,
+   "to": 6.4,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 6.4,
+   "to": 7.3,
+   "text": "80",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 7.45,
+   "to": 9.86,
+   "text": "And they tell you farmers built this.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 8.467,
+   "to": 20,
+   "text": "TODAY",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 960
+  },
+  {
+   "from": 11.6,
+   "to": 13.05,
+   "text": "Five clues.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 11.65,
+   "to": 13.2,
+   "text": "5",
+   "pos": 250,
+   "pop": false,
+   "size": 156,
+   "kinetic": false
+  },
+  {
+   "from": 13.35,
+   "to": 15.7,
+   "text": "Today is the shortest day of the year.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 13.7,
+   "to": 15.65,
+   "text": "21 DEC",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 15.75,
+   "to": 18.1,
+   "text": "When the sun touches the tallest stone...",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 20.7,
+   "text": "you'll know who really built Stonehenge.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 20.75,
+   "to": 21,
+   "text": "SUNSET IN 2:40",
+   "pos": 250,
+   "pop": false,
+   "size": 108,
+   "kinetic": false
+  },
+  {
+   "from": 21,
+   "to": 21.4,
+   "text": "SUNSET IN 2:39",
+   "pos": 250,
+   "pop": false,
+   "size": 108,
+   "kinetic": false
+  },
+  {
+   "from": 21.4,
+   "to": 35.6,
+   "text": "CLUE 1/5",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 210
+  },
+  {
+   "from": 21.55,
+   "to": 25.16,
+   "text": "Clue one. The tallest is nine metres long.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 21.9,
+   "to": 22,
+   "text": "0.0 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22,
+   "to": 22.1,
+   "text": "0.9 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.1,
+   "to": 22.2,
+   "text": "1.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.2,
+   "to": 22.3,
+   "text": "2.4 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.3,
+   "to": 22.4,
+   "text": "3.0 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.4,
+   "to": 22.5,
+   "text": "3.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.5,
+   "to": 22.6,
+   "text": "4.1 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.6,
+   "to": 22.7,
+   "text": "4.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.7,
+   "to": 22.8,
+   "text": "5.0 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.8,
+   "to": 22.9,
+   "text": "5.3 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 22.9,
+   "to": 23,
+   "text": "5.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23,
+   "to": 23.1,
+   "text": "5.9 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.1,
+   "to": 23.2,
+   "text": "6.1 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.2,
+   "to": 23.3,
+   "text": "6.2 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.3,
+   "to": 23.4,
+   "text": "6.4 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.4,
+   "to": 23.5,
+   "text": "6.5 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.5,
+   "to": 23.6,
+   "text": "6.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.6,
+   "to": 23.7,
+   "text": "6.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.7,
+   "to": 23.8,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.8,
+   "to": 23.9,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 23.9,
+   "to": 24,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 24,
+   "to": 24.1,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 24.1,
+   "to": 24.4,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 26.05,
+   "to": 26.9,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 26.9,
+   "to": 27,
+   "text": "6.7 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27,
+   "to": 27.1,
+   "text": "7.9 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.1,
+   "to": 27.2,
+   "text": "8.6 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.2,
+   "to": 27.3,
+   "text": "8.9 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.3,
+   "to": 27.4,
+   "text": "9.1 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.4,
+   "to": 29.2,
+   "text": "9.1 m",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 27.1,
+   "to": 29.13,
+   "text": "Two of them are underground.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 29.45,
+   "to": 33.76,
+   "text": "They tell you: rope, wooden sledges, and muscle.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 29.6,
+   "to": 34,
+   "text": "30 t = 2 × BUS",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 34.2,
+   "to": 37.09,
+   "text": "From a quarry twenty-five kilometres away.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 36.1,
+   "to": 36.2,
+   "text": "0 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.2,
+   "to": 36.3,
+   "text": "5 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.3,
+   "to": 36.4,
+   "text": "10 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.4,
+   "to": 36.5,
+   "text": "14 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.5,
+   "to": 36.6,
+   "text": "17 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.6,
+   "to": 36.7,
+   "text": "19 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.7,
+   "to": 36.8,
+   "text": "21 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.8,
+   "to": 36.9,
+   "text": "23 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 36.9,
+   "to": 37,
+   "text": "24 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 37,
+   "to": 37.1,
+   "text": "24 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 37.1,
+   "to": 37.2,
+   "text": "25 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 37.2,
+   "to": 37.3,
+   "text": "25 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 37.3,
+   "to": 37.4,
+   "text": "25 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 37.4,
+   "to": 38,
+   "text": "25 km",
+   "pos": 250,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 38.25,
+   "to": 40.89,
+   "text": "No cranes. No iron.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 42.35,
+   "to": 45.25,
+   "text": "Just stone tools... they say.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 45.3,
+   "to": 47.7,
+   "text": "But the big stones are not the problem.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 47.75,
+   "to": 49.47,
+   "text": "The small ones are.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "SUNSET 2:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21,
+   "to": 22,
+   "text": "SUNSET 2:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22,
+   "to": 23,
+   "text": "SUNSET 2:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23,
+   "to": 24,
+   "text": "SUNSET 2:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24,
+   "to": 25,
+   "text": "SUNSET 2:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25,
+   "to": 26,
+   "text": "SUNSET 2:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 26,
+   "to": 27,
+   "text": "SUNSET 2:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 27,
+   "to": 28,
+   "text": "SUNSET 2:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 28,
+   "to": 29,
+   "text": "SUNSET 2:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 29,
+   "to": 30,
+   "text": "SUNSET 2:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 30,
+   "to": 31,
+   "text": "SUNSET 2:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 31,
+   "to": 32,
+   "text": "SUNSET 2:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 32,
+   "to": 33,
+   "text": "SUNSET 2:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 33,
+   "to": 34,
+   "text": "SUNSET 2:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 34,
+   "to": 35,
+   "text": "SUNSET 2:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 35,
+   "to": 35.6,
+   "text": "SUNSET 2:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 38,
+   "to": 39,
+   "text": "SUNSET 2:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 39,
+   "to": 40,
+   "text": "SUNSET 2:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 40,
+   "to": 41,
+   "text": "SUNSET 2:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 41,
+   "to": 42,
+   "text": "SUNSET 2:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 42,
+   "to": 43,
+   "text": "SUNSET 2:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 43,
+   "to": 44,
+   "text": "SUNSET 2:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 44,
+   "to": 45,
+   "text": "SUNSET 2:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 45,
+   "to": 46,
+   "text": "SUNSET 2:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 46,
+   "to": 47,
+   "text": "SUNSET 2:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 47,
+   "to": 48,
+   "text": "SUNSET 2:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 48,
+   "to": 49,
+   "text": "SUNSET 2:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 49,
+   "to": 50,
+   "text": "SUNSET 2:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 38,
+   "to": 50,
+   "text": "CLUE 1/5",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 210
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 hook",
+   "at": 0,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     -2.1,
+     0.5,
+     50.1
+    ],
+    "look": [
+     -0.2,
+     3,
+     15.4
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -2.05,
+      0.5,
+      49.65
+     ]
+    },
+    "dur": 1.9
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p8-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "beam": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p8-ship",
+     "set": {
+      "beam": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "beam": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "b-stones",
+     "set": {
+      "built": 0.58
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tl-stones",
+     "set": {
+      "built": 0.635
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 21.4,
+      "sunEl": 11.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "m-map",
+     "set": {
+      "woods": 0,
+      "wales": 0,
+      "scotland": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spud-lamp",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.12
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h1-stone",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.12,
+     "dur": 3.2,
+     "reason": "the ring ship's low hum over the stone",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h1-stone",
+     "set": {
+      "y": 2.1
+     },
+     "dur": 1.86,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Thirty tonnes. No wheel. No metal.",
+     "tone": "calm",
+     "dur": 3.53,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "point",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.9,
+      47.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 4,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 the drop",
+   "at": 1.9,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     2.3,
+     0.45,
+     21.9
+    ],
+    "look": [
+     1.62,
+     0.95,
+     15.415
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      2.32,
+      0.45,
+      22.3
+     ]
+    },
+    "dur": 1.5
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h1-stone",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.05
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      4,
+      18.1
+     ],
+     "dur": 0.35,
+     "stride": 0.5,
+     "ease": "out",
+     "at": 0.28
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.24,
+       0.52,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "fore",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.24,
+       0.52,
+       0.22
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "fore",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "fore",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "fx": "shake",
+     "dur": 0.3,
+     "amp": 0.05,
+     "at": 0.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      1.62,
+      0.05,
+      16.315
+     ],
+     "dur": 1.5,
+     "color": "#e4ecea",
+     "puffs": 18,
+     "sparks": 0,
+     "size": 1.5,
+     "lift": 0.1,
+     "sound": false,
+     "at": 0.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.52,
+      0.05,
+      16.015
+     ],
+     "dur": 1.5,
+     "color": "#e4ecea",
+     "puffs": 18,
+     "sparks": 0,
+     "size": 1.5,
+     "lift": 0.1,
+     "sound": false,
+     "at": 0.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      2.72,
+      0.05,
+      16.015
+     ],
+     "dur": 1.5,
+     "color": "#e4ecea",
+     "puffs": 18,
+     "sparks": 0,
+     "size": 1.5,
+     "lift": 0.1,
+     "sound": false,
+     "at": 0.4
+    },
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "loud": true,
+     "reason": "thirty tonnes of stone land in their pit",
+     "at": 0.4
+    },
+    {
+     "who": "fore",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "crow1",
+     "set": {
+      "wings": 1,
+      "caw": 1
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.5,
+     "reason": "grit and chalk under the stone (the crack a phone speaker carries)",
+     "at": 0.42
+    },
+    {
+     "sfx": "ai/wing-flap",
+     "gain": 0.3,
+     "reason": "the crow takes off",
+     "at": 0.48
+    },
+    {
+     "do": "prop",
+     "id": "crow1",
+     "set": {
+      "x": 1,
+      "y": 2.2,
+      "z": 44.5
+     },
+     "dur": 0.9,
+     "ease": "in",
+     "at": 0.5
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      -900,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.48
+    },
+    {
+     "who": "fore",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "crew",
+     "do": "move",
+     "to": [
+      -9.5,
+      24
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "who": "crew",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "crow1",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "y": 60,
+      "beam": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "03 the ring goes up",
+   "at": 3.4,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     30,
+     40,
+     74
+    ],
+    "look": [
+     0,
+     3,
+     2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      27,
+      38,
+      70
+     ]
+    },
+    "dur": 3.9
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 15.5,
+      "z": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "b-stones",
+     "set": {
+      "built": 0.95
+     },
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Eighty of them. Stood up in a perfect ring.",
+     "tone": "calm",
+     "dur": 3.48,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 10.96,
+      "z": 10.96
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 0,
+      "z": 15.5
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.89
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": -10.96,
+      "z": 10.96
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.31
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": -15.5,
+      "z": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.73
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": -10.96,
+      "z": -10.96
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.15
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 2.55
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 0,
+      "z": -15.5
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.57
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 10.96,
+      "z": -10.96
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.99
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 15.5,
+      "z": 0
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.41
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.3,
+     "reason": "a far stone lands on the ring (time-lapse)",
+     "at": 3.45
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.9,
+      47.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 4,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "do": "prop",
+     "id": "h1-ship",
+     "set": {
+      "x": 3.223,
+      "y": 14.1,
+      "z": 15.161,
+      "beam": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.88
+    },
+    {
+     "do": "prop",
+     "id": "b-stones",
+     "set": {
+      "built": 0.95
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.88
+    }
+   ]
+  },
+  {
+   "name": "04 he points",
+   "at": 7.3,
+   "len": 1.167,
+   "shot": {
+    "pos": [
+     -2.6,
+     0.6,
+     50.1
+    ],
+    "look": [
+     -1.75,
+     1.7,
+     33
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -2.45,
+      0.6,
+      49.45
+     ]
+    },
+    "dur": 1.167
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "lin4",
+     "set": {
+      "y": 8.6
+     },
+     "dur": 3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 1.167,
+     "reason": "the ship's hum behind him",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.3,
+       0.82,
+       -0.05
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "And they tell you farmers built this.",
+     "tone": "question",
+     "dur": 2.01,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1997.3,
+      37.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1996.4,
+      37.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2002.3,
+      37.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1997.1,
+      47.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 4,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.147
+    }
+   ]
+  },
+  {
+   "name": "05 today",
+   "at": 8.467,
+   "len": 2.933,
+   "shot": {
+    "pos": [
+     1997.4,
+     0.6,
+     50.1
+    ],
+    "look": [
+     1998.25,
+     1.7,
+     33
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      1997.59,
+      0.6,
+      49.15
+     ]
+    },
+    "dur": 2.933
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "sfx": "crunch",
+     "gain": 0.12,
+     "dur": 0.6,
+     "reason": "the sheep chewing frosty grass beside him",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.75,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.493
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "headY": -0.6,
+      "headP": -0.2
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.35
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.18,
+     "blink": false,
+     "at": 2.333
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "lid": 0.4,
+      "brow": 0.2
+     },
+     "dur": 0.2,
+     "at": 2.333
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1998.5,
+      58.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.913
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 6,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.913
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "x": 1999.9,
+      "z": 57.5,
+      "rot": -115,
+      "headY": 0,
+      "headP": 0,
+      "chew": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.913
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "06 five clues",
+   "at": 11.4,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     1999.1,
+     0.85,
+     62
+    ],
+    "look": [
+     1998.4,
+     1.25,
+     50
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1999.05,
+      0.85,
+      61.6
+     ]
+    },
+    "dur": 1.8
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Five clues.",
+     "tone": "calm",
+     "dur": 1.05,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "06 the low sun",
+   "at": 13.2,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     1999.5,
+     1.6,
+     70
+    ],
+    "look": [
+     1992,
+     5.5,
+     0
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1999.5,
+      1.6,
+      68.6
+     ]
+    },
+    "dur": 2.5
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Today is the shortest day of the year.",
+     "tone": "calm",
+     "dur": 2.31,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "06 the sun and the tallest stone",
+   "at": 15.7,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     2000,
+     1.6,
+     150
+    ],
+    "look": [
+     2000,
+     3.6,
+     -6.3
+    ],
+    "fov": 5.6,
+    "to": {
+     "pos": [
+      2000,
+      1.6,
+      146
+     ]
+    },
+    "dur": 2.3
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 3.6,
+      "sunEl": 3.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "When the sun touches the tallest stone...",
+     "tone": "calm",
+     "dur": 2.35,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 0.42,
+      "sunEl": 0.48
+     },
+     "dur": 1.9,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "t-sky",
+     "set": {
+      "sunAz": 20.86,
+      "sunEl": 11.24
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "06 you'll know",
+   "at": 18,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     1998.95,
+     0.72,
+     61.3
+    ],
+    "look": [
+     1998.25,
+     1.05,
+     52
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      1998.9,
+      0.72,
+      60.8
+     ]
+    },
+    "dur": 3.4
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "you'll know who really built Stonehenge.",
+     "tone": "calm",
+     "dur": 2.57,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "headY": 0.5
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.8,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 2.8
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -897,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -894,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.38
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -891,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      4002.05,
+      -5.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "07 up the tallest stone",
+   "at": 21.4,
+   "len": 3,
+   "shot": {
+    "pos": [
+     4002.35,
+     0.45,
+     -2.6
+    ],
+    "look": [
+     4002.05,
+     0.6,
+     -5.3
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      4002.2,
+      4.4,
+      -2.5
+     ],
+     "look": [
+      4001.55,
+      7.4,
+      -6.2
+     ]
+    },
+    "dur": 2.8
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.75
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue one. The tallest is nine metres long.",
+     "tone": "excited",
+     "dur": 3.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "crow7",
+     "set": {
+      "caw": 1,
+      "headY": 0.4
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "sfx": "ai/raven-caw",
+     "gain": 0.3,
+     "reason": "the crow on the top of the stone caws",
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "crow7",
+     "set": {
+      "caw": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "sync": true,
+     "at": 2.98
+    }
+   ]
+  },
+  {
+   "name": "07 his palm on the stone",
+   "at": 24.4,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     4003.45,
+     0.25,
+     -4.45
+    ],
+    "look": [
+     4001.8,
+     3.2,
+     -6.1
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      4003.35,
+      0.25,
+      -4.55
+     ]
+    },
+    "dur": 1.6
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "s-stones",
+      "grip": [
+       2.2,
+       0.6,
+       -5.6
+      ],
+      "palm": [
+       2.2,
+       0.6,
+       -6.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.3,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.9
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.55
+    },
+    {
+     "sfx": "cloth",
+     "gain": 0.25,
+     "reason": "his glove flat on the stone",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "lid": 0.35,
+      "brow": 0.25
+     },
+     "dur": 0.3,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      5998.25,
+      -1.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "crew",
+     "do": "move",
+     "to": [
+      6001.8,
+      -1.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "crew",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "crew",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.01,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.58
+    },
+    {
+     "who": "crew",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "08 2500 BC the pit",
+   "at": 26,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     6000.25,
+     0.75,
+     5.6
+    ],
+    "look": [
+     6000,
+     0.1,
+     0
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      6000.22,
+      0.72,
+      5.2
+     ]
+    },
+    "dur": 3.2
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "p8-stone",
+     "set": {
+      "y": 2.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 2.8,
+     "reason": "the ship's hum far above the beam",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p8-stone",
+     "set": {
+      "y": 0
+     },
+     "dur": 1.35,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Two of them are underground.",
+     "tone": "calm",
+     "dur": 1.63,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.1
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.85,
+     "loud": true,
+     "reason": "the stone settles on the pit's packing stones",
+     "at": 1.4
+    },
+    {
+     "fx": "shake",
+     "dur": 0.2,
+     "amp": 0.025,
+     "at": 1.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      6000,
+      0.05,
+      0.9
+     ],
+     "dur": 1.2,
+     "color": "#f4f1e6",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 1.2,
+     "lift": 0.05,
+     "sound": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6
+     },
+     "dur": 0.2,
+     "at": 1.7
+    },
+    {
+     "who": "crew",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "crew",
+     "do": "move",
+     "to": [
+      -882,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.18
+    },
+    {
+     "who": "crew",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1984.95,
+      60.45
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "x": 1985.25,
+      "z": 59.4,
+      "rot": -90,
+      "headY": 0,
+      "headP": 0.55,
+      "chew": 0,
+      "grass": false
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "push9",
+      "grip": [
+       -0.2,
+       0.6,
+       0.62
+      ],
+      "palm": [
+       -0.2,
+       0.6,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "push9",
+      "grip": [
+       -0.84,
+       0.6,
+       0.62
+      ],
+      "palm": [
+       -0.84,
+       0.6,
+       0.2
+      ]
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "lid": 0.6,
+      "brow": -0.3
+     },
+     "dur": 0.01,
+     "at": 3.18
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "09 the push",
+   "at": 29.2,
+   "len": 4.8,
+   "shot": {
+    "pos": [
+     1988,
+     0.9,
+     65
+    ],
+    "look": [
+     1984.2,
+     1.5,
+     59.6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1987.75,
+      0.9,
+      64.6
+     ]
+    },
+    "dur": 4.8
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "They tell you: rope, wooden sledges, and muscle.",
+     "tone": "calm",
+     "dur": 3.91,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 5.6,
+     "reason": "far winter wind over the plain",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1985.07,
+      60.45
+     ],
+     "dur": 0.45,
+     "steps": 0,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "sfx": "ai/step-grass",
+     "gain": 0.35,
+     "reason": "his boots slide back on the frosty grass",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "headP": 0.75
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1984.95,
+      60.45
+     ],
+     "dur": 0.5,
+     "stride": 0.3,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "headP": 0.55
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.4,
+     "at": 2.8
+    },
+    {
+     "do": "prop",
+     "id": "sheep",
+     "set": {
+      "headP": 0,
+      "headY": -0.5,
+      "ears": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 3.7
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 3.7
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.7
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 3.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "lid": 0.45,
+      "brow": 0.2
+     },
+     "dur": 0.25,
+     "at": 3.9
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.45,
+     "at": 4.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3999.4,
+      21.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.78
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 4.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.78
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 4.78
+    }
+   ]
+  },
+  {
+   "name": "10 the downs to the north",
+   "at": 34,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     4002,
+     26,
+     -52
+    ],
+    "look": [
+     4000,
+     0,
+     50
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      4002,
+      25,
+      -48
+     ]
+    },
+    "dur": 1.6
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "From a quarry twenty-five kilometres away.",
+     "tone": "calm",
+     "dur": 2.49,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "10 the map",
+   "at": 35.6,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     8000,
+     3.8,
+     10.15
+    ],
+    "look": [
+     8000,
+     3.8,
+     0
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      8001,
+      3.35,
+      5
+     ],
+     "look": [
+      8001,
+      3.35,
+      0
+     ],
+     "fov": 19
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "m-map",
+     "set": {
+      "woods": 1
+     },
+     "dur": 1.3,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      10001.5,
+      14.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 200,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      10003.4,
+      13.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "fore",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-stones",
+     "set": {
+      "built": 0.635
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "x": 10010.372,
+      "z": 11.519
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st0",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.38
+    }
+   ]
+  },
+  {
+   "name": "11 time-lapse 1",
+   "at": 38,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     10003.6,
+     0.95,
+     8.2
+    ],
+    "look": [
+     10000.6,
+     1.9,
+     15
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.1,
+     "dur": 6.6,
+     "reason": "the ship's hum over the ring",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tl-st0",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.73,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "No cranes. No iron.",
+     "tone": "calm",
+     "dur": 2.24,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.7,
+     "reason": "an upright lands in its place on the ring",
+     "at": 0.75
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      10010.372,
+      0.05,
+      11.519
+     ],
+     "dur": 1.2,
+     "color": "#e4ecea",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 1.6,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-stones",
+     "set": {
+      "built": 0.652
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st0",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "x": 10007.75,
+      "z": 13.423
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st1",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "11 time-lapse 2",
+   "at": 39.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     10003.6,
+     0.95,
+     8.2
+    ],
+    "look": [
+     10000.6,
+     1.9,
+     15
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tl-st1",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.73,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.7,
+     "reason": "an upright lands in its place on the ring",
+     "at": 0.75
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      10007.75,
+      0.05,
+      13.423
+     ],
+     "dur": 1.2,
+     "color": "#e4ecea",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 1.6,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-stones",
+     "set": {
+      "built": 0.669
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st1",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "x": 10004.79,
+      "z": 14.741
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st2",
+     "set": {
+      "y": 2.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "11 time-lapse 3",
+   "at": 40.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     10003.6,
+     0.95,
+     8.2
+    ],
+    "look": [
+     10000.6,
+     1.9,
+     15
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tl-st2",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.73,
+     "ease": "in",
+     "at": 0.02
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.7,
+     "reason": "an upright lands in its place on the ring",
+     "at": 0.75
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      10004.79,
+      0.05,
+      14.741
+     ],
+     "dur": 1.2,
+     "color": "#e4ecea",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 1.6,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "tl-stones",
+     "set": {
+      "built": 0.685
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st2",
+     "set": {
+      "y": -400
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-ship",
+     "set": {
+      "x": 10001.62,
+      "z": 15.415
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    },
+    {
+     "do": "prop",
+     "id": "tl-st3",
+     "set": {
+      "y": 6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "11 time-lapse 4",
+   "at": 42.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     10003.6,
+     0.95,
+     8.2
+    ],
+    "look": [
+     10000.6,
+     1.9,
+     15
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      10003.45,
+      0.95,
+      8.7
+     ]
+    },
+    "dur": 2.8
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tl-st3",
+     "set": {
+      "y": 2.2
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Just stone tools... they say.",
+     "tone": "calm",
+     "dur": 2.63,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.9
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.15,
+     "at": 0.4
+    },
+    {
+     "who": "fore",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.6,
+     "dur": 0.22,
+     "at": 0.65
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "wave",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      10001.25,
+      12.9
+     ],
+     "dur": 0.6,
+     "stride": 0.35,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.15,
+     "dur": 0.4,
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "tl-st3",
+     "set": {
+      "y": 0
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 1.5
+    },
+    {
+     "who": "fore",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "far winter wind over the plain",
+     "at": 1.8
+    },
+    {
+     "sfx": "thud",
+     "gain": 1,
+     "loud": true,
+     "reason": "an upright lands in its place on the ring",
+     "at": 1.95
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      10001.62,
+      0.05,
+      15.415
+     ],
+     "dur": 1.2,
+     "color": "#e4ecea",
+     "puffs": 16,
+     "sparks": 0,
+     "size": 1.6,
+     "lift": 0.08,
+     "sound": false,
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 1.95
+    },
+    {
+     "who": "fore",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.25,
+     "at": 1.95
+    },
+    {
+     "fx": "shake",
+     "dur": 0.25,
+     "amp": 0.035,
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "lid": 0.7
+     },
+     "dur": 0.1,
+     "at": 2.05
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.45,
+     "at": 2.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.7,
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 2.4
+    },
+    {
+     "who": "fore",
+     "do": "move",
+     "to": [
+      -900,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 2.78
+    },
+    {
+     "who": "fore",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3997.6,
+      5.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.78
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.78
+    }
+   ]
+  },
+  {
+   "name": "12 the small ones",
+   "at": 45,
+   "len": 5,
+   "shot": {
+    "pos": [
+     4000.3,
+     1,
+     13.4
+    ],
+    "look": [
+     3998,
+     1.9,
+     0
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      4000.15,
+      1,
+      12.8
+     ]
+    },
+    "dur": 5
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3998.35,
+      7.95
+     ],
+     "dur": 2.1,
+     "stride": 0.55,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But the big stones are not the problem.",
+     "tone": "calm",
+     "dur": 2.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -40.236,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.5
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The small ones are.",
+     "tone": "calm",
+     "dur": 1.32,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 2.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 4.17
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.8,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 4.17
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.7,
+     "at": 4.3
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.9,
+   "see": [
+    "spud.face",
+    "h1-stone",
+    "h1-ship"
+   ],
+   "why": "frame 0: Spud, the stone hanging in the ship's beam behind him"
+  },
+  {
+   "from": 1.9,
+   "to": 3.4,
+   "see": [
+    "h1-stone",
+    "fore.face"
+   ],
+   "why": "close at the foot: the stone lands, frost dust, the foreman jumps back"
+  },
+  {
+   "from": 3.4,
+   "to": 7.3,
+   "see": [
+    "b-stones",
+    "spud"
+   ],
+   "why": "the ring goes up stone by stone to 80, Spud tiny below"
+  },
+  {
+   "from": 7.3,
+   "to": 8.467,
+   "see": [
+    "spud.face",
+    "h1-ship",
+    "lin4"
+   ],
+   "why": "2500 BC: he points back at the ship lowering a top stone"
+  },
+  {
+   "from": 8.467,
+   "to": 11.4,
+   "see": [
+    "spud.face",
+    "sheep",
+    "t-stones"
+   ],
+   "why": "today, same frame: the ruin, tourists at the rope, the sheep chewing beside him"
+  },
+  {
+   "from": 11.4,
+   "to": 13.2,
+   "see": [
+    "spud.face",
+    "t-stones"
+   ],
+   "why": "down the axis: Spud's five fingers, the ruin and the low sun behind him"
+  },
+  {
+   "from": 13.2,
+   "to": 15.7,
+   "see": [
+    "t-stones",
+    "spud"
+   ],
+   "why": "wide down the axis: the low sun upper left, the ruin, Spud small in front"
+  },
+  {
+   "from": 15.7,
+   "to": 18,
+   "see": [
+    "t-stones"
+   ],
+   "why": "long lens on the tallest stone: the big sun glides down onto its top"
+  },
+  {
+   "from": 18,
+   "to": 21.4,
+   "see": [
+    "spud.face"
+   ],
+   "why": "close on Spud, the ruin behind him; the countdown punches in"
+  },
+  {
+   "from": 23.6,
+   "to": 24.4,
+   "see": [
+    "crow7"
+   ],
+   "why": "the top of the tallest stone, the knob and a crow against the sky"
+  },
+  {
+   "from": 24.4,
+   "to": 26,
+   "see": [
+    "spud",
+    "s-stones"
+   ],
+   "why": "low at the foot: his palm on the stone, the face rising to the knob against the sky"
+  },
+  {
+   "from": 26,
+   "to": 29.2,
+   "see": [
+    "p8-stone",
+    "pit8",
+    "spud.face"
+   ],
+   "why": "the cut-away: the stone sinks 2.4 m into its chalk pit"
+  },
+  {
+   "from": 29.2,
+   "to": 34,
+   "see": [
+    "spud.face",
+    "push9",
+    "sheep",
+    "bus9"
+   ],
+   "why": "he pushes the stone with both palms, slides back; the sheep pushes too; the bus behind"
+  },
+  {
+   "from": 34,
+   "to": 35.6,
+   "see": [
+    "s-stones"
+   ],
+   "why": "high over the ruin, north over the frosty downs to the far woods"
+  },
+  {
+   "from": 35.6,
+   "to": 38,
+   "see": [
+    "m-map"
+   ],
+   "why": "the map: a red line 25 km north from Stonehenge"
+  },
+  {
+   "from": 38,
+   "to": 45,
+   "see": [
+    "tl-stones",
+    "spud",
+    "fore"
+   ],
+   "why": "2500 BC jump cuts: the ring grows by one upright at each cut; the last lands where he stood"
+  },
+  {
+   "from": 45,
+   "to": 50,
+   "see": [
+    "spud.face",
+    "blue12"
+   ],
+   "why": "inside the ruin: he walks to a small dark stone, the giants and the low sun behind him"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "s-stones",
+   "from": 24.75,
+   "to": 26,
+   "reason": "his palm flat on the face of Stone 56"
+  },
+  {
+   "who": "spud",
+   "with": "push9",
+   "from": 29.2,
+   "to": 34,
+   "reason": "both palms flat on the stone he pushes"
+  },
+  {
+   "who": "sheep",
+   "with": "push9",
+   "from": 29.2,
+   "to": 34,
+   "reason": "the sheep's head against the stone"
+  },
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "chip",
+   "with": "chip-hat",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  },
+  {
+   "who": "chip",
+   "with": "chip-scarf",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  },
+  {
+   "who": "wedge",
+   "with": "wedge-hat",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  },
+  {
+   "who": "wedge",
+   "with": "wedge-scarf",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  },
+  {
+   "who": "mash",
+   "with": "mash-hat",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  },
+  {
+   "who": "mash",
+   "with": "mash-scarf",
+   "from": 0,
+   "to": 50,
+   "reason": "the winter hat and scarf he wears (kit winter())"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/02-stonehenge/block-a/make-block-a.mjs. Block A of four (kit/BLOCKS.md); music = the EP02 score's first 50 s (kit score(0))."
+}
