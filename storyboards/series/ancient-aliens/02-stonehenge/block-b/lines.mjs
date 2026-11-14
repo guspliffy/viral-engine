@@ -20,6 +20,8 @@ export const LINES = {
   b10a: "Aliens? Type one.",
   b10b: "Humans? Type two.",
   b11: "I'll wait.",
+  // the tall cut's own hook (TikTok part 2, kit BLOCKS.md): over the cargo ship crossing Wales
+  h1: "Who carried these to Stonehenge?",
 };
-export const TONES = { b2a: "excited", b7b: "excited", b10a: "question", b10b: "question" };
+export const TONES = { b2a: "excited", b7b: "excited", b10a: "question", b10b: "question", h1: "question" };
 export const toneOf = (k) => TONES[k] ?? TONE;

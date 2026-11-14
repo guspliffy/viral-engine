@@ -40,10 +40,10 @@ const local = (p, lx, lz) => [r3(p.x + lx * Math.cos(p.rot * D) + lz * Math.sin(
 const KS = { id: "ks", kind: "bluestone", x: at(PL.today, -2.6, 8.4)[0], z: 8.4, rot: 0, era: "today", size: [0.72, 0.86, 0.46], seed: 7 };
 const SPOT = {
   knock: local(KS, 0.92, 0.12),        // at its +x side, his right knuckle on its +x face
-  push: local(KS, 0, 0.6),              // in front of it, both palms on its front face
+  push: local(KS, 0.78, 0),             // at its +x end, both palms on that end (from the long side the stone hides his face)
   spread: at(PL.today, -0.6, 10.4),     // panel 14: in the middle of the bluestones, arms spread
   stand: at(PL.today, 1.45, -2.9),      // panel 21: standing on the slab's near side, Stone 56 and the low sun behind him
-  altar: at(PL.today, 2.85, -4.2),      // panel 18-21: at the +x end of the Altar Stone (fallen Stone 55 covers its -x half)
+  altar: at(PL.today, 2.92, -4.2),      // panel 18-21: at the +x end of the Altar Stone (fallen Stone 55 covers its -x half)
   axis: at(PL.today, -1.2, 58.5),       // panel 22-24: on the axis, the ruin and the low sun behind him, the visitors' rope behind
 };
 
@@ -73,7 +73,7 @@ function build(F) {
   ];
 
   // ---- props
-  const W = PL.wales, SHIP0 = at(W, -55, -12), SHIP1 = at(W, 60, -12), SHIPY = 22;   // the cargo ship's crossing (panel 17)
+  const W = PL.wales, SHIP0 = at(W, -35, 4), SHIP1 = at(W, 40, 4), SHIPY = 18;   // the cargo ship's crossing (panel 17)
   const STONES = [-4.0, -2.4, -0.8, 0.8, 2.4, 4.0];   // the row hung under it, x along the ship
   const props = [
     // TODAY: the ruin at the gold light of block B, visitors behind their rope, three sheep about, a crow
@@ -90,7 +90,7 @@ function build(F) {
     ...wales("w", W, { out: 0 }),
     { id: "cargo", kind: "cargoship", x: SHIP0[0], y: SHIPY - 300, z: SHIP0[1], rot: 0, s: 1.3, beam: 1, lit: 0.5, beamLen: 2.6, staged: "it flies over the Welsh hills" },
     ...STONES.map((dx, i) => ({ id: `hang${i}`, kind: "bluestone", x: r3(SHIP0[0] + dx * 1.3), y: r3(SHIPY - 300 - 1.0 - 4.4), z: SHIP0[1], rot: (i * 37) % 30 - 15, era: "new", size: [0.62, 1.9, 0.42], seed: 11 + i, staged: "it hangs in the cargo ship's beam" })),
-    { id: "shep", kind: "stonefolk", who: "shepherd", x: at(W, 1.6, 32.0)[0], z: 32.0, rot: 95, lookAt: toLocal([5 - 1.6, 22, -12 - 32.0], 95), seed: 2 },
+    { id: "shep", kind: "stonefolk", who: "shepherd", x: at(W, 1.6, 32.0)[0], z: 32.0, rot: 95, lookAt: toLocal([5 - 1.6, 18, 4 - 32.0], 95), seed: 2 },
     sheep("ws1", at(W, 0.4, 31.2)[0], 31.2, 80, { headP: -1, headY: -0.2 }),
     sheep("ws2", at(W, 2.6, 32.9)[0], 32.9, 100, { headP: -1, headY: -0.4 }),
     sheep("ws3", at(W, -0.7, 32.5)[0], 32.5, 70, { headP: -0.8, headY: 0.2 }),
@@ -140,20 +140,20 @@ function build(F) {
   count(c, F, r3(t2b + 0.1), r3(T.p14b - 0.2), T.p14b, 0, 80);
   A(r3(T.p14b - 0.8), "spud", "noblink", { dur: 0.8 });
   // 14b the push (on "Two tonnes")
-  const PUSHAT = SPOT.push, PUSHYAW = yawTo(PUSHAT, [KS.x, KS.z]), BACK = local(KS, 0, 0.66);
+  const PUSHAT = SPOT.push, PUSHYAW = yawTo(PUSHAT, [KS.x, KS.z]), BACK = local(KS, 0.84, 0);
   place(T.p14b, "spud", PUSHAT, PUSHYAW);
-  for (const [s, lx] of [["R", -0.17], ["L", 0.17]]) { c.arm(r3(T.p14b - 0.02), s === "R" ? "spud" : "spud", s, { prop: "ks", grip: [lx, 0.52, 0.245], palm: [lx, 0.52, 0.0] }, 0.01); }
+  for (const [s, lz] of [["R", -0.15], ["L", 0.15]]) c.arm(r3(T.p14b - 0.02), "spud", s, { prop: "ks", grip: [0.375, 0.38, lz], palm: [0, 0.38, lz] }, 0.01);   // low: his hands under his eyes for the camera
   A(r3(T.p14b - 0.02), "spud", "grip", { side: "both", shape: "flat", dur: 0.01 });
   A(r3(T.p14b - 0.02), "spud", "pitch", { to: 10, dur: 0.01 });
   look(T.p14b, "spud", [0, 0.1], 0.01); expr(T.p14b, "spud", "focused", { brow: -0.4, lid: 0.3 }, 0.01);
   A(r3(T.p14b + 0.3), "spud", "squash", { amount: 0.05, dur: 0.3 });
   A(r3(T.p14b + 0.5), "spud", "move", { to: BACK, dur: 0.35, steps: 0, ease: "out" });   // his boots slide back on the frost
   sfx(r3(T.p14b + 0.5), "step-grass", { gain: 0.3, reason: "his boots slip on the frosty grass" });
-  for (const [s, lx] of [["R", -0.17], ["L", 0.17]]) c.arm(r3(T.p14b + 0.5), "spud", s, { prop: "ks", grip: [lx, 0.5, 0.245], palm: [lx, 0.5, 0.0] }, 0.35, "out");
-  big(r3(e2b - 1.15), T.p15, "2 t +", { x: 1450 });
+  for (const [s, lz] of [["R", -0.15], ["L", 0.15]]) c.arm(r3(T.p14b + 0.5), "spud", s, { prop: "ks", grip: [0.375, 0.36, lz], palm: [0, 0.36, lz] }, 0.35, "out");
+  big(r3(e2b - 1.15), T.p15, "2 t +", F.key === "wide" ? { x: 1450 } : {});
   A(r3(T.p14b + 1.3), "spud", "pitch", { to: 0, dur: 0.4 }); c.arm(r3(T.p14b + 1.3), "spud", "R", "rest", 0.4, "inOut"); c.arm(r3(T.p14b + 1.32), "spud", "L", "rest", 0.4, "inOut");
   A(r3(T.p14b + 1.3), "spud", "grip", { side: "both", shape: "relaxed", dur: 0.3 });
-  A(r3(T.p14b + 1.35), "spud", "turn", { to: r3(PUSHYAW + 160), dur: 0.5, ease: "inOut" }); look(r3(T.p14b + 1.6), "spud", [0, 0.1], 0.2);
+  A(r3(T.p14b + 1.35), "spud", "turn", { to: -150, dur: 0.5, ease: "inOut" });   // to the camera look(r3(T.p14b + 1.6), "spud", [0, 0.1], 0.2);
   expr(r3(T.p14b + 1.6), "spud", "neutral", { brow: 0.6, lid: 0.35 }, 0.2);
   A(r3(T.p15 - 0.7), "spud", "noblink", { dur: 0.7 });
   see(T.p14, T.p14b, ["spud", "t-stones"], "panel 14: the dark bluestones among the grey giants, his arms spread, the counter to 80");
@@ -196,7 +196,7 @@ function build(F) {
 
   // ================================================================= 18 THE ALTAR STONE (27-30): he crouches at the flat slab
   const AYAW = -110;   // toward the slab (-x), a little toward the camera on its far side
-  place(T.p18, "spud", SPOT.altar, AYAW); A(r3(T.p18 - 0.02), "spud", "crouch", { to: 0.7, dur: 0.01 });
+  place(T.p18, "spud", SPOT.altar, AYAW); A(r3(T.p18 - 0.02), "spud", "crouch", { to: 1, dur: 0.01 });
   look(T.p18, "spud", [0.2, -0.45], 0.01); expr(T.p18, "spud", "kind", null, 0.01);
   P(r3(T.p18 + 0.8), "crowA", { hop: 1 }, 0.3, "out"); P(r3(T.p18 + 1.1), "crowA", { hop: 0 }, 0.2, "in");
   P(r3(T.p18 + 1.6), "crowA", { caw: 1 }, 0.12, "out"); P(r3(T.p18 + 1.8), "crowA", { caw: 0 }, 0.2, "in");
@@ -270,26 +270,45 @@ function build(F) {
   for (let t = 0; t < END - 0.3; t = r3(t + 6)) if (!(t >= T.p15 - 0.1 && t < T.p16) && !(t >= T.p20 - 0.1 && t < T.p21)) sfx(r3(t), "ai/storm-wind", { gain: 0.06, dur: r3(Math.min(6, END - t)), reason: "far wind over the plain" });
 
   // ---------------------------------------------------------------- shots (a move on every one)
-  const mv = (from, to, dur, fov) => ({ ...from, to: { pos: to.pos, ...(to.look && { look: to.look }) }, dur, ...(fov && { fov }) });
+  const mv = (from, to, dur, fov) => ({ ...from, to: { pos: to.pos, ...(to.look && { look: to.look }), ...(to.fov && { fov: to.fov }) }, dur, ...(fov && { fov }) });
   const O = (o, v) => ({ pos: [r3(o[0] + v.pos[0]), v.pos[1], r3(o[1] + v.pos[2])], ...(v.look && { look: [r3(o[0] + v.look[0]), v.look[1], r3(o[1] + v.look[2])] }), ...(v.fov && { fov: v.fov }) });
   const pair = (w, t) => (F.key === "wide" ? w : t ?? w);
   const PT = PL.today, PM = PL.map;
   const map = (v) => O(PM, v);
+  // tall (1080 x 1920): the subtitle at y 400 and the numbers at 580 sit in the upper third, so every tall camera looks
+  // higher and wider than its wide pair and the subject stands in the lower half
+  const T2 = (o, a, b, dur) => mv(O(o, a), O(o, b), dur);
   const SHOTS = [
-    ["13 the knock", T.p13, pair(mv(O(PT, { pos: [-1.75, 0.85, 11.4], look: [-2.3, 0.62, 8.5], fov: 30 }), O(PT, { pos: [-1.8, 0.84, 11.0] }), 4.0)), "hook"],
-    ["14 eighty of them", T.p14, pair(mv(O(PT, { pos: [-2.4, 1.3, 13.9], look: [-0.4, 1.3, 8.0], fov: 44 }), O(PT, { pos: [0.9, 1.35, 13.9] }), r3(T.p14b - T.p14)))],
-    ["14b two tonnes", T.p14b, pair(mv(O(PT, { pos: [-1.1, 0.8, 7.6], look: [-2.45, 0.55, 8.8], fov: 36 }), O(PT, { pos: [-1.2, 0.8, 7.75] }), r3(T.p15 - T.p14b)))],
-    ["15 the map, Wales", T.p15, pair(mv(map(MAP_VIEW.stub.wide), map(MAP_VIEW.south.wide), 2.6))],
-    ["16 Wales, the crag", T.p16, pair(mv(O(W, { pos: [-3.0, 1.9, 11.6], look: [0.3, 1.4, 7.2], fov: 40 }), O(W, { pos: [-2.7, 1.85, 11.1] }), r3(T.p17 - T.p16)))],
-    ["17 over the hills", T.p17, pair(mv(O(W, { pos: [1.0, 0.9, 36], look: [6, 9, 0], fov: 50 }), O(W, { pos: [1.0, 0.9, 36], look: [14, 11, 0] }), r3(T.p18 - T.p17)))],
-    ["18 the Altar Stone", T.p18, pair(mv(O(PT, { pos: [0.4, 1.1, -5.3], look: [2.6, 0.45, -3.9], fov: 46 }), O(PT, { pos: [0.7, 1.05, -5.15] }), r3(T.p19 - T.p18)))],
-    ["19 palm on the slab", T.p19, pair(mv(O(PT, { pos: [1.35, 1.0, -5.3], look: [2.5, 0.55, -4.1], fov: 50 }), O(PT, { pos: [1.45, 0.98, -5.2] }), r3(T.p19b - T.p19)))],
-    ["19b 2024", T.p19b, pair(mv(O(PT, { pos: [0.3, 0.9, -5.25], look: [2.9, 0.75, -3.9], fov: 38 }), O(PT, { pos: [0.5, 0.9, -5.1] }), r3(T.p20 - T.p19b)))],
-    ["20 the map, Scotland", T.p20, pair(mv(map(MAP_VIEW.south.wide), map(MAP_VIEW.north.wide), r3(N1 - T.p20 + 0.3)))],
-    ["21 nobody knows how", T.p21, pair(mv(O(PT, { pos: [1.0, 0.85, 0.2], look: [0.7, 0.95, -6.0], fov: 40 }), O(PT, { pos: [1.0, 0.85, -0.2] }), r3(T.p22 - T.p21)))],
-    ["22 type one", T.p22, pair(mv(O(PT, { pos: [-1.2, 0.72, 61.2], look: [-1.2, 0.82, 58.5], fov: 30 }), O(PT, { pos: [-1.2, 0.72, 60.9] }), r3(T.p23 - T.p22)))],
-    ["23 type two", T.p23, pair(mv(O(PT, { pos: [-1.2, 0.7, 60.6], look: [-1.2, 0.82, 58.5], fov: 30 }), O(PT, { pos: [-1.2, 0.7, 60.35] }), r3(T.p24 - T.p23)))],
-    ["24 I'll wait", T.p24, pair(mv(O(PT, { pos: [-0.6, 1.3, 64.0], look: [-0.8, 0.5, 40], fov: 30 }), O(PT, { pos: [-0.6, 1.3, 63.4] }), r3(END - T.p24)))],
+    ["13 the knock", T.p13, pair(T2(PT, { pos: [-1.75, 0.85, 11.4], look: [-2.3, 0.62, 8.5], fov: 30 }, { pos: [-1.8, 0.84, 11.0] }, 4.0),
+      T2(PT, { pos: [-1.6, 0.9, 11.6], look: [-2.35, 0.95, 8.5], fov: 52 }, { pos: [-1.65, 0.9, 11.2] }, 4.0)), "hook"],
+    ["14 eighty of them", T.p14, pair(T2(PT, { pos: [-2.4, 1.3, 13.9], look: [-0.4, 1.3, 8.0], fov: 44 }, { pos: [0.9, 1.35, 13.9] }, r3(T.p14b - T.p14)),
+      T2(PT, { pos: [-1.2, 1.4, 15.5], look: [-0.6, 2.2, 10.4], fov: 62 }, { pos: [-0.2, 1.45, 15.5] }, r3(T.p14b - T.p14)))],
+    ["14b two tonnes", T.p14b, pair(T2(PT, { pos: [-2.6, 1.1, 6.6], look: [-2.0, 0.6, 8.4], fov: 40 }, { pos: [-2.75, 1.1, 6.75] }, r3(T.p15 - T.p14b)),
+      T2(PT, { pos: [-2.7, 1.15, 6.3], look: [-2.0, 1.1, 8.4], fov: 62 }, { pos: [-2.85, 1.15, 6.45] }, r3(T.p15 - T.p14b)))],
+    ["15 the map, Wales", T.p15, pair(mv(map(MAP_VIEW.stub.wide), map(MAP_VIEW.south.wide), 2.6), mv(map(MAP_VIEW.stub.tall), map(MAP_VIEW.south.tall), 2.6))],
+    ["16 Wales, the crag", T.p16, pair(T2(W, { pos: [-3.0, 1.9, 11.6], look: [0.3, 1.4, 7.2], fov: 40 }, { pos: [-2.7, 1.85, 11.1] }, r3(T.p17 - T.p16)),
+      T2(W, { pos: [-3.4, 1.9, 12.8], look: [0.2, 2.6, 7.2], fov: 62 }, { pos: [-3.1, 1.85, 12.3] }, r3(T.p17 - T.p16)))],
+    ["17 over the hills", T.p17, pair(T2(W, { pos: [1.0, 0.9, 36], look: [-2, 8, 4], fov: 50 }, { pos: [1.0, 0.9, 36], look: [12, 9.5, 4] }, r3(T.p18 - T.p17)),
+      T2(W, { pos: [1.0, 0.9, 36], look: [-14, 9.5, 4], fov: 72 }, { pos: [1.0, 0.9, 36], look: [16, 9.5, 4] }, r3(T.p18 - T.p17)))],
+    ["18 the Altar Stone", T.p18, pair(T2(PT, { pos: [0.4, 1.1, -5.3], look: [2.6, 0.45, -3.9], fov: 46 }, { pos: [0.7, 1.05, -5.15] }, r3(T.p19 - T.p18)),
+      T2(PT, { pos: [0.2, 1.2, -5.6], look: [2.6, 1.0, -3.9], fov: 64 }, { pos: [0.5, 1.15, -5.45] }, r3(T.p19 - T.p18)))],
+    ["19 palm on the slab", T.p19, pair(T2(PT, { pos: [1.35, 1.0, -5.3], look: [2.5, 0.55, -4.1], fov: 50 }, { pos: [1.45, 0.98, -5.2] }, r3(T.p19b - T.p19)),
+      T2(PT, { pos: [1.2, 1.1, -5.4], look: [2.85, 0.9, -4.2], fov: 66 }, { pos: [1.28, 1.08, -5.34] }, r3(T.p19b - T.p19)))],
+    ["19b 2024", T.p19b, pair(T2(PT, { pos: [0.3, 0.9, -5.25], look: [2.9, 0.75, -3.9], fov: 38 }, { pos: [0.5, 0.9, -5.1] }, r3(T.p20 - T.p19b)),
+      T2(PT, { pos: [0.2, 0.95, -5.4], look: [2.9, 1.25, -3.9], fov: 56 }, { pos: [0.4, 0.95, -5.25] }, r3(T.p20 - T.p19b)))],
+    // the camera leaves Wales only when the line starts north, and travels with it (it ran ahead in the first animatic)
+    ["20 not from Wales", T.p20, pair(mv(map(MAP_VIEW.south.wide), map({ pos: [0, MAP_VIEW.south.wide.pos[1], 9.9] }), r3(N0 - T.p20)),
+      mv(map(MAP_VIEW.south.tall), map({ pos: [0, MAP_VIEW.south.tall.pos[1], 29.4] }), r3(N0 - T.p20)))],
+    ["20b north, 750 km", N0, pair(mv(map({ ...MAP_VIEW.south.wide, pos: [0, MAP_VIEW.south.wide.pos[1], 9.9] }), map(MAP_VIEW.north.wide), r3(N1 - N0)),
+      mv(map({ ...MAP_VIEW.south.tall, pos: [0, MAP_VIEW.south.tall.pos[1], 29.4] }), map({ pos: [0, MAP_VIEW.south.tall.pos[1], 27.5] }), r3(T.p21 - N0)))],
+    ["21 nobody knows how", T.p21, pair(T2(PT, { pos: [1.0, 0.85, 0.2], look: [0.7, 0.95, -6.0], fov: 40 }, { pos: [1.0, 0.85, -0.2] }, r3(T.p22 - T.p21)),
+      T2(PT, { pos: [1.0, 0.9, 0.6], look: [0.75, 1.6, -6.0], fov: 58 }, { pos: [1.0, 0.9, 0.2] }, r3(T.p22 - T.p21)))],
+    ["22 type one", T.p22, pair(T2(PT, { pos: [-1.2, 0.72, 61.2], look: [-1.2, 0.82, 58.5], fov: 30 }, { pos: [-1.2, 0.72, 60.9] }, r3(T.p23 - T.p22)),
+      T2(PT, { pos: [-1.2, 0.8, 61.6], look: [-1.2, 1.2, 58.5], fov: 46 }, { pos: [-1.2, 0.8, 61.3] }, r3(T.p23 - T.p22)))],
+    ["23 type two", T.p23, pair(T2(PT, { pos: [-1.2, 0.7, 60.6], look: [-1.2, 0.82, 58.5], fov: 30 }, { pos: [-1.2, 0.7, 60.35] }, r3(T.p24 - T.p23)),
+      T2(PT, { pos: [-1.2, 0.78, 61.0], look: [-1.2, 1.15, 58.5], fov: 46 }, { pos: [-1.2, 0.78, 60.75] }, r3(T.p24 - T.p23)))],
+    ["24 I'll wait", T.p24, pair(T2(PT, { pos: [-0.6, 1.3, 64.0], look: [-0.8, 0.5, 40], fov: 30 }, { pos: [-0.6, 1.3, 63.4] }, r3(END - T.p24)),
+      T2(PT, { pos: [0.25, 1.4, 67.5], look: [0.25, 1.9, 40], fov: 58 }, { pos: [0.25, 1.4, 66.9] }, r3(END - T.p24)))],
   ];
   // a subtitle ends where the next one starts (hostSay holds 0.4 s past the voice: caption-collide on the full render)
   const subs = c.captions.filter((x) => x.pos === F.SUB).sort((x, y) => x.from - y.from);
@@ -300,7 +319,7 @@ function build(F) {
     for (const cp of c.captions) { cp.from = r3(cp.from + H); cp.to = r3(cp.to + H); }
     for (const v of c.visible) { v.from = r3(v.from + H); v.to = r3(v.to + H); }
     for (const s of SHOTS) s[1] = r3(s[1] + H);
-    SHOTS.unshift(...hook(c, F, PL, cast, props));
+    SHOTS.unshift(...hook(c, F, H, { W, SHIPY, STONES, P, O, mv }));
   }
   sunsetClock(c, F, T0 - H, 0, END + H);
   const beats = c.beats(SHOTS, END + H);
@@ -319,10 +338,26 @@ function build(F) {
   };
 }
 
-// THE PART 2 HOOK (tall only, 3.0 s; BLOCKS.md table): Wales in the past, the cargo ship carries its row of bluestones
-// over the green hills, the shepherd and his sheep stare up; a km counter races 0 -> 240; "Who carried these to
-// Stonehenge?"; "240 km · NO WHEEL". Written after Jonny's OK on the wide animatic.
-function hook(c, F, PL, cast, props) { throw new Error("the tall hook is built after Jonny's OK on the wide animatic"); }
+// THE PART 2 HOOK (tall only, 3.0 s; kit BLOCKS.md table): Wales in the past, the cargo ship carries its row of bluestones
+// over the green hills, close and slow, the shepherd and his sheep stare up from the bottom of the frame; the line starts
+// at 0.0 and is done by 2.7 s; the km counter races 0 -> 240 and lands with the stones' clack at 1.8 s; "240 km · NO
+// WHEEL" in the upper third; hard cut to the knock. The same Welsh place as panel 17 (the ship is hidden again at the cut
+// and comes back for panel 17); nothing of it is in the wide film.
+function hook(c, F, H, { W, SHIPY, STONES, P, O, mv }) {
+  const HY = 14, A0 = at(W, -9, 4), A1 = at(W, 9, 4), Y0 = r3(HY - 1.0 - 4.4), END = r3(H - 0.04);
+  P(0, "cargo", { x: A0[0], y: HY, z: A0[1] }); P(0.02, "cargo", { x: A1[0], z: A1[1] }, END, "linear");
+  STONES.forEach((dx, i) => { P(0, `hang${i}`, { x: r3(A0[0] + dx * 1.3), y: Y0, z: A0[1] }); P(0.02, `hang${i}`, { x: r3(A1[0] + dx * 1.3) }, END, "linear"); });
+  // gone at the cut (panel 17 brings it back from the far west)
+  P(H, "cargo", { y: SHIPY - 300 }); STONES.forEach((dx, i) => P(H, `hang${i}`, { y: r3(SHIPY - 300 - 1.0 - 4.4) }));
+  P(0, "ws1", { headY: 0.2 }); P(0.4, "ws2", { headY: 0.35 }, 1.4, "inOut");
+  c.sfx(0, "kenney/space-engine-low", { gain: 0.12, dur: H, reason: "the cargo ship's low hum overhead" });
+  c.sfx(0, "ai/storm-wind", { gain: 0.06, dur: H, reason: "far wind over the Welsh moor" });
+  c.sfx(1.8, "knock-hit", { gain: 0.35, reason: "two of the hanging bluestones knock together in the beam" });
+  hostSay(c, F, 0.0, "spud", LINES.h1, DUR.h1, toneOf("h1"), { hold: 0.2 });
+  count(c, F, 0.3, 1.8, H, 0, 240, (v) => `${Math.round(v)} km · NO WHEEL`, { size: Math.round(F.numSize * 0.7) });
+  c.see(0, H, ["cargo", "shep"], "part 2 hook: the cargo ship carries a row of bluestones over the Welsh hills, the shepherd and his sheep stare up");
+  return [["0 hook: Wales, the cargo ship", 0, mv(O(W, { pos: [1.0, 0.9, 36], look: [0, 10, 4], fov: 74 }), O(W, { pos: [1.0, 0.9, 35.4], look: [1.5, 10.2, 4] }), H), "hook"]];
+}
 
 const TALL = process.argv.includes("--tall");
 for (const F of TALL ? [FRAME.wide, FRAME.tall] : [FRAME.wide]) {
@@ -334,7 +369,8 @@ for (const F of TALL ? [FRAME.wide, FRAME.tall] : [FRAME.wide]) {
     castLook: "sheet", cleanStart: true, motion: MOTION, rig: RIG, physics: false, loopIdle: false,
     set: SET_OF(T0 + 26), music: hookOf(F, "b") ? partScore("b") : score(T0),
     sound: { scenes: ["scifi"], signature: false, sfx: 0.65, ambience: 0.06, surface: "grass", room: "open", guard: true },
-    hook: { show: ["spud", "ks"], hint: 0, what: "today, inside Stonehenge: Spud knocks on a small dark stone and it rings" },
+    hook: hookOf(F, "b") ? { show: ["cargo", "shep"], hint: 0, what: "Wales 2500 BC: the cargo ship carries a row of bluestones over the hills, the shepherd stares up; 240 km, no wheel" }
+      : { show: ["spud", "ks"], hint: 0, what: "today, inside Stonehenge: Spud knocks on a small dark stone and it rings" },
     ...build(F),
     notes: "Generated by storyboards/series/ancient-aliens/02-stonehenge/block-b/make-block-b.mjs. Block B of four (kit/BLOCKS.md); music = the EP02 score from 0:50 (kit score(50)).",
   });
