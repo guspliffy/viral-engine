@@ -1,0 +1,33 @@
+{
+ "name": "mansion-gate-night",
+ "prompt": "anime film background painting, gouache, soft brush strokes, night after rain, low ground level view along a wide wet cobbled driveway filling the bottom half and reflecting light, in the distance a grand classical mansion with warm lit windows behind dark trees, deep blue cloudy night sky, puddles, cold moonlight from behind",
+ "no": "people, car, vehicle, gate, fence, lamp in foreground, text, letters, day, sun, aerial view",
+ "seeds": [
+  63
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.0,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.0,
+   8.0
+  ]
+ },
+ "light": {
+  "from": "cold moonlight from behind the house, warm window glow",
+  "key": [
+   2.5,
+   4.0,
+   -5.0
+  ],
+  "shadow": 0.2
+ },
+ "swayMax": 25,
+ "surface": "road",
+ "groundMax": 35
+}
