@@ -1,0 +1,2189 @@
+{
+ "id": "gorge-bench",
+ "title": "Gorge pack bench",
+ "idea": "Props bench for There's a catch EP09b (gorge, bridgerope, planks), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd0e4",
+  "floor": "none"
+ },
+ "hud": {
+  "sky": false
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "gorge"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "gorge",
+   "kind": "gorge",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "rope",
+   "kind": "bridgerope",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "planks",
+   "kind": "planks",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "chipbox",
+   "kind": "stoneblock",
+   "x": 0,
+   "y": -1.55,
+   "z": -4.5,
+   "w": 0.6,
+   "h": 0.65,
+   "d": 0.4
+  },
+  {
+   "id": "spudbox",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 0.8,
+   "h": 1,
+   "d": 0.5
+  },
+  {
+   "id": "wedgebox",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 1,
+   "h": 1.1,
+   "d": 0.5
+  },
+  {
+   "id": "mashbox",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 0.7,
+   "h": 1.35,
+   "d": 0.5
+  },
+  {
+   "id": "g1",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 0.12,
+   "h": 0.12,
+   "d": 0.12
+  },
+  {
+   "id": "g2",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 0.12,
+   "h": 0.12,
+   "d": 0.12
+  },
+  {
+   "id": "g3",
+   "kind": "stoneblock",
+   "x": 40,
+   "y": 0,
+   "z": 0,
+   "w": 0.12,
+   "h": 0.12,
+   "d": 0.12
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "s1",
+   "at": 0,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -3,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "sway": 0,
+      "nearfall": 0,
+      "hangers": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "h: planks at 0.0 0.5 1.5"
+  },
+  {
+   "name": "s2",
+   "at": 2.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     4.8,
+     5.2
+    ],
+    "look": [
+     0,
+     -2.4,
+     -4.5
+    ],
+    "fov": 50
+   },
+   "do": [],
+   "kind": "a: briefed wide, Chip box under the rope"
+  },
+  {
+   "name": "s3",
+   "at": 3.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [],
+   "kind": "a: raised wide, sun line, planks"
+  },
+  {
+   "name": "s4",
+   "at": 4.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     -4.5
+    ],
+    "look": [
+     0,
+     -30,
+     -4.8
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "b: straight down, foam t1"
+  },
+  {
+   "name": "s5",
+   "at": 5.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     -4.5
+    ],
+    "look": [
+     0,
+     -30,
+     -4.8
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "b: straight down, foam t2"
+  },
+  {
+   "name": "s6",
+   "at": 6.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.2,
+     -30,
+     -0.8
+    ],
+    "look": [
+     0.2,
+     0,
+     -1.2
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "c: straight up from (0.2,-30,-0.8)"
+  },
+  {
+   "name": "s7",
+   "at": 7.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     -30,
+     -4.5
+    ],
+    "look": [
+     0,
+     0,
+     -4.9
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "c: straight up from (0,-30,-4.5)"
+  },
+  {
+   "name": "s8",
+   "at": 8.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6,
+     1,
+     7.8
+    ],
+    "look": [
+     6,
+     1.05,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 6.48,
+      "y": 0,
+      "z": 1.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 5.85,
+      "y": 0,
+      "z": 1.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 5.05,
+      "y": 0,
+      "z": 1.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 7.1,
+      "y": 0,
+      "z": 1.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "i: the photo, four boxes"
+  },
+  {
+   "name": "s9",
+   "at": 9.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6,
+     1,
+     7.8
+    ],
+    "look": [
+     6,
+     1.05,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "i: the photo, Spud hidden"
+  },
+  {
+   "name": "s10",
+   "at": 10.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -3,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.74
+    }
+   ],
+   "kind": "h: planks 11.2 11.8 12.6"
+  },
+  {
+   "name": "s11",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 0,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 0 crumble 0"
+  },
+  {
+   "name": "s12",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0.08,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 0.08,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 0.08 crumble 0"
+  },
+  {
+   "name": "s13",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0.16,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 0.16,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 0.16 crumble 0"
+  },
+  {
+   "name": "s14",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0.3,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 0.3,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 0.3 crumble 0"
+  },
+  {
+   "name": "s15",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0.6,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 0.6,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 0.6 crumble 0"
+  },
+  {
+   "name": "s16",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 1,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 1,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 1 crumble 0"
+  },
+  {
+   "name": "s17",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 1,
+      "crumble": 0.3
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 1,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 1 crumble 0.3"
+  },
+  {
+   "name": "s18",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.6,
+     0.9,
+     1.6
+    ],
+    "look": [
+     0.2,
+     0,
+     0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 1,
+      "crumble": 0.7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "nearfall": 1,
+      "snap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "e: lipbreak 1 crumble 0.7"
+  },
+  {
+   "name": "s19",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 3"
+  },
+  {
+   "name": "s20",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 2.5,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 2.5"
+  },
+  {
+   "name": "s21",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 2,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 2"
+  },
+  {
+   "name": "s22",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 1.4,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 1.4"
+  },
+  {
+   "name": "s23",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 1,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 1"
+  },
+  {
+   "name": "s24",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 0.5,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 0.5"
+  },
+  {
+   "name": "s25",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     -0.72,
+     -3.9
+    ],
+    "look": [
+     0,
+     -0.87,
+     -4.25
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 0,
+      "snap": 0,
+      "nearfall": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gorge",
+     "set": {
+      "lipbreak": 0,
+      "crumble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": 40,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "f: strands 0"
+  },
+  {
+   "name": "s26",
+   "at": 28,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: snap 0"
+  },
+  {
+   "name": "s27",
+   "at": 29,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0.1,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: snap 0.1"
+  },
+  {
+   "name": "s28",
+   "at": 30,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0.3,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: snap 0.3"
+  },
+  {
+   "name": "s29",
+   "at": 31,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0.6,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: snap 0.6"
+  },
+  {
+   "name": "s30",
+   "at": 32,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     3.4,
+     3.2
+    ],
+    "look": [
+     0,
+     -2.2,
+     -4.5
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 1,
+      "sway": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0,
+      "y": -1.55,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spudbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wedgebox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "mashbox",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 40,
+      "y": 0,
+      "z": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: snap 1"
+  },
+  {
+   "name": "s31",
+   "at": 33,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     4.8,
+     5.2
+    ],
+    "look": [
+     0,
+     -2.4,
+     -4.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "sway": -0.15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": -0.15,
+      "y": -1.5499999999999998,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": -0.15,
+      "y": -0.96,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": -0.14606249999999998,
+      "y": -0.73325,
+      "z": -4.75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": -0.14606249999999998,
+      "y": -0.75325,
+      "z": -4.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: sway -0.15, boxes on the glove points"
+  },
+  {
+   "name": "s32",
+   "at": 34,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.5,
+     4.8,
+     5.2
+    ],
+    "look": [
+     0,
+     -2.4,
+     -4.5
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "strands": 3,
+      "snap": 0,
+      "sway": 0.15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chipbox",
+     "set": {
+      "x": 0.15,
+      "y": -1.5499999999999998,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g1",
+     "set": {
+      "x": 0.15,
+      "y": -0.96,
+      "z": -4.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g2",
+     "set": {
+      "x": 0.14606249999999998,
+      "y": -0.73325,
+      "z": -4.75
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "g3",
+     "set": {
+      "x": 0.14606249999999998,
+      "y": -0.75325,
+      "z": -4.25
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ],
+   "kind": "g: sway 0.15, boxes on the glove points"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/09b-teleport-forget/bench/make-gorge-bench.mjs (props bench, no reviews)."
+}
