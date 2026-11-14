@@ -36,6 +36,11 @@ run it again if a block's length moves) from takes already in the library, on th
 `02-stonehenge/kit/sh-kit.mjs`. Silent on purpose: 49.6-54 (the knock rings alone), 100-102 ("I'll wait": only the
 sheep), 177-180 (the last three seconds of the sunset countdown: wind only), under "It's a parking space." (196.4-198.3).
 
+`aa02-part-b.ogg`, `aa02-part-c.ogg`, `aa02-part-d.ogg` (the vertical parts 2-4; `score.py --parts`, also rebuilt by a plain
+run): a 3.0 s hook bed (b drama-swell-02, c hero-bed-01, d orchestra-suspense-01, each from its first note) and then the
+film's score from the block's start, so the part's own hook shot has music from 0.0 and every later hit stays where the
+block has it. Used by `partScore("b")` in the tall storyboards; part 1 uses `score(0)`.
+
 | from (s) | take | part | story |
 |---|---|---|---|
 | 0.0 | ai/zombies-score/zombies-score-01.ogg | 0-11.25 | A hook: the stone hangs, drops; the ring; snap to today (the series theme: low strings, sparse piano, timpani pulse) |

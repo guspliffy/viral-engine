@@ -5,7 +5,7 @@
 // (sh-proof-wide-sheet.png, sh-proof-tall-sheet.png).
 //
 //   import { FRAME, FAR, SET_OF, sunAt, sunTrack, CAST, VIEW, shot, plain, stones, today, past, visitors, winter, sheep, liftStone,
-//            ringShip, wales, mapBoard, page, haul, host, hostSay, clueTag, sunsetClock, count, score, lampClip, placeClip, winterClip } from "../kit/sh-kit.mjs";
+//            ringShip, wales, mapBoard, page, haul, host, hostSay, clueTag, sunsetClock, count, score, partScore, hookOf, HOOK, PLACE, lampClip } from "../kit/sh-kit.mjs";
 //
 // TWO FRAMES, ONE GENERATOR. The film is WIDE (1920 x 1080); each block is also cut TALL (1080 x 1920) as a TikTok part.
 // A block's generator builds its clip in a function of F (FRAME.wide or FRAME.tall) and writes two storyboards:
@@ -13,7 +13,11 @@
 // F.sb carries `frame` and `far`; F.SUB / F.NUM are the caption heights (subtitle, big number), both in the upper third;
 // every camera is a pair { wide, tall } and shot(F, o, VIEW.axis) picks one (`fov` is the VERTICAL angle: the same camera
 // shows 3.2 times the width in wide, so a tall shot stands closer or pans instead). The WIDE one is the master: Jonny
-// judges its animatic; the tall cut follows after his OK with its own cameras, same timing, same sound.
+// judges its animatic; the tall cut follows after his OK with its own cameras and the same sound.
+// THE TALL PARTS OPEN ON THEIR OWN HOOK (Jonny 14 Nov; BLOCKS.md "The vertical parts"): parts 2-4 start with one hook
+// shot of HOOK = 3.0 s that the film does not have, then the block exactly as in the film, every time H later:
+//   const H = hookOf(F, "b");   // 3 in the tall cut of blocks b, c, d; 0 in the wide film and in block a
+//   music: H ? partScore("b") : score(T0)     sunsetClock(c, F, T0 - H, 0, END)
 //
 // PLACES. One place = one origin o = [x, z] = PLACE(i), 2000 m apart (the cameras see FAR = 700 m, and a plain's far skirt
 // reaches 1100 m at y -1.6: closer places would lie over each other's skirt, and the support check reads it as a floor). Everything is REAL scale. Axes
@@ -89,6 +93,10 @@ export function count(c, F, t0, t1, hold, a, b, fmt = (v) => String(Math.round(v
 // THE SCORE: one recorded-orchestra score for the whole film (assets/music/ancient-aliens/README.md, built by kit/score.py
 // on STORY.md's times). Every storyboard, animatics included: `music: score(<story time of its first frame>)`.
 export const score = (storyTime = 0, o = {}) => ({ file: "ancient-aliens/aa02-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic", ...o });
+// The tall parts' own score files (kit/score.py --parts): a 3.0 s hook bed, then the film's score from the block's start.
+export const HOOK = 3;
+export const hookOf = (F, block) => (F.key === "tall" && block !== "a" ? HOOK : 0);
+export const partScore = (block, o = {}) => (block === "a" ? score(0, o) : score(0, { file: `ancient-aliens/aa02-part-${block}.ogg`, ...o }));
 
 // ---- cameras ----
 // Proven on the proof bench, relative to a place's origin; each a pair. shot(F, o, VIEW.axis) or shot(F, o, { wide: {...}, tall: {...} })

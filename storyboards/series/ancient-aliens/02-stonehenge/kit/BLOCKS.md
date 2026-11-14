@@ -106,6 +106,35 @@ least every 3 seconds, numbers count or punch in, the voice is deadpan not flat,
   gates, lean (weekly limit: no extra rounds), the animatic goes to Jonny before polish, one full render per frame
   shape, merge only on his "merge it".
 
+## The vertical parts open on their own hook (Jonny 14 Nov)
+
+Jonny, 14 Nov: "for the short form videos we need a hook for every single video so they must differ a bit from the one
+long form video. i saw this in the pyramid video when we post each part itself the part without hook in the beginning
+performs worse". So the TALL cut of blocks B, C and D starts with ONE hook shot of exactly 3.0 s that the wide film does
+not have, then the block as in the film, every time 3.0 s later (`const H = hookOf(F, "<block>")`, add H to every time;
+`music: H ? partScore("<block>") : score(T0)`; `sunsetClock(c, F, T0 - H, 0, END)` so the corner clock stays true).
+Write the generator with H from the start, also for the wide animatic (there H is 0). Block A's film opening already is
+its hook. The hook follows the stake-first rule: the part's strongest picture at frame 0, the line done by 2.7 s, a text
+of numbers in the upper third that reads without English, sound at 0.0, never the payoff, never the ship landing.
+
+| Part | Hook picture (3.0 s, tall) | Line (hostSay, 6 words at most) | Text, top third |
+|---|---|---|---|
+| 1 (A) | the film's opening: the 30-tonne stone hangs in the beam and drops | "Thirty tonnes. No wheel. No metal." | 30 t · NO WHEEL |
+| 2 (B) | Wales, the past: the cargo ship carries its row of bluestones over the green hills, the far shepherd and his sheep stare up (panel 17); a km counter races 0 -> 240 | "Who carried these to Stonehenge?" | 240 km · NO WHEEL |
+| 3 (C) | 2500 BC, close: the top stone comes down in the beam onto the two knobs, CLACK at about 1.6 s, frost dust (panel 26 without Spud in the beam) | "Who taught the Stone Age this?" | 4,500 YEARS OLD |
+| 4 (D) | today: the red sun a finger from the tallest stone, Spud small in front; the countdown BIG in the middle of the upper third (0:27, 0:26, 0:25), it then shrinks into its corner | "Wait for the sunset. Trust me." | the countdown itself |
+
+After the hook: a hard cut to the block's own first shot (B the knock, C the knobs against the sky, D the parchment).
+The hook's place is its own `PLACE(i)`; nothing of it stays in the wide storyboard.
+
+## The panel sheets (from 14 Nov also as pictures)
+
+`/mnt/project-files/videos/ancient-aliens/02-stonehenge/sheets/ancient-aliens-02-sheet-{1..4}.png` (Jonny's OK'd sheets;
+sheet 1 = panels 01-12 = block A, and so on). Copy each panel's staging, size and eye line; where a sheet and BOARD
+differ, BOARD wins (06: the sun comes from the LEFT). What the sheets have in every picture, and every shot keeps: a
+sky full of small dappled clouds, frost on the grass, big bare trees near the frame's edge, lichen on today's stones,
+in 2500 BC a river and a village of round huts with smoke in the distance.
+
 ## Order of work
 
 Block A's WIDE animatic goes to Jonny first (he judges the way of explaining and the music on it). B, C and D build

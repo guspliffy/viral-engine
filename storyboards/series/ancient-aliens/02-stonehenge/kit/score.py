@@ -2,7 +2,8 @@
 """Builds assets/music/ancient-aliens/aa02-score.ogg (EP02 Stonehenge, 208 s) from takes in assets/music/ai.
 One score for the whole film, laid on STORY.md's times; a block takes its slice with score(storyTime) (kit/sh-kit.mjs).
 The table below IS the recipe: if a block's length moves, the join pass edits the `at` times and runs this again.
-    python3 storyboards/series/ancient-aliens/02-stonehenge/kit/score.py
+    python3 storyboards/series/ancient-aliens/02-stonehenge/kit/score.py            (the film's score, then the part scores)
+    python3 storyboards/series/ancient-aliens/02-stonehenge/kit/score.py --parts    (only aa02-part-{b,c,d}.ogg: hook bed + the block's slice)
 Each part: cut [a, b] from the take, loudness-matched to -18 LUFS, `db` on top, 0.25 s fade in, `out` s fade out."""
 import subprocess, sys, os
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../.."))
@@ -50,10 +51,33 @@ def build():
     cmd += ["-filter_complex", ";".join(flt), "-map", "[o]", "-ar", "48000", "-c:a", "libvorbis", "-q:a", "5", OUT]
     subprocess.run(cmd, check=True)
     print("wrote", OUT)
+# THE VERTICAL PARTS (Jonny 14 Nov: every short needs its own hook, a part without one performed worse). Parts 2-4 open on
+# a hook shot of HOOK seconds that the film does not have; each gets its own file: a hook bed (the first seconds of a take,
+# full from its first note) and then the film's score from the block's start, so every hit stays where the block has it.
+#        block start  end    hook bed (take, dB)
+HOOK = 3.0
+HOOKS = {
+    "b": (50.0, 102.0, SW2, 0),                           # the cargo ship over the Welsh hills
+    "c": (102.0, 156.0, "hero-bed/hero-bed-01.ogg", -2),  # the top stone comes down on its knobs: clack
+    "d": (156.0, 208.0, SUS, 0),                          # the red sun a finger from the tallest stone
+}
+def parts():
+    for k, (t0, t1, take, db) in HOOKS.items():
+        out = os.path.join(os.path.dirname(OUT), f"aa02-part-{k}.ogg")
+        flt = (f"[0:a]aresample=48000,aformat=channel_layouts=stereo,loudnorm=I=-18:TP=-2:LRA=11,volume={db}dB,"
+               f"afade=t=in:st=0:d=0.05,afade=t=out:st={HOOK - 0.35}:d=0.6[h];"
+               f"[1:a]aresample=48000,aformat=channel_layouts=stereo,adelay={int(HOOK * 1000)}:all=1[m];"
+               f"[h][m]amix=inputs=2:normalize=0:dropout_transition=0,apad,atrim=0:{HOOK + t1 - t0},alimiter=limit=0.89[o]")
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "0", "-t", str(HOOK + 0.25), "-i", os.path.join(AI, take),
+                        "-ss", str(t0), "-t", str(t1 - t0), "-i", OUT, "-filter_complex", flt, "-map", "[o]",
+                        "-ar", "48000", "-c:a", "libvorbis", "-q:a", "5", out], check=True)
+        print("wrote", out)
 def table():
     print("| from (s) | take | part | story |\n|---|---|---|---|")
     for at, take, a, b, db, out, story in PARTS:
         extra = (f", {db:+d} dB" if db else "") + (f", {out} s fade" if out > 0.5 else "")
         print(f"| {at} | ai/{take} | {a}-{b}{extra} | {story} |")
 if __name__ == "__main__":
-    table() if "--table" in sys.argv else build()
+    if "--table" in sys.argv: table()
+    elif "--parts" in sys.argv: parts()
+    else: build(); parts()
