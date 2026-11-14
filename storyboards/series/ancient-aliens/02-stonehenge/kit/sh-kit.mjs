@@ -37,7 +37,7 @@ export const FRAME = {
 };
 
 // ---- the sun and the light ----
-const SUN_KEYS = [[0, 26, 12], [50, 21, 10], [102, 14, 6.5], [156, 5, 2.5], [180, 0, 0.3], [186, 0, -1.2]];
+const SUN_KEYS = [[0, 22, 12], [50, 19, 10], [102, 14, 6.5], [156, 5, 2.5], [180, 0, 0.3], [186, 0, -1.2]];
 export function sunAt(T) {
   const k = SUN_KEYS, t = Math.max(0, Math.min(T, k.at(-1)[0]));
   for (let i = 1; i < k.length; i++) if (t <= k[i][0]) { const u = (t - k[i - 1][0]) / (k[i][0] - k[i - 1][0]); return [r3(k[i - 1][1] + (k[i][1] - k[i - 1][1]) * u), r3(k[i - 1][2] + (k[i][2] - k[i - 1][2]) * u)]; }

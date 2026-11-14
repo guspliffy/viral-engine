@@ -23,8 +23,8 @@ degrees left of the axis (toward -x) as seen from the centre, `el` degrees above
 
 | Block | Story time | Light (one storyboard per light) | Sun at start -> end (az, el) | Sky |
 |---|---|---|---|---|
-| A | 0:00-0:50 | SH_A bright low afternoon | (26, 12) -> (21, 10) | light blue, pale gold near the sun |
-| B | 0:50-1:42 | SH_B golden | (21, 10) -> (14, 6.5) | warm yellow horizon |
+| A | 0:00-0:50 | SH_A bright low afternoon | (22, 12) -> (19, 10) | light blue, pale gold near the sun |
+| B | 0:50-1:42 | SH_B golden | (19, 10) -> (14, 6.5) | warm yellow horizon |
 | C | 1:42-2:36 | SH_C deep orange | (14, 6.5) -> (5, 2.5) | orange horizon, stones glow on the sun side |
 | D | 2:36-3:28 | SH_D red sunset, then SH_DUSK from 3:11 | (5, 2.5) -> (0, 0.3) at 3:00, gone by 3:06 | red band, violet-blue above, first stars at dusk |
 
