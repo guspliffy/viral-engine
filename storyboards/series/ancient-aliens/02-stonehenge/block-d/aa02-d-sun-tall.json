@@ -75,7 +75,7 @@
  },
  "captionBand": [
   200,
-  760
+  820
  ],
  "hook": {
   "show": [
@@ -709,7 +709,7 @@
    "from": 4.2,
    "to": 4.3,
    "text": "2026",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -718,7 +718,7 @@
    "from": 4.3,
    "to": 4.4,
    "text": "1910",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -727,7 +727,7 @@
    "from": 4.4,
    "to": 4.5,
    "text": "1805",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -736,7 +736,7 @@
    "from": 4.5,
    "to": 4.6,
    "text": "1709",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -745,7 +745,7 @@
    "from": 4.6,
    "to": 4.7,
    "text": "1623",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -754,7 +754,7 @@
    "from": 4.7,
    "to": 4.8,
    "text": "1547",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -763,7 +763,7 @@
    "from": 4.8,
    "to": 4.9,
    "text": "1478",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -772,7 +772,7 @@
    "from": 4.9,
    "to": 5,
    "text": "1418",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -781,7 +781,7 @@
    "from": 5,
    "to": 5.1,
    "text": "1365",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -790,7 +790,7 @@
    "from": 5.1,
    "to": 5.2,
    "text": "1320",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -799,7 +799,7 @@
    "from": 5.2,
    "to": 5.3,
    "text": "1280",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -808,7 +808,7 @@
    "from": 5.3,
    "to": 5.4,
    "text": "1247",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -817,7 +817,7 @@
    "from": 5.4,
    "to": 5.5,
    "text": "1220",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -826,7 +826,7 @@
    "from": 5.5,
    "to": 5.6,
    "text": "1197",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -835,7 +835,7 @@
    "from": 5.6,
    "to": 5.7,
    "text": "1179",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -844,7 +844,7 @@
    "from": 5.7,
    "to": 5.8,
    "text": "1165",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -853,7 +853,7 @@
    "from": 5.8,
    "to": 5.9,
    "text": "1154",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -862,7 +862,7 @@
    "from": 5.9,
    "to": 6,
    "text": "1146",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -871,7 +871,7 @@
    "from": 6,
    "to": 6.1,
    "text": "1141",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -880,7 +880,7 @@
    "from": 6.1,
    "to": 6.2,
    "text": "1138",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -889,7 +889,7 @@
    "from": 6.2,
    "to": 6.3,
    "text": "1137",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -898,7 +898,7 @@
    "from": 6.3,
    "to": 6.4,
    "text": "1136",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false
@@ -907,7 +907,7 @@
    "from": 6.4,
    "to": 7.95,
    "text": "1136",
-   "pos": 580,
+   "pos": 660,
    "pop": false,
    "size": 110,
    "kinetic": false

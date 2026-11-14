@@ -33,6 +33,10 @@ const mv = (F, o, a, b, dur, ease = "inOut") => { const A = shot(F, o, a), B = s
 const STYLE = { look: "anime-pro", castLook: "sheet", profile: "short", loop: false, fps: 30, cleanStart: true, motion: MOTION, rig: RIG, physics: false, animeTiming: true };
 const setOf = (L) => ({ ...L, aperture: 0, focus: false, bloom: "emissive", hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true });
 
+// The counters (year, metres) sit UNDER the subtitle, never on it (Jonny 14 Nov: "the lettering are overlaying"): the kit's
+// F.NUM is inside a two-line (wide) or three-line (tall) subtitle; pos is the top of the text.
+const NUM_Y = (F) => (F.key === "wide" ? 330 : 660);
+
 // ================================================================ the "sun" storyboard: 2:36-3:07 (SH_D)
 function buildSun(F) {
   const H = hookOf(F, "d"), c = clip({ faces: "strong" }), { A, sfx, cap, see } = c;
@@ -99,7 +103,7 @@ function buildSun(F) {
   // giants wade the sea (the camera follows them along the drawing); then the oldest picture: the giant sets the top stone,
   // the little wizard points up, and the SAME pose cuts to 2500 BC.
   say(T.ago, "ago", { who: "spudM", hold: 0.3 });
-  count(c, F, r3(T.page1 + 1.2), r3(T.page1 + 3.4), r3(T.page2 - 0.05), 2026, 1136, (v) => String(Math.round(v)));
+  count(c, F, r3(T.page1 + 1.2), r3(T.page1 + 3.4), r3(T.page2 - 0.05), 2026, 1136, (v) => String(Math.round(v)), { pos: NUM_Y(F) });
   sfx(T.page1, "ai/storm-wind", { gain: 0.04, dur: 4.9, reason: "a quiet room, far wind outside" });
   sfx(T.page2, "kenney/book-flip", { gain: 0.3, reason: "the next page of the manuscript" });
   clueTag(c, F, T.page2, T.low, 5);
@@ -215,7 +219,7 @@ function buildSun(F) {
   const spuds = cast.filter((a) => a.character === CAST.spud).map((a) => a.id);
   return {
     set: setOf(SH_D), music: H ? score(0, { file: "ancient-aliens/aa02-part-d.ogg" }) : score(T0),
-    captionBand: F.key === "wide" ? [30, 420] : [200, 760],
+    captionBand: F.key === "wide" ? [30, 490] : [200, 820],
     hook: { show: H ? ["spudH"] : ["g1-page"], hint: 0, what: H ? "part 4 hook: the sun a finger from the tallest stone, the countdown big" : "block D opens mid-film on a hard cut: the medieval page" },
     creative: { length: [T.end, T.end] },
     cast, props, captions: c.captions, beats: c.beats(shots, T.end), visible: c.visible,
@@ -287,7 +291,7 @@ function buildDusk(F) {
   c.macro(r3(T.crew + 1.6), "foreK", "nod");
   sfx(r3(T.crew + 0.1), "step-concrete", { gain: 0.2, reason: "boots on the hull" });
   say(T.across, "across", { who: "spudK", hold: 0.3 });
-  count(c, F, r3(T.across + 0.1), r3(T.across + 1.1), r3(T.point + 0.9), 0, 30, (v) => `${Math.round(v)} m`);
+  count(c, F, r3(T.across + 0.1), r3(T.across + 1.1), r3(T.point + 0.9), 0, 30, (v) => `${Math.round(v)} m`, { pos: NUM_Y(F) });
   A(r3(T.crew + 1.0), "spudK", "turn", { to: 0, dur: 0.5 });
   A(r3(T.point - 0.05), "spudK", "look", { to: [0, 0], dur: 0.01 });
   A(T.point, "spudK", "grip", { side: "R", shape: "point", dur: 0.2 });
@@ -353,7 +357,7 @@ function buildDusk(F) {
   const spuds = ["spudK", "spudT"];
   return {
     set: setOf(SH_DUSK), music: H ? score(r3(SPLIT + H), { file: "ancient-aliens/aa02-part-d.ogg" }) : score(T0 + SPLIT),
-    captionBand: F.key === "wide" ? [30, 420] : [200, 760],
+    captionBand: F.key === "wide" ? [30, 490] : [200, 820],
     hook: { show: ["rk-ship"], hint: 0, what: "the second half of block D (a cut inside the film): the ring ship settles on the stone ring" },
     creative: { length: [T.end, T.end] },
     cast, props, captions: c.captions, beats: c.beats(shots, T.end), visible: c.visible,

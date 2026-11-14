@@ -77,7 +77,7 @@
  },
  "captionBand": [
   30,
-  420
+  490
  ],
  "hook": {
   "show": [
@@ -354,7 +354,7 @@
    "from": 4.4,
    "to": 4.5,
    "text": "0 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -363,7 +363,7 @@
    "from": 4.5,
    "to": 4.6,
    "text": "8 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -372,7 +372,7 @@
    "from": 4.6,
    "to": 4.7,
    "text": "15 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -381,7 +381,7 @@
    "from": 4.7,
    "to": 4.8,
    "text": "20 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -390,7 +390,7 @@
    "from": 4.8,
    "to": 4.9,
    "text": "24 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -399,7 +399,7 @@
    "from": 4.9,
    "to": 5,
    "text": "26 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -408,7 +408,7 @@
    "from": 5,
    "to": 5.1,
    "text": "28 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -417,7 +417,7 @@
    "from": 5.1,
    "to": 5.2,
    "text": "29 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -426,7 +426,7 @@
    "from": 5.2,
    "to": 5.3,
    "text": "30 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -435,7 +435,7 @@
    "from": 5.3,
    "to": 5.4,
    "text": "30 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
@@ -444,7 +444,7 @@
    "from": 5.4,
    "to": 7.9,
    "text": "30 m",
-   "pos": 250,
+   "pos": 330,
    "pop": false,
    "size": 120,
    "kinetic": false
