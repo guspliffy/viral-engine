@@ -130,11 +130,31 @@ function paintCommon(g, W, R, o) {   // washes, pits, cracks, specks shared by t
     stamp(W, pts[0][0], pts[0][1], 460, draw);
   }
 }
+// the weathered-stone lichen of the panel sheets, drawn once per sheet: clear orange-rust, cream-white and pale-green crusts in irregular blotches of 10-60 cm
+// (512 px per metre), in clusters, over a quarter of the sheet, with a little dark moss; k scales the counts (the Altar Stone sheet is a quarter of the area)
+function lichenSet(g, W, R, k) {
+  const clusters = Array.from({ length: Math.max(5, Math.round(12 * k)) }, () => [R() * W, R() * W, 120 + R() * 240]);
+  const spot = () => { if (R() < 0.2) return [R() * W, R() * W]; const [cx, cy, cr] = clusters[Math.floor(R() * clusters.length)], a = R() * TAU, d = cr * Math.sqrt(-2 * Math.log(Math.max(1e-6, R()))) * 0.55; return [(((cx + Math.cos(a) * d) % W) + W) % W, (((cy + Math.sin(a) * d * 0.8) % W) + W) % W]; };
+  const crust = (cx, cy, rad, col, edge, lite) => {   // a ragged blotch: overlapping lobes, a darker rim, a fine speckle of lighter and darker rosettes
+    const nl = 4 + Math.floor(R() * 5), lobes = [], dots = [];
+    for (let q = 0; q < nl; q++) { const a = R() * TAU, d = q ? rad * 0.65 * R() : 0; lobes.push([Math.cos(a) * d * 1.2, Math.sin(a) * d * 0.8, rad * (q ? 0.3 + 0.35 * R() : 0.6 + 0.3 * R()), 0.55 + 0.45 * R(), R() * 3]); }
+    for (let q = 0; q < 26 + Math.floor(rad * 0.7); q++) { const [lx, ly, lr] = lobes[Math.floor(R() * nl)], a = R() * TAU, d = lr * Math.sqrt(R()); dots.push([lx + Math.cos(a) * d, ly + Math.sin(a) * d * 0.8, 1.2 + R() * 3.2, R() < 0.5]); }
+    stamp(W, cx, cy, rad * 1.9 + 8, (ox, oy) => {
+      for (const [lx, ly, lr, asp, rot] of lobes) { g.fillStyle = rgba(edge, 0.5); g.beginPath(); g.ellipse(cx + ox + lx, cy + oy + ly, lr * 1.08, lr * asp * 1.08, rot, 0, TAU); g.fill(); }
+      for (const [lx, ly, lr, asp, rot] of lobes) { g.fillStyle = rgba(col, 0.86); g.beginPath(); g.ellipse(cx + ox + lx, cy + oy + ly, lr * 0.94, lr * asp * 0.94, rot, 0, TAU); g.fill(); }
+      for (const [dx, dy, r, pale] of dots) { g.fillStyle = rgba(pale ? lite : edge, pale ? 0.5 : 0.35); g.beginPath(); g.arc(cx + ox + dx, cy + oy + dy, r, 0, TAU); g.fill(); }
+    });
+  };
+  for (let i = 0; i < Math.round(36 * k); i++) crust(...spot(), 22 + R() * R() * 120, "#b9c2a0", "#6a7550", "#d6dcc0");
+  for (let i = 0; i < Math.round(26 * k); i++) crust(...spot(), 18 + R() * R() * 90, "#c98b4e", "#7a4a22", "#e0a768");
+  for (let i = 0; i < Math.round(30 * k); i++) crust(...spot(), 16 + R() * R() * 100, "#e9e6d8", "#9b9784", "#f8f6ec");
+  for (let i = 0; i < Math.round(9 * k); i++) crust(...spot(), 16 + R() * 50, "#58603f", "#2c3220", "#7f8a5d");
+}
 function paintStone(key) {
   const today = key === "today", rough = key === "newrough", W = 2048, [c, g] = canvas(W, W), R = runOf(today ? 211 : rough ? 151 : 101);
-  g.fillStyle = today ? "#8e8c86" : rough ? "#d3cdbd" : "#ece4d0"; g.fillRect(0, 0, W, W);
+  g.fillStyle = today ? "#a9a69c" : rough ? "#d3cdbd" : "#ece4d0"; g.fillRect(0, 0, W, W);
   paintCommon(g, W, R, today
-    ? { washes: 120, wr: [90, 330], wa: [0.07, 0.13], darkP: 0.55, dark: "#34322e", light: "#b0ac9f", pits: 1500, pr: [1.2, 9], pa: [0.3, 0.4], pit: "#46443f", lip: "#bcb8ab", cracks: 24, ca: [0.5, 0.35], crack: "#2e2c28" }
+    ? { washes: 120, wr: [90, 330], wa: [0.07, 0.13], darkP: 0.42, dark: "#4a4843", light: "#c4c0b2", pits: 1500, pr: [1.2, 9], pa: [0.3, 0.4], pit: "#46443f", lip: "#bcb8ab", cracks: 24, ca: [0.5, 0.35], crack: "#2e2c28" }
     : { washes: 70, wr: [90, 330], wa: [0.045, 0.07], darkP: 0.45, dark: "#cfc9c4", light: "#f8eedb", pits: rough ? 900 : 380, pr: [1.2, 3.6], pa: [0.25, 0.3], pit: "#ac9f88", lip: "#faf7ee", cracks: rough ? 22 : 14, ca: [0.5, 0.3], crack: "#8a806c" });
   for (let i = 0; i < (today ? 9 : 7); i++) {   // bedding: a few wavy, broken bands (never a ruled grid)
     const y0 = R() * W, x0 = R() * W, len = 180 + R() * 520, th = 4 + R() * 14, a = (today ? 0.05 : 0.035) + R() * 0.05, ph = R() * 6, am = 3 + R() * 9, br = [R() * 0.5 + 0.2, R() * 0.2 + 0.05];
@@ -195,24 +215,7 @@ function paintStone(key) {
       const x = R() * W, y = R() * W, len = 90 + R() * R() * 620, w = 2 + R() * 7, a = 0.06 + R() * 0.14, lean = (R() - 0.5) * 0.12;
       stamp(W, x, y, len, (ox, oy) => { const gr = g.createLinearGradient(0, y + oy, 0, y + oy + len); gr.addColorStop(0, rgba("#2c2a26", a)); gr.addColorStop(0.7, rgba("#2c2a26", a * 0.5)); gr.addColorStop(1, rgba("#2c2a26", 0)); g.fillStyle = gr; g.save(); g.translate(x + ox, y + oy); g.transform(1, 0, lean, 1, 0, 0); g.fillRect(-w / 2, 0, w, len); g.restore(); });
     }
-    const clusters = Array.from({ length: 11 }, () => [R() * W, R() * W, 120 + R() * 220]);
-    const spot = () => { if (R() < 0.22) return [R() * W, R() * W]; const [cx, cy, cr] = clusters[Math.floor(R() * clusters.length)], a = R() * TAU, d = cr * Math.sqrt(-2 * Math.log(Math.max(1e-6, R()))) * 0.5; return [(((cx + Math.cos(a) * d) % W) + W) % W, (((cy + Math.sin(a) * d * 0.8) % W) + W) % W]; };
-    const lichen = (cx, cy, rad, col, rim, n, dotR) => {   // an irregular patch: a few overlapping sub-clusters of small rosettes, thinning toward the rim
-      const dots = [], subs = [], ns = 2 + Math.floor(R() * 3);
-      for (let k = 0; k < ns; k++) { const a = R() * TAU, d = k ? rad * 0.55 * R() : 0; subs.push([Math.cos(a) * d * 1.2, Math.sin(a) * d * 0.8, rad * (k ? 0.35 + 0.4 * R() : 0.7 + 0.3 * R()), 0.6 + 0.4 * R()]); }
-      for (let i = 0; i < n; i++) {
-        const [sx, sy, sr, asp] = subs[Math.floor(R() * subs.length)], a = R() * TAU, d = sr * Math.pow(R(), 0.7);
-        dots.push([sx + Math.cos(a) * d * 1.25, sy + Math.sin(a) * d * asp, dotR[0] + R() * dotR[1], (0.3 + R() * 0.5) * (1 - 0.5 * d / sr), R() < 0.3]);
-      }
-      stamp(W, cx, cy, rad * 1.8 + 10, (ox, oy) => {
-        for (const [sx, sy, sr, asp] of subs) { g.fillStyle = rgba(col, 0.1); g.beginPath(); g.ellipse(cx + ox + sx, cy + oy + sy, sr * 1.1, sr * asp, 0.3, 0, TAU); g.fill(); }
-        for (const [dx, dy, r, a, ring] of dots) { g.fillStyle = rgba(col, a); g.beginPath(); g.arc(cx + ox + dx, cy + oy + dy, r, 0, TAU); g.fill(); if (ring) { g.strokeStyle = rgba(rim, 0.3); g.lineWidth = 0.8; g.stroke(); } }
-      });
-    };
-    for (let i = 0; i < 40; i++) lichen(...spot(), 16 + R() * 90, "#b9c2a0", "#5c6644", 120 + Math.floor(R() * 160), [1.6, 4.4]);
-    for (let i = 0; i < 16; i++) lichen(...spot(), 10 + R() * 50, "#c98b4e", "#6e4220", 70 + Math.floor(R() * 110), [1.2, 3.4]);
-    for (let i = 0; i < 32; i++) lichen(...spot(), 8 + R() * 44, "#e9e6d8", "#8a8676", 80 + Math.floor(R() * 120), [0.9, 2.6]);
-    for (let i = 0; i < 10; i++) lichen(...spot(), 12 + R() * 44, "#4a5038", "#262a1c", 70 + Math.floor(R() * 90), [1.2, 3]);
+    lichenSet(g, W, R, 1);
   }
   return finishSheet(c, "stone");
 }
@@ -260,6 +263,7 @@ function paintAltar() {
     const x = R() * W, y = R() * W, l = 1 + R() * 2.4, a = R() * Math.PI, al = 0.5 + R() * 0.5; g.strokeStyle = rgba("#e8ead9", al); g.lineWidth = 0.9 + R() * 0.7; g.beginPath(); g.moveTo(x - Math.cos(a) * l, y - Math.sin(a) * l); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
   }
   for (let i = 0; i < 700; i++) { const x = R() * W, y = R() * W, r = 0.6 + R() * 1.3; g.fillStyle = rgba("#6f7868", 0.3 + R() * 0.4); g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill(); }
+  lichenSet(g, W, R, 0.25);   // the same crusts as the fallen stones, with moss green on the upper faces
   return finishSheet(c, "altar");
 }
 function finishSheet(c) {
@@ -464,7 +468,7 @@ function cfgOf(S) {
   // SHADE a cool lavender that deepens toward violet as the sun falls. The albedo is the painted sheet.
   const wh = clamp(0.35 + 0.45 * (elD / 12), 0.35, 0.8), litN = nrm.map((v) => lerp(v, 1, wh));
   const LIT = today ? [litN[0], litN[1] * 0.95, litN[2] * 0.86] : litN;
-  const SHADE = today ? [lerp(0.77, 0.63, kf), lerp(0.79, 0.6, kf), lerp(0.85, 0.82, kf)] : [lerp(0.81, 0.69, kf), lerp(0.8, 0.64, kf), lerp(0.86, 0.78, kf)];   // by day a neutral cool grey (never purple), violet only as the sun falls
+  const SHADE = today ? [lerp(0.87, 0.7, kf), lerp(0.865, 0.67, kf), lerp(0.88, 0.76, kf)] : [lerp(0.81, 0.69, kf), lerp(0.8, 0.64, kf), lerp(0.86, 0.78, kf)];   // by day a neutral cool grey (never purple), violet only as the sun falls
   return {
     az: S.sunAz ?? 14, el: elD, seed: S.seed ?? 1, slope: S.slope ?? 0, today, k,
     L: [-Math.sin(az) * Math.cos(el), Math.sin(el), -Math.cos(az) * Math.cos(el)],
