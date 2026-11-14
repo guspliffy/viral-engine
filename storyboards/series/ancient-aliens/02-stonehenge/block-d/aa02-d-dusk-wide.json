@@ -1,0 +1,1443 @@
+{
+ "id": "aa02-d-dusk-wide",
+ "title": "Ancient aliens EP02 block D (dusk)",
+ "idea": "Who really built Stonehenge? 2:36-3:28: the giants of the old story, the low before sunset, the sun in the slit, the ring ship parks on the stone ring ('It's a parking space. Case closed.'), the Stone Age haul team behind him",
+ "format": "series: Ancient aliens (Spud hosts with Reaper's voice, five numbered clues, the alien answer is the premise, the tag winks at the real one); EP02 block D of four, joined later",
+ "frame": "wide",
+ "far": 700,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "fps": 30,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "sound": {
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false,
+  "scenes": [
+   "scifi"
+  ]
+ },
+ "set": {
+  "type": "plain",
+  "color": "#4a4f86",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    0,
+    1.045,
+    -9.945
+   ],
+   "light": "#909ad8",
+   "shadow": "#2f3a78",
+   "exposure": 0.62,
+   "night": true
+  },
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ancient-aliens/aa02-score.ogg",
+  "from": 0,
+  "skip": 187,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captionBand": [
+  30,
+  490
+ ],
+ "hook": {
+  "show": [
+   "rk-ship"
+  ],
+  "hint": 0,
+  "what": "the second half of block D (a cut inside the film): the ring ship settles on the stone ring"
+ },
+ "creative": {
+  "length": [
+   21,
+   21
+  ]
+ },
+ "cast": [
+  {
+   "id": "spudK",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.2,
+    58.5
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "crewK1",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    -1.791,
+    12.745
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1,
+   "y": 8.24
+  },
+  {
+   "id": "crewK2",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    0.898,
+    12.839
+   ],
+   "face": -10,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1,
+   "y": 8.24
+  },
+  {
+   "id": "foreK",
+   "character": "ancient-aliens/alien-foreman",
+   "at": [
+    -4.402,
+    12.094
+   ],
+   "face": 15,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1,
+   "y": 8.24
+  },
+  {
+   "id": "spudT",
+   "character": "potatobrawl/spud",
+   "at": [
+    1999,
+    56.5
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "k-sky",
+   "kind": "shsky",
+   "x": 0,
+   "z": 0,
+   "time": "dusk",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.5,
+   "stars": 40
+  },
+  {
+   "id": "k-ground",
+   "kind": "salisburyplain",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.5,
+   "seed": 1
+  },
+  {
+   "id": "k-henge",
+   "kind": "henge",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "k-avenue",
+   "kind": "avenue",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "k-skyline",
+   "kind": "skyline",
+   "x": 0,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.5
+  },
+  {
+   "id": "k-stones",
+   "kind": "stonehenge",
+   "x": 0,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "sunColor": "#f0502a",
+   "dusk": 0.5,
+   "built": 1
+  },
+  {
+   "id": "rk-ship",
+   "kind": "ringship",
+   "x": 0,
+   "y": 14.9,
+   "z": 0,
+   "s": 1.1,
+   "beam": 0,
+   "lit": 0.6,
+   "staged": "it hovers over the ring",
+   "beamLen": 9.091,
+   "beamR": 1.273
+  },
+  {
+   "id": "spudK-lamp",
+   "kind": "headlamp",
+   "wear": "spudK",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "t-sky",
+   "kind": "shsky",
+   "x": 2000,
+   "z": 0,
+   "time": "dusk",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.8,
+   "stars": 40
+  },
+  {
+   "id": "t-ground",
+   "kind": "salisburyplain",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.8,
+   "seed": 1
+  },
+  {
+   "id": "t-henge",
+   "kind": "henge",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new"
+  },
+  {
+   "id": "t-avenue",
+   "kind": "avenue",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "grooves": "none"
+  },
+  {
+   "id": "t-skyline",
+   "kind": "skyline",
+   "x": 2000,
+   "z": 0,
+   "staged": "kit scenery: the land and the monument",
+   "era": "new",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "dusk": 0.8
+  },
+  {
+   "id": "t-stones",
+   "kind": "stonehenge",
+   "x": 2000,
+   "z": 0,
+   "era": "new",
+   "staged": "kit scenery: the land and the monument",
+   "sunAz": 0,
+   "sunEl": -1.2,
+   "sunColor": "#f0502a",
+   "dusk": 0.8,
+   "built": 1
+  },
+  {
+   "id": "rt-ship",
+   "kind": "ringship",
+   "x": 2000,
+   "y": 6.26,
+   "z": 0,
+   "s": 1.1,
+   "beam": 0,
+   "lit": 0.8,
+   "staged": "it rests on the ring of top stones",
+   "beamLen": 36.364,
+   "beamR": 1.273
+  },
+  {
+   "id": "ht-haul",
+   "kind": "haulteam",
+   "x": 1980,
+   "z": 40,
+   "along": 0.18
+  },
+  {
+   "id": "spudT-lamp",
+   "kind": "headlamp",
+   "wear": "spudT",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 4.3,
+   "to": 8.77,
+   "text": "Thirty metres across. Perfectly level. It was never a temple.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 4.5,
+   "text": "0 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.5,
+   "to": 4.6,
+   "text": "8 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.6,
+   "to": 4.7,
+   "text": "15 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.7,
+   "to": 4.8,
+   "text": "20 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.8,
+   "to": 4.9,
+   "text": "24 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 4.9,
+   "to": 5,
+   "text": "26 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 5.1,
+   "text": "28 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 5.2,
+   "text": "29 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.2,
+   "to": 5.3,
+   "text": "30 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.3,
+   "to": 5.4,
+   "text": "30 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 5.4,
+   "to": 7.9,
+   "text": "30 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 9.6,
+   "to": 11.29,
+   "text": "It's a parking space.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.55,
+   "to": 11.35,
+   "text": "P",
+   "pos": 225,
+   "pop": false,
+   "style": "label",
+   "size": 130,
+   "kinetic": false,
+   "x": 1450
+  },
+  {
+   "from": 11.85,
+   "to": 13.55,
+   "text": "CASE CLOSED",
+   "pos": 110,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 20.25,
+   "text": "...Nobody saw that.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "ring on ring",
+   "at": 0,
+   "len": 4,
+   "shot": {
+    "pos": [
+     0.5,
+     1.4,
+     68
+    ],
+    "look": [
+     0,
+     6.5,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.4,
+      1.4,
+      66
+     ],
+     "look": [
+      0,
+      6,
+      0
+     ],
+     "fov": 29
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rk-ship",
+     "set": {
+      "beam": 0,
+      "wobble": 0.15
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rt-ship",
+     "set": {
+      "beam": 0,
+      "wobble": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ht-haul",
+     "set": {
+      "along": 0.18
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "crewK1",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "crewK2",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "foreK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "look",
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rk-ship",
+     "set": {
+      "y": 14.26
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.35,
+     "dur": 4.1,
+     "reason": "the ship's hum, close and low",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.05,
+     "dur": 21,
+     "reason": "far wind at dusk",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rk-ship",
+     "set": {
+      "y": 6.26,
+      "wobble": 0
+     },
+     "dur": 3.4,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.3,
+     "dur": 3.1,
+     "reason": "the air shakes under the ring",
+     "at": 0.5
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.95,
+     "reason": "a 30 m ring settles on the stone ring",
+     "at": 3.5
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      16.163,
+      0.05,
+      5.883
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      12.162,
+      0.05,
+      12.162
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      5.883,
+      0.05,
+      16.163
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0,
+      0.05,
+      17.2
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -5.883,
+      0.05,
+      16.163
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -12.162,
+      0.05,
+      12.162
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      -16.163,
+      0.05,
+      5.883
+     ],
+     "dur": 0.9,
+     "color": "#e4ecea",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 1.4,
+     "lift": 0.4,
+     "sound": false,
+     "at": 3.52
+    },
+    {
+     "sfx": "kenney/impact-mining",
+     "gain": 0.6,
+     "reason": "stone under the hull",
+     "at": 3.53
+    },
+    {
+     "who": "spudK",
+     "do": "squash",
+     "to": 0.12,
+     "dur": 0.15,
+     "at": 3.55
+    },
+    {
+     "who": "crewK1",
+     "do": "show",
+     "at": 3.95
+    },
+    {
+     "who": "crewK2",
+     "do": "show",
+     "at": 3.95
+    },
+    {
+     "who": "foreK",
+     "do": "show",
+     "at": 3.95
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "the crew on the hull",
+   "at": 4,
+   "len": 3,
+   "shot": {
+    "pos": [
+     -2.2,
+     11.2,
+     21.6
+    ],
+    "look": [
+     -1.6,
+     8.9,
+     12.6
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.1,
+      11,
+      21
+     ],
+     "look": [
+      -1.6,
+      8.9,
+      12.6
+     ],
+     "fov": 30
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "step-concrete",
+     "gain": 0.2,
+     "reason": "boots on the hull",
+     "at": 0.1
+    },
+    {
+     "who": "crewK1",
+     "do": "look",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "crewK1",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "who": "crewK1",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spudK",
+     "line": "Thirty metres across. Perfectly level. It was never a temple.",
+     "tone": "calm",
+     "dur": 4.17,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "crewK2",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "crewK2",
+     "do": "face",
+     "open": 0.6,
+     "lid": 0.45,
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "foreK",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.7
+     ],
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "spudK",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.5,
+     "at": 1
+    },
+    {
+     "who": "foreK",
+     "macro": "nod",
+     "at": 1.6
+    },
+    {
+     "who": "crewK2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.4,
+     "at": 1.8
+    },
+    {
+     "who": "spudK",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 2.95
+    }
+   ]
+  },
+  {
+   "name": "thirty metres, level",
+   "at": 7,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.75,
+     63.2
+    ],
+    "look": [
+     -1.4,
+     3.6,
+     40
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      -0.65,
+      0.72,
+      62.6
+     ],
+     "look": [
+      -1.4,
+      3.4,
+      40
+     ],
+     "fov": 32
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudK",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.3,
+       0.95,
+       -0.15
+      ]
+     },
+     "dur": 0.55,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spudK",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.55,
+     "at": 2.05
+    },
+    {
+     "who": "spudK",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.2
+    }
+   ]
+  },
+  {
+   "name": "it's a parking space",
+   "at": 9.4,
+   "len": 2,
+   "shot": {
+    "pos": [
+     -1.05,
+     0.58,
+     61.6
+    ],
+    "look": [
+     -1.3,
+     1.75,
+     40
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -1.08,
+      0.58,
+      61.3
+     ],
+     "look": [
+      -1.3,
+      1.7,
+      40
+     ],
+     "fov": 26
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudK",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "face",
+     "lid": 0.42,
+     "brow": -0.25,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spudK",
+     "line": "It's a parking space.",
+     "tone": "calm",
+     "dur": 1.39,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "case closed",
+   "at": 11.4,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     -1.08,
+     0.58,
+     61.3
+    ],
+    "look": [
+     -1.3,
+     1.7,
+     40
+    ],
+    "fov": 26,
+    "to": {
+     "pos": [
+      -1.12,
+      0.58,
+      60.8
+     ],
+     "look": [
+      -1.3,
+      1.5,
+      40
+     ],
+     "fov": 25
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spudK",
+     "line": "Case closed.",
+     "tone": "calm",
+     "dur": 1.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "step",
+     "gain": 0.45,
+     "reason": "a dull stamp as the words land",
+     "at": 0.45
+    },
+    {
+     "who": "spudK",
+     "do": "noblink",
+     "dur": 0.3,
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "the tag",
+   "at": 13.6,
+   "len": 3.7,
+   "shot": {
+    "pos": [
+     2000,
+     1.2,
+     62
+    ],
+    "look": [
+     2000,
+     2.4,
+     30
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      2000,
+      1.2,
+      62
+     ],
+     "look": [
+      2000,
+      2.4,
+      30
+     ],
+     "fov": 34
+    },
+    "dur": 0.1
+   },
+   "do": [
+    {
+     "who": "spudK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ht-haul",
+     "set": {
+      "along": 0.62
+     },
+     "dur": 7.4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/bag-drag",
+     "gain": 0.25,
+     "dur": 7.4,
+     "reason": "a stone sledge scraping over logs, far behind",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/creak",
+     "gain": 0.2,
+     "reason": "timber under the weight",
+     "at": 0.9
+    },
+    {
+     "who": "spudT",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.6,
+     "at": 1.7
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 2.4
+    },
+    {
+     "sfx": "kenney/creak",
+     "gain": 0.2,
+     "reason": "timber under the weight",
+     "at": 2.9
+    },
+    {
+     "who": "spudT",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.55,
+     "at": 3
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "at": 3.2
+    }
+   ]
+  },
+  {
+   "name": "nobody saw that",
+   "at": 17.3,
+   "len": 3.7,
+   "shot": {
+    "pos": [
+     2000,
+     1.2,
+     62
+    ],
+    "look": [
+     2000,
+     2.4,
+     30
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1999.8,
+      0.62,
+      62.2
+     ],
+     "look": [
+      1999.55,
+      0.85,
+      30
+     ],
+     "fov": 34
+    },
+    "dur": 1.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudT",
+     "do": "move",
+     "to": [
+      1999.6,
+      61
+     ],
+     "dur": 1.7,
+     "steps": 5,
+     "at": 0
+    },
+    {
+     "sfx": "ai/step-grass",
+     "gain": 0.3,
+     "reason": "quick steps on frosty grass",
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spudT",
+     "line": "...nobody saw that.",
+     "tone": "calm",
+     "dur": 1.45,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.1
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.7,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.2,
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0.55,
+      0
+     ],
+     "dur": 0.25,
+     "at": 1.8
+    },
+    {
+     "who": "spudT",
+     "do": "noblink",
+     "dur": 0.3,
+     "at": 3.4
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 4,
+   "see": [
+    "rk-ship",
+    "k-stones"
+   ],
+   "why": "the ring ship settles on the stone ring"
+  },
+  {
+   "from": 4,
+   "to": 7,
+   "see": [
+    "crewK1.face",
+    "crewK2.face",
+    "rk-ship"
+   ],
+   "why": "the crew up on the parked ship, stretching"
+  },
+  {
+   "from": 7,
+   "to": 13.6,
+   "see": [
+    "spudK.face"
+   ],
+   "why": "Spud points at the parked ship, deadpan"
+  },
+  {
+   "from": 13.6,
+   "to": 17.3,
+   "see": [
+    "spudT.face",
+    "ht-haul"
+   ],
+   "why": "Spud pleased, the workers dragging the stone behind him"
+  },
+  {
+   "from": 19,
+   "to": 21,
+   "see": [
+    "spudT.face"
+   ],
+   "why": "his face and sweater fill the frame, the end of the sledge still in the gap"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spudK",
+   "with": "spudK-lamp",
+   "from": 0,
+   "to": 21,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudT",
+   "with": "spudT-lamp",
+   "from": 0,
+   "to": 21,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "crewK1",
+   "with": "rk-ship",
+   "from": 0,
+   "to": 21,
+   "reason": "the crew stands on the parked ship's hull"
+  },
+  {
+   "who": "crewK2",
+   "with": "rk-ship",
+   "from": 0,
+   "to": 21,
+   "reason": "the crew stands on the parked ship's hull"
+  },
+  {
+   "who": "foreK",
+   "with": "rk-ship",
+   "from": 0,
+   "to": 21,
+   "reason": "the crew stands on the parked ship's hull"
+  },
+  {
+   "who": "spudT",
+   "from": 15.3,
+   "to": 17,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "the tag: he looks back over his shoulder at the haul team (panel 47), then turns to us"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/02-stonehenge/block-d/make-aa02-block-d.mjs. Spec: NOTES.md next to it; ../kit/BLOCKS.md."
+}
