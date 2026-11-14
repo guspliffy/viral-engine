@@ -116,6 +116,10 @@ not have, then the block as in the film, every time 3.0 s later (`const H = hook
 Write the generator with H from the start, also for the wide animatic (there H is 0). Block A's film opening already is
 its hook. The hook follows the stake-first rule: the part's strongest picture at frame 0, the line done by 2.7 s, a text
 of numbers in the upper third that reads without English, sound at 0.0, never the payoff, never the ship landing.
+The pilot's numbers (read 14 Nov, /mnt/project-files/analytics/2026-11-14-pyramids-parts/READ.md): part 1 (voice at 0.0,
+a block lands at 2 s) held 35 % at 0:05 and 25 % at 0:10; part 2 (a silent walk-in, first word at 6.2 s) held 30 % and
+about 15 %, 2 % to the end. So: the hook line STARTS at 0.0, something lands inside the first 2 s, and the block's own
+first line follows by about second 4.5; no silent walk-in anywhere in a tall part's first 10 s.
 
 | Part | Hook picture (3.0 s, tall) | Line (hostSay, 6 words at most) | Text, top third |
 |---|---|---|---|
