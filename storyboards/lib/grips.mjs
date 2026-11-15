@@ -26,6 +26,7 @@ const mirror = ([x, y, z]) => [-x, y, z];
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
+  shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
   // a bowl's outside, [height, radius] from the foot up to the rim
   snackbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] },   // props-charger.js
   popcornbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] }, // props-ufo.js: the snack bowl's shape

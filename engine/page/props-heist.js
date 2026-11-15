@@ -29,6 +29,11 @@ import { clamp } from "./util.js";
 //               for the box hold. spec.back (false): the "$" on the back (-z), for a sack whose holder hugs it facing
 //               the camera (the box hold wants the prop's front toward its holder: rot = the holder's yaw + 180).
 //               spec.mark (true): false = a plain sack with no "$" at all (Happiness 01: the board's sacks are plain).
+//               full 1..0 (spec.full, 1): how full it is (Happiness 01 DESIGN 11.6, the sack that empties into the storm). 1 = as above; going
+//               to 0 the belly sinks from 0.34 to 0.11 tall (y x 0.324, x +40 %, z +25 %), the bundles shrink into the mouth, and the neck
+//               (everything above y 0.12, with its rope) flops over by up to 80 degrees toward spec.flop (degrees about y, 0 = the sack's +x,
+//               90 = +z; default 0): it ends flat and empty. Works open or closed. `full` is not in propState's list: PRIME it, i.e. an
+//               action { do: "prop", id, set: { full: 1 }, dur: 0 } at or before the start, then set { full: 0 } with dur 3.6 to tween it.
 //   balaclava   (worn: spec.wear = an actor id, x 0, y 0, z 0) a full black knit hood #1b1a20 (Happiness 01 "Does money make you
 //               happy?", panel 03, 14 Nov 2026): the head's shell from spec.low (0.36: where it tucks under the sweater collar) up
 //               over the crown, spec.out (0.009: the face's blush stands 6 mm off the skin, so 5 mm let the cheeks show through) off the skin, rib lines #33303c every 1.2 cm running up to the crown (one hand-
@@ -360,17 +365,21 @@ export const HEIST_KINDS = {
     const NU = 56;
     const mk = (prof) => surfGrid((u, v) => sackAt(prof, v, u * 2 * Math.PI), NU, prof.length - 1);
     const closed = new THREE.Group(), open = new THREE.Group(); P.whole.add(closed, open);
-    mesh(mk(closedP), cream, closed);
-    mesh(mk(openP), cream, open);
+    // `full` 1..0 (DESIGN 11.6): the belly sinks, the neck flops. defs = the geometries it reshapes, with their first positions; the rope and the
+    // bundles ride in a neck group each (matrix set by hand) so they follow the neck's own flop
+    const defs = [], body = (prof, parent) => { const g = mk(prof); defs.push([g, g.attributes.position.array.slice()]); const o = mesh(g, cream, parent); o.frustumCulled = false; return o; };
+    const neckC = new THREE.Group(), neckO = new THREE.Group(); closed.add(neckC); open.add(neckO); neckC.matrixAutoUpdate = neckO.matrixAutoUpdate = false;
+    body(closedP, closed);
+    body(openP, open);
     // the rope at the neck: closed = tight at 0.26 with a knot and two ends; open = loose at the same height
     const ring = (parent, r, tube) => { const t = mesh(new THREE.TorusGeometry(r, tube, 8, 28), rope, parent, 0, BAG.neck, 0); t.rotation.x = Math.PI / 2; t.scale.set(1, BAG.kz, 1); return t; };
-    ring(closed, 0.039, 0.0085);
-    const kn = mesh(new THREE.SphereGeometry(0.014, 10, 8), rope, closed, 0.012, BAG.neck - 0.002, 0.039 * BAG.kz + 0.004); kn.scale.set(1.3, 1, 0.9);
+    ring(neckC, 0.039, 0.0085);
+    const kn = mesh(new THREE.SphereGeometry(0.014, 10, 8), rope, neckC, 0.012, BAG.neck - 0.002, 0.039 * BAG.kz + 0.004); kn.scale.set(1.3, 1, 0.9);
     for (const [dx, a, l] of [[0.016, 0.45, 0.07], [0.004, -0.25, 0.055]]) {
-      const e = mesh(new THREE.CylinderGeometry(0.0055, 0.0045, l, 6), rope, closed, dx + Math.sin(a) * l / 2 * 0.5, BAG.neck - 0.012 - l / 2 * Math.cos(a), 0.039 * BAG.kz + 0.008);
+      const e = mesh(new THREE.CylinderGeometry(0.0055, 0.0045, l, 6), rope, neckC, dx + Math.sin(a) * l / 2 * 0.5, BAG.neck - 0.012 - l / 2 * Math.cos(a), 0.039 * BAG.kz + 0.008);
       e.rotation.z = a; e.rotation.x = 0.25;
     }
-    ring(open, 0.092, 0.0075);
+    ring(neckO, 0.092, 0.0075);
     // three bundles of green notes standing in the open mouth: each a stack with a paper band, tilted a little apart
     const noteTex = canvasTex(128, 192, (g, w, h) => {
       g.fillStyle = "#3f9b5a"; g.fillRect(0, 0, w, h);
@@ -380,8 +389,9 @@ export const HEIST_KINDS = {
     });
     const stackM = [mat("#3a8f53"), mat("#3a8f53"), mat("#56b070"), mat("#2f7a46"), mat("#3f9b5a", { map: noteTex }), mat("#3f9b5a", { map: noteTex })];
     const paper = mat("#e9e0b8", { roughness: 0.9 });
+    const bundleG = [];
     [[-0.04, -11, 0.03, "#3f9b5a"], [0.0, 2, -0.02, "#3a8f53"], [0.042, 10, 0.04, "#47a363"]].forEach(([x, tilt, yaw, c], k) => {
-      const g = new THREE.Group(); g.position.set(x, 0.225, 0.004 * (k - 1)); g.rotation.set(0, yaw, -tilt * DEG); open.add(g);
+      const g = new THREE.Group(); g.position.set(x, 0.225, 0.004 * (k - 1)); g.rotation.set(0, yaw, -tilt * DEG); neckO.add(g); bundleG.push(g);
       mesh(new THREE.BoxGeometry(0.06, 0.16, 0.024), stackM.map((m, i) => (i === 4 || i === 5 ? m : mat(c))), g, 0, 0.08, 0);
       mesh(new THREE.BoxGeometry(0.0635, 0.03, 0.0275), paper, g, 0, 0.135, 0);
     });
@@ -406,15 +416,47 @@ export const HEIST_KINDS = {
     }, 14, 14);
     // spec.mark: false = a plain sack (no decal at all)
     if (S.mark !== false) {
-      const d = mesh(dec, decalM, P.whole); d.castShadow = false; d.userData.sack = true;
+      const d = mesh(dec, decalM, P.whole); d.castShadow = false; d.userData.sack = true; d.frustumCulled = false; defs.push([dec, dec.attributes.position.array.slice()]);
       // spec.back: the "$" on the back (-z) instead: a sack hugged with the box hold turns its front to its holder
       if (P.spec.back) d.rotation.y = Math.PI;
     }
+    // the `full` reshape: y squashed to 0.324 (the belly 0.34 -> 0.11), x and z spread, and above y 0.12 the neck bends toward spec.flop (degrees about y, 0 = +x) by up to 80
+    const FLAT = 0.11 / 0.34, PIV = 0.2, V = new THREE.Vector3(), Kax = new THREE.Vector3(), Qr = new THREE.Quaternion(), Ms = new THREE.Matrix4();
+    const shape = (f, fd) => ({ ys: FLAT + (1 - FLAT) * f, wx: 1 + 0.4 * (1 - f), wz: 1 + 0.25 * (1 - f), phi: (1 - f) * 80 * DEG, ax: [Math.sin(fd), -Math.cos(fd)] });
+    const reshape = (f, fd) => {
+      const { ys, wx, wz, phi, ax } = shape(f, fd);
+      for (const [g, orig] of defs) {
+        const pa = g.attributes.position.array;
+        for (let i = 0; i < pa.length; i += 3) {
+          const w = sstep(0.12, 0.26, orig[i + 1]), ph = phi * w, c = Math.cos(ph), sn = Math.sin(ph);
+          const vx = orig[i] * wx, vy = (orig[i + 1] - PIV) * ys, vz = orig[i + 2] * wz;        // about the pivot, scaled
+          const kx = ax[0], kz = ax[1], kv = kx * vx + kz * vz;   // Rodrigues about k = (kx, 0, kz): k x v = (-kz vy, kz vx - kx vz, kx vy)
+          pa[i] = vx * c - kz * vy * sn + kx * kv * (1 - c);
+          pa[i + 1] = vy * c + (kz * vx - kx * vz) * sn + PIV * ys;
+          pa[i + 2] = vz * c + kx * vy * sn + kz * kv * (1 - c);
+        }
+        g.attributes.position.needsUpdate = true; g.computeVertexNormals(); g.computeBoundingSphere();
+      }
+      const neck = (grp, y0) => {   // T(neck) * R * S * T(-y0): the neck group follows the body's own mapping at y0
+        Qr.setFromAxisAngle(Kax.set(ax[0], 0, ax[1]), phi);
+        V.set(0, (y0 - PIV) * ys, 0).applyQuaternion(Qr); V.y += PIV * ys;
+        grp.matrix.compose(V, Qr, new THREE.Vector3(wx, ys, wz)).multiply(Ms.makeTranslation(0, -y0, 0)); grp.matrixWorldNeedsUpdate = true;
+      };
+      neck(neckC, 0.26); neck(neckO, 0.26);
+      bundleG.forEach((b, k) => b.scale.setScalar(sstep(0.0, 0.5 + 0.1 * k, f)));
+    };
+    let lastFull = 1, lastFlop = 0;
     return {
       grip: 0,
       apply(ps) {
         const o = ps.open === true || ps.open > 0.5;
         closed.visible = !o; open.visible = o;
+        const f = clamp(ps.full ?? S.full ?? 1), fd = (S.flop ?? 0) * DEG;   // spec.full / param full 1..0 (prime it with a dur 0 set to tween); spec.flop the neck's direction
+        if (f !== lastFull || fd !== lastFlop) {
+          lastFull = f; lastFlop = fd;
+          if (f >= 0.9999) { for (const [g, orig] of defs) { g.attributes.position.array.set(orig); g.attributes.position.needsUpdate = true; g.computeVertexNormals(); g.computeBoundingSphere(); } neckC.matrix.identity(); neckO.matrix.identity(); bundleG.forEach((b) => b.scale.setScalar(1)); }
+          else reshape(f, fd);
+        }
       },
     };
   },

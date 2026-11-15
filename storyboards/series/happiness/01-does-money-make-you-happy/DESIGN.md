@@ -395,3 +395,155 @@ All: VOCAB lines for new kinds and keys; seed every new param with a dur-0 set a
 - Q1 bag on his right (09 wins). Q2 CHANGED: no police on screen at the gate (S8): only red/blue light washing the
   wet drive from beyond the gate (a source we never see), the coupe parked INSIDE the drive; nobody is there, so the
   ambulance reveal stays true. Q3, Q4, Q5: the defaults.
+
+## 11. DRAFT 2 DESIGNS (15 Nov 2026, Jonny's notes on draft 1)
+Target: BRIEF-DESIGN-2.md: every scene reads with no word. The header's rules hold. This replaces the limo's riders
+(5) and the seven notes (6.5). S2 stays on `golden-city-crossing` + the cool fill #dfe8f0 at 0.35. Counters stand
+at the cast's belts as everywhere in this world: the brief's 1.0-1.1 is above Spud's head (0.88) (Q1).
+
+### 11.1 POOR SPUD (S2 to S3b)
+Build as: costume option `costume.poor: true` on `spud` (a copy `spud-poor.json`, sweater "#47857e") in
+costumes-art-cast.js beside `rich`; marks drawn into the sweater's own canvas. Budget 1.5k. +x is his left.
+- **Wool**: faded teal lit #47857e, shade #2c5a58, stitch contrast x 0.7. 7 dirt blots 0.05-0.11 across, #6b5a48
+  at 0.45 with 3-5 dry-brush strokes #4a3f36: front (-0.14, 0.24), (0.20, 0.19), (0.10, 0.33), one per forearm,
+  back (-0.10, 0.30), (0.18, 0.22); a ragged mud band 0-0.04 above the hem, #5a4a3c at 0.5. A second patch on
+  the front at (0.19, 0.29): 0.11 x 0.09, turned 8 degrees, #9a5540, 10 cream cross-stitches #e9dcc0 of 0.014.
+- **Frayed**: from x -0.05 to +0.30 the hem's roll is gone: a ragged edge, 22 yarn ends 0.02-0.05 long, 5 mm wide,
+  curling 30 degrees (hashed), one hole 0.05 x 0.03 showing #6b4a2b; 7 ends on the right cuff; swing 8 degrees.
+- **Skin**: 4 smudges 2 mm off the skin, #7a5a3a at 0.40 with 3 strokes #5c4530 each: right cheek (-0.24, 0.47)
+  0.07 x 0.045; forehead (0.16, 0.82) 0.06 x 0.03; crown by the leaf (-0.09, 0.86) 0.08 x 0.04; left jaw (0.26,
+  0.43) 0.045 x 0.03. Brown-grey, never purple; none within 0.02 of an eye, a brow or the mouth.
+- **No beanie**: the bare leaf carries the mood (`droop` 0.6; `sad` curve -0.35, brow 0.5; eyes down; `lean` 6).
+- **Empty pockets** (draft 1's linings were 12 px): `pocketlining` at w 0.16, h 0.11, #fbf8f1; the left one hangs
+  out from the first frame, he pulls the right one out on screen (scale 0 -> 1 in 5 frames), then both palms up.
+- **Balaclava** fits unchanged: all marks above y 0.36 lie under 4 mm and outside its three holes. Draft 1's hood
+  stops at the cheeks and reads as black hair (frame 0:09): black knit down to the collar at y 0.36, holes only.
+
+### 11.2 THE RICH COUPLE (S2; Wizard and Viking leave the cast)
+Build as: costume types `duchess` and `dauphin` in costumes-everyday.js + `characters/potatobrawl/duchess.json`,
+`dauphin.json` (names are proposals). Budget 9k + 6k. Skin, iris, cheeks and gloves as Spud's.
+
+    duchess  body { height 0.96, width 0.80, depth 0.68, lump 0.03, seed 73, taper 0.10 }  limbs { color "#f4efe6" }
+             face { default "delighted", eye { lash 1.3 }, browShape { arch 0.08, thick 0.6 }, size 0.92 }  hands 1.2
+             costume { type "duchess", dress "#b8336a", stole "#fbf8f1", hat "#fbf6ea", ribbon "#e86a9a" }
+    dauphin  body { height 1.04, width 0.84, depth 0.66, lump 0.03, seed 79, taper -0.12, square 2.2 }  hands 1.35
+             limbs { color "#efe6d2" }  face { default "smug", browShape { arch 0, thick 1.0 }, size 0.95 }
+             sprout { color "#4f9f3a", size 2.0, lay flat, straight back }
+             costume { type "dauphin", blazer "#2a3f8f", lapel "#18224f", ascot "#e9b93a", gold "#f6c832" }
+
+- **Duchess**. Sun hat: crown r 0.17 x 0.10, brim to r 0.38 in 3 soft waves, tipped back 16 degrees so its front
+  rim stays 0.05 above her brows (measure); straw lit #fbf6ea, shade #d8cdbb, a ribbon 0.04, 3 roses r 0.045; her
+  leaf comes through a 0.05 hole. Stole: a white fur roll r 0.075 round the shoulders (centre y 0.47 behind, 0.31
+  in front: 0.03 under the mouth), ends hanging to y 0.20 and 0.26; built as Spud's coat (lit #fbf8f1, shade
+  #c3c8d8, 90 lobe clumps) + 7 black ermine ticks of 0.025. Pearls: 19 of r 0.02 in a U from (x +-0.12, y 0.30)
+  to y 0.17. Dress: raspberry lit #b8336a, shade #7a1f4a, hem y 0.09; sleeves end 0.10 before the hand's centre.
+- **Dauphin**. Double-breasted velvet blazer, a V to y 0.30, hem y 0.14: lit #2a3f8f, shade #18224f, a sheen band
+  #5f77c9 0.03 wide on the shoulders and outer sleeves; 4 gold buttons r 0.02; a gold ascot; a white pocket
+  square. Sleeves end 0.11 before the hand's centre, then 0.02 of white cuff. Gold watch on the LEFT wrist: the
+  `goldwatch` look, case 0.075 across, a 4-point glint #fff3b0 on a 0.9 s period. Leaf slicked back. Cream legs.
+- **In S2**: they walk in from x +5.5 to DUCHESS (0.45, 0, -0.30) facing +20 and DAUPHIN (1.75, 0, -0.25) facing
+  -20, beside the parked limo, laughing at each other, never looking at Spud. `shopbag`: hers #f29bb5 (R),
+  #f2c75a (L); his #c9a6e8 in the watch hand; fists in the rope loops at y 0.52 or higher (a bag hangs 0.41
+  under); `shopbag` needs its grips.mjs SIZE row. Deep colours on purpose: white is lost on the white limo.
+
+### 11.3 THE CASHIER, and the coffee seller
+Build as: ONE costume type `teller` in costumes-everyday.js + `tot.json` (cashier), `rosti.json` (seller) in
+`characters/potatobrawl/` (names are proposals). Budget 4k.
+
+    tot      body { height 0.80, width 0.70, depth 0.62, lump 0.03, seed 87, taper 0.04 }  limbs { color "#3b3f48" }
+             face { default "kind", browShape { arch 0.06, thick 0.7 }, size 0.9 }  sprout { leaves 2 }  hands 1.15
+             costume { type "teller", shirt "#fbf8f1", vest "#2f5d44", tie "#7a2f2a", glasses "#c9a24a" }
+
+- Small (0.91 of Spud), round, neat. White shirt, sleeves to 0.09 before the hand's centre, black garters 0.018.
+  Vest lit #2f5d44, shade #1c3a2b, V from y 0.34, hem y 0.13, 3 brass buttons r 0.014; a short burgundy tie.
+  Round glasses: brass wire r 0.004, lenses r 0.085, 0.012 in front of the eye bulbs, glass at 0.08 white, all
+  steam; key `slip` 0..1 slides them 0.02 down (fear).
+- **Seller = the same potato? No.** One face in two jobs draws a false line ("he robs the coffee man"). No second
+  costume: `rosti` is `teller` with vest, tie, garters, glasses off on another body (height 1.02, width 0.62,
+  depth 0.56, seed 91), wearing `apron` (red and white stripes as built: the cart's colours) and `paperhat`.
+
+### 11.4 COFFEE CART (S2, first beat)
+Build as: new prop kind `coffeecart` in props-happy.js (all of it in one). Budget 5k. Reused: `cocoacup` (the
+cup: `coffeecup` carries a logo), `apron`, `paperhat`, `pocketlining`, `pavement`, `kerb`, `limo`, `shopbag`. Not
+used: `marketstall` (snow, lettered board), `woodcounter`, `cardterminal` (it blurs "no money"), `tipjar`.
+Prop frame: origin on the ground under the counter's middle; seller on -x, customer on +x, picture end +z.
+- Counter 0.56 (x) x 1.00 (z), top y 0.46, wood #8a5a34; cream panels #efe3c8 in red frames #c8402e; castors.
+  Canopy on 4 posts: roof 0.92 x 1.20, ridge along z at y 1.62, eaves 1.44, 8 stripes #c8402e / #f6ecd4 with
+  hand-wobbled edges. On the ridge's +z end the sign: a paper cup 0.36 tall, white #fbf6ea, kraft sleeve
+  #b98a5a, 3 steam ribbons 0.24 tall on a 2.4 s loop.
+- Menu board under the +z eave, 0.50 x 0.34, bottom edge y 1.04, slate #2a2c30: 3 chalk cups (0.06 / 0.08 / 0.10
+  tall), under them 1, 2, 3 gold coin discs r 0.012 #f2c75a. On the top: a chrome machine 0.30 x 0.22 x 0.24 at
+  z -0.30, a tent card (a cup over 2 gold discs) at (0.10, 0.46, 0.34). CUP (-0.08, 0.46, 0.18), `steam` 1.
+- **Marks** (city frame): `pavement` 14 x 6 centred (0, 0, 2.0); `kerb` line z -1.0, h 0.05; `limo` PARKED from
+  the first frame at (2.0, 0, -2.35), rot 90, `open: null`, empty. CART (-1.25, 0, 1.0); SELLER (-1.95, 0, 1.0)
+  facing +x, SPUD_BUY (-0.52, 0, 1.0) facing -x, both cheated 25 degrees to the lens; SPUD_WATCH (0.35, 0, 2.6).
+- **Beat 1, 2.4 s**: Spud reaches for the cup (`eager`); the seller's flat palm comes up between them; Spud pats
+  both hem sides, pulls the lining out, shows two empty palms, `sad`; the seller draws the cup back 0.12.
+  **Beat 2**: Spud trudges to SPUD_WATCH, the couple walk in behind him, he turns to stare, then to the lens.
+- Camera starts: 2a (-1.2, 1.0, 6.1) -> (-1.2, 0.75, 1.0), fov 46; 2b (0.3, 2.2, 6.6) -> (0.9, 0.5, -0.3), fov
+  44, stacked in depth: limo roof 26 % down, the couple 39-58 %, Spud 57-83 %.
+
+### 11.5 BANK COUNTER HALL (S3a)
+Build as: room set `bankhall`, new file engine/page/set-bankhall.js (a `set.swap` room like `vault`). Budget 30k.
+Frame: floor y 0; the counter runs along z at x 0: customers on x < 0, tellers on x > 0 on a platform at y 0.30.
+Hall x -2.8..+2.4, z -3.5..+2.5, 3.2 tall; no wall at z +2.5 (a lens may stand out to z +6).
+- Floor: 0.5 checker, cream #e9e2d0 / sage #8fa39a, drawn veins; walnut wainscot to y 0.9 (#6a4426), plaster
+  #cfd8c8 above. Light: warm late day from behind the lens: key TO (-0.30, 0.62, 0.72) #ffe9c4, fill #8fa0b0 at
+  0.45. The hood and the gun are the only black; no red (the alarm belongs to the vault).
+- Counter: x -0.25..+0.25, z -2.2..+1.2, top y 0.50: a marble slab 0.05 (#f1ece0, grey veins) overhanging to x
+  +-0.29, a walnut front with 5 inset marble panels, a brass kick rail.
+- Brass screen in the plane x 0 (#e2b84a / #9a7424): bars r 0.012 every 0.10 from y 0.50 to 1.30, a top rail with
+  7 ball finials. ONE open arch, the teller window: z -0.42..+0.42, y 0.50..1.30, no bars: the cashier shows in
+  it from the waist up.
+- Back wall: the `vault` set's door, shut, wheel side to the hall, centre (-1.25, 1.18, -3.5), on a riveted steel
+  surround 3.0 x 2.8. Dressing: `greenlamp`, lit, on a desk at (1.9, 0.75, -0.7); `lobbyclock` r 0.28 at (2.37,
+  2.05, 0.85) facing -x; `exhibitrope` at scale 0.6, posts (-2.1, -2.0), (-2.1, -0.8), (-2.1, 0.4).
+- **Named points** (BANK.*): SPUD [-0.95, 0, 0] facing +x; CASHIER [0.72, 0.30, 0] facing -x; TOP y 0.50; SLOT
+  [0, 0.50, 0] (the arch's sill, where the sacks cross); BAG_WAIT [0.15, 0.50, -0.62], [0.15, 0.50, -0.96]
+  (teller ledge, behind bars); BAG_OUT [-0.15, 0.50, 0.18], [-0.15, 0.50, -0.18] (customer ledge).
+- **The hold-up**: `zrevolver` at scale 0.9 in his RIGHT fist (the lens side) at (-0.39, 0.62, 0.20), level:
+  muzzle at x -0.10, never past -0.06, aimed at the vest, never the eyes; `flash` and `smoke` stay 0. His left
+  palm comes out flat and beckons: the seller's gesture, turned round. The cashier: `terrified`, arms `up`,
+  `slip` 1; then one plain sack at a time from BAG_WAIT along the ledge, through SLOT to BAG_OUT, 0.5 s each.
+- Camera starts: two-shot (-0.1, 0.95, 5.0) -> (-0.12, 0.74, 0), fov 50: Spud left, cashier right, both cheated
+  25 degrees to the lens, the screen edge-on between them, the vault door a steel ring behind Spud. Over the gun
+  (-1.75, 0.90, 0.85) -> (0.72, 0.84, -0.04), fov 42: hood edge at the left, the gun from 23 % across / 74 %
+  down, the cashier's whole face in the arch.
+
+### 11.6 THE MONEY STORM (S10)
+Build as: new prop kind `notestorm` in props-happy.js: ONE instanced mesh, a note = a bent quad (4 triangles) in
+the `banknote` look; spec `t0` (story s), `n` 700 (max 800 = 3.2k), `seed`. Opaque, no shadow, steam; a note
+leaves by shrinking, never by fading. Plus a `moneybag` key `full` 1..0 (props-heist.js). Under +8 % a frame.
+**Pick: the one sack of panels 08-10, emptied to its last note** (the magic-hat rule; the car is 28 m off,
+downwind, behind the lens: Q3). Nothing bursts: the gust that parted the clouds rolls the sack flat, its neck
+falls open, the wind reaches in.
+- **Guide** (coast frame; then % across, % down in COAST.CAM.c09): G0 = MOUTH (51, 57); G1 (0.85, 1.25, -0.35)
+  (51, 40); G2 (0.9, 1.7, -4.5) (49, 35); G3 (2.2, 2.8, -21.9) (53, 32); G4 (6.2, 4.0, -51.7) (62, 33); G5 (13.8,
+  4.4, -101) = the sun's disc (68, 35). One smooth curve: a column straight up between Spud and the sun, over
+  the brink, then level and away INTO the sun.
+- **Note i**, age a, hashes h1..h3: way along the guide s = 2.2 a + 1.3 a^2 until a 3.8, then 12 m/s; off the
+  guide by R(s) (0.25 + 0.75 h2) at the angle 2 pi (h1 + 0.9 ln(1 + s / 3)) (a coil, tight near, lazy far), R =
+  0.10 + 0.06 s up to s 5, then 0.40 + 0.02 (s - 5), at most 1.6; a bob 0.08 sin(2 pi (0.9 a + h3)). Tumble and
+  bend as 6.5, after a 6-frame peel at the lip. Past s 100 it shrinks to nothing in 0.5 s.
+- **Release**, tau = t - t0: 0-0.8 the sack rolls flat, 7 notes peel one by one; 0.8-3.0 THE POUR: 640 notes,
+  the share out = smoothstep((tau - 0.8) / 2.2); 3.0-4.4 the tail: 53 notes, 60 a second falling to 8, the last
+  at 4.4. `full` 1 -> 0 over 0.8-4.4: the belly sinks from 0.34 to 0.11, the neck flops; it ends flat and empty.
+- **Look**: back-lit in camera 09: body #4a5a3a, rim #ffe0a0, a flash #fff3c0 for 1-2 frames each half turn: the
+  ribbon glitters like the gold road. Front-lit (close) #bfe0a0. Never drawn under 3 px.
+- **The sunset stays the hero**: notes nearer than 40 m to the lens keep 1.5 disc radii from the sun's centre;
+  farther ones (9 px and less) may cross the disc. At most 10 % of camera 09's pixels; nothing above 27 % down
+  (captions). Close shot: at most 30 notes, none within 0.35 of his face.
+- **Shots and the smile** (the notes go first): tau 0-3.3 camera 09: the column climbs the sky. 3.3-6.5 close,
+  panel 10's framing, not draft 1's tight face: (0.55, 0.62, -3.4) -> (0.32, 0.55, 0), fov 40: the sagging sack
+  at 16 % across, the tail rising up the left quarter; his eyes follow it up, hands stay in the lap; 4.4 the last
+  note; a breath; the smile from 4.8 over 0.9 s. From 6.5 the hold (camera 09 push): the sack flat, the flock a
+  glittering thread reaching the disc as `sink` runs out. My t0: 39.4; smile 44.2, hold 45.9, END 49.0.
+
+### 11.7 PROOFS AND OPEN QUESTIONS (my default in brackets)
+Proofs as section 8, each also at 360 px: turnarounds of the four new potatoes and poor Spud (hood on, pockets
+out); S2 stills 2a and 2b; both bank cameras; a 10 fps strip of the storm from camera 09 and from the close.
+1. Counter height: the brief's 1.0-1.1 hides Spud. [0.46 cart, 0.50 bank, the cashier on a 0.30 platform.]
+2. The names Duchess, Dauphin, Tot, Rosti are Jonny's to give. [Use them as ids until he does.]
+3. Should the car's load fly too? [No: one sack, emptied; a cutaway to the car takes the sunset off screen.]
+4. May far notes cross the sun's disc? [Yes, beyond 40 m.]
+5. Time: coffee beat +2.4 s, hold-up +3.0 s, storm +1.0 s = about 54 s. [Trim S3b and the clock insert.]

@@ -1,0 +1,76 @@
+{
+  "id": "potatobrawl/rosti",
+  "name": "Rosti (proposed name)",
+  "franchise": "PotatoBrawl",
+  "source": "Happiness 01 'Does money make you happy?', draft 2 designs (storyboards/series/happiness/01-does-money-make-you-happy/DESIGN.md section 11, 15 Nov 2026)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 1.02,
+    "width": 0.62,
+    "depth": 0.56,
+    "lump": 0.03,
+    "seed": 91,
+    "taper": 0.04
+  },
+  "limbs": {
+    "color": "#4a4038",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.06,
+      "thick": 0.8
+    },
+    "size": 0.9
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "teller",
+    "shirt": "#f1e8d4",
+    "vest": false,
+    "tie": false,
+    "glasses": false,
+    "garters": false
+  },
+  "personality": "A coffee seller at a cart who will not give a cup for nothing; flat palm, no words.",
+  "voice": {
+    "pitch": 122,
+    "rate": 3.1,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 99
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.2,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "The coffee seller (S2). A different potato from the cashier on purpose (one face in two jobs would say 'he robs the coffee man'): the `teller` costume with vest, tie, garters and glasses switched off, on a taller, narrower body. He wears the props `apron` (red and white stripes: the cart's colours) and `paperhat` (see the bench make-bench.mjs for the spec that fits: apron { y0 0.46, y1 0.1, rx 0.37, rz 0.34, arc 130 } and paperhat y 1.17 scale 0.85, both spec.wear this actor)."
+}

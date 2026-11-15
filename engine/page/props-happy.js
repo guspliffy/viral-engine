@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { buildHatchback, HATCH } from "./car-hatchback.js";
 import { clamp } from "./util.js";
+import { COAST } from "./set-coast.js";   // the storm's named points (MOUTH, CAM.c09, SUN, WIND)
 
 // "Does money make you happy?" (happiness 01, 14 Nov 2026; DESIGN.md sections 3, 4a, 4b, 5 and the city dressing): the outdoor
 // props. Metres; ORIGIN bottom centre on the ground (a wall piece: bottom centre of its face), FRONT +z, unless said. Nothing
@@ -90,7 +91,34 @@ import { clamp } from "./util.js";
 //                 on them), 1.5 pulses a second from `clock` (the vault's beacon turns 1.5 times a second): the inside swings
 //                 between #2a1418 and red #ff3b30, the patch between 0 and 0.35. clock default: the clip time t. open 0..1 (1):
 //                 the leaves' angle (95 degrees at 1).
-//   Triangle budgets (design): limo 14k, fountain 6k, irongate 5k, bankfront 4k, ambulance 8k. The bench prints each kind's count.
+//   coffeecart  the coffee seller's cart of S2 (DESIGN 11.4): a 0.56 x 1.00 counter on four castors, top y 0.46 (wood #8a5a34, cream panels
+//               #efe3c8 in red frames #c8402e on all four faces), four red posts on its corners, a gable roof along z (0.92 x 1.20, ridge y 1.62,
+//               eaves 1.44, 8 red / cream stripes with hand-wobbled edges, on top and underneath); on the ridge's +z end a paper-cup sign 0.36
+//               tall (white, kraft sleeve, to y 2.02) with 3 steam ribbons 0.24 tall (to y 2.28) on a loop of exactly 2.4 s of the clip time; under
+//               the +z eave a slate menu board 0.50 x 0.34 (bottom y 1.04, wood frame) with 3 chalk cups (0.06 / 0.08 / 0.10 tall) over 1, 2, 3
+//               gold coins (no numeral); on the counter a chrome machine 0.30 x 0.22 x 0.24 at (-0.04, 0.46, -0.30) (group head and handle on
+//               the -x side, two gauges toward +z) and a tent card at (0.10, 0.46, 0.34) (a cup over 2 gold discs, both faces).
+//               Origin: on the ground under the counter's middle; the seller works on the -x side, the customer on the +x side, the picture
+//               end (menu board, sign) is +z. The cup on the counter is NOT part of it: put a `cocoacup` at (-0.08, 0.46, 0.18) with steam 1.
+//               Key: spec.steam false drops the sign's steam. No hold. Solid (the steam is see-through). Triangles 2.9k (budget 5k).
+//   notestorm   the money storm of S10 (DESIGN 11.6): ONE InstancedMesh, a note = a bent quad (4 triangles, 0.20 x 0.10 x spec.size 1.3), plain
+//               paper (border, oval, scrolls: no numeral), opaque, no shadow, see-through for the checks, shrinks away at the end (never fades).
+//               ORIGIN: the COAST room's origin (SEAT): place it at the swap room's pos with rot 0 (x, y, z = room pos, e.g. 0, 0, -600). Its
+//               points are COAST frame: the guide STORM_GUIDE = MOUTH (0.80, 0.24, 0.05), (0.85, 1.25, -0.35), (0.90, 1.70, -4.50), (2.2, 2.8,
+//               -21.9), (6.2, 4.0, -51.7), (13.8, 4.4, -101 = the sun's disc from COAST.CAM.c09). A note is a pure function of storm time
+//               tau = t - spec.t0 (exports stormTable / stormPose): way s = 2.2a + 1.3a^2 to age 3.8 s, then 12 m/s; a coil round the guide, a
+//               bob, tumble 1.2 turns/s, yaw 0.4, bend +-15 degrees, a 6-frame peel at the lip; past s 100 it shrinks to nothing in 0.5 s.
+//               Spec: t0 (story seconds when the sack starts to roll, 0), n (700, max 800: 7 peel in tau 0-0.8, 640 pour in 0.8-3.0 by smoothstep,
+//               53 tail 3.0-4.4 at 60 falling to 8 a second, the last at 4.4), seed (1), size (1.3), keep (true: notes nearer than 40 m to the lens
+//               stay 1.5 disc radii (disc r 1.9 deg) off the sun, the rule fading out by 48 m), lens ({ pos }: the camera that rule guards, default
+//               COAST.CAM.c09), sun (unit vector TO the sun, default COAST.SUN), lit "#bfe0a0" / body "#4a5a3a" / rim "#ffe0a0" / flash "#fff3c0"
+//               (sRGB hex). It has no keys after t0 and runs from the clip time (nothing is drawn before t0 or ~16 s after). The look is its
+//               own and ignores scene lights: seen toward the sun (camera 09) a dark olive note with a gold rim and a flash when a face is
+//               square to the sun; seen with the sun behind the lens (the close) pale green. Not solid. One draw call, at most 3.2k triangles.
+//               Measured with bench/props2/measure-storm.mjs: camera 09 at most 3.5 % of the pixels, the highest note 28.3 % down, the nearest
+//               to the sun inside 40 m exactly 1.5 radii; the close (0.55, 0.62, -3.4) -> (0.32, 0.55, 0), fov 40: 40 notes in frame at tau
+//               3.3, 29 at 3.5, none within 0.7 m of his face. Pair it with `moneybag` full 1 -> 0 over tau 0.8-4.4 (props-heist.js).
+//   Triangle budgets (design): limo 14k, fountain 6k, irongate 5k, bankfront 4k, ambulance 8k, coffeecart 5k, notestorm 3.2k. The bench prints each kind's count.
 export const SHOPBAG_GRIP = [0, 0.41, 0];
 const SEAT_X = 0.5;
 export const LIMO = { L: 6.6, W: 2.2, roof: 1.75, belt: 0.9, wheelZ: 2.67, track: 0.9, wheel: 0.34, window: [-2.75, -0.96],
@@ -267,6 +295,195 @@ function thinGrid(g, w, h, step) {
   for (let iy = 0; iy <= h; iy += step) for (let ix = 0; ix <= w; ix += step) { const k = iy * (w + 1) + ix; P2.push(pos.getX(k), pos.getY(k), pos.getZ(k)); }
   for (let iy = 0; iy < ny - 1; iy++) for (let ix = 0; ix < nx - 1; ix++) { const a = iy * nx + ix, b = a + nx; if (iy !== 0) idx.push(a, b, a + 1); if (iy !== ny - 2) idx.push(b, b + 1, a + 1); }
   const ng = new THREE.BufferGeometry(); ng.setAttribute("position", new THREE.Float32BufferAttribute(P2, 3)); ng.setIndex(idx); ng.computeVertexNormals(); return ng;
+}
+
+// ------------------------------------------------------------------------------------------------------ cart helpers
+// geometry placed by (rotation, then translation) and merged per colour: one mesh per tone
+const place = (g, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) => { if (rx || ry || rz) g.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(rx, ry, rz))); return g.translate(x, y, z); };
+function bucket() {
+  const m = new Map();
+  return {
+    add(color, g, { rough = 0.8, cool: c = false, metal = 0 } = {}) {
+      const k = `${color}|${rough}|${metal}|${c ? 1 : 0}`;
+      if (!m.has(k)) m.set(k, { color, rough, metal, c, list: [] });
+      m.get(k).list.push(g.index ? g.toNonIndexed() : g);
+    },
+    build(parent) {
+      for (const v of m.values()) {
+        const mm = mat(v.color, { roughness: v.rough, ...(v.metal && { metalness: v.metal }) }); if (v.c) mm.userData.lookRole = "set";
+        mesh(mergeGeometries(v.list), mm, parent);
+      }
+    },
+  };
+}
+// a flat strip with hand-wobbled long edges in a local frame (x along the strip from 0 to L, z across z0..z1, at height y), facing up or down
+function wobbleStrip(sx, L, z0, z1, y, up, seed) {
+  const NU = 6, rows = [];
+  for (let u = 0; u <= NU; u++) rows.push([sx * L * (u / NU), z0 + (rnd(seed * 13 + u * 7 + 1) - 0.5) * 0.014, z1 + (rnd(seed * 13 + u * 7 + 2) - 0.5) * 0.014]);
+  const pos = [], nor = [], uv = [];
+  const tri = (a, b, c) => {   // a, b, c = [x, z]; wound so the normal points up (or down)
+    const cy = (b[1] - a[1]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[1] - a[1]);
+    const [p, q, r] = (cy > 0) === up ? [a, b, c] : [a, c, b];
+    for (const v of [p, q, r]) { pos.push(v[0], y, v[1]); nor.push(0, up ? 1 : -1, 0); uv.push(0, 0); }
+  };
+  for (let u = 0; u < NU; u++) {
+    const A = [rows[u][0], rows[u][1]], B = [rows[u][0], rows[u][2]], C = [rows[u + 1][0], rows[u + 1][1]], D = [rows[u + 1][0], rows[u + 1][2]];
+    tri(A, B, C); tri(B, D, C);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2));
+  return g;
+}
+// the cart's steam ribbons: three strips 0.24 tall rising off the cup on a loop of exactly 2.4 s (uT = the clip time)
+function ribbonMat() {
+  const m = new THREE.ShaderMaterial({
+    uniforms: { uT: { value: 0 }, uC: { value: rawColor("#fffaf0") }, uE: { value: rawColor("#c9a37a") } },
+    vertexShader: `attribute float aPh; uniform float uT; varying vec2 vUv; varying float vPh;
+      void main() { vUv = uv; vPh = aPh; vec3 p = position; p.x += 0.016 * sin(6.2832 * (uv.y * 1.3 - uT / 2.4 + aPh)) * (0.3 + uv.y); gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0); }`,
+    fragmentShader: `uniform vec3 uC, uE; uniform float uT; varying vec2 vUv; varying float vPh;
+      void main() {
+        float d = abs(vUv.x - 0.5), edge = 1.0 - smoothstep(0.34, 0.5, d);
+        float env = smoothstep(0.0, 0.14, vUv.y) * (1.0 - smoothstep(0.5, 1.0, vUv.y));
+        float wave = 0.5 + 0.5 * sin(6.2832 * (vUv.y * 1.4 - uT / 2.4 + vPh));
+        gl_FragColor = vec4(mix(uC, uE, smoothstep(0.2, 0.42, d)), edge * env * (0.5 + 0.45 * wave));
+      }`,
+    transparent: true, depthWrite: true, side: THREE.DoubleSide,
+  });
+  m.userData.noOutline = true; m.userData.glow = true;
+  return m;
+}
+
+// ------------------------------------------------------------------------------------------------------ the money storm
+// one smooth guide curve (DESIGN 11.6): up out of the sack's mouth, over the brink, then level and away INTO the sun. COAST frame.
+export const STORM_GUIDE = [COAST.MOUTH, [0.85, 1.25, -0.35], [0.9, 1.7, -4.5], [2.2, 2.8, -21.9], [6.2, 4.0, -51.7], [13.8, 4.4, -101]];
+const STORM_PEEL = [0.05, 0.2, 0.34, 0.46, 0.57, 0.67, 0.76];   // tau of the 7 notes that peel off one by one while the sack rolls flat
+const S_AT38 = 2.2 * 3.8 + 1.3 * 3.8 * 3.8;                       // way along the guide at age 3.8 s (then 12 m/s)
+const sInv = (q) => 0.5 - Math.sin(Math.asin(1 - 2 * q) / 3);      // inverse smoothstep
+let GUIDE_TAB = null;
+function guideTable() {
+  if (GUIDE_TAB) return GUIDE_TAB;
+  const cv = new THREE.CatmullRomCurve3(STORM_GUIDE.map((p) => new THREE.Vector3(...p)), false, "centripetal"); cv.arcLengthDivisions = 4000;
+  const N = 1000, pts = cv.getSpacedPoints(N), L = cv.getLength(), ds = L / N;
+  const P = new Float32Array((N + 1) * 3), Nn = new Float32Array((N + 1) * 3), Bb = new Float32Array((N + 1) * 3), Tt = new Float32Array((N + 1) * 3);
+  const T = new THREE.Vector3(), X = new THREE.Vector3(1, 0, 0), n = new THREE.Vector3(), b = new THREE.Vector3();
+  for (let i = 0; i <= N; i++) {
+    T.copy(pts[Math.min(N, i + 1)]).sub(pts[Math.max(0, i - 1)]).normalize();
+    n.crossVectors(T, X).normalize(); b.crossVectors(T, n);
+    pts[i].toArray(P, i * 3); n.toArray(Nn, i * 3); b.toArray(Bb, i * 3); T.toArray(Tt, i * 3);
+  }
+  return (GUIDE_TAB = { N, L, ds, P, Nn, Bb, Tt });
+}
+// the storm's schedule and per-note constants; a note's pose is a pure function of (i, tau): see stormPose
+export function stormTable(spec = {}) {
+  const n = Math.max(20, Math.min(800, Math.round(spec.n ?? 700))), seed = spec.seed ?? 1, size = spec.size ?? 1.3;
+  const nPeel = 7, nTail = Math.round((n * 53) / 700), nPour = n - nPeel - nTail;
+  const birth = new Float32Array(n);
+  for (let i = 0; i < nPeel; i++) birth[i] = STORM_PEEL[i];
+  for (let k = 0; k < nPour; k++) birth[nPeel + k] = 0.8 + 2.2 * sInv((k + 0.5) / nPour);
+  const A = 60, B = (60 - 8) / 1.4, TOT = A * 1.4 - 0.5 * B * 1.96;   // the tail: 60 a second falling to 8 over 1.4 s
+  for (let k = 0; k < nTail; k++) { const q = (k + 1) / nTail; birth[nPeel + nPour + k] = 3.0 + (A - Math.sqrt(Math.max(0, A * A - 2 * B * q * TOT))) / B; }
+  const h = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7 + seed * 74.7) * 43758.5453; return x - Math.floor(x); };
+  const H = new Float32Array(n * 5);
+  for (let i = 0; i < n; i++) for (let k = 0; k < 5; k++) H[i * 5 + k] = h(i, k + 1);
+  const lens = spec.lens ?? COAST.CAM.c09, sun = spec.sun ?? COAST.SUN;
+  const lp = lens.pos, ldir = Math.hypot(...sun);
+  // the lens' basis for the caption rule (nothing above 27 % down): right, up, forward and 2 tan(fov / 2) (frame height in metres per metre of depth)
+  const fw = lens.look.map((v, i) => v - lp[i]), fl = Math.hypot(...fw), F = fw.map((v) => v / fl), r0 = [-F[2], 0, F[0]], rl = Math.hypot(...r0), Rr = r0.map((v) => v / rl);
+  const Uu = [Rr[1] * F[2] - Rr[2] * F[1], Rr[2] * F[0] - Rr[0] * F[2], Rr[0] * F[1] - Rr[1] * F[0]], capTop = spec.capTop ?? 0.285;
+  return { n, birth, H, size, lens: lp, F, R: Rr, U: Uu, hf: 2 * Math.tan((lens.fov * Math.PI) / 360), capTop, spread: spec.spread ?? 1, flutter: spec.flutter ?? 1, sun: sun.map((v) => v / ldir), keep: spec.keep !== false, tauEnd: birth[n - 1] + 12, nPeel, nPour, nTail };
+}
+// the coil's reach (m) at way s: tight at the lip, then the flock fans out to 2.0 m by s 6 and thins to nothing as it reaches the sun
+const stormR = (s) => Math.min(2.0, s <= 1.5 ? 0.1 + 0.06 * s : 0.19 + 0.4 * (s - 1.5)) * (s <= 30 ? 1 : 1 - sstepN(30, 100, s) * 0.92);
+const sstepN = (a, b, x) => { const k = clamp((x - a) / (b - a)); return k * k * (3 - 2 * k); };
+// the guide point and its frame at way s (m): out = [x, y, z] and the frame vectors N, B
+const _g = { p: [0, 0, 0], n: [0, 0, 0], b: [0, 0, 0] };
+function guideAt(s) {
+  const G = guideTable(), f = clamp(s / G.L, 0, 1) * G.N, i = Math.min(G.N - 1, Math.floor(f)), u = f - i, P = G.P;
+  for (let k = 0; k < 3; k++) {
+    _g.p[k] = P[i * 3 + k] + (P[i * 3 + 3 + k] - P[i * 3 + k]) * u + (s > G.L ? G.Tt[G.N * 3 + k] * (s - G.L) : 0);
+    _g.n[k] = G.Nn[i * 3 + k] + (G.Nn[i * 3 + 3 + k] - G.Nn[i * 3 + k]) * u; _g.b[k] = G.Bb[i * 3 + k] + (G.Bb[i * 3 + 3 + k] - G.Bb[i * 3 + k]) * u;
+  }
+  return _g;
+}
+// one note at storm time tau: out = [x, y, z, yaw, tumble, bend, scale, tint]; false when it is not in the air
+export function stormPose(tb, i, tau, out) {
+  const a = tau - tb.birth[i]; if (a < 0) return false;
+  const H = tb.H, o = i * 5, h1 = H[o], h2 = H[o + 1], h3 = H[o + 2], h4 = H[o + 3], h5 = H[o + 4];
+  const s = a < 3.8 ? 2.2 * a + 1.3 * a * a : S_AT38 + 12 * (a - 3.8), a100 = 3.8 + (100 - S_AT38) / 12;
+  const die = sstepN(0, 0.5, a - a100); if (die >= 1) return false;
+  const g = guideAt(s), R = stormR(s) * tb.spread * (0.25 + 0.75 * h2), th = 2 * Math.PI * (h1 + 0.9 * Math.log(1 + s / 3));
+  const c = Math.cos(th) * R, d = Math.sin(th) * R;
+  const oy = g.n[1] * c + g.b[1] * d;   // the flock fans out sideways; its height is squeezed (up 0.12, down 0.5) so it stays under the captions
+  let x = g.p[0] + g.n[0] * c + g.b[0] * d, y = g.p[1] + oy * (oy > 0 ? 0.12 : 0.5) + 0.08 * Math.sin(2 * Math.PI * (0.9 * a + h3)), z = g.p[2] + g.n[2] * c + g.b[2] * d;
+  {   // nothing above `capTop` down the lens' frame (the captions): push the note down along the camera's up
+    const lp = tb.lens, vx = x - lp[0], vy = y - lp[1], vz = z - lp[2], zf = vx * tb.F[0] + vy * tb.F[1] + vz * tb.F[2];
+    if (zf > 1) {
+      const fy = 0.5 - (vx * tb.U[0] + vy * tb.U[1] + vz * tb.U[2]) / (zf * tb.hf), top = tb.capTop, soft = top + 0.025;
+      if (fy < soft) { const k = clamp((fy - (top - 0.025)) / 0.05), t2 = top + 0.025 * k * k * (3 - 2 * k), dm = (t2 - fy) * zf * tb.hf; x -= tb.U[0] * dm; y -= tb.U[1] * dm; z -= tb.U[2] * dm; }
+    }
+  }
+  if (tb.keep) {   // keep clear of the sun's disc: a note nearer than 40 m to the lens keeps 1.5 disc radii (r 1.9 deg) off its centre (the rule fades out by 48 m); pushed sideways, so the caption line holds
+    const lp = tb.lens, vx = x - lp[0], vy = y - lp[1], vz = z - lp[2], zf = vx * tb.F[0] + vy * tb.F[1] + vz * tb.F[2], dist = Math.hypot(vx, vy, vz);
+    const mn = Math.tan((1.56 * 1.9 * Math.PI) / 180) * (1 - sstepN(40, 48, dist));
+    if (mn > 0 && zf > 1) {
+      const u = tb.sun, uz = u[0] * tb.F[0] + u[1] * tb.F[1] + u[2] * tb.F[2], sx = (u[0] * tb.R[0] + u[1] * tb.R[1] + u[2] * tb.R[2]) / uz, sy = (u[0] * tb.U[0] + u[1] * tb.U[1] + u[2] * tb.U[2]) / uz;
+      const dx = (vx * tb.R[0] + vy * tb.R[1] + vz * tb.R[2]) / zf - sx, dy = (vx * tb.U[0] + vy * tb.U[1] + vz * tb.U[2]) / zf - sy;
+      if (Math.hypot(dx, dy) < mn) { const nx = (dx < 0 ? -1 : 1) * Math.sqrt(Math.max(0, mn * mn - dy * dy)), dm = (nx - dx) * zf; x += tb.R[0] * dm; y += tb.R[1] * dm; z += tb.R[2] * dm; }
+    }
+  }
+  const peel = sstepN(0, 0.2, a);   // a 6-frame peel: the note lies flat in the mouth, one corner lifting, then turns up
+  out[0] = x; out[1] = y; out[2] = z;
+  out[3] = 2 * Math.PI * ((h4 > 0.5 ? 0.9 : -0.9) * tb.flutter * a + h1) * peel;                          // yaw: 0.4 turns a second about the vertical
+  out[4] = 2 * Math.PI * ((h5 > 0.5 ? 2.2 : -2.2) * tb.flutter * a + h3 + 0.12 * Math.sin(2 * Math.PI * (1.7 * a + h2))) * peel;                          // tumble: 1.2 turns a second about its long axis
+  out[5] = (Math.PI / 6.5) * Math.sin(2 * Math.PI * (1.6 * a + h4)) + (1 - peel) * 0.9;     // bend +-15 degrees; a corner up at the lip
+  out[6] = tb.size * (1 - die) * sstepN(0, 0.06, a);
+  out[7] = 0.92 + 0.16 * h5;
+  return true;
+}
+let NOTE_TEX = null;
+function stormNoteTex() {   // a grey detail map of a plain note (border, an oval, two leaf scrolls; no numeral, no letter)
+  if (NOTE_TEX) return NOTE_TEX;
+  return (NOTE_TEX = canvasTex(256, 128, (g, w, h) => {
+    g.fillStyle = "#b4b4b4"; g.fillRect(0, 0, w, h); g.strokeStyle = "#7a7a7a"; g.lineWidth = 7; g.strokeRect(8, 8, w - 16, h - 16);
+    g.lineWidth = 4; g.strokeStyle = "#8a8a8a"; g.strokeRect(20, 20, w - 40, h - 40);
+    g.fillStyle = "#e6e6e6"; g.beginPath(); g.ellipse(w / 2, h / 2, 46, 34, 0, 0, Math.PI * 2); g.fill(); g.strokeStyle = "#7a7a7a"; g.stroke();
+    g.strokeStyle = "#8a8a8a"; g.lineWidth = 4;
+    for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(w / 2 + sx * 54, h / 2); g.bezierCurveTo(w / 2 + sx * 78, h / 2 - 38, w / 2 + sx * 104, h / 2 - 24, w / 2 + sx * 100, h / 2); g.bezierCurveTo(w / 2 + sx * 104, h / 2 + 26, w / 2 + sx * 78, h / 2 + 38, w / 2 + sx * 54, h / 2); g.stroke(); }
+  }));
+}
+function stormMat(spec) {
+  const m = new THREE.ShaderMaterial({
+    uniforms: {
+      uSun: { value: new THREE.Vector3(...(spec.sun ?? COAST.SUN)).normalize() }, uMap: { value: stormNoteTex() },
+      uLit: { value: new THREE.Color(spec.lit || "#cfe8a8") }, uBody: { value: new THREE.Color(spec.body || "#86a04a") }, uRim: { value: new THREE.Color(spec.rim || "#ffe0a0") }, uFlash: { value: new THREE.Color(spec.flash || "#fff3c0") },   // sRGB hex -> linear: the output pass encodes it back
+    },
+    vertexShader: `attribute float aBend; attribute float aTint; varying vec3 vW; varying vec2 vL; varying float vT;
+      void main() {
+        vec3 p = position; p.z += 0.1 * sin(aBend) * (1.0 - abs(p.x) / 0.1);   // the bend: the middle column rides up
+        vec4 w = modelMatrix * instanceMatrix * vec4(p, 1.0); vW = w.xyz; vL = position.xy; vT = aTint;
+        gl_Position = projectionMatrix * viewMatrix * w;
+      }`,
+    fragmentShader: `uniform vec3 uSun, uLit, uBody, uRim, uFlash; uniform sampler2D uMap; varying vec3 vW; varying vec2 vL; varying float vT;
+      void main() {
+        vec3 N = normalize(cross(dFdx(vW), dFdy(vW))), V = normalize(cameraPosition - vW);
+        if (dot(N, V) < 0.0) N = -N;                                   // the face the viewer sees
+        float lit = dot(N, uSun);                                      // > 0: the sun is on this face (front-lit); < 0: the note is back-lit
+        float fl = smoothstep(-0.08, 0.12, lit);
+        vec3 front = mix(uLit * 0.74, uLit, smoothstep(0.15, 0.4, lit));
+        vec3 col = mix(uBody, front, fl);
+        float tex = texture2D(uMap, vL / vec2(0.2, 0.1) + 0.5).r;
+        col *= (0.78 + 0.4 * tex) * vT;
+        float e = min((0.1 - abs(vL.x)) / 0.1, (0.05 - abs(vL.y)) / 0.05);
+        float toSun = smoothstep(0.9975, 0.99985, dot(-V, uSun));      // looking down the sun's ray: the paper glows through, edge to edge
+        col = mix(col, uRim, clamp((1.0 - smoothstep(0.06, 0.34, e)) * 0.9 + toSun * 0.7, 0.0, 1.0) * (1.0 - fl));   // back-lit: the sun along the paper's edge
+        float g = smoothstep(0.93, 0.985, abs(lit));                   // the face square to the sun: a flash, twice a turn
+        col = mix(col, uFlash, g * mix(0.95, 0.3, fl));
+        gl_FragColor = vec4(col, 1.0);
+      }`,
+    side: THREE.DoubleSide,
+  });
+  m.userData.noOutline = true; m.userData.glow = true;
+  return m;
 }
 
 export const HAPPY_KINDS = {
@@ -700,6 +917,133 @@ export const HAPPY_KINDS = {
         inGlow.material.uniforms.uA.value = 0.9 * v; inGlow.visible = v > 0.01;
         wash.m.uniforms.uK.value = 0.35 * v; wash.o.visible = v > 0.005;
         for (const { hinge, s } of leaves) hinge.rotation.y = -s * rad(95) * op;
+      },
+    };
+  },
+  // ------------------------------------------------------------------------------------------------- coffeecart
+  coffeecart(P) {
+    const S = P.spec, B = bucket(), WOOD = "#8a5a34", RED = "#c8402e", CREAM = "#efe3c8", STRIPE = "#f6ecd4", DARK = "#2a2c30";
+    // the counter: 0.56 (x) x 1.00 (z), top at y 0.46; a plinth on four castors; cream panels in red frames on all four faces
+    B.add("#5e3d22", box(0.5, 0.03, 0.94, 0, 0.075, 0));
+    B.add(WOOD, box(0.52, 0.34, 0.96, 0, 0.26, 0));
+    B.add("#a06c3e", box(0.56, 0.03, 1.0, 0, 0.445, 0), { rough: 0.6 });
+    const panel = (axis, cx, cz, W) => {   // a cream panel 0.26 tall in a red frame, on a face of the counter body
+      const H = 0.26, t = 0.022, Y = 0.26;
+      B.add(CREAM, axis === "x" ? box(0.008, H, W, cx, Y, cz) : box(W, H, 0.008, cx, Y, cz), { cool: true });
+      const fr = (w, h, u, y) => B.add(RED, axis === "x" ? box(0.014, h, w, cx + Math.sign(cx) * 0.003, y, cz + u) : box(w, h, 0.014, cx + u, y, cz + Math.sign(cz) * 0.003));
+      fr(W + 2 * t, t, 0, Y + H / 2 + t / 2); fr(W + 2 * t, t, 0, Y - H / 2 - t / 2); fr(t, H, W / 2 + t / 2, Y); fr(t, H, -W / 2 - t / 2, Y);
+    };
+    for (const sx of [-1, 1]) for (const zc of [-0.235, 0.235]) panel("x", sx * 0.264, zc, 0.4);
+    for (const sz of [-1, 1]) panel("z", 0, sz * 0.484, 0.4);
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) {   // castors: a black wheel in a fork
+      B.add("#2a2a2e", place(new THREE.CylinderGeometry(0.03, 0.03, 0.02, 10), sx * 0.2, 0.03, sz * 0.4, 0, 0, Math.PI / 2));
+      B.add("#5a5e66", box(0.03, 0.016, 0.016, sx * 0.2, 0.062, sz * 0.4)); B.add("#5a5e66", box(0.004, 0.04, 0.02, sx * 0.2 - 0.014, 0.038, sz * 0.4)); B.add("#5a5e66", box(0.004, 0.04, 0.02, sx * 0.2 + 0.014, 0.038, sz * 0.4));
+    }
+    // the canopy: 4 red posts on the counter's corners, a ridge along z at 1.62 and eaves at 1.44 (roof 0.92 x 1.20), 8 stripes across z
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) B.add(RED, new THREE.CylinderGeometry(0.014, 0.014, 1.06, 8).translate(sx * 0.25, 0.99, sz * 0.52));
+    B.add(WOOD, place(new THREE.CylinderGeometry(0.014, 0.014, 1.22, 8), 0, 1.625, 0, Math.PI / 2, 0, 0));
+    const RISE = 0.18, RUN = 0.46, TH = Math.atan2(RISE, RUN), LS = Math.hypot(RISE, RUN), ROOF_T = 0.018;
+    for (const sx of [-1, 1]) {
+      B.add(STRIPE, place(box(LS, ROOF_T, 1.2, sx * LS / 2, -ROOF_T / 2, 0), 0, 1.62, 0, 0, 0, -sx * TH), { cool: true });
+      for (let k = 0; k < 8; k += 2) {
+        const z0 = -0.6 + 0.15 * k, z1 = z0 + 0.15;
+        B.add(RED, place(wobbleStrip(sx, LS, z0, z1, 0.0008, true, k + (sx > 0 ? 0 : 20)), 0, 1.62, 0, 0, 0, -sx * TH));
+        B.add(RED, place(wobbleStrip(sx, LS, z0, z1, -ROOF_T - 0.0008, false, k + (sx > 0 ? 40 : 60)), 0, 1.62, 0, 0, 0, -sx * TH));
+      }
+    }
+    // the sign on the ridge's +z end: a paper cup 0.36 tall (white, a kraft sleeve), 3 steam ribbons 0.24 tall on a 2.4 s loop
+    const CZ = 0.49, CY = 1.664, rc = (y) => 0.07 + 0.097 * (y / 0.36);
+    B.add(WOOD, box(0.16, 0.03, 0.16, 0, 1.649, CZ));
+    B.add("#fbf6ea", place(lathe([[0, 0], [0.068, 0], [0.07, 0.005], [rc(0.352), 0.352], [0.109, 0.36], [0.1035, 0.36], [0.1, 0.335], [0, 0.335]], 22), 0, CY, CZ), { cool: true, rough: 0.7 });
+    B.add("#b98a5a", place(lathe([[rc(0.1) + 0.002, 0.1], [rc(0.1) + 0.007, 0.1], [rc(0.26) + 0.007, 0.26], [rc(0.26) + 0.002, 0.26]], 22), 0, CY, CZ), { rough: 0.9 });
+    B.add("#3b2416", place(new THREE.CircleGeometry(0.0985, 20).rotateX(-Math.PI / 2), 0, CY + 0.337, CZ));
+    // the menu board under the +z eave: 0.50 x 0.34, bottom edge at y 1.04, slate; 3 chalk cups (0.06 / 0.08 / 0.10 tall) over 1, 2, 3 gold coins
+    const BY = 1.21, BZ = 0.546, FW = 0.02;
+    B.add(DARK, box(0.46, 0.3, 0.02, 0, BY, BZ), { rough: 0.95 });
+    B.add("#6b4426", box(0.5, FW, 0.03, 0, BY + 0.17 - FW / 2, BZ)); B.add("#6b4426", box(0.5, FW, 0.03, 0, BY - 0.17 + FW / 2, BZ));
+    B.add("#6b4426", box(FW, 0.3, 0.03, 0.25 - FW / 2, BY, BZ)); B.add("#6b4426", box(FW, 0.3, 0.03, -0.25 + FW / 2, BY, BZ));
+    const CUPX = [-0.138, 0, 0.138], CUPH = [0.06, 0.08, 0.1];
+    CUPX.forEach((x, j) => { for (let k = 0; k <= j; k++) B.add("#f2c75a", place(new THREE.CylinderGeometry(0.012, 0.012, 0.006, 14), x + (k - j / 2) * 0.032, 1.1, BZ + 0.0125, Math.PI / 2, 0, 0), { rough: 0.4, metal: 0.3 }); });
+    // the machine on the counter top: chrome 0.30 x 0.22 x 0.24 at z -0.30, its group head and handle on the seller's side (-x), two gauges to the lens
+    const MX = -0.04, MY = 0.46, MZ = -0.3;
+    B.add(DARK, box(0.3, 0.03, 0.24, MX, MY + 0.015, MZ));
+    B.add("#d5dbe2", box(0.3, 0.17, 0.24, MX, MY + 0.115, MZ), { rough: 0.3, metal: 0.5 });
+    B.add(RED, box(0.304, 0.02, 0.244, MX, MY + 0.125, MZ)); B.add("#b9c0c8", box(0.3, 0.02, 0.24, MX, MY + 0.21, MZ), { rough: 0.3, metal: 0.5 });
+    B.add(DARK, box(0.06, 0.05, 0.1, MX - 0.18, MY + 0.1, MZ)); B.add(DARK, place(new THREE.CylinderGeometry(0.008, 0.008, 0.1, 8), MX - 0.25, MY + 0.085, MZ, 0, 0, Math.PI / 2));
+    B.add("#9aa2ab", place(new THREE.CylinderGeometry(0.03, 0.03, 0.02, 14), MX - 0.2, MY + 0.07, MZ), { metal: 0.5, rough: 0.3 });
+    B.add("#9aa2ab", place(new THREE.CylinderGeometry(0.006, 0.006, 0.09, 6), MX + 0.16, MY + 0.09, MZ + 0.06, 0, 0, 0.5), { metal: 0.5, rough: 0.3 });
+    for (const sx of [-1, 1]) {
+      B.add("#f6f0e2", place(new THREE.CylinderGeometry(0.021, 0.021, 0.006, 16), MX + sx * 0.07, MY + 0.125, MZ + 0.122, Math.PI / 2, 0, 0));
+      B.add(DARK, place(new THREE.TorusGeometry(0.022, 0.004, 6, 16), MX + sx * 0.07, MY + 0.125, MZ + 0.124));
+      B.add(RED, place(box(0.003, 0.016, 0.002), MX + sx * 0.07 + 0.004, MY + 0.129, MZ + 0.127, 0, 0, -0.5 * sx));
+    }
+    // the tent card on the counter top at (0.10, 0.46, 0.34): two leaves 0.12 x 0.105, a cup over 2 gold discs on both faces
+    const cardLeaf = (sz) => {
+      const tilt = 0.24, g = new THREE.Group(); g.position.set(0.1, 0.46 + 0.105 * Math.cos(tilt), 0.34); g.rotation.y = sz < 0 ? Math.PI : 0;
+      const lf = new THREE.Group(); lf.rotation.x = -tilt; g.add(lf);   // leaf frame: origin at the ridge, y runs down the leaf, +z is its outer face
+      const part = (color, geo, x, y, z) => { const m = mat(color, { roughness: 0.8 }); m.userData.lookRole = "set"; return mesh(geo, m, lf, x, y, z); };
+      part("#f6ecd4", box(0.12, 0.105, 0.003), 0, -0.0525, 0);
+      const cup = new THREE.Shape(); cup.moveTo(-0.018, -0.018); cup.lineTo(0.018, -0.018); cup.lineTo(0.0135, -0.056); cup.lineTo(-0.0135, -0.056); cup.closePath();
+      part("#c8402e", new THREE.ShapeGeometry(cup), 0, 0, 0.0018).castShadow = false;
+      part("#fbf6ea", box(0.042, 0.005, 0.002), 0, -0.016, 0.0022).castShadow = false;
+      for (const dx of [-0.02, 0.02]) part("#f2c75a", new THREE.CylinderGeometry(0.014, 0.014, 0.003, 14).rotateX(Math.PI / 2), dx, -0.083, 0.0025);
+      P.whole.add(g);
+    };
+    cardLeaf(1); cardLeaf(-1);
+    B.build(P.whole);
+    // chalk on the slate: three cups with a sleeve band and a rim, a steam squiggle each
+    const chalk = canvasTex(460, 300, (g, w, h) => {
+      g.clearRect(0, 0, w, h);
+      const pm = w / 0.46, jit = (i) => (rnd(i * 3.1 + 7) - 0.5) * 2.2;
+      g.strokeStyle = "rgba(240,234,220,0.92)"; g.lineCap = "round"; g.lineJoin = "round";
+      const line = (x0, y0, x1, y1, k, wd = 4.2) => { g.lineWidth = wd; g.beginPath(); g.moveTo(x0 + jit(k), y0 + jit(k + 1)); g.lineTo((x0 + x1) / 2 + jit(k + 2), (y0 + y1) / 2 + jit(k + 3)); g.lineTo(x1 + jit(k + 4), y1 + jit(k + 5)); g.stroke(); };
+      CUPX.forEach((x, j) => {
+        const cx = w / 2 + x * pm, hh = CUPH[j] * pm, wt = hh * 0.82, wb = hh * 0.6, yb = (1.36 - 1.17) * pm, yt = yb - hh, k = j * 40 + 3;
+        line(cx - wt / 2, yt, cx - wb / 2, yb, k); line(cx + wt / 2, yt, cx + wb / 2, yb, k + 9); line(cx - wb / 2, yb, cx + wb / 2, yb, k + 18);
+        line(cx - wt / 2 - 2, yt, cx + wt / 2 + 2, yt, k + 27, 4.6);
+        const s1 = yt + hh * 0.36, s2 = yt + hh * 0.66, fx = (y) => (wt + (wb - wt) * ((y - yt) / hh)) / 2;
+        line(cx - fx(s1), s1, cx + fx(s1), s1, k + 4, 3.2); line(cx - fx(s2), s2, cx + fx(s2), s2, k + 13, 3.2);
+        g.lineWidth = 3.4; g.beginPath(); g.moveTo(cx - 8, yt - 7); g.bezierCurveTo(cx - 16, yt - 20, cx, yt - 28, cx - 6, yt - 42); g.moveTo(cx + 8, yt - 7); g.bezierCurveTo(cx + 0, yt - 20, cx + 16, yt - 28, cx + 8, yt - 42); g.stroke();
+      });
+      g.lineWidth = 3; g.strokeStyle = "rgba(240,234,220,0.55)"; g.beginPath(); g.moveTo(24, h - 14); g.lineTo(w - 24, h - 16); g.stroke();
+    });
+    const cm = new THREE.MeshStandardMaterial({ map: chalk, transparent: true, roughness: 1, depthWrite: false }); cm.userData.noOutline = true;
+    const cp = new THREE.Mesh(new THREE.PlaneGeometry(0.46, 0.3), cm); cp.position.set(0, BY, BZ + 0.0108); cp.renderOrder = 2; cp.castShadow = false; cp.receiveShadow = false; P.whole.add(cp);
+    // the sign's steam: three ribbons 0.24 tall over the cup's mouth, on a loop of exactly 2.4 s
+    const rm = ribbonMat(), ribs = [];
+    for (let j = 0; j < 3; j++) {
+      const g = new THREE.PlaneGeometry(0.04, 0.24, 1, 12); g.translate((j - 1) * 0.045, 0.12, 0);
+      g.setAttribute("aPh", new THREE.Float32BufferAttribute(new Array(g.attributes.position.count).fill(j / 3), 1));
+      const o = steamy(new THREE.Mesh(g, rm), 6); o.position.set(0, CY + 0.36 + 0.015, CZ); P.whole.add(o); ribs.push(o);
+    }
+    return { grip: 0, apply(ps, t) { rm.uniforms.uT.value = t ?? 0; for (const o of ribs) o.visible = S.steam !== false; } };
+  },
+
+  // ------------------------------------------------------------------------------------------------- notestorm
+  notestorm(P) {
+    const S = P.spec, tb = stormTable(S), T0 = S.t0 ?? 0, n = tb.n;
+    const g = new THREE.PlaneGeometry(0.2, 0.1, 2, 1);   // a bent quad: 3 columns x 2 rows = 4 triangles, long axis x, normal +z
+    const aBend = new THREE.InstancedBufferAttribute(new Float32Array(n), 1), aTint = new THREE.InstancedBufferAttribute(new Float32Array(n), 1);
+    aBend.setUsage(THREE.DynamicDrawUsage); aTint.setUsage(THREE.DynamicDrawUsage); g.setAttribute("aBend", aBend); g.setAttribute("aTint", aTint);
+    const im = new THREE.InstancedMesh(g, stormMat(S), n); im.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    steamy(im, 6); im.count = 0; im.name = "notestorm"; P.whole.add(im);
+    const out = new Float32Array(8), me = im.instanceMatrix.array;
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const tau = (t ?? 0) - T0; let m = 0;
+        if (tau >= 0 && tau < tb.tauEnd) {
+          for (let i = 0; i < n; i++) {
+            if (!stormPose(tb, i, tau, out)) continue;
+            const cy = Math.cos(out[3]), sy = Math.sin(out[3]), ct = Math.cos(out[4]), st = Math.sin(out[4]), sc = out[6], o = m * 16;
+            me[o] = cy * sc; me[o + 1] = 0; me[o + 2] = -sy * sc; me[o + 3] = 0;
+            me[o + 4] = sy * st * sc; me[o + 5] = ct * sc; me[o + 6] = cy * st * sc; me[o + 7] = 0;
+            me[o + 8] = sy * ct * sc; me[o + 9] = -st * sc; me[o + 10] = cy * ct * sc; me[o + 11] = 0;
+            me[o + 12] = out[0]; me[o + 13] = out[1]; me[o + 14] = out[2]; me[o + 15] = 1;
+            aBend.array[m] = out[5]; aTint.array[m] = out[7]; m++;
+          }
+        }
+        im.count = m; im.visible = m > 0; im.instanceMatrix.needsUpdate = true; aBend.needsUpdate = true; aTint.needsUpdate = true;
       },
     };
   },

@@ -33,6 +33,7 @@ import { buildLanding } from "./set-landing.js";
 import { buildNighthall } from "./set-nighthall.js";
 import { buildCoast } from "./set-coast.js";
 import { buildVault } from "./set-vault.js";
+import { buildBankhall } from "./set-bankhall.js";
 import { buildMansionhall } from "./set-mansionhall.js";
 import { buildTrail } from "./set-trail.js";
 import { buildXmasroom } from "./set-xmasroom.js";
@@ -109,6 +110,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "landing") return buildLanding(scene, spec);   // set-landing.js: a stairwell landing, a narrow doorway (Moving One Sofa)
   if (type === "coast") return buildCoast(scene, spec);   // set-coast.js: coast road, cliff top, sea, rain dusk -> sunset (happiness 01)
   if (type === "vault") return buildVault(scene, spec);   // set-vault.js: the bank vault (happiness 01)
+  if (type === "bankhall") return buildBankhall(scene, spec);   // set-bankhall.js: the bank counter room (happiness 01 draft 2)
   if (type === "mansionhall") return buildMansionhall(scene, spec);   // set-mansionhall.js: the marble hall + front door (happiness 01)
   if (type === "nighthall") return buildNighthall(scene, spec);   // set-nighthall.js: a hall at 3 a.m. (friends try to 06)
   if (type === "xmasroom") return buildXmasroom(scene, spec);   // set-xmasroom.js: a cosy living room in December (friends try to 07)

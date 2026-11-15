@@ -840,6 +840,125 @@ function dragonSheet(C, ch, out) {
   return out;
 }
 
+// ---------- Spud, POOR (Happiness 01 "Does money make you happy?", draft 2, 15 Nov 2026; DESIGN.md section 11.1) -------------------------
+// costume.poor (characters/potatobrawl/spud-poor.json, sweater "#47857e"): the same sweater, faded teal with its stitch contrast x 0.7, and
+// everything that makes it poor DRAWN INTO ITS OWN MAP (one colour canvas per piece, the knit's grey strokes tinted with the wool colour, then the
+// marks on top, each placed by hand from the design's x, y metres on the body): 7 dirt blots (#6b5a48 at 0.45 with dry-brush strokes #4a3f36), a
+// ragged mud band above the hem (#5a4a3c at 0.5), a second patch on the front (0.11 x 0.09, #9a5540, ten cream cross-stitches), a hole 0.05 x 0.03
+// (#6b4a2b). Real geometry: the hem's roll is gone from th -0.3 to 1.5 (x -0.05 to his left side) with a ragged edge and 22 yarn ends 0.02-0.05
+// long (5 mm wide, curling 30 degrees, a 8 degree swing with the follow-through), 7 yarn ends on the right cuff, and four brown-grey smudges on the
+// skin (2 mm off it, none within 0.02 of an eye, a brow or the mouth). Without costume.poor none of this runs.
+const POOR_HEM = -1.16, POOR_RNG = 1.16;   // the sweater's hem elevation and the map's v range (collar front -0.4 .. back 0.0 -> v 0.65 .. 1)
+const FRAY = [-0.3, 1.5];                    // theta of the frayed stretch of the hem
+function poorAt(ch, x, y, back = false) {    // the body's surface at x, y metres (front or back): { th, ph, pos, normal }
+  const el = (th, yy) => { let a = -1.45, b = 1.5; for (let i = 0; i < 26; i++) { const m = (a + b) / 2; if (ch.surf(th, m).pos.y < yy) a = m; else b = m; } return (a + b) / 2; };
+  const sg = x < 0 ? -1 : 1, ax = Math.abs(x); let ph = el(0, y), m = 0;
+  for (let k = 0; k < 3; k++) {
+    let a = 0, b = Math.PI / 2; for (let i = 0; i < 24; i++) { const t = (a + b) / 2; if (Math.abs(ch.surf(sg * t, ph).pos.x) < ax) a = t; else b = t; }
+    m = (a + b) / 2; ph = el(back ? sg * (Math.PI - m) : sg * m, y);
+  }
+  const th = back ? sg * (Math.PI - m) : sg * m, q = ch.surf(th, ph); return { th, ph, pos: q.pos, normal: q.normal };
+}
+function poorSweater(ch, teal, knit, knitArm) {
+  const tl = new THREE.Color(teal), lin = (b) => { const v = b / 255; return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }, enc = (v) => Math.round(255 * Math.max(0, Math.min(1, v <= 0.0031308 ? 12.92 * v : 1.055 * v ** (1 / 2.4) - 0.055)));
+  const lut = [0, 1, 2].map((c) => Uint8Array.from({ length: 256 }, (_, b) => enc([tl.r, tl.g, tl.b][c] * lin(204 + (b - 204) * 0.7))));   // grey stroke -> wool colour, the stitch contrast x 0.7 about the map's base 0.8
+  const TAU = Math.PI * 2, H = (a, b = 0) => hash(a * 1.7 + b * 9.3 + 0.5);
+  const paint = (tex, draw) => {
+    const W = tex.image.width, Hh = tex.image.height, src = tex.image.data, c = document.createElement("canvas"); c.width = W; c.height = Hh;
+    const g = c.getContext("2d"), id = g.createImageData(W, Hh);
+    for (let k = 0; k < W * Hh; k++) { const b = src[k * 4]; id.data[k * 4] = lut[0][b]; id.data[k * 4 + 1] = lut[1][b]; id.data[k * 4 + 2] = lut[2][b]; id.data[k * 4 + 3] = 255; }
+    g.putImageData(id, 0, 0); draw(g, W, Hh);
+    const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.flipY = false; t.wrapS = t.wrapT = THREE.RepeatWrapping; t.anisotropy = 4; return t;
+  };
+  // draw in metres at (x, y) on the body: the map is stretched differently along and across, so the canvas is scaled to metres there
+  const at = (g, W, Hh, x, y, back, fn, rot = 0) => {
+    const q = poorAt(ch, x, y, back), e = 1e-3, mu = ch.surf(q.th + e, q.ph).pos.distanceTo(ch.surf(q.th - e, q.ph).pos) / (2 * e) * TAU, mv = ch.surf(q.th, q.ph + e).pos.distanceTo(ch.surf(q.th, q.ph - e).pos) / (2 * e) * POOR_RNG;
+    const u = (((q.th / TAU) % 1) + 1) % 1, v = (q.ph - POOR_HEM) / POOR_RNG;
+    for (const dx of [-W, 0, W]) { g.save(); g.setTransform(W / mu, 0, 0, Hh / mv, u * W + dx, v * Hh); g.rotate(rot); fn(g); g.restore(); }
+  };
+  const blob = (g, w, hg, seed, k = 1) => { g.beginPath(); for (let i = 0; i < 11; i++) { const a = (i / 11) * TAU, r = (0.72 + 0.5 * H(seed + i)) * k; const px = Math.cos(a) * w * 0.5 * r, py = Math.sin(a) * hg * 0.5 * r; if (i) g.lineTo(px, py); else g.moveTo(px, py); } g.closePath(); };
+  const dirt = (g, w, seed) => {
+    g.globalAlpha = 0.2; g.fillStyle = "#6b5a48"; blob(g, w, w, seed, 1.22); g.fill();
+    g.globalAlpha = 0.45; blob(g, w, w, seed); g.fill();
+    g.globalAlpha = 0.5; g.strokeStyle = "#4a3f36"; g.lineCap = "round"; g.lineWidth = 0.0035;
+    const n = 3 + Math.floor(H(seed, 7) * 3);
+    for (let i = 0; i < n; i++) { const a = H(seed, 10 + i) * Math.PI, o = (H(seed, 20 + i) - 0.5) * w * 0.6, l = w * (0.3 + 0.25 * H(seed, 30 + i)); g.setLineDash([0.006, 0.004, 0.011, 0.005]); g.beginPath(); g.moveTo(Math.cos(a) * -l + Math.sin(a) * o, Math.sin(a) * -l - Math.cos(a) * o); g.lineTo(Math.cos(a) * l + Math.sin(a) * o, Math.sin(a) * l - Math.cos(a) * o); g.stroke(); }
+    g.setLineDash([]); g.globalAlpha = 1;
+  };
+  const body = paint(knit, (g, W, Hh) => {
+    [[-0.14, 0.24, false, 0.09], [0.2, 0.19, false, 0.075], [0.1, 0.33, false, 0.06], [-0.1, 0.3, true, 0.1], [0.18, 0.22, true, 0.07]].forEach(([x, y, back, w], i) => at(g, W, Hh, x, y, back, (c) => dirt(c, w, 3 + i * 5.7)));
+    // the mud band: ragged, 0 to 0.04 above the hem
+    { const mv = ch.surf(0, POOR_HEM + 1e-3).pos.distanceTo(ch.surf(0, POOR_HEM - 1e-3).pos) / 2e-3 * POOR_RNG; g.fillStyle = "#5a4a3c"; g.globalAlpha = 0.5;
+      for (let x = 0; x < W; x += 2) { const top = (0.014 + 0.026 * (0.5 * H(Math.floor(x / 7), 1) + 0.5 * H(Math.floor(x / 23), 2))) / mv; g.fillRect(x, 0, 2, top * Hh); } g.globalAlpha = 1; }
+    // the second patch: front, (0.19, 0.29), 0.11 x 0.09 turned 8 degrees, ten cream cross-stitches along its border
+    at(g, W, Hh, 0.19, 0.29, false, (c) => {
+      const pw = 0.11, ph = 0.09; c.fillStyle = "#9a5540"; c.beginPath();
+      for (let i = 0; i < 16; i++) { const t = i / 16, a = t * TAU, cx = Math.cos(a), cy = Math.sin(a), sx = Math.sign(cx) * Math.abs(cx) ** 0.35, sy = Math.sign(cy) * Math.abs(cy) ** 0.35; const px = sx * pw / 2 * (0.97 + 0.06 * H(i, 40)), py = sy * ph / 2 * (0.97 + 0.06 * H(i, 41)); if (i) c.lineTo(px, py); else c.moveTo(px, py); }
+      c.closePath(); c.fill(); c.strokeStyle = "#6e3a2a"; c.lineWidth = 0.0025; c.stroke();
+      c.strokeStyle = "#e9dcc0"; c.lineWidth = 0.0016; c.lineCap = "round";
+      const st = [[-0.03, -0.034], [0, -0.036], [0.03, -0.034], [-0.03, 0.034], [0, 0.036], [0.03, 0.034], [-0.047, -0.012], [-0.047, 0.014], [0.047, -0.012], [0.047, 0.014]];
+      st.forEach(([x, y], i) => { const r = 0.007, j = (H(i, 50) - 0.5) * 0.004; c.beginPath(); c.moveTo(x - r, y - r + j); c.lineTo(x + r, y + r - j); c.moveTo(x + r, y - r - j); c.lineTo(x - r, y + r + j); c.stroke(); });
+    }, 8 * Math.PI / 180);
+    // the hole 0.05 x 0.03 in the frayed hem stretch, brown showing through
+    at(g, W, Hh, -0.03, 0.225, false, (c) => { c.fillStyle = "#6b4a2b"; blob(c, 0.05, 0.03, 61); c.fill(); c.strokeStyle = "#2c5a58"; c.globalAlpha = 0.7; c.lineWidth = 0.003; blob(c, 0.055, 0.034, 62); c.stroke(); c.globalAlpha = 1; });
+  });
+  const arm = paint(knitArm, (g, W, Hh) => {   // u along the arm (x), v round it (y): one forearm blot, drawn at a metre scale of about 560 px
+    g.save(); g.setTransform(W / 0.46, 0, 0, Hh / 0.46, W * 0.62, Hh * 0.5); dirt(g, 0.075, 91.3); g.restore();
+  });
+  return { knit: body, arm, ribColor: `#${tl.clone().lerp(new THREE.Color("#5a4a3c"), 0.18).getHexString()}`, H };
+}
+// the yarn ends: a flat strip hanging from its root along -y of its own frame, `len` long, 5 mm wide, curling 30 degrees toward +z (hashed)
+function yarnEnd(len, curl, mat) {
+  const n = 4, pos = [], idx = []; let y = 0, z = 0;
+  for (let j = 0; j <= n; j++) { const w = 0.0025 * (1 - 0.5 * j / n); pos.push(-w, y, z, w, y, z); if (j < n) { const a = curl * ((j + 0.5) / n); y -= Math.cos(a) * len / n; z += Math.sin(a) * len / n; } }
+  for (let j = 0; j < n; j++) { const a = j * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const m = new THREE.Mesh(g, mat); m.castShadow = false; return m;
+}
+function poorExtras(ch, teal, H, hemPh, armSL, out) {
+  const parts = ch.potatoParts, TAU = Math.PI * 2, yarnM = clothMat(`#${new THREE.Color(teal).multiplyScalar(0.92).getHexString()}`, { side: THREE.DoubleSide }); yarnM.userData.noOutline = true;
+  const ends = [], lim = (x) => Math.max(-1, Math.min(1, x));
+  // 22 yarn ends along the frayed hem
+  for (let i = 0; i < 22; i++) {
+    const th = FRAY[0] + 0.12 + (FRAY[1] - FRAY[0] - 0.24) * ((i + 0.5 + (H(i, 70) - 0.5) * 0.5) / 22), q = ch.surf(th, hemPh(th)), n = q.normal.clone(), up = V(0, 1, 0).addScaledVector(n, -n.y).normalize(), x = new THREE.Vector3().crossVectors(up, n).normalize();
+    const e = yarnEnd(0.02 + 0.03 * H(i, 71), (30 * (0.6 + 0.8 * H(i, 72)) * Math.PI) / 180, yarnM); e.position.copy(q.pos).addScaledVector(n, 0.04).addScaledVector(up, 0.006);
+    e.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(x, up, n)); e.userData.q0 = e.quaternion.clone(); parts.add(e); ends.push(e);
+  }
+  // 7 yarn ends on the right cuff, riding the sleeve's end every frame
+  const cuff = new THREE.Group(), cends = []; ch.root.add(cuff);
+  for (let i = 0; i < 7; i++) { const e = yarnEnd(0.02 + 0.03 * H(i, 80), (30 * (0.6 + 0.8 * H(i, 81)) * Math.PI) / 180, yarnM); e.userData.a = (i / 7 + 0.07 * H(i, 82)) * TAU; cuff.add(e); cends.push(e); }
+  const _T = V(0, 0, 0), _e1 = V(0, 0, 0), _e2 = V(0, 0, 0), _m = new THREE.Matrix4(), _u = V(0, 1, 0), _q = new THREE.Quaternion();
+  return (st) => {
+    const ft = st.ft || { f: 0, s: 0 }, sw = (8 * Math.PI / 180);
+    for (const e of ends) { _q.setFromAxisAngle(V(1, 0, 0), sw * lim(ft.f * 0.8)); e.quaternion.copy(e.userData.q0).multiply(_q); }
+    const A = ch.arms?.R; if (!A?.shoulder || !A.elbow || !A.hand) { cuff.visible = false; return; }
+    const curve = ch.constructor.armCurve(A.shoulder, A.elbow, A.hand.position, A.joint), L = Math.max(0.05, curve.getLength()), to = Math.max(armSL.from + 0.3, Math.min(0.92, 1 - armSL.gap / L));
+    curve.getPointAt(to, cuff.position); curve.getTangentAt(to, _T); cuff.quaternion.identity(); cuff.visible = true;
+    _e1.crossVectors(Math.abs(_T.y) > 0.9 ? V(0, 0, 1) : _u, _T).normalize(); _e2.crossVectors(_T, _e1);
+    for (const e of cends) {   // each end leaves the cuff's rim, leaning out 35 degrees and on along the arm
+      const a = e.userData.a, r = V(0, 0, 0).addScaledVector(_e1, Math.cos(a)).addScaledVector(_e2, Math.sin(a)), R = 0.055;
+      e.position.copy(r).multiplyScalar(R); const d = r.clone().multiplyScalar(Math.sin(0.61)).addScaledVector(_T, Math.cos(0.61));
+      const yy = d.clone().negate(), zz = new THREE.Vector3().crossVectors(r, yy).cross(yy).normalize(); if (zz.dot(r) < 0) zz.negate();   // local -y along d, +z (the curl) outward
+      const xx = new THREE.Vector3().crossVectors(yy, zz).normalize(); e.quaternion.setFromRotationMatrix(_m.makeBasis(xx, yy, zz)); _q.setFromAxisAngle(V(1, 0, 0), sw * lim(ft.s * 0.8)); e.quaternion.multiply(_q);
+    }
+    cuff.position.add(V(0, 0, 0));
+  };
+}
+function poorSkin(ch) {   // four brown-grey smudges 2 mm off the skin: (x, y) metres, across, tall; each a soft blob with three dry strokes
+  const parts = ch.potatoParts, TAU = Math.PI * 2;
+  [[-0.24, 0.47, 0.07, 0.045], [0.16, 0.82, 0.06, 0.03], [-0.09, 0.86, 0.08, 0.04], [0.26, 0.43, 0.045, 0.03]].forEach(([x, y, w, h], k) => {
+    const c = document.createElement("canvas"); c.width = 128; c.height = 96; const g = c.getContext("2d");
+    const gr = g.createRadialGradient(64, 48, 6, 64, 48, 60); gr.addColorStop(0, "rgba(122,90,58,0.40)"); gr.addColorStop(0.7, "rgba(122,90,58,0.34)"); gr.addColorStop(1, "rgba(122,90,58,0)"); g.fillStyle = gr; g.beginPath(); g.ellipse(64, 48, 60, 44, 0, 0, TAU); g.fill();
+    g.strokeStyle = "rgba(92,69,48,0.7)"; g.lineWidth = 3; g.lineCap = "round"; for (let i = 0; i < 3; i++) { const yy = 28 + i * 20 + (hash(k * 3 + i) - 0.5) * 6; g.beginPath(); g.moveTo(26 + hash(k + i * 2) * 12, yy); g.lineTo(98 - hash(k * 2 + i) * 14, yy + (hash(i + k * 5) - 0.5) * 8); g.stroke(); }
+    const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+    const NA = 8, NB = 6, pos = [], uv = [], idx = [];
+    for (let b = 0; b <= NB; b++) for (let a = 0; a <= NA; a++) { const q = poorAt(ch, x + (a / NA - 0.5) * w, y + (b / NB - 0.5) * h); const p = q.pos.clone().addScaledVector(q.normal, 0.002); pos.push(p.x, p.y, p.z); uv.push(a / NA, 1 - b / NB); }
+    for (let b = 0; b < NB; b++) for (let a = 0; a < NA; a++) { const i0 = b * (NA + 1) + a; idx.push(i0, i0 + 1, i0 + NA + 1, i0 + 1, i0 + NA + 2, i0 + NA + 1); }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute("uv", new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx); geo.computeVertexNormals();
+    const m = new THREE.MeshStandardMaterial({ map: tex, transparent: true, depthWrite: false, roughness: 1, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); m.userData.lookRole = "cloth"; m.userData.noOutline = true;
+    const o = new THREE.Mesh(geo, m); o.castShadow = false; o.userData.steam = true; parts.add(o);
+  });
+}
 // ---------- Spud (Jonny, 11 Nov 2026): the main character, the one normal potato among the fighters -------------------
 // His reference sheet (/mnt/project-files/videos/cast/spud/): no hat, no weapon, only a chunky teal knit sweater with a
 // rolled collar, a rolled hem, rolled cuffs and one stitched patch on the LEFT elbow. The knit is a small tiling
@@ -1305,15 +1424,21 @@ function richCoat(C, ch, out) {
   };
 }
 function spud(C, ch, out) {
-  const parts = ch.potatoParts, teal = C.sweater || "#2f8f8a", dark = `#${new THREE.Color(teal).multiplyScalar(0.62).getHexString()}`;
+  const parts = ch.potatoParts, teal = C.sweater || "#2f8f8a", dark = C.poor ? "#2c5a58" : `#${new THREE.Color(teal).multiplyScalar(0.62).getHexString()}`;
   const COLS = 40, ROWS = 12;   // stitch columns round the body and rows from collar to hem, each drawn once
-  const knit = knitTexture(COLS, ROWS, 1024, 512, 3.1), knitArm = knitTexture(9, 5, 256, 256, 8.7, true), rib = ribTexture(66, 1024, 64, 5.3);
-  const wool = (o = {}) => { const m = clothMat(teal, { side: THREE.DoubleSide, ...o }); m.map = o.arm ? knitArm : o.rib ? rib : knit; return m; };
+  let knit = knitTexture(COLS, ROWS, 1024, 512, 3.1), knitArm = knitTexture(9, 5, 256, 256, 8.7, true);
+  const rib = ribTexture(66, 1024, 64, 5.3), poor = C.poor ? poorSweater(ch, teal, knit, knitArm) : null;   // costume.poor: the map and the sleeve map come back as coloured canvases with the marks drawn in
+  if (poor) { knit = poor.knit; knitArm = poor.arm; }
+  const wool = (o = {}) => { const m = clothMat(poor ? (o.rib ? poor.ribColor : "#ffffff") : teal, { side: THREE.DoubleSide, ...o }); m.map = o.arm ? knitArm : o.rib ? rib : knit; return m; };
   // the neckline: low under the mouth, rising round the sides to the back of the head (the shoulders stay inside)
   const front = C.neck ?? -0.4, back = C.neckBack ?? 0.0, neck = (th) => front + (back - front) * 0.5 * (1 - Math.cos(th));
   const hem = -1.16, NU = 180, NV = 36;
   // the body of the sweater: thick, a little off the skin, a few soft folds that deepen toward the hem
-  const G = garment(ch, { topFn: neck, top: front, hem, folds: 6, depth: 0.013, flare: 0.014, lift: 0.024, lift0: 0.02, wave: 0.006, thick: 0.016, phase: 0.9, grad: 0.24, segs: NU, rows: NV });
+  // poor: the hem's edge is ragged from th FRAY[0] to FRAY[1] (hashed teeth 1-2 cm high, rising a little from the clean hem)
+  const frayW = (th) => sstep(FRAY[0], FRAY[0] + 0.2, th) * (1 - sstep(FRAY[1] - 0.2, FRAY[1], th)), thW = (th) => { const t = ((th + Math.PI) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2) - Math.PI; return t; };
+  const tooth = (th) => { const q = th / 0.075, i = Math.floor(q), f = q - i; return (1 - f) * poor.H(i, 5) + f * poor.H(i + 1, 5); };
+  const hemFn = poor ? (th) => hem + 0.006 * Math.sin(th * 6 + 0.9) + frayW(thW(th)) * (0.012 + 0.045 * tooth(thW(th))) : null;
+  const G = garment(ch, { topFn: neck, top: front, hem, folds: 6, depth: 0.013, flare: 0.014, lift: 0.024, lift0: 0.02, wave: 0.006, thick: 0.016, phase: 0.9, grad: 0.24, segs: NU, rows: NV, ...(hemFn && { hemFn }) });
   gridUv(G.outer, NU, NV, (i, j) => { const th = (i / NU) * Math.PI * 2, tp = neck(th); return [i / NU, (tp + (hem - tp) * (j / NV) - hem) / (Math.max(front, back) - hem)]; });   // once round, hem 0 .. collar 1
   parts.add(mesh(G.outer, wool({ vertexColors: true })));
   parts.add(mesh(G.inner, liningMat(dark), false));
@@ -1322,7 +1447,7 @@ function spud(C, ch, out) {
   // the rolled collar and the rolled hem: fat round bands in the same knit, the stitches running round the roll
   const BN = 160, BV = 16, rollUv = (g) => gridUv(g, BN, BV, (i, j) => [i / BN, j / BV]);
   parts.add(mesh(rollUv(band(ch, { ph: front, tilt: back - front, w: 0.042, t: 0.05, lift: 0.014, round: 1, segs: BN })), wool({ rib: true })));
-  parts.add(mesh(rollUv(band(ch, { ph: hem + 0.02, w: 0.034, t: 0.034, lift: 0.02, round: 1, segs: BN })), wool({ rib: true })));
+  parts.add(mesh(rollUv(band(ch, { ph: hem + 0.02, w: 0.034, t: 0.034, lift: 0.02, round: 1, segs: BN, ...(poor && { from: FRAY[1], to: Math.PI * 2 + FRAY[0] }) })), wool({ rib: true })));   // poor: the roll is gone from FRAY[0] to FRAY[1]
   // chunky sleeves with a rolled cuff, built here (not sleeves()): Jonny, 11 Nov, "the hands are glitchy". The shared
   // sleeve ends at a fixed share of the arm, so on Spud's short arm its cuff ring cut through the palm, and its tube
   // takes three's Frenet frames, which turn about the arm from one frame to the next and made the knit swim. This one
@@ -1387,6 +1512,11 @@ function spud(C, ch, out) {
     _x.crossVectors(T, _z).normalize();
     patch.quaternion.setFromRotationMatrix(_m.makeBasis(_x, T, _z)); patch.position.copy(p); patch.visible = true;
   };
+  if (poor) {   // the frayed hem's yarn ends, the right cuff's, the skin smudges
+    poorSkin(ch);
+    const yarn = poorExtras(ch, teal, poor.H, (th) => hemFn(th) + 0.012, SL, out), b0 = out.apply;
+    out.apply = (st, t, ...r) => { b0 && b0(st, t, ...r); yarn(st); };
+  }
   if (C.rich) richCoat(C, ch, out);   // the rich outfit (spud-rich.json): fur coat, gold chain, aviators on the head
   out.sitDepth = 0;
   return out;
