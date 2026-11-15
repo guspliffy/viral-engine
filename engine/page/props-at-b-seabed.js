@@ -945,7 +945,7 @@ function atbseabed(P) {
   }
   [[-0.5, 5.7, 14, 1.3], [1.0, 5.9, 14, 1.2], [0.2, 6.4, 13, 1.3], [-2.1, 5.7, 13, 1.2], [2.0, 5.2, 12, 1.1], [3.0, 5.5, 13, 1.2], [-1.0, 5.0, 12, 1.1], [-3.0, 5.0, 12, 1.2], [4.0, 4.7, 11, 1.1], [-4.7, 2.7, 15, 1.3], [-5.2, 1.0, 14, 1.3], [-4.6, 4.2, 13, 1.2], [4.5, 0.5, 15, 1.3], [5.0, -1.4, 14, 1.3], [5.6, -3.2, 14, 1.3], [4.7, 2.4, 14, 1.2], [6.3, -5.0, 13, 1.2], [5.3, 4.0, 14, 1.3], [-6.0, 5.2, 13, 1.2], [-1.6, 3.6, 0, 1], [-5.8, -3.0, 12, 1.2]].filter((t) => t[2] > 0 && distWreck(t[0], t[1]) > 2.4).forEach((t) => tufts.push(t));
   for (const [x, z, nb, hm] of tufts) if (!inPlay(x, z, 0.4) && STRIP_OK(x, z, 0.9)) tuft(x, z, nb, hm);
-  add(bladeGeo(blades), mats.grass, { name: "atb-grass" });
+  add(bladeGeo(blades), mats.grass, { name: "atb-grass" }).userData.softGrass = true;   // seagrass bends round a body: see-through for the contact checks (steam, set below)
 
   // ---- the sand (last: the shadows of everything above are baked into it)
   const sandParts = sandGeo();
@@ -958,7 +958,7 @@ function atbseabed(P) {
   mark(G);
   // the water: backdrop, shafts, silt
   const back = backdrop(U); G.add(mark(back, true, -500)); const sh = shaftMesh(U); G.add(mark(sh, true, 30)); const silt = siltPoints(U); G.add(mark(silt, true, 31));
-  for (const me of meshes) { me.userData.lookOnly = true; me.userData.solid = false; me.userData.surfaceOnly = true; me.frustumCulled = false; }
+  for (const me of meshes) { me.userData.lookOnly = true; me.userData.solid = false; me.userData.surfaceOnly = true; if (me.userData.softGrass) me.userData.steam = true; me.frustumCulled = false; }
   const v3 = new THREE.Vector3();
   return {
     grip: 0,

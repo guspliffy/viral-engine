@@ -73,24 +73,24 @@ function build(F, key) {
     props.push({ id: "seabed", kind: "atbseabed", x: SEA[0], y: 0, z: SEA[1], seed: 1 });
     props.push({ id: "schoolA", kind: "fish", type: "silver", n: 12, x: SEA[0], y: 0, z: SEA[1], path: [[-6, 2.6, -4], [-2, 3.0, -6], [3, 2.7, -5], [5, 2.4, -2], [1, 2.2, -1.5], [-4, 2.4, -2]], phase: 0.1, staged: "a school of silver fish swimming high over the sand" });
     props.push({ id: "schoolB", kind: "fish", type: "silver", n: 9, x: SEA[0], y: 0, z: SEA[1], path: { c: [2.5, 2.0, -7], r: 3.2 }, phase: 0.55, speed: 0.6, staged: "a second school swimming over the wreck" });
-    props.push({ id: "bub", kind: "bubbles", x: SEA[0], y: 0, z: SEA[1], from: [0, 0.75, 0.15], surface: 15, every: 2, size: 1 });
+    props.push({ id: "bub", kind: "bubbles", x: SEA[0], y: 0, z: SEA[1], from: [0, 0.75, 0.15], surface: 15, every: 2, size: 0.6 });
   }
 
   // ================================================================= b1 UNDER (0-13.9): the metal, 2015, 39 bars, the wreck, his palm
   if (key === "b1") {
-    const SP13 = W(SEA, -0.62, 0.42), SP14 = W(SEA, 1.25, 1.15), SP16 = W(SEA, -0.38, 0.4);
-    props.push({ id: "bars", kind: "ingots", x: BARS[0], y: 0, z: BARS[1], count: 1, lamp: 0, lampFrom: [-1.07, HEAD - 0.06, 0.07], staged: "the 39 red-gold bars: the hero bar by his hand, the line off toward the wreck" });
+    const SP13 = W(SEA, -0.25, 0.48), SP14 = W(SEA, 1.25, 1.15), SP16 = SP13;
+    props.push({ id: "bars", kind: "ingots", x: BARS[0], y: 0, z: BARS[1], count: 1, lamp: 0, lampFrom: [-0.7, HEAD - 0.06, 0.13], staged: "the 39 red-gold bars: the hero bar by his hand, the line off toward the wreck" });
     // 13 HOOK (0-2.6): crouched by the hero bar in the dark; the lamp clicks on, the bar flashes red-gold
-    place(0, "spud", SP13, 62); A(0, "spud", "crouch", { to: 1, dur: 0.01 }); A(0, "spud", "pitch", { to: 14, dur: 0.01 });
+    place(0, "spud", SP13, 70); A(0, "spud", "crouch", { to: 1, dur: 0.01 }); A(0, "spud", "pitch", { to: 14, dur: 0.01 });
     PR(0, "bub", { x: SP13[0], z: SP13[1] });
     PR(0, "spud-lamp", { lit: 0 }, 0); PR(0.32, "spud-lamp", { lit: 1 }, 0.08);
     PR(0, "bars", { lamp: 0 }, 0); PR(0.36, "bars", { lamp: 1 }, 0.35, "out");
     sfx(0.3, "kenney/switch", { gain: 0.5, reason: "the headlamp's switch clicks on" });
     look(0, "spud", [0.35, -0.55], 0.01); expr(0, "spud", "neutral", { brow: 0.55, lid: 0.3 }, 0.01);
-    expr(0.5, "spud", "surprised", { open: 0.25 }, 0.18);
+    expr(0.5, "spud", "surprised", { open: 0.25 }, 0.18); look(1.15, "spud", [0, 0.05], 0.25);
     say("b1");
-    cap(0, r3(T.s14 + 0.4), "2015", F.NUM + 80, false, { size: F.numSize, kinetic: false });
-    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, C(SEA, [0.85, 0.5, 2.25], [-0.25, 0.28, 0.15], 38, { pos: [0.7, 0.46, 1.95], dur: T.s14 - T.s13 }), "hook"]);
+    cap(0, r3(T.s14 + 0.4), "2015", F.NUM + 80, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * (F.key === "tall" ? 0.5 : 0.7)) });
+    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, C(SEA, [1.35, 0.6, 2.95], [-0.1, 0.33, 0.2], 38, { pos: [1.2, 0.57, 2.6], dur: T.s14 - T.s13 }), "hook"]);
     // 14 (2.6-5.55): he stands by the hero bar; the wreck, the line of sand mounds -> "Clue two. 2015."
     A(L(T.s14) - 0.02, "spud", "crouch", { to: 0, dur: 0.01 }); A(L(T.s14) - 0.02, "spud", "pitch", { to: 0, dur: 0.01 });
     place(T.s14, "spud", SP14, -25); look(T.s14, "spud", [-0.3, -0.25], 0.01); expr(T.s14, "spud", "neutral", { brow: 0.7, lid: 0.25 }, 0.01);
@@ -102,7 +102,8 @@ function build(F, key) {
     // this low camera's frame, behind it, and is back by the bar for 14b)
     const SP15 = W(SEA, 2.3, 2.6);
     place(T.s15, "spud", SP15, -30); PR(T.s15, "bub", { x: SP15[0], z: SP15[1] });
-    place(T.s14b, "spud", SP14, -25); PR(T.s14b, "bub", { x: SP14[0], z: SP14[1] });
+    const SP14B = W(SEA, 3.6, 2.5);   // 14b: he is behind the camera, the shot is the wreck and the line alone
+    place(T.s14b, "spud", SP14B, 0); PR(T.s14b, "bub", { x: SP14B[0], z: SP14B[1] });
     say("b2b");
     PR(T.s15 + 0.15, "bars", { count: 1 }, 0); PR(T.s15 + 0.15, "bars", { count: 39 }, 2.5, "linear");
     count(c, F, L(T.s15 + 0.15), L(T.s15 + 2.65), L(T.s14b + 0.3), 1, 39, (v) => String(Math.round(v)));
@@ -110,16 +111,16 @@ function build(F, key) {
     SH.push(["15 the bars rise one by one", T.s15, C(SEA, [1.05, 0.42, 1.0], [-1.1, 0.12, -3.2], 36, { pos: [0.75, 0.42, 0.45], dur: T.s14b - T.s15 })]);
     // 14b (8.45-12.0): the camera drifts to the wreck: "In a ship 2,600 years old."
     say("b2c");
-    count(c, F, L(T.s14b + 1.2), L(T.s14b + 2.6), L(T.s16), 0, 2600, (v) => `${Math.round(v / 100) * 100 >= 1000 ? (Math.round(v / 100) * 100).toLocaleString("en-US") : Math.round(v / 100) * 100} YEARS`);
+    count(c, F, L(T.s14b + 1.2), L(T.s14b + 2.6), L(T.s16), 1000, 2600, (v) => `${Math.round(v / 100) * 100 >= 1000 ? (Math.round(v / 100) * 100).toLocaleString("en-US") : Math.round(v / 100) * 100} YEARS`);
     look(T.s14b, "spud", [-0.35, 0.05], 0.3);
-    SH.push(["14b the 2,600-year-old wreck", T.s14b, C(SEA, [0.6, 1.25, 6.6], [-2.6, 1.3, -9], 40, { pos: [0.1, 1.3, 4.2], look: [-3.0, 1.45, -10], dur: T.s16 - T.s14b })]);
+    SH.push(["14b the 2,600-year-old wreck", T.s14b, C(SEA, [0.2, 1.25, 6.6], [-2.6, 1.3, -9], 40, { pos: [-0.9, 1.3, 4.4], look: [-3.0, 1.45, -10], dur: T.s16 - T.s14b })]);
     // 16 (12.0-13.9): he kneels by the hero bar and lays his palm on it: the cut to noon follows the palm
-    place(T.s16, "spud", SP16, 78); A(L(T.s16) - 0.02, "spud", "crouch", { to: 1, dur: 0.01 }); A(L(T.s16) - 0.02, "spud", "pitch", { to: 18, dur: 0.01 });
-    PR(T.s16, "bub", { x: SP16[0], z: SP16[1] }); PR(T.s16, "bars", { lampX: -0.6, lampY: HEAD - 0.08, lampZ: 0.05, lamp: 1 });
+    place(T.s16, "spud", SP16, 70); A(L(T.s16) - 0.02, "spud", "crouch", { to: 1, dur: 0.01 }); A(L(T.s16) - 0.02, "spud", "pitch", { to: 18, dur: 0.01 });
+    PR(T.s16, "bub", { x: SP16[0], z: SP16[1] }); PR(T.s16, "bars", { lampX: -0.62, lampY: HEAD - 0.1, lampZ: 0.13, lamp: 1 });
     look(T.s16, "spud", [0.3, -0.6], 0.01); expr(T.s16, "spud", "happy", { brow: 0.5 }, 0.01);
-    arm(T.s16 + 0.25, "R", { prop: "bars", grip: [-0.04, 0.1, 0.02], palm: [-0.04, 0, 0.02] }, 0.45, "out");
+    arm(T.s16 + 0.25, "R", { prop: "bars", grip: [-0.17, 0.11, 0.1], palm: [-0.17, 0, 0.1] }, 0.45, "out");
     say("b3");
-    SH.push(["16 his palm on the bar", T.s16, C(SEA, [1.0, 0.66, 2.1], [-0.1, 0.36, 0.2], 36, { pos: [0.85, 0.62, 1.8], dur: T.s17 - T.s16 })]);
+    SH.push(["16 his palm on the bar", T.s16, C(SEA, [0.8, 0.5, 1.85], [-0.05, 0.3, 0.42], 36, { pos: [0.7, 0.48, 1.65], dur: T.s17 - T.s16 })]);
     sfx(0, "ai/underwater-amb", { gain: 0.3, dur: r3(to - from), reason: "under the sea: the hush and the far clicks" });
     sfx(1.2, "ai/bubbles-burst", { gain: 0.12, reason: "his breath bubbles" }); sfx(9.2, "ai/bubbles-burst", { gain: 0.1, reason: "his breath bubbles" });
   }
@@ -164,8 +165,8 @@ function build(F, key) {
     place(T.s22, "spud", SP22, 180); look(T.s22, "spud", [0, 0.05], 0.01); expr(T.s22, "spud", "neutral", { brow: 0.85, lid: 0.45 }, 0.01);
     PR(T.s22, "bub", { x: SP22[0], z: SP22[1] });
     say("b7a"); say("b7b"); say("b7c");
-    arm(AT.b7a + 0.25, "R", "up", 0.3, "out"); A(L(AT.b7a + 0.25), "spud", "grip", { side: "R", shape: "point", dur: 0.2 });
-    arm(AT.b7b + 0.25, "L", "up", 0.3, "out"); A(L(AT.b7b + 0.25), "spud", "grip", { side: "L", shape: "point", dur: 0.2 });
+    arm(AT.b7a + 0.25, "R", { o: [0.06, 0.66, 0.2] }, 0.3, "out"); A(L(AT.b7a + 0.25), "spud", "grip", { side: "R", shape: "point", dur: 0.2 });
+    arm(AT.b7b + 0.25, "L", { o: [0.06, 0.66, 0.2] }, 0.3, "out"); A(L(AT.b7b + 0.25), "spud", "grip", { side: "L", shape: "point", dur: 0.2 });
     arm(42.6, "R", "rest", 0.4, "inOut"); arm(42.62, "L", "rest", 0.4, "inOut");
     cap(L(AT.b7a), L(T.s24 + 3.4), "REAL 1 · MADE UP 2", F.NUM + 80, false, { size: Math.round(F.numSize * 0.55), kinetic: false });
     cap(L(AT.b7a + 0.3), L(AT.b7b + 0.2), "1", F.NUM + 200, false, { size: F.numSize, kinetic: false });
@@ -179,7 +180,71 @@ function build(F, key) {
     sfx(L(T.s24 + 0.3), "ai/bubbles-burst", { gain: 0.12, reason: "his breath bubbles while he waits" });
   }
 
-  if (key === "b2" || key === "b4") throw new Error(`${key}: the noon city storyboards wait for the director's round R city kit`);
+  // ================================================================= b2 / b4 NOON: the city on its last full day (props-at-b-noon.js)
+  const NOON = PLACE(26), BR = W(NOON, 500, 0);   // view wall17 at the place, view bridge19 500 m along x
+  const fx = [];
+  if (key === "b2" || key === "b4") {
+    light = "noon"; set = { type: "plain", ...AT_NOON };
+    props.push({ id: "noon", kind: "atbnoon", x: NOON[0], y: 0, z: NOON[1], view: key === "b2" ? "wall17" : "bridge19", light: "noon", seed: 1, quake: 0 });
+    cast.push({ id: "crew1", character: CAST.crew, at: [0, 0], face: 0, expr: "neutral", follow: 0.2, seed: 3.1 });
+  }
+  // the painter's camera of a view (header of props-at-b-noon.js): pos + the look direction, fov 38.1; `k` pushes along it
+  const paint = (o, pos, dir, fov, push = 0) => { const p = [pos[0] + dir[0] * push, pos[1] + dir[1] * push, pos[2] + dir[2] * push]; return { pos: [r3(o[0] + p[0]), r3(p[1]), r3(o[1] + p[2])], look: [r3(o[0] + p[0] + dir[0] * 50), r3(p[1] + dir[1] * 50), r3(o[1] + p[2] + dir[2] * 50)], fov }; };
+
+  // b2 (13.9-17.0): 17 his palm on a red-gold plate on the wall-walk; a crew member polishes the next one with a white cloth
+  if (key === "b2") {
+    const WD = [0.457, 0.052, -0.889], WP = [-0.8, 1.26, 2.47];
+    const SP = W(NOON, 0.45, -1.58), CR = W(NOON, 2.6, -1.5);
+    cast.find((x) => x.id === "spud").at = SP; cast.find((x) => x.id === "crew1").at = CR;
+    place(T.s17, "spud", SP, -20); place(T.s17, "crew1", CR, -35);
+    A(L(T.s17), "spud", "pitch", { to: 10, dur: 0 }); A(L(T.s17), "crew1", "pitch", { to: 6, dur: 0 });
+    props.push({ id: "cloth", kind: "polishcloth", x: r3(NOON[0] + 2.62), y: 0.406, z: r3(NOON[1] - 0.8), rot: 15, staged: "the crew member's cloth lies flat on the plate top under its hand" });
+    c.arm(L(T.s17), "spud", "R", { prop: "noon", grip: [0.36, 0.48, -0.8], palm: [0.36, 0.4, -0.8] }, 0);
+    for (const [s0, lx] of [["R", 0.0], ["L", 0.26]]) c.arm(L(T.s17), "crew1", s0, { prop: "cloth", grip: [lx - 0.13, 0.08, 0], palm: [lx - 0.13, 0, 0] }, 0);
+    for (let i = 0; i < 5; i++) PR(r3(T.s17 + 0.15 + i * 0.55), "cloth", { x: r3(NOON[0] + 2.62 + (i % 2 ? -0.1 : 0.1)) }, 0.5, "inOut");   // it polishes: the cloth (and its hands) sweep along the plate
+    look(T.s17, "spud", [0.25, -0.5], 0.01); expr(T.s17, "spud", "happy", { brow: 0.4 }, 0.01);
+    look(T.s17, "crew1", [-0.2, -0.05], 0.01); expr(T.s17, "crew1", "happy", {}, 0.01);
+    look(T.s17 + 1.3, "spud", [0.4, -0.15], 0.3);   // he glances at the crew member: "Plato called it orichalcum"
+    look(T.s17 + 1.5, "crew1", [-0.4, 0.05], 0.3);
+    say("b3");
+    // from the painter's spot (the projection holds), a long lens on the two of them at the plates
+    const aim = (fov, x) => ({ pos: [r3(NOON[0] + WP[0]), WP[1], r3(NOON[1] + WP[2])], look: [r3(NOON[0] + x), 0.62, r3(NOON[1] - 1.1)], fov });
+    SH.push(["17 noon: his palm on the red-gold plate", T.s17, { ...aim(25, 1.45), to: aim(22, 1.35), dur: r3(T.s18 - T.s17), ease: "inOut" }]);
+    sfx(L(T.s17), "cloth", { gain: 0.25, reason: "the cloth rubs the plate" });
+    sfx(L(T.s17 + 0.05), "hit-plate", { gain: 0.08, reason: "his palm lands on the metal plate" });
+  }
+
+  // b4 (24.0-31.2): 19 the bridge at noon, the first quake, the column falls into the canal; 20 they turn and look up
+  if (key === "b4") {
+    const BD = [0.789, 0.026, -0.615], BP = [0, 1.2, 0];
+    cast.push({ id: "crew2", character: CAST.crew, at: [0, 0], face: 0, expr: "neutral", follow: 0.2, seed: 4.3 });
+    const SP = W(BR, 4.2, -1.64), C1 = W(BR, 5.6, -1.7), C2 = W(BR, 7.0, -1.7);
+    cast.find((x) => x.id === "spud").at = SP; cast.find((x) => x.id === "crew1").at = C1; cast.find((x) => x.id === "crew2").at = C2;
+    place(T.s19, "spud", SP, 180); place(T.s19, "crew1", C1, 180); place(T.s19, "crew2", C2, 170);
+    for (const [s0, dx] of [["R", 0.14], ["L", -0.14]]) c.arm(L(T.s19), "spud", s0, { prop: "noon", grip: [500 + 4.2 + dx, 0.66, -2.35], palm: [500 + 4.2 + dx, 0.61, -2.35] }, 0);
+    props.push({ id: "col", kind: "column", x: r3(BR[0] + 36.8), y: 2.2, z: r3(BR[1] - 80), dir: 8, fall: 0, splash: 0, light: "noon", staged: "the white column on the far quay by the water; it topples forward into the canal, toward us" });
+    for (const id of ["spud", "crew1", "crew2"]) look(T.s19, id, [0, 0.1], 0.01);
+    say("b5a"); say("b5b");
+    // the quake on "the ground began to shake": dust off the walls, the column topples, the splash
+    const Q = AT.b5b + 1.2;
+    PR(T.s19, "noon", { quake: 0 }, 0); PR(Q, "noon", { quake: 1 }, 0.6, "out");
+    PR(T.s19, "col", { fall: 0, splash: 0 }, 0); PR(Q + 0.15, "col", { fall: 1 }, 1.25, "in"); PR(Q + 1.38, "col", { splash: 1 }, 1.3, "out");
+    fx.push({ do: "shake", at: L(Q), dur: 2.6, amp: 0.035 }, { do: "shake", at: L(Q + 1.38), dur: 0.8, amp: 0.05 });
+    sfx(L(Q), "rumble", { gain: 0.5, reason: "the ground rumbles: the first quake" });
+    sfx(L(Q + 1.38), "ai/water-gush", { gain: 0.45, reason: "the column crashes into the canal" });
+    for (const [id, d] of [["crew1", 0.15], ["crew2", 0.3], ["spud", 0.4]]) { look(Q + d, id, [-0.35, 0.35], 0.25); expr(Q + d, id, "surprised", { open: 0.3 }, 0.2); }
+    SH.push(["19 noon on the bridge, the column falls", T.s19, { ...paint(BR, BP, BD, 38.1), to: paint(BR, BP, BD, 37, 0.7), dur: r3(T.s20 - T.s19), ease: "inOut" }]);
+    for (const s0 of ["R", "L"]) c.arm(L(T.s20 - 0.45), "spud", s0, "rest", 0.35, "inOut");   // hands off the rail before he turns
+    // 20 (28.7-31.2): they turn round to the citadel behind the deck and look up at it, mouths open
+    for (const [id, yaw] of [["spud", -75], ["crew1", -80], ["crew2", -85]]) A(L(T.s20 - 0.02), id, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true });
+    for (const id of ["spud", "crew1", "crew2"]) { look(T.s20, id, [0.1, 0.55], 0.01); expr(T.s20, id, "surprised", { open: 0.35 }, 0.01); }
+    PR(T.s20, "col", { fall: 1, splash: 1 });
+    place(T.s20, "crew1", W(BR, 5.5, -0.5), -80); place(T.s20, "crew2", W(BR, 6.9, 0.7), -85);   // they stepped back from the rail
+    fx.push({ do: "shake", at: L(T.s20), dur: 1.8, amp: 0.025 });
+    const aim20 = (fov) => ({ pos: [r3(BR[0] + BP[0]), BP[1], r3(BR[1] + BP[2])], look: [r3(BR[0] + 5.6), 0.75, r3(BR[1] - 1.2)], fov });
+    SH.push(["20 they turn and look up", T.s20, { ...aim20(22), to: aim20(19), dur: r3(T.s21 - T.s20), ease: "inOut" }]);
+    sfx(L(T.s20), "rumble", { gain: 0.3, reason: "the rumble rolls on" });
+  }
 
   // the clock (not over the map) and the clue tag on every frame of the block
   if (light !== "map") atlantisClock(c, F, T0 + from, 0, r3(to - from));
@@ -194,12 +259,12 @@ function build(F, key) {
     set, music,
     sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: light === "under" ? "sand" : "stone", room: "open", guard: true },
     ...(key === "b1" && { hook: { show: ["spud"], hint: 0, what: "Under the sea off Sicily: Spud's headlamp clicks on and a red-gold bar flashes in the sand; 2015 on screen" } }),
-    cast: light === "map" ? [] : cast, props, captions: c.captions, beats, visible: c.visible,
+    cast: light === "map" ? [] : cast, props, ...(fx.length && { fx }), captions: c.captions, beats, visible: c.visible,
     allowClip: light === "map" ? [] : [...lampClip(["spud"], r3(to - from))],
     notes: `Generated by storyboards/series/ancient-aliens/03-atlantis/block-b/make-block-b.mjs (${key}). Block B of four, block time ${from}-${to} s.`,
   };
 }
 
 const FRAMES = process.argv.includes("--tall") ? [FRAME.wide, FRAME.tall] : [FRAME.wide];
-const ONLY = (process.argv.find((a) => /^b\d(,b\d)*$/.test(a)) ?? "b1,b3,b5").split(",");
+const ONLY = (process.argv.find((a) => /^b\d(,b\d)*$/.test(a)) ?? "b1,b2,b3,b4,b5").split(",");
 for (const F of FRAMES) for (const [key] of PARTS) if (ONLY.includes(key)) write(import.meta.url, { id: `aa03-${key}-${F.key}`, ...F.sb(FAR.other), ...build(F, key) });

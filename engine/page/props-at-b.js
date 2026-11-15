@@ -3,7 +3,9 @@
 // The places live in their own files (one builder each); their usage headers are the spec:
 //   props-at-b-seabed.js  atbseabed  the Sicily seabed + wreck + amphoras (panels 13-16, 22-24), at P.sicily
 //   props-at-b-shelf.js   atbshelf   the shelf edge over the deep (panel 21), at PLACE(25)
+//   props-at-b-noon.js    atbnoon    the noon city: the plated wall of 17 and the bridge of 19-20 (plates projected on 3D), at PLACE(26)
 import { AT_B_SEABED_KINDS, AT_B_SEABED_GRIPS } from "./props-at-b-seabed.js";
 import { AT_B_SHELF_KINDS, AT_B_SHELF_GRIPS } from "./props-at-b-shelf.js";
-export const AT_B_KINDS = { ...AT_B_SEABED_KINDS, ...AT_B_SHELF_KINDS };
-export const AT_B_GRIPS = { ...AT_B_SEABED_GRIPS, ...AT_B_SHELF_GRIPS };
+import { AT_B_NOON_KINDS, AT_B_NOON_GRIPS } from "./props-at-b-noon.js";
+export const AT_B_KINDS = { ...AT_B_SEABED_KINDS, ...AT_B_SHELF_KINDS, ...AT_B_NOON_KINDS };
+export const AT_B_GRIPS = { ...AT_B_SEABED_GRIPS, ...AT_B_SHELF_GRIPS, ...AT_B_NOON_GRIPS };

@@ -171,7 +171,7 @@
    ],
    "surface": 15,
    "every": 2,
-   "size": 1
+   "size": 0.6
   },
   {
    "id": "shelf",
@@ -2470,7 +2470,13 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.06,
+       0.66,
+       0.2
+      ]
+     },
      "dur": 0.3,
      "ease": "out",
      "at": 0.55
@@ -2497,7 +2503,13 @@
      "who": "spud",
      "do": "arm",
      "side": "L",
-     "pose": "up",
+     "pose": {
+      "o": [
+       0.06,
+       0.66,
+       0.2
+      ]
+     },
      "dur": 0.3,
      "ease": "out",
      "at": 3
