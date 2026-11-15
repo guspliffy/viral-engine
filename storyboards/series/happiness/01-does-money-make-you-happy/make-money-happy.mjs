@@ -33,17 +33,14 @@ const envOk = (n) => fs.existsSync(new URL(`../../../../assets/environments/${n}
 const HAPPY = true;
 
 // ---------------------------------------------------------------- the beats (video s)
-const T = {
-  open: 0, wipe: 2.6, city: 4.3, reach: 4.7, palm: 5.15, pat: 5.55, lining: 5.95, palms: 6.4, cupback: 6.7,
-  watch: 7.7, stare: 8.6, mumble: 10.9, plan: 12.2,
-  bank: 13.4, give: 13.6, hands: 13.95, gun: 14.8, bags: 15.15, robbed: 16.35,
-  street: 17.6, cars: 18.4, duck: 19.45, past: 19.2, laugh: 20.15,
-  rich: 21.0, spread: 21.5,
-  turn: 24.0, siren1: 24.2, hide: 26.0,
-  door: 29.0, lock1: 29.2, lock10: 30.2, knock: 30.6, chip: 30.9, back: 32.0,
-  clock: 33.5, low: 34.5, gate: 37.0, flee: 38.6,
-  car: 40.6, dash: 41.4, wide: 42.4, stop: 43.2, climb: 44.0, amb: 44.4, nobody: 46.0,
-  sunset: 49.4, brk: 49.8, storm: 51.0, face: 54.5, smile: 55.8, forgot: 56.9, hold: 57.4, END: 61.0,
+const T = {   // draft 2 with the narrator's real line lengths (farm run 43692886197)
+  open: 0, wipe: 2.6, city: 6.2, reach: 6.6, palm: 7.05, pat: 7.45, lining: 7.85, palms: 8.3, cupback: 8.6,
+  watch: 10.6, stare: 11.5, mumble: 14.1, plan: 15.7, bank: 17.5, give: 17.7, hands: 18.05, gun: 18.9, bags: 19.25,
+  robbed: 20.45, street: 21.7, cars: 22.5, duck: 23.55, past: 23.3, laugh: 24.25, rich: 25.1, spread: 25.6,
+  turn: 28.7, siren1: 28.9, hide: 30.7, door: 33.7, lock1: 33.9, lock10: 34.9, knock: 34.9, chip: 35.2, back: 36.3,
+  clock: 40.0, low: 41.0, gate: 43.8, flee: 45.4, car: 47.7, dash: 48.5, wide: 49.5, stop: 50.3, climb: 51.1,
+  amb: 51.5, nobody: 53.1, sunset: 57.8, brk: 58.2, storm: 59.4, face: 62.9, smile: 64.2, forgot: 65.3, hold: 65.8,
+  END: 69.4,
 };
 const END = T.END;
 
@@ -206,7 +203,7 @@ expr(T.city, "spud", "sad", { curve: -0.35, brow: 0.5 }, 0.01); look(T.city, "sp
 expr(T.city, "rosti", "kind", { curve: 0.3 }, 0.01); look(T.city, "rosti", [0.4, 0], 0.01);
 // the reach (eager: the one hopeful beat)
 expr(T.reach - 0.1, "spud", "eager", { curve: 0.2, eye: 1.1 }, 0.15);
-arm(T.reach, "spud", "R", { world: [-0.82, 0.6, 1.12] }, 0.3, "out"); grip(T.reach, "spud", "R", "open", 0.2);
+arm(T.reach, "spud", "L", { world: [-0.78, 0.5, 1.22] }, 0.3, "out"); grip(T.reach, "spud", "L", "open", 0.2);   // the camera-side hand: the far one crossed his face
 // the seller's palm: first the money
 arm(T.palm, "rosti", "R", { world: [-1.62, 0.68, 0.98] }, 0.25, "out"); grip(T.palm, "rosti", "R", "flat", 0.15);
 expr(T.palm, "rosti", "focused", { brow: 0.4, curve: 0 }, 0.2);
@@ -543,25 +540,24 @@ const CUTS = [
 
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
-const NARR = !VO ? [] : [
-  [0.15, "This potato has ten million dollars.", 1.9],
-  [2.2, "And he hasn't smiled in thirty days.", 1.9],
-  [4.35, "Thirty days earlier, he couldn't even pay for a coffee.", 3.1],
-  [8.4, "Then he saw how the rich live.", 1.7],
-  [12.25, "So he made a plan.", 1.05],
-  [16.45, "He robbed a bank.", 1.05],
-  [18.5, "And he got away with it.", 1.4],
-  [21.1, "He bought everything happy people have.", 2.3],
-  [24.9, "But now, he had something to lose.", 2.0],
-  [29.1, "He locked every door.", 1.3],
-  [32.1, "Even his best friend had to stay outside.", 2.2],
-  [34.6, "He had everything... and no one.", 2.3],
-  [37.2, "Then one night, a siren stopped at his gate.", 2.6],
-  [41.0, "He ran, until the tank ran dry.", 2.0],
-  [45.9, "It was only an ambulance.", 1.5],
-  [47.6, "Nobody was ever coming for him.", 1.8],
-  [51.9, "The wind took every dollar he had.", 2.2],
-  [56.9, "And for one moment, he forgot all his worries.", 3.0],
+const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption pos]; each line ends 0.5 s before the next voice
+  [0.1, "This potato has ten million dollars.", 2.65],
+  [3.3, "And he hasn't smiled in thirty days.", 2.49],
+  [r3(T.city + 0.15), "Thirty days earlier, he couldn't even pay for a coffee.", 3.91],
+  [r3(T.watch + 0.7), "Then he saw how the rich live.", 2.27],
+  [r3(T.plan + 0.1), "So he made a plan.", 1.27],
+  [r3(T.bank + 2.5), "He robbed a bank.", 1.25],
+  [r3(T.street + 0.9), "And he got away with it.", 1.53],
+  [r3(T.rich + 0.1), "He bought everything happy people have.", 2.93],
+  [r3(T.turn + 0.9), "But now, he had something to lose.", 2.29, 330],
+  [r3(T.door + 3.0), "Even his best friend had to stay outside.", 2.81],
+  [r3(T.clock + 0.3), "He had everything... and no one.", 2.89],
+  [r3(T.gate + 0.2), "Then one night, a siren stopped at his gate.", 3.21],
+  [r3(T.car + 0.4), "He ran, until the tank ran dry.", 3.11],
+  [r3(T.car + 5.0), "It was only an ambulance.", 2.27],
+  [r3(T.car + 7.8), "Nobody was ever coming for him.", 1.87],
+  [r3(T.storm + 0.9), "The wind took every dollar he had.", 2.55],
+  [T.forgot, "And for one moment, he forgot all his worries.", 3.27],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 const beats = c.beats(CUTS, END);   // after every item (items added later are dropped: draft 1 lost its narrator this way)
