@@ -293,7 +293,7 @@
    "from": 6.2,
    "to": 11.03,
    "text": "The ceiling: granite beams. Up to eighty tonnes each.",
-   "pos": 251,
+   "pos": 231,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -383,7 +383,7 @@
    "from": 10,
    "to": 11.55,
    "text": "= 13 elephants each",
-   "pos": 877,
+   "pos": 596,
    "pop": true,
    "size": 56,
    "kinetic": false
@@ -401,7 +401,7 @@
    "from": 15.4,
    "to": 19.58,
    "text": "It comes from Aswan, more than eight hundred kilometres up the Nile.",
-   "pos": 251,
+   "pos": 231,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -590,7 +590,7 @@
    "from": 34.3,
    "to": 38.79,
    "text": "Aliens? Type one. Humans? Type two.",
-   "pos": 268,
+   "pos": 245,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -617,7 +617,7 @@
    "from": 39.39,
    "to": 40.5,
    "text": "I'll wait.",
-   "pos": 268,
+   "pos": 245,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1873,11 +1873,11 @@
      13.2
     ],
     "look": [
-     3001.054,
-     0.5064,
-     10.6298
+     3001.0506,
+     0.701,
+     10.6042
     ],
-    "fov": 31.303,
+    "fov": 31.572,
     "to": {
      "pos": [
       3001.3,
@@ -1885,11 +1885,11 @@
       12.6
      ],
      "look": [
-      3001.0528,
-      0.5628,
-      10.6226
+      3001.0504,
+      0.7123,
+      10.6031
      ],
-     "fov": 31.303
+     "fov": 31.572
     },
     "dur": 1.75,
     "ease": "inOut"

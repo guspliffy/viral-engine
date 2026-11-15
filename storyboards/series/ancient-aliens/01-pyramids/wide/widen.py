@@ -57,7 +57,7 @@ for rel in SRC:
         for i in order[:n]:
             a, b = orig[i], orig[j]
             if a["from"] < b["to"] and b["from"] < a["to"] and a.get("style") != "label" and b.get("style") != "label":
-                need = sb["captions"][i]["pos"] + round((b["pos"] - a["pos"]) * 0.92)
+                need = sb["captions"][i]["pos"] + round(min((b["pos"] - a["pos"]) * 0.92, sb["captions"][i]["size"] * 1.15))
                 if sb["captions"][j]["pos"] < need: sb["captions"][j]["pos"] = need
     out = os.path.join(HERE, f"{sid}-wide.json")
     json.dump(sb, open(out, "w"), indent=1); print(out)

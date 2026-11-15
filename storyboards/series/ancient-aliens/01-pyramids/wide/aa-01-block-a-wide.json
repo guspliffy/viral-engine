@@ -858,7 +858,7 @@
    "from": 0.3,
    "to": 3.12,
    "text": "One block. Every two minutes.",
-   "pos": 251,
+   "pos": 200,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -876,7 +876,7 @@
    "from": 3.15,
    "to": 6.3,
    "text": "Ten hours a day. For twenty years.",
-   "pos": 251,
+   "pos": 200,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1128,7 +1128,7 @@
    "from": 11.3,
    "to": 17.05,
    "text": "Five clues. When three stars rise over these pyramids tonight... you'll know who really built them.",
-   "pos": 251,
+   "pos": 215,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1166,7 +1166,7 @@
    "from": 18.6,
    "to": 20.92,
    "text": "Two point three million blocks.",
-   "pos": 251,
+   "pos": 200,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1292,7 +1292,7 @@
    "from": 21.5,
    "to": 24.13,
    "text": "On average, heavier than a car.",
-   "pos": 251,
+   "pos": 231,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1321,7 +1321,7 @@
    "from": 27.4,
    "to": 32.18,
    "text": "No cranes. No steel. And every two minutes...",
-   "pos": 251,
+   "pos": 231,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1384,7 +1384,7 @@
    "from": 36.3,
    "to": 38.73,
    "text": "A hundred and forty-six metres.",
-   "pos": 251,
+   "pos": 215,
    "pop": false,
    "size": 54,
    "kinetic": false
@@ -1582,7 +1582,7 @@
    "from": 39.35,
    "to": 44.76,
    "text": "For almost four thousand years, nothing on Earth stood taller.",
-   "pos": 251,
+   "pos": 200,
    "pop": false,
    "size": 54,
    "kinetic": false

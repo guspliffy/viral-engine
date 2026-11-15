@@ -13,6 +13,22 @@
   },
   "P17 b the boat": {
    "c": 0.12
+  },
+  "P16 b his doubt": {
+   "c": -0.05
+  }
+ },
+ "aa01-c-late": {
+  "face": {
+   "c": -0.05
+  }
+ },
+ "aa01-block-d": {
+  "faces up": {
+   "c": -0.05
+  },
+  "nobody saw that": {
+   "c": -0.05
   }
  }
 }
