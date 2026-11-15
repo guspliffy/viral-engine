@@ -141,7 +141,7 @@ function build(F, S) {
   place(T.page, "spud", OFF, 0, 0);
   say(T.page + 0.2, "c2a", T.isle);
   prop(T.page - 0.02, "marks", { type: 0, draw: 0 });
-  prop(T.page + 1.75, "marks", { type: 0.25 }, 0.5);     // "nineteen forty": the date strikes
+  prop(T.page + 1.75, "marks", { type: 0.5 }, 0.5);      // "nineteen forty": the date strikes
   prop(T.page + 2.6, "marks", { draw: 0.333 }, 0.6);     // and gets its red double line
   fx(T.page + 1.75, "typing", { gain: 0.3, dur: 0.5, reason: "a typewriter strikes 1-9-4-0" });
   // ================================================================= 27a NEAR BIMINI (8.8-11.5): the island from high above
@@ -149,7 +149,7 @@ function build(F, S) {
   fx(T.isle, "ai/car-waves", { gain: 0.06, dur: r3(T.page2 - T.isle), reason: "the open shallows far below" });
   // ================================================================= 26b SIXTY-EIGHT, SIXTY-NINE (11.5-14.4): close on the line
   say(T.page2 + 0.15, "c2c", T.air);
-  prop(T.page2 + 0.6, "marks", { type: 0.62 }, 0.3);     // "sixty-eight"
+  prop(T.page2 + 0.6, "marks", { type: 0.75 }, 0.3);     // "sixty-eight"
   prop(T.page2 + 1.6, "marks", { type: 1 }, 0.3);        // "sixty-nine"
   prop(T.page2 + 1.95, "marks", { draw: 1 }, 0.8);
   fx(T.page2 + 0.6, "typing", { gain: 0.3, dur: 0.3, reason: "6-8" }); fx(T.page2 + 1.6, "typing", { gain: 0.3, dur: 0.3, reason: "6-9" });
@@ -260,7 +260,7 @@ function build(F, S) {
   const TALL = F.key === "tall", two = (w, t) => (TALL ? t : w), d = (a, b) => r3(b - a);
   const SHOTS = [
     ["25 the road under water (part 3 hook)", T.hook, two(at(BIM, [2.44, 1.97, 7.47], [-8.88, -1.9, -40.8], 28.6, { pos: [2.0, 1.8, 6.9], fov: 22 }, T.page), ptall(BIM, PCAM.p28, 680, 395, 31, 26, T.page)), "hook"],
-    ["26 the 1940 page", T.page, two(pageCam(760, 380, 1150, [880, 300, 760, d(T.page, T.isle)]), pageCam(900, 330, 520, [968, 220, 380, d(T.page, T.isle)], 16 / 9))],
+    ["26 the 1940 page", T.page, two(pageCam(760, 380, 1150, [880, 300, 760, d(T.page, T.isle)]), pageCam(820, 500, 560, [830, 505, 530, d(T.page, T.isle)], 16 / 9))],
     ["27a near Bimini, from high above", T.isle, two(at(AIR, [3.44, 7.51, 0], [1.74, -2.37, -48.96], 36.4, { pos: [3.3, 7.35, -1.0], fov: 34 }, d(T.isle, T.page2)), ptall(AIR, PCAM.p27, 600, 512, 42, 38, d(T.isle, T.page2)))],
     ["26b '68 and '69", T.page2, two(pageCam(640, 520, 420, [640, 525, 340, d(T.page2, T.air)]), pageCam(630, 530, 420, [630, 532, 330, d(T.page2, T.air)], 16 / 9))],
     ["27 the road from above", T.air, two(at(AIR, [3.44, 7.51, 0], [1.8, -8.77, -47.25], 36.4, { pos: [3.2, 7.3, -1.0], fov: 27 }, d(T.air, T.block)), ptall(AIR, PCAM.p27, 560, 600, 36, 30, d(T.air, T.block)))],

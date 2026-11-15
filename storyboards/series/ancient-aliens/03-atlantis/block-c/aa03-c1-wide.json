@@ -2178,7 +2178,7 @@
      "do": "prop",
      "id": "marks",
      "set": {
-      "type": 0.25
+      "type": 0.5
      },
      "dur": 0.5,
      "ease": "linear",
@@ -2297,7 +2297,7 @@
      "do": "prop",
      "id": "marks",
      "set": {
-      "type": 0.62
+      "type": 0.75
      },
      "dur": 0.3,
      "ease": "linear",
