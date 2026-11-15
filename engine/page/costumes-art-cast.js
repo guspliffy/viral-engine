@@ -1062,7 +1062,8 @@ export function gridUv(g, nu, nv, fn) {
 //           The locks lag the body by the follow-through (st.ft) with 6 degrees at most.
 //   Chain   24 oval links 0.046 x 0.032, wire r 0.009, alternate links turned 90 degrees, from the collar at x +-0.16, y 0.40 in a U
 //           to y 0.26, on the sweater; lit #f6c832, shade #b5801c, a #fff3b0 glint on every third link.
-//   Glasses gold aviators (lenses 0.13 x 0.095, 0.03 apart, rim wire r 0.007, double bridge, temples 0.14) on the head's top, tipped
+//   Glasses costume.rich as an object { glasses: false } leaves them off (the money redo's Spud: the sheets show none); true or an object without `glasses` keeps them.
+//           gold aviators (lenses 0.13 x 0.095, 0.03 apart, rim wire r 0.007, double bridge, temples 0.14) on the head's top, tipped
 //           back with the head's own slope, 3 mm off the skin, centred on the meridian 0.45 rad above the eyes' line; the leaf stands free behind.
 const clampU = (x) => Math.max(0, Math.min(1, x));
 function richCoat(C, ch, out) {
@@ -1384,8 +1385,8 @@ function richCoat(C, ch, out) {
     const cmesh = mesh(mergeGeometries(geos), cm, true); chain.add(cmesh); chain.position.copy(chainPivot); cmesh.position.copy(chainPivot).negate();
     parts.add(chain);
   }
-  // ---- the aviators on the head's top
-  { const g = new THREE.Group(), gold = new THREE.MeshStandardMaterial({ color: "#f2c13a", roughness: 0.28, metalness: 0.75 }), lens = new THREE.MeshStandardMaterial({ color: "#6b5326", roughness: 0.2, metalness: 0.1, side: THREE.DoubleSide }), streak = new THREE.MeshBasicMaterial({ color: "#d9c27a", side: THREE.DoubleSide });
+  // ---- the aviators on the head's top (costume.rich: { glasses: false } leaves them off: Happiness 01 money redo, panels 07-14)
+  if (O.glasses !== false) { const g = new THREE.Group(), gold = new THREE.MeshStandardMaterial({ color: "#f2c13a", roughness: 0.28, metalness: 0.75 }), lens = new THREE.MeshStandardMaterial({ color: "#6b5326", roughness: 0.2, metalness: 0.1, side: THREE.DoubleSide }), streak = new THREE.MeshBasicMaterial({ color: "#d9c27a", side: THREE.DoubleSide });
     gold.userData.noOutline = true; lens.userData.noOutline = true; streak.userData.noOutline = true;
     const EC = O.glassEl ?? 0.98, rx = 0.38, ry = 0.44;
     const head = (x, y, off) => { const el = EC + y / ry, th = Math.asin(Math.max(-0.99, Math.min(0.99, x / (rx * Math.cos(el) * 0.97)))); const s = ch.surf(th, el); return s.pos.addScaledVector(s.normal, off); };

@@ -407,9 +407,14 @@ const parts_add = (ch, o) => ch.potatoParts.add(o);
 //   duchess  raspberry dress with a bell skirt to y 0.09, a white fur stole round the shoulders (open at the front, its two ends
 //            hanging to y 0.20 / 0.26) with seven ermine ticks, a string of 19 pearls on the chest, a cream straw sun hat (crown r 0.17,
 //            brim to r 0.38 in three waves, tipped back 16 degrees, a pink ribbon, three roses; her leaf comes up through a 0.05 hole).
+//   duchess  option watch: true (default false) puts the dauphin's gold wrist watch on her LEFT wrist (same case, same glint, same gold).
 //   dauphin  double-breasted navy velvet blazer (a V to y 0.30, hem y 0.14, a sheen band on the shoulders and the outer sleeves, four gold
 //            buttons), dark lapel roll, gold ascot, white pocket square on the left chest, 0.02 of white cuff past each sleeve, a gold watch
 //            on the LEFT wrist (key: the glint is a 4-point star on a 0.9 s period). Under the blazer a white shirt shows in the V.
+//            Options (Happiness 01 money redo, T8, side cast; the defaults are the Dauphin as built): blazer / lapel / gold "#hex" (any
+//            blazer other than the navy default gets its nap, sheen and blotch tones derived from its own colour: a black blazer reads
+//            as black velvet), ascot "#hex" | false (false: the shirt collar and the V stay plain), square false (no pocket square),
+//            watch false (no watch on the left wrist). The car seller, the shop assistants: carseller.json, assistant.json.
 //   teller   Tot and Rosti. White shirt, sleeves ending 0.09 before the hand's centre. costume.vest "#hex" | false (a V from y 0.34, hem
 //            y 0.13, 3 brass buttons), costume.tie "#hex" | false (short, burgundy), costume.glasses "#hex" | false (round brass wire, lenses
 //            r 0.085, glass at 0.08 white = steam; key `slip` 0..1 slides them 0.02 down; drive it with the `wings` action until the timeline has its own), costume.garters false turns the black sleeve
@@ -506,6 +511,31 @@ function teller(C, ch, P) {
   return { sl, apply: (st) => { gl.position.y = -0.02 * clamp01(st.slip ?? st.wings ?? 0); } };   // slip: driven with the `wings` action ({ do: "wings", to }) until the timeline has its own key, as Spud's spread
 }
 
+// ---------- the gold wrist watch (the dauphin's; the duchess with costume.watch: true): a case 0.075 across on the back of the LEFT wrist, a 4-point glint every 0.9 s ----
+// returns { hook(s, curve, L, ...) for the sleeves, apply(t) per frame }
+function wristWatch(ch, goldC) {
+  const watch = new THREE.Group(), face = new THREE.Group(); watch.visible = false; ch.root.add(watch); watch.add(face);
+  { const wm = metal(goldC, 0.25, 0.75), dial = clothMat("#f4ecd2", { roughness: 0.5 }), caseG = new THREE.CylinderGeometry(0.0375, 0.0375, 0.018, 24), dg = new THREE.CylinderGeometry(0.03, 0.03, 0.004, 24);
+    const cs = mesh(caseG, wm, false); face.add(cs); const dl = new THREE.Mesh(dg, dial); dl.position.y = 0.01; face.add(dl);
+    for (let k = 0; k < 12; k++) { const a = (k / 12) * TAU, t = new THREE.Mesh(new THREE.BoxGeometry(0.003, 0.002, k % 3 ? 0.005 : 0.008), wm); t.position.set(Math.sin(a) * 0.024, 0.0125, Math.cos(a) * 0.024); t.rotation.y = a; face.add(t); }
+    for (const [l, a] of [[0.016, 0], [0.011, 1.9]]) { const h = new THREE.Mesh(new THREE.BoxGeometry(0.002, 0.002, l), wm); h.position.set(Math.sin(a) * l / 2, 0.0125, Math.cos(a) * l / 2); h.rotation.y = a; face.add(h); }
+    const band = new THREE.Mesh(new THREE.TorusGeometry(0.037, 0.0075, 8, 26), wm); band.castShadow = true; watch.add(band); face.position.y = 0.05;
+    // the glint: two crossed thin diamonds (a 4-point star) over the case, #fff3b0, steam
+    const sg = new THREE.BufferGeometry(), sp = []; for (const [a, b] of [[0.026, 0.004], [0.004, 0.026]]) { sp.push(-a, 0, 0, 0, 0, -b, a, 0, 0, -a, 0, 0, a, 0, 0, 0, 0, b); } sg.setAttribute("position", new THREE.Float32BufferAttribute(sp, 3));
+    // (the second pair's winding is reversed on purpose: the star is double-sided below)
+    const sm = new THREE.MeshBasicMaterial({ color: "#fff3b0", side: THREE.DoubleSide, transparent: true, depthWrite: false }); sm.userData.noOutline = true; const star = steam(new THREE.Mesh(sg, sm)); star.position.y = 0.016; star.visible = false; face.add(star); watch.userData.star = star; }
+  const _m = new THREE.Matrix4(), _o = V(0, 0, 0), _t = V(0, 0, 0), _nn = V(0, 0, 0), _bb = V(0, 0, 0);
+  return {
+    hook: (s, curve, L) => {
+      if (s !== "L") return;
+      const u = Math.min(1, 1 - 0.062 / L); curve.getPointAt(u, _o); curve.getTangentAt(u, _t);
+      _nn.set(0.6, 0.8, 1.0); _nn.addScaledVector(_t, -_nn.dot(_t)).normalize();   // the case sits on the back of the wrist: the side of the arm that faces up, out and forward
+      _bb.crossVectors(_nn, _t).normalize(); _m.makeBasis(_bb, _nn, _t); watch.quaternion.setFromRotationMatrix(_m); watch.position.copy(_o); watch.visible = true;
+    },
+    apply: (t) => { const ph = (t / 0.9) % 1, k = Math.max(0, 1 - Math.abs(ph - 0.5) * 9), star = watch.userData.star; star.visible = k > 0.02; star.scale.setScalar(0.3 + 0.9 * k); star.rotation.y = 0.5 * ph; },
+  };
+}
+
 // ---------- the duchess: raspberry dress, white fur stole, pearls, cream sun hat -----------------------------------------------
 const LD = V(0.3, 0.8, 0.5).normalize(), lobeProto = new THREE.SphereGeometry(1, 6, 4);
 // a soft fur clump: a flattened ball lying on the cloth (T its long axis, n up from the cloth), a lit or a shade tone by how it faces the light
@@ -588,13 +618,21 @@ function duchess(C, ch, P) {
       const c = new THREE.Mesh(cg, coreM); c.scale.set(0.009, 0.009, 0.007); c.position.z = 0.028; rz.add(c); hat.add(rz); });
     const tp = ch.surf(0, PI / 2).pos; hat.position.set(tp.x, tp.y + 0.022, tp.z); hat.rotation.x = -(16 * PI) / 180; parts.add(hat); }
   const SLV = { from: 0.04, gap: C.cuffGap ?? 0.1, r0: 0.078, r1: 0.062, rc: 0.058, cuff: 0.01, cuffAt: 0.86 };
-  return sleeves(ch, (() => { const m = clothMat(dressC, { side: THREE.DoubleSide }); m.map = shellTexture(256, 256, seed + 3.3, 12, true); return m; })(), clothMat(shade(dressC, 0.82), { side: THREE.DoubleSide }), SLV);
+  const wt = C.watch ? wristWatch(ch, C.gold || "#f6c832") : null;   // costume.watch: true = the dauphin's gold watch on her LEFT wrist (panel 11)
+  if (wt) SLV.hook = wt.hook;
+  const sl = sleeves(ch, (() => { const m = clothMat(dressC, { side: THREE.DoubleSide }); m.map = shellTexture(256, 256, seed + 3.3, 12, true); return m; })(), clothMat(shade(dressC, 0.82), { side: THREE.DoubleSide }), SLV);
+  return wt ? { sl, apply: (st, t) => wt.apply(t) } : sl;
 }
 
 // ---------- the dauphin: navy velvet double-breasted blazer, gold ascot, pocket square, a gold watch on the left wrist ---------------------
 function dauphin(C, ch, P) {
-  const parts = ch.potatoParts, seed = P.seed, blazer = C.blazer || "#2a3f8f", lapel = C.lapel || "#18224f", ascot = C.ascot || "#e9b93a", goldC = C.gold || "#f6c832";
+  const parts = ch.potatoParts, seed = P.seed, blazer = C.blazer || "#2a3f8f", lapel = C.lapel || "#18224f", ascot = C.ascot === false ? null : C.ascot || "#e9b93a", goldC = C.gold || "#f6c832";
   const gold = metal(goldC, 0.28, 0.7);
+  // the velvet's tones: the navy default keeps its own painted tones; any other blazer colour (the black of the side cast) derives them from itself
+  const stock = blazer.toLowerCase() === "#2a3f8f", mix = (c, to, k) => `#${new THREE.Color(c).lerp(new THREE.Color(to), k).getHexString()}`;
+  const TN = stock ? { napL: "#4c63b8", napD: "#18224f", sheen: "#5f77c9", sheenA: "rgba(95,119,201,", blotL: "#34499e", blotD: "#1f3279" }
+    : { napL: mix(blazer, "#aab2c8", 0.42), napD: mix(blazer, "#000000", 0.55), sheen: mix(blazer, "#aab2c8", 0.5), blotL: mix(blazer, "#aab2c8", 0.14), blotD: mix(blazer, "#000000", 0.3) };
+  if (!stock) { const c = new THREE.Color(TN.sheen); TN.sheenA = `rgba(${Math.round(c.r * 255)},${Math.round(c.g * 255)},${Math.round(c.b * 255)},`; }
   // the shirt under it (white, showing in the V) with a small collar
   const shirtTex = fleeceTexture(1024, 512, seed + 2, 120, false, true), sN = top(ch, C, { front: -0.3, back: 0.22, vee: 0.7, hem: -1.18, color: "#fbf8f1", map: shirtTex, folds: 3, depth: 0.007, phase: 0.4 }).neck;
   parts.add(collarRoll(ch, sN, "#fbf8f1", 0.012));
@@ -602,15 +640,15 @@ function dauphin(C, ch, P) {
   const fV = elOfY(ch, 0.30), hV = Math.max(-1.3, elOfY(ch, 0.14)), bNeck = (th) => fV + (0.3 - fV) * Math.pow(0.5 * (1 - Math.cos(th)), 0.6), HEM = hV, RNG = 0.3 - HEM;
   const body = colorTex(1024, 512, (g, W, Hh) => {
     g.fillStyle = blazer; g.fillRect(0, 0, W, Hh);
-    for (let i = 0; i < 26; i++) { g.fillStyle = H2(i, 31) < 0.5 ? "#34499e" : "#1f3279"; g.globalAlpha = 0.1; g.beginPath(); g.ellipse(H2(i, 32) * W, H2(i, 33) * Hh, 40 + 60 * H2(i, 34), 30 + 40 * H2(i, 35), 0, 0, TAU); g.fill(); }
-    g.globalAlpha = 1; napStrokes(g, W, Hh, seed + 5, 420, "#4c63b8", "#18224f");
+    for (let i = 0; i < 26; i++) { g.fillStyle = H2(i, 31) < 0.5 ? TN.blotL : TN.blotD; g.globalAlpha = 0.1; g.beginPath(); g.ellipse(H2(i, 32) * W, H2(i, 33) * Hh, 40 + 60 * H2(i, 34), 30 + 40 * H2(i, 35), 0, 0, TAU); g.fill(); }
+    g.globalAlpha = 1; napStrokes(g, W, Hh, seed + 5, 420, TN.napL, TN.napD);
     // the sheen: from 0.03 m below the neckline edge to 0.06, strongest over the shoulder crest (th 1.1 .. 2.2 each side), as a soft stripe
     for (let x = 0; x < W; x += 2) { const th = (x / W) * TAU, w = Math.max(sstep(0.7, 1.3, Math.abs(Math.atan2(Math.sin(th), Math.cos(th)))), 0) * (1 - sstep(2.4, 3.0, Math.abs(Math.atan2(Math.sin(th), Math.cos(th))))), tp = bNeck(th), v1 = (tp - 0.06 / ch.ry - HEM) / RNG, v0 = (tp - 0.1 / ch.ry - HEM) / RNG;
-      g.fillStyle = "#5f77c9"; g.globalAlpha = 0.9 * w; g.fillRect(x, v0 * Hh, 2, (v1 - v0) * Hh); }
+      g.fillStyle = TN.sheen; g.globalAlpha = 0.9 * w; g.fillRect(x, v0 * Hh, 2, (v1 - v0) * Hh); }
     g.globalAlpha = 1; });
   const arms = {}; for (const [s, vb] of [["R", 0.25], ["L", 0.75]]) arms[s] = colorTex(256, 256, (g, W, Hh) => {   // u (x) along the arm, v (y) round it; the outer side of each arm is v 0.25 (R) / 0.75 (L)
-    g.fillStyle = blazer; g.fillRect(0, 0, W, Hh); napStrokes(g, W, Hh, seed + 7 + (s === "L" ? 3 : 0), 150, "#4c63b8", "#18224f", true);
-    const y0 = (vb - 0.04) * Hh, gr = g.createLinearGradient(0, y0, 0, y0 + 0.08 * Hh); gr.addColorStop(0, "rgba(95,119,201,0)"); gr.addColorStop(0.5, "rgba(95,119,201,0.95)"); gr.addColorStop(1, "rgba(95,119,201,0)"); g.fillStyle = gr; g.fillRect(0, y0, W, 0.08 * Hh); });
+    g.fillStyle = blazer; g.fillRect(0, 0, W, Hh); napStrokes(g, W, Hh, seed + 7 + (s === "L" ? 3 : 0), 150, TN.napL, TN.napD, true);
+    const y0 = (vb - 0.04) * Hh, gr = g.createLinearGradient(0, y0, 0, y0 + 0.08 * Hh); gr.addColorStop(0, TN.sheenA + "0)"); gr.addColorStop(0.5, TN.sheenA + "0.95)"); gr.addColorStop(1, TN.sheenA + "0)"); g.fillStyle = gr; g.fillRect(0, y0, W, 0.08 * Hh); });
   { const m = clothMat("#ffffff", { side: THREE.DoubleSide, vertexColors: true }); m.map = body;
     const NU = 180, NV = 36, G = garment(ch, { topFn: bNeck, top: fV, hem: HEM, folds: 4, depth: 0.009, flare: 0.016, lift: 0.052, lift0: 0.046, wave: 0.005, thick: 0.016, phase: 0.9, grad: 0.22, segs: NU, rows: NV });
     gridUv(G.outer, NU, NV, (i, j) => { const th = (i / NU) * TAU, tp = bNeck(th); return [i / NU, (tp + (HEM - tp) * (j / NV) - HEM) / RNG]; });
@@ -623,34 +661,19 @@ function dauphin(C, ch, P) {
   parts.add(mesh(cordDown(ch, 0, fV - 0.02, HEM + 0.05, 0.004, 0.066), clothMat(lapel), false));
   for (const sg of [-1, 1]) for (const dp of [0.36, 0.62]) parts.add(studAt(ch, sg * 0.2, HEM + dp * (fV - HEM) * 0.9 + 0.02, 0.082, 0.02, gold, 0.5));
   // a gold ascot in the V: a knot and two soft flaps; a white pocket square on the left chest (+x)
-  { const am = clothMat(ascot, { roughness: 0.55, side: THREE.DoubleSide }), ph0 = fV + 0.22;
+  if (ascot) { const am = clothMat(ascot, { roughness: 0.55, side: THREE.DoubleSide }), ph0 = fV + 0.22;
     parts.add(studAt(ch, 0, ph0, 0.052, 0.027, am, 0.6));
     for (const sg of [-1, 1]) { const q = ch.surf(sg * 0.09, ph0 - 0.12), f = new THREE.Mesh(new THREE.SphereGeometry(1, 10, 8), am); f.scale.set(0.028, 0.055, 0.011); f.position.copy(q.pos).addScaledVector(q.normal, 0.055); f.lookAt(q.pos.clone().addScaledVector(q.normal, 2)); f.rotateZ(sg * 0.35); f.castShadow = true; parts.add(f); } }
-  { const q = ch.surf(0.74, -0.66), n = q.normal, up = V(0, 1, 0), S = new THREE.Vector3().crossVectors(up, n).normalize(), U = new THREE.Vector3().crossVectors(n, S).normalize(), pos = [], idx = [];
+  if (C.square !== false) { const q = ch.surf(0.74, -0.66), n = q.normal, up = V(0, 1, 0), S = new THREE.Vector3().crossVectors(up, n).normalize(), U = new THREE.Vector3().crossVectors(n, S).normalize(), pos = [], idx = [];
     [[-0.016, 0.016, -0.02], [0, 0.026, 0.004], [0.016, 0.014, -0.012]].forEach(([x, hgt], k) => { const base = q.pos.clone().addScaledVector(n, 0.066).addScaledVector(U, 0.004); const o = pos.length / 3;
       for (const p of [base.clone().addScaledVector(S, x - 0.014), base.clone().addScaledVector(S, x + 0.014), base.clone().addScaledVector(S, x).addScaledVector(U, hgt).addScaledVector(n, 0.004 * k)]) pos.push(p.x, p.y, p.z); idx.push(o, o + 1, o + 2); });
     const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); parts.add(mesh(g, clothMat("#fbf8f1", { side: THREE.DoubleSide }), false)); }
-  // sleeves: end 0.11 before the hand's centre, then 0.02 of white cuff; the gold watch on the LEFT wrist, its case 0.075 across, a 4-point glint every 0.9 s
-  const watch = new THREE.Group(), face = new THREE.Group(); watch.visible = false; ch.root.add(watch); watch.add(face);
-  { const wm = metal(goldC, 0.25, 0.75), dial = clothMat("#f4ecd2", { roughness: 0.5 }), caseG = new THREE.CylinderGeometry(0.0375, 0.0375, 0.018, 24), dg = new THREE.CylinderGeometry(0.03, 0.03, 0.004, 24);
-    const cs = mesh(caseG, wm, false); face.add(cs); const dl = new THREE.Mesh(dg, dial); dl.position.y = 0.01; face.add(dl);
-    for (let k = 0; k < 12; k++) { const a = (k / 12) * TAU, t = new THREE.Mesh(new THREE.BoxGeometry(0.003, 0.002, k % 3 ? 0.005 : 0.008), wm); t.position.set(Math.sin(a) * 0.024, 0.0125, Math.cos(a) * 0.024); t.rotation.y = a; face.add(t); }
-    for (const [l, a] of [[0.016, 0], [0.011, 1.9]]) { const h = new THREE.Mesh(new THREE.BoxGeometry(0.002, 0.002, l), wm); h.position.set(Math.sin(a) * l / 2, 0.0125, Math.cos(a) * l / 2); h.rotation.y = a; face.add(h); }
-    const band = new THREE.Mesh(new THREE.TorusGeometry(0.037, 0.0075, 8, 26), wm); band.castShadow = true; watch.add(band); face.position.y = 0.05;
-    // the glint: two crossed thin diamonds (a 4-point star) over the case, #fff3b0, steam
-    const sg = new THREE.BufferGeometry(), sp = []; for (const [a, b] of [[0.026, 0.004], [0.004, 0.026]]) { sp.push(-a, 0, 0, 0, 0, -b, a, 0, 0, -a, 0, 0, a, 0, 0, 0, 0, b); } sg.setAttribute("position", new THREE.Float32BufferAttribute(sp, 3));
-    // (the second pair's winding is reversed on purpose: the star is double-sided below)
-    const sm = new THREE.MeshBasicMaterial({ color: "#fff3b0", side: THREE.DoubleSide, transparent: true, depthWrite: false }); sm.userData.noOutline = true; const star = steam(new THREE.Mesh(sg, sm)); star.position.y = 0.016; star.visible = false; face.add(star); watch.userData.star = star; }
-  const _m = new THREE.Matrix4(), _o = V(0, 0, 0), _t = V(0, 0, 0), _nn = V(0, 0, 0), _bb = V(0, 0, 0);
+  // sleeves: end 0.11 before the hand's centre, then 0.02 of white cuff; the gold watch on the LEFT wrist (costume.watch false: none), its case 0.075 across, a 4-point glint every 0.9 s
+  const wt = C.watch === false ? null : wristWatch(ch, goldC);
   const SLV = { from: 0.04, gap: C.cuffGap ?? 0.09, cuffLen: 0.02, r0: 0.09, r1: 0.068, rc: 0.058, cuff: 0.003, cuffAt: 0.86 };
-  SLV.hook = (s, curve, L, to, n, b) => {
-    if (s !== "L") return;
-    const u = Math.min(1, 1 - 0.062 / L); curve.getPointAt(u, _o); curve.getTangentAt(u, _t);
-    _nn.set(0.6, 0.8, 1.0); _nn.addScaledVector(_t, -_nn.dot(_t)).normalize();   // the case sits on the back of the wrist: the side of the arm that faces up, out and forward
-    _bb.crossVectors(_nn, _t).normalize(); _m.makeBasis(_bb, _nn, _t); watch.quaternion.setFromRotationMatrix(_m); watch.position.copy(_o); watch.visible = true;
-  };
+  if (wt) SLV.hook = wt.hook;
   const sl = sleeves(ch, { L: (() => { const m = clothMat("#ffffff", { side: THREE.DoubleSide }); m.map = arms.L; return m; })(), R: (() => { const m = clothMat("#ffffff", { side: THREE.DoubleSide }); m.map = arms.R; return m; })() }, clothMat("#fbf8f1", { side: THREE.DoubleSide }), SLV);
-  return { sl, apply: (st, t) => { const ph = (t / 0.9) % 1, k = Math.max(0, 1 - Math.abs(ph - 0.5) * 9), star = watch.userData.star; star.visible = k > 0.02; star.scale.setScalar(0.3 + 0.9 * k); star.rotation.y = 0.5 * ph; } };
+  return wt ? { sl, apply: (st, t) => wt.apply(t) } : sl;
 }
 
 // numbers from their sheets (measured 12 Nov 2026), set against Spud's own sheet and his build

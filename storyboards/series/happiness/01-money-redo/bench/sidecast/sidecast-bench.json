@@ -1,0 +1,854 @@
+{
+ "id": "sidecast-bench",
+ "title": "Side cast bench (T8)",
+ "idea": "Bench for the money redo's side characters, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "frame": "wide",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#f3d9a4",
+  "floor": "#d9b27a",
+  "light": "golden",
+  "para": 0,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "carseller_front"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "carseller_front",
+   "character": "potatobrawl/carseller",
+   "at": [
+    -1.65,
+    0
+   ],
+   "face": 0,
+   "expr": "eager",
+   "follow": 0,
+   "seed": 2.6
+  },
+  {
+   "id": "carseller_q34",
+   "character": "potatobrawl/carseller",
+   "at": [
+    -0.55,
+    0
+   ],
+   "face": 40,
+   "expr": "eager",
+   "follow": 0,
+   "seed": 2.6
+  },
+  {
+   "id": "carseller_side",
+   "character": "potatobrawl/carseller",
+   "at": [
+    0.55,
+    0
+   ],
+   "face": 90,
+   "expr": "eager",
+   "follow": 0,
+   "seed": 2.6
+  },
+  {
+   "id": "carseller_back",
+   "character": "potatobrawl/carseller",
+   "at": [
+    1.65,
+    0
+   ],
+   "face": 180,
+   "expr": "eager",
+   "follow": 0,
+   "seed": 2.6
+  },
+  {
+   "id": "assistant_front",
+   "character": "potatobrawl/assistant",
+   "at": [
+    6.35,
+    0
+   ],
+   "face": 0,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 3.6
+  },
+  {
+   "id": "assistant_q34",
+   "character": "potatobrawl/assistant",
+   "at": [
+    7.45,
+    0
+   ],
+   "face": 40,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 3.6
+  },
+  {
+   "id": "assistant_side",
+   "character": "potatobrawl/assistant",
+   "at": [
+    8.55,
+    0
+   ],
+   "face": 90,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 3.6
+  },
+  {
+   "id": "assistant_back",
+   "character": "potatobrawl/assistant",
+   "at": [
+    9.65,
+    0
+   ],
+   "face": 180,
+   "expr": "serene",
+   "follow": 0,
+   "seed": 3.6
+  },
+  {
+   "id": "agent_front",
+   "character": "potatobrawl/agent",
+   "at": [
+    14.35,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.6
+  },
+  {
+   "id": "agent_q34",
+   "character": "potatobrawl/agent",
+   "at": [
+    15.45,
+    0
+   ],
+   "face": 40,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.6
+  },
+  {
+   "id": "agent_side",
+   "character": "potatobrawl/agent",
+   "at": [
+    16.55,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.6
+  },
+  {
+   "id": "agent_back",
+   "character": "potatobrawl/agent",
+   "at": [
+    17.65,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 4.6
+  },
+  {
+   "id": "duchess_front",
+   "character": "potatobrawl/duchess",
+   "at": [
+    22.35,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 5.6
+  },
+  {
+   "id": "duchess_q34",
+   "character": "potatobrawl/duchess",
+   "at": [
+    23.45,
+    0
+   ],
+   "face": 40,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 5.6
+  },
+  {
+   "id": "duchess_side",
+   "character": "potatobrawl/duchess",
+   "at": [
+    24.55,
+    0
+   ],
+   "face": 90,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 5.6
+  },
+  {
+   "id": "duchess_back",
+   "character": "potatobrawl/duchess",
+   "at": [
+    25.65,
+    0
+   ],
+   "face": 180,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 5.6
+  },
+  {
+   "id": "spudrich_front",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    30.35,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 6.6
+  },
+  {
+   "id": "spudrich_q34",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    31.45,
+    0
+   ],
+   "face": 40,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 6.6
+  },
+  {
+   "id": "spudrich_side",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    32.55,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 6.6
+  },
+  {
+   "id": "spudrich_back",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    33.65,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 6.6
+  },
+  {
+   "id": "duchess_hand",
+   "character": "potatobrawl/duchess",
+   "at": [
+    28,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "carseller_front_cap",
+   "kind": "flatcap",
+   "wear": "carseller_front",
+   "r": 0.24,
+   "x": 0,
+   "y": 0.84,
+   "z": 0
+  },
+  {
+   "id": "carseller_front_bow",
+   "kind": "bowtie",
+   "wear": "carseller_front",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.36
+  },
+  {
+   "id": "carseller_q34_cap",
+   "kind": "flatcap",
+   "wear": "carseller_q34",
+   "r": 0.24,
+   "x": 0,
+   "y": 0.84,
+   "z": 0
+  },
+  {
+   "id": "carseller_q34_bow",
+   "kind": "bowtie",
+   "wear": "carseller_q34",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.36
+  },
+  {
+   "id": "carseller_side_cap",
+   "kind": "flatcap",
+   "wear": "carseller_side",
+   "r": 0.24,
+   "x": 0,
+   "y": 0.84,
+   "z": 0
+  },
+  {
+   "id": "carseller_side_bow",
+   "kind": "bowtie",
+   "wear": "carseller_side",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.36
+  },
+  {
+   "id": "carseller_back_cap",
+   "kind": "flatcap",
+   "wear": "carseller_back",
+   "r": 0.24,
+   "x": 0,
+   "y": 0.84,
+   "z": 0
+  },
+  {
+   "id": "carseller_back_bow",
+   "kind": "bowtie",
+   "wear": "carseller_back",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.36
+  },
+  {
+   "id": "assistant_front_cap",
+   "kind": "flatcap",
+   "wear": "assistant_front",
+   "r": 0.22,
+   "x": 0,
+   "y": 0.75,
+   "z": 0
+  },
+  {
+   "id": "assistant_q34_cap",
+   "kind": "flatcap",
+   "wear": "assistant_q34",
+   "r": 0.22,
+   "x": 0,
+   "y": 0.75,
+   "z": 0
+  },
+  {
+   "id": "assistant_side_cap",
+   "kind": "flatcap",
+   "wear": "assistant_side",
+   "r": 0.22,
+   "x": 0,
+   "y": 0.75,
+   "z": 0
+  },
+  {
+   "id": "assistant_back_cap",
+   "kind": "flatcap",
+   "wear": "assistant_back",
+   "r": 0.22,
+   "x": 0,
+   "y": 0.75,
+   "z": 0
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "carseller_front",
+   "with": "carseller_front_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_front",
+   "with": "carseller_front_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_q34",
+   "with": "carseller_q34_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_q34",
+   "with": "carseller_q34_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_side",
+   "with": "carseller_side_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_side",
+   "with": "carseller_side_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_back",
+   "with": "carseller_back_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "carseller_back",
+   "with": "carseller_back_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_front",
+   "with": "assistant_front_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_front",
+   "with": "assistant_front_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_q34",
+   "with": "assistant_q34_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_q34",
+   "with": "assistant_q34_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_side",
+   "with": "assistant_side_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_side",
+   "with": "assistant_side_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_back",
+   "with": "assistant_back_cap",
+   "from": 0,
+   "to": 21,
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  },
+  {
+   "who": "assistant_back",
+   "with": "assistant_back_cap",
+   "from": 0,
+   "to": 21,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: it sits on the head, as the paper hat and the balaclava in the first film"
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "carseller_turn",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.75,
+     4.7
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "duchess_hand",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.5,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "assistant_turn",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     8,
+     0.75,
+     4.7
+    ],
+    "look": [
+     8,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "agent_turn",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     16,
+     0.75,
+     4.7
+    ],
+    "look": [
+     16,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "duchess_turn",
+   "at": 4.199999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     24,
+     0.75,
+     4.7
+    ],
+    "look": [
+     24,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "spudrich_turn",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     32,
+     0.75,
+     4.7
+    ],
+    "look": [
+     32,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "carseller_close_front",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -1.65,
+     0.8,
+     2
+    ],
+    "look": [
+     -1.65,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "carseller_close_q34",
+   "at": 8.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.55,
+     0.8,
+     2
+    ],
+    "look": [
+     -0.55,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "carseller_close_side",
+   "at": 9.799999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.55,
+     0.8,
+     2
+    ],
+    "look": [
+     0.55,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "assistant_close_front",
+   "at": 11.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     6.35,
+     0.75,
+     2
+    ],
+    "look": [
+     6.35,
+     0.6499999999999999,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "assistant_close_q34",
+   "at": 12.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     7.45,
+     0.75,
+     2
+    ],
+    "look": [
+     7.45,
+     0.6499999999999999,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "agent_close_front",
+   "at": 14,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     14.35,
+     0.8,
+     2
+    ],
+    "look": [
+     14.35,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "agent_close_q34",
+   "at": 15.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     15.45,
+     0.8,
+     2
+    ],
+    "look": [
+     15.45,
+     0.7,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "duchess_watch",
+   "at": 16.799999999999997,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     28.5,
+     0.6,
+     1.7
+    ],
+    "look": [
+     28.14,
+     0.5,
+     0.3
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "spudrich_close_front",
+   "at": 18.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     30.35,
+     0.8500000000000001,
+     2
+    ],
+    "look": [
+     30.35,
+     0.75,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  },
+  {
+   "name": "spudrich_close_q34",
+   "at": 19.599999999999998,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     31.45,
+     0.8500000000000001,
+     2
+    ],
+    "look": [
+     31.45,
+     0.75,
+     0
+    ],
+    "fov": 24
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by bench/sidecast/make-sidecast-bench.mjs (character bench, no reviews). Stills: 1:carseller_turn 2:assistant_turn 3:agent_turn 4:duchess_turn 5:spudrich_turn 6:carseller_close_front 7:carseller_close_q34 8:carseller_close_side 9:assistant_close_front 10:assistant_close_q34 11:agent_close_front 12:agent_close_q34 13:duchess_watch 14:spudrich_close_front 15:spudrich_close_q34"
+}
