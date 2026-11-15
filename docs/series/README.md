@@ -5,6 +5,11 @@ The files next to this one are each series' format as it was written (copied fro
 Episode generators live in `storyboards/series/<series>/`; the last episode is the pattern the next one copies
 (reuse its set, props and music). Status is as of 15 Nov 2026.
 
+**A series with one goal and a real risk** (15 Nov, from the MrBeast study, on trial): a multi-part series works
+best with one goal across all its parts, a real chance of failing (a reset to zero), and a payoff at the end, so each
+part is worth watching on its own and viewers follow to see if he makes it. New series (Spud, Happiness) are pitched
+with their goal, the risk and the payoff in one line each.
+
 ## Main formats (best data so far)
 
 - **There's a catch** (`what-if.md`, `storyboards/series/what-if/`): a superpower and its price. Narrator (voice 1)
