@@ -106,7 +106,7 @@ function build(F, key) {
     // 15 (5.55-8.45): low along the line: 39 bars rise out of the sand one by one, the counter runs to 39 (he steps out of
     // this low camera's frame, behind it, and is back by the bar for 14b)
     const SP15 = W(SEA, 2.3, 2.6);
-    place(T.s15, "spud", SP15, -30); PR(T.s15, "bub", { x: SP15[0], z: SP15[1] });
+    place(T.s15 + 0.02, "spud", SP15, -30);   // on the cut frame itself: the tall 14 sees SP15 PR(T.s15, "bub", { x: SP15[0], z: SP15[1] });
     const SP14B = W(SEA, 3.6, 2.5);   // 14b: he is behind the camera, the shot is the wreck and the line alone
     place(T.s14b, "spud", SP14B, 0); PR(T.s14b, "bub", { x: SP14B[0], z: SP14B[1] });
     say("b2b");

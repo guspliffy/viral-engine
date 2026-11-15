@@ -2457,28 +2457,6 @@
      "dur": 0.3,
      "blink": false,
      "at": 1.6
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      40002.3,
-      2.6
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.93
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": -30,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.93
     }
    ]
   },
@@ -2510,14 +2488,25 @@
    },
    "do": [
     {
-     "do": "prop",
-     "id": "bub",
-     "set": {
-      "x": 40002.3,
-      "z": 2.6
-     },
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40002.3,
+      2.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -30,
      "dur": 0.01,
      "ease": "linear",
+     "sync": true,
      "at": 0
     },
     {
