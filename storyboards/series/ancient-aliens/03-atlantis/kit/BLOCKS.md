@@ -11,6 +11,8 @@ envs). Every block is built the same way: real 3D places, the PAINTINGS as the l
   of each place (painted from Jonny's approved panel crop): THE LOOK TARGET for your 3D.
 - `kit/BOARD.md` (places, axes, lights, depth), `kit/briefs/COMMON.md` + `R-COMMON.md` (bench rules, side-by-side
   sheets `bench/at-<name>-vs.png`, painting crops allowed as textures on real 3D geometry in `assets/props/atlantis/`).
+- PART HOOKS (Jonny 15 Nov: every tall part is posted as a short on its own): use `PART_HOOKS[block]` from `kit/at-kit.mjs`
+  (voice, text up top, shot) for the tall cut's first 2-3 s; the part must stand alone (no "last time", no "next clue").
 - `block-a/make-block-a.mjs` = the pattern (kit helpers `hostSay`, `atlantisClock`, `count`, `clueTag`, `score`,
   `partScore`, `hookOf`, wide + tall from one generator, `lines.mjs` + `measure-lines.mjs` for voice timing).
 - Memory notes: feedback-character-must-sit-in-scene-2026-11-15, clip-lessons-pause-you-holds-2026-11-13.

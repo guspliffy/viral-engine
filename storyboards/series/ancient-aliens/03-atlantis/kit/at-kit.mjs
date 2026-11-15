@@ -67,6 +67,15 @@ export function count(c, F, t0, t1, hold, a, b, fmt = (v) => String(Math.round(v
 export const score = (storyTime = 0, o = {}) => ({ file: "ancient-aliens/aa03-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic", ...o });
 export const HOOK = 3;
 export const hookOf = (F, block) => (F.key === "tall" && block !== "a" ? HOOK : 0);
+// The four part hooks (STORY.md "Part hooks"; Jonny 15 Nov: every part is posted as a short on its own). Each tall part
+// opens on its hook: an impossible fact in the first 2 s, at most 6 words, the text up top readable without English,
+// never "last time" or "the next clue". Part 1's hook is the film's own opening (block A, 0:00).
+export const PART_HOOKS = {
+  a: { shot: "ring city at dawn from the sea, the citadel wall flashes red", voice: "A whole island. Gone in one day.", text: "24 h" },
+  b: { shot: "a red-gold bar in the sand flashes as Spud's headlamp switches on", voice: "This metal should not exist.", text: "2015" },
+  c: { shot: "a straight line of giant square stones under clear water", voice: "He named the year. Twenty-eight years early.", text: "1940 → 1968" },
+  d: { shot: "a Greek town at night, the sea rising over its roofs", voice: "373 BC. A city sank overnight.", text: "373 BC" },
+};
 export const partScore = (block, o = {}) => (block === "a" ? score(0, o) : score(0, { file: `ancient-aliens/aa03-part-${block}.ogg`, ...o }));
 export const shot = (F, o, v) => cam(o, v[F.key] ?? v);
 // The set helpers (city(), sea(), seabed(), ...) are added here when the builders' kinds are in (BOARD section 3).
