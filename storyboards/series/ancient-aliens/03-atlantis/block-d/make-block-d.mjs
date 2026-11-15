@@ -128,7 +128,7 @@ function build(F) {
   // ================================================================= 37 HOOK (0-4.4): Helike, the sea over the roofs
   look(0, "spudK", [0.4, -0.15], 0.01); expr(0, "spudK", "neutral", { brow: 0.7, lid: 0.2 }, 0.01);
   set0(0.02, "helike", { flood: 0.25 }); PR(0.1, "helike", { flood: 0.85 }, 4.2, "inOut");
-  c.at(0.05, { fx: "shake", amp: 0.5, dur: 0.6 });
+  c.at(0.05, { fx: "shake", amp: 0.22, dur: 0.6 });   // the quake: 0.5 threw Spud out of frame for one frame (pops warn on the final)
   say(0.2, "d1", T.map1);
   big(0, T.map1 - 0.05, "373 BC");
   A(1.9, "spudK", "turn", { to: 320, dur: 0.6, ease: "inOut" }); look(2.0, "spudK", [0.1, 0.05], 0.3);
