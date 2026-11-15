@@ -1,0 +1,961 @@
+{
+ "id": "aa03-c2-tall",
+ "far": 1500,
+ "title": "Where did Atlantis go? (block C, c2)",
+ "idea": "Ancient aliens EP03 block C (1:42-2:34): clue 3, Bimini: a straight road of giant square stones under clear water; a 1940 psychic named 1968; the road found in 1968, 800 m; in Atlantis it was evening (the foreman counts Spud in); 'natural beachrock'; the staircase: can a whole city sink in one day? The sea: 3 mm a year, nothing. An earthquake: Port Royal 1692, two thirds in two minutes. Closer, but one town.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#b3683a",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -8.613,
+    1.045,
+    -4.973
+   ],
+   "light": "#ffb070",
+   "shadow": "#5a4a7a",
+   "exposure": 0.9
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-score.ogg",
+  "from": 0,
+  "skip": 124,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    39997.6,
+    119996.4
+   ],
+   "y": 0,
+   "face": 34,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "foreman",
+   "character": "ancient-aliens/alien-foreman",
+   "at": [
+    39998.8,
+    119995
+   ],
+   "y": 0,
+   "face": -100,
+   "expr": "neutral",
+   "follow": 0.3,
+   "seed": 4.2
+  },
+  {
+   "id": "crew0",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    39997.7,
+    119993
+   ],
+   "y": 0,
+   "face": 180,
+   "expr": "neutral",
+   "seed": 5
+  },
+  {
+   "id": "crew1",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    39997.9,
+    119990.5
+   ],
+   "y": 0,
+   "face": 180,
+   "expr": "neutral",
+   "seed": 6
+  },
+  {
+   "id": "crew2",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    39997.65,
+    119988
+   ],
+   "y": 0,
+   "face": 180,
+   "expr": "neutral",
+   "seed": 7
+  },
+  {
+   "id": "crew3",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    39997.85,
+    119985.5
+   ],
+   "y": 0,
+   "face": 180,
+   "expr": "neutral",
+   "seed": 8
+  }
+ ],
+ "props": [
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "proad",
+   "kind": "cplate",
+   "scene": "29",
+   "x": 40000,
+   "y": 0,
+   "z": 120000,
+   "staged": "plate 29 painted in 3D: road top y 0, sea -0.4, wall and gate 185-215 m"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 3.59,
+   "text": "In Atlantis, it was evening.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.106,
+   "text": "07:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.106,
+   "to": 0.229,
+   "text": "07:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.229,
+   "to": 0.329,
+   "text": "07:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.329,
+   "to": 0.429,
+   "text": "07:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.429,
+   "to": 0.529,
+   "text": "07:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.529,
+   "to": 0.629,
+   "text": "07:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.629,
+   "to": 0.729,
+   "text": "07:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.729,
+   "to": 0.847,
+   "text": "07:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.847,
+   "to": 0.947,
+   "text": "07:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.947,
+   "to": 1.047,
+   "text": "07:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.047,
+   "to": 1.147,
+   "text": "07:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.147,
+   "to": 1.247,
+   "text": "07:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.247,
+   "to": 1.347,
+   "text": "07:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.347,
+   "to": 1.465,
+   "text": "07:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.465,
+   "to": 1.565,
+   "text": "07:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.565,
+   "to": 1.665,
+   "text": "07:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.665,
+   "to": 1.765,
+   "text": "07:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.765,
+   "to": 1.865,
+   "text": "07:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.865,
+   "to": 1.965,
+   "text": "07:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.965,
+   "to": 2.083,
+   "text": "07:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.083,
+   "to": 2.183,
+   "text": "07:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.183,
+   "to": 2.283,
+   "text": "07:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.283,
+   "to": 2.383,
+   "text": "06:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.383,
+   "to": 2.483,
+   "text": "06:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.483,
+   "to": 2.583,
+   "text": "06:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.583,
+   "to": 2.701,
+   "text": "06:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.701,
+   "to": 2.801,
+   "text": "06:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.801,
+   "to": 2.901,
+   "text": "06:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.901,
+   "to": 3.001,
+   "text": "06:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.001,
+   "to": 3.101,
+   "text": "06:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.101,
+   "to": 3.201,
+   "text": "06:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.201,
+   "to": 3.319,
+   "text": "06:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.319,
+   "to": 3.419,
+   "text": "06:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.419,
+   "to": 3.519,
+   "text": "06:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.519,
+   "to": 3.619,
+   "text": "06:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.619,
+   "to": 3.719,
+   "text": "06:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.719,
+   "to": 3.8,
+   "text": "06:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0,
+   "to": 3.8,
+   "text": "CLUE 3/4",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  }
+ ],
+ "beats": [
+  {
+   "name": "29 Atlantis, the last evening",
+   "at": 0,
+   "len": 3.8,
+   "shot": {
+    "pos": [
+     40000,
+     0.71,
+     120000
+    ],
+    "look": [
+     39979.96,
+     -2.401,
+     119954.298
+    ],
+    "fov": 43,
+    "to": {
+     "pos": [
+      40000,
+      0.71,
+      120000
+     ],
+     "fov": 39
+    },
+    "dur": 3.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      39997.6,
+      119996.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 34,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "move",
+     "to": [
+      39998.8,
+      119995
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "turn",
+     "to": -100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew0",
+     "do": "move",
+     "to": [
+      39997.7,
+      119993
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew0",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "move",
+     "to": [
+      39997.9,
+      119990.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "move",
+     "to": [
+      39997.65,
+      119988
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew3",
+     "do": "move",
+     "to": [
+      39997.85,
+      119985.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew3",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.35,
+     "dur": 3.8,
+     "reason": "the last evening: wind off the sea",
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.3,
+     "dur": 3.8,
+     "reason": "waves wash over the road",
+     "at": 0
+    },
+    {
+     "who": "crew0",
+     "do": "move",
+     "to": [
+      39997.7,
+      119989.8
+     ],
+     "y": 0,
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "crew1",
+     "do": "move",
+     "to": [
+      39997.9,
+      119987.3
+     ],
+     "y": 0,
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "crew2",
+     "do": "move",
+     "to": [
+      39997.65,
+      119984.8
+     ],
+     "y": 0,
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "crew3",
+     "do": "move",
+     "to": [
+      39997.85,
+      119982.3
+     ],
+     "y": 0,
+     "dur": 3.6,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In Atlantis, it was evening.",
+     "tone": "calm",
+     "dur": 2.99,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      0.2,
+      0
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      0.15,
+      0.02
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "who": "foreman",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.25
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "who": "foreman",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "macro": "react",
+     "expr": "surprised",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 2.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 3.8,
+   "reason": "the headlamp band is worn on his head"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c2 of three (block time 22-25.8 s, story 124-127.8 s). Music = the EP03 score from story 124 s."
+}

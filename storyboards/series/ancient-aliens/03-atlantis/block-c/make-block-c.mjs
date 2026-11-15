@@ -30,9 +30,9 @@ const AIR = PLACE(27), BIM = P.bimini, STEP = P.step, PORT = P.portroyal, PORT2 
 // the 1940 page plate (tools/page.py): 1536 x 1024 px, hung at the page place; cameras look straight at plate pixels
 const PAGE_PX = [1536, 1024], PL = { src: "assets/plates/at-c-page-1940.png", z: r3(PAGE[1] - 2.2), center: [PAGE[0], 1.6], height: 3.2, depth: false, motion: false, dust: 0 };
 const MARKS = { size: 22, pitch: 13.2, marks: [{ text: "1940", x: 968, y: 100 }, { text: "68", x: 577, y: 538 }, { text: "69", x: 682, y: 532 }] };
-const pageCam = (cx, cy, vw, to) => {   // looks straight at plate pixel (cx, cy) with a window vw plate px wide; to: the same for a push
+const pageCam = (cx, cy, vw, to, asp = 9 / 16) => {   // looks straight at plate pixel (cx, cy) with a window vw plate px wide; to: the same for a push
   const k = PL.height / PAGE_PX[1], one = (cx, cy, vw) => {
-    const X = PAGE[0] + (cx - PAGE_PX[0] / 2) * k, Y = 1.6 - (cy - PAGE_PX[1] / 2) * k, dist = 3.4, vh = vw * k * 9 / 16;
+    const X = PAGE[0] + (cx - PAGE_PX[0] / 2) * k, Y = 1.6 - (cy - PAGE_PX[1] / 2) * k, dist = 3.4, vh = vw * k * asp;
     return { pos: [r3(X), r3(Y), r3(PL.z + dist)], look: [r3(X), r3(Y), PL.z], fov: r3(2 * Math.atan(vh / 2 / dist) * 180 / Math.PI) };
   };
   const a = one(cx, cy, vw);
@@ -43,6 +43,24 @@ const at = (o, pos, look, fov, to, dur, ease = "inOut") => ({
   pos: [r3(o[0] + pos[0]), pos[1], r3(o[1] + pos[2])], look: [r3(o[0] + look[0]), look[1], r3(o[1] + look[2])], fov,
   ...(to && { to: { pos: [r3(o[0] + to.pos[0]), to.pos[1], r3(o[1] + to.pos[2])], ...(to.look && { look: [r3(o[0] + to.look[0]), to.look[1], r3(o[1] + to.look[2])] }), ...(to.fov && { fov: to.fov }) }, dur, ease }),
 });
+
+// the painters' cameras of the projected plates (props-at-c-plate-NN.js headers), local to the place, prop y as staged here;
+// pix(C, col, row) = a look point (50 m out) through plate pixel (col, row): the tall frame pans inside the painting with it
+const PCAM = {
+  p27: { pos: [3.44, 7.51, 0], yaw: 1.99, pitch: -14.9, f: 1314, cx: 768, hy: 512 },
+  p28: { pos: [2.44, 1.97, 7.47], yaw: 13.2, pitch: -7.4, f: 1700, cx: 768, hy: 512 },
+  p29: { pos: [0, 0.71, 0], yaw: 24.672, pitch: 0, f: 1267, cx: 768, hy: 391 },
+  p34: { pos: [0, 2, 0], yaw: -12, pitch: 0, f: 1000, cx: 768, hy: 470 },
+  p35: { pos: [0, 2, 0], yaw: -38, pitch: -8, f: 1000, cx: 768, hy: 512 },
+};
+const pix = (C, col, row) => {
+  const D = Math.PI / 180, a = C.pitch * D, b = C.yaw * D, x0 = (col - C.cx) / C.f, y0 = -(row - C.hy) / C.f, z0 = -1;
+  const y1 = y0 * Math.cos(a) - z0 * Math.sin(a), z1 = y0 * Math.sin(a) + z0 * Math.cos(a);
+  const x2 = x0 * Math.cos(b) + z1 * Math.sin(b), z2 = -x0 * Math.sin(b) + z1 * Math.cos(b), n = Math.hypot(x2, y1, z2);
+  return [r3(C.pos[0] + (50 * x2) / n), r3(C.pos[1] + (50 * y1) / n), r3(C.pos[2] + (50 * z2) / n)];
+};
+// a tall camera at a painter's spot, panned to plate pixel (col, row), pushing from fov to fov2 over dur
+const ptall = (o, C, col, row, fov, fov2, dur) => at(o, C.pos, pix(C, col, row), fov, { pos: C.pos, fov: fov2 }, dur);
 
 // ---------------------------------------------------------------- the beats (block time; story time = T0 + t)
 const T = { hook: 0, page: 3.6, isle: 8.8, page2: 11.5, air: 14.4, block: 20.0, past: 22.0, today: 25.8, stair: 30.7, ruler: 35.6, wait: 39.0, port: 41.3, slide: 44.6, closer: 48.8, END: 52.0 };
@@ -111,12 +129,12 @@ function build(F, S) {
 
   // ================================================================= 25 HOOK (0-3.6): the road under clear water, Spud floats above it
   // He drifts over the first blocks, looking down at them, then up at us on "Twenty-eight years early." Part 3's hook text up top.
-  { const [fx0, fz0] = W(BIM, 0.2, 0.2); act(0, "spud", "fly", { to: { x: fx0, y: 1.35, z: fz0 }, dur: 3.4, ease: "inOut" }); }   // he drifts down over the road (feet tucked)
+  { const [fx0, fz0] = W(BIM, 0.2, 0.2); act(0, "spud", "fly", { to: { x: fx0, y: F.key === "tall" ? 0.75 : 1.35, z: fz0 }, dur: 3.4, ease: "inOut" }); }   // he drifts down over the road (feet tucked)
   look(0, "spud", [0, -0.7], 0.01); expr(0, "spud", "neutral", { brow: 0.5, lid: 0.2 }, 0.01);
   arm(0, "spud", "R", "out", 0.01); arm(0, "spud", "L", "out", 0.01);
   say(0.15, "c1", T.page);
   look(1.7, "spud", [0, 0.05], 0.35); expr(1.8, "spud", "neutral", { brow: 0.8, lid: 0.3 }, 0.3);
-  big(0, T.page, "1940 → 1968", { x: Math.round(F.W * 0.74) });
+  big(0, T.page, "1940 → 1968", { x: Math.round(F.W * (F.key === "tall" ? 0.5 : 0.74)) });
   fx(0, "ai/underwater-amb", { gain: 0.3, dur: T.page, reason: "under clear water: the hush, small bubbles" });
 
   // ================================================================= 26 THE PAGE (3.6-8.8): 1940, typed and underlined
@@ -239,27 +257,28 @@ function build(F, S) {
   { const a2 = Math.max(T.page, S.t0); if (S.t1 > a2) clueTag(c, F, L(a2), L(S.t1), 3); }
 
   // ---------------------------------------------------------------- shots (a push or a move on every one)
+  const TALL = F.key === "tall", two = (w, t) => (TALL ? t : w), d = (a, b) => r3(b - a);
   const SHOTS = [
-    ["25 the road under water (part 3 hook)", T.hook, at(BIM, [2.44, 1.97, 7.47], [-8.88, -1.9, -40.8], 28.6, { pos: [2.0, 1.8, 6.9], fov: 22 }, T.page), "hook"],
-    ["26 the 1940 page", T.page, pageCam(760, 380, 1150, [880, 300, 760, r3(T.isle - T.page)])],
-    ["27a near Bimini, from high above", T.isle, at(AIR, [3.44, 7.51, 0], [1.74, -2.37, -48.96], 36.4, { pos: [3.3, 7.35, -1.0], fov: 34 }, r3(T.page2 - T.isle))],
-    ["26b '68 and '69", T.page2, pageCam(640, 520, 420, [640, 525, 340, r3(T.air - T.page2)])],
-    ["27 the road from above", T.air, at(AIR, [3.44, 7.51, 0], [1.8, -8.77, -47.25], 36.4, { pos: [3.2, 7.3, -1.0], fov: 27 }, r3(T.block - T.air))],
-    ["28 his palm on the first block", T.block, at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.4, 0.8], 13, { pos: [2.2, 1.85, 7.0], fov: 11 }, r3(T.past - T.block))],
-    ["29 Atlantis, the last evening", T.past, at(ROAD, [0, 0.71, 0], [-20.9, -4.4, -45.4], 37.7, { pos: [-0.25, 0.71, -0.55], fov: 35 }, r3(T.today - T.past))],
-    ["30 natural beachrock", T.today, at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 15, { pos: [1.85, 1.85, 6.9], fov: 13 }, r3(T.stair - T.today))],
-    ["31 the staircase", T.stair, at(STEP, [0.6, 1.15, 6.5], [0, 0.85, -20], 38, { pos: [0.5, 1.1, 5.6] }, r3(T.ruler - T.stair))],
-    ["32 the ruler", T.ruler, at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 38, { pos: [-0.15, 0.2, 2.35] }, r3(T.wait - T.ruler))],
-    ["33 he waits", T.wait, at(STEP, [0.3, 0.8, 3.2], [0.0, 0.85, -0.8], 34, { pos: [0.3, 0.8, 3.05] }, r3(T.port - T.wait))],
-    ["34 Port Royal 1692", T.port, at(PORT, [0, 2, 0], [10.4, -2.5, -48.9], 46.7, { pos: [0.15, 1.95, -0.5], fov: 41 }, r3(T.slide - T.port))],
-    ["35 two thirds into the sea", T.slide, at(PORT2, [0, 2, 0], [30.5, -5.0, -39.0], 46.7, { pos: [0.25, 1.95, -0.35], fov: 43 }, r3(T.closer - T.slide))],
-    ["36 closer, but one town", T.closer, at(STEP, [0.3, 1.0, 3.0], [0, 0.95, -10], 34, { pos: [0.3, 1.0, 2.6] }, r3(T.END - T.closer))],
+    ["25 the road under water (part 3 hook)", T.hook, two(at(BIM, [2.44, 1.97, 7.47], [-8.88, -1.9, -40.8], 28.6, { pos: [2.0, 1.8, 6.9], fov: 22 }, T.page), ptall(BIM, PCAM.p28, 680, 395, 31, 26, T.page)), "hook"],
+    ["26 the 1940 page", T.page, two(pageCam(760, 380, 1150, [880, 300, 760, d(T.page, T.isle)]), pageCam(900, 330, 520, [968, 220, 380, d(T.page, T.isle)], 16 / 9))],
+    ["27a near Bimini, from high above", T.isle, two(at(AIR, [3.44, 7.51, 0], [1.74, -2.37, -48.96], 36.4, { pos: [3.3, 7.35, -1.0], fov: 34 }, d(T.isle, T.page2)), ptall(AIR, PCAM.p27, 600, 512, 42, 38, d(T.isle, T.page2)))],
+    ["26b '68 and '69", T.page2, two(pageCam(640, 520, 420, [640, 525, 340, d(T.page2, T.air)]), pageCam(630, 530, 420, [630, 532, 330, d(T.page2, T.air)], 16 / 9))],
+    ["27 the road from above", T.air, two(at(AIR, [3.44, 7.51, 0], [1.8, -8.77, -47.25], 36.4, { pos: [3.2, 7.3, -1.0], fov: 27 }, d(T.air, T.block)), ptall(AIR, PCAM.p27, 560, 600, 36, 30, d(T.air, T.block)))],
+    ["28 his palm on the first block", T.block, two(at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.4, 0.8], 13, { pos: [2.2, 1.85, 7.0], fov: 11 }, d(T.block, T.past)), at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.45, 0.8], 22, { pos: [2.2, 1.85, 7.0], fov: 19 }, d(T.block, T.past)))],
+    ["29 Atlantis, the last evening", T.past, two(at(ROAD, [0, 0.71, 0], [-20.9, -4.4, -45.4], 37.7, { pos: [-0.25, 0.71, -0.55], fov: 35 }, d(T.past, T.today)), ptall(ROAD, PCAM.p29, 790, 470, 43, 39, d(T.past, T.today)))],
+    ["30 natural beachrock", T.today, two(at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 15, { pos: [1.85, 1.85, 6.9], fov: 13 }, d(T.today, T.stair)), at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 26, { pos: [1.85, 1.85, 6.9], fov: 23 }, d(T.today, T.stair)))],
+    ["31 the staircase", T.stair, two(at(STEP, [0.6, 1.15, 6.5], [0, 0.85, -20], 38, { pos: [0.5, 1.1, 5.6] }, d(T.stair, T.ruler)), at(STEP, [0.6, 1.15, 6.5], [-0.15, 0.95, -10], 55, { pos: [0.5, 1.1, 5.6] }, d(T.stair, T.ruler)))],
+    ["32 the ruler", T.ruler, two(at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 38, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)), at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 60, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)))],
+    ["33 he waits", T.wait, two(at(STEP, [0.3, 0.8, 3.2], [0.0, 0.85, -0.8], 34, { pos: [0.3, 0.8, 3.05] }, d(T.wait, T.port)), at(STEP, [0.3, 0.8, 3.2], [-0.3, 0.85, -0.8], 55, { pos: [0.3, 0.8, 3.05] }, d(T.wait, T.port)))],
+    ["34 Port Royal 1692", T.port, two(at(PORT, [0, 2, 0], [10.4, -2.5, -48.9], 46.7, { pos: [0.15, 1.95, -0.5], fov: 41 }, d(T.port, T.slide)), ptall(PORT, PCAM.p34, 560, 512, 52, 46, d(T.port, T.slide)))],
+    ["35 two thirds into the sea", T.slide, two(at(PORT2, [0, 2, 0], [30.5, -5.0, -39.0], 46.7, { pos: [0.25, 1.95, -0.35], fov: 43 }, d(T.slide, T.closer)), ptall(PORT2, PCAM.p35, 450, 512, 52, 48, d(T.slide, T.closer)))],
+    ["36 closer, but one town", T.closer, two(at(STEP, [0.3, 1.0, 3.0], [0, 0.95, -10], 34, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)), at(STEP, [0.3, 1.0, 3.0], [-0.35, 0.95, -6], 58, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)))],
   ];
   const mine = SHOTS.filter(([, t], i) => (SHOTS[i + 1]?.[1] ?? T.END) > S.t0 + 1e-6 && t < S.t1 - 1e-6).map(([n, t, s, k]) => [n, L(Math.max(t, S.t0)), s, k]);
   const beats = c.beats(mine, L(S.t1));
 
   // ---------------------------------------------------------------- cast + props of this storyboard
-  const first = { c1: { at: W(BIM, 0.3, 1.4), y: 1.5, face: 0 }, c2: { at: W(ROAD, -2.4, -3.6), y: 0, face: 34 }, c3: { at: W(BIM, -0.5, 0.8), y: 0, face: 15 } }[S.key];
+  const first = { c1: { at: W(BIM, 0.3, 1.4), y: F.key === "tall" ? 0.95 : 1.5, face: 0 }, c2: { at: W(ROAD, -2.4, -3.6), y: 0, face: 34 }, c3: { at: W(BIM, -0.5, 0.8), y: 0, face: 15 } }[S.key];
   const cast = [{ id: "spud", character: CAST.spud, at: first.at, y: first.y, face: first.face, expr: "neutral", follow: 0.2, seed: 2.1 }];
   if (S.key === "c2") {
     cast.push({ id: "foreman", character: CAST.foreman, at: W(ROAD, -1.2, -5.0), y: 0, face: -100, expr: "neutral", follow: 0.3, seed: 4.2 });
