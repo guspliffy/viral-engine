@@ -1,0 +1,1520 @@
+{
+ "id": "aa03-b4-tall",
+ "far": 1500,
+ "title": "Where did Atlantis go? (block B, b4)",
+ "idea": "Ancient aliens EP03 block B (0:50-1:42): his headlamp clicks on and a red-gold bar flashes in the sand off Sicily ('This metal should not exist.'); clue 2, 2015: 39 bars in a 2,600-year-old wreck; orichalcum, the citadel wall at noon; the map west through the Pillars of Heracles; the first quake topples a column; the Atlantic is 4 km deep; real 1 or made up 2?",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#3f86d6",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -0.734,
+    9.063,
+    -4.162
+   ],
+   "light": "#fff6e0",
+   "shadow": "#7f88c0",
+   "exposure": 1
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-part-b.ogg",
+  "from": 0,
+  "skip": 24,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40504.2,
+    119998.36
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.2
+  },
+  {
+   "id": "crew1",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    40505.6,
+    119998.3
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "crew2",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    40507,
+    119998.3
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 4.3
+  }
+ ],
+ "props": [
+  {
+   "id": "noon",
+   "kind": "atbnoon",
+   "x": 40000,
+   "y": 0,
+   "z": 120000,
+   "view": "bridge19",
+   "light": "noon",
+   "seed": 1,
+   "quake": 0
+  },
+  {
+   "id": "col",
+   "kind": "column",
+   "x": 40536.8,
+   "y": 2.2,
+   "z": 119920,
+   "dir": 308,
+   "fall": 0,
+   "splash": 0,
+   "light": "noon",
+   "staged": "the white column on the far quay by the water; it topples forward into the canal, toward us"
+  }
+ ],
+ "fx": [
+  {
+   "do": "shake",
+   "at": 3.05,
+   "dur": 2.6,
+   "amp": 0.035
+  },
+  {
+   "do": "shake",
+   "at": 4.43,
+   "dur": 0.8,
+   "amp": 0.05
+  },
+  {
+   "do": "shake",
+   "at": 4.7,
+   "dur": 1.8,
+   "amp": 0.025
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.25,
+   "to": 1.8,
+   "text": "It ruled the sea.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.85,
+   "to": 5.88,
+   "text": "Then, one day, the ground began to shake.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.1,
+   "text": "14:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.1,
+   "to": 0.2,
+   "text": "14:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.2,
+   "to": 0.3,
+   "text": "14:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.3,
+   "to": 0.414,
+   "text": "13:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.414,
+   "to": 0.537,
+   "text": "13:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.537,
+   "to": 0.637,
+   "text": "13:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.637,
+   "to": 0.737,
+   "text": "13:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.737,
+   "to": 0.837,
+   "text": "13:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.837,
+   "to": 0.937,
+   "text": "13:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.937,
+   "to": 1.037,
+   "text": "13:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.037,
+   "to": 1.156,
+   "text": "13:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.156,
+   "to": 1.279,
+   "text": "13:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.279,
+   "to": 1.379,
+   "text": "13:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.379,
+   "to": 1.479,
+   "text": "13:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.479,
+   "to": 1.579,
+   "text": "13:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.579,
+   "to": 1.679,
+   "text": "13:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.679,
+   "to": 1.779,
+   "text": "13:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.779,
+   "to": 1.897,
+   "text": "13:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.897,
+   "to": 1.997,
+   "text": "13:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.997,
+   "to": 2.097,
+   "text": "13:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.097,
+   "to": 2.197,
+   "text": "13:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.197,
+   "to": 2.297,
+   "text": "13:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.297,
+   "to": 2.397,
+   "text": "13:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.397,
+   "to": 2.515,
+   "text": "13:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.515,
+   "to": 2.615,
+   "text": "13:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.615,
+   "to": 2.715,
+   "text": "13:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.715,
+   "to": 2.815,
+   "text": "13:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.815,
+   "to": 2.915,
+   "text": "13:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.915,
+   "to": 3.015,
+   "text": "13:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.015,
+   "to": 3.133,
+   "text": "13:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.133,
+   "to": 3.233,
+   "text": "13:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.233,
+   "to": 3.333,
+   "text": "13:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.333,
+   "to": 3.433,
+   "text": "13:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.433,
+   "to": 3.533,
+   "text": "13:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.533,
+   "to": 3.633,
+   "text": "13:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.633,
+   "to": 3.751,
+   "text": "13:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.751,
+   "to": 3.851,
+   "text": "13:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.851,
+   "to": 3.951,
+   "text": "13:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.951,
+   "to": 4.051,
+   "text": "13:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.051,
+   "to": 4.151,
+   "text": "13:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.151,
+   "to": 4.251,
+   "text": "13:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.251,
+   "to": 4.369,
+   "text": "13:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.369,
+   "to": 4.469,
+   "text": "13:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.469,
+   "to": 4.569,
+   "text": "13:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.569,
+   "to": 4.669,
+   "text": "13:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.669,
+   "to": 4.769,
+   "text": "13:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.769,
+   "to": 4.869,
+   "text": "13:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.869,
+   "to": 4.987,
+   "text": "13:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.987,
+   "to": 5.087,
+   "text": "13:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.087,
+   "to": 5.187,
+   "text": "13:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.187,
+   "to": 5.287,
+   "text": "13:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.287,
+   "to": 5.387,
+   "text": "13:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.387,
+   "to": 5.487,
+   "text": "13:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.487,
+   "to": 5.606,
+   "text": "13:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.606,
+   "to": 5.729,
+   "text": "13:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.729,
+   "to": 5.829,
+   "text": "13:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.829,
+   "to": 5.929,
+   "text": "13:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.929,
+   "to": 6.029,
+   "text": "13:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.029,
+   "to": 6.129,
+   "text": "13:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.129,
+   "to": 6.229,
+   "text": "13:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.229,
+   "to": 6.347,
+   "text": "13:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.347,
+   "to": 6.447,
+   "text": "13:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.447,
+   "to": 6.547,
+   "text": "13:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.547,
+   "to": 6.647,
+   "text": "13:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.647,
+   "to": 6.747,
+   "text": "13:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.747,
+   "to": 6.847,
+   "text": "13:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.847,
+   "to": 6.965,
+   "text": "13:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.965,
+   "to": 7.065,
+   "text": "13:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.065,
+   "to": 7.165,
+   "text": "13:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.165,
+   "to": 7.2,
+   "text": "13:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0,
+   "to": 7.2,
+   "text": "CLUE 2/4",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  }
+ ],
+ "beats": [
+  {
+   "name": "19 noon on the bridge",
+   "at": 0,
+   "len": 2.95,
+   "shot": {
+    "pos": [
+     40500,
+     1.2,
+     120000
+    ],
+    "look": [
+     40505.2,
+     0.9,
+     119998
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      40500,
+      1.2,
+      120000
+     ],
+     "look": [
+      40505.1,
+      0.9,
+      119998
+     ],
+     "fov": 32
+    },
+    "dur": 2.95,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40504.2,
+      119998.36
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "move",
+     "to": [
+      40505.6,
+      119998.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "move",
+     "to": [
+      40507,
+      119998.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "turn",
+     "to": 170,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "noon",
+      "grip": [
+       504.34,
+       0.66,
+       -2.35
+      ],
+      "palm": [
+       504.34,
+       0.61,
+       -2.35
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "noon",
+      "grip": [
+       504.06,
+       0.66,
+       -2.35
+      ],
+      "palm": [
+       504.06,
+       0.61,
+       -2.35
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "noon",
+     "set": {
+      "quake": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "col",
+     "set": {
+      "fall": 0,
+      "splash": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It ruled the sea.",
+     "tone": "calm",
+     "dur": 1.32,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Then, one day, the ground began to shake.",
+     "tone": "question",
+     "dur": 3.63,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.85
+    }
+   ]
+  },
+  {
+   "name": "19b the column falls into the canal",
+   "at": 2.95,
+   "len": 1.75,
+   "shot": {
+    "pos": [
+     40500,
+     1.2,
+     120000
+    ],
+    "look": [
+     40531.5,
+     6.5,
+     119923.5
+    ],
+    "fov": 17,
+    "to": {
+     "pos": [
+      40500,
+      1.2,
+      120000
+     ],
+     "look": [
+      40531.5,
+      5,
+      119923.5
+     ],
+     "fov": 15.5
+    },
+    "dur": 1.75,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "noon",
+     "set": {
+      "quake": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.5,
+     "reason": "the ground rumbles: the first quake",
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "col",
+     "set": {
+      "fall": 1
+     },
+     "dur": 1.25,
+     "ease": "in",
+     "at": 0.25
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "crew1",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "crew2",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.35
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "do": "prop",
+     "id": "col",
+     "set": {
+      "splash": 1
+     },
+     "dur": 1.3,
+     "ease": "out",
+     "at": 1.48
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.45,
+     "reason": "the column crashes into the canal",
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -75,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew1",
+     "do": "turn",
+     "to": -80,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew2",
+     "do": "turn",
+     "to": -85,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew1",
+     "do": "move",
+     "to": [
+      40505.5,
+      119999.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew1",
+     "do": "turn",
+     "to": -80,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew2",
+     "do": "move",
+     "to": [
+      40506.9,
+      120000.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    },
+    {
+     "who": "crew2",
+     "do": "turn",
+     "to": -85,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.73
+    }
+   ]
+  },
+  {
+   "name": "20 they turn and look up",
+   "at": 4.7,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     40500,
+     1.2,
+     120000
+    ],
+    "look": [
+     40504.6,
+     0.9,
+     119998.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      40500,
+      1.2,
+      120000
+     ],
+     "look": [
+      40504.6,
+      0.9,
+      119998.6
+     ],
+     "fov": 33
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "look",
+     "to": [
+      0.1,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "crew1",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "look",
+     "to": [
+      0.1,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "crew2",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "col",
+     "set": {
+      "fall": 1,
+      "splash": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.3,
+     "reason": "the rumble rolls on",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 7.2,
+   "reason": "the headlamp band is worn on his head"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-b/make-block-b.mjs (b4). Block B of four, block time 24-31.2 s."
+}

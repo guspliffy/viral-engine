@@ -47,6 +47,7 @@ function build(F, key) {
   const [, from, to] = PARTS.find((p) => p[0] === key);
   const L = (t) => r3(t - from);                       // block time -> this storyboard's time
   const c = clip({ faces: "strong" }), { A, sfx, cap } = c;
+  const TW = (wide, tall) => (F.key === "tall" ? tall : wide);   // a shot's camera for the wide film / the tall part
   const PR = (t, id, set, dur = 0.01, ease = "linear") => c.prop(L(t), id, set, dur, ease);
   const place = (t, who, xz, yaw) => { A(L(t) - 0.02 < 0 ? 0 : r3(L(t) - 0.02), who, "move", { to: xz, dur: 0.01, steps: 0, ease: "linear", sync: true }); A(L(t) - 0.02 < 0 ? 0 : r3(L(t) - 0.02), who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true }); };
   const look = (t, who, to, dur = 0.2) => A(L(t), who, "look", { to, dur, blink: false });
@@ -65,7 +66,8 @@ function build(F, key) {
   const SH = [];   // [name, block time, camera, kind?]
   const cast = [{ id: "spud", character: CAST.spud, at: [0, 0], face: 0, expr: "neutral", follow: 0.2, seed: 2.2 }];
   const props = [];
-  let set, music = score(T0 + from), light = "under";
+  // tall = part 2 on its own: its first shot (13) is the part's hook (PART_HOOKS.b), and the part score runs on block time
+  let set, music = F.key === "tall" ? partScore("b", { skip: from }) : score(T0 + from), light = "under";
 
   if (key === "b1" || key === "b5") {
     set = { type: "plain", ...AT_UNDER };
@@ -93,14 +95,14 @@ function build(F, key) {
     expr(0.5, "spud", "surprised", { open: 0.25 }, 0.18); look(1.15, "spud", [0, 0.05], 0.25);
     say("b1");
     cap(0, r3(T.s14 + 0.4), "2015", F.NUM + 80, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * (F.key === "tall" ? 0.5 : 0.7)) });
-    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, C(SEA, [1.1, 0.5, 2.3], [0.28, 0.36, -0.01], 38, { pos: [0.95, 0.47, 2.0], dur: T.s14 - T.s13 }), "hook"]);
+    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, TW(C(SEA, [1.1, 0.5, 2.3], [0.28, 0.36, -0.01], 38, { pos: [0.95, 0.47, 2.0], dur: T.s14 - T.s13 }), C(SEA, [3.2, 0.8, 1.3], [0, 0.8, 0.42], 36, { pos: [3.0, 0.78, 1.22], dur: T.s14 - T.s13 })), "hook"]);
     // 14 (2.6-5.55): he stands by the hero bar; the wreck, the line of sand mounds -> "Clue two. 2015."
     A(L(T.s14) - 0.02, "spud", "crouch", { to: 0, dur: 0.01 }); A(L(T.s14) - 0.02, "spud", "pitch", { to: 0, dur: 0.01 });
     place(T.s14, "spud", SP14, -25); look(T.s14, "spud", [-0.3, -0.25], 0.01); expr(T.s14, "spud", "neutral", { brow: 0.7, lid: 0.25 }, 0.01);
     PR(T.s14, "bub", { x: SP14[0], z: SP14[1] }); PR(T.s14, "bars", { lampX: 0.8, lampY: HEAD, lampZ: 0.8, lamp: 0.6 });
     say("b2a");
     look(T.s14 + 1.6, "spud", [0.1, 0.05], 0.3);
-    SH.push(["14 the wreck, Spud by the bar", T.s14, C(SEA, [0.5, 1.2, 7], [-1, 0.9, -6], 40, { pos: [0.4, 1.15, 6.4], dur: T.s15 - T.s14 })]);
+    SH.push(["14 the wreck, Spud by the bar", T.s14, TW(C(SEA, [0.5, 1.2, 7], [-1, 0.9, -6], 40, { pos: [0.4, 1.15, 6.4], dur: T.s15 - T.s14 }), C(SEA, [1.3, 1.0, 5], [1.25, 0.8, -6], 40, { pos: [1.25, 0.98, 4.6], dur: T.s15 - T.s14 }))]);
     // 15 (5.55-8.45): low along the line: 39 bars rise out of the sand one by one, the counter runs to 39 (he steps out of
     // this low camera's frame, behind it, and is back by the bar for 14b)
     const SP15 = W(SEA, 2.3, 2.6);
@@ -123,7 +125,7 @@ function build(F, key) {
     look(T.s16, "spud", [0.3, -0.6], 0.01); expr(T.s16, "spud", "happy", { brow: 0.5 }, 0.01);
     arm(T.s16 + 0.25, "R", { prop: "bars", grip: [-0.17, 0.11, 0.1], palm: [-0.17, 0, 0.1] }, 0.45, "out");
     say("b3");
-    SH.push(["16 his palm on the bar", T.s16, C(SEA, [0.8, 0.5, 1.85], [-0.05, 0.3, 0.42], 36, { pos: [0.7, 0.48, 1.65], dur: T.s17 - T.s16 })]);
+    SH.push(["16 his palm on the bar", T.s16, TW(C(SEA, [0.8, 0.5, 1.85], [-0.05, 0.3, 0.42], 36, { pos: [0.7, 0.48, 1.65], dur: T.s17 - T.s16 }), C(SEA, [1.6, 0.85, 2.9], [-0.05, 0.68, 0.42], 34, { pos: [1.5, 0.83, 2.75], dur: T.s17 - T.s16 }))]);
     sfx(0, "ai/underwater-amb", { gain: 0.3, dur: r3(to - from), reason: "under the sea: the hush and the far clicks" });
     sfx(1.2, "ai/bubbles-burst", { gain: 0.12, reason: "his breath bubbles" }); sfx(9.2, "ai/bubbles-burst", { gain: 0.1, reason: "his breath bubbles" });
   }
@@ -147,7 +149,7 @@ function build(F, key) {
     PR(21.6, "route", { pillars: 1 }, 0.5, "out");                         // "Beyond the Pillars of Heracles"
     PR(21.8, "route", { draw: 1 }, 1.8, "inOut");                          // out into the Atlantic
     cap(L(21.7), L(T.s19), "GIBRALTAR", F.NUM + 80, false, { size: Math.round(F.numSize * 0.55), kinetic: false });
-    SH.push(["18 the route west", T.s18, mcam(820, 470, 1400, { to: { ...mcam(560, 490, 1100) }, dur: r3(T.s19 - T.s18 - 0.3), ease: "inOut" })]);
+    SH.push(["18 the route west", T.s18, TW(mcam(820, 470, 1400, { to: { ...mcam(560, 490, 1100) }, dur: r3(T.s19 - T.s18 - 0.3), ease: "inOut" }), mcam(1100, 512, 560, { to: { ...mcam(430, 512, 560) }, dur: r3(T.s19 - T.s18 - 0.3), ease: "inOut" }))]);
     sfx(L(T.s18 + 1.0), "scribble", { gain: 0.12, reason: "the ink line scratches across the map" });
   }
 
@@ -161,7 +163,7 @@ function build(F, key) {
     PR(T.s21, "bub", { x: SP21[0], z: SP21[1] });
     say("b6a"); say("b6b");
     count(c, F, L(T.s21 + 0.5), L(T.s21 + 2.3), L(T.s22 - 0.2), 0, 4, (v) => `${Math.round(v)} km`);
-    SH.push(["21 the shelf edge over the deep", T.s21, C(SHELF, [6.5, 1.0, 13], [-2, -1, -3], 40, { pos: [6.2, 0.9, 11.6], dur: T.s22 - T.s21 })]);
+    SH.push(["21 the shelf edge over the deep", T.s21, TW(C(SHELF, [6.5, 1.0, 13], [-2, -1, -3], 40, { pos: [6.2, 0.9, 11.6], dur: T.s22 - T.s21 }), C(SHELF, [6.5, 1.0, 13], [0, 0.3, -2], 34, { pos: [6.2, 0.9, 11.6], dur: T.s22 - T.s21 }))]);
     sfx(L(T.s21), "ai/underwater-amb", { gain: 0.34, dur: r3(T.s22 - T.s21), reason: "the deep: low hush" });
     // 22-23 (38.0-44.0): the ask, close: one finger, then both
     const SP22 = W(SEA, 0, 0.5);
@@ -180,7 +182,7 @@ function build(F, key) {
     look(T.s24 + 0.9, "spud", [0.35, 0.05], 0.4); look(T.s24 + 2.6, "spud", [0, 0.05], 0.4);
     A(r3(L(T.END) - 0.6), "spud", "noblink", { dur: 0.6 });
     SH.push(["22-24 the ask, I'll wait: the fish", T.s22, TALL
-      ? C(SEA, [0, 0.7, -3.6], [0, 1.25, 0.5], 50, { pos: [0, 0.7, -3.3], dur: T.END - T.s22 })
+      ? C(SEA, [0, 0.7, -3.2], [0, 1.22, 0.5], 46, { pos: [0, 0.7, -3.0], dur: T.END - T.s22 })
       : C(SEA, [0, 0.7, -3.0], [0, 1.02, 0.5], 34, { pos: [0, 0.7, -2.85], dur: T.END - T.s22 })]);
     sfx(L(T.s22), "ai/underwater-amb", { gain: 0.28, dur: r3(T.END - T.s22), reason: "under the sea" });
     sfx(L(T.s24 + 0.3), "ai/bubbles-burst", { gain: 0.12, reason: "his breath bubbles while he waits" });
@@ -214,8 +216,8 @@ function build(F, key) {
     look(T.s17 + 1.5, "crew1", [-0.4, 0.05], 0.3);
     say("b3");
     // from the painter's spot (the projection holds), a long lens on the two of them at the plates
-    const aim = (fov, x) => ({ pos: [r3(NOON[0] + WP[0]), WP[1], r3(NOON[1] + WP[2])], look: [r3(NOON[0] + x), 0.62, r3(NOON[1] - 1.1)], fov });
-    SH.push(["17 noon: his palm on the red-gold plate", T.s17, { ...aim(25, 1.45), to: aim(22, 1.35), dur: r3(T.s18 - T.s17), ease: "inOut" }]);
+    const aim = (fov, x, y = 0.62) => ({ pos: [r3(NOON[0] + WP[0]), WP[1], r3(NOON[1] + WP[2])], look: [r3(NOON[0] + x), y, r3(NOON[1] - 1.1)], fov });
+    SH.push(["17 noon: his palm on the red-gold plate", T.s17, TW({ ...aim(25, 1.45), to: aim(22, 1.35), dur: r3(T.s18 - T.s17), ease: "inOut" }, { ...aim(40, 0.55, 0.75), to: aim(36, 0.5, 0.72), dur: r3(T.s18 - T.s17), ease: "inOut" })]);
     sfx(L(T.s17), "cloth", { gain: 0.25, reason: "the cloth rubs the plate" });
     sfx(L(T.s17 + 0.05), "hit-plate", { gain: 0.08, reason: "his palm lands on the metal plate" });
   }
@@ -233,13 +235,14 @@ function build(F, key) {
     say("b5a"); say("b5b");
     // the quake on "the ground began to shake": dust off the walls, the column topples, the splash
     const Q = AT.b5b + 1.2;
+    const look20 = (fov, x, z) => ({ pos: [r3(BR[0] + BP[0]), BP[1], r3(BR[1] + BP[2])], look: [r3(BR[0] + x), 0.9, r3(BR[1] + z)], fov });   // tall: from the painter's spot at the cast
     PR(T.s19, "noon", { quake: 0 }, 0); PR(Q, "noon", { quake: 1 }, 0.6, "out");
     PR(T.s19, "col", { fall: 0, splash: 0 }, 0); PR(Q + 0.15, "col", { fall: 1 }, 1.25, "in"); PR(Q + 1.38, "col", { splash: 1 }, 1.3, "out");
     fx.push({ do: "shake", at: L(Q), dur: 2.6, amp: 0.035 }, { do: "shake", at: L(Q + 1.38), dur: 0.8, amp: 0.05 });
     sfx(L(Q), "rumble", { gain: 0.5, reason: "the ground rumbles: the first quake" });
     sfx(L(Q + 1.38), "ai/water-gush", { gain: 0.45, reason: "the column crashes into the canal" });
     for (const [id, d] of [["crew1", 0.15], ["crew2", 0.3], ["spud", 0.4]]) { look(Q + d, id, [-0.35, 0.35], 0.25); expr(Q + d, id, "surprised", { open: 0.3 }, 0.2); }
-    SH.push(["19 noon on the bridge", T.s19, { ...paint(BR, BP, BD, 38.1), to: paint(BR, BP, BD, 37.5, 0.4), dur: r3(Q - 0.1 - T.s19), ease: "inOut" }]);
+    SH.push(["19 noon on the bridge", T.s19, TW({ ...paint(BR, BP, BD, 38.1), to: paint(BR, BP, BD, 37.5, 0.4), dur: r3(Q - 0.1 - T.s19), ease: "inOut" }, { ...look20(34, 5.2, -2.0), to: look20(32, 5.1, -2.0), dur: r3(Q - 0.1 - T.s19), ease: "inOut" })]);
     // 19b the column falls, close: a long lens from the painter's spot (a crop of the painting, so the projection holds)
     const colCam = (fov, dy) => ({ pos: [r3(BR[0] + BP[0]), BP[1], r3(BR[1] + BP[2])], look: [r3(BR[0] + 31.5), r3(6.5 + dy), r3(BR[1] - 76.5)], fov });
     SH.push(["19b the column falls into the canal", Q - 0.1, { ...colCam(17, 0), to: colCam(15.5, -1.5), dur: r3(T.s20 - Q + 0.1), ease: "inOut" }]);
@@ -251,7 +254,7 @@ function build(F, key) {
     place(T.s20, "crew1", W(BR, 5.5, -0.5), -80); place(T.s20, "crew2", W(BR, 6.9, 0.7), -85);   // they stepped back from the rail
     fx.push({ do: "shake", at: L(T.s20), dur: 1.8, amp: 0.025 });
     const aim20 = (fov) => ({ pos: [r3(BR[0] + BP[0]), BP[1], r3(BR[1] + BP[2])], look: [r3(BR[0] + 5.6), 0.75, r3(BR[1] - 1.2)], fov });
-    SH.push(["20 they turn and look up", T.s20, { ...aim20(22), to: aim20(19), dur: r3(T.s21 - T.s20), ease: "inOut" }]);
+    SH.push(["20 they turn and look up", T.s20, TW({ ...aim20(22), to: aim20(19), dur: r3(T.s21 - T.s20), ease: "inOut" }, { ...look20(36, 4.6, -1.4), to: look20(33, 4.6, -1.4), dur: r3(T.s21 - T.s20), ease: "inOut" })]);
     sfx(L(T.s20), "rumble", { gain: 0.3, reason: "the rumble rolls on" });
   }
 
