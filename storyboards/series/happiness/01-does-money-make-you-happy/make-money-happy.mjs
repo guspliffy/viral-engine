@@ -557,14 +557,14 @@ const CUTS = [
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
 const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption pos]; each line ends 0.5 s before the next voice
-  [0.1, "You have ten million dollars.", 2.2],
-  [2.85, "And you haven't smiled in thirty days.", 2.5],
+  [0.1, "You have ten million dollars.", 2.69],
+  [3.34, "And you haven't smiled in thirty days.", 2.4],
   [r3(T.city + 0.15), "Thirty days earlier, he couldn't even pay for a coffee.", 3.91],
   [r3(T.watch + 0.7), "Then he saw how the rich live.", 2.27],
   [r3(T.plan + 0.1), "So he made a plan.", 1.27],
   [r3(T.bank + 2.5), "He robbed a bank.", 1.25, 300],   // above her raised hands in the over-gun shot
   [r3(T.street + 0.9), "And he got away with it.", 1.53],
-  [r3(T.rich + 0.1), "He bought everything he thought made him happy.", 3.3],
+  [r3(T.rich + 0.1), "He bought everything he thought made him happy.", 2.89],
   [r3(T.turn + 0.9), "But now, he had something to lose.", 2.29, 330],
   [r3(T.door + 3.0), "Even his best friend had to stay outside.", 2.81],
   [r3(T.clock + 0.3), "He had everything... and no one.", 2.89],
@@ -573,7 +573,7 @@ const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption
   [r3(T.car + 5.0), "It was only an ambulance.", 2.27],
   [r3(T.car + 7.8), "Nobody was ever coming for him.", 1.87, 262],   // over his head in the close
   [r3(T.storm + 0.9), "The wind took every dollar he had.", 2.55],
-  [T.forgot, "But the beauty of the sunset made him forget all his worries.", 4.0],
+  [T.forgot, "But the beauty of the sunset made him forget all his worries.", 4.11],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 const PUSH = new Map([[SH.city, 0.1], [SH.cityb, 0.08], [SH.bank, 0.14], [SH.overgun, 0.08], [SH.street, 0.08], [SH.hide, 0.1], [SH.mday, 0.12], [SH.turn, 0.12], [SH.door, 0.1], [SH.sidewin, 0.08], [SH.clock, 0.15], [SH.low, 0.18], [SH.gate, 0.12], [SH.climb, 0.12], [SH.closeup, 0.12], [SH.sunset, 0.05], [SH.face, 0.1]]);

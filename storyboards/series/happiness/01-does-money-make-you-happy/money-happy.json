@@ -1014,7 +1014,7 @@
      "line": "You have ten million dollars.",
      "voice": "narrator",
      "take": 1,
-     "dur": 2.2,
+     "dur": 2.69,
      "caption": true,
      "pos": 470,
      "gain": 4,
@@ -1079,17 +1079,6 @@
      "at": 2.4
     },
     {
-     "macro": "narrate",
-     "line": "And you haven't smiled in thirty days.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 2.5,
-     "caption": true,
-     "pos": 470,
-     "gain": 4,
-     "at": 2.85
-    },
-    {
      "who": "rich",
      "do": "look",
      "to": [
@@ -1109,6 +1098,17 @@
      "dur": 0.35,
      "ease": "linear",
      "at": 3
+    },
+    {
+     "macro": "narrate",
+     "line": "And you haven't smiled in thirty days.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 3.34
     },
     {
      "do": "prop",
@@ -4506,7 +4506,7 @@
      "line": "He bought everything he thought made him happy.",
      "voice": "narrator",
      "take": 1,
-     "dur": 3.3,
+     "dur": 2.89,
      "caption": true,
      "pos": 470,
      "gain": 4,
@@ -7303,7 +7303,7 @@
      "line": "But the beauty of the sunset made him forget all his worries.",
      "voice": "narrator",
      "take": 1,
-     "dur": 4,
+     "dur": 4.11,
      "caption": true,
      "pos": 470,
      "gain": 4,
