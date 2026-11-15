@@ -1,0 +1,1089 @@
+{
+ "id": "spree-plain",
+ "title": "Spree props bench (spree-plain)",
+ "idea": "Props bench for engine/page/props-spree.js (happiness 01 money redo), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#7d8996",
+  "floor": "#56606b"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    60,
+    66
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "chk",
+   "kind": "bigcheck",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "slap": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "chkB",
+   "kind": "bigcheck",
+   "x": 0.7,
+   "y": 0,
+   "z": 0,
+   "corner": [
+    -1,
+    -1
+   ],
+   "scale": 0.001
+  },
+  {
+   "id": "cap",
+   "kind": "flatcap",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.95,
+   "z": 0.02,
+   "scale": 0.001
+  },
+  {
+   "id": "bow",
+   "kind": "bowtie",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.34,
+   "z": 0.36,
+   "scale": 0.001
+  },
+  {
+   "id": "cb1",
+   "kind": "clipboard",
+   "x": 19.7,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "cb2",
+   "kind": "clipboard",
+   "gold": true,
+   "x": 20,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "cb3",
+   "kind": "clipboard",
+   "gold": true,
+   "face": 1,
+   "x": 20.3,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  }
+ ],
+ "allowClip": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "check_34",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.02,
+     1,
+     1.15
+    ],
+    "look": [
+     0,
+     0,
+     0.02
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "slap": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "check_top",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.02,
+     1.5,
+     0.35
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "check_slap0.2",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.12,
+     2.4
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 0.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "check_slap0.55",
+   "at": 4.199999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.12,
+     2.4
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 0.55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "check_slap1",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.12,
+     2.4
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "check_corners",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.35,
+     1.8,
+     2.2
+    ],
+    "look": [
+     0.35,
+     0,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 1,
+      "slap": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "worn_front",
+   "at": 8.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     10.2,
+     0.75,
+     3.4
+    ],
+    "look": [
+     10,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      10,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60,
+      66
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "worn_side",
+   "at": 9.799999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     13.4,
+     0.75,
+     0.6
+    ],
+    "look": [
+     10,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      10,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60,
+      66
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "clip_back",
+   "at": 11.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     20,
+     0.4,
+     2.3
+    ],
+    "look": [
+     20,
+     0.18,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "clip_front",
+   "at": 12.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     20,
+     0.4,
+     -2.3
+    ],
+    "look": [
+     20,
+     0.18,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "chk",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "chkB",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bow",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cb3",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by bench/spree/make-spree-bench.mjs (props bench, no reviews). Stills: 1:check_34 2:check_top 3:check_slap0.2 4:check_slap0.55 5:check_slap1 6:check_corners 7:worn_front 8:worn_side 9:clip_back 10:clip_front"
+}

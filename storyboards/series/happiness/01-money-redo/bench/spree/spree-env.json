@@ -1,0 +1,619 @@
+{
+ "id": "spree-env",
+ "title": "Spree props bench (spree-env)",
+ "idea": "Props bench for engine/page/props-spree.js (happiness 01 money redo), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "env",
+  "env": "sunny-city-avenue",
+  "envCheck": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.2,
+    0.6
+   ],
+   "face": 0,
+   "expr": "surprised",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "heap",
+   "kind": "bagmountain",
+   "x": 0,
+   "z": -2.4,
+   "gap": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "sun",
+   "kind": "sundisc",
+   "az": 0,
+   "el": 65,
+   "scale": 0.001
+  },
+  {
+   "id": "sun2",
+   "kind": "sundisc",
+   "az": 0,
+   "el": 25,
+   "scale": 0.001
+  }
+ ],
+ "allowClip": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "p05_gap1",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "shed": 0,
+      "gap": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "p05_gap0",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 0,
+      "shed": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shed0.15",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0.15
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shed0.4",
+   "at": 4.199999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0.4
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shed0.65",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0.65
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "shed1",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     0.42,
+     4.2
+    ],
+    "look": [
+     0.1,
+     1.35,
+     -2.4
+    ],
+    "fov": 55
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "heap_wide",
+   "at": 8.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     3.5,
+     1.6,
+     4.5
+    ],
+    "look": [
+     0,
+     1.4,
+     -2.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "heap_back",
+   "at": 9.799999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -3,
+     1.8,
+     -8.5
+    ],
+    "look": [
+     0,
+     1.4,
+     -2.4
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 1,
+      "gap": 1,
+      "shed": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sun_el65",
+   "at": 11.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     0.5,
+     4
+    ],
+    "look": [
+     0.3,
+     3.8,
+     0
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "sun_el25",
+   "at": 12.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     8
+    ],
+    "look": [
+     0,
+     7.5,
+     -20
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "sun2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "notes": "Generated by bench/spree/make-spree-bench.mjs (props bench, no reviews). Stills: 1:p05_gap1 2:p05_gap0 3:shed0.15 4:shed0.4 5:shed0.65 6:shed1 7:heap_wide 8:heap_back 9:sun_el65 10:sun_el25"
+}
