@@ -39,8 +39,8 @@ const T = {   // draft 2 with the narrator's real line lengths (farm run 4369288
   robbed: 20.45, street: 21.7, cars: 22.5, duck: 23.55, past: 23.3, laugh: 24.25, rich: 25.1, spread: 25.6,
   turn: 28.7, siren1: 28.9, hide: 30.7, door: 33.7, lock1: 33.9, lock10: 34.9, knock: 34.9, chip: 35.2, back: 36.3,
   clock: 40.0, low: 41.0, gate: 43.8, flee: 45.4, car: 47.7, dash: 48.5, wide: 49.5, stop: 50.3, climb: 51.1,
-  amb: 51.5, nobody: 53.1, sunset: 57.8, brk: 58.2, storm: 59.4, face: 62.9, smile: 64.2, forgot: 65.3, hold: 65.8,
-  END: 69.4,
+  amb: 51.5, nobody: 53.1, sunset: 57.8, brk: 58.2, storm: 59.4, face: 62.9, smile: 64.2, forgot: 65.95, hold: 65.8,
+  END: 70.2,
 };
 const END = T.END;
 
@@ -546,7 +546,7 @@ const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption
   [r3(T.city + 0.15), "Thirty days earlier, he couldn't even pay for a coffee.", 3.91],
   [r3(T.watch + 0.7), "Then he saw how the rich live.", 2.27],
   [r3(T.plan + 0.1), "So he made a plan.", 1.27],
-  [r3(T.bank + 2.5), "He robbed a bank.", 1.25],
+  [r3(T.bank + 2.5), "He robbed a bank.", 1.25, 300],   // above her raised hands in the over-gun shot
   [r3(T.street + 0.9), "And he got away with it.", 1.53],
   [r3(T.rich + 0.1), "He bought everything happy people have.", 2.93],
   [r3(T.turn + 0.9), "But now, he had something to lose.", 2.29, 330],

@@ -14,9 +14,9 @@ PARTS = [   # draft 2 (69.4 s, on the narrator's real line lengths)
     (43.80, "disaster/disaster-01.ogg", 0.0, 3.9, 0.9, 0.05, 0.4),        # the siren at the gate, he flees
     (47.70, "zombies-score/zombies-score-01.ogg", 0.0, 10.4, 0.8, 0.2, 0.8),  # the dry car, the climb, the ambulance
     (57.80, "drama-swell/drama-swell-01.ogg", 0.0, 10.0, 1.0, 0.4, 1.6),  # the clouds break, the money flies, the smile
-    (66.60, "calm-landscape/calm-landscape-01.ogg", 0.0, 2.8, 0.7, 1.2, 0.0),   # the hold: it settles into calm
+    (66.60, "calm-landscape/calm-landscape-01.ogg", 0.0, 3.6, 0.7, 1.2, 0.0),   # the hold: it settles into calm
 ]
-END = 69.4
+END = 70.2
 ins, flt = [], []
 for i, (at, f, ss, ln, g, fi, fo) in enumerate(PARTS):
     ins += ["-i", os.path.join(AI, f)]
