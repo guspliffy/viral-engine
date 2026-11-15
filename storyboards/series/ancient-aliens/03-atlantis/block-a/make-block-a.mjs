@@ -114,7 +114,8 @@ function build(F) {
   const l6a = say(T.s08 + 0.3, "l6a", T.s09);
   count(c, F, r3(T.s08 + 0.6 + H), r3(T.s08 + 2.4 + H), r3(T.s09 + H), 0, 30, (v) => `${Math.round(v)} m`);
   say(T.s09 + 0.2, "l6b", T.s10);
-  cap(r3(T.s09 + 0.4 + H), r3(T.s10 + H), "SUEZ 24 m", F.NUM, false, { size: F.numSize, kinetic: false });
+  cap(r3(T.s09 + H), r3(T.s10 + H), "30 m", F.NUM + 150, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.22) });
+  cap(r3(T.s09 + 0.4 + H), r3(T.s10 + H), "SUEZ 24 m", F.NUM, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.72) });
   sfx(T.s08, "ai/underwater-amb", { gain: 0.25, dur: r3(T.s10 - T.s08), reason: "the cut-away: water pressing on the stone" });
 
   // ================================================================= 10-11 THE WALLS (35.4-44.4): white, black, red; brass, tin, red metal
@@ -147,7 +148,7 @@ function build(F) {
     ["06 the scroll", T.s06, ecam("at-gibraltar-rock", { fov: 34, dz: -1.6, dy: -0.2, tilt: -4, to: { dz: -1.9 }, dur: r3(T.s07 - T.s06) })],
     ["07 clue one: the plan", T.s07, ecam("at-aerial-rings", { fov: 36, dz: -2, to: { dz: -6 }, dur: r3(T.s08 - T.s07) })],
     ["08 the canal cut-away", T.s08, ecam("at-canal-cutaway", { fov: 42, to: { dz: -1.2 }, dur: r3(T.s09 - T.s08) })],
-    ["09 deeper than Suez", T.s09, ecam("at-canal-suez", { fov: 42, to: { dz: -1.0 }, dur: r3(T.s10 - T.s09) })],
+    ["09 deeper than Suez", T.s09, { ...ecam("at-canal-suez", { fov: 35 }), to: { ...ecam("at-canal-suez", { fov: 35 }), fov: 32 }, dur: r3(T.s10 - T.s09), ease: "inOut" }],
     ["10 the bare stone", T.s10, ecam("at-citadel-wall-dawn", { fov: 40, pan: -3, tilt: -4, to: { dz: -0.4, pan: 0, tilt: -4 }, dur: r3(T.s11 - T.s10) })],
     ["11 brass, tin, red", T.s11, ecam("at-walls-view", { fov: 35, to: { dz: -1.5 }, dur: r3(T.s12 - T.s11) })],
     ["12 the dark water", T.s12, ecam("at-gibraltar-rock", { fov: 36, dz: -1.2, to: { dz: -1.6, tilt: -5 }, dur: r3(END - T.s12) })],
