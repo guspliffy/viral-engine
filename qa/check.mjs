@@ -720,7 +720,17 @@ export function captionResults(sb, layout) {
       held.set(key, hd);
     });
   }
-  for (const [k, t] of outside) add("fail", "caption-safe-zone", `"${k}" leaves the safe zone at ${t.toFixed(2)}s: the app's buttons and text cover it there`);
+  // a counting number is a new caption on every step: one fail per run of captions that leave one after another
+  // (Ancient aliens EP01 wide, 15 Nov 2026: one degree counter gave 10 fail lines and pushed three subtitle fails
+  // below what was read, so a farm round went out with them still in)
+  const runsOut = [];
+  for (const [k, t] of [...outside].sort((a, b) => a[1] - b[1])) {
+    const r = runsOut[runsOut.length - 1];
+    if (r && t - r.to <= 0.25) { r.to = t; r.keys.push(k); } else runsOut.push({ from: t, to: t, keys: [k] });
+  }
+  for (const r of runsOut) add("fail", "caption-safe-zone", r.keys.length === 1
+    ? `"${r.keys[0]}" leaves the safe zone at ${r.from.toFixed(2)}s: the app's buttons and text cover it there`
+    : `"${r.keys[0]}" ... "${r.keys[r.keys.length - 1]}" (${r.keys.length} captions in a row, a counter) leave the safe zone at ${r.from.toFixed(2)}-${r.to.toFixed(2)}s: the app's buttons and text cover them there`);
   if (!outside.size && worst.size) add("pass", "caption-safe-zone", "every caption stays clear of the app's buttons and text");
   for (const [k, b] of band) add("fail", "caption-band", `"${k}" sits at y ${Math.round(b.top)}-${Math.round(b.bottom)} at ${b.t.toFixed(2)}s, outside the brief's subtitle band y ${B[0]}-${B[1]} ("captionBand"): move its pos (the caption's top y)`);
   if (B && !band.size && worst.size) add("pass", "caption-band", `every subtitle inside y ${B[0]}-${B[1]}`);

@@ -143,6 +143,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     if (k === "warn") { if (lines.length) console.log(` ${head[k]}`); sayChanged(lines, path.join(o.out, `${sb.id}.warnings.txt`), { root: ROOT }); continue; }
     if (!rs.length) continue;
     console.log(` ${head[k]}`);
+    // every fail on one line first, by check, so a long list can't hide one (a farm log read in part, 15 Nov 2026)
+    if (k === "fail" && rs.length > 2) { const by = {}; for (const r of rs) by[r.check] = (by[r.check] || 0) + 1; console.log(`  ${rs.length} fails: ${Object.entries(by).map(([n, m]) => `${n} ${m}`).join(", ")}; fix every one before the next render`); }
     for (const l of lines) console.log(l);
   }
   for (const l of waiverLines(wv, path.relative(process.cwd(), o.sb))) console.log(l);
