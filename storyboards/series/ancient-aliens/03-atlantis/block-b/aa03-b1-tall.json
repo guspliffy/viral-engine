@@ -1,0 +1,2826 @@
+{
+ "id": "aa03-b1-tall",
+ "far": 1500,
+ "title": "Where did Atlantis go? (block B, b1)",
+ "idea": "Ancient aliens EP03 block B (0:50-1:42): his headlamp clicks on and a red-gold bar flashes in the sand off Sicily ('This metal should not exist.'); clue 2, 2015: 39 bars in a 2,600-year-old wreck; orichalcum, the citadel wall at noon; the map west through the Pillars of Heracles; the first quake topples a column; the Atlantic is 4 km deep; real 1 or made up 2?",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#2a8f96",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -1.17,
+    9.397,
+    -3.214
+   ],
+   "light": "#d8fff4",
+   "shadow": "#2f6a7a",
+   "exposure": 0.92
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-part-b.ogg",
+  "from": 0,
+  "skip": 0,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "sand",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "Under the sea off Sicily: Spud's headlamp clicks on and a red-gold bar flashes in the sand; 2015 on screen"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "seabed",
+   "kind": "atbseabed",
+   "x": 40000,
+   "y": 0,
+   "z": 0,
+   "seed": 1
+  },
+  {
+   "id": "schoolA",
+   "kind": "fish",
+   "type": "silver",
+   "n": 12,
+   "x": 40000,
+   "y": 0,
+   "z": 0,
+   "path": [
+    [
+     -6,
+     2.6,
+     -4
+    ],
+    [
+     -2,
+     3,
+     -6
+    ],
+    [
+     3,
+     2.7,
+     -5
+    ],
+    [
+     5,
+     2.4,
+     -2
+    ],
+    [
+     1,
+     2.2,
+     -1.5
+    ],
+    [
+     -4,
+     2.4,
+     -2
+    ]
+   ],
+   "phase": 0.1,
+   "staged": "a school of silver fish swimming high over the sand"
+  },
+  {
+   "id": "schoolB",
+   "kind": "fish",
+   "type": "silver",
+   "n": 9,
+   "x": 40000,
+   "y": 0,
+   "z": 0,
+   "path": {
+    "c": [
+     2.5,
+     2,
+     -7
+    ],
+    "r": 3.2
+   },
+   "phase": 0.55,
+   "speed": 0.6,
+   "staged": "a second school swimming over the wreck"
+  },
+  {
+   "id": "bub",
+   "kind": "bubbles",
+   "x": 40000,
+   "y": 0,
+   "z": 0,
+   "from": [
+    0,
+    0.75,
+    0.15
+   ],
+   "surface": 15,
+   "every": 2,
+   "size": 0.6
+  },
+  {
+   "id": "bars",
+   "kind": "ingots",
+   "x": 40000.45,
+   "y": 0,
+   "z": 0.35,
+   "count": 1,
+   "lamp": 0,
+   "lampFrom": [
+    -0.7,
+    0.54,
+    0.13
+   ],
+   "staged": "the 39 red-gold bars: the hero bar by his hand, the line off toward the wreck"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 2.74,
+   "text": "This metal should not exist.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 3,
+   "text": "2015",
+   "pos": 660,
+   "pop": false,
+   "size": 110,
+   "kinetic": false,
+   "x": 540
+  },
+  {
+   "from": 2.8,
+   "to": 5.65,
+   "text": "Clue two. 2015.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.7,
+   "to": 8.55,
+   "text": "Divers off Sicily find thirty-nine bars of it.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.7,
+   "to": 5.8,
+   "text": "1",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 5.8,
+   "to": 5.9,
+   "text": "5",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 5.9,
+   "to": 6,
+   "text": "9",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 6.1,
+   "text": "13",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.1,
+   "to": 6.2,
+   "text": "16",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.2,
+   "to": 6.3,
+   "text": "20",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.3,
+   "to": 6.4,
+   "text": "22",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.4,
+   "to": 6.5,
+   "text": "25",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.5,
+   "to": 6.6,
+   "text": "27",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.6,
+   "to": 6.7,
+   "text": "29",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.7,
+   "to": 6.8,
+   "text": "31",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.8,
+   "to": 6.9,
+   "text": "32",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 6.9,
+   "to": 7,
+   "text": "34",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 7.1,
+   "text": "35",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.1,
+   "to": 7.2,
+   "text": "36",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.2,
+   "to": 7.3,
+   "text": "37",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.3,
+   "to": 7.4,
+   "text": "37",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.4,
+   "to": 7.5,
+   "text": "38",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.5,
+   "to": 7.6,
+   "text": "38",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.6,
+   "to": 7.7,
+   "text": "38",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.7,
+   "to": 7.8,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.8,
+   "to": 7.9,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 7.9,
+   "to": 8,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 8.1,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 8.1,
+   "to": 8.2,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 8.2,
+   "to": 8.75,
+   "text": "39",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 8.6,
+   "to": 12.3,
+   "text": "In a ship two thousand six hundred years old.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.65,
+   "to": 9.75,
+   "text": "1,000 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 9.75,
+   "to": 9.85,
+   "text": "1,300 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 9.85,
+   "to": 9.95,
+   "text": "1,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 9.95,
+   "to": 10.05,
+   "text": "1,800 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.05,
+   "to": 10.15,
+   "text": "2,000 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.15,
+   "to": 10.25,
+   "text": "2,200 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.25,
+   "to": 10.35,
+   "text": "2,300 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.35,
+   "to": 10.45,
+   "text": "2,400 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.45,
+   "to": 10.55,
+   "text": "2,500 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.55,
+   "to": 10.65,
+   "text": "2,500 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.65,
+   "to": 10.75,
+   "text": "2,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.75,
+   "to": 10.85,
+   "text": "2,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.85,
+   "to": 10.95,
+   "text": "2,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 10.95,
+   "to": 11.05,
+   "text": "2,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 11.05,
+   "to": 12,
+   "text": "2,600 YEARS",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 12.35,
+   "to": 16.27,
+   "text": "Copper and zinc. Plato called it orichalcum.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.1,
+   "text": "17:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.1,
+   "to": 0.2,
+   "text": "17:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.2,
+   "to": 0.3,
+   "text": "17:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.3,
+   "to": 0.4,
+   "text": "17:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.4,
+   "to": 0.508,
+   "text": "17:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.508,
+   "to": 0.608,
+   "text": "17:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.608,
+   "to": 0.708,
+   "text": "17:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.708,
+   "to": 0.808,
+   "text": "17:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.808,
+   "to": 0.908,
+   "text": "17:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.908,
+   "to": 1.008,
+   "text": "16:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.008,
+   "to": 1.112,
+   "text": "16:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.112,
+   "to": 1.212,
+   "text": "16:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.212,
+   "to": 1.312,
+   "text": "16:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.312,
+   "to": 1.412,
+   "text": "16:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.412,
+   "to": 1.512,
+   "text": "16:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.512,
+   "to": 1.612,
+   "text": "16:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.612,
+   "to": 1.717,
+   "text": "16:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.717,
+   "to": 1.838,
+   "text": "16:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.838,
+   "to": 1.958,
+   "text": "16:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.958,
+   "to": 2.058,
+   "text": "16:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.058,
+   "to": 2.158,
+   "text": "16:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.158,
+   "to": 2.258,
+   "text": "16:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.258,
+   "to": 2.358,
+   "text": "16:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.358,
+   "to": 2.458,
+   "text": "16:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.458,
+   "to": 2.563,
+   "text": "16:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.563,
+   "to": 2.683,
+   "text": "16:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.683,
+   "to": 2.783,
+   "text": "16:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.783,
+   "to": 2.883,
+   "text": "16:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.883,
+   "to": 2.983,
+   "text": "16:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.983,
+   "to": 3.083,
+   "text": "16:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.083,
+   "to": 3.183,
+   "text": "16:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.183,
+   "to": 3.287,
+   "text": "16:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.287,
+   "to": 3.387,
+   "text": "16:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.387,
+   "to": 3.487,
+   "text": "16:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.487,
+   "to": 3.587,
+   "text": "16:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.587,
+   "to": 3.687,
+   "text": "16:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.687,
+   "to": 3.787,
+   "text": "16:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.787,
+   "to": 3.892,
+   "text": "16:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.892,
+   "to": 4.013,
+   "text": "16:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.013,
+   "to": 4.133,
+   "text": "16:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.133,
+   "to": 4.233,
+   "text": "16:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.233,
+   "to": 4.333,
+   "text": "16:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.333,
+   "to": 4.433,
+   "text": "16:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.433,
+   "to": 4.533,
+   "text": "16:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.533,
+   "to": 4.633,
+   "text": "16:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.633,
+   "to": 4.737,
+   "text": "16:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.737,
+   "to": 4.837,
+   "text": "16:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.837,
+   "to": 4.937,
+   "text": "16:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.937,
+   "to": 5.037,
+   "text": "16:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.037,
+   "to": 5.137,
+   "text": "16:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.137,
+   "to": 5.237,
+   "text": "16:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.237,
+   "to": 5.342,
+   "text": "16:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.342,
+   "to": 5.463,
+   "text": "16:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.463,
+   "to": 5.583,
+   "text": "16:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.583,
+   "to": 5.683,
+   "text": "16:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.683,
+   "to": 5.783,
+   "text": "16:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.783,
+   "to": 5.883,
+   "text": "16:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.883,
+   "to": 5.983,
+   "text": "16:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.983,
+   "to": 6.083,
+   "text": "16:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.083,
+   "to": 6.188,
+   "text": "16:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.188,
+   "to": 6.308,
+   "text": "16:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.308,
+   "to": 6.408,
+   "text": "16:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.408,
+   "to": 6.508,
+   "text": "16:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.508,
+   "to": 6.608,
+   "text": "16:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.608,
+   "to": 6.708,
+   "text": "16:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.708,
+   "to": 6.808,
+   "text": "16:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.808,
+   "to": 6.912,
+   "text": "16:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.912,
+   "to": 7.012,
+   "text": "16:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.012,
+   "to": 7.112,
+   "text": "16:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.112,
+   "to": 7.212,
+   "text": "16:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.212,
+   "to": 7.312,
+   "text": "16:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.312,
+   "to": 7.412,
+   "text": "16:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.412,
+   "to": 7.517,
+   "text": "16:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.517,
+   "to": 7.638,
+   "text": "16:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.638,
+   "to": 7.758,
+   "text": "16:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.758,
+   "to": 7.858,
+   "text": "16:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.858,
+   "to": 7.958,
+   "text": "16:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.958,
+   "to": 8.058,
+   "text": "16:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.058,
+   "to": 8.158,
+   "text": "16:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.158,
+   "to": 8.258,
+   "text": "15:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.258,
+   "to": 8.362,
+   "text": "15:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.362,
+   "to": 8.462,
+   "text": "15:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.462,
+   "to": 8.562,
+   "text": "15:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.562,
+   "to": 8.662,
+   "text": "15:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.662,
+   "to": 8.762,
+   "text": "15:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.762,
+   "to": 8.862,
+   "text": "15:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.862,
+   "to": 8.967,
+   "text": "15:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.967,
+   "to": 9.088,
+   "text": "15:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.088,
+   "to": 9.208,
+   "text": "15:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.208,
+   "to": 9.308,
+   "text": "15:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.308,
+   "to": 9.408,
+   "text": "15:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.408,
+   "to": 9.508,
+   "text": "15:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.508,
+   "to": 9.608,
+   "text": "15:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.608,
+   "to": 9.708,
+   "text": "15:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.708,
+   "to": 9.813,
+   "text": "15:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.813,
+   "to": 9.933,
+   "text": "15:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.933,
+   "to": 10.033,
+   "text": "15:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.033,
+   "to": 10.133,
+   "text": "15:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.133,
+   "to": 10.233,
+   "text": "15:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.233,
+   "to": 10.333,
+   "text": "15:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.333,
+   "to": 10.433,
+   "text": "15:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.433,
+   "to": 10.537,
+   "text": "15:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.537,
+   "to": 10.637,
+   "text": "15:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.637,
+   "to": 10.737,
+   "text": "15:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.737,
+   "to": 10.837,
+   "text": "15:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.837,
+   "to": 10.937,
+   "text": "15:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.937,
+   "to": 11.037,
+   "text": "15:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.037,
+   "to": 11.142,
+   "text": "15:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.142,
+   "to": 11.263,
+   "text": "15:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.263,
+   "to": 11.383,
+   "text": "15:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.383,
+   "to": 11.483,
+   "text": "15:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.483,
+   "to": 11.583,
+   "text": "15:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.583,
+   "to": 11.683,
+   "text": "15:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.683,
+   "to": 11.783,
+   "text": "15:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.783,
+   "to": 11.883,
+   "text": "15:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.883,
+   "to": 11.987,
+   "text": "15:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.987,
+   "to": 12.087,
+   "text": "15:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.087,
+   "to": 12.187,
+   "text": "15:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.187,
+   "to": 12.287,
+   "text": "15:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.287,
+   "to": 12.387,
+   "text": "15:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.387,
+   "to": 12.487,
+   "text": "15:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.487,
+   "to": 12.592,
+   "text": "15:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.592,
+   "to": 12.713,
+   "text": "15:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.713,
+   "to": 12.833,
+   "text": "15:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.833,
+   "to": 12.933,
+   "text": "15:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.933,
+   "to": 13.033,
+   "text": "15:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.033,
+   "to": 13.133,
+   "text": "15:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.133,
+   "to": 13.233,
+   "text": "15:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.233,
+   "to": 13.333,
+   "text": "15:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.333,
+   "to": 13.438,
+   "text": "15:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.438,
+   "to": 13.558,
+   "text": "15:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.558,
+   "to": 13.658,
+   "text": "15:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.658,
+   "to": 13.758,
+   "text": "15:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.758,
+   "to": 13.858,
+   "text": "15:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.858,
+   "to": 13.9,
+   "text": "15:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.6,
+   "to": 13.9,
+   "text": "CLUE 2/4",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  }
+ ],
+ "beats": [
+  {
+   "name": "13 the lamp clicks on, the bar flashes",
+   "at": 0,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     40003.2,
+     0.8,
+     1.3
+    ],
+    "look": [
+     40000,
+     0.8,
+     0.42
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      40003,
+      0.78,
+      1.22
+     ]
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      39999.75,
+      0.48
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 14,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "x": 39999.75,
+      "z": 0.48
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spud-lamp",
+     "set": {
+      "lit": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lamp": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lampX": -0.95
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.55,
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.3,
+     "dur": 13.9,
+     "reason": "under the sea: the hush and the far clicks",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "This metal should not exist.",
+     "tone": "excited",
+     "dur": 2.19,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.5,
+     "reason": "the headlamp's switch clicks on",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "spud-lamp",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.08,
+     "ease": "linear",
+     "at": 0.32
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lamp": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.36
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lampX": -0.45
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.18,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.15
+    },
+    {
+     "sfx": "ai/bubbles-burst",
+     "gain": 0.12,
+     "reason": "his breath bubbles",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.01,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40001.25,
+      1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "14 the wreck, Spud by the bar",
+   "at": 2.6,
+   "len": 2.95,
+   "shot": {
+    "pos": [
+     40001.3,
+     1,
+     5
+    ],
+    "look": [
+     40001.25,
+     0.8,
+     -6
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      40001.25,
+      0.98,
+      4.6
+     ]
+    },
+    "dur": 2.9499999999999997,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.7,
+      "lid": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "x": 40001.25,
+      "z": 1.15
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lampX": 0.8,
+      "lampY": 0.6,
+      "lampZ": 0.8,
+      "lamp": 0.6
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue two. Twenty fifteen.",
+     "tone": "calm",
+     "dur": 2.71,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "15 the bars rise one by one",
+   "at": 5.55,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     40001.05,
+     0.42,
+     1
+    ],
+    "look": [
+     39998.9,
+     0.12,
+     -3.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      40000.75,
+      0.42,
+      0.45
+     ]
+    },
+    "dur": 2.8999999999999995,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40002.3,
+      2.6
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Divers off Sicily find thirty-nine bars of it.",
+     "tone": "excited",
+     "dur": 2.67,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "count": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "count": 39
+     },
+     "dur": 2.5,
+     "ease": "linear",
+     "at": 0.15
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 0.25
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 0.65
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 1.05
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 1.45
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 1.85
+    },
+    {
+     "sfx": "hit-metal",
+     "gain": 0.08,
+     "reason": "bars knock up through the sand",
+     "at": 2.25
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40003.6,
+      2.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.88
+    }
+   ]
+  },
+  {
+   "name": "14b the 2,600-year-old wreck",
+   "at": 8.45,
+   "len": 3.55,
+   "shot": {
+    "pos": [
+     40000.2,
+     1.25,
+     6.6
+    ],
+    "look": [
+     39997.4,
+     1.3,
+     -9
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      39999.1,
+      1.3,
+      4.4
+     ],
+     "look": [
+      39997,
+      1.45,
+      -10
+     ]
+    },
+    "dur": 3.5500000000000007,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "x": 40003.6,
+      "z": 2.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.35,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In a ship two thousand six hundred years old.",
+     "tone": "calm",
+     "dur": 3.33,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "sfx": "ai/bubbles-burst",
+     "gain": 0.1,
+     "reason": "his breath bubbles",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      39999.75,
+      0.48
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.53
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.53
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 1,
+     "dur": 0.01,
+     "at": 3.53
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 18,
+     "dur": 0.01,
+     "at": 3.53
+    }
+   ]
+  },
+  {
+   "name": "16 his palm on the bar",
+   "at": 12,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     40001.6,
+     0.85,
+     2.9
+    ],
+    "look": [
+     39999.95,
+     0.68,
+     0.42
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      40001.5,
+      0.83,
+      2.75
+     ]
+    },
+    "dur": 1.9000000000000004,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bub",
+     "set": {
+      "x": 39999.75,
+      "z": 0.48
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bars",
+     "set": {
+      "lampX": -0.62,
+      "lampY": 0.5,
+      "lampZ": 0.13,
+      "lamp": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bars",
+      "grip": [
+       -0.17,
+       0.11,
+       0.1
+      ],
+      "palm": [
+       -0.17,
+       0,
+       0.1
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Copper and zinc. Plato called it orichalcum.",
+     "tone": "calm",
+     "dur": 3.92,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.35
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 13.9,
+   "reason": "the headlamp band is worn on his head"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-b/make-block-b.mjs (b1). Block B of four, block time 0-13.9 s."
+}
