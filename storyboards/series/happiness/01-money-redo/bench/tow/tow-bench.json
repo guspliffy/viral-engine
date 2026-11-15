@@ -1,0 +1,389 @@
+{
+ "id": "tow-bench",
+ "title": "Tow truck and coat heap bench",
+ "idea": "Props bench for engine/page/props-tow.js (happiness 01 redo), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#7d8996",
+  "floor": "#56606b"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    60,
+    66
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "truck",
+   "kind": "towtruck",
+   "x": -2.4,
+   "y": 0,
+   "z": 0,
+   "rot": -90,
+   "lights": 1
+  },
+  {
+   "id": "tcoupe",
+   "kind": "coupe",
+   "x": 2.6999999999999997,
+   "y": 0.19,
+   "z": -3.1228493378257504e-16,
+   "rot": 90,
+   "tip": 7,
+   "door": 0,
+   "lamp": 0,
+   "load": 0
+  },
+  {
+   "id": "heapA",
+   "kind": "coatheap",
+   "x": 40,
+   "y": 0.46,
+   "z": 0,
+   "door": 0
+  },
+  {
+   "id": "cushion",
+   "kind": "stoneblock",
+   "x": 66,
+   "y": 0,
+   "z": 0,
+   "w": 0.66,
+   "h": 0.46,
+   "d": 0.9
+  },
+  {
+   "id": "heapB",
+   "kind": "coatheap",
+   "x": 66,
+   "y": 0.46,
+   "z": 0,
+   "door": 1
+  },
+  {
+   "id": "sill",
+   "kind": "stoneblock",
+   "x": 66.77,
+   "y": 0,
+   "z": 0,
+   "w": 0.3,
+   "h": 0.19,
+   "d": 1.1
+  },
+  {
+   "id": "coupeH",
+   "kind": "coupe",
+   "x": 60,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "load": 0
+  },
+  {
+   "id": "heapC",
+   "kind": "coatheap",
+   "x": 60.22,
+   "y": 0.46,
+   "z": -0.25,
+   "door": 1
+  }
+ ],
+ "allowClip": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "train_side",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0,
+     1.5,
+     30
+    ],
+    "look": [
+     0,
+     1.3,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "truck",
+     "set": {
+      "lights": 1,
+      "clock": 0.1,
+      "len": 0,
+      "bend": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heapA",
+     "set": {
+      "door": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heapB",
+     "set": {
+      "door": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heapC",
+     "set": {
+      "door": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "train_p16",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     22.5,
+     1.2,
+     8.4
+    ],
+    "look": [
+     0,
+     1.5,
+     0.3
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "truck_side",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -2.4,
+     1.6,
+     21
+    ],
+    "look": [
+     -2.4,
+     1.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "truck",
+     "set": {
+      "clock": 0.1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "truck_front",
+   "at": 4.199999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -14,
+     3,
+     12
+    ],
+    "look": [
+     -2.4,
+     1.3,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "truck",
+     "set": {
+      "clock": 0.3
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "hook_side",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.5,
+     1.2,
+     8
+    ],
+    "look": [
+     0.5,
+     1.2,
+     0
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "hook_34",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     3,
+     2.3,
+     3.4
+    ],
+    "look": [
+     0.5,
+     1.25,
+     -0.1
+    ],
+    "fov": 22
+   },
+   "do": []
+  },
+  {
+   "name": "crane_top",
+   "at": 8.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -2.4,
+     4.8,
+     6.5
+    ],
+    "look": [
+     -1,
+     2.4,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "heap_close",
+   "at": 9.799999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     40.2,
+     1.05,
+     1.25
+    ],
+    "look": [
+     40,
+     0.62,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "heap_spill",
+   "at": 11.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     66.9,
+     1.05,
+     2.5
+    ],
+    "look": [
+     66.5,
+     0.3,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "p15",
+   "at": 12.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     61.7,
+     1.7,
+     -4.2
+    ],
+    "look": [
+     62.2,
+     0.6,
+     1.5
+    ],
+    "fov": 50
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by bench/tow/make-tow-bench.mjs (props bench, no reviews). Stills: 1:train_side 2:train_p16 3:truck_side 4:truck_front 5:hook_side 6:hook_34 7:crane_top 8:heap_close 9:heap_spill 10:p15"
+}
