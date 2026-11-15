@@ -27,6 +27,7 @@ const LOOK = "sheet", LIGHTING = 2, HATCH = { boil: 0.25 }, CEL = { at: 0.25 }, 
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, cap, see } = c;
 const VO = !process.argv.includes("--no-vo");
+const PRE = 0.012;   // instant changes finish 2 ms before a cut (the frame before a cut is at least 16 ms before it)
 const rad = (d) => (d * Math.PI) / 180;
 const envOk = (n) => fs.existsSync(new URL(`../../../../assets/environments/${n}/env.json`, import.meta.url));
 const HAPPY = true;
@@ -79,12 +80,12 @@ const cast = [
   { id: "pb", character: "what-if/wizard-old", at: PARK(4), face: 0, expr: "delighted", follow: 0.3, seed: 4.2 },
 ];
 const place = (t, who, at, yaw, y = 0) => {
-  const u = Math.max(0, r3(t - 0.02));
+  const u = Math.max(0, r3(t - PRE));
   A(u, who, "move", { to: at, y, dur: 0.01, steps: 0, ease: "linear", sync: true });
   if (yaw != null) A(u, who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true });
   A(u, who, "show");
 };
-const park = (t, who, k) => { const u = Math.max(0, r3(t - 0.02)); A(u, who, "hide"); A(u, who, "move", { to: PARK(k), y: 0, dur: 0.01, steps: 0, ease: "linear", sync: true }); };
+const park = (t, who, k) => { const u = Math.max(0, r3(t - PRE)); A(u, who, "hide"); A(u, who, "move", { to: PARK(k), y: 0, dur: 0.01, steps: 0, ease: "linear", sync: true }); };
 const look = (t, who, to, dur = 0.18) => A(r3(t), who, "look", { to, dur, blink: false });
 const expr = (t, who, e, set, dur = 0.15) => A(r3(t), who, "expr", { expr: e, ...(set && { set }), dur });
 const arm = (t, who, side, pose, dur = 0.25, ease = "inOut") => c.arm(r3(t), who, side, pose, dur, ease);
@@ -97,7 +98,7 @@ const HUG_F = 0.52, HUG_Y = 0.1;
 const hug = (t, who) => { arm(r3(t), who, "R", { x: [-0.3, up(0.3), 0.56] }, 0.01); arm(r3(t), who, "L", { x: [0.3, up(0.3), 0.56] }, 0.01); grip(t, who, "R", "press", 0.01); grip(t, who, "L", "press", 0.01); };
 const bagPos = (x, z, yaw, y0 = 0, f = HUG_F) => ({ x: r3(x + Math.sin(rad(yaw)) * f), y: r3(y0 + HUG_Y), z: r3(z + Math.cos(rad(yaw)) * f), rot: r3(yaw) });
 const headings = (P3) => P3.map((p, i) => { const a = P3[Math.min(i, P3.length - 2)], b = P3[Math.min(i + 1, P3.length - 1)]; return r3((Math.atan2(b[1] - a[1], b[2] - a[2]) * 180) / Math.PI); });
-const bagAlong = (t0, id, P3, y = () => 0) => { const H = headings(P3); P3.forEach((p, i) => { const at = i ? r3(t0 + P3[i - 1][0]) : r3(t0 - 0.02), dur = i ? r3(p[0] - P3[i - 1][0]) : 0.01; c.prop(at, id, bagPos(p[1], p[2], H[i], y(p)), dur, "linear"); }); return H; };
+const bagAlong = (t0, id, P3, y = () => 0) => { const H = headings(P3); P3.forEach((p, i) => { const at = i ? r3(t0 + P3[i - 1][0]) : r3(t0 - PRE), dur = i ? r3(p[0] - P3[i - 1][0]) : 0.01; c.prop(at, id, bagPos(p[1], p[2], H[i], y(p)), dur, "linear"); }); return H; };
 const SUBY = 470;   // speech lettering in the upper third (Jonny 12 Nov)
 const say = (t, who, line, dur, tone) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: SUBY });
 
@@ -128,7 +129,7 @@ P("vault", { id: "vbagR", kind: "moneybag", staged: "hugged against his belly", 
 const ST = { start: [0, -6.0], cross: [0.6, -1.5], hide: [1.3, 4.2] };
 const SBAG = P("street", { id: "sbag", kind: "moneybag", mark: false, x: r3(ST.start[0]), y: 0.2, z: r3(ST.start[1] + 0.4), rot: 180 }, { stay: true });
 P("street", { id: "bank", kind: "bankfront", x: 0, z: -9 });
-[["pc1", -22, -2.7], ["pc2", -30, -3.3], ["pc3", -38, -2.9]].forEach(([id, x, z]) => P("street", { id, kind: "policecar", x, z, rot: 90, lights: 1 }));
+[["pc1", -16, -2.7], ["pc2", -22, -3.3], ["pc3", -28, -2.9]].forEach(([id, x, z]) => P("street", { id, kind: "policecar", x, z, rot: 90, lights: 1 }));
 P("street", { id: "wash", kind: "sirenwash", x: 1.3, y: 0.2, z: 3.4, w: 3, h: 2.6, on: 0 });
 // ---- the mansion by day (S4): the coupe on the gravel
 const MD = { car: [3.6, -5.6], spud: [0.25, -6.4] };
@@ -161,7 +162,7 @@ for (const p of props) {
   let was = on(0);
   if (!was) Object.assign(p, away(false));
   const times = [...new Set([...PLACES.slice(1).map(([at]) => at), p._from, p._to])].filter((t) => t > 0 && t < END).sort((x, y) => x - y);
-  for (const t of times) { const now = on(t); if (now !== was) c.at(r3(t - 0.02), { do: "prop", id: p.id, set: away(now), dur: 0.01, ease: "linear", reason: "off the set between scenes: hidden and parked under the floor on the cut" }); was = now; }
+  for (const t of times) { const now = on(t); if (now !== was) c.at(r3(t - PRE), { do: "prop", id: p.id, set: away(now), dur: 0.01, ease: "linear", reason: "off the set between scenes: hidden and parked under the floor on the cut" }); was = now; }
 }
 
 // ---------------------------------------------------------------- sound beds
@@ -191,12 +192,12 @@ look(r3(T.limo + 0.05), "spud", [-0.7, 0.1], 0.15);
 A(r3(T.limo + 0.2), "spud", "turn", { to: -168, dur: 0.45 });
 look(r3(T.mumble - 0.85), "spud", [0.3, 0], 0.15);
 A(r3(T.mumble - 0.7), "spud", "turn", { to: 8, dur: 0.65 });
-for (const s of ["R", "L"]) { arm(T.city - 0.02, "spud", s, "rest", 0.01); grip(T.city - 0.02, "spud", s, "relaxed", 0.01); }
+for (const s of ["R", "L"]) { arm(T.city - PRE, "spud", s, "rest", 0.01); grip(T.city - PRE, "spud", s, "relaxed", 0.01); }
 expr(T.city, "spud", "sad", { curve: -0.1, brow: 0.3 }, 0.01); look(T.city, "spud", [0, -0.2], 0.01);
 // the limousine glides in from the left and stops beside him; the couple ride on its bench, laughing
 for (const [id, i] of [["pa", 0], ["pb", 1]]) {
-  A(r3(T.city - 0.02), id, "ride", { prop: "limo", off: [LS[i][0], LS[i][1] - 0.12, r3(LS[i][2] + (i ? -0.22 : 0.2))], yaw: -90, sit: true, dur: 0 });
-  A(r3(T.vault - 0.02), id, "ride", { prop: null, dur: 0 }); park(T.vault, id, 3 + i);
+  A(r3(T.city - PRE), id, "ride", { prop: "limo", off: [LS[i][0], LS[i][1] - 0.12, r3(LS[i][2] + (i ? -0.22 : 0.2))], yaw: -90, sit: true, dur: 0 });
+  A(r3(T.vault - PRE), id, "ride", { prop: null, dur: 0 }); park(T.vault, id, 3 + i);
   expr(0, id, "delighted", { curve: 0.8, open: 0.4 }, 0.01);
   for (const k of [0, 1, 2]) A(r3(T.limo + 0.9 + k * 0.55 + i * 0.2), id, "hop", { height: 0.03, dur: 0.22, quiet: true });
 }
@@ -212,22 +213,22 @@ see(T.city, T.vault, ["spud.face"], "noon in the city: Spud with his pockets tur
 
 // ================================================================= S3 THE VAULT (9.05-11.0)
 place(T.vault, "spud", [VS[0], VS[2]], 0);
-arm(T.vault - 0.02, "spud", "R", { x: [-0.385, up(0.24), 0.66] }, 0.01); arm(T.vault - 0.02, "spud", "L", { x: [0.385, up(0.24), 0.66] }, 0.01);
-grip(T.vault - 0.02, "spud", "R", "press", 0.01); grip(T.vault - 0.02, "spud", "L", "press", 0.01);
+arm(T.vault - PRE, "spud", "R", { x: [-0.385, up(0.24), 0.66] }, 0.01); arm(T.vault - PRE, "spud", "L", { x: [0.385, up(0.24), 0.66] }, 0.01);
+grip(T.vault - PRE, "spud", "R", "press", 0.01); grip(T.vault - PRE, "spud", "L", "press", 0.01);
 expr(T.vault, "spud", "delighted", { open: 0.35, eye: 1.2 }, 0.01); look(T.vault, "spud", [0, 0.1], 0.01);
 A(r3(T.vault + 0.3), "spud", "hop", { height: 0.06, dur: 0.25, quiet: true });
 sfx(T.vault + 0.05, "creak", { gain: 0.5, reason: "the vault door's hinge, the door still swinging" });
 sfx(T.alarm, "alarmbell", { gain: 0.6, dur: 1.4, reason: "the bank's alarm bell" });
-expr(T.alarm + 0.05, "spud", "shocked", { open: 0.4, eye: 1.4 }, 0.08);
+expr(T.alarm + 0.05, "spud", "shocked", { open: 0.4, eye: 1.4 }, 0.15);
 A(r3(T.alarm + 0.05), "spud", "squash", { amount: 0.08, dur: 0.18 });
-look(T.alarm + 0.1, "spud", [-0.6, 0.5], 0.12);
+look(T.alarm + 0.1, "spud", [-0.6, 0.5], 0.2);
 expr(T.run - 0.1, "spud", "evil", { curve: 0.4 }, 0.15);
 see(T.vault, T.street, ["spud.face", "vbagL", "vbagR"], "the vault: Spud in a black balaclava hugs two sacks of money in front of the open steel door; the alarm, the red light");
 
 // ================================================================= S3b THE NIGHT STREET (11.0-14.45): the escape
 place(T.street, "spud", ST.start, 40);
-for (const s of ["R", "L"]) arm(r3(T.street - 0.02), "spud", s, "rest", 0.01);
-hug(T.street - 0.02, "spud");
+for (const s of ["R", "L"]) arm(r3(T.street - PRE), "spud", s, "rest", 0.01);
+hug(T.street - PRE, "spud");
 expr(T.street, "spud", "terrified", { open: 0.3 }, 0.01);
 const SP = run(T.street, "spud", [ST.start, ST.cross, ST.hide], 5.0, 5.0);
 const SH_ = bagAlong(T.street, "sbag", SP);
@@ -236,7 +237,7 @@ c.prop(r3(T.duck + 0.25), "sbag", { y: r3(HUG_Y - 0.12) }, 0.25, "inOut");
 c.prop(T.laugh, "sbag", { y: HUG_Y }, 0.35, "inOut");
 sfx(T.street + 0.1, "siren", { gain: 0.7, reason: "a police car's whoop as it turns into the street" });
 sfx(T.street + 0.4, "sirenwail", { dur: 3.4, gain: 0.5, reason: "three police cars, sirens rising" });
-[["pc1", 5.0, 0.0], ["pc2", 6.2, 0.15], ["pc3", 7.4, 0.3]].forEach(([id, z, dt]) => pr(r3(T.cars + dt), id, { x: r3(28 + dt * 10), len: 55 }, 1.6, "linear"));
+[["pc1", 5.0, 0.0], ["pc2", 6.2, 0.15], ["pc3", 7.4, 0.3]].forEach(([id, z, dt]) => pr(r3(T.cars + dt), id, { x: r3(18 + dt * 10), len: 36 }, 1.8, "linear"));
 sfx(T.past, "screech", { gain: 0.45, reason: "tyres as the cars race past the corner" });
 A(T.duck, "spud", "turn", { to: 20, dur: 0.25 });
 A(r3(T.duck + 0.25), "spud", "crouch", { to: 0.6, dur: 0.25 });
@@ -250,7 +251,7 @@ park(T.rich, "spud", 1);
 
 // ================================================================= S4 THE MANSION BY DAY (14.45-17.55): he bought everything
 place(T.rich, "rich", MD.spud, 10);
-for (const s of ["R", "L"]) { arm(T.rich - 0.02, "rich", s, "rest", 0.01); grip(T.rich - 0.02, "rich", s, "relaxed", 0.01); }
+for (const s of ["R", "L"]) { arm(T.rich - PRE, "rich", s, "rest", 0.01); grip(T.rich - PRE, "rich", s, "relaxed", 0.01); }
 expr(T.rich, "rich", "delighted", { curve: 0.7, open: 0.25 }, 0.01); look(T.rich, "rich", [0, 0.1], 0.01);
 A(T.spread, "rich", "wings", { to: 1, dur: 0.4 });
 arm(T.spread, "rich", "R", { o: [0.42, 0.66, 0.1] }, 0.4, "out"); arm(T.spread, "rich", "L", { o: [0.42, 0.66, 0.1] }, 0.4, "out");
@@ -262,8 +263,8 @@ see(T.rich, T.turn, ["rich.face", "dcar"], "the white mansion by day, a fountain
 // ================================================================= S5 THE TURN (17.55-20.5): a siren passes
 const HALL_MID = [2.9, 2.8];
 place(T.turn, "rich", HALL_MID.map((v, i) => r3(v + (i ? HP[2] : HP[0]))), 160);
-A(r3(T.turn - 0.02), "rich", "wings", { to: 0, dur: 0.01 });
-for (const s of ["R", "L"]) { arm(T.turn - 0.02, "rich", s, "rest", 0.01); grip(T.turn - 0.02, "rich", s, "relaxed", 0.01); }
+A(r3(T.turn - PRE), "rich", "wings", { to: 0, dur: 0.01 });
+for (const s of ["R", "L"]) { arm(T.turn - PRE, "rich", s, "rest", 0.01); grip(T.turn - PRE, "rich", s, "relaxed", 0.01); }
 expr(T.turn, "rich", "kind", { curve: 0.2 }, 0.01); look(T.turn, "rich", [0, 0.2], 0.01);
 sfx(T.siren1, "sirenwail", { dur: 2.2, gain: 0.45, reason: "a siren passing on the road outside" });
 expr(T.siren1 + 0.2, "rich", "terrified", { open: 0.2, eye: 1.35 }, 0.1);
@@ -283,10 +284,10 @@ arm(T.door, "rich", "R", { o: [0.15, 0.6, 0.4] }, 0.2); grip(T.door, "rich", "R"
 for (let i = 0; i < 4; i++) sfx(r3(T.lock1 + i * 0.25), "latch", { gain: 0.45, reason: "a padlock snapping shut" });
 sfx(T.knock, "ai/knock", { gain: 0.55, reason: "a knock on the front door" });
 A(r3(T.knock + 0.1), "rich", "squash", { amount: 0.1, dur: 0.12 });
-expr(T.knock + 0.1, "rich", "shocked", { open: 0.3, eye: 1.4 }, 0.08);
+expr(T.knock + 0.1, "rich", "shocked", { open: 0.3, eye: 1.4 }, 0.15);
 const CH = hw(HALL.CHIP_OUT);
 place(T.chip, "chip", [CH[0], CH[2]], 180, CH[1]);
-c.prop(r3(T.chip - 0.02), "gift", { x: CH[0], y: r3(CH[1] + 0.22), z: r3(CH[2] - 0.34), scale: 0.6 }, 0.01, "linear");
+c.prop(r3(T.chip - PRE), "gift", { x: CH[0], y: r3(CH[1] + 0.22), z: r3(CH[2] - 0.34), scale: 0.6 }, 0.01, "linear");
 expr(T.chip, "chip", "kind", { curve: 0.35, brow: 0.3 }, 0.01); look(T.chip, "chip", [0, 0.1], 0.01);
 arm(T.chip, "chip", "R", { o: [0.12, 0.42, 0.32] }, 0.01); arm(T.chip, "chip", "L", { o: [0.12, 0.42, 0.32] }, 0.01);
 say(T.chip + 0.15, "chip", "Spud? It's me!", 0.85, "question");
@@ -301,20 +302,20 @@ see(T.door, T.clock, ["rich.face", "chip.face"], "the front door: ten locks snap
 // ================================================================= S6b 3:00 + S7 THE LOW (24.0-27.95)
 park(T.clock, "chip", 2);
 place(T.low, "rich", [hw(HALL.SEAT_END)[0], hw(HALL.SEAT_END)[2]], 0);
-A(r3(T.low - 0.02), "rich", "sit", { dur: 0.01, hands: "table" });
+A(r3(T.low - PRE), "rich", "sit", { dur: 0.01, hands: "table" });
 expr(T.low, "rich", "sad", { curve: -0.25, brow: 0.5 }, 0.01); look(T.low, "rich", [0, -0.35], 0.01);
 A(r3(T.low + 1.6), "rich", "blink", { dur: 0.45 });
 see(T.clock, T.low, ["clock"], "the clock at 3:00");
 see(T.low, T.gate, ["rich.face"], "the loneliest picture: Spud tiny at the far end of a very long table, one candle");
 // S8: the siren STOPS at the gate: the light stays in the windows
 sfx(T.gate - 0.3, "sirenwail", { dur: 1.3, gain: 0.5, reason: "a siren coming up the road and stopping outside" });
-expr(T.gate + 0.15, "rich", "terrified", { open: 0.35, eye: 1.45 }, 0.08);
+expr(T.gate + 0.15, "rich", "terrified", { open: 0.35, eye: 1.45 }, 0.15);
 look(T.gate + 0.15, "rich", [0, 0.8], 0.12);
 A(r3(T.gate + 0.3), "rich", "stand", { dur: 0.25 });
 
 // ================================================================= S8 THE GATE (28.7-30.45): he flees with the money
 place(T.flee, "rich", GT.from, 140);
-hug(T.flee - 0.02, "rich");
+hug(T.flee - PRE, "rich");
 expr(T.flee, "rich", "terrified", { open: 0.3 }, 0.01);
 bagAlong(T.flee, "gbag", run(T.flee, "rich", [GT.from, [r3(GT.car[0] - 0.3), r3(GT.car[1] + 2.05)]], 4.4));
 pr(T.flee - 0.1, "gwash", { on: 1 }, 0.1, "linear");
@@ -324,11 +325,11 @@ sfx(T.flee + 1.3, "ai/car-door-shove", { gain: 0.4, reason: "the car door" });
 see(T.flee, T.car, ["rich.face", "gcar"], "the mansion gate at night, red and blue light on the wet drive from beyond the gate: he runs to his car with a sack");
 
 // ================================================================= S9 THE COAST ROAD (30.45-37.0): out of fuel; the ambulance
-A(r3(T.car - 0.02), "rich", "ride", { prop: "car", off: RIDE_OFF, yaw: 0, sit: true, dur: 0 });
-for (const s of ["R", "L"]) { arm(T.car - 0.02, "rich", s, "lap", 0.01); grip(T.car - 0.02, "rich", s, "relaxed", 0.01); }
+A(r3(T.car - PRE), "rich", "ride", { prop: "car", off: RIDE_OFF, yaw: 0, sit: true, dur: 0 });
+for (const s of ["R", "L"]) { arm(T.car - PRE, "rich", s, "lap", 0.01); grip(T.car - PRE, "rich", s, "relaxed", 0.01); }
 expr(T.car, "rich", "sad", { curve: -0.15, brow: 0.35 }, 0.01); look(T.car, "rich", [0.15, -0.05], 0.01);
 rainCar(T.car, T.climb, 0.4);
-pr(T.car - 0.02, "car", { x: r3(CAR[0] - ROLL_IN), len: 0, wiper: 0, wiped: 0, gauge: 0.15 }, 0.01);
+pr(T.car - PRE, "car", { x: r3(CAR[0] - ROLL_IN), len: 0, wiper: 0, wiped: 0, gauge: 0.15 }, 0.01);
 pr(T.car + 0.3, "car", { wiper: 1, wiped: 1 }, 0.55, "inOut"); pr(T.car + 0.9, "car", { wiper: 0.4 }, 0.4, "out");   // the wiper dies halfway back
 look(T.car + 0.6, "rich", [0.0, -0.6], 0.2);   // down at the dash
 pr(T.dash, "car", { gauge: 0 }, 0.45, "in"); pr(T.dash + 0.45, "car", { quiver: 1 }, 0.01); pr(T.dash + 0.6, "car", { quiver: 0 }, 0.01);
@@ -343,13 +344,13 @@ const [c1x, c1z, c1y] = CL(13), [c2x, c2z, c2y] = CL(10.2);
 A(r3(T.climb - 0.06), "rich", "ride", { prop: null, dur: 0 });
 place(T.climb, "rich", [c1x, c1z], r3((Math.atan2(c2x - c1x, c2z - c1z) * 180) / Math.PI), c1y);
 const cbag2 = P("coast", { id: "cbag2", kind: "moneybag", staged: "carried in his arms", mark: false, x: c1x, y: r3(c1y + 0.2), z: r3(c1z - 0.35), rot: 35 }, { from: T.climb, to: T.sunset, stay: true });
-hug(T.climb - 0.02, "rich");
+hug(T.climb - PRE, "rich");
 A(T.climb, "rich", "move", { to: [c2x, c2z], y: c2y, dur: 1.6, steps: 5 });
-{ const yaw = r3((Math.atan2(c2x - c1x, c2z - c1z) * 180) / Math.PI); c.prop(r3(T.climb - 0.02), "cbag2", bagPos(c1x, c1z, yaw, c1y), 0.01, "linear"); c.prop(T.climb, "cbag2", bagPos(c2x, c2z, yaw, c2y), 1.6, "linear"); }
+{ const yaw = r3((Math.atan2(c2x - c1x, c2z - c1z) * 180) / Math.PI); c.prop(r3(T.climb - PRE), "cbag2", bagPos(c1x, c1z, yaw, c1y), 0.01, "linear"); c.prop(T.climb, "cbag2", bagPos(c2x, c2z, yaw, c2y), 1.6, "linear"); }
 expr(T.climb, "rich", "terrified", { open: 0.15 }, 0.01);
 sfx(T.amb - 0.4, "sirenwail", { dur: 2.2, gain: 0.55, reason: "a siren coming up the coast road" });
 look(T.amb, "rich", [0.85, -0.3], 0.2);   // over his shoulder, down at the road
-pr(T.amb - 0.02, "amb", { lights: 1 }, 0.01);
+pr(T.amb - PRE, "amb", { lights: 1 }, 0.01);
 for (let k = 1, N = 15, X0 = -10, X1 = 60, D = 3.0; k <= N; k++) { const x = X0 + ((X1 - X0) * k) / N, xp = X0 + ((X1 - X0) * (k - 1)) / N, rx = COAST.roadAt(x), rp = COAST.roadAt(xp), yaw = r3(90 - (Math.atan2(rx.z - rp.z, x - xp) * 180) / Math.PI);
   pr(r3(T.amb + (D * (k - 1)) / N), "amb", { x: r3(CP[0] + x), z: AMB_Z(x), y: AMB_Y(x), rot: yaw, len: r3(Math.hypot(x - X0, 0)) }, r3(D / N), "linear"); }
 expr(T.nobody - 0.4, "rich", "shocked", { open: 0.1, brow: 0.2 }, 0.3);
@@ -362,7 +363,7 @@ see(T.climb, T.sunset, ["rich.face"], "he climbs the cliff with one sack, lookin
 // ================================================================= S10 THE SUNSET (37.0-48.0): the clouds break; his first smile
 const SEAT = cw([0, 0, 0]);
 place(T.sunset, "rich", [SEAT[0], SEAT[2]], 180, SEAT[1]);
-A(r3(T.sunset - 0.02), "rich", "sit", { rot: 180, dur: 0.01, height: 0, hands: "lap" });
+A(r3(T.sunset - PRE), "rich", "sit", { rot: 180, dur: 0.01, height: 0, hands: "lap" });
 expr(T.sunset, "rich", "sad", { curve: -0.1, brow: 0.3 }, 0.01); look(T.sunset, "rich", [0, 0.05], 0.01);
 look(T.brk + 1.2, "rich", [0.15, 0.15], 0.6);   // up, to the light
 expr(T.brk + 2.0, "rich", "kind", { curve: 0.0, brow: 0.15 }, 0.8);
