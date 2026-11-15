@@ -1,25 +1,58 @@
-// props-at-far.js: the far layer of Atlantis and the city-ship (kit T2). Real scale on a far plane of 9000 (storyboard
-// `far: 9000`, `frame: "wide"`, per-shot `near` 20 for aerials, 0.3 to 5 low). Heights x 6 and footprints x 3 against the near
-// pieces (DESIGNS section 1), Plato's radii exact: citadel 462, water 462-647, land 647-1017, water 1017-1387, land 1387-1942,
-// water 1942-2497, brass wall 2497. Scenery only: every mesh is lookOnly, not solid, surfaceOnly (nothing is held or stood on, no grips).
+// props-at-far.js: the far layer of Atlantis and the city-ship (kit T2, round R2). Storyboard `far: 9000`, `frame: "wide"`, per-shot `near`
+// 20 for aerials, 0.3 to 5 low. Scenery only: every mesh is lookOnly, not solid, surfaceOnly (nothing is held or stood on, no grips).
+// IMAGE ASSETS (the paintings, 1536 x 1024, projected as light, see PLATES): assets/props/atlantis/far-plate-03.webp (aerial),
+// far-plate-04.webp (harbour), far-plate-11.webp (walls). Everything else is drawn here once per key.
 //
-// ORIGIN of every city kind = the citadel centre, y 0 = sea level (the ring water stands 12 m = 2 m x 6 under the quays).
-// +z is the harbour side (the main gate and bridge face +z), spokes every 45 deg from +z toward +x. Light on every kind:
-// spec.light "dawn" | "noon" | "eve" | "night" (default "dawn"). Light is baked into vertex colours, no scene lights needed.
+// SCALE (R2, the target is plate 03): Plato's RADII are exact (citadel 462, water 462-647, land 647-1017, water 1017-1387, land
+// 1387-1942, water 1942-2453, brass wall 2453-2497). HEIGHTS and FOOTPRINTS are the painting's, not x6 / x3: the brass wall is 190 high
+// and 44 thick with a walkway and crenels; the land rings are TERRACES held by walls (tin plates at r 1942, top y 120; pale ashlar at
+// 1387, 1017 and 647; red-gold plates at 462, top y 225; the temple terrace r 326, y 300); villas 70-115 long and 40-60 high, cypress
+// 70-105 high, triremes about 300 long, gate towers 230-300 high, the temple 555 x 276 on the ground and 400 to the spire tip.
+// The plain is at y 1.5, the ring water and the sea at y 0.
 //
-// atlantis   the whole city, one prop. Size: radius 2497 city, plain and sea out to 9500, mountains with snow to 9 km.
-//            Layers: three walls (brass, tin, red-gold) with towers, banners and 8 bridges with gate towers and tunnel arches, the
-//            silver temple with its crown of gold points, ~1100 roofs in three stones, 600 trees, the racecourse, the ring water
-//            (own surface, glitter + ripples), 27 far triremes with wakes, the canal to the sea, the plain with fields, farms,
-//            roads, the mountains, the sky dome (use `citysky` for the full painted sky) and the flood sea.
-//   spec: light "dawn"; skip [] = list of [x, z, r] discs in which the far layer is left out where a near T1 piece stands;
-//         mountains true (false: no mountain ridges, for open-sea shots such as panel 46); flood true (false: never draw the rising
-//         sea); quakeAt = 6 wall points [[x, z], ...] for the dust (default six points on the brass wall).
+// ORIGIN of every city kind = the citadel centre, y 0 = sea level. +z is the harbour side (the front gate, the great canal 160 wide
+// and the harbour basin 300 x 400 lie on +z; the temple's pedimented front faces +z), the mountains are on -z, spokes every 45 deg from
+// +z toward +x. Light on every kind: spec.light "dawn" | "noon" | "eve" | "night" (default "dawn"), baked into the vertex colours (no
+// scene lights needed); dawn is the painter's dawn of the plates (warm light from the left, blue shade).
+//
+// atlantis   the whole city, one prop. Size: radius 2497, the plain out to 9600, mountains (five ranges, snow) from 5500 to 9600.
+//            Layers: the brass wall with 24 towers, banners and the front gate (two towers 300 high, a stone arch, hanging banners);
+//            the tin, ashlar and red-gold terrace walls with bastions, buttresses and ship tunnels; 24 viaducts on arches with twin
+//            gate towers; 205 villas in gardens, 760 trees (cypress, round, blossom), the racecourse, vineyards and flower courts on
+//            the ground canvas; the silver temple with its gold spire, pinnacles and turrets and the processional stair; ring water
+//            with painted wavelets and wall mirrors; 27 triremes with wakes; the canal and basin between ashlar quays; the plain with
+//            545 farms, 3900 trees, vineyard rows, roads and yards; the mountains; the flood sea. Use `citysky` for the sky.
+//   spec: light "dawn"
+//         climb 0 (0..1.5: the inner tiers stand higher. 0 = the aerial of plate 03 / panel 07. 1 = seen from the quay the city climbs
+//               to the temple as in plates 01, 04, 11: land 120 -> 320, 440 -> 610, citadel 735, temple terrace 960)
+//         brass true (false: no far brass wall, towers, front gate or outer viaducts, for shots where the near set brings its own wall)
+//         ships true (false: no far triremes, for shots with near real-scale ships)
+//         skip [] = [x, z, r] discs in the city's OWN coordinates: the far layer (walls, towers, villas, trees, bridges, the plain's
+//               ground, the basin and canal water whose start lies inside) is left out there, where a near piece stands
+//         proj (none): "plate03" = plate 03 is PROJECTED from its own camera onto the city (ground, terraces, walls, water, the plain,
+//               a far sky-and-mountain wall, the temple on an upright card). From that camera the frame is the painting (rows 0-864);
+//               pushes and orbits up to about 8 deg keep parallax; surfaces that do not face the projector keep the drawn material; the
+//               painted water wobbles a little and carries moving glints. Dawn only. In this mode the villas, trees, towers, bridges,
+//               ships, banners and ridges are left out (the painting carries them); projFull true keeps them as receivers.
+//         mountains true (false: no ridges, for open-sea shots such as panel 46); flood true (false: never draw the rising sea)
+//         quakeAt = 6 wall points [[r, angle], ...] for the dust (default six points on the three walls).
 //   params (spec.<name> is the start value, a dur-0 `set` seeds it, a tween moves it):
-//         sea 0 (0 = plain dry ... 1 = open sea to the walls, 3 m waves over the brass wall; the plain sinks 110 m with it),
-//         quake 0 (dust from 6 wall points), flash 0 (the red-gold plate band runs round), rise 0 (the whole disc lifts, 1 = 0.25 R
-//         = 624 m up plus the hull's own height 650: lift y = rise x 1274), lightning 0 (storm lighting state, 2 frames bright
-//         plus afterglow is the clip's job: set 1, then 0.3, then 0).
+//         sea 0 (0 = plain dry ... 1 = open sea to the walls, 3 m waves over the brass wall foot; the plain sinks 110 m with it),
+//         quake 0 (dust from 6 wall points, ships roll 6 deg), flash 0 (the red-gold plate band runs round, then every 4th plate stays
+//         hot), rise 0 (the whole disc lifts, 1 = 0.25 R = 624 m up plus the hull's own height 650: lift y = rise x 1274), lightning 0
+//         (storm lighting state, 2 frames bright plus afterglow is the clip's job: set 1, then 0.3, then 0).
+//   plate 03's camera (use it with proj "plate03"): pos (0, 1200, 3640) look (0, -537, 37) fov 51.5 near 20, city coordinates.
+//
+// atlantisplate  the quay views as the paintings: a plate projected from its camera onto real surfaces at their depths. Same origin as
+//            the city (citadel centre, sea level y 0, +z the harbour). Dawn only, lookOnly, nothing to stand on (the near quay is T1's).
+//   spec: view "harbour" = plate 04: the basin water (y 0, from 10 m in front of the camera to the wall), the brass wall with its
+//               towers and gate on the r 2497 cylinder (106 m from the camera), the lower town (r 2000), the hill and temple (r 900),
+//               the sky, sun and mountains (r 9000), two triremes on upright cards. Camera: pos (0, 5, 2603) look (0, 5, 0) fov 40.
+//         view "walls" = plate 11: the water ring in front (painted reflections that wobble), the brass wall and its two towers (r 2497,
+//               68 m from the camera), the tin tier (r 1942), the red-gold tier and the temple (r 600), sky and mountains.
+//               Camera: pos (0, 5.15, 2565) look (0, 197.15, 1565) fov 40 (the frame is the plate's rows 100-964).
+//         cards true (false: no trireme cards). No params. Pushes and side steps of a few metres give parallax between the depths;
+//         large moves show the painted background doubled round the ships and towers.
 //
 // cityhull   the hull under the city, same origin, drawn to sit exactly under `atlantis` (same `rise` value). Size: radius 2497 at the
 //            rim, rim band 250 high, ONE orange stripe 50, bowl 400 deep, 18 lit lenses, beam port r 400 at the bottom centre.
@@ -82,10 +115,10 @@ function ctex(c, o = {}) {
 // sun azimuth is degrees LEFT of -z (toward -x), elevation degrees; amb = the sky's fill; hz = haze (the horizon colour the far parts fade into)
 // zen / mid / hor = the sky; water / glint = the harbour colours; k* = strengths of the baked shading
 const LIGHTS = {
-  dawn:  { az: 35, el: 8,  sun: "#ffd7a0", sunK: 1.0,  amb: "#a9bde0", ambK: 0.66, zen: "#7fa6dc", mid: "#bcd6ee", hor: "#f6d2a8", hz: "#ecd3be", hazeD: 12500, water: "#2f6fae", glint: "#8fc4e6", glit: 1.0, sea: "#2c5f8f", cloud: "#fff0dc", cloudS: "#c9b4b8", night: 0, fill: "#ffd6a8", fillK: 0.5 },
-  noon:  { az: 10, el: 65, sun: "#fff3dc", sunK: 0.95, amb: "#b3cdf0", ambK: 0.72, zen: "#2f76cc", mid: "#5f9fe2", hor: "#cfe3f4", hz: "#c4dcee", hazeD: 17000, water: "#2f6fae", glint: "#a8d6f2", glit: 0.7, sea: "#2a6aa6", cloud: "#ffffff", cloudS: "#aebfd8", night: 0, fill: "#dfe8ff", fillK: 0.22 },
-  eve:   { az: 60, el: 6,  sun: "#ff9a52", sunK: 1.05, amb: "#7b7384", ambK: 0.55, zen: "#4a4650", mid: "#6e5a5e", hor: "#b3683a", hz: "#a2705a", hazeD: 9000, water: "#3d4f5e", glint: "#d99a62", glit: 0.9, sea: "#3d4f5e", cloud: "#d08a5a", cloudS: "#4a4650", night: 0, fill: "#ff9a58", fillK: 0.4 },
-  night: { az: 30, el: 35, sun: "#8ea8dc", sunK: 0.36,  amb: "#26356a", ambK: 0.48, zen: "#060a18", mid: "#0e1530", hor: "#1b2b52", hz: "#17234a", hazeD: 7500, water: "#0b1630", glint: "#c9d6e6", glit: 0.2, sea: "#0b1630", cloud: "#2a3350", cloudS: "#10162c", night: 1, fill: "#6a86d0", fillK: 0.35 },
+  dawn:  { az: 35, el: 8,  sun: "#ffd7a0", sunK: 1.0,  amb: "#a9bde0", ambK: 0.66, zen: "#7fa6dc", mid: "#bcd6ee", hor: "#f6d2a8", hz: "#ecd3be", hazeD: 12500, hzW: "#a9bce0", hazeW: 21000, fleck: 1, sh: { el: 36, amb: [0.59, 0.67, 0.9], sun: [0.8, 0.575, 0.035] }, water: "#1f52a8", glint: "#b4d0f4", glit: 1.0, sea: "#2c5f8f", cloud: "#fff0dc", cloudS: "#c9b4b8", night: 0, fill: "#ffd6a8", fillK: 0.5 },
+  noon:  { fleck: 0.8, az: 10, el: 65, sun: "#fff3dc", sunK: 0.95, amb: "#b3cdf0", ambK: 0.72, zen: "#2f76cc", mid: "#5f9fe2", hor: "#cfe3f4", hz: "#c4dcee", hazeD: 17000, water: "#2f6fae", glint: "#a8d6f2", glit: 0.7, sea: "#2a6aa6", cloud: "#ffffff", cloudS: "#aebfd8", night: 0, fill: "#dfe8ff", fillK: 0.22 },
+  eve:   { fleck: 0.45, az: 60, el: 6,  sun: "#ff9a52", sunK: 1.05, amb: "#7b7384", ambK: 0.55, zen: "#4a4650", mid: "#6e5a5e", hor: "#b3683a", hz: "#a2705a", hazeD: 9000, water: "#3d4f5e", glint: "#d99a62", glit: 0.9, sea: "#3d4f5e", cloud: "#d08a5a", cloudS: "#4a4650", night: 0, fill: "#ff9a58", fillK: 0.4 },
+  night: { fleck: 0.22, az: 30, el: 35, sun: "#8ea8dc", sunK: 0.36,  amb: "#26356a", ambK: 0.48, zen: "#060a18", mid: "#0e1530", hor: "#1b2b52", hz: "#17234a", hazeD: 7500, water: "#0b1630", glint: "#c9d6e6", glit: 0.2, sea: "#0b1630", cloud: "#2a3350", cloudS: "#10162c", night: 1, fill: "#6a86d0", fillK: 0.35 },
 };
 const sunDirOf = (az, el) => [-Math.sin(az * DEG) * Math.cos(el * DEG), Math.sin(el * DEG), -Math.cos(az * DEG) * Math.cos(el * DEG)];   // toward the sun
 function lightOf(name) {
@@ -93,8 +126,11 @@ function lightOf(name) {
   o.sunV = sunDirOf(L.az, L.el); o.fillC = rgb(L.fill); { const f = [0.25, 0.3, 0.92], l = Math.hypot(...f); o.fillV = f.map((v) => v / l); } o.sunC = rgb(L.sun); o.ambC = rgb(L.amb); o.zenC = rgb(L.zen); o.midC = rgb(L.mid); o.horC = rgb(L.hor); o.hzC = rgb(L.hz);
   o.waterC = rgb(L.water); o.glintC = rgb(L.glint); o.seaC = rgb(L.sea); o.cloudC = rgb(L.cloud); o.cloudSC = rgb(L.cloudS);
   // baked shade of a face with this normal: [r, g, b] multiplier on the albedo
+  // L.sh = the painter's light of a state: the low dawn sun is drawn as a warm light 36 deg up with blue shade (linear rgb), as the plates paint it
+  const shV = L.sh ? sunDirOf(L.az, L.sh.el) : o.sunV, shA = L.sh ? L.sh.amb : null, shS = L.sh ? L.sh.sun : null;
   o.shade = (nx, ny, nz) => {
-    const d = Math.max(0, nx * o.sunV[0] + ny * o.sunV[1] + nz * o.sunV[2]), h = 0.55 + 0.45 * (0.5 + 0.5 * ny);
+    const d = Math.max(0, nx * shV[0] + ny * shV[1] + nz * shV[2]), h = 0.55 + 0.45 * (0.5 + 0.5 * ny);
+    if (shA) { const f = Math.max(0, nx * o.fillV[0] + ny * o.fillV[1] + nz * o.fillV[2]) * 0.16; return [shA[0] * h + shS[0] * d + f, shA[1] * h + shS[1] * d + f * 0.9, shA[2] * h + shS[2] * d + f * 0.7]; }
     const f = Math.max(0, nx * o.fillV[0] + ny * o.fillV[1] + nz * o.fillV[2]) * o.fillK;
     return [o.ambC[0] * o.ambK * h + o.sunC[0] * o.sunK * d + o.fillC[0] * f, o.ambC[1] * o.ambK * h + o.sunC[1] * o.sunK * d + o.fillC[1] * f, o.ambC[2] * o.ambK * h + o.sunC[2] * o.sunK * d + o.fillC[2] * f];
   };
@@ -113,6 +149,7 @@ class GB {
   }
   // one triangle; c = one colour (array of 3-4 numbers) or three; o.flat true = unshaded colours; o.uv = [[u,v] x3]; o.mv = [x3 move]; o.tg
   tri(a, b, d, c, o = {}) {
+    if (this.xf) { a = this.xf(a); b = this.xf(b); d = this.xf(d); }
     const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = d[0] - a[0], vy = d[1] - a[1], vz = d[2] - a[2];
     let nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx; const l = Math.hypot(nx, ny, nz) || 1; nx /= l; ny /= l; nz /= l;
     if (o.up) { nx = 0; ny = 1; nz = 0; }
@@ -121,6 +158,12 @@ class GB {
       const ao = o.ao ? o.ao[i] : 1, cc = cs[i];
       this.vert(p[0], p[1], p[2], [cc[0] * sh[0] * ao, cc[1] * sh[1] * ao, cc[2] * sh[2] * ao, cc[3] ?? 1], uv[i][0], uv[i][1], o.mv ? o.mv[i] : null, o.tg ? (Array.isArray(o.tg[0]) ? o.tg[i] : o.tg) : null);
     });
+  }
+  // a triangle whose front faces away from the point `ref`
+  triOut(a, b, d, ref, c, o = {}) {
+    const ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = d[0] - a[0], vy = d[1] - a[1], vz = d[2] - a[2];
+    const nx = uy * vz - uz * vy, ny = uz * vx - ux * vz, nz = ux * vy - uy * vx, fx = (a[0] + b[0] + d[0]) / 3 - ref[0], fy = (a[1] + b[1] + d[1]) / 3 - ref[1], fz = (a[2] + b[2] + d[2]) / 3 - ref[2];
+    if (nx * fx + ny * fy + nz * fz >= 0) return this.tri(a, b, d, c, o); return this.tri(a, d, b, c, o);
   }
   // a quad p0 p1 p2 p3 (counter-clockwise seen from the front)
   quad(p0, p1, p2, p3, c, o = {}) {
@@ -193,14 +236,17 @@ class GB {
 // banners and oars (MOVE), the red-gold plate flash (FLASH), camera-facing puffs (PUFF), falling-water streaks (FALLS).
 const VS = `
 attribute vec4 aCol; attribute vec4 aMv; attribute vec2 aTg;
-uniform float uTime; uniform float uMoveF; uniform float uMoveK;
-varying vec4 vC; varying vec2 vUv; varying vec2 vTg; varying float vD; varying float vAge; varying vec3 vL; varying vec3 vW;
+uniform float uTime; uniform float uMoveF; uniform float uMoveK; uniform mat4 uProjM; uniform vec3 uProjO;
+varying vec4 vC; varying vec2 vUv; varying vec2 vTg; varying float vD; varying float vAge; varying vec3 vL; varying vec3 vW; varying vec4 vPj;
 void main() {
   vC = aCol; vUv = uv; vTg = aTg; vAge = 0.0; vec3 p = position; vL = position;
   #ifdef MOVE
     p += aMv.xyz * sin(uTime * uMoveF + aMv.w) * uMoveK;
   #endif
-  vec4 wp = modelMatrix * vec4(p, 1.0); vW = wp.xyz;
+  vec4 wp = modelMatrix * vec4(p, 1.0); vW = wp.xyz; vPj = vec4(0.0);
+  #ifdef PROJ
+    vPj = uProjM * vec4(wp.xyz - uProjO, 1.0);
+  #endif
   vec4 mv = viewMatrix * wp;
   #ifdef PUFF
     float age = fract(uTime * aTg.y + aMv.w); vAge = age;
@@ -210,11 +256,15 @@ void main() {
   #endif
   vD = length(mv.xyz);
   gl_Position = projectionMatrix * mv;
+  #ifdef FARCLAMP
+    gl_Position.z = min(gl_Position.z, gl_Position.w * 0.9999);
+  #endif
 }`;
 const FS = `
 uniform sampler2D map; uniform vec3 uHaze; uniform float uHazeD; uniform float uHazeK; uniform vec3 uTint; uniform vec3 uAdd; uniform float uTime;
 uniform float uAlpha; uniform float uFlashPos; uniform float uHot; uniform vec3 uFlashCol; uniform vec3 uHotCol; uniform float uTurq;
-varying vec4 vC; varying vec2 vUv; varying vec2 vTg; varying float vD; varying float vAge; varying vec3 vL; varying vec3 vW;
+uniform sampler2D uProjT; uniform vec3 uProjO; uniform vec3 uProjC; uniform vec2 uProjV; uniform float uProjK; uniform float uProjW; uniform vec2 uSpk;
+varying vec4 vC; varying vec2 vUv; varying vec2 vTg; varying float vD; varying float vAge; varying vec3 vL; varying vec3 vW; varying vec4 vPj;
 float h11(float n) { return fract(sin(n * 127.1 + 311.7) * 43758.5453); }
 void main() {
   vec4 c = vC;
@@ -247,8 +297,25 @@ void main() {
     c.rgb *= 0.82 + 0.3 * bright;
   #endif
   c.rgb = c.rgb * uTint + uAdd * (0.3 + dot(c.rgb, vec3(0.33)));
-  float f = (1.0 - exp(-pow(vD / uHazeD, 2.2))) * uHazeK; f = max(f, smoothstep(7600.0, 8900.0, vD) * uHazeK);
-  c.rgb = mix(c.rgb, uHaze, clamp(f, 0.0, 1.0));
+  float f = (1.0 - exp(-pow(vD / uHazeD, 2.2))) * uHazeK;
+  #ifndef FARCLAMP
+    f = max(f, smoothstep(7600.0, 8900.0, vD) * uHazeK);
+  #endif
+  c.rgb = mix(c.rgb, uHaze, clamp(f, 0.0, 0.86));
+  #ifdef PROJ
+  { // the plate, projected from its own camera onto every surface that faces it; elsewhere the drawn material stays
+    vec3 q = vPj.xyz / max(vPj.w, 0.0001); float wtr = step(4.5, vTg.x);
+    vec2 wob = wtr * uProjW * vec2(sin(vW.z * uSpk.x * 0.7 + uTime * 1.6 + vW.x * uSpk.x * 0.2), 0.35 * sin(vW.x * uSpk.x * 0.5 - uTime * 1.2));
+    float vi = uProjV.y + (1.0 - q.y) * 0.5 * uProjV.x + wob.y; vec2 puv = vec2(q.x * 0.5 + 0.5 + wob.x, 1.0 - vi);
+    vec3 nrm = normalize(cross(dFdx(vW), dFdy(vW))); float facing = dot(nrm, normalize(uProjC + uProjO - vW));
+    float k = step(0.0, vPj.w) * smoothstep(-0.32, -0.24, puv.x) * (1.0 - smoothstep(1.24, 1.32, puv.x)) * smoothstep(-0.004, 0.004, vi) * (1.0 - smoothstep(0.996, 1.004, vi)) * smoothstep(0.0, 0.05, facing) * uProjK;
+    vec3 pc = texture2D(uProjT, puv).rgb;
+    // the water keeps moving: small glints that come and go on top of the painted water (additive, physical sun glitter only)
+    vec2 cell = floor(vW.xz * uSpk.x * vec2(1.0, 2.6)); float tw = h11(cell.x * 1.7 + cell.y * 31.3); float ph = fract(tw * 7.0 + uTime * (0.35 + 0.5 * tw));
+    vec2 cf = fract(vW.xz * uSpk.x * vec2(1.0, 2.6)) - 0.5; float dotm = smoothstep(0.46, 0.08, length(cf * vec2(1.0, 1.7)));
+    pc += wtr * uSpk.y * vec3(0.75, 0.86, 1.0) * step(0.88, tw) * dotm * smoothstep(0.0, 0.25, ph) * (1.0 - smoothstep(0.35, 0.7, ph));
+    c.rgb = mix(c.rgb, pc, k); }
+  #endif
   c.a *= uAlpha;
   if (c.a < 0.004) discard;
   gl_FragColor = c;
@@ -261,12 +328,14 @@ function makeU(L) {
     uTime: { value: 0 }, uMoveF: { value: 1.7 }, uMoveK: { value: 1 }, uHaze: { value: new THREE.Color(...L.hzC) }, uHazeD: { value: L.hazeD }, uHazeK: { value: 1 },
     uTint: { value: new THREE.Color(1, 1, 1) }, uAdd: { value: new THREE.Color(0, 0, 0) }, uFlashPos: { value: 0 }, uHot: { value: 0 },
     uFlashCol: { value: new THREE.Color(...rgb("#ffd66a")) }, uHotCol: { value: new THREE.Color(...rgb("#f08a2e")) }, uTurq: { value: 0 }, map: { value: null },
+    uProjT: { value: null }, uProjM: { value: new THREE.Matrix4() }, uProjO: { value: new THREE.Vector3() }, uProjC: { value: new THREE.Vector3() }, uProjV: { value: new THREE.Vector2(864 / 1024, 0) }, uProjK: { value: 0 }, uProjW: { value: 0 }, uSpk: { value: new THREE.Vector2(1, 0) },
   };
 }
-// kind of material: { map, move, flash, puff, falls, alpha, offset (polygon offset units), order, side, add (additive) }
+// (farclamp: a piece that reaches beyond the camera's far plane is pinned to it instead of cut: the plain and the mountains)
+// kind of material: { map, move, flash, puff, falls, farclamp, alpha, offset (polygon offset units), order, side, add (additive) }
 function wmat(U, o = {}) {
   const u = { ...U, map: { value: o.map || null }, uAlpha: { value: 1 }, uMoveF: { value: o.move || 1 } };
-  const defines = {}; if (o.map) defines.MAP = 1; if (o.move) defines.MOVE = 1; if (o.flash) defines.FLASH = 1; if (o.puff) defines.PUFF = 1; if (o.falls) defines.FALLS = 1;
+  const defines = {}; if (o.map) defines.MAP = 1; if (o.move) defines.MOVE = 1; if (o.flash) defines.FLASH = 1; if (o.puff) defines.PUFF = 1; if (o.falls) defines.FALLS = 1; if (o.proj && !o.puff) defines.PROJ = 1; if (o.farclamp) defines.FARCLAMP = 1;
   const m = new THREE.ShaderMaterial({
     uniforms: u, defines, vertexShader: VS, fragmentShader: FS, transparent: !!o.alpha, depthWrite: o.depthWrite ?? !o.alpha, depthTest: true, side: o.side ?? THREE.FrontSide, fog: false,
     polygonOffset: !!o.offset, polygonOffsetFactor: -(o.offset || 0), polygonOffsetUnits: -(o.offset || 0),
@@ -360,114 +429,178 @@ const wrapA = (a) => { a = (a + Math.PI) % TAU; if (a < 0) a += TAU; return a - 
 const RACE = { r: 1665, a: 38 * DEG, long: 840, wide: 260 };   // the racecourse: centre, long axis tangent (a sand oval), outer land ring, front right
 const CITY_E = 2650, PLAIN_E = 9500;
 
+// drawn ashlar, one tile = TS metres: 8 courses of blocks, each block its own width, tint and chisel marks, dark joints with a lit
+// edge, a few stains and moss tufts. A multiplier (the vertex colour carries the stone's own colour); tiles both ways.
+function ashlarTex() {
+  return once("ashlar", () => {
+    const N = 1024, [c, x] = canvas(N, N), rows = 8, rh = N / rows;
+    for (let r = 0; r < rows; r++) {
+      const ws = []; let sum = 0; for (let b = 0; sum < N; b++) { const w = 84 + Math.floor(rr(5 + r, b) * 120); ws.push(w); sum += w; }
+      const off = Math.floor(rr(77, r) * 90); let px = 0;
+      ws.forEach((w0, b) => {
+        const w = (w0 * N) / sum, t = 0.83 + 0.17 * rr(9 + r, b), warm = rr(13 + r, b), v = Math.round(255 * t);
+        for (const dx of [0, -N]) {
+          const X0 = px + off + dx, Y0 = r * rh; if (X0 > N || X0 + w < 0) continue;
+          x.fillStyle = `rgb(${v},${Math.round(v * (0.965 + 0.035 * warm))},${Math.round(v * (0.9 + 0.08 * warm))})`; x.fillRect(X0, Y0, w + 1, rh);
+          x.save(); x.beginPath(); x.rect(X0, Y0, w, rh); x.clip();
+          for (let q = 0; q < 9; q++) { const cx = X0 + rr(r * 31 + b, q) * w, cy = Y0 + rr(r * 37 + b, q + 20) * rh, rad = 10 + 30 * rr(r * 41 + b, q + 40), g = x.createRadialGradient(cx, cy, 0, cx, cy, rad), dk = rr(r * 43 + b, q + 60) < 0.55; g.addColorStop(0, dk ? "rgba(120,112,96,0.16)" : "rgba(255,255,250,0.2)"); g.addColorStop(1, "rgba(128,128,128,0)"); x.fillStyle = g; x.fillRect(cx - rad, cy - rad, rad * 2, rad * 2); }
+          x.strokeStyle = "rgba(110,100,84,0.16)"; x.lineWidth = 1.2; for (let q = 0; q < 10; q++) { const cx = X0 + rr(r * 47 + b, q) * w, cy = Y0 + rr(r * 53 + b, q + 20) * rh, l = 6 + 12 * rr(r * 59 + b, q); x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + l, cy + l * 0.5); x.stroke(); }
+          x.fillStyle = "rgba(70,62,50,0.6)"; x.fillRect(X0 + w - 2.5, Y0, 2.5, rh); x.fillRect(X0, Y0 + rh - 3, w, 3);            // joints
+          x.fillStyle = "rgba(255,255,248,0.4)"; x.fillRect(X0, Y0, w - 2.5, 1.8); x.fillRect(X0, Y0, 1.8, rh - 3);                 // the lit arris
+          if (rr(r * 61 + b, 3) < 0.16) { const sx = X0 + rr(r * 67 + b, 4) * w, g = x.createLinearGradient(0, Y0, 0, Y0 + rh); g.addColorStop(0, "rgba(96,84,60,0.34)"); g.addColorStop(1, "rgba(96,84,60,0)"); x.fillStyle = g; x.fillRect(sx, Y0, 4 + 7 * rr(r * 71 + b, 5), rh); }   // a rain stain
+          if (rr(r * 73 + b, 6) < 0.12) { x.fillStyle = "rgba(96,132,70,0.55)"; for (let q = 0; q < 6; q++) { x.beginPath(); x.arc(X0 + rr(r * 79 + b, q) * w, Y0 + rh - 4 - 5 * rr(r * 83 + b, q), 3 + 4 * rr(r * 89 + b, q), 0, TAU); x.fill(); } }   // moss in the joint
+          x.restore();
+        }
+        px += w;
+      });
+    }
+    const t = ctex(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+  });
+}
+
+// ---- the city ground, 4096 px over 5300 m: gardens, vineyards (light rows), orchards, lawns, ponds, flower courts, paved walks, the eight
+// spoke avenues, each villa's yard and wall, the shade of every villa and tree, the racecourse, the temple precinct
 function paintCity() {
   return once("city", () => {
-    const N = 4096, k = N / (2 * CITY_E), [c, x] = canvas(N, N), PX = (X) => (X + CITY_E) * k, PY = (Z) => (Z + CITY_E) * k, S = k;
-    x.fillStyle = "#3d6a4a"; x.fillRect(0, 0, N, N);
+    const N = 4096, k = N / (2 * CITY_E), [c, x] = canvas(N, N), PX = (X) => (X + CITY_E) * k, PY = (Z) => (Z + CITY_E) * k, S = k, L0 = layout();
+    x.fillStyle = "#44822f"; x.fillRect(0, 0, N, N);
     const ringPath = (r0, r1) => { x.beginPath(); x.arc(PX(0), PY(0), r1 * S, 0, TAU); x.arc(PX(0), PY(0), r0 * S, 0, TAU, true); };
-    const GREEN = ["#6f9b45", "#7fa650", "#5f8f4a", "#8fae55", "#a2b45a", "#78a04c"], OCHRE = ["#c9b45a", "#d2c06a", "#b89a52"], PAVE = ["#d8ccb0", "#cfc4a8", "#e0d6bc"];
+    const GREEN = ["#508c36", "#5f9a3c", "#458232", "#6ea242", "#7cab46", "#56923a"], OCHRE = ["#c4ae54", "#cfbc62", "#b5984a"], PAVE = ["#e2d7ba", "#d8cdb0", "#eadfc4"];
     const rect = (X, Z, w, h, rot, col) => { x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); x.fillStyle = col; x.fillRect(-w * S / 2, -h * S / 2, w * S, h * S); x.restore(); };
-    const lands = [{ r0: 647, r1: 1017, base: "#86a85a", n: 1900, s: 61 }, { r0: 1387, r1: 1942, base: "#7fa354", n: 3300, s: 62 }, { r0: 60, r1: 462, base: "#93ad63", n: 700, s: 63 }];
+    const lands = [{ r0: 647, r1: 1017, base: "#4f8c36", n: 460, s: 61 }, { r0: 1387, r1: 1942, base: "#4a8834", n: 1250, s: 62 }, { r0: HILL_R, r1: 462, base: "#56923a", n: 130, s: 63 }];
     for (const L of lands) {
       x.save(); ringPath(L.r0, L.r1); x.fillStyle = L.base; x.fill("evenodd"); x.clip("evenodd");
-      // garden patches, each its own place, size, turn and kind from a hash
-      for (let i = 0; i < L.n; i++) {
-        const a = rr(L.s, i * 5) * TAU, rad = Math.sqrt(lerp(L.r0 * L.r0, L.r1 * L.r1, rr(L.s, i * 5 + 1))), w = 16 + 52 * rr(L.s, i * 5 + 2) ** 1.4, h = 14 + 40 * rr(L.s, i * 5 + 3), kind = rr(L.s, i * 5 + 4);
-        const [X, Z] = pol(rad, a), rot = a;   // tangent aligned: long side along the ring
-        if (kind < 0.5) rect(X, Z, w, h, rot, GREEN[Math.floor(rr(L.s, i + 900) * GREEN.length)]);
-        else if (kind < 0.62) rect(X, Z, w, h, rot, OCHRE[Math.floor(rr(L.s, i + 910) * OCHRE.length)]);
-        else if (kind < 0.76) { rect(X, Z, w, h, rot, "#5a8a46"); x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); x.fillStyle = "#3f6f38"; for (let q = 0; q < Math.min(14, w / 5); q++) for (let p = 0; p < Math.min(8, h / 5); p++) { x.beginPath(); x.arc((-w / 2 + 3 + q * 5) * S, (-h / 2 + 3 + p * 5) * S, 1.6 * S, 0, TAU); x.fill(); } x.restore(); }   // orchard
-        else if (kind < 0.86) { rect(X, Z, w, h, rot, "#7d9c52"); x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); x.strokeStyle = "rgba(60,90,40,0.55)"; x.lineWidth = 1.2 * S; for (let q = -h / 2 + 2; q < h / 2; q += 3) { x.beginPath(); x.moveTo(-w * S / 2, q * S); x.lineTo(w * S / 2, q * S); x.stroke(); } x.restore(); }   // vegetable rows
-        else if (kind < 0.92) { x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); x.fillStyle = "#4f8fb8"; x.beginPath(); x.ellipse(0, 0, w * S * 0.4, h * S * 0.35, 0, 0, TAU); x.fill(); x.strokeStyle = "#d8ccb0"; x.lineWidth = 2 * S; x.stroke(); x.restore(); }   // a pond
-        else { rect(X, Z, w, h, rot, PAVE[i % 3]); x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); const cols = ["#c24a3a", "#f1ece0", "#e0a22e", "#d86a8a"]; for (let q = 0; q < 9; q++) { x.fillStyle = cols[q % 4]; x.beginPath(); x.arc((rr(L.s, i * 9 + q) - 0.5) * w * S * 0.8, (rr(L.s, i * 9 + q + 50) - 0.5) * h * S * 0.8, 1.7 * S, 0, TAU); x.fill(); } x.restore(); }   // a flower court
+      for (let i = 0; i < L.n; i++) {   // garden parcels, each its own place, size, turn and kind from a hash
+        const a = rr(L.s, i * 5) * TAU, rad = Math.sqrt(lerp(L.r0 * L.r0, L.r1 * L.r1, rr(L.s, i * 5 + 1))), w = 44 + 110 * rr(L.s, i * 5 + 2) ** 1.4, h = 36 + 74 * rr(L.s, i * 5 + 3), kind = rr(L.s, i * 5 + 4);
+        const [X, Z] = pol(rad, a), rot = a + (rr(L.s, i + 700) - 0.5) * 0.3;
+        const inside = (f) => { x.save(); x.translate(PX(X), PY(Z)); x.rotate(-rot); f(); x.restore(); };
+        rect(X, Z, w + 5, h + 5, rot, "rgba(38,84,40,0.75)");   // the hedge round it
+        if (kind < 0.3) rect(X, Z, w, h, rot, GREEN[Math.floor(rr(L.s, i + 900) * GREEN.length)]);
+        else if (kind < 0.37) rect(X, Z, w, h, rot, OCHRE[Math.floor(rr(L.s, i + 910) * OCHRE.length)]);
+        else if (kind < 0.53) { rect(X, Z, w, h, rot, "#5a9440"); inside(() => { for (let q = 0; q < Math.min(12, w / 12); q++) for (let p = 0; p < Math.min(8, h / 12); p++) { x.fillStyle = "#2f6a2e"; x.beginPath(); x.arc((-w / 2 + 7 + q * 12) * S, (-h / 2 + 7 + p * 12) * S, 4.2 * S, 0, TAU); x.fill(); x.fillStyle = "#4f9a3c"; x.beginPath(); x.arc((-w / 2 + 6 + q * 12) * S, (-h / 2 + 6 + p * 12) * S, 2.4 * S, 0, TAU); x.fill(); } }); }   // an orchard
+        else if (kind < 0.84) { rect(X, Z, w, h, rot, "#3f7f30"); inside(() => { x.strokeStyle = rr(L.s, i + 930) < 0.5 ? "#a9c552" : "#8fba48"; x.lineWidth = 2.6 * S; const along = rr(L.s, i + 940) < 0.5; for (let q = (along ? -h : -w) / 2 + 4; q < (along ? h : w) / 2; q += 6.5) { x.beginPath(); if (along) { x.moveTo(-w * S / 2, q * S); x.lineTo(w * S / 2, q * S); } else { x.moveTo(q * S, -h * S / 2); x.lineTo(q * S, h * S / 2); } x.stroke(); } }); }   // a vineyard: light rows
+        else if (kind < 0.88) inside(() => { x.fillStyle = "#3f7fc0"; x.beginPath(); x.ellipse(0, 0, w * S * 0.4, h * S * 0.35, 0, 0, TAU); x.fill(); x.strokeStyle = "#e2d7ba"; x.lineWidth = 4 * S; x.stroke(); x.fillStyle = "rgba(190,220,250,0.7)"; x.fillRect(-w * S * 0.2, -h * S * 0.08, w * S * 0.25, 1.6 * S); });   // a pond
+        else { rect(X, Z, w, h, rot, PAVE[i % 3]); inside(() => { const cols = ["#d2503c", "#f4efe2", "#e3aa30", "#e07a98", "#b05ac0"]; for (let q = 0; q < 16; q++) { x.fillStyle = cols[q % 5]; x.beginPath(); x.arc((rr(L.s, i * 9 + q) - 0.5) * w * S * 0.84, (rr(L.s, i * 9 + q + 50) - 0.5) * h * S * 0.84, 3.4 * S, 0, TAU); x.fill(); } }); }   // a flower court
       }
-      // lanes: ring roads and radial lanes, each its own wobble and width
+      // lanes: radial lanes and the ring road, pale, each its own wobble and width
       x.lineCap = "round";
-      const nl = Math.round((L.r1 - L.r0) / 32 * (L.r1 / 1000 + 0.7));
+      const nl = Math.round((L.r1 - L.r0) / 60 * (L.r1 / 1000 + 0.7));
       for (let i = 0; i < nl; i++) {
-        const a = rr(L.s + 5, i) * TAU; x.strokeStyle = PAVE[i % 3]; x.lineWidth = (3.5 + 3 * rr(L.s + 5, i + 40)) * S; x.beginPath();
-        for (let q = 0; q <= 12; q++) { const rad = lerp(L.r0, L.r1, q / 12), aa = a + 0.004 * Math.sin(q * 1.3 + i), [X, Z] = pol(rad, aa); if (q) x.lineTo(PX(X), PY(Z)); else x.moveTo(PX(X), PY(Z)); }
+        const a = rr(L.s + 5, i) * TAU; x.strokeStyle = PAVE[i % 3]; x.lineWidth = (7 + 5 * rr(L.s + 5, i + 40)) * S; x.beginPath();
+        for (let q = 0; q <= 12; q++) { const rad = lerp(L.r0, L.r1, q / 12), aa = a + 0.02 * Math.sin(q * 1.3 + i), [X, Z] = pol(rad, aa); if (q) x.lineTo(PX(X), PY(Z)); else x.moveTo(PX(X), PY(Z)); }
         x.stroke();
       }
-      for (let f of [0.2, 0.5, 0.8]) { const rad = lerp(L.r0, L.r1, f); x.strokeStyle = "#d2c8ac"; x.lineWidth = (f === 0.5 ? 11 : 6) * S; x.beginPath(); x.arc(PX(0), PY(0), rad * S, 0, TAU); x.stroke(); x.strokeStyle = "rgba(120,105,80,0.45)"; x.lineWidth = 1.4 * S; x.beginPath(); x.arc(PX(0), PY(0), (rad + (f === 0.5 ? 6 : 3.4)) * S, 0, TAU); x.stroke(); }
+      if (L.s !== 63) { const rad = (L.r0 + L.r1) / 2; x.strokeStyle = "#b8ab88"; x.lineWidth = 22 * S; x.beginPath(); x.arc(PX(0), PY(0), rad * S, 0, TAU); x.stroke(); x.strokeStyle = "#e2d7ba"; x.lineWidth = 17 * S; x.beginPath(); x.arc(PX(0), PY(0), rad * S, 0, TAU); x.stroke(); }
       x.restore();
     }
-    // the island: terrace bands (gardens and hedges), the paved precinct of the temple, the white stair from the front gate
-    { const bands = [[430, 462, "#7fa650"], [400, 430, "#93ad63"], [375, 400, "#78a04c"], [352, 375, "#8fae55"], [332, 352, "#6f9b45"]];
-      for (const [r0, r1, col] of bands) { ringPath(r0, r1); x.fillStyle = col; x.fill("evenodd"); x.strokeStyle = "#3f6f38"; x.lineWidth = 2.4 * S; x.beginPath(); x.arc(PX(0), PY(0), (r0 + 2) * S, 0, TAU); x.stroke(); }
-      x.fillStyle = "#e5dfcd"; x.beginPath(); x.arc(PX(0), PY(0), 332 * S, 0, TAU); x.fill();
-      x.strokeStyle = "#b8ab8a"; x.lineWidth = 1.6 * S; for (let q = 0; q < 6; q++) { x.beginPath(); x.arc(PX(0), PY(0), (332 - 18 * q) * S, 0, TAU); x.stroke(); }
-      x.fillStyle = "#f2eee2"; x.fillRect(PX(-170), PY(-80), 340 * S, 400 * S);
-      x.fillStyle = "#f4f1e8"; x.fillRect(PX(-18), PY(120), 36 * S, 345 * S); x.strokeStyle = "#a89a78"; x.lineWidth = 1.5 * S; x.strokeRect(PX(-18), PY(120), 36 * S, 345 * S); }
-    // the eight spoke roads across the land rings, with a plaza where each meets a quay
+    // the temple precinct: pale marble paving in rings and rays, a darker apron under the temple
+    x.fillStyle = "#ece6d4"; x.beginPath(); x.arc(PX(0), PY(0), HILL_R * S, 0, TAU); x.fill();
+    x.strokeStyle = "#c2b594"; x.lineWidth = 2.2 * S; for (let q = 0; q < 7; q++) { x.beginPath(); x.arc(PX(0), PY(0), (HILL_R - 6 - 38 * q) * S, 0, TAU); x.stroke(); }
+    for (let q = 0; q < 32; q++) { const [X, Z] = pol(HILL_R, (q / 32) * TAU); x.beginPath(); x.moveTo(PX(0), PY(0)); x.lineTo(PX(X), PY(Z)); x.stroke(); }
+    x.fillStyle = "rgba(60,70,90,0.28)"; x.fillRect(PX(-158 + 30), PY(-298 + 26), 316 * S, 596 * S); x.fillStyle = "#f4f1e8"; x.fillRect(PX(-158), PY(-298), 316 * S, 596 * S);
+    // the eight spoke avenues across the land rings, with a plaza where each meets a rampart
     for (let q = 0; q < 8; q++) {
-      const a = SPOKE(q), wd = q % 2 ? 22 : 40;
-      for (const [r0, r1] of [[462, 650], [647, 1020], [1017, 1390], [1387, 1945], [1942, 2500]]) {
-        const [X0, Z0] = pol(r0, a), [X1, Z1] = pol(r1, a); x.strokeStyle = "#a89a78"; x.lineWidth = (wd + 3) * S; x.lineCap = "butt"; x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke();
-        x.strokeStyle = "#dcd2b8"; x.lineWidth = wd * S; x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke();
-        x.strokeStyle = "rgba(255,248,226,0.7)"; x.lineWidth = 1.2 * S; x.setLineDash([6 * S, 7 * S]); x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke(); x.setLineDash([]);
+      const a = SPOKE(q), wd = q % 2 ? 40 : 74;
+      for (const [r0, r1] of [[HILL_R - 4, 466], [643, 1021], [1383, 1946]]) {
+        const [X0, Z0] = pol(r0, a), [X1, Z1] = pol(r1, a); x.lineCap = "butt"; x.strokeStyle = "#a89a78"; x.lineWidth = (wd + 6) * S; x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke();
+        x.strokeStyle = "#e0d6ba"; x.lineWidth = wd * S; x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke();
+        x.strokeStyle = "rgba(150,135,100,0.55)"; x.lineWidth = 1.4 * S; for (let t = r0; t < r1; t += 14) { const [Xa, Za] = pol(t, a), tx = Math.cos(a) * wd / 2, tz = -Math.sin(a) * wd / 2; x.beginPath(); x.moveTo(PX(Xa - tx), PY(Za - tz)); x.lineTo(PX(Xa + tx), PY(Za + tz)); x.stroke(); }   // paving joints
       }
-      for (const rad of [660, 1005, 1400, 1930]) { const [X, Z] = pol(rad, a); x.fillStyle = "#e4dcc4"; x.beginPath(); x.arc(PX(X), PY(Z), (q % 2 ? 36 : 60) * S, 0, TAU); x.fill(); x.strokeStyle = "#a89a78"; x.lineWidth = 2 * S; x.stroke(); }
+      for (const rad of [680, 985, 1425, 1905]) { const [X, Z] = pol(rad, a); x.fillStyle = "#e6dcc2"; x.beginPath(); x.arc(PX(X), PY(Z), (q % 2 ? 46 : 74) * S, 0, TAU); x.fill(); x.strokeStyle = "#a89a78"; x.lineWidth = 2.4 * S; x.stroke(); }
     }
-    // quays: a stone band with a dark lip and bollards on every land edge
-    for (const [r, dir] of [[647, 1], [1017, -1], [1387, 1], [1942, -1]]) {
-      x.strokeStyle = "#cdc4ae"; x.lineWidth = 16 * S; x.beginPath(); x.arc(PX(0), PY(0), (r + dir * 8) * S, 0, TAU); x.stroke();
-      x.strokeStyle = "#8d8470"; x.lineWidth = 2.2 * S; x.beginPath(); x.arc(PX(0), PY(0), (r + dir * 0.6) * S, 0, TAU); x.stroke();
-      x.strokeStyle = "rgba(100,90,70,0.5)"; x.lineWidth = 1 * S; for (let q = 0; q < Math.round(r * TAU / 14); q++) { const a = (q / Math.round(r * TAU / 14)) * TAU, [X0, Z0] = pol(r + dir * 0.6, a), [X1, Z1] = pol(r + dir * 16, a); x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke(); }
-      x.fillStyle = "#3a3a40"; for (let q = 0; q < Math.round(r * TAU / 60); q++) { const a = (q / Math.round(r * TAU / 60)) * TAU, [X, Z] = pol(r + dir * 5, a); x.beginPath(); x.arc(PX(X), PY(Z), 2.6 * S, 0, TAU); x.fill(); }
+    // rampart walks: a paved band with drawn joints inside every wall
+    for (const [r, dir] of [[647, 1], [1017, -1], [1387, 1], [1942, -1], [462, -1]]) {
+      x.strokeStyle = "#d9cfb4"; x.lineWidth = 26 * S; x.beginPath(); x.arc(PX(0), PY(0), (r + dir * 13) * S, 0, TAU); x.stroke();
+      x.strokeStyle = "rgba(120,108,84,0.5)"; x.lineWidth = 1.2 * S; const m = Math.round(r * TAU / 18); for (let q = 0; q < m; q++) { const a = (q / m) * TAU, [X0, Z0] = pol(r, a), [X1, Z1] = pol(r + dir * 26, a); x.beginPath(); x.moveTo(PX(X0), PY(Z0)); x.lineTo(PX(X1), PY(Z1)); x.stroke(); }
+      x.strokeStyle = "rgba(120,108,84,0.6)"; x.lineWidth = 1.6 * S; x.beginPath(); x.arc(PX(0), PY(0), (r + dir * 26) * S, 0, TAU); x.stroke();
     }
-    // the racecourse: a sand oval, white rails, a green infield, a stand
-    { const [X, Z] = pol(RACE.r, RACE.a); x.save(); x.translate(PX(X), PY(Z)); x.rotate(-RACE.a);   // local x along the tangent, local y radial (outward)
+    // the racecourse: a sand oval, white rails, a green infield with a spina, a stand
+    { const [X, Z] = pol(RACE.r, RACE.a); x.save(); x.translate(PX(X), PY(Z)); x.rotate(-RACE.a);
       const oval = (w, h, col) => { x.fillStyle = col; x.beginPath(); x.ellipse(0, 0, w * S / 2, h * S / 2, 0, 0, TAU); x.fill(); };
-      oval(RACE.long + 30, RACE.wide + 30, "#b8aa86"); oval(RACE.long, RACE.wide, "#dcc48e"); oval(RACE.long - 90, RACE.wide - 90, "#7fae58");
-      x.strokeStyle = "#f4f4ee"; x.lineWidth = 2.6 * S; x.beginPath(); x.ellipse(0, 0, (RACE.long) * S / 2, (RACE.wide) * S / 2, 0, 0, TAU); x.stroke(); x.beginPath(); x.ellipse(0, 0, (RACE.long - 90) * S / 2, (RACE.wide - 90) * S / 2, 0, 0, TAU); x.stroke();
-      x.strokeStyle = "rgba(150,120,70,0.5)"; x.lineWidth = 1.2 * S; for (let q = 0; q < 14; q++) { x.beginPath(); x.ellipse(0, 0, (RACE.long - 20 - q * 5.5) * S / 2, (RACE.wide - 20 - q * 5.5) * S / 2, 0, 0, TAU); x.stroke(); }
-      x.fillStyle = "#6a9a48"; for (let q = 0; q < 26; q++) { const t = q / 26 * TAU; x.beginPath(); x.arc(Math.cos(t) * (RACE.long - 140) * S / 2, Math.sin(t) * (RACE.wide - 140) * S / 2, 3 * S, 0, TAU); x.fill(); }
-      x.fillStyle = "#e8e0cc"; x.fillRect(-70 * S, (RACE.wide / 2 + 16) * S, 140 * S, 16 * S); x.strokeStyle = "#8d8470"; x.lineWidth = 1.4 * S; x.strokeRect(-70 * S, (RACE.wide / 2 + 16) * S, 140 * S, 16 * S);
+      oval(RACE.long + 44, RACE.wide + 44, "#a89a70"); oval(RACE.long, RACE.wide, "#dcbf7c"); oval(RACE.long - 110, RACE.wide - 110, "#6faa48");
+      x.strokeStyle = "#f6f4ec"; x.lineWidth = 4 * S; x.beginPath(); x.ellipse(0, 0, RACE.long * S / 2, RACE.wide * S / 2, 0, 0, TAU); x.stroke(); x.beginPath(); x.ellipse(0, 0, (RACE.long - 110) * S / 2, (RACE.wide - 110) * S / 2, 0, 0, TAU); x.stroke();
+      x.strokeStyle = "rgba(150,112,60,0.5)"; x.lineWidth = 1.6 * S; for (let q = 0; q < 8; q++) { x.beginPath(); x.ellipse(0, 0, (RACE.long - 16 - q * 12) * S / 2, (RACE.wide - 16 - q * 12) * S / 2, 0, 0, TAU); x.stroke(); }
+      x.fillStyle = "#e8e0cc"; x.fillRect(-250 * S, -5 * S, 500 * S, 10 * S); x.fillStyle = "#3f7f30"; for (let q = 0; q < 12; q++) { x.beginPath(); x.arc((-230 + q * 42) * S, 0, 6 * S, 0, TAU); x.fill(); }
       x.restore(); }
+    // every villa: its shade, a pale yard and its garden wall; every tree: its shade (toward +x +z, away from the dawn sun)
+    for (const h of L0.houses) { x.save(); x.translate(PX(h.x), PY(h.z)); x.rotate(-h.rot); const w = 100 * h.sc, d = 64 * h.sc;
+      x.fillStyle = "rgba(226,215,186,0.9)"; x.fillRect(-(w + 46) * S / 2, -(d + 46) * S / 2, (w + 46) * S, (d + 60) * S); x.strokeStyle = "#b9ab88"; x.lineWidth = 2.6 * S; x.strokeRect(-(w + 46) * S / 2, -(d + 46) * S / 2, (w + 46) * S, (d + 60) * S);
+      x.restore(); x.fillStyle = "rgba(24,40,56,0.34)"; x.save(); x.translate(PX(h.x + 20 * h.sc), PY(h.z + 16 * h.sc)); x.rotate(-h.rot); x.fillRect(-w * S / 2, -d * S / 2, w * S, d * S); x.restore(); }
+    for (const t of L0.trees) { const rad = (t.kind === "cyp" ? 12 : 23) * t.s; x.fillStyle = "rgba(20,48,34,0.42)"; x.beginPath(); x.ellipse(PX(t.x + rad * 0.75), PY(t.z + rad * 0.55), rad * 1.25 * S, rad * 0.9 * S, 0.6, 0, TAU); x.fill(); }
     return ctex(c);
   });
 }
 
-// the plain: fields (each parcel its own turn, crop, furrows and hedge), farms' yards, roads from the gates, a river, foothill forest
+// ---- the plain: farms and trees (hashed once), then the canvas: parcels (each its own turn, crop, rows and hedge), yards, roads, forest
 const roadPts = (k, n = 90) => {   // road k (1..7) from its gate outward, wobbling; [x, z] list
   const a = SPOKE(k), pts = [];
   for (let i = 0; i <= n; i++) { const r = lerp(2497, 9400, i / n), w = 70 * Math.sin(i * 0.31 + k * 2.3) + 40 * Math.sin(i * 0.77 + k), [X, Z] = pol(r, a); pts.push([X + Math.cos(a) * w, Z - Math.sin(a) * w]); }
   return pts;
 };
-const riverX = (z) => 3700 + 650 * Math.sin(z / 2300 + 0.6) + 200 * Math.sin(z / 760);
-function paintPlain() {
-  return once("plain", () => {
-    const N = 4096, k = N / (2 * PLAIN_E), [c, x] = canvas(N, N), PX = (X) => (X + PLAIN_E) * k, PY = (Z) => (Z + PLAIN_E) * k, S = k;
-    x.fillStyle = "#7ca24e"; x.fillRect(0, 0, N, N);
-    const CROPS = [["#c9b862", "#d6c874", "#b9a752"], ["#7ca24e", "#8ab056", "#6f9b45"], ["#5f8a46", "#4f7a45", "#6a9448"], ["#a3b25a", "#8fae55", "#c2b25a"], ["#b89a62", "#a8905a", "#c4a86c"]];
-    const T = 190;
-    for (let iz = -50; iz <= 50; iz++) for (let ix = -50; ix <= 50; ix++) {
-      const cx = ix * T + (hh(ix, iz, 1) - 0.5) * 60, cz = iz * T + (hh(ix, iz, 2) - 0.5) * 60, r = Math.hypot(cx, cz);
-      if (r < 2470 || r > 9700) continue;
-      const reg = fbm(cx / 3200, cz / 3200, 5), region = Math.floor(reg * reg * 7.5) % 5, pick = hh(ix, iz, 3) < 0.7 ? region : Math.floor(hh(ix, iz, 4) * 5);
-      const cs = CROPS[pick], col = cs[Math.floor(hh(ix, iz, 5) * 3)], rot = (fbm(cx / 2600 + 3, cz / 2600, 9) * 3 + hh(ix, iz, 6) * 0.25) * Math.PI, w = T * (0.78 + 0.2 * hh(ix, iz, 7)), h = T * (0.7 + 0.25 * hh(ix, iz, 8));
+const CANAL_HW = 80;
+function plainLayout() {
+  return once("plainLayout", () => {
+    const cell = 120, occ = new Map(), key = (x, z) => Math.floor(x / cell) + "," + Math.floor(z / cell);
+    const near = (x, z, d) => { for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) { const l = occ.get((Math.floor(x / cell) + i) + "," + (Math.floor(z / cell) + j)); if (l) for (const p of l) if (Math.hypot(p[0] - x, p[1] - z) < d + p[2]) return true; } return false; };
+    const add = (x, z, rad) => { const k = key(x, z); (occ.get(k) || occ.set(k, []).get(k)).push([x, z, rad]); };
+    const ok = (x, z, m) => { const r = Math.hypot(x, z); if (r < 2497 + m || r > 7600) return false; if (z > 2400 && Math.abs(x) < (z < 2940 ? 190 : CANAL_HW + 34) + m) return false; return true; };
+    const farms = [], trees = []; let n = 0;
+    const farm = (x, z, i, rot, s) => { if (!ok(x, z, 90) || near(x, z, 80 * s)) return; add(x, z, 66 * s); farms.push({ x, z, i, rot, s }); };
+    for (let q = 1; q < 8; q++) { const P = roadPts(q, 90), t = tanOf(SPOKE(q)); for (let i = 3; i < 70; i += 4) { const [x, z] = P[i], o = 120 + 90 * hh(q, i, 2), side = hh(q, i, 3) < 0.5 ? -1 : 1; farm(x + t[0] * o * side, z + t[1] * o * side, 9000 + q * 100 + i, SPOKE(q) + (hh(q, i, 4) - 0.5) * 0.6, 0.72 + 0.26 * hh(q, i, 5)); } }
+    for (let z = 2990; z < 7000; z += 300) for (const sg of [-1, 1]) farm(sg * (CANAL_HW + 190 + 240 * hh(z, sg, 1)), z + 90 * hh(z, sg, 2), 8000 + z + sg, (hh(z, sg, 3) - 0.5) * 0.5 + (sg > 0 ? 0 : Math.PI), 0.74 + 0.26 * hh(z, sg, 4));
+    for (let q = 0; q < 300; q++) { const a = hh(q, 51) * TAU, r = 2640 + 3600 * hh(q, 52) ** 1.5, [x, z] = pol(r, a); farm(x, z, 7000 + q, hh(q, 53) * TAU, 0.68 + 0.3 * hh(q, 54)); }
+    for (let q = 0; q < 240; q++) { const a = hh(q, 81) * TAU, r = 2610 + 1400 * hh(q, 82) ** 1.6, [x, z] = pol(r, a); farm(x, z, 6000 + q, hh(q, 83) * TAU, 0.66 + 0.3 * hh(q, 84)); }   // the suburbs under the wall
+    const put1 = (x, z, kind, s, pad = 0) => { const rad = (kind === "cyp" ? 13 : 24) * s; if (!ok(x, z, 26) || near(x, z, rad + pad)) return; add(x, z, rad); trees.push({ x, z, i: ++n * 5 + 1, kind, s }); };
+    for (const f of farms) { const m = 4 + Math.floor(hh(f.i, 31) * 4); for (let t = 0; t < m; t++) { const a = hh(f.i, t, 32) * TAU, d = (70 + 60 * hh(f.i, t, 33)) * f.s; put1(f.x + Math.sin(a) * d, f.z + Math.cos(a) * d, hh(f.i, t, 34) < 0.5 ? "cyp" : "rnd", 0.8 + 0.5 * hh(f.i, t, 36)); } }
+    { const m = Math.round(2590 * TAU / 30); for (let q = 0; q < m; q++) { const a = (q / m) * TAU, g = fbm(a * 14, 2.2, 6); if (g < 0.4) continue; const p = pol(2497 + 40 + 120 * hh(q, 61), a); put1(p[0], p[1], hh(q, 62) < 0.45 ? "cyp" : "rnd", 0.8 + 0.5 * hh(q, 63)); } }   // the belt of trees under the brass wall
+    for (let q = 1; q < 8; q++) { const P = roadPts(q, 90), t = tanOf(SPOKE(q)); for (let i = 1; i < 60; i++) for (const sg of [-1, 1]) if (hh(q, i, sg) < 0.62) { const [x, z] = P[i]; put1(x + t[0] * 40 * sg, z + t[1] * 40 * sg, "cyp", 0.9 + 0.35 * hh(q, i, sg + 5)); } }   // cypress lines along the roads
+    for (let z = 2960; z < 6800; z += 84) for (const sg of [-1, 1]) if (hh(z, sg, 7) < 0.8) put1(sg * (CANAL_HW + 62), z, hh(z, sg, 8) < 0.7 ? "cyp" : "rnd", 0.9 + 0.3 * hh(z, sg, 9));   // rows along the great canal
+    for (let q = 0; q < 1500; q++) { const a = hh(q, 91) * TAU, r = 2540 + 1700 * hh(q, 92) ** 1.4, [x, z] = pol(r, a); if (fbm(x / 240, z / 240, 12) < 0.47) continue; put1(x, z, hh(q, 93) < 0.42 ? "cyp" : "rnd", 0.75 + 0.6 * hh(q, 94), 2); }   // clumps near the city
+    for (let w = 0; w < 300; w++) { const a = hh(w, 5) * TAU, r = 2640 + 3300 * hh(w, 6) ** 1.5, [cx, cz] = pol(r, a), m = 4 + Math.floor(hh(w, 7) * 9); for (let t = 0; t < m; t++) put1(cx + (hh(w, t, 1) - 0.5) * 260, cz + (hh(w, t, 2) - 0.5) * 220, hh(w, t, 3) < 0.25 ? "cyp" : "rnd", 0.8 + 0.6 * hh(w, t, 4), 6); }   // woodlots
+    return { farms, trees };
+  });
+}
+const PLAIN_N = 4000;   // half size of the near plain canvas
+function paintPlain(E = PLAIN_E) {
+  return once("plain:" + E, () => {
+    const N = 4096, k = N / (2 * E), [c, x] = canvas(N, N), PX = (X) => (X + E) * k, PY = (Z) => (Z + E) * k, S = k, PL = plainLayout(), nearC = E < 5000, RMAX = nearC ? E * 1.45 : 9700, px = (m) => Math.max(1, m * S);
+    x.fillStyle = "#3f7c30"; x.fillRect(0, 0, N, N);
+    const LAWN = ["#4c8a34", "#5a973a", "#437f30", "#66a03e"], WHEAT = ["#c4ac52", "#cfba60", "#b39848"], DARK = ["#2f6a2a", "#2a6228", "#377230"];
+    const T = 225;
+    for (let iz = -43; iz <= 43; iz++) for (let ix = -43; ix <= 43; ix++) {
+      const cx = ix * T + (hh(ix, iz, 1) - 0.5) * 90, cz = iz * T + (hh(ix, iz, 2) - 0.5) * 90, r = Math.hypot(cx, cz);
+      if (r < 2380 || r > RMAX || Math.abs(cx) > E + T || Math.abs(cz) > E + T) continue;
+      const reg = fbm(cx / 3200, cz / 3200, 5), kq = hh(ix, iz, 3) < 0.45 ? Math.floor(reg * reg * 9) % 5 : Math.floor(hh(ix, iz, 4) * 7), kind = kq > 4 ? 2 : kq;
+      const rot = (fbm(cx / 2600 + 3, cz / 2600, 9) * 3 + hh(ix, iz, 6) * 0.3) * Math.PI, w = T * (0.8 + 0.22 * hh(ix, iz, 7)), h = T * (0.7 + 0.3 * hh(ix, iz, 8)), W2 = w * S / 2, H2 = h * S / 2, pk = Math.floor(hh(ix, iz, 5) * 3);
       x.save(); x.translate(PX(cx), PY(cz)); x.rotate(rot);
-      x.fillStyle = "rgba(60,95,50,0.8)"; x.fillRect(-w * S / 2 - 1.2, -h * S / 2 - 1.2, w * S + 2.4, h * S + 2.4);   // the hedge
-      x.fillStyle = col; x.fillRect(-w * S / 2, -h * S / 2, w * S, h * S);
-      x.strokeStyle = "rgba(70,60,30,0.16)"; x.lineWidth = 0.7; const fs = 9 + Math.floor(hh(ix, iz, 10) * 7);
-      for (let q = 1; q < fs; q++) { const yy = (-h / 2 + (h * q) / fs) * S; x.beginPath(); x.moveTo(-w * S / 2, yy); x.lineTo(w * S / 2, yy); x.stroke(); }
+      x.fillStyle = "rgba(30,72,38,0.92)"; x.fillRect(-W2 - px(5), -H2 - px(5), W2 * 2 + px(10), H2 * 2 + px(10));   // the hedge
+      const rows = (base, line, step, lw) => { x.fillStyle = base; x.fillRect(-W2, -H2, W2 * 2, H2 * 2);
+        for (let q = 0; q < 4; q++) { const bx = (hh(ix, iz, 40 + q) - 0.5) * W2 * 1.6, by = (hh(ix, iz, 50 + q) - 0.5) * H2 * 1.6, br = (0.3 + 0.5 * hh(ix, iz, 60 + q)) * Math.min(W2, H2), g = x.createRadialGradient(bx, by, 0, bx, by, br); g.addColorStop(0, q % 2 ? "rgba(255,250,200,0.14)" : "rgba(20,60,30,0.16)"); g.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = g; x.fillRect(-W2, -H2, W2 * 2, H2 * 2); }   // the parcel's own light and dark patches
+        x.strokeStyle = line; x.lineWidth = px(lw); for (let q = -h / 2 + step / 2; q < h / 2; q += step) { x.beginPath(); x.moveTo(-W2, q * S); x.lineTo(W2, q * S); x.stroke(); } };
+      if (kind === 0) rows(WHEAT[pk], "rgba(150,120,50,0.35)", 14, 3);
+      else if (kind === 1) rows(LAWN[Math.floor(hh(ix, iz, 9) * 4)], "rgba(50,100,40,0.22)", 22, 3);
+      else if (kind === 2 || kind === 3) rows(DARK[pk], hh(ix, iz, 11) < 0.5 ? "#9cbc48" : "#7fac40", 11.5, 4.4);   // vineyards: light rows on dark
+      else { x.fillStyle = "#4c8a38"; x.fillRect(-W2, -H2, W2 * 2, H2 * 2); x.fillStyle = "#245a28"; for (let q = -w / 2 + 12; q < w / 2; q += 22) for (let p = -h / 2 + 12; p < h / 2; p += 22) { x.beginPath(); x.arc(q * S, p * S, px(7), 0, TAU); x.fill(); } }   // orchards
       x.restore();
     }
     // foothill forest and rock toward the mountains
-    for (let i = 0; i < 9000; i++) {
-      const a = Math.PI + (hs(i * 3.1) - 0.5) * 3.4, r = 4200 + 4800 * hs(i * 5.3 + 1) ** 0.8, X = Math.sin(a) * r + (hs(i * 7.7) - 0.5) * 900, Z = Math.cos(a) * r, rad = 60 + 160 * hs(i * 2.3 + 4);
+    if (!nearC) for (let i = 0; i < 9000; i++) {
+      const a = Math.PI + (hs(i * 3.1) - 0.5) * 3.4, r = 5200 + 4300 * hs(i * 5.3 + 1) ** 0.8, X = Math.sin(a) * r + (hs(i * 7.7) - 0.5) * 900, Z = Math.cos(a) * r, rad = 60 + 160 * hs(i * 2.3 + 4);
       if (Z > -2500) continue;
-      const f = sstep(4200, 6500, Math.hypot(X, Z)); x.fillStyle = hs(i * 1.9) < 0.75 ? `rgba(48,86,52,${0.35 + 0.4 * f})` : `rgba(120,118,100,${0.25 * f})`; x.beginPath(); x.ellipse(PX(X), PY(Z), rad * S, rad * S * 0.7, hs(i) * 3, 0, TAU); x.fill();
+      const f = sstep(5400, 7200, Math.hypot(X, Z)); x.fillStyle = hs(i * 1.9) < 0.8 ? `rgba(34,84,52,${0.3 + 0.45 * f})` : `rgba(96,112,120,${0.25 * f})`; x.beginPath(); x.ellipse(PX(X), PY(Z), rad * S, rad * S * 0.7, hs(i) * 3, 0, TAU); x.fill();
     }
-    // roads out of the gates (the front one is the great canal), a ring road
+    // roads out of the gates (the front one is the great canal), ring roads, a walk under the brass wall, lanes to the farms
     x.lineCap = "round"; x.lineJoin = "round";
-    for (let q = 1; q < 8; q++) {
-      const P = roadPts(q); for (const [col, wd] of [["#a09470", 30], ["#d8c9a2", 24]]) { x.strokeStyle = col; x.lineWidth = wd * S; x.beginPath(); P.forEach(([X, Z], i) => (i ? x.lineTo(PX(X), PY(Z)) : x.moveTo(PX(X), PY(Z)))); x.stroke(); }
-    }
-    for (const rr0 of [3300, 4700, 6300]) { x.strokeStyle = "#d8c9a2"; x.lineWidth = 16 * S; x.beginPath(); for (let i = 0; i <= 240; i++) { const a = (i / 240) * TAU, r = rr0 + 90 * Math.sin(a * 5 + rr0), [X, Z] = pol(r, a); if (i) x.lineTo(PX(X), PY(Z)); else x.moveTo(PX(X), PY(Z)); } x.stroke(); }
-    // the river from the mountains, silver, with pale banks
-    for (const [col, wd] of [["#a8bca0", 120], ["#4f87b4", 84], ["#8fc4e6", 22]]) { x.strokeStyle = col; x.lineWidth = wd * S; x.beginPath(); for (let i = 0; i <= 160; i++) { const Z = lerp(-9600, 9600, i / 160), X = riverX(Z); if (i) x.lineTo(PX(X), PY(Z)); else x.moveTo(PX(X), PY(Z)); } x.stroke(); }
+    for (const f of PL.farms) { const a = angOf(f.x, f.z), kq = Math.round(a / (45 * DEG)), r = Math.hypot(f.x, f.z), [X, Z] = pol(r, kq * 45 * DEG); x.strokeStyle = "#d9cba0"; x.lineWidth = px(7); x.beginPath(); x.moveTo(PX(f.x), PY(f.z)); x.quadraticCurveTo(PX((f.x + X) / 2 + 60), PY((f.z + Z) / 2 - 40), PX(X), PY(Z)); x.stroke(); }
+    for (let q = 1; q < 8; q++) { const P = roadPts(q); for (const [col, wd] of [["#a09470", 44], ["#e0d2a8", 34]]) { x.strokeStyle = col; x.lineWidth = wd * S; x.beginPath(); P.forEach(([X, Z], i) => (i ? x.lineTo(PX(X), PY(Z)) : x.moveTo(PX(X), PY(Z)))); x.stroke(); } }
+    for (const rr0 of [2610, 3500, 4900, 6400]) { x.strokeStyle = "#e0d2a8"; x.lineWidth = (rr0 === 2610 ? 26 : 20) * S; x.beginPath(); for (let i = 0; i <= 240; i++) { const a = (i / 240) * TAU, r = rr0 + (rr0 === 2610 ? 14 : 90) * Math.sin(a * 5 + rr0), [X, Z] = pol(r, a); if (i) x.lineTo(PX(X), PY(Z)); else x.moveTo(PX(X), PY(Z)); } x.stroke(); }
+    // the shade of the brass wall on the ground, on the side away from the dawn sun
+    { const m = 360; for (let q = 0; q < m; q++) { const a0 = (q / m) * TAU, a1 = ((q + 1) / m) * TAU, am = (a0 + a1) / 2, lee = Math.max(0, Math.sin(am) * 0.57 + Math.cos(am) * 0.82); if (lee < 0.05) continue; const A = pol(2497, a0), B = pol(2497, a1), Cc = pol(2497 + 150 * lee, a1), D = pol(2497 + 150 * lee, a0); x.fillStyle = `rgba(20,36,60,${0.34 * Math.min(1, lee * 2)})`; x.beginPath(); x.moveTo(PX(A[0]), PY(A[1])); x.lineTo(PX(B[0]), PY(B[1])); x.lineTo(PX(Cc[0]), PY(Cc[1])); x.lineTo(PX(D[0]), PY(D[1])); x.fill(); } }
+    // the towpaths of the great canal
+    x.fillStyle = "#e0d2a8"; for (const sg of [-1, 1]) x.fillRect(PX(sg > 0 ? CANAL_HW + 20 : -CANAL_HW - 50), PY(2900), 30 * S, 6700 * S);
+    // farm yards with their walls, the shade of each farm and tree
+    for (const f of PL.farms) { const w = 150 * f.s, d = 120 * f.s; x.save(); x.translate(PX(f.x), PY(f.z)); x.rotate(-f.rot); x.fillStyle = "#dccfa6"; x.fillRect(-w * S / 2, -d * S / 2, w * S, d * S); x.strokeStyle = "#a8996e"; x.lineWidth = px(3); x.strokeRect(-w * S / 2, -d * S / 2, w * S, d * S); x.restore(); x.fillStyle = "rgba(24,40,56,0.36)"; x.save(); x.translate(PX(f.x + 22 * f.s), PY(f.z + 18 * f.s)); x.rotate(-f.rot); x.fillRect(-48 * f.s * S, -32 * f.s * S, 96 * f.s * S, 64 * f.s * S); x.restore(); }
+    for (const t of PL.trees) { const rad = (t.kind === "cyp" ? 13 : 24) * t.s; x.fillStyle = "rgba(20,48,34,0.45)"; x.beginPath(); x.ellipse(PX(t.x + rad * 0.8), PY(t.z + rad * 0.6), Math.max(1.2, rad * 1.3 * S), Math.max(1, rad * 0.9 * S), 0.6, 0, TAU); x.fill(); }
     return ctex(c);
   });
 }
@@ -490,60 +623,87 @@ function puffAtlas() {
   });
 }
 
-// ================================================================================================================ ground profiles (heights x 6)
-const Q = 12, P2 = 36, P1 = 96, HILL = 240;   // quay, outer land ring, inner land ring, temple hill (metres, far layer: 2, 6, 16, 40 x 6)
-const PROF = {
-  island: [[462, 30], [432, 30], [429, 62], [402, 62], [399, 98], [377, 98], [374, 138], [354, 138], [351, 185], [332, 185], [329, HILL], [0, HILL]],
-  l1: [[647, Q], [663, Q], [745, P1], [918, P1], [1001, Q], [1017, Q]],
-  l2: [[1387, Q], [1403, Q], [1470, P2], [1850, P2], [1912, Q], [1930, Q]],
-};
-function groundAt(r) {
-  for (const k of ["island", "l1", "l2"]) { const P = PROF[k], lo = Math.min(P[0][0], P[P.length - 1][0]), hi = Math.max(P[0][0], P[P.length - 1][0]); if (r >= lo && r <= hi) { for (let i = 0; i < P.length - 1; i++) { const a = P[i], b = P[i + 1]; if ((r - a[0]) * (r - b[0]) <= 0) return lerp(a[1], b[1], (r - a[0]) / (b[0] - a[0] || 1)); } } }
+// ================================================================================================================ the plate scale (round R2: the city as plate 03 paints it)
+// Radii stay Plato's. Heights and footprints are the PAINTING's: the brass wall 190 high and 44 thick with a walkway, the land rings are
+// terraces held by walls (tin at r 1942, pale ashlar at 1387, 1017 and 647, red-gold at 462), villas 70-115 long, cypress 70-105 high.
+// spec.climb 0..1.5 lifts the inner tiers for views from the quay (plates 01, 04, 11: the city climbs to the temple behind the wall).
+const TS = 120;                                      // one ashlar tile (8 courses) in metres
+const BRASS_H = 190, BRASS_T = 44, BRASS_RI = 2497 - BRASS_T;
+const levels = (climb) => { const c = clamp(climb ?? 0, 0, 1.5); return { c, l2o: 120, l2i: 120 + 200 * c, l1o: 140 + 300 * c, l1i: 140 + 470 * c, cit: 225 + 510 * c, hill: 300 + 660 * c }; };
+const HILL_R = 326;
+function groundAt(K, r) {
+  const v = K.lv;
+  if (r <= HILL_R) return v.hill; if (r <= 462) return v.cit;
+  if (r >= 647 && r <= 1017) return lerp(v.l1i, v.l1o, (r - 647) / 370);
+  if (r >= 1387 && r <= 1942) return lerp(v.l2i, v.l2o, (r - 1387) / 555);
   return 0;
 }
-const RING_WATER = [{ r0: 462, r1: 647 }, { r0: 1017, r1: 1387 }, { r0: 1942, r1: 2497 }];
-const inWater = (r) => RING_WATER.some((w) => r > w.r0 - 2 && r < w.r1 + 2);
+const RING_WATER = [{ r0: 462, r1: 647 }, { r0: 1017, r1: 1387 }, { r0: 1942, r1: BRASS_RI }];
 // distance of an angle from the nearest spoke, as an arc length at radius r
 const spokeDist = (a, r) => { let d = 9; for (let k = 0; k < 8; k++) d = Math.min(d, Math.abs(wrapA(a - SPOKE(k)))); return d * r; };
 
-// the land: annulus meshes along a profile (flat-shaded, planar-mapped to the city canvas); steep bands (terrace walls) are stone, not mapped
-function groundRing(G, prof, nA, stone) {
-  const e = 1 / (2 * CITY_E), uvOf = (X, Z) => [(X + CITY_E) / (2 * CITY_E), (Z + CITY_E) / (2 * CITY_E)];
-  for (let i = 0; i < prof.length - 1; i++) {
-    const [ra, ya] = prof[i], [rb, yb] = prof[i + 1], steep = Math.abs(yb - ya) > 0.6 * Math.abs(rb - ra), flat = Math.abs(ya - yb) < 1e-6;
-    const nSeg = steep ? Math.max(1, Math.round(Math.abs(yb - ya) / 11)) : Math.max(1, Math.round(Math.abs(rb - ra) / 70));
-    for (let sg = 0; sg < nSeg; sg++) {
-      const r0 = lerp(ra, rb, sg / nSeg), r1 = lerp(ra, rb, (sg + 1) / nSeg), y0 = lerp(ya, yb, sg / nSeg), y1 = lerp(ya, yb, (sg + 1) / nSeg);
-      for (let j = 0; j < nA; j++) {
-        const a0 = (j / nA) * TAU, a1 = ((j + 1) / nA) * TAU, A = pol(r0, a0), B = pol(r0, a1), Cc = pol(r1, a1), D = pol(r1, a0);
-        const p = [[A[0], y0, A[1]], [B[0], y0, B[1]], [Cc[0], y1, Cc[1]], [D[0], y1, D[1]]];
-        // the normal must point up: order so that the quad's cross product points up whichever way the profile runs
-        const o = steep ? { flat: false, tg: [0, -1] } : { tg: [0, 0], uv: [uvOf(A[0], A[1]), uvOf(B[0], B[1]), uvOf(Cc[0], Cc[1]), uvOf(D[0], D[1])] };
-        const col = steep ? mul3(rgb(stone || "#e4dcc6"), (sg % 2 ? 1.0 : 0.94) * (0.99 + 0.02 * hh(i * 13 + sg, j)) * (sg === nSeg - 1 ? 1.06 : 1)) : [1, 1, 1];
-        const q = r1 > r0 ? [p[0], p[3], p[2], p[1]] : [p[1], p[2], p[3], p[0]];
-        if (steep) G.quad(q[0], q[1], q[2], q[3], col, { ...o, ao: [0.85, 0.85, 1.05, 1.05] });
-        else { const U = o.uv; const uvq = r1 > r0 ? [U[0], U[3], U[2], U[1]] : [U[1], U[2], U[3], U[0]]; G.quad(q[0], q[1], q[2], q[3], col, { ...o, uv: uvq }); }
+// ---- the layout: villa and tree sites, the same for every light and climb (hashed, made once; the ground canvas paints their yards and shadows)
+function layout() {
+  return once("layout", () => {
+    const cell = 100, occ = new Map(), key = (x, z) => Math.floor(x / cell) + "," + Math.floor(z / cell);
+    const near = (x, z, d) => { for (let i = -2; i <= 2; i++) for (let j = -2; j <= 2; j++) { const l = occ.get((Math.floor(x / cell) + i) + "," + (Math.floor(z / cell) + j)); if (l) for (const p of l) if (Math.hypot(p[0] - x, p[1] - z) < d + p[2]) return true; } return false; };
+    const add = (x, z, rad) => { const k = key(x, z); (occ.get(k) || occ.set(k, []).get(k)).push([x, z, rad]); };
+    const race = pol(RACE.r, RACE.a);
+    const free = (x, z, r, pad) => {
+      const a = angOf(x, z);
+      if (spokeDist(a, r) < 78 + pad) return false;
+      const dx = x - race[0], dz = z - race[1], t = tanOf(RACE.a), nr = radOf(RACE.a), u = dx * t[0] + dz * t[1], v = dx * nr[0] + dz * nr[1];
+      if ((u / (RACE.long / 2 + 40 + pad)) ** 2 + (v / (RACE.wide / 2 + 40 + pad)) ** 2 < 1) return false;
+      return true;
+    };
+    const houses = [], trees = [];
+    for (const R of [{ r0: 1387 + 95, r1: 1942 - 90, n: 150, s: 200 }, { r0: 647 + 85, r1: 1017 - 80, n: 58, s: 100 }, { r0: 372, r1: 420, n: 9, s: 300 }]) {
+      let placed = 0, tries = 0;
+      while (placed < R.n && tries < R.n * 60) {
+        tries++; const i = R.s * 1000 + tries, a = hh(i, 1, 2) * TAU, r = Math.sqrt(lerp(R.r0 * R.r0, R.r1 * R.r1, hh(i, 3, 4))), [x, z] = pol(r, a), sc = R.s === 300 ? 0.72 : 0.82 + 0.32 * hh(i, 9);
+        if (!free(x, z, r, R.s === 300 ? -20 : 10) || near(x, z, 62 * sc + 14)) continue;
+        add(x, z, 62 * sc); houses.push({ x, z, r, a, i, ring: R.s, sc, rot: a + (hh(i, 20) < 0.65 ? 0 : Math.PI / 2) + (hh(i, 21) - 0.5) * 0.5 }); placed++;
       }
+    }
+    let n = 0;
+    const put1 = (x, z, kind, s = 1, pad = 0) => { const r = Math.hypot(x, z), rad = (kind === "cyp" ? 13 : 24) * s; if (near(x, z, rad + pad)) return false; add(x, z, rad); trees.push({ x, z, r, i: ++n * 7 + 3, kind, s }); return true; };
+    const onLand = (r, m) => (r > HILL_R + m * 0.5 && r < 462 - m * 0.5) || (r > 647 + m && r < 1017 - m) || (r > 1387 + m && r < 1942 - m);
+    // avenues of cypress down every spoke road across the land rings
+    for (let k = 0; k < 8; k++) for (const [r0, r1] of [[690, 990], [1425, 1905], [352, 440]]) for (let r = r0; r < r1; r += 62) for (const sg of [-1, 1]) {
+      const a = SPOKE(k), c = pol(r, a), [tx, tz] = tanOf(a), off = (k % 2 ? 44 : 62) * sg; put1(c[0] + tx * off, c[1] + tz * off, "cyp", 0.92 + 0.3 * hh(k, r, sg));
+    }
+    // rows along the rampart walks: cypress and round trees, with gaps
+    for (const [rm, sgn] of [[1942 - 46, 1], [1387 + 46, 2], [1017 - 42, 3], [647 + 42, 4], [462 - 40, 5]]) {
+      const m = Math.round(rm * TAU / 58);
+      for (let q = 0; q < m; q++) { const a = (q / m) * TAU, g = fbm(a * 9, sgn * 3.3, 4); if (g < 0.42 || spokeDist(a, rm) < 80) continue; const p = pol(rm + (hh(q, sgn) - 0.5) * 16, a); put1(p[0], p[1], hh(q, sgn, 2) < 0.6 ? "cyp" : "rnd", 0.8 + 0.4 * hh(q, sgn, 3)); }
+    }
+    // each villa's own garden: three to six trees round it
+    for (const h of houses) { const m = 3 + Math.floor(hh(h.i, 31) * 4); for (let t = 0; t < m; t++) { const a = hh(h.i, t, 32) * TAU, d = (78 + 46 * hh(h.i, t, 33)) * h.sc, x = h.x + Math.sin(a) * d, z = h.z + Math.cos(a) * d, r = Math.hypot(x, z); if (onLand(r, 30) && free(x, z, r, -24)) put1(x, z, hh(h.i, t, 34) < 0.42 ? "cyp" : hh(h.i, t, 35) < 0.12 ? "blo" : "rnd", 0.8 + 0.45 * hh(h.i, t, 36)); } }
+    // groves and orchards in the gaps
+    for (let q = 0; q < 150; q++) {
+      const ring = q % 5 === 0 ? [670, 1000] : q % 5 === 4 ? [340, 450] : [1410, 1920], a0 = hh(q, 77) * TAU, r0 = lerp(ring[0], ring[1], hh(q, 78)), [cx, cz] = pol(r0, a0), m = 3 + Math.floor(hh(q, 79) * 6);
+      for (let t = 0; t < m; t++) { const x = cx + (hh(q, t, 5) - 0.5) * 150, z = cz + (hh(q, t, 6) - 0.5) * 150, r = Math.hypot(x, z); if (onLand(r, 30) && free(x, z, r, -20)) put1(x, z, hh(q, t, 7) < 0.3 ? "cyp" : hh(q, t, 8) < 0.1 ? "blo" : "rnd", 0.75 + 0.5 * hh(q, t, 9), 4); }
+    }
+    return { houses, trees, free };
+  });
+}
+
+// the land tops: annulus meshes planar-mapped to the city canvas (the terrace wall of the temple hill is ashlar, built with the walls)
+function groundTop(G, r0, y0, r1, y1, nA) {
+  const uvOf = (X, Z) => [(X + CITY_E) / (2 * CITY_E), (Z + CITY_E) / (2 * CITY_E)], nS = Math.max(1, Math.round(Math.abs(r1 - r0) / 95));
+  for (let sg = 0; sg < nS; sg++) {
+    const ra = lerp(r0, r1, sg / nS), rb = lerp(r0, r1, (sg + 1) / nS), ya = lerp(y0, y1, sg / nS), yb = lerp(y0, y1, (sg + 1) / nS);
+    for (let j = 0; j < nA; j++) {
+      const a0 = (j / nA) * TAU, a1 = ((j + 1) / nA) * TAU, A = pol(ra, a0), B = pol(ra, a1), Cc = pol(rb, a1), D = pol(rb, a0);
+      if (rb > 1e-3 && ra > 1e-3) G.quad([A[0], ya, A[1]], [D[0], yb, D[1]], [Cc[0], yb, Cc[1]], [B[0], ya, B[1]], [1, 1, 1], { uv: [uvOf(A[0], A[1]), uvOf(D[0], D[1]), uvOf(Cc[0], Cc[1]), uvOf(B[0], B[1])], up: true });
+      else G.tri([0, ya, 0], [D[0], yb, D[1]], [Cc[0], yb, Cc[1]], [1, 1, 1], { uv: [uvOf(0, 0), uvOf(D[0], D[1]), uvOf(Cc[0], Cc[1])], up: true });
     }
   }
 }
-// the water-edge faces: ashlar quay (a 12 m wall from the water up), a dark tide line, moss in the joints, arches beside the main bridges
-function quayFace(G, r, y1, outward, K) {
-  const n = Math.round(r * TAU / 18), stone = rgb("#d9d3c0"), tide = rgb("#4a5048"), moss = rgb("#6c8a4a");
-  for (let j = 0; j < n; j++) {
-    const a0 = (j / n) * TAU, a1 = ((j + 1) / n) * TAU, am = (a0 + a1) / 2;
-    const A = pol(r, a0), B = pol(r, a1);
-    const mk = (ya, yb, c) => (outward ? G.quad([A[0], ya, A[1]], [B[0], ya, B[1]], [B[0], yb, B[1]], [A[0], yb, A[1]], c) : G.quad([B[0], ya, B[1]], [A[0], ya, A[1]], [A[0], yb, A[1]], [B[0], yb, B[1]], c));
-    const v = 0.92 + 0.14 * hh(j, r), mossy = hh(j, r, 3) < 0.28;
-    mk(0, 3, mul3(tide, 0.9 + 0.2 * hh(j, 5)));   // the dark tide line, 0.5 m real
-    mk(3, 7.5, mul3(mossy ? mix3(stone, moss, 0.45) : stone, v));
-    mk(7.5, y1, mul3(stone, v * (0.96 + 0.1 * hh(j, 9))));
-  }
-}
-// a dark arch (a tunnel mouth where ships pass under the land) on a quay face; facing +1 = the water lies outward, -1 inward
-function archOn(G, r, a, w, h, facing) {
-  const dark = rgb("#171a24"), n = 10, cx = pol(r, a), tx = Math.cos(a), tz = -Math.sin(a), nxr = Math.sin(a), nzr = Math.cos(a), off = 1.8 * facing;
-  const f = (s, y) => [cx[0] + tx * s + nxr * off, y, cx[1] + tz * s + nzr * off];
+// a dark arch (a tunnel mouth where ships pass under the land, a gate) on a ring face; facing +1 = it looks outward, -1 inward
+function archOn(G, r, a, w, h, facing, y0 = 0, col = "#141a26") {
+  const dark = rgb(col), n = 10, cx = pol(r, a), tx = Math.cos(a), tz = -Math.sin(a), nxr = Math.sin(a), nzr = Math.cos(a), off = 4 * facing;
+  const f = (s, y) => [cx[0] + tx * s + nxr * off, y0 + y, cx[1] + tz * s + nzr * off];
   const pts = []; for (let i = 0; i <= n; i++) { const t = Math.PI * (i / n); pts.push([Math.cos(t) * w / 2, Math.sin(t) * h * 0.45 + h * 0.55]); }
   for (let i = 0; i < n; i++) {
     const P0 = pts[i], P1 = pts[i + 1];
@@ -553,9 +713,10 @@ function archOn(G, r, a, w, h, facing) {
 }
 
 // ================================================================================================================ walls, towers, gates
-const STONE = rgb("#eeeae0"), STONE_SH = rgb("#cdc6b4"), FOOT = rgb("#d6cfbb"), TILE = rgb("#c2603c"), BLACKS = rgb("#3a3a40"), REDS = rgb("#a8483a");
-const stoneCols = (k = 1, tone = STONE) => ({ top: mul3(tone, 1.04 * k), side: mul3(tone, k), side2: mul3(STONE_SH, k * 0.97) });
+const STONE = rgb("#eeeae0"), STONE_SH = rgb("#cdc6b4"), STONE_G = rgb("#d5d6d8"), FOOT = rgb("#d6cfbb"), TILE = rgb("#cf5630"), BLACKS = rgb("#3a3a40"), REDS = rgb("#a8483a"), MOSS = rgb("#6c8a4a"), GOLD = rgb("#e8b63a"), GLASS = rgb("#34425c");
+const stoneCols = (k = 1, tone = STONE) => ({ top: mul3(tone, 1.04 * k), side: mul3(tone, k), side2: mul3(tone, k * 0.9) });
 const tanOf = (a) => [Math.cos(a), -Math.sin(a)], radOf = (a) => [Math.sin(a), Math.cos(a)];
+const NOMAP = [0, -1];
 // a quad on a cylinder of radius R between angles a0..a1, y ya..yb, facing outward (true) or inward
 function face(G, R, a0, a1, ya, yb, col, outward, o = {}) {
   const A = pol(R, a0), B = pol(R, a1);
@@ -563,280 +724,256 @@ function face(G, R, a0, a1, ya, yb, col, outward, o = {}) {
   else G.quad([B[0], ya, B[1]], [A[0], ya, A[1]], [A[0], yb, A[1]], [B[0], yb, B[1]], col, o);
 }
 // a horizontal strip between radii r0 < r1 and angles a0..a1 at height y (top face)
-function strip(G, r0, r1, a0, a1, y, col, o = {}) { const A = pol(r0, a0), B = pol(r0, a1), Cc = pol(r1, a1), D = pol(r1, a0); G.quad([A[0], y, A[1]], [D[0], y, D[1]], [Cc[0], y, Cc[1]], [B[0], y, B[1]], col, o); }
+function strip(G, r0, r1, a0, a1, y, col, o = {}) { if (r0 > r1) [r0, r1] = [r1, r0]; const A = pol(r0, a0), B = pol(r0, a1), Cc = pol(r1, a1), D = pol(r1, a0); G.quad([A[0], y, A[1]], [D[0], y, D[1]], [Cc[0], y, Cc[1]], [B[0], y, B[1]], col, o); }
+const boxUV = (a, b) => [[0, 0], [a / TS, 0], [a / TS, b / TS], [0, b / TS]];
 
 // a stone semicircular arch ring (voussoirs) over a gap: centre (cx, y0, cz), the opening runs along the tangent of angle a
 function archRing(G, cx, cz, a, rin, rout, y0, th, col, n = 14) {
   const [tx, tz] = tanOf(a), [nx, nz] = radOf(a), P = (s, y, d) => [cx + tx * s + nx * d, y, cz + tz * s + nz * d], C0 = [cx, y0, cz];
   for (let i = 0; i < n; i++) {
     const t0 = Math.PI * (i / n), t1 = Math.PI * ((i + 1) / n), c0 = Math.cos(t0), s0 = Math.sin(t0), c1 = Math.cos(t1), s1 = Math.sin(t1), v = 0.9 + 0.2 * hh(i, rin), tm = (t0 + t1) / 2;
-    const cc = mul3(col, v), d = th / 2;
-    for (const dd of [d, -d]) G.quadOut(P(rin * c0, y0 + rin * s0, dd), P(rout * c0, y0 + rout * s0, dd), P(rout * c1, y0 + rout * s1, dd), P(rin * c1, y0 + rin * s1, dd), C0, dd > 0 ? cc : mul3(cc, 0.9));
-    G.quadOut(P(rin * c0, y0 + rin * s0, -d), P(rin * c0, y0 + rin * s0, d), P(rin * c1, y0 + rin * s1, d), P(rin * c1, y0 + rin * s1, -d), P(rin * 3 * Math.cos(tm), y0 + rin * 3 * Math.sin(tm), 0), mul3(cc, 0.8));   // intrados faces the opening
-    G.quadOut(P(rout * c0, y0 + rout * s0, -d), P(rout * c0, y0 + rout * s0, d), P(rout * c1, y0 + rout * s1, d), P(rout * c1, y0 + rout * s1, -d), C0, mul3(cc, 1.05));
+    const cc = mul3(col, v), d = th / 2, o = { tg: NOMAP };
+    for (const dd of [d, -d]) G.quadOut(P(rin * c0, y0 + rin * s0, dd), P(rout * c0, y0 + rout * s0, dd), P(rout * c1, y0 + rout * s1, dd), P(rin * c1, y0 + rin * s1, dd), C0, dd > 0 ? cc : mul3(cc, 0.9), o);
+    G.quadOut(P(rin * c0, y0 + rin * s0, -d), P(rin * c0, y0 + rin * s0, d), P(rin * c1, y0 + rin * s1, d), P(rin * c1, y0 + rin * s1, -d), P(rin * 3 * Math.cos(tm), y0 + rin * 3 * Math.sin(tm), 0), mul3(cc, 0.62), o);   // intrados faces the opening
+    G.quadOut(P(rout * c0, y0 + rout * s0, -d), P(rout * c0, y0 + rout * s0, d), P(rout * c1, y0 + rout * s1, d), P(rout * c1, y0 + rout * s1, -d), C0, mul3(cc, 1.05), o);
   }
 }
-// a crenellated tower: shaft, corbel band, merlons, optional tile pyramid roof or gold cap, optional flag. r, a = centre in polar
-function tower(K, r, a, w, h, o = {}) {
-  const G = K.g.solid, [cx, cz] = pol(r, a), y0 = o.y0 ?? 0, tone = o.tone || STONE, k = o.k || 1, cols = stoneCols(k, tone);
+// a tower in ashlar: shaft, string course, corbelled head with merlons (or a tile pyramid / gold cap), dark windows, an arch, a flag.
+// (cx, cz) centre, rot = the angle whose radial direction the arch looks along; o { y0, tone, k, roof "pyr" | "gold", flag, arch [w, h, y], banner }
+function tower(K, cx, cz, rot, w, h, o = {}) {
   if (K.skipped(cx, cz, w)) return;
-  G.box(cx, y0, cz, w, h, w, a, cols, { aoSide: [0.7, 0.7, 1, 1] });
-  // slits: dark narrow boxes standing proud 1.6 m, so they never fight the wall
-  const hw = w / 2;
-  for (let k2 = 0; k2 < 2; k2++) for (const sg of [1, -1]) {
-    const hy = y0 + h * (0.45 + 0.22 * k2), [tx, tz] = tanOf(a), [nx, nz] = radOf(a);
-    for (const s of [-0.22, 0.22]) { const px = cx + nx * (hw + 0.8) * sg + tx * w * s, pz = cz + nz * (hw + 0.8) * sg + tz * w * s; G.box(px, hy, pz, 2.2, 9, 1.6, a, { top: rgb("#2a2c34"), side: rgb("#2a2c34") }, { flat: true }); }
+  const G = K.g.stone, y0 = o.y0 ?? 0, tone = o.tone || STONE, cols = stoneCols(o.k || 1, tone), hw = w / 2, seed = Math.floor(cx * 3.1 + cz * 7.7);
+  const [tx, tz] = tanOf(rot), [nx, nz] = radOf(rot), P = (lx, y, lz) => [cx + tx * lx + nx * lz, y, cz + tz * lx + nz * lz], ref = [cx, y0 + h / 2, cz];
+  G.box(cx, y0, cz, w, h, w, rot, cols, { aoSide: [0.66, 0.66, 1, 1], uv: boxUV(w, h), uvTop: boxUV(w, w) });
+  const hd = w * 0.2, cap = { top: mul3(cols.top, 0.97), side: mul3(cols.side, 0.86), side2: mul3(cols.side2, 0.86) };
+  G.box(cx, y0 + h * 0.56, cz, w + 5, 5, w + 5, rot, cap, { uv: boxUV(w, 5) });                 // the string course
+  G.box(cx, y0 + h - hd, cz, w * 1.14, hd, w * 1.14, rot, cap, { uv: boxUV(w, hd), uvTop: boxUV(w, w) });   // the corbelled head
+  if (o.roof === "pyr") K.g.solid.roof(cx, y0 + h, cz, w * 1.24, w * 1.24, w * 0.72, rot, mul3(TILE, 0.95), { hip: true, rows: 5, seed });
+  else if (o.roof === "gold") { K.g.solid.roof(cx, y0 + h, cz, w * 1.1, w * 1.1, w * 1.05, rot, GOLD, { hip: true, rows: 4, seed }); K.g.solid.prism(cx, y0 + h + w * 1.0, cz, w * 0.07, 0.4, w * 0.7, 6, GOLD, { alt: 0.84 }); }
+  else { const m = w * 0.2, off = w * 0.57 - m / 2; for (const [u, v] of [[-1, -1], [1, -1], [-1, 1], [1, 1], [0, -1], [0, 1], [-1, 0], [1, 0]]) { const p = P(u * off, 0, v * off); G.box(p[0], y0 + h, p[2], m, w * 0.17, m, rot, cols, { uv: boxUV(m, m) }); } }
+  // windows: dark arched slits standing 2.5 m proud, two storeys on each face
+  const S = K.g.solid, pane = (fx, fz, s0, y, ww, wh2, col) => { const d = hw + 2.5, p = (s, yy) => (fz ? P(s0 + s, yy, fz * d) : P(fx * d, yy, s0 + s)); S.quadOut(p(-ww / 2, y), p(ww / 2, y), p(ww / 2, y + wh2), p(-ww / 2, y + wh2), ref, col, { flat: true }); S.triOut(p(-ww / 2, y + wh2), p(ww / 2, y + wh2), p(0, y + wh2 + ww * 0.5), ref, col, { flat: true }); };
+  const win = mul3(GLASS, 0.8);
+  for (const [fx, fz] of [[0, 1], [0, -1], [1, 0], [-1, 0]]) for (let k2 = 0; k2 < 2; k2++) {
+    const y = y0 + h * (0.64 + 0.14 * k2), ww = w * 0.1, wh2 = w * 0.2; if (y < (o.winY ?? -1e9)) continue;
+    for (const s of [-0.2, 0.2]) pane(fx, fz, s * w, y, ww, wh2, win);
   }
-  if (o.roof === "pyr") { G.box(cx, y0 + h - 8, cz, w + 4, 8, w + 4, a, { top: mul3(cols.top, 0.85), side: mul3(cols.side, 0.82), side2: mul3(cols.side2, 0.82) }); G.roof(cx, y0 + h, cz, w + 6, w + 6, w * 0.95, a, TILE, { hip: true, rows: 4, seed: Math.floor(r + a * 100) }); }
-  else if (o.roof === "gold") { G.box(cx, y0 + h - 8, cz, w + 4, 8, w + 4, a, { top: mul3(cols.top, 0.85), side: mul3(cols.side, 0.82), side2: mul3(cols.side2, 0.82) }); G.roof(cx, y0 + h, cz, w + 5, w + 5, w * 1.25, a, rgb("#e8b63a"), { hip: true, rows: 3 }); }
-  else {
-    G.box(cx, y0 + h - 10, cz, w + 4, 10, w + 4, a, { top: cols.top, side: mul3(cols.side, 0.84), side2: mul3(cols.side2, 0.84) });
-    const m = w / 5, off = hw + 1.0;   // merlons round the top
-    for (const [u, v] of [[-1, -1], [1, -1], [-1, 1], [1, 1], [0, -1], [0, 1], [-1, 0], [1, 0]]) { const [tx, tz] = tanOf(a), [nx, nz] = radOf(a); G.box(cx + tx * u * off + nx * v * off, y0 + h, cz + tz * u * off + nz * v * off, m, 7, m, a, cols); }
+  if (o.arch) { const [aw, ah, ay] = o.arch, n = 8; for (const sg of [1, -1]) for (let i = 0; i < n; i++) {
+    const t0 = Math.PI * (i / n), t1 = Math.PI * ((i + 1) / n), q = (t) => [Math.cos(t) * aw / 2, Math.sin(t) * ah * 0.4 + ah * 0.6];
+    const A = q(t0), B = q(t1); S.quadOut(P(A[0], ay, sg * (hw + 2.5)), P(B[0], ay, sg * (hw + 2.5)), P(B[0], ay + B[1], sg * (hw + 2.5)), P(A[0], ay + A[1], sg * (hw + 2.5)), ref, rgb("#1a2030"), { flat: true }); } }
+  if (o.banner) for (const sg of o.banner === 2 ? [1, -1] : [1]) {   // a hanging banner on the radial face: dark red, a gold border and a gold wreath
+    const bw = w * 0.36, bt = y0 + h * 0.52, bb = y0 + h * 0.2, d = sg * (hw + 3), ph = hh(seed, sg) * TAU, mv0 = [0, 0, 0, ph], mv1 = [nx * sg * 2.2, 0, nz * sg * 2.2, ph + 0.7];
+    K.g.ban.quadOut(P(-bw / 2, bb, d), P(bw / 2, bb, d), P(bw / 2, bt, d), P(-bw / 2, bt, d), ref, GOLD, { mv: [mv1, mv1, mv0, mv0] });
+    const d2 = sg * (hw + 4.6), e = bw * 0.1; K.g.ban.quadOut(P(-bw / 2 + e, bb + e, d2), P(bw / 2 - e, bb + e, d2), P(bw / 2 - e, bt - e, d2), P(-bw / 2 + e, bt - e, d2), ref, rgb("#8a1f24"), { mv: [mv1, mv1, mv0, mv0] });
+    const d3 = sg * (hw + 6.2), gy = (bt + bb) / 2 + bw * 0.1; for (let i = 0; i < 10; i++) { const t0 = (i / 10) * TAU, t1 = ((i + 0.7) / 10) * TAU, r0 = bw * 0.2, r1 = bw * 0.29, mvm = [nx * sg * 1.2, 0, nz * sg * 1.2, ph + 0.35]; K.g.ban.quadOut(P(Math.cos(t0) * r0, gy + Math.sin(t0) * r0, d3), P(Math.cos(t1) * r0, gy + Math.sin(t1) * r0, d3), P(Math.cos(t1) * r1, gy + Math.sin(t1) * r1, d3), P(Math.cos(t0) * r1, gy + Math.sin(t0) * r1, d3), ref, GOLD, { flat: true, mv: [mvm, mvm, mvm, mvm] }); }
   }
   if (o.flag) {   // a flag on a pole: flutters
-    const top = y0 + h + (o.roof ? w * 1.0 : 7), pole = rgb("#5a4a38"); K.g.solid.box(cx, top, cz, 0.9, 20, 0.9, 0, { top: pole, side: pole });
-    const [tx, tz] = tanOf(a), ph = hh(r, a) * TAU, mv = (k2) => [tx * 5 * k2, 0, tz * 5 * k2, ph];
-    const p = (s, y) => [cx + tx * s, y, cz + tz * s];
-    K.g.ban.quad(p(0, top + 20), p(0, top + 9), p(14, top + 9), p(14, top + 20), rgb("#7a1f24"), { flat: true, mv: [mv(0), mv(0), mv(1), mv(1)] });
-    K.g.ban.quad(p(14, top + 20), p(14, top + 9), p(0, top + 9), p(0, top + 20), rgb("#7a1f24"), { flat: true, mv: [mv(1), mv(1), mv(0), mv(0)] });
+    const top = y0 + h + (o.roof ? w * (o.roof === "gold" ? 1.6 : 0.72) : w * 0.17), pole = rgb("#5a4a38"), ph = hh(seed, 3) * TAU, fl = w * 0.5, mv = (k2) => [0, 0, fl * 0.22 * k2, ph], fc = o.flagCol || rgb("#8a1f24");
+    S.box(cx, top, cz, 2, w * 0.62, 2, 0, { top: pole, side: pole });
+    const p = (s, y) => [cx + s, y, cz];
+    K.g.ban.quad(p(0, top + w * 0.62), p(0, top + w * 0.36), p(fl, top + w * 0.36), p(fl, top + w * 0.62), fc, { flat: true, mv: [mv(0), mv(0), mv(1), mv(1)] });
+    K.g.ban.quad(p(fl, top + w * 0.62), p(fl, top + w * 0.36), p(0, top + w * 0.36), p(0, top + w * 0.62), fc, { flat: true, mv: [mv(1), mv(1), mv(0), mv(0)] });
   }
 }
-// banners on a wall face: 6 x 30, dark red with a gold lozenge, flutter at the hem
-function banner(K, r, a, outward, ph0) {
-  const G = K.g.ban, [nx, nz] = radOf(a), [tx, tz] = tanOf(a), sgn = outward ? 1 : -1, c = pol(r + sgn * 1.8, a), top = 62, bot = 32, ph = ph0 * TAU;
+// a banner on a ring wall face: dark red with a gold lozenge, the hem flutters
+function banner(K, r, a, outward, ph0, bw, top, bot) {
+  const G = K.g.ban, [nx, nz] = radOf(a), [tx, tz] = tanOf(a), sgn = outward ? 1 : -1, c = pol(r + sgn * 4.5, a), ph = ph0 * TAU;
   if (K.skipped(c[0], c[1], 8)) return;
-  const p = (s, y, d = 0) => [c[0] + tx * s + nx * sgn * d, y, c[1] + tz * s + nz * sgn * d];
-  const mvTop = [0, 0, 0, ph], mvB = [nx * sgn * 1.5, 0, nz * sgn * 1.5, ph + 0.7], mvM = [nx * sgn * 0.7, 0, nz * sgn * 0.7, ph + 0.35];
-  G.quad(p(-3, bot), p(3, bot), p(3, top), p(-3, top), rgb("#7a1f24"), { mv: [mvB, mvB, mvTop, mvTop], flat: false });
-  const gy = (bot + top) / 2, gd = 1.8;
-  G.quad(p(0, gy - 6, gd), p(2.6, gy, gd), p(0, gy + 6, gd), p(-2.6, gy, gd), rgb("#e8b63a"), { mv: [mvM, mvM, mvM, mvM], flat: true });
+  const p = (s, y, d = 0) => [c[0] + tx * s + nx * sgn * d, y, c[1] + tz * s + nz * sgn * d], ref = [c[0] - nx * sgn * 50, (top + bot) / 2, c[1] - nz * sgn * 50];
+  const mvTop = [0, 0, 0, ph], mvB = [nx * sgn * 3, 0, nz * sgn * 3, ph + 0.7], mvM = [nx * sgn * 1.5, 0, nz * sgn * 1.5, ph + 0.35];
+  G.quadOut(p(-bw / 2, bot), p(bw / 2, bot), p(bw / 2, top), p(-bw / 2, top), ref, rgb("#8a1f24"), { mv: [mvB, mvB, mvTop, mvTop] });
+  G.triOut(p(-bw / 2, bot), p(bw / 2, bot), p(0, bot - bw * 0.5), ref, rgb("#8a1f24"), { mv: [mvB, mvB, mvB] });
+  const gy = (bot + top) / 2, gd = 2;
+  G.quadOut(p(0, gy - bw * 0.7, gd), p(bw * 0.32, gy, gd), p(0, gy + bw * 0.7, gd), p(-bw * 0.32, gy, gd), ref, GOLD, { mv: [mvM, mvM, mvM, mvM], flat: true });
 }
 
-// the whole ring wall of one metal: footing stone, the plate rows from the atlas, ribs/piers, coping; gates at the spokes
-function buildWall(K, w) {
-  const { r, th, atlas, rows, rowH, footTop, copTop, sheetW } = w, Gs = K.g.solid, Gm = K.g[atlas], n = Math.round(r * TAU / sheetW), ri = r - th;
-  const gateHalf = (k) => (w.gateHalf ? w.gateHalf(k) : 22);
+// one ring wall face: tide line, pale footing (or the three-colour ashlar of the red-gold wall), the metal sheets from the atlas or drawn
+// ashlar, ribs or buttresses, a coping that stands proud, a parapet with merlons. w { r, top, out, kind "brass" | "tin" | "red" | "stone",
+// y0 0, foot, cop, sheetW, rows, rib, par, merlon, gap(a) -> true where the face is left open, tone }
+function ringWall(K, w) {
+  const { r, out, kind, top } = w, y0 = w.y0 ?? 0, foot = w.foot ?? 14, cop = w.cop ?? 9, sheetW = w.sheetW || 26, n = Math.round(r * TAU / sheetW), Gs = K.g.stone, sg = out ? 1 : -1, par = w.par ?? 9;
+  const body = top - cop - (y0 + foot), rows = w.rows || Math.max(1, Math.round(body / (sheetW * 1.9))), rowH = body / rows, Gm = kind === "stone" ? null : K.g[kind], tide = w.dry ? mul3(FOOT, 0.82) : rgb("#46504a");
   for (let j = 0; j < n; j++) {
     const a0 = (j / n) * TAU, a1 = ((j + 1) / n) * TAU, am = (a0 + a1) / 2, c = pol(r, am);
-    // a gap at every spoke
-    let gap = false; for (let k = 0; k < 8; k++) if (Math.abs(wrapA(am - SPOKE(k))) * r < gateHalf(k)) gap = true;
-    if (gap || K.skipped(c[0], c[1], 6)) continue;
-    const seg = hh(j, r), u = (j * 7 + Math.floor(r)) % 8;
-    // footing: stone with a dark tide line at the water, moss in a few joints
-    if (w.blocks) {   // red-gold: ashlar courses 3.6 m, white with every third block black or red, 4 courses
-      const nb = 2, bh = footTop / 4;
-      for (let row = 0; row < 4; row++) for (let q = 0; q < nb; q++) {
-        const aa0 = lerp(a0, a1, q / nb), aa1 = lerp(a0, a1, (q + 1) / nb), idx = (j * nb + q + row * 2), tri = idx % 3 === 0, base = tri ? ((Math.floor(idx / 3) % 2) ? REDS : BLACKS) : STONE;
-        face(Gs, r, aa0, aa1, row * bh, (row + 1) * bh, mul3(base, 0.9 + 0.16 * hh(idx, row, 7)), true, { ao: row === 0 ? [0.75, 0.75, 1, 1] : null });
-        face(Gs, ri, aa0, aa1, row * bh, (row + 1) * bh, mul3(base, 0.84), false);
+    if ((w.gap && w.gap(am)) || K.skipped(c[0], c[1], 6)) continue;
+    const seg = hh(j, r), u0 = (a0 * r) / TS, u1 = (a1 * r) / TS, suv = (ya, yb) => [[u0, ya / TS], [u1, ya / TS], [u1, yb / TS], [u0, yb / TS]];
+    face(Gs, r, a0, a1, y0, y0 + 4, mul3(tide, 0.85 + 0.3 * seg), out, { tg: NOMAP });
+    if (w.blocks) {   // red-gold: ashlar courses, white with every third block black or red
+      const bh = (foot - 4) / 3;
+      for (let row = 0; row < 3; row++) for (let q = 0; q < 2; q++) {
+        const aa0 = lerp(a0, a1, q / 2), aa1 = lerp(a0, a1, (q + 1) / 2), idx = j * 2 + q + row * 2, tri = idx % 3 === 0, base = tri ? ((Math.floor(idx / 3) % 2) ? REDS : BLACKS) : STONE;
+        face(Gs, r, aa0, aa1, y0 + 4 + row * bh, y0 + 4 + (row + 1) * bh, mul3(base, 0.9 + 0.16 * hh(idx, row, 7)), out, { tg: NOMAP, ao: row === 0 ? [0.75, 0.75, 1, 1] : null });
       }
-    } else for (const [rad, outw] of [[r, true], [ri, false]]) {
-      face(Gs, rad, a0, a1, 0, 4, mul3(rgb("#4a5048"), 0.85 + 0.3 * seg), outw);   // the tide line
-      face(Gs, rad, a0, a1, 4, footTop, mul3(hh(j, r, 4) < 0.18 ? mix3(FOOT, rgb("#6c8a4a"), 0.4) : FOOT, 0.9 + 0.16 * seg), outw);
-    }
-    // plate rows
-    for (let row = 0; row < rows; row++) {
-      const ya = footTop + row * rowH, yb = ya + rowH;
-      let arow, acol = Math.floor(hh(j, row, r) * 8);
+    } else face(Gs, r, a0, a1, y0 + 4, y0 + foot, mul3(hh(j, r, 4) < 0.24 ? mix3(FOOT, MOSS, 0.45) : FOOT, 0.9 + 0.16 * seg), out, { uv: suv(y0 + 4, y0 + foot) });
+    if (Gm) for (let row = 0; row < rows; row++) {
+      const ya = y0 + foot + row * rowH, yb = ya + rowH; let arow; const acol = Math.floor(hh(j, row, r) * 8);
       if (w.cls) { const q = hh(j, row, r * 3); arow = q < 0.6 ? 0 : q < 0.85 ? 1 : q < 0.98 ? 2 : 3; }
       else arow = row === rows - 1 && hh(j, r, 11) < 0.55 ? 3 : Math.floor(hh(j, row, 13) * 3);
-      const uv = plateUV(acol, arow, 0.02, 0.98), tgx = am / TAU, hot = (j + row * 2) % 4 === 0 ? 1 : 0;
-      const o = { uv, tg: [tgx, hot], ao: row === 0 ? [0.82, 0.82, 1, 1] : null };
-      face(Gm, r, a0, a1, ya, yb, [1, 1, 1], true, o);
-      face(Gm, ri, a0, a1, ya, yb, [0.92, 0.92, 0.92], false, { uv: plateUV((acol + 3) % 8, arow, 0.02, 0.98), tg: [tgx, hot], ao: row === 0 ? [0.82, 0.82, 1, 1] : null });
+      const hot = (j + row * 2) % 4 === 0 ? 1 : 0, k = (0.93 + 0.14 * hh(j, row, 17)) * (w.k || 1) * (kind === "brass" ? 1.34 : 1);
+      face(Gm, r, a0, a1, ya, yb, [k, k, k], out, { uv: plateUV(acol, arow, 0.02, 0.98), tg: [am / TAU, hot], ao: row === 0 ? [0.8, 0.8, 1, 1] : null });
+    } else {
+      const k = 0.9 + 0.16 * hh(j, r, 8), tone = hh(j, r, 5) < 0.12 ? mix3(w.tone || STONE_G, MOSS, 0.22) : (w.tone || STONE_G);
+      face(Gs, r, a0, a1, y0 + foot, top - cop, mul3(tone, k), out, { uv: suv(y0 + foot, top - cop), ao: [0.78, 0.78, 1, 1] });
     }
-    // coping: a stone band that stands 1.5 m proud, and its flat top
-    const topY = footTop + rows * rowH, cc = mul3(STONE, 0.94 + 0.12 * hh(j, 21));
-    face(Gs, r + 1.5, a0, a1, topY, copTop, cc, true); face(Gs, ri - 1.5, a0, a1, topY, copTop, mul3(cc, 0.9), false);
-    strip(Gs, ri - 1.5, r + 1.5, a0, a1, copTop, mul3(STONE, 1.05));
-    strip(Gs, r + 1.5, r, a0, a1, topY, mul3(cc, 0.6)); strip(Gs, ri, ri - 1.5, a0, a1, topY, mul3(cc, 0.6));   // the underside of the coping lip
-    // ribs (every third sheet) or piers (red-gold: every fifth plate)
-    if (w.rib && j % w.rib === 0) for (const [rad, sg] of [[r + 0.8, 1], [ri - 0.8, -1]]) { const p = pol(rad, am); Gs.box(p[0], footTop, p[1], 2.4, topY - footTop, 1.6, am, { top: rgb("#9d7c30"), side: rgb("#9d7c30"), side2: rgb("#7a5f28") }); }
-    if (w.pier && j % w.pier === 0) for (const [rad, sg] of [[r + 1.5, 1], [ri - 1.5, -1]]) {
-      const p = pol(rad, am); Gs.box(p[0], 0, p[1], 6, topY, 3, am, stoneCols(0.95)); Gs.box(p[0], topY, p[1], 8, 4, 5, am, stoneCols(1.02));
-    }
+    // the coping band (3 m proud) and the parapet with merlons
+    const rc = r + sg * 3, rp = rc - sg * 6, cc = mul3(STONE, 0.94 + 0.12 * hh(j, 21));
+    face(Gs, rc, a0, a1, top - cop, top + par, cc, out, { uv: suv(top - cop, top + par) });
+    strip(Gs, rp, rc, a0, a1, top + par, mul3(STONE, 1.05), { tg: NOMAP }); face(Gs, rp, a0, a1, top, top + par, mul3(cc, 0.8), !out, { tg: NOMAP });
+    if (w.merlon !== false && j % 2 === 0) { const b0 = lerp(a0, a1, 0.15), b1 = lerp(a0, a1, 0.85), yt = top + par + 8; face(Gs, rc, b0, b1, top + par, yt, cc, out, { tg: NOMAP }); face(Gs, rp, b0, b1, top + par, yt, mul3(cc, 0.8), !out, { tg: NOMAP }); strip(Gs, rp, rc, b0, b1, yt, mul3(STONE, 1.06), { tg: NOMAP }); }
+    // ribs of the metal (every w.rib sheets) and buttresses of the stone
+    if (w.rib && j % w.rib === 0) { const p = pol(r + sg * 2.2, a0), pc = kind === "brass" ? "#a37e2c" : kind === "tin" ? "#9aa6b0" : "#8f3322", col = rgb(pc); K.g.solid.box(p[0], y0 + foot, p[1], 5.5, body, 4.4, a0, { top: col, side: mul3(col, 1.08), side2: mul3(col, 0.8) }, { noTop: true }); }
+    if (w.butt && j % w.butt === 0) { const p = pol(r + sg * 5, a0); Gs.box(p[0], y0, p[1], 15, top - cop - y0, 10, a0, stoneCols(0.97, w.tone || STONE_G), { uv: boxUV(15, top - cop), noTop: true }); Gs.box(p[0], top - cop - 2, p[1], 19, 5, 13, a0, stoneCols(1.02), { tg: NOMAP }); }
   }
 }
 
 // ================================================================================================================ gates, bridges, canal
-const GATE_HALF = (k) => (k === 0 ? 65 : k % 2 === 0 ? 34 : 16);   // half opening of the wall gate at spoke k (the front gate is the canal's)
-function wallGates(K, r, th, h, roofKind, halfFn) {
-  for (let k = 0; k < 8; k++) {
-    const a = SPOKE(k), half = halfFn(k), main = k % 2 === 0, wr = r - th / 2, c = pol(wr, a), [tx, tz] = tanOf(a);
-    if (K.skipped(c[0], c[1], 90)) continue;
-    if (main) {
-      const w = k === 0 ? 36 : 30, hh2 = k === 0 ? h * 1.25 : h;
-      for (const sg of [-1, 1]) { const off = half + w / 2, p = [c[0] + tx * off * sg, c[1] + tz * off * sg]; tower(K, Math.hypot(p[0], p[1]), angOf(p[0], p[1]), w, hh2, { roof: roofKind, flag: true, k: 1.02, y0: 0 }); }
-      archRing(K.g.solid, c[0], c[1], a, half, half + 12, k === 0 ? 38 : 30, th + 4, STONE, 16);
-      // a flat stone cap joining the towers over the arch
-      const top = (k === 0 ? 38 : 30) + half + 12; const p1 = [c[0] + tx * (half + 2), c[1] + tz * (half + 2)];
-      K.g.solid.box(c[0], top - 6, c[1], (half + w) * 2 - 2, 8, th + 4, a, stoneCols(0.97));
-    } else archRing(K.g.solid, c[0], c[1], a, half, half + 9, 26, th + 4, STONE, 12);
+const FRONT_HALF = 104;   // half opening of the brass wall's front gate (the great canal runs through)
+// a stone viaduct on the spoke angle a from radius r0 (deck y ya) to r1 (deck y yb): arches on piers, a paved deck, parapets
+function viaduct(K, a, r0, r1, W, ya, yb) {
+  const G = K.g.stone, n = Math.max(1, Math.round((r1 - r0) / 100)), sl = (r1 - r0) / n, [tx, tz] = tanOf(a), m = 8;
+  const P = (s, u, y) => { const c = pol(s, a); return [c[0] + tx * u, y, c[1] + tz * u]; }, yAt = (s) => lerp(ya, yb, (s - r0) / (r1 - r0)), uv = (s0, s1, y0a, y0b, y1a, y1b) => [[s0 / TS, y0a / TS], [s1 / TS, y0b / TS], [s1 / TS, y1b / TS], [s0 / TS, y1a / TS]];
+  const road = rgb("#d9cfb4"), st = STONE;
+  for (let i = 0; i < n; i++) {
+    const s0 = r0 + i * sl, s1 = s0 + sl, sm = (s0 + s1) / 2, cm = pol(sm, a); if (K.skipped(cm[0], cm[1], 60)) continue;
+    const pier = sl * 0.14, o0 = s0 + pier, o1 = s1 - pier, ro = (o1 - o0) / 2, ymin = Math.min(yAt(s0), yAt(s1)), spring = ymin * 0.3, hA = Math.min(ro * 1.05, ymin - 16 - spring), yc = (s) => spring + hA * Math.sqrt(Math.max(0, 1 - ((s - sm) / ro) ** 2));
+    const ref = P(sm, 0, ymin / 2), v = 0.94 + 0.1 * hh(i, a * 9);
+    for (const sg of [-1, 1]) {
+      const u = sg * W / 2, cc = mul3(st, v * (sg > 0 ? 1 : 0.98));
+      for (const [sa, sb] of [[s0, o0], [o1, s1]]) G.quadOut(P(sa, u, -4), P(sb, u, -4), P(sb, u, yAt(sb)), P(sa, u, yAt(sa)), ref, cc, { uv: uv(sa, sb, -4, -4, yAt(sa), yAt(sb)), ao: [0.72, 0.72, 1, 1] });
+      for (let q = 0; q < m; q++) { const sa = lerp(o0, o1, q / m), sb = lerp(o0, o1, (q + 1) / m); G.quadOut(P(sa, u, yc(sa)), P(sb, u, yc(sb)), P(sb, u, yAt(sb)), P(sa, u, yAt(sa)), ref, cc, { uv: uv(sa, sb, yc(sa), yc(sb), yAt(sa), yAt(sb)) }); }
+      // the parapet
+      const u2 = sg * (W / 2 - 5); G.quadOut(P(s0, u, yAt(s0)), P(s1, u, yAt(s1)), P(s1, u, yAt(s1) + 9), P(s0, u, yAt(s0) + 9), ref, mul3(st, 1.0), { tg: NOMAP });
+      G.quadOut(P(s0, u2, yAt(s0)), P(s1, u2, yAt(s1)), P(s1, u2, yAt(s1) + 9), P(s0, u2, yAt(s0) + 9), P(sm, sg * W, ymin), mul3(st, 0.8), { tg: NOMAP });
+      G.quadOut(P(s0, u2, yAt(s0) + 9), P(s0, u, yAt(s0) + 9), P(s1, u, yAt(s1) + 9), P(s1, u2, yAt(s1) + 9), P(sm, 0, -2000), mul3(st, 1.06), { tg: NOMAP, up: true });
+    }
+    // the intrados and the pier cheeks (in shade)
+    for (let q = 0; q < m; q++) { const sa = lerp(o0, o1, q / m), sb = lerp(o0, o1, (q + 1) / m); G.quadOut(P(sa, -W / 2, yc(sa)), P(sb, -W / 2, yc(sb)), P(sb, W / 2, yc(sb)), P(sa, W / 2, yc(sa)), P(sm, 0, ymin + 200), mul3(st, 0.46), { tg: NOMAP, flat: true }); }
+    for (const [sa, d] of [[o0, 1], [o1, -1]]) G.quadOut(P(sa, -W / 2, -4), P(sa, W / 2, -4), P(sa, W / 2, spring), P(sa, -W / 2, spring), P(sa - d * 30, 0, 0), mul3(st, 0.5), { tg: NOMAP, flat: true });
+    G.quadOut(P(s0, -W / 2 + 5, yAt(s0)), P(s0, W / 2 - 5, yAt(s0)), P(s1, W / 2 - 5, yAt(s1)), P(s1, -W / 2 + 5, yAt(s1)), P(sm, 0, -2000), mul3(road, 0.97 + 0.06 * hh(i, 3)), { up: true, tg: NOMAP });
   }
 }
-// a stone viaduct across one sea ring on the spoke angle a, deck at the quay height, parapets, piers, flags on the gate towers
-function bridge(K, a, r0, r1, W, main) {
-  const G = K.g.solid, span = 46, n = Math.max(2, Math.round((r1 - r0) / span)), sl = (r1 - r0) / n, [tx, tz] = tanOf(a), P = (s, u, y) => { const c = pol(s, a); return [c[0] + tx * u, y, c[1] + tz * u]; };
-  const road = rgb("#d6ccb2"), parap = stoneCols(0.98), yb = 6, yt = Q;
-  for (let i = 0; i < n; i++) {
-    const s0 = r0 + i * sl, s1 = s0 + sl, sm = (s0 + s1) / 2, cm = pol(sm, a);
-    if (K.skipped(cm[0], cm[1], 40)) continue;
-    // the slab: top road, two side faces, the underside
-    K.g.solid.quad(P(s0, -W / 2, yt), P(s0, W / 2, yt), P(s1, W / 2, yt), P(s1, -W / 2, yt), road, { up: true, uv: [[0, 0], [1, 0], [1, 1], [0, 1]] });
-    for (const sg of [-1, 1]) {
-      const ref = P(sm, 0, 0);
-      G.quadOut(P(s0, sg * W / 2, yb), P(s1, sg * W / 2, yb), P(s1, sg * W / 2, yt), P(s0, sg * W / 2, yt), ref, mul3(rgb("#d6d0be"), 0.94 + 0.12 * hh(i, a)));
-      G.quadOut(P(s0, sg * W / 2, yt), P(s1, sg * W / 2, yt), P(s1, sg * (W / 2 - 3.2), yt + 4.4), P(s0, sg * (W / 2 - 3.2), yt + 4.4), ref, mul3(parap.top, 1));
-      const bc = pol(sm, a); G.box(bc[0] + tx * sg * (W / 2 - 1.6), yt, bc[1] + tz * sg * (W / 2 - 1.6), 3.2, 4.4, sl, a, { top: parap.top, side: parap.side, side2: parap.side2 });
-    }
-    G.quadOut(P(s0, -W / 2, yb), P(s1, -W / 2, yb), P(s1, W / 2, yb), P(s0, W / 2, yb), P(sm, 0, yb + 40), mul3(rgb("#bdb7a6"), 0.8));
-    // the pier at the end of the span
-    if (i < n - 1) { const pc = pol(s1, a); G.box(pc[0], -6, pc[1], W + 6, yb + 6, 9, a, stoneCols(0.9)); }
-  }
+// twin gate towers either side of a road at radius rt on spoke a (ground y0)
+function twinGate(K, a, rt, y0, half, w, h, o = {}) {
+  const [tx, tz] = tanOf(a), c = pol(rt, a);
+  for (const sg of [-1, 1]) tower(K, c[0] + tx * (half + w / 2) * sg, c[1] + tz * (half + w / 2) * sg, a, w, h, { y0: y0 - 12, flag: sg > 0, ...o });
+  if (o.lintel !== false && !K.skipped(c[0], c[1], 40)) { K.g.stone.box(c[0], y0 + h * 0.5, c[1], half * 2 + 4, h * 0.2, w * 0.7, a, stoneCols(0.97, o.tone || STONE), { uv: boxUV(half * 2, h * 0.2) }); archOn(K.g.solid, rt + w * 0.35, a, half * 1.5, h * 0.5, 1, y0, "#2a3140"); archOn(K.g.solid, rt - w * 0.35, a, half * 1.5, h * 0.5, -1, y0, "#2a3140"); }
 }
 function bridges(K) {
+  const v = K.lv;
   for (let k = 0; k < 8; k++) {
-    const a = SPOKE(k), main = k % 2 === 0, W = main ? 60 : 24;
-    for (const w of RING_WATER) bridge(K, a, w.r0, w.r1, W, main);
-    // twin gate towers on the land side of the quay edges (the wall gates cover 462, 1942 and 2497)
-    if (main) for (const [rt, sgn] of [[647 + 22, 1], [1017 - 22, -1], [1387 + 22, 1]]) for (const sg of [-1, 1]) {
-      const [tx, tz] = tanOf(a), c = pol(rt, a), p = [c[0] + tx * (W / 2 + 20) * sg, c[1] + tz * (W / 2 + 20) * sg];
-      tower(K, Math.hypot(p[0], p[1]), angOf(p[0], p[1]), 30, 168, { roof: "pyr", flag: true, y0: Q, k: 1.0 });
-    }
+    const a = SPOKE(k), main = k % 2 === 0, W = main ? 84 : 46;
+    viaduct(K, a, 462, 647, W, v.cit, v.l1i); viaduct(K, a, 1017, 1387, W, v.l1o, v.l2i); if (K.S.brass !== false) viaduct(K, a, 1942, BRASS_RI, W, v.l2o, v.l2o);
+    const tw = main ? 46 : 34, th = main ? 96 : 70, ro = main ? { roof: "pyr" } : {};
+    twinGate(K, a, 1942 - 30, v.l2o, W / 2, tw, th, ro); twinGate(K, a, 1387 + 30, v.l2i, W / 2, tw, th, ro); twinGate(K, a, 1017 - 30, v.l1o, W / 2, tw, th, ro); twinGate(K, a, 647 + 30, v.l1i, W / 2, tw, th, ro);
+    twinGate(K, a, 462 - 26, v.cit, W / 2, tw * 0.9, th * 1.1, { roof: "gold", tone: rgb("#f0e6d4") });
   }
-  // tunnel arches in the quay faces, two beside each main bridge, where ships pass under the land
-  for (const [r, facing] of [[647, -1], [1017, 1], [1387, -1]]) for (let k = 0; k < 8; k += 2) for (const sg of [-1, 1]) archOn(K.g.solid, r, SPOKE(k) + sg * (60 + 56) / r, 34, 10.5, facing);
+  // tunnel arches in the terrace walls, two beside each main bridge, where ships pass under the land
+  for (const [r, facing] of [[1942, 1], [1387, -1], [1017, 1], [647, -1]]) for (let k = 0; k < 8; k += 2) for (const sg of [-1, 1]) archOn(K.g.solid, r, SPOKE(k) + sg * 190 / r, 76, 64, facing);
 }
-// the great canal and the harbour basin: calm water on the plain, lined with quay walls (the front gate is the brass wall's)
-function canal(K) {
-  const G = K.g.land, WC = 110, z0 = 2497, z1 = 9500, st = 70, stone = stoneCols(0.97), yq = 8;
-  const basin = { x: 150, z0: 2505, z1: 2905 };
-  const walls = (x0, x1, za, zb, outsideSign) => {};
-  for (let z = z0 + 12; z < z1; z += st) {
-    const inBasin = z < basin.z1;
-    const half = inBasin ? basin.x : WC / 2 + 4;
-    if (K.skipped(0, z, 10)) continue;
-    for (const sg of [-1, 1]) {
-      const x = sg * (half + 4), zc = z + st / 2;
-      G.box(x, 0, zc, 8, yq, st, 0, { top: mul3(rgb("#d9d2bf"), 1.02), side: stone.side, side2: stone.side2 });
-      if ((z / st | 0) % 3 === 0) G.box(x - sg * 1.5, yq, zc, 2.4, 3, st * 0.9, 0, { top: stone.top, side: stone.side, side2: stone.side2 });   // a low parapet
-    }
+// the brass wall's towers: a gatehouse where each bridge lands, two towers between; the front gate over the great canal
+function brassTowers(K) {
+  const rm = 2497 - BRASS_T / 2, v = K.lv;
+  for (let k = 0; k < 8; k++) {
+    const a = SPOKE(k), main = k % 2 === 0;
+    if (k === 0) {
+      const c = pol(rm, a), [tx, tz] = tanOf(a);
+      for (const sg of [-1, 1]) tower(K, c[0] + tx * (FRONT_HALF + 44) * sg, c[1] + tz * (FRONT_HALF + 44) * sg, a, 88, 300, { flag: true, banner: 2, k: 1.02, winY: 170 });
+      if (!K.skipped(c[0], c[1], 90)) { archRing(K.g.stone, c[0], c[1], a, FRONT_HALF, FRONT_HALF + 26, 70, BRASS_T + 10, STONE, 18); K.g.stone.box(c[0], 70 + FRONT_HALF + 16, c[1], FRONT_HALF * 2 + 30, 34, BRASS_T + 10, a, stoneCols(0.98), { uv: boxUV(FRONT_HALF * 2, 34) });
+        for (let q = -4; q <= 4; q++) K.g.stone.box(c[0] + tx * q * 24, 70 + FRONT_HALF + 50, c[1] + tz * q * 24, 12, 11, BRASS_T + 10, a, stoneCols(1.0), { tg: NOMAP }); }
+    } else { const c = pol(rm, a); tower(K, c[0], c[1], a, main ? 78 : 62, main ? 270 : 246, { flag: true, arch: [main ? 44 : 30, main ? 56 : 44, v.l2o], k: 1.01, banner: main ? 2 : 0, winY: 190 }); }
+    for (const da of [15, 30]) { const c = pol(rm, a + da * DEG); tower(K, c[0], c[1], a + da * DEG, 54, 232, { flag: da === 15, winY: 190 }); }
   }
-  // the basin's far end wall and the quay at its foot
-  for (const sg of [-1, 1]) G.box(sg * 109.5, 0, basin.z1 + 4, 97, yq, 8, 0, stone);
-  // the canal narrows after the basin: a paved bank each side
-  for (let z = basin.z1; z < z1; z += st * 4) for (const sg of [-1, 1]) G.box(sg * (WC / 2 + 22), 0.2, z + st * 2, 18, 0.6, st * 4, 0, { top: rgb("#cfc4a4"), side: rgb("#cfc4a4") });
+}
+// the great canal and the harbour basin: calm water on the plain between ashlar quays with bollards (the front gate is the brass wall's)
+function canal(K) {
+  const G = K.g.lstone, z1 = 9500, st = 120, yq = 10, basin = { x: 150, z1: 2905 }, HW = CANAL_HW;
+  for (let z = 2497 + 6; z < z1; z += st) {
+    const inB = z < basin.z1, half = inB ? basin.x : HW, zl = Math.min(st, (inB ? basin.z1 : z1) - z), zc = z + zl / 2;
+    if (K.skipped(0, zc, 10)) continue;
+    for (const sg of [-1, 1]) {
+      const x = sg * (half + 13), cc = stoneCols(0.95 + 0.08 * hh(z, sg), mix3(STONE, FOOT, 0.5));
+      G.box(x, -2, zc, 26, yq + 2, zl, 0, cc, { uv: boxUV(zl, yq + 2), uvTop: boxUV(26, zl) });
+      if (z < 6000) for (const f of [0.25, 0.75]) K.g.land.box(x - sg * 9, yq, z + zl * f, 4, 5, 4, 0, { top: rgb("#3a3a40"), side: rgb("#3a3a40") });   // bollards
+    }
+    if (inB && z + st >= basin.z1) for (const sg of [-1, 1]) G.box(sg * (HW + (basin.x - HW) / 2 + 13), -2, basin.z1 + 13, basin.x - HW + 26, yq + 2, 26, 0, stoneCols(0.97, mix3(STONE, FOOT, 0.5)), { uv: boxUV(basin.x - HW, yq + 2) });
+  }
 }
 
-// ================================================================================================================ houses, trees, the temple
-const WALLS = [STONE, rgb("#e4dccb"), rgb("#f1ece0"), rgb("#a8483a"), rgb("#b45a48"), BLACKS, rgb("#4a4a52")];
-// one house: footprint x3, height x6; walls in one of the three stones, 70 % tile roofs (hip or gable), flat roofs with a parapet; a door and two windows standing 1.6 m proud
-function house(K, G, x, z, y0, rot, i, o = {}) {
-  const sx = (o.sx ?? (6 + 5 * hh(i, 1))) * K.fp, sz = (o.sz ?? (5 + 4 * hh(i, 2))) * K.fp, storey = hh(i, 3) < 0.28 ? 1.45 : 1, wh = (3.4 + 1.8 * hh(i, 4)) * K.vs * storey;
-  const pick = hh(i, 5), wc = pick < 0.62 ? WALLS[Math.floor(hh(i, 6) * 3)] : pick < 0.86 ? WALLS[3 + (i % 2)] : WALLS[5 + (i % 2)], cols = stoneCols(0.94 + 0.12 * hh(i, 7), wc);
-  const base = y0 - 8;
-  G.box(x, base, z, sx, wh + 8, sz, rot, cols, { aoSide: [0.72, 0.72, 1, 1], noTop: true });
-  const tile = hh(i, 8) < 0.7;
-  if (tile) {
-    const col = mul3(TILE, 0.82 + 0.32 * hh(i, 9)), rise = Math.min(sx, sz) * (0.34 + 0.18 * hh(i, 10)) * 0.9, hip = hh(i, 11) < 0.45;
-    G.roof(x, y0 + wh, z, sx + 3, sz + 3, rise, rot, hip ? mul3(col, 0.96) : col, { hip, rows: 4, seed: i, gable: mul3(wc, 0.9) });
-  } else {
-    G.box(x, y0 + wh, z, sx + 1.6, 2.4, sz + 1.6, rot, { top: mul3(cols.top, 1.0), side: cols.side, side2: cols.side2 }, {});
-    if (hh(i, 12) < 0.4) G.box(x + Math.cos(rot) * sx * 0.2, y0 + wh + 2.4, z - Math.sin(rot) * sx * 0.2, sx * 0.3, 7, sz * 0.4, rot, cols, {});   // a rooftop room
-  }
-  const [tx, tz] = tanOf(rot), nx = Math.sin(rot), nz = Math.cos(rot), dark = { top: rgb("#4a3626"), side: rgb("#4a3626") }, glass = { top: rgb("#3e4a5c"), side: rgb("#3e4a5c") };
-  const face = hh(i, 13) < 0.5 ? 1 : -1;
-  G.box(x + nx * (sz / 2 + 0.8) * face, y0, z + nz * (sz / 2 + 0.8) * face, 4, 10, 1.6, rot, dark, { flat: true });
-  for (const s of [-0.28, 0.28]) G.box(x + nx * (sz / 2 + 0.8) * face + tx * sx * s, y0 + wh * 0.5, z + nz * (sz / 2 + 0.8) * face + tz * sx * s, 3.4, 7, 1.6, rot, glass, { flat: true });
-}
-// a house site test against the roads, bridges, the racecourse and the other houses
-function makeSites(K) {
-  const sites = [], cell = 44, occ = new Map(), key = (x, z) => Math.floor(x / cell) + "," + Math.floor(z / cell);
-  const near = (x, z, d) => { for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) { const l = occ.get((Math.floor(x / cell) + i) + "," + (Math.floor(z / cell) + j)); if (l) for (const p of l) if (Math.hypot(p[0] - x, p[1] - z) < d) return true; } return false; };
-  const add = (x, z) => { const k = key(x, z); (occ.get(k) || occ.set(k, []).get(k)).push([x, z]); };
-  const race = pol(RACE.r, RACE.a);
-  const free = (x, z, r, pad) => {
-    const a = angOf(x, z);
-    if (spokeDist(a, r) < 44 + pad) return false;
-    for (const f of [0.5]) if (Math.abs(r - lerp(r < 1100 ? 647 : 1387, r < 1100 ? 1017 : 1942, f)) < 12 + pad) return false;   // the ring road
-    // the racecourse (an oval, long axis along the tangent)
-    const dx = x - race[0], dz = z - race[1], t = tanOf(RACE.a), nr = radOf(RACE.a), u = dx * t[0] + dz * t[1], v = dx * nr[0] + dz * nr[1];
-    if ((u / (RACE.long / 2 + 30 + pad)) ** 2 + (v / (RACE.wide / 2 + 30 + pad)) ** 2 < 1) return false;
-    return true;
-  };
-  K.free = free; K.near = near; K.add = add;
-  const ringsDef = [{ r0: 647 + 60, r1: 1017 - 50, n: 350, s: 100 }, { r0: 1387 + 70, r1: 1930 - 40, n: 700, s: 200 }, { r0: 345, r1: 440, n: 60, s: 300 }];
-  for (const R of ringsDef) {
-    let placed = 0, tries = 0;
-    while (placed < R.n && tries < R.n * 40) {
-      tries++; const i = R.s * 1000 + tries, a = hh(i, 1, 2) * TAU, r = Math.sqrt(lerp(R.r0 * R.r0, R.r1 * R.r1, hh(i, 3, 4))), [x, z] = pol(r, a);
-      if (!free(x, z, r, 0) || near(x, z, R.s === 300 ? 52 : 44)) continue;
-      if (R.s === 300 && Math.abs(a - Math.PI) < 0.0) continue;
-      add(x, z); sites.push({ x, z, r, a, i, y0: groundAt(r), ring: R.s }); placed++;
+// ================================================================================================================ villas, trees, the temple
+const WALLS = [STONE, rgb("#e9e2d0"), rgb("#f4efe4"), rgb("#ecd9b4"), rgb("#e9c4a8")];
+// one villa as the plate draws them: two or three storeys of windows, a tile roof (hip or gable) over an eaves shadow, often a lower wing,
+// a door, a chimney. s scales it (1 = 72-116 long). Each villa its own size, stone, roof tone and window count from the hash of i.
+function villa(K, G, x, z, y0, rot, i, s = 1) {
+  const sx = (72 + 44 * hh(i, 1)) * s, sz = (48 + 22 * hh(i, 2)) * s, st = hh(i, 3) < 0.42 ? 3 : 2, fh = 20 * s, wh = st * fh;
+  const pick = hh(i, 5), wc = pick < 0.78 ? WALLS[Math.floor(hh(i, 6) * 3)] : WALLS[3 + (i % 2)], cols = stoneCols(0.97 + 0.08 * hh(i, 7), wc);
+  const c = Math.cos(rot), sn = Math.sin(rot), P = (lx, y, lz) => [x + lx * c + lz * sn, y, z - lx * sn + lz * c];
+  const tile = mul3(TILE, 0.84 + 0.3 * hh(i, 9)), win = mul3(GLASS, 0.75 + 0.4 * hh(i, 14)), door = rgb("#5a3a26");
+  const block = (cx, cz, bx, bz, bh, hip, seed, nw) => {
+    const p0 = P(cx, 0, cz), ref = [p0[0], y0 + bh / 2, p0[2]];
+    const dig = 8 + 46 * (K.lv ? K.lv.c : 0); G.box(p0[0], y0 - dig, p0[2], bx, bh + dig, bz, rot, cols, { aoSide: [0.7, 0.7, 1, 1], noTop: true });
+    G.box(p0[0], y0 + bh, p0[2], bx + 7 * s, 2.6 * s, bz + 7 * s, rot, { top: mul3(tile, 0.8), side: mul3(wc, 0.55), side2: mul3(wc, 0.5) }, { noTop: true });   // the eaves in shade
+    G.roof(p0[0], y0 + bh + 2.6 * s, p0[2], bx + 9 * s, bz + 9 * s, Math.min(bx, bz) * (0.3 + 0.12 * hh(seed, 10)), rot, tile, { hip, rows: 5, seed, gable: mul3(wc, 0.92) });
+    // windows on the four faces, a door in the middle of the long front
+    const ns = Math.round(bh / fh), pane = (onZ, sg, t0, y, ww, hh2, col) => { const d = 2.2, q = (t, yy) => (onZ ? P(cx + t0 + t, yy, cz + sg * (bz / 2 + d)) : P(cx + sg * (bx / 2 + d), yy, cz + t0 + t)); G.quadOut(q(-ww / 2, y), q(ww / 2, y), q(ww / 2, y + hh2), q(-ww / 2, y + hh2), ref, col, { flat: true }); };
+    for (let k = 0; k < ns; k++) {
+      const y = y0 + k * fh + fh * 0.36;
+      for (const sg of [1, -1]) for (let q = 0; q < nw; q++) { const lx = -bx / 2 + (bx * (q + 0.5)) / nw, isDoor = k === 0 && sg > 0 && q === Math.floor(nw / 2); pane(true, sg, lx, isDoor ? y0 : y, (isDoor ? 9 : 6.4) * s, (isDoor ? 14 : 9.4) * s, isDoor ? door : win); }
+      const nz2 = Math.max(1, Math.round(bz / (22 * s))); for (const sg of [1, -1]) for (let q = 0; q < nz2; q++) pane(false, sg, -bz / 2 + (bz * (q + 0.5)) / nz2, y, 6.4 * s, 9.4 * s, win);
     }
-  }
-  return sites;
+  };
+  block(0, 0, sx, sz, wh, hh(i, 11) < 0.6, i, 3 + Math.floor(hh(i, 12) * 3));
+  if (hh(i, 15) < 0.55) { const wl = sz * (0.7 + 0.3 * hh(i, 16)), sd = hh(i, 17) < 0.5 ? -1 : 1; block(sd * (sx / 2 - wl * 0.36), sz / 2 + wl * 0.42, wl * 0.72, wl, Math.max(fh, wh - fh), true, i + 5, 1 + Math.floor(hh(i, 18) * 2)); }   // a lower wing toward the garden
+  if (hh(i, 19) < 0.5) { const p = P(sx * 0.3, 0, -sz * 0.18); G.box(p[0], y0 + wh, p[2], 6 * s, sz * 0.36, 6 * s, rot, stoneCols(0.9, wc), {}); }   // a chimney
 }
-function buildHouses(K, sites) {
-  for (const s of sites) { if (K.skipped(s.x, s.z, 20)) continue; const rot = s.a + (hh(s.i, 20) < 0.7 ? 0 : Math.PI / 2) + (hh(s.i, 21) - 0.5) * 0.35; house(K, K.g.solid, s.x, s.z, s.y0, rot, s.i); }
-}
-// trees: cypress (a dark cone) and round (a trunk and a faceted crown of three stacked rings)
-const CYP = [rgb("#2f5a3a"), rgb("#355f3e"), rgb("#2a5236")], CROWN = [rgb("#5a8f3e"), rgb("#6f9b45"), rgb("#4f8442"), rgb("#7aa24a")];
+// trees: cypress (a dark spindle in two tiers), round (a trunk and a faceted crown of stacked rings, lit on top), blossom (round, pink)
+const CYP = [rgb("#1d4a2a"), rgb("#235430"), rgb("#184226")], CROWN = [rgb("#357a2e"), rgb("#468a36"), rgb("#2e6c2a"), rgb("#58963e")], BLOSSOM = [rgb("#eab0bf"), rgb("#f3d9df")];
 function tree(G, x, y, z, i, kind, s = 1) {
-  if (kind === "cyp") { const h = (30 + 14 * hh(i, 1)) * s, r = (5 + 1.6 * hh(i, 2)) * s, c = CYP[i % 3]; G.prism(x, y, z, r, r * 0.55, h * 0.45, 6, c, { alt: 0.86, rot: hh(i, 3) }); G.prism(x, y + h * 0.45, z, r * 0.55, 0.3, h * 0.55, 6, c, { alt: 0.86, rot: hh(i, 3), ao: [1, 1, 1.1, 1.1] }); }
-  else { const h = (14 + 9 * hh(i, 1)) * s, r = (9 + 5 * hh(i, 2)) * s, c = CROWN[i % 4]; G.prism(x, y, z, 1.3 * s, 1.0 * s, h * 0.45, 5, rgb("#5a4030"), {}); G.prism(x, y + h * 0.28, z, r * 0.85, r, h * 0.3, 7, c, { alt: 0.88, rot: hh(i, 3) }); G.prism(x, y + h * 0.58, z, r, r * 0.6, h * 0.35, 7, mul3(c, 1.06), { alt: 0.88, rot: hh(i, 4), cap: true, capCol: mul3(c, 1.15) }); }
+  if (kind === "cyp") { const h = (30 + 14 * hh(i, 1)) * s, r = (5 + 1.6 * hh(i, 2)) * s, c = CYP[i % 3]; G.prism(x, y, z, r * 0.7, r, h * 0.3, 6, mul3(c, 0.9), { alt: 0.84, rot: hh(i, 3) }); G.prism(x, y + h * 0.3, z, r, r * 0.62, h * 0.32, 6, c, { alt: 0.84, rot: hh(i, 3) }); G.prism(x, y + h * 0.62, z, r * 0.62, 0.3, h * 0.38, 6, mul3(c, 1.12), { alt: 0.84, rot: hh(i, 3), ao: [1, 1, 1.15, 1.15] }); }
+  else { const h = (14 + 9 * hh(i, 1)) * s, r = (9 + 5 * hh(i, 2)) * s, c = kind === "blo" ? BLOSSOM[i % 2] : CROWN[i % 4]; G.prism(x, y, z, 1.3 * s, 1.0 * s, h * 0.45, 5, rgb("#5a4030"), {}); G.prism(x, y + h * 0.28, z, r * 0.8, r, h * 0.3, 7, mul3(c, 0.84), { alt: 0.88, rot: hh(i, 3) }); G.prism(x, y + h * 0.58, z, r, r * 0.62, h * 0.35, 7, mul3(c, 1.04), { alt: 0.88, rot: hh(i, 4), cap: true, capCol: mul3(c, 1.24) }); }
 }
-function buildTrees(K, sites) {
-  const G = K.g.solid; let n = 0;
-  const put1 = (x, z, r, kind, s = 1) => { if (K.skipped(x, z, 8)) return false; if (K.near(x, z, 22)) return false; tree(G, x, groundAt(r), z, ++n * 7 + 3, kind, s); K.add(x, z); return true; };
-  // avenues of cypress down every spoke road across the land rings (two rows)
-  for (let k = 0; k < 8; k++) for (const [r0, r1] of [[670, 1000], [1410, 1900], [372, 440]]) for (let r = r0; r < r1; r += 42) for (const sg of [-1, 1]) {
-    const a = SPOKE(k), c = pol(r, a), [tx, tz] = tanOf(a), off = (k % 2 ? 24 : 36) * sg; put1(c[0] + tx * off, c[1] + tz * off, r, "cyp");
-  }
-  // cypress rows along the middle ring road, in short arcs
-  for (const [rm, na] of [[832, 5], [1665, 9]]) for (let q = 0; q < na; q++) { const a0 = hh(q, rm) * TAU, len = 0.05 + 0.04 * hh(q, rm, 2); for (let t = 0; t < len; t += 34 / rm) for (const dr of [-14, 14]) { const p = pol(rm + dr, a0 + t); put1(p[0], p[1], rm, "cyp", 0.9); } }
-  // round trees in garden clusters
-  for (let q = 0; q < 70; q++) {
-    const ring = q % 3 === 0 ? [660, 1000] : q % 3 === 1 ? [1400, 1920] : [340, 440], a0 = hh(q, 77) * TAU, r0 = lerp(ring[0], ring[1], hh(q, 78)), [cx, cz] = pol(r0, a0), m = 3 + Math.floor(hh(q, 79) * 4);
-    for (let t = 0; t < m; t++) { const x = cx + (hh(q, t, 5) - 0.5) * 50, z = cz + (hh(q, t, 6) - 0.5) * 50, rr0 = Math.hypot(x, z); if (K.free(x, z, rr0, -10)) put1(x, z, rr0, hh(q, t, 7) < 0.25 ? "cyp" : "rnd"); }
-  }
+const TREE_S = 2.35;
+function buildCity(K) {
+  const L0 = layout(), G = K.g.solid;
+  for (const s of L0.houses) { if (K.skipped(s.x, s.z, 40)) continue; villa(K, G, s.x, s.z, groundAt(K, s.r), s.rot, s.i, s.sc); }
+  for (const t of L0.trees) { if (K.skipped(t.x, t.z, 12)) continue; tree(G, t.x, groundAt(K, t.r), t.z, t.i, t.kind, t.s * TREE_S); }
 }
-// the silver temple on its hill: 555 x 276 (x3) and 240 high (x6): podium of three steps, cella, a peristyle of 8 x 17 columns, gabled roof, gold: 2 gable figures, 6 ridge pinnacles, 4 corner turrets, 8 lesser turrets
+// the silver temple on its hill, the short pedimented front toward the harbour (+z): 444 x 221 on the ground (0.8 of the x3 piece), 240 to
+// the ridge: a podium of three steps, cella, a peristyle of 8 x 17 fluted columns, gabled roof, gold: 2 gable figures, 6 ridge pinnacles,
+// 4 corner turrets, 8 lesser turrets, the great spire over the crossing; the processional stair down to the citadel gate
 function temple(K) {
-  const G = K.g.solid, y = HILL, SILV = rgb("#dfe6ec"), SHD = rgb("#9fb0c0"), GOLD = rgb("#e8b63a"), L = 555, D = 276;
+  const G = K.g.solid, y = K.lv.hill, SILV = rgb("#e6ebef"), SHD = rgb("#a9b8c6"), L = 555, D = 276, k8 = 1.0, ky = 1.3;
+  G.xf = (p) => [p[2] * k8, y + (p[1] - y) * ky, -p[0] * k8];   // the piece is drawn long along x; this turns its +x end to +z
   const sil = { top: mul3(SILV, 1.06), side: SILV, side2: mul3(SHD, 1.12) }, gold = { top: mul3(GOLD, 1.1), side: GOLD, side2: mul3(GOLD, 0.8) };
   for (let i = 0; i < 3; i++) G.box(0, y + i * 6, 0, L + 40 - i * 12, 6, D + 40 - i * 12, 0, { top: mul3(STONE, 1.04), side: mul3(STONE, 0.98 - i * 0.02), side2: mul3(STONE_SH, 1.0) }, { aoSide: [0.82, 0.82, 1, 1] });
   const y1 = y + 18, hc = 144, cw = L - 60, cd = D - 60;
-  G.box(0, y1, 0, cw, hc + 24, cd, 0, sil, { aoSide: [0.8, 0.8, 1, 1] });             // cella + entablature block
-  // gold frieze bands on the long and short sides, 1.6 m proud
+  G.box(0, y1, 0, cw, hc + 24, cd, 0, { top: sil.top, side: rgb("#7f8ea6"), side2: rgb("#76859e") }, { aoSide: [0.6, 0.6, 1, 1] });             // cella in the shade of the colonnade
   for (const sg of [-1, 1]) G.box(0, y1 + hc + 6, sg * (cd / 2 + 0.8), cw + 4, 6, 1.6, 0, gold, {});
   for (const sg of [-1, 1]) G.box(sg * (cw / 2 + 0.8), y1 + hc + 6, 0, 1.6, 6, cd + 4, 0, gold, {});
-  // the entablature overhang over the columns
-  G.box(0, y1 + hc, 0, L - 8, 24, D - 8, 0, { top: mul3(SILV, 1.06), side: mul3(SILV, 0.98), side2: mul3(SHD, 1.1) }, { aoSide: [0.8, 0.8, 1, 1] });
-  // peristyle: 8 on the short ends, 17 on the long sides, fluted (eight facets, alternate shade)
-  const colAt = (cx, cz) => {
-    G.box(cx, y1, cz, 14, 4, 14, 0, sil); G.prism(cx, y1 + 4, cz, 4.6, 4.2, hc - 8, 8, SILV, { alt: 0.86, rot: 0.2 }); G.box(cx, y1 + hc - 4, cz, 13, 4, 13, 0, sil);
-  };
+  G.box(0, y1 + hc, 0, L - 8, 24, D - 8, 0, { top: mul3(SILV, 1.06), side: mul3(SILV, 0.98), side2: mul3(SILV, 0.98) }, { aoSide: [0.8, 0.8, 1, 1] });
+  for (const sg of [-1, 1]) { G.box(0, y1 + hc + 8, sg * (D / 2 - 3), L - 4, 7, 3, 0, gold, {}); G.box(sg * (L / 2 - 3), y1 + hc + 8, 0, 3, 7, D - 4, 0, gold, {}); }   // the gold frieze round the entablature
+  const colAt = (cx, cz) => { G.box(cx, y1, cz, 15, 5, 15, 0, sil); G.prism(cx, y1 + 5, cz, 5.6, 5.0, hc - 10, 8, SILV, { alt: 0.82, rot: 0.2 }); G.box(cx, y1 + hc - 5, cz, 14, 5, 14, 0, sil); };
   const px = L / 2 - 14, pz = D / 2 - 14;
   for (let i = 0; i < 17; i++) { const x = -px + (2 * px * i) / 16; colAt(x, pz); colAt(x, -pz); }
   for (let i = 1; i < 7; i++) { const z = -pz + (2 * pz * i) / 7; colAt(px, z); colAt(-px, z); }
-  // gabled roof: ridge along x, rise 54 over the entablature; gable triangles at the short ends
   G.roof(0, y1 + hc + 24, 0, L - 8, D - 8, 54, 0, mul3(SILV, 0.97), { rows: 6, seed: 7, gable: mul3(SILV, 1.0) });
-  // pediments: a darker tympanum on each short end, 2 m proud of the roof's own gable
-  for (const sg of [-1, 1]) {
-    const x = sg * (L / 2 - 4 + 2), yy = y1 + hc + 24, zz = D / 2 - 8, top = [x, yy + 54, 0];
-    if (sg > 0) G.tri([x, yy, zz], [x, yy, -zz], top, mul3(SHD, 1.08), {}); else G.tri([x, yy, -zz], [x, yy, zz], top, mul3(SHD, 1.08), {});
+  for (const sg of [-1, 1]) {   // pediments: a blue-grey tympanum with a gold disc, 2 m proud
+    const x = sg * (L / 2 - 4 + 2), yy = y1 + hc + 24, zz = D / 2 - 14, top = [x, yy + 48, 0];
+    G.triOut([x, yy + 3, zz], [x, yy + 3, -zz], top, [0, yy, 0], mul3(SHD, 1.0), {});
+    for (let q = 0; q < 8; q++) { const t0 = (q / 8) * TAU, t1 = ((q + 1) / 8) * TAU; G.triOut([x + sg * 2, yy + 20, 0], [x + sg * 2, yy + 20 + 11 * Math.sin(t0), 11 * Math.cos(t0)], [x + sg * 2, yy + 20 + 11 * Math.sin(t1), 11 * Math.cos(t1)], [0, yy, 0], GOLD, { flat: true }); }
   }
-  // doors: dark, 1.6 m proud, on the long front (+z) and back
-  for (const sg of [-1, 1]) G.box(0, y1, sg * (cd / 2 + 0.8), 42, 70, 1.6, 0, { top: rgb("#2a2c34"), side: rgb("#2a2c34") }, { flat: true });
-  // gold: pinnacles on the ridge (6), gable figures (2), corner turrets (4), lesser turrets (8)
+  for (const sg of [-1, 1]) G.box(sg * (cw / 2 + 0.8), y1, 0, 1.6, 84, 46, 0, { top: rgb("#2a2c34"), side: rgb("#2a2c34") }, { flat: true });   // the great doors on the short fronts
   const ridgeY = y1 + hc + 24 + 54;
-  for (let i = 0; i < 6; i++) { const x = -L / 2 + 62 + ((L - 124) * i) / 5; G.prism(x, ridgeY, 0, 3.2, 0.5, 46, 6, GOLD, { alt: 0.86 }); G.prism(x, ridgeY + 14, 0, 4.6, 0.3, 9, 6, GOLD, { alt: 0.8 }); }
-  for (const sg of [-1, 1]) { const x = sg * (L / 2 - 6); G.box(x, ridgeY - 4, 0, 14, 6, 14, 0, gold); G.prism(x, ridgeY + 2, 0, 5.4, 4.0, 52, 6, GOLD, { alt: 0.84 }); G.prism(x, ridgeY + 54, 0, 6.2, 0.8, 22, 7, GOLD, { alt: 0.9 }); G.prism(x, ridgeY + 66, 0, 9, 7, 6, 7, GOLD, {}); }   // the gable figure: a flared column with a crowned head
+  for (let i = 0; i < 6; i++) { const x = -L / 2 + 62 + ((L - 124) * i) / 5; G.prism(x, ridgeY, 0, 3.6, 0.5, 50, 6, GOLD, { alt: 0.86 }); G.prism(x, ridgeY + 14, 0, 5.2, 0.3, 10, 6, GOLD, { alt: 0.8 }); }
+  for (const sg of [-1, 1]) { const x = sg * (L / 2 - 6); G.box(x, ridgeY - 4, 0, 14, 6, 14, 0, gold); G.prism(x, ridgeY + 2, 0, 5.4, 4.0, 52, 6, GOLD, { alt: 0.84 }); G.prism(x, ridgeY + 54, 0, 6.2, 0.8, 22, 7, GOLD, { alt: 0.9 }); G.prism(x, ridgeY + 66, 0, 9, 7, 6, 7, GOLD, {}); }
+  // the great spire over the crossing: a drum, a gold dome in three tiers, a needle
+  G.prism(0, ridgeY - 30, 0, 44, 40, 44, 12, SILV, { alt: 0.9 }); G.prism(0, ridgeY + 14, 0, 46, 30, 30, 12, GOLD, { alt: 0.88 }); G.prism(0, ridgeY + 44, 0, 30, 13, 46, 12, GOLD, { alt: 0.88 }); G.prism(0, ridgeY + 90, 0, 13, 0.6, 96, 8, GOLD, { alt: 0.84 }); G.prism(0, ridgeY + 120, 0, 9, 0.4, 12, 8, mul3(GOLD, 1.1), {});
   const turret = (x, z, h, r, spire) => { G.prism(x, y1 + 6, z, r * 1.25, r, 6, 10, SILV, {}); G.prism(x, y1 + 12, z, r, r * 0.9, h, 10, SILV, { alt: 0.86, rot: 0.1 }); G.box(x, y1 + 12 + h, z, r * 2.5, 5, r * 2.5, 0, sil); G.prism(x, y1 + 17 + h, z, r * 1.5, 0.5, spire, 10, GOLD, { alt: 0.86 }); G.prism(x, y1 + 17 + h + spire, z, 3, 0.2, 14, 6, GOLD, {}); };
-  for (const sx of [-1, 1]) for (const sz of [-1, 1]) turret(sx * (L / 2 + 6), sz * (D / 2 + 6), 150, 13, 56);
-  for (const [tx, tz] of [[-200, 215], [0, 215], [200, 215], [-200, -215], [0, -215], [200, -215], [318, 0], [-318, 0]]) turret(tx, tz, 70, 8, 34);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) turret(sx * (L / 2 + 6), sz * (D / 2 + 6), 150, 13, 70);
+  for (const [tx, tz] of [[-200, 215], [0, 215], [200, 215], [-200, -215], [0, -215], [200, -215], [318, 60], [318, -60]]) turret(tx, tz, 76, 9, 44);
+  G.xf = null;
+  // the processional stair from the citadel gate (+z) up to the podium: a pale ramp of drawn steps between low walls
+  { const v = K.lv, z0 = 448, z1 = 296, W = 70, n = 14; for (let q = 0; q < n; q++) { const za = lerp(z0, z1, q / n), zb = lerp(z0, z1, (q + 1) / n), ya = lerp(v.cit + 2, v.hill + 2, q / n), yb = lerp(v.cit + 2, v.hill + 2, (q + 1) / n); G.quad([-W / 2, ya, za], [W / 2, ya, za], [W / 2, yb, zb], [-W / 2, yb, zb], mul3(STONE, q % 2 ? 1.02 : 0.9), {}); }
+    for (const sg of [-1, 1]) G.quadOut([sg * W / 2, v.cit, z0], [sg * W / 2, v.cit, z1], [sg * W / 2, v.hill + 10, z1], [sg * W / 2, v.cit + 10, z0], [0, v.cit, (z0 + z1) / 2], mul3(STONE, 0.86), {}); }
 }
 
 // ================================================================================================================ triremes (a drawn piece, real metres 37 x 5.5; the group scales it x3)
@@ -913,68 +1050,52 @@ const HL_BOW = 16;
 // ================================================================================================================ the plain, foothills, mountains
 const plainH = (x, z) => {
   const r = Math.hypot(x, z), amp = 4.5 * sstep(3200, 4500, r) * sstep(150, 520, Math.abs(x)) * (0.5 + fbm(x / 2400, z / 2400, 3));
-  const foot = z < 0 ? 46 * sstep(3500, 4600, r) * sstep(-600, -3500, z) : 0;
+  const foot = z < 0 ? 46 * sstep(5200, 6400, r) * sstep(-600, -3500, z) : 0;
   return 1.5 + amp * (fbm(x / 700, z / 700, 1) - 0.4) * 2 + foot;
 };
 function buildPlain(K) {
-  const G = K.g.plain, rows = []; for (let r = 2495; r < 3000; r += 25) rows.push(r); for (let r = 3000; r < 5000; r += 100) rows.push(r); for (let r = 5000; r <= 9600; r += 200) rows.push(r);
-  const nA = 540, uvOf = (X, Z) => [(X + PLAIN_E) / (2 * PLAIN_E), (Z + PLAIN_E) / (2 * PLAIN_E)];
+  const G = K.g.plain, rows = []; for (let r = 2495; r < 3000; r += 50) rows.push(r); for (let r = 3000; r < 3900; r += 100) rows.push(r); for (let r = 3900; r < 5000; r += 125) rows.push(r); for (let r = 5000; r <= 9600; r += 230) rows.push(r);
+  const nA = 420, uvF = (X, Z) => [(X + PLAIN_E) / (2 * PLAIN_E), (Z + PLAIN_E) / (2 * PLAIN_E)], uvN = (X, Z) => [(X + PLAIN_N) / (2 * PLAIN_N), (Z + PLAIN_N) / (2 * PLAIN_N)];
   const vtx = (r, j) => { const a = (j / nA) * TAU, [x, z] = pol(r, a); return [x, plainH(x, z), z]; };
   for (let i = 0; i < rows.length - 1; i++) for (let j = 0; j < nA; j++) {
     const A = vtx(rows[i], j), B = vtx(rows[i], j + 1), Cc = vtx(rows[i + 1], j + 1), D = vtx(rows[i + 1], j);
-    G.quad(A, D, Cc, B, [1, 1, 1], { uv: [uvOf(A[0], A[2]), uvOf(D[0], D[2]), uvOf(Cc[0], Cc[2]), uvOf(B[0], B[2])], tg: [0, 0] });
+    if (K.skipped((A[0] + Cc[0]) / 2, (A[2] + Cc[2]) / 2, 0)) continue;
+    const nearP = rows[i + 1] <= 3900, uvOf = nearP ? uvN : uvF;
+    (nearP ? K.g.plainN : G).quad(A, D, Cc, B, [1, 1, 1], { uv: [uvOf(A[0], A[2]), uvOf(D[0], D[2]), uvOf(Cc[0], Cc[2]), uvOf(B[0], B[2])], tg: [0, 0], up: true });
   }
 }
-// farms, hamlets and trees on the plain: houses x3, red tile roofs, field-edge tree lines
+// farms and trees on the plain at the plate's scale (the canvas under them carries their yards, lanes and shade)
 function buildPlainLife(K) {
-  const G = K.g.land; let n = 0;
-  const farms = [];
-  for (let q = 1; q < 8; q++) { const P = roadPts(q, 90); for (let i = 6; i < 88; i += 4) { const [x, z] = P[i], a = hh(q, i) * TAU, o = 60 + 40 * hh(q, i, 2); const side = hh(q, i, 3) < 0.5 ? -1 : 1, t = tanOf(SPOKE(q)); farms.push([x + t[0] * o * side, z + t[1] * o * side, q * 100 + i]); } }
-  for (const [x, z, i] of farms) {
-    if (Math.hypot(x, z) < 2700 || K.skipped(x, z, 40)) continue; const y = plainH(x, z), rot = hh(i, 4) * 0.5 + SPOKE(i / 100 | 0);
-    house(K, G, x, z, y, rot, 9000 + i, { sx: 7, sz: 6 }); G.box(x + 50, y, z + 10, 36, 20, 24, rot, stoneCols(0.9, rgb("#b8996a")), {}); G.roof(x + 50, y + 20, z + 10, 40, 28, 14, rot, mul3(TILE, 0.8), { rows: 3, seed: i });
-    for (let t = 0; t < 4; t++) tree(G, x - 36 + t * 24, y, z - 40, ++n * 11, hh(n, 1) < 0.3 ? "cyp" : "rnd", 0.9);
-  }
-  // hamlets: 8 clusters of small houses on the plain and the foothills
-  for (let q = 0; q < 8; q++) {
-    const a = q === 4 ? Math.PI : hh(q, 91) * TAU, r = q < 4 ? 3300 + 1200 * hh(q, 92) : 3500 + 900 * hh(q, 93), [cx, cz] = pol(r, a);
-    if (Math.abs(a) < 0.4 || Math.abs(a - TAU) < 0.4) continue;
-    for (let t = 0; t < 26; t++) { const x = cx + (hh(q, t, 1) - 0.5) * 520, z = cz + (hh(q, t, 2) - 0.5) * 380; if (K.skipped(x, z, 30)) continue; house(K, G, x, z, plainH(x, z), hh(q, t, 3) * 1.2, 7000 + q * 40 + t, { sx: 5 + 3 * hh(q, t, 4), sz: 4 + 2 * hh(q, t, 5) }); if (hh(q, t, 6) < 0.5) tree(G, x + 26, plainH(x, z), z + 20, ++n * 13, "rnd", 0.8); }
-  }
-  // lines of poplars along the roads and field edges, and woodlots
-  for (let q = 1; q < 8; q++) { const P = roadPts(q, 90); for (let i = 5; i < 90; i += 2) { const [x, z] = P[i], t = tanOf(SPOKE(q)); for (const sg of [-1, 1]) if (hh(q, i, sg) < 0.65) tree(G, x + t[0] * 26 * sg, plainH(x, z), z + t[1] * 26 * sg, ++n * 5, "cyp", 1.1); } }
-  for (let w = 0; w < 70; w++) {
-    const a = hh(w, 5) * TAU, r = 2800 + 5200 * hh(w, 6) ** 0.9, [cx, cz] = pol(r, a); if (spokeDist(a, r) < 70 && Math.abs(wrapA(a)) < 0.2) continue;
-    for (let t = 0; t < 14; t++) { const x = cx + (hh(w, t, 1) - 0.5) * 220, z = cz + (hh(w, t, 2) - 0.5) * 180; if (Math.abs(x) < 100 && z > 0) continue; tree(G, x, plainH(x, z), z, ++n * 3, hh(w, t, 3) < 0.2 ? "cyp" : "rnd", 1.2); }
-  }
+  const G = K.g.land, PL = plainLayout();
+  for (const f of PL.farms) { if (K.skipped(f.x, f.z, 50)) continue; villa(K, G, f.x, f.z, plainH(f.x, f.z), f.rot, f.i, f.s * 0.86); }
+  for (const t of PL.trees) { if (K.skipped(t.x, t.z, 14)) continue; tree(G, t.x, plainH(t.x, t.z), t.z, t.i, t.kind, t.s * TREE_S); }
 }
-// mountain ridges: ridged noise on polar sheets, forest low, rock, snow high, lit from the baked sun
+// mountain ridges: ridged noise on polar sheets, forest low, blue rock, snow high, lit from the baked sun. Drawn far to near (the far
+// ranges lie beyond the far plane and are pinned to it, so the draw order is their depth order).
 const RIDGES = [
-  { r0: 3700, r1: 4500, H: 170, snow: 9e9, cols: ["#3f6a3a", "#5a7f48", "#7a8a60"], s: 1 },
-  { r0: 4500, r1: 5300, H: 520, snow: 9e9, cols: ["#35603f", "#4f7550", "#78867a"], s: 2 },
-  { r0: 5300, r1: 6100, H: 1050, snow: 780, cols: ["#3a5f4a", "#6a7f78", "#8392aa"], s: 3 },
-  { r0: 6100, r1: 7000, H: 1600, snow: 760, cols: ["#4a6a6a", "#7f8fb0", "#96a4c0"], s: 4 },
-  { r0: 7000, r1: 8300, H: 1900, snow: 700, cols: ["#587283", "#8090b4", "#a4b0cc"], s: 5 },
+  { r0: 5500, r1: 6400, H: 230, snow: 9e9, cols: ["#3f8038", "#3f7a4a", "#4f8060"], s: 1, wl: 700 },
+  { r0: 6200, r1: 7100, H: 560, snow: 9e9, cols: ["#2f6e46", "#2f6a66", "#3f7088"], s: 2, wl: 900 },
+  { r0: 6900, r1: 7800, H: 900, snow: 600, cols: ["#2c6462", "#3565a0", "#5f84c4"], s: 3, wl: 1200 },
+  { r0: 7600, r1: 8600, H: 1220, snow: 560, cols: ["#33639a", "#3f68b4", "#7396d4"], s: 4, wl: 1500 },
+  { r0: 8400, r1: 9600, H: 1520, snow: 520, cols: ["#3a66a8", "#4a72bc", "#86a4dc"], s: 5, wl: 1700 },
 ];
 function buildRidges(K) {
-  const G = K.g.ridge, nR = 10, A0 = Math.PI - 2.35, nA = 1000, da = 4.7 / nA, snowC = rgb("#eef0f4");
-  for (const R of RIDGES) {
-    const grid = [];
+  const G = K.g.ridge, nR = 12, A0 = Math.PI - 2.35, nA = 620, da = 4.7 / nA, snowC = rgb("#f4f6fb");
+  for (const R of [...RIDGES].reverse()) {
+    const grid = [], c0 = rgb(R.cols[0]), c1 = rgb(R.cols[1]), c2 = rgb(R.cols[2]);
     for (let i = 0; i <= nR; i++) { const row = []; for (let j = 0; j <= nA; j++) {
       const a = A0 + j * da, t = i / nR, r = lerp(R.r0, R.r1, t), [x, z] = pol(r, a);
       const dm = Math.abs(a - Math.PI), mask = (0.3 + 0.7 * Math.cos(Math.min(dm, 1.5) * 1.05)) * sstep(2.35, 1.8, dm);
-      const f1 = fbm(x / 520, z / 520, R.s * 9), ridged = Math.pow(1 - Math.abs(2 * f1 - 1), 1.7), big = 0.45 + 0.9 * fbm(x / 2200, z / 2200, R.s * 4 + 1);
-      const bell = Math.pow(Math.sin(Math.PI * clamp(t * 1.04 - 0.02)), 0.85), y = R.H * mask * bell * ridged * big * 0.9 + 14 * fbm(x / 90, z / 90, R.s) * bell - 18 * (1 - bell) - 10;
+      const f1 = fbm(x / R.wl, z / R.wl, R.s * 9, 3), ridged = Math.pow(1 - Math.abs(2 * f1 - 1), 1.35) * (0.86 + 0.28 * fbm(x / 260, z / 260, R.s * 5)), big = 0.5 + 0.8 * fbm(x / 3100, z / 3100, R.s * 4 + 1);
+      const bell = Math.pow(Math.sin(Math.PI * clamp(t * 1.04 - 0.02)), 0.85), y = R.H * mask * bell * ridged * big * 0.78 + 14 * fbm(x / 90, z / 90, R.s) * bell - 18 * (1 - bell) - 10;
       row.push([x, y, z]);
     } grid.push(row); }
-    for (let i = 0; i < nR; i++) for (let j = 0; j < nA; j += 1) {
+    for (let i = nR - 1; i >= 0; i--) for (let j = 0; j < nA; j += 1) {
       const A = grid[i][j], B = grid[i][j + 1], Cc = grid[i + 1][j + 1], D = grid[i + 1][j];
       if (A[1] < -12 && B[1] < -12 && Cc[1] < -12 && D[1] < -12) continue;
-      const ym = (A[1] + B[1] + Cc[1] + D[1]) / 4, n = fbm(A[0] / 160, A[2] / 160, R.s + 30), sl = Math.abs(Cc[1] - A[1]) + Math.abs(D[1] - B[1]);
-      let col = ym < 70 + R.H * 0.08 ? rgb(R.cols[0]) : ym < R.snow * 0.8 ? mix3(rgb(R.cols[0]), rgb(R.cols[1]), clamp((ym - 60) / 380)) : rgb(R.cols[1]);
-      if (ym > R.snow * (0.9 + 0.35 * n) && sl < 360) col = mix3(rgb(R.cols[2]), snowC, 0.85); else if (ym > R.snow * 0.8) col = mix3(col, rgb(R.cols[2]), 0.4);
-      col = mul3(col, 0.9 + 0.2 * hh(i, j, R.s));
-      G.quad(A, D, Cc, B, col);
+      const sl = Math.abs(Cc[1] - A[1]) + Math.abs(D[1] - B[1]), tone = 0.92 + 0.16 * hh(i, j, R.s);
+      const cv = (P) => { const ym = P[1], n = fbm(P[0] / 300, P[2] / 300, R.s + 30); let col = ym < 70 + R.H * 0.08 ? c0 : ym < R.snow * 0.8 ? mix3(c0, c1, clamp((ym - 60) / 380)) : mix3(c1, c2, 0.45); const sn = sstep(R.snow * (0.8 + 0.4 * n), R.snow * (1.02 + 0.4 * n), ym) * (sl < 560 ? 1 : 0.35); return mul3(mix3(col, snowC, 0.94 * sn), tone); };
+      G.quad(A, D, Cc, B, [cv(A), cv(D), cv(Cc), cv(B)]);
     }
   }
 }
@@ -1003,7 +1124,7 @@ void main() {
 }`;
 const WFS = `${WGLSL}
 uniform float uTime; uniform float uAmp; uniform float uNS; uniform vec3 uWater; uniform vec3 uDeep; uniform vec3 uSky; uniform vec3 uSkyHi; uniform vec3 uSun; uniform vec3 uSunC; uniform vec3 uGlint; uniform float uGlit; uniform vec3 uFoam;
-uniform float uRw; uniform float uPh; uniform float uCalm; uniform float uStar; uniform vec3 uTurq;
+uniform float uRw; uniform float uPh; uniform float uCalm; uniform float uStar; uniform vec3 uTurq; uniform float uFleck;
 uniform vec3 uHaze; uniform float uHazeD; uniform float uHazeK; uniform vec3 uTint; uniform vec3 uAdd; uniform vec4 uEdge; uniform vec3 uC0; uniform vec3 uC1; uniform float uMir; uniform float uDark; uniform float uA;
 varying vec3 vW; varying vec3 vL; varying float vD; varying float vH;
 float h11(float n) { return fract(sin(n * 127.1 + 311.7) * 43758.5453); }
@@ -1016,7 +1137,11 @@ void main() {
   vec3 col = mix(uDeep, uWater, smoothstep(0.0, 0.9, ndv));
   vec3 R = reflect(-V, N); float sp = max(dot(R, uSun), 0.0);
   vec3 skyc = mix(uSky, uSkyHi, smoothstep(0.02, 0.55, R.y));
-  col = mix(col, skyc, clamp(fr * 0.85 + 0.03, 0.0, 1.0));
+  #ifdef RING
+    col = mix(col, skyc, clamp(fr * 0.5 + 0.02, 0.0, 1.0));
+  #else
+    col = mix(col, skyc, clamp(fr * 0.85 + 0.03, 0.0, 1.0));
+  #endif
   float glit = pow(sp, 40.0) * 0.45 + pow(sp, 320.0) * 1.3 * (0.5 + 0.5 * n2(vL.xz * 0.35 + uTime * 0.6));
   col += uGlint * glit * uGlit;
   if (uStar > 0.0) { float fl = step(0.985, n2(floor(vL.xz * 0.45) + floor(uTime * 2.5))) * pow(sp, 6.0); col += vec3(0.8, 0.9, 1.0) * fl * uStar * 2.0; }
@@ -1028,6 +1153,12 @@ void main() {
       col = mix(col, uFoam, clamp(foamA * (1.0 - uCalm) * 0.9 + ring * uCalm, 0.0, 1.0)); }
   #endif
   #ifdef RING
+    { // painted wavelets: short light dashes and darker troughs, each its own place, drifting slowly
+      vec2 fp = vL.xz * vec2(0.034, 0.105) + vec2(uTime * 0.07, uTime * 0.022); float w1 = n2(fp + n2(fp * 0.41 + 3.0) * 1.6);
+      vec2 fq = vL.xz * vec2(0.085, 0.26) + vec2(-uTime * 0.1, uTime * 0.04); float w2 = n2(fq + 7.0);
+      col = mix(col, uDeep * 0.8, smoothstep(0.45, 0.2, w1) * 0.5 * uFleck);
+      col = mix(col, mix(uWater, uGlint, 0.4), smoothstep(0.62, 0.74, w1) * 0.4 * uFleck);
+      col = mix(col, uGlint, (smoothstep(0.81, 0.86, w1) * 0.62 + smoothstep(0.86, 0.92, w2) * 0.8) * uFleck); }
     float r = length(vL.xz), a = atan(vL.x, vL.z), arc = a * r;
     float d0 = r - uEdge.x, d1 = uEdge.y - r;   // metres from the inner / outer quay
     // each wall or quay mirrored in the water as wobbling vertical strokes
@@ -1035,7 +1166,7 @@ void main() {
     float s1 = 0.5 + 0.5 * sin(arc * 0.62 + sin(d1 * 0.14 + uTime * 0.8 + arc * 0.05) * 1.7 + 2.0 + h11(floor(arc / 9.0) + 40.0) * 6.0);
     float m0 = pow(clamp(1.0 - d0 / (uEdge.z * 0.9), 0.0, 1.0), 1.3) * uMir, m1 = pow(clamp(1.0 - d1 / (uEdge.w * 0.9), 0.0, 1.0), 1.3) * uMir;
     col = mix(col, uC0 * (0.55 + 0.6 * s0), m0 * 0.72); col = mix(col, uC1 * (0.55 + 0.6 * s1), m1 * 0.72);
-    col *= mix(uDark, 1.0, smoothstep(0.0, 16.0, min(d0, d1)));
+    col *= mix(uDark, 1.0, smoothstep(0.0, 46.0, min(d0, d1)));
     float lap = (1.0 - smoothstep(0.4, 3.2, min(d0, d1))) * (0.45 + 0.55 * sin(min(d0, d1) * 2.2 - uTime * 1.6 + arc * 0.2));
     col = mix(col, uFoam, clamp(lap, 0.0, 1.0) * 0.55);
   #endif
@@ -1055,7 +1186,7 @@ function waterMat(K, o = {}) {
   const u = {
     uTime: U.uTime, uAmp: { value: o.amp ?? 0 }, uNS: { value: o.ns ?? 0.45 }, uWater: { value: c3(L.waterC) }, uDeep: { value: c3(mul3(L.waterC, 0.62)) }, uSky: { value: c3(mix3(L.horC, L.hzC, 0.4).map((v, i) => lerp(v, mix3(L.midC, L.zenC, 0.15)[i], L.night ? 0.2 : 0.55))) }, uSkyHi: { value: c3(mix3(L.midC, L.zenC, 0.3)) },
     uSun: { value: new THREE.Vector3(...L.sunV) }, uSunC: { value: c3(L.sunC) }, uGlint: { value: c3(L.glintC) }, uGlit: { value: L.glit }, uFoam: { value: c3(L.night ? rgb("#c9d6e6") : rgb("#f2f6f4")) },
-    uHaze: U.uHaze, uHazeD: U.uHazeD, uHazeK: U.uHazeK, uTint: U.uTint, uAdd: U.uAdd, uEdge: { value: new THREE.Vector4(0, 9e4, 80, 80) }, uC0: { value: c3(rgb("#e8e0cc")) }, uC1: { value: c3(rgb("#e8e0cc")) }, uMir: { value: 0 }, uDark: { value: 0.62 }, uA: { value: 1 }, uRw: { value: 1124 }, uDish: { value: 0 }, uPh: { value: 0 }, uCalm: { value: 0 }, uStar: { value: L.night ? 0.8 : 0 }, uTurq: { value: c3(rgb("#59d9cf")) },
+    uHaze: U.uHaze, uHazeD: U.uHazeD, uHazeK: U.uHazeK, uTint: U.uTint, uAdd: U.uAdd, uEdge: { value: new THREE.Vector4(0, 9e4, 80, 80) }, uC0: { value: c3(rgb("#e8e0cc")) }, uC1: { value: c3(rgb("#e8e0cc")) }, uMir: { value: 0 }, uDark: { value: 0.62 }, uA: { value: 1 }, uRw: { value: 1124 }, uDish: { value: 0 }, uPh: { value: 0 }, uCalm: { value: 0 }, uStar: { value: L.night ? 0.8 : 0 }, uFleck: { value: L.fleck ?? 0.5 }, uTurq: { value: c3(rgb("#59d9cf")) },
   };
   const m = new THREE.ShaderMaterial({ uniforms: u, defines: { [o.mode || "RING"]: 1, ...(o.whirl && { WHIRL: 1 }) }, vertexShader: WVS, fragmentShader: WFS, transparent: !!o.alpha, depthWrite: !o.alpha, side: THREE.DoubleSide, fog: false, polygonOffset: !!o.offset, polygonOffsetFactor: -(o.offset || 0), polygonOffsetUnits: -(o.offset || 0) });
   m.userData.noOutline = true; m.userData.noHatch = true; return m;
@@ -1083,104 +1214,173 @@ function puffGeo(L, items) {
   return G.geo();
 }
 
+// ================================================================================================================ the plates as projected light (round R2 fix 1)
+// A plate (1536 x 1024) is projected from ITS camera onto the 3D pieces: from that camera the picture is the painting, a push or an orbit
+// of a few degrees moves real surfaces under it. The film frame (16:9) is the plate's full width and the rows top .. top + 864; the rows
+// outside stay as margin, left and right the plate mirrors on for a quarter of its width. pos / look in the city's own coordinates.
+const PLATES = {
+  plate03: { src: "assets/props/atlantis/far-plate-03.webp", pos: [0, 1200, 3640], look: [0, -537, 37], fov: 51.5, top: 0, spk: [1 / 22, 0.55], wob: 0.0005 },
+  harbour: { src: "assets/props/atlantis/far-plate-04.webp", pos: [0, 5, 2603], look: [0, 5, 0], fov: 40, top: 0, spk: [1.3, 0.4], wob: 0.0014 },
+  walls: { src: "assets/props/atlantis/far-plate-11.webp", pos: [0, 5.15, 2565], look: [0, 197.15, 1565], fov: 40, top: 100, spk: [1.3, 0.4], wob: 0.0018 },
+};
+function projector(U, D) {
+  const cam = new THREE.PerspectiveCamera(D.fov, 16 / 9, 1, 30000), C = new THREE.Vector3(...D.pos); cam.position.copy(C); cam.lookAt(...D.look); cam.updateMatrixWorld(true); cam.updateProjectionMatrix();
+  U.uProjM.value.multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse); U.uProjC.value.copy(C); U.uProjV.value.set(864 / 1024, D.top / 1024); U.uSpk.value.set(...D.spk); U.uProjW.value = D.wob;
+  if (typeof Image !== "undefined") (globalThis.__loads ||= []).push(new THREE.TextureLoader().loadAsync("/" + D.src).then((t) => { t.colorSpace = THREE.SRGBColorSpace; t.wrapS = THREE.MirroredRepeatWrapping; t.wrapT = THREE.ClampToEdgeWrapping; t.anisotropy = 8; U.uProjT.value = t; U.uProjK.value = 1; }));
+  // the ray through plate pixel (px, py), and where it meets a cylinder about the city axis, a level, an upright plane z = const
+  const ray = (px, py) => new THREE.Vector3((px / 1536) * 2 - 1, 1 - (2 * (py - D.top)) / 864, 0.5).unproject(cam).sub(C).normalize(), at = (d, t) => (t > 0 && Number.isFinite(t) ? [C.x + d.x * t, C.y + d.y * t, C.z + d.z * t] : null);
+  return {
+    cam, C,
+    cyl(px, py, r) { const d = ray(px, py), a = d.x * d.x + d.z * d.z, b = 2 * (C.x * d.x + C.z * d.z), c = C.x * C.x + C.z * C.z - r * r, q = b * b - 4 * a * c; if (q < 0) return at(d, -b / (2 * a)); const sq = Math.sqrt(q); return at(d, c > 0 ? (-b - sq) / (2 * a) : (-b + sq) / (2 * a)); },
+    ground(px, py, y) { const d = ray(px, py); return at(d, (y - C.y) / d.y); },
+    planeZ(px, py, z) { const d = ray(px, py); return at(d, (z - C.z) / d.z); },
+  };
+}
+const polyY = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 0; i < pts.length - 1; i++) if (x <= pts[i + 1][0]) return lerp(pts[i][1], pts[i + 1][1], (x - pts[i][0]) / (pts[i + 1][0] - pts[i][0] || 1)); return pts[pts.length - 1][1]; };
+// a sheet placed by plate pixels: columns x0..x1, from the row top (a number or a polyline [[x, y], ...]) down to the row bot, each corner
+// carried along its ray to the surface hit(px, py). feather (px) fades the top edge out, side the left and right edges, both also the bottom
+function sheet(G, PJ, hit, x0, x1, top, bot, o = {}) {
+  const nx = o.nx || Math.max(2, Math.round((x1 - x0) / 22)), fe = o.feather || 0, fs2 = o.side || 0, yT = (x) => (typeof top === "number" ? top : polyY(top, x)), col = o.col || [0.62, 0.66, 0.74];
+  const rowsOf = (x) => { const t = yT(x), r = fe ? [t - fe / 2, t + fe / 2] : [t]; if (o.both) r.push(bot - fe / 2, bot + fe / 2); else r.push(bot); return r; }, al = fe ? (o.both ? [0, 1, 1, 0] : [0, 1, 1]) : [1, 1];
+  for (let i = 0; i < nx; i++) {
+    const xa = lerp(x0, x1, i / nx), xb = lerp(x0, x1, (i + 1) / nx), ra = rowsOf(xa), rb = rowsOf(xb), sa = fs2 ? clamp(Math.min(xa - x0, x1 - xa) / fs2) : 1, sb = fs2 ? clamp(Math.min(xb - x0, x1 - xb) / fs2) : 1;
+    for (let k = 0; k < ra.length - 1; k++) {
+      const P4 = [hit(xa, ra[k + 1]), hit(xb, rb[k + 1]), hit(xb, rb[k]), hit(xa, ra[k])]; if (P4.some((p) => !p)) continue;
+      G.quad(P4[0], P4[1], P4[2], P4[3], [[...col, al[k + 1] * sa], [...col, al[k + 1] * sb], [...col, al[k] * sb], [...col, al[k] * sa]], { flat: true, tg: o.tg || NOMAP });
+    }
+  }
+}
+// the quay views: what stands at which depth in each plate, in plate pixels (top = the silhouette against what lies behind)
+const VIEWS = {
+  harbour: { backBot: 520, waterTop: 490, layers: [
+    { r: 900, bot: 430, feather: 30, top: [[-500, 300], [0, 300], [420, 240], [560, 185], [700, 150], [900, 105], [1040, 75], [1100, 40], [1190, 5], [1300, 40], [1380, 95], [1536, 110], [2036, 120]] },
+    { r: 2000, bot: 440, feather: 34, top: [[-500, 255], [0, 255], [150, 235], [300, 250], [450, 215], [620, 225], [800, 215], [1000, 200], [1250, 190], [1536, 200], [2036, 200]] },
+    { r: 2497, bot: 496, feather: 10, top: [[-500, 316], [0, 318], [510, 322], [1050, 333], [1536, 342], [2036, 345]], towers: [[0, 114, 105], [503, 624, 236], [1046, 1256, 298]] }],
+    cards: [{ x0: 903, x1: 1187, wl: 604, top: [[905, 575], [920, 530], [945, 560], [965, 450], [1090, 440], [1100, 555], [1150, 545], [1165, 525], [1185, 575]] }, { x0: 1273, x1: 1464, wl: 552, top: [[1275, 520], [1290, 500], [1310, 510], [1318, 440], [1412, 436], [1420, 505], [1445, 495], [1462, 520]] }] },
+  walls: { backBot: 600, waterTop: 846, layers: [
+    { r: 600, bot: 420, feather: 26, top: [[-500, 330], [0, 330], [330, 275], [600, 200], [880, 180], [900, 15], [1330, 15], [1345, 150], [1536, 170], [2036, 180]] },
+    { r: 1942, bot: 575, feather: 24, top: [[-500, 470], [0, 465], [110, 400], [250, 380], [560, 365], [900, 355], [1230, 365], [1536, 380], [2036, 390]], towers: [[150, 252, 328], [550, 684, 232], [1226, 1342, 246]] },
+    { r: 2497, bot: 853, feather: 12, top: [[-500, 585], [0, 582], [360, 560], [520, 548], [900, 545], [1340, 560], [1536, 580], [2036, 590]], towers: [[360, 524, 460], [1336, 1484, 468]] }],
+    cards: [] },
+};
+
 // ================================================================================================================ the city kind
 const R_CITY = 2497, HULL = { foot: 0, rim: 250, bowl: 400, stripe: 50 };
 // the disc's lift (rise 0..1): 0 = the ring water at sea level, 1 = the hull's lowest point 0.25 R above the sea
 const RISE_Y = 0.25 * R_CITY + HULL.rim + HULL.bowl;
 const riseY = (rise) => clamp(rise) * RISE_Y;
 const smooth01 = (x) => { const k = clamp(x); return k * k * (3 - 2 * k); };
+const SHIP_S = 8.2;   // the triremes at the plate's scale (37 m drawn, about 240 m on the water)
 function newKit(S) {
   const L = lightOf(S.light), U = makeU(L), skips = Array.isArray(S.skip) ? S.skip : [];
-  const K = { S, L, U, vs: 6, fp: 3, g: {}, skipped: (x, z, m = 0) => skips.some(([sx, sz, sr]) => Math.hypot(x - sx, z - sz) < sr + m) };
-  for (const k of ["solid", "brass", "tin", "red", "ban", "ground", "land", "plain", "ridge"]) K.g[k] = new GB(L);
+  if (L.hzW) { U.uHaze.value.setRGB(...rgb(L.hzW)); U.uHazeD.value = L.hazeW || L.hazeD; }
+  const K = { S, L, U, lv: levels(S.climb), g: {}, skipped: (x, z, m = 0) => skips.some(([sx, sz, sr]) => Math.hypot(x - sx, z - sz) < sr + m) };
+  for (const k of ["solid", "stone", "lstone", "brass", "tin", "red", "ban", "ground", "land", "plain", "plainN", "ridge"]) K.g[k] = new GB(L);
   return K;
 }
 function litColor(L, albedo) { const s = L.shade(0, 0.25, 0.97); return [albedo[0] * s[0], albedo[1] * s[1], albedo[2] * s[2]]; }
 
 export const AT_FAR_KINDS = {
   atlantis(P) {
-    const S = P.spec, K = newKit(S), L = K.L, U = K.U;
+    const S = P.spec, K = newKit(S), L = K.L, U = K.U, v = K.lv, brass = S.brass !== false;
+    const PJ = S.proj ? projector(U, PLATES[S.proj] || PLATES.plate03) : null, lean = !!PJ && S.projFull !== true;   // lean: only the big masses receive the plate
     const root = new THREE.Group(), disc = new THREE.Group(), land = new THREE.Group(), mount = new THREE.Group(), flood = new THREE.Group(); root.add(land); root.add(mount); root.add(disc); root.add(flood); P.whole.add(root);
-    // ---- the ground: three land annuli (island hill, inner ring, outer ring) and the quay faces
-    groundRing(K.g.ground, PROF.island, 360, "#e8dcc0"); groundRing(K.g.ground, PROF.l1, 360, "#ddd2b6"); groundRing(K.g.ground, PROF.l2, 360, "#ddd2b6");
-    quayFace(K.g.solid, 647, Q, false, K); quayFace(K.g.solid, 1017, Q, true, K); quayFace(K.g.solid, 1387, Q, false, K);
-    // ---- walls and their towers, banners, gates
-    const evenHalf = (k) => (k % 2 === 0 ? 34 : 16);
-    buildWall(K, { r: 2497, th: 12, atlas: "brass", rows: 2, rowH: 24, footTop: 18, copTop: 72, sheetW: 9, rib: 3, gateHalf: GATE_HALF });
-    buildWall(K, { r: 1942, th: 12, atlas: "tin", rows: 3, rowH: 20, footTop: 18, copTop: 84, sheetW: 9, rib: 3, gateHalf: evenHalf });
-    buildWall(K, { r: 462, th: 12, atlas: "red", rows: 4, rowH: 16.5, footTop: 24, copTop: 96, sheetW: 7.2, blocks: true, pier: 5, cls: true, gateHalf: evenHalf });
-    const nT = (r, step) => Math.round(r * TAU / step);
-    for (const [r, step, w, h, o] of [[2497, 150, 24, 120, { flag: true }], [1942, 150, 27, 144, { roof: "pyr", flag: true }], [462, 240, 20, 126, { roof: "pyr", flag: true }]]) {
-      const n = nT(r, step); for (let j = 0; j < n; j++) {
-        const a = ((j + 0.5) / n) * TAU; if (spokeDist(a, r) < 110) continue;
-        tower(K, r - 6, a, w, h, o);
-        if (r !== 462) { banner(K, r, a + (0.5 / n) * TAU, true, hh(j, r)); banner(K, r - 12, a + (0.5 / n) * TAU, false, hh(j, r, 3)); }
-      }
+    // ---- the ground: the temple hill, the citadel garden, the two land rings (terraces), a low quay round the citadel
+    const Gg = K.g.ground; groundTop(Gg, 0, v.hill, HILL_R, v.hill, 180); groundTop(Gg, HILL_R, v.cit, 462, v.cit, 240); groundTop(Gg, 647, v.l1i, 1017, v.l1o, 300); groundTop(Gg, 1387, v.l2i, 1942, v.l2o, 360);
+    { const n = 150, Gs = K.g.stone; for (let j = 0; j < n; j++) { const a0 = (j / n) * TAU, a1 = ((j + 1) / n) * TAU, k = 0.92 + 0.14 * hh(j, 491); face(Gs, 492, a0, a1, 0, 4, mul3(rgb("#46504a"), k), true, { tg: NOMAP }); face(Gs, 492, a0, a1, 4, 10, mul3(FOOT, k), true, { uv: [[a0 * 4, 0], [a1 * 4, 0], [a1 * 4, 0.1], [a0 * 4, 0.1]] }); strip(Gs, 460, 492, a0, a1, 10, mul3(hh(j, 5) < 0.3 ? mix3(FOOT, MOSS, 0.4) : FOOT, 1.02 * k), { tg: NOMAP }); } }
+    // ---- the walls: brass (free-standing, a walkway on top), tin, the pale ashlar terraces, red-gold, the temple terrace
+    const frontGap = (a) => Math.abs(wrapA(a)) * 2475 < FRONT_HALF + 2;
+    if (brass) {
+      ringWall(K, { r: 2497, top: BRASS_H, out: true, kind: "brass", sheetW: 28, rows: 3, foot: 16, cop: 8, rib: 3, gap: frontGap });
+      ringWall(K, { r: BRASS_RI, top: BRASS_H, out: false, kind: "brass", sheetW: 28, rows: 3, foot: 16, cop: 8, rib: 3, gap: frontGap, k: 0.9 });
+      const n = 560, Gs = K.g.stone; for (let j = 0; j < n; j++) { const a0 = (j / n) * TAU, a1 = ((j + 1) / n) * TAU, am = (a0 + a1) / 2, c = pol(2475, am); if (frontGap(am) || K.skipped(c[0], c[1], 6)) continue; const u0 = (a0 * 2475) / TS, u1 = (a1 * 2475) / TS; strip(Gs, BRASS_RI + 3, 2494, a0, a1, BRASS_H, mul3(rgb("#e4dac0"), 0.94 + 0.1 * hh(j, 77)), { uv: [[u0, 0], [u0, 0.31], [u1, 0.31], [u1, 0]] }); }
+      const nb = 48; for (let j = 0; j < nb; j++) { const a = ((j + 0.5) / nb) * TAU; if (spokeDist(a, 2497) < 170 || Math.abs(wrapA(a - Math.round(a / (15 * DEG)) * 15 * DEG)) * 2497 < 60) continue; banner(K, 2497, a, true, hh(j, 2497), 20, 150, 84); banner(K, BRASS_RI, a, false, hh(j, 2453), 20, 150, 84); }
+      if (!lean) brassTowers(K);
     }
-    wallGates(K, 2497, 12, 168, "pyr", GATE_HALF); wallGates(K, 1942, 12, 168, "pyr", evenHalf); wallGates(K, 462, 12, 150, "pyr", evenHalf);
-    bridges(K); canal(K);
+    ringWall(K, { r: 1942, top: v.l2o, out: true, kind: "tin", sheetW: 24, rows: 2, foot: 14, cop: 8, rib: 4 });
+    ringWall(K, { r: 1387, top: v.l2i, out: false, kind: "stone", sheetW: 30, foot: 14, cop: 8, butt: 4 });
+    ringWall(K, { r: 1017, top: v.l1o, out: true, kind: "stone", sheetW: 30, foot: 14, cop: 8, butt: 3 });
+    ringWall(K, { r: 647, top: v.l1i, out: false, kind: "stone", sheetW: 30, foot: 14, cop: 8, butt: 4 });
+    ringWall(K, { r: 462, top: v.cit, y0: 10, out: true, kind: "red", sheetW: 22, foot: 26, cop: 9, rib: 2, blocks: true, cls: true });
+    ringWall(K, { r: HILL_R, top: v.hill, y0: v.cit, out: true, kind: "stone", sheetW: 22, foot: 6, cop: 5, par: 5, merlon: false, tone: STONE, dry: true });
+    // bastions: on the tin wall (ashlar, crenellated) and the red-gold wall (red stone, gold caps), eight each between the spokes
+    if (!lean) for (let k = 0; k < 8; k++) for (const da of [-11.25, 11.25]) {
+      const a = SPOKE(k) + (22.5 + da) * DEG, c = pol(1942 - 14, a), c1 = pol(1017 - 12, a); tower(K, c[0], c[1], a, 56, v.l2o + 52, { winY: v.l2o }); if (da < 0) tower(K, c1[0], c1[1], a, 46, v.l1o + 44, { winY: v.l1o, roof: "pyr" });
+      const c2 = pol(462 - 10, SPOKE(k) + (22.5 + da) * DEG); tower(K, c2[0], c2[1], a, 44, v.cit + 40 - 10, { y0: 10, tone: rgb("#d05a3c"), roof: "gold", winY: v.cit });
+    }
+    if (!lean) bridges(K); canal(K);
     // ---- the city itself
-    const sites = makeSites(K); buildHouses(K, sites); buildTrees(K, sites); temple(K);
-    buildPlain(K); buildPlainLife(K); buildRidges(K);
+    if (!lean) { buildCity(K); temple(K); }
+    buildPlain(K); if (!lean) { buildPlainLife(K); buildRidges(K); }
     // ---- meshes
-    const mk = (g, mat, parent, order) => { const m = put(parent, g.geo(), mat, { order }); return m; };
-    const U2 = (o) => wmat(U, o);
-    mk(K.g.ground, U2({ map: paintCity() }), disc); mk(K.g.solid, U2({}), disc); mk(K.g.brass, U2({ map: plateAtlas("brass") }), disc); mk(K.g.tin, U2({ map: plateAtlas("tin") }), disc);
-    const redM = U2({ map: plateAtlas("red"), flash: true }); mk(K.g.red, redM, disc); mk(K.g.ban, U2({ move: 1.9, side: THREE.DoubleSide }), disc);
-    mk(K.g.plain, U2({ map: paintPlain() }), land); mk(K.g.land, U2({}), land); mk(K.g.ridge, U2({}), mount); mount.visible = S.mountains !== false;
-    // ---- ring water: its own surface, 2 m (x6 = 12) under the quays
+    const mk = (g, mat, parent, order) => (g.n ? put(parent, g.geo(), mat, { order }) : null);
+    const U2 = (o) => wmat(U, { ...o, proj: !!PJ });
+    mk(K.g.ground, U2({ map: paintCity() }), disc); mk(K.g.solid, U2({}), disc); mk(K.g.stone, U2({ map: ashlarTex() }), disc); mk(K.g.brass, U2({ map: plateAtlas("brass") }), disc); mk(K.g.tin, U2({ map: plateAtlas("tin") }), disc);
+    const redM = U2({ map: plateAtlas("red"), flash: true }); mk(K.g.red, redM, disc); if (!lean) mk(K.g.ban, U2({ move: 1.9, side: THREE.DoubleSide }), disc);
+    if (PJ) {   // the plate's sky and mountains on a far wall behind the plain; the painted temple on its own upright card
+      const Gb = new GB(L); sheet(Gb, PJ, (x, y) => PJ.cyl(x, y, 9590), -700, 2236, -500, 240, { nx: 90, col: rgb("#b9c6e4") }); put(land, Gb.geo(), U2({ farclamp: true, side: THREE.DoubleSide }), { order: -4 });
+      if (lean) { const Gc = new GB(L), zb = PJ.ground(770, 478, v.l1o)[2]; sheet(Gc, PJ, (x, y) => PJ.planeZ(x, y, zb), 556, 990, 92, 482, { feather: 22, side: 30 }); put(disc, Gc.geo(), U2({ alpha: true, depthWrite: false, side: THREE.DoubleSide }), { order: 5 }); }
+    }
+    mk(K.g.plain, U2({ map: paintPlain(), farclamp: true }), land, -3); mk(K.g.plainN, U2({ map: paintPlain(PLAIN_N) }), land, -3); mk(K.g.land, U2({}), land); mk(K.g.lstone, U2({ map: ashlarTex() }), land); mk(K.g.ridge, U2({ farclamp: true }), mount, -2); mount.visible = S.mountains !== false;
+    // ---- ring water: its own surface at sea level between the walls
     const edgeCol = (hex) => litColor(L, rgb(hex));
     const WR = [
-      { r0: 462, r1: 647, h0: 96, h1: 46, c0: "#c2452a", c1: "#d9d3c0" }, { r0: 1017, r1: 1387, h0: 46, h1: 46, c0: "#d9d3c0", c1: "#d9d3c0" }, { r0: 1942, r1: 2497, h0: 84, h1: 72, c0: "#c4ccd2", c1: "#b8923a" },
+      { r0: 462, r1: 647, h0: v.cit, h1: v.l1i, c0: "#c2452a", c1: "#d5d6d8" }, { r0: 1017, r1: 1387, h0: v.l1o, h1: v.l2i, c0: "#d5d6d8", c1: "#d5d6d8" }, { r0: 1942, r1: brass ? BRASS_RI : 2497, h0: v.l2o, h1: brass ? BRASS_H : 0, c0: "#c4ccd2", c1: "#c9a23a" },
     ];
     const waters = [];
+    if (PJ) {   // the painted water on plain sheets (flag 5 = water: the reflections wobble, glints come and go)
+      const Gw = new GB(L), wc = rgb(L.water), tg = [5, -1]; for (const w of WR) for (let j = 0; j < 240; j++) strip(Gw, w.r0, w.r1, (j / 240) * TAU, ((j + 1) / 240) * TAU, 0.5, wc, { tg, flat: true });
+      Gw.quad([-FRONT_HALF, 0.6, 2515], [FRONT_HALF, 0.6, 2515], [FRONT_HALF, 0.6, 2440], [-FRONT_HALF, 0.6, 2440], wc, { tg, flat: true }); put(disc, Gw.geo(), U2({}), { order: 0 });
+      const Gl = new GB(L); Gl.quad([-150, 1.9, 2905], [150, 1.9, 2905], [150, 1.9, 2505], [-150, 1.9, 2505], wc, { tg, flat: true }); Gl.quad([-CANAL_HW, 1.9, 9500], [CANAL_HW, 1.9, 9500], [CANAL_HW, 1.9, 2905], [-CANAL_HW, 1.9, 2905], wc, { tg, flat: true }); put(land, Gl.geo(), U2({ offset: 6 }), {});
+    } else {
     for (const w of WR) {
-      const m = waterMat(K, { mode: "RING", ns: 0.42 }), u = m.uniforms; u.uEdge.value.set(w.r0, w.r1, w.h0, w.h1); u.uC0.value.setRGB(...edgeCol(w.c0)); u.uC1.value.setRGB(...edgeCol(w.c1)); u.uMir.value = 1;
+      const m = waterMat(K, { mode: "RING", ns: 0.42 }), u = m.uniforms; u.uEdge.value.set(w.r0, w.r1, Math.min(w.h0, 110), Math.min(w.h1, 110)); u.uC0.value.setRGB(...edgeCol(w.c0)); u.uC1.value.setRGB(...edgeCol(w.c1)); u.uMir.value = 0.55;
       put(disc, annulusGeo(w.r0, w.r1, 720, 2), m, { order: 0 }); waters.push(m);
     }
-    { const m = waterMat(K, { mode: "RING", ns: 0.42 }); put(disc, rectWaterGeo(-65, 65, 2470, 2515, 1, 1), m, {}); waters.push(m); }   // the water through the front gate
-    { const m = waterMat(K, { mode: "RING", ns: 0.45, offset: 6 }); put(land, rectWaterGeo(-150, 150, 2505, 2905, 1, 1), m, { pos: [0, 1.9, 0] }); put(land, rectWaterGeo(-55, 55, 2905, 9500, 1, 14), m, { pos: [0, 1.9, 0] }); waters.push(m); }   // the harbour basin and the great canal
+    if (!K.skipped(0, 2478, 0)) { const m = waterMat(K, { mode: "RING", ns: 0.42 }); put(disc, rectWaterGeo(-FRONT_HALF, FRONT_HALF, 2440, 2515, 1, 1), m, {}); waters.push(m); }   // the water through the front gate
+    { const m = waterMat(K, { mode: "RING", ns: 0.45, offset: 6 }); if (!K.skipped(0, 2705, 0)) put(land, rectWaterGeo(-150, 150, 2505, 2905, 1, 1), m, { pos: [0, 1.9, 0] }); if (!K.skipped(0, 2960, 0)) put(land, rectWaterGeo(-CANAL_HW, CANAL_HW, 2905, 9500, 1, 14), m, { pos: [0, 1.9, 0] }); waters.push(m); }   // the harbour basin and the great canal
+    }
     // ---- triremes: 12 outer, 8 middle, 4 inner, 3 in the canal, each its own piece
     const ships = [], shipM = U2({ move: 2.1, side: THREE.DoubleSide }), wakeM = U2({ alpha: true, side: THREE.DoubleSide, offset: 8, depthWrite: false });
     const addShip = (g, ring, i, data) => {
-      const grp = new THREE.Group(), hull = shipGeo(L, i).geo(), wake = wakeGeo(L, i).geo(); grp.scale.setScalar(3);
-      put(grp, hull, shipM, {}); put(grp, wake, wakeM, { order: 3 }); g.add(grp); ships.push({ grp, ...data });
+      const grp = new THREE.Group(), hull = shipGeo(L, i).geo(), wake = wakeGeo(L, i).geo(); grp.scale.setScalar(SHIP_S * (data.k || 1));
+      put(grp, hull, shipM, {}); const wm = put(grp, wake, wakeM, { order: 3 }); wm.scale.set(0.5, 1, 0.55); wm.position.x = -8.5; g.add(grp); ships.push({ grp, ...data });
     };
-    const ringShips = [[2220, 12, 900], [1202, 8, 1000], [555, 4, 1100]];
-    ringShips.forEach(([rc, n, s0], ri) => { const wd = ri === 0 ? 555 : ri === 1 ? 370 : 185;
+    const ringShips = [[2200, 12, 900], [1202, 8, 1000], [560, 4, 1100]];
+    if (S.ships !== false && !lean) ringShips.forEach(([rc, n, s0], ri) => { const wd = ri === 0 ? 511 : ri === 1 ? 370 : 185;
       for (let q = 0; q < n; q++) {
-        const sector = ri === 2 ? q * 2 : q % 8, a = SPOKE(sector) + 22.5 * DEG + (hh(s0 + q, 1) - 0.5) * 0.35 + (ri === 0 && q >= 8 ? 0.0 : 0) + (ri === 0 && q >= 8 ? (q - 8 + 1) * 0.0 : 0), rr0 = rc + (hh(s0 + q, 2) - 0.5) * wd * 0.35;
-        const c = pol(rr0, a); if (K.skipped(c[0], c[1], 60)) continue; addShip(disc, ri, s0 + q, { r: rr0, a0: a + (ri === 0 && q >= 8 ? 0.11 : 0), dir: q % 2 ? -1 : 1, sp: q % 3 === 2 ? 0 : 4.5 + 2 * hh(q, ri), canal: false, rise: 0 });
+        const a = ((q + 0.5) / n) * TAU + (hh(s0 + q, 1) - 0.5) * (TAU / n) * 0.5 + (ri === 0 ? 0.11 : 0.2), rr0 = rc + (hh(s0 + q, 2) - 0.5) * wd * 0.42;
+        const c = pol(rr0, a); if (K.skipped(c[0], c[1], 120)) continue; addShip(disc, ri, s0 + q, { r: rr0, a0: a, dir: q % 2 ? -1 : 1, sp: q % 3 === 2 ? 0 : 9 + 5 * hh(q, ri), canal: false, rise: 0, k: ri === 2 ? 0.7 : ri === 1 ? 0.86 : 1 });
       } });
-    for (let q = 0; q < 3; q++) { if (K.skipped(0, 2700 + q * 1200, 80)) continue; addShip(land, 3, 1200 + q, { x: (q - 1) * 14, z0: 2600 + q * 1500, dir: q % 2 ? -1 : 1, sp: 5.5, canal: true }); }
+    if (S.ships !== false && !lean) for (let q = 0; q < 3; q++) { if (K.skipped(0, 2700 + q * 1200, 120)) continue; addShip(land, 3, 1200 + q, { x: (q - 1) * 34, z0: 3000 + q * 900, dir: q % 2 ? -1 : 1, sp: 11, canal: true, k: 0.8 }); }
     // ---- smoke threads (dawn), dust from the quake, spray at the wall in the rising sea
     const puffM = (o = {}) => wmat(U, { map: puffAtlas(), puff: true, alpha: true, side: THREE.DoubleSide, depthWrite: false, offset: 0, ...o });
-    const smoke = [], sm = rgb("#e8dcd2");
-    if (L.name === "dawn" || L.name === "eve") sites.filter((s, i) => i % 41 === 5 && s.ring !== 300).slice(0, 12).forEach((s, q) => { if (K.skipped(s.x, s.z, 30)) return; for (let k = 0; k < 7; k++) smoke.push({ x: s.x, y: s.y0 + 52, z: s.z, size: 15 + 4 * k, vx: -26, vy: 150, vz: -10, rate: 0.11, phase: k / 7 + hh(q, 1) * 0.1, rgb: mul3(L.name === "dawn" ? sm : mul3(sm, 0.75), 0.9), a: 0.55 }); });
-    if (smoke.length) put(disc, puffGeo(L, smoke), puffM(), { order: 6 });
+    const smoke = [], sm = rgb("#f0e6dc"), sites = layout().houses;
+    if (L.name === "dawn" || L.name === "eve") sites.filter((s, i) => i % 13 === 5 && s.ring !== 300).slice(0, 14).forEach((s, q) => { if (K.skipped(s.x, s.z, 40)) return; const y0 = groundAt(K, s.r); for (let k = 0; k < 7; k++) smoke.push({ x: s.x + 24, y: y0 + 96, z: s.z - 10, size: 22 + 7 * k, vx: -50, vy: 230, vz: -20, rate: 0.09, phase: k / 7 + hh(q, 1) * 0.1, rgb: mul3(L.name === "dawn" ? sm : mul3(sm, 0.75), 0.95), a: 0.5 }); });
+    if (smoke.length && !lean) put(disc, puffGeo(L, smoke), puffM(), { order: 6 });
     const quakeAt = S.quakeAt || [[2497, -0.62], [2497, 0.4], [1942, 0.22], [1942, -0.45], [462, 0.12], [462, -0.5]], dust = [], dc = mul3(rgb("#d9c3a0"), 0.95);
-    quakeAt.forEach(([r, a], q) => { const [x, z] = pol(r - 6, a); for (let k = 0; k < 16; k++) dust.push({ x: x + (hh(q, k, 1) - 0.5) * 70, y: 20 + 50 * hh(q, k, 2), z: z + (hh(q, k, 3) - 0.5) * 70, size: 55 + 70 * hh(q, k, 4), vx: (hh(q, k, 5) - 0.5) * 80, vy: 90 + 90 * hh(q, k, 6), vz: (hh(q, k, 7) - 0.5) * 80, rate: 0.16, phase: k / 16, rgb: mul3(dc, 0.85 + 0.2 * hh(q, k)), a: 0.5 }); });
+    quakeAt.forEach(([r, a], q) => { const [x, z] = pol(r - 10, a), yb = r > 2400 ? 120 : groundAt(K, r - 10) * 0.6; for (let k = 0; k < 16; k++) dust.push({ x: x + (hh(q, k, 1) - 0.5) * 150, y: yb + 90 * hh(q, k, 2), z: z + (hh(q, k, 3) - 0.5) * 150, size: 110 + 130 * hh(q, k, 4), vx: (hh(q, k, 5) - 0.5) * 140, vy: 150 + 150 * hh(q, k, 6), vz: (hh(q, k, 7) - 0.5) * 140, rate: 0.16, phase: k / 16, rgb: mul3(dc, 0.85 + 0.2 * hh(q, k)), a: 0.5 }); });
     const dustM = puffM(); put(disc, puffGeo(L, dust), dustM, { order: 6 });
     // ---- the rising sea (the D state): open water to the walls with 3 m waves, foam, and spray along the brass wall foot
     const rows = []; for (let r = 2490; r < 3300; r += 45) rows.push(r); for (let r = 3300; r < 5200; r += 160) rows.push(r); for (let r = 5200; r <= 9700; r += 420) rows.push(r);
     const seaM = waterMat(K, { mode: "SEA", ns: 0.9, amp: 0 }); seaM.uniforms.uWater.value.setRGB(...L.seaC); seaM.uniforms.uDeep.value.setRGB(...mul3(L.seaC, 0.55)); seaM.uniforms.uSky.value.setRGB(...mix3(L.hzC, L.zenC, 0.25)); seaM.uniforms.uSkyHi.value.setRGB(...mix3(L.midC, L.zenC, 0.5));
     const seaMesh = put(flood, annulusGeo(0, 0, 720, rows), seaM, { order: 1 });
-    const spr = []; for (let q = 0; q < 160; q++) { const a = (q / 160) * TAU + hh(q, 3) * 0.03, [x, z] = pol(R_CITY + 10, a); for (let k = 0; k < 3; k++) spr.push({ x, y: 2, z, size: 26 + 34 * hh(q, k, 1), vx: Math.sin(a) * 26, vy: 34 + 34 * hh(q, k), vz: Math.cos(a) * 26, rate: 0.3 + 0.2 * hh(q, k, 2), phase: hh(q, k, 3), rgb: mul3(rgb("#e6eef4"), L.night ? 0.42 : 0.95), a: 0.5 }); }
+    const spr = []; for (let q = 0; q < 160; q++) { const a = (q / 160) * TAU + hh(q, 3) * 0.03, [x, z] = pol(R_CITY + 10, a); for (let k = 0; k < 3; k++) spr.push({ x, y: 2, z, size: 40 + 50 * hh(q, k, 1), vx: Math.sin(a) * 26, vy: 60 + 60 * hh(q, k), vz: Math.cos(a) * 26, rate: 0.3 + 0.2 * hh(q, k, 2), phase: hh(q, k, 3), rgb: mul3(rgb("#e6eef4"), L.night ? 0.42 : 0.95), a: 0.5 }); }
     const sprayM = puffM(); const sprayMesh = put(flood, puffGeo(L, spr), sprayM, { order: 6 });
     // ---- animate
-    const MOVE = { ...{} };
     return {
       grip: 0,
       apply(ps, t) {
         const tt = t ?? 0, sea = clamp(num(ps, S, "sea")), quake = clamp(num(ps, S, "quake")), flash = clamp(num(ps, S, "flash")), rise = clamp(num(ps, S, "rise")), lg = clamp(num(ps, S, "lightning"));
         U.uTime.value = tt; U.uFlashPos.value = flash >= 0.999 ? 2 : flash; U.uHot.value = smooth01((flash - 0.95) / 0.05);
+        if (PJ) { root.updateWorldMatrix(true, false); U.uProjO.value.setFromMatrixPosition(root.matrixWorld); }
         if (L.night) { U.uTint.value.setRGB(1 + 3.2 * lg, 1 + 3.4 * lg, 1 + 4.2 * lg); U.uAdd.value.setRGB(0.02 * lg, 0.03 * lg, 0.05 * lg); }
         disc.position.y = riseY(rise); land.position.y = -110 * sea;
         for (const m of waters) m.uniforms.uTime.value = tt;
         dustM.uniforms.uAlpha.value = smooth01(quake); disc.children.forEach((c) => { if (c.material === dustM) c.visible = quake > 0.003; });
         seaMesh.visible = sprayMesh.visible = sea > 0.004 && S.flood !== false; seaM.uniforms.uAmp.value = 0.7 * sea; sprayM.uniforms.uAlpha.value = smooth01(sea * 1.2);
         for (const sh of ships) {
-          if (sh.canal) { const span = 6000, z = 2600 + ((((sh.z0 - 2600 + sh.dir * sh.sp * tt) % span) + span) % span); sh.grp.position.set(sh.x, 2.4, z); sh.grp.rotation.y = sh.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
+          if (sh.canal) { const span = 6000, z = 2950 + ((((sh.z0 - 2950 + sh.dir * sh.sp * tt) % span) + span) % span); sh.grp.position.set(sh.x, 2.4, z); sh.grp.rotation.y = sh.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
           else { const a = sh.a0 + (sh.dir * sh.sp * tt) / sh.r, p = pol(sh.r, a); sh.grp.position.set(p[0], 0, p[1]); sh.grp.rotation.y = sh.dir > 0 ? a : a + Math.PI; }
           sh.grp.rotation.order = "YXZ"; sh.grp.rotation.x = DEG * 6 * quake * Math.sin(tt * 1.3 + sh.a0 * 7 + (sh.z0 || 0));
         }
@@ -1188,6 +1388,24 @@ export const AT_FAR_KINDS = {
     };
   },
 };
+
+// the quay views: a plate projected onto a few real surfaces at their depths (water, the brass wall and its towers, the town, the hill
+// and temple, the far sky wall), so the design camera sees the painting and a push or a side step gives parallax between the depths
+Object.assign(AT_FAR_KINDS, {
+  atlantisplate(P) {
+    const S = P.spec, L = lightOf("dawn"), U = makeU(L), key = VIEWS[S.view] ? S.view : "harbour", V = VIEWS[key], PJ = projector(U, PLATES[key]), root = new THREE.Group(); P.whole.add(root);
+    const mat = (o = {}) => wmat(U, { proj: true, side: THREE.DoubleSide, ...o }), top864 = PLATES[key].top + 864;
+    const Gb = new GB(L); sheet(Gb, PJ, (x, y) => PJ.cyl(x, y, 9000), -700, 2236, -900, V.backBot, { nx: 70, col: rgb("#b9c6e4") }); put(root, Gb.geo(), mat({ farclamp: true }), { order: -5 });
+    V.layers.forEach((ly, i) => {
+      const G = new GB(L); sheet(G, PJ, (x, y) => PJ.cyl(x, y, ly.r), -500, 2036, ly.top, ly.bot, { feather: ly.feather, nx: 110 });
+      for (const t of ly.towers || []) sheet(G, PJ, (x, y) => PJ.cyl(x, y, ly.r + 0.6), t[0], t[1], t[2], ly.bot, { feather: 8, side: 6 });
+      put(root, G.geo(), mat({ alpha: true, depthWrite: false }), { order: 1 + i });
+    });
+    const Gw = new GB(L); sheet(Gw, PJ, (x, y) => PJ.ground(x, y, 0.03), -500, 2036, V.waterTop, top864 + 160, { nx: 40, tg: [5, -1], col: rgb("#2a5fa8") }); put(root, Gw.geo(), mat({}), { order: 0 });
+    for (const c of S.cards === false ? [] : V.cards) { const G = new GB(L), z = PJ.ground((c.x0 + c.x1) / 2, c.wl, 0)[2]; sheet(G, PJ, (x, y) => PJ.planeZ(x, y, z), c.x0, c.x1, c.top, c.wl + 12, { feather: 12, side: 10, both: true, nx: 40 }); put(root, G.geo(), mat({ alpha: true, depthWrite: false }), { order: 20 }); }
+    return { grip: 0, apply(ps, t) { U.uTime.value = t ?? 0; root.updateWorldMatrix(true, false); U.uProjO.value.setFromMatrixPosition(root.matrixWorld); } };
+  },
+});
 
 // ================================================================================================================ the four city skies (painted clouds, a gradient, the sun or moon, rain, lightning)
 const SKY_W = 4096, SKY_H = 1024, SKY_EL0 = -7, SKY_EL1 = 90;
