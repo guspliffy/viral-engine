@@ -111,7 +111,7 @@ function build(F) {
     { id: "cityStorm", kind: "shipstorm", x: O.city[0], z: O.city[1] },
     { id: "whirl", kind: "shipwhirl", x: O.city[0], z: O.city[1] },
     // THE NIGHT SEA (41, 46): stars, the calm swell, the far ring (the city, gone up)
-    { id: "stars", kind: "shipstars", x: O.night[0], z: O.night[1] },
+    { id: "stars", kind: "shipstars", x: NIGHT_XZ[0], z: NIGHT_XZ[1], reach: 8500 },   // centred on Spud, inside far 9000 (a 12 km dome 4 km off-centre got cut by the far plane: hard-edged Milky Way in 41)
     { id: "nightS", kind: "shipsea", x: O.night[0], z: O.night[1], grade: "night", whirl: false, stars: 1, calmAt: [22, -4042, 24] },
     { id: "ring", kind: "shipring", x: O.night[0], z: O.night[1] - 9000, y: -6000 },
     // THE HATCH (panel 45): builder D4's `hatchhall`, origin = deck level at the hatch axis; the kit sea (night) at y -9 under it
@@ -210,6 +210,7 @@ function build(F) {
   // ================================================================= 46 CASE CLOSED (40.2-44.2): the city rises into the stars; he stays
   set0(T.far, "ring", { y: 1500, shrink: 0 }); PR(T.far + 0.3, "ring", { shrink: 0.85 }, r3(T.tag - T.far - 0.3), "in"); PR(T.far, "nightS", { calm: 1 }, r3(T.tag - T.far));
   set0(T.low, "ring", { y: -6000 });
+  swim(T.far - 0.04, -0.5);   // back up from the dive of 41
   look(T.far, "spudS", [0, 0.3], 0.01); expr(T.far, "spudS", "neutral", { brow: 0.4, lid: 0.35 }, 0.01);
   look(T.far + 1.0, "spudS", [0, 0.05], 0.4);
   say(T.far + 1.2, "d7", T.tag);
