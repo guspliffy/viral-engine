@@ -19,7 +19,8 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 //   14 m of SEAT and along the climb, 260 flowers, wind toward WIND. The sea and the sky below/above the horizon are ONE
 //   dome shader (no sea plane): the sea is analytic (4 sine waves as STORMLAKE 1.4, gold road, foam collar at the cliff foot).
 // NAMED POINTS (exported as COAST.*): SEAT [0,0,0], BAG [0.62,0,0.05], MOUTH [0.80,0.24,0.05], SUN (unit vector TO the
-//   sun at sink 0), WIND (0.94,0,-0.34), CARSTOP [26,-9,16.2] (nose toward +x), ROAD (the 6 points), LIGHTHOUSE,
+//   sun at sink 0), WIND (0.94,0,-0.34), CARSTOP [26,-9,16.2] (nose toward +x), CARSTOP2 [19.5, road y, road z - 1.05] (nose
+//   toward +x, at the rail gap and the climb's foot, 1.05 m toward the sea from the road's centre line), ROAD (the 6 points), LIGHTHOUSE,
 //   CLIMB (unit 0.8,0.6), CAM.* the DESIGN 6.6 camera starting points (pos, look, fov). COAST.heightAt(x, z) is the ground y
 //   (use it to stand props), COAST.roadAt(x) = { y, z } of the road centre line.
 //
@@ -31,7 +32,25 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 //                  deck thins to nothing, calm 1 -> 0.35, lamps, lighthouse and mist fade off.
 //   breakAt: null  story time (s) the break starts; with it, break = linear 0 -> 1 over breakDur (default 3.0 s).
 //   breakDur: 3    seconds the break takes (90 frames).
-//   sink: 0        0..1: the sun (disc r 1.9 deg) sinks from sitting on the horizon (+1.6) to half sunk (0). Key list, or sinkAt + sinkDur (linear).
+//   sink: 0        0..2: the sun (disc r 1.9 deg) sinks from sitting on the horizon (+1.6) to half sunk (sink 1 = 0 deg), then
+//                  on into DUSK (money-redo, DESIGN 9.2): 1..2 = 0 -> -1.75 deg. With d = sink - 1: zenith -> #2f2f6a, 45 deg ->
+//                  #5a4a94, a horizon band (5 deg tall, within 40 deg of the sun) -> #ff8a4a, cloud undersides -> #e86a8a and
+//                  bodies -> #5a4a8a (mix 0.7 d), sea body -> #3a3668, the gold road 16 -> 6 deg wide at half strength, grass lit
+//                  -> #6f7a52 / shade -> #2a3a36, the cast key x (1 - 0.65 d), the cast fill sky -> #6a5aa8; the FIRST STAR from
+//                  d 0.6 (story time found from the key list), fading in over 0.6 s: 4 points, core 5 px, rays 12 px (1080 wide),
+//                  #fff6e0, 3.5 deg right of the sun at 9 deg up, twinkling 0.7-1.0 on a 1.7 s period. 0..1 is as built. Key list, or
+//                  sinkAt + sinkDur (linear, 0..1 only). sink 2 leaves a sliver of the disc (0.15 deg) above the sea.
+//   late: 0        0..1: LATE AFTERNOON (money-redo, DESIGN 9.2). 0 = the sunset as built, 1 = the sun at 12 deg in a blue sky with
+//                  cream clouds, green grass, a blue sea with a pale gold path, the cast key #ffdf9a from (0.12, 0.21, -0.97) with
+//                  fill 2 : 1, fake shadows 4.7 x the height tinted #3f4f7a. A third colour state A mixed into every sunset (S)
+//                  colour by `late`; the sun's height becomes lerp(sunset height, 12 deg, late) and its azimuth stays. Use it with
+//                  break 1 (the colours of A replace S, the grey state G is untouched). A story-time key list like `break`: step it
+//                  on CUTS, never inside a shot ("late": [[0, 1], [2.4, 0.5], [4.8, 0]] with an eased step is for tests only).
+//   press: [[0, 0, 0.45], [0.62, 0.05, 0.34]]   the two pressed grass patches [[x, z, r], [x, z, r]] (Spud's seat and the bag by default).
+//                  Chip beside him: [[0, 0, 0.45], [0.72, 0.05, 0.34]] with shadows [[0, 0, 0.30, 0.85], [0.72, 0.05, 0.24, 0.50]].
+//                  Grass tufts and flowers keep clear of the two patches (their radii scale with r).
+//   railGap: null  [x0, x1]: no steel-rail posts or bands between those x (the end posts at x0 and x1 stay): the road's rail to the
+//                  climb is open there ([15, 25] for money-redo's CARSTOP2, so Spud walks through the gap).
 //   sinkAt, sinkDur  story time the final hold's sink starts / its length (default 8 s).
 //   slit: 0        0..1: panel 08, before the break: a 1.5 deg peach band #f0b58a on the sea horizon within +-25 deg of
 //                  SUN, rain thins to 30 %. (break > 0 keeps it, swelling to 4 deg gold.)
@@ -173,7 +192,8 @@ export const COAST = {
     c10: { pos: [0.25, 0.55, -2.3], look: [0.05, 0.62, 0], fov: 38 },
     c09push: { pos: [0.4, 1.3, 7.4], look: [2.7, -2.5, -40], fov: 40 },   // the last hold: 0.6 m forward over 4 s
   },
-  heightAt, roadAt, footZ, brinkZ, sunDirAt, keys: { slit: "0..1", break: "0..1", sink: "0..1" },
+  CARSTOP2: [19.5, roadAt(19.5).y, +(roadAt(19.5).z - 1.05).toFixed(4)],   // money-redo panel 15 (DESIGN 9.3), nose +x
+  heightAt, roadAt, footZ, brinkZ, sunDirAt, keys: { slit: "0..1", break: "0..1", sink: "0..2", late: "0..1" },
 };
 
 // ---------- colours and shared GLSL ----------
@@ -185,18 +205,22 @@ const U = {
   uWind: { value: 1 }, uGust: { value: 1.4 }, uPx: { value: 1 }, uHatchK: { value: 1 }, uFrontZ: { value: -1e5 }, uOrigin: { value: new THREE.Vector3() },
   uSunDir: { value: SUN0.clone() }, uSunEl: { value: 1.6 }, uShadow: { value: [new THREE.Vector4(0, 0, 0.3, 0.85), new THREE.Vector4(0.62, 0.05, 0.18, 0.3), new THREE.Vector4(0, 0, 0, 0)] },
   uPress: { value: [new THREE.Vector3(0, 0, 0.45), new THREE.Vector3(0.62, 0.05, 0.34)] },
+  uLate: { value: 0 }, uDusk: { value: 0 }, uStarA: { value: 0 },
 };
 const WAVES = [[0.22, 9, 20, 3.7, 0.0], [0.14, 5, -15, 2.8, 1.7], [0.08, 2.6, 50, 2.0, 4.1], [0.04, 1.2, -40, 1.4, 2.6]]
   .map(([a, len, head, speed, ph]) => ({ a, k: (2 * Math.PI) / len, dx: Math.cos(head * D2R), dz: Math.sin(head * D2R), w: ((2 * Math.PI) / len) * speed, ph }));
 
 const COMMON = `
-uniform float uT, uU, uSink, uSlit, uRain, uCalm, uLamp, uWind, uGust, uPx, uHatchK, uFrontZ, uSunEl;
+uniform float uT, uU, uSink, uSlit, uRain, uCalm, uLamp, uWind, uGust, uPx, uHatchK, uFrontZ, uSunEl, uLate, uDusk, uStarA;
 uniform vec3 uOrigin, uSunDir;
 uniform vec4 uShadow[3];
 uniform vec3 uPress[2];
 const vec3 WINDV = vec3(0.94, 0.0, -0.34) / 0.99968;
 const vec3 KEYG = normalize(vec3(-0.30, 0.85, -0.40));
-const vec3 KEYS = normalize(vec3(0.12, 0.14, -0.98));
+const vec3 KEYS0 = normalize(vec3(0.12, 0.14, -0.98));
+const vec3 KEYA = normalize(vec3(0.12, 0.21, -0.97));
+float gPxDeg = 0.1;
+vec3 keyS() { return uLate > 0.0 ? normalize(mix(KEYS0, KEYA, uLate)) : KEYS0; }
 const float SUNAZ = 6.9;
 const float PI = 3.14159265;
 float hash12(vec2 p) { vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
@@ -212,7 +236,7 @@ vec2 frontK(float z) {
   return vec2(k, e * step(-3.0e4, uFrontZ) * step(uFrontZ, 3.0e2));
 }
 // distance-fogged horizon colour for far land: grey, or the glow of the sky in that direction
-vec3 gradS(float el, float adaz) {
+vec3 gradS0(float el, float adaz) {
   vec3 s = ${V3("#f7c45a")};
   s = mix(s, ${V3("#f59a6b")}, smoothstep(0.0, 12.0, el)); s = mix(s, ${V3("#e7728a")}, smoothstep(12.0, 28.0, el));
   s = mix(s, ${V3("#b0679f")}, smoothstep(28.0, 55.0, el)); s = mix(s, ${V3("#7d6aa8")}, smoothstep(55.0, 90.0, el));
@@ -221,6 +245,28 @@ vec3 gradS(float el, float adaz) {
   vec3 a = ${V3("#f2a7b8")};
   a = mix(a, ${V3("#d596b8")}, smoothstep(0.0, 10.0, el)); a = mix(a, ${V3("#a890c8")}, smoothstep(10.0, 30.0, el)); a = mix(a, ${V3("#8a74b8")}, smoothstep(30.0, 60.0, el)); a = mix(a, ${V3("#7d6aa8")}, smoothstep(60.0, 90.0, el));
   return mix(mix(s, m, smoothstep(0.0, 90.0, adaz)), a, smoothstep(90.0, 180.0, adaz));
+}
+// late afternoon (A): blue sky, cream-gold at the sun, DESIGN 9.2
+vec3 gradA(float el, float adaz) {
+  vec3 s = ${V3("#ffe6b0")};
+  s = mix(s, ${V3("#ffd590")}, smoothstep(0.0, 10.0, el)); s = mix(s, ${V3("#bfdcec")}, smoothstep(10.0, 25.0, el));
+  s = mix(s, ${V3("#86bde8")}, smoothstep(25.0, 45.0, el)); s = mix(s, ${V3("#4f8fd6")}, smoothstep(45.0, 90.0, el));
+  vec3 a = ${V3("#f3dcc4")};
+  a = mix(a, ${V3("#a9cfee")}, smoothstep(0.0, 25.0, el)); a = mix(a, ${V3("#4f8fd6")}, smoothstep(25.0, 90.0, el));
+  return mix(s, a, smoothstep(0.0, 90.0, adaz));
+}
+// dusk (D): the sun is below the horizon; an orange band hugs the horizon within 40 deg of it
+vec3 gradD(float el, float adaz) {
+  vec3 b = mix(${V3("#b8608c")}, ${V3("#7a5a9a")}, smoothstep(40.0, 120.0, adaz));
+  b = mix(b, ${V3("#5a4a94")}, smoothstep(3.0, 45.0, el)); b = mix(b, ${V3("#2f2f6a")}, smoothstep(45.0, 90.0, el));
+  float bw = (1.0 - smoothstep(2.0, 6.0, el)) * (1.0 - smoothstep(25.0, 40.0, adaz));
+  return mix(b, ${V3("#ff8a4a")}, bw);
+}
+vec3 gradS(float el, float adaz) {
+  vec3 s = gradS0(el, adaz);
+  if (uLate > 0.0) s = mix(s, gradA(el, adaz), uLate);
+  if (uDusk > 0.0) s = mix(s, gradD(el, adaz), uDusk);
+  return s;
 }
 vec3 gradG(float el) {
   vec3 c = mix(${V3("#7f8a90")}, ${V3("#56606a")}, smoothstep(0.0, 40.0, el));
@@ -240,14 +286,22 @@ float castShadow(vec2 p) {
   float s = 0.0;
   for (int i = 0; i < 3; i++) {
     vec4 c = uShadow[i]; if (c.z <= 0.0) continue;
-    vec2 dir = normalize(vec2(-0.12, 0.99)); float len = c.w / 0.14;
+    vec2 dir = normalize(vec2(-0.12, 0.99)); float len = c.w * mix(1.0 / 0.14, 4.7, uLate);
     vec2 a = c.xy, b = c.xy + dir * len; vec2 pa = p - a; float t = clamp(dot(pa, b - a) / dot(b - a, b - a), 0.0, 1.0);
     float r = c.z * (1.0 - 0.7 * t) + 0.02; float d = length(pa - (b - a) * t);
     s = max(s, (1.0 - smoothstep(r * 0.7, r, d)) * (1.0 - 0.5 * t));
   }
   return s;
 }
-vec3 shadowTint(vec3 c, float sh) { return mix(c, c * 0.5 + ${V3("#4a3a6a")} * 0.45, sh); }
+vec3 shadowTint(vec3 c, float sh) {
+  vec3 t = c * 0.5 + ${V3("#4a3a6a")} * 0.45;
+  if (uLate > 0.0) t = mix(t, c * 0.6 + ${V3("#3f4f7a")} * 0.35, uLate);
+  return mix(c, t, sh);
+}
+// the grass in its sunset state (S) -> late afternoon (A) -> dusk (D); the terrain and the blades share them
+vec3 grassShadeS() { vec3 c = ${V3("#3f5a3a")}; if (uLate > 0.0) c = mix(c, ${V3("#3f6a3a")}, uLate); if (uDusk > 0.0) c = mix(c, ${V3("#2a3a36")}, uDusk); return c; }
+vec3 grassHalfS() { vec3 c = ${V3("#8fa63c")}; if (uLate > 0.0) c = mix(c, ${V3("#6f9f3c")}, uLate); if (uDusk > 0.0) c = mix(c, mix(${V3("#6f7a52")}, ${V3("#2a3a36")}, 0.5), uDusk); return c; }
+vec3 grassLitS() { vec3 c = ${V3("#d9c24a")}; if (uLate > 0.0) c = mix(c, ${V3("#a9c94a")}, uLate); if (uDusk > 0.0) c = mix(c, ${V3("#6f7a52")}, uDusk); return c; }
 float pressed(vec2 p) { float s = 0.0; for (int i = 0; i < 2; i++) s = max(s, 1.0 - smoothstep(uPress[i].z * 0.8, uPress[i].z, length(p - uPress[i].xy))); return s; }
 `;
 const HATCH_GLSL = `float hatchLine() { vec2 p = gl_FragCoord.xy / max(uPx, 0.1); float l = abs(fract((p.x + p.y) / 7.0) - 0.5) * 7.0; return 1.0 - smoothstep(0.5, 1.3, l); }`;
@@ -278,7 +332,7 @@ function solidMat(o) {
     fragmentShader: `${COMMON}\n${HATCH_GLSL}\nuniform vec3 litG, shadeG, litS, shadeS, uGlow; uniform float uHatch, uGlowOn; varying vec3 vW; varying vec3 vN;
 void main() {
   vec3 P = vW - uOrigin; vec2 ks = frontK(P.z); float k = ks.x; vec3 N = normalize(vN); if (!gl_FrontFacing) N = -N;
-  vec3 key = normalize(mix(KEYG, KEYS, k)); float ndl = dot(N, key), lit = smoothstep(0.0, 0.1, ndl);
+  vec3 key = normalize(mix(KEYG, keyS(), k)); float ndl = dot(N, key), lit = smoothstep(0.0, 0.1, ndl);
   vec3 c = mix(mix(shadeG, shadeS, k), mix(litG, litS, k), lit);
   vec3 V = normalize(vW - cameraPosition);
   float hs = (1.0 - lit) * uHatch * uHatchK; if (hs > 0.001) c = mix(c, c * 0.55, 0.6 * hs * hatchLine());
@@ -385,15 +439,38 @@ vec4 plateAt(sampler2D tx, float da, float el) {
   float fe = smoothstep(-90.0, -82.0, da) * (1.0 - smoothstep(82.0, 90.0, da)) * smoothstep(1.0, 1.6, el) * (1.0 - smoothstep(60.0, 62.0, el));
   vec4 p = texture2D(tx, uv); return p * fe;
 }
+// the cloud plates in late afternoon (cream, undersides #f6d9a8) and at dusk (bodies #5a4a8a, undersides #e86a8a): the plate is premultiplied
+vec4 plateTone(vec4 p) {
+  if (p.a < 0.002 || (uLate <= 0.0 && uDusk <= 0.0)) return p;
+  vec3 col = p.rgb / p.a;
+  float lum = dot(sqrt(col), vec3(0.299, 0.587, 0.114)), v = max(col.r, max(col.g, col.b));
+  float us = smoothstep(0.68, 0.76, lum);   // the gold and orange undersides
+  if (uLate > 0.0) col = mix(col, pow(v, 0.35) * mix(${V3("#fff4e0")}, ${V3("#f6d9a8")}, us), 0.8 * uLate);
+  if (uDusk > 0.0) col = mix(col, mix(${V3("#5a4a8a")}, ${V3("#e86a8a")}, us), 0.7 * uDusk);
+  return vec4(col * p.a, p.a);
+}
+// the first star (DESIGN 9.2): 4 points, core 5 px, rays 12 px at 1080 wide; 3.5 deg right of the sun, 9 deg up
+float starAt(float daz, float el) {
+  float pxr = max(gPxDeg * uPx, 1.0e-5);
+  vec2 q = vec2((daz - 3.5) * cos(radians(el)), el - 9.0) / pxr;
+  float r = length(q);
+  float core = 1.0 - smoothstep(1.5, 5.0, r), glow = 0.25 * exp(-r * r / 200.0);
+  float rx = clamp(1.0 - abs(q.x) / 12.0, 0.0, 1.0) * (1.0 - smoothstep(0.5, 1.4, abs(q.y)));
+  float ry = clamp(1.0 - abs(q.y) / 12.0, 0.0, 1.0) * (1.0 - smoothstep(0.5, 1.4, abs(q.x)));
+  float tw = 0.85 + 0.15 * sin(2.0 * PI * uT / 1.7);
+  return clamp(max(core + glow, max(rx, ry)), 0.0, 1.0) * tw * uStarA;
+}
 // the sunset layer: gradient, halo, ray fan, plates, disc
 vec3 skyS(float az, float el, float daz, float adaz, bool refl) {
   vec3 d = vec3(sin(radians(az)) * cos(radians(el)), sin(radians(el)), -cos(radians(az)) * cos(radians(el)));
   vec3 c = gradS(el, adaz);
   c *= mix(1.0, 0.9, uSink * smoothstep(12.0, 0.0, el));
   float ang = degrees(acos(clamp(dot(d, uSunDir), -1.0, 1.0)));
-  c = mix(c, ${V3("#ffe9a8")}, 0.62 * exp(-pow(ang / 7.5, 2.0)) * (0.35 + 0.65 * smoothstep(0.0, 0.2, uU + 0.2)));   // halo 4-5 disc radii, #ffe9a8 -> nothing
+  float haloK = 0.62 * (1.0 - 0.4 * uDusk), haloS = 7.5; vec3 haloC = mix(${V3("#ffe9a8")}, ${V3("#ff8a4a")}, uDusk);
+  if (uLate > 0.0) { haloK = mix(haloK, 0.5, uLate); haloS = mix(haloS, 6.0, uLate); haloC = mix(haloC, ${V3("#fff1c0")}, uLate); }
+  c = mix(c, haloC, haloK * exp(-pow(ang / haloS, 2.0)) * (0.35 + 0.65 * smoothstep(0.0, 0.2, uU + 0.2)));   // halo 4-5 disc radii, #ffe9a8 -> nothing; late 6 deg #fff1c0 at 0.5
   // the ray fan: 5 rays from SUN (additive #ffe6a8 at 0.25)
-  float rk = smoothstep(0.0, 0.15, uU) * (1.0 - 0.5 * smoothstep(0.85, 1.0, uU));
+  float rk = smoothstep(0.0, 0.15, uU) * (1.0 - 0.5 * smoothstep(0.85, 1.0, uU)) * (1.0 - uLate);
   if (rk > 0.001 && !refl) {
     vec2 sv = vec2(daz, el - uSunEl); float rr = length(sv), th = atan(sv.y, sv.x);
     float ray = 0.0;
@@ -401,9 +478,10 @@ vec3 skyS(float az, float el, float daz, float adaz, bool refl) {
     c += ${V3("#ffe6a8")} * 0.2 * rk * clamp(ray, 0.0, 1.0) * smoothstep(0.5, 3.0, el);
   }
   // the plates, drifting 0.3 deg/s toward +x
-  vec4 p1 = plateAt(uPl1, daz - 0.15 * uT, el); c = c * (1.0 - p1.a) + p1.rgb;
-  vec4 p2 = plateAt(uPl2, wrapA(az - SUNAZ - 180.0 - uAfter - 0.15 * uT), el); c = c * (1.0 - p2.a) + p2.rgb;
-  if (!refl) { c = mix(c, ${V3("#ffb458")}, 0.6 * smoothstep(1.8, 2.0, ang) * (1.0 - smoothstep(2.0, 3.4, ang))); float disc = 1.0 - smoothstep(1.78, 1.92, ang); c = mix(c, ${V3("#fff6d0")}, disc); c = mix(c, vec3(1.0), 0.5 * (1.0 - smoothstep(0.0, 1.1, ang))); }
+  vec4 p1 = plateTone(plateAt(uPl1, daz - 0.15 * uT, el)); c = c * (1.0 - p1.a) + p1.rgb;
+  vec4 p2 = plateTone(plateAt(uPl2, wrapA(az - SUNAZ - 180.0 - uAfter - 0.15 * uT), el)); c = c * (1.0 - p2.a) + p2.rgb;
+  if (!refl && uStarA > 0.0) c = mix(c, ${V3("#fff6e0")}, starAt(daz, el));
+  if (!refl) { c = mix(c, ${V3("#ffb458")}, 0.6 * (1.0 - uLate) * smoothstep(1.8, 2.0, ang) * (1.0 - smoothstep(2.0, 3.4, ang))); float disc = 1.0 - smoothstep(1.78, 1.92, ang); c = mix(c, mix(${V3("#fff6d0")}, ${V3("#fffbe6")}, uLate), disc); c = mix(c, vec3(1.0), 0.5 * (1.0 - smoothstep(0.0, 1.1, ang))); }
   return c;
 }
 // the grey deck's colour: a cloud sheet, 6 darker bands with brush hatch, sliding along WIND at 0.4 deg/s
@@ -492,7 +570,12 @@ ${wavesGLSL}
   float s = 0.5 + h / (0.55 * max(uCalm, 0.3)) * 0.5 + 0.25 * (vnoise(vec2(P.x * 0.03, P.z * 0.17)) - 0.5);
   float pathK = exp(-pow(adaz / 10.5, 2.0)) * (0.55 + 0.45 * smoothstep(9.0, 0.0, -el));   // warm near the sun's path
   vec3 sBody = mix(${V3("#4a4f8a")}, ${V3("#e8925a")}, pathK);   // deep violet-blue away from it, warm #e8925a under the sun
-  vec3 trough = mix(${V3("#36464c")}, sBody * vec3(0.7, 0.68, 0.85), k), body = mix(${V3("#52666c")}, sBody, k), crest = mix(${V3("#8a9a9c")}, mix(sBody, ${V3("#ffc88a")}, 0.55), k);
+  vec3 tS = sBody * vec3(0.7, 0.68, 0.85), bS = sBody, cS = mix(sBody, ${V3("#ffc88a")}, 0.55);
+  if (uLate > 0.0) {   // late afternoon: blue sea, the pale gold path #ffe7a8 at 0.6
+    tS = mix(tS, ${V3("#2f6492")}, uLate); bS = mix(bS, mix(${V3("#3f7fb0")}, ${V3("#ffe7a8")}, 0.25 * pathK), uLate); cS = mix(cS, mix(${V3("#cfe6ee")}, ${V3("#ffe7a8")}, 0.6 * pathK), uLate);
+  }
+  if (uDusk > 0.0) { bS = mix(bS, ${V3("#3a3668")}, uDusk); tS = mix(tS, bS * vec3(0.7, 0.68, 0.85), uDusk); cS *= 1.0 - 0.3 * uDusk; }
+  vec3 trough = mix(${V3("#36464c")}, tS, k), body = mix(${V3("#52666c")}, bS, k), crest = mix(${V3("#8a9a9c")}, cS, k);
   vec3 c = mix(trough, body, smoothstep(0.38, 0.46, s)); c = mix(c, crest, smoothstep(0.76, 0.82, s) * wf);
   // fine horizontal cel ripple lines, even in screen space (log distance), broken into dashes, drifting slowly toward us
   float lx = log(t) * 24.0 - uT * 0.06 + 1.2 * vnoise(vec2(az * 0.3, 3.0)), lfw = fwidth(lx), lfr = fract(lx);
@@ -506,9 +589,10 @@ ${wavesGLSL}
   vec3 refl = skyAll(az, abs(el) + tilt, true);
   c = mix(c, refl, clamp(max(fres * (0.62 + 0.38 * k), hz * 0.97), 0.0, 1.0));
   // the gold road toward the sun: 5 deg wide at the horizon, 16 at the cliff foot; hashed dashes twinkling
-  float wdeg = 2.8 + 6.2 * smoothstep(0.0, 9.0, -el) + 7.0 * smoothstep(9.0, 35.0, -el);   // widening toward us (from camera 09: 2.8 deg at the horizon, 9 at the lip)
+  float wdeg = (2.8 + 6.2 * smoothstep(0.0, 9.0, -el) + 7.0 * smoothstep(9.0, 35.0, -el)) * mix(1.0, 6.0 / 16.0, uDusk);   // widening toward us (from camera 09: 2.8 deg at the horizon, 9 at the lip)
   float inRoad = 1.0 - smoothstep(wdeg * 0.42, wdeg * 0.5, abs(daz));
   if (inRoad > 0.001 && k > 0.001) {
+    float roadK = k * (1.0 - 0.5 * uDusk);
     vec2 cell = vec2(daz / (wdeg * 0.5) * 2.2 + 7.0, log(t) * 7.0);
     vec2 ci = floor(cell), cf = fract(cell); vec2 jit = hash22(ci + 11.0);
     float pres = step(0.18, hash12(ci + 3.7));
@@ -517,9 +601,10 @@ ${wavesGLSL}
     float per = 0.7 + 0.6 * hash12(ci + 8.1), tw = 0.5 + 0.5 * sin(2.0 * PI * (uT / per + hash12(ci + 1.3)));
     float dash = pres * (1.0 - smoothstep(0.55, 1.0, dd)) * (0.35 + 0.65 * tw * tw);
     vec3 gold = mix(${V3("#ffd27a")}, ${V3("#fff2b8")}, 1.0 - smoothstep(0.0, 0.55, dd));
+    if (uLate > 0.0) gold = mix(gold, ${V3("#ffe7a8")}, uLate);
     float glow = 0.42 * inRoad * (1.0 - smoothstep(0.0, 0.5, abs(daz) / (wdeg * 0.5)));
-    c = mix(c, ${V3("#ffc060")}, glow * k * (0.5 + 0.5 * smoothstep(0.0, 8.0, -el + 4.0)));
-    c = mix(c, gold, dash * inRoad * k * (1.0 - 0.35 * uSink));
+    c = mix(c, mix(${V3("#ffc060")}, ${V3("#ffe7a8")}, uLate), glow * roadK * (0.5 + 0.5 * smoothstep(0.0, 8.0, -el + 4.0)));
+    c = mix(c, gold, dash * inRoad * roadK * (1.0 - 0.35 * uSink));
   }
   // the foam collar, 1.5 m wide at the cliff foot, surging +-0.8 m on a 5 s period
   float foot = -6.0 + 1.5 * sin(P.x / 7.0) - ${F(CLIFF_DEPTH)} * (1.0 + 0.18 * sin(P.x / 5.3) + 0.1 * sin(P.x / 2.1 + 1.3));
@@ -533,6 +618,7 @@ ${wavesGLSL}
 }
 void main() {
   vec3 d = normalize(vDir);
+  gPxDeg = degrees(length(dFdx(d)));
   float az = degrees(atan(d.x, -d.z)), el = degrees(asin(clamp(d.y, -1.0, 1.0)));
   vec3 c;
   if (el >= 0.0) c = skyAll(az, el, false);
@@ -583,14 +669,14 @@ ${HATCH_GLSL}
 varying vec3 vW; varying vec3 vN;
 void main() {
   vec3 P = vW - uOrigin; vec2 ks = frontK(P.z); float k = ks.x;
-  vec3 N = normalize(vN); vec3 key = normalize(mix(KEYG, KEYS, k)); float ndl = dot(N, key);
+  vec3 N = normalize(vN); vec3 key = normalize(mix(KEYG, keyS(), k)); float ndl = dot(N, key);
   float dist = distance(vW, cameraPosition), lod = smoothstep(35.0, 170.0, dist);
   // grass or rock: steep ground is rock
   float rockK = 1.0 - smoothstep(0.55, 0.74, N.y + 0.12 * (vnoise(P.xz * 0.8) - 0.5));
   vec2 q = vec2(dot(P.xz, WINDV.xz), dot(P.xz, vec2(0.34, 0.94)));
   float tone = 0.6 * vnoise(vec2(q.x * 0.9, q.y * 3.4)) + 0.4 * vnoise(vec2(q.x * 0.33 + 7.0, q.y * 1.2));
   tone = mix(tone, 0.5, lod);
-  vec3 gShade = mix(${V3("#36503a")}, ${V3("#3f5a3a")}, k), gHalf = mix(${V3("#4f6f3f")}, ${V3("#8fa63c")}, k), gLit = mix(${V3("#6f8f4f")}, ${V3("#d9c24a")}, k);
+  vec3 gShade = mix(${V3("#36503a")}, grassShadeS(), k), gHalf = mix(${V3("#4f6f3f")}, grassHalfS(), k), gLit = mix(${V3("#6f8f4f")}, grassLitS(), k);
   vec3 gc = mix(mix(gHalf, gShade, 0.35), gHalf, smoothstep(0.30, 0.38, tone));
   gc = mix(gc, gLit, smoothstep(0.56, 0.62, tone + 0.32 * max(ndl, 0.0) * mix(1.0, 0.4, k)));
   float dlip = P.z - (-6.0 + 1.5 * sin(P.x / 7.0));   // the cliff lip: a worn earthy edge just inside the brink
@@ -599,7 +685,9 @@ void main() {
   float sh = castShadow(P.xz) * k * 0.45 * (1.0 - rockK); gc = shadowTint(gc, sh);
   // rock: lit / shade / deep, strata, moss on the tops, wet at the waterline
   float lit = smoothstep(0.0, 0.1, ndl);
-  vec3 rLit = mix(${V3("#8f8a7c")}, ${V3("#e0986a")}, k), rShade = mix(${V3("#5a5a60")}, ${V3("#5a4668")}, k), rDeep = mix(${V3("#3c3f4a")}, ${V3("#3a3050")}, k);
+  vec3 rLitS = mix(${V3("#e0986a")}, ${V3("#c9b08a")}, uLate), rShadeS = mix(${V3("#5a4668")}, ${V3("#6a6470")}, uLate);
+  rLitS = mix(rLitS, rShadeS * 1.1, 0.5 * uDusk);
+  vec3 rLit = mix(${V3("#8f8a7c")}, rLitS, k), rShade = mix(${V3("#5a5a60")}, rShadeS, k), rDeep = mix(${V3("#3c3f4a")}, ${V3("#3a3050")}, k);
   vec3 rc = mix(rShade, rLit, lit);
   float strata = smoothstep(0.55, 0.62, fract(P.y * 1.15 + vnoise(P.xz * 0.35) * 2.5)) * (1.0 - lod);
   rc = mix(rc, rc * 0.78, strata * 0.6); rc = mix(rc, rDeep, smoothstep(0.55, 0.8, -N.y));
@@ -656,12 +744,14 @@ void main() {
 
   // rail: posts 0.7 tall every 2.5 m on the sea side, 0.3 outside the edge, two steel bands
   const posts = [], bands = [], mk = (w, h, d, x, y, z, yaw = 0) => { const b = clean(new THREE.BoxGeometry(w, h, d)); b.rotateY(yaw); b.translate(x, y, z); return b; };
-  let prev = null;
+  let prev = null, prevX = 0;
+  const gap = Array.isArray(S.railGap) && S.railGap.length >= 2 ? [Math.min(S.railGap[0], S.railGap[1]), Math.max(S.railGap[0], S.railGap[1])] : null;   // spec railGap: no posts or bands between those x
   for (let x = -60; x <= 180; x += 2.5) {
     const r = roadAt(x), tl = Math.hypot(1, r.dz), nx = -r.dz / tl, nz = 1 / tl, off = -3.3, px = x + nx * off, pz = r.z + nz * off, py = r.y;
-    posts.push(mk(0.1, 0.7, 0.1, px, py + 0.35, pz));
-    if (prev) for (const hy of [0.36, 0.62]) { const dx = px - prev[0], dz = pz - prev[2], L = Math.hypot(dx, dz); bands.push(mk(L + 0.02, 0.1, 0.03, (px + prev[0]) / 2, (py + prev[1]) / 2 + hy, (pz + prev[2]) / 2, -Math.atan2(dz, dx))); }
-    prev = [px, py, pz];
+    const inGap = gap && x > gap[0] + 1e-6 && x < gap[1] - 1e-6, bandGap = gap && prev && prevX >= gap[0] - 1e-6 && x <= gap[1] + 1e-6;
+    if (!inGap) posts.push(mk(0.1, 0.7, 0.1, px, py + 0.35, pz));
+    if (prev && !bandGap && !inGap) for (const hy of [0.36, 0.62]) { const dx = px - prev[0], dz = pz - prev[2], L = Math.hypot(dx, dz); bands.push(mk(L + 0.02, 0.1, 0.03, (px + prev[0]) / 2, (py + prev[1]) / 2 + hy, (pz + prev[2]) / 2, -Math.atan2(dz, dx))); }
+    prev = [px, py, pz]; prevX = x;
   }
   root.add(mark(new THREE.Mesh(mergeGeometries(posts), solidMat({ litG: "#8a8f92", shadeG: "#555a5e", litS: "#e0a070", shadeS: "#5a4a6a", ink: inkPx(0.7), hatch: 1 }))));
   root.add(mark(new THREE.Mesh(mergeGeometries(bands), solidMat({ litG: "#9aa3a8", shadeG: "#5c666b", litS: "#ffc088", shadeS: "#6a5a78", ink: inkPx(0.7), hatch: 0 }))));
@@ -702,7 +792,10 @@ function buildLighthouse(root, inkPx) {
 }
 
 // ---------- grass and flowers: instanced, wind in the vertex shader ----------
+const PRESS0 = [[0, 0, 0.45], [0.62, 0.05, 0.34]];   // spec press default: Spud's seat and the old bag
+const pressOf = (S) => PRESS0.map((d, i) => { const p = Array.isArray(S.press) && Array.isArray(S.press[i]) ? S.press[i] : d; return [+p[0], +p[1], +p[2]]; });
 function buildGrass(root, S) {
+  const PR = pressOf(S), pk = (i, r0) => PR[i][2] / PRESS0[i][2] * r0;   // tufts / flowers keep clear of the pressed patches (radii scale with r)
   const share = clamp(S.grass ?? 1), NT = Math.round(3600 * share), NL = Math.round(600 * share);   // 3600 tufts + 600 along the cliff lip = DESIGN's 4,200
   // one tuft: 6 blades, each a bent strip of 2 triangles (a quad narrowing to the tip), 1.2 cm wide
   const BW = 0.012, tp = [], tn = [], tt = [], tid = [];
@@ -723,7 +816,7 @@ function buildGrass(root, S) {
     if (h1(i, 23) < 0.78) { const r = 14 * rad; x = Math.cos(ang) * r; z = Math.sin(ang) * r; w = 0.3 + 0.7 * Math.exp(-(((x - 0.4) ** 2 + (z - 6) ** 2) / 50)); }
     else { const s = 2.5 + 21.5 * h1(i, 24), lat = (h1(i, 25) - 0.5) * 8; x = s * CLIMB.x - lat * CLIMB.y; z = s * CLIMB.y + lat * CLIMB.x; w = 0.55; }
     if (z < brinkZ(x) + 0.12) continue;
-    if (Math.hypot(x, z) < 0.45 || Math.hypot(x - 0.62, z - 0.05) < 0.3) continue;
+    if (Math.hypot(x - PR[0][0], z - PR[0][1]) < pk(0, 0.45) || Math.hypot(x - PR[1][0], z - PR[1][1]) < pk(1, 0.3)) continue;
     if (h1(i, 26) > w) continue;
     const y = heightAt(x, z), gx = heightAt(x + 0.3, z) - heightAt(x - 0.3, z), gz = heightAt(x, z + 0.3) - heightAt(x, z - 0.3);
     if (Math.hypot(gx, gz) / 0.6 > 0.85) continue;   // the steep risers are rock
@@ -768,15 +861,15 @@ varying float vT; varying float vId; varying vec3 vW; varying vec3 vN;
 void main() {
   vec3 P = vW - uOrigin; vec2 ks = frontK(P.z); float k = ks.x;
   vec3 N = normalize(vN); if (!gl_FrontFacing) N = -N;
-  vec3 key = normalize(mix(KEYG, KEYS, k)); float ndl = abs(dot(N, key));
+  vec3 key = normalize(mix(KEYG, keyS(), k)); float ndl = abs(dot(N, key));
   float t = vT, vr = fract(vId * 7.31) - 0.5;
-  vec3 shade = mix(${V3("#36503a")}, ${V3("#3f5a3a")}, k), half_ = mix(${V3("#4f6f3f")}, ${V3("#8fa63c")}, k), lit = mix(${V3("#6f8f4f")}, ${V3("#d9c24a")}, k);
+  vec3 shade = mix(${V3("#36503a")}, grassShadeS(), k), half_ = mix(${V3("#4f6f3f")}, grassHalfS(), k), lit = mix(${V3("#6f8f4f")}, grassLitS(), k);
   vec3 c = mix(shade, half_, smoothstep(0.02, 0.5, t + vr * 0.3));
   c = mix(c, lit, smoothstep(0.42, 0.88, t + 0.35 * ndl + vr * 0.25));
   // back-lit: looking toward the sun, the tips glow #ffe98a and each blade's edge takes the rim #ffe0a0
   vec3 V = normalize(vW - cameraPosition);
   float bl = smoothstep(0.35, 0.99, dot(V, uSunDir));
-  c = mix(c, ${V3("#ffe98a")}, bl * k * smoothstep(0.3, 1.0, t) * 0.9);
+  c = mix(c, mix(${V3("#ffe98a")}, ${V3("#e6f08a")}, uLate), bl * k * smoothstep(0.3, 1.0, t) * 0.9 * (1.0 - uDusk));
   c = mix(c, ${V3("#ffe0a0")}, bl * k * (1.0 - abs(dot(N, V))) * 0.35 * t);
   float sh = castShadow(P.xz) * k * 0.45; c = shadowTint(c, sh * (1.0 - 0.6 * t));
   c *= mix(0.55, 1.0, smoothstep(0.0, 0.3, t));   // dark at the root
@@ -796,7 +889,7 @@ void main() {
     const i = ft++, a = h1(i, 41) * Math.PI * 2, r = 12 * Math.sqrt(h1(i, 42));
     const x = Math.cos(a) * r, z = Math.sin(a) * r;
     const wgt = 0.12 + 0.88 * Math.exp(-(((x - 0.4) ** 2 + (z - 5.5) ** 2) / 12));
-    if (h1(i, 43) > wgt || z < brinkZ(x) + 0.3 || Math.hypot(x, z) < 0.5 || Math.hypot(x - 0.62, z - 0.05) < 0.32) continue;
+    if (h1(i, 43) > wgt || z < brinkZ(x) + 0.3 || Math.hypot(x - PR[0][0], z - PR[0][1]) < pk(0, 0.5) || Math.hypot(x - PR[1][0], z - PR[1][1]) < pk(1, 0.32)) continue;
     const gx = heightAt(x + 0.3, z) - heightAt(x - 0.3, z), gz = heightAt(x, z + 0.3) - heightAt(x, z - 0.3); if (Math.hypot(gx, gz) / 0.6 > 0.7) continue;
     const kind = Math.floor(h1(i, 44) * 4), pal = palette[kind];
     fl.push({ x, y: heightAt(x, z), z, h: 0.2 + 0.15 * h1(i, 45), yaw: h1(i, 46) * 6.283, tilt: 0.5 + 0.5 * h1(i, 47), kind, ph: h1(i, 48) * 6.283, pal });
@@ -900,9 +993,13 @@ export function buildCoast(scene, S = {}) {
   root.add(tgt); key.target = tgt; root.add(key);
   const hemi = new THREE.HemisphereLight("#5c6872", "#3f4a44", 0.5); hemi.name = "set-coast-fill"; root.add(hemi);
   const kG = lin("#aeb9c2"), kS = lin("#ffb866"), sG = lin("#5c6872"), sS = lin("#8a6aa8"), gG = lin("#3f4a44"), gS = lin("#6a5a3a");
+  pressOf(S).forEach((p, i) => U.uPress.value[i].set(p[0], p[1], p[2]));
   const sh = S.shadows === undefined ? [[0, 0, 0.3, 0.85], [0.62, 0.05, 0.18, 0.3]] : S.shadows;
   U.uShadow.value.forEach((v, i) => { const s = sh && sh[i]; if (s) v.set(s[0], s[1], s[2], s[3]); else v.set(0, 0, 0, 0); });
-  const tmpO = new THREE.Vector3();
+  const tmpO = new THREE.Vector3(), tmpC = new THREE.Color(), kA = lin("#ffdf9a"), sA = lin("#9fc4e8"), sD = lin("#6a5aa8"), gA = lin("#7a8a4a");
+  // the first star's start (story time): the first moment the sink key list reaches d 0.6 (sink 1.6); never when it doesn't
+  let starT = 1e9;
+  if (Array.isArray(S.sink) && Array.isArray(S.sink[0])) { const t0 = S.sink[0][0], t1 = S.sink[S.sink.length - 1][0]; for (let t = t0; t <= t1 + 1e-9; t += 0.01) if (keyAt(S.sink, t) >= 1.6) { starT = t; break; } }
   const frontZ = (u) => {   // where the light front is (z, coast frame) at break u: DESIGN 6.3
     if (u <= 0.30) return -1e5;
     if (u < 0.55) return Math.max(-1e5, -17 * 0.25 / (u - 0.30));
@@ -914,21 +1011,24 @@ export function buildCoast(scene, S = {}) {
   const tick = (t) => {
     root.updateWorldMatrix(true, false); tmpO.setFromMatrixPosition(root.matrixWorld); U.uOrigin.value.copy(tmpO);
     const u = S.breakAt != null ? clamp((t - S.breakAt) / (S.breakDur ?? 3)) : clamp(numKey(S.break, t, 0));
-    const sink = S.sinkAt != null ? clamp((t - S.sinkAt) / (S.sinkDur ?? 8)) : clamp(numKey(S.sink, t, 0));
+    const sinkRaw = S.sinkAt != null ? clamp((t - S.sinkAt) / (S.sinkDur ?? 8)) : clamp(numKey(S.sink, t, 0), 0, 2);   // 0..1 sunset as built, 1..2 dusk
+    const sink = Math.min(1, sinkRaw), dusk = clamp(sinkRaw - 1), late = clamp(numKey(S.late, t, 0));
     const slit = clamp(numKey(S.slit, t, 0));
-    U.uT.value = t; U.uU.value = u; U.uSink.value = sink; U.uSlit.value = slit;
+    U.uT.value = t; U.uU.value = u; U.uSink.value = sink; U.uSlit.value = slit; U.uLate.value = late; U.uDusk.value = dusk;
+    U.uStarA.value = sstep(0, 0.6, t - starT) * sstep(0.55, 0.6, dusk);   // the first star: from d 0.6, fading in over 0.6 s (and gone again if d drops below 0.6)
     U.uFrontZ.value = frontZ(u);
     U.uRain.value = numKey(S.rain, t, 1) * lerp(1, 0.3, Math.max(slit, sstep(0, 0.02, u))) * (1 - sstep(0.02, 0.4, u));   // 100 %, the slit 30 %, none by u 0.4
     U.uCalm.value = lerp(1, 0.35, sstep(0.70, 1.0, u));
     U.uLamp.value = 1 - sstep(0.70, 1.0, u);
     U.uWind.value = S.wind ?? 1; U.uGust.value = lerp(1.4, 1.0, sstep(0.3, 0.9, u));
-    const el = lerp(1.6, 0.0, sink); U.uSunEl.value = el;   // disc r 1.9 deg: sits on the horizon, half sunk at sink 1
-     U.uSunDir.value.copy(sunDirAt(el));
+    const el = lerp(dusk > 0 ? -1.75 * dusk : lerp(1.6, 0.0, sink), 12, late); U.uSunEl.value = el;   // disc r 1.9 deg: on the horizon (+1.6), half sunk at sink 1 (0), -1.75 at sink 2; late: toward 12 deg
+    U.uSunDir.value.copy(sunDirAt(el));
     // the cast's lights
     const k = sstep(0.64, 0.68, u), L = S.light ?? 1;
-    key.color.copy(kG).lerp(kS, k); key.intensity = L * lerp(0.35, 1.0, k);
-    key.position.copy(new THREE.Vector3(-0.3, 0.85, -0.4).lerp(new THREE.Vector3(0.12, 0.14, -0.98), k).normalize().multiplyScalar(10));
-    hemi.color.copy(sG).lerp(sS, k); hemi.groundColor.copy(gG).lerp(gS, k); hemi.intensity = L * lerp(0.25, 0.4, k);
+    // late afternoon (A): key #ffdf9a from (0.12, 0.21, -0.97), fill #9fc4e8 / #7a8a4a, key : fill 2 : 1; dusk: key x (1 - 0.65 d), fill sky -> #6a5aa8
+    key.color.copy(kG).lerp(kS, k).lerp(kA, k * late); key.intensity = L * lerp(0.35, 1.0, k) * (1 - 0.65 * dusk);
+    key.position.copy(new THREE.Vector3(-0.3, 0.85, -0.4).lerp(new THREE.Vector3(0.12, 0.14, -0.98).lerp(new THREE.Vector3(0.12, 0.21, -0.97), late), k).normalize().multiplyScalar(10));
+    hemi.color.copy(sG).lerp(tmpC.copy(sS).lerp(sA, late).lerp(sD, dusk), k); hemi.groundColor.copy(gG).lerp(tmpC.copy(gS).lerp(gA, late), k); hemi.intensity = L * lerp(0.25, lerp(0.4, 0.5, late), k);
   };
   tick(0); (globalThis.__setTicks ||= []).push(tick);
   return root;
