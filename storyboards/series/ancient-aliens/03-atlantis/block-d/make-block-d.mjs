@@ -215,7 +215,7 @@ function build(F) {
   // ================================================================= 46 CASE CLOSED (40.2-44.2): the city rises into the stars; he stays
   set0(T.far, "ring", { y: 1500, shrink: 0 }); PR(T.far + 0.3, "ring", { shrink: 0.85 }, r3(T.tag - T.far - 0.3), "in"); PR(T.far, "nightS", { calm: 1 }, r3(T.tag - T.far));
   set0(T.low, "ring", { y: -6000 });
-  swim(T.far - 0.04, -0.5);   // back up from the dive of 41
+  swim(T.storm + 0.5, -0.5);   // back up from the dive of 41 while hidden (at T.far it splashed 21 dB over the calm sea)
   look(T.far, "spudS", [0, 0.3], 0.01); expr(T.far, "spudS", "neutral", { brow: 0.4, lid: 0.35 }, 0.01);
   look(T.far + 1.0, "spudS", [0, 0.05], 0.4);
   say(T.far + 1.2, "d7", T.tag);
