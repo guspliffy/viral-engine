@@ -1,7 +1,7 @@
 {
  "id": "aa03-a-wide",
  "frame": "wide",
- "far": 1500,
+ "far": 9000,
  "title": "Where did Atlantis go? (block A)",
  "idea": "Ancient aliens EP03 block A (0:00-0:50): the ring city at dawn, 'a whole island, gone in one day'; the wall flashes; the rings from above; snap to today's empty sea; Plato's scroll and the contract (four clues, by midnight); clue 1: the plan, the canal 30 m deep (Suez 24 m), the walls of white, black and red stone, brass, tin and a red metal; 'nobody has found one stone... they found the metal'",
  "fps": 30,
@@ -25,54 +25,22 @@
  "physics": false,
  "loopIdle": false,
  "set": {
-  "type": "env",
-  "env": "at-harbour-dawn",
-  "shade": "soft",
-  "aperture": 0,
-  "focus": false,
-  "life": "auto",
-  "swap": [
-   {
-    "at": 2.6,
-    "env": "at-citadel-wall-dawn"
-   },
-   {
-    "at": 4.7,
-    "env": "at-aerial-rings"
-   },
-   {
-    "at": 8.9,
-    "env": "at-harbour-wall-past"
-   },
-   {
-    "at": 10.7,
-    "env": "at-gibraltar-rock"
-   },
-   {
-    "at": 21.4,
-    "env": "at-aerial-rings"
-   },
-   {
-    "at": 26,
-    "env": "at-canal-cutaway"
-   },
-   {
-    "at": 29,
-    "env": "at-canal-suez"
-   },
-   {
-    "at": 31.8,
-    "env": "at-citadel-wall-dawn"
-   },
-   {
-    "at": 35.3,
-    "env": "at-walls-view"
-   },
-   {
-    "at": 41.9,
-    "env": "at-gibraltar-rock"
-   }
-  ]
+  "type": "plain",
+  "color": "#bcd6ee",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -5.68,
+    1.392,
+    -8.112
+   ],
+   "light": "#ffe6c0",
+   "shadow": "#8a90c4",
+   "exposure": 1
+  }
  },
  "music": {
   "file": "ancient-aliens/aa03-score.ogg",
@@ -107,7 +75,7 @@
    "character": "potatobrawl/spud",
    "at": [
     -0.7,
-    1
+    60001
    ],
    "face": 15,
    "expr": "neutral",
@@ -127,23 +95,185 @@
    "lit": 0
   },
   {
-   "id": "flash02",
-   "kind": "envflash",
-   "env": "at-citadel-wall-dawn",
+   "id": "quay01",
+   "kind": "harbourquay",
    "x": 0,
-   "y": 0,
-   "z": 0,
+   "z": 60000,
+   "plate": "01",
+   "y": -1.4,
+   "staged": "plate 01 in 3D: Spud on the quay"
+  },
+  {
+   "id": "wall02",
+   "kind": "citywall",
+   "x": 20000,
+   "z": 60000,
+   "plate": "02",
    "flash": 0,
-   "hot": 0,
-   "staged": "the red-gold wall of panel 02: the flash runs along it"
+   "staged": "plate 02 in 3D: the flash runs along the red-gold wall"
+  },
+  {
+   "id": "far04",
+   "kind": "atlantisplate",
+   "x": 40000,
+   "z": 57401.5,
+   "y": -3.32,
+   "view": "harbour",
+   "staged": "plate 04's far city"
+  },
+  {
+   "id": "quay04",
+   "kind": "harbourquay",
+   "x": 40000,
+   "z": 60000,
+   "plate": "04",
+   "far": false,
+   "y": -1.2,
+   "staged": "plate 04's near quay, Spud on it"
+  },
+  {
+   "id": "city",
+   "kind": "atlantis",
+   "x": 0,
+   "z": 0,
+   "light": "dawn",
+   "proj": "plate03"
+  },
+  {
+   "id": "citysky",
+   "kind": "citysky",
+   "x": 0,
+   "z": 0,
+   "light": "dawn"
+  },
+  {
+   "id": "cut08",
+   "kind": "canalcut",
+   "x": 60000,
+   "z": 40000,
+   "plate": true,
+   "scale": 0.05,
+   "y": -0.419
+  },
+  {
+   "id": "cut09",
+   "kind": "canalcut",
+   "x": 60000,
+   "z": 60000,
+   "plate": true,
+   "modern": true,
+   "scale": 0.05,
+   "y": -0.173
+  },
+  {
+   "id": "wall11",
+   "kind": "citywall",
+   "x": 0,
+   "z": 80000,
+   "plate": "11",
+   "flash": 0
+  },
+  {
+   "id": "rocksky",
+   "kind": "shsky",
+   "x": 20000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 35,
+   "sunEl": 8,
+   "reach": 1600
+  },
+  {
+   "id": "rocksea",
+   "kind": "sea",
+   "x": 20000,
+   "z": 0,
+   "grade": "gibraltar",
+   "sunAz": 35,
+   "sunEl": 8,
+   "horizon": true,
+   "reach": 1700,
+   "calm": [
+    0,
+    0,
+    3,
+    0.7
+   ],
+   "foam": [
+    [
+     0,
+     0,
+     2.2,
+     0.8
+    ],
+    [
+     1.9,
+     0.2,
+     1.7,
+     1,
+     2.5,
+     0.92
+    ],
+    [
+     -1.5,
+     0.7,
+     1.2,
+     0.7,
+     2.5,
+     0.3
+    ]
+   ],
+   "patches": [
+    [
+     3.2,
+     0.5,
+     3,
+     "#123f40",
+     0.8,
+     1
+    ]
+   ],
+   "staged": "the sea surface at y 0 (no set floor here)"
+  },
+  {
+   "id": "rockland",
+   "kind": "horizonland",
+   "x": 20000,
+   "z": 0,
+   "coast": "gibraltar"
+  },
+  {
+   "id": "rock",
+   "kind": "seastack",
+   "x": 20000,
+   "z": 0,
+   "shade": [
+    0.1,
+    0.15,
+    0.4
+   ],
+   "staged": "the sea rock stands in the sea (no set floor here)"
+  },
+  {
+   "id": "gulls",
+   "kind": "seagulls",
+   "x": 20000,
+   "z": 0,
+   "n": 3,
+   "centre": [
+    9,
+    7.2,
+    -22
+   ],
+   "r": 8
   },
   {
    "id": "scroll06",
    "kind": "scroll",
-   "x": 0.55,
+   "x": 20000.3,
    "y": -60,
-   "z": 1.05,
-   "rot": -10,
+   "z": 0.2,
+   "rot": -14,
    "open": 0,
    "staged": "Plato's plan on the flat of the rock"
   }
@@ -210,7 +340,8 @@
    "pos": 250,
    "pop": false,
    "size": 120,
-   "kinetic": false
+   "kinetic": false,
+   "x": 1421
   },
   {
    "from": 18.6,
@@ -5961,26 +6092,27 @@
    "shot": {
     "pos": [
      0,
-     1.6,
-     6
+     1.65,
+     60005.65
     ],
     "look": [
      0,
-     2.256,
-     -3.978
+     -1.658,
+     59955.65
     ],
-    "fov": 40,
+    "fov": 35.989,
     "to": {
      "pos": [
       0,
-      1.6,
-      5.5
+      1.65,
+      60005.65
      ],
      "look": [
       0,
-      2.256,
-      -4.478
-     ]
+      -1.658,
+      59955.65
+     ],
+     "fov": 33.617
     },
     "dur": 2.6,
     "ease": "inOut"
@@ -6048,9 +6180,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
-      40
+      60000,
+      100000
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6075,27 +6208,28 @@
    "len": 2.1,
    "shot": {
     "pos": [
-     0,
-     1.6,
-     6
+     20014,
+     1.2,
+     60011.3
     ],
     "look": [
-     -0.697,
-     2.143,
-     -3.961
+     19981.553,
+     9.797,
+     59973.231
     ],
-    "fov": 40,
+    "fov": 36.09,
     "to": {
      "pos": [
-      0.6,
-      1.6,
-      6
+      20014,
+      1.2,
+      60011.3
      ],
      "look": [
-      1.297,
-      2.143,
-      -3.961
-     ]
+      19983.61,
+      9.797,
+      59971.577
+     ],
+     "fov": 34.395
     },
     "dur": 2.1,
     "ease": "inOut"
@@ -6103,30 +6237,19 @@
    "do": [
     {
      "do": "prop",
-     "id": "flash02",
+     "id": "wall02",
      "set": {
       "flash": 1
      },
-     "dur": 1.2,
+     "dur": 1.4,
      "ease": "inOut",
      "at": 0.3
     },
     {
      "do": "prop",
-     "id": "flash02",
+     "id": "wall02",
      "set": {
-      "hot": 1
-     },
-     "dur": 0.6,
-     "ease": "out",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "flash02",
-     "set": {
-      "flash": 0,
-      "hot": 0
+      "flash": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -6141,25 +6264,21 @@
    "shot": {
     "pos": [
      0,
-     40,
-     6
+     1200,
+     3640
     ],
     "look": [
      0,
-     40,
-     -4
+     -537,
+     37
     ],
-    "fov": 40,
+    "fov": 51.5,
+    "near": 20,
     "to": {
      "pos": [
       0,
-      40,
-      3
-     ],
-     "look": [
-      0,
-      40,
-      -7
+      1160,
+      3480
      ]
     },
     "dur": 4.2,
@@ -6180,9 +6299,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.5,
-      1
+      40000.35,
+      60000.65
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6206,27 +6326,28 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     0,
-     1.6,
-     6
+     40000,
+     1.68,
+     60004.5
     ],
     "look": [
-     0,
-     1.869,
-     -3.996
+     40000,
+     -2.87,
+     59954.5
     ],
     "fov": 40,
     "to": {
      "pos": [
-      0,
-      1.6,
-      5.75
+      40000,
+      1.68,
+      60004.5
      ],
      "look": [
-      0,
-      1.869,
-      -4.246
-     ]
+      40000,
+      -2.87,
+      59954.5
+     ],
+     "fov": 38.148
     },
     "dur": 1.8,
     "ease": "inOut"
@@ -6276,6 +6397,29 @@
      "shape": "point",
      "dur": 0.2,
      "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      20000.1,
+      0.15
+     ],
+     "y": 1.2,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
     }
    ]
   },
@@ -6285,26 +6429,21 @@
    "len": 2.7,
    "shot": {
     "pos": [
-     0,
-     1.5,
-     5.75
+     20001.6,
+     2.45,
+     4.6
     ],
     "look": [
-     0,
-     0.934,
-     -4.234
+     19995.4,
+     -3.3,
+     -34.5
     ],
     "fov": 40,
     "to": {
      "pos": [
-      0,
-      1.5,
-      5.5
-     ],
-     "look": [
-      0,
-      0.934,
-      -4.484
+      20001.5,
+      2.4,
+      4.2
      ]
     },
     "dur": 2.7,
@@ -6363,9 +6502,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0.05,
-      1
+      19999.58,
+      -0.05
      ],
+     "y": 1.2,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6375,7 +6515,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 10,
+     "to": 20,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6385,7 +6525,7 @@
      "do": "prop",
      "id": "scroll06",
      "set": {
-      "y": 0.02
+      "y": 1.2
      },
      "dur": 0.01,
      "ease": "linear",
@@ -6400,27 +6540,28 @@
    "len": 8,
    "shot": {
     "pos": [
-     0,
-     1.3,
-     4.4
+     20001.2,
+     2.05,
+     3.6
     ],
     "look": [
-     0,
-     0.039,
-     -5.52
+     19999.9,
+     1.45,
+     0
     ],
-    "fov": 34,
+    "fov": 40,
     "to": {
      "pos": [
-      0,
-      1.3,
-      4.1
+      20001.15,
+      2,
+      3.3
      ],
      "look": [
-      0,
-      0.039,
-      -5.82
-     ]
+      19999.9,
+      1.45,
+      0
+     ],
+     "fov": 38
     },
     "dur": 8,
     "ease": "inOut"
@@ -6472,7 +6613,7 @@
      "who": "spud",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": "out",
      "dur": 0.3,
      "ease": "out",
      "at": 3.9
@@ -6539,9 +6680,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
-      40
+      60000,
+      100000
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6565,26 +6707,22 @@
    "len": 4.6,
    "shot": {
     "pos": [
-     0,
-     40,
-     4
+     -240,
+     1180,
+     3560
     ],
     "look": [
      0,
-     40,
-     -6
+     -537,
+     37
     ],
-    "fov": 36,
+    "fov": 51.5,
+    "near": 20,
     "to": {
      "pos": [
-      0,
-      40,
-      0
-     ],
-     "look": [
-      0,
-      40,
-      -10
+      -120,
+      1120,
+      3360
      ]
     },
     "dur": 4.6,
@@ -6609,27 +6747,28 @@
    "len": 3,
    "shot": {
     "pos": [
-     0,
-     1.6,
-     6
+     59999.526,
+     -0.209,
+     40006.18
     ],
     "look": [
-     0,
-     1.057,
-     -3.985
+     59999.526,
+     -8.367,
+     39956.18
     ],
-    "fov": 42,
+    "fov": 42.104,
     "to": {
      "pos": [
-      0,
-      1.6,
-      4.8
+      59999.526,
+      -0.209,
+      40006.18
      ],
      "look": [
-      0,
-      1.057,
-      -5.185
-     ]
+      59999.526,
+      -8.367,
+      39956.18
+     ],
+     "fov": 38.661
     },
     "dur": 3,
     "ease": "inOut"
@@ -6660,28 +6799,28 @@
    "len": 2.8,
    "shot": {
     "pos": [
-     0,
-     1.6,
-     6
+     60001.9,
+     0.124,
+     60006.57
     ],
     "look": [
-     0,
-     1.6,
-     -4
+     60001.9,
+     -8.899,
+     59956.57
     ],
-    "fov": 35,
+    "fov": 42.104,
     "to": {
      "pos": [
-      0,
-      1.6,
-      6
+      60001.9,
+      0.124,
+      60006.57
      ],
      "look": [
-      0,
-      1.6,
-      -4
+      60001.9,
+      -8.899,
+      59956.57
      ],
-     "fov": 32
+     "fov": 38.993
     },
     "dur": 2.8,
     "ease": "inOut"
@@ -6701,9 +6840,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.8,
-      0.6
+      20008.4,
+      60001
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6713,7 +6853,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 160,
+     "to": 40,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6727,27 +6867,28 @@
    "len": 3.5,
    "shot": {
     "pos": [
-     0,
-     1.6,
-     6
+     20011.4,
+     1.25,
+     60005.8
     ],
     "look": [
-     -0.523,
-     1.446,
-     -3.985
+     20006.2,
+     1.9,
+     60000
     ],
     "fov": 40,
     "to": {
      "pos": [
-      0,
-      1.6,
-      5.6
+      20011.2,
+      1.25,
+      60005.4
      ],
      "look": [
-      0,
-      1.446,
-      -4.399
-     ]
+      20006.2,
+      1.9,
+      60000
+     ],
+     "fov": 37
     },
     "dur": 3.5,
     "ease": "inOut"
@@ -6785,20 +6926,19 @@
     },
     {
      "do": "prop",
-     "id": "flash02",
+     "id": "wall02",
      "set": {
-      "hot": 1
+      "flash": 1
      },
-     "dur": 0.8,
-     "ease": "out",
+     "dur": 1.6,
+     "ease": "inOut",
      "at": 1
     },
     {
      "do": "prop",
-     "id": "flash02",
+     "id": "wall02",
      "set": {
-      "flash": 0,
-      "hot": 0
+      "flash": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -6808,9 +6948,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
-      40
+      60000,
+      100000
      ],
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6835,26 +6976,27 @@
    "shot": {
     "pos": [
      0,
-     2.5,
-     6
+     9,
+     80120
     ],
     "look": [
      0,
-     2.832,
-     -3.994
+     10.8,
+     80070
     ],
-    "fov": 35,
+    "fov": 16.389,
     "to": {
      "pos": [
       0,
-      2.5,
-      4.5
+      9,
+      80120
      ],
      "look": [
       0,
-      2.832,
-      -5.494
-     ]
+      10.8,
+      80070
+     ],
+     "fov": 14.769
     },
     "dur": 6.6,
     "ease": "inOut"
@@ -6871,12 +7013,23 @@
      "at": 0.2
     },
     {
+     "do": "prop",
+     "id": "wall11",
+     "set": {
+      "flash": 1
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
-      0.5,
-      1
+      20000.3,
+      0.2
      ],
+     "y": 1.2,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -6886,7 +7039,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 0,
+     "to": 55,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -6900,27 +7053,28 @@
    "len": 8.1,
    "shot": {
     "pos": [
-     0,
-     1.5,
-     4.8
+     20001.9,
+     2.75,
+     4.6
     ],
     "look": [
-     0,
-     0.934,
-     -5.184
+     20001.45,
+     1.3,
+     0
     ],
-    "fov": 36,
+    "fov": 42,
     "to": {
      "pos": [
-      0,
-      1.5,
-      4.4
+      20001.9,
+      2.75,
+      4.6
      ],
      "look": [
-      0,
-      0.066,
-      -5.497
-     ]
+      20001.45,
+      1.3,
+      0
+     ],
+     "fov": 38
     },
     "dur": 8.1,
     "ease": "inOut"
@@ -7013,7 +7167,14 @@
    "from": 0,
    "to": 50,
    "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud",
+   "with": "gulls",
+   "from": 0,
+   "to": 50,
+   "reason": "the gulls wheel 20 m out over the sea; their volume spans the rock"
   }
  ],
- "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-a/make-block-a.mjs. Block A of four; music = the EP03 score's first 50 s (kit score(0)). Backgrounds: painted envs from the approved panels."
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-a/make-block-a.mjs. Block A of four; music = the EP03 score's first 50 s (kit score(0)). Places: real 3D at the paintings' level (round R kit)."
 }
