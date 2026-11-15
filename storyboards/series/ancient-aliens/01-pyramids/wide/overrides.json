@@ -25,10 +25,18 @@
  },
  "aa01-block-d": {
   "faces up": {
-   "c": -0.05
+   "c": 0.1
   },
   "nobody saw that": {
-   "c": -0.05
+   "c": 0.1
+  }
+ },
+ "aa01-c-day": {
+  "crane": {
+   "c": 0.1
+  },
+  "rest": {
+   "c": 0.1
   }
  }
 }
