@@ -69,7 +69,8 @@ function build(F, key) {
 
   if (key === "b1" || key === "b5") {
     set = { type: "plain", ...AT_UNDER };
-    props.push(host("spud", 1));
+    // b5 faces the lens in 22-24: a shorter beam, so its lit silt never drifts past the lens (one-frame pops in draft v1)
+    props.push(key === "b5" ? { ...host("spud", 1), reach: 2.0 } : host("spud", 1));
     props.push({ id: "seabed", kind: "atbseabed", x: SEA[0], y: 0, z: SEA[1], seed: 1 });
     props.push({ id: "schoolA", kind: "fish", type: "silver", n: 12, x: SEA[0], y: 0, z: SEA[1], path: [[-6, 2.6, -4], [-2, 3.0, -6], [3, 2.7, -5], [5, 2.4, -2], [1, 2.2, -1.5], [-4, 2.4, -2]], phase: 0.1, staged: "a school of silver fish swimming high over the sand" });
     props.push({ id: "schoolB", kind: "fish", type: "silver", n: 9, x: SEA[0], y: 0, z: SEA[1], path: { c: [2.5, 2.0, -7], r: 3.2 }, phase: 0.55, speed: 0.6, staged: "a second school swimming over the wreck" });
@@ -84,13 +85,15 @@ function build(F, key) {
     place(0, "spud", SP13, 70); A(0, "spud", "crouch", { to: 1, dur: 0.01 }); A(0, "spud", "pitch", { to: 14, dur: 0.01 });
     PR(0, "bub", { x: SP13[0], z: SP13[1] });
     PR(0, "spud-lamp", { lit: 0 }, 0); PR(0.32, "spud-lamp", { lit: 1 }, 0.08);
-    PR(0, "bars", { lamp: 0 }, 0); PR(0.36, "bars", { lamp: 1 }, 0.35, "out");
+    PR(0, "bars", { lamp: 0 }, 0); PR(0.36, "bars", { lamp: 1 }, 0.2, "out");
+    // the flash: the lamp's streak runs along the hero bar as his head comes round (the sheen sweeps the metal once)
+    PR(0, "bars", { lampX: -0.95 }, 0); PR(0.4, "bars", { lampX: -0.45 }, 0.7, "inOut");
     sfx(0.3, "kenney/switch", { gain: 0.5, reason: "the headlamp's switch clicks on" });
     look(0, "spud", [0.35, -0.55], 0.01); expr(0, "spud", "neutral", { brow: 0.55, lid: 0.3 }, 0.01);
     expr(0.5, "spud", "surprised", { open: 0.25 }, 0.18); look(1.15, "spud", [0, 0.05], 0.25);
     say("b1");
     cap(0, r3(T.s14 + 0.4), "2015", F.NUM + 80, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * (F.key === "tall" ? 0.5 : 0.7)) });
-    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, C(SEA, [1.35, 0.6, 2.95], [-0.1, 0.33, 0.2], 38, { pos: [1.2, 0.57, 2.6], dur: T.s14 - T.s13 }), "hook"]);
+    SH.push(["13 the lamp clicks on, the bar flashes", T.s13, C(SEA, [1.1, 0.5, 2.3], [0.28, 0.36, -0.01], 38, { pos: [0.95, 0.47, 2.0], dur: T.s14 - T.s13 }), "hook"]);
     // 14 (2.6-5.55): he stands by the hero bar; the wreck, the line of sand mounds -> "Clue two. 2015."
     A(L(T.s14) - 0.02, "spud", "crouch", { to: 0, dur: 0.01 }); A(L(T.s14) - 0.02, "spud", "pitch", { to: 0, dur: 0.01 });
     place(T.s14, "spud", SP14, -25); look(T.s14, "spud", [-0.3, -0.25], 0.01); expr(T.s14, "spud", "neutral", { brow: 0.7, lid: 0.25 }, 0.01);
@@ -168,14 +171,17 @@ function build(F, key) {
     arm(AT.b7a + 0.25, "R", { o: [0.06, 0.66, 0.2] }, 0.3, "out"); A(L(AT.b7a + 0.25), "spud", "grip", { side: "R", shape: "point", dur: 0.2 });
     arm(AT.b7b + 0.25, "L", { o: [0.06, 0.66, 0.2] }, 0.3, "out"); A(L(AT.b7b + 0.25), "spud", "grip", { side: "L", shape: "point", dur: 0.2 });
     arm(42.6, "R", "rest", 0.4, "inOut"); arm(42.62, "L", "rest", 0.4, "inOut");
-    cap(L(AT.b7a), L(T.s24 + 3.4), "REAL 1 · MADE UP 2", F.NUM + 80, false, { size: Math.round(F.numSize * 0.55), kinetic: false });
-    cap(L(AT.b7a + 0.3), L(AT.b7b + 0.2), "1", F.NUM + 200, false, { size: F.numSize, kinetic: false });
-    cap(L(AT.b7b + 0.3), L(42.6), "2", F.NUM + 200, false, { size: F.numSize, kinetic: false });
-    SH.push(["22-23 the ask", T.s22, C(SEA, [0, 0.72, -1.55], [0, 0.55, 0.5], 34, { pos: [0, 0.72, -1.4], dur: T.s24 - T.s22 })]);
-    // 24 (44.0-48.0): "I'll wait." He waits; a big silver fish swims past at eye height
+    // the texts sit above his head (captions never over the face): "1" over his raised right hand, "2" over the middle once both are up
+    const TALL = F.key === "tall", REALY = TALL ? F.NUM : F.NUM, DIGY = TALL ? F.NUM + 130 : F.NUM + 100, DIGS = Math.round(F.numSize * 0.85);
+    cap(L(AT.b7a), L(T.END), "REAL 1 · MADE UP 2", REALY, false, { size: Math.round(F.numSize * 0.55), kinetic: false });
+    cap(L(AT.b7a + 0.3), L(AT.b7b + 0.2), "1", DIGY, false, { size: DIGS, kinetic: false, x: Math.round(F.W * (TALL ? 0.38 : 0.42)) });
+    cap(L(AT.b7b + 0.3), L(42.6), "2", DIGY, false, { size: DIGS, kinetic: false });
+    // 22-24 (38.0-48.0) one slow push, no cut: the ask, then "I'll wait." and a big silver fish swims past behind him at eye height
     look(T.s24 + 0.9, "spud", [0.35, 0.05], 0.4); look(T.s24 + 2.6, "spud", [0, 0.05], 0.4);
     A(r3(L(T.END) - 0.6), "spud", "noblink", { dur: 0.6 });
-    SH.push(["24 I'll wait: the fish", T.s24, C(SEA, [0, 0.9, -3.2], [0, 0.65, 1.2], 40, { pos: [0, 0.9, -3.4], dur: T.END - T.s24 })]);
+    SH.push(["22-24 the ask, I'll wait: the fish", T.s22, TALL
+      ? C(SEA, [0, 0.7, -3.6], [0, 1.25, 0.5], 50, { pos: [0, 0.7, -3.3], dur: T.END - T.s22 })
+      : C(SEA, [0, 0.7, -3.0], [0, 1.02, 0.5], 34, { pos: [0, 0.7, -2.85], dur: T.END - T.s22 })]);
     sfx(L(T.s22), "ai/underwater-amb", { gain: 0.28, dur: r3(T.END - T.s22), reason: "under the sea" });
     sfx(L(T.s24 + 0.3), "ai/bubbles-burst", { gain: 0.12, reason: "his breath bubbles while he waits" });
   }
@@ -222,7 +228,7 @@ function build(F, key) {
     cast.find((x) => x.id === "spud").at = SP; cast.find((x) => x.id === "crew1").at = C1; cast.find((x) => x.id === "crew2").at = C2;
     place(T.s19, "spud", SP, 180); place(T.s19, "crew1", C1, 180); place(T.s19, "crew2", C2, 170);
     for (const [s0, dx] of [["R", 0.14], ["L", -0.14]]) c.arm(L(T.s19), "spud", s0, { prop: "noon", grip: [500 + 4.2 + dx, 0.66, -2.35], palm: [500 + 4.2 + dx, 0.61, -2.35] }, 0);
-    props.push({ id: "col", kind: "column", x: r3(BR[0] + 36.8), y: 2.2, z: r3(BR[1] - 80), dir: 8, fall: 0, splash: 0, light: "noon", staged: "the white column on the far quay by the water; it topples forward into the canal, toward us" });
+    props.push({ id: "col", kind: "column", x: r3(BR[0] + 36.8), y: 2.2, z: r3(BR[1] - 80), dir: 308, fall: 0, splash: 0, light: "noon", staged: "the white column on the far quay by the water; it topples forward into the canal, toward us" });
     for (const id of ["spud", "crew1", "crew2"]) look(T.s19, id, [0, 0.1], 0.01);
     say("b5a"); say("b5b");
     // the quake on "the ground began to shake": dust off the walls, the column topples, the splash
@@ -233,7 +239,10 @@ function build(F, key) {
     sfx(L(Q), "rumble", { gain: 0.5, reason: "the ground rumbles: the first quake" });
     sfx(L(Q + 1.38), "ai/water-gush", { gain: 0.45, reason: "the column crashes into the canal" });
     for (const [id, d] of [["crew1", 0.15], ["crew2", 0.3], ["spud", 0.4]]) { look(Q + d, id, [-0.35, 0.35], 0.25); expr(Q + d, id, "surprised", { open: 0.3 }, 0.2); }
-    SH.push(["19 noon on the bridge, the column falls", T.s19, { ...paint(BR, BP, BD, 38.1), to: paint(BR, BP, BD, 37, 0.7), dur: r3(T.s20 - T.s19), ease: "inOut" }]);
+    SH.push(["19 noon on the bridge", T.s19, { ...paint(BR, BP, BD, 38.1), to: paint(BR, BP, BD, 37.5, 0.4), dur: r3(Q - 0.1 - T.s19), ease: "inOut" }]);
+    // 19b the column falls, close: a long lens from the painter's spot (a crop of the painting, so the projection holds)
+    const colCam = (fov, dy) => ({ pos: [r3(BR[0] + BP[0]), BP[1], r3(BR[1] + BP[2])], look: [r3(BR[0] + 31.5), r3(6.5 + dy), r3(BR[1] - 76.5)], fov });
+    SH.push(["19b the column falls into the canal", Q - 0.1, { ...colCam(17, 0), to: colCam(15.5, -1.5), dur: r3(T.s20 - Q + 0.1), ease: "inOut" }]);
     for (const s0 of ["R", "L"]) c.arm(L(T.s20 - 0.45), "spud", s0, "rest", 0.35, "inOut");   // hands off the rail before he turns
     // 20 (28.7-31.2): they turn round to the citadel behind the deck and look up at it, mouths open
     for (const [id, yaw] of [["spud", -75], ["crew1", -80], ["crew2", -85]]) A(L(T.s20 - 0.02), id, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true });

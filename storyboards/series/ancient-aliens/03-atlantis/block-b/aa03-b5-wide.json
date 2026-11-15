@@ -85,7 +85,8 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "lit": 1
+   "lit": 1,
+   "reach": 2
   },
   {
    "id": "seabed",
@@ -435,9 +436,9 @@
   },
   {
    "from": 7.1,
-   "to": 16.2,
+   "to": 16.8,
    "text": "REAL 1 · MADE UP 2",
-   "pos": 330,
+   "pos": 250,
    "pop": false,
    "size": 66,
    "kinetic": false
@@ -446,18 +447,19 @@
    "from": 7.4,
    "to": 9.75,
    "text": "1",
-   "pos": 450,
+   "pos": 350,
    "pop": false,
-   "size": 120,
-   "kinetic": false
+   "size": 102,
+   "kinetic": false,
+   "x": 806
   },
   {
    "from": 9.85,
    "to": 11.4,
    "text": "2",
-   "pos": 450,
+   "pos": 350,
    "pop": false,
-   "size": 120,
+   "size": 102,
    "kinetic": false
   },
   {
@@ -2389,29 +2391,29 @@
    ]
   },
   {
-   "name": "22-23 the ask",
+   "name": "22-24 the ask, I'll wait: the fish",
    "at": 6.8,
-   "len": 6,
+   "len": 10,
    "shot": {
     "pos": [
      40000,
-     0.72,
-     -1.55
+     0.7,
+     -3
     ],
     "look": [
      40000,
-     0.55,
+     1.02,
      0.5
     ],
     "fov": 34,
     "to": {
      "pos": [
       40000,
-      0.72,
-      -1.4
+      0.7,
+      -2.85
      ]
     },
-    "dur": 6,
+    "dur": 10,
     "ease": "inOut"
    },
    "do": [
@@ -2549,41 +2551,12 @@
      "voice": "reaper",
      "caption": false,
      "at": 5.15
-    }
-   ]
-  },
-  {
-   "name": "24 I'll wait: the fish",
-   "at": 12.8,
-   "len": 4,
-   "shot": {
-    "pos": [
-     40000,
-     0.9,
-     -3.2
-    ],
-    "look": [
-     40000,
-     0.65,
-     1.2
-    ],
-    "fov": 40,
-    "to": {
-     "pos": [
-      40000,
-      0.9,
-      -3.4
-     ]
     },
-    "dur": 4,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "sfx": "ai/bubbles-burst",
      "gain": 0.12,
      "reason": "his breath bubbles while he waits",
-     "at": 0.3
+     "at": 6.3
     },
     {
      "who": "spud",
@@ -2594,7 +2567,7 @@
      ],
      "dur": 0.4,
      "blink": false,
-     "at": 0.9
+     "at": 6.9
     },
     {
      "who": "spud",
@@ -2605,13 +2578,13 @@
      ],
      "dur": 0.4,
      "blink": false,
-     "at": 2.6
+     "at": 8.6
     },
     {
      "who": "spud",
      "do": "noblink",
      "dur": 0.6,
-     "at": 3.4
+     "at": 9.4
     }
    ]
   }
