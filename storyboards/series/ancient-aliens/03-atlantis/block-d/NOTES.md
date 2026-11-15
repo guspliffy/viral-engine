@@ -12,3 +12,6 @@
 - Lessons: an overlay on a plate keeps showing after a plate swap (set dots 0 first). bloom/satsuei/ink/hatch/cel
   set keys made an orange haze in the room. A worn headlamp does not hide with its actor (keep the actor off camera).
   A swim from -2.4 back to the surface makes the engine splash: do it while the actor is hidden.
+- Finals 15 Nov (farm runs 43746007625 wide, 43746015819 tall): both checks PASS, no pops. Story time 150-200 (block B
+  is 48 s): T0 150, score(150) wide, partScore("d") tall. The quake shake on the hook is amp 0.22 (0.5 threw Spud out of
+  frame for one frame). Tall maps use a window of at most 576 plate px so the plate fills the frame.
