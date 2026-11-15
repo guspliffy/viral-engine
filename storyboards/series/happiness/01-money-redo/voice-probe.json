@@ -1,0 +1,178 @@
+{
+ "id": "voice-probe",
+ "title": "Money redo voice probe",
+ "idea": "narrator takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  250,
+  1360
+ ],
+ "cleanStart": true,
+ "set": {
+  "type": "env",
+  "env": "golden-city-crossing"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   48.6,
+   48.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 48.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     4
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Ten million dollars. Gone at sunset.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.3,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought the whole coffee cart.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 4.5
+    },
+    {
+     "macro": "narrate",
+     "line": "But at a dollar a second, ten million takes a hundred and fifteen days.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 6.9,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 9.25
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought big.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 17.15
+    },
+    {
+     "macro": "narrate",
+     "line": "His best friend stopped asking.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 20.55
+    },
+    {
+     "macro": "narrate",
+     "line": "One million left. One minute. One last buy.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 24.4
+    },
+    {
+     "macro": "narrate",
+     "line": "But up on the hill sat his best friend.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.65,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 29.6
+    },
+    {
+     "macro": "narrate",
+     "line": "He lost ten million dollars.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 35.25
+    },
+    {
+     "macro": "narrate",
+     "line": "But for one moment, he forgot all his worries.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.65,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 39.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Follow for the next question.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 44.75
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for the money redo: render only --from 0 --to 1 on the farm; the plan job makes every take."
+}
