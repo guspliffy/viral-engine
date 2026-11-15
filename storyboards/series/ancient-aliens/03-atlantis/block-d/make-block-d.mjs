@@ -27,11 +27,15 @@ const T0 = 154;   // story time of the block's first frame
 const TALL = process.argv.includes("--tall");
 
 // ---------------------------------------------------------------- places (BLOCKS.md / director: D owns PLACE 30-33)
-const O = { helike: PLACE(30), room: PLACE(31), hatch: PLACE(32), city: PLACE(33), night: PLACE(35) };
+// the room sits off the grid: its outside sky dome (r 8.9 km) showed as a pale wedge from the night sea 20 km away (far 16000)
+const O = { helike: PLACE(30), room: [100000, 100000], hatch: PLACE(32), city: PLACE(33), night: PLACE(35) };
+// panels 42-44 are builder D3b's `shipplate` (each plate projected from its own camera onto 3D); 43 and 44 reach 14 km, so each gets its own
+// spot off the place grid, 40 km from everything else in this clip (far 16000)
+const P42 = O.city, P43 = [-40000, O.city[1]], P44 = [-80000, O.city[1]];
 // props-at-d-ship.js header: Spud in the storm swell 2950 m out, 38 deg from +z toward +x (panel 42); the night sea of 41 and 46 is its own
 // place (the storm sky reaches 12 km), Spud 4042 m from the far ring's ground point
 const pol = (r, deg, y) => [r3(r * Math.sin(deg * Math.PI / 180)), y, r3(r * Math.cos(deg * Math.PI / 180))];
-const STORM_XZ = [r3(O.city[0] + pol(2950, 38)[0]), r3(O.city[1] + pol(2950, 38)[2])], NIGHT_XZ = [O.night[0] + 22, O.night[1] - 4042];
+const STORM_XZ = [P42[0] - 7, P42[1] + 4366], NIGHT_XZ = [O.night[0] + 22, O.night[1] - 4042];
 // the two maps are flat paper on the plain set (set-plate.js), hung at the world origin (no 3D place there)
 const MAP38 = "assets/plates/at-d-greece-map.png", MAP40 = "assets/plates/at-d-world-map.png";
 const PL = { src: MAP38, z: -2.2, center: [0, 1.6], height: 3.2, depth: false, motion: false, dust: 0, tint: "#ffffff" };
@@ -80,10 +84,11 @@ function build(F) {
   only("spudB", [[T.hatch, T.far]]); only("spudT", [[T.block, END]]); only("plato", [[T.room, T.map2], [T.tag, END]]);
   for (const id of ["foreman", "cA", "cB", "cC", "cD", "cE"]) only(id, [[T.hatch, T.far]]);
   // the city kinds share their params by place (props-at-d-ship.js): seed lightning on sea, storm, hull and whirl together, rise on city + hull
-  const CITY = ["cityS", "cityStorm", "hull", "whirl"];
+  const CITY = ["p42", "p43"];
   const bolt = (t, v, dur = 0.01) => CITY.forEach((id) => PR(t, id, { lightning: v }, dur));
-  const riseTo = (t, v, dur = 0.01, ease = "linear") => ["city", "hull"].forEach((id) => PR(t, id, { rise: v }, dur, ease));
-  set0(0.02, "city", { rise: 0, sea: 1, lightning: 0.3 }); set0(0.02, "hull", { rise: 0, falls: 0.3, beam: 0, lit: 0.6 }); bolt(0.02, 0.3); set0(0.02, "whirl", { spin: 0, calm: 0, show: 1 });
+  const riseTo = (t, v, dur = 0.01, ease = "linear") => ["p43", "h43"].forEach((id) => PR(t, id, { rise: v }, dur, ease));
+  bolt(0.02, 0.3); riseTo(0.02, 0.3); set0(0.02, "h43", { falls: 1, beam: 0, lit: 0.9 });
+  set0(0.02, "p44", { rise: 0.6, lightning: 0.3 }); set0(0.02, "h44", { rise: 0.6, falls: 1, beam: 1, lit: 1 });
   set0(0.02, "ring", { shrink: 0 }); set0(0.02, "nightS", { calm: 0.4 });
 
   // ---------------------------------------------------------------- cast: one actor per place (hidden elsewhere by the cut)
@@ -92,7 +97,7 @@ function build(F) {
     { id: "spudW", character: CAST.spud, at: [O.room[0] - 0.7, O.room[1] - 2.25], y: 0.62, face: 0, expr: "neutral", follow: 0.2, seed: 2.2 },      // at the window, outside
     { id: "plato", character: "ancient-aliens/plato", at: [O.room[0] + 0.66, O.room[1] - 1.35], face: 0, expr: "kind", follow: 0.2, seed: 4.1 },
     { id: "spudS", character: CAST.spud, at: NIGHT_XZ, y: -0.5, face: 0, expr: "neutral", follow: 0.2, seed: 2.3 },   // in the night sea (41, 46)
-    { id: "spudC", character: CAST.spud, at: STORM_XZ, y: -0.5, face: 218, expr: "neutral", follow: 0.2, seed: 2.6 },   // in the storm swell (42)
+    { id: "spudC", character: CAST.spud, at: STORM_XZ, y: -0.5, face: 180, expr: "neutral", follow: 0.2, seed: 2.6 },   // in the storm swell (42), 34 m in front of the plate camera, left
     { id: "spudB", character: CAST.spud, at: [O.hatch[0] - 2.2, O.hatch[1]], face: 321, expr: "neutral", follow: 0.2, seed: 2.4 },          // in the beam (flies)
     ...HATCH_CREW(),
     { id: "spudT", character: CAST.spud, at: [O.room[0] + 0.25, O.room[1] + 9], face: 0, expr: "neutral", follow: 0.2, seed: 2.5 },   // the tag, in front of the desk
@@ -104,12 +109,12 @@ function build(F) {
     // PLATO'S ROOM (panels 39, 47-48): kinds of builder D2, origin = the room's floor centre
     { id: "room", kind: "platoroom", x: O.room[0], y: 0, z: O.room[1], occ: [[0.66, 1.35, -1.3, 0.3]], staged: "Plato's room in Athens at night, the bronze lamp" },
     { id: "chair", kind: "klismos", x: O.room[0] + 0.66, y: 0, z: O.room[1] - 1.35, rot: 0 },
-    // THE CITY AT MIDNIGHT (panels 41-44, 46): the kit city at night + builder D3's hull, falls, beam, whirlpool, storm sky
-    { id: "city", kind: "atlantis", x: O.city[0], y: 0, z: O.city[1], light: "night", sea: 1, flood: false, mountains: false },
-    { id: "hull", kind: "shiphull", x: O.city[0], z: O.city[1] },
-    { id: "cityS", kind: "shipsea", x: O.city[0], z: O.city[1], calmAt: [r3(STORM_XZ[0] - O.city[0]), r3(STORM_XZ[1] - O.city[1]), 26] },
-    { id: "cityStorm", kind: "shipstorm", x: O.city[0], z: O.city[1] },
-    { id: "whirl", kind: "shipwhirl", x: O.city[0], z: O.city[1] },
+    // THE CITY AT MIDNIGHT (panels 42-44): builder D3b's plates projected onto 3D, plus live falls, spray and beam over 43/44
+    { id: "p42", kind: "shipplate", view: "42", x: P42[0], z: P42[1] },
+    { id: "p43", kind: "shipplate", view: "43", x: P43[0], z: P43[1] },
+    { id: "h43", kind: "shiphull", x: P43[0], z: P43[1], hull: false, liftK: 1.954, sprayK: 0.15, fallK: 0, beamK: 0.35 },
+    { id: "p44", kind: "shipplate", view: "44", x: P44[0], z: P44[1] },
+    { id: "h44", kind: "shiphull", x: P44[0], z: P44[1], hull: false, liftK: 1.954, sprayK: 0.15, fallK: 0, beamK: 0.35 },
     // THE NIGHT SEA (41, 46): stars, the calm swell, the far ring (the city, gone up)
     { id: "stars", kind: "shipstars", x: NIGHT_XZ[0], z: NIGHT_XZ[1], reach: 8500 },   // centred on Spud, inside far 9000 (a 12 km dome 4 km off-centre got cut by the far plane: hard-edged Milky Way in 41)
     { id: "nightS", kind: "shipsea", x: O.night[0], z: O.night[1], grade: "night", whirl: false, stars: 1, calmAt: [22, -4042, 24] },
@@ -181,13 +186,13 @@ function build(F) {
   sfx(T.storm, "ai/storm-lake", { gain: 0.3, dur: r3(T.under - T.storm), reason: "storm, rain and swell" });
 
   // ================================================================= 43 THE RISE (27.3-31.0): the rings lift out of the sea, falls, beam (no voice)
-  riseTo(T.rise + 0.2, 0.6, 3.6, "inOut"); PR(T.rise + 0.2, "hull", { falls: 1, lit: 0.9 }, 1.0, "out"); PR(T.rise + 1.6, "hull", { beam: 1 }, 1.2, "out");
-  PR(T.rise + 1.6, "whirl", { spin: 1 }, r3(T.hatch - T.rise - 1.6)); bolt(T.rise + 2.2, 1); bolt(T.rise + 2.27, 0.3);
+  riseTo(T.rise + 0.2, 0.6, 3.0, "inOut"); PR(T.rise + 1.6, "h43", { beam: 1 }, 1.2, "out");
+  bolt(T.rise + 2.2, 1); bolt(T.rise + 2.27, 0.3);
   sfx(T.rise, "kenney/space-engine-low", { gain: 0.3, dur: r3(T.under - T.rise + 3), reason: "a deep physical hum: the ship wakes" });
   sfx(T.rise + 0.4, "ai/water-gush", { gain: 0.55, dur: 3.3, reason: "the sea pouring off the rim" });
 
   // ================================================================= 44 IT DIDN'T SINK. IT LEFT. (31.0-34.3): under the hull
-  PR(T.under, "hull", { falls: 0.6, lit: 1 }, 3.0, "inOut");
+  PR(T.under, "h44", { falls: 0.7 }, 3.0, "inOut");
   say(T.under + 0.3, "d5a", T.under + 2.3);
   say(r3(T.under + 2.3), "d5b", T.hatch);
   sfx(T.under, "ai/water-gush", { gain: 0.35, dur: r3(T.hatch - T.under), reason: "water sheets off the hull" });
@@ -245,9 +250,9 @@ function build(F) {
     ["40 bigger than Libya and Asia", T.map2, { ...mapCam(800, 520, 1536, F), to: mapCam(760, 500, 1380, F), dur: r3(T.low - T.map2), ease: "inOut" }],
     ["41 the low", T.low, mv(F, NIGHT_XZ, V.l0, V.l1, r3(T.dive - T.low))],
     ["dive", T.dive, mv(F, NIGHT_XZ, V.l1, V.l2, r3(T.storm - T.dive))],
-    ["42 midnight: the city in the storm", T.storm, mv(F, O.city, V.c0, V.c1, r3(T.rise - T.storm))],
-    ["43 the city rises", T.rise, mv(F, O.city, V.r0, V.r1, r3(T.under - T.rise)), "reveal"],
-    ["44 under the hull", T.under, mv(F, O.city, V.u0, V.u1, r3(T.hatch - T.under))],
+    ["42 midnight: the city in the storm", T.storm, mv(F, P42, V.c0, V.c1, r3(T.rise - T.storm))],
+    ["43 the city rises", T.rise, mv(F, P43, V.r0, V.r1, r3(T.under - T.rise)), "reveal"],
+    ["44 under the hull", T.under, mv(F, P44, V.u0, V.u1, r3(T.hatch - T.under))],
     ["45a one seat left", T.hatch, mv(F, O.hatch, V.e0, V.e1, 1.6)],
     ["45 he stays", r3(T.hatch + 1.6), mv(F, O.hatch, V.h0, V.h1, r3(T.far - T.hatch - 1.6))],
     ["46 case closed", T.far, mv(F, NIGHT_XZ, V.f0, V.f1, r3(T.tag - T.far))],
@@ -296,12 +301,13 @@ function SHOTS_OF(F) {
     l1: { wide: at([1.25, 0.32, 2.3], [-0.4, 0.3, -2], 35), tall: at([0.9, 0.32, 2.5], [-0.2, 0.35, -2], 57) },
     l2: { wide: at([1.2, 0.3, 2.1], [-0.4, -0.2, -2], 35), tall: at([0.9, 0.3, 2.3], [-0.2, -0.1, -2], 57) },
     // the city (origin = citadel centre; props-at-d-ship.js header cameras 42, 43, 44)
-    c0: { wide: { ...at(pol(2962, 38.2, 2.1), pol(2497, 33, 52), 50), near: 0.3 }, tall: { ...at(pol(2962, 38.2, 2.1), pol(2497, 35, 70), 70), near: 0.3 } },
-    c1: { wide: { ...at(pol(2958, 38.1, 2.0), pol(2497, 33, 56), 48), near: 0.3 }, tall: { ...at(pol(2958, 38.1, 2.0), pol(2497, 35, 74), 68), near: 0.3 } },
-    r0: { wide: { ...at([200, 900, 6500], [0, 520, 0], 38), near: 5 }, tall: { ...at([200, 900, 6500], [0, 560, 0], 62), near: 5 } },
-    r1: { wide: { ...at([190, 880, 6200], [0, 600, 0], 38), near: 5 }, tall: { ...at([190, 880, 6200], [0, 640, 0], 62), near: 5 } },
-    u0: { wide: { ...at([-150, 8, 700], [400, 235, -900], 60), near: 1 }, tall: { ...at([-150, 8, 700], [300, 300, -900], 80), near: 1 } },
-    u1: { wide: { ...at([-130, 9, 620], [400, 240, -900], 58), near: 1 }, tall: { ...at([-130, 9, 620], [300, 305, -900], 78), near: 1 } },
+    // the city plates (D3b PLATE CAMERAS, relative to each plate's spot): the frame IS the painting, pushes are fov only
+    c0: { wide: { ...at([0, 8, 4400], [0, 128, 0], 40), near: 0.3 }, tall: { ...at([0, 8, 4400], [0, 128, 0], 40), near: 0.3 } },
+    c1: { wide: { ...at([0, 8, 4400], [0, 128, 0], 36), near: 0.3 }, tall: { ...at([0, 8, 4400], [0, 128, 0], 36), near: 0.3 } },
+    r0: { wide: { ...at([0, 2146.5, 11351.6], [0, 1149.6, 0], 14.8), near: 100 }, tall: { ...at([0, 2146.5, 11351.6], [0, 1149.6, 0], 14.8), near: 100 } },
+    r1: { wide: { ...at([0, 2146.5, 11351.6], [0, 1149.6, 0], 12.6), near: 100 }, tall: { ...at([0, 2146.5, 11351.6], [0, 1149.6, 0], 12.6), near: 100 } },
+    u0: { wide: { ...at([161.5, 7.4, 5243.9], [112.4, 97.3, 4624.1], 20), near: 20 }, tall: { ...at([161.5, 7.4, 5243.9], [112.4, 97.3, 4624.1], 20), near: 20 } },
+    u1: { wide: { ...at([161.5, 7.4, 5243.9], [112.4, 97.3, 4624.1], 17.5), near: 20 }, tall: { ...at([161.5, 7.4, 5243.9], [112.4, 97.3, 4624.1], 17.5), near: 20 } },
     // the hatch (origin = deck level at the hatch axis)
     e0: { wide: at([-0.2, 1.3, -0.9], [4.6, 0.8, 1.6], 50), tall: at([-0.2, 1.3, -0.9], [4.6, 0.8, 1.6], 70) },
     e1: { wide: at([-0.1, 1.3, -0.7], [4.6, 0.8, 1.6], 48), tall: at([-0.1, 1.3, -0.7], [4.6, 0.8, 1.6], 68) },
@@ -323,7 +329,7 @@ for (const F of TALL ? [FRAME.wide, FRAME.tall] : [FRAME.wide]) {
     id: `aa03-d-${F.key}`, title: "Where did Atlantis go? (block D)",
     idea: "Ancient aliens EP03 block D (2:34-3:24): Helike sank in one night in 373 BC while Plato was alive; Atlantis was far bigger, nothing sinks that in a day; the low at midnight; the ring city rises out of the sea as a ship ('It didn't sink. It left.'); one seat left, Spud stays ('Somebody had to tell you.'); 'Case closed.'; Plato winks",
     format: "series: Ancient aliens (Spud hosts with Reaper's voice, four numbered clues, the alien answer is the premise, the tag winks at the real one); EP03 block D of four, joined later",
-    ...F.sb(FAR.city), fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
+    ...F.sb(FAR.city), far: 16000, fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
     castLook: "sheet", cleanStart: true, motion: MOTION, rig: RIG, physics: false, loopIdle: false, animeTiming: true,
     sound: { signature: false, sfx: 0.65, ambience: 0.06, guard: true, scenes: ["scifi"] },
     ...b,

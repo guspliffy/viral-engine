@@ -22,6 +22,21 @@
 //  shipstars  panel 46 night sky dome: ~900 stars, Milky Way from upper left, horizon band. spec: n 900, band "#16264a", sky "#0a1024", reach 12000.
 //  shipring   panel 46 far ring: 24 warm lights #ffcf8a in a 4:1 ellipse with the city silhouette, glow, a beam thread below it.
 //             spec: width 1400, reach 12000. param: shrink 0 (1 = 0.04 of its size). Origin: x, z = the ring's place, y = its height.
+//  shipplate  D3b: plates 42, 43, 44 PROJECTED from their own cameras onto real 3D at their depths (sea, wall, city cards, hull, shells for the
+//             falls and the beam, a sky sphere). From the plate camera the frame IS the painting (rows top..top+864 of the 1536 x 1024 plate);
+//             a push of a few degrees keeps parallax (about 0.5-1 m of travel at view 42, hundreds of m at 43/44). The sea is a live wave mesh
+//             (the painting is looked up at each vertex's rest position, so it heaves), the whirlpool painting turns, glints come and go, the
+//             painted bolts show only while lightning > 0. spec: view "42" | "43" | "44" (default "42"), amp (sea swell, 1.0 / 1.2 / 0.4),
+//             wob 0.0016 (painted-water wobble), reach (the camera-following sea is drawn only within it of the place; 12000 / 20000), drop (y of the sea plane; 0 at 42, -250 at 43/44), hole (sea hole radius; 42: 2473).
+//             params: lightning 0 (clip: 1, then 0.3, then 0), rise (43, 44: 0..1, default 0.6; the painted disc lifts rise x 2490 m, 0.6 = the
+//             plate; the sky and sea behind it are a cleaned plate, assets/props/atlantis/d-plate-43-bg.webp), calm 0.
+//             ASSETS: assets/props/atlantis/d-plate-42.webp, d-plate-43.webp, d-plate-43-bg.webp, d-plate-44.webp (built from plates/plate-4x).
+//             PLATE CAMERAS (city coordinates, origin = the prop's x/z, y 0 = sea; add the prop's x, z): 42 pos (0, 8, 4400) look (0, 128, 0) fov 40
+//             near 0.3; 43 pos (0, 2146.5, 11351.6) look (0, 1149.6, 0) fov 14.8 near 100; 44 pos (161.5, 7.4, 5243.9) look (112.4, 97.3, 4624.1)
+//             fov 20 near 20. 43 and 44 reach 14 km: the storyboard needs far >= 16000 (the bench uses it). Pushes: change fov only (43: 14.8 -> 12.4).
+//             At 43/44 add shiphull with hull false, liftK 1.954 (its lift = the painted lift), sprayK 0.15, fallK 0, beamK 0.35 for live spray and a
+//             live beam over the painting; shiphull also takes these three keys (hull false hides the hull and weed, liftK scales rise, fallK /
+//             beamK / sprayK scale the live falls, beam, spray). Spud for 42 stands about 40 m in front of the camera, left, body below y 0.
 //
 // CAMERAS (relative to the city origin; z+ is the brass wall side, wide frame, far 9000, near 0.3-5, light AT_NIGHT):
 //  42  Spud's head at 2962 m, 38 deg from +z toward +x, y 2.1 (cast at y -0.5, body below water), looking at (2497 m, 33 deg, y 52): fov 50, near 0.3.
@@ -885,16 +900,16 @@ function hullKind(P) {
   return {
     grip: 0,
     apply(ps, t) {
-      const rise = clamp(num(ps, S, "rise")), H = riseY(rise), lg = clamp(num(ps, S, "lightning")), L = linkOf(ps.x, ps.z), fl = clamp(num(ps, S, "falls")), bm = clamp(num(ps, S, "beam"));
+      const rise = clamp(num(ps, S, "rise")), H = riseY(rise) * (S.liftK ?? 1), lg = clamp(num(ps, S, "lightning")), L = linkOf(ps.x, ps.z), fl = clamp(num(ps, S, "falls")), bm = clamp(num(ps, S, "beam"));
       const lit = ps.lit > 0 ? ps.lit : S.lit ?? 0.6;
       hullG.position.y = H; U.uTime.value = t ?? 0; U.uFlash.value = lg; U.uLit.value = clamp(lit); U.uBeam.value = sstep(0, 1, bm); U.uH.value = H; U.uOrigin.value.set(ps.x, ps.z);
       const bl = L.bolts || DEFAULT_BOLTS.map(([x, z, top, bot]) => new THREE.Vector3(x, (top + bot) * 0.5, z));
       for (let i = 0; i < 3; i++) U.uBoltL.value[i].set(bl[i % bl.length].x, bl[i % bl.length].y - H, bl[i % bl.length].z);
       L.H = H; L.hullOn = true; L.beam = U.uBeam.value; L.lit = clamp(lit); L.falls = sstep(0, 1, fl);
-      hullG.visible = H > 3;
+      hullG.visible = H > 3 && S.hull !== false;
       updateFalls(H, fl); updateBeam(H, bm);
-      FU.uAlpha.value = fl > 0.003 ? 1 : 0; fallMesh.visible = fl > 0.003; sprayMesh.visible = fl > 0.003 && H > 12; PU.uAlpha.value = 1;
-      const bv = U.uBeam.value > 0.004 && H + yPort > 8; beamMesh.visible = bv; boilMesh.visible = bv; BU.uA.value = U.uBeam.value;
+      FU.uAlpha.value = fl > 0.003 ? (S.fallK ?? 1) : 0; fallMesh.visible = fl > 0.003; sprayMesh.visible = fl > 0.003 && H > 12; PU.uAlpha.value = S.sprayK ?? 1;
+      const bv = U.uBeam.value > 0.004 && H + yPort > 8; beamMesh.visible = bv; boilMesh.visible = bv; BU.uA.value = U.uBeam.value * (S.beamK ?? 1);
     },
   };
 }
@@ -913,12 +928,15 @@ void main() {
   float b = dot(d, uMWn);
   float al = atan(dot(d, uMWt), dot(d, cross(uMWn, uMWt)));
   float band = exp(-pow(b / 0.17, 2.0)), core = exp(-pow(b / 0.07, 2.0));
-  vec2 mq = vec2(al * 6.0, b * 22.0);
-  float cl = fbm5(mq + 4.0), cl2 = fbm4(mq * 2.3 + 11.0);
-  float lane = smoothstep(0.52, 0.72, fbm4(vec2(al * 9.0 + 3.0, b * 34.0)));
+  // the angle wraps at +-PI: every noise lookup is cross-faded with the one a full turn away over 0.7 rad, so no seam shows
+  float wk = smoothstep(0.0, 0.7, al + PI);
+  float cl = mix(fbm5(vec2((al + TAU) * 6.0, b * 22.0) + 4.0), fbm5(vec2(al * 6.0, b * 22.0) + 4.0), wk);
+  float cl2 = mix(fbm4(vec2((al + TAU) * 6.0, b * 22.0) * 2.3 + 11.0), fbm4(vec2(al * 6.0, b * 22.0) * 2.3 + 11.0), wk);
+  float lane = smoothstep(0.52, 0.72, mix(fbm4(vec2((al + TAU) * 9.0 + 3.0, b * 34.0)), fbm4(vec2(al * 9.0 + 3.0, b * 34.0)), wk));
+  vec2 mq = vec2(al * 6.0, b * 22.0); float mq3 = mix(fbm4(vec2((al + TAU) * 6.0, b * 22.0) * 1.4 + 31.0), fbm4(mq * 1.4 + 31.0), wk);
   vec3 mw = mix(vec3(0.07, 0.11, 0.26), vec3(0.34, 0.36, 0.62), smoothstep(0.3, 0.75, cl));
   mw = mix(mw, vec3(0.62, 0.55, 0.62), core * smoothstep(0.5, 0.8, cl2) * 0.55);
-  mw = mix(mw, vec3(0.5, 0.42, 0.34), smoothstep(0.62, 0.85, fbm4(mq * 1.4 + 31.0)) * core * 0.4);
+  mw = mix(mw, vec3(0.5, 0.42, 0.34), smoothstep(0.62, 0.85, mq3) * core * 0.4);
   float mwA = band * (0.35 + 0.65 * smoothstep(0.25, 0.7, cl)) * (1.0 - 0.7 * lane * core) * smoothstep(0.0, 0.08, e);
   col += mw * mwA * 0.62;
   // grain: tiny suns inside the band and a few outside
@@ -1030,4 +1048,184 @@ const WHIRL = {
   },
   shiphull: hullKind,
 };
-export const AT_D_SHIP_KINDS = { ...SEA, ...SKY, ...WHIRL, ...STARS };
+
+// ================================================================================================================ shipplate: plates 42, 43, 44 projected from their own cameras onto real surfaces (D3b)
+// Pattern of props-at-far.js `projector` (copied, not imported: it is not exported) and props-at-city.js spec.plate: the painting is PROJECTED
+// as light from its camera onto 3D pieces at their depths, so from that camera the frame IS the plate (rows top..top+864 of the 1536 x 1024
+// painting) and a push of a few degrees keeps real parallax. The sea is a live wave mesh whose vertices move while the painting is looked up at
+// the vertex's REST position, so the painted waves heave with the swell; the whirlpool's painting turns about the axis.
+const PLATE_D = {
+  "42": { src: "assets/props/atlantis/d-plate-42.webp", pos: [0, 8, 4400], look: [0, 128, 0], fov: 40, top: 100, near: 0.3 },
+  "43": { src: "assets/props/atlantis/d-plate-43.webp", bg: "assets/props/atlantis/d-plate-43-bg.webp", pos: [0, 2146.5, 11351.6], look: [0, 1149.6, 0], fov: 14.8, top: 0, near: 100 },
+  "44": { src: "assets/props/atlantis/d-plate-44.webp", pos: [161.5, 7.4, 5243.9], look: [112.4, 97.3, 4624.1], fov: 20, top: 0, near: 20 },
+};
+const LIFT_P = 1494, LIFT_K = LIFT_P / (0.6 * RISE_Y);   // rise 0.6 = the plate's lift; the painted disc rises rise x 1274.25 x LIFT_K
+function projD(D) {
+  const cam = new THREE.PerspectiveCamera(D.fov, 16 / 9, 1, 60000), C = new THREE.Vector3(...D.pos); cam.position.copy(C); cam.lookAt(...D.look); cam.updateMatrixWorld(true); cam.updateProjectionMatrix();
+  const M = new THREE.Matrix4().multiplyMatrices(cam.projectionMatrix, cam.matrixWorldInverse);
+  const ray = (px, py) => new THREE.Vector3((px / 1536) * 2 - 1, 1 - (2 * (py - D.top)) / 864, 0.5).unproject(cam).sub(C).normalize(), at = (d, t) => (t > 0 && Number.isFinite(t) ? [C.x + d.x * t, C.y + d.y * t, C.z + d.z * t] : null);
+  return {
+    M, C, cam,
+    row(P) { const v = new THREE.Vector3(...P).project(cam); return D.top + (0.5 - v.y * 0.5) * 864; },
+    cyl(px, py, r) { const d = ray(px, py), a = d.x * d.x + d.z * d.z, b = 2 * (C.x * d.x + C.z * d.z), c = C.x * C.x + C.z * C.z - r * r, q = b * b - 4 * a * c; if (q < 0) return at(d, -b / (2 * a)); const sq = Math.sqrt(q); return at(d, c > 0 ? (-b - sq) / (2 * a) : (-b + sq) / (2 * a)); },
+    ground(px, py, y) { const d = ray(px, py); return at(d, (y - C.y) / d.y); },
+    planeZ(px, py, z) { const d = ray(px, py); return at(d, (z - C.z) / d.z); },
+  };
+}
+const polyYd = (pts, x) => { if (x <= pts[0][0]) return pts[0][1]; for (let i = 0; i < pts.length - 1; i++) if (x <= pts[i + 1][0]) return lerp(pts[i][1], pts[i + 1][1], (x - pts[i][0]) / (pts[i + 1][0] - pts[i][0] || 1)); return pts[pts.length - 1][1]; };
+class PG {   // positions, a per-vertex alpha and a sky weight
+  constructor() { this.p = []; this.a = []; this.s = []; this.i = []; }
+  v(pt, a, s) { this.p.push(pt[0], pt[1], pt[2]); this.a.push(a); this.s.push(s); return this.p.length / 3 - 1; }
+  quad(A, B, C, D, al, sk = 0) { const i = this.v(A, al[0], sk); this.v(B, al[1], sk); this.v(C, al[2], sk); this.v(D, al[3], sk); this.i.push(i, i + 1, i + 2, i, i + 2, i + 3); }
+  geo() { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(this.p, 3)); g.setAttribute("aA", new THREE.Float32BufferAttribute(this.a, 1)); g.setAttribute("aS", new THREE.Float32BufferAttribute(this.s, 1)); g.setIndex(this.i); return g; }
+}
+// a cut-out: columns x0..x1 of the plate, from a top silhouette (a row or a polyline) down to the row bot, each corner carried along its ray to the surface hit(px, py)
+function cutout(G, hit, x0, x1, top, bot, o = {}) {
+  const nx = o.nx || Math.max(2, Math.round((x1 - x0) / 22)), fe = o.feather ?? 14, yT = (x) => (typeof top === "number" ? top : polyYd(top, x));
+  for (let i = 0; i < nx; i++) {
+    const xa = lerp(x0, x1, i / nx), xb = lerp(x0, x1, (i + 1) / nx), ra = [yT(xa) - fe / 2, yT(xa) + fe / 2, bot], rb = [yT(xb) - fe / 2, yT(xb) + fe / 2, bot], al = [0, 1, 1];
+    for (let k = 0; k < 2; k++) { const P4 = [hit(xa, ra[k + 1]), hit(xb, rb[k + 1]), hit(xb, rb[k]), hit(xa, ra[k])]; if (P4.some((p) => !p)) continue; G.quad(P4[0], P4[1], P4[2], P4[3], [al[k + 1], al[k + 1], al[k], al[k]], o.sky || 0); }
+  }
+}
+function withAttr(geo, a = 1, s = 0) { const n = geo.attributes.position.count; geo.setAttribute("aA", new THREE.Float32BufferAttribute(new Float32Array(n).fill(a), 1)); geo.setAttribute("aS", new THREE.Float32BufferAttribute(new Float32Array(n).fill(s), 1)); return geo; }
+const PJ_V = `
+attribute float aA; attribute float aS; uniform mat4 uProjM; uniform vec3 uProjO;
+varying vec4 vPj; varying float vA; varying float vS; varying vec3 vW;
+void main() { vA = aA; vS = aS; vec4 wp = modelMatrix * vec4(position, 1.0); vW = wp.xyz; vPj = uProjM * vec4(wp.xyz - uProjO, 1.0);
+  gl_Position = projectionMatrix * viewMatrix * wp;
+  #ifdef PIN
+    gl_Position.z = min(gl_Position.z, gl_Position.w * 0.9999);
+  #endif
+}`;
+const PJ_LOOK = `
+uniform sampler2D uT; uniform float uTop, uLg, uK, uTime, uClipY, uAmt;
+vec2 plateUV(vec4 pj) { vec3 q = pj.xyz / max(pj.w, 1e-4); float vi = uTop / 1024.0 + (1.0 - q.y) * 0.5 * 864.0 / 1024.0; return vec2(q.x * 0.5 + 0.5, 1.0 - vi); }
+// the flash: the plate's bolts only show while lightning > 0 (a blurred copy stands in for them otherwise); clouds and city lift with it
+vec3 plateLit(vec2 puv, float sky, float wet) {
+  vec3 c = texture2D(uT, puv).rgb, bl = texture2D(uT, puv, 6.0).rgb;
+  float lum = dot(c, vec3(0.333));
+  c = mix(c, min(c, bl * 1.1), (1.0 - uLg) * sky * smoothstep(0.5, 0.75, lum));
+  c *= 0.64 + uLg * (0.88 + 1.0 * sky * smoothstep(0.08, 0.4, lum));
+  c += uLg * vec3(0.05, 0.075, 0.16) * (0.3 + sky);
+  return c;
+}`;
+const PJ_F = GL_COMMON + PJ_LOOK + `
+varying vec4 vPj; varying float vA; varying float vS; varying vec3 vW;
+void main() {
+  if (vW.y > uClipY) discard;
+  #if MASK == 9
+    gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0); return;
+  #endif
+  vec2 puv = plateUV(vPj); vec3 c = plateLit(puv, vS, 0.0); float a = vA * uK;
+  #if MASK == 1
+    float m = smoothstep(0.1, 0.3, c.b - c.r) * smoothstep(0.62, 0.82, min(c.g, c.b) + 0.4 * uLg);   // water (blue-white), not the warm ceramic
+    a *= m;
+  #elif MASK == 3
+    a *= smoothstep(0.2, 0.34, dot(c, vec3(0.333)) + 0.6 * max(c.r - c.b, 0.0));                        // the city against the painted sky
+  #elif MASK == 2
+    a *= smoothstep(0.08, 0.3, c.g - c.r) * smoothstep(0.25, 0.5, c.g);                                // the turquoise beam
+  #endif
+  if (a < 0.01) discard;
+  gl_FragColor = vec4(c, a);
+  #include <colorspace_fragment>
+}`;
+const PSEA_V = GL_COMMON + SEA_WAVES + `
+uniform float uExtent, uBase, uWk, uReach; varying vec3 vW; varying float vH;
+void main() { vec2 c = cameraPosition.xz; vec2 xz = c + position.xz * uExtent; float d = length(position.xz) * uExtent;
+  float h, hl; vec2 g; waves(xz - uOrigin, 0.07 * d + 0.1, h, g, hl);
+  vec3 p = vec3(xz.x, uBase + h * uWk, xz.y); vW = p; vH = h; gl_Position = projectionMatrix * viewMatrix * vec4(p, 1.0);
+  // the sea follows the camera: away from this plate's place (another place in the same clip) it is not drawn
+  if (distance(c, uOrigin) > uReach) gl_Position = vec4(0.0, 0.0, 2.0, 1.0); }`;
+const PSEA_F = GL_COMMON + PJ_LOOK + `
+uniform mat4 uProjM; uniform vec3 uProjO; uniform vec2 uOrigin; uniform float uBase, uHole, uSpin, uWob, uWk, uAmpN;
+varying vec3 vW; varying float vH;
+void main() {
+  vec2 pl = vW.xz - uOrigin; float rr = length(pl); if (rr < uHole) discard;
+  float sw = uSpin * (1.0 - smoothstep(0.0, 1250.0, rr)); float cs = cos(sw), sn = sin(sw);
+  vec2 q2 = uOrigin + vec2(cs * pl.x - sn * pl.y, sn * pl.x + cs * pl.y);
+  vec4 pj = uProjM * vec4(vec3(q2.x, uBase, q2.y) - uProjO, 1.0);
+  vec2 puv = plateUV(pj);
+  puv += uWob * vec2(sin(vW.z * 0.05 + uTime * 1.3 + vW.x * 0.013), 0.6 * sin(vW.x * 0.045 - uTime * 1.1));
+  vec3 c = plateLit(puv, 0.0, 1.0);
+  c *= 1.0 + 0.16 * clamp(vH * uWk / uAmpN, -1.0, 1.0);
+  // glints that come and go on the heaving water (storm light only)
+  vec2 gq = vW.xz * 0.9, cell = floor(gq); float dotm = smoothstep(0.42, 0.1, length(fract(gq) - 0.5)); float tw = h21(cell), ph = fract(tw * 7.0 + uTime * (0.35 + 0.5 * tw));
+  c += vec3(0.7, 0.82, 1.0) * step(0.93, tw) * smoothstep(0.0, 0.25, ph) * (1.0 - smoothstep(0.3, 0.6, ph)) * (0.1 + 0.5 * uLg) * dotm * uAmt;
+  gl_FragColor = vec4(c, 1.0);
+  #include <colorspace_fragment>
+}`;
+const hullProfile = () => { const pts = [[0, -RIM_H - BOWL]]; for (let r = 40; r < R; r += 80) pts.push([r, bowlY(r)]); pts.push([R, -RIM_H], [R + 4, -RIM_H], [R + 4, 0]); return pts.map(([r, y]) => new THREE.Vector2(r, y)); };
+const PLATE = {
+  shipplate(P) {
+    const S = P.spec, key = PLATE_D[S.view] ? S.view : "42", D = PLATE_D[key], PJ = projD(D), root = new THREE.Group(); P.whole.add(root);
+    const rootL = new THREE.Group(); root.add(rootL);   // the painted disc: rises with `rise`
+    const tex = new THREE.DataTexture(new Uint8Array([20, 28, 52, 255]), 1, 1);  tex.needsUpdate = true;
+    let loaded = 0;
+    const loadTex = (src, bg) => (globalThis.__loads ||= []).push(new THREE.TextureLoader().loadAsync("/" + src).then((t) => { t.colorSpace = THREE.SRGBColorSpace; t.wrapS = THREE.MirroredRepeatWrapping; t.wrapT = THREE.ClampToEdgeWrapping; t.anisotropy = 8; for (const u of ALLU) if (!D.bg || !!u.bg === bg) u.uT.value = t; }));
+    if (typeof Image !== "undefined") { loadTex(D.src, false); if (D.bg) loadTex(D.bg, true); }
+    const ALLU = [];
+    const mk = (geo, o = {}) => {
+      const U = { uT: { value: tex }, uProjM: { value: PJ.M }, uProjO: { value: new THREE.Vector3() }, uTop: { value: D.top }, uLg: { value: 0 }, uK: { value: 1 }, uTime: { value: 0 }, uClipY: { value: 1e9 }, uAmt: { value: 1 } }; U.bg = !!o.bg; ALLU.push(U);
+      const m = noLine(new THREE.ShaderMaterial({ uniforms: U, defines: o.pin ? { MASK: o.mask || 0, PIN: 1 } : { MASK: o.mask || 0 }, vertexShader: PJ_V, fragmentShader: PJ_F, side: THREE.DoubleSide, transparent: !!o.alpha, depthWrite: o.depthWrite ?? !o.alpha, fog: false }));
+      const mesh = mark(new THREE.Mesh(geo, m), o.order ?? 0); (o.lift ? rootL : root).add(mesh); mesh.userData.U = U; return mesh;
+    };
+    const dist0 = Math.hypot(...D.pos), SKY_R = dist0 + 14000;
+    // the sky: a sphere about the plate's camera, far beyond everything (depth pinned to the far plane)
+    { const g = new THREE.SphereGeometry(SKY_R, 48, 32); g.translate(...D.pos); mk(withAttr(g, 1, 1), { order: -10, bg: true, pin: true }); }
+    const meshes = [], seaU = [];
+    // ---- the sea: a live wave mesh round the camera, the painting looked up at the vertex's rest position
+    {
+      const w = (S.wob ?? (key === "42" ? 0.0016 : 0.0007));
+      const U = {
+        uT: { value: tex }, uProjM: { value: PJ.M }, uProjO: { value: new THREE.Vector3() }, uTop: { value: D.top }, uLg: { value: 0 }, uK: { value: 1 }, uTime: { value: 0 }, uClipY: { value: 1e9 }, uAmt: { value: key === "42" ? 1 : 0.4 },
+        uAmp: { value: S.amp ?? (key === "42" ? 1.0 : key === "43" ? 1.2 : 0.4) }, uCalm: { value: 0 }, uCalmAt: { value: new THREE.Vector3() }, uOrigin: { value: new THREE.Vector2() }, uWhirl: { value: new THREE.Vector4(0, 0, 0, 1) }, uShow: { value: 0 },
+        uExtent: { value: key === "42" ? 9000 : 26000 }, uReach: { value: S.reach ?? (key === "42" ? 12000 : 20000) }, uBase: { value: 0 }, uWk: { value: 1 }, uHole: { value: S.hole ?? (key === "42" ? R - 24 : 0) }, uSpin: { value: 0 }, uWob: { value: w }, uAmpN: { value: key === "42" ? 3 : 40 },
+      }; U.bg = true; ALLU.push(U);
+      const m = noLine(new THREE.ShaderMaterial({ uniforms: U, vertexShader: PSEA_V, fragmentShader: PSEA_F, side: THREE.DoubleSide, fog: false }));
+      const mesh = mark(new THREE.Mesh(seaGeo(150, 220), m), 1); root.add(mesh); mesh.userData.sea = U; seaU.push(U);
+    }
+    // ---- per view
+    if (key === "42") {
+      const hit = (r) => (x, y) => PJ.cyl(x, y, r);
+      const lay = (r, top, bot, i, o = {}) => { const G = new PG(); cutout(G, hit(r), -500, 2036, top, bot, { nx: 110, ...o }); mk(G.geo(), { alpha: true, depthWrite: false, order: 2 + i }); };
+      lay(900, [[-500, 330], [0, 330], [300, 318], [480, 300], [560, 262], [585, 250], [620, 262], [660, 246], [700, 236], [720, 215], [745, 215], [755, 205], [770, 185], [775, 168], [800, 160], [848, 128], [850, 165], [900, 175], [925, 168], [935, 185], [945, 205], [960, 235], [1000, 262], [1060, 285], [1180, 300], [1300, 310], [1536, 320], [2036, 320]], 520, 0, { feather: 10 });
+      lay(2000, [[-500, 340], [0, 335], [60, 315], [120, 300], [190, 290], [300, 285], [340, 295], [460, 285], [560, 300], [680, 325], [740, 330], [900, 325], [1040, 300], [1100, 292], [1190, 265], [1230, 275], [1300, 290], [1400, 285], [1500, 285], [1536, 290], [2036, 300]], 530, 1, { feather: 14 });
+      const wallTop = [[-500, 440], [0, 440], [100, 460], [200, 465], [400, 468], [700, 472], [1000, 470], [1536, 458], [2036, 455]];
+      lay(2497, wallTop, 640, 2, { feather: 8 });
+      for (const t of [[110, 195, 398], [405, 500, 410], [1010, 1098, 415], [1346, 1432, 404]]) { const G = new PG(); cutout(G, (x, y) => PJ.cyl(x, y, 2497 - 0.6), t[0], t[1], t[2], 640, { nx: 8, feather: 6 }); mk(G.geo(), { alpha: true, depthWrite: false, order: 6 }); }
+    } else {
+      // the disc, in local coordinates of the rising group: local y 0 = the rim top (world y = lift)
+      const lathe = new THREE.LatheGeometry(hullProfile(), 160); mk(withAttr(lathe), { lift: true, order: 1 });
+      const wall = new THREE.CylinderGeometry(R, R, 190, 160, 1, true); wall.translate(0, 95, 0); mk(withAttr(wall), { lift: true, order: 1 });
+      const deck = new THREE.CircleGeometry(R - 8, 96); deck.rotateX(-Math.PI / 2); deck.translate(0, 60, 0); mk(withAttr(deck), { lift: true, order: 1 });
+      // the city above the deck: upright cards at their depths (the painted rings and the hill/temple), carried by the rising group
+      const city = [[-500, 345], [90, 345], [125, 288], [190, 240], [275, 185], [400, 132], [540, 104], [700, 92], [770, 80], [800, 55], [890, 30], [985, 24], [1075, 40], [1130, 90], [1180, 120], [1290, 150], [1400, 200], [1500, 250], [1515, 300], [2036, 300]];
+      const card = (z, top, bot, x0, x1, i, fe) => { const G = new PG(); cutout(G, (x, y) => { const q = PJ.planeZ(x, y, z); return q && [q[0], q[1] - LIFT_P, q[2]]; }, x0, x1, top, bot, { nx: 90, feather: fe }); mk(G.geo(), { lift: true, alpha: true, depthWrite: true, order: 1 + i }); };
+      card(-1500, city, 420, -500, 2036, 0, 10);
+      card(-250, [[600, 300], [700, 170], [770, 100], [800, 60], [890, 36], [985, 28], [1075, 44], [1130, 96], [1190, 160], [1300, 300]], 330, 600, 1300, 1, 12);
+      // the painted falls and the beam: cut out by colour from shells, in front of the hull and the sea
+      const shell = new THREE.CylinderGeometry(R + 70, R + 70, 2 * LIFT_P * 1.7, 160, 1, true); shell.translate(0, LIFT_P * 1.7 - 1500, 0); const falls = mk(withAttr(shell), { mask: 1, alpha: true, depthWrite: false, order: 5 }); falls.userData.shell = true;
+      const bcone = new THREE.CylinderGeometry(BEAM_R * (key === "44" ? 1.0 : 1.0), BEAM_R * (key === "44" ? 1.6 : 1.1), LIFT_P + 1500, 64, 1, true); bcone.translate(0, (LIFT_P - 1500) / 2, 0); const beam = mk(withAttr(bcone), { mask: 2, alpha: true, depthWrite: false, order: 6 }); beam.userData.beam = true;
+    }
+    const lifted = key !== "42";
+    return {
+      grip: 0,
+      apply(ps, t) {
+        const rise = clamp(num(ps, S, "rise", key === "42" ? 0 : 0.6)), lift = rise * RISE_Y * LIFT_K, lg = clamp(num(ps, S, "lightning")), tt = t ?? 0, calm = clamp(num(ps, S, "calm"));
+        const O = new THREE.Vector3(ps.x, ps.y, ps.z);
+        const L = linkOf(ps.x, ps.z); L.H = lift; L.lgPlate = lg;
+        rootL.position.y = ps.y + lift - ps.y + (lifted ? 0 : 0); rootL.position.y = lift;
+        root.traverse((o) => {
+          const U = o.userData.U; if (!U) return;
+          U.uProjO.value.copy(O); if (o.parent === rootL) U.uProjO.value.y += lift - LIFT_P;
+          U.uLg.value = lg; U.uTime.value = tt;
+          if (o.userData.shell) U.uClipY.value = ps.y + lift - 4;
+          if (o.userData.beam) { U.uClipY.value = ps.y + lift - 650 + 20; }
+        });
+        for (const U of seaU) { U.uProjO.value.copy(O); U.uLg.value = lg; U.uTime.value = tt; U.uOrigin.value.set(ps.x, ps.z); U.uBase.value = ps.y + (S.drop ?? (key === "42" ? 0 : -250)); U.uCalm.value = calm; U.uSpin.value = num(ps, S, "spin") * 0 + tt * 0.22; U.uWk.value = 1 - 0.7 * calm; }
+      },
+    };
+  },
+};
+
+export const AT_D_SHIP_KINDS = { ...SEA, ...SKY, ...WHIRL, ...STARS, ...PLATE };

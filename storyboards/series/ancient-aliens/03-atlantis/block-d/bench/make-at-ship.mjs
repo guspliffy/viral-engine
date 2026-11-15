@@ -10,7 +10,7 @@
 import { clip, write, r3 } from "../../../../../lib/clip.mjs";
 import { AT_NIGHT } from "../../kit/at-kit.mjs";
 
-const NAMES = ["A", "A2", "B", "B2", "B3", "C", "C2", "C3", "D", "D2"];
+const NAMES = ["A", "A2", "B", "B2", "B3", "C", "C2", "C3", "D", "D2", "E", "P42", "P42b", "P42p", "P43", "P43m", "P43p", "P44", "P44p"];
 const want = (process.argv[2] || NAMES.join(",")).split(","), on = (g) => want.includes(g);
 const GX = 40000, GR = 80000;
 const pol = (r, deg, y = 0) => [r3(GX + r * Math.sin(deg * Math.PI / 180)), y, r3(r * Math.cos(deg * Math.PI / 180))];   // x, y, z at radius r, deg from +z toward +x   // the city place, the night-sea place of panel 46
@@ -24,7 +24,8 @@ let T = 0;
 const shot = (name, label, camera, set) => { T = r3(0.1 + SHOTS.length * 1.0); SHOTS.push([name, T, camera, label]); if (set) set(T); };
 const seed = (t, ids, o) => ids.forEach((id) => c.prop(t, id, o, 0));
 
-const needCity = ["A", "A2", "B", "B2", "B3", "C", "C2", "C3"].some(on), needRing = on("D") || on("D2");
+const PL = ["P42", "P42b", "P42p", "P43", "P43m", "P43p", "P44", "P44p"], needPlate = PL.some(on);
+const needCity = ["A", "A2", "B", "B2", "B3", "C", "C2", "C3"].some(on), needRing = on("D") || on("D2") || on("E");
 if (needCity) {
   props.push({ id: "city", kind: "atlantis", x: GX, z: 0, light: "night", sea: 1, flood: false, mountains: false });
   props.push({ id: "hull", kind: "shiphull", x: GX, z: 0 }, { id: "sea", kind: "shipsea", x: GX, z: 0, calmAt: [pol(2950, 38)[0] - GX, pol(2950, 38)[2], 16] }, { id: "storm", kind: "shipstorm", x: GX, z: 0 });
@@ -40,11 +41,34 @@ if (needCity) {
   if (on("C3")) shot("C3", "C3 close under a lens", cam([GX + 150, 12, -800], [GX + 195, 231, -1107], 60, 1), (t) => lg(t, 0.3, 0.6, { falls: 0.8, beam: 1, lit: 1 }));
   if (on("C2")) shot("C2", "C2 the same at lightning 1", cam([GX - 150, 8, 700], [GX + 400, 235, -900], 60, 1), (t) => lg(t, 1, 0.6, { falls: 0.8, beam: 1, lit: 1 }));
 }
+if (needPlate) {
+  // D3b: the painted scenes. Camera = the plate's camera (city coordinates, origin GX), rows top..top+864; "p" shots push in about 6 deg of fov.
+  const pc = (pos, look, fov, near) => cam([GX + pos[0], pos[1], pos[2]], [GX + look[0], look[1], look[2]], fov, near);
+  const C42 = [[0, 8, 4400], [0, 128, 0], 40, 0.3], C43 = [[0, 2146.5, 11351.6], [0, 1149.6, 0], 14.8, 100], C44 = [[161.5, 7.4, 5243.9], [112.4, 97.3, 4624.1], 20, 20];
+  const push = (C, k) => [C[0], C[1], C[2] / 1, C[3] * k, C[4]];
+  const on42 = on("P42") || on("P42b") || on("P42p"), on43 = on("P43") || on("P43m") || on("P43p"), on44 = on("P44") || on("P44p");
+  const set = (t, id, o) => seed(t, [id], o);
+  if (on42) { props.push({ id: "p42", kind: "shipplate", view: "42", x: GX, z: 0 }); spud("spud42", GX - 7, -0.5, 4366, 180); }
+  if (on43) { props.push({ id: "p43", kind: "shipplate", view: "43", x: GX, z: 0, ...(process.env.HOLE ? { hole: +process.env.HOLE } : {}), ...(process.env.DROP ? { drop: +process.env.DROP } : {}) }, { id: "h43", kind: "shiphull", x: GX, z: 0, hull: false, liftK: 1.954, sprayK: 0.15, fallK: +(process.env.FK ?? 0), beamK: +(process.env.BK ?? 0.35), falls: 1, beam: 1, lit: 0.9 }); }
+  if (on44) { props.push({ id: "p44", kind: "shipplate", view: "44", x: GX, z: 0 }, { id: "h44", kind: "shiphull", x: GX, z: 0, hull: false, liftK: 1.954, sprayK: 0.15, fallK: +(process.env.FK ?? 0), beamK: +(process.env.BK ?? 0.35), falls: 1, beam: 1, lit: 1 }); }
+  const sh = (n, label, C, f, fn) => { if (on(n)) shot(n, label, pc(C[0], C[1], f ?? C[2], C[3]), fn); };
+  sh("P42", "P42 plate 42 camera, lightning 0.3", C42, null, (t) => set(t, "p42", { lightning: 0.3 }));
+  sh("P42b", "P42b the same, lightning 1", C42, null, (t) => set(t, "p42", { lightning: 1 }));
+  sh("P42p", "P42p push in 6 deg (fov 34), lightning 0.3", C42, 34, (t) => set(t, "p42", { lightning: 0.3 }));
+  const r43 = (t, rise, lg) => { set(t, "p43", { rise, lightning: lg }); set(t, "h43", { rise, lightning: lg }); };
+  sh("P43", "P43 plate 43 camera, rise 0.6", C43, null, (t) => r43(t, 0.6, 0.3));
+  sh("P43m", "P43m rise 0.3 mid-lift", C43, null, (t) => r43(t, 0.3, 0.3));
+  sh("P43p", "P43p push in (fov 12.4), rise 0.6", C43, 12.4, (t) => r43(t, 0.6, 0.3));
+  const r44 = (t, rise, lg) => { set(t, "p44", { rise, lightning: lg }); set(t, "h44", { rise, lightning: lg }); };
+  sh("P44", "P44 plate 44 camera", C44, null, (t) => r44(t, 0.6, 0.3));
+  sh("P44p", "P44p push in (fov 17), rise 0.6", C44, 17, (t) => r44(t, 0.6, 0.3));
+}
 if (needRing) {
   props.push({ id: "skyD", kind: "shipstars", x: GR, z: 0 }, { id: "seaD", kind: "shipsea", x: GR, z: 0, grade: "night", whirl: false, stars: 1, calmAt: [22, -4042, 24] });
   props.push({ id: "ringD", kind: "shipring", x: GR, z: -9000, y: 1500 });
   spud("spudD", GR + 22, -0.5, -4042, 0);
   if (on("D")) shot("D", "D panel 46: Spud in the sea, the far ring upper middle (shrink 0)", cam([GR + 24, 1.1, -4030], [GR, 640, -9000], 32, 0.3), (t) => { seed(t, ["ringD"], { shrink: 0 }); seed(t, ["seaD"], { calm: 0.4 }); });
+  if (on("E")) shot("E", "E panel 41 sky: the Milky Way seam check", cam([GR + 1.4, 0.35, 2.6], [GR - 0.4, 0.3, -2], 36, 0.3), (t) => { seed(t, ["seaD"], { calm: 0.4 }); });
   if (on("D2")) shot("D2", "D2 shrink 0.8, the sea calming", cam([GR + 24, 1.1, -4030], [GR, 640, -9000], 32, 0.3), (t) => { seed(t, ["ringD"], { shrink: 0.8 }); seed(t, ["seaD"], { calm: 1 }); });
 }
 const END = r3(0.1 + SHOTS.length * 1.0 + 0.1);
@@ -54,7 +78,7 @@ console.log("names:", SHOTS.map(([n]) => n).join(","));
 write(import.meta.url, {
   id: `at-ship-${want.join("-")}`, title: "Atlantis city-ship bench", idea: "Props bench for block D task D3 (shiphull, shipsea, shipwhirl, shipstorm, shipstars, shipring), not a clip",
   fps: 30, look: "anime-pro", profile: "short", loop: false, castLook: "sheet", motion: MOTION, rig: RIG, physics: false,
-  frame: "wide", far: 9000,
+  frame: "wide", far: needPlate ? 16000 : 9000,
   set: AT_NIGHT, music: false, sound: { auto: false },
   hook: { show: [cast[0]?.id ?? "x"], hint: 0, what: "engine test" },
   cast, props, captions: c.captions, beats: c.beats(SHOTS.map(([n, t, cm, l]) => [n, t, cm, l]), END),
