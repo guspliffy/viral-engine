@@ -41,7 +41,7 @@
       0,
       -600
      ],
-     "breakAt": 37.4,
+     "breakAt": 49.8,
      "breakDur": 3,
      "slit": [
       [
@@ -49,11 +49,11 @@
        0
       ],
       [
-       32.25,
+       42.4,
        0
       ],
       [
-       33.05,
+       43.2,
        1
       ]
      ],
@@ -63,11 +63,11 @@
        1
       ],
       [
-       33.8,
+       44,
        1
       ],
       [
-       38.6,
+       51,
        0
       ]
      ],
@@ -77,44 +77,41 @@
        0
       ],
       [
-       45,
+       57.4,
        0
       ],
       [
-       48,
+       61,
        1
       ]
      ]
     }
    },
    {
-    "at": 3.8,
+    "at": 4.3,
     "env": "golden-city-crossing"
    },
    {
-    "at": 9.05,
+    "at": 13.4,
     "room": {
-     "type": "vault",
+     "type": "bankhall",
      "pos": [
       300,
       0,
       0
-     ],
-     "doorAt": 8.55,
-     "doorDur": 1.2,
-     "alarmAt": 9.75
+     ]
     }
    },
    {
-    "at": 11,
+    "at": 17.6,
     "env": "dusk-bus-stop"
    },
    {
-    "at": 14.45,
+    "at": 21,
     "env": "mansion-day"
    },
    {
-    "at": 17.55,
+    "at": 24,
     "room": {
      "type": "mansionhall",
      "pos": [
@@ -128,33 +125,33 @@
        0
       ],
       [
-       20.7,
+       29.2,
        1
       ],
       [
-       20.95,
+       29.45,
        2
       ],
       [
-       21.2,
+       29.7,
        4
       ],
       [
-       21.45,
+       29.95,
        7
       ],
       [
-       21.7,
+       30.2,
        10
       ]
      ],
      "sirenPass": [
       [
-       17.7,
-       19.9
+       24.2,
+       26.4
       ]
      ],
-     "sirenStay": 27.95,
+     "sirenStay": 37,
      "rain": 1,
      "candle": [
       [
@@ -162,40 +159,32 @@
        0
       ],
       [
-       25.15,
+       34.5,
        1
       ]
      ],
      "hatch": [
       [
        0,
-       0
+       0.5
       ],
       [
-       19.3,
-       0
+       27.6,
+       0.5
       ],
       [
-       19.5,
-       1
-      ],
-      [
-       20.200000000000003,
-       1
-      ],
-      [
-       20.400000000000002,
+       27.95,
        0
       ]
      ]
     }
    },
    {
-    "at": 28.7,
+    "at": 38.6,
     "env": "mansion-gate-night"
    },
    {
-    "at": 30.45,
+    "at": 40.6,
     "room": {
      "type": "coast",
      "pos": [
@@ -203,7 +192,7 @@
       0,
       -600
      ],
-     "breakAt": 37.4,
+     "breakAt": 49.8,
      "breakDur": 3,
      "slit": [
       [
@@ -211,11 +200,11 @@
        0
       ],
       [
-       32.25,
+       42.4,
        0
       ],
       [
-       33.05,
+       43.2,
        1
       ]
      ],
@@ -225,11 +214,11 @@
        1
       ],
       [
-       33.8,
+       44,
        1
       ],
       [
-       38.6,
+       51,
        0
       ]
      ],
@@ -239,11 +228,11 @@
        0
       ],
       [
-       45,
+       57.4,
        0
       ],
       [
-       48,
+       61,
        1
       ]
      ]
@@ -281,8 +270,8 @@
  },
  "creative": {
   "length": [
-   48,
-   48
+   61,
+   61
   ]
  },
  "hook": {
@@ -308,13 +297,13 @@
   },
   {
    "id": "spud",
-   "character": "potatobrawl/spud",
+   "character": "potatobrawl/spud-poor",
    "at": [
     403,
     400
    ],
    "face": 0,
-   "expr": "kind",
+   "expr": "sad",
    "follow": 0.3,
    "seed": 1.3
   },
@@ -331,8 +320,8 @@
    "seed": 4.4
   },
   {
-   "id": "pa",
-   "character": "what-if/viking-old",
+   "id": "duch",
+   "character": "potatobrawl/duchess",
    "at": [
     409,
     400
@@ -343,16 +332,40 @@
    "seed": 3.1
   },
   {
-   "id": "pb",
-   "character": "what-if/wizard-old",
+   "id": "daup",
+   "character": "potatobrawl/dauphin",
    "at": [
     412,
     400
    ],
    "face": 0,
-   "expr": "delighted",
+   "expr": "smug",
    "follow": 0.3,
    "seed": 4.2
+  },
+  {
+   "id": "tot",
+   "character": "potatobrawl/tot",
+   "at": [
+    415,
+    400
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5.3
+  },
+  {
+   "id": "rosti",
+   "character": "potatobrawl/rosti",
+   "at": [
+    418,
+    400
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.1
   }
  ],
  "props": [
@@ -368,12 +381,26 @@
   {
    "id": "cbag",
    "kind": "moneybag",
+   "staged": "lying flat on the cliff grass, emptied by the wind",
    "mark": false,
    "x": 0.62,
    "y": -30,
    "z": -599.95,
    "rot": 200,
    "open": true,
+   "scale": 0.001
+  },
+  {
+   "id": "storm",
+   "kind": "notestorm",
+   "x": 0,
+   "y": -30,
+   "z": -600,
+   "rot": 0,
+   "t0": 51,
+   "n": 700,
+   "seed": 1,
+   "size": 1.3,
    "scale": 0.001
   },
   {
@@ -387,46 +414,79 @@
    "scale": 0.001
   },
   {
+   "id": "cart",
+   "kind": "coffeecart",
+   "x": -1.25,
+   "z": 1,
+   "rot": 0,
+   "scale": 0.001,
+   "y": -30
+  },
+  {
+   "id": "cup",
+   "kind": "cocoacup",
+   "x": -1.33,
+   "y": -30,
+   "z": 1.18,
+   "rot": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "apron",
+   "kind": "apron",
+   "wear": "rosti",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "phat",
+   "kind": "paperhat",
+   "wear": "rosti",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "scale": 0.001
+  },
+  {
    "id": "limo",
    "kind": "limo",
-   "open": "R",
-   "x": -14,
-   "z": -3.6,
+   "open": null,
+   "x": 2,
+   "z": -2.35,
    "rot": 90,
    "scale": 0.001,
    "y": -30
   },
   {
-   "id": "bag1",
+   "id": "sb1",
    "kind": "shopbag",
    "color": "#f29bb5",
-   "staged": "the shop bags hang over the sill of the open window",
-   "x": -15.35,
+   "x": 0,
    "y": -30,
-   "z": -2.65,
-   "rot": 180,
+   "z": 0,
+   "rot": 0,
    "scale": 0.001
   },
   {
-   "id": "bag2",
+   "id": "sb2",
    "kind": "shopbag",
    "color": "#f2c75a",
-   "staged": "the shop bags hang over the sill of the open window",
-   "x": -15.85,
+   "x": 0,
    "y": -30,
-   "z": -2.65,
-   "rot": 180,
+   "z": 0,
+   "rot": 0,
    "scale": 0.001
   },
   {
-   "id": "bag3",
+   "id": "sb3",
    "kind": "shopbag",
    "color": "#c9a6e8",
-   "staged": "the shop bags hang over the sill of the open window",
-   "x": -16.35,
+   "x": 0,
    "y": -30,
-   "z": -2.65,
-   "rot": 180,
+   "z": 0,
+   "rot": 0,
    "scale": 0.001
   },
   {
@@ -437,6 +497,9 @@
    "y": 0.24,
    "z": 0.1,
    "side": 1,
+   "w": 0.16,
+   "h": 0.11,
+   "color": "#fbf8f1",
    "scale": 0.001
   },
   {
@@ -447,6 +510,9 @@
    "y": 0.24,
    "z": 0.1,
    "side": -1,
+   "w": 0.16,
+   "h": 0.11,
+   "color": "#fbf8f1",
    "scale": 0.001
   },
   {
@@ -459,32 +525,43 @@
    "scale": 0.001
   },
   {
-   "id": "vbagL",
-   "kind": "moneybag",
-   "staged": "hugged against his belly",
-   "mark": false,
-   "open": true,
-   "x": 299.83,
+   "id": "gun",
+   "kind": "zrevolver",
+   "x": 299.61,
    "y": -30,
-   "z": 1.56,
-   "rot": 180,
+   "z": 0.35,
+   "rot": 90,
+   "scale": 0.001,
+   "flash": 0,
+   "smoke": 0,
+   "staged": "in his right fist"
+  },
+  {
+   "id": "kb0",
+   "kind": "moneybag",
+   "mark": false,
+   "x": 300.15,
+   "y": -30,
+   "z": -0.62,
+   "rot": 90,
+   "staged": "on the teller's ledge, then pushed over the counter by her palm",
    "scale": 0.001
   },
   {
-   "id": "vbagR",
+   "id": "kb1",
    "kind": "moneybag",
-   "staged": "hugged against his belly",
    "mark": false,
-   "open": true,
-   "x": 300.17,
+   "x": 300.15,
    "y": -30,
-   "z": 1.56,
-   "rot": 180,
+   "z": 0.62,
+   "rot": 90,
+   "staged": "on the teller's ledge, then pushed over the counter by her palm",
    "scale": 0.001
   },
   {
    "id": "sbag",
    "kind": "moneybag",
+   "staged": "carried in his arms",
    "mark": false,
    "x": 0,
    "y": 0.2,
@@ -564,20 +641,22 @@
    "id": "hbagA",
    "kind": "moneybag",
    "mark": false,
-   "x": -296.657,
+   "x": -296.177,
    "y": -30,
-   "z": 0.693,
-   "rot": 200,
+   "z": -0.407,
+   "rot": 90,
+   "staged": "on the floor by the hole, then pushed in by his hands",
    "scale": 0.001
   },
   {
    "id": "hbagB",
    "kind": "moneybag",
    "mark": false,
-   "x": -296.307,
+   "x": -296.177,
    "y": -30,
-   "z": 1.043,
-   "rot": 160,
+   "z": -1.007,
+   "rot": 90,
+   "staged": "on the floor by the hole, then pushed in by his hands",
    "scale": 0.001
   },
   {
@@ -603,6 +682,7 @@
   {
    "id": "gbag",
    "kind": "moneybag",
+   "staged": "carried in his arms",
    "mark": false,
    "x": -0.7,
    "y": 0.2,
@@ -639,76 +719,6 @@
    "y": -3.92,
    "z": -592.55,
    "rot": 35
-  },
-  {
-   "id": "note0",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note1",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note2",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note3",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note4",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note5",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
-  },
-  {
-   "id": "note6",
-   "kind": "banknote",
-   "staged": "blown away by the wind",
-   "x": 0.8,
-   "y": 0.24,
-   "z": -599.95,
-   "rot": 0,
-   "scale": 1
   }
  ],
  "captions": [
@@ -721,14 +731,14 @@
   },
   {
    "from": 1.65,
-   "to": 3.8,
+   "to": 4.3,
    "text": "HAPPY?",
    "pos": 255,
    "pop": false
   },
   {
-   "from": 6.9,
-   "to": 8.3,
+   "from": 10.9,
+   "to": 12.3,
    "text": "Mo-ney... ha-ppy?",
    "pos": 470,
    "pop": false,
@@ -736,8 +746,17 @@
    "kinetic": false
   },
   {
-   "from": 22.45,
-   "to": 23.7,
+   "from": 13.6,
+   "to": 14.9,
+   "text": "Gi-ve mo-ney!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 31.05,
+   "to": 32.3,
    "text": "Spud? It's me!",
    "pos": 470,
    "pop": false,
@@ -749,7 +768,7 @@
   {
    "name": "S1 rich and sad in the rain",
    "at": 0,
-   "len": 3.8,
+   "len": 4.3,
    "shot": {
     "pos": [
      26.75,
@@ -893,6 +912,16 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "cbag",
+     "set": {
+      "full": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
      "who": "rich",
      "do": "ride",
      "prop": "car",
@@ -966,30 +995,18 @@
     {
      "sfx": "ai/rain-car-roof",
      "gain": 0.45,
-     "dur": 3.8,
+     "dur": 4.3,
      "reason": "rain drumming on the car roof",
      "at": 0
     },
     {
-     "who": "pa",
-     "do": "expr",
-     "expr": "delighted",
+     "do": "prop",
+     "id": "plB",
      "set": {
-      "curve": 0.8,
-      "open": 0.4
+      "scale": 0.001
      },
      "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "pb",
-     "do": "expr",
-     "expr": "delighted",
-     "set": {
-      "curve": 0.8,
-      "open": 0.4
-     },
-     "dur": 0.01,
+     "ease": "linear",
      "at": 0
     },
     {
@@ -1083,11 +1100,21 @@
      "at": 3.4
     },
     {
+     "do": "prop",
+     "id": "car",
+     "set": {
+      "wiper": 0
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 4
+    },
+    {
      "who": "rich",
      "do": "ride",
      "prop": null,
      "dur": 0,
-     "at": 3.74
+     "at": 4.24
     },
     {
      "do": "prop",
@@ -1099,7 +1126,53 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.288
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "scale": 1,
+      "y": 0.46
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.288
+    },
+    {
+     "do": "prop",
+     "id": "apron",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.288
+    },
+    {
+     "do": "prop",
+     "id": "phat",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.288
     },
     {
      "do": "prop",
@@ -1111,43 +1184,43 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "do": "prop",
-     "id": "bag1",
+     "id": "sb1",
      "set": {
       "scale": 1,
-      "y": 0.9
+      "y": 0
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "do": "prop",
-     "id": "bag2",
+     "id": "sb2",
      "set": {
       "scale": 1,
-      "y": 0.9
+      "y": 0
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "do": "prop",
-     "id": "bag3",
+     "id": "sb3",
      "set": {
       "scale": 1,
-      "y": 0.9
+      "y": 0
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "do": "prop",
@@ -1158,7 +1231,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "do": "prop",
@@ -1169,12 +1242,12 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "rich",
      "do": "hide",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "rich",
@@ -1188,35 +1261,77 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      0.65,
-      -1.3
+      -0.42,
+      1
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 8,
+     "to": -65,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 3.788
+     "at": 4.288
+    },
+    {
+     "who": "rosti",
+     "do": "move",
+     "to": [
+      -2.05,
+      1
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.288
+    },
+    {
+     "who": "rosti",
+     "do": "turn",
+     "to": 65,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.288
+    },
+    {
+     "who": "rosti",
+     "do": "show",
+     "at": 4.288
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0.6,
+     "dur": 0.01,
+     "at": 4.288
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.01,
+     "at": 4.288
     },
     {
      "who": "spud",
@@ -1225,7 +1340,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "spud",
@@ -1233,7 +1348,16 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.788
+     "at": 4.288
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.288
     },
     {
      "who": "spud",
@@ -1242,7 +1366,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.788
+     "at": 4.288
     },
     {
      "who": "spud",
@@ -1250,75 +1374,45 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.788
+     "at": 4.288
     },
     {
-     "who": "pa",
-     "do": "ride",
-     "prop": "limo",
-     "off": [
-      -0.5,
-      0.38,
-      -1.15
-     ],
-     "yaw": -90,
-     "sit": true,
-     "dur": 0,
-     "at": 3.788
-    },
-    {
-     "who": "pb",
-     "do": "ride",
-     "prop": "limo",
-     "off": [
-      -0.5,
-      0.38,
-      -2.57
-     ],
-     "yaw": -90,
-     "sit": true,
-     "dur": 0,
-     "at": 3.788
+     "who": "rosti",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 4.288
     }
    ],
    "kind": "hook"
   },
   {
-   "name": "S2 the city",
-   "at": 3.8,
-   "len": 5.25,
+   "name": "S2 no money for a coffee",
+   "at": 4.3,
+   "len": 3.4,
    "shot": {
     "pos": [
-     0,
+     -1.25,
      1.2,
-     4.5
+     5.4
     ],
     "look": [
-     0,
+     -1.25,
      1.073,
-     -5.499
+     -4.599
     ],
-    "fov": 46
+    "fov": 48
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      0.5,
-      0.5
-     ],
-     "dur": 1.25,
-     "steps": 4,
-     "at": 0
-    },
     {
      "who": "spud",
      "do": "expr",
      "expr": "sad",
      "set": {
-      "curve": -0.1,
-      "brow": 0.3
+      "curve": -0.35,
+      "brow": 0.5
      },
      "dur": 0.01,
      "at": 0
@@ -1327,69 +1421,33 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0,
-      -0.2
+      -0.4,
+      -0.1
      ],
      "dur": 0.01,
      "blink": false,
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "car",
+     "who": "rosti",
+     "do": "expr",
+     "expr": "kind",
      "set": {
-      "wiper": 0
+      "curve": 0.3
      },
-     "dur": 0.55,
-     "ease": "inOut",
-     "at": 0.2
+     "dur": 0.01,
+     "at": 0
     },
     {
-     "do": "prop",
-     "id": "limo",
-     "set": {
-      "x": 0.9,
-      "len": 14.9
-     },
-     "dur": 2,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "bag1",
-     "set": {
-      "x": -0.45
-     },
-     "dur": 2,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "bag2",
-     "set": {
-      "x": -0.95
-     },
-     "dur": 2,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "bag3",
-     "set": {
-      "x": -1.45
-     },
-     "dur": 2,
-     "ease": "out",
-     "at": 0.2
-    },
-    {
-     "sfx": "tyres",
-     "gain": 0.25,
-     "reason": "the limousine rolling to a stop at the kerb",
-     "at": 0.2
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
     },
     {
      "do": "prop",
@@ -1399,44 +1457,964 @@
      },
      "dur": 0.35,
      "ease": "linear",
-     "at": 0.8
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.2,
+      "eye": 1.1
+     },
+     "dur": 0.15,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -0.82,
+       0.6,
+       1.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.62,
+       0.68,
+       0.98
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "who": "rosti",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 0.85
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.4,
+      "curve": 0
+     },
+     "dur": 0.2,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.15,
+     "at": 1.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "brow": 0.6,
+      "open": 0.1
+     },
+     "dur": 0.15,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.37,
+       0.08,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.37,
+       0.08,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.44
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.44
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.37,
+       0.08,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.37,
+       0.08,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.44,
+       0.091,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.1,
+     "at": 1.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.36,
+       0.136,
+       0.08
+      ]
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 1.62
+    },
+    {
+     "do": "prop",
+     "id": "plB",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.17,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.4,
+      "brow": 0.6
+     },
+     "dur": 0.25,
+     "at": 2.1
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      -0.7,
-      0.1
+      -0.2,
+      -0.3
      ],
-     "dur": 0.15,
+     "dur": 0.2,
      "blink": false,
-     "at": 1.25
+     "at": 2.1
+    },
+    {
+     "who": "rosti",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.1,
+      "brow": 0.3
+     },
+     "dur": 0.2,
+     "at": 2.4
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      -0.35,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0.75,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.56
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      -0.35,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.72
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0.4,
+      0
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.7,
+      1.85
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": -168,
-     "dur": 0.45,
-     "at": 1.4
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
     },
     {
      "who": "spud",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.2,
-      "eye": 1.2
-     },
-     "dur": 0.12,
-     "at": 1.5
+     "do": "show",
+     "at": 3.388
     },
     {
-     "who": "pa",
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "rosti",
+     "do": "hide",
+     "at": 3.388
+    },
+    {
+     "who": "rosti",
+     "do": "move",
+     "to": [
+      418,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "move",
+     "to": [
+      4.6,
+      -0.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "show",
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "move",
+     "to": [
+      5.8,
+      -0.15
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "show",
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.388
+    },
+    {
+     "who": "daup",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 3.388
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.52,
+       0.42,
+       0.12
+      ]
+     },
+     "dur": 0.001,
+     "ease": "inOut",
+     "at": 3.389
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.001,
+     "at": 3.389
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.52,
+       0.42,
+       0.12
+      ]
+     },
+     "dur": 0.001,
+     "ease": "inOut",
+     "at": 3.389
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.001,
+     "at": 3.389
+    },
+    {
+     "who": "daup",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.52,
+       0.42,
+       0.12
+      ]
+     },
+     "dur": 0.001,
+     "ease": "inOut",
+     "at": 3.389
+    },
+    {
+     "who": "daup",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.001,
+     "at": 3.389
+    },
+    {
+     "do": "prop",
+     "id": "sb1",
+     "set": {
+      "x": 4.6,
+      "z": -0.2,
+      "y": 0.15,
+      "rot": -90
+     },
+     "dur": 0.001,
+     "ease": "linear",
+     "at": 3.391
+    },
+    {
+     "do": "prop",
+     "id": "sb2",
+     "set": {
+      "x": 4.6,
+      "z": -0.2,
+      "y": 0.15,
+      "rot": -90
+     },
+     "dur": 0.001,
+     "ease": "linear",
+     "at": 3.391
+    },
+    {
+     "do": "prop",
+     "id": "sb3",
+     "set": {
+      "x": 5.8,
+      "z": -0.15,
+      "y": 0.15,
+      "rot": -90
+     },
+     "dur": 0.001,
+     "ease": "linear",
+     "at": 3.391
+    },
+    {
+     "who": "duch",
+     "do": "grab",
+     "prop": "sb1",
+     "hand": "R",
+     "grip": [
+      0,
+      0.41,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 3.394
+    },
+    {
+     "who": "duch",
+     "do": "grab",
+     "prop": "sb2",
+     "hand": "L",
+     "grip": [
+      0,
+      0.41,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 3.394
+    },
+    {
+     "who": "daup",
+     "do": "grab",
+     "prop": "sb3",
+     "hand": "L",
+     "grip": [
+      0,
+      0.41,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 3.394
+    }
+   ]
+  },
+  {
+   "name": "S2 the rich",
+   "at": 7.7,
+   "len": 5.7,
+   "shot": {
+    "pos": [
+     0.3,
+     1.9,
+     6.6
+    ],
+    "look": [
+     0.648,
+     1.25,
+     -3.373
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.35,
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "duch",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "duch",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "daup",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "daup",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      2.2
+     ],
+     "dur": 0.8,
+     "steps": 3,
+     "at": 0.05
+    },
+    {
+     "who": "duch",
+     "do": "move",
+     "to": [
+      0.35,
+      -0.3
+     ],
+     "dur": 1.4,
+     "steps": 5,
+     "at": 0.1
+    },
+    {
+     "who": "daup",
+     "do": "move",
+     "to": [
+      1.75,
+      -0.25
+     ],
+     "dur": 1.4,
+     "steps": 5,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 172,
+     "dur": 0.5,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "duch",
      "do": "hop",
      "height": 0.03,
      "dur": 0.22,
      "quiet": true,
-     "at": 2.1
+     "at": 1.3
+    },
+    {
+     "who": "daup",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.48
+    },
+    {
+     "who": "duch",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.35,
+     "at": 1.5
+    },
+    {
+     "who": "daup",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.35,
+     "at": 1.5
+    },
+    {
+     "who": "duch",
+     "do": "look",
+     "to": [
+      0.7,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "daup",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "duch",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.8
+    },
+    {
+     "who": "daup",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 1.98
+    },
+    {
+     "who": "duch",
+     "do": "hop",
+     "height": 0.03,
+     "dur": 0.22,
+     "quiet": true,
+     "at": 2.3
     },
     {
      "who": "spud",
@@ -1447,38 +2425,22 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 2.25
+     "at": 2.35
     },
     {
-     "who": "pb",
+     "who": "daup",
      "do": "hop",
      "height": 0.03,
      "dur": 0.22,
      "quiet": true,
-     "at": 2.3
+     "at": 2.48
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 8,
+     "to": 10,
      "dur": 0.65,
-     "at": 2.4
-    },
-    {
-     "who": "pa",
-     "do": "hop",
-     "height": 0.03,
-     "dur": 0.22,
-     "quiet": true,
-     "at": 2.65
-    },
-    {
-     "who": "pb",
-     "do": "hop",
-     "height": 0.03,
-     "dur": 0.22,
-     "quiet": true,
-     "at": 2.85
+     "at": 2.5
     },
     {
      "who": "spud",
@@ -1489,7 +2451,7 @@
       "curve": -0.05
      },
      "dur": 0.2,
-     "at": 2.9
+     "at": 3
     },
     {
      "who": "spud",
@@ -1499,23 +2461,7 @@
      "dur": 1,
      "blink": false,
      "voice": false,
-     "at": 3.1
-    },
-    {
-     "who": "pa",
-     "do": "hop",
-     "height": 0.03,
-     "dur": 0.22,
-     "quiet": true,
      "at": 3.2
-    },
-    {
-     "who": "pb",
-     "do": "hop",
-     "height": 0.03,
-     "dur": 0.22,
-     "quiet": true,
-     "at": 3.4
     },
     {
      "who": "spud",
@@ -1526,7 +2472,7 @@
      ],
      "dur": 0.3,
      "blink": false,
-     "at": 4.2
+     "at": 4.4
     },
     {
      "who": "spud",
@@ -1535,21 +2481,21 @@
       "raise": 0.05
      },
      "dur": 0.15,
-     "at": 4.45
+     "at": 4.65
     },
     {
      "who": "spud",
      "do": "face",
      "brow": 0.3,
      "dur": 0.2,
-     "at": 4.45
+     "at": 4.65
     },
     {
      "who": "spud",
      "do": "still",
      "dur": 0.7,
      "idle": 0.2,
-     "at": 4.45
+     "at": 4.65
     },
     {
      "who": "spud",
@@ -1559,7 +2505,53 @@
       "curve": 0.3
      },
      "dur": 0.2,
-     "at": 4.55
+     "at": 4.75
+    },
+    {
+     "do": "prop",
+     "id": "cart",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.688
+    },
+    {
+     "do": "prop",
+     "id": "cup",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.688
+    },
+    {
+     "do": "prop",
+     "id": "apron",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.688
+    },
+    {
+     "do": "prop",
+     "id": "phat",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.688
     },
     {
      "do": "prop",
@@ -1571,11 +2563,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
-     "id": "bag1",
+     "id": "sb1",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1583,11 +2575,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
-     "id": "bag2",
+     "id": "sb2",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1595,11 +2587,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
-     "id": "bag3",
+     "id": "sb3",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1607,7 +2599,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
@@ -1618,7 +2610,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
@@ -1629,7 +2621,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
@@ -1640,46 +2632,51 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
-     "id": "vbagL",
+     "id": "gun",
      "set": {
-      "scale": 1,
-      "y": 0.08
+      "scale": 0.9,
+      "y": 0.62
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
      "do": "prop",
-     "id": "vbagR",
+     "id": "kb0",
      "set": {
       "scale": 1,
-      "y": 0.08
+      "y": 0.5
      },
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 5.238
+     "at": 5.688
     },
     {
-     "who": "pa",
-     "do": "ride",
-     "prop": null,
-     "dur": 0,
-     "at": 5.238
+     "do": "prop",
+     "id": "kb1",
+     "set": {
+      "scale": 1,
+      "y": 0.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.688
     },
     {
-     "who": "pa",
+     "who": "duch",
      "do": "hide",
-     "at": 5.238
+     "at": 5.688
     },
     {
-     "who": "pa",
+     "who": "duch",
      "do": "move",
      "to": [
       409,
@@ -1690,22 +2687,15 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 5.238
+     "at": 5.688
     },
     {
-     "who": "pb",
-     "do": "ride",
-     "prop": null,
-     "dur": 0,
-     "at": 5.238
-    },
-    {
-     "who": "pb",
+     "who": "daup",
      "do": "hide",
-     "at": 5.238
+     "at": 5.688
     },
     {
-     "who": "pb",
+     "who": "daup",
      "do": "move",
      "to": [
       412,
@@ -1716,109 +2706,187 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 5.238
+     "at": 5.688
     },
     {
      "who": "spud",
      "do": "move",
      "to": [
-      300,
-      0.9
+      299.05,
+      0
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 5.238
+     "at": 5.688
     },
     {
      "who": "spud",
      "do": "turn",
-     "to": 0,
+     "to": 45,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 5.238
+     "at": 5.688
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 5.238
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      300.72,
+      0
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "show",
+     "at": 5.688
+    },
+    {
+     "who": "spud",
+     "do": "droop",
+     "to": 0,
+     "dur": 0.01,
+     "at": 5.688
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 5.688
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.688
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 5.688
+    },
+    {
+     "who": "tot",
+     "do": "wings",
+     "to": 0,
+     "dur": 0.01,
+     "at": 5.688
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "R",
      "pose": {
-      "x": [
-       -0.385,
-       0.114,
-       0.66
+      "world": [
+       299.61,
+       0.62,
+       0.35
       ]
      },
-     "dur": 0.01,
+     "dur": 0.001,
      "ease": "inOut",
-     "at": 5.238
+     "at": 5.689
     },
     {
      "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "x": [
-       0.385,
-       0.114,
-       0.66
-      ]
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 5.238
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "R",
-     "shape": "press",
-     "dur": 0.01,
-     "at": 5.238
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "L",
-     "shape": "press",
-     "dur": 0.01,
-     "at": 5.238
+     "do": "grab",
+     "prop": "gun",
+     "hand": "R",
+     "grip": "hand",
+     "dur": 0,
+     "pose": null,
+     "at": 5.692
     }
    ]
   },
   {
-   "name": "S3 the vault",
-   "at": 9.05,
-   "len": 1.95,
+   "name": "S3 the hold-up",
+   "at": 13.4,
+   "len": 1.4,
    "shot": {
     "pos": [
-     299.5,
-     0.75,
-     3
+     299.88,
+     0.95,
+     4.6
     ],
     "look": [
-     300.1,
-     0.8,
+     299.88,
+     0.72,
      0
     ],
-    "fov": 45
+    "fov": 52
    },
    "do": [
     {
      "who": "spud",
      "do": "expr",
-     "expr": "delighted",
+     "expr": "angry",
      "set": {
-      "open": 0.35,
-      "eye": 1.2
+      "brow": 0.8
      },
      "dur": 0.01,
      "at": 0
@@ -1827,7 +2895,7 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0,
+      0.5,
       0.1
      ],
      "dur": 0.01,
@@ -1835,79 +2903,512 @@
      "at": 0
     },
     {
-     "sfx": "creak",
-     "gain": 0.5,
-     "reason": "the vault door's hinge, the door still swinging",
-     "at": 0.05
-    },
-    {
-     "who": "spud",
-     "do": "hop",
-     "height": 0.06,
-     "dur": 0.25,
-     "quiet": true,
-     "at": 0.3
-    },
-    {
-     "sfx": "alarmbell",
-     "gain": 0.6,
-     "dur": 1.4,
-     "reason": "the bank's alarm bell",
-     "at": 0.7
-    },
-    {
-     "who": "spud",
+     "who": "tot",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "kind",
      "set": {
-      "open": 0.4,
+      "curve": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "tot",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "Gi-ve mo-ney!",
+     "tone": "angry",
+     "dur": 0.9,
+     "blink": false,
+     "voice": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       299.5,
+       0.6,
+       -0.32
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "tot",
+     "do": "expr",
+     "expr": "terrified",
+     "set": {
+      "open": 0.35,
       "eye": 1.4
      },
      "dur": 0.15,
-     "at": 0.75
+     "at": 0.55
     },
     {
-     "who": "spud",
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.55
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "tot",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "tot",
      "do": "squash",
      "amount": 0.08,
-     "dur": 0.18,
-     "at": 0.75
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.35,
+     "reason": "the cashier's gasp",
+     "at": 0.55
     },
     {
      "who": "spud",
-     "do": "look",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       299.41,
+       0.66,
+       -0.32
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       299.5,
+       0.6,
+       -0.32
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.82
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       299.41,
+       0.66,
+       -0.32
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.04
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       299.5,
+       0.6,
+       -0.32
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 1.26
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "S3 over the gun",
+   "at": 14.8,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     298.25,
+     0.9,
+     0.85
+    ],
+    "look": [
+     300.72,
+     0.84,
+     -0.04
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "tot",
+     "do": "move",
      "to": [
-      -0.6,
-      0.5
+      300.62,
+      -0.341
      ],
+     "y": 0.3,
+     "dur": 0.25,
+     "steps": 1,
+     "at": 0.05
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       300.15,
+       0.66,
+       -0.81
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "kb0",
+     "set": {
+      "z": -0.24
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       300.15,
+       0.66,
+       -0.43
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "sfx": "ai/bag-drag",
+     "gain": 0.3,
+     "reason": "a sack slid over the marble counter",
+     "at": 0.4
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      300.62,
+      -0.24
+     ],
+     "y": 0.3,
+     "dur": 0.14,
+     "steps": 1,
+     "at": 0.63
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       300.3,
+       0.66,
+       -0.24
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      300.62,
+      0.341
+     ],
+     "y": 0.3,
+     "dur": 0.25,
+     "steps": 1,
+     "at": 0.75
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       300.15,
+       0.66,
+       0.81
+      ]
+     },
+     "dur": 0.28,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.75
+    },
+    {
+     "do": "prop",
+     "id": "kb0",
+     "set": {
+      "x": 299.9
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       300.05,
+       0.66,
+       -0.24
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.77
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
      "dur": 0.2,
-     "blink": false,
-     "at": 0.8
+     "ease": "out",
+     "at": 1.03
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.03
+    },
+    {
+     "do": "prop",
+     "id": "kb1",
+     "set": {
+      "z": 0.07
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       300.15,
+       0.66,
+       0.26
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "sfx": "ai/bag-drag",
+     "gain": 0.3,
+     "reason": "a sack slid over the marble counter",
+     "at": 1.1
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "evil",
      "set": {
-      "curve": 0.4
+      "curve": 0.5
      },
-     "dur": 0.15,
+     "dur": 0.2,
+     "at": 1.15
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      300.62,
+      0.07
+     ],
+     "y": 0.3,
+     "dur": 0.14,
+     "steps": 1,
+     "at": 1.33
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       300.3,
+       0.66,
+       0.07
+      ]
+     },
+     "dur": 0.12,
+     "ease": "inOut",
      "at": 1.35
     },
     {
      "do": "prop",
-     "id": "mask",
+     "id": "kb1",
      "set": {
-      "scale": 0.001
+      "x": 299.9
      },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.47
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       300.05,
+       0.66,
+       0.07
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 1.47
+    },
+    {
+     "who": "tot",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.73
+    },
+    {
+     "who": "tot",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.73
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      300.72,
+      0
+     ],
+     "y": 0.3,
+     "dur": 0.3,
+     "steps": 1,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "gun",
+     "to": [
+      299.61,
+      -30,
+      0.35
+     ],
+     "dur": 0,
+     "at": 2.78
     },
     {
      "do": "prop",
-     "id": "vbagL",
+     "id": "gun",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1915,11 +3416,11 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
-     "id": "vbagR",
+     "id": "kb0",
      "set": {
       "scale": 0.001,
       "y": -30
@@ -1927,7 +3428,19 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
+    },
+    {
+     "do": "prop",
+     "id": "kb1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1938,7 +3451,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1950,7 +3463,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1962,7 +3475,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1974,7 +3487,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1986,7 +3499,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -1998,7 +3511,26 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.938
+     "at": 2.788
+    },
+    {
+     "who": "tot",
+     "do": "hide",
+     "at": 2.788
+    },
+    {
+     "who": "tot",
+     "do": "move",
+     "to": [
+      415,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2012,7 +3544,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2021,12 +3553,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
      "do": "show",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2035,7 +3567,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2044,7 +3576,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2059,7 +3591,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2074,7 +3606,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2082,7 +3614,7 @@
      "side": "R",
      "shape": "press",
      "dur": 0.01,
-     "at": 1.938
+     "at": 2.788
     },
     {
      "who": "spud",
@@ -2090,7 +3622,7 @@
      "side": "L",
      "shape": "press",
      "dur": 0.01,
-     "at": 1.938
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -2103,14 +3635,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.938
+     "at": 2.788
     }
    ]
   },
   {
    "name": "S3b the escape",
-   "at": 11,
-   "len": 2.05,
+   "at": 17.6,
+   "len": 1.85,
    "shot": {
     "pos": [
      0.6,
@@ -2197,6 +3729,17 @@
     },
     {
      "do": "prop",
+     "id": "pc1",
+     "set": {
+      "x": 18,
+      "len": 36
+     },
+     "dur": 1.8,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
      "id": "sbag",
      "set": {
       "x": 1.363,
@@ -2210,17 +3753,6 @@
     },
     {
      "do": "prop",
-     "id": "pc1",
-     "set": {
-      "x": 18,
-      "len": 36
-     },
-     "dur": 1.8,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
      "id": "pc2",
      "set": {
       "x": 19.5,
@@ -2228,7 +3760,7 @@
      },
      "dur": 1.8,
      "ease": "linear",
-     "at": 1.15
+     "at": 0.95
     },
     {
      "do": "prop",
@@ -2239,7 +3771,7 @@
      },
      "dur": 1.8,
      "ease": "linear",
-     "at": 1.3
+     "at": 1.1
     },
     {
      "do": "prop",
@@ -2249,20 +3781,20 @@
      },
      "dur": 0.15,
      "ease": "out",
-     "at": 1.65
+     "at": 1.4
     },
     {
      "sfx": "screech",
      "gain": 0.45,
      "reason": "tyres as the cars race past the corner",
-     "at": 1.85
+     "at": 1.6
     }
    ]
   },
   {
    "name": "S3b the corner",
-   "at": 13.05,
-   "len": 1.4,
+   "at": 19.45,
+   "len": 1.55,
    "shot": {
     "pos": [
      1.6,
@@ -2327,22 +3859,22 @@
     },
     {
      "do": "prop",
-     "id": "sbag",
-     "set": {
-      "y": 0.1
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
      "id": "wash",
      "set": {
       "on": 0
      },
      "dur": 0.4,
      "ease": "in",
+     "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "sbag",
+     "set": {
+      "y": 0.1
+     },
+     "dur": 0.35,
+     "ease": "inOut",
      "at": 0.7
     },
     {
@@ -2381,6 +3913,17 @@
     },
     {
      "do": "prop",
+     "id": "mask",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.538
+    },
+    {
+     "do": "prop",
      "id": "sbag",
      "set": {
       "scale": 0.001
@@ -2388,7 +3931,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2400,7 +3943,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2412,7 +3955,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2424,7 +3967,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2436,7 +3979,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2448,7 +3991,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2460,7 +4003,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "do": "prop",
@@ -2472,12 +4015,12 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "spud",
      "do": "hide",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "spud",
@@ -2491,7 +4034,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2505,7 +4048,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2514,12 +4057,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2528,7 +4071,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2536,7 +4079,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2545,7 +4088,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.388
+     "at": 1.538
     },
     {
      "who": "rich",
@@ -2553,14 +4096,14 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.388
+     "at": 1.538
     }
    ]
   },
   {
    "name": "S4 he bought everything",
-   "at": 14.45,
-   "len": 3.1,
+   "at": 21,
+   "len": 3,
    "shot": {
     "pos": [
      -0.5,
@@ -2608,7 +4151,7 @@
      "do": "wings",
      "to": 1,
      "dur": 0.4,
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "rich",
@@ -2623,7 +4166,7 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "rich",
@@ -2638,7 +4181,7 @@
      },
      "dur": 0.4,
      "ease": "out",
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "rich",
@@ -2646,7 +4189,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.2,
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "rich",
@@ -2654,7 +4197,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.2,
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "rich",
@@ -2662,7 +4205,7 @@
      "height": 0.08,
      "dur": 0.3,
      "quiet": true,
-     "at": 0.85
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -2674,7 +4217,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "do": "prop",
@@ -2686,7 +4229,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "do": "prop",
@@ -2698,7 +4241,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "do": "prop",
@@ -2710,7 +4253,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "do": "prop",
@@ -2721,42 +4264,35 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
      "do": "move",
      "to": [
-      -297.1,
-      2.8
+      -296.757,
+      -0.707
      ],
      "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
      "do": "turn",
-     "to": 160,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 3.088
-    },
-    {
-     "who": "rich",
-     "do": "wings",
-     "to": 0,
-     "dur": 0.01,
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
@@ -2765,7 +4301,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
@@ -2773,7 +4309,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
@@ -2782,7 +4318,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.088
+     "at": 2.988
     },
     {
      "who": "rich",
@@ -2790,26 +4326,26 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.088
+     "at": 2.988
     }
    ]
   },
   {
    "name": "S5 the siren",
-   "at": 17.55,
-   "len": 2.95,
+   "at": 24,
+   "len": 5,
    "shot": {
     "pos": [
-     -297.7,
-     1.3,
-     5.8
+     -294.1,
+     1.05,
+     1.3
     ],
     "look": [
      -296.5,
-     0.6,
-     0.6
+     0.32,
+     -0.75
     ],
-    "fov": 48
+    "fov": 46
    },
    "do": [
     {
@@ -2817,7 +4353,7 @@
      "do": "expr",
      "expr": "kind",
      "set": {
-      "curve": 0.2
+      "curve": 0.25
      },
      "dur": 0.01,
      "at": 0
@@ -2826,8 +4362,8 @@
      "who": "rich",
      "do": "look",
      "to": [
-      0,
-      0.2
+      0.2,
+      -0.4
      ],
      "dur": 0.01,
      "blink": false,
@@ -2838,7 +4374,7 @@
      "dur": 2.2,
      "gain": 0.45,
      "reason": "a siren passing on the road outside",
-     "at": 0.15
+     "at": 0.2
     },
     {
      "who": "rich",
@@ -2849,62 +4385,427 @@
       "eye": 1.35
      },
      "dur": 0.1,
-     "at": 0.35
+     "at": 0.4
     },
     {
      "who": "rich",
      "do": "squash",
      "amount": 0.08,
      "dur": 0.15,
-     "at": 0.35
+     "at": 0.4
     },
     {
      "who": "rich",
      "do": "look",
      "to": [
-      -0.2,
-      0.7
+      -0.6,
+      0.5
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.4
+     "at": 0.45
+    },
+    {
+     "who": "rich",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.25,
+     "at": 1.1
     },
     {
      "who": "rich",
      "do": "move",
      "to": [
-      -297.357,
-      0.793
+      -296.757,
+      -0.557
      ],
-     "dur": 0.9,
-     "steps": 4,
-     "at": 1.05
+     "dur": 0.25,
+     "steps": 1,
+     "at": 1.1
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "brow": 0.7,
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -296.327,
+       0.2,
+       -0.317
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -296.327,
+       0.2,
+       -0.497
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "move",
+     "to": [
+      -296.377,
+      -0.622
+     ],
+     "dur": 0.3,
+     "steps": 1,
+     "at": 1.65
     },
     {
      "do": "prop",
      "id": "hbagA",
      "set": {
-      "y": -0.6
+      "x": -295.877,
+      "z": -0.537
      },
      "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -296.027,
+       0.2,
+       -0.447
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -296.027,
+       0.2,
+       -0.627
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "hbagA",
+     "set": {
+      "y": -0.45,
+      "tilt": 25
+     },
+     "dur": 0.18,
      "ease": "in",
+     "at": 1.98
+    },
+    {
+     "who": "rich",
+     "do": "move",
+     "to": [
+      -296.757,
+      -0.857
+     ],
+     "dur": 0.25,
+     "steps": 1,
      "at": 2.05
     },
     {
-     "sfx": "ai/bag-drag",
+     "sfx": "thud",
      "gain": 0.4,
-     "reason": "a sack dragged over marble",
-     "at": 2.05
+     "reason": "the sack lands at the bottom of the hole",
+     "at": 2.14
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -296.327,
+       0.2,
+       -0.917
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -296.327,
+       0.2,
+       -1.097
+      ]
+     },
+     "dur": 0.22,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "L",
+     "shape": "flat",
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.6
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 2.35
+    },
+    {
+     "who": "rich",
+     "do": "move",
+     "to": [
+      -296.377,
+      -0.792
+     ],
+     "dur": 0.3,
+     "steps": 1,
+     "at": 2.6
     },
     {
      "do": "prop",
      "id": "hbagB",
      "set": {
-      "y": -0.6
+      "x": -295.877,
+      "z": -0.877
      },
      "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -296.027,
+       0.2,
+       -0.787
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -296.027,
+       0.2,
+       -0.967
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "do": "prop",
+     "id": "hbagB",
+     "set": {
+      "y": -0.45,
+      "tilt": 25
+     },
+     "dur": 0.18,
      "ease": "in",
-     "at": 2.25
+     "at": 2.93
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.4,
+     "reason": "the sack lands at the bottom of the hole",
+     "at": 3.09
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -295.977,
+       0.4,
+       -0.587
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.3
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 3.3
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.3
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -295.977,
+       0.12,
+       -0.587
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 3.6
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.35,
+     "reason": "the floor tile dropping back into place",
+     "at": 3.95
+    },
+    {
+     "who": "rich",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.35,
+     "at": 4.15
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 4.15
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 4.15
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 4.3
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.6,
+      0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 4.75
     },
     {
      "who": "rich",
@@ -2918,7 +4819,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.938
+     "at": 4.988
     },
     {
      "who": "rich",
@@ -2927,20 +4828,19 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.938
+     "at": 4.988
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 2.938
+     "at": 4.988
     }
-   ],
-   "kind": "escalation"
+   ]
   },
   {
    "name": "S6 ten locks",
-   "at": 20.5,
-   "len": 1.8,
+   "at": 29,
+   "len": 1.9,
    "shot": {
     "pos": [
      -297.8,
@@ -3017,14 +4917,14 @@
      "sfx": "ai/knock",
      "gain": 0.55,
      "reason": "a knock on the front door",
-     "at": 1.5
+     "at": 1.6
     },
     {
      "who": "rich",
      "do": "squash",
      "amount": 0.1,
      "dur": 0.12,
-     "at": 1.6
+     "at": 1.7
     },
     {
      "who": "rich",
@@ -3035,7 +4935,7 @@
       "eye": 1.4
      },
      "dur": 0.15,
-     "at": 1.6
+     "at": 1.7
     },
     {
      "who": "chip",
@@ -3049,7 +4949,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.788
+     "at": 1.888
     },
     {
      "who": "chip",
@@ -3058,12 +4958,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.788
+     "at": 1.888
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.788
+     "at": 1.888
     },
     {
      "do": "prop",
@@ -3076,14 +4976,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.788
+     "at": 1.888
     }
    ]
   },
   {
    "name": "S6 Chip at the window",
-   "at": 22.3,
-   "len": 1.05,
+   "at": 30.9,
+   "len": 1.1,
    "shot": {
     "pos": [
      -301,
@@ -3169,7 +5069,7 @@
       "brow": 0.6
      },
      "dur": 0.25,
-     "at": 0.8
+     "at": 0.85
     },
     {
      "who": "rich",
@@ -3180,14 +5080,14 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.9
+     "at": 0.95
     }
    ]
   },
   {
    "name": "S6 he backs away",
-   "at": 23.35,
-   "len": 0.65,
+   "at": 32,
+   "len": 1.5,
    "shot": {
     "pos": [
      -297.8,
@@ -3251,7 +5151,7 @@
     {
      "who": "chip",
      "do": "hide",
-     "at": 0.638
+     "at": 1.488
     },
     {
      "who": "chip",
@@ -3265,14 +5165,14 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 0.638
+     "at": 1.488
     }
    ]
   },
   {
    "name": "S6b 3:00",
-   "at": 24,
-   "len": 1.15,
+   "at": 33.5,
+   "len": 1,
    "shot": {
     "pos": [
      -304.6,
@@ -3299,7 +5199,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.138
+     "at": 0.988
     },
     {
      "who": "rich",
@@ -3308,26 +5208,26 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.138
+     "at": 0.988
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 1.138
+     "at": 0.988
     },
     {
      "who": "rich",
      "do": "sit",
      "dur": 0.01,
      "hands": "table",
-     "at": 1.138
+     "at": 0.988
     }
    ]
   },
   {
    "name": "S7 alone",
-   "at": 25.15,
-   "len": 3.55,
+   "at": 34.5,
+   "len": 4.1,
    "shot": {
     "pos": [
      -300,
@@ -3375,7 +5275,7 @@
      "dur": 1.3,
      "gain": 0.5,
      "reason": "a siren coming up the road and stopping outside",
-     "at": 2.5
+     "at": 2.2
     },
     {
      "who": "rich",
@@ -3386,7 +5286,7 @@
       "eye": 1.45
      },
      "dur": 0.15,
-     "at": 2.95
+     "at": 2.65
     },
     {
      "who": "rich",
@@ -3397,13 +5297,13 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.95
+     "at": 2.65
     },
     {
      "who": "rich",
      "do": "stand",
      "dur": 0.25,
-     "at": 3.1
+     "at": 2.8
     },
     {
      "do": "prop",
@@ -3413,7 +5313,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 3.45
+     "at": 4
     },
     {
      "do": "prop",
@@ -3425,7 +5325,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3437,7 +5337,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3448,7 +5348,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3460,7 +5360,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3471,7 +5371,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3483,7 +5383,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3495,7 +5395,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3509,7 +5409,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3518,12 +5418,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3538,7 +5438,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3553,7 +5453,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3561,7 +5461,7 @@
      "side": "R",
      "shape": "press",
      "dur": 0.01,
-     "at": 3.538
+     "at": 4.088
     },
     {
      "who": "rich",
@@ -3569,7 +5469,7 @@
      "side": "L",
      "shape": "press",
      "dur": 0.01,
-     "at": 3.538
+     "at": 4.088
     },
     {
      "do": "prop",
@@ -3582,14 +5482,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 3.538
+     "at": 4.088
     }
    ]
   },
   {
    "name": "S8 he flees",
-   "at": 28.7,
-   "len": 1.75,
+   "at": 38.6,
+   "len": 2,
    "shot": {
     "pos": [
      0,
@@ -3690,7 +5590,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -3702,7 +5602,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -3713,7 +5613,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -3725,7 +5625,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -3737,7 +5637,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "who": "rich",
@@ -3751,7 +5651,7 @@
      "yaw": 0,
      "sit": true,
      "dur": 0,
-     "at": 1.738
+     "at": 1.988
     },
     {
      "who": "rich",
@@ -3760,7 +5660,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "who": "rich",
@@ -3768,7 +5668,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.738
+     "at": 1.988
     },
     {
      "who": "rich",
@@ -3777,7 +5677,7 @@
      "pose": "lap",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.738
+     "at": 1.988
     },
     {
      "who": "rich",
@@ -3785,7 +5685,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.738
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -3799,13 +5699,13 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.738
+     "at": 1.988
     }
    ]
   },
   {
    "name": "S9 the car",
-   "at": 30.45,
+   "at": 40.6,
    "len": 0.8,
    "shot": {
     "pos": [
@@ -3846,7 +5746,7 @@
     {
      "sfx": "ai/rain-car-roof",
      "gain": 0.4,
-     "dur": 3.35,
+     "dur": 3.4,
      "reason": "rain drumming on the car roof",
      "at": 0
     },
@@ -3876,7 +5776,7 @@
   },
   {
    "name": "S9 empty",
-   "at": 31.25,
+   "at": 41.4,
    "len": 1,
    "shot": {
     "pos": [
@@ -3942,8 +5842,8 @@
   },
   {
    "name": "S9 the stop",
-   "at": 32.25,
-   "len": 1.55,
+   "at": 42.4,
+   "len": 1.6,
    "shot": {
     "pos": [
      -6,
@@ -3984,14 +5884,14 @@
      },
      "dur": 0.9,
      "ease": "linear",
-     "at": 0.75
+     "at": 0.8
     },
     {
      "who": "rich",
      "do": "ride",
      "prop": null,
      "dur": 0,
-     "at": 1.49
+     "at": 1.54
     },
     {
      "do": "prop",
@@ -4003,7 +5903,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4017,7 +5917,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4026,12 +5926,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4046,7 +5946,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4061,7 +5961,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4069,7 +5969,7 @@
      "side": "R",
      "shape": "press",
      "dur": 0.01,
-     "at": 1.538
+     "at": 1.588
     },
     {
      "who": "rich",
@@ -4077,7 +5977,7 @@
      "side": "L",
      "shape": "press",
      "dur": 0.01,
-     "at": 1.538
+     "at": 1.588
     },
     {
      "do": "prop",
@@ -4090,14 +5990,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.538
+     "at": 1.588
     }
    ]
   },
   {
    "name": "S9 the ambulance",
-   "at": 33.8,
-   "len": 3.2,
+   "at": 44,
+   "len": 5.4,
    "shot": {
     "pos": [
      4.5,
@@ -4277,17 +6177,6 @@
      "at": 1.4
     },
     {
-     "who": "rich",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.1,
-      "brow": 0.2
-     },
-     "dur": 0.3,
-     "at": 1.4
-    },
-    {
      "do": "prop",
      "id": "amb",
      "set": {
@@ -4299,6 +6188,17 @@
      },
      "dur": 0.2,
      "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1,
+      "brow": 0.2
+     },
+     "dur": 0.3,
      "at": 1.6
     },
     {
@@ -4401,6 +6301,20 @@
     },
     {
      "do": "prop",
+     "id": "amb",
+     "set": {
+      "x": 60,
+      "z": -571.08,
+      "y": -10.439,
+      "rot": 73.321,
+      "len": 70
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 3.2
+    },
+    {
+     "do": "prop",
      "id": "cbag",
      "set": {
       "scale": 1,
@@ -4409,7 +6323,19 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.188
+     "at": 5.388
+    },
+    {
+     "do": "prop",
+     "id": "storm",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 5.388
     },
     {
      "who": "rich",
@@ -4423,7 +6349,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.188
+     "at": 5.388
     },
     {
      "who": "rich",
@@ -4432,12 +6358,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.188
+     "at": 5.388
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 3.188
+     "at": 5.388
     },
     {
      "who": "rich",
@@ -4446,14 +6372,14 @@
      "dur": 0.01,
      "height": 0,
      "hands": "lap",
-     "at": 3.188
+     "at": 5.388
     }
    ]
   },
   {
    "name": "S10 the clouds break",
-   "at": 37,
-   "len": 4,
+   "at": 49.4,
+   "len": 1.6,
    "shot": {
     "pos": [
      0.4,
@@ -4468,20 +6394,6 @@
     "fov": 40
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "amb",
-     "set": {
-      "x": 60,
-      "z": -571.08,
-      "y": -10.439,
-      "rot": 73.321,
-      "len": 70
-     },
-     "dur": 0.2,
-     "ease": "linear",
-     "at": 0
-    },
     {
      "who": "rich",
      "do": "expr",
@@ -4505,6 +6417,33 @@
      "at": 0
     },
     {
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 6,
+     "reason": "wind on the cliff, far under the music",
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "S10 the money flies",
+   "at": 51,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     0.4,
+     1.3,
+     -592
+    ],
+    "look": [
+     2.7,
+     -2.5,
+     -640
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
      "who": "rich",
      "do": "look",
      "to": [
@@ -4513,7 +6452,36 @@
      ],
      "dur": 0.6,
      "blink": false,
-     "at": 1.6
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.22,
+     "dur": 4.5,
+     "reason": "the gust over the cliff that takes the money",
+     "at": 0
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.3
+     },
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.35,
+      0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.7
     },
     {
      "who": "rich",
@@ -4524,205 +6492,65 @@
       "brow": 0.15
      },
      "dur": 0.8,
-     "at": 2.4
+     "at": 0.8
     },
     {
-     "sfx": "ai/storm-wind",
-     "gain": 0.06,
-     "dur": 6,
-     "reason": "wind on the cliff, far under the music",
-     "at": 2.8
+     "do": "prop",
+     "id": "cbag",
+     "set": {
+      "full": 0
+     },
+     "dur": 3.6,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "sfx": "ai-package/cardboard-rustle",
+     "gain": 0.3,
+     "reason": "hundreds of paper notes rustling out of the sack",
+     "at": 0.8
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.05,
+      "brow": 0.2
+     },
+     "dur": 0.4,
+     "at": 3.2
     }
    ]
   },
   {
    "name": "S10 the smile",
-   "at": 41,
-   "len": 4,
+   "at": 54.5,
+   "len": 2.9,
    "shot": {
     "pos": [
-     0.25,
      0.55,
-     -602.3
+     0.62,
+     -603.4
     ],
     "look": [
-     0.05,
-     0.62,
+     0.32,
+     0.55,
      -600
     ],
-    "fov": 38
+    "fov": 40
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 0.887,
-      "y": 0.133,
-      "z": -599.766,
-      "rot": 14.4,
-      "tilt": -43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "sfx": "crinkle",
-     "gain": 0.3,
-     "reason": "notes lifting out of the sack",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 0.954,
-      "y": 0.349,
-      "z": -599.742,
-      "rot": 28.8,
-      "tilt": -86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.039,
-      "y": 0.565,
-      "z": -599.759,
-      "rot": 43.2,
-      "tilt": -129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.137,
-      "y": 0.731,
-      "z": -599.819,
-      "rot": 57.6,
-      "tilt": -172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
     {
      "who": "rich",
      "do": "look",
      "to": [
-      0.25,
-      0.15
+      -0.4,
+      0.45
      ],
-     "dur": 0.3,
+     "dur": 0.6,
      "blink": false,
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.248,
-      "y": 0.813,
-      "z": -599.917,
-      "rot": 72,
-      "tilt": -216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.371,
-      "y": 0.802,
-      "z": -600.044,
-      "rot": 86.4,
-      "tilt": -259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 0.793,
-      "y": 0.577,
-      "z": -600.026,
-      "rot": -14.4,
-      "tilt": -43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.509,
-      "y": 0.719,
-      "z": -600.188,
-      "rot": 100.8,
-      "tilt": -302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 0.813,
-      "y": 0.643,
-      "z": -600.13,
-      "rot": -28.8,
-      "tilt": -86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.662,
-      "y": 0.607,
-      "z": -600.336,
-      "rot": 115.2,
-      "tilt": -345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 0.87,
-      "y": 0.618,
-      "z": -600.225,
-      "rot": -43.2,
-      "tilt": -129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
+     "at": 0.2
     },
     {
      "who": "rich",
@@ -4733,2037 +6561,22 @@
       "eye": 0.85
      },
      "dur": 0.9,
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 1.834,
-      "y": 0.517,
-      "z": -600.476,
-      "rot": 129.6,
-      "tilt": -28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 0.963,
-      "y": 0.526,
-      "z": -600.301,
-      "rot": -57.6,
-      "tilt": -172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 0.75,
-      "y": 0.104,
-      "z": -600.145,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 2.027,
-      "y": 0.496,
-      "z": -600.597,
-      "rot": 144,
-      "tilt": -72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 1.091,
-      "y": 0.414,
-      "z": -600.353,
-      "rot": -72,
-      "tilt": -216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 0.826,
-      "y": 0.313,
-      "z": -600.094,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 2.241,
-      "y": 0.566,
-      "z": -600.691,
-      "rot": 158.4,
-      "tilt": -115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 1.25,
-      "y": 0.333,
-      "z": -600.38,
-      "rot": -86.4,
-      "tilt": -259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 0.939,
-      "y": 0.533,
-      "z": -600.034,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 2.477,
-      "y": 0.723,
-      "z": -600.756,
-      "rot": 172.8,
-      "tilt": -158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
      "at": 1.3
     },
     {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 1.437,
-      "y": 0.326,
-      "z": -600.386,
-      "rot": -100.8,
-      "tilt": -302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.081,
-      "y": 0.713,
-      "z": -599.975,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 2.732,
-      "y": 0.935,
-      "z": -600.793,
-      "rot": 187.2,
-      "tilt": -201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 1.647,
-      "y": 0.412,
-      "z": -600.378,
-      "rot": -115.2,
-      "tilt": -345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.244,
-      "y": 0.815,
-      "z": -599.928,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "who": "rich",
-     "do": "blink",
-     "dur": 0.6,
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 3.004,
-      "y": 1.153,
-      "z": -600.808,
-      "rot": 201.6,
-      "tilt": -244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
+     "sfx": "ai/storm-wind",
+     "gain": 0.06,
+     "dur": 5,
+     "reason": "wind on the cliff, far under the music",
      "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 1.873,
-      "y": 0.582,
-      "z": -600.368,
-      "rot": -129.6,
-      "tilt": -28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.422,
-      "y": 0.823,
-      "z": -599.904,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 3.288,
-      "y": 1.327,
-      "z": -600.811,
-      "rot": 216,
-      "tilt": -288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 2.11,
-      "y": 0.799,
-      "z": -600.367,
-      "rot": -144,
-      "tilt": -72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.608,
-      "y": 0.753,
-      "z": -599.913,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 3.579,
-      "y": 1.419,
-      "z": -600.813,
-      "rot": 230.4,
-      "tilt": -331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 2.351,
-      "y": 1.013,
-      "z": -600.386,
-      "rot": -158.4,
-      "tilt": -115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.799,
-      "y": 0.642,
-      "z": -599.958,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 0.737,
-      "y": 0,
-      "z": -600.18,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 3.871,
-      "y": 1.418,
-      "z": -600.826,
-      "rot": 244.8,
-      "tilt": -14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 2.593,
-      "y": 1.175,
-      "z": -600.435,
-      "rot": -172.8,
-      "tilt": -158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 1.991,
-      "y": 0.544,
-      "z": -600.041,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 0.804,
-      "y": 0.071,
-      "z": -600.157,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 4.16,
-      "y": 1.342,
-      "z": -600.861,
-      "rot": 259.2,
-      "tilt": -57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 2.832,
-      "y": 1.251,
-      "z": -600.518,
-      "rot": -187.2,
-      "tilt": -201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 2.185,
-      "y": 0.505,
-      "z": -600.159,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 0.909,
-      "y": 0.228,
-      "z": -600.118,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 4.443,
-      "y": 1.23,
-      "z": -600.926,
-      "rot": 273.6,
-      "tilt": -100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 3.066,
-      "y": 1.235,
-      "z": -600.637,
-      "rot": -201.6,
-      "tilt": -244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 2.381,
-      "y": 0.554,
-      "z": -600.303,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.046,
-      "y": 0.441,
-      "z": -600.073,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 4.718,
-      "y": 1.136,
-      "z": -601.025,
-      "rot": 288,
-      "tilt": -144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 3.297,
-      "y": 1.149,
-      "z": -600.788,
-      "rot": -216,
-      "tilt": -288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 2.583,
-      "y": 0.695,
-      "z": -600.463,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.207,
-      "y": 0.659,
-      "z": -600.031,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 0.764,
-      "y": 0.074,
-      "z": -600.105,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 4.984,
-      "y": 1.105,
-      "z": -601.158,
-      "rot": 302.4,
-      "tilt": -187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 3.524,
-      "y": 1.037,
-      "z": -600.963,
-      "rot": -230.4,
-      "tilt": -331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 2.793,
-      "y": 0.899,
-      "z": -600.626,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.385,
-      "y": 0.833,
-      "z": -600.005,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 0.787,
-      "y": 0.273,
-      "z": -600.203,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 5.243,
-      "y": 1.164,
-      "z": -601.318,
-      "rot": 316.8,
-      "tilt": -230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 3.753,
-      "y": 0.95,
-      "z": -601.151,
-      "rot": -244.8,
-      "tilt": -14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 3.015,
-      "y": 1.121,
-      "z": -600.779,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.575,
-      "y": 0.924,
-      "z": -600.004,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 0.849,
-      "y": 0.495,
-      "z": -600.284,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 5.498,
-      "y": 1.313,
-      "z": -601.498,
-      "rot": 331.2,
-      "tilt": -273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 3.987,
-      "y": 0.934,
-      "z": -601.341,
-      "rot": -259.2,
-      "tilt": -57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 3.251,
-      "y": 1.308,
-      "z": -600.913,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.77,
-      "y": 0.923,
-      "z": -600.037,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 0.948,
-      "y": 0.689,
-      "z": -600.342,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 5.752,
-      "y": 1.521,
-      "z": -601.685,
-      "rot": 345.6,
-      "tilt": -316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 4.229,
-      "y": 1.009,
-      "z": -601.519,
-      "rot": -273.6,
-      "tilt": -100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 3.504,
-      "y": 1.419,
-      "z": -601.018,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 1.967,
-      "y": 0.846,
-      "z": -600.107,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 1.082,
-      "y": 0.812,
-      "z": -600.376,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 6.011,
-      "y": 1.742,
-      "z": -601.868,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 4.483,
-      "y": 1.171,
-      "z": -601.676,
-      "rot": -288,
-      "tilt": -144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 3.775,
-      "y": 1.438,
-      "z": -601.092,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 2.165,
-      "y": 0.734,
-      "z": -600.214,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 1.247,
-      "y": 0.843,
-      "z": -600.388,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 6.277,
-      "y": 1.923,
-      "z": -602.034,
-      "rot": 14.4,
-      "tilt": -43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 4.751,
-      "y": 1.385,
-      "z": -601.803,
-      "rot": -302.4,
-      "tilt": -187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 4.061,
-      "y": 1.374,
-      "z": -601.137,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 2.363,
-      "y": 0.64,
-      "z": -600.353,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 1.436,
-      "y": 0.788,
-      "z": -600.387,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 6.554,
-      "y": 2.025,
-      "z": -602.175,
-      "rot": 28.8,
-      "tilt": -86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 5.033,
-      "y": 1.602,
-      "z": -601.898,
-      "rot": -316.8,
-      "tilt": -230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 4.36,
-      "y": 1.266,
-      "z": -601.157,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 2.564,
-      "y": 0.61,
-      "z": -600.515,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 1.645,
-      "y": 0.683,
-      "z": -600.382,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 6.844,
-      "y": 2.034,
-      "z": -602.284,
-      "rot": 43.2,
-      "tilt": -129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 5.33,
-      "y": 1.772,
-      "z": -601.964,
-      "rot": -331.2,
-      "tilt": -273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 4.668,
-      "y": 1.164,
-      "z": -601.163,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 2.77,
-      "y": 0.67,
-      "z": -600.689,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 1.867,
-      "y": 0.577,
-      "z": -600.386,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 7.146,
-      "y": 1.964,
-      "z": -602.361,
-      "rot": 57.6,
-      "tilt": -172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 5.637,
-      "y": 1.859,
-      "z": -602.004,
-      "rot": -345.6,
-      "tilt": -316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 4.981,
-      "y": 1.116,
-      "z": -601.166,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 2.985,
-      "y": 0.818,
-      "z": -600.861,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 2.095,
-      "y": 0.52,
-      "z": -600.408,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 0.77,
-      "y": 0.05,
-      "z": -600.089,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 7.461,
-      "y": 1.854,
-      "z": -602.409,
-      "rot": 72,
-      "tilt": -216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 5.952,
-      "y": 1.852,
-      "z": -602.031,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 5.294,
-      "y": 1.155,
-      "z": -601.178,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 3.212,
-      "y": 1.027,
-      "z": -601.02,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 2.325,
-      "y": 0.547,
-      "z": -600.459,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 0.846,
-      "y": 0.05,
-      "z": -600.039,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 7.784,
-      "y": 1.755,
-      "z": -602.436,
-      "rot": 86.4,
-      "tilt": -259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 6.27,
-      "y": 1.772,
-      "z": -602.054,
-      "rot": -14.4,
-      "tilt": -43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 5.602,
-      "y": 1.286,
-      "z": -601.21,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 3.454,
-      "y": 1.247,
-      "z": -601.156,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 2.553,
-      "y": 0.667,
-      "z": -600.545,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 0.953,
-      "y": 0.144,
-      "z": -599.995,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 8.112,
-      "y": 1.715,
-      "z": -602.452,
-      "rot": 100.8,
-      "tilt": -302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 6.586,
-      "y": 1.66,
-      "z": -602.086,
-      "rot": -28.8,
-      "tilt": -86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 5.902,
-      "y": 1.486,
-      "z": -601.271,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 3.713,
-      "y": 1.428,
-      "z": -601.263,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 2.778,
-      "y": 0.86,
-      "z": -600.667,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.084,
-      "y": 0.319,
-      "z": -599.968,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 8.44,
-      "y": 1.764,
-      "z": -602.469,
-      "rot": 115.2,
-      "tilt": -345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 6.896,
-      "y": 1.568,
-      "z": -602.139,
-      "rot": -43.2,
-      "tilt": -129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 6.193,
-      "y": 1.708,
-      "z": -601.365,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 3.988,
-      "y": 1.53,
-      "z": -601.338,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 3,
-      "y": 1.082,
-      "z": -600.822,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.23,
-      "y": 0.538,
-      "z": -599.968,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.4
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 8.764,
-      "y": 1.904,
-      "z": -602.5,
-      "rot": 129.6,
-      "tilt": -28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 7.197,
-      "y": 1.542,
-      "z": -602.221,
-      "rot": -57.6,
-      "tilt": -172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 6.473,
-      "y": 1.901,
-      "z": -601.492,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 4.278,
-      "y": 1.539,
-      "z": -601.384,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 3.219,
-      "y": 1.282,
-      "z": -601.002,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.386,
-      "y": 0.75,
-      "z": -600.002,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.5
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 9.08,
-      "y": 2.108,
-      "z": -602.555,
-      "rot": 144,
-      "tilt": -72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 7.488,
-      "y": 1.608,
-      "z": -602.335,
-      "rot": -72,
-      "tilt": -216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 6.745,
-      "y": 2.023,
-      "z": -601.647,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 4.579,
-      "y": 1.468,
-      "z": -601.409,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 3.439,
-      "y": 1.414,
-      "z": -601.198,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.549,
-      "y": 0.906,
-      "z": -600.076,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.6
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 9.385,
-      "y": 2.329,
-      "z": -602.64,
-      "rot": 158.4,
-      "tilt": -115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 7.767,
-      "y": 1.761,
-      "z": -602.482,
-      "rot": -86.4,
-      "tilt": -259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 7.011,
-      "y": 2.051,
-      "z": -601.823,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 4.888,
-      "y": 1.358,
-      "z": -601.423,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 3.664,
-      "y": 1.455,
-      "z": -601.397,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.716,
-      "y": 0.974,
-      "z": -600.187,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.7
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 9.679,
-      "y": 2.517,
-      "z": -602.759,
-      "rot": 172.8,
-      "tilt": -158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 8.038,
-      "y": 1.971,
-      "z": -602.657,
-      "rot": -100.8,
-      "tilt": -302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 7.275,
-      "y": 1.996,
-      "z": -602.007,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 5.2,
-      "y": 1.259,
-      "z": -601.437,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 3.898,
-      "y": 1.409,
-      "z": -601.586,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 1.886,
-      "y": 0.951,
-      "z": -600.332,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 0.74,
-      "y": 0.426,
-      "z": -600.171,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 9.962,
-      "y": 2.629,
-      "z": -602.908,
-      "rot": 187.2,
-      "tilt": -201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 8.302,
-      "y": 2.191,
-      "z": -602.851,
-      "rot": -115.2,
-      "tilt": -345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 7.541,
-      "y": 1.89,
-      "z": -602.187,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 5.51,
-      "y": 1.22,
-      "z": -601.464,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 4.144,
-      "y": 1.307,
-      "z": -601.755,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 2.061,
-      "y": 0.86,
-      "z": -600.501,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 0.789,
-      "y": 0.605,
-      "z": -600.198,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 3.9
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "S10 the hold",
-   "at": 45,
-   "len": 3,
+   "at": 57.4,
+   "len": 3.6,
    "shot": {
     "pos": [
      0.4,
@@ -6789,2349 +6602,17 @@
      ],
      "fov": 40
     },
-    "dur": 3,
+    "dur": 3.6,
     "ease": "linear"
    },
-   "do": [
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 10.237,
-      "y": 2.649,
-      "z": -603.083,
-      "rot": 201.6,
-      "tilt": -244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 8.564,
-      "y": 2.368,
-      "z": -603.053,
-      "rot": -129.6,
-      "tilt": -28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 7.814,
-      "y": 1.784,
-      "z": -602.352,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 5.814,
-      "y": 1.269,
-      "z": -601.515,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 4.403,
-      "y": 1.198,
-      "z": -601.896,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 2.244,
-      "y": 0.748,
-      "z": -600.683,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 0.878,
-      "y": 0.705,
-      "z": -600.202,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 10.506,
-      "y": 2.586,
-      "z": -603.272,
-      "rot": 216,
-      "tilt": -288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 8.828,
-      "y": 2.465,
-      "z": -603.25,
-      "rot": -144,
-      "tilt": -72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 8.098,
-      "y": 1.728,
-      "z": -602.491,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 6.109,
-      "y": 1.409,
-      "z": -601.596,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 4.678,
-      "y": 1.133,
-      "z": -602.005,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 2.437,
-      "y": 0.666,
-      "z": -600.866,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.005,
-      "y": 0.711,
-      "z": -600.185,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 10.775,
-      "y": 2.477,
-      "z": -603.464,
-      "rot": 230.4,
-      "tilt": -331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 9.099,
-      "y": 2.468,
-      "z": -603.431,
-      "rot": -158.4,
-      "tilt": -115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 8.393,
-      "y": 1.757,
-      "z": -602.599,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 6.394,
-      "y": 1.613,
-      "z": -601.71,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 4.967,
-      "y": 1.15,
-      "z": -602.083,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 2.645,
-      "y": 0.657,
-      "z": -601.035,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.163,
-      "y": 0.639,
-      "z": -600.153,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 11.047,
-      "y": 2.375,
-      "z": -603.647,
-      "rot": 244.8,
-      "tilt": -14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 9.38,
-      "y": 2.395,
-      "z": -603.587,
-      "rot": -172.8,
-      "tilt": -158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 8.701,
-      "y": 1.879,
-      "z": -602.675,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 6.669,
-      "y": 1.835,
-      "z": -601.856,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 5.267,
-      "y": 1.261,
-      "z": -602.136,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 2.869,
-      "y": 0.74,
-      "z": -601.183,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.346,
-      "y": 0.529,
-      "z": -600.115,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 11.327,
-      "y": 2.327,
-      "z": -603.809,
-      "rot": 259.2,
-      "tilt": -57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 9.672,
-      "y": 2.284,
-      "z": -603.711,
-      "rot": -187.2,
-      "tilt": -201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 9.02,
-      "y": 2.072,
-      "z": -602.721,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 6.936,
-      "y": 2.022,
-      "z": -602.029,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 5.576,
-      "y": 1.447,
-      "z": -602.173,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 3.111,
-      "y": 0.908,
-      "z": -601.302,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.547,
-      "y": 0.431,
-      "z": -600.083,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 11.617,
-      "y": 2.365,
-      "z": -603.943,
-      "rot": 273.6,
-      "tilt": -100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 9.977,
-      "y": 2.187,
-      "z": -603.802,
-      "rot": -201.6,
-      "tilt": -244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 9.348,
-      "y": 2.295,
-      "z": -602.744,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 7.198,
-      "y": 2.134,
-      "z": -602.218,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 5.889,
-      "y": 1.668,
-      "z": -602.205,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 3.37,
-      "y": 1.124,
-      "z": -601.39,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.759,
-      "y": 0.394,
-      "z": -600.066,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.5
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 11.92,
-      "y": 2.495,
-      "z": -604.045,
-      "rot": 288,
-      "tilt": -144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 10.292,
-      "y": 2.152,
-      "z": -603.863,
-      "rot": -216,
-      "tilt": -288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 9.68,
-      "y": 2.494,
-      "z": -602.756,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 7.46,
-      "y": 2.153,
-      "z": -602.411,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 6.201,
-      "y": 1.873,
-      "z": -602.245,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 3.645,
-      "y": 1.34,
-      "z": -601.449,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 1.978,
-      "y": 0.445,
-      "z": -600.077,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.6
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 12.234,
-      "y": 2.694,
-      "z": -604.114,
-      "rot": 302.4,
-      "tilt": -187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 10.616,
-      "y": 2.207,
-      "z": -603.903,
-      "rot": -230.4,
-      "tilt": -331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 10.013,
-      "y": 2.625,
-      "z": -602.767,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 7.726,
-      "y": 2.09,
-      "z": -602.597,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 6.507,
-      "y": 2.015,
-      "z": -602.305,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 3.934,
-      "y": 1.503,
-      "z": -601.487,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 2.198,
-      "y": 0.587,
-      "z": -600.122,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.7
-    },
-    {
-     "sfx": "ai/storm-wind",
-     "gain": 0.06,
-     "dur": 2.2,
-     "reason": "wind on the cliff, far under the music",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 12.558,
-      "y": 2.916,
-      "z": -604.156,
-      "rot": 316.8,
-      "tilt": -230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 10.944,
-      "y": 2.351,
-      "z": -603.931,
-      "rot": -244.8,
-      "tilt": -14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 10.342,
-      "y": 2.664,
-      "z": -602.791,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 7.999,
-      "y": 1.982,
-      "z": -602.765,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 6.805,
-      "y": 2.066,
-      "z": -602.391,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 4.231,
-      "y": 1.582,
-      "z": -601.514,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 2.418,
-      "y": 0.792,
-      "z": -600.203,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.8
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 12.888,
-      "y": 3.11,
-      "z": -604.18,
-      "rot": 331.2,
-      "tilt": -273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 11.272,
-      "y": 2.557,
-      "z": -603.96,
-      "rot": -259.2,
-      "tilt": -57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 10.663,
-      "y": 2.616,
-      "z": -602.838,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 8.283,
-      "y": 1.879,
-      "z": -602.904,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 7.092,
-      "y": 2.028,
-      "z": -602.511,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 4.531,
-      "y": 1.568,
-      "z": -601.541,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 2.635,
-      "y": 1.014,
-      "z": -600.319,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 0.9
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 13.222,
-      "y": 3.232,
-      "z": -604.196,
-      "rot": 345.6,
-      "tilt": -316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 11.596,
-      "y": 2.779,
-      "z": -604.001,
-      "rot": -273.6,
-      "tilt": -100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 10.974,
-      "y": 2.514,
-      "z": -602.914,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 8.579,
-      "y": 1.831,
-      "z": -603.012,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 7.369,
-      "y": 1.93,
-      "z": -602.663,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 4.831,
-      "y": 1.483,
-      "z": -601.581,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 2.851,
-      "y": 1.2,
-      "z": -600.465,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1
-    },
-    {
-     "do": "prop",
-     "id": "note0",
-     "set": {
-      "x": 13.553,
-      "y": 3.262,
-      "z": -604.219,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 11.912,
-      "y": 2.963,
-      "z": -604.066,
-      "rot": -288,
-      "tilt": -144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 11.272,
-      "y": 2.405,
-      "z": -603.024,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 8.887,
-      "y": 1.87,
-      "z": -603.087,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 7.636,
-      "y": 1.82,
-      "z": -602.845,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 5.125,
-      "y": 1.371,
-      "z": -601.644,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 3.069,
-      "y": 1.31,
-      "z": -600.63,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 12.217,
-      "y": 3.07,
-      "z": -604.161,
-      "rot": -302.4,
-      "tilt": -187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 11.56,
-      "y": 2.342,
-      "z": -603.165,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 9.206,
-      "y": 2.001,
-      "z": -603.135,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 7.897,
-      "y": 1.748,
-      "z": -603.046,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 5.412,
-      "y": 1.283,
-      "z": -601.737,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 3.291,
-      "y": 1.326,
-      "z": -600.803,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.2
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 12.51,
-      "y": 3.084,
-      "z": -604.289,
-      "rot": -316.8,
-      "tilt": -230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 11.838,
-      "y": 2.361,
-      "z": -603.331,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 9.533,
-      "y": 2.2,
-      "z": -603.163,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 8.155,
-      "y": 1.755,
-      "z": -603.258,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 5.688,
-      "y": 1.265,
-      "z": -601.864,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 3.521,
-      "y": 1.261,
-      "z": -600.971,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.3
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 12.792,
-      "y": 3.017,
-      "z": -604.448,
-      "rot": -331.2,
-      "tilt": -273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 12.111,
-      "y": 2.472,
-      "z": -603.514,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 9.863,
-      "y": 2.422,
-      "z": -603.182,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 8.414,
-      "y": 1.855,
-      "z": -603.466,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 5.955,
-      "y": 1.338,
-      "z": -602.023,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 3.764,
-      "y": 1.153,
-      "z": -601.123,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.4
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 13.064,
-      "y": 2.907,
-      "z": -604.632,
-      "rot": -345.6,
-      "tilt": -316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 12.383,
-      "y": 2.66,
-      "z": -603.701,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 10.192,
-      "y": 2.616,
-      "z": -603.206,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 8.68,
-      "y": 2.035,
-      "z": -603.66,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 6.214,
-      "y": 1.497,
-      "z": -602.209,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 4.02,
-      "y": 1.051,
-      "z": -601.248,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.5
-    },
-    {
-     "do": "prop",
-     "id": "note1",
-     "set": {
-      "x": 13.332,
-      "y": 2.807,
-      "z": -604.831,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 12.658,
-      "y": 2.881,
-      "z": -603.879,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 10.516,
-      "y": 2.738,
-      "z": -603.245,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 8.955,
-      "y": 2.255,
-      "z": -603.829,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 6.468,
-      "y": 1.711,
-      "z": -602.412,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 4.292,
-      "y": 1.005,
-      "z": -601.344,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.6
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 12.94,
-      "y": 3.086,
-      "z": -604.038,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 10.83,
-      "y": 2.767,
-      "z": -603.31,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 9.242,
-      "y": 2.464,
-      "z": -603.968,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 6.722,
-      "y": 1.928,
-      "z": -602.62,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 4.58,
-      "y": 1.046,
-      "z": -601.407,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.7
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 13.232,
-      "y": 3.226,
-      "z": -604.17,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 11.134,
-      "y": 2.711,
-      "z": -603.406,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 9.541,
-      "y": 2.614,
-      "z": -604.073,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 6.98,
-      "y": 2.1,
-      "z": -602.821,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 4.881,
-      "y": 1.179,
-      "z": -601.444,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.8
-    },
-    {
-     "do": "prop",
-     "id": "note2",
-     "set": {
-      "x": 13.535,
-      "y": 3.275,
-      "z": -604.269,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 11.426,
-      "y": 2.606,
-      "z": -603.535,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 9.851,
-      "y": 2.676,
-      "z": -604.149,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 7.246,
-      "y": 2.189,
-      "z": -603.004,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 5.192,
-      "y": 1.379,
-      "z": -601.461,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 1.9
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 11.707,
-      "y": 2.5,
-      "z": -603.695,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 10.17,
-      "y": 2.647,
-      "z": -604.201,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 7.522,
-      "y": 2.185,
-      "z": -603.159,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 5.508,
-      "y": 1.601,
-      "z": -601.469,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 11.98,
-      "y": 2.444,
-      "z": -603.877,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 10.494,
-      "y": 2.554,
-      "z": -604.24,
-      "rot": 230.4,
-      "tilt": 331.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 7.811,
-      "y": 2.106,
-      "z": -603.282,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 5.826,
-      "y": 1.793,
-      "z": -601.481,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.1
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 12.249,
-      "y": 2.472,
-      "z": -604.071,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 10.819,
-      "y": 2.442,
-      "z": -604.277,
-      "rot": 244.8,
-      "tilt": 14.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 8.113,
-      "y": 1.994,
-      "z": -603.374,
-      "rot": 115.2,
-      "tilt": 345.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 6.141,
-      "y": 1.913,
-      "z": -601.509,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.2
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 12.518,
-      "y": 2.593,
-      "z": -604.266,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 11.14,
-      "y": 2.364,
-      "z": -604.327,
-      "rot": 259.2,
-      "tilt": 57.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 8.425,
-      "y": 1.901,
-      "z": -603.437,
-      "rot": 129.6,
-      "tilt": 28.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 6.448,
-      "y": 1.94,
-      "z": -601.562,
-      "rot": 14.4,
-      "tilt": 43.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.3
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 12.791,
-      "y": 2.787,
-      "z": -604.449,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 11.453,
-      "y": 2.361,
-      "z": -604.397,
-      "rot": 273.6,
-      "tilt": 100.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 8.745,
-      "y": 1.873,
-      "z": -603.48,
-      "rot": 144,
-      "tilt": 72
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 6.745,
-      "y": 1.883,
-      "z": -601.646,
-      "rot": 28.8,
-      "tilt": 86.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.4
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 13.072,
-      "y": 3.009,
-      "z": -604.61,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 11.756,
-      "y": 2.451,
-      "z": -604.498,
-      "rot": 288,
-      "tilt": 144
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 9.069,
-      "y": 1.936,
-      "z": -603.514,
-      "rot": 158.4,
-      "tilt": 115.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 7.032,
-      "y": 1.776,
-      "z": -601.764,
-      "rot": 43.2,
-      "tilt": 129.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.5
-    },
-    {
-     "do": "prop",
-     "id": "note3",
-     "set": {
-      "x": 13.365,
-      "y": 3.208,
-      "z": -604.741,
-      "rot": 0,
-      "tilt": 0
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 12.046,
-      "y": 2.623,
-      "z": -604.631,
-      "rot": 302.4,
-      "tilt": 187.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 9.392,
-      "y": 2.087,
-      "z": -603.552,
-      "rot": 172.8,
-      "tilt": 158.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 7.309,
-      "y": 1.671,
-      "z": -601.913,
-      "rot": 57.6,
-      "tilt": 172.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.6
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 12.326,
-      "y": 2.841,
-      "z": -604.796,
-      "rot": 316.8,
-      "tilt": 230.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 9.71,
-      "y": 2.297,
-      "z": -603.606,
-      "rot": 187.2,
-      "tilt": 201.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 7.578,
-      "y": 1.617,
-      "z": -602.086,
-      "rot": 72,
-      "tilt": 216
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.7
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 12.596,
-      "y": 3.054,
-      "z": -604.987,
-      "rot": 331.2,
-      "tilt": 273.6
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 10.019,
-      "y": 2.517,
-      "z": -603.685,
-      "rot": 201.6,
-      "tilt": 244.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 7.843,
-      "y": 1.648,
-      "z": -602.272,
-      "rot": 86.4,
-      "tilt": 259.2
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.8
-    },
-    {
-     "do": "prop",
-     "id": "note4",
-     "set": {
-      "x": 12.861,
-      "y": 3.213,
-      "z": -605.195,
-      "rot": 345.6,
-      "tilt": 316.8
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note5",
-     "set": {
-      "x": 10.317,
-      "y": 2.696,
-      "z": -603.795,
-      "rot": 216,
-      "tilt": 288
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    },
-    {
-     "do": "prop",
-     "id": "note6",
-     "set": {
-      "x": 8.109,
-      "y": 1.771,
-      "z": -602.459,
-      "rot": 100.8,
-      "tilt": 302.4
-     },
-     "dur": 0.1,
-     "ease": "linear",
-     "at": 2.9
-    }
-   ],
+   "do": [],
    "kind": "reaction"
   }
  ],
  "visible": [
   {
    "from": 0,
-   "to": 3.8,
+   "to": 4.3,
    "see": [
     "rich.face",
     "car"
@@ -9139,34 +6620,48 @@
    "why": "frame 0: Spud in his fur coat and gold chain at the wheel of a gold car, rain on the glass, money bags piled behind him, his face empty"
   },
   {
-   "from": 3.8,
-   "to": 9.05,
-   "see": [
-    "spud.face"
-   ],
-   "why": "noon in the city: Spud with his pockets turned out; a white limousine with a laughing rich couple and shopping bags; he wonders"
-  },
-  {
-   "from": 9.05,
-   "to": 11,
+   "from": 4.3,
+   "to": 7.7,
    "see": [
     "spud.face",
-    "vbagL",
-    "vbagR"
+    "rosti",
+    "cup"
    ],
-   "why": "the vault: Spud in a black balaclava hugs two sacks of money in front of the open steel door; the alarm, the red light"
+   "why": "noon, a coffee cart: dirty, sad Spud reaches for a coffee; the seller holds out his palm; Spud turns out his empty pockets and shows two empty hands"
   },
   {
-   "from": 11,
-   "to": 14.45,
+   "from": 7.7,
+   "to": 13.4,
+   "see": [
+    "spud.face",
+    "duch.face",
+    "daup.face",
+    "limo"
+   ],
+   "why": "behind him a rich couple in fur, pearls and velvet laugh by their white limousine with shopping bags; he stares, then wonders"
+  },
+  {
+   "from": 13.4,
+   "to": 17.6,
+   "see": [
+    "spud.face",
+    "tot.face",
+    "gun",
+    "kb0"
+   ],
+   "why": "a bank counter: Spud in a black balaclava points a revolver at the terrified cashier and beckons; she pushes two sacks of money over the counter to him"
+  },
+  {
+   "from": 17.6,
+   "to": 21,
    "see": [
     "spud.face"
    ],
    "why": "night street: he runs from the bank with a sack, police cars race past, he hides at the corner and laughs"
   },
   {
-   "from": 14.45,
-   "to": 17.55,
+   "from": 21,
+   "to": 24,
    "see": [
     "rich.face",
     "dcar"
@@ -9174,16 +6669,17 @@
    "why": "the white mansion by day, a fountain, the gold car: Spud in his fur coat throws his arms wide"
   },
   {
-   "from": 17.55,
-   "to": 20.5,
+   "from": 24,
+   "to": 29,
    "see": [
-    "rich.face"
+    "rich.face",
+    "hbagA"
    ],
-   "why": "night, the huge marble hall: a siren's blue and red sweeps the tall windows; he freezes, then hides the money under a floor tile"
+   "why": "night, the huge marble hall: kneeling by a hole in the floor, a siren's blue and red sweeps the windows; he pushes the money sacks into the hole and shuts the tile"
   },
   {
-   "from": 20.5,
-   "to": 24,
+   "from": 29,
+   "to": 33.5,
    "see": [
     "rich.face",
     "chip.face"
@@ -9191,24 +6687,24 @@
    "why": "the front door: ten locks snap shut; Chip knocks with a gift at the side window in the rain; Spud backs away and does not open"
   },
   {
-   "from": 24,
-   "to": 25.15,
+   "from": 33.5,
+   "to": 34.5,
    "see": [
     "clock"
    ],
    "why": "the clock at 3:00"
   },
   {
-   "from": 25.15,
-   "to": 27.95,
+   "from": 34.5,
+   "to": 37,
    "see": [
     "rich.face"
    ],
    "why": "the loneliest picture: Spud tiny at the far end of a very long table, one candle"
   },
   {
-   "from": 28.7,
-   "to": 30.45,
+   "from": 38.6,
+   "to": 40.6,
    "see": [
     "rich.face",
     "gcar"
@@ -9216,56 +6712,56 @@
    "why": "the mansion gate at night, red and blue light on the wet drive from beyond the gate: he runs to his car with a sack"
   },
   {
-   "from": 30.45,
-   "to": 31.25,
+   "from": 40.6,
+   "to": 41.4,
    "see": [
     "rich.face"
    ],
    "why": "back in the car, the rain: he looks down at the dash"
   },
   {
-   "from": 31.25,
-   "to": 32.25,
+   "from": 41.4,
+   "to": 42.4,
    "see": [
     "car"
    ],
    "why": "the fuel needle drops to empty"
   },
   {
-   "from": 32.25,
-   "to": 33.8,
+   "from": 42.4,
+   "to": 44,
    "see": [
     "car"
    ],
    "why": "the gold car rolls to a stop at the roadside; a puff from the exhaust; the lamps die"
   },
   {
-   "from": 33.8,
-   "to": 37,
+   "from": 44,
+   "to": 49.4,
    "see": [
     "rich.face"
    ],
    "why": "he climbs the cliff with one sack, looking back: an ambulance passes below and goes; nobody was ever coming"
   },
   {
-   "from": 37,
-   "to": 41,
+   "from": 49.4,
+   "to": 54.5,
    "see": [
     "rich"
    ],
    "why": "the cliff top: Spud sits small with the sack beside him; the grey deck breaks open into a huge sunset over the sea"
   },
   {
-   "from": 41,
-   "to": 45,
+   "from": 54.5,
+   "to": 57.4,
    "see": [
     "rich.face"
    ],
    "why": "close: the wind takes the notes out of the open sack; he lets them go and smiles for the first time"
   },
   {
-   "from": 45,
-   "to": 48,
+   "from": 57.4,
+   "to": 61,
    "see": [
     "rich"
    ],
@@ -9274,41 +6770,10 @@
  ],
  "allowClip": [
   {
-   "who": "pa",
-   "with": "limo",
-   "from": 0,
-   "to": 9.05,
-   "checks": [
-    "shell",
-    "body",
-    "prop"
-   ],
-   "reason": "the couple sit on the bench inside the limousine"
-  },
-  {
-   "who": "pb",
-   "with": "limo",
-   "from": 0,
-   "to": 9.05,
-   "checks": [
-    "shell",
-    "body",
-    "prop"
-   ],
-   "reason": "the couple sit on the bench inside the limousine"
-  },
-  {
-   "who": "pa",
-   "with": "pb",
-   "from": 0,
-   "to": 9.05,
-   "reason": "the couple sit shoulder to shoulder on the limousine's bench (arm round each other)"
-  },
-  {
    "who": "rich",
    "with": "car",
-   "from": 32.25,
-   "to": 33.8,
+   "from": 42.4,
+   "to": 44,
    "checks": [
     "shell"
    ],
@@ -9318,63 +6783,84 @@
    "who": "rich",
    "with": "car",
    "from": 0,
-   "to": 3.8,
+   "to": 4.3,
    "reason": "he sits inside the coupe (the car encloses him)"
   },
   {
    "who": "rich",
    "with": "car",
-   "from": 30.45,
-   "to": 33.8,
+   "from": 40.6,
+   "to": 44,
    "reason": "he sits inside the coupe (the car encloses him)"
   },
   {
    "who": "spud",
    "with": "mask",
-   "from": 9.05,
-   "to": 14.45,
+   "from": 13.4,
+   "to": 21,
    "reason": "the balaclava is worn (it covers his head)"
   },
   {
    "who": "spud",
-   "with": "vbagL",
-   "from": 9.05,
-   "to": 11,
-   "reason": "he hugs the sacks against his belly"
+   "with": "plA",
+   "from": 4.3,
+   "to": 13.4,
+   "reason": "the pocket lining hangs out of his sweater's hem"
   },
   {
    "who": "spud",
-   "with": "vbagR",
-   "from": 9.05,
-   "to": 11,
-   "reason": "he hugs the sacks against his belly"
+   "with": "plB",
+   "from": 4.3,
+   "to": 13.4,
+   "reason": "the pocket lining hangs out of his sweater's hem"
+  },
+  {
+   "who": "rosti",
+   "with": "apron",
+   "from": 4.3,
+   "to": 7.7,
+   "reason": "the apron is worn"
+  },
+  {
+   "who": "rosti",
+   "with": "phat",
+   "from": 4.3,
+   "to": 7.7,
+   "reason": "the paper hat is worn"
+  },
+  {
+   "who": "spud",
+   "with": "gun",
+   "from": 13.4,
+   "to": 17.6,
+   "reason": "the revolver in his fist"
   },
   {
    "who": "spud",
    "with": "sbag",
-   "from": 11,
-   "to": 14.45,
+   "from": 17.6,
+   "to": 21,
    "reason": "he carries the sack in his arms"
   },
   {
    "who": "rich",
    "with": "gbag",
-   "from": 28.7,
-   "to": 30.45,
+   "from": 38.6,
+   "to": 40.6,
    "reason": "he carries the sack in his arms"
   },
   {
    "who": "rich",
    "with": "cbag2",
-   "from": 33.8,
-   "to": 37,
+   "from": 44,
+   "to": 49.4,
    "reason": "he carries the sack in his arms"
   },
   {
    "who": "rich",
    "with": "cbag2",
-   "from": 33.8,
-   "to": 37,
+   "from": 44,
+   "to": 49.4,
    "checks": [
     "shell"
    ],

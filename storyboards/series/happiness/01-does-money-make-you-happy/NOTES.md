@@ -7,24 +7,27 @@
 - Score: assets/music/money-happy/make-score.py -> money-happy-score.ogg (nine library takes, one per scene, on T below).
 - Improvement loop: fix on test = preflight in the farm's first job (#230): should keep full renders at 1.
 
-## Timeline (video s, as built in make-money-happy.mjs T; the score is cut on it, 48.0 s)
-| s | scene | narrator (voice 1), gibberish | music |
-|---|---|---|---|
-| 0.0-3.8 | S1 cold open: in the gold car, rain, wiper; bags on the back seat; empty face | 0.15 "He has ten million." 1.65 "He hasn't smiled in thirty days." | sad |
-| 3.8-9.05 | S2 city: Spud, pocket linings out; the white limo glides in, laughing couple, three shop bags | 4.0 "Thirty days earlier." Spud 6.9 "Mo-ney... ha-ppy?" 8.1 "So he made a plan." | elegant |
-| 9.05-11.0 | S3 vault: balaclava, two sacks hugged, alarm 9.75 | - | orchestra chase |
-| 11.0-14.45 | S3b night street: out of the bank with a sack, police cars race past 11.5-13.2, he crouches, laughs | - | chase |
-| 14.45-17.55 | S4 mansion by day, fountain, gold car: arms (coat) wide | 14.8 "He bought everything happy people have." | hero |
-| 17.55-20.5 | S5 TURN, hall at night: a siren passes, he hides the sacks under the floor tile | 18.3 "But now he had something to lose." | suspense |
-| 20.5-24.0 | S6 door: ten locks; knock 22.1; Chip with a gift at the side window; he backs away | Chip 22.7 "Spud? It's me!" | suspense |
-| 24.0-25.15 | S6b the clock at 3:00 | - | suspense |
-| 25.15-27.95 | S7 LOW: far end of the long table, one candle; 27.95 a siren stops outside | - | sad |
-| 28.7-30.45 | S8 gate at night, red/blue beyond the gate: he runs to the car with a sack | - | disaster |
-| 30.45-37.0 | S9 car again; 31.25 needle to E; 32.25 wide: rolls to a stop, one cough, lamps die; 33.8 climb with a sack; 34.2 an ambulance passes | 35.6 "Nobody was ever coming for him." | low score |
-| 37.0-48.0 | S10 clouds break 37.4; 41.0 close: notes blow from the open sack, 41.9 first smile; 45.0 hold, sun sinks | 42.2 "For one moment, he forgot everything he owned." | drama swell, calm tail |
+## Draft 2 (15 Nov, Jonny's notes on draft 1 at 07:40 Berlin)
+Narrator on every scene (draft 1 lost it: items after c.beats() were dropped); poor dirty Spud can't pay for a coffee,
+then the rich (new couple Duchess + Dauphin standing by their limo with shop bags); a real hold-up at a bank counter
+(revolver, cashier Tot pushes two sacks over); he pushes the sacks into the floor hole by hand and shuts the tile; the
+ending: the wind empties the sack, all the money flies into the sun (notestorm), then the smile. DESIGN.md section 11.
 
-Stake text 0-3.8, upper third: "$10,000,000" then "HAPPY?" (the outline's emoji "💰 = 😊 ?" can't render: the caption
-font is Inter only, no emoji; the number and "HAPPY?" read without English for the 82 % German-speaking viewers).
+## Timeline (draft 2, video s, as built in make-money-happy.mjs T; the score is cut on it, 61.0 s)
+| s | scene | narrator (voice 1) / speech | music |
+|---|---|---|---|
+| 0.0-4.3 | S1 cold open: rich, sad, in the gold car in the rain | 0.15 "This potato has ten million dollars." 2.2 "And he hasn't smiled in thirty days." | sad |
+| 4.3-7.7 | S2a coffee cart: reach, the seller's palm, pockets out, empty palms, head shake | 4.35 "Thirty days earlier, he couldn't even pay for a coffee." | sad |
+| 7.7-13.4 | S2b the rich couple laugh by their limo; he stares; "Mo-ney... ha-ppy?" 10.9; idea | 8.4 "Then he saw how the rich live." 12.25 "So he made a plan." | elegant |
+| 13.4-17.6 | S3a bank: balaclava, revolver, "Gi-ve mo-ney!" 13.6, hands up, two sacks pushed over (over-gun cut 14.8) | 16.45 "He robbed a bank." | chase |
+| 17.6-21.0 | S3b night street: police race past, he hides and laughs | 18.5 "And he got away with it." | chase, hero 20.15 |
+| 21.0-24.0 | S4 mansion by day: arms wide | 21.1 "He bought everything happy people have." | hero |
+| 24.0-29.0 | S5 hall: siren; he pushes both sacks into the floor hole, shuts the tile | 24.9 "But now, he had something to lose." | suspense |
+| 29.0-33.5 | S6 ten locks; Chip at the window "Spud? It's me!" 31.05; he backs away | 29.1 "He locked every door." 32.1 "Even his best friend had to stay outside." | suspense |
+| 33.5-37.0 | S6b 3:00, S7 alone at the long table | 34.6 "He had everything... and no one." | sad |
+| 37.0-40.6 | siren stops at the gate; he flees with a sack | 37.2 "Then one night, a siren stopped at his gate." | disaster |
+| 40.6-49.4 | S9 car, fuel needle, stop, climb, ambulance passes 44.4 | 41.0 "He ran, until the tank ran dry." 45.9 "It was only an ambulance." 47.6 "Nobody was ever coming for him." | zombies-score |
+| 49.4-61.0 | S10 sunset, clouds break 49.8, storm t0 51.0 (pour 51.8-54.0, last note 55.4), close 54.5, smile 55.8, hold 57.4 | 51.9 "The wind took every dollar he had." 56.9 "And for one moment, he forgot all his worries." | drama swell, calm 58.2 |
 
 ## Chain (X, so Y)
 He is rich and empty in the car (S1), because thirty days earlier he saw that rich potatoes look happy (S2), so he

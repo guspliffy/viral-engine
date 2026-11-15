@@ -17,7 +17,7 @@ import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
 import * as grips from "../../../lib/grips.mjs";
 import { COAST } from "../../../../engine/page/set-coast.js";
-import { VAULT } from "../../../../engine/page/set-vault.js";
+import { BANKHALL as BANK } from "../../../../engine/page/set-bankhall.js";
 import { HALL } from "../../../../engine/page/set-mansionhall.js";
 import { RIDE_OFF, DASH } from "../../../../engine/page/props-coupe.js";
 import { LIMO } from "../../../../engine/page/props-happy.js";
@@ -34,29 +34,30 @@ const HAPPY = true;
 
 // ---------------------------------------------------------------- the beats (video s)
 const T = {
-  open: 0, wipe: 1.2, city: 3.8, limo: 5.0, mumble: 6.9, plan: 8.1,
-  vault: 9.05, alarm: 9.75, run: 10.5,
-  street: 11.0, cars: 12.0, duck: 13.05, past: 12.85, laugh: 13.75,
-  rich: 14.45, spread: 15.0,
-  turn: 17.55, siren1: 17.7, hide: 18.6,
-  door: 20.5, lock1: 20.7, lock10: 21.7, knock: 22.0, chip: 22.3, back: 23.35,
-  clock: 24.0, low: 25.15, gate: 27.95, flee: 28.7,
-  car: 30.45, dash: 31.25, wide: 32.25, stop: 33.0, climb: 33.8, amb: 34.2, nobody: 35.6,
-  sunset: 37.0, brk: 37.4, face: 41.0, open2: 41.2, smile: 41.9, forgot: 42.2, hold: 45.0, END: 48.0,
+  open: 0, wipe: 2.6, city: 4.3, reach: 4.7, palm: 5.15, pat: 5.55, lining: 5.95, palms: 6.4, cupback: 6.7,
+  watch: 7.7, stare: 8.6, mumble: 10.9, plan: 12.2,
+  bank: 13.4, give: 13.6, hands: 13.95, gun: 14.8, bags: 15.15, robbed: 16.35,
+  street: 17.6, cars: 18.4, duck: 19.45, past: 19.2, laugh: 20.15,
+  rich: 21.0, spread: 21.5,
+  turn: 24.0, siren1: 24.2, hide: 26.0,
+  door: 29.0, lock1: 29.2, lock10: 30.2, knock: 30.6, chip: 30.9, back: 32.0,
+  clock: 33.5, low: 34.5, gate: 37.0, flee: 38.6,
+  car: 40.6, dash: 41.4, wide: 42.4, stop: 43.2, climb: 44.0, amb: 44.4, nobody: 46.0,
+  sunset: 49.4, brk: 49.8, storm: 51.0, face: 54.5, smile: 55.8, forgot: 56.9, hold: 57.4, END: 61.0,
 };
 const END = T.END;
 
 // ---------------------------------------------------------------- places
-const CP = [0, 0, -600], VP = [300, 0, 0], HP = [-300, 0, 0];   // rooms (coast frame, vault frame, hall frame + these)
+const CP = [0, 0, -600], BP = [300, 0, 0], HP = [-300, 0, 0];   // rooms (coast frame, bank frame, hall frame + these)
 const cw = (p) => [r3(p[0] + CP[0]), r3(p[1] + CP[1]), r3(p[2] + CP[2])];
-const vw = (p) => [r3(p[0] + VP[0]), r3(p[1] + VP[1]), r3(p[2] + VP[2])];
+const bw = (p) => [r3(p[0] + BP[0]), r3(p[1] + BP[1]), r3(p[2] + BP[2])];
 const hw = (p) => [r3(p[0] + HP[0]), r3(p[1] + HP[1]), r3(p[2] + HP[2])];
 const ENVS = {
   city: "golden-city-crossing", street: "dusk-bus-stop",
   mday: envOk("mansion-day") ? "mansion-day" : "golden-city-crossing",
   gate: envOk("mansion-gate-night") ? "mansion-gate-night" : "dusk-back-alley",
 };
-const PLACES = [[0, "coast"], [T.city, "city"], [T.vault, "vault"], [T.street, "street"], [T.rich, "mday"], [T.turn, "hall"], [T.flee, "gate"], [T.car, "coast"]];
+const PLACES = [[0, "coast"], [T.city, "city"], [T.bank, "bank"], [T.street, "street"], [T.rich, "mday"], [T.turn, "hall"], [T.flee, "gate"], [T.car, "coast"]];
 const placeAt = (t) => PLACES.filter(([at]) => at <= t + 1e-6).pop()[1];
 const PITCH = Object.fromEntries(Object.entries(ENVS).map(([k, n]) => [k, JSON.parse(fs.readFileSync(new URL(`../../../../assets/environments/${n}/env.json`, import.meta.url))).eye.pitch]));
 const cam = (pos, deg, fov = 46, yaw = 0) => { const a = rad(deg), y = rad(yaw); return { pos, look: [r3(pos[0] + Math.sin(y) * Math.cos(a) * 10), r3(pos[1] + Math.sin(a) * 10), r3(pos[2] - Math.cos(y) * Math.cos(a) * 10)], fov }; };
@@ -74,10 +75,12 @@ const ROLL_IN = 3.2;   // metres it rolls in on the wide shot (from CAR - 3.2 al
 const PARK = (k) => [400 + k * 3, 400];
 const cast = [
   { id: "rich", character: "potatobrawl/spud-rich", at: [CAR[0], CAR[2]], face: CAR_ROT, expr: "sad", follow: 0.25, seed: 2.2 },
-  { id: "spud", character: "potatobrawl/spud", at: PARK(1), face: 0, expr: "kind", follow: 0.3, seed: 1.3 },
+  { id: "spud", character: "potatobrawl/spud-poor", at: PARK(1), face: 0, expr: "sad", follow: 0.3, seed: 1.3 },
   { id: "chip", character: "potatobrawl/chip", at: PARK(2), face: 0, expr: "kind", follow: 0.3, seed: 4.4 },
-  { id: "pa", character: "what-if/viking-old", at: PARK(3), face: 0, expr: "delighted", follow: 0.3, seed: 3.1 },
-  { id: "pb", character: "what-if/wizard-old", at: PARK(4), face: 0, expr: "delighted", follow: 0.3, seed: 4.2 },
+  { id: "duch", character: "potatobrawl/duchess", at: PARK(3), face: 0, expr: "delighted", follow: 0.3, seed: 3.1 },
+  { id: "daup", character: "potatobrawl/dauphin", at: PARK(4), face: 0, expr: "smug", follow: 0.3, seed: 4.2 },
+  { id: "tot", character: "potatobrawl/tot", at: PARK(5), face: 0, expr: "kind", follow: 0.3, seed: 5.3 },
+  { id: "rosti", character: "potatobrawl/rosti", at: PARK(6), face: 0, expr: "kind", follow: 0.3, seed: 6.1 },
 ];
 const place = (t, who, at, yaw, y = 0) => {
   const u = Math.max(0, r3(t - PRE));
@@ -99,6 +102,7 @@ const hug = (t, who) => { arm(r3(t), who, "R", { x: [-0.3, up(0.3), 0.56] }, 0.0
 const bagPos = (x, z, yaw, y0 = 0, f = HUG_F) => ({ x: r3(x + Math.sin(rad(yaw)) * f), y: r3(y0 + HUG_Y), z: r3(z + Math.cos(rad(yaw)) * f), rot: r3(yaw) });
 const headings = (P3) => P3.map((p, i) => { const a = P3[Math.min(i, P3.length - 2)], b = P3[Math.min(i + 1, P3.length - 1)]; return r3((Math.atan2(b[1] - a[1], b[2] - a[2]) * 180) / Math.PI); });
 const bagAlong = (t0, id, P3, y = () => 0) => { const H = headings(P3); P3.forEach((p, i) => { const at = i ? r3(t0 + P3[i - 1][0]) : r3(t0 - PRE), dur = i ? r3(p[0] - P3[i - 1][0]) : 0.01; c.prop(at, id, bagPos(p[1], p[2], H[i], y(p)), dur, "linear"); }); return H; };
+const w3 = (base, d) => [r3(base[0] + d[0]), r3(base[1] + d[1]), r3(base[2] + d[2])];
 const SUBY = 470;   // speech lettering in the upper third (Jonny 12 Nov)
 const say = (t, who, line, dur, tone) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: SUBY });
 
@@ -110,24 +114,31 @@ const pr = (t, id, set, dur = 0.01, ease = "linear") => { if (has(id)) c.prop(r3
 
 // ---- coast: the coupe (S1, S9), the bag and the notes (S10), the ambulance (S9)
 P("coast", { id: "car", kind: "coupe", x: CAR[0], y: CAR[1], z: CAR[2], rot: CAR_ROT, streaks: 0 });
-P("coast", { id: "cbag", kind: "moneybag", mark: false, x: cw(COAST.BAG)[0], y: CP[1], z: cw(COAST.BAG)[2], rot: 200, open: true }, { from: T.sunset });
+P("coast", { id: "cbag", kind: "moneybag", staged: "lying flat on the cliff grass, emptied by the wind", mark: false, x: cw(COAST.BAG)[0], y: CP[1], z: cw(COAST.BAG)[2], rot: 200, open: true }, { from: T.sunset });
+// the money storm (DESIGN 11.6): every note in the sack, a pure function of the clip time from t0
+P("coast", { id: "storm", kind: "notestorm", x: CP[0], y: CP[1], z: CP[2], rot: 0, t0: T.storm, n: 700, seed: 1, size: 1.3 }, { from: T.sunset });
 const AMB_Z = (x) => r3(CP[2] + COAST.roadAt(x).z), AMB_Y = (x) => r3(CP[1] + COAST.roadAt(x).y);
 if (HAPPY) P("coast", { id: "amb", kind: "ambulance", x: r3(CP[0] - 10), y: AMB_Y(-10), z: AMB_Z(-10), rot: 90, lights: 0 }, { from: T.climb });
-// ---- city (S2)
-const LM = { x: 0.9, z: -3.6, from: -14 }, LS = LIMO.seats("R");
-P("city", { id: "limo", kind: "limo", open: "R", x: LM.from, z: LM.z, rot: 90 });
-[["bag1", "#f29bb5", -1.35], ["bag2", "#f2c75a", -1.85], ["bag3", "#c9a6e8", -2.35]].forEach(([id, color, lz]) => P("city", { id, kind: "shopbag", color, staged: "the shop bags hang over the sill of the open window", x: r3(LM.from + lz), y: LIMO.belt, z: r3(LM.z + 0.95), rot: 180 }));
-
-P("city", { id: "plA", kind: "pocketlining", wear: "spud", x: 0.34, y: 0.24, z: 0.1, side: 1 }, { to: T.vault });
-P("city", { id: "plB", kind: "pocketlining", wear: "spud", x: -0.34, y: 0.24, z: 0.1, side: -1 }, { to: T.vault });
-// ---- vault (S3): two sacks in his hug
-const VS = vw(VAULT.SPUD);
-P("vault", { id: "mask", kind: "balaclava", wear: "spud", x: 0, y: 0, z: 0 }, { stay: true });
-P("vault", { id: "vbagL", kind: "moneybag", staged: "hugged against his belly", mark: false, open: true, x: r3(VS[0] - 0.17), y: 0.08, z: r3(VS[2] + 0.66), rot: 180 });
-P("vault", { id: "vbagR", kind: "moneybag", staged: "hugged against his belly", mark: false, open: true, x: r3(VS[0] + 0.17), y: 0.08, z: r3(VS[2] + 0.66), rot: 180 });
+// ---- city (S2, DESIGN 11.4): the coffee cart, the parked limo, the couple's bags, his pocket linings
+const CITY = { cart: [-1.25, 1.0], seller: [-2.05, 1.0], buy: [-0.42, 1.0], watch: [-0.2, 2.2], duch: [0.35, -0.3], daup: [1.75, -0.25] };
+P("city", { id: "cart", kind: "coffeecart", x: CITY.cart[0], z: CITY.cart[1], rot: 0 });
+const CUP = [r3(CITY.cart[0] - 0.08), 0.46, r3(CITY.cart[1] + 0.18)];
+P("city", { id: "cup", kind: "cocoacup", x: CUP[0], y: CUP[1], z: CUP[2], rot: 0 });
+P("city", { id: "apron", kind: "apron", wear: "rosti", x: 0, y: 0, z: 0 });
+P("city", { id: "phat", kind: "paperhat", wear: "rosti", x: 0, y: 0, z: 0 });
+P("city", { id: "limo", kind: "limo", open: null, x: 2.0, z: -2.35, rot: 90 });
+const SBAGS = [["sb1", "duch", "R", "#f29bb5"], ["sb2", "duch", "L", "#f2c75a"], ["sb3", "daup", "L", "#c9a6e8"]].map(([id, who, side, color]) => ({ who, side, spec: P("city", { id, kind: "shopbag", color, x: 0, y: 0, z: 0, rot: 0 }) }));
+P("city", { id: "plA", kind: "pocketlining", wear: "spud", x: 0.34, y: 0.24, z: 0.1, side: 1, w: 0.16, h: 0.11, color: "#fbf8f1" }, { to: T.bank });
+P("city", { id: "plB", kind: "pocketlining", wear: "spud", x: -0.34, y: 0.24, z: 0.1, side: -1, w: 0.16, h: 0.11, color: "#fbf8f1", scale: 1 }, { to: T.bank });
+// ---- the bank counter (S3a, DESIGN 11.5): the gun, three sacks the cashier pushes through the slot
+P("bank+street", { id: "mask", kind: "balaclava", wear: "spud", x: 0, y: 0, z: 0 }, { stay: true });
+const GUNP = bw([BANK.GUN[0], BANK.GUN[1], 0.35]);   // 0.15 nearer the lens than the design: clear of his eyes in the two-shot and of the sacks on his ledge
+P("bank", { id: "gun", kind: "zrevolver", x: GUNP[0], y: GUNP[1], z: GUNP[2], rot: 90, scale: 0.9, flash: 0, smoke: 0, staged: "in his right fist" });
+const BZ = [-0.62, 0.62];   // two sacks on the teller's ledge behind the bars, either side of the arch
+const BAGS3 = BZ.map((z, i) => P("bank", { id: `kb${i}`, kind: "moneybag", mark: false, x: bw(BANK.BAG_WAIT[0])[0], y: BANK.TOP, z: r3(BP[2] + z), rot: 90, staged: "on the teller's ledge, then pushed over the counter by her palm" }));
 // ---- the night street (S3b): one sack in his arms, the police cars, their light
 const ST = { start: [0, -6.0], cross: [0.6, -1.5], hide: [1.3, 4.2] };
-const SBAG = P("street", { id: "sbag", kind: "moneybag", mark: false, x: r3(ST.start[0]), y: 0.2, z: r3(ST.start[1] + 0.4), rot: 180 }, { stay: true });
+const SBAG = P("street", { id: "sbag", kind: "moneybag", staged: "carried in his arms", mark: false, x: r3(ST.start[0]), y: 0.2, z: r3(ST.start[1] + 0.4), rot: 180 }, { stay: true });
 P("street", { id: "bank", kind: "bankfront", x: 0, z: -9 });
 [["pc1", -16, -2.7], ["pc2", -22, -3.3], ["pc3", -28, -2.9]].forEach(([id, x, z]) => P("street", { id, kind: "policecar", x, z, rot: 90, lights: 1 }));
 P("street", { id: "wash", kind: "sirenwash", x: 1.3, y: 0.2, z: 3.4, w: 3, h: 2.6, on: 0 });
@@ -137,13 +148,14 @@ P("mday", { id: "dcar", kind: "coupe", x: MD.car[0], z: MD.car[1], rot: -60, loa
 P("mday", { id: "fountain", kind: "fountain", x: 0, z: -11 });
 // ---- the hall (S5-S8): the bags he hides, the gift Chip brings
 const HB = hw([HALL.HATCH[0], 0, HALL.HATCH[2]]);
-P("hall", { id: "hbagA", kind: "moneybag", mark: false, x: r3(HB[0] - 0.9), y: 0, z: r3(HB[2] + 1.4), rot: 200 });
-P("hall", { id: "hbagB", kind: "moneybag", mark: false, x: r3(HB[0] - 0.55), y: 0, z: r3(HB[2] + 1.75), rot: 160 });
+// the two sacks on the floor beside the open hole (the loose tile: a 1.0 diamond round HB), he pushes them in by hand
+const HBAG = { hbagA: [-0.42, 0.3, 0.17], hbagB: [-0.42, -0.3, -0.17] };   // [dx, dz, dz in the hole]
+for (const [id, [dx, dz]] of Object.entries(HBAG)) P("hall", { id, kind: "moneybag", mark: false, x: r3(HB[0] + dx), y: 0, z: r3(HB[2] + dz), rot: 90, staged: "on the floor by the hole, then pushed in by his hands" });
 P("hall", { id: "gift", kind: "gift", staged: "Chip holds the gift up in both hands", x: 0, y: -30, z: 0, scale: 0.6 }, { stay: true });
 // ---- the gate at night (S8)
 const GT = { car: [1.5, -2.6], from: [-0.7, 3.6] };
 P("gate", { id: "gcar", kind: "coupe", x: GT.car[0], z: GT.car[1], rot: -90, load: 0.6, rain: 0.6 });
-const GBAG = P("gate", { id: "gbag", kind: "moneybag", mark: false, x: r3(GT.from[0]), y: 0.2, z: r3(GT.from[1] + 0.4), rot: 180 }, { stay: true });
+const GBAG = P("gate", { id: "gbag", kind: "moneybag", staged: "carried in his arms", mark: false, x: r3(GT.from[0]), y: 0.2, z: r3(GT.from[1] + 0.4), rot: 180 }, { stay: true });
 P("gate", { id: "gwash", kind: "sirenwash", x: 0, z: -9.5, w: 8, h: 6, flat: true, on: 0 });
 P("gate", { id: "igate", kind: "irongate", x: 0, z: -7 });
 
@@ -152,7 +164,7 @@ pr(0, "car", { rain: 1, wiper: 0, wiped: 0, gauge: 0.18, quiver: 0, cough: 0, la
 pr(0, "dcar", { rain: 0, wiper: 0, wiped: 0, gauge: 1, quiver: 0, cough: 0, lamp: 0, load: 0 });
 pr(0, "gcar", { rain: 0.6, wiper: 0, wiped: 0, gauge: 0.4, quiver: 0, cough: 0, lamp: 0, load: 0.6 });
 pr(0, "wash", { on: 0, clock: 0 }); pr(0, "gwash", { on: 0, clock: 0 }); pr(0, "igate", { open: 0, lit: 1, wet: 1 }); pr(0, "bank", { alarm: 1, clock: 0 }); pr(0, "fountain", { on: 1 });
-pr(0, "amb", { lights: 0, clock: 0, len: 0 }); pr(0, "limo", { len: 0 });
+pr(0, "amb", { lights: 0, clock: 0, len: 0 }); pr(0, "limo", { len: 0 }); pr(0, "cbag", { full: 1 });
 
 // show each prop only while its place is up and inside its own from-to (hidden = tiny and 30 m under the floor)
 for (const p of props) {
@@ -183,49 +195,122 @@ cap(1.65, T.city, "HAPPY?", 255);
 A(r3(T.city - 0.06), "rich", "ride", { prop: null, dur: 0 }); park(T.city, "rich", 0);
 see(0, T.city, ["rich.face", "car"], "frame 0: Spud in his fur coat and gold chain at the wheel of a gold car, rain on the glass, money bags piled behind him, his face empty");
 
-// ================================================================= S2 THE CITY (3.8-9.05): everyone with money looks happy
-const CW = { a: [0.65, -1.3], b: [0.5, 0.5] };
-place(T.city, "spud", CW.a, 8);
-A(T.city, "spud", "move", { to: CW.b, dur: 1.25, steps: 4 });
-// the limo glides in behind him: he turns to stare at the laughing couple, then back to us for his question
-look(r3(T.limo + 0.05), "spud", [-0.7, 0.1], 0.15);
-A(r3(T.limo + 0.2), "spud", "turn", { to: -168, dur: 0.45 });
-look(r3(T.mumble - 0.85), "spud", [0.3, 0], 0.15);
-A(r3(T.mumble - 0.7), "spud", "turn", { to: 8, dur: 0.65 });
-for (const s of ["R", "L"]) { arm(T.city - PRE, "spud", s, "rest", 0.01); grip(T.city - PRE, "spud", s, "relaxed", 0.01); }
-expr(T.city, "spud", "sad", { curve: -0.1, brow: 0.3 }, 0.01); look(T.city, "spud", [0, -0.2], 0.01);
-// the limousine glides in from the left and stops beside him; the couple ride on its bench, laughing
-for (const [id, i] of [["pa", 0], ["pb", 1]]) {
-  A(r3(T.city - PRE), id, "ride", { prop: "limo", off: [LS[i][0], LS[i][1] - 0.12, r3(LS[i][2] + (i ? -0.22 : 0.2))], yaw: -90, sit: true, dur: 0 });
-  A(r3(T.vault - PRE), id, "ride", { prop: null, dur: 0 }); park(T.vault, id, 3 + i);
-  expr(0, id, "delighted", { curve: 0.8, open: 0.4 }, 0.01);
-  for (const k of [0, 1, 2]) A(r3(T.limo + 0.9 + k * 0.55 + i * 0.2), id, "hop", { height: 0.03, dur: 0.22, quiet: true });
+// ================================================================= S2 THE CITY (4.3-13.4): no money for a coffee; the rich
+// S2a, the coffee cart (DESIGN 11.4, beat 1): he reaches for the cup, the seller's palm comes up, he pats his hem, pulls
+// the lining out, shows two empty palms; the seller draws the cup back
+const SBUY = CITY.buy, SELL = CITY.seller;
+place(T.city, "spud", SBUY, -65); place(T.city, "rosti", SELL, 65);
+A(r3(T.city - PRE), "spud", "droop", { to: 0.6, dur: 0.01 }); A(r3(T.city - PRE), "spud", "lean", { to: 6, dur: 0.01 });
+for (const s of ["R", "L"]) { arm(T.city - PRE, "spud", s, "rest", 0.01); grip(T.city - PRE, "spud", s, "relaxed", 0.01); arm(T.city - PRE, "rosti", s, "rest", 0.01); }
+expr(T.city, "spud", "sad", { curve: -0.35, brow: 0.5 }, 0.01); look(T.city, "spud", [-0.4, -0.1], 0.01);
+expr(T.city, "rosti", "kind", { curve: 0.3 }, 0.01); look(T.city, "rosti", [0.4, 0], 0.01);
+// the reach (eager: the one hopeful beat)
+expr(T.reach - 0.1, "spud", "eager", { curve: 0.2, eye: 1.1 }, 0.15);
+arm(T.reach, "spud", "R", { world: [-0.82, 0.6, 1.12] }, 0.3, "out"); grip(T.reach, "spud", "R", "open", 0.2);
+// the seller's palm: first the money
+arm(T.palm, "rosti", "R", { world: [-1.62, 0.68, 0.98] }, 0.25, "out"); grip(T.palm, "rosti", "R", "flat", 0.15);
+expr(T.palm, "rosti", "focused", { brow: 0.4, curve: 0 }, 0.2);
+// pat, pat: both hem sides
+arm(T.pat - 0.1, "spud", "R", { x: [-0.36, up(0.26), 0.08] }, 0.2); grip(T.pat - 0.1, "spud", "R", "flat", 0.15);
+arm(T.pat - 0.1, "spud", "L", { x: [0.36, up(0.26), 0.08] }, 0.2); grip(T.pat - 0.1, "spud", "L", "flat", 0.15);
+for (const k of [0, 1]) for (const s of ["R", "L"]) { const sx = s === "R" ? -1 : 1; arm(r3(T.pat + 0.1 + k * 0.18), "spud", s, { x: [r3(sx * 0.37), up(0.21), 0.08] }, 0.08); arm(r3(T.pat + 0.19 + k * 0.18), "spud", s, { x: [r3(sx * 0.36), up(0.26), 0.08] }, 0.08); }
+expr(T.pat, "spud", "worried", { brow: 0.6, open: 0.1 }, 0.15);
+// the right lining comes out in his pinch
+arm(T.lining - 0.1, "spud", "R", { x: [-0.44, up(0.22), 0.12] }, 0.15); grip(T.lining - 0.1, "spud", "R", "pinch", 0.1);
+pr(0, "plB", { scale: 0.001 }); pr(T.lining, "plB", { scale: 1 }, 0.17, "out");
+// two empty palms
+for (const s of ["R", "L"]) { arm(T.palms, "spud", s, "shrug", 0.25, "out"); grip(T.palms, "spud", s, "open", 0.2); }
+expr(T.palms, "spud", "sad", { curve: -0.4, brow: 0.6 }, 0.25); look(T.palms, "spud", [-0.2, -0.3], 0.2);
+// the seller shakes his head: no money, no coffee
+expr(T.cupback, "rosti", "sad", { curve: -0.1, brow: 0.3 }, 0.2);
+for (const [k, x] of [[0, -0.35], [1, 0.75], [2, -0.35], [3, 0.4]]) look(r3(T.cupback + k * 0.16), "rosti", [x, 0], 0.12);
+see(T.city, T.watch, ["spud.face", "rosti", "cup"], "noon, a coffee cart: dirty, sad Spud reaches for a coffee; the seller holds out his palm; Spud turns out his empty pockets and shows two empty hands");
+
+// S2b, the rich (DESIGN 11.2): a laughing couple with shopping bags walk up to their white limousine behind him
+const WATCH0 = [-0.7, 1.85];
+place(T.watch, "spud", WATCH0, 20);
+for (const s of ["R", "L"]) { arm(T.watch - PRE, "spud", s, "rest", 0.01); grip(T.watch - PRE, "spud", s, "relaxed", 0.01); }
+expr(T.watch, "spud", "sad", { curve: -0.35, brow: 0.5 }, 0.01); look(T.watch, "spud", [0, -0.35], 0.01);
+A(r3(T.watch + 0.05), "spud", "move", { to: CITY.watch, dur: 0.8, steps: 3 });
+park(T.watch, "rosti", 6);
+park(T.bank, "duch", 3); park(T.bank, "daup", 4); park(T.street, "tot", 5);
+// the couple: in from the right, bags in their fists, to their marks beside the limo
+const CPL = { duch: [CITY.duch, 20, [4.6, -0.2]], daup: [CITY.daup, -20, [5.8, -0.15]] };
+for (const [who, [to, yaw, from]] of Object.entries(CPL)) {
+  place(T.watch, who, from, -90);
+  for (const s of ["R", "L"]) { arm(T.watch - PRE, who, s, "rest", 0.01); grip(T.watch - PRE, who, s, "relaxed", 0.01); }
+  expr(T.watch, who, "delighted", { curve: 0.8, open: 0.4 }, 0.01); look(T.watch, who, [0, 0.1], 0.01);
+  A(r3(T.watch + 0.1), who, "move", { to, dur: 1.4, steps: 5 });
+  A(r3(T.watch + 1.5), who, "turn", { to: yaw, dur: 0.35 });
 }
-const LIN = r3(T.limo - 1.0), LDUR = 2.0;
-pr(LIN, "limo", { x: LM.x, len: r3(LM.x - LM.from) }, LDUR, "out");
-[["bag1", -1.35], ["bag2", -1.85], ["bag3", -2.35]].forEach(([id, lz]) => pr(LIN, id, { x: r3(LM.x + lz) }, LDUR, "out"));
-sfx(LIN, "tyres", { gain: 0.25, reason: "the limousine rolling to a stop at the kerb" });
-expr(T.limo + 0.3, "spud", "shocked", { open: 0.2, eye: 1.2 }, 0.12);
+// the bags: the fist up at the loop (y 0.55+), the bag hanging under it (SHOPBAG_GRIP), held from the cut
+for (const { who, side, spec } of SBAGS) {
+  const sx = side === "R" ? -1 : 1;
+  arm(T.watch - 0.011, who, side, { x: [r3(sx * 0.52), 0.42, 0.12] }, 0.001);
+  grip(T.watch - 0.011, who, side, "hold", 0.001);
+  pr(T.watch - 0.009, spec.id, { x: CPL[who][2][0], z: CPL[who][2][1], y: 0.15, rot: -90 }, 0.001);
+  A(r3(T.watch - 0.006), who, "grab", { prop: spec.id, hand: side, grip: [0, 0.41, 0], dur: 0, pose: null });
+}
+// they laugh together, never looking at him
+for (const [who, i] of [["duch", 0], ["daup", 1]]) {
+  look(T.watch + 1.6, who, [i ? -0.7 : 0.7, 0.05], 0.2);
+  for (const k of [0, 1, 2]) A(r3(T.stare + 0.4 + k * 0.5 + i * 0.18), who, "hop", { height: 0.03, dur: 0.22, quiet: true });
+}
+// he turns to stare at them, then back to us with his question
+A(T.stare, "spud", "turn", { to: 172, dur: 0.5 });
+look(T.stare + 0.1, "spud", [0, 0.1], 0.2);
+look(r3(T.mumble - 0.85), "spud", [0.3, 0], 0.15);
+A(r3(T.mumble - 0.7), "spud", "turn", { to: 10, dur: 0.65 });
 expr(T.mumble - 0.2, "spud", "focused", { brow: 0.6, curve: -0.05 }, 0.2);
 say(T.mumble, "spud", "Mo-ney... ha-ppy?", 1.0, "question");
 act.idea(c, T.plan - 0.1, "spud", { at: [0.25, -0.3], hold: 0.7 });
-see(T.city, T.vault, ["spud.face"], "noon in the city: Spud with his pockets turned out; a white limousine with a laughing rich couple and shopping bags; he wonders");
+see(T.watch, T.bank, ["spud.face", "duch.face", "daup.face", "limo"], "behind him a rich couple in fur, pearls and velvet laugh by their white limousine with shopping bags; he stares, then wonders");
 
-// ================================================================= S3 THE VAULT (9.05-11.0)
-place(T.vault, "spud", [VS[0], VS[2]], 0);
-arm(T.vault - PRE, "spud", "R", { x: [-0.385, up(0.24), 0.66] }, 0.01); arm(T.vault - PRE, "spud", "L", { x: [0.385, up(0.24), 0.66] }, 0.01);
-grip(T.vault - PRE, "spud", "R", "press", 0.01); grip(T.vault - PRE, "spud", "L", "press", 0.01);
-expr(T.vault, "spud", "delighted", { open: 0.35, eye: 1.2 }, 0.01); look(T.vault, "spud", [0, 0.1], 0.01);
-A(r3(T.vault + 0.3), "spud", "hop", { height: 0.06, dur: 0.25, quiet: true });
-sfx(T.vault + 0.05, "creak", { gain: 0.5, reason: "the vault door's hinge, the door still swinging" });
-sfx(T.alarm, "alarmbell", { gain: 0.6, dur: 1.4, reason: "the bank's alarm bell" });
-expr(T.alarm + 0.05, "spud", "shocked", { open: 0.4, eye: 1.4 }, 0.15);
-A(r3(T.alarm + 0.05), "spud", "squash", { amount: 0.08, dur: 0.18 });
-look(T.alarm + 0.1, "spud", [-0.6, 0.5], 0.2);
-expr(T.run - 0.1, "spud", "evil", { curve: 0.4 }, 0.15);
-see(T.vault, T.street, ["spud.face", "vbagL", "vbagR"], "the vault: Spud in a black balaclava hugs two sacks of money in front of the open steel door; the alarm, the red light");
+// ================================================================= S3a THE BANK (13.4-17.6, DESIGN 11.5): the hold-up
+const BS = bw(BANK.SPUD), BC = bw(BANK.CASHIER);
+place(T.bank, "spud", [BS[0], BS[2]], 45); place(T.bank, "tot", [BC[0], BC[2]], -50, BC[1]);
+A(r3(T.bank - PRE), "spud", "droop", { to: 0, dur: 0.01 }); A(r3(T.bank - PRE), "spud", "lean", { to: 0, dur: 0.01 });
+// the revolver in his right fist (the bank bench's hold), level at her vest
+arm(r3(T.bank - 0.011), "spud", "R", { world: GUNP }, 0.001);
+A(r3(T.bank - 0.008), "spud", "grab", { prop: "gun", hand: "R", grip: "hand", dur: 0, pose: null });
+arm(T.bank - PRE, "spud", "L", "rest", 0.01); grip(T.bank - PRE, "spud", "L", "relaxed", 0.01);
+expr(T.bank, "spud", "angry", { brow: 0.8 }, 0.01); look(T.bank, "spud", [0.5, 0.1], 0.01);
+expr(T.bank, "tot", "kind", { curve: 0.3 }, 0.01); look(T.bank, "tot", [-0.4, 0], 0.01);
+for (const s of ["R", "L"]) { arm(T.bank - PRE, "tot", s, "rest", 0.01); grip(T.bank - PRE, "tot", s, "relaxed", 0.01); }
+A(r3(T.bank - PRE), "tot", "wings", { to: 0, dur: 0.01 });
+say(T.give, "spud", "Gi-ve mo-ney!", 0.9, "angry");
+// the left palm: the seller's gesture, turned round (beckon twice)
+const BECK = [w3(BS, [0.45, 0.6, -0.32]), w3(BS, [0.36, 0.66, -0.32])];
+arm(T.give, "spud", "L", { world: BECK[0] }, 0.25, "out"); grip(T.give, "spud", "L", "flat", 0.2);
+for (const k of [0, 1, 2, 3]) arm(r3(T.give + 0.4 + k * 0.22), "spud", "L", { world: BECK[(k + 1) % 2] }, 0.18);
+// the cashier: hands up, the glasses slip
+expr(T.hands, "tot", "terrified", { open: 0.35, eye: 1.4 }, 0.15);
+for (const s of ["R", "L"]) { arm(T.hands, "tot", s, "up", 0.2, "out"); grip(T.hands, "tot", s, "open", 0.15); }
+A(T.hands, "tot", "wings", { to: 1, dur: 0.2 });
+A(r3(T.hands), "tot", "squash", { amount: 0.08, dur: 0.15 });
+sfx(T.hands, "ai/surface-gasp", { gain: 0.35, reason: "the cashier's gasp" });
+// she steps to each sack, pushes it along the ledge to the arch, then through it to his side (her palm on it all the way)
+const OUT = [[-0.1, -0.24], [-0.1, 0.07]];
+BAGS3.forEach((b, i) => {
+  const t0 = r3(T.bags + i * 0.7), z0 = BZ[i], sz = Math.sign(z0), s = sz < 0 ? "R" : "L";   // facing -65 her left is +z
+  const X = (x) => r3(BP[0] + x), Z = (z) => r3(BP[2] + z);
+  A(r3(t0 - 0.3), "tot", "move", { to: [X(0.62), Z(z0 * 0.55)], y: BC[1], dur: 0.25, steps: 1 });
+  arm(r3(t0 - 0.3), "tot", s, { world: [X(0.15), 0.66, Z(z0 + sz * 0.19)] }, 0.28); grip(r3(t0 - 0.3), "tot", s, "flat", 0.1);
+  pr(t0, b.id, { z: Z(OUT[i][1]) }, 0.3, "inOut");
+  arm(t0, "tot", s, { world: [X(0.15), 0.66, Z(OUT[i][1] + sz * 0.19)] }, 0.3, "inOut");
+  A(r3(t0 + 0.28), "tot", "move", { to: [X(0.62), Z(OUT[i][1])], y: BC[1], dur: 0.14, steps: 1 });
+  arm(r3(t0 + 0.3), "tot", s, { world: [X(0.3), 0.66, Z(OUT[i][1])] }, 0.12);
+  pr(r3(t0 + 0.42), b.id, { x: X(OUT[i][0]) }, 0.25, "inOut");
+  arm(r3(t0 + 0.42), "tot", s, { world: [X(OUT[i][0] + 0.15), 0.66, Z(OUT[i][1])] }, 0.25, "inOut");
+  arm(r3(t0 + 0.68), "tot", s, "up", 0.2, "out"); grip(r3(t0 + 0.68), "tot", s, "open", 0.1);
+  sfx(r3(t0 + 0.05), "ai/bag-drag", { gain: 0.3, reason: "a sack slid over the marble counter" });
+});
+A(r3(T.bags + 1.45), "tot", "move", { to: [BC[0], BC[2]], y: BC[1], dur: 0.3, steps: 1 });
+expr(T.robbed - 0.4, "spud", "evil", { curve: 0.5 }, 0.2);
+see(T.bank, T.street, ["spud.face", "tot.face", "gun", "kb0"], "a bank counter: Spud in a black balaclava points a revolver at the terrified cashier and beckons; she pushes two sacks of money over the counter to him");
 
 // ================================================================= S3b THE NIGHT STREET (11.0-14.45): the escape
+A(r3(T.street - 0.02), "spud", "release", { prop: "gun", to: [GUNP[0], -30, GUNP[2]], dur: 0 });
 place(T.street, "spud", ST.start, 40);
 for (const s of ["R", "L"]) arm(r3(T.street - PRE), "spud", s, "rest", 0.01);
 hug(T.street - PRE, "spud");
@@ -260,21 +345,45 @@ A(r3(T.spread + 0.3), "rich", "hop", { height: 0.08, dur: 0.3, quiet: true });
 sfx(T.rich + 0.1, "ai/step-concrete", { gain: 0.3, reason: "a step on the gravel" });
 see(T.rich, T.turn, ["rich.face", "dcar"], "the white mansion by day, a fountain, the gold car: Spud in his fur coat throws his arms wide");
 
-// ================================================================= S5 THE TURN (17.55-20.5): a siren passes
-const HALL_MID = [2.9, 2.8];
-place(T.turn, "rich", HALL_MID.map((v, i) => r3(v + (i ? HP[2] : HP[0]))), 160);
-A(r3(T.turn - PRE), "rich", "wings", { to: 0, dur: 0.01 });
+// ================================================================= S5 THE TURN (24.0-29.0): a siren passes; he hides the money
+// he kneels by his secret hole in the hall floor; a siren's light sweeps the windows; he pushes both sacks in by hand,
+// shuts the tile with his palm, and listens
+const HS = [r3(HB[0] - 1.0), HB[2]];
+place(T.turn, "rich", HS, 90);
 for (const s of ["R", "L"]) { arm(T.turn - PRE, "rich", s, "rest", 0.01); grip(T.turn - PRE, "rich", s, "relaxed", 0.01); }
-expr(T.turn, "rich", "kind", { curve: 0.2 }, 0.01); look(T.turn, "rich", [0, 0.2], 0.01);
+expr(T.turn, "rich", "kind", { curve: 0.25 }, 0.01); look(T.turn, "rich", [0.2, -0.4], 0.01);
 sfx(T.siren1, "sirenwail", { dur: 2.2, gain: 0.45, reason: "a siren passing on the road outside" });
 expr(T.siren1 + 0.2, "rich", "terrified", { open: 0.2, eye: 1.35 }, 0.1);
 A(r3(T.siren1 + 0.2), "rich", "squash", { amount: 0.08, dur: 0.15 });
-look(T.siren1 + 0.25, "rich", [-0.2, 0.7], 0.15);
-// he drags the two sacks to the loose tile and sinks them under the floor
-A(r3(T.hide), "rich", "move", { to: [r3(HB[0] - 1.6), r3(HB[2] + 1.5)], dur: 0.9, steps: 4 });
-pr(T.hide + 1.0, "hbagA", { y: -0.6 }, 0.3, "in"); pr(T.hide + 1.2, "hbagB", { y: -0.6 }, 0.3, "in");
-sfx(T.hide + 1.0, "ai/bag-drag", { gain: 0.4, reason: "a sack dragged over marble" });
-see(T.turn, T.door, ["rich.face"], "night, the huge marble hall: a siren's blue and red sweeps the tall windows; he freezes, then hides the money under a floor tile");
+look(T.siren1 + 0.25, "rich", [-0.6, 0.5], 0.15);
+// two sacks: crouch, both palms on the back of the sack, push it to the hole's edge, it drops in
+const sackIn = (t, id) => {
+  const [dx, dz, dz2] = HBAG[id], bx = r3(HB[0] + dx), bz = r3(HB[2] + dz), ex = r3(HB[0] - 0.12), ez = r3(HB[2] + dz2);
+  const hands = (x, z) => [["R", r3(z + 0.09)], ["L", r3(z - 0.09)]].map(([s, hz]) => [s, [r3(x - 0.15), 0.2, hz]]);
+  A(r3(t - 0.3), "rich", "move", { to: [r3(HB[0] - 1.0), r3(HB[2] + dz * 0.5)], dur: 0.25, steps: 1 });
+  for (const [s, at] of hands(bx, bz)) { arm(t, "rich", s, { world: at }, 0.22); grip(t, "rich", s, "flat", 0.12); }
+  A(r3(t + 0.25), "rich", "move", { to: [r3(HB[0] - 0.62), r3(HB[2] + dz2 * 0.5)], dur: 0.3, steps: 1 });
+  look(t, "rich", [0.1, -0.6], 0.15);
+  pr(r3(t + 0.25), id, { x: ex, z: ez }, 0.3, "inOut");
+  for (const [s, at] of hands(ex, ez)) arm(r3(t + 0.25), "rich", s, { world: at }, 0.3, "inOut");
+  pr(r3(t + 0.58), id, { y: -0.45, tilt: 25 }, 0.18, "in");
+  sfx(r3(t + 0.74), "thud", { gain: 0.4, reason: "the sack lands at the bottom of the hole" });
+};
+A(r3(T.hide - 0.9), "rich", "crouch", { to: 0.55, dur: 0.25 });
+look(T.hide - 0.6, "rich", [0.2, -0.5], 0.2);
+expr(T.hide - 0.7, "rich", "worried", { brow: 0.7, open: 0.15 }, 0.2);
+sackIn(r3(T.hide - 0.6), "hbagA");
+sackIn(r3(T.hide + 0.35), "hbagB");
+// the tile: his right palm on its lifted edge, pushed down shut
+const TILE = [r3(HB[0] - 0.22), r3(HB[2] + 0.12)];
+arm(T.hide + 1.3, "rich", "R", { world: [TILE[0], 0.4, TILE[1]] }, 0.25); grip(T.hide + 1.3, "rich", "R", "flat", 0.1);
+arm(T.hide + 1.3, "rich", "L", "rest", 0.25);
+arm(T.hide + 1.6, "rich", "R", { world: [TILE[0], 0.12, TILE[1]] }, 0.35, "in");
+sfx(T.hide + 1.95, "thud", { gain: 0.35, reason: "the floor tile dropping back into place" });
+A(r3(T.hide + 2.15), "rich", "crouch", { to: 0, dur: 0.35 });
+arm(T.hide + 2.15, "rich", "R", "rest", 0.3); grip(T.hide + 2.15, "rich", "R", "relaxed", 0.2);
+look(T.hide + 2.3, "rich", [-0.7, 0.3], 0.25); look(T.hide + 2.75, "rich", [0.6, 0.3], 0.25);
+see(T.turn, T.door, ["rich.face", "hbagA"], "night, the huge marble hall: kneeling by a hole in the floor, a siren's blue and red sweeps the windows; he pushes the money sacks into the hole and shuts the tile");
 
 // ================================================================= S6 THE DOOR (20.5-24.0): ten locks; he shuts his friend out
 const DOOR_AT = hw(HALL.DOOR.front);
@@ -367,21 +476,15 @@ A(r3(T.sunset - PRE), "rich", "sit", { rot: 180, dur: 0.01, height: 0, hands: "l
 expr(T.sunset, "rich", "sad", { curve: -0.1, brow: 0.3 }, 0.01); look(T.sunset, "rich", [0, 0.05], 0.01);
 look(T.brk + 1.2, "rich", [0.15, 0.15], 0.6);   // up, to the light
 expr(T.brk + 2.0, "rich", "kind", { curve: 0.0, brow: 0.15 }, 0.8);
-// the notes: lifted from the open sack by the wind (DESIGN 6.5), keyed every 0.1 s
-const M = cw(COAST.MOUTH), W = COAST.WIND, hsh = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
-[0, 0.5, 0.8, 1.5, 1.9, 2.8, 3.6].forEach((dt, i) => {
-  const id = `note${i}`, t0 = r3(T.open2 + dt);
-  P("coast", { id, kind: "banknote", staged: "blown away by the wind", x: M[0], y: M[1], z: M[2], rot: 0, scale: 1 }, { from: T.open2, to: r3(Math.min(t0 + 5.0, END)) });
-  const h1 = hsh(i, 1), h2 = hsh(i, 2), h3 = hsh(i, 3);
-  for (let a = 0.1; a <= 5.0 + 1e-6 && t0 + a - 0.1 < END - 0.05; a = r3(a + 0.1)) {
-    const s = 3.2 * (a - 0.8 * (1 - Math.exp(-a / 0.8))), y = 0.55 * a + 0.3 * Math.sin(2 * Math.PI * (0.9 * a + h1)), side = 0.25 * Math.sin(2 * Math.PI * (0.6 * a + h2)) + 0.4 * (h3 - 0.5) * a;
-    c.prop(r3(t0 + a - 0.1), id, { x: r3(M[0] + W[0] * s - W[2] * side), y: r3(M[1] + y), z: r3(M[2] + W[2] * s + W[0] * side), rot: r3(((0.4 * a * 360) * (h1 > 0.5 ? 1 : -1)) % 360), tilt: r3(((1.2 * a * 360) * (h2 > 0.5 ? 1 : -1)) % 360) }, 0.1, "linear");
-  }
-});
-sfx(T.open2, "crinkle", { gain: 0.3, reason: "notes lifting out of the sack" });
-look(T.open2 + 0.3, "rich", [0.25, 0.15], 0.3);   // he sees them go, and lets them
+// the gust that broke the clouds rolls the sack flat; ALL the notes pour out and fly into the sun (the notes go first)
+pr(r3(T.storm + 0.8), "cbag", { full: 0 }, 3.6, "inOut");
+sfx(T.storm, "ai/storm-wind", { gain: 0.22, dur: 4.5, reason: "the gust over the cliff that takes the money" });
+sfx(r3(T.storm + 0.8), "ai-package/cardboard-rustle", { gain: 0.3, reason: "hundreds of paper notes rustling out of the sack" });
+expr(T.storm + 0.6, "rich", "shocked", { open: 0.3, eye: 1.3 }, 0.2);
+look(T.storm + 0.7, "rich", [0.35, 0.35], 0.3);   // up, after the notes
+expr(T.face - 0.3, "rich", "sad", { curve: -0.05, brow: 0.2 }, 0.4);
+look(T.face + 0.2, "rich", [-0.4, 0.45], 0.6);    // the last of them rising up the left
 expr(T.smile, "rich", "happy", { curve: 0.55, eye: 0.85 }, 0.9);
-A(r3(T.smile + 0.5), "rich", "blink", { dur: 0.6 });
 see(T.sunset, T.face, ["rich"], "the cliff top: Spud sits small with the sack beside him; the grey deck breaks open into a huge sunset over the sea");
 see(T.face, T.hold, ["rich.face"], "close: the wind takes the notes out of the open sack; he lets them go and smiles for the first time");
 see(T.hold, END, ["rich"], "the sunset hold");
@@ -391,12 +494,14 @@ const inCar = (local, lookLocal, fov) => ({ pos: carW(local), look: carW(lookLoc
 const AT9 = [r3(CAR[0] - ROLL_IN), CAR[1], CAR[2]], inCar2 = (local, lookLocal, fov) => ({ pos: carW(local, AT9), look: carW(lookLocal, AT9), fov });   // S9: the car still short of its stop
 const SH = {
   open: inCar([-0.62, 1.3, 0.75], [0.22, 1.12, -0.3], 72),   // the coupe bench p01face: through the passenger side at the driver
-  city: shot("city", [0, 1.2, 4.5], { tilt: -6, fov: 46 }),
-  vault: { pos: vw(VAULT.CAM.p03.pos), look: vw(VAULT.CAM.p03.look), fov: VAULT.CAM.p03.fov },
+  city: shot("city", [-1.25, 1.2, 5.4], { tilt: -6, fov: 48 }),   // DESIGN 11.4 camera 2a: the cart, the seller, Spud
+  cityb: shot("city", [0.3, 1.9, 6.6], { pan: 2, tilt: -9, fov: 50 }),    // 2b: limo roof, the couple, Spud in front
+  bank: { pos: bw([-0.12, 0.95, 4.6]), look: bw([-0.12, 0.72, 0]), fov: 52 },   // the design two-shot, wider
+  overgun: { pos: bw(BANK.CAM.overgun.pos), look: bw(BANK.CAM.overgun.look), fov: BANK.CAM.overgun.fov },
   street: shot("street", [0.6, 1.9, 11.0], { fov: 46 }),
   hide: cam([1.6, 1.15, 8.6], 6, 40, -3),
   mday: cam([-0.5, 1.0, -1.0], 4, 42, 8),
-  turn: { pos: hw([2.3, 1.3, 5.8]), look: hw([3.5, 0.6, 0.6]), fov: 48 },
+  turn: { pos: hw([5.9, 1.05, 1.3]), look: hw([3.5, 0.32, -0.75]), fov: 46 },   // across the hole at his face
   sidewin: { pos: hw([-1.0, 1.3, 9.2]), look: hw([-1.9, 0.5, 12.1]), fov: 42 },   // the rooms bench h_sidewin: Chip outside the side window
   door: { pos: hw([2.2, 1.0, 7.4]), look: hw([-0.9, 1.2, 11]), fov: 46 },
   clock: { pos: hw([-4.6, 1.8, -2.0]), look: hw(HALL.CLOCK_FACE), fov: 38 },
@@ -407,17 +512,19 @@ const SH = {
   wide: { pos: cw(COAST.CAM.c08wide.pos.map((v, i) => (i === 1 ? 2.4 : v))), look: cw(COAST.CAM.c08wide.look), fov: COAST.CAM.c08wide.fov },
   climb: { pos: cw([4.5, 0.85, 2.2]), look: cw(COAST.CAM.c08climb.look), fov: COAST.CAM.c08climb.fov },
   sunset: { pos: cw(COAST.CAM.c09.pos), look: cw(COAST.CAM.c09.look), fov: COAST.CAM.c09.fov },
-  face: { pos: cw(COAST.CAM.c10.pos), look: cw(COAST.CAM.c10.look), fov: COAST.CAM.c10.fov },
+  face: { pos: cw([0.55, 0.62, -3.4]), look: cw([0.32, 0.55, 0]), fov: 40 },   // DESIGN 11.6 close: the flat sack, the last notes, his face
   hold: { pos: cw(COAST.CAM.c09.pos), look: cw(COAST.CAM.c09.look), fov: COAST.CAM.c09.fov, to: { pos: cw(COAST.CAM.c09push.pos), look: cw(COAST.CAM.c09push.look), fov: COAST.CAM.c09push.fov }, dur: r3(END - T.hold), ease: "linear" },
 };
 const CUTS = [
   ["S1 rich and sad in the rain", 0, SH.open, "hook"],
-  ["S2 the city", T.city, SH.city],
-  ["S3 the vault", T.vault, SH.vault],
+  ["S2 no money for a coffee", T.city, SH.city],
+  ["S2 the rich", T.watch, SH.cityb],
+  ["S3 the hold-up", T.bank, SH.bank, "escalation"],
+  ["S3 over the gun", T.gun, SH.overgun],
   ["S3b the escape", T.street, SH.street],
   ["S3b the corner", T.duck, SH.hide],
   ["S4 he bought everything", T.rich, SH.mday],
-  ["S5 the siren", T.turn, SH.turn, "escalation"],
+  ["S5 the siren", T.turn, SH.turn],
   ["S6 ten locks", T.door, SH.door],
   ["S6 Chip at the window", T.chip, SH.sidewin],
   ["S6 he backs away", T.back, SH.door],
@@ -429,6 +536,7 @@ const CUTS = [
   ["S9 the stop", T.wide, SH.wide],
   ["S9 the ambulance", T.climb, SH.climb],
   ["S10 the clouds break", T.sunset, SH.sunset],
+  ["S10 the money flies", T.storm, SH.sunset],
   ["S10 the smile", T.face, SH.face, "payoff"],
   ["S10 the hold", T.hold, SH.hold, "reaction"],
 ];
@@ -436,14 +544,24 @@ const CUTS = [
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
 const NARR = !VO ? [] : [
-  [0.15, "He has ten million.", 1.3],
-  [1.65, "He hasn't smiled in thirty days.", 1.9],
-  [4.0, "Thirty days earlier.", 1.2],
-  [T.plan, "So he made a plan.", 1.0],
-  [14.8, "He bought everything happy people have.", 2.2],
-  [18.3, "But now he had something to lose.", 1.9],
-  [T.nobody, "Nobody was ever coming for him.", 1.8],
-  [T.forgot, "For one moment, he forgot everything he owned.", 2.8],
+  [0.15, "This potato has ten million dollars.", 1.9],
+  [2.2, "And he hasn't smiled in thirty days.", 1.9],
+  [4.35, "Thirty days earlier, he couldn't even pay for a coffee.", 3.1],
+  [8.4, "Then he saw how the rich live.", 1.7],
+  [12.25, "So he made a plan.", 1.05],
+  [16.45, "He robbed a bank.", 1.05],
+  [18.5, "And he got away with it.", 1.4],
+  [21.1, "He bought everything happy people have.", 2.3],
+  [24.9, "But now, he had something to lose.", 2.0],
+  [29.1, "He locked every door.", 1.3],
+  [32.1, "Even his best friend had to stay outside.", 2.2],
+  [34.6, "He had everything... and no one.", 2.3],
+  [37.2, "Then one night, a siren stopped at his gate.", 2.6],
+  [41.0, "He ran, until the tank ran dry.", 2.0],
+  [45.9, "It was only an ambulance.", 1.5],
+  [47.6, "Nobody was ever coming for him.", 1.8],
+  [51.9, "The wind took every dollar he had.", 2.2],
+  [56.9, "And for one moment, he forgot all his worries.", 3.0],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 const beats = c.beats(CUTS, END);   // after every item (items added later are dropped: draft 1 lost its narrator this way)
@@ -461,8 +579,8 @@ write(import.meta.url, {
   set: {
     type: "env", env: ENVS.city,
     swap: PLACES.map(([at, name]) => (name === "coast" ? { at, room: room("coast", CP, COASTKEYS) }
-      : name === "vault" ? { at, room: room("vault", VP, { doorAt: r3(T.vault - 0.5), doorDur: 1.2, alarmAt: T.alarm }) }
-      : name === "hall" ? { at, room: room("mansionhall", HP, { locks: [[0, 0], [T.lock1, 1], [r3(T.lock1 + 0.25), 2], [r3(T.lock1 + 0.5), 4], [r3(T.lock1 + 0.75), 7], [T.lock10, 10]], sirenPass: [[T.siren1, r3(T.siren1 + 2.2)]], sirenStay: T.gate, rain: 1, candle: [[0, 0], [T.low, 1]], hatch: [[0, 0], [T.hide + 0.7, 0], [T.hide + 0.9, 1], [T.hide + 1.6, 1], [T.hide + 1.8, 0]] }) }
+      : name === "bank" ? { at, room: room("bankhall", BP, {}) }
+      : name === "hall" ? { at, room: room("mansionhall", HP, { locks: [[0, 0], [T.lock1, 1], [r3(T.lock1 + 0.25), 2], [r3(T.lock1 + 0.5), 4], [r3(T.lock1 + 0.75), 7], [T.lock10, 10]], sirenPass: [[T.siren1, r3(T.siren1 + 2.2)]], sirenStay: T.gate, rain: 1, candle: [[0, 0], [T.low, 1]], hatch: [[0, 0.5], [r3(T.hide + 1.6), 0.5], [r3(T.hide + 1.95), 0]] }) }
       : { at, env: ENVS[name] })),
     aperture: 0, focus: false, lighting: LIGHTING, hatch: HATCH, cel: CEL, ink: true, satsuei: true,
   },
@@ -472,15 +590,15 @@ write(import.meta.url, {
   hook: { show: ["rich", "car"], hint: 0, what: "a sad potato in a fur coat and gold chain at the wheel of a gold car in the rain, money bags piled on the back seat" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
-    { who: "pa", with: "limo", from: 0, to: T.vault, checks: ["shell", "body", "prop"], reason: "the couple sit on the bench inside the limousine" },
-    { who: "pb", with: "limo", from: 0, to: T.vault, checks: ["shell", "body", "prop"], reason: "the couple sit on the bench inside the limousine" },
-    { who: "pa", with: "pb", from: 0, to: T.vault, reason: "the couple sit shoulder to shoulder on the limousine's bench (arm round each other)" },
     { who: "rich", with: "car", from: T.wide, to: T.climb, checks: ["shell"], reason: "he sits inside the coupe as it rolls to a stop, seen from 30 m on the wide" },
     { who: "rich", with: "car", from: 0, to: T.city, reason: "he sits inside the coupe (the car encloses him)" },
     { who: "rich", with: "car", from: T.car, to: T.climb, reason: "he sits inside the coupe (the car encloses him)" },
-    { who: "spud", with: "mask", from: T.vault, to: T.rich, reason: "the balaclava is worn (it covers his head)" },
-    { who: "spud", with: "vbagL", from: T.vault, to: T.street, reason: "he hugs the sacks against his belly" },
-    { who: "spud", with: "vbagR", from: T.vault, to: T.street, reason: "he hugs the sacks against his belly" },
+    { who: "spud", with: "mask", from: T.bank, to: T.rich, reason: "the balaclava is worn (it covers his head)" },
+    { who: "spud", with: "plA", from: T.city, to: T.bank, reason: "the pocket lining hangs out of his sweater's hem" },
+    { who: "spud", with: "plB", from: T.city, to: T.bank, reason: "the pocket lining hangs out of his sweater's hem" },
+    { who: "rosti", with: "apron", from: T.city, to: T.watch, reason: "the apron is worn" },
+    { who: "rosti", with: "phat", from: T.city, to: T.watch, reason: "the paper hat is worn" },
+    { who: "spud", with: "gun", from: T.bank, to: T.street, reason: "the revolver in his fist" },
     { who: "spud", with: "sbag", from: T.street, to: T.rich, reason: "he carries the sack in his arms" },
     { who: "rich", with: "gbag", from: T.flee, to: T.car, reason: "he carries the sack in his arms" },
     { who: "rich", with: "cbag2", from: T.climb, to: T.sunset, reason: "he carries the sack in his arms" },
