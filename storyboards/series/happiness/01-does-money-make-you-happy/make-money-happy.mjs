@@ -432,7 +432,6 @@ const CUTS = [
   ["S10 the smile", T.face, SH.face, "payoff"],
   ["S10 the hold", T.hold, SH.hold, "reaction"],
 ];
-const beats = c.beats(CUTS, END);
 
 // ---------------------------------------------------------------- the narrator (voice 1, deep storyteller), in the gaps
 const NG = 4.0;
@@ -447,6 +446,7 @@ const NARR = !VO ? [] : [
   [T.forgot, "For one moment, he forgot everything he owned.", 2.8],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
+const beats = c.beats(CUTS, END);   // after every item (items added later are dropped: draft 1 lost its narrator this way)
 
 for (const p of props) { delete p._place; delete p._from; delete p._to; delete p._stay; }
 const room = (type, pos, keys) => ({ type, pos, ...keys });

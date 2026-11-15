@@ -39,6 +39,8 @@ import { clamp } from "./util.js";
 //               taper, lumps } = the body's half width and depth, its centre height and half height, the egg's taper and the
 //               lump list [{ d, a, k }] (potato.js bodyPoint exactly: the shell follows the real skin). Spud's row is
 //               measured from potato.js with his seed 29. Other keys: color, rib, rim, low, out. Budget about 3k triangles.
+//               It squashes with the wearer (bodyGroup.scale, found in the scene: wearSquash below), so a hop, a landing, a crouch and a run's bob
+//               keep the shell on the skin in every frame (before 15 Nov it stayed at scale 1 and floated off the head up to 8 cm).
 //   riotshield  (worn or standing) a curved rounded-rectangle shield 0.62 wide, 0.86 tall, 0.02 thick, bowed 0.06 toward
 //               +z, smoky blue-grey #8fa3b8 at 0.45 opacity in a dark frame #1c2440 0.03 wide with a white band across it
 //               at 0.55-0.68 up and the word POLICE in dark navy capitals (readable from both sides). Origin: bottom
@@ -157,8 +159,38 @@ function bodyAt(F, th, el, out = 0) {
   return p.addScaledVector(n, out);
 }
 
+// The body a worn prop sits on, found in the scene with no id link (stage.js moves a worn prop to the wearer's origin and turns it
+// with the wearer, but never gives it the wearer's squash, which is bodyGroup.scale = (1/sqrt s, s, 1/sqrt s) in potato.js: a hop, a
+// landing, a crouch, a run's bob and every "squash" action change it each frame, so an unscaled shell floated off the head
+// and the skin showed through it). A potato's root is the group whose first child (bodyGroup) holds potatoParts, whose first child is
+// the 128 x 96 body sphere (12513 vertices). The wearer is the one standing exactly where the prop was put (stage.js copies
+// bodyGroup.localToWorld(0,0,0)). Deterministic: the numbers come from the posed scene, nothing from a clock.
+const _wp = new THREE.Vector3(), _bp = new THREE.Vector3();
+function potatoRoots(scene) {
+  const out = [];
+  scene.traverse((o) => { const bg = o.children[0], pp = bg && bg.children[0], body = pp && pp.children[0]; if (o.isGroup && bg && bg.isGroup && pp && pp.isGroup && body && body.isMesh && body.geometry.attributes.position.count === 12513) out.push(o); });
+  return out;
+}
+// Makes `whole` (a worn prop's inner group) follow the wearer's squash every time its matrices are updated, i.e. every frame
+// and every pass, after stage.js has put the prop on the wearer. Not found (or not on a body): left at scale 1.
+function wearSquash(P) {
+  const whole = P.whole, sup = whole.updateMatrixWorld;
+  let roots = [];
+  const find = () => {
+    if (!roots.length) { let s = P.root; while (s.parent) s = s.parent; roots = potatoRoots(s); }   // the cast is built once, before the first frame
+    P.root.getWorldPosition(_wp);
+    for (const r of roots) { r.getWorldPosition(_bp); if (_bp.distanceToSquared(_wp) < 4e-6) return r; }
+    return null;
+  };
+  whole.updateMatrixWorld = function (force) {
+    const r = P.root.parent ? find() : null;
+    if (r) { const b = r.children[0].scale; this.scale.set(b.x * r.scale.x, b.y * r.scale.y, b.z * r.scale.z); } else this.scale.set(1, 1, 1);
+    sup.call(this, force);
+  };
+}
+
 // ------------------------------------------------------------------------------------------------ the bag
-const BAG = { w: 0.30, d: 0.26, h: 0.34, neck: 0.26, kz: 0.26 / 0.30 };   // kz: the depth squeeze of the round sack
+const BAG ={ w: 0.30, d: 0.26, h: 0.34, neck: 0.26, kz: 0.26 / 0.30 };   // kz: the depth squeeze of the round sack
 // the sack's half width from the floor up to the tied neck (closed) and to the open mouth: [y, r]
 const BAG_BODY = [[0, 0.002], [0.003, 0.085], [0.016, 0.125], [0.05, 0.146], [0.1, 0.152], [0.16, 0.153], [0.2, 0.136], [0.225, 0.1]];
 const BAG_CLOSED = [[0.225, 0.1], [0.245, 0.058], [0.26, 0.034], [0.274, 0.05], [0.298, 0.07], [0.32, 0.062], [0.337, 0.04], [0.342, 0.004]];
@@ -282,6 +314,7 @@ export const HEIST_KINDS = {
     }
     { const pts = []; for (let i = 0; i < 20; i++) pts.push(bodyAt(F, (i / 20) * 2 * Math.PI, elTop, OUT + 0.002));
       thru(mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 20, 0.0058, 4, true), rimM, P.whole)); }
+    if (S.wear) wearSquash(P);   // the shell squashes, stretches and runs with the body (it is a worn prop: stage.js gives it the wearer's place and turn only)
     return { grip: 0 };
   },
 
