@@ -27,7 +27,11 @@ const T0 = 154;   // story time of the block's first frame
 const TALL = process.argv.includes("--tall");
 
 // ---------------------------------------------------------------- places (BLOCKS.md / director: D owns PLACE 30-33)
-const O = { helike: PLACE(30), room: PLACE(31), hatch: PLACE(32), city: PLACE(33) };
+const O = { helike: PLACE(30), room: PLACE(31), hatch: PLACE(32), city: PLACE(33), night: PLACE(35) };
+// props-at-d-ship.js header: Spud in the storm swell 2950 m out, 38 deg from +z toward +x (panel 42); the night sea of 41 and 46 is its own
+// place (the storm sky reaches 12 km), Spud 4042 m from the far ring's ground point
+const pol = (r, deg, y) => [r3(r * Math.sin(deg * Math.PI / 180)), y, r3(r * Math.cos(deg * Math.PI / 180))];
+const STORM_XZ = [r3(O.city[0] + pol(2950, 38)[0]), r3(O.city[1] + pol(2950, 38)[2])], NIGHT_XZ = [O.night[0] + 22, O.night[1] - 4042];
 // the two maps are flat paper on the plain set (set-plate.js), hung at the world origin (no 3D place there)
 const MAP38 = "assets/plates/at-d-greece-map.png", MAP40 = "assets/plates/at-d-world-map.png";
 const PL = { src: MAP38, z: -2.2, center: [0, 1.6], height: 3.2, depth: false, motion: false, dust: 0, tint: "#ffffff" };
@@ -72,33 +76,44 @@ function build(F) {
   const T = { hook: 0, map1: 4.4, shore: 7.0, room: 10.9, map2: 13.4, low: 19.1, dive: 24.3, storm: 25.1, rise: 27.3, under: 31.0,
     hatch: 34.3, far: 40.2, tag: 44.2, block: 47.5, END: 50.0 };
   const END = T.END;
-  only("spudK", [[0, T.map1]]); only("spudW", [[T.room, T.map2]]); only("spudS", [[T.low, T.rise], [T.far, T.tag]]);
+  only("spudK", [[0, T.map1]]); only("spudW", [[T.room, T.map2]]); only("spudS", [[T.low, T.storm], [T.far, T.tag]]); only("spudC", [[T.storm, T.rise]]);
   only("spudB", [[T.hatch, T.far]]); only("spudT", [[T.block, END]]); only("plato", [[T.room, T.map2], [T.tag, END]]);
   for (const id of ["foreman", "cA", "cB", "cC", "cD", "cE"]) only(id, [[T.hatch, T.far]]);
-  // the city is not there in the low (41): it waits deep under the sea until midnight
-  set0(T.low, "city", { y: -3000 }); set0(T.storm, "city", { y: 0 });
+  // the city kinds share their params by place (props-at-d-ship.js): seed lightning on sea, storm, hull and whirl together, rise on city + hull
+  const CITY = ["cityS", "cityStorm", "hull", "whirl"];
+  const bolt = (t, v, dur = 0.01) => CITY.forEach((id) => PR(t, id, { lightning: v }, dur));
+  const riseTo = (t, v, dur = 0.01, ease = "linear") => ["city", "hull"].forEach((id) => PR(t, id, { rise: v }, dur, ease));
+  set0(0.02, "city", { rise: 0 }); set0(0.02, "hull", { rise: 0, falls: 0.3, beam: 0, lit: 0.6 }); bolt(0.02, 0.3); set0(0.02, "whirl", { spin: 0, calm: 0, show: 1 });
+  set0(0.02, "ring", { shrink: 0 }); set0(0.02, "nightS", { calm: 0.4 });
 
   // ---------------------------------------------------------------- cast: one actor per place (hidden elsewhere by the cut)
   const cast = [
     { id: "spudK", character: CAST.spud, at: [O.helike[0], O.helike[1]], face: 340, expr: "neutral", follow: 0.2, seed: 2.1 },          // Helike knoll
     { id: "spudW", character: CAST.spud, at: [O.room[0] - 0.7, O.room[1] - 2.25], y: 0.62, face: 0, expr: "neutral", follow: 0.2, seed: 2.2 },      // at the window, outside
     { id: "plato", character: "ancient-aliens/plato", at: [O.room[0] + 0.66, O.room[1] - 1.35], face: 0, expr: "kind", follow: 0.2, seed: 4.1 },
-    { id: "spudS", character: CAST.spud, at: [O.city[0] + 400, O.city[1] + 5200], face: 180, expr: "neutral", follow: 0.2, seed: 2.3 },   // in the sea (rides a carrier)
+    { id: "spudS", character: CAST.spud, at: NIGHT_XZ, y: -0.5, face: 0, expr: "neutral", follow: 0.2, seed: 2.3 },   // in the night sea (41, 46)
+    { id: "spudC", character: CAST.spud, at: STORM_XZ, y: -0.5, face: 218, expr: "neutral", follow: 0.2, seed: 2.6 },   // in the storm swell (42)
     { id: "spudB", character: CAST.spud, at: [O.hatch[0] - 2.2, O.hatch[1]], face: 321, expr: "neutral", follow: 0.2, seed: 2.4 },          // in the beam (flies)
     ...HATCH_CREW(),
     { id: "spudT", character: CAST.spud, at: [O.room[0] + 0.25, O.room[1] + 9], face: 0, expr: "neutral", follow: 0.2, seed: 2.5 },   // the tag, in front of the desk
   ];
-  const SEA_XZ = [O.city[0] + 400, O.city[1] + 5200];
   const props = [
-    ...["spudK", "spudW", "spudS", "spudB", "spudT"].map((w) => ({ ...host(w, w === "spudS" ? 1 : 0), id: `${w}-lamp` })),   // the lamp shines only in the night sea (41-42, 46)
-    { id: "nightsea", kind: "sea", x: SEA_XZ[0], z: SEA_XZ[1], y: 0, grade: "night", horizon: true, reach: 1700, mist: [3, -6, 7], mistA: 0.5, swell: 0.4 },
+    ...["spudK", "spudW", "spudS", "spudC", "spudB", "spudT"].map((w) => ({ ...host(w, w === "spudS" || w === "spudC" ? 1 : 0), id: `${w}-lamp` })),   // the lamp shines only in the sea (41, 42, 46)
     // HELIKE (panel 37): kind of builder D1, origin = Spud's spot on the knoll
     { id: "helike", kind: "helike", x: O.helike[0], y: 0, z: O.helike[1], flood: 0, staged: "Helike, 373 BC, a full moon: the sea rises over the roofs" },
     // PLATO'S ROOM (panels 39, 47-48): kinds of builder D2, origin = the room's floor centre
     { id: "room", kind: "platoroom", x: O.room[0], y: 0, z: O.room[1], occ: [[0.66, 1.35, -1.3, 0.3]], staged: "Plato's room in Athens at night, the bronze lamp" },
     { id: "chair", kind: "klismos", x: O.room[0] + 0.66, y: 0, z: O.room[1] - 1.35, rot: 0 },
     // THE CITY AT MIDNIGHT (panels 41-44, 46): the kit city at night + builder D3's hull, falls, beam, whirlpool, storm sky
-    { id: "city", kind: "atlantis", x: O.city[0], y: 0, z: O.city[1], light: "night", sea: 1, rise: 0, lightning: 0 },
+    { id: "city", kind: "atlantis", x: O.city[0], y: 0, z: O.city[1], light: "night", sea: 1, flood: false, mountains: false },
+    { id: "hull", kind: "shiphull", x: O.city[0], z: O.city[1] },
+    { id: "cityS", kind: "shipsea", x: O.city[0], z: O.city[1], calmAt: [r3(STORM_XZ[0] - O.city[0]), r3(STORM_XZ[1] - O.city[1]), 16] },
+    { id: "cityStorm", kind: "shipstorm", x: O.city[0], z: O.city[1] },
+    { id: "whirl", kind: "shipwhirl", x: O.city[0], z: O.city[1] },
+    // THE NIGHT SEA (41, 46): stars, the calm swell, the far ring (the city, gone up)
+    { id: "stars", kind: "shipstars", x: O.night[0], z: O.night[1] },
+    { id: "nightS", kind: "shipsea", x: O.night[0], z: O.night[1], grade: "night", whirl: false, stars: 1, calmAt: [22, -4042, 24] },
+    { id: "ring", kind: "shipring", x: O.night[0], z: O.night[1] - 9000, y: -6000 },
     // THE HATCH (panel 45): builder D4's `hatchhall`, origin = deck level at the hatch axis; the kit sea (night) at y -9 under it
     { id: "hatch", kind: "hatchhall", x: O.hatch[0], y: 0, z: O.hatch[1], lit: 1, beam: 1 },
     { id: "hatchsea", kind: "sea", x: O.hatch[0], z: O.hatch[1], y: -9, grade: "night", horizon: true, calm: [0, 0, 18], foam: [[-2.2, 0, 2.7, 0.7]], mist: [-2.2, 0, 5], mistA: 0.22, swell: 0.35, reach: 9000 },
@@ -147,9 +162,8 @@ function build(F) {
   big(r3(T.map2 + 3.75), T.low - 0.05, "1 DAY?");
 
   // ================================================================= 41 THE LOW (19.1-24.3): only his head and the headlamp in the black sea
-  const swim = (t, y, dur = 0.01, ease) => A(r3(t), "spudS", "fly", { to: { x: SEA_XZ[0], y, z: SEA_XZ[1] }, dur, ...(ease && { ease }) });
-  swim(T.low - 0.04, -0.62);
-  set0(T.low, "city", { sea: 1, rise: 0, lightning: 0 });
+  const swim = (t, y, dur = 0.01, ease) => A(r3(t), "spudS", "fly", { to: { x: NIGHT_XZ[0], y, z: NIGHT_XZ[1] }, dur, ...(ease && { ease }) });
+  swim(T.low - 0.04, -0.5);
   A(r3(T.low - 0.02), "spudS", "turn", { to: 25, dur: 0.01 });
   look(T.low, "spudS", [0.3, -0.05], 0.01); expr(T.low, "spudS", "neutral", { brow: 0.3, lid: 0.45 }, 0.01);
   say(T.low + 0.3, "d4", T.dive);
@@ -161,20 +175,19 @@ function build(F) {
   sfx(T.dive + 0.2, "ai/swim-splash", { gain: 0.45, reason: "he dives" });
 
   // ================================================================= 42 MIDNIGHT (25.1-27.3): the city in the storm, lightning
-  swim(T.storm - 0.02, -0.62); A(r3(T.storm - 0.02), "spudS", "turn", { to: 200, dur: 0.01 });
-  PR(T.storm, "city", { lightning: 1 }, 0.01); PR(T.storm + 0.07, "city", { lightning: 0.3 }, 0.01); PR(T.storm + 0.6, "city", { lightning: 0 }, 0.4);
-  PR(T.storm + 1.4, "city", { lightning: 1 }, 0.01); PR(T.storm + 1.47, "city", { lightning: 0.25 }, 0.01); PR(T.storm + 1.9, "city", { lightning: 0 }, 0.3);
-  look(T.storm, "spudS", [0, 0.25], 0.01); expr(T.storm, "spudS", "surprised", { open: 0.25 }, 0.01);
+  bolt(T.storm, 1); bolt(T.storm + 0.07, 0.3); bolt(T.storm + 1.4, 1); bolt(T.storm + 1.47, 0.3);
+  look(T.storm, "spudC", [0, 0.25], 0.01); expr(T.storm, "spudC", "surprised", { open: 0.25 }, 0.01);
   sfx(T.storm, "ai/thunder", { gain: 0.5, reason: "lightning over the city: midnight" });
   sfx(T.storm, "ai/storm-lake", { gain: 0.3, dur: r3(T.under - T.storm), reason: "storm, rain and swell" });
 
   // ================================================================= 43 THE RISE (27.3-31.0): the rings lift out of the sea, falls, beam (no voice)
-  set0(T.rise, "city", { rise: 0 }); PR(T.rise + 0.2, "city", { rise: 0.6 }, 3.6, "inOut");
+  riseTo(T.rise + 0.2, 0.6, 3.6, "inOut"); PR(T.rise + 0.2, "hull", { falls: 1, lit: 0.9 }, 1.0, "out"); PR(T.rise + 1.6, "hull", { beam: 1 }, 1.2, "out");
+  PR(T.rise + 1.6, "whirl", { spin: 1 }, r3(T.hatch - T.rise - 1.6)); bolt(T.rise + 2.2, 1); bolt(T.rise + 2.27, 0.3);
   sfx(T.rise, "kenney/space-engine-low", { gain: 0.3, dur: r3(T.under - T.rise + 3), reason: "a deep physical hum: the ship wakes" });
   sfx(T.rise + 0.4, "ai/water-gush", { gain: 0.55, dur: 3.3, reason: "the sea pouring off the rim" });
 
   // ================================================================= 44 IT DIDN'T SINK. IT LEFT. (31.0-34.3): under the hull
-  set0(T.under, "city", { rise: 0.6 });
+  PR(T.under, "hull", { falls: 0.6, lit: 1 }, 3.0, "inOut");
   say(T.under + 0.3, "d5a", T.under + 2.3);
   say(r3(T.under + 2.3), "d5b", T.hatch);
   sfx(T.under, "ai/water-gush", { gain: 0.35, dur: r3(T.hatch - T.under), reason: "water sheets off the hull" });
@@ -195,8 +208,8 @@ function build(F) {
   sfx(T.hatch, "kenney/space-engine-low", { gain: 0.25, dur: r3(T.far - T.hatch), reason: "the ship's hum overhead" });
 
   // ================================================================= 46 CASE CLOSED (40.2-44.2): the city rises into the stars; he stays
-  set0(T.far, "city", { rise: 1 });
-  A(r3(T.far - 0.02), "spudS", "turn", { to: 10, dur: 0.01 }); swim(T.far - 0.02, -0.62);
+  set0(T.far, "ring", { y: 1500, shrink: 0 }); PR(T.far + 0.3, "ring", { shrink: 0.85 }, r3(T.tag - T.far - 0.3), "in"); PR(T.far, "nightS", { calm: 1 }, r3(T.tag - T.far));
+  set0(T.low, "ring", { y: -6000 });
   look(T.far, "spudS", [0, 0.3], 0.01); expr(T.far, "spudS", "neutral", { brow: 0.4, lid: 0.35 }, 0.01);
   look(T.far + 1.0, "spudS", [0, 0.05], 0.4);
   say(T.far + 1.2, "d7", T.tag);
@@ -229,21 +242,21 @@ function build(F) {
     ["37b along the shore", T.shore, mv(F, O.helike, V.s0, V.s1, r3(T.room - T.shore))],
     ["39 Plato was alive", T.room, mv(F, O.room, V.w0, V.w1, r3(T.map2 - T.room)), "reveal"],
     ["40 bigger than Libya and Asia", T.map2, { ...mapCam(800, 520, 1536, F), to: mapCam(760, 500, 1380, F), dur: r3(T.low - T.map2), ease: "inOut" }],
-    ["41 the low", T.low, mv(F, SEA_XZ, V.l0, V.l1, r3(T.dive - T.low))],
-    ["dive", T.dive, mv(F, SEA_XZ, V.l1, V.l2, r3(T.storm - T.dive))],
-    ["42 midnight: the city in the storm", T.storm, mv(F, SEA_XZ, V.c0, V.c1, r3(T.rise - T.storm))],
+    ["41 the low", T.low, mv(F, NIGHT_XZ, V.l0, V.l1, r3(T.dive - T.low))],
+    ["dive", T.dive, mv(F, NIGHT_XZ, V.l1, V.l2, r3(T.storm - T.dive))],
+    ["42 midnight: the city in the storm", T.storm, mv(F, O.city, V.c0, V.c1, r3(T.rise - T.storm))],
     ["43 the city rises", T.rise, mv(F, O.city, V.r0, V.r1, r3(T.under - T.rise)), "reveal"],
     ["44 under the hull", T.under, mv(F, O.city, V.u0, V.u1, r3(T.hatch - T.under))],
     ["45a one seat left", T.hatch, mv(F, O.hatch, V.e0, V.e1, 1.6)],
     ["45 he stays", r3(T.hatch + 1.6), mv(F, O.hatch, V.h0, V.h1, r3(T.far - T.hatch - 1.6))],
-    ["46 case closed", T.far, mv(F, SEA_XZ, V.f0, V.f1, r3(T.tag - T.far))],
+    ["46 case closed", T.far, mv(F, NIGHT_XZ, V.f0, V.f1, r3(T.tag - T.far))],
     ["47 Plato winks", T.tag, mv(F, O.room, V.p0, V.p1, r3(T.block - T.tag))],
     ["48 nobody saw that", T.block, mv(F, O.room, V.b0, V.b1, r3(END - T.block))],
   ];
   // the far ring of 46 (builder D3) and the 41/46 sea and sky, the hull, the hatch hall: PLACES (filled from their headers)
   PLACES(F, D, PR, set0, T);
 
-  const spuds = ["spudK", "spudW", "spudS", "spudB", "spudT"];
+  const spuds = ["spudK", "spudW", "spudS", "spudC", "spudB", "spudT"];
   return {
     set: { ...AT_NIGHT, aperture: 0, focus: false,
       plate: PL, ...(MAP40 !== MAP38 && { plate: { ...PL, swaps: [{ at: T.map2, src: MAP40 }] } }) },
@@ -277,24 +290,24 @@ function SHOTS_OF(F) {
     p1: { wide: at([0.62, 1.29, 1.0], [0.58, 1.22, -1.50], 25), tall: at([0.62, 1.29, 1.35], [0.6, 1.2, -1.50], 43) },
     b0: { wide: at([0.30, 1.20, 2.30], [0.40, 1.10, -1.50], 33), tall: at([0.30, 1.20, 2.7], [0.40, 1.05, -1.50], 52) },
     b1: { wide: at([0.30, 1.18, 2.15], [0.40, 1.10, -1.50], 32), tall: at([0.30, 1.18, 2.55], [0.40, 1.05, -1.50], 51) },
-    // the sea where Spud swims, 5.2 km out from the city centre on +z (+400 x): 41 looks AWAY from the city (open sea)
-    l0: { wide: at([1.4, 0.35, 2.6], [-0.4, 0.15, -2], 36), tall: at([1.0, 0.35, 2.8], [-0.2, 0.2, -2], 58) },
-    l1: { wide: at([1.25, 0.32, 2.3], [-0.4, 0.15, -2], 35), tall: at([0.9, 0.32, 2.5], [-0.2, 0.2, -2], 57) },
+    // the night sea (41, 46), relative to Spud's spot: 41 looks toward the empty sky (the ring is not there yet)
+    l0: { wide: at([1.4, 0.35, 2.6], [-0.4, 0.3, -2], 36), tall: at([1.0, 0.35, 2.8], [-0.2, 0.35, -2], 58) },
+    l1: { wide: at([1.25, 0.32, 2.3], [-0.4, 0.3, -2], 35), tall: at([0.9, 0.32, 2.5], [-0.2, 0.35, -2], 57) },
     l2: { wide: at([1.2, 0.3, 2.1], [-0.4, -0.2, -2], 35), tall: at([0.9, 0.3, 2.3], [-0.2, -0.1, -2], 57) },
-    c0: { wide: at([1.6, 0.9, 4.2], [-400, 60, -2700], 40, 0.3), tall: at([1.2, 0.9, 4.4], [-400, 90, -2700], 62) },
-    c1: { wide: at([1.6, 0.95, 3.6], [-400, 60, -2700], 39), tall: at([1.2, 0.95, 3.8], [-400, 90, -2700], 61) },
-    // the city (origin = citadel centre)
-    r0: { wide: at([200, 380, 7800], [0, 560, 0], 36), tall: at([200, 380, 7800], [0, 600, 0], 60) },
-    r1: { wide: at([180, 360, 7300], [0, 600, 0], 36), tall: at([180, 360, 7300], [0, 640, 0], 60) },
-    u0: { wide: at([300, 12, 3500], [0, 420, 1700], 48), tall: at([300, 12, 3500], [0, 520, 1700], 70) },
-    u1: { wide: at([280, 14, 3300], [0, 440, 1700], 46), tall: at([280, 14, 3300], [0, 540, 1700], 68) },
+    // the city (origin = citadel centre; props-at-d-ship.js header cameras 42, 43, 44)
+    c0: { wide: { ...at(pol(2962, 38.2, 2.1), pol(2497, 33, 52), 50), near: 0.3 }, tall: { ...at(pol(2962, 38.2, 2.1), pol(2497, 35, 70), 70), near: 0.3 } },
+    c1: { wide: { ...at(pol(2958, 38.1, 2.0), pol(2497, 33, 56), 48), near: 0.3 }, tall: { ...at(pol(2958, 38.1, 2.0), pol(2497, 35, 74), 68), near: 0.3 } },
+    r0: { wide: { ...at([200, 900, 6500], [0, 520, 0], 38), near: 5 }, tall: { ...at([200, 900, 6500], [0, 560, 0], 62), near: 5 } },
+    r1: { wide: { ...at([190, 880, 6200], [0, 600, 0], 38), near: 5 }, tall: { ...at([190, 880, 6200], [0, 640, 0], 62), near: 5 } },
+    u0: { wide: { ...at([-150, 8, 700], [400, 235, -900], 60), near: 1 }, tall: { ...at([-150, 8, 700], [300, 300, -900], 80), near: 1 } },
+    u1: { wide: { ...at([-130, 9, 620], [400, 240, -900], 58), near: 1 }, tall: { ...at([-130, 9, 620], [300, 305, -900], 78), near: 1 } },
     // the hatch (origin = deck level at the hatch axis)
     e0: { wide: at([-0.2, 1.3, -0.9], [4.6, 0.8, 1.6], 50), tall: at([-0.2, 1.3, -0.9], [4.6, 0.8, 1.6], 70) },
     e1: { wide: at([-0.1, 1.3, -0.7], [4.6, 0.8, 1.6], 48), tall: at([-0.1, 1.3, -0.7], [4.6, 0.8, 1.6], 68) },
     h0: { wide: at([-6.0, -4.6, 3.0], [1.5, 0.6, -0.4], 56), tall: at([1.2, -8.2, 7.4], [-1.3, 0.2, -0.4], 56) },
     h1: { wide: at([-5.7, -4.3, 2.8], [1.5, 0.8, -0.4], 54), tall: at([1.1, -7.8, 7.0], [-1.3, 0.4, -0.4], 55) },
-    f0: { wide: at([4, 0.5, 20], [0, 300, -6000], 32), tall: at([3, 0.5, 20], [0, 500, -6000], 56) },
-    f1: { wide: at([4, 0.48, 18], [0, 320, -6000], 31), tall: at([3, 0.48, 18], [0, 520, -6000], 55) },
+    f0: { wide: { ...at([2, 1.1, 12], [-22, 640, -4958], 32), near: 0.3 }, tall: { ...at([1.5, 1.1, 12], [-22, 900, -4958], 56), near: 0.3 } },
+    f1: { wide: { ...at([2, 1.05, 10.5], [-22, 660, -4958], 31), near: 0.3 }, tall: { ...at([1.5, 1.05, 10.5], [-22, 920, -4958], 55), near: 0.3 } },
   };
 }
 
