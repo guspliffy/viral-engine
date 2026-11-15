@@ -5,6 +5,17 @@
 # changed since it last succeeded. Synchronous, so the first command of a session finds them.
 set -euo pipefail
 
+# Forks (another producer's copy of this repo, START-HERE.md): say when the main repo has changes this checkout lacks,
+# so rules and engine fixes reach the fork before the next video. Silent when up to date or offline; never fails.
+UPSTREAM=https://github.com/guspliffy/viral-engine
+origin_url="$(git -C "${CLAUDE_PROJECT_DIR:-.}" remote get-url origin 2>/dev/null || true)"
+if [ -n "$origin_url" ] && ! echo "$origin_url" | grep -qi "guspliffy/viral-engine"; then
+  up_sha="$(timeout 15 git ls-remote "$UPSTREAM" refs/heads/main 2>/dev/null | cut -f1 || true)"
+  if [ -n "$up_sha" ] && ! git -C "${CLAUDE_PROJECT_DIR:-.}" merge-base --is-ancestor "$up_sha" HEAD 2>/dev/null; then
+    echo "Upstream $UPSTREAM has changes this fork lacks (rules or engine). Before the next video: git fetch $UPSTREAM main && git merge FETCH_HEAD (START-HERE.md, Staying up to date)."
+  fi
+fi
+
 if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
   exit 0
 fi

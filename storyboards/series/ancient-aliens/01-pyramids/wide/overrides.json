@@ -1,0 +1,42 @@
+{
+ "aa-01-block-a": {
+  "01 hook": {
+   "c": -0.05
+  },
+  "08 heavier than a car": {
+   "c": 0.05
+  }
+ },
+ "aa01-block-b": {
+  "P17 80 tonnes overhead": {
+   "c": -0.1
+  },
+  "P17 b the boat": {
+   "c": 0.12
+  },
+  "P16 b his doubt": {
+   "c": -0.05
+  }
+ },
+ "aa01-c-late": {
+  "face": {
+   "c": -0.05
+  }
+ },
+ "aa01-block-d": {
+  "faces up": {
+   "c": 0.1
+  },
+  "nobody saw that": {
+   "c": 0.1
+  }
+ },
+ "aa01-c-day": {
+  "crane": {
+   "c": 0.1
+  },
+  "rest": {
+   "c": 0.1
+  }
+ }
+}
