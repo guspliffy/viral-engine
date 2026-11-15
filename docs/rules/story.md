@@ -12,6 +12,14 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 1. The story
 
+- **Suggestions, not a formula** (15 Nov, from the MrBeast study, on trial): the rules below guard against failures
+  we have seen; they are not a recipe for the story. MrBeast's warning: strict beat checklists make every video look
+  the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
+  in its series (opening, structure, setting, music, who wins), and the delivery names what changed. A series is
+  reviewed after about 12 episodes and paused before it goes stale, even when it still does well.
+- **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
+  picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
+  save it). If the picture is unclear, change the idea, not the packaging.
 - **One chain of cause and effect** (10 Nov): every beat happens BECAUSE of the beat before it, written as "X, so Y,
   so Z" from the first second to the last frame. A beat joined by "and then", a time jump or a card is rewritten or
   cut. One mistake or one want starts the video and the last frame answers it. For every outcome ask "what on screen
@@ -46,6 +54,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **A fact goes in only when it pushes the story** (15 Nov, on trial): every real fact is the cause of the next beat
   ("ants build graveyards", so after the war they carry their dead there), never a pause to teach. "As soon as the
   viewer knows they're learning, they leave."
+- **A new turn about every 45 s in long films** (15 Nov, on trial): in a film over ~2 minutes, each block or part
+  opens on a new twist, fact or question that re-hooks the viewer (MrBeast: one storyline can't hold a long video
+  alone). Put them at the block joins, and say in the outline what each one is.
 - **Science staircase** (any story around a real question, 14 Nov): stake and clock on screen, the real method tried
   at rising scale with each number SHOWN as a picture (4 friends fail, 40 creep, 250 make it), it nearly works, fails
   at the last step, then the turn. Real numbers carry a source on screen, own estimates are marked "≈".
@@ -81,6 +92,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Lettering in the upper third** (12 Nov): spoken and narrated captions sit in the top third (above y 640, below the
   app bar at ~y 200), never over eyes or faces. Set `captionBand` to the upper third and take each caption's `pos` from
   `node qa/camfit.mjs <sb> --at <s>`. A face in the top third moves the camera or the caption, not the rule.
+- **A follow ask at the payoff** (15 Nov, test): one short narrator line right after the payoff asking viewers to
+  follow (in the series' voice, e.g. "Follow, or you'll miss part 2."), never before the payoff and never over a
+  character's line. MrBeast saw 5-10x more subscribers per view from simply asking. Compare follows per 1,000 views
+  with and without it in `experiments/` before it becomes a rule.
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
