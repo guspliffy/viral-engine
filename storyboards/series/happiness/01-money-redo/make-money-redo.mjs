@@ -65,7 +65,6 @@ const PARK = (k) => [400 + k * 3, 400];
 const cast = [
   { id: "spud", character: "potatobrawl/spud", at: [0, 0], face: 0, expr: "kind", follow: 0.3, seed: 1.3 },
   { id: "rich", character: "potatobrawl/spud-rich", at: PARK(1), face: 0, expr: "kind", follow: 0.3, seed: 2.2 },
-  { id: "twin", character: "potatobrawl/spud-rich", at: PARK(2), face: 0, expr: "kind", follow: 0.3, seed: 2.2 },
   { id: "chip", character: "potatobrawl/chip", at: PARK(3), face: 0, expr: "kind", follow: 0.3, seed: 4.4 },
   { id: "duch", character: "potatobrawl/duchess", at: PARK(4), face: 0, expr: "delighted", follow: 0.3, seed: 3.1 },
   { id: "rosti", character: "potatobrawl/rosti", at: PARK(5), face: 0, expr: "kind", follow: 0.3, seed: 6.1 },
@@ -86,8 +85,8 @@ const expr = (t, who, e, set, dur = 0.15) => A(r3(t), who, "expr", { expr: e, ..
 const arm = (t, who, side, pose, dur = 0.25, ease = "inOut") => c.arm(r3(t), who, side, pose, dur, ease);
 const grip = (t, who, side, shape, dur = 0.1) => A(r3(t), who, "grip", { side, shape, dur });
 const rest = (t, who) => { for (const s of ["R", "L"]) { arm(t - PRE, who, s, "rest", 0.01); grip(t - PRE, who, s, "relaxed", 0.01); } };
-const SUBY = 270;   // speech + narrator lettering on top (DESIGN 10: caption band y 210-330, the HUD under it)
-const say = (t, who, line, dur, tone) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: SUBY });
+const SUBY = 480;   // under the HUD strip (y 344-462), inside the app safe zone, still in the upper third   // speech + narrator lettering on top (DESIGN 10: caption band y 210-330, the HUD under it)
+const say = (t, who, line, dur, tone, pos = SUBY) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos });
 const yawTo = (from, to) => r3((Math.atan2(to[0] - from[0], to[1] - from[1]) * 180) / Math.PI);
 
 // ---------------------------------------------------------------- props, each in its place (shown only while its place is up)
@@ -98,7 +97,7 @@ const pr = (t, id, set, dur = 0.01, ease = "linear") => { if (has(id)) c.prop(r3
 
 // ---- the city at noon (01-05): the coffee cart, the check, the coins, the bag mountain
 // Rosti behind his counter, the Duchess at its left end, Spud and Chip at its right (DESIGN 4: the check between them)
-const CITY = { cart: [-1.25, 1.0], rosti: [-1.25, -0.1], spud: [-0.55, 1.2], chip: [0.1, 1.6], duch: [-1.98, 1.5] };
+const CITY = { cart: [-1.25, 1.0], rosti: [-1.25, -0.1], spud: [-0.55, 1.2], chip: [0.2, 1.66], duch: [-1.98, 1.5] };
 P("city", { id: "cart", kind: "coffeecart", x: CITY.cart[0], z: CITY.cart[1], rot: 0 });
 P("city", { id: "apron", kind: "apron", wear: "rosti", x: 0, y: 0, z: 0 });
 P("city", { id: "phat", kind: "paperhat", wear: "rosti", x: 0, y: 0, z: 0 });
@@ -112,17 +111,17 @@ const MOUNT = [0.0, 0, -2.4];
 P("city", { id: "mount", kind: "bagmountain", x: MOUNT[0], y: 0, z: MOUNT[2], rot: 0, gap: 1, shed: 0 }, { from: T.p05 });
 P("city", { id: "sun03", kind: "sundisc", az: -6, el: 25, r: 1.1 }, { from: T.p03, to: T.p04 });
 // ---- the showroom (06)
-const SCAR = sw(SHOWROOM.COUPE.pos);
-P("show", { id: "scar", kind: "coupe", x: SCAR[0], y: 0, z: SCAR[2], rot: SHOWROOM.COUPE.rot, load: 0, lamp: 0.3 });
-const SSACK = sw(SHOWROOM.SACK);
+const SCAR = sw([1.6, 0, -0.3]), SCAR_ROT = 0;   // nose to the lens (+z)
+P("show", { id: "scar", kind: "coupe", x: SCAR[0], y: 0, z: SCAR[2], rot: SCAR_ROT, load: 0, lamp: 0.3 });
+const SSACK = [r3(SCAR[0] - 0.3), 0.67, r3(SCAR[2] + 2.05)];   // on the bonnet (DESIGN 6: car frame [-0.3, 0.67, 2.05])
 P("show", { id: "ssack", kind: "moneybag", mark: false, x: SSACK[0], y: 0, z: SSACK[2], rot: 20, staged: "slammed onto the bonnet by Spud" }, { stay: true });
 P("show", { id: "keys", kind: "carkeys", x: 0, y: 0.55, z: 0, staged: "held out in the seller's fingers" });
-P("show", { id: "scap", kind: "flatcap", wear: "seller", x: 0, y: 0.95, z: 0 });
-P("show", { id: "sbow", kind: "bowtie", wear: "seller", x: 0, y: 0.34, z: 0.3 });
+P("show", { id: "scap", kind: "flatcap", wear: "seller", x: 0, y: 0.84, z: 0, r: 0.24 });
+P("show", { id: "sbow", kind: "bowtie", wear: "seller", x: 0, y: 0.34, z: 0.36 });
 // ---- the boutique (07)
 ["b1", "b2", "b3"].forEach((id, i) => P("bout", { id, kind: "gift", w: 0.3, h: 0.12, color: ["#f2b8c6", "#f4ead8", "#c9a6e8"][i], ribbon: "#d9b24a", x: 0, y: -30, z: 0 }, { stay: true }));
 // ---- the mansion (08)
-const MD = { car: [2.0, -10.5], spud: [0.25, -6.55], agent: [0.95, -6.9], chip: [-0.5, -7.25] };
+const MD = { car: [2.0, -10.5], spud: [0.0, -6.5], agent: [1.05, -7.0], chip: [-0.9, -7.3] };
 P("mday", { id: "mcar", kind: "coupe", x: MD.car[0], z: MD.car[1], rot: 80, load: 0.4, rain: 0 });
 P("mday", { id: "fountain", kind: "fountain", x: -3.2, z: -11.5 });
 P("mday", { id: "clip", kind: "clipboard", x: 0, y: -30, z: 0, staged: "in the agent's hand" }, { stay: true });
@@ -185,7 +184,9 @@ COINS.forEach((cn, i) => { const t0 = r3(T.p02 + 0.15 + i * 0.1); pr(t0, cn.id, 
 sfx(T.p02 + 0.45, "coins", { gain: 0.35, reason: "three coins hit the cobbles" });
 grip(T.p02 + 0.1, "spud", "L", "relaxed", 0.15); arm(T.p02 + 0.12, "spud", "L", { world: [PALM[0] + 0.05, 0.42, PALM[2] + 0.05] }, 0.3);
 A(T.p02 + 0.05, "spud", "squash", { amount: 0.06, dur: 0.25 }); A(T.p02 + 0.1, "chip", "hop", { height: 0.05, dur: 0.25, quiet: true });
-see(T.p02, T.p03, ["spud.face", "chip.face", "check"], "close: both stare down at the check, mouths open, his coins fall");
+A(T.p02 - PRE, "spud", "turn", { to: -30, dur: 0.01 }); A(T.p02 - PRE, "chip", "turn", { to: -25, dur: 0.01 });
+A(T.p03 - PRE, "spud", "turn", { to: -65, dur: 0.01 }); A(T.p03 - PRE, "chip", "turn", { to: -55, dur: 0.01 });
+see(T.p02, T.p03, ["spud.face", "chip.face"], "close: both stare down at the check, mouths open, his coins fall");
 // 03: she points up at the high noon sun: spend it all by sunset
 arm(T.p03 + 0.1, "duch", "R", "up", 0.3, "out"); grip(T.p03 + 0.1, "duch", "R", "point", 0.15);
 expr(T.p03, "duch", "smug", { curve: 0.5, brow: -0.2 }, 0.2); look(T.p03 + 0.1, "duch", [0.1, 0.6], 0.2);
@@ -225,8 +226,8 @@ see(T.p05, T.p06, ["spud.face", "mount"], "he sips his coffee in front of a moun
 
 // ================================================================= 06 THE SHOWROOM (14.0-17.1): he buys the car; Chip at the window
 A(r3(T.p06 - 0.02), "spud", "release", { prop: "cup", dur: 0 });
-const S6 = sw(SHOWROOM.SPUD), SEL = sw(SHOWROOM.SELLER), CWIN = sw(SHOWROOM.CHIP_WIN);
-place(T.p06, "rich", [S6[0], S6[2]], yawTo([S6[0], S6[2]], [SCAR[0], SCAR[2]]));
+const S6 = sw([-0.15, 0, 1.75]), SEL = sw([-1.1, 0, 1.0]), CWIN = sw([0.4, 0, -2.75]), CPALM = sw([0.4, 0.3, -2.31]);
+place(T.p06, "rich", [S6[0], S6[2]], 35);
 park(T.p06, "spud", 0); rest(T.p06, "rich");
 place(T.p06, "seller", [SEL[0], SEL[2]], yawTo([SEL[0], SEL[2]], [S6[0], S6[2]])); rest(T.p06, "seller");
 place(T.p06, "chip", [CWIN[0], CWIN[2]], 0); rest(T.p06, "chip");
@@ -235,44 +236,44 @@ expr(T.p06, "rich", "delighted", { curve: 0.7 }, 0.01); expr(T.p06, "seller", "k
 
 
 for (const s of ["R", "L"]) { arm(T.p06 + 0.1, "rich", s, "hips", 0.35); }   // proud: hands on his hips by the car he paid for
-A(T.p06 + 0.5, "seller", "lean", { to: 14, dur: 0.3 });
+A(T.p06 + 0.5, "seller", "lean", { to: 6, dur: 0.3 });
 const SEL_YAW = yawTo([SEL[0], SEL[2]], [S6[0], S6[2]]), SF = [Math.sin(rad(SEL_YAW)), Math.cos(rad(SEL_YAW))];
 const KEYS = props.find((p) => p.id === "keys");
-Object.assign(KEYS, grips.placeFor("carkeys", [r3(SEL[0] + SF[0] * 0.3 - SF[1] * 0.12), 0.55, r3(SEL[2] + SF[1] * 0.3 + SF[0] * 0.12)], SEL_YAW), { y: 0.55 });
+Object.assign(KEYS, grips.placeFor("carkeys", [r3(SEL[0] + SF[0] * 0.3 - SF[1] * 0.12), 0.42, r3(SEL[2] + SF[1] * 0.3 + SF[0] * 0.12)], SEL_YAW), { y: 0.42 });
 const hk = grips.thin(c, "seller", KEYS, { side: "R" });
-{ const t = hk.take(T.p06 - 0.006, { reach: 0.005, settle: 0.005 }); hk.carry(T.p06 + 0.5, [r3(SEL[0] + SF[0] * 0.42 - SF[1] * 0.1), 0.6, r3(SEL[2] + SF[1] * 0.42 + SF[0] * 0.1)], 0.35); }
+{ const t = hk.take(T.p06 - 0.006, { reach: 0.005, settle: 0.005 }); hk.carry(T.p06 + 0.5, [r3(SEL[0] + SF[0] * 0.42 - SF[1] * 0.1), 0.47, r3(SEL[2] + SF[1] * 0.42 + SF[0] * 0.1)], 0.35); }
 // Chip outside the glass: palm on the pane, then points at the hill behind him
-arm(T.p06 + 0.2, "chip", "L", { world: sw(SHOWROOM.CHIP_PALM) }, 0.3); grip(T.p06 + 0.2, "chip", "L", "flat", 0.1);
-arm(T.chip1 - 0.3, "chip", "R", { world: sw([-2.4, 1.1, -3.2]) }, 0.3, "out"); grip(T.chip1 - 0.3, "chip", "R", "point", 0.1);
+arm(T.p06 + 0.2, "chip", "L", { world: CPALM }, 0.3); grip(T.p06 + 0.2, "chip", "L", "flat", 0.1);
+arm(T.chip1 - 0.3, "chip", "R", "up", 0.3, "out"); grip(T.chip1 - 0.3, "chip", "R", "point", 0.1);
 say(T.chip1, "chip", "Come! I know a place!", 1.2, "excited");
 for (const k of [0, 1]) A(r3(T.chip1 + 0.1 + k * 0.4), "chip", "hop", { height: 0.06, dur: 0.3, quiet: true });
 look(T.chip1 + 0.2, "rich", [0.5, 0.0], 0.2);   // he hears, he doesn't look
 see(T.p06, T.p07, ["rich.face", "seller", "scar", "chip.face"], "a showroom: he slams a money bag on the gold car, the seller hands him the keys; outside the window Chip points at a green hill");
 
 // ================================================================= 07 THE BOUTIQUE (17.1-18.6): the coat; the first tug
-const SB = bw(BOUTIQUE.SPUD), CB = bw(BOUTIQUE.CHIP), TW = BOUTIQUE.twin([BOUTIQUE.SPUD[0], BOUTIQUE.SPUD[2]], BOUTIQUE.SPUD_FACE);
+// the lens stands in the mirror box (the glass is an opening, twin 1, no twin actor): we are the mirror he admires
+const SB = bw(BOUTIQUE.SPUD), CB = bw([0.0, 0, -0.52]);
 park(T.p07, "seller", 6); A(r3(T.p07 - 0.02), "seller", "release", { prop: "keys", dur: 0 });
 place(T.p07, "rich", [SB[0], SB[2]], BOUTIQUE.SPUD_FACE); rest(T.p07, "rich");
-place(T.p07, "twin", [r3(BQ[0] + TW.at[0]), r3(BQ[2] + TW.at[1])], TW.face); rest(T.p07, "twin");
 place(T.p07, "chip", [CB[0], CB[2]], yawTo([CB[0], CB[2]], [SB[0], SB[2]])); rest(T.p07, "chip");
 const AS = bw(BOUTIQUE.ASSISTANTS[0]);
 place(T.p07, "asst", [AS[0], AS[2]], 20); rest(T.p07, "asst");
-expr(T.p07, "rich", "smug", { curve: 0.6, eye: 0.7 }, 0.01); expr(T.p07, "twin", "smug", { curve: 0.6, eye: 0.7 }, 0.01);
+expr(T.p07, "rich", "smug", { curve: 0.6, eye: 0.7 }, 0.01);
 // he admires himself: hand up to the chain (the twin mirrors it on the other side)
-for (const [w, s] of [["rich", "R"], ["twin", "L"]]) { arm(T.p07 + 0.1, w, s, "up", 0.35, "out"); grip(T.p07 + 0.1, w, s, "open", 0.1); }
+for (const [w, s] of [["rich", "R"]]) { arm(T.p07 + 0.1, w, s, "up", 0.35, "out"); grip(T.p07 + 0.1, w, s, "open", 0.1); }
 // Chip tugs the cuff with both hands, points at the door
-const CUFF = [r3(SB[0] - 0.42), 0.38, r3(SB[2] + 0.2)];
+const CUFF = [r3(SB[0] - 0.3), 0.4, r3(SB[2] - 0.36)];   // his left cuff (he faces the mirror, 125 deg)
 for (const s of ["R", "L"]) { arm(T.tug1, "chip", s, { world: [r3(CUFF[0] - (s === "R" ? 0.03 : -0.03)), CUFF[1], CUFF[2]] }, 0.2); grip(T.tug1, "chip", s, "fist", 0.1); }
 for (const k of [0, 1]) A(r3(T.tug1 + 0.2 + k * 0.22), "chip", "lean", { to: k % 2 ? 4 : -8, dur: 0.2 });
 expr(T.tug1, "chip", "eager", { curve: 0.3, brow: 0.5 }, 0.15);
-say(T.no1, "rich", "No time!", 0.7, "annoyed");
-arm(T.no1, "rich", "L", { world: [r3(SB[0] - 0.35), 0.62, r3(SB[2] + 0.3)] }, 0.2, "out"); grip(T.no1, "rich", "L", "flat", 0.1);   // waves him off, eyes on the mirror
+say(T.no1, "rich", "No time!", 0.7, "annoyed", 290);   // over his head: the fur coat fills the frame from y 400
+arm(T.no1, "rich", "L", { world: [r3(SB[0] - 0.3), 0.6, r3(SB[2] - 0.38)] }, 0.2, "out"); grip(T.no1, "rich", "L", "flat", 0.1);   // waves him off, eyes on the mirror
 for (const s of ["R", "L"]) { arm(T.no1 + 0.3, "chip", s, "rest", 0.4); grip(T.no1 + 0.3, "chip", s, "relaxed", 0.2); }
 expr(T.no1 + 0.3, "chip", "sad", { curve: -0.1, brow: 0.5 }, 0.3);
 see(T.p07, T.p08, ["rich.face", "chip.face"], "a boutique: Spud in a fur coat admires himself in a gold mirror; Chip tugs his sleeve; he waves him off");
 
 // ================================================================= 08 THE MANSION (18.6-20.6): he signs; Chip's arm drops
-park(T.p08, "twin", 2); park(T.p08, "asst", 7);
+park(T.p08, "asst", 7);
 place(T.p08, "rich", MD.spud, 65); rest(T.p08, "rich");
 place(T.p08, "agent", MD.agent, -60); rest(T.p08, "agent");
 place(T.p08, "chip", MD.chip, 45); rest(T.p08, "chip");
@@ -280,8 +281,8 @@ const CLIP = [r3(MD.agent[0] - 0.2), 0.42, r3(MD.agent[1] + 0.18)];
 arm(T.p08 - PRE, "agent", "L", { world: CLIP }, 0.01); grip(T.p08 - PRE, "agent", "L", "hold", 0.01);
 pr(T.p08 - PRE, "clip", { x: CLIP[0], y: r3(CLIP[1] - 0.14), z: CLIP[2], rot: yawTo(MD.agent, MD.spud), face: 1 });
 A(r3(T.p08 - 0.006), "agent", "grab", { prop: "clip", hand: "L", grip: [-0.12, 0.16, 0], dur: 0, pose: null });
-arm(T.p08 + 0.1, "rich", "L", { world: [r3(CLIP[0] - 0.08), 0.62, r3(CLIP[2] + 0.06)] }, 0.35);
-for (const k of [0, 1, 2]) arm(r3(T.p08 + 0.5 + k * 0.22), "rich", "L", { world: [r3(CLIP[0] - 0.08 + (k % 2 ? 0.05 : -0.03)), 0.6, r3(CLIP[2] + 0.06)] }, 0.2);
+arm(T.p08 + 0.1, "rich", "L", { world: [r3(CLIP[0] - 0.12), 0.62, r3(CLIP[2] + 0.08)] }, 0.35);
+for (const k of [0, 1, 2]) arm(r3(T.p08 + 0.5 + k * 0.22), "rich", "L", { world: [r3(CLIP[0] - 0.12 + (k % 2 ? 0.04 : -0.03)), 0.6, r3(CLIP[2] + 0.08)] }, 0.2);
 say(T.come2, "chip", "Come on!", 0.7, "pleading");
 arm(T.come2, "chip", "R", "up", 0.25, "out"); grip(T.come2, "chip", "R", "open", 0.1);
 expr(T.come2, "chip", "eager", { brow: 0.6 }, 0.15);
@@ -312,15 +313,15 @@ A(T.p10 + 1.0, "rich", "blink", { dur: 0.45 }); look(T.p10 + 1.3, "rich", [-0.45
 see(T.p10, T.p11, ["rich.face"], "alone in the gold car, the seat beside him piled with boxes where Chip sat; his face empty");
 
 // ================================================================= 11 THE HARBOUR (25.0-29.8): one million, one minute, one last buy
-const DU = cw(HARBOUR.at([0.68, 1.35, -8.8]));
+const DU = cw(HARBOUR.at([0.58, 1.35, -8.85]));
 place(T.p11, "duch", [DU[0], DU[2]], 20, DU[1]); rest(T.p11, "duch");
 expr(T.p11, "duch", "smug", { curve: 0.4 }, 0.01); look(T.p11, "duch", [0.3, -0.4], 0.01);
 // the watch on her left wrist held up in front, her right forefinger taps it twice (her body frame: forward f, left l)
 const DF = [Math.sin(rad(20)), Math.cos(rad(20))], DL = [DF[1], -DF[0]];
 const dW = (l, f, y) => [r3(DU[0] + DL[0] * l + DF[0] * f), r3(DU[1] + y), r3(DU[2] + DL[1] * l + DF[1] * f)];
-arm(T.p11 + 0.25, "duch", "L", { world: dW(0.12, 0.26, 0.42) }, 0.4); grip(T.p11 + 0.25, "duch", "L", "relaxed", 0.2);
-arm(T.p11 + 0.4, "duch", "R", { world: dW(-0.02, 0.3, 0.44) }, 0.4); grip(T.p11 + 0.4, "duch", "R", "point", 0.2);
-for (const k of [0, 1]) arm(r3(T.p11 + 1.6 + k * 0.35), "duch", "R", { world: dW(k ? 0.0 : 0.04, 0.3, 0.46) }, 0.15);
+arm(T.p11 + 0.25, "duch", "L", { world: dW(0.14, 0.33, 0.42) }, 0.4); grip(T.p11 + 0.25, "duch", "L", "relaxed", 0.2);
+arm(T.p11 + 0.4, "duch", "R", { world: dW(-0.02, 0.36, 0.44) }, 0.4); grip(T.p11 + 0.4, "duch", "R", "point", 0.2);
+for (const k of [0, 1]) arm(r3(T.p11 + 1.6 + k * 0.35), "duch", "R", { world: dW(k ? 0.02 : 0.06, 0.36, 0.46) }, 0.15);
 look(T.p11 + 2.4, "duch", [-0.2, 0.05], 0.3); expr(T.p11 + 2.4, "duch", "smug", { curve: 0.6 }, 0.3);
 see(T.p11, T.p12, ["duch.face", "yacht", "pier"], "a pier at sunset: the Duchess waits by a white yacht with the contract, tapping her watch");
 
@@ -370,8 +371,8 @@ A(T.p15 + 0.1, "spud", "move", { to: [S15B[0], S15B[2]], y: r3(CP[1] + COAST.hei
   pr(T.zero, "truck", { ...pz2.truck, len: TRUCK_DRIVE }, r3(T.p17 - T.zero), "in"); pr(T.zero, "car", { ...pz2.coupe, len: TRUCK_DRIVE }, r3(T.p17 - T.zero), "in"); }
 sfx(T.p16 + 0.2, "freewheel", { gain: 0.3, dur: 1.0, reason: "the tow truck's winch pulls the car up" });
 sfx(T.zero, "rumble", { gain: 0.35, dur: 1.5, reason: "the truck drives off with the car" });
-place(T.p16, "spud", [cw([8, 0, 7])[0], cw([8, 0, 7])[2]], -120, r3(CP[1] + COAST.heightAt(8, 7)));
-A(T.p16 + 0.05, "spud", "move", { to: [cw([6.5, 0, 6])[0], cw([6.5, 0, 6])[2]], y: r3(CP[1] + COAST.heightAt(6.5, 6)), dur: 2.2, steps: 6 });
+place(T.p16, "spud", [cw([10, 0, 10])[0], cw([10, 0, 10])[2]], -135, r3(CP[1] + COAST.heightAt(10, 10)));
+A(T.p16 + 0.05, "spud", "move", { to: [cw([8.6, 0, 8.6])[0], cw([8.6, 0, 8.6])[2]], y: r3(CP[1] + COAST.heightAt(8.6, 8.6)), dur: 2.2, steps: 6 });
 see(T.p15, T.p16, ["car", "spud"], "the coupe at the roadside, its door open, the fur coat and gold chain left on the seat; Spud walks away up the slope in his sweater");
 see(T.p16, T.p17, ["truck", "car", "spud"], "a tow truck hooks the gold car and drives off; Spud climbs on and never looks back");
 
@@ -407,21 +408,21 @@ wind(T.p09, T.p10, 0.05); wind(T.p13, END, 0.05);
 const inCar = (local, lookLocal, fov, at, rot) => ({ pos: carW(local, at, rot), look: carW(lookLocal, at, rot), fov });
 const SH = {
   p01: shot("city", [-0.95, 1.25, 5.9], { tilt: -7, fov: 50 }),
-  p02: { pos: [-0.62, 0.95, 2.9], look: [-0.68, 0.6, 1.25], fov: 40 },
-  p03: { pos: [-1.55, 0.9, 3.7], look: [-1.95, 1.25, 1.45], fov: 48 },   // low on the Duchess; the painted sky ends ~33 deg up
+  p02: { pos: [-0.3, 0.95, 3.3], look: [-0.25, 0.6, 1.4], fov: 40 },
+  p03: { pos: [-1.4, 0.9, 4.4], look: [-1.9, 1.12, 1.5], fov: 48 },   // low on the Duchess; the painted sky ends ~33 deg up
   p04: shot("city", [-0.85, 1.15, 5.2], { pan: -2, tilt: -7, fov: 50 }),
   p05: shot("city", [0.4, 0.9, 4.6], { pan: -3, tilt: 1, fov: 52 }),
-  p06: { pos: sw([1.5, 1.35, 5.0]), look: sw([-0.9, 0.75, 0]), fov: 52 },
-  p07: { pos: bw(BOUTIQUE.CAM.p07.pos), look: bw(BOUTIQUE.CAM.p07.look), fov: BOUTIQUE.CAM.p07.fov },
+  p06: { pos: sw([0.6, 1.4, 5.6]), look: sw([-0.4, 0.8, -1.0]), fov: 50 },
+  p07: { pos: bw([2.15, 0.9, -1.35]), look: bw([0.25, 0.75, -0.3]), fov: 70 },   // from inside the mirror box: the mirror he admires
   p08: { pos: [0.2, 1.1, -2.8], look: [0.2, 0.6, -6.9], fov: 48 },
-  p09: { pos: cw([1.0, 0.2 + COAST.heightAt(1.0, 11.5), 11.5]), look: cw([1.1, 0.6, 0]), fov: 50 },
-  p10: inCar([-0.62, 1.3, 0.75], [0.22, 1.12, -0.3], 72, CARP, CYAW),
-  p11: push({ pos: cw(HARBOUR.LENS.pos), look: cw(HARBOUR.LENS.look), fov: HARBOUR.LENS.fov }, 0.08, r3(T.p12 - T.p11)),
-  p12: { pos: cw([-32, 1.6, 58]), look: cw([-20, -6, 20]), fov: 48 },
+  p09: { pos: cw([1.0, 1.0 + COAST.heightAt(1.0, 11.5), 11.5]), look: cw([1.1, 0.5 + COAST.heightAt(1.1, 3), 3]), fov: 46 },
+  p10: inCar([0.2, 0.92, 1.9], [0.22, 0.82, -0.25], 40, CARP, CYAW),
+  p11: push({ pos: cw(HARBOUR.LENS.pos), look: cw(HARBOUR.LENS.look), fov: HARBOUR.LENS.fov }, 0.006, r3(T.p12 - T.p11)),
+  p12: { pos: cw([-6, -2.5, 6]), look: cw([-22, -9.8, 24]), fov: 44 },
   p13: { pos: carW([0.22, 1.1, -0.25], P13, roadYaw(X13)), look: [CHIPSEAT[0], r3(SEATW[1] + 0.4), CHIPSEAT[2]], fov: 18 },
-  p14: inCar([-0.5, 0.9, 0.22], [0.2, 0.92, -0.22], 50, CAR14, roadYaw(X13 + 2.5)),
+  p14: inCar([-0.7, 1.0, 0.7], [0.22, 0.85, -0.25], 50, CAR14, roadYaw(X13 + 2.5)),
   p15: inCar([1.7, 1.7, -4.2], [2.2, 0.6, 1.5], 50, CAR2, 90),
-  p16: { pos: cw([38, -7.4, 22.5]), look: cw([15.5, -6.1, 14.1]), fov: 44 },
+  p16: { pos: cw(COAST.CAM.c08climb.pos), look: cw(COAST.CAM.c08climb.look), fov: COAST.CAM.c08climb.fov },
   p17: { pos: cw([0.31, 0.5, -3.7]), look: cw([0.36, 0.48, 0]), fov: 40 },
   p18: { pos: cw(COAST.CAM.c09.pos), look: cw(COAST.CAM.c09.look), fov: COAST.CAM.c09.fov },
   p19: push({ pos: cw([0.31, 0.5, -3.7]), look: cw([0.36, 0.48, 0]), fov: 40 }, 0.1, r3(T.p20 - T.p19)),
@@ -452,7 +453,7 @@ const NARR = !VO ? [] : [
   [T.follow, "Follow for the next question.", 1.77],   // the follow ask after the payoff (test)
 ];
 for (const [t, line, dur] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: SUBY, gain: NG });
-cap(0.1, 3.4, "$10,000,000 ⏳☀️", 160);   // the hook text (reads with no English)
+// the hook text up top is the HUD itself: "$10,000,000" and the sun clock from frame 0
 
 hideOffstage();
 const beats = c.beats(CUTS, END);   // after every item (items added later are dropped)
@@ -486,11 +487,13 @@ write(import.meta.url, {
   allowClip: [
     { who: "rosti", with: "apron", from: 0, to: T.p05, reason: "the apron is worn" },
     { who: "rosti", with: "phat", from: 0, to: T.p05, reason: "the paper hat is worn" },
-    { who: "seller", with: "scap", from: T.p06, to: T.p07, reason: "the cap is worn" },
+    { who: "seller", with: "scap", from: T.p06, to: T.p07, checks: ["clipping", "shell"], reason: "the cap is worn: it sits on his head (T8 bench fit y 0.84, r 0.24)" },
     { who: "seller", with: "sbow", from: T.p06, to: T.p07, reason: "the bow tie is worn" },
+    { who: "rich", with: "car", from: T.p12, to: T.p14, checks: ["shell"], reason: "the race: a wide 30 m off, then his own view out of the car; the roof can't be seen against him" },
     { who: "rich", with: "car", from: T.p10, to: T.p15, reason: "he sits inside the coupe (the car encloses him)" },
     { who: "spud", with: "cart", from: 0, to: T.p05, reason: "he stands at the counter's end under the roof's eave (the roof's box overlaps his, not the cart's body)" },
     { who: "duch", with: "cart", from: 0, to: T.p04, reason: "she stands at the counter's end under the roof's eave and slaps the check on the counter" },
+    { who: "seller", with: "keys", from: T.p06, to: T.p07, checks: ["thin-prop-hidden"], reason: "a key fob 1.5 cm long in the fingertips: the fob shows, the ring hides in the pinch" },
     { who: "chip", with: "rich", from: T.tug1, to: T.p08, reason: "Chip tugs the coat's sleeve with both hands (panel 07: the contact is the action)" },
     { who: "chip", with: "spud", from: T.lean, to: END, reason: "the lean, panels 19-20 (DESIGN 11)" },
   ],
