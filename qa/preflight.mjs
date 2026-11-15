@@ -133,7 +133,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   // layout-only checks again on the storyboard without its windows: seconds)
   const { waiverSummary, waiverLines } = await import("./waivers.mjs");   // (it runs preflight itself as a command: no import at the top)
   const wv = waiverSummary(sb, L.lay, res, (sb.allowClip || []).some((w) => w.reason) ? await preflight({ ...sb, allowClip: [] }, L.lay, { quick: true, sbFile: o.sb }) : res);
-  if (o.json) { const { rows, ...waivers } = wv; console.log(JSON.stringify({ storyboard: o.sb, layout: L.file, gate: Number(sb.gate ?? 1), allFails: o.all, verdict: v, waivers, results: res }, null, 2)); process.exit(v === "FAIL" ? 1 : 0); }
+  // --json: write, then exit once the pipe has taken it all (console.log + process.exit cut a piped report at 64 KB:
+  // Atlantis EP03, 15 Nov 2026, `preflight --json | python3` got 65536 bytes of JSON and failed to parse)
+  if (o.json) { const { rows, ...waivers } = wv; process.stdout.write(JSON.stringify({ storyboard: o.sb, layout: L.file, gate: Number(sb.gate ?? 1), allFails: o.all, verdict: v, waivers, results: res }, null, 2) + "\n", () => process.exit(v === "FAIL" ? 1 : 0)); }
+  else {
   console.log(`preflight ${sb.id}: gate ${Number(sb.gate ?? 1)}${o.all ? " (every root fix assumed in)" : ""}, layout ${path.relative(process.cwd(), L.file)} ${L.how}`);
   const head = { fail: "BLOCKS THE RENDER", visible: "VISIBLE GLITCHES (may not ship as warnings: fix, or name in a window with a reason)", warn: "OTHER WARNINGS (one-line reason each in the delivery)" };
   for (const k of ["fail", "visible", "warn"]) {
@@ -150,5 +153,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   for (const l of waiverLines(wv, path.relative(process.cwd(), o.sb))) console.log(l);
   const notes = res.filter((r) => r.kind === "note").length, c = (k) => res.filter((r) => r.kind === k).length;
   console.log(`${v}: ${c("fail")} fail${c("fail") === 1 ? "" : "s"}, ${c("visible")} visible-glitch warning${c("visible") === 1 ? "" : "s"}, ${c("warn")} other warning${c("warn") === 1 ? "" : "s"}, ${notes} note${notes === 1 ? "" : "s"}`);
-  process.exit(v === "FAIL" ? 1 : 0);
+  process.exitCode = v === "FAIL" ? 1 : 0;
+  }
 }
