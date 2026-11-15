@@ -7,9 +7,10 @@
 // TWO FRAMES, ONE GENERATOR (as EP02): build(F) for FRAME.wide (the film, the master) and FRAME.tall (the part, after
 // Jonny's OK on the wide animatic); parts 2-4 open on their own HOOK shot (hookOf). Every camera is a pair { wide, tall }.
 //
-// THE CLOCK is the time Atlantis has left: 24:00 at story time 0, 00:00 at story time CLOCK_END (178 s, the climax), top
+// THE CLOCK is the time Atlantis has left: 24:00 at story time 0, 00:00 at story time CLOCK_END (174 s, the climax), top
 // right, in jumps of one clock minute (0.124 s). atlantisClock(c, F, T0, t0, t1) writes it for clip times [t0, t1] of a
 // storyboard that starts at story time T0; leave it off over the maps, the page and other full-frame inserts.
+import { readFileSync } from "node:fs";
 import { CAST, HOST_VOICE, host, lampClip, cam } from "../../kit/aa-kit.mjs";
 export { CAST, HOST_VOICE, host, lampClip, cam };
 
@@ -42,7 +43,7 @@ export function hostSay(c, F, t, who, line, dur, tone = "calm", { sub = true, ho
 }
 // "CLUE n/4", top left
 export const clueTag = (c, F, t0, t1, n) => c.cap(r3(t0), r3(t1), `CLUE ${n}/4`, F.tag.y, false, { style: "label", size: F.tag.size, kinetic: false, x: F.tag.x });
-export const CLOCK_END = 178;
+export const CLOCK_END = 174;   // 15 Nov: block B runs 48 s (ends 98), so C starts 98, D 150; the climax 24 s into D
 const MIN = CLOCK_END / (24 * 60);
 export function atlantisClock(c, F, T0, t0, t1) {
   const b = Math.min(t1, CLOCK_END + 4 - T0);
@@ -79,3 +80,14 @@ export const PART_HOOKS = {
 export const partScore = (block, o = {}) => (block === "a" ? score(0, o) : score(0, { file: `ancient-aliens/aa03-part-${block}.ogg`, ...o }));
 export const shot = (F, o, v) => cam(o, v[F.key] ?? v);
 // The set helpers (city(), sea(), seabed(), ...) are added here when the builders' kinds are in (BOARD section 3).
+
+// ---- the painted 3D scenes (round R, props-at-city.js spec.plate): a painter's camera as an engine camera ----
+// o = the place [x, z] the scene prop stands on; key "01" | "04" | "04f" (near quay before atlantisplate) | "02" | "11" | "08" | "09";
+// y0 = the prop's y, sc = its scale; row / col = the plate pixel in the middle of the frame; k = the share of the plate's width in
+// frame (smaller = a push in by fov, free); move = metres off the painter's spot (keep within the header's limits, ~0.5-1.5 m).
+const SCENES = JSON.parse(/\/\*PLATES-JSON-BEGIN\*\/\s*const PLATE_SCENES = ([\s\S]*?);\s*\/\*PLATES-JSON-END\*\//.exec(readFileSync(new URL("../../../../../engine/page/props-at-city.js", import.meta.url), "utf8"))[1]);
+export function plateCam(o, key, { y0 = 0, sc = 1, row = 512, k = 1, col = 768, move = [0, 0, 0] } = {}) {
+  const C = SCENES[key].cam, yaw = (C.yaw ?? 0) * Math.PI / 180, dx = (col - 768) / C.f, dy = (C.hy - row) / C.f;
+  const d = [dx * Math.cos(yaw) - Math.sin(yaw), dy, -dx * Math.sin(yaw) - Math.cos(yaw)], p = [C.pos[0] * sc + move[0], y0 + C.pos[1] * sc + move[1], C.pos[2] * sc + move[2]];
+  return { pos: [r3(o[0] + p[0]), r3(p[1]), r3(o[1] + p[2])], look: [r3(o[0] + p[0] + d[0] * 50), r3(p[1] + d[1] * 50), r3(o[1] + p[2] + d[2] * 50)], fov: r3(2 * Math.atan(432 * k / C.f) * 180 / Math.PI) };
+}
