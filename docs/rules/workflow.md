@@ -166,7 +166,7 @@ numbers (frames, seconds, hex, px at 1080x1920, metres), not adjectives.
 ## The story chain (in PANELS.md, checked at the staging proof and in review A and B)
 
 Write the clip as a chain of beats, one line each: **what happens -> what the viewer must see for it to read -> the
-shot that shows it**. Every cause is on screen before its effect, and every place change has a visible path. EP03's
+shot that shows it -> the feeling it should give** (story.md, on trial since 15 Nov). Every cause is on screen before its effect, and every place change has a visible path. EP03's
 chain, for example:
 - the friends decide (a nod, both faces), then they leave (coats on, walking out, readable size);
 - he peeks, and we see what he sees (the empty seats in the same frame);

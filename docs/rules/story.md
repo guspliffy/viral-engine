@@ -38,6 +38,14 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   friend"). Research how real people behave first, then give each character one habit through their signature.
 - **Show facts happening, never a host listing numbers** (explainers, 13 Nov): the host does something in every shot
   and others react, open on the evidence, a change at least every 3 s, numbers count up or punch in on screen.
+- **Plan the feeling of each beat** (15 Nov, on trial, from the Dr Plants study): the outline names the ONE feeling
+  the viewer should have at each beat (sympathy, awe, stress, relief, sadness, joy...), with at least three changes
+  per video, and each beat is staged for its feeling. His ant film: one queen alone (sympathy), builds an empire (awe),
+  war (stress), they win (excitement), the ants bury their dead (sadness). A beat with no feeling is cut. Viewers come
+  for what happens to the character, not for the spectacle: a big moment no one cares about does not count.
+- **A fact goes in only when it pushes the story** (15 Nov, on trial): every real fact is the cause of the next beat
+  ("ants build graveyards", so after the war they carry their dead there), never a pause to teach. "As soon as the
+  viewer knows they're learning, they leave."
 - **Science staircase** (any story around a real question, 14 Nov): stake and clock on screen, the real method tried
   at rising scale with each number SHOWN as a picture (4 friends fail, 40 creep, 250 make it), it nearly works, fails
   at the last step, then the turn. Real numbers carry a source on screen, own estimates are marked "≈".
@@ -90,6 +98,9 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Realistic sounds only** (12 Nov): no blings, chimes, squeaks, boings or whooshes that only mark movement. A blast
   gets an explosion; zombies sound like zombies (`ai/zombie-groan`, `ai/zombie-horde`); a magic moment stays silent or
   uses a real sound (a heartbeat).
+- **Mute test** (15 Nov, on trial): before a draft goes out, watch it once with the voice turned off (music and
+  effects only). Every beat must still read and hold on picture and sound alone; a beat that dies gets a real sound,
+  a music change or a clearer picture. Say in the delivery which beats failed and what changed.
 - **Wind and room sound far under the mix** (`sound.ambience` ~0.06 with a voiceover, 0.1 without).
 - The producer judges sound by ear: name the timestamps `qa/risky.mjs` picks.
 

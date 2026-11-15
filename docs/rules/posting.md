@@ -32,6 +32,15 @@ OPENER: A or B · STAKE LINE: "<the first narrator line>"
 - Post every video on TikTok, Instagram Reels and YouTube Shorts (the same file); a long film goes to YouTube as a
   16:9 video over 3:00 with its thumbnail as a separate upload, and its vertical parts to TikTok.
 
+## The 10-second stranger test (the producer's own step, 15 Nov, on trial)
+
+Before posting, the producer may show the first 10 s to one person at a time, in person or by screen share: never in
+a group (people copy each other's reactions), never saying it is a test, and the viewer holds the phone and may pause.
+A video handed back after 10 s ("nice") is not ready; a viewer who keeps watching is the goal. When several people
+stop or pause at the same second, that second gets one fix (in his study one background colour change stopped the
+pausing), then the next person. The producer tells Claude the result (handed back at Xs / kept watching / paused at
+Xs) and it goes into the video's `experiments/` note, so the test can be compared with the 24 h numbers.
+
 ## How a video is judged (audience data decides, not the producer's score)
 
 - Read each posted video after 24 h. Numbers that matter at our view counts: hold at 0:03 and 0:05, likes per 100

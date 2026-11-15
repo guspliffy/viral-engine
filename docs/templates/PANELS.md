@@ -36,7 +36,7 @@ the storyboard says `"panels": { "md": "<path to this file>" }`.
 
 ## Story chain
 
-<one line per beat: what happens -> what the viewer must see -> the shot that shows it (workflow.md "The story chain")>
+<one line per beat: what happens -> what the viewer must see -> the shot that shows it -> the feeling (story.md "Plan the feeling of each beat")>
 
 ## Departures (and why)
 
