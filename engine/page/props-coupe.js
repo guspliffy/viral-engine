@@ -33,8 +33,19 @@ import { clamp } from "./util.js";
 //     load     0..1 (1): the back-seat load: 7 plain money bags, the split one on its side with 9 notes on the cushion and 3 on
 //              the floor; fewer than 1 shows the first n of 8 (0 = panel 04's empty seat). Plain: no "$", no numeral.
 //     wet      0 | 1 (spec.wet; default: 1 when rain > 0): the second white band along the shoulder.
-//   NOT BUILT: doorL / doorR (open angle). The doors are part of the body slice; a hinged door needs a rig's body. Cheap
-//   to fake only with a sliding card: ask the director before adding it.
+//     door     0..1 (0): the DRIVER's door (+x side) opens on its hinge, 0..62 degrees outward (happiness 01 redo, DESIGN 8b; panel 15).
+//              The door is the body's own patch (slices 20..39 = z -0.77..+0.44, the seams drawn at -0.78 and +0.46; the wall from the sill
+//              curve y 0.23 to the belt y 0.82), cut out and hung on a vertical hinge at (x 0.90, z +0.44): its rear edge swings out to
+//              1.07 m from the body at 1 (length 1.21 x sin 62). At door 0 the whole closed body is drawn exactly as before (nothing is
+//              cut: the cut body is a second mesh, shown only while door > 0). Open: the door's inner face is the cream trim panel #f1e4c6
+//              with gold piping #c9a55a and a chrome pull 0.12 long, the hole has a dark jamb #3a2a1e (0.06 wide) round it, the handle and
+//              the shoulder reflection bands ride on the door, and the driver's side pane (glass, its two streaks, its drops) is hidden while
+//              door > 0.02 (rolled down). Prime it with { dur 0 } at t 0; coatheap's `door` is the same number (it spills when > 0.02).
+//     brake    0..1 (none): the handbrake lever between the front seats: pivot (-0.12, 0.47, -0.38), 0.24 long pointing forward (+z), chrome
+//              r 0.012 with a grip 0.09 long r 0.018 #3a2a1e and a chrome button at its end, a dark ratchet housing at the pivot. 0 = 6
+//              degrees up, 1 = 40 degrees up (the grip centre then at (-0.12, 0.60, -0.23): the RIGHT hand's place; use 5 frames with
+//              ease anticSettle). The lever is drawn ONLY when a brake key exists (prime { brake: 0 } at t 0 or give spec.brake): a coupe
+//              without it is as it always was.
 //   Cabin (car frame, metres): floor y 0.21; front seats 0.66 wide at x +0.22 (driver) and -0.46, z -0.25, cushion top y 0.46; rear bench z -1.12, 1.5 wide,
 //   cushion top 0.55; walnut dash panel, driver face at z 0.32; windscreen from (y 0.95, z 0.55) to (y 1.62, z 0.05); roof crest y 1.68
 //   at z -0.30 (a paper-thin shell: the inner ceiling is that too); steering wheel centre (0.22, 0.90, 0.22), rim r 0.17,
@@ -208,6 +219,35 @@ const sackGeo = (open) => { const g = new THREE.LatheGeometry([...SACK, ...(open
 const BAGS = [[-0.50, 0.55, -1.10, 10], [0.0, 0.55, -1.14, -15], [0.50, 0.55, -1.06, 30], [-0.25, 0.86, -1.15, 80], [0.28, 0.86, -1.20, -40], [-0.05, 1.02, -1.25, 20], [0.55, 0.86, -1.12, -60]];
 const SPLIT = [-0.45, 0.55, -0.88];
 
+// ---- the driver's door: which cells of the body grid (NZ 72 x NV 32) are the door, and how the cut is made (T6)
+const DOOR_I0 = 20, DOOR_I1 = 39, DOOR_J = [28, 29, 30, 31, 0, 1], DOOR_ANGLE = 62, DOOR_HINGE_X = 0.90;
+function doorCut(g) {
+  const NV = 32, NZ = 72, pos = g.attributes.position, nor = g.attributes.normal, col = g.attributes.color;
+  const isDoor = (i, j) => i >= DOOR_I0 && i < DOOR_I1 && DOOR_J.includes(((j % NV) + NV) % NV);
+  const keep = [], cut = [], edges = [];
+  for (let i = 0; i < NZ; i++) for (let j = 0; j < NV; j++) {
+    const a = i * (NV + 1) + j, b = a + NV + 1, tri = [a, a + 1, b, b, a + 1, b + 1];
+    // the cabin's own inner wall on the driver's side (the dipped skirt, cells 2 and 3) goes with the door: open, you look into the cabin
+    if (!isDoor(i, j) && !(i >= DOOR_I0 && i < DOOR_I1 && (j === 2 || j === 3) && cockpit(BZ0 + ((BZ1 - BZ0) * (i + 0.5)) / NZ) > 0.5)) { keep.push(...tri); continue; }
+    if (!isDoor(i, j)) continue;
+    cut.push(...tri);
+    if (!isDoor(i - 1, j)) edges.push([a, a + 1]);          // the rear edge (slice i)
+    if (!isDoor(i + 1, j)) edges.push([b, b + 1]);          // the front edge (slice i + 1)
+    if (!isDoor(i, j - 1)) edges.push([a, b]);              // the lower edge
+    if (!isDoor(i, j + 1)) edges.push([a + 1, b + 1]);      // the upper edge
+  }
+  const hole = new THREE.BufferGeometry(); hole.setAttribute("position", pos); hole.setAttribute("normal", nor); hole.setAttribute("color", col); hole.setIndex(keep);
+  const z0 = BZ0 + ((BZ1 - BZ0) * DOOR_I0) / NZ, z1 = BZ0 + ((BZ1 - BZ0) * DOOR_I1) / NZ, hx = DOOR_HINGE_X;
+  const map = new Map(), P = [], N = [], C = [], idx = [];
+  for (const v of cut) {
+    if (!map.has(v)) { map.set(v, P.length / 3); P.push(pos.getX(v) - hx, pos.getY(v), pos.getZ(v) - z1); N.push(nor.getX(v), nor.getY(v), nor.getZ(v)); C.push(col.getX(v), col.getY(v), col.getZ(v)); }
+    idx.push(map.get(v));
+  }
+  const patch = new THREE.BufferGeometry();
+  patch.setAttribute("position", new THREE.Float32BufferAttribute(P, 3)); patch.setAttribute("normal", new THREE.Float32BufferAttribute(N, 3)); patch.setAttribute("color", new THREE.Float32BufferAttribute(C, 3)); patch.setIndex(idx);
+  return { hole, patch, edges, z0, z1, hx };
+}
+
 export const COUPE_KINDS = {
   coupe(P) {
     const S = P.spec, root = new THREE.Group(); P.whole.add(root);
@@ -225,18 +265,22 @@ export const COUPE_KINDS = {
     const shell = mesh(shellG, paintM.clone(), root); shell.material.vertexColors = false; shell.name = "coupe-roof";
     mesh(shellG, mat("#e8dab6", { roughness: 0.8, side: THREE.BackSide }), root).castShadow = false;
     // glass: 2 x 2 blocks of cells, 8 mm inside the surface
-    const glassPos = [], glassIdx = []; let gv = 0;
+    const glassPos = [], glassIdx = [], glassPosB = [], glassIdxB = []; let gv = 0, gvB = 0;   // B: without the driver's side pane (door open)
     const blocks = new Map();
     for (let i = 0; i < ZS.length - 1; i++) for (let j = 0; j < AS.length - 1; j++) {
       const h = holeOf((ZS[i] + ZS[i + 1]) / 2, (AS[j] + AS[j + 1]) / 2); if (!h) continue;
-      blocks.set(`${h}${i >> 1},${j >> 1}`, [(i >> 1) * 2, (j >> 1) * 2]);
+      blocks.set(`${h}${i >> 1},${j >> 1}`, [(i >> 1) * 2, (j >> 1) * 2, h]);
     }
-    for (const [i, j] of blocks.values()) {
+    for (const [i, j, h] of blocks.values()) {
+      const drv = h === "side" && AS[j] > 0, q0 = glassPos.length;
       for (const [zi, aj] of [[i, j], [i, j + 2], [i + 2, j], [i + 2, j + 2]]) { const s = surf(ZS[Math.min(zi, ZS.length - 1)], AS[Math.min(aj, AS.length - 1)]), p = s.p.addScaledVector(s.n, -0.008); glassPos.push(p.x, p.y, p.z); }
       glassIdx.push(gv, gv + 2, gv + 1, gv + 1, gv + 2, gv + 3); gv += 4;
+      if (!drv) { glassPosB.push(...glassPos.slice(q0)); glassIdxB.push(gvB, gvB + 2, gvB + 1, gvB + 1, gvB + 2, gvB + 3); gvB += 4; }
     }
     const glassG = new THREE.BufferGeometry(); glassG.setAttribute("position", new THREE.Float32BufferAttribute(glassPos, 3)); glassG.setIndex(glassIdx); glassG.computeVertexNormals();
-    steamy(mesh(glassG, glassM, root), 4);
+    const glassAll = steamy(mesh(glassG, glassM, root), 4);
+    const glassGB = new THREE.BufferGeometry(); glassGB.setAttribute("position", new THREE.Float32BufferAttribute(glassPosB, 3)); glassGB.setIndex(glassIdxB); glassGB.computeVertexNormals();
+    const glassNoDrv = steamy(mesh(glassGB, glassM, root), 4); glassNoDrv.visible = false;
     // two white reflection streaks on each pane (35 degrees, 4 cm and 1.5 cm)
     const streakM = basic("#ffffff", { transparent: true, opacity: 0.22, side: THREE.DoubleSide, depthWrite: false });
     const bandOn = (p0, p1, wdt) => {
@@ -247,9 +291,10 @@ export const COUPE_KINDS = {
         for (const sg of [-1, 1]) { const q = c.clone().addScaledVector(w, sg); pos.push(q.x, q.y, q.z); }
         if (i) { const k = (i - 1) * 2; idx.push(k, k + 1, k + 2, k + 2, k + 1, k + 3); }
       }
-      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); steamy(mesh(g, streakM, root), 5);
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); return steamy(mesh(g, streakM, root), 5);
     };
-    for (const sg of [-1, 1]) { bandOn([0.2, sg * 0.62], [-0.55, sg * 0.9], 0.04); bandOn([0.0, sg * 0.6], [-0.7, sg * 0.84], 0.015); }
+    const drvBands = [];   // the driver's side streaks: hidden with the pane (door open)
+    for (const sg of [-1, 1]) { const b1 = bandOn([0.2, sg * 0.62], [-0.55, sg * 0.9], 0.04), b2 = bandOn([0.0, sg * 0.6], [-0.7, sg * 0.84], 0.015); if (sg > 0) drvBands.push(b1, b2); }
     bandOn([0.46, -0.2], [0.12, 0.12], 0.04); bandOn([0.5, -0.05], [0.25, 0.2], 0.015);
 
     // ---- parts set into the body's surface (a ray cast along z, or along x from the side)
@@ -283,29 +328,75 @@ export const COUPE_KINDS = {
       for (const x of [-0.5, 0.5]) mesh(new THREE.SphereGeometry(0.045, 10, 8), chrome, root, x, 0.34, z - s * 0.06);
     }
     // two chrome blades along the sills, the door seams, handles, mirrors on the fenders
+    let handleClosed = null;
     for (const s of [-1, 1]) {
       const sill = []; for (const z of [-1.0, -0.4, 0.2, 0.8]) { const p = sideAt(s, 0.24, z); if (p) sill.push([p.x + s * 0.012, p.y, p.z]); }
       tube(sill, 0.012, chrome, root, 12, 5);
       for (const z of [-0.78, 0.46]) { const seam = []; for (const y of [0.26, 0.46, 0.66, 0.86]) { const p = sideAt(s, y, z); if (p) seam.push([p.x + s * 0.004, p.y, p.z]); } tube(seam, 0.0035, mat("#6b4a14"), root, 6, 4).castShadow = false; }
-      const hp = sideAt(s, 0.78, -0.62); if (hp) mesh(new THREE.BoxGeometry(0.03, 0.022, 0.12), chrome, root, hp.x + s * 0.018, hp.y, hp.z);
+      const hp = sideAt(s, 0.78, -0.62); if (hp) { const hd = mesh(new THREE.BoxGeometry(0.03, 0.022, 0.12), chrome, root, hp.x + s * 0.018, hp.y, hp.z); if (s > 0) handleClosed = hd; }
       const mp = sideAt(s, 0.86, 0.66) || new THREE.Vector3(s * 0.9, 0.86, 0.66), base = new THREE.Vector3(mp.x, mp.y + 0.02, mp.z), top = new THREE.Vector3(mp.x + s * 0.06, mp.y + 0.12, mp.z - 0.02);
       tube([[base.x, base.y, base.z], [top.x, top.y, top.z]], 0.011, chrome, root, 3, 6); mesh(new THREE.SphereGeometry(0.045, 12, 8), chrome, root, top.x, top.y + 0.035, top.z);
     }
     // reflection bands: sky #fff0b0, 6 cm, along the shoulder (both sides) and the roof; wet: a 3 cm white band beside them
     const bandM = basic("#fff0b0", { side: THREE.DoubleSide }), wetM = basic("#ffffff", { transparent: true, opacity: 0.8, side: THREE.DoubleSide }), wetBands = [];
-    const strip = (pts, wdt, m, up) => {
+    const strip = (pts, wdt, m, up, parent = root) => {
       const pos = [], idx = []; pts.forEach(([p, n], i) => { for (const sgn of [-1, 1]) { const q = p.clone().addScaledVector(n, 0.005).addScaledVector(up(p, n), sgn * wdt / 2); pos.push(q.x, q.y, q.z); } if (i) { const a = (i - 1) * 2; idx.push(a, a + 1, a + 2, a + 2, a + 1, a + 3); } });
       const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx);
-      const o = mesh(g, m, root); o.castShadow = o.receiveShadow = false; o.frustumCulled = false; return o;
+      const o = mesh(g, m, parent); o.castShadow = o.receiveShadow = false; o.frustumCulled = false; return o;
     };
+    let bandClosed = null, wetClosed = null;
     for (const s of [-1, 1]) {
       const mk = (y) => { const L = []; for (let z = 1.3; z >= -1.8; z -= 0.1) { const p = sideAt(s, y, z); if (p) L.push([p, new THREE.Vector3(s, 0, 0)]); } return L; };
-      strip(mk(0.80), 0.06, bandM, () => new THREE.Vector3(0, 1, 0));
-      wetBands.push(strip(mk(0.70), 0.03, wetM, () => new THREE.Vector3(0, 1, 0)));
+      const b = strip(mk(0.80), 0.06, bandM, () => new THREE.Vector3(0, 1, 0)), w = strip(mk(0.70), 0.03, wetM, () => new THREE.Vector3(0, 1, 0));
+      wetBands.push(w); if (s > 0) { bandClosed = b; wetClosed = w; }
     }
     const roofL = (a) => { const L = []; for (let z = -0.05; z >= -1.95; z -= 0.1) { const sf = surf(z, a); L.push([sf.p, sf.n]); } return L; };
     strip(roofL(-0.14), 0.06, bandM, (p, n) => new THREE.Vector3(1, 0, 0));
     wetBands.push(strip(roofL(-0.22), 0.03, wetM, (p, n) => new THREE.Vector3(1, 0, 0)));
+
+    // ---- the driver's door (key `door`): the body's patch hung on a hinge, the cut body, the jamb, trim, handle and bands that ride on it.
+    // All of it is hidden at door 0, and then the closed body above is drawn as it always was.
+    const DC = doorCut(body.geometry), hinge = new THREE.Vector3(DC.hx, 0, DC.z1);
+    const bodyOpen = mesh(DC.hole, paintM, root); bodyOpen.name = "coupe-body-open"; bodyOpen.visible = false;
+    const doorG = new THREE.Group(); doorG.position.copy(hinge); root.add(doorG); doorG.visible = false;
+    const doorOut = mesh(DC.patch, paintM, doorG); doorOut.name = "coupe-door";
+    const doorIn = mesh(DC.patch, mat("#f1e4c6", { roughness: 0.75, side: THREE.BackSide }), doorG); doorIn.castShadow = false;
+    const sx = (y, z) => { const p = sideAt(1, y, z); return p ? p.x : 0.88; };
+    const loc = (x, y, z) => [x - hinge.x, y, z - hinge.z];
+    // gold piping round the trim panel (an inset rectangle, 1.2 cm inside the skin) and the chrome pull, 0.12 long
+    { const pts = [], zr = DC.z0 + 0.12, zf = DC.z1 - 0.12, yl = 0.36, yh = 0.72, nz = 7;
+      for (let k = 0; k <= nz; k++) { const z = zr + ((zf - zr) * k) / nz; pts.push(loc(sx(yl, z) - 0.012, yl, z)); }
+      for (let k = 1; k <= 3; k++) { const y = yl + ((yh - yl) * k) / 3; pts.push(loc(sx(y, zf) - 0.012, y, zf)); }
+      for (let k = nz - 1; k >= 0; k--) { const z = zr + ((zf - zr) * k) / nz; pts.push(loc(sx(yh, z) - 0.012, yh, z)); }
+      for (let k = 2; k >= 1; k--) { const y = yl + ((yh - yl) * k) / 3; pts.push(loc(sx(y, zr) - 0.012, y, zr)); }
+      const pip = tube(pts, 0.006, pipeM, doorG, 40, 4, true); pip.castShadow = false;
+      const pz = -0.42, py = 0.58, px = sx(py, pz) - 0.03; mesh(new THREE.BoxGeometry(0.03, 0.022, 0.12), chrome, doorG, ...loc(px, py, pz)).castShadow = false;
+      for (const dz of [-0.045, 0.045]) mesh(new THREE.BoxGeometry(0.02, 0.012, 0.014), chrome, doorG, ...loc(px + 0.012, py, pz + dz)).castShadow = false; }
+    const handleOpen = mesh(new THREE.BoxGeometry(0.03, 0.022, 0.12), chrome, doorG, ...loc(sx(0.78, -0.62) + 0.018, 0.78, -0.62));
+    // the shoulder bands: the door's own piece (door-local) and the body's front and rear pieces (resampled up to the cut)
+    const zs = (a, b) => { const L = [], n = Math.max(1, Math.round(Math.abs(a - b) / 0.1)); for (let k = 0; k <= n; k++) L.push(a + ((b - a) * k) / n); return L; };
+    const piece = (y, za, zb, parent, off) => zs(za, zb).map((z) => { const p = sideAt(1, y, z); return p ? [p.clone().sub(off), new THREE.Vector3(1, 0, 0)] : null; }).filter(Boolean);
+    const upY = () => new THREE.Vector3(0, 1, 0), zero = new THREE.Vector3(), openBand = [], openWet = [];
+    for (const [y, w, m, wetOne] of [[0.80, 0.06, bandM, false], [0.70, 0.03, wetM, true]]) {
+      for (const [za, zb, par, off] of [[1.3, DC.z1, root, zero], [DC.z1, DC.z0, doorG, hinge], [DC.z0, -1.8, root, zero]]) {
+        const o = strip(piece(y, za, zb, par, off), w, m, upY, par); o.visible = false; (wetOne ? openWet : openBand).push(o);
+      }
+    }
+    // the jamb: a dark ribbon 0.06 wide round the hole, running inward from its edge
+    { const pos = [], idx = [], P = body.geometry.attributes.position;
+      DC.edges.forEach(([a, b], k) => { for (const v of [a, b]) { const x = P.getX(v), y = P.getY(v), z = P.getZ(v); pos.push(x, y, z, x - 0.06, y, z); } const q = k * 4; idx.push(q, q + 1, q + 2, q + 2, q + 1, q + 3); });
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+      var jamb = mesh(g, mat("#3a2a1e", { roughness: 0.7, side: THREE.DoubleSide }), root); jamb.castShadow = false; jamb.visible = false; }
+    const doorParts = [bodyOpen, doorG, jamb, ...openBand], doorWet = openWet;
+
+    // ---- the handbrake (key `brake`): a lever between the front seats, pointing forward; drawn only when a brake key exists
+    const brakeG = new THREE.Group(); brakeG.position.set(-0.12, 0.47, -0.38); root.add(brakeG); brakeG.visible = false;
+    const lever = new THREE.Group(); brakeG.add(lever);
+    mesh(new THREE.BoxGeometry(0.05, 0.05, 0.1), dark, brakeG, 0, -0.012, -0.01);
+    mesh(new THREE.SphereGeometry(0.02, 10, 8), chrome, brakeG, 0, 0, 0);
+    mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.15, 8), chrome, lever, 0, 0, 0.075).rotation.x = Math.PI / 2;
+    mesh(new THREE.CylinderGeometry(0.018, 0.018, 0.09, 10), rimM, lever, 0, 0, 0.195).rotation.x = Math.PI / 2;
+    mesh(new THREE.SphereGeometry(0.014, 8, 6), chrome, lever, 0, 0.012, 0.236);
     // chrome frames: the windscreen (sides, header, base), the side glass tops and sills, the rear window
     { const L = []; for (const sg of [-1, 1]) { const A = []; for (let z = 0.55; z >= 0.049; z -= 0.05) A.push(sec(z, sg * 0.3)); tube(A, 0.02, chrome, root, 12, 6); }
       tube([-0.3, -0.15, 0, 0.15, 0.3].map((a) => sec(0.05, a)), 0.02, chrome, root, 10, 6); tube([-0.3, 0, 0.3].map((a) => sec(0.55, a)).map(([x, y, z]) => [x, y + 0.01, z]), 0.022, chrome, root, 6, 6);
@@ -445,9 +536,17 @@ export const COUPE_KINDS = {
         const T = t ?? 0, rain = clamp(key(ps, "rain", 0)), wiper = clamp(key(ps, "wiper", 0)), wiped = clamp(key(ps, "wiped", 0));
         const gauge = clamp(key(ps, "gauge", 1)), quiver = clamp(key(ps, "quiver", 0)), cough = clamp(key(ps, "cough", 0)), lampK = clamp(key(ps, "lamp", 1)), loadK = clamp(key(ps, "load", 1));
         const wet = (S.wet ?? (rain > 0.02 ? 1 : 0)) ? 1 : 0, d = ps.len ?? 0;
+        // the driver's door: any door > 0 swaps in the cut body, the hung door and the jamb; the pane is down above 0.02
+        const doorK = clamp(key(ps, "door", 0)), open = doorK > 1e-4, rolled = doorK > 0.02;
+        body.visible = !open; for (const o of doorParts) o.visible = open; bandClosed.visible = !open; handleClosed.visible = !open;
+        glassAll.visible = !rolled; glassNoDrv.visible = rolled; for (const b of drvBands) b.visible = !rolled;
+        doorG.rotation.y = (-DOOR_ANGLE * doorK * Math.PI) / 180;
+        const brakeK = key(ps, "brake", null); brakeG.visible = brakeK !== null; if (brakeK !== null) lever.rotation.x = -((6 + 34 * clamp(brakeK)) * Math.PI) / 180;
         for (const w of wheels) w.rotation.x = d / R;
         lensM.emissiveIntensity = lensBase * lampK; lensM.color.set("#fff6cf").lerp(new THREE.Color("#8d8670"), 1 - lampK);
         for (const b of wetBands) b.visible = !!wet;
+        wetClosed.visible = !!wet && !open; for (const o of doorWet) o.visible = !!wet && open;
+        // (the side drops of the driver's pane are hidden below while the pane is down)
         // the load: the first n of 8 (bags first, then the split one and its notes)
         const nBag = Math.ceil(loadK * 8 - 1e-6); load.forEach((o, i) => { o.visible = i < 8 ? i < nBag : nBag >= 8; });
         // gauge: -50 degrees (E) .. +50 (F), the lamp lights under 0.15
@@ -466,7 +565,7 @@ export const COUPE_KINDS = {
             else if (dr.pane === "rear") { const H = 0.52; z = -1.51 + ((((dr.z + 1.51 - T * dr.sp * 0.7) % H) + H) % H); }
             else { const sg = Math.sign(a), lim = aLimRaw(z) + 0.05, H = 0.94 - lim; a = sg * (lim + ((((Math.abs(dr.a) - lim + T * dr.sp / 1.1) % H) + H) % H)); }
           }
-          let vis = clamp((rain - dr.rank * 0.85) / 0.15);
+          let vis = clamp((rain - dr.rank * 0.85) / 0.15); if (rolled && dr.pane === "sideR") vis = 0;
           if (dr.pane === "ws" && (dr.kind === "old" || dr.kind === "fresh")) { const f = inFan(sec(z, a)[0], z); const cleared = f.ph < phiC; vis *= dr.kind === "old" ? (cleared ? 0 : 1) : (cleared && wiped > 0.01 ? 1 : 0); }
           else if (dr.pane === "ws" && dr.run) { const f = inFan(sec(z, a)[0], z); if (f.in && f.ph < phiC) vis = 0; }
           const sf = surf(z, a), h = 3 * dr.r + dr.tail;
