@@ -3,25 +3,25 @@
 ## Where the build stands
 - 14 Nov 22:12 Berlin: Jonny "go" (bank robbery version); 22:20 "go for it" on OUTLINE.md; 22:52 "ok" on board.png
   (Codex sheet, 10 panels). Opener B (cold open). Stake line + text below.
-- DESIGN.md: Fable 5.2 subagent from BRIEF-DESIGN.md (running). Builders (Sonnet) after it.
+- DESIGN.md: Fable 5.2. Builders T1-T5 done and committed. Generator written 15 Nov; rough draft next.
 - Score: assets/music/money-happy/make-score.py -> money-happy-score.ogg (nine library takes, one per scene, on T below).
 - Improvement loop: fix on test = preflight in the farm's first job (#230): should keep full renders at 1.
 
-## Timeline (video s, planned; the score is cut on it)
-| s | scene | narrator (voice 1), Spud gibberish | music |
+## Timeline (video s, as built in make-money-happy.mjs T; the score is cut on it, 48.0 s)
+| s | scene | narrator (voice 1), gibberish | music |
 |---|---|---|---|
-| 0.0-3.8 | S1 cold open: in the gold car, grey rain, coast road; bags on the back seat; empty face | 0.15 "He has ten million." 1.7 "He hasn't smiled in thirty days." | sad piano |
-| 3.8-9.05 | S2 city noon: pockets out; white limo, laughing rich couple, shopping bags | 4.0 "Thirty days earlier." Spud 6.9 "Mo-ney... ha-ppy?" 8.1 "So he made a plan." | elegant |
-| 9.05-11.0 | S3 vault: ski mask, door swings, bags hugged, alarm + red beacon | - | orchestra chase |
-| 11.0-14.45 | S3b night street: out of the bank, police cars swing in, he ducks into the alley, they roar past, he laughs | - | chase |
-| 14.45-17.55 | S4 mansion day: gold car rolls up, Spud in the rich outfit, arms wide | 14.8 "He bought everything happy people have." | hero |
-| 17.55-20.5 | S5 TURN, hall night: a siren passes (wash on the windows), he freezes, hides the bags | 18.3 "But now he had something to lose." | suspense |
-| 20.5-24.0 | S6 the door: ten locks, the last snaps shut; knock; Chip with a gift at the side window; Spud backs away | - | suspense |
-| 24.0-25.15 | S6b 3:00, awake on the stairs, staring at the door | - | suspense |
-| 25.15-27.95 | S7 LOW: alone at the end of the long table, one candle | - | sad |
-| 27.95-30.45 | S8 siren STOPS at the gate, red/blue floods the windows; he runs to the car with the bags | - | disaster |
-| 30.45-35.3 | S9 back to the cold open: the car coughs, stops (out of fuel); rain eases; he climbs with one bag; siren below; an AMBULANCE passes and goes | 33.6 "Nobody was ever coming for him." | low score |
-| 35.3-45.0 | S10 clouds break into the sunset; he sits; wind takes notes from the open bag; first smile | 40.0 "For one moment, he forgot everything he owned." | drama swell |
+| 0.0-3.8 | S1 cold open: in the gold car, rain, wiper; bags on the back seat; empty face | 0.15 "He has ten million." 1.65 "He hasn't smiled in thirty days." | sad |
+| 3.8-9.05 | S2 city: Spud, pocket linings out; the white limo glides in, laughing couple, three shop bags | 4.0 "Thirty days earlier." Spud 6.9 "Mo-ney... ha-ppy?" 8.1 "So he made a plan." | elegant |
+| 9.05-11.0 | S3 vault: balaclava, two sacks hugged, alarm 9.75 | - | orchestra chase |
+| 11.0-14.45 | S3b night street: out of the bank with a sack, police cars race past 11.5-13.2, he crouches, laughs | - | chase |
+| 14.45-17.55 | S4 mansion by day, fountain, gold car: arms (coat) wide | 14.8 "He bought everything happy people have." | hero |
+| 17.55-20.5 | S5 TURN, hall at night: a siren passes, he hides the sacks under the floor tile | 18.3 "But now he had something to lose." | suspense |
+| 20.5-24.0 | S6 door: ten locks; knock 22.1; Chip with a gift at the side window; he backs away | Chip 22.7 "Spud? It's me!" | suspense |
+| 24.0-25.15 | S6b the clock at 3:00 | - | suspense |
+| 25.15-27.95 | S7 LOW: far end of the long table, one candle; 27.95 a siren stops outside | - | sad |
+| 28.7-30.45 | S8 gate at night, red/blue beyond the gate: he runs to the car with a sack | - | disaster |
+| 30.45-37.0 | S9 car again; 31.25 needle to E; 32.25 wide: rolls to a stop, one cough, lamps die; 33.8 climb with a sack; 34.2 an ambulance passes | 35.6 "Nobody was ever coming for him." | low score |
+| 37.0-48.0 | S10 clouds break 37.4; 41.0 close: notes blow from the open sack, 41.9 first smile; 45.0 hold, sun sinks | 42.2 "For one moment, he forgot everything he owned." | drama swell, calm tail |
 
 Stake text 0-3.8, upper third: "$10,000,000" then "HAPPY?" (the outline's emoji "💰 = 😊 ?" can't render: the caption
 font is Inter only, no emoji; the number and "HAPPY?" read without English for the 82 % German-speaking viewers).

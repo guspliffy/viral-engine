@@ -11,10 +11,11 @@ PARTS = [
     (17.55, "orchestra-suspense/orchestra-suspense-01.ogg", 0.0, 8.0, 1.0, 0.1, 0.6),  # the siren, the locks, 3:00
     (25.15, "sad/sad-02.ogg", 4.2, 3.1, 1.0, 0.3, 0.4),                   # alone at the long table
     (27.95, "disaster/disaster-01.ogg", 0.0, 2.8, 0.9, 0.05, 0.4),        # the siren at the gate, he flees
-    (30.45, "zombies-score/zombies-score-01.ogg", 0.0, 5.3, 0.8, 0.2, 0.6),  # the dry car, the climb, the ambulance
-    (35.30, "drama-swell/drama-swell-01.ogg", 0.0, 10.0, 1.0, 0.4, 2.0),  # the clouds break, the sunset, the smile
+    (30.45, "zombies-score/zombies-score-01.ogg", 0.0, 7.0, 0.8, 0.2, 0.8),  # the dry car, the climb, the ambulance
+    (36.80, "drama-swell/drama-swell-01.ogg", 0.0, 10.0, 1.0, 0.4, 1.6),  # the clouds break, the sunset, the smile
+    (45.20, "calm-landscape/calm-landscape-01.ogg", 0.0, 2.8, 0.7, 1.2, 0.0),   # the hold: it settles into calm  # the clouds break, the sunset, the smile
 ]
-END = 45.5
+END = 48.0
 ins, flt = [], []
 for i, (at, f, ss, ln, g, fi, fo) in enumerate(PARTS):
     ins += ["-i", os.path.join(AI, f)]
