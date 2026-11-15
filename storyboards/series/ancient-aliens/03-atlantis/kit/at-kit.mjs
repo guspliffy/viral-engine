@@ -7,7 +7,7 @@
 // TWO FRAMES, ONE GENERATOR (as EP02): build(F) for FRAME.wide (the film, the master) and FRAME.tall (the part, after
 // Jonny's OK on the wide animatic); parts 2-4 open on their own HOOK shot (hookOf). Every camera is a pair { wide, tall }.
 //
-// THE CLOCK is the time Atlantis has left: 24:00 at story time 0, 00:00 at story time CLOCK_END (178 s, the climax), top
+// THE CLOCK is the time Atlantis has left: 24:00 at story time 0, 00:00 at story time CLOCK_END (174 s, the climax), top
 // right, in jumps of one clock minute (0.124 s). atlantisClock(c, F, T0, t0, t1) writes it for clip times [t0, t1] of a
 // storyboard that starts at story time T0; leave it off over the maps, the page and other full-frame inserts.
 import { readFileSync } from "node:fs";
@@ -43,7 +43,7 @@ export function hostSay(c, F, t, who, line, dur, tone = "calm", { sub = true, ho
 }
 // "CLUE n/4", top left
 export const clueTag = (c, F, t0, t1, n) => c.cap(r3(t0), r3(t1), `CLUE ${n}/4`, F.tag.y, false, { style: "label", size: F.tag.size, kinetic: false, x: F.tag.x });
-export const CLOCK_END = 178;
+export const CLOCK_END = 174;   // 15 Nov: block B runs 48 s (ends 98), so C starts 98, D 150; the climax 24 s into D
 const MIN = CLOCK_END / (24 * 60);
 export function atlantisClock(c, F, T0, t0, t1) {
   const b = Math.min(t1, CLOCK_END + 4 - T0);
