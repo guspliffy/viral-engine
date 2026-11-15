@@ -230,7 +230,7 @@ function build(F, key) {
     cast.find((x) => x.id === "spud").at = SP; cast.find((x) => x.id === "crew1").at = C1; cast.find((x) => x.id === "crew2").at = C2;
     place(T.s19, "spud", SP, 180); place(T.s19, "crew1", C1, 180); place(T.s19, "crew2", C2, 170);
     for (const [s0, dx] of [["R", 0.14], ["L", -0.14]]) c.arm(L(T.s19), "spud", s0, { prop: "noon", grip: [500 + 4.2 + dx, 0.66, -2.35], palm: [500 + 4.2 + dx, 0.61, -2.35] }, 0);
-    props.push({ id: "col", kind: "column", x: r3(BR[0] + 36.8), y: 2.2, z: r3(BR[1] - 80), dir: 308, fall: 0, splash: 0, light: "noon", staged: "the white column on the far quay by the water; it topples forward into the canal, toward us" });
+    props.push({ id: "col", kind: "column", x: r3(BR[0] + 36.8), y: 2.2, z: r3(BR[1] - 80), dir: 308, fall: 0, splash: 0, light: "noon", ground: 0, water: -3.2, staged: "the white column on the far quay by the water; it topples forward into the canal, toward us" });
     for (const id of ["spud", "crew1", "crew2"]) look(T.s19, id, [0, 0.1], 0.01);
     say("b5a"); say("b5b");
     // the quake on "the ground began to shake": dust off the walls, the column topples, the splash

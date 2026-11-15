@@ -121,6 +121,8 @@
    "fall": 0,
    "splash": 0,
    "light": "noon",
+   "ground": 0,
+   "water": -3.2,
    "staged": "the white column on the far quay by the water; it topples forward into the canal, toward us"
   }
  ],
