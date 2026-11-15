@@ -41,11 +41,15 @@ counted the same way every time. Where a section below says otherwise, these eig
 | Role | Who | Model, effort | Does |
 |---|---|---|---|
 | Director | the thread's own session | Opus 5.5, **xhigh** (project setting) | plan, PANELS.md, **the clip generator (staging, camera, acting, timing)**, briefs, integration, checks, review, PR, delivery |
-| Creative director | `creative-director` | Fable 5.1, **xhigh** (Jonny, 8 Nov) | reviews A and B, writes BOARD numbers when asked; never code |
+| Creative director | `creative-director` | Fable 5.2, **xhigh** | new designs (character, set, prop, look) from the drawn panel sheet (`docs/rules/images.md`); reviews A and B, BOARD numbers when asked; never code |
 | Builder | `builder` | Sonnet 5.5, high (Jonny, 8 Nov) | one specced task with exact numbers: a props file + its bench, a painted plate or env set, a grip test, a sound pick list, a mechanical fix the director measured. **Never a clip generator, a camera or the acting** |
 | Senior builder | `builder` with model opus, effort high | Opus 5.5 | rig, physics, shaders, VFX, render pipeline, timeline, new checks, bug fixes in existing systems |
 | Reviewer | `reviewer` | Opus 5.5 | fresh-eyes review of engine PRs only (engine/, qa/, render.yml, storyboards/lib/) |
 | Code locator | `Explore` | Haiku 5.5 | sweeps across many files |
+
+**Model split** (Jonny, standing rule since 14 Nov 2026, after a three-video trial): every thread, video directors
+included, runs on Opus 5.5. Fable 5.2 is used only for new designs: a thread that needs a design it cannot reuse hands
+just that design to a Fable 5.2 subagent. Sonnet builders only build and make no creative decisions.
 
 Spawning: when the repo's agent types are loaded, use them by name (`subagent_type: "creative-director"` etc.). When
 they aren't (the repo root isn't registered), spawn a general-purpose agent with the role's model and effort
@@ -317,7 +321,8 @@ are his call. Skip the reviews only for pure engine tests, and say so.
 
 The message to Jonny is the gate report, at most 200 words, plus the post pack. Everything longer (the
 self-review's twelve answers, Fable's notes, `qa/risky.mjs` timestamps, check tails, warnings with reasons) goes into
-`DELIVERY.md` next to the video in the project files, and is attached.
+`DELIVERY.md` next to the video in the project files (a fork without a shared project folder: `out/deliver/<clip>/`,
+see `START-HERE.md`), and is attached. The post pack follows `docs/rules/posting.md`.
 
 ```
 WATCH: <video path> (+ close-up crop)
@@ -328,6 +333,15 @@ QUESTIONS: <numbered, each with a default>
 POST PACK: title, caption (line 1 situation, line 2 "Which one are you..."), #funnyanimation #animation +1 tag,
 comment poll, playlist + slot (reach rules v2)
 ```
+
+## Keeping rules in the repo (15 Nov 2026)
+
+Other creators run this repo from a fork with their own Claude, and their Claude knows only what is in the repo. So a
+new standing rule from the producer (a note that applies beyond one clip) goes into the fitting rule file the same day:
+creative rules in `docs/rules/story.md`, build lessons in `docs/rules/clip-lessons.md`, posting in
+`docs/rules/posting.md`, a series' rule in `docs/series/README.md`. One small PR, replacing or merging an older line
+rather than adding beside it. Project memory may point to the rule; it is not the only copy. A clip's delivery says
+which rule lines it added.
 
 ## The improvement loop (Jonny, 10 Nov 2026)
 

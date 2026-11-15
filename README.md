@@ -9,6 +9,8 @@ Status: **v0.2, pipeline test.** Two PotatoBrawl fighters (Wizard, Gunslinger), 
 (`standard`, `anime`), code-generated voices and sound effects.
 See [`docs/PLAN.md`](docs/PLAN.md) for the roadmap, decisions and open questions.
 
+**Making videos with your own Claude on a fork?** Start with [`START-HERE.md`](START-HERE.md).
+
 ## Quick start
 
 Needs Node.js 18+, ffmpeg and a Chromium build.
@@ -16,6 +18,7 @@ Needs Node.js 18+, ffmpeg and a Chromium build.
 ```bash
 npm install
 npx playwright install chromium      # once; or point CHROME_PATH at an existing Chromium
+python3 -m pip install opencv-python-headless numpy   # once; the checks (qa/check.mjs) need them
 node engine/render.mjs storyboards/test-01-golden.json
 node engine/render.mjs storyboards/test-01-golden.json --style anime
 # -> out/test-01-golden.mp4, out/test-01-golden-anime.mp4, cover PNGs and the WAV mixes
