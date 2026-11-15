@@ -1,0 +1,4658 @@
+{
+ "id": "aa03-d-tall",
+ "title": "Where did Atlantis go? (block D)",
+ "idea": "Ancient aliens EP03 block D (2:34-3:24): Helike sank in one night in 373 BC while Plato was alive; Atlantis was far bigger, nothing sinks that in a day; the low at midnight; the ring city rises out of the sea as a ship ('It didn't sink. It left.'); one seat left, Spud stays ('Somebody had to tell you.'); 'Case closed.'; Plato winks",
+ "format": "series: Ancient aliens (Spud hosts with Reaper's voice, four numbered clues, the alien answer is the premise, the tag winks at the real one); EP03 block D of four, joined later",
+ "far": 16000,
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "animeTiming": true,
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "scenes": [
+   "scifi"
+  ]
+ },
+ "set": {
+  "type": "plain",
+  "color": "#141c33",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -4.096,
+    5.736,
+    -7.094
+   ],
+   "light": "#a8b8e8",
+   "shadow": "#26305c",
+   "exposure": 0.6,
+   "night": true
+  },
+  "aperture": 0,
+  "focus": false,
+  "plate": {
+   "src": "assets/plates/at-d-greece-map.png",
+   "z": -2.2,
+   "center": [
+    0,
+    1.6
+   ],
+   "height": 3.2,
+   "depth": false,
+   "motion": false,
+   "dust": 0,
+   "tint": "#ffffff",
+   "swaps": [
+    {
+     "at": 13.4,
+     "src": "assets/plates/at-d-world-map.png"
+    }
+   ]
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-score.ogg",
+  "from": 0,
+  "skip": 154,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "captionBand": [
+  200,
+  820
+ ],
+ "hook": {
+  "show": [
+   "spudK"
+  ],
+  "hint": 0,
+  "what": "Helike, 373 BC, at night: the sea rises over the roofs, Spud on the knoll; '373 BC' on screen"
+ },
+ "creative": {
+  "length": [
+   50,
+   50
+  ]
+ },
+ "cast": [
+  {
+   "id": "spudK",
+   "character": "potatobrawl/spud",
+   "at": [
+    40000,
+    140000
+   ],
+   "face": 340,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "spudW",
+   "character": "potatobrawl/spud",
+   "at": [
+    99999.3,
+    99997.75
+   ],
+   "y": 0.62,
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.2
+  },
+  {
+   "id": "plato",
+   "character": "ancient-aliens/plato",
+   "at": [
+    100000.66,
+    99998.65
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.1
+  },
+  {
+   "id": "spudS",
+   "character": "potatobrawl/spud",
+   "at": [
+    60022,
+    155958
+   ],
+   "y": -0.5,
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.3
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "at": [
+    19997,
+    164366
+   ],
+   "y": -0.5,
+   "face": 180,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "spudB",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.2,
+    160000
+   ],
+   "face": 321,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.4
+  },
+  {
+   "id": "cA",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    4.367,
+    159997.271
+   ],
+   "face": 302,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.2
+  },
+  {
+   "id": "cB",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    4.95,
+    159998.58
+   ],
+   "face": 286,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4.2
+  },
+  {
+   "id": "cC",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    4.95,
+    160001.42
+   ],
+   "face": 254,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.2
+  },
+  {
+   "id": "cD",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    5.555,
+    159996.253
+   ],
+   "face": 304,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 6.2
+  },
+  {
+   "id": "cE",
+   "character": "ancient-aliens/alien-crew",
+   "at": [
+    5.802,
+    160003.35
+   ],
+   "face": 240,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 7.2
+  },
+  {
+   "id": "foreman",
+   "character": "ancient-aliens/alien-foreman",
+   "at": [
+    3.509,
+    160004.492
+   ],
+   "face": 218,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "spudT",
+   "character": "potatobrawl/spud",
+   "at": [
+    100000.25,
+    100009
+   ],
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.5
+  }
+ ],
+ "props": [
+  {
+   "id": "spudK-lamp",
+   "kind": "headlamp",
+   "wear": "spudK",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "spudW-lamp",
+   "kind": "headlamp",
+   "wear": "spudW",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "spudS-lamp",
+   "kind": "headlamp",
+   "wear": "spudS",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "spudC-lamp",
+   "kind": "headlamp",
+   "wear": "spudC",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "spudB-lamp",
+   "kind": "headlamp",
+   "wear": "spudB",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "spudT-lamp",
+   "kind": "headlamp",
+   "wear": "spudT",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "helike",
+   "kind": "helike",
+   "x": 40000,
+   "y": 0,
+   "z": 140000,
+   "flood": 0,
+   "staged": "Helike, 373 BC, a full moon: the sea rises over the roofs"
+  },
+  {
+   "id": "room",
+   "kind": "platoroom",
+   "x": 100000,
+   "y": 0,
+   "z": 100000,
+   "occ": [
+    [
+     0.66,
+     1.35,
+     -1.3,
+     0.3
+    ]
+   ],
+   "staged": "Plato's room in Athens at night, the bronze lamp"
+  },
+  {
+   "id": "chair",
+   "kind": "klismos",
+   "x": 100000.66,
+   "y": 0,
+   "z": 99998.65,
+   "rot": 0
+  },
+  {
+   "id": "p42",
+   "kind": "shipplate",
+   "view": "42",
+   "x": 20000,
+   "z": 160000
+  },
+  {
+   "id": "p43",
+   "kind": "shipplate",
+   "view": "43",
+   "x": -40000,
+   "z": 160000
+  },
+  {
+   "id": "h43",
+   "kind": "shiphull",
+   "x": -40000,
+   "z": 160000,
+   "hull": false,
+   "liftK": 1.954,
+   "sprayK": 0.15,
+   "fallK": 0,
+   "beamK": 0.35
+  },
+  {
+   "id": "p44",
+   "kind": "shipplate",
+   "view": "44",
+   "x": -80000,
+   "z": 160000
+  },
+  {
+   "id": "h44",
+   "kind": "shiphull",
+   "x": -80000,
+   "z": 160000,
+   "hull": false,
+   "liftK": 1.954,
+   "sprayK": 0.15,
+   "fallK": 0,
+   "beamK": 0.35
+  },
+  {
+   "id": "stars",
+   "kind": "shipstars",
+   "x": 60022,
+   "z": 155958,
+   "reach": 8500
+  },
+  {
+   "id": "nightS",
+   "kind": "shipsea",
+   "x": 60000,
+   "z": 160000,
+   "grade": "night",
+   "whirl": false,
+   "stars": 1,
+   "calmAt": [
+    22,
+    -4042,
+    24
+   ]
+  },
+  {
+   "id": "ring",
+   "kind": "shipring",
+   "x": 60000,
+   "z": 151000,
+   "y": -6000
+  },
+  {
+   "id": "hatch",
+   "kind": "hatchhall",
+   "x": 0,
+   "y": 0,
+   "z": 160000,
+   "lit": 1,
+   "beam": 1
+  },
+  {
+   "id": "hatchsea",
+   "kind": "sea",
+   "x": 0,
+   "z": 160000,
+   "y": -9,
+   "grade": "night",
+   "horizon": true,
+   "calm": [
+    0,
+    0,
+    18
+   ],
+   "foam": [
+    [
+     -2.2,
+     0,
+     2.7,
+     0.7
+    ]
+   ],
+   "mist": [
+    -2.2,
+    0,
+    5
+   ],
+   "mistA": 0.22,
+   "swell": 0.35,
+   "reach": 9000
+  },
+  {
+   "id": "dots38",
+   "kind": "maproute",
+   "plate": {
+    "src": "assets/plates/at-d-greece-map.png",
+    "z": -2.2,
+    "center": [
+     0,
+     1.6
+    ],
+    "height": 3.2,
+    "depth": false,
+    "motion": false,
+    "dust": 0,
+    "tint": "#ffffff"
+   },
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "dotsAt": [
+    [
+     560,
+     428
+    ],
+    [
+     870,
+     478
+    ]
+   ],
+   "dots": 0,
+   "draw": 0,
+   "staged": "dots drawn on the hanging map plate"
+  },
+  {
+   "id": "isle",
+   "kind": "mapoutline",
+   "plate": {
+    "src": "assets/plates/at-d-greece-map.png",
+    "z": -2.2,
+    "center": [
+     0,
+     1.6
+    ],
+    "height": 3.2,
+    "depth": false,
+    "motion": false,
+    "dust": 0,
+    "tint": "#ffffff"
+   },
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    180,
+    60,
+    680,
+    860
+   ],
+   "draw": 0,
+   "fillP": 0,
+   "staged": "outline drawn on the hanging map plate"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 4.35,
+   "text": "373 BC. A city sank overnight.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 4.35,
+   "text": "373 BC",
+   "pos": 660,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 4.4,
+   "to": 50,
+   "text": "CLUE 4/4",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  },
+  {
+   "from": 4.5,
+   "to": 6.95,
+   "text": "Clue four. Helike, Greece.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.15,
+   "to": 10.85,
+   "text": "An earthquake, then the sea. By morning, it was gone.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 11.15,
+   "to": 13.35,
+   "text": "And Plato was alive.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.6,
+   "to": 17.1,
+   "text": "But Atlantis was bigger than Libya and Asia together.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.15,
+   "to": 19.05,
+   "text": "Nothing sinks that in one day.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.15,
+   "to": 19.05,
+   "text": "1 DAY?",
+   "pos": 660,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 19.4,
+   "to": 24.25,
+   "text": "Four clues. No city. And it is almost midnight.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 31.3,
+   "to": 33.11,
+   "text": "It didn't sink.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 33.3,
+   "to": 34.25,
+   "text": "It left.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 38,
+   "to": 40.11,
+   "text": "Somebody had to tell you.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 41.4,
+   "to": 43.01,
+   "text": "Case closed.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 42.2,
+   "to": 44.15,
+   "text": "Follow for the next case",
+   "pos": 520,
+   "pop": false,
+   "size": 52,
+   "kinetic": false
+  },
+  {
+   "from": 47.8,
+   "to": 49.69,
+   "text": "Nobody saw that.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.1,
+   "text": "03:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.1,
+   "to": 0.2,
+   "text": "03:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.2,
+   "to": 0.3,
+   "text": "03:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.3,
+   "to": 0.4,
+   "text": "03:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.4,
+   "to": 0.514,
+   "text": "03:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.514,
+   "to": 0.637,
+   "text": "03:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.637,
+   "to": 0.737,
+   "text": "03:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.737,
+   "to": 0.837,
+   "text": "03:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.837,
+   "to": 0.937,
+   "text": "03:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.937,
+   "to": 1.037,
+   "text": "03:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.037,
+   "to": 1.137,
+   "text": "03:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.137,
+   "to": 1.256,
+   "text": "03:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.256,
+   "to": 1.379,
+   "text": "03:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.379,
+   "to": 1.479,
+   "text": "03:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.479,
+   "to": 1.579,
+   "text": "03:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.579,
+   "to": 1.679,
+   "text": "03:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.679,
+   "to": 1.779,
+   "text": "03:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.779,
+   "to": 1.879,
+   "text": "03:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.879,
+   "to": 1.997,
+   "text": "02:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.997,
+   "to": 2.097,
+   "text": "02:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.097,
+   "to": 2.197,
+   "text": "02:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.197,
+   "to": 2.297,
+   "text": "02:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.297,
+   "to": 2.397,
+   "text": "02:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.397,
+   "to": 2.497,
+   "text": "02:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.497,
+   "to": 2.615,
+   "text": "02:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.615,
+   "to": 2.715,
+   "text": "02:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.715,
+   "to": 2.815,
+   "text": "02:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.815,
+   "to": 2.915,
+   "text": "02:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.915,
+   "to": 3.015,
+   "text": "02:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.015,
+   "to": 3.115,
+   "text": "02:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.115,
+   "to": 3.233,
+   "text": "02:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.233,
+   "to": 3.333,
+   "text": "02:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.333,
+   "to": 3.433,
+   "text": "02:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.433,
+   "to": 3.533,
+   "text": "02:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.533,
+   "to": 3.633,
+   "text": "02:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.633,
+   "to": 3.733,
+   "text": "02:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.733,
+   "to": 3.851,
+   "text": "02:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.851,
+   "to": 3.951,
+   "text": "02:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.951,
+   "to": 4.051,
+   "text": "02:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.051,
+   "to": 4.151,
+   "text": "02:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.151,
+   "to": 4.251,
+   "text": "02:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.251,
+   "to": 4.351,
+   "text": "02:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.351,
+   "to": 4.4,
+   "text": "02:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7,
+   "to": 7.1,
+   "text": "02:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.1,
+   "to": 7.2,
+   "text": "02:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.2,
+   "to": 7.313,
+   "text": "02:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.313,
+   "to": 7.436,
+   "text": "02:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.436,
+   "to": 7.536,
+   "text": "02:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.536,
+   "to": 7.636,
+   "text": "02:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.636,
+   "to": 7.736,
+   "text": "02:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.736,
+   "to": 7.836,
+   "text": "02:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.836,
+   "to": 7.936,
+   "text": "02:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.936,
+   "to": 8.054,
+   "text": "02:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.054,
+   "to": 8.154,
+   "text": "02:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.154,
+   "to": 8.254,
+   "text": "02:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.254,
+   "to": 8.354,
+   "text": "02:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.354,
+   "to": 8.454,
+   "text": "02:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.454,
+   "to": 8.554,
+   "text": "02:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.554,
+   "to": 8.672,
+   "text": "02:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.672,
+   "to": 8.772,
+   "text": "02:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.772,
+   "to": 8.872,
+   "text": "02:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.872,
+   "to": 8.972,
+   "text": "02:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.972,
+   "to": 9.072,
+   "text": "02:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.072,
+   "to": 9.172,
+   "text": "02:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.172,
+   "to": 9.29,
+   "text": "02:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.29,
+   "to": 9.39,
+   "text": "02:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.39,
+   "to": 9.49,
+   "text": "01:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.49,
+   "to": 9.59,
+   "text": "01:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.59,
+   "to": 9.69,
+   "text": "01:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.69,
+   "to": 9.79,
+   "text": "01:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.79,
+   "to": 9.908,
+   "text": "01:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.908,
+   "to": 10.008,
+   "text": "01:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.008,
+   "to": 10.108,
+   "text": "01:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.108,
+   "to": 10.208,
+   "text": "01:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.208,
+   "to": 10.308,
+   "text": "01:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.308,
+   "to": 10.408,
+   "text": "01:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.408,
+   "to": 10.526,
+   "text": "01:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.526,
+   "to": 10.626,
+   "text": "01:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.626,
+   "to": 10.726,
+   "text": "01:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.726,
+   "to": 10.826,
+   "text": "01:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.826,
+   "to": 10.926,
+   "text": "01:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.926,
+   "to": 11.026,
+   "text": "01:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.026,
+   "to": 11.144,
+   "text": "01:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.144,
+   "to": 11.244,
+   "text": "01:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.244,
+   "to": 11.344,
+   "text": "01:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.344,
+   "to": 11.444,
+   "text": "01:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.444,
+   "to": 11.544,
+   "text": "01:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.544,
+   "to": 11.644,
+   "text": "01:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.644,
+   "to": 11.762,
+   "text": "01:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.762,
+   "to": 11.862,
+   "text": "01:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.862,
+   "to": 11.962,
+   "text": "01:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.962,
+   "to": 12.062,
+   "text": "01:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.062,
+   "to": 12.162,
+   "text": "01:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.162,
+   "to": 12.262,
+   "text": "01:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.262,
+   "to": 12.381,
+   "text": "01:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.381,
+   "to": 12.504,
+   "text": "01:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.504,
+   "to": 12.604,
+   "text": "01:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.604,
+   "to": 12.704,
+   "text": "01:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.704,
+   "to": 12.804,
+   "text": "01:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.804,
+   "to": 12.904,
+   "text": "01:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.904,
+   "to": 13.004,
+   "text": "01:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.004,
+   "to": 13.122,
+   "text": "01:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.122,
+   "to": 13.222,
+   "text": "01:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.222,
+   "to": 13.322,
+   "text": "01:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.322,
+   "to": 13.4,
+   "text": "01:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.1,
+   "to": 19.2,
+   "text": "00:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.2,
+   "to": 19.303,
+   "text": "00:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.303,
+   "to": 19.426,
+   "text": "00:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.426,
+   "to": 19.526,
+   "text": "00:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.526,
+   "to": 19.626,
+   "text": "00:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.626,
+   "to": 19.726,
+   "text": "00:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.726,
+   "to": 19.826,
+   "text": "00:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.826,
+   "to": 19.926,
+   "text": "00:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.926,
+   "to": 20.044,
+   "text": "00:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.044,
+   "to": 20.144,
+   "text": "00:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.144,
+   "to": 20.244,
+   "text": "00:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.244,
+   "to": 20.344,
+   "text": "00:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.344,
+   "to": 20.444,
+   "text": "00:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.444,
+   "to": 20.544,
+   "text": "00:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.544,
+   "to": 20.662,
+   "text": "00:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.662,
+   "to": 20.762,
+   "text": "00:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.762,
+   "to": 20.862,
+   "text": "00:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.862,
+   "to": 20.962,
+   "text": "00:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.962,
+   "to": 21.062,
+   "text": "00:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.062,
+   "to": 21.162,
+   "text": "00:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.162,
+   "to": 21.281,
+   "text": "00:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.281,
+   "to": 21.404,
+   "text": "00:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.404,
+   "to": 21.504,
+   "text": "00:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.504,
+   "to": 21.604,
+   "text": "00:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.604,
+   "to": 21.704,
+   "text": "00:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.704,
+   "to": 21.804,
+   "text": "00:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.804,
+   "to": 21.904,
+   "text": "00:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.904,
+   "to": 22.022,
+   "text": "00:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.022,
+   "to": 22.122,
+   "text": "00:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.122,
+   "to": 22.222,
+   "text": "00:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.222,
+   "to": 22.322,
+   "text": "00:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.322,
+   "to": 22.422,
+   "text": "00:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.422,
+   "to": 22.522,
+   "text": "00:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.522,
+   "to": 22.64,
+   "text": "00:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.64,
+   "to": 22.74,
+   "text": "00:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.74,
+   "to": 22.84,
+   "text": "00:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.84,
+   "to": 22.94,
+   "text": "00:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.94,
+   "to": 23.04,
+   "text": "00:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.04,
+   "to": 23.14,
+   "text": "00:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.14,
+   "to": 23.258,
+   "text": "00:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.258,
+   "to": 23.358,
+   "text": "00:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.358,
+   "to": 23.458,
+   "text": "00:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.458,
+   "to": 23.558,
+   "text": "00:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.558,
+   "to": 23.658,
+   "text": "00:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.658,
+   "to": 23.758,
+   "text": "00:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.758,
+   "to": 23.876,
+   "text": "00:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.876,
+   "to": 23.976,
+   "text": "00:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.976,
+   "to": 24.076,
+   "text": "00:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.076,
+   "to": 28,
+   "text": "00:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  }
+ ],
+ "beats": [
+  {
+   "name": "37 Helike floods",
+   "at": 0,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     40003,
+     4.2,
+     140009
+    ],
+    "look": [
+     40008,
+     -5.5,
+     139940
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      40002.8,
+      4,
+      140008.2
+     ],
+     "look": [
+      40008,
+      -5.5,
+      139940
+     ],
+     "fov": 52
+    },
+    "dur": 4.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cA",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cE",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h43",
+     "set": {
+      "falls": 1,
+      "beam": 0,
+      "lit": 0.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p44",
+     "set": {
+      "rise": 0.6,
+      "lightning": 0.3
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "h44",
+     "set": {
+      "rise": 0.6,
+      "falls": 1,
+      "beam": 1,
+      "lit": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "shrink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "nightS",
+     "set": {
+      "calm": 0.4
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudK",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.7,
+      "lid": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "helike",
+     "set": {
+      "flood": 0.25
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.07,
+     "dur": 4.4,
+     "reason": "night wind on the knoll",
+     "at": 0
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.32,
+     "dur": 4.4,
+     "reason": "the sea pouring between the houses",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "rise": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "h43",
+     "set": {
+      "rise": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.02
+    },
+    {
+     "fx": "shake",
+     "amp": 0.5,
+     "dur": 0.6,
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/thunder",
+     "gain": 0.28,
+     "reason": "the earthquake's deep rumble (no lightning: the ground)",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "helike",
+     "set": {
+      "flood": 0.85
+     },
+     "dur": 4.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Three seventy-three BC. A city sank overnight.",
+     "tone": "excited",
+     "dur": 4.07,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spudK",
+     "do": "turn",
+     "to": 320,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "who": "spudK",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "38 clue four: the Gulf of Corinth",
+   "at": 4.4,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     -0.166,
+     1.6,
+     1.2
+    ],
+    "look": [
+     -0.166,
+     1.6,
+     -2.2
+    ],
+    "fov": 49.941,
+    "to": {
+     "pos": [
+      -0.166,
+      1.6,
+      1.2
+     ],
+     "look": [
+      -0.166,
+      1.6,
+      -2.2
+     ],
+     "fov": 46.035
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudK",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue four. Helike, Greece.",
+     "tone": "calm",
+     "dur": 2.4,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "dots38",
+     "set": {
+      "dots": 0.5
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "dots38",
+     "set": {
+      "dots": 1
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "helike",
+     "set": {
+      "flood": 0.85
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.58
+    }
+   ]
+  },
+  {
+   "name": "37b along the shore",
+   "at": 7,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     39996,
+     2.6,
+     139964
+    ],
+    "look": [
+     40030,
+     -3.6,
+     139920
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      39998,
+      2.4,
+      139960
+     ],
+     "look": [
+      40030,
+      -3.6,
+      139920
+     ],
+     "fov": 57
+    },
+    "dur": 3.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.4,
+     "dur": 3.9,
+     "reason": "the sea between the house walls, up to the roofs",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "helike",
+     "set": {
+      "flood": 1
+     },
+     "dur": 3.4,
+     "ease": "out",
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "An earthquake, then the sea. By morning, it was gone.",
+     "tone": "calm",
+     "dur": 3.68,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "plato",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 3.88
+    }
+   ]
+  },
+  {
+   "name": "39 Plato was alive",
+   "at": 10.9,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     100000.05,
+     1.3,
+     100002.6
+    ],
+    "look": [
+     99999.9,
+     1.15,
+     99998.4
+    ],
+    "fov": 60,
+    "to": {
+     "pos": [
+      100000.03,
+      1.28,
+      100002.4
+     ],
+     "look": [
+      99999.9,
+      1.15,
+      99998.4
+     ],
+     "fov": 59
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       -0.12,
+       0.283,
+       0.5
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "look",
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.03,
+     "dur": 2.5,
+     "reason": "a quiet night outside the window",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "And Plato was alive.",
+     "tone": "excited",
+     "dur": 2.14,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.14,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spudW",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spudW",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.2,
+     "at": 1.4
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.14,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "dots38",
+     "set": {
+      "dots": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.48
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "40 bigger than Libya and Asia",
+   "at": 13.4,
+   "len": 5.7,
+   "shot": {
+    "pos": [
+     -1.056,
+     1.6,
+     1.2
+    ],
+    "look": [
+     -1.056,
+     1.6,
+     -2.2
+    ],
+    "fov": 49.941,
+    "to": {
+     "pos": [
+      -0.213,
+      1.6,
+      1.2
+     ],
+     "look": [
+      -0.213,
+      1.6,
+      -2.2
+     ],
+     "fov": 49.941
+    },
+    "dur": 5.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But Atlantis was bigger than Libya and Asia together.",
+     "tone": "calm",
+     "dur": 3.25,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "draw": 1
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "isle",
+     "set": {
+      "fillP": 1
+     },
+     "dur": 1,
+     "ease": "out",
+     "at": 1.9
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Nothing sinks that in one day.",
+     "tone": "question",
+     "dur": 1.89,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3.75
+    },
+    {
+     "who": "spudS",
+     "do": "fly",
+     "to": {
+      "x": 60022,
+      "y": -0.5,
+      "z": 155958
+     },
+     "dur": 0.01,
+     "at": 5.66
+    },
+    {
+     "who": "spudS",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "at": 5.68
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "y": -6000
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 5.68
+    }
+   ]
+  },
+  {
+   "name": "41 the low",
+   "at": 19.1,
+   "len": 5.2,
+   "shot": {
+    "pos": [
+     60023,
+     0.35,
+     155960.8
+    ],
+    "look": [
+     60021.8,
+     0.35,
+     155956
+    ],
+    "fov": 58,
+    "to": {
+     "pos": [
+      60022.9,
+      0.32,
+      155960.5
+     ],
+     "look": [
+      60021.8,
+      0.35,
+      155956
+     ],
+     "fov": 57
+    },
+    "dur": 5.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudS",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudS",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3,
+      "lid": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.18,
+     "dur": 5.2,
+     "reason": "the swell, nothing else: the music is out (the low)",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Four clues. No city. And it is almost midnight.",
+     "tone": "whisper",
+     "dur": 4.8,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spudS",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 2.6
+    }
+   ]
+  },
+  {
+   "name": "dive",
+   "at": 24.3,
+   "len": 0.8,
+   "shot": {
+    "pos": [
+     60022.9,
+     0.32,
+     155960.5
+    ],
+    "look": [
+     60021.8,
+     0.35,
+     155956
+    ],
+    "fov": 57,
+    "to": {
+     "pos": [
+      60022.9,
+      0.3,
+      155960.3
+     ],
+     "look": [
+      60021.8,
+      -0.1,
+      155956
+     ],
+     "fov": 57
+    },
+    "dur": 0.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudS",
+     "do": "fly",
+     "to": {
+      "x": 60022,
+      "y": -2.4,
+      "z": 155958
+     },
+     "dur": 0.5,
+     "ease": "in",
+     "at": 0.1
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.45,
+     "reason": "he dives",
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "42 midnight: the city in the storm",
+   "at": 25.1,
+   "len": 2.2,
+   "shot": {
+    "pos": [
+     20000,
+     8,
+     164400
+    ],
+    "look": [
+     20000,
+     128,
+     160000
+    ],
+    "fov": 40,
+    "near": 0.3,
+    "to": {
+     "pos": [
+      20000,
+      8,
+      164400
+     ],
+     "look": [
+      20000,
+      128,
+      160000
+     ],
+     "fov": 36
+    },
+    "dur": 2.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/thunder",
+     "gain": 0.5,
+     "reason": "lightning over the city: midnight",
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-lake",
+     "gain": 0.3,
+     "dur": 5.9,
+     "reason": "storm, rain and swell",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.07
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0.07
+    },
+    {
+     "who": "spudS",
+     "do": "fly",
+     "to": {
+      "x": 60022,
+      "y": -0.5,
+      "z": 155958
+     },
+     "dur": 0.01,
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.47
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.47
+    }
+   ]
+  },
+  {
+   "name": "43 the city rises",
+   "at": 27.3,
+   "len": 3.7,
+   "shot": {
+    "pos": [
+     -40000,
+     2146.5,
+     171351.6
+    ],
+    "look": [
+     -40000,
+     1149.6,
+     160000
+    ],
+    "fov": 14.8,
+    "near": 100,
+    "to": {
+     "pos": [
+      -40000,
+      2146.5,
+      171351.6
+     ],
+     "look": [
+      -40000,
+      1149.6,
+      160000
+     ],
+     "fov": 12.6
+    },
+    "dur": 3.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.3,
+     "dur": 6.7,
+     "reason": "a deep physical hum: the ship wakes",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "rise": 0.6
+     },
+     "dur": 3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "h43",
+     "set": {
+      "rise": 0.6
+     },
+     "dur": 3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.55,
+     "dur": 3.3,
+     "reason": "the sea pouring off the rim",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "h43",
+     "set": {
+      "beam": 1
+     },
+     "dur": 1.2,
+     "ease": "out",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "p42",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.27
+    },
+    {
+     "do": "prop",
+     "id": "p43",
+     "set": {
+      "lightning": 0.3
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.27
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "44 under the hull",
+   "at": 31,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     -79838.5,
+     7.4,
+     165243.9
+    ],
+    "look": [
+     -79887.6,
+     97.3,
+     164624.1
+    ],
+    "fov": 20,
+    "near": 20,
+    "to": {
+     "pos": [
+      -79838.5,
+      7.4,
+      165243.9
+     ],
+     "look": [
+      -79887.6,
+      97.3,
+      164624.1
+     ],
+     "fov": 17.5
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "h44",
+     "set": {
+      "falls": 0.7
+     },
+     "dur": 3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.35,
+     "dur": 3.3,
+     "reason": "water sheets off the hull",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It didn't sink.",
+     "tone": "calm",
+     "dur": 1.41,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "It left.",
+     "tone": "excited",
+     "dur": 0.79,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.3
+    },
+    {
+     "who": "spudB",
+     "do": "fly",
+     "to": {
+      "x": -2.2,
+      "y": -6.2,
+      "z": 160000
+     },
+     "dur": 0.01,
+     "at": 3.26
+    },
+    {
+     "who": "cA",
+     "do": "sit",
+     "seat": "none",
+     "rot": 302,
+     "height": 0.45,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.26
+    },
+    {
+     "who": "cB",
+     "do": "sit",
+     "seat": "none",
+     "rot": 286,
+     "height": 0.45,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.26
+    },
+    {
+     "who": "cC",
+     "do": "sit",
+     "seat": "none",
+     "rot": 254,
+     "height": 0.45,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.26
+    },
+    {
+     "who": "cD",
+     "do": "sit",
+     "seat": "none",
+     "rot": 304,
+     "height": 0.45,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.26
+    },
+    {
+     "who": "cE",
+     "do": "sit",
+     "seat": "none",
+     "rot": 240,
+     "height": 0.45,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.26
+    },
+    {
+     "do": "prop",
+     "id": "hatch",
+     "set": {
+      "beam": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.28
+    }
+   ]
+  },
+  {
+   "name": "45a one seat left",
+   "at": 34.3,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.3,
+     159999.1
+    ],
+    "look": [
+     4.6,
+     0.8,
+     160001.6
+    ],
+    "fov": 70,
+    "to": {
+     "pos": [
+      -0.1,
+      1.3,
+      159999.3
+     ],
+     "look": [
+      4.6,
+      0.8,
+      160001.6
+     ],
+     "fov": 68
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "cA",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "cB",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "cC",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "cD",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "cE",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudB",
+     "do": "look",
+     "to": [
+      0.2,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudB",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "kenney/space-engine-low",
+     "gain": 0.25,
+     "dur": 5.9,
+     "reason": "the ship's hum overhead",
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.45,
+     "at": 0.05
+    },
+    {
+     "who": "foreman",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.5
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.45,
+     "at": 0.95
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.4,
+     "at": 1.4
+    }
+   ]
+  },
+  {
+   "name": "45 he stays",
+   "at": 35.9,
+   "len": 4.3,
+   "shot": {
+    "pos": [
+     1.2,
+     -8.2,
+     160007.4
+    ],
+    "look": [
+     -1.3,
+     0.2,
+     159999.6
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      1.1,
+      -7.8,
+      160007
+     ],
+     "look": [
+      -1.3,
+      0.4,
+      159999.6
+     ],
+     "fov": 55
+    },
+    "dur": 4.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudB",
+     "do": "fly",
+     "to": {
+      "x": -2.2,
+      "y": -3.4,
+      "z": 160000
+     },
+     "dur": 1.8,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.45,
+     "at": 0.25
+    },
+    {
+     "who": "foreman",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.25,
+       1,
+       0.1
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "who": "spudB",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "who": "spudB",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.75,
+      "lid": 0.3
+     },
+     "dur": 0.3,
+     "at": 1.8
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Somebody had to tell you.",
+     "tone": "whisper",
+     "dur": 1.71,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.1
+    },
+    {
+     "who": "spudB",
+     "do": "fly",
+     "to": {
+      "x": -4.8,
+      "y": -3.5,
+      "z": 160000
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 3.9
+    },
+    {
+     "who": "spudB",
+     "do": "fly",
+     "to": {
+      "x": -4.8,
+      "y": -9.6,
+      "z": 160000
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 4.2
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "y": 1500,
+      "shrink": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 4.28
+    }
+   ]
+  },
+  {
+   "name": "46 case closed",
+   "at": 40.2,
+   "len": 4,
+   "shot": {
+    "pos": [
+     60023.5,
+     1.1,
+     155970
+    ],
+    "look": [
+     60000,
+     900,
+     151000
+    ],
+    "fov": 56,
+    "near": 0.3,
+    "to": {
+     "pos": [
+      60023.5,
+      1.05,
+      155968.5
+     ],
+     "look": [
+      60000,
+      920,
+      151000
+     ],
+     "fov": 55
+    },
+    "dur": 4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudS",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "foreman",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cA",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cB",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "cE",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "nightS",
+     "set": {
+      "calm": 1
+     },
+     "dur": 4,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spudS",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudS",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.4,
+      "lid": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.14,
+     "dur": 4,
+     "reason": "the sea calming",
+     "at": 0
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 0.5,
+     "reason": "he drops into the sea",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "ring",
+     "set": {
+      "shrink": 0.85
+     },
+     "dur": 3.7,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "who": "spudS",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Case closed.",
+     "tone": "calm",
+     "dur": 1.21,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.2
+    },
+    {
+     "who": "plato",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 3.98
+    }
+   ]
+  },
+  {
+   "name": "47 Plato winks",
+   "at": 44.2,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     100000.62,
+     1.3,
+     100001.5
+    ],
+    "look": [
+     100000.6,
+     1.2,
+     99998.5
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      100000.62,
+      1.29,
+      100001.35
+     ],
+     "look": [
+      100000.6,
+      1.2,
+      99998.5
+     ],
+     "fov": 43
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudS",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.2,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "look",
+     "to": [
+      0,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.14,
+       0.283,
+       0.68
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "plato",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "plato",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.37,
+       0.4,
+       0.56
+      ],
+      "frame": {
+       "y": [
+        0.1,
+        1,
+        0.1
+       ],
+       "z": [
+        0.35,
+        0,
+        -1
+       ],
+       "elbow": 1
+      }
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "plato",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "plato",
+     "do": "face",
+     "lidL": 1,
+     "browL": -0.45,
+     "cornerL": 0.5,
+     "lidR": 0.15,
+     "browR": 0.35,
+     "dur": 0.12,
+     "at": 1.6
+    },
+    {
+     "who": "spudT",
+     "do": "move",
+     "to": [
+      100000.25,
+      99999.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.27
+    }
+   ]
+  },
+  {
+   "name": "48 nobody saw that",
+   "at": 47.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     100000.3,
+     1.2,
+     100002.7
+    ],
+    "look": [
+     100000.4,
+     1.05,
+     99998.5
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      100000.3,
+      1.18,
+      100002.55
+     ],
+     "look": [
+      100000.4,
+      1.05,
+      99998.5
+     ],
+     "fov": 51
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudT",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spudT",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.45,
+       0.55,
+       0.2
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Nobody saw that.",
+     "tone": "calm",
+     "dur": 1.49,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spudT",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 1.8
+    },
+    {
+     "who": "spudT",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 1.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spudK",
+   "with": "spudK-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudW",
+   "with": "spudW-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudS",
+   "with": "spudS-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudC",
+   "with": "spudC-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudB",
+   "with": "spudB-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spudT",
+   "with": "spudT-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "plato",
+   "with": "chair",
+   "from": 0,
+   "to": 50,
+   "reason": "Plato sits on his chair at the desk (panels 39, 47)"
+  },
+  {
+   "who": "spudK",
+   "with": "helike",
+   "from": 0,
+   "to": 4.4,
+   "reason": "Spud stands on the Helike knoll, a place-wide terrain mesh; his feet sit in the grass"
+  },
+  {
+   "who": "spudK",
+   "with": "helike",
+   "from": 0,
+   "to": 4.4,
+   "checks": [
+    "shell"
+   ],
+   "reason": "Spud stands on the Helike knoll, a place-wide terrain mesh; his feet sit in the grass"
+  },
+  {
+   "who": "spudW",
+   "with": "room",
+   "from": 10.9,
+   "to": 13.4,
+   "reason": "Spud stands in the lane outside Plato's window, the room's outside wall and lane are one mesh"
+  },
+  {
+   "who": "spudW",
+   "with": "room",
+   "from": 10.9,
+   "to": 13.4,
+   "checks": [
+    "shell"
+   ],
+   "reason": "Spud stands in the lane outside Plato's window, the room's outside wall and lane are one mesh"
+  },
+  {
+   "who": "plato",
+   "with": "room",
+   "from": 10.9,
+   "to": 50,
+   "reason": "Plato sits at his desk: his legs go under the desk top and his hands rest on it (panels 39, 47)"
+  },
+  {
+   "who": "plato",
+   "with": "room",
+   "from": 10.9,
+   "to": 50,
+   "checks": [
+    "shell"
+   ],
+   "reason": "Plato sits at his desk: his legs go under the desk top and his hands rest on it (panels 39, 47)"
+  },
+  {
+   "who": "cA",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cA",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cB",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cB",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cC",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cC",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cD",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cD",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cE",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  },
+  {
+   "who": "cE",
+   "with": "hatch",
+   "from": 34.3,
+   "to": 40.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the crew sit on the hatch hall's built-in bench seats (panel 45)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-d/make-block-d.mjs. Block D of four; music = the EP03 score from story 154 s (kit score(154)). Places: real 3D (props-at-d-*.js), maps flat."
+}

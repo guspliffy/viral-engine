@@ -219,7 +219,7 @@ function build(F) {
   look(T.far, "spudS", [0, 0.3], 0.01); expr(T.far, "spudS", "neutral", { brow: 0.4, lid: 0.35 }, 0.01);
   look(T.far + 1.0, "spudS", [0, 0.05], 0.4);
   say(T.far + 1.2, "d7", T.tag);
-  cap(r3(T.far + 2.0), r3(T.tag - 0.05), "Follow for the next case", F.key === "wide" ? 400 : 720, false, { size: F.key === "wide" ? 44 : 52, kinetic: false });   // the follow ask (on test, text only)
+  cap(r3(T.far + 2.0), r3(T.tag - 0.05), "Follow for the next case", F.key === "wide" ? 400 : 520, false, { size: F.key === "wide" ? 44 : 52, kinetic: false });   // the follow ask (on test, text only)
   sfx(T.far, "ai/car-waves", { gain: 0.14, dur: r3(T.tag - T.far), reason: "the sea calming" });
 
   // ================================================================= 47-48 TAG (44.2-50): Plato winks; Spud blocks the scroll
@@ -242,12 +242,13 @@ function build(F) {
 
   // ---------------------------------------------------------------- shots (a push or a move on every one)
   const V = SHOTS_OF(F);
+  const TL = F.key === "tall";   // tall: the map window is at most 576 plate px wide, so the 1024 px plate fills the frame
   const SHOTS = [
     ["37 Helike floods", T.hook, mv(F, O.helike, V.k0, V.k1, T.map1), "hook"],
-    ["38 clue four: the Gulf of Corinth", T.map1, { ...mapCam(700, 450, 980, F), to: mapCam(680, 450, 860, F), dur: r3(T.shore - T.map1), ease: "inOut" }],
+    ["38 clue four: the Gulf of Corinth", T.map1, { ...(TL ? mapCam(715, 512, 570, F) : mapCam(700, 450, 980, F)), to: TL ? mapCam(715, 512, 520, F) : mapCam(680, 450, 860, F), dur: r3(T.shore - T.map1), ease: "inOut" }],
     ["37b along the shore", T.shore, mv(F, O.helike, V.s0, V.s1, r3(T.room - T.shore))],
     ["39 Plato was alive", T.room, mv(F, O.room, V.w0, V.w1, r3(T.map2 - T.room)), "reveal"],
-    ["40 bigger than Libya and Asia", T.map2, { ...mapCam(800, 520, 1536, F), to: mapCam(760, 500, 1380, F), dur: r3(T.low - T.map2), ease: "inOut" }],
+    ["40 bigger than Libya and Asia", T.map2, { ...(TL ? mapCam(430, 512, 570, F) : mapCam(800, 520, 1536, F)), to: TL ? mapCam(700, 512, 570, F) : mapCam(760, 500, 1380, F), dur: r3(T.low - T.map2), ease: "inOut" }],
     ["41 the low", T.low, mv(F, NIGHT_XZ, V.l0, V.l1, r3(T.dive - T.low))],
     ["dive", T.dive, mv(F, NIGHT_XZ, V.l1, V.l2, r3(T.storm - T.dive))],
     ["42 midnight: the city in the storm", T.storm, mv(F, P42, V.c0, V.c1, r3(T.rise - T.storm))],
