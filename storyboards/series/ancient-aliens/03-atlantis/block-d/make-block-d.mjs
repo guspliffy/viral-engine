@@ -97,7 +97,7 @@ function build(F) {
     { id: "spudW", character: CAST.spud, at: [O.room[0] - 0.7, O.room[1] - 2.25], y: 0.62, face: 0, expr: "neutral", follow: 0.2, seed: 2.2 },      // at the window, outside
     { id: "plato", character: "ancient-aliens/plato", at: [O.room[0] + 0.66, O.room[1] - 1.35], face: 0, expr: "kind", follow: 0.2, seed: 4.1 },
     { id: "spudS", character: CAST.spud, at: NIGHT_XZ, y: -0.5, face: 0, expr: "neutral", follow: 0.2, seed: 2.3 },   // in the night sea (41, 46)
-    { id: "spudC", character: CAST.spud, at: STORM_XZ, y: -0.5, face: 180, expr: "neutral", follow: 0.2, seed: 2.6 },   // in the storm swell (42), 34 m in front of the plate camera, left
+    { id: "spudC", character: CAST.spud, at: F.key === "tall" ? [P42[0] - 3, P42[1] + 4366] : STORM_XZ, y: -0.5, face: 180, expr: "neutral", follow: 0.2, seed: 2.6 },   // in the storm swell (42), 34 m in front of the plate camera, left
     { id: "spudB", character: CAST.spud, at: [O.hatch[0] - 2.2, O.hatch[1]], face: 321, expr: "neutral", follow: 0.2, seed: 2.4 },          // in the beam (flies)
     ...HATCH_CREW(),
     { id: "spudT", character: CAST.spud, at: [O.room[0] + 0.25, O.room[1] + 9], face: 0, expr: "neutral", follow: 0.2, seed: 2.5 },   // the tag, in front of the desk
