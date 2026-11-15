@@ -1,0 +1,105 @@
+{
+ "id": "harbour-sea",
+ "title": "Harbour bench: the sea from 2.3 m (T3 proof)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "duration": 6,
+ "cleanStart": true,
+ "set": {
+  "type": "coast",
+  "break": 1,
+  "late": 0,
+  "sink": 0,
+  "grass": 0.2,
+  "aperture": 0,
+  "focus": false,
+  "bloom": "emissive",
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "creative": {
+  "length": [
+   1,
+   6
+  ],
+  "notes": false
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0,
+   "seed": 29
+  }
+ ],
+ "props": [],
+ "actions": [],
+ "captions": [],
+ "shots": [
+  {
+   "at": 0,
+   "pos": [
+    -39.1,
+    -52.7,
+    -96
+   ],
+   "look": [
+    -38.23,
+    -56.188,
+    -145.871
+   ],
+   "fov": 42
+  },
+  {
+   "at": 2,
+   "pos": [
+    -39.1,
+    -52.7,
+    -96
+   ],
+   "look": [
+    -35.612,
+    -52.7,
+    -145.878
+   ],
+   "fov": 42
+  },
+  {
+   "at": 4,
+   "pos": [
+    -39.1,
+    -52.7,
+    -96
+   ],
+   "look": [
+    -39.1,
+    -59.659,
+    -145.513
+   ],
+   "fov": 60
+  }
+ ],
+ "notes": "T3 proof bench."
+}
