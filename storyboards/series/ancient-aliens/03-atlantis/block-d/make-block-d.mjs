@@ -83,7 +83,7 @@ function build(F) {
   const CITY = ["cityS", "cityStorm", "hull", "whirl"];
   const bolt = (t, v, dur = 0.01) => CITY.forEach((id) => PR(t, id, { lightning: v }, dur));
   const riseTo = (t, v, dur = 0.01, ease = "linear") => ["city", "hull"].forEach((id) => PR(t, id, { rise: v }, dur, ease));
-  set0(0.02, "city", { rise: 0 }); set0(0.02, "hull", { rise: 0, falls: 0.3, beam: 0, lit: 0.6 }); bolt(0.02, 0.3); set0(0.02, "whirl", { spin: 0, calm: 0, show: 1 });
+  set0(0.02, "city", { rise: 0, sea: 1, lightning: 0.3 }); set0(0.02, "hull", { rise: 0, falls: 0.3, beam: 0, lit: 0.6 }); bolt(0.02, 0.3); set0(0.02, "whirl", { spin: 0, calm: 0, show: 1 });
   set0(0.02, "ring", { shrink: 0 }); set0(0.02, "nightS", { calm: 0.4 });
 
   // ---------------------------------------------------------------- cast: one actor per place (hidden elsewhere by the cut)
@@ -107,7 +107,7 @@ function build(F) {
     // THE CITY AT MIDNIGHT (panels 41-44, 46): the kit city at night + builder D3's hull, falls, beam, whirlpool, storm sky
     { id: "city", kind: "atlantis", x: O.city[0], y: 0, z: O.city[1], light: "night", sea: 1, flood: false, mountains: false },
     { id: "hull", kind: "shiphull", x: O.city[0], z: O.city[1] },
-    { id: "cityS", kind: "shipsea", x: O.city[0], z: O.city[1], calmAt: [r3(STORM_XZ[0] - O.city[0]), r3(STORM_XZ[1] - O.city[1]), 16] },
+    { id: "cityS", kind: "shipsea", x: O.city[0], z: O.city[1], calmAt: [r3(STORM_XZ[0] - O.city[0]), r3(STORM_XZ[1] - O.city[1]), 26] },
     { id: "cityStorm", kind: "shipstorm", x: O.city[0], z: O.city[1] },
     { id: "whirl", kind: "shipwhirl", x: O.city[0], z: O.city[1] },
     // THE NIGHT SEA (41, 46): stars, the calm swell, the far ring (the city, gone up)
