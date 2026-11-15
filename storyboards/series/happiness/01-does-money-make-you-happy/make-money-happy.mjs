@@ -40,7 +40,7 @@ const T = {   // draft 2 with the narrator's real line lengths (farm run 4369288
   turn: 28.7, siren1: 28.9, hide: 30.7, door: 33.7, lock1: 33.9, lock10: 34.9, knock: 34.9, chip: 35.2, back: 36.3,
   clock: 40.0, low: 41.0, gate: 43.8, flee: 45.4, car: 47.7, dash: 48.5, wide: 49.5, stop: 50.3, climb: 51.1,
   amb: 51.5, nobody: 53.1, sunset: 57.8, brk: 58.2, storm: 59.4, face: 62.9, smile: 64.2, forgot: 65.95, hold: 65.8, close: 54.4,
-  END: 70.6,
+  END: 71.4,
 };
 const END = T.END;
 
@@ -130,7 +130,7 @@ P("city", { id: "plB", kind: "pocketlining", wear: "spud", x: -0.34, y: 0.24, z:
 // ---- the bank counter (S3a, DESIGN 11.5): the gun, three sacks the cashier pushes through the slot
 P("bank+street", { id: "mask", kind: "balaclava", wear: "spud", x: 0, y: 0, z: 0 }, { stay: true });
 const GUNP = bw([BANK.GUN[0], BANK.GUN[1], 0.35]);   // 0.15 nearer the lens than the design: clear of his eyes in the two-shot and of the sacks on his ledge
-P("bank", { id: "gun", kind: "zrevolver", x: GUNP[0], y: GUNP[1], z: GUNP[2], rot: 90, scale: 0.9, flash: 0, smoke: 0, staged: "in his right fist" });
+P("all", { id: "gun",   /* never hidden: a prop shown and grabbed on the same cut stayed tiny in his fist (draft 3); the bank room is 300 m from every other set */ kind: "zrevolver", x: GUNP[0], y: GUNP[1], z: GUNP[2], rot: 90, scale: 0.9, flash: 0, smoke: 0, staged: "in his right fist" });
 const BZ = [-0.62, 0.62];   // two sacks on the teller's ledge behind the bars, either side of the arch
 const BAGS3 = BZ.map((z, i) => P("bank", { id: `kb${i}`, kind: "moneybag", mark: false, x: bw(BANK.BAG_WAIT[0])[0], y: BANK.TOP, z: r3(BP[2] + z), rot: 90, staged: "on the teller's ledge, then pushed over the counter by her palm" }));
 // ---- the night street (S3b): one sack in his arms, the police cars, their light
@@ -146,7 +146,7 @@ P("mday", { id: "fountain", kind: "fountain", x: 0, z: -11 });
 // ---- the hall (S5-S8): the bags he hides, the gift Chip brings
 const HB = hw([HALL.HATCH[0], 0, HALL.HATCH[2]]);
 // the two sacks on the floor beside the open hole (the loose tile: a 1.0 diamond round HB), he pushes them in by hand
-const HBAG = { hbagA: [-0.42, 0.3, 0.17], hbagB: [-0.42, -0.3, -0.17] };   // [dx, dz, dz in the hole]
+const HBAG = { hbagA: [-0.66, 0.35, 0.17], hbagB: [-0.66, -0.35, -0.17] };   // outside the hole (a 1.0 tile on the diagonal: |dx| + |dz| > 0.71 at every corner)   // [dx, dz, dz in the hole]
 for (const [id, [dx, dz]] of Object.entries(HBAG)) P("hall", { id, kind: "moneybag", mark: false, x: r3(HB[0] + dx), y: 0, z: r3(HB[2] + dz), rot: 90, staged: "on the floor by the hole, then pushed in by his hands" });
 P("hall", { id: "gift", kind: "gift", staged: "Chip holds the gift up in both hands", x: 0, y: -30, z: 0, scale: 0.6 }, { stay: true });
 // ---- the gate at night (S8)
@@ -185,6 +185,7 @@ for (const s of ["R", "L"]) { arm(0, "rich", s, "lap", 0.01); grip(0, "rich", s,
 // the wiper: out and back every 1.6 s, the cleared fan keeps up with it
 for (let t = 0.2; t < T.city; t = r3(t + 1.6)) { pr(t, "car", { wiper: 1, wiped: 1 }, 0.55, "inOut"); pr(r3(t + 0.6), "car", { wiper: 0 }, 0.55, "inOut"); pr(r3(t + 1.2), "car", { wiped: 0 }, 0.35, "linear"); }
 A(2.4, "rich", "blink", { dur: 0.5 });   // a slow, heavy blink
+A(1.0, "rich", "squash", { amount: -0.05, dur: 0.6 }); A(1.6, "rich", "squash", { amount: 0.06, dur: 0.7 });   // a deep breath in and a long sigh out (emotion map: pity first)
 look(2.9, "rich", [0.35, 0.05], 0.4);    // out of the side window, at nothing
 rainCar(0, T.city);
 cap(0, 1.65, "$10,000,000", 255);
@@ -266,7 +267,7 @@ look(T.stare + 0.1, "spud", [0, 0.1], 0.2);
 look(r3(T.mumble - 0.85), "spud", [0.3, 0], 0.15);
 A(r3(T.mumble - 0.7), "spud", "turn", { to: 10, dur: 0.65 });
 expr(T.mumble - 0.2, "spud", "focused", { brow: 0.6, curve: -0.05 }, 0.2);
-say(T.mumble, "spud", "Mo-ney... ha-ppy?", 1.0, "question");
+say(T.mumble, "spud", "Money = happy?", 1.0, "question");
 act.idea(c, T.plan - 0.1, "spud", { at: [0.25, -0.3], hold: 0.7 });
 see(T.watch, T.bank, ["spud.face", "duch.face", "daup.face", "limo"], "behind him a rich couple in fur, pearls and velvet laugh by their white limousine with shopping bags; he stares, then wonders");
 
@@ -354,7 +355,7 @@ see(T.rich, T.turn, ["rich.face", "dcar"], "the white mansion by day, a fountain
 // ================================================================= S5 THE TURN (24.0-29.0): a siren passes; he hides the money
 // he kneels by his secret hole in the hall floor; a siren's light sweeps the windows; he pushes both sacks in by hand,
 // shuts the tile with his palm, and listens
-const HS = [r3(HB[0] - 1.0), HB[2]];
+const HS = [r3(HB[0] - 1.13), HB[2]];
 place(T.turn, "rich", HS, 90);
 for (const s of ["R", "L"]) { arm(T.turn - PRE, "rich", s, "rest", 0.01); grip(T.turn - PRE, "rich", s, "relaxed", 0.01); }
 expr(T.turn, "rich", "kind", { curve: 0.25 }, 0.01); look(T.turn, "rich", [0.2, -0.4], 0.01);
@@ -365,10 +366,10 @@ look(T.siren1 + 0.25, "rich", [-0.6, 0.5], 0.15);
 // two sacks: crouch, both palms on the back of the sack, push it to the hole's edge, it drops in
 const sackIn = (t, id) => {
   const [dx, dz, dz2] = HBAG[id], bx = r3(HB[0] + dx), bz = r3(HB[2] + dz), ex = r3(HB[0] - 0.12), ez = r3(HB[2] + dz2);
-  const hands = (x, z) => [["R", r3(z + 0.09)], ["L", r3(z - 0.09)]].map(([s, hz]) => [s, [r3(x - 0.15), 0.2, hz]]);
-  A(r3(t - 0.3), "rich", "move", { to: [r3(HB[0] - 1.0), r3(HB[2] + dz * 0.5)], dur: 0.25, steps: 1 });
+  const hands = (x, z) => [["R", r3(z + 0.09)], ["L", r3(z - 0.09)]].map(([s, hz]) => [s, [r3(x - 0.18), 0.2, hz]]);
+  A(r3(t - 0.3), "rich", "move", { to: [r3(HB[0] - 1.13), r3(HB[2] + dz * 0.5)], dur: 0.25, steps: 1 });
   for (const [s, at] of hands(bx, bz)) { arm(t, "rich", s, { world: at }, 0.22); grip(t, "rich", s, "flat", 0.12); }
-  A(r3(t + 0.25), "rich", "move", { to: [r3(HB[0] - 0.62), r3(HB[2] + dz2 * 0.5)], dur: 0.3, steps: 1 });
+  A(r3(t + 0.25), "rich", "move", { to: [r3(HB[0] - 0.62), r3(HB[2] + dz2 * 0.5)], dur: 0.32, steps: 2 });
   look(t, "rich", [0.1, -0.6], 0.15);
   pr(r3(t + 0.25), id, { x: ex, z: ez }, 0.3, "inOut");
   for (const [s, at] of hands(ex, ez)) arm(r3(t + 0.25), "rich", s, { world: at }, 0.3, "inOut");
@@ -458,7 +459,7 @@ const CL = (k) => { const x = COAST.CLIMB[0] * k, z = COAST.CLIMB[1] * k; return
 const [c1x, c1z, c1y] = CL(13), [c2x, c2z, c2y] = CL(10.2);
 // S9 close: in front of him at the top of his climb, a little to his right, at his eye height
 const YAW9 = (Math.atan2(c2x - c1x, c2z - c1z) * 180) / Math.PI, F9 = [Math.sin(rad(YAW9)), Math.cos(rad(YAW9))], R9 = [-F9[1], F9[0]];
-const CLOSE9 = { pos: [r3(c2x + F9[0] * 2.8 + R9[0] * 0.5), r3(c2y + 0.75), r3(c2z + F9[1] * 2.8 + R9[1] * 0.5)], look: [c2x, r3(c2y + 0.62), c2z], fov: 38 };
+const CLOSE9 = { pos: [r3(c2x + F9[0] * 2.6 + R9[0] * 0.5), r3(c2y + 1.35), r3(c2z + F9[1] * 2.6 + R9[1] * 0.5)], look: [c2x, r3(c2y + 0.5), c2z], fov: 38 };   // above the grass: draft 3 had blades through his hands
 look(r3(T.close + 0.05), "rich", [0.15, -0.15], 0.35);   // back from the road, down: nobody was ever coming
 expr(T.close + 0.1, "rich", "sad", { curve: -0.1, brow: 0.45 }, 0.4);
 A(r3(T.climb - 0.06), "rich", "ride", { prop: null, dur: 0 });
@@ -547,7 +548,6 @@ const CUTS = [
   ["S9 empty", T.dash, SH.dash],
   ["S9 the stop", T.wide, SH.wide],
   ["S9 the ambulance", T.climb, SH.climb],
-  ["S9 nobody was coming", T.close, SH.closeup],
   ["S10 the clouds break", T.sunset, SH.sunset],
   ["S10 the money flies", T.storm, SH.sunset],
   ["S10 the smile", T.face, SH.face, "payoff"],
@@ -571,12 +571,12 @@ const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption
   [r3(T.gate + 0.2), "Then one night, a siren stopped at his gate.", 3.21],
   [r3(T.car + 0.4), "He ran, until the tank ran dry.", 3.11],
   [r3(T.car + 5.0), "It was only an ambulance.", 2.27],
-  [r3(T.car + 7.8), "Nobody was ever coming for him.", 1.87, 262],   // over his head in the close
+  [r3(T.car + 7.8), "Nobody was ever coming for him.", 1.87],
   [r3(T.storm + 0.9), "The wind took every dollar he had.", 2.55],
-  [T.forgot, "But the beauty of the sunset made him forget all his worries.", 4.11],
+  [T.forgot, "But the beauty of the sunset made him forget all his worries for one moment.", 4.8],
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
-const PUSH = new Map([[SH.city, 0.1], [SH.cityb, 0.08], [SH.bank, 0.14], [SH.overgun, 0.08], [SH.street, 0.08], [SH.hide, 0.1], [SH.mday, 0.12], [SH.turn, 0.12], [SH.door, 0.1], [SH.sidewin, 0.08], [SH.clock, 0.15], [SH.low, 0.18], [SH.gate, 0.12], [SH.climb, 0.12], [SH.closeup, 0.12], [SH.sunset, 0.05], [SH.face, 0.1]]);
+const PUSH = new Map([[SH.city, 0.1], [SH.cityb, 0.08], [SH.bank, 0.14], [SH.overgun, 0.08], [SH.street, 0.08], [SH.hide, 0.1], [SH.mday, 0.12], [SH.turn, 0.12], [SH.door, 0.1], [SH.sidewin, 0.08], [SH.clock, 0.15], [SH.low, 0.18], [SH.gate, 0.12], [SH.climb, 0.13], [SH.sunset, 0.05], [SH.face, 0.1]]);
 CUTS.forEach((cu, i) => {
   const sh = cu[2], k = PUSH.get(sh); if (!k || sh.to) return;
   const dur = r3((i + 1 < CUTS.length ? CUTS[i + 1][1] : END) - cu[1]);

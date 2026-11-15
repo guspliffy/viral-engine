@@ -81,7 +81,7 @@
        0
       ],
       [
-       70.6,
+       71.4,
        1
       ]
      ]
@@ -232,7 +232,7 @@
        0
       ],
       [
-       70.6,
+       71.4,
        1
       ]
      ]
@@ -270,8 +270,8 @@
  },
  "creative": {
   "length": [
-   70.6,
-   70.6
+   71.4,
+   71.4
   ]
  },
  "hook": {
@@ -528,10 +528,10 @@
    "id": "gun",
    "kind": "zrevolver",
    "x": 299.61,
-   "y": -30,
+   "y": 0.62,
    "z": 0.35,
    "rot": 90,
-   "scale": 0.001,
+   "scale": 0.9,
    "flash": 0,
    "smoke": 0,
    "staged": "in his right fist"
@@ -641,9 +641,9 @@
    "id": "hbagA",
    "kind": "moneybag",
    "mark": false,
-   "x": -296.177,
+   "x": -296.417,
    "y": -30,
-   "z": -0.407,
+   "z": -0.357,
    "rot": 90,
    "staged": "on the floor by the hole, then pushed in by his hands",
    "scale": 0.001
@@ -652,9 +652,9 @@
    "id": "hbagB",
    "kind": "moneybag",
    "mark": false,
-   "x": -296.177,
+   "x": -296.417,
    "y": -30,
-   "z": -1.007,
+   "z": -1.057,
    "rot": 90,
    "staged": "on the floor by the hole, then pushed in by his hands",
    "scale": 0.001
@@ -739,7 +739,7 @@
   {
    "from": 14.1,
    "to": 15.5,
-   "text": "Mo-ney... ha-ppy?",
+   "text": "Money = happy?",
    "pos": 470,
    "pop": false,
    "size": 62,
@@ -1031,6 +1031,13 @@
      "at": 0.8
     },
     {
+     "who": "rich",
+     "do": "squash",
+     "amount": -0.05,
+     "dur": 0.6,
+     "at": 1
+    },
+    {
      "do": "prop",
      "id": "car",
      "set": {
@@ -1039,6 +1046,13 @@
      "dur": 0.35,
      "ease": "linear",
      "at": 1.4
+    },
+    {
+     "who": "rich",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.7,
+     "at": 1.6
     },
     {
      "do": "prop",
@@ -2659,7 +2673,7 @@
     {
      "who": "spud",
      "do": "talk",
-     "line": "Mo-ney... ha-ppy?",
+     "line": "Money = happy?",
      "tone": "question",
      "dur": 1,
      "blink": false,
@@ -2831,18 +2845,6 @@
      "id": "mask",
      "set": {
       "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 6.888
-    },
-    {
-     "do": "prop",
-     "id": "gun",
-     "set": {
-      "scale": 0.9,
-      "y": 0.62
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3638,18 +3640,6 @@
      ],
      "dur": 0,
      "at": 2.78
-    },
-    {
-     "do": "prop",
-     "id": "gun",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 2.788
     },
     {
      "do": "prop",
@@ -4564,7 +4554,7 @@
      "who": "rich",
      "do": "move",
      "to": [
-      -296.757,
+      -296.887,
       -0.707
      ],
      "y": 0,
@@ -4725,8 +4715,8 @@
      "who": "rich",
      "do": "move",
      "to": [
-      -296.757,
-      -0.557
+      -296.887,
+      -0.532
      ],
      "dur": 0.25,
      "steps": 1,
@@ -4760,9 +4750,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -296.327,
+       -296.597,
        0.2,
-       -0.317
+       -0.267
       ]
      },
      "dur": 0.22,
@@ -4783,9 +4773,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -296.327,
+       -296.597,
        0.2,
-       -0.497
+       -0.447
       ]
      },
      "dur": 0.22,
@@ -4818,8 +4808,8 @@
       -296.377,
       -0.622
      ],
-     "dur": 0.3,
-     "steps": 1,
+     "dur": 0.32,
+     "steps": 2,
      "at": 1.65
     },
     {
@@ -4839,7 +4829,7 @@
      "side": "R",
      "pose": {
       "world": [
-       -296.027,
+       -296.057,
        0.2,
        -0.447
       ]
@@ -4854,7 +4844,7 @@
      "side": "L",
      "pose": {
       "world": [
-       -296.027,
+       -296.057,
        0.2,
        -0.627
       ]
@@ -4878,8 +4868,8 @@
      "who": "rich",
      "do": "move",
      "to": [
-      -296.757,
-      -0.857
+      -296.887,
+      -0.882
      ],
      "dur": 0.25,
      "steps": 1,
@@ -4897,9 +4887,9 @@
      "side": "R",
      "pose": {
       "world": [
-       -296.327,
+       -296.597,
        0.2,
-       -0.917
+       -0.967
       ]
      },
      "dur": 0.22,
@@ -4920,9 +4910,9 @@
      "side": "L",
      "pose": {
       "world": [
-       -296.327,
+       -296.597,
        0.2,
-       -1.097
+       -1.147
       ]
      },
      "dur": 0.22,
@@ -4955,8 +4945,8 @@
       -296.377,
       -0.792
      ],
-     "dur": 0.3,
-     "steps": 1,
+     "dur": 0.32,
+     "steps": 2,
      "at": 2.6
     },
     {
@@ -4976,7 +4966,7 @@
      "side": "R",
      "pose": {
       "world": [
-       -296.027,
+       -296.057,
        0.2,
        -0.787
       ]
@@ -4991,7 +4981,7 @@
      "side": "L",
      "pose": {
       "world": [
-       -296.027,
+       -296.057,
        0.2,
        -0.967
       ]
@@ -6396,7 +6386,7 @@
   {
    "name": "S9 the ambulance",
    "at": 51.1,
-   "len": 3.3,
+   "len": 6.7,
    "shot": {
     "pos": [
      4.5,
@@ -6411,9 +6401,9 @@
     "fov": 50,
     "to": {
      "pos": [
-      5.28,
-      0.124,
-      -596.984
+      5.345,
+      0.064,
+      -596.916
      ],
      "look": [
       11,
@@ -6422,7 +6412,7 @@
      ],
      "fov": 50
     },
-    "dur": 3.3,
+    "dur": 6.7,
     "ease": "inOut"
    },
    "do": [
@@ -6726,42 +6716,7 @@
      "dur": 0.2,
      "ease": "linear",
      "at": 3.2
-    }
-   ]
-  },
-  {
-   "name": "S9 nobody was coming",
-   "at": 54.4,
-   "len": 3.4,
-   "shot": {
-    "pos": [
-     6.22,
-     -2.302,
-     -595.96
-    ],
-    "look": [
-     8.16,
-     -2.432,
-     -593.88
-    ],
-    "fov": 38,
-    "to": {
-     "pos": [
-      6.453,
-      -2.318,
-      -595.71
-     ],
-     "look": [
-      8.16,
-      -2.432,
-      -593.88
-     ],
-     "fov": 38
     },
-    "dur": 3.4,
-    "ease": "inOut"
-   },
-   "do": [
     {
      "who": "rich",
      "do": "look",
@@ -6771,7 +6726,7 @@
      ],
      "dur": 0.35,
      "blink": false,
-     "at": 0.05
+     "at": 3.35
     },
     {
      "who": "rich",
@@ -6782,14 +6737,14 @@
       "brow": 0.45
      },
      "dur": 0.4,
-     "at": 0.1
+     "at": 3.4
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
      "dur": 6,
      "reason": "wind on the cliff, far under the music",
-     "at": 2.7
+     "at": 6
     },
     {
      "do": "prop",
@@ -6801,7 +6756,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.388
+     "at": 6.688
     },
     {
      "do": "prop",
@@ -6813,7 +6768,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.388
+     "at": 6.688
     },
     {
      "who": "rich",
@@ -6827,7 +6782,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.388
+     "at": 6.688
     },
     {
      "who": "rich",
@@ -6836,12 +6791,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.388
+     "at": 6.688
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 3.388
+     "at": 6.688
     },
     {
      "who": "rich",
@@ -6850,7 +6805,7 @@
      "dur": 0.01,
      "height": 0,
      "hands": "lap",
-     "at": 3.388
+     "at": 6.688
     }
    ]
   },
@@ -7092,7 +7047,7 @@
   {
    "name": "S10 the hold",
    "at": 65.8,
-   "len": 4.8,
+   "len": 5.6,
    "shot": {
     "pos": [
      0.4,
@@ -7118,14 +7073,14 @@
      ],
      "fov": 40
     },
-    "dur": 4.8,
+    "dur": 5.6,
     "ease": "linear"
    },
    "do": [
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
-     "dur": 1.5,
+     "dur": 2.3,
      "reason": "wind on the cliff, far under the music",
      "at": 3.3
     }
@@ -7285,7 +7240,7 @@
   },
   {
    "from": 65.8,
-   "to": 70.6,
+   "to": 71.4,
    "see": [
     "rich"
    ],
