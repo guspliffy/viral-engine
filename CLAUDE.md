@@ -3,22 +3,25 @@
 Characters + storyboards in, 1080x1920 30 fps MP4s out (1920x1080 with `"frame": "wide"`): Three.js in headless Chromium (CPU, Mesa llvmpipe) + ffmpeg.
 Background music `puppet/beat.mjs`, voices `engine/voice/` (VoxCPM2 / Kokoro). Jonny (producer) owns the premise,
 characters, look, new art, rights and money (zero paid AI). State: `docs/STATE.md`. Roadmap: `docs/PLAN.md`.
+On a fork, "Jonny" in every rule means that fork's producer: read `START-HERE.md` first.
 
 ## Read only what the task needs
 
 | Task | Read |
 |---|---|
 | Any clip: the order of work, roles, gates, briefs, delivery | `docs/rules/workflow.md` |
+| What the video must be: story, opening, narrator, captions, music, cast (every clip) | `docs/rules/story.md` |
+| Before staging: what cost draft rounds before (holds, sets, moves, process) | `docs/rules/clip-lessons.md` |
+| Panel sheets, reference images, design order; each series' format | `docs/rules/images.md`, `docs/series/README.md` |
+| Post pack on every delivery; posting; judging by audience data | `docs/rules/posting.md` |
 | What the checks fail, warn or note; publishing; house style; sound | `docs/rules/output.md` |
 | Cast, contact and grip rules (grip rule n = rule n there) | `docs/rules/characters-grips.md` |
-| Writing a clip from a brief or storyboard panels; the template | `docs/rules/writing-clips.md` |
+| Writing a clip from a brief or storyboard panels; the template; storyboard format | `docs/rules/writing-clips.md`, `docs/STORYBOARD.md` |
 | New motion, physics, living worlds, scenery | `docs/rules/movement.md` |
 | Render speed, frame cache, render farm, engine changes + golden | `docs/rules/fast-cheap.md` |
 | A name the engine knows (verbs, poses, effects, helpers, prop kinds): read before any grep | `docs/VOCAB.md` |
-| Storyboard format | `docs/STORYBOARD.md` |
 | Creative reviews A and B, delivery self-review | `qa/REVIEW.md` |
-| Assets and their licences | `docs/ASSETS.md` |
-| Agent roles | `.claude/agents/*.md` |
+| Assets and their licences; agent roles | `docs/ASSETS.md`, `.claude/agents/*.md` |
 
 ## Commands
 
@@ -26,18 +29,15 @@ characters, look, new art, rights and money (zero paid AI). State: `docs/STATE.m
 node storyboards/<topic>/make-<clip>.mjs                       # generator -> storyboard JSON
 node qa/preflight.mjs <sb>                                     # one verdict before any render; FAIL blocks
 node qa/clear.mjs <sb>                                         # floor plan: bodies in each other or furniture (1-2 s)
-node engine/render.mjs <sb> --layout                           # layout + contact gate (~2 min)
-node engine/render.mjs <sb> --layout --from 3 --to 4.5         # fix round: only those seconds (~30 s), then full again
+node engine/render.mjs <sb> --layout [--from 3 --to 4.5]      # layout + contact gate (~2 min); fix round: a window (~30 s)
 node qa/camfit.mjs <sb> --at <s> [--pos x,y,z --look x,y,z --fov f]   # faces + free subtitle spots for a camera (1 s)
-node engine/render.mjs <sb> --stills beats --draft --safe      # draft stills (~1 min)
-node qa/contact.mjs <dir>/<id>-*.png --out <sheet.png>         # contact sheet of stills
+node engine/render.mjs <sb> --stills beats --draft --safe      # draft stills (~1 min); sheet: node qa/contact.mjs <dir>/<id>-*.png --out <sheet.png>
 node engine/render.mjs <sb> --draft                            # draft render (~2 min) = the animatic; prints its one-frame pops line
 node qa/check.mjs out/<id>.mp4 --sb <sb> --layout out/<id>.layout.json   # checks on a render
 node qa/panelfit.mjs <sb> --panels <PANELS.md>                 # Jonny's panels by number: size, eye line, faces
 python3 tools/lint-notes.py docs                               # rule docs: named paths exist, line caps (CI; `memory` too)
 gh workflow run render.yml -f storyboard=<sb>                  # full render on the free render farm
-node qa/golden.mjs                                             # after any change in engine/, characters/, assets/
-node qa/regress.mjs                                            # after a rig, grip or contact-check change
+node qa/golden.mjs; node qa/regress.mjs                        # after engine/characters/assets; after a rig/grip/contact change
 ```
 
 ## Rules that apply to every task
