@@ -67,11 +67,11 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    39997.6,
-    119996.4
+    39997.9,
+    119996.2
    ],
    "y": 0,
-   "face": 34,
+   "face": 30,
    "expr": "neutral",
    "follow": 0.2,
    "seed": 2.1
@@ -80,7 +80,7 @@
    "id": "foreman",
    "character": "ancient-aliens/alien-foreman",
    "at": [
-    39998.8,
+    39998.5,
     119995
    ],
    "y": 0,
@@ -621,8 +621,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      39997.6,
-      119996.4
+      39997.9,
+      119996.2
      ],
      "y": 0,
      "dur": 0.01,
@@ -634,7 +634,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 34,
+     "to": 30,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -644,7 +644,7 @@
      "who": "foreman",
      "do": "move",
      "to": [
-      39998.8,
+      39998.5,
       119995
      ],
      "y": 0,
@@ -895,7 +895,7 @@
     {
      "who": "foreman",
      "do": "turn",
-     "to": -45,
+     "to": -27,
      "dur": 0.35,
      "ease": "inOut",
      "at": 2.2

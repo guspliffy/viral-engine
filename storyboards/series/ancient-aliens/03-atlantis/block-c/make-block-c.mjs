@@ -170,8 +170,8 @@ function build(F, S) {
   // ================================================================= 29 PAST, STORMY EVENING (22.0-25.8): the foreman counts heads, and Spud
   // The crew file past toward the gate; the foreman taps the air at each head, reaches Spud, counts him too; Spud's leaf perks.
   // plate 29 painted in 3D (props-at-c-plate-29.js): road top y 0, the road x -4.04..-0.44 along -z, painter's camera (0, 0.71, 0) yaw 24.67
-  place(T.past, "spud", W(ROAD, -2.4, -3.6), 0, 34);
-  place(T.past, "foreman", W(ROAD, -1.2, -5.0), 0, -100);
+  place(T.past, "spud", W(ROAD, -2.1, -3.8), 0, 30);
+  place(T.past, "foreman", W(ROAD, -1.5, -5.0), 0, -100);
   CREW.forEach(([x, z], i) => {
     place(T.past, `crew${i}`, W(ROAD, x, z), 0, 180);
     act(T.past + 0.1, `crew${i}`, "move", { to: W(ROAD, x, z - 3.2), y: 0, dur: 3.6, ease: "linear" });
@@ -179,7 +179,7 @@ function build(F, S) {
   look(T.past, "spud", [0.5, 0.2], 0.01); expr(T.past, "spud", "neutral", { brow: 0.5 }, 0.01);
   say(T.past + 0.2, "c4", T.today);
   [[0.3, -0.05], [0.25, -0.02], [0.2, 0], [0.15, 0.02]].forEach(([x, y], i) => look(T.past + 0.3 + i * 0.45, "foreman", [x, y], 0.15));
-  turn(T.past + 2.2, "foreman", -45, 0.35); look(T.past + 2.25, "foreman", [-0.6, -0.1], 0.2);   // ... and Spud
+  turn(T.past + 2.2, "foreman", -27, 0.35); look(T.past + 2.25, "foreman", [-0.6, -0.1], 0.2);   // ... and Spud
   arm(T.past + 2.3, "foreman", "R", "point", 0.3, "out"); act(T.past + 2.3, "foreman", "grip", { side: "R", shape: "point", dur: 0.2 });
   macro(T.past + 2.6, "spud", "react", { expr: "surprised" });
   look(T.past + 2.9, "spud", [0, 0.05], 0.2);                              // to us: he was counted
@@ -217,7 +217,7 @@ function build(F, S) {
   say(T.wait, "c7b", 40.3);
   look(39.9, "spud", [0, 0.05], 0.3);
   say(40.35, "c7c", T.port);
-  big(T.wait + 0.1, T.port, "1 DAY: 0.008 mm");
+  big(T.wait + 0.1, T.port, "1 DAY: 0.008 mm", { size: F.key === "tall" ? 86 : F.numSize });
 
   // ================================================================= 34 PORT ROYAL 1692 (41.3-44.6): a whole harbour town, then the ground shakes
   place(T.port, "spud", W(PORT, -0.15, -5.2), 0, 8); act(T.port - 0.02, "spud", "stand", { dur: 0.01 });   // off the step he sat on
@@ -265,23 +265,23 @@ function build(F, S) {
     ["26b '68 and '69", T.page2, two(pageCam(640, 520, 420, [640, 525, 340, d(T.page2, T.air)]), pageCam(630, 530, 420, [630, 532, 330, d(T.page2, T.air)], 16 / 9))],
     ["27 the road from above", T.air, two(at(AIR, [3.44, 7.51, 0], [1.8, -8.77, -47.25], 36.4, { pos: [3.2, 7.3, -1.0], fov: 27 }, d(T.air, T.block)), ptall(AIR, PCAM.p27, 560, 600, 36, 30, d(T.air, T.block)))],
     ["28 his palm on the first block", T.block, two(at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.4, 0.8], 13, { pos: [2.2, 1.85, 7.0], fov: 11 }, d(T.block, T.past)), at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.45, 0.8], 22, { pos: [2.2, 1.85, 7.0], fov: 19 }, d(T.block, T.past)))],
-    ["29 Atlantis, the last evening", T.past, two(at(ROAD, [0, 0.71, 0], [-20.9, -4.4, -45.4], 37.7, { pos: [-0.25, 0.71, -0.55], fov: 35 }, d(T.past, T.today)), ptall(ROAD, PCAM.p29, 790, 470, 43, 39, d(T.past, T.today)))],
+    ["29 Atlantis, the last evening", T.past, two(at(ROAD, [0, 0.71, 0], [-20.9, -4.4, -45.4], 37.7, { pos: [-0.25, 0.71, -0.55], fov: 35 }, d(T.past, T.today)), ptall(ROAD, PCAM.p29, 795, 470, 44, 41, d(T.past, T.today)))],
     ["30 natural beachrock", T.today, two(at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 15, { pos: [1.85, 1.85, 6.9], fov: 13 }, d(T.today, T.stair)), at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 26, { pos: [1.85, 1.85, 6.9], fov: 23 }, d(T.today, T.stair)))],
     ["31 the staircase", T.stair, two(at(STEP, [0.6, 1.15, 6.5], [0, 0.85, -20], 38, { pos: [0.5, 1.1, 5.6] }, d(T.stair, T.ruler)), at(STEP, [0.6, 1.15, 6.5], [-0.15, 0.95, -10], 55, { pos: [0.5, 1.1, 5.6] }, d(T.stair, T.ruler)))],
-    ["32 the ruler", T.ruler, two(at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 38, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)), at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 60, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)))],
+    ["32 the ruler", T.ruler, two(at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 38, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)), at(STEP, [-0.2, 0.2, 2.6], [-0.25, 0.3, 0.4], 60, { pos: [-0.15, 0.2, 2.35] }, d(T.ruler, T.wait)))],
     ["33 he waits", T.wait, two(at(STEP, [0.3, 0.8, 3.2], [0.0, 0.85, -0.8], 34, { pos: [0.3, 0.8, 3.05] }, d(T.wait, T.port)), at(STEP, [0.3, 0.8, 3.2], [-0.3, 0.85, -0.8], 55, { pos: [0.3, 0.8, 3.05] }, d(T.wait, T.port)))],
     ["34 Port Royal 1692", T.port, two(at(PORT, [0, 2, 0], [10.4, -2.5, -48.9], 46.7, { pos: [0.15, 1.95, -0.5], fov: 41 }, d(T.port, T.slide)), ptall(PORT, PCAM.p34, 560, 512, 52, 46, d(T.port, T.slide)))],
     ["35 two thirds into the sea", T.slide, two(at(PORT2, [0, 2, 0], [30.5, -5.0, -39.0], 46.7, { pos: [0.25, 1.95, -0.35], fov: 43 }, d(T.slide, T.closer)), ptall(PORT2, PCAM.p35, 450, 512, 52, 48, d(T.slide, T.closer)))],
-    ["36 closer, but one town", T.closer, two(at(STEP, [0.3, 1.0, 3.0], [0, 0.95, -10], 34, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)), at(STEP, [0.3, 1.0, 3.0], [-0.35, 0.95, -6], 58, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)))],
+    ["36 closer, but one town", T.closer, two(at(STEP, [0.3, 1.0, 3.0], [0, 0.95, -10], 34, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)), at(STEP, [0.3, 1.0, 3.0], [-1.3, 0.95, -6], 58, { pos: [0.3, 1.0, 2.6] }, d(T.closer, T.END)))],
   ];
   const mine = SHOTS.filter(([, t], i) => (SHOTS[i + 1]?.[1] ?? T.END) > S.t0 + 1e-6 && t < S.t1 - 1e-6).map(([n, t, s, k]) => [n, L(Math.max(t, S.t0)), s, k]);
   const beats = c.beats(mine, L(S.t1));
 
   // ---------------------------------------------------------------- cast + props of this storyboard
-  const first = { c1: { at: W(BIM, 0.3, 1.4), y: F.key === "tall" ? 0.95 : 1.5, face: 0 }, c2: { at: W(ROAD, -2.4, -3.6), y: 0, face: 34 }, c3: { at: W(BIM, -0.5, 0.8), y: 0, face: 15 } }[S.key];
+  const first = { c1: { at: W(BIM, 0.3, 1.4), y: F.key === "tall" ? 0.95 : 1.5, face: 0 }, c2: { at: W(ROAD, -2.1, -3.8), y: 0, face: 30 }, c3: { at: W(BIM, -0.5, 0.8), y: 0, face: 15 } }[S.key];
   const cast = [{ id: "spud", character: CAST.spud, at: first.at, y: first.y, face: first.face, expr: "neutral", follow: 0.2, seed: 2.1 }];
   if (S.key === "c2") {
-    cast.push({ id: "foreman", character: CAST.foreman, at: W(ROAD, -1.2, -5.0), y: 0, face: -100, expr: "neutral", follow: 0.3, seed: 4.2 });
+    cast.push({ id: "foreman", character: CAST.foreman, at: W(ROAD, -1.5, -5.0), y: 0, face: -100, expr: "neutral", follow: 0.3, seed: 4.2 });
     CREW.forEach(([x, z], i) => cast.push({ id: `crew${i}`, character: CAST.crew, at: W(ROAD, x, z), y: 0, face: 180, expr: "neutral", seed: 5 + i }));
   }
   const lamp = S.key === "c2" ? 0 : 1;   // the headlamp burns under water; in the past it is off
