@@ -11,5 +11,6 @@ import { C_AIR_KINDS, C_AIR_GRIPS } from "./props-at-c-air.js";
 import { C_PORT_KINDS, C_PORT_GRIPS } from "./props-at-c-port.js";
 import { C_ROAD_KINDS, C_ROAD_GRIPS } from "./props-at-c-road.js";
 import { C_STEP_KINDS, C_STEP_GRIPS } from "./props-at-c-step.js";
-export const AT_C_KINDS = { ...C_BIMINI_KINDS, ...C_AIR_KINDS, ...C_PORT_KINDS, ...C_ROAD_KINDS, ...C_STEP_KINDS };
-export const AT_C_GRIPS = { ...C_BIMINI_GRIPS, ...C_AIR_GRIPS, ...C_PORT_GRIPS, ...C_ROAD_GRIPS, ...C_STEP_GRIPS };
+import { C_PLATE_KINDS, C_PLATE_GRIPS } from "./props-at-c-plate.js";
+export const AT_C_KINDS = { ...C_BIMINI_KINDS, ...C_AIR_KINDS, ...C_PORT_KINDS, ...C_ROAD_KINDS, ...C_STEP_KINDS, ...C_PLATE_KINDS };
+export const AT_C_GRIPS = { ...C_BIMINI_GRIPS, ...C_AIR_GRIPS, ...C_PORT_GRIPS, ...C_ROAD_GRIPS, ...C_STEP_GRIPS, ...C_PLATE_GRIPS };

@@ -54,6 +54,20 @@
   },
   "mood": "dramatic"
  },
+ "fx": [
+  {
+   "do": "shake",
+   "at": 17.8,
+   "dur": 1,
+   "amp": 0.03
+  },
+  {
+   "do": "shake",
+   "at": 18.8,
+   "dur": 1.8,
+   "amp": 0.04
+  }
+ ],
  "sound": {
   "signature": false,
   "sfx": 0.65,
@@ -70,7 +84,7 @@
     59999.5,
     0.8
    ],
-   "y": -4.9,
+   "y": 0,
    "face": 15,
    "expr": "neutral",
    "follow": 0.2,
@@ -89,56 +103,25 @@
    "lit": 1
   },
   {
-   "id": "bed",
-   "kind": "biminibed",
+   "id": "p28",
+   "kind": "cplate",
+   "scene": "28",
    "x": 60000,
+   "y": 4.9,
    "z": 0,
-   "reef": true
+   "hide": [
+    "fish"
+   ],
+   "staged": "plate 28 painted in 3D: block 0 top y 0, sand -0.6, sea level 4.9"
   },
   {
-   "id": "road",
-   "kind": "biminiroad",
+   "id": "pair",
+   "kind": "cplate",
+   "scene": "27",
    "x": 60000,
-   "z": 0,
-   "contacts": [
-    [
-     -0.5,
-     0.8,
-     0.3
-    ]
-   ]
-  },
-  {
-   "id": "bsea",
-   "kind": "biminisea",
-   "x": 60000,
-   "z": 0,
-   "clarity": 2,
-   "scatter": 0.55,
-   "net": 0.9,
-   "staged": "the sea surface at y 0"
-  },
-  {
-   "id": "bsky",
-   "kind": "biminisky",
-   "x": 60000,
-   "z": 0,
-   "seed": 1,
-   "staged": "the sky dome"
-  },
-  {
-   "id": "isle",
-   "kind": "biminiisle",
-   "x": 60000,
-   "z": 0,
-   "staged": "the island on the horizon"
-  },
-  {
-   "id": "boat",
-   "kind": "biminiboat",
-   "x": 60026,
-   "z": -70,
-   "staged": "afloat at the waterline"
+   "y": 0,
+   "z": 120000,
+   "staged": "plate 27 painted in 3D: Bimini from above, sea y 0, block tops -4.9"
   },
   {
    "id": "fishA",
@@ -150,9 +133,9 @@
    "z": 0,
    "path": {
     "c": [
-     0.675,
-     -2.851,
-     0.9
+     1.2,
+     1.6,
+     -2.5
     ],
     "r": 0.975
    },
@@ -168,9 +151,9 @@
    "z": 0,
    "path": {
     "c": [
-     -1.2,
-     -2.926,
-     -2.251
+     -2.4,
+     1.3,
+     -5.5
     ],
     "r": 1.2
    },
@@ -186,9 +169,9 @@
    "z": 0,
    "path": {
     "c": [
-     1.2,
-     -2.926,
-     -4.876
+     2.6,
+     1.9,
+     -9
     ],
     "r": 1.35
    },
@@ -204,9 +187,9 @@
    "z": 0,
    "path": {
     "c": [
-     -0.375,
-     -3.226,
-     1.163
+     -0.14,
+     0.75,
+     1.7
     ],
     "r": 0.03
    },
@@ -255,46 +238,24 @@
    "staged": "the far coast"
   },
   {
-   "id": "portsky",
-   "kind": "biminisky",
+   "id": "p34",
+   "kind": "cplate",
+   "scene": "34",
    "x": 20000,
+   "y": 0,
    "z": 20000,
-   "seed": 3,
-   "staged": "the sky dome"
+   "staged": "plate 34 painted in 3D: the boardwalk y 0"
   },
   {
-   "id": "portsea",
-   "kind": "sea",
-   "x": 20000,
-   "z": 20000,
-   "grade": "tropic",
-   "horizon": true,
-   "reach": 1700,
-   "mirrors": [
-    [
-     82,
-     -128,
-     30,
-     10,
-     "#2a211a"
-    ],
-    [
-     56,
-     -158,
-     24,
-     9,
-     "#2a211a"
-    ]
-   ],
-   "staged": "the harbour at y 0"
-  },
-  {
-   "id": "port",
-   "kind": "portroyal",
-   "x": 20000,
-   "z": 20000,
+   "id": "p35",
+   "kind": "cplate",
+   "scene": "35",
+   "x": 0,
+   "y": 0,
+   "z": 140000,
+   "quake": 0,
    "sink": 0,
-   "shake": 0
+   "staged": "plate 35 painted in 3D: the boardwalk y 0, the houses sink"
   }
  ],
  "captions": [
@@ -3264,22 +3225,23 @@
    "len": 4.9,
    "shot": {
     "pos": [
-     59999.1,
-     -4.05,
-     2.4
+     60002,
+     1.9,
+     7.2
     ],
     "look": [
      59999.5,
-     -4.05,
+     0.75,
      0.8
     ],
-    "fov": 32,
+    "fov": 15,
     "to": {
      "pos": [
-      59999.15,
-      -4.05,
-      2.15
-     ]
+      60001.85,
+      1.85,
+      6.9
+     ],
+     "fov": 13
     },
     "dur": 4.9,
     "ease": "inOut"
@@ -3292,7 +3254,7 @@
       59999.5,
       0.8
      ],
-     "y": -4.9,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -3625,6 +3587,15 @@
      "ease": "linear",
      "sync": true,
      "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.3,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.38
     }
    ]
   },
@@ -3655,15 +3626,6 @@
     "ease": "inOut"
    },
    "do": [
-    {
-     "who": "spud",
-     "do": "sit",
-     "rot": 0,
-     "height": 0.3,
-     "dur": 0.01,
-     "hands": "lap",
-     "at": 0
-    },
     {
      "who": "spud",
      "do": "look",
@@ -3721,10 +3683,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      19999.7,
-      20000
+      19999.85,
+      19995.62
      ],
-     "y": 1.2,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -3734,10 +3696,16 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 15,
+     "to": 8,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
      "at": 2.28
     }
    ]
@@ -3748,22 +3716,23 @@
    "len": 3.3,
    "shot": {
     "pos": [
-     20001.5,
-     2.8,
-     20008
+     20000,
+     2,
+     20000
     ],
     "look": [
-     19998,
-     3.5,
-     19950
+     20010.4,
+     -2.5,
+     19951.1
     ],
-    "fov": 40,
+    "fov": 46.7,
     "to": {
      "pos": [
-      20001.2,
-      2.7,
-      20007
-     ]
+      20000.15,
+      1.95,
+      19999.5
+     ],
+     "fov": 41
     },
     "dur": 3.3,
     "ease": "inOut"
@@ -3819,16 +3788,6 @@
      "at": 1.35
     },
     {
-     "do": "prop",
-     "id": "port",
-     "set": {
-      "shake": 1
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 2.3
-    },
-    {
      "sfx": "rumble",
      "gain": 0.6,
      "dur": 4.5,
@@ -3857,10 +3816,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      19999.8,
-      20000.4
+      1.3,
+      139996.18
      ],
-     "y": 1.2,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -3870,10 +3829,21 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -25,
+     "to": -20,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "sink": 0,
+      "quake": 0
+     },
+     "dur": 0,
+     "ease": "linear",
      "at": 3.28
     }
    ]
@@ -3884,42 +3854,52 @@
    "len": 4.2,
    "shot": {
     "pos": [
-     20002,
-     2.8,
-     20008
+     0,
+     2,
+     140000
     ],
     "look": [
-     19996,
-     3.5,
-     19955
+     30.5,
+     -5,
+     139961
     ],
-    "fov": 44,
+    "fov": 46.7,
     "to": {
      "pos": [
-      20002.4,
-      3,
-      20009
-     ]
+      0.25,
+      1.95,
+      139999.65
+     ],
+     "fov": 43
     },
     "dur": 4.2,
     "ease": "inOut"
    },
    "do": [
     {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "quake": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
-      19998.6,
-      20003.6
+      1.12,
+      139996.75
      ],
-     "y": 1.2,
-     "dur": 1.6,
-     "ease": "inOut",
+     "y": 0,
+     "dur": 1.5,
      "at": 0.05
     },
     {
      "do": "prop",
-     "id": "port",
+     "id": "p35",
      "set": {
       "sink": 1
      },
@@ -3941,9 +3921,9 @@
     },
     {
      "do": "prop",
-     "id": "port",
+     "id": "p35",
      "set": {
-      "shake": 0
+      "quake": 0
      },
      "dur": 1.2,
      "ease": "inOut",
@@ -4114,6 +4094,16 @@
    "from": 0,
    "to": 26.2,
    "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud",
+   "with": "stepsky",
+   "from": 0,
+   "to": 26.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "shell: the sky dome rides with the camera and is drawn behind everything (lookOnly)"
   }
  ],
  "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c3 of three (block time 25.8-52 s, story 127.8-154 s). Music = the EP03 score from story 127.8 s."

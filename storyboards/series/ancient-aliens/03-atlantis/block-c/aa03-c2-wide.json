@@ -67,11 +67,11 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    39999.4,
-    120001
+    39997.6,
+    119996.4
    ],
-   "y": 0.8,
-   "face": 20,
+   "y": 0,
+   "face": 34,
    "expr": "neutral",
    "follow": 0.2,
    "seed": 2.1
@@ -80,11 +80,11 @@
    "id": "foreman",
    "character": "ancient-aliens/alien-foreman",
    "at": [
-    40000.5,
-    119999.6
+    39998.8,
+    119995
    ],
-   "y": 0.8,
-   "face": -150,
+   "y": 0,
+   "face": -100,
    "expr": "neutral",
    "follow": 0.3,
    "seed": 4.2
@@ -93,10 +93,10 @@
    "id": "crew0",
    "character": "ancient-aliens/alien-crew",
    "at": [
-    40000.9,
-    119997
+    39997.7,
+    119993
    ],
-   "y": 0.8,
+   "y": 0,
    "face": 180,
    "expr": "neutral",
    "seed": 5
@@ -105,10 +105,10 @@
    "id": "crew1",
    "character": "ancient-aliens/alien-crew",
    "at": [
-    40001.1,
-    119994
+    39997.9,
+    119990.5
    ],
-   "y": 0.8,
+   "y": 0,
    "face": 180,
    "expr": "neutral",
    "seed": 6
@@ -117,10 +117,10 @@
    "id": "crew2",
    "character": "ancient-aliens/alien-crew",
    "at": [
-    40001,
-    119991
+    39997.65,
+    119988
    ],
-   "y": 0.8,
+   "y": 0,
    "face": 180,
    "expr": "neutral",
    "seed": 7
@@ -129,10 +129,10 @@
    "id": "crew3",
    "character": "ancient-aliens/alien-crew",
    "at": [
-    40001.2,
-    119988
+    39997.85,
+    119985.5
    ],
-   "y": 0.8,
+   "y": 0,
    "face": 180,
    "expr": "neutral",
    "seed": 8
@@ -150,45 +150,13 @@
    "lit": 0
   },
   {
-   "id": "stormsea",
-   "kind": "sea",
+   "id": "proad",
+   "kind": "cplate",
+   "scene": "29",
    "x": 40000,
+   "y": 0,
    "z": 120000,
-   "grade": "storm",
-   "horizon": true,
-   "reach": 1700,
-   "swell": 0.5,
-   "chop": 0.6,
-   "calm": [
-    0,
-    -45,
-    80
-   ],
-   "hi": "#f0d0b0",
-   "skyH": "#d88a4a",
-   "skyZ": "#4a4252",
-   "haze": "#7a5a58",
-   "staged": "the far sea at y 0"
-  },
-  {
-   "id": "surf",
-   "kind": "stormsurf",
-   "x": 40000,
-   "z": 120000,
-   "staged": "the near storm water"
-  },
-  {
-   "id": "scity",
-   "kind": "stormcity",
-   "x": 40000,
-   "z": 120000
-  },
-  {
-   "id": "eroad",
-   "kind": "edgeroad2",
-   "x": 40000,
-   "z": 120000,
-   "water": 0.6
+   "staged": "plate 29 painted in 3D: road top y 0, sea -0.4, wall and gate 185-215 m"
   }
  ],
  "captions": [
@@ -627,22 +595,23 @@
    "len": 3.8,
    "shot": {
     "pos": [
-     40000.8,
-     1.85,
-     120004.5
+     40000,
+     0.71,
+     120000
     ],
     "look": [
-     39999,
-     2.6,
-     119960
+     39979.1,
+     -4.4,
+     119954.6
     ],
-    "fov": 42,
+    "fov": 37.7,
     "to": {
      "pos": [
-      40000.6,
-      1.8,
-      120003.9
-     ]
+      39999.75,
+      0.71,
+      119999.45
+     ],
+     "fov": 35
     },
     "dur": 3.8,
     "ease": "inOut"
@@ -652,10 +621,10 @@
      "who": "spud",
      "do": "move",
      "to": [
-      39999.4,
-      120001
+      39997.6,
+      119996.4
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -665,7 +634,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 20,
+     "to": 34,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -675,10 +644,10 @@
      "who": "foreman",
      "do": "move",
      "to": [
-      40000.5,
-      119999.6
+      39998.8,
+      119995
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -688,7 +657,7 @@
     {
      "who": "foreman",
      "do": "turn",
-     "to": -150,
+     "to": -100,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -698,10 +667,10 @@
      "who": "crew0",
      "do": "move",
      "to": [
-      40000.9,
-      119997
+      39997.7,
+      119993
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -721,10 +690,10 @@
      "who": "crew1",
      "do": "move",
      "to": [
-      40001.1,
-      119994
+      39997.9,
+      119990.5
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -744,10 +713,10 @@
      "who": "crew2",
      "do": "move",
      "to": [
-      40001,
-      119991
+      39997.65,
+      119988
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -767,10 +736,10 @@
      "who": "crew3",
      "do": "move",
      "to": [
-      40001.2,
-      119988
+      39997.85,
+      119985.5
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 0.01,
      "steps": 0,
      "ease": "linear",
@@ -825,10 +794,10 @@
      "who": "crew0",
      "do": "move",
      "to": [
-      40000.9,
-      119993.8
+      39997.7,
+      119989.8
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 3.6,
      "ease": "linear",
      "at": 0.1
@@ -837,10 +806,10 @@
      "who": "crew1",
      "do": "move",
      "to": [
-      40001.1,
-      119990.8
+      39997.9,
+      119987.3
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 3.6,
      "ease": "linear",
      "at": 0.1
@@ -849,10 +818,10 @@
      "who": "crew2",
      "do": "move",
      "to": [
-      40001,
-      119987.8
+      39997.65,
+      119984.8
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 3.6,
      "ease": "linear",
      "at": 0.1
@@ -861,10 +830,10 @@
      "who": "crew3",
      "do": "move",
      "to": [
-      40001.2,
-      119984.8
+      39997.85,
+      119982.3
      ],
-     "y": 0.8,
+     "y": 0,
      "dur": 3.6,
      "ease": "linear",
      "at": 0.1
@@ -926,7 +895,7 @@
     {
      "who": "foreman",
      "do": "turn",
-     "to": -100,
+     "to": -45,
      "dur": 0.35,
      "ease": "inOut",
      "at": 2.2

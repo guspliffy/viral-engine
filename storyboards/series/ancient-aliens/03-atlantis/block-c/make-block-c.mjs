@@ -26,7 +26,7 @@ const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { ha
 const T0 = 102;   // story time of block C's first frame
 
 // ---------------------------------------------------------------- places (world x, z of each origin)
-const BIM = P.bimini, STEP = P.step, PORT = P.portroyal, PAGE = P.page, ROAD = PLACE(26);
+const AIR = PLACE(27), BIM = P.bimini, STEP = P.step, PORT = P.portroyal, PORT2 = PLACE(28), PAGE = P.page, ROAD = PLACE(26);
 // the 1940 page plate (tools/page.py): 1536 x 1024 px, hung at the page place; cameras look straight at plate pixels
 const PAGE_PX = [1536, 1024], PL = { src: "assets/plates/at-c-page-1940.png", z: r3(PAGE[1] - 2.2), center: [PAGE[0], 1.6], height: 3.2, depth: false, motion: false, dust: 0 };
 const MARKS = { size: 22, pitch: 13.2, marks: [{ text: "1940", x: 968, y: 100 }, { text: "68", x: 577, y: 538 }, { text: "69", x: 682, y: 532 }] };
@@ -54,16 +54,13 @@ const SEGS = [
 
 // ---------------------------------------------------------------- the place props (one set per storyboard)
 const bimini = () => [
-  { id: "bed", kind: "biminibed", x: BIM[0], z: BIM[1], reef: true },
-  { id: "road", kind: "biminiroad", x: BIM[0], z: BIM[1], contacts: [[-0.5, 0.8, 0.3]] },
-  { id: "bsea", kind: "biminisea", x: BIM[0], z: BIM[1], clarity: 2, scatter: 0.55, net: 0.9, staged: "the sea surface at y 0" },
-  { id: "bsky", kind: "biminisky", x: BIM[0], z: BIM[1], seed: 1, staged: "the sky dome" },
-  { id: "isle", kind: "biminiisle", x: BIM[0], z: BIM[1], staged: "the island on the horizon" },
-  { id: "boat", kind: "biminiboat", x: r3(BIM[0] + 26), z: r3(BIM[1] - 70), staged: "afloat at the waterline" },
-  { id: "fishA", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [0.675, -2.851, 0.9], r: 0.975 }, staged: "swimming" },
-  { id: "fishB", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [-1.2, -2.926, -2.251], r: 1.2 }, staged: "swimming" },
-  { id: "fishC", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [1.2, -2.926, -4.876], r: 1.35 }, staged: "swimming" },
-  { id: "fishFace", kind: "fish", type: "striped", n: 1, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [-0.375, -3.226, 1.163], r: 0.03 }, range: 0.02, staged: "the fish that passes his face (30)" },
+  // plate 28 painted in 3D (props-at-c-plate-28.js): the prop at y 4.9 puts block 0's top (Spud's floor) at world y 0, sea level 4.9
+  { id: "p28", kind: "cplate", scene: "28", x: BIM[0], y: 4.9, z: BIM[1], hide: ["fish"], staged: "plate 28 painted in 3D: block 0 top y 0, sand -0.6, sea level 4.9" },
+  { id: "pair", kind: "cplate", scene: "27", x: AIR[0], y: 0, z: AIR[1], staged: "plate 27 painted in 3D: Bimini from above, sea y 0, block tops -4.9" },
+  { id: "fishA", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [1.2, 1.6, -2.5], r: 0.975 }, staged: "swimming" },
+  { id: "fishB", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [-2.4, 1.3, -5.5], r: 1.2 }, staged: "swimming" },
+  { id: "fishC", kind: "fish", type: "striped", n: 4, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [2.6, 1.9, -9], r: 1.35 }, staged: "swimming" },
+  { id: "fishFace", kind: "fish", type: "striped", n: 1, scale: 1.333, x: BIM[0], z: BIM[1], path: { c: [-0.14, 0.75, 1.7], r: 0.03 }, range: 0.02, staged: "the fish that passes his face (30)" },
 ];
 const step = () => [
   { id: "stepsky", kind: "biminisky", x: STEP[0], z: STEP[1], seed: 2, staged: "the sky dome" },
@@ -73,18 +70,19 @@ const step = () => [
   { id: "coast", kind: "horizonland", x: STEP[0], z: STEP[1], coast: "island", az: -30, size: 2.4, staged: "the far coast" },
 ];
 const port = () => [
-  { id: "portsky", kind: "biminisky", x: PORT[0], z: PORT[1], seed: 3, staged: "the sky dome" },
-  { id: "portsea", kind: "sea", x: PORT[0], z: PORT[1], grade: "tropic", horizon: true, reach: 1700, mirrors: [[82, -128, 30, 10, "#2a211a"], [56, -158, 24, 9, "#2a211a"]], staged: "the harbour at y 0" },
-  { id: "port", kind: "portroyal", x: PORT[0], z: PORT[1], sink: 0, shake: 0 },
+  // plates 34 and 35 painted in 3D (props-at-c-plate-34.js): the boardwalk top y 0, the harbour -1.2, painter's camera (0, 2, 0) for both
+  { id: "p34", kind: "cplate", scene: "34", x: PORT[0], y: 0, z: PORT[1], staged: "plate 34 painted in 3D: the boardwalk y 0" },
+  { id: "p35", kind: "cplate", scene: "35", x: PORT2[0], y: 0, z: PORT2[1], quake: 0, sink: 0, staged: "plate 35 painted in 3D: the boardwalk y 0, the houses sink" },
 ];
 const road = () => [
-  { id: "stormsea", kind: "sea", x: ROAD[0], z: ROAD[1], grade: "storm", horizon: true, reach: 1700, swell: 0.5, chop: 0.6, calm: [0, -45, 80], hi: "#f0d0b0", skyH: "#d88a4a", skyZ: "#4a4252", haze: "#7a5a58", staged: "the far sea at y 0" },
-  { id: "surf", kind: "stormsurf", x: ROAD[0], z: ROAD[1], staged: "the near storm water" },
-  { id: "scity", kind: "stormcity", x: ROAD[0], z: ROAD[1] },
-  { id: "eroad", kind: "edgeroad2", x: ROAD[0], z: ROAD[1], water: 0.6 },
+  { id: "proad", kind: "cplate", scene: "29", x: ROAD[0], y: 0, z: ROAD[1], staged: "plate 29 painted in 3D: road top y 0, sea -0.4, wall and gate 185-215 m" },
 ];
+const SHAKES = [];   // camera shakes (block time; engine/page/timeline.js sb.fx "shake")
+const inSegOf = (S, t) => t >= S.t0 && t < S.t1;
+const CREW = [[-2.3, -7], [-2.1, -9.5], [-2.35, -12], [-2.15, -14.5]];   // the crew file toward the gate (road local)
 
 function build(F, S) {
+  SHAKES.length = 0;
   const H = 0;   // see the header: the film's first shot is part 3's hook
   const c = clip({ faces: "strong" }), { A, sfx, cap } = c;
   const inSeg = (t) => t >= S.t0 - 1e-6 && t < S.t1 - 1e-6;
@@ -113,7 +111,7 @@ function build(F, S) {
 
   // ================================================================= 25 HOOK (0-3.6): the road under clear water, Spud floats above it
   // He drifts over the first blocks, looking down at them, then up at us on "Twenty-eight years early." Part 3's hook text up top.
-  act(0, "spud", "move", { to: W(BIM, 0.2, 0.2), y: -3.55, dur: 3.4, steps: 0, ease: "inOut" });
+  { const [fx0, fz0] = W(BIM, 0.2, 0.2); act(0, "spud", "fly", { to: { x: fx0, y: 1.35, z: fz0 }, dur: 3.4, ease: "inOut" }); }   // he drifts down over the road (feet tucked)
   look(0, "spud", [0, -0.7], 0.01); expr(0, "spud", "neutral", { brow: 0.5, lid: 0.2 }, 0.01);
   arm(0, "spud", "R", "out", 0.01); arm(0, "spud", "L", "out", 0.01);
   say(0.15, "c1", T.page);
@@ -138,14 +136,14 @@ function build(F, S) {
   prop(T.page2 + 1.95, "marks", { draw: 1 }, 0.8);
   fx(T.page2 + 0.6, "typing", { gain: 0.3, dur: 0.3, reason: "6-8" }); fx(T.page2 + 1.6, "typing", { gain: 0.3, dur: 0.3, reason: "6-9" });
   // ================================================================= 27 THE ROAD FROM ABOVE (14.4-20.0): 1968, 800 m of square stones
-  place(T.air, "spud", W(BIM, 3.2, -46), -0.45, 0);       // he floats at the surface beside the line, a dot from up here
+  place(T.air, "spud", W(AIR, 2.4, -26), -0.45, 0);       // he floats at the surface beside the line, a dot from up here
   say(T.air + 0.2, "c3a", 17.4);
   big(T.air, T.air + 3.0, "1968");
   say(17.45, "c3b", T.block);
   if (inSeg(17.6)) count(c, F, L(17.6), L(19.3), L(T.block), 0, 800, (v) => `${Math.round(v / 10) * 10} m`, { pos: F.NUM + 80 });
   fx(T.air, "ai/car-waves", { gain: 0.07, dur: r3(T.block - T.air), reason: "the shallows from above" });
   // ================================================================= 28 ON THE FIRST BLOCK (20.0-22.0): his palm on the stone
-  place(T.block, "spud", W(BIM, -0.5, 0.8), -4.9, 20);
+  place(T.block, "spud", W(BIM, -0.5, 0.8), 0, 20);
   look(T.block, "spud", [0.1, -0.7], 0.01); expr(T.block, "spud", "neutral", { brow: 0.6, lid: 0.25 }, 0.01);
   act(T.block + 0.4, "spud", "crouch", { to: 0.8, dur: 0.5 });
   arm(T.block + 0.5, "spud", "R", "out", 0.45, "out"); act(T.block + 0.5, "spud", "grip", { side: "R", shape: "flat", dur: 0.2 });
@@ -153,16 +151,17 @@ function build(F, S) {
 
   // ================================================================= 29 PAST, STORMY EVENING (22.0-25.8): the foreman counts heads, and Spud
   // The crew file past toward the gate; the foreman taps the air at each head, reaches Spud, counts him too; Spud's leaf perks.
-  place(T.past, "spud", W(ROAD, -0.6, 1.0), 0.8, 20);
-  place(T.past, "foreman", W(ROAD, 0.5, -0.4), 0.8, -150);
-  [[0.9, -3], [1.1, -6], [1.0, -9], [1.2, -12]].forEach(([x, z], i) => {
-    place(T.past, `crew${i}`, W(ROAD, x, z), 0.8, 180);
-    act(T.past + 0.1, `crew${i}`, "move", { to: W(ROAD, x, z - 3.2), y: 0.8, dur: 3.6, ease: "linear" });
+  // plate 29 painted in 3D (props-at-c-plate-29.js): road top y 0, the road x -4.04..-0.44 along -z, painter's camera (0, 0.71, 0) yaw 24.67
+  place(T.past, "spud", W(ROAD, -2.4, -3.6), 0, 34);
+  place(T.past, "foreman", W(ROAD, -1.2, -5.0), 0, -100);
+  CREW.forEach(([x, z], i) => {
+    place(T.past, `crew${i}`, W(ROAD, x, z), 0, 180);
+    act(T.past + 0.1, `crew${i}`, "move", { to: W(ROAD, x, z - 3.2), y: 0, dur: 3.6, ease: "linear" });
   });
   look(T.past, "spud", [0.5, 0.2], 0.01); expr(T.past, "spud", "neutral", { brow: 0.5 }, 0.01);
   say(T.past + 0.2, "c4", T.today);
   [[0.3, -0.05], [0.25, -0.02], [0.2, 0], [0.15, 0.02]].forEach(([x, y], i) => look(T.past + 0.3 + i * 0.45, "foreman", [x, y], 0.15));
-  turn(T.past + 2.2, "foreman", -100, 0.35); look(T.past + 2.25, "foreman", [-0.6, -0.1], 0.2);   // ... and Spud
+  turn(T.past + 2.2, "foreman", -45, 0.35); look(T.past + 2.25, "foreman", [-0.6, -0.1], 0.2);   // ... and Spud
   arm(T.past + 2.3, "foreman", "R", "point", 0.3, "out"); act(T.past + 2.3, "foreman", "grip", { side: "R", shape: "point", dur: 0.2 });
   macro(T.past + 2.6, "spud", "react", { expr: "surprised" });
   look(T.past + 2.9, "spud", [0, 0.05], 0.2);                              // to us: he was counted
@@ -170,7 +169,7 @@ function build(F, S) {
   fx(T.past, "ai/car-waves", { gain: 0.3, dur: r3(T.today - T.past), reason: "waves wash over the road" });
 
   // ================================================================= 30 TODAY (25.8-30.7): beachrock, a fish passes his face
-  place(T.today, "spud", W(BIM, -0.5, 0.8), -4.9, 15);
+  place(T.today, "spud", W(BIM, -0.5, 0.8), 0, 15);
   look(T.today, "spud", [0, 0.05], 0.01); expr(T.today, "spud", "neutral", { brow: 0.35, lid: 0.5 }, 0.01);
   act(T.today + 0.1, "spud", "still", { dur: 4.6, idle: 0.1 });
   say(T.today + 0.2, "c5a", 29.1);
@@ -195,7 +194,7 @@ function build(F, S) {
   big(T.ruler + 1.0, T.wait, "3 mm / YEAR");
   // ================================================================= 33 HE WAITS (39.0-41.3): in one day? nothing.
   place(T.wait, "spud", W(STEP, -0.5, -0.7), 0.3, 0);
-  act(T.wait, "spud", "sit", { rot: 0, height: 0.3, dur: 0.01, hands: "lap" });
+  act(T.wait - 0.02, "spud", "sit", { rot: 0, height: 0.3, dur: 0.01, hands: "lap" });
   look(T.wait, "spud", [0.6, 0], 0.01); expr(T.wait, "spud", "neutral", { brow: 0.3, lid: 0.55 }, 0.01);
   say(T.wait, "c7b", 40.3);
   look(39.9, "spud", [0, 0.05], 0.3);
@@ -203,20 +202,20 @@ function build(F, S) {
   big(T.wait + 0.1, T.port, "1 DAY: 0.008 mm");
 
   // ================================================================= 34 PORT ROYAL 1692 (41.3-44.6): a whole harbour town, then the ground shakes
-  place(T.port, "spud", W(PORT, -0.3, 0), 1.2, 15);
+  place(T.port, "spud", W(PORT, -0.15, -4.38), 0, 8); act(T.port - 0.02, "spud", "stand", { dur: 0.01 });   // off the step he sat on
   look(T.port, "spud", [-0.4, 0.2], 0.01); look(T.port + 0.6, "spud", [0.4, 0.2], 0.6);
   say(T.port + 0.2, "c8a", 42.6);
   say(42.65, "c8b", 47.0);
   big(42.65, T.slide, "1692");
-  prop(43.6, "port", { shake: 1 }, 0.3, "out");
+  SHAKES.push({ do: "shake", at: 43.6, dur: 1.0, amp: 0.03 });
   macro(43.7, "spud", "react", { expr: "surprised", big: true });
   fx(43.6, "rumble", { gain: 0.6, dur: 4.5, reason: "the earthquake: a deep rumble under the town" });
   fx(T.port, "ai/car-waves", { gain: 0.1, dur: r3(T.slide - T.port), reason: "the harbour" });
   // ================================================================= 35 THE SLIDE (44.6-48.8): two thirds of the town into the sea, he runs
-  place(T.slide, "spud", W(PORT, -0.2, 0.4), 1.2, -25);
-  look(T.slide - 0.1, "spud", [-0.3, 0], 0.1); act(T.slide + 0.05, "spud", "move", { to: W(PORT, -1.4, 3.6), y: 1.2, dur: 1.6, ease: "inOut" });
-  prop(T.slide + 0.2, "port", { sink: 1 }, 1.5, "in");
-  prop(46.5, "port", { shake: 0 }, 1.2, "inOut");
+  place(T.slide, "spud", W(PORT2, 1.3, -3.82), 0, -20);
+  look(T.slide - 0.1, "spud", [-0.3, 0], 0.1); act(T.slide + 0.05, "spud", "move", { to: W(PORT2, 1.12, -3.25), y: 0, dur: 1.5 });
+  prop(T.slide - 0.02, "p35", { sink: 0, quake: 0 }, 0); prop(T.slide, "p35", { quake: 1 }, 0.2, "out"); prop(T.slide + 0.2, "p35", { sink: 1 }, 1.5, "in"); SHAKES.push({ do: "shake", at: T.slide, dur: 1.8, amp: 0.04 });
+  prop(46.5, "p35", { quake: 0 }, 1.2, "inOut");
   big(47.0, T.closer, "2 MIN");
   fx(T.slide + 0.2, "ai/water-gush", { gain: 0.6, reason: "the town slides into the harbour" });
   fx(T.slide + 0.4, "ai/branch-snap", { gain: 0.4, reason: "timber houses break" });
@@ -241,30 +240,30 @@ function build(F, S) {
 
   // ---------------------------------------------------------------- shots (a push or a move on every one)
   const SHOTS = [
-    ["25 the road under water (part 3 hook)", T.hook, at(BIM, [0.4, -1.2, 2.6], [0, -4.9, -2.0], 50, { pos: [0.3, -1.6, 1.6] }, T.page), "hook"],
+    ["25 the road under water (part 3 hook)", T.hook, at(BIM, [2.44, 1.97, 7.47], [-8.88, -1.9, -40.8], 28.6, { pos: [2.0, 1.8, 6.9], fov: 22 }, T.page), "hook"],
     ["26 the 1940 page", T.page, pageCam(760, 380, 1150, [880, 300, 760, r3(T.isle - T.page)])],
-    ["27a near Bimini, from high above", T.isle, at(BIM, [40, 120, 140], [0, -5, -900], 40, { pos: [30, 110, 100] }, r3(T.page2 - T.isle))],
+    ["27a near Bimini, from high above", T.isle, at(AIR, [3.44, 7.51, 0], [1.74, -2.37, -48.96], 36.4, { pos: [3.3, 7.35, -1.0], fov: 34 }, r3(T.page2 - T.isle))],
     ["26b '68 and '69", T.page2, pageCam(640, 520, 420, [640, 525, 340, r3(T.air - T.page2)])],
-    ["27 the road from above", T.air, at(BIM, [6, 32, 40], [0, -5, -400], 45, { pos: [4, 24, 4] }, r3(T.block - T.air))],
-    ["28 his palm on the first block", T.block, at(BIM, [-2.2, -4.1, 5.0], [0.8, -4.3, -8], 40, { pos: [-1.9, -4.2, 4.2] }, r3(T.past - T.block))],
-    ["29 Atlantis, the last evening", T.past, at(ROAD, [0.8, 1.85, 4.5], [-1, 2.6, -40], 42, { pos: [0.6, 1.8, 3.9] }, r3(T.today - T.past))],
-    ["30 natural beachrock", T.today, at(BIM, [-0.9, -4.05, 2.4], [-0.5, -4.05, 0.8], 32, { pos: [-0.85, -4.05, 2.15] }, r3(T.stair - T.today))],
+    ["27 the road from above", T.air, at(AIR, [3.44, 7.51, 0], [1.8, -8.77, -47.25], 36.4, { pos: [3.2, 7.3, -1.0], fov: 27 }, r3(T.block - T.air))],
+    ["28 his palm on the first block", T.block, at(BIM, [2.44, 1.97, 7.47], [-0.5, 0.4, 0.8], 13, { pos: [2.2, 1.85, 7.0], fov: 11 }, r3(T.past - T.block))],
+    ["29 Atlantis, the last evening", T.past, at(ROAD, [0, 0.71, 0], [-20.9, -4.4, -45.4], 37.7, { pos: [-0.25, 0.71, -0.55], fov: 35 }, r3(T.today - T.past))],
+    ["30 natural beachrock", T.today, at(BIM, [2.0, 1.9, 7.2], [-0.5, 0.75, 0.8], 15, { pos: [1.85, 1.85, 6.9], fov: 13 }, r3(T.stair - T.today))],
     ["31 the staircase", T.stair, at(STEP, [0.6, 1.15, 6.5], [0, 0.85, -20], 38, { pos: [0.5, 1.1, 5.6] }, r3(T.ruler - T.stair))],
     ["32 the ruler", T.ruler, at(STEP, [-0.2, 0.2, 2.6], [-0.1, 0.22, 0.4], 38, { pos: [-0.15, 0.2, 2.35] }, r3(T.wait - T.ruler))],
     ["33 he waits", T.wait, at(STEP, [0.3, 0.8, 3.2], [0.0, 0.85, -0.8], 34, { pos: [0.3, 0.8, 3.05] }, r3(T.port - T.wait))],
-    ["34 Port Royal 1692", T.port, at(PORT, [1.5, 2.8, 8], [-2, 3.5, -50], 40, { pos: [1.2, 2.7, 7.0] }, r3(T.slide - T.port))],
-    ["35 two thirds into the sea", T.slide, at(PORT, [2.0, 2.8, 8], [-4, 3.5, -45], 44, { pos: [2.4, 3.0, 9.0] }, r3(T.closer - T.slide))],
+    ["34 Port Royal 1692", T.port, at(PORT, [0, 2, 0], [10.4, -2.5, -48.9], 46.7, { pos: [0.15, 1.95, -0.5], fov: 41 }, r3(T.slide - T.port))],
+    ["35 two thirds into the sea", T.slide, at(PORT2, [0, 2, 0], [30.5, -5.0, -39.0], 46.7, { pos: [0.25, 1.95, -0.35], fov: 43 }, r3(T.closer - T.slide))],
     ["36 closer, but one town", T.closer, at(STEP, [0.3, 1.0, 3.0], [0, 0.95, -10], 34, { pos: [0.3, 1.0, 2.6] }, r3(T.END - T.closer))],
   ];
   const mine = SHOTS.filter(([, t], i) => (SHOTS[i + 1]?.[1] ?? T.END) > S.t0 + 1e-6 && t < S.t1 - 1e-6).map(([n, t, s, k]) => [n, L(Math.max(t, S.t0)), s, k]);
   const beats = c.beats(mine, L(S.t1));
 
   // ---------------------------------------------------------------- cast + props of this storyboard
-  const first = { c1: { at: W(BIM, 0.3, 1.4), y: -3.4, face: 0 }, c2: { at: W(ROAD, -0.6, 1.0), y: 0.8, face: 20 }, c3: { at: W(BIM, -0.5, 0.8), y: -4.9, face: 15 } }[S.key];
+  const first = { c1: { at: W(BIM, 0.3, 1.4), y: 1.5, face: 0 }, c2: { at: W(ROAD, -2.4, -3.6), y: 0, face: 34 }, c3: { at: W(BIM, -0.5, 0.8), y: 0, face: 15 } }[S.key];
   const cast = [{ id: "spud", character: CAST.spud, at: first.at, y: first.y, face: first.face, expr: "neutral", follow: 0.2, seed: 2.1 }];
   if (S.key === "c2") {
-    cast.push({ id: "foreman", character: CAST.foreman, at: W(ROAD, 0.5, -0.4), y: 0.8, face: -150, expr: "neutral", follow: 0.3, seed: 4.2 });
-    [[0.9, -3], [1.1, -6], [1.0, -9], [1.2, -12]].forEach(([x, z], i) => cast.push({ id: `crew${i}`, character: CAST.crew, at: W(ROAD, x, z), y: 0.8, face: 180, expr: "neutral", seed: 5 + i }));
+    cast.push({ id: "foreman", character: CAST.foreman, at: W(ROAD, -1.2, -5.0), y: 0, face: -100, expr: "neutral", follow: 0.3, seed: 4.2 });
+    CREW.forEach(([x, z], i) => cast.push({ id: `crew${i}`, character: CAST.crew, at: W(ROAD, x, z), y: 0, face: 180, expr: "neutral", seed: 5 + i }));
   }
   const lamp = S.key === "c2" ? 0 : 1;   // the headlamp burns under water; in the past it is off
   const props = [host("spud", lamp)];
@@ -278,11 +277,11 @@ function build(F, S) {
     idea: "Ancient aliens EP03 block C (1:42-2:34): clue 3, Bimini: a straight road of giant square stones under clear water; a 1940 psychic named 1968; the road found in 1968, 800 m; in Atlantis it was evening (the foreman counts Spud in); 'natural beachrock'; the staircase: can a whole city sink in one day? The sea: 3 mm a year, nothing. An earthquake: Port Royal 1692, two thirds in two minutes. Closer, but one town.",
     fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
     castLook: "sheet", cleanStart: S.key === "c1", motion: MOTION, rig: RIG, physics: false, loopIdle: false,
-    set, music: score(T0 + S.t0),
+    set, music: score(T0 + S.t0), ...(SHAKES.some((f) => inSegOf(S, f.at)) && { fx: SHAKES.filter((f) => inSegOf(S, f.at)).map((f) => ({ ...f, at: r3(f.at - S.t0) })) }),
     sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "stone", room: "open", guard: true },
     ...(S.key === "c1" && { hook: { show: ["spud"], hint: 0, what: "Bimini: a dead-straight line of giant square stones under clear turquoise water, Spud floating above them; 1940 -> 1968 up top" } }),
     cast, props, captions: c.captions, beats, visible: c.visible,
-    allowClip: [...lampClip(["spud"], L(S.t1)), ...["bsky", "stepsky", "portsky"].filter((id) => props.some((q) => q.id === id)).map((id) => ({ who: "spud", with: id, from: 0, to: L(S.t1), reason: "shell: the sky dome rides with the camera and is drawn behind everything (lookOnly)" }))],
+    allowClip: [...lampClip(["spud"], L(S.t1)), ...["stepsky"].filter((id) => props.some((q) => q.id === id)).map((id) => ({ who: "spud", with: id, from: 0, to: L(S.t1), checks: ["shell"], reason: "shell: the sky dome rides with the camera and is drawn behind everything (lookOnly)" }))],
     notes: `Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard ${S.key} of three (block time ${S.t0}-${S.t1} s, story ${T0 + S.t0}-${T0 + S.t1} s). Music = the EP03 score from story ${T0 + S.t0} s.`,
   };
 }
