@@ -34,8 +34,8 @@ const rad = (d) => (d * Math.PI) / 180;
 
 // ---------------------------------------------------------------- the beats (video s), cut list v1 from the farm's takes
 const T = {
-  p01: 0, slap: 0.2, p02: 3.4, p03: 4.3, duch: 4.45, p04: 6.5, pay: 6.9, p05: 9.3, p06: 14.0, chip1: 15.75, p07: 17.1,
-  tug1: 17.2, no1: 17.6, p08: 18.6, come2: 18.75, no2: 19.75, p09: 20.6, p10: 22.9, p11: 25.0, p12: 29.8, p13: 31.3,
+  p01: 0, slap: 0.2, p02: 3.4, p03: 4.3, duch: 4.45, p04: 6.5, pay: 6.9, p05: 9.3, p06: 14.0, chip1: 16.1, p07: 17.1,
+  tug1: 17.2, no1: 17.6, p08: 18.6, come2: 18.75, no2: 19.65, p09: 20.6, p10: 22.9, p11: 25.0, p12: 29.8, p13: 31.3,
   p14: 33.2, brake: 33.5, p15: 34.9, p16: 36.7, zero: 37.5, p17: 39.0, p18: 40.8, p19: 43.4, lean: 44.6, p20: 46.6,
   follow: 47.2, END: 50.6,
 };
@@ -245,7 +245,7 @@ const hk = grips.thin(c, "seller", KEYS, { side: "R" });
 // Chip outside the glass: palm on the pane, then points at the hill behind him
 arm(T.p06 + 0.2, "chip", "L", { world: CPALM }, 0.3); grip(T.p06 + 0.2, "chip", "L", "flat", 0.1);
 arm(T.chip1 - 0.3, "chip", "R", "up", 0.3, "out"); grip(T.chip1 - 0.3, "chip", "R", "point", 0.1);
-say(T.chip1, "chip", "Come! I know a place!", 1.2, "excited");
+say(T.chip1, "chip", "Come! I know a place!", 0.95, "excited");
 for (const k of [0, 1]) A(r3(T.chip1 + 0.1 + k * 0.4), "chip", "hop", { height: 0.06, dur: 0.3, quiet: true });
 look(T.chip1 + 0.2, "rich", [0.5, 0.0], 0.2);   // he hears, he doesn't look
 see(T.p06, T.p07, ["rich.face", "seller", "scar", "chip.face"], "a showroom: he slams a money bag on the gold car, the seller hands him the keys; outside the window Chip points at a green hill");
@@ -442,10 +442,10 @@ const CUTS = [
 const NG = 4.0;
 const NARR = !VO ? [] : [
   [0.1, "Ten million dollars. Gone at sunset.", 3.3],
-  [6.6, "So he bought the whole coffee cart.", 2.55],
+  [6.7, "So he bought the whole coffee cart.", 2.55],
   [9.45, "But at a dollar a second, ten million takes a hundred and fifteen days.", 4.37],
   [14.15, "So he bought big.", 1.41],
-  [20.75, "His best friend stopped asking.", 1.95],
+  [20.9, "His best friend stopped asking.", 1.95],
   [25.1, "One million left. One minute. One last buy.", 4.53],
   [31.4, "But up on the hill sat his best friend.", 3.37],
   [41.0, "He lost ten million dollars.", 2.12],
