@@ -1,6 +1,11 @@
 // Ancient aliens EP03 Atlantis kit (15 Nov 2026), sea: the sea, the far coasts, Spud's rock, the scroll, the marble step + ruler, gulls.
-// Design: DESIGNS.md sections 0, 5, 9, 10 (/mnt/project-files/videos/ancient-aliens/03-atlantis/), kit/BOARD.md (places, depth, lights). Brief: kit/briefs/T3.md.
-// Bench: storyboards/series/ancient-aliens/03-atlantis/kit/bench/make-at-sea.mjs (+ at-sea-sheet.png). Exports AT_SEA_KINDS, AT_SEA_GRIPS = {} (nothing here is held).
+// Design: DESIGNS.md sections 0, 5, 9, 10 (/mnt/project-files/videos/ancient-aliens/03-atlantis/), kit/BOARD.md (places, depth, lights). Briefs: kit/briefs/T3.md, then
+// round R (kit/briefs/R-COMMON.md + R3.md): the Gibraltar place is built to the painting plates/plate-05-gibraltar-rock-today.png and carries crops of it.
+// Bench: storyboards/series/ancient-aliens/03-atlantis/kit/bench/make-at-sea.mjs (+ at-sea-sheet.png, at-sea-vs.png = painting left, still right).
+// Exports AT_SEA_KINDS, AT_SEA_GRIPS = {} (nothing here is held).
+// PAINTED CROPS (assets/props/atlantis/, made from plate 05 by kit/bench/at-sea-crops.py, loaded through globalThis.__loads):
+//   sea-gibraltar-sky.webp 2048 x 278 (sky, sun, cloud, the Rock, Africa) · sea-rock-plan.webp 1280 x 832 (the rock top as a plan; alpha 0.6 = its wet sheen) ·
+//   sea-rock-tile.webp 512 (plain rock, 0.9 m) · sea-splash.webp 400 x 296 (the surf jet).
 // Axes: +y up, +x screen right from the default camera, the camera on +z looking -z, metres, sea level y 0, Spud 0.88. Every mesh is lookOnly scenery
 // (surfaceOnly where place-wide); only the standable tops named below are solid. No Math.random, no wall clock: animation comes from the clip clock t and
 // from params. A param tweens only when seeded by a dur-0 set at its start (c.prop(0, id, { swell: 0.5 }, 0)); spec.<name> is its start value.
@@ -8,34 +13,56 @@
 // !! The gulls kind is registered as `seagulls`, not `gulls`: props-coaster.js (COASTER_KINDS) already owns `gulls` and Object.assign(KINDS, COASTER_KINDS)
 //    in props3d.js runs after ours, so a `gulls` here never builds. Use kind "seagulls" in clips.
 // !! Put every sea place away from the stage origin (x 0, z 0): the default set's light and haze sit there and wash out the sky (the bench starts at x 4000).
+// !! The engine's contact ovals lie on the floor (y 0) and fade with height: a character on the rock (y 1.2) gets none. Give the rock spec.shade (below).
+// !! A see-through card that must show over the sea has a geometry WITHOUT normals (the ink-line pass draws the sea a second time; a card with normals is hidden
+//    in that pass and the sea paints over it).
 //
 //   sea          the open sea to the horizon at y 0, a camera-following disc (radius = camera far * 0.965, set in a scene render hook; the clip's `far` 1500 is fine).
-//                Cel-drawn moving waves (three long swells + chop; whitecaps on one wave in five; lace; crest strokes; green light through near crests), the sky
-//                and objects mirrored as wobbling vertical strokes, the sun's glitter path toward the camera, a horizon band + far haze so sea and sky part. Seen
-//                from below (camera y < the sea's level) it shows the rippled mirror and Snell's window, as set-stormlake does. Origin = the place's centre (x, z).
-//                spec.grade "gibraltar" (default; dark teal-blue, AT_DAWN) | "harbour" (blue) | "tropic" (turquoise, bright sun, fine ripples) | "step" (saturated
-//                  cyan, fine ripples, panels 31-36) | "night" (navy, starry reflections, mist-ready) | "storm" (dark, big swell, chop 0.9)
-//                spec.chop (grade: 0.45 gibraltar .3 harbour .3 tropic .16 step .3 night .9 storm), spec.horizon false (true: horizon band + far haze; set it in every wide shot),
+//                Painted moving water: two long swells + ten chop waves, short-crested (each swells and dies along its ridge); the faces that lean to the eye are
+//                dark, the backs lighter, brush strokes along the crests, a soft lighter edge on the big ridges, deep green light through the near crests, whitecaps as
+//                broken foam patches on about one crest in five (solid on the crest, torn into clumps down the wave, green under them), a few flecks of old
+//                foam, far streaks to the horizon, the sun's glitter path as a column of gold dashes, objects mirrored as drawn-out wobbling streaks of their
+//                colour. All foam is smooth noise (no cell grid, no thin lines). Seen from below (camera y < the sea's level) it shows the rippled mirror and Snell's
+//                window, as set-stormlake does. Origin = the place's centre (x, z).
+//                spec.grade "gibraltar" (default; choppy dark teal, plate 05, AT_DAWN) | "harbour" (calm blue, dense ripple strokes, a warm glitter path, deeper blue toward the camera, plate 01) | "tropic"
+//                  (turquoise, bright sun, fine ripples) | "step" (saturated cyan, fine ripples, panels 31-36) | "night" (navy, starry reflections, mist-ready) | "storm"
+//                  (dark, big swell, chop 0.9)
+//                spec.chop (grade: 0.45 gibraltar .3 harbour .3 tropic .16 step .3 night .9 storm), spec.caps (whitecaps 0..1.5; grade: 1 gibraltar, 0 harbour, 0.3 others),
+//                spec.tone (contrast of the facets, grade: 1, harbour 1.5), spec.nearDeep (0..1 darker water toward the camera; grade: 0.6 harbour, 0 others), spec.horizon false (true: horizon band + far haze; set it in every wide shot),
 //                spec.hole [x, z, r] (default none: leaves a round hole, local to the origin; foam on its rim, spec.holeFoam 0.6, for the city disc),
 //                spec.mirrors [[x, z, w, h, "#color"], ...] (max 8; a wall or rock mirrored: its footing at local (x, z), w wide, h high; the wall faces +z),
-//                spec.foam [[x, z, r, k], ...] (max 6; foam laid round a rock or a wall foot, radius r, strength k 1),
+//                spec.foam [[x, z, r, k, every, phase], ...] (max 6; soft broken streaks of foam along the waves round a rock or a wall foot, radius r, strength k 1; with `every` (s) it
+//                  swells and thins on the clip clock, phase 0..1: the rock's surf side is [1.9, 0.2, 1.7, 1, 2.5, 0.92] for surfEvery 2.5),
 //                spec.patches [[x, z, r, "#color", k, weed], ...] (max 4; a patch of other water colour, weed 1 shows green weed through it: panel 12's dark water),
-//                spec.calm [x, z, r] (default none: waves lie down inside r, for a step or a quay), spec.shallow [[x, z, halfX, halfZ], ...] (max 3; the sea is see-through
-//                  there so a sunk tread shows) with spec.shallowA 0.5 (its opacity), spec.mist [x, z, r] (default none: low wisps of sea mist 0..1 m high, 46 soft quads) with
-//                spec.mistA 0.2, spec.sunAz 35 / spec.sunEl 8 (grade default; the glitter and the sky's sun; the same as the shsky prop), spec.hi (crest-stroke color), spec.skyH /
-//                spec.skyZ / spec.haze (colors of the mirrored sky and the haze), spec.hazeD (900 with horizon, else 2400: metres to full haze), spec.hazeA 0.9,
+//                spec.calm [x, z, r, k] (default none: the waves lie down inside r, k 0.96 = flat (a step, a quay), 0.7 = lower round a rock; the facets keep
+//                  catching the light), spec.shallow [[x, z, halfX, halfZ], ...] (max 3; the sea is see-through there so a sunk tread shows) with spec.shallowA 0.5,
+//                spec.mist [x, z, r] (default none: low wisps of sea mist 0..1 m high, 46 soft quads) with spec.mistA 0.2, spec.sunAz 35 / spec.sunEl 8 (grade
+//                default; the glitter and the sky's sun; the same as the shsky prop), spec.hi (crest-stroke color), spec.skyH / spec.skyZ / spec.haze (colors of the
+//                mirrored sky and the haze), spec.hazeD (900 with horizon, else 2400: metres to full haze), spec.hazeA (the horizon band: 0.12 gibraltar, 0.9 others),
 //                spec.reach 9500 (the sea hides when the camera is farther than this from the origin: set 1700 so two places never mix).
-//                params: swell 0..1 (grade default .45 gibraltar .25 harbour .3 tropic .12 step .8 night .8 storm), rise (y offset in m, the rising sea; also the prop's y),
+//                params: swell 0..1 (grade default .08 gibraltar .25 harbour .3 tropic .12 step .8 night .8 storm), rise (y offset in m, the rising sea; also the prop's y),
 //                  glint 0..1 (the glitter path, 1), sunAz, sunEl (degrees, tween them with the sky's).
-//   horizonland  far coast cards on the horizon (cylinder arcs round the origin, never scaled, no depth write): spec.coast "gibraltar" (default: the Rock, a pale wedge 6 deg
-//                wide, Africa's two ridges, Spain's low coast, a dotted town) | "island" (a low green coast with trees, a pale beach and surf line, one far sail), spec.az
-//                (degrees left of -z; default -13 gibraltar, -34 island: negative = to the right), spec.dist 1300, spec.size 1 (height factor), spec.clouds true (a low cloud bank
-//                behind), spec.cloudWarm (0.8 gibraltar / 0.2 island), spec.cloudAz (= az), spec.cloudSpan 110, spec.cloudH 2.1 (degrees tall). Origin: the place's centre.
-//   seastack     Spud's rock, 3.2 wide x 2.4 deep (x -1.6..1.6, z -1.2..1.2), dome with a crag at the back left, strata ledges, a flat patch 1.0 x 0.8 centred at (0.1, 0.15),
-//                top y 1.2 (STANDABLE, solid), barnacles, limpets, lichen and moss, a dark wet line, weed that moves in the wash, a tide pool with a crab on the left ledge
-//                (-1.02, 0.52, y 0.84), spray, tongues of foam, and a surf sheet 1 m high on the right (+x side). Origin: the rock's centre on the water, y 0.
-//                spec.surfEvery 2.5 (s; the wave arrives, climbs, falls back on the clip clock). param surf 0..1 (default: the clock; seed a dur-0 set to drive one wave by hand,
-//                0 and 1 = no wave). Lay foam round it with the sea's spec.foam [[0, 0, 2.1, 0.75]] and its mirror with spec.mirrors.
+//                The rock's sea (bench ROCKSEA): grade "gibraltar", horizon true, calm [0, 0, 3.0, 0.7], foam [[0, 0, 2.2, 0.8], [1.9, 0.2, 1.7, 1, 2.5, 0.92], [-1.5, 0.7, 1.2, 0.7, 2.5, 0.3]].
+//   horizonland  far coast cards on the horizon (cylinder arcs round the origin, never scaled, no depth write). Origin: the place's centre.
+//                spec.coast "gibraltar" (default): THE PAINTED STRIP of plate 05, 93 deg wide and 13.2 deg high, its bottom edge on the horizon: the dawn sky with the
+//                  sun and its clouds, the Rock and Africa, in front of the sky prop (edges faded into it). The painted sun is 36.9 deg left of the Rock. spec.az =
+//                  where the Rock stands (degrees left of -z, negative = right); default spec.sunAz - 36.9 = -1.9, which puts the painted sun on spec.sunAz 35 (the
+//                  BOARD's AT_DAWN sun, the sea's glitter): give another az and the painted sun moves with it. spec.size 1 (height factor), spec.clouds true adds the
+//                  drawn cloud bank. spec.paint false = the earlier drawn coast (a pale wedge, Africa's ridges, spec.az -13, spec.clouds default true).
+//                spec.coast "island" (a low green coast with trees, a pale beach and surf line, one far sail; drawn): spec.az -34, spec.dist 1300, spec.size 1, spec.clouds true
+//                  (a low cloud bank behind), spec.cloudWarm 0.2 (0.8 gibraltar), spec.cloudAz (= az), spec.cloudSpan 110, spec.cloudH 2.1 (degrees tall).
+//   seastack     Spud's rock, 3.2 wide x 2.4 deep (x -1.6..1.6, z -1.2..1.2), a low slab with steep flanks and strata ledges, a raised rim at the back left, a flat patch
+//                1.0 x 0.8 centred at (0.1, 0.15), top y 1.2 (STANDABLE, solid). It wears plate 05's painted rock: the top as a plan (the wet sheen lies on the flat
+//                patch), the painted ledges, barnacles, weed and runnels drawn out down the flanks, plain painted rock + cracks where the paint ends, then the dark wet
+//                zone, a green band and the dark under water. On it in 3D: barnacle and limpet clusters, moss, weed draped down the ledges with its tips afloat and
+//                swung by the wash, a tide pool with a crab on the left ledge (-0.98, 0.6, y 0.84), and the surf on the right (+x side): three painted jets up to 1.4 m
+//                that turn to the camera, 150 drops of spray, and thin runs of white water sliding off the top after each wash. Origin: the rock's centre on the water, y 0.
+//                spec.surfEvery 2.5 (s; the wave arrives, climbs, falls back on the clip clock). param surf 0..1 (default: the clock; seed a dur-0 set to drive one wave by
+//                  hand, 0 and 1 = no wave).
+//                spec.wet 1 (param wet 0..1): 1 = the painted wet sheen on the flat patch (plate 05), 0 = dry rock there (panel 06: the scroll lies on it).
+//                spec.shade [x, z, r] (default none; r 0.4 for Spud): the contact shadow of whoever stands on the rock, a dark core + a soft shadow away from the sun
+//                  (spec.sunAz 35). params shadeX, shadeZ (follow a walk), shade 0..1 (its strength; 1 when spec.shade is set). The rock also takes shadow-map shadows.
+//                Lay foam round it with the sea's spec.foam (above) and lower the waves at it with spec.calm [0, 0, 3.0, 0.7].
 //   scroll       the papyrus 0.55 x 0.42 between two rolls (brass knobs) with the sepia ring plan (rings, a grid, a pyramid frieze, wear): lies flat, thickness 4 mm, origin the
 //                middle of the sheet on the surface it lies on (set its y: 1.2 on the rock). Not solid. Put it at the rock's flat patch (x 0.1, z 0.15). param open 0..1
 //                (spec.open default 1: 1 = the sheet fully unrolled, 0 = the rolls closed together). spec.rot (the prop's turn about y, degrees) comes from the engine.
@@ -67,6 +94,16 @@ const F = (n) => (Number.isInteger(n) ? `${n}.0` : `${+n.toFixed(6)}`);
 function canvas(w, h) { const c = document.createElement("canvas"); c.width = w; c.height = h; return [c, c.getContext("2d")]; }
 function tex(c, o = {}) { const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; if (o.wrap) t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; }
 
+// a crop of the painted plate 05 (assets/props/atlantis/, made by kit/bench/at-sea-crops.py): the engine waits for globalThis.__loads before the first frame
+const ASSET = "/assets/props/atlantis/";
+function paint(name, o = {}) {
+  return once("paint:" + name + (o.wrap ? ":w" : ""), () => {
+    const [c] = canvas(2, 2), t = new THREE.Texture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; if (o.wrap) t.wrapS = t.wrapT = THREE.RepeatWrapping; t.needsUpdate = true;
+    (globalThis.__loads ||= []).push(new THREE.ImageLoader().loadAsync(ASSET + name).then((img) => { t.image = img; t.needsUpdate = true; }, () => console.warn("props-at-sea: missing " + ASSET + name)));
+    return t;
+  });
+}
+
 // every mesh of the kit is scenery: no contact oval, no hand ray; solid only where a top is standable
 function mark(o, { solid = false, steam = false, surface = true, order } = {}) {
   o.traverse((m) => { m.userData.lookOnly = true; m.userData.solid = !!solid; if (surface) m.userData.surfaceOnly = true; if (steam) m.userData.steam = true; m.castShadow = false; m.receiveShadow = false; m.frustumCulled = false; if (order != null) m.renderOrder = order; });
@@ -84,8 +121,8 @@ function hookScene(root, fn) {
 
 // ================================================================================================ THE SEA
 const GRADES = {
-  gibraltar: { base: "#2f5f6a", shade: "#234a56", light: "#4f7f86", hi: "#a9cbd0", far: "#4f7f9a", foam: "#eef3f0", green: "#58b69a", skyH: "#d4e4ee", skyZ: "#5f93d2", haze: "#a7c4d6", glint: "#fff0cc", sun: [35, 8], swellH: 1.0, swell: 0.45, chop: 0.45, sunK: 1, star: 0 },
-  harbour: { base: "#2f6fae", shade: "#1f4f86", light: "#4f95cc", hi: "#8fc4e6", far: "#4a86bf", foam: "#f0f5f6", green: "#3fa6a4", skyH: "#d2e2f0", skyZ: "#4c88d2", haze: "#a9c6e0", glint: "#8fc4e6", sun: [35, 8], swellH: 0.8, swell: 0.25, chop: 0.3, sunK: 1, star: 0 },
+  gibraltar: { base: "#1c5764", shade: "#0f3742", light: "#3f8486", hi: "#b4d8d2", far: "#2c6a7c", foam: "#f2f6f2", green: "#1c7a5e", skyH: "#d9d2de", skyZ: "#5f93d2", haze: "#8fb4c8", glint: "#ffd27c", sun: [35, 8], swellH: 1.0, swell: 0.08, chop: 0.45, sunK: 1, star: 0, steep: 1.45, long: 0.13, cap: 1, hazeK: 0.1, hazeA: 0.12, skyK: 0.3, lite: 0.38, stroke: 1.5, toneB: 0.95, toneD: 1.9 },
+  harbour: { base: "#2c68b4", shade: "#1f4a90", light: "#5a9cd6", hi: "#bfe0f2", far: "#3f7fc2", foam: "#f0f5f6", green: "#3fa6c4", skyH: "#d2e2f0", skyZ: "#4c88d2", haze: "#a9c6e0", glint: "#ffe6a6", sun: [35, 8], swellH: 0.8, swell: 0.25, chop: 0.3, sunK: 1, star: 0, cap: 0, tone: 1.5, stroke: 3.0, steep: 1.3, long: 0.4, nearDeep: 0.6, glW: 1.5, glReach: 2.2, glDense: 0.1 },
   tropic: { rip: 1, base: "#2fc4c0", shade: "#1aa0b0", light: "#6fe0d4", hi: "#eafff6", far: "#38b4c4", foam: "#f4fbf8", green: "#5ad8a8", skyH: "#cfe8f4", skyZ: "#3f8fe0", haze: "#9fd8e4", glint: "#eafff6", sun: [20, 55], swellH: 0.8, swell: 0.3, chop: 0.3, sunK: 1, star: 0 },
   step: { rip: 1, base: "#0f9bd0", shade: "#0a76b4", light: "#2ac4e2", hi: "#d4f6fb", far: "#2fa6d8", foam: "#f4f8f8", green: "#4ec4a4", skyH: "#d6e8f4", skyZ: "#3f86d6", haze: "#a8d2ec", glint: "#e8f6ff", sun: [20, 55], swellH: 0.6, swell: 0.12, chop: 0.16, sunK: 1, star: 0 },
   night: { base: "#0b1630", shade: "#060d20", light: "#16264a", hi: "#3a5688", far: "#16264a", foam: "#c9d6e6", green: "#1d4a5a", skyH: "#16264a", skyZ: "#0a1024", haze: "#16264a", glint: "#cfd8ff", sun: [30, -20], swellH: 1.0, swell: 0.8, chop: 0.3, sunK: 0, star: 1 },
@@ -94,28 +131,25 @@ const GRADES = {
 
 // the wave spectrum (travel direction a degrees from +z toward +x, wavelength, steepness, phase); deep water speed sqrt(g k)
 const SWELLS = [[22, -12, 1.3], [14, 18, 4.1]];   // wavelength, angle, phase: amplitude = swell * grade.swellH / 2 (the first two waves)
-const CHOPS = [[11, 6, 0.014, 0.6], [7.2, -9, 0.02, 2.2], [4.6, 16, 0.03, 5.1], [3.0, -20, 0.038, 3.3], [1.9, 9, 0.044, 0.9], [1.15, -14, 0.044, 4.4], [0.7, 26, 0.04, 2.7], [0.42, -30, 0.034, 1.5]];
+const CHOPS = [[11, 6, 0.014, 0.6], [7.2, -9, 0.02, 2.2], [5.7, -2, 0.026, 1.1], [4.6, 16, 0.03, 5.1], [3.7, 10, 0.033, 4.0], [3.0, -20, 0.038, 3.3], [1.9, 9, 0.044, 0.9], [1.15, -14, 0.044, 4.4], [0.7, 26, 0.04, 2.7], [0.42, -30, 0.034, 1.5]];
 function wavesGLSL() {
   const all = [...SWELLS.map(([wl, an, ph]) => ({ wl, an, ph, sw: 1 })), ...CHOPS.map(([wl, an, st, ph]) => ({ wl, an, ph, st, sw: 0 }))];
   const lines = all.map((W, i) => {
     const k = TAU / W.wl, w = Math.sqrt(9.81 * k), dx = Math.sin(W.an * DEG), dz = Math.cos(W.an * DEG);
-    const amp = W.sw ? `uSwellA * ${F(i === 0 ? 1 : 0.62)}` : `${F(W.wl * W.st)} * uChopK`;
-    return `  { float ph = ${F(k)} * (${F(dx)} * p.x + ${F(dz)} * p.y) - ${F(w)} * t + ${F(W.ph)}; float q = 0.5 + 0.5 * sin(ph), a = ${amp} * (1.0 - smoothstep(${F(W.wl * 0.1)}, ${F(W.wl * 0.34)}, foot));
-    float h = a * (2.0 * q * q - 0.75), dd = 2.0 * a * q * cos(ph) * ${F(k)}; vec3 g = vec3(h, dd * ${F(dx)}, dd * ${F(dz)}); all += g;${i < 5 ? " big += g;" : ""} }`;
+    const amp = W.sw ? `uSwellA * ${F(i === 0 ? 1 : 0.62)}` : `${F(W.wl * W.st)} * uChopK${W.wl > 6 ? " * uLongK" : ""}`;
+    return `  { float ph = ${F(k)} * (${F(dx)} * p.x + ${F(dz)} * p.y) - ${F(w)} * t + ${F(W.ph)}; float q = 0.5 + 0.5 * sin(ph), a = ${amp} * (1.0 - smoothstep(${F(W.wl * 0.15)}, ${F(W.wl * 0.5)}, foot));${!W.sw && W.wl > 1.5 ? `
+    a *= 0.62 + 0.76 * vnoise(vec2((${F(dz)} * p.x - ${F(dx)} * p.y) / ${F(W.wl * 1.7)}, (${F(dx)} * p.x + ${F(dz)} * p.y - ${F(0.5 * w / k)} * t) / ${F(W.wl * 4.5)}) + ${F(W.ph * 3.1)});   // short crests: every wave swells and dies along its ridge, the groups travel at half the wave's speed` : ""}
+    float h = a * (2.0 * q * q - 0.75), dd = 2.0 * a * q * cos(ph) * ${F(k)}; vec3 g = vec3(h, dd * ${F(dx)}, dd * ${F(dz)}); all += g;${W.sw || W.wl >= 2.9 ? " big += g;" : ""} }`;
   });
-  return `void waves(vec2 p, float t, float foot, out vec3 big, out vec3 all) {   // (height, dh/dx, dh/dz): big = the waves 4.6 m and longer, all = every wave; foot = the metres one pixel (or vertex gap) covers: waves shorter than 3 foot fade out
+  return `void waves(vec2 p, float t, float foot, out vec3 big, out vec3 all) {   // (height, dh/dx, dh/dz): big = the waves 3 m and longer, all = every wave; foot = the metres one pixel (or vertex gap) covers: waves shorter than 3 foot fade out
   big = vec3(0.0); all = vec3(0.0);
 ${lines.join("\n")}
 }
-float wlOf(int i) { ${CHOPS.map(([wl], j) => `if (i == ${j}) return ${F(wl)};`).join(' ')} return 1.0; }
-float crestOf(int i, vec2 p, float t) {   // phase of the chop wave i (2..9 of the list): crest where sin = 1
-  ${CHOPS.map(([wl, an, st, ph], j) => { const k = TAU / wl, w = Math.sqrt(9.81 * k); return `if (i == ${j}) return ${F(k)} * (${F(Math.sin(an * DEG))} * p.x + ${F(Math.cos(an * DEG))} * p.y) - ${F(w)} * t + ${F(ph)};`; }).join("\n  ")}
-  return 0.0;
-}`;
+`;
 }
 
 const SEA_COMMON = `
-uniform float uTime, uSwellA, uChopK;
+uniform float uTime, uSwellA, uChopK, uLongK;
 uniform vec4 uCalm; uniform vec2 uOrigin;
 float calmK(vec2 p) { return 1.0 - uCalm.w * (1.0 - smoothstep(uCalm.z, uCalm.z * 2.4, distance(p, uOrigin + uCalm.xy))); }
 float hash12(vec2 p) { vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
@@ -153,7 +187,7 @@ uniform float uSunK, uGlint, uStar, uHorizon, uLevel, uExtent, uReach, uHoleFoam
 uniform vec3 uHole;
 uniform vec4 uShallow[3]; uniform float uNShallow, uShallowA;
 uniform vec4 uMir[8]; uniform vec3 uMirC[8];
-uniform float uRip; uniform vec4 uFoamAt[6]; uniform vec4 uPatch[4]; uniform vec3 uPatchC[4]; uniform float uPatchW[4];
+uniform float uRip, uToneK, uToneB, uToneD, uSkyK, uCapK, uHazeK, uLiteK, uStrokeK, uNearDeep, uGlW, uGlReach, uGlDense; uniform vec2 uFoamEv[6]; uniform vec4 uFoamAt[6]; uniform vec4 uPatch[4]; uniform vec3 uPatchC[4]; uniform float uPatchW[4];
 varying vec3 vW;
 
 vec3 vor3(vec2 q) {   // nearest, second nearest, cell id
@@ -174,13 +208,16 @@ vec3 skyAt(vec3 d) {
   return c;
 }
 float cel(float x, float a, float w) { return smoothstep(a - w, a + w, x); }
+// soft foam, never a cell grid: three octaves of smooth noise; its clots are thresholds of it, its lace the thin ridge along one of its levels
+float fbm2(vec2 p) { return vnoise(p) * 0.55 + vnoise(p * 2.13 + 7.1) * 0.3 + vnoise(p * 4.3 + 3.7) * 0.15; }
+float ridgeOf(float n, float at, float wd) { return 1.0 - smoothstep(wd * 0.4, wd, abs(n - at)); }
 
 void main() {
   if (uHole.z > 0.0 && distance(vW.xz, uOrigin + uHole.xy) < uHole.z) discard;
   vec3 V3 = cameraPosition - vW; float d = length(V3); vec3 V = V3 / max(d, 1e-4);
   vec2 fwv = abs(dFdx(vW.xz)) + abs(dFdy(vW.xz)); float foot = max(fwv.x, fwv.y), px = max(foot, 1e-3);
   vec3 wb, w; waves(vW.xz, uTime, foot, wb, w);
-  float ck = calmK(vW.xz); wb *= ck; w *= ck;
+  float ck = mix(1.0, calmK(vW.xz), 0.45); wb *= ck; w *= ck;   // a calm zone lays the water down, but its facets still catch the light
   vec3 N = normalize(vec3(-w.y, 1.0, -w.z)), Nb = normalize(vec3(-wb.y, 1.0, -wb.z));
   vec3 c;
   if (cameraPosition.y < uLevel) {
@@ -194,92 +231,115 @@ void main() {
     c = mix(c, mix(uGlintC, vec3(1.0), 0.4), line * (0.35 + 0.6 * win));
     c = mix(c, uShade * 0.35, smoothstep(40.0, 200.0, d) * 0.7);
   } else {
-    // ---- the cel bands: the long waves give the big shapes, the short ones the small facets
-    float ampB = 0.75 * (uSwellA * 1.62 + uChopK * 0.35) + 0.02;
+    // ---- painted water: the faces that lean to the eye are dark and see-through, the backs and tops mirror the low sky
+    float ampB = 0.75 * (uSwellA * 1.62 + uChopK * (0.2 + 0.2 * uLongK)) + 0.02;
     float hN = clamp(wb.x / ampB, -1.0, 1.0);
     vec2 toCam = normalize(cameraPosition.xz - vW.xz + 1e-4);
-    float fb = dot(-wb.yz, toCam), fs = dot(-w.yz, toCam);
+    float fb = dot(-wb.yz, toCam), fs = dot(-w.yz, toCam), fd = fs - fb;
     float nz = vnoise(vW.xz * 0.5 + vec2(0.0, uTime * 0.15));
-    float aa = 0.025 + px * 0.02;
-    float qv = 0.45 + 0.35 * hN + 2.4 * fb + (nz - 0.5) * 0.18;
-    vec3 body = mix(uShade, uBase, cel(qv, 0.22, aa));
-    body = mix(body, uLight, cel(qv, 1.0, aa));
-    float qs = 3.2 * fs + (nz - 0.5) * 0.06;
-    float aq = 0.05 + px * 0.06;
-    body = mix(body, uShade * 0.85, (1.0 - cel(qs, -0.4, aq)) * 0.6);
-    body = mix(body, uLight, cel(qs, 0.34, aq) * 0.6);
-    // hand-drawn strokes at the lip of every light facet and under the dark ones
-    float fq = max(fwidth(qs), 1e-4), brk = step(0.34, vnoise(vW.xz * vec2(0.9, 0.6) + 7.0));
-    float lipL = (1.0 - smoothstep(0.6, 1.6, abs(qs - 0.3) / fq)) * brk * (1.0 - smoothstep(80.0, 500.0, d));
-    float lipD = (1.0 - smoothstep(0.6, 1.4, abs(qs + 0.38) / fq)) * step(0.45, vnoise(vW.xz * vec2(0.7, 0.5) + 19.0)) * (1.0 - smoothstep(60.0, 400.0, d));
-    body = mix(body, uHi, lipL * 0.55);
-    body = mix(body, uShade * 0.55, lipD * 0.6);
+    float nearK = 1.0 - smoothstep(0.08, 0.5, foot);            // 1 where a brush stroke is wider than a pixel
+    float tone = 0.5 - uToneK * (uToneB * fb + uToneD * fd) + 0.22 * hN + (nz - 0.5) * 0.16 - 0.22 * smoothstep(0.2, 0.7, V.y);   // looked down into, water is darker
+    vec3 body = mix(uShade, uBase, smoothstep(0.2, 0.58, tone));
+    body = mix(body, uLight, smoothstep(0.74, 1.08, tone) * uLiteK);
+    body = mix(body, uShade * 0.7, (1.0 - smoothstep(-0.3, 0.1, tone)) * 0.85);   // the hollow under a steep face
+    // brush strokes that lie along the crests: light ones on the backs, dark ones in the faces
+    vec2 sq = vec2(vW.x * 0.85, vW.z * 4.6 + uTime * 0.55) + w.yz * 2.5;
+    float st1 = vnoise(sq), st2 = vnoise(sq * vec2(1.7, 1.3) + 31.7), st3 = vnoise(sq * vec2(0.45, 0.6) + 77.1);
+    body = mix(body, uLight, clamp(smoothstep(0.62, 0.78, st1) * 0.3 * nearK * uLiteK * uStrokeK, 0.0, 0.85));
+    body = mix(body, uShade * 0.85, clamp(smoothstep(0.64, 0.8, st2) * 0.34 * nearK * uStrokeK, 0.0, 0.85));
+    body = mix(body, uHi, clamp(smoothstep(0.74, 0.82, st3) * smoothstep(0.45, 0.8, tone) * 0.3 * nearK * uStrokeK, 0.0, 0.8));
     // paint patches of other colour (the dark water by a rock), with weed seen through it
     for (int i = 0; i < 4; i++) {
       if (float(i) >= uNPatch) break; vec4 Pa = uPatch[i]; float dd = distance(vW.xz, uOrigin + Pa.xy);
       float k = (1.0 - smoothstep(Pa.z * 0.4, Pa.z, dd)) * Pa.w;
-      body = mix(body, uPatchC[i], k);
-      if (uPatchW[i] > 0.0) {
-        vec2 qq = (vW.xz + w.yz * 0.5) / 0.75; vec3 v = vor3(qq);
-        float big = smoothstep(0.38, 0.6, vnoise(vW.xz * 0.9 + float(i) * 5.0));
-        float blob = (1.0 - smoothstep(0.30, 0.46, v.x)) * step(0.28, v.z) * big;
-        vec3 wc = mix(vec3(0.045, 0.16, 0.05), vec3(0.2, 0.3, 0.07), fract(v.z * 7.0));
-        wc = mix(wc, vec3(0.32, 0.4, 0.1), (1.0 - smoothstep(0.0, 0.1, abs(v.x - 0.26))) * 0.7);
-        body = mix(body, wc, blob * k * uPatchW[i]);
-        float cl = 1.0 - smoothstep(0.04, 0.1 + px * 0.4, (vor(qq * 1.3 + uTime * 0.05).y - vor(qq * 1.3 + uTime * 0.05).x) * 0.5);
-        body = mix(body, mix(uGreen, vec3(1.0), 0.5), cl * 0.22 * k);
+      body = mix(body, mix(uPatchC[i], body, 0.25 * smoothstep(0.5, 0.9, tone)), k);
+      if (uPatchW[i] > 0.0) {   // weed seen through the water: soft dark-green beds with lighter fronds, swaying with the waves above them
+        vec2 qq = vW.xz + w.yz * 0.45; float bed = fbm2(qq * 0.85 + float(i) * 5.0), fr = fbm2(qq * vec2(2.6, 3.4) + 11.0 + float(i) * 3.0);
+        float blob = smoothstep(0.48, 0.7, bed);
+        vec3 wc = mix(vec3(0.03, 0.11, 0.06), vec3(0.1, 0.2, 0.07), smoothstep(0.4, 0.65, fr));
+        wc = mix(wc, vec3(0.2, 0.28, 0.09), ridgeOf(fr, 0.56, 0.05) * 0.5);
+        body = mix(body, wc, blob * k * uPatchW[i] * 0.6);
       }
     }
+    // which crests break: about one in five, and only a few metres of each ridge
+    float brk = vnoise(vW.xz * vec2(0.085, 0.13) + vec2(uTime * 0.045, -uTime * 0.11) + 3.3);
+    float brk2 = vnoise(vW.xz * vec2(0.31, 0.5) + vec2(-uTime * 0.07, uTime * 0.16) + 9.1);
+    float breaking = smoothstep(0.55, 0.65, brk) * smoothstep(0.44, 0.6, brk2) * uCapK * (1.0 - smoothstep(90.0, 420.0, d));
+    // green light through the near crests, strongest right under a breaking one
+    float gk = smoothstep(0.4, 0.9, hN) * smoothstep(0.16, 0.36, fb) * (1.0 - smoothstep(25.0, 150.0, d));
+    body = mix(body, uGreen, gk * 0.42);
+    body = mix(body, mix(uGreen, vec3(1.0), 0.25), gk * smoothstep(0.7, 0.98, hN) * 0.16);
+    body = mix(body, mix(uGreen, uLight, 0.35), clamp(breaking, 0.0, 1.0) * smoothstep(0.25, 0.7, hN) * smoothstep(0.08, 0.26, fb) * (1.0 - smoothstep(0.34, 0.6, fb)) * 0.7);
+    // a soft lighter edge along the ridge of the big waves
+    float fq = max(fwidth(fb), 1e-4);
+    float ridge = (1.0 - smoothstep(0.8, 2.6, abs(fb) / fq)) * smoothstep(0.2, 0.55, hN) * smoothstep(0.3, 0.5, vnoise(vW.xz * vec2(0.5, 0.9) + 7.0));
+    body = mix(body, mix(uLight, uHi, 0.4), ridge * 0.3 * (1.0 - smoothstep(120.0, 420.0, d)));
+    // the far water: thin streaks of dark and light to the horizon, tiny far whitecaps
+    float farK = smoothstep(50.0, 220.0, d);
+    float azm = atan(vW.x - cameraPosition.x, cameraPosition.z - vW.z), ld = log(max(d, 1.0));
+    float sn = vnoise(vec2(azm * 26.0, ld * 9.0 - uTime * 0.03)), sn2 = vnoise(vec2(azm * 48.0 + 9.0, ld * 17.0 + uTime * 0.02));
+    body = mix(body, uShade * 0.78, uNearDeep * (1.0 - smoothstep(3.0, 45.0, d)));      // deeper toward the eye (the harbour)
+    body = mix(body, uFarC, farK * 0.55);
+    body = mix(body, uShade, farK * smoothstep(0.5, 0.74, sn) * 0.5);
+    body = mix(body, uLight, farK * smoothstep(0.6, 0.78, sn2) * 0.4 * uLiteK);
     float gust = smoothstep(0.55, 0.8, vnoise(vW.xz * 0.02 + vec2(uTime * 0.02, 3.0)));
-    body = mix(body, uShade, gust * 0.3 * smoothstep(20.0, 300.0, d));
-    body = mix(body, uFarC, smoothstep(30.0, 900.0, d) * 0.6);
-    // green light through the near crests
-    float gk = smoothstep(0.55, 0.9, hN) * smoothstep(0.05, 0.3, fb) * (1.0 - smoothstep(10.0, 80.0, d));
-    body = mix(body, uGreen, gk * 0.5 * cel(qv, 0.7, 0.05));
-    // ---- sky mirrored, in wobbling vertical strokes
+    body = mix(body, uShade, gust * 0.25 * smoothstep(20.0, 300.0, d));
+    // ---- the low sky mirrored where the eye skims the water
     vec3 R = reflect(-V, N); R.y = max(R.y, 0.03); R = normalize(R);
     float nv = clamp(dot(N, V), 0.0, 1.0);
-    float fres = 0.05 + 0.4 * pow(1.0 - nv, 3.0);
-    vec3 sky = skyAt(R);
-    float wob = vnoise(vec2(vW.x * 1.7 + sin(vW.z * 0.35 + uTime * 0.7) * 0.5, vW.z * 0.04 - uTime * 0.1));
-    float stroke = smoothstep(0.5, 0.72, wob);
-    sky = mix(sky, mix(sky, vec3(1.0), 0.5), stroke * 0.55);
-    c = mix(body, sky * vec3(0.72, 0.82, 0.95), clamp(fres * 0.5, 0.0, 0.24));
-    // ---- the sun's glitter path: dashes where a wave facet throws the sun into the lens
+    float fres = pow(1.0 - nv, 4.0);
+    c = mix(body, skyAt(R) * vec3(0.72, 0.82, 0.95), clamp(0.03 + 0.3 * fres, 0.0, 0.24) * uSkyK);
+    // ---- the sun's glitter path: a column of gold dashes under the sun, on every facet that throws the sun into the lens
     if (uSunK > 0.5) {
-      vec3 H = normalize(uSun + V); float nh = dot(N, H);
-      float dash = vnoise(vec2(vW.x * 4.3, vW.z * 0.9 + uTime * 0.6));
-      float thr = 0.9984 - 0.0008 * (dash - 0.5);
-      float gl = smoothstep(thr, thr + 0.0004, nh) * smoothstep(0.38, 0.52, vnoise(vec2(vW.x * 1.7, vW.z * 0.35 - uTime * 0.3) + 11.0));
-      float soft = pow(max(nh, 0.0), 220.0);
-      c += uGlintC * soft * 0.35 * uGlint;
-      c = mix(c, mix(uGlintC, vec3(1.0), 0.55), gl * uGlint);
+      vec2 vh = -V.xz / max(length(V.xz), 1e-4), sh = normalize(uSun.xz + 1e-5);
+      float ang = acos(clamp(dot(vh, sh), -1.0, 1.0));
+      float wAz = mix(0.075, 0.15, smoothstep(0.02, 0.4, V.y)) * (0.8 + 0.4 * vnoise(vec2(ld * 7.0, uTime * 0.2))) * uGlW;
+      float colK = exp(-ang * ang / (wAz * wAz));
+      vec3 sunV = normalize(vec3(vh * length(uSun.xz), uSun.y));      // the sun swung over this piece of water: only the facet's lean counts
+      float nh = dot(N, normalize(sunV + V));
+      float dash = vnoise(vec2(vW.x * 1.2, vW.z * 4.2 + uTime * 0.9));
+      float lobe = smoothstep(0.9925, 0.9988, nh + (dash - 0.5) * 0.005) * smoothstep(0.3, 0.55, dash + 0.25 * nearK);
+      float lean = smoothstep(0.5, 0.64, 0.5 * st1 + 0.3 * dash + 0.25 * clamp(tone, 0.0, 1.2) + uGlDense);   // painted: gold dashes on the light backs and tops inside the column
+      float reach = 1.0 - smoothstep(0.06 * uGlReach, 0.36 * uGlReach, V.y);                       // the path dies out toward the feet
+      float farG = farK * smoothstep(0.3, 0.55, sn2);
+      float g = colK * max(max(lobe, lean * reach), farG) * uGlint;
+      c += uGlintC * colK * 0.12 * uGlint * reach;                           // the warm veil of the path
+      c = mix(c, uGlintC, clamp(g, 0.0, 1.0));
+      c = mix(c, vec3(1.0, 0.985, 0.92), clamp(colK * colK * max(lobe, farG * 0.8) * uGlint * 0.8, 0.0, 1.0));
     }
-    // ---- whitecaps on one wave in five: a lace trail behind the crest
-    float foam = 0.0;
-    for (int i = 1; i < 4; i++) {
-      float phs = crestOf(i, vW.xz, uTime), u = (phs - 1.5708) / 6.28318, n = floor(u + 0.5), pin = fract(u + 0.5) - 0.5;
-      float sg = dot(vW.xz, vec2(0.98, -0.2)) / (1.3 + 0.7 * float(i)) + n * 7.31 + float(i) * 3.7;
-      float hs = hash12(vec2(floor(sg), n + float(i) * 11.0));
-      float cap = step(hs, 0.2) * pow(sin(3.14159 * fract(sg)), 1.3) * (0.4 + 0.6 * smoothstep(0.3, 0.6, vnoise(vW.xz * vec2(2.1, 1.6) + float(i) * 4.0)));
-      float trail = smoothstep(-0.12, -0.01, pin) * (1.0 - smoothstep(0.012, 0.04, pin));
-      foam = max(foam, cap * trail * (1.0 - smoothstep(0.1, 0.45, foot / wlOf(i))));
-    }
-    vec2 lq = vW.xz / 0.5 + vec2(0.0, -uTime * 0.25) + w.yz * 0.8; vec2 lf = vor(lq);
-    float lace = 1.0 - smoothstep(0.06, 0.16 + px * 0.6, (lf.y - lf.x) * 0.5);
-    float hole = smoothstep(0.35, 0.55, vnoise(vW.xz * 2.2 + 5.0));
-    foam *= (1.0 - smoothstep(80.0, 600.0, d));
-    c = mix(c, mix(uFoamC * 0.78, uFoamC, lace), clamp(foam * (0.5 + 0.5 * lace) * (0.5 + 0.5 * hole) * 1.6, 0.0, 1.0));
-    // foam laid by the places (a rock's wash, the footing of a wall)
+    // ---- whitecaps: a patch of broken foam on each breaking crest: solid on the crest and just over its front, torn into clumps that thin out down the
+    //      wave (the foam's grain is as wide as it is long: seen low over the water a long grain turns into scratches). No lines, no cells.
+    float hC = hN + (nz - 0.5) * 0.25;
+    vec2 fuv = (vW.xz + w.yz * 0.5) * vec2(2.3, 2.0) + vec2(uTime * 0.1, -uTime * 0.3);                  // the foam's own grain, carried by the waves
+    float fn = fbm2(fuv), fn2 = fbm2(fuv * 0.37 + 19.0);
+    float dens = smoothstep(0.16, 0.66, hC + 0.5 * clamp(fb, -0.2, 0.3)) * clamp(breaking, 0.0, 1.0) * (0.7 + 0.5 * fn2) * (1.0 - 0.6 * smoothstep(25.0, 110.0, d));
+    float thr = 0.8 - 0.46 * dens;
+    float foam = smoothstep(thr, thr + 0.07, fn) * smoothstep(0.05, 0.22, dens);
+    foam = max(foam, farK * smoothstep(0.84, 0.92, vnoise(vec2(azm * 80.0, ld * 28.0 - uTime * 0.05))) * smoothstep(0.45, 0.6, sn) * 0.55 * uCapK * (1.0 - smoothstep(700.0, 1300.0, d)));
+    // old foam left lying on the water: a few soft, broken flecks behind the crests
+    float old = smoothstep(0.6, 0.72, fbm2((vW.xz + w.yz * 0.8) * vec2(0.45, 1.1) + vec2(uTime * 0.03, -uTime * 0.1) + 41.0)) * smoothstep(0.56, 0.7, vnoise(vW.xz * 0.17 + 14.0)) * smoothstep(0.5, 0.62, fn);
+    foam = max(foam, old * 0.4 * min(uCapK, 1.0) * (1.0 - smoothstep(20.0, 90.0, d)));
+    c = mix(c, mix(uFoamC * 0.8, uFoamC, smoothstep(0.4, 0.7, fn)), clamp(foam, 0.0, 1.0));
+    // foam laid by the places (a rock's wash, the footing of a wall): soft broken streaks that lie along the waves, thick at the stone, thin lace farther
+    // out; with a period it swells with each wave. The grain is long along the crests, so its level lines are streaks and never rings.
     for (int i = 0; i < 6; i++) {
-      if (float(i) >= uNFoam) break; vec4 Fa = uFoamAt[i];
-      float r = distance(vW.xz, uOrigin + Fa.xy); float band = 1.0 - smoothstep(Fa.z * 0.6, Fa.z, r);
-      float flick = 0.5 + 0.5 * sin(r * 5.0 - uTime * 1.3 + hash12(floor(vW.xz * 1.5)) * 3.0);
-      float fl = band * (0.3 + 0.7 * lace) * (0.5 + 0.5 * flick) * Fa.w; c = mix(c, uFoamC, clamp(fl, 0.0, 1.0));
+      if (float(i) >= uNFoam) break; vec4 Fa = uFoamAt[i]; vec2 Fe = uFoamEv[i];
+      float pul = 1.0;
+      if (Fe.x > 0.0) { float ph = fract(uTime / Fe.x + Fe.y); pul = 0.35 + 0.65 * smoothstep(0.05, 0.35, ph) * (1.0 - 0.7 * smoothstep(0.5, 1.0, ph)); }
+      float rr = distance(vW.xz, uOrigin + Fa.xy) + (vnoise(vW.xz * 1.3 + vec2(uTime * 0.2, 0.0)) - 0.5) * Fa.z * 0.55;
+      float rad = Fa.z * (0.75 + 0.25 * pul), band = 1.0 - smoothstep(rad * 0.4, rad, rr);
+      vec2 fp = vW.xz - (uOrigin + Fa.xy);
+      vec2 fpw = fp + wb.yz * 0.6 + w.yz * 0.15 + 0.35 * vec2(vnoise(fp * 0.8 + uTime * 0.1), vnoise(fp * 0.8 + 31.0 - uTime * 0.08));   // carried by the waves that pass through it
+      float f1 = fbm2(fpw * vec2(1.0, 5.0) + vec2(uTime * 0.04, -uTime * 0.12)), f2 = fbm2(fpw * vec2(1.5, 7.5) + 9.0 + vec2(uTime * 0.05, 0.0));
+      float f3 = fbm2(fpw * vec2(3.3, 4.0) + 3.0);
+      float streak = smoothstep(0.7 - 0.15 * band, 0.8 - 0.15 * band, f1) * smoothstep(0.4, 0.58, f3 + 0.12 * band);        // soft white streaks, thicker at the stone, torn across
+      float lace2 = smoothstep(0.63 - 0.06 * band, 0.7 - 0.06 * band, f2) * smoothstep(0.4, 0.6, f3);                       // thin short dashes of lace between them (dashes, not level lines: those close into rings)
+      float fl = smoothstep(0.0, 0.3, band) * max(streak * 0.92, lace2 * 0.6) * Fa.w * mix(0.6, 1.0, pul);
+      c = mix(c, mix(uFoamC * 0.84, uFoamC, streak), clamp(fl, 0.0, 1.0));
     }
     if (uHole.z > 0.0) {
       float r = distance(vW.xz, uOrigin + uHole.xy) - uHole.z; float band = (1.0 - smoothstep(0.0, 2.5, r)) * uHoleFoam;
-      c = mix(c, uFoamC, band * (0.4 + 0.6 * lace));
+      c = mix(c, uFoamC, band * (0.4 + 0.6 * smoothstep(0.4, 0.62, fn)));
     }
     // ---- fine ripples in a bright sun (tropic, the step): a net of thin light lines that slides and breathes
     if (uRip > 0.0) {
@@ -290,16 +350,19 @@ void main() {
       c = mix(c, mix(uHi, vec3(1.0), 0.55), clamp(rl * 0.3 + rl2 * 0.2, 0.0, 0.5) * uRip * fade);
       c = mix(c, uShade * 0.9, smoothstep(0.35, 0.5, vnoise(vW.xz * 0.8 + w.yz)) * 0.12 * uRip * fade);
     }
-    // ---- objects mirrored: wobbling vertical strokes under every wall and rock
-    vec3 Rm = normalize(reflect(-V, normalize(vec3(-w.y * 1.6, 1.0, -w.z * 1.6))));
+    // ---- objects mirrored: under every wall, rock or ship a column of its colour drawn out toward the eye, wobbling sideways, broken into flat dashes
+    vec3 Rm = normalize(reflect(-V, normalize(vec3(-w.y * 0.45, 1.0, -w.z * 0.45))));
+    float mwob = sin(vW.z * 1.1 + uTime * 1.3) * 0.22 + (vnoise(vec2(vW.x * 0.7, vW.z * 2.0 + uTime * 0.9)) - 0.5) * 0.9;
+    float mdash = vnoise(vec2(vW.x * 0.55 + mwob, vW.z * 3.6 - uTime * 0.6)), mdash2 = vnoise(vec2(vW.x * 1.4, vW.z * 7.5 + uTime * 0.8) + 5.0);
     for (int i = 0; i < 8; i++) {
       if (float(i) >= uNMir) break; vec4 M = uMir[i]; vec2 mc = uOrigin + M.xy;
       if (Rm.z > -0.02 || vW.z < mc.y) continue;
-      float t = (mc.y - vW.z) / Rm.z; vec3 Hh = vec3(vW.x + Rm.x * t, Rm.y * t, mc.y);
-      float inx = 1.0 - smoothstep(M.z * 0.5 - 0.5, M.z * 0.5 + 0.3, abs(Hh.x - mc.x));
-      float iny = (1.0 - smoothstep(M.w - 0.2, M.w + 0.2, Hh.y)) * smoothstep(-0.05, 0.1, Hh.y);
-      float str = smoothstep(0.35, 0.6, vnoise(vec2(vW.x * 2.4 + sin(vW.z * 0.3 + uTime) * 0.4, vW.z * 0.9 - uTime * 0.2)) + 0.18 * (1.0 - Hh.y / M.w));
-      c = mix(c, mix(uMirC[i], c, 0.15), inx * iny * (0.55 + 0.4 * str) * 0.85 * (1.0 - smoothstep(0.0, 400.0, t)));
+      float t = (mc.y - vW.z) / Rm.z; vec3 Hh = vec3(vW.x + Rm.x * t + mwob, Rm.y * t * 0.62, mc.y);                  // 0.62: ripples draw the picture out 1.6 times toward the eye
+      float inx = 1.0 - smoothstep(M.z * 0.5 - 0.6, M.z * 0.5 + 0.4, abs(Hh.x - mc.x));
+      float yn = clamp(Hh.y / M.w, 0.0, 1.0), iny = (1.0 - smoothstep(0.55, 1.0, yn)) * smoothstep(-0.05, 0.1, Hh.y);
+      float colm = 0.62 + 0.38 * smoothstep(0.3, 0.7, vnoise(vec2(Hh.x * 0.8 + float(i) * 3.0, 2.0)));               // streaks: some columns of it carry farther
+      float str = smoothstep(0.34 + 0.3 * yn, 0.52 + 0.3 * yn, mdash * 0.65 + mdash2 * 0.35 + 0.18);                 // solid at the foot, torn into dashes farther out
+      c = mix(c, mix(uMirC[i], c, 0.12), inx * iny * str * colm * 0.9 * (1.0 - smoothstep(0.0, 400.0, t)));
     }
     // ---- stars glinting on the swell (night)
     if (uStar > 0.5) {
@@ -309,7 +372,7 @@ void main() {
     }
     // ---- haze to the horizon
     float hz = 1.0 - exp(-pow(d / uHazeD, 1.6));
-    c = mix(c, uHaze, hz * (0.2 + 0.5 * uHorizon));
+    c = mix(c, uHaze, hz * (0.2 + 0.5 * uHorizon) * uHazeK);
   }
   float al = 1.0;
   if (cameraPosition.y >= uLevel) for (int i = 0; i < 3; i++) { if (float(i) >= uNShallow) break; vec4 B = uShallow[i]; vec2 dq = abs(vW.xz - uOrigin - B.xy) - B.zw; float sd = max(dq.x, dq.y); al = min(al, mix(uShallowA, 1.0, smoothstep(0.0, 1.2, sd))); }
@@ -362,19 +425,19 @@ void main() {
 function sea(P) {
   const S = P.spec, G = GRADES[S.grade ?? "gibraltar"] ?? GRADES.gibraltar;
   const U = {
-    uTime: { value: 0 }, uSwellA: { value: 0 }, uChopK: { value: 1 }, uRise: { value: 0 }, uExtent: { value: 1400 }, uReach: { value: S.reach ?? 9500 }, uOrigin: { value: new THREE.Vector2() }, uLevel: { value: 0 },
+    uTime: { value: 0 }, uSwellA: { value: 0 }, uChopK: { value: 1 }, uLongK: { value: G.long ?? 1 }, uRise: { value: 0 }, uExtent: { value: 1400 }, uReach: { value: S.reach ?? 9500 }, uOrigin: { value: new THREE.Vector2() }, uLevel: { value: 0 },
     uHi: { value: col(S.hi ?? G.hi) }, uBase: { value: col(G.base) }, uShade: { value: col(G.shade) }, uLight: { value: col(G.light) }, uFarC: { value: col(G.far) }, uFoamC: { value: col(G.foam) }, uGreen: { value: col(G.green) },
     uSkyH: { value: col(S.skyH ?? G.skyH) }, uSkyZ: { value: col(S.skyZ ?? G.skyZ) }, uHaze: { value: col(S.haze ?? G.haze) }, uGlintC: { value: col(G.glint) }, uSun: { value: new THREE.Vector3(0, 1, 0) },
     uSunK: { value: G.sunK }, uGlint: { value: 1 }, uStar: { value: G.star }, uHorizon: { value: S.horizon ? 1 : 0 }, uHazeD: { value: S.hazeD ?? (S.horizon ? 900 : 2400) }, uHoleFoam: { value: S.holeFoam ?? 0.6 },
-    uHole: { value: new THREE.Vector3(...(S.hole ?? [0, 0, 0])) }, uRip: { value: G.rip ?? 0 }, uNMir: { value: 0 }, uNFoam: { value: 0 }, uNPatch: { value: 0 },
-    uCalm: { value: new THREE.Vector4(...(S.calm ? [S.calm[0], S.calm[1], S.calm[2], 0.96] : [0, 0, 1, 0])) },
+    uHole: { value: new THREE.Vector3(...(S.hole ?? [0, 0, 0])) }, uRip: { value: G.rip ?? 0 }, uToneK: { value: S.tone ?? G.tone ?? 1 }, uSkyK: { value: G.skyK ?? 1 }, uLiteK: { value: G.lite ?? 1 }, uStrokeK: { value: G.stroke ?? 1 }, uToneB: { value: G.toneB ?? 1.7 }, uNearDeep: { value: S.nearDeep ?? G.nearDeep ?? 0 }, uGlW: { value: G.glW ?? 1 }, uGlReach: { value: G.glReach ?? 1 }, uGlDense: { value: G.glDense ?? 0 }, uToneD: { value: G.toneD ?? 1.1 }, uCapK: { value: S.caps ?? G.cap ?? 0.3 }, uHazeK: { value: G.hazeK ?? 1 }, uFoamEv: { value: Array.from({ length: 6 }, () => new THREE.Vector2()) }, uNMir: { value: 0 }, uNFoam: { value: 0 }, uNPatch: { value: 0 },
+    uCalm: { value: new THREE.Vector4(...(S.calm ? [S.calm[0], S.calm[1], S.calm[2], S.calm[3] ?? 0.96] : [0, 0, 1, 0])) },
     uNShallow: { value: 0 }, uShallowA: { value: S.shallowA ?? 0.5 }, uShallow: { value: Array.from({ length: 3 }, () => new THREE.Vector4()) },
     uMir: { value: Array.from({ length: 8 }, () => new THREE.Vector4()) }, uMirC: { value: Array.from({ length: 8 }, () => new THREE.Color()) },
     uFoamAt: { value: Array.from({ length: 6 }, () => new THREE.Vector4()) }, uPatchW: { value: [0, 0, 0, 0] }, uPatch: { value: Array.from({ length: 4 }, () => new THREE.Vector4()) }, uPatchC: { value: Array.from({ length: 4 }, () => new THREE.Color()) },
   };
   const mir = (S.mirrors ?? []).slice(0, 8); U.uNMir.value = mir.length;
   mir.forEach(([x, z, w, h, c], i) => { U.uMir.value[i].set(x, z, w, h); U.uMirC.value[i].set(c ?? "#888888"); });
-  const fo = (S.foam ?? []).slice(0, 6); U.uNFoam.value = fo.length; fo.forEach(([x, z, r, k], i) => U.uFoamAt.value[i].set(x, z, r, k ?? 1));
+  const fo = (S.foam ?? []).slice(0, 6); U.uNFoam.value = fo.length; fo.forEach(([x, z, r, k, ev, ph], i) => { U.uFoamAt.value[i].set(x, z, r, k ?? 1); U.uFoamEv.value[i].set(ev ?? 0, ph ?? 0); });
   const pa = (S.patches ?? []).slice(0, 4); U.uNPatch.value = pa.length; pa.forEach(([x, z, r, c, k, wd], i) => { U.uPatch.value[i].set(x, z, r, k ?? 1); U.uPatchC.value[i].set(c); U.uPatchW.value[i] = wd ?? 0; });
   const sh = (S.shallow ?? []).slice(0, 3); U.uNShallow.value = sh.length; sh.forEach(([x, z, hx, hz], i) => U.uShallow.value[i].set(x, z, hx, hz));
   const m = new THREE.ShaderMaterial({ uniforms: U, vertexShader: SEA_VS, fragmentShader: SEA_FS, side: THREE.DoubleSide, transparent: true, depthWrite: true });
@@ -382,7 +445,7 @@ function sea(P) {
   const me = new THREE.Mesh(seaGeo, m); me.name = "at-sea"; P.whole.add(mark(me, { steam: true, order: 0 }));
   let haze = null;
   if (S.horizon) {
-    const hm = new THREE.ShaderMaterial({ uniforms: { uExtent: U.uExtent, uReach: U.uReach, uOrigin: U.uOrigin, uHaze: { value: col(S.haze ?? G.haze).lerp(col(G.skyH), 0.5) }, uWarm: { value: col(G.glint) }, uSun: U.uSun, uSunK: U.uSunK, uHazeA: { value: S.hazeA ?? 0.9 } }, vertexShader: HAZE_VS, fragmentShader: HAZE_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide });
+    const hm = new THREE.ShaderMaterial({ uniforms: { uExtent: U.uExtent, uReach: U.uReach, uOrigin: U.uOrigin, uHaze: { value: col(S.haze ?? G.haze).lerp(col(G.skyH), 0.5) }, uWarm: { value: col(G.glint) }, uSun: U.uSun, uSunK: U.uSunK, uHazeA: { value: S.hazeA ?? G.hazeA ?? 0.9 } }, vertexShader: HAZE_VS, fragmentShader: HAZE_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide });
     noLine(hm); haze = new THREE.Mesh(hazeGeo, hm); haze.name = "at-sea-haze"; P.whole.add(mark(haze, { steam: true, order: 1 }));
   }
   let mist = null;
@@ -409,7 +472,7 @@ function sea(P) {
       U.uSun.value.set(-Math.sin(az) * Math.cos(el), Math.sin(el), -Math.cos(az) * Math.cos(el));
       U.uTime.value = t;
       const sw = num(ps, S, "swell", G.swell), chop = S.chop ?? G.chop;
-      U.uSwellA.value = 0.5 * sw * G.swellH; U.uChopK.value = chop / 0.45;
+      U.uSwellA.value = 0.5 * sw * G.swellH; U.uChopK.value = (chop / 0.45) * (G.steep ?? 1);
       U.uRise.value = ps.y + num(ps, S, "rise", 0); U.uLevel.value = U.uRise.value; U.uOrigin.value.set(ps.x, ps.z);
       U.uGlint.value = num(ps, S, "glint", 1);
       if (mist) { mist.userData.mu.uT.value = t; mist.position.y = U.uRise.value; }
@@ -523,6 +586,15 @@ function arcCard(parent, tx, dist, az, spanDeg, topDeg, botDeg, order) {   // a 
 
 function horizonland(P) {
   const S = P.spec, kind = S.coast ?? "gibraltar", dist = S.dist ?? 1300;
+  if (kind === "gibraltar" && S.paint !== false) {
+    // the painted strip of plate 05, widened (kit/bench/at-sea-crops.py): 2048 x 278 px at focal 1187 px = 93.3 deg wide, 13.2 deg high, its bottom edge on the
+    // horizon. The sun is 20.2 deg left of its middle, the Rock 16.7 deg right of it (36.9 deg apart): spec.az says where the Rock stands; by default the painted
+    // sun stands on spec.sunAz (35, the BOARD's AT_DAWN sun), so the Rock is at -1.9.
+    const SPAN = 93.33, ROCK = 16.68, SUN = -20.23, azRock = S.az ?? ((S.sunAz ?? 35) + SUN - ROCK), k = S.size ?? 1;
+    const card = arcCard(P.whole, paint("sea-gibraltar-sky.webp"), dist, azRock + ROCK, SPAN, Math.atan((278 / 1187) * k) / DEG, 0, 3); card.name = "at-horizon-paint";
+    if (S.clouds === true) arcCard(P.whole, cloudBankTex(kind + (S.cloudWarm ?? 0.8), S.cloudWarm ?? 0.8, 5), dist * 1.04, S.cloudAz ?? azRock, S.cloudSpan ?? 110, S.cloudH ?? 2.1, 0.12, 2);
+    return { grip: 0 };
+  }
   const az = S.az ?? (kind === "gibraltar" ? -13 : -34);
   if (kind === "gibraltar" || kind === "island") arcCard(P.whole, horizonTex(kind, S.size ?? 1), dist, az, 64, 4, 0.12, 3);
   if (S.clouds !== false) arcCard(P.whole, cloudBankTex(kind + (S.cloudWarm ?? 0.8), S.cloudWarm ?? (kind === "gibraltar" ? 0.8 : 0.2), kind === "gibraltar" ? 5 : 9), dist * 1.04, S.cloudAz ?? az, S.cloudSpan ?? 110, S.cloudH ?? 2.1, 0.12, 2);
@@ -535,20 +607,20 @@ const hv2 = (x, z, sd = 0) => hz(Math.floor(x) * 7.31 + Math.floor(z) * 3.17, sd
 const vn2 = (x, z, sd = 0) => { const i = Math.floor(x), j = Math.floor(z), fx = x - i, fz = z - j, u = fx * fx * (3 - 2 * fx), v = fz * fz * (3 - 2 * fz); const a = hv2(i, j, sd), b = hv2(i + 1, j, sd), c = hv2(i, j + 1, sd), d = hv2(i + 1, j + 1, sd); return lerp(lerp(a, b, u), lerp(c, d, u), v); };
 const fbm2 = (x, z, sd = 0) => vn2(x, z, sd) * 0.55 + vn2(x * 2.07 + 5.1, z * 2.07 + 1.7, sd + 1) * 0.3 + vn2(x * 4.3 + 2.9, z * 4.3 + 8.3, sd + 2) * 0.15;
 const sdBox = (x, z, hx, hzz) => { const dx = Math.abs(x) - hx, dz = Math.abs(z) - hzz; return Math.hypot(Math.max(dx, 0), Math.max(dz, 0)) + Math.min(Math.max(dx, dz), 0); };
-const PATCH = { x: 0.1, z: 0.15, hx: 0.5, hz: 0.4, y: 1.2 }, POOL = { x: -1.02, z: 0.52, r: 0.25, y: 0.84 };
+const PATCH = { x: 0.1, z: 0.15, hx: 0.5, hz: 0.4, y: 1.2 }, POOL = { x: -0.98, z: 0.6, r: 0.2, y: 0.84 };
 // the rock's height at (x, z): a dome with a crag at the back left, terraced strata, the flat patch 1.0 x 0.8 at 1.2, a tide pool on the left ledge, falling steeply on the right, sinking under the sea
 function stackH(x, z) {
-  const ex = x > 0 ? 1.32 : 1.62, e = Math.hypot(x / ex, z / 1.15);
-  const q = Math.max(0, 1 - sq((x + 0.2) / 1.75) - sq((z + 0.1) / 1.35));
-  let h = 1.55 * Math.pow(q, 0.6);
-  h += 0.34 * Math.exp(-(sq((x + 1.0) / 0.6) + sq((z + 0.45) / 0.55))) + 0.2 * Math.exp(-(sq((x - 0.25) / 0.65) + sq((z + 0.78) / 0.32)));
+  const e = Math.hypot(x / 1.62, z / 1.22);
+  const q = Math.max(0, 1 - sq((x + 0.02) / 1.9) - sq((z + 0.02) / 1.42));
+  let h = 1.3 * Math.pow(q, 0.42);                                       // a slab: a broad flat top, steep flanks (plate 05)
+  h += 0.2 * Math.exp(-(sq((x + 1.0) / 0.55) + sq((z + 0.5) / 0.5))) + 0.1 * Math.exp(-(sq((x - 0.35) / 0.6) + sq((z + 0.82) / 0.3)));
   const n1 = fbm2(x * 2.1, z * 2.1, 3), n2 = fbm2(x * 6.3 + 9, z * 6.3 + 3, 4);
-  h += (n1 - 0.5) * 0.34 + (n2 - 0.5) * 0.1;
-  const T = 0.17, tq = h / T, fl = Math.floor(tq); h = lerp(h, (fl + sstep(0.2, 0.8, tq - fl)) * T, 0.55);   // strata ledges
+  h += (n1 - 0.5) * 0.24 + (n2 - 0.5) * 0.07;
+  const T = 0.15, tq = h / T, fl = Math.floor(tq); h = lerp(h, (fl + sstep(0.25, 0.75, tq - fl)) * T, 0.62);   // strata ledges
   h = lerp(h, PATCH.y + 0.012 * (n2 - 0.5), 1 - sstep(0, 0.32, sdBox(x - PATCH.x, z - PATCH.z, PATCH.hx, PATCH.hz)));
   const dp = Math.hypot(x - POOL.x, z - POOL.z);
-  h = lerp(h, POOL.y, 1 - sstep(0.3, 0.52, dp)); h -= 0.07 * (1 - sstep(0.17, 0.25, dp)) - 0.045 * sstep(0.25, 0.3, dp) * (1 - sstep(0.3, 0.38, dp));
-  const s = sstep(0.8, 1.12, e + (n1 - 0.5) * 0.14); return lerp(h, -1.5, s);
+  h = lerp(h, POOL.y, 1 - sstep(0.25, 0.44, dp)); h -= 0.07 * (1 - sstep(0.13, 0.2, dp)) - 0.04 * sstep(0.2, 0.24, dp) * (1 - sstep(0.24, 0.31, dp));
+  const s = sstep(0.88, 1.1, e + (n1 - 0.5) * 0.14); return lerp(h, -1.5, s);
 }
 const stackN = (x, z, out = new THREE.Vector3()) => { const d = 0.03; return out.set(stackH(x - d, z) - stackH(x + d, z), 2 * d, stackH(x, z - d) - stackH(x, z + d)).normalize(); };
 
@@ -557,31 +629,95 @@ const mixc = (a, b, k) => [lerp(a[0], b[0], k), lerp(a[1], b[1], k), lerp(a[2], 
 const ROCK = { base: cc("#3a3f44"), dark: cc("#262b30"), lite: cc("#5a5d5c"), warm: cc("#4f4841"), lichen: cc("#8a8a48"), lichen2: cc("#7a8656"), moss: cc("#4d6a38"), mossY: cc("#74803a"), wet: cc("#1d3b40"), deep: cc("#12303a") };
 
 function rockGeo() {
-  const STEP = 0.075, X0 = -1.95, X1 = 1.95, Z0 = -1.55, Z1 = 1.55, nx = Math.round((X1 - X0) / STEP), nz = Math.round((Z1 - Z0) / STEP);
-  const V = []; for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) { const x = X0 + i * STEP + (hz(i * 3 + j * 7, 61) - 0.5) * STEP * 0.6, z = Z0 + j * STEP + (hz(i * 5 + j * 11, 62) - 0.5) * STEP * 0.6; V.push([x, stackH(x, z), z]); }
-  const pos = [], nor = [], colr = [], A = new THREE.Vector3(), B = new THREE.Vector3(), N = new THREE.Vector3();
-  const tri = (a, b, c, id) => {
-    A.set(b[0] - a[0], b[1] - a[1], b[2] - a[2]); B.set(c[0] - a[0], c[1] - a[1], c[2] - a[2]); N.crossVectors(B, A).normalize(); if (N.y < 0) { N.negate(); [b, c] = [c, b]; }
-    const cx = (a[0] + b[0] + c[0]) / 3, cy = (a[1] + b[1] + c[1]) / 3, cz = (a[2] + b[2] + c[2]) / 3;
-    let k = mixc(ROCK.base, ROCK.dark, hz(id, 63) * 0.7);
-    const str = Math.sin(cy * 9 + fbm2(cx * 1.6, cz * 1.6, 7) * 5);   // strata bands
-    k = mixc(k, str > 0.55 ? ROCK.lite : ROCK.warm, 0.35 * Math.abs(str) * hz(id, 64));
-    const nz2 = fbm2(cx * 3.4, cz * 3.4, 9);
-    if (N.y > 0.62 && cy > 0.7 && nz2 > 0.6) k = mixc(k, hz(id, 65) > 0.5 ? ROCK.lichen : ROCK.lichen2, 0.75 * sstep(0.6, 0.72, nz2));
-    if (cy > 0.2 && cy < 1.15 && nz2 > 0.66 && N.y < 0.9) k = mixc(k, hz(id, 66) > 0.45 ? ROCK.moss : ROCK.mossY, 0.8 * sstep(0.66, 0.76, nz2));
-    const wl = 0.62 + 0.1 * (fbm2(cx * 2.6, cz * 2.6, 12) - 0.5);   // the wet line: the splash zone is darker, blue-black and glossy
-    if (cy < wl) k = mixc(k, ROCK.wet, 0.45 + 0.4 * sstep(wl, 0.2, cy));
-    if (cy < 0.02) k = mixc(k, ROCK.deep, 0.7 * sstep(0.02, -0.5, cy));
-    for (const q of [a, c, b]) { pos.push(q[0], q[1], q[2]); nor.push(N.x, N.y, N.z); colr.push(k[0], k[1], k[2]); }
-  };
-  let id = 0;
-  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
-    const a = V[j * (nx + 1) + i], b = V[j * (nx + 1) + i + 1], c = V[(j + 1) * (nx + 1) + i], d = V[(j + 1) * (nx + 1) + i + 1];
-    if (a[1] < -1.4 && b[1] < -1.4 && c[1] < -1.4 && d[1] < -1.4) continue;
-    if ((i + j) % 2) { tri(a, b, d, id++); tri(a, d, c, id++); } else { tri(a, b, c, id++); tri(b, d, c, id++); }
+  const STEP = 0.05, X0 = -1.95, X1 = 1.95, Z0 = -1.55, Z1 = 1.55, nx = Math.round((X1 - X0) / STEP), nz = Math.round((Z1 - Z0) / STEP);
+  const pos = [], nor = [], idx = [], N = new THREE.Vector3();
+  for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
+    const x = X0 + i * STEP + (hz(i * 3 + j * 7, 61) - 0.5) * STEP * 0.5, z = Z0 + j * STEP + (hz(i * 5 + j * 11, 62) - 0.5) * STEP * 0.5;
+    pos.push(x, stackH(x, z), z); stackN(x, z, N); nor.push(N.x, N.y, N.z);
   }
-  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3)); g.setAttribute("color", new THREE.Float32BufferAttribute(colr, 3)); g.computeBoundingSphere(); return g;
+  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) {
+    const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1;
+    if (pos[a * 3 + 1] < -1.4 && pos[b * 3 + 1] < -1.4 && pos[c * 3 + 1] < -1.4 && pos[d * 3 + 1] < -1.4) continue;
+    if ((i + j) % 2) idx.push(a, d, b, a, c, d); else idx.push(a, c, b, b, c, d);
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3)); g.setIndex(idx); g.computeBoundingSphere(); return g;
 }
+// the rock's paint: the plate's rock top laid on as a plan (unfolded a little down the flanks so the painted ledges fall on the upper faces), the plain painted
+// rock on the flanks (three sides, two scales), then what the sea does to a rock: the dark wet zone, a salt line, a green band above it, the dark under water.
+// It takes the shadow of whoever stands on it from the stage's sun.
+const ROCK_VS = `
+#include <common>
+#include <shadowmap_pars_vertex>
+varying vec3 vP; varying vec3 vN; varying vec3 vNv;
+void main() {
+  #include <beginnormal_vertex>
+  #include <defaultnormal_vertex>
+  #include <begin_vertex>
+  #include <project_vertex>
+  #include <worldpos_vertex>
+  #include <shadowmap_vertex>
+  vP = position; vN = normal; vNv = normalize(transformedNormal);
+}`;
+const ROCK_FS = `
+#include <common>
+#include <packing>
+#include <lights_pars_begin>
+#include <shadowmap_pars_fragment>
+#include <shadowmask_pars_fragment>
+uniform sampler2D tPlan, tTile; uniform float uWet; uniform vec4 uShade; uniform vec2 uShadeDir;
+varying vec3 vP; varying vec3 vN; varying vec3 vNv;
+float h12(vec2 p) { vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
+float vn(vec2 p) { vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f); return mix(mix(h12(i), h12(i + vec2(1.0, 0.0)), u.x), mix(h12(i + vec2(0.0, 1.0)), h12(i + vec2(1.0, 1.0)), u.x), u.y); }
+vec3 tri(vec3 P, vec3 bw, float sc, float o) { return texture2D(tTile, P.zy / sc + o).rgb * bw.x + texture2D(tTile, P.xz / sc + o).rgb * bw.y + texture2D(tTile, P.xy / sc + o).rgb * bw.z; }
+void main() {
+  vec3 P = vP, Nn = normalize(vN);
+  vec2 dir = P.xz - vec2(${F(PATCH.x)}, ${F(PATCH.z)}); float dl = length(dir); dir /= max(dl, 1e-3);
+  float ru = dl + 0.6 * max(0.0, ${F(PATCH.y)} - P.y) * smoothstep(0.3, 0.7, dl);     // unfolded: metres along the rock from the middle of the patch
+  float rp = ru < 0.85 ? ru : 0.85 + (ru - 0.85) * 0.5;                              // the top 1 : 1, the painted ledges drawn out down the flanks
+  vec2 q = vec2(${F(PATCH.x)}, ${F(PATCH.z)}) + dir * rp;
+  vec2 uvp = vec2((q.x + 1.6) / 3.2, 1.0 - (q.y + 0.8) / 2.08);
+  vec4 plan = texture2D(tPlan, uvp);
+  float cov = smoothstep(0.3, 0.55, plan.a) * step(0.0, uvp.x) * step(uvp.x, 1.0) * step(0.0, uvp.y) * step(uvp.y, 1.0);
+  float sheen = (1.0 - smoothstep(0.66, 0.94, plan.a)) * cov;
+  vec3 bw = pow(abs(Nn), vec3(3.0)); bw /= (bw.x + bw.y + bw.z);
+  vec3 tile = mix(tri(P, bw, 0.9, 0.0), tri(P.zyx * vec3(1.0, 1.0, -1.0), bw.zyx, 1.43, 0.37), smoothstep(0.35, 0.65, vn(P.xz * 1.7 + P.y * 2.3)));
+  float strata = vn(vec2(P.x * 0.8 + P.z * 0.5, P.y * 9.0 + vn(P.xz * 1.3) * 3.0));
+  tile *= 0.8 + 0.5 * strata; tile = mix(tile, tile * vec3(1.12, 1.0, 0.82), smoothstep(0.55, 0.8, vn(P.xz * 2.1 + 5.0)) * 0.6);   // warm ochre blooms
+  vec2 cq = (P.xz + P.y * vec2(0.6, 0.45)) / 0.16 + 2.0 * vec2(vn(P.xz * 3.0), vn(P.zx * 3.0 + 9.0));                    // cracks and chips where there is no paint
+  vec2 ci = floor(cq), cf = fract(cq); float c1 = 8.0, c2 = 8.0, cid = 0.0;
+  for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++) { vec2 g = vec2(float(i), float(j)); vec2 o = vec2(h12(ci + g), h12(ci + g + 7.3)); float dd = length(g + 0.1 + 0.8 * o - cf); if (dd < c1) { c2 = c1; c1 = dd; cid = o.x; } else if (dd < c2) c2 = dd; }
+  tile *= 0.86 + 0.3 * cid; tile = mix(tile, tile * 0.42, (1.0 - smoothstep(0.015, 0.06, c2 - c1)) * 0.8); tile = mix(tile, tile * 1.5 + 0.02, (1.0 - smoothstep(0.06, 0.1, c2 - c1)) * smoothstep(0.06, 0.07, c2 - c1) * 0.35 * step(0.5, cid));
+  vec3 c = mix(tile, plan.rgb, cov * (1.0 - (1.0 - uWet) * sheen));
+  c *= 0.9 + 0.2 * vn(P.xz * 70.0 + P.y * 53.0);                                    // grain that stays crisp in a close shot
+  // what the sea does
+  float wl = 0.5 + 0.2 * (vn(P.xz * 2.6) - 0.5) + 0.06 * (vn(P.xz * 9.0 + 3.0) - 0.5);
+  float wet = 1.0 - smoothstep(wl - 0.1, wl + 0.04, P.y);
+  float alg = smoothstep(wl - 0.04, wl + 0.08, P.y) * (1.0 - smoothstep(wl + 0.12, wl + 0.42, P.y)) * smoothstep(0.42, 0.7, vn(P.xz * 3.3 + P.y * 4.0 + 8.0)) * (1.0 - cov * 0.6);
+  c = mix(c, vec3(0.075, 0.105, 0.022), alg * 0.62);
+  c = mix(c, c * vec3(0.42, 0.52, 0.58) + vec3(0.0, 0.006, 0.01), wet * 0.8);
+  c = mix(c, vec3(0.006, 0.035, 0.04), smoothstep(0.06, -0.45, P.y) * 0.9);
+  float lit = 1.0;
+  #if NUM_DIR_LIGHTS > 0
+    lit = 0.9 + 0.16 * clamp(dot(normalize(vNv), directionalLights[0].direction), -0.4, 1.0);
+  #endif
+  float sh = getShadowMask();
+  c *= lit; c = mix(c * vec3(0.5, 0.55, 0.68), c, sh);
+  if (uShade.w > 0.0) {   // the contact shadow of whoever stands here (the engine's own ovals lie on the floor at y 0): a dark core under the body, a longer soft shadow away from the sun
+    vec2 sd = P.xz - uShade.xy; float along = dot(sd, uShadeDir), across = dot(sd, vec2(-uShadeDir.y, uShadeDir.x));
+    float core = 1.0 - smoothstep(0.35, 1.0, length(sd) / uShade.z);
+    float lng = 1.0 - smoothstep(0.3, 1.0, length(vec2((along - uShade.z * 0.9) / (uShade.z * 2.2), across / (uShade.z * 0.95))));
+    c = mix(c, c * vec3(0.3, 0.33, 0.45), clamp(core * 0.75 + lng * 0.45, 0.0, 0.85) * uShade.w * smoothstep(0.3, 0.7, Nn.y));
+  }
+  gl_FragColor = vec4(c, 1.0);
+  #include <colorspace_fragment>
+}`;
+const SPLASH_VS = `uniform vec2 uS; uniform float uFlip; varying vec2 vUv;
+void main() { vUv = vec2(uFlip > 0.0 ? uv.x : 1.0 - uv.x, uv.y); vec4 c = modelMatrix * vec4(0.0, 0.0, 0.0, 1.0); vec3 toC = cameraPosition - c.xyz; vec3 r = normalize(vec3(toC.z, 0.0, -toC.x) + 1e-5);
+  vec3 p = c.xyz + r * position.x * uS.x + vec3(0.0, 1.0, 0.0) * position.y * uS.y; gl_Position = projectionMatrix * viewMatrix * vec4(p, 1.0); }`;
+const SPLASH_FS = `uniform sampler2D tMap; uniform float uA, uCut; varying vec2 vUv;
+void main() { vec4 t = texture2D(tMap, vUv); float a = t.a * uA * (1.0 - smoothstep(uCut - 0.2, uCut, vUv.y)); if (a < 0.01) discard; gl_FragColor = vec4(t.rgb, a);
+  #include <colorspace_fragment>
+}`;
 
 // merge a template mesh stamped many times: list of { m: Matrix4, c: [r, g, b] }
 function stamp(tpl, list) {
@@ -622,12 +758,12 @@ function rockMarks() {
     const a = hz(k, 81) * TAU, r = 0.4 + 1.2 * hz(k, 82), x = Math.cos(a) * r * 1.2, z = Math.sin(a) * r * 0.9, h = stackH(x, z); if (h < 0.05 || h > 0.9) continue;
     const rr = 0.022 + 0.022 * hz(k, 83); limp.push({ m: onSurf(x, z, rr, rr * 0.55, rr * (0.8 + 0.2 * hz(k, 84)), hz(k, 85) * TAU, -0.004), c: mixc(cc("#8e8878"), cc("#b3ac98"), hz(k, 86)) });
   }
-  for (let k = 0; k < 1500; k++) {   // lichen discs on the upper faces: ochre, grey-green and pale
+  for (let k = 0; k < 0; k++) {   // lichen discs (off: the painted rock carries its own) on the upper faces: ochre, grey-green and pale
     const x = (hz(k, 91) - 0.5) * 3.0, z = (hz(k, 92) - 0.5) * 2.2, h = stackH(x, z), n = stackN(x, z); if (h < 0.6 || n.y < 0.45 || sdBox(x - PATCH.x, z - PATCH.z, PATCH.hx - 0.05, PATCH.hz - 0.05) < 0 && hz(k, 93) < 0.4) continue;
     const q2 = fbm2(x * 3.1, z * 3.1, 14); if (q2 < 0.52) continue; const rr = 0.005 + 0.024 * hz(k, 94) ** 1.8, cl = [cc("#a3a043"), cc("#8d9a5e"), cc("#b9b794"), cc("#b8923e")][Math.floor(hz(k, 95) * 4)];
     lich.push({ m: onSurf(x, z, rr, 1, rr * (0.6 + 0.6 * hz(k, 96)), hz(k, 97) * TAU, 0.006), c: cl });
   }
-  for (let k = 0; k < 520; k++) {   // moss tufts in the cracks and on the ledges
+  for (let k = 0; k < 160; k++) {   // moss tufts in the cracks and on the ledges
     const x = (hz(k, 101) - 0.5) * 2.8, z = (hz(k, 102) - 0.5) * 2.0, h = stackH(x, z); if (h < 0.3 || h > 1.5) continue;
     const q = fbm2(x * 3.4, z * 3.4, 9); if (q < 0.6) continue;
     const rr = 0.007 + 0.02 * hz(k, 103); moss.push({ m: onSurf(x, z, rr, rr, rr, hz(k, 104) * TAU, -0.002), c: hz(k, 105) > 0.4 ? ROCK.moss : ROCK.mossY });
@@ -638,7 +774,7 @@ function rockMarks() {
   add(coneTpl, barn, "at-barnacles"); add(coneTpl, limp, "at-limpets"); add(discTpl, lich, "at-lichen"); add(lumpTpl, moss, "at-moss");
   // cracks: thin dark ribbons following the surface
   const cp = [], cn = [], cx2 = []; const cm = new THREE.MeshBasicMaterial({ color: "#161a1d", side: THREE.DoubleSide, transparent: true, opacity: 0.8 }); cm.userData.noOutline = true;
-  for (let k = 0; k < 40; k++) {
+  for (let k = 0; k < 0; k++) {
     let x = (hz(k, 111) - 0.5) * 2.8, z = (hz(k, 112) - 0.5) * 2.0, a = hz(k, 113) * TAU; if (stackH(x, z) < 0.15) continue;
     const len = 0.3 + 0.6 * hz(k, 114), n = 9, w0 = 0.006 + 0.01 * hz(k, 115), pts = [];
     for (let i = 0; i <= n; i++) { a += (hz(k * 17 + i, 116) - 0.5) * 0.9; x += Math.cos(a) * len / n; z += Math.sin(a) * len / n; pts.push([x, stackH(x, z) + 0.006, z, w0 * (1 - Math.abs(i / n - 0.45)) * 1.4]); }
@@ -661,7 +797,7 @@ const foamTex = () => once("sea-foam-tex", () => {   // white lace with holes: a
   return tex(c);
 });
 const poolTex = () => once("sea-pool-tex", () => {
-  const [c, g] = canvas(256, 256); const gr = g.createRadialGradient(128, 128, 20, 128, 128, 126); gr.addColorStop(0, "#5fb5a2"); gr.addColorStop(0.7, "#2f7a72"); gr.addColorStop(1, "#1f4f55"); g.fillStyle = gr; g.beginPath(); g.arc(128, 128, 126, 0, TAU); g.fill();
+  const [c, g] = canvas(256, 256); const gr = g.createRadialGradient(128, 128, 20, 128, 128, 126); gr.addColorStop(0, "#8ea2c4"); gr.addColorStop(0.55, "#566f8e"); gr.addColorStop(1, "#27363c"); g.fillStyle = gr; g.beginPath(); g.arc(128, 128, 126, 0, TAU); g.fill();
   for (let i = 0; i < 40; i++) { g.strokeStyle = "#dff4ee"; g.globalAlpha = 0.15 + 0.3 * hz(i, 131); g.lineWidth = 1 + 2 * hz(i, 132); const x = 30 + 196 * hz(i, 133), y = 30 + 196 * hz(i, 134); g.beginPath(); g.moveTo(x, y); g.lineTo(x + 10 + 26 * hz(i, 135), y + 2 * (hz(i, 136) - 0.5)); g.stroke(); }
   for (let i = 0; i < 12; i++) { g.fillStyle = hz(i, 137) > 0.5 ? "#6a7a3a" : "#8a8a3a"; g.globalAlpha = 0.8; g.beginPath(); g.ellipse(60 + 140 * hz(i, 138), 70 + 120 * hz(i, 139), 5 + 9 * hz(i, 140), 3 + 5 * hz(i, 141), hz(i, 142) * 3, 0, TAU); g.fill(); }
   return tex(c);
@@ -669,8 +805,9 @@ const poolTex = () => once("sea-pool-tex", () => {
 
 function seastack(P) {
   const S = P.spec, G = P.whole;
-  const body = new THREE.Mesh(rockGeo(), (() => { const m = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, metalness: 0 }); m.userData.noHatch = true; return m; })()); body.name = "at-seastack";
-  G.add(mark(body, { solid: true, surface: true }));
+  const RU = THREE.UniformsUtils.merge([THREE.UniformsLib.lights, { tPlan: { value: null }, tTile: { value: null }, uWet: { value: S.wet ?? 1 }, uShade: { value: new THREE.Vector4(0, 0, 0.4, 0) }, uShadeDir: { value: new THREE.Vector2(0.57, 0.82) } }]); RU.tPlan.value = paint("sea-rock-plan.webp"); RU.tTile.value = paint("sea-rock-tile.webp", { wrap: true });
+  const body = new THREE.Mesh(rockGeo(), noLine(new THREE.ShaderMaterial({ uniforms: RU, vertexShader: ROCK_VS, fragmentShader: ROCK_FS, lights: true }))); body.name = "at-seastack";
+  G.add(mark(body, { solid: true, surface: true })); body.receiveShadow = true;
   const marks = rockMarks(); G.add(mark(marks, { solid: false, surface: true }));
   // the tide pool: a little water disc with the sky in it, and a crab
   const pool = new THREE.Mesh(new THREE.CircleGeometry(POOL.r * 0.92, 28).rotateX(-Math.PI / 2), (() => { const m = new THREE.MeshBasicMaterial({ map: poolTex(), transparent: true, opacity: 0.9, toneMapped: false }); m.userData.noOutline = true; return m; })());
@@ -689,14 +826,24 @@ function seastack(P) {
     const ey = new THREE.Mesh(new THREE.SphereGeometry(0.0055, 6, 5), blk); ey.position.set(sd * 0.014, 0.05, 0.032); crab.add(ey);
   }
   G.add(mark(crab, { steam: true }));
-  // weed in the wash: ribbons rooted round the waterline, swaying with the swell
+  // weed in the wash: ribbons rooted on the lower ledges, draped down the rock, their tips afloat and swung by the wash
+  const downhill = (x, z, step, n, floatY) => {   // a path that runs down the rock from (x, z), then lies out on the water
+    const pts = [], N = new THREE.Vector3(); let dx = x - PATCH.x, dz = z - PATCH.z, l = Math.hypot(dx, dz) || 1; dx /= l; dz /= l;
+    for (let i = 0; i <= n; i++) {
+      const y = stackH(x, z); pts.push([x, floatY != null ? Math.max(y + 0.012, floatY) : y + 0.012, z, dx, dz]);
+      stackN(x, z, N); const hl = Math.hypot(N.x, N.z); if (hl > 0.08 && y > (floatY ?? -9)) { dx = lerp(dx, N.x / hl, 0.6); dz = lerp(dz, N.z / hl, 0.6); const q = Math.hypot(dx, dz) || 1; dx /= q; dz /= q; }
+      const run = step * (y > (floatY ?? -9) ? Math.max(0.35, N.y) : 1); x += dx * run; z += dz * run;
+    }
+    return pts;
+  };
   const roots = [];
-  for (let k = 0; k < 60; k++) {
-    const a = hz(k, 141) * TAU, ox = Math.cos(a), oz = Math.sin(a); let r = 0.5; while (r < 2.4 && stackH(ox * r * 1.25, oz * r * 0.95) > 0.2 + 0.12 * hz(k, 142)) r += 0.02;
-    const x = ox * r * 1.25, z = oz * r * 0.95, y = Math.max(stackH(x, z), -0.15) + 0.01; roots.push({ x, y, z, a, L: 0.22 + 0.34 * hz(k, 143), w: 0.025 + 0.03 * hz(k, 144), ph: hz(k, 145) * TAU, c0: [cc("#4a5a2a"), cc("#6a7a3a"), cc("#8a8a3a"), cc("#3f6a35")][Math.floor(hz(k, 146) * 4)] });
+  for (let k = 0; k < 64; k++) {
+    const a = hz(k, 141) * TAU, ox = Math.cos(a), oz = Math.sin(a), want = 0.28 + 0.5 * hz(k, 142); let r = 0.4; while (r < 2.4 && stackH(ox * r * 1.3, oz * r * 0.98) > want) r += 0.02;
+    const L = 0.3 + 0.4 * hz(k, 143);
+    roots.push({ path: downhill(ox * r * 1.3, oz * r * 0.98, L / 7, 7, 0.0), a, L, w: 0.018 + 0.026 * hz(k, 144), ph: hz(k, 145) * TAU, c0: [cc("#2c3814"), cc("#434f18"), cc("#59631f"), cc("#263a1a")][Math.floor(hz(k, 146) * 4)] });
   }
   const NS = 7, wpos = new Float32Array(roots.length * (NS + 1) * 2 * 3), wcol = new Float32Array(roots.length * (NS + 1) * 2 * 3), widx = [];
-  roots.forEach((rt, k) => { for (let i = 0; i <= NS; i++) { const b = (k * (NS + 1) + i) * 2, f = i / NS, c = mixc(mixc(rt.c0, cc("#202a14"), 0.5 * (1 - f)), cc("#b7b04a"), 0.25 * f); for (let q = 0; q < 2; q++) { wcol[(b + q) * 3] = c[0]; wcol[(b + q) * 3 + 1] = c[1]; wcol[(b + q) * 3 + 2] = c[2]; } if (i < NS) widx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); } });
+  roots.forEach((rt, k) => { for (let i = 0; i <= NS; i++) { const b = (k * (NS + 1) + i) * 2, f = i / NS, c = mixc(mixc(rt.c0, cc("#1c2410"), 0.45 * (1 - f)), cc("#7d8436"), 0.3 * f * hz(k * 9 + i, 147)); for (let q = 0; q < 2; q++) { wcol[(b + q) * 3] = c[0]; wcol[(b + q) * 3 + 1] = c[1]; wcol[(b + q) * 3 + 2] = c[2]; } if (i < NS) widx.push(b, b + 1, b + 2, b + 1, b + 3, b + 2); } });
   const wg = new THREE.BufferGeometry(); wg.setAttribute("position", new THREE.BufferAttribute(wpos, 3).setUsage(THREE.DynamicDrawUsage)); wg.setAttribute("color", new THREE.BufferAttribute(wcol, 3)); wg.setIndex(widx); wg.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 10);
   const wm = new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, toneMapped: false }); wm.userData.noOutline = true;
   const weed = new THREE.Mesh(wg, wm); weed.name = "at-weed"; G.add(mark(weed, { steam: true }));
@@ -707,34 +854,63 @@ function seastack(P) {
   const ft = foamTex().clone(); ft.wrapS = THREE.RepeatWrapping; ft.needsUpdate = true;
   const sm = new THREE.MeshBasicMaterial({ map: ft, transparent: true, side: THREE.DoubleSide, depthWrite: false, toneMapped: false }); sm.userData.noOutline = true;
   const sheet = new THREE.Mesh(sg, sm); sheet.name = "at-surf"; G.add(mark(sheet, { steam: true, order: 7 }));
-  const NSP = 90, spp = new Float32Array(NSP * 3), spz = new Float32Array(NSP), pg = new THREE.BufferGeometry(); for (let i = 0; i < NSP; i++) spz[i] = 0.025 + 0.05 * hz(i, 151) ** 1.5;
+  // the painted jets of plate 05 standing in the surf: cards that turn to the camera, each rising from its foot and falling back
+  const jets = [[1.72, 0.25, 1.9, 1.42, 1, 0.0], [1.5, -0.55, 1.25, 0.95, -1, 0.09], [1.62, 0.95, 1.05, 0.8, -1, 0.16]].map(([x, z, w, h, flip, lag], i) => {
+    const u = { tMap: { value: paint("sea-splash.webp") }, uS: { value: new THREE.Vector2(w, h) }, uFlip: { value: flip }, uA: { value: 0 }, uCut: { value: 1 } };
+    const m = noLine(new THREE.ShaderMaterial({ uniforms: u, vertexShader: SPLASH_VS, fragmentShader: SPLASH_FS, transparent: true, depthWrite: false, side: THREE.DoubleSide }));
+    const jg = new THREE.PlaneGeometry(1, 1).translate(0, 0.5, 0); jg.deleteAttribute("normal");   // no normals: the ink-line pass then draws the card again after the sea, as it does the sea itself (a card with normals is hidden there and the sea paints over it)
+    const me = new THREE.Mesh(jg, m); me.name = "at-surf-jet" + i; me.position.set(x, -0.06, z); G.add(mark(me, { steam: true, order: 8 })); return { me, u, w, h, lag };
+  });
+  const NSP = 150, spp = new Float32Array(NSP * 3), spz = new Float32Array(NSP), pg = new THREE.BufferGeometry(); for (let i = 0; i < NSP; i++) spz[i] = 0.007 + 0.022 * hz(i, 151) ** 2;
   pg.setAttribute("position", new THREE.BufferAttribute(spp, 3).setUsage(THREE.DynamicDrawUsage)); pg.setAttribute("aSize", new THREE.BufferAttribute(spz, 1)); pg.boundingSphere = new THREE.Sphere(new THREE.Vector3(1.4, 1, 0), 6);
   const UVH = { value: 1080 }, v2 = new THREE.Vector2();
   const spm = new THREE.ShaderMaterial({ uniforms: { uViewH: UVH }, vertexShader: SPRAY_VS, fragmentShader: SPRAY_FS, transparent: false }); noLine(spm);
   const spray = new THREE.Points(pg, spm); spray.name = "at-spray"; spray.onBeforeRender = (R) => { R.getDrawingBufferSize(v2); UVH.value = v2.y; }; G.add(mark(spray, { steam: true }));
-  // tongues of foam sliding off the rock after each wash
-  const tongues = [], tm = foamTex();
-  for (let k = 0; k < 16; k++) {
-    const a = hz(k, 161) * TAU * 0.9 + 0.2, ox = Math.cos(a) * 1.25, oz = Math.sin(a) * 0.95; let r = 0.7; while (r < 2.4 && stackH(ox * r, oz * r) > 0.5) r += 0.02; const x = ox * r, z = oz * r; if (stackH(x, z) < 0) continue;
-    const mm = new THREE.MeshBasicMaterial({ map: tm, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }); mm.userData.noOutline = true;
-    const w = 0.1 + 0.16 * hz(k, 162), l = 0.3 + 0.35 * hz(k, 163), me = new THREE.Mesh(new THREE.PlaneGeometry(w, l, 1, 1), mm), n = stackN(x, z), q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 0, 1), n);
-    me.quaternion.copy(q); me.rotateZ(Math.atan2(n.x, n.z) * 0 + hz(k, 164) * 0.5); G.add(mark(me, { steam: true, order: 6 })); tongues.push({ me, mm, x, z, n, k });
+  // foam lace sliding off the rock after each wash: thin runs of white water that follow the rock down from the top to the sea
+  const tp = [], tf = [], ti = [];
+  for (let k = 0; k < 22; k++) {
+    const a = hz(k, 161) * TAU, path = downhill(PATCH.x + Math.cos(a) * (0.85 + 0.3 * hz(k, 162)), PATCH.z + Math.sin(a) * (0.68 + 0.25 * hz(k, 163)), 0.06, 20), w0 = 0.005 + 0.008 * hz(k, 164), ph = hz(k, 165);
+    for (let i = 0; i < path.length; i++) {
+      const q = path[i]; if (q[1] < 0.0) break;
+      const f = i / (path.length - 1), w = w0 * (0.6 + 0.8 * Math.sin(f * 7 + k) ** 2), b = tp.length / 3;
+      tp.push(q[0] + q[4] * w, q[1] + 0.006, q[2] - q[3] * w, q[0] - q[4] * w, q[1] + 0.006, q[2] + q[3] * w); tf.push(f, -1, ph, f, 1, ph);
+      if (i > 0 && path[i - 1][1] >= 0.0) ti.push(b - 2, b - 1, b, b - 1, b + 1, b);
+    }
   }
+  const tgeo = new THREE.BufferGeometry(); tgeo.setAttribute("position", new THREE.Float32BufferAttribute(tp, 3)); tgeo.setAttribute("aF", new THREE.Float32BufferAttribute(tf, 3)); tgeo.setIndex(ti); tgeo.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, 0.6, 0), 4);
+  const TU = { uT: { value: 0 }, uPh: { value: 0 }, uA: { value: 1 } };
+  const tmat = noLine(new THREE.ShaderMaterial({ uniforms: TU, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    vertexShader: `attribute vec3 aF; varying vec3 vF; void main() { vF = aF; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `uniform float uT, uPh, uA; varying vec3 vF;
+float h12(vec2 p) { vec3 p3 = fract(vec3(p.xyx) * 0.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y) * p3.z); }
+float vn(vec2 p) { vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f); return mix(mix(h12(i), h12(i + vec2(1.0, 0.0)), u.x), mix(h12(i + vec2(0.0, 1.0)), h12(i + vec2(1.0, 1.0)), u.x), u.y); }
+void main() {
+  float ph = fract(uPh + vF.z * 0.3), run = smoothstep(0.18, 0.4, ph) * (1.0 - smoothstep(0.55, 0.98, ph));       // the wash arrives, then the water runs off and thins
+  float head = 1.0 - smoothstep(0.0, 0.25, vF.x - (ph - 0.15) * 2.2);                                              // it starts at the top and runs down
+  float lace = smoothstep(0.46, 0.66, vn(vec2(vF.y * 1.6 + vF.z * 31.0, vF.x * 16.0 - uT * 2.2 + vF.z * 17.0)));
+  float a = (1.0 - vF.y * vF.y) * lace * run * head * smoothstep(0.0, 0.12, vF.x) * uA;
+  if (a < 0.02) discard; gl_FragColor = vec4(mix(vec3(0.72, 0.84, 0.88), vec3(1.0), lace * (1.0 - abs(vF.y))), a * 0.5);
+  #include <colorspace_fragment>
+}` }));
+  const trick = new THREE.Mesh(tgeo, tmat); trick.name = "at-trickles"; G.add(mark(trick, { steam: true, order: 6 }));
   const phaseOf = (t, k) => ((t * 0.5 + hz(k, 165)) % 1);
   return {
     grip: 0, top: PATCH.y,
     apply(ps, t) {
+      const SH = S.shade, saz = (S.sunAz ?? 35) * DEG;   // spec.shade [x, z, r]: the stander's contact shadow; params shadeX, shadeZ, shade (strength) move and fade it
+      RU.uShade.value.set(num(ps, S, "shadeX", SH ? SH[0] : PATCH.x), num(ps, S, "shadeZ", SH ? SH[1] : PATCH.z), SH?.[2] ?? 0.4, num(ps, {}, "shade", SH ? 1 : 0)); RU.uShadeDir.value.set(Math.sin(saz), Math.cos(saz));
+      RU.uWet.value = num(ps, S, "wet", 1);
       const autoSurf = ps.surf == null && S.surf == null, surfIn = num(ps, S, "surf", 0), per = S.surfEvery ?? 2.5;
       const ph = autoSurf ? (t % per) / per : surfIn;   // 0..1: the wave arrives, climbs, falls back
       const rise = sstep(0.0, 0.3, ph) * (1 - sstep(0.4, 0.78, ph)), off = autoSurf || surfIn > 0 && surfIn < 1 ? 1 : 0;
       // weed
       const wp = wg.attributes.position.array; let o = 0;
-      roots.forEach((rt, k) => {
-        const swing = Math.sin(t * 1.35 + rt.ph) * 0.5 + Math.sin(t * 2.3 + rt.ph * 2) * 0.2, lift = 0.5 + 0.5 * rise;
-        const ox = Math.cos(rt.a), oz = Math.sin(rt.a), tx = -oz, tz = ox;
+      roots.forEach((rt) => {
+        const swing = Math.sin(t * 1.35 + rt.ph) * 0.6 + Math.sin(t * 2.3 + rt.ph * 2) * 0.25 + 0.5 * rise;
         for (let i = 0; i <= NS; i++) {
-          const f = i / NS, ln = rt.L * f, bend = swing * f * f * 0.35 * rt.L * 2.2, w = rt.w * (1 - 0.65 * f) * (0.8 + 0.2 * Math.sin(f * 9 + rt.ph));
-          const px = rt.x + ox * (ln * 0.55 + bend * 0.6) + tx * Math.sin(f * 5 + rt.ph) * 0.02, py = rt.y + ln * (0.55 + 0.35 * lift) - 0.18 * f * f * rt.L * (1 - lift) , pz = rt.z + oz * (ln * 0.55 + bend * 0.6) + tz * Math.sin(f * 5 + rt.ph) * 0.02;
+          const f = i / NS, q = rt.path[i], afloat = q[1] < 0.03 ? 1 : 0.25, tx = -q[4], tz = q[3];
+          const off = swing * f * f * rt.L * 0.3 * afloat + Math.sin(f * 7 + rt.ph) * 0.035 * f + Math.sin(f * 15 + rt.ph * 3) * 0.01, w = rt.w * (1.25 - 0.9 * f) * (0.75 + 0.25 * Math.sin(f * 11 + rt.ph));
+          const px = q[0] + tx * off, py = q[1] + (q[1] < 0.03 ? 0.03 * Math.sin(t * 1.7 + rt.ph + f * 3) + 0.05 * rise : 0), pz = q[2] + tz * off;
           wp[o++] = px - tx * w; wp[o++] = py; wp[o++] = pz - tz * w; wp[o++] = px + tx * w; wp[o++] = py; wp[o++] = pz + tz * w;
         }
       });
@@ -746,20 +922,21 @@ function seastack(P) {
         const bell = Math.sin((i / SZ) * Math.PI) ** 0.6, hh = (0.5 + 0.5 * hz(i, 171)) * (0.45 + 0.55 * bell) * rise * 1.05;
         for (let j = 0; j <= SJ; j++) { const f = j / SJ; q[k2++] = xr + 0.06 + 0.5 * f * f * rise + 0.04 * Math.sin(i * 1.7 + j); q[k2++] = hh * f + 0.02; q[k2++] = zz + 0.05 * Math.sin(i * 2.3 + j * 1.1); }
       }
-      sg.attributes.position.needsUpdate = true; sm.opacity = clamp(rise * 3.2) * off; sheet.visible = rise > 0.01;
+      sg.attributes.position.needsUpdate = true; sm.opacity = 0; sheet.visible = false;   // the painted jets below replaced the drawn sheet
+      for (const J of jets) {
+        const pj = autoSurf ? (((t / per - J.lag) % 1) + 1) % 1 : clamp(surfIn - J.lag), up = sstep(0.03, 0.27, pj), down = sstep(0.36, 0.84, pj);
+        J.u.uS.value.set(J.w * (0.62 + 0.38 * up + 0.22 * down), J.h * (0.18 + 0.82 * up) * (1 - 0.5 * down));
+        J.u.uA.value = sstep(0.01, 0.09, pj) * (1 - sstep(0.42, 0.86, pj)) * off; J.u.uCut.value = 1.2; J.me.visible = J.u.uA.value > 0.01;
+      }
       // spray
       const pp = pg.attributes.position.array;
       for (let i = 0; i < NSP; i++) {
-        const t0 = 0.1 + 0.2 * hz(i, 181), tau = (ph - t0) * per, zz = -0.7 + 1.5 * hz(i, 182), vx = 0.45 + 0.9 * hz(i, 183), vy = 1.9 + 1.7 * hz(i, 184), vz = (hz(i, 185) - 0.5) * 0.9;
+        const t0 = 0.1 + 0.2 * hz(i, 181), tau = (ph - t0) * per, zz = -0.7 + 1.5 * hz(i, 182), vx = 0.3 + 1.0 * hz(i, 183), vy = 2.1 + 2.6 * hz(i, 184), vz = (hz(i, 185) - 0.5) * 0.9;
         const live = off && tau > 0 && tau < 1.25 && vy * tau - 4.9 * tau * tau > -0.1;
         pp[i * 3] = live ? 1.28 + vx * tau : 0; pp[i * 3 + 1] = live ? 0.25 + vy * tau - 4.9 * tau * tau : -50; pp[i * 3 + 2] = live ? zz + vz * tau : 0;
       }
       pg.attributes.position.needsUpdate = true;
-      // tongues of foam slide down the rock after the wash and fade
-      for (const tg of tongues) {
-        const pa = autoSurf || surfIn > 0 ? (((ph + hz(tg.k, 166) * 0.25) % 1)) : 0, slide = sstep(0.1, 0.9, pa), a = Math.sin(clamp(pa) * Math.PI) ** 1.2 * (0.55 + 0.35 * Math.sin(t * 1.1 + tg.k)) * (off || 1);
-        const lift = 0.012; tg.me.position.set(tg.x + tg.n.x * lift, stackH(tg.x, tg.z) + tg.n.y * lift + 0.25 * (1 - slide) * 0.0 - 0.1 * slide, tg.z + tg.n.z * lift); tg.mm.opacity = clamp(a); void phaseOf;
-      }
+      TU.uT.value = t; TU.uPh.value = ph; TU.uA.value = off; void phaseOf;
       // crab: a few steps sideways, then a long pause
       const cyc = (t % 14) / 14, step = sstep(0.1, 0.25, cyc) - sstep(0.55, 0.7, cyc), mv = Math.sin(t * 7) * 0.5 + 0.5;
       crab.position.x = POOL.x - 0.15 + 0.2 * (sstep(0.1, 0.25, cyc) - sstep(0.55, 0.7, cyc)) * 1.0 + 0.0; crab.position.z = POOL.z + 0.04 * Math.sin(t * 0.3);
