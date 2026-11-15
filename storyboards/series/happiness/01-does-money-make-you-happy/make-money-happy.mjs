@@ -33,14 +33,14 @@ const envOk = (n) => fs.existsSync(new URL(`../../../../assets/environments/${n}
 const HAPPY = true;
 
 // ---------------------------------------------------------------- the beats (video s)
-const T = {   // draft 2 with the narrator's real line lengths (farm run 43692886197)
-  open: 0, wipe: 2.6, city: 6.2, reach: 6.9, palm: 7.35, pat: 7.75, lining: 8.15, palms: 8.6, cupback: 8.9,
-  watch: 10.6, stare: 11.5, mumble: 14.1, plan: 15.7, bank: 17.5, give: 17.7, hands: 18.05, gun: 18.9, bags: 19.25,
-  robbed: 20.45, street: 21.7, cars: 22.5, duck: 23.55, past: 23.3, laugh: 24.25, rich: 24.8, spread: 25.3,
-  turn: 28.7, siren1: 28.9, hide: 30.7, door: 33.7, lock1: 33.9, lock10: 34.9, knock: 34.9, chip: 35.2, back: 36.3,
-  clock: 40.0, low: 41.0, gate: 43.8, flee: 45.4, car: 47.7, dash: 48.5, wide: 49.5, stop: 50.3, climb: 51.1,
-  amb: 51.5, nobody: 53.1, sunset: 57.8, brk: 58.2, storm: 59.4, face: 62.9, smile: 64.2, forgot: 65.95, hold: 65.8, close: 54.4,
-  END: 71.4,
+const T = {   // draft 5: the rework (emotion map, a turn in every scene, mute test, follow line); line lengths from the farm's takes
+  open: 0.0, wipe: 2.6, city: 6.2, reach: 6.9, palm: 7.35, pat: 7.75, lining: 8.15, palms: 8.6, cupback: 8.9,
+  watch: 10.6, stare: 11.0, mumble: 12.8, plan: 14.2, bank: 16.05, give: 16.25, hands: 16.6, gun: 17.45, bags: 17.8,
+  robbed: 19.0, street: 19.9, cars: 20.7, past: 21.5, duck: 21.75, laugh: 22.45, rich: 23.1, spread: 23.6,
+  turn: 26.65, siren1: 26.85, hide: 28.65, door: 31.65, lock1: 31.85, lock10: 32.85, knock: 32.85, chip: 33.15,
+  back: 34.25, clock: 38.0, low: 38.0, gate: 41.65, flee: 43.25, car: 45.6, dash: 46.2, wide: 46.9, stop: 47.5,
+  climb: 48.2, amb: 48.4, ambshot: 49.5, nobody: 52.0, back9: 52.4, sunset: 54.9, brk: 55.1, storm: 55.4, face: 58.4,
+  forgot: 58.5, smile: 59.6, hold: 63.85, follow: 63.95, close: 52.4, END: 67.3,
 };
 const END = T.END;
 
@@ -190,6 +190,7 @@ look(2.9, "rich", [0.35, 0.05], 0.4);    // out of the side window, at nothing
 rainCar(0, T.city);
 cap(0, 1.65, "$10,000,000", 255);
 cap(1.65, T.city, "HAPPY?", 255);
+cap(T.city, r3(T.city + 1.5), "30 DAYS EARLIER", 255);   // the mute test: the time jump reads without the narrator
 A(r3(T.city - 0.06), "rich", "ride", { prop: null, dur: 0 }); park(T.city, "rich", 0);
 see(0, T.city, ["rich.face", "car"], "frame 0: Spud in his fur coat and gold chain at the wheel of a gold car, rain on the glass, money bags piled behind him, his face empty");
 
@@ -421,7 +422,6 @@ place(T.low, "rich", [hw(HALL.SEAT_END)[0], hw(HALL.SEAT_END)[2]], 0);
 A(r3(T.low - PRE), "rich", "sit", { dur: 0.01, hands: "table" });
 expr(T.low, "rich", "sad", { curve: -0.25, brow: 0.5 }, 0.01); look(T.low, "rich", [0, -0.35], 0.01);
 A(r3(T.low + 1.6), "rich", "blink", { dur: 0.45 });
-see(T.clock, T.low, ["clock"], "the clock at 3:00");
 see(T.low, T.gate, ["rich.face"], "the loneliest picture: Spud tiny at the far end of a very long table, one candle");
 // S8: the siren STOPS at the gate: the light stays in the windows
 sfx(T.gate - 0.3, "sirenwail", { dur: 1.3, gain: 0.5, reason: "a siren coming up the road and stopping outside" });
@@ -472,7 +472,7 @@ expr(T.climb, "rich", "terrified", { open: 0.15 }, 0.01);
 sfx(T.amb - 0.4, "sirenwail", { dur: 2.2, gain: 0.55, reason: "a siren coming up the coast road" });
 look(T.amb, "rich", [0.85, -0.3], 0.2);   // over his shoulder, down at the road
 pr(T.amb - PRE, "amb", { lights: 1 }, 0.01);
-for (let k = 1, N = 15, X0 = -10, X1 = 60, D = 3.0; k <= N; k++) { const x = X0 + ((X1 - X0) * k) / N, xp = X0 + ((X1 - X0) * (k - 1)) / N, rx = COAST.roadAt(x), rp = COAST.roadAt(xp), yaw = r3(90 - (Math.atan2(rx.z - rp.z, x - xp) * 180) / Math.PI);
+for (let k = 1, N = 20, X0 = -10, X1 = 60, D = 4.0; k <= N; k++) { const x = X0 + ((X1 - X0) * k) / N, xp = X0 + ((X1 - X0) * (k - 1)) / N, rx = COAST.roadAt(x), rp = COAST.roadAt(xp), yaw = r3(90 - (Math.atan2(rx.z - rp.z, x - xp) * 180) / Math.PI);
   pr(r3(T.amb + (D * (k - 1)) / N), "amb", { x: r3(CP[0] + x), z: AMB_Z(x), y: AMB_Y(x), rot: yaw, len: r3(Math.hypot(x - X0, 0)) }, r3(D / N), "linear"); }
 expr(T.nobody - 0.4, "rich", "shocked", { open: 0.1, brow: 0.2 }, 0.3);
 wind(T.climb, END);
@@ -541,13 +541,14 @@ const CUTS = [
   ["S6 ten locks", T.door, SH.door],
   ["S6 Chip at the window", T.chip, SH.sidewin],
   ["S6 he backs away", T.back, SH.door],
-  ["S6b 3:00", T.clock, SH.clock],
   ["S7 alone", T.low, SH.low],
   ["S8 he flees", T.flee, SH.gate],
   ["S9 the car", T.car, SH.car],
   ["S9 empty", T.dash, SH.dash],
   ["S9 the stop", T.wide, SH.wide],
   ["S9 the ambulance", T.climb, SH.climb],
+  ["S9 the ambulance passes", T.ambshot, SH.wide],
+  ["S9 nobody was coming", T.back9, SH.climb],
   ["S10 the clouds break", T.sunset, SH.sunset],
   ["S10 the money flies", T.storm, SH.sunset],
   ["S10 the smile", T.face, SH.face, "payoff"],
@@ -560,20 +561,18 @@ const NARR = !VO ? [] : [   // [at, line, length of the farm's take (s), caption
   [0.1, "You have ten million dollars.", 2.69],
   [3.34, "And you haven't smiled in thirty days.", 2.4],
   [r3(T.city + 0.15), "Thirty days earlier, he couldn't even pay for a coffee.", 3.91],
-  [r3(T.watch + 0.7), "Then he saw how the rich live.", 2.27],
   [r3(T.plan + 0.1), "So he made a plan.", 1.27],
-  [r3(T.bank + 2.5), "He robbed a bank.", 1.25, 300],   // above her raised hands in the over-gun shot
-  [r3(T.street + 0.9), "And he got away with it.", 1.53],
   [r3(T.rich + 0.1), "He bought everything he thought made him happy.", 2.89],
   [r3(T.turn + 0.9), "But now, he had something to lose.", 2.29, 330],
   [r3(T.door + 3.0), "Even his best friend had to stay outside.", 2.81],
-  [r3(T.clock + 0.3), "He had everything... and no one.", 2.89],
+  [r3(T.low + 0.2), "He had everything... and no one.", 2.89],
   [r3(T.gate + 0.2), "Then one night, a siren stopped at his gate.", 3.21],
   [r3(T.car + 0.4), "He ran, until the tank ran dry.", 3.11],
-  [r3(T.car + 5.0), "It was only an ambulance.", 2.27],
-  [r3(T.car + 7.8), "Nobody was ever coming for him.", 1.87],
-  [r3(T.storm + 0.9), "The wind took every dollar he had.", 2.55],
+  [r3(T.ambshot + 0.15), "It was only an ambulance.", 2.27],
+  [r3(T.back9 + 0.1), "Nobody was ever coming for him.", 1.87],
+  [r3(T.storm + 0.35), "The wind took every dollar he had.", 2.55],
   [T.forgot, "But the beauty of the sunset made him forget all his worries for one moment.", 4.8],
+  [T.follow, "Follow to find out if he gets his friend back.", 2.8],   // the follow ask after the payoff (MrBeast study, on test)
 ];
 for (const [t, line, dur, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos, gain: NG });
 const PUSH = new Map([[SH.city, 0.1], [SH.cityb, 0.08], [SH.bank, 0.14], [SH.overgun, 0.08], [SH.street, 0.08], [SH.hide, 0.1], [SH.mday, 0.12], [SH.turn, 0.12], [SH.door, 0.1], [SH.sidewin, 0.08], [SH.clock, 0.15], [SH.low, 0.18], [SH.gate, 0.12], [SH.climb, 0.13], [SH.sunset, 0.05], [SH.face, 0.1]]);
