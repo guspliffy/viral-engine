@@ -140,7 +140,7 @@ function build(F) {
   clueTag(c, F, T.map1, END, 4);
   say(T.map1 + 0.1, "d2a", T.shore);
   // the map marks: the two dots (Helike, Athens) pop in one after the other (maproute with no line: dots only)
-  D({ id: "dots38", kind: "maproute", plate: PL, x: 0, y: 0, z: 0, dotsAt: [HELIKE, ATHENS], dots: 0, draw: 0 });
+  D({ id: "dots38", kind: "maproute", plate: PL, x: 0, y: 0, z: 0, dotsAt: [HELIKE, ATHENS], dots: 0, draw: 0, staged: "dots drawn on the hanging map plate" });
   PR(T.map1 + 0.5, "dots38", { dots: 0.5 }, 0.3, "out"); PR(T.map1 + 1.6, "dots38", { dots: 1 }, 0.3, "out");
 
   // ================================================================= 37b BY MORNING IT WAS GONE (7.0-10.9): along the shore
@@ -160,7 +160,7 @@ function build(F) {
 
   // ================================================================= 40 BIGGER THAN LIBYA AND ASIA (13.4-19.1): the outline
   PR(T.map2 - 0.02, "dots38", { dots: 0 });   // the Greece dots ride the paper: off before the plate swaps
-  D({ id: "isle", kind: "mapoutline", plate: PL, x: 0, y: 0, z: 0, box: ISLE, draw: 0, fillP: 0 });
+  D({ id: "isle", kind: "mapoutline", plate: PL, x: 0, y: 0, z: 0, box: ISLE, draw: 0, fillP: 0, staged: "outline drawn on the hanging map plate" });
   PR(T.map2 + 0.3, "isle", { draw: 1 }, 1.5, "inOut"); PR(T.map2 + 1.9, "isle", { fillP: 1 }, 1.0, "out");
   const d3a = say(T.map2 + 0.2, "d3a", T.map2 + 3.75);
   say(r3(T.map2 + 3.75), "d3b", T.low);
@@ -202,9 +202,9 @@ function build(F) {
   lift(T.hatch - 0.04, -2.2, -6.2); set0(T.hatch, "hatch", { beam: 0.6 });
   for (const [id, f] of HATCH_SEATED) A(r3(T.hatch - 0.04), id, "sit", { seat: "none", rot: f, height: 0.45, dur: 0.01, hands: "lap" });
   look(T.hatch, "spudB", [0.2, 0.6], 0.01); expr(T.hatch, "spudB", "neutral", { brow: 0.5 }, 0.01);
-  look(T.hatch, "foreman", [-0.4, -0.5], 0.01);
+  look(T.hatch, "foreman", [-0.4, -0.3], 0.01);
   A(T.hatch + 0.1, "foreman", "grip", { side: "R", shape: "open", dur: 0.2 });
-  for (let k = 0; k < 4; k++) { c.arm(r3(T.hatch + 0.05 + k * 0.6), "foreman", "R", "wave", 0.25); c.arm(r3(T.hatch + 0.35 + k * 0.6), "foreman", "R", { o: [0.25, 1.0, 0.1] }, 0.25); }   // waves Spud in (bench pattern)
+  for (let k = 0; k < 3; k++) { c.arm(r3(T.hatch + 0.05 + k * 0.9), "foreman", "R", "wave", 0.45); c.arm(r3(T.hatch + 0.5 + k * 0.9), "foreman", "R", { o: [0.25, 1.0, 0.1] }, 0.4); }   // waves Spud in (bench pattern)
   lift(T.hatch + 1.7, -2.2, -3.4, 1.8, "inOut");                               // he floats up the beam ...
   look(T.hatch + 3.4, "spudB", [0, 0.05], 0.35); expr(T.hatch + 3.4, "spudB", "neutral", { brow: 0.75, lid: 0.3 }, 0.3);   // ... stops, looks at us
   say(T.hatch + 3.7, "d6", T.far);
@@ -219,7 +219,7 @@ function build(F) {
   look(T.far, "spudS", [0, 0.3], 0.01); expr(T.far, "spudS", "neutral", { brow: 0.4, lid: 0.35 }, 0.01);
   look(T.far + 1.0, "spudS", [0, 0.05], 0.4);
   say(T.far + 1.2, "d7", T.tag);
-  cap(r3(T.far + 2.0), r3(T.tag - 0.05), "Follow for the next case", F.key === "wide" ? 940 : 1500, false, { size: F.key === "wide" ? 44 : 52, kinetic: false });   // the follow ask (on test, text only)
+  cap(r3(T.far + 2.0), r3(T.tag - 0.05), "Follow for the next case", F.key === "wide" ? 400 : 720, false, { size: F.key === "wide" ? 44 : 52, kinetic: false });   // the follow ask (on test, text only)
   sfx(T.far, "ai/car-waves", { gain: 0.14, dur: r3(T.tag - T.far), reason: "the sea calming" });
 
   // ================================================================= 47-48 TAG (44.2-50): Plato winks; Spud blocks the scroll
@@ -274,6 +274,12 @@ function build(F) {
     allowClip: [
       ...lampClip(spuds, END),
       { who: "plato", with: "chair", from: 0, to: END, reason: "Plato sits on his chair at the desk (panels 39, 47)" },
+      // place-wide kinds (one merged mesh per place): the box test reads the whole place as "inside"; each window was looked at on the draft
+      ...[["spudK", "helike", 0, T.map1, "Spud stands on the Helike knoll, a place-wide terrain mesh; his feet sit in the grass"],
+        ["spudW", "room", T.room, T.map2, "Spud stands in the lane outside Plato's window, the room's outside wall and lane are one mesh"],
+        ["plato", "room", T.room, END, "Plato sits at his desk: his legs go under the desk top and his hands rest on it (panels 39, 47)"],
+        ...["cA", "cB", "cC", "cD", "cE"].map((id) => [id, "hatch", T.hatch, T.far, "the crew sit on the hatch hall's built-in bench seats (panel 45)"]),
+      ].flatMap(([who, w, from, to, reason]) => [{ who, with: w, from: r3(from), to: r3(to), reason }, { who, with: w, from: r3(from), to: r3(to), checks: ["shell"], reason }]),
     ],
     end: END,
   };
