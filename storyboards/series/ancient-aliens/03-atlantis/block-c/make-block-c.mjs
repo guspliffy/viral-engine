@@ -178,7 +178,7 @@ function build(F, S) {
   fx(T.today, "ai/underwater-amb", { gain: 0.3, dur: r3(T.stair - T.today), reason: "under water again" });
 
   // ================================================================= 31 THE STAIRCASE (30.7-35.6): can a whole city sink in one day?
-  place(T.stair, "spud", W(STEP, 0, -0.3), 0.3, 0);
+  place(T.stair, "spud", W(STEP, -0.55, -0.3), 0.3, 0);
   prop(T.stair - 0.02, "step", { block: 0 });
   look(T.stair, "spud", [0.5, 0.05], 0.01); look(T.stair + 0.6, "spud", [-0.5, 0.05], 0.6); look(32.5, "spud", [0, 0.05], 0.25);
   say(T.stair + 0.2, "c6a", 32.7);
@@ -202,7 +202,7 @@ function build(F, S) {
   big(T.wait + 0.1, T.port, "1 DAY: 0.008 mm");
 
   // ================================================================= 34 PORT ROYAL 1692 (41.3-44.6): a whole harbour town, then the ground shakes
-  place(T.port, "spud", W(PORT, -0.15, -4.38), 0, 8); act(T.port - 0.02, "spud", "stand", { dur: 0.01 });   // off the step he sat on
+  place(T.port, "spud", W(PORT, -0.15, -5.2), 0, 8); act(T.port - 0.02, "spud", "stand", { dur: 0.01 });   // off the step he sat on
   look(T.port, "spud", [-0.4, 0.2], 0.01); look(T.port + 0.6, "spud", [0.4, 0.2], 0.6);
   say(T.port + 0.2, "c8a", 42.6);
   say(42.65, "c8b", 47.0);
@@ -212,8 +212,8 @@ function build(F, S) {
   fx(43.6, "rumble", { gain: 0.6, dur: 4.5, reason: "the earthquake: a deep rumble under the town" });
   fx(T.port, "ai/car-waves", { gain: 0.1, dur: r3(T.slide - T.port), reason: "the harbour" });
   // ================================================================= 35 THE SLIDE (44.6-48.8): two thirds of the town into the sea, he runs
-  place(T.slide, "spud", W(PORT2, 1.3, -3.82), 0, -20);
-  look(T.slide - 0.1, "spud", [-0.3, 0], 0.1); act(T.slide + 0.05, "spud", "move", { to: W(PORT2, 1.12, -3.25), y: 0, dur: 1.5 });
+  place(T.slide, "spud", W(PORT2, 1.3, -4.5), 0, -18);
+  look(T.slide - 0.1, "spud", [-0.3, 0], 0.1); act(T.slide + 0.05, "spud", "move", { to: W(PORT2, 1.15, -3.9), y: 0, dur: 1.5 });
   prop(T.slide - 0.02, "p35", { sink: 0, quake: 0 }, 0); prop(T.slide, "p35", { quake: 1 }, 0.2, "out"); prop(T.slide + 0.2, "p35", { sink: 1 }, 1.5, "in"); SHAKES.push({ do: "shake", at: T.slide, dur: 1.8, amp: 0.04 });
   prop(46.5, "p35", { quake: 0 }, 1.2, "inOut");
   big(47.0, T.closer, "2 MIN");
@@ -221,7 +221,7 @@ function build(F, S) {
   fx(T.slide + 0.4, "ai/branch-snap", { gain: 0.4, reason: "timber houses break" });
   say(47.0, "c8c", T.closer);
   // ================================================================= 36 CLOSER (48.8-52.0): he nods slowly, one finger up
-  place(T.closer, "spud", W(STEP, 0, -0.3), 0.3, 0);
+  place(T.closer, "spud", W(STEP, -0.55, -0.3), 0.3, 0);
   prop(T.closer - 0.02, "step", { block: 0 });
   look(T.closer, "spud", [0, 0.05], 0.01); expr(T.closer, "spud", "neutral", { brow: 0.5, lid: 0.7 }, 0.01);
   say(49.0, "c9a", 49.9);
