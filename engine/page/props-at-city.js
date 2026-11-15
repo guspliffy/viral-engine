@@ -27,10 +27,15 @@
 // polishcloth  white cloth, flat 0.30 x 0.22 x 0.012, origin at its centre. GRIPS: pinch [0,0.012,0], palm [0,0.01,0],
 //            edge [0.13,0.008,0]. NEEDS the grip library SIZE entry polishcloth: {len: 0.012, r: 0.008} before
 //            make-grip-tests can run it.
-// column     white fluted column 1.6 wide x 14 high in five drums, on a plinth. spec: dir 270 (fall direction in degrees,
-//            0 = +z, 90 = +x), fall 0..1, splash 0..1. Params fall (topples over the param, drums separate a little),
-//            splash (12 m foam column, drawn). Start values are read with || (the engine propState shadows them by 0).
-//            Origin: foot centre at the water line.
+// column     white fluted marble column 1.6 wide x 14 high in five drums (16 flutes, veined, grime at the joints), a base
+//            of two rounds on a plinth 2.24 square (y -0.2..0), a capital (necking, echinus, square abacus 2.2, top y 14.34).
+//            spec: dir 270 (fall direction in degrees, 0 = +z, 90 = +x), fall 0..1, splash 0..1, light, wet, ground 0 (the
+//            height of the quay under it for the baked contact shadow: 0 = at the origin, -0.2 if the plinth stands proud).
+//            water 0 (the height of the water for the splash, e.g. -1.2 under a quay 1.2 high).
+//            Params fall (topples over the param, drums separate a little; the contact shadow goes with it), splash (a
+//            12 m plume of drawn foam and a foam ring, 13.4 m out along dir). Start values are read with || (the engine
+//            propState shadows them by 0). Its light stays in the world while it falls (BOARD sun of spec.light).
+//            Origin: foot centre on the quay, the quay's edge 0.8 further along dir (the contact shadow is cut there).
 // edgeroad   the causeway of panel 29, 3.6 wide, spec len 30, cross joints every 3.65, setts drawn. Param water 0..1
 //            (0-0.15 m of water running across, falling 1 m off the right edge with a foam lip). ORIGIN = the road TOP
 //            surface: put the prop at y 1 (the sea is 1 m below). Road runs along z.
@@ -1110,40 +1115,205 @@ const AT_POLISH_GRIPS = { polishcloth: { pinch: [0, 0.012, 0], palm: [0, 0.01, 0
 // ---------------------------------------------------------------------------------------------------------------
 // COLUMN (19): white fluted marble column 1.6 x 14 in five drums, base at the origin (on the quay, 0.8 from its edge). spec.dir 270 (degrees, the way it falls:
 // 0 = +z, 90 = +x, 270 = -x). fall 0..1 (PARAM, 36 frames' worth: the top goes 96 deg over, ever faster, the drums slide apart a little), splash 0..1 (PARAM).
+// The stone is drawn, not lit: a painted marble skin (veins, joint grime, drips, chips) and a small shader that keeps the SUN IN THE WORLD while
+// the column turns over (a light and an ochre shade side, a light and a dark side in each of the 16 flutes, inked grooves, joints, edges and outline).
+const COL_TONES = {   // lit side, shade side (sRGB), per light
+  dawn: [[1.0, 0.91, 0.77], [0.7, 0.62, 0.6]], noon: [[1.0, 0.985, 0.945], [0.84, 0.785, 0.69]], eve: [[0.98, 0.75, 0.56], [0.5, 0.45, 0.5]], night: [[0.42, 0.5, 0.74], [0.2, 0.24, 0.38]],
+};
+function marbleTex() {
+  return once("marble", () => {
+    const W = 1024, Hh = 512, [c, g] = canvas(W, Hh);
+    g.fillStyle = "#f1eadb"; g.fillRect(0, 0, W, Hh);
+    const wrap = (fn) => { for (const o of [-W, 0, W]) { g.save(); g.translate(o, 0); fn(); g.restore(); } };   // round the drum without a seam
+    for (let i = 0; i < 80; i++) {   // soft warm and grey clouds in the stone
+      const x = rnd(i * 3 + 500) * W, y = rnd(i * 3 + 501) * Hh, r = 40 + 90 * rnd(i * 3 + 502), col = rnd(i + 900) > 0.42 ? "226,204,160" : "206,208,210", a = 0.1 + 0.2 * rnd(i + 950);
+      wrap(() => { const rg = g.createRadialGradient(x, y, 0, x, y, r); rg.addColorStop(0, `rgba(${col},${a})`); rg.addColorStop(1, `rgba(${col},0)`); g.fillStyle = rg; g.fillRect(x - r, y - r, 2 * r, 2 * r); });
+    }
+    for (let i = 0; i < 26; i++) {   // veins: wandering lines, each with a thinner branch
+      let x = rnd(i * 7 + 40) * W, y = rnd(i * 7 + 41) * Hh; const n = 5 + Math.floor(rnd(i * 7 + 42) * 8), dir = (rnd(i * 7 + 43) - 0.5) * 1.2 + (rnd(i * 7 + 44) > 0.5 ? 0.8 : -0.8), pts = [[x, y]];
+      for (let k = 0; k < n; k++) { const a = dir + (rnd(i * 31 + k) - 0.5) * 1.7; x += Math.sin(a) * 30; y += Math.cos(a) * 30; pts.push([x, y]); }
+      const al = 0.25 + 0.3 * rnd(i * 7 + 45), lw = 2.6 + 3.4 * rnd(i * 7 + 46), ochre = rnd(i * 7 + 47) > 0.6;
+      wrap(() => {
+        g.lineJoin = g.lineCap = "round"; g.strokeStyle = ochre ? `rgba(176,146,98,${al})` : `rgba(138,132,126,${al})`; g.lineWidth = lw; g.beginPath(); pts.forEach((p, k) => (k ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]))); g.stroke();
+        const m = pts[Math.floor(n / 2)]; g.lineWidth = lw * 0.55; g.beginPath(); g.moveTo(m[0], m[1]); g.lineTo(m[0] + (rnd(i + 70) - 0.5) * 90, m[1] + 40 + 50 * rnd(i + 71)); g.stroke();
+      });
+    }
+    // the joints: grime bands at the top and the foot of the drum, drips running down from the top joint, chips on both edges
+    { const gt = g.createLinearGradient(0, 0, 0, 44); gt.addColorStop(0, "rgba(112,98,74,0.55)"); gt.addColorStop(1, "rgba(112,98,74,0)"); g.fillStyle = gt; g.fillRect(0, 0, W, 44);
+      const gb = g.createLinearGradient(0, Hh - 36, 0, Hh); gb.addColorStop(0, "rgba(104,94,76,0)"); gb.addColorStop(1, "rgba(104,94,76,0.5)"); g.fillStyle = gb; g.fillRect(0, Hh - 36, W, 36); }
+    for (let i = 0; i < 46; i++) {
+      const x = rnd(i * 5 + 300) * W, len = 40 + 170 * rnd(i * 5 + 301) ** 2, w = 7 + 12 * rnd(i * 5 + 302), a = 0.14 + 0.2 * rnd(i * 5 + 303);
+      wrap(() => { const gd = g.createLinearGradient(0, 0, 0, len); gd.addColorStop(0, `rgba(124,108,80,${a})`); gd.addColorStop(1, "rgba(124,108,80,0)"); g.fillStyle = gd; g.fillRect(x - w / 2, 0, w, len); });
+    }
+    for (let i = 0; i < 40; i++) {
+      const top = i % 2 === 0, x = rnd(i * 9 + 700) * W, w = 8 + 16 * rnd(i * 9 + 701), h = 5 + 10 * rnd(i * 9 + 702), y = top ? 0 : Hh;
+      wrap(() => { g.fillStyle = "rgba(92,80,62,0.75)"; g.beginPath(); g.moveTo(x - w / 2, y); g.lineTo(x + w / 2, y); g.lineTo(x + (rnd(i + 5) - 0.5) * w * 0.6, y + (top ? h : -h)); g.closePath(); g.fill(); });
+    }
+    const t = tex(c); t.wrapT = THREE.ClampToEdgeWrapping; return t;
+  });
+}
+function columnMat(light, wet) {
+  const Lg = LIGHTS[light] ?? LIGHTS.dawn, T = COL_TONES[light] ?? COL_TONES.dawn, wt = 1 - 0.2 * wet, v3 = (c, k = 1) => new THREE.Vector3(lin(c[0] * k), lin(c[1] * k), lin(c[2] * k));
+  const m = new THREE.MeshBasicMaterial({ color: "#ffffff", vertexColors: true, toneMapped: false, side: THREE.DoubleSide }); m.userData.noOutline = true;
+  const U = { uTex: { value: marbleTex() }, uSun: { value: new THREE.Vector3(...Lg.s).normalize() }, uLit: { value: v3(T[0], wt) }, uShade: { value: v3(T[1], wt) }, uInk: { value: v3(light === "night" ? [0.1, 0.11, 0.18] : [0.34, 0.28, 0.23]) } };
+  m.customProgramCacheKey = () => "at-column";
+  m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, U);
+    sh.vertexShader = sh.vertexShader.replace("#include <common>", "#include <common>\nattribute vec2 aCm; attribute vec4 aCe; varying vec2 vCuv, vCm; varying vec4 vCe; varying vec3 vCn, vCt, vCw;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\nvCuv = uv; vCm = aCm; vCe = aCe; vCn = mat3(modelMatrix) * normal; vec3 cct = vec3(-normal.z, 0.0, normal.x); vCt = mat3(modelMatrix) * (cct / max(length(cct), 1e-4)); vCw = (modelMatrix * vec4(position, 1.0)).xyz;");
+    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", "#include <common>\nuniform sampler2D uTex; uniform vec3 uSun, uLit, uShade, uInk; varying vec2 vCuv, vCm; varying vec4 vCe; varying vec3 vCn, vCt, vCw;")
+      .replace("#include <map_fragment>", `
+        vec3 cmt = texture2D(uTex, vCuv).rgb, cgn = normalize(vCn);
+        // the flutes (aCm.x): each hollow has a wall toward the light and one away from it, and an inked groove where two meet
+        float cfx = vCuv.x * 16.0, cfl = fract(cfx), cfw = fwidth(cfx), cfk = vCm.x * (1.0 - smoothstep(0.3, 0.8, cfw));
+        vec3 cn = normalize(cgn + vCt * (1.0 - 2.0 * cfl) * 0.6 * cfk);
+        float cd = dot(cn, uSun), clit = smoothstep(-0.34, 0.2, cd), cgd = dot(cgn, uSun);
+        clit = mix(clit, clit * smoothstep(-0.6, 0.05, cgd) + 0.22 * cfk * smoothstep(0.1, 0.4, cd - cgd), cfk);   // the shade side keeps its flutes, fainter
+        vec3 ccol = cmt * mix(uShade * mix(0.97, 1.06, 0.5 + 0.5 * cn.y), uLit, clamp(clit, 0.0, 1.0));
+        float cgl = cfk * (1.0 - smoothstep(0.06, 0.06 + max(cfw, 0.03) * 1.6, min(cfl, 1.0 - cfl)));
+        // round forms (aCm.y) turn darker toward their outline and end in an ink line
+        float cndv = abs(dot(cgn, normalize(cameraPosition - vCw)));
+        ccol *= 1.0 - 0.2 * vCm.y * (1.0 - smoothstep(0.0, 0.55, cndv));
+        float cink = vCm.y * (1.0 - smoothstep(0.25, 0.36, cndv));
+        // joints, mouldings and the edges of the flat faces (aCe: place in the face, its size, metres)
+        float ced = min(min(vCe.x, vCe.z - vCe.x), min(vCe.y, vCe.w - vCe.y)), cew = fwidth(ced), ce0 = max(0.028, cew);
+        float cel = 1.0 - smoothstep(ce0, ce0 + cew * 1.5, ced);
+        ccol = mix(ccol, uInk * (0.75 + 0.25 * clit), max(max(cink, cel) * 0.8, cgl * 0.5));
+        diffuseColor.rgb *= ccol;`);
+  };
+  return m;
+}
+// the column's own pieces: position, normal, uv (the marble skin), colour (tint and baked shadow), aCm (flutes, round outline), aCe (edge lines)
+class CGeo {
+  constructor() { this.P = []; this.Nn = []; this.U = []; this.C = []; this.M = []; this.E = []; this.I = []; this.n = 0; }
+  quad(vs) { for (const [p, nr, uv, c, m, e] of vs) { this.P.push(...p); this.Nn.push(...nr); this.U.push(...uv); const k = lin(c); this.C.push(k, k, k); this.M.push(...m); this.E.push(...e); } const a = this.n; this.I.push(a, a + 1, a + 2, a, a + 2, a + 3); this.n += 4; }
+  // a lathe about the y axis: profile [[r, y], ...] from the foot up. o: uo (turn of the skin), v [v0, v1] (the skin's rows over the profile), c [foot, top] (tint),
+  // m [flutes, outline], lines [foot, top] (ink at the two ends), breaks (ink at every bend), smooth (one rounded form)
+  lathe(prof, n, o = {}) {
+    const S = prof.length - 1, seg = [], len = [0]; for (let j = 0; j < S; j++) { const dr = prof[j + 1][0] - prof[j][0], dy = prof[j + 1][1] - prof[j][1], l = Math.hypot(dr, dy) || 1; seg.push([dy / l, -dr / l, l]); len.push(len[j] + l); }
+    const tot = len[S] || 1, [v0, v1] = o.v ?? [0.3, 0.7], [c0, c1] = o.c ?? [1, 1], m = o.m ?? [0, 1], [l0, l1] = o.lines ?? [true, true], uo = o.uo ?? 0;
+    const nr = (j, top) => { if (!o.smooth) return seg[j]; const i = top ? j + 1 : j, a = seg[Math.max(0, i - 1)], b = seg[Math.min(S - 1, i)], x = a[0] + b[0], y = a[1] + b[1], l = Math.hypot(x, y) || 1; return [x / l, y / l]; };
+    for (let j = 0; j < S; j++) {
+      const [ra, ya] = prof[j], [rb, yb] = prof[j + 1], L = seg[j][2], na = nr(j, false), nb = nr(j, true), fa = len[j] / tot, fb = len[j + 1] / tot;
+      const eb = (j === 0 ? l0 : o.breaks) ? 0 : 1, et = (j === S - 1 ? l1 : o.breaks) ? 0 : 1, E = (d) => [5, d + eb, 10, L + eb + et];
+      for (let i = 0; i < n; i++) {
+        const a0 = (i / n) * TAU, a1 = ((i + 1) / n) * TAU, q0 = [Math.cos(a0), Math.sin(a0)], q1 = [Math.cos(a1), Math.sin(a1)], u0 = i / n + uo, u1 = (i + 1) / n + uo;
+        const V = (q, u, r, y, nn, f, d) => [[q[0] * r, y, q[1] * r], [nn[0] * q[0], nn[1], nn[0] * q[1]], [u, lerp(v0, v1, f)], lerp(c0, c1, f), m, E(d)];
+        this.quad([V(q0, u0, ra, ya, na, fa, 0), V(q1, u1, ra, ya, na, fa, 0), V(q1, u1, rb, yb, nb, fb, L), V(q0, u0, rb, yb, nb, fb, L)]);
+      }
+    }
+    return this;
+  }
+  // a flat round end of a drum at height y (up: facing up), inked at its rim
+  disc(y, r, up, n, c = 0.9, uo = 0) {
+    for (let i = 0; i < n; i++) {
+      const a0 = (i / n) * TAU, a1 = ((i + 1) / n) * TAU, N3 = [0, up ? 1 : -1, 0], V = (a, k) => [[Math.cos(a) * r * k, y, Math.sin(a) * r * k], N3, [uo + 0.5 + 0.1 * Math.cos(a) * k, 0.5 + 0.18 * Math.sin(a) * k], c * (0.86 + 0.14 * k), [0, 0], [5, r * (1 - k), 10, 2 * r]];
+      this.quad([V(a0, 0), V(a0, 1), V(a1, 1), V(a1, 0)]);
+    }
+    return this;
+  }
+  // an axis box, every face with its own inked border; c = tint, cd = the tint of the underside (a baked shadow), hide = faces left out ("t", "d")
+  box(x0, y0, z0, x1, y1, z1, o = {}) {
+    const c = o.c ?? 1, h = o.hide ?? "", uo = o.uo ?? 0;
+    const F = (f, a, b, cc, d, nrm, w, hh, k = c, kb = k) => { if (h.includes(f)) return; const u0 = uo + rnd(f.charCodeAt(0) * 3.7 + uo * 11), E = [[0, 0], [w, 0], [w, hh], [0, hh]], kk = [kb, kb, k, k];
+      this.quad([a, b, cc, d].map((p, i) => [p, nrm, [u0 + E[i][0] / 5, 0.32 + 0.36 * (E[i][1] / Math.max(hh, w))], kk[i], [0, 0], [E[i][0], E[i][1], w, hh]])); };
+    const w = x1 - x0, d = z1 - z0, hy = y1 - y0, gd = o.gd ?? 1;
+    F("t", [x0, y1, z1], [x1, y1, z1], [x1, y1, z0], [x0, y1, z0], [0, 1, 0], w, d);
+    F("f", [x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1], [0, 0, 1], w, hy, c, c * gd);
+    F("b", [x1, y0, z0], [x0, y0, z0], [x0, y1, z0], [x1, y1, z0], [0, 0, -1], w, hy, c, c * gd);
+    F("r", [x1, y0, z1], [x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [1, 0, 0], d, hy, c, c * gd);
+    F("l", [x0, y0, z0], [x0, y0, z1], [x0, y1, z1], [x0, y1, z0], [-1, 0, 0], d, hy, c, c * gd);
+    F("d", [x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1], [0, -1, 0], w, d, o.cd ?? c * 0.6);
+    return this;
+  }
+  mesh(mat, parent, name) {
+    const g = new THREE.BufferGeometry(), A = (k, a, s) => g.setAttribute(k, new THREE.Float32BufferAttribute(a, s));
+    A("position", this.P, 3); A("normal", this.Nn, 3); A("uv", this.U, 2); A("color", this.C, 3); A("aCm", this.M, 2); A("aCe", this.E, 4); g.setIndex(this.I); g.computeBoundingSphere();
+    const me = new THREE.Mesh(g, mat); me.name = name; me.userData.lookOnly = true; me.userData.solid = false; me.userData.surfaceOnly = true; me.castShadow = false; me.receiveShadow = false; parent.add(me); return me;
+  }
+}
+// the splash as the plates draw water: a plume of white foam balls, each with a blue-grey underside, jets in its core, and a top that breaks up into spray
+function splashTex() {
+  return once("splash", () => {
+    const W = 512, Hh = 768, [c, g] = canvas(W, Hh), half = (t) => 0.44 - 0.3 * Math.pow(t, 0.75), blobs = [];
+    for (let i = 0; i < 230; i++) {   // the body: big balls low, small ones high, thinning out toward the top
+      const t = Math.pow(rnd(i * 3 + 1), 1.25) * 0.9, w = half(t) * W, x = W / 2 + (rnd(i * 3 + 2) * 2 - 1) * w * (0.35 + 0.65 * rnd(i * 3 + 3)), r = lerp(50, 13, t) * (0.55 + 0.75 * rnd(i * 3 + 4));
+      blobs.push([x, Hh - 8 - t * (Hh - 40), r, t]);
+    }
+    for (let i = 0; i < 150; i++) {   // the fringe: loose drops round the top and flung off the sides
+      const t = 0.5 + 0.5 * rnd(i * 5 + 600), side = rnd(i * 5 + 601) * 2 - 1, w = (half(t) + 0.02 + 0.1 * rnd(i * 5 + 602) * t) * W, r = lerp(9, 3, t) * (0.6 + 0.9 * rnd(i * 5 + 603));
+      blobs.push([W / 2 + side * w * (0.55 + 0.45 * Math.sqrt(Math.abs(side))), Hh - 8 - Math.min(0.985, t + 0.06 * rnd(i * 5 + 604)) * (Hh - 40), r, t]);
+    }
+    blobs.sort((a, b) => b[2] - a[2]);
+    { const gr = g.createLinearGradient(0, Hh, 0, Hh * 0.35); gr.addColorStop(0, "rgba(176,204,222,0.95)"); gr.addColorStop(1, "rgba(176,204,222,0)"); g.fillStyle = gr; g.beginPath(); g.moveTo(W * 0.1, Hh); g.quadraticCurveTo(W * 0.3, Hh * 0.6, W * 0.42, Hh * 0.3); g.lineTo(W * 0.58, Hh * 0.3); g.quadraticCurveTo(W * 0.7, Hh * 0.6, W * 0.9, Hh); g.closePath(); g.fill(); }
+    for (const [x, y, r, t] of blobs) {
+      g.fillStyle = t < 0.35 ? "rgba(132,170,198,0.96)" : "rgba(158,190,212,0.96)"; g.beginPath(); g.arc(x + r * 0.2, y + r * 0.26, r, 0, TAU); g.fill();
+      g.fillStyle = "rgba(244,249,250,0.98)"; g.beginPath(); g.arc(x, y, r * 0.93, 0, TAU); g.fill();
+      g.fillStyle = "rgba(255,255,255,1)"; g.beginPath(); g.arc(x - r * 0.22, y - r * 0.28, r * 0.55, 0, TAU); g.fill();
+      if (r > 22 && rnd(x + y) > 0.45) { g.strokeStyle = "rgba(104,150,184,0.7)"; g.lineWidth = 2.2; g.lineCap = "round"; g.beginPath(); g.arc(x, y, r * 0.7, 0.25, 1.35); g.stroke(); }
+    }
+    for (let i = 0; i < 16; i++) {   // jets: long white strokes running up through the core, each with a blue-grey side
+      const x = W / 2 + (rnd(i * 4 + 800) * 2 - 1) * W * 0.16, y = Hh * (0.22 + 0.5 * rnd(i * 4 + 801)), ry = 34 + 50 * rnd(i * 4 + 802), rx = 5 + 5 * rnd(i * 4 + 803), lean = (x - W / 2) / W * 0.5;
+      g.save(); g.translate(x, y); g.rotate(lean); g.fillStyle = "rgba(150,184,208,0.75)"; g.beginPath(); g.ellipse(rx * 0.5, 0, rx, ry, 0, 0, TAU); g.fill(); g.fillStyle = "rgba(255,255,255,0.95)"; g.beginPath(); g.ellipse(0, 0, rx * 0.8, ry, 0, 0, TAU); g.fill(); g.restore();
+    }
+    return tex(c, false);
+  });
+}
+function splashRingTex() {
+  return once("splashring", () => {
+    const W = 256, [c, g] = canvas(W, W);
+    { const rg = g.createRadialGradient(W / 2, W / 2, 0, W / 2, W / 2, W * 0.46); rg.addColorStop(0, "rgba(236,246,249,0.55)"); rg.addColorStop(0.7, "rgba(226,240,246,0.35)"); rg.addColorStop(1, "rgba(226,240,246,0)"); g.fillStyle = rg; g.fillRect(0, 0, W, W); }
+    for (let i = 0; i < 120; i++) {
+      const a = rnd(i * 3 + 20) * TAU, inner = i % 4 === 0, rr = W * (inner ? 0.1 + 0.25 * rnd(i * 3 + 21) : 0.33 + 0.12 * rnd(i * 3 + 21)), r = (inner ? 3 : 5) + 8 * rnd(i * 3 + 22), x = W / 2 + Math.cos(a) * rr, y = W / 2 + Math.sin(a) * rr;
+      g.fillStyle = "rgba(150,186,208,0.9)"; g.beginPath(); g.arc(x + r * 0.2, y + r * 0.25, r, 0, TAU); g.fill(); g.fillStyle = "rgba(248,252,252,0.97)"; g.beginPath(); g.arc(x, y, r * 0.9, 0, TAU); g.fill();
+    }
+    return tex(c, false);
+  });
+}
 function column(P) {
-  const S = P.spec, B = new Build(P, S), R0 = 0.8, H = 14, ND = 5, DH = H / ND, dirA = (S.dir ?? 270) * DEG, dx = Math.sin(dirA), dz = Math.cos(dirA), N = 80;
+  const S = P.spec, B = new Build(P, S), R0 = 0.8, H = 14, ND = 5, DH = H / ND, dirA = (S.dir ?? 270) * DEG, dx = Math.sin(dirA), dz = Math.cos(dirA), N = 48;
   const piv = new THREE.Group(), body = new THREE.Group(), drums = []; P.whole.add(piv); piv.add(body); body.position.set(-dx * R0, 0, -dz * R0); piv.position.set(dx * R0, 0, dz * R0);
-  const radius = (y) => R0 * (1 - 0.14 * Math.pow(y / H, 1.3)), flute = (a) => 1 - 0.052 * (1 - Math.pow(Math.abs(Math.cos(10 * a)), 0.55));
+  const radius = (y) => R0 * (1 - 0.14 * Math.pow(y / H, 1.3)), mat = columnMat(B.light, B.wet);
   for (let k = 0; k < ND; k++) {
     const g = new THREE.Group(); g.position.y = k * DH; body.add(g); drums.push({ g, k });
-    const sp = new Soup(B.L, { wet: B.wet }), y0 = 0, y1 = DH, rows = 3;
-    for (let j = 0; j < rows; j++) for (let i = 0; i < N; i++) {
-      const a0 = (i / N) * TAU, a1 = ((i + 1) / N) * TAU, ya = lerp(y0, y1, j / rows), yb = lerp(y0, y1, (j + 1) / rows), wy = (yy) => radius(yy + k * DH), p = (a, yy) => { const r = wy(yy) * flute(a); return [Math.cos(a) * r, yy, Math.sin(a) * r]; }, nrm = (a) => { const e = 0.5 * 0.052 * 10 * 0.55 * Math.sign(Math.cos(10 * a)) * Math.sin(10 * a) * Math.pow(Math.abs(Math.cos(10 * a)) + 1e-3, -0.45) * -1; return [Math.cos(a) - Math.sin(a) * e * 0.3, 0.06, Math.sin(a) + Math.cos(a) * e * 0.3]; };
-      const key = k * 1000 + i * 7 + j, dirt = j === 0 && k === 0 ? 0.82 : 1, t = tone(0.93, 1.04, key >> 2), tt = [0.94 * t[0] * dirt, 0.92 * t[1] * dirt, 0.87 * t[2] * dirt];
-      sp.quad(p(a0, ya), p(a1, ya), p(a1, yb), p(a0, yb), tt, [0, 0, 1, 1], { nrm: [nrm(a0), nrm(a1), nrm(a1), nrm(a0)], ao: [j === 0 ? 0.78 : 1, j === 0 ? 0.78 : 1, 1, 1] });
+    const G = new CGeo(), last = k === ND - 1, yT = last ? DH - 0.6 : DH, uo = ((k * 5) % 16) / 16, tk = lerp(0.95, 1.02, rnd(k * 13 + 5)) * (k === 0 ? 0.97 : 1), rows = 3, shaft = [];
+    for (let j = 0; j <= rows; j++) { const y = (yT * j) / rows; shaft.push([radius(k * DH + y), y]); }
+    G.lathe(shaft, N, { uo, v: [0, yT / DH], c: [tk, tk], m: [1, 1], smooth: true });   // the fluted drum, its skin's grime at both joints
+    if (k > 0) G.disc(0, radius(k * DH), false, 24, 0.82, uo);
+    if (!last) G.disc(DH, radius((k + 1) * DH), true, 24, 0.92, uo);
+    if (k === 0) {   // the base: two rounds and a hollow between them, on a square plinth
+      G.lathe([[R0 * 1.2, 0], [R0 * 1.26, 0.05], [R0 * 1.26, 0.13], [R0 * 1.16, 0.2]], 40, { uo: 0.37, c: [0.72, 1], smooth: true });
+      G.lathe([[R0 * 1.1, 0.2], [R0 * 1.06, 0.26], [R0 * 1.13, 0.32], [R0 * 1.13, 0.38], [R0 * 1.0, 0.44]], 40, { uo: 0.83, c: [0.9, 1], smooth: true, lines: [false, false] });
+      G.box(-R0 * 1.4, -0.2, -R0 * 1.4, R0 * 1.4, 0.02, R0 * 1.4, { c: 0.97, gd: 0.78, uo: 0.2 });   // 2 cm proud: a quay top level with the origin does not flicker through it
     }
-    // the drum's joint: a darker lip and, on the top drum, the capital (echinus and abacus); the first has a base ring
-    sp.lathe([[radius(k * DH) * 1.0, 0], [radius(k * DH) * 1.045, 0.0], [radius(k * DH) * 1.045, 0.05], [radius(k * DH), 0.09]], N / 4, 0, 0, [0.7, 0.68, 0.62]);
-    if (k === 0) { sp.lathe([[R0 * 1.16, 0], [R0 * 1.16, 0.18], [R0 * 1.06, 0.3], [R0 * 1.0, 0.36]], 40, 0, 0, [0.96, 0.94, 0.88]); sp.box(-R0 * 1.4, -0.2, -R0 * 1.4, R0 * 1.4, 0.0, R0 * 1.4, [0.9, 0.88, 0.82], { tm: 12.8 }); }
-    if (k === ND - 1) { const r1 = radius(H); sp.lathe([[r1, DH - 0.5], [r1 * 1.02, DH - 0.3], [r1 * 1.3, DH - 0.12], [r1 * 1.42, DH]], 48, 0, 0, [0.96, 0.94, 0.9]); sp.box(-r1 * 1.55, DH, -r1 * 1.55, r1 * 1.55, DH + 0.34, r1 * 1.55, [0.98, 0.96, 0.92], { tm: 12.8, seed: 4, bottom: true }); }
-    bake(sp, null, g, { name: "at-drum" + k });
+    if (last) {   // the capital: a necking band, the echinus swelling out into the shadow of the square abacus
+      const r1 = radius(H), ech = []; for (let j = 0; j <= 6; j++) { const th = 0.2 + (Math.PI / 2 - 0.2) * (j / 6); ech.push([r1 * (1.06 + 0.42 * (Math.sin(th) - Math.sin(0.2)) / (1 - Math.sin(0.2))), DH - 0.46 + 0.46 * (Math.cos(0.2) - Math.cos(th)) / Math.cos(0.2)]); }
+      G.lathe([[r1 * 1.0, DH - 0.6], [r1 * 1.06, DH - 0.57], [r1 * 1.06, DH - 0.46]], N, { uo: 0.61, c: [0.98, 0.98] });
+      G.lathe(ech, N, { uo: 0.13, c: [1, 0.66], smooth: true, lines: [false, true] });
+      G.box(-r1 * 1.6, DH, -r1 * 1.6, r1 * 1.6, DH + 0.34, r1 * 1.6, { c: 1, cd: 0.6, uo: 0.71 });
+    }
+    G.mesh(mat, g, "at-drum" + k);
   }
-  // the splash: a drawn foam column (crossed planes of foam), spray and a foam ring on the water; scaled by the param
-  const sg = new THREE.Group(); P.whole.add(sg); const ssoup = new Soup(B.L, { alpha: true }), foamHi = 12;
-  for (let L = 0; L < 7; L++) for (let q = 0; q < 3; q++) {
-    const y = L * 1.9, w = (3.4 - L * 0.28) * (0.8 + 0.4 * rnd(L * 3 + q)), a = q * Math.PI / 3 + L * 0.4, ca = Math.cos(a), sa = Math.sin(a), u = rnd(L * 7 + q) * 0.5, h = 2.4, sh = 0.82 + 0.18 * (L / 6);
-    ssoup.quad([-ca * w, y, -sa * w], [ca * w, y, sa * w], [ca * w * 0.85, y + h, sa * w * 0.85], [-ca * w * 0.85, y + h, -sa * w * 0.85], [0.93 * sh, 0.96 * sh, 0.97 * sh], [u, u, u + 0.5, u + 0.5], { flat: true, a: 0.92 - 0.04 * L });
-  }
-  for (let i = 0; i < 36; i++) { const a = rnd(i) * TAU, r = 1 + 4.5 * rnd(i + 3), y = foamHi * (0.2 + 0.85 * rnd(i + 7)), s = 0.12 + 0.28 * rnd(i + 11); ssoup.quad([Math.cos(a) * r - s, y, Math.sin(a) * r], [Math.cos(a) * r + s, y, Math.sin(a) * r], [Math.cos(a) * r + s, y + s * 1.6, Math.sin(a) * r], [Math.cos(a) * r - s, y + s * 1.6, Math.sin(a) * r], [0.95, 0.97, 0.97], [0, 0, 1, 1], { flat: true, a: 0.85 }); }
-  bake(ssoup, softTex("foam"), sg, { name: "at-splash", order: 4 });
-  const ring = new Soup(B.L, { alpha: true }); ring.quad([-7, 0.08, 7], [7, 0.08, 7], [7, 0.08, -7], [-7, 0.08, -7], [0.94, 0.97, 0.96], [0, 0, 2, 2], { flat: true, a: 0.7 }); bake(ring, softTex("foam"), sg, { name: "at-splash-ring", order: 3 });
-  sg.position.set(dx * (R0 + 12.6), 0, dz * (R0 + 12.6)); sg.visible = false;
+  // the shadow where it stands, baked: darkest round the base, cut off at the quay's edge (spec.ground: the quay under it, 0 = at the origin)
+  const cg = new THREE.Group(); P.whole.add(cg); cg.position.y = S.ground ?? 0;
+  { const cs = new Soup(B.L, { alpha: true }), Lg = LIGHTS[B.light] ?? LIGHTS.dawn, ox = -Lg.s[0] * 0.5, oz = -Lg.s[2] * 0.5, rr = 2.6, e = R0 - (ox * dx + oz * dz), stops = [[0, 0.78], [0.56, 0.72], [0.78, 0.5], [0.92, 0.2], [1, 0]], n = 28, dark = [0.2, 0.17, 0.18];
+    // rings of dark with a soft rim, drawn as geometry: a quay is seen at a flat angle, where a texture blurs away and a soft-centred oval thins to nothing
+    const pt = (r, a) => { const s0 = Math.min(e, Math.cos(a) * r), t = Math.sin(a) * r; return [ox + dx * s0 + dz * t, 0.012, oz + dz * s0 - dx * t]; };
+    for (let j = 0; j < stops.length - 1; j++) for (let i = 0; i < n; i++) { const a0 = (i / n) * TAU, a1 = ((i + 1) / n) * TAU, [k0, al0] = stops[j], [k1, al1] = stops[j + 1]; cs.quad(pt(k0 * rr, a0), pt(k0 * rr, a1), pt(k1 * rr, a1), pt(k1 * rr, a0), dark, [0, 0, 1, 1], { flat: true, aa: [al0, al0, al1, al1] }); }
+    bake(cs, null, cg, { name: "at-column-contact", order: 4 }); }   // order 4: over a quay whose paving is itself a drawn-on sheet (order 3)
+  // the splash: three crossed sheets of the drawn plume and a foam ring on the water; scaled by the param
+  const sg = new THREE.Group(); P.whole.add(sg); const ssoup = new Soup(B.L, { alpha: true }), foamHi = 12, fw = 4.6;
+  for (let q = 0; q < 3; q++) { const a = q * Math.PI / 3 + 0.35, ca = Math.cos(a) * fw, sa = Math.sin(a) * fw, fl = q === 1; ssoup.quad([-ca, 0, -sa], [ca, 0, sa], [ca, foamHi, sa], [-ca, foamHi, -sa], [1, 1, 1], fl ? [1, 0, 0, 1] : [0, 0, 1, 1], { flat: true, a: 0.96 }); }
+  bake(ssoup, splashTex(), sg, { name: "at-splash", order: 4 });
+  const ring = new Soup(B.L, { alpha: true }); ring.quad([-7, 0.08, 7], [7, 0.08, 7], [7, 0.08, -7], [-7, 0.08, -7], [1, 1, 1], [0, 0, 1, 1], { flat: true, a: 0.9 }); bake(ring, splashRingTex(), sg, { name: "at-splash-ring", order: 3 });
+  sg.position.set(dx * (R0 + 12.6), S.water ?? 0, dz * (R0 + 12.6)); sg.visible = false;
   let last = "";
   const apply = (ps) => {
     const f = clamp(ps.fall || S.fall || 0), sp = clamp(ps.splash || S.splash || 0), key = f + "|" + sp; if (key === last) return; last = key;
     const th = 96 * DEG * Math.pow(f, 1.9), ax = new THREE.Vector3(dz, 0, -dx).normalize();
     piv.quaternion.setFromAxisAngle(ax, th);
     for (const d of drums) { const sep = f * 0.16 * d.k * (1 + rnd(d.k)), tw = f * 0.04 * (rnd(d.k * 3 + 1) - 0.5); d.g.position.y = d.k * DH + sep; d.g.rotation.set(tw, f * 0.1 * (rnd(d.k) - 0.5), -tw * 0.7); }
+    cg.children[0].material.opacity = 1 - sstep(0.03, 0.4, f);
     sg.visible = sp > 0.01; const e = sstep(0, 1, Math.min(1, sp * 1.25)), fade = 1 - 0.55 * sstep(0.75, 1, sp);
     sg.children[0].scale.set(0.35 + 0.65 * e, 0.05 + 0.95 * e, 0.35 + 0.65 * e); sg.children[0].material.opacity = fade; sg.children[1].scale.set(0.3 + 0.7 * e, 1, 0.3 + 0.7 * e); sg.children[1].material.opacity = fade * 0.9;
   };

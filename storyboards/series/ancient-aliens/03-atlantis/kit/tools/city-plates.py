@@ -175,9 +175,24 @@ def vs(stills, bid="at-city"):
         rows += [np.hstack(mv[i:i + 3]) for i in range(0, len(mv), 3)]
     out = B + bid + "-vs.png"; cv2.imwrite(out, np.vstack(rows)); print("wrote", out)
 
+def column_vs(stills, plate19="/mnt/project-files/videos/ancient-aliens/03-atlantis/plates/plate-19-bridge-noon.png"):
+    """bench/at-city-column-vs.png: plate 19 (whole and its white stone close) beside the long-lens column stills K0, K1, K2 (whole frame, and close)."""
+    B = ROOT + "/storyboards/series/ancient-aliens/03-atlantis/kit/bench/"; cw, ch = 960, 540
+    def label(im, txt):
+        cv2.rectangle(im, (0, 0), (14 + 11 * len(txt), 30), (0, 0, 0), -1); cv2.putText(im, txt, (8, 21), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA); return im
+    fit = lambda im: cv2.resize(im, (cw, ch), interpolation=cv2.INTER_AREA if im.shape[1] > cw else cv2.INTER_CUBIC)
+    pl = cv2.imread(plate19)
+    rows = [np.hstack([label(fit(pl[80:944]), "plate 19 (painting)"), label(fit(pl[300:480, 760:1080]), "plate 19: its white stone, 3x")])]
+    for t, name, (x0, y0, hh) in [(0.65, "K0 standing", (373, 180, 660)), (1.65, "K1 fall 0.72", (640, 130, 700)), (2.65, "K2 fall 1, splash 0.8", (700, 330, 700))]:
+        s = cv2.imread(f"{stills}/at-city-K0-K1-K2-anime-pro-draft-t{t:.2f}.png")
+        if s is None: print("missing still", t); continue
+        rows.append(np.hstack([label(fit(s), name + " (fov 16, whole frame)"), label(fit(s[y0:y0 + hh, x0:x0 + hh * 16 // 9]), name + " (close)")]))
+    cv2.imwrite(B + "at-city-column-vs.png", np.vstack(rows)); print("wrote", B + "at-city-column-vs.png")
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if a[:1] == ["--overlay"]: overlay(a[1], a[2])
     elif a[:1] == ["--vs"]: vs(a[1], *(a[2:3]))
+    elif a[:1] == ["--column"]: column_vs(a[1])
     else:
         for k in ([a[1]] if a[:1] == ["--only"] else PLATES): build(k)
