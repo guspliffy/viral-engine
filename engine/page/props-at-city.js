@@ -43,6 +43,58 @@
 // citybenchsea  bench-only sea disc: spec color "#2f6fae", r 1800. Not for clips.
 //
 // Not built: pigeons, gulls and smoke threads (ALSO layers), the sea surface and far city (T2/T3).
+//
+// ROUND R (15 Nov): THE PAINTED 3D SCENES, spec.plate. harbourquay, citywall and canalcut build, when spec.plate is set, real 3D to
+// ONE approved painting: the plate is projected from the painter's camera onto true-depth pieces (floors, water, walls, towers,
+// piers, bollards, blocks; ships as upright cut-out cards), so from that camera the frame IS the painting, and a pan, a push-in or a
+// move of about a metre keeps real parallax, occlusion and a floor under the feet. Without spec.plate every kind builds as before.
+// LIMITS: one painting holds one view. Keep the camera within about 1.5 m of the painter's spot (01, 02, 11, 08, 09; 0.5 m for 04),
+// or push in / pan from it; faces the painter never saw (a quay's far side) and everything outside the plate's field carry the plate
+// mirrored. The scale is the painting's (toy ships 5 m long beside a real-size bollard), not DESIGNS section 1. Night, noon and
+// evening are a colour grade of the dawn plate (the painted sun stays). Banners, sails and oars do not move; the water does.
+//   harbourquay plate "01"  the harbour at dawn. Sea y 0, QUAY TOP y 1.4 (standable, x -40..40, z 0.3..16), its water edge z 0, the
+//            basin toward -z, brass wall + arch gate at z -74, far city card z -414. Bollard + rope at (-1.8, 1.45), bollard on its
+//            block at (2.35, 0.8): real 3D. Spud's spot (0.15, 1.05). Painter's camera: pos [0, 3.05, 5.65] look [0, -0.26, -44.35] fov 36.
+//   harbourquay plate "04"  the harbour wall. Sea y 0, QUAY TOP y 1.2 (standable x -1.05..2.05, z -0.4..16; the tongue ends in a row of
+//            nine stone cubes toward the basin, big blocks on its right, an inlet 1.2 deep on its left), wall + towers z -70..-95.
+//            Spud's spot (0.35, 0.2). Camera: pos [0, 2.75, 4.5] look [0, 0.12, -45.5] fov 36.
+//   harbourquay plate "04", far false   THE NEAR QUAY ALONE, to stand in front of the far city's own projection of plate 04
+//            (props-at-far.js `atlantisplate` view "harbour"): the tongue with its nine cubes, the big blocks, the jars, the inlet,
+//            the left quay with its ladders and a water apron out to 27 m, all real 3D and re-seen through THAT kind's camera, so
+//            the two join without a seam and this stone covers the whole painted quay that lies flat on that kind's water. No
+//            wall, city, sky or ships here. QUAY TOP y 1.2 (standable x -1.04..2.04, z 0.15..16), Spud's spot (0.35, 0.65).
+//            PLACE THEM SO (top = the floor y 0): harbourquay x 0 z 0 y -1.2; atlantisplate x 0 z -2598.5 y -3.32; camera pos
+//            [0, 1.68, 4.5] look [0, 1.68, -45.5] fov 40 = plate rows 0..864 (tilt down to see the feet: look y -2.87 = the bench's
+//            F04). In city coordinates that is: harbourquay x 0 y 2.12 z 2598.5, camera (0, 5, 2603). grade defaults to false
+//            here (that kind shows the plate ungraded; measured equal within 0.01). Keep the camera within 0.5 m of that spot,
+//            pans and push-ins are free; the city behind is 2.7 x further than this quay's own scale, a larger move parts them.
+//            Plate 01 has no such far view: use plate "01" whole (it brings its own wall, canal and far city).
+//   citywall plate "02"     the red-gold wall. THE PAVED WALK IS y 0 (stand anywhere z > 0.8). Wall face z 0 (outside +z), 6.0 high,
+//            stone footing 1.2 high 0.25 deep (the three-colour stone: a palm reaches it from z 0.75), piers at x -11.5, -3.4, 4.4
+//            and the corner pier x 9.85..11.66; the second wall runs back from x 10.73. Temple, gardens, sky: one far card.
+//            Spud's spot (8.2, 0.9). Camera: pos [14, 1.2, 11.3] look [-17.33, 9.8, -27.67] fov 36 (it looks up along the wall).
+//            params: flash 0..1 (band along x from -30 to 11, then every 4th plate hot).
+//   citywall plate "11"     the three walls across the water ring, no standing place. Brass wall face z 0, 12 high, towers at x -13
+//            and 27; tin wall plane z -134; red-gold plane z -413; temple + mountains + sky z -780; water y 0 for z > 0.6.
+//            Camera: pos [0, 9, 120] look [0, 10.8, 70] fov 16.4. params: flash 0..1 (on the red-gold wall).
+//   canalcut plate true     the cut-away (plate 08). Cut plane z 0, canal x -46..46, water y 0, bed y -66; LEFT QUAY TOP y 8.38
+//            (standable x -150..-46.5, z -70..0), RIGHT QUAY TOP y 2.34 (x 46.5..150). Camera: pos [-9.48, 4.2, 123.6] look
+//            [-9.48, -3.96, 73.6] fov 42. Drawn at trireme scale: for a host as large as panel 08 use the prop's scale 0.05
+//            (canal 4.6 m wide) and y -0.419; Spud's spot then (-2.8, -0.2), the camera pos and look x 0.05 (the bench does this).
+//   canalcut plate true, modern true   the ancient and the modern canal (plate 09). Cut plane z 0, ancient canal x -24.5..24.5 (bed
+//            -66), modern x 55.5..101.9 (floor y -9.4: the PLATE's shallow canal, not DESIGNS' 24 m), BANK TOPS y 3.46 (standable:
+//            x -150..-25, 25..55 the middle bank, 102.5..200; z -60..0). Camera: pos [38, 5.93, 131.4] look [38, -3.09, 81.4] fov 42.
+//            With scale 0.05: y -0.173, Spud's spot on the middle bank (2.0, -0.2).
+//   spec keys of every painted scene: light ("dawn"; "noon" | "eve" | "night" grade the plate), wet 0..1, ships (true; false hides the
+//            painted ships and their reflections, the water behind them is painted in: place 3D `trireme`s instead), still (false; true
+//            stops the water), grade (true: takes the look's lift and warmth out so the frame shows the painting's own tones, measured
+//            under look anime-pro with the kit's AT_ lights; false; or [lift, gain]). params: flash, ships 0|1.
+//   CONTACT SHADOWS: the engine draws its ovals at world y 0. Put the standing top there with the prop's y (plate 01: y -1.4; 04:
+//            y -1.2; 08 at scale 0.05: y -0.419; 09: y -0.173; 02 needs nothing), keep the cast at y 0. (All geometry here carries
+//            normals: without them the ink pass draws a mesh twice and wipes the ovals.)
+//   ASSETS (assets/props/atlantis/, 2048 x 1365, built by kit/tools/city-plates.py from the approved plates): city-p01.webp,
+//            city-p01-clean.webp, city-p01-mask.png, city-p02.webp, city-p04.webp, city-p04-clean.webp, city-p04-mask.png,
+//            city-p11.webp, city-p08.webp, city-p08-clean.webp, city-p08-mask.png, city-p09.webp, city-p09-clean.webp, city-p09-mask.png.
 import * as THREE from "three";
 
 const TAU = Math.PI * 2, DEG = Math.PI / 180;
@@ -139,7 +191,7 @@ class Soup {
   geo() {
     const g = new THREE.BufferGeometry();
     g.setAttribute("position", new THREE.Float32BufferAttribute(this.P, 3)); g.setAttribute("color", new THREE.Float32BufferAttribute(this.C, this.alpha ? 4 : 3)); g.setAttribute("uv", new THREE.Float32BufferAttribute(this.U, 2));
-    g.setIndex(this.I); g.computeBoundingSphere(); return g;
+    g.setIndex(this.I); g.computeVertexNormals(); g.computeBoundingSphere(); return g;   // normals: without them the ink pass (ink.js isCompatible) draws the mesh a second time, over the contact shadows
   }
 }
 // one mesh from a soup; every mesh here is scenery (lookOnly, not solid, surfaceOnly) unless o.solid (a standable top)
@@ -654,6 +706,7 @@ function buildWall(B, S, tickOut) {
 const ang = (s, r) => (r ? (s / r) / DEG : 0);
 
 function citywall(P) {
+  if (P.spec.plate) return plateScene(P, String(P.spec.plate));
   const S = P.spec, B = new Build(P, S), W = buildWall(B, S);
   B.done();
   const q0 = clamp(num({}, S, "quake", 0)), f0 = num({}, S, "flash", 0);
@@ -788,6 +841,8 @@ function awning(B, x, y, z, w, d, ry, c1, c2, seed) {
 // ---------------------------------------------------------------------------------------------------------------
 // HARBOURQUAY (01, 04): the left quay of the harbour basin, water on +x. Local frame: quay top y 1.2, x -26..0, z -130..8; the gate at spec.gateAt.
 function harbourquay(P) {
+  if (P.spec.plate && P.spec.far === false && String(P.spec.plate) !== "04") throw new Error('props-at-city: harbourquay far: false (the near quay alone, in front of atlantisplate "harbour") exists for plate "04" only');
+  if (P.spec.plate) return plateScene(P, String(P.spec.plate) + (P.spec.far === false ? "f" : ""));
   const S = P.spec, B = new Build(P, S), len = S.len ?? 138, X0 = -26, Z0 = 8 - len, Z1 = 8, TOP = 1.2, sd = (S.seed ?? 1) * 13;
   const quay = stoneSoup(B, "quay"), pale = stoneSoup(B, "pale"), pl = plainSoup(B), al = alphaSoup(B), rope = B.soup("rope", ropeTex());
   const seg = 6, n = Math.ceil(len / seg);
@@ -1206,6 +1261,7 @@ function containerShip(B, xc, zc, yaw, L = 150) {
   hull.to(null); cont.to(null); pl.to(null);
 }
 function canalcut(P) {
+  if (P.spec.plate) return plateScene(P, P.spec.modern ? "09" : "08");
   const S = P.spec, B = new Build(P, S), L = 300, W = 46, sd = (S.seed ?? 1) * 37, canal = stoneSoup(B, "canal"), pale = stoneSoup(B, "pale"), quay = stoneSoup(B, "quay"), dark = stoneSoup(B, "dark"), pl = plainSoup(B), al = alphaSoup(B), earth = B.soup("earth", earthTex());
   // the banks' stone: front faces and the canal walls, row by row in depth so the colours darken down
   const rowsY = []; for (let y = 2; y > -DEEP; y -= (y > 0 ? 2 : 10)) rowsY.push([y, Math.max(-DEEP, y - (y > 0 ? 2 : 10))]);
@@ -1279,6 +1335,376 @@ function canalcut(P) {
       const q = [[0, 0], [0.9, 0], [0.9, 0.3], [0, 0.3]]; for (let v = 0; v < 4; v++) { const o = (F.vi + v) * 3; a[o] = x0 + dir * q[v][0] * 2.6; a[o + 1] = y + q[v][1] * 2.6; a[o + 2] = z; }
     } fishMesh.geometry.attributes.position.needsUpdate = true; fishMesh.geometry.computeBoundingSphere(); }
   } };
+}
+
+// ===============================================================================================================
+// ROUND R: THE PAINTED 3D SCENES (spec.plate). Each scene is real 3D built to ONE approved painting: the plate is projected from the
+// painter's camera (PLATE_SCENES[key].cam, a pinhole with a shifted lens: horizon row hy, verticals stay vertical) onto true-depth
+// pieces (floors, water, walls, towers, bollards, blocks, cards), so from that camera the frame IS the painting, and a pan, a push-in
+// or a move of a metre or two keeps real parallax, occlusion and a floor under the feet. Outside the plate's field the surfaces carry
+// on with the plate mirrored. The data sits between the two markers as strict JSON: kit/tools/city-plates.py --overlay reads it too.
+// Piece: [type, layer, geometry, options]. type "quad" (4 points), "poly" (planar fan from point 0), "box" ([x0,y0,z0,x1,y1,z1], options
+// tx/tz = top inset, bottom), "lathe" ([cx, cz, [[r, y], ...]], options sx/sz/n). layer "base" (the plate), "clean" (near things painted
+// out), "water" (clean + the moving shimmer), "metal" (base + the flash), "cut" (an upright card cut by the mask), "decal" (a soft
+// reflection on the water). options.g names a group a spec key or param can hide (ships).
+const queueLoad = (p) => (globalThis.__loads ||= []).push(p);
+function plateTex(file, data = false) {
+  return once("ptex:" + file, () => {
+    let ok, bad; const job = new Promise((res, rej) => { ok = res; bad = rej; });
+    const t = new THREE.TextureLoader().load(`/assets/props/atlantis/${file}`, () => ok(), undefined, () => bad(new Error(`props-at-city: assets/props/atlantis/${file} is missing (run kit/tools/city-plates.py)`)));
+    t.colorSpace = data ? THREE.NoColorSpace : THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.MirroredRepeatWrapping; t.anisotropy = 8;
+    queueLoad(job); return t;
+  });
+}
+// local point -> (u w, v w, _, w): u, v the plate's 0..1 (v from the bottom), w the depth along the painter's view
+function plateMatrix(c, W, H) {
+  const yaw = (c.yaw ?? 0) * DEG, cy = Math.cos(yaw), sy = Math.sin(yaw), f = c.f, cx = c.cx ?? W / 2;
+  const R = new THREE.Matrix4().set(cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1), T = new THREE.Matrix4().makeTranslation(-c.pos[0], -c.pos[1], -c.pos[2]);
+  return new THREE.Matrix4().set(f / W, 0, -cx / W, 0, 0, f / H, -(H - c.hy) / H, 0, 0, 0, 1, 0, 0, 0, -1, 0).multiply(R).multiply(T);
+}
+const PLATE_TINT = { dawn: [1, 1, 1], noon: [1.0, 1.03, 1.1], eve: [0.9, 0.68, 0.56], night: [0.17, 0.23, 0.44] };
+const PLATE_GRADE = [0.129, 1.195], PLATE_WARM = [0.93, 0.985, 1.05];   // measured on the bench: frame = 0.129 + 0.837 x painting, and warmer, under look anime-pro with the kit's AT_ lights
+const PLATE_MODES = { base: {}, clean: { clean: 1 }, water: { clean: 1, shimmer: 1 }, metal: { flash: 1 }, cut: { cut: 1 }, decal: { clean: 0, decal: 1, shimmer: 1 } };
+function plateMaterial(U, mode) {
+  const M = PLATE_MODES[mode]; if (!M) throw new Error(`props-at-city: unknown plate layer "${mode}"`);
+  const m = new THREE.MeshBasicMaterial({ color: "#ffffff", side: THREE.DoubleSide, toneMapped: false, transparent: !!M.decal, depthWrite: !M.decal });
+  if (M.decal) { m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; }
+  m.userData.noOutline = true;
+  const defs = ["shimmer", "flash", "cut", "decal"].filter((k) => M[k]).map((k) => `#define PL_${k.toUpperCase()}\n`).join("");
+  m.customProgramCacheKey = () => "at-plate|" + mode;
+  m.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, { uPlate: U.uPlate, uTex: M.clean ? U.uClean : U.uBase, uMask: U.uMask, uTint: U.uTint, uT: U.uT, uFlash: U.uFlash, uRun: U.uRun, uBand: U.uBand, uGrade: U.uGrade });
+    sh.vertexShader = sh.vertexShader.replace("#include <common>", "#include <common>\nuniform mat4 uPlate; varying vec4 vPl; varying vec3 vPp;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\nvPl = uPlate * vec4(position, 1.0); vPp = position;");
+    sh.fragmentShader = sh.fragmentShader.replace("#include <common>", `#include <common>\n${defs}uniform sampler2D uTex, uMask; uniform vec3 uTint; uniform float uT, uFlash; uniform vec4 uRun; uniform vec3 uBand; uniform vec2 uGrade; varying vec4 vPl; varying vec3 vPp;`)
+      .replace("#include <map_fragment>", `
+        float plw = max(abs(vPl.w), 0.05); vec2 puv = vPl.xy / plw;
+        #ifdef PL_SHIMMER
+          // the water moves: small ripples anchored in the world (smaller with distance), the long glints wobble sideways
+          float plk = 1.0 / (1.0 + 0.045 * plw);
+          puv.y += 0.0022 * plk * sin(vPp.x * 2.3 + vPp.z * 5.1 + uT * 2.1) + 0.0012 * plk * sin(vPp.x * 6.7 - vPp.z * 3.3 - uT * 3.4);
+          puv.x += 0.0016 * plk * sin(vPp.z * 4.1 + vPp.x * 0.7 + uT * 1.7);
+        #endif
+        vec4 plc = texture2D(uTex, puv);
+        #ifdef PL_CUT
+          if (texture2D(uMask, puv).r < 0.5) discard;
+        #endif
+        #ifdef PL_DECAL
+          float pla = texture2D(uMask, puv).r; diffuseColor.a *= clamp(pla / 0.44, 0.0, 1.0) * (1.0 - step(0.5, pla));
+        #endif
+        vec3 plrgb = plc.rgb;
+        #ifdef PL_FLASH
+          // the flash: a band of flash colour 1.5 plates wide runs along the wall, then every 4th plate stays hot
+          // (uRun: dir x, dir z, s0, len; uBand: the plate width, the wall's y from .. to)
+          float pls = dot(vPp.xz, uRun.xy) - uRun.z, plpw = uBand.x, plf = -plpw * 1.5 + uFlash * (uRun.w + plpw * 3.0), pld = (pls - plf) / (plpw * 0.75);
+          float plin = smoothstep(uBand.y, uBand.y + 0.03 * (uBand.z - uBand.y), vPp.y) * (1.0 - smoothstep(uBand.z - 0.03 * (uBand.z - uBand.y), uBand.z, vPp.y));
+          float plband = (uFlash > 0.0 && uFlash < 1.0) ? pow(max(0.0, 1.0 - pld * pld), 1.3) * plin : 0.0;
+          float plpass = (uFlash >= 1.0 ? 1.0 : smoothstep(0.0, plpw * 0.75, plf - pls)) * plin;
+          float plstay = step(2.5, mod(floor(pls / plpw), 4.0)) * plpass, pllum = dot(plrgb, vec3(0.3, 0.5, 0.2));
+          plrgb = mix(plrgb, vec3(1.0, 0.66, 0.14) * (0.55 + 0.9 * pllum), plband * 0.85);
+          plrgb = mix(plrgb, vec3(0.87, 0.25, 0.03) * (0.5 + 1.1 * pllum), plstay * 0.45);
+        #endif
+        // the look lifts the darks of the finished frame: take that out here, so the frame shows the painting's own tones (uGrade: lift, gain, in display values)
+        plrgb = pow(clamp((pow(max(plrgb, vec3(0.0)), vec3(1.0 / 2.2)) - uGrade.x) * uGrade.y, 0.0, 1.0), vec3(2.2));
+        diffuseColor.rgb *= plrgb * uTint;`);
+  };
+  return m;
+}
+class PGeo {
+  constructor() { this.P = []; this.I = []; this.n = 0; }
+  quad(a, b, c, d) { this.P.push(...a, ...b, ...c, ...d); const n = this.n; this.I.push(n, n + 1, n + 2, n, n + 2, n + 3); this.n += 4; }
+  poly(pts) { const n = this.n; for (const q of pts) this.P.push(...q); for (let i = 1; i < pts.length - 1; i++) this.I.push(n, n + i, n + i + 1); this.n += pts.length; }
+  box(b, o = {}) {
+    const [x0, y0, z0, x1, y1, z1] = b, tx = o.tx ?? 0, tz = o.tz ?? 0, a0 = o.tx0 ?? tx, a1 = o.tx1 ?? tx, c0 = o.tz0 ?? tz, c1 = o.tz1 ?? tz;
+    const p = [[x0, y0, z0], [x1, y0, z0], [x1, y0, z1], [x0, y0, z1], [x0 + a0, y1, z0 + c0], [x1 - a1, y1, z0 + c0], [x1 - a1, y1, z1 - c1], [x0 + a0, y1, z1 - c1]];
+    for (const [a, c, d, e] of [[3, 2, 6, 7], [1, 0, 4, 5], [0, 3, 7, 4], [2, 1, 5, 6], [7, 6, 5, 4]]) this.quad(p[a], p[c], p[d], p[e]);
+    if (o.bottom) this.quad(p[0], p[1], p[2], p[3]);
+  }
+  lathe(g, o = {}) {
+    const [cx, cz, prof] = g, n = o.n ?? 20, sx = o.sx ?? 1, sz = o.sz ?? 1;
+    for (let j = 0; j < prof.length - 1; j++) for (let i = 0; i < n; i++) {
+      const a0 = (i / n) * TAU, a1 = ((i + 1) / n) * TAU, [r0, y0] = prof[j], [r1, y1] = prof[j + 1];
+      this.quad([cx + r0 * sx * Math.cos(a0), y0, cz + r0 * sz * Math.sin(a0)], [cx + r0 * sx * Math.cos(a1), y0, cz + r0 * sz * Math.sin(a1)], [cx + r1 * sx * Math.cos(a1), y1, cz + r1 * sz * Math.sin(a1)], [cx + r1 * sx * Math.cos(a0), y1, cz + r1 * sz * Math.sin(a0)]);
+    }
+  }
+  // normals are needed: the ink pass (ink.js isCompatible) draws a mesh without them a second time, over the contact shadows
+  geo() { const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(this.P, 3)); g.setIndex(this.I); g.computeVertexNormals(); g.computeBoundingSphere(); return g; }
+}
+/*PLATES-JSON-BEGIN*/
+const PLATE_SCENES = {
+"01": {"file": "city-p01", "clean": true, "mask": true, "size": [1536, 1024], "cam": {"pos": [0, 3.05, 5.65], "f": 1330, "hy": 428},
+  "pieces": [
+    ["quad", "clean", [[-1500, -40, -414], [1500, -40, -414], [1500, 320, -414], [-1500, 320, -414]]],
+    ["quad", "water", [[-1500, 0, -414], [1500, 0, -414], [1500, 0, 0], [-1500, 0, 0]]],
+    ["quad", "clean", [[-400, 0, -74.35], [-10.1, 0, -74.35], [-10.1, 10.45, -74.35], [-400, 10.45, -74.35]]],
+    ["quad", "clean", [[23.88, 0, -74.35], [400, 0, -74.35], [400, 10.45, -74.35], [23.88, 10.45, -74.35]]],
+    ["box", "clean", [-10.1, 0, -75.35, -6.2, 12.67, -72.35]],
+    ["box", "clean", [20.27, 0, -75.35, 23.88, 12.67, -72.35]],
+    ["poly", "clean", [[7.04, 12.67, -72.35], [20.27, 12.67, -72.35], [20.27, 6.42, -72.35], [18.17, 8.64, -72.35], [14.56, 9.85, -72.35], [7.04, 10.45, -72.35], [-0.48, 9.85, -72.35], [-4.09, 8.64, -72.35], [-6.2, 6.42, -72.35], [-6.2, 12.67, -72.35]]],
+    ["box", "clean", [-41.5, 0, -77.35, -33.44, 17.67, -71.35], {"tx0": 1.3, "tx1": -0.3, "tz": 0.4}],
+    ["box", "clean", [38.3, 0, -77.35, 48.5, 18.27, -71.35], {"tz": 0.4}],
+    ["quad", "clean", [[-80, 1.4, -7.25], [-4.59, 1.4, -7.25], [-6.6, 1.4, -13.4], [-80, 1.4, -13.4]]],
+    ["quad", "clean", [[-80, 0, -7.25], [-4.59, 0, -7.25], [-4.59, 1.4, -7.25], [-80, 1.4, -7.25]]],
+    ["quad", "clean", [[-4.59, 0, -7.25], [-6.6, 0, -13.4], [-6.6, 1.4, -13.4], [-4.59, 1.4, -7.25]]],
+    ["quad", "clean", [[-40, 1.4, 0], [40, 1.4, 0], [40, 1.4, 16], [-40, 1.4, 16]]],
+    ["quad", "clean", [[-40, 0, 0], [40, 0, 0], [40, 1.4, 0], [-40, 1.4, 0]]],
+    ["box", "clean", [-40, 1.4, 0, 40, 1.47, 0.26]],
+    ["box", "base", [-2.25, 1.4, 0.95, -1.3, 1.45, 1.7]],
+    ["lathe", "base", [-1.795, 1.446, [[0.25, 1.4], [0.25, 1.46], [0.15, 1.5], [0.14, 1.82], [0.225, 1.87], [0.225, 1.97], [0.16, 2.01], [0, 2.01]]]],
+    ["lathe", "base", [-1.61, 1.2, [[0.58, 1.4], [0.58, 1.56], [0.5, 1.6], [0, 1.6]]], {"sz": 0.5}],
+    ["box", "base", [1.86, 1.4, 0.6, 2.75, 1.73, 1.0]],
+    ["lathe", "base", [2.35, 0.8, [[0.25, 1.73], [0.25, 1.77], [0.17, 1.8], [0.165, 1.99], [0.25, 2.03], [0.25, 2.12], [0.18, 2.15], [0, 2.15]]]],
+    ["quad", "cut", [[-8.09, 0, -17.15], [-2.81, 0, -17.15], [-2.81, 4.11, -17.15], [-8.09, 4.11, -17.15]], {"g": "ships", "bob": 0.3}],
+    ["quad", "cut", [[8.62, 0, -23.75], [13.48, 0, -23.75], [13.48, 3.85, -23.75], [8.62, 3.85, -23.75]], {"g": "ships", "bob": 2.1}],
+    ["quad", "decal", [[-8.82, 0.02, -19.7], [-2.97, 0.02, -19.7], [-1.79, 0.02, -9.6], [-5.31, 0.02, -9.6]], {"g": "ships"}],
+    ["quad", "decal", [[9.8, 0.02, -27.6], [15.43, 0.02, -27.6], [8.79, 0.02, -13.3], [5.59, 0.02, -13.3]], {"g": "ships"}]
+  ],
+  "tops": [[-40, 0.3, 40, 16, 1.4]]},
+"04": {"file": "city-p04", "clean": true, "mask": true, "size": [1536, 1024], "cam": {"pos": [0, 2.75, 4.5], "f": 1330, "hy": 470},
+  "pieces": [
+    ["quad", "clean", [[-1500, -40, -395.5], [1500, -40, -395.5], [1500, 320, -395.5], [-1500, 320, -395.5]]],
+    ["quad", "water", [[-1500, 0, -395.5], [1500, 0, -395.5], [1500, 0, 20], [-1500, 0, 20]]],
+    ["quad", "clean", [[-19, 0, -95.5], [400, 0, -95.5], [400, 12.9, -95.5], [-19, 12.9, -95.5]]],
+    ["quad", "clean", [[-37.1, 0, -70.5], [-19, 0, -95.5], [-19, 12.9, -95.5], [-37.1, 12.9, -70.5]]],
+    ["quad", "clean", [[-400, 0, -70.5], [-43.3, 0, -70.5], [-43.3, 12.9, -70.5], [-400, 12.9, -70.5]]],
+    ["box", "clean", [5, 0, -95.5, 400, 1.2, -69.1]],
+    ["box", "clean", [-19, 0, -98.5, -11.1, 18.4, -92.5]],
+    ["box", "clean", [-50, 0, -74, -37.1, 18.5, -67.5]],
+    ["box", "clean", [21.2, 0, -98.5, 36.2, 15.5, -93]],
+    ["poly", "clean", [[0.5, 1.2, 3], [-1.09, 1.2, 16.5], [-1.09, 1.2, -0.53], [-1.46, 1.2, -2.26], [-1.46, 1.2, -3.22], [0.06, 1.2, -1.75], [1.2, 1.2, -0.79], [1.92, 1.2, -0.3], [2.1, 1.2, 0.6], [2.1, 1.2, 16.5], [-1.09, 1.2, 16.5]]],
+    ["poly", "clean", [[-1.09, 1.2, 16.5], [-1.09, 1.2, -0.53], [-1.86, 1.2, 0.3], [-7.3, 1.2, 6.14], [-40, 1.2, 6.14], [-40, 1.2, 16.5]]],
+    ["poly", "clean", [[-20, 1.2, -20], [-1.46, 1.2, -2.26], [-2.91, 1.2, -3.28], [-12, 1.2, -5], [-60, 1.2, -5], [-60, 1.2, -69.1], [5, 1.2, -69.1], [5, 1.2, -69.1], [-2.5, 1.2, -44.5], [-8.6, 1.2, -35.1], [-8.8, 1.2, -16.1], [-4.26, 1.2, -7.6], [-2.74, 1.2, -4.46], [-1.46, 1.2, -3.22], [-1.46, 1.2, -2.26]]],
+    ["quad", "clean", [[-1.46, 0, -2.26], [-2.91, 0, -3.28], [-2.91, 1.2, -3.28], [-1.46, 1.2, -2.26]]],
+    ["quad", "clean", [[-2.91, 0, -3.28], [-12, 0, -5], [-12, 1.2, -5], [-2.91, 1.2, -3.28]]],
+    ["quad", "clean", [[-1.09, 0, -0.53], [-1.46, 0, -2.26], [-1.46, 1.2, -2.26], [-1.09, 1.2, -0.53]]],
+    ["quad", "clean", [[-12, 0, -5], [-60, 0, -5], [-60, 1.2, -5], [-12, 1.2, -5]]],
+    ["quad", "clean", [[-2.74, 0, -4.46], [-4.26, 0, -7.6], [-4.26, 1.2, -7.6], [-2.74, 1.2, -4.46]]],
+    ["quad", "clean", [[-4.26, 0, -7.6], [-8.8, 0, -16.1], [-8.8, 1.2, -16.1], [-4.26, 1.2, -7.6]]],
+    ["quad", "clean", [[-8.8, 0, -16.1], [-8.6, 0, -35.1], [-8.6, 1.2, -35.1], [-8.8, 1.2, -16.1]]],
+    ["quad", "clean", [[-8.6, 0, -35.1], [-2.5, 0, -44.5], [-2.5, 1.2, -44.5], [-8.6, 1.2, -35.1]]],
+    ["quad", "clean", [[-2.5, 0, -44.5], [5, 0, -69.1], [5, 1.2, -69.1], [-2.5, 1.2, -44.5]]],
+    ["box", "base", [-2.95, 1.2, -4.86, -2.53, 1.6, -4.46]],
+    ["box", "base", [-2.44, 1.2, -4.31, -2.02, 1.6, -3.91]],
+    ["box", "base", [-1.94, 1.2, -3.83, -1.52, 1.6, -3.43]],
+    ["box", "base", [-1.4, 1.2, -3.32, -0.98, 1.6, -2.92]],
+    ["box", "base", [-0.83, 1.2, -2.82, -0.41, 1.6, -2.42]],
+    ["box", "base", [-0.19, 1.2, -2.15, 0.23, 1.6, -1.75]],
+    ["box", "base", [0.27, 1.2, -1.59, 0.69, 1.6, -1.19]],
+    ["box", "base", [0.65, 1.2, -1.16, 1.07, 1.6, -0.76]],
+    ["box", "base", [0.94, 1.2, -0.93, 1.36, 1.6, -0.53]],
+    ["box", "base", [1.575, 1.2, -0.74, 2.22, 1.7, -0.24]],
+    ["box", "base", [1.8, 1.2, 0.01, 2.6, 2.14, 0.61]],
+    ["box", "base", [-3.0, 1.2, 0.1, -1.65, 1.8, 0.82]],
+    ["quad", "cut", [[2.25, 0, -19.1], [7.13, 0, -19.1], [7.13, 3.73, -19.1], [2.25, 3.73, -19.1]], {"g": "ships", "bob": 0.3}],
+    ["quad", "cut", [[16.0, 0, -37.1], [21.5, 0, -37.1], [21.5, 4.63, -37.1], [16.0, 4.63, -37.1]], {"g": "ships", "bob": 2.1}],
+    ["quad", "cut", [[-4.44, 1.2, -4.27], [-2.86, 1.2, -4.27], [-2.86, 1.99, -4.27], [-4.44, 1.99, -4.27]]],
+    ["quad", "decal", [[2.45, 0.02, -20.2], [7.56, 0.02, -20.2], [4.48, 0.02, -10.13], [1.45, 0.02, -10.13]], {"g": "ships"}],
+    ["quad", "decal", [[16.36, 0.02, -38], [22.18, 0.02, -38], [11.22, 0.02, -17], [8.28, 0.02, -17]], {"g": "ships"}]
+  ],
+  "tops": [[-1.05, -0.4, 2.05, 16, 1.2]]},
+"04f": {"file": "city-p04", "clean": true, "mask": true, "grade": false, "size": [1536, 1024], "cam": {"pos": [0, 2.88, 4.5], "f": 1186.91, "hy": 432.0},
+  "pieces": [
+    ["quad", "water", [[-29.672, 0.537, -21.244], [2.429, 0.537, -21.244], [0.335, -0.013, 0.953], [-4.088, -0.013, 0.953]]],
+    ["quad", "water", [[1.004, 0.163, -6.142], [4.322, 0.163, -6.142], [1.44, -0.013, 0.953], [0.335, -0.013, 0.953]]],
+    ["quad", "water", [[5.581, 0.24, -9.243], [15.84, 0.24, -9.243], [4.088, -0.013, 0.953], [1.44, -0.013, 0.953]]],
+    ["poly", "clean", [[0.527, 1.2, 3.088], [-1.517, 1.2, 19.404], [-1.081, 1.2, 0.048], [-1.407, 1.2, -1.314], [-1.385, 1.2, -2.037], [0.058, 1.2, -0.921], [1.185, 1.2, -0.162], [1.912, 1.2, 0.235], [2.123, 1.2, 0.981], [2.923, 1.2, 19.404], [-1.517, 1.2, 19.404]]],
+    ["poly", "clean", [[-1.517, 1.2, 19.404], [-1.081, 1.2, 0.048], [-1.871, 1.2, 0.729], [-8.159, 1.2, 6.136], [-44.706, 1.2, 6.136], [-55.669, 1.2, 19.404]]],
+    ["poly", "clean", [[-14.933, 1.2, -11.825], [-1.407, 1.2, -1.314], [-2.758, 1.2, -2.081], [-11.068, 1.2, -3.32], [-55.341, 1.2, -3.32], [-27.595, 1.2, -25.708], [2.3, 1.2, -25.708], [2.3, 1.2, -25.708], [-1.424, 1.2, -20.403], [-5.388, 1.2, -17.641], [-6.913, 1.2, -9.942], [-3.775, 1.2, -5.069], [-2.549, 1.2, -2.938], [-1.385, 1.2, -2.037], [-1.407, 1.2, -1.314]]],
+    ["quad", "clean", [[-1.407, 0.043, -1.314], [-2.758, 0.062, -2.081], [-2.758, 1.2, -2.081], [-1.407, 1.2, -1.314]]],
+    ["quad", "clean", [[-2.758, 0.062, -2.081], [-11.068, 0.093, -3.32], [-11.068, 1.2, -3.32], [-2.758, 1.2, -2.081]]],
+    ["quad", "clean", [[-1.081, 0.01, 0.048], [-1.407, 0.043, -1.314], [-1.407, 1.2, -1.314], [-1.081, 1.2, 0.048]]],
+    ["quad", "clean", [[-11.068, 0.093, -3.32], [-55.341, 0.093, -3.32], [-55.341, 1.2, -3.32], [-11.068, 1.2, -3.32]]],
+    ["quad", "clean", [[-2.549, 0.084, -2.938], [-3.775, 0.137, -5.069], [-3.775, 1.2, -5.069], [-2.549, 1.2, -2.938]]],
+    ["quad", "clean", [[-3.775, 0.137, -5.069], [-6.913, 0.257, -9.942], [-6.913, 1.2, -9.942], [-3.775, 1.2, -5.069]]],
+    ["quad", "clean", [[-6.913, 0.257, -9.942], [-5.388, 0.448, -17.641], [-5.388, 1.2, -17.641], [-6.913, 1.2, -9.942]]],
+    ["quad", "clean", [[-5.388, 0.448, -17.641], [-1.424, 0.517, -20.403], [-1.424, 1.2, -20.403], [-5.388, 1.2, -17.641]]],
+    ["quad", "clean", [[-1.424, 0.517, -20.403], [2.3, 0.648, -25.708], [2.3, 1.2, -25.708], [-1.424, 1.2, -20.403]]],
+    ["quad", "base", [[-2.744, 1.572, -2.938], [-2.353, 1.572, -2.938], [-2.339, 1.57, -3.221], [-2.727, 1.57, -3.221]]],
+    ["quad", "base", [[-2.744, 1.2, -2.938], [-2.353, 1.2, -2.938], [-2.353, 1.572, -2.938], [-2.744, 1.572, -2.938]]],
+    ["quad", "base", [[-2.727, 1.2, -3.221], [-2.744, 1.2, -2.938], [-2.744, 1.572, -2.938], [-2.727, 1.57, -3.221]]],
+    ["quad", "base", [[-2.353, 1.2, -2.938], [-2.339, 1.2, -3.221], [-2.339, 1.57, -3.221], [-2.353, 1.572, -2.938]]],
+    ["quad", "base", [[-2.339, 1.2, -3.221], [-2.727, 1.2, -3.221], [-2.727, 1.57, -3.221], [-2.339, 1.57, -3.221]]],
+    ["quad", "base", [[-2.29, 1.575, -2.543], [-1.896, 1.575, -2.543], [-1.884, 1.573, -2.831], [-2.275, 1.573, -2.831]]],
+    ["quad", "base", [[-2.29, 1.2, -2.543], [-1.896, 1.2, -2.543], [-1.896, 1.575, -2.543], [-2.29, 1.575, -2.543]]],
+    ["quad", "base", [[-2.275, 1.2, -2.831], [-2.29, 1.2, -2.543], [-2.29, 1.575, -2.543], [-2.275, 1.573, -2.831]]],
+    ["quad", "base", [[-1.896, 1.2, -2.543], [-1.884, 1.2, -2.831], [-1.884, 1.573, -2.831], [-1.896, 1.575, -2.543]]],
+    ["quad", "base", [[-1.884, 1.2, -2.831], [-2.275, 1.2, -2.831], [-2.275, 1.573, -2.831], [-1.884, 1.573, -2.831]]],
+    ["quad", "base", [[-1.835, 1.578, -2.192], [-1.437, 1.578, -2.192], [-1.428, 1.576, -2.485], [-1.823, 1.576, -2.485]]],
+    ["quad", "base", [[-1.835, 1.2, -2.192], [-1.437, 1.2, -2.192], [-1.437, 1.578, -2.192], [-1.835, 1.578, -2.192]]],
+    ["quad", "base", [[-1.823, 1.2, -2.485], [-1.835, 1.2, -2.192], [-1.835, 1.578, -2.192], [-1.823, 1.576, -2.485]]],
+    ["quad", "base", [[-1.437, 1.2, -2.192], [-1.428, 1.2, -2.485], [-1.428, 1.576, -2.485], [-1.437, 1.578, -2.192]]],
+    ["quad", "base", [[-1.428, 1.2, -2.485], [-1.823, 1.2, -2.485], [-1.823, 1.576, -2.485], [-1.428, 1.576, -2.485]]],
+    ["quad", "base", [[-1.335, 1.581, -1.814], [-0.934, 1.581, -1.814], [-0.928, 1.579, -2.111], [-1.326, 1.579, -2.111]]],
+    ["quad", "base", [[-1.335, 1.2, -1.814], [-0.934, 1.2, -1.814], [-0.934, 1.581, -1.814], [-1.335, 1.581, -1.814]]],
+    ["quad", "base", [[-1.326, 1.2, -2.111], [-1.335, 1.2, -1.814], [-1.335, 1.581, -1.814], [-1.326, 1.579, -2.111]]],
+    ["quad", "base", [[-0.934, 1.2, -1.814], [-0.928, 1.2, -2.111], [-0.928, 1.579, -2.111], [-0.934, 1.581, -1.814]]],
+    ["quad", "base", [[-0.928, 1.2, -2.111], [-1.326, 1.2, -2.111], [-1.326, 1.579, -2.111], [-0.928, 1.579, -2.111]]],
+    ["quad", "base", [[-0.798, 1.585, -1.436], [-0.394, 1.585, -1.436], [-0.392, 1.582, -1.739], [-0.793, 1.582, -1.739]]],
+    ["quad", "base", [[-0.798, 1.2, -1.436], [-0.394, 1.2, -1.436], [-0.394, 1.585, -1.436], [-0.798, 1.585, -1.436]]],
+    ["quad", "base", [[-0.793, 1.2, -1.739], [-0.798, 1.2, -1.436], [-0.798, 1.585, -1.436], [-0.793, 1.582, -1.739]]],
+    ["quad", "base", [[-0.394, 1.2, -1.436], [-0.392, 1.2, -1.739], [-0.392, 1.582, -1.739], [-0.394, 1.585, -1.436]]],
+    ["quad", "base", [[-0.392, 1.2, -1.739], [-0.793, 1.2, -1.739], [-0.793, 1.582, -1.739], [-0.392, 1.582, -1.739]]],
+    ["quad", "base", [[-0.185, 1.589, -0.921], [0.224, 1.589, -0.921], [0.222, 1.586, -1.23], [-0.183, 1.586, -1.23]]],
+    ["quad", "base", [[-0.185, 1.2, -0.921], [0.224, 1.2, -0.921], [0.224, 1.589, -0.921], [-0.185, 1.589, -0.921]]],
+    ["quad", "base", [[-0.183, 1.2, -1.23], [-0.185, 1.2, -0.921], [-0.185, 1.589, -0.921], [-0.183, 1.586, -1.23]]],
+    ["quad", "base", [[0.224, 1.2, -0.921], [0.222, 1.2, -1.23], [0.222, 1.586, -1.23], [0.224, 1.589, -0.921]]],
+    ["quad", "base", [[0.222, 1.2, -1.23], [-0.183, 1.2, -1.23], [-0.183, 1.586, -1.23], [0.222, 1.586, -1.23]]],
+    ["quad", "base", [[0.265, 1.592, -0.481], [0.677, 1.592, -0.481], [0.672, 1.59, -0.796], [0.263, 1.59, -0.796]]],
+    ["quad", "base", [[0.265, 1.2, -0.481], [0.677, 1.2, -0.481], [0.677, 1.592, -0.481], [0.265, 1.592, -0.481]]],
+    ["quad", "base", [[0.263, 1.2, -0.796], [0.265, 1.2, -0.481], [0.265, 1.592, -0.481], [0.263, 1.59, -0.796]]],
+    ["quad", "base", [[0.677, 1.2, -0.481], [0.672, 1.2, -0.796], [0.672, 1.59, -0.796], [0.677, 1.592, -0.481]]],
+    ["quad", "base", [[0.672, 1.2, -0.796], [0.263, 1.2, -0.796], [0.263, 1.59, -0.796], [0.672, 1.59, -0.796]]],
+    ["quad", "base", [[0.642, 1.595, -0.138], [1.057, 1.595, -0.138], [1.05, 1.593, -0.457], [0.638, 1.593, -0.457]]],
+    ["quad", "base", [[0.642, 1.2, -0.138], [1.057, 1.2, -0.138], [1.057, 1.595, -0.138], [0.642, 1.595, -0.138]]],
+    ["quad", "base", [[0.638, 1.2, -0.457], [0.642, 1.2, -0.138], [0.642, 1.595, -0.138], [0.638, 1.593, -0.457]]],
+    ["quad", "base", [[1.057, 1.2, -0.138], [1.05, 1.2, -0.457], [1.05, 1.593, -0.457], [1.057, 1.595, -0.138]]],
+    ["quad", "base", [[1.05, 1.2, -0.457], [0.638, 1.2, -0.457], [0.638, 1.593, -0.457], [1.05, 1.593, -0.457]]],
+    ["quad", "base", [[0.932, 1.597, 0.048], [1.349, 1.597, 0.048], [1.34, 1.594, -0.274], [0.926, 1.594, -0.274]]],
+    ["quad", "base", [[0.932, 1.2, 0.048], [1.349, 1.2, 0.048], [1.349, 1.597, 0.048], [0.932, 1.597, 0.048]]],
+    ["quad", "base", [[0.926, 1.2, -0.274], [0.932, 1.2, 0.048], [0.932, 1.597, 0.048], [0.926, 1.594, -0.274]]],
+    ["quad", "base", [[1.349, 1.2, 0.048], [1.34, 1.2, -0.274], [1.34, 1.594, -0.274], [1.349, 1.597, 0.048]]],
+    ["quad", "base", [[1.34, 1.2, -0.274], [0.926, 1.2, -0.274], [0.926, 1.594, -0.274], [1.34, 1.594, -0.274]]],
+    ["quad", "base", [[1.57, 1.698, 0.284], [2.213, 1.698, 0.284], [2.194, 1.694, -0.122], [1.557, 1.694, -0.122]]],
+    ["quad", "base", [[1.57, 1.2, 0.284], [2.213, 1.2, 0.284], [2.213, 1.698, 0.284], [1.57, 1.698, 0.284]]],
+    ["quad", "base", [[1.557, 1.2, -0.122], [1.57, 1.2, 0.284], [1.57, 1.698, 0.284], [1.557, 1.694, -0.122]]],
+    ["quad", "base", [[2.213, 1.2, 0.284], [2.194, 1.2, -0.122], [2.194, 1.694, -0.122], [2.213, 1.698, 0.284]]],
+    ["quad", "base", [[2.194, 1.2, -0.122], [1.557, 1.2, -0.122], [1.557, 1.694, -0.122], [2.194, 1.694, -0.122]]],
+    ["quad", "base", [[1.82, 2.151, 0.989], [2.63, 2.151, 0.989], [2.603, 2.141, 0.489], [1.802, 2.141, 0.489]]],
+    ["quad", "base", [[1.82, 1.2, 0.989], [2.63, 1.2, 0.989], [2.63, 2.151, 0.989], [1.82, 2.151, 0.989]]],
+    ["quad", "base", [[1.802, 1.2, 0.489], [1.82, 1.2, 0.989], [1.82, 2.151, 0.989], [1.802, 2.141, 0.489]]],
+    ["quad", "base", [[2.63, 1.2, 0.989], [2.603, 1.2, 0.489], [2.603, 2.141, 0.489], [2.63, 2.151, 0.989]]],
+    ["quad", "base", [[2.603, 1.2, 0.489], [1.802, 1.2, 0.489], [1.802, 2.141, 0.489], [2.603, 2.141, 0.489]]],
+    ["quad", "base", [[-3.045, 1.809, 1.167], [-1.675, 1.809, 1.167], [-1.654, 1.802, 0.563], [-3.008, 1.802, 0.563]]],
+    ["quad", "base", [[-3.045, 1.2, 1.167], [-1.675, 1.2, 1.167], [-1.675, 1.809, 1.167], [-3.045, 1.809, 1.167]]],
+    ["quad", "base", [[-3.008, 1.2, 0.563], [-3.045, 1.2, 1.167], [-3.045, 1.809, 1.167], [-3.008, 1.802, 0.563]]],
+    ["quad", "base", [[-1.675, 1.2, 1.167], [-1.654, 1.2, 0.563], [-1.654, 1.802, 0.563], [-1.675, 1.809, 1.167]]],
+    ["quad", "base", [[-1.654, 1.2, 0.563], [-3.008, 1.2, 0.563], [-3.008, 1.802, 0.563], [-1.654, 1.802, 0.563]]],
+    ["quad", "cut", [[-4.143, 1.2, -2.802], [-2.668, 1.2, -2.802], [-2.668, 1.937, -2.802], [-4.143, 1.937, -2.802]]]
+  ],
+  "tops": [[-1.04, 0.15, 2.04, 16, 1.2]]},
+"02": {"file": "city-p02", "size": [1536, 1024], "cam": {"pos": [14, 1.2, 11.3], "yaw": 38.8, "f": 1326, "hy": 740}, "run": [1, 0, -30, 41, 1.2, 1.25, 5.7],
+  "pieces": [
+    ["quad", "base", [[527.423, -50, -786.445], [-875.385, -50, 341.442], [-875.385, 600, 341.442], [527.423, 600, -786.445]]],
+    ["quad", "base", [[-400, 0, -420], [420, 0, -420], [420, 0, 60], [-400, 0, 60]]],
+    ["quad", "metal", [[-400, 0, 0], [10.73, 0, 0], [10.73, 5.99, 0], [-400, 5.99, 0]]],
+    ["box", "base", [-400, 0, 0, 10.98, 1.2, 0.25]],
+    ["quad", "base", [[10.73, 0, 0], [10.73, 0, -380], [10.73, 5.99, -380], [10.73, 5.99, 0]]],
+    ["box", "base", [10.73, 0, -380, 10.98, 1.2, 0.25]],
+    ["box", "base", [9.73, 0, -1.52, 11.78, 1.2, 0.75]],
+    ["box", "base", [9.85, 1.2, -1.4, 11.66, 5.55, 0.62], {"tx": 0.3, "tz1": 0.25, "tz0": 0}],
+    ["box", "base", [10.05, 5.55, -1.4, 11.46, 6.43, 0.5]],
+    ["box", "base", [4.31, 0, 0, 6.53, 1.2, 0.75]],
+    ["box", "base", [4.43, 1.2, 0, 6.41, 5.55, 0.62], {"tx": 0.3, "tz1": 0.25, "tz0": 0}],
+    ["box", "base", [4.63, 5.55, 0, 6.21, 6.43, 0.5]],
+    ["box", "base", [-3.57, 0, 0, -1.02, 1.2, 0.75]],
+    ["box", "base", [-3.45, 1.2, 0, -1.14, 5.55, 0.62], {"tx": 0.3, "tz1": 0.25, "tz0": 0}],
+    ["box", "base", [-3.25, 5.55, 0, -1.34, 6.43, 0.5]],
+    ["box", "base", [-11.61, 0, 0, -8.9, 1.2, 0.75]],
+    ["box", "base", [-11.49, 1.2, 0, -9.02, 5.55, 0.62], {"tx": 0.3, "tz1": 0.25, "tz0": 0}],
+    ["box", "base", [-11.29, 5.55, 0, -9.22, 6.43, 0.5]]
+  ],
+  "tops": []},
+"11": {"file": "city-p11", "size": [1536, 1024], "cam": {"pos": [0, 9, 120], "f": 3000, "hy": 620}, "run": [1, 0, -150, 300, 20, 60.5, 77.4],
+  "pieces": [
+    ["quad", "base", [[-1500, -50, -780], [1500, -50, -780], [1500, 600, -780], [-1500, 600, -780]]],
+    ["quad", "metal", [[-900, 0, -413], [900, 0, -413], [900, 79.2, -413], [-900, 79.2, -413]]],
+    ["quad", "base", [[-500, 0, -134], [500, 0, -134], [500, 30.2, -134], [-500, 30.2, -134]]],
+    ["box", "base", [-17.6, 0, -138, -8.3, 36.9, -131]],
+    ["box", "base", [38.7, 0, -138, 48.9, 40.3, -131]],
+    ["box", "base", [-52.3, 0, -138, -43.9, 33.1, -131]],
+    ["quad", "base", [[-300, 0, 0], [300, 0, 0], [300, 12, 0], [-300, 12, 0]]],
+    ["box", "base", [-300, 0, 0, 300, 1.8, 0.6]],
+    ["box", "base", [-16.9, 0, -3, -9.9, 15.6, 2.2], {"tx": 0.4, "tz1": 0.5}],
+    ["box", "base", [22.9, 0, -3, 30.7, 15, 2.2], {"tx0": 0, "tx1": 1.2, "tz1": 0.5}],
+    ["quad", "water", [[-600, 0, 0.6], [600, 0, 0.6], [600, 0, 400], [-600, 0, 400]]]
+  ],
+  "tops": []},
+"08": {"file": "city-p08", "clean": true, "mask": true, "size": [1536, 1024], "cam": {"pos": [-9.48, 4.2, 123.6], "f": 1330, "hy": 245},
+  "pieces": [
+    ["quad", "clean", [[-5000, -150, -3000], [5000, -150, -3000], [5000, 1500, -3000], [-5000, 1500, -3000]]],
+    ["quad", "water", [[-600, 0, -3000], [600, 0, -3000], [600, 0, 0], [-600, 0, 0]]],
+    ["quad", "clean", [[-46, -66, 0], [-46, -66, -2500], [-46, 0, -2500], [-46, 0, 0]]],
+    ["quad", "clean", [[39, -66, 0], [39, -66, -2500], [46, 0, -2500], [46, 0, 0]]],
+    ["quad", "clean", [[-46, -66, 0], [39, -66, 0], [39, -66, -2500], [-46, -66, -2500]]],
+    ["quad", "base", [[-300, -90, 0], [-46, -90, 0], [-46, 8.38, 0], [-300, 8.38, 0]]],
+    ["poly", "base", [[46, 2.34, 0], [300, 2.34, 0], [300, -90, 0], [38, -90, 0], [39, -66, 0]]],
+    ["quad", "base", [[-46, -90, 0], [39, -90, 0], [39, -66, 0], [-46, -66, 0]]],
+    ["quad", "base", [[-300, 8.38, 0], [-46, 8.38, 0], [-46, 8.38, -200], [-300, 8.38, -200]]],
+    ["quad", "base", [[46, 2.34, 0], [300, 2.34, 0], [300, 2.34, -200], [46, 2.34, -200]]],
+    ["quad", "base", [[-46, 0, 0], [-46, 0, -200], [-46, 8.38, -200], [-46, 8.38, 0]]],
+    ["quad", "base", [[46, 0, 0], [46, 0, -200], [46, 2.34, -200], [46, 2.34, 0]]],
+    ["quad", "base", [[47.4, 2.34, -0.5], [300, 2.34, -0.5], [300, 45, -0.5], [47.4, 45, -0.5]]],
+    ["quad", "cut", [[-27.4, 0, -62.6], [16.67, 0, -62.6], [16.67, 32.9, -62.6], [-27.4, 32.9, -62.6]], {"g": "ships", "bob": 0.3}]
+  ],
+  "tops": [[-150, -70, -46.5, 0, 8.38], [46.5, -70, 150, 0, 2.34]]},
+"09": {"file": "city-p09", "clean": true, "mask": true, "size": [1536, 1024], "cam": {"pos": [38.0, 5.93, 131.4], "f": 1330, "hy": 240},
+  "pieces": [
+    ["quad", "clean", [[-5000, -150, -3000], [5000, -150, -3000], [5000, 1500, -3000], [-5000, 1500, -3000]]],
+    ["quad", "water", [[-700, 0, -3000], [700, 0, -3000], [700, 0, 0], [-700, 0, 0]]],
+    ["quad", "base", [[-400, 3.46, 0], [-24.55, 3.46, 0], [-24.55, 3.46, -87], [-400, 3.46, -87]]],
+    ["quad", "base", [[24.55, 3.46, 0], [55.5, 3.46, 0], [55.5, 3.46, -87], [24.55, 3.46, -87]]],
+    ["quad", "base", [[101.9, 3.46, 0], [500, 3.46, 0], [500, 3.46, -87], [101.9, 3.46, -87]]],
+    ["poly", "base", [[-400, 3.46, 0], [-24.55, 3.46, 0], [-14.2, -66, 0], [-14.2, -90, 0], [-400, -90, 0]]],
+    ["quad", "base", [[-14.2, -66, 0], [13.5, -66, 0], [13.5, -90, 0], [-14.2, -90, 0]]],
+    ["quad", "base", [[24.55, 3.46, 0], [55.5, 3.46, 0], [61.9, -9.39, 0], [22.98, -9.39, 0]]],
+    ["poly", "base", [[22.98, -9.39, 0], [500, -9.39, 0], [500, -90, 0], [13.5, -90, 0], [13.5, -66, 0]]],
+    ["quad", "base", [[101.9, 3.46, 0], [500, 3.46, 0], [500, -9.39, 0], [97.5, -9.39, 0]]],
+    ["quad", "clean", [[-24.55, 0, 0], [-14.2, -66, 0], [-14.2, -66, -2500], [-24.55, 0, -2500]]],
+    ["quad", "clean", [[24.55, 0, 0], [13.5, -66, 0], [13.5, -66, -2500], [24.55, 0, -2500]]],
+    ["quad", "clean", [[-14.2, -66, 0], [13.5, -66, 0], [13.5, -66, -2500], [-14.2, -66, -2500]]],
+    ["quad", "clean", [[55.5, 0, 0], [61.9, -9.39, 0], [61.9, -9.39, -2500], [55.5, 0, -2500]]],
+    ["quad", "clean", [[101.9, 0, 0], [97.5, -9.39, 0], [97.5, -9.39, -2500], [101.9, 0, -2500]]],
+    ["quad", "clean", [[61.9, -9.39, 0], [97.5, -9.39, 0], [97.5, -9.39, -2500], [61.9, -9.39, -2500]]],
+    ["quad", "base", [[-24.55, 0, 0], [-24.55, 3.46, 0], [-24.55, 3.46, -87], [-24.55, 0, -87]]],
+    ["quad", "base", [[24.55, 0, 0], [24.55, 3.46, 0], [24.55, 3.46, -87], [24.55, 0, -87]]],
+    ["quad", "base", [[55.5, 0, 0], [55.5, 3.46, 0], [55.5, 3.46, -87], [55.5, 0, -87]]],
+    ["quad", "base", [[101.9, 0, 0], [101.9, 3.46, 0], [101.9, 3.46, -87], [101.9, 0, -87]]],
+    ["quad", "cut", [[-52.8, 0, -115.1], [-6.48, 0, -115.1], [-6.48, 35.95, -115.1], [-52.8, 35.95, -115.1]], {"g": "ships", "bob": 0.3}],
+    ["quad", "cut", [[71.9, 0, -20.3], [103.8, 0, -20.3], [103.8, 23.6, -20.3], [71.9, 23.6, -20.3]], {"g": "ships", "bob": 2.1}],
+    ["quad", "decal", [[-58.5, 0.02, -131.5], [-8.06, 0.02, -131.5], [14.98, 0.02, 0], [-10.2, 0.02, 0]], {"g": "ships"}]
+  ],
+  "tops": [[-150, -60, -25, 0, 3.46], [25, -60, 55, 0, 3.46], [102.5, -60, 200, 0, 3.46]]}
+};
+/*PLATES-JSON-END*/
+// spec.plate builds one painted scene. Common keys: light, wet, ships (true; false hides the painted ships and their reflections,
+// for 3D `trireme`s), still (false; true stops the water). Params: flash 0..1 (02, 11), ships 0|1, t (the clip clock moves the water).
+function plateScene(P, key) {
+  const S = P.spec, D = PLATE_SCENES[key];
+  if (!D) throw new Error(`props-at-city: no painted scene "${key}" (have ${Object.keys(PLATE_SCENES).join(", ")})`);
+  const [W, H] = D.size, grade = S.grade ?? D.grade, base = plateTex(D.file + ".webp"), tint = (PLATE_TINT[S.light ?? "dawn"] ?? PLATE_TINT.dawn).map((v, i) => v * (grade === false ? 1 : PLATE_WARM[i]) * (1 - 0.2 * clamp(S.wet ?? 0)) * (i === 2 ? 1 : 1 - 0.04 * clamp(S.wet ?? 0)));
+  const run = D.run ?? [1, 0, 0, 1, 2.4, -1e6, 1e6];
+  const U = { uPlate: { value: plateMatrix(D.cam, W, H) }, uBase: { value: base }, uClean: { value: D.clean ? plateTex(D.file + "-clean.webp") : base }, uMask: { value: D.mask ? plateTex(D.file + "-mask.png", true) : base },
+    uTint: { value: new THREE.Vector3(...tint) }, uT: { value: 0 }, uFlash: { value: 0 }, uRun: { value: new THREE.Vector4(...run.slice(0, 4)) }, uBand: { value: new THREE.Vector3(run[4], run[5], run[6]) }, uGrade: { value: new THREE.Vector2(...(grade === false ? [0, 1] : Array.isArray(grade) ? grade : PLATE_GRADE)) } };
+  const geos = new Map(), groups = {};
+  for (const [type, layer, g, o = {}] of D.pieces) {
+    const k = layer + "|" + (o.g ?? "") + "|" + (o.bob ?? "");
+    if (!geos.has(k)) geos.set(k, { layer, o, G: new PGeo() });
+    const G = geos.get(k).G;
+    if (type === "quad") G.quad(...g); else if (type === "poly") G.poly(g); else if (type === "box") G.box(g, o); else if (type === "lathe") G.lathe(g, o); else throw new Error(`props-at-city: unknown piece type "${type}"`);
+  }
+  const bobs = [];
+  for (const { layer, o, G } of geos.values()) {
+    const me = new THREE.Mesh(G.geo(), plateMaterial(U, layer)); me.frustumCulled = false; me.name = "at-plate-" + layer;
+    me.userData.lookOnly = true; me.userData.solid = false; me.userData.surfaceOnly = true; me.castShadow = false; me.receiveShadow = false;
+    if (layer === "decal") me.renderOrder = 3;
+    P.whole.add(me);
+    if (o.g) (groups[o.g] ||= []).push(me);
+    if (o.bob !== undefined) bobs.push([me, o.bob]);
+  }
+  for (const [x0, z0, x1, z1, y] of D.tops ?? []) {   // the standable tops: thin invisible solid slabs
+    const m = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }); m.userData.noOutline = true;
+    const me = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, 0.05, z1 - z0), m); me.position.set((x0 + x1) / 2, y - 0.025, (z0 + z1) / 2); me.name = "at-top";
+    me.userData.lookOnly = true; me.userData.solid = true; me.userData.surfaceOnly = true; P.whole.add(me);
+  }
+  const still = !!S.still;
+  const tick = (ps, t) => {
+    const tt = still ? 0 : (t ?? 0);
+    U.uT.value = tt; U.uFlash.value = clamp(num(ps, S, "flash", 0));
+    const ships = (ps.ships ?? (S.ships === false ? 0 : 1)) > 0.5; for (const me of groups.ships ?? []) me.visible = ships;
+    for (const [me, ph] of bobs) { me.position.y = 0.025 * Math.sin(tt * 1.3 + ph); me.position.x = 0.02 * Math.sin(tt * 0.7 + ph * 2); }
+  };
+  tick({}, 0);
+  return { grip: 0, apply: tick };
 }
 
 export const AT_CITY_KINDS = { citywall, citybenchsea, harbourquay, bridgedeck, scaffold, platebench, polishcloth, column, edgeroad, trireme, canalcut };
