@@ -20,7 +20,7 @@ const c = clip();
 const RIG = { hand: 2, eyes: 2, hold: 2 };
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true };
 const RKEYS = ["P01", "P04", "F04", "P02", "P11", "P08", "P09", "M01", "M04", "M02", "N04"];
-const KEYS = [...RKEYS, "O01", "X01", "X02", "X11", "X04", "A", "A2", "A3", "B", "B2", "B3", "C", "C2", "D", "D2", "E", "E2", "F", "F2", "G", "H"];
+const KEYS = [...RKEYS, "O01", "X01", "X02", "X11", "X04", "A", "A2", "A3", "B", "B2", "B3", "C", "C2", "D", "D2", "E", "E2", "F", "F2", "G", "H", "K0", "K1", "K2"];
 const want = (process.argv[2] || RKEYS.join(",")).split(","), on = (...g) => g.some((k) => want.includes(k));
 const G = Object.fromEntries(KEYS.map((k, i) => [k, [3000 + i * 12000, 3000 + i * 12000]]));
 const at = (g, x, z) => [r3(G[g][0] + x), r3(G[g][1] + z)];
@@ -179,6 +179,14 @@ if (on("F", "F2")) {
     shot(g, cam(g, [6, 5.8, 38], [-16, 8.5, -22], 50), `${g} panels 19-20: the bridge deck, column fall ${fall}${spl ? " with the splash" : ""}`);
   }
 }
+}
+// ---------------------------------------------------------------- K0, K1, K2: the column alone through block B's long lens (fov 16, the column
+// 60 % of the frame's height, falling dir 308 into the canal at noon): standing, mid-fall, down with the splash. Sheet: city-plates.py --column
+for (const [g, fall, spl] of [["K0", 0, 0], ["K1", 0.72, 0], ["K2", 1, 0.8]]) if (on(g)) {
+  sea(g, "noon"); sky(g, "a");
+  props.push(P("quay" + g, "harbourquay", g, 0, 0, { rot: 180, light: "noon", gate: false }));
+  props.push(P("col" + g, "column", g, 0.65, 60, { y: 1.2, dir: 308, fall, splash: spl, light: "noon", water: -1.2, ground: 0.1 }));   // ground: this quay's kerb is 0.1 over its top
+  shot(g, cam(g, [-85, 6.5, 60], [0.65, 7.6, 60], 16), `${g} the column, long lens: fall ${fall}${spl ? ", splash " + spl : ""}`);
 }
 // =====END F=====
 // =====BLOCK G=====
