@@ -67,10 +67,13 @@ function skinTextures(seed) {
 
 // Hot Potato 01 (11 Nov 2026): every full-look frame with a glowing tile was black below a stepped edge, and no draft
 // showed it (a draft has no anti-aliasing). The scene's buffer is half float, so a NaN or an infinity survives in it.
+// Atlantis EP03 block B (15 Nov 2026): on llvmpipe isnan/isinf let some bad pixels through (anti-aliased edges of the
+// bars and of a column's foot), and the glow spread each into a white disc for one frame; a pixel not under 1000 in
+// magnitude (the comparison is false for a NaN too) now counts as bad as well.
 const NanGuardShader = {
   uniforms: { tDiffuse: { value: null } },
   vertexShader: "varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
-  fragmentShader: "uniform sampler2D tDiffuse; varying vec2 vUv; void main() { vec4 c = texture2D(tDiffuse, vUv); bool bad = any(isnan(c)) || any(isinf(c)); gl_FragColor = bad ? vec4(0.0, 0.0, 0.0, 1.0) : c; }",
+  fragmentShader: "uniform sampler2D tDiffuse; varying vec2 vUv; void main() { vec4 c = texture2D(tDiffuse, vUv); bool bad = any(isnan(c)) || any(isinf(c)) || !all(lessThan(abs(c), vec4(1000.0))); gl_FragColor = bad ? vec4(0.0, 0.0, 0.0, 1.0) : c; }",
 };
 
 // display-space grade: contrast, saturation, split toning (cool shadows, warm highlights), vignette, and for the

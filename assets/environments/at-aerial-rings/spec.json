@@ -1,0 +1,10 @@
+{
+ "name": "at-aerial-rings",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 03: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-03-aerial-rings-dawn.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": { "height": 40, "vfov": 44, "pos": [0, 40, 6.0] },
+ "light": { "from": "low gold sun upper left", "key": [-6, 2, -6], "shadow": 0.2 },
+ "swayMax": 10
+}

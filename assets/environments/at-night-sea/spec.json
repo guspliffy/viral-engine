@@ -1,0 +1,26 @@
+{
+ "name": "at-night-sea",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 41: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-41-night-atlantic.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 0.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   0.6,
+   6.0
+  ]
+ },
+ "light": {
+  "from": "starlight",
+  "key": [
+   0,
+   8,
+   0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20
+}

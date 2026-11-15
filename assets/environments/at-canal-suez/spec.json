@@ -1,0 +1,10 @@
+{
+ "name": "at-canal-suez",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 09: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-09-canal-vs-suez.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": { "height": 1.6, "vfov": 44, "pos": [0, 1.6, 6.0] },
+ "light": { "from": "soft daylight from above", "key": [0, 8, 2], "shadow": 0.2 },
+ "swayMax": 10
+}

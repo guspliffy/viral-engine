@@ -1,0 +1,7218 @@
+{
+ "id": "aa03-a-tall",
+ "far": 9000,
+ "title": "Where did Atlantis go? (block A)",
+ "idea": "Ancient aliens EP03 block A (0:00-0:50): the ring city at dawn, 'a whole island, gone in one day'; the wall flashes; the rings from above; snap to today's empty sea; Plato's scroll and the contract (four clues, by midnight); clue 1: the plan, the canal 30 m deep (Suez 24 m), the walls of white, black and red stone, brass, tin and a red metal; 'nobody has found one stone... they found the metal'",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#bcd6ee",
+  "floor": "shadow",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -5.68,
+    1.392,
+    -8.112
+   ],
+   "light": "#ffe6c0",
+   "shadow": "#8a90c4",
+   "exposure": 1
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "Atlantis at dawn: Spud on the harbour quay, the ring city and its walls behind him; 24 h on screen"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.7,
+    60001
+   ],
+   "face": 15,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 0
+  },
+  {
+   "id": "quay01",
+   "kind": "harbourquay",
+   "x": 0,
+   "z": 60000,
+   "plate": "01",
+   "y": -1.4,
+   "staged": "plate 01 in 3D: Spud on the quay"
+  },
+  {
+   "id": "wall02",
+   "kind": "citywall",
+   "x": 20000,
+   "z": 60000,
+   "plate": "02",
+   "flash": 0,
+   "staged": "plate 02 in 3D: the flash runs along the red-gold wall"
+  },
+  {
+   "id": "far04",
+   "kind": "atlantisplate",
+   "x": 40000,
+   "z": 57401.5,
+   "y": -3.32,
+   "view": "harbour",
+   "staged": "plate 04's far city"
+  },
+  {
+   "id": "quay04",
+   "kind": "harbourquay",
+   "x": 40000,
+   "z": 60000,
+   "plate": "04",
+   "far": false,
+   "y": -1.2,
+   "staged": "plate 04's near quay, Spud on it"
+  },
+  {
+   "id": "city",
+   "kind": "atlantis",
+   "x": 0,
+   "z": 0,
+   "light": "dawn",
+   "proj": "plate03"
+  },
+  {
+   "id": "citysky",
+   "kind": "citysky",
+   "x": 0,
+   "z": 0,
+   "light": "dawn"
+  },
+  {
+   "id": "cut08",
+   "kind": "canalcut",
+   "x": 60000,
+   "z": 40000,
+   "plate": true,
+   "scale": 0.05,
+   "y": -0.419
+  },
+  {
+   "id": "cut09",
+   "kind": "canalcut",
+   "x": 60000,
+   "z": 60000,
+   "plate": true,
+   "modern": true,
+   "scale": 0.05,
+   "y": -0.173
+  },
+  {
+   "id": "wall11",
+   "kind": "citywall",
+   "x": 0,
+   "z": 80000,
+   "plate": "11",
+   "flash": 0
+  },
+  {
+   "id": "rocksky",
+   "kind": "shsky",
+   "x": 20000,
+   "z": 0,
+   "time": "a",
+   "sunAz": 35,
+   "sunEl": 8,
+   "reach": 1600
+  },
+  {
+   "id": "rocksea",
+   "kind": "sea",
+   "x": 20000,
+   "z": 0,
+   "grade": "gibraltar",
+   "sunAz": 35,
+   "sunEl": 8,
+   "horizon": true,
+   "reach": 1700,
+   "calm": [
+    0,
+    0,
+    3,
+    0.7
+   ],
+   "foam": [
+    [
+     0,
+     0,
+     2.2,
+     0.8
+    ],
+    [
+     1.9,
+     0.2,
+     1.7,
+     1,
+     2.5,
+     0.92
+    ],
+    [
+     -1.5,
+     0.7,
+     1.2,
+     0.7,
+     2.5,
+     0.3
+    ]
+   ],
+   "patches": [
+    [
+     3.2,
+     0.5,
+     3,
+     "#123f40",
+     0.8,
+     1
+    ]
+   ],
+   "staged": "the sea surface at y 0 (no set floor here)"
+  },
+  {
+   "id": "rockland",
+   "kind": "horizonland",
+   "x": 20000,
+   "z": 0,
+   "coast": "gibraltar"
+  },
+  {
+   "id": "rock",
+   "kind": "seastack",
+   "x": 20000,
+   "z": 0,
+   "shade": [
+    0.1,
+    0.15,
+    0.4
+   ],
+   "staged": "the sea rock stands in the sea (no set floor here)"
+  },
+  {
+   "id": "gulls",
+   "kind": "seagulls",
+   "x": 20000,
+   "z": 0,
+   "n": 3,
+   "centre": [
+    9,
+    7.2,
+    -22
+   ],
+   "r": 8
+  },
+  {
+   "id": "scroll06",
+   "kind": "scroll",
+   "x": 20000.3,
+   "y": -60,
+   "z": 0.2,
+   "rot": -14,
+   "open": 0,
+   "staged": "Plato's plan on the flat of the rock"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 3.49,
+   "text": "A whole island. Gone in one day.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 4.6,
+   "text": "24 h",
+   "pos": 660,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 4.9,
+   "to": 8.73,
+   "text": "Rings of land and water. Walls of red metal.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.95,
+   "to": 13.35,
+   "text": "And they tell you it never existed.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.8,
+   "to": 17.07,
+   "text": "Plato wrote it down. Twenty-four hundred years ago.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.4,
+   "to": 18.51,
+   "text": "Four clues.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 17.45,
+   "to": 18.6,
+   "text": "4",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false,
+   "x": 799
+  },
+  {
+   "from": 18.6,
+   "to": 21.35,
+   "text": "By midnight, you'll know where Atlantis went.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 21.6,
+   "to": 25.35,
+   "text": "Clue one. He gave the size of every ring.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 24,
+   "to": 24.1,
+   "text": "0 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.1,
+   "to": 24.2,
+   "text": "1 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.2,
+   "to": 24.3,
+   "text": "2 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.3,
+   "to": 24.4,
+   "text": "2 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.4,
+   "to": 24.5,
+   "text": "3 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.5,
+   "to": 24.6,
+   "text": "3 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.6,
+   "to": 24.7,
+   "text": "4 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.7,
+   "to": 24.8,
+   "text": "4 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.8,
+   "to": 24.9,
+   "text": "4 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 24.9,
+   "to": 25,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25,
+   "to": 25.1,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.1,
+   "to": 25.2,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.2,
+   "to": 25.3,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.3,
+   "to": 25.4,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.4,
+   "to": 25.5,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.5,
+   "to": 25.6,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 25.6,
+   "to": 26,
+   "text": "5 km",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 26.3,
+   "to": 28.82,
+   "text": "A canal thirty metres deep.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 26.6,
+   "to": 26.7,
+   "text": "0 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 26.7,
+   "to": 26.8,
+   "text": "5 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 26.8,
+   "to": 26.9,
+   "text": "9 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 26.9,
+   "to": 27,
+   "text": "13 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27,
+   "to": 27.1,
+   "text": "16 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.1,
+   "to": 27.2,
+   "text": "19 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.2,
+   "to": 27.3,
+   "text": "21 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.3,
+   "to": 27.4,
+   "text": "23 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.4,
+   "to": 27.5,
+   "text": "25 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.5,
+   "to": 27.6,
+   "text": "26 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.6,
+   "to": 27.7,
+   "text": "27 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.7,
+   "to": 27.8,
+   "text": "28 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.8,
+   "to": 27.9,
+   "text": "29 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 27.9,
+   "to": 28,
+   "text": "29 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 28,
+   "to": 28.1,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 28.1,
+   "to": 28.2,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 28.2,
+   "to": 28.3,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 28.3,
+   "to": 28.4,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 28.4,
+   "to": 29,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 29.2,
+   "to": 31.47,
+   "text": "Deeper than the Suez Canal.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 29,
+   "to": 30.4,
+   "text": "30 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 30.4,
+   "to": 31.8,
+   "text": "SUEZ 24 m",
+   "pos": 580,
+   "pop": false,
+   "size": 110,
+   "kinetic": false
+  },
+  {
+   "from": 32.1,
+   "to": 35.25,
+   "text": "White, black and red stone.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 35.5,
+   "to": 41.85,
+   "text": "Brass. Tin. And a red metal nobody had ever seen.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 42.2,
+   "to": 47.28,
+   "text": "But in twenty-four hundred years, nobody has found one stone.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 47.4,
+   "to": 49.11,
+   "text": "They found the metal.",
+   "pos": 400,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.121,
+   "text": "24:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.121,
+   "to": 0.242,
+   "text": "23:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.242,
+   "to": 0.363,
+   "text": "23:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.363,
+   "to": 0.483,
+   "text": "23:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.483,
+   "to": 0.583,
+   "text": "23:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.583,
+   "to": 0.683,
+   "text": "23:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.683,
+   "to": 0.783,
+   "text": "23:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.783,
+   "to": 0.883,
+   "text": "23:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.883,
+   "to": 0.983,
+   "text": "23:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 0.983,
+   "to": 1.088,
+   "text": "23:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.088,
+   "to": 1.208,
+   "text": "23:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.208,
+   "to": 1.308,
+   "text": "23:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.308,
+   "to": 1.408,
+   "text": "23:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.408,
+   "to": 1.508,
+   "text": "23:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.508,
+   "to": 1.608,
+   "text": "23:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.608,
+   "to": 1.708,
+   "text": "23:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.708,
+   "to": 1.813,
+   "text": "23:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.813,
+   "to": 1.933,
+   "text": "23:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 1.933,
+   "to": 2.033,
+   "text": "23:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.033,
+   "to": 2.133,
+   "text": "23:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.133,
+   "to": 2.233,
+   "text": "23:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.233,
+   "to": 2.333,
+   "text": "23:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.333,
+   "to": 2.433,
+   "text": "23:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.433,
+   "to": 2.537,
+   "text": "23:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.537,
+   "to": 2.637,
+   "text": "23:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.637,
+   "to": 2.737,
+   "text": "23:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.737,
+   "to": 2.837,
+   "text": "23:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.837,
+   "to": 2.937,
+   "text": "23:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 2.937,
+   "to": 3.037,
+   "text": "23:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.037,
+   "to": 3.142,
+   "text": "23:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.142,
+   "to": 3.262,
+   "text": "23:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.262,
+   "to": 3.362,
+   "text": "23:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.362,
+   "to": 3.462,
+   "text": "23:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.462,
+   "to": 3.562,
+   "text": "23:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.562,
+   "to": 3.662,
+   "text": "23:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.662,
+   "to": 3.762,
+   "text": "23:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.762,
+   "to": 3.867,
+   "text": "23:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.867,
+   "to": 3.988,
+   "text": "23:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 3.988,
+   "to": 4.108,
+   "text": "23:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.108,
+   "to": 4.208,
+   "text": "23:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.208,
+   "to": 4.308,
+   "text": "23:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.308,
+   "to": 4.408,
+   "text": "23:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.408,
+   "to": 4.508,
+   "text": "23:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.508,
+   "to": 4.608,
+   "text": "23:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.608,
+   "to": 4.713,
+   "text": "23:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.713,
+   "to": 4.833,
+   "text": "23:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.833,
+   "to": 4.933,
+   "text": "23:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 4.933,
+   "to": 5.033,
+   "text": "23:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.033,
+   "to": 5.133,
+   "text": "23:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.133,
+   "to": 5.233,
+   "text": "23:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.233,
+   "to": 5.333,
+   "text": "23:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.333,
+   "to": 5.438,
+   "text": "23:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.438,
+   "to": 5.558,
+   "text": "23:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.558,
+   "to": 5.658,
+   "text": "23:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.658,
+   "to": 5.758,
+   "text": "23:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.758,
+   "to": 5.858,
+   "text": "23:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.858,
+   "to": 5.958,
+   "text": "23:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 5.958,
+   "to": 6.058,
+   "text": "23:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.058,
+   "to": 6.162,
+   "text": "23:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.162,
+   "to": 6.262,
+   "text": "23:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.262,
+   "to": 6.362,
+   "text": "23:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.362,
+   "to": 6.462,
+   "text": "23:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.462,
+   "to": 6.562,
+   "text": "23:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.562,
+   "to": 6.662,
+   "text": "23:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.662,
+   "to": 6.767,
+   "text": "23:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.767,
+   "to": 6.887,
+   "text": "23:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.887,
+   "to": 6.987,
+   "text": "23:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 6.987,
+   "to": 7.087,
+   "text": "23:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.087,
+   "to": 7.187,
+   "text": "23:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.187,
+   "to": 7.287,
+   "text": "23:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.287,
+   "to": 7.387,
+   "text": "23:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.387,
+   "to": 7.492,
+   "text": "22:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.492,
+   "to": 7.613,
+   "text": "22:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.613,
+   "to": 7.733,
+   "text": "22:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.733,
+   "to": 7.833,
+   "text": "22:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.833,
+   "to": 7.933,
+   "text": "22:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 7.933,
+   "to": 8.033,
+   "text": "22:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.033,
+   "to": 8.133,
+   "text": "22:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.133,
+   "to": 8.233,
+   "text": "22:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.233,
+   "to": 8.338,
+   "text": "22:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.338,
+   "to": 8.458,
+   "text": "22:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.458,
+   "to": 8.558,
+   "text": "22:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.558,
+   "to": 8.658,
+   "text": "22:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.658,
+   "to": 8.758,
+   "text": "22:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.758,
+   "to": 8.858,
+   "text": "22:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.858,
+   "to": 8.958,
+   "text": "22:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 8.958,
+   "to": 9.063,
+   "text": "22:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.063,
+   "to": 9.183,
+   "text": "22:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.183,
+   "to": 9.283,
+   "text": "22:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.283,
+   "to": 9.383,
+   "text": "22:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.383,
+   "to": 9.483,
+   "text": "22:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.483,
+   "to": 9.583,
+   "text": "22:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.583,
+   "to": 9.683,
+   "text": "22:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.683,
+   "to": 9.787,
+   "text": "22:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.787,
+   "to": 9.887,
+   "text": "22:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.887,
+   "to": 9.987,
+   "text": "22:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 9.987,
+   "to": 10.087,
+   "text": "22:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.087,
+   "to": 10.187,
+   "text": "22:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.187,
+   "to": 10.287,
+   "text": "22:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.287,
+   "to": 10.392,
+   "text": "22:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.392,
+   "to": 10.512,
+   "text": "22:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.512,
+   "to": 10.612,
+   "text": "22:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.612,
+   "to": 10.712,
+   "text": "22:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.712,
+   "to": 10.812,
+   "text": "22:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.812,
+   "to": 10.912,
+   "text": "22:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 10.912,
+   "to": 11.012,
+   "text": "22:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.012,
+   "to": 11.117,
+   "text": "22:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.117,
+   "to": 11.238,
+   "text": "22:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.238,
+   "to": 11.358,
+   "text": "22:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.358,
+   "to": 11.458,
+   "text": "22:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.458,
+   "to": 11.558,
+   "text": "22:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.558,
+   "to": 11.658,
+   "text": "22:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.658,
+   "to": 11.758,
+   "text": "22:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.758,
+   "to": 11.858,
+   "text": "22:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.858,
+   "to": 11.963,
+   "text": "22:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 11.963,
+   "to": 12.083,
+   "text": "22:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.083,
+   "to": 12.183,
+   "text": "22:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.183,
+   "to": 12.283,
+   "text": "22:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.283,
+   "to": 12.383,
+   "text": "22:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.383,
+   "to": 12.483,
+   "text": "22:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.483,
+   "to": 12.583,
+   "text": "22:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.583,
+   "to": 12.688,
+   "text": "22:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.688,
+   "to": 12.808,
+   "text": "22:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.808,
+   "to": 12.908,
+   "text": "22:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 12.908,
+   "to": 13.008,
+   "text": "22:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.008,
+   "to": 13.108,
+   "text": "22:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.108,
+   "to": 13.208,
+   "text": "22:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.208,
+   "to": 13.308,
+   "text": "22:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.308,
+   "to": 13.412,
+   "text": "22:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.412,
+   "to": 13.512,
+   "text": "22:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.512,
+   "to": 13.612,
+   "text": "22:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.612,
+   "to": 13.712,
+   "text": "22:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.712,
+   "to": 13.812,
+   "text": "22:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.812,
+   "to": 13.912,
+   "text": "22:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 13.912,
+   "to": 14.017,
+   "text": "22:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.017,
+   "to": 14.137,
+   "text": "22:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.137,
+   "to": 14.237,
+   "text": "22:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.237,
+   "to": 14.337,
+   "text": "22:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.337,
+   "to": 14.437,
+   "text": "22:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.437,
+   "to": 14.537,
+   "text": "22:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.537,
+   "to": 14.637,
+   "text": "22:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.637,
+   "to": 14.742,
+   "text": "21:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.742,
+   "to": 14.863,
+   "text": "21:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.863,
+   "to": 14.983,
+   "text": "21:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 14.983,
+   "to": 15.083,
+   "text": "21:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.083,
+   "to": 15.183,
+   "text": "21:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.183,
+   "to": 15.283,
+   "text": "21:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.283,
+   "to": 15.383,
+   "text": "21:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.383,
+   "to": 15.483,
+   "text": "21:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.483,
+   "to": 15.588,
+   "text": "21:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.588,
+   "to": 15.708,
+   "text": "21:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.708,
+   "to": 15.808,
+   "text": "21:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.808,
+   "to": 15.908,
+   "text": "21:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 15.908,
+   "to": 16.008,
+   "text": "21:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.008,
+   "to": 16.108,
+   "text": "21:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.108,
+   "to": 16.208,
+   "text": "21:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.208,
+   "to": 16.313,
+   "text": "21:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.313,
+   "to": 16.433,
+   "text": "21:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.433,
+   "to": 16.533,
+   "text": "21:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.533,
+   "to": 16.633,
+   "text": "21:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.633,
+   "to": 16.733,
+   "text": "21:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.733,
+   "to": 16.833,
+   "text": "21:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.833,
+   "to": 16.933,
+   "text": "21:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 16.933,
+   "to": 17.037,
+   "text": "21:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.037,
+   "to": 17.137,
+   "text": "21:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.137,
+   "to": 17.237,
+   "text": "21:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.237,
+   "to": 17.337,
+   "text": "21:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.337,
+   "to": 17.437,
+   "text": "21:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.437,
+   "to": 17.537,
+   "text": "21:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.537,
+   "to": 17.642,
+   "text": "21:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.642,
+   "to": 17.762,
+   "text": "21:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.762,
+   "to": 17.862,
+   "text": "21:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.862,
+   "to": 17.962,
+   "text": "21:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 17.962,
+   "to": 18.062,
+   "text": "21:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.062,
+   "to": 18.162,
+   "text": "21:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.162,
+   "to": 18.262,
+   "text": "21:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.262,
+   "to": 18.367,
+   "text": "21:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.367,
+   "to": 18.488,
+   "text": "21:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.488,
+   "to": 18.608,
+   "text": "21:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.608,
+   "to": 18.708,
+   "text": "21:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.708,
+   "to": 18.808,
+   "text": "21:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.808,
+   "to": 18.908,
+   "text": "21:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 18.908,
+   "to": 19.008,
+   "text": "21:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.008,
+   "to": 19.108,
+   "text": "21:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.108,
+   "to": 19.213,
+   "text": "21:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.213,
+   "to": 19.333,
+   "text": "21:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.333,
+   "to": 19.433,
+   "text": "21:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.433,
+   "to": 19.533,
+   "text": "21:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.533,
+   "to": 19.633,
+   "text": "21:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.633,
+   "to": 19.733,
+   "text": "21:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.733,
+   "to": 19.833,
+   "text": "21:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.833,
+   "to": 19.938,
+   "text": "21:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 19.938,
+   "to": 20.058,
+   "text": "21:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.058,
+   "to": 20.158,
+   "text": "21:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.158,
+   "to": 20.258,
+   "text": "21:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.258,
+   "to": 20.358,
+   "text": "21:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.358,
+   "to": 20.458,
+   "text": "21:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.458,
+   "to": 20.558,
+   "text": "21:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.558,
+   "to": 20.662,
+   "text": "21:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.662,
+   "to": 20.762,
+   "text": "21:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.762,
+   "to": 20.862,
+   "text": "21:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.862,
+   "to": 20.962,
+   "text": "21:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 20.962,
+   "to": 21.062,
+   "text": "21:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.062,
+   "to": 21.162,
+   "text": "21:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.162,
+   "to": 21.267,
+   "text": "21:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.267,
+   "to": 21.387,
+   "text": "21:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.387,
+   "to": 21.487,
+   "text": "21:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.487,
+   "to": 21.587,
+   "text": "21:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.587,
+   "to": 21.687,
+   "text": "21:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.687,
+   "to": 21.787,
+   "text": "21:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.787,
+   "to": 21.887,
+   "text": "21:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.887,
+   "to": 21.992,
+   "text": "20:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.992,
+   "to": 22.113,
+   "text": "20:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.113,
+   "to": 22.233,
+   "text": "20:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.233,
+   "to": 22.333,
+   "text": "20:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.333,
+   "to": 22.433,
+   "text": "20:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.433,
+   "to": 22.533,
+   "text": "20:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.533,
+   "to": 22.633,
+   "text": "20:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.633,
+   "to": 22.733,
+   "text": "20:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.733,
+   "to": 22.838,
+   "text": "20:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.838,
+   "to": 22.958,
+   "text": "20:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 22.958,
+   "to": 23.058,
+   "text": "20:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.058,
+   "to": 23.158,
+   "text": "20:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.158,
+   "to": 23.258,
+   "text": "20:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.258,
+   "to": 23.358,
+   "text": "20:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.358,
+   "to": 23.458,
+   "text": "20:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.458,
+   "to": 23.563,
+   "text": "20:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.563,
+   "to": 23.683,
+   "text": "20:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.683,
+   "to": 23.783,
+   "text": "20:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.783,
+   "to": 23.883,
+   "text": "20:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.883,
+   "to": 23.983,
+   "text": "20:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 23.983,
+   "to": 24.083,
+   "text": "20:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.083,
+   "to": 24.183,
+   "text": "20:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.183,
+   "to": 24.287,
+   "text": "20:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.287,
+   "to": 24.387,
+   "text": "20:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.387,
+   "to": 24.487,
+   "text": "20:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.487,
+   "to": 24.587,
+   "text": "20:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.587,
+   "to": 24.687,
+   "text": "20:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.687,
+   "to": 24.787,
+   "text": "20:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.787,
+   "to": 24.892,
+   "text": "20:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 24.892,
+   "to": 25.012,
+   "text": "20:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.012,
+   "to": 25.112,
+   "text": "20:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.112,
+   "to": 25.212,
+   "text": "20:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.212,
+   "to": 25.312,
+   "text": "20:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.312,
+   "to": 25.412,
+   "text": "20:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.412,
+   "to": 25.512,
+   "text": "20:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.512,
+   "to": 25.617,
+   "text": "20:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.617,
+   "to": 25.738,
+   "text": "20:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.738,
+   "to": 25.858,
+   "text": "20:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.858,
+   "to": 25.958,
+   "text": "20:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 25.958,
+   "to": 26.058,
+   "text": "20:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.058,
+   "to": 26.158,
+   "text": "20:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.158,
+   "to": 26.258,
+   "text": "20:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.258,
+   "to": 26.358,
+   "text": "20:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.358,
+   "to": 26.463,
+   "text": "20:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.463,
+   "to": 26.583,
+   "text": "20:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.583,
+   "to": 26.683,
+   "text": "20:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.683,
+   "to": 26.783,
+   "text": "20:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.783,
+   "to": 26.883,
+   "text": "20:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.883,
+   "to": 26.983,
+   "text": "20:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 26.983,
+   "to": 27.083,
+   "text": "20:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.083,
+   "to": 27.188,
+   "text": "20:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.188,
+   "to": 27.308,
+   "text": "20:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.308,
+   "to": 27.408,
+   "text": "20:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.408,
+   "to": 27.508,
+   "text": "20:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.508,
+   "to": 27.608,
+   "text": "20:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.608,
+   "to": 27.708,
+   "text": "20:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.708,
+   "to": 27.808,
+   "text": "20:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.808,
+   "to": 27.912,
+   "text": "20:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 27.912,
+   "to": 28.012,
+   "text": "20:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.012,
+   "to": 28.112,
+   "text": "20:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.112,
+   "to": 28.212,
+   "text": "20:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.212,
+   "to": 28.312,
+   "text": "20:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.312,
+   "to": 28.412,
+   "text": "20:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.412,
+   "to": 28.517,
+   "text": "20:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.517,
+   "to": 28.637,
+   "text": "20:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.637,
+   "to": 28.737,
+   "text": "20:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.737,
+   "to": 28.837,
+   "text": "20:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.837,
+   "to": 28.937,
+   "text": "20:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 28.937,
+   "to": 29.037,
+   "text": "20:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.037,
+   "to": 29.137,
+   "text": "20:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.137,
+   "to": 29.242,
+   "text": "19:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.242,
+   "to": 29.363,
+   "text": "19:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.363,
+   "to": 29.483,
+   "text": "19:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.483,
+   "to": 29.583,
+   "text": "19:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.583,
+   "to": 29.683,
+   "text": "19:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.683,
+   "to": 29.783,
+   "text": "19:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.783,
+   "to": 29.883,
+   "text": "19:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.883,
+   "to": 29.983,
+   "text": "19:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 29.983,
+   "to": 30.088,
+   "text": "19:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.088,
+   "to": 30.208,
+   "text": "19:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.208,
+   "to": 30.308,
+   "text": "19:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.308,
+   "to": 30.408,
+   "text": "19:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.408,
+   "to": 30.508,
+   "text": "19:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.508,
+   "to": 30.608,
+   "text": "19:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.608,
+   "to": 30.708,
+   "text": "19:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.708,
+   "to": 30.813,
+   "text": "19:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.813,
+   "to": 30.933,
+   "text": "19:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 30.933,
+   "to": 31.033,
+   "text": "19:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.033,
+   "to": 31.133,
+   "text": "19:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.133,
+   "to": 31.233,
+   "text": "19:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.233,
+   "to": 31.333,
+   "text": "19:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.333,
+   "to": 31.433,
+   "text": "19:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.433,
+   "to": 31.537,
+   "text": "19:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.537,
+   "to": 31.637,
+   "text": "19:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.637,
+   "to": 31.737,
+   "text": "19:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.737,
+   "to": 31.837,
+   "text": "19:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.837,
+   "to": 31.937,
+   "text": "19:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 31.937,
+   "to": 32.037,
+   "text": "19:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.037,
+   "to": 32.142,
+   "text": "19:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.142,
+   "to": 32.262,
+   "text": "19:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.262,
+   "to": 32.362,
+   "text": "19:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.362,
+   "to": 32.462,
+   "text": "19:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.462,
+   "to": 32.562,
+   "text": "19:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.562,
+   "to": 32.662,
+   "text": "19:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.662,
+   "to": 32.762,
+   "text": "19:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.762,
+   "to": 32.867,
+   "text": "19:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.867,
+   "to": 32.988,
+   "text": "19:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 32.988,
+   "to": 33.108,
+   "text": "19:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.108,
+   "to": 33.208,
+   "text": "19:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.208,
+   "to": 33.308,
+   "text": "19:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.308,
+   "to": 33.408,
+   "text": "19:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.408,
+   "to": 33.508,
+   "text": "19:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.508,
+   "to": 33.608,
+   "text": "19:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.608,
+   "to": 33.713,
+   "text": "19:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.713,
+   "to": 33.833,
+   "text": "19:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.833,
+   "to": 33.933,
+   "text": "19:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 33.933,
+   "to": 34.033,
+   "text": "19:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.033,
+   "to": 34.133,
+   "text": "19:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.133,
+   "to": 34.233,
+   "text": "19:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.233,
+   "to": 34.333,
+   "text": "19:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.333,
+   "to": 34.438,
+   "text": "19:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.438,
+   "to": 34.558,
+   "text": "19:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.558,
+   "to": 34.658,
+   "text": "19:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.658,
+   "to": 34.758,
+   "text": "19:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.758,
+   "to": 34.858,
+   "text": "19:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.858,
+   "to": 34.958,
+   "text": "19:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 34.958,
+   "to": 35.058,
+   "text": "19:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.058,
+   "to": 35.162,
+   "text": "19:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.162,
+   "to": 35.262,
+   "text": "19:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.262,
+   "to": 35.362,
+   "text": "19:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.362,
+   "to": 35.462,
+   "text": "19:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.462,
+   "to": 35.562,
+   "text": "19:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.562,
+   "to": 35.662,
+   "text": "19:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.662,
+   "to": 35.767,
+   "text": "19:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.767,
+   "to": 35.887,
+   "text": "19:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.887,
+   "to": 35.987,
+   "text": "19:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 35.987,
+   "to": 36.087,
+   "text": "19:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.087,
+   "to": 36.187,
+   "text": "19:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.187,
+   "to": 36.287,
+   "text": "19:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.287,
+   "to": 36.387,
+   "text": "19:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.387,
+   "to": 36.492,
+   "text": "18:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.492,
+   "to": 36.613,
+   "text": "18:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.613,
+   "to": 36.733,
+   "text": "18:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.733,
+   "to": 36.833,
+   "text": "18:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.833,
+   "to": 36.933,
+   "text": "18:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 36.933,
+   "to": 37.033,
+   "text": "18:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.033,
+   "to": 37.133,
+   "text": "18:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.133,
+   "to": 37.233,
+   "text": "18:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.233,
+   "to": 37.338,
+   "text": "18:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.338,
+   "to": 37.458,
+   "text": "18:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.458,
+   "to": 37.558,
+   "text": "18:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.558,
+   "to": 37.658,
+   "text": "18:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.658,
+   "to": 37.758,
+   "text": "18:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.758,
+   "to": 37.858,
+   "text": "18:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.858,
+   "to": 37.958,
+   "text": "18:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 37.958,
+   "to": 38.063,
+   "text": "18:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.063,
+   "to": 38.183,
+   "text": "18:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.183,
+   "to": 38.283,
+   "text": "18:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.283,
+   "to": 38.383,
+   "text": "18:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.383,
+   "to": 38.483,
+   "text": "18:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.483,
+   "to": 38.583,
+   "text": "18:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.583,
+   "to": 38.683,
+   "text": "18:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.683,
+   "to": 38.787,
+   "text": "18:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.787,
+   "to": 38.887,
+   "text": "18:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.887,
+   "to": 38.987,
+   "text": "18:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 38.987,
+   "to": 39.087,
+   "text": "18:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.087,
+   "to": 39.187,
+   "text": "18:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.187,
+   "to": 39.287,
+   "text": "18:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.287,
+   "to": 39.392,
+   "text": "18:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.392,
+   "to": 39.512,
+   "text": "18:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.512,
+   "to": 39.612,
+   "text": "18:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.612,
+   "to": 39.712,
+   "text": "18:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.712,
+   "to": 39.812,
+   "text": "18:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.812,
+   "to": 39.912,
+   "text": "18:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 39.912,
+   "to": 40.012,
+   "text": "18:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.012,
+   "to": 40.117,
+   "text": "18:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.117,
+   "to": 40.238,
+   "text": "18:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.238,
+   "to": 40.358,
+   "text": "18:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.358,
+   "to": 40.458,
+   "text": "18:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.458,
+   "to": 40.558,
+   "text": "18:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.558,
+   "to": 40.658,
+   "text": "18:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.658,
+   "to": 40.758,
+   "text": "18:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.758,
+   "to": 40.858,
+   "text": "18:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.858,
+   "to": 40.963,
+   "text": "18:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 40.963,
+   "to": 41.083,
+   "text": "18:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.083,
+   "to": 41.183,
+   "text": "18:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.183,
+   "to": 41.283,
+   "text": "18:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.283,
+   "to": 41.383,
+   "text": "18:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.383,
+   "to": 41.483,
+   "text": "18:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.483,
+   "to": 41.583,
+   "text": "18:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.583,
+   "to": 41.688,
+   "text": "18:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.688,
+   "to": 41.808,
+   "text": "18:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.808,
+   "to": 41.908,
+   "text": "18:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 41.908,
+   "to": 42.008,
+   "text": "18:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.008,
+   "to": 42.108,
+   "text": "18:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.108,
+   "to": 42.208,
+   "text": "18:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.208,
+   "to": 42.308,
+   "text": "18:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.308,
+   "to": 42.412,
+   "text": "18:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.412,
+   "to": 42.512,
+   "text": "18:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.512,
+   "to": 42.612,
+   "text": "18:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.612,
+   "to": 42.712,
+   "text": "18:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.712,
+   "to": 42.812,
+   "text": "18:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.812,
+   "to": 42.912,
+   "text": "18:06",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 42.912,
+   "to": 43.017,
+   "text": "18:05",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.017,
+   "to": 43.137,
+   "text": "18:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.137,
+   "to": 43.237,
+   "text": "18:04",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.237,
+   "to": 43.337,
+   "text": "18:03",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.337,
+   "to": 43.437,
+   "text": "18:02",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.437,
+   "to": 43.537,
+   "text": "18:01",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.537,
+   "to": 43.637,
+   "text": "18:00",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.637,
+   "to": 43.742,
+   "text": "17:59",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.742,
+   "to": 43.863,
+   "text": "17:58",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.863,
+   "to": 43.983,
+   "text": "17:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 43.983,
+   "to": 44.083,
+   "text": "17:57",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.083,
+   "to": 44.183,
+   "text": "17:56",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.183,
+   "to": 44.283,
+   "text": "17:55",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.283,
+   "to": 44.383,
+   "text": "17:54",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.383,
+   "to": 44.483,
+   "text": "17:53",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.483,
+   "to": 44.588,
+   "text": "17:52",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.588,
+   "to": 44.708,
+   "text": "17:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.708,
+   "to": 44.808,
+   "text": "17:51",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.808,
+   "to": 44.908,
+   "text": "17:50",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 44.908,
+   "to": 45.008,
+   "text": "17:49",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.008,
+   "to": 45.108,
+   "text": "17:48",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.108,
+   "to": 45.208,
+   "text": "17:47",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.208,
+   "to": 45.313,
+   "text": "17:46",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.313,
+   "to": 45.433,
+   "text": "17:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.433,
+   "to": 45.533,
+   "text": "17:45",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.533,
+   "to": 45.633,
+   "text": "17:44",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.633,
+   "to": 45.733,
+   "text": "17:43",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.733,
+   "to": 45.833,
+   "text": "17:42",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.833,
+   "to": 45.933,
+   "text": "17:41",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 45.933,
+   "to": 46.037,
+   "text": "17:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.037,
+   "to": 46.137,
+   "text": "17:40",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.137,
+   "to": 46.237,
+   "text": "17:39",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.237,
+   "to": 46.337,
+   "text": "17:38",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.337,
+   "to": 46.437,
+   "text": "17:37",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.437,
+   "to": 46.537,
+   "text": "17:36",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.537,
+   "to": 46.642,
+   "text": "17:35",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.642,
+   "to": 46.763,
+   "text": "17:34",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.763,
+   "to": 46.883,
+   "text": "17:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.883,
+   "to": 46.983,
+   "text": "17:33",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 46.983,
+   "to": 47.083,
+   "text": "17:32",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.083,
+   "to": 47.183,
+   "text": "17:31",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.183,
+   "to": 47.283,
+   "text": "17:30",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.283,
+   "to": 47.383,
+   "text": "17:29",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.383,
+   "to": 47.488,
+   "text": "17:28",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.488,
+   "to": 47.608,
+   "text": "17:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.608,
+   "to": 47.708,
+   "text": "17:27",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.708,
+   "to": 47.808,
+   "text": "17:26",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.808,
+   "to": 47.908,
+   "text": "17:25",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 47.908,
+   "to": 48.008,
+   "text": "17:24",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.008,
+   "to": 48.108,
+   "text": "17:23",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.108,
+   "to": 48.213,
+   "text": "17:22",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.213,
+   "to": 48.333,
+   "text": "17:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.333,
+   "to": 48.433,
+   "text": "17:21",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.433,
+   "to": 48.533,
+   "text": "17:20",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.533,
+   "to": 48.633,
+   "text": "17:19",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.633,
+   "to": 48.733,
+   "text": "17:18",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.733,
+   "to": 48.833,
+   "text": "17:17",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.833,
+   "to": 48.938,
+   "text": "17:16",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 48.938,
+   "to": 49.058,
+   "text": "17:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.058,
+   "to": 49.158,
+   "text": "17:15",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.158,
+   "to": 49.258,
+   "text": "17:14",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.258,
+   "to": 49.358,
+   "text": "17:13",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.358,
+   "to": 49.458,
+   "text": "17:12",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.458,
+   "to": 49.558,
+   "text": "17:11",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.558,
+   "to": 49.662,
+   "text": "17:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.662,
+   "to": 49.762,
+   "text": "17:10",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.762,
+   "to": 49.862,
+   "text": "17:09",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.862,
+   "to": 49.962,
+   "text": "17:08",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 49.962,
+   "to": 50,
+   "text": "17:07",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 730
+  },
+  {
+   "from": 21.4,
+   "to": 50,
+   "text": "CLUE 1/4",
+   "pos": 240,
+   "pop": false,
+   "style": "label",
+   "size": 44,
+   "kinetic": false,
+   "x": 250
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the ring city at dawn",
+   "at": 0,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0,
+     1.65,
+     60005.65
+    ],
+    "look": [
+     -6.316,
+     -1.508,
+     59955.65
+    ],
+    "fov": 42.104,
+    "to": {
+     "pos": [
+      0,
+      1.65,
+      60005.65
+     ],
+     "look": [
+      -4.812,
+      -1.508,
+      59955.65
+     ],
+     "fov": 39.323
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.15,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.08,
+     "dur": 4.7,
+     "reason": "the sea under the shot",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "A whole island. Gone in one day.",
+     "tone": "calm",
+     "dur": 3.34,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60000,
+      100000
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.58
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 the red wall flashes",
+   "at": 2.6,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     20014,
+     1.2,
+     60011.3
+    ],
+    "look": [
+     19976.557,
+     9.797,
+     59977.248
+    ],
+    "fov": 42.219,
+    "to": {
+     "pos": [
+      20014,
+      1.2,
+      60011.3
+     ],
+     "look": [
+      19982.435,
+      9.797,
+      59972.522
+     ],
+     "fov": 42.219
+    },
+    "dur": 2.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "wall02",
+     "set": {
+      "flash": 1
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "wall02",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.08
+    }
+   ]
+  },
+  {
+   "name": "03 the rings from above",
+   "at": 4.7,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     0,
+     1200,
+     3640
+    ],
+    "look": [
+     0,
+     -537,
+     37
+    ],
+    "fov": 62,
+    "near": 20,
+    "to": {
+     "pos": [
+      0,
+      1160,
+      3480
+     ]
+    },
+    "dur": 4.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Rings of land and water. Walls of red metal.",
+     "tone": "calm",
+     "dur": 3.43,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40000.35,
+      60000.65
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    }
+   ]
+  },
+  {
+   "name": "04 the harbour wall",
+   "at": 8.9,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     40000,
+     1.68,
+     60004.5
+    ],
+    "look": [
+     40001.348,
+     -1.69,
+     59954.5
+    ],
+    "fov": 46.662,
+    "to": {
+     "pos": [
+      40000,
+      1.68,
+      60004.5
+     ],
+     "look": [
+      40001.348,
+      -1.69,
+      59954.5
+     ],
+     "fov": 44.356
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.08,
+     "dur": 12.5,
+     "reason": "the sea under the shot",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      20000.1,
+      0.15
+     ],
+     "y": 1.2,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.78
+    }
+   ]
+  },
+  {
+   "name": "05 today",
+   "at": 10.7,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     20001.6,
+     2.45,
+     4.6
+    ],
+    "look": [
+     19999.8,
+     1.75,
+     -1
+    ],
+    "fov": 56,
+    "to": {
+     "pos": [
+      20001.5,
+      2.4,
+      4.2
+     ],
+     "look": [
+      19999.8,
+      1.75,
+      -1
+     ],
+     "fov": 54
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.45,
+     "dur": 2.8,
+     "reason": "today: empty sea breaking on the rock",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "And they tell you it never existed.",
+     "tone": "question",
+     "dur": 2.4,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.75,
+      "lid": 0.35
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      19999.58,
+      -0.05
+     ],
+     "y": 1.2,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.68
+    },
+    {
+     "do": "prop",
+     "id": "scroll06",
+     "set": {
+      "y": 1.2
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.68
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "06 the scroll",
+   "at": 13.4,
+   "len": 8,
+   "shot": {
+    "pos": [
+     20001.2,
+     2.05,
+     3.6
+    ],
+    "look": [
+     19999.9,
+     1.45,
+     0
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      20001.15,
+      2,
+      3.3
+     ],
+     "look": [
+      19999.9,
+      1.45,
+      0
+     ],
+     "fov": 50
+    },
+    "dur": 8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "scroll06",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.6,
+     "ease": "out",
+     "at": 0.3
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Plato wrote it down. Twenty-four hundred years ago.",
+     "tone": "calm",
+     "dur": 2.87,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.67
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "out",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 3.9
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 3.9
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Four clues.",
+     "tone": "calm",
+     "dur": 1.11,
+     "voice": "reaper",
+     "caption": false,
+     "at": 4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 5.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "By midnight, you'll know where Atlantis went.",
+     "tone": "calm",
+     "dur": 2.69,
+     "voice": "reaper",
+     "caption": false,
+     "at": 5.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.85,
+      "lid": 0.3
+     },
+     "dur": 0.25,
+     "at": 5.6
+    },
+    {
+     "do": "prop",
+     "id": "scroll06",
+     "set": {
+      "y": -60
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 7.98
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60000,
+      100000
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.98
+    }
+   ]
+  },
+  {
+   "name": "07 clue one: the plan",
+   "at": 21.4,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     -240,
+     1180,
+     3560
+    ],
+    "look": [
+     0,
+     -537,
+     37
+    ],
+    "fov": 62,
+    "near": 20,
+    "to": {
+     "pos": [
+      -120,
+      1120,
+      3360
+     ]
+    },
+    "dur": 4.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue one. He gave the size of every ring.",
+     "tone": "excited",
+     "dur": 3.35,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "08 the canal cut-away",
+   "at": 26,
+   "len": 3,
+   "shot": {
+    "pos": [
+     59999.526,
+     -0.209,
+     40006.18
+    ],
+    "look": [
+     59991.706,
+     -10.247,
+     39956.18
+    ],
+    "fov": 42.104,
+    "to": {
+     "pos": [
+      59999.526,
+      -0.209,
+      40006.18
+     ],
+     "look": [
+      59993.21,
+      -10.247,
+      39956.18
+     ],
+     "fov": 39.982
+    },
+    "dur": 3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.25,
+     "dur": 5.8,
+     "reason": "the cut-away: water pressing on the stone",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "A canal thirty metres deep.",
+     "tone": "calm",
+     "dur": 2.12,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "09 deeper than Suez",
+   "at": 29,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     60001.9,
+     0.124,
+     60006.57
+    ],
+    "look": [
+     59986.562,
+     -10.102,
+     59956.57
+    ],
+    "fov": 42.104,
+    "to": {
+     "pos": [
+      60001.9,
+      0.124,
+      60006.57
+     ],
+     "look": [
+      59986.562,
+      -10.102,
+      59956.57
+     ],
+     "fov": 39.982
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Deeper than the Suez Canal.",
+     "tone": "calm",
+     "dur": 1.87,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    }
+   ]
+  },
+  {
+   "name": "09b the Suez Canal",
+   "at": 30.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     60001.9,
+     0.124,
+     60006.57
+    ],
+    "look": [
+     60016.637,
+     -10.102,
+     59956.57
+    ],
+    "fov": 42.104,
+    "to": {
+     "pos": [
+      60001.9,
+      0.124,
+      60006.57
+     ],
+     "look": [
+      60016.637,
+      -10.102,
+      59956.57
+     ],
+     "fov": 39.982
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      20008.4,
+      60001
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.38
+    }
+   ]
+  },
+  {
+   "name": "10 the bare stone",
+   "at": 31.8,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     20011.4,
+     1.25,
+     60005.8
+    ],
+    "look": [
+     20007.9,
+     1.75,
+     60000.4
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      20011.2,
+      1.25,
+      60005.4
+     ],
+     "look": [
+      20007.9,
+      1.75,
+      60000.4
+     ],
+     "fov": 49
+    },
+    "dur": 3.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "White, black and red stone.",
+     "tone": "calm",
+     "dur": 2.96,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "out",
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "wall02",
+     "set": {
+      "flash": 1
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "wall02",
+     "set": {
+      "flash": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.48
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60000,
+      100000
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.48
+    }
+   ]
+  },
+  {
+   "name": "11 brass, tin, red",
+   "at": 35.3,
+   "len": 6.6,
+   "shot": {
+    "pos": [
+     0,
+     9,
+     80120
+    ],
+    "look": [
+     -1.133,
+     10.8,
+     80070
+    ],
+    "fov": 19.367,
+    "to": {
+     "pos": [
+      0,
+      9,
+      80120
+     ],
+     "look": [
+      0.533,
+      10.8,
+      80070
+     ],
+     "fov": 17.68
+    },
+    "dur": 6.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Brass. Tin. And a red metal nobody had ever seen.",
+     "tone": "calm",
+     "dur": 6.08,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "wall11",
+     "set": {
+      "flash": 1
+     },
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      20000.3,
+      0.2
+     ],
+     "y": 1.2,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.58
+    }
+   ]
+  },
+  {
+   "name": "12 the dark water",
+   "at": 41.9,
+   "len": 8.1,
+   "shot": {
+    "pos": [
+     20001.9,
+     2.75,
+     4.6
+    ],
+    "look": [
+     20000.35,
+     1.45,
+     0.2
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      20001.9,
+      2.75,
+      4.6
+     ],
+     "look": [
+      20000.35,
+      1.45,
+      0.2
+     ],
+     "fov": 50
+    },
+    "dur": 8.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.08,
+     "dur": 8.1,
+     "reason": "the sea under the shot",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But in twenty-four hundred years, nobody has found one stone.",
+     "tone": "calm",
+     "dur": 4.68,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 5.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.15
+     },
+     "dur": 0.2,
+     "at": 5.4
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "They found the metal.",
+     "tone": "excited",
+     "dur": 1.31,
+     "voice": "reaper",
+     "caption": false,
+     "at": 5.5
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.6,
+     "at": 7.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 50,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud",
+   "with": "gulls",
+   "from": 0,
+   "to": 50,
+   "reason": "the gulls wheel 20 m out over the sea; their volume spans the rock"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-a/make-block-a.mjs. Block A of four; music = the EP03 score's first 50 s (kit score(0)). Places: real 3D at the paintings' level (round R kit)."
+}

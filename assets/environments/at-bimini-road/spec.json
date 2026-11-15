@@ -1,0 +1,26 @@
+{
+ "name": "at-bimini-road",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 28: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-28-bimini-road.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   6.0
+  ]
+ },
+ "light": {
+  "from": "sun shafts from above",
+  "key": [
+   1,
+   8,
+   1
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20
+}
