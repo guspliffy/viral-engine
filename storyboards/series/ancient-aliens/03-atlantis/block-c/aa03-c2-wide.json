@@ -45,7 +45,7 @@
  "music": {
   "file": "ancient-aliens/aa03-score.ogg",
   "from": 0,
-  "skip": 124,
+  "skip": 120,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,
@@ -171,7 +171,139 @@
   },
   {
    "from": 0,
-   "to": 0.106,
+   "to": 0.108,
+   "text": "07:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.108,
+   "to": 0.208,
+   "text": "07:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.208,
+   "to": 0.308,
+   "text": "07:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.308,
+   "to": 0.408,
+   "text": "07:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.408,
+   "to": 0.508,
+   "text": "07:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.508,
+   "to": 0.608,
+   "text": "07:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.608,
+   "to": 0.713,
+   "text": "07:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.713,
+   "to": 0.833,
+   "text": "07:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.833,
+   "to": 0.933,
+   "text": "07:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.933,
+   "to": 1.033,
+   "text": "07:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.033,
+   "to": 1.133,
+   "text": "07:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.133,
+   "to": 1.233,
+   "text": "07:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.233,
+   "to": 1.333,
    "text": "07:17",
    "pos": 52,
    "pop": false,
@@ -181,8 +313,8 @@
    "x": 1690
   },
   {
-   "from": 0.106,
-   "to": 0.229,
+   "from": 1.333,
+   "to": 1.438,
    "text": "07:16",
    "pos": 52,
    "pop": false,
@@ -192,19 +324,8 @@
    "x": 1690
   },
   {
-   "from": 0.229,
-   "to": 0.329,
-   "text": "07:16",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 0.329,
-   "to": 0.429,
+   "from": 1.438,
+   "to": 1.558,
    "text": "07:15",
    "pos": 52,
    "pop": false,
@@ -214,8 +335,19 @@
    "x": 1690
   },
   {
-   "from": 0.429,
-   "to": 0.529,
+   "from": 1.558,
+   "to": 1.658,
+   "text": "07:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.658,
+   "to": 1.758,
    "text": "07:14",
    "pos": 52,
    "pop": false,
@@ -225,8 +357,8 @@
    "x": 1690
   },
   {
-   "from": 0.529,
-   "to": 0.629,
+   "from": 1.758,
+   "to": 1.858,
    "text": "07:13",
    "pos": 52,
    "pop": false,
@@ -236,8 +368,8 @@
    "x": 1690
   },
   {
-   "from": 0.629,
-   "to": 0.729,
+   "from": 1.858,
+   "to": 1.958,
    "text": "07:12",
    "pos": 52,
    "pop": false,
@@ -247,8 +379,8 @@
    "x": 1690
   },
   {
-   "from": 0.729,
-   "to": 0.847,
+   "from": 1.958,
+   "to": 2.058,
    "text": "07:11",
    "pos": 52,
    "pop": false,
@@ -258,19 +390,8 @@
    "x": 1690
   },
   {
-   "from": 0.847,
-   "to": 0.947,
-   "text": "07:11",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 0.947,
-   "to": 1.047,
+   "from": 2.058,
+   "to": 2.162,
    "text": "07:10",
    "pos": 52,
    "pop": false,
@@ -280,8 +401,19 @@
    "x": 1690
   },
   {
-   "from": 1.047,
-   "to": 1.147,
+   "from": 2.162,
+   "to": 2.262,
+   "text": "07:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.262,
+   "to": 2.362,
    "text": "07:09",
    "pos": 52,
    "pop": false,
@@ -291,8 +423,8 @@
    "x": 1690
   },
   {
-   "from": 1.147,
-   "to": 1.247,
+   "from": 2.362,
+   "to": 2.462,
    "text": "07:08",
    "pos": 52,
    "pop": false,
@@ -302,8 +434,8 @@
    "x": 1690
   },
   {
-   "from": 1.247,
-   "to": 1.347,
+   "from": 2.462,
+   "to": 2.562,
    "text": "07:07",
    "pos": 52,
    "pop": false,
@@ -313,8 +445,8 @@
    "x": 1690
   },
   {
-   "from": 1.347,
-   "to": 1.465,
+   "from": 2.562,
+   "to": 2.662,
    "text": "07:06",
    "pos": 52,
    "pop": false,
@@ -324,19 +456,8 @@
    "x": 1690
   },
   {
-   "from": 1.465,
-   "to": 1.565,
-   "text": "07:06",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 1.565,
-   "to": 1.665,
+   "from": 2.662,
+   "to": 2.767,
    "text": "07:05",
    "pos": 52,
    "pop": false,
@@ -346,8 +467,8 @@
    "x": 1690
   },
   {
-   "from": 1.665,
-   "to": 1.765,
+   "from": 2.767,
+   "to": 2.888,
    "text": "07:04",
    "pos": 52,
    "pop": false,
@@ -357,8 +478,8 @@
    "x": 1690
   },
   {
-   "from": 1.765,
-   "to": 1.865,
+   "from": 2.888,
+   "to": 3.008,
    "text": "07:03",
    "pos": 52,
    "pop": false,
@@ -368,8 +489,19 @@
    "x": 1690
   },
   {
-   "from": 1.865,
-   "to": 1.965,
+   "from": 3.008,
+   "to": 3.108,
+   "text": "07:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.108,
+   "to": 3.208,
    "text": "07:02",
    "pos": 52,
    "pop": false,
@@ -379,8 +511,8 @@
    "x": 1690
   },
   {
-   "from": 1.965,
-   "to": 2.083,
+   "from": 3.208,
+   "to": 3.308,
    "text": "07:01",
    "pos": 52,
    "pop": false,
@@ -390,19 +522,8 @@
    "x": 1690
   },
   {
-   "from": 2.083,
-   "to": 2.183,
-   "text": "07:01",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 2.183,
-   "to": 2.283,
+   "from": 3.308,
+   "to": 3.408,
    "text": "07:00",
    "pos": 52,
    "pop": false,
@@ -412,8 +533,8 @@
    "x": 1690
   },
   {
-   "from": 2.283,
-   "to": 2.383,
+   "from": 3.408,
+   "to": 3.508,
    "text": "06:59",
    "pos": 52,
    "pop": false,
@@ -423,8 +544,8 @@
    "x": 1690
   },
   {
-   "from": 2.383,
-   "to": 2.483,
+   "from": 3.508,
+   "to": 3.612,
    "text": "06:58",
    "pos": 52,
    "pop": false,
@@ -434,9 +555,9 @@
    "x": 1690
   },
   {
-   "from": 2.483,
-   "to": 2.583,
-   "text": "06:57",
+   "from": 3.612,
+   "to": 3.712,
+   "text": "06:58",
    "pos": 52,
    "pop": false,
    "style": "label",
@@ -445,130 +566,9 @@
    "x": 1690
   },
   {
-   "from": 2.583,
-   "to": 2.701,
-   "text": "06:56",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 2.701,
-   "to": 2.801,
-   "text": "06:56",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 2.801,
-   "to": 2.901,
-   "text": "06:55",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 2.901,
-   "to": 3.001,
-   "text": "06:54",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.001,
-   "to": 3.101,
-   "text": "06:53",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.101,
-   "to": 3.201,
-   "text": "06:52",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.201,
-   "to": 3.319,
-   "text": "06:51",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.319,
-   "to": 3.419,
-   "text": "06:51",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.419,
-   "to": 3.519,
-   "text": "06:50",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.519,
-   "to": 3.619,
-   "text": "06:49",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.619,
-   "to": 3.719,
-   "text": "06:48",
-   "pos": 52,
-   "pop": false,
-   "style": "label",
-   "size": 38,
-   "kinetic": false,
-   "x": 1690
-  },
-  {
-   "from": 3.719,
+   "from": 3.712,
    "to": 3.8,
-   "text": "06:47",
+   "text": "06:57",
    "pos": 52,
    "pop": false,
    "style": "label",
@@ -958,5 +958,5 @@
    "reason": "the headlamp band is worn on his head"
   }
  ],
- "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c2 of three (block time 22-25.8 s, story 124-127.8 s). Music = the EP03 score from story 124 s."
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c2 of three (block time 22-25.8 s, story 120-123.8 s). Music = the EP03 score from story 120 s."
 }

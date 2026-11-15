@@ -14,7 +14,7 @@
 // tension (the question) -> boredom (the ruler) -> shock (Port Royal) -> doubt ("that was one town").
 // PART HOOK: the film's own first shot IS part 3's hook (STORY.md: "He named the year. Twenty-eight years early." over the
 // road under clear water, "1940 -> 1968" up top), so the tall cut has no extra hook shot: H 0 in both frames and the tall
-// takes the film's score slice (score(102)), whose 102 s cue is the part-3 hook bed.
+// takes the film's score slice (score(98)), whose 98 s cue is the part-3 hook bed.
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import { existsSync, readFileSync } from "node:fs";
 import { FRAME, FAR, P, PLACE, hostSay, clueTag, atlantisClock, count, score, host, lampClip, CAST, AT_DAY, AT_EVE } from "../kit/at-kit.mjs";
@@ -23,7 +23,7 @@ import { LINES, toneOf } from "./lines.mjs";
 const MEASURED = new URL("./lines.json", import.meta.url);
 const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : Object.fromEntries(Object.entries(LINES).map(([k, l]) => [k, r3(0.3 + l.split(/\s+/).length * 0.42)]));
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
-const T0 = 102;   // story time of block C's first frame
+const T0 = 98;    // story time of block C's first frame
 
 // ---------------------------------------------------------------- places (world x, z of each origin)
 const AIR = PLACE(27), BIM = P.bimini, STEP = P.step, PORT = P.portroyal, PORT2 = PLACE(28), PAGE = P.page, ROAD = PLACE(26);
