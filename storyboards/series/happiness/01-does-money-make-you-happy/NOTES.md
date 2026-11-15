@@ -43,3 +43,18 @@ left to run from he sits, and the sunset gives him what the money didn't (S10).
 - Clip pattern: storyboards/series/what-if/09b-teleport-forget/make-teleport-forget.mjs (place/park/say/narrate/CUTS).
 - Music library: assets/music/ai/manifest.json (moods: sad, elegant-reveal, orchestra-chase, hero-bed,
   orchestra-suspense, disaster, zombies-score, drama-swell, sos-warm, calm-landscape).
+
+## Emotion map (creator-interview lessons, Jonny 15 Nov: "lets apply the learning to our videos"; use for the polish round)
+| s | scene | feeling | what serves it now / what polish should add |
+|---|---|---|---|
+| 0-6 | rich, sad in the rain | curiosity + pity (why is a rich man this sad?) | rain, wiper, empty face; polish: one slow sigh |
+| 6-10.5 | can't pay for a coffee | sympathy | pockets out, empty palms, seller shakes head |
+| 10.5-17 | the rich couple | envy, longing | they laugh past him; polish: his eyes follow them longer |
+| 17-21.7 | the hold-up | shock, tension | gun, hands up, sacks over the counter |
+| 21.7-24.8 | escape | thrill, relief | police race past, he laughs |
+| 24.8-28.7 | he bought everything | joy (the false high) | spin with arms wide |
+| 28.7-40 | siren, hiding, locks, Chip shut out | stress, then guilt | siren light, sacks in the hole, ten locks, Chip's sad face |
+| 40-43.8 | 3:00, long table | loneliness | push-in on the empty table |
+| 43.8-57.8 | gate, empty tank, ambulance | panic, then the twist (nobody was coming) | flight, the needle, the close-up |
+| 57.8-70.6 | money storm, sunset | release, awe, peace | the notes fly into the sun, the smile |
+Line rule: a line stays only if it moves the story. Mute test before delivery: with the narrator off the pictures must still tell it (weakest muted beat now: the S9 ambulance needs the line to read as "nobody was coming").
