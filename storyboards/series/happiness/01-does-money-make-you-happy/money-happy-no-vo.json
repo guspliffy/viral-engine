@@ -81,7 +81,7 @@
        0
       ],
       [
-       70.2,
+       70.6,
        1
       ]
      ]
@@ -107,7 +107,7 @@
     "env": "dusk-bus-stop"
    },
    {
-    "at": 25.1,
+    "at": 24.8,
     "env": "mansion-day"
    },
    {
@@ -232,7 +232,7 @@
        0
       ],
       [
-       70.2,
+       70.6,
        1
       ]
      ]
@@ -270,8 +270,8 @@
  },
  "creative": {
   "length": [
-   70.2,
-   70.2
+   70.6,
+   70.6
   ]
  },
  "hook": {
@@ -1298,8 +1298,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      -0.42,
-      1
+      0.33,
+      1.3
      ],
      "y": 0,
      "dur": 0.01,
@@ -1311,7 +1311,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": -65,
+     "to": -70,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1415,6 +1415,21 @@
      "dur": 0.01,
      "ease": "inOut",
      "at": 6.188
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       1.05
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.188
     }
    ],
    "kind": "hook"
@@ -1434,7 +1449,22 @@
      1.073,
      -4.599
     ],
-    "fov": 48
+    "fov": 48,
+    "to": {
+     "pos": [
+      -1.25,
+      1.187,
+      4.4
+     ],
+     "look": [
+      -1.25,
+      1.073,
+      -4.599
+     ],
+     "fov": 48
+    },
+    "dur": 4.4,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -1492,6 +1522,88 @@
     },
     {
      "who": "spud",
+     "do": "move",
+     "to": [
+      -0.42,
+      1
+     ],
+     "dur": 0.6,
+     "steps": 3,
+     "at": 0.02
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       0.94
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "rosti",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.1,
+     "at": 0.05
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       1.2
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       0.94
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -65,
+     "dur": 0.15,
+     "at": 0.6
+    },
+    {
+     "who": "rosti",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
      "do": "expr",
      "expr": "eager",
      "set": {
@@ -1499,7 +1611,22 @@
       "eye": 1.1
      },
      "dur": 0.15,
-     "at": 0.3
+     "at": 0.6
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       1.2
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.65
     },
     {
      "who": "spud",
@@ -1514,7 +1641,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.4
+     "at": 0.7
     },
     {
      "who": "spud",
@@ -1522,7 +1649,37 @@
      "side": "L",
      "shape": "open",
      "dur": 0.2,
-     "at": 0.4
+     "at": 0.7
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       0.94
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "rosti",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       -1.6,
+       0.54,
+       1.2
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.05
     },
     {
      "who": "rosti",
@@ -1537,7 +1694,7 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 0.85
+     "at": 1.15
     },
     {
      "who": "rosti",
@@ -1545,7 +1702,7 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.15,
-     "at": 0.85
+     "at": 1.15
     },
     {
      "who": "rosti",
@@ -1556,7 +1713,7 @@
       "curve": 0
      },
      "dur": 0.2,
-     "at": 0.85
+     "at": 1.15
     },
     {
      "who": "spud",
@@ -1571,7 +1728,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.15
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -1579,7 +1736,7 @@
      "side": "R",
      "shape": "flat",
      "dur": 0.15,
-     "at": 1.15
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -1594,7 +1751,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.15
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -1602,7 +1759,7 @@
      "side": "L",
      "shape": "flat",
      "dur": 0.15,
-     "at": 1.15
+     "at": 1.45
     },
     {
      "who": "spud",
@@ -1613,7 +1770,7 @@
       "open": 0.1
      },
      "dur": 0.15,
-     "at": 1.25
+     "at": 1.55
     },
     {
      "who": "spud",
@@ -1628,7 +1785,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.65
     },
     {
      "who": "spud",
@@ -1643,7 +1800,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.35
+     "at": 1.65
     },
     {
      "who": "spud",
@@ -1658,7 +1815,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.44
+     "at": 1.74
     },
     {
      "who": "spud",
@@ -1673,7 +1830,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.44
+     "at": 1.74
     },
     {
      "who": "spud",
@@ -1688,7 +1845,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.53
+     "at": 1.83
     },
     {
      "who": "spud",
@@ -1703,7 +1860,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.53
+     "at": 1.83
     },
     {
      "who": "spud",
@@ -1718,7 +1875,7 @@
      },
      "dur": 0.15,
      "ease": "inOut",
-     "at": 1.55
+     "at": 1.85
     },
     {
      "who": "spud",
@@ -1726,7 +1883,7 @@
      "side": "R",
      "shape": "pinch",
      "dur": 0.1,
-     "at": 1.55
+     "at": 1.85
     },
     {
      "who": "spud",
@@ -1741,7 +1898,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.62
+     "at": 1.92
     },
     {
      "who": "spud",
@@ -1756,7 +1913,7 @@
      },
      "dur": 0.08,
      "ease": "inOut",
-     "at": 1.62
+     "at": 1.92
     },
     {
      "do": "prop",
@@ -1766,7 +1923,7 @@
      },
      "dur": 0.17,
      "ease": "out",
-     "at": 1.65
+     "at": 1.95
     },
     {
      "who": "spud",
@@ -1775,7 +1932,7 @@
      "pose": "shrug",
      "dur": 0.25,
      "ease": "out",
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1783,7 +1940,7 @@
      "side": "R",
      "shape": "open",
      "dur": 0.2,
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1792,7 +1949,7 @@
      "pose": "shrug",
      "dur": 0.25,
      "ease": "out",
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1800,7 +1957,7 @@
      "side": "L",
      "shape": "open",
      "dur": 0.2,
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1811,7 +1968,7 @@
       "brow": 0.6
      },
      "dur": 0.25,
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "spud",
@@ -1822,7 +1979,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 2.1
+     "at": 2.4
     },
     {
      "who": "rosti",
@@ -1833,7 +1990,7 @@
       "brow": 0.3
      },
      "dur": 0.2,
-     "at": 2.4
+     "at": 2.7
     },
     {
      "who": "rosti",
@@ -1844,7 +2001,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.4
+     "at": 2.7
     },
     {
      "who": "rosti",
@@ -1855,7 +2012,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.56
+     "at": 2.86
     },
     {
      "who": "rosti",
@@ -1866,7 +2023,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.72
+     "at": 3.02
     },
     {
      "who": "rosti",
@@ -1877,7 +2034,7 @@
      ],
      "dur": 0.12,
      "blink": false,
-     "at": 2.88
+     "at": 3.18
     },
     {
      "who": "spud",
@@ -2251,7 +2408,22 @@
      1.25,
      -3.373
     ],
-    "fov": 50
+    "fov": 50,
+    "to": {
+     "pos": [
+      0.328,
+      1.848,
+      5.802
+     ],
+     "look": [
+      0.648,
+      1.25,
+      -3.373
+     ],
+     "fov": 50
+    },
+    "dur": 6.9,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -2909,7 +3081,22 @@
      0.72,
      0
     ],
-    "fov": 52
+    "fov": 52,
+    "to": {
+     "pos": [
+      299.88,
+      0.918,
+      3.956
+     ],
+     "look": [
+      299.88,
+      0.72,
+      0
+     ],
+     "fov": 52
+    },
+    "dur": 1.4,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3130,7 +3317,22 @@
      0.84,
      -0.04
     ],
-    "fov": 42
+    "fov": 42,
+    "to": {
+     "pos": [
+      298.448,
+      0.895,
+      0.779
+     ],
+     "look": [
+      300.72,
+      0.84,
+      -0.04
+     ],
+     "fov": 42
+    },
+    "dur": 2.8,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3685,7 +3887,22 @@
      3.102,
      1.072
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      0.6,
+      1.996,
+      10.206
+     ],
+     "look": [
+      0.6,
+      3.102,
+      1.072
+     ],
+     "fov": 46
+    },
+    "dur": 1.85,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3825,7 +4042,7 @@
   {
    "name": "S3b the corner",
    "at": 23.55,
-   "len": 1.55,
+   "len": 1.25,
    "shot": {
     "pos": [
      1.6,
@@ -3837,7 +4054,22 @@
      2.195,
      -1.332
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.548,
+      1.255,
+      7.607
+     ],
+     "look": [
+      1.08,
+      2.195,
+      -1.332
+     ],
+     "fov": 40
+    },
+    "dur": 1.25,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -3951,7 +4183,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -3962,7 +4194,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -3974,7 +4206,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -3986,7 +4218,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -3998,7 +4230,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -4010,7 +4242,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -4022,7 +4254,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -4034,7 +4266,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "do": "prop",
@@ -4046,12 +4278,12 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "spud",
      "do": "hide",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "spud",
@@ -4065,7 +4297,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4079,7 +4311,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4088,12 +4320,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4102,7 +4334,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4110,7 +4342,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4119,7 +4351,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.538
+     "at": 1.238
     },
     {
      "who": "rich",
@@ -4127,14 +4359,14 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.538
+     "at": 1.238
     }
    ]
   },
   {
    "name": "S4 he bought everything",
-   "at": 25.1,
-   "len": 3.6,
+   "at": 24.8,
+   "len": 3.9,
    "shot": {
     "pos": [
      -0.5,
@@ -4146,7 +4378,22 @@
      1.698,
      -10.879
     ],
-    "fov": 42
+    "fov": 42,
+    "to": {
+     "pos": [
+      -0.333,
+      1.084,
+      -2.185
+     ],
+     "look": [
+      0.888,
+      1.698,
+      -10.879
+     ],
+     "fov": 42
+    },
+    "dur": 3.9,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -4239,6 +4486,22 @@
      "at": 0.8
     },
     {
+     "who": "rich",
+     "do": "turn",
+     "to": 370,
+     "dur": 1,
+     "ease": "inOut",
+     "at": 1.25
+    },
+    {
+     "who": "rich",
+     "do": "hop",
+     "height": 0.1,
+     "dur": 0.32,
+     "quiet": true,
+     "at": 2.35
+    },
+    {
      "do": "prop",
      "id": "dcar",
      "set": {
@@ -4248,7 +4511,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "do": "prop",
@@ -4260,7 +4523,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "do": "prop",
@@ -4272,7 +4535,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "do": "prop",
@@ -4284,7 +4547,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "do": "prop",
@@ -4295,7 +4558,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4309,7 +4572,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4318,12 +4581,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4332,7 +4595,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4340,7 +4603,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4349,7 +4612,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.588
+     "at": 3.888
     },
     {
      "who": "rich",
@@ -4357,7 +4620,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 3.588
+     "at": 3.888
     }
    ]
   },
@@ -4376,7 +4639,22 @@
      0.32,
      -0.75
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      -294.388,
+      0.962,
+      1.054
+     ],
+     "look": [
+      -296.5,
+      0.32,
+      -0.75
+     ],
+     "fov": 46
+    },
+    "dur": 5,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -4883,7 +5161,22 @@
      1.2,
      11
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      -298.11,
+      1.02,
+      7.76
+     ],
+     "look": [
+      -300.9,
+      1.2,
+      11
+     ],
+     "fov": 46
+    },
+    "dur": 1.5,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -5026,7 +5319,22 @@
      0.5,
      12.1
     ],
-    "fov": 42
+    "fov": 42,
+    "to": {
+     "pos": [
+      -301.072,
+      1.236,
+      9.432
+     ],
+     "look": [
+      -301.9,
+      0.5,
+      12.1
+     ],
+     "fov": 42
+    },
+    "dur": 1.1,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -5130,7 +5438,22 @@
      1.2,
      11
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      -298.11,
+      1.02,
+      7.76
+     ],
+     "look": [
+      -300.9,
+      1.2,
+      11
+     ],
+     "fov": 46
+    },
+    "dur": 3.7,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -5215,7 +5538,22 @@
      1.93,
      -2
     ],
-    "fov": 38
+    "fov": 38,
+    "to": {
+     "pos": [
+      -304.825,
+      1.82,
+      -2
+     ],
+     "look": [
+      -306.1,
+      1.93,
+      -2
+     ],
+     "fov": 38
+    },
+    "dur": 1,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -5270,7 +5608,22 @@
      1.9,
      -8
     ],
-    "fov": 55
+    "fov": 55,
+    "to": {
+     "pos": [
+      -300,
+      1.285,
+      3.972
+     ],
+     "look": [
+      -300,
+      1.9,
+      -8
+     ],
+     "fov": 55
+    },
+    "dur": 4.4,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -5532,7 +5885,22 @@
      2.305,
      -1.914
     ],
-    "fov": 46
+    "fov": 46,
+    "to": {
+     "pos": [
+      0,
+      1.157,
+      6.81
+     ],
+     "look": [
+      0,
+      2.305,
+      -1.914
+     ],
+     "fov": 46
+    },
+    "dur": 2.3,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -6028,7 +6396,7 @@
   {
    "name": "S9 the ambulance",
    "at": 51.1,
-   "len": 6.7,
+   "len": 3.3,
    "shot": {
     "pos": [
      4.5,
@@ -6040,7 +6408,22 @@
      -5.2,
      -591
     ],
-    "fov": 50
+    "fov": 50,
+    "to": {
+     "pos": [
+      5.28,
+      0.124,
+      -596.984
+     ],
+     "look": [
+      11,
+      -5.2,
+      -591
+     ],
+     "fov": 50
+    },
+    "dur": 3.3,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -6343,13 +6726,70 @@
      "dur": 0.2,
      "ease": "linear",
      "at": 3.2
+    }
+   ]
+  },
+  {
+   "name": "S9 nobody was coming",
+   "at": 54.4,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     6.22,
+     -2.302,
+     -595.96
+    ],
+    "look": [
+     8.16,
+     -2.432,
+     -593.88
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      6.453,
+      -2.318,
+      -595.71
+     ],
+     "look": [
+      8.16,
+      -2.432,
+      -593.88
+     ],
+     "fov": 38
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.15
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.1,
+      "brow": 0.45
+     },
+     "dur": 0.4,
+     "at": 0.1
     },
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
      "dur": 6,
      "reason": "wind on the cliff, far under the music",
-     "at": 6
+     "at": 2.7
     },
     {
      "do": "prop",
@@ -6361,7 +6801,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 6.688
+     "at": 3.388
     },
     {
      "do": "prop",
@@ -6373,7 +6813,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 6.688
+     "at": 3.388
     },
     {
      "who": "rich",
@@ -6387,7 +6827,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 6.688
+     "at": 3.388
     },
     {
      "who": "rich",
@@ -6396,12 +6836,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 6.688
+     "at": 3.388
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 6.688
+     "at": 3.388
     },
     {
      "who": "rich",
@@ -6410,7 +6850,7 @@
      "dur": 0.01,
      "height": 0,
      "hands": "lap",
-     "at": 6.688
+     "at": 3.388
     }
    ]
   },
@@ -6429,7 +6869,22 @@
      -2.5,
      -640
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.515,
+      1.11,
+      -594.4
+     ],
+     "look": [
+      2.7,
+      -2.5,
+      -640
+     ],
+     "fov": 40
+    },
+    "dur": 1.6,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -6471,7 +6926,22 @@
      -2.5,
      -640
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.515,
+      1.11,
+      -594.4
+     ],
+     "look": [
+      2.7,
+      -2.5,
+      -640
+     ],
+     "fov": 40
+    },
+    "dur": 3.5,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -6569,7 +7039,22 @@
      0.55,
      -600
     ],
-    "fov": 40
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.527,
+      0.613,
+      -603.06
+     ],
+     "look": [
+      0.32,
+      0.55,
+      -600
+     ],
+     "fov": 40
+    },
+    "dur": 2.9,
+    "ease": "inOut"
    },
    "do": [
     {
@@ -6607,7 +7092,7 @@
   {
    "name": "S10 the hold",
    "at": 65.8,
-   "len": 4.4,
+   "len": 4.8,
    "shot": {
     "pos": [
      0.4,
@@ -6633,14 +7118,14 @@
      ],
      "fov": 40
     },
-    "dur": 4.4,
+    "dur": 4.8,
     "ease": "linear"
    },
    "do": [
     {
      "sfx": "ai/storm-wind",
      "gain": 0.06,
-     "dur": 1.1,
+     "dur": 1.5,
      "reason": "wind on the cliff, far under the music",
      "at": 3.3
     }
@@ -6692,14 +7177,14 @@
   },
   {
    "from": 21.7,
-   "to": 25.1,
+   "to": 24.8,
    "see": [
     "spud.face"
    ],
    "why": "night street: he runs from the bank with a sack, police cars race past, he hides at the corner and laughs"
   },
   {
-   "from": 25.1,
+   "from": 24.8,
    "to": 28.7,
    "see": [
     "rich.face",
@@ -6800,7 +7285,7 @@
   },
   {
    "from": 65.8,
-   "to": 70.2,
+   "to": 70.6,
    "see": [
     "rich"
    ],
@@ -6836,7 +7321,7 @@
    "who": "spud",
    "with": "mask",
    "from": 17.5,
-   "to": 25.1,
+   "to": 24.8,
    "reason": "the balaclava is worn (it covers his head)"
   },
   {
@@ -6878,7 +7363,7 @@
    "who": "spud",
    "with": "sbag",
    "from": 21.7,
-   "to": 25.1,
+   "to": 24.8,
    "reason": "he carries the sack in his arms"
   },
   {
