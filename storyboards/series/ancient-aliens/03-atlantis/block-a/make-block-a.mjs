@@ -108,12 +108,18 @@ function build(F) {
   const l6a = say(T.s08 + 0.3, "l6a", T.s09);
   count(c, F, r3(T.s08 + 0.6 + H), r3(T.s08 + 2.4 + H), r3(T.s09 + H), 0, 30, (v) => `${Math.round(v)} m`);
   say(T.s09 + 0.2, "l6b", T.s10);
-  cap(r3(T.s09 + H), r3(T.s10 + H), "30 m", F.NUM + 150, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.22) });
-  cap(r3(T.s09 + 0.4 + H), r3(T.s10 + H), "SUEZ 24 m", F.NUM, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.72) });
+  if (F.key === "tall") {   // the tall slice pans from the ancient canal to the modern one: one number at a time
+    const mid = r3((T.s09 + T.s10) / 2);
+    cap(r3(T.s09 + H), r3(mid + H), "30 m", F.NUM, false, { size: F.numSize, kinetic: false });
+    cap(r3(mid + H), r3(T.s10 + H), "SUEZ 24 m", F.NUM, false, { size: F.numSize, kinetic: false });
+  } else {
+    cap(r3(T.s09 + H), r3(T.s10 + H), "30 m", F.NUM + 150, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.22) });
+    cap(r3(T.s09 + 0.4 + H), r3(T.s10 + H), "SUEZ 24 m", F.NUM, false, { size: F.numSize, kinetic: false, x: Math.round(F.W * 0.72) });
+  }
   sfx(T.s08, "ai/underwater-amb", { gain: 0.25, dur: r3(T.s10 - T.s08), reason: "the cut-away: water pressing on the stone" });
 
   // ================================================================= 10-11 THE WALLS (35.4-44.4): white, black, red; brass, tin, red metal
-  place(T.s10, "spud", at(W02, 8.2, 0.95), 125); look(T.s10, "spud", [0, 0.2], 0.01); PR(T.s10 + 1.0, "wall02", { flash: 1 }, 1.6, "inOut"); PR(T.s11 - 0.02, "wall02", { flash: 0 });
+  place(T.s10, "spud", at(W02, 8.4, 1.0), 40); look(T.s10, "spud", [0, 0.2], 0.01); PR(T.s10 + 1.0, "wall02", { flash: 1 }, 1.6, "inOut"); PR(T.s11 - 0.02, "wall02", { flash: 0 });
   c.arm(T.s10 + 0.5, "spud", "R", "out", 0.4, "out");                     // his palm out to the bare stone
   say(T.s10 + 0.3, "l7a", T.s11);
   place(T.s11, "spud", OFF, 0);
@@ -134,20 +140,26 @@ function build(F) {
   // ---------------------------------------------------------------- shots (a push or a move on every one)
   const PC = (o, key, a, b, dur, x = {}) => ({ ...plateCam(o, key, { ...x, ...a }), to: plateCam(o, key, { ...x, ...b }), dur: r3(dur), ease: "inOut" });
   const W = (o, p, l, f, near) => ({ pos: [r3(o[0] + p[0]), p[1], r3(o[1] + p[2])], look: [r3(o[0] + l[0]), l[1], r3(o[1] + l[2])], fov: f, ...(near && { near }) });
-  const AIR = (p, l, p2, dur) => ({ ...W(CITY, p, l, 51.5, 20), to: { pos: [r3(CITY[0] + p2[0]), p2[1], r3(CITY[1] + p2[2])] }, dur: r3(dur), ease: "inOut" });
+  const AIR = (p, l, p2, dur, f = 51.5) => ({ ...W(CITY, p, l, f, 20), to: { pos: [r3(CITY[0] + p2[0]), p2[1], r3(CITY[1] + p2[2])] }, dur: r3(dur), ease: "inOut" });
+  // TALL (part 1): the same places and moves; a plate scene shows its full height (k 1.185) as a slice centred on the subject (col),
+  // the free cameras look at Spud with a taller fov
+  const TALL = F.key === "tall", tv = (w, t) => (TALL ? t : w), KT = 1.185;
   const SHOTS = [
-    ["01 the ring city at dawn", T.s01, PC(Q01, "01", { k: 1 }, { k: 0.93 }, T.s02, { y0: -1.4, row: 516 }), "hook"],
-    ["02 the red wall flashes", T.s02, PC(W02, "02", { col: 730 }, { col: 800, k: 0.95 }, T.s03 - T.s02)],
-    ["03 the rings from above", T.s03, AIR([0, 1200, 3640], [0, -537, 37], [0, 1160, 3480], T.s04 - T.s03)],
-    ["04 the harbour wall", T.s04, PC(Q04, "04f", { k: 1 }, { k: 0.95 }, T.snap - T.s04, { y0: -1.2, row: 540 })],
-    ["05 today", T.snap, { ...W(ROCK, [1.6, 2.45, 4.6], [-4.6, -3.3, -34.5], 40), to: { pos: [r3(ROCK[0] + 1.5), 2.4, r3(ROCK[1] + 4.2)] }, dur: r3(T.s06 - T.snap), ease: "inOut" }, "reveal"],
-    ["06 the scroll", T.s06, { ...W(ROCK, [1.2, 2.05, 3.6], [-0.1, 1.45, 0.0], 40), to: W(ROCK, [1.15, 2.0, 3.3], [-0.1, 1.45, 0.0], 38), dur: r3(T.s07 - T.s06), ease: "inOut" }],
-    ["07 clue one: the plan", T.s07, AIR([-240, 1180, 3560], [0, -537, 37], [-120, 1120, 3360], T.s08 - T.s07)],
-    ["08 the canal cut-away", T.s08, PC(CUT, "08", { k: 1.185 }, { k: 1.08 }, T.s09 - T.s08, { y0: r3(-8.38 * 0.05), sc: 0.05, row: 462 })],
-    ["09 deeper than Suez", T.s09, PC(SUEZ, "09", { k: 1.185 }, { k: 1.09 }, T.s10 - T.s09, { y0: r3(-3.46 * 0.05), sc: 0.05, row: 480 })],
-    ["10 the bare stone", T.s10, { ...W(W02, [10.2, 1.05, 3.4], [7.2, 1.1, 0.4], 40), to: W(W02, [10.0, 1.05, 3.1], [7.2, 1.1, 0.4], 38), dur: r3(T.s11 - T.s10), ease: "inOut" }],
-    ["11 brass, tin, red", T.s11, PC(W11, "11", { k: 1 }, { k: 0.9 }, T.s12 - T.s11)],
-    ["12 the dark water", T.s12, { ...W(ROCK, [1.9, 2.75, 4.6], [1.45, 1.3, 0], 42), to: W(ROCK, [1.9, 2.75, 4.6], [1.45, 1.3, 0], 38), dur: r3(END - T.s12), ease: "inOut" }],
+    ["01 the ring city at dawn", T.s01, tv(PC(Q01, "01", { k: 1 }, { k: 0.93 }, T.s02, { y0: -1.4, row: 516 }), PC(Q01, "01", { k: KT, col: 600 }, { k: 1.1, col: 640 }, T.s02, { y0: -1.4, row: 512 })), "hook"],
+    ["02 the red wall flashes", T.s02, tv(PC(W02, "02", { col: 730 }, { col: 800, k: 0.95 }, T.s03 - T.s02), PC(W02, "02", { k: KT, col: 560 }, { k: KT, col: 760 }, T.s03 - T.s02))],
+    ["03 the rings from above", T.s03, AIR([0, 1200, 3640], [0, -537, 37], [0, 1160, 3480], T.s04 - T.s03, tv(51.5, 62))],
+    ["04 the harbour wall", T.s04, tv(PC(Q04, "04f", { k: 1 }, { k: 0.95 }, T.snap - T.s04, { y0: -1.2, row: 540 }), PC(Q04, "04f", { k: KT, col: 800 }, { k: 1.12, col: 800 }, T.snap - T.s04, { y0: -1.2, row: 512 }))],
+    ["05 today", T.snap, tv({ ...W(ROCK, [1.6, 2.45, 4.6], [-4.6, -3.3, -34.5], 40), to: { pos: [r3(ROCK[0] + 1.5), 2.4, r3(ROCK[1] + 4.2)] }, dur: r3(T.s06 - T.snap), ease: "inOut" }, { ...W(ROCK, [1.6, 2.45, 4.6], [-0.2, 1.75, -1.0], 56), to: W(ROCK, [1.5, 2.4, 4.2], [-0.2, 1.75, -1.0], 54), dur: r3(T.s06 - T.snap), ease: "inOut" }), "reveal"],
+    ["06 the scroll", T.s06, { ...W(ROCK, [1.2, 2.05, 3.6], [-0.1, 1.45, 0.0], tv(40, 52)), to: W(ROCK, [1.15, 2.0, 3.3], [-0.1, 1.45, 0.0], tv(38, 50)), dur: r3(T.s07 - T.s06), ease: "inOut" }],
+    ["07 clue one: the plan", T.s07, AIR([-240, 1180, 3560], [0, -537, 37], [-120, 1120, 3360], T.s08 - T.s07, tv(51.5, 62))],
+    ["08 the canal cut-away", T.s08, PC(CUT, "08", tv({ k: 1.185 }, { k: KT, col: 560 }), tv({ k: 1.08 }, { k: 1.12, col: 600 }), T.s09 - T.s08, { y0: r3(-8.38 * 0.05), sc: 0.05, row: tv(462, 512) })],
+    ...(TALL ? [
+      ["09 deeper than Suez", T.s09, PC(SUEZ, "09", { k: KT, col: 360 }, { k: 1.12, col: 360 }, (T.s10 - T.s09) / 2, { y0: r3(-3.46 * 0.05), sc: 0.05, row: 512 })],
+      ["09b the Suez Canal", r3((T.s09 + T.s10) / 2), PC(SUEZ, "09", { k: KT, col: 1160 }, { k: 1.12, col: 1160 }, (T.s10 - T.s09) / 2, { y0: r3(-3.46 * 0.05), sc: 0.05, row: 512 })],
+    ] : [["09 deeper than Suez", T.s09, PC(SUEZ, "09", { k: 1.185 }, { k: 1.09 }, T.s10 - T.s09, { y0: r3(-3.46 * 0.05), sc: 0.05, row: 480 })]]),
+    ["10 the bare stone", T.s10, { ...W(W02, [11.4, 1.25, 5.8], tv([6.2, 1.9, 0.0], [7.9, 1.75, 0.4]), tv(40, 52)), to: W(W02, [11.2, 1.25, 5.4], tv([6.2, 1.9, 0.0], [7.9, 1.75, 0.4]), tv(37, 49)), dur: r3(T.s11 - T.s10), ease: "inOut" }],
+    ["11 brass, tin, red", T.s11, PC(W11, "11", tv({ k: 1 }, { k: KT, col: 700 }), tv({ k: 0.9 }, { k: 1.08, col: 800 }), T.s12 - T.s11)],
+    ["12 the dark water", T.s12, { ...W(ROCK, [1.9, 2.75, 4.6], tv([1.45, 1.3, 0], [0.35, 1.45, 0.2]), tv(42, 54)), to: W(ROCK, [1.9, 2.75, 4.6], tv([1.45, 1.3, 0], [0.35, 1.45, 0.2]), tv(38, 50)), dur: r3(END - T.s12), ease: "inOut" }],
   ];
   const beats = c.beats(SHOTS.map(([n, t, s, k]) => [n, r3(t + H), s, k]), r3(END + H));
 
