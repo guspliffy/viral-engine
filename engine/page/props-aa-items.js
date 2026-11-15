@@ -12,7 +12,8 @@
 //              wedge, cooling ribs, a switch, a dark grey glass lens #5d6166 with a window glint. lit 0..1 (propState default 0; spec.lit start): the lens turns
 //              #fff1d6 and a soft see-through cone spec.reach (3.5) long, half angle 16 deg, leaves it along +z of the body (it rides the head exactly), with
 //              pale dust motes drifting in it (seeded, on the clip clock) and a SpotLight of the same shape (intensity 14 lit; spec.light false skips it).
-//              Cone, motes and the lens glint are userData.steam. Other spec keys: band (colour), h (0.05), r (0.045), y0 (band height override).
+//              Cone, motes and the lens glint are userData.steam. Other spec keys: band (colour), h (0.05), r (0.045), y0 (band height override),
+//              motes (90: how many dust motes), moteSize (0.012 m).
 //   strawhat   a plaited straw hat: crown r 0.2 (spec.r), brim r 0.38 (spec.brim) with a slight droop and wave and a rolled edge, an underside of its own, a
 //              ribbon spec.band (#c23b3b) with a small bow at the back. It rests where the rim of the crown meets the skin (the highest skin under the rim), 1.2 cm
 //              down. The crown is 0.12..0.27 tall (taller on a pointed head so the head does not poke through). spec.slit (true): a slit 12 x 2.3 cm in the crown top
@@ -213,7 +214,7 @@ function headlamp(P) {
   const lensWarm = new THREE.Color(HEADLAMP.warm), lensDark = new THREE.Color(HEADLAMP.glass);
   const reach = S.reach ?? 3.5, half = 16 * DEG;
   const bg = new THREE.Group(); bg.position.set(0, yl, hz + DP); P.whole.add(bg);
-  const bm = beam(bg, { reach, half, seed: 3 });
+  const bm = beam(bg, { reach, half, seed: 3, n: S.motes ?? 90, moteSize: S.moteSize ?? 0.012 });   // spec.motes / moteSize: fewer, finer silt (Atlantis seabed close-ups)
   let spot = null;
   if (S.light !== false) {
     spot = new THREE.SpotLight(HEADLAMP.warm, 0, reach * 2.2, half, 0.7, 1.2); spot.castShadow = false;

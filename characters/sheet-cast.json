@@ -363,6 +363,36 @@
    },
    "freckles": 6,
    "blush": 0.55
+  },
+  "plato": {
+   "skin": "#e0a655",
+   "rest": {
+    "tilt": 0,
+    "browY": 0.012,
+    "curve": 0.35,
+    "open": 0,
+    "eye": 1,
+    "pupil": 0.95,
+    "smirk": 0.15,
+    "raise": 0.02
+   },
+   "lids": [
+    0.55,
+    0.55
+   ],
+   "browShape": {
+    "thick": 1.5,
+    "arch": 0.07
+   },
+   "eye": {
+    "oval": 1.12,
+    "iris": 0.56,
+    "lash": 1.25,
+    "flick": 0,
+    "glintSize": 1
+   },
+   "freckles": 20,
+   "blush": 0
   }
  }
 }

@@ -1,0 +1,26 @@
+{
+ "name": "at-wall-scaffold",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 10: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-10-wall-scaffold-dawn.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.6,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.6,
+   6.0
+  ]
+ },
+ "light": {
+  "from": "low warm light from the left",
+  "key": [
+   -8,
+   2,
+   2
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20
+}

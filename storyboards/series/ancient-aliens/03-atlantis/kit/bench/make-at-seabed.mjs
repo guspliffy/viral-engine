@@ -1,0 +1,53 @@
+// Bench for the Atlantis seabed actors (engine/page/props-at-seabed.js, task T4 of ../briefs/T4.md): Spud + the bars, fish, ruler and bubbles ON the painted env
+// at-sicily-seabed (set type "env"; the camera starts from the env's painting eye, assets/environments/at-sicily-seabed/env.json). One storyboard per group.
+//   A  panel 13: Spud close by the hero bar, lamp 1      B  panel 14: the line of 38 + the hero, Spud beside it, count 39
+//   C  close down on the bars (camera low)               D  a silver school + the big fish past Spud's face (panel 24)
+//   E  striped fish + the ruler (water 1.2) + Spud's bubbles on the same env, just to see them
+//   node storyboards/series/ancient-aliens/03-atlantis/kit/bench/make-at-seabed.mjs [A,B,...]
+//   node engine/render.mjs <bench>/at-seabed-A.json --stills 0.5 --draft --out out/at-seabed ; node qa/contact.mjs out/at-seabed/at-seabed-*.png --out <bench>/at-seabed-sheet.png
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { clip } from "../../../../../lib/clip.mjs";
+import { host, lampClip } from "../../../kit/aa-kit.mjs";
+const OUT = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.join(OUT, "../../../../../..");
+const ENV = "at-sicily-seabed";
+const E = JSON.parse(fs.readFileSync(path.join(ROOT, "assets/environments", ENV, "env.json"), "utf8"));
+const [ex, ey, ez] = E.eye.pos, pitch = (E.eye.pitch * Math.PI) / 180;
+const r3 = (x) => Math.round(x * 1000) / 1000;
+// the camera: `at` is an offset from the painting eye, `look` an absolute point (default = the painting's own look)
+const camFrom = (o = {}) => {
+  const pos = [ex + (o.dx ?? 0), ey + (o.dy ?? 0), ez + (o.dz ?? 0)];
+  const look = o.look ?? [pos[0], pos[1] - Math.sin(pitch) * 10, pos[2] - Math.cos(pitch) * 10];
+  return { pos: pos.map(r3), look: look.map(r3), fov: o.fov ?? 40 };
+};
+const GROUPS = {
+  A: { label: "A panel 13: Spud by the hero bar, lamp 1", spud: { at: [-0.75, 0.3], face: 40 }, lamp: 1, cam: camFrom({ dx: 0.15, dz: -2.6, dy: -0.35, fov: 38, look: [0.0, 0.45, 0.1] }),
+    props: [{ id: "bars", kind: "ingots", x: 0.45, z: 0.35, lamp: 1, lampFrom: [-0.95, 0.62, -0.1], only: "all" }] },
+  B: { label: "B panel 14: the line of 38 + hero, Spud beside it, count 39", spud: { at: [2.0, 0.2], face: 330 }, lamp: 1, cam: camFrom({ dz: 0, dy: 0, fov: 40 }),
+    props: [{ id: "bars", kind: "ingots", x: 1.0, z: 1.5, lamp: 0.8, lampFrom: [1.0, 0.6, -1.0], count: 39 }] },
+  C: { label: "C close down on the bars (camera low)", cam: camFrom({ dx: 0.5, dz: -3.7, dy: -0.4, fov: 36, look: [0.2, 0.5, -1.2] }), props: [{ id: "bars", kind: "ingots", x: 0.7, z: -0.45, lamp: 0.0 }] },
+  D: { label: "D silver school + the big fish past Spud's face", spud: { at: [0.2, 0.9], face: 0 }, cam: camFrom({ dz: -1.2, dy: -0.1, fov: 40 }),
+    props: [{ id: "school", kind: "fish", type: "silver", n: 12, path: { c: [0.4, 1.15, 0.1], r: 1.6 }, phase: 0.69 }, { id: "school2", kind: "fish", type: "silver", n: 9, path: [[-3, 1.9, -2], [-1, 2.1, -3], [1.5, 1.7, -3.5], [3, 2.0, -2], [0.5, 2.3, -1]], phase: 0.3, speed: 0.4 },
+      { id: "big", kind: "fish", type: "big", path: [[-2.4, 0.66, 1.9], [-0.6, 0.62, 1.9], [1.0, 0.66, 1.8], [2.8, 0.64, 1.7]], phase: -0.02 }] },
+  E: { label: "E striped fish + ruler (water 1.2) + bubbles", spud: { at: [-1.1, 0.6], face: 20 }, cam: camFrom({ dz: -1.0, dy: -0.2, fov: 40 }),
+    props: [{ id: "striped", kind: "fish", type: "striped", n: 6, path: { c: [0.2, 0.7, -0.2], r: 1.2 } }, { id: "ruler", kind: "ruler", x: 1.35, z: 0.1, water: 1.2 },
+      { id: "bub", kind: "bubbles", x: -1.1, z: 0.6, from: [0.1, 0.5, 0.3], surface: 5, every: 2, size: 1.3 }] },
+  E2: { label: "E2 the ruler close, water 1.2, striped fish", cam: camFrom({ dx: 0.9, dz: -2.6, dy: -0.35, fov: 34, look: [1.35, 0.9, 0.1] }),
+    props: [{ id: "striped", kind: "fish", type: "striped", n: 5, path: { c: [1.0, 0.8, 0.6], r: 0.7 } }, { id: "ruler", kind: "ruler", x: 1.35, z: 0.1, water: 1.2 }] },
+};
+const want = (process.argv[2] || Object.keys(GROUPS).join(",")).split(",");
+for (const name of want) {
+  const G = GROUPS[name]; if (!G) continue;
+  const c = clip(), END = 4.0, t = G.t ?? 1.5;
+  const sb = {
+    id: `at-seabed-${name}`, title: `Atlantis seabed actors bench ${name}`, frame: "wide", far: 1500, fps: 30, look: "anime-pro", castLook: "sheet", profile: "short", loop: false, motion: "natural",
+    set: { type: "env", env: ENV, shade: "soft", aperture: 0, focus: false, life: "auto" }, music: false, sound: { sfx: 0, ambience: 0 }, creative: { length: [0, 20], notes: false },
+    cast: G.spud ? [{ id: "spud", character: "potatobrawl/spud", at: G.spud.at, face: G.spud.face, expr: "kind", seed: 1.3 }] : [],
+    props: [...(G.spud ? [host("spud", G.lamp ?? 0)] : []), ...G.props], allowClip: G.spud ? lampClip(["spud"], END) : [],
+    beats: c.beats([["hold", 0, G.cam]], END), duration: END, notes: `Generated by make-at-seabed.mjs (bench ${name}): ${G.label}`,
+  };
+  fs.writeFileSync(path.join(OUT, `at-seabed-${name}.json`), JSON.stringify(sb, null, 1) + "\n");
+  console.log("wrote", `at-seabed-${name}.json`, "still at", t, "|", G.label);
+}

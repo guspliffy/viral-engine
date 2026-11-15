@@ -1,0 +1,99 @@
+{
+  "id": "ancient-aliens/plato",
+  "name": "Plato",
+  "franchise": "Ancient Aliens",
+  "source": "Ancient Aliens EP03 Atlantis kit (15 Nov 2026): DESIGNS.md section 8, task T6; the look target is panels 39, 47 and 48 of the Atlantis sheets",
+  "rig": "potato",
+  "body": {
+    "color": "#e0a655",
+    "height": 1.08,
+    "width": 0.8,
+    "depth": 0.7,
+    "lump": 0.04,
+    "seed": 53,
+    "taper": 0.06,
+    "specks": 12,
+    "speckColor": "#c08a44"
+  },
+  "limbs": {
+    "color": "#e0a655",
+    "width": 0.034,
+    "shoulder": -0.32,
+    "role": "skin"
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#f2a070",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.35,
+      "smirk": 0.15,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 1.2
+    },
+    "browShape": {
+      "arch": 0.07,
+      "thick": 1.5
+    },
+    "brow": "#e6e4e2",
+    "final": {
+      "size": 0.84,
+      "eye": {
+        "oval": 1.12,
+        "iris": 0.56,
+        "lash": 1.25,
+        "flick": 0,
+        "glintSize": 1.0
+      },
+      "browShape": {
+        "inner": 0.14,
+        "outer": 0.68
+      },
+      "layout": {
+        "eyeU": 0.34,
+        "eyeV": 0.66,
+        "browV": 0.94,
+        "cheekU": 0.78,
+        "cheekV": 0.34
+      }
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "plato",
+    "robe": "#efe8d6",
+    "fold": "#b9ab8c",
+    "hair": "#dedddd",
+    "sandal": "#6a4a2e",
+    "hands": "#f6dcae"
+  },
+  "personality": "Plato, the old potato philosopher who wrote Atlantis down. Heavy-lidded, calm, never speaks: he looks up from his scroll, winks, and puts a finger to his lips (proposal until Jonny has seen it).",
+  "voice": {
+    "pitch": 105,
+    "rate": 2.8,
+    "formant": 0.95,
+    "range": 3,
+    "breath": 0.1,
+    "vibrato": 0.01,
+    "seed": 88
+  },
+  "voiceNote": "never speaks; gibberish, proposal",
+  "hands": {
+    "type": "glove",
+    "size": 1.5,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Costume type plato (engine/page/costumes-plato.js, its header is the usage text): ONE white hair mass round the back of the head from a high bald forehead (wave lobes, drawn curl strokes), ONE full beard with a broad moustache over it (the mouth is under the hair), a cream himation: a wrap with a rolled collar and a broad pleated band from under the right arm across the chest, over the left shoulder and down the back; draped sleeves over the upper arms, bare golden forearms, cream 3-finger gloves, brown sandals. Body 1.08 high x 0.80 wide x 0.70 deep, no sprout."
+}
