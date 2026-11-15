@@ -122,7 +122,10 @@ import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dar
 import { HP_SET_KINDS } from "./props-hotpotato-set.js";   // hot potato: the felt studio, trapdoor tiles and the vat
 import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the coal, tongs, bow tie and basket lift
 import { HAPPY_KINDS } from "./props-happy.js";   // happiness 01: limo, ambulance, bank front, fountain, iron gate, city dressing
-import { COUPE_KINDS } from "./props-coupe.js";   // happiness 01: the gold coupe (a prop, not a rig)
+import { COUPE_KINDS } from "./props-coupe.js";
+import { SPREE_KINDS } from "./props-spree.js";   // happiness 01 redo: check, bag mountain, sun disc, side-cast bits
+import { TOW_KINDS } from "./props-tow.js";   // happiness 01 redo: tow truck, coat heap
+import { HARBOUR_KINDS } from "./props-harbour.js";   // happiness 01 redo: pier, yacht   // happiness 01: the gold coupe (a prop, not a rig)
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1475,7 +1478,7 @@ Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props 
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
-Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
+Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
