@@ -1,0 +1,18 @@
+{
+ "aa-01-block-a": {
+  "01 hook": {
+   "c": -0.05
+  },
+  "08 heavier than a car": {
+   "c": 0.05
+  }
+ },
+ "aa01-block-b": {
+  "P17 80 tonnes overhead": {
+   "c": -0.1
+  },
+  "P17 b the boat": {
+   "c": 0.12
+  }
+ }
+}
