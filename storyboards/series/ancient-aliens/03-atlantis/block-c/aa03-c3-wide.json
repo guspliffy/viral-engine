@@ -1,0 +1,4099 @@
+{
+ "id": "aa03-c3-wide",
+ "frame": "wide",
+ "far": 1500,
+ "title": "Where did Atlantis go? (block C, c3)",
+ "idea": "Ancient aliens EP03 block C (1:42-2:34): clue 3, Bimini: a straight road of giant square stones under clear water; a 1940 psychic named 1968; the road found in 1968, 800 m; in Atlantis it was evening (the foreman counts Spud in); 'natural beachrock'; the staircase: can a whole city sink in one day? The sea: 3 mm a year, nothing. An earthquake: Port Royal 1692, two thirds in two minutes. Closer, but one town.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#8fd0ea",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -1.962,
+    8.192,
+    -5.39
+   ],
+   "light": "#fff8e6",
+   "shadow": "#7a9cc4",
+   "exposure": 1
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-score.ogg",
+  "from": 0,
+  "skip": 123.8,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "fx": [
+  {
+   "do": "shake",
+   "at": 17.8,
+   "dur": 1,
+   "amp": 0.03
+  },
+  {
+   "do": "shake",
+   "at": 18.8,
+   "dur": 1.8,
+   "amp": 0.04
+  }
+ ],
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    59999.5,
+    0.8
+   ],
+   "y": 0,
+   "face": 15,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "p28",
+   "kind": "cplate",
+   "scene": "28",
+   "x": 60000,
+   "y": 4.9,
+   "z": 0,
+   "hide": [
+    "fish"
+   ],
+   "staged": "plate 28 painted in 3D: block 0 top y 0, sand -0.6, sea level 4.9"
+  },
+  {
+   "id": "pair",
+   "kind": "cplate",
+   "scene": "27",
+   "x": 60000,
+   "y": 0,
+   "z": 120000,
+   "staged": "plate 27 painted in 3D: Bimini from above, sea y 0, block tops -4.9"
+  },
+  {
+   "id": "fishA",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     1.2,
+     1.6,
+     -2.5
+    ],
+    "r": 0.975
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishB",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     -2.4,
+     1.3,
+     -5.5
+    ],
+    "r": 1.2
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishC",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     2.6,
+     1.9,
+     -9
+    ],
+    "r": 1.35
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishFace",
+   "kind": "fish",
+   "type": "striped",
+   "n": 1,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     -0.14,
+     0.75,
+     1.7
+    ],
+    "r": 0.03
+   },
+   "range": 0.02,
+   "staged": "the fish that passes his face (30)"
+  },
+  {
+   "id": "stepsky",
+   "kind": "biminisky",
+   "x": 0,
+   "z": 20000,
+   "seed": 2,
+   "staged": "the sky dome"
+  },
+  {
+   "id": "stepsea",
+   "kind": "stepsea",
+   "x": 0,
+   "z": 20000,
+   "staged": "the sea at y 0"
+  },
+  {
+   "id": "step",
+   "kind": "atstep",
+   "x": 0,
+   "z": 20000,
+   "block": 0
+  },
+  {
+   "id": "ruler",
+   "kind": "ruler",
+   "x": 0.25,
+   "z": 20000.42,
+   "y": -0.55,
+   "water": 0.55,
+   "tint": "#ffffff"
+  },
+  {
+   "id": "coast",
+   "kind": "horizonland",
+   "x": 0,
+   "z": 20000,
+   "coast": "island",
+   "az": -30,
+   "size": 2.4,
+   "staged": "the far coast"
+  },
+  {
+   "id": "p34",
+   "kind": "cplate",
+   "scene": "34",
+   "x": 20000,
+   "y": 0,
+   "z": 20000,
+   "staged": "plate 34 painted in 3D: the boardwalk y 0"
+  },
+  {
+   "id": "p35",
+   "kind": "cplate",
+   "scene": "35",
+   "x": 0,
+   "y": 0,
+   "z": 140000,
+   "quake": 0,
+   "sink": 0,
+   "staged": "plate 35 painted in 3D: the boardwalk y 0, the houses sink"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 3.25,
+   "text": "But geologists say: natural beachrock.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 3.35,
+   "to": 4.85,
+   "text": "Cracked into squares.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 6.85,
+   "text": "So the real question.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 6.9,
+   "to": 9.75,
+   "text": "Can a whole city sink in one day?",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 5.1,
+   "to": 9.8,
+   "text": "24 h ?",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 10,
+   "to": 13.15,
+   "text": "The sea rises three millimetres a year.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 10.8,
+   "to": 13.2,
+   "text": "3 mm / YEAR",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 13.2,
+   "to": 14.4,
+   "text": "In one day?",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 14.55,
+   "to": 15.45,
+   "text": "Nothing.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 13.3,
+   "to": 15.5,
+   "text": "1 DAY: 0.008 mm",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 15.7,
+   "to": 16.75,
+   "text": "But an earthquake?",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 16.85,
+   "to": 21.15,
+   "text": "In sixteen ninety-two, two thirds of a town sank into the sea.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 16.85,
+   "to": 18.8,
+   "text": "1692",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 21.2,
+   "to": 23,
+   "text": "2 MIN",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 21.2,
+   "to": 22.95,
+   "text": "In two minutes.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 23.2,
+   "to": 24.05,
+   "text": "Closer.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 24.1,
+   "to": 25.91,
+   "text": "But that was one town.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.1,
+   "text": "06:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.1,
+   "to": 0.2,
+   "text": "06:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.2,
+   "to": 0.3,
+   "text": "06:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.3,
+   "to": 0.417,
+   "text": "06:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.417,
+   "to": 0.538,
+   "text": "06:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.538,
+   "to": 0.658,
+   "text": "06:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.658,
+   "to": 0.758,
+   "text": "06:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.758,
+   "to": 0.858,
+   "text": "06:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.858,
+   "to": 0.958,
+   "text": "06:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.958,
+   "to": 1.058,
+   "text": "06:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.058,
+   "to": 1.158,
+   "text": "06:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.158,
+   "to": 1.263,
+   "text": "06:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.263,
+   "to": 1.383,
+   "text": "06:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.383,
+   "to": 1.483,
+   "text": "06:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.483,
+   "to": 1.583,
+   "text": "06:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.583,
+   "to": 1.683,
+   "text": "06:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.683,
+   "to": 1.783,
+   "text": "06:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.783,
+   "to": 1.883,
+   "text": "06:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.883,
+   "to": 1.987,
+   "text": "06:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.987,
+   "to": 2.087,
+   "text": "06:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.087,
+   "to": 2.187,
+   "text": "06:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.187,
+   "to": 2.287,
+   "text": "06:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.287,
+   "to": 2.387,
+   "text": "06:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.387,
+   "to": 2.487,
+   "text": "06:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.487,
+   "to": 2.592,
+   "text": "06:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.592,
+   "to": 2.713,
+   "text": "06:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.713,
+   "to": 2.833,
+   "text": "06:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.833,
+   "to": 2.933,
+   "text": "06:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.933,
+   "to": 3.033,
+   "text": "06:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.033,
+   "to": 3.133,
+   "text": "06:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.133,
+   "to": 3.233,
+   "text": "06:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.233,
+   "to": 3.333,
+   "text": "06:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.333,
+   "to": 3.438,
+   "text": "06:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.438,
+   "to": 3.558,
+   "text": "06:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.558,
+   "to": 3.658,
+   "text": "06:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.658,
+   "to": 3.758,
+   "text": "06:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.758,
+   "to": 3.858,
+   "text": "06:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.858,
+   "to": 3.958,
+   "text": "06:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.958,
+   "to": 4.058,
+   "text": "06:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.058,
+   "to": 4.163,
+   "text": "06:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.163,
+   "to": 4.283,
+   "text": "06:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.283,
+   "to": 4.383,
+   "text": "06:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.383,
+   "to": 4.483,
+   "text": "06:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.483,
+   "to": 4.583,
+   "text": "06:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.583,
+   "to": 4.683,
+   "text": "06:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.683,
+   "to": 4.783,
+   "text": "06:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.783,
+   "to": 4.888,
+   "text": "06:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 4.888,
+   "to": 5.008,
+   "text": "06:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.008,
+   "to": 5.108,
+   "text": "06:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.108,
+   "to": 5.208,
+   "text": "06:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.208,
+   "to": 5.308,
+   "text": "06:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.308,
+   "to": 5.408,
+   "text": "06:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.408,
+   "to": 5.508,
+   "text": "06:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.508,
+   "to": 5.612,
+   "text": "06:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.612,
+   "to": 5.712,
+   "text": "06:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.712,
+   "to": 5.812,
+   "text": "06:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.812,
+   "to": 5.912,
+   "text": "06:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 5.912,
+   "to": 6.012,
+   "text": "06:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.012,
+   "to": 6.112,
+   "text": "06:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.112,
+   "to": 6.217,
+   "text": "06:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.217,
+   "to": 6.337,
+   "text": "06:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.337,
+   "to": 6.437,
+   "text": "06:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.437,
+   "to": 6.537,
+   "text": "06:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.537,
+   "to": 6.637,
+   "text": "06:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.637,
+   "to": 6.737,
+   "text": "06:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.737,
+   "to": 6.837,
+   "text": "06:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.837,
+   "to": 6.942,
+   "text": "05:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 6.942,
+   "to": 7.063,
+   "text": "05:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.063,
+   "to": 7.183,
+   "text": "05:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.183,
+   "to": 7.283,
+   "text": "05:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.283,
+   "to": 7.383,
+   "text": "05:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.383,
+   "to": 7.483,
+   "text": "05:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.483,
+   "to": 7.583,
+   "text": "05:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.583,
+   "to": 7.683,
+   "text": "05:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.683,
+   "to": 7.788,
+   "text": "05:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.788,
+   "to": 7.908,
+   "text": "05:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 7.908,
+   "to": 8.008,
+   "text": "05:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.008,
+   "to": 8.108,
+   "text": "05:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.108,
+   "to": 8.208,
+   "text": "05:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.208,
+   "to": 8.308,
+   "text": "05:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.308,
+   "to": 8.408,
+   "text": "05:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.408,
+   "to": 8.513,
+   "text": "05:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.513,
+   "to": 8.633,
+   "text": "05:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.633,
+   "to": 8.733,
+   "text": "05:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.733,
+   "to": 8.833,
+   "text": "05:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.833,
+   "to": 8.933,
+   "text": "05:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.933,
+   "to": 9.033,
+   "text": "05:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.033,
+   "to": 9.133,
+   "text": "05:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.133,
+   "to": 9.237,
+   "text": "05:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.237,
+   "to": 9.337,
+   "text": "05:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.337,
+   "to": 9.437,
+   "text": "05:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.437,
+   "to": 9.537,
+   "text": "05:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.537,
+   "to": 9.637,
+   "text": "05:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.637,
+   "to": 9.737,
+   "text": "05:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.737,
+   "to": 9.842,
+   "text": "05:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.842,
+   "to": 9.962,
+   "text": "05:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.962,
+   "to": 10.062,
+   "text": "05:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.062,
+   "to": 10.162,
+   "text": "05:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.162,
+   "to": 10.262,
+   "text": "05:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.262,
+   "to": 10.362,
+   "text": "05:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.362,
+   "to": 10.462,
+   "text": "05:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.462,
+   "to": 10.567,
+   "text": "05:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.567,
+   "to": 10.688,
+   "text": "05:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.688,
+   "to": 10.808,
+   "text": "05:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.808,
+   "to": 10.908,
+   "text": "05:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.908,
+   "to": 11.008,
+   "text": "05:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.008,
+   "to": 11.108,
+   "text": "05:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.108,
+   "to": 11.208,
+   "text": "05:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.208,
+   "to": 11.308,
+   "text": "05:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.308,
+   "to": 11.413,
+   "text": "05:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.413,
+   "to": 11.533,
+   "text": "05:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.533,
+   "to": 11.633,
+   "text": "05:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.633,
+   "to": 11.733,
+   "text": "05:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.733,
+   "to": 11.833,
+   "text": "05:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.833,
+   "to": 11.933,
+   "text": "05:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.933,
+   "to": 12.033,
+   "text": "05:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.033,
+   "to": 12.138,
+   "text": "05:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.138,
+   "to": 12.258,
+   "text": "05:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.258,
+   "to": 12.358,
+   "text": "05:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.358,
+   "to": 12.458,
+   "text": "05:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.458,
+   "to": 12.558,
+   "text": "05:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.558,
+   "to": 12.658,
+   "text": "05:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.658,
+   "to": 12.758,
+   "text": "05:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.758,
+   "to": 12.862,
+   "text": "05:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.862,
+   "to": 12.962,
+   "text": "05:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 12.962,
+   "to": 13.062,
+   "text": "05:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.062,
+   "to": 13.162,
+   "text": "05:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.162,
+   "to": 13.262,
+   "text": "05:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.262,
+   "to": 13.362,
+   "text": "05:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.362,
+   "to": 13.467,
+   "text": "05:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.467,
+   "to": 13.587,
+   "text": "05:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.587,
+   "to": 13.687,
+   "text": "05:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.687,
+   "to": 13.787,
+   "text": "05:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.787,
+   "to": 13.887,
+   "text": "05:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.887,
+   "to": 13.987,
+   "text": "05:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 13.987,
+   "to": 14.087,
+   "text": "05:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.087,
+   "to": 14.192,
+   "text": "04:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.192,
+   "to": 14.313,
+   "text": "04:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.313,
+   "to": 14.433,
+   "text": "04:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.433,
+   "to": 14.533,
+   "text": "04:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.533,
+   "to": 14.633,
+   "text": "04:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.633,
+   "to": 14.733,
+   "text": "04:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.733,
+   "to": 14.833,
+   "text": "04:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.833,
+   "to": 14.933,
+   "text": "04:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.933,
+   "to": 15.038,
+   "text": "04:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.038,
+   "to": 15.158,
+   "text": "04:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.158,
+   "to": 15.258,
+   "text": "04:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.258,
+   "to": 15.358,
+   "text": "04:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.358,
+   "to": 15.458,
+   "text": "04:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.458,
+   "to": 15.558,
+   "text": "04:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.558,
+   "to": 15.658,
+   "text": "04:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.658,
+   "to": 15.763,
+   "text": "04:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.763,
+   "to": 15.883,
+   "text": "04:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.883,
+   "to": 15.983,
+   "text": "04:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.983,
+   "to": 16.083,
+   "text": "04:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.083,
+   "to": 16.183,
+   "text": "04:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.183,
+   "to": 16.283,
+   "text": "04:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.283,
+   "to": 16.383,
+   "text": "04:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.383,
+   "to": 16.487,
+   "text": "04:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.487,
+   "to": 16.587,
+   "text": "04:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.587,
+   "to": 16.687,
+   "text": "04:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.687,
+   "to": 16.787,
+   "text": "04:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.787,
+   "to": 16.887,
+   "text": "04:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.887,
+   "to": 16.987,
+   "text": "04:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.987,
+   "to": 17.092,
+   "text": "04:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.092,
+   "to": 17.212,
+   "text": "04:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.212,
+   "to": 17.312,
+   "text": "04:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.312,
+   "to": 17.412,
+   "text": "04:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.412,
+   "to": 17.512,
+   "text": "04:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.512,
+   "to": 17.612,
+   "text": "04:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.612,
+   "to": 17.712,
+   "text": "04:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.712,
+   "to": 17.817,
+   "text": "04:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.817,
+   "to": 17.938,
+   "text": "04:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.938,
+   "to": 18.058,
+   "text": "04:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.058,
+   "to": 18.158,
+   "text": "04:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.158,
+   "to": 18.258,
+   "text": "04:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.258,
+   "to": 18.358,
+   "text": "04:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.358,
+   "to": 18.458,
+   "text": "04:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.458,
+   "to": 18.558,
+   "text": "04:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.558,
+   "to": 18.663,
+   "text": "04:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.663,
+   "to": 18.783,
+   "text": "04:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.783,
+   "to": 18.883,
+   "text": "04:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.883,
+   "to": 18.983,
+   "text": "04:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.983,
+   "to": 19.083,
+   "text": "04:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.083,
+   "to": 19.183,
+   "text": "04:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.183,
+   "to": 19.283,
+   "text": "04:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.283,
+   "to": 19.388,
+   "text": "04:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.388,
+   "to": 19.508,
+   "text": "04:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.508,
+   "to": 19.608,
+   "text": "04:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.608,
+   "to": 19.708,
+   "text": "04:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.708,
+   "to": 19.808,
+   "text": "04:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.808,
+   "to": 19.908,
+   "text": "04:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.908,
+   "to": 20.008,
+   "text": "04:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.008,
+   "to": 20.112,
+   "text": "04:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.112,
+   "to": 20.212,
+   "text": "04:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.212,
+   "to": 20.312,
+   "text": "04:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.312,
+   "to": 20.412,
+   "text": "04:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.412,
+   "to": 20.512,
+   "text": "04:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.512,
+   "to": 20.612,
+   "text": "04:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.612,
+   "to": 20.717,
+   "text": "04:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.717,
+   "to": 20.837,
+   "text": "04:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.837,
+   "to": 20.937,
+   "text": "04:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.937,
+   "to": 21.037,
+   "text": "04:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.037,
+   "to": 21.137,
+   "text": "04:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.137,
+   "to": 21.237,
+   "text": "04:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.237,
+   "to": 21.337,
+   "text": "04:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.337,
+   "to": 21.442,
+   "text": "03:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.442,
+   "to": 21.563,
+   "text": "03:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.563,
+   "to": 21.683,
+   "text": "03:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.683,
+   "to": 21.783,
+   "text": "03:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.783,
+   "to": 21.883,
+   "text": "03:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.883,
+   "to": 21.983,
+   "text": "03:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.983,
+   "to": 22.083,
+   "text": "03:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.083,
+   "to": 22.183,
+   "text": "03:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.183,
+   "to": 22.288,
+   "text": "03:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.288,
+   "to": 22.408,
+   "text": "03:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.408,
+   "to": 22.508,
+   "text": "03:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.508,
+   "to": 22.608,
+   "text": "03:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.608,
+   "to": 22.708,
+   "text": "03:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.708,
+   "to": 22.808,
+   "text": "03:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.808,
+   "to": 22.908,
+   "text": "03:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 22.908,
+   "to": 23.013,
+   "text": "03:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.013,
+   "to": 23.133,
+   "text": "03:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.133,
+   "to": 23.233,
+   "text": "03:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.233,
+   "to": 23.333,
+   "text": "03:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.333,
+   "to": 23.433,
+   "text": "03:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.433,
+   "to": 23.533,
+   "text": "03:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.533,
+   "to": 23.633,
+   "text": "03:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.633,
+   "to": 23.737,
+   "text": "03:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.737,
+   "to": 23.837,
+   "text": "03:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.837,
+   "to": 23.937,
+   "text": "03:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 23.937,
+   "to": 24.037,
+   "text": "03:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.037,
+   "to": 24.137,
+   "text": "03:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.137,
+   "to": 24.237,
+   "text": "03:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.237,
+   "to": 24.342,
+   "text": "03:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.342,
+   "to": 24.462,
+   "text": "03:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.462,
+   "to": 24.562,
+   "text": "03:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.562,
+   "to": 24.662,
+   "text": "03:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.662,
+   "to": 24.762,
+   "text": "03:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.762,
+   "to": 24.862,
+   "text": "03:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.862,
+   "to": 24.962,
+   "text": "03:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 24.962,
+   "to": 25.067,
+   "text": "03:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.067,
+   "to": 25.188,
+   "text": "03:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.188,
+   "to": 25.308,
+   "text": "03:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.308,
+   "to": 25.408,
+   "text": "03:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.408,
+   "to": 25.508,
+   "text": "03:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.508,
+   "to": 25.608,
+   "text": "03:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.608,
+   "to": 25.708,
+   "text": "03:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.708,
+   "to": 25.808,
+   "text": "03:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.808,
+   "to": 25.913,
+   "text": "03:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 25.913,
+   "to": 26.033,
+   "text": "03:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 26.033,
+   "to": 26.133,
+   "text": "03:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 26.133,
+   "to": 26.2,
+   "text": "03:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0,
+   "to": 26.2,
+   "text": "CLUE 3/4",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 210
+  }
+ ],
+ "beats": [
+  {
+   "name": "30 natural beachrock",
+   "at": 0,
+   "len": 4.9,
+   "shot": {
+    "pos": [
+     60002,
+     1.9,
+     7.2
+    ],
+    "look": [
+     59999.5,
+     0.75,
+     0.8
+    ],
+    "fov": 15,
+    "to": {
+     "pos": [
+      60001.85,
+      1.85,
+      6.9
+     ],
+     "fov": 13
+    },
+    "dur": 4.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      59999.5,
+      0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.35,
+      "lid": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.3,
+     "dur": 4.9,
+     "reason": "under water again",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 4.6,
+     "idle": 0.1,
+     "at": 0.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But geologists say: natural beachrock.",
+     "tone": "calm",
+     "dur": 3.01,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.2,
+      "lid": 0.6,
+      "curve": -0.1
+     },
+     "dur": 0.25,
+     "at": 3.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Cracked into squares.",
+     "tone": "calm",
+     "dur": 1.35,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.55,
+      19999.7
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.88
+    },
+    {
+     "do": "prop",
+     "id": "step",
+     "set": {
+      "block": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.88
+    }
+   ]
+  },
+  {
+   "name": "31 the staircase",
+   "at": 4.9,
+   "len": 4.9,
+   "shot": {
+    "pos": [
+     0.6,
+     1.15,
+     20006.5
+    ],
+    "look": [
+     0,
+     0.85,
+     19980
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0.5,
+      1.1,
+      20005.6
+     ]
+    },
+    "dur": 4.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.1,
+     "dur": 10.6,
+     "reason": "a calm sea lapping on marble",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "So the real question.",
+     "tone": "calm",
+     "dur": 1.67,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.6,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1.8
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Can a whole city sink in one day?",
+     "tone": "question",
+     "dur": 2.69,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.9,
+      "lid": 0.2
+     },
+     "dur": 0.2,
+     "at": 2.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.6,
+      20000.9
+     ],
+     "y": -0.55,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.88
+    },
+    {
+     "do": "prop",
+     "id": "step",
+     "set": {
+      "block": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.88
+    }
+   ]
+  },
+  {
+   "name": "32 the ruler",
+   "at": 9.8,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -0.2,
+     0.2,
+     20002.6
+    ],
+    "look": [
+     -0.1,
+     0.22,
+     20000.4
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -0.15,
+      0.2,
+      20002.35
+     ]
+    },
+    "dur": 3.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "The sea rises three millimetres a year.",
+     "tone": "calm",
+     "dur": 3.03,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.5,
+      19999.3
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": 0,
+     "height": 0.3,
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "33 he waits",
+   "at": 13.2,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.3,
+     0.8,
+     20003.2
+    ],
+    "look": [
+     0,
+     0.85,
+     19999.2
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.3,
+      0.8,
+      20003.05
+     ]
+    },
+    "dur": 2.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.3,
+      "lid": 0.55
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In one day?",
+     "tone": "question",
+     "dur": 0.8,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.9
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Nothing.",
+     "tone": "calm",
+     "dur": 0.67,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      19999.85,
+      19994.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 8,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 2.28
+    }
+   ]
+  },
+  {
+   "name": "34 Port Royal 1692",
+   "at": 15.5,
+   "len": 3.3,
+   "shot": {
+    "pos": [
+     20000,
+     2,
+     20000
+    ],
+    "look": [
+     20010.4,
+     -2.5,
+     19951.1
+    ],
+    "fov": 46.7,
+    "to": {
+     "pos": [
+      20000.15,
+      1.95,
+      19999.5
+     ],
+     "fov": 41
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.1,
+     "dur": 3.3,
+     "reason": "the harbour",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But an earthquake?",
+     "tone": "question",
+     "dur": 0.99,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.2
+     ],
+     "dur": 0.6,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In sixteen ninety-two, two thirds of a town sank into the sea.",
+     "tone": "calm",
+     "dur": 4.17,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.35
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.6,
+     "dur": 4.5,
+     "reason": "the earthquake: a deep rumble under the town",
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "macro": "react",
+     "expr": "surprised",
+     "big": true,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.3,
+      139995.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -18,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.28
+    },
+    {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "sink": 0,
+      "quake": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.28
+    }
+   ]
+  },
+  {
+   "name": "35 two thirds into the sea",
+   "at": 18.8,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     0,
+     2,
+     140000
+    ],
+    "look": [
+     30.5,
+     -5,
+     139961
+    ],
+    "fov": 46.7,
+    "to": {
+     "pos": [
+      0.25,
+      1.95,
+      139999.65
+     ],
+     "fov": 43
+    },
+    "dur": 4.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "quake": 1
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.15,
+      139996.1
+     ],
+     "y": 0,
+     "dur": 1.5,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "sink": 1
+     },
+     "dur": 1.5,
+     "ease": "in",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/water-gush",
+     "gain": 0.6,
+     "reason": "the town slides into the harbour",
+     "at": 0.2
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.4,
+     "reason": "timber houses break",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "p35",
+     "set": {
+      "quake": 0
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 1.9
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In two minutes.",
+     "tone": "calm",
+     "dur": 1.48,
+     "voice": "reaper",
+     "caption": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.55,
+      19999.7
+     ],
+     "y": 0.3,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.18
+    },
+    {
+     "do": "prop",
+     "id": "step",
+     "set": {
+      "block": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.18
+    }
+   ]
+  },
+  {
+   "name": "36 closer, but one town",
+   "at": 23,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     0.3,
+     1,
+     20003
+    ],
+    "look": [
+     0,
+     0.95,
+     19990
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      0.3,
+      1,
+      20002.6
+     ]
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5,
+      "lid": 0.7
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Closer.",
+     "tone": "calm",
+     "dur": 0.61,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "macro": "nod",
+     "times": 2,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 1.1
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "But that was one town.",
+     "tone": "calm",
+     "dur": 1.41,
+     "voice": "reaper",
+     "caption": false,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.85,
+      "lid": 0.25
+     },
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "dur": 0.55,
+     "at": 2.6
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 26.2,
+   "reason": "the headlamp band is worn on his head"
+  },
+  {
+   "who": "spud",
+   "with": "stepsky",
+   "from": 0,
+   "to": 26.2,
+   "checks": [
+    "shell"
+   ],
+   "reason": "shell: the sky dome rides with the camera and is drawn behind everything (lookOnly)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c3 of three (block time 25.8-52 s, story 123.8-150 s). Music = the EP03 score from story 123.8 s."
+}

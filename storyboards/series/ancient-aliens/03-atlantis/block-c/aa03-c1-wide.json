@@ -1,0 +1,2540 @@
+{
+ "id": "aa03-c1-wide",
+ "frame": "wide",
+ "far": 1500,
+ "title": "Where did Atlantis go? (block C, c1)",
+ "idea": "Ancient aliens EP03 block C (1:42-2:34): clue 3, Bimini: a straight road of giant square stones under clear water; a 1940 psychic named 1968; the road found in 1968, 800 m; in Atlantis it was evening (the foreman counts Spud in); 'natural beachrock'; the staircase: can a whole city sink in one day? The sea: 3 mm a year, nothing. An earthquake: Port Royal 1692, two thirds in two minutes. Closer, but one town.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#8fd0ea",
+  "floor": "none",
+  "lighting": {
+   "v": 2,
+   "measure": false,
+   "ao": 0,
+   "key": [
+    -1.962,
+    8.192,
+    -5.39
+   ],
+   "light": "#fff8e6",
+   "shadow": "#7a9cc4",
+   "exposure": 1
+  },
+  "plate": {
+   "src": "assets/plates/at-c-page-1940.png",
+   "z": 39997.8,
+   "center": [
+    40000,
+    1.6
+   ],
+   "height": 3.2,
+   "depth": false,
+   "motion": false,
+   "dust": 0
+  }
+ },
+ "music": {
+  "file": "ancient-aliens/aa03-score.ogg",
+  "from": 0,
+  "skip": 98,
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "mood": "dramatic"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "Bimini: a dead-straight line of giant square stones under clear turquoise water, Spud floating above them; 1940 -> 1968 up top"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    60000.3,
+    1.4
+   ],
+   "y": 1.5,
+   "face": 0,
+   "expr": "neutral",
+   "follow": 0.2,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "spud-lamp",
+   "kind": "headlamp",
+   "wear": "spud",
+   "fit": "potatobrawl/spud",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "lit": 1
+  },
+  {
+   "id": "p28",
+   "kind": "cplate",
+   "scene": "28",
+   "x": 60000,
+   "y": 4.9,
+   "z": 0,
+   "hide": [
+    "fish"
+   ],
+   "staged": "plate 28 painted in 3D: block 0 top y 0, sand -0.6, sea level 4.9"
+  },
+  {
+   "id": "pair",
+   "kind": "cplate",
+   "scene": "27",
+   "x": 60000,
+   "y": 0,
+   "z": 120000,
+   "staged": "plate 27 painted in 3D: Bimini from above, sea y 0, block tops -4.9"
+  },
+  {
+   "id": "fishA",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     1.2,
+     1.6,
+     -2.5
+    ],
+    "r": 0.975
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishB",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     -2.4,
+     1.3,
+     -5.5
+    ],
+    "r": 1.2
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishC",
+   "kind": "fish",
+   "type": "striped",
+   "n": 4,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     2.6,
+     1.9,
+     -9
+    ],
+    "r": 1.35
+   },
+   "staged": "swimming"
+  },
+  {
+   "id": "fishFace",
+   "kind": "fish",
+   "type": "striped",
+   "n": 1,
+   "scale": 1.333,
+   "x": 60000,
+   "z": 0,
+   "path": {
+    "c": [
+     -0.14,
+     0.75,
+     1.7
+    ],
+    "r": 0.03
+   },
+   "range": 0.02,
+   "staged": "the fish that passes his face (30)"
+  },
+  {
+   "id": "marks",
+   "kind": "pagemarks",
+   "plate": {
+    "src": "assets/plates/at-c-page-1940.png",
+    "z": 39997.8,
+    "center": [
+     40000,
+     1.6
+    ],
+    "height": 3.2,
+    "depth": false,
+    "motion": false,
+    "dust": 0
+   },
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "size": 22,
+   "pitch": 13.2,
+   "marks": [
+    {
+     "text": "1940",
+     "x": 968,
+     "y": 100
+    },
+    {
+     "text": "68",
+     "x": 577,
+     "y": 538
+    },
+    {
+     "text": "69",
+     "x": 682,
+     "y": 532
+    }
+   ],
+   "type": 0,
+   "draw": 0,
+   "staged": "typed marks on the hung 1940 page plate"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 3.55,
+   "text": "He named the year. Twenty-eight years early.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 3.6,
+   "text": "1940 → 1968",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120,
+   "x": 1421
+  },
+  {
+   "from": 3.8,
+   "to": 8.75,
+   "text": "Clue three. In nineteen forty, an American psychic said:",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 8.95,
+   "to": 11.45,
+   "text": "part of Atlantis will rise. Near Bimini.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 11.65,
+   "to": 14.35,
+   "text": "In sixty-eight or sixty-nine.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 14.6,
+   "to": 17.35,
+   "text": "In nineteen sixty-eight, divers found this.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 14.4,
+   "to": 17.4,
+   "text": "1968",
+   "pos": 330,
+   "pop": false,
+   "kinetic": false,
+   "size": 120
+  },
+  {
+   "from": 17.45,
+   "to": 19.95,
+   "text": "Eight hundred metres of square stones.",
+   "pos": 150,
+   "pop": false,
+   "size": 54,
+   "kinetic": false
+  },
+  {
+   "from": 17.6,
+   "to": 17.7,
+   "text": "0 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.7,
+   "to": 17.8,
+   "text": "130 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.8,
+   "to": 17.9,
+   "text": "250 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 17.9,
+   "to": 18,
+   "text": "350 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18,
+   "to": 18.1,
+   "text": "440 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.1,
+   "to": 18.2,
+   "text": "520 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.2,
+   "to": 18.3,
+   "text": "580 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.3,
+   "to": 18.4,
+   "text": "640 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.4,
+   "to": 18.5,
+   "text": "680 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.5,
+   "to": 18.6,
+   "text": "720 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.6,
+   "to": 18.7,
+   "text": "740 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.7,
+   "to": 18.8,
+   "text": "760 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.8,
+   "to": 18.9,
+   "text": "780 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 18.9,
+   "to": 19,
+   "text": "790 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 19,
+   "to": 19.1,
+   "text": "800 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 19.1,
+   "to": 19.2,
+   "text": "800 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 19.2,
+   "to": 19.3,
+   "text": "800 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 19.3,
+   "to": 20,
+   "text": "800 m",
+   "pos": 330,
+   "pop": false,
+   "size": 120,
+   "kinetic": false
+  },
+  {
+   "from": 0,
+   "to": 0.117,
+   "text": "10:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.117,
+   "to": 0.237,
+   "text": "10:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.237,
+   "to": 0.337,
+   "text": "10:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.337,
+   "to": 0.437,
+   "text": "10:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.437,
+   "to": 0.537,
+   "text": "10:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.537,
+   "to": 0.637,
+   "text": "10:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.637,
+   "to": 0.737,
+   "text": "10:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.737,
+   "to": 0.842,
+   "text": "10:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.842,
+   "to": 0.963,
+   "text": "10:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 0.963,
+   "to": 1.083,
+   "text": "10:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.083,
+   "to": 1.183,
+   "text": "10:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.183,
+   "to": 1.283,
+   "text": "10:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.283,
+   "to": 1.383,
+   "text": "10:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.383,
+   "to": 1.483,
+   "text": "10:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.483,
+   "to": 1.583,
+   "text": "10:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.583,
+   "to": 1.688,
+   "text": "10:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.688,
+   "to": 1.808,
+   "text": "10:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.808,
+   "to": 1.908,
+   "text": "10:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 1.908,
+   "to": 2.008,
+   "text": "10:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.008,
+   "to": 2.108,
+   "text": "10:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.108,
+   "to": 2.208,
+   "text": "10:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.208,
+   "to": 2.308,
+   "text": "10:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.308,
+   "to": 2.412,
+   "text": "10:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.412,
+   "to": 2.512,
+   "text": "10:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.512,
+   "to": 2.612,
+   "text": "10:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.612,
+   "to": 2.712,
+   "text": "10:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.712,
+   "to": 2.812,
+   "text": "10:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.812,
+   "to": 2.912,
+   "text": "10:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 2.912,
+   "to": 3.017,
+   "text": "10:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.017,
+   "to": 3.138,
+   "text": "10:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.138,
+   "to": 3.258,
+   "text": "10:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.258,
+   "to": 3.358,
+   "text": "10:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.358,
+   "to": 3.458,
+   "text": "10:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.458,
+   "to": 3.558,
+   "text": "10:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.558,
+   "to": 3.6,
+   "text": "10:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.8,
+   "to": 8.9,
+   "text": "09:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 8.9,
+   "to": 9,
+   "text": "09:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9,
+   "to": 9.1,
+   "text": "09:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.1,
+   "to": 9.2,
+   "text": "09:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.2,
+   "to": 9.3,
+   "text": "09:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.3,
+   "to": 9.421,
+   "text": "09:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.421,
+   "to": 9.542,
+   "text": "09:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.542,
+   "to": 9.662,
+   "text": "09:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.662,
+   "to": 9.762,
+   "text": "09:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.762,
+   "to": 9.862,
+   "text": "09:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.862,
+   "to": 9.962,
+   "text": "09:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 9.962,
+   "to": 10.062,
+   "text": "09:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.062,
+   "to": 10.162,
+   "text": "09:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.162,
+   "to": 10.267,
+   "text": "09:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.267,
+   "to": 10.388,
+   "text": "09:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.388,
+   "to": 10.508,
+   "text": "09:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.508,
+   "to": 10.608,
+   "text": "09:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.608,
+   "to": 10.708,
+   "text": "09:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.708,
+   "to": 10.808,
+   "text": "09:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.808,
+   "to": 10.908,
+   "text": "09:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 10.908,
+   "to": 11.008,
+   "text": "08:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.008,
+   "to": 11.112,
+   "text": "08:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.112,
+   "to": 11.212,
+   "text": "08:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.212,
+   "to": 11.312,
+   "text": "08:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.312,
+   "to": 11.412,
+   "text": "08:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 11.412,
+   "to": 11.5,
+   "text": "08:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.4,
+   "to": 14.5,
+   "text": "08:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.5,
+   "to": 14.617,
+   "text": "08:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.617,
+   "to": 14.737,
+   "text": "08:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.737,
+   "to": 14.837,
+   "text": "08:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.837,
+   "to": 14.937,
+   "text": "08:27",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 14.937,
+   "to": 15.037,
+   "text": "08:26",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.037,
+   "to": 15.137,
+   "text": "08:25",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.137,
+   "to": 15.237,
+   "text": "08:24",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.237,
+   "to": 15.342,
+   "text": "08:23",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.342,
+   "to": 15.463,
+   "text": "08:22",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.463,
+   "to": 15.583,
+   "text": "08:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.583,
+   "to": 15.683,
+   "text": "08:21",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.683,
+   "to": 15.783,
+   "text": "08:20",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.783,
+   "to": 15.883,
+   "text": "08:19",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.883,
+   "to": 15.983,
+   "text": "08:18",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 15.983,
+   "to": 16.083,
+   "text": "08:17",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.083,
+   "to": 16.188,
+   "text": "08:16",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.188,
+   "to": 16.308,
+   "text": "08:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.308,
+   "to": 16.408,
+   "text": "08:15",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.408,
+   "to": 16.508,
+   "text": "08:14",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.508,
+   "to": 16.608,
+   "text": "08:13",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.608,
+   "to": 16.708,
+   "text": "08:12",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.708,
+   "to": 16.808,
+   "text": "08:11",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.808,
+   "to": 16.912,
+   "text": "08:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 16.912,
+   "to": 17.012,
+   "text": "08:10",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.012,
+   "to": 17.112,
+   "text": "08:09",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.112,
+   "to": 17.212,
+   "text": "08:08",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.212,
+   "to": 17.312,
+   "text": "08:07",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.312,
+   "to": 17.412,
+   "text": "08:06",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.412,
+   "to": 17.517,
+   "text": "08:05",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.517,
+   "to": 17.638,
+   "text": "08:04",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.638,
+   "to": 17.758,
+   "text": "08:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.758,
+   "to": 17.858,
+   "text": "08:03",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.858,
+   "to": 17.958,
+   "text": "08:02",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 17.958,
+   "to": 18.058,
+   "text": "08:01",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.058,
+   "to": 18.158,
+   "text": "08:00",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.158,
+   "to": 18.258,
+   "text": "07:59",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.258,
+   "to": 18.362,
+   "text": "07:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.362,
+   "to": 18.462,
+   "text": "07:58",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.462,
+   "to": 18.562,
+   "text": "07:57",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.562,
+   "to": 18.662,
+   "text": "07:56",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.662,
+   "to": 18.762,
+   "text": "07:55",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.762,
+   "to": 18.862,
+   "text": "07:54",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.862,
+   "to": 18.967,
+   "text": "07:53",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 18.967,
+   "to": 19.088,
+   "text": "07:52",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.088,
+   "to": 19.208,
+   "text": "07:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.208,
+   "to": 19.308,
+   "text": "07:51",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.308,
+   "to": 19.408,
+   "text": "07:50",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.408,
+   "to": 19.508,
+   "text": "07:49",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.508,
+   "to": 19.608,
+   "text": "07:48",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.608,
+   "to": 19.708,
+   "text": "07:47",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.708,
+   "to": 19.813,
+   "text": "07:46",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.813,
+   "to": 19.933,
+   "text": "07:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 19.933,
+   "to": 20.033,
+   "text": "07:45",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.033,
+   "to": 20.133,
+   "text": "07:44",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.133,
+   "to": 20.233,
+   "text": "07:43",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.233,
+   "to": 20.333,
+   "text": "07:42",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.333,
+   "to": 20.433,
+   "text": "07:41",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.433,
+   "to": 20.537,
+   "text": "07:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.537,
+   "to": 20.637,
+   "text": "07:40",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.637,
+   "to": 20.737,
+   "text": "07:39",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.737,
+   "to": 20.837,
+   "text": "07:38",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.837,
+   "to": 20.937,
+   "text": "07:37",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 20.937,
+   "to": 21.037,
+   "text": "07:36",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.037,
+   "to": 21.142,
+   "text": "07:35",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.142,
+   "to": 21.263,
+   "text": "07:34",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.263,
+   "to": 21.383,
+   "text": "07:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.383,
+   "to": 21.483,
+   "text": "07:33",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.483,
+   "to": 21.583,
+   "text": "07:32",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.583,
+   "to": 21.683,
+   "text": "07:31",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.683,
+   "to": 21.783,
+   "text": "07:30",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.783,
+   "to": 21.883,
+   "text": "07:29",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.883,
+   "to": 21.987,
+   "text": "07:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 21.987,
+   "to": 22,
+   "text": "07:28",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 1690
+  },
+  {
+   "from": 3.6,
+   "to": 22,
+   "text": "CLUE 3/4",
+   "pos": 52,
+   "pop": false,
+   "style": "label",
+   "size": 38,
+   "kinetic": false,
+   "x": 210
+  }
+ ],
+ "beats": [
+  {
+   "name": "25 the road under water (part 3 hook)",
+   "at": 0,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     60002.44,
+     1.97,
+     7.47
+    ],
+    "look": [
+     59991.12,
+     -1.9,
+     -40.8
+    ],
+    "fov": 28.6,
+    "to": {
+     "pos": [
+      60002,
+      1.8,
+      6.9
+     ],
+     "fov": 22
+    },
+    "dur": 3.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "fly",
+     "to": {
+      "x": 60000.2,
+      "y": 1.35,
+      "z": 0.2
+     },
+     "dur": 3.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.5,
+      "lid": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "out",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "out",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.3,
+     "dur": 3.6,
+     "reason": "under clear water: the hush, small bubbles",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "He named the year. Twenty-eight years early.",
+     "tone": "calm",
+     "dur": 3.04,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.8,
+      "lid": 0.3
+     },
+     "dur": 0.3,
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60000,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.58
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "type": 0,
+      "draw": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.58
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "26 the 1940 page",
+   "at": 3.6,
+   "len": 5.2,
+   "shot": {
+    "pos": [
+     39999.975,
+     2.013,
+     40001.2
+    ],
+    "look": [
+     39999.975,
+     2.013,
+     39997.8
+    ],
+    "fov": 33.112,
+    "to": {
+     "pos": [
+      40000.35,
+      2.263,
+      40001.2
+     ],
+     "look": [
+      40000.35,
+      2.263,
+      39997.8
+     ],
+     "fov": 22.23
+    },
+    "dur": 5.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Clue three. In nineteen forty, an American psychic said:",
+     "tone": "calm",
+     "dur": 4.87,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "type": 0.5
+     },
+     "dur": 0.5,
+     "ease": "linear",
+     "at": 1.75
+    },
+    {
+     "sfx": "typing",
+     "gain": 0.3,
+     "dur": 0.5,
+     "reason": "a typewriter strikes 1-9-4-0",
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "draw": 0.333
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 2.6
+    }
+   ]
+  },
+  {
+   "name": "27a near Bimini, from high above",
+   "at": 8.8,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     60003.44,
+     7.51,
+     120000
+    ],
+    "look": [
+     60001.74,
+     -2.37,
+     119951.04
+    ],
+    "fov": 36.4,
+    "to": {
+     "pos": [
+      60003.3,
+      7.35,
+      119999
+     ],
+     "fov": 34
+    },
+    "dur": 2.7,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.06,
+     "dur": 2.7,
+     "reason": "the open shallows far below",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "part of Atlantis will rise. Near Bimini.",
+     "tone": "calm",
+     "dur": 2.41,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "26b '68 and '69",
+   "at": 11.5,
+   "len": 2.9,
+   "shot": {
+    "pos": [
+     39999.6,
+     1.575,
+     40001.2
+    ],
+    "look": [
+     39999.6,
+     1.575,
+     39997.8
+    ],
+    "fov": 12.393,
+    "to": {
+     "pos": [
+      39999.6,
+      1.559,
+      40001.2
+     ],
+     "look": [
+      39999.6,
+      1.559,
+      39997.8
+     ],
+     "fov": 10.046
+    },
+    "dur": 2.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In sixty-eight or sixty-nine.",
+     "tone": "calm",
+     "dur": 2.63,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "type": 0.75
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.6
+    },
+    {
+     "sfx": "typing",
+     "gain": 0.3,
+     "dur": 0.3,
+     "reason": "6-8",
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "type": 1
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.6
+    },
+    {
+     "sfx": "typing",
+     "gain": 0.3,
+     "dur": 0.3,
+     "reason": "6-9",
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "draw": 1
+     },
+     "dur": 0.8,
+     "ease": "linear",
+     "at": 1.95
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      60002.4,
+      119974
+     ],
+     "y": -0.45,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.88
+    }
+   ]
+  },
+  {
+   "name": "27 the road from above",
+   "at": 14.4,
+   "len": 5.6,
+   "shot": {
+    "pos": [
+     60003.44,
+     7.51,
+     120000
+    ],
+    "look": [
+     60001.8,
+     -8.77,
+     119952.75
+    ],
+    "fov": 36.4,
+    "to": {
+     "pos": [
+      60003.2,
+      7.3,
+      119999
+     ],
+     "fov": 27
+    },
+    "dur": 5.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "sfx": "ai/car-waves",
+     "gain": 0.07,
+     "dur": 5.6,
+     "reason": "the shallows from above",
+     "at": 0
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "In nineteen sixty-eight, divers found this.",
+     "tone": "excited",
+     "dur": 2.71,
+     "voice": "reaper",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "macro": "say",
+     "who": "spud",
+     "line": "Eight hundred metres of square stones.",
+     "tone": "calm",
+     "dur": 2.36,
+     "voice": "reaper",
+     "caption": false,
+     "at": 3.05
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      59999.5,
+      0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.58
+    }
+   ]
+  },
+  {
+   "name": "28 his palm on the first block",
+   "at": 20,
+   "len": 2,
+   "shot": {
+    "pos": [
+     60002.44,
+     1.97,
+     7.47
+    ],
+    "look": [
+     59999.5,
+     0.4,
+     0.8
+    ],
+    "fov": 13,
+    "to": {
+     "pos": [
+      60002.2,
+      1.85,
+      7
+     ],
+     "fov": 11
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "neutral",
+     "set": {
+      "brow": 0.6,
+      "lid": 0.25
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/underwater-amb",
+     "gain": 0.3,
+     "dur": 2,
+     "reason": "back under the water",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.8,
+     "dur": 0.5,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "out",
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "spud-lamp",
+   "from": 0,
+   "to": 22,
+   "reason": "the headlamp band is worn on his head"
+  }
+ ],
+ "notes": "Generated by storyboards/series/ancient-aliens/03-atlantis/block-c/make-block-c.mjs. Block C, storyboard c1 of three (block time 0-22 s, story 98-120 s). Music = the EP03 score from story 98 s."
+}
