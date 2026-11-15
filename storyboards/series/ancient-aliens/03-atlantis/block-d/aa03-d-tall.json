@@ -75,9 +75,9 @@
   }
  },
  "music": {
-  "file": "ancient-aliens/aa03-score.ogg",
+  "file": "ancient-aliens/aa03-part-d.ogg",
   "from": 0,
-  "skip": 150,
+  "skip": 0,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,

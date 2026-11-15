@@ -17,7 +17,7 @@
 // "373 BC"), so the tall cut has no extra hook shot (H 0) and stands alone from frame 0.
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import { existsSync, readFileSync } from "node:fs";
-import { FRAME, FAR, PLACE, AT_NIGHT, hostSay, clueTag, atlantisClock, count, score, host, lampClip, CAST } from "../kit/at-kit.mjs";
+import { FRAME, FAR, PLACE, AT_NIGHT, hostSay, clueTag, atlantisClock, count, score, partScore, host, lampClip, CAST } from "../kit/at-kit.mjs";
 import { LINES, SUBS, toneOf } from "./lines.mjs";
 
 const MEASURED = new URL("./lines.json", import.meta.url);
@@ -267,7 +267,7 @@ function build(F) {
   return {
     set: { ...AT_NIGHT, aperture: 0, focus: false,
       plate: PL, ...(MAP40 !== MAP38 && { plate: { ...PL, swaps: [{ at: T.map2, src: MAP40 }] } }) },
-    music: score(T0),
+    music: F.key === "tall" ? partScore("d") : score(T0),   // the tall part 4 is a short on its own: its own score cut (kit aa03-part-d.ogg)
     captionBand: F.key === "wide" ? [30, 490] : [200, 820],
     hook: { show: ["spudK"], hint: 0, what: "Helike, 373 BC, at night: the sea rises over the roofs, Spud on the knoll; '373 BC' on screen" },
     creative: { length: [END, END] },
