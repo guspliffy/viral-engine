@@ -18,9 +18,12 @@ export function picrule(c, t, dur, top, bottom, o = {}) { c.at(t, { fx: "picrule
 // the "hud" block: day / battery a number or keys, clock "HH:MM" or keys; pos "top" | "bottom", or y (px); show: [from, to]
 // label: a small yellow line under DAY ("SURVIVE IT"); threat: { kind: "snow", keys } (metres, a house chip under the
 // day); gauge: { kind: "warmth", keys } (°C, a thermometer after the clock). engine/page/hud.js has the details.
-export function hud({ day, clock, battery, part, label, threat, gauge, pos, y, show, clockTag } = {}) {
+// money: keys [[t, dollars, dur?]] or { keys, in, fade: [from, dur], y } (a counter and 10 sack pips in the strip y 344-462);
+// sun: { p: keys of 0-1 along the arc, last: [from, to] (the last minute "1:00" -> "0:00"), in, fade, y } (passed through as given).
+export function hud({ day, clock, battery, part, label, threat, gauge, money, sun, pos, y, show, clockTag } = {}) {
   return { ...(day != null && { day }), ...(clock != null && { clock }), ...(battery != null && { battery }), ...(part != null && { part }),
     ...(label && { label }), ...(threat && { threat }), ...(gauge && { gauge }),
+    ...(money && { money }), ...(sun && { sun }),
     ...(pos && { pos }), ...(y != null && { y }), ...(show && { show }), ...(clockTag === false && { clockTag: false }) };
 }
 
