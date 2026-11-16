@@ -4,7 +4,7 @@ export const LINES = {
   n1: "So you try not to look.",
   n2: "Which is harder than it sounds.",
   n3: "His goodbye party. Your old song.",
-  n4: "Scientists found people who keep checking how happy they are enjoy the same song less.",
+  n4: "You noticed: the more you checked how happy you were, the less you enjoyed the song.",   // Jonny 16 Nov: the study line felt forced; his own wording
   n5: "And for the first time, his number went down.",
   n6: "Because you weren't there.",
 };

@@ -26,14 +26,17 @@
  "animeTiming": true,
  "loopIdle": false,
  "music": {
-  "file": "score-film/hs03-d-temp.ogg",
-  "skip": 42.8,
-  "gain": 0.5,
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 192.8,
+  "seam": true,
+  "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -329,9 +332,9 @@
     {
      "macro": "narrate",
      "line": "But the beauty of the sunset made you forget all your worries for one moment.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 7.63,
+     "dur": 6.94,
      "caption": true,
      "pos": 128,
      "gain": 4,

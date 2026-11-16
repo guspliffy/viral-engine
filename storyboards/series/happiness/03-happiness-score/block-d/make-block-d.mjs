@@ -13,7 +13,7 @@
 // at sunset, a hand waving from a window (47). Spud walks away; the glasses stay (48).
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import {
-  FRAME, SETS, CAST, SPUD, at, hudFor, TRAIN, gradeOf, scoreOf, GRADE_FIXED, narrate, say, card, tune, HILL, ROAD, STREET, viaductLine,
+  FRAME, SETS, CAST, SPUD, at, hudFor, TRAIN, gradeOf, scoreOf, GRADE_FIXED, narrate, say, card, tune, SCORE, HILL, ROAD, STREET, viaductLine,
 } from "../kit/score-kit.mjs";
 
 const F = FRAME.wide;
@@ -32,11 +32,11 @@ const T = {
 };
 // narrator lengths: the kit's voice ("narrator", VoxCPM2 take 1), measured in this cloud session 16 Nov 2026 (the farm may differ a little)
 const N = {
-  n1: ["One hour left with your best friend. And you're still counting.", 3.98],
-  n2: ["Have you ever looked so hard for happiness that you missed it?", 4.46],
-  n3: ["For the first time in three days, you didn't check.", 3.79],
-  n4: ["You never found out your number.", 1.56],
-  n5: ["But the beauty of the sunset made you forget all your worries for one moment.", 7.63],
+  n1: ["One hour left with your best friend. And you're still counting.", 3.62],
+  n2: ["Have you ever looked so hard for happiness that you missed it?", 4.05],
+  n3: ["For the first time in three days, you didn't check.", 3.45],
+  n4: ["You never found out your number.", 1.42],
+  n5: ["But the beauty of the sunset made you forget all your worries for one moment.", 6.94],
 };
 
 // ---------------------------------------------------------------- shared helpers (story time in, clip time out)
@@ -44,7 +44,7 @@ const look10 = (pos, pitch, yaw = 0) => { const L = 10, p = pitch * DEG, y = yaw
 // a camera looking down +z (the hilltop's east views): yaw + = toward -x (screen right)
 const E = (pos, pitch, fov, yaw = 0) => { const l = look10(pos, pitch, yaw); return { pos, look: [r3(pos[0] - (l[0] - pos[0])), l[1], r3(pos[2] + (pos[2] - l[2]))], fov }; };
 const push = (sh, k, dur, fov) => ({ ...sh, to: { pos: sh.pos.map((v, j) => r3(v + (sh.look[j] - v) * k)), look: sh.look, fov: fov ?? sh.fov }, dur: r3(dur), ease: "inOut" });
-const MUSIC = (T0) => ({ file: "score-film/hs03-d-temp.ogg", skip: r3(T0 - B0), gain: 0.5, lowCut: 90, dip: false, duck: { voice: -6 } });
+const MUSIC = (T0) => SCORE(T0);   // the film score (Jonny 16 Nov: one piece, no restart at a seam); holds the block D bed at 150-204
 const SOUND = { signature: false, sfx: 0.65, ambience: 0.05, surface: "grass", room: "open", guard: true };
 const base = (id, T0, T1, extra) => ({
   id, title: `Happiness 03 block D ${id.split("-")[1]}`, idea: "Happiness 03 'I could see everyone's happiness score', block D 'Last sunset' (story 2:30-3:22)",
@@ -154,8 +154,8 @@ const NOSE_HINGE = { o: [-0.16, 0.69, 0.37] }, FORE_HINGE = { o: [-0.16, 0.94, 0
     c.A(0, who, "grip", { side: "both", shape: "clasp", dur: 0 });
     c.A(0, who, "run", { pts: [[0, xz[0], xz[1]], [r3(dur - 0.05), xz[0], xz[1]]], rate: [[0, 1.6]], stride: 1.4, dur: r3(dur - 0.05) });
   }
-  // Mash whistles the tune, eyes half shut (the tune's sound: the director's cue, assets/music/score-film/tune-*)
-  g.expr(T0, "mash", "serene", { pucker: 1, curve: 0.2, open: 0 }, 0.01); A(T0, "mash", "face", { lid: 0.45, dur: 0.01 });
+  // Mash rides up smiling (no whistle: Jonny 16 Nov)
+  g.expr(T0, "mash", "kind", { pucker: 0, curve: 0.5 }, 0.01);   // no whistle on the ride (Jonny 16 Nov: cut arrival whistles)
   g.expr(T0, "spud", "sad", { curve: -0.2, open: 0 }, 0.01); g.look(T0, "spud", [-0.3, 0.05], 0.01); g.look(T0, "mash", [0, 0.1], 0.01);
   // the check: his eyes go up (shot a), the glasses view looking up (b), back to the ride (c)
   g.look(T.up, "spud", [0, 0.9], 0.25); g.expr(T.up, "spud", "focused", { curve: -0.1 }, 0.2);
@@ -171,8 +171,7 @@ const NOSE_HINGE = { o: [-0.16, 0.69, 0.37] }, FORE_HINGE = { o: [-0.16, 0.94, 0
   const V38 = [[T.view38, T.ride2]];
   const score = scoreOf(T0, V38, [{ who: "spud", xy: [960, 860], size: "close", keys: SPUD, minus: true, show: V38[0] }]);
   const grade = gradeOf(T0, V38);
-  tune(c, g.S(T.whistle), { gain: 0.5, reason: "THE TUNE: Mash whistles it on the ride (2:36)" });
-  c.see(0, g.S(T.view38), ["mash", "spud"], "panel 38: both ride up the hill road toward us; Mash whistles; Spud looks up");
+  c.see(0, g.S(T.view38), ["mash", "spud"], "panel 38: both ride up the hill road toward us; Spud looks up");
   const SHa = { pos: [-1.4, 0.8, 1.6], look: [1.0, 0.7, -4.0], fov: 40 };
   const near = pt(sS0 - V * (T.ride2 - T0), ROAD.lanes.right), far2 = pt(sS0 - V * (T1 - T0), ROAD.lanes.right);
   // (c): a medium on Spud riding, the camera backing up the road at his speed; Mash ahead on the left

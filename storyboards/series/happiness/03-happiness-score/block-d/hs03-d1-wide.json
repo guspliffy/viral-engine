@@ -26,14 +26,17 @@
  "animeTiming": true,
  "loopIdle": false,
  "music": {
-  "file": "score-film/hs03-d-temp.ogg",
-  "skip": 0,
-  "gain": 0.5,
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 150,
+  "seam": true,
+  "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,

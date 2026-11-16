@@ -1,7 +1,7 @@
 // HAPPINESS 03 "I could see everyone's happiness score", BLOCK B "The more you look" (story 0:50-1:40, panels 13-24,
 // Friday-Saturday night: frustration, obsession, loneliness). Brief: ../kit/BLOCKS.md; story: ../OUTLINE.md; look: ../DESIGN.md.
 //   node storyboards/series/happiness/03-happiness-score/block-b/measure-lines.mjs   -> lines.json (narrator lengths)
-//   node storyboards/series/happiness/03-happiness-score/block-b/make-music-b.sh     -> the block's animatic music bed
+//   (music: the film score kit SCORE(T0), Jonny 16 Nov; make-music-b.sh made the party bed kit/score.py takes the bossa from)
 //   node storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs    -> hs03-b{1..6}-wide.json
 //   bash storyboards/series/happiness/03-happiness-score/block-b/join-block-b.sh wide draft   -> out/hs03-b-wide-draft.mp4
 //
@@ -9,17 +9,17 @@
 //   b1 WALL     0.0- 3.7   view: his reflection in the hall mirror, 39 -> 38 (-1); 13 he tapes the newspaper over it
 //   b2 KITCHEN  3.7- 7.0   14a he turns to the kettle; view: the kettle shows him, 38 -> 37; 14 he winces
 //   b3 RAIN     7.0-12.0   15a he walks in the rain, eyes down; view: the puddle shows him, 37 -> 36; 15 he steps past, head away
-//   b4 PARTY   12.0-42.6   16 Mash presses play, Chip + Wedge cheer; 17 they dance; 18 Spud by the window looks up; view 36 -> 35;
+//   b4 PARTY   12.0-41.2   16 Mash presses play, Chip + Wedge cheer; 17 they dance; 18 Spud by the window looks up; view 36 -> 35;
 //                          19 Chip "Come on!", Spud "One sec." (finger up, not looking); view 35 -> 34; 20 beauty wide, the warmth
-//                          stops at his corner (split); 21 view: Mash stops and looks over, 88 -> 86 -> 84; 22 Spud watches, writes
-//   b5 BALCONY 42.6-44.8   23 Mash alone on the balcony, the town below ("Because you weren't there.")
+//                          stops at his corner (split); 21 view: the three tags; 21m Mash alone looks over, 88 -> 86 -> 84; 22 Spud watches, writes
+//   b5 BALCONY 41.2-45.0   23 Mash alone on the balcony, the town below ("Because you weren't there.")
 //   b6 AFTER   44.8-50.0   24 the room after the party: lights on, empty cups, Spud alone among the boxes, 31, quiet hold
 // Every check is the DESIGN's two-shot unit (an outside shot, then a 0.9-1.1 s glasses view with his tag ticking down and the
 // -1 leaving it); the ticks sit on the kit's SPUD times. Checks at 1:29 and 1:35 (22, 24) tick on the HUD chip only.
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import { existsSync, readFileSync } from "node:fs";
-import { FRAME, SETS, CAST, SPUD, SCORES, spudAt, at, hudFor, scoreGrade, GRADE_FIXED, narrate, say, WALL, ROOM, BALCONY, BAKERY } from "../kit/score-kit.mjs";
+import { FRAME, SETS, SCORE, CAST, SPUD, SCORES, spudAt, at, hudFor, scoreGrade, GRADE_FIXED, narrate, say, WALL, ROOM, BALCONY, BAKERY } from "../kit/score-kit.mjs";
 import { LINES } from "./lines.mjs";
 
 const T0 = 50;   // story time of block time 0
@@ -30,19 +30,19 @@ const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { ha
 const STANDIN = process.env.KOKORO ? { voice: "storyteller-deep", gain: 1.0 } : {};
 const FAR = [40, 0];
 const FARS = { spud: [40, 0], mash: [44, 0], chip: [48, 0], wedge: [52, 0] };   // off stage: one spot each (bodies never share one)
-const MUSIC_FILE = "score-film/block-b-animatic.ogg", BOSSA_AT = 12.6, BOSSA_BPM = 91.9;
+const BOSSA_AT = 12.6, BOSSA_BPM = 91.9;   // the party song in the film score (kit/score.py, from the block B bed): the dancers' beat
 
 // ---------------------------------------------------------------- the block's beats (block time, s)
 const T = {
   v13: 0, s13: 1.3, s14a: 3.7, v14: 4.6, s14: 5.6, s15a: 7.0, v15: 8.5, s15: 9.5,
-  s16: 12.0, s17: 15.4, s18: 20.0, v18: 23.2, s19: 24.3, v19: 28.2, s20: 29.2, v21: 33.6, s22: 38.8,
-  s23: 42.6, s24: 45.0, END: 50.0,
+  s16: 12.0, s17: 15.4, s18: 20.0, v18: 23.2, s19: 24.3, v19: 28.2, s20: 29.2, v21: 33.6, v21m: 35.6, s22: 38.8,
+  s23: 41.2, s24: 45.0, END: 50.0,
 };
 const PARTS = [["b1", T.v13, T.s14a], ["b2", T.s14a, T.s15a], ["b3", T.s15a, T.s16], ["b4", T.s16, T.s23], ["b5", T.s23, T.s24], ["b6", T.s24, T.END]];
 // the narrator (each line ends before the next voice starts; one voice at a time)
-const AT = { n1: 1.5, n2: 3.9, n3: 13.0, n4: 29.5, n5: 39.0, n6: 42.75 };
+const AT = { n1: 1.5, n2: 3.9, n3: 13.0, n4: 29.5, n5: 35.8, n6: 41.6 };
 // glasses views [from, to] (block time): every one holds a tick of SPUD (story 51, 55, 59, 74, 79) or Mash's (86, 88)
-const VIEWS = [[T.v13, T.s13], [T.v14, T.s14], [T.v15, T.s15], [T.v18, T.s19], [T.v19, T.s20], [T.v21, T.s22]];
+const VIEWS = [[T.v13, T.s13], [T.v14, T.s14], [T.v15, T.s15], [T.v18, T.s19], [T.v19, T.s20], [T.v21, T.s22]];   // 21 + 21m: one view, two shots
 
 // a pinhole projection for the wide frame (split edge x): cam = { pos, look, fov (vertical) }
 function project(cam, p, W = 1920, H = 1080) {
@@ -79,7 +79,7 @@ function build(F, key) {
   const cast = [{ id: "spud", character: CAST.spud, at: FARS.spud, face: 0, expr: "sad", follow: 0.2, seed: 1.3 }];
   const add = (id, ch, seed) => cast.push({ id, character: CAST[ch], at: FARS[id], face: 0, expr: "happy", follow: 0.2, seed });
   let set, sound = { surface: "wood", room: "small" };
-  let music = { file: MUSIC_FILE, from: 0, skip: from, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false, bpm: BOSSA_BPM, offset: r3(BOSSA_AT - from) };
+  let music = SCORE(TS, { bpm: BOSSA_BPM, offset: r3(BOSSA_AT - from) });
   let split = null;
 
   // ================================================================= b1 WALL (0-3.7): the mirror
@@ -243,11 +243,15 @@ function build(F, key) {
     for (const w of ["chip", "wedge", "mash"]) place(T.v21, w, D21[w], w === "mash" ? 40 : 60);
     A(L(T.v21 + 1.2), "mash", "turn", { to: 80, dur: 0.6 }); look(T.v21 + 1.3, "mash", [0.25, 0.05], 0.3); expr(T.v21 + 1.4, "mash", "sad", { lid: 0.35 }, 0.5);
     grade(T.v21, { glasses: true });
-    SH.push(["21v Mash looks over at him: 88 -> 86 -> 84", T.v21, cam([2.05, 0.74, -1.15], [-0.9, 0.85, -0.7], 42, { fov: 40, dur: T.s22 - T.v21 })]);
-    tags.push({ who: "chip", keys: [[0, SCORES.chip]], show: [L(T.v21), L(T.s22)] });
-    tags.push({ who: "wedge", keys: [[0, SCORES.wedge]], show: [L(T.v21), L(T.s22)] });
+    SH.push(["21v the party through the glasses: Chip 93, Wedge 82, Mash 88", T.v21, cam([2.05, 0.74, -1.15], [-0.9, 0.85, -0.7], 42, { fov: 41, dur: T.v21m - T.v21 })]);
+    // 21m (35.6-38.8): Mash ALONE, a long lens from his corner (Jonny 16 Nov: whose number fell was not clear): Mash looks over at him,
+    // only his tag in view, 88 -> 86 (story 86) -> 84 (story 88) under "And for the first time, his number went down."
+    SH.push(["21m Mash alone: 88 -> 86 -> 84", T.v21m, cam([2.05, 0.74, -1.15], [-0.41, 1.26, -0.86], 34, { fov: 32, dur: T.s22 - T.v21m })]);   // Mash in the right lens
+    place(T.v21m, "chip", [-1.5, 2.3], 60); place(T.v21m, "wedge", [-0.6, 2.2], 60);   // danced off to the left, out of this view
+    tags.push({ who: "chip", keys: [[0, SCORES.chip]], show: [L(T.v21), L(T.v21m)] });
+    tags.push({ who: "wedge", keys: [[0, SCORES.wedge]], show: [L(T.v21), L(T.v21m)] });
     tags.push({ who: "mash", keys: at(TS, SCORES.mash), show: [L(T.v21), L(T.s22)], k: 1.15 });
-    // 22 (38.8-42.6): close: Spud watches Mash with narrowed eyes and writes in his pad, not walking over
+    // 22 (38.8-41.2): close: Spud watches Mash with narrowed eyes and writes in his pad, not walking over
     place(T.s22, "spud", SPS, -55); expr(T.s22, "spud", "focused", { lid: 0.45, brow: 0.35 }, 0.01); look(T.s22, "spud", [-0.45, 0.05], 0.01);
     const PAD = { id: "pad", kind: "spudpad", ...grips.placeFor("spudpad", [r3(SPS[0] - 0.3), 0.27, r3(SPS[1] + 0.28)], -55), tip: -30, write: 1, lines2: ["MASH = 86", "MASH = 88 ??"], note: "88 -> 84 ?" };
     props.push({ ...PAD, x: FAR[0], staged: "his detective pad, held low at his chest" });
@@ -255,16 +259,16 @@ function build(F, key) {
     const hPad = grips.phone(c, "spud", PAD, { side: "L", height: 0.2 });
     arm(T.s22 - 0.02, "spud", "L", { prop: "pad", grip: hPad.hands.L.grip, palm: true }, 0.01); A(L(T.s22 - 0.02), "spud", "grip", { side: "L", shape: "hold", dur: 0.01 });
     A(L(T.s22 - 0.01), "spud", "grab", { prop: "pad", hand: "L", grip: hPad.hands.L.grip, dur: 0, pose: null });
-    PR(T.s22 + 0.6, "pad", { write: 2 }, 2.2, "linear");
-    for (let i = 0; i < 5; i++) arm(T.s22 + 0.6 + i * 0.44, "spud", "R", { prop: "pad", grip: [r3(-0.03 + (i % 2) * 0.05), r3(0.11 - i * 0.012), 0.045] }, 0.4);
-    arm(T.s22 + 3.0, "spud", "R", "rest", 0.4);
+    PR(T.s22 + 0.4, "pad", { write: 2 }, 1.5, "linear");
+    for (let i = 0; i < 4; i++) arm(T.s22 + 0.4 + i * 0.36, "spud", "R", { prop: "pad", grip: [r3(-0.03 + (i % 2) * 0.05), r3(0.11 - i * 0.012), 0.045] }, 0.4);
+    arm(T.s22 + 1.9, "spud", "R", "rest", 0.35);
     grade(T.s22, SPUDG(T.s22));
     SH.push(["22 he watches Mash and writes", T.s22, cam([1.0, 0.98, 0.25], [2.25, 0.8, -1.3], 34, { pos: [1.06, 0.97, 0.17], look: [2.25, 0.81, -1.3], dur: T.s23 - T.s22 })]);
     nar("n5");
     sound = { surface: "wood", room: "small" };
   }
 
-  // ================================================================= b5 BALCONY (42.6-44.8): Mash alone
+  // ================================================================= b5 BALCONY (41.2-45.0): Mash alone
   if (key === "b5") {
     set = { ...SETS.balcony };
     sound = { surface: "stone", room: "open" };

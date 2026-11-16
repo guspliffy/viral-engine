@@ -26,14 +26,17 @@
  "animeTiming": true,
  "loopIdle": false,
  "music": {
-  "file": "score-film/hs03-d-temp.ogg",
-  "skip": 4.2,
-  "gain": 0.5,
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 154.2,
+  "seam": true,
+  "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -483,19 +486,11 @@
     {
      "who": "mash",
      "do": "expr",
-     "expr": "serene",
+     "expr": "kind",
      "set": {
-      "pucker": 1,
-      "curve": 0.2,
-      "open": 0
+      "pucker": 0,
+      "curve": 0.5
      },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "face",
-     "lid": 0.45,
      "dur": 0.01,
      "at": 0
     },
@@ -563,13 +558,6 @@
      },
      "dur": 0.2,
      "ease": "linear",
-     "at": 0.2
-    },
-    {
-     "sfx": "whistletune",
-     "gain": 0.5,
-     "dur": 2,
-     "reason": "THE TUNE: Mash whistles it on the ride (2:36)",
      "at": 0.2
     },
     {
@@ -986,9 +974,9 @@
     {
      "macro": "narrate",
      "line": "One hour left with your best friend. And you're still counting.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 3.98,
+     "dur": 3.62,
      "caption": true,
      "pos": 128,
      "gain": 4,
@@ -1624,7 +1612,7 @@
     "mash",
     "spud"
    ],
-   "why": "panel 38: both ride up the hill road toward us; Mash whistles; Spud looks up"
+   "why": "panel 38: both ride up the hill road toward us; Spud looks up"
   }
  ],
  "allowClip": [
