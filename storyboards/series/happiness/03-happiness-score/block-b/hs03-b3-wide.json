@@ -1,0 +1,549 @@
+{
+ "id": "hs03-b3-wide",
+ "frame": "wide",
+ "title": "I could see everyone's happiness score (block B, b3)",
+ "idea": "Happiness 03 block B (0:50-1:40): Spud tapes over his mirror and still sees himself in the kettle and a puddle (38, 37, 36); at Mash's goodbye party he keeps checking instead of dancing (35, 34, 33, 32), the warmth stops at his corner; Mash looks over and his number falls 88, 86, 84 because Spud isn't there; Mash alone on the balcony; Spud alone among the boxes, 31.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": true,
+  "light": "dusk-rain",
+  "shadowSize": 9,
+  "windows": false,
+  "life": {
+   "rain": {
+    "n": 1,
+    "speed": 9,
+    "len": 0.01
+   },
+   "wind": false
+  }
+ },
+ "music": {
+  "file": "score-film/block-b-animatic.ogg",
+  "from": 0,
+  "skip": 7,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false,
+  "bpm": 91.9,
+  "offset": 5.6
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "surface": "wet",
+  "room": "open"
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     37
+    ],
+    [
+     2,
+     36
+    ],
+    [
+     17,
+     35
+    ],
+    [
+     22,
+     34
+    ],
+    [
+     27,
+     33
+    ],
+    [
+     32,
+     32
+    ],
+    [
+     38,
+     31
+    ],
+    [
+     43,
+     30
+    ],
+    [
+     99,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     43,
+     "09:12"
+    ],
+    [
+     93,
+     "00:58"
+    ],
+    [
+     99,
+     "00:41",
+     4
+    ],
+    [
+     105,
+     "00:22",
+     4
+    ],
+    [
+     115,
+     "00:12",
+     3
+    ],
+    [
+     129,
+     "00:03",
+     3
+    ],
+    [
+     133,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 0.88,
+    "w": 0.2,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   1.5,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   2.5,
+   {
+    "s": 0.825,
+    "w": 0.1,
+    "c": 1.03,
+    "lift": 0
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    1.5,
+    2.5
+   ]
+  ],
+  "tags": [
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      37
+     ],
+     [
+      2,
+      36
+     ],
+     [
+      17,
+      35
+     ],
+     [
+      22,
+      34
+     ],
+     [
+      27,
+      33
+     ],
+     [
+      32,
+      32
+     ],
+     [
+      38,
+      31
+     ],
+     [
+      43,
+      30
+     ],
+     [
+      99,
+      29
+     ]
+    ],
+    "minus": true,
+    "show": [
+     1.5,
+     2.5
+    ],
+    "xy": [
+     960,
+     300
+    ],
+    "k": 1,
+    "size": "close"
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    0
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "gl-worn",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0,
+   "staged": "the glasses on Spud's nose (SCORE_FITS nose)"
+  },
+  {
+   "id": "rain",
+   "kind": "rainfall",
+   "box": [
+    [
+     -9,
+     0,
+     0.85
+    ],
+    [
+     2,
+     4,
+     7
+    ]
+   ],
+   "n": 320,
+   "staged": "rain over the street, none under the awning"
+  },
+  {
+   "id": "refl",
+   "kind": "reflectcard",
+   "as": "puddle",
+   "view": "front",
+   "w": 0.8,
+   "x": -3.3,
+   "y": 0.004,
+   "z": 1.5,
+   "tip": -90,
+   "rot": 90,
+   "op": 0,
+   "staged": "his reflection in the puddle, glasses and all"
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "15a he walks in the rain",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.62,
+     4.3
+    ],
+    "look": [
+     -2.2,
+     0.5,
+     1.5
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      -0.9,
+      0.62,
+      4.3
+     ],
+     "look": [
+      -2.2,
+      0.5,
+      1.5
+     ],
+     "fov": 38
+    },
+    "dur": 1.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.4,
+      1.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.55,
+      1.5
+     ],
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.48
+    }
+   ]
+  },
+  {
+   "name": "15v the puddle shows him, 37 -> 36",
+   "at": 1.5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.55,
+     0.66,
+     1.5
+    ],
+    "look": [
+     -3.35,
+     0,
+     1.5
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "refl",
+     "set": {
+      "op": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.75,
+      1.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "15 he steps past the puddle, head away",
+   "at": 2.5,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     -4.9,
+     0.55,
+     3.3
+    ],
+    "look": [
+     -3.1,
+     0.3,
+     1.4
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -5,
+      0.55,
+      3.15
+     ],
+     "look": [
+      -3.1,
+      0.3,
+      1.4
+     ],
+     "fov": 42
+    },
+    "dur": 2.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "refl",
+     "set": {
+      "op": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -4.6,
+      1.5
+     ],
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "refl",
+     "set": {
+      "op": 0
+     },
+     "dur": 0.9,
+     "ease": "linear",
+     "at": 1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs (b3). Block B of four, block time 7-12 s (story 57-62)."
+}
