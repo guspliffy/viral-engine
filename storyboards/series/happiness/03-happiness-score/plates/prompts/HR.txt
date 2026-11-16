@@ -1,0 +1,6 @@
+# plate HR from panel 38
+# refs: plates\ref\panel-38.png
+PROMPT START
+Looking down a winding country road that climbs toward the viewer up a grassy hill: a dry-stone wall on the left, a wooden fence on the right, autumn trees, a small town and valley below, warm golden late-afternoon light.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.
