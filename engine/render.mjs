@@ -223,6 +223,9 @@ async function mux(video, wav, outFile, from, len) {
     lufs = Number((sum.match(/I:\s+(-?[\d.]+) LUFS/) || [])[1]);
     if (tp > LOUDNESS.TP + 0.5) { ceiling -= (tp - LOUDNESS.TP) / 2 + 0.2; continue; }   // half the excess at a time: the ringing does not shrink dB for dB
     if (lufs < LOUDNESS.I - 0.5 && gain < gain0 + 6) { gain = Math.min(gain0 + 6, gain + LOUDNESS.I - lufs); continue; }
+    // and the other way: a short clip whose wav measured quieter than its encoded file (a 4.8 s segment of a film score,
+    // hs03 a4, 16 Nov 2026: -12.1 LUFS) comes down by the excess
+    if (lufs > LOUDNESS.I + 1.0 && gain > gain0 - 6) { gain = Math.max(gain0 - 6, gain - (lufs - LOUDNESS.I)); continue; }
     break;
   }
   // the loop can run out of rounds: a file it couldn't measure, or one still out of the delivery range (qa/check.mjs
