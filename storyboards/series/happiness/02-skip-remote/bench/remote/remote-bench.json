@@ -1,0 +1,345 @@
+{
+ "id": "remote-bench",
+ "title": "Skip remote bench",
+ "idea": "Prop bench, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "set": {
+  "type": "plain",
+  "color": "#8e98a4",
+  "floor": "#6f7680",
+  "para": 0,
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "notes": "Prop bench for props-skipremote.js (no reviews).",
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "front",
+   "kind": "skipremote",
+   "x": 0,
+   "y": 1,
+   "z": 0
+  },
+  {
+   "id": "back",
+   "kind": "skipremote",
+   "x": 1.5,
+   "y": 1,
+   "z": 0,
+   "rot": 180
+  },
+  {
+   "id": "dustF",
+   "kind": "skipremote",
+   "x": 3,
+   "y": 1,
+   "z": 0,
+   "dust": 0.45,
+   "halo": 1
+  },
+  {
+   "id": "dustB",
+   "kind": "skipremote",
+   "x": 4.5,
+   "y": 1,
+   "z": 0,
+   "dust": 0.45,
+   "rot": 180
+  },
+  {
+   "id": "wipe",
+   "kind": "skipremote",
+   "x": 6,
+   "y": 1,
+   "z": 0,
+   "dust": 0.45,
+   "wipe": 0.7,
+   "rot": 180
+  },
+  {
+   "id": "press",
+   "kind": "skipremote",
+   "x": 7.5,
+   "y": 1,
+   "z": 0
+  },
+  {
+   "id": "tilt",
+   "kind": "skipremote",
+   "x": 9,
+   "y": 1,
+   "z": 0,
+   "dust": 0.45,
+   "tip": 30,
+   "rot": -25,
+   "tilt": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "front",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     1,
+     1.166
+    ],
+    "look": [
+     0,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "front",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "back",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dustF",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dustB",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wipe",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0.7
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "press",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tilt",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "press",
+     "set": {
+      "press": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "back",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.5,
+     1,
+     1.113
+    ],
+    "look": [
+     1.5,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "dustF",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3,
+     1,
+     1.166
+    ],
+    "look": [
+     3,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "dustB",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4.5,
+     1,
+     1.113
+    ],
+    "look": [
+     4.5,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "wipe",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     6,
+     1,
+     1.113
+    ],
+    "look": [
+     6,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "press",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7.5,
+     1,
+     1.166
+    ],
+    "look": [
+     7.5,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "tilt",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     9.25,
+     1.05,
+     0.95
+    ],
+    "look": [
+     9,
+     1,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "front",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.15,
+     1.02,
+     0.6
+    ],
+    "look": [
+     0,
+     1,
+     0.02
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ]
+}

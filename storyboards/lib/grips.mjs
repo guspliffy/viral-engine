@@ -114,6 +114,13 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-skipremote.js (Happiness EP02): the remote's origin is the middle of its BACK face, so the phone hold's grip height 0.42 x h must land
+  // under the middle: h -0.048 gives y -0.020 (negative on purpose, precedent: headrest h 0). Hold: phone, side "L", gap 0.035, height 0.42 (defaults).
+  skipremote: { w: 0.13, h: -0.048, t: 0.03 },
+  // umbrella: origin 0.14 up the wooden handle, the shaft up +y: the mug hold's fist at 0.66 h = y 0.079 on the handle, round r 0.012 (burnbranch precedent)
+  umbrella: { r: 0.012, h: 0.12 },
+  // loaf: worn or placed on a head, not held; w / h / d are for the box hold if both hands carry it overhead (palms on the two ends)
+  loaf: { w: 0.34, h: 0.09, d: 0.11 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
