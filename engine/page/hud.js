@@ -104,11 +104,11 @@ function moneyState(spec, t) {
     for (let n = 0; n < 24; n++) { const m = (lo + hi) / 2; if (inOut(m) < f) lo = m; else hi = m; }
     return t0 + hi * d;
   };
-  const glow = [];
+  const unit = Math.max(SACK, K[0][1] / 10), glow = [];
   for (let k = 1; k <= 10; k++) {
     let g = 0;
     for (let j = 1; j < K.length; j++) {
-      const thr = (k - 1) * SACK;
+      const thr = (k - 1) * unit;
       if (K[j][0] > t || !(K[j - 1][1] > thr && K[j][1] <= thr)) continue;
       const since = t - crossing(j, thr);
       if (since >= 0 && since < 0.4) g = Math.max(g, 1 - since / 0.4);
@@ -122,7 +122,7 @@ function moneyState(spec, t) {
   if (!E) return null;
   const dec = mk.i > 0 && K[mk.i][1] < K[mk.i - 1][1];
   const fs = zt != null ? t - zt : -1;
-  return { n: Math.max(0, Math.round(mk.v)), a: E.a, pop: E.pop, y: E.y, glow,
+  return { n: Math.max(0, Math.round(mk.v)), n0: K[0][1], unit, a: E.a, pop: E.pop, y: E.y, glow,
     kick: dec && mk.since >= 0 && mk.since < 0.18 ? mk.since : null, flash: fs >= 0 && fs < 0.6 ? Math.floor(fs / 0.15) % 2 === 0 : false };
 }
 function sunState(spec, t) {
@@ -267,12 +267,15 @@ function drawMoney(ctx, M) {
   chip(ctx, box);
   // row 1 (centre y + 42): "$" and the number in fixed cells of 34 (a comma 14), left-aligned so the dollar sign never moves
   ctx.font = MONEY_FONT; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-  const text = "$" + String(M.n).replace(/\B(?=(\d{3})+(?!\d))/g, ","), full = 34 * 9 + 14 * 2;
+  const fmt = (n) => "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","), text = fmt(M.n), top = fmt(M.n0 ?? 1e7);
+  const full = [...top].reduce((a, ch) => a + (ch === "," ? 14 : 34), 0), k = Math.min(1, (w - 28) / full);   // a bigger start squeezes the row
+  ctx.save(); ctx.translate(x + w / 2, y + 44); ctx.scale(k, k); ctx.translate(-(x + w / 2), -(y + 44));
   let cx = x + (w - full) / 2;
   for (const ch of text) { const cw = ch === "," ? 14 : 34; ctx.fillStyle = ch === "$" ? (M.flash ? RED : GOLD) : M.flash ? RED : TXT; ctx.fillText(ch, cx + cw / 2, y + 42 + 2); cx += cw; }
+  ctx.restore();
   // row 2 (centre y + 92): ten sacks, one every 34
   const sx = x + (w - (9 * 34 + 24)) / 2;
-  for (let k = 1; k <= 10; k++) sack(ctx, sx + (k - 1) * 34, y + 92 - 14, clamp(M.n / SACK - (k - 1)), M.glow[k - 1], k === 1 && M.flash ? RED : SACK_FULL);
+  for (let k = 1; k <= 10; k++) sack(ctx, sx + (k - 1) * 34, y + 92 - 14, clamp(M.n / (M.unit ?? SACK) - (k - 1)), M.glow[k - 1], k === 1 && M.flash ? RED : SACK_FULL);
   ctx.restore();
 }
 function drawSun(ctx, U) {

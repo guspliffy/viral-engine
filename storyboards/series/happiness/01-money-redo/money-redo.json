@@ -1,7 +1,7 @@
 {
  "id": "money-redo",
- "title": "Spend $10,000,000 before sunset",
- "idea": "Happiness series 01 redo: a rich lady bets Spud can't spend ten million dollars before sunset; he buys everything, shuts out his best friend, and in the last minute chooses the friend and the sunset over the money",
+ "title": "Spend $1,000,000,000 in a week",
+ "idea": "Happiness series 01 redo: a rich lady bets Spud can't spend a billion dollars in seven days; he buys everything, shuts out his best friend, and in the last hour of day seven chooses the friend and the sunset over the money",
  "format": "series: Spud looks for happiness (one life question per episode, never answered out loud)",
  "fps": 30,
  "look": "anime-pro",
@@ -61,11 +61,11 @@
     }
    },
    {
-    "at": 18.6,
+    "at": 19.3,
     "env": "mansion-day"
    },
    {
-    "at": 20.6,
+    "at": 22.1,
     "room": {
      "type": "coast",
      "pos": [
@@ -79,19 +79,19 @@
        1
       ],
       [
-       22.898999999999997,
+       24.799,
        1
       ],
       [
-       22.9,
+       24.8,
        0.5
       ],
       [
-       24.999,
+       31.299,
        0.5
       ],
       [
-       25,
+       31.3,
        0
       ]
      ],
@@ -101,19 +101,19 @@
        0
       ],
       [
-       25,
+       31.3,
        0
       ],
       [
-       37.5,
+       41.5,
        1
       ],
       [
-       46.6,
+       50.6,
        1.45
       ],
       [
-       50,
+       54,
        2
       ]
      ],
@@ -139,120 +139,124 @@
   "satsuei": true
  },
  "hud": {
+  "day": [
+   [
+    0,
+    1
+   ],
+   [
+    14,
+    2
+   ],
+   [
+    17.1,
+    3
+   ],
+   [
+    19.3,
+    4
+   ],
+   [
+    22.1,
+    5
+   ],
+   [
+    24.8,
+    6
+   ],
+   [
+    31.3,
+    7
+   ]
+  ],
   "money": {
    "keys": [
     [
      0.1,
-     10000000
+     1000000000
     ],
     [
      6.9,
-     9997000,
+     999997000,
      0.35
     ],
     [
      10.4,
-     9996999
+     999996999
     ],
     [
      11.4,
-     9996998
+     999996998
     ],
     [
      12.4,
-     9996997
+     999996997
     ],
     [
      13.4,
-     9996996
+     999996996
     ],
     [
      14.6,
-     8000000,
+     800000000,
      0.45
     ],
     [
      17.5,
-     6500000,
+     650000000,
      0.45
     ],
     [
-     19.7,
+     20.4,
+     400000000,
+     0.6
+    ],
+    [
+     26,
+     150000000,
+     0.6
+    ],
+    [
+     27.7,
      1000000,
      0.6
     ],
     [
-     37.5,
+     41.5,
      0,
      0.5
     ]
    ],
    "fade": [
-    42.2,
+    46.2,
     1
    ]
   },
   "sun": {
    "p": [
     [
-     0.1,
-     0.02
+     31.3,
+     0.86
     ],
     [
-     6.5,
-     0.06,
-     0.4
-    ],
-    [
-     9.3,
-     0.18,
-     0.4
-    ],
-    [
-     14,
-     0.34,
-     0.4
-    ],
-    [
-     17.1,
-     0.46,
-     0.4
-    ],
-    [
-     18.6,
-     0.58,
-     0.4
-    ],
-    [
-     20.6,
-     0.72,
-     0.4
-    ],
-    [
-     22.9,
-     0.82,
-     0.4
-    ],
-    [
-     25,
-     0.9,
-     0.4
-    ],
-    [
-     37.5,
+     41.5,
      1,
      0.4
     ]
    ],
    "last": [
-    25,
-    37.5
+    31.3,
+    41.5
    ],
    "fade": [
-    42.2,
+    46.2,
     1
    ]
-  }
+  },
+  "show": [
+   0,
+   47.2
+  ]
  },
  "music": {
   "file": "money-redo/money-redo-score.ogg",
@@ -273,8 +277,8 @@
  },
  "creative": {
   "length": [
-   50.6,
-   50.6
+   54.6,
+   54.6
   ]
  },
  "hook": {
@@ -284,7 +288,7 @@
    "check"
   ],
   "hint": 0,
-  "what": "a rich lady slaps a $10,000,000 check on a coffee cart in front of two poor potatoes"
+  "what": "a rich lady slaps a $1,000,000,000 check on a coffee cart in front of two poor potatoes"
  },
  "cast": [
   {
@@ -411,6 +415,7 @@
   {
    "id": "check",
    "kind": "bigcheck",
+   "amount": "$1,000,000,000",
    "x": -1.43,
    "y": 0.465,
    "z": 1.2,
@@ -681,21 +686,35 @@
    "y": -30,
    "z": -600,
    "scale": 0.001
+  },
+  {
+   "id": "jet",
+   "kind": "airliner",
+   "x": -10,
+   "y": -30,
+   "z": -752,
+   "rot": -90,
+   "roll": 0,
+   "tip": -10,
+   "scale": 0.001,
+   "cyan": -1,
+   "lit": 1,
+   "spin": 1
   }
  ],
  "captions": [
   {
    "from": 4.45,
    "to": 6.65,
-   "text": "Spend every cent... or keep nothing.",
+   "text": "Spend it all in seven days... or keep nothing.",
    "pos": 480,
    "pop": false,
    "size": 62,
    "kinetic": false
   },
   {
-   "from": 16.1,
-   "to": 17.45,
+   "from": 16.05,
+   "to": 17.2,
    "text": "Come! I know a place!",
    "pos": 480,
    "pop": false,
@@ -703,17 +722,8 @@
    "kinetic": false
   },
   {
-   "from": 17.6,
-   "to": 18.7,
-   "text": "No time!",
-   "pos": 290,
-   "pop": false,
-   "size": 62,
-   "kinetic": false
-  },
-  {
-   "from": 18.75,
-   "to": 19.65,
+   "from": 20.55,
+   "to": 21.35,
    "text": "Come on!",
    "pos": 480,
    "pop": false,
@@ -721,8 +731,8 @@
    "kinetic": false
   },
   {
-   "from": 19.65,
-   "to": 20.75,
+   "from": 21.35,
+   "to": 22.45,
    "text": "No time!",
    "pos": 480,
    "pop": false,
@@ -1043,10 +1053,10 @@
     },
     {
      "macro": "narrate",
-     "line": "Ten million dollars. Gone at sunset.",
+     "line": "One billion dollars. Gone in seven days.",
      "voice": "narrator",
      "take": 1,
-     "dur": 3.3,
+     "dur": 3.75,
      "caption": true,
      "pos": 480,
      "gain": 4,
@@ -1316,7 +1326,7 @@
    ]
   },
   {
-   "name": "03 by sunset",
+   "name": "03 seven days",
    "at": 4.3,
    "len": 2.2,
    "shot": {
@@ -1375,7 +1385,7 @@
     {
      "who": "duch",
      "do": "talk",
-     "line": "Spend every cent... or keep nothing.",
+     "line": "Spend it all in seven days... or keep nothing.",
      "tone": "smug",
      "dur": 1.8,
      "blink": false,
@@ -2173,10 +2183,10 @@
     },
     {
      "macro": "narrate",
-     "line": "But at a dollar a second, ten million takes a hundred and fifteen days.",
+     "line": "But at a dollar a second, a billion takes thirty-one years.",
      "voice": "narrator",
      "take": 1,
-     "dur": 4.37,
+     "dur": 3.9,
      "caption": true,
      "pos": 480,
      "gain": 4,
@@ -2766,7 +2776,7 @@
      "caption": true,
      "pos": 480,
      "gain": 4,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "chip",
@@ -2827,7 +2837,7 @@
      "pose": "up",
      "dur": 0.3,
      "ease": "out",
-     "at": 1.8
+     "at": 1.75
     },
     {
      "who": "chip",
@@ -2835,17 +2845,17 @@
      "side": "R",
      "shape": "point",
      "dur": 0.1,
-     "at": 1.8
+     "at": 1.75
     },
     {
      "who": "chip",
      "do": "talk",
      "line": "Come! I know a place!",
      "tone": "excited",
-     "dur": 0.95,
+     "dur": 0.75,
      "blink": false,
      "voice": false,
-     "at": 2.1
+     "at": 2.05
     },
     {
      "who": "chip",
@@ -2853,7 +2863,7 @@
      "height": 0.06,
      "dur": 0.3,
      "quiet": true,
-     "at": 2.2
+     "at": 2.15
     },
     {
      "who": "rich",
@@ -2864,7 +2874,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 2.3
+     "at": 2.25
     },
     {
      "who": "chip",
@@ -2872,7 +2882,7 @@
      "height": 0.06,
      "dur": 0.3,
      "quiet": true,
-     "at": 2.6
+     "at": 2.55
     },
     {
      "who": "seller",
@@ -3181,7 +3191,7 @@
   {
    "name": "07 the coat",
    "at": 17.1,
-   "len": 1.5,
+   "len": 2.2,
    "shot": {
     "pos": [
      502.15,
@@ -3282,21 +3292,22 @@
      "at": 0.1
     },
     {
+     "macro": "narrate",
+     "line": "Every day, his best friend asked.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.03,
+     "caption": true,
+     "pos": 480,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
      "who": "chip",
      "do": "lean",
      "to": -8,
      "dur": 0.2,
      "at": 0.3
-    },
-    {
-     "who": "rich",
-     "do": "talk",
-     "line": "No time!",
-     "tone": "annoyed",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 0.5
     },
     {
      "who": "rich",
@@ -3376,7 +3387,7 @@
     {
      "who": "asst",
      "do": "hide",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "asst",
@@ -3390,7 +3401,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3404,7 +3415,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3413,12 +3424,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3427,7 +3438,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3435,7 +3446,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3444,7 +3455,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "rich",
@@ -3452,7 +3463,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3466,7 +3477,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3475,12 +3486,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
      "do": "show",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3489,7 +3500,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3497,7 +3508,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3506,7 +3517,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3514,7 +3525,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3528,7 +3539,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3537,12 +3548,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3551,7 +3562,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3559,7 +3570,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3568,7 +3579,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "chip",
@@ -3576,7 +3587,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3591,7 +3602,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3599,7 +3610,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.01,
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3613,7 +3624,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3624,7 +3635,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3635,7 +3646,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3646,7 +3657,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3658,7 +3669,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3670,7 +3681,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3681,7 +3692,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "do": "prop",
@@ -3692,7 +3703,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.488
+     "at": 2.188
     },
     {
      "who": "agent",
@@ -3706,14 +3717,14 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 1.494
+     "at": 2.194
     }
    ]
   },
   {
    "name": "08 the mansion",
-   "at": 18.6,
-   "len": 2,
+   "at": 19.3,
+   "len": 2.8,
    "shot": {
     "pos": [
      0.2,
@@ -3742,43 +3753,6 @@
      "dur": 0.35,
      "ease": "inOut",
      "at": 0.1
-    },
-    {
-     "who": "chip",
-     "do": "talk",
-     "line": "Come on!",
-     "tone": "pleading",
-     "dur": 0.7,
-     "blink": false,
-     "voice": false,
-     "at": 0.15
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "up",
-     "dur": 0.25,
-     "ease": "out",
-     "at": 0.15
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "R",
-     "shape": "open",
-     "dur": 0.1,
-     "at": 0.15
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "expr": "eager",
-     "set": {
-      "brow": 0.6
-     },
-     "dur": 0.15,
-     "at": 0.15
     },
     {
      "who": "rich",
@@ -3826,6 +3800,43 @@
      "at": 0.94
     },
     {
+     "who": "chip",
+     "do": "talk",
+     "line": "Come on!",
+     "tone": "pleading",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 1.25
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.25
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.1,
+     "at": 1.25
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "brow": 0.6
+     },
+     "dur": 0.15,
+     "at": 1.25
+    },
+    {
      "who": "rich",
      "do": "talk",
      "line": "No time!",
@@ -3833,7 +3844,7 @@
      "dur": 0.7,
      "blink": false,
      "voice": false,
-     "at": 1.05
+     "at": 2.05
     },
     {
      "who": "chip",
@@ -3844,7 +3855,7 @@
       "brow": 0.5
      },
      "dur": 0.4,
-     "at": 1.35
+     "at": 2.35
     },
     {
      "who": "chip",
@@ -3853,7 +3864,7 @@
      "pose": "rest",
      "dur": 0.5,
      "ease": "inOut",
-     "at": 1.45
+     "at": 2.45
     },
     {
      "who": "chip",
@@ -3864,7 +3875,7 @@
      ],
      "dur": 0.4,
      "blink": false,
-     "at": 1.45
+     "at": 2.45
     },
     {
      "who": "chip",
@@ -3875,7 +3886,7 @@
      ],
      "dur": 0.1,
      "blink": false,
-     "at": 1.9
+     "at": 2.7
     },
     {
      "who": "agent",
@@ -3887,12 +3898,12 @@
       0
      ],
      "dur": 0,
-     "at": 1.98
+     "at": 2.78
     },
     {
      "who": "rich",
      "do": "hide",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -3906,12 +3917,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "agent",
      "do": "hide",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "agent",
@@ -3925,7 +3936,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3939,7 +3950,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3948,12 +3959,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3962,7 +3973,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3970,7 +3981,7 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3979,7 +3990,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "who": "chip",
@@ -3987,7 +3998,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.01,
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -3999,7 +4010,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4011,7 +4022,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4022,7 +4033,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4033,7 +4044,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4045,7 +4056,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4057,7 +4068,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4069,7 +4080,7 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     },
     {
      "do": "prop",
@@ -4080,14 +4091,14 @@
      "dur": 0.01,
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 1.988
+     "at": 2.788
     }
    ]
   },
   {
    "name": "09 Chip walks off",
-   "at": 20.6,
-   "len": 2.3,
+   "at": 22.1,
+   "len": 2.7,
    "shot": {
     "pos": [
      1,
@@ -4127,7 +4138,7 @@
     {
      "sfx": "ai/storm-wind",
      "gain": 0.05,
-     "dur": 2.3,
+     "dur": 2.7,
      "reason": "wind on the cliff, far under the music",
      "at": 0
     },
@@ -4145,14 +4156,14 @@
     },
     {
      "macro": "narrate",
-     "line": "His best friend stopped asking.",
+     "line": "On day five, he stopped asking.",
      "voice": "narrator",
      "take": 1,
-     "dur": 1.95,
+     "dur": 2.23,
      "caption": true,
      "pos": 480,
      "gain": 4,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "chip",
@@ -4179,7 +4190,7 @@
     {
      "who": "chip",
      "do": "hide",
-     "at": 2.288
+     "at": 2.688
     },
     {
      "who": "chip",
@@ -4193,7 +4204,397 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.288
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "move",
+     "to": [
+      -39.38,
+      -699.05
+     ],
+     "y": -53.65,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "show",
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.688
+    },
+    {
+     "who": "duch",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "move",
+     "to": [
+      -40.1,
+      -698.2
+     ],
+     "y": -53.65,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "show",
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.688
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.688
+    }
+   ]
+  },
+  {
+   "name": "11 the yacht",
+   "at": 24.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -38.7,
+     -52.6,
+     -694.6
+    ],
+    "look": [
+     -40.9,
+     -53.1,
+     -706
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "duch",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "duch",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "smug",
+     "set": {
+      "curve": 0.6,
+      "eye": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      0.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought a yacht.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.39,
+     "caption": true,
+     "pos": 480,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -39.63,
+       -53.03,
+       -698.163
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "dur": 0.15,
+     "at": 0.2
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -39.63,
+       -53.04,
+       -698.163
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -39.58,
+       -53.04,
+       -698.163
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "world": [
+       -39.63,
+       -53.04,
+       -698.163
+      ]
+     },
+     "dur": 0.18,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "rich",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.15
+    },
+    {
+     "who": "rich",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "who": "rich",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.15
+    },
+    {
+     "who": "rich",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8
+     },
+     "dur": 0.2,
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "scale": 0.3,
+      "y": -51.5
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    }
+   ]
+  },
+  {
+   "name": "11a yacht wide",
+   "at": 26.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     -34,
+     -52.4,
+     -704
+    ],
+    "look": [
+     -42.4,
+     -52.8,
+     -721
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "x": -74,
+      "y": -40,
+      "z": -752
+     },
+     "dur": 2.7,
+     "ease": "linear",
+     "at": 0.05
+    },
+    {
+     "sfx": "rumble",
+     "gain": 0.4,
+     "dur": 2.6,
+     "reason": "the jet's engines passing low overhead",
+     "at": 0.6
+    },
+    {
+     "sfx": "windswell",
+     "gain": 0.3,
+     "dur": 2,
+     "reason": "the air the jet pushes as it passes",
+     "at": 0.9
+    },
+    {
+     "macro": "narrate",
+     "line": "And a plane.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.13,
+     "caption": true,
+     "pos": 480,
+     "gain": 4,
+     "at": 1.15
     },
     {
      "who": "rich",
@@ -4207,7 +4608,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4216,12 +4617,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
      "do": "show",
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4235,7 +4636,7 @@
      "yaw": 0,
      "sit": true,
      "dur": 0,
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4244,7 +4645,7 @@
      "pose": "wheel",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4252,7 +4653,7 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.01,
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4261,7 +4662,7 @@
      "pose": "wheel",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.288
+     "at": 2.788
     },
     {
      "who": "rich",
@@ -4269,14 +4670,45 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.01,
-     "at": 2.288
+     "at": 2.788
+    },
+    {
+     "who": "duch",
+     "do": "hide",
+     "at": 2.788
+    },
+    {
+     "who": "duch",
+     "do": "move",
+     "to": [
+      412,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.788
+    },
+    {
+     "do": "prop",
+     "id": "jet",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.788
     }
    ]
   },
   {
    "name": "10 alone",
-   "at": 22.9,
-   "len": 2.1,
+   "at": 29,
+   "len": 2.3,
    "shot": {
     "pos": [
      -38.629,
@@ -4320,7 +4752,7 @@
      "set": {
       "len": 3
      },
-     "dur": 2.1,
+     "dur": 2.3,
      "ease": "linear",
      "at": 0
     },
@@ -4342,251 +4774,6 @@
      "at": 1.3
     },
     {
-     "who": "duch",
-     "do": "move",
-     "to": [
-      -39.42,
-      -698.85
-     ],
-     "y": -53.65,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "turn",
-     "to": 20,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "show",
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 2.088
-    },
-    {
-     "who": "duch",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.01,
-     "at": 2.088
-    }
-   ]
-  },
-  {
-   "name": "11 one last buy",
-   "at": 25,
-   "len": 4.8,
-   "shot": {
-    "pos": [
-     -39.1,
-     -52.7,
-     -696
-    ],
-    "look": [
-     -38.227,
-     -56.188,
-     -745.871
-    ],
-    "fov": 42,
-    "to": {
-     "pos": [
-      -39.095,
-      -52.721,
-      -696.299
-     ],
-     "look": [
-      -38.227,
-      -56.188,
-      -745.871
-     ],
-     "fov": 42
-    },
-    "dur": 4.8,
-    "ease": "inOut"
-   },
-   "do": [
-    {
-     "who": "duch",
-     "do": "expr",
-     "expr": "smug",
-     "set": {
-      "curve": 0.4
-     },
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "duch",
-     "do": "look",
-     "to": [
-      0.3,
-      -0.4
-     ],
-     "dur": 0.01,
-     "blink": false,
-     "at": 0
-    },
-    {
-     "macro": "narrate",
-     "line": "One million left. One minute. One last buy.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 4.53,
-     "caption": true,
-     "pos": 480,
-     "gain": 4,
-     "at": 0.1
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "world": [
-       -39.176,
-       -53.23,
-       -698.588
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.25
-    },
-    {
-     "who": "duch",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 0.25
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -39.316,
-       -53.21,
-       -698.505
-      ]
-     },
-     "dur": 0.4,
-     "ease": "inOut",
-     "at": 0.4
-    },
-    {
-     "who": "duch",
-     "do": "grip",
-     "side": "R",
-     "shape": "point",
-     "dur": 0.2,
-     "at": 0.4
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -39.24,
-       -53.19,
-       -698.532
-      ]
-     },
-     "dur": 0.15,
-     "ease": "inOut",
-     "at": 1.6
-    },
-    {
-     "who": "duch",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "world": [
-       -39.278,
-       -53.19,
-       -698.519
-      ]
-     },
-     "dur": 0.15,
-     "ease": "inOut",
-     "at": 1.95
-    },
-    {
-     "who": "duch",
-     "do": "look",
-     "to": [
-      -0.2,
-      0.05
-     ],
-     "dur": 0.3,
-     "blink": false,
-     "at": 2.4
-    },
-    {
-     "who": "duch",
-     "do": "expr",
-     "expr": "smug",
-     "set": {
-      "curve": 0.6
-     },
-     "dur": 0.3,
-     "at": 2.4
-    },
-    {
-     "who": "duch",
-     "do": "hide",
-     "at": 4.788
-    },
-    {
-     "who": "duch",
-     "do": "move",
-     "to": [
-      412,
-      400
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 4.788
-    },
-    {
      "do": "prop",
      "id": "car",
      "set": {
@@ -4597,14 +4784,14 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 4.788
+     "at": 2.288
     }
    ]
   },
   {
    "name": "12 the road",
-   "at": 29.8,
-   "len": 1.5,
+   "at": 31.3,
+   "len": 4,
    "shot": {
     "pos": [
      -6,
@@ -4629,7 +4816,7 @@
       "rot": 106.242,
       "len": 5.8
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
      "at": 0
     },
@@ -4670,6 +4857,17 @@
      "at": 0
     },
     {
+     "macro": "narrate",
+     "line": "Day seven. One million left. One last buy.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.85,
+     "caption": true,
+     "pos": 480,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
      "do": "prop",
      "id": "car",
      "set": {
@@ -4679,9 +4877,9 @@
       "rot": 105.346,
       "len": 8.6
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.15
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -4693,9 +4891,9 @@
       "rot": 104.103,
       "len": 11.4
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.3
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -4707,9 +4905,9 @@
       "rot": 102.504,
       "len": 14.2
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.45
+     "at": 1.2
     },
     {
      "do": "prop",
@@ -4721,9 +4919,9 @@
       "rot": 100.66,
       "len": 17
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.6
+     "at": 1.6
     },
     {
      "do": "prop",
@@ -4735,9 +4933,9 @@
       "rot": 101.029,
       "len": 19.8
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.75
+     "at": 2
     },
     {
      "do": "prop",
@@ -4749,9 +4947,9 @@
       "rot": 101.346,
       "len": 22.6
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 0.9
+     "at": 2.4
     },
     {
      "do": "prop",
@@ -4763,9 +4961,9 @@
       "rot": 101.488,
       "len": 25.4
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 1.05
+     "at": 2.8
     },
     {
      "do": "prop",
@@ -4777,9 +4975,9 @@
       "rot": 101.458,
       "len": 28.2
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 1.2
+     "at": 3.2
     },
     {
      "do": "prop",
@@ -4791,9 +4989,9 @@
       "rot": 101.254,
       "len": 31
      },
-     "dur": 0.15,
+     "dur": 0.4,
      "ease": "linear",
-     "at": 1.35
+     "at": 3.6
     },
     {
      "do": "prop",
@@ -4806,7 +5004,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 1.488
+     "at": 3.988
     },
     {
      "who": "chip",
@@ -4820,7 +5018,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 3.988
     },
     {
      "who": "chip",
@@ -4829,12 +5027,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 1.488
+     "at": 3.988
     },
     {
      "who": "chip",
      "do": "show",
-     "at": 1.488
+     "at": 3.988
     },
     {
      "who": "chip",
@@ -4843,13 +5041,13 @@
      "dur": 0.01,
      "height": 0,
      "hands": "lap",
-     "at": 1.488
+     "at": 3.988
     }
    ]
   },
   {
    "name": "13 Chip on the hill",
-   "at": 31.3,
+   "at": 35.3,
    "len": 1.9,
    "shot": {
     "pos": [
@@ -4896,17 +5094,6 @@
      "at": 0
     },
     {
-     "macro": "narrate",
-     "line": "But up on the hill sat his best friend.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 3.37,
-     "caption": true,
-     "pos": 480,
-     "gain": 4,
-     "at": 0.1
-    },
-    {
      "who": "rich",
      "do": "look",
      "to": [
@@ -4915,6 +5102,17 @@
      ],
      "dur": 0.4,
      "blink": false,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "But up on the hill sat his best friend.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.37,
+     "caption": true,
+     "pos": 480,
+     "gain": 4,
      "at": 0.2
     },
     {
@@ -4933,7 +5131,7 @@
   },
   {
    "name": "14 the handbrake",
-   "at": 33.2,
+   "at": 37.2,
    "len": 1.7,
    "shot": {
     "pos": [
@@ -5176,7 +5374,7 @@
   },
   {
    "name": "15 the coat stays",
-   "at": 34.9,
+   "at": 38.9,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -5299,7 +5497,7 @@
   },
   {
    "name": "16 the tow truck",
-   "at": 36.7,
+   "at": 40.7,
    "len": 2.3,
    "shot": {
     "pos": [
@@ -5434,7 +5632,7 @@
   },
   {
    "name": "17 beside him",
-   "at": 39,
+   "at": 43,
    "len": 1.8,
    "shot": {
     "pos": [
@@ -5530,7 +5728,7 @@
   },
   {
    "name": "18 the sunset",
-   "at": 40.8,
+   "at": 44.8,
    "len": 2.6,
    "shot": {
     "pos": [
@@ -5570,10 +5768,10 @@
     },
     {
      "macro": "narrate",
-     "line": "He lost ten million dollars.",
+     "line": "He lost a billion dollars.",
      "voice": "narrator",
      "take": 1,
-     "dur": 2.12,
+     "dur": 1.95,
      "caption": true,
      "pos": 480,
      "gain": 4,
@@ -5590,7 +5788,7 @@
   },
   {
    "name": "19 the smile",
-   "at": 43.4,
+   "at": 47.4,
    "len": 3.2,
    "shot": {
     "pos": [
@@ -5687,7 +5885,7 @@
   },
   {
    "name": "20 the last sliver",
-   "at": 46.6,
+   "at": 50.6,
    "len": 4,
    "shot": {
     "pos": [
@@ -5828,7 +6026,7 @@
   },
   {
    "from": 17.1,
-   "to": 18.6,
+   "to": 19.3,
    "see": [
     "rich.face",
     "chip.face"
@@ -5836,8 +6034,8 @@
    "why": "a boutique: Spud in a fur coat admires himself in a gold mirror; Chip tugs his sleeve; he waves him off"
   },
   {
-   "from": 18.6,
-   "to": 20.6,
+   "from": 19.3,
+   "to": 22.1,
    "see": [
     "rich",
     "agent.face",
@@ -5847,42 +6045,49 @@
    "why": "in front of a white mansion he signs the deed on the agent's clipboard; behind him Chip's raised arm drops, his smile fades"
   },
   {
-   "from": 20.6,
-   "to": 22.9,
+   "from": 22.1,
+   "to": 24.8,
    "see": [
     "chip"
    ],
    "why": "late afternoon: Chip walks away alone up a path toward the cliff hill, looks back once"
   },
   {
-   "from": 22.9,
-   "to": 25,
+   "from": 29,
+   "to": 31.3,
    "see": [
     "rich.face"
    ],
-   "why": "alone in the gold car, the seat beside him piled with boxes where Chip sat; his face empty"
+   "why": "evening of day 6: alone in the gold car, the seat beside him piled with boxes where Chip sat; his face empty"
   },
   {
-   "from": 25,
-   "to": 29.8,
+   "from": 24.8,
+   "to": 26.2,
    "see": [
-    "duch.face",
-    "yacht",
-    "pier"
+    "rich.face",
+    "duch.face"
    ],
-   "why": "a pier at sunset: the Duchess waits by a white yacht with the contract, tapping her watch"
+   "why": "day 6, a harbour: Spud signs for a yacht at the Duchess's stand and throws his arms up"
   },
   {
-   "from": 29.8,
-   "to": 31.3,
+   "from": 26.2,
+   "to": 29,
+   "see": [
+    "yacht"
+   ],
+   "why": "the white yacht he just bought, side-on in full at sunset; then his private jet roars low over it"
+  },
+  {
+   "from": 31.3,
+   "to": 35.3,
    "see": [
     "car"
    ],
    "why": "the gold coupe races along the coast road at sunset"
   },
   {
-   "from": 31.3,
-   "to": 33.2,
+   "from": 35.3,
+   "to": 37.2,
    "see": [
     "rich",
     "chip"
@@ -5890,16 +6095,16 @@
    "why": "from the car: up on the green cliff sits Chip alone against the sunset"
   },
   {
-   "from": 33.2,
-   "to": 34.9,
+   "from": 37.2,
+   "to": 38.9,
    "see": [
     "rich.face"
    ],
    "why": "close in the car: his eyes on the hill, he pulls the handbrake"
   },
   {
-   "from": 34.9,
-   "to": 36.7,
+   "from": 38.9,
+   "to": 40.7,
    "see": [
     "car",
     "spud"
@@ -5907,8 +6112,8 @@
    "why": "the coupe at the roadside, its door open, the fur coat and gold chain left on the seat; Spud walks away up the slope in his sweater"
   },
   {
-   "from": 36.7,
-   "to": 39,
+   "from": 40.7,
+   "to": 43,
    "see": [
     "truck",
     "car",
@@ -5917,8 +6122,8 @@
    "why": "a tow truck hooks the gold car and drives off; Spud climbs on and never looks back"
   },
   {
-   "from": 39,
-   "to": 40.8,
+   "from": 43,
+   "to": 44.8,
    "see": [
     "spud.face",
     "chip.face"
@@ -5926,8 +6131,8 @@
    "why": "the cliff top: Spud sits down beside Chip; Chip grins"
   },
   {
-   "from": 40.8,
-   "to": 43.4,
+   "from": 44.8,
+   "to": 47.4,
    "see": [
     "spud",
     "chip"
@@ -5935,8 +6140,8 @@
    "why": "from behind: the two friends small on the cliff, a huge sunset over the sea"
   },
   {
-   "from": 43.4,
-   "to": 46.6,
+   "from": 47.4,
+   "to": 50.6,
    "see": [
     "spud.face",
     "chip.face"
@@ -5944,8 +6149,8 @@
    "why": "close: Spud smiles for the first time; Chip leans his head on him"
   },
   {
-   "from": 46.6,
-   "to": 50.6,
+   "from": 50.6,
+   "to": 54.6,
    "see": [
     "spud",
     "chip"
@@ -5989,8 +6194,8 @@
   {
    "who": "rich",
    "with": "car",
-   "from": 29.8,
-   "to": 33.2,
+   "from": 31.3,
+   "to": 37.2,
    "checks": [
     "shell"
    ],
@@ -5999,8 +6204,8 @@
   {
    "who": "rich",
    "with": "car",
-   "from": 22.9,
-   "to": 34.9,
+   "from": 29,
+   "to": 38.9,
    "reason": "he sits inside the coupe (the car encloses him)"
   },
   {
@@ -6031,14 +6236,14 @@
    "who": "chip",
    "with": "rich",
    "from": 17.2,
-   "to": 18.6,
+   "to": 19.3,
    "reason": "Chip tugs the coat's sleeve with both hands (panel 07: the contact is the action)"
   },
   {
    "who": "chip",
    "with": "spud",
-   "from": 44.6,
-   "to": 50.6,
+   "from": 48.6,
+   "to": 54.6,
    "reason": "the lean, panels 19-20 (DESIGN 11)"
   }
  ],

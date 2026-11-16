@@ -9,7 +9,7 @@ import { clamp } from "./util.js";
 //
 //   bigcheck    the $10,000,000 check: 0.56 (x) x 0.24 (z) x 2 mm, paper #fbf6ea, LYING FLAT, FACE UP, text reading along +x (read from
 //               the +z side). ORIGIN: the middle of its underside (it rests on y 0). One corner lifted 8 degrees. The face is one
-//               1024 x 440 canvas drawn once: a double border #2f6b4a; "$10,000,000" in heavy numerals #1d2a22, cap height 0.085, from
+//               1024 x 440 canvas drawn once: a double border #2f6b4a; spec.amount ("$10,000,000") in heavy numerals #1d2a22, cap height 0.085, from
 //               x -0.17 to +0.23 (each glyph hashed +-1.5 px and +-1.2 degrees); two wavy rules and one signature scrawl (no
 //               letter); a round seal r 0.035 with 12 ticks at the +x end (centre x +0.21, z +0.058). The -x end is a blank pad 0.09
 //               wide (x -0.28..-0.19) for the Duchess's flat palm (`press`) at (-0.225, 0.002, 0). Nobody lifts it. Solid.
@@ -101,7 +101,7 @@ function wearSquash(P) {
 // ====================================================================================================== bigcheck
 const CK = { W: 0.56, D: 0.24, T: 0.002, PX: 1024, PY: 440 };
 // the face: one canvas, drawn once. Canvas x runs along +x, canvas top is -z (the far edge as read from +z).
-function checkFace(seed) {
+function checkFace(seed, amount = "$10,000,000") {
   const mx = (x) => ((x + CK.W / 2) / CK.W) * CK.PX, my = (z) => ((z + CK.D / 2) / CK.D) * CK.PY;   // metres -> pixels (z: top of the canvas is -z)
   return canvasTex(CK.PX, CK.PY, (g, w, h) => {
     g.fillStyle = "#fbf6ea"; g.fillRect(0, 0, w, h);
@@ -109,7 +109,7 @@ function checkFace(seed) {
     g.lineWidth = 7; g.strokeRect(16, 16, w - 32, h - 32);
     g.lineWidth = 2.5; g.strokeRect(32, 32, w - 64, h - 64);
     // "$10,000,000": the digits' height is the cap height 0.085 (156 px); the string is stretched to x -0.17..+0.23 (731 px)
-    const str = "$10,000,000", capPx = (0.085 / CK.D) * CK.PY, x0 = mx(-0.17), x1 = mx(0.23), base = my(-0.045) + capPx / 2;
+    const str = amount, capPx = (0.085 / CK.D) * CK.PY, x0 = mx(-0.17), x1 = mx(0.23), base = my(-0.045) + capPx / 2;
     g.fillStyle = "#1d2a22"; g.textBaseline = "alphabetic"; g.textAlign = "left";
     const face = (px) => `900 ${px}px "DejaVu Serif", Georgia, "Times New Roman", serif`;
     g.font = face(100);
@@ -218,7 +218,7 @@ export const SPREE_KINDS = {
     const geo = (idx) => { const g = new THREE.BufferGeometry(); g.setAttribute("position", posA); g.setAttribute("uv", uvA); g.setIndex(idx); return g; };
     const gT = geo(topI), gB = geo(botI), gE = geo(edgeI);
     const paper = mat("#fbf6ea", { roughness: 0.9, side: THREE.DoubleSide });
-    const face = mat("#ffffff", { roughness: 0.9, map: checkFace(seed) });
+    const face = mat("#ffffff", { roughness: 0.9, map: checkFace(seed, S.amount ?? "$10,000,000") });
     mesh(gT, face, P.whole); mesh(gB, paper, P.whole); mesh(gE, paper, P.whole);
     for (const m of P.whole.children) m.frustumCulled = false;
     const set = (lift) => {
