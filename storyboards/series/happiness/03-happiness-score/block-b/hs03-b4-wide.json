@@ -388,7 +388,7 @@
    "id": "mash",
    "character": "potatobrawl/mash",
    "at": [
-    40,
+    44,
     0
    ],
    "face": 0,
@@ -400,7 +400,7 @@
    "id": "chip",
    "character": "potatobrawl/chip",
    "at": [
-    40,
+    48,
     0
    ],
    "face": 0,
@@ -412,7 +412,7 @@
    "id": "wedge",
    "character": "potatobrawl/wedge",
    "at": [
-    40,
+    52,
     0
    ],
    "face": 0,
@@ -436,21 +436,22 @@
   {
    "id": "spkbox",
    "kind": "cardbox",
-   "x": -2.75,
+   "closed": true,
+   "x": -2.3,
    "y": 0,
-   "z": -0.5,
+   "z": -0.4,
    "w": 0.5,
    "d": 0.42,
-   "h": 0.5,
+   "h": 0.45,
    "staged": "a closed moving box as the speaker's table"
   },
   {
    "id": "speaker",
    "kind": "speaker",
-   "x": -2.75,
-   "y": 0.5,
-   "z": -0.5,
-   "rot": 70,
+   "x": -2.3,
+   "y": 0.45,
+   "z": -0.4,
+   "rot": 35,
    "lit": 0,
    "staged": "the little speaker on the box"
   },
@@ -493,10 +494,10 @@
    "id": "pad",
    "kind": "spudpad",
    "x": 40,
-   "y": 0.42,
-   "z": -1,
+   "y": 0.27,
+   "z": -1.02,
    "rot": 125,
-   "tip": -25,
+   "tip": -30,
    "write": 1,
    "lines2": [
     "MASH = 86",
@@ -533,25 +534,25 @@
    "len": 3.4,
    "shot": {
     "pos": [
-     -0.9,
-     1,
-     1.9
+     -1,
+     1.05,
+     2.1
     ],
     "look": [
-     -1.75,
-     0.72,
+     -1.4,
+     0.78,
      -0.5
     ],
     "fov": 46,
     "to": {
      "pos": [
-      -1,
-      0.98,
-      1.75
+      -1.08,
+      1.03,
+      1.95
      ],
      "look": [
-      -1.75,
-      0.72,
+      -1.4,
+      0.78,
       -0.5
      ],
      "fov": 46
@@ -564,7 +565,7 @@
      "who": "mash",
      "do": "move",
      "to": [
-      -2.3,
+      -1.62,
       -0.05
      ],
      "dur": 0.01,
@@ -576,7 +577,7 @@
     {
      "who": "mash",
      "do": "turn",
-     "to": -125,
+     "to": -40,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -586,8 +587,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      -1.35,
-      -0.95
+      -1.15,
+      -1.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -608,8 +609,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      -0.5,
-      -0.8
+      -0.05,
+      -0.9
      ],
      "dur": 0.01,
      "steps": 0,
@@ -655,10 +656,9 @@
       "prop": "speaker",
       "grip": [
        0.105,
-       0.09,
-       0.075
-      ],
-      "palm": true
+       0.13,
+       0.135
+      ]
      },
      "dur": 0.35,
      "ease": "out",
@@ -765,12 +765,12 @@
     {
      "macro": "narrate",
      "line": "His goodbye party. Your old song.",
-     "voice": "storyteller-deep",
+     "voice": "narrator",
      "take": 1,
-     "dur": 3.105,
+     "dur": 3.12,
      "caption": true,
      "pos": 128,
-     "gain": 1,
+     "gain": 4,
      "at": 1
     },
     {
@@ -808,8 +808,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      -2,
-      -0.7
+      -1.7,
+      -1.25
      ],
      "dur": 0.01,
      "steps": 0,
@@ -830,8 +830,8 @@
      "who": "wedge",
      "do": "move",
      "to": [
-      -1,
-      -0.75
+      -0.8,
+      -0.8
      ],
      "dur": 0.01,
      "steps": 0,
@@ -852,7 +852,7 @@
      "who": "mash",
      "do": "move",
      "to": [
-      0.1,
+      0.25,
       -0.7
      ],
      "dur": 0.01,
@@ -1039,7 +1039,7 @@
     {
      "who": "chip",
      "do": "point",
-     "dur": 18.8,
+     "dur": 4.3,
      "amp": 0.9,
      "at": 0
     },
@@ -1125,9 +1125,9 @@
      -1.3
     ],
     "look": [
-     2,
-     2.6,
-     -1
+     0.2,
+     2.45,
+     -1.2
     ],
     "fov": 50
    },
@@ -1158,8 +1158,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      1.55,
-      -0.85
+      1.5,
+      -0.8
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1170,10 +1170,26 @@
     {
      "who": "chip",
      "do": "turn",
-     "to": 120,
+     "to": 70,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
      "at": 1.08
     }
    ]
@@ -1184,28 +1200,28 @@
    "len": 3.9,
    "shot": {
     "pos": [
-     0.75,
-     0.82,
-     0.55
+     1.75,
+     0.92,
+     1.05
     ],
     "look": [
-     1.95,
-     0.7,
-     -1.05
+     1.92,
+     0.62,
+     -1.1
     ],
-    "fov": 40,
+    "fov": 38,
     "to": {
      "pos": [
-      0.85,
-      0.82,
-      0.45
+      1.78,
+      0.92,
+      0.95
      ],
      "look": [
-      1.95,
-      0.7,
-      -1.05
+      1.92,
+      0.62,
+      -1.1
      ],
-     "fov": 40
+     "fov": 38
     },
     "dur": 3.8999999999999986,
     "ease": "inOut"
@@ -1252,22 +1268,6 @@
     },
     {
      "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "chip",
      "do": "bounce",
      "dur": 0.9,
      "amp": 0.7,
@@ -1279,8 +1279,8 @@
      "side": "L",
      "pose": {
       "o": [
-       0.18,
-       0.6,
+       0.2,
+       0.42,
        0.3
       ]
      },
@@ -1303,9 +1303,9 @@
      "side": "L",
      "pose": {
       "o": [
-       0.05,
-       0.5,
-       0.15
+       0.08,
+       0.36,
+       0.18
       ]
      },
      "dur": 0.25,
@@ -1317,8 +1317,8 @@
      "side": "L",
      "pose": {
       "o": [
-       0.18,
-       0.6,
+       0.2,
+       0.42,
        0.3
       ]
      },
@@ -1421,7 +1421,7 @@
      "who": "chip",
      "do": "move",
      "to": [
-      40,
+      48,
       0
      ],
      "dur": 0.01,
@@ -1453,8 +1453,8 @@
      -1.3
     ],
     "look": [
+     -0.4,
      2.4,
-     2.6,
      -0.9
     ],
     "fov": 50
@@ -1486,8 +1486,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      -2,
-      -0.7
+      -1.7,
+      -1.25
      ],
      "dur": 0.01,
      "steps": 0,
@@ -1563,7 +1563,7 @@
     {
      "who": "chip",
      "do": "point",
-     "dur": 9.4,
+     "dur": 9.6,
      "amp": 0.9,
      "at": 0
     },
@@ -1577,12 +1577,12 @@
     {
      "macro": "narrate",
      "line": "Scientists found people who keep checking how happy they are enjoy the same song less.",
-     "voice": "storyteller-deep",
+     "voice": "narrator",
      "take": 1,
-     "dur": 5.88,
+     "dur": 5.36,
      "caption": true,
      "pos": 128,
-     "gain": 1,
+     "gain": 4,
      "at": 0.3
     },
     {
@@ -1603,6 +1603,72 @@
      "who": "spud",
      "do": "turn",
      "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -2.3,
+      0.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -1.2,
+      -0.35
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.5,
+      -1.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 40,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -1646,7 +1712,7 @@
     {
      "who": "mash",
      "do": "turn",
-     "to": 55,
+     "to": 80,
      "dur": 0.6,
      "at": 1.2
     },
@@ -1675,11 +1741,11 @@
      "do": "prop",
      "id": "pad",
      "set": {
-      "x": 1.98,
-      "y": 0.42,
-      "z": -1,
+      "x": 2,
+      "y": 0.27,
+      "z": -1.02,
       "rot": 125,
-      "tip": -25,
+      "tip": -30,
       "write": 1
      },
      "dur": 0,
@@ -1754,25 +1820,25 @@
    "len": 3.8,
    "shot": {
     "pos": [
-     1.62,
-     0.78,
-     -0.55
+     1,
+     0.98,
+     0.25
     ],
     "look": [
      2.25,
-     0.62,
+     0.8,
      -1.3
     ],
     "fov": 34,
     "to": {
      "pos": [
-      1.68,
-      0.78,
-      -0.62
+      1.06,
+      0.97,
+      0.17
      ],
      "look": [
       2.25,
-      0.62,
+      0.81,
       -1.3
      ],
      "fov": 34
@@ -1806,12 +1872,12 @@
     {
      "macro": "narrate",
      "line": "And for the first time, his number went down.",
-     "voice": "storyteller-deep",
+     "voice": "narrator",
      "take": 1,
-     "dur": 3.405,
+     "dur": 2.95,
      "caption": true,
      "pos": 128,
-     "gain": 1,
+     "gain": 4,
      "at": 0.2
     },
     {
@@ -1832,8 +1898,8 @@
       "prop": "pad",
       "grip": [
        -0.03,
-       0.14,
-       0.03
+       0.11,
+       0.045
       ]
      },
      "dur": 0.4,
@@ -1847,8 +1913,8 @@
       "prop": "pad",
       "grip": [
        0.02,
-       0.128,
-       0.03
+       0.098,
+       0.045
       ]
      },
      "dur": 0.4,
@@ -1862,8 +1928,8 @@
       "prop": "pad",
       "grip": [
        -0.03,
-       0.116,
-       0.03
+       0.086,
+       0.045
       ]
      },
      "dur": 0.4,
@@ -1877,8 +1943,8 @@
       "prop": "pad",
       "grip": [
        0.02,
-       0.104,
-       0.03
+       0.074,
+       0.045
       ]
      },
      "dur": 0.4,
@@ -1892,8 +1958,8 @@
       "prop": "pad",
       "grip": [
        -0.03,
-       0.092,
-       0.03
+       0.062,
+       0.045
       ]
      },
      "dur": 0.4,

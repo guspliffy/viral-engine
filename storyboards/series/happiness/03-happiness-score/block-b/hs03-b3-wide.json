@@ -269,10 +269,10 @@
     [
      2,
      4,
-     7
+     3
     ]
    ],
-   "n": 320,
+   "n": 260,
    "staged": "rain over the street, none under the awning"
   },
   {
@@ -280,12 +280,12 @@
    "kind": "reflectcard",
    "as": "puddle",
    "view": "front",
-   "w": 0.8,
+   "w": 0.75,
    "x": -3.3,
    "y": 0.004,
    "z": 1.5,
    "tip": -90,
-   "rot": 90,
+   "rot": -90,
    "op": 0,
    "staged": "his reflection in the puddle, glasses and all"
   }
@@ -410,8 +410,8 @@
    "len": 1,
    "shot": {
     "pos": [
-     -2.55,
-     0.66,
+     -2.2,
+     1.1,
      1.5
     ],
     "look": [
@@ -419,7 +419,7 @@
      0,
      1.5
     ],
-    "fov": 48
+    "fov": 34
    },
    "do": [
     {
@@ -427,6 +427,16 @@
      "id": "refl",
      "set": {
       "op": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 0
      },
      "dur": 0,
      "ease": "linear",
@@ -462,33 +472,43 @@
    "len": 2.5,
    "shot": {
     "pos": [
-     -4.9,
-     0.55,
-     3.3
+     -3,
+     0.5,
+     3.6
     ],
     "look": [
-     -3.1,
-     0.3,
+     -3.4,
+     0.25,
      1.4
     ],
-    "fov": 42,
+    "fov": 44,
     "to": {
      "pos": [
-      -5,
-      0.55,
-      3.15
+      -3.1,
+      0.5,
+      3.5
      ],
      "look": [
-      -3.1,
-      0.3,
+      -3.4,
+      0.25,
       1.4
      ],
-     "fov": 42
+     "fov": 44
     },
     "dur": 2.5,
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "who": "spud",
      "do": "look",

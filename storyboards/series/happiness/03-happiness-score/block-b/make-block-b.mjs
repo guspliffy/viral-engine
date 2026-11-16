@@ -26,18 +26,21 @@ const T0 = 50;   // story time of block time 0
 const MEASURED = new URL("./lines.json", import.meta.url);
 const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : Object.fromEntries(Object.entries(LINES).map(([k, l]) => [k, r3(0.4 + l.split(/\s+/).length / 2.6)]));
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
+// KOKORO=1: the Kokoro stand-in voice for staging checks before the VoxCPM2 narrator is installed (never for a sent draft)
+const STANDIN = process.env.KOKORO ? { voice: "storyteller-deep", gain: 1.0 } : {};
 const FAR = [40, 0];
+const FARS = { spud: [40, 0], mash: [44, 0], chip: [48, 0], wedge: [52, 0] };   // off stage: one spot each (bodies never share one)
 const MUSIC_FILE = "score-film/block-b-animatic.ogg", BOSSA_AT = 12.6, BOSSA_BPM = 91.9;
 
 // ---------------------------------------------------------------- the block's beats (block time, s)
 const T = {
   v13: 0, s13: 1.3, s14a: 3.7, v14: 4.6, s14: 5.6, s15a: 7.0, v15: 8.5, s15: 9.5,
   s16: 12.0, s17: 15.4, s18: 20.0, v18: 23.2, s19: 24.3, v19: 28.2, s20: 29.2, v21: 33.6, s22: 38.8,
-  s23: 42.6, s24: 44.8, END: 50.0,
+  s23: 42.6, s24: 45.0, END: 50.0,
 };
 const PARTS = [["b1", T.v13, T.s14a], ["b2", T.s14a, T.s15a], ["b3", T.s15a, T.s16], ["b4", T.s16, T.s23], ["b5", T.s23, T.s24], ["b6", T.s24, T.END]];
 // the narrator (each line ends before the next voice starts; one voice at a time)
-const AT = { n1: 1.5, n2: 3.9, n3: 13.0, n4: 29.5, n5: 39.0, n6: 42.85 };
+const AT = { n1: 1.5, n2: 3.9, n3: 13.0, n4: 29.5, n5: 39.0, n6: 42.75 };
 // glasses views [from, to] (block time): every one holds a tick of SPUD (story 51, 55, 59, 74, 79) or Mash's (86, 88)
 const VIEWS = [[T.v13, T.s13], [T.v14, T.s14], [T.v15, T.s15], [T.v18, T.s19], [T.v19, T.s20], [T.v21, T.s22]];
 
@@ -59,12 +62,12 @@ function build(F, key) {
   const c = clip({ faces: "strong" }), { A, sfx } = c;
   const PR = (t, id, set, dur = 0.01, ease = "linear") => c.prop(L(t), id, set, dur, ease);
   const place = (t, who, xz, yaw, y) => { const u = Math.max(0, r3(L(t) - 0.02)); A(u, who, "move", { to: xz, dur: 0.01, steps: 0, ease: "linear", sync: true, ...(y != null && { y }) }); A(u, who, "turn", { to: yaw, dur: 0.01, ease: "linear", sync: true }); };
-  const hide = (t, who) => place(t, who, FAR, 0, 0);
+  const hide = (t, who) => place(t, who, FARS[who], 0, 0);
   const look = (t, who, dir, dur = 0.2) => A(L(t), who, "look", { to: dir, dur, blink: false });
   const expr = (t, who, e, set, dur = 0.15) => A(L(t), who, "expr", { expr: e, ...(set && { set }), dur });
   const arm = (t, who, side, pose, dur, ease) => c.arm(L(t), who, side, pose, dur, ease);
   const inPart = (t) => t >= from - 1e-6 && t < to - 1e-6;
-  const nar = (k) => { if (inPart(AT[k])) narrate(c, F, L(AT[k]), LINES[k], DUR[k]); };
+  const nar = (k) => { if (inPart(AT[k])) narrate(c, F, L(AT[k]), LINES[k], DUR[k], STANDIN); };
   const SH = [];   // [name, block time, camera]
   const G = [];    // grade keys [block time, value]
   const SPUDG = (t) => ({ ...scoreGrade(spudAt(T0 + t + 0.01)), c: 1.03, lift: 0 });
@@ -73,8 +76,8 @@ function build(F, key) {
   const tags = [];
   const ownTag = (t0, t1, xy, k = 1) => tags.push({ who: "spud", keys: at(TS, SPUD), minus: true, show: [L(t0), L(t1)], xy, k, size: "close" });
   const props = [{ id: "gl-worn", kind: "scoreglasses", wear: "spud", x: 0, y: 0.640, z: 0.349, tip: 6, fold: 0, staged: "the glasses on Spud's nose (SCORE_FITS nose)" }];
-  const cast = [{ id: "spud", character: CAST.spud, at: FAR, face: 0, expr: "sad", follow: 0.2, seed: 1.3 }];
-  const add = (id, ch, seed) => cast.push({ id, character: CAST[ch], at: FAR, face: 0, expr: "happy", follow: 0.2, seed });
+  const cast = [{ id: "spud", character: CAST.spud, at: FARS.spud, face: 0, expr: "sad", follow: 0.2, seed: 1.3 }];
+  const add = (id, ch, seed) => cast.push({ id, character: CAST[ch], at: FARS[id], face: 0, expr: "happy", follow: 0.2, seed });
   let set, sound = { surface: "wood", room: "small" };
   let music = { file: MUSIC_FILE, from: 0, skip: from, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false, bpm: BOSSA_BPM, offset: r3(BOSSA_AT - from) };
   let split = null;
@@ -87,7 +90,7 @@ function build(F, key) {
     // view (0-1.3): through the glasses, the mirror shows him; his tag over the reflected head ticks 39 -> 38 at 1.0 (story 51)
     hide(0, "spud");
     PR(0, "mirror", { cover: 0, reflect: 1 }, 0);
-    SH.push(["13v the mirror shows him, 39 -> 38", T.v13, cam([0.3, 0.86, 1.25], [0.3, 0.92, 0], 34)]);
+    SH.push(["13v the mirror shows him, 39 -> 38", T.v13, cam([0.3, 0.9, 1.9], [0.3, 0.95, 0], 30)]);
     grade(T.v13, { glasses: true });
     ownTag(T.v13, T.s13, [960, 250]);
     // 13 (1.3-3.7): he slaps the newspaper over the glass and presses the last tape strip down, glasses on
@@ -95,13 +98,13 @@ function build(F, key) {
     place(T.s13, "spud", SP, 180); look(T.s13, "spud", [0.2, 0.25], 0.01); expr(T.s13, "spud", "annoyed", { lid: 0.25 }, 0.01);
     PR(T.s13, "mirror", { cover: 0.45, reflect: 0 }, 0); PR(T.s13 + 0.05, "mirror", { cover: 0.7 }, 0.45, "out");
     const tape = [r3(WALL.mirror.x + 0.17), r3(MY - 0.122), 0.041];
-    arm(T.s13, "spud", "R", { world: [tape[0], r3(tape[1] + 0.25), 0.08] }, 0.01);
-    arm(T.s13 + 0.25, "spud", "R", { world: tape, palm: true }, 0.3, "out");
-    arm(T.s13 + 1.2, "spud", "R", { world: [tape[0] - 0.02, tape[1] + 0.03, 0.06] }, 0.18); arm(T.s13 + 1.38, "spud", "R", { world: tape, palm: true }, 0.18, "out");
+    arm(T.s13 - 0.02, "spud", "R", { world: [tape[0], r3(tape[1] + 0.2), 0.17] }, 0.01);
+    arm(T.s13 + 0.25, "spud", "R", { world: [tape[0], tape[1], 0.13], palm: true }, 0.3, "out");
+    arm(T.s13 + 1.2, "spud", "R", { world: [tape[0] - 0.02, tape[1] + 0.03, 0.16] }, 0.18); arm(T.s13 + 1.38, "spud", "R", { world: [tape[0], tape[1], 0.13], palm: true }, 0.18, "out");
     arm(T.s13 + 2.0, "spud", "R", "rest", 0.4);
     sfx(L(T.s13 + 0.05), "kenney/book-flip", { gain: 0.35, reason: "the newspaper sheet slaps against the mirror" });
     grade(T.s13, SPUDG(T.s13));
-    SH.push(["13 he tapes the newspaper over the mirror", T.s13, cam([-0.85, 1.0, 1.75], [0.3, 0.86, 0.15], 40, { pos: [-0.75, 0.98, 1.6], dur: T.s14a - T.s13 })]);
+    SH.push(["13 he tapes the newspaper over the mirror", T.s13, cam([1.65, 1.0, 1.55], [0.2, 0.85, 0.2], 38, { pos: [1.55, 0.99, 1.45], dur: T.s14a - T.s13 })]);
     nar("n1");
   }
 
@@ -109,26 +112,28 @@ function build(F, key) {
   if (key === "b2") {
     set = { ...SETS.kitchen };
     sound = { surface: "tile", room: "small" };
-    const ST = [0.0, -1.05], KT = [0.45, 0.95, -1.8], STOOL = 0.42;
+    const ST = [-0.3, -1.15], KT = [0.45, 0.95, -1.8], STOOL = 0.42, FACE = 85;   // turned toward the camera; his eyes go to the kettle
     props.push({ id: "stool", kind: "stool", x: ST[0], y: 0, z: ST[1], staged: "a kitchen stool he stands on to reach the hob (below the frame)" });
-    props.push({ id: "kettle", kind: "kettle", x: KT[0], y: KT[1], z: KT[2], reflect: 0, reflectView: "front", reflectYaw: -36, reflectFov: 150, staged: "the steel kettle on the counter" });
+    props.push({ id: "kettle", kind: "kettle", x: KT[0], y: KT[1], z: KT[2], reflect: 0, reflectView: "front", reflectYaw: 12, reflectFov: 150, staged: "the steel kettle on the counter" });
+    // the same kettle for the glasses view: its reflection aimed at his eyes (reflectYaw is a spec key, so a twin swapped on the cuts)
+    props.push({ id: "kettleV", kind: "kettle", x: KT[0], y: KT[1], z: KT[2], reflect: 1, reflectView: "front", reflectYaw: -49, reflectFov: 150, scale: 0, staged: "the kettle seen through the glasses" });
     // 14a (3.7-4.6): he turns his head to the kettle
-    place(T.s14a, "spud", ST, 160, STOOL); look(T.s14a, "spud", [-0.3, 0], 0.01); expr(T.s14a, "spud", "sad", { lid: 0.2 }, 0.01);
-    look(T.s14a + 0.35, "spud", [0.45, 0.05], 0.3);
+    place(T.s14a, "spud", ST, FACE, STOOL); look(T.s14a, "spud", [0.1, 0], 0.01); expr(T.s14a, "spud", "sad", { lid: 0.2 }, 0.01);
+    look(T.s14a + 0.35, "spud", [0.75, 0.15], 0.3);
     grade(T.s14a, SPUDG(T.s14a));
-    SH.push(["14a he turns to the kettle", T.s14a, cam([-0.6, 1.14, -0.3], [0.2, 1.02, -1.55], 38, { pos: [-0.52, 1.13, -0.4], dur: T.v14 - T.s14a })]);
+    SH.push(["14a he turns to the kettle", T.s14a, cam([1.45, 1.36, 0.35], [0.05, 1.2, -1.45], 30, { pos: [1.4, 1.35, 0.27], look: [0.05, 1.21, -1.45], dur: T.v14 - T.s14a })]);
     // view (4.6-5.6): the kettle's curve shows him, glasses and all: 38 -> 37 at 5.0 (story 55)
     hide(T.v14, "spud");
-    PR(T.v14, "kettle", { reflect: 1 }, 0);
+    PR(T.v14, "kettle", { scale: 0 }, 0); PR(T.v14, "kettleV", { scale: 1 }, 0);
     grade(T.v14, { glasses: true });
-    SH.push(["14v the kettle shows him, 38 -> 37", T.v14, cam([0.05, 1.06, -1.2], [0.45, 1.04, -1.8], 26)]);
+    SH.push(["14v the kettle shows him, 38 -> 37", T.v14, cam([-0.15, 1.06, -1.3], [0.45, 1.04, -1.8], 28)]);
     ownTag(T.v14, T.s14, [940, 260]);
     // 14 (5.6-7.0): back in colour, he winces at himself in the kettle
-    place(T.s14, "spud", ST, 160, STOOL); look(T.s14, "spud", [0.45, 0.05], 0.01);
+    place(T.s14, "spud", ST, FACE, STOOL); look(T.s14, "spud", [0.75, 0.15], 0.01);
     expr(T.s14, "spud", "annoyed", { lid: 0.45 }, 0.01); expr(T.s14 + 0.25, "spud", "sad", { lid: 0.5 }, 0.3);
-    PR(T.s14, "kettle", { reflect: 0.9 }, 0);
+    PR(T.s14, "kettle", { scale: 1, reflect: 0.9 }, 0); PR(T.s14, "kettleV", { scale: 0 }, 0);
     grade(T.s14, SPUDG(T.s14));
-    SH.push(["14 he winces at his reflection", T.s14, cam([-0.62, 1.12, -0.42], [0.25, 1.02, -1.6], 36, { pos: [-0.56, 1.11, -0.5], dur: T.s15a - T.s14 })]);
+    SH.push(["14 he winces at his reflection", T.s14, cam([1.35, 1.34, 0.2], [0.1, 1.18, -1.5], 28, { pos: [1.3, 1.33, 0.12], look: [0.1, 1.19, -1.5], dur: T.s15a - T.s14 })]);
     nar("n2");
   }
 
@@ -137,8 +142,8 @@ function build(F, key) {
     set = { ...SETS.bakeryRain, life: { rain: { n: 1, speed: 9, len: 0.01 }, wind: false } };   // life.rain = the rain hiss in the sound bed; the picture's rain is the rainfall prop (none under the awning)
     sound = { surface: "wet", room: "open" };
     const PD = BAKERY.puddles[1];   // the pavement puddle (x -3.3, z 1.5, d 1.0)
-    props.push({ id: "rain", kind: "rainfall", box: [[-9, 0, 0.85], [2, 4, 7]], n: 320, staged: "rain over the street, none under the awning" });
-    props.push({ id: "refl", kind: "reflectcard", as: "puddle", view: "front", w: 0.8, x: PD.x, y: 0.004, z: PD.z, tip: -90, rot: 90, op: 0, staged: "his reflection in the puddle, glasses and all" });
+    props.push({ id: "rain", kind: "rainfall", box: [[-9, 0, 0.85], [2, 4, 3.0]], n: 260, staged: "rain over the street, none under the awning" });
+    props.push({ id: "refl", kind: "reflectcard", as: "puddle", view: "front", w: 0.75, x: PD.x, y: 0.004, z: PD.z, tip: -90, rot: -90, op: 0, staged: "his reflection in the puddle, glasses and all" });
     // 15a (7.0-8.5): he walks along the wet pavement toward the puddle, eyes down
     const Z = PD.z;
     place(T.s15a, "spud", [-1.4, Z], -90); expr(T.s15a, "spud", "sad", { lid: 0.35 }, 0.01); look(T.s15a, "spud", [0, -0.35], 0.01);
@@ -147,33 +152,33 @@ function build(F, key) {
     SH.push(["15a he walks in the rain", T.s15a, cam([-0.6, 0.62, 4.3], [-2.2, 0.5, 1.5], 38, { pos: [-0.9, 0.62, 4.3], dur: T.v15 - T.s15a })]);
     // view (8.5-9.5): looking down, the puddle shows him; 37 -> 36 at 9.0 (story 59)
     hide(T.v15, "spud");
-    PR(T.v15, "refl", { op: 1 }, 0);
+    PR(T.v15, "refl", { op: 1 }, 0); PR(T.v15, "rain", { scale: 0 }, 0); PR(T.s15, "rain", { scale: 1 }, 0);   // no streaks across the lens
     grade(T.v15, { glasses: true });
-    SH.push(["15v the puddle shows him, 37 -> 36", T.v15, cam([-2.55, 0.66, Z], [-3.35, 0, Z], 48)]);
+    SH.push(["15v the puddle shows him, 37 -> 36", T.v15, cam([-2.2, 1.1, Z], [-3.35, 0, Z], 34)]);
     ownTag(T.v15, T.s15, [960, 300]);
     // 15 (9.5-12.0): he steps past the puddle with his head turned away; the reflection is still there
     place(T.s15, "spud", [-2.75, Z], -90); look(T.s15, "spud", [0.6, 0.05], 0.01); expr(T.s15, "spud", "sad", { lid: 0.4 }, 0.01);
     A(L(T.s15 + 0.05), "spud", "move", { to: [-4.6, Z], dur: 2.4, ease: "linear" });
     PR(T.s15, "refl", { op: 0.8 }, 0); PR(T.s15 + 1.0, "refl", { op: 0 }, 0.9);
     grade(T.s15, SPUDG(T.s15));
-    SH.push(["15 he steps past the puddle, head away", T.s15, cam([-4.9, 0.55, 3.3], [-3.1, 0.3, 1.4], 42, { pos: [-5.0, 0.55, 3.15], dur: T.s16 - T.s15 })]);
+    SH.push(["15 he steps past the puddle, head away", T.s15, cam([-3.0, 0.5, 3.6], [-3.4, 0.25, 1.4], 44, { pos: [-3.1, 0.5, 3.5], dur: T.s16 - T.s15 })]);
   }
 
   // ================================================================= b4 PARTY (12.0-42.6)
   if (key === "b4") {
     set = { ...SETS.party };
     add("mash", "mash", 2.1); add("chip", "chip", 3.1); add("wedge", "wedge", 4.1);
-    const SPK = { x: -2.75, z: -0.5 }, BOX = 0.5;
-    props.push({ id: "spkbox", kind: "cardbox", x: SPK.x, y: 0, z: SPK.z, w: 0.5, d: 0.42, h: BOX, staged: "a closed moving box as the speaker's table" });
-    props.push({ id: "speaker", kind: "speaker", x: SPK.x, y: BOX, z: SPK.z, rot: 70, lit: 0, staged: "the little speaker on the box" });
+    const SPK = { x: -2.3, z: -0.4 }, BOX = 0.45;   // a low box: his arm reaches down over it (a chest-high box put his elbow in it)
+    props.push({ id: "spkbox", kind: "cardbox", closed: true, x: SPK.x, y: 0, z: SPK.z, w: 0.5, d: 0.42, h: BOX, staged: "a closed moving box as the speaker's table" });
+    props.push({ id: "speaker", kind: "speaker", x: SPK.x, y: BOX, z: SPK.z, rot: 35, lit: 0, staged: "the little speaker on the box" });
     props.push({ id: "lights", kind: "stringlights", points: [[-3.1, 2.32, -2.3], [-2.2, 2.42, -0.6], [-1.3, 2.26, -2.3], [-0.4, 2.42, -0.5], [0.8, 2.3, -2.3]], bulbs: 5, sag: 0.14, lit: 1, staged: "warm string lights over the dancers' side only" });
-    const SPOT = ROOM.spots["20 party wide"], SPS = [2.3, -1.3];
+    const SPOT = { chip: [-1.7, -1.25], wedge: [-0.8, -0.8], mash: [0.25, -0.7] }, SPS = [2.3, -1.3];   // ROOM.spots "20 party wide", Chip 0.6 m in from the speaker box
     // 16 (12.0-15.4): Mash presses play, Chip and Wedge cheer
-    const M16 = [-2.3, -0.05], C16 = [-1.35, -0.95], W16 = [-0.5, -0.8];
-    place(T.s16, "mash", M16, -125); place(T.s16, "chip", C16, 20); place(T.s16, "wedge", W16, -15);
+    const M16 = [-1.62, -0.05], C16 = [-1.15, -1.15], W16 = [-0.05, -0.9];
+    place(T.s16, "mash", M16, -40); place(T.s16, "chip", C16, 20); place(T.s16, "wedge", W16, -15);
     expr(T.s16, "mash", "serene", { lid: 0.5 }, 0.01); look(T.s16, "mash", [0, -0.3], 0.01);
     const BTN = [0.105, 0.09, 0.075];
-    arm(T.s16 + 0.15, "mash", "R", { prop: "speaker", grip: BTN, palm: true }, 0.35, "out");
+    arm(T.s16 + 0.15, "mash", "R", { prop: "speaker", grip: [BTN[0], BTN[1] + 0.04, BTN[2] + 0.06] }, 0.35, "out");
     PR(T.s16 + 0.55, "speaker", { lit: 1 }, 0.1);
     sfx(L(T.s16 + 0.5), "kenney/switch", { gain: 0.3, reason: "the speaker's play button clicks" });
     arm(T.s16 + 1.0, "mash", "R", "rest", 0.4);
@@ -181,7 +186,7 @@ function build(F, key) {
     A(L(T.s16 + 1.6), "chip", "dance", { do: "bounce", dur: 1.7, amp: 1 }); A(L(T.s16 + 1.7), "wedge", "dance", { do: "bounce", dur: 1.6, amp: 0.8 });
     A(L(T.s16 + 1.3), "mash", "turn", { to: 10, dur: 0.6 }); expr(T.s16 + 1.3, "mash", "happy", { lid: 0.5 }, 0.3);
     grade(T.s16, { ...GRADE_FIXED.partyWarm, c: 1.03, lift: 0 });
-    SH.push(["16 Mash presses play, Chip and Wedge cheer", T.s16, cam([-0.9, 1.0, 1.9], [-1.75, 0.72, -0.5], 46, { pos: [-1.0, 0.98, 1.75], dur: T.s17 - T.s16 })]);
+    SH.push(["16 Mash presses play, Chip and Wedge cheer", T.s16, cam([-1.0, 1.05, 2.1], [-1.4, 0.78, -0.5], 46, { pos: [-1.08, 1.03, 1.95], dur: T.s17 - T.s16 })]);
     nar("n3");
     // 17 (15.4-20.0): they dance between the boxes
     place(T.s17, "chip", SPOT.chip.slice(0, 2), 20); place(T.s17, "wedge", SPOT.wedge.slice(0, 2), 0); place(T.s17, "mash", SPOT.mash.slice(0, 2), -20);
@@ -190,7 +195,7 @@ function build(F, key) {
     for (const w of ["chip", "wedge", "mash"]) expr(T.s17, w, w === "mash" ? "happy" : "delighted", null, 0.01);
     SH.push(["17 they dance", T.s17, cam([-0.95, 1.05, 2.3], [-0.95, 0.75, -0.8], 46, { pos: [-0.8, 1.02, 2.0], dur: T.s18 - T.s17 })]);
     // the dancers keep dancing through 18-20 (off screen in 18-19); 21 Mash stops and looks over
-    for (const [w, d] of [["chip", "point"], ["wedge", "roof"], ["mash", "bounce"]]) A(L(T.s18), w, "dance", { do: d, dur: r3(T.v21 - T.s18 + (w === "mash" ? 1.4 : 5.2)), amp: w === "mash" ? 0.6 : 0.9 });
+    for (const [w, d] of [["chip", "point"], ["wedge", "roof"], ["mash", "bounce"]]) A(L(T.s18), w, "dance", { do: d, dur: r3(w === "chip" ? T.s19 - T.s18 : T.v21 - T.s18 + (w === "mash" ? 1.4 : 5.2)), amp: w === "mash" ? 0.6 : 0.9 });
     // 18 (20.0-23.2): Spud by the dark window, glasses on, looks up above his own head
     place(T.s18, "spud", SPS, -37); expr(T.s18, "spud", "sad", { lid: 0.2 }, 0.01); look(T.s18, "spud", [-0.4, 0.1], 0.01);
     look(T.s18 + 1.4, "spud", [0, 0.85], 0.35);
@@ -199,15 +204,15 @@ function build(F, key) {
     // view (23.2-24.3): looking up at the beams, his tag ticks 36 -> 35 at 24.0 (story 74)
     hide(T.v18, "spud");
     grade(T.v18, { glasses: true });
-    SH.push(["18v he checks: 36 -> 35", T.v18, cam([2.3, 0.75, -1.3], [2.0, 2.6, -1.0], 50)]);
+    SH.push(["18v he checks: 36 -> 35", T.v18, cam([2.3, 0.75, -1.3], [0.2, 2.45, -1.2], 50)]);
     ownTag(T.v18, T.s19, [960, 820]);
     // 19 (24.3-28.2): Chip comes over, "Come on!"; Spud holds up one finger, "One sec.", eyes up, not looking at Chip
-    const C19 = [1.55, -0.85];
+    const C19 = [1.5, -0.8];
     place(T.s19, "spud", SPS, -37); look(T.s19, "spud", [0, 0.6], 0.01); expr(T.s19, "spud", "focused", { lid: 0.2 }, 0.01);
-    place(T.s19, "chip", C19, 120); expr(T.s19, "chip", "eager", null, 0.01); look(T.s19, "chip", [0.1, 0.05], 0.01);
-    arm(T.s19, "chip", "R", "rest", 0.01); arm(T.s19, "chip", "L", "rest", 0.01);
+    place(T.s19, "chip", C19, 70); expr(T.s19, "chip", "eager", null, 0.01); look(T.s19, "chip", [0.1, 0.05], 0.01);
+    arm(T.s19 - 0.02, "chip", "R", "rest", 0.01); arm(T.s19 - 0.02, "chip", "L", "rest", 0.01);
     A(L(T.s19 + 0.1), "chip", "dance", { do: "bounce", dur: 0.9, amp: 0.7 });
-    arm(T.s19 + 0.2, "chip", "L", { o: [0.18, 0.6, 0.3] }, 0.25, "out"); arm(T.s19 + 0.55, "chip", "L", { o: [0.05, 0.5, 0.15] }, 0.25); arm(T.s19 + 0.85, "chip", "L", { o: [0.18, 0.6, 0.3] }, 0.25);
+    arm(T.s19 + 0.2, "chip", "L", { o: [0.2, 0.42, 0.3] }, 0.25, "out"); arm(T.s19 + 0.55, "chip", "L", { o: [0.08, 0.36, 0.18] }, 0.25); arm(T.s19 + 0.85, "chip", "L", { o: [0.2, 0.42, 0.3] }, 0.25);
     say(c, F, L(T.s19 + 0.3), "chip", "Come on!", 0.9, "excited");
     arm(T.s19 + 1.5, "spud", "R", { o: [0.02, 0.7, 0.3] }, 0.3, "out");
     say(c, F, L(T.s19 + 1.6), "spud", "One sec.", 0.8, "calm");
@@ -215,16 +220,16 @@ function build(F, key) {
     arm(T.s19 + 2.4, "chip", "L", "rest", 0.3); expr(T.s19 + 2.4, "chip", "sad", null, 0.3); look(T.s19 + 2.4, "chip", [-0.3, -0.2], 0.3);
     look(T.s19 + 2.9, "spud", [0, 0.85], 0.3);
     grade(T.s19, SPUDG(T.s19));
-    SH.push(["19 Chip pulls him to the dance, 'One sec.'", T.s19, cam([0.75, 0.82, 0.55], [1.95, 0.7, -1.05], 40, { pos: [0.85, 0.82, 0.45], dur: T.v19 - T.s19 })]);
+    SH.push(["19 Chip pulls him to the dance, 'One sec.'", T.s19, cam([1.75, 0.92, 1.05], [1.92, 0.62, -1.1], 38, { pos: [1.78, 0.92, 0.95], dur: T.v19 - T.s19 })]);
     // view (28.2-29.2): he checks again, 35 -> 34 at 29.0 (story 79)
     hide(T.v19, "spud"); hide(T.v19, "chip");
     grade(T.v19, { glasses: true });
-    SH.push(["19v he checks: 35 -> 34", T.v19, cam([2.3, 0.75, -1.3], [2.4, 2.6, -0.9], 50)]);
+    SH.push(["19v he checks: 35 -> 34", T.v19, cam([2.3, 0.75, -1.3], [-0.4, 2.4, -0.9], 50)]);
     ownTag(T.v19, T.s20, [960, 820]);
     // 20 (29.2-33.6): the beauty wide from the doorway: gold on the dancers, Spud's corner cool, the edge on the floor at x 1.35
     place(T.s20, "spud", SPS, -30); place(T.s20, "chip", SPOT.chip.slice(0, 2), 20);
     look(T.s20, "spud", [0, 0.7], 0.01); expr(T.s20, "spud", "sad", { lid: 0.3 }, 0.01);
-    A(L(T.s20), "chip", "dance", { do: "point", dur: r3(T.v21 - T.s20 + 5), amp: 0.9 }); expr(T.s20, "chip", "delighted", null, 0.01);
+    A(L(T.s20), "chip", "dance", { do: "point", dur: r3(T.s22 - T.s20), amp: 0.9 }); expr(T.s20, "chip", "delighted", null, 0.01);
     const C20 = cam([-2.6, 1.25, 2.4], [0.5, 1.0, -1.6], 50, { fov: 48.6, dur: T.v21 - T.s20 });
     grade(T.s20, SPUDG(T.s20));
     const ex = project(C20, [1.35, 0.5, -1.4]);
@@ -233,7 +238,10 @@ function build(F, key) {
     nar("n4");
     // 21 view (33.6-38.8): from his corner: Chip 93, Wedge 82, Mash 88 in the middle; Mash stops, looks over: 86 (story 86), 84 (88)
     hide(T.v21, "spud");
-    A(L(T.v21 + 1.2), "mash", "turn", { to: 55, dur: 0.6 }); look(T.v21 + 1.3, "mash", [0.25, 0.05], 0.3); expr(T.v21 + 1.4, "mash", "sad", { lid: 0.35 }, 0.5);
+    // spread for his corner's view: Chip + Wedge in the left lens, Mash alone in the right lens (nobody hides another)
+    const D21 = { chip: [-2.3, 0.9], wedge: [-1.2, -0.35], mash: [-0.5, -1.5] };
+    for (const w of ["chip", "wedge", "mash"]) place(T.v21, w, D21[w], w === "mash" ? 40 : 60);
+    A(L(T.v21 + 1.2), "mash", "turn", { to: 80, dur: 0.6 }); look(T.v21 + 1.3, "mash", [0.25, 0.05], 0.3); expr(T.v21 + 1.4, "mash", "sad", { lid: 0.35 }, 0.5);
     grade(T.v21, { glasses: true });
     SH.push(["21v Mash looks over at him: 88 -> 86 -> 84", T.v21, cam([2.05, 0.74, -1.15], [-0.9, 0.85, -0.7], 42, { fov: 40, dur: T.s22 - T.v21 })]);
     tags.push({ who: "chip", keys: [[0, SCORES.chip]], show: [L(T.v21), L(T.s22)] });
@@ -241,17 +249,17 @@ function build(F, key) {
     tags.push({ who: "mash", keys: at(TS, SCORES.mash), show: [L(T.v21), L(T.s22)], k: 1.15 });
     // 22 (38.8-42.6): close: Spud watches Mash with narrowed eyes and writes in his pad, not walking over
     place(T.s22, "spud", SPS, -55); expr(T.s22, "spud", "focused", { lid: 0.45, brow: 0.35 }, 0.01); look(T.s22, "spud", [-0.45, 0.05], 0.01);
-    const PAD = { id: "pad", kind: "spudpad", ...grips.placeFor("spudpad", [r3(SPS[0] - 0.32), 0.42, r3(SPS[1] + 0.3)], -55), tip: -25, write: 1, lines2: ["MASH = 86", "MASH = 88 ??"], note: "88 -> 84 ?" };
+    const PAD = { id: "pad", kind: "spudpad", ...grips.placeFor("spudpad", [r3(SPS[0] - 0.3), 0.27, r3(SPS[1] + 0.28)], -55), tip: -30, write: 1, lines2: ["MASH = 86", "MASH = 88 ??"], note: "88 -> 84 ?" };
     props.push({ ...PAD, x: FAR[0], staged: "his detective pad, held low at his chest" });
     PR(T.s22 - 0.03, "pad", { x: PAD.x, y: PAD.y, z: PAD.z, rot: PAD.rot, tip: PAD.tip, write: 1 }, 0);
     const hPad = grips.phone(c, "spud", PAD, { side: "L", height: 0.2 });
     arm(T.s22 - 0.02, "spud", "L", { prop: "pad", grip: hPad.hands.L.grip, palm: true }, 0.01); A(L(T.s22 - 0.02), "spud", "grip", { side: "L", shape: "hold", dur: 0.01 });
     A(L(T.s22 - 0.01), "spud", "grab", { prop: "pad", hand: "L", grip: hPad.hands.L.grip, dur: 0, pose: null });
     PR(T.s22 + 0.6, "pad", { write: 2 }, 2.2, "linear");
-    for (let i = 0; i < 5; i++) arm(T.s22 + 0.6 + i * 0.44, "spud", "R", { prop: "pad", grip: [r3(-0.03 + (i % 2) * 0.05), r3(0.14 - i * 0.012), 0.03] }, 0.4);
+    for (let i = 0; i < 5; i++) arm(T.s22 + 0.6 + i * 0.44, "spud", "R", { prop: "pad", grip: [r3(-0.03 + (i % 2) * 0.05), r3(0.11 - i * 0.012), 0.045] }, 0.4);
     arm(T.s22 + 3.0, "spud", "R", "rest", 0.4);
     grade(T.s22, SPUDG(T.s22));
-    SH.push(["22 he watches Mash and writes", T.s22, cam([1.62, 0.78, -0.55], [2.25, 0.62, -1.3], 34, { pos: [1.68, 0.78, -0.62], dur: T.s23 - T.s22 })]);
+    SH.push(["22 he watches Mash and writes", T.s22, cam([1.0, 0.98, 0.25], [2.25, 0.8, -1.3], 34, { pos: [1.06, 0.97, 0.17], look: [2.25, 0.81, -1.3], dur: T.s23 - T.s22 })]);
     nar("n5");
     sound = { surface: "wood", room: "small" };
   }
@@ -277,11 +285,11 @@ function build(F, key) {
     props.push({ id: "lights", kind: "stringlights", points: [[-3.1, 2.32, -2.3], [-2.2, 2.42, -0.6], [-1.3, 2.26, -2.3], [-0.4, 2.42, -0.5], [0.8, 2.3, -2.3]], bulbs: 5, sag: 0.14, lit: 1, staged: "the string lights still on" });
     const BOXES = [[-1.0, -0.6, 0.45], [0.0, -1.4, 0.5], [2.1, -0.2, 0.42], [-0.3, 1.2, 0.4], [2.2, 1.0, 0.45]];
     BOXES.forEach(([x, z, h], i) => {
-      props.push({ id: `bx${i}`, kind: "cardbox", x, y: 0, z, w: 0.55, d: 0.45, h, rot: (i * 23) % 40 - 20, staged: "a closed moving box used as a table" });
+      props.push({ id: `bx${i}`, kind: "cardbox", closed: true, x, y: 0, z, w: 0.55, d: 0.45, h, rot: (i * 23) % 40 - 20, staged: "a closed moving box used as a table" });
       props.push({ id: `cup${i}`, kind: "partycup", x: r3(x + 0.1), y: h, z: r3(z + 0.05), staged: "an empty red party cup left on the box" });
     });
     props.push({ id: "cupF", kind: "partycup", lie: true, x: 1.6, y: 0, z: 1.1, rot: 30, staged: "a cup knocked over on the floor" });
-    props.push({ id: "spkbox", kind: "cardbox", x: -1.6, y: 0, z: -1.7, w: 0.5, d: 0.42, h: 0.5, staged: "the speaker's box" });
+    props.push({ id: "spkbox", kind: "cardbox", closed: true, x: -1.6, y: 0, z: -1.7, w: 0.5, d: 0.42, h: 0.5, staged: "the speaker's box" });
     props.push({ id: "speaker", kind: "speaker", x: -1.6, y: 0.5, z: -1.7, rot: 15, lit: 0, staged: "the speaker, off" });
     const SP = [1.0, 0.55];
     place(T.s24, "spud", SP, -10); expr(T.s24, "spud", "sad", { lid: 0.45 }, 0.01); look(T.s24, "spud", [0, 0.6], 0.01);

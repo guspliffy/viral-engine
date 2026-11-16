@@ -257,9 +257,9 @@
   {
    "id": "stool",
    "kind": "stool",
-   "x": 0,
+   "x": -0.3,
    "y": 0,
-   "z": -1.05,
+   "z": -1.15,
    "staged": "a kitchen stool he stands on to reach the hob (below the frame)"
   },
   {
@@ -270,9 +270,22 @@
    "z": -1.8,
    "reflect": 0,
    "reflectView": "front",
-   "reflectYaw": -36,
+   "reflectYaw": 12,
    "reflectFov": 150,
    "staged": "the steel kettle on the counter"
+  },
+  {
+   "id": "kettleV",
+   "kind": "kettle",
+   "x": 0.45,
+   "y": 0.95,
+   "z": -1.8,
+   "reflect": 1,
+   "reflectView": "front",
+   "reflectYaw": -49,
+   "reflectFov": 150,
+   "scale": 0,
+   "staged": "the kettle seen through the glasses"
   }
  ],
  "captions": [],
@@ -283,28 +296,28 @@
    "len": 0.9,
    "shot": {
     "pos": [
-     -0.6,
-     1.14,
-     -0.3
+     1.45,
+     1.36,
+     0.35
     ],
     "look": [
-     0.2,
-     1.02,
-     -1.55
+     0.05,
+     1.2,
+     -1.45
     ],
-    "fov": 38,
+    "fov": 30,
     "to": {
      "pos": [
-      -0.52,
-      1.13,
-      -0.4
+      1.4,
+      1.35,
+      0.27
      ],
      "look": [
-      0.2,
-      1.02,
-      -1.55
+      0.05,
+      1.21,
+      -1.45
      ],
-     "fov": 38
+     "fov": 30
     },
     "dur": 0.8999999999999995,
     "ease": "inOut"
@@ -314,8 +327,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
-      -1.05
+      -0.3,
+      -1.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -327,7 +340,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 160,
+     "to": 85,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -337,7 +350,7 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.3,
+      0.1,
       0
      ],
      "dur": 0.01,
@@ -357,20 +370,20 @@
     {
      "macro": "narrate",
      "line": "Which is harder than it sounds.",
-     "voice": "storyteller-deep",
+     "voice": "narrator",
      "take": 1,
-     "dur": 2.28,
+     "dur": 1.69,
      "caption": true,
      "pos": 128,
-     "gain": 1,
+     "gain": 4,
      "at": 0.2
     },
     {
      "who": "spud",
      "do": "look",
      "to": [
-      0.45,
-      0.05
+      0.75,
+      0.15
      ],
      "dur": 0.3,
      "blink": false,
@@ -407,23 +420,33 @@
    "len": 1,
    "shot": {
     "pos": [
-     0.05,
+     -0.15,
      1.06,
-     -1.2
+     -1.3
     ],
     "look": [
      0.45,
      1.04,
      -1.8
     ],
-    "fov": 26
+    "fov": 28
    },
    "do": [
     {
      "do": "prop",
      "id": "kettle",
      "set": {
-      "reflect": 1
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kettleV",
+     "set": {
+      "scale": 1
      },
      "dur": 0,
      "ease": "linear",
@@ -433,8 +456,8 @@
      "who": "spud",
      "do": "move",
      "to": [
-      0,
-      -1.05
+      -0.3,
+      -1.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -446,7 +469,7 @@
     {
      "who": "spud",
      "do": "turn",
-     "to": 160,
+     "to": 85,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -460,28 +483,28 @@
    "len": 1.4,
    "shot": {
     "pos": [
-     -0.62,
-     1.12,
-     -0.42
+     1.35,
+     1.34,
+     0.2
     ],
     "look": [
-     0.25,
-     1.02,
-     -1.6
+     0.1,
+     1.18,
+     -1.5
     ],
-    "fov": 36,
+    "fov": 28,
     "to": {
      "pos": [
-      -0.56,
-      1.11,
-      -0.5
+      1.3,
+      1.33,
+      0.12
      ],
      "look": [
-      0.25,
-      1.02,
-      -1.6
+      0.1,
+      1.19,
+      -1.5
      ],
-     "fov": 36
+     "fov": 28
     },
     "dur": 1.4000000000000004,
     "ease": "inOut"
@@ -491,8 +514,8 @@
      "who": "spud",
      "do": "look",
      "to": [
-      0.45,
-      0.05
+      0.75,
+      0.15
      ],
      "dur": 0.01,
      "blink": false,
@@ -512,7 +535,18 @@
      "do": "prop",
      "id": "kettle",
      "set": {
+      "scale": 1,
       "reflect": 0.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kettleV",
+     "set": {
+      "scale": 0
      },
      "dur": 0,
      "ease": "linear",
