@@ -5443,6 +5443,24 @@
      "to": -6,
      "dur": 0.3,
      "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
     }
    ],
    "kind": "payoff"
@@ -5469,26 +5487,6 @@
      "who": "spud",
      "do": "lean",
      "to": 0,
-     "dur": 0.4,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "serene",
-     "set": {
-      "curve": 0.5
-     },
-     "dur": 0.4,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "expr": "serene",
-     "set": {
-      "curve": 0.5
-     },
      "dur": 0.4,
      "at": 0
     },

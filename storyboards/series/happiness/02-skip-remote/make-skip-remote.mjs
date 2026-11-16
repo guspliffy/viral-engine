@@ -356,7 +356,7 @@ A(T.punch + 1.3, "spud", "lean", { to: -6, dur: 0.3 });
 see(T.p18, T.p19, ["spud.face", "chip.face"], "Chip's punchline; Spud bursts into a real belly laugh");
 
 // ================================================================= 19-20 SUNSET (42.0-51.0)
-A(T.p19, "spud", "lean", { to: 0, dur: 0.4 }); expr(T.p19, "spud", "serene", { curve: 0.5 }, 0.4); expr(T.p19, "chip", "serene", { curve: 0.5 }, 0.4);
+A(T.p19, "spud", "lean", { to: 0, dur: 0.4 }); arm(T.p19 - PRE, "chip", "R", "lap", 0.01); arm(T.p19 - PRE, "chip", "L", "lap", 0.01);   // hands down for the sunset and the lean (an open hand reached across Spud) expr(T.p19, "spud", "serene", { curve: 0.5 }, 0.4); expr(T.p19, "chip", "serene", { curve: 0.5 }, 0.4);
 see(T.p19, T.p20, ["car"], "the jammed road at sunset; the teal car in the line, the sun at the end of the street");
 A(T.p20 + 0.4, "chip", "lean", { to: -12, dur: 0.6, ease: "settle" }); A(T.p20 + 0.4, "spud", "lean", { to: 3, dur: 0.6, ease: "settle" });
 A(T.p20 + 0.6, "chip", "blink", { dur: 0.4 }); expr(T.p20 + 0.6, "chip", "serene", { lid: 0.6, curve: 0.5 }, 0.4);
