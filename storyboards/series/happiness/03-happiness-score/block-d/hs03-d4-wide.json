@@ -26,14 +26,17 @@
  "animeTiming": true,
  "loopIdle": false,
  "music": {
-  "file": "score-film/hs03-d-temp.ogg",
-  "skip": 35.8,
-  "gain": 0.5,
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 185.8,
+  "seam": true,
+  "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -267,9 +270,9 @@
     {
      "macro": "narrate",
      "line": "You never found out your number.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 1.56,
+     "dur": 1.42,
      "caption": true,
      "pos": 128,
      "gain": 4,
