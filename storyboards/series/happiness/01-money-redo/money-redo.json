@@ -5924,10 +5924,10 @@
     },
     {
      "macro": "narrate",
-     "line": "Follow for the next question.",
+     "line": "Comment what you would do.",
      "voice": "narrator",
      "take": 1,
-     "dur": 1.77,
+     "dur": 1.6,
      "caption": true,
      "pos": 480,
      "gain": 4,

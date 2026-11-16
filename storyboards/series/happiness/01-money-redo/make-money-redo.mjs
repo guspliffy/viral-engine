@@ -468,7 +468,7 @@ const NARR = !VO ? [] : [
   [r3(T.p13 + 0.2), "But up on the hill sat his best friend.", 3.37],
   [r3(T.p18 + 0.2), "He lost a billion dollars.", 1.95],
   [r3(T.p19 + 0.2), "But for one moment, he forgot all his worries.", 2.43],
-  [T.follow, "Follow for the next question.", 1.77],   // the follow ask after the payoff (test)
+  [T.follow, "Comment what you would do.", 1.6],   // the comment ask after the payoff (Jonny 16 Nov: instead of the follow ask)
 ];
 for (const [t, line, dur] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take: 1, dur, caption: true, pos: SUBY, gain: NG });
 // the hook text up top is the HUD itself: "$1,000,000,000" and DAY 1 from frame 0
