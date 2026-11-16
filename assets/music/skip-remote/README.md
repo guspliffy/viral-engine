@@ -1,6 +1,6 @@
 # skip-remote (Happiness 02) score
 
-`skip-remote-score.ogg` (51.0 s, rough-draft version): made with ffmpeg by
+`skip-remote-score.ogg` (52.2 s, rough-draft version): made with ffmpeg by
 `storyboards/series/happiness/02-skip-remote/make-score.sh` from three takes already in the library (same source and
 licence as assets/music/ai, see its manifest), each loudness-matched (loudnorm -16 LUFS) and placed on the clip's beats:
 

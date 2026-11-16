@@ -28,7 +28,7 @@ const PRE = 0.012;
 const T = {
   p01: 0, p02: 3.8, click1: 4.4, p03: 4.6, p04: 9.4, click2: 11.0, p05: 11.3, p06: 12.6, click3: 14.4, p07: 14.7, click4: 16.6,
   p08: 17.0, p09: 19.6, click5: 22.6, p10: 23.1, click6: 24.3, p11: 24.7, p12: 28.6, p13: 30.2, p14: 33.0, p15: 35.0, rew: 35.6,
-  p16: 36.6, p17: 38.0, p18: 40.0, punch: 40.15, p19: 42.0, p20: 44.4, follow: 47.3, END: 51.0,
+  p16: 36.6, p17: 38.0, p18: 40.0, punch: 40.15, p19: 42.0, p20: 44.4, follow: 49.4, END: 52.2,   // the worries line is 4.7 s spoken (farm 16 Nov)
 };
 const END = T.END;
 
@@ -410,7 +410,7 @@ const NARR = !VO ? [] : [
   [r3(T.p11 + 0.1), "Eighty-two. And you can't remember a single day.", 3.72, 1],
   [r3(T.p13 + 0.1), "So you rewind, to see what you skipped.", 2.69, 1],
   [r3(T.p19 + 0.1), "The boring parts were the good parts.", 2.2, 1],
-  [r3(T.p20 + 0.1), "And for one moment, you forget all your worries.", 2.5, 1],
+  [r3(T.p20 + 0.1), "And for one moment, you forget all your worries.", 4.7, 1],
   [T.follow, "Follow for the next question.", 1.77, 1],   // the follow ask after the payoff (test)
 ];
 for (const [t, line, dur, take] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take, dur, caption: true, pos: SUBY, gain: NG });
@@ -450,6 +450,7 @@ write(import.meta.url, {
     { who: "chip", with: "car", from: 0, to: END, reason: "he sits inside the car (it encloses him)" },
     { who: "spudw", with: "chair", from: T.p07, to: T.p09, reason: "sitting on the office chair" },
     { who: "spudm", with: "pbench", from: T.p09, to: T.p10, reason: "sitting on the park bench" },
+    { who: "spud", with: "remg", from: r3(T.p17 + 0.9), to: r3(T.p17 + 1.4), reason: "the remote he has just laid in the glove box: his fingers let go of it" },
     { who: "chipw", with: "loaf", from: T.p06, to: T.p07, reason: "the loaf is balanced on his hood (panel 06): it rests on him" },
     { who: "spudo", with: "couch", from: T.p11, to: T.p15, reason: "sitting on the sofa" },
     { who: "spudo", with: "tear", from: T.p14, to: T.p16, reason: "the tear is worn on his cheek" },

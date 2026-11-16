@@ -397,8 +397,8 @@
  },
  "creative": {
   "length": [
-   51,
-   51
+   52.2,
+   52.2
   ]
  },
  "hook": {
@@ -5180,7 +5180,7 @@
   {
    "name": "20 the shoulder",
    "at": 44.4,
-   "len": 6.6,
+   "len": 7.8,
    "shot": {
     "rig": "car",
     "pos": [
@@ -5412,7 +5412,7 @@
   },
   {
    "from": 44.4,
-   "to": 51,
+   "to": 52.2,
    "see": [
     "spud.face",
     "chip.face"
@@ -5425,42 +5425,42 @@
    "who": "spud",
    "with": "seatS",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "sitting in the car seat"
   },
   {
    "who": "chip",
    "with": "seatC",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "sitting in the car seat"
   },
   {
    "who": "spud",
    "with": "wheel",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "hands on the wheel rim"
   },
   {
    "who": "spud",
    "with": "dash",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "his sweater's hem and left elbow touch the dash below the windscreen line: every camera sees the car from the front, the fascia hides them"
   },
   {
    "who": "spud",
    "with": "car",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "he sits inside the car (it encloses him)"
   },
   {
    "who": "chip",
    "with": "car",
    "from": 0,
-   "to": 51,
+   "to": 52.2,
    "reason": "he sits inside the car (it encloses him)"
   },
   {
@@ -5476,6 +5476,13 @@
    "from": 19.6,
    "to": 23.1,
    "reason": "sitting on the park bench"
+  },
+  {
+   "who": "spud",
+   "with": "remg",
+   "from": 38.9,
+   "to": 39.4,
+   "reason": "the remote he has just laid in the glove box: his fingers let go of it"
   },
   {
    "who": "chipw",
@@ -5502,7 +5509,7 @@
    "who": "chip",
    "with": "spud",
    "from": 44.8,
-   "to": 51,
+   "to": 52.2,
    "reason": "the lean, panel 20 (DESIGN 8)"
   }
  ],
