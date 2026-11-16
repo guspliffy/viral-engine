@@ -82,6 +82,12 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   round of waiting). Should lower farm runs turned back by preflight and the farm rounds per storyboard. Proof: the
   merged C-day layout with its counter moved under the safe zone, as in round 1, gives the same 10 lines on main and
   one line here; no pass or fail changes.
+- Prop moves that get overwritten (16 Nov, from Happiness 01 money redo; Jonny's "add them"): `qa/support.mjs`
+  warns (`tween-cut`) when a "prop" tween of where a prop is (x, y, z) is set again by a later "prop" action of the
+  same prop in its first half. The jet's climb began 0.09 s before its scene showed it, the scene's un-park set y
+  again, the jet never climbed and no check saw it (a still round to find it). Should keep lost prop moves found in
+  stills at 0. Proof: the jet storyboard as it was gives 1 warning, the delivered one 0; all 461 storyboards in the
+  repo give 5 warnings in 4 old clips; no fail and no render changes.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
