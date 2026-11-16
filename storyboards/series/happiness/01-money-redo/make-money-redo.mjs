@@ -360,7 +360,7 @@ A(r3(T.p15 - 0.06), "rich", "ride", { prop: null, dur: 0 }); park(T.p15, "rich",
 pr(T.p15 - PRE, "car", { x: CAR2[0], y: CAR2[1], z: CAR2[2], rot: 90, door: 1, brake: 1 });
 pr(T.p15 - PRE, "coat", { ...Object.fromEntries(["x", "y", "z"].map((k, i) => [k, carW([0.22, 0.46, -0.25], CAR2, 90)[i]])), rot: 90, door: 1 });
 const S15A = carW([1.45, 0, -1.0], CAR2, 90), S15B = carW([3.2, 0, -3.0], CAR2, 90);
-place(T.p15, "spud", [S15A[0], S15A[2]], -30, CAR2[1]); rest(T.p15, "spud");
+place(T.p15, "spud", [S15A[0], S15A[2]], yawTo([S15A[0], S15A[2]], [S15B[0], S15B[2]]), CAR2[1]); rest(T.p15, "spud");   // faces where he walks (draft 1 walked backwards, Jonny 16 Nov)
 expr(T.p15, "spud", "focused", { brow: 0.4 }, 0.01);
 look(T.p15 - 0.05, "spud", [0.6, 0.3], 0.1);
 A(T.p15 + 0.1, "spud", "move", { to: [S15B[0], S15B[2]], y: r3(CP[1] + COAST.heightAt(S15B[0] - CP[0], S15B[2] - CP[2])), dur: 1.7, steps: 5 });
@@ -377,7 +377,7 @@ see(T.p15, T.p16, ["car", "spud"], "the coupe at the roadside, its door open, th
 see(T.p16, T.p17, ["truck", "car", "spud"], "a tow truck hooks the gold car and drives off; Spud climbs on and never looks back");
 
 // ================================================================= 17-20 CHIP'S PLACE (39.0-50.6): the sunset
-place(T.p17, "spud", [r3(SEATW[0] - 0.55), r3(SEATW[2] - 0.15)], 110, SEATW[1]);
+place(T.p17, "spud", [r3(SEATW[0] - 0.55), r3(SEATW[2] - 0.15)], 75, SEATW[1]);   // faces his walk to the seat
 look(T.p17 - 0.05, "spud", [0.5, -0.1], 0.1);
 A(T.p17 + 0.05, "spud", "move", { to: [SEATW[0], SEATW[2]], y: SEATW[1], dur: 0.55, steps: 2 });
 A(T.p17 + 0.6, "spud", "sit", { rot: 180, dur: 0.6, height: 0, hands: "lap" });
