@@ -26,7 +26,7 @@ export const FRAME = {
 };
 
 // ---------------------------------------------------------------- the blocks (story time; a block may end a few s off: tell the director)
-export const BLOCK = { open: [0, 10], a: [10, 50], b: [50, 100], c: [100, 150], d: [150, 200] };
+export const BLOCK = { open: [0, 17.2], a: [17.2, 50], b: [50, 100], c: [100, 150], d: [150, 200] };
 
 // ---------------------------------------------------------------- the places: one set spec each (light from the place's bench)
 export const SETS = {
@@ -66,11 +66,11 @@ export const at = (T0, keys) => {
 };
 
 // ---------------------------------------------------------------- the HUD (DESIGN 4): "hud": hudFor(T0)
-export const TRAIN = [[6, "SUN 19:42"], [100, "09:12"], [150, "00:58"], [156, "00:41", 4], [162, "00:22", 4], [172, "00:12", 3], [186, "00:03", 3], [190, "00:00", 3]];
+export const TRAIN = [[11.6, "SUN 19:42"], [100, "09:12"], [150, "00:58"], [156, "00:41", 4], [162, "00:22", 4], [172, "00:12", 3], [186, "00:03", 3], [190, "00:00", 3]];
 export const OWN_OUT = 172;   // the own chip fades over 0.5 s as the glasses lift (2:52); the train chip fades 3:14-3:15
 export const hudFor = (T0, T1) => {
   const own = T0 < OWN_OUT ? { keys: at(T0, SPUD), ...(T1 > OWN_OUT && { out: [r3(OWN_OUT - T0), 0.5] }) } : null;
-  const train = T0 >= 6 && T0 < 195 ? { keys: at(T0, TRAIN) } : T1 > 6 ? { keys: at(T0, TRAIN) } : null;
+  const train = T1 > TRAIN[0][0] && T0 < 195 ? { keys: at(T0, TRAIN) } : null;   // slides in at its first key (11.6: Mash at the door, 04)
   return { ...(own && { own }), ...(train && { train }) };
 };
 
@@ -80,13 +80,34 @@ export const scoreGrade = (score) => ({ s: r3(1.10 - 0.055 * (41 - score)), w: r
 export const GRADE_FIXED = { partyWarm: { s: 1.12, w: 0.8 }, balcony: { s: 0.90, w: 0 }, memory: { s: 1.0, w: 0 }, flood: { s: 1.16, w: 0.8 }, sunset: { s: 1.18, w: 0.9 }, last: { s: 1.12, w: 0.8 } };
 // Spud's arc keyed on his score changes; a check's step lands inside its glasses-view cut (pass the cut's end as `when`)
 export const gradeFor = (T0, extra = []) => at(T0, [...SPUD.map(([t, v]) => [t, scoreGrade(v)]), ...extra].sort((a, b) => a[0] - b[0]));
+// the grade of one storyboard with its glasses-view windows (story time): views [[from, to], ...] get { glasses: true }; every
+// other key sets s, w, c and lift (a glasses key changes c and lift too, so the key after a view must put them back)
+export const LOOK_C = 1.03;
+export function gradeOf(T0, views = [], extra = []) {
+  const keys = [...SPUD.map(([t, v]) => [t, scoreGrade(v)]), ...extra].sort((a, b) => a[0] - b[0]);
+  const base = (t) => keys.filter(([k]) => k <= t + 1e-6).pop()?.[1] ?? scoreGrade(41);
+  const inView = (t) => views.some(([a, b]) => t >= a - 1e-6 && t < b - 1e-6);
+  const out = keys.filter(([t]) => !inView(t)).map(([t, g, d]) => (d != null ? [t, { c: LOOK_C, lift: 0, ...g }, d] : [t, { c: LOOK_C, lift: 0, ...g }]));
+  for (const [a, b] of views) { out.push([a, { glasses: true }]); out.push([b, { c: LOOK_C, lift: 0, ...base(b) }]); }
+  return at(T0, out.sort((x, y) => x[0] - y[0]));
+}
+// the "score" overlay of one storyboard (story time in, clip time out): views [[from, to]], tags [{ who, keys | score, ...rest }]
+// (keys in story time; show / minusCard in story time too)
+export function scoreOf(T0, views, tags) {
+  const sh = (t) => r3(t - T0);
+  return {
+    view: views.map(([a, b]) => [Math.max(0, sh(a)), sh(b)]),
+    tags: tags.map(({ keys, score, show, minusCard, ...o }) => ({ ...o, keys: keys ? at(T0, keys) : [[0, score]],
+      ...(show && { show: show.map((t) => Math.max(0, sh(t))) }), ...(minusCard && { minusCard: minusCard.map(sh) }) })),
+  };
+}
 
 // ---------------------------------------------------------------- voices
-// Narrator = voice 1 "deep storyteller" (engine/voice/voices.json "storyteller-deep"), speaks to the viewer as "you", never over a
+// Narrator = voice 1 "deep storyteller" (engine/voice/voices.json "narrator"), speaks to the viewer as "you", never over a
 // character line (one voice at a time). Characters speak captioned gibberish (c.say: talk action + subtitle).
-export const NARRATOR = "storyteller-deep";
+export const NARRATOR = "narrator";   // voice 1 "deep storyteller" (VoxCPM2 on Reaper's clip, engine/voice/README.md "Narrators"), as in the money redo
 export const narrate = (c, F, t, line, dur, o = {}) =>
-  c.at(r3(t), { macro: "narrate", line, voice: NARRATOR, take: 1, dur, caption: true, pos: F.SUB, gain: o.gain ?? 1.0, ...o });
+  c.at(r3(t), { macro: "narrate", line, voice: NARRATOR, take: 1, dur, caption: true, pos: F.SUB, gain: o.gain ?? 4.0, ...o });   // gain 4: the money redo's narrator level (Jonny OK)
 export const say = (c, F, t, who, line, dur, tone = "calm", o = {}) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: F.SUB, ...o });
 // a text card (DESIGN 4): pale gold, CapBlack, never over a face or a tag (take pos from qa/camfit.mjs)
 export const card = (c, F, t0, t1, text, size = 150, pos = F.CARD) => c.cap(r3(t0), r3(t1), text, pos, false, { size, kinetic: false, color: "#f3dc8c", stroke: "#24232b" });
@@ -96,7 +117,9 @@ export const card = (c, F, t0, t1, text, size = 150, pos = F.CARD) => c.cap(r3(t
 export const MUSIC = {
   open: ["sneaky"], a: ["sneaky", "sad"], b: ["sad", "calm-landscape"], c: ["sad", "elegant-reveal"], d: ["drama-swell", "sos-warm", "calm-landscape"],
 };
-// THE TUNE (5-6 whistled notes; Mash 0:03, kid Spud 2:05, Spud first 2:58): sound file assets/music/score-film/tune-*.ogg (director builds it)
+// THE TUNE (Mash 0:03 + 2:36, kid Spud 2:05, Spud first 2:58): the engine's whistled tune, sfx "whistletune" (engine/audio.mjs, dur ~1.8-2.2),
+// gain ~0.3 under a narrator line, 0.5 alone. The same 8 notes every time, so it reads as THEIR tune.
+export const tune = (c, t, o = {}) => c.sfx(r3(t), "whistletune", { gain: 0.45, dur: 2.0, reason: "THE TUNE: their old tune, whistled", ...o });
 
 // ---------------------------------------------------------------- the four tall parts: own hook in the first 2 s (OUTLINE "Parts")
 export const PART_HOOKS = {
