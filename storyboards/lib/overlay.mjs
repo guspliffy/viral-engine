@@ -18,9 +18,13 @@ export function picrule(c, t, dur, top, bottom, o = {}) { c.at(t, { fx: "picrule
 // the "hud" block: day / battery a number or keys, clock "HH:MM" or keys; pos "top" | "bottom", or y (px); show: [from, to]
 // label: a small yellow line under DAY ("SURVIVE IT"); threat: { kind: "snow", keys } (metres, a house chip under the
 // day); gauge: { kind: "warmth", keys } (°C, a thermometer after the clock). engine/page/hud.js has the details.
-export function hud({ day, clock, battery, part, label, threat, gauge, pos, y, show, clockTag } = {}) {
+// Skip remote (Happiness EP02), both opt-in: age: keys [[0, 25], [4.1, 31], [15.2, 25, 1.5]] or { keys, fade: [from, dur] }
+// (cake icon + number + life bar, a chip at x 72-372, y 214-332; a rise counts 0.4 s with a "+N" tag, a fall 1.5 s with a
+// green "-N"); pills: [17.2, 19.4] or { show: [17.2, 19.4] } (the YES / NO question pills, x 420-900).
+export function hud({ day, clock, battery, part, label, threat, gauge, age, pills, pos, y, show, clockTag } = {}) {
   return { ...(day != null && { day }), ...(clock != null && { clock }), ...(battery != null && { battery }), ...(part != null && { part }),
     ...(label && { label }), ...(threat && { threat }), ...(gauge && { gauge }),
+    ...(age != null && { age: Array.isArray(age) ? { keys: age } : age }), ...(pills && { pills: Array.isArray(pills) ? { show: pills } : pills }),
     ...(pos && { pos }), ...(y != null && { y }), ...(show && { show }), ...(clockTag === false && { clockTag: false }) };
 }
 
