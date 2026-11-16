@@ -266,15 +266,17 @@
   }
  },
  "music": {
-  "file": "score-film/hs03-a-temp.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
   "skip": 17.2,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -685,7 +687,7 @@
     {
      "macro": "narrate",
      "line": "Three days to learn how he does it.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
      "dur": 3.1,
      "caption": true,

@@ -216,15 +216,17 @@
   }
  },
  "music": {
-  "file": "score-film/hs03-a-temp.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
   "skip": 0,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -327,7 +329,7 @@
   {
    "from": 2.65,
    "to": 5,
-   "text": "You find glasses that show everyone's happiness score. Yours is forty-one.",
+   "text": "These glasses show everyone's happiness score. Yours is forty-one.",
    "pos": 128,
    "pop": false
   }
@@ -436,14 +438,14 @@
     },
     {
      "macro": "narrate",
-     "line": "You find glasses that show everyone's happiness score. Yours is forty-one.",
-     "voice": "narrator",
+     "line": "These glasses show everyone's happiness score. Yours is forty-one.",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 4.6,
+     "dur": 4.3,
      "caption": false,
      "pos": 128,
      "gain": 4,
-     "at": 0.2
+     "at": 0.05
     },
     {
      "who": "mover",

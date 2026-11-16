@@ -225,15 +225,17 @@
   }
  },
  "music": {
-  "file": "score-film/hs03-a-temp.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
   "skip": 5,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -445,7 +447,7 @@
     {
      "macro": "narrate",
      "line": "If you've ever compared yourself to a friend, watch what it costs you.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
      "dur": 5,
      "caption": true,
@@ -669,13 +671,6 @@
      "dur": 3.1,
      "ease": "linear",
      "at": 0.1
-    },
-    {
-     "sfx": "whistletune",
-     "gain": 0.3,
-     "dur": 2,
-     "reason": "THE TUNE: their old tune, whistled",
-     "at": 0.3
     },
     {
      "who": "spud",

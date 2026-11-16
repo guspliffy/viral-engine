@@ -14,7 +14,7 @@
 import { clip, write } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import {
-  r3, FRAME, SETS, CAST, SCORES, at, hudFor, gradeOf, scoreOf, narrate, say, card, tune,
+  r3, FRAME, SETS, CAST, SCORES, at, hudFor, gradeOf, scoreOf, narrate, say, card, SCORE,
   STREET, HALL, BAKERY, RIVER,
 } from "../kit/score-kit.mjs";
 
@@ -26,7 +26,7 @@ const yawTo = (a, b) => r3((Math.atan2(b[0] - a[0], b[1] - a[1]) * 180) / Math.P
 const ahead = ([x, z], yaw, d, y) => [r3(x + Math.sin(rad(yaw)) * d), r3(y), r3(z + Math.cos(rad(yaw)) * d)];
 // a held bun at the chest of a potato at [x, z] facing yaw: fwd metres out, side metres to his right, height y
 const chest = ([x, z], yaw, { fwd = 0.45, side = 0.06, y = 0.42 } = {}) => { const a = rad(yaw); return [r3(x + Math.sin(a) * fwd - Math.cos(a) * side), r3(y), r3(z + Math.cos(a) * fwd + Math.sin(a) * side)]; };
-const MUSIC = (T0) => ({ file: "score-film/hs03-a-temp.ogg", from: 0, skip: r3(T0), gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 } });
+const MUSIC = (T0) => SCORE(T0);   // the film's one score (kit/score.py), Jonny 16 Nov
 
 // a pinhole projection of a world point for a shot (the score tags fixed in px, the reflection's tag, the -1 card)
 function project(shot, p) {
@@ -146,8 +146,8 @@ seg("a1", "street", 0, 5.0, (S) => {
   S.tag({ xy: tip, keys: [[0, 41]], size: "medium" });
   // "41" up top for the first 2.6 s (frame 0 is the title), then the line's caption; the own chip takes over at 2.6
   S.card(0, 2.6, "41", 220, 180);
-  S.narrate(0.2, "You find glasses that show everyone's happiness score. Yours is forty-one.", 4.6, { caption: false });
-  c.cap(S.t(2.65), S.t(5.0), "You find glasses that show everyone's happiness score. Yours is forty-one.", F.SUB);
+  S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 4.3, { caption: false });   // Jonny 16 Nov: the old line ran past the cut at 5.0 ("41" cut off)
+  c.cap(S.t(2.65), S.t(5.0), "These glasses show everyone's happiness score. Yours is forty-one.", F.SUB);
   S.hud({ own: { keys: [[2.6, 41]] } });
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
   S.cut("01 the street through the glasses", 0, SH, "hook");
@@ -179,7 +179,7 @@ seg("a2", "hall", 5.0, 11.0, (S) => {
   S.place(7.6, "mash", W0, WY); S.holdNow(7.6, "mash", hb, BOX);
   S.expr(7.6, "mash", "serene", { curve: 0.2, open: 0.12, eye: 0.15 }, 0.01); S.look(7.6, "mash", [0, 0.1], 0.01);
   S.walk(7.7, "mash", W1, 3.1, 6); hb.carry(S.t(7.7), ahead(W1, WY, 0.42, 0.3), 3.1, "linear");
-  tune(S.c, S.t(7.9), { gain: 0.3 });
+  // (no whistle as Mash passes: Jonny 16 Nov "the whistling sounds when characters arrive in scenes should be cut")
   S.look(7.9, "spud", [0.6, 0.2], 0.4); S.A(S.t(8.0), "spud", "turn", { to: 60, dur: 0.6 });
   S.expr(8.4, "spud", "sad", { curve: -0.1, brow: 0.35 }, 0.5);
   S.narrate(5.15, "If you've ever compared yourself to a friend, watch what it costs you.", 5.0);
@@ -200,7 +200,6 @@ seg("a3", "hall", 11.0, 17.2, (S) => {
   S.place(11.0, "mash", DOOR, -30); S.holdNow(11.0, "mash", hb, BOX);
   S.expr(11.0, "mash", "serene", { curve: 0.25, open: 0.12, eye: 0.15 }, 0.01); S.look(11.0, "mash", [-0.2, 0.15], 0.01);
   S.A(S.t(12.4), "mash", "lean", { to: 4, dur: 0.8 }); S.A(S.t(13.6), "mash", "lean", { to: -2, dur: 0.8 });
-  tune(S.c, S.t(11.1), { gain: 0.22, dur: 2.0 });
   // he turns and carries the box out to the van
   const OUT = [2.5, -3.95];
   S.A(S.t(15.2), "mash", "turn", { to: -180, dur: 0.5 }); hb.carry(S.t(15.2), ahead(DOOR, -180, 0.42, 0.3), 0.5, "inOut", { rot: r3(BOX.rot - 150) });

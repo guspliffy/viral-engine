@@ -105,7 +105,7 @@ export function scoreOf(T0, views, tags) {
 // ---------------------------------------------------------------- voices
 // Narrator = voice 1 "deep storyteller" (engine/voice/voices.json "narrator"), speaks to the viewer as "you", never over a
 // character line (one voice at a time). Characters speak captioned gibberish (c.say: talk action + subtitle).
-export const NARRATOR = "narrator";   // voice 1 "deep storyteller" (VoxCPM2 on Reaper's clip, engine/voice/README.md "Narrators"), as in the money redo
+export const NARRATOR = "narrator-brisk";   // Jonny 16 Nov: 10% faster than voice 1 (voices.json "narrator-brisk" = "narrator" + tempo 1.1). Voice 1 "deep storyteller" (VoxCPM2 on Reaper's clip, engine/voice/README.md "Narrators"), as in the money redo
 export const narrate = (c, F, t, line, dur, o = {}) =>
   c.at(r3(t), { macro: "narrate", line, voice: NARRATOR, take: 1, dur, caption: true, pos: F.SUB, gain: o.gain ?? 4.0, ...o });   // gain 4: the money redo's narrator level (Jonny OK)
 export const say = (c, F, t, who, line, dur, tone = "calm", o = {}) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: F.SUB, ...o });
@@ -114,6 +114,9 @@ export const card = (c, F, t0, t1, text, size = 150, pos = F.CARD) => c.cap(r3(t
 
 // ---------------------------------------------------------------- music (library takes in assets/music/ai; each block's animatic picks
 // from its row; the film's score is joined by the director at the end). Realistic sounds only, no chime on a -1.
+// THE FILM'S SCORE (Jonny 16 Nov: one piece must not restart at a block seam): every segment plays its slice of
+// assets/music/score-film/hs03-score.ogg (built by kit/score.py, the table there is the recipe), T0 = the segment's story start.
+export const SCORE = (T0, o = {}) => ({ file: "score-film/hs03-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false, ...o });
 export const MUSIC = {
   open: ["sneaky"], a: ["sneaky", "sad"], b: ["sad", "calm-landscape"], c: ["sad", "elegant-reveal"], d: ["drama-swell", "sos-warm", "calm-landscape"],
 };
@@ -123,7 +126,7 @@ export const tune = (c, t, o = {}) => c.sfx(r3(t), "whistletune", { gain: 0.45, 
 
 // ---------------------------------------------------------------- the four tall parts: own hook in the first 2 s (OUTLINE "Parts")
 export const PART_HOOKS = {
-  a: { voice: "You find glasses that show everyone's happiness score. Yours is forty-one.", text: "41" },
+  a: { voice: "These glasses show everyone's happiness score. Yours is forty-one.", text: "41" },
   b: { voice: "Every time you check your happiness, it drops.", text: "-1" },
   c: { voice: "His best friend's secret was in a box marked DON'T KEEP.", text: "DON'T KEEP" },
   d: { voice: "One hour left with his best friend, and he's still counting.", text: "00:58" },

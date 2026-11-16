@@ -292,15 +292,17 @@
   }
  },
  "music": {
-  "file": "score-film/hs03-a-temp.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
   "skip": 11,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -532,16 +534,9 @@
      "at": 0
     },
     {
-     "sfx": "whistletune",
-     "gain": 0.22,
-     "dur": 2,
-     "reason": "THE TUNE: their old tune, whistled",
-     "at": 0.1
-    },
-    {
      "macro": "narrate",
      "line": "Your best friend is eighty-eight. And on Sunday, he's gone.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
      "dur": 3.9,
      "caption": true,

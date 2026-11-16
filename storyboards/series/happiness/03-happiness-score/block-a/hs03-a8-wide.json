@@ -293,15 +293,17 @@
   }
  },
  "music": {
-  "file": "score-film/hs03-a-temp.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
   "skip": 37.4,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
   "duck": {
    "voice": -6
-  }
+  },
+  "lock": false
  },
  "sound": {
   "signature": false,
@@ -447,7 +449,7 @@
     {
      "macro": "narrate",
      "line": "Still forty-one.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
      "dur": 1.5,
      "caption": true,
