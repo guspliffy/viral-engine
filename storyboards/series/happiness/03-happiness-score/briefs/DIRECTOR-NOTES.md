@@ -1,3 +1,4 @@
 - scoretrain: panel 47 train is maroon -> pass color "#6e2a2a" (panel wins over DESIGN green); at 250 m it is tiny (hand 4 px): stage it nearer on the viaduct / spec.scale (scale also multiplies speed).
 - worn props flatcap, toque, satchel, waiterapron: never rendered on a body; check in the first block-A still (mover 01, baker 06) and satchel at 46. bite: seed a dur-0 set; speaker: lit 1.
 - scoreroom: rug too bright/saturated vs RM-N (dull worn rug): tone it down at polish; party glow needs the stringlights props + colour arc split at x 1.35.
+- scorebakery: panel 15 rain view still has a pale foggy sky glow; staging: frame 15 low on the puddle; baker needs a stand-on top behind the counter to read (raise baker y).
