@@ -28,7 +28,7 @@
 // (the y key moves it). Keys [t, value, dur?]: a RISE counts up over dur (default 0.4 s) from the key's time, the chip
 // kicks 6 px, the number flashes yellow and scales 1.18 -> 1, the lost chunk of the bar flashes for 0.35 s and a
 // "+N" tag shows right of the chip for 0.9 s. A FALL (the roll-back) counts down over dur (default 1.5 s, eased in,
-// digits sliding down, the bar refilling) and a green "-N" tag shows for 1.0 s from the moment it lands. dur 0 jumps.
+// one whole number per frame, the bar refilling) and a green "-N" tag shows for 1.0 s from the moment it lands. dur 0 jumps.
 // "fade": [from, dur = 1] fades the chip out. The "+N" tag is 388-490 px wide: keep a jump key clear of the pills.
 // pills = the "YES" / "NO" question pills x 420-900, y 214-332 (green YES, red NO, a small "or" between): fade in over
 // 0.2 s at show[0], out over 0.2 s ending at show[1]. "pills": [from, to] works too.
@@ -232,23 +232,15 @@ function cake(ctx, x, y, v) {
   });
   ctx.restore();
 }
-// the number in fixed 50 px cells from x. While it falls the digit that changes slides down out of its cell and the next one in
-function ageNumber(ctx, v, falling, x, y, cell, col) {
-  const n = falling ? Math.ceil(v - 1e-3) : Math.round(v), fr = falling ? n - v : 0, a = String(Math.max(0, n));
-  const b = fr > 1e-3 ? String(Math.max(0, n - 1)).padStart(a.length, " ") : a, H = 82;
+// the number in fixed 50 px cells from x: always one whole integer (a count over dur shows 82, 81, ... one per frame)
+function ageNumber(ctx, v, x, y, cell, col) {
+  const a = String(Math.max(0, Math.round(v)));
   ctx.fillStyle = col;
-  for (let j = 0; j < a.length; j++) {
-    const cx = x + j * cell + cell / 2;
-    if (a[j] === b[j]) { ctx.fillText(a[j], cx, y); continue; }
-    ctx.save(); ctx.beginPath(); ctx.rect(x + j * cell - 4, y - 44, cell + 8, H); ctx.clip();
-    ctx.fillText(a[j], cx, y + fr * H); if (b[j] !== " ") ctx.fillText(b[j], cx, y + (fr - 1) * H);
-    ctx.restore();
-  }
+  for (let j = 0; j < a.length; j++) ctx.fillText(a[j], x + j * cell + cell / 2, y);
 }
 function drawAge(ctx, S) {
   const A = S.age, K = A.key, oy = (S.y ?? 214) - 214, [bx, by, bw, bh] = AGE_BOX;
   const kick = K && K.rise && K.since < 0.18 ? Math.sin((K.since / 0.18) * Math.PI) * 6 : 0;
-  const falling = K && !K.rise && K.since < K.dur;
   ctx.save(); ctx.globalAlpha = A.fade; ctx.translate(0, oy); ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.letterSpacing = "0px";
   ctx.save(); ctx.translate(kick, 0);
   chip(ctx, AGE_BOX);
@@ -258,7 +250,7 @@ function drawAge(ctx, S) {
   const col = fl != null ? (fl < 0.7 ? "#ffd25a" : TXT) : TXT, len = String(Math.max(0, Math.round(A.v))).length, ncx = 176 + (len * 50) / 2;
   ctx.font = '900 84px "CapBlack"';
   ctx.save(); ctx.translate(ncx, 266); ctx.scale(sc, sc); ctx.translate(-ncx, -266);
-  ageNumber(ctx, A.v, falling, 176, 266, 50, col);
+  ageNumber(ctx, A.v, 176, 266, 50, col);
   ctx.restore();
   // the life bar
   const f = clamp((AGE_MAX - A.v) / AGE_MAX), tx = 94, tw = 256, ty = 308, th = 12;
