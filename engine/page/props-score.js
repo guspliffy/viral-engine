@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import { clamp } from "./util.js";
+import { brushText } from "./props-score-paper.js";   // DON'T KEEP on the box's red patch (open question 6)
 
 // "I could see everyone's happiness score" (Happiness 03, 16 Nov 2026), builder task P1: the glasses, their case and the DON'T KEEP box.
 // Design: storyboards/series/happiness/03-happiness-score/DESIGN.md section 1 (sizes, hex, poses), section 9 (registry). Panels 02, 26, 28, 32, 33, 42, 45, 48.
 // Metres, y up, front +z. Every number below is the design's; nothing random (hashed from the item's index). Glass is userData.glass + steam (no shadow, no refraction).
-// No word or numeral in 3D: the red patch on the box is blank (open question 6: the stroke writer brushes DON'T KEEP over it).
+// No word or numeral in 3D except DON'T KEEP on the box's red patch (brushed by props-score-paper.js brushText, 16 Nov).
 // Exports SCORE_KINDS, SCORE_GRIPS, SCORE_FITS. Registry line for props3d.js (the director adds it):
 //   import { SCORE_KINDS, SCORE_GRIPS } from "./props-score.js"; Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);
 //
@@ -241,6 +242,8 @@ function kraftFront(red) {
       else { const xx = cx - w2 + 20 + rnd(s * 3 + 1) * (2 * w2 - 40), ye = side === 2 ? cy - h2 : cy + h2, dir = side === 2 ? -1 : 1; x.moveTo(xx, ye - dir * 8); x.lineTo(xx + (rnd(s * 3 + 3) - 0.5) * 8, ye + dir * (8 + rnd(s * 3 + 2) * 16)); }
       x.stroke();
     }
+    // the words, brushed in pale capitals over the patch (the stroke writer of props-score-paper.js)
+    brushText(x, ["DON'T", "KEEP"], { cx, cy, ppm: pm, fitW: 0.30, fitH: 0.105 });
   });
 }
 
