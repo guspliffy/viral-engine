@@ -126,7 +126,8 @@
   "ambience": 0.06,
   "surface": "stone",
   "room": "open",
-  "guard": true
+  "guard": true,
+  "level": -9.7
  },
  "hook": {
   "show": [

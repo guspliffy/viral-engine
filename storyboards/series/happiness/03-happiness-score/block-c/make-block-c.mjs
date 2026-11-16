@@ -16,7 +16,7 @@
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import { existsSync, readFileSync } from "node:fs";
-import { FRAME, SETS, CAST, ROOM, STREET, hudFor, gradeOf, GRADE_FIXED, LOOK_C, narrate, say, tune, SCORE } from "../kit/score-kit.mjs";
+import { FRAME, SETS, CAST, ROOM, STREET, hudFor, gradeOf, GRADE_FIXED, LOOK_C, narrate, say, tune, SCORE, LEVEL } from "../kit/score-kit.mjs";
 import { SCORE_FITS } from "../../../../../engine/page/props-score.js";
 import { VAN_SEAT } from "../../../../../engine/page/props-score-van.js";
 import { LINES } from "./lines.mjs";
@@ -106,7 +106,7 @@ function build(F, S) {
   const cam = (pos, lk, fov, to, dur) => ({ pos: pos.map(r3), look: lk.map(r3), fov, ...(to && { to: { ...(to.pos && { pos: to.pos.map(r3) }), ...(to.look && { look: to.look.map(r3) }), ...(to.fov && { fov: to.fov }) }, dur, ease: "inOut" }) });
 
   const cast = [], props = [], allowClip = [], SHOTS = [];
-  let set, grade, hud = hudFor(S.t0, S.t1), sound = { signature: false, sfx: 0.65, ambience: 0.05, surface: "wood", room: "room", guard: true };
+  let set, grade, hud = hudFor(S.t0, S.t1), sound = { signature: false, sfx: 0.65, ambience: 0.05, surface: "wood", room: "room", guard: true, level: LEVEL };
 
   if (S.key === "c1") {
     // ============================================================ 25-28: the boxes, the case, the book (100.0-119.0)
@@ -203,7 +203,7 @@ function build(F, S) {
     SHOTS.push(["29 kid Spud, 90", T.m29, plateCam(...M29CAM)]);
     grade = [[0, { c: LOOK_C, lift: 0, ...GRADE_FIXED.memory }]];
     hud = null;
-    sound = { signature: false, sfx: 0.65, ambience: 0.04, surface: "grass", room: "open", guard: true };
+    sound = { signature: false, sfx: 0.65, ambience: 0.04, surface: "grass", room: "open", guard: true, level: LEVEL };
     S.score = { view: [], tags: [{ xy: TAG90, keys: [[0, 90]], show: [L(T.m29), L(T.s31)], free: true, style: "pencil", size: "close", k: 0.8 }] };
   }
 
@@ -318,7 +318,7 @@ function build(F, S) {
     allowClip.push({ who: "driver", with: "van", from: 0, to: L(S.t1), reason: "the driver sits in the cab (the truck encloses him)" });
     allowClip.push({ who: "driver", with: "dcap", from: 0, to: L(S.t1), reason: "the cap is worn" });
     grade = gradeOf(S.t0);
-    sound = { signature: false, sfx: 0.65, ambience: 0.06, surface: "stone", room: "open", guard: true };
+    sound = { signature: false, sfx: 0.65, ambience: 0.06, surface: "stone", room: "open", guard: true, level: LEVEL };
   }
 
   const beats = c.beats(SHOTS.map(([n, t, s]) => [n, L(t), s]), L(S.t1));

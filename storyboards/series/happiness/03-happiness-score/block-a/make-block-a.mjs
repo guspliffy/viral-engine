@@ -14,7 +14,7 @@
 import { clip, write } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import {
-  r3, FRAME, SETS, CAST, SCORES, at, hudFor, gradeOf, scoreOf, narrate, say, card, SCORE,
+  r3, FRAME, SETS, CAST, SCORES, at, hudFor, gradeOf, scoreOf, narrate, say, card, SCORE, LEVEL,
   STREET, HALL, BAKERY, RIVER,
 } from "../kit/score-kit.mjs";
 
@@ -109,7 +109,7 @@ function make({ key, setKey, T0, T1, build }) {
     ...(views.length || tags.length ? { score: scoreOf(T0, views, tags) } : {}),
     ...(Object.keys(hud).length && { hud }),
     music: MUSIC(T0),
-    sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "stone", room: "open", guard: true, ...sound },
+    sound: { signature: false, sfx: 0.65, ambience: 0.06, surface: "stone", room: "open", guard: true, level: LEVEL, ...sound },
     creative: { length: [END, END] },
     ...(T0 === 0 && { hook: { show: ["mover"], hint: 0, what: "through a pair of old glasses: a grey moving-day street where everyone has a glowing number; his own reflection says 41" } }),
     cast: cast.filter((x) => used.has(x.id) || x.keep), props, captions: c.captions, beats, visible: c.visible,

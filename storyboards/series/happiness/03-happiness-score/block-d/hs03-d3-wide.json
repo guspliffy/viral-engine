@@ -44,7 +44,8 @@
   "ambience": 0.05,
   "surface": "grass",
   "room": "open",
-  "guard": true
+  "guard": true,
+  "level": -9.7
  },
  "creative": {
   "length": [

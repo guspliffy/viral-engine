@@ -47,6 +47,7 @@
   "sfx": 0.65,
   "ambience": 0.06,
   "guard": true,
+  "level": -9.7,
   "surface": "tile",
   "room": "small"
  },

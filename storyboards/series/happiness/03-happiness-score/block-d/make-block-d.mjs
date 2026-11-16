@@ -13,7 +13,7 @@
 // at sunset, a hand waving from a window (47). Spud walks away; the glasses stay (48).
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import {
-  FRAME, SETS, CAST, SPUD, at, hudFor, TRAIN, gradeOf, scoreOf, GRADE_FIXED, narrate, say, card, tune, SCORE, HILL, ROAD, STREET, viaductLine,
+  FRAME, SETS, CAST, SPUD, at, hudFor, TRAIN, gradeOf, scoreOf, GRADE_FIXED, narrate, say, card, tune, SCORE, LEVEL, HILL, ROAD, STREET, viaductLine,
 } from "../kit/score-kit.mjs";
 
 const F = FRAME.wide;
@@ -45,7 +45,7 @@ const look10 = (pos, pitch, yaw = 0) => { const L = 10, p = pitch * DEG, y = yaw
 const E = (pos, pitch, fov, yaw = 0) => { const l = look10(pos, pitch, yaw); return { pos, look: [r3(pos[0] - (l[0] - pos[0])), l[1], r3(pos[2] + (pos[2] - l[2]))], fov }; };
 const push = (sh, k, dur, fov) => ({ ...sh, to: { pos: sh.pos.map((v, j) => r3(v + (sh.look[j] - v) * k)), look: sh.look, fov: fov ?? sh.fov }, dur: r3(dur), ease: "inOut" });
 const MUSIC = (T0) => SCORE(T0);   // the film score (Jonny 16 Nov: one piece, no restart at a seam); holds the block D bed at 150-204
-const SOUND = { signature: false, sfx: 0.65, ambience: 0.05, surface: "grass", room: "open", guard: true };
+const SOUND = { signature: false, sfx: 0.65, ambience: 0.05, surface: "grass", room: "open", guard: true, level: LEVEL };
 const base = (id, T0, T1, extra) => ({
   id, title: `Happiness 03 block D ${id.split("-")[1]}`, idea: "Happiness 03 'I could see everyone's happiness score', block D 'Last sunset' (story 2:30-3:22)",
   format: "series: Spud looks for happiness (YouTube film, wide)", fps: 30, ...F.sb, look: "anime-pro", castLook: LOOK, profile: "short", loop: false,

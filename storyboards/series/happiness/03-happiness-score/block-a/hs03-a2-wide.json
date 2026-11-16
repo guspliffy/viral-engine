@@ -244,6 +244,7 @@
   "surface": "wood",
   "room": "hall",
   "guard": true,
+  "level": -9.7,
   "nature": [
    {
     "id": "birds",

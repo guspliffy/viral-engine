@@ -126,7 +126,8 @@
   "ambience": 0.05,
   "surface": "wood",
   "room": "room",
-  "guard": true
+  "guard": true,
+  "level": -9.7
  },
  "hook": {
   "show": [

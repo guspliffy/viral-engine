@@ -117,6 +117,9 @@ export const card = (c, F, t0, t1, text, size = 150, pos = F.CARD) => c.cap(r3(t
 // THE FILM'S SCORE (Jonny 16 Nov: one piece must not restart at a block seam): every segment plays its slice of
 // assets/music/score-film/hs03-score.ogg (built by kit/score.py, the table there is the recipe), T0 = the segment's story start.
 export const SCORE = (T0, o = {}) => ({ file: "score-film/hs03-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false, ...o });
+// ONE LEVEL for every segment of the film (Jonny 16 Nov, music jumping at seams): each segment levelled on its own lifted
+// the music up to 16 dB where no narrator spoke; sound.level fixes the lift (engine/sfx/guard.mjs), the join levels the film
+export const LEVEL = -9.7;
 export const MUSIC = {
   open: ["sneaky"], a: ["sneaky", "sad"], b: ["sad", "calm-landscape"], c: ["sad", "elegant-reveal"], d: ["drama-swell", "sos-warm", "calm-landscape"],
 };

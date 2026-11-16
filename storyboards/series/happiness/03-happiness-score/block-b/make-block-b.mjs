@@ -19,7 +19,7 @@
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import { existsSync, readFileSync } from "node:fs";
-import { FRAME, SETS, SCORE, CAST, SPUD, SCORES, spudAt, at, hudFor, scoreGrade, GRADE_FIXED, narrate, say, WALL, ROOM, BALCONY, BAKERY } from "../kit/score-kit.mjs";
+import { FRAME, SETS, SCORE, LEVEL, CAST, SPUD, SCORES, spudAt, at, hudFor, scoreGrade, GRADE_FIXED, narrate, say, WALL, ROOM, BALCONY, BAKERY } from "../kit/score-kit.mjs";
 import { LINES } from "./lines.mjs";
 
 const T0 = 50;   // story time of block time 0
@@ -310,7 +310,7 @@ function build(F, key) {
     fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic",
     castLook: "sheet", cleanStart: true, motion: MOTION, rig: RIG, physics: false, loopIdle: false,
     set, music,
-    sound: { signature: false, sfx: 0.65, ambience: 0.06, guard: true, ...sound },
+    sound: { signature: false, sfx: 0.65, ambience: 0.06, guard: true, level: LEVEL, ...sound },
     hud: hudFor(TS, T0 + to),
     grade: G.map(([t, v]) => [Math.max(0, L(t)), v]),
     ...(split && { split }),

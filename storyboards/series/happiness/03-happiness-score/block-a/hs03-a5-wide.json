@@ -286,6 +286,7 @@
   "surface": "stone",
   "room": "open",
   "guard": true,
+  "level": -9.7,
   "nature": [
    {
     "id": "birds",

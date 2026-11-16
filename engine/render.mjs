@@ -193,12 +193,12 @@ function ffmpeg(argv) {
 // the rare peak the gain pushes too high. (loudnorm's own second pass falls back to its dynamic mode when the
 // loudness range is wide, as with sparse sound effects and no music, and then lands up to 2 LU off target.)
 const MUX_RANGE = { lufs: [-15.5, -12.5], tp: -1.0 };
-async function mux(video, wav, outFile, from, len) {
+async function mux(video, wav, outFile, from, len, fixed = false) {   // fixed: sound.level is set (a film's segment): no loudness target, the film is levelled at its join
   const cut = from != null ? ["-ss", String(from), "-t", String(len)] : [];
   const m = await ffmpeg(["-hide_banner", ...cut, "-i", wav, "-af", `loudnorm=I=${LOUDNESS.I}:TP=${LOUDNESS.TP}:LRA=${LOUDNESS.LRA}:print_format=json`, "-f", "null", "-"]);
   const j = JSON.parse(m.slice(m.lastIndexOf("{"), m.lastIndexOf("}") + 1));
   if (!Number.isFinite(Number(j.input_i))) throw new Error(`mux: the mix in ${wav} has no measurable loudness (${j.input_i} LUFS): is it silent? (--silent makes a clip without sound)`);
-  let gain = LOUDNESS.I - Number(j.input_i);
+  let gain = fixed ? 0 : LOUDNESS.I - Number(j.input_i);
   // the limiter runs at 4x the sample rate so it also catches the peaks between samples (a sharp knock or slam
   // otherwise comes out of the AAC encoder above the true-peak limit). It starts 0.6 dB below the target, since AAC
   // rings over a bright transient (a blade "ting"); a very sharp click (a door latch) can still ring well over it
@@ -222,6 +222,7 @@ async function mux(video, wav, outFile, from, len) {
     tp = Number((sum.match(/Peak:\s+(-?[\d.]+)/) || [])[1]);
     lufs = Number((sum.match(/I:\s+(-?[\d.]+) LUFS/) || [])[1]);
     if (tp > LOUDNESS.TP + 0.5) { ceiling -= (tp - LOUDNESS.TP) / 2 + 0.2; continue; }   // half the excess at a time: the ringing does not shrink dB for dB
+    if (fixed) break;
     if (lufs < LOUDNESS.I - 0.5 && gain < gain0 + 6) { gain = Math.min(gain0 + 6, gain + LOUDNESS.I - lufs); continue; }
     // and the other way: a short clip whose wav measured quieter than its encoded file (a 4.8 s segment of a film score,
     // hs03 a4, 16 Nov 2026: -12.1 LUFS) comes down by the excess
@@ -231,7 +232,7 @@ async function mux(video, wav, outFile, from, len) {
   // the loop can run out of rounds: a file it couldn't measure, or one still out of the delivery range (qa/check.mjs
   // RULES: -15.5 to -12.5 LUFS, true peak at most -1 dBTP), stops here instead of shipping (quality plan item 19)
   if (!Number.isFinite(tp) || !Number.isFinite(lufs)) throw new Error(`mux: couldn't measure the encoded sound of ${outFile} (true peak ${tp}, loudness ${lufs})`);
-  if (lufs < MUX_RANGE.lufs[0] || lufs > MUX_RANGE.lufs[1] || tp > MUX_RANGE.tp) throw new Error(`mux: ${outFile} is ${lufs.toFixed(1)} LUFS, true peak ${tp.toFixed(1)} dBTP after 6 rounds (needs ${MUX_RANGE.lufs.join(" to ")} LUFS, at most ${MUX_RANGE.tp} dBTP): a very sparse or very peaky mix; try "sound": { "guard": true }`);
+  if ((!fixed && (lufs < MUX_RANGE.lufs[0] || lufs > MUX_RANGE.lufs[1])) || tp > MUX_RANGE.tp) throw new Error(`mux: ${outFile} is ${lufs.toFixed(1)} LUFS, true peak ${tp.toFixed(1)} dBTP after 6 rounds (needs ${MUX_RANGE.lufs.join(" to ")} LUFS, at most ${MUX_RANGE.tp} dBTP): a very sparse or very peaky mix; try "sound": { "guard": true }`);
   return { measuredLUFS: Number(j.input_i), measuredPeak: Number(j.input_tp), truePeak: tp, lufs };
 }
 
@@ -323,7 +324,7 @@ async function main() {
   }
   if (o.audioOnly || o.stitch) {
     if (!fs.existsSync(videoFile)) throw new Error(`--audio-only needs an earlier render: ${videoFile} not found`);
-    await finish(audio, videoFile, wavFile, outFile, o, dur, o.audioOnly ? "sound only; " : "");
+    await finish(audio, videoFile, wavFile, outFile, o, dur, o.audioOnly ? "sound only; " : "", Number.isFinite(sb.sound?.level));
     return;
   }
 
@@ -631,7 +632,7 @@ async function main() {
     await browser.close(); srv.close(); if (xvfb) xvfb.proc.kill();
   }
   if (o.shard) { console.log(`wrote ${videoFile} (shard ${o.shard.i}/${o.shard.n}, video only; join with --stitch ${o.shard.n})`); return; }
-  await finish(audio, videoFile, wavFile, outFile, o, dur, "");
+  await finish(audio, videoFile, wavFile, outFile, o, dur, "", Number.isFinite(sb.sound?.level));
 }
 
 // motion blur settings for this render, or null when it is off
@@ -674,9 +675,9 @@ function blurSamples(bl, t, fps, v) {
 }
 
 // the drawn video plus its sound (normalised), or a silent track
-async function finish(audio, videoFile, wavFile, outFile, o, dur, note) {
+async function finish(audio, videoFile, wavFile, outFile, o, dur, note, fixed = false) {
   if (audio) {
-    const l = await mux(videoFile, wavFile, outFile, o.from, (o.to ?? dur) - (o.from ?? 0));
+    const l = await mux(videoFile, wavFile, outFile, o.from, (o.to ?? dur) - (o.from ?? 0), fixed);
     console.log(`wrote ${outFile} (${note}mix measured ${l.measuredLUFS} LUFS, normalised to ${LOUDNESS.I})`);
   } else {
     await ffmpeg(["-y", "-loglevel", "error", "-i", videoFile, "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100", "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-shortest", "-movflags", "+faststart", outFile]);
