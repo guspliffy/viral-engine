@@ -82,6 +82,7 @@ import { AT_B_KINDS, AT_B_GRIPS } from "./props-at-b.js";   // ancient aliens EP
 import { AT_C_KINDS, AT_C_GRIPS } from "./props-at-c.js";   // ancient aliens EP03 Atlantis, block C (kit/BLOCKS.md)
 import { SCORE_KINDS, SCORE_GRIPS } from "./props-score.js";   // happiness score film: storyboards/series/happiness/03-happiness-score/DESIGN.md
 import { SPLATE_KINDS, SPLATE_GRIPS } from "./props-score-plate.js";   // happiness score film: projected plates (per-place scenes: props-score-plate-<id>.js)
+import { VAN_KINDS, VAN_GRIPS } from "./props-score-van.js";   // happiness score film: moving truck
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
@@ -1486,6 +1487,7 @@ Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRI
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, SPLATE_KINDS); Object.assign(GRIPS, SPLATE_GRIPS);   // happiness score film (props-score-plate.js)
+Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {
