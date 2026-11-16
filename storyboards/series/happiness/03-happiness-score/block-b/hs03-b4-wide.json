@@ -36,9 +36,10 @@
   "windows": false
  },
  "music": {
-  "file": "score-film/block-b-animatic.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
-  "skip": 12,
+  "skip": 62,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
@@ -331,7 +332,7 @@
     ],
     "show": [
      21.6,
-     26.8
+     23.6
     ]
    },
    {
@@ -344,7 +345,7 @@
     ],
     "show": [
      21.6,
-     26.8
+     23.6
     ]
    },
    {
@@ -765,9 +766,9 @@
     {
      "macro": "narrate",
      "line": "His goodbye party. Your old song.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 3.12,
+     "dur": 2.8423,
      "caption": true,
      "pos": 128,
      "gain": 4,
@@ -1576,10 +1577,10 @@
     },
     {
      "macro": "narrate",
-     "line": "Scientists found people who keep checking how happy they are enjoy the same song less.",
-     "voice": "narrator",
+     "line": "You noticed: the more you checked how happy you were, the less you enjoyed the song.",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 5.36,
+     "dur": 5.6394,
      "caption": true,
      "pos": 128,
      "gain": 4,
@@ -1677,9 +1678,9 @@
    ]
   },
   {
-   "name": "21v Mash looks over at him: 88 -> 86 -> 84",
+   "name": "21v the party through the glasses: Chip 93, Wedge 82, Mash 88",
    "at": 21.6,
-   "len": 5.2,
+   "len": 2,
    "shot": {
     "pos": [
      2.05,
@@ -1703,9 +1704,9 @@
       0.85,
       -0.7
      ],
-     "fov": 40
+     "fov": 41
     },
-    "dur": 5.199999999999996,
+    "dur": 2,
     "ease": "inOut"
    },
    "do": [
@@ -1738,6 +1739,96 @@
      "at": 1.4
     },
     {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.5,
+      2.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.6,
+      2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "21m Mash alone: 88 -> 86 -> 84",
+   "at": 23.6,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     2.05,
+     0.74,
+     -1.15
+    ],
+    "look": [
+     -0.41,
+     1.26,
+     -0.86
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      2.05,
+      0.74,
+      -1.15
+     ],
+     "look": [
+      -0.41,
+      1.26,
+      -0.86
+     ],
+     "fov": 32
+    },
+    "dur": 3.1999999999999957,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "And for the first time, his number went down.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 2.6815,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
      "do": "prop",
      "id": "pad",
      "set": {
@@ -1750,7 +1841,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 5.17
+     "at": 3.17
     },
     {
      "who": "spud",
@@ -1763,7 +1854,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 5.18
+     "at": 3.18
     },
     {
      "who": "spud",
@@ -1772,7 +1863,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 5.18
+     "at": 3.18
     },
     {
      "who": "spud",
@@ -1788,7 +1879,7 @@
       "palm": true
      },
      "dur": 0.01,
-     "at": 5.18
+     "at": 3.18
     },
     {
      "who": "spud",
@@ -1796,7 +1887,7 @@
      "side": "L",
      "shape": "hold",
      "dur": 0.01,
-     "at": 5.18
+     "at": 3.18
     },
     {
      "who": "spud",
@@ -1810,14 +1901,14 @@
      ],
      "dur": 0,
      "pose": null,
-     "at": 5.19
+     "at": 3.19
     }
    ]
   },
   {
    "name": "22 he watches Mash and writes",
    "at": 26.8,
-   "len": 3.8,
+   "len": 2.4,
    "shot": {
     "pos": [
      1,
@@ -1843,7 +1934,7 @@
      ],
      "fov": 34
     },
-    "dur": 3.8000000000000043,
+    "dur": 2.4000000000000057,
     "ease": "inOut"
    },
    "do": [
@@ -1870,25 +1961,14 @@
      "at": 0
     },
     {
-     "macro": "narrate",
-     "line": "And for the first time, his number went down.",
-     "voice": "narrator",
-     "take": 1,
-     "dur": 2.95,
-     "caption": true,
-     "pos": 128,
-     "gain": 4,
-     "at": 0.2
-    },
-    {
      "do": "prop",
      "id": "pad",
      "set": {
       "write": 2
      },
-     "dur": 2.2,
+     "dur": 1.5,
      "ease": "linear",
-     "at": 0.6
+     "at": 0.4
     },
     {
      "who": "spud",
@@ -1903,7 +1983,7 @@
       ]
      },
      "dur": 0.4,
-     "at": 0.6
+     "at": 0.4
     },
     {
      "who": "spud",
@@ -1918,7 +1998,7 @@
       ]
      },
      "dur": 0.4,
-     "at": 1.04
+     "at": 0.76
     },
     {
      "who": "spud",
@@ -1933,7 +2013,7 @@
       ]
      },
      "dur": 0.4,
-     "at": 1.48
+     "at": 1.12
     },
     {
      "who": "spud",
@@ -1948,34 +2028,19 @@
       ]
      },
      "dur": 0.4,
-     "at": 1.92
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "pad",
-      "grip": [
-       -0.03,
-       0.062,
-       0.045
-      ]
-     },
-     "dur": 0.4,
-     "at": 2.36
+     "at": 1.48
     },
     {
      "who": "spud",
      "do": "arm",
      "side": "R",
      "pose": "rest",
-     "dur": 0.4,
-     "at": 3
+     "dur": 0.35,
+     "at": 1.9
     }
    ]
   }
  ],
  "visible": [],
- "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs (b4). Block B of four, block time 12-42.6 s (story 62-92.6)."
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs (b4). Block B of four, block time 12-41.2 s (story 62-91.2)."
 }

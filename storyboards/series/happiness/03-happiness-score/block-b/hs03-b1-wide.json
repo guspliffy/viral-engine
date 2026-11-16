@@ -33,9 +33,10 @@
   ]
  },
  "music": {
-  "file": "score-film/block-b-animatic.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
-  "skip": 0,
+  "skip": 50,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
@@ -446,9 +447,9 @@
     {
      "macro": "narrate",
      "line": "So you try not to look.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 1.55,
+     "dur": 1.4105,
      "caption": true,
      "pos": 128,
      "gain": 4,

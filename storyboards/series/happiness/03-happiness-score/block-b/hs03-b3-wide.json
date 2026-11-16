@@ -39,9 +39,10 @@
   }
  },
  "music": {
-  "file": "score-film/block-b-animatic.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
-  "skip": 7,
+  "skip": 57,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,

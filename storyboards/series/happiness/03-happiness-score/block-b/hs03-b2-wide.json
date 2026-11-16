@@ -28,9 +28,10 @@
   "morning": true
  },
  "music": {
-  "file": "score-film/block-b-animatic.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
-  "skip": 3.7,
+  "skip": 53.7,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
@@ -370,9 +371,9 @@
     {
      "macro": "narrate",
      "line": "Which is harder than it sounds.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 1.69,
+     "dur": 1.531,
      "caption": true,
      "pos": 128,
      "gain": 4,
