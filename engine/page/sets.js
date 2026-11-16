@@ -34,6 +34,7 @@ import { buildNighthall } from "./set-nighthall.js";
 import { buildTrail } from "./set-trail.js";
 import { buildXmasroom } from "./set-xmasroom.js";
 import { buildSnowcottage } from "./set-snowcottage.js";
+import { buildScoreStreet } from "./set-score-street.js";
 import { buildSnowWorld } from "./set-snowslope.js";
 import { buildStormlake } from "./set-stormlake.js";
 import { addModels } from "./assets-gltf.js";
@@ -108,6 +109,7 @@ function buildSetType(scene, spec, palette) {
   if (type === "xmasroom") return buildXmasroom(scene, spec);   // set-xmasroom.js: a cosy living room in December (friends try to 07)
   if (type === "snowcottage") return buildSnowcottage(scene, spec);   // set-snowcottage.js: the snowed-in mountain cottage room (Survive it EP1)
   if (type === "snowslope") return buildSnowWorld(scene, spec);   // set-snowslope.js: the snowy mountain world outside the cottage (Survive it EP1)
+  if (type === "scorestreet") return buildScoreStreet(scene, spec);   // set-score-street.js: Mash's street (Happiness 03)
   if (type === "stormlake") return buildStormlake(scene, spec);   // set-stormlake.js: the storm lake under a snapped bridge, above and under the water (You wake up mid EP02)
   if (type === "trail") return buildTrail(scene, spec);   // set-trail.js: The Easy Trail's forest trail, plank gully and cliff
   if (type === "party") return party(scene, { seed: 3, ...spec });
