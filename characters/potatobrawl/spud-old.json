@@ -1,0 +1,91 @@
+{
+ "id": "potatobrawl/spud-old",
+ "name": "Spud, old (82)",
+ "franchise": "PotatoBrawl",
+ "source": "potatobrawl/spud, same seed 29 and face kind, aged for Happiness EP02 \"skip the boring parts\" (16 Nov 2026), DESIGN.md section 2",
+ "rig": "potato",
+ "body": {
+  "color": "#ddb077",
+  "height": 0.82,
+  "width": 0.76,
+  "depth": 0.66,
+  "lump": 0.055,
+  "seed": 29,
+  "keepSkin": true
+ },
+ "limbs": {
+  "color": "#6b4a2b",
+  "width": 0.032,
+  "shoulder": -0.32
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#4a2a14",
+  "cheeks": "#e7a8a2",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.3,
+   "smirk": 0,
+   "eye": 1,
+   "lidL": 0.35,
+   "lidR": 0.35
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 0.9
+  },
+  "browShape": {
+   "arch": 0.03,
+   "thick": 0.7
+  },
+  "brow": "#6f665c",
+  "final": {
+   "neutral": {
+    "lidL": 0.35,
+    "lidR": 0.35
+   },
+   "browShape": {
+    "thick": 0.7
+   }
+  }
+ },
+ "sprout": {
+  "color": "#a9ad8a",
+  "placement": "top",
+  "leaves": 1,
+  "lay": [
+   0.1,
+   0.25,
+   -1.45
+  ]
+ },
+ "costume": {
+  "type": "spud",
+  "sweater": "#5f9a94",
+  "patch": "#9a6a3c",
+  "age": "old",
+  "cardigan": "#9a958c"
+ },
+ "personality": "The main character (Jonny, 11 Nov 2026). The one normal potato among the fighters, kept neutral on purpose: no quirk, no type. Wants an ordinary day, reacts the way the average person would, goes along with his friends. The fighters carry the quirks; he is the straight man the viewer stands in for.",
+ "voice": {
+  "pitch": 118,
+  "rate": 3.1,
+  "formant": 1.0,
+  "range": 4,
+  "breath": 0.08,
+  "vibrato": 0.008,
+  "seed": 57
+ },
+ "voiceNote": "gibberish, mid and plain (a proposal until Jonny has heard it)",
+ "hands": {
+  "type": "glove",
+  "size": 1.3,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ },
+ "notes": "Spud at 82 (panels 11-15): wrinkled, pale, heavy lids, grey-green leaf hanging, faded teal sweater under a grey cardigan (costume.age \"old\", costumes-skipage.js) with a stitched tan patch on the LEFT elbow, round gold glasses. Body lean 14 deg and walk 0.55 are not data keys: the clip generator handles posture and pace. The timeline `droop` action adds to the leaf's resting hang."
+}
