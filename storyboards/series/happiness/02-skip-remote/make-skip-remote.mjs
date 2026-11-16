@@ -365,7 +365,7 @@ see(T.p20, END, ["spud.face", "chip.face"], "close through the windscreen at sun
 
 // ---------------------------------------------------------------- the age counter + the question pills (DESIGN 3)
 const AGE = [[0, 25], [T.p05, 26], [T.p07, 31], [T.p08, 38], [T.p09, 45], [T.p10, 61], [T.p11, 82], [r3(T.rew + 0.1), 25, 1.5]];
-const HUD = hud({ age: { keys: AGE, fade: [r3(T.p19 + 0.8), 1.0] }, pills: [r3(T.p08 + 0.2), r3(T.p08 + 2.4)] });
+const HUD = hud({ age: { keys: AGE, fade: [r3(T.p19 + 0.8), 1.0] }, pills: [r3(T.p08 + 0.55), r3(T.p09 - 0.05)] });   // after the "+N" tag of click 4 is gone (it ends 0.9 s after the key)
 
 // ---------------------------------------------------------------- sound beds (far under the music)
 const bed = (from, to, s, gain) => { for (let t = from; t < to - 0.2; t = r3(t + 6)) sfx(r3(t), s, { gain, dur: r3(Math.min(6, to - t)), reason: "room tone of the place, far under the music" }); };

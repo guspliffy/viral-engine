@@ -26,6 +26,7 @@ const mirror = ([x, y, z]) => [-x, y, z];
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
+  shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
   // a bowl's outside, [height, radius] from the foot up to the rim
   snackbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] },   // props-charger.js
   popcornbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] }, // props-ufo.js: the snack bowl's shape
@@ -47,6 +48,8 @@ const SIZE = {
   // the half-width the pads close on
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
+  clipboard: { w: 0.24, h: 0.32, t: 0.008 },       // props-spree.js: the estate agent's clipboard (money redo), phone hold, paper on -z
+  bigcheck: { w: 0.56, h: 0.002, d: 0.24 },        // props-spree.js: the $10,000,000 check (money redo), lies flat
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below

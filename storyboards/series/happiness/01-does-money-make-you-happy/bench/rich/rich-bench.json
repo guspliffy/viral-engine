@@ -1,0 +1,837 @@
+{
+ "id": "rich-bench",
+ "title": "Rich outfit bench",
+ "idea": "Rich Spud, the balaclava and the plain sacks, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#5b6376",
+  "floor": "#3f4655"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "front"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "front",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    -35,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "side",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    -28,
+    0
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "back",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    -21,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "open",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    -14,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "hips",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    -7,
+    0
+   ],
+   "face": 0,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "hold",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "shocked",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "sitB",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    7,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "sitF",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    14,
+    0
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "hug",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    21,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "balaF",
+   "character": "potatobrawl/spud",
+   "at": [
+    28,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "bala3",
+   "character": "potatobrawl/spud",
+   "at": [
+    35,
+    0
+   ],
+   "face": 36,
+   "expr": "evil",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "plain",
+   "character": "potatobrawl/spud",
+   "at": [
+    42,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "seat",
+   "character": "potatobrawl/spud-rich",
+   "at": [
+    49,
+    0
+   ],
+   "face": 0,
+   "expr": "serene",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "balaF-k",
+   "kind": "balaclava",
+   "wear": "balaF",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "bala3-k",
+   "kind": "balaclava",
+   "wear": "bala3",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "bagL",
+   "kind": "moneybag",
+   "mark": false,
+   "open": true,
+   "x": 20.83,
+   "y": 0.08,
+   "z": 0.66,
+   "rot": 180
+  },
+  {
+   "id": "bagR",
+   "kind": "moneybag",
+   "mark": false,
+   "open": true,
+   "x": 21.17,
+   "y": 0.08,
+   "z": 0.66,
+   "rot": 180
+  },
+  {
+   "id": "seat1",
+   "kind": "carseat",
+   "x": 49,
+   "z": 0
+  },
+  {
+   "id": "bagS",
+   "kind": "moneybag",
+   "mark": false,
+   "x": 7.85,
+   "z": 0.1,
+   "rot": 200
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "balaF",
+   "with": "balaF-k",
+   "from": 0,
+   "to": 16,
+   "reason": "balaclava is worn on his head"
+  },
+  {
+   "who": "bala3",
+   "with": "bala3-k",
+   "from": 0,
+   "to": 16,
+   "reason": "balaclava is worn on his head"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.9,
+   "text": "rich: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 1.9,
+   "text": "rich: side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 2.9,
+   "text": "rich: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 3.9,
+   "text": "rich: spread 1, arms up",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 4.9,
+   "text": "rich: hips",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 5.9,
+   "text": "rich: hold + up",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 6.9,
+   "text": "sitting: from behind",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 7.9,
+   "text": "sitting: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 8.9,
+   "text": "hug two bags, spread 0.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 9.9,
+   "text": "balaclava: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 10.9,
+   "text": "balaclava: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 11.9,
+   "text": "plain Spud (before/after)",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 15.9,
+   "text": "sitting on a carseat",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "front",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -35,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": [
+    {
+     "who": "open",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "open",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.42,
+       0.66,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "open",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.42,
+       0.66,
+       0.1
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hips",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hips",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hold",
+     "do": "arm",
+     "side": "R",
+     "pose": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hold",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "sitB",
+     "do": "sit",
+     "rot": 180,
+     "dur": 0.01,
+     "height": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "sitF",
+     "do": "sit",
+     "rot": 0,
+     "dur": 0.01,
+     "height": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "hug",
+     "do": "wings",
+     "to": 0.3,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hug",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.385,
+       0.114,
+       0.66
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hug",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       0.385,
+       0.114,
+       0.66
+      ]
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hug",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "hug",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "seat",
+     "do": "sit",
+     "seat": "seat1",
+     "dur": 0.01,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "sitB",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "sitF",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "seat",
+     "do": "noblink",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "side",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -28,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "back",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -21,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -21,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "open",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -14,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "hips",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     0.72,
+     4.6
+    ],
+    "look": [
+     -7,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "hold",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0,
+     0.72,
+     4.6
+    ],
+    "look": [
+     0,
+     0.62,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "sitB",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7,
+     0.9,
+     4
+    ],
+    "look": [
+     7,
+     0.35,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "sitF",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     15.2,
+     1,
+     4
+    ],
+    "look": [
+     14,
+     0.35,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "hug",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     21,
+     0.7,
+     4.4
+    ],
+    "look": [
+     21,
+     0.6,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  },
+  {
+   "name": "balaF",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     28,
+     0.72,
+     3.2
+    ],
+    "look": [
+     28,
+     0.62,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "bala3",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     35.9,
+     0.72,
+     3.2
+    ],
+    "look": [
+     35,
+     0.62,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "plain",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42.6,
+     0.75,
+     3.6
+    ],
+    "look": [
+     42,
+     0.55,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "closeF",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.8,
+     2.4
+    ],
+    "look": [
+     -35,
+     0.62,
+     0
+    ],
+    "fov": 26
+   },
+   "do": []
+  },
+  {
+   "name": "closeO",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -13.7,
+     0.7,
+     3
+    ],
+    "look": [
+     -14,
+     0.55,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "closeB",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -21.6,
+     0.8,
+     2.4
+    ],
+    "look": [
+     -21,
+     0.5,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "seat",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     50.3,
+     1.1,
+     4
+    ],
+    "look": [
+     49,
+     0.55,
+     0
+    ],
+    "fov": 32
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/01-does-money-make-you-happy/bench/rich/make-bench.mjs (props and costume bench, no reviews)."
+}

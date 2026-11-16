@@ -10,6 +10,11 @@
 //   physics-tween with "physics": true, a loose prop brought down 15 cm or more by a "prop" tween (use c.drop / c.throw)
 //   hold-owner    a held prop that a "prop" tween also moves (two writers: the hand and the tween). Move the
 //                 hand (arm poses on the prop) and let the prop follow, or let go first.
+//   tween-cut     a "prop" tween that a later "prop" action of the same prop overwrites while it still runs (one of
+//                 its keys set again before it ends): the rest of the move is lost and nothing on screen says why
+//                 (happiness money redo: the jet's climb started 0.09 s before its scene showed it, and the show's
+//                 un-park set y again). Start the tween after the other set, or end it before. Only where the prop
+//                 is (x, y, z) and only a set in the tween's first half: a later one is a chained move or a hand-over.
 //
 //   node qa/support.mjs <layout.json> [<storyboard>]
 import fs from "node:fs";
@@ -19,7 +24,7 @@ export const SUPPORT = { gap: 10, hold: 0.2 };
 
 export function supportResults(layout, sb = null) {
   const S = layout.samples || [], out = [];
-  if (!S.some((s) => (s.props || []).some((p) => p.support))) return physicsTweens(sb);
+  if (!S.some((s) => (s.props || []).some((p) => p.support))) return [...physicsTweens(sb), ...tweenCuts(sb)];
   const step = S.length > 1 ? S[1].t - S[0].t : 0.1;
   const runs = new Map();   // prop -> [{ from, to, gap, kind }]
   const add = (id, kind, t, gap) => {
@@ -42,7 +47,23 @@ export function supportResults(layout, sb = null) {
       : { level: gateLevel(sb, "holds"), check: "prop-support", msg: `${r.id} sinks ${Math.round(-r.gap / 10)} cm into what is under it at ${r.from.toFixed(2)}-${(r.to + step).toFixed(2)}s` });
   }
   if (!out.length) out.push({ level: "pass", check: "prop-support", msg: "every prop is held, riding, in flight, resting or staged with a reason" });
-  out.push(...physicsTweens(sb));
+  out.push(...physicsTweens(sb), ...tweenCuts(sb));
+  return out;
+}
+
+// a "prop" tween cut short by a later "prop" action of the same prop that sets one of its keys before it ends
+export const TWEEN_MIN = 0.05, PLACE_KEYS = ["x", "y", "z"];
+export function tweenCuts(sb) {
+  const A = (sb?.actions || []).filter((a) => a.do === "prop" && a.id && a.set).sort((a, b) => a.at - b.at), out = [];
+  for (const [i, a] of A.entries()) {
+    if (!(a.dur > TWEEN_MIN)) continue;
+    const end = a.at + a.dur, keys = Object.keys(a.set).filter((k) => PLACE_KEYS.includes(k));
+    if (!keys.length) continue;
+    const b = A.slice(i + 1).find((b) => b.id === a.id && b.at > a.at + 1e-6 && b.at < a.at + a.dur / 2 && Object.keys(b.set).some((k) => keys.includes(k)));
+    if (!b) continue;
+    const hit = Object.keys(b.set).filter((k) => keys.includes(k)).join(", ");   // only where it is: x, y, z
+    out.push({ level: "warn", check: "tween-cut", msg: `${a.id}: its tween at ${a.at.toFixed(2)}-${end.toFixed(2)}s is overwritten at ${b.at.toFixed(2)}s (${hit} set again${b.reason ? `: ${b.reason}` : ""}), so the rest of the move is lost: start it after that set, or end it before` });
+  }
   return out;
 }
 

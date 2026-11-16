@@ -1,0 +1,76 @@
+{
+  "id": "potatobrawl/duchess",
+  "name": "Duchess (proposed name)",
+  "franchise": "PotatoBrawl",
+  "source": "Happiness 01 'Does money make you happy?', draft 2 designs (storyboards/series/happiness/01-does-money-make-you-happy/DESIGN.md section 11, 15 Nov 2026)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.96,
+    "width": 0.8,
+    "depth": 0.68,
+    "lump": 0.03,
+    "seed": 73,
+    "taper": 0.1
+  },
+  "limbs": {
+    "color": "#f4efe6",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "delighted",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 1.3
+    },
+    "browShape": {
+      "arch": 0.08,
+      "thick": 0.6
+    },
+    "size": 0.92
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 1
+  },
+  "costume": {
+    "type": "duchess",
+    "dress": "#b8336a",
+    "stole": "#fbf8f1",
+    "hat": "#fbf6ea",
+    "ribbon": "#e86a9a",
+    "watch": true
+  },
+  "personality": "Rich, delighted by everything, laughs with her husband and never sees Spud (the 'no word' rich couple of S2).",
+  "voice": {
+    "pitch": 172,
+    "rate": 3.3,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 91
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.2,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Half of the rich couple (S2). Raspberry dress with a bell skirt to y 0.09, a white fur stole with ermine ticks (open at the front, the ends hanging), 19 pearls, a cream straw sun hat tipped back 16 degrees with a pink ribbon and three roses; her leaf comes up through a 0.05 hole in the crown. Cream legs. Costume in engine/page/costumes-everyday.js `duchess`. Skin, iris, cheeks and gloves as Spud's. In S2 she stands at (0.45, 0, -0.30) facing +20 with two shopbags (#f29bb5 in the right hand, #f2c75a in the left), laughing at her husband, never looking at Spud. Money redo (panel 11): costume.watch true puts the dauphin's gold wrist watch on her LEFT wrist."
+}
