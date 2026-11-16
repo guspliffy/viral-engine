@@ -28,7 +28,7 @@ const PRE = 0.012;
 const T = {
   p01: 0, p02: 3.8, click1: 4.4, p03: 4.6, p04: 9.4, click2: 11.0, p05: 11.3, p06: 12.6, click3: 14.4, p07: 14.7, click4: 16.6,
   p08: 17.0, p09: 19.6, click5: 22.6, p10: 23.1, click6: 24.3, p11: 24.7, p12: 28.6, p13: 30.2, p14: 33.0, p15: 35.0, rew: 35.6,
-  p16: 36.6, p17: 38.0, p18: 40.0, punch: 40.15, p19: 42.0, p20: 44.4, follow: 49.4, END: 52.2,   // the worries line is 4.7 s spoken (farm 16 Nov)
+  p16: 36.6, p17: 38.0, p18: 40.0, punch: 40.15, p19: 42.0, p20: 44.4, follow: 49.8, END: 52.2,   // the worries line is 4.7 s spoken (farm 16 Nov)
 };
 const END = T.END;
 
@@ -373,7 +373,7 @@ const SH = {
   p05: { pos: str([-0.7, 1.0, 4.0]), look: str([-0.8, 0.65, 0.5]), fov: 46 },
   p06: { pos: str([0.3, 1.0, 3.6]), look: str([0.3, 0.72, 0.7]), fov: 50 },
   p07: { pos: off([0.35, 1.35, 2.6]), look: off([0.35, 0.75, -0.4]), fov: 50 },
-  p08: { pos: off([0.0, 0.85, 1.95]), look: off([0.0, 0.74, 0.45]), fov: 40 },
+  p08: { pos: off([0.0, 0.95, 2.6]), look: off([0.0, 0.9, 0.45]), fov: 40 },
   p09: { pos: prk([0.3, 1.0, 4.4]), look: prk([-0.3, 0.7, -1.5]), fov: 48 },
   p10: { pos: liv([0.2, 1.15, 0.3]), look: liv([1.6, 0.8, -1.5]), fov: 44 },
   p11: { pos: liv([0.6, 1.3, 1.7]), look: liv([-0.3, 0.7, -0.9]), fov: 54 },
@@ -405,7 +405,7 @@ const NARR = !VO ? [] : [
   [r3(T.p04 + 0.1), "Rain? Skipped.", 1.9, 1],
   [r3(T.p06 + 0.1), "Queues? Skipped.", 1.85, 2],
   [r3(T.p07 + 0.1), "Mondays? Skipped.", 2.01, 1],
-  [r3(T.p08 + 0.1), "Would you press it?", 1.17, 1],
+  [r3(T.p08 + 0.1), "Would you press it?", 1.17, 1, 370],   // above his head in the close-up (camfit: free 210-380)
   [r3(T.p09 + 0.1), "But most of life is the boring parts.", 3.25, 1],
   [r3(T.p11 + 0.1), "Eighty-two. And you can't remember a single day.", 3.72, 1],
   [r3(T.p13 + 0.1), "So you rewind, to see what you skipped.", 2.69, 1],
@@ -413,7 +413,7 @@ const NARR = !VO ? [] : [
   [r3(T.p20 + 0.1), "And for one moment, you forget all your worries.", 4.7, 1],
   [T.follow, "Follow for the next question.", 1.77, 1],   // the follow ask after the payoff (test)
 ];
-for (const [t, line, dur, take] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take, dur, caption: true, pos: SUBY, gain: NG });
+for (const [t, line, dur, take, pos = SUBY] of NARR) c.at(r3(t), { macro: "narrate", line, voice: "narrator", take, dur, caption: true, pos, gain: NG });
 
 hideOffstage();
 const beats = c.beats(CUTS, END);   // after every item (items added later are dropped)
