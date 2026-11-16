@@ -1,0 +1,211 @@
+{
+ "id": "skip-voice-probe",
+ "title": "Skip remote voice probe",
+ "idea": "narrator takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  250,
+  1360
+ ],
+ "cleanStart": true,
+ "set": {
+  "type": "env",
+  "env": "golden-city-crossing"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   57,
+   57
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 57,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     4
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "You get a remote that skips the boring parts of life.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.55,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "If you've ever wished a Monday away, watch what it costs you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 6,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 6.75
+    },
+    {
+     "macro": "narrate",
+     "line": "Traffic? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 13.75
+    },
+    {
+     "macro": "narrate",
+     "line": "Rain? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 16.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Queues? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 18.75
+    },
+    {
+     "macro": "narrate",
+     "line": "Mondays? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 21.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Would you press it?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 23.75
+    },
+    {
+     "macro": "narrate",
+     "line": "But most of life is the boring parts.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 27.15
+    },
+    {
+     "macro": "narrate",
+     "line": "Eighty-two. And you can't remember a single day.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 32.35
+    },
+    {
+     "macro": "narrate",
+     "line": "So you rewind, to see what you skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 37.55
+    },
+    {
+     "macro": "narrate",
+     "line": "The boring parts were the good parts.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 42.75
+    },
+    {
+     "macro": "narrate",
+     "line": "And for one moment, you forget all your worries.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.65,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 47.5
+    },
+    {
+     "macro": "narrate",
+     "line": "Follow for the next question.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 53.15
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for the skip remote: render only --from 0 --to 1 on the farm; the plan job makes every take."
+}

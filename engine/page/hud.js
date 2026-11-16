@@ -19,6 +19,19 @@
 // first in the right chip, brass while loaded, a faint outline once fired; a drop kicks the chip and the slot just
 // fired glows red for 0.4 s. A counter that needs no English (82 % of the TikTok viewers are DACH).
 //
+// Skip remote (Happiness EP02) adds two opt-in parts, nothing changes without them (design: DESIGN.md section 3). A clip
+// without "age" or "pills" draws exactly as before.
+//   "age": { "keys": [[0, 25], [4.1, 31], [9.0, 61], [15.2, 25, 1.5]], "fade": [40.2, 1.0] }
+//   "pills": { "show": [17.2, 19.4] }
+// age = the video's clock, no English: a birthday-cake icon (3 candle flames under 50, 1 from 50), the number in big
+// digits and a life bar (90 - age) / 90 (green over 50 %, amber 25-50, red under 25) in a chip at x 72-372, y 214-332
+// (the y key moves it). Keys [t, value, dur?]: a RISE counts up over dur (default 0.4 s) from the key's time, the chip
+// kicks 6 px, the number flashes yellow and scales 1.18 -> 1, the lost chunk of the bar flashes for 0.35 s and a
+// "+N" tag shows right of the chip for 0.9 s. A FALL (the roll-back) counts down over dur (default 1.5 s, eased in,
+// one whole number per frame, the bar refilling) and a green "-N" tag shows for 1.0 s from the moment it lands. dur 0 jumps.
+// "fade": [from, dur = 1] fades the chip out. The "+N" tag is 388-490 px wide: keep a jump key clear of the pills.
+// pills = the "YES" / "NO" question pills x 420-900, y 214-332 (green YES, red NO, a small "or" between): fade in over
+// 0.2 s at show[0], out over 0.2 s ending at show[1]. "pills": [from, to] works too.
 // "The money counter" (happiness EP01, 15 Nov 2026) adds two opt-in parts for the race, drawn as their own chips in the strip
 // y 344-462 (no English: a dollar sign, digits, sacks, a sun on an arc, an hourglass; everything is a pure function of story time):
 //   "money": [[0.1, 10000000], [6.9, 9997000, 0.35], [14.6, 8000000, 0.45], [36.0, 0, 0.5]]      (or { keys, in, fade, y })
@@ -74,6 +87,10 @@ export function hudState(sb, t) {
     const v = clamp(bat.v, 0, 100), dropped = bat.i > 0 && bat.K[bat.i][1] < bat.K[bat.i - 1][1];
     out.battery = { v, pct: Math.round(v), dead: v <= 0.001 && !bat.counting, since: bat.since - (bat.K[bat.i][2] || 0), kick: dropped ? bat.since : null };
   }
+  const age = H.age ? ageState(H.age, t) : null;
+  if (age) out.age = age;
+  const pl = H.pills ? pillsState(H.pills, t) : null;
+  if (pl) out.pills = pl;
   if (H.money) { const M = moneyState(H.money, t); if (M) out.money = M; }
   if (H.sun) { const U = sunState(H.sun, t); if (U) out.sun = U; }
   return out;
@@ -142,6 +159,40 @@ const moneyBox = (M) => [MONEY_X, M.y, MONEY_W, STRIP_H];
 const sunBox = (U) => { const w = SUN_W + (SUN_W_LAST - SUN_W) * ease("inOut")(U.grow); return [SUN_R - w, U.y, w, STRIP_H]; };
 export const hudKey = (sb, t) => { const s = hudState(sb, t); return s ? JSON.stringify(s, (k, v) => (typeof v === "number" ? Math.round(v * 1e3) / 1e3 : v)) : ""; };
 
+// ---- age (the skip remote's clock) and the YES / NO pills ----
+const AGE_RISE = 0.4, AGE_FALL = 1.5, AGE_MAX = 90;
+// the age at t from keys [t, value, dur?]: a rise eases out, a fall (the roll-back) eases in
+function ageEval(spec, t) {
+  const K = (Array.isArray(spec) ? spec : [[0, spec]]).map((k) => [k[0], +k[1], k[2]]).sort((a, b) => a[0] - b[0]);
+  K.forEach((k, i) => { const prev = i > 0 ? K[i - 1][1] : k[1]; if (k[2] == null) k[2] = i === 0 || k[1] === prev ? 0 : k[1] > prev ? AGE_RISE : AGE_FALL; });
+  let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
+  if (i < 0) return { v: K[0][1], i: -1 };
+  const [t0, to, dur] = K[i], prev = i > 0 ? K[i - 1][1] : to, k = dur > 0 ? clamp((t - t0) / dur) : 1;
+  const e = to >= prev ? ease("out")(k) : k * k;
+  return { v: dur > 0 ? prev + (to - prev) * e : to, i, since: t - t0, dur, prev, to };
+}
+function ageState(A, t) {
+  const spec = Array.isArray(A) ? A : A.keys ?? A;
+  const f = Array.isArray(A) || !A.fade ? null : A.fade, fo = f ? (Array.isArray(f) ? f : [f, 1]) : null;
+  const fade = fo ? 1 - clamp((t - fo[0]) / (fo[1] || 1)) : 1;
+  if (fade <= 0) return null;
+  const e = ageEval(spec, t), out = { v: e.v, fade };
+  if (e.i > 0 && e.since >= 0 && Math.abs(e.to - e.prev) >= 0.5) {
+    const rise = e.to > e.prev, end = rise ? 0.9 : e.dur + 1.0;
+    if (e.since < Math.max(end, 0.4) + 0.05) out.key = { rise, since: e.since, dur: e.dur, prev: e.prev, to: e.to };
+  }
+  return out;
+}
+function pillsState(P, t) {
+  const sh = Array.isArray(P) ? P : P.show;
+  if (!sh || t < sh[0] || t >= sh[1]) return null;
+  const a = Math.min(clamp((t - sh[0]) / 0.2), clamp((sh[1] - t) / 0.2));
+  return { a, pop: t - sh[0] < 0.2 ? t - sh[0] : null };
+}
+const AGE_BOX = [72, 214, 300, 118], PILLS_BOX = [420, 214, 480, 118];
+const AGE_GREEN = "#8fd14f", AGE_AMBER = "#ffb23d", AGE_RED = "#ff4d4d";
+const ageColour = (v) => { const f = (AGE_MAX - v) / AGE_MAX; return f > 0.5 ? AGE_GREEN : f >= 0.25 ? AGE_AMBER : AGE_RED; };
+
 // the chips' boxes in output px: { left: [x, y, w, h], right: [...] }
 function layout(ctx, S) {
   const y = S.y ?? (S.pos === "bottom" ? 1288 : 214);
@@ -169,7 +220,9 @@ export function hudBoxes(ctx, sb, t) {
   const S = hudState(sb, t);
   if (!S) return [];
   const L = layout(ctx, S);
-  return [L.left, L.threat, L.right, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  const oy = (S.y ?? 214) - 214;
+  const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
+  return [L.left, L.threat, L.right, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h], edge = EDGE, lw = 2) {
@@ -236,6 +289,87 @@ function cartridge(ctx, x, cy, live, glow) {
   ctx.restore();
 }
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
+
+// a birthday cake in a 64 px box at (x, y): candles lit by age (3 flames under 50, 1 from 50, the others burnt out)
+function cake(ctx, x, y, v) {
+  const lit = v < 50 ? 3 : 1, cx = [20, 32, 44];
+  ctx.save(); ctx.translate(x, y); ctx.lineJoin = "round";
+  ctx.fillStyle = "#e9dcb4"; ctx.beginPath(); ctx.roundRect(1, 56, 62, 7, 3.5); ctx.fill();
+  ctx.fillStyle = "#ff8fb1"; ctx.beginPath(); ctx.roundRect(6, 38, 52, 19, 5); ctx.fill();
+  ctx.fillStyle = "#ff6f9a"; ctx.beginPath(); ctx.roundRect(15, 26, 34, 13, 4); ctx.fill();
+  ctx.fillStyle = TXT; ctx.beginPath(); ctx.roundRect(6, 38, 52, 8, 4); ctx.fill();   // icing band with three drips
+  for (const dx of [14, 30, 46]) { ctx.beginPath(); ctx.roundRect(dx - 3, 42, 6, 9, 3); ctx.fill(); }
+  ctx.beginPath(); ctx.roundRect(15, 26, 34, 6, 3); ctx.fill();
+  cx.forEach((x0, i) => {
+    const on = lit === 3 || i === 1;
+    ctx.fillStyle = i === 1 ? "#ffd25a" : "#7cc4ff"; ctx.beginPath(); ctx.roundRect(x0 - 2.5, 15, 5, 12, 1.5); ctx.fill();
+    if (on) {
+      ctx.fillStyle = "#ffb23d"; ctx.beginPath(); ctx.moveTo(x0, 1); ctx.quadraticCurveTo(x0 + 5.5, 8, x0, 14); ctx.quadraticCurveTo(x0 - 5.5, 8, x0, 1); ctx.fill();
+      ctx.fillStyle = "#fff0a0"; ctx.beginPath(); ctx.ellipse(x0, 10, 1.9, 3, 0, 0, Math.PI * 2); ctx.fill();
+    } else { ctx.strokeStyle = "rgba(255,248,236,0.4)"; ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x0, 14); ctx.lineTo(x0 + 1, 9); ctx.stroke(); }
+  });
+  ctx.restore();
+}
+// the number in fixed 50 px cells from x: always one whole integer (a count over dur shows 82, 81, ... one per frame)
+function ageNumber(ctx, v, x, y, cell, col) {
+  const a = String(Math.max(0, Math.round(v)));
+  ctx.fillStyle = col;
+  for (let j = 0; j < a.length; j++) ctx.fillText(a[j], x + j * cell + cell / 2, y);
+}
+function drawAge(ctx, S) {
+  const A = S.age, K = A.key, oy = (S.y ?? 214) - 214, [bx, by, bw, bh] = AGE_BOX;
+  const kick = K && K.rise && K.since < 0.18 ? Math.sin((K.since / 0.18) * Math.PI) * 6 : 0;
+  ctx.save(); ctx.globalAlpha = A.fade; ctx.translate(0, oy); ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.letterSpacing = "0px";
+  ctx.save(); ctx.translate(kick, 0);
+  chip(ctx, AGE_BOX);
+  cake(ctx, 94, 230, A.v);
+  // the number: yellow flash and 1.18 -> 1 on a rise
+  const fl = K && K.rise && K.since < 0.4 ? K.since / 0.4 : null, sc = fl != null ? 1 + 0.18 * (1 - ease("out")(fl)) : 1;
+  const col = fl != null ? (fl < 0.7 ? "#ffd25a" : TXT) : TXT, len = String(Math.max(0, Math.round(A.v))).length, ncx = 176 + (len * 50) / 2;
+  ctx.font = '900 84px "CapBlack"';
+  ctx.save(); ctx.translate(ncx, 266); ctx.scale(sc, sc); ctx.translate(-ncx, -266);
+  ageNumber(ctx, A.v, 176, 266, 50, col);
+  ctx.restore();
+  // the life bar
+  const f = clamp((AGE_MAX - A.v) / AGE_MAX), tx = 94, tw = 256, ty = 308, th = 12;
+  ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 6); ctx.fillStyle = "rgba(255,255,255,0.16)"; ctx.fill();
+  ctx.save(); ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 6); ctx.clip();
+  if (K && K.rise && K.since < 0.35) {   // the lost chunk flashes cream
+    const f0 = clamp((AGE_MAX - K.prev) / AGE_MAX);
+    ctx.globalAlpha = A.fade * (1 - K.since / 0.35); ctx.fillStyle = TXT; ctx.fillRect(tx + tw * f, ty, tw * (f0 - f), th); ctx.globalAlpha = A.fade;
+  }
+  ctx.fillStyle = ageColour(A.v); ctx.fillRect(tx, ty, tw * f, th);
+  ctx.restore();
+  ctx.restore();
+  // the tag right of the chip: "+N" for 0.9 s on a rise, a green "-N" for 1.0 s once the roll-back has landed
+  if (K) {
+    const k = K.rise ? K.since : K.since - K.dur, span = K.rise ? 0.9 : 1.0;
+    if (k >= 0 && k < span) {
+      const text = `${K.rise ? "+" : "-"}${Math.round(Math.abs(K.to - K.prev))}`, a = Math.min(1, k / 0.1) * (1 - clamp((k - (span - 0.2)) / 0.2));
+      const dx = 18 * (1 - ease("back")(clamp(k / 0.22)));
+      ctx.font = '900 40px "CapBlack"'; const tw2 = ctx.measureText(text).width + 36, th2 = 58;
+      ctx.globalAlpha = A.fade * a;
+      ctx.beginPath(); ctx.roundRect(bx + bw + 16 - dx, by + 48 - th2 / 2 + 0.5, tw2, th2, 20); ctx.fillStyle = "rgba(18,16,24,0.78)"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+      ctx.fillStyle = K.rise ? AGE_AMBER : AGE_GREEN; ctx.fillText(text, bx + bw + 16 - dx + tw2 / 2, by + 50);
+    }
+  }
+  ctx.restore();
+}
+// the YES / NO pills: two pills with a small "or" between, x 420-900
+function drawPills(ctx, S) {
+  const P = S.pills, oy = (S.y ?? 214) - 214, [x0, y0, w, h] = PILLS_BOX, cy = y0 + h / 2, pop = P.pop != null ? 0.92 + 0.08 * ease("out")(P.pop / 0.2) : 1;
+  ctx.save(); ctx.globalAlpha = P.a; ctx.translate(0, oy); ctx.translate(x0 + w / 2, cy); ctx.scale(pop, pop); ctx.translate(-(x0 + w / 2), -cy);
+  ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.letterSpacing = "0px"; ctx.lineJoin = "round";
+  const shape = (x, text, fill) => {
+    ctx.beginPath(); ctx.roundRect(x, y0, 220, h, 20); ctx.fillStyle = fill; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+    ctx.font = '900 88px "CapBlack"'; ctx.lineWidth = 8; ctx.strokeStyle = "rgba(18,16,24,0.55)"; ctx.strokeText(text, x + 110, cy + 4);
+    ctx.fillStyle = TXT; ctx.fillText(text, x + 110, cy + 4);
+  };
+  shape(x0, "YES", "rgba(143,209,79,0.85)"); shape(x0 + w - 220, "NO", "rgba(255,77,77,0.85)");
+  ctx.font = '900 40px "CapBlack"'; ctx.lineWidth = 7; ctx.strokeStyle = "rgba(18,16,24,0.7)"; ctx.strokeText("or", 660, cy + 3); ctx.fillStyle = TXT; ctx.fillText("or", 660, cy + 3);
+  ctx.restore();
+}
 
 // a money sack 24 x 28 (top-left x, y) with a tied neck, filled from its bottom to `f`; glow 0-1 lights it gold
 function sack(ctx, x, y, f, glow, col) {
@@ -389,4 +523,6 @@ export function drawHud(ctx, sb, t) {
   if (S.money) drawMoney(ctx, S.money);
   if (S.sun) drawSun(ctx, S.sun);
   ctx.restore();
+  if (S.age) drawAge(ctx, S);
+  if (S.pills) drawPills(ctx, S);
 }
