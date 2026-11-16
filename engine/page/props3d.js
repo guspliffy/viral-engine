@@ -85,6 +85,7 @@ import { SPLATE_KINDS, SPLATE_GRIPS } from "./props-score-plate.js";   // happin
 import { VAN_KINDS, VAN_GRIPS } from "./props-score-van.js";   // happiness score film: moving truck
 import { PAPER_KINDS, PAPER_GRIPS } from "./props-score-paper.js";   // happiness score film: notebooks
 import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happiness score film: the train at sunset
+import { SCORE_ITEMS_KINDS, SCORE_ITEMS_GRIPS } from "./props-score-items.js";   // happiness score film: hill bench, kettle, mirror, reflections
 import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
@@ -1492,6 +1493,7 @@ Object.assign(KINDS, SPLATE_KINDS); Object.assign(GRIPS, SPLATE_GRIPS);   // hap
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
 Object.assign(KINDS, PAPER_KINDS); Object.assign(GRIPS, PAPER_GRIPS);   // happiness score film (props-score-paper.js)
 Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happiness score film (props-score-train.js)
+Object.assign(KINDS, SCORE_ITEMS_KINDS); Object.assign(GRIPS, SCORE_ITEMS_GRIPS);   // happiness score film (props-score-items.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

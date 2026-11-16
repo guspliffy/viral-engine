@@ -1,0 +1,1 @@
+- scoretrain: panel 47 train is maroon -> pass color "#6e2a2a" (panel wins over DESIGN green); at 250 m it is tiny (hand 4 px): stage it nearer on the viaduct / spec.scale (scale also multiplies speed).
