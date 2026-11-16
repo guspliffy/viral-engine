@@ -33,6 +33,18 @@
   "env": "golden-city-crossing",
   "swap": [
    {
+    "at": 3.8,
+    "room": {
+     "type": "street",
+     "pos": [
+      500,
+      0,
+      0
+     ],
+     "parking": true
+    }
+   },
+   {
     "at": 4.6,
     "room": {
      "type": "cottage",
@@ -151,7 +163,7 @@
      "roll": 0
     },
     {
-     "at": 4.576,
+     "at": 3.776,
      "pos": [
       0,
       0,
@@ -162,13 +174,57 @@
      "roll": 0
     },
     {
-     "at": 4.58,
+     "at": 3.78,
      "pos": [
       0,
       0,
       1
      ],
      "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.784,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.788,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.576,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.58,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
      "pitch": 0,
      "roll": 0
     },
@@ -656,12 +712,14 @@
    "id": "rem",
    "kind": "skipremote",
    "x": -0.31,
-   "y": 0.8,
-   "z": 0.25,
+   "y": 0.86,
+   "z": 0.28,
+   "scale": 0.8,
    "press": 0,
    "dust": 0,
    "wipe": 0,
-   "rot": 180
+   "rot": 180,
+   "tip": -35
   },
   {
    "id": "remw",
@@ -669,10 +727,10 @@
    "x": 0,
    "y": -30,
    "z": 0,
+   "scale": 0.001,
    "press": 0,
    "dust": 0,
-   "wipe": 0,
-   "scale": 0.001
+   "wipe": 0
   },
   {
    "id": "remm",
@@ -680,10 +738,10 @@
    "x": 0,
    "y": -30,
    "z": 0,
+   "scale": 0.001,
    "press": 0,
    "dust": 0,
-   "wipe": 0,
-   "scale": 0.001
+   "wipe": 0
   },
   {
    "id": "remg",
@@ -706,12 +764,12 @@
    "x": 0,
    "y": -30,
    "z": 0,
+   "scale": 0.001,
    "press": 0,
    "dust": 0.45,
    "wipe": 0,
    "halo": 1,
-   "staged": "it lies on the sofa's armrest",
-   "scale": 0.001
+   "staged": "it lies on the sofa's armrest"
   },
   {
    "id": "remo",
@@ -719,10 +777,10 @@
    "x": 0,
    "y": -30,
    "z": 0,
+   "scale": 0.001,
    "press": 0,
    "dust": 0.45,
-   "wipe": 0,
-   "scale": 0.001
+   "wipe": 0
   },
   {
    "id": "door",
@@ -1083,9 +1141,9 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true
      },
@@ -1139,7 +1197,7 @@
      "who": "chip",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": "shrug",
      "dur": 0.01,
      "ease": "inOut",
      "at": 0
@@ -1148,7 +1206,7 @@
      "who": "chip",
      "do": "arm",
      "side": "L",
-     "pose": "up",
+     "pose": "shrug",
      "dur": 0.01,
      "ease": "inOut",
      "at": 0
@@ -1190,9 +1248,9 @@
      "prop": "rem",
      "hand": "L",
      "grip": [
-      -0.1,
+      -0.109,
       -0.02,
-      -0.01
+      -0.012
      ],
      "dur": 0,
      "pose": null,
@@ -1241,15 +1299,15 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       -0.36,
-       0.98,
-       0.33
+       -0.31,
+       0.9,
+       0.3
       ]
      },
      "dur": 0.01,
@@ -1260,10 +1318,128 @@
      "do": "prop",
      "id": "rem",
      "set": {
-      "rot": 0
+      "tip": -45
      },
      "dur": 0.01,
      "ease": "linear",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam4",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam5",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
      "at": 3.788
     }
    ],
@@ -1276,14 +1452,14 @@
    "shot": {
     "rig": "car",
     "pos": [
-     -0.4,
-     1.12,
-     1.55
+     0.05,
+     1.42,
+     0
     ],
     "look": [
-     -0.38,
-     1,
-     0.25
+     -0.14,
+     0.9,
+     0.29
     ],
     "fov": 30
    },
@@ -1394,9 +1570,9 @@
      "do": "prop",
      "id": "remw",
      "set": {
-      "x": 299.051,
-      "y": 0.4,
-      "z": 2.467,
+      "x": 299.006,
+      "y": 0.2,
+      "z": 2.47,
       "rot": 210
      },
      "dur": 0.01,
@@ -1406,92 +1582,9 @@
     },
     {
      "do": "prop",
-     "id": "jam0",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "jam1",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "jam2",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "jam3",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "jam4",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "jam5",
-     "set": {
-      "scale": 0.001,
-      "y": -30
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
      "id": "rem",
      "set": {
       "scale": 0.001
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
-     "at": 0.788
-    },
-    {
-     "do": "prop",
-     "id": "remw",
-     "set": {
-      "scale": 1
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1511,15 +1604,50 @@
      "at": 0.788
     },
     {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
      "who": "spudw",
      "do": "arm",
      "side": "L",
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true
      },
@@ -1614,9 +1742,9 @@
      "prop": "remw",
      "hand": "L",
      "grip": [
-      -0.1,
+      -0.109,
       -0.02,
-      -0.01
+      -0.012
      ],
      "dur": 0,
      "pose": null,
@@ -1631,6 +1759,28 @@
      ],
      "dur": 1.6,
      "stride": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       299.306,
+       0.2,
+       3.17
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
      "at": 0.2
     },
     {
@@ -1735,7 +1885,7 @@
      "do": "prop",
      "id": "rem",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -1813,15 +1963,15 @@
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       499.387,
-       0.4,
-       1.092
+       499.39,
+       0.2,
+       1.146
       ]
      },
      "dur": 0.01,
@@ -2244,15 +2394,15 @@
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       500.898,
-       0.4,
-       0.667
+       500.906,
+       0.2,
+       0.72
       ]
      },
      "dur": 0.01,
@@ -2724,15 +2874,15 @@
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       700.2,
-       0.66,
-       -0.77
+       700.17,
+       0.1,
+       -0.69
       ]
      },
      "dur": 0.01,
@@ -2961,16 +3111,26 @@
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       700.12,
-       0.4,
-       0.69
+       700.18,
+       0.2,
+       0.75
       ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.29
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "rot": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -2985,15 +3145,15 @@
    "shot": {
     "pos": [
      700,
-     0.95,
-     2.6
+     0.9,
+     3.5
     ],
     "look": [
      700,
-     0.9,
+     0.86,
      0.45
     ],
-    "fov": 40
+    "fov": 36
    },
    "do": [
     {
@@ -3025,26 +3185,16 @@
      "pose": {
       "prop": "remw",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       700.07,
-       0.5,
-       0.81
+       700.08,
+       0.24,
+       0.85
       ]
-     },
-     "dur": 0.45,
-     "ease": "anticSettle",
-     "at": 0.1
-    },
-    {
-     "do": "prop",
-     "id": "remw",
-     "set": {
-      "rot": 0
      },
      "dur": 0.45,
      "ease": "anticSettle",
@@ -3101,9 +3251,9 @@
      "do": "prop",
      "id": "remm",
      "set": {
-      "x": 900.35,
-      "y": 0.62,
-      "z": 0.85,
+      "x": 900.37,
+      "y": 0.14,
+      "z": 0.91,
       "rot": 180
      },
      "dur": 0.01,
@@ -3210,7 +3360,7 @@
      "do": "prop",
      "id": "remm",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3280,9 +3430,9 @@
      "pose": {
       "prop": "remm",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true
      },
@@ -3386,9 +3536,9 @@
      "prop": "remm",
      "hand": "L",
      "grip": [
-      -0.1,
+      -0.109,
       -0.02,
-      -0.01
+      -0.012
      ],
      "dur": 0,
      "pose": null,
@@ -3537,7 +3687,7 @@
      "do": "prop",
      "id": "remd",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3548,7 +3698,7 @@
      "do": "prop",
      "id": "remo",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -3600,6 +3750,38 @@
      "ease": "linear",
      "reason": "off the set between scenes: hidden and parked under the floor on the cut",
      "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remm",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       1101.435,
+       0.2,
+       -1.297
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.49
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "rot": 85
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.49
     }
    ]
   },
@@ -3744,6 +3926,24 @@
     },
     {
      "who": "spudo",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
      "do": "sit",
      "seat": "couch",
      "dur": 0,
@@ -3793,24 +3993,6 @@
      "at": 0
     },
     {
-     "who": "spudo",
-     "do": "arm",
-     "side": "R",
-     "pose": "lap",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
-     "who": "spudo",
-     "do": "arm",
-     "side": "L",
-     "pose": "lap",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0
-    },
-    {
      "do": "prop",
      "id": "remd",
      "set": {
@@ -3826,9 +4008,9 @@
      "do": "prop",
      "id": "remo",
      "set": {
-      "x": 1100.35,
-      "y": 0.7,
-      "z": -1.12,
+      "x": 1100.37,
+      "y": 0.12,
+      "z": -0.88,
       "rot": 180
      },
      "dur": 0.01,
@@ -3843,9 +4025,9 @@
      "pose": {
       "prop": "remo",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true
      },
@@ -3870,16 +4052,16 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     1100.42,
-     0.88,
-     -0.55
+     1100.4,
+     0.38,
+     -0.45
     ],
     "look": [
-     1100.33,
-     0.74,
-     -1.12
+     1100.36,
+     0.24,
+     -0.9
     ],
-    "fov": 36
+    "fov": 34
    },
    "do": [
     {
@@ -3910,9 +4092,9 @@
      "prop": "remo",
      "hand": "L",
      "grip": [
-      -0.1,
+      -0.109,
       -0.02,
-      -0.01
+      -0.012
      ],
      "dur": 0,
      "pose": null,
@@ -4103,15 +4285,15 @@
      "pose": {
       "prop": "remo",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       1100.35,
-       0.4,
-       -0.28
+       1100.38,
+       0.2,
+       -0.2
       ]
      },
      "dur": 0.01,
@@ -4167,15 +4349,15 @@
      "pose": {
       "prop": "remo",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
-       1100.4,
-       0.62,
-       -0.3
+       1100.34,
+       0.28,
+       -0.1
       ]
      },
      "dur": 0.4,
@@ -4232,7 +4414,7 @@
      "who": "chip",
      "do": "arm",
      "side": "R",
-     "pose": "up",
+     "pose": "shrug",
      "dur": 0.01,
      "ease": "inOut",
      "at": 1.588
@@ -4241,7 +4423,7 @@
      "who": "chip",
      "do": "arm",
      "side": "L",
-     "pose": "up",
+     "pose": "shrug",
      "dur": 0.01,
      "ease": "inOut",
      "at": 1.588
@@ -4269,15 +4451,15 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
        -0.31,
-       0.8,
-       0.25
+       0.86,
+       0.28
       ]
      },
      "dur": 0.01,
@@ -4288,7 +4470,7 @@
      "do": "prop",
      "id": "rem",
      "set": {
-      "rot": 180
+      "tip": -35
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4370,7 +4552,7 @@
      "do": "prop",
      "id": "rem",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4558,6 +4740,24 @@
      "at": 0.8
     },
     {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
      "do": "prop",
      "id": "jam0",
      "set": {
@@ -4633,7 +4833,7 @@
      "do": "prop",
      "id": "remw",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4751,9 +4951,9 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
@@ -4773,9 +4973,9 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "at": [
@@ -4803,7 +5003,7 @@
      "do": "prop",
      "id": "remg",
      "set": {
-      "scale": 1
+      "scale": 0.8
      },
      "dur": 0.01,
      "ease": "linear",
@@ -4852,9 +5052,9 @@
      "pose": {
       "prop": "rem",
       "grip": [
-       -0.1,
+       -0.109,
        -0.02,
-       -0.01
+       -0.012
       ],
       "palm": true,
       "off": [
@@ -4907,6 +5107,24 @@
      "gain": 0.3,
      "reason": "the glove box snaps shut",
      "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
     },
     {
      "do": "prop",
@@ -5247,10 +5465,9 @@
    "from": 3.8,
    "to": 4.6,
    "see": [
-    "rem",
-    "spud.face"
+    "rem"
    ],
-   "why": "close through the windscreen: Spud lifts the remote, his thumb on the big white fast-forward button"
+   "why": "close from over his head: his thumb on the big white fast-forward button"
   },
   {
    "from": 4.6,

@@ -37,7 +37,7 @@ const COT = [300, 0, 0], STR = [500, 0, 0], OFF = [700, 0, 0], PRK = [900, 0, 0]
 const add = (o) => (p) => [r3(p[0] + o[0]), r3(p[1] + o[1]), r3(p[2] + o[2])];
 const cot = add(COT), str = add(STR), off = add(OFF), prk = add(PRK), liv = add(LIV);
 const xz = (p) => [p[0], p[2]];
-const PLACES = [[0, "city"], [T.p03, "cot"], [T.p04, "str"], [T.p07, "off"], [T.p09, "prk"], [T.p10, "liv"], [T.p16, "city"], [T.p17, "str"], [T.p18, "city"], [T.p19, "dusk"]];
+const PLACES = [[0, "city"], [T.p02, "str"], [T.p03, "cot"], [T.p04, "str"], [T.p07, "off"], [T.p09, "prk"], [T.p10, "liv"], [T.p16, "city"], [T.p17, "str"], [T.p18, "city"], [T.p19, "dusk"]];
 const placeAt = (t) => PLACES.filter(([at]) => at <= t + 1e-6).pop()[1];
 const ENVS = { city: "golden-city-crossing", dusk: "twilight-city-crossing" };
 
@@ -78,14 +78,14 @@ const pr = (t, id, set, dur = 0.01, ease = "linear", reason) => { if (has(id)) c
 // ---- Spud's car (DESIGN 4): the hatchback rig in teal, its seats, wheel, dressing and dash; it is in the jam (01-02, 16-20)
 // and parked at the cottage (03). Seats raised from the bench so both read through the windscreen (panel 01)
 const CAR_CITY = [0, 0, 1.0], CAR_COT = cot([-2.3, 0, 1.2]), CAR_STR = str([-2.0, 0, 2.4]);
-// 17 looks forward out of the windscreen (+z), behind the painting camera: those close-ups are shot on the built
+// 02 and 17 look forward out of the windscreen (+z), behind the painting camera: those close-ups are shot on the built
 // street instead, the car turned to face its shop fronts (a built room has walls all round; DESIGN 4 close-ups)
 // rig keys blend on a Catmull-Rom curve: a hard jump overshoots between its keys, so each jump is four keys squeezed
 // into 12 ms that sit between two frames (a cut lands on a frame; the frame before it is 33 ms earlier)
 const K = (at, pos, yaw) => ({ at: r3(at), pos, yaw, pitch: 0, roll: 0 });
 const jump = (cut, a, ya, b, yb) => [K(cut - 0.024, a, ya), K(cut - 0.02, a, ya), K(cut - 0.016, b, yb), K(cut - 0.012, b, yb)];
 const rigs = [{ id: "car", kind: "hatchback", color: "#3f7f7b", plate: false, pivot: [0, 0, 0], keys: [
-  K(0, CAR_CITY, 0), ...jump(T.p03, CAR_CITY, 0, CAR_COT, -90), ...jump(T.p04, CAR_COT, -90, CAR_CITY, 0),
+  K(0, CAR_CITY, 0), ...jump(T.p02, CAR_CITY, 0, CAR_STR, 180), ...jump(T.p03, CAR_STR, 180, CAR_COT, -90), ...jump(T.p04, CAR_COT, -90, CAR_CITY, 0),
   ...jump(T.p17, CAR_CITY, 0, CAR_STR, 180), ...jump(T.p18, CAR_STR, 180, CAR_CITY, 0),
 ] }];
 const GX = 0.05;   // the glove box nearer the middle of the dash, inside Spud's reach from the driver's seat (17)
@@ -100,10 +100,13 @@ const JAM = [[0, -4.6, 0], [0.1, -9.4, 0], [-3.1, 2.6, 180], [-3.0, -2.4, 180], 
 JAM.forEach(([x, z, rot], i) => P("city+dusk", { id: `jam${i}`, kind: "citycar", x, y: 0, z, rot, color: ["#c9483d", "#e8e2d4", "#3d5a8a", "#d9a63a", "#7d8a8e", "#a8c3c9"][i] }));
 
 // ---- the remotes: four instances, never a hand-off (DESIGN 1)
-const REM0 = [-0.31, 0.8, 0.25];   // "rem" in Spud's left hand at frame 0, so the hold needs no reach. In the CAR'S frame: a rig rider's hold
+const REM0 = [-0.31, 0.86, 0.28];   // "rem" in Spud's left hand at frame 0, so the hold needs no reach. In the CAR'S frame: a rig rider's hold
 // targets are read in the rig's space (layout, 16 Nov: world numbers put his hand a car-offset ahead of him)
-const REM = (id, where, o = {}) => P(where, { id, kind: "skipremote", x: 0, y: -30, z: 0, press: 0, dust: 0, wipe: 0, ...o }, { stay: true });
-REM("rem", "city+dusk+str", grips.placeFor("skipremote", REM0, 0));        // clean, in Spud's hand in the car (01-02, 16-17), then in the glove box
+// draft 1 (Jonny 16 Nov: "most of the time the remote is glitched in hands"): 0.8 scale (0.10 x 0.20 m), held at chest
+// height below the eyes (layout: eyes 0.61 standing, 0.47-0.50 seated, 1.15 in the car), tipped back in the car
+const REMS = 0.8, HSTAND = [0.18, 0.2, 0.3], HSEAT = [0.17, 0.1, 0.36];
+const REM = (id, where, o = {}) => P(where, { id, kind: "skipremote", x: 0, y: -30, z: 0, scale: REMS, press: 0, dust: 0, wipe: 0, ...o }, { stay: true });
+REM("rem", "city+dusk+str", { ...grips.placeFor("skipremote", REM0, 0), tip: -35 });        // clean, in Spud's hand in the car (01-02, 16-17), then in the glove box
 REM("remw", "cot+str+off");       // clean, young Spud walking (03-08)
 REM("remm", "prk+liv", {}, );     // clean, middle-aged Spud (09-10)
 // the one lying in the glove box (17): rides the car, so it sits in the box whatever the car does; shown when his hand lets go
@@ -191,15 +194,15 @@ const SPUD_CAR = [-0.55, 0, 1.09];   // his seat in the world while the car is i
 const hR = grips.phone(c, "spud", specOf("rem"), { side: "L", gap: 0.035, height: 0.42 }); hR.secure(0, 0.01);
 expr(0, "spud", "deadpan", { brow: 0.1 }, 0.01); look(0, "spud", [0.25, -0.45], 0.01);
 expr(0, "chip", "delighted", { open: 0.35 }, 0.01); look(0, "chip", [-0.8, 0.0], 0.01);
-arm(0, "chip", "R", "up", 0.01); arm(0, "chip", "L", "up", 0.01); grip(0, "chip", "R", "open", 0.01); grip(0, "chip", "L", "open", 0.01);
+arm(0, "chip", "R", "shrug", 0.01); arm(0, "chip", "L", "shrug", 0.01); grip(0, "chip", "R", "open", 0.01); grip(0, "chip", "L", "open", 0.01);
 A(0.2, "chip", "talk", { line: "So a potato walks into a bar...", tone: "happy", dur: 3.4, speech: false });
 A(0.9, "chip", "hop", { height: 0.02, dur: 0.25, quiet: true }); A(2.3, "chip", "hop", { height: 0.02, dur: 0.25, quiet: true });
 look(1.6, "spud", [0.1, -0.5], 0.2);
 see(0, T.p02, ["spud.face", "chip.face", "rem"], "a traffic jam: Spud at the wheel looks at a remote in his hand; Chip beside him tells a joke, hands up");
 // 02: he lifts it into view, the white button to us (turned like 08), and presses
-hR.carry(r3(T.p02 - PRE), [-0.36, 0.98, 0.33], 0.01, "linear", { rot: 0 });
+hR.carry(r3(T.p02 - PRE), [-0.31, 0.9, 0.3], 0.01, "linear", { tip: -45 });   // a little up, the button toward his eyes
 press(T.click1, "spud", "rem");
-see(T.p02, T.p03, ["rem", "spud.face"], "close through the windscreen: Spud lifts the remote, his thumb on the big white fast-forward button");
+see(T.p02, T.p03, ["rem"], "close from over his head: his thumb on the big white fast-forward button");
 void SPUD_CAR;
 
 // ================================================================= 03 HOME (4.6-9.4): the joke is gone
@@ -210,9 +213,10 @@ expr(T.p03, "chip", "shocked", { open: 0.3, eye: 1.2 }, 0.1); look(T.p03, "chip"
 A(T.p03 + 0.5, "chip", "blink", { dur: 0.3 }); A(T.p03 + 1.4, "chip", "blink", { dur: 0.3 });
 const W03 = cot([-1.3, 0, 2.3]), W03b = cot([-1.0, 0, 3.0]);
 place(T.p03, "spudw", xz(W03), 30);
-const hW = REMOTE(T.p03, "spudw", "remw", local(W03, 30, [0.22, 0.4, 0.32]), 30);
+const hW = REMOTE(T.p03, "spudw", "remw", local(W03, 30, HSTAND), 30);
 expr(T.p03, "spudw", "happy", { curve: 0.5 }, 0.01); look(T.p03, "spudw", [0.3, 0.1], 0.01);
 A(T.p03 + 0.2, "spudw", "move", { to: xz(W03b), dur: 1.6, stride: 0.3 });
+hW.carry(r3(T.p03 + 0.2), local(W03b, 30, HSTAND), 1.6, "inOut");   // walks with him (the hold is prop-led)
 look(T.p03 + 1.9, "spudw", [0.0, 0.2], 0.2);
 see(T.p03, T.p04, ["spudw.face", "chip.face", "remw"], "evening at his cottage: Spud walks off with the remote; Chip still sits in the parked car, blinking, his joke cut off");
 
@@ -220,7 +224,7 @@ see(T.p03, T.p04, ["spudw.face", "chip.face", "remw"], "evening at his cottage: 
 A(r3(T.p04 - PRE), "chip", "hide");   // the car is back in the jam with nobody to see; Chip shows again on 16
 const S04 = str([-0.9, 0, 0.95]), C04 = str([-0.05, 0, 0.55]);
 place(T.p04, "spudw", xz(S04), 25); place(T.p04, "chipw", xz(C04), -60);
-hW.carry(r3(T.p04 - PRE + 0.002), local(S04, 25, [0.2, 0.4, 0.25]), 0.01, "linear");   // the held remote goes with him over the cut
+hW.carry(r3(T.p04 - PRE + 0.002), local(S04, 25, HSTAND), 0.01, "linear");   // the held remote goes with him over the cut
 const hU = MUGL(T.p04, "spudw", "umb", local(S04, 25, [-0.3, 0.52, 0.2]), 25, "R");   // the canopy clear over his leaf
 expr(T.p04, "spudw", "deadpan", { brow: 0.1 }, 0.01); expr(T.p04, "chipw", "delighted", { open: 0.4 }, 0.01);
 look(T.p04, "chipw", [-0.8, 0.1], 0.01); look(T.p04, "spudw", [0.4, -0.3], 0.01);
@@ -238,7 +242,7 @@ see(T.p05, T.p06, ["spudw.face"], "the same street, dry and sunny: Spud alone wi
 
 const S06 = str([0.6, 0, 0.55]), C06 = str([-0.15, 0, 0.75]);
 place(T.p06, "spudw", xz(S06), 30); place(T.p06, "chipw", xz(C06), 60);
-hW.carry(r3(T.p06 - PRE + 0.002), local(S06, 30, [0.2, 0.4, 0.25]), 0.01, "linear");
+hW.carry(r3(T.p06 - PRE + 0.002), local(S06, 30, HSTAND), 0.01, "linear");
 hU.carry(r3(T.p06 - PRE + 0.002), local(S06, 30, [-0.36, 0.3, 0.2]), 0.01, "linear");
 arm(T.p06, "chipw", "R", "up", 0.2); arm(T.p06, "chipw", "L", "up", 0.2);
 pr(T.p06 - PRE, "loaf", { x: C06[0], y: 0.72, z: C06[2], rot: 40, scale: 1 }, 0.01, "linear", "set on Chip's head on the cut");
@@ -253,7 +257,7 @@ see(T.p06, T.p07, ["spudw.face", "chipw.face", "loaf"], "a long queue at the bak
 A(r3(T.p07 - PRE), "spudw", "release", { prop: "umb", dur: 0 }); grip(T.p07 - PRE, "spudw", "R", "relaxed", 0.01); arm(r3(T.p07 - PRE + 0.001), "spudw", "R", "rest", 0.01, "linear");
 park(T.p07, "chipw", 2); pr(T.p07 - PRE, "loaf", { y: -30, scale: 0.001 }, 0.01, "linear", "off the set with the cut");
 place(T.p07, "spudw", xz(off([0, 0, -1.05])), 0); A(r3(T.p07 - 0.001), "spudw", "sit", { seat: "chair", dur: 0, hands: "keep" });   // after its seat is back on the set (hideOffstage, t - PRE + 0.01)
-hW.carry(r3(T.p07 - PRE + 0.002), local(off([0, 0, -1.05]), 0, [0.2, 0.66, 0.28]), 0.01, "linear");
+hW.carry(r3(T.p07 - PRE + 0.002), local(off([0, 0, -1.05]), 0, HSEAT), 0.01, "linear");
 const C07 = off([0.85, 0, 0.45]);
 place(T.p07, "chipo", xz(C07), -40);
 MUGL(T.p07, "chipo", "cup1", local(C07, -40, [-0.24, 0.3, 0.2]), -40, "R");
@@ -267,14 +271,14 @@ park(T.p08, "chipo", 8);
 const S08 = off([0, 0, 0.45]);
 A(T.p08 - PRE, "spudw", "stand", { dur: 0 }); place(T.p08, "spudw", xz(S08), 0);
 expr(T.p08, "spudw", "cocky", { brow: 0.5, curve: 0.4 }, 0.01); look(T.p08, "spudw", [0, 0], 0.01);
-hW.carry(r3(T.p08 - PRE + 0.002), local(S08, 0, [0.12, 0.4, 0.24]), 0.01, "linear");
-hW.carry(r3(T.p08 + 0.1), local(S08, 0, [0.07, 0.5, 0.36]), 0.45, "anticSettle", { rot: 0 });   // turned to show us the button
+hW.carry(r3(T.p08 - PRE + 0.002), local(S08, 0, HSTAND), 0.01, "linear", { rot: 0 });   // turned to show us the button on the cut (a 180 in the hand on screen flips the palm)
+hW.carry(r3(T.p08 + 0.1), local(S08, 0, [0.08, 0.24, 0.4]), 0.45, "anticSettle", { rot: false });   // turned to show us the button
 see(T.p08, T.p09, ["spudw.face", "remw"], "straight to camera: Spud holds the remote out to us, eyebrows up: would you press it?");
 
 // ================================================================= 09-10 FASTER (19.6-24.7): middle-aged, alone
 park(T.p09, "spudw", 1);
 place(T.p09, "spudm", xz(BENCH), 0); A(r3(T.p09 - 0.001), "spudm", "sit", { seat: "pbench", dur: 0, hands: "keep" });   // after its seat is back on the set (hideOffstage, t - PRE + 0.01)
-REMOTE(T.p09, "spudm", "remm", local(BENCH, 0, [0.15, 0.62, 0.3]), 0);
+const hM = REMOTE(T.p09, "spudm", "remm", local(BENCH, 0, [0.17, 0.14, 0.36]), 0);
 expr(T.p09, "spudm", "kind", { curve: 0.1 }, 0.01); look(T.p09, "spudm", [0.2, -0.4], 0.01);
 const FAR = prk([-1.2, 0, -5.5]);
 [["chipf", -1.05], ["wedge", 0], ["mash", 1.05]].forEach(([who, dx]) => {
@@ -287,6 +291,7 @@ see(T.p09, T.p10, ["spudm.face", "remm", "chipf"], "an autumn park: middle-aged 
 for (const [i, w] of ["chipf", "wedge", "mash"].entries()) park(T.p10, w, 5 + i);
 const M10 = liv([1.75, 0, -1.45]);
 A(T.p10 - PRE, "spudm", "stand", { dur: 0 }); place(T.p10, "spudm", xz(M10), -95);
+hM.carry(r3(T.p10 - PRE + 0.002), local(M10, -95, HSTAND), 0.01, "linear");
 expr(T.p10, "spudm", "sad", { curve: -0.1 }, 0.01); look(T.p10, "spudm", [0.2, -0.5], 0.01);
 press(T.click6, "spudm", "remm");
 see(T.p10, T.p11, ["spudm.face", "remm"], "his living room at dusk: middle-aged Spud alone at the window presses once more");
@@ -296,11 +301,11 @@ park(T.p11, "spudm", 3);
 place(T.p11, "spudo", xz(COUCH), 0); A(r3(T.p11 - 0.001), "spudo", "sit", { seat: "couch", dur: 0, hands: "keep" });   // after its seat is back on the set (hideOffstage, t - PRE + 0.01)
 pr(T.p11 - PRE, "remd", { ...Object.fromEntries(["x", "y", "z"].map((k, i) => [k, local(COUCH, 0, [0.78, 0.605, -0.15])[i]])), rot: 10, tip: -90, scale: 1 }, 0.01, "linear", "laid on the armrest on the cut");
 expr(T.p11, "spudo", "sad", { curve: -0.2, lid: 0.3 }, 0.01); look(T.p11, "spudo", [0.0, -0.3], 0.01);
-arm(T.p11, "spudo", "R", "lap", 0.01); arm(T.p11, "spudo", "L", "lap", 0.01);
+arm(T.p11 - PRE, "spudo", "R", "lap", 0.01); arm(T.p11 - PRE, "spudo", "L", "lap", 0.01);
 see(T.p11, T.p12, ["spudo.face", "remd", "tv"], "a dim living room: Spud at 82 alone on the sofa, the remote dusty on the armrest, the TV dark");
 // 12: he holds it; the red button on its back faces us
 pr(T.p12 - PRE, "remd", { y: -30, scale: 0.001 }, 0.01, "linear", "swapped for the one in his hand on the cut");
-const hO = REMOTE(T.p12, "spudo", "remo", local(COUCH, 0, [0.15, 0.7, 0.18]), 0);
+const hO = REMOTE(T.p12, "spudo", "remo", local(COUCH, 0, [0.17, 0.12, 0.42]), 0);
 pr(T.p12 + 0.5, "remo", { wipe: 1 }, 0.5, "inOut");   // his thumb clears the dust off the red button
 expr(T.p12, "spudo", "shocked", { open: 0.25, eye: 1.15 }, 0.15); look(T.p12, "spudo", [0.15, -0.5], 0.01);
 see(T.p12, T.p13, ["spudo.face", "remo"], "close: old Spud finds a small red rewind button on the back of the remote");
@@ -313,9 +318,9 @@ see(T.p14, T.p15, ["spudo.face", "tv2"], "his face lit by the TV, laughing with 
 // 15: up off the sofa, he presses REWIND
 const O15 = liv([0.2, 0, -0.5]);
 A(T.p15 - PRE, "spudo", "stand", { dur: 0 }); place(T.p15, "spudo", xz(O15), 0);
-hO.carry(r3(T.p15 - PRE + 0.002), local(O15, 0, [0.15, 0.4, 0.22]), 0.01, "linear");
+hO.carry(r3(T.p15 - PRE + 0.002), local(O15, 0, HSTAND), 0.01, "linear");
 expr(T.p15, "spudo", "focused", { brow: -0.3 }, 0.15); look(T.p15, "spudo", [0.2, 0.3], 0.2);
-hO.carry(r3(T.p15 + 0.1), local(O15, 0, [0.2, 0.62, 0.2]), 0.4, "anticSettle");
+hO.carry(r3(T.p15 + 0.1), local(O15, 0, [0.14, 0.28, 0.4]), 0.4, "anticSettle");   // held out in front, at chest height
 press(T.rew, "spudo", "remo", null);   // the red button has no press key (props-skipremote.js): the click and the cut carry it
 see(T.p15, T.p16, ["spudo.face", "remo"], "old Spud stands and holds the remote high, pressing the red rewind button");
 
@@ -324,21 +329,23 @@ park(T.p16, "spudo", 4);
 A(T.p16 - PRE, "spud", "show"); A(T.p16 - PRE, "chip", "show");
 expr(T.p16, "spud", "shocked", { open: 0.25, eye: 1.2 }, 0.01); look(T.p16, "spud", [0.0, 0.1], 0.01);
 expr(T.p16, "chip", "delighted", { open: 0.35 }, 0.01); look(T.p16, "chip", [-0.8, 0.0], 0.01);
-arm(T.p16 - PRE, "chip", "R", "up", 0.01); arm(T.p16 - PRE, "chip", "L", "up", 0.01); grip(T.p16 - PRE, "chip", "R", "open", 0.01); grip(T.p16 - PRE, "chip", "L", "open", 0.01);
+arm(T.p16 - PRE, "chip", "R", "shrug", 0.01); arm(T.p16 - PRE, "chip", "L", "shrug", 0.01); grip(T.p16 - PRE, "chip", "R", "open", 0.01); grip(T.p16 - PRE, "chip", "L", "open", 0.01);
 A(T.p16 + 0.1, "chip", "talk", { line: "...and the bartender says...", tone: "happy", dur: 1.2, speech: false });
 A(T.p16 + 0.25, "spud", "blink", { dur: 0.3 }); look(T.p16 + 0.7, "spud", [0.7, 0.0], 0.25);
 expr(T.p16 + 0.8, "spud", "kind", { curve: 0.4 }, 0.3);
 see(T.p16, T.p17, ["spud.face", "chip.face", "rem"], "back in the traffic jam at 25: Spud blinks, the remote in his hand; Chip mid-joke beside him");
 // 17: the glove box (on the street close-up set: the car at CAR_STR turned 180, so car x/z flip in the world)
-hR.carry(r3(T.p16 - PRE), REM0, 0.01, "linear", { rot: 180 });   // back to the hand at his chest for 16
+hR.carry(r3(T.p16 - PRE), REM0, 0.01, "linear", { tip: -35 });   // back at his chest for 16
 const GLOVE_IN = [GX, r3(GLOVE.rest[1] + 0.02), r3(GLOVE.rest[2] - 0.02)];   // car space, like REM0
+arm(T.p17 - PRE, "chip", "R", "lap", 0.01); arm(T.p17 - PRE, "chip", "L", "lap", 0.01);   // his arms out of the glove box close-up
+arm(T.p18 - PRE, "chip", "R", "shrug", 0.01); arm(T.p18 - PRE, "chip", "L", "shrug", 0.01);   // the punchline, hands open
 pr(T.p17 + 0.1, "dash", { glove: 1 }, 0.35, "inOut"); sfx(T.p17 + 0.1, "click", { gain: 0.35, reason: "the glove box latch" });
 A(T.p17 + 0.15, "spud", "lean", { to: -8, dur: 0.4, ease: "inOut" });
 hR.carry(r3(T.p17 + 0.25), [GLOVE_IN[0], r3(GLOVE_IN[1] + 0.08), GLOVE_IN[2]], 0.5, "inOut", { rot: false });
 hR.put(r3(T.p17 + 0.8), GLOVE_IN, { dur: 0.2 });
 A(T.p17 + 1.3, "spud", "lean", { to: 0, dur: 0.4, ease: "inOut" });
 pr(T.p17 + 1.35, "dash", { glove: 0 }, 0.3, "in"); sfx(T.p17 + 1.6, "click", { gain: 0.3, reason: "the glove box snaps shut" });
-pr(T.p17 + 0.95, "rem", { scale: 0.001 }, 0.01, "linear", "now the one lying in the glove box (remg)"); pr(T.p17 + 0.95, "remg", { scale: 1 }, 0.01, "linear", "laid in the box as his hand lets go");
+pr(T.p17 + 0.95, "rem", { scale: 0.001 }, 0.01, "linear", "now the one lying in the glove box (remg)"); pr(T.p17 + 0.95, "remg", { scale: REMS }, 0.01, "linear", "laid in the box as his hand lets go");
 pr(T.p18 - PRE, "remg", { scale: 0.001 }, 0.01, "linear", "shut in the glove box");
 see(T.p17, T.p18, ["dash", "rem"], "close: Spud lays the remote in the glove box and shuts it");
 // 18: the punchline
@@ -367,17 +374,17 @@ bed(0, T.p03, "ai/rain-car-roof", 0.0);
 const inCar = (pos, lk, fov) => ({ rig: "car", pos, look: lk, fov });
 const SH = {
   p01: inCar([-0.05, 1.8, 3.4], [-0.05, 1.1, -0.2], 52),
-  p02: inCar([-0.4, 1.12, 1.55], [-0.38, 1.0, 0.25], 30),
+  p02: inCar([0.05, 1.42, 0.0], [-0.14, 0.9, 0.29], 30),   // the remote is at car (-0.14, 0.9, 0.29) here (layout)
   p03: { pos: cot([-1.5, 1.1, 7.4]), look: cot([-1.55, 0.85, 1.9]), fov: 50 },
   p04: { pos: str([-0.3, 1.05, 4.6]), look: str([-0.3, 0.7, 0.2]), fov: 48 },
   p05: { pos: str([-0.7, 1.0, 4.0]), look: str([-0.8, 0.65, 0.5]), fov: 46 },
   p06: { pos: str([0.3, 1.0, 3.6]), look: str([0.3, 0.72, 0.7]), fov: 50 },
   p07: { pos: off([0.35, 1.35, 2.6]), look: off([0.35, 0.75, -0.4]), fov: 50 },
-  p08: { pos: off([0.0, 0.95, 2.6]), look: off([0.0, 0.9, 0.45]), fov: 40 },
+  p08: { pos: off([0.0, 0.9, 3.5]), look: off([0.0, 0.86, 0.45]), fov: 36 },   // the whole of him and the remote; caption room 210-460 (camfit)
   p09: { pos: prk([0.3, 1.0, 4.4]), look: prk([-0.3, 0.7, -1.5]), fov: 48 },
   p10: { pos: liv([0.2, 1.15, 0.3]), look: liv([1.6, 0.8, -1.5]), fov: 44 },
   p11: { pos: liv([0.6, 1.3, 1.7]), look: liv([-0.3, 0.7, -0.9]), fov: 54 },
-  p12: { pos: liv([0.42, 0.88, -0.55]), look: liv([0.33, 0.74, -1.12]), fov: 36 },
+  p12: { pos: liv([0.4, 0.38, -0.45]), look: liv([0.36, 0.24, -0.9]), fov: 34 },
   p13: { pos: liv([0.85, 1.25, -1.85]), look: liv([-1.4, 0.85, -0.1]), fov: 44 },
   p14: { pos: liv([-1.0, 1.0, 0.3]), look: liv([0.2, 0.85, -1.25]), fov: 42 },
   p15: { pos: liv([-0.25, 0.95, 1.3]), look: liv([0.25, 0.85, -0.5]), fov: 46 },
