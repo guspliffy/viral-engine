@@ -3,3 +3,4 @@
 - scoreroom: rug too bright/saturated vs RM-N (dull worn rug): tone it down at polish; party glow needs the stringlights props + colour arc split at x 1.35.
 - scorebakery: panel 15 rain view still has a pale foggy sky glow; staging: frame 15 low on the puddle; baker needs a stand-on top behind the counter to read (raise baker y).
 - scorehill: bench rot 180 flips along (Mash +0.48). Move the bench out of 47. Train ~3x too small vs arches -> scale the train up (viaductLine(250), parapet y 3.09). Needs light golden + windows:false. Trunk z +0.8 is behind the 47 camera.
+- scoreriver: weakest place after 5 rounds: near railing posts too big in the right corner, water reads grey, bridge feels on the path; director pass at staging (smaller near posts or camera 0.5 m left, bluer reflective water, mist). Use RIVER.cams, windows:false, Mash x 1.7.

@@ -13,7 +13,7 @@ import { canvas } from "./set-porch.js";
 //                   Walkable flagstones x_c-2.2 .. x_c+2.4 at y 0, from z +10 to z -33, then the plaza (x -24..-3.1, z -44..-30).
 //   left side       a 1.1 m ashlar wall (face at x_c-2.2, coping top y 1.2), the garden above it (ground y 1.1, falling to 0 by z -30):
 //                   flowers, shrubs, big red / orange maples whose boughs hang over the path (canopy from y 3.2 up).
-//   the bench       RIVER.bench: against the wall at x -1.55, z 1.8, faces +x (seat top y 0.45, 1.7 m long along z).
+//   the bench       RIVER.bench: against the wall at x -2.85, z -5.5, faces +x (seat top y 0.45, 1.7 m long along z).
 //   right side      granite posts (1.0 m, every 2.4 m) and beams at x_c+2.3, a strip of grass and daisies to x_c+3.2, then the
 //                   revetment drops to the calm river (water y -1.5, x -3.1 .. 20.5 at the bridge). The water shimmers, reflects
 //                   the bridge and the far-bank trees (real mirrored geometry), and carries 5 morning mist cards.
@@ -53,13 +53,20 @@ function deckYF(x) {
 }
 export const RIVER = {
   // the beauty camera of 07 / 08 (the painter's camera) and the bridge-deck camera of 10 (a guess: the director sets it)
-  camera: { pos: [0, 0.95, 6.0], pitch: -2, vfov: 34 },
+  camera: { pos: [1.3, 0.95, 6.0], pitch: -2, vfov: 34 },
+  // final cameras (pos, look, fov): a = the painting's camera, p07 / p08 the beauty shots (same camera), deck = panel 10. Near the railing, yawed 8 degrees toward the river.
+  cams: {
+    a: { pos: [1.3, 0.95, 6.0], look: [5.5, -0.1, -23.9], fov: 34 },
+    p07: { pos: [1.3, 0.95, 6.0], look: [5.5, -0.1, -23.9], fov: 34 },
+    p08: { pos: [1.3, 0.95, 6.0], look: [5.5, -0.1, -23.9], fov: 34 },
+    deck: { pos: [25, deckYF(25) + 1.5, BZ], look: [8, 4.6, BZ], fov: 36 },
+  },
   waterY: WATER_Y, pathHalf: HW, pathX: xcF, deckY: deckYF,
-  bench: { x: -2.85, z: -0.85, seatY: 0.45, length: 1.7, faces: "+x" },
+  bench: { x: -2.85, z: -8.5, seatY: 0.45, length: 1.7, faces: "+x" },
   bridge: { z: BZ, x0: -3, x1: 41, deckHalf: PARA, parapetH: 0.95, lamps: [[16.5, BZ - 1.95], [16.5, BZ + 1.95]] },
   // Mash walks x 0.9 from z -1.5 to +0.6 (facing +z); Spud 7.5 m behind (07) / 3.5 m behind (08) on the path's centre line x_c(z) (+-1.2 free)
   stand: {
-    mash07: { x: 0.9, zFrom: -1.5, zTo: 0.6, y: 0 },
+    mash07: { x: 1.7, zFrom: -1.5, zTo: 0.6, y: 0 },   // x 1.5 (not 0.9) so he stands in the centre of the yawed camera
     spud07: { x: xcF(-9.0) + 0.3, z: -9.0, y: 0 }, spud08: { x: xcF(-5.0) + 0.3, z: -5.0, y: 0 },
     // panel 10: on the deck looking west (-x) along the axis z -34; deckY(x) is the walking height
     deckCamera: { pos: [25, deckYF(25) + 1.5, BZ], look: [8, 4.6, BZ], fov: 36 }, mash10From: { x: 20, z: BZ, y: deckYF(20) }, mash10To: { x: 15, z: BZ, y: deckYF(15) },

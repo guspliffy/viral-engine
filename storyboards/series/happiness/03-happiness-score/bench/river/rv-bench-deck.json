@@ -30,7 +30,8 @@
    5,
    4.5
   ],
-  "shadowSize": 12
+  "shadowSize": 12,
+  "windows": false
  },
  "music": false,
  "sound": {

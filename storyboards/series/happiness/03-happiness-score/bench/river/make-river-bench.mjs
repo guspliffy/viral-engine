@@ -11,14 +11,14 @@ const deckY = (x) => { const D = [[-3, 0.1], [0, 0.9], [3, 1.9], [6.5, 2.9], [11
 const FAR = [-70, 60], BZ = -34;
 const pit = -2 * Math.PI / 180, ahead = (p, l) => [p[0], p[1] + Math.sin(pit) * l, p[2] - Math.cos(pit) * l];
 const CAM = {
-  a: { pos: [0, 0.95, 6.0], look: ahead([0, 0.95, 6.0], 30), fov: 34 },    // the painting's camera = panel 07
-  b: { pos: [0, 0.95, 6.0], look: ahead([0, 0.95, 6.0], 30), fov: 34 },    // panel 08
-  c: { pos: [1.4, 1.1, 3.4], look: [-2.9, 0.6, -0.9], fov: 46 },           // the bench
+  a: { pos: [1.3, 0.95, 6.0], look: [5.5, -0.1, -23.9], fov: 34 },    // = RIVER.cams.a
+  b: { pos: [1.3, 0.95, 6.0], look: [5.5, -0.1, -23.9], fov: 34 },    // = RIVER.cams.p08
+  c: { pos: [0.6, 1.1, -4.5], look: [-2.9, 0.6, -8.5], fov: 46 },           // the bench
   d: { pos: [-12, 11, 22], look: [10, 0, -30], fov: 56 },                   // overview
   e: { pos: [-16, 1.7, BZ + 3], look: [10, 2.6, BZ], fov: 48 },            // from the plaza to the bridge
   f: { pos: [6, 2.2, -12], look: [14, 1.5, -34], fov: 42 },                // from the water side up at the bridge
 };
-const spec = (view) => ({ type: "scoreriver", view, light: "golden", key: [3.5, 5.0, 4.5], shadowSize: 12 });
+const spec = (view) => ({ type: "scoreriver", view, light: "golden", key: [3.5, 5.0, 4.5], shadowSize: 12, windows: false });
 const finish = (id, view, cast, c, beats) => write(import.meta.url, {
   id, title: "River set bench", idea: "Set bench for Happiness 03 (set scoreriver), not a clip",
   fps: 30, frame: "wide", look: "anime-pro", profile: "short", loop: false, castLook: "sheet", motion: MOTION, rig: RIG, physics: false,
@@ -35,9 +35,9 @@ const finish = (id, view, cast, c, beats) => write(import.meta.url, {
   mk("spudC", "potatobrawl/spud", -90); mk("mashC", "potatobrawl/mash", 0); mk("mashD", "potatobrawl/mash", -90); mk("spudD", "potatobrawl/spud", 0);
   const put = (t, id, x, z, y = 0) => c.A(t, id, "move", { to: [x, z], y, dur: 0.01 }), away = (t, id) => c.A(t, id, "move", { to: FAR, y: 0, dur: 0.01 });
   for (const a of cast) c.A(0, a.id, "look", { to: [0, 1.5], dur: 0.01, blink: false });
-  put(0, "mashA", 0.9, -0.4); put(0, "spudA", xc(-7.9) + 0.3, -7.9);                 // 07: Spud 7.5 m behind
-  away(1, "mashA"); away(1, "spudA"); put(1, "mashB", 0.9, -0.4); put(1, "spudB", xc(-3.9) + 0.3, -3.9);   // 08: 3.5 m behind
-  away(2, "mashB"); away(2, "spudB"); put(2, "spudC", -2.0, 0.4); put(2, "mashC", -1.1, 1.2);   // at the bench
+  put(0, "mashA", 1.7, -0.4); put(0, "spudA", xc(-7.9) + 0.3, -7.9);                 // 07: Spud 7.5 m behind
+  away(1, "mashA"); away(1, "spudA"); put(1, "mashB", 1.7, -0.4); put(1, "spudB", xc(-3.9) + 0.3, -3.9);   // 08: 3.5 m behind
+  away(2, "mashB"); away(2, "spudB"); put(2, "spudC", -2.0, -7.6); put(2, "mashC", -1.0, -6.6);   // at the bench
   away(3, "spudC"); away(3, "mashC"); put(3, "mashD", 0.9, 0); put(3, "spudD", xc(-6) + 0.3, -6);
   away(4, "mashD"); away(4, "spudD");
   const beats = c.beats([["a", 0, CAM.a, "panel 07"], ["b", 1, CAM.b, "panel 08"], ["c", 2, CAM.c, "bench"], ["d", 3, CAM.d, "overview"], ["e", 4, CAM.e, "plaza"], ["f", 5, CAM.f, "bridge from the water side"]], 6);
