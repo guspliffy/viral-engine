@@ -84,25 +84,24 @@ const shade = (hex, k) => { const c = new THREE.Color(hex); const o = { r: Math.
 
 // dressed ashlar in warm grey-gold: courses of different heights, blocks of different lengths and tones (tan, pink, lilac
 // grey), a pitted face, a lit top edge and a shaded bottom edge, a few lichen patches. 4.8 m square.
-function stoneCanvas(rnd, S = 2048, mortar = "#857762", pal = null) {
+function stoneCanvas(rnd, S = 2048, mortar = "#4a3f30", pal = null) {
   const [c, g] = canvas(S, S), ppm = S / 4.8;
   g.fillStyle = mortar; g.fillRect(0, 0, S, S);
-  pal = pal || ["#d2bd92", "#c6b085", "#dacb9f", "#bfa98a", "#cbb9a0", "#b4a794", "#d6bf9c", "#aaa09c", "#cfae8a"];
+  pal = pal || ["#d6c196", "#c9b387", "#dfd0a3", "#c2ac8c", "#cfbda2", "#b9ab97", "#dac3a0", "#b0a49f", "#d3b48e", "#c7b790"];
   let y = 0;
   for (const rh of fitRun(rnd, S, 0.2 * ppm, 0.36 * ppm)) {
     let x = 0; const tall = rh > 0.28 * ppm;
     for (const w of fitRun(rnd, S, (tall ? 0.45 : 0.3) * ppm, (tall ? 1.0 : 0.8) * ppm)) {
-      const base = pal[Math.floor(rnd() * pal.length)], k = 0.94 + rnd() * 0.12;
-      const gr = g.createLinearGradient(0, y, 0, y + rh); gr.addColorStop(0, shade(base, k * 1.07)); gr.addColorStop(1, shade(base, k * 0.9));
-      g.fillStyle = gr; g.beginPath(); g.roundRect(x + 3, y + 3, w - 6, rh - 6, 9); g.fill();
-      for (let i = 0; i < 14; i++) {   // mottling
-        g.fillStyle = rnd() < 0.5 ? `rgba(95,78,56,${0.05 + rnd() * 0.09})` : `rgba(255,243,208,${0.05 + rnd() * 0.1})`;
-        g.beginPath(); g.ellipse(x + 8 + rnd() * (w - 16), y + 8 + rnd() * (rh - 16), 10 + rnd() * w * 0.2, 6 + rnd() * rh * 0.22, rnd() * 3, 0, Math.PI * 2); g.fill();
-      }
-      for (let i = 0; i < 26; i++) { g.fillStyle = `rgba(70,56,40,${0.15 + rnd() * 0.2})`; g.beginPath(); g.arc(x + 8 + rnd() * (w - 16), y + 8 + rnd() * (rh - 16), 1 + rnd() * 2.4, 0, 7); g.fill(); }
-      if (rnd() < 0.08) { g.fillStyle = "rgba(120,140,80,0.22)"; g.beginPath(); g.ellipse(x + w * rnd(), y + rh * rnd(), 20 + rnd() * 30, 10 + rnd() * 16, rnd() * 3, 0, 7); g.fill(); }
-      g.fillStyle = "rgba(255,248,224,0.4)"; g.fillRect(x + 6, y + 4, w - 12, 3);
-      g.fillStyle = "rgba(60,46,30,0.38)"; g.fillRect(x + 6, y + rh - 8, w - 12, 4);
+      const base = pal[Math.floor(rnd() * pal.length)], k = 0.9 + rnd() * 0.2, m = 8;
+      const gr = g.createLinearGradient(0, y, 0, y + rh); gr.addColorStop(0, shade(base, k * 1.05)); gr.addColorStop(1, shade(base, k * 0.93));
+      g.fillStyle = gr; g.fillRect(x + m, y + m, w - 2 * m, rh - 2 * m);
+      for (let i = 0; i < 4; i++) { g.fillStyle = rnd() < 0.5 ? `rgba(110,92,66,${0.04 + rnd() * 0.05})` : `rgba(255,244,214,${0.05 + rnd() * 0.06})`; g.fillRect(x + m + rnd() * (w - 2 * m) * 0.5, y + m + rnd() * (rh - 2 * m) * 0.6, (w - 2 * m) * (0.2 + rnd() * 0.5), (rh - 2 * m) * (0.15 + rnd() * 0.4)); }   // flat tonal patches, not smudges
+      for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(70,56,40,${0.16 + rnd() * 0.22})`; g.fillRect(x + m + rnd() * (w - 2 * m), y + m + rnd() * (rh - 2 * m), 1 + rnd() * 2, 1 + rnd() * 2); }   // pitting
+      for (let i = 0; i < 3; i++) { g.strokeStyle = `rgba(80,66,46,${0.1 + rnd() * 0.08})`; g.lineWidth = 1.2; const yy = y + m + rnd() * (rh - 2 * m), xx = x + m + rnd() * (w - 2 * m) * 0.6; g.beginPath(); g.moveTo(xx, yy); g.lineTo(xx + (w - 2 * m) * (0.2 + rnd() * 0.3), yy + (rnd() - 0.5) * 3); g.stroke(); }   // chisel marks
+      g.fillStyle = "rgba(255,249,228,0.55)"; g.fillRect(x + m, y + m, w - 2 * m, 4);   // crisp lit top
+      g.fillStyle = "rgba(255,244,214,0.25)"; g.fillRect(x + m, y + m, 3, rh - 2 * m);
+      g.fillStyle = "rgba(48,38,26,0.5)"; g.fillRect(x + m, y + rh - m - 5, w - 2 * m, 5);   // shaded bottom
+      g.fillStyle = "rgba(48,38,26,0.3)"; g.fillRect(x + w - m - 3, y + m, 3, rh - 2 * m);
       x += w;
     }
     y += rh;
@@ -186,7 +185,7 @@ function plasterCanvas(rnd, base, S = 512) {
 function dressedCanvas(rnd, S = 512) {   // the smooth pale stone of quoins, lintels and sills
   const [c, g] = canvas(S, S);
   g.fillStyle = "#dccba6"; g.fillRect(0, 0, S, S);
-  for (let i = 0; i < 160; i++) { g.fillStyle = rnd() < 0.5 ? `rgba(120,98,70,${0.04 + rnd() * 0.08})` : `rgba(255,248,226,${0.06 + rnd() * 0.1})`; g.beginPath(); g.ellipse(rnd() * S, rnd() * S, 8 + rnd() * 40, 5 + rnd() * 20, rnd() * 3, 0, 7); g.fill(); }
+  for (let i = 0; i < 40; i++) { g.fillStyle = rnd() < 0.5 ? `rgba(120,98,70,${0.03 + rnd() * 0.04})` : `rgba(255,248,226,${0.04 + rnd() * 0.05})`; g.fillRect(rnd() * S, rnd() * S, 20 + rnd() * 120, 10 + rnd() * 50); }
   for (let i = 0; i < 700; i++) { g.fillStyle = `rgba(80,64,46,${0.1 + rnd() * 0.18})`; g.fillRect(rnd() * S, rnd() * S, 1.6, 1.6); }
   return c;
 }
@@ -216,11 +215,13 @@ function daisyCanvas() {
 // a sash window's glass: the autumn trees across the road reflected, sky above, a dim room below
 function glassCanvas(rnd, k) {
   const W = 128, H = 192, [c, g] = canvas(W, H);
-  const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, "#8fb8dc"); gr.addColorStop(0.45, "#d5e2e6"); gr.addColorStop(1, "#7a6a60"); g.fillStyle = gr; g.fillRect(0, 0, W, H);
-  for (let i = 0; i < 60; i++) { g.fillStyle = ["#e0701f", "#d9a21f", "#c43a1c", "#f0c43a"][Math.floor(rnd() * 4)]; g.globalAlpha = 0.55 + rnd() * 0.4; g.beginPath(); g.arc(rnd() * W, 18 + rnd() * H * 0.62, 6 + rnd() * 14, 0, 7); g.fill(); }
+  const gr = g.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, "#4f7fae"); gr.addColorStop(0.4, "#2a3b52"); gr.addColorStop(1, "#171a22"); g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  g.fillStyle = "rgba(190,220,245,0.32)"; g.beginPath(); g.moveTo(0, 0); g.lineTo(W, 0); g.lineTo(W, 30); g.lineTo(0, 60); g.fill();   // sky in the top
+  for (let i = 0; i < 7; i++) { g.fillStyle = ["#e0701f", "#d9a21f", "#c43a1c"][i % 3]; g.globalAlpha = 0.3 + rnd() * 0.25; g.beginPath(); g.arc(8 + rnd() * (W - 16), 24 + rnd() * 70, 5 + rnd() * 9, 0, 7); g.fill(); }
   g.globalAlpha = 1;
-  if (k % 2) { g.fillStyle = "rgba(60,44,40,0.55)"; g.fillRect(0, H * 0.7, W, H * 0.3); }
-  g.fillStyle = "rgba(255,255,255,0.18)"; g.beginPath(); g.moveTo(10, 0); g.lineTo(60, 0); g.lineTo(20, H); g.lineTo(0, H); g.fill();
+  if (k % 2) { g.fillStyle = "rgba(255,200,130,0.16)"; g.fillRect(0, H * 0.62, W, H * 0.38); }   // a lamp-lit room behind
+  g.fillStyle = "rgba(255,255,255,0.2)"; g.beginPath(); g.moveTo(14, 0); g.lineTo(52, 0); g.lineTo(8, H); g.lineTo(0, H); g.lineTo(0, 120); g.fill();
+  g.fillStyle = "rgba(255,255,255,0.1)"; g.beginPath(); g.moveTo(70, 0); g.lineTo(84, 0); g.lineTo(36, H); g.lineTo(22, H); g.fill();
   return c;
 }
 function curtainCanvas(rnd, col) {
@@ -331,16 +332,20 @@ function segMat(a, b, r0, r1) {   // [geometry, matrix] of a tapered cylinder fr
 // The centreline runs along the house front (q 0 = the wall line): straight along +x to S0, then it bends right (toward +z)
 // and winds up the hill. P(s, q) = C(s) + q * n(s), n the right-hand normal (+z on the straight).
 const S0 = 13, BEND_R = 13, S_MIN = -42, S_MAX = 170;
-function makeFrame() {
+// the big rounded hill ahead (the painting's top right): height above the street's level at a world point
+const HILL_C = [92, 2], HILL_R = 54, HILL_AMP = 22;
+const hillShape = (x, z) => { const d = Math.hypot(x - HILL_C[0], (z - HILL_C[1]) * 0.85) / HILL_R; return d >= 1 ? 0 : HILL_AMP * smooth(1 - d) ** 1.1; };
+function makeFrame(hill = true) {
   const N = Math.round((S_MAX - S_MIN) / 0.25) + 1, xs = new Float64Array(N), zs = new Float64Array(N), th = new Float64Array(N);
-  const S1 = S0 + BEND_R * 0.5;
-  const theta = (s) => (s <= S0 ? 0 : s <= S1 ? (s - S0) / BEND_R : 0.5 - 0.75 * smooth((s - S1) / 30) + 0.25 * Math.sin((s - S1) / 20) * smooth((s - S1) / 40));
+  const S1 = S0 + BEND_R * 0.3;
+  const theta = (s) => (s <= S0 ? 0 : s <= S1 ? (s - S0) / BEND_R : 0.3 - 0.3 * smooth((s - S1) / 15) + 0.5 * Math.sin((s - S1) / 12) * smooth((s - S1) / 30));
   let x = S_MIN, z = STREET.wallZ;
   for (let i = 0; i < N; i++) { const s = S_MIN + i * 0.25, t = theta(s); xs[i] = x; zs[i] = z; th[i] = t; x += Math.cos(t) * 0.25; z += Math.sin(t) * 0.25; }
-  const yRef = (s) => { const u = Math.max(0, s - S0 - 6); return 0.125 * u * smooth(u / 14) + (u > 14 ? 0 : 0) + 0.0016 * Math.max(0, u - 14) ** 1.6 * 0 ; };
+  const posAt = (s) => { const k = Math.min(N - 1.001, Math.max(0, (s - S_MIN) / 0.25)), i = Math.floor(k), f = k - i; return [xs[i] + (xs[i + 1] - xs[i]) * f, zs[i] + (zs[i + 1] - zs[i]) * f, i, f]; };
+  const yRef = (s) => { if (!hill) return 0; const [x, z] = posAt(s); return hillShape(x, z); };   // the road climbs the hill it winds up
   const at = (s) => {
-    const k = Math.min(N - 1.001, Math.max(0, (s - S_MIN) / 0.25)), i = Math.floor(k), f = k - i, t = th[i] + (th[i + 1] - th[i]) * f;
-    return { x: xs[i] + (xs[i + 1] - xs[i]) * f, z: zs[i] + (zs[i + 1] - zs[i]) * f, th: t, nx: -Math.sin(t), nz: Math.cos(t), tx: Math.cos(t), tz: Math.sin(t), y: yRef(s) };
+    const [x, z, i, f] = posAt(s), t = th[i] + (th[i + 1] - th[i]) * f;
+    return { x, z, th: t, nx: -Math.sin(t), nz: Math.cos(t), tx: Math.cos(t), tz: Math.sin(t), y: yRef(s) };
   };
   // nearest sample: s and the lateral offset q of a world point
   const step = 8, nS = Math.floor(N / step);
@@ -357,14 +362,14 @@ function makeFrame() {
 // ================================================================================================================ the set
 export function buildScoreStreet(scene, S = {}) {
   const seed = S.seed ?? 5, rnd = rng(seed * 7919 + 13), set = new THREE.Group(); set.name = "set-scorestreet"; scene.add(set);
-  const A = STREET, F = makeFrame(), wind = S.wind ?? 1;
+  const A = STREET, F = makeFrame(S.hill !== false), wind = S.wind ?? 1;
   scene.background = new THREE.Color("#a8cfe8"); scene.fog = null;
   const add = (o) => { if (o) set.add(o); return o; };
   const rW = rng(seed * 31 + 1), rT = rng(seed * 57 + 2), rF = rng(seed * 91 + 3), rG = rng(seed * 113 + 4);
 
   // ---------------------------------------------------------------- materials and painted textures
-  const WARM = new THREE.Color("#46301a");
-  const stoneT = ctex(stoneCanvas(rnd), 1 / 4.8, 1 / 4.8), stoneT2 = ctex(stoneCanvas(rnd, 2048, "#8a7c68"), 1 / 4.8, 1 / 4.8);
+  const WARM = new THREE.Color("#2c1d0e");
+  const stoneT = ctex(stoneCanvas(rnd)), stoneT2 = ctex(stoneCanvas(rnd, 2048, "#5a4e3e"));   // the facades set their own uv (metres / 4.8)
   const flagT = ctex(flagCanvas(rnd)), cobT = ctex(cobbleCanvas(rnd)), grassT = ctex(grassCanvas(rnd));
   const slateM = std("#ffffff", { map: ctex(slateCanvas(rnd)), roughness: 0.7 }), dressedT = ctex(dressedCanvas(rnd));
   const dressedM = std("#ffffff", { map: dressedT, vertexColors: true, emissive: new THREE.Color("#4a3a22") }), white = std("#f3efe4", { roughness: 0.55, vertexColors: true });
@@ -384,39 +389,40 @@ export function buildScoreStreet(scene, S = {}) {
   farGround.material.map = ctex(grassCanvas(rnd), 90, 90); farGround.rotation.x = -Math.PI / 2; farGround.position.set(20, -0.4, 20); farGround.receiveShadow = true; farGround.userData.solid = false; add(farGround);
 
   const HILL = S.hill !== false;
-  const hillAt = F.at(108), hillC = [hillAt.x + hillAt.nx * 26, hillAt.z + hillAt.nz * 26];
+  const hillC = HILL_C;
   const bankAmp = (s) => smooth((s - S0 - 2) / 16);
   const terrainY = (x, z) => {
     const { s, q } = F.near(x, z), sc = Math.min(Math.max(s, S_MIN), S_MAX);
     const off = 0.36 - 0.3 * smooth((sc - S0 - 8) / 16), base = F.yRef(sc) - off;
     const cor = smooth((Math.abs(q - 6) - 7.5) / 9);
     if (!HILL) return base + cor * smooth((q < 0 ? -q : q - 12) / 6) * 0.8 * (sc > S0 ? 1 : 0);
-    const dx = x - hillC[0], dz = z - hillC[1], gh = 24 * Math.exp(-(dx * dx + dz * dz) / (2 * 30 * 30));
-    const bank = bankAmp(sc) * (2.4 + 3.2 * fbm(x * 0.05, z * 0.05, 7) + 0.6 * Math.max(0, Math.abs(q - 6) - 8) * 0.28);
-    return base + cor * (bank + gh + 1.2 * fbm(x * 0.12, z * 0.12, 9) * bankAmp(sc));
+    const gh = hillShape(x, z) - F.yRef(sc);   // the hill's flank beside the road, relative to the road's own height
+    const bank = bankAmp(sc) * (2.0 + 2.6 * fbm(x * 0.05, z * 0.05, 7) + 0.5 * Math.max(0, Math.abs(q - 6) - 8) * 0.28) * (1 - smooth(hillShape(x, z) / 6));
+    return base + cor * (bank + gh + 0.9 * fbm(x * 0.12, z * 0.12, 9) * bankAmp(sc));
   };
   // the terrain: a 2 m grid over the streets' surroundings, grass texture and vertex tints
   {
-    const X0 = -64, X1 = 108, Z0 = -52, Z1 = 118, CS = 1.5, nx = Math.round((X1 - X0) / CS), nz = Math.round((Z1 - Z0) / CS);
+    const X0 = -64, X1 = 190, Z0 = -62, Z1 = 100, CS = 1.5, nx = Math.round((X1 - X0) / CS), nz = Math.round((Z1 - Z0) / CS);
     const B = Buf(), col = new THREE.Color();
     for (let j = 0; j <= nz; j++) for (let i = 0; i <= nx; i++) {
       const x = X0 + i * CS, z = Z0 + j * CS, edge = Math.min(i, nx - i, j, nz - j), y = terrainY(x, z) * smooth(edge / 6) + (-0.38) * (1 - smooth(edge / 6));
       B.p.push(x, y, z); B.n.push(0, 1, 0); B.uv.push(x / 11, z / 11);
       const n = fbm(x * 0.08, z * 0.08, 3), au = fbm(x * 0.04 + 5, z * 0.04, 5);
       const hh = Math.max(0, y), band = 0.5 + 0.5 * Math.sin(hh * 0.9 + fbm(x * 0.05, z * 0.05, 15) * 9);   // light and shade bands up the slope
-      col.set("#ffffff").lerp(new THREE.Color("#e8d070"), smooth((au - 0.5) * 3) * 0.55).lerp(new THREE.Color("#f2c660"), smooth(hh / 14) * 0.6).multiplyScalar((0.78 + n * 0.3) * (0.84 + 0.3 * band));
+      col.set("#ffffff").lerp(new THREE.Color("#e8d070"), smooth((au - 0.5) * 3) * 0.55).lerp(new THREE.Color("#f2c660"), smooth(hh / 12) * 0.7).multiplyScalar((0.8 + n * 0.28) * (0.8 + 0.4 * band));
       B.c.push(col.r, col.g, col.b);
     }
     for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1; B.i.push(a, c, b, b, c, d); }
-    const m = bufMesh(B, std("#ffffff", { map: grassT, vertexColors: true, roughness: 1 }), false, true); m.geometry.computeVertexNormals(); m.name = "set-scorestreet-terrain"; m.userData.solid = false; add(m);
+    const m = bufMesh(B, std("#ffffff", { map: grassT, vertexColors: true, roughness: 1, emissive: new THREE.Color("#4a3a14") }), false, true); m.geometry.computeVertexNormals(); m.name = "set-scorestreet-terrain"; m.userData.solid = false; add(m);
   }
 
   // ---------------------------------------------------------------- ground surfaces: pavement, kerb, road
   const ssA = [], ssB = [];
   for (let s = S_MIN; s < S0 - 2; s += 3) ssA.push(s);
   for (let s = S0 - 2; s < S0 + 18; s += 0.75) ssA.push(s);
-  for (let s = S0 + 18; s <= S_MAX; s += 2.5) ssA.push(s);
-  const pavEnd = S0 + 34, roadEnd = HILL ? 140 : S0 + 12;
+  for (let s = S0 + 18; s <= 132; s += 1.5) ssA.push(s);
+  for (let s = 132; s <= S_MAX; s += 4) ssA.push(s);
+  const pavEnd = S0 + 34, roadEnd = HILL ? 99 : S0 + 12;
   const ssP = ssA.filter((s) => s <= pavEnd), ssR = ssA.filter((s) => s <= roadEnd);
   const qline = (a, b, st) => { const r = []; for (let q = a; q < b - 1e-6; q += st) r.push(q); r.push(b); return r; };
   const gut = (s, q) => 1 - 0.06 * smooth((q - 3.2) / 0.3) * 0;
@@ -456,7 +462,7 @@ export function buildScoreStreet(scene, S = {}) {
 
   // ---------------------------------------------------------------- facades (real extruded walls with real openings)
   const solids = [];
-  const dressed = Buf(), whiteB = Buf(), ironB = Buf(), glassBufs = [Buf(), Buf(), Buf(), Buf()], curtB = {}, boxB = Buf();
+  const streakQ = Buf(), dressed = Buf(), whiteB = Buf(), ironB = Buf(), glassBufs = [Buf(), Buf(), Buf(), Buf()], curtB = {}, boxB = Buf();
   const pale = (k = 0) => new THREE.Color().setScalar(0.94 + rW() * 0.1 + k);
   const glassMats = glassBufs.map((_, k) => basic({ map: ctex(glassCanvas(rW, k), 1, 1, false), color: "#f4f4f4" }));
   const curtCols = ["#f1e6d2", "#e9dcc4", "#c9a8a0", "#9db39a", "#efe9dc"];
@@ -483,7 +489,7 @@ export function buildScoreStreet(scene, S = {}) {
     if (o.surround !== false) {
       addBox(dressed, x, y + h + 0.13, z + 0.04, w + 0.55, 0.26, 0.16, pale(), 0, 0, 1.2);   // lintel
       addBox(dressed, x, y - 0.05, z + 0.13, w + 0.4, 0.12, 0.36, pale(), 0, 0, 1.2);        // sill
-      for (let k = 0; k < Math.floor(h / 0.34); k++) for (const sd of [-1, 1]) { const ww = k % 2 ? 0.17 : 0.27; addBox(dressed, x + sd * (w / 2 + ww / 2 - 0.02), y + 0.17 + k * 0.34, z + 0.02, ww, 0.31, 0.06, pale(), 0, 0, 1.2); }
+      for (let k = 0; k < Math.floor(h / 0.34); k++) for (const sd of [-1, 1]) { const ww = k % 2 ? 0.17 : 0.27; addBox(dressed, x + sd * (w / 2 + ww / 2 - 0.02), y + 0.17 + k * 0.34, z + 0.04, ww, 0.31, 0.1, pale(), 0, 0, 1.2); }
       addBox(dressed, x, y + h + 0.3, z + 0.045, 0.26, 0.2, 0.17, pale(), 0, 0, 1.2);        // keystone
     }
     // frame, meeting rail, bars
@@ -496,8 +502,9 @@ export function buildScoreStreet(scene, S = {}) {
     // glass
     addCard(glassBufs[gk], x, y + h / 2, z - 0.22, new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), w - 0.06, h - 0.06, new THREE.Vector3(0, 0, 1), WHITE);
     // curtains: a gathered panel each side, a pelmet
-    const cw = (w - 0.1) * (0.2 + rW() * 0.1);
-    for (const sd of [-1, 1]) addCard(curtB[ck], x + sd * (w / 2 - cw / 2 - 0.04), y + h / 2 - 0.02, z - 0.24, new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), cw, h - 0.14, new THREE.Vector3(0, 0, 1), WHITE);
+    const cw = (w - 0.1) * (0.24 + rW() * 0.1);
+    for (const sd of [-1, 1]) addCard(curtB[ck], x + sd * (w / 2 - cw / 2 - 0.04), y + h / 2 - 0.02, z - 0.205, new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, 1, 0), cw, h - 0.14, new THREE.Vector3(0, 0, 1), WHITE);
+    if (o.surround !== false && y > 0.5) { const sk = new THREE.Vector3(1, 0, 0), sv = new THREE.Vector3(0, 1, 0), n0 = new THREE.Vector3(0, 0, 1), sh = 0.7 + rW() * 0.8; addCard(streakQ, x - w * 0.1 + (rW() - 0.5) * 0.2, y - 0.2 - sh / 2, z + 0.006, sk, sv, w * 0.85, sh, n0, WHITE); }   // weathering under the sill
     if (o.box) flowerBox(x, y - 0.04, w, z + 0.28);
   }
   // a window box: white timber, soil, green leaves, daisies in red, orange and yellow, some trailing down
@@ -576,7 +583,7 @@ export function buildScoreStreet(scene, S = {}) {
     // string courses and the cornice
     for (const y of [3.45, 6.65]) addBox(dressed, (FX0 + FX1) / 2, y, WZ + 0.05, FX1 - FX0 + 0.1, 0.2, 0.14, pale(), 0, 0, 1.2);
     addBox(dressed, (FX0 + FX1) / 2, HH + 0.05, WZ + 0.2, FX1 - FX0 + 0.5, 0.3, 0.5, pale(), 0, 0, 1.2);
-    for (const sd of [FX0 + 0.12, FX1 - 0.12]) for (let k = 0; k < 30; k++) addBox(dressed, sd, 0.15 + k * 0.3, WZ + 0.03, k % 2 ? 0.26 : 0.4, 0.28, 0.1, pale(), 0, 0, 1.2);   // quoins
+    for (const sd of [FX0 + 0.12, FX1 - 0.12]) for (let k = 0; k < 30; k++) addBox(dressed, sd, 0.15 + k * 0.3, WZ + 0.05, k % 2 ? 0.3 : 0.55, 0.28, 0.14, pale(), 0, 0, 1.2);   // quoins
     // balcony over the door: a slab on corbels, an iron railing with scroll bars
     const by = 3.55, bz = WZ + 0.55;
     addBox(dressed, 0, by - 0.06, WZ + 0.4, 3.9, 0.14, 0.9, pale(), 0, 0, 1.2);
@@ -627,7 +634,7 @@ export function buildScoreStreet(scene, S = {}) {
       for (let c = 0; c < nW; c++) for (const [y, hh] of [[0.95, 1.95], [4.2, 1.85], [7.2, 1.55]]) if (!(c === 1 && y < 1)) wins.push([x + gap * (c + 0.5), y, 1.0, hh]);
       wins.push([x + gap * 1.5, A.stepTop * 0, 1.0, 2.1, "door"]);
       for (const wn of wins) holes.push({ x: wn[0], y: wn[4] ? 0 : wn[1], w: wn[2], h: wn[3], arch: wn[4] === "door" });
-      const map = std("#ffffff", { map: stone ? stoneT2 : ctex(plasterCanvas(rH, tones[k % tones.length]), 1 / 3.6, 1 / 3.6), emissive: WARM });
+      const map = std("#ffffff", { map: stone ? stoneT2 : ctex(plasterCanvas(rH, tones[k % tones.length])), emissive: WARM });
       facade({ x0: x, x1: x + w, h, z: zF, holes, map, baseY: -0.3, uvK: stone ? 4.8 : 3.6, uvX: x * 3.1 });
       for (const wn of wins) {
         if (wn[4] === "door") { const d = new THREE.Mesh(new THREE.BoxGeometry(wn[2] - 0.06, wn[3] - 0.25, 0.06), std(["#35567a", "#7a2f2a", "#2f5d3a", "#5a4a3a"][k % 4], { roughness: 0.55 })); d.position.set(wn[0], (wn[3] - 0.25) / 2, zF - 0.2); d.castShadow = true; add(d); addBox(dressed, wn[0], wn[3] + 0.1, zF + 0.06, wn[2] + 0.5, 0.22, 0.14, pale(), 0, 0, 1.2); continue; }
@@ -648,6 +655,8 @@ export function buildScoreStreet(scene, S = {}) {
     add(bufMesh(whiteB, white, true, true)); add(bufMesh(ironB, iron));
     glassBufs.forEach((B, k) => { const m = bufMesh(B, glassMats[k], false, false); if (m) add(m); });
     Object.keys(curtB).forEach((k) => { const m = bufMesh(curtB[k], curtMats[k], false, false); if (m) add(m); });
+    { const [sc, sg] = canvas(64, 128); for (let x = 0; x < 64; x++) { const a = (0.5 + 0.5 * Math.sin(x * 0.9 + (x * x) % 7)) * 0.4 + 0.05, e = Math.min(1, Math.min(x, 63 - x) / 10); const gr = sg.createLinearGradient(0, 0, 0, 128); gr.addColorStop(0, `rgba(60,44,30,${a * e})`); gr.addColorStop(1, "rgba(60,44,30,0)"); sg.fillStyle = gr; sg.fillRect(x, 0, 1, 128); }
+      const stm = new THREE.MeshBasicMaterial({ map: ctex(sc, 1, 1, false), transparent: true, depthWrite: false, fog: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); stm.userData.noOutline = true; const sm2 = bufMesh(streakQ, stm, false, false); if (sm2) { sm2.renderOrder = 1; add(sm2); } }
     add(bufMesh(flowerQ, flowerMat, true, false)); add(bufMesh(boxLeafQ, ivyMat, true, false));
   }
 
@@ -695,9 +704,9 @@ export function buildScoreStreet(scene, S = {}) {
   function shrub(x, z, r, tone, y0 = null) { const y = (y0 ?? terrainY(x, z)) + r * 0.55; clump(new THREE.Vector3(x, y, z), r, tone, 0.72, Math.round(70 + 170 * r), 0.17); }
   if (S.trees !== false) {
     // the street maple at the kerb (its shadow dapples the wall and the pavement), a red crown
-    maple(A.tree.x, A.tree.z, 9.5, "red", { tones: ["red", "orange", "red"], trunk: 0.42, R: 3.4, r: 0.17 });
+    maple(A.tree.x, A.tree.z, 11, "red", { tones: ["red", "orange", "gold", "red"], trunk: 0.72, R: 3.0, r: 0.2 });
     // the tall orange maple behind the second house, on the pavement at the corner
-    maple(9.6, 0.9, 10.5, "orange", { tones: ["orange", "gold", "orange", "red"], trunk: 0.45, R: 3.3, r: 0.16 });
+    maple(9.6, 0.9, 11, "orange", { tones: ["orange", "gold", "orange", "red"], trunk: 0.7, R: 3.0, r: 0.18 });
     // the terrace's side: street trees on the far pavement
     const ft = [[-24, "gold"], [-17, "orange"], [-10.5, "red"], [-4, "gold"], [2.5, "orange"], [8.5, "red"]];
     for (const [fx, tn] of ft) maple(fx + (rT() - 0.5) * 2, 10.2 + rT() * 0.4, 8 + rT() * 3, tn, { tones: [tn, "mix", tn], trunk: 0.5, R: 3.0 + rT() * 0.7, r: 0.14, branches: 5, y0: 0.05 });
@@ -741,20 +750,26 @@ export function buildScoreStreet(scene, S = {}) {
   }
   // ---------------------------------------------------------------- the lamp, railings, bollards, bench of leaves
   {
-    const LB = Buf(), lx = A.lamp.x, lz = A.lamp.z;
-    const post = [[new THREE.CylinderGeometry(0.18, 0.22, 0.28, 12), M4(lx, 0.14, lz)], [new THREE.CylinderGeometry(0.09, 0.14, 0.7, 12), M4(lx, 0.62, lz)], [new THREE.CylinderGeometry(0.045, 0.07, 2.4, 10), M4(lx, 2.12, lz)], [new THREE.CylinderGeometry(0.1, 0.06, 0.12, 12), M4(lx, 3.38, lz)],
-      [new THREE.CylinderGeometry(0.05, 0.12, 0.1, 6), M4(lx, 3.9, lz)], [new THREE.ConeGeometry(0.22, 0.28, 6), M4(lx, 4.08, lz)], [new THREE.SphereGeometry(0.045, 8, 6), M4(lx, 4.28, lz)], [new THREE.TorusGeometry(0.12, 0.018, 6, 14), M4(lx, 1.2, lz, 1, 1, 1, Math.PI / 2)]];
-    add(mergedGeo(post, iron));
-    const lantern = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.12, 0.5, 6), basic({ color: new THREE.Color(1.1, 0.98, 0.7) })); lantern.position.set(lx, 3.65, lz); add(lantern);
-    for (let k = 0; k < 6; k++) { const a = (k / 6) * 6.28 + 0.52; const bar = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.52, 0.02), iron); bar.position.set(lx + Math.cos(a) * 0.165, 3.65, lz + Math.sin(a) * 0.165); bar.castShadow = false; add(bar); }
-    // a second lamp across the road, and one far down
-    for (const [qx, qz] of [[-4.5, 9.7], [17.5, 0]]) { const f = qx > 12 ? F.at(qx - 1) : null; const x = f ? f.x + f.nx * 1.9 : qx, z = f ? f.z + f.nz * 1.9 : qz, y = f ? f.y : 0;
-      add(mergedGeo([[new THREE.CylinderGeometry(0.1, 0.16, 0.5, 10), M4(x, y + 0.25, z)], [new THREE.CylinderGeometry(0.045, 0.07, 3.4, 10), M4(x, y + 2.0, z)], [new THREE.ConeGeometry(0.2, 0.26, 6), M4(x, y + 4.0, z)]], iron));
-      const l2 = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.11, 0.46, 6), basic({ color: new THREE.Color(1.5, 1.3, 0.9) })); l2.position.set(x, y + 3.65, z); add(l2); }
+    // an ornate cast-iron lamp, green-black: a square plinth, a fluted foot with an urn, rings up the post, a scroll bracket,
+    // a six-sided glass lantern in an iron frame under a little roof and finial
+    const lampIron = std("#1b2a25", { roughness: 0.45, metalness: 0.4 });
+    const lamp = (lx, ly, lz, sc = 1) => {
+      const P = [], T = (r, tube, y, rx = Math.PI / 2) => [new THREE.TorusGeometry(r, tube, 6, 14), M4(lx, ly + y * sc, lz, sc, sc, sc, rx)];
+      P.push([new THREE.BoxGeometry(0.4, 0.14, 0.4), M4(lx, ly + 0.07 * sc, lz, sc, sc, sc)], [new THREE.CylinderGeometry(0.17, 0.24, 0.36, 12), M4(lx, ly + 0.32 * sc, lz, sc, sc, sc)], [new THREE.SphereGeometry(0.15, 12, 8), M4(lx, ly + 0.72 * sc, lz, sc, 1.3 * sc, sc)],
+        [new THREE.CylinderGeometry(0.07, 0.11, 0.5, 10), M4(lx, ly + 0.55 * sc, lz, sc, sc, sc)], [new THREE.CylinderGeometry(0.05, 0.07, 2.35, 10), M4(lx, ly + 2.05 * sc, lz, sc, sc, sc)], T(0.11, 0.02, 0.45), T(0.09, 0.018, 1.0), T(0.085, 0.018, 1.3), T(0.075, 0.016, 2.6), T(0.1, 0.02, 3.2),
+        [new THREE.CylinderGeometry(0.1, 0.06, 0.14, 8), M4(lx, ly + 3.28 * sc, lz, sc, sc, sc)], [new THREE.CylinderGeometry(0.2, 0.17, 0.05, 6), M4(lx, ly + 3.38 * sc, lz, sc, sc, sc)],
+        [new THREE.CylinderGeometry(0.075, 0.2, 0.1, 6), M4(lx, ly + 3.95 * sc, lz, sc, sc, sc)], [new THREE.ConeGeometry(0.24, 0.3, 6), M4(lx, ly + 4.12 * sc, lz, sc, sc, sc)], [new THREE.SphereGeometry(0.05, 8, 6), M4(lx, ly + 4.32 * sc, lz, sc, sc, sc)], T(0.07, 0.014, 4.0));
+      for (const sd of [-1, 1]) P.push([new THREE.TorusGeometry(0.16, 0.014, 6, 12, Math.PI * 1.3), M4(lx + sd * 0.16 * sc, ly + 3.1 * sc, lz, sc, sc, sc, 0, Math.PI / 2, sd > 0 ? 0 : Math.PI)]);   // scroll brackets
+      add(mergedGeo(P, lampIron));
+      const lan = new THREE.Mesh(new THREE.CylinderGeometry(0.2 * sc, 0.12 * sc, 0.5 * sc, 6), basic({ color: new THREE.Color(1.0, 0.92, 0.66) })); lan.position.set(lx, ly + 3.67 * sc, lz); add(lan);
+      for (let k = 0; k < 6; k++) { const an = (k / 6) * 6.28 + 0.52; const bar = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.52 * sc, 0.025), lampIron); bar.position.set(lx + Math.cos(an) * 0.17 * sc, ly + 3.67 * sc, lz + Math.sin(an) * 0.17 * sc); bar.rotation.z = Math.cos(an) * 0.14; bar.rotation.x = -Math.sin(an) * 0.14; bar.castShadow = false; add(bar); }
+    };
+    lamp(A.lamp.x, 0, A.lamp.z);
+    for (const [qx, qz] of [[-4.5, 9.7], [17.5, 0]]) { const f = qx > 12 ? F.at(qx - 1) : null; lamp(f ? f.x + f.nx * 1.9 : qx, f ? f.y : 0, f ? f.z + f.nz * 1.9 : qz, 0.95); }
     // the iron railing along the road's far edge where the terrace ends (posts with round caps, two rails), and bollards
     const RB = Buf(), rail = (q, s0, s1, y, H) => { for (let s = s0; s <= s1; s += 1.8) { const f = F.at(s), yy = F.yRef(s) + y; addBox(RB, f.x + f.nx * q, yy + H / 2, f.z + f.nz * q, 0.07, H, 0.07, WHITE); const cap = new THREE.Mesh(new THREE.SphereGeometry(0.065, 8, 6), iron); cap.position.set(f.x + f.nx * q, yy + H + 0.03, f.z + f.nz * q); add(cap);
         const g = F.at(s + 1.8), yy2 = F.yRef(s + 1.8) + y; for (const hh of [H * 0.9, H * 0.45]) { const L = Math.hypot(g.x - f.x, g.z - f.z, yy2 - yy); const mx = (f.x + g.x) / 2 + f.nx * q, mz = (f.z + g.z) / 2 + f.nz * q; addBox(RB, mx, (yy + yy2) / 2 + hh, mz, L, 0.04, 0.04, WHITE, -(f.th + g.th) / 2, Math.atan2(yy2 - yy, L)); } } };
-    if (HILL) { rail(10.7, 10, 135, -0.1, 1.0); rail(-0.9, 24, 70, 0, 0.9); }
+    if (HILL) { rail(10.7, 10, 96, -0.1, 1.0); rail(-0.9, 24, 60, 0, 0.9); }
     add(bufMesh(RB, iron));
     // a fence on the hill road's verge
   }
@@ -767,12 +782,14 @@ export function buildScoreStreet(scene, S = {}) {
     for (let i = 0; i <= -1; i++) { const t = i / 150, rad = 40 * (1 - t) + 4, an = a0 + t * 4.9 + 0.35 * Math.sin(t * 17), px = hillC[0] + Math.cos(an) * rad, pz = hillC[1] + Math.sin(an) * rad; hr.push([px, terrainY(px, pz) + 0.07, pz]); }
     const nearRoad = (x, z) => { let m = 1e9; for (const p of hr) m = Math.min(m, Math.hypot(p[0] - x, p[2] - z)); return m; };
     // round autumn trees and pines scattered on the banks and the hill, clear of the road
-    for (let k = 0; k < 330; k++) {
-      const x = -4 + rH() * 110, z = -26 + rH() * 120, { s, q } = F.near(x, z), cq = Math.abs(q - 6);
+    for (let k = 0; k < 1100; k++) {
+      const x = 14 + rH() * 170, z = -46 + rH() * 100, { s, q } = F.near(x, z), cq = Math.abs(q - 6);
       const d = Math.hypot(x - hillC[0], z - hillC[1]);
-      if (s < S0 + 14 || cq < 9 || x < 8 || nearRoad(x, z) < 5) continue;
-      if (rH() < 0.35 && d > 55) continue;
-      const y = terrainY(x, z), pine = rH() < 0.42, sz = 1.4 + rH() * 2.2;
+      if (s < S0 + 14 || cq < 7 || x < 8 || d < 10) continue;
+      const clump = fbm(x * 0.07 + 11, z * 0.07, 31), pine = clump > 0.5;
+      if (!pine && (rH() < 0.6 || d > 70)) continue;
+      if (pine && rH() < 0.25) continue;
+      const y = terrainY(x, z), sz = 1.7 + rH() * 2.3;
       if (pine) { const c = tint(["#2f6a3e", "#3d7a45", "#2a5c3a"][k % 3], rH, 0.01, 0.05, 0.05); for (let l = 0; l < 3; l++) { const g = new THREE.ConeGeometry(sz * (1 - l * 0.22) * 0.7, sz * 1.1, 7).toNonIndexed(), p = g.attributes.position; g.applyMatrix4(M4(x, y + sz * (0.8 + l * 0.7), z)); const b0 = PB.p.length / 3; for (let i = 0; i < p.count; i++) { PB.p.push(p.getX(i), p.getY(i), p.getZ(i)); PB.n.push(0, 1, 0); PB.uv.push(0, 0); PB.c.push(c.r, c.g, c.b); PB.i.push(b0 + i); } g.dispose(); } }
       else { const c = tint(["#e0701f", "#e9a21f", "#c43a1c", "#d9b62a", "#7aa23a", "#e8851e"][k % 6], rH, 0.015, 0.08, 0.08), g = new THREE.IcosahedronGeometry(sz * 0.8, 1).toNonIndexed(), p = g.attributes.position; g.applyMatrix4(M4(x, y + sz * 1.3, z, 1, 0.9, 1)); g.computeVertexNormals(); const nn = g.attributes.normal, b0 = PB.p.length / 3; for (let i = 0; i < p.count; i++) { PB.p.push(p.getX(i), p.getY(i), p.getZ(i)); PB.n.push(nn.getX(i), nn.getY(i), nn.getZ(i)); PB.uv.push(0, 0); PB.c.push(c.r, c.g, c.b); PB.i.push(b0 + i); } g.dispose(); addBox(RB2, x, y + sz * 0.5, z, 0.12, sz, 0.12, new THREE.Color("#5a4034")); }
     }
@@ -790,7 +807,7 @@ export function buildScoreStreet(scene, S = {}) {
     const hm0 = bufMesh(HB, std("#ffffff", { map: cobT, vertexColors: true, emissive: new THREE.Color("#2a2024") }), false, true); if (hm0) { hm0.userData.solid = false; hm0.name = "set-hillroad"; add(hm0); }
     const fm = bufMesh(FB, lam("#ffffff", { vertexColors: true }), false, false); if (fm) { fm.userData.solid = false; add(fm); }
     const hx = hillC[0] - 5, hz = hillC[1] - 3;
-    for (const [dx, dz, w, hgt, col, ry] of [[0, 0, 10, 7, "#efe3c8", 0.3], [12, 5, 7, 5, "#e0cca8", 0.5]]) {
+    for (const [dx, dz, w, hgt, col, ry] of [[0, 0, 11, 7, "#efe3c8", -0.15], [11, 4, 8, 5.5, "#e4d0ac", 0.1]]) {
       const x = hx + dx, z = hz + dz, y = terrainY(x, z), hm = new THREE.Mesh(new THREE.BoxGeometry(w, hgt, w * 0.7), std(col, { roughness: 0.9 })); hm.position.set(x, y + hgt / 2 - 0.2, z); hm.rotation.y = ry; hm.castShadow = true; hm.userData.solid = false; add(hm);
       const rf = new THREE.Mesh(new THREE.ConeGeometry(w * 0.72, hgt * 0.5, 4), std("#b9553a", { roughness: 0.8 })); rf.position.set(x, y + hgt + hgt * 0.22, z); rf.rotation.y = ry + Math.PI / 4; rf.scale.set(1, 1, 0.7); rf.userData.solid = false; add(rf);
     }
