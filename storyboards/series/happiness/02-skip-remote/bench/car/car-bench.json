@@ -1,0 +1,447 @@
+{
+ "id": "car-bench",
+ "title": "Spud's car bench: teal hatchback dressing, dash and glove box",
+ "idea": "Props bench for engine/page/props-skipcar.js, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "music": false,
+ "sound": {
+  "auto": false,
+  "sfx": 0,
+  "ambience": 0,
+  "speech": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#bcd3dc",
+  "floor": "#8d8f8a",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false
+ },
+ "creative": {
+  "length": [
+   1,
+   40
+  ],
+  "notes": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "rig": "car",
+   "at": [
+    -0.55,
+    0.09
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.09
+   ],
+   "face": "camera",
+   "expr": "delighted",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "seatS",
+   "kind": "carseat",
+   "rig": "car",
+   "color": "#e8dcc4",
+   "trim": "#c9b893",
+   "head": 1,
+   "width": 0.52,
+   "z": 0.06,
+   "x": -0.55,
+   "y": 0.12
+  },
+  {
+   "id": "seatC",
+   "kind": "carseat",
+   "rig": "car",
+   "color": "#e8dcc4",
+   "trim": "#c9b893",
+   "head": 1,
+   "width": 0.52,
+   "z": 0.06,
+   "x": 0.55,
+   "y": 0.345
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.88,
+   "z": 0.34,
+   "tip": 34,
+   "color": "#2a2520"
+  },
+  {
+   "id": "look",
+   "kind": "skipcar",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "dash",
+   "kind": "skipdash",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "remote",
+   "kind": "plank",
+   "rig": "car",
+   "x": 0.3,
+   "y": 0.797,
+   "z": 0.545,
+   "w": 0.25,
+   "h": 0.13,
+   "t": 0.03,
+   "tip": 90,
+   "color": "#d9d2c2",
+   "staged": "stand-in for the remote lying in the glove box"
+  }
+ ],
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#3f7f7b",
+   "plate": false,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      0,
+      -9
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    }
+   ]
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "outside 3/4 front, daylight",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     3.6,
+     1.7,
+     -3.2
+    ],
+    "look": [
+     0,
+     0.85,
+     -8.6
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "seatS",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "seatC",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "glove": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "through the windscreen: Spud + Chip (panel 01 framing)",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -1,
+     1.8,
+     3.4
+    ],
+    "look": [
+     -0.95,
+     0.9,
+     -0.3
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "cabin two-shot, from the nose",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.05,
+     2.15,
+     3.3
+    ],
+    "look": [
+     0.05,
+     1,
+     -0.2
+    ],
+    "fov": 58
+   },
+   "do": []
+  },
+  {
+   "name": "rear 3/4 high (panel 19 angle)",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -2.6,
+     4.2,
+     -14.5
+    ],
+    "look": [
+     0,
+     0.9,
+     -9
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "grille, lamps, wipers, crease",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.5,
+     1.5,
+     4.8
+    ],
+    "look": [
+     0,
+     0.8,
+     1.5
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.9
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "glove box shut, from the driver's side",
+   "at": 5,
+   "len": 2,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.2,
+     1.22,
+     -0.3
+    ],
+    "look": [
+     0.3,
+     0.84,
+     0.57
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "glove": 1
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "glove box open (remote inside)",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.2,
+     1.22,
+     -0.3
+    ],
+    "look": [
+     0.3,
+     0.84,
+     0.57
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "glove box open, looking down into it from the roof line",
+   "at": 8,
+   "len": 2,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.3,
+     1.95,
+     0.02
+    ],
+    "look": [
+     0.3,
+     0.8,
+     0.57
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "seatS",
+   "from": 0,
+   "to": 10,
+   "reason": "sitting in the car seat"
+  },
+  {
+   "who": "chip",
+   "with": "seatC",
+   "from": 0,
+   "to": 10,
+   "reason": "sitting in the car seat"
+  },
+  {
+   "who": "spud",
+   "with": "wheel",
+   "from": 0,
+   "to": 10,
+   "reason": "hands on the wheel rim"
+  }
+ ],
+ "notes": "Test bench, not a clip. Generated by storyboards/series/happiness/02-skip-remote/bench/car/make-car-bench.mjs (T7)."
+}
