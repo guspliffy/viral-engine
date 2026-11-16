@@ -55,6 +55,7 @@ export const RULES = {
   // clean-render guards
   clipWarn: 0.1, clipFail: 0.25, clipHold: 0.2, // how deep a character goes into a prop or another character (0..1)
   shellFail: 0.1,     // a prop's own surface (a tent's cloth, a car's shell) this deep into a body or a creature, for clipHold s, fails
+  heldHigh: 1.0, heldHold: 0.3, // a held prop's centre this high between its holder's mouth (0) and eyes (1) or higher, on screen this long, warns (held-high)
   selfEyes: 0.55, selfDeep: 0.25, selfHold: 0.2, // a held prop in its own holder: from this height of the body up is the eyes; this deep reads as through; this long
   bodyClip: 0.1, // two characters this far into each other (0..1) fail outright, unless an allowClip window with a reason covers it
   // inside an allowClip window (a hug, a hide) contact is fine but merging is not (Zombie Too, 4 Nov: the hug window let
@@ -333,7 +334,44 @@ export function contactResults(layout, sb = null) {
     }
   }
   if (!found) out.push({ level: "pass", check: "grip", msg: "hands stay on what they hold, arms clear of staffs and brims" });
-  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb), ...supportResults(layout, sb), ...handResults(layout, sb));
+  out.push(...reachResults(layout, sb), ...propResults(layout, sb), ...rigResults(layout, sb), ...supportResults(layout, sb), ...handResults(layout, sb), ...heldHighResults(layout, sb));
+  return out;
+}
+
+// "held-high" (Happiness 02 skip remote, 16 Nov 2026): a held prop up at its holder's eyes or above, with both on screen.
+// Jonny on rough draft 1: "most of the time the remote is glitched in hands or even the characters". Every check
+// passed: the remote was held 2-4 times the mouth-to-eye gap above the mouth (hold targets set from the seat, and a
+// seated potato sinks), so it sat over or above the face in 91 of 165 samples; the restaged draft 2 holds it at the
+// chest and has 0. From the layout's samples (every 0.1 s): the prop's centre height against the holder's mouth and
+// eye points, while the prop is visible and the holder's eyes are in frame, for RULES.heldHold or longer. A warning
+// (a raised trophy or a torch is meant to be high): only an allowClip window naming "held-high" waives it.
+export function heldHighResults(layout, sb = null) {
+  const out = [], S = layout?.samples || [], C = layout?.contacts || [];
+  if (!S.length || !C.length) return out;
+  const fps = layout.fps || 30, W = layout.width || 1080, H = layout.height || 1920, step = S.length > 1 ? S[1].t - S[0].t : 0.1;
+  const runs = new Map();
+  for (const s of S) {
+    const held = C[Math.min(C.length - 1, Math.round(s.t * fps))]?.held || [];
+    if (!held.length) continue;
+    for (const h of held) {
+      const a = (s.actors || []).find((x) => x.id === h.who && x.eyes && x.mouth && x.eyesPx), p = (s.props || []).find((x) => x.id === h.prop);
+      if (!a || !p || !p.visible || !p.at) continue;
+      const [ex, ey] = a.eyesPx; if (ex < 0 || ex > W || ey < 0 || ey > H) continue;
+      const gap = a.eyes[1] - a.mouth[1]; if (!(gap > 1e-3)) continue;
+      const k = (p.at[1] - a.mouth[1]) / gap;
+      if (k < RULES.heldHigh || (sb && windowFor(sb, "held-high", h.who, s.t, h.prop))) continue;
+      const key = `${h.who} / ${h.prop}`, r = runs.get(key) || { spans: [], max: 0 };
+      const last = r.spans[r.spans.length - 1];
+      if (last && s.t - last[1] <= step * 1.5) last[1] = s.t; else r.spans.push([s.t, s.t]);
+      r.max = Math.max(r.max, k); runs.set(key, r);
+    }
+  }
+  for (const [key, r] of runs) {
+    const long = r.spans.filter(([a, b]) => b - a + step >= RULES.heldHold - 1e-6);
+    if (!long.length) continue;
+    const [who, prop] = key.split(" / ");
+    out.push({ level: "warn", check: "held-high", msg: `${who} holds ${prop} at eye height or above (up to ${r.max.toFixed(1)}x the mouth-to-eye gap over the mouth) at ${long.slice(0, 6).map(([a, b]) => `${a.toFixed(1)}-${b.toFixed(1)}s`).join(", ")}: it covers or crowds the face; hold it at the chest (below the layout's mouth point), or an allowClip window naming "held-high" with a reason` });
+  }
   return out;
 }
 
