@@ -67,7 +67,7 @@ const expr = (t, who, e, set, dur = 0.15) => A(r3(t), who, "expr", { expr: e, ..
 const arm = (t, who, side, pose, dur = 0.25, ease = "inOut") => c.arm(r3(t), who, side, pose, dur, ease);
 const grip = (t, who, side, shape, dur = 0.1) => A(r3(t), who, "grip", { side, shape, dur });
 const SUBY = 470;   // under the age chip (y 214-332), inside the upper third, never over the faces (they sit lower)
-const say = (t, who, line, dur, tone, pos = SUBY) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos });
+const say = (t, who, line, dur, tone, pos = SUBY, o = {}) => c.say(r3(t), who, line, dur, tone, { sub: line, pos, ...o });   // Chip's gibberish voice under the caption
 
 // ---------------------------------------------------------------- props, each in its place (shown only while its place is up)
 const props = [];
@@ -198,6 +198,7 @@ arm(0, "chip", "R", "shrug", 0.01); arm(0, "chip", "L", "shrug", 0.01); grip(0, 
 A(0.2, "chip", "talk", { line: "So a potato walks into a bar...", tone: "happy", dur: 3.4, speech: false });
 A(0.9, "chip", "hop", { height: 0.02, dur: 0.25, quiet: true }); A(2.3, "chip", "hop", { height: 0.02, dur: 0.25, quiet: true });
 look(1.6, "spud", [0.1, -0.5], 0.2);
+hR.carry(1.2, [-0.24, 0.98, 0.38], 0.5, "inOut", { tip: -25 });   // up over the dash line so panel 01 shows the remote (polish)
 see(0, T.p02, ["spud.face", "chip.face", "rem"], "a traffic jam: Spud at the wheel looks at a remote in his hand; Chip beside him tells a joke, hands up");
 // 02: he lifts it into view, the white button to us (turned like 08), and presses
 hR.carry(r3(T.p02 - PRE), [-0.31, 0.9, 0.3], 0.01, "linear", { tip: -45 });   // a little up, the button toward his eyes
@@ -349,7 +350,7 @@ pr(T.p17 + 0.95, "rem", { scale: 0.001 }, 0.01, "linear", "now the one lying in 
 pr(T.p18 - PRE, "remg", { scale: 0.001 }, 0.01, "linear", "shut in the glove box");
 see(T.p17, T.p18, ["dash", "rem"], "close: Spud lays the remote in the glove box and shuts it");
 // 18: the punchline
-say(T.punch, "chip", "We don't serve fries here!", 1.4, "happy");
+say(T.punch, "chip", "We don't serve fries here!", 1.4, "excited", SUBY, { gain: 1.3 });
 A(T.punch + 1.3, "spud", "squash", { amount: 0.06, dur: 0.3 });
 expr(T.punch + 1.3, "spud", "delighted", { open: 0.6, curve: 0.8 }, 0.15); expr(T.punch + 1.3, "chip", "delighted", { open: 0.6 }, 0.15);
 A(T.punch + 1.3, "spud", "lean", { to: -6, dur: 0.3 });
@@ -383,17 +384,21 @@ const SH = {
   p08: { pos: off([0.0, 0.9, 3.5]), look: off([0.0, 0.86, 0.45]), fov: 36 },   // the whole of him and the remote; caption room 210-460 (camfit)
   p09: { pos: prk([0.3, 1.0, 4.4]), look: prk([-0.3, 0.7, -1.5]), fov: 48 },
   p10: { pos: liv([0.2, 1.15, 0.3]), look: liv([1.6, 0.8, -1.5]), fov: 44 },
-  p11: { pos: liv([0.6, 1.3, 1.7]), look: liv([-0.3, 0.7, -0.9]), fov: 54 },
+  p11: { pos: liv([0.6, 1.3, 1.7]), look: liv([-0.05, 0.7, -1.0]), fov: 54 },   // look nearer him so the push keeps his face in
   p12: { pos: liv([0.4, 0.38, -0.45]), look: liv([0.36, 0.24, -0.9]), fov: 34 },
   p13: { pos: liv([0.85, 1.25, -1.85]), look: liv([-1.4, 0.85, -0.1]), fov: 44 },
-  p14: { pos: liv([-1.0, 1.0, 0.3]), look: liv([0.2, 0.85, -1.25]), fov: 42 },
+  p14: { pos: liv([-1.0, 1.0, 0.3]), look: liv([0.32, 0.85, -1.3]), fov: 42 },
   p15: { pos: liv([-0.25, 0.95, 1.3]), look: liv([0.25, 0.85, -0.5]), fov: 46 },
   p16: inCar([-0.05, 1.8, 3.4], [-0.05, 1.1, -0.2], 52),
-  p17: inCar([0.15, 1.45, 0.1], [0.05, 0.82, 0.55], 46),
+  p17: inCar([0.35, 1.6, 0.15], [0.0, 0.8, 0.6], 44),   // higher, from Chip's side: his sleeve no longer fills the frame (polish)
   p18: inCar([0.03, 1.8, 3.3], [0.03, 1.15, -0.2], 50),
   p19: { pos: [0, 3.0, 7.8], look: [0, 1.0, -4], fov: 44 },   // inside the painting's range (qa/env.mjs --range): the jam toward the sun
   p20: inCar([0.03, 1.75, 3.9], [0.03, 1.12, -0.2], 40),
 };
+// slow pushes on the hook, the question, eighty-two, the tear and the last shot (polish): a narrower fov over the shot
+const push = (k, fov, dur) => { SH[k] = { ...SH[k], to: { pos: SH[k].pos, look: SH[k].look, fov }, dur, ease: "inOut" }; };
+push("p01", 48, T.p02); push("p08", 32, r3(T.p09 - T.p08)); push("p11", 46, r3(T.p12 - T.p11));
+push("p14", 39, r3(T.p15 - T.p14)); push("p20", 38, r3(END - T.p20));
 const CUTS = [
   ["01 the jam", 0, SH.p01, "hook"], ["02 the button", T.p02, SH.p02], ["03 home", T.p03, SH.p03],
   ["04 rain", T.p04, SH.p04], ["05 dry", T.p05, SH.p05], ["06 the queue", T.p06, SH.p06, "escalation"],
