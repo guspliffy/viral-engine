@@ -5349,19 +5349,19 @@
      "who": "chip",
      "do": "arm",
      "side": "R",
-     "pose": "lap",
-     "dur": 0.01,
+     "pose": "rest",
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1.988
+     "at": 1.5
     },
     {
      "who": "chip",
      "do": "arm",
      "side": "L",
-     "pose": "lap",
-     "dur": 0.01,
+     "pose": "rest",
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 1.988
+     "at": 1.5
     }
    ],
    "kind": "payoff"
