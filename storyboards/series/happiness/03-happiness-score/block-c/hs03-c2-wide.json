@@ -84,9 +84,10 @@
   ]
  },
  "music": {
-  "file": "score-film/hs03-c-bed.ogg",
+  "file": "score-film/hs03-score.ogg",
   "from": 0,
-  "skip": 19,
+  "skip": 119,
+  "seam": true,
   "gain": 0.55,
   "lowCut": 90,
   "dip": false,
@@ -167,9 +168,9 @@
     {
      "macro": "narrate",
      "line": "Years ago, he wore these glasses.",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 3.1,
+     "dur": 2.8271,
      "caption": true,
      "pos": 128,
      "gain": 4,
@@ -198,9 +199,9 @@
     {
      "macro": "narrate",
      "line": "And the friend he copied...",
-     "voice": "narrator",
+     "voice": "narrator-brisk",
      "take": 1,
-     "dur": 1.37,
+     "dur": 1.2556,
      "caption": true,
      "pos": 128,
      "gain": 4,

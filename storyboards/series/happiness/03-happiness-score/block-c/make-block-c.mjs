@@ -16,7 +16,7 @@
 import { clip, write, r3 } from "../../../../lib/clip.mjs";
 import * as grips from "../../../../lib/grips.mjs";
 import { existsSync, readFileSync } from "node:fs";
-import { FRAME, SETS, CAST, ROOM, STREET, hudFor, gradeOf, GRADE_FIXED, LOOK_C, narrate, say, tune } from "../kit/score-kit.mjs";
+import { FRAME, SETS, CAST, ROOM, STREET, hudFor, gradeOf, GRADE_FIXED, LOOK_C, narrate, say, tune, SCORE } from "../kit/score-kit.mjs";
 import { SCORE_FITS } from "../../../../../engine/page/props-score.js";
 import { VAN_SEAT } from "../../../../../engine/page/props-score-van.js";
 import { LINES } from "./lines.mjs";
@@ -34,7 +34,7 @@ const T = {
   s25: 100.0, n1: 100.2, s25b: 105.25, s26: 108.2, lift: 108.7, s27: 110.8, n2: 111.8, s28: 115.75, gasp: 116.3,
   m30: 119.0, n3a: 119.35, m29: 122.4, n3b: 122.75, whistle: 124.9,
   s31: 126.2, n4: 126.25, found: 128.15, s32: 129.4, wore: 129.75, changed: 134.95, box: 136.35, s33: 138.0,
-  s34: 139.4, n5: 139.8, s35: 146.25, honk: 146.7, s36: 148.35, END: 151.35,
+  s34: 139.4, n5: 139.8, s35: 145.9, honk: 146.3, s36: 147.9, END: 150.0,   // v2: D starts at 150.0
 };
 const SEGS = [
   { key: "c1", place: "room", t0: T.s25, t1: T.m30 },
@@ -259,7 +259,7 @@ function build(F, S) {
     look(T.box + 1.6, "mash", [-0.6, -0.05], 0.3);
     see(L(T.s33), L(T.s34), ["mash.face", "gll"], "close on Mash, smiling at Spud, the glasses in his hands (no line: his last line ends in the two-shot)");
     SHOTS.push(["33 Mash close", T.s33, cam([0.75, 1.08, -0.45], [SEAT2[0], 1.05, SEAT2[1] - 0.05], 34, { fov: 31 }, r3(T.s34 - T.s33))]);
-    // ---- 34 Mash tapes a box and whistles; Spud on his box, the glasses folded beside him; N5 (Harvard)
+    // ---- 34 Mash tapes a box; Spud on his box, the glasses folded beside him; N5 (mind on what you do)
     hg.release(L(T.s34) - 0.05, { rest: false });
     pr(T.s34 - PRE, "gll", { y: -30 }); showP(T.s34, "gls", { y: GS.y }); showP(T.s34, "tbox", {});
     A(L(T.s34) - PRE, "mash", "stand", { dur: 0.01 });
@@ -277,11 +277,11 @@ function build(F, S) {
     ht2.carry(L(T.s34 + 3.2), TAPE_A, 1.6, "inOut");
     sfx(L(T.s34 + 3.25), "zip", { gain: 0.14, reason: "a second strip" });
     expr(T.s34, "mash", "serene", { curve: 0.3 }, 0.01); look(T.s34, "mash", [0, -0.7], 0.01);
-    tune(c, L(T.s34 + 0.2), { gain: 0.2, reason: "THE TUNE: Mash whistles it while he tapes, under the narrator" });
+    // Jonny 16 Nov: no whistle when a character comes into a scene (Mash's taping whistle at the 34 cut is gone)
     A(L(T.s34) - PRE, "spud", "sit", { rot: -90, height: ROOM.seatH, dur: 0, hands: "lap" });
     expr(T.s34, "spud", "sad", { brow: 0.3, curve: 0 }, 0.01); look(T.s34, "spud", [-0.5, -0.2], 0.01);
     N(T.n5, "n5");
-    see(L(T.s34), L(T.s35), ["mash.face", "tbox", "spud"], "Mash tapes a box shut, eyes closed, whistling; Spud sits on a box behind him, the folded glasses beside him");
+    see(L(T.s34), L(T.s35), ["mash.face", "tbox", "spud"], "Mash tapes a box shut, eyes closed; Spud sits on a box behind him, the folded glasses beside him");
     SHOTS.push(["34 taping", T.s34, cam([-2.2, 1.0, 0.8], [1.0, 1.1, -1.4], 44, { pos: [-2.05, 1.0, 0.65] }, r3(T.s35 - T.s34))]);
     // ---- 35 Spud at the window, the glasses back on; the truck honks outside
     park(T.s35, "mash", 1); hideP(T.s35, "tape"); A(L(T.s35) - 0.05, "mash", "release", { prop: "tape", dur: 0 });
@@ -329,7 +329,7 @@ function build(F, S) {
     cleanStart: false, motion: MOTION, rig: RIG, physics: false, loopIdle: false,
     set,
     ...(grade && { grade }), ...(hud && Object.keys(hud).length && { hud }), ...(S.score && { score: S.score }),
-    music: { file: "score-film/hs03-c-bed.ogg", from: 0, skip: r3(S.t0 - 100), gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false },
+    music: SCORE(S.t0),   // the film's one score (kit/score.py), this segment's slice
     sound,
     hook: { show: [cast[0].id], hint: 0, what: "mid-film block (no hook of its own in the wide film)" },
     cast, props, captions: c.captions, beats, visible: c.visible, allowClip,

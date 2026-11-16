@@ -6,5 +6,5 @@ export const LINES = {
   n3a: "Years ago, he wore these glasses.",
   n3b: "And the friend he copied...",
   n4: "...was you.",
-  n5: "Harvard found people are happiest when their mind is on what they're doing, not on how they're doing.",
+  n5: "You were happiest when your mind was on what you were doing, not on how you were doing.",   // Jonny 16 Nov: not a quote (director's wording)
 };
