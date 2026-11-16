@@ -111,6 +111,10 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-score.js (Happiness 03, the happiness score): the glasses' origin is the bridge's middle at lens-centre height (h 0: the box hold's palms at the origin's
+  // height), w = the rims' width 0.438: both gloves on the two hinges (x +-0.219); the case lies flat, origin the bottom's middle, 0.48 x 0.235 x 0.09 closed
+  scoreglasses: { w: 0.438, h: 0, d: 0.04 },
+  scorecase: { w: 0.48, h: 0.09, d: 0.235 },   // (DESIGN's `glasscase`; the museum prop already owns that name)
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

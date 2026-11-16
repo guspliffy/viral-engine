@@ -58,7 +58,7 @@ On Spud they span 58 % of his width (panel 11: 60 %). Mash never wears them in t
 - 45, 48: `gl-loose`, `fold` 1, lying on the bench seat lens-up-forward: tipped back 24 degrees on its folded
   temples, lenses facing -z (the valley, where Spud stands in 45), 0.35 from the seat's right end.
 
-**Kind `glasscase`**, 0.8k triangles: clamshell 0.48 x 0.235 x 0.09 closed, corners r 0.04, hinge on the long back
+**Kind `scorecase`**, 0.8k triangles: clamshell 0.48 x 0.235 x 0.09 closed, corners r 0.04, hinge on the long back
 edge, key `open` 0..1 = 0..110 degrees. Dark green #2f4a3a, 14 hand-placed scuffs #6f8a72 on edges and corners, brass
 clasp #b08a3a 0.03 wide, felt lining #c9b78f. 02: lies open in the DON'T-KEEP box. 26: closed, Spud's R hand flat on
 its top lifts it 0.25 (the grab is `keep: true`, hand placed first).
@@ -311,7 +311,7 @@ the projection makes it read as a climb. No `y` on any move (clip-lessons). Bike
 | E1 | engine/page/score.js (+ a 6-line hook and cache key in stage.js, applied by the director) | tags, ticks, -1, glasses mask wide + tall, lens clip (2, 3) | 260 | 90 |
 | E2 | engine/page/looks.js | grade keys, split, ring (5); golden unchanged; on in --draft | 90 | 75 |
 | E3 | engine/page/hud.js | wide placement, `own` chip, `train` chip + pips (4) | 120 | 60 |
-| P1 | engine/page/props-score.js (registry `SCORE_KINDS`, `SCORE_GRIPS`; the director adds the one line in props3d.js) | scoreglasses, glasscase, keepbox | 320 | 90 |
+| P1 | engine/page/props-score.js (registry `SCORE_KINDS`, `SCORE_GRIPS`; the director adds the one line in props3d.js) | scoreglasses, scorecase, keepbox | 320 | 90 |
 | P2 | engine/page/props-score-paper.js | stroke writer, spudpad, mashbook | 300 | 90 |
 | P3 | engine/page/props-score-van.js | boxvan | 280 | 75 |
 | P4 | engine/page/props-score-items.js | hillbench, kettle, wallmirror, reflectcard (+ the two Spud bench renders) | 300 | 90 |
