@@ -387,7 +387,8 @@ seg("a9", "bakery", 41.0, 46.9, (S) => {
   S.expr(44.5, "copy", "sad", { curve: -0.4, brow: 0.7, eye: 0.85 }, 0.3); S.look(44.5, "copy", [0, -0.45], 0.35);
   S.A(S.t(44.7), "copy", "droop", { to: 0.5, dur: 0.6 }); S.A(S.t(44.7), "copy", "squash", { amount: 0.08, dur: 0.6 });
   const HIGH = { pos: [r3(P[0] - 0.25), 2.25, r3(P[1] - 1.55)], look: [P[0], 0.45, P[1]], fov: 42 };
-  const UP = { pos: [P[0], 0.7, P[1]], look: [r3(P[0] - 0.4), 2.6, r3(P[1] - 2.3)], fov: 50 };
+  // his eyes, just in front of his face (a camera inside the body sees only its inside: draft 1), looking up at the awning
+  const EYE = chest(P, 160, { fwd: 0.48, side: 0, y: 0.72 }), UP = { pos: EYE, look: [r3(EYE[0] - 0.3), 2.7, r3(EYE[2] - 2.0)], fov: 50 };
   S.view(41.7, 42.6); S.view(43.6, 44.5);
   S.tag({ xy: [960, 760], keys: [[41.0, 41], [42.0, 40], [44.0, 39]], minus: true, minusCard: [42.0], minusTo: [960, 330], size: "close" });
   S.narrate(42.7, "And every time you checked, it dropped.", 2.7);
