@@ -9,7 +9,7 @@ import { canvas } from "./set-porch.js";
 // white frames, curtains and flower boxes, a balcony, a drainpipe, ivy), its neighbours, a flagstone pavement, a granite
 // kerb, a cobbled road, autumn maples (3D trunks and branches, thousands of painted maple-leaf cards), shrubs, a
 // streetlamp, an iron railing, fallen leaves, leaves drifting, a terrace of houses across the road, and where the street
-// bends right: grass banks, a winding road up a grassy hill with pines, a fence and two far houses. Sky: a painted dome.
+// bends right: grass banks, a low 3D foothill with the road, fence and round maples, and behind it the painted far hill (pines, two farmhouses) as one card cut from plates/painted/ST.webp. Sky: a painted dome.
 //
 // COORDINATES (metres, y up). The street runs along +x; the camera of a normal shot looks from +z (the road side) at the
 // house, or from the left along the pavement (the painting's view). The stage is the pavement in front of the step.
@@ -31,7 +31,8 @@ import { canvas } from "./set-porch.js";
 //                     { kind "frontdoor", x -0.5 (its hinge: left edge), y STEP_TOP 0.22, z -1.08, w 1.0, h 1.9, color "#2f5d3a" }
 //   wind 1            leaves shiver (0 off)
 //   leaves 32         how many leaves drift down past the camera (0 none)
-//   hill true         the bend, the grassy hill, its road, fence, pines and far houses (false: the street just ends in a bank)
+//   hill true         the bend, the foothill, its road, fence and maples, and the painted far hill (false: the street just ends in a bank)
+//   backdrop true     the painted far-hill card (false: leave it out); it needs plates/painted/ST.webp served from the repo root
 //   trees true        the maples, shrubs and ivy
 //   fallen 1          fallen leaves on pavement and road, a multiplier (0 none)
 // Light: set "light": "golden", a key like [6.5, 3.4, 3.0] (morning sun from the right, long soft shadows) and
@@ -82,26 +83,41 @@ function fitRun(rnd, total, lo, hi) {   // random lengths between lo and hi that
 }
 const shade = (hex, k) => { const c = new THREE.Color(hex); const o = { r: Math.round(c.r ** (1 / 2.2) * 255 * k), g: Math.round(c.g ** (1 / 2.2) * 255 * k), b: Math.round(c.b ** (1 / 2.2) * 255 * k) }; return `rgb(${Math.min(255, o.r)},${Math.min(255, o.g)},${Math.min(255, o.b)})`; };
 
-// dressed ashlar in warm grey-gold: courses of different heights, blocks of different lengths and tones (tan, pink, lilac
-// grey), a pitted face, a lit top edge and a shaded bottom edge, a few lichen patches. 4.8 m square.
-function stoneCanvas(rnd, S = 2048, mortar = "#4a3f30", pal = null) {
-  const [c, g] = canvas(S, S), ppm = S / 4.8;
+// dressed ashlar in warm gold-grey sandstone: ~8 courses to a door height (0.22-0.30 m), blocks 0.3-0.95 m long, every joint
+// staggered against the course below, each block its own tone (gold, ochre, brown, grey), softly rough edges, mottled and
+// pitted, a soft lit top and shaded foot, a thin mortar joint. M metres square (the facades use 3.2).
+function stoneCanvas(rnd, S = 2048, mortar = "#6b5a42", pal = null, M = 4.8) {
+  const [c, g] = canvas(S, S), ppm = S / M, m = Math.max(1.5, S / 700), j = (a) => (rnd() - 0.5) * a;
   g.fillStyle = mortar; g.fillRect(0, 0, S, S);
-  pal = pal || ["#d6c196", "#c9b387", "#dfd0a3", "#c2ac8c", "#cfbda2", "#b9ab97", "#dac3a0", "#b0a49f", "#d3b48e", "#c7b790"];
-  let y = 0;
-  for (const rh of fitRun(rnd, S, 0.2 * ppm, 0.36 * ppm)) {
-    let x = 0; const tall = rh > 0.28 * ppm;
-    for (const w of fitRun(rnd, S, (tall ? 0.45 : 0.3) * ppm, (tall ? 1.0 : 0.8) * ppm)) {
-      const base = pal[Math.floor(rnd() * pal.length)], k = 0.9 + rnd() * 0.2, m = 8;
-      const gr = g.createLinearGradient(0, y, 0, y + rh); gr.addColorStop(0, shade(base, k * 1.05)); gr.addColorStop(1, shade(base, k * 0.93));
-      g.fillStyle = gr; g.fillRect(x + m, y + m, w - 2 * m, rh - 2 * m);
-      for (let i = 0; i < 4; i++) { g.fillStyle = rnd() < 0.5 ? `rgba(110,92,66,${0.04 + rnd() * 0.05})` : `rgba(255,244,214,${0.05 + rnd() * 0.06})`; g.fillRect(x + m + rnd() * (w - 2 * m) * 0.5, y + m + rnd() * (rh - 2 * m) * 0.6, (w - 2 * m) * (0.2 + rnd() * 0.5), (rh - 2 * m) * (0.15 + rnd() * 0.4)); }   // flat tonal patches, not smudges
-      for (let i = 0; i < 40; i++) { g.fillStyle = `rgba(70,56,40,${0.16 + rnd() * 0.22})`; g.fillRect(x + m + rnd() * (w - 2 * m), y + m + rnd() * (rh - 2 * m), 1 + rnd() * 2, 1 + rnd() * 2); }   // pitting
-      for (let i = 0; i < 3; i++) { g.strokeStyle = `rgba(80,66,46,${0.1 + rnd() * 0.08})`; g.lineWidth = 1.2; const yy = y + m + rnd() * (rh - 2 * m), xx = x + m + rnd() * (w - 2 * m) * 0.6; g.beginPath(); g.moveTo(xx, yy); g.lineTo(xx + (w - 2 * m) * (0.2 + rnd() * 0.3), yy + (rnd() - 0.5) * 3); g.stroke(); }   // chisel marks
-      g.fillStyle = "rgba(255,249,228,0.55)"; g.fillRect(x + m, y + m, w - 2 * m, 4);   // crisp lit top
-      g.fillStyle = "rgba(255,244,214,0.25)"; g.fillRect(x + m, y + m, 3, rh - 2 * m);
-      g.fillStyle = "rgba(48,38,26,0.5)"; g.fillRect(x + m, y + rh - m - 5, w - 2 * m, 5);   // shaded bottom
-      g.fillStyle = "rgba(48,38,26,0.3)"; g.fillRect(x + w - m - 3, y + m, 3, rh - 2 * m);
+  pal = pal || ["#c9aa72", "#bf9d66", "#d0b583", "#b79c78", "#c4ae88", "#a8957c", "#cdb07a", "#b4966a", "#c7a47c", "#aa9a80", "#d4bb8c", "#b8a07c", "#bb9a60"];
+  let y = 0, prev = [];
+  for (const rh of fitRun(rnd, S, 0.22 * ppm, 0.3 * ppm)) {
+    let run = null;
+    for (let t = 0; t < 10; t++) {   // stagger: no joint within 0.12 m of one in the course below
+      const r = fitRun(rnd, S, 0.3 * ppm, 0.95 * ppm); let x = 0, ok = true;
+      for (const w of r) { x += w; for (const q of prev) { const dd = Math.abs(x - q); if (Math.min(dd, S - dd) < 0.12 * ppm) ok = false; } }
+      run = r; if (ok) break;
+    }
+    let x = 0; prev = [];
+    for (const w of run) {
+      prev.push(x + w);
+      const base = pal[Math.floor(rnd() * pal.length)], k = 0.88 + rnd() * 0.22, x0 = x + m, y0 = y + m, bw = w - 2 * m, bh = rh - 2 * m;
+      const gr = g.createLinearGradient(0, y0, 0, y0 + bh); gr.addColorStop(0, shade(base, k * 1.08)); gr.addColorStop(1, shade(base, k * 0.9));
+      g.fillStyle = gr; g.beginPath();   // a softly irregular block outline
+      g.moveTo(x0 + j(m), y0 + j(m)); g.lineTo(x0 + bw * 0.5 + j(m), y0 + j(m * 0.6)); g.lineTo(x0 + bw + j(m), y0 + j(m));
+      g.lineTo(x0 + bw + j(m), y0 + bh * 0.5 + j(m)); g.lineTo(x0 + bw + j(m), y0 + bh + j(m)); g.lineTo(x0 + bw * 0.5 + j(m), y0 + bh + j(m * 0.6));
+      g.lineTo(x0 + j(m), y0 + bh + j(m)); g.lineTo(x0 + j(m), y0 + bh * 0.5 + j(m)); g.closePath(); g.fill();
+      g.save(); g.beginPath(); g.rect(x0, y0, bw, bh); g.clip();
+      for (let i = 0; i < 9; i++) {   // soft mottling: ochre, brown, grey, pale
+        const tc = [[150, 112, 62], [120, 98, 76], [150, 144, 132], [255, 240, 200], [196, 150, 84]][Math.floor(rnd() * 5)], cx = x0 + rnd() * bw, cy = y0 + rnd() * bh, rr = (0.12 + rnd() * 0.3) * Math.min(bw, bh * 2.2);
+        const rg = g.createRadialGradient(cx, cy, 0, cx, cy, rr), al = 0.1 + rnd() * 0.14; rg.addColorStop(0, `rgba(${tc[0]},${tc[1]},${tc[2]},${al})`); rg.addColorStop(1, `rgba(${tc[0]},${tc[1]},${tc[2]},0)`); g.fillStyle = rg; g.fillRect(cx - rr, cy - rr, 2 * rr, 2 * rr);
+      }
+      for (let i = 0; i < Math.round(bw * bh / 380); i++) { g.fillStyle = rnd() < 0.7 ? `rgba(76,58,38,${0.14 + rnd() * 0.22})` : `rgba(255,246,220,${0.12 + rnd() * 0.16})`; g.fillRect(x0 + rnd() * bw, y0 + rnd() * bh, 1 + rnd() * 2.2, 1 + rnd() * 2.2); }   // pitting and grain
+      if (rnd() < 0.35) { g.strokeStyle = `rgba(74,58,40,${0.14 + rnd() * 0.1})`; g.lineWidth = 1.2; const yy = y0 + rnd() * bh, xx = x0 + rnd() * bw * 0.5; g.beginPath(); g.moveTo(xx, yy); g.lineTo(xx + bw * (0.15 + rnd() * 0.3), yy + j(5)); g.stroke(); }   // a chisel mark
+      const lt = g.createLinearGradient(0, y0, 0, y0 + Math.min(bh * 0.35, 9)); lt.addColorStop(0, "rgba(255,246,218,0.42)"); lt.addColorStop(1, "rgba(255,246,218,0)"); g.fillStyle = lt; g.fillRect(x0, y0, bw, Math.min(bh * 0.35, 9));   // soft lit top
+      const bt = g.createLinearGradient(0, y0 + bh, 0, y0 + bh - Math.min(bh * 0.3, 9)); bt.addColorStop(0, "rgba(52,38,24,0.4)"); bt.addColorStop(1, "rgba(52,38,24,0)"); g.fillStyle = bt; g.fillRect(x0, y0 + bh - Math.min(bh * 0.3, 9), bw, Math.min(bh * 0.3, 9));   // shaded foot
+      g.fillStyle = "rgba(255,244,214,0.16)"; g.fillRect(x0, y0, 2, bh); g.fillStyle = "rgba(52,38,24,0.2)"; g.fillRect(x0 + bw - 2, y0, 2, bh);
+      g.restore();
       x += w;
     }
     y += rh;
@@ -182,11 +198,11 @@ function plasterCanvas(rnd, base, S = 512) {
   for (let i = 0; i < 400; i++) { g.fillStyle = `rgba(90,70,50,${0.06 + rnd() * 0.1})`; g.fillRect(rnd() * S, rnd() * S, 1.5, 1.5); }
   return c;
 }
-function dressedCanvas(rnd, S = 512) {   // the smooth pale stone of quoins, lintels and sills
+function dressedCanvas(rnd, S = 512) {   // the smooth warm sandstone of quoins, lintels and sills: a touch lighter than the walls
   const [c, g] = canvas(S, S);
-  g.fillStyle = "#dccba6"; g.fillRect(0, 0, S, S);
-  for (let i = 0; i < 40; i++) { g.fillStyle = rnd() < 0.5 ? `rgba(120,98,70,${0.03 + rnd() * 0.04})` : `rgba(255,248,226,${0.04 + rnd() * 0.05})`; g.fillRect(rnd() * S, rnd() * S, 20 + rnd() * 120, 10 + rnd() * 50); }
-  for (let i = 0; i < 700; i++) { g.fillStyle = `rgba(80,64,46,${0.1 + rnd() * 0.18})`; g.fillRect(rnd() * S, rnd() * S, 1.6, 1.6); }
+  g.fillStyle = "#c2a370"; g.fillRect(0, 0, S, S);
+  for (let i = 0; i < 26; i++) { const cx = rnd() * S, cy = rnd() * S, rr = 30 + rnd() * 90, tc = rnd() < 0.5 ? "140,104,60" : "255,244,212", rg = g.createRadialGradient(cx, cy, 0, cx, cy, rr); rg.addColorStop(0, `rgba(${tc},${0.08 + rnd() * 0.1})`); rg.addColorStop(1, `rgba(${tc},0)`); g.fillStyle = rg; g.fillRect(cx - rr, cy - rr, 2 * rr, 2 * rr); }
+  for (let i = 0; i < 700; i++) { g.fillStyle = `rgba(80,60,40,${0.1 + rnd() * 0.18})`; g.fillRect(rnd() * S, rnd() * S, 1.6, 1.6); }
   return c;
 }
 // a five-lobed maple leaf: near-white with soft darker veins, cut out by its alpha (tinted by vertex colour)
@@ -333,7 +349,7 @@ function segMat(a, b, r0, r1) {   // [geometry, matrix] of a tapered cylinder fr
 // and winds up the hill. P(s, q) = C(s) + q * n(s), n the right-hand normal (+z on the straight).
 const S0 = 13, BEND_R = 13, S_MIN = -42, S_MAX = 170;
 // the big rounded hill ahead (the painting's top right): height above the street's level at a world point
-const HILL_C = [92, 2], HILL_R = 54, HILL_AMP = 22;
+const HILL_C = [92, 2], HILL_R = 54, HILL_AMP = 10;   // a low foothill: the painted hill rises behind it (the backdrop card)
 const hillShape = (x, z) => { const d = Math.hypot(x - HILL_C[0], (z - HILL_C[1]) * 0.85) / HILL_R; return d >= 1 ? 0 : HILL_AMP * smooth(1 - d) ** 1.1; };
 function makeFrame(hill = true) {
   const N = Math.round((S_MAX - S_MIN) / 0.25) + 1, xs = new Float64Array(N), zs = new Float64Array(N), th = new Float64Array(N);
@@ -369,7 +385,7 @@ export function buildScoreStreet(scene, S = {}) {
 
   // ---------------------------------------------------------------- materials and painted textures
   const WARM = new THREE.Color("#2c1d0e");
-  const stoneT = ctex(stoneCanvas(rnd)), stoneT2 = ctex(stoneCanvas(rnd, 2048, "#5a4e3e"));   // the facades set their own uv (metres / 4.8)
+  const stoneT = ctex(stoneCanvas(rnd, 2048, "#6b5a42", null, 3.2)), stoneT2 = ctex(stoneCanvas(rnd, 2048, "#62523c", null, 3.2));   // the facades set their own uv (metres / 3.2)
   const flagT = ctex(flagCanvas(rnd)), cobT = ctex(cobbleCanvas(rnd)), grassT = ctex(grassCanvas(rnd));
   const slateM = std("#ffffff", { map: ctex(slateCanvas(rnd)), roughness: 0.7 }), dressedT = ctex(dressedCanvas(rnd));
   const dressedM = std("#ffffff", { map: dressedT, vertexColors: true, emissive: new THREE.Color("#4a3a22") }), white = std("#f3efe4", { roughness: 0.55, vertexColors: true });
@@ -463,7 +479,7 @@ export function buildScoreStreet(scene, S = {}) {
   // ---------------------------------------------------------------- facades (real extruded walls with real openings)
   const solids = [];
   const streakQ = Buf(), dressed = Buf(), whiteB = Buf(), ironB = Buf(), glassBufs = [Buf(), Buf(), Buf(), Buf()], curtB = {}, boxB = Buf();
-  const pale = (k = 0) => new THREE.Color().setScalar(0.94 + rW() * 0.1 + k);
+  const pale = (k = 0) => { const v = 0.9 + rW() * 0.16 + k, w = rW() - 0.5; return new THREE.Color(v * (1 + 0.06 * w), v * (1 - 0.01 * w), v * (1 - 0.1 * w)); };
   const glassMats = glassBufs.map((_, k) => basic({ map: ctex(glassCanvas(rW, k), 1, 1, false), color: "#f4f4f4" }));
   const curtCols = ["#f1e6d2", "#e9dcc4", "#c9a8a0", "#9db39a", "#efe9dc"];
   const curtMats = curtCols.map((c) => lam("#ffffff", { map: ctex(curtainCanvas(rW, c), 1, 1, false), side: THREE.DoubleSide }));
@@ -479,7 +495,7 @@ export function buildScoreStreet(scene, S = {}) {
       wall.holes.push(p);
     }
     const g = new THREE.ExtrudeGeometry(wall, { depth: t, bevelEnabled: false, curveSegments: 20 }); g.translate(0, 0, z - t);
-    const uv = g.attributes.uv, ps = g.attributes.position, K = o.uvK ?? 4.8, ox = o.uvX ?? 0;
+    const uv = g.attributes.uv, ps = g.attributes.position, K = o.uvK ?? 3.2, ox = o.uvX ?? 0;
     for (let j = 0; j < uv.count; j++) { const front = Math.abs(ps.getZ(j) - z) < 1e-4 || Math.abs(ps.getZ(j) - (z - t)) < 1e-4; uv.setXY(j, ((front ? ps.getX(j) : ps.getX(j) + ps.getZ(j)) + ox) / K, ps.getY(j) / K); }
     const m = new THREE.Mesh(g, map); m.castShadow = m.receiveShadow = true; add(m); solids.push(m); return m;
   }
@@ -489,7 +505,7 @@ export function buildScoreStreet(scene, S = {}) {
     if (o.surround !== false) {
       addBox(dressed, x, y + h + 0.13, z + 0.04, w + 0.55, 0.26, 0.16, pale(), 0, 0, 1.2);   // lintel
       addBox(dressed, x, y - 0.05, z + 0.13, w + 0.4, 0.12, 0.36, pale(), 0, 0, 1.2);        // sill
-      for (let k = 0; k < Math.floor(h / 0.34); k++) for (const sd of [-1, 1]) { const ww = k % 2 ? 0.17 : 0.27; addBox(dressed, x + sd * (w / 2 + ww / 2 - 0.02), y + 0.17 + k * 0.34, z + 0.04, ww, 0.31, 0.1, pale(), 0, 0, 1.2); }
+      for (let k = 0; k < Math.floor(h / 0.26); k++) for (const sd of [-1, 1]) { const ww = k % 2 ? 0.17 : 0.3; addBox(dressed, x + sd * (w / 2 + ww / 2 - 0.02), y + 0.13 + k * 0.26, z + 0.025, ww, 0.245, 0.04, pale(), 0, 0, 1.2); }
       addBox(dressed, x, y + h + 0.3, z + 0.045, 0.26, 0.2, 0.17, pale(), 0, 0, 1.2);        // keystone
     }
     // frame, meeting rail, bars
@@ -535,9 +551,9 @@ export function buildScoreStreet(scene, S = {}) {
     }
     addBox(dressed, A.doorX, H0 + r + 0.34, dz + 0.07, 0.34, 0.44, 0.18, pale(), 0, 0, 1.2);   // keystone
     for (let i = 0; i <= 16; i++) { const a = Math.PI - (i / 16) * Math.PI, r0 = r + 0.26, r1 = r0 + 0.2 + (i % 2) * 0.05; if (i === 8) continue; addBox(dressed, A.doorX + Math.cos(a) * (r0 + r1) / 2, H0 + Math.sin(a) * (r0 + r1) / 2, dz + 0.02, r1 - r0, 0.19, 0.05, pale(-0.03), 0, a, 1.2); }   // a second ring
-    for (const sd of [-1, 1]) for (let k = 0; k < 8; k++) addBox(dressed, A.doorX + sd * (r + 0.36), A.stepTop + 0.15 + k * 0.29, dz + 0.02, k % 2 ? 0.2 : 0.3, 0.27, 0.05, pale(-0.03), 0, 0, 1.2);
+    for (const sd of [-1, 1]) for (let k = 0; k < 8; k++) addBox(dressed, A.doorX + sd * (r + 0.36), A.stepTop + 0.14 + k * 0.26, dz + 0.017, k % 2 ? 0.2 : 0.32, 0.245, 0.024, pale(-0.03), 0, 0, 1.2);
     addBox(dressed, A.doorX, H0 + r + 0.74, dz + 0.1, 1.9, 0.12, 0.3, pale(), 0, 0, 1.2);   // a cornice over the arch
-    for (const sd of [-1, 1]) for (let k = 0; k < 7; k++) { const w = k % 2 ? 0.17 : 0.28; addBox(dressed, A.doorX + sd * (r + 0.01 + w / 2), A.stepTop + 0.17 + k * 0.3, dz + 0.03, w, 0.28, 0.08, pale(), 0, 0, 1.2); }
+    for (const sd of [-1, 1]) for (let k = 0; k < 8; k++) { const w = k % 2 ? 0.17 : 0.3; addBox(dressed, A.doorX + sd * (r + 0.01 + w / 2), A.stepTop + 0.13 + k * 0.26, dz + 0.022, w, 0.245, 0.036, pale(), 0, 0, 1.2); }
     // the door and its fanlight
     if (S.door !== false) {
       const green = std("#2f5d3a", { roughness: 0.5 }), green2 = std("#264d31", { roughness: 0.55 }), brass = std("#d4a13c", { roughness: 0.25, metalness: 0.85 });
@@ -583,7 +599,7 @@ export function buildScoreStreet(scene, S = {}) {
     // string courses and the cornice
     for (const y of [3.45, 6.65]) addBox(dressed, (FX0 + FX1) / 2, y, WZ + 0.05, FX1 - FX0 + 0.1, 0.2, 0.14, pale(), 0, 0, 1.2);
     addBox(dressed, (FX0 + FX1) / 2, HH + 0.05, WZ + 0.2, FX1 - FX0 + 0.5, 0.3, 0.5, pale(), 0, 0, 1.2);
-    for (const sd of [FX0 + 0.12, FX1 - 0.12]) for (let k = 0; k < 30; k++) addBox(dressed, sd, 0.15 + k * 0.3, WZ + 0.05, k % 2 ? 0.3 : 0.55, 0.28, 0.14, pale(), 0, 0, 1.2);   // quoins
+    for (const sd of [FX0 + 0.12, FX1 - 0.12]) for (let k = 0; k < 35; k++) addBox(dressed, sd, 0.14 + k * 0.26, WZ + 0.03, k % 2 ? 0.3 : 0.55, 0.245, 0.05, pale(), 0, 0, 1.2);   // quoins
     // balcony over the door: a slab on corbels, an iron railing with scroll bars
     const by = 3.55, bz = WZ + 0.55;
     addBox(dressed, 0, by - 0.06, WZ + 0.4, 3.9, 0.14, 0.9, pale(), 0, 0, 1.2);
@@ -635,7 +651,7 @@ export function buildScoreStreet(scene, S = {}) {
       wins.push([x + gap * 1.5, A.stepTop * 0, 1.0, 2.1, "door"]);
       for (const wn of wins) holes.push({ x: wn[0], y: wn[4] ? 0 : wn[1], w: wn[2], h: wn[3], arch: wn[4] === "door" });
       const map = std("#ffffff", { map: stone ? stoneT2 : ctex(plasterCanvas(rH, tones[k % tones.length])), emissive: WARM });
-      facade({ x0: x, x1: x + w, h, z: zF, holes, map, baseY: -0.3, uvK: stone ? 4.8 : 3.6, uvX: x * 3.1 });
+      facade({ x0: x, x1: x + w, h, z: zF, holes, map, baseY: -0.3, uvK: stone ? 3.2 : 3.6, uvX: x * 3.1 });
       for (const wn of wins) {
         if (wn[4] === "door") { const d = new THREE.Mesh(new THREE.BoxGeometry(wn[2] - 0.06, wn[3] - 0.25, 0.06), std(["#35567a", "#7a2f2a", "#2f5d3a", "#5a4a3a"][k % 4], { roughness: 0.55 })); d.position.set(wn[0], (wn[3] - 0.25) / 2, zF - 0.2); d.castShadow = true; add(d); addBox(dressed, wn[0], wn[3] + 0.1, zF + 0.06, wn[2] + 0.5, 0.22, 0.14, pale(), 0, 0, 1.2); continue; }
         windowFor(wn[0], wn[1], wn[2], wn[3], zF, { surround: true, box: wn[1] > 0.5 && wn[1] < 5 && rH() < 0.7 });
@@ -774,6 +790,36 @@ export function buildScoreStreet(scene, S = {}) {
     // a fence on the hill road's verge
   }
 
+  // ---------------------------------------------------------------- the painted far hill (beyond ~150 m): one card cut from the painting
+  // plates/painted/ST.webp (the hill, its pines, the two farmhouses, the fence and road; the sky is keyed out so the dome's sky shows),
+  // hung at 165 m square-on to camera (a) so that camera sees it as the painting does. Feathered on its left edge; its foot is
+  // hidden by the 3D foothill. Loaded before the first frame (globalThis.__loads).
+  function addBackdrop() {
+    const CAM = { p: new THREE.Vector3(-5, 0.95, 3.3), l: new THREE.Vector3(3.9, 1.0, -1.2), fov: 42, asp: 16 / 9 }, DC = 165;
+    const SX = 1230, SY = 0, SW = 306, SH = 330;   // the crop of the 1536 x 1024 painting
+    const f = CAM.l.clone().sub(CAM.p).normalize(), r = new THREE.Vector3().crossVectors(f, new THREE.Vector3(0, 1, 0)).normalize(), u = new THREE.Vector3().crossVectors(r, f).normalize();
+    const tV = Math.tan(THREE.MathUtils.degToRad(CAM.fov / 2)), tH = tV * CAM.asp;
+    const hN = 1.534, wN = hN * (SW / SH) / CAM.asp * 1, xl = 0.25, yt = 1.04;   // the card's size and corner in camera (a)'s screen (-1..1)
+    const Wm = DC * tH * wN, Hm = DC * tV * hN, xc = xl + wN / 2, yc = yt - hN / 2;
+    const ctr = CAM.p.clone().addScaledVector(f, DC).addScaledVector(r, DC * tH * xc).addScaledVector(u, DC * tV * yc);
+    const mat = new THREE.MeshBasicMaterial({ transparent: true, depthWrite: false, fog: false, toneMapped: false, color: "#fff4e4" }); mat.userData.noOutline = true;
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(Wm * 2, Hm), mat);   // the painting's crop and its mirror, so the hill carries on past the picture's edge mesh.name = "set-backdrop"; mesh.renderOrder = -1; mesh.userData.solid = false; mesh.frustumCulled = false;
+    mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(r, u, f.clone().negate())); mesh.position.copy(ctr).addScaledVector(r, Wm / 2); add(mesh);
+    (globalThis.__loads ||= []).push(new THREE.ImageLoader().loadAsync("/storyboards/series/happiness/03-happiness-score/plates/painted/ST.webp").then((img) => {
+      const [c, g] = canvas(SW * 4, SH * 2); g.imageSmoothingQuality = "high"; g.drawImage(img, SX, SY, SW, SH, 0, 0, SW * 2, SH * 2);
+      g.save(); g.translate(SW * 4, 0); g.scale(-1, 1); g.drawImage(img, SX, SY, SW, SH, 0, 0, SW * 2, SH * 2); g.restore();
+      const id = g.getImageData(0, 0, c.width, c.height), d = id.data;
+      for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) {
+        const i = (y * c.width + x) * 4, R = d[i], G = d[i + 1], B = d[i + 2], blue = B - R, bright = (R + G + B) / 3;
+        let a = 1 - Math.min(1, Math.max(0, (blue - 14) / 26));                         // blue sky
+        if (bright > 205 && blue > -8) a = Math.min(a, 1 - Math.min(1, (bright - 205) / 25));   // white cloud
+        const e = Math.min(1, Math.min(x, c.width - 1 - x) / 90); a *= e * e * (3 - 2 * e);   // feather both ends
+        d[i + 3] = Math.round(a * 255);
+      }
+      g.putImageData(id, 0, 0);
+      const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; mat.map = t; mat.needsUpdate = true;
+    }));
+  }
   // ---------------------------------------------------------------- the hill: a winding road, fence, pines, round trees, two far houses
   if (HILL) {
     const TB = [], PB = Buf(), RB2 = Buf(), rH = rng(seed * 401 + 12), rr = rng(seed * 4 + 77);
@@ -782,16 +828,18 @@ export function buildScoreStreet(scene, S = {}) {
     for (let i = 0; i <= -1; i++) { const t = i / 150, rad = 40 * (1 - t) + 4, an = a0 + t * 4.9 + 0.35 * Math.sin(t * 17), px = hillC[0] + Math.cos(an) * rad, pz = hillC[1] + Math.sin(an) * rad; hr.push([px, terrainY(px, pz) + 0.07, pz]); }
     const nearRoad = (x, z) => { let m = 1e9; for (const p of hr) m = Math.min(m, Math.hypot(p[0] - x, p[2] - z)); return m; };
     // round autumn trees and pines scattered on the banks and the hill, clear of the road
+    let nHT = 0;
     for (let k = 0; k < 1100; k++) {
       const x = 14 + rH() * 170, z = -46 + rH() * 100, { s, q } = F.near(x, z), cq = Math.abs(q - 6);
       const d = Math.hypot(x - hillC[0], z - hillC[1]);
       if (s < S0 + 14 || cq < 7 || x < 8 || d < 10) continue;
       const clump = fbm(x * 0.07 + 11, z * 0.07, 31), pine = clump > 0.5;
+      if (pine) continue;   // the pines are in the painted backdrop
       if (!pine && (rH() < 0.6 || d > 70)) continue;
       if (pine && rH() < 0.25) continue;
       const y = terrainY(x, z), sz = 1.7 + rH() * 2.3;
       if (pine) { const c = tint(["#2f6a3e", "#3d7a45", "#2a5c3a"][k % 3], rH, 0.01, 0.05, 0.05); for (let l = 0; l < 3; l++) { const g = new THREE.ConeGeometry(sz * (1 - l * 0.22) * 0.7, sz * 1.1, 7).toNonIndexed(), p = g.attributes.position; g.applyMatrix4(M4(x, y + sz * (0.8 + l * 0.7), z)); const b0 = PB.p.length / 3; for (let i = 0; i < p.count; i++) { PB.p.push(p.getX(i), p.getY(i), p.getZ(i)); PB.n.push(0, 1, 0); PB.uv.push(0, 0); PB.c.push(c.r, c.g, c.b); PB.i.push(b0 + i); } g.dispose(); } }
-      else { const c = tint(["#e0701f", "#e9a21f", "#c43a1c", "#d9b62a", "#7aa23a", "#e8851e"][k % 6], rH, 0.015, 0.08, 0.08), g = new THREE.IcosahedronGeometry(sz * 0.8, 1).toNonIndexed(), p = g.attributes.position; g.applyMatrix4(M4(x, y + sz * 1.3, z, 1, 0.9, 1)); g.computeVertexNormals(); const nn = g.attributes.normal, b0 = PB.p.length / 3; for (let i = 0; i < p.count; i++) { PB.p.push(p.getX(i), p.getY(i), p.getZ(i)); PB.n.push(nn.getX(i), nn.getY(i), nn.getZ(i)); PB.uv.push(0, 0); PB.c.push(c.r, c.g, c.b); PB.i.push(b0 + i); } g.dispose(); addBox(RB2, x, y + sz * 0.5, z, 0.12, sz, 0.12, new THREE.Color("#5a4034")); }
+      else if (nHT < 9 && d < 66) { nHT++; const tn = ["orange", "gold", "red", "mix", "gold", "orange"][nHT % 6]; maple(x, z, 6.5 + rH() * 2.5, tn, { tones: [tn, "mix", tn], trunk: 0.4, R: 2.5 + rH() * 0.6, r: 0.11, branches: 5, y0: y, solid: false }); }
     }
     const pm = bufMesh(PB, lam("#ffffff", { vertexColors: true }), true, true); if (pm) { pm.frustumCulled = false; pm.userData.solid = false; add(pm); }
     const tm = bufMesh(RB2, lam("#ffffff", { vertexColors: true }), false, false); if (tm) { tm.userData.solid = false; add(tm); }
@@ -806,11 +854,8 @@ export function buildScoreStreet(scene, S = {}) {
     });
     const hm0 = bufMesh(HB, std("#ffffff", { map: cobT, vertexColors: true, emissive: new THREE.Color("#2a2024") }), false, true); if (hm0) { hm0.userData.solid = false; hm0.name = "set-hillroad"; add(hm0); }
     const fm = bufMesh(FB, lam("#ffffff", { vertexColors: true }), false, false); if (fm) { fm.userData.solid = false; add(fm); }
-    const hx = hillC[0] - 5, hz = hillC[1] - 3;
-    for (const [dx, dz, w, hgt, col, ry] of [[0, 0, 11, 7, "#efe3c8", -0.15], [11, 4, 8, 5.5, "#e4d0ac", 0.1]]) {
-      const x = hx + dx, z = hz + dz, y = terrainY(x, z), hm = new THREE.Mesh(new THREE.BoxGeometry(w, hgt, w * 0.7), std(col, { roughness: 0.9 })); hm.position.set(x, y + hgt / 2 - 0.2, z); hm.rotation.y = ry; hm.castShadow = true; hm.userData.solid = false; add(hm);
-      const rf = new THREE.Mesh(new THREE.ConeGeometry(w * 0.72, hgt * 0.5, 4), std("#b9553a", { roughness: 0.8 })); rf.position.set(x, y + hgt + hgt * 0.22, z); rf.rotation.y = ry + Math.PI / 4; rf.scale.set(1, 1, 0.7); rf.userData.solid = false; add(rf);
-    }
+    // the far hill itself, with its two farmhouses, pines and winding road, is the painted backdrop below
+    if (S.backdrop !== false) addBackdrop();
   }
 
   // ---------------------------------------------------------------- fallen leaves (decals) and leaves drifting down

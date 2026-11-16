@@ -14,13 +14,13 @@ import { clamp } from "./util.js";
 //              box     3.7 long (z 0.95 .. -2.75) x 2.1 wide x 2.1 high inside; floor top y 0.75, roof top y 2.90; walls 0.05; inside #3a352f. Rear opening 1.9 wide x 1.85 tall
 //                      (x +-0.95, y 0.75 .. 2.60), rear bumper bar to z -2.80, blank number plate, red tail lamps.
 //              wheels  r 0.36, 0.24 wide, centres x +-0.93, y 0.36, z +1.75 (front) and -1.70 (rear); 5 lug nuts a hub, so a spin reads.
-//            Colour: body #f1efe8, shade #c4c6cc (roof rails, skirt, seams, the roll door's ribs), bumper #5b5f66, cab glass #2a3038 at 0.5 (steam: no outline, no shadow;
-//            takes the `reflectcard`, its two panes are userData.role "windscreen" / "windowL" / "windowR"), tyres #23242a. The two box sides are each drawn once (own grime
-//            streaks, panel seams, rivets, one scrape, one dent shadow: no repeat). NO lettering: MOVING (the glasses-view tag, OUTLINE 6.0) is an overlay, not on the van.
+//            Colour: body #f2ecdc (a warm cream: it reads white in the shade of the golden light), shade #c4c6cc (roof rails, skirt, seams, the roll door's ribs), bumper #5b5f66, cab glass dark blue-grey with a painted sky sheen, two glare bands and a warm tree smudge, alpha 0.7-0.9 so a face behind it still reads (steam: no outline, no shadow;
+//            takes the `reflectcard`, its two panes are userData.role "windscreen" / "windowL" / "windowR"), tyres #23242a. The two box sides are each drawn once (soft pressed panels, own grime
+//            streaks, a dirt band along the skirt, panel seams, rivets, one scrape, one dent shadow: no repeat). NO lettering: MOVING (the glasses-view tag, OUTLINE 6.0) is an overlay, not on the van.
 //            Cab inside: dash and bench #3a3f48 / #4a4f58, a steering wheel at x +0.5, a seat for the driver; spec.seat false leaves the bench out (stage a `carseat` at the seat point instead).
 //            The driver's point, VAN_SEAT, in the van's frame (cushion top, the potato's bottom rests here, facing +z): x +0.50, y 1.05, z 1.43 (passenger x -0.50). Sitting there a
 //            0.9 tall potato has its face at y about 1.5 .. 1.7, in the window (sill 1.38), the left arm reaches out of x +1.0 through the open window.
-//   Spec keys (all optional): color "#f1efe8" (the body), seat true, cargo true (the 5 cartons stacked at the front of the box, kraft #b98d5a, visible through the rear opening),
+//   Spec keys (all optional): color "#f2ecdc" (the body), seat true, cargo true (the 5 cartons stacked at the front of the box, kraft #b98d5a, visible through the rear opening),
 //            open 0, len 0, win 0 (the three params below, as the start value).
 //   Params (tween with `set`; no propState default, so the first tween of one JUMPS from the spec value: seed it with a dur-0 set):
 //            open 0..1   the rear roll door: slides up into the header (1 = a 0.13 high roll under the header, the 1.9 x 1.85 opening clear). The mover walks in at open >= 0.9.
@@ -58,12 +58,22 @@ export const VAN_GRIPS = {};   // never held; the seat point is VAN_SEAT
 function sideTexture(seed, frontAtLeft) {
   const W = 2048, H = Math.round((2048 * 2.1) / 3.7), pm = W / 3.7;   // px per metre
   return canvasTex(W, H, (x) => {
-    x.fillStyle = "#f1efe8"; x.fillRect(0, 0, W, H);
+    x.fillStyle = "#f2ecdc"; x.fillRect(0, 0, W, H);
     // roof rail and skirt bands (shade), a thin darker line under each
     x.fillStyle = "#c4c6cc"; x.fillRect(0, 0, W, 0.05 * pm); x.fillRect(0, H - 0.2 * pm, W, 0.2 * pm);
     x.fillStyle = "rgba(120,124,134,0.55)"; x.fillRect(0, 0.05 * pm, W, 3); x.fillRect(0, H - 0.2 * pm - 3, W, 3);
     // panel seams: three, hand-spaced (the cab end is at u = 0 when frontAtLeft)
     const seams = frontAtLeft ? [0.27, 0.52, 0.79] : [0.21, 0.48, 0.73];
+    // soft pressed panels: each field between the seams gets its own faint tone, a top-lit gradient and a shallow inset with a light upper-left and a shaded lower-right edge
+    const edges = [0, ...seams.map((u) => u * W), W], top = 0.05 * pm, bot = H - 0.2 * pm;
+    for (let i = 0; i < edges.length - 1; i++) {
+      const x0 = edges[i] + 10, x1 = edges[i + 1] - 10, tone = i % 2 ? "rgba(206,188,150,0.3)" : "rgba(255,252,238,0.3)";
+      const pg = x.createLinearGradient(0, top, 0, bot); pg.addColorStop(0, "rgba(255,255,248,0.30)"); pg.addColorStop(0.55, "rgba(255,255,248,0)"); pg.addColorStop(1, "rgba(150,126,92,0.10)");
+      x.fillStyle = tone; x.fillRect(x0 - 8, top, x1 - x0 + 16, bot - top); x.fillStyle = pg; x.fillRect(x0 - 8, top, x1 - x0 + 16, bot - top);
+      const ix = x0 + 0.1 * pm, iy = top + 0.16 * pm, iw2 = x1 - x0 - 0.2 * pm, ih2 = bot - top - 0.5 * pm;
+      x.lineWidth = 9; x.strokeStyle = "rgba(255,253,240,0.8)"; x.beginPath(); x.moveTo(ix, iy + ih2); x.lineTo(ix, iy); x.lineTo(ix + iw2, iy); x.stroke();
+      x.strokeStyle = "rgba(128,104,72,0.5)"; x.beginPath(); x.moveTo(ix + iw2, iy); x.lineTo(ix + iw2, iy + ih2); x.lineTo(ix, iy + ih2); x.stroke();
+    }
     seams.forEach((u, i) => {
       const sx = u * W + (rnd(seed + i * 5) - 0.5) * 12;
       x.fillStyle = "rgba(160,164,174,0.8)"; x.fillRect(sx - 2, 0.05 * pm, 4, H - 0.25 * pm);
@@ -76,8 +86,9 @@ function sideTexture(seed, frontAtLeft) {
       const g = x.createLinearGradient(0, 0.05 * pm, 0, 0.05 * pm + len); g.addColorStop(0, "rgba(140,138,124,0.22)"); g.addColorStop(1, "rgba(140,138,124,0)");
       x.fillStyle = g; x.fillRect(sx, 0.05 * pm, w, len);
     }
-    // road grime rising from the skirt
-    const gr = x.createLinearGradient(0, H * 0.55, 0, H); gr.addColorStop(0, "rgba(120,112,96,0)"); gr.addColorStop(1, "rgba(120,112,96,0.30)"); x.fillStyle = gr; x.fillRect(0, H * 0.55, W, H * 0.45);
+    // road grime rising from the skirt: a soft dirt band with a ragged upper edge, flecked with spray
+    const gr = x.createLinearGradient(0, H * 0.62, 0, H); gr.addColorStop(0, "rgba(118,104,82,0)"); gr.addColorStop(0.5, "rgba(118,104,82,0.32)"); gr.addColorStop(1, "rgba(96,80,58,0.68)"); x.fillStyle = gr; x.fillRect(0, H * 0.62, W, H * 0.38);
+    for (let i = 0; i < 70; i++) { const s = seed * 17 + i, sx = rnd(s * 3 + 1) * W, sy = H - 0.2 * pm - (0.05 + rnd(s * 3 + 2) * 0.55) * pm; x.fillStyle = `rgba(108,92,68,${0.06 + rnd(s) * 0.1})`; x.beginPath(); x.ellipse(sx, sy, 14 + rnd(s * 3 + 3) * 40, 5 + rnd(s + 9) * 11, 0, 0, 7); x.fill(); }
     for (let i = 0; i < 14; i++) { const s = seed * 11 + i; x.fillStyle = "rgba(110,104,90,0.12)"; x.beginPath(); x.ellipse(rnd(s * 3 + 1) * W, H - 0.2 * pm - rnd(s * 3 + 2) * 0.35 * pm, 20 + rnd(s * 3 + 3) * 50, 6 + rnd(s) * 12, 0, 0, 7); x.fill(); }
     // one scrape (three short grey strokes) and one dent shadow
     const ex = (frontAtLeft ? 0.66 : 0.34) * W, ey = 0.62 * H;
@@ -104,7 +115,7 @@ const WINDOW = [[1.1, V.sill], [2.05, V.sill], [1.7, 2.12], [1.1, 2.12]];
 // ------------------------------------------------------------------------------------------------ the van
 function boxvan(P) {
   const S = P.spec, W = P.whole;
-  const body = mat(S.color || "#f1efe8", { roughness: 0.55 }), shade = mat("#c4c6cc", { roughness: 0.6 }), bump = mat("#5b5f66", { roughness: 0.5 }), inner = mat("#3a352f", { roughness: 0.9 });
+  const body = mat(S.color || "#f2ecdc", { roughness: 0.55 }), shade = mat("#c4c6cc", { roughness: 0.6 }), bump = mat("#5b5f66", { roughness: 0.5 }), inner = mat("#3a352f", { roughness: 0.9 });
   const dark = mat("#2b2c31", { roughness: 0.85 }), black = mat("#2a3038", { roughness: 0.5 }), tyre = mat("#23242a", { roughness: 0.9 }), hubM = mat("#9aa0aa", { roughness: 0.35, metalness: 0.5 });
   const B = (w, h, d, m, x, y, z, par = W) => mesh(new THREE.BoxGeometry(w, h, d), m, par, x, y, z);
 
@@ -197,10 +208,18 @@ function boxvan(P) {
   mesh(pad(2.0, 0.22, 0.12, 6), bump, W, 0, 0.57, 2.74);
   B(0.46, 0.12, 0.02, mat("#e9e5d0", { roughness: 0.6 }), 0, 0.56, 2.805);                 // blank plate
   // ---- the glass: the windscreen, the passenger pane (-x), the driver pane (+x, rolls down)
-  const glassM = new THREE.MeshStandardMaterial({ color: "#2a3038", roughness: 0.12, metalness: 0.2, transparent: true, opacity: 0.5, depthWrite: false, side: THREE.DoubleSide });
+  // dark glass: a deep blue-grey tint, a sky-blue sheen from the top, two soft diagonal glare bands, a warm smudge of the autumn trees low down; the texture's alpha keeps a face behind it readable
+  const glassTex = canvasTex(256, 256, (x, w, h) => {
+    const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, "rgba(104,150,196,0.9)"); g.addColorStop(0.45, "rgba(52,74,100,0.78)"); g.addColorStop(1, "rgba(22,30,40,0.7)"); x.fillStyle = g; x.fillRect(0, 0, w, h);
+    x.fillStyle = "rgba(236,244,252,0.24)"; x.beginPath(); x.moveTo(w * 0.18, 0); x.lineTo(w * 0.42, 0); x.lineTo(w * 0.1, h); x.lineTo(-w * 0.14, h); x.fill();
+    x.fillStyle = "rgba(236,244,252,0.14)"; x.beginPath(); x.moveTo(w * 0.52, 0); x.lineTo(w * 0.62, 0); x.lineTo(w * 0.34, h); x.lineTo(w * 0.24, h); x.fill();
+    for (const [cx, cy, r] of [[0.55, 0.08, 0.2], [0.8, 0.14, 0.16], [0.25, 0.2, 0.14]]) { const q = x.createRadialGradient(cx * w, cy * h, 0, cx * w, cy * h, r * w); q.addColorStop(0, "rgba(255,255,255,0.4)"); q.addColorStop(1, "rgba(255,255,255,0)"); x.fillStyle = q; x.fillRect(0, 0, w, h * 0.5); }
+    const o = x.createLinearGradient(0, h * 0.62, 0, h); o.addColorStop(0, "rgba(214,120,42,0)"); o.addColorStop(1, "rgba(214,120,42,0.34)"); x.fillStyle = o; x.fillRect(0, h * 0.62, w, h * 0.38);
+  });
+  const glassM = new THREE.MeshStandardMaterial({ color: "#ffffff", map: glassTex, roughness: 0.1, metalness: 0.15, transparent: true, opacity: 1, depthWrite: false, side: THREE.DoubleSide });
   const L = Math.hypot(WSC.z0 - WSC.z1, WSC.y1 - WSC.y0), tilt = Math.atan2(WSC.z0 - WSC.z1, WSC.y1 - WSC.y0);
   const ws = thru(new THREE.Mesh(new THREE.PlaneGeometry(1.86, L), glassM)); ws.position.set(0, (WSC.y0 + WSC.y1) / 2, (WSC.z0 + WSC.z1) / 2 + 0.004); ws.rotation.x = -tilt; ws.userData.role = "windscreen"; W.add(ws);
-  const paneGeo = (y0) => { const sh = new THREE.Shape(WINDOW.map(([a, b]) => new THREE.Vector2(a, b - y0))); const g = new THREE.ShapeGeometry(sh); g.rotateY(-Math.PI / 2); return g; };
+  const paneGeo = (y0) => { const sh = new THREE.Shape(WINDOW.map(([a, b]) => new THREE.Vector2(a, b - y0))); const g = new THREE.ShapeGeometry(sh), ps = g.attributes.position, uv = g.attributes.uv; for (let i = 0; i < ps.count; i++) uv.setXY(i, (ps.getX(i) - 1.1) / 0.95, (ps.getY(i) + y0 - V.sill) / 0.74); g.rotateY(-Math.PI / 2); return g; };
   const pR = thru(new THREE.Mesh(paneGeo(0), glassM)); pR.position.set(-0.965, 0, 0); pR.userData.role = "windowR"; W.add(pR);
   const pL = thru(new THREE.Mesh(paneGeo(V.sill), glassM)); pL.position.set(0.965, V.sill, 0); pL.userData.role = "windowL"; W.add(pL);
 
