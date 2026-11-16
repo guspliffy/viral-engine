@@ -71,6 +71,9 @@ Moved out of CLAUDE.md on 8 Nov 2026 (motion studio workflow); the text is uncha
 - **A held prop stays out of its holder's own face** (`prop-in-self`, warns, 7 Nov 2026): a cup, note or spoon more than
   5 cm into its own holder's face at eye height for 0.2 s (the coffee run's Wizard cup over his eye at 9.3-10.6 s), or
   25 cm into the body anywhere. Lips on a cup don't waive it: only a window naming `"prop-in-self"` does.
+- **A held prop stays below its holder's eyes** (`held-high`, warns, 16 Nov 2026): a held prop's centre at or above
+  the holder's eye height for 0.3 s with both on screen (skip remote draft 1: the remote over the faces, held from the seat
+  while seated potatoes sink). Hold at the chest; a raised trophy or torch takes a window naming `"held-high"`.
 - **Sound**: −14 LUFS integrated (accepted −15.5 to −12.5), true peak ≤ −1 dBTP, never silent. Every spoken line
   stands 6 dB or more over the music and effects in the band a phone plays (`phone-line`, under 3 dB warns), and the
   loop seam doesn't click (`loop-seam-sound`: render.mjs fades in 3 ms and out 20 ms since 7 Nov). `node qa/lines.mjs
