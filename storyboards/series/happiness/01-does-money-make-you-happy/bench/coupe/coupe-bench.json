@@ -76,7 +76,15 @@
    "len": 5
   }
  ],
- "allowClip": [],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "coupeA",
+   "from": 0,
+   "to": 99,
+   "reason": "bench: Spud sits in the coupe's seat, the body shell round him (the episode's ride window)"
+  }
+ ],
  "captions": [],
  "beats": [
   {

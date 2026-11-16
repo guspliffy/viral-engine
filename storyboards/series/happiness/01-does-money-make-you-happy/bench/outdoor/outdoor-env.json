@@ -237,7 +237,19 @@
    "scale": 0.001
   }
  ],
- "allowClip": [],
+ "allowClip": [
+  {
+   "who": "pa",
+   "with": "limo",
+   "from": 0,
+   "to": 99,
+   "checks": [
+    "clipping",
+    "shell"
+   ],
+   "reason": "bench: pa rides seated on the limo's back seat (the episode's ride window)"
+  }
+ ],
  "captions": [],
  "beats": [
   {
@@ -274,16 +286,19 @@
     },
     {
      "who": "pb",
-     "do": "ride",
-     "prop": "limo",
-     "off": [
-      -0.5,
-      0.38,
-      -2.35
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "pb",
+     "do": "move",
+     "to": [
+      400,
+      400
      ],
-     "yaw": -90,
-     "sit": true,
-     "dur": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
      "at": 0
     },
     {
