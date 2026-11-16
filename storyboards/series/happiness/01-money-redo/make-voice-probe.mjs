@@ -3,15 +3,18 @@
 //   node storyboards/series/happiness/01-money-redo/make-voice-probe.mjs -> voice-probe.json
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } });
-const LINES = [
-  "Ten million dollars. Gone at sunset.",
+const LINES = [   // v2: $1 billion in a week (Jonny 16 Nov 06:34)
+  "One billion dollars. Gone in seven days.",
   "So he bought the whole coffee cart.",
-  "But at a dollar a second, ten million takes a hundred and fifteen days.",
+  "But at a dollar a second, a billion takes thirty-one years.",
   "So he bought big.",
-  "His best friend stopped asking.",
-  "One million left. One minute. One last buy.",
+  "Every day, his best friend asked.",
+  "On day five, he stopped asking.",
+  "So he bought a yacht.",
+  "And a plane.",
+  "Day seven. One million left. One last buy.",
   "But up on the hill sat his best friend.",
-  "He lost ten million dollars.",
+  "He lost a billion dollars.",
   "But for one moment, he forgot all his worries.",
   "Follow for the next question.",
 ];

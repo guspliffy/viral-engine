@@ -23,8 +23,8 @@
  },
  "creative": {
   "length": [
-   48.6,
-   48.6
+   59.25,
+   59.25
   ]
  },
  "cast": [
@@ -45,7 +45,7 @@
   {
    "name": "probe",
    "at": 0,
-   "len": 48.6,
+   "len": 59.25,
    "shot": {
     "pos": [
      0,
@@ -62,10 +62,10 @@
    "do": [
     {
      "macro": "narrate",
-     "line": "Ten million dollars. Gone at sunset.",
+     "line": "One billion dollars. Gone in seven days.",
      "voice": "narrator",
      "take": 1,
-     "dur": 3.3,
+     "dur": 3.75,
      "caption": true,
      "pos": 470,
      "gain": 4,
@@ -80,18 +80,18 @@
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 4.5
+     "at": 4.95
     },
     {
      "macro": "narrate",
-     "line": "But at a dollar a second, ten million takes a hundred and fifteen days.",
+     "line": "But at a dollar a second, a billion takes thirty-one years.",
      "voice": "narrator",
      "take": 1,
-     "dur": 6.9,
+     "dur": 5.55,
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 9.25
+     "at": 9.7
     },
     {
      "macro": "narrate",
@@ -102,29 +102,62 @@
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 17.15
+     "at": 16.25
     },
     {
      "macro": "narrate",
-     "line": "His best friend stopped asking.",
+     "line": "Every day, his best friend asked.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.3,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 19.65
+    },
+    {
+     "macro": "narrate",
+     "line": "On day five, he stopped asking.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.3,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 23.95
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought a yacht.",
      "voice": "narrator",
      "take": 1,
      "dur": 2.85,
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 20.55
+     "at": 28.25
     },
     {
      "macro": "narrate",
-     "line": "One million left. One minute. One last buy.",
+     "line": "And a plane.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.95,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 32.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Day seven. One million left. One last buy.",
      "voice": "narrator",
      "take": 1,
      "dur": 4.2,
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 24.4
+     "at": 35.05
     },
     {
      "macro": "narrate",
@@ -135,18 +168,18 @@
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 29.6
+     "at": 40.25
     },
     {
      "macro": "narrate",
-     "line": "He lost ten million dollars.",
+     "line": "He lost a billion dollars.",
      "voice": "narrator",
      "take": 1,
      "dur": 2.85,
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 35.25
+     "at": 45.9
     },
     {
      "macro": "narrate",
@@ -157,7 +190,7 @@
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 39.1
+     "at": 49.75
     },
     {
      "macro": "narrate",
@@ -168,7 +201,7 @@
      "caption": true,
      "pos": 470,
      "gain": 4,
-     "at": 44.75
+     "at": 55.4
     }
    ]
   }
