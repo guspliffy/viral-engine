@@ -249,8 +249,8 @@ seg("a4", "street", 17.2, 22.0, (S) => {
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
   S.cut("05 the notebook", 17.2, aim([-0.95, 0.85, 1.65], [SP[0], 0.84, SP[1]], [560, 600], 46));
   // the page insert, over his right shoulder (DESIGN 6: 1.2 s, readable only here)
-  const PW = [LAP[0], r3(LAP[1] + 0.12), LAP[2]], OS = chest(SP, SY, { fwd: 0.12, side: 0.62, y: r3(STREET.stepTop + 0.72) });
-  S.cut("05i the page", 20.8, { pos: OS, look: PW, fov: 32 });
+  const PW = [LAP[0], r3(LAP[1] + 0.12), LAP[2]], OS = chest(SP, SY, { fwd: 0.3, side: 0.75, y: 1.5 });
+  S.cut("05i the page", 20.8, { pos: OS, look: PW, fov: 28, roll: 65 });
   S.see(17.2, 20.8, ["spud.face", "pad", "mash"], "Spud on his friend's front step with round glasses and a notepad, frowning, writing; Mash carries a box to the van behind him");
   S.see(20.8, 22.0, ["pad"], "over his shoulder: the pad says MASH = 88. WHY? underlined twice");
 });
