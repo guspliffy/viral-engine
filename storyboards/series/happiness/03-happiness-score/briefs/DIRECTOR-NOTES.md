@@ -1,1 +1,2 @@
 - scoretrain: panel 47 train is maroon -> pass color "#6e2a2a" (panel wins over DESIGN green); at 250 m it is tiny (hand 4 px): stage it nearer on the viaduct / spec.scale (scale also multiplies speed).
+- worn props flatcap, toque, satchel, waiterapron: never rendered on a body; check in the first block-A still (mover 01, baker 06) and satchel at 46. bite: seed a dur-0 set; speaker: lit 1.
