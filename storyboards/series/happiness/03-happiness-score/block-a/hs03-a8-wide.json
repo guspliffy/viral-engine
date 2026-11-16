@@ -1,0 +1,501 @@
+{
+ "id": "hs03-a8-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "bridge",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   3.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   4.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   6.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   13.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   17.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   21.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   36.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   41.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   46.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   51.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   57.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   62.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   118.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    0,
+    3.6
+   ]
+  ],
+  "tags": [
+   {
+    "who": "mash",
+    "k": 1.15,
+    "keys": [
+     [
+      0,
+      88
+     ]
+    ]
+   }
+  ]
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     4.6,
+     40
+    ],
+    [
+     6.6,
+     39
+    ],
+    [
+     13.6,
+     38
+    ],
+    [
+     17.6,
+     37
+    ],
+    [
+     21.6,
+     36
+    ],
+    [
+     36.6,
+     35
+    ],
+    [
+     41.6,
+     34
+    ],
+    [
+     46.6,
+     33
+    ],
+    [
+     51.6,
+     32
+    ],
+    [
+     57.6,
+     31
+    ],
+    [
+     62.6,
+     30
+    ],
+    [
+     118.6,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     62.6,
+     "09:12"
+    ],
+    [
+     112.6,
+     "00:58"
+    ],
+    [
+     118.6,
+     "00:41",
+     4
+    ],
+    [
+     124.6,
+     "00:22",
+     4
+    ],
+    [
+     134.6,
+     "00:12",
+     3
+    ],
+    [
+     148.6,
+     "00:03",
+     3
+    ],
+    [
+     152.6,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-a-temp.ogg",
+  "from": 0,
+  "skip": 37.4,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   3.6,
+   3.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    19.5,
+    -34
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1,
+   "y": 4.085
+  }
+ ],
+ "props": [
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": 24.584,
+   "y": 3.854,
+   "z": -33.989,
+   "rot": 90,
+   "tip": 22,
+   "bite": 0.5
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "10 the bridge through the glasses",
+   "at": 0,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     25,
+     3.909,
+     -34.35
+    ],
+    "look": [
+     19.411,
+     4.791,
+     -32.354
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      19.5,
+      -34
+     ],
+     "y": 4.085,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      18.6,
+      -34
+     ],
+     "y": 4.148,
+     "dur": 1.1,
+     "steps": 2,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Still forty-one.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.5,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      17.7,
+      -34
+     ],
+     "y": 4.187,
+     "dur": 1.1,
+     "steps": 2,
+     "at": 1.25
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      16.9,
+      -34
+     ],
+     "y": 4.201,
+     "dur": 1.1,
+     "steps": 2,
+     "at": 2.4
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.6,
+   "see": [
+    "mash",
+    "bun"
+   ],
+   "why": "through the glasses: a grey stone bridge, his half-eaten bun in front of the lens, Mash walking away with his 88"
+  }
+ ],
+ "story": {
+  "T0": 37.4,
+  "T1": 41
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 37.4-41 s)."
+}

@@ -1,0 +1,711 @@
+{
+ "id": "hs03-a3-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorehall",
+  "light": "golden",
+  "key": [
+   -3,
+   6,
+   -6.2
+  ],
+  "shadowSize": 6,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   6.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   31,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   33,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   40,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   44,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   48,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   63,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   68,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   73,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   78,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   84,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   89,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   145,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    0,
+    6.2
+   ]
+  ],
+  "tags": [
+   {
+    "who": "mash",
+    "k": 1.15,
+    "keys": [
+     [
+      0,
+      88
+     ]
+    ]
+   }
+  ]
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     31,
+     40
+    ],
+    [
+     33,
+     39
+    ],
+    [
+     40,
+     38
+    ],
+    [
+     44,
+     37
+    ],
+    [
+     48,
+     36
+    ],
+    [
+     63,
+     35
+    ],
+    [
+     68,
+     34
+    ],
+    [
+     73,
+     33
+    ],
+    [
+     78,
+     32
+    ],
+    [
+     84,
+     31
+    ],
+    [
+     89,
+     30
+    ],
+    [
+     145,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0.6,
+     "SUN 19:42"
+    ],
+    [
+     89,
+     "09:12"
+    ],
+    [
+     139,
+     "00:58"
+    ],
+    [
+     145,
+     "00:41",
+     4
+    ],
+    [
+     151,
+     "00:22",
+     4
+    ],
+    [
+     161,
+     "00:12",
+     3
+    ],
+    [
+     175,
+     "00:03",
+     3
+    ],
+    [
+     179,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-a-temp.ogg",
+  "from": 0,
+  "skip": 11,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "hall",
+  "guard": true,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.03
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   6.2,
+   6.2
+  ]
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    2.35,
+    -2.3
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "door",
+   "kind": "frontdoor",
+   "x": 3,
+   "y": 0,
+   "z": -3.12,
+   "rot": 180,
+   "w": 1,
+   "h": 2,
+   "color": "#2f5d3a",
+   "open": 1
+  },
+  {
+   "id": "keep",
+   "kind": "keepbox",
+   "x": 0.05,
+   "y": 0,
+   "z": 1.65,
+   "rot": 0
+  },
+  {
+   "id": "case",
+   "kind": "scorecase",
+   "x": 0.11,
+   "y": 0.2,
+   "z": 1.67,
+   "rot": 90,
+   "open": 1
+  },
+  {
+   "id": "mbox",
+   "kind": "parcel",
+   "x": 2.14,
+   "y": 0.3,
+   "z": -1.936,
+   "rot": 150
+  },
+  {
+   "id": "van",
+   "kind": "boxvan",
+   "x": 3.5,
+   "y": -0.35,
+   "z": -13.3,
+   "rot": -90,
+   "open": 1,
+   "len": 0,
+   "win": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 4.75,
+   "to": 6.2,
+   "text": "88. HOW?",
+   "pos": 180,
+   "pop": false,
+   "size": 150,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  }
+ ],
+ "beats": [
+  {
+   "name": "04 Mash is 88",
+   "at": 0,
+   "len": 6.2,
+   "shot": {
+    "pos": [
+     0.1,
+     0.62,
+     1.45
+    ],
+    "look": [
+     1.649,
+     1.578,
+     -4.267
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.35,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "mbox",
+     "hand": "both",
+     "grip": [
+      0.255,
+      0.143,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.25,
+      "open": 0.12,
+      "eye": 0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "whistletune",
+     "gain": 0.22,
+     "dur": 2,
+     "reason": "THE TUNE: their old tune, whistled",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Your best friend is eighty-eight. And on Sunday, he's gone.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.9,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.8,
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": -2,
+     "dur": 0.8,
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.5,
+     "at": 4.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.35,
+       0.3,
+       -2.72
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 4.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.35,
+       0.3,
+       -2.72
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 4.2
+    },
+    {
+     "do": "prop",
+     "id": "mbox",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 4.2
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.5,
+      -3.95
+     ],
+     "y": 0,
+     "dur": 1.4,
+     "steps": 3,
+     "at": 4.75
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.5,
+       0.3,
+       -4.37
+      ]
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 4.75
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.5,
+       0.3,
+       -4.37
+      ]
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 4.75
+    },
+    {
+     "do": "prop",
+     "id": "mbox",
+     "set": {
+      "rot": 0
+     },
+     "dur": 1.4,
+     "ease": "linear",
+     "at": 4.75
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 6.2,
+   "see": [
+    "mash.face"
+   ],
+   "why": "through the glasses: Mash in the open front door with a box, eyes closed, whistling; a white moving van outside; his number 88 glows"
+  }
+ ],
+ "story": {
+  "T0": 11,
+  "T1": 17.2
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 11-17.2 s)."
+}

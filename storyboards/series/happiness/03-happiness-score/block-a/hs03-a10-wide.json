@@ -1,0 +1,514 @@
+{
+ "id": "hs03-a10-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": true,
+  "light": "dusk-rain",
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   4.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   8.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   12.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   27.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   32.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   37.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   42.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   48.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   53.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   109.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     39
+    ],
+    [
+     4.1,
+     38
+    ],
+    [
+     8.1,
+     37
+    ],
+    [
+     12.1,
+     36
+    ],
+    [
+     27.1,
+     35
+    ],
+    [
+     32.1,
+     34
+    ],
+    [
+     37.1,
+     33
+    ],
+    [
+     42.1,
+     32
+    ],
+    [
+     48.1,
+     31
+    ],
+    [
+     53.1,
+     30
+    ],
+    [
+     109.1,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     53.1,
+     "09:12"
+    ],
+    [
+     103.1,
+     "00:58"
+    ],
+    [
+     109.1,
+     "00:41",
+     4
+    ],
+    [
+     115.1,
+     "00:22",
+     4
+    ],
+    [
+     125.1,
+     "00:12",
+     3
+    ],
+    [
+     139.1,
+     "00:03",
+     3
+    ],
+    [
+     143.1,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-a-temp.ogg",
+  "from": 0,
+  "skip": 46.9,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   3.1,
+   3.1
+  ]
+ },
+ "cast": [
+  {
+   "id": "copy",
+   "character": "happiness/spud-copy",
+   "at": [
+    -1.3,
+    -0.55
+   ],
+   "face": 10,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "glc",
+   "kind": "scoreglasses",
+   "wear": "copy",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": -1.29,
+   "y": 0.3,
+   "z": -0.146,
+   "rot": 190,
+   "bite": 0.8
+  },
+  {
+   "id": "rain",
+   "kind": "rainfall",
+   "box": [
+    [
+     -6,
+     0,
+     0.85
+    ],
+    [
+     6,
+     6,
+     9
+    ]
+   ],
+   "n": 900,
+   "on": 1,
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "12 rain",
+   "at": 0,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     -1,
+     0.68,
+     3.3
+    ],
+    "look": [
+     -0.95,
+     0.75,
+     -0.6
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -1,
+      0.66,
+      2.9
+     ],
+     "look": [
+      -0.95,
+      0.72,
+      -0.6
+     ],
+     "fov": 42
+    },
+    "dur": 3.1,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "copy",
+     "do": "move",
+     "to": [
+      -1.3,
+      -0.55
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "sit",
+     "rot": 10,
+     "dur": 0.01,
+     "height": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bun",
+      "grip": [
+       0.121,
+       0.046,
+       0.032
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grab",
+     "prop": "bun",
+     "hand": "R",
+     "grip": [
+      0.121,
+      0.046,
+      0.032
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.3,
+      "brow": 0.5,
+      "eye": 0.8
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0.1,
+     "dur": 3.1,
+     "reason": "rain drumming on the canvas awning",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "blink",
+     "dur": 0.45,
+     "at": 1
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.8,
+     "blink": false,
+     "at": 1.7
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.1,
+   "see": [
+    "copy.face"
+   ],
+   "why": "rain: Spud sits alone under the bakery awning in the copied hoodie, the bun in his lap"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "copy",
+   "with": "glc",
+   "from": 46.9,
+   "to": 50,
+   "reason": "the glasses are worn"
+  }
+ ],
+ "story": {
+  "T0": 46.9,
+  "T1": 50
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 46.9-50 s)."
+}

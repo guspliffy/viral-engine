@@ -1,0 +1,672 @@
+{
+ "id": "hs03-a7-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   8.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   10.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   17.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   21.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   25.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   40.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   45.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   50.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   55.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   61.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   66.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   122.2,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     8.2,
+     40
+    ],
+    [
+     10.2,
+     39
+    ],
+    [
+     17.2,
+     38
+    ],
+    [
+     21.2,
+     37
+    ],
+    [
+     25.2,
+     36
+    ],
+    [
+     40.2,
+     35
+    ],
+    [
+     45.2,
+     34
+    ],
+    [
+     50.2,
+     33
+    ],
+    [
+     55.2,
+     32
+    ],
+    [
+     61.2,
+     31
+    ],
+    [
+     66.2,
+     30
+    ],
+    [
+     122.2,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     66.2,
+     "09:12"
+    ],
+    [
+     116.2,
+     "00:58"
+    ],
+    [
+     122.2,
+     "00:41",
+     4
+    ],
+    [
+     128.2,
+     "00:22",
+     4
+    ],
+    [
+     138.2,
+     "00:12",
+     3
+    ],
+    [
+     152.2,
+     "00:03",
+     3
+    ],
+    [
+     156.2,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-a-temp.ogg",
+  "from": 0,
+  "skip": 33.8,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.04
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   3.6,
+   3.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -4.4,
+    1.4
+   ],
+   "face": 35,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "copy",
+   "character": "happiness/spud-copy",
+   "at": [
+    -3.4,
+    1.7
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "glc",
+   "kind": "scoreglasses",
+   "wear": "copy",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": -3.677,
+   "y": 0.42,
+   "z": 2.06,
+   "rot": 150,
+   "bite": 0.6
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.2,
+   "to": 3,
+   "text": "Trust me. It's the hoodie. Give it a day.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "09 Wedge",
+   "at": 0,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     -5.9,
+     0.86,
+     4.6
+    ],
+    "look": [
+     -3.85,
+     0.82,
+     1.3
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -4.4,
+      1.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "move",
+     "to": [
+      -3.4,
+      1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bun",
+      "grip": [
+       0.121,
+       0.046,
+       0.032
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grab",
+     "prop": "bun",
+     "hand": "R",
+     "grip": [
+      0.121,
+      0.046,
+      0.032
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "brow": 0.3,
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      -0.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "Trust me. It's the hoodie. Give it a day.",
+     "tone": "cocky",
+     "dur": 2.4,
+     "blink": false,
+     "voice": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "fist",
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "thumb",
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -5,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "eye": 0.7
+     },
+     "dur": 0.3,
+     "at": 2.7
+    },
+    {
+     "who": "copy",
+     "do": "squash",
+     "amount": 0.07,
+     "dur": 0.25,
+     "at": 2.8
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.6,
+   "see": [
+    "wedge.face",
+    "copy.face"
+   ],
+   "why": "by the ivy wall: Wedge in a red jacket gives the hoodie-wearing Spud a thumbs up; Spud nods, hopeful"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "copy",
+   "with": "glc",
+   "from": 33.8,
+   "to": 37.4,
+   "reason": "the glasses are worn"
+  }
+ ],
+ "story": {
+  "T0": 33.8,
+  "T1": 37.4
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 33.8-37.4 s)."
+}
