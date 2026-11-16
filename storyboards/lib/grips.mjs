@@ -115,6 +115,10 @@ const SIZE = {
   // height), w = the rims' width 0.438: both gloves on the two hinges (x +-0.219); the case lies flat, origin the bottom's middle, 0.48 x 0.235 x 0.09 closed
   scoreglasses: { w: 0.438, h: 0, d: 0.04 },
   scorecase: { w: 0.48, h: 0.09, d: 0.235 },   // (DESIGN's `glasscase`; the museum prop already owns that name)
+  // props-score-paper.js (Happiness 03, the notebooks): the pad stands upright, origin its bottom edge's middle, page on +z: the phone hold on a side edge
+  // (grips.phone(c, who, PAD, { side: "L", height: 0.2 }) = 5 cm up from the bottom); the book is held OPEN (open 1, 0.40 wide, spine on x 0): both gloves on its outer edges (box hold)
+  spudpad: { w: 0.19, h: 0.26, t: 0.018 },
+  mashbook: { w: 0.4, h: 0.27, d: 0.011 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
