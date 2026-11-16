@@ -734,9 +734,14 @@
   {
    "who": "spud",
    "with": "glw",
-   "from": 5,
-   "to": 11,
-   "reason": "the glasses are worn (SCORE_FITS half)"
+   "from": 0,
+   "to": 6,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn, slid down the nose (SCORE_FITS half)"
   }
  ],
  "story": {

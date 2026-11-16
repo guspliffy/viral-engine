@@ -916,9 +916,14 @@
   {
    "who": "spud",
    "with": "glw",
-   "from": 17.2,
-   "to": 22,
-   "reason": "the glasses are worn (SCORE_FITS nose)"
+   "from": 0,
+   "to": 4.8,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn: the temples run back into the head (SCORE_FITS nose)"
   }
  ],
  "story": {

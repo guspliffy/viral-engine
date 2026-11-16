@@ -870,15 +870,20 @@
   {
    "who": "spud",
    "with": "glw",
-   "from": 22,
-   "to": 26.6,
-   "reason": "the glasses are worn"
+   "from": 0,
+   "to": 4.6,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn: the temples run back into the head above the ears (SCORE_FITS nose)"
   },
   {
    "who": "baker",
    "with": "toque",
-   "from": 22,
-   "to": 26.6,
+   "from": 0,
+   "to": 4.6,
    "reason": "the chef's hat is worn"
   }
  ],

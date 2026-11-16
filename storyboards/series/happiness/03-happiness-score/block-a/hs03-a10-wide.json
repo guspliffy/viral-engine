@@ -501,9 +501,14 @@
   {
    "who": "copy",
    "with": "glc",
-   "from": 46.9,
-   "to": 50,
-   "reason": "the glasses are worn"
+   "from": 0,
+   "to": 3.1,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn: the temples run back into the head above the ears (SCORE_FITS nose)"
   }
  ],
  "story": {
