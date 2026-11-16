@@ -1,0 +1,26 @@
+{
+ "name": "at-gibraltar-rock",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 05: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-05-gibraltar-rock-today.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.5,
+  "vfov": 44,
+  "pos": [
+   0,
+   1.5,
+   6.0
+  ]
+ },
+ "light": {
+  "from": "low pale sun at the left",
+  "key": [
+   -7,
+   1.5,
+   -6
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20
+}

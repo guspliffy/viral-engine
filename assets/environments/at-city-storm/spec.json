@@ -1,0 +1,26 @@
+{
+ "name": "at-city-storm",
+ "prompt": "painted by gpt-image-2 (Codex) from Atlantis EP03 panel 42: /mnt/project-files/videos/ancient-aliens/03-atlantis/plates/prompts/plate-42-city-midnight-storm.txt",
+ "size": "1536x1024",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.0,
+  "vfov": 44,
+  "pos": [
+   0,
+   1.0,
+   6.0
+  ]
+ },
+ "light": {
+  "from": "lightning from above",
+  "key": [
+   0,
+   8,
+   -3
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 20
+}
