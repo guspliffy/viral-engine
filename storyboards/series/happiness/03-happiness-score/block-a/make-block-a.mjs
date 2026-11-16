@@ -294,38 +294,34 @@ seg("a6", "river", 26.6, 33.8, (S) => {
   S.prop({ id: "glw", kind: "scoreglasses", wear: "spud", x: 0, y: 0.64, z: 0.349, tip: 6, fold: 0 });
   S.prop({ id: "glc", kind: "scoreglasses", wear: "copy", x: 0, y: 0.64, z: 0.349, tip: 6, fold: 0 });
   S.allow.push({ who: "spud", with: "glw", from: 26.6, to: 33.8, reason: "the glasses are worn" }, { who: "copy", with: "glc", from: 26.6, to: 33.8, reason: "the glasses are worn" });
-  // a bun in Mash's right hand at his chest; the copy carries the same bun the same way (08)
-  const bunFor = (id, who, x, z, s) => {
-    const spec = S.prop({ id, kind: "cinnabun", ...grips.placeFor("cinnabun", chest([x, z], 0), 0), bite: 0.35 });
-    const h = grips.mug(S.c, who, spec, { side: "R" });
-    S.c.prop(Math.max(0, S.t(s)), id, { bite: 0.35 }, 0, "linear"); S.holdNow(s, who, h, spec); return h;
+  // a bun in the right hand at the chest, WORN on the walker (a body-frame point), the hand on its side in the body frame:
+  // a carried prop tweened along a walk flipped the hand every step (draft 1 farm gate)
+  const BUNB = [-0.07, 0.4, 0.42];
+  const bunFor = (id, who) => {
+    S.prop({ id, kind: "cinnabun", wear: who, x: BUNB[0], y: BUNB[1], z: BUNB[2], rot: 0, bite: 0.35 });
+    S.c.prop(0, id, { bite: 0.35 }, 0, "linear");
+    S.arm(S.T0, who, "R", { x: [r3(BUNB[0] - 0.12), 0.36, r3(BUNB[2] - 0.02)] }, 0.01); S.grip(S.T0, who, "R", "hold", 0.01);
+    S.arm(S.T0, who, "L", "rest", 0.01);
+    S.allow.push({ who, with: id, from: S.T0, to: S.T1, checks: ["clipping", "hand-in-prop"], reason: "the bun rides in his hand at the chest (worn on the body): the fingers close 2 cm round its paper cup, a hold" });
   };
-  const walkWith = (s0, s1, who, h, x, z0) => {
+  const walkWith = (s0, s1, who, x, z0) => {
     const d = SPD * (s1 - s0), z1 = r3(z0 + d);
     S.place(s0, who, [x, z0], 0); S.walk(s0 + 0.05, who, [x, z1], r3(s1 - s0 - 0.1), Math.round(d / 0.3));
-    if (h) h.carry(S.t(s0 + 0.05), chest([x, z1], 0), r3(s1 - s0 - 0.1), "linear");
   };
+  bunFor("bunm", "mash"); bunFor("bunc", "copy");
   // 07: Spud in his own sweater, 7.5 m behind
-  const hm7 = bunFor("bun7", "mash", M.x, -1.4, 26.6);
-  walkWith(26.6, 29.8, "mash", hm7, M.x, -1.4);
+  walkWith(26.6, 29.8, "mash", M.x, -1.4);
   S.expr(26.6, "mash", "serene", { curve: 0.35, eye: 0.25 }, 0.01); S.look(26.6, "mash", [0, -0.1], 0.01);
   const S7 = RIVER.stand.spud07;
-  walkWith(26.6, 29.8, "spud", null, S7.x, S7.z); S.rest(26.6, "spud");
+  walkWith(26.6, 29.8, "spud", S7.x, S7.z); S.rest(26.6, "spud");
   S.expr(26.6, "spud", "focused", { brow: 0.5 }, 0.01); S.look(26.6, "spud", [0, 0.05], 0.01);
   S.park(29.8, "spud");
   // 08: the copy (hoodie, headphones, bun), 3.5 m behind, in step
-  S.park(29.8, "mash");
-  const hm8 = bunFor("bun8", "mash", M.x, -1.4, 29.8), S8 = RIVER.stand.spud08;
-  walkWith(29.8, 33.8, "mash", hm8, M.x, -1.4);
-  const hc8 = bunFor("bunc", "copy", S8.x, S8.z, 29.8);
-  walkWith(29.8, 33.8, "copy", hc8, S8.x, S8.z);
+  const S8 = RIVER.stand.spud08;
+  walkWith(29.8, 33.8, "mash", M.x, -1.4);
+  walkWith(29.8, 33.8, "copy", S8.x, S8.z);
   S.expr(29.8, "copy", "eager", { curve: 0.3, brow: 0.2 }, 0.01); S.look(29.8, "copy", [0.05, 0.05], 0.01);
   S.A(S.t(31.6), "copy", "blink", { dur: 0.3 });
-  // the unused bun of the other cut stays out of sight (parked under the path)
-  S.c.prop(S.t(29.8 - PRE), "bun7", { y: -30, scale: 0.001 }, 0.01, "linear");
-  S.prop({ id: "dummy", kind: "cinnabun", x: 0, y: -30, z: 0, scale: 0.001, bite: 0 });
-  S.c.prop(0, "bun8", { y: -30, scale: 0.001 }, 0, "linear"); S.c.prop(0, "bunc", { y: -30, scale: 0.001 }, 0, "linear");
-  S.c.prop(S.t(29.8 - PRE), "bun8", { y: 0.5, scale: 1 }, 0.01, "linear"); S.c.prop(S.t(29.8 - PRE), "bunc", { y: 0.5, scale: 1 }, 0.01, "linear");
   S.narrate(30.0, "Same hoodie. Same bun. Same river.", 3.0);
   S.sound({ nature: [{ id: "stream", gain: 0.05 }, { id: "birds", gain: 0.04 }, { id: "leaves", gain: 0.03 }] });
   S.cut("07 ten steps behind", 26.6, RIVER.cams.p07);

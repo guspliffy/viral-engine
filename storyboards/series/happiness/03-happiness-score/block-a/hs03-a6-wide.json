@@ -365,40 +365,24 @@
    "fold": 0
   },
   {
-   "id": "bun7",
+   "id": "bunm",
    "kind": "cinnabun",
-   "x": 1.64,
-   "y": 0.42,
-   "z": -0.95,
-   "rot": 180,
-   "bite": 0.35
-  },
-  {
-   "id": "bun8",
-   "kind": "cinnabun",
-   "x": 1.64,
-   "y": 0.42,
-   "z": -0.95,
-   "rot": 180,
+   "wear": "mash",
+   "x": -0.07,
+   "y": 0.4,
+   "z": 0.42,
+   "rot": 0,
    "bite": 0.35
   },
   {
    "id": "bunc",
    "kind": "cinnabun",
-   "x": -0.622,
-   "y": 0.42,
-   "z": -4.55,
-   "rot": 180,
+   "wear": "copy",
+   "x": -0.07,
+   "y": 0.4,
+   "z": 0.42,
+   "rot": 0,
    "bite": 0.35
-  },
-  {
-   "id": "dummy",
-   "kind": "cinnabun",
-   "x": 0,
-   "y": -30,
-   "z": 0,
-   "scale": 0.001,
-   "bite": 0
   }
  ],
  "captions": [],
@@ -423,7 +407,7 @@
    "do": [
     {
      "do": "prop",
-     "id": "bun7",
+     "id": "bunm",
      "set": {
       "bite": 0.35
      },
@@ -436,15 +420,14 @@
      "do": "arm",
      "side": "R",
      "pose": {
-      "prop": "bun7",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap"
+      "x": [
+       -0.19,
+       0.36,
+       0.4
+      ]
      },
-     "dur": 0,
+     "dur": 0.01,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -452,21 +435,58 @@
      "do": "grip",
      "side": "R",
      "shape": "hold",
-     "dur": 0,
+     "dur": 0.01,
      "at": 0
     },
     {
      "who": "mash",
-     "do": "grab",
-     "prop": "bun7",
-     "hand": "R",
-     "grip": [
-      0.121,
-      0.046,
-      0.032
-     ],
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bunc",
+     "set": {
+      "bite": 0.35
+     },
      "dur": 0,
-     "pose": null,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.19,
+       0.36,
+       0.4
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
      "at": 0
     },
     {
@@ -603,28 +623,6 @@
      "at": 0
     },
     {
-     "do": "prop",
-     "id": "bun8",
-     "set": {
-      "y": -30,
-      "scale": 0.001
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "bunc",
-     "set": {
-      "y": -30,
-      "scale": 0.001
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
      "who": "mash",
      "do": "move",
      "to": [
@@ -634,28 +632,6 @@
      "y": 0,
      "dur": 3.1,
      "steps": 6,
-     "at": 0.05
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bun7",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap",
-      "at": [
-       1.64,
-       0.42,
-       0.81
-      ]
-     },
-     "dur": 3.1,
-     "ease": "linear",
      "at": 0.05
     },
     {
@@ -677,25 +653,6 @@
     },
     {
      "who": "spud",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "y": 0,
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.188
-    },
-    {
-     "who": "mash",
-     "do": "hide",
-     "at": 3.188
-    },
-    {
-     "who": "mash",
      "do": "move",
      "to": [
       90,
@@ -763,39 +720,6 @@
      "who": "copy",
      "do": "show",
      "at": 3.188
-    },
-    {
-     "do": "prop",
-     "id": "bun7",
-     "set": {
-      "y": -30,
-      "scale": 0.001
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.188
-    },
-    {
-     "do": "prop",
-     "id": "bun8",
-     "set": {
-      "y": 0.5,
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.188
-    },
-    {
-     "do": "prop",
-     "id": "bunc",
-     "set": {
-      "y": 0.5,
-      "scale": 1
-     },
-     "dur": 0.01,
-     "ease": "linear",
-     "at": 3.188
     }
    ]
   },
@@ -817,102 +741,6 @@
     "fov": 34
    },
    "do": [
-    {
-     "do": "prop",
-     "id": "bun8",
-     "set": {
-      "bite": 0.35
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bun8",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "grab",
-     "prop": "bun8",
-     "hand": "R",
-     "grip": [
-      0.121,
-      0.046,
-      0.032
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "bunc",
-     "set": {
-      "bite": 0.35
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "copy",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bunc",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "copy",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0,
-     "at": 0
-    },
-    {
-     "who": "copy",
-     "do": "grab",
-     "prop": "bunc",
-     "hand": "R",
-     "grip": [
-      0.121,
-      0.046,
-      0.032
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0
-    },
     {
      "who": "copy",
      "do": "expr",
@@ -948,28 +776,6 @@
      "at": 0.05
     },
     {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bun8",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap",
-      "at": [
-       1.64,
-       0.42,
-       1.25
-      ]
-     },
-     "dur": 3.9,
-     "ease": "linear",
-     "at": 0.05
-    },
-    {
      "who": "copy",
      "do": "move",
      "to": [
@@ -979,28 +785,6 @@
      "y": 0,
      "dur": 3.9,
      "steps": 7,
-     "at": 0.05
-    },
-    {
-     "who": "copy",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bunc",
-      "grip": [
-       0.121,
-       0.046,
-       0.032
-      ],
-      "palm": "wrap",
-      "at": [
-       -0.622,
-       0.42,
-       -2.35
-      ]
-     },
-     "dur": 3.9,
-     "ease": "linear",
      "at": 0.05
     },
     {
@@ -1057,6 +841,28 @@
    "from": 26.6,
    "to": 33.8,
    "reason": "the glasses are worn"
+  },
+  {
+   "who": "mash",
+   "with": "bunm",
+   "from": 26.6,
+   "to": 33.8,
+   "checks": [
+    "clipping",
+    "hand-in-prop"
+   ],
+   "reason": "the bun rides in his hand at the chest (worn on the body): the fingers close 2 cm round its paper cup, a hold"
+  },
+  {
+   "who": "copy",
+   "with": "bunc",
+   "from": 26.6,
+   "to": 33.8,
+   "checks": [
+    "clipping",
+    "hand-in-prop"
+   ],
+   "reason": "the bun rides in his hand at the chest (worn on the body): the fingers close 2 cm round its paper cup, a hold"
   }
  ],
  "story": {
