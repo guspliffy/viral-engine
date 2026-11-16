@@ -1,0 +1,411 @@
+{
+ "id": "coupe2-bench",
+ "title": "Gold coupe door and brake bench",
+ "idea": "Props bench for the coupe's door and brake keys (happiness 01 redo), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#7d8996",
+  "floor": "#56606b"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "spud"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -6,
+    3
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "coupeA",
+   "kind": "coupe",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "coupeB",
+   "kind": "coupe",
+   "x": 14,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "heapB",
+   "kind": "coatheap",
+   "x": 14.22,
+   "y": 0.46,
+   "z": -0.25,
+   "door": 1
+  },
+  {
+   "id": "coupeC",
+   "kind": "coupe",
+   "x": 28,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "coupeE",
+   "kind": "coupe",
+   "x": 56,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "coupeF",
+   "kind": "coupe",
+   "x": 42,
+   "y": 0,
+   "z": 0,
+   "rot": 0
+  },
+  {
+   "id": "heapE",
+   "kind": "coatheap",
+   "x": 56.22,
+   "y": 0.46,
+   "z": -0.25,
+   "door": 0.5
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "coupeA",
+   "from": 0,
+   "to": 99,
+   "reason": "bench: Spud sits in the coupe's seat, the body shell round him (the episode's ride window)"
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "p14",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.9,
+     0.22
+    ],
+    "look": [
+     0.2,
+     0.92,
+     -0.22
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "coupeA",
+     "set": {
+      "door": 0,
+      "brake": 1,
+      "load": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coupeB",
+     "set": {
+      "door": 1,
+      "brake": 1,
+      "load": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heapB",
+     "set": {
+      "door": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coupeF",
+     "set": {
+      "door": 0,
+      "brake": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "coupeE",
+     "set": {
+      "door": 0.5,
+      "brake": 0.5,
+      "load": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heapE",
+     "set": {
+      "door": 0.5
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "p14wide",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.66,
+     1.02,
+     0.2
+    ],
+    "look": [
+     0.1,
+     0.62,
+     -0.3
+    ],
+    "fov": 62
+   },
+   "do": []
+  },
+  {
+   "name": "p14lever",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.62,
+     0.86,
+     -0.06
+    ],
+    "look": [
+     -0.12,
+     0.56,
+     -0.28
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "p15",
+   "at": 4.199999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     16.6,
+     1.3,
+     -4
+    ],
+    "look": [
+     15,
+     0.6,
+     0
+    ],
+    "fov": 44
+   },
+   "do": []
+  },
+  {
+   "name": "p15seat",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     17,
+     1.8,
+     -2
+    ],
+    "look": [
+     14.9,
+     0.45,
+     -0.1
+    ],
+    "fov": 45
+   },
+   "do": []
+  },
+  {
+   "name": "open_side",
+   "at": 7,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     27.5,
+     1.1,
+     0
+    ],
+    "look": [
+     14,
+     0.8,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "open_top",
+   "at": 8.399999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     19,
+     4.4,
+     4
+    ],
+    "look": [
+     14.4,
+     0.6,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "today",
+   "at": 9.799999999999999,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     41.5,
+     1.1,
+     0.3
+    ],
+    "look": [
+     28,
+     0.8,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "coupeC",
+     "set": {
+      "door": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "door0",
+   "at": 11.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     41.5,
+     1.1,
+     0.3
+    ],
+    "look": [
+     28,
+     0.8,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "half",
+   "at": 12.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     64,
+     3,
+     5
+    ],
+    "look": [
+     56,
+     0.8,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "lever0",
+   "at": 14,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     41.38,
+     0.86,
+     -0.06
+    ],
+    "look": [
+     41.88,
+     0.56,
+     -0.28
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by bench/coupe2/make-coupe2-bench.mjs (props bench, no reviews). Stills: 1:p14 2:p14wide 3:p14lever 4:p15 5:p15seat 6:open_side 7:open_top 8:today 9:door0 10:half 11:lever0"
+}

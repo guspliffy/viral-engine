@@ -1,0 +1,1191 @@
+{
+ "id": "cast2-bench",
+ "title": "Draft 2 cast bench",
+ "idea": "Poor Spud, the rich couple, the cashier and the coffee seller, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "set": {
+  "type": "plain",
+  "color": "#5b6376",
+  "floor": "#3f4655"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "poor-front"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "duchess-front",
+   "character": "potatobrawl/duchess",
+   "at": [
+    -49,
+    0
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "duchess-34",
+   "character": "potatobrawl/duchess",
+   "at": [
+    -42,
+    0
+   ],
+   "face": 36,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "duchess-back",
+   "character": "potatobrawl/duchess",
+   "at": [
+    -35,
+    0
+   ],
+   "face": 180,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "dauphin-front",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    -28,
+    0
+   ],
+   "face": 0,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "dauphin-34",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    -21,
+    0
+   ],
+   "face": 36,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "dauphin-back",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    -14,
+    0
+   ],
+   "face": 180,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "tot-front",
+   "character": "potatobrawl/tot",
+   "at": [
+    -7,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "tot-34",
+   "character": "potatobrawl/tot",
+   "at": [
+    0,
+    0
+   ],
+   "face": 36,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "tot-back",
+   "character": "potatobrawl/tot",
+   "at": [
+    7,
+    0
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rosti-front",
+   "character": "potatobrawl/rosti",
+   "at": [
+    14,
+    0
+   ],
+   "face": 0,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rosti-34",
+   "character": "potatobrawl/rosti",
+   "at": [
+    21,
+    0
+   ],
+   "face": 36,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rosti-back",
+   "character": "potatobrawl/rosti",
+   "at": [
+    28,
+    0
+   ],
+   "face": 180,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "poor-front",
+   "character": "potatobrawl/spud-poor",
+   "at": [
+    35,
+    0
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "poor-34",
+   "character": "potatobrawl/spud-poor",
+   "at": [
+    42,
+    0
+   ],
+   "face": 36,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "poor-back",
+   "character": "potatobrawl/spud-poor",
+   "at": [
+    49,
+    0
+   ],
+   "face": 180,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "rosti-dressed",
+   "character": "potatobrawl/rosti",
+   "at": [
+    56,
+    0
+   ],
+   "face": 20,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "duc",
+   "character": "potatobrawl/duchess",
+   "at": [
+    62.3,
+    0
+   ],
+   "face": 20,
+   "expr": "delighted",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "dau",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    63.7,
+    0
+   ],
+   "face": -20,
+   "expr": "smug",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "prP",
+   "character": "potatobrawl/spud-poor",
+   "at": [
+    69.45,
+    0
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 2.6
+  },
+  {
+   "id": "prS",
+   "character": "potatobrawl/spud",
+   "at": [
+    70.55,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 2.6
+  }
+ ],
+ "props": [
+  {
+   "id": "rosApron",
+   "kind": "apron",
+   "wear": "rosti-dressed",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "y0": 0.46,
+   "y1": 0.1,
+   "rx": 0.34,
+   "rz": 0.31,
+   "arc": 130
+  },
+  {
+   "id": "rosHat",
+   "kind": "paperhat",
+   "wear": "rosti-dressed",
+   "x": 0,
+   "y": 1.07,
+   "z": 0.02,
+   "scale": 0.85
+  },
+  {
+   "id": "bagR",
+   "kind": "shopbag",
+   "color": "#f29bb5",
+   "x": 61.84,
+   "y": 0.14,
+   "z": 0.12,
+   "rot": 180
+  },
+  {
+   "id": "bagL",
+   "kind": "shopbag",
+   "color": "#f2c75a",
+   "x": 62.76,
+   "y": 0.14,
+   "z": 0.12,
+   "rot": 180
+  },
+  {
+   "id": "bagV",
+   "kind": "shopbag",
+   "color": "#c9a6e8",
+   "x": 64.2,
+   "y": 0.14,
+   "z": 0.12,
+   "rot": 180
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "rosti-dressed",
+   "with": "rosApron",
+   "from": 0,
+   "to": 23,
+   "reason": "worn by the seller"
+  },
+  {
+   "who": "rosti-dressed",
+   "with": "rosHat",
+   "from": 0,
+   "to": 23,
+   "reason": "worn by the seller"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 0.9,
+   "text": "duchess: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 1,
+   "to": 1.9,
+   "text": "duchess: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 2.9,
+   "text": "duchess: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 3,
+   "to": 3.9,
+   "text": "dauphin: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 4.9,
+   "text": "dauphin: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 5.9,
+   "text": "dauphin: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 6.9,
+   "text": "tot: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 7.9,
+   "text": "tot: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 8.9,
+   "text": "tot: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 9.9,
+   "text": "rosti: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 10.9,
+   "text": "rosti: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 11.9,
+   "text": "rosti: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12,
+   "to": 12.9,
+   "text": "poor: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 13.9,
+   "text": "poor: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 14.9,
+   "text": "poor: back",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 15.9,
+   "text": "rosti: apron + paper hat",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 16.9,
+   "text": "the couple with shopbags",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17,
+   "to": 17.9,
+   "text": "poor Spud and plain Spud",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "duchess-front",
+   "at": 0,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -49,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -49,
+     0.68,
+     0
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "dauphin-34",
+     "do": "arm",
+     "side": "L",
+     "pose": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dauphin-34",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "duchess-34",
+     "do": "arm",
+     "side": "L",
+     "pose": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "duchess-34",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "duchess-front",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "duchess-34",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "duchess-back",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dauphin-front",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dauphin-34",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dauphin-back",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "tot-front",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "tot-34",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "tot-back",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rosti-front",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rosti-34",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rosti-back",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "poor-front",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "poor-34",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "poor-back",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "rosti-dressed",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "duc",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dau",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "prP",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "prS",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "duc",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bagR",
+      "grip": [
+       0.06,
+       0.409,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "duc",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagL",
+      "grip": [
+       -0.06,
+       0.409,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "dau",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bagV",
+      "grip": [
+       -0.06,
+       0.409,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "duc",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "duc",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "dau",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "duc",
+     "do": "grab",
+     "prop": "bagR",
+     "hand": "R",
+     "grip": [
+      0.06,
+      0.409,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "duc",
+     "do": "grab",
+     "prop": "bagL",
+     "hand": "L",
+     "grip": [
+      -0.06,
+      0.409,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "dau",
+     "do": "grab",
+     "prop": "bagV",
+     "hand": "L",
+     "grip": [
+      -0.06,
+      0.409,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    }
+   ]
+  },
+  {
+   "name": "duchess-34",
+   "at": 1,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -41.1,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -42,
+     0.68,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "duchess-back",
+   "at": 2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -35,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -35,
+     0.68,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "dauphin-front",
+   "at": 3,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -28,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -28,
+     0.7,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "dauphin-34",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -20.1,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -21,
+     0.7,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "dauphin-back",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -14,
+     0.9,
+     4.8
+    ],
+    "look": [
+     -14,
+     0.7,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "tot-front",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     0.72,
+     4.8
+    ],
+    "look": [
+     -7,
+     0.5,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "tot-34",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.9,
+     0.72,
+     4.8
+    ],
+    "look": [
+     0,
+     0.5,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "tot-back",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     7,
+     0.72,
+     4.8
+    ],
+    "look": [
+     7,
+     0.5,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "rosti-front",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     14,
+     0.82,
+     4.8
+    ],
+    "look": [
+     14,
+     0.62,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "rosti-34",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     21.9,
+     0.82,
+     4.8
+    ],
+    "look": [
+     21,
+     0.62,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "rosti-back",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     28,
+     0.82,
+     4.8
+    ],
+    "look": [
+     28,
+     0.62,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "poor-front",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     35,
+     0.72,
+     4.8
+    ],
+    "look": [
+     35,
+     0.52,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "poor-34",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     42.9,
+     0.72,
+     4.8
+    ],
+    "look": [
+     42,
+     0.52,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "poor-back",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     49,
+     0.72,
+     4.8
+    ],
+    "look": [
+     49,
+     0.52,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "rd",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     56.4,
+     0.82,
+     4.8
+    ],
+    "look": [
+     56,
+     0.62,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "cp",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     63,
+     0.9,
+     7.4
+    ],
+    "look": [
+     63,
+     0.6,
+     0
+    ],
+    "fov": 36
+   },
+   "do": []
+  },
+  {
+   "name": "pr",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     70,
+     0.8,
+     5.6
+    ],
+    "look": [
+     70,
+     0.5,
+     0
+    ],
+    "fov": 34
+   },
+   "do": []
+  },
+  {
+   "name": "cDu",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -48.9,
+     0.95,
+     2.4
+    ],
+    "look": [
+     -49,
+     0.78,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "cDa",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -19.9,
+     0.75,
+     1.9
+    ],
+    "look": [
+     -20.5,
+     0.6,
+     0.3
+    ],
+    "fov": 20
+   },
+   "do": []
+  },
+  {
+   "name": "cTo",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -7,
+     0.78,
+     2.3
+    ],
+    "look": [
+     -7,
+     0.56,
+     0
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "tot-front",
+     "do": "wings",
+     "to": 1,
+     "dur": 0.01,
+     "at": 0.05
+    }
+   ]
+  },
+  {
+   "name": "cPo",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     35.2,
+     0.7,
+     2.4
+    ],
+    "look": [
+     35,
+     0.48,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "cPoB",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     43,
+     0.5,
+     2
+    ],
+    "look": [
+     42.1,
+     0.32,
+     0
+    ],
+    "fov": 30
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/01-does-money-make-you-happy/bench/cast2/make-bench.mjs (cast bench, no reviews)."
+}

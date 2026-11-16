@@ -1,0 +1,75 @@
+{
+  "id": "potatobrawl/tot",
+  "name": "Tot (proposed name)",
+  "franchise": "PotatoBrawl",
+  "source": "Happiness 01 'Does money make you happy?', draft 2 designs (storyboards/series/happiness/01-does-money-make-you-happy/DESIGN.md section 11, 15 Nov 2026)",
+  "rig": "potato",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.8,
+    "width": 0.7,
+    "depth": 0.62,
+    "lump": 0.03,
+    "seed": 87,
+    "taper": 0.04
+  },
+  "limbs": {
+    "color": "#3b3f48",
+    "width": 0.032,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.06,
+      "thick": 0.7
+    },
+    "size": 0.9
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "leaves": 2
+  },
+  "costume": {
+    "type": "teller",
+    "shirt": "#fbf8f1",
+    "vest": "#2f5d44",
+    "tie": "#7a2f2a",
+    "glasses": "#c9a24a"
+  },
+  "personality": "A tidy, kind bank cashier. Terrified of the hold-up; the glasses slip.",
+  "voice": {
+    "pitch": 150,
+    "rate": 3.4,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 97
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.15,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "The bank cashier (S3a). Small (0.91 of Spud), round, neat: white shirt with black sleeve garters, dark-green vest with three brass buttons, short burgundy tie, round brass glasses. Key `slip` 0..1 slides the glasses 0.02 down (fear). Costume in engine/page/costumes-everyday.js `teller`. Stands on the 0.30 platform behind the brass screen."
+}

@@ -1,0 +1,33 @@
+{
+ "name": "mansion-day",
+ "prompt": "anime film background painting, gouache, wide empty pale stone forecourt filling the bottom half, far away straight ahead a grand white classical mansion seen from the front, symmetrical, tall columns, pediment, slate roof, curved double stone staircase, cypress trees, pink flower beds, bright sunny morning, blue sky, small white clouds",
+ "no": "people, car, vehicle, fountain, statue, text, letters, flag, aerial view, night, rain, tree in foreground, tree branches, pillar in foreground, close up, side view",
+ "seeds": [
+  64
+ ],
+ "all_seeds": false,
+ "size": "896x1344",
+ "upscale": 2,
+ "refine": 0,
+ "eye": {
+  "height": 1.1,
+  "vfov": 46,
+  "pos": [
+   0,
+   1.1,
+   3.0
+  ]
+ },
+ "light": {
+  "from": "high late-morning sun from the front left",
+  "key": [
+   -3.0,
+   5.0,
+   4.0
+  ],
+  "shadow": 0.3
+ },
+ "swayMax": 30,
+ "surface": "road",
+ "groundMax": 45
+}
