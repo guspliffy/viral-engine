@@ -305,7 +305,7 @@ see(T.p09, T.p10, ["chip"], "late afternoon: Chip walks away alone up a path tow
 const CARP = road(X10), CYAW = roadYaw(X10);
 park(T.p10, "chip", 3);
 place(T.p10, "rich", [CARP[0], CARP[2]], CYAW, CARP[1]);
-A(r3(T.p10 - PRE), "rich", "ride", { prop: "car", off: RIDE_OFF, yaw: 0, sit: true, dur: 0 });
+A(r3(T.p10 - PRE), "rich", "ride", { prop: "car", off: [RIDE_OFF[0], r3(RIDE_OFF[1] + 0.08), RIDE_OFF[2]], yaw: 0, sit: true, dur: 0 });
 for (const s of ["R", "L"]) { arm(T.p10 - PRE, "rich", s, "wheel", 0.01); grip(T.p10 - PRE, "rich", s, "hold", 0.01); }
 expr(T.p10, "rich", "sad", { curve: -0.1, brow: 0.3, eye: 0.85 }, 0.01); look(T.p10, "rich", [0.1, 0], 0.01);
 pr(T.p10, "car", { len: 3 }, r3(T.p11 - T.p10), "linear");
@@ -408,7 +408,7 @@ wind(T.p09, T.p10, 0.05); wind(T.p13, END, 0.05);
 const inCar = (local, lookLocal, fov, at, rot) => ({ pos: carW(local, at, rot), look: carW(lookLocal, at, rot), fov });
 const SH = {
   p01: shot("city", [-0.95, 1.25, 5.9], { tilt: -7, fov: 50 }),
-  p02: { pos: [-0.3, 0.95, 3.3], look: [-0.25, 0.6, 1.4], fov: 40 },
+  p02: { pos: [-0.45, 1.0, 4.7], look: [-0.35, 0.6, 1.3], fov: 40 },
   p03: { pos: [-1.4, 0.9, 4.4], look: [-1.9, 1.12, 1.5], fov: 48 },   // low on the Duchess; the painted sky ends ~33 deg up
   p04: shot("city", [-0.85, 1.15, 5.2], { pan: -2, tilt: -7, fov: 50 }),
   p05: shot("city", [0.4, 0.9, 4.6], { pan: -3, tilt: 1, fov: 52 }),
@@ -416,11 +416,11 @@ const SH = {
   p07: { pos: bw([2.15, 0.9, -1.35]), look: bw([0.25, 0.75, -0.3]), fov: 70 },   // from inside the mirror box: the mirror he admires
   p08: { pos: [0.2, 1.1, -2.8], look: [0.2, 0.6, -6.9], fov: 48 },
   p09: { pos: cw([1.0, 1.0 + COAST.heightAt(1.0, 11.5), 11.5]), look: cw([1.1, 0.5 + COAST.heightAt(1.1, 3), 3]), fov: 46 },
-  p10: inCar([0.2, 0.92, 1.9], [0.22, 0.82, -0.25], 40, CARP, CYAW),
+  p10: inCar([0.22, 1.45, 1.5], [0.22, 0.98, -0.25], 46, CARP, CYAW),   // over the bonnet, through the windscreen, above the dash
   p11: push({ pos: cw(HARBOUR.LENS.pos), look: cw(HARBOUR.LENS.look), fov: HARBOUR.LENS.fov }, 0.006, r3(T.p12 - T.p11)),
   p12: { pos: cw([-6, -2.5, 6]), look: cw([-22, -9.8, 24]), fov: 44 },
   p13: { pos: carW([0.22, 1.1, -0.25], P13, roadYaw(X13)), look: [CHIPSEAT[0], r3(SEATW[1] + 0.4), CHIPSEAT[2]], fov: 18 },
-  p14: inCar([-0.7, 1.0, 0.7], [0.22, 0.85, -0.25], 50, CAR14, roadYaw(X13 + 2.5)),
+  p14: inCar([0.05, 1.35, 1.2], [0.2, 0.98, -0.25], 40, CAR14, roadYaw(X13 + 2.5)),   // closer than 10, through the windscreen
   p15: inCar([1.7, 1.7, -4.2], [2.2, 0.6, 1.5], 50, CAR2, 90),
   p16: { pos: cw(COAST.CAM.c08climb.pos), look: cw(COAST.CAM.c08climb.look), fov: COAST.CAM.c08climb.fov },
   p17: { pos: cw([0.31, 0.5, -3.7]), look: cw([0.36, 0.48, 0]), fov: 40 },
