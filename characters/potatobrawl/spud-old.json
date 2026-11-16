@@ -27,8 +27,8 @@
    "curve": 0.3,
    "smirk": 0,
    "eye": 1,
-   "lidL": 0.35,
-   "lidR": 0.35
+   "lidL": 0.6,
+   "lidR": 0.6
   },
   "eye": {
    "flick": 0,
@@ -36,16 +36,16 @@
   },
   "browShape": {
    "arch": 0.03,
-   "thick": 0.7
+   "thick": 0.5
   },
-  "brow": "#6f665c",
+  "brow": "#8c847a",
   "final": {
    "neutral": {
-    "lidL": 0.35,
-    "lidR": 0.35
+    "lidL": 0.6,
+    "lidR": 0.6
    },
    "browShape": {
-    "thick": 0.7
+    "thick": 0.5
    }
   }
  },

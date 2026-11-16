@@ -14,7 +14,7 @@ import { ribTexture, hash2 } from "./costumes-art-cast.js";
 //              mid: 3 crow's feet (14 mm) and 1 under-eye line (22 mm) per eye, round gold glasses. NO cardigan.
 //              old: 5 forehead lines (40-58 mm), 4 crow's feet (16-20 mm) and 2 under-eye lines per eye, 2 mouth lines (18 mm),
 //                   22 skin spots #c79a63, round gold glasses, the grey cardigan.
-//   glasses    false: leave the glasses off (default: on, both ages). Round gold wire: rim 2 mm #c8a23c, bridge 0.022 m between the
+//   glasses    false: leave the glasses off (default: on, both ages). Round gold wire: rim 4.4 mm #8a6a2a (drawn with the look's ink outline), bridge 0.022 m between the
 //              rims, arms along the sides of the head ending 0.01 m before the silhouette, lenses 12 % white sheen (see-through).
 //              The lens is sized from the face: radius = half the eye spacing minus half the bridge (about 0.082 m on Spud; the
 //              design's 0.052 would not cover his 0.072 x 0.09 eye), a touch taller than wide (glasses.tall, default 1.1).
@@ -22,7 +22,7 @@ import { ribTexture, hash2 } from "./costumes-art-cast.js";
 //              collar and sweater show), a rib band down both front edges, a ribbed hem, 4 buttons #7a5a34 at the heights 0.62, 0.50,
 //              0.38, 0.26 (their spacing, scaled over the built front: it is only 0.25 m tall), sleeves ending 0.11 m before the hand centre with a
 //              ribbed cuff (the sweater's own cuff shows past it), one stitched tan patch 0.09 x 0.07 on the LEFT elbow.
-//   crease     ink colour (default "#8a6a46", drawn at 0.55 opacity, not black)
+//   crease     ink colour (default "#6e5236", drawn at 0.85 opacity old / 0.6 mid, not black)
 //   patch      the elbow patch colour (default Spud's "#9a6a3c")
 // Posture (lean 4 / 14 degrees) and walk speed (0.85 / 0.55) are NOT character data keys: the clip generator sets them.
 
@@ -59,36 +59,53 @@ function faceMarks(C, ch, parts, old) {
   };
   // n points on an arc from a to b, bowed by `bow` metres sideways
   const arc = (a, b, bow, n = 8) => Array.from({ length: n + 1 }, (_, q) => { const t = q / n, k = Math.sin(Math.PI * t) * bow, dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [a[0] + dx * t - dy / l * k, a[1] + dy * t + dx / l * k]; });
-  const W0 = old ? 0.0026 : 0.0021;   // half width of a crease stroke (about 1.2 to 1.5 px at the atlas scale)
+  const W0 = old ? 0.0030 : 0.0024;   // half width of a crease stroke (4.8 to 6 mm across: it has to read on a phone)
+  const shades = [];
+  // a soft darker shade (a bag under the eye): a wide stroke, drawn in the shade material
+  const shade = (cu, cv, pts, W) => { const keep = lines.length; line(cu, cv, pts, W, 0.1); shades.push(lines.pop()); };
   let id = old ? 100 : 0;
   for (const sd of [-1, 1]) {
     const eye = [sd * eu, ev], out = sd * (0.9 * r + 0.008), eyeH = 0.9 * r * (ch.face.eyeStyle?.oval || 1.24);
     // crow's feet: a fan from just outside the outer corner, each its own angle and length
-    const nf = old ? 4 : 3, len0 = old ? 0.018 : 0.014;
+    const nf = old ? 4 : 3, len0 = old ? 0.030 : 0.021;
     for (let k = 0; k < nf; k++) {
       id++;
-      const ang = (k - (nf - 1) / 2) * (old ? 0.36 : 0.42) + (hs(id, 1) - 0.5) * 0.1, len = len0 * (0.86 + 0.28 * hs(id, 2)), s0 = [out + sd * 0.002, 0.004 + 0.004 * (hs(id, 3) - 0.5) + 0.003 * (k - (nf - 1) / 2)];
-      line(eye[0], eye[1], arc(s0, [s0[0] + sd * len * Math.cos(ang), s0[1] + len * Math.sin(ang)], sd * 0.0015 * (hs(id, 4) - 0.3)), W0);
+      const ang = (k - (nf - 1) / 2) * (old ? 0.5 : 0.55) + (hs(id, 1) - 0.5) * 0.1, len = len0 * (0.86 + 0.28 * hs(id, 2)), s0 = [out + sd * 0.002, 0.004 + 0.004 * (hs(id, 3) - 0.5) + 0.004 * (k - (nf - 1) / 2)];
+      line(eye[0], eye[1], arc(s0, [s0[0] + sd * len * Math.cos(ang), s0[1] + len * Math.sin(ang)], sd * 0.002 * (hs(id, 4) - 0.3)), W0);
     }
-    // under-eye lines: a long soft arc under the eye (22 mm); the old face adds a second, shorter one below it
-    id++; line(eye[0], eye[1], arc([sd * -0.006, -eyeH - 0.01], [sd * 0.052, -eyeH - 0.016], -0.0035 * sd), W0 * (old ? 1.1 : 1.0), 0.5);
-    if (old) { id++; line(eye[0], eye[1], arc([sd * 0.004, -eyeH - 0.028], [sd * 0.04, -eyeH - 0.036], -0.003 * sd), W0 * 0.9, 0.5); }
+    // under-eye line: a long curved arc under the eye (22 mm and more); the old face adds the bag's lower edge and a soft shade
+    id++; line(eye[0], eye[1], arc([sd * -0.012, -eyeH - 0.012], [sd * (old ? 0.07 : 0.052), -eyeH - 0.02], -0.005 * sd), W0 * 1.1, 0.5);
+    if (old) {
+      id++; line(eye[0], eye[1], arc([sd * -0.004, -eyeH - 0.034], [sd * 0.056, -eyeH - 0.044], -0.004 * sd), W0 * 0.9, 0.5);
+      shade(eye[0], eye[1], arc([sd * -0.008, -eyeH - 0.022], [sd * 0.062, -eyeH - 0.032], -0.004 * sd, 10), 0.011);
+      // deep nasolabial line: from the cheek under the outer eye, down past the mouth corner's height (one stroke, bowed outward; the eyes fill the middle of this face)
+      const e0 = [sd * 0.68, ev - 0.34], e1 = [sd * 0.5, L.mouthV - 0.3];
+      line(e0[0], e0[1], arc([0, 0], [(e1[0] - e0[0]) * su, (e1[1] - e0[1]) * sv], sd * 0.009, 12), W0 * 1.25, 0.5);
+    }
   }
   if (old) {
-    // forehead: five lines of 40-58 mm, arching a little, each its own height, length and shift
+    // forehead: five lines of 60-80 mm across the brow, following the curve of the head, each its own height, length and shift
     for (let k = 0; k < 5; k++) {
-      const half = (0.020 + 0.009 * hs(k, 11)) * 1, cv = 1.15 + 0.17 * k + 0.03 * (hs(k, 12) - 0.5), cu = (hs(k, 13) - 0.5) * 0.02;
-      const pts = Array.from({ length: 11 }, (_, q) => { const x = (q / 10 * 2 - 1) * half; return [x + cu, 0.005 * (1 - (x / half) ** 2) + 0.002 * Math.sin(x * 90 + k * 2) + 0.003 * (hs(k, 14) - 0.5) * (x / half)]; });
-      line(0, cv, pts, W0 * 1.5, 0.45);
+      const half = 0.030 + 0.010 * hs(k, 11), cv = 1.12 + 0.17 * k + 0.03 * (hs(k, 12) - 0.5), cu = (hs(k, 13) - 0.5) * 0.02;
+      const pts = Array.from({ length: 13 }, (_, q) => { const x = (q / 12 * 2 - 1) * half; return [x + cu, 0.006 * (1 - (x / half) ** 2) + 0.002 * Math.sin(x * 90 + k * 2) + 0.004 * (hs(k, 14) - 0.5) * (x / half)]; });
+      line(0, cv, pts, W0 * 1.2, 0.45);
     }
-    // laugh lines: one each side of the mouth (18 mm), curving down and in
-    for (const sd of [-1, 1]) line(sd * (L.mouthW + 0.085), L.mouthV + 0.1, arc([0, 0], [sd * 0.003, -0.018], sd * 0.004, 7), W0 * 1.1, 0.5);
+  } else {
+    // mid: two forehead lines (45-55 mm)
+    for (let k = 0; k < 2; k++) {
+      const half = 0.023 + 0.005 * hs(k, 21), cv = 1.2 + 0.2 * k, cu = (hs(k, 23) - 0.5) * 0.015;
+      line(0, cv, Array.from({ length: 11 }, (_, q) => { const x = (q / 10 * 2 - 1) * half; return [x + cu, 0.005 * (1 - (x / half) ** 2) + 0.0015 * Math.sin(x * 90 + k)]; }), W0, 0.45);
+    }
   }
-  if (lines.length) {
-    const m = new THREE.MeshBasicMaterial({ color: C.crease || "#8a6a46", transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-    m.userData.ink = true; m.userData.noOutline = true;
-    const cr = new THREE.Mesh(merge(lines), m); cr.userData.inkStroke = true; cr.renderOrder = 1; parts.add(cr);
-  }
+  const crease = (geos, opacity, color) => {
+    if (!geos.length) return;
+    // opaque ink mixed toward the skin by `opacity` (the look draws a transparent stroke much paler than its opacity, and lifts basic colours by about a third, so the ink is darkened to read as the stated colour)
+    const mix = new THREE.Color("#e0a760").lerp(new THREE.Color(color).multiplyScalar(0.35), opacity), m = new THREE.MeshBasicMaterial({ color: mix, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    m.userData.noOutline = true; m.userData.noHatch = true;
+    const cr = new THREE.Mesh(merge(geos), m); cr.userData.inkStroke = true; cr.renderOrder = 1; parts.add(cr);
+  };
+  crease(shades, 0.5, "#8a6a46");
+  crease(lines, old ? 0.85 : 0.6, C.crease || "#6e5236");
   if (old) {
     // 22 skin spots: flat marks in the skin, each its own place, size, shape and shade, kept off the eyes, brows and mouth
     const gs = [], spotM = new THREE.MeshStandardMaterial({ color: "#c79a63", roughness: 0.9, vertexColors: true }); spotM.userData.noOutline = true; spotM.userData.lookRole = "skin";
@@ -113,10 +130,10 @@ function faceMarks(C, ch, parts, old) {
 function glasses(C, ch, parts) {
   const pl = ch.face?.place; if (!pl) return;
   const G = C.glasses && typeof C.glasses === "object" ? C.glasses : {}, L = ch.face.layout || { eyeU: 0.35, eyeV: 0.32 };
-  const RIM = 0.001, BRIDGE = G.bridge ?? 0.022, AWAY = G.away ?? 0.036;   // wire radius (2 mm across), gap between rims, how far in front of the skin the lenses stand
+  const RIM = 0.0022, BRIDGE = G.bridge ?? 0.022, AWAY = G.away ?? 0.036;   // wire radius (4.4 mm across), gap between rims, how far in front of the skin the lenses stand
   const eL = pl(-L.eyeU, L.eyeV), eR = pl(L.eyeU, L.eyeV);
   const lens = G.r ?? Math.max(0.052, (eL.pos.distanceTo(eR.pos) - BRIDGE) / 2 - RIM), tall = G.tall ?? 1.15;
-  const gold = new THREE.MeshStandardMaterial({ color: "#c8a23c", roughness: 0.35, metalness: 0.35 }); gold.userData.noOutline = true; gold.userData.noHatch = true;
+  const gold = new THREE.MeshStandardMaterial({ color: "#8a6a2a", roughness: 0.4, metalness: 0.2 }); gold.userData.noHatch = true;
   const glass = new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.03, depthWrite: false, side: THREE.DoubleSide }); glass.userData.noOutline = true; glass.userData.noHatch = true;
   const glint = new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.2, depthWrite: false }); glint.userData.noOutline = true; glint.userData.noHatch = true;
   const g = new THREE.Group(); g.name = "glasses";
@@ -125,7 +142,7 @@ function glasses(C, ch, parts) {
   for (const sd of [-1, 1]) {
     const e = sd < 0 ? eL : eR, c = e.pos.clone().addScaledVector(e.normal, AWAY); ctr[sd] = c;
     const q = new THREE.Quaternion().setFromUnitVectors(V(0, 0, 1), e.normal);
-    const rim = new THREE.Mesh(new THREE.TorusGeometry(lens, RIM, 5, 40), gold); rim.scale.set(1, tall, 1); rim.position.copy(c); rim.quaternion.copy(q); g.add(rim);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(lens, RIM, 6, 48), gold); rim.scale.set(1, tall, 1); rim.position.copy(c); rim.quaternion.copy(q); g.add(rim);
     const disc = new THREE.Mesh(new THREE.CircleGeometry(lens, 32), glass); disc.scale.set(1, tall, 1); disc.position.copy(c); disc.quaternion.copy(q); disc.renderOrder = 3; g.add(disc);
     // the sheen: one short bright arc at the upper outer side of the lens (the rest of the lens stays clear so the eye reads)
     { const gl = new THREE.Mesh(new THREE.TorusGeometry(lens * 0.8, 0.0014, 3, 10, 0.8), glint); gl.scale.set(1, tall, 1); gl.position.copy(c); gl.quaternion.copy(q); gl.rotateZ(sd > 0 ? 1.0 : 1.34); gl.translateZ(0.0005); gl.renderOrder = 4; g.add(gl); }
@@ -138,12 +155,12 @@ function glasses(C, ch, parts) {
       if (Math.abs(p.x) > xmax - 0.01) break;
       pts.push(p);
     }
-    if (pts.length > 2) g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, RIM, 4, false), gold));
+    if (pts.length > 2) g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 28, RIM, 5, false), gold));
   }
   // the bridge: a small arch over the nose between the rims' inner edges
   { const a = ctr[-1].clone(), b = ctr[1].clone(), m = a.clone().lerp(b, 0.5), dir = b.clone().sub(a).normalize();
     const p0 = a.clone().addScaledVector(dir, lens), p1 = b.clone().addScaledVector(dir, -lens), up = V(0, 1, 0);
-    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(p0, p0.clone().lerp(p1, 0.5).addScaledVector(up, 0.012).addScaledVector(eL.normal.clone().lerp(eR.normal, 0.5), 0.004), p1), 8, RIM, 4, false), gold)); }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(p0, p0.clone().lerp(p1, 0.5).addScaledVector(up, 0.012).addScaledVector(eL.normal.clone().lerp(eR.normal, 0.5), 0.004), p1), 10, RIM, 5, false), gold)); }
   parts.add(g);
 }
 
