@@ -1,0 +1,590 @@
+{
+ "id": "hs03-d5-wide",
+ "title": "Happiness 03 block D d5",
+ "idea": "Happiness 03 'I could see everyone's happiness score', block D 'Last sunset' (story 2:30-3:22)",
+ "format": "series: Spud looks for happiness (YouTube film, wide)",
+ "fps": 30,
+ "frame": "wide",
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "music": {
+  "file": "score-film/hs03-d-temp.ogg",
+  "skip": 42.8,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.05,
+  "surface": "grass",
+  "room": "open",
+  "guard": true
+ },
+ "creative": {
+  "length": [
+   11.2,
+   11.2
+  ]
+ },
+ "set": {
+  "type": "scorehill",
+  "time": "sunset",
+  "light": "golden",
+  "key": [
+   -2.2,
+   1.6,
+   -4.6
+  ],
+  "shadowSize": 9,
+  "windows": false
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.18,
+    "w": 0.9
+   }
+  ],
+  [
+   8.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.12,
+    "w": 0.8
+   }
+  ]
+ ],
+ "hud": {
+  "train": {
+   "keys": [
+    [
+     0,
+     "00:00"
+    ]
+   ],
+   "out": [
+    1.2,
+    1
+   ]
+  }
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "chip",
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "the train leaves at sunset"
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1,
+    -2.55
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    -2.55
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1,
+    -2.55
+   ],
+   "face": 180,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 5.2
+  }
+ ],
+ "props": [
+  {
+   "id": "bench",
+   "kind": "hillbench",
+   "x": 90,
+   "y": 0,
+   "z": -1.2,
+   "rot": 180
+  },
+  {
+   "id": "bk0",
+   "kind": "seatmark",
+   "x": -1,
+   "y": 0,
+   "z": -2.55,
+   "rot": 180
+  },
+  {
+   "id": "bk1",
+   "kind": "seatmark",
+   "x": 0,
+   "y": 0,
+   "z": -2.55,
+   "rot": 180
+  },
+  {
+   "id": "bk2",
+   "kind": "seatmark",
+   "x": 1,
+   "y": 0,
+   "z": -2.55,
+   "rot": 180
+  },
+  {
+   "id": "train",
+   "kind": "scoretrain",
+   "x": 100.009,
+   "y": 3.089,
+   "z": -249.6,
+   "color": "#6e2a2a",
+   "scale": 2,
+   "speed": 7,
+   "t0": 0.5,
+   "t1": 8.1,
+   "wave": 1,
+   "waveCar": 2,
+   "waveWin": 3
+  },
+  {
+   "id": "gll",
+   "kind": "scoreglasses",
+   "x": -0.6,
+   "y": 0.397,
+   "z": -1.23,
+   "rot": 180,
+   "tip": -24,
+   "fold": 1,
+   "scale": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 8.6,
+   "to": 11.2,
+   "text": "Follow for the next question.",
+   "pos": 150,
+   "pop": false,
+   "size": 64,
+   "kinetic": false,
+   "color": "#fff8ec",
+   "stroke": "#24232b"
+  }
+ ],
+ "beats": [
+  {
+   "name": "47 the train",
+   "at": 0,
+   "len": 8.1,
+   "shot": {
+    "pos": [
+     0.3,
+     1.45,
+     2.6
+    ],
+    "look": [
+     0.3,
+     0.35,
+     -7.4
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0.3,
+      1.45,
+      2.6
+     ],
+     "look": [
+      0.3,
+      0.35,
+      -7.4
+     ],
+     "fov": 33
+    },
+    "dur": 8.1,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "fold": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "bk0",
+     "height": 0.06,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bk1",
+     "height": 0.06,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "sit",
+     "seat": "bk2",
+     "height": 0.06,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.4,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.03,
+     "dur": 6,
+     "reason": "the evening breeze, far under the music",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "But the beauty of the sunset made you forget all your worries for one moment.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 7.63,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.8,
+     "ease": "settle",
+     "at": 3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 4.9
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.03,
+     "dur": 5,
+     "reason": "the evening breeze, far under the music",
+     "at": 6.1
+    },
+    {
+     "do": "prop",
+     "id": "bench",
+     "set": {
+      "x": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 8.08
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 8.08
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      93,
+      4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 8.08
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.35,
+      -0.85
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 200,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.08
+    }
+   ]
+  },
+  {
+   "name": "48 walking away",
+   "at": 8.1,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     -0.5,
+     0.8,
+     -3.3
+    ],
+    "look": [
+     -1.892,
+     0.276,
+     6.603
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.8,
+      "eye": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.2,
+      -2.45
+     ],
+     "y": 0,
+     "dur": 3,
+     "steps": 8,
+     "at": 0.05
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 0.8
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 1.3
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 1.8
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 2.3
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Spud's steps on the dirt path",
+     "at": 2.8
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 8.1,
+   "see": [
+    "spud",
+    "chip",
+    "wedge",
+    "train"
+   ],
+   "why": "47: the train at sunset on the viaduct, three friends on the brink"
+  },
+  {
+   "from": 8.1,
+   "to": 11.2,
+   "see": [
+    "spud.face",
+    "gll"
+   ],
+   "why": "48: Spud walks away; the glasses stay on the bench"
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-d/make-block-d.mjs (story 192.8-204)."
+}
