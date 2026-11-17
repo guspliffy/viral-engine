@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # Joins block C's four renders (c1 room, c2 memory, c3 room, c4 street) into the block's wide video.
 # The memory goes in and out with the film's one dissolve (DESIGN 7: 6 frames, the page becomes the picture); c3 -> c4 is a hard cut.
-#   bash storyboards/series/happiness/03-happiness-score/block-c/join-block-c.sh [suffix] [out.mp4]
+#   bash storyboards/series/happiness/03-happiness-score/block-c/join-block-c.sh [suffix] [out.mp4] [wide|tall]
 #   suffix: "-anime-pro-draft" (default, the animatic) or "-anime-pro" (a full render)
 set -euo pipefail
 cd "$(dirname "$0")/../../../../.."
 SUF="${1:--anime-pro-draft}"
-OUT="${2:-out/hs03-block-c-wide${SUF}.mp4}"
-F=(out/hs03-c1-wide$SUF.mp4 out/hs03-c2-wide$SUF.mp4 out/hs03-c3-wide$SUF.mp4 out/hs03-c4-wide$SUF.mp4)
+FR="${3:-wide}"
+OUT="${2:-out/hs03-block-c-${FR}${SUF}.mp4}"
+F=(out/hs03-c1-$FR$SUF.mp4 out/hs03-c2-$FR$SUF.mp4 out/hs03-c3-$FR$SUF.mp4 out/hs03-c4-$FR$SUF.mp4)
 for f in "${F[@]}"; do [ -f "$f" ] || { echo "missing $f"; exit 1; }; done
 len() { ffprobe -v error -show_entries format=duration -of csv=p=0 "$1"; }
 X=0.2   # 6 frames
