@@ -45,6 +45,10 @@ function aim(pos, p, [sx, sy], fov) {
   return { pos: pos.map(r3), look: [r3(pos[0] + Math.sin(T) * Math.cos(P) * L), r3(pos[1] + Math.sin(P) * L), r3(pos[2] + Math.cos(T) * Math.cos(P) * L)], fov };
 }
 // a point in a camera's frame (right, up, forward metres) -> the world (the bun in front of the lens in 10)
+// TALL (Jonny 17 Nov: one tall film): the same story re-aimed for 9:16; tl() keeps a wide shot, or in tall turns the
+// camera (same position) so `subj` lands on pixel xy of the tall frame
+const TALL = F.key === "tall";
+const tl = (shot, subj, xy = [540, 1050], fov) => (TALL ? aim(shot.pos, subj, xy, fov ?? shot.fov) : shot);
 const camPoint = (shot, [x, y, z]) => { const f = norm(sub(shot.look, shot.pos)), r = norm(cross(f, [0, 1, 0])), u = cross(r, f); return shot.pos.map((v, i) => r3(v + r[i] * x + u[i] * y + f[i] * z)); };
 
 const SEGS = [];
@@ -130,7 +134,7 @@ seg("a1", "street", 0, 6.1, (S) => {
   S.actor("mover", "mover", { expr: "deadpan" });
   // Spud's eyes = the camera: on the pavement facing the van's cab window, which shows his reflection (a card on the glass)
   const WIN = [r3(STREET.van.x - 1.6), 1.6, r3(STREET.van.z - 1.05 - 0.012)];
-  const SH = aim([1.15, 0.74, -0.55], WIN, [1400, 470], 50);
+  const SH = aim([1.15, 0.74, -0.55], WIN, TALL ? [540, 950] : [1400, 470], 50);
   S.prop({ id: "refl", kind: "reflectcard", as: "van", reflectView: "front", w: 0.62, x: WIN[0], y: WIN[1], z: WIN[2], rot: 180 });
   S.place(0, "mover", [2.0, 2.2], -158); S.rest(0, "mover");
   S.expr(0, "mover", "deadpan", { brow: 0.3 }, 0.01); S.look(0, "mover", [-0.4, -0.2], 0.01);
@@ -146,7 +150,7 @@ seg("a1", "street", 0, 6.1, (S) => {
   S.tag({ xy: tip, keys: [[0, 41]], size: "medium" });
   // "41" big at the bottom for the first 2.6 s (frame 0 is the title); the line's caption runs with the voice from 0.05 up top
   // (Jonny 17 Nov: the lettering in the first scene was delayed); the own chip takes over at 2.6
-  S.card(0, 2.6, "41", 200, 780);
+  S.card(0, 2.6, "41", TALL ? 170 : 200, TALL ? 1110 : 780);
   S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 6.0);   // Jonny 16 Nov: "41" was cut off: the take is ~6.0 s at voice 1's speed, so the shot runs to 6.1
   S.hud({ own: { keys: [[2.6, 41]] } });
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
@@ -184,8 +188,8 @@ seg("a2", "hall", 6.1, 11.0, (S) => {
   S.expr(8.4, "spud", "sad", { curve: -0.1, brow: 0.35 }, 0.5);
   S.narrate(6.2, "If you've ever compared yourself to a friend, watch what it costs you.", 5.0);
   S.sound({ room: "hall", surface: "wood", nature: [{ id: "birds", gain: 0.03 }] });
-  S.cut("02 the box", 6.1, { pos: [1.1, 1.0, 3.0], look: [-0.4, 0.5, 1.45], fov: 38 });
-  S.cut("03 Mash passes", 7.6, { pos: [-0.2, 1.0, 4.1], look: [0.6, 0.95, 0.0], fov: 48 });
+  S.cut("02 the box", 6.1, tl({ pos: [1.1, 1.0, 3.0], look: [-0.4, 0.5, 1.45], fov: 38 }, [-0.6, 0.5, 1.45], [540, 1150], 46));
+  S.cut("03 Mash passes", 7.6, tl({ pos: [-0.2, 1.0, 4.1], look: [0.6, 0.95, 0.0], fov: 48 }, [1.1, 0.7, -0.9], [540, 1050], 58));
   S.see(6.1, 7.6, ["spud.face", "keep", "case"], "close: Spud kneels at a cardboard box marked DON'T KEEP, old round glasses slid down his nose, an empty glasses case in the box");
   S.see(7.6, 11.0, ["spud", "mash"], "the sunny hall on moving day: his best friend Mash walks past behind him with a box, whistling");
 });
@@ -208,10 +212,10 @@ seg("a3", "hall", 11.0, 17.2, (S) => {
   S.view(11.0, 17.2);
   S.tag({ who: "mash", keys: [[11.0, 88]], k: 1.15 });
   S.narrate(11.3, "Your best friend is eighty-eight. And on Sunday, he's gone.", 3.9);
-  S.card(15.75, 17.2, "88. HOW?", 150, 180);
+  S.card(15.75, 17.2, "88. HOW?", 150, F.CARD);
   S.sound({ room: "hall", surface: "wood", nature: [{ id: "birds", gain: 0.03 }] });
   // Spud's eyes from where he kneels, lifted to the door
-  S.cut("04 Mash is 88", 11.0, aim([0.1, 0.62, 1.45], [DOOR[0], 0.62, DOOR[1]], [1380, 780], 40));
+  S.cut("04 Mash is 88", 11.0, aim([0.1, 0.62, 1.45], [DOOR[0], 0.62, DOOR[1]], TALL ? [540, 950] : [1380, 780], 40));
   S.see(11.0, 17.2, ["mash.face"], "through the glasses: Mash in the open front door with a box, eyes closed, whistling; a white moving van outside; his number 88 glows");
 });
 
@@ -246,10 +250,10 @@ seg("a4", "street", 17.2, 22.0, (S) => {
   S.walk(17.3, "mash", M1, 3.4, 7); hb.carry(S.t(17.3), ahead(M1, MY, 0.42, 0.3), 3.4, "linear");
   S.narrate(17.4, "Three days to learn how he does it.", 3.1);
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
-  S.cut("05 the notebook", 17.2, aim([-0.95, 0.85, 1.65], [SP[0], 0.84, SP[1]], [560, 600], 46));
+  S.cut("05 the notebook", 17.2, aim([-0.95, 0.85, 1.65], [SP[0], 0.84, SP[1]], TALL ? [540, 1050] : [560, 600], TALL ? 52 : 46));
   // the page insert, over his right shoulder (DESIGN 6: 1.2 s, readable only here)
   const PW = [LAP[0], r3(LAP[1] + 0.12), LAP[2]], OS = chest(SP, SY, { fwd: 0.3, side: 0.75, y: 1.5 });
-  S.cut("05i the page", 20.8, { pos: OS, look: PW, fov: 28, roll: 65 });
+  S.cut("05i the page", 20.8, { pos: OS, look: PW, fov: TALL ? 34 : 28, roll: 65 });
   S.see(17.2, 20.8, ["spud.face", "pad", "mash"], "Spud on his friend's front step with round glasses and a notepad, frowning, writing; Mash carries a box to the van behind him");
   S.see(20.8, 22.0, ["pad"], "over his shoulder: the pad says MASH = 88. WHY? underlined twice");
 });
@@ -282,7 +286,7 @@ seg("a5", "bakery", 22.0, 26.6, (S) => {
   S.A(S.t(25.2), "spud", "lean", { to: 0, dur: 0.4 }); S.look(24.4, "spud", [0.1, -0.4], 0.25); S.sfx(24.5, "scribble", { gain: 0.25, dur: 0.6, reason: "a quick note on the pad" });
   S.narrate(22.1, "So you do what any good friend would do. You study him.", 4.4);
   S.sound({ nature: [{ id: "birds", gain: 0.04 }] });
-  S.cut("06 the bakery", 22.0, { pos: [-3.1, 0.88, 4.4], look: [1.4, 0.95, -0.9], fov: 40 });
+  S.cut("06 the bakery", 22.0, tl({ pos: [-3.1, 0.88, 4.4], look: [1.4, 0.95, -0.9], fov: 40 }, [r3((SPY[0] + B.spud06.x) / 2), 0.6, r3((SPY[1] + B.spud06.z) / 2)], [540, 1050], 44));
   S.see(22.0, 26.6, ["spud", "mash", "baker.face", "bun"], "a corner bakery: Mash buys a cinnamon bun from the baker; Spud spies on him from behind a lamp post with his notepad");
 });
 
@@ -345,7 +349,7 @@ seg("a7", "bakery", 33.8, 37.4, (S) => {
   S.A(S.t(35.1), "wedge", "lean", { to: -5, dur: 0.3 });
   S.expr(36.5, "copy", "happy", { curve: 0.6, eye: 0.7 }, 0.3); S.A(S.t(36.6), "copy", "squash", { amount: 0.07, dur: 0.25 });   // he nods: hope
   S.sound({ nature: [{ id: "birds", gain: 0.04 }] });
-  S.cut("09 Wedge", 33.8, { pos: [-5.9, 0.86, 4.6], look: [-3.85, 0.82, 1.3], fov: 38 });
+  S.cut("09 Wedge", 33.8, { pos: [-5.9, 0.86, 4.6], look: [-3.85, 0.82, 1.3], fov: TALL ? 52 : 38 });
   S.see(33.8, 37.4, ["wedge.face", "copy.face"], "by the ivy wall: Wedge in a red jacket gives the hoodie-wearing Spud a thumbs up; Spud nods, hopeful");
 });
 
@@ -353,7 +357,7 @@ seg("a7", "bakery", 33.8, 37.4, (S) => {
 seg("a8", "bridge", 37.4, 41.0, (S) => {
   S.actor("mash", "mash");
   const Z = RIVER.bridge.z, eye = 0.72;
-  const SH = aim([25, r3(RIVER.deckY(25) + eye), r3(Z - 0.35)], [18.6, r3(RIVER.deckY(18.6) + 0.45), Z], [1400, 600], 40);
+  const SH = aim([25, r3(RIVER.deckY(25) + eye), r3(Z - 0.35)], [18.6, r3(RIVER.deckY(18.6) + 0.45), Z], TALL ? [540, 950] : [1400, 600], 40);
   S.place(37.4, "mash", [19.5, Z], -90, r3(RIVER.deckY(19.5))); S.rest(37.4, "mash");
   // he walks away up over the arch (the deck rises to 4.2 at x 16.5): a few steps at a time on the slope
   const xs = [19.5, 18.6, 17.7, 16.9];
@@ -385,18 +389,18 @@ seg("a9", "bakery", 41.0, 46.9, (S) => {
   S.look(43.25, "copy", [0, 0.85], 0.2); S.expr(43.25, "copy", "worried", { brow: 0.5 }, 0.1);
   S.expr(44.5, "copy", "sad", { curve: -0.4, brow: 0.7, eye: 0.85 }, 0.3); S.look(44.5, "copy", [0, -0.45], 0.35);
   S.A(S.t(44.7), "copy", "droop", { to: 0.5, dur: 0.6 }); S.A(S.t(44.7), "copy", "squash", { amount: 0.08, dur: 0.6 });
-  const HIGH = { pos: [r3(P[0] - 0.25), 2.25, r3(P[1] - 1.55)], look: [P[0], 0.45, P[1]], fov: 42 };
+  const HIGH = tl({ pos: [r3(P[0] - 0.25), 2.25, r3(P[1] - 1.55)], look: [P[0], 0.45, P[1]], fov: 42 }, [P[0], 0.55, P[1]], [540, 1150], 46);
   // his eyes, just in front of his face (a camera inside the body sees only its inside: draft 1), looking up at the awning
   const EYE = chest(P, 160, { fwd: 0.48, side: 0, y: 0.72 }), UP = { pos: EYE, look: [r3(EYE[0] - 0.3), 2.7, r3(EYE[2] - 2.0)], fov: 50 };
   S.view(41.7, 42.6); S.view(43.6, 44.5);
-  S.tag({ xy: [960, 760], keys: [[41.0, 41], [42.0, 40], [44.0, 39]], minus: true, minusCard: [42.0], minusTo: [960, 330], size: "close" });
+  S.tag({ xy: TALL ? [540, 700] : [960, 760], keys: [[41.0, 41], [42.0, 40], [44.0, 39]], minus: true, minusCard: [42.0], minusTo: TALL ? [540, 480] : [960, 330], size: "close" });
   S.narrate(42.7, "And every time you checked, it dropped.", 2.7);
   S.sound({ nature: [{ id: "birds", gain: 0.03 }] });
   S.cut("11a eyes up", 41.0, HIGH);
   S.cut("11b the check", 41.7, UP);
   S.cut("11c again", 42.6, HIGH);
   S.cut("11d the check", 43.6, UP);
-  S.cut("11e it dropped", 44.5, { ...HIGH, to: { pos: [r3(P[0] - 0.2), 1.9, r3(P[1] - 1.2)], look: [P[0], 0.45, P[1]], fov: 42 }, dur: 2.4, ease: "inOut" });
+  S.cut("11e it dropped", 44.5, { ...HIGH, to: tl({ pos: [r3(P[0] - 0.2), 1.9, r3(P[1] - 1.2)], look: [P[0], 0.45, P[1]], fov: 42 }, [P[0], 0.55, P[1]], [540, 1150], 46), dur: 2.4, ease: "inOut" });
   S.see(41.0, 41.7, ["copy.face"], "from above: Spud in the copied hoodie looks up at his own number");
   S.see(42.6, 43.6, ["copy.face"], "he looks down, hurt, then up again");
   S.see(44.5, 46.9, ["copy.face"], "he sags, the bun lowered");
