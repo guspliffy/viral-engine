@@ -150,7 +150,7 @@ seg("a1", "street", 0, 6.1, (S) => {
   S.tag({ xy: tip, keys: [[0, 41]], size: "medium" });
   // "41" big at the bottom for the first 2.6 s (frame 0 is the title); the line's caption runs with the voice from 0.05 up top
   // (Jonny 17 Nov: the lettering in the first scene was delayed); the own chip takes over at 2.6
-  S.card(0, 2.6, "41", TALL ? 170 : 200, TALL ? 1110 : 780);
+  S.card(0, 2.6, "41", TALL ? 170 : 200, TALL ? 1110 : 690);
   S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 6.0);   // Jonny 16 Nov: "41" was cut off: the take is ~6.0 s at voice 1's speed, so the shot runs to 6.1
   S.hud({ own: { keys: [[2.6, 41]] } });
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
