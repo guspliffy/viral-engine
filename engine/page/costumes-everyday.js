@@ -3,6 +3,7 @@ import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { taperedTube } from "./geo.js";
 import { band, garment, clothMat, liningMat, foldInk, inkMesh, softFollow, sstep } from "./costumes-art.js";
 import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
+import { skipAge } from "./costumes-skipage.js";
 
 // Spud's everyday friends (Jonny, 12 Nov 2026): Chip, Wedge and Mash. No costume, no weapon, no powers: each one is a
 // friend type the viewer can tag, told apart by body shape and size (characters/potatobrawl/*.json), ONE garment in one
@@ -16,6 +17,8 @@ import { texOf, wash, ribTexture, gridUv, hash2 } from "./costumes-art-cast.js";
 //          his head beside the leaf, never on the forehead; dark brown trousers and boots
 //   bathrobe (storyboards/series/what-if/07-fire-rewind, the grumpy neighbour, characters/what-if/grumpy-neighbour.json): a
 //          striped lilac wrap robe to the floor, shawl collar, belt and knot, pink fluffy slippers, pink hair curlers on his head
+//          costume.age "old" + brows / oldBeard / dust (0..1) age Chip 400 years (Potato Desk ep 1, characters/potatobrawl/chip-old.json):
+//          the keys are documented in the USAGE header of costumes-skipage.js. Without them Chip draws exactly as before.
 //   mash   never looks up: a tall narrow oval; charcoal hoodie, hood down; big light-blue headphones round the neck;
 //          brown trousers, chunky white trainers; the phone is a prop he is handed in a clip, not part of him
 // Spud's rules hold for every piece (Jonny, 11 Nov): each mark drawn once by hand, no repeating pattern; a sleeve ends a
@@ -677,9 +680,10 @@ function dauphin(C, ch, P) {
 }
 
 // numbers from their sheets (measured 12 Nov 2026), set against Spud's own sheet and his build
+const CHIP_HOODIE = { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true };
 const KIT = {
   bathrobe: (C, ch) => robe(C, ch, { color: "#b79ac8", stripe: "#8a6aa6", collar: "#cdb6da", beltC: "#9a7ab4", phBelt: -0.62, seed: 53.4, front: -0.4, back: 0.25, vee: 0.75, hem: 0.06, flare: 1.36, circ: 2.45, phase: 0.8, r0: 0.074, r1: 0.059, rows: [0.78, 0.46] }),
-  chip: (C, ch) => hoodie(C, ch, { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true }),
+  chip: (C, ch) => hoodie(C, ch, CHIP_HOODIE),
   mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); return sl; },
   teller: (C, ch) => teller(C, ch, { seed: 87.3 }),
   duchess: (C, ch) => duchess(C, ch, { seed: 73.6 }),
@@ -690,6 +694,7 @@ export const EVERYDAY = Object.keys(KIT);
 export function everyday(C, ch, out) {
   const kit = KIT[C.type](C, ch), sl = typeof kit === "function" ? kit : kit.sl, more = typeof kit === "function" ? null : kit.apply;   // { sl, apply(st, t) }: a kit with keys of its own (glasses slip, a watch glint)
   handsAndFeet(C, ch);
+  if (C.type === "chip" && C.age) skipAge(C, ch, out, { cowl: CHIP_HOODIE });   // Chip aged (costume.age/brows/oldBeard/dust: costumes-skipage.js USAGE); no key, no change
   const base = out.apply;
   out.apply = (st, t, ...r) => { base && base(st, t, ...r); sl(); more && more(st, t); };
   out.sitDepth = 0;
