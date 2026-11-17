@@ -81,7 +81,6 @@ import { AT_TOWNS_KINDS, AT_TOWNS_GRIPS } from "./props-at-towns.js";   // ancie
 import { AT_B_KINDS, AT_B_GRIPS } from "./props-at-b.js";   // ancient aliens EP03 Atlantis, block B (kit/BLOCKS.md)
 import { AT_C_KINDS, AT_C_GRIPS } from "./props-at-c.js";   // ancient aliens EP03 Atlantis, block C (kit/BLOCKS.md)
 import { SCORE_KINDS, SCORE_GRIPS } from "./props-score.js";   // happiness score film: storyboards/series/happiness/03-happiness-score/DESIGN.md
-import { SPLATE_KINDS, SPLATE_GRIPS } from "./props-score-plate.js";   // happiness score film: projected plates (per-place scenes: props-score-plate-<id>.js)
 import { VAN_KINDS, VAN_GRIPS } from "./props-score-van.js";   // happiness score film: moving truck
 import { PAPER_KINDS, PAPER_GRIPS } from "./props-score-paper.js";   // happiness score film: notebooks
 import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happiness score film: the train at sunset
@@ -1490,7 +1489,6 @@ Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avala
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
-Object.assign(KINDS, SPLATE_KINDS); Object.assign(GRIPS, SPLATE_GRIPS);   // happiness score film (props-score-plate.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
 Object.assign(KINDS, PAPER_KINDS); Object.assign(GRIPS, PAPER_GRIPS);   // happiness score film (props-score-paper.js)
 Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happiness score film (props-score-train.js)
