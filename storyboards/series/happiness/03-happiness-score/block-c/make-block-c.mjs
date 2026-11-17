@@ -213,7 +213,7 @@ function build(F, S) {
     cast.push({ id: "spud", character: CAST.spud, at: [FAR, FAR], face: 0, expr: "kind", seed: 1.3 });   // offstage: the plate is the picture
     A(0, "spud", "hide");
     N(T.n3a, "n3a");
-    N(T.n3b, "n3b", TALL ? { pos: 110 } : {});   // tall: above the 90 pill
+    N(T.n3b, "n3b", TALL ? { pos: 400 } : {});   // tall: under the 90 pill (above it leaves the app safe zone)
     tune(c, L(T.whistle), { gain: 0.35, reason: "THE TUNE: kid Spud whistles it on his bike (2:05)" });
     SHOTS.push(["30 kid Mash in the glasses", T.m30, tc(plateCam(800, 470, 1450, [756, 470, 1450, r3(T.m29 - T.m30)]), plateCamT(400, 512, 960, [400, 540, 900, r3(T.m29 - T.m30)]))]);
     SHOTS.push(["29 kid Spud, 90", T.m29, tc(plateCam(...M29CAM), plateCamT(...M29T))]);
