@@ -144,10 +144,10 @@ seg("a1", "street", 0, 6.1, (S) => {
   // the reflection's tag: over the reflected leaf tip (91 % up the card), fixed in px
   const tip = project(SH, [WIN[0], r3(WIN[1] - 0.31 + 0.91 * 0.62 + 0.06), WIN[2]]);
   S.tag({ xy: tip, keys: [[0, 41]], size: "medium" });
-  // "41" up top for the first 2.6 s (frame 0 is the title), then the line's caption; the own chip takes over at 2.6
-  S.card(0, 2.6, "41", 220, 180);
-  S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 6.0, { caption: false });   // Jonny 16 Nov: "41" was cut off: the take is ~6.0 s at voice 1's speed, so the shot runs to 6.1
-  c.cap(S.t(2.65), S.t(6.1), "These glasses show everyone's happiness score. Yours is forty-one.", F.SUB);
+  // "41" big at the bottom for the first 2.6 s (frame 0 is the title); the line's caption runs with the voice from 0.05 up top
+  // (Jonny 17 Nov: the lettering in the first scene was delayed); the own chip takes over at 2.6
+  S.card(0, 2.6, "41", 200, 780);
+  S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 6.0);   // Jonny 16 Nov: "41" was cut off: the take is ~6.0 s at voice 1's speed, so the shot runs to 6.1
   S.hud({ own: { keys: [[2.6, 41]] } });
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
   S.cut("01 the street through the glasses", 0, SH, "hook");

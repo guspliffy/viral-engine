@@ -320,19 +320,12 @@
    "from": 0,
    "to": 2.6,
    "text": "41",
-   "pos": 180,
+   "pos": 780,
    "pop": false,
-   "size": 220,
+   "size": 200,
    "kinetic": false,
    "color": "#f3dc8c",
    "stroke": "#24232b"
-  },
-  {
-   "from": 2.65,
-   "to": 6.1,
-   "text": "These glasses show everyone's happiness score. Yours is forty-one.",
-   "pos": 128,
-   "pop": false
   }
  ],
  "beats": [
@@ -443,7 +436,7 @@
      "voice": "narrator",
      "take": 1,
      "dur": 6,
-     "caption": false,
+     "caption": true,
      "pos": 128,
      "gain": 4,
      "at": 0.05
