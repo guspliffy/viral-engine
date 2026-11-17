@@ -1,7 +1,9 @@
 // HAPPINESS 03 "I could see everyone's happiness score", BLOCK C "The box" (story 1:40-2:30, panels 25-36, Sunday morning:
 // desperation, surprise, understanding). Story: ../OUTLINE.md; look: ../DESIGN.md; kit: ../kit/score-kit.mjs + ../kit/BLOCKS.md.
 //   node storyboards/series/happiness/03-happiness-score/block-c/measure-lines.mjs   -> lines.json (narrator lengths)
-//   node storyboards/series/happiness/03-happiness-score/block-c/make-block-c.mjs    -> hs03-c{1,2,3,4}-wide.json
+//   node storyboards/series/happiness/03-happiness-score/block-c/make-block-c.mjs [tall] -> hs03-c{1,2,3,4}-wide.json (tall: -tall)
+//   TALL (Jonny 17 Nov: one tall film of the whole story): same story times, sound and lines; only the cameras, the memory
+//   crops and two caption spots change (each shot's tall camera sits beside the wide one: tc(wide, tall)).
 //   bash storyboards/series/happiness/03-happiness-score/block-c/join-block-c.sh      -> the block's wide animatic (4 renders joined)
 //
 // FOUR storyboards (a set is one type per storyboard), each with its story T0:
@@ -82,6 +84,19 @@ const plateCam = (cx, cy, vw, to) => {   // looks straight at plate pixel (cx, c
 // 29's pencil tag over the painted blank pill (M29 px 804, 194) for the 29 camera (cx 768, cy 410, vw 1450): screen px
 const M29CAM = [768, 410, 1450];
 const TAG90 = [r3(960 + (804 - M29CAM[0]) * (1920 / M29CAM[2])), r3(540 + (194 - M29CAM[1]) * (1920 / M29CAM[2]))];
+// tall: the plate crop is the plate's full height (vh plate px tall, vh * 9/16 across), centred on the kid in each painting
+const plateCamT = (cx, cy, vh, to) => {
+  const k = PH / PLATE_PX[1], one = (cx, cy, vh) => {
+    const X = (cx - PLATE_PX[0] / 2) * k, Y = 1.6 - (cy - PLATE_PX[1] / 2) * k, dist = 3.4;
+    return { pos: [r3(X), r3(Y), r3(PZ + dist)], look: [r3(X), r3(Y), PZ], fov: r3((2 * Math.atan((vh * k) / 2 / dist) * 180) / Math.PI) };
+  };
+  const a = one(cx, cy, vh);
+  return to ? { ...a, to: one(to[0], to[1], to[2]), dur: to[3], ease: "inOut" } : a;
+};
+const M29T = [760, 512, 960];
+const TAG90T = [r3(540 + (804 - M29T[0]) * (1920 / M29T[2])), r3(960 + (194 - M29T[1]) * (1920 / M29T[2]))];
+const TALL = process.argv.includes("tall");
+const tc = (wide, tall) => (TALL ? tall : wide);
 
 function build(F, S) {
   const c = clip({ faces: "strong", lines: { sub: true, blink: false } }), { A, sfx, see } = c;
@@ -146,7 +161,8 @@ function build(F, S) {
     look(T.s25 + 4.6, "spud", [-0.4, -0.2], 0.3);
     N(T.n1, "n1");
     see(L(T.s25), L(T.s25b), ["spud.face", "search"], "Sunday morning: Spud digs through an open moving box in the nearly empty room");
-    SHOTS.push(["25 the boxes", T.s25, cam([CAM25[0], 0.95, CAM25[1]], [2.6, 0.55, -1.05], 44, { pos: [-0.55, 0.92, 0.4] }, r3(T.s25b - T.s25))]);
+    SHOTS.push(["25 the boxes", T.s25, tc(cam([CAM25[0], 0.95, CAM25[1]], [2.6, 0.55, -1.05], 44, { pos: [-0.55, 0.92, 0.4] }, r3(T.s25b - T.s25)),
+      cam([CAM25[0], 0.95, CAM25[1]], [1.35, 0.62, -0.3], 52, { pos: [-0.55, 0.92, 0.4], fov: 49 }, r3(T.s25b - T.s25)))]);
     // ---- 25b the DON'T KEEP box: he looks in
     place(T.s25b, "spud", SPK, Y_K); A(L(T.s25b) - PRE, "spud", "lean", { to: 18, dur: 0.01 });
     for (const s of ["R", "L"]) arm(T.s25b - PRE, "spud", s, "rest", 0.01);
@@ -156,12 +172,12 @@ function build(F, S) {
     grips.rest(c, "spud", "R", { ...CASE, h: 0.09 }, [0, 0], L(T.s25b + 2.2), { dur: 0.45 });
     grip(T.s25b + 2.2, "spud", "R", "flat", 0.2);
     see(L(T.s25b), L(T.s26), ["spud.face", "kbox"], "he leans over a box with a red patch: inside an old glasses case on a notebook");
-    { const f = fwd(KB_YAW - 60, 1.7); SHOTS.push(["25b the DON'T KEEP box", T.s25b, cam([SPK[0] + f[0], 1.0, SPK[1] + f[1]], [r3((SPK[0] + KB[0]) / 2), 0.42, r3((SPK[1] + KB[1]) / 2)], 44, { fov: 41 }, r3(T.s26 - T.s25b))]); }
+    { const f = fwd(KB_YAW - 60, 1.7); SHOTS.push(["25b the DON'T KEEP box", T.s25b, cam([SPK[0] + f[0], 1.0, SPK[1] + f[1]], tc([r3((SPK[0] + KB[0]) / 2), 0.42, r3((SPK[1] + KB[1]) / 2)], [r3(SPK[0] * 0.88 + KB[0] * 0.12), 0.62, r3(SPK[1] * 0.88 + KB[1] * 0.12)]), tc(44, 60), { fov: tc(41, 56) }, r3(T.s26 - T.s25b))]); }
     // ---- 26 the case lifts off the book (his palm stays on its top: the arm aims at the case)
     pr(T.lift, "case", { y: r3(CASE_IN[1] + 0.25) }, 0.55, "inOut");
     sfx(L(T.lift + 0.05), "ai-package/cardboard-rustle", { gain: 0.18, reason: "the case scrapes off the book" });
     see(L(T.s26), L(T.s27), ["case", "bookc"], "close into the box: his glove lifts the green case; under it an old navy notebook");
-    { const f = fwd(KB_YAW, 0.32); SHOTS.push(["26 the case", T.s26, cam([KB[0] + f[0], 1.22, KB[1] + f[1]], [KB[0], 0.18, KB[1]], 42)]); }
+    { const f = fwd(KB_YAW, 0.32); SHOTS.push(["26 the case", T.s26, cam([KB[0] + f[0], 1.22, KB[1] + f[1]], [KB[0], 0.18, KB[1]], tc(42, 52))]); }
     // ---- 27 the book, open where it lay (top-down into the box, as 26); N2. Departure: no gloves on its edges (a held book sits
     // under his face, so a top-down of it sees his head first)
     hideP(T.s27, "bookc"); hideP(T.s27, "case");
@@ -172,7 +188,7 @@ function build(F, S) {
     sfx(L(T.s27 + 0.1), "book-flip", { gain: 0.3, reason: "the old exercise book falls open" });
     N(T.n2, "n2");
     see(L(T.s27), L(T.s28), ["bookf"], "top-down into the box: the old notebook lies open: a pencil potato on a bike, and MASH = 41. WHY? with a ticked list");
-    { const f = fwd(KB_YAW, 0.12); SHOTS.push(["27 the book", T.s27, cam([KB[0] + f[0], 0.98, KB[1] + f[1]], [KB[0] - f[0] * 0.3, 0.24, KB[1] - f[1] * 0.3], 40, { fov: 33 }, r3(T.s28 - T.s27))]); }
+    { const f = fwd(KB_YAW, 0.12); SHOTS.push(["27 the book", T.s27, cam([KB[0] + f[0], 0.98, KB[1] + f[1]], [KB[0] - f[0] * 0.3, 0.24, KB[1] - f[1] * 0.3], tc(40, 66), { fov: tc(33, 60) }, r3(T.s28 - T.s27))]); }
     // ---- 28 he reads it: the surprise
     hideP(T.s28, "bookf");
     place(T.s28, "spud", SPK, Y_READ); A(L(T.s28) - PRE, "spud", "lean", { to: 4, dur: 0.01 });
@@ -184,7 +200,7 @@ function build(F, S) {
     A(L(T.gasp), "spud", "squash", { amount: 0.04, dur: 0.25 });
     look(T.gasp + 0.6, "spud", [0, -0.35], 0.3);
     see(L(T.s28), L(T.m30), ["spud.face", "glw", "book"], "close: Spud, glasses pushed up on his head, stares into the old book, mouth open");
-    { const f = fwd(Y_READ, 1); SHOTS.push(["28 he reads", T.s28, cam([SPK[0] + f[0] * 1.65, 0.6, SPK[1] + f[1] * 1.65], [SPK[0], 0.5, SPK[1]], 34, { fov: 31 }, r3(T.m30 - T.s28))]); }
+    { const f = fwd(Y_READ, 1); SHOTS.push(["28 he reads", T.s28, cam([SPK[0] + f[0] * 1.65, 0.6, SPK[1] + f[1] * 1.65], [SPK[0], tc(0.5, 0.56), SPK[1]], tc(34, 50), { fov: tc(31, 46) }, r3(T.m30 - T.s28))]); }
     allowClip.push({ who: "spud", with: "glw", from: 0, to: L(S.t1), checks: ["shell", "clipping"], reason: "the glasses are worn, pushed up on his head: the temples rest on the dome (SCORE_FITS.forehead)" });
     allowClip.push({ who: "spud", with: "kbox", from: L(T.s25b), to: L(T.s28), checks: ["shell", "arm-in-prop", "hand-in-prop"], reason: "panel 26: he reaches down inside the open DON'T KEEP box for the case (the arm passes its open top)" });
     allowClip.push({ who: "spud", with: "search", from: 0, to: L(T.s25b), checks: ["arm-in-prop", "hand-in-prop", "costume-in-prop"], reason: "panel 25: he digs with both gloves through the packing inside the open box (hands and forearms inside it, the sweater over its rim)" });
@@ -197,14 +213,14 @@ function build(F, S) {
     cast.push({ id: "spud", character: CAST.spud, at: [FAR, FAR], face: 0, expr: "kind", seed: 1.3 });   // offstage: the plate is the picture
     A(0, "spud", "hide");
     N(T.n3a, "n3a");
-    N(T.n3b, "n3b");
+    N(T.n3b, "n3b", TALL ? { pos: 110 } : {});   // tall: above the 90 pill
     tune(c, L(T.whistle), { gain: 0.35, reason: "THE TUNE: kid Spud whistles it on his bike (2:05)" });
-    SHOTS.push(["30 kid Mash in the glasses", T.m30, plateCam(800, 470, 1450, [756, 470, 1450, r3(T.m29 - T.m30)])]);
-    SHOTS.push(["29 kid Spud, 90", T.m29, plateCam(...M29CAM)]);
+    SHOTS.push(["30 kid Mash in the glasses", T.m30, tc(plateCam(800, 470, 1450, [756, 470, 1450, r3(T.m29 - T.m30)]), plateCamT(400, 512, 960, [400, 540, 900, r3(T.m29 - T.m30)]))]);
+    SHOTS.push(["29 kid Spud, 90", T.m29, tc(plateCam(...M29CAM), plateCamT(...M29T))]);
     grade = [[0, { c: LOOK_C, lift: 0, ...GRADE_FIXED.memory }]];
     hud = null;
     sound = { signature: false, sfx: 0.65, ambience: 0.04, surface: "grass", room: "open", guard: true, level: LEVEL };
-    S.score = { view: [], tags: [{ xy: TAG90, keys: [[0, 90]], show: [L(T.m29), L(T.s31)], free: true, style: "pencil", size: "close", k: 0.8 }] };
+    S.score = { view: [], tags: [{ xy: tc(TAG90, TAG90T), keys: [[0, 90]], show: [L(T.m29), L(T.s31)], free: true, style: "pencil", size: "close", k: 0.8 }] };
   }
 
   if (S.key === "c3") {
@@ -230,7 +246,7 @@ function build(F, S) {
     expr(T.found - 0.3, "mash", "happy", { curve: 0.55 }, 0.3);
     S_(T.found, "mash", "You found them.", 1.25, "calm");
     see(L(T.s31), L(T.s32), ["mash.face", "tape"], "Mash in the doorway with a roll of packing tape, smiling softly at Spud");
-    SHOTS.push(["31 Mash at the door", T.s31, cam([0.9, 0.9, -1.3], [1.45, 1.35, 1.4], 40, { fov: 38 }, r3(T.s32 - T.s31))]);
+    SHOTS.push(["31 Mash at the door", T.s31, cam([0.9, 0.9, -1.3], [1.45, 1.35, 1.4], tc(40, 46), { fov: tc(38, 44) }, r3(T.s32 - T.s31))]);
     // ---- 32 both on the boxes; Mash holds the glasses, turns them
     ht.release(L(T.s32) - 0.05, { rest: false });
     hideP(T.s32, "tape");
@@ -244,21 +260,21 @@ function build(F, S) {
     for (let i = 0; i < 2; i++) { hg.carry(L(T.s32 + 0.8 + i * 3.0), GHOLD, 1.4, "inOut", { tip: -60 }); hg.carry(L(T.s32 + 2.2 + i * 3.0), GHOLD, 1.4, "inOut", { tip: -35 }); }
     expr(T.s32, "mash", "kind", { curve: 0.3 }, 0.01); look(T.s32, "mash", [0, -0.5], 0.01);
     expr(T.s32, "spud", "sad", { brow: 0.4, curve: -0.1 }, 0.01); look(T.s32, "spud", [0.6, -0.1], 0.01);
-    S_(T.wore, "mash", "I wore them a whole year.", 1.9, "calm", 56);   // split in two: one long caption ran into the clock HUD
-    S_(T.wore + 1.95, "mash", "Copied everything you did.", 1.6, "calm", 56);
-    S_(T.wore + 3.6, "mash", "Stayed at forty-one.", 1.4, "calm", 56);
+    S_(T.wore, "mash", "I wore them a whole year.", 1.9, "calm", tc(56, null));   // split in two: one long caption ran into the clock HUD
+    S_(T.wore + 1.95, "mash", "Copied everything you did.", 1.6, "calm", tc(56, null));
+    S_(T.wore + 3.6, "mash", "Stayed at forty-one.", 1.4, "calm", tc(56, null));
     look(T.wore + 1.5, "mash", [-0.6, -0.05], 0.3);   // to Spud
     expr(T.changed - 0.2, "spud", "focused", { brow: 0.2, eye: 1.1 }, 0.2);
-    S_(T.changed, "spud", "So what changed?", 1.2, "question", 56);
+    S_(T.changed, "spud", "So what changed?", 1.2, "question", tc(56, null));
     look(T.changed + 0.1, "mash", [-0.6, -0.05], 0.2);
     see(L(T.s32), L(T.s33), ["spud.face", "mash.face", "gll"], "both sit on taped moving boxes by the window; Mash holds the old glasses in both hands");
-    SHOTS.push(["32 on the boxes", T.s32, cam([-0.75, 0.78, -1.22], [3.0, 1.15, -1.22], 50, { fov: 48 }, r3(T.s33 - T.s32))]);
+    SHOTS.push(["32 on the boxes", T.s32, cam(tc([-0.75, 0.78, -1.22], [-1.1, 0.85, -1.22]), [3.0, 1.15, -1.22], tc(50, 60), { fov: tc(48, 58) }, r3(T.s33 - T.s32))]);
     // ---- 33 Mash close: "I put them in that box."
     expr(T.box - 0.2, "mash", "happy", { curve: 0.7 }, 0.25);
-    S_(T.box, "mash", "I put them in that box.", 1.5, "calm", 56);
+    S_(T.box, "mash", "I put them in that box.", 1.5, "calm", tc(56, null));
     look(T.box + 1.6, "mash", [-0.6, -0.05], 0.3);
     see(L(T.s33), L(T.s34), ["mash.face", "gll"], "close on Mash, smiling at Spud, the glasses in his hands (no line: his last line ends in the two-shot)");
-    SHOTS.push(["33 Mash close", T.s33, cam([0.75, 1.08, -0.45], [SEAT2[0], 1.05, SEAT2[1] - 0.05], 34, { fov: 31 }, r3(T.s34 - T.s33))]);
+    SHOTS.push(["33 Mash close", T.s33, cam([0.75, 1.08, -0.45], [SEAT2[0], tc(1.05, 1.14), SEAT2[1] - 0.05], tc(34, 50), { fov: tc(31, 47) }, r3(T.s34 - T.s33))]);
     // ---- 34 Mash tapes a box; Spud on his box, the glasses folded beside him; N5 (mind on what you do)
     hg.release(L(T.s34) - 0.05, { rest: false });
     pr(T.s34 - PRE, "gll", { y: -30 }); showP(T.s34, "gls", { y: GS.y }); showP(T.s34, "tbox", {});
@@ -282,7 +298,7 @@ function build(F, S) {
     expr(T.s34, "spud", "sad", { brow: 0.3, curve: 0 }, 0.01); look(T.s34, "spud", [-0.5, -0.2], 0.01);
     N(T.n5, "n5");
     see(L(T.s34), L(T.s35), ["mash.face", "tbox", "spud"], "Mash tapes a box shut, eyes closed; Spud sits on a box behind him, the folded glasses beside him");
-    SHOTS.push(["34 taping", T.s34, cam([-2.2, 1.0, 0.8], [1.0, 1.1, -1.4], 44, { pos: [-2.05, 1.0, 0.65] }, r3(T.s35 - T.s34))]);
+    SHOTS.push(["34 taping", T.s34, cam([-2.2, 1.0, 0.8], tc([1.0, 1.1, -1.4], [-0.05, 0.9, -1.15]), tc(44, 56), { pos: [-2.05, 1.0, 0.65] }, r3(T.s35 - T.s34))]);
     // ---- 35 Spud at the window, the glasses back on; the truck honks outside
     park(T.s35, "mash", 1); hideP(T.s35, "tape"); A(L(T.s35) - 0.05, "mash", "release", { prop: "tape", dur: 0 });
     hideP(T.s35, "gls"); showP(T.s35, "glw", { y: SCORE_FITS.nose.y });
@@ -294,7 +310,7 @@ function build(F, S) {
     expr(T.honk + 0.15, "spud", "worried", { brow: 0.6, eye: 1.2 }, 0.15);
     look(T.honk + 0.15, "spud", [0.3, -0.45], 0.2);
     see(L(T.s35), L(T.s36), ["spud.face", "glw"], "Spud at the window with the glasses on again; outside, the truck honks");
-    SHOTS.push(["35 the window", T.s35, cam([2.85, 0.72, 0.25], [2.55, 0.62, -1.4], 38, { fov: 35 }, r3(T.s36 - T.s35))]);
+    SHOTS.push(["35 the window", T.s35, cam([2.85, 0.72, 0.25], tc([2.55, 0.62, -1.4], [2.56, 0.72, -1.25]), tc(38, 44), { fov: tc(35, 40) }, r3(T.s36 - T.s35))]);
     allowClip.push({ who: "spud", with: "glw", from: L(T.s35), to: L(S.t1), checks: ["shell", "clipping"], reason: "the glasses are worn on his nose: the temples rest on his head (SCORE_FITS.nose)" });
     allowClip.push({ who: "mash", with: "tbox", from: L(T.s34), to: L(T.s35), checks: ["arm-in-prop", "hand-in-prop"], reason: "panel 34: he presses the tape roll along the box's top seam, forearm on the lid" });
     allowClip.push({ who: "mash", with: "gll", from: L(T.s32), to: L(T.s34), checks: ["thin-prop-hidden"], reason: "thin glasses held by the hinges" });
@@ -314,7 +330,7 @@ function build(F, S) {
     expr(T.s36, "mash", "kind", { curve: 0.2 }, 0.01); look(T.s36, "mash", [0.4, 0.1], 0.01);
     sfx(L(T.s36 + 0.1), "rumble", { gain: 0.08, reason: "the truck's engine idling at the kerb" });
     see(L(T.s36), L(S.t1), ["mash", "van", "driver.face"], "from behind Mash on his doorstep: the white moving truck at the kerb, the driver waves from the window");
-    SHOTS.push(["36 the truck", T.s36, cam([1.05, 1.3, -0.8], [2.9, 1.3, 8.0], 42, { fov: 39 }, r3(S.t1 - T.s36))]);
+    SHOTS.push(["36 the truck", T.s36, cam([1.05, 1.3, -0.8], tc([2.9, 1.3, 8.0], [r3(DRIVER[0] * 0.65 + VAN[0] * 0.35), 1.35, r3(DRIVER[2] * 0.65 + VAN[1] * 0.35)]), tc(42, 50), { fov: tc(39, 46) }, r3(S.t1 - T.s36))]);
     allowClip.push({ who: "driver", with: "van", from: 0, to: L(S.t1), reason: "the driver sits in the cab (the truck encloses him)" });
     allowClip.push({ who: "driver", with: "dcap", from: 0, to: L(S.t1), reason: "the cap is worn" });
     grade = gradeOf(S.t0);
@@ -337,4 +353,5 @@ function build(F, S) {
   };
 }
 
-for (const S of SEGS) write(import.meta.url, { id: `hs03-${S.key}-wide`, ...FRAME.wide.sb, ...build(FRAME.wide, S) });
+const F0 = TALL ? FRAME.tall : FRAME.wide;
+for (const S of SEGS) write(import.meta.url, { id: `hs03-${S.key}-${F0.key}`, ...F0.sb, ...build(F0, S) });
