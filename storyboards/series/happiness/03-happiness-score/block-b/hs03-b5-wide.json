@@ -312,7 +312,7 @@
     {
      "macro": "narrate",
      "line": "Because you weren't there.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 1.966,
      "caption": true,

@@ -105,7 +105,7 @@ export function scoreOf(T0, views, tags) {
 // ---------------------------------------------------------------- voices
 // Narrator = voice 1 "deep storyteller" (engine/voice/voices.json "narrator"), speaks to the viewer as "you", never over a
 // character line (one voice at a time). Characters speak captioned gibberish (c.say: talk action + subtitle).
-export const NARRATOR = "narrator-brisk";   // Jonny 16 Nov: 10% faster than voice 1 (voices.json "narrator-brisk" = "narrator" + tempo 1.1). Voice 1 "deep storyteller" (VoxCPM2 on Reaper's clip, engine/voice/README.md "Narrators"), as in the money redo
+export const NARRATOR = "narrator";   // Jonny 17 Nov: back to the earlier speed, the whole film is sped up 1.3x at the join instead ("narrator-brisk" was 16 Nov). Voice 1 "deep storyteller" (VoxCPM2 on Reaper's clip, engine/voice/README.md "Narrators"), as in the money redo
 export const narrate = (c, F, t, line, dur, o = {}) =>
   c.at(r3(t), { macro: "narrate", line, voice: NARRATOR, take: 1, dur, caption: true, pos: F.SUB, gain: o.gain ?? 4.0, ...o });   // gain 4: the money redo's narrator level (Jonny OK)
 export const say = (c, F, t, who, line, dur, tone = "calm", o = {}) => c.say(r3(t), who, line, dur, tone, { voice: false, sub: line, pos: F.SUB, ...o });

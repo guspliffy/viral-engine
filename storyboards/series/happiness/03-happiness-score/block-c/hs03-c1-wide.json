@@ -337,7 +337,7 @@
     {
      "macro": "narrate",
      "line": "Last day. If the secret was anywhere, it was in these boxes.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 4.4916,
      "caption": true,
@@ -920,7 +920,7 @@
     {
      "macro": "narrate",
      "line": "It was the same question. In his handwriting.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 2.7232,
      "caption": true,

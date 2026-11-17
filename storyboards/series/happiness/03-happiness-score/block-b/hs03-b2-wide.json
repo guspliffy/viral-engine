@@ -372,7 +372,7 @@
     {
      "macro": "narrate",
      "line": "Which is harder than it sounds.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 1.531,
      "caption": true,

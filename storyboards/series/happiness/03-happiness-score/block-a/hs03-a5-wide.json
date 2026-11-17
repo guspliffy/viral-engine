@@ -690,7 +690,7 @@
     {
      "macro": "narrate",
      "line": "So you do what any good friend would do. You study him.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 4.4,
      "caption": true,

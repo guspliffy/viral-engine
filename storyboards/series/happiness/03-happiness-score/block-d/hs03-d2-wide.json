@@ -975,7 +975,7 @@
     {
      "macro": "narrate",
      "line": "One hour left with your best friend. And you're still counting.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 3.62,
      "caption": true,

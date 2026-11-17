@@ -448,7 +448,7 @@
     {
      "macro": "narrate",
      "line": "So you try not to look.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 1.4105,
      "caption": true,

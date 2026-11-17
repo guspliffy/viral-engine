@@ -767,7 +767,7 @@
     {
      "macro": "narrate",
      "line": "His goodbye party. Your old song.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 2.8423,
      "caption": true,
@@ -1579,7 +1579,7 @@
     {
      "macro": "narrate",
      "line": "You noticed: the more you checked how happy you were, the less you enjoyed the song.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 5.6394,
      "caption": true,
@@ -1821,7 +1821,7 @@
     {
      "macro": "narrate",
      "line": "And for the first time, his number went down.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 2.6815,
      "caption": true,

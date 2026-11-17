@@ -479,7 +479,7 @@
     {
      "macro": "narrate",
      "line": "...was you.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 0.7301,
      "caption": true,
@@ -1595,7 +1595,7 @@
     {
      "macro": "narrate",
      "line": "You were happiest when your mind was on what you were doing, not on how you were doing.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 5.5731,
      "caption": true,

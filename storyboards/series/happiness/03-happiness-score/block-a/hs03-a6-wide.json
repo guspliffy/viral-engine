@@ -793,7 +793,7 @@
     {
      "macro": "narrate",
      "line": "Same hoodie. Same bun. Same river.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 3,
      "caption": true,

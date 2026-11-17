@@ -169,7 +169,7 @@
     {
      "macro": "narrate",
      "line": "Years ago, he wore these glasses.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 2.8271,
      "caption": true,
@@ -200,7 +200,7 @@
     {
      "macro": "narrate",
      "line": "And the friend he copied...",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 1.2556,
      "caption": true,

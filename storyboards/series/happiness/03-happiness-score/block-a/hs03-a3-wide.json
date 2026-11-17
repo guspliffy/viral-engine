@@ -537,7 +537,7 @@
     {
      "macro": "narrate",
      "line": "Your best friend is eighty-eight. And on Sunday, he's gone.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 3.9,
      "caption": true,

@@ -616,7 +616,7 @@
     {
      "macro": "narrate",
      "line": "And every time you checked, it dropped.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 2.7,
      "caption": true,

@@ -271,7 +271,7 @@
     {
      "macro": "narrate",
      "line": "You never found out your number.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 1.42,
      "caption": true,

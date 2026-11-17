@@ -333,7 +333,7 @@
     {
      "macro": "narrate",
      "line": "But the beauty of the sunset made you forget all your worries for one moment.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 6.94,
      "caption": true,

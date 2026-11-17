@@ -522,7 +522,7 @@
     {
      "macro": "narrate",
      "line": "Have you ever looked so hard for happiness that you missed it?",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 4.05,
      "caption": true,
@@ -921,7 +921,7 @@
     {
      "macro": "narrate",
      "line": "For the first time in three days, you didn't check.",
-     "voice": "narrator-brisk",
+     "voice": "narrator",
      "take": 1,
      "dur": 3.45,
      "caption": true,

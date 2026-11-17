@@ -120,8 +120,8 @@ function make({ key, setKey, T0, T1, build }) {
   });
 }
 
-// ================================================================= O1 THE STREET THROUGH THE GLASSES (0.0-5.6), panel 01
-seg("a1", "street", 0, 5.6, (S) => {
+// ================================================================= O1 THE STREET THROUGH THE GLASSES (0.0-6.1), panel 01
+seg("a1", "street", 0, 6.1, (S) => {
   const { c } = S;
   S.prop({ id: "van", kind: "boxvan", x: STREET.van.x, y: STREET.van.y, z: STREET.van.z, rot: -90, open: 1, len: 0, win: 0 });
   // the mover rests by the armchair he just carried out (DESIGN 10 fallback for the carry): chair on the pavement, he wipes his brow
@@ -139,39 +139,39 @@ seg("a1", "street", 0, 5.6, (S) => {
   S.arm(1.7, "mover", "R", "hips", 0.45); S.arm(1.7, "mover", "L", "hips", 0.45);
   S.A(S.t(1.8), "mover", "squash", { amount: 0.06, dur: 0.5 });   // a breath out
   S.look(2.4, "mover", [0.5, 0.1], 0.3); S.expr(2.4, "mover", "kind", { curve: 0.3 }, 0.3);
-  S.view(0, 5.6);
+  S.view(0, 6.1);
   S.tag({ who: "mover", keys: [[0, SCORES.mover]], k: 0.85 });
   // the reflection's tag: over the reflected leaf tip (91 % up the card), fixed in px
   const tip = project(SH, [WIN[0], r3(WIN[1] - 0.31 + 0.91 * 0.62 + 0.06), WIN[2]]);
   S.tag({ xy: tip, keys: [[0, 41]], size: "medium" });
   // "41" up top for the first 2.6 s (frame 0 is the title), then the line's caption; the own chip takes over at 2.6
   S.card(0, 2.6, "41", 220, 180);
-  S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 5.45, { caption: false });   // Jonny 16 Nov: "41" was cut off: the take is 5.43 s, so the shot runs to 5.6
-  c.cap(S.t(2.65), S.t(5.6), "These glasses show everyone's happiness score. Yours is forty-one.", F.SUB);
+  S.narrate(0.05, "These glasses show everyone's happiness score. Yours is forty-one.", 6.0, { caption: false });   // Jonny 16 Nov: "41" was cut off: the take is ~6.0 s at voice 1's speed, so the shot runs to 6.1
+  c.cap(S.t(2.65), S.t(6.1), "These glasses show everyone's happiness score. Yours is forty-one.", F.SUB);
   S.hud({ own: { keys: [[2.6, 41]] } });
   S.sound({ nature: [{ id: "birds", gain: 0.05 }, { id: "leaves", gain: 0.05 }] });
   S.cut("01 the street through the glasses", 0, SH, "hook");
-  S.see(0, 5.6, ["mover.face", "van", "refl"], "through old round glasses: a grey moving-day street; a mover by an armchair, a white van, a potato's reflection in its window; glowing numbers over them");
-  S.allow.push({ who: "mover", with: "mcap", from: 0, to: 5.6, reason: "the flat cap is worn" });
+  S.see(0, 6.1, ["mover.face", "van", "refl"], "through old round glasses: a grey moving-day street; a mover by an armchair, a white van, a potato's reflection in its window; glowing numbers over them");
+  S.allow.push({ who: "mover", with: "mcap", from: 0, to: 6.1, reason: "the flat cap is worn" });
 });
 
-// ================================================================= O2 THE HALL: THE BOX, THE TUNE (5.6-11.0), panels 02 + 03
+// ================================================================= O2 THE HALL: THE BOX, THE TUNE (6.1-11.0), panels 02 + 03
 const KEEP = HALL.keepbox, KNEEL = [-0.78, 1.45];
 const hallProps = (S) => {
   S.prop({ id: "door", ...HALL.frontdoor, open: 1 });
   S.prop({ id: "keep", kind: "keepbox", x: KEEP.x, y: 0, z: KEEP.z, rot: 0 });
   S.prop({ id: "case", kind: "scorecase", x: r3(KEEP.x + 0.06), y: 0.2, z: r3(KEEP.z + 0.02), rot: 90, open: 1 });
 };
-seg("a2", "hall", 5.6, 11.0, (S) => {
+seg("a2", "hall", 6.1, 11.0, (S) => {
   hallProps(S);
   S.actor("spud", "spud"); S.actor("mash", "mash");
   // the glasses slid down his nose (SCORE_FITS "half"): he looks over them at the box
   S.prop({ id: "glw", kind: "scoreglasses", wear: "spud", x: 0, y: 0.535, z: 0.382, tip: 25, fold: 0 });
-  S.allow.push({ who: "spud", with: "glw", from: 5.6, to: 11.0, checks: ["clipping", "shell", "hand-in-prop"], reason: "the glasses are worn, slid down the nose (SCORE_FITS half)" });
-  S.place(5.6, "spud", KNEEL, 90); S.A(0, "spud", "crouch", { to: 0.3, dur: 0.01 }); S.rest(5.6, "spud");
-  S.expr(5.6, "spud", "shocked", { open: 0.15, eye: 1.15, curve: 0 }, 0.01); S.look(5.6, "spud", [0.3, -0.45], 0.01);
-  S.A(S.t(6.2), "spud", "blink", { dur: 0.3 });
-  S.look(6.6, "spud", [0.1, -0.25], 0.4); S.expr(6.6, "spud", "focused", { brow: 0.3, curve: 0.1 }, 0.4);
+  S.allow.push({ who: "spud", with: "glw", from: 6.1, to: 11.0, checks: ["clipping", "shell", "hand-in-prop"], reason: "the glasses are worn, slid down the nose (SCORE_FITS half)" });
+  S.place(6.1, "spud", KNEEL, 90); S.A(0, "spud", "crouch", { to: 0.3, dur: 0.01 }); S.rest(6.1, "spud");
+  S.expr(6.1, "spud", "shocked", { open: 0.15, eye: 1.15, curve: 0 }, 0.01); S.look(6.1, "spud", [0.3, -0.45], 0.01);
+  S.A(S.t(6.5), "spud", "blink", { dur: 0.3 });
+  S.look(6.9, "spud", [0.1, -0.25], 0.4); S.expr(6.9, "spud", "focused", { brow: 0.3, curve: 0.1 }, 0.4);
   // 03: Mash passes behind him with a box, whistling THE TUNE; Spud's eyes follow him
   const W0 = [0.15, -0.2], W1 = [2.2, -1.95], WY = yawTo(W0, W1);
   const BOX = S.prop({ id: "mbox", kind: "parcel", ...grips.placeFor("parcel", ahead(W0, WY, 0.42, 0.3), WY) });
@@ -182,11 +182,11 @@ seg("a2", "hall", 5.6, 11.0, (S) => {
   // (no whistle as Mash passes: Jonny 16 Nov "the whistling sounds when characters arrive in scenes should be cut")
   S.look(7.9, "spud", [0.6, 0.2], 0.4); S.A(S.t(8.0), "spud", "turn", { to: 60, dur: 0.6 });
   S.expr(8.4, "spud", "sad", { curve: -0.1, brow: 0.35 }, 0.5);
-  S.narrate(5.75, "If you've ever compared yourself to a friend, watch what it costs you.", 5.0);
+  S.narrate(6.2, "If you've ever compared yourself to a friend, watch what it costs you.", 5.0);
   S.sound({ room: "hall", surface: "wood", nature: [{ id: "birds", gain: 0.03 }] });
-  S.cut("02 the box", 5.6, { pos: [1.1, 1.0, 3.0], look: [-0.4, 0.5, 1.45], fov: 38 });
+  S.cut("02 the box", 6.1, { pos: [1.1, 1.0, 3.0], look: [-0.4, 0.5, 1.45], fov: 38 });
   S.cut("03 Mash passes", 7.6, { pos: [-0.2, 1.0, 4.1], look: [0.6, 0.95, 0.0], fov: 48 });
-  S.see(5.6, 7.6, ["spud.face", "keep", "case"], "close: Spud kneels at a cardboard box marked DON'T KEEP, old round glasses slid down his nose, an empty glasses case in the box");
+  S.see(6.1, 7.6, ["spud.face", "keep", "case"], "close: Spud kneels at a cardboard box marked DON'T KEEP, old round glasses slid down his nose, an empty glasses case in the box");
   S.see(7.6, 11.0, ["spud", "mash"], "the sunny hall on moving day: his best friend Mash walks past behind him with a box, whistling");
 });
 
