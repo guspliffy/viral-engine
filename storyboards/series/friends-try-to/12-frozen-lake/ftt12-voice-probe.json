@@ -1,0 +1,138 @@
+{
+ "id": "ftt12-voice-probe",
+ "title": "Friends try to 12 voice probe",
+ "idea": "line takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   15.6,
+   15.6
+  ]
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 15.6,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "One of them is too heavy.",
+     "voice": "narrator",
+     "style": "deep, serious storyteller, deliberate and clear, every word weighed, ominous",
+     "take": 4,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "You're too fat.",
+     "tone": "calm",
+     "style": "high, small, sweet, matter-of-fact, a little smug",
+     "dur": 1.7,
+     "caption": false,
+     "at": 4.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Fine!",
+     "tone": "angry",
+     "style": "loud, offended, huffy sigh",
+     "dur": 0.9,
+     "caption": false,
+     "at": 6.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Your turn.",
+     "tone": "calm",
+     "style": "high, small, sweet, innocent",
+     "dur": 1.3,
+     "caption": false,
+     "at": 8.7
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Wait...",
+     "tone": "calm",
+     "style": "slow, suspicious, low",
+     "dur": 0.9,
+     "caption": false,
+     "at": 11
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Just in case!",
+     "tone": "happy",
+     "style": "high, proud, cheerful, a little guilty",
+     "dur": 1.7,
+     "caption": false,
+     "at": 12.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Friends try to 12: makes and measures every take."
+}
