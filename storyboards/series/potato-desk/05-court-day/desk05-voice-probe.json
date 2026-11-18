@@ -2,6 +2,7 @@
  "id": "desk05-voice-probe",
  "title": "Potato Desk 05 voice probe",
  "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
