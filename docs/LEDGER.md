@@ -88,6 +88,13 @@ Three changes went in on 10 Nov 2026, before the loop started. From the next fix
   again, the jet never climbed and no check saw it (a still round to find it). Should keep lost prop moves found in
   stills at 0. Proof: the jet storyboard as it was gives 1 warning, the delivered one 0; all 461 storyboards in the
   repo give 5 warnings in 4 old clips; no fail and no render changes.
+- A segment's first and last frame are judged for pops too (18 Nov, from Happiness 03 happiness score; waits for
+  Jonny's word): `oddFrames` in `qa/check.mjs` never judged frame 0 or the last frame (no neighbour on one side), so a
+  segment whose frame 0 is drawn before its actors are in passed every check and flashed for one frame in the joined
+  film (five cuts, fixed at the join by hand). Now an edge frame that differs from its neighbour by more than the next
+  two steps differ is a pop like any other (warn over 8, fail over 30). Should keep one-frame flashes found at the
+  join at 0. Proof: of the film's 25 wide finals it flags exactly b2-b6 (frame 0 without actors or HUD: 57, 44, 77,
+  14, 65), all real, and nothing in A, C or D.
 
 First test: There's a catch EP04 copy money. The director's model is on test too (Fable 5.2 on high since 10 Nov,
 Opus 5.5 on xhigh before); the line to compare with is the first row.
