@@ -1,0 +1,3748 @@
+{
+ "id": "dads-new-car",
+ "title": "He parked it perfectly.",
+ "idea": "Friends try to 09 (18 Nov 2026): Dad's new car, three tries to park; Wedge's 'trust me' bins it, Chip dives in diagonal, Spud parks it in one move; Wedge's proud pat rolls it back to the start: 4/3",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "motion": "natural",
+ "hud": {
+  "tries": {
+   "keys": [
+    [
+     0,
+     1
+    ],
+    [
+     4.5,
+     2
+    ],
+    [
+     9.8,
+     3
+    ],
+    [
+     18.35,
+     4
+    ]
+   ],
+   "max": 3
+  }
+ },
+ "set": {
+  "type": "plain",
+  "color": "#f3c99a",
+  "floor": "#6f6669",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "plate": {
+   "src": "assets/plates/street-terrace-evening.png",
+   "z": -4.5,
+   "center": [
+    0.3,
+    7.55
+   ],
+   "height": 15,
+   "relief": 0.3,
+   "dust": 30
+  }
+ },
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#ffcc2e",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0.403,
+      0.415,
+      0.203
+     ],
+     "yaw": -42,
+     "roll": -3.716,
+     "pitch": -3.346,
+     "steer": -20
+    },
+    {
+     "at": 0.12,
+     "pos": [
+      0.523,
+      0.464,
+      0.07
+     ],
+     "yaw": -42,
+     "roll": -6.316,
+     "pitch": -1.146,
+     "steer": -20
+    },
+    {
+     "at": 0.3,
+     "pos": [
+      0.55,
+      0.412,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -4.316,
+     "pitch": -2.946,
+     "steer": -20
+    },
+    {
+     "at": 0.42,
+     "pos": [
+      0.55,
+      0.402,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -3.716,
+     "pitch": -3.346,
+     "steer": -10
+    },
+    {
+     "at": 1,
+     "pos": [
+      0.55,
+      0.402,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -3.716,
+     "pitch": -3.346,
+     "steer": 0
+    },
+    {
+     "at": 1.75,
+     "pos": [
+      -0.35,
+      0.481,
+      0.87
+     ],
+     "yaw": -68,
+     "roll": -1.873,
+     "pitch": -4.636,
+     "steer": 15
+    },
+    {
+     "at": 2.1,
+     "pos": [
+      -0.35,
+      0.481,
+      0.87
+     ],
+     "yaw": -68,
+     "roll": -1.873,
+     "pitch": -4.636,
+     "steer": 0
+    },
+    {
+     "at": 3,
+     "pos": [
+      -0.35,
+      0.481,
+      0.87
+     ],
+     "yaw": -68,
+     "roll": -1.873,
+     "pitch": -4.636,
+     "steer": 0
+    },
+    {
+     "at": 4.35,
+     "pos": [
+      0.32,
+      0.422,
+      0.08
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -4.891,
+     "steer": -12
+    },
+    {
+     "at": 4.45,
+     "pos": [
+      0.291,
+      0.425,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -5.691,
+     "steer": 0
+    },
+    {
+     "at": 4.9,
+     "pos": [
+      0.291,
+      0.425,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -4.891,
+     "steer": 0
+    },
+    {
+     "at": 5.8,
+     "pos": [
+      0.291,
+      0.425,
+      0.086
+     ],
+     "yaw": -78,
+     "roll": -1.04,
+     "pitch": -4.891,
+     "steer": 0
+    },
+    {
+     "at": 6.5,
+     "pos": [
+      2,
+      0.275,
+      2.07
+     ],
+     "yaw": -95,
+     "roll": 0.436,
+     "pitch": -4.981,
+     "steer": 22
+    },
+    {
+     "at": 6.65,
+     "pos": [
+      2,
+      0.275,
+      2.07
+     ],
+     "yaw": -95,
+     "roll": 0.436,
+     "pitch": -4.981,
+     "steer": -32
+    },
+    {
+     "at": 7.35,
+     "pos": [
+      -0.75,
+      0.516,
+      0.22
+     ],
+     "yaw": -132,
+     "roll": 3.346,
+     "pitch": -3.716,
+     "steer": -32
+    },
+    {
+     "at": 7.42,
+     "pos": [
+      -0.75,
+      0.516,
+      0.22
+     ],
+     "yaw": -132,
+     "roll": 3.346,
+     "pitch": -5.916,
+     "steer": -32
+    },
+    {
+     "at": 7.6,
+     "pos": [
+      -0.75,
+      0.516,
+      0.22
+     ],
+     "yaw": -132,
+     "roll": 3.346,
+     "pitch": -2.916,
+     "steer": -32
+    },
+    {
+     "at": 7.72,
+     "pos": [
+      -0.75,
+      0.516,
+      0.22
+     ],
+     "yaw": -132,
+     "roll": 3.346,
+     "pitch": -3.716,
+     "steer": -32
+    },
+    {
+     "at": 10.9,
+     "pos": [
+      -0.75,
+      0.516,
+      0.22
+     ],
+     "yaw": -132,
+     "roll": 3.346,
+     "pitch": -3.716,
+     "steer": 0
+    },
+    {
+     "at": 11.5,
+     "pos": [
+      0.35,
+      0.419,
+      1.97
+     ],
+     "yaw": -100,
+     "roll": 0.868,
+     "pitch": -4.924,
+     "steer": 0
+    },
+    {
+     "at": 12,
+     "pos": [
+      -1.45,
+      0.577,
+      2.28
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 12.15,
+     "pos": [
+      -1.45,
+      0.577,
+      2.28
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": -28
+    },
+    {
+     "at": 12.5,
+     "pos": [
+      -0.55,
+      0.498,
+      1.17
+     ],
+     "yaw": -64,
+     "roll": -2.192,
+     "pitch": -4.494,
+     "steer": -28
+    },
+    {
+     "at": 12.85,
+     "pos": [
+      -0.06,
+      0.455,
+      0
+     ],
+     "yaw": -86,
+     "roll": -0.349,
+     "pitch": -4.988,
+     "steer": 18
+    },
+    {
+     "at": 13,
+     "pos": [
+      0,
+      0.45,
+      -0.08
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 17.5,
+     "pos": [
+      0,
+      0.45,
+      -0.08
+     ],
+     "yaw": -90,
+     "roll": 0,
+     "pitch": -5,
+     "steer": 0
+    },
+    {
+     "at": 17.95,
+     "pos": [
+      0.28,
+      0.426,
+      -0.02
+     ],
+     "yaw": -70,
+     "roll": -1.71,
+     "pitch": -4.698,
+     "steer": -20
+    },
+    {
+     "at": 18.3,
+     "pos": [
+      0.537,
+      0.443,
+      0.055
+     ],
+     "yaw": -42,
+     "roll": -5.316,
+     "pitch": -2.146,
+     "steer": -20
+    },
+    {
+     "at": 18.42,
+     "pos": [
+      0.55,
+      0.452,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -5.716,
+     "pitch": -1.746,
+     "steer": -20
+    },
+    {
+     "at": 18.6,
+     "pos": [
+      0.55,
+      0.452,
+      0.04
+     ],
+     "yaw": -42,
+     "roll": -5.716,
+     "pitch": -1.746,
+     "steer": -20
+    }
+   ]
+  },
+  {
+   "id": "red",
+   "kind": "hatchback",
+   "color": "#d4473d",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      -4.3,
+      0.826,
+      -0.08000000000000007
+     ],
+     "yaw": -90,
+     "pitch": -5
+    }
+   ]
+  },
+  {
+   "id": "blue",
+   "kind": "hatchback",
+   "color": "#4a7ac4",
+   "pivot": [
+    0,
+    0.5,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      4.3,
+      0.074,
+      -0.08000000000000007
+     ],
+     "yaw": -90,
+     "pitch": -5
+    }
+   ]
+  }
+ ],
+ "music": {
+  "style": "disco",
+  "bpm": 118,
+  "key": -2,
+  "gain": 0.16,
+  "lowCut": 150,
+  "payoff": 13.45,
+  "parts": [
+   {
+    "at": 0,
+    "part": "main"
+   },
+   {
+    "at": 17.45,
+    "part": "stop"
+   }
+  ]
+ },
+ "sound": {
+  "sfx": 0.7,
+  "ambience": 0.08,
+  "surface": "concrete",
+  "signature": false,
+  "engine": {
+   "keys": [
+    [
+     0,
+     1400,
+     0.5,
+     0
+    ],
+    [
+     0.4,
+     900,
+     0.2,
+     0
+    ],
+    [
+     1,
+     1400,
+     0.45,
+     0
+    ],
+    [
+     2.1,
+     900,
+     0.15,
+     0
+    ],
+    [
+     3,
+     1200,
+     0.35,
+     0
+    ],
+    [
+     4.4,
+     800,
+     0.1,
+     0
+    ],
+    [
+     5.8,
+     1300,
+     0.4,
+     0
+    ],
+    [
+     6.65,
+     2200,
+     0.7,
+     0
+    ],
+    [
+     7.4,
+     900,
+     0.15,
+     0
+    ],
+    [
+     10.9,
+     1200,
+     0.35,
+     0
+    ],
+    [
+     13,
+     800,
+     0.1,
+     0
+    ],
+    [
+     13.35,
+     0,
+     0,
+     0
+    ]
+   ],
+   "gain": 0.22
+  }
+ },
+ "creative": {
+  "length": [
+   17,
+   22
+  ]
+ },
+ "hook": {
+  "show": [
+   "chipC",
+   "wedge"
+  ],
+  "hint": 0,
+  "what": "Dad's new car half in a parking gap at a bad angle, its tyre bumping the kerb; TRY 1/3"
+ },
+ "cast": [
+  {
+   "id": "chipC",
+   "character": "potatobrawl/chip",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "eager",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.3
+  },
+  {
+   "id": "chipP",
+   "character": "potatobrawl/chip",
+   "rig": "car",
+   "at": [
+    -0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.3
+  },
+  {
+   "id": "spudC",
+   "character": "potatobrawl/spud",
+   "rig": "car",
+   "at": [
+    -0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 1.1
+  },
+  {
+   "id": "spudD",
+   "character": "potatobrawl/spud",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.23
+   ],
+   "face": "camera",
+   "expr": "calm",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 1.1
+  },
+  {
+   "id": "mashC",
+   "character": "potatobrawl/mash",
+   "rig": "car",
+   "at": [
+    0.45,
+    -0.95
+   ],
+   "face": "camera",
+   "expr": "deadpan",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 4.1
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2.75,
+    -2.25
+   ],
+   "y": 0.32899999999999996,
+   "face": -35,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "wedgeW",
+   "character": "potatobrawl/wedge",
+   "at": [
+    3.1,
+    2.32
+   ],
+   "y": 0.179,
+   "face": 160,
+   "expr": "eager",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "wedgeD",
+   "character": "potatobrawl/wedge",
+   "at": [
+    2.15,
+    2.02
+   ],
+   "y": 0.262,
+   "face": -15,
+   "expr": "delighted",
+   "follow": 0.35,
+   "seed": 3.3
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.35,
+    2.67
+   ],
+   "y": 0.481,
+   "face": 12,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.95,
+    2.87
+   ],
+   "y": 0.367,
+   "face": -5,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "seat-drv",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-pas",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.12,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rl",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-rr",
+   "kind": "carseat",
+   "rig": "car",
+   "x": -0.45,
+   "y": 0.4,
+   "z": -0.98,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "seat-chip",
+   "kind": "carseat",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.36,
+   "z": 0.2,
+   "color": "#59535f",
+   "trim": "#6e6875",
+   "width": 0.86
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": 0.55,
+   "y": 0.88,
+   "z": 0.63,
+   "tip": 34
+  },
+  {
+   "id": "street",
+   "kind": "street",
+   "x": 0,
+   "z": 4.7,
+   "w": 20,
+   "d": 12,
+   "slope": 5,
+   "lift": 0.45,
+   "seed": 4
+  },
+  {
+   "id": "kerb",
+   "kind": "kerb",
+   "x": 0,
+   "x0": -9,
+   "x1": 9,
+   "z": -1.3,
+   "seed": 5,
+   "slope": 5,
+   "lift": 0.45
+  },
+  {
+   "id": "flagway",
+   "kind": "flagway",
+   "x": 0,
+   "z": -1.55,
+   "w": 20,
+   "d": 3.2,
+   "slope": 5,
+   "lift": 0.45,
+   "seed": 6
+  },
+  {
+   "id": "bin",
+   "kind": "wheeliebin",
+   "x": 1.95,
+   "y": 0.399,
+   "z": -1.72,
+   "rot": -90
+  },
+  {
+   "id": "phoneM",
+   "kind": "phone",
+   "style": "iphone",
+   "rig": "car",
+   "x": 0.45,
+   "y": 1.3,
+   "z": -0.6,
+   "rot": 180,
+   "tip": -20,
+   "scale": 1.3
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 2.8,
+   "text": "Dad's new car. *3 tries.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 2.85,
+   "to": 4.65,
+   "text": "Trust me. Back, back, back!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.85,
+   "to": 6.14,
+   "text": "Nice.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.8,
+   "to": 8.75,
+   "text": "Your left!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 8.8,
+   "to": 9.85,
+   "text": "*MY* left!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.9,
+   "to": 11.14,
+   "text": "*Last* try.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.5,
+   "to": 15.4,
+   "text": "Yes! We did it!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 15.45,
+   "to": 17.7,
+   "text": "Trust me. Good car.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 try 1: already going wrong",
+   "at": 0,
+   "len": 2.5,
+   "shot": {
+    "pos": [
+     2.1,
+     2.666,
+     6.72
+    ],
+    "look": [
+     1.2,
+     1.845,
+     -0.68
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "who": "chipP",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedgeW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "sit",
+     "seat": "seat-chip",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "sit",
+     "seat": "seat-pas",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "sit",
+     "seat": "seat-rl",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "seat-drv",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.09,
+       0.36,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "x": [
+       -0.09,
+       0.36,
+       0.34
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "face",
+     "lidL": 0.35,
+     "lidR": 0.35,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mashC",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.6,
+      "eye": 1.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      0.35,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "look",
+     "to": [
+      0.5,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       -0.1,
+       0.62,
+       0.42
+      ]
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.8,
+      "open": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.18,
+     "reason": "the reverse beeper",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Dad's new car. Three tries.",
+     "voice": "narrator",
+     "style": "deep, serious storyteller, brisk and clear, a little ominous",
+     "caption": false,
+     "gain": 1,
+     "at": 0.1
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.35,
+     "reason": "the back tyre squeaking up the kerb stone",
+     "at": 0.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.774,
+      0.402,
+      -1.031
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.45,
+     "reason": "the tyre dropping off the kerb",
+     "at": 0.32
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.819,
+      0.398,
+      -1.058
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 0.32
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.18,
+     "reason": "the reverse beeper",
+     "at": 0.45
+    },
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.1
+     ],
+     "dur": 0.15,
+     "at": 1
+    },
+    {
+     "who": "spudC",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.2
+     },
+     "dur": 0.25,
+     "at": 1.1
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 wedge guides",
+   "at": 2.5,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     2.15,
+     1.694,
+     3.45
+    ],
+    "look": [
+     2.35,
+     1.244,
+     -1.95
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.4
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.32
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Trust me. Back, back, back!",
+     "tone": "happy",
+     "style": "loud, confident, cheerful, waving a car back",
+     "dur": 1.45,
+     "caption": false,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.47
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.5
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      0.5,
+      0.35
+     ],
+     "dur": 0.15,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "mashC",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.7
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.722
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.74
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.74
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.86
+    },
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 0.908
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.01
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.01
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 1.058
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.13
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 1.172
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 1.25
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.28
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.2,
+     "reason": "the reverse beeper, speeding up",
+     "at": 1.292
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.55
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.67
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 1.67
+    }
+   ]
+  },
+  {
+   "name": "02b the bin",
+   "at": 4.2,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     2.9,
+     1.596,
+     6.52
+    ],
+    "look": [
+     2.1,
+     1.066,
+     -1.28
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.12
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "wobble": 1
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "sfx": "pan-bonk",
+     "gain": 0.6,
+     "reason": "the bumper bonks the plastic wheelie bin",
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "tip": 1
+     },
+     "dur": 0.38,
+     "ease": "in",
+     "at": 0.17
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3,
+      "open": 0.7
+     },
+     "dur": 0.1,
+     "at": 0.2
+    },
+    {
+     "who": "chipC",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.18,
+     "at": 0.25
+    },
+    {
+     "who": "spudC",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 0.25
+    },
+    {
+     "do": "prop",
+     "id": "bin",
+     "set": {
+      "wobble": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.4,
+     "reason": "the bin lands on its side on the pavement",
+     "at": 0.55
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      2.45,
+      0.449,
+      -1.72
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.35,
+     "lift": 0.05,
+     "at": 0.56
+    }
+   ]
+  },
+  {
+   "name": "03 mash: nice",
+   "at": 4.8,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     2.9,
+     1.6,
+     -0.35
+    ],
+    "look": [
+     0.45,
+     1.3,
+     -0.7
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "mashC",
+     "macro": "say",
+     "line": "Nice.",
+     "tone": "calm",
+     "style": "flat, calm, bored, not looking up from his phone",
+     "dur": 0.94,
+     "caption": false,
+     "at": 0.05
+    }
+   ],
+   "kind": "insert"
+  },
+  {
+   "name": "04 try 2: nose first",
+   "at": 5.8,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     0.2,
+     3.233,
+     8.12
+    ],
+    "look": [
+     0.2,
+     1.433,
+     0.32
+    ],
+    "fov": 58
+   },
+   "do": [
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "determined",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.65
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      -0.4,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.18,
+       0.5,
+       0.42
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.3,
+     "reason": "tyres as Chip pulls off too fast",
+     "at": 0.85
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.18
+      ]
+     },
+     "dur": 0.13,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "sfx": "screech",
+     "gain": 0.45,
+     "reason": "the brakes, hard",
+     "at": 1.58
+    },
+    {
+     "who": "chipC",
+     "do": "squash",
+     "amount": 0.1,
+     "dur": 0.2,
+     "at": 1.62
+    },
+    {
+     "who": "spudC",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.2,
+     "at": 1.62
+    },
+    {
+     "who": "mashC",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 1.62
+    },
+    {
+     "who": "spudC",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.25
+     },
+     "dur": 0.12,
+     "at": 1.65
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "04b your left",
+   "at": 7.75,
+   "len": 1,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.62,
+     1.55,
+     2.3
+    ],
+    "look": [
+     0.55,
+     1.3,
+     0.2
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "chipC",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "eye": 1.1
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "look",
+     "to": [
+      0.7,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "x": [
+       0.32,
+       0.55,
+       0.3
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "macro": "say",
+     "line": "Your left!",
+     "tone": "angry",
+     "style": "high, fast, outraged, shouting",
+     "take": 2,
+     "dur": 0.88,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "mashC",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.15,
+     "at": 0.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.62,
+       0.5
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.1,
+     "at": 0.95
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.05
+     ],
+     "dur": 0.12,
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "04c my left",
+   "at": 8.75,
+   "len": 1.05,
+   "shot": {
+    "pos": [
+     2.15,
+     1.694,
+     3.45
+    ],
+    "look": [
+     2.35,
+     1.244,
+     -1.95
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "spudC",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.3
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "MY left!",
+     "tone": "angry",
+     "style": "loud, upset, defensive",
+     "dur": 0.92,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "spudC",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 0.05
+    },
+    {
+     "who": "spudD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wheel",
+      "grip": "L"
+     },
+     "dur": 0.01,
+     "at": 1.02
+    },
+    {
+     "who": "spudD",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "L",
+     "pose": null,
+     "grip": "L",
+     "at": 1.02
+    },
+    {
+     "who": "spudD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "wheel",
+      "grip": "R"
+     },
+     "dur": 0.01,
+     "at": 1.02
+    },
+    {
+     "who": "spudD",
+     "do": "grab",
+     "prop": "wheel",
+     "hand": "R",
+     "pose": null,
+     "grip": "R",
+     "at": 1.02
+    }
+   ]
+  },
+  {
+   "name": "05 try 3: spud",
+   "at": 9.8,
+   "len": 1.05,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.62,
+     1.45,
+     1.95
+    ],
+    "look": [
+     0.55,
+     1.2,
+     0.2
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "seat-drv",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "seat-chip",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudC",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spudD",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chipP",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudD",
+     "do": "sit",
+     "seat": "seat-drv",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chipP",
+     "do": "sit",
+     "seat": "seat-pas",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chipP",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "curve": -0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipP",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.1
+     ],
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedgeW",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spudD",
+     "do": "look",
+     "to": [
+      -0.1,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Last try.",
+     "voice": "narrator",
+     "style": "deep, serious storyteller, brisk, tense",
+     "caption": false,
+     "gain": 1,
+     "at": 0.1
+    },
+    {
+     "who": "spudD",
+     "do": "look",
+     "to": [
+      0.3,
+      0
+     ],
+     "dur": 0.12,
+     "at": 0.55
+    }
+   ]
+  },
+  {
+   "name": "05b one smooth reverse",
+   "at": 10.85,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     0,
+     3.05,
+     11.42
+    ],
+    "look": [
+     0,
+     1.55,
+     -0.08000000000000007
+    ],
+    "fov": 60
+   },
+   "do": [
+    {
+     "who": "spudD",
+     "do": "look",
+     "to": [
+      0.8,
+      0.1
+     ],
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.16,
+     "reason": "the reverse beeper",
+     "at": 0.1
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.16,
+     "reason": "the reverse beeper",
+     "at": 0.5
+    },
+    {
+     "who": "spudD",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.15,
+     "at": 1.2
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.16,
+     "reason": "the reverse beeper",
+     "at": 1.35
+    },
+    {
+     "sfx": "timer-beep",
+     "gain": 0.16,
+     "reason": "the reverse beeper",
+     "at": 1.7
+    },
+    {
+     "who": "spudD",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.2,
+     "at": 2.15
+    },
+    {
+     "sfx": "kenney/drop-leather",
+     "gain": 0.25,
+     "reason": "the tyre kissing the kerb, softly",
+     "at": 2.15
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.973,
+      0.385,
+      -0.58
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 2.15
+    },
+    {
+     "who": "wedgeW",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.85
+     },
+     "dur": 0.12,
+     "at": 2.2
+    },
+    {
+     "who": "chipP",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.35,
+      "open": 0.85
+     },
+     "dur": 0.12,
+     "at": 2.22
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "06 we did it",
+   "at": 13.45,
+   "len": 1.75,
+   "shot": {
+    "pos": [
+     0.95,
+     2.067,
+     8.92
+    ],
+    "look": [
+     0.95,
+     1.467,
+     2.12
+    ],
+    "fov": 54
+   },
+   "do": [
+    {
+     "who": "spudD",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chipP",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedgeW",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 0.15
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.7,
+      "eye": 0.15
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.8
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.38,
+       0.78,
+       0.12
+      ]
+     },
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "ai/warm-resolve",
+     "gain": 0.25,
+     "reason": "the big major chord as they cheer",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wedgeD",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Yes! We did it!",
+     "tone": "happy",
+     "style": "high, overjoyed, shouting, cheering",
+     "dur": 1.6,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "height": 0.16,
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "mashC",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    }
+   ]
+  },
+  {
+   "name": "07 the tiny undo",
+   "at": 15.2,
+   "len": 4.15,
+   "shot": {
+    "pos": [
+     0.95,
+     3.567,
+     9.32
+    ],
+    "look": [
+     0.95,
+     1.308,
+     0.82
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      0.95,
+      3.067,
+      8.32
+     ],
+     "look": [
+      0.95,
+      1.304,
+      0.92
+     ],
+     "fov": 56
+    },
+    "dur": 4.15,
+    "ease": "in"
+   },
+   "do": [
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedgeD",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wedgeD",
+     "do": "move",
+     "to": [
+      1.95,
+      0.8999999999999999
+     ],
+     "y": 0.279,
+     "dur": 0.42,
+     "steps": 2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "wedgeD",
+     "do": "turn",
+     "to": -55,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "wedgeD",
+     "macro": "say",
+     "line": "Trust me. Good car.",
+     "tone": "happy",
+     "style": "warm, proud, gentle, slow",
+     "dur": 1.9,
+     "caption": false,
+     "at": 0.25
+    },
+    {
+     "who": "wedgeD",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.7,
+      "eye": 0.55
+     },
+     "dur": 0.15,
+     "at": 0.25
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.4
+      ]
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.258
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.45
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.358
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.64,
+       0.42
+      ]
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 1.428
+    },
+    {
+     "sfx": "knock-tap",
+     "gain": 0.35,
+     "reason": "the pat on the car's door",
+     "at": 1.428
+    },
+    {
+     "who": "mashC",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.8
+    },
+    {
+     "sfx": "creak",
+     "gain": 0.35,
+     "reason": "the car creaks as it starts to roll",
+     "at": 2.25
+    },
+    {
+     "sfx": "tyres",
+     "gain": 0.2,
+     "dur": 0.75,
+     "reason": "tyres slowly rolling back over the cobbles",
+     "at": 2.3
+    },
+    {
+     "who": "wedgeD",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.14,
+       0.66,
+       0.24
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.3
+    },
+    {
+     "who": "wedgeD",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.3
+     },
+     "dur": 0.15,
+     "at": 2.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 2.35
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.2,
+      "open": 0.5
+     },
+     "dur": 0.12,
+     "at": 2.35
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0.05
+     ],
+     "dur": 0.15,
+     "at": 2.35
+    },
+    {
+     "who": "wedgeD",
+     "do": "move",
+     "to": [
+      2.4,
+      1.5699999999999998
+     ],
+     "y": 0.24,
+     "dur": 0.35,
+     "steps": 2,
+     "ease": "out",
+     "at": 2.4
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      0.803,
+      0.4,
+      -1.054
+     ],
+     "dur": 0.45,
+     "color": "#d8cdbd",
+     "puffs": 7,
+     "sparks": 0,
+     "size": 0.3,
+     "lift": 0.05,
+     "at": 3.1
+    },
+    {
+     "sfx": "thud-soft",
+     "gain": 0.5,
+     "reason": "the back tyre bumping up onto the kerb",
+     "at": 3.1
+    },
+    {
+     "who": "wedgeD",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 3.25
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.9,
+      0
+     ],
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.25
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 3.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 3.3
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 3.3
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0,
+     "lid": 0.46,
+     "dur": 0.25,
+     "at": 3.3
+    },
+    {
+     "who": "wedgeD",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 3.35
+    },
+    {
+     "who": "wedgeD",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 3.35
+    },
+    {
+     "who": "wedgeD",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.05
+     ],
+     "dur": 0.2,
+     "at": 3.35
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 3.35
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 3.35
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.02,
+     "dur": 0.2,
+     "at": 3.35
+    },
+    {
+     "who": "chip",
+     "do": "still",
+     "dur": 0.8,
+     "idle": 0.06,
+     "at": 3.4
+    }
+   ],
+   "kind": "reveal"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.5,
+   "see": [
+    "chipC.face",
+    "wedge.face"
+   ],
+   "why": "frame 0: Dad's new car half in the gap at a bad angle; Chip driving, Wedge waving"
+  },
+  {
+   "from": 2.6,
+   "to": 4.3,
+   "see": [
+    "wedge.face"
+   ],
+   "why": "Wedge waving the car back: trust me, back, back, back"
+  },
+  {
+   "from": 4.3,
+   "to": 4.85,
+   "see": [
+    "bin",
+    "wedge"
+   ],
+   "why": "the bumper bonks the bin over; the counter goes to 2/3"
+  },
+  {
+   "from": 4.95,
+   "to": 5.8,
+   "see": [
+    "mashC.face",
+    "phoneM"
+   ],
+   "why": "Mash, on his phone in the back: Nice."
+  },
+  {
+   "from": 6.6,
+   "to": 7.7,
+   "see": [
+    "chipC"
+   ],
+   "why": "Chip dives in nose first and stops diagonal across the gap"
+  },
+  {
+   "from": 7.75,
+   "to": 8.68,
+   "see": [
+    "chipC.face"
+   ],
+   "why": "Chip: Your left!"
+  },
+  {
+   "from": 8.8,
+   "to": 9.72,
+   "see": [
+    "wedge.face"
+   ],
+   "why": "Wedge: MY left!"
+  },
+  {
+   "from": 9.9,
+   "to": 10.5,
+   "see": [
+    "spudD.face"
+   ],
+   "why": "last try: Spud calmly sets the mirror"
+  },
+  {
+   "from": 12.15,
+   "to": 13,
+   "see": [
+    "spudD",
+    "chipP"
+   ],
+   "why": "one smooth reverse into the gap"
+  },
+  {
+   "from": 13.5,
+   "to": 15.2,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "wedgeD.face"
+   ],
+   "why": "they cheer in front of the perfectly parked car"
+  },
+  {
+   "from": 16.428,
+   "to": 17.5,
+   "see": [
+    "wedgeD.face"
+   ],
+   "why": "Wedge's proud pat: Trust me. Good car."
+  },
+  {
+   "from": 17.5,
+   "to": 18.3,
+   "see": [
+    "wedgeD",
+    "mashC"
+   ],
+   "why": "the car rolls back out of the gap with Mash still on his phone"
+  },
+  {
+   "from": 18.75,
+   "to": 19.35,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "wedgeD.face"
+   ],
+   "why": "two glares at Wedge, the car back at its frame-0 angle, 4/3"
+  }
+ ],
+ "hitStop": [
+  {
+   "at": 13,
+   "frames": 3
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "chipC",
+   "with": "chipC",
+   "from": 0,
+   "to": 1.5,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "Chip looks back over his shoulder to reverse; his hood takes the far eye, the near eye and the brow read in the wide (still 0.5 s)"
+  },
+  {
+   "who": "chipC",
+   "with": "chipC",
+   "from": 5.8,
+   "to": 5.95,
+   "checks": [
+    "face-hidden"
+   ],
+   "reason": "the first frames of the try-2 wide, Chip turning his head back to the front"
+  },
+  {
+   "who": "mashC",
+   "with": "spudC",
+   "from": 7.25,
+   "to": 7.75,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the try-2 wide is seen from behind the car: neither face is the subject, the diagonal car is"
+  },
+  {
+   "who": "chipC",
+   "with": "seat-chip",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "chipC",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "spudD",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "spudC",
+   "with": "seat-pas",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "chipP",
+   "with": "seat-pas",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "mashC",
+   "with": "seat-rl",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "mashC",
+   "with": "seat-drv",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  },
+  {
+   "who": "spudC",
+   "with": "seat-rr",
+   "from": 0,
+   "to": 19.35,
+   "reason": "sitting in the car: the head brushes the headrest, the knees touch the seat in front (a small car with three in it)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/friends-try-to/09-dads-new-car/make-dads-new-car.mjs."
+}

@@ -1,0 +1,166 @@
+{
+ "id": "ftt09-voice-probe",
+ "title": "Friends try to 09 voice probe",
+ "idea": "line takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   22.2,
+   22.2
+  ]
+ },
+ "cast": [
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -2.1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 22.2,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Dad's new car. Three tries.",
+     "voice": "narrator",
+     "style": "deep, serious storyteller, brisk and clear, a little ominous",
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Trust me. Back, back, back!",
+     "tone": "happy",
+     "style": "loud, confident, cheerful, waving a car back",
+     "dur": 2.5,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Nice.",
+     "tone": "calm",
+     "style": "flat, calm, bored, not looking up from his phone",
+     "dur": 0.9,
+     "caption": false,
+     "at": 7.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Your left!",
+     "tone": "angry",
+     "style": "high, fast, outraged, shouting",
+     "take": 2,
+     "dur": 1.3,
+     "caption": false,
+     "at": 9.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "MY left!",
+     "tone": "angry",
+     "style": "loud, upset, defensive",
+     "dur": 1.3,
+     "caption": false,
+     "at": 11.4
+    },
+    {
+     "macro": "narrate",
+     "line": "Last try.",
+     "voice": "narrator",
+     "style": "deep, serious storyteller, brisk, tense",
+     "caption": false,
+     "at": 13.7
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Yes! We did it!",
+     "tone": "happy",
+     "style": "high, overjoyed, shouting, cheering",
+     "dur": 2.1,
+     "caption": false,
+     "at": 16
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Trust me. Good car.",
+     "tone": "happy",
+     "style": "warm, proud, gentle, slow",
+     "dur": 2.1,
+     "caption": false,
+     "at": 19.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Friends try to 09: makes and measures every take."
+}
