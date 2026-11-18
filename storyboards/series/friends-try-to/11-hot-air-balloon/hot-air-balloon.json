@@ -626,8 +626,6 @@
      "do": "prop",
      "id": "rig",
      "set": {
-      "burn": 1,
-      "strain": 1,
       "sway": 0.5
      },
      "dur": 0.01,
@@ -754,9 +752,20 @@
      "at": 0
     },
     {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 1,
+      "strain": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
      "sfx": "burnerroar",
-     "dur": 2.05,
-     "gain": 0.08,
+     "dur": 1.8,
+     "gain": 0.05,
      "at": 0
     },
     {
@@ -852,15 +861,26 @@
    "do": [
     {
      "sfx": "burnerroar",
-     "dur": 3.05,
-     "gain": 0.22,
-     "at": 0.25
+     "dur": 0.9,
+     "gain": 0.11,
+     "at": 0
     },
     {
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
      "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 0.25,
+      "strain": 0.5
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 0.85
     }
    ]
   },
@@ -1055,6 +1075,23 @@
      "pose": "rest",
      "dur": 0.3,
      "at": 1.22
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 1,
+      "strain": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 1.27
+    },
+    {
+     "sfx": "burnerroar",
+     "dur": 1.05,
+     "gain": 0.11,
+     "at": 1.35
     }
    ]
   },
@@ -1205,10 +1242,15 @@
      "at": 0.75
     },
     {
-     "sfx": "burnerroar",
-     "dur": 3.05,
-     "gain": 0.1,
-     "at": 0.8
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 0.25,
+      "strain": 0.5
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 0.9
     }
    ]
   },
@@ -1411,12 +1453,6 @@
      "sfx": "cloth",
      "gain": 0.3,
      "at": 0.95
-    },
-    {
-     "sfx": "burnerroar",
-     "dur": 4.55,
-     "gain": 0.22,
-     "at": 1.13
     },
     {
      "who": "wedge",
@@ -1943,12 +1979,6 @@
      "at": 2.26
     },
     {
-     "sfx": "burnerroar",
-     "dur": 1.55,
-     "gain": 0.1,
-     "at": 2.28
-    },
-    {
      "who": "mash",
      "do": "arm",
      "side": "R",
@@ -2174,12 +2204,6 @@
      "to": 0,
      "dur": 0.4,
      "at": 1.3
-    },
-    {
-     "sfx": "burnerroar",
-     "dur": 3.55,
-     "gain": 0.22,
-     "at": 1.32
     },
     {
      "who": "wedge",
@@ -2555,6 +2579,23 @@
      "dur": 1.25,
      "ease": "inOut",
      "at": 3.76
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 1,
+      "strain": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 4.18
+    },
+    {
+     "sfx": "burnerroar",
+     "dur": 0.8,
+     "gain": 0.11,
+     "at": 4.26
     }
    ]
   },
@@ -2598,12 +2639,6 @@
      "at": 0.1
     },
     {
-     "sfx": "burnerroar",
-     "dur": 1.55,
-     "gain": 0.1,
-     "at": 0.26
-    },
-    {
      "who": "spud",
      "do": "look",
      "to": [
@@ -2645,6 +2680,12 @@
      "at": 0.4
     },
     {
+     "sfx": "burnerroar",
+     "dur": 0.3,
+     "gain": 0.05,
+     "at": 0.45
+    },
+    {
      "who": "wedge",
      "do": "arm",
      "side": "R",
@@ -2657,6 +2698,17 @@
      },
      "dur": 0.25,
      "at": 0.65
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 0.25,
+      "strain": 0.5
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 0.7
     },
     {
      "who": "wedge",
@@ -2756,12 +2808,6 @@
      },
      "dur": 0.25,
      "at": 0.05
-    },
-    {
-     "sfx": "burnerroar",
-     "dur": 2.55,
-     "gain": 0.22,
-     "at": 0.06
     },
     {
      "do": "prop",
@@ -3640,6 +3686,17 @@
      "at": 2.02
     },
     {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 1,
+      "strain": 1
+     },
+     "dur": 0.1,
+     "ease": "out",
+     "at": 2.02
+    },
+    {
      "who": "chip",
      "do": "arm",
      "side": "R",
@@ -3654,6 +3711,12 @@
      "pose": "rest",
      "dur": 0.3,
      "at": 2.05
+    },
+    {
+     "sfx": "burnerroar",
+     "dur": 0.55,
+     "gain": 0.11,
+     "at": 2.1
     },
     {
      "sfx": "kenney/impact-glass-light",
@@ -3749,12 +3812,6 @@
      "at": 0.05
     },
     {
-     "sfx": "burnerroar",
-     "dur": 2.05,
-     "gain": 0.1,
-     "at": 0.06
-    },
-    {
      "who": "wedge",
      "do": "expr",
      "set": {
@@ -3781,6 +3838,12 @@
      "do": "squash",
      "amount": 0.06,
      "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "sfx": "burnerroar",
+     "dur": 1.45,
+     "gain": 0.05,
      "at": 0.1
     },
     {
@@ -3836,10 +3899,15 @@
      "at": 0.8
     },
     {
-     "sfx": "burnerroar",
-     "dur": 1.383,
-     "gain": 0.22,
-     "at": 2.06
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 0.25,
+      "strain": 0.5
+     },
+     "dur": 0.25,
+     "ease": "in",
+     "at": 1.5
     },
     {
      "do": "prop",

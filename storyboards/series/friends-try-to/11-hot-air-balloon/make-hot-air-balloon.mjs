@@ -68,7 +68,7 @@ const props = [
   { id: "mist", kind: "fogveil", box: [[-40, -9, -60], [50, -1.5, -8]], n: 60, size: 9, color: "#f6e7dc", on: 0.8 },
   PHONE,
 ];
-c.prop(0, "rig", { burn: 1, strain: 1, sway: 0.5 }, 0.01);
+c.prop(0, "rig", { sway: 0.5 }, 0.01);   // burn + strain: the blasts below
 
 // captions: upper third (Jonny 12 Nov), never over faces
 const SUB = 470;
@@ -341,17 +341,24 @@ A(r3(FREE + 0.1), "chip", "arm", { side: "R", pose: "wave", dur: 0.25 });
 c.prop(r3(LIFT + 3.0), "rig", { y: r3(RIG[1] + 8.6 + 0.5 * (END - LIFT - 3.0) + 0.5), z: r3(RIG[2] - 14.3 - 0.8 * (END - LIFT - 3.0) - 0.8) }, r3(END - LIFT - 3.0 + 1), "linear");
 see(LIFT, END, ["rig", "heap", "spud.face"], "the balloon shoots up with Chip waving; the three are left with the food");
 
-// ---------------------------------------------------------------- the burner: a held roar, low under every line
-// (one sfx per stretch, so each has its own level: under the narrator and the lines it dips)
+// ---------------------------------------------------------------- the burner: BLASTS, not a held roar (Jonny 18 Nov 22:32
+// Berlin: "the sound of the balloon is too loud so it gets annoying"). A real pilot fires in bursts; between them the
+// flame drops to the pilot and the hill is quiet. Each blast is seen (burn 1, strain 1) and heard, low under every line.
 {
-  const parts = [];
-  for (let s = 0; s < END - 0.05; s = r3(s + 0.5)) {
-    const e = r3(Math.min(END, s + 0.5)), on = SPOKEN.filter(([a, b]) => s < b + 0.1 && e > a - 0.1);
-    const g = on.some((x) => x[2] === "narrator") ? 0.08 : on.length ? 0.1 : 0.22;
-    const last = parts[parts.length - 1];
-    if (last && last.g === g) last.e = e; else parts.push({ s, e, g });
+  const BLASTS = [[0, 2.6], [r3(UP - 0.1), r3(UP + 0.9)], [r3(ALONE - 0.3), r3(ALONE + 0.7)], [r3(LIFT - 0.4), r3(LIFT + 1.5)]];
+  c.prop(0, "rig", { burn: 1, strain: 1 }, 0.01);
+  for (const [a, b] of BLASTS) {
+    if (a > 0) c.prop(r3(a - 0.08), "rig", { burn: 1, strain: 1 }, 0.1, "out");
+    if (b < END - 0.3) c.prop(b, "rig", { burn: 0.25, strain: 0.5 }, 0.25, "in");
+    const parts = [];
+    for (let t = a; t < b - 0.01; t = r3(t + 0.25)) {
+      const e = r3(Math.min(b, t + 0.25)), on = SPOKEN.some(([x, y]) => t < y + 0.1 && e > x - 0.1);
+      const g = on ? 0.05 : 0.11;
+      const last = parts[parts.length - 1];
+      if (last && last.g === g) last.e = e; else parts.push({ s: t, e, g });
+    }
+    for (const p of parts) sfx(p.s, "burnerroar", { dur: r3(p.e - p.s + 0.05), gain: p.g });
   }
-  for (const p of parts) sfx(p.s, "burnerroar", { dur: r3(p.e - p.s + 0.05), gain: p.g });
 }
 
 // ---------------------------------------------------------------- shots (rig frame -> world; DESIGN 8)
