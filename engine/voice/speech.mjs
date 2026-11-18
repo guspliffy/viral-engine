@@ -108,7 +108,7 @@ export function withSpeech(sb, chars) {
     if (!item) continue;
     const info = JSON.parse(fs.readFileSync(path.join(CACHE, `${j.id}.json`), "utf8"));
     const r = rec?.rate ? speakingRate(info.phones) : null;
-    if (r && Math.abs(r / rec.rate - 1) > RATE_BAND) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
+    if (r && (r / rec.rate - 1 > RATE_FAST || 1 - r / rec.rate > RATE_SLOW)) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
     if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
     item.dur = info.dur;
     const words = wordTimes(info.phones, item.line);
@@ -176,8 +176,9 @@ function readWav(file) {
 // river." is "actually not slow ... there needs to be a gap"). VoxCPM2 reads one voice at quite different speeds from
 // line to line: the happiness score film's narrator talked at 3.2 to 6.5 syllables/s, so the film's one 1.3x speed-up
 // made the fast takes sound rushed ("sometimes it's rushed"). A recipe's "rate" is that voice's usual talking speed; a
-// take more than RATE_BAND away from it gets a warning when it is read.
-const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_BAND = 0.18;
+// take over RATE_FAST faster or RATE_SLOW slower gets a warning when it is read (the slow side is wider: Jonny heard
+// "For the first time in three days, you didn't check." at 20 % under the usual speed as not slow, after the 1.3x).
+const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_FAST = 0.18, RATE_SLOW = 0.25;
 export function speakingRate(phones) {
   if (!phones?.length) return null;
   let n = 0, prev = false, talk = 0;
