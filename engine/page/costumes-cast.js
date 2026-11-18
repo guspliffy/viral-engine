@@ -8,6 +8,7 @@ import { everyday, EVERYDAY } from "./costumes-everyday.js";
 import { skipAge } from "./costumes-skipage.js";
 import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 import { plato, PLATO_TYPES } from "./costumes-plato.js";
+import { judge } from "./costumes-judge.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
 // Norse god (Odin-like, with raven), Samurai and Sorcerer, plus the Gunslinger's two pistols (`pistols: true`).
@@ -326,6 +327,7 @@ export function castCostume(C, ch) {
   if (EVERYDAY.includes(T)) return everyday(C, ch, out);   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
   if (ALIEN_TYPES.includes(T)) return aliens(C, ch, out);   // the alien crew and the Egyptian workers (costumes-aliens.js, Ancient Aliens kit)
   if (PLATO_TYPES.includes(T)) return plato(C, ch, out);   // Plato (costumes-plato.js, Ancient Aliens EP03 kit)
+  if (T === "viking" && C.judge) return judge(C, ch, out);   // costume.judge: Viking as the judge (costumes-judge.js USAGE, Potato Desk 05); no key, no change
   if (T === "clown") return clown(C, ch, out);   // Mr. Crisp (costumes-clown.js): the same in every look
   if ((C.art || T === "spud") && ART_CAST[T]) { const r = ART_CAST[T](C, ch, out); return C.age ? skipAge(C, ch, r) : r; }   // costume.age: Spud aged (costumes-skipage.js, happiness EP02)   // Spud has no plain version: his sweater is the same in every look
   if (T === "astronaut") {

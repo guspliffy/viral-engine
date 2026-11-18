@@ -1,0 +1,505 @@
+{
+ "id": "court-props",
+ "title": "Court Day props bench",
+ "idea": "Engine look bench for the courtroom set and props (task T1), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "motion": "natural",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "none",
+  "para": 0,
+  "bloom": "emissive",
+  "lighting": 2,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "engine bench"
+ },
+ "cast": [],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": 2.1
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 3.8,
+   "h": 4.24,
+   "dado": "#5f7a85",
+   "rail": "#e6e2d6",
+   "wall": "#c3ccd0",
+   "top": "#aab6bc"
+  },
+  {
+   "id": "dado",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "plate",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -0.96,
+   "y": 1.18,
+   "z": 0.2
+  },
+  {
+   "id": "board",
+   "kind": "sentenceboard",
+   "x": 0.66,
+   "y": 2.01,
+   "z": -1.255
+  },
+  {
+   "id": "table",
+   "kind": "woodcounter",
+   "x": 3.6,
+   "y": 0,
+   "z": 0.6,
+   "w": 3.4,
+   "h": 0.9,
+   "d": 0.9
+  },
+  {
+   "id": "fries",
+   "kind": "fryfan",
+   "x": 2.2,
+   "y": 0.9,
+   "z": 0.6
+  },
+  {
+   "id": "bag",
+   "kind": "chipbag",
+   "x": 2.65,
+   "y": 0.9,
+   "z": 0.6
+  },
+  {
+   "id": "bowlA",
+   "kind": "mashbowl",
+   "x": 3.25,
+   "y": 0.9,
+   "z": 0.6,
+   "dent": 0
+  },
+  {
+   "id": "bowlB",
+   "kind": "mashbowl",
+   "x": 3.85,
+   "y": 0.9,
+   "z": 0.6
+  },
+  {
+   "id": "spoonA",
+   "kind": "courtspoon",
+   "x": 4.45,
+   "y": 0.9,
+   "z": 0.6,
+   "scoop": 0
+  },
+  {
+   "id": "spoonB",
+   "kind": "courtspoon",
+   "x": 4.75,
+   "y": 0.9,
+   "z": 0.6
+  },
+  {
+   "id": "axe",
+   "kind": "axegavel",
+   "x": 5,
+   "y": 0.9,
+   "z": 0.6
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "wide0",
+   "at": 0,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0,
+      "card": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bowlB",
+     "set": {
+      "dent": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "spoonB",
+     "set": {
+      "scoop": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wide1",
+   "at": 1.1,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1,
+      "card": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wide2",
+   "at": 2.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2,
+      "card": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "wide3",
+   "at": 3.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3,
+      "card": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "flap",
+   "at": 4.4,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     0.66,
+     1.95,
+     5
+    ],
+    "look": [
+     0.66,
+     1.95,
+     -1.2
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0.5,
+      "card": 0,
+      "spin": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "card",
+   "at": 5.5,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.5,
+     2.2,
+     4.2
+    ],
+    "look": [
+     0.5,
+     1.95,
+     -1.1
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3,
+      "card": 1,
+      "spin": 0.9
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "bench",
+   "at": 6.6,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     -0.69,
+     1.55,
+     3.6
+    ],
+    "look": [
+     -0.69,
+     1.1,
+     0.3
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "fries",
+   "at": 7.7,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.4,
+     1.2,
+     3.6
+    ],
+    "look": [
+     2.4,
+     1.05,
+     0.6
+    ],
+    "fov": 30
+   },
+   "do": []
+  },
+  {
+   "name": "bowls",
+   "at": 8.8,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     3.55,
+     1.45,
+     4.4
+    ],
+    "look": [
+     3.55,
+     1,
+     0.6
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bowlB",
+     "set": {
+      "dent": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "spoons",
+   "at": 9.9,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     4.6,
+     1.4,
+     2.9
+    ],
+    "look": [
+     4.6,
+     1.15,
+     0.6
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "spoonB",
+     "set": {
+      "scoop": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "axe",
+   "at": 11,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     5,
+     1.25,
+     2.6
+    ],
+    "look": [
+     5,
+     1.1,
+     0.6
+    ],
+    "fov": 26
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/bench/make-court-bench.mjs (engine bench, no reviews)."
+}

@@ -137,6 +137,14 @@ const SIZE = {
   umbrella: { r: 0.012, h: 0.12 },
   // loaf: worn or placed on a head, not held; w / h / d are for the box hold if both hands carry it overhead (palms on the two ends)
   loaf: { w: 0.34, h: 0.09, d: 0.11 },
+  // props-court.js (Potato Desk 05 Court Day): axegavel = mug hold at the lower third (0.66 x 0.121 = y 0.08 on the 0.29 handle, r 0.0165); fryfan = mug hold round the base of the
+  // three fries (fist at y 0.05); chipbag = phone hold on the side edge (pass height 0.30 for the lower side); mashbowl = bowl hold (rim 0.16, wall measured from the lathe);
+  // courtspoon stands on its handle's butt (0.30 long, the scoop on top, opening +z): the thin pinch on the handle
+  axegavel: { r: 0.0165, h: 0.121 },
+  fryfan: { r: 0.045, h: 0.075 },
+  chipbag: { w: 0.28, h: 0.33, t: 0.1 },
+  mashbowl: { rim: 0.16, wall: [[0, 0.1], [0.02, 0.118], [0.05, 0.153], [0.09, 0.185], [0.13, 0.202], [0.16, 0.205]] },
+  courtspoon: { len: 0.3, r: 0.0105 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

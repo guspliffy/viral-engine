@@ -1,0 +1,259 @@
+{
+ "id": "desk05-voice-probe",
+ "title": "Potato Desk 05 voice probe",
+ "idea": "line takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   46.2,
+   46.2
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -2.1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 46.2,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "What did you steal?",
+     "tone": "angry",
+     "style": "deep, stern, loud, slow, a judge",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Three fries, your honor.",
+     "tone": "sad",
+     "style": "tiny, scared, quiet, high",
+     "dur": 2.1,
+     "caption": false,
+     "at": 3.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Three fries. Three years!",
+     "tone": "angry",
+     "style": "deep, stern, loud, pleased with himself",
+     "dur": 2.1,
+     "caption": false,
+     "at": 6.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Hehe.",
+     "tone": "happy",
+     "style": "quiet amused giggle, trying not to laugh",
+     "dur": 0.9,
+     "caption": false,
+     "at": 9.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why are you laughing?",
+     "tone": "angry",
+     "style": "deep, stern, suspicious, slow",
+     "dur": 2.1,
+     "caption": false,
+     "at": 11.4
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "You'll see.",
+     "tone": "calm",
+     "style": "calm, smug, relaxed, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 14.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! What did you steal?",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 16.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ten potato chips.",
+     "tone": "sad",
+     "style": "low, slow, guilty, quiet",
+     "dur": 1.7,
+     "caption": false,
+     "at": 20.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Ten chips. Ten years!",
+     "tone": "angry",
+     "style": "deep, stern, loud, pleased with himself",
+     "dur": 2.1,
+     "caption": false,
+     "at": 23
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Nooo!",
+     "tone": "sad",
+     "style": "wailing, crying out, upset",
+     "dur": 0.9,
+     "caption": false,
+     "at": 26.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! What did you steal?",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 28
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Mashed potatoes. One big bowl.",
+     "tone": "calm",
+     "style": "calm, smug, relaxed, slow, proud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 31.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "How many potatoes?",
+     "tone": "calm",
+     "style": "deep, slow, squinting, suspicious",
+     "dur": 1.7,
+     "caption": false,
+     "at": 35
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "You tell me.",
+     "tone": "calm",
+     "style": "calm, smug, relaxed, slow",
+     "dur": 1.7,
+     "caption": false,
+     "at": 37.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "One... two... one?",
+     "tone": "calm",
+     "style": "deep, quiet, counting under his breath, slow, confused",
+     "dur": 1.7,
+     "caption": false,
+     "at": 40.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Case closed. Go home.",
+     "tone": "sad",
+     "style": "deep, tired, defeated, flat",
+     "dur": 2.1,
+     "caption": false,
+     "at": 43.1
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 05: makes and measures every take."
+}
