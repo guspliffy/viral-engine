@@ -6,7 +6,7 @@
  "set": {
   "type": "plain",
   "color": "#88bbe3",
-  "floor": "shadow",
+  "floor": "none",
   "lighting": {
    "v": 2,
    "measure": false,

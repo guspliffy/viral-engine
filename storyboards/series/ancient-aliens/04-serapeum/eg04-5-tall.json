@@ -6,7 +6,7 @@
  "set": {
   "type": "plain",
   "color": "#eb9775",
-  "floor": "shadow",
+  "floor": "none",
   "lighting": {
    "v": 2,
    "measure": false,
@@ -48,7 +48,8 @@
    "id": "water",
    "kind": "nilewater",
    "x": 0,
-   "z": 0
+   "z": 0,
+   "staged": "the river surface itself"
   },
   {
    "id": "banks",

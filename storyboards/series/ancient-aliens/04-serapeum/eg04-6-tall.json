@@ -6,7 +6,7 @@
  "set": {
   "type": "plain",
   "color": "#88bbe3",
-  "floor": "shadow",
+  "floor": "none",
   "lighting": {
    "v": 2,
    "measure": false,
@@ -146,7 +146,8 @@
    "x": 0,
    "y": -60,
    "z": 14.88,
-   "along": 0
+   "along": 0,
+   "staged": "the hauling team; parked out of sight below the ground when not in the shot"
   },
   {
    "id": "jar",
@@ -161,7 +162,8 @@
    "kind": "wetsand",
    "x": 0,
    "z": 13.84,
-   "wet": 0
+   "wet": 0,
+   "track": 0
   },
   {
    "id": "camel",
@@ -420,6 +422,34 @@
      "at": 0.1
     },
     {
+     "who": "p0",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.4,
+     "at": 0.3
+    },
+    {
+     "who": "p1",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.4,
+     "at": 0.35
+    },
+    {
+     "who": "p2",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "p3",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.4,
+     "at": 0.45
+    },
+    {
      "sfx": "kenney/impact-wood-medium",
      "gain": 0.25,
      "reason": "shoulders against the sledge",
@@ -468,6 +498,62 @@
      "dur": 0.5,
      "ease": "inOut",
      "at": 0.9
+    },
+    {
+     "who": "p0",
+     "do": "lean",
+     "to": 22,
+     "dur": 0.5,
+     "at": 1.6
+    },
+    {
+     "who": "p1",
+     "do": "lean",
+     "to": 22,
+     "dur": 0.5,
+     "at": 1.67
+    },
+    {
+     "who": "p2",
+     "do": "lean",
+     "to": 22,
+     "dur": 0.5,
+     "at": 1.74
+    },
+    {
+     "who": "p3",
+     "do": "lean",
+     "to": 22,
+     "dur": 0.5,
+     "at": 1.81
+    },
+    {
+     "who": "p0",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.4,
+     "at": 2.3
+    },
+    {
+     "who": "p1",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.4,
+     "at": 2.3
+    },
+    {
+     "who": "p2",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.4,
+     "at": 2.3
+    },
+    {
+     "who": "p3",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.4,
+     "at": 2.3
     },
     {
      "who": "p0",
@@ -574,32 +660,33 @@
    ]
   },
   {
-   "name": "11 forty and water",
+   "name": "11a water on the sand",
    "at": 3,
-   "len": 3,
+   "len": 1.2,
    "shot": {
     "pos": [
-     4.63,
-     4.48,
-     19.43
+     1.7,
+     0.85,
+     12.9
     ],
     "look": [
-     0,
-     0.84,
-     14.39
+     0.4,
+     0.15,
+     14
     ],
-    "fov": 62,
-    "to": {
-     "pos": [
-      4.3,
-      4.3,
-      18.8
-     ]
-    },
-    "dur": 3,
-    "ease": "inOut"
+    "fov": 54
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "pour": 1
+     },
+     "dur": 0.5,
+     "ease": "out",
+     "at": 0.2
+    },
     {
      "who": "pourer",
      "do": "arm",
@@ -631,14 +718,11 @@
      "at": 0.2
     },
     {
-     "do": "prop",
-     "id": "jar",
-     "set": {
-      "pour": 1
-     },
-     "dur": 0.5,
-     "ease": "out",
-     "at": 0.36
+     "sfx": "ai/water-gush",
+     "gain": 0.12,
+     "dur": 1.2,
+     "reason": "a jar of water poured on the sand",
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -648,44 +732,7 @@
      },
      "dur": 0.6,
      "ease": "out",
-     "at": 0.4
-    },
-    {
-     "sfx": "ai/water-gush",
-     "gain": 0.12,
-     "dur": 1.2,
-     "reason": "a jar of water poured on the sand",
-     "at": 0.4
-    },
-    {
-     "do": "prop",
-     "id": "haul",
-     "set": {
-      "along": 1
-     },
-     "dur": 1.9,
-     "ease": "inOut",
-     "at": 0.82
-    },
-    {
-     "do": "prop",
-     "id": "sledge",
-     "set": {
-      "z": 14.37
-     },
-     "dur": 1.9,
-     "ease": "inOut",
-     "at": 0.82
-    },
-    {
-     "do": "prop",
-     "id": "load",
-     "set": {
-      "z": 14.37
-     },
-     "dur": 1.9,
-     "ease": "inOut",
-     "at": 0.82
+     "at": 0.45
     },
     {
      "sfx": "ai/bag-drag",
@@ -711,6 +758,75 @@
      "dur": 0.3,
      "ease": "inOut",
      "at": 1
+    }
+   ]
+  },
+  {
+   "name": "11b forty pull",
+   "at": 4.2,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     3.2,
+     6.8,
+     21
+    ],
+    "look": [
+     0,
+     0.4,
+     9
+    ],
+    "fov": 64,
+    "to": {
+     "pos": [
+      3,
+      6.6,
+      20.4
+     ]
+    },
+    "dur": 1.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "haul",
+     "set": {
+      "along": 1
+     },
+     "dur": 1.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "sledge",
+     "set": {
+      "z": 14.37
+     },
+     "dur": 1.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "load",
+     "set": {
+      "z": 14.37
+     },
+     "dur": 1.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "wet",
+     "set": {
+      "track": 1
+     },
+     "dur": 1.7,
+     "ease": "inOut",
+     "at": 0.05
     },
     {
      "macro": "say",
@@ -720,7 +836,7 @@
      "dur": 0.8475,
      "voice": "reaper-quick",
      "caption": false,
-     "at": 1.6
+     "at": 0.4
     },
     {
      "do": "prop",
@@ -730,7 +846,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -740,7 +856,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "do": "prop",
@@ -750,7 +866,7 @@
      },
      "dur": 0.01,
      "ease": "linear",
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "pourer",
@@ -764,7 +880,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "pourer",
@@ -773,7 +889,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p0",
@@ -787,7 +903,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p0",
@@ -796,7 +912,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p1",
@@ -810,7 +926,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p1",
@@ -819,7 +935,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p2",
@@ -833,7 +949,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p2",
@@ -842,7 +958,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p3",
@@ -856,7 +972,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     },
     {
      "who": "p3",
@@ -865,7 +981,7 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.98
+     "at": 1.78
     }
    ]
   },
@@ -875,16 +991,16 @@
    "len": 2.5,
    "shot": {
     "pos": [
-     0.06,
-     1.12,
-     6.2
+     2.4,
+     1.55,
+     5.6
     ],
     "look": [
-     0,
-     1.03,
-     0.32
+     -0.1,
+     1.05,
+     0.6
     ],
-    "fov": 52
+    "fov": 58
    },
    "do": [
     {
