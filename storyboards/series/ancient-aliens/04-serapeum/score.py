@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds assets/music/ancient-aliens/aa04-score.ogg (Egypt EP04 Serapeum, 70.6 s) from takes in assets/music/ai.
+"""Builds assets/music/ancient-aliens/aa04-score.ogg (Egypt EP04 Serapeum, 78.1 s) from takes in assets/music/ai.
 One score for the whole episode, laid on STORY.md's times; each segment storyboard takes its slice with score(storyTime).
     python3 storyboards/series/ancient-aliens/04-serapeum/score.py
 Each part: cut [a, b] from the take, loudness-matched to -18 LUFS, `db` on top, 0.25 s fade in, `out` s fade out.
@@ -8,20 +8,20 @@ import subprocess, os
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
 AI = os.path.join(ROOT, "assets/music/ai")
 OUT = os.path.join(ROOT, "assets/music/ancient-aliens/aa04-score.ogg")
-LEN = 70.6
+LEN = 78.1
 Z1, Z2 = "zombies-score/zombies-score-01.ogg", "zombies-score/zombies-score-02.ogg"
 SUS, SW1, SW2, SNK = "orchestra-suspense/orchestra-suspense-01.ogg", "drama-swell/drama-swell-01.ogg", "drama-swell/drama-swell-02.ogg", "sneaky/sneaky-01.ogg"
 #  at     take  a     b      db   out  story
 PARTS = [
-  (0.0,   Z1,   0,    10.55,   0,  0.25, "01-03 the tomb: low strings, sparse piano, timpani pulse from the first frame"),
-  (10.3,  SW1,  0,    5.25,  -1,  0.4,  "04 Memphis: the dead god-bull, strings and choir rise; 70 DAYS"),
-  (15.3,  SNK,  0,    2.6,    -4,  0.3,  "05 'The inside is perfect.' (pizzicato, small)"),
-  (19.5,  SNK,  4.0,  6.55,  -5,  0.25, "07 after the silence of 'We had... good tools.' (17.9-19.5): the antenna ducks"),
-  (22.0,  SW2,  0,    6.55,   0,  0.3,  "08-09 the alien cutter at the quarry, the barge on the Nile at sunset"),
-  (28.3,  Z2,   0,    18.55,  0,  0.6,  "10-15 the staircase: 4, 40, the tunnel, 8 levers, the jam (pulse building)"),
-  (46.6,  SUS,  0,    10.25,  0,  0.4,  "16-19 'Day seventy.' the box is in its niche, aliens tiptoe, 'Good tools.'"),
-  (56.6,  Z1,   17.0, 28.2,  -4,  1.0,  "20-23 every box empty, 'they took the cows?', the cough"),
-  (67.8,  SNK,  0,    2.8,   -4,  0.8,  "24 the tag: the stuck box, the Pharaoh hides it"),
+  (0.0,   Z1,   0,    18.05,   0,  0.25, "00-03 Saqqara and the tomb: low strings, sparse piano, timpani pulse from the first frame"),
+  (17.8,  SW1,  0,    5.25,  -1,  0.4,  "04 Memphis: the dead god-bull, strings and choir rise; 70 DAYS"),
+  (22.8,  SNK,  0,    2.6,    -4,  0.3,  "05 'The inside is perfect.' (pizzicato, small)"),
+  (27.0,  SNK,  4.0,  6.55,  -5,  0.25, "07 after the silence of 'We had... good tools.' (25.4-27.0): the antenna ducks"),
+  (29.5,  SW2,  0,    6.55,   0,  0.3,  "08-09 the alien cutter at the quarry, the barge on the Nile at sunset"),
+  (35.8,  Z2,   0,    18.55,  0,  0.6,  "10-15 the staircase: 4, 40, the tunnel, 8 levers, the jam (pulse building)"),
+  (54.1,  SUS,  0,    10.25,  0,  0.4,  "16-19 'Day seventy.' the box is in its niche, aliens tiptoe, 'Good tools.'"),
+  (64.1,  Z1,   17.0, 28.2,  -4,  1.0,  "20-23 every box empty, 'they took the cows?', the cough"),
+  (75.3,  SNK,  0,    2.8,   -4,  0.8,  "24 the tag: the stuck box, the Pharaoh hides it"),
 ]
 def build():
     cmd, flt, tags = ["ffmpeg", "-v", "error", "-y"], [], []

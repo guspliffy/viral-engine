@@ -3,12 +3,15 @@
 // Jonny 18 Nov on PR #248); the Pharaoh = his own VoxCPM2 voice (pharaoh: dry, proud, cagey). Every Pharaoh line is a fact from
 // RESEARCH.md; Spud's lines are opinions or questions. [who, line, tone]
 export const LINES = {
-  s01: ["spud", "Sixty tonnes of stone. For one dead cow.", "calm"],
+  n01: ["spud", "Egypt. Under this desert lies a secret tunnel.", "calm"],   // draft 2: Jonny 18 Nov "expect that the viewer knows nothing"
+  s01a: ["spud", "Inside: twenty-four stone boxes. Sixty tonnes each.", "calm"],
+  s01b: ["spud", "All that... for one dead cow?", "question"],
   p03: ["pharaoh", "Not a cow. The holy bull Apis.", "calm", 2],   // take 2: take 1 was heard as "up us"
+  p03b: ["pharaoh", "To us, he was a god.", "calm"],
   p04: ["pharaoh", "When he died, we had seventy days to bury him.", "calm"],
   s05: ["spud", "The inside is perfect.", "question"],
   p06: ["pharaoh", "We had... good tools.", "calm"],
-  s08: ["spud", "And the stone?", "question"],
+  s08: ["spud", "How did you even move it?", "question"],
   p09: ["pharaoh", "Granite. From the south. By boat.", "calm"],
   s11: ["spud", "Forty works!", "excited"],
   p12: ["pharaoh", "Not down here.", "calm"],
