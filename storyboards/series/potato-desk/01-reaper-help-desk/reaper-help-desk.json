@@ -1,0 +1,2513 @@
+{
+ "id": "reaper-help-desk",
+ "title": "When customer service is the afterlife",
+ "idea": "Potato Desk 01: Chip died three times on the same fry and complains at the afterlife's help desk; Reaper serves.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "#97a3a8",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.16,
+  "until": 41.56,
+  "then": {
+   "file": "ai/elevator-bossa/elevator-bossa-01.ogg",
+   "from": 41.56,
+   "gain": 0.32,
+   "lowCut": 450
+  }
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.06,
+  "guard": true,
+  "signature": false
+ },
+ "creative": {
+  "length": [
+   45,
+   70
+  ]
+ },
+ "hook": {
+  "show": [
+   "chip",
+   "rea"
+  ],
+  "hint": 0,
+  "what": "a customer complains to Reaper at a help desk"
+ },
+ "cast": [
+  {
+   "id": "rea",
+   "character": "notyet/reaper-noscythe",
+   "at": [
+    -1.02,
+    0.1
+   ],
+   "face": 60,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 3.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.45,
+    0.1
+   ],
+   "face": -60,
+   "expr": "angry",
+   "follow": 0.4,
+   "seed": 1.9
+  },
+  {
+   "id": "old",
+   "character": "potatobrawl/chip-old",
+   "at": [
+    0.75,
+    -0.8
+   ],
+   "face": -25,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 2.2
+  }
+ ],
+ "props": [
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 4,
+   "h": 4
+  },
+  {
+   "id": "sign",
+   "staged": "screwed to the back wall",
+   "kind": "officesign",
+   "x": 0,
+   "y": 1.81,
+   "z": -1.29,
+   "w": 1.5,
+   "h": 0.42,
+   "lines": [
+    [
+     "AFTERLIFE",
+     0.13
+    ],
+    [
+     "CUSTOMER SERVICE",
+     0.085
+    ]
+   ]
+  },
+  {
+   "id": "snail",
+   "staged": "on its wall bracket",
+   "kind": "ticketsnail",
+   "x": 0.35,
+   "y": 1.1,
+   "z": -1.27
+  },
+  {
+   "id": "scythe",
+   "staged": "leaned against the back wall",
+   "kind": "parkedscythe",
+   "x": -1.18,
+   "y": 0.75,
+   "z": -1.12,
+   "rot": 0,
+   "tilt": -12
+  },
+  {
+   "id": "counter",
+   "kind": "woodcounter",
+   "x": -0.15,
+   "y": 0,
+   "z": -0.375,
+   "rot": 90,
+   "w": 1.85,
+   "h": 0.5,
+   "d": 0.5
+  },
+  {
+   "id": "monitor",
+   "kind": "crtmonitor",
+   "x": -0.12,
+   "y": 0.5,
+   "z": -0.55,
+   "rot": -45
+  },
+  {
+   "id": "keys",
+   "kind": "keyboard",
+   "x": -0.31,
+   "y": 0.5,
+   "z": 0.27,
+   "rot": -120
+  },
+  {
+   "id": "stamp",
+   "kind": "rubberstamp",
+   "x": -0.29,
+   "y": 0.5,
+   "z": 0.5,
+   "rot": 240,
+   "color": "#b43a23"
+  },
+  {
+   "id": "bell",
+   "kind": "callbell",
+   "x": -0.31,
+   "y": 0.5,
+   "z": -0.02
+  },
+  {
+   "id": "ticket",
+   "staged": "lies on the counter, off stage after the jump",
+   "kind": "ticket",
+   "x": -0.12,
+   "y": 0.502,
+   "z": 0.5,
+   "tip": -90,
+   "rot": -90,
+   "num": "417"
+  },
+  {
+   "id": "marks",
+   "staged": "ink on the ticket, off stage after the jump",
+   "kind": "stampmarks",
+   "x": -0.12,
+   "y": 0.506,
+   "z": 0.5,
+   "at": [
+    [
+     0,
+     0,
+     8
+    ]
+   ],
+   "size": [
+    0.045,
+    0.022
+   ],
+   "color": "#b43a23",
+   "count": 0
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": 0.75,
+   "y": 0,
+   "z": -0.8,
+   "rot": -25
+  },
+  {
+   "id": "fog",
+   "kind": "fogveil",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "box": [
+    [
+     -2.2,
+     0,
+     -1.3
+    ],
+    [
+     2.2,
+     0.1,
+     1.2
+    ]
+   ],
+   "n": 22,
+   "size": 0.9,
+   "color": "#eef3f6",
+   "a": 0.6,
+   "drift": [
+    -0.05,
+    0
+   ]
+  },
+  {
+   "id": "oldticket",
+   "staged": "off stage until the jump, then in old Chip's hand",
+   "kind": "ticket",
+   "x": 9,
+   "y": 0.5,
+   "z": 0,
+   "num": "417",
+   "age": 1
+  },
+  {
+   "id": "webA",
+   "staged": "a cobweb strung between head, chair and wall",
+   "kind": "cobweb",
+   "x": 9,
+   "y": 0,
+   "z": 0,
+   "pts": [
+    [
+     0.95,
+     1.2,
+     -1.29
+    ],
+    [
+     0.6,
+     1.2,
+     -1.29
+    ],
+    [
+     0.95,
+     0.85,
+     -1.05
+    ]
+   ]
+  },
+  {
+   "id": "webB",
+   "staged": "a cobweb strung on the chair",
+   "kind": "cobweb",
+   "x": 9,
+   "y": 0,
+   "z": 0,
+   "pts": [
+    [
+     0.55,
+     0.42,
+     -0.62
+    ],
+    [
+     0.52,
+     0.12,
+     -0.6
+    ],
+    [
+     0.78,
+     0,
+     -0.5
+    ]
+   ]
+  },
+  {
+   "id": "webD",
+   "staged": "a cobweb in the sign's corner",
+   "kind": "cobweb",
+   "x": 9,
+   "y": 0,
+   "z": 0,
+   "pts": [
+    [
+     -0.75,
+     1.6,
+     -1.27
+    ],
+    [
+     -0.5,
+     1.6,
+     -1.27
+    ],
+    [
+     -0.75,
+     1.36,
+     -1.27
+    ]
+   ]
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.461,
+   "text": "Hi. I died 3 times today,",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 1.461,
+   "to": 3.86,
+   "text": "and I'd like to speak to a manager.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.86,
+   "to": 5.27,
+   "text": "I am the manager.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 5.27,
+   "to": 7.6,
+   "text": "Then I'd like to speak to your manager.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 8.1,
+   "to": 10.65,
+   "text": "He's... busy.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.65,
+   "to": 13.18,
+   "text": "The first time, I slipped on a fry.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.28,
+   "to": 15.81,
+   "text": "Slipped... on... fry.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 15.81,
+   "to": 18.17,
+   "text": "The second time, the same fry.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 18.22,
+   "to": 19.92,
+   "text": "You didn't pick it up?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.92,
+   "to": 21.77,
+   "text": "I was dead!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.82,
+   "to": 23.48,
+   "text": "And the third?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.58,
+   "to": 25.77,
+   "text": "I went back for the fry.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 27.02,
+   "to": 30.1,
+   "text": "Okay. I can offer you Premium Afterlife.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 30.1,
+   "to": 33.58,
+   "text": "$9.99 a month. No fries.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 33.58,
+   "to": 35.39,
+   "text": "Is there a free version?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 35.49,
+   "to": 36.64,
+   "text": "Yes.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 37.98,
+   "to": 42.3,
+   "text": "Your waiting time is 400 years. Please hold.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 45.367,
+   "to": 46.567,
+   "text": "NEXT.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "complaint",
+   "at": 0,
+   "len": 10.65,
+   "shot": {
+    "pos": [
+     -0.2,
+     1.25,
+     10.4
+    ],
+    "look": [
+     -0.2,
+     1.25,
+     0
+    ],
+    "fov": 25
+   },
+   "do": [
+    {
+     "who": "old",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "old",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.03,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.03,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "face",
+     "lid": 0.45,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -1,
+      0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "old",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hi. I died three times today, and I'd like to speak to a manager.",
+     "tone": "angry",
+     "style": "bright, fast, indignant, demanding",
+     "dur": 3.36,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 0.53
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.54
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 0.66
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 0.79
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.09,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 0.96
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 1.09
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.125,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 1.3
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 1.43
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.44
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 1.56
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 1.69
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.7
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 1.86
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 1.99
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.1
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.09,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.2
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 2.33
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.125,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.34
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.46
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 2.59
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.76
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 2.89
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.9
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 3.1
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 3.23
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.24
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "I am the manager.",
+     "tone": "calm",
+     "style": "flat, dry, deadpan, slow",
+     "dur": 1.11,
+     "caption": false,
+     "at": 3.86
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.2
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      1,
+      0.05
+     ],
+     "dur": 0.25,
+     "at": 4.41
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 5.12
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 4,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 5.27
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Then I'd like to speak to YOUR manager.",
+     "tone": "angry",
+     "style": "bright, fast, indignant, smug",
+     "take": 2,
+     "dur": 1.88,
+     "caption": false,
+     "at": 5.27
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 7.35
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.15,
+      1
+     ],
+     "dur": 0.3,
+     "at": 7.45
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.2,
+      1
+     ],
+     "dur": 0.3,
+     "at": 7.7
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "He's... busy.",
+     "tone": "calm",
+     "style": "flat, dry, deadpan, slow, a little uneasy",
+     "dur": 2.15,
+     "caption": false,
+     "at": 8.1
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 9.6
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.03,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.03,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 9.9
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.25,
+     "at": 10.05
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.3,
+     "at": 10.25
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -1,
+      0.25
+     ],
+     "dur": 0.25,
+     "at": 10.3
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "the fry",
+   "at": 10.65,
+   "len": 14.67,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "The first time, I slipped on a fry.",
+     "tone": "calm",
+     "style": "bright, fast, complaining",
+     "dur": 2.08,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.43
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 2.56
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.57
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Slipped... on... fry.",
+     "tone": "calm",
+     "style": "flat, slow, reading aloud while typing",
+     "dur": 2.23,
+     "caption": false,
+     "at": 2.63
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.69
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.3,
+     "at": 2.73
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 2.82
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.83
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.09,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 2.99
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 3.12
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.125,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.13
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 3.33
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 3.46
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.47
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 3.59
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 3.72
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.02,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.02,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.73
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 3.89
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.95
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 4.02
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.06,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.06,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 4.03
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.09,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 4.23
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 4.36
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       0,
+       0.125,
+       0
+      ],
+      "palm": [
+       0,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 4.37
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.09,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.14,
+     "ease": "settle",
+     "at": 4.49
+    },
+    {
+     "sfx": "ai/key-press",
+     "gain": 0.35,
+     "at": 4.62
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "keys",
+      "grip": [
+       -0.04,
+       0.125,
+       0
+      ],
+      "palm": [
+       -0.04,
+       -0.97,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 4.63
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "The second time, the same fry.",
+     "tone": "calm",
+     "style": "bright, fast, complaining",
+     "dur": 1.91,
+     "caption": false,
+     "at": 5.16
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      1,
+      0.05
+     ],
+     "dur": 0.25,
+     "at": 7.22
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "You didn't pick it up?",
+     "tone": "calm",
+     "style": "flat, dry, deadpan, slow",
+     "dur": 1.45,
+     "caption": false,
+     "at": 7.57
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.12,
+     "at": 9.17
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "up",
+     "dur": 0.25,
+     "ease": "out",
+     "at": 9.22
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I was DEAD!",
+     "tone": "angry",
+     "style": "outraged, loud, voice cracking",
+     "dur": 1.4,
+     "caption": false,
+     "at": 9.27
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "height": 0.06,
+     "dur": 0.3,
+     "quiet": true,
+     "at": 9.32
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 10.75
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 10.77
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "And the third?",
+     "tone": "calm",
+     "style": "flat, dry, deadpan, slow",
+     "dur": 1.21,
+     "caption": false,
+     "at": 11.17
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 12.63
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.2,
+      -0.9
+     ],
+     "dur": 0.3,
+     "at": 12.68
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 12.73
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I went back for the fry.",
+     "tone": "sad",
+     "style": "quiet, embarrassed, sheepish",
+     "dur": 1.74,
+     "caption": false,
+     "at": 12.93
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 13.25
+    }
+   ]
+  },
+  {
+   "name": "the stare",
+   "at": 25.32,
+   "len": 10.17,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -1,
+      0.25
+     ],
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "rea",
+     "do": "still",
+     "dur": 1.12,
+     "idle": 0.04,
+     "fade": 0.1,
+     "sink": 0.004,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "still",
+     "dur": 1.12,
+     "idle": 0.04,
+     "fade": 0.1,
+     "sink": 0.004,
+     "at": 0.5
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Okay. I can offer you Premium Afterlife. Nine ninety-nine a month. No fries.",
+     "tone": "calm",
+     "style": "flat, bored salesman, slow",
+     "dur": 6.16,
+     "caption": false,
+     "at": 1.7
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.58
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.58
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.3,
+     "at": 7.96
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.4,
+     "at": 7.96
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Is there a free version?",
+     "tone": "calm",
+     "style": "hopeful, small, bright",
+     "dur": 1.36,
+     "caption": false,
+     "at": 8.26
+    }
+   ]
+  },
+  {
+   "name": "please hold",
+   "at": 35.49,
+   "len": 8.277,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Yes.",
+     "tone": "calm",
+     "style": "flat, dry, deadpan",
+     "dur": 0.7,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.85
+     ],
+     "dur": 0.2,
+     "at": 0.65
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "off": [
+       -0.049,
+       0.02,
+       0.049
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 1.4
+    },
+    {
+     "who": "rea",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.52
+    },
+    {
+     "who": "rea",
+     "do": "grab",
+     "prop": "stamp",
+     "hand": "R",
+     "grip": [
+      0.066,
+      0.086,
+      0.018
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 1.66
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.12,
+       0.62,
+       0.5
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.72
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.12,
+       0.504,
+       0.5
+      ]
+     },
+     "dur": 0.12,
+     "ease": "in",
+     "at": 2.07
+    },
+    {
+     "sfx": "knock",
+     "gain": 0.7,
+     "at": 2.18
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "count": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.18
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.12,
+       0.6,
+       0.5
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.29
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "Your waiting time is four hundred years. Please hold.",
+     "tone": "calm",
+     "style": "flat, dry, deadpan, slow, bored",
+     "dur": 3.87,
+     "caption": false,
+     "at": 2.49
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "stamp",
+      "grip": [
+       0.066,
+       0.086,
+       0.018
+      ],
+      "palm": "wrap",
+      "at": [
+       -0.29,
+       0.5,
+       0.5
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 2.54
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.3,
+     "at": 2.69
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 2.89
+    },
+    {
+     "do": "prop",
+     "id": "stamp",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 2.94
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.8
+     ],
+     "dur": 0.35,
+     "at": 3.09
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 3.09
+    },
+    {
+     "who": "rea",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.71
+    },
+    {
+     "who": "chip",
+     "macro": "sigh",
+     "at": 6.27
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.55,
+      0.05
+     ],
+     "dur": 0.4,
+     "at": 6.62
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 8.11
+    },
+    {
+     "who": "old",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 8.247
+    },
+    {
+     "who": "old",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.01,
+     "at": 8.247
+    },
+    {
+     "who": "rea",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.35
+     ],
+     "dur": 0.01,
+     "at": 8.247
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 8.257
+    },
+    {
+     "who": "old",
+     "do": "show",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "ticket",
+     "set": {
+      "x": 9
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "marks",
+     "set": {
+      "x": 9
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "webA",
+     "set": {
+      "x": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "webB",
+     "set": {
+      "x": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "webD",
+     "set": {
+      "x": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "do": "prop",
+     "id": "oldticket",
+     "set": {
+      "x": 1,
+      "y": 0.44,
+      "z": -0.62,
+      "rot": -25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 8.257
+    },
+    {
+     "who": "old",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "oldticket",
+      "grip": [
+       0,
+       0.017,
+       0
+      ],
+      "point": "pinch"
+     },
+     "dur": 0.01,
+     "ease": "out",
+     "at": 8.257
+    },
+    {
+     "who": "old",
+     "do": "grip",
+     "side": "L",
+     "shape": "tip",
+     "set": {
+      "roll": 20,
+      "lean": 30,
+      "thin": 0.001
+     },
+     "dur": 0.12,
+     "at": 8.263
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "centuries later",
+   "at": 43.767,
+   "len": 4.35,
+   "shot": {
+    "pos": [
+     -0.12,
+     1.25,
+     10.4
+    ],
+    "look": [
+     -0.12,
+     1.25,
+     0
+    ],
+    "fov": 23.5
+   },
+   "do": [
+    {
+     "who": "old",
+     "do": "grab",
+     "prop": "oldticket",
+     "hand": "L",
+     "grip": [
+      0,
+      0.017,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "point": "pinch",
+     "at": 0.05
+    },
+    {
+     "who": "old",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bell",
+      "grip": [
+       0,
+       0.099,
+       0
+      ],
+      "palm": [
+       0,
+       -0.931,
+       0
+      ]
+     },
+     "dur": 0.25,
+     "ease": "settle",
+     "at": 1.25
+    },
+    {
+     "do": "prop",
+     "id": "bell",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.05,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "sfx": "ding",
+     "gain": 0.55,
+     "at": 1.5
+    },
+    {
+     "who": "rea",
+     "macro": "say",
+     "line": "NEXT.",
+     "tone": "angry",
+     "style": "flat, loud, bored",
+     "dur": 0.75,
+     "caption": false,
+     "at": 1.6
+    },
+    {
+     "do": "prop",
+     "id": "bell",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.1,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "rea",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bell",
+      "grip": [
+       0,
+       0.169,
+       0
+      ],
+      "palm": [
+       0,
+       -0.931,
+       0
+      ]
+     },
+     "dur": 0.3,
+     "ease": "settle",
+     "at": 1.7
+    },
+    {
+     "who": "old",
+     "do": "look",
+     "to": [
+      -0.9,
+      0.35
+     ],
+     "dur": 0.45,
+     "at": 1.85
+    },
+    {
+     "who": "old",
+     "do": "face",
+     "lid": 0.25,
+     "dur": 0.4,
+     "at": 1.9
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.4,
+   "see": [
+    "chip.face",
+    "rea.face"
+   ],
+   "why": "the customer complains to the clerk at frame 0"
+  },
+  {
+   "from": 7.35,
+   "to": 10.25,
+   "see": [
+    "rea",
+    "rea.face",
+    "chip.face"
+   ],
+   "why": "Reaper points up to his own manager"
+  },
+  {
+   "from": 19.92,
+   "to": 21.32,
+   "see": [
+    "chip.face"
+   ],
+   "why": "I WAS DEAD"
+  },
+  {
+   "from": 25.32,
+   "to": 27.02,
+   "see": [
+    "rea.face",
+    "chip.face"
+   ],
+   "why": "Reaper's long stare"
+  },
+  {
+   "from": 36.24,
+   "to": 41.85,
+   "see": [
+    "rea.face",
+    "chip.face",
+    "stamp"
+   ],
+   "why": "the stamp, the ticket, 400 years"
+  },
+  {
+   "from": 43.767,
+   "to": 48.117,
+   "see": [
+    "old.face",
+    "rea.face",
+    "oldticket"
+   ],
+   "why": "old Chip, still waiting, ticket in hand"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "old",
+   "with": "chair",
+   "from": 0,
+   "to": 48.117,
+   "reason": "old Chip sits in the waiting chair"
+  },
+  {
+   "who": "rea",
+   "with": "counter",
+   "from": 0,
+   "to": 48.117,
+   "checks": [
+    "costume-in-prop"
+   ],
+   "reason": "Reaper's robe brushes the counter edge (2 cm of cloth) as he leans to the stamp and the bell"
+  },
+  {
+   "who": "old",
+   "with": "webA",
+   "from": 43.767,
+   "to": 48.117,
+   "reason": "the cobweb hangs from old Chip's head to the wall"
+  },
+  {
+   "who": "old",
+   "with": "webB",
+   "from": 43.767,
+   "to": 48.117,
+   "reason": "the cobweb spans old Chip's seat edge"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/01-reaper-help-desk/make-reaper-help-desk.mjs."
+}

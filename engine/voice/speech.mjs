@@ -51,7 +51,7 @@ function job(text, rec, { tone = "calm", soft = false, style, take }) {
   const [speed, mark] = TONES[tone] ?? TONES.calm;
   const t = text.trim(), spoken = /[.!?…]$/.test(t) ? t : t + mark;
   const j = { text: spoken, voice: rec.voice, speed: Math.round((rec.speed ?? 1) * speed * 1000) / 1000, lang: rec.lang ?? "en-us",
-    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper"), pause: rec.pause, post: rec.post, accent: rec.accent, convert: rec.convert, human: rec.human, vox: voxJob(rec, tone, soft, style, take) };   // pause/post/accent/convert/human/vox: only when a recipe sets them (else left out of the hash)
+    pitch: rec.pitch ?? 0, formant: rec.formant, soft: !!(soft || tone === "whisper"), pause: rec.pause, post: rec.post, accent: rec.accent, convert: rec.convert, human: rec.human, tempo: rec.tempo, vox: voxJob(rec, tone, soft, style, take) };   // pause/post/accent/convert/human/tempo/vox: only when a recipe sets them (else left out of the hash)
   j.id = crypto.createHash("sha1").update(JSON.stringify([VERSION, j])).digest("hex").slice(0, 16);
   return j;
 }
@@ -82,7 +82,7 @@ export function withSpeech(sb, chars) {
   if (sb.sound?.speech === false || process.env.SPEECH === "off") return sb;
   const out = structuredClone(sb), lines = [];
   const castVoice = (who) => { const c = (sb.cast || []).find((x) => x.id === who); return c && chars[c.character]?.tts; };
-  const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, job: job(item.line, rec, opts) }); };
+  const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, rec, job: job(item.line, rec, opts) }); };
   const recs = [];
   for (const b of out.beats || []) for (const it of b.do || []) {
     if (it.macro === "say" && it.line && it.rec) { recs.push(it); continue; }
@@ -104,9 +104,11 @@ export function withSpeech(sb, chars) {
     const words = wordTimes(info.phones, it.line);
     it.speech = { id: info.id, mouth: mouthKeys(info.phones), ...(words ? { words } : {}) };
   }
-  for (const { item, job: j } of lines) {
+  for (const { item, rec, job: j } of lines) {
     if (!item) continue;
     const info = JSON.parse(fs.readFileSync(path.join(CACHE, `${j.id}.json`), "utf8"));
+    const r = rec?.rate ? speakingRate(info.phones) : null;
+    if (r && (r / rec.rate - 1 > RATE_FAST || 1 - r / rec.rate > RATE_SLOW)) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
     if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
     item.dur = info.dur;
     const words = wordTimes(info.phones, item.line);
@@ -166,6 +168,25 @@ function readWav(file) {
     p += 8 + n + (n & 1);
   }
   throw new Error(`speech: ${file} has no audio`);
+}
+
+// how fast a take is spoken: vowel nuclei (a run of vowel phones, a length mark kept with its vowel) per second of
+// TALKING, the pause phones (space and punctuation: the gaps at commas and full stops) left out, so a line of three
+// short sentences with a breath at each dot is not called slow (Jonny 18 Nov 2026: "Same hoodie. Same bun. Same
+// river." is "actually not slow ... there needs to be a gap"). VoxCPM2 reads one voice at quite different speeds from
+// line to line: the happiness score film's narrator talked at 3.2 to 6.5 syllables/s, so the film's one 1.3x speed-up
+// made the fast takes sound rushed ("sometimes it's rushed"). A recipe's "rate" is that voice's usual talking speed; a
+// take over RATE_FAST faster or RATE_SLOW slower gets a warning when it is read (the slow side is wider: Jonny heard
+// "These glasses show everyone's happiness score..." at 22 % under as "at the limit to acceptable", and kept 25 %).
+const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_FAST = 0.18, RATE_SLOW = 0.25;
+export function speakingRate(phones) {
+  if (!phones?.length) return null;
+  let n = 0, prev = false, talk = 0;
+  for (const [p, , d] of phones) {
+    const v = VOWEL.has(p); if (v && !prev) n++; prev = v || (prev && (p === "ː" || p === "ˑ"));
+    if (!PAUSE.has(p)) talk += d;
+  }
+  return talk > 0.3 && n >= 4 ? n / talk : null;
 }
 
 // spoken stretches [start, end] in seconds: 20 ms windows over a threshold, gaps under `gap` s joined, blips dropped

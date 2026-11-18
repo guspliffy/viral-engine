@@ -1,0 +1,938 @@
+{
+ "id": "hs03-a4-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   24.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   26.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   33.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   37.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   41.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   56.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   61.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   66.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   71.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   77.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   82.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   138.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     24.8,
+     40
+    ],
+    [
+     26.8,
+     39
+    ],
+    [
+     33.8,
+     38
+    ],
+    [
+     37.8,
+     37
+    ],
+    [
+     41.8,
+     36
+    ],
+    [
+     56.8,
+     35
+    ],
+    [
+     61.8,
+     34
+    ],
+    [
+     66.8,
+     33
+    ],
+    [
+     71.8,
+     32
+    ],
+    [
+     77.8,
+     31
+    ],
+    [
+     82.8,
+     30
+    ],
+    [
+     138.8,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     82.8,
+     "09:12"
+    ],
+    [
+     132.8,
+     "00:58"
+    ],
+    [
+     138.8,
+     "00:41",
+     4
+    ],
+    [
+     144.8,
+     "00:22",
+     4
+    ],
+    [
+     154.8,
+     "00:12",
+     3
+    ],
+    [
+     168.8,
+     "00:03",
+     3
+    ],
+    [
+     172.8,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 17.2,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   4.8,
+   4.8
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.25,
+    -0.62
+   ],
+   "face": 55,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    4.8,
+    0.25
+   ],
+   "face": -68.749,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "van",
+   "kind": "boxvan",
+   "x": 1.5,
+   "y": -0.15,
+   "z": 3.7,
+   "rot": 90,
+   "open": 1,
+   "len": 0,
+   "win": 0
+  },
+  {
+   "id": "glw",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0
+  },
+  {
+   "id": "pad",
+   "kind": "spudpad",
+   "x": 0.033,
+   "y": 0.32,
+   "z": -0.397,
+   "rot": 235,
+   "tip": -50,
+   "write": 0
+  },
+  {
+   "id": "mbox",
+   "kind": "parcel",
+   "x": 4.409,
+   "y": 0.3,
+   "z": 0.402,
+   "rot": 111.251
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "05 the notebook",
+   "at": 0,
+   "len": 3.6,
+   "shot": {
+    "pos": [
+     -0.95,
+     0.85,
+     1.65
+    ],
+    "look": [
+     2.453,
+     1.107,
+     -3.285
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.25,
+      -0.62
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": 55,
+     "dur": 0.01,
+     "height": 0.22,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.13,
+       0.052,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "pad",
+     "hand": "L",
+     "grip": [
+      -0.13,
+      0.052,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.045,
+       0.46,
+       -0.291
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "write": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.6,
+      "curve": -0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      4.8,
+      0.25
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -68.749,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "mbox",
+     "hand": "both",
+     "grip": [
+      0.255,
+      0.143,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.3,
+      "eye": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      3,
+      0.95
+     ],
+     "y": 0,
+     "dur": 3.4,
+     "steps": 7,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.609,
+       0.3,
+       1.102
+      ]
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.609,
+       0.3,
+       1.102
+      ]
+     },
+     "dur": 3.4,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Three days to learn how he does it.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.1,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.045,
+       0.46,
+       -0.291
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "write": 0.55
+     },
+     "dur": 2.8,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "sfx": "scribble",
+     "gain": 0.3,
+     "dur": 2.6,
+     "reason": "his pencil on the pad",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.065,
+       0.448,
+       -0.321
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.045,
+       0.436,
+       -0.291
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.065,
+       0.46,
+       -0.321
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.045,
+       0.448,
+       -0.291
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.065,
+       0.436,
+       -0.321
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.15
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.75,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.045,
+       0.46,
+       -0.291
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0.065,
+       0.448,
+       -0.321
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 2.85
+    }
+   ]
+  },
+  {
+   "name": "05i the page",
+   "at": 3.6,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     -0.434,
+     1.5,
+     0.166
+    ],
+    "look": [
+     0.033,
+     0.44,
+     -0.397
+    ],
+    "fov": 28,
+    "roll": 65
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "write": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "scribble",
+     "gain": 0.35,
+     "dur": 0.9,
+     "reason": "the pencil underlines it twice",
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.6,
+   "see": [
+    "spud.face",
+    "pad",
+    "mash"
+   ],
+   "why": "Spud on his friend's front step with round glasses and a notepad, frowning, writing; Mash carries a box to the van behind him"
+  },
+  {
+   "from": 3.6,
+   "to": 4.8,
+   "see": [
+    "pad"
+   ],
+   "why": "over his shoulder: the pad says MASH = 88. WHY? underlined twice"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "glw",
+   "from": 0,
+   "to": 4.8,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn: the temples run back into the head (SCORE_FITS nose)"
+  }
+ ],
+ "story": {
+  "T0": 17.2,
+  "T1": 22
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 17.2-22 s)."
+}

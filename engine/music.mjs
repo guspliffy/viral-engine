@@ -121,14 +121,17 @@ function report(anchors, bpm, off) {
 
 // a recorded music bed (assets/music/..., e.g. the AI beds in assets/music/ai): looped to fill the clip from `from`
 // (default 0), starting `skip` seconds into the file, and cut at `until` (default the end) with a 40 ms fade, so
-// "the music stops" lands on its frame
+// "the music stops" lands on its frame; `seam` (below) drops the fades at the clip's own edges
 export function fileMusic(music, dur, sr) {
   const r = spawnSync("ffmpeg", ["-v", "error", "-i", path.join(ROOT, "assets/music", music.file), "-ac", "2", "-ar", String(sr), "-f", "f32le", "-"], { maxBuffer: 1 << 29 });
   if (r.status !== 0) throw new Error(`music: can't decode ${music.file}: ${r.stderr}`);
   const x = new Float32Array(r.stdout.buffer.slice(r.stdout.byteOffset, r.stdout.byteOffset + r.stdout.length)), m = x.length / 2;
   const n = Math.round(dur * sr), L = new Float32Array(n), R = new Float32Array(n);
   const a = Math.round((music.from ?? 0) * sr), b = Math.min(n, Math.round((music.until ?? dur) * sr)), fade = Math.round(0.04 * sr), sk = Math.round((music.skip ?? 0) * sr);
-  for (let i = a; i < b; i++) { const k = (i - a + sk) % m, f = Math.min(1, (b - i) / fade, (i - a + 1) / 220); L[i] = x[2 * k] * f; R[i] = x[2 * k + 1] * f; }
+  // seam: true (one film's score cut into segments rendered apart): no fade where the clip itself starts or ends, so the
+  // joined segments play the score without a dip at each seam (Jonny 16 Nov 2026, happiness score film)
+  const fIn = music.seam && a === 0 ? 0 : 220, fOut = music.seam && b === n ? 0 : fade;
+  for (let i = a; i < b; i++) { const k = (i - a + sk) % m, f = Math.min(1, fOut ? (b - i) / fOut : 1, fIn ? (i - a + 1) / fIn : 1); L[i] = x[2 * k] * f; R[i] = x[2 * k + 1] * f; }
   return { L, R };
 }
 

@@ -1,0 +1,787 @@
+{
+ "id": "hs03-a9-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   0.7,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   1.6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   2.6,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   3.5,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   10,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   14,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   18,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   33,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   38,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   43,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   48,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   54,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   59,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   115,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    0.7,
+    1.6
+   ],
+   [
+    2.6,
+    3.5
+   ]
+  ],
+  "tags": [
+   {
+    "xy": [
+     960,
+     760
+    ],
+    "minus": true,
+    "minusTo": [
+     960,
+     330
+    ],
+    "size": "close",
+    "keys": [
+     [
+      0,
+      41
+     ],
+     [
+      1,
+      40
+     ],
+     [
+      3,
+      39
+     ]
+    ],
+    "minusCard": [
+     1
+    ]
+   }
+  ]
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     1,
+     40
+    ],
+    [
+     3,
+     39
+    ],
+    [
+     10,
+     38
+    ],
+    [
+     14,
+     37
+    ],
+    [
+     18,
+     36
+    ],
+    [
+     33,
+     35
+    ],
+    [
+     38,
+     34
+    ],
+    [
+     43,
+     33
+    ],
+    [
+     48,
+     32
+    ],
+    [
+     54,
+     31
+    ],
+    [
+     59,
+     30
+    ],
+    [
+     115,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     59,
+     "09:12"
+    ],
+    [
+     109,
+     "00:58"
+    ],
+    [
+     115,
+     "00:41",
+     4
+    ],
+    [
+     121,
+     "00:22",
+     4
+    ],
+    [
+     131,
+     "00:12",
+     3
+    ],
+    [
+     145,
+     "00:03",
+     3
+    ],
+    [
+     149,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 41,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.03
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   5.9,
+   5.9
+  ]
+ },
+ "cast": [
+  {
+   "id": "copy",
+   "character": "happiness/spud-copy",
+   "at": [
+    1.6,
+    1.2
+   ],
+   "face": 160,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "glc",
+   "kind": "scoreglasses",
+   "wear": "copy",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": 1.81,
+   "y": 0.42,
+   "z": 0.798,
+   "rot": 340,
+   "bite": 0.8
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "11a eyes up",
+   "at": 0,
+   "len": 0.7,
+   "shot": {
+    "pos": [
+     1.35,
+     2.25,
+     -0.35
+    ],
+    "look": [
+     1.6,
+     0.45,
+     1.2
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "copy",
+     "do": "move",
+     "to": [
+      1.6,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "turn",
+     "to": 160,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.8
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bun",
+      "grip": [
+       0.121,
+       0.046,
+       0.032
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "grab",
+     "prop": "bun",
+     "hand": "R",
+     "grip": [
+      0.121,
+      0.046,
+      0.032
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0,
+      0.85
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "11b the check",
+   "at": 0.7,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     1.764,
+     0.72,
+     0.749
+    ],
+    "look": [
+     1.464,
+     2.7,
+     -1.251
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "11c again",
+   "at": 1.6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     1.35,
+     2.25,
+     -0.35
+    ],
+    "look": [
+     1.6,
+     0.45,
+     1.2
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.25,
+      "brow": 0.5
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "And every time you checked, it dropped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.7,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0,
+      0.85
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.65
+    },
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.1,
+     "at": 0.65
+    }
+   ]
+  },
+  {
+   "name": "11d the check",
+   "at": 2.6,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     1.764,
+     0.72,
+     0.749
+    ],
+    "look": [
+     1.464,
+     2.7,
+     -1.251
+    ],
+    "fov": 50
+   },
+   "do": []
+  },
+  {
+   "name": "11e it dropped",
+   "at": 3.5,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     1.35,
+     2.25,
+     -0.35
+    ],
+    "look": [
+     1.6,
+     0.45,
+     1.2
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      1.4,
+      1.9,
+      0
+     ],
+     "look": [
+      1.6,
+      0.45,
+      1.2
+     ],
+     "fov": 42
+    },
+    "dur": 2.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "copy",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.4,
+      "brow": 0.7,
+      "eye": 0.85
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "look",
+     "to": [
+      0,
+      -0.45
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "copy",
+     "do": "droop",
+     "to": 0.5,
+     "dur": 0.6,
+     "at": 0.2
+    },
+    {
+     "who": "copy",
+     "do": "squash",
+     "amount": 0.08,
+     "dur": 0.6,
+     "at": 0.2
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 0.7,
+   "see": [
+    "copy.face"
+   ],
+   "why": "from above: Spud in the copied hoodie looks up at his own number"
+  },
+  {
+   "from": 1.6,
+   "to": 2.6,
+   "see": [
+    "copy.face"
+   ],
+   "why": "he looks down, hurt, then up again"
+  },
+  {
+   "from": 3.5,
+   "to": 5.9,
+   "see": [
+    "copy.face"
+   ],
+   "why": "he sags, the bun lowered"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "copy",
+   "with": "glc",
+   "from": 0,
+   "to": 5.9,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn: the temples run back into the head above the ears (SCORE_FITS nose)"
+  }
+ ],
+ "story": {
+  "T0": 41,
+  "T1": 46.9
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 41-46.9 s)."
+}

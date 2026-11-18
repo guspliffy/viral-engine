@@ -1,0 +1,748 @@
+{
+ "id": "hs03-a2-wide",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorehall",
+  "light": "golden",
+  "key": [
+   -3,
+   6,
+   -6.2
+  ],
+  "shadowSize": 6,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   35.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   37.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   44.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   48.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   52.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   67.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   72.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   77.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   82.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   88.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   93.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   149.9,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     41
+    ],
+    [
+     35.9,
+     40
+    ],
+    [
+     37.9,
+     39
+    ],
+    [
+     44.9,
+     38
+    ],
+    [
+     48.9,
+     37
+    ],
+    [
+     52.9,
+     36
+    ],
+    [
+     67.9,
+     35
+    ],
+    [
+     72.9,
+     34
+    ],
+    [
+     77.9,
+     33
+    ],
+    [
+     82.9,
+     32
+    ],
+    [
+     88.9,
+     31
+    ],
+    [
+     93.9,
+     30
+    ],
+    [
+     149.9,
+     29
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 6.1,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "hall",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.03
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   4.9,
+   4.9
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.78,
+    1.45
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    63,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "door",
+   "kind": "frontdoor",
+   "x": 3,
+   "y": 0,
+   "z": -3.12,
+   "rot": 180,
+   "w": 1,
+   "h": 2,
+   "color": "#2f5d3a",
+   "open": 1
+  },
+  {
+   "id": "keep",
+   "kind": "keepbox",
+   "x": 0.05,
+   "y": 0,
+   "z": 1.65,
+   "rot": 0
+  },
+  {
+   "id": "case",
+   "kind": "scorecase",
+   "x": 0.11,
+   "y": 0.2,
+   "z": 1.67,
+   "rot": 90,
+   "open": 1
+  },
+  {
+   "id": "glw",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.535,
+   "z": 0.382,
+   "tip": 25,
+   "fold": 0
+  },
+  {
+   "id": "mbox",
+   "kind": "parcel",
+   "x": 0.469,
+   "y": 0.3,
+   "z": -0.473,
+   "rot": 310.486
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "02 the box",
+   "at": 0,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     1.1,
+     1,
+     3
+    ],
+    "look": [
+     -0.4,
+     0.5,
+     1.45
+    ],
+    "fov": 38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.78,
+      1.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.3,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.15,
+      "eye": 1.15,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "If you've ever compared yourself to a friend, watch what it costs you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.25
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.3,
+      "curve": 0.1
+     },
+     "dur": 0.4,
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.15,
+      -0.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.488
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 130.486,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.488
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 1.488
+    }
+   ]
+  },
+  {
+   "name": "03 Mash passes",
+   "at": 1.5,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -0.2,
+     1,
+     4.1
+    ],
+    "look": [
+     0.6,
+     0.95,
+     0
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "mbox",
+     "hand": "both",
+     "grip": [
+      0.255,
+      0.143,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.2,
+      "open": 0.12,
+      "eye": 0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.2,
+      -1.95
+     ],
+     "y": 0,
+     "dur": 3.1,
+     "steps": 6,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.519,
+       0.3,
+       -2.223
+      ]
+     },
+     "dur": 3.1,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "mbox",
+      "grip": [
+       -0.255,
+       0.143,
+       0
+      ],
+      "palm": true,
+      "at": [
+       2.519,
+       0.3,
+       -2.223
+      ]
+     },
+     "dur": 3.1,
+     "ease": "linear",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.4,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.6,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.1,
+      "brow": 0.35
+     },
+     "dur": 0.5,
+     "at": 0.8
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.5,
+   "see": [
+    "spud.face",
+    "keep",
+    "case"
+   ],
+   "why": "close: Spud kneels at a cardboard box marked DON'T KEEP, old round glasses slid down his nose, an empty glasses case in the box"
+  },
+  {
+   "from": 1.5,
+   "to": 4.9,
+   "see": [
+    "spud",
+    "mash"
+   ],
+   "why": "the sunny hall on moving day: his best friend Mash walks past behind him with a box, whistling"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "glw",
+   "from": 0,
+   "to": 4.9,
+   "checks": [
+    "clipping",
+    "shell",
+    "hand-in-prop"
+   ],
+   "reason": "the glasses are worn, slid down the nose (SCORE_FITS half)"
+  }
+ ],
+ "story": {
+  "T0": 6.1,
+  "T1": 11
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 6.1-11 s)."
+}
