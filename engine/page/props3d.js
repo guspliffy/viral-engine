@@ -39,6 +39,7 @@ import { BONFIRE_KINDS } from "./props-bonfire.js";
 import { DINO_KINDS } from "./props-dino.js";
 import { SHARK_KINDS } from "./props-shark.js";
 import { BUSSTOP_KINDS } from "./props-busstop.js";
+import { cabinBus } from "./props-cabinbus.js";   // bus with spec.cabin: true (there's a catch 10 laugh strength)
 import { DESK_KINDS } from "./props-desk.js";   // potato desk: service counter set
 import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: judgebench, dadopanels, floormarks, soundblock, courtfloor, sentenceboard, axegavel, fryfan, chipbag, mashbowl, courtspoon
 import { GYMLAUGH_KINDS } from "./props-gymlaugh.js";   // there's a catch 10 laugh strength: strengthboard, gymmarks, crashmat, towelshelf, gymbag, gymbottle
@@ -677,7 +678,10 @@ const KINDS = {
   // door, on the near side: the bus runs from x -3.35 (rear) to +0.55 (front, facing +x) and from z 0 back to z -1.
   //   open 0..1 slides the door's two leaves apart; full 0..1 fills the windows with squashed passengers;
   //   bulge 0..1 puffs the body out (too many on board); the wheels turn with the bus's x (drive it with "prop" x tweens)
+  //   spec.cabin: true builds a hollow cabin bus (clear glass, a real door hole, four wheels, underside, front deck, seats) instead:
+  //   see the usage header of props-cabinbus.js; without it nothing below changes
   bus(P) {
+    if (P.spec.cabin) return cabinBus(P);
     const paint = mat("#f2b51f", { roughness: 0.45 }), white = mat("#f7f4ec", { roughness: 0.5 }), dark = mat("#2d3340", { roughness: 0.6 });
     const glass = mat("#3a5a78", { roughness: 0.15, metalness: 0.1, transparent: true, opacity: 0.82 }), tyre = mat("#22232a", { roughness: 0.9 }), hub = mat("#c9ccd3", { metalness: 0.4, roughness: 0.35 });
     const body = new THREE.Group(); P.whole.add(body);

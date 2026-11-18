@@ -1,9 +1,9 @@
 // There's a catch EP10: VOICE PROBE. Every line once, 1 s apart, so the takes are made and measured before staging. Not a video.
 import { clip, write, r3 } from "../../../lib/clip.mjs";
-import { LINES } from "./lines.mjs";
+import { LINES, TOSS, STREET } from "./lines.mjs";
 const c = clip({ faces: "strong", lines: { sub: true, blink: false } });
 let t = 0.2;
-for (const [who, line, tone, style, o = {}] of LINES) {
+for (const [who, line, tone, style, o = {}] of [...LINES, TOSS, ...STREET]) {
   const est = r3(line.split(" ").length * 0.45 + 0.6);
   if (who === "nar") c.at(t, { macro: "narrate", line, voice: "narrator", take: 1, dur: est, caption: false });
   else c.macro(t, who, "say", { line, tone, ...(style && { style }), ...o, dur: est, caption: false });

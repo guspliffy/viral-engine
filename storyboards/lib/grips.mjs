@@ -420,4 +420,14 @@ export function underpad(c, who, spec, { gx = 0.30, shape = "flat", lift = 0.025
   return holder(c, who, spec, { hands, shape, ready: "flat", grab: toProp(spec, [0, (top - h) * k - 0.005 - lift, dz]) });
 }
 
-export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, bar, underpad, staff, rest };
+// PALMS (There's a catch 10, 18 Nov 2026: an upturned car and a bus held overhead): both gloves flat at two points the clip
+// names, in the prop's own frame and scaled metres (as underpad's: the prop's scale is taken out here), the palms facing
+// the prop's +y (up: 1) or its -y (up: -1, a prop upside down, whose own "up" points at the ground). For any prop with
+// no SIZE entry: the clip knows where its underside is. carry(t, [x, y, z]) moves the prop's origin there.
+export function palms(c, who, spec, { R, L, up = 1, shape = "flat", away = [0, -0.09, 0.04] } = {}) {
+  const hands = {};
+  for (const [s, p, sx] of [["R", R, 1], ["L", L, -1]]) hands[s] = { grip: toProp(spec, p), palm: toProp(spec, [p[0], p[1] + up, p[2]]), away: toWorld(spec, [sx * away[0] + sx * 0.06, away[1], away[2]]) };
+  return holder(c, who, spec, { hands, shape, ready: "flat", grab: toProp(spec, [(R[0] + L[0]) / 2, R[1], (R[2] + L[2]) / 2]) });
+}
+
+export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, bar, underpad, palms, staff, rest };

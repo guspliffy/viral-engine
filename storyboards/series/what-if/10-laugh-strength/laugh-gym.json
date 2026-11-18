@@ -1,0 +1,2912 @@
+{
+ "id": "laugh-gym",
+ "title": "What if every laugh made you stronger? (part 1, the gym)",
+ "idea": "There's a catch 10 v2: every laugh makes Spud 10x stronger; in the gym up to x1,000, then he tosses the bar out through the roof.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "gym",
+  "seed": 6,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "laugh-strength/laugh-film.ogg",
+  "gain": 0.45,
+  "lowCut": 120,
+  "lock": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor",
+  "room": "office",
+  "reverb": 0.06
+ },
+ "creative": {
+  "length": [
+   10,
+   14
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "bar",
+   "chip",
+   "wedge",
+   "board"
+  ],
+  "hint": 0,
+  "what": "two friends laugh at a potato who can't lift an empty bar; a STRENGTH board says x1"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.76,
+    -1.02
+   ],
+   "face": 0,
+   "expr": "focused",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -0.19,
+    -1
+   ],
+   "face": 20,
+   "expr": "delighted",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.8,
+    -0.48
+   ],
+   "face": 30,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 3.1
+  }
+ ],
+ "props": [
+  {
+   "id": "marks",
+   "kind": "gymmarks",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "board",
+   "kind": "strengthboard",
+   "x": 0.95,
+   "y": 1.99,
+   "z": -1.945,
+   "rot": 0,
+   "staged": "wall board hung on the mirror rail by two straps"
+  },
+  {
+   "id": "matA",
+   "kind": "crashmat",
+   "x": -0.9,
+   "y": 0.04,
+   "z": 0.12,
+   "rot": 4
+  },
+  {
+   "id": "matB",
+   "kind": "crashmat",
+   "x": 0.4,
+   "y": 0.04,
+   "z": 0.16,
+   "rot": -3,
+   "seams": [
+    -0.36,
+    0,
+    0.33
+   ]
+  },
+  {
+   "id": "shelf",
+   "kind": "towelshelf",
+   "x": 1.73,
+   "y": 0.95,
+   "z": -1.8,
+   "rot": 0
+  },
+  {
+   "id": "bag",
+   "kind": "gymbag",
+   "x": 1.12,
+   "y": 0.13,
+   "z": 0.95,
+   "rot": -18
+  },
+  {
+   "id": "bottle",
+   "kind": "gymbottle",
+   "x": 0.8,
+   "y": 0.12,
+   "z": 1.02,
+   "rot": 0
+  },
+  {
+   "id": "bar",
+   "kind": "barbell",
+   "plates": 0,
+   "staged": "in Spud's gloves from frame 0",
+   "x": 0.76,
+   "y": 0.4,
+   "z": -0.6,
+   "rot": 180
+  },
+  {
+   "id": "bench",
+   "kind": "weightbench",
+   "x": -0.57,
+   "y": 0.03,
+   "z": -1,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.4,
+   "text": "What if every laugh made you stronger?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 2.4,
+   "to": 4.3,
+   "text": "Ha ha ha! It's *EMPTY!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.3,
+   "to": 7.75,
+   "text": "Ha ha! Trust me, it's *fake!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.75,
+   "to": 9.85,
+   "text": "Ha ha! He's gonna *snap!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.85,
+   "to": 10.95,
+   "text": "*Watch this!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "empty bar",
+   "at": 0,
+   "len": 2.833,
+   "shot": {
+    "pos": [
+     0.12,
+     1.42,
+     6.9
+    ],
+    "look": [
+     0.12,
+     1.42,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "What if every laugh made you stronger?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.15,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 0,
+      "drain": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": "bench",
+     "off": [
+      -0.42,
+      0.42,
+      0
+     ],
+     "yaw": 160,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "off": [
+       -0.09,
+       -0.05,
+       -0.08
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "off": [
+       0.09,
+       -0.05,
+       -0.08
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -6,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.62,
+       0.32
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ]
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "set": {
+      "axis": [
+       1,
+       0,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "set": {
+      "axis": [
+       1,
+       0,
+       0
+      ]
+     },
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "bar",
+     "hand": "both",
+     "grip": [
+      0,
+      -0.03,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.45,
+       -0.6
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.45,
+       -0.6
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.6,
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 0.7
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.02
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.02
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.19
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.19
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.36
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.36
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.45,
+       -0.6
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.45,
+       -0.6
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.6,
+     "at": 1.45
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.53
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 1.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.35,
+     "ease": "in",
+     "at": 1.8
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.25,
+     "at": 1.85
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.87
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 1.87
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.04
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.04
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 2.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.35
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.35
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 2.35
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha ha! It's empty!",
+     "tone": "happy",
+     "style": "laughing hard, bright, fast, mocking, can't stop laughing",
+     "dur": 1.6,
+     "caption": false,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.4
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 1.06
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 2.55
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.5,
+     "at": 2.55
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.57
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.62
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1.05,
+     "dur": 0.13,
+     "ease": "out",
+     "at": 2.62
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.13,
+     "at": 2.62
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.12,
+     "at": 2.62
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.2,
+     "at": 2.65
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.22,
+     "dur": 0.3,
+     "at": 2.66
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 1
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 1.05,
+     "at": 2.68
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -2.5,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 2.68
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 2.74
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "x10 punch",
+   "at": 2.833,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.76,
+     1,
+     3.2
+    ],
+    "look": [
+     0.76,
+     0.95,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.067
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.067
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.2,
+     "at": 0.067
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.077
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -1,
+     "dur": 0.2,
+     "at": 0.117
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.167
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.247
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.387
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.417
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.437
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0.437
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.012,
+     "fade": 0.2,
+     "at": 0.437
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.517
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.12,
+     "at": 0.517
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.587
+    }
+   ]
+  },
+  {
+   "name": "x10 wide",
+   "at": 3.433,
+   "len": 0.867,
+   "shot": {
+    "pos": [
+     0.12,
+     1.42,
+     6.9
+    ],
+    "look": [
+     0.12,
+     1.42,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.157
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.167
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.217
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.327
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.567
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.617
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.617
+    }
+   ]
+  },
+  {
+   "name": "fake",
+   "at": 4.3,
+   "len": 3.45,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ha ha! Trust me, it's fake!",
+     "tone": "happy",
+     "style": "low, laughing, slow, teasing, sure of himself",
+     "dur": 3.17,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.1,
+       0.62,
+       0.32
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 2.06
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.5,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1.05,
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.13,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.12,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.22,
+     "dur": 0.3,
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 2
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 1.05,
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -2.5,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.34
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.51
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -2,
+     "dur": 0.2,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.82
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.87
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0.87
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.012,
+     "fade": 0.2,
+     "at": 0.87
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.05
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "bar",
+     "set": {
+      "plates": 3,
+      "bend": 0.55
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 1.97
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.6,
+     "at": 1.97
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.2,
+     "at": 1.97
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.6,
+     "at": 2.103
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.6,
+     "at": 2.236
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.37
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.42
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.42
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 2.42
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 2.57
+    }
+   ]
+  },
+  {
+   "name": "snap",
+   "at": 7.75,
+   "len": 0.417,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha! He's gonna snap!",
+     "tone": "happy",
+     "style": "laughing hard, high, fast, mocking",
+     "dur": 1.92,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.1,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 3.06
+     },
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.5,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.17
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1.05,
+     "dur": 0.13,
+     "ease": "out",
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -5,
+     "dur": 0.13,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.12,
+     "at": 0.22
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.22,
+     "dur": 0.3,
+     "at": 0.26
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "step": 3
+     },
+     "dur": 0.07,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.035,
+     "dur": 1.05,
+     "at": 0.28
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -2.5,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.28
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.12,
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.34
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "x1000 punch",
+   "at": 8.167,
+   "len": 0.6,
+   "shot": {
+    "pos": [
+     0.76,
+     1,
+     3.2
+    ],
+    "look": [
+     0.76,
+     0.95,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.053
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.093
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1,
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.133
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": -2,
+     "dur": 0.2,
+     "at": 0.133
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 0.183
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.223
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.12,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.233
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.12,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.233
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.263
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.393
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.403
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.433
+    },
+    {
+     "who": "spud",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0,
+     "dur": 0.3,
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.3,
+     "sink": 0.012,
+     "fade": 0.2,
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.503
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.503
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.563
+    }
+   ]
+  },
+  {
+   "name": "x1000 wide",
+   "at": 8.767,
+   "len": 1,
+   "shot": {
+    "pos": [
+     0.12,
+     1.42,
+     6.9
+    ],
+    "look": [
+     0.12,
+     1.42,
+     -1
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.003
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.033
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.133
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.173
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.12,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.183
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.12,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 0.183
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.303
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.343
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.453
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.35,
+       -0.6
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.453
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": -1.2000000000000002,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.473
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": -2.4000000000000004,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.513
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 3,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.643
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 6,
+     "dur": 0.15,
+     "ease": "inOut",
+     "at": 0.683
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.903
+    },
+    {
+     "who": "wedge",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.903
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.953
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 0.953
+    }
+   ]
+  },
+  {
+   "name": "toss",
+   "at": 9.767,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     1.9,
+     0.4,
+     2.6
+    ],
+    "look": [
+     0.35,
+     1.45,
+     -1
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Watch this!",
+     "tone": "happy",
+     "style": "cocky, proud, grinning, show-off, short",
+     "voice": "teo",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.15,
+     "at": 0.083
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.15,
+     "at": 0.083
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "surprised",
+     "dur": 0.15,
+     "at": 0.083
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.05,
+       -0.6
+      ]
+     },
+     "dur": 0.17,
+     "ease": "out",
+     "at": 0.783
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.05,
+       -0.6
+      ]
+     },
+     "dur": 0.17,
+     "ease": "out",
+     "at": 0.783
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.5,
+     "dur": 0.17,
+     "at": 0.783
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.15,
+     "at": 0.783
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.55,
+       -0.6
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.983
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       1.55,
+       -0.6
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.983
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.1,
+     "at": 0.983
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": -0.08,
+     "dur": 0.3,
+     "at": 0.983
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "bar",
+     "dur": 0,
+     "at": 1.083
+    },
+    {
+     "do": "physics",
+     "prop": "bar",
+     "mode": "throw",
+     "v": [
+      0,
+      9.5,
+      0
+     ],
+     "spin": [
+      0,
+      0,
+      0.6
+     ],
+     "at": 1.083
+    },
+    {
+     "sfx": "whoosh",
+     "gain": 0.35,
+     "at": 1.083
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 1.083
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.2,
+     "at": 1.183
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0.8
+     ],
+     "dur": 0.2,
+     "at": 1.183
+    },
+    {
+     "sfx": "ai/glass-smash",
+     "gain": 0.9,
+     "reason": "the bar goes through the gym's roof light",
+     "at": 1.413
+    },
+    {
+     "fx": "shake",
+     "amount": 0.04,
+     "dur": 0.2,
+     "at": 1.413
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.12,
+     "at": 1.463
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.463
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.463
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.563
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.563
+    }
+   ],
+   "kind": "escalation"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.4,
+   "see": [
+    "spud.face",
+    "bar",
+    "chip.face",
+    "wedge.face",
+    "board"
+   ],
+   "why": "he strains at the empty bar, they laugh, the board says x1"
+  },
+  {
+   "from": 2.55,
+   "to": 4,
+   "see": [
+    "board",
+    "spud.face",
+    "bar"
+   ],
+   "why": "x10, the empty bar goes up like nothing"
+  },
+  {
+   "from": 6.27,
+   "to": 7.27,
+   "see": [
+    "bar",
+    "spud.face",
+    "board"
+   ],
+   "why": "x100, three plates a side, the bar bends, up it goes"
+  },
+  {
+   "from": 7.9,
+   "to": 9.67,
+   "see": [
+    "board",
+    "bar",
+    "spud.face"
+   ],
+   "why": "x1,000, he pumps the bent bar like it's nothing"
+  },
+  {
+   "from": 9.85,
+   "to": 11.567,
+   "see": [
+    "spud.face",
+    "bar",
+    "chip.face"
+   ],
+   "why": "Watch this! The bar goes up through the roof: glass, all look up"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "chip",
+   "with": "bench",
+   "from": 0,
+   "to": 11.567,
+   "checks": [
+    "shell"
+   ],
+   "reason": "Chip stands on the bench pad (he rides it)"
+  },
+  {
+   "who": "spud",
+   "from": 2.8,
+   "to": 11.567,
+   "checks": [
+    "held-high"
+   ],
+   "reason": "the joke: he presses the bar over his head (above the face, never across it)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/what-if/10-laugh-strength/make-laugh-gym.mjs."
+}

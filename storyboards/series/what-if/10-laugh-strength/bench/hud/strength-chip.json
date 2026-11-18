@@ -1,0 +1,29 @@
+{
+ "id": "strength-chip",
+ "title": "EP10 strength HUD chip bench",
+ "idea": "HUD bench for There's a catch EP10 (hud.strength chip), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": { "feet": 2, "overlap": true, "timing": true, "solve": true },
+ "rig": { "hand": 2, "eyes": 2, "hold": 2 },
+ "physics": false,
+ "set": { "type": "street" },
+ "hud": {
+  "sky": false,
+  "strength": {
+   "keys": [[0.5, 10000], [1.5, 100000], [2.5, 1000000], [3.2, 10000], [3.6, 100], [4.0, 1]],
+   "drain": [[3.0, 1, 1.0]]
+  }
+ },
+ "music": false,
+ "sound": { "auto": false },
+ "cast": [],
+ "captions": [],
+ "beats": [
+  { "name": "street", "at": 0, "len": 5, "shot": { "pos": [0, 1.6, 6], "look": [0, 1.4, 0], "fov": 40 }, "do": [] }
+ ],
+ "notes": "Hand-written HUD bench (no reviews)."
+}
