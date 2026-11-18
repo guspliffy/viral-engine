@@ -28,6 +28,11 @@
 import { writeFileSync } from "node:fs";
 
 export const r3 = (x) => Math.round(x * 1000) / 1000;
+const warnedSay = new Set();
+function warnSay(line) {
+  if (warnedSay.has(line)) return; warnedSay.add(line);
+  console.warn(`c.say: "${line}" asks for a real voice (voice, style or take), but c.say plays gibberish in a beat clip: use c.macro(t, who, "say", { line, tone, style, take, caption: false }) for real speech`);
+}
 
 export const SUB_POS = 1180, SUB_STYLE = { size: 62, kinetic: false };
 // two captions whose tops are closer than this stand on each other (a two-line subtitle at size 62 is 150-180 px tall)
@@ -54,6 +59,11 @@ export function clip({ faces = "normal", fps = 30, lines = null } = {}) {
     // and no blink on the line. o: { sub (text | false), pos, style, blink, voice, gain } for this line only
     say(t, who, line, dur, tone = "calm", o = {}) {
       const L = lines || {}, { sub = L.sub, pos = L.pos ?? SUB_POS, style = L.style ?? SUB_STYLE, blink = L.blink, ...rest } = o;
+      // c.say writes a talk action, which a beat clip plays as gibberish: real speech (engine/voice/speech.mjs) reads only
+      // the "say" and "narrate" MACROS. A voice name, a VoxCPM2 "style" (a string; the subtitle style is an object) or a
+      // "take" asks for real speech, so say so at
+      // once (Potato Desk 01, 17 Nov 2026: a whole voice probe ran as gibberish before the macro was found)
+      if (typeof o.voice === "string" || typeof o.style === "string" || o.take != null) warnSay(line);
       A(t, who, "talk", { line, tone, dur, ...(blink === false && { blink: false }), ...rest });
       // up 0.4 s past the voice (at least 0.8 s), cut short where the next line's subtitle starts (c.beats)
       if (sub) subs.push(captions[captions.push({ from: r3(t), to: r3(t + Math.max(0.8, dur + 0.4)), text: sub === true ? subText(line) : sub, pos, pop: false, ...style }) - 1]);
