@@ -815,6 +815,16 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, k = Math.sin(Math.PI * Math.min(1, t / d)) ** 1.5; x[i] = (run(lp, r() * 2 - 1) * 1.4 + run(bp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 62 * t) * 0.08) * k; }
     return x;
   },
+  burnerroar(r, d = 2.5) { // a hot air balloon's propane burner held open: a broad, breathy roar (low-passed noise with a
+    // throaty band near 300 Hz and a little flutter from the flame), a fast valve attack and a short tail as it shuts
+    const x = buf(d), lp = biquad("lp", 1400, 0.6), bp = biquad("bp", 300, 1.1), hp = biquad("hp", 2500, 0.7);
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = Math.min(1, t / 0.08) * Math.min(1, Math.max(0, (d - t) / 0.3)), fl = 1 + 0.12 * Math.sin(TAU * 11 * t) + 0.08 * Math.sin(TAU * 17.3 * t + 1.1);
+      const n = r() * 2 - 1;
+      x[i] = (run(lp, n) * 1.1 + run(bp, n) * 0.9 + run(hp, n) * 0.08) * fl * k * 0.6;
+    }
+    return x;
+  },
   overload(r, d = 2.0) { // a lift's overload alarm: a hard electronic beep (a squarish 1.9 kHz tone, its odd partials
     // softened) gated 0.22 s on, 0.16 s off, for as long as the alarm sounds; each beep has 4 ms edges so it never clicks
     const x = buf(d), lp = biquad("lp", 5200, 0.7), on = 0.22, per = 0.38;

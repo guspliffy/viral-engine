@@ -35,6 +35,7 @@ import { canvas } from "./set-porch.js";
 //   shimmer true       gold glints on the painted river (golden only)
 //   deckLevel true     sunset: the far card is rolled 2.7 degrees so the viaduct's deck line is level (the train runs along it)
 //   backdrop true      the far cards (false: sky dome only)
+//   season "autumn"    "spring" (friends try to 11): oak, bushes and falling leaves green (one clump in eight sun-gold), grass #7fb245 with patches, no fallen leaves; every autumn clip is unchanged
 // Light: set "light": "golden" and "windows": false (outdoors: no window-light patches). West views and east views (the sun is in the west: in front of a west camera, rim-lighting the sitters; behind an east camera, lighting faces): "key": [-1.2, 3.3, -4.2] (sun about 33 degrees up, so the canopy dapples the dirt), "shadowSize": 9.
 // Sunset: lower, a little more to -x: [-2.2, 1.6, -4.6]. Nothing here is solid for the checks except the trunk, the boulders and the bench; the ground is
 // the mesh "set-floor". About 150k triangles (the canopy 40 %); every part is merged by material.
@@ -125,16 +126,16 @@ export function dirtMask(x, z) {
 }
 
 // ================================================================================================================ painters
-function grassCanvas(rnd, S = 1024) {
+function grassCanvas(rnd, S = 1024, spring = false) {
   const [c, g] = canvas(S, S);
-  g.fillStyle = "#8aa83e"; g.fillRect(0, 0, S, S);
+  g.fillStyle = spring ? "#7fb245" : "#8aa83e"; g.fillRect(0, 0, S, S);
   for (let i = 0; i < 90; i++) {
-    const cx = rnd() * S, cy = rnd() * S, r = 40 + rnd() ** 2 * 170, col = ["#6f9a3e", "#b6b84a", "#d2b048", "#5d8a3a", "#c9a23c"][i % 5];
+    const cx = rnd() * S, cy = rnd() * S, r = 40 + rnd() ** 2 * 170, col = (spring ? ["#5f9a3e", "#9cc853", "#b9d060", "#5f9a3e", "#9cc853"] : ["#6f9a3e", "#b6b84a", "#d2b048", "#5d8a3a", "#c9a23c"])[i % 5];
     for (const ox of [-S, 0, S]) for (const oy of [-S, 0, S]) { const gr = g.createRadialGradient(cx + ox, cy + oy, 0, cx + ox, cy + oy, r); gr.addColorStop(0, col + "70"); gr.addColorStop(1, col + "00"); g.fillStyle = gr; g.fillRect(cx + ox - r, cy + oy - r, 2 * r, 2 * r); }
   }
   for (let i = 0; i < 14000; i++) {
     const x = rnd() * S, y = rnd() * S, l = 6 + rnd() * 14, a = -Math.PI / 2 + (rnd() - 0.5) * 0.9, u = rnd();
-    g.strokeStyle = u < 0.35 ? "rgba(52,100,44,0.4)" : u < 0.75 ? "rgba(224,236,130,0.4)" : "rgba(226,170,64,0.34)"; g.lineWidth = 1.6;
+    g.strokeStyle = u < 0.35 ? "rgba(52,100,44,0.4)" : u < 0.75 ? "rgba(224,236,130,0.4)" : spring ? "rgba(190,214,90,0.34)" : "rgba(226,170,64,0.34)"; g.lineWidth = 1.6;
     g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke();
   }
   return c;
@@ -264,7 +265,7 @@ function taperTube(curve, r0, r1, nSeg, nRad, uvK = 1.4) {
 // ================================================================================================================ the set
 export function buildScoreHill(scene, S = {}) {
   const WARM = S.time === "sunset" ? new THREE.Color(1.1, 0.88, 0.66) : new THREE.Color(1.04, 0.97, 0.84);
-  const seed = S.seed ?? 7, time = S.time === "sunset" ? "sunset" : "golden", wind = S.wind ?? 1, view = S.view ?? "both";
+  const seed = S.seed ?? 7, time = S.time === "sunset" ? "sunset" : "golden", wind = S.wind ?? 1, view = S.view ?? "both", spring = S.season === "spring";
   const set = new THREE.Group(); set.name = "set-scorehill"; scene.add(set);
   const add = (o) => { if (o) set.add(o); return o; };
   const rnd = rng(seed * 7919 + 13), rT = rng(seed * 57 + 2), rG = rng(seed * 113 + 4), rF = rng(seed * 91 + 3), rS = rng(seed * 31 + 9), rL = rng(seed * 211 + 5);
@@ -272,13 +273,13 @@ export function buildScoreHill(scene, S = {}) {
 
   // ---------------------------------------------------------------- materials and textures
   const oakT = ctex(oakCanvas(), 1, 1, false), daisyT = ctex(daisyCanvas(), 1, 1, false);
-  const leafMat = lam("#ffffff", { map: oakT, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: new THREE.Color("#4a2408") });
+  const leafMat = lam("#ffffff", { map: oakT, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: new THREE.Color(spring ? "#243410" : "#4a2408") });
   if (wind) leafMat.userData.wind = { amp: 0.05 * wind, h: 0, flutter: 1.7 };
-  const bushMat = lam("#ffffff", { map: oakT, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: new THREE.Color("#4a2408") });
+  const bushMat = lam("#ffffff", { map: oakT, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: new THREE.Color(spring ? "#243410" : "#4a2408") });
   if (wind) bushMat.userData.wind = { amp: 0.03 * wind, h: 0, flutter: 1.4 };
-  const coreMat = lam("#ffffff", { vertexColors: true, emissive: new THREE.Color("#3a1a08") });
+  const coreMat = lam("#ffffff", { vertexColors: true, emissive: new THREE.Color(spring ? "#1c2a0c" : "#3a1a08") });
   const flowerMat = lam("#ffffff", { map: daisyT, vertexColors: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: new THREE.Color("#3a3020") });
-  const grassT = ctex(grassCanvas(rnd), 1, 1);
+  const grassT = ctex(grassCanvas(rnd, 1024, spring), 1, 1);
   const barkT = ctex(barkCanvas(rnd), 1, 1), barkM = std("#ffffff", { map: barkT, roughness: 0.96, emissive: new THREE.Color("#2a1c10") });
 
   // ---------------------------------------------------------------- sky dome (west gold / east lilac)
@@ -294,11 +295,11 @@ export function buildScoreHill(scene, S = {}) {
     zs.forEach((z) => xs.forEach((x) => {
       const y = groundY(x, z); B.p.push(x, y, z); B.n.push(0, 1, 0); B.uv.push(x / 5, z / 5);
       const n = fbm(x * 0.08, z * 0.08, 3), au = fbm(x * 0.05 + 5, z * 0.05, 5), slope = y < -0.3 ? smooth(-y / 6) : 0;
-      col.set("#ffffff").lerp(new THREE.Color("#e8c860"), smooth((au - 0.45) * 3) * 0.5).lerp(new THREE.Color("#c9742a"), slope * 0.45).multiplyScalar((0.82 + n * 0.3) * (1 - 0.2 * slope));
+      col.set("#ffffff").lerp(new THREE.Color(spring ? "#c4dc70" : "#e8c860"), smooth((au - 0.45) * 3) * 0.5).lerp(new THREE.Color(spring ? "#5f8a3a" : "#c9742a"), slope * 0.45).multiplyScalar((0.82 + n * 0.3) * (1 - 0.2 * slope));
       col.multiply(WARM); B.c.push(col.r, col.g, col.b);
     }));
     for (let j = 0; j < zs.length - 1; j++) for (let i = 0; i < nx - 1; i++) { const a = j * nx + i, b = a + 1, c = a + nx, d = c + 1; B.i.push(a, c, b, b, c, d); }
-    const m = bufMesh(B, std("#ffffff", { map: grassT, vertexColors: true, roughness: 1, emissive: new THREE.Color("#4a3a14") }), false, true); m.geometry.computeVertexNormals(); m.name = "set-floor"; add(m);
+    const m = bufMesh(B, std("#ffffff", { map: grassT, vertexColors: true, roughness: 1, emissive: new THREE.Color(spring ? "#2e3e16" : "#4a3a14") }), false, true); m.geometry.computeVertexNormals(); m.name = "set-floor"; add(m);
   }
   // the dirt clearing and path: a decal laid 1.2 cm over the grass
   {
@@ -312,8 +313,10 @@ export function buildScoreHill(scene, S = {}) {
   // ---------------------------------------------------------------- the lone oak
   const treeParts = [], leafQ = Buf(), coreQ = Buf();
   const OAK = { gold: ["#f0b21e", "#e9a01e", "#f6cc3a", "#e08c1e", "#f2c038"], orange: ["#e8751e", "#dd5f1c", "#f08a22", "#d9531c", "#f29a28"], red: ["#c8301c", "#d9461c", "#b72a1a", "#e2601e", "#a8221a"], green: ["#8aa83a", "#b9b02a", "#6f9a3a", "#d8a82a"] };
+  if (spring) Object.assign(OAK, { gold: ["#8aa83a", "#b9c84a", "#6f9a3a", "#d8d05a"], orange: ["#6f9a3a", "#8aa83a", "#b9c84a", "#6f9a3a"], red: ["#6f9a3a", "#5f8a36", "#8aa83a"], green: ["#8aa83a", "#b9c84a", "#6f9a3a", "#d8d05a"], sun: ["#f0d060"] });   // season "spring": every tone name points at greens
   const MIXT = ["gold", "orange", "gold", "orange", "red", "gold"];
   function clump(B, C, c, r, tones, n, sz, flat = 0.72, kc = 1) {
+    if (spring && rT() < 0.125) tones = ["sun"];   // one clump in eight sun-gold
     const dark = new THREE.Color(OAK.orange[1]).multiplyScalar(0.5), ico = new THREE.IcosahedronGeometry(1, 0).toNonIndexed(), ip = ico.attributes.position, b0 = C.p.length / 3;
     for (let i = 0; i < ip.count; i++) { const x = ip.getX(i), y = ip.getY(i), z = ip.getZ(i); C.p.push(c.x + x * r * 0.36, c.y + y * r * 0.36 * flat, c.z + z * r * 0.36); const q = new THREE.Vector3(x, y, z).normalize(); C.n.push(q.x, q.y, q.z); C.uv.push(0, 0); C.c.push(dark.r, dark.g, dark.b); C.i.push(b0 + i); }
     ico.dispose();
@@ -463,7 +466,7 @@ export function buildScoreHill(scene, S = {}) {
       });
       GB.i.push(b0, b0 + 1, b0 + 2, b0 + 1, b0 + 3, b0 + 2, b0 + 2, b0 + 3, b0 + 4);
     };
-    const greens = [["#4a6a24", "#a4b840"], ["#5a7a28", "#c8c450"], ["#6a8a2c", "#e0c858"], ["#8a7a2a", "#d8b040"], ["#556a22", "#98b038"], ["#7a6a24", "#cf9a3a"]];
+    const greens = spring ? [["#3f7a2a", "#8ac040"], ["#4a8a30", "#a4d050"], ["#5a9a34", "#b8d858"], ["#3a6a28", "#78b038"], ["#56903a", "#9cc84c"], ["#6a9a30", "#c8d860"]] : [["#4a6a24", "#a4b840"], ["#5a7a28", "#c8c450"], ["#6a8a2c", "#e0c858"], ["#8a7a2a", "#d8b040"], ["#556a22", "#98b038"], ["#7a6a24", "#cf9a3a"]];
     const tuft = (x, z, sc) => {
       const y = groundY(x, z), n = 6 + Math.floor(rG() * 4), g2 = greens[Math.floor(rG() * greens.length)];
       for (let i = 0; i < n; i++) { const a = rG() * 6.28, d = rG() * 0.06 * sc; blade(x + Math.cos(a) * d, y - 0.01, z + Math.sin(a) * d, (0.16 + rG() * 0.24) * sc, 0.009 + rG() * 0.007, (0.04 + rG() * 0.2) * sc, a + (rG() - 0.5) * 0.8, new THREE.Color(g2[0]).multiplyScalar(0.9 + rG() * 0.2).multiply(WARM), new THREE.Color(g2[1]).multiplyScalar(0.9 + rG() * 0.2).multiply(WARM)); }
@@ -502,10 +505,10 @@ export function buildScoreHill(scene, S = {}) {
   }
 
   // ---------------------------------------------------------------- fallen leaves (decals on the dirt and grass) and falling leaves
-  const LCOL = ["#d9772b", "#c8341f", "#e8a21f", "#b8551f", "#f0c43a", "#a8321a"], flatN = new THREE.Vector3(0, 1, 0);
+  const LCOL = spring ? ["#8aa83a", "#b9c84a", "#6f9a3a", "#d8d05a", "#f0d060", "#9cc853"] : ["#d9772b", "#c8341f", "#e8a21f", "#b8551f", "#f0c43a", "#a8321a"], flatN = new THREE.Vector3(0, 1, 0);
   const ndrop = S.leaves ?? 12, drift = [];
   {
-    const LD = Buf(), nF = Math.round(900 * (S.fallen ?? 1));
+    const LD = Buf(), nF = spring ? 0 : Math.round(900 * (S.fallen ?? 1));
     for (let i = 0; i < nF; i++) {
       const trunkPile = rL() < 0.3, a = rL() * 6.28, d = 0.9 + rL() * rL() * 4.5;
       const x = trunkPile ? TX + Math.cos(a) * d * 1.3 : -13 + rL() * 24, z = trunkPile ? TZ + Math.sin(a) * d * 0.9 : -2.6 + rL() * 8.5;

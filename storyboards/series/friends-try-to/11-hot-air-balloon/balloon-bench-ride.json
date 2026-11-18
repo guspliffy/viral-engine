@@ -1,0 +1,316 @@
+{
+ "id": "balloon-bench-ride",
+ "title": "Friends try to 11 balloon bench",
+ "idea": "props-balloon.js on the scorehill set (spring): balloon, three sandbags, dawnvalley",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "scorehill",
+  "time": "golden",
+  "view": "west",
+  "backdrop": false,
+  "light": "golden",
+  "windows": false,
+  "key": [
+   0.6,
+   1.9,
+   -4.4
+  ],
+  "shadowSize": 10,
+  "leaves": 4,
+  "birds": 5,
+  "birdAt": 3,
+  "season": "spring"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   5,
+   5
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    5.465,
+    -0.6
+   ],
+   "y": 0.5,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    6.475,
+    -0.6
+   ],
+   "y": 0.5,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    5.95,
+    -0.019999999999999907
+   ],
+   "y": 0.67,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.3
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    6,
+    -1.1
+   ],
+   "y": 0.85,
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "valley",
+   "kind": "dawnvalley",
+   "x": 6,
+   "y": 0,
+   "z": -0.7,
+   "staged": "sky and far scenery, nothing stands on it"
+  },
+  {
+   "id": "rig",
+   "kind": "balloon",
+   "x": 6,
+   "y": 0,
+   "z": -0.7,
+   "rot": 0
+  },
+  {
+   "id": "bag0",
+   "kind": "sandbag",
+   "x": 4.866,
+   "y": 0.235,
+   "z": -0.581,
+   "rot": -84,
+   "seed": 1,
+   "body": {
+    "bounce": 0.02,
+    "friction": 0.95,
+    "density": 1600
+   },
+   "staged": "hung by its rope loop on the basket's toggle until it is dropped"
+  },
+  {
+   "id": "bag1",
+   "kind": "sandbag",
+   "x": 5.066,
+   "y": 0.235,
+   "z": -0.046,
+   "rot": -55,
+   "seed": 2,
+   "body": {
+    "bounce": 0.02,
+    "friction": 0.95,
+    "density": 1600
+   },
+   "staged": "hung by its rope loop on the basket's toggle until it is dropped"
+  },
+  {
+   "id": "bag2",
+   "kind": "sandbag",
+   "x": 6.934,
+   "y": 0.235,
+   "z": -0.046,
+   "rot": 55,
+   "seed": 3,
+   "body": {
+    "bounce": 0.02,
+    "friction": 0.95,
+    "density": 1600
+   },
+   "staged": "hung by its rope loop on the basket's toggle until it is dropped"
+  },
+  {
+   "id": "mist",
+   "kind": "fogveil",
+   "box": [
+    [
+     -40,
+     -9,
+     -60
+    ],
+    [
+     50,
+     -1.5,
+     -8
+    ]
+   ],
+   "n": 60,
+   "size": 9,
+   "color": "#f6e7dc",
+   "on": 0.8
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "bench",
+   "at": 0,
+   "len": 5,
+   "shot": {
+    "pos": [
+     6.2,
+     0.5,
+     7.7
+    ],
+    "look": [
+     6,
+     3.6,
+     -0.7
+    ],
+    "fov": 56
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "ride",
+     "prop": "rig",
+     "off": [
+      -0.535,
+      0.5,
+      0.1
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "ride",
+     "prop": "rig",
+     "off": [
+      0.475,
+      0.5,
+      0.1
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "ride",
+     "prop": "rig",
+     "off": [
+      -0.05,
+      0.67,
+      0.68
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "ride",
+     "prop": "rig",
+     "off": [
+      0,
+      0.85,
+      -0.4
+     ],
+     "yaw": 0,
+     "dur": 0,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "burn": 1,
+      "strain": 1,
+      "sway": 0.5
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "bag0",
+     "mode": "drop",
+     "at": 1
+    },
+    {
+     "do": "physics",
+     "prop": "bag1",
+     "mode": "drop",
+     "at": 1.2
+    },
+    {
+     "do": "physics",
+     "prop": "bag2",
+     "mode": "drop",
+     "at": 1.4
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "y": 3
+     },
+     "dur": 2.5,
+     "ease": "in",
+     "at": 2.5
+    },
+    {
+     "do": "prop",
+     "id": "rig",
+     "set": {
+      "free": 1
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 2.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Bench for engine/page/props-balloon.js (friends try to 11). Not a clip."
+}
