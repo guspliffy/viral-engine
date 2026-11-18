@@ -12,19 +12,20 @@ export const LINES = [
   ["nar", "But there's a catch.", "calm", null, { take: 2 }],
   ["chip", "Whoa.", "calm", "quiet, stunned, amazed, breathless, no laugh"],
   ["wedge", "He's actually strong.", "calm", "quiet, low, amazed, slow, serious"],
-  ["spud", "No, no, no... laugh at me! LAUGH AT ME!", "angry", "panicked, straining, desperate, shouting at the end", { voice: "teo" }],
+  ["spud", "Wait. LAUGH AT ME!", "angry", "panicked, straining, desperate, a forced grin, shouting at the end", { voice: "teo", take: 2 }],
 ];
 
-// outline v2 (18 Nov 2026, Jonny's notes on draft 1: longer, a second place, a bigger superhero climb). The gym keeps
+// panels v3 (18 Nov 2026 21:00: the car lift replaces the bar toss; was outline v2, Jonny's notes on draft 1: longer, a second place, a bigger superhero climb). The gym keeps
 // LINES[0..3]; Spud's toss gets his own line; the street part speaks STREET in order.
 export const TOSS = ["spud", "Watch this!", "happy", "cocky, proud, grinning, show-off, short", { voice: "teo" }];
 export const STREET = [
-  ["chip", "Ha ha ha! You broke a car!", "happy", "laughing hard, bright, fast, can't believe it"],
-  ["wedge", "Ha ha ha!", "happy", "low, belly laugh, slow"],
+  ["wedge", "Ha ha! Trust me... he can't lift a car!", "happy", "low, laughing, teasing, slow, sure of himself"],
+  ["chip", "Ha ha ha ha!", "happy", "laughing hard, high, giggling, can't stop", { take: 2 }],
   ["chip", "Ha ha! You're a superhero!", "happy", "laughing with relief, bright, proud, fast"],
-  ["wedge", "Trust me... he can't lift the bus with us in it!", "happy", "low, laughing, teasing, slow, sure of himself"],
+  ["wedge", "Trust me... he can't lift it with us inside!", "happy", "low, laughing, teasing, quick, sure of himself"],
+  ["wedge", "Ha ha ha ha!", "happy", "low, belly laugh, cracking up, can't stop"],
   ["nar", "But there's a catch.", "calm", null, { take: 2 }],
   ["chip", "Whoa.", "calm", "quiet, scared, looking down from high up, breathless, no laugh"],
-  ["wedge", "Put us down?", "calm", "quiet, low, scared, slow, serious, no laugh"],
-  ["spud", "No, no, no... laugh at me! LAUGH AT ME!", "angry", "panicked, straining, desperate, shouting at the end", { voice: "teo" }],
+  ["wedge", "Put us down. Please.", "calm", "quiet, low, scared, slow, serious, no laugh"],
+  ["spud", "Wait. LAUGH AT ME!", "angry", "panicked, straining, desperate, a forced grin, shouting at the end", { voice: "teo", take: 2 }],
 ];

@@ -1,11 +1,11 @@
-// THERE'S A CATCH 10 v2, PART 1: THE GYM (18 Nov 2026, outline v2 on Jonny's notes on draft 1: "the voices echo ...
+// THERE'S A CATCH 10 v3, PART 1: THE GYM (18 Nov 2026; v3: Jonny's notes on draft 2, the toss is gone: he sets the bar down and walks out)...
 // make the video bigger up to 1 min, more sceneries, make him more superhero before he loses his powers").
 // Outline: /mnt/project-files/videos/what-if/10-laugh-strength/OUTLINE-v2.md. Design: ./DESIGN.md (gym) + ./DESIGN-STREET.md
 // section 7 (the gym in the longer cut: tighter wide, two punch-ins, the toss). Lines: ./lines.mjs (LINES 0-3 + TOSS).
 //   node storyboards/series/what-if/10-laugh-strength/make-laugh-gym.mjs -> laugh-gym.json; the street is make-laugh-street.mjs
 //
 // Chain: Spud can't lift the empty bar, so they laugh; x10, so he lifts it; so Wedge says it's fake, so x100 with every
-// plate; so Chip says he'll snap, so x1,000; so Spud shows off ("Watch this!") and tosses the bar up through the roof
+// plate; so Chip says he'll snap, so x1,000; so Spud shows off: sets the bar down, "Watch this!", walks out to the street
 // light: glass, they all look up. Cut to the street (part 2), where it comes down on a car.
 // Voices are dry (Jonny 18 Nov: "the voices echo"; the gym set's "hall" room put every voice in a 1.4 s tail).
 import { clip, write, r3 } from "../../../lib/clip.mjs";
@@ -19,7 +19,7 @@ const GLINES = [...LINES.slice(0, 4), TOSS];
 
 // measured spoken lengths (catch10-voice-probe, 18 Nov 2026), in GLINES order
 const DUR = [2.15, 1.60, 3.17, 1.92, 0.80];
-const T = [0.0, 2.40, 4.30, 7.75, 9.85];
+const T = [0.0, 2.40, 4.30, 7.75, null];   // T[4] ("Watch this!") follows the set-down clank
 const END_OF = (i) => r3(T[i] + DUR[i]);
 
 // ---------------------------------------------------------------- places (DESIGN.md section 4; x right, z toward us)
@@ -55,9 +55,9 @@ const say = (i) => {
   const to = r3(Math.min(END_OF(i) + 0.3, T[i + 1] ?? END_OF(i) + 0.6));
   if (who === "nar") c.at(T[i], { macro: "narrate", line, voice: "narrator", take: o.take ?? 1, dur: DUR[i], caption: false });
   else c.macro(T[i], who, "say", { line, tone, ...(style && { style }), ...o, dur: DUR[i], caption: false });
-  cap(T[i], to, CAPTEXT[i] ?? line, SUB, false, { size: 64 });
+  cap(T[i], to, CAPTEXT[i] ?? line, i === 4 ? 660 : SUB, false, { size: 64 });
 };
-GLINES.forEach((_, i) => say(i));
+GLINES.slice(0, 4).forEach((_, i) => say(i));
 
 // ---------------------------------------------------------------- the board (DESIGN.md section 2): ticks of 6 frames
 c.prop(0, "board", { step: 0, drain: 0 }, 0.01);
@@ -70,7 +70,7 @@ const power = (t) => {
   A(r3(t + 0.07), "spud", "grow", { to: 1.05, dur: 0.13, ease: "out" }); A(r3(t + 0.4), "spud", "grow", { to: 1.0, dur: 0.2, ease: "inOut" });
   tall = Math.min(tall + 1, 2);
   A(r3(t + 0.07), "spud", "pitch", { to: -5, dur: 0.13 }); A(r3(t + 0.4), "spud", "pitch", { to: -tall, dur: 0.2 });
-  A(r3(t + 0.07), "spud", "expr", { expr: "surprised", dur: 0.12 }); A(r3(t + 0.45), "spud", "expr", { expr: "cocky", dur: 0.2 });
+  A(r3(t + 0.07), "spud", "expr", { expr: "shocked", dur: 0.12 }); A(r3(t + 0.45), "spud", "expr", { expr: "cocky", dur: 0.2 });
 };
 
 // laughing: the face, a point, and the body rocking with it (pitch every ~0.17 s)
@@ -107,7 +107,7 @@ A(r3(U1 + 0.1), "spud", "look", { to: [0, 0.3], dur: 0.2 });
 bar.carry(r3(U1 + 0.35), BAR_UP, 0.5, "inOut");
 sfx(r3(U1 + 0.35), "kenney/impact-metal-light", { gain: 0.2 });
 A(r3(U1 + 0.8), "spud", "expr", { expr: "delighted", dur: 0.2 });
-A(r3(U1 + 0.8), "chip", "expr", { expr: "surprised", dur: 0.12 }); A(r3(U1 + 1.1), "chip", "expr", { expr: "delighted", dur: 0.2 });
+A(r3(U1 + 0.8), "chip", "expr", { expr: "shocked", dur: 0.12 }); A(r3(U1 + 1.1), "chip", "expr", { expr: "delighted", dur: 0.2 });
 see(U1, END_OF(1), ["board", "spud.face", "bar"], "x10, the empty bar goes up like nothing");
 
 // ---------------------------------------------------------------- 2 "Trust me, it's fake!": x100, every plate, the bar bends, he presses it
@@ -133,32 +133,30 @@ tickUp(U3, 2); power(U3);
 for (const p of [0.5, 1.05]) { bar.carry(r3(U3 + p), [BAR_UP[0], 1.12, BAR_UP[2]], 0.25, "inOut"); bar.carry(r3(U3 + p + 0.27), BAR_UP, 0.25, "out"); }
 see(U3, END_OF(3), ["board", "bar", "spud.face"], "x1,000, he pumps the bent bar like it's nothing");
 
-// ---------------------------------------------------------------- 4 SPUD "Watch this!": the toss (DESIGN-STREET.md shot 4z)
+// ---------------------------------------------------------------- 4 he sets the bar down (clank), "Watch this!" over his shoulder, walks out
+// (PANELS-v3 panel 5, Jonny 18 Nov: the toss looked unnatural and pointless; Sol: set it down, the line, the turn, cut on the stride)
+const SET = r3(END_OF(3) - 0.1), CLANK = r3(SET + 0.45);
+bar.carry(SET, BAR_AT, 0.45, "inOut");
+A(SET, "spud", "crouch", { to: 0.45, dur: 0.4 });
+A(SET, "spud", "look", { to: [0, -0.2], dur: 0.2 });
+sfx(CLANK, "kenney/impact-metal-heavy", { gain: 0.8 }); sfx(r3(CLANK + 0.12), "kenney/impact-metal-light", { gain: 0.3 });
+c.at(CLANK, { fx: "shake", amount: 0.02, dur: 0.15 });
+c.A(r3(CLANK + 0.05), "spud", "release", { prop: "bar", dur: 0 });
+A(r3(CLANK + 0.05), "spud", "grip", { side: "both", shape: "relaxed", dur: 0.2 });
+c.arm(r3(CLANK + 0.1), "spud", "R", "rest", 0.35, "inOut"); c.arm(r3(CLANK + 0.1), "spud", "L", "rest", 0.35, "inOut");
+A(r3(CLANK + 0.1), "spud", "crouch", { to: 0, dur: 0.3 });
+A(r3(CLANK + 0.05), "chip", "expr", { expr: "shocked", dur: 0.12 }); A(r3(CLANK + 0.05), "wedge", "expr", { expr: "shocked", dur: 0.12 });
+T[4] = r3(CLANK + 0.25); say(4);
 A(T[4], "spud", "look", { to: [-0.7, 0.1], dur: 0.2 });
+A(T[4], "spud", "turn", { to: 30, dur: 0.25 });
 A(T[4], "spud", "expr", { expr: "cocky", dur: 0.15 });
-A(T[4], "chip", "expr", { expr: "surprised", dur: 0.15 }); A(T[4], "wedge", "expr", { expr: "surprised", dur: 0.15 });
-const DIP = r3(END_OF(4) - 0.1);
-bar.carry(DIP, BAR_DIP, 0.17, "out");
-A(DIP, "spud", "crouch", { to: 0.5, dur: 0.17 });
-A(DIP, "spud", "look", { to: [0, 0.6], dur: 0.15 });
-// the heave: up past the press height, and he lets go at the top (the bar never comes back past his face)
-bar.carry(r3(DIP + 0.2), [BAR_UP[0], 1.55, BAR_UP[2]], 0.1, "in");
-A(r3(DIP + 0.2), "spud", "crouch", { to: 0, dur: 0.1 });
-A(r3(DIP + 0.2), "spud", "squash", { amount: -0.08, dur: 0.3 });
-const LET = r3(DIP + 0.3);
-c.A(LET, "spud", "release", { prop: "bar", dur: 0 });
-c.throw(LET, "bar", { v: [0, 9.5, 0], spin: [0, 0, 0.6] });
-sfx(LET, "whoosh", { gain: 0.35 });
-A(LET, "spud", "grip", { side: "both", shape: "open", dur: 0.2 });
-for (const w of ["chip", "wedge"]) A(r3(LET + 0.1), w, "look", { to: [0, 0.8], dur: 0.2 });
-const SMASH = r3(LET + 0.33);
-sfx(SMASH, "ai/glass-smash", { gain: 0.9, reason: "the bar goes through the gym's roof light" });
-c.at(SMASH, { fx: "shake", amount: 0.04, dur: 0.2 });
-A(r3(SMASH + 0.05), "spud", "expr", { expr: "worried", dur: 0.12 });
-A(r3(SMASH + 0.05), "chip", "expr", { expr: "shocked", dur: 0.12 }); A(r3(SMASH + 0.05), "wedge", "expr", { expr: "shocked", dur: 0.12 });
-c.arm(r3(SMASH + 0.15), "spud", "R", "rest", 0.5, "inOut"); c.arm(r3(SMASH + 0.15), "spud", "L", "rest", 0.5, "inOut");
-const END = F(SMASH + 0.4);
-see(T[4], END, ["spud.face", "bar", "chip.face"], "Watch this! The bar goes up through the roof: glass, all look up");
+const WALK = r3(END_OF(4) + 0.05);
+A(r3(WALK - 0.2), "spud", "turn", { to: 90, dur: 0.25 });
+A(WALK, "spud", "move", { to: [2.7, -0.8], dur: 1.1, ease: "in", stride: 0.45 });
+for (const w of ["chip", "wedge"]) { A(r3(WALK + 0.1), w, "look", { to: [0.8, 0], dur: 0.25 }); }
+A(r3(WALK + 0.2), "chip", "expr", { expr: "delighted", dur: 0.2 });
+const END = F(WALK + 0.55);
+see(SET, END, ["spud.face", "bar", "chip.face"], "he sets the bent bar down with a clank, Watch this!, and walks out");
 
 act.blinksAt(c, "chip", [5.2]);
 act.blinksAt(c, "wedge", [3.6, 8.8]);
@@ -166,7 +164,7 @@ act.blinksAt(c, "wedge", [3.6, 8.8]);
 // ---------------------------------------------------------------- cameras (DESIGN-STREET.md section 7)
 const WIDE = { pos: [0.12, 1.42, 6.9], look: [0.12, 1.42, -1.0], fov: 36 };
 const PUNCH = { pos: [0.76, 1.0, 3.2], look: [0.76, 0.95, -1.0], fov: 36 };
-const TOSSCAM = { pos: [1.9, 0.4, 2.6], look: [0.35, 1.45, -1.0], fov: 52 };
+const OUTCAM = { pos: [1.1, 1.05, 3.9], look: [1.1, 0.85, -1.0], fov: 42 };
 const P1 = F(U1 + 0.27), P3 = F(U3 + 0.27);
 const beats = c.beats([
   ["empty bar", 0, WIDE, "hook"],
@@ -176,13 +174,13 @@ const beats = c.beats([
   ["snap", T[3], "keep", "escalation"],
   ["x1000 punch", P3, { ...PUNCH }],
   ["x1000 wide", r3(P3 + 0.6), { ...WIDE }],
-  ["toss", F(T[4] - 0.1), TOSSCAM, "escalation"],
+  ["watch this", F(T[4] - 0.1), OUTCAM],
 ], END);
 
 write(import.meta.url, {
   id: "laugh-gym",
   title: "What if every laugh made you stronger? (part 1, the gym)",
-  idea: "There's a catch 10 v2: every laugh makes Spud 10x stronger; in the gym up to x1,000, then he tosses the bar out through the roof.",
+  idea: "There's a catch 10 v2: every laugh makes Spud 10x stronger; in the gym up to x1,000, then he sets the bar down, \"Watch this!\", and walks out.",
   fps: 30, look: "anime-pro", profile: "short", loop: false,
   captionBand: [470, 1360], captionStyle: "kinetic",
   castLook: "sheet", cleanStart: true,

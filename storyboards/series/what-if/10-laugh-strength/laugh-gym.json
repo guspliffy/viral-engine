@@ -1,7 +1,7 @@
 {
  "id": "laugh-gym",
  "title": "What if every laugh made you stronger? (part 1, the gym)",
- "idea": "There's a catch 10 v2: every laugh makes Spud 10x stronger; in the gym up to x1,000, then he tosses the bar out through the roof.",
+ "idea": "There's a catch 10 v2: every laugh makes Spud 10x stronger; in the gym up to x1,000, then he sets the bar down, \"Watch this!\", and walks out.",
  "fps": 30,
  "look": "anime-pro",
  "profile": "short",
@@ -220,17 +220,17 @@
   },
   {
    "from": 7.75,
-   "to": 9.85,
+   "to": 9.97,
    "text": "Ha ha! He's gonna *snap!*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 9.85,
-   "to": 10.95,
+   "from": 10.27,
+   "to": 11.37,
    "text": "*Watch this!*",
-   "pos": 470,
+   "pos": 660,
    "pop": false,
    "size": 64
   }
@@ -1151,7 +1151,7 @@
     {
      "who": "spud",
      "do": "expr",
-     "expr": "surprised",
+     "expr": "shocked",
      "dur": 0.12,
      "at": 2.62
     },
@@ -1374,7 +1374,7 @@
     {
      "who": "chip",
      "do": "expr",
-     "expr": "surprised",
+     "expr": "shocked",
      "dur": 0.12,
      "at": 0.517
     },
@@ -1567,7 +1567,7 @@
     {
      "who": "spud",
      "do": "expr",
-     "expr": "surprised",
+     "expr": "shocked",
      "dur": 0.12,
      "at": 0.22
     },
@@ -1995,7 +1995,7 @@
     {
      "who": "spud",
      "do": "expr",
-     "expr": "surprised",
+     "expr": "shocked",
      "dur": 0.12,
      "at": 0.22
     },
@@ -2297,7 +2297,7 @@
   {
    "name": "x1000 wide",
    "at": 8.767,
-   "len": 1,
+   "len": 1.4,
    "shot": {
     "pos": [
      0.12,
@@ -2495,6 +2495,75 @@
      "at": 0.683
     },
     {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.803
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "bar",
+      "grip": [
+       -0.3,
+       -0.03,
+       0
+      ],
+      "palm": [
+       -0.3,
+       0.97,
+       0
+      ],
+      "at": [
+       0.76,
+       0.4,
+       -0.6
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.803
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0.45,
+     "dur": 0.4,
+     "at": 0.803
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.2
+     ],
+     "dur": 0.2,
+     "at": 0.803
+    },
+    {
      "who": "chip",
      "do": "pitch",
      "to": 0,
@@ -2524,25 +2593,95 @@
      "shape": "relaxed",
      "dur": 0.2,
      "at": 0.953
+    },
+    {
+     "sfx": "kenney/impact-metal-heavy",
+     "gain": 0.8,
+     "at": 1.253
+    },
+    {
+     "fx": "shake",
+     "amount": 0.02,
+     "dur": 0.15,
+     "at": 1.253
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "bar",
+     "dur": 0,
+     "at": 1.303
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.303
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.303
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 1.303
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.353
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.353
+    },
+    {
+     "who": "spud",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.353
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.3,
+     "at": 1.373
     }
    ]
   },
   {
-   "name": "toss",
-   "at": 9.767,
-   "len": 1.8,
+   "name": "watch this",
+   "at": 10.167,
+   "len": 1.5,
    "shot": {
     "pos": [
-     1.9,
-     0.4,
-     2.6
+     1.1,
+     1.05,
+     3.9
     ],
     "look": [
-     0.35,
-     1.45,
+     1.1,
+     0.85,
      -1
     ],
-    "fov": 52
+    "fov": 42
    },
    "do": [
     {
@@ -2554,7 +2693,7 @@
      "voice": "teo",
      "dur": 0.8,
      "caption": false,
-     "at": 0.083
+     "at": 0.103
     },
     {
      "who": "spud",
@@ -2564,273 +2703,69 @@
       0.1
      ],
      "dur": 0.2,
-     "at": 0.083
+     "at": 0.103
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.25,
+     "at": 0.103
     },
     {
      "who": "spud",
      "do": "expr",
      "expr": "cocky",
      "dur": 0.15,
-     "at": 0.083
+     "at": 0.103
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.25,
+     "at": 0.753
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.7,
+      -0.8
+     ],
+     "dur": 1.1,
+     "ease": "in",
+     "stride": 0.45,
+     "at": 0.953
     },
     {
      "who": "chip",
-     "do": "expr",
-     "expr": "surprised",
-     "dur": 0.15,
-     "at": 0.083
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "surprised",
-     "dur": 0.15,
-     "at": 0.083
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bar",
-      "grip": [
-       0.3,
-       -0.03,
-       0
-      ],
-      "palm": [
-       0.3,
-       0.97,
-       0
-      ],
-      "at": [
-       0.76,
-       1.05,
-       -0.6
-      ]
-     },
-     "dur": 0.17,
-     "ease": "out",
-     "at": 0.783
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "bar",
-      "grip": [
-       -0.3,
-       -0.03,
-       0
-      ],
-      "palm": [
-       -0.3,
-       0.97,
-       0
-      ],
-      "at": [
-       0.76,
-       1.05,
-       -0.6
-      ]
-     },
-     "dur": 0.17,
-     "ease": "out",
-     "at": 0.783
-    },
-    {
-     "who": "spud",
-     "do": "crouch",
-     "to": 0.5,
-     "dur": 0.17,
-     "at": 0.783
-    },
-    {
-     "who": "spud",
      "do": "look",
      "to": [
-      0,
-      0.6
-     ],
-     "dur": 0.15,
-     "at": 0.783
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "bar",
-      "grip": [
-       0.3,
-       -0.03,
-       0
-      ],
-      "palm": [
-       0.3,
-       0.97,
-       0
-      ],
-      "at": [
-       0.76,
-       1.55,
-       -0.6
-      ]
-     },
-     "dur": 0.1,
-     "ease": "in",
-     "at": 0.983
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "prop": "bar",
-      "grip": [
-       -0.3,
-       -0.03,
-       0
-      ],
-      "palm": [
-       -0.3,
-       0.97,
-       0
-      ],
-      "at": [
-       0.76,
-       1.55,
-       -0.6
-      ]
-     },
-     "dur": 0.1,
-     "ease": "in",
-     "at": 0.983
-    },
-    {
-     "who": "spud",
-     "do": "crouch",
-     "to": 0,
-     "dur": 0.1,
-     "at": 0.983
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": -0.08,
-     "dur": 0.3,
-     "at": 0.983
-    },
-    {
-     "who": "spud",
-     "do": "release",
-     "prop": "bar",
-     "dur": 0,
-     "at": 1.083
-    },
-    {
-     "do": "physics",
-     "prop": "bar",
-     "mode": "throw",
-     "v": [
-      0,
-      9.5,
+      0.8,
       0
      ],
-     "spin": [
-      0,
-      0,
-      0.6
-     ],
-     "at": 1.083
-    },
-    {
-     "sfx": "whoosh",
-     "gain": 0.35,
-     "at": 1.083
-    },
-    {
-     "who": "spud",
-     "do": "grip",
-     "side": "both",
-     "shape": "open",
-     "dur": 0.2,
-     "at": 1.083
-    },
-    {
-     "who": "chip",
-     "do": "look",
-     "to": [
-      0,
-      0.8
-     ],
-     "dur": 0.2,
-     "at": 1.183
+     "dur": 0.25,
+     "at": 1.053
     },
     {
      "who": "wedge",
      "do": "look",
      "to": [
-      0,
-      0.8
+      0.8,
+      0
      ],
-     "dur": 0.2,
-     "at": 1.183
-    },
-    {
-     "sfx": "ai/glass-smash",
-     "gain": 0.9,
-     "reason": "the bar goes through the gym's roof light",
-     "at": 1.413
-    },
-    {
-     "fx": "shake",
-     "amount": 0.04,
-     "dur": 0.2,
-     "at": 1.413
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "worried",
-     "dur": 0.12,
-     "at": 1.463
+     "dur": 0.25,
+     "at": 1.053
     },
     {
      "who": "chip",
      "do": "expr",
-     "expr": "shocked",
-     "dur": 0.12,
-     "at": 1.463
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "shocked",
-     "dur": 0.12,
-     "at": 1.463
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 1.563
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.5,
-     "ease": "inOut",
-     "at": 1.563
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 1.153
     }
-   ],
-   "kind": "escalation"
+   ]
   }
  ],
  "visible": [
@@ -2877,14 +2812,14 @@
    "why": "x1,000, he pumps the bent bar like it's nothing"
   },
   {
-   "from": 9.85,
-   "to": 11.567,
+   "from": 9.57,
+   "to": 11.667,
    "see": [
     "spud.face",
     "bar",
     "chip.face"
    ],
-   "why": "Watch this! The bar goes up through the roof: glass, all look up"
+   "why": "he sets the bent bar down with a clank, Watch this!, and walks out"
   }
  ],
  "allowClip": [
@@ -2892,7 +2827,7 @@
    "who": "chip",
    "with": "bench",
    "from": 0,
-   "to": 11.567,
+   "to": 11.667,
    "checks": [
     "shell"
    ],
@@ -2901,7 +2836,7 @@
   {
    "who": "spud",
    "from": 2.8,
-   "to": 11.567,
+   "to": 11.667,
    "checks": [
     "held-high"
    ],

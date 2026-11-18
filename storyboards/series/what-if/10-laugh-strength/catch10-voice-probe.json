@@ -24,8 +24,8 @@
  },
  "creative": {
   "length": [
-   73.8,
-   73.8
+   73.6,
+   73.6
   ]
  },
  "cast": [
@@ -66,7 +66,7 @@
   {
    "name": "probe",
    "at": 0,
-   "len": 73.8,
+   "len": 73.6,
    "shot": {
     "pos": [
      0,
@@ -172,11 +172,12 @@
     {
      "who": "spud",
      "macro": "say",
-     "line": "No, no, no... laugh at me! LAUGH AT ME!",
+     "line": "Wait. LAUGH AT ME!",
      "tone": "angry",
-     "style": "panicked, straining, desperate, shouting at the end",
+     "style": "panicked, straining, desperate, a forced grin, shouting at the end",
      "voice": "teo",
-     "dur": 4.65,
+     "take": 2,
+     "dur": 2.4,
      "caption": false,
      "at": 33.5
     },
@@ -189,27 +190,28 @@
      "voice": "teo",
      "dur": 1.5,
      "caption": false,
-     "at": 39.15
-    },
-    {
-     "who": "chip",
-     "macro": "say",
-     "line": "Ha ha ha! You broke a car!",
-     "tone": "happy",
-     "style": "laughing hard, bright, fast, can't believe it",
-     "dur": 3.75,
-     "caption": false,
-     "at": 41.65
+     "at": 36.9
     },
     {
      "who": "wedge",
      "macro": "say",
-     "line": "Ha ha ha!",
+     "line": "Ha ha! Trust me... he can't lift a car!",
      "tone": "happy",
-     "style": "low, belly laugh, slow",
-     "dur": 1.95,
+     "style": "low, laughing, teasing, slow, sure of himself",
+     "dur": 4.65,
      "caption": false,
-     "at": 46.4
+     "at": 39.4
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha ha ha!",
+     "tone": "happy",
+     "style": "laughing hard, high, giggling, can't stop",
+     "take": 2,
+     "dur": 2.4,
+     "caption": false,
+     "at": 45.05
     },
     {
      "who": "chip",
@@ -219,17 +221,27 @@
      "style": "laughing with relief, bright, proud, fast",
      "dur": 2.85,
      "caption": false,
-     "at": 49.35
+     "at": 48.45
     },
     {
      "who": "wedge",
      "macro": "say",
-     "line": "Trust me... he can't lift the bus with us in it!",
+     "line": "Trust me... he can't lift it with us inside!",
      "tone": "happy",
-     "style": "low, laughing, teasing, slow, sure of himself",
-     "dur": 5.55,
+     "style": "low, laughing, teasing, quick, sure of himself",
+     "dur": 4.65,
      "caption": false,
-     "at": 53.2
+     "at": 52.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ha ha ha ha!",
+     "tone": "happy",
+     "style": "low, belly laugh, cracking up, can't stop",
+     "dur": 2.4,
+     "caption": false,
+     "at": 57.95
     },
     {
      "macro": "narrate",
@@ -238,7 +250,7 @@
      "take": 1,
      "dur": 2.4,
      "caption": false,
-     "at": 59.75
+     "at": 61.35
     },
     {
      "who": "chip",
@@ -248,28 +260,29 @@
      "style": "quiet, scared, looking down from high up, breathless, no laugh",
      "dur": 1.05,
      "caption": false,
-     "at": 63.15
+     "at": 64.75
     },
     {
      "who": "wedge",
      "macro": "say",
-     "line": "Put us down?",
+     "line": "Put us down. Please.",
      "tone": "calm",
      "style": "quiet, low, scared, slow, serious, no laugh",
-     "dur": 1.95,
+     "dur": 2.4,
      "caption": false,
-     "at": 65.2
+     "at": 66.8
     },
     {
      "who": "spud",
      "macro": "say",
-     "line": "No, no, no... laugh at me! LAUGH AT ME!",
+     "line": "Wait. LAUGH AT ME!",
      "tone": "angry",
-     "style": "panicked, straining, desperate, shouting at the end",
+     "style": "panicked, straining, desperate, a forced grin, shouting at the end",
      "voice": "teo",
-     "dur": 4.65,
+     "take": 2,
+     "dur": 2.4,
      "caption": false,
-     "at": 68.15
+     "at": 70.2
     }
    ]
   }

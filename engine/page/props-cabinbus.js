@@ -12,6 +12,20 @@ import { clamp } from "./util.js";
 //             (x -0.30 .. +0.30) and 1.18 high (y 0.26 .. 1.44). At 0 the leaves close it (clear glass, you still see in).
 //     bulge   0..1.5 puffs the shell as before. (full, the squashed passengers, is not built in the cabin.)
 //     The wheels turn with ps.x (propState, so "prop" x tweens turn them; a y lift does not).
+//     split   0..1 (default 0) the BREAK (There's a catch EP10, Sol's panel 21). At 0 the bus is exactly as above (the whole-bus meshes are shown);
+//             above 0 they are swapped for two rigid half-shells cut at the plane z = -0.5 (near half z 0 .. -0.5 with the door, far half z -0.5 .. -1),
+//             each holding its walls, its half of roof, floor, windscreen, front and rear faces, glass, deck, ledge, seats, signs, mirrors, lamps,
+//             its wheels and the cut axles; boxes the seam cuts get a dark "#2B2830" cut face (glass none), and a jagged dark crack
+//             ("#16141A" teeth, different on the two halves) runs along the seam on the roof and on the front face / windscreen.
+//             The halves tip outward 85 degrees x split about the line y 0, z +0.18 (near, toward +z) and y 0, z -1.18 (far, toward -z): the line
+//             is the wall's bottom edge moved out 0.18 to the wheel nuts, so at 1 the halves lie nearly flat on their tyres (pivot exactly at
+//             the wall, z 0, would sink the wheels 0.2 m into the ground). From a camera looking down -x the near half goes screen left, the far
+//             half screen right; each half then reaches 1.8 m out (x scale). While split > 0 the bulge squash is not applied. Eased by the caller.
+//     spill   0..1 (default 0) two loose seat blocks 0.39 long x 0.25 high x 0.30 deep (seat-blue "#2F6FD1", back "#2859A8", four dark legs).
+//             Hidden at 0. They start on the floor at the seam (x -1.4 and -2.4, centre y 0.385) and slide 0.6 out (the x -1.4 one toward +z,
+//             the x -2.4 one toward -z), fall to the ground (centre y 0.15 at 1 = resting on its back, y 0 underneath) with a 0.3 hop, and turn
+//             90 degrees about x; a pure function of the value. They sit in the bus's own frame (scale with the prop). Both blocks are solid boxes.
+//     Bench: storyboards/series/what-if/10-laugh-strength/bench/bus-break/.
 //   Hollow shell, walls 0.03, interior x -3.32 .. 0.52, z -0.03 .. -0.97:
 //     floor top y 0.26 "#4B4650"; ceiling (roof underside) y 1.57 "#F7F4EC"; underside panel "#2B2830" bottom at y 0.19.
 //     Clear glass: tint "#CFE6F2", opacity 0.18, no outline, not solid. Side windows both sides y 0.87 .. 1.37 between 0.06 pillars
@@ -31,7 +45,7 @@ import { clamp } from "./util.js";
 //     is not (see-through under half opacity, as before). Riders stand on the floor / deck / ledge tops by their ride offsets;
 //     a prop dropped on the cabin lands on those tops (the engine's surfaces are the visible meshes).
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({ color, roughness: 0.6, ...o });
-const box = (m, parent, x0, x1, y0, y1, z0, z1) => {
+const rawBox = (m, parent, x0, x1, y0, y1, z0, z1) => {
   const o = new THREE.Mesh(new THREE.BoxGeometry(x1 - x0, y1 - y0, z1 - z0), m);
   o.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2); o.castShadow = o.receiveShadow = true; parent.add(o); return o;
 };
@@ -48,12 +62,27 @@ export function cabinBus(P) {
   const tyre = mat("#22232a", { roughness: 0.9 }), hub = mat("#c9ccd3", { metalness: 0.4, roughness: 0.35 });
   const floorM = mat("#4b4650"), panelM = mat("#2b2830"), railM = mat("#3a3640"), pipeM = mat("#9aa3ad", { metalness: 0.4, roughness: 0.4 });
   const seatM = mat("#2f6fd1"), seatB = mat("#2859a8");
-  const body = new THREE.Group(); P.whole.add(body);
   const X0 = -3.35, X1 = 0.55, D = 1.0, W = 0.03, XC = (X0 + X1) / 2;
   const ZN = -W, ZF = -D + W;                       // the inner faces of the near and far walls
   const IX0 = X0 + W, IX1 = X1 - W;                 // the inner faces of the rear and front walls
   const Y_FLOOR = 0.26, Y_WIN0 = 0.87, Y_WIN1 = 1.37, Y_ROOF = 1.57;
-  const pane = (x0, x1, y0, y1, z0, z1) => { const g = box(glass, body, x0, x1, y0, y1, z0, z1); g.castShadow = false; g.receiveShadow = false; return g; };
+  const cutM = mat("#2b2830", { roughness: 0.8 });   // the cut face where a half is open at the seam
+  const SEAM = -0.5;
+
+  // build(body, lo, hi, wroot): the whole bus clipped to the slab z in [lo, hi) (the whole bus: -inf .. inf; the near half: SEAM .. inf;
+  // the far half: -inf .. SEAM). Boxes are clipped; a solid box the seam cuts gets a dark cut face; round things go to the side their middle is on.
+  const build = (body, lo, hi, wroot) => {
+  const inR = (z) => z >= lo && z < hi;
+  const box = (m, parent, x0, x1, y0, y1, z0, z1) => {
+    const a = Math.max(z0, lo), b = Math.min(z1, hi); if (b - a < 1e-5) return null;
+    const o = rawBox(m, parent, x0, x1, y0, y1, a, b);
+    if (m !== glass) {
+      if (z0 < lo && z1 > lo) rawBox(cutM, parent, x0, x1, y0, y1, lo - 0.004, lo).castShadow = false;
+      if (z0 < hi && z1 > hi) rawBox(cutM, parent, x0, x1, y0, y1, hi, hi + 0.004).castShadow = false;
+    }
+    return o;
+  };
+  const pane = (x0, x1, y0, y1, z0, z1) => { const g = box(glass, body, x0, x1, y0, y1, z0, z1); if (g) { g.castShadow = false; g.receiveShadow = false; } return g; };
 
   // ---- floor, underside, skirt, roof
   box(floorM, body, IX0, IX1, 0.23, Y_FLOOR, ZF, ZN);
@@ -65,7 +94,7 @@ export function cabinBus(P) {
   box(white, body, X0 - 0.005, X1 + 0.005, Y_ROOF, 1.63, -D - 0.005, 0.005);    // the roof; its underside is the ceiling
   // rails along x at z -0.3 and -0.7, none across the clear patch x -1.5 .. -0.7, and the exhaust beside the far rail
   for (const z of [-0.3, -0.7]) for (const [a, b] of [[X0 + 0.1, -1.5], [-0.7, X1 - 0.1]]) box(railM, body, a, b, 0.17, 0.19, z - 0.03, z + 0.03);
-  const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.78, 10), pipeM); pipe.rotation.z = Math.PI / 2; pipe.position.set(-2.39, 0.17, -0.76); pipe.castShadow = true; body.add(pipe);
+  const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 1.78, 10), pipeM); pipe.rotation.z = Math.PI / 2; pipe.position.set(-2.39, 0.17, -0.76); pipe.castShadow = true; if (inR(-0.76)) body.add(pipe);
 
   // ---- the two sides: a lower band, the window band between pillars, an upper band; the near side is cut by the door
   const pillars = (xs, z0, z1, doorSide) => {
@@ -98,15 +127,24 @@ export function cabinBus(P) {
   pane(X1 - 0.02, X1 - 0.01, 0.70, 1.42, -0.94, -0.06);
   const lamp = new THREE.MeshBasicMaterial({ color: "#fff3b0" }), red = new THREE.MeshBasicMaterial({ color: "#e0352b" });
   for (const z of [-0.12, -D + 0.12]) {
+    if (!inR(z)) continue;
     const l = new THREE.Mesh(new THREE.SphereGeometry(0.05, 12, 8), lamp); l.position.set(X1 + 0.01, 0.42, z); body.add(l);
     const r = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.12, 0.06), red); r.position.set(X0 - 0.01, 0.48, z); r.castShadow = r.receiveShadow = true; body.add(r);
   }
   // the route signs: the side one as before, a second on the front face (0.70 x 0.14, y 1.50)
-  const side = sign(0.9, 0.17, 256, 48, 36, 12); side.position.set(-1.6, 1.47, 0.006); body.add(side);
-  const front = sign(0.70, 0.14, 280, 56, 40, 12); front.rotation.y = Math.PI / 2; front.position.set(X1 + 0.006, 1.50, -0.5); body.add(front);
+  if (inR(0.006)) { const side = sign(0.9, 0.17, 256, 48, 36, 12); side.position.set(-1.6, 1.47, 0.006); body.add(side); }
+  { // the front sign runs z -0.85 .. -0.15 (local x runs toward -z): clipped to the slab, its uv cut to match
+    const fw = 0.70, xa = Math.max(-0.35, SEAM - Math.min(hi, -0.15)), xb = Math.min(0.35, SEAM - Math.max(lo, -0.85));
+    if (xb - xa > 1e-4) {
+      const front = sign(fw, 0.14, 280, 56, 40, 12), g = new THREE.PlaneGeometry(xb - xa, 0.14), uv = g.attributes.uv;
+      for (let i = 0; i < uv.count; i++) uv.setX(i, (xa + fw / 2 + uv.getX(i) * (xb - xa)) / fw);
+      front.geometry = g; front.rotation.y = Math.PI / 2; front.position.set(X1 + 0.006, 1.50, SEAM - (xa + xb) / 2); body.add(front);
+    }
+  }
   // two wing mirrors on 0.12 stalks at the top corners
   for (const s of [1, -1]) {
-    const z0 = s > 0 ? 0 : -D, st = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.12, 8), dark);
+    const z0 = s > 0 ? 0 : -D; if (!inR(z0 + s * 0.06)) continue;
+    const st = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.12, 8), dark);
     st.rotation.x = Math.PI / 2; st.position.set(X1 - 0.04, 1.50, z0 + s * 0.06); st.castShadow = true; body.add(st);
     box(dark, body, X1 - 0.075, X1 - 0.005, 1.42, 1.58, z0 + s * 0.12 - 0.0125, z0 + s * 0.12 + 0.0125);
   }
@@ -120,33 +158,88 @@ export function cabinBus(P) {
     box(seatM, body, x - 0.15, x + 0.15, 0.60, 1.05, ZF, ZF + 0.05);
   }
   // ---- the door's two clear leaves (outside the near wall), slid apart by open
-  const leaves = [-1, 1].map((s) => {
+  const leaves = inR(0.026) ? [-1, 1].map((s) => {
     const l = new THREE.Mesh(new THREE.BoxGeometry(0.28, 1.14, 0.02), glass); l.position.set(s * 0.145, 0.85, 0.026); body.add(l);
     const k = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.06, 0.022), paint); k.position.set(0, 0.32, 0); l.add(k);
     return [s, l];
-  });
+  }) : [];
   // ---- four wheels with dark arches on the walls, an axle bar per pair
   const wheels = [];
   for (const wx of [-0.55, -2.65]) {
-    const ax = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.1, 10), railM); ax.rotation.x = Math.PI / 2; ax.position.set(wx, 0.205, -0.5); ax.castShadow = true; body.add(ax);
+    const za = Math.max(-1.05, lo), zb = Math.min(0.05, hi);   // the axle bar z -1.05 .. 0.05, clipped
+    if (zb - za > 1e-4) { const ax = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, zb - za, 10), railM); ax.rotation.x = Math.PI / 2; ax.position.set(wx, 0.205, (za + zb) / 2); ax.castShadow = true; body.add(ax); }
     for (const s of [1, -1]) {
-      const zw = s > 0 ? 0 : -D;
+      const zw = s > 0 ? 0 : -D; if (!inR(zw + s * 0.001)) continue;
       const arch = new THREE.Mesh(new THREE.CylinderGeometry(0.33, 0.33, 0.02, 24, 1, false, 0, Math.PI), dark); arch.rotation.set(Math.PI / 2, 0, Math.PI / 2); arch.position.set(wx, 0.26, zw + s * 0.002); body.add(arch);
-      const w = new THREE.Group(); w.position.set(wx, 0.26, zw + s * 0.06); P.whole.add(w);
+      const w = new THREE.Group(); w.position.set(wx, 0.26, zw + s * 0.06); wroot.add(w);
       const tr = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.26, 0.16, 24), tyre); tr.rotation.x = Math.PI / 2; tr.castShadow = tr.receiveShadow = true; w.add(tr);
       const hb = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.02, 16), hub); hb.rotation.x = Math.PI / 2; hb.position.z = s * 0.085; hb.castShadow = hb.receiveShadow = true; w.add(hb);
       for (let k = 0; k < 5; k++) { const n = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.03, 0.03), dark); n.position.set(Math.cos(k * 1.2566) * 0.07, Math.sin(k * 1.2566) * 0.07, s * 0.1); w.add(n); }
       wheels.push(w);
     }
   }
+  return { leaves, wheels };
+  };
+
+  // ---- the whole bus (split 0): exactly the bus as before
+  const body = new THREE.Group(); P.whole.add(body);
+  const whole = build(body, -Infinity, Infinity, P.whole);
+
+  // ---- the break (split > 0): two half-shells, each a rigid group, tipped outward about the line y 0 under their outer wall. The pivot sits
+  // ZP = 0.18 outside the wall (flush with the wheel nuts) so the tyres rest on the ground when the halves lie flat instead of sinking in.
+  const ZP = 0.18, ANG = (85 * Math.PI) / 180, rock = new THREE.Group(); P.whole.add(rock); rock.visible = false;
+  const nearP = new THREE.Group(); nearP.position.set(0, 0, ZP); rock.add(nearP);
+  const nearIn = new THREE.Group(); nearIn.position.set(0, 0, -ZP); nearP.add(nearIn);
+  const farP = new THREE.Group(); farP.position.set(0, 0, -D - ZP); rock.add(farP);
+  const farIn = new THREE.Group(); farIn.position.set(0, 0, D + ZP); farP.add(farIn);
+  const nearB = build(nearIn, SEAM, Infinity, nearIn), farB = build(farIn, -Infinity, SEAM, farIn);
+  // the crack: a dark zigzag along the seam on the roof and the front face (windscreen), a jagged band split between the halves: each half
+  // carries its own teeth (a polygon between the seam line and a zigzag), different on the two so the band reads as a crack
+  const crackM = new THREE.MeshBasicMaterial({ color: "#16141a", side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }); crackM.userData.noOutline = true;
+  const TEETH = [0.02, 0.075, 0.03, 0.09, 0.04, 0.065, 0.015, 0.085, 0.05, 0.1, 0.025, 0.07];
+  const teeth = (parent, side, phase, n, p0, p1, put) => {   // n samples from p0 to p1 along the run; put(t, zOffset) -> [x, y, z]
+    const pos = [];
+    for (let i = 0; i < n; i++) {
+      const t0 = i / n, t1 = (i + 1) / n, d0 = TEETH[(i + phase) % TEETH.length] * side, d1 = TEETH[(i + 1 + phase) % TEETH.length] * side;
+      const a = put(t0, d0), b = put(t0, 0), c = put(t1, d1), e = put(t1, 0);
+      pos.push(...a, ...b, ...c, ...b, ...e, ...c);
+    }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    const m = new THREE.Mesh(g, crackM); m.renderOrder = 2; parent.add(m);
+  };
+  for (const [grp, side, phase] of [[nearIn, 1, 0], [farIn, -1, 5]]) {
+    teeth(grp, side, phase, 26, 0, 1, (t, d) => [X0 + (X1 - X0) * t, 1.634, SEAM + d]);                                 // roof
+    teeth(grp, side, phase, 12, 0, 1, (t, d) => [X1 + 0.004, Y_FLOOR + (1.634 - Y_FLOOR) * (1 - t), SEAM + d]);           // front face and windscreen, top to bottom
+  }
+
+  // ---- the spill: two loose seat blocks (0.39 long x 0.25 high x 0.30 deep), hidden at 0; they slide and tumble out of the seam at x -1.4 and -2.4
+  const legM = mat("#2b2830");
+  const blocks = [[-1.4, 1], [-2.4, -1]].map(([x, dir]) => {
+    const g = new THREE.Group(); g.visible = false; P.whole.add(g);
+    // the bounding box is centred on the group: y -0.125 .. 0.125, z -0.15 .. 0.15; the cushion on four dark legs, a low back along the rear edge
+    rawBox(seatM, g, -0.195, 0.195, -0.055, 0.045, -0.15, 0.15); rawBox(seatB, g, -0.195, 0.195, 0.045, 0.125, 0.09, 0.15);
+    for (const lx of [-0.16, 0.16]) for (const lz of [-0.12, 0.12]) rawBox(legM, g, lx - 0.02, lx + 0.02, -0.125, -0.055, lz - 0.02, lz + 0.02);
+    return { x, dir, g };
+  });
+
+  const all = [...whole.wheels];
   return {
     grip: 0,
     apply(ps) {
-      const o = clamp(ps.open ?? 0), b = clamp(ps.bulge ?? 0, 0, 1.5);
-      for (const [s, l] of leaves) l.position.x = s * (0.145 + 0.30 * o);
+      const o = clamp(ps.open ?? 0), b = clamp(ps.bulge ?? 0, 0, 1.5), sp = clamp(ps.split ?? 0), sl = clamp(ps.spill ?? 0);
+      for (const [s, l] of [...whole.leaves, ...nearB.leaves, ...farB.leaves]) l.position.x = s * (0.145 + 0.30 * o);
       body.scale.set(1 + 0.04 * b, 1 + 0.18 * b, 1 + 0.3 * b); body.position.y = -0.02 * b;
       const turn = -(ps.x ?? 0) / (0.26 * Math.max(ps.scale ?? 1, 0.01));
-      for (const w of wheels) w.rotation.z = turn;
+      for (const w of [...all, ...nearB.wheels, ...farB.wheels]) w.rotation.z = turn;
+      // split: 0 = the whole bus; above 0 the two rigid halves, tipped outward by 85 degrees x split (near toward +z, far toward -z)
+      body.visible = sp <= 0; for (const w of whole.wheels) w.visible = sp <= 0; rock.visible = sp > 0;
+      nearP.rotation.x = ANG * sp; farP.rotation.x = -ANG * sp;
+      // spill: slide 0.6 out of the seam, drop from the floor top to the ground, turn 90 degrees about x, with a small hop; a pure function of the value
+      for (const { x, dir, g } of blocks) {
+        g.visible = sl > 0;
+        g.position.set(x, 0.385 + (0.15 - 0.385) * sl * sl + 0.3 * Math.sin(Math.PI * sl), SEAM + dir * 0.6 * sl);
+        g.rotation.set(dir * (Math.PI / 2) * sl, 0, 0);
+      }
     },
   };
 }
