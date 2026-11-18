@@ -210,13 +210,13 @@ A(r3(T[15] + 0.25), "old", "look", { to: [-0.9, 0.35], dur: 0.45 });
 A(r3(T[15] + 0.3), "old", "face", { lid: 0.25, dur: 0.4 });
 
 // ---------------------------------------------------------------- the one shot (DESIGN.md section 0)
-const SHOT = { pos: [0, 1.25, 10.4], look: [0, 1.25, 0], fov: 25 };   // DESIGN.md section 0, 0.2 m lower and a touch tighter: the cast sits higher, less bare floor
+const SHOT = { pos: [-0.2, 1.25, 10.4], look: [-0.2, 1.25, 0], fov: 25 };   // DESIGN.md section 0, 0.2 m lower and a touch tighter: the cast sits higher, less bare floor
 const beats = c.beats([
   ["complaint", 0, SHOT, "hook"],
   ["the fry", T[4], "keep"],
   ["the stare", END_OF(10), "keep"],
   ["please hold", T[13], "keep", "payoff"],
-  ["centuries later", JUMP, { pos: [0.05, 1.25, 10.4], look: [0.05, 1.25, 0], fov: 23.5 }],   // the jump cut: the same wide shot a touch closer (so it reads as a cut), centuries later
+  ["centuries later", JUMP, { pos: [-0.12, 1.25, 10.4], look: [-0.12, 1.25, 0], fov: 23.5 }],   // the jump cut: the same wide shot a touch closer (so it reads as a cut), centuries later
 ], END);
 
 write(import.meta.url, {
