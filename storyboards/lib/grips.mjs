@@ -115,6 +115,21 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-score.js (Happiness 03, the happiness score): the glasses' origin is the bridge's middle at lens-centre height (h 0: the box hold's palms at the origin's
+  // height), w = the rims' width 0.438: both gloves on the two hinges (x +-0.219); the case lies flat, origin the bottom's middle, 0.48 x 0.235 x 0.09 closed
+  scoreglasses: { w: 0.438, h: 0, d: 0.04 },
+  scorecase: { w: 0.48, h: 0.09, d: 0.235 },   // (DESIGN's `glasscase`; the museum prop already owns that name)
+  // props-score-small.js (Happiness 03): the party cup is a mug-hold cup (top radius 0.04, 0.11 tall, origin the bottom's middle); the cinnamon bun in its paper is held like a mug
+  // (the paper's rim radius 0.075, the fist at 0.66 of 0.07 = 0.046 up the bun's side); the tape roll's origin is its rim's lowest point (the centre 0.07 up), box hold on both sides of the 0.14 roll
+  // (h 0.14: the palms at 0.55 h = 0.077, the roll's middle); the speaker stands on its bottom, 0.30 x 0.18 x 0.14 (rest hold: a hand on its top)
+  partycup: { r: 0.04, h: 0.11 },
+  cinnabun: { r: 0.075, h: 0.07 },
+  taperoll: { w: 0.14, h: 0.14, d: 0.05 },
+  speaker: { w: 0.3, h: 0.18, d: 0.14 },
+  // props-score-paper.js (Happiness 03, the notebooks): the pad stands upright, origin its bottom edge's middle, page on +z: the phone hold on a side edge
+  // (grips.phone(c, who, PAD, { side: "L", height: 0.2 }) = 5 cm up from the bottom); the book is held OPEN (open 1, 0.40 wide, spine on x 0): both gloves on its outer edges (box hold)
+  spudpad: { w: 0.19, h: 0.26, t: 0.018 },
+  mashbook: { w: 0.4, h: 0.27, d: 0.011 },
   // props-skipremote.js (Happiness EP02): the remote's origin is the middle of its BACK face, so the phone hold's grip height 0.42 x h must land
   // under the middle: h -0.048 gives y -0.020 (negative on purpose, precedent: headrest h 0). Hold: phone, side "L", gap 0.035, height 0.42 (defaults).
   skipremote: { w: 0.13, h: -0.048, t: 0.03 },

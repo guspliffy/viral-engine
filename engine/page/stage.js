@@ -17,6 +17,7 @@ import { makeLook } from "./looks.js";
 import { frameSize } from "../shared/frame.js";
 import { bindText, captionBox, drawCaption, popBox, drawPop, slamBox, drawSlam, accentOf } from "./text.js";
 import { drawHud, hudBoxes, hudKey } from "./hud.js";
+import { drawScore, scoreKey } from "./score.js";
 import { drawCards, cardBoxes, cardKey } from "./card.js";
 import { freezeAt, drawFrozen, drawFreezeLabel, freezeKey } from "./freeze.js";
 import { addNight, nightGrade, nightOn } from "./sky.js";
@@ -177,6 +178,20 @@ const fxActive = (f, t) => t >= f.at && t <= f.at + (f.dur ?? 0.1);
 function toScreen(v) {
   const p = new THREE.Vector3().fromArray(v), d = p.distanceTo(camera.position); p.project(camera);
   return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, m: H / (2 * d * Math.tan((camera.fov * Math.PI) / 360)) };
+}
+// the colour arc keys (looks.js header, COLOUR ARC): top-level "grade" / "split" / "ring", or null
+function arcOf(sb) { return sb.grade || sb.split || sb.ring ? { grade: sb.grade, split: sb.split, ring: sb.ring } : null; }
+// score.js env: head(who, tt) = screen px of the leaf tip + 0.10 m of `who` posed (pure, from actorState) at tt, with the
+// current frame's camera, and the body height on screen in px
+function scoreEnv() {
+  return { W, H, project: (v) => toScreen(v),
+    head(who, tt) {
+      const a = actors.find((x) => x.c.id === who); if (!a) return null;
+      const st = actorState(sb, a.c, a.def, Math.max(0, tt)); if (!st || st.visible === false) return null;
+      const sc = st.scale ?? 1, top = a.ch.topY() * sc;
+      const p = toScreen(worldOf(a, new THREE.Vector3(st.x, st.y + top + 0.10, st.z)).toArray());
+      return { x: p.x, y: p.y, body: top * p.m };
+    } };
 }
 // "sparkle": four-point stars twinkling round a character's head; "notes": music notes floating up from it;
 // "zzz": sleepy z's drifting up and to the right; "sweat": panic drops flicked off it; "alert": a "!" (or `text`) popping
@@ -489,6 +504,7 @@ function composite(t) {
   const fz = freezeAt(sb, tvNow ?? t);
   ctx.globalAlpha = 1; if (!establishing(t)) { if (fz) drawFrozen(ctx, R.domElement, fz, fz.f.xy ? { x: fz.f.xy[0], y: fz.f.xy[1] } : fz.f.on ? popAnchor({ who: fz.f.on, dx: 0, dy: 0.25 }) : null); else ctx.drawImage(R.domElement, 0, 0, W, H); nightGrade(ctx, sb, t, W, H); }
   if (pausesOf(sb)) pauseGrade(t);
+  if (sb.score) drawScore(ctx, sb, t, scoreEnv());   // happiness-score tags + glasses mask (score.js), after the grade
   (sb.fx || []).forEach((f, i) => { if (f.do === "shade") shadeFx(f, t); else if (f.do === "speedlines") speedLines(f, t, i); else if (f.do === "sparkle" || f.do === "notes" || f.do === "zzz" || f.do === "sweat" || f.do === "alert") headFx(f, t, i); else if (f.do === "photo") photoCard(f, i, t); else if (f.do === "glint") glintFx(f, t); else if (f.do === "pop") drawPop(f, t, popAnchor(f)); });
   const fl = flashAt(sb, t);
   if (fl > 0) { ctx.globalAlpha = fl; ctx.fillStyle = flashColorAt(sb, t); ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1; }
@@ -584,7 +600,7 @@ async function init(data) {
     const a = actors.find((x) => x.c.id === id), p = !a && props.find((x) => x.spec.id === id), o = a ? a.ch.root : p ? p.root : rigs.get(id)?.g;   // a character, a prop or a vehicle rig
     return o ? o.getWorldPosition(new THREE.Vector3()) : null;
   } });
-  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn, vfx }) : makeStyle(style, R);
+  styler = opts.look ? makeLook(opts.look, { R, scene, camera, W, H, actors, setObjs, draft: !!opts.draft, setSpec: sb.set, props, focusTrack: sb.focusTrack, drawn: sb.drawn, vfx, arc: arcOf(sb) }) : makeStyle(style, R);
   vfxOver = !!vfx && !opts.look;
   out = document.getElementById("out"); ctx = out.getContext("2d"); bindText(ctx, sb);
   showSafe = !!(data.opts && data.opts.safe);
@@ -987,11 +1003,12 @@ function stateHash(t, samples = [], tv = null) {
   // the 2D layer: captions on screen and every effect near t (generous: a fade or a card that lingers stays covered),
   // the flash, the safe frame; the drawn look's timing (which drawing, on 2s or 1s) as a whole
   const fxOn = (sb.fx || []).map((f, i) => [i, f]).filter(([, f]) => f.do === "photo" || (t >= (f.at ?? 0) - 0.5 && t <= (f.at ?? 0) + (f.dur ?? 1.5) + 2));
-  const two = JSON.stringify([fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote" || f.do === "picrule") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : []), ...(nightOn() && skyAt(sb, t) > 0 ? [Math.round(skyAt(sb, t) * 1e4) / 1e4] : [])]);
+  const sceneH = one(t);   // posed first: the score key reads the current frame's camera
+  const two = JSON.stringify([...(sb.score ? [scoreKey(sb, t, scoreEnv())] : []), ...(arcOf(sb) ? ["arc", Math.round(t * 30)] : []), fxOn, ...(vfx ? [vfx.key(t)] : []), captionsAt(sb, t), flashAt(sb, t), ...(flashAt(sb, t) > 0 && flashColorAt(sb, t) !== "#fff" ? [flashColorAt(sb, t)] : []), showSafe, drawnD || null, sb.set && sb.set.focus ? cameraState(sb, t).focus ?? null : null, ...(sb.hud ? [hudKey(sb, t)] : []), ...((sb.fx || []).some((f) => f.do === "rule" || f.do === "vote" || f.do === "picrule") ? [cardKey(sb, t)] : []), ...(tv != null && freezeAt(sb, tv) ? [freezeKey(freezeAt(sb, tv))] : []), ...(nightOn() && skyAt(sb, t) > 0 ? [Math.round(skyAt(sb, t) * 1e4) / 1e4] : [])]);
   const h2 = hashStr(2166136261, two);
   // a photo shows the scene at its shot time: that state belongs to every frame the photo is on
   const shots = fxOn.filter(([, f]) => f.do === "photo").map(([, f]) => one(f.shot ?? f.at));
-  return { scene: one(t), samples: samples.map(one), overlay: h2.toString(16).padStart(8, "0"), photos: shots };
+  return { scene: sceneH, samples: samples.map(one), overlay: h2.toString(16).padStart(8, "0"), photos: shots };
 }
 // a render that skips frames it already has (render.mjs frame cache) starts each stretch it draws like a shard: the
 // drawn look's held drawing is forgotten, so the first frame draws its own

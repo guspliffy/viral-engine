@@ -1,0 +1,551 @@
+{
+ "id": "hs03-a1-tall",
+ "title": "I could see everyone's happiness score",
+ "idea": "Happiness series 03 (YouTube film + four parts): Spud finds glasses that show everyone's happiness score; his is 41, his best friend Mash's 88, and Mash moves away on Sunday. He copies Mash to learn the secret, and every time he checks, his number drops.",
+ "format": "series: Spud looks for happiness (one life question per film, never answered out loud)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "grade": [
+  [
+   0,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   6.1,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.1,
+    "w": 0.6
+   }
+  ],
+  [
+   42,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.045,
+    "w": 0.5
+   }
+  ],
+  [
+   44,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.99,
+    "w": 0.4
+   }
+  ],
+  [
+   51,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.935,
+    "w": 0.3
+   }
+  ],
+  [
+   55,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.88,
+    "w": 0.2
+   }
+  ],
+  [
+   59,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.825,
+    "w": 0.1
+   }
+  ],
+  [
+   74,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.77,
+    "w": 0
+   }
+  ],
+  [
+   79,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.715,
+    "w": -0.1
+   }
+  ],
+  [
+   84,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.66,
+    "w": -0.2
+   }
+  ],
+  [
+   89,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.605,
+    "w": -0.3
+   }
+  ],
+  [
+   95,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.55,
+    "w": -0.4
+   }
+  ],
+  [
+   100,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   156,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    0,
+    6.1
+   ]
+  ],
+  "tags": [
+   {
+    "who": "mover",
+    "k": 0.85,
+    "keys": [
+     [
+      0,
+      63
+     ]
+    ]
+   },
+   {
+    "xy": [
+     540,
+     776
+    ],
+    "size": "medium",
+    "keys": [
+     [
+      0,
+      41
+     ]
+    ]
+   }
+  ]
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     2.6,
+     41
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   6.1,
+   6.1
+  ]
+ },
+ "hook": {
+  "show": [
+   "mover"
+  ],
+  "hint": 0,
+  "what": "through a pair of old glasses: a grey moving-day street where everyone has a glowing number; his own reflection says 41"
+ },
+ "cast": [
+  {
+   "id": "mover",
+   "character": "happiness/mover",
+   "at": [
+    2,
+    2.2
+   ],
+   "face": -158,
+   "expr": "deadpan",
+   "follow": 0.3,
+   "seed": 1.1
+  }
+ ],
+ "props": [
+  {
+   "id": "van",
+   "kind": "boxvan",
+   "x": 1.5,
+   "y": -0.15,
+   "z": 3.7,
+   "rot": -90,
+   "open": 1,
+   "len": 0,
+   "win": 0
+  },
+  {
+   "id": "chair",
+   "kind": "armchair",
+   "x": 3.3,
+   "y": 0,
+   "z": 1.8,
+   "rot": -130
+  },
+  {
+   "id": "mcap",
+   "kind": "flatcap",
+   "wear": "mover",
+   "fit": "mover",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "refl",
+   "kind": "reflectcard",
+   "as": "van",
+   "reflectView": "front",
+   "w": 0.62,
+   "x": -0.1,
+   "y": 1.6,
+   "z": 2.638,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 2.6,
+   "text": "41",
+   "pos": 1110,
+   "pop": false,
+   "size": 170,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the street through the glasses",
+   "at": 0,
+   "len": 6.1,
+   "shot": {
+    "pos": [
+     1.15,
+     0.74,
+     -0.55
+    ],
+    "look": [
+     -0.977,
+     2.173,
+     4.874
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      2,
+      2.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "turn",
+     "to": -158,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "look",
+     "to": [
+      -0.4,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "These glasses show everyone's happiness score. Yours is forty-one.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 6,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 0.05
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.6
+    },
+    {
+     "who": "mover",
+     "do": "grip",
+     "side": "R",
+     "shape": "flat",
+     "dur": 0.2,
+     "at": 0.6
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.98,
+       0.22
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "R",
+     "pose": "hips",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "mover",
+     "do": "arm",
+     "side": "L",
+     "pose": "hips",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "mover",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.5,
+     "at": 1.8
+    },
+    {
+     "who": "mover",
+     "do": "look",
+     "to": [
+      0.5,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "mover",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3
+     },
+     "dur": 0.3,
+     "at": 2.4
+    }
+   ],
+   "kind": "hook"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 6.1,
+   "see": [
+    "mover.face",
+    "van",
+    "refl"
+   ],
+   "why": "through old round glasses: a grey moving-day street; a mover by an armchair, a white van, a potato's reflection in its window; glowing numbers over them"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "mover",
+   "with": "mcap",
+   "from": 0,
+   "to": 6.1,
+   "reason": "the flat cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 0,
+  "T1": 6.1
+ },
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-a/make-block-a.mjs (story 0-6.1 s)."
+}

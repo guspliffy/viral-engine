@@ -1,0 +1,6 @@
+# plate RM-D from panel 25
+# refs: plates\ref\panel-25.png
+PROMPT START
+The same half-empty living room from the same camera on a Sunday morning: cold grey-blue light, nearly empty, a few open cardboard boxes, a cast-iron radiator under a tall window with autumn roofs and a church tower outside, scraps of tape on the wooden floor, empty shelves.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

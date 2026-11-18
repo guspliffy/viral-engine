@@ -1,0 +1,4 @@
+# dog cut-out for panel 01
+# refs: none
+PROMPT START
+A small friendly white dog with tan patches, side view facing right, standing on four legs, tail up, hand-drawn Ghibli-style anime, crisp linework, cel shading, alone on a plain pure white background. To its right, the same tail drawn again separately (wagging pose). No text. Landscape 1536x1024.

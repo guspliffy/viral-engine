@@ -1,0 +1,1473 @@
+{
+ "id": "hs03-d3-tall",
+ "title": "Happiness 03 block D d3",
+ "idea": "Happiness 03 'I could see everyone's happiness score', block D 'Last sunset' (story 2:30-3:22)",
+ "format": "series: Spud looks for happiness (TikTok film, tall)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 161.4,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.05,
+  "surface": "grass",
+  "room": "open",
+  "guard": true,
+  "level": -9.7
+ },
+ "creative": {
+  "length": [
+   24.4,
+   24.4
+  ]
+ },
+ "set": {
+  "type": "scorehill",
+  "time": "golden",
+  "light": "golden",
+  "key": [
+   -1.2,
+   3.3,
+   -4.2
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "birdAt": 14.8,
+  "birdDur": 9
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ],
+  [
+   1.9,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   8.45,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ],
+  [
+   12.7,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.16,
+    "w": 0.8
+   }
+  ],
+  [
+   12.75,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 1.16,
+    "w": 0.8
+   },
+   2
+  ]
+ ],
+ "ring": {
+  "at": 10.92,
+  "dur": 0.9,
+  "xy": [
+   500,
+   980
+  ],
+  "r": 1300,
+  "soft": 160,
+  "s0": 0.45,
+  "s1": 1.22,
+  "w": 0.8,
+  "until": 12.7
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     29
+    ]
+   ],
+   "out": [
+    10.6,
+    0.5
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "00:41"
+    ],
+    [
+     0.6,
+     "00:22",
+     4
+    ],
+    [
+     10.6,
+     "00:12",
+     3
+    ],
+    [
+     24.6,
+     "00:03",
+     3
+    ],
+    [
+     28.6,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "score": {
+  "view": [
+   [
+    1.9,
+    8.45
+   ]
+  ],
+  "tags": [
+   {
+    "who": "mash",
+    "k": 1.15,
+    "keys": [
+     [
+      0,
+      84
+     ]
+    ],
+    "show": [
+     1.9,
+     8.45
+    ]
+   }
+  ]
+ },
+ "hook": {
+  "show": [
+   "mash",
+   "spud"
+  ],
+  "hint": 0,
+  "what": "on the hilltop at golden hour"
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -0.48,
+    -1
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.25,
+    0.1
+   ],
+   "face": 180,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    90,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 4.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    93,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 5.2
+  }
+ ],
+ "props": [
+  {
+   "id": "bench",
+   "kind": "hillbench",
+   "x": 0,
+   "y": 0,
+   "z": -1.2,
+   "rot": 180
+  },
+  {
+   "id": "bikeM",
+   "kind": "bike",
+   "color": "#3f6fa8",
+   "x": -1.75,
+   "y": 0,
+   "z": -0.55,
+   "rot": 160,
+   "tilt": 0
+  },
+  {
+   "id": "bikeS",
+   "kind": "bike",
+   "color": "#b5412f",
+   "x": 2.05,
+   "y": 0,
+   "z": 0.05,
+   "rot": 190,
+   "tilt": 0
+  },
+  {
+   "id": "glw",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "fold": 0,
+   "x": 0,
+   "y": 0.835,
+   "z": 0.276,
+   "tip": -28
+  },
+  {
+   "id": "gs0",
+   "kind": "seatmark",
+   "x": 1.45,
+   "y": 0,
+   "z": -2.25,
+   "rot": 180
+  },
+  {
+   "id": "gs1",
+   "kind": "seatmark",
+   "x": 2.35,
+   "y": 0,
+   "z": -2,
+   "rot": 180
+  }
+ ],
+ "captions": [
+  {
+   "from": 7.25,
+   "to": 8.4,
+   "text": "HAVE YOU?",
+   "pos": 300,
+   "pop": false,
+   "size": 150,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  },
+  {
+   "from": 8.55,
+   "to": 10.35,
+   "text": "You're missing it.",
+   "pos": 316,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "39 the top",
+   "at": 0,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     1.7,
+     1.1,
+     -3.4
+    ],
+    "look": [
+     1.15,
+     0.75,
+     0.1
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "sit",
+     "seat": "bench",
+     "along": 0.48,
+     "height": 0.3,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0.5,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.2,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.035,
+     "dur": 6,
+     "reason": "a breeze on the hilltop, far under the music",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.94,
+       0.29
+      ]
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "x": 0,
+      "y": 0.835,
+      "z": 0.276,
+      "tip": -28
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.48
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": 0.349,
+      "tip": 6
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.69,
+       0.37
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      90,
+      -20
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.88
+    }
+   ]
+  },
+  {
+   "name": "40 grey valley",
+   "at": 1.9,
+   "len": 6.55,
+   "shot": {
+    "pos": [
+     1.15,
+     0.92,
+     0.35
+    ],
+    "look": [
+     -0.45,
+     0.4,
+     -9
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "macro": "narrate",
+     "line": "Have you ever looked so hard for happiness that you missed it?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.05,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 1.7
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.035,
+     "dur": 6,
+     "reason": "a breeze on the hilltop, far under the music",
+     "at": 4.2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.47,
+      -1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.53
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.53
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": 0.349,
+      "tip": 6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 6.53
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.01,
+     "at": 6.53
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "41 you're missing it",
+   "at": 8.45,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     0,
+     1.3,
+     -6.4
+    ],
+    "look": [
+     0,
+     1,
+     -1.2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "bench",
+     "along": -0.47,
+     "height": 0.3,
+     "dur": 0,
+     "hands": "lap",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.25,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "world": [
+       0,
+       0.33999999999999997,
+       -1.15
+      ]
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.55,
+      "tilt": 0.3
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "You're missing it.",
+     "tone": "warm",
+     "dur": 1.4,
+     "blink": false,
+     "voice": false,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.85
+    }
+   ]
+  },
+  {
+   "name": "42 glasses off",
+   "at": 10.4,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     0.3,
+     0.95,
+     -3.6
+    ],
+    "look": [
+     0.47,
+     0.8,
+     -1.2
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.69,
+       0.37
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.02
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "x": 0,
+      "y": 0.64,
+      "z": 0.349,
+      "tip": 6
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0.23
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "x": 0,
+      "y": 0.835,
+      "z": 0.276,
+      "tip": -28
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.16,
+       0.94,
+       0.29
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.2,
+      "curve": 0.2
+     },
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "open": 0.25,
+      "curve": 0.7,
+      "eye": 1.05
+     },
+     "dur": 0.5,
+     "at": 1.45
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.035,
+     "dur": 6,
+     "reason": "a breeze on the hilltop, far under the music",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.28
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "43 the valley",
+   "at": 12.7,
+   "len": 5.3,
+   "shot": {
+    "pos": [
+     0,
+     1.25,
+     5.2
+    ],
+    "look": [
+     0,
+     0.2,
+     -4.8
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      0,
+      1.25,
+      5.2
+     ],
+     "look": [
+      0,
+      0.2,
+      -4.8
+     ],
+     "fov": 34
+    },
+    "dur": 5.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "For the first time in three days, you didn't check.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.45,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 0.25
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 2.1
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 6,
+     "dur": 0.8,
+     "ease": "settle",
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 2.9
+    }
+   ]
+  },
+  {
+   "name": "44 the tune",
+   "at": 18,
+   "len": 6.4,
+   "shot": {
+    "pos": [
+     0,
+     1.3,
+     -6.4
+    ],
+    "look": [
+     0,
+     1,
+     -1.2
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      1,
+      1.5,
+      -8.6
+     ],
+     "look": [
+      1,
+      0.5,
+      -1.6
+     ],
+     "fov": 50
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.2,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.035,
+     "dur": 6,
+     "reason": "a breeze on the hilltop, far under the music",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "pucker": 1,
+      "curve": 0.2,
+      "open": 0
+     },
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.2
+    },
+    {
+     "sfx": "whistletune",
+     "gain": 0.5,
+     "dur": 2,
+     "reason": "THE TUNE: Spud whistles it first (2:58)",
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 0.9,
+      "open": 0.3
+     },
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "pucker": 1,
+      "curve": 0.2,
+      "open": 0
+     },
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0.6,
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "sfx": "whistletune",
+     "gain": 0.4,
+     "dur": 2,
+     "reason": "THE TUNE: Mash answers it",
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.5
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      4.3,
+      -1.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -120,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      5,
+      -0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -120,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.58
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.6
+     },
+     "dur": 0.01,
+     "at": 1.6
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "curve": 1,
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.45,
+      -2.25
+     ],
+     "y": 0,
+     "dur": 2,
+     "steps": 8,
+     "at": 1.62
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Chip and Wedge's steps on the grass",
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      2.35,
+      -2
+     ],
+     "y": 0,
+     "dur": 2,
+     "steps": 8,
+     "at": 1.85
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Chip and Wedge's steps on the grass",
+     "at": 2.2
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Chip and Wedge's steps on the grass",
+     "at": 2.7
+    },
+    {
+     "sfx": "step-grass",
+     "gain": 0.25,
+     "reason": "Chip and Wedge's steps on the grass",
+     "at": 3
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.35,
+     "at": 3.65
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.35,
+     "at": 3.9
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "gs0",
+     "height": 0.06,
+     "dur": 0.45,
+     "hands": "lap",
+     "at": 4.05
+    },
+    {
+     "sfx": "sit",
+     "gain": 0.25,
+     "reason": "Chip drops onto the grass",
+     "at": 4.15
+    },
+    {
+     "who": "wedge",
+     "do": "sit",
+     "seat": "gs1",
+     "height": 0.06,
+     "dur": 0.45,
+     "hands": "lap",
+     "at": 4.3
+    },
+    {
+     "sfx": "sit",
+     "gain": 0.25,
+     "reason": "Wedge drops onto the grass",
+     "at": 4.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "pucker": 0,
+      "curve": 1,
+      "open": 0.5
+     },
+     "dur": 0.3,
+     "at": 4.5
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.3,
+     "at": 4.5
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 4.5
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.5,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 4.5
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 4.5
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "pucker": 0,
+      "curve": 1,
+      "open": 0.4
+     },
+     "dur": 0.3,
+     "at": 4.7
+    },
+    {
+     "who": "mash",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.3,
+     "at": 4.7
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 4.8
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 4.8
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 4.9
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 5.1
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 5.2
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 5.4
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 5.4
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.22,
+     "at": 5.5
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 5.6
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 6.2
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.9,
+   "see": [
+    "mash",
+    "spud.face"
+   ],
+   "why": "39: on the hilltop, Mash flops onto the bench; Spud pulls the glasses down"
+  },
+  {
+   "from": 8.45,
+   "to": 10.4,
+   "see": [
+    "mash.face"
+   ],
+   "why": "41: Mash: you're missing it"
+  },
+  {
+   "from": 10.4,
+   "to": 12.7,
+   "see": [
+    "spud.face"
+   ],
+   "why": "42: the glasses go up; colour floods back"
+  },
+  {
+   "from": 18,
+   "to": 24.4,
+   "see": [
+    "spud.face",
+    "mash.face",
+    "chip",
+    "wedge"
+   ],
+   "why": "44: the tune, friends arrive"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "glw",
+   "from": 0,
+   "to": 12.7,
+   "checks": [
+    "shell",
+    "clipping"
+   ],
+   "reason": "the glasses are worn (forehead, nose, pushed back up by his own hand): the temples rest on his head"
+  },
+  {
+   "who": "spud",
+   "with": "bench",
+   "from": 8.45,
+   "to": 24.4,
+   "reason": "he sits on the bench"
+  },
+  {
+   "who": "mash",
+   "with": "bench",
+   "from": 0,
+   "to": 24.4,
+   "reason": "he sits on the bench"
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-d/make-block-d.mjs (story 161.4-185.8)."
+}

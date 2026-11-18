@@ -166,7 +166,8 @@ def finish(x, sr, phones, job):
     """The line's sound after the model (and after voice conversion): pitch, softness, the recipe's EQ, levelling."""
     af = ["highpass=f=40"]
     # convert.tempo (a slower, older delivery): stretched without a pitch change; every phoneme time stretches with it
-    tempo = (job.get("convert") or {}).get("tempo")
+    # tempo (a recipe's own, e.g. a brisker narrator: VoxCPM2 takes no speed) does the same
+    tempo = (job.get("convert") or {}).get("tempo") or job.get("tempo")
     if tempo:
         af.append(f"atempo={tempo}")
         phones = [[c, round(t / tempo, 4), round(d / tempo, 4)] for c, t, d in phones]
