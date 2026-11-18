@@ -232,103 +232,103 @@
  "captions": [
   {
    "from": 0.05,
-   "to": 1.86,
-   "text": "You planned the bank robbery.",
+   "to": 1.71,
+   "text": "You planned the robbery.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 1.86,
-   "to": 3.98,
+   "from": 1.71,
+   "to": 3.83,
    "text": "And you just helped. *1 YEAR.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 3.98,
-   "to": 4.91,
+   "from": 3.83,
+   "to": 4.76,
    "text": "Just helped?!",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 4.91,
-   "to": 6.45,
+   "from": 4.76,
+   "to": 6.3,
    "text": "He got lost in the bank!",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 6.45,
-   "to": 8.4,
-   "text": "I picked the bank. I picked the night.",
+   "from": 6.3,
+   "to": 7.73,
+   "text": "The plan was MINE!",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 8.4,
-   "to": 11.54,
+   "from": 7.73,
+   "to": 10.87,
    "text": "So you planned it. *10 YEARS.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 11.54,
-   "to": 13.57,
+   "from": 10.87,
+   "to": 12.9,
    "text": "He even packed my snack!",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 13.57,
-   "to": 15.79,
-   "text": "Thank you! I organized *everything.*",
+   "from": 12.9,
+   "to": 14.5,
+   "text": "Thank you! I'm the *boss!*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 15.79,
-   "to": 17.37,
+   "from": 14.5,
+   "to": 16.08,
    "text": "The boss gets *LIFE.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 21,
-   "to": 22.35,
+   "from": 19.733,
+   "to": 21.083,
    "text": "...I was just helping.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 23.7,
-   "to": 24.99,
+   "from": 22.433,
+   "to": 23.723,
    "text": "He's the boss.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 24.99,
-   "to": 27.61,
+   "from": 23.723,
+   "to": 26.343,
    "text": "Then you're the helper. *1 YEAR.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 27.61,
-   "to": 28.65,
+   "from": 26.343,
+   "to": 27.383,
    "text": "Thank you!",
    "pos": 470,
    "pop": false,
@@ -339,7 +339,7 @@
   {
    "name": "one year",
    "at": 0,
-   "len": 8.4,
+   "len": 7.73,
    "shot": {
     "pos": [
      0,
@@ -492,10 +492,10 @@
     {
      "who": "vik",
      "macro": "say",
-     "line": "You planned the bank robbery.",
+     "line": "You planned the robbery.",
      "tone": "angry",
      "style": "deep, stern, loud, slow, a judge",
-     "dur": 1.66,
+     "dur": 1.51,
      "caption": false,
      "at": 0.05
     },
@@ -521,7 +521,7 @@
       -0.5
      ],
      "dur": 0.2,
-     "at": 1.66
+     "at": 1.51
     },
     {
      "who": "vik",
@@ -531,7 +531,7 @@
      "style": "deep, stern, flat, a judge",
      "dur": 1.82,
      "caption": false,
-     "at": 1.86
+     "at": 1.71
     },
     {
      "who": "wedge",
@@ -559,7 +559,7 @@
      },
      "dur": 0.16,
      "ease": "out",
-     "at": 3.2
+     "at": 3.067
     },
     {
      "who": "vik",
@@ -581,18 +581,12 @@
      },
      "dur": 0.07,
      "ease": "in",
-     "at": 3.39
-    },
-    {
-     "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 3.4
+     "at": 3.257
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.2,
-     "at": 3.45
+     "at": 3.317
     },
     {
      "do": "prop",
@@ -602,26 +596,32 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 3.45
+     "at": 3.317
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.15,
-     "at": 3.51
+     "at": 3.377
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "kind",
      "dur": 0.3,
-     "at": 3.51
+     "at": 3.377
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 3.52
+     "at": 3.387
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.4
     },
     {
      "who": "chip",
@@ -631,7 +631,7 @@
       1.8
      ],
      "dur": 0.45,
-     "at": 3.73
+     "at": 3.58
     },
     {
      "who": "chip",
@@ -646,7 +646,7 @@
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 3.73
+     "at": 3.58
     },
     {
      "who": "chip",
@@ -654,14 +654,14 @@
      "side": "R",
      "shape": "point",
      "dur": 0.2,
-     "at": 3.88
+     "at": 3.73
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "angry",
      "dur": 0.15,
-     "at": 3.88
+     "at": 3.73
     },
     {
      "who": "chip",
@@ -671,14 +671,14 @@
      "style": "outraged, offended, high, loud",
      "dur": 0.78,
      "caption": false,
-     "at": 3.98
+     "at": 3.83
     },
     {
      "who": "chip",
      "do": "turn",
      "to": -50,
      "dur": 0.3,
-     "at": 4.71
+     "at": 4.56
     },
     {
      "who": "chip",
@@ -688,7 +688,7 @@
       0.45
      ],
      "dur": 0.2,
-     "at": 4.71
+     "at": 4.56
     },
     {
      "who": "chip",
@@ -703,7 +703,7 @@
      },
      "dur": 0.4,
      "ease": "inOut",
-     "at": 4.71
+     "at": 4.56
     },
     {
      "who": "chip",
@@ -713,13 +713,7 @@
      "style": "outraged, fast, pointing at his friend",
      "dur": 1.39,
      "caption": false,
-     "at": 4.91
-    },
-    {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 5.1
+     "at": 4.76
     },
     {
      "who": "wedge",
@@ -730,7 +724,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 5.11
+     "at": 4.96
     },
     {
      "who": "wedge",
@@ -739,14 +733,20 @@
      "pose": "hat",
      "dur": 0.6,
      "ease": "inOut",
-     "at": 5.21
+     "at": 5.06
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "happy",
      "dur": 0.3,
-     "at": 5.21
+     "at": 5.06
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.1
     },
     {
      "who": "chip",
@@ -761,14 +761,14 @@
      },
      "dur": 0.45,
      "ease": "inOut",
-     "at": 6.25
+     "at": 6.1
     },
     {
      "who": "chip",
      "do": "turn",
      "to": -20,
      "dur": 0.3,
-     "at": 6.3
+     "at": 6.15
     },
     {
      "who": "chip",
@@ -778,7 +778,7 @@
       0.75
      ],
      "dur": 0.25,
-     "at": 6.3
+     "at": 6.15
     },
     {
      "who": "chip",
@@ -786,14 +786,14 @@
      "side": "R",
      "shape": "open",
      "dur": 0.2,
-     "at": 6.3
+     "at": 6.15
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "cocky",
      "dur": 0.2,
-     "at": 6.35
+     "at": 6.2
     },
     {
      "who": "wedge",
@@ -802,7 +802,7 @@
      "pose": "rest",
      "dur": 0.6,
      "ease": "inOut",
-     "at": 6.45
+     "at": 6.3
     },
     {
      "who": "wedge",
@@ -813,17 +813,17 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 6.45
+     "at": 6.3
     },
     {
      "who": "chip",
      "macro": "say",
-     "line": "I picked the bank. I picked the night.",
-     "tone": "happy",
-     "style": "proud, bragging, fast, chin up",
-     "dur": 1.75,
+     "line": "The plan was MINE!",
+     "tone": "angry",
+     "style": "proud, insulted, loud, chin up, slamming his chest",
+     "dur": 1.23,
      "caption": false,
-     "at": 6.45
+     "at": 6.3
     },
     {
      "who": "vik",
@@ -831,14 +831,14 @@
      "to": 12,
      "dur": 0.5,
      "ease": "inOut",
-     "at": 7.05
+     "at": 6.9
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "focused",
      "dur": 0.3,
-     "at": 7.05
+     "at": 6.9
     },
     {
      "who": "vik",
@@ -846,22 +846,22 @@
      "to": 0,
      "dur": 0.4,
      "ease": "inOut",
-     "at": 8.3
+     "at": 7.63
     },
     {
      "who": "vik",
      "do": "expr",
      "expr": "stern",
      "dur": 0.3,
-     "at": 8.3
+     "at": 7.63
     }
    ],
    "kind": "hook"
   },
   {
    "name": "ten years",
-   "at": 8.4,
-   "len": 7.39,
+   "at": 7.73,
+   "len": 6.77,
    "shot": "keep",
    "do": [
     {
@@ -891,13 +891,13 @@
      "who": "wedge",
      "do": "blink",
      "dur": 0.22,
-     "at": 1
+     "at": 1.67
     },
     {
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 1.8
+     "at": 2.47
     },
     {
      "who": "vik",
@@ -919,7 +919,7 @@
      },
      "dur": 0.16,
      "ease": "out",
-     "at": 2.467
+     "at": 2.47
     },
     {
      "who": "vik",
@@ -941,12 +941,12 @@
      },
      "dur": 0.07,
      "ease": "in",
-     "at": 2.657
+     "at": 2.66
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.2,
-     "at": 2.717
+     "at": 2.72
     },
     {
      "do": "prop",
@@ -956,7 +956,7 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 2.717
+     "at": 2.72
     },
     {
      "who": "wedge",
@@ -970,7 +970,7 @@
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 2.787
+     "at": 2.79
     },
     {
      "who": "wedge",
@@ -984,7 +984,7 @@
      "do": "face",
      "lid": 0,
      "dur": 0.2,
-     "at": 2.977
+     "at": 2.98
     },
     {
      "who": "wedge",
@@ -995,12 +995,6 @@
      "dur": 1.88,
      "caption": false,
      "at": 3.14
-    },
-    {
-     "who": "chip",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 4.5
     },
     {
      "who": "chip",
@@ -1046,11 +1040,17 @@
     },
     {
      "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.17
+    },
+    {
+     "who": "chip",
      "macro": "say",
-     "line": "Thank you! I organized everything.",
+     "line": "Thank you! I'm the boss!",
      "tone": "happy",
      "style": "proud, bragging, loud, triumphant",
-     "dur": 1.97,
+     "dur": 1.35,
      "caption": false,
      "at": 5.17
     },
@@ -1104,8 +1104,8 @@
   },
   {
    "name": "life",
-   "at": 15.79,
-   "len": 1.61,
+   "at": 14.5,
+   "len": 1.567,
    "shot": "keep",
    "do": [
     {
@@ -1117,12 +1117,6 @@
      "dur": 1.28,
      "caption": false,
      "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.31
     },
     {
      "who": "vik",
@@ -1144,7 +1138,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.743
+     "at": 0.7
     },
     {
      "who": "vik",
@@ -1166,12 +1160,12 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 1.073
+     "at": 1.03
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.4,
-     "at": 1.163
+     "at": 1.12
     },
     {
      "do": "prop",
@@ -1181,27 +1175,27 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.163
+     "at": 1.12
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 1.233
+     "at": 1.19
     },
     {
      "who": "chip",
      "do": "squash",
      "to": 0,
      "dur": 0.3,
-     "at": 1.473
+     "at": 1.43
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "smile freezes",
-   "at": 17.4,
-   "len": 1.4,
+   "at": 16.067,
+   "len": 1.466,
    "shot": {
     "pos": [
      0.5,
@@ -1217,6 +1211,12 @@
    },
    "do": [
     {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.033
+    },
+    {
      "who": "chip",
      "do": "look",
      "to": [
@@ -1226,12 +1226,6 @@
      "dur": 0.3,
      "blink": false,
      "at": 0.1
-    },
-    {
-     "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.2
     },
     {
      "who": "chip",
@@ -1283,21 +1277,21 @@
       0.2
      ],
      "dur": 0.15,
-     "at": 1.25
+     "at": 1.316
     },
     {
      "who": "chip",
      "do": "turn",
      "to": -30,
      "dur": 0.3,
-     "at": 1.35
+     "at": 1.416
     }
    ]
   },
   {
    "name": "just helping",
-   "at": 18.8,
-   "len": 10.667,
+   "at": 17.533,
+   "len": 10.634,
    "shot": {
     "pos": [
      0,
@@ -1321,6 +1315,12 @@
      ],
      "dur": 1.1,
      "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.067
     },
     {
      "who": "vik",
@@ -1410,12 +1410,6 @@
     },
     {
      "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 4.2
-    },
-    {
-     "who": "wedge",
      "do": "turn",
      "to": 30,
      "dur": 0.35,
@@ -1465,10 +1459,10 @@
      "at": 4.9
     },
     {
-     "who": "vik",
+     "who": "wedge",
      "do": "blink",
      "dur": 0.22,
-     "at": 5.3
+     "at": 5.467
     },
     {
      "who": "vik",
@@ -1526,6 +1520,12 @@
      "at": 6.29
     },
     {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.567
+    },
+    {
      "who": "wedge",
      "do": "expr",
      "expr": "delighted",
@@ -1567,7 +1567,7 @@
  "visible": [
   {
    "from": 0,
-   "to": 1.71,
+   "to": 1.56,
    "see": [
     "vik.face",
     "wedge.face",
@@ -1577,8 +1577,8 @@
    "why": "the judge tells the big one he planned the robbery; 0 YEARS"
   },
   {
-   "from": 1.86,
-   "to": 4.06,
+   "from": 1.71,
+   "to": 3.927,
    "see": [
     "vik.face",
     "board",
@@ -1587,8 +1587,8 @@
    "why": "1 YEAR; the little one is offended"
   },
   {
-   "from": 8.4,
-   "to": 11.727,
+   "from": 7.73,
+   "to": 11.06,
    "see": [
     "vik.face",
     "board",
@@ -1597,8 +1597,8 @@
    "why": "10 YEARS; the little one nods proudly"
   },
   {
-   "from": 15.79,
-   "to": 17.463,
+   "from": 14.5,
+   "to": 16.13,
    "see": [
     "vik.face",
     "board",
@@ -1607,16 +1607,16 @@
    "why": "LIFE on the board"
   },
   {
-   "from": 17.4,
-   "to": 18.8,
+   "from": 16.067,
+   "to": 17.533,
    "see": [
     "chip.face"
    ],
    "why": "the little one looks up at LIFE; his smile freezes"
   },
   {
-   "from": 23.05,
-   "to": 24.79,
+   "from": 21.783,
+   "to": 23.523,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1625,8 +1625,8 @@
    "why": "the big one steps aside and points: he's the boss"
   },
   {
-   "from": 24.99,
-   "to": 29.467,
+   "from": 23.723,
+   "to": 28.167,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1640,14 +1640,14 @@
    "who": "vik",
    "with": "chair",
    "from": 0,
-   "to": 29.467,
+   "to": 28.167,
    "reason": "the judge sits in his chair"
   },
   {
    "who": "chip",
    "with": "wedge",
-   "from": 19.8,
-   "to": 22.95,
+   "from": 18.533,
+   "to": 21.683,
    "checks": [
     "face-hidden",
     "front"

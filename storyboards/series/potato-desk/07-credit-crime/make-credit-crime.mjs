@@ -22,7 +22,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 const F2 = (t) => r3(Math.round(t * 15) / 15);   // on the 2-frame grid animeTiming draws (clip-lessons: odd-frame shifts move the drawn frames)
 
 // measured spoken lengths (node qa/lines.mjs desk07-voice-probe.json, 18 Nov 2026), in LINES order
-const DUR = [1.66, 1.82, 0.78, 1.39, 1.75, 2.89, 1.88, 1.97, 1.28, 1.05, 1.09, 2.47, 0.74];
+const DUR = [1.51, 1.82, 0.78, 1.39, 1.23, 2.89, 1.88, 1.35, 1.28, 1.05, 1.09, 2.47, 0.74];
 // the pause before each line (Jonny 17 Nov: pace up). 9 ("...I was just helping") waits for the cut-in.
 const GAP = [0.05, 0.15, 0.3, 0.15, 0.15, 0.2, 0.25, 0.15, 0.25, 0.3, 0.3, 0.2, 0.15];
 const T = []; { let t = 0; LINES.forEach((_, i) => { t = r3(t + GAP[i]); T.push(t); t = r3(t + DUR[i]); }); }
@@ -66,7 +66,7 @@ const props = [
 
 // captions: upper third, under the band the in-app title takes; numbers as digits, the sentence in colour
 const SUB = 470;
-const CAPTEXT = { 1: "And you just helped. *1 YEAR.*", 5: "So you planned it. *10 YEARS.*", 7: "Thank you! I organized *everything.*", 8: "The boss gets *LIFE.*", 11: "Then you're the helper. *1 YEAR.*" };
+const CAPTEXT = { 1: "And you just helped. *1 YEAR.*", 5: "So you planned it. *10 YEARS.*", 7: "Thank you! I'm the *boss!*", 8: "The boss gets *LIFE.*", 11: "Then you're the helper. *1 YEAR.*" };
 const say = (i, extra = {}) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
@@ -100,7 +100,7 @@ act.blinksAt(c, "chip", [5.1, 12.9]);
 act.blinksAt(c, "wedge", [2.6, 9.4, 16.1, 23.0]);
 see(0, END_OF(0), ["vik.face", "wedge.face", "chip.face", "board"], "the judge tells the big one he planned the robbery; 0 YEARS");
 
-// 1 JUDGE (to the big one): You planned the bank robbery.
+// 1 JUDGE (to the big one): You planned the robbery.
 say(0);
 // 2 JUDGE (to the little one): And you just helped. One year.  (tok, 1 YEAR; the little one is offended, not relieved)
 A(r3(T[1] - 0.2), "vik", "look", { to: VIK_AT_CHIP, dur: 0.2 });
@@ -121,7 +121,7 @@ arm(r3(T[3] - 0.2), "chip", "R", { o: [0.22, 0.62, 0.3] }, 0.4);
 A(r3(T[3] + 0.2), "wedge", "look", { to: [0.6, -0.2], dur: 0.2, blink: false });
 arm(r3(T[3] + 0.3), "wedge", "R", "hat", 0.6); A(r3(T[3] + 0.3), "wedge", "expr", { expr: "happy", dur: 0.3 });
 say(3);
-// 5 CHIP, hand on chest, chin up: I picked the bank. I picked the night.  (the judge leans in)
+// 5 CHIP, hand on chest, chin up: The plan was MINE!  (the judge leans in)
 A(r3(T[4] - 0.15), "chip", "turn", { to: D_YAW, dur: 0.3 });
 A(r3(T[4] - 0.15), "chip", "look", { to: [-0.6, 0.75], dur: 0.25 });
 arm(r3(T[4] - 0.2), "chip", "R", { o: [-0.17, 0.55, 0.3] }, 0.45); grip(r3(T[4] - 0.15), "chip", "R", "open");
@@ -139,7 +139,7 @@ see(T[5], r3(S2 + 0.6), ["vik.face", "board", "chip.face"], "10 YEARS; the littl
 // 7 WEDGE, one hand up, eager to help: He even packed my snack!
 arm(r3(T[6] - 0.4), "wedge", "L", "up", 0.5, "out"); A(r3(T[6] - 0.25), "wedge", "expr", { expr: "eager", dur: 0.2 });
 say(6);
-// 8 CHIP turns to him, then arms wide, beaming: Thank you! I organized everything.
+// 8 CHIP turns to him, then arms wide, beaming: Thank you! I'm the boss!
 A(r3(T[7] - 0.15), "chip", "turn", { to: CHIP_TO_WEDGE + 25, dur: 0.25 }); A(r3(T[7] - 0.15), "chip", "look", { to: [-0.6, 0.35], dur: 0.2 });
 arm(r3(T[7] - 0.15), "chip", "R", "rest", 0.4);
 arm(r3(END_OF(6) + 0.1), "wedge", "L", "rest", 0.6); A(r3(END_OF(6) + 0.1), "wedge", "expr", { expr: "happy", dur: 0.3 });
@@ -155,7 +155,7 @@ A(r3(S3 + 0.3), "chip", "squash", { to: 0, dur: 0.3 });
 see(T[8], r3(S3 + 0.5), ["vik.face", "board", "chip.face"], "LIFE on the board");
 
 // ---------------------------------------------------------------- the cut-in: the little one's smile freezes
-const CUT = F2(S3 + 0.45), BACK = F2(CUT + 1.4);
+const CUT = F2(S3 + 0.45), BACK = F2(CUT + 1.47);   // 1.47 not 1.4: the hide steps land with the feet planted (stance-slide 4.9 cm -> clear, draft 3)
 A(r3(CUT + 0.1), "chip", "look", { to: AT_BOARD, dur: 0.3, blink: false });
 arm(r3(CUT + 0.35), "chip", "both", "rest", 0.6, "inOut");
 A(r3(CUT + 0.3), "chip", "expr", { expr: "shocked", dur: 0.25 });
