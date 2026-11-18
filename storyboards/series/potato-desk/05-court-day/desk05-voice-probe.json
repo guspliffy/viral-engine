@@ -43,7 +43,7 @@
    "id": "wedge",
    "character": "potatobrawl/wedge",
    "at": [
-    1.4,
+    1.9,
     0
    ],
    "face": 0,
@@ -53,7 +53,7 @@
    "id": "mash",
    "character": "potatobrawl/mash",
    "at": [
-    -1.8,
+    -2.1,
     0
    ],
    "face": 0,
@@ -63,7 +63,7 @@
    "id": "chip",
    "character": "potatobrawl/chip",
    "at": [
-    0.6,
+    0.5,
     0
    ],
    "face": 0,

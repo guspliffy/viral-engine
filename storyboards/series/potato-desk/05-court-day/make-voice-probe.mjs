@@ -7,9 +7,9 @@ for (const [who, line, tone, style, o = {}] of LINES) { const est = r3(line.spli
 const END = r3(t);
 const cast = [
   { id: "vik", character: "potatobrawl/viking-judge", at: [-0.9, 0], face: 0, expr: "kind" },
-  { id: "wedge", character: "potatobrawl/wedge", at: [1.4, 0], face: 0, expr: "kind" },
-  { id: "mash", character: "potatobrawl/mash", at: [-1.8, 0], face: 0, expr: "kind" },
-  { id: "chip", character: "potatobrawl/chip", at: [0.6, 0], face: 0, expr: "kind" },
+  { id: "wedge", character: "potatobrawl/wedge", at: [1.9, 0], face: 0, expr: "kind" },
+  { id: "mash", character: "potatobrawl/mash", at: [-2.1, 0], face: 0, expr: "kind" },
+  { id: "chip", character: "potatobrawl/chip", at: [0.5, 0], face: 0, expr: "kind" },
 ];
 const beats = c.beats([["probe", 0, { pos: [0, 1.2, 6], look: [0, 0.6, 0], fov: 40 }]], END);
 write(import.meta.url, {
