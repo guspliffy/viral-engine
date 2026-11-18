@@ -2,7 +2,7 @@
 // Friday-Saturday night: frustration, obsession, loneliness). Brief: ../kit/BLOCKS.md; story: ../OUTLINE.md; look: ../DESIGN.md.
 //   node storyboards/series/happiness/03-happiness-score/block-b/measure-lines.mjs   -> lines.json (narrator lengths)
 //   (music: the film score kit SCORE(T0), Jonny 16 Nov; make-music-b.sh made the party bed kit/score.py takes the bossa from)
-//   node storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs    -> hs03-b{1..6}-wide.json
+//   node storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs [tall]   -> hs03-b{1..6}-wide.json (tall: -tall)
 //   bash storyboards/series/happiness/03-happiness-score/block-b/join-block-b.sh wide draft   -> out/hs03-b-wide-draft.mp4
 //
 // One storyboard per place (block time t = story time - 50; each storyboard runs from its own 0):
@@ -23,6 +23,7 @@ import { FRAME, SETS, SCORE, LEVEL, CAST, SPUD, SCORES, spudAt, at, hudFor, scor
 import { LINES } from "./lines.mjs";
 
 const T0 = 50;   // story time of block time 0
+const F = process.argv.includes("tall") ? FRAME.tall : FRAME.wide;   // tall (17 Nov): one tall film of the whole story, same story times, no part hook
 const MEASURED = new URL("./lines.json", import.meta.url);
 const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : Object.fromEntries(Object.entries(LINES).map(([k, l]) => [k, r3(0.4 + l.split(/\s+/).length / 2.6)]));
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
@@ -45,7 +46,7 @@ const AT = { n1: 1.5, n2: 3.9, n3: 13.0, n4: 29.5, n5: 35.8, n6: 41.6 };
 const VIEWS = [[T.v13, T.s13], [T.v14, T.s14], [T.v15, T.s15], [T.v18, T.s19], [T.v19, T.s20], [T.v21, T.s22]];   // 21 + 21m: one view, two shots
 
 // a pinhole projection for the wide frame (split edge x): cam = { pos, look, fov (vertical) }
-function project(cam, p, W = 1920, H = 1080) {
+function project(cam, p, W = F.W, H = F.H) {
   const sub = (a, b) => a.map((v, i) => v - b[i]), dot = (a, b) => a.reduce((s, v, i) => s + v * b[i], 0);
   const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
   const norm = (a) => { const l = Math.hypot(...a); return a.map((v) => v / l); };
@@ -53,9 +54,24 @@ function project(cam, p, W = 1920, H = 1080) {
   const z = dot(d, f), k = H / 2 / Math.tan((cam.fov * Math.PI) / 360);
   return [Math.round(W / 2 + (dot(d, r) / z) * k), Math.round(H / 2 - (dot(d, u) / z) * k)];
 }
+// 9:16: the vertical fov stays, so each shot loses most of its width: TALL re-aims what 9:16 breaks (shot number -> camera)
 const cam = (pos, look, fov, to) => ({ pos, look, fov, ...(to && { to: { pos: to.pos ?? pos, look: to.look ?? look, fov: to.fov ?? fov }, dur: to.dur, ease: to.ease ?? "inOut" }) });
+const TALL = {
+  13: cam([0.9, 1.1, 2.4], [0.3, 0.75, 0.25], 44, { pos: [0.85, 1.09, 2.3], dur: T.s14a - T.s13 }),   // Spud and the taped mirror both in
+  "14a": cam([1.45, 1.36, 0.35], [-0.25, 1.1, -1.2], 30, { pos: [1.4, 1.35, 0.27], dur: T.v14 - T.s14a }),   // Spud centred (the kettle is the view)
+  14: cam([1.35, 1.34, 0.2], [-0.22, 1.1, -1.2], 34, { pos: [1.3, 1.33, 0.12], dur: T.s15a - T.s14 }),
+  15: cam([-3.0, 0.5, 3.6], [-3.0, 0.5, 1.5], 44, { pos: [-3.1, 0.5, 3.5], look: [-4.5, 0.5, 1.5], dur: T.s16 - T.s15, ease: "linear" }),   // pans with his walk
+  16: cam([-1.3, 1.1, 2.6], [-1.75, 0.88, -0.4], 46, { pos: [-1.35, 1.08, 2.45], dur: T.s17 - T.s16 }),   // Mash + the speaker, Chip cheering
+  19: cam([1.5, 1.0, 2.1], [1.88, 0.62, -1.05], 40, { pos: [1.52, 1.0, 2.0], dur: T.v19 - T.s19 }),   // Chip and Spud both in
+  20: cam([-2.6, 1.25, 2.4], [-1.1, 0.9, -1.0], 50, { look: [1.6, 0.85, -1.4], dur: T.v21 - T.s20, ease: "linear" }),   // pans from the warm dancers to his cool corner
+  "21v": cam([2.05, 0.74, -1.15], [-0.95, 0.85, -0.7], 70),   // the one tall lens: all three
+  "21m": cam([2.05, 0.74, -1.15], [-0.5, 1.15, -1.5], 44),   // Mash centred in the lens, his tag under the caption
+  23: cam([1.3, 1.55, 4.3], [-0.4, 0.95, 0.6], 46, { pos: [1.2, 1.53, 4.0], dur: T.s24 - T.s23 }),
+  24: cam([0.0, 1.05, 2.35], [0.95, 0.6, 0.4], 48, { pos: [0.05, 1.04, 2.2], fov: 46, dur: T.END - T.s24 }),
+};
+const tallCam = (name, s) => TALL[name.split(" ")[0]] ?? s;
 
-function build(F, key) {
+function build(key) {
   const [, from, to] = PARTS.find((p) => p[0] === key);
   const TS = T0 + from;                                   // story time of this storyboard's 0
   const L = (t) => r3(t - from);                          // block time -> clip time
@@ -74,7 +90,7 @@ function build(F, key) {
   const grade = (t, v) => G.push([t, v]);
   const views = VIEWS.filter(([a]) => inPart(a)).map(([a, b]) => [L(a), L(Math.min(b, to))]);
   const tags = [];
-  const ownTag = (t0, t1, xy, k = 1) => tags.push({ who: "spud", keys: at(TS, SPUD), minus: true, show: [L(t0), L(t1)], xy, k, size: "close" });
+  const ownTag = (t0, t1, xy, k = 1) => tags.push({ who: "spud", keys: at(TS, SPUD), minus: true, show: [L(t0), L(t1)], xy: F.key === "tall" ? [r3(540 + (xy[0] - 960)), Math.round(880 + (xy[1] - 540) * 1.04)] : xy, k, size: "close" });
   const props = [{ id: "gl-worn", kind: "scoreglasses", wear: "spud", x: 0, y: 0.640, z: 0.349, tip: 6, fold: 0, staged: "the glasses on Spud's nose (SCORE_FITS nose)" }];
   const cast = [{ id: "spud", character: CAST.spud, at: FARS.spud, face: 0, expr: "sad", follow: 0.2, seed: 1.3 }];
   const add = (id, ch, seed) => cast.push({ id, character: CAST[ch], at: FARS[id], face: 0, expr: "happy", follow: 0.2, seed });
@@ -232,8 +248,9 @@ function build(F, key) {
     A(L(T.s20), "chip", "dance", { do: "point", dur: r3(T.s22 - T.s20), amp: 0.9 }); expr(T.s20, "chip", "delighted", null, 0.01);
     const C20 = cam([-2.6, 1.25, 2.4], [0.5, 1.0, -1.6], 50, { fov: 48.6, dur: T.v21 - T.s20 });
     grade(T.s20, SPUDG(T.s20));
-    const ex = project(C20, [1.35, 0.5, -1.4]);
-    split = { from: L(T.s20), to: L(T.v21), x: ex[0], soft: 110, s: GRADE_FIXED.partyWarm.s, w: GRADE_FIXED.partyWarm.w };
+    const EDGE = [1.35, 0.5, -1.4], C20T = TALL[20];
+    const ex = F.key === "tall" ? [project(C20T, EDGE)[0], project({ ...C20T, ...C20T.to }, EDGE)[0]] : project(C20, EDGE)[0];   // tall: the edge rides the pan
+    split = { from: L(T.s20), to: L(T.v21), x: ex, soft: 110, s: GRADE_FIXED.partyWarm.s, w: GRADE_FIXED.partyWarm.w };
     SH.push(["20 the warmth stops at his corner", T.s20, C20]);
     nar("n4");
     // 21 view (33.6-38.8): from his corner: Chip 93, Wedge 82, Mash 88 in the middle; Mash stops, looks over: 86 (story 86), 84 (88)
@@ -303,7 +320,7 @@ function build(F, key) {
     sound = { surface: "wood", room: "small" };
   }
 
-  const beats = c.beats(SH.map(([n, t, s]) => [n, L(t), s]), r3(to - from));
+  const beats = c.beats(SH.map(([n, t, s]) => [n, L(t), F.key === "tall" ? tallCam(n, s) : s]), r3(to - from));
   return {
     title: `I could see everyone's happiness score (block B, ${key})`,
     idea: "Happiness 03 block B (0:50-1:40): Spud tapes over his mirror and still sees himself in the kettle and a puddle (38, 37, 36); at Mash's goodbye party he keeps checking instead of dancing (35, 34, 33, 32), the warmth stops at his corner; Mash looks over and his number falls 88, 86, 84 because Spud isn't there; Mash alone on the balcony; Spud alone among the boxes, 31.",
@@ -321,4 +338,4 @@ function build(F, key) {
 }
 
 const ONLY = (process.argv.find((a) => /^b\d(,b\d)*$/.test(a)) ?? PARTS.map((p) => p[0]).join(",")).split(",");
-for (const [key] of PARTS) if (ONLY.includes(key)) write(import.meta.url, { id: `hs03-${key}-wide`, ...FRAME.wide.sb, ...build(FRAME.wide, key) });
+for (const [key] of PARTS) if (ONLY.includes(key)) write(import.meta.url, { id: `hs03-${key}-${F.key}`, ...F.sb, ...build(key) });
