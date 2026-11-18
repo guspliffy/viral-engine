@@ -1,0 +1,387 @@
+{
+ "id": "lc10-05-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      38
+     ],
+     [
+      2.8,
+      39
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 93.56,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   12.25,
+   12.25
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.55,
+    1.2
+   ],
+   "face": 63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    1.45,
+    1.2
+   ],
+   "face": -63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 2,
+   "text": "Who ate my fries?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2,
+   "to": 3.35,
+   "text": "Not me!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 4.45,
+   "to": 6.1,
+   "text": "...it was me.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "08 the fries two",
+   "at": 0,
+   "len": 3.25,
+   "shot": {
+    "pos": [
+     1,
+     0.69,
+     4.113
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.677,
+      3.967
+     ]
+    },
+    "dur": 3.25
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.45,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "who ate my fries?",
+     "tone": "question",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.25,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "not me!",
+     "tone": "excited",
+     "dur": 0.95,
+     "blink": false,
+     "voice": false,
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "08 the fries close",
+   "at": 3.25,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.153,
+      0.604,
+      2.481
+     ]
+    },
+    "dur": 1.2
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "08 the fries two",
+   "at": 4.45,
+   "len": 7.8,
+   "shot": {
+    "pos": [
+     1,
+     0.69,
+     4.113
+    ],
+    "look": [
+     1,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1,
+      0.677,
+      3.967
+     ]
+    },
+    "dur": 7.8
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "...it was me.",
+     "tone": "sad",
+     "dur": 1.25,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Not about bread. Not about fries. Not about anything.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.25,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 1.55
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 93.56,
+  "T1": 105.81
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 93.56-105.81 s)."
+}

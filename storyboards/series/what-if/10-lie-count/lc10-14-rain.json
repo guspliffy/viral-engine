@@ -1,0 +1,757 @@
+{
+ "id": "lc10-14-rain",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": true,
+  "light": "dusk-rain",
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      214
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 220.36,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "wind",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   41.83,
+   41.83
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -2.896,
+    0.68
+   ],
+   "face": -5,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -1.809,
+    -0.468
+   ],
+   "face": 95,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    66,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 11.03,
+   "to": 12.68,
+   "text": "Told you. rain.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "17 you followed him wide",
+   "at": 0,
+   "len": 10.88,
+   "shot": {
+    "pos": [
+     -3.229,
+     1.002,
+     4.707
+    ],
+    "look": [
+     -1.5,
+     0.5,
+     1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -3.142,
+      0.977,
+      4.522
+     ]
+    },
+    "dur": 10.88
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.896,
+      0.68
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -5,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.809,
+      -0.468
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 95,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "So on Friday, you followed him.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.58,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 96.618,
+     "dur": 0.25,
+     "at": 3.43
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.292,
+      -0.644
+     ],
+     "y": 0,
+     "dur": 4,
+     "at": 3.53
+    },
+    {
+     "macro": "narrate",
+     "line": "The bakery. After closing time.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.95,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 5.03
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 9.268
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 9.268
+    },
+    {
+     "sfx": "knock-tap",
+     "reason": "the story's own sound",
+     "gain": 0.4,
+     "at": 9.28
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.863,
+      0.831
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 10.868
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 10.868
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 10.868
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 10.868
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 10.868
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -2.581,
+      0.716
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 10.868
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 49.13,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 10.868
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 10.868
+    }
+   ]
+  },
+  {
+   "name": "18 told you two",
+   "at": 10.88,
+   "len": 7.38,
+   "shot": {
+    "pos": [
+     -3.341,
+     0.797,
+     3.174
+    ],
+    "look": [
+     -2.222,
+     0.565,
+     0.774
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -3.285,
+      0.785,
+      3.054
+     ]
+    },
+    "dur": 7.38
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "told you. rain.",
+     "tone": "calm",
+     "dur": 1.25,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "macro": "narrate",
+     "line": "He was right about the rain. He's always right.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.58,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 1.7
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.128,
+      0.928
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.368
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -5,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.368
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 7.368
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 7.368
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.368
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 7.368
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.368
+    }
+   ]
+  },
+  {
+   "name": "18b one hour alone",
+   "at": 18.26,
+   "len": 8.41,
+   "shot": {
+    "pos": [
+     -3.931,
+     1.593,
+     4.794
+    ],
+    "look": [
+     -2.128,
+     0.53,
+     0.928
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -3.84,
+      1.54,
+      4.6
+     ]
+    },
+    "dur": 8.41
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You waited an hour in the rain.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.37,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "macro": "narrate",
+     "line": "He didn't come out.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.69,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 4.02
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.741,
+      1.991
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.398
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.398
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 8.398
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 8.398
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.398
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 8.398
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 8.398
+    }
+   ]
+  },
+  {
+   "name": "19 fogged windows close",
+   "at": 26.67,
+   "len": 15.16,
+   "shot": {
+    "pos": [
+     -2.371,
+     0.608,
+     3.342
+    ],
+    "look": [
+     -1.741,
+     0.53,
+     1.991
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.34,
+      0.604,
+      3.275
+     ]
+    },
+    "dur": 15.16
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "The windows were fogged. Just shadows... and somebody laughing.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.95,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "brow": 0.5
+     },
+     "dur": 0.25,
+     "at": 6.8
+    },
+    {
+     "macro": "narrate",
+     "line": "Laughing. While you stood in the rain.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.49,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 6.8
+    },
+    {
+     "macro": "narrate",
+     "line": "That was enough.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.07,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 11.59
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 220.36,
+  "T1": 262.19
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 220.36-262.19 s)."
+}

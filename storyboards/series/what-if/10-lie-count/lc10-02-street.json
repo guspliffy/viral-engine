@@ -1,0 +1,1119 @@
+{
+ "id": "lc10-02-street",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mover",
+    "keys": [
+     [
+      0,
+      1
+     ],
+     [
+      1.55,
+      2
+     ]
+    ],
+    "free": true,
+    "k": 0.85
+   },
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      37
+     ],
+     [
+      10.83,
+      38
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 27.36,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   41.96,
+   41.96
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.2,
+    0.9
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mover",
+   "character": "happiness/mover",
+   "at": [
+    2.6,
+    1.4
+   ],
+   "face": -60,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    66,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    69,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [
+  {
+   "id": "mcap",
+   "kind": "flatcap",
+   "wear": "mover",
+   "fit": "mover",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 2.1,
+   "text": "Not heavy at all!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.13,
+   "to": 11.38,
+   "text": "Sorry! the bus was late!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 19.16,
+   "to": 22.31,
+   "text": "Trust me. it's going to rain on friday.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 22.21,
+   "to": 24.61,
+   "text": "0",
+   "pos": 880,
+   "pop": false,
+   "size": 170,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  }
+ ],
+ "beats": [
+  {
+   "name": "03 strangers wide",
+   "at": 0,
+   "len": 7.98,
+   "shot": {
+    "pos": [
+     1,
+     1.002,
+     5.29
+    ],
+    "look": [
+     1,
+     0.5,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1,
+      0.977,
+      5.086
+     ]
+    },
+    "dur": 7.98
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      0.9
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      2.6,
+      1.4
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mover",
+     "do": "turn",
+     "to": -106.699,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "mover",
+     "do": "talk",
+     "line": "not heavy at all!",
+     "tone": "calm",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      0.6,
+      0.8
+     ],
+     "y": 0,
+     "dur": 4,
+     "at": 0.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Strangers had small numbers. They hadn't had the time.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.98,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 68.592,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 7.968
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 7.968
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      3.4,
+      0.8
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -57.408,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 7.968
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 7.968
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 7.968
+    }
+   ]
+  },
+  {
+   "name": "04 the loud one wide",
+   "at": 7.98,
+   "len": 1.15,
+   "shot": {
+    "pos": [
+     0.55,
+     1.032,
+     5.29
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.55,
+      1.007,
+      5.086
+     ]
+    },
+    "dur": 1.15
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -78.111,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.5,
+      1.2
+     ],
+     "y": 0,
+     "dur": 1,
+     "at": 0.25
+    }
+   ]
+  },
+  {
+   "name": "04 the loud one two",
+   "at": 9.13,
+   "len": 5.69,
+   "shot": {
+    "pos": [
+     1.025,
+     0.697,
+     4.189
+    ],
+    "look": [
+     1.025,
+     0.435,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.025,
+      0.683,
+      4.04
+     ]
+    },
+    "dur": 5.69
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "sorry! the bus was late!",
+     "tone": "excited",
+     "dur": 1.85,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Your loudest friend. Thirty-eight.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.84,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2.15
+    }
+   ]
+  },
+  {
+   "name": "04 the loud one wide",
+   "at": 14.82,
+   "len": 4.19,
+   "shot": {
+    "pos": [
+     1.025,
+     0.937,
+     5.29
+    ],
+    "look": [
+     1.025,
+     0.435,
+     1.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.025,
+      0.912,
+      5.086
+     ]
+    },
+    "dur": 4.19
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "There is no bus.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.49,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 4.178
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 4.178
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.95,
+      0.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -49.242,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 4.178
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.5,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.178
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 4.178
+    }
+   ]
+  },
+  {
+   "name": "05 trust me two",
+   "at": 19.01,
+   "len": 7.85,
+   "shot": {
+    "pos": [
+     1.025,
+     0.827,
+     4.189
+    ],
+    "look": [
+     1.025,
+     0.565,
+     1.2
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.025,
+      0.813,
+      4.04
+     ]
+    },
+    "dur": 7.85
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "trust me. it's going to rain on friday.",
+     "tone": "calm",
+     "dur": 2.75,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "macro": "narrate",
+     "line": "And the friend who says 'trust me' twenty times a day...",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.95,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 3.2
+    }
+   ]
+  },
+  {
+   "name": "05 trust me close",
+   "at": 26.86,
+   "len": 5.1,
+   "shot": {
+    "pos": [
+     0.865,
+     0.678,
+     2.549
+    ],
+    "look": [
+     1.5,
+     0.6,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.897,
+      0.674,
+      2.481
+     ]
+    },
+    "dur": 5.1
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Zero. Not once. Not ever.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.4,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "05 trust me close",
+   "at": 31.96,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.185,
+     0.608,
+     2.549
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.153,
+      0.604,
+      2.481
+     ]
+    },
+    "dur": 1.4
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.55,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.388
+    },
+    {
+     "who": "mover",
+     "do": "hide",
+     "at": 1.388
+    },
+    {
+     "who": "mover",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.95,
+      0.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -49.242,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.388
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.5,
+      1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 1.388
+    }
+   ]
+  },
+  {
+   "name": "05b your own head close",
+   "at": 33.36,
+   "len": 8.6,
+   "shot": {
+    "pos": [
+     0.706,
+     0.608,
+     2.683
+    ],
+    "look": [
+     0.55,
+     0.53,
+     1.2
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.698,
+      0.604,
+      2.608
+     ]
+    },
+    "dur": 8.6
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "And over your own head?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.41,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.25,
+     "at": 2.26
+    },
+    {
+     "macro": "narrate",
+     "line": "Nothing. Apparently, you were the only honest one in town.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.04,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 3.06
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 6.8
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "mover",
+   "with": "mcap",
+   "from": 0,
+   "to": 41.96,
+   "reason": "the flat cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 27.36,
+  "T1": 69.32
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 27.36-69.32 s)."
+}

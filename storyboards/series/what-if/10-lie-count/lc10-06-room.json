@@ -1,0 +1,442 @@
+{
+ "id": "lc10-06-room",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreroom",
+  "state": "party",
+  "light": "golden",
+  "key": [
+   -1.5,
+   2.2,
+   4
+  ],
+  "shadowSize": 5,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      39
+     ],
+     [
+      5.18,
+      40
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 105.81,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   15.66,
+   15.66
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.4,
+    -0.7
+   ],
+   "face": 63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.2,
+    -0.7
+   ],
+   "face": -63,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    -0.6,
+    -1.45
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 3.48,
+   "to": 5.63,
+   "text": "I've got nothing good. promise.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.63,
+   "to": 7.58,
+   "text": "You've got four aces.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "09 game night group",
+   "at": 0,
+   "len": 5.63,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.839,
+     3.036
+    ],
+    "look": [
+     -0.6,
+     0.49,
+     -0.95
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.821,
+      2.836
+     ]
+    },
+    "dur": 5.63
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.4,
+      -0.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.2,
+      -0.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -63,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.6,
+      -1.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Game night. Your friends bluffed.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.63,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 3.48
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "i've got nothing good. promise.",
+     "tone": "calm",
+     "dur": 1.85,
+     "blink": false,
+     "voice": false,
+     "at": 3.48
+    }
+   ]
+  },
+  {
+   "name": "09 game night close",
+   "at": 5.63,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     -0.765,
+     0.608,
+     0.649
+    ],
+    "look": [
+     -1.4,
+     0.53,
+     -0.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.797,
+      0.604,
+      0.581
+     ]
+    },
+    "dur": 1.85
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "you've got four aces.",
+     "tone": "calm",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "09 game night group",
+   "at": 7.48,
+   "len": 8.18,
+   "shot": {
+    "pos": [
+     -0.6,
+     0.839,
+     3.036
+    ],
+    "look": [
+     -0.6,
+     0.49,
+     -0.95
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -0.6,
+      0.821,
+      2.836
+     ]
+    },
+    "dur": 8.18
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You won every game that night.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.15,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "It was the last game night they invited you to.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.23,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2.85
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 105.81,
+  "T1": 121.47
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 105.81-121.47 s)."
+}

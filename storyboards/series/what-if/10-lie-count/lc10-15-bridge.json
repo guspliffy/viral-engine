@@ -1,0 +1,693 @@
+{
+ "id": "lc10-15-bridge",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "bridge",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      214
+     ],
+     [
+      7.14,
+      215
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 262.19,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   27.58,
+   27.58
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    18,
+    -34.45
+   ],
+   "face": 27,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1,
+   "y": 4.177
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    18,
+    -33.55
+   ],
+   "face": 153,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004,
+   "y": 4.177
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 4.19,
+   "to": 6.34,
+   "text": "Where were you last night?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 6.34,
+   "to": 7.59,
+   "text": "Home. sleeping.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.59,
+   "to": 9.79,
+   "text": "215",
+   "pos": 880,
+   "pop": false,
+   "size": 170,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  },
+  {
+   "from": 7.59,
+   "to": 9.44,
+   "text": "Two hundred and fifteen!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 9.44,
+   "to": 10.44,
+   "text": "What?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.44,
+   "to": 13.29,
+   "text": "I can see it! every single lie!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 14.79,
+   "to": 15.89,
+   "text": "...okay.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "20 where were you two",
+   "at": 0,
+   "len": 7.59,
+   "shot": {
+    "pos": [
+     20.913,
+     5.077,
+     -34
+    ],
+    "look": [
+     18,
+     4.822,
+     -34
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      20.767,
+      5.064,
+      -34
+     ]
+    },
+    "dur": 7.59
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      18,
+      -34.45
+     ],
+     "y": 4.177,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 27,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      18,
+      -33.55
+     ],
+     "y": 4.177,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 153,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Saturday.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.34,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 4.19
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "where were you last night?",
+     "tone": "question",
+     "dur": 1.85,
+     "blink": false,
+     "voice": false,
+     "at": 4.19
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 6.34
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "home. sleeping.",
+     "tone": "calm",
+     "dur": 0.95,
+     "blink": false,
+     "voice": false,
+     "at": 6.34
+    }
+   ]
+  },
+  {
+   "name": "20 where were you ots",
+   "at": 7.59,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     19.301,
+     4.98,
+     -32.197
+    ],
+    "look": [
+     18,
+     4.707,
+     -34.45
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      19.236,
+      4.967,
+      -32.31
+     ]
+    },
+    "dur": 1.85
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "two hundred and fifteen!",
+     "tone": "excited",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "20 where were you ots",
+   "at": 9.44,
+   "len": 1,
+   "shot": {
+    "pos": [
+     16.699,
+     5.21,
+     -35.803
+    ],
+    "look": [
+     18,
+     4.937,
+     -33.55
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      16.764,
+      5.197,
+      -35.69
+     ]
+    },
+    "dur": 1
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "what?",
+     "tone": "question",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "20 where were you ots",
+   "at": 10.44,
+   "len": 2.75,
+   "shot": {
+    "pos": [
+     19.301,
+     4.98,
+     -32.197
+    ],
+    "look": [
+     18,
+     4.707,
+     -34.45
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      19.236,
+      4.967,
+      -32.31
+     ]
+    },
+    "dur": 2.75
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "i can see it! every single lie!",
+     "tone": "excited",
+     "dur": 2.45,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "20 where were you close",
+   "at": 13.19,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     19.349,
+     5.015,
+     -34.185
+    ],
+    "look": [
+     18,
+     4.937,
+     -33.55
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      19.281,
+      5.011,
+      -34.153
+     ]
+    },
+    "dur": 2.6
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "...okay.",
+     "tone": "sad",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "20 where were you two",
+   "at": 15.79,
+   "len": 6.75,
+   "shot": {
+    "pos": [
+     21.679,
+     5.144,
+     -34
+    ],
+    "look": [
+     18,
+     4.822,
+     -34
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      21.495,
+      5.128,
+      -34
+     ]
+    },
+    "dur": 6.75
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -3.879,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      17.8,
+      -30.6
+     ],
+     "y": 4.184,
+     "dur": 4.5,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "He didn't even try to explain.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.25,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 1.2
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 5.938
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.938
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      18,
+      -34.45
+     ],
+     "y": 4.177,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.738
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 50,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.738
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 6.738
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 6.738
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.738
+    }
+   ]
+  },
+  {
+   "name": "21 right about the number alone",
+   "at": 22.54,
+   "len": 5.04,
+   "shot": {
+    "pos": [
+     22.799,
+     5.903,
+     -34.45
+    ],
+    "look": [
+     18,
+     4.707,
+     -34.45
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      22.991,
+      5.951,
+      -34.45
+     ]
+    },
+    "dur": 5.04
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You were right about the number.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.89,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 262.19,
+  "T1": 289.77
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 262.19-289.77 s)."
+}

@@ -1,0 +1,385 @@
+{
+ "id": "lc10-04-counter",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "baker",
+    "keys": [
+     [
+      0,
+      4
+     ],
+     [
+      4.58,
+      5
+     ]
+    ],
+    "free": true,
+    "k": 0.85
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 83.58,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   9.98,
+   9.98
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    3,
+    -0.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    3,
+    -1.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 3.18,
+   "to": 5.03,
+   "text": "All baked this morning!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.03,
+   "to": 6.38,
+   "text": "...half price.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "07 fresh today ots",
+   "at": 0,
+   "len": 5.03,
+   "shot": {
+    "pos": [
+     4.301,
+     0.973,
+     0.553
+    ],
+    "look": [
+     3,
+     0.7,
+     -1.7
+    ],
+    "fov": 32,
+    "to": {
+     "pos": [
+      4.236,
+      0.96,
+      0.44
+     ]
+    },
+    "dur": 5.03
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3,
+      -0.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "y": 0.18,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "At first, it was the best power in the world.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.33,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "baker",
+     "do": "talk",
+     "line": "all baked this morning!",
+     "tone": "excited",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 3.18
+    }
+   ]
+  },
+  {
+   "name": "07 fresh today close",
+   "at": 5.03,
+   "len": 4.95,
+   "shot": {
+    "pos": [
+     3.612,
+     1.061,
+     -0.387
+    ],
+    "look": [
+     3,
+     0.7,
+     -1.7
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      3.582,
+      1.043,
+      -0.453
+     ]
+    },
+    "dur": 4.95
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "talk",
+     "line": "...half price.",
+     "tone": "sad",
+     "dur": 0.95,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody could fool you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.7,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 3.65
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 9.98,
+   "reason": "the chef's hat is worn"
+  }
+ ],
+ "story": {
+  "T0": 83.58,
+  "T1": 93.56
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 83.58-93.56 s)."
+}

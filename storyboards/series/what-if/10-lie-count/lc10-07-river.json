@@ -1,0 +1,413 @@
+{
+ "id": "lc10-07-river",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "path",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      212
+     ],
+     [
+      2.8,
+      213
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 121.47,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   },
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   18.01,
+   18.01
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.104,
+    -0.656
+   ],
+   "face": 54.966,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.896,
+    -0.544
+   ],
+   "face": -71.034,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 1.7,
+   "text": "Movie on friday?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.7,
+   "to": 3.35,
+   "text": "Can't. i'm busy.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.25,
+   "to": 5.45,
+   "text": "213",
+   "pos": 880,
+   "pop": false,
+   "size": 170,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  }
+ ],
+ "beats": [
+  {
+   "name": "10 busy friday two",
+   "at": 0,
+   "len": 3.25,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.135,
+      0.874,
+      1.996
+     ]
+    },
+    "dur": 3.25
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.104,
+      -0.656
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 54.966,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      1.896,
+      -0.544
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -71.034,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "movie on friday?",
+     "tone": "question",
+     "dur": 1.25,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "can't. i'm busy.",
+     "tone": "calm",
+     "dur": 1.25,
+     "blink": false,
+     "voice": false,
+     "at": 1.7
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday close",
+   "at": 3.25,
+   "len": 7.51,
+   "shot": {
+    "pos": [
+     1.544,
+     0.608,
+     0.768
+    ],
+    "look": [
+     1.104,
+     0.53,
+     -0.656
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.522,
+      0.604,
+      0.697
+     ]
+    },
+    "dur": 7.51
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Two hundred and thirteen.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.11,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 2.81
+    },
+    {
+     "macro": "narrate",
+     "line": "Busy. Every Friday. For a whole year.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2.81
+    }
+   ]
+  },
+  {
+   "name": "10 busy friday two",
+   "at": 10.76,
+   "len": 7.25,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.135,
+      0.874,
+      1.996
+     ]
+    },
+    "dur": 7.25
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "You had never asked what he did on Fridays.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.09,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Now you had a number.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.36,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 3.79
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 121.47,
+  "T1": 139.48
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 121.47-139.48 s)."
+}

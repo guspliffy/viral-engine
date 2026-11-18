@@ -1,0 +1,463 @@
+{
+ "id": "lc10-21-hill",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorehill",
+  "time": "sunset",
+  "light": "golden",
+  "key": [
+   -2.2,
+   1.6,
+   -4.6
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      43
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      215
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      2
+     ]
+    ],
+    "show": [
+     0,
+     22.61
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 465.05,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "grass",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   },
+   {
+    "id": "leaves",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   22.61,
+   22.61
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    -1,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.2,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.6,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.4,
+    -2.3
+   ],
+   "face": -180,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 6.85,
+   "to": 9.4,
+   "text": "Trust me. the cake is terrible.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.7,
+   "to": 12.55,
+   "text": "Next year, i bake!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 12.55,
+   "to": 14.5,
+   "text": "Trust me. please don't.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "31 the sunset wide",
+   "at": 0,
+   "len": 22.61,
+   "shot": {
+    "pos": [
+     0.2,
+     0.935,
+     1.245
+    ],
+    "look": [
+     0.2,
+     0.5,
+     -2.3
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.2,
+      0.914,
+      1.068
+     ]
+    },
+    "dur": 22.61
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.2,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.6,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.4,
+      -2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Two hundred and fifteen to two.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.8,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2.15
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "trust me. the cake is terrible.",
+     "tone": "calm",
+     "dur": 2.15,
+     "blink": false,
+     "voice": false,
+     "at": 6.85
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 9.3
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "next year, i bake!",
+     "tone": "excited",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 10.7
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 12.55
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "trust me. please don't.",
+     "tone": "calm",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 12.55
+    },
+    {
+     "macro": "narrate",
+     "line": "You've got some catching up to do.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.21,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 15.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 465.05,
+  "T1": 487.66
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 465.05-487.66 s)."
+}

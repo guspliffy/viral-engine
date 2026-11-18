@@ -1,0 +1,279 @@
+{
+ "length": 487.66,
+ "acts": {
+  "hook": 0,
+  "use": 83.58,
+  "catch": 139.48,
+  "friday": 220.36,
+  "fight": 262.19,
+  "alone": 289.77,
+  "birthday": 331.44,
+  "party": 380.78,
+  "end": 440.9
+ },
+ "actList": [
+  {
+   "key": "hook",
+   "mood": "playful"
+  },
+  {
+   "key": "use",
+   "mood": "playful"
+  },
+  {
+   "key": "catch",
+   "mood": "unease"
+  },
+  {
+   "key": "friday",
+   "mood": "suspense"
+  },
+  {
+   "key": "fight",
+   "mood": "drama"
+  },
+  {
+   "key": "alone",
+   "mood": "sad"
+  },
+  {
+   "key": "birthday",
+   "mood": "unease2"
+  },
+  {
+   "key": "party",
+   "mood": "warm"
+  },
+  {
+   "key": "end",
+   "mood": "calm"
+  }
+ ],
+ "segs": [
+  {
+   "id": "lc10-01-terrace",
+   "place": "terrace",
+   "T0": 0,
+   "T1": 27.36
+  },
+  {
+   "id": "lc10-02-street",
+   "place": "street",
+   "T0": 27.36,
+   "T1": 69.32
+  },
+  {
+   "id": "lc10-03-terrace",
+   "place": "terrace",
+   "T0": 69.32,
+   "T1": 83.58
+  },
+  {
+   "id": "lc10-04-counter",
+   "place": "counter",
+   "T0": 83.58,
+   "T1": 93.56
+  },
+  {
+   "id": "lc10-05-street",
+   "place": "street",
+   "T0": 93.56,
+   "T1": 105.81
+  },
+  {
+   "id": "lc10-06-room",
+   "place": "room",
+   "T0": 105.81,
+   "T1": 121.47
+  },
+  {
+   "id": "lc10-07-river",
+   "place": "river",
+   "T0": 121.47,
+   "T1": 139.48
+  },
+  {
+   "id": "lc10-08-bridge",
+   "place": "bridge",
+   "T0": 139.48,
+   "T1": 148.76
+  },
+  {
+   "id": "lc10-09-street",
+   "place": "street",
+   "T0": 148.76,
+   "T1": 155.95
+  },
+  {
+   "id": "lc10-10-counter",
+   "place": "counter",
+   "T0": 155.95,
+   "T1": 161.4
+  },
+  {
+   "id": "lc10-11-river",
+   "place": "river",
+   "T0": 161.4,
+   "T1": 192.13
+  },
+  {
+   "id": "lc10-12-street",
+   "place": "street",
+   "T0": 192.13,
+   "T1": 209.67
+  },
+  {
+   "id": "lc10-13-bridge",
+   "place": "bridge",
+   "T0": 209.67,
+   "T1": 220.36
+  },
+  {
+   "id": "lc10-14-rain",
+   "place": "rain",
+   "T0": 220.36,
+   "T1": 262.19
+  },
+  {
+   "id": "lc10-15-bridge",
+   "place": "bridge",
+   "T0": 262.19,
+   "T1": 289.77
+  },
+  {
+   "id": "lc10-16-balcony",
+   "place": "balcony",
+   "T0": 289.77,
+   "T1": 331.44
+  },
+  {
+   "id": "lc10-17-street",
+   "place": "street",
+   "T0": 331.44,
+   "T1": 366.03
+  },
+  {
+   "id": "lc10-18-bridge",
+   "place": "bridge",
+   "T0": 366.03,
+   "T1": 380.78
+  },
+  {
+   "id": "lc10-19-street",
+   "place": "street",
+   "T0": 380.78,
+   "T1": 393.38
+  },
+  {
+   "id": "lc10-20-room",
+   "place": "room",
+   "T0": 393.38,
+   "T1": 465.05
+  },
+  {
+   "id": "lc10-21-hill",
+   "place": "hill",
+   "T0": 465.05,
+   "T1": 487.66
+  }
+ ],
+ "lies": {
+  "mash": [
+   [
+    0,
+    211
+   ],
+   [
+    1.7,
+    212
+   ],
+   [
+    124.27,
+    213
+   ],
+   [
+    167.59,
+    214
+   ],
+   [
+    269.33,
+    215
+   ]
+  ],
+  "chip": [
+   [
+    0,
+    37
+   ],
+   [
+    38.19,
+    38
+   ],
+   [
+    96.36,
+    39
+   ],
+   [
+    110.99,
+    40
+   ],
+   [
+    149.71,
+    41
+   ],
+   [
+    179.03,
+    42
+   ],
+   [
+    348.09,
+    43
+   ]
+  ],
+  "wedge": [
+   [
+    0,
+    0
+   ]
+  ],
+  "baker": [
+   [
+    0,
+    3
+   ],
+   [
+    21.19,
+    4
+   ],
+   [
+    88.16,
+    5
+   ],
+   [
+    157.5,
+    6
+   ]
+  ],
+  "mover": [
+   [
+    0,
+    1
+   ],
+   [
+    28.91,
+    2
+   ],
+   [
+    355.45,
+    3
+   ]
+  ],
+  "driver": [
+   [
+    0,
+    0
+   ]
+  ]
+ },
+ "spudTag": 452.98
+}

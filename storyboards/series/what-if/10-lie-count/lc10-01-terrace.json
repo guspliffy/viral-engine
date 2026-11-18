@@ -1,0 +1,746 @@
+{
+ "id": "lc10-01-terrace",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      211
+     ],
+     [
+      1.7,
+      212
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "baker",
+    "keys": [
+     [
+      0,
+      3
+     ],
+     [
+      21.19,
+      4
+     ]
+    ],
+    "free": true,
+    "k": 0.85
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 0,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   27.36,
+   27.36
+  ]
+ },
+ "hook": {
+  "show": [
+   "mash"
+  ],
+  "hint": 0,
+  "what": "two potato friends at a cafe table; a glowing 211 over the eater's head ticks to 212 as he says 'delicious'"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.953,
+    0.789
+   ],
+   "face": 38.018,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -1.047,
+    1.211
+   ],
+   "face": -87.982,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    66,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "ctab",
+   "kind": "cafetable",
+   "x": -1.479,
+   "y": 0,
+   "z": 0.955,
+   "h": 0.46,
+   "r": 0.3
+  },
+  {
+   "id": "plate",
+   "kind": "dessertplate",
+   "x": -1.316,
+   "y": 0.46,
+   "z": 1.031
+  },
+  {
+   "id": "bun",
+   "kind": "cinnabun",
+   "x": -1.316,
+   "y": 0.468,
+   "z": 1.031,
+   "rot": 0,
+   "bite": 0
+  },
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 1.15,
+   "text": "Mm-mm!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 1.15,
+   "to": 2.25,
+   "text": "Delicious!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 2.15,
+   "to": 4.75,
+   "text": "212",
+   "pos": 880,
+   "pop": false,
+   "size": 170,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  },
+  {
+   "from": 20.39,
+   "to": 21.74,
+   "text": "Fresh today!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 delicious two",
+   "at": 0,
+   "len": 6.62,
+   "shot": {
+    "pos": [
+     -2.795,
+     0.913,
+     3.778
+    ],
+    "look": [
+     -1.5,
+     0.645,
+     1
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -2.731,
+      0.9,
+      3.639
+     ]
+    },
+    "dur": 6.62
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.953,
+      0.789
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 38.018,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.047,
+      1.211
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -87.982,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "mm-mm!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.35
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.15
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "delicious!",
+     "tone": "excited",
+     "dur": 0.7,
+     "blink": false,
+     "voice": false,
+     "at": 1.15
+    },
+    {
+     "macro": "narrate",
+     "line": "What if you could see how many times everyone has lied to you?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.77,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 2.15
+    }
+   ]
+  },
+  {
+   "name": "01 delicious close",
+   "at": 6.62,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     -1.948,
+     0.608,
+     2.28
+    ],
+    "look": [
+     -1.953,
+     0.53,
+     0.789
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -1.948,
+      0.604,
+      2.205
+     ]
+    },
+    "dur": 3.9
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.3
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Your best friend just hit two hundred and twelve.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.2,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "01 delicious two",
+   "at": 10.52,
+   "len": 3.81,
+   "shot": {
+    "pos": [
+     -3.169,
+     0.913,
+     3.571
+    ],
+    "look": [
+     -1.5,
+     0.645,
+     1
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      -3.086,
+      0.9,
+      3.442
+     ]
+    },
+    "dur": 3.81
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "bun",
+     "set": {
+      "bite": 0.55
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "All about your cinnamon buns.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.71,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.953,
+      0.789
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 38.018,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.798
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.047,
+      1.211
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -87.982,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 3.798
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      0.373,
+      0.77
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "baker",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.798
+    },
+    {
+     "who": "baker",
+     "do": "show",
+     "at": 3.798
+    }
+   ]
+  },
+  {
+   "name": "02 the morning wide",
+   "at": 14.33,
+   "len": 6.06,
+   "shot": {
+    "pos": [
+     -3.229,
+     1.002,
+     4.707
+    ],
+    "look": [
+     -1.5,
+     0.5,
+     1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -3.142,
+      0.977,
+      4.522
+     ]
+    },
+    "dur": 6.06
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "It started this morning. Everyone had a number over their head.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.2,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "macro": "narrate",
+     "line": "And only you could see them.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.31,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 4.05
+    }
+   ]
+  },
+  {
+   "name": "02 the morning close",
+   "at": 20.39,
+   "len": 6.97,
+   "shot": {
+    "pos": [
+     -0.257,
+     0.658,
+     2.121
+    ],
+    "look": [
+     0.373,
+     0.58,
+     0.77
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.226,
+      0.654,
+      2.054
+     ]
+    },
+    "dur": 6.97
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "talk",
+     "line": "fresh today!",
+     "tone": "excited",
+     "dur": 0.95,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "The baker. Four. All of them about bread.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.82,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 1.25
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 27.36,
+   "reason": "the chef's hat is worn"
+  }
+ ],
+ "story": {
+  "T0": 0,
+  "T1": 27.36
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 0-27.36 s)."
+}

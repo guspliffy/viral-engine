@@ -1,0 +1,772 @@
+{
+ "id": "lc10-11-river",
+ "title": "What if you could see how many times everyone has lied to you?",
+ "idea": "There's a catch EP10, the 8-minute cheap-film trial: Spud sees over every head how many times that person has lied to him. His best friend is at 212.",
+ "format": "There's a catch (What if), long-form wide film",
+ "frame": "wide",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreriver",
+  "view": "path",
+  "light": "golden",
+  "key": [
+   3.5,
+   5,
+   4.5
+  ],
+  "shadowSize": 12,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "score": {
+  "view": [],
+  "tags": [
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      213
+     ],
+     [
+      6.19,
+      214
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      41
+     ],
+     [
+      17.63,
+      42
+     ]
+    ],
+    "free": true
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      0
+     ]
+    ],
+    "free": true
+   }
+  ]
+ },
+ "music": {
+  "file": "score-film/lies-score.ogg",
+  "from": 0,
+  "skip": 161.4,
+  "seam": true,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "stream",
+    "gain": 0.05
+   },
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   30.73,
+   30.73
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.104,
+    -0.656
+   ],
+   "face": 54.966,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.896,
+    -0.544
+   ],
+   "face": -71.034,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    66,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    69,
+    60
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [],
+ "captions": [
+  {
+   "from": 2.94,
+   "to": 5.39,
+   "text": "Do you actually like my buns?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.39,
+   "to": 6.74,
+   "text": "Love them.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.18,
+   "to": 16.23,
+   "text": "Why does he lie to me so much?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 16.23,
+   "to": 18.18,
+   "text": "Him? he never lies!",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 21.93,
+   "to": 24.08,
+   "text": "Does he lie to me?",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 24.08,
+   "to": 26.33,
+   "text": "Trust me. ask him yourself.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "14 do you like them two",
+   "at": 0,
+   "len": 6.64,
+   "shot": {
+    "pos": [
+     1.116,
+     0.886,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.645,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.135,
+      0.874,
+      1.996
+     ]
+    },
+    "dur": 6.64
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.104,
+      -0.656
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 54.966,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      1.896,
+      -0.544
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -71.034,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "So you tested your best friend.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.09,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "do you actually like my buns?",
+     "tone": "question",
+     "dur": 2.15,
+     "blink": false,
+     "voice": false,
+     "at": 2.94
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.25,
+     "at": 5.39
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "love them.",
+     "tone": "calm",
+     "dur": 0.95,
+     "blink": false,
+     "voice": false,
+     "at": 5.39
+    }
+   ]
+  },
+  {
+   "name": "14 do you like them close",
+   "at": 6.64,
+   "len": 4.26,
+   "shot": {
+    "pos": [
+     1.544,
+     0.608,
+     0.768
+    ],
+    "look": [
+     1.104,
+     0.53,
+     -0.656
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.522,
+      0.604,
+      0.697
+     ]
+    },
+    "dur": 4.26
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Two hundred and fourteen.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.96,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.104,
+      -0.656
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 54.966,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 4.248
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 4.248
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.896,
+      -0.544
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -71.034,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 4.248
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      2.871,
+      -1.013
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -57.405,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.248
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 4.248
+    }
+   ]
+  },
+  {
+   "name": "14b asked around two",
+   "at": 10.9,
+   "len": 7.18,
+   "shot": {
+    "pos": [
+     1.116,
+     0.676,
+     2.132
+    ],
+    "look": [
+     1.5,
+     0.435,
+     -0.6
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.135,
+      0.664,
+      1.996
+     ]
+    },
+    "dur": 7.18
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "So you asked around.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.43,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "why does he lie to me so much?",
+     "tone": "question",
+     "dur": 2.75,
+     "blink": false,
+     "voice": false,
+     "at": 2.28
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.2
+     },
+     "dur": 0.25,
+     "at": 5.33
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "him? he never lies!",
+     "tone": "excited",
+     "dur": 1.55,
+     "blink": false,
+     "voice": false,
+     "at": 5.33
+    }
+   ]
+  },
+  {
+   "name": "14b asked around close",
+   "at": 18.08,
+   "len": 3.85,
+   "shot": {
+    "pos": [
+     1.544,
+     0.608,
+     0.768
+    ],
+    "look": [
+     1.104,
+     0.53,
+     -0.656
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.522,
+      0.604,
+      0.697
+     ]
+    },
+    "dur": 3.85
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Even your friends were lying about him.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.55,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "14b asked around two",
+   "at": 21.93,
+   "len": 8.8,
+   "shot": {
+    "pos": [
+     1.39,
+     0.941,
+     3.421
+    ],
+    "look": [
+     1.988,
+     0.565,
+     -0.834
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      1.42,
+      0.922,
+      3.208
+     ]
+    },
+    "dur": 8.8
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "does he lie to me?",
+     "tone": "question",
+     "dur": 1.85,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.25,
+     "at": 2.15
+    },
+    {
+     "who": "wedge",
+     "do": "talk",
+     "line": "trust me. ask him yourself.",
+     "tone": "calm",
+     "dur": 1.85,
+     "blink": false,
+     "voice": false,
+     "at": 2.15
+    },
+    {
+     "macro": "narrate",
+     "line": "The only straight answer in town.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.2,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 4.3
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 161.4,
+  "T1": 192.13
+ },
+ "notes": "Generated by storyboards/series/what-if/10-lie-count/make-film.mjs (story 161.4-192.13 s)."
+}
