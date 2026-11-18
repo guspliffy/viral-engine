@@ -17,6 +17,10 @@ node qa/contact.mjs out/<id>.mp4 --sb <sb>                                 # B: 
 node qa/contact.mjs out/<id>.mp4 --sb <sb> --cuts --phone                  # B: cut strips + phone sheet, ~20 s
 ```
 
+Since 10 Nov review B runs on the passing draft (`docs/rules/workflow.md`, order of work step 5), and only when Jonny
+did not see the draft; since 18 Nov the Sol check (step 6, on trial) hunts glitches and logic issues before the full
+render.
+
 For review B also hand over `<id>.cuts.png` (one row per cut, 0.2 s either side, the first new frame edged red; with
 `loop: true` the seam gets a row) and `<id>.phone.png` (one frame a second at 360 px, the size people watch at).
 
