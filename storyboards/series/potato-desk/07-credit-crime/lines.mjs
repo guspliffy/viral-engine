@@ -11,7 +11,7 @@ export const LINES = [
   ["wedge", "He even packed my snack!", "happy", "eager, helpful, proud of his friend"],
   ["chip", "Thank you! I organized everything.", "happy", "proud, bragging, loud, triumphant"],
   ["vik", "The boss gets life.", "angry", "deep, stern, loud, final"],
-  ["chip", "...I was just helping.", "sad", "tiny, quiet, scared, small voice"],
+  ["chip", "...I was just helping.", "sad", "tiny, quiet, scared, small voice", { take: 2 }],   // take 1 with the clean voice was heard "Aye, I was..."
   ["wedge", "He's the boss.", "calm", "plain, honest, helpful"],
   ["vik", "Then you're the helper. One year.", "calm", "deep, stern, flat, a judge"],
   ["wedge", "Thank you!", "happy", "happy, relieved, grateful"],

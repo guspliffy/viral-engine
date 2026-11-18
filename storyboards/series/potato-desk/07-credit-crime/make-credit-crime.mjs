@@ -19,9 +19,10 @@ import { LINES } from "./lines.mjs";
 
 const c = clip({ faces: "strong", lines: { sub: false, blink: false } }), { A, sfx, cap, see } = c;
 const F = (t) => r3(Math.round(t * 30) / 30);
+const F2 = (t) => r3(Math.round(t * 15) / 15);   // on the 2-frame grid animeTiming draws (clip-lessons: odd-frame shifts move the drawn frames)
 
 // measured spoken lengths (node qa/lines.mjs desk07-voice-probe.json, 18 Nov 2026), in LINES order
-const DUR = [1.66, 1.82, 0.94, 2.24, 1.75, 2.89, 1.88, 2.08, 1.28, 3.14, 1.09, 2.47, 0.74];
+const DUR = [1.66, 1.82, 0.78, 1.39, 1.75, 2.89, 1.88, 1.97, 1.28, 1.05, 1.09, 2.47, 0.74];
 // the pause before each line (Jonny 17 Nov: pace up). 9 ("...I was just helping") waits for the cut-in.
 const GAP = [0.05, 0.15, 0.3, 0.15, 0.15, 0.2, 0.25, 0.15, 0.25, 0.3, 0.3, 0.2, 0.15];
 const T = []; { let t = 0; LINES.forEach((_, i) => { t = r3(t + GAP[i]); T.push(t); t = r3(t + DUR[i]); }); }
@@ -75,8 +76,9 @@ const say = (i, extra = {}) => {
 
 const gv = grips.mug(c, "vik", GAVEL, { side: "R", height: 1.0 });
 const strike = (t, flipTo, { up = 0.16, gain = 1.2 } = {}) => {
+  t = F2(t);
   let e = gv.carry(t, [GREST[0] - 0.06, GREST[1] + up, GREST[2] + 0.02], up > 0.2 ? 0.3 : 0.16, "out");
-  e = gv.carry(r3(e + 0.03), GREST, 0.07, "in");
+  e = gv.carry(r3(e + 0.03), GREST, up > 0.2 ? 0.1 : 0.07, "in");
   sfx(r3(e - 0.01), "kenney/impact-plank-medium", { gain });
   if (flipTo != null) { c.prop(r3(e - 0.01), "board", { flip: flipTo }, 0.2); sfx(r3(e + 0.06), "kenney/switch", { gain: 0.45 }); }
   return e;
@@ -153,7 +155,7 @@ A(r3(S3 + 0.3), "chip", "squash", { to: 0, dur: 0.3 });
 see(T[8], r3(S3 + 0.5), ["vik.face", "board", "chip.face"], "LIFE on the board");
 
 // ---------------------------------------------------------------- the cut-in: the little one's smile freezes
-const CUT = F(S3 + 0.45), BACK = F(CUT + 1.4);
+const CUT = F2(S3 + 0.45), BACK = F2(CUT + 1.4);
 A(r3(CUT + 0.1), "chip", "look", { to: AT_BOARD, dur: 0.3, blink: false });
 arm(r3(CUT + 0.35), "chip", "both", "rest", 0.6, "inOut");
 A(r3(CUT + 0.3), "chip", "expr", { expr: "shocked", dur: 0.25 });
