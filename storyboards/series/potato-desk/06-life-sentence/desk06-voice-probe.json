@@ -1,0 +1,229 @@
+{
+ "id": "desk06-voice-probe",
+ "title": "Potato Desk 06 voice probe",
+ "idea": "line takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   42.5,
+   42.5
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "dragon",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -2.1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 42.5,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Guilty! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud, a judge",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "But I'm a potato. I only last three weeks.",
+     "tone": "sad",
+     "style": "tiny, scared, quiet, high, pleading",
+     "dur": 4.1,
+     "caption": false,
+     "at": 3.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Fine. Three weeks!",
+     "tone": "angry",
+     "style": "deep, stern, loud, annoyed",
+     "dur": 1.7,
+     "caption": false,
+     "at": 8.4
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "Heh heh.",
+     "tone": "happy",
+     "style": "low amused chuckle, trying to sound scary",
+     "dur": 1.3,
+     "caption": false,
+     "at": 11.1
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why are you laughing?",
+     "tone": "angry",
+     "style": "deep, stern, suspicious, slow",
+     "dur": 2.1,
+     "caption": false,
+     "at": 13.4
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "Oh, nothing.",
+     "tone": "calm",
+     "style": "smug, innocent, slow",
+     "dur": 1.3,
+     "caption": false,
+     "at": 16.5
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.1,
+     "caption": false,
+     "at": 18.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I live in the fridge. Three months.",
+     "tone": "sad",
+     "style": "low, slow, guilty, quiet",
+     "dur": 3.3,
+     "caption": false,
+     "at": 21.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Fine. Three months!",
+     "tone": "angry",
+     "style": "deep, stern, loud, annoyed",
+     "dur": 1.7,
+     "caption": false,
+     "at": 26.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.1,
+     "caption": false,
+     "at": 28.9
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "I'm a dragon. I live a thousand years.",
+     "tone": "calm",
+     "style": "proud, slow, deep, grand",
+     "dur": 3.7,
+     "caption": false,
+     "at": 32
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A thousand years!",
+     "tone": "happy",
+     "style": "deep, loud, delighted, pleased with himself",
+     "dur": 1.7,
+     "caption": false,
+     "at": 36.7
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "...Three weeks. Case closed.",
+     "tone": "scared",
+     "style": "small, quiet, nervous, fast, gulping",
+     "dur": 2.1,
+     "caption": false,
+     "at": 39.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 06: makes and measures every take."
+}

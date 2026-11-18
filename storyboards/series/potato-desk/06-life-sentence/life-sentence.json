@@ -1,0 +1,1819 @@
+{
+ "id": "life-sentence",
+ "title": "He beat a life sentence",
+ "idea": "Potato Desk 06: a Viking judge gives everyone life in prison, and each life turns into how long they live; the dragon lives 1000 years, so the scared judge gives him 3 weeks.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   26,
+   36
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "chip",
+   "board"
+  ],
+  "hint": 0,
+  "what": "a judge gives a tiny potato life in prison; the board says LIFE"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 8,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.45,
+    1.1
+   ],
+   "face": -20,
+   "expr": "sad",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.5,
+    0.05
+   ],
+   "face": -20,
+   "expr": "annoyed",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "dragon",
+   "character": "potatobrawl/dragon",
+   "at": [
+    1.4,
+    -0.72
+   ],
+   "face": -20,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 4.4
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": 2.1
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 3.8,
+   "h": 4.24
+  },
+  {
+   "id": "dado",
+   "staged": "panels fixed to the back wall",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true
+  },
+  {
+   "id": "board",
+   "staged": "screwed to the back wall",
+   "kind": "sentenceboard",
+   "x": 0.66,
+   "y": 2.01,
+   "z": -1.255,
+   "states": [
+    "LIFE",
+    "3",
+    "LIFE",
+    "3",
+    "LIFE",
+    "1000",
+    "3"
+   ],
+   "units": [
+    "",
+    "WEEKS",
+    "",
+    "MONTHS",
+    "",
+    "YEARS",
+    "WEEKS"
+   ]
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "chair",
+   "staged": "on a block on the bench's riser, hidden by the bench",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "plate",
+   "staged": "fixed to the bench front",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -1.12,
+   "y": 1.18,
+   "z": 0.22
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "bar": [
+    0.45,
+    1.1,
+    0.34,
+    0.09
+   ],
+   "queue": [
+    [
+     0.5,
+     0.05,
+     0.24,
+     0.06
+    ],
+    [
+     1.4,
+     -0.72,
+     0.24,
+     0.06
+    ]
+   ]
+  },
+  {
+   "id": "smokeL",
+   "staged": "smoke from the Dragon's nose",
+   "kind": "smokewisp",
+   "x": 0.232,
+   "y": 0.61,
+   "z": 0.512,
+   "h": 0.2,
+   "n": 6,
+   "alpha": 0.5
+  },
+  {
+   "id": "smokeR",
+   "staged": "smoke from the Dragon's nose",
+   "kind": "smokewisp",
+   "x": 0.268,
+   "y": 0.61,
+   "z": 0.548,
+   "h": 0.2,
+   "n": 6,
+   "alpha": 0.5
+  },
+  {
+   "id": "gavel",
+   "kind": "axegavel",
+   "x": -1.12,
+   "y": 1.24,
+   "z": 0.22,
+   "rot": 0
+  },
+  {
+   "id": "mug",
+   "kind": "campmug",
+   "x": -0.5,
+   "y": 1.18,
+   "z": -0.08,
+   "rot": 63
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.99,
+   "text": "Guilty! *LIFE* in prison!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 1.99,
+   "to": 4.77,
+   "text": "But I'm a potato. I only last *3 weeks.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.77,
+   "to": 6.63,
+   "text": "Fine. *3 WEEKS!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 6.63,
+   "to": 7.68,
+   "text": "heh heh",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.68,
+   "to": 9.27,
+   "text": "Why are you laughing?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 9.27,
+   "to": 11.33,
+   "text": "Oh, nothing.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 11.33,
+   "to": 13.9,
+   "text": "Next! *LIFE* in prison!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 13.9,
+   "to": 17.14,
+   "text": "I live in the fridge. *3 months.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.14,
+   "to": 19.21,
+   "text": "Fine. *3 MONTHS!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.21,
+   "to": 21.78,
+   "text": "Next! *LIFE* in prison!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.78,
+   "to": 24.85,
+   "text": "I'm a dragon. I live *1000 years.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 24.85,
+   "to": 26.47,
+   "text": "*1000 YEARS!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 28.967,
+   "to": 31.067,
+   "text": "...*3 weeks.* Case closed.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "life for chip",
+   "at": 0,
+   "len": 11.33,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dragon",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "smokeL",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "smokeR",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "dragon",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "dragon",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Guilty! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud, a judge",
+     "dur": 1.74,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "gavel",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.121,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.44
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.63
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 1.69
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 1.89
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "But I'm a potato. I only last three weeks.",
+     "tone": "sad",
+     "style": "tiny, scared, quiet, high, pleading",
+     "dur": 2.58,
+     "caption": false,
+     "at": 1.99
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.3
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.9
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 4.62
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Fine. Three weeks!",
+     "tone": "angry",
+     "style": "deep, stern, loud, annoyed",
+     "dur": 1.71,
+     "caption": false,
+     "at": 4.77
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 5.37
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 5.56
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.6
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 5.62
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 5.62
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 5.63
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 5.69
+    },
+    {
+     "who": "dragon",
+     "do": "expr",
+     "expr": "evil",
+     "dur": 0.15,
+     "at": 6.53
+    },
+    {
+     "who": "dragon",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.6
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "Heh heh.",
+     "tone": "happy",
+     "style": "low amused chuckle, trying to sound scary",
+     "dur": 0.85,
+     "caption": false,
+     "at": 6.63
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      1,
+      0.1
+     ],
+     "dur": 0.2,
+     "at": 7.43
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 7.43
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Why are you laughing?",
+     "tone": "angry",
+     "style": "deep, stern, suspicious, slow",
+     "dur": 1.44,
+     "caption": false,
+     "at": 7.68
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 9.1
+    },
+    {
+     "who": "dragon",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 9.12
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "Oh, nothing.",
+     "tone": "calm",
+     "style": "smug, innocent, slow",
+     "dur": 1.76,
+     "caption": false,
+     "at": 9.27
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 10.73
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20.556,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 10.73
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.25,
+     "at": 11.13
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 11.13
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0,
+      2.3
+     ],
+     "dur": 1,
+     "ease": "inOut",
+     "at": 11.23
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "life for wedge",
+   "at": 11.33,
+   "len": 7.88,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -2.726,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.32,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.45,
+      1.1
+     ],
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.07
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "who": "dragon",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.87
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.97
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 2.16
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 2.22
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.22
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 2.29
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I live in the fridge. Three months.",
+     "tone": "sad",
+     "style": "low, slow, guilty, quiet",
+     "dur": 3.04,
+     "caption": false,
+     "at": 2.57
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.57
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.57
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 5.66
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Fine. Three months!",
+     "tone": "angry",
+     "style": "deep, stern, loud, annoyed",
+     "dur": 1.77,
+     "caption": false,
+     "at": 5.81
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 6.41
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 6.6
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 6.66
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 6.66
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 6.67
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 6.73
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 7.02
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -50.194,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.02
+    },
+    {
+     "who": "dragon",
+     "do": "turn",
+     "to": -38.108,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.32
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.3
+     ],
+     "dur": 0.25,
+     "at": 7.32
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 7.32
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.15,
+      1.35
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.52
+    },
+    {
+     "who": "dragon",
+     "do": "move",
+     "to": [
+      0.6,
+      0.3
+     ],
+     "dur": 1.5,
+     "ease": "inOut",
+     "at": 7.82
+    }
+   ]
+  },
+  {
+   "name": "the dragon",
+   "at": 19.21,
+   "len": 8.153,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Next! Life in prison!",
+     "tone": "angry",
+     "style": "deep, stern, loud",
+     "dur": 2.32,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -93.013,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -93.013,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.09
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.8,
+      1.3
+     ],
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.59
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.39
+    },
+    {
+     "who": "dragon",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.39
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.44
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.97
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 2.16
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 2.22
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 4
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.22
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 2.29
+    },
+    {
+     "who": "dragon",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 2.47
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "I'm a dragon. I live a thousand years.",
+     "tone": "calm",
+     "style": "proud, slow, deep, grand",
+     "dur": 2.87,
+     "caption": false,
+     "at": 2.57
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.59
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 5.49
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "A thousand years!",
+     "tone": "happy",
+     "style": "deep, loud, delighted, pleased with himself",
+     "dur": 1.32,
+     "caption": false,
+     "at": 5.64
+    },
+    {
+     "who": "dragon",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.89
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 6.19
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 6.38
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 6.44
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 5
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 6.44
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 6.51
+    },
+    {
+     "who": "dragon",
+     "do": "lean",
+     "to": 8,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 6.8
+    },
+    {
+     "who": "dragon",
+     "do": "expr",
+     "expr": "evil",
+     "dur": 0.2,
+     "at": 6.8
+    },
+    {
+     "do": "prop",
+     "id": "smokeL",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 7.25
+    },
+    {
+     "do": "prop",
+     "id": "smokeR",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 7.25
+    },
+    {
+     "sfx": "snort",
+     "gain": 0.5,
+     "at": 7.25
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.15,
+     "at": 7.35
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 7.35
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "gulp",
+   "at": 27.363,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.8,
+     2.05,
+     3.8
+    ],
+    "look": [
+     -0.76,
+     1.8,
+     -0.4
+    ],
+    "fov": 24
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "smokeL",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.397
+    },
+    {
+     "do": "prop",
+     "id": "smokeR",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.397
+    }
+   ]
+  },
+  {
+   "name": "case closed",
+   "at": 28.763,
+   "len": 4.77,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "...Three weeks. Case closed.",
+     "tone": "scared",
+     "style": "small, quiet, nervous, fast, gulping",
+     "dur": 1.8,
+     "caption": false,
+     "at": 0.204
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.34,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.704
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.894
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.55,
+     "at": 1.954
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 6
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.954
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 2.024
+    },
+    {
+     "who": "dragon",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 2.064
+    },
+    {
+     "who": "dragon",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.164
+    },
+    {
+     "who": "dragon",
+     "do": "move",
+     "to": [
+      2.15,
+      0.45
+     ],
+     "dur": 2.1,
+     "ease": "inOut",
+     "at": 2.364
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "at": 2.364
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "at": 2.364
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.364
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "at": 2.514
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "at": 2.514
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.514
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.564
+    },
+    {
+     "who": "dragon",
+     "do": "turn",
+     "to": 84.472,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.814
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.79,
+   "see": [
+    "vik.face",
+    "chip.face",
+    "board"
+   ],
+   "why": "the judge gives Chip life; the board says LIFE"
+  },
+  {
+   "from": 4.77,
+   "to": 6.23,
+   "see": [
+    "vik.face",
+    "board",
+    "chip.face"
+   ],
+   "why": "3 WEEKS on the board"
+  },
+  {
+   "from": 6.63,
+   "to": 11.03,
+   "see": [
+    "dragon.face",
+    "vik.face"
+   ],
+   "why": "the Dragon chuckles: oh, nothing"
+  },
+  {
+   "from": 17.14,
+   "to": 18.6,
+   "see": [
+    "vik.face",
+    "board",
+    "wedge.face"
+   ],
+   "why": "3 MONTHS on the board"
+  },
+  {
+   "from": 24.85,
+   "to": 26.26,
+   "see": [
+    "vik.face",
+    "board",
+    "dragon.face"
+   ],
+   "why": "1000 YEARS on the board"
+  },
+  {
+   "from": 26.46,
+   "to": 27.46,
+   "see": [
+    "dragon.face",
+    "vik.face"
+   ],
+   "why": "the Dragon leans in and puffs smoke at the judge"
+  },
+  {
+   "from": 27.367,
+   "to": 28.767,
+   "see": [
+    "vik.face"
+   ],
+   "why": "the judge gulps"
+  },
+  {
+   "from": 31.727,
+   "to": 33.533,
+   "see": [
+    "chip.face",
+    "wedge.face"
+   ],
+   "why": "Chip and Wedge stare at us"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 0,
+   "to": 33.533,
+   "reason": "the judge sits in his chair"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/06-life-sentence/make-life-sentence.mjs."
+}
