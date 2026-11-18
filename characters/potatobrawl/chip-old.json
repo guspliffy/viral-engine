@@ -1,0 +1,83 @@
+{
+  "id": "potatobrawl/chip-old",
+  "name": "Chip, old (400 years in the waiting chair)",
+  "franchise": "PotatoBrawl",
+  "source": "potatobrawl/chip, same body, skin, hoodie and face, aged for Potato Desk ep 1 ending (DESIGN.md potato-desk section 2). New code: costumes-skipage.js (chip keys)",
+  "rig": "potato",
+  "tts": "chip",
+  "body": {
+    "color": "#e2a95c",
+    "height": 0.53,
+    "width": 0.57,
+    "depth": 0.52,
+    "lump": 0.03,
+    "seed": 41,
+    "taper": 0.02
+  },
+  "limbs": {
+    "color": "#734d2e",
+    "width": 0.032,
+    "shoulder": -0.34
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#4a2a14",
+    "cheeks": "#ff8f8f",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0.3,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 0.9
+    },
+    "browShape": {
+      "arch": 0.03,
+      "thick": 0.85
+    },
+    "size": 0.68,
+    "brow": "#f1eee6"
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "top",
+    "size": 1.25
+  },
+  "costume": {
+    "type": "chip",
+    "hoodie": "#ffcf2e",
+    "strings": "#f8f3e1",
+    "shoes": "#f9e5c9",
+    "stripe": "#b43a23",
+    "sole": "#e9cfa6",
+    "age": "old",
+    "glasses": false,
+    "brows": 1,
+    "dust": 1,
+    "oldBeard": 1
+  },
+  "personality": "Spud's everyday friend with too much energy (Jonny's pick, 12 Nov 2026). The smallest of the group, never stands still, says yes before he has heard the plan and drags Spud into things at full speed. Catchphrase, in gibberish with the same subtitle every time: \"Let's go!\"",
+  "voice": {
+    "pitch": 168,
+    "rate": 3.9,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 71
+  },
+  "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+  "hands": {
+    "type": "glove",
+    "size": 1.1,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Chip after waiting 400 years (Potato Desk ep 1, last shot): the age \"old\" face lines (crease #6e5236) and skin spots, no glasses, no cardigan, long white brows hanging past the eye corners, a white nine-lock beard 0.22 wide under the mouth down to the SEATED floor (sit on a chair, seat 0.42) and lying 0.20 toward +z, dust on the upward faces (head top, hood roll). Skin, hoodie, hands and shoes stay Chip's. Keys in the USAGE header of engine/page/costumes-skipage.js. Lids 0.5 are the clip's `face` action (sheet-cast.json sets Chip's resting lids 0.04). Vine, cobwebs and the ticket are separate props."
+}

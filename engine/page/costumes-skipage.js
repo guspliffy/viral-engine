@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { clothMat, liningMat, garment, trim, sstep } from "./costumes-art.js";
+import { clothMat, liningMat, garment, trim, sstep, lock, lockInk, inkMesh } from "./costumes-art.js";
 import { ribTexture, hash2 } from "./costumes-art-cast.js";
 
 // Happiness EP02 "skip the boring parts" (16 Nov 2026): SPUD AGED. DESIGN.md section 2, builder pieces 1-3.
@@ -24,6 +24,21 @@ import { ribTexture, hash2 } from "./costumes-art-cast.js";
 //              ribbed cuff (the sweater's own cuff shows past it), one stitched tan patch 0.09 x 0.07 on the LEFT elbow.
 //   crease     ink colour (default "#6e5236", drawn at 0.85 opacity old / 0.6 mid, not black)
 //   patch      the elbow patch colour (default Spud's "#9a6a3c")
+// CHIP, 400 YEARS LATER (Potato Desk ep 1, DESIGN.md potato-desk section 2; characters/potatobrawl/chip-old.json): the same
+// `age: "old"` face lines, skin spots and `glasses: false` on the chip costume (costumes-everyday.js calls skipAge for it),
+// no cardigan (the cardigan is Spud's), plus three keys of its own, each opt-in, a number 0..1 (true = 1; absent or 0 = off):
+//   brows  0..1  white hanging brows: the face's own brow takes character `face.brow` (set "#f1eee6"), and from its outer end three
+//               hairs per side (0.12-0.13 m long, each its own start, length and droop) run out and down, ending 0.10 / 0.09 / 0.075 m
+//               past the outer eye corner. Colour #f1eee6, lies on the skin. 1 = full length; less = shorter.
+//   oldBeard 0..1 9 locks (#f1eee6 on top, 4 in the shade #cfcbc0 behind, each drawn once, each its own width, sway and end height)
+//               from just under the mouth (0.22 m across: 0.17 m of hoodie shows each side of a 0.57 m ball) down the front of the
+//               hoodie to the floor, tapering to 0.10 m across, the 5 middle locks then lie on the floor 0.20 / 0.17 / 0.12 m
+//               toward +z. The floor is the SEATED floor (a `sit` on a chair of seat 0.42: the body stands 0.30 m lower than its own
+//               ground); standing up it hangs through the ground. oldBeard < 1 shortens it (0.5: half way to the floor, no tails).
+//               NOT `beard`: costume.beard is the generic Norse-god beard (costumes.js addBeard) and would draw too.
+//   dust   0..1  #b9b3a6 at 55 % x dust on UPWARD faces only: 14 flakes on the head top and one scatter along the hood's rolled cowl
+//               (the hoodie shoulders and the neck roll). Seat edge and bell dust belong to the chair and the bell props.
+//   crease     (as for Spud) ink of the face lines; chip-old keeps the default.
 // Posture (lean 4 / 14 degrees) and walk speed (0.85 / 0.55) are NOT character data keys: the clip generator sets them.
 
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
@@ -266,11 +281,128 @@ function cardigan(C, ch, parts, out) {
   };
 }
 
-export function skipAge(C, ch, out) {
+// ---------------------------------------------------------------- Chip aged: white brows, the beard, dust
+const amt = (v) => (v === true ? 1 : typeof v === "number" ? clamp01(v) : 0);
+const WHITE = "#f1eee6", WHITE_SHADE = "#cfcbc0", DUST = "#b9b3a6";
+const SEAT_FLOOR = (ch) => -(0.42 - (ch.legH - 0.02));   // where the seated floor is, in the character's own space (timeline.js "sit")
+
+function chipBrows(C, ch, parts, k) {
+  const pl = ch.face?.place; if (!pl) return;
+  const L = ch.face.layout || { eyeU: 0.35, eyeV: 0.32, browV: 0.86 }, eu = L.eyeU ?? 0.35, ev = L.eyeV ?? 0.32, bv = L.browV ?? 0.86, r = 0.08 * (ch.face.size || 1), d = 0.01, o = pl(eu, ev).pos;
+  const su = pl(eu + d, ev).pos.distanceTo(o) / d, sv = pl(eu, ev + d).pos.distanceTo(o) / d, out = 0.9 * r + 0.008, browH = (bv - ev) * sv;
+  const at = (cu, x, y) => { const q = pl(cu + x / su, ev + y / sv); return q; };
+  const geos = [], ends = [0.10, 0.09, 0.075];   // past the outer eye corner, per hair
+  for (const sd of [-1, 1]) for (let j = 0; j < 3; j++) {
+    const id = 200 + (sd > 0 ? 3 : 0) + j, pts = [], ups = [], n = 6, cu = sd * eu;
+    const x0 = out * (0.28 + 0.12 * j) + 0.006 * (hs(id, 1) - 0.5), y0 = browH + 0.003 - 0.004 * j;
+    const x1 = out + ends[j] * k * (0.97 + 0.06 * hs(id, 2)), y1 = browH - (0.040 + 0.013 * j) * k - 0.006 * hs(id, 3);
+    for (let q = 0; q <= n; q++) {
+      const t = q / n, bow = Math.sin(Math.PI * t) * 0.007 * (0.5 + hs(id, 4)), x = x0 + (x1 - x0) * t, y = y0 + (y1 - y0) * (t * t * 0.6 + t * 0.4) + bow;
+      const p = at(cu, sd * x, y); pts.push(p.pos.addScaledVector(p.normal, 0.004)); ups.push(p.normal);
+    }
+    geos.push(lock(pts, ups, 0.0085 - 0.0009 * j, 0.0062, (t) => (0.6 + 0.4 * Math.min(1, t * 4)) * Math.pow(Math.max(0, 1 - Math.pow(t, 2.2)), 0.6), 16, 8));
+  }
+  const m = mesh(merge(geos), clothMat(WHITE, { side: THREE.DoubleSide }), false); parts.add(m);
+  const ink = lockInk(geos, { width: 0.0009, to: 0.8, off: 0.2 }); if (ink) parts.add(inkMesh(ink, "#a8a296", 0.7));
+}
+
+function chipBeard(C, ch, parts, k) {
+  const pl = ch.face?.place; if (!pl) return;
+  const L = ch.face.layout || { mouthV: -0.12 }, yF = SEAT_FLOOR(ch) + 0.012, zero = new THREE.Vector3(0, 0, 1), up = new THREE.Vector3(0, 1, 0);
+  const front = [], back = [], tails = [0.20, 0.17, 0.12];
+  for (let i = 0; i < 9; i++) {
+    const id = 300 + i, dd = Math.abs(i - 4), x = (i - 4) * 0.0245 + 0.003 * (hs(id, 1) - 0.5), th = x / (0.74 * ch.rx) * 0.74;
+    const shade = i % 2 === 1, off = shade ? -0.009 : 0;
+    const A = ch.surf(th, (L.mouthV - 0.12) * 0.55 - 0.05), Bp = ch.surf(th, -0.30), Cp = ch.surf(th * 0.9, -0.46);
+    const pA = A.pos.clone().addScaledVector(A.normal, 0.014), pB = Bp.pos.clone().addScaledVector(Bp.normal, 0.045), pC = Cp.pos.clone().addScaledVector(Cp.normal, 0.06);
+    const zH = pC.z + 0.012 + off, xe = x * (0.32 + 0.1 * hs(id, 2)) + 0.012 * (hs(id, 3) - 0.5);
+    const yEnd = yF + (dd >= 3 ? 0.03 + 0.06 * hs(id, 4) : dd === 2 ? 0.012 * hs(id, 4) : 0) + (shade ? 0.012 : 0);
+    const yEndK = k >= 1 ? yEnd : pC.y - (pC.y - yEnd) * k, tail = k >= 1 && dd <= 2 ? tails[dd] * (dd ? 0.97 + 0.06 * hs(id, 5) : 1) : 0;
+    const pts = [pA, pB, pC], ups = [A.normal.clone(), Bp.normal.clone(), zero.clone()];
+    const nF = 4, sway = 0.010 * (hs(id, 6) - 0.5);
+    for (let q = 1; q <= nF; q++) {
+      const f = q / nF, y = pC.y + (yEndK - pC.y) * (f * f * 0.35 + f * 0.65);
+      pts.push(new THREE.Vector3(pC.x + (xe - pC.x) * Math.pow(f, 0.8) + sway * Math.sin(Math.PI * f * 1.4), y, zH + 0.014 * Math.sin(Math.PI * Math.min(1, f * 0.9)) + 0.004 * q * (hs(id, 7) - 0.3)));
+      ups.push(zero.clone());
+    }
+    if (tail) {
+      const last = pts[pts.length - 1], zL = last.z;
+      ups[ups.length - 1] = zero.clone().lerp(up, 0.35).normalize();
+      pts.push(new THREE.Vector3(last.x + 0.004, yF + 0.012, zL + 0.045)); ups.push(up.clone());
+      pts.push(new THREE.Vector3(last.x + 0.01 * (hs(id, 8) - 0.5), yF + 0.008, zL + 0.045 + tail * 0.55)); ups.push(up.clone());
+      pts.push(new THREE.Vector3(last.x + 0.02 * (hs(id, 9) - 0.5), yF + 0.006, zL + 0.045 + tail)); ups.push(up.clone());
+    }
+    const w0 = (shade ? 0.024 : 0.021) + 0.004 * hs(id, 10);
+    const g = lock(pts, ups, w0, 0.0105, (t) => (1 - 0.62 * t) * Math.min(1, 0.55 + t * 5) * Math.pow(Math.max(0.0001, 1 - Math.pow(t, 6)), 0.5), 56, 10);
+    (shade ? back : front).push(g);
+  }
+  const mk = (gs, col) => { const m = mesh(merge(gs), clothMat(col, { side: THREE.DoubleSide }), true); m.receiveShadow = false; return m; };
+  parts.add(mk(back, WHITE_SHADE)); parts.add(mk(front, WHITE));
+  const ink = lockInk(front, { width: 0.0024, from: 0.08, to: 0.78, off: 0.3 }); if (ink) parts.add(inkMesh(ink, "#a8a296", 0.75));
+}
+
+// one flake of dust: a flat many-sided blob at `c` in the plane (e1, e2), each radius its own, lifted so a curved skin does not bury it
+function flake(c, e1, e2, n, ru, rv, id, R) {
+  const m = 14, pos = [c.x, c.y, c.z], idx = [], lift = 0.0025 + (Math.max(ru, rv) ** 2) / (2 * R);
+  const cc = c.clone().addScaledVector(n, lift); pos[0] = cc.x; pos[1] = cc.y; pos[2] = cc.z;
+  for (let q = 0; q < m; q++) {
+    const a = (q / m) * Math.PI * 2 + 0.2 * (hs(id, 20 + q % 3) - 0.5), rr = 0.62 + 0.55 * hs(id * 17 + q, 21), p = cc.clone().addScaledVector(e1, Math.cos(a) * ru * rr).addScaledVector(e2, Math.sin(a) * rv * rr);
+    pos.push(p.x, p.y, p.z); idx.push(0, 1 + q, 1 + ((q + 1) % m));
+  }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals();
+  const N = g.attributes.normal; for (let i = 0; i < N.count; i++) N.setXYZ(i, n.x, n.y, n.z);   // all face the way the dust lies (never a dark seam)
+  return g;
+}
+
+function chipDust(C, ch, parts, k, kit) {
+  const gs = [], R = ch.rx;
+  // the head top: 14 flakes, each its own place and size, only where the skin faces up (the front keeps clear of the forehead lines)
+  for (let i = 0, n = 0; n < 14 && i < 80; i++) {
+    const th = (hs(i, 81) - 0.5) * Math.PI * 2, ph = 0.72 + 0.62 * Math.pow(hs(i, 82), 0.8);
+    if (Math.abs(th) < 0.9 && ph < 1.08) continue;
+    const s = ch.surf(th, ph); if (s.normal.y < 0.55) continue;
+    n++;
+    const e1 = new THREE.Vector3().crossVectors(s.normal, up0()).normalize(), e2 = new THREE.Vector3().crossVectors(e1, s.normal).normalize();
+    gs.push(flake(s.pos, e1, e2, s.normal, (0.03 + 0.04 * Math.pow(hs(i, 83), 1.2)) * k, (0.02 + 0.03 * hs(i, 84)) * k, 400 + i, R));
+  }
+  // the cowl: the roll round the neck, the upper face of it (a = 1.0 round the roll's section), sides and back, never the front V
+  const P = kit?.cowl;
+  if (P) {
+    const open = P.open ?? 0.1, fat = (th) => sstep(0.35, 1, 1 - Math.abs(th - Math.PI) / Math.PI), end = (th) => sstep(0, 0.22, Math.min(th - open, Math.PI * 2 - open - th));
+    const neck = (th) => P.front + (P.back - P.front) * Math.pow(0.5 * (1 - Math.cos(th)), P.vee ?? 1);
+    const cr = (th) => 0.003 + (P.cowlR + (P.hoodR - P.cowlR) * fat(th)) * end(th), cw = (th) => P.cowlWide + (P.hoodWide - P.cowlWide) * fat(th);
+    const ctr = (th) => { const ph = neck(th) - (cr(th) * cw(th) * 0.85) / ch.ry, s = ch.surf(th, ph); return { c: s.pos.clone().addScaledVector(s.normal, 0.014 + cr(th) * 0.85), n: s.normal }; };
+    const a = 1.0;
+    for (let i = 0; i < 30; i++) {
+      const th = 0.75 + (Math.PI * 2 - 1.5) * ((i + 0.5 * hs(i, 91)) / 30) + 0.05 * (hs(i, 92) - 0.5);
+      if (hs(i, 93) < 0.12) continue;   // a gap: dust never lies in an even row
+      const q = ctr(th), T = ctr(th + 0.01).c.sub(ctr(th - 0.01).c).normalize(), r = cr(th), w = cw(th), B = new THREE.Vector3().crossVectors(T, q.n).normalize(); if (B.y < 0) B.negate();
+      const p = q.c.clone().addScaledVector(q.n, r * Math.cos(a)).addScaledVector(B, r * w * Math.sin(a));
+      const nn = q.n.clone().multiplyScalar(Math.cos(a) / r).addScaledVector(B, Math.sin(a) / (r * w)).normalize();
+      if (nn.y < 0.3) continue;
+      const len = (0.028 + 0.034 * hs(i, 94)) * k, wid = Math.min(len * 0.55, r * w * 0.5) * (0.6 + 0.5 * hs(i, 95));
+      gs.push(flake(p, T, new THREE.Vector3().crossVectors(nn, T).normalize(), nn, len, wid, 500 + i, 0.3));
+    }
+  }
+  if (!gs.length) return;
+  const m = clothMat(DUST, { side: THREE.DoubleSide }); m.transparent = true; m.opacity = 0.55 * k; m.depthWrite = false; m.polygonOffset = true; m.polygonOffsetFactor = -3; m.polygonOffsetUnits = -3; m.userData.noOutline = true; m.userData.noHatch = true;
+  const o = new THREE.Mesh(merge(gs), m); o.renderOrder = 2; parts.add(o);
+}
+const up0 = () => new THREE.Vector3(0, 1, 0);
+
+function chipAge(C, ch, parts, kit) {
+  const b = amt(C.brows), d = amt(C.oldBeard), u = amt(C.dust);
+  if (b) chipBrows(C, ch, parts, b);
+  if (d) chipBeard(C, ch, parts, d);
+  if (u) chipDust(C, ch, parts, u, kit);
+}
+
+export function skipAge(C, ch, out, kit) {
   const age = C.age; if (age !== "mid" && age !== "old") return out;
   const parts = ch.potatoParts; if (!parts) return out;
   faceMarks(C, ch, parts, age === "old");
   if (C.glasses !== false) glasses(C, ch, parts);
-  if (age === "old") cardigan(C, ch, parts, out);
+  if (age === "old" && C.type === "spud") cardigan(C, ch, parts, out);   // the cardigan is Spud's
+  if (C.type === "chip") chipAge(C, ch, parts, kit);
   return out;
 }
