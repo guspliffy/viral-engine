@@ -41,7 +41,7 @@ const VIK_AT_WEDGE = [0.3, -0.45], VIK_AT_CHIP = [0.85, -0.45], VIK_AT_HIDE = [0
 // the judge turns his whole body to the one he means (Sol pass 1: "you" switched with a forward eyeline)
 const VIK_TO_WEDGE = 12, VIK_TO_CHIP = 28, VIK_TO_ASIDE = 2;
 // when the number word is said in each verdict line (speech word times, 18 Nov 2026): the board flips on it
-const NUM_AT = { 1: 0.82, 5: 1.86, 8: 0.62 };
+const NUM_AT = { 1: 0.82, 5: 1.86, 8: 0.82 };   // 8: +0.2 s, LIFE reads with the caption word (Sol pass 2)
 
 const cast = [
   { id: "vik", character: "potatobrawl/viking-judge", at: VIK, face: 8, expr: "stern", follow: 0.2, seed: 1.7 },
@@ -152,7 +152,8 @@ arm(r3(T[7] - 0.15), "chip", "R", "rest", 0.4);
 arm(r3(END_OF(6) + 0.1), "wedge", "L", { o: [0.45, 0.6, 0.12] }, 0.3); arm(r3(END_OF(6) + 0.4), "wedge", "L", "rest", 0.45);   // down on an outward arc, clear of his head A(r3(END_OF(6) + 0.1), "wedge", "expr", { expr: "happy", dur: 0.3 });
 const WIDE_AT = r3(T[7] + 0.75);
 A(WIDE_AT, "chip", "turn", { to: D_YAW, dur: 0.3 }); A(WIDE_AT, "chip", "look", { to: [-0.4, 0.6], dur: 0.2 });
-arm(WIDE_AT, "chip", "both", { o: [0.2, 0.6, 0.2] }, 0.45, "out");   // elbows bent: clear of the big one's face, in frame A(WIDE_AT, "chip", "expr", { expr: "delighted", dur: 0.2 });
+arm(WIDE_AT, "chip", "both", { o: [0.2, 0.6, 0.2] }, 0.45, "out");   // elbows bent: clear of the big one's face, in frame
+A(WIDE_AT, "chip", "expr", { expr: "delighted", dur: 0.2 });
 A(WIDE_AT, "chip", "squash", { to: -0.06, dur: 0.3 });
 say(7);
 // 9 JUDGE lifts the gavel high: The boss gets life.  (tok, LIFE; the little one still beaming)
@@ -163,10 +164,10 @@ see(T[8], r3(S3 + 0.5), ["vik.face", "board", "chip.face"], "LIFE on the board")
 
 // ---------------------------------------------------------------- the cut-in: the little one's smile freezes
 const CUT = F2(S3 + 0.45), BACK = F2(CUT + 1.47);   // 1.47 not 1.4: the hide steps land with the feet planted (stance-slide 4.9 cm -> clear, draft 3)
-A(r3(CUT + 0.1), "chip", "look", { to: AT_BOARD, dur: 0.3, blink: false });
-arm(r3(CUT + 0.35), "chip", "both", "rest", 0.6, "inOut");
-A(r3(CUT + 0.3), "chip", "expr", { expr: "shocked", dur: 0.25 });
-act.shock(c, r3(CUT + 0.35), "chip", { hold: 0.9 });   // the smile drops: mouth open, eyes wide, brows up
+// the smile drops into the hide's terrified face, eyes up at the board, arms fall (Sol pass 2: the shock mouth read as a smile)
+A(r3(CUT + 0.1), "chip", "look", { to: [0.1, 1.0], dur: 0.25, blink: false });
+A(r3(CUT + 0.15), "chip", "expr", { expr: "terrified", dur: 0.25 });
+arm(r3(CUT + 0.3), "chip", "both", "rest", 0.6, "inOut");
 see(CUT, BACK, ["chip.face"], "the little one looks up at LIFE; his smile freezes");
 // 10 back in the wide: CHIP hides behind his friend: ...I was just helping.
 // he shuffles back without turning his face away (the payoff keeps its faces to us)
@@ -184,10 +185,10 @@ say(9, { soft: true });
 const W1 = F2(END_OF(9) - 0.3);   // he moves under the tail of "helping" (Sol pass 1: 1.5 s gap)
 A(r3(W1 - 0.15), "wedge", "look", { to: [-0.5, 0], dur: 0.15 });
 step(W1, "wedge", WEDGE_ASIDE, 1.0);
-A(r3(W1 + 1.0), "wedge", "turn", { to: WEDGE_TO_CHIP, dur: 0.35 });
-A(r3(W1 + 1.0), "wedge", "look", { to: [0.6, -0.4], dur: 0.2, blink: false });
-arm(r3(W1 + 0.9), "wedge", "L", { o: [0.22, 0.42, 0.24] }, 0.5, "inOut");   // pointing down at him, below his face
-grip(r3(W1 + 1.0), "wedge", "L", "point", 0.4);
+A(r3(W1 + 0.7), "wedge", "look", { to: [0.6, -0.4], dur: 0.2, blink: false });   // eyes, then the turn, then the hand (Sol pass 2)
+A(r3(W1 + 0.8), "wedge", "turn", { to: WEDGE_TO_CHIP, dur: 0.45 });
+arm(r3(W1 + 1.0), "wedge", "L", { o: [0.22, 0.42, 0.24] }, 0.5, "inOut");   // pointing down at him, below his face
+grip(r3(W1 + 1.1), "wedge", "L", "point", 0.4);
 A(r3(W1 + 1.1), "wedge", "expr", { expr: "kind", dur: 0.2 });
 shift(10, r3(W1 + 1.2 - T[10]));
 say(10);
@@ -209,7 +210,7 @@ const beats = c.beats([
   ["one year", 0, WIDE, "hook"],
   ["ten years", T[5], "keep"],
   ["life", T[8], "keep", "escalation"],
-  ["smile freezes", CUT, { pos: [0.5, 0.3, 4.9], look: [0.6, 0.62, 1.8], fov: 26 }],
+  ["smile freezes", CUT, { pos: [0.55, 0.75, 5.1], look: [0.62, 0.85, 1.8], fov: 29 }],
   ["just helping", BACK, { ...WIDE }, "payoff"],
 ], END);
 

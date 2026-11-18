@@ -309,32 +309,32 @@
    "size": 64
   },
   {
-   "from": 19,
-   "to": 20.35,
+   "from": 19.2,
+   "to": 20.55,
    "text": "...I was just helping.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 20.933,
-   "to": 22.223,
+   "from": 21.133,
+   "to": 22.423,
    "text": "He's the boss.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 22.223,
-   "to": 24.843,
+   "from": 22.423,
+   "to": 25.043,
    "text": "Then you're the helper. *One year.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 24.843,
-   "to": 25.883,
+   "from": 25.043,
+   "to": 26.083,
    "text": "Thank you!",
    "pos": 470,
    "pop": false,
@@ -1125,6 +1125,13 @@
     },
     {
      "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 5.92
+    },
+    {
+     "who": "chip",
      "do": "squash",
      "to": -0.06,
      "dur": 0.3,
@@ -1135,7 +1142,7 @@
   {
    "name": "life",
    "at": 14.25,
-   "len": 1.083,
+   "len": 1.283,
    "shot": "keep",
    "do": [
     {
@@ -1168,7 +1175,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.217
+     "at": 0.417
     },
     {
      "who": "vik",
@@ -1190,12 +1197,12 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 0.547
+     "at": 0.747
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.4,
-     "at": 0.637
+     "at": 0.837
     },
     {
      "do": "prop",
@@ -1205,58 +1212,58 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 0.637
+     "at": 0.837
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 0.707
+     "at": 0.907
     },
     {
      "who": "chip",
      "do": "squash",
      "to": 0,
      "dur": 0.3,
-     "at": 0.947
+     "at": 1.147
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "smile freezes",
-   "at": 15.333,
+   "at": 15.533,
    "len": 1.467,
    "shot": {
     "pos": [
-     0.5,
-     0.3,
-     4.9
+     0.55,
+     0.75,
+     5.1
     ],
     "look": [
-     0.6,
      0.62,
+     0.85,
      1.8
     ],
-    "fov": 26
+    "fov": 29
    },
    "do": [
     {
      "who": "chip",
      "do": "look",
      "to": [
-      0.05,
-      0.9
+      0.1,
+      1
      ],
-     "dur": 0.3,
+     "dur": 0.25,
      "blink": false,
      "at": 0.1
     },
     {
      "who": "chip",
      "do": "expr",
-     "expr": "shocked",
+     "expr": "terrified",
      "dur": 0.25,
-     "at": 0.3
+     "at": 0.15
     },
     {
      "who": "chip",
@@ -1265,39 +1272,13 @@
      "pose": "rest",
      "dur": 0.6,
      "ease": "inOut",
-     "at": 0.35
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "expr": "shocked",
-     "set": {
-      "open": 0.45,
-      "eye": 1.425,
-      "curve": -0.075
-     },
-     "dur": 0.25,
-     "at": 0.35
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "brow": 0.45,
-     "dur": 0.25,
-     "at": 0.35
-    },
-    {
-     "who": "chip",
-     "do": "still",
-     "dur": 1.1,
-     "idle": 0.08,
-     "at": 0.35
+     "at": 0.3
     },
     {
      "who": "wedge",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.767
+     "at": 0.567
     },
     {
      "who": "chip",
@@ -1320,7 +1301,7 @@
   },
   {
    "name": "just helping",
-   "at": 16.8,
+   "at": 17,
    "len": 9.867,
    "shot": {
     "pos": [
@@ -1377,7 +1358,7 @@
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.8
+     "at": 0.6
     },
     {
      "who": "chip",
@@ -1447,6 +1428,24 @@
     },
     {
      "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.633
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.45,
+     "at": 3.733
+    },
+    {
+     "who": "wedge",
      "do": "arm",
      "side": "L",
      "pose": {
@@ -1458,24 +1457,6 @@
      },
      "dur": 0.5,
      "ease": "inOut",
-     "at": 3.833
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": 30,
-     "dur": 0.35,
-     "at": 3.933
-    },
-    {
-     "who": "wedge",
-     "do": "look",
-     "to": [
-      0.6,
-      -0.4
-     ],
-     "dur": 0.2,
-     "blink": false,
      "at": 3.933
     },
     {
@@ -1484,7 +1465,7 @@
      "side": "L",
      "shape": "point",
      "dur": 0.4,
-     "at": 3.933
+     "at": 4.033
     },
     {
      "who": "wedge",
@@ -1569,13 +1550,13 @@
      "who": "wedge",
      "do": "blink",
      "dur": 0.22,
-     "at": 6.2
+     "at": 6
     },
     {
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 7.3
+     "at": 7.1
     },
     {
      "who": "wedge",
@@ -1650,7 +1631,7 @@
   },
   {
    "from": 14.25,
-   "to": 15.397,
+   "to": 15.597,
    "see": [
     "vik.face",
     "board",
@@ -1659,16 +1640,16 @@
    "why": "LIFE on the board"
   },
   {
-   "from": 15.333,
-   "to": 16.8,
+   "from": 15.533,
+   "to": 17,
    "see": [
     "chip.face"
    ],
    "why": "the little one looks up at LIFE; his smile freezes"
   },
   {
-   "from": 20.633,
-   "to": 22.023,
+   "from": 20.833,
+   "to": 22.223,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1677,8 +1658,8 @@
    "why": "the big one steps aside and points: he's the boss"
   },
   {
-   "from": 22.223,
-   "to": 26.667,
+   "from": 22.423,
+   "to": 26.867,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1692,14 +1673,14 @@
    "who": "vik",
    "with": "chair",
    "from": 0,
-   "to": 26.667,
+   "to": 26.867,
    "reason": "the judge sits in his chair"
   },
   {
    "who": "chip",
    "with": "wedge",
-   "from": 17.8,
-   "to": 20.533,
+   "from": 18,
+   "to": 20.733,
    "checks": [
     "face-hidden",
     "front"
