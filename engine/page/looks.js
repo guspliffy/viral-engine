@@ -10,6 +10,7 @@ import { OutlineEffect } from "three/addons/effects/OutlineEffect.js";
 import { InkEffect } from "./ink.js";
 import { radialTexture } from "./geo.js";
 import { rng } from "./util.js";
+import { keyed } from "../shared/sky.js";
 import { drawnSpec, DrawnLinesPass, PaperShader, SpeedShader, paintShadowEdges, drawingNo } from "./drawn.js";
 import { makeLightRig, AO_GLSL } from "./light.js";
 import { FIRE_U } from "./firelight.js";
@@ -18,6 +19,29 @@ import { FIRE_U } from "./firelight.js";
 //   "anime-pro" premium cel look (Guilty Gear / modern anime-3D): one key light, hue-shifted shadows from a
 //               cool ambient, crisp two-tone ramp, rim and spec highlights, coloured line art, thin set lines,
 //               then anime compositing: diffusion glow, a light gradient from above, depth of field, grade
+//
+// COLOUR ARC (16 Nov 2026, happiness 03 "score", DESIGN.md section 5). Opt-in keyed grade on the finished picture, in
+// the GradeShader pass (also in --draft). Absent = the shader is compiled without ARC and the picture is unchanged.
+// Input: ctx.arc = { grade, split, ring } (stage.js passes sb.grade / sb.split / sb.ring), or set.arc with the same
+// three keys when stage.js does not pass them yet. Time t is the frame's time in the storyboard (s).
+//   grade: [[t, { s, w, c, lift }, dur?], ...]   keyed like the HUD (engine/shared/sky.js keyed): from t the value
+//          goes from the previous key's to its own over dur s (eased in and out; no dur: it jumps). Keys sort by t;
+//          before the first key the first key holds. A field a key leaves out keeps the previous key's value
+//          (the first key's: the look's own).
+//            s     final saturation of the grade pass (default: the look's own, 1.10 for anime-pro)
+//            w     warmth -1..+1: highlights shift r +0.04w, g +0.012w, b -0.04w; shadows the reverse at half (default 0)
+//            c     contrast (default: the look's own, 1.03)
+//            lift  added to all three channels after contrast (default 0; the look's own lift stays under it)
+//          "glasses": true in a key is the glasses view of DESIGN section 2: s 0, c 0.95, lift 0.03, w 0.
+//   split: { from, to, x, soft, s, w }   between from and to, a vertical soft edge: left of it the fixed warm zone
+//          (s default 1.12, w default 0.8), right of it the grade's own s / w. x: px from the left on the frame's
+//          reference size (1920x1080 wide, 1080x1920 tall) or [x0, x1] moving from x0 at from to x1 at to; soft:
+//          edge width in px (default 110).
+//   ring:  { at, dur, xy, r, soft, s0, s1, w, until }   a ring of colour from xy ([x, y] px from the top left, same
+//          reference size): radius 0 -> r (default 1300) over dur s from at (ease out), soft edge soft px (default
+//          160). Inside the ring s1 (default 1.22) and w (default 0.8); outside s0 (default: the grade's s). After
+//          at + dur the ring holds its full radius until until (default at + dur: it then ends and the grade
+//          alone shows again). Ring over split over grade.
 // Everything is a function of the scene at time t, so renders stay deterministic. (The "film" look, unused by any
 // storyboard, was removed 30 Oct 2026; it is in git history before that.)
 export const LOOKS = ["anime-pro"];
@@ -83,17 +107,34 @@ const GradeShader = {
     tDiffuse: { value: null }, contrast: { value: 1.06 }, saturation: { value: 1.08 }, lift: { value: new THREE.Vector3(0, 0, 0) },
     shadowTint: { value: new THREE.Vector3(-0.01, 0.0, 0.025) }, highTint: { value: new THREE.Vector3(0.025, 0.01, -0.02) },
     vignette: { value: 0.22 }, para: { value: 0.0 }, paraColor: { value: new THREE.Vector3(1.0, 0.86, 0.66) }, paraPos: { value: new THREE.Vector2(0.15, 1.05) }, aspect: { value: 1080 / 1920 }, aspectY: { value: 1.0 },   // the frame measured against its long side: (9/16, 1) tall, (1, 9/16) wide
+    // colour arc (header): only read when the shader is compiled with ARC
+    arcS: { value: 1 }, arcW: { value: 0 }, arcPx: { value: new THREE.Vector2(1080, 1920) },
+    spOn: { value: 0 }, spX: { value: 0 }, spSoft: { value: 110 }, spS: { value: 1.12 }, spW: { value: 0.8 },
+    riOn: { value: 0 }, riC: { value: new THREE.Vector2() }, riR: { value: 0 }, riSoft: { value: 160 }, riS: { value: 1.22 }, riW: { value: 0.8 },
   },
   vertexShader: /* glsl */`varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
   fragmentShader: /* glsl */`
     uniform sampler2D tDiffuse; uniform float contrast, saturation, vignette, para, aspect, aspectY;
     uniform vec3 lift, shadowTint, highTint, paraColor; uniform vec2 paraPos; varying vec2 vUv;
+    #ifdef ARC
+    uniform float arcS, arcW, spOn, spX, spSoft, spS, spW, riOn, riR, riSoft, riS, riW; uniform vec2 arcPx, riC;
+    #endif
     void main() {
       vec3 c = texture2D(tDiffuse, vUv).rgb;
       float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
-      c = mix(vec3(l), c, saturation);
+      float sat = saturation;
+      #ifdef ARC
+        // the colour arc: S and W per pixel (grade, then the party split, then the flood ring)
+        float wm = arcW; sat = arcS; vec2 px = vUv * arcPx;
+        if (spOn > 0.5) { float k = smoothstep(spX - spSoft * 0.5, spX + spSoft * 0.5, px.x); sat = mix(spS, sat, k); wm = mix(spW, wm, k); }
+        if (riOn > 0.5) { float m = 1.0 - smoothstep(riR - riSoft, riR, length(px - riC)); sat = mix(sat, riS, m); wm = mix(wm, riW, m); }
+      #endif
+      c = mix(vec3(l), c, sat);
       c = (c - 0.5) * contrast + 0.5 + lift;
       c += shadowTint * (1.0 - smoothstep(0.0, 0.55, l)) + highTint * smoothstep(0.45, 1.0, l);
+      #ifdef ARC
+        { vec3 wv = vec3(0.04, 0.012, -0.04) * wm; c += wv * smoothstep(0.45, 1.0, l) - 0.5 * wv * (1.0 - smoothstep(0.0, 0.55, l)); }
+      #endif
       // light falling in from the top left (paraPos), screen-blended
       vec2 p = vUv - paraPos; p.x *= aspect; p.y *= aspectY;
       float g = para * pow(clamp(1.0 - length(p) / 1.15, 0.0, 1.0), 1.6);
@@ -524,7 +565,39 @@ function sunPatches(scene, wallZ) {
   }
 }
 
-function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null, vfx = null }) {
+// the colour arc's per-frame values (header, COLOUR ARC): arc = { grade, split, ring }; base = the look's own s, c, lift
+const GLASSES_VIEW = { s: 0, w: 0, c: 0.95, lift: 0.03 };
+function arcTracks(grade, base) {
+  const tr = { s: [], w: [], c: [], lift: [] }, cur = { ...base, w: 0, lift: 0 };
+  for (const k of [...grade].sort((a, b) => a[0] - b[0])) {
+    const v = k[1] && k[1].glasses ? { ...GLASSES_VIEW, ...k[1] } : k[1] || {};
+    for (const f of ["s", "w", "c", "lift"]) { if (v[f] != null) cur[f] = v[f]; tr[f].push([k[0], cur[f], k[2] ?? 0]); }
+  }
+  return tr;
+}
+const arcEase = (k) => 1 - (1 - k) ** 3;
+function arcApply(u, arc, tracks, base, t) {
+  const at = (f) => (tracks[f].length ? keyed(tracks[f], t).v : base[f] ?? 0);
+  let s = at("s"); const w = at("w");
+  u.contrast.value = at("c"); u.lift.value.copy(base.lift).addScalar(at("lift"));
+  const sp = arc.split, ri = arc.ring;
+  u.spOn.value = sp && t >= sp.from - 1e-9 && t <= sp.to + 1e-9 ? 1 : 0;
+  if (u.spOn.value) {
+    const x = Array.isArray(sp.x) ? sp.x[0] + (sp.x[1] - sp.x[0]) * Math.min(1, Math.max(0, (t - sp.from) / Math.max(1e-6, sp.to - sp.from))) : sp.x;
+    u.spX.value = x; u.spSoft.value = Math.max(1, sp.soft ?? 110); u.spS.value = sp.s ?? 1.12; u.spW.value = sp.w ?? 0.8;
+  }
+  const dur = ri ? Math.max(1e-6, ri.dur ?? 0.9) : 1;
+  u.riOn.value = ri && t >= ri.at - 1e-9 && t <= (ri.until ?? ri.at + dur) + 1e-9 ? 1 : 0;
+  if (u.riOn.value) {
+    u.riR.value = (ri.r ?? 1300) * arcEase(Math.min(1, Math.max(0, (t - ri.at) / dur)));
+    u.riSoft.value = Math.max(1, ri.soft ?? 160); u.riS.value = ri.s1 ?? 1.22; u.riW.value = ri.w ?? 0.8;
+    u.riC.value.set(ri.xy[0], u.arcPx.value.y - ri.xy[1]);
+    if (ri.s0 != null) s = ri.s0;
+  }
+  u.arcS.value = s; u.arcW.value = w;
+}
+
+function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec, props = [], focusTrack = null, drawn = null, vfx = null, arc = null }) {
   const D = drawnSpec(drawn);
   PAINT = D && D.paint;
   const night = setSpec && (setSpec.type === "kitchen" || setSpec.type === "porch" || setSpec.type === "cottage" || !!setSpec.night);
@@ -811,7 +884,9 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     composer.addPass(glow);
   }
   composer.addPass(new OutputPass());
-  const grade = new ShaderPass(GradeShader);
+  // colour arc (header): the keys come from the storyboard (ctx.arc, or set.arc); the shader is compiled with ARC only then
+  const ARC = arc || setSpec?.arc || null, arcOn = !!(ARC && (ARC.grade || ARC.split || ARC.ring));
+  const grade = new ShaderPass(arcOn ? { ...GradeShader, defines: { ARC: "" } } : GradeShader);
   if (W > H) { grade.uniforms.aspect.value = 1.0; grade.uniforms.aspectY.value = H / W; }
   grade.uniforms.contrast.value = 1.03; grade.uniforms.saturation.value = 1.1; grade.uniforms.vignette.value = 0.18; grade.uniforms.para.value = night ? 0.22 : 0.3;
   grade.uniforms.shadowTint.value.set(-0.005, -0.005, 0.02); grade.uniforms.highTint.value.set(0.02, 0.012, -0.01);
@@ -832,6 +907,10 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
     grade.uniforms.contrast.value = 0.96; grade.uniforms.saturation.value = 0.8; grade.uniforms.vignette.value = 0.3;
     grade.uniforms.lift.value.set(-0.05, -0.04, -0.015); grade.uniforms.highTint.value.set(-0.03, -0.01, 0.02); grade.uniforms.shadowTint.value.set(-0.01, 0.0, 0.03);
   }
+  // the look's own grade as set above is the arc's base (s, c, lift)
+  const arcBase = arcOn ? { s: grade.uniforms.saturation.value, c: grade.uniforms.contrast.value, lift: grade.uniforms.lift.value.clone() } : null;
+  const arcTr = arcOn ? arcTracks(ARC.grade || [], arcBase) : null;
+  if (arcOn) grade.uniforms.arcPx.value.set(...(W > H ? [1920, 1080] : [1080, 1920]));
   composer.addPass(grade);
   // set "satsuei": true or { "hal", "halThr", "diffuse", "diffThr", "halCol", "shade", "high", "lift" } (SatsueiShader)
   if (setSpec?.satsuei) {
@@ -867,6 +946,7 @@ function animeProLook({ R, scene, camera, W, H, actors, setObjs, draft, setSpec,
         o.material = Array.isArray(o.material) ? o.material.map((m) => convert(m, nl)) : convert(o.material, nl);
       });
       grounding.update();
+      if (arcOn) arcApply(grade.uniforms, ARC, arcTr, arcBase, t ?? 0);
       if (lines) lines.seed = drawingNo(D, t ?? 0) % 997;
       if (speed) { const S = D.speed, u = t ?? 0, f = Math.min(1, Math.max(0, (u - S.from) / S.fade), Math.max(0, (S.until - u) / S.fade)); speed.uniforms.amount.value = S.amount * f; speed.enabled = f > 0; }
       if (bokeh) { camera.updateMatrixWorld(); bokeh.uniforms.focus.value = follow ? storyFocus(camera, actors, focusTrack, t, focusPoint) : focusDistance(camera, actors) - 0.3; }   // on the faces, the front of the bodies

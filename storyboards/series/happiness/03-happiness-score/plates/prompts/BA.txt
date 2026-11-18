@@ -1,0 +1,6 @@
+# plate BA from panel 23
+# refs: plates\ref\panel-23.png
+PROMPT START
+A small stone balcony at night: an iron railing, ivy and a red maple on the left, a warm lit doorway on the left edge, below a small old town of lit windows and a church tower under a starry sky, hills beyond.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

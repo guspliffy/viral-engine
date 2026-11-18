@@ -640,7 +640,9 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     if (!Number.isFinite(I) || I < RULES.silentLUFS) add("fail", "audio", `audio is silent (${sum.match(/I:\s+\S+/)?.[0] ?? "no reading"})`);
     else {
       const ok = I >= RULES.lufs[0] && I <= RULES.lufs[1];
-      add(ok ? "pass" : "fail", "loudness", `${I.toFixed(1)} LUFS (target ${RULES.lufs.join("..")})`);
+      // a film's segment (sound.level set): levelled at the film's join, so its own loudness is only noted
+      if (Number.isFinite(sb?.sound?.level)) add("note", "loudness", `${I.toFixed(1)} LUFS (a film segment at a fixed level ${sb.sound.level} dB: the join levels the film)`);
+      else add(ok ? "pass" : "fail", "loudness", `${I.toFixed(1)} LUFS (target ${RULES.lufs.join("..")})`);
       add(TP <= RULES.truePeakMax ? "pass" : "fail", "true-peak", `${TP.toFixed(1)} dBTP (max ${RULES.truePeakMax})`);
       // a stretch of silence inside the clip: a NaN gain in Never Has Money 04 (8 Nov) turned the effects and the music
       // silent from 4.0 s, and the whole-clip loudness above still passed. Momentary loudness (a 400 ms window, read

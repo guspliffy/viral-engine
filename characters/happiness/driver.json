@@ -1,0 +1,71 @@
+{
+ "id": "happiness/driver",
+ "name": "The van driver (panel 36)",
+ "franchise": "PotatoBrawl",
+ "source": "storyboards/series/happiness/03-happiness-score/DESIGN.md (16 Nov 2026), builder row C1",
+ "rig": "potato",
+ "body": {
+  "color": "#dba15a",
+  "height": 0.9,
+  "width": 0.78,
+  "depth": 0.68,
+  "lump": 0.03,
+  "seed": 83
+ },
+ "limbs": {
+  "color": "#5a4632",
+  "width": 0.032,
+  "shoulder": -0.32
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#4a2a14",
+  "cheeks": "#ff8f8f",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.4,
+   "smirk": 0,
+   "eye": 1.0
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 0.9
+  },
+  "browShape": {
+   "arch": 0.03,
+   "thick": 0.85
+  }
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "top",
+  "leaves": 1
+ },
+ "costume": {
+  "type": "spud",
+  "sweater": "#b98f54",
+  "patch": "#b98f54"
+ },
+ "personality": "Background extra: the moving-van driver, waves out of the cab window with the left arm. Never speaks.",
+ "voice": {
+  "pitch": 118,
+  "rate": 3.1,
+  "formant": 1.0,
+  "range": 4,
+  "breath": 0.08,
+  "vibrato": 0.008,
+  "seed": 83
+ },
+ "voiceNote": "gibberish, mid and plain (a proposal until Jonny has heard it)",
+ "hands": {
+  "type": "glove",
+  "size": 1.3,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ },
+ "notes": "An everyday potato, an extra (story rule: no fighters as random people). Spud's body, skin, face, glove and costume type `spud` (the knit sweater with rolled collar, hem and cuffs) in his own colour; the elbow patch is set to the sweater colour so it does not read as Spud's. Mustard sweater #b98f54, brown trousers. Wears prop kind `flatcap` (#9a7a4a) via spec.wear. Seat him at the `boxvan` cab seat point; only head, chest and the waving left arm show. Skin #dba15a per DESIGN."
+}

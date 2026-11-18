@@ -19,6 +19,29 @@
 // first in the right chip, brass while loaded, a faint outline once fired; a drop kicks the chip and the slot just
 // fired glows red for 0.4 s. A counter that needs no English (82 % of the TikTok viewers are DACH).
 //
+// Happiness score film (16 Nov 2026) adds two opt-in chips, for a clip whose clock is a score and a train (nothing
+// changes without them; both also work with the day/clock/battery chips, stacking under them):
+//   "own":   keys | { "keys": [[0, 41], [42, 40], [43, 39]], "out": [172, 0.5] }
+//   "train": keys | { "keys": [[6, "SUN 19:42"], [100, "09:12"], [150, "00:58", 12], [190, "00:00", 5]],
+//                     "out": [194, 1], "day": 3 }
+// own: Spud's own score, a glasses glyph (two #e6cf8a rings) + the number. Keys are [t, number]; the chip appears
+// (0.25 s pop) at the first key, and every later key that changes the number is a check: odometer tick over 5 frames (old
+// number slides down 40 % of the chip height and fades, the new one drops in; the colour steps at frame 3) and the house
+// kick (scale 1.06, 0.15 s). The number is coloured by the tag's 4 steps: <= 35 #cbb98a, 36-60 #e6cf8a, 61-85 #f3dc8c,
+// >= 86 #ffe9a3. "out": [t, dur = 0.5] fades the chip out for good (the glasses lift); nothing replaces it.
+// train: the countdown to Mash's train, a locomotive-front pictogram + text, and 4 day pips (Thu Fri Sat Sun) in a row
+// under the text, inside the chip (r 7, 12 px between pips; done days #fff8ec, today #e6cf8a, later ones outline only).
+// Keys are [t, value, dur?]. A value with letters ("SUN 19:42") is a label, shown as it is; a "MM:SS" string (or a plain
+// number of seconds) is the countdown: from the previous countdown key's value it counts down linearly over dur (no
+// dur: it jumps), shown as MM:SS in fixed digit cells. Under 01:00 the text is amber #ffb648. The chip slides in from
+// the right over 0.3 s at the first key; a label <-> countdown change rolls the text like the own chip's tick; the
+// countdown reaching 00:00 gives one kick (scale 1.08, 0.2 s; the whistle is the director's sound cue); no blink.
+// The pips' today is the last label's first three letters (THU FRI SAT SUN); "day": 0-3 sets it for the whole clip
+// (default Sunday with no label). "out": [t, dur = 0.5] fades the chip out for good.
+//
+// Placement follows the frame (shared/frame.js): tall as below; "frame": "wide" (1920 x 1080) puts the same chips in
+// frameSafe's corners, y 40 on top (y 888 for "bottom"): own at x 80, train's right edge at x 1840, DAY at x 92.
+// Tall own chip: x 60, y 214; train right edge x 920, y 214. A chip's "y" override ("hud": { "y": n }) moves them all.
 // Skip remote (Happiness EP02) adds two opt-in parts, nothing changes without them (design: DESIGN.md section 3). A clip
 // without "age" or "pills" draws exactly as before.
 //   "age": { "keys": [[0, 25], [4.1, 31], [9.0, 61], [15.2, 25, 1.5]], "fade": [40.2, 1.0] }
@@ -52,14 +75,70 @@
 // 1180). "y" puts its top anywhere. Boxes go to the layout as cards, so qa/framing.mjs sees a face under one.
 import { clamp, ease, lerp } from "./util.js";
 import { keyed, minutes, nightOf } from "../shared/sky.js";
+import { frameSafe, isWide } from "../shared/frame.js";
 
-const SAFE = { x0: 60, y0: 210, x1: 920, y1: 1360 };
 const CH = 70, PAD = 22, FONT = '900 44px "CapBlack"', SMALL = '800 22px "CapBold"', TAG = '900 30px "CapBlack"';
+const GLYPH = 44, PIP_R = 7, PIP_GAP = 12, PIP_W = 4 * PIP_R * 2 + 3 * PIP_GAP;
 const THR_FONT = '900 34px "CapBlack"', THR_H = 56;
 const CHIP = "rgba(18,16,24,0.66)", EDGE = "rgba(255,255,255,0.16)", TXT = "#fff8ec";
 
 const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
 const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)}h${d % 60 ? ` ${d % 60}m` : ""}` : `+${d} min`);
+
+// ---- the score film's chips (own, train)
+const TICK = 5 / 30, ROLL = 0.4 * CH, AMBER = "#ffb648", SGOLD = "#e6cf8a", DAYS = ["THU", "FRI", "SAT", "SUN"];
+const specKeys = (s) => (Array.isArray(s) ? s : s && Array.isArray(s.keys) ? s.keys : null);
+const fadeOut = (o, t) => (o ? 1 - clamp((t - o[0]) / Math.max(o[1] ?? 0.5, 1e-6)) : 1);
+const ownColour = (v) => (v <= 35 ? "#cbb98a" : v <= 60 ? "#e6cf8a" : v <= 85 ? "#f3dc8c" : "#ffe9a3");
+const isLabel = (v) => /[A-Za-z]/.test(String(v));
+const secsOf = (v) => { if (typeof v === "number") return v; const [m, s = 0] = String(v).split(":").map(Number); return m * 60 + s; };
+const mmss = (n) => { const x = Math.max(0, Math.round(n)); return `${String(Math.floor(x / 60)).padStart(2, "0")}:${String(x % 60).padStart(2, "0")}`; };
+const idxSorted = (K, t) => { let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j; return i; };
+// a train key's end text: a label as it is, a countdown as MM:SS
+const trainEnd = (k) => (isLabel(k[1]) ? String(k[1]) : mmss(secsOf(k[1])));
+
+function ownState(H, t) {
+  const spec = specKeys(H.own);
+  if (!spec || !spec.length) return null;
+  const K = spec.map((k) => [k[0], Math.round(Number(k[1]))]).sort((a, b) => a[0] - b[0]);
+  const i = idxSorted(K, t), a = fadeOut(H.own.out, t);
+  if (i < 0 || a <= 0) return null;
+  const since = t - K[i][0], changed = i > 0 && K[i][1] !== K[i - 1][1];
+  const nd = Math.max(2, ...K.map((k) => String(k[1]).length));
+  return {
+    v: K[i][1], nd, a,
+    born: t - K[0][0] < 0.25 ? t - K[0][0] : null,
+    tick: changed && since < TICK ? since : null, prev: changed && since < TICK ? K[i - 1][1] : null,
+    kick: changed && since < 0.15 ? since : null,
+  };
+}
+function trainState(H, t) {
+  const spec = specKeys(H.train);
+  if (!spec || !spec.length) return null;
+  const K = spec.map((k) => [k[0], k[1], k[2] ?? 0]).sort((a, b) => a[0] - b[0]);
+  const i = idxSorted(K, t), a = fadeOut(H.train.out, t);
+  if (i < 0 || a <= 0) return null;
+  const [t0, val, d] = K[i], since = t - t0, label = isLabel(val), prevK = i > 0 ? K[i - 1] : null;
+  let text, secs = null;
+  if (label) text = String(val);
+  else {
+    const to = secsOf(val), from = prevK && !isLabel(prevK[1]) ? secsOf(prevK[1]) : to;
+    secs = d > 0 ? lerp(from, to, clamp(since / d)) : to;
+    text = mmss(Math.ceil(secs - 1e-6));
+  }
+  const dayOf = (s) => DAYS.indexOf(String(s).slice(0, 3).toUpperCase());
+  let day = H.train.day != null ? H.train.day : 3;
+  if (H.train.day == null) for (let j = 0; j <= i; j++) if (isLabel(K[j][1]) && dayOf(K[j][1]) >= 0) day = dayOf(K[j][1]);
+  const kindChange = prevK && isLabel(prevK[1]) !== label;
+  const zero = !label && secsOf(val) === 0 && since >= d && since - d < 0.2;
+  return {
+    text, count: !label, amber: !label && Math.ceil(secs - 1e-6) < 60, day, a,
+    labels: [...new Set(K.filter((k) => isLabel(k[1])).map((k) => String(k[1])))],
+    born: t - K[0][0] < 0.3 ? t - K[0][0] : null,
+    flip: kindChange && since < 0.2 ? { since, prev: trainEnd(prevK), prevCount: !isLabel(prevK[1]), prevAmber: !isLabel(prevK[1]) && Math.ceil(secsOf(prevK[1])) < 60 } : null,
+    kick: zero ? since - d : null,
+  };
+}
 
 const shown = (H, t) => !H.show || (t >= H.show[0] && t < H.show[1]);
 
@@ -69,6 +148,10 @@ export function hudState(sb, t) {
   if (!H || !shown(H, t)) return null;
   const day = keyed(H.day, t), clock = keyed(H.clock, t, minutes), bat = keyed(H.battery, t);
   const out = { pos: H.pos || "top", y: H.y };
+  if (isWide(sb)) out.wide = true;   // only set on a wide frame, so a tall clip's cache key never changes
+  const own = ownState(H, t), train = trainState(H, t);
+  if (own) out.own = own;
+  if (train) out.train = train;
   if (day) out.day = { n: Math.round(day.v), since: day.since };
   if (H.part != null) out.part = H.part;
   if (H.label) out.label = String(H.label);
@@ -193,14 +276,18 @@ const AGE_BOX = [72, 214, 300, 118], PILLS_BOX = [420, 214, 480, 118];
 const AGE_GREEN = "#8fd14f", AGE_AMBER = "#ffb23d", AGE_RED = "#ff4d4d";
 const ageColour = (v) => { const f = (AGE_MAX - v) / AGE_MAX; return f > 0.5 ? AGE_GREEN : f >= 0.25 ? AGE_AMBER : AGE_RED; };
 
-// the chips' boxes in output px: { left: [x, y, w, h], right: [...] }
+// the chips' boxes in output px: { left, threat, right, own, train } ([x, y, w, h] each)
 function layout(ctx, S) {
-  const y = S.y ?? (S.pos === "bottom" ? 1288 : 214);
+  const safe = frameSafe(S.wide ? { frame: "wide" } : null);
+  const y = S.y ?? (S.pos === "bottom" ? safe.y1 - 72 : S.wide ? safe.y0 : 214);
   ctx.save(); ctx.font = FONT; ctx.letterSpacing = "0.5px";
   const dayW = S.day ? ctx.measureText(`DAY ${S.day.n}`).width + PAD * 2 : 0;
   const dig = Math.max(...[..."0123456789"].map((d) => ctx.measureText(d).width)), colon = ctx.measureText(":").width;
   const pctW = Math.max(dig * 3 + ctx.measureText("%").width, ctx.measureText("DEAD").width);
   const gauW = S.gauge ? 26 + 10 + dig * 3 + ctx.measureText("-").width + ctx.measureText(" °C").width : 0;
+  const ownW = S.own ? PAD * 2 + GLYPH + 10 + S.own.nd * dig : 0;
+  const trainTextW = S.train ? Math.max(dig * 4 + colon, ...S.train.labels.map((l) => ctx.measureText(l).width)) : 0;
+  const trainW = S.train ? Math.max(PAD * 2 + GLYPH + 12 + trainTextW, PAD * 2 + PIP_W) : 0;
   ctx.font = THR_FONT; const thrW = S.threat ? 40 + 12 + ctx.measureText("SNOW 0.0 m").width + PAD * 2 : 0;
   ctx.restore();
   const clockW = S.clock ? 34 + 12 + dig * 4 + colon : 0, batW = S.battery ? 56 + 10 + pctW : 0;
@@ -208,12 +295,17 @@ function layout(ctx, S) {
   const parts = [ammoW, clockW, batW, gauW].filter((w) => w > 0);
   const rw = parts.reduce((a, w) => a + w, 0) + 26 * Math.max(0, parts.length - 1) + PAD * 2;
   const hL = S.part != null || S.label ? CH + 22 : CH;
-  const left = S.day || S.part != null || S.label ? [SAFE.x0 + 12, y, Math.max(dayW, 150), hL] : null;
+  const left = S.day || S.part != null || S.label ? [safe.x0 + 12, y, Math.max(dayW, 150), hL] : null;
+  const threat = S.threat ? [safe.x0 + 12, y + (left ? hL + 10 : 0), thrW, THR_H] : null;
+  const right = S.clock || S.battery || S.gauge || S.ammo ? [safe.x1 - 12 - rw, y, rw, S.ammo ? AMMO_H + 26 : CH] : null;
+  // the score film's chips sit in the corners themselves (own x 80 / 60, train's right edge 1840 / 920); next to the
+  // older chips they stack under them
+  const ownY = y + (left ? hL + 10 : 0) + (threat ? THR_H + 10 : 0), trainY = y + (right ? right[3] + 10 : 0);
   return {
-    y, dig, colon, clockW, batW, gauW, ammoW,
-    left,
-    threat: S.threat ? [SAFE.x0 + 12, y + (left ? hL + 10 : 0), thrW, THR_H] : null,
-    right: S.clock || S.battery || S.gauge || S.ammo ? [SAFE.x1 - 12 - rw, y, rw, S.ammo ? AMMO_H + 26 : CH] : null,
+    y, dig, colon, clockW, batW, gauW, ammoW, safe, trainTextW,
+    left, threat, right,
+    own: S.own ? [safe.x0, ownY, ownW, CH] : null,
+    train: S.train ? [safe.x1 - trainW, trainY, trainW, CH + 24] : null,
   };
 }
 export function hudBoxes(ctx, sb, t) {
@@ -222,7 +314,7 @@ export function hudBoxes(ctx, sb, t) {
   const L = layout(ctx, S);
   const oy = (S.y ?? 214) - 214;
   const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
-  return [L.left, L.threat, L.right, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h], edge = EDGE, lw = 2) {
@@ -288,6 +380,25 @@ function cartridge(ctx, x, cy, live, glow) {
   }
   ctx.restore();
 }
+// the glasses glyph (two rings and a bridge), GLYPH px wide, centred on (cx, cy)
+function glasses(ctx, cx, cy) {
+  ctx.save(); ctx.strokeStyle = SGOLD; ctx.lineWidth = 4; ctx.lineCap = "round";
+  for (const dx of [-11, 11]) { ctx.beginPath(); ctx.arc(cx + dx, cy, 9, 0, Math.PI * 2); ctx.stroke(); }
+  ctx.beginPath(); ctx.arc(cx, cy - 1, 4, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx - 20, cy - 2); ctx.lineTo(cx - 22, cy - 6); ctx.moveTo(cx + 20, cy - 2); ctx.lineTo(cx + 22, cy - 6); ctx.stroke();
+  ctx.restore();
+}
+// a locomotive seen from the front, GLYPH px, centred on (cx, cy): cab, windscreen, two lamps, cowcatcher, rails
+function loco(ctx, cx, cy) {
+  const x = cx - 22, y = cy - 22;
+  ctx.save(); ctx.strokeStyle = TXT; ctx.fillStyle = TXT; ctx.lineWidth = 3.5; ctx.lineJoin = "round"; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.roundRect(x + 8, y + 3, 28, 29, 8); ctx.stroke();
+  ctx.beginPath(); ctx.roundRect(x + 13, y + 9, 18, 9, 3); ctx.stroke();
+  ctx.fillStyle = "#ffd25a"; for (const dx of [15, 29]) { ctx.beginPath(); ctx.arc(x + dx, y + 25, 2.8, 0, Math.PI * 2); ctx.fill(); }
+  ctx.beginPath(); ctx.moveTo(x + 6, y + 40); ctx.lineTo(x + 12, y + 33); ctx.moveTo(x + 38, y + 40); ctx.lineTo(x + 32, y + 33); ctx.moveTo(x + 3, y + 41); ctx.lineTo(x + 41, y + 41); ctx.stroke();
+  ctx.restore();
+}
+
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
 
 // a birthday cake in a 64 px box at (x, y): candles lit by age (3 flames under 50, 1 from 50, the others burnt out)
@@ -513,12 +624,64 @@ export function drawHud(ctx, sb, t) {
       const k = S.clock.tag.since, a = Math.min(1, k / 0.1) * (1 - clamp((k - 0.9) / 0.3)), dx = 24 * (1 - ease("back")(clamp(k / 0.22)));
       ctx.save(); ctx.globalAlpha = a; ctx.font = TAG; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
       // left of the clock chip, never over the day chip (with no room there it sits just under the clock chip)
-      const tw = ctx.measureText(S.clock.tag.text).width + 32, th = 46, room = x - 14 - tw >= (L.left ? L.left[0] + L.left[2] + 12 : SAFE.x0);
+      const tw = ctx.measureText(S.clock.tag.text).width + 32, th = 46, room = x - 14 - tw >= (L.left ? L.left[0] + L.left[2] + 12 : L.safe.x0);
       const tx = room ? x - 14 - tw + dx : x + w - tw, ty = room ? y + (h - th) / 2 : y + h + 8 - dx / 3;
       ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, th / 2); ctx.fillStyle = "#ffd25a"; ctx.fill();
       ctx.fillStyle = "#1a1720"; ctx.fillText(S.clock.tag.text, tx + tw / 2, ty + th / 2 + 2);
       ctx.restore();
     }
+  }
+  if (L.own) {
+    const O = S.own, [x, y, w, h] = L.own, kick = O.kick != null ? 1 + 0.06 * Math.sin((O.kick / 0.15) * Math.PI) : 1;
+    const born = O.born != null ? ease("back")(clamp(O.born / 0.25)) : 1, sc = kick * (0.9 + 0.1 * born);
+    ctx.save(); ctx.globalAlpha *= O.a * (O.born != null ? clamp(O.born / 0.12) : 1);
+    ctx.translate(x + w / 2, y + h / 2); ctx.scale(sc, sc); ctx.translate(-(x + w / 2), -(y + h / 2));
+    chip(ctx, L.own); ctx.beginPath(); ctx.roundRect(x, y, w, h, 20); ctx.clip();   // a rolling number stays in the chip
+    glasses(ctx, x + PAD + GLYPH / 2, y + h / 2);
+    const nx = x + PAD + GLYPH + 10, my = y + h / 2 + 2;
+    ctx.font = FONT; ctx.letterSpacing = "0px"; ctx.textAlign = "center";
+    const num = (v, col, dy, a) => {
+      const str = String(v); ctx.save(); ctx.globalAlpha *= a; ctx.fillStyle = col;
+      digits(ctx, str, nx + ((O.nd - str.length) * L.dig) / 2, my + dy, L.dig, L.colon); ctx.restore();
+    };
+    if (O.tick != null) {
+      const k = clamp(O.tick / TICK), newCol = O.tick >= 3 / 30 ? ownColour(O.v) : ownColour(O.prev);
+      num(O.prev, ownColour(O.prev), k * ROLL, 1 - k);
+      num(O.v, newCol, -(1 - k) * ROLL, k);
+    } else num(O.v, ownColour(O.v), 0, 1);
+    ctx.restore();
+  }
+  if (L.train) {
+    const T = S.train, [x, y, w, h] = L.train, kick = T.kick != null ? 1 + 0.08 * Math.sin((T.kick / 0.2) * Math.PI) : 1;
+    const slide = T.born != null ? ease("out")(clamp(T.born / 0.3)) : 1;
+    ctx.save(); ctx.globalAlpha *= T.a * slide; ctx.translate((1 - slide) * 60, 0);
+    ctx.translate(x + w / 2, y + h / 2); ctx.scale(kick, kick); ctx.translate(-(x + w / 2), -(y + h / 2));
+    chip(ctx, L.train); ctx.beginPath(); ctx.roundRect(x, y, w, h, 20); ctx.clip();
+    loco(ctx, x + PAD + GLYPH / 2, y + CH / 2);
+    // the text area: label or countdown centred in it
+    const ax = x + PAD + GLYPH + 12, aw = w - (PAD * 2 + GLYPH + 12), cx = ax + aw / 2, my = y + CH / 2 + 2;
+    ctx.font = FONT; ctx.letterSpacing = "0.5px";
+    const text = (str, count, amber, dy, a) => {
+      ctx.save(); ctx.globalAlpha *= a; ctx.fillStyle = amber ? AMBER : TXT;
+      if (count) { ctx.textAlign = "center"; ctx.letterSpacing = "0px"; digits(ctx, str, cx - (L.dig * 4 + L.colon) / 2, my + dy, L.dig, L.colon); }
+      else { ctx.textAlign = "center"; ctx.fillText(str, cx, my + dy); }
+      ctx.restore();
+    };
+    if (T.flip) {
+      const k = clamp(T.flip.since / 0.2);
+      text(T.flip.prev, T.flip.prevCount, T.flip.prevAmber, k * ROLL, 1 - k);
+      text(T.text, T.count, T.amber, -(1 - k) * ROLL, k);
+    } else text(T.text, T.count, T.amber, 0, 1);
+    // 4 day pips: done days filled, today gold, later ones outline only
+    const px = x + w / 2 - PIP_W / 2 + PIP_R, py = y + h - 16;
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 4; i++) {
+      const cxp = px + i * (PIP_R * 2 + PIP_GAP);
+      ctx.beginPath(); ctx.arc(cxp, py, PIP_R, 0, Math.PI * 2);
+      if (i <= T.day) { ctx.fillStyle = i === T.day ? SGOLD : TXT; ctx.fill(); }
+      else { ctx.strokeStyle = "rgba(255,248,236,0.55)"; ctx.stroke(); }
+    }
+    ctx.restore();
   }
   if (S.money) drawMoney(ctx, S.money);
   if (S.sun) drawSun(ctx, S.sun);

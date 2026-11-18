@@ -1,0 +1,2019 @@
+{
+ "id": "hs03-b4-tall",
+ "title": "I could see everyone's happiness score (block B, b4)",
+ "idea": "Happiness 03 block B (0:50-1:40): Spud tapes over his mirror and still sees himself in the kettle and a puddle (38, 37, 36); at Mash's goodbye party he keeps checking instead of dancing (35, 34, 33, 32), the warmth stops at his corner; Mash looks over and his number falls 88, 86, 84 because Spud isn't there; Mash alone on the balcony; Spud alone among the boxes, 31.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreroom",
+  "state": "party",
+  "light": "golden",
+  "key": [
+   -1.5,
+   2.2,
+   4
+  ],
+  "shadowSize": 5,
+  "windows": false
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 62,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false,
+  "bpm": 91.9,
+  "offset": 0.6
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "level": -9.7,
+  "surface": "wood",
+  "room": "small"
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     36
+    ],
+    [
+     12,
+     35
+    ],
+    [
+     17,
+     34
+    ],
+    [
+     22,
+     33
+    ],
+    [
+     27,
+     32
+    ],
+    [
+     33,
+     31
+    ],
+    [
+     38,
+     30
+    ],
+    [
+     94,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     38,
+     "09:12"
+    ],
+    [
+     88,
+     "00:58"
+    ],
+    [
+     94,
+     "00:41",
+     4
+    ],
+    [
+     100,
+     "00:22",
+     4
+    ],
+    [
+     110,
+     "00:12",
+     3
+    ],
+    [
+     124,
+     "00:03",
+     3
+    ],
+    [
+     128,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 1.12,
+    "w": 0.8,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   8,
+   {
+    "s": 0.825,
+    "w": 0.1,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   11.2,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   12.3,
+   {
+    "s": 0.77,
+    "w": 0,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   16.2,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   17.2,
+   {
+    "s": 0.715,
+    "w": -0.1,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   21.6,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   26.8,
+   {
+    "s": 0.66,
+    "w": -0.2,
+    "c": 1.03,
+    "lift": 0
+   }
+  ]
+ ],
+ "split": {
+  "from": 17.2,
+  "to": 21.6,
+  "x": [
+   1377,
+   477
+  ],
+  "soft": 110,
+  "s": 1.12,
+  "w": 0.8
+ },
+ "score": {
+  "view": [
+   [
+    11.2,
+    12.3
+   ],
+   [
+    16.2,
+    17.2
+   ],
+   [
+    21.6,
+    26.8
+   ]
+  ],
+  "tags": [
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      36
+     ],
+     [
+      12,
+      35
+     ],
+     [
+      17,
+      34
+     ],
+     [
+      22,
+      33
+     ],
+     [
+      27,
+      32
+     ],
+     [
+      33,
+      31
+     ],
+     [
+      38,
+      30
+     ],
+     [
+      94,
+      29
+     ]
+    ],
+    "minus": true,
+    "show": [
+     11.2,
+     12.3
+    ],
+    "xy": [
+     540,
+     1171
+    ],
+    "k": 1,
+    "size": "close"
+   },
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      36
+     ],
+     [
+      12,
+      35
+     ],
+     [
+      17,
+      34
+     ],
+     [
+      22,
+      33
+     ],
+     [
+      27,
+      32
+     ],
+     [
+      33,
+      31
+     ],
+     [
+      38,
+      30
+     ],
+     [
+      94,
+      29
+     ]
+    ],
+    "minus": true,
+    "show": [
+     16.2,
+     17.2
+    ],
+    "xy": [
+     540,
+     1171
+    ],
+    "k": 1,
+    "size": "close"
+   },
+   {
+    "who": "chip",
+    "keys": [
+     [
+      0,
+      93
+     ]
+    ],
+    "show": [
+     21.6,
+     23.6
+    ]
+   },
+   {
+    "who": "wedge",
+    "keys": [
+     [
+      0,
+      82
+     ]
+    ],
+    "show": [
+     21.6,
+     23.6
+    ]
+   },
+   {
+    "who": "mash",
+    "keys": [
+     [
+      0,
+      88
+     ],
+     [
+      24,
+      86
+     ],
+     [
+      26,
+      84
+     ]
+    ],
+    "show": [
+     21.6,
+     26.8
+    ],
+    "k": 1.15
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    0
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 1.3
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    44,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 2.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    48,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 3.1
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    52,
+    0
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.2,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "gl-worn",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0,
+   "staged": "the glasses on Spud's nose (SCORE_FITS nose)"
+  },
+  {
+   "id": "spkbox",
+   "kind": "cardbox",
+   "closed": true,
+   "x": -2.3,
+   "y": 0,
+   "z": -0.4,
+   "w": 0.5,
+   "d": 0.42,
+   "h": 0.45,
+   "staged": "a closed moving box as the speaker's table"
+  },
+  {
+   "id": "speaker",
+   "kind": "speaker",
+   "x": -2.3,
+   "y": 0.45,
+   "z": -0.4,
+   "rot": 35,
+   "lit": 0,
+   "staged": "the little speaker on the box"
+  },
+  {
+   "id": "lights",
+   "kind": "stringlights",
+   "points": [
+    [
+     -3.1,
+     2.32,
+     -2.3
+    ],
+    [
+     -2.2,
+     2.42,
+     -0.6
+    ],
+    [
+     -1.3,
+     2.26,
+     -2.3
+    ],
+    [
+     -0.4,
+     2.42,
+     -0.5
+    ],
+    [
+     0.8,
+     2.3,
+     -2.3
+    ]
+   ],
+   "bulbs": 5,
+   "sag": 0.14,
+   "lit": 1,
+   "staged": "warm string lights over the dancers' side only"
+  },
+  {
+   "id": "pad",
+   "kind": "spudpad",
+   "x": 40,
+   "y": 0.27,
+   "z": -1.02,
+   "rot": 125,
+   "tip": -30,
+   "write": 1,
+   "lines2": [
+    "MASH = 86",
+    "MASH = 88 ??"
+   ],
+   "note": "88 -> 84 ?",
+   "staged": "his detective pad, held low at his chest"
+  }
+ ],
+ "captions": [
+  {
+   "from": 12.6,
+   "to": 13.9,
+   "text": "Come on!",
+   "pos": 316,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 13.9,
+   "to": 15.1,
+   "text": "One sec.",
+   "pos": 316,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "16 Mash presses play, Chip and Wedge cheer",
+   "at": 0,
+   "len": 3.4,
+   "shot": {
+    "pos": [
+     -1.3,
+     1.1,
+     2.6
+    ],
+    "look": [
+     -1.75,
+     0.88,
+     -0.4
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -1.35,
+      1.08,
+      2.45
+     ],
+     "look": [
+      -1.75,
+      0.88,
+      -0.4
+     ],
+     "fov": 46
+    },
+    "dur": 3.4000000000000004,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -1.62,
+      -0.05
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.15,
+      -1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.05,
+      -0.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "lid": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "speaker",
+      "grip": [
+       0.105,
+       0.13,
+       0.135
+      ]
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.15
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.3,
+     "reason": "the speaker's play button clicks",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "speaker",
+     "set": {
+      "lit": 1
+     },
+     "dur": 0.1,
+     "ease": "linear",
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.75
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.75
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.12,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       1.05,
+       0.1
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.95
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 1
+    },
+    {
+     "macro": "narrate",
+     "line": "His goodbye party. Your old song.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.8423,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 1
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.6,
+     "at": 1.3
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "lid": 0.5
+     },
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "bounce",
+     "dur": 1.7,
+     "amp": 1,
+     "at": 1.6
+    },
+    {
+     "who": "wedge",
+     "do": "bounce",
+     "dur": 1.6,
+     "amp": 0.8,
+     "at": 1.7
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.7,
+      -1.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.8,
+      -0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.25,
+      -0.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.38
+    }
+   ]
+  },
+  {
+   "name": "17 they dance",
+   "at": 3.4,
+   "len": 4.6,
+   "shot": {
+    "pos": [
+     -0.95,
+     1.05,
+     2.3
+    ],
+    "look": [
+     -0.95,
+     0.75,
+     -0.8
+    ],
+    "fov": 46,
+    "to": {
+     "pos": [
+      -0.8,
+      1.02,
+      2
+     ],
+     "look": [
+      -0.95,
+      0.75,
+      -0.8
+     ],
+     "fov": 46
+    },
+    "dur": 4.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "point",
+     "dur": 4.5,
+     "amp": 1,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "roof",
+     "dur": 4.5,
+     "amp": 0.8,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "bounce",
+     "dur": 4.5,
+     "amp": 0.6,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.3,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.58
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -37,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.58
+    }
+   ]
+  },
+  {
+   "name": "18 Spud by the window looks up",
+   "at": 8,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     1.15,
+     0.85,
+     0.35
+    ],
+    "look": [
+     2.35,
+     0.78,
+     -1.35
+    ],
+    "fov": 38,
+    "to": {
+     "pos": [
+      1.25,
+      0.85,
+      0.2
+     ],
+     "look": [
+      2.35,
+      0.78,
+      -1.35
+     ],
+     "fov": 38
+    },
+    "dur": 3.1999999999999993,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "point",
+     "dur": 4.3,
+     "amp": 0.9,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "roof",
+     "dur": 18.8,
+     "amp": 0.9,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "bounce",
+     "dur": 15,
+     "amp": 0.6,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.85
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    }
+   ]
+  },
+  {
+   "name": "18v he checks: 36 -> 35",
+   "at": 11.2,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.3,
+     0.75,
+     -1.3
+    ],
+    "look": [
+     0.2,
+     2.45,
+     -1.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.3,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -37,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      1.5,
+      -0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.08
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 1.08
+    }
+   ]
+  },
+  {
+   "name": "19 Chip pulls him to the dance, 'One sec.'",
+   "at": 12.3,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     1.5,
+     1,
+     2.1
+    ],
+    "look": [
+     1.88,
+     0.62,
+     -1.05
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.52,
+      1,
+      2
+     ],
+     "look": [
+      1.88,
+      0.62,
+      -1.05
+     ],
+     "fov": 40
+    },
+    "dur": 3.8999999999999986,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "lid": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "bounce",
+     "dur": 0.9,
+     "amp": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.42,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "Come on!",
+     "tone": "excited",
+     "dur": 0.9,
+     "voice": false,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.36,
+       0.18
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.42,
+       0.3
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.85
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.02,
+       0.7,
+       0.3
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.5
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "One sec.",
+     "tone": "calm",
+     "dur": 0.8,
+     "voice": false,
+     "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 2.4
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.85
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      48,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 3.88
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.88
+    }
+   ]
+  },
+  {
+   "name": "19v he checks: 35 -> 34",
+   "at": 16.2,
+   "len": 1,
+   "shot": {
+    "pos": [
+     2.3,
+     0.75,
+     -1.3
+    ],
+    "look": [
+     -0.4,
+     2.4,
+     -0.9
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.3,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.7,
+      -1.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 20,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "20 the warmth stops at his corner",
+   "at": 17.2,
+   "len": 4.4,
+   "shot": {
+    "pos": [
+     -2.6,
+     1.25,
+     2.4
+    ],
+    "look": [
+     -1.1,
+     0.9,
+     -1
+    ],
+    "fov": 50,
+    "to": {
+     "pos": [
+      -2.6,
+      1.25,
+      2.4
+     ],
+     "look": [
+      1.6,
+      0.85,
+      -1.4
+     ],
+     "fov": 50
+    },
+    "dur": 4.400000000000002,
+    "ease": "linear"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "point",
+     "dur": 9.6,
+     "amp": 0.9,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "You noticed: the more you checked how happy you were, the less you enjoyed the song.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.6394,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 4.38
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -2.3,
+      0.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -1.2,
+      -0.35
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.5,
+      -1.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.38
+    }
+   ]
+  },
+  {
+   "name": "21v the party through the glasses: Chip 93, Wedge 82, Mash 88",
+   "at": 21.6,
+   "len": 2,
+   "shot": {
+    "pos": [
+     2.05,
+     0.74,
+     -1.15
+    ],
+    "look": [
+     -0.95,
+     0.85,
+     -0.7
+    ],
+    "fov": 70
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.6,
+     "at": 1.2
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.25,
+      0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.3
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.35
+     },
+     "dur": 0.5,
+     "at": 1.4
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -1.5,
+      2.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.6,
+      2.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.98
+    }
+   ]
+  },
+  {
+   "name": "21m Mash alone: 88 -> 86 -> 84",
+   "at": 23.6,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     2.05,
+     0.74,
+     -1.15
+    ],
+    "look": [
+     -0.5,
+     1.15,
+     -1.5
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "And for the first time, his number went down.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.6815,
+     "caption": true,
+     "pos": 316,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "x": 2,
+      "y": 0.27,
+      "z": -1.02,
+      "rot": 125,
+      "tip": -30,
+      "write": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 3.17
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.3,
+      -1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -55,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.13,
+       0.052,
+       -0.01
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.01,
+     "at": 3.18
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "pad",
+     "hand": "L",
+     "grip": [
+      -0.13,
+      0.052,
+      -0.01
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 3.19
+    }
+   ]
+  },
+  {
+   "name": "22 he watches Mash and writes",
+   "at": 26.8,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     1,
+     0.98,
+     0.25
+    ],
+    "look": [
+     2.25,
+     0.8,
+     -1.3
+    ],
+    "fov": 34,
+    "to": {
+     "pos": [
+      1.06,
+      0.97,
+      0.17
+     ],
+     "look": [
+      2.25,
+      0.81,
+      -1.3
+     ],
+     "fov": 34
+    },
+    "dur": 2.4000000000000057,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "lid": 0.45,
+      "brow": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.45,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "write": 2
+     },
+     "dur": 1.5,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.03,
+       0.11,
+       0.045
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       0.02,
+       0.098,
+       0.045
+      ]
+     },
+     "dur": 0.4,
+     "at": 0.76
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       -0.03,
+       0.086,
+       0.045
+      ]
+     },
+     "dur": 0.4,
+     "at": 1.12
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "pad",
+      "grip": [
+       0.02,
+       0.074,
+       0.045
+      ]
+     },
+     "dur": 0.4,
+     "at": 1.48
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 1.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs (b4). Block B of four, block time 12-41.2 s (story 62-91.2)."
+}

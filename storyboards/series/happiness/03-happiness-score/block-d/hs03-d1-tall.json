@@ -1,0 +1,454 @@
+{
+ "id": "hs03-d1-tall",
+ "title": "Happiness 03 block D d1",
+ "idea": "Happiness 03 'I could see everyone's happiness score', block D 'Last sunset' (story 2:30-3:22)",
+ "format": "series: Spud looks for happiness (TikTok film, tall)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 150,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.05,
+  "surface": "grass",
+  "room": "open",
+  "guard": true,
+  "level": -9.7
+ },
+ "creative": {
+  "length": [
+   4.2,
+   4.2
+  ]
+ },
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   6,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     30
+    ],
+    [
+     6,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "00:58"
+    ],
+    [
+     6,
+     "00:41",
+     4
+    ],
+    [
+     12,
+     "00:22",
+     4
+    ],
+    [
+     22,
+     "00:12",
+     3
+    ],
+    [
+     36,
+     "00:03",
+     3
+    ],
+    [
+     40,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "hook": {
+  "show": [
+   "mash",
+   "spud"
+  ],
+  "hint": 0,
+  "what": "Mash points to the hill: one last time before his train"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    1.5,
+    1.9
+   ],
+   "face": -60,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    2.05,
+    0.95
+   ],
+   "face": -100,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.1
+  }
+ ],
+ "props": [
+  {
+   "id": "van",
+   "kind": "boxvan",
+   "x": 1,
+   "y": -0.15,
+   "z": 3.7,
+   "rot": -90,
+   "open": 1,
+   "cargo": true
+  },
+  {
+   "id": "bikeM",
+   "kind": "bike",
+   "color": "#3f6fa8",
+   "x": -0.55,
+   "y": 0,
+   "z": 2.3,
+   "rot": 90,
+   "tilt": 10
+  },
+  {
+   "id": "bikeS",
+   "kind": "bike",
+   "color": "#b5412f",
+   "x": 0.35,
+   "y": 0,
+   "z": 2.3,
+   "rot": 90,
+   "tilt": 10
+  },
+  {
+   "id": "glw",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "fold": 0,
+   "x": 0,
+   "y": 0.835,
+   "z": 0.276,
+   "tip": -28
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.55,
+   "to": 2.65,
+   "text": "Hill? One last time?",
+   "pos": 316,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "37 one last time",
+   "at": 0,
+   "len": 4.2,
+   "shot": {
+    "pos": [
+     -3.4,
+     1.05,
+     0.4
+    ],
+    "look": [
+     1.78,
+     0.8,
+     1.55
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -3.089,
+      1.035,
+      0.469
+     ],
+     "look": [
+      1.78,
+      0.8,
+      1.55
+     ],
+     "fov": 42
+    },
+    "dur": 4.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.4,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.15,
+      "open": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/storm-wind",
+     "gain": 0.04,
+     "dur": 4,
+     "reason": "a light autumn wind in the street, far under the music",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -70,
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.45
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "eager",
+     "set": {
+      "curve": 0.8,
+      "open": 0.4
+     },
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "Hill? One last time?",
+     "tone": "warm",
+     "dur": 1.7,
+     "blink": false,
+     "voice": false,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.2,
+      0.15
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.3,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "spud",
+     "macro": "nod",
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.3,
+     "at": 2.5
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.9
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 2.9
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 3.6
+    }
+   ],
+   "kind": "hook"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 4.2,
+   "see": [
+    "mash.face",
+    "spud.face"
+   ],
+   "why": "panel 37: Mash points up the street at the hill; the white van, the two bikes"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "glw",
+   "from": 0,
+   "to": 4.2,
+   "checks": [
+    "shell",
+    "clipping"
+   ],
+   "reason": "the glasses are worn (pushed up on his forehead): the temples rest on his head (props-score.js SCORE_FITS)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-d/make-block-d.mjs (story 150-154.2)."
+}

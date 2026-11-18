@@ -274,6 +274,13 @@ function headphones(C, ch, P) {
   }
 }
 
+// the rim of Spud's own teal sweater (his rolled collar) standing up out of the hoodie's folded hood: a ribbed roll just above the cowl
+function spudCollar(C, ch, P) {
+  const teal = C.sweater || "#2f8f8a", open = P.open ?? 0.1, neck = (th) => P.front + (P.back - P.front) * Math.pow(0.5 * (1 - Math.cos(th)), P.vee ?? 1);
+  const end = (th) => sstep(0, 0.22, Math.min(th - open, Math.PI * 2 - open - th)), r = (th) => 0.003 + 0.017 * end(th);
+  ch.potatoParts.add(mesh(rollOn(ch, { th0: open, th1: Math.PI * 2 - open, ph: (th) => neck(th) + (C.collarUp ?? 0.03) / ch.ry, r, wide: () => 1.9, lift: 0.014, sink: 0.85, segs: 140, radial: 14 }), ribMat(teal, ribTexture(66, 1024, 64, 5.3))));
+}
+
 // ---------- the bathrobe (the grumpy neighbour, "There's a catch" EP07, DESIGN.md 4.2) --------------------------------------
 // A striped wrap robe that hangs from the shoulders as a bell to 0.06 m above the floor (the garment() kit on a body that is the
 // potato down to the belt and a flared skirt below it), a rolled shawl collar crossing left over right with a trim band down the
@@ -681,6 +688,10 @@ const KIT = {
   bathrobe: (C, ch) => robe(C, ch, { color: "#b79ac8", stripe: "#8a6aa6", collar: "#cdb6da", beltC: "#9a7ab4", phBelt: -0.62, seed: 53.4, front: -0.4, back: 0.25, vee: 0.75, hem: 0.06, flare: 1.36, circ: 2.45, phase: 0.8, r0: 0.074, r1: 0.059, rows: [0.78, 0.46] }),
   chip: (C, ch) => hoodie(C, ch, { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true }),
   mash: (C, ch) => { const sl = hoodie(C, ch, { color: "#7a716c", seed: 33.8, front: -0.16, back: 0.2, vee: 0.7, hem: -1.2, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 }); headphones(C, ch, { ph: -0.2, rise: 0.46, at: 1.15, cup: 0.078, lift: 0.05 }); return sl; },
+  // Spud copies Mash (happiness score film, panels 08-12): Mash's charcoal hoodie on Spud's body with Spud's own teal sweater
+  // collar showing above the folded hood, and light-blue headphones round his neck. C: hoodie, sweater (the collar), strings, phones.
+  spudcopy: (C, ch) => { const P = { color: "#7a716c", seed: 33.8, front: -0.46, back: 0.1, vee: 0.7, hem: -1.16, cowlR: 0.022, cowlWide: 1.8, hoodR: 0.05, hoodWide: 2.3, r0: 0.07, r1: 0.054, phase: 1.4, cordLen: 0.2, cordR: 0.006, pocketW: 0.62, pocketH: 0.07, pocketUp: 0.3, rivets: true, flecks: 900 };
+    const sl = hoodie(C, ch, P); spudCollar(C, ch, P); headphones(C, ch, { ph: -0.56, rise: 0.42, at: 0.92, cup: 0.075, lift: 0.05 }); return sl; },
   teller: (C, ch) => teller(C, ch, { seed: 87.3 }),
   duchess: (C, ch) => duchess(C, ch, { seed: 73.6 }),
   dauphin: (C, ch) => dauphin(C, ch, { seed: 79.2 }),

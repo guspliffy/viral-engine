@@ -121,7 +121,11 @@ export function mixClip(sb, chars, log = [], opts = {}) {
   // The limiters take some loudness with them, so the level is set again with them in place (a few rounds land
   // within 0.1 LU), and the master's loudnorm in render.mjs has next to nothing left to do
   const I = integrated(add2(vo, a1.stems.bed, mus, fx), sr);
-  let lift = Number.isFinite(I) ? G.target - I : 0, lim = null, flim = null, vlim = null, got = I;
+  // sound.level (dB): a fixed lift instead of levelling to the target, for the segments of one film rendered apart: each
+  // levelled on its own put the music 16 dB higher in a segment with no narrator line than in its neighbours (hs03,
+  // 16 Nov 2026); the film is levelled once at the join
+  const fixed = Number.isFinite(sb.sound?.level);
+  let lift = fixed ? sb.sound.level : Number.isFinite(I) ? G.target - I : 0, lim = null, flim = null, vlim = null, got = I;
   const bus = (x, k) => { const L = new Float32Array(n), R = new Float32Array(n); for (let i = 0; i < n; i++) { L[i] = x.L[i] * k; R[i] = x.R[i] * k; } return { L, R }; };
   for (let round = 0; round < 6; round++) {
     const k = Math.pow(10, lift / 20), L = new Float32Array(n), R = new Float32Array(n), f = bus(fx, k), v = bus(vo, k);
@@ -129,7 +133,7 @@ export function mixClip(sb, chars, log = [], opts = {}) {
     for (let i = 0; i < n; i++) { L[i] = bL[i] * k + f.L[i] + v.L[i]; R[i] = bR[i] * k + f.R[i] + v.R[i]; }
     lim = limit(L, R, sr, G); a1.L = L; a1.R = R; got = integrated([L, R], sr);
     if (opts.voice) a1.voice = v;   // after its own limiter; the master limiter's small cut is shared with the rest
-    if (!Number.isFinite(got) || Math.abs(G.target - got) < 0.1) break;
+    if (fixed || !Number.isFinite(got) || Math.abs(G.target - got) < 0.1) break;
     lift += G.target - got;
   }
   delete a1.stems;
@@ -137,7 +141,7 @@ export function mixClip(sb, chars, log = [], opts = {}) {
   log.push(capped.length
     ? `spike guard: ${capped.length} effect${capped.length > 1 ? "s" : ""} turned down to ${G.over} dB (loud: ${G.loud}) over the voices, room and music around them: ${capped.map((c) => `${c.name} -${c.cut.toFixed(1)} dB (was +${c.over.toFixed(1)}${c.loud ? ", loud" : ""})`).join(", ")}`
     : `spike guard: every effect within ${G.over} dB of the voices, room and music around it`);
-  log.push(`spike guard: mix levelled ${(lift >= 0 ? "+" : "") + lift.toFixed(1)} dB to ${got.toFixed(1)} LUFS; limiters at ${G.ceiling} dBTP took up to ${flim.max.toFixed(1)} dB off the effects' peaks, ${vlim.max.toFixed(1)} dB off the voices' and ${lim.max.toFixed(1)} dB off the whole mix (${Math.round(lim.ms)} ms over 1 dB)`);
+  log.push(`spike guard: mix ${fixed ? "lifted (fixed, sound.level)" : "levelled"} ${(lift >= 0 ? "+" : "") + lift.toFixed(1)} dB to ${got.toFixed(1)} LUFS; limiters at ${G.ceiling} dBTP took up to ${flim.max.toFixed(1)} dB off the effects' peaks, ${vlim.max.toFixed(1)} dB off the voices' and ${lim.max.toFixed(1)} dB off the whole mix (${Math.round(lim.ms)} ms over 1 dB)`);
   a1.peak = lim.peak; a1.levels = levels; a1.guard = { capped, levelled: lift, lufs: got, limiter: lim, fxLimiter: flim, voiceLimiter: vlim };
   return a1;
 }
