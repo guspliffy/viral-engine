@@ -1,0 +1,31 @@
+# Happiness score film, sheet 3 of 4 (panels 25-36), 12 panels, 16:9 cells
+# References: references\spud-reference-sheet-2026-11-11.png, out\mash-reference-sheet-2026-11-12.png
+
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour twelve-panel storyboard contact sheet, sheet 3 of 4, for a three-minute WIDESCREEN animated short film with real emotion, about friendship and happiness. Image size 1536x1024 landscape. EXACTLY TWELVE panels in three columns and four rows (row 1 = 25-27, row 2 = 28-30, row 3 = 31-33, row 4 = 34-36). Every cell is a wide landscape frame close to 16:9, thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Polished cinematic hand-drawn Ghibli-style anime, very detailed, crisp linework, controlled cel shading, subtle hatching, a small autumn town painted with love for detail, everything fully sharp, no depth of field, bokeh or motion blur. Compose for the wide frame: the subject sits in the middle third, the town, the room or the landscape fills the sides. Every panel shows ONE obvious action a child could name. No comic impact marks, no speed lines, no sweat drops, no sparkles, no magic glow. Hands ALWAYS have exactly three fingers and a thumb, no extra limbs; each character appears at most once per panel. No speech bubbles and no words, letters or numbers anywhere except the panel numbers (labels, notebook pages and signs are blank or show tiny unreadable scribbles). Every character is a potato: no humans. Every character with an attached reference sheet must match it exactly.
+
+SPUD (the lead): exactly as in his reference sheet: golden potato, one green leaf sprout on top that moves with his mood, plain teal knit sweater, brown boots, open friendly face.
+MASH (his best friend): exactly as in his reference sheet: tall narrow oval potato with the same golden skin, charcoal hoodie, light-blue headphones resting round his neck (on his ears only where a panel says so), leaf drooping sideways. Calm, relaxed, often whistling with pursed lips. No phone in this film.
+CHIP: exactly as in his reference sheet: smallest round potato, sunny yellow hoodie with two white drawstrings, two short leaves in a V, white trainers with a red stripe. Bouncy, always pulling friends along.
+WEDGE: exactly as in his reference sheet: biggest potato, broad top and narrow bottom, red bomber jacket with a cream shawl collar, brown sunglasses resting on TOP of his head (never on the eyes), big leaf swept sideways. Confident grin.
+SPUD'S COPY OUTFIT (only where a panel says so): Spud in a charcoal hoodie exactly like Mash's, teal sweater collar showing at the neck, light-blue headphones round his neck like Mash's.
+THE GLASSES: old round glasses with a thick honey-brown tortoiseshell frame, a small scratch on the left rim, clear lenses. They live in a worn dark-green hard glasses case. In every panel where Spud wears them they sit on his nose.
+THE GLASSES VIEW (only panels marked GLASSES VIEW): the whole picture is in soft greyscale, no colour at all, seen through two round lens edges at the far left and right of the frame; above the head of every living being floats one small rounded pale-gold glowing tag, BLANK, no digits (the numbers are added later). The only colour in the frame is those tags.
+THE SCORE TAG outside the glasses view: never shown, except in panels that say so.
+THE DON'T-KEEP BOX: a used brown cardboard moving box, flaps open, a rough red hand-painted label patch on its side, blank.
+
+COLOUR: Sunday morning, cold grey-blue light in the empty flat; the two memory panels are warm soft watercolour with visible paper texture, like a page in a notebook.
+
+PANELS (number badges 25 to 36, the time is only for order, do not draw it):
+25 | 100.0 s Sunday morning, the nearly empty flat in cold light: Spud on his knees opening box after box, searching, strips of tape everywhere.
+26 | 106.0 s Close: THE DON'T-KEEP BOX again; Spud's hand lifting out the green glasses case; under it an old school notebook with a scratched, worn cover.
+27 | 110.0 s Top-down close: the open notebook: a page of childish handwriting in tiny unreadable scribbles, a little pencil drawing of a potato with a leaf on a bicycle, a long list with tick marks.
+28 | 114.0 s Close: Spud reading the notebook, eyes wide, THE GLASSES pushed up on his forehead.
+29 | 118.0 s MEMORY, warm watercolour: young Spud (smaller and rounder, a little teal sweater, a tiny leaf) riding a small red bicycle down a grassy hill in summer, whistling, carefree, one small bright pale-gold tag above his head.
+30 | 122.0 s MEMORY, warm watercolour: young Mash (small and narrow, a little charcoal hoodie, THE GLASSES on his nose) standing at the foot of the hill holding the notebook, watching young Spud ride by, a little sad.
+31 | 126.0 s Present: Mash in the doorway of the empty room with a roll of tape, a soft surprised smile.
+32 | 130.0 s Wide: Spud and Mash side by side on two boxes in the empty room, Mash turning THE GLASSES over in his hands, morning light from a bare window.
+33 | 136.0 s Close: Mash laughing softly, looking at the glasses fondly.
+34 | 142.0 s Medium: Mash back to taping a box and humming; Spud in the background, still.
+35 | 145.0 s Close: Spud looking at his own reflection in the bare window, THE GLASSES on, thoughtful; the street and the van below.
+36 | 148.0 s Wide from the window: the packed moving van in the street, its potato driver waving up from the cab; Mash at the door pulling on his jacket.

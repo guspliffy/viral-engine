@@ -1,0 +1,6 @@
+# plate HT-E from panel 46
+# refs: plates\ref\panel-46.png
+PROMPT START
+The same hilltop looking the other way (east): grass in front, the trunk of a lone old autumn tree on the RIGHT edge, a second wide valley with the small town's railway station and tracks, a dirt path leaving the bottom right, low golden sun lighting the scene from behind the camera. NO bench.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

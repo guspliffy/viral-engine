@@ -1,0 +1,6 @@
+# plate RV from panel 07
+# refs: plates\ref\panel-07.png
+PROMPT START
+A river path in autumn on a misty morning: a low mossy stone wall along a calm river, an old two-arch stone bridge, a small old town with a church tower beyond, red and gold trees overhanging from the left, a wooden bench on the left, fallen leaves on the paving, soft morning mist on the water. The most beautiful, detailed painting you can make.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

@@ -1,0 +1,6 @@
+# plate HT-W2 from panel 47
+# refs: plates\ref\panel-47.png
+PROMPT START
+The same hilltop and valley at sunset, same camera: the sun touching the hills, pink, orange and violet sky, warm lamps lit in the town, the old stone railway viaduct on the right empty. NO bench, NO train. Change only the light.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

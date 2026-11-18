@@ -1,0 +1,572 @@
+{
+ "id": "hs03-b2-wide",
+ "frame": "wide",
+ "title": "I could see everyone's happiness score (block B, b2)",
+ "idea": "Happiness 03 block B (0:50-1:40): Spud tapes over his mirror and still sees himself in the kettle and a puddle (38, 37, 36); at Mash's goodbye party he keeps checking instead of dancing (35, 34, 33, 32), the warmth stops at his corner; Mash looks over and his number falls 88, 86, 84 because Spud isn't there; Mash alone on the balcony; Spud alone among the boxes, 31.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "kitchen",
+  "morning": true
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 53.7,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false,
+  "bpm": 91.9,
+  "offset": 8.9
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "guard": true,
+  "level": -9.7,
+  "surface": "tile",
+  "room": "small"
+ },
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     38
+    ],
+    [
+     1.3,
+     37
+    ],
+    [
+     5.3,
+     36
+    ],
+    [
+     20.3,
+     35
+    ],
+    [
+     25.3,
+     34
+    ],
+    [
+     30.3,
+     33
+    ],
+    [
+     35.3,
+     32
+    ],
+    [
+     41.3,
+     31
+    ],
+    [
+     46.3,
+     30
+    ],
+    [
+     102.3,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "SUN 19:42"
+    ],
+    [
+     46.3,
+     "09:12"
+    ],
+    [
+     96.3,
+     "00:58"
+    ],
+    [
+     102.3,
+     "00:41",
+     4
+    ],
+    [
+     108.3,
+     "00:22",
+     4
+    ],
+    [
+     118.3,
+     "00:12",
+     3
+    ],
+    [
+     132.3,
+     "00:03",
+     3
+    ],
+    [
+     136.3,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "grade": [
+  [
+   0,
+   {
+    "s": 0.935,
+    "w": 0.3,
+    "c": 1.03,
+    "lift": 0
+   }
+  ],
+  [
+   0.9,
+   {
+    "glasses": true
+   }
+  ],
+  [
+   1.9,
+   {
+    "s": 0.88,
+    "w": 0.2,
+    "c": 1.03,
+    "lift": 0
+   }
+  ]
+ ],
+ "score": {
+  "view": [
+   [
+    0.9,
+    1.9
+   ]
+  ],
+  "tags": [
+   {
+    "who": "spud",
+    "keys": [
+     [
+      0,
+      38
+     ],
+     [
+      1.3,
+      37
+     ],
+     [
+      5.3,
+      36
+     ],
+     [
+      20.3,
+      35
+     ],
+     [
+      25.3,
+      34
+     ],
+     [
+      30.3,
+      33
+     ],
+     [
+      35.3,
+      32
+     ],
+     [
+      41.3,
+      31
+     ],
+     [
+      46.3,
+      30
+     ],
+     [
+      102.3,
+      29
+     ]
+    ],
+    "minus": true,
+    "show": [
+     0.9,
+     1.9
+    ],
+    "xy": [
+     940,
+     260
+    ],
+    "k": 1,
+    "size": "close"
+   }
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    0
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.2,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "gl-worn",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0,
+   "staged": "the glasses on Spud's nose (SCORE_FITS nose)"
+  },
+  {
+   "id": "stool",
+   "kind": "stool",
+   "x": -0.3,
+   "y": 0,
+   "z": -1.15,
+   "staged": "a kitchen stool he stands on to reach the hob (below the frame)"
+  },
+  {
+   "id": "kettle",
+   "kind": "kettle",
+   "x": 0.45,
+   "y": 0.95,
+   "z": -1.8,
+   "reflect": 0,
+   "reflectView": "front",
+   "reflectYaw": 12,
+   "reflectFov": 150,
+   "staged": "the steel kettle on the counter"
+  },
+  {
+   "id": "kettleV",
+   "kind": "kettle",
+   "x": 0.45,
+   "y": 0.95,
+   "z": -1.8,
+   "reflect": 1,
+   "reflectView": "front",
+   "reflectYaw": -49,
+   "reflectFov": 150,
+   "scale": 0,
+   "staged": "the kettle seen through the glasses"
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "14a he turns to the kettle",
+   "at": 0,
+   "len": 0.9,
+   "shot": {
+    "pos": [
+     1.45,
+     1.36,
+     0.35
+    ],
+    "look": [
+     0.05,
+     1.2,
+     -1.45
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.4,
+      1.35,
+      0.27
+     ],
+     "look": [
+      0.05,
+      1.21,
+      -1.45
+     ],
+     "fov": 30
+    },
+    "dur": 0.8999999999999995,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.3,
+      -1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.42,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 85,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Which is harder than it sounds.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.531,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.75,
+      0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      40,
+      0
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0,
+     "at": 0.88
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.88
+    }
+   ]
+  },
+  {
+   "name": "14v the kettle shows him, 38 -> 37",
+   "at": 0.9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     -0.15,
+     1.06,
+     -1.3
+    ],
+    "look": [
+     0.45,
+     1.04,
+     -1.8
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "kettle",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kettleV",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -0.3,
+      -1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "y": 0.42,
+     "at": 0.98
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 85,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.98
+    }
+   ]
+  },
+  {
+   "name": "14 he winces at his reflection",
+   "at": 1.9,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.35,
+     1.34,
+     0.2
+    ],
+    "look": [
+     0.1,
+     1.18,
+     -1.5
+    ],
+    "fov": 28,
+    "to": {
+     "pos": [
+      1.3,
+      1.33,
+      0.12
+     ],
+     "look": [
+      0.1,
+      1.19,
+      -1.5
+     ],
+     "fov": 28
+    },
+    "dur": 1.4000000000000004,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.75,
+      0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "lid": 0.45
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kettle",
+     "set": {
+      "scale": 1,
+      "reflect": 0.9
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "kettleV",
+     "set": {
+      "scale": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.5
+     },
+     "dur": 0.3,
+     "at": 0.25
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-b/make-block-b.mjs (b2). Block B of four, block time 3.7-7 s (story 53.7-57)."
+}

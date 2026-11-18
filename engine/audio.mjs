@@ -1346,7 +1346,7 @@ export function renderAudio(sb, chars, opts = {}) {
   sb = soundClock(sb);
   const cfg = { voice: 1, sfx: 1, reverb: 0.12, ...(sb.sound || {}) };
   const seed = cfg.seed ?? hashStr(seedOf(sb) || "clip");
-  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), r = rng(seed);
+  const voices = new Bus(sb.duration), fx = new Bus(sb.duration), vo = new Bus(sb.duration), r = rng(seed);
   const rl = rng(seed ^ 0x2545f491); // library takes draw their own numbers, so adding foley leaves the code effects as they were
   const events = soundEvents(sb, chars), skipped = [];
   for (const [ei, e] of events.entries()) {
@@ -1359,7 +1359,7 @@ export function renderAudio(sb, chars, opts = {}) {
     else if (e.kind === "voice") {
       const c = sb.cast.find((x) => x.id === e.who), def = chars[c.character] || {};
       voice(voices, e.action, typeof def.voice === "object" ? def.voice : {}, e.pan, 0.5 * cfg.voice * (e.action.gain ?? 1));
-    } else if (e.kind === "speech") { if (e.speech) voices.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator
+    } else if (e.kind === "speech") { if (e.speech) vo.add(e.at, speechSamples(e.speech.id), e.gain * cfg.voice, e.pan); } // narrator: a voice-over, dry (not in the set's room: a hall gave it an echo, Jonny 16 Nov 2026)
     else if (isSignature(e.kind)) { // a lead's signature: always the same take, its hit (Phoenix's burst, the bell's strike) on the event
       const x = signatureSound(e.kind);
       e.start = Math.max(0, e.at - x.hit); e.hit = e.start + x.hit; Object.defineProperty(e, "samples", { value: x, enumerable: false });
@@ -1406,7 +1406,7 @@ export function renderAudio(sb, chars, opts = {}) {
   // counted, out.badSamples)
   let peak = 0, bad = 0;
   for (let i = 0; i < L.length; i++) {
-    L[i] = voices.L[i] + fx.L[i] + bed.L[i] + wv.L[i] + wf.L[i]; R[i] = voices.R[i] + fx.R[i] + bed.R[i] + wv.R[i] + wf.R[i];
+    L[i] = voices.L[i] + vo.L[i] + fx.L[i] + bed.L[i] + wv.L[i] + wf.L[i]; R[i] = voices.R[i] + vo.R[i] + fx.R[i] + bed.R[i] + wv.R[i] + wf.R[i];
     if (!Number.isFinite(L[i])) { L[i] = 0; bad++; }
     if (!Number.isFinite(R[i])) { R[i] = 0; bad++; }
     peak = Math.max(peak, Math.abs(L[i]), Math.abs(R[i]));
@@ -1415,7 +1415,7 @@ export function renderAudio(sb, chars, opts = {}) {
   const out = { L, R, sr: SR, events, peak, room: room.name, skipped, badSamples: bad };
   if (opts.stems) {
     const sum = (a, b) => { const o = new Float32Array(a.length); for (let i = 0; i < o.length; i++) o[i] = a[i] + b[i]; return o; };
-    out.stems = { voice: { L: sum(voices.L, wv.L), R: sum(voices.R, wv.R) }, fx: { L: sum(fx.L, wf.L), R: sum(fx.R, wf.R) }, bed: { L: bed.L, R: bed.R } };
+    out.stems = { voice: { L: sum(sum(voices.L, wv.L), vo.L), R: sum(sum(voices.R, wv.R), vo.R) }, fx: { L: sum(fx.L, wf.L), R: sum(fx.R, wf.R) }, bed: { L: bed.L, R: bed.R } };
   }
   return out;
 }

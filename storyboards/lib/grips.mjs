@@ -84,6 +84,7 @@ const SIZE = {
   producecrate: { w: 0.5, h: 0.3, d: 0.36 },       // props-heistset.js the SMALL crate (spec w 0.5, d 0.36, h 0.3): both gloves on its two short ends (box hold)
   coin: { len: -0.1417, r: 0.008 },                // props-money.js gold coin r 0.085, origin its CENTRE: thin hold, the default from 0.6 lands on the rim's bottom (0.6 x -0.1417 = -0.085), the pads on the two faces (half thickness 0.008)
   banknote: { len: 0.2, r: 0.002 },                // props-money.js one note standing on its short edge (0.1 wide, 0.2 tall), origin its bottom edge's middle: the thin pinch low on it (from 0.15)
+  ticket: { len: 0.11, r: 0.002 },                 // props-desk.js take-a-number ticket (0.06 x 0.11 paper) standing on its bottom edge: the thin pinch low on it (from 0.15)
   cashbrick: { w: 0.34, h: 0.11, d: 0.2 },         // props-money.js three bundles side by side, origin bottom centre: box hold (two palms on the ends); a one-hand top carry uses grips.rest(top: 0.11)
   wheelbarrow: { r: -0.76, h: 0.74 },              // props-twist.js: ONE handle for the mug hold with the right glove; r < 0 (like coin's len) turns its point toward the handles: (0.966, 0.66h, 0.259) x (r + 0.05) = (-0.686, 0.488, -0.184), the left handle 0.03 before its end; a clip puts both gloves on TWIST_GRIPS.wheelbarrow.handleL / handleR
   // props-survive-snow.js (Survive it 01, snowed in)
@@ -114,6 +115,21 @@ const SIZE = {
   // props-sinkcar.js (You wake up mid EP02): the car headrest's origin is the pad's CENTRE (prongs toward -y), so h 0 puts the box hold's palms
   // at the origin's height: both gloves on the pad's two short sides (x +-0.14), the prongs hanging below the hands
   headrest: { w: 0.28, h: 0, d: 0.1 },
+  // props-score.js (Happiness 03, the happiness score): the glasses' origin is the bridge's middle at lens-centre height (h 0: the box hold's palms at the origin's
+  // height), w = the rims' width 0.438: both gloves on the two hinges (x +-0.219); the case lies flat, origin the bottom's middle, 0.48 x 0.235 x 0.09 closed
+  scoreglasses: { w: 0.438, h: 0, d: 0.04 },
+  scorecase: { w: 0.48, h: 0.09, d: 0.235 },   // (DESIGN's `glasscase`; the museum prop already owns that name)
+  // props-score-small.js (Happiness 03): the party cup is a mug-hold cup (top radius 0.04, 0.11 tall, origin the bottom's middle); the cinnamon bun in its paper is held like a mug
+  // (the paper's rim radius 0.075, the fist at 0.66 of 0.07 = 0.046 up the bun's side); the tape roll's origin is its rim's lowest point (the centre 0.07 up), box hold on both sides of the 0.14 roll
+  // (h 0.14: the palms at 0.55 h = 0.077, the roll's middle); the speaker stands on its bottom, 0.30 x 0.18 x 0.14 (rest hold: a hand on its top)
+  partycup: { r: 0.04, h: 0.11 },
+  cinnabun: { r: 0.075, h: 0.07 },
+  taperoll: { w: 0.14, h: 0.14, d: 0.05 },
+  speaker: { w: 0.3, h: 0.18, d: 0.14 },
+  // props-score-paper.js (Happiness 03, the notebooks): the pad stands upright, origin its bottom edge's middle, page on +z: the phone hold on a side edge
+  // (grips.phone(c, who, PAD, { side: "L", height: 0.2 }) = 5 cm up from the bottom); the book is held OPEN (open 1, 0.40 wide, spine on x 0): both gloves on its outer edges (box hold)
+  spudpad: { w: 0.19, h: 0.26, t: 0.018 },
+  mashbook: { w: 0.4, h: 0.27, d: 0.011 },
   // props-skipremote.js (Happiness EP02): the remote's origin is the middle of its BACK face, so the phone hold's grip height 0.42 x h must land
   // under the middle: h -0.048 gives y -0.020 (negative on purpose, precedent: headrest h 0). Hold: phone, side "L", gap 0.035, height 0.42 (defaults).
   skipremote: { w: 0.13, h: -0.048, t: 0.03 },

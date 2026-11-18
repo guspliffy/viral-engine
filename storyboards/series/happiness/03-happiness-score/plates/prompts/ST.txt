@@ -1,0 +1,6 @@
+# plate ST from panel 37
+# refs: plates\ref\panel-37.png
+PROMPT START
+An autumn street along the pavement on a sunny morning: an old stone house front with a green door and one stone step on the left, an empty kerb and a cobbled road on the right, red and gold trees, far right a grassy hill with a winding road climbing it.
+
+Style: exactly the look of the attached storyboard panel: polished cinematic hand-drawn Ghibli-style anime background painting, very detailed, crisp linework, controlled cel shading, subtle hatching, every mark drawn once (no repeating textures), everything fully sharp, no depth of field, bokeh or motion blur. The attached panel is the composition and colour target; repaint it as an EMPTY background plate: NO characters, NO potatoes, NO animals, NO vehicles, NO people, NO text, letters, numbers or panel badge. Low camera at small-child eye height (about 0.95 m), level horizon, a clear floor, pavement or path filling the bottom third so characters can stand on it. Landscape 1536x1024.

@@ -1,0 +1,31 @@
+# Happiness score film, sheet 2 of 4 (panels 13-24), 12 panels, 16:9 cells
+# References: references\spud-reference-sheet-2026-11-11.png, out\mash-reference-sheet-2026-11-12.png, out\chip-reference-sheet-2026-11-12.png, out\wedge-reference-sheet-2026-11-12.png
+
+PROMPT START
+Use case: illustration-story. Create ONE finished full-colour twelve-panel storyboard contact sheet, sheet 2 of 4, for a three-minute WIDESCREEN animated short film with real emotion, about friendship and happiness. Image size 1536x1024 landscape. EXACTLY TWELVE panels in three columns and four rows (row 1 = 13-15, row 2 = 16-18, row 3 = 19-21, row 4 = 22-24). Every cell is a wide landscape frame close to 16:9, thin charcoal gutters, a small panel-number badge in each cell's top corner showing its own number, no title or header. Polished cinematic hand-drawn Ghibli-style anime, very detailed, crisp linework, controlled cel shading, subtle hatching, a small autumn town painted with love for detail, everything fully sharp, no depth of field, bokeh or motion blur. Compose for the wide frame: the subject sits in the middle third, the town, the room or the landscape fills the sides. Every panel shows ONE obvious action a child could name. No comic impact marks, no speed lines, no sweat drops, no sparkles, no magic glow. Hands ALWAYS have exactly three fingers and a thumb, no extra limbs; each character appears at most once per panel. No speech bubbles and no words, letters or numbers anywhere except the panel numbers (labels, notebook pages and signs are blank or show tiny unreadable scribbles). Every character is a potato: no humans. Every character with an attached reference sheet must match it exactly.
+
+SPUD (the lead): exactly as in his reference sheet: golden potato, one green leaf sprout on top that moves with his mood, plain teal knit sweater, brown boots, open friendly face.
+MASH (his best friend): exactly as in his reference sheet: tall narrow oval potato with the same golden skin, charcoal hoodie, light-blue headphones resting round his neck (on his ears only where a panel says so), leaf drooping sideways. Calm, relaxed, often whistling with pursed lips. No phone in this film.
+CHIP: exactly as in his reference sheet: smallest round potato, sunny yellow hoodie with two white drawstrings, two short leaves in a V, white trainers with a red stripe. Bouncy, always pulling friends along.
+WEDGE: exactly as in his reference sheet: biggest potato, broad top and narrow bottom, red bomber jacket with a cream shawl collar, brown sunglasses resting on TOP of his head (never on the eyes), big leaf swept sideways. Confident grin.
+SPUD'S COPY OUTFIT (only where a panel says so): Spud in a charcoal hoodie exactly like Mash's, teal sweater collar showing at the neck, light-blue headphones round his neck like Mash's.
+THE GLASSES: old round glasses with a thick honey-brown tortoiseshell frame, a small scratch on the left rim, clear lenses. They live in a worn dark-green hard glasses case. In every panel where Spud wears them they sit on his nose.
+THE GLASSES VIEW (only panels marked GLASSES VIEW): the whole picture is in soft greyscale, no colour at all, seen through two round lens edges at the far left and right of the frame; above the head of every living being floats one small rounded pale-gold glowing tag, BLANK, no digits (the numbers are added later). The only colour in the frame is those tags.
+THE SCORE TAG outside the glasses view: never shown, except in panels that say so.
+THE DON'T-KEEP BOX: a used brown cardboard moving box, flaps open, a rough red hand-painted label patch on its side, blank.
+
+COLOUR: Spud's own flat cool and greyish; the night party warm golden from string lights, EXCEPT the corner where Spud stands, which stays cool and grey, the warmth stopping at a soft but clear edge.
+
+PANELS (number badges 13 to 24, the time is only for order, do not draw it):
+13 | 50.0 s Spud's small flat, cool light: Spud taping a sheet of newspaper over his hall mirror, THE GLASSES on.
+14 | 54.0 s Spud's kitchen: Spud wincing as he catches his own reflection, glasses and all, in a shiny steel kettle.
+15 | 57.0 s A wet street: Spud stepping over a puddle with his head turned away, but his reflection with THE GLASSES shows clearly in the water.
+16 | 62.0 s Night, Mash's half-empty flat, boxes stacked as tables, warm string lights, a small speaker on a box: Mash pressing play on the speaker, Chip and Wedge cheering with raised arms.
+17 | 66.0 s Wide: Chip, Wedge and Mash dancing between the boxes, laughing, warm golden light.
+18 | 70.0 s Medium: Spud standing in the corner by the dark window, THE GLASSES on, looking up above his own head instead of at the dancers.
+19 | 72.0 s Medium: Chip tugging Spud's sleeve to pull him to the dance; Spud holding up one finger for "one second", not looking at Chip.
+20 | 75.0 s Beauty wide from the doorway: the dancers in warm golden light on the left; Spud's corner on the right cool and grey, the warmth stopping at a clear soft edge just before him.
+21 | 84.0 s GLASSES VIEW: Mash in the middle of the room glancing over toward the camera, his tag a little dimmer than in panel 04.
+22 | 88.0 s Close: Spud watching Mash with narrowed eyes and writing in his small notebook, not walking over.
+23 | 95.0 s Night: Mash alone on a small balcony, hands in his hoodie pocket, looking out over the town lights, quiet.
+24 | 97.0 s Wide, quiet: the room after the party, string lights still on, empty cups on the boxes, Spud standing alone among the boxes, grey.

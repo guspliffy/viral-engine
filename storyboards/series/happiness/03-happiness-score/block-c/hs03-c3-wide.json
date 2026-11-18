@@ -1,0 +1,2003 @@
+{
+ "id": "hs03-c3-wide",
+ "frame": "wide",
+ "title": "I could see everyone's happiness score (block C, c3)",
+ "idea": "Happiness 03 block C (1:40-2:30): Sunday morning; Spud searches Mash's boxes for his secret and finds Mash's old notebook under the glasses case: MASH = 41. WHY? The friend Mash copied was Spud. Mash put the glasses in the DON'T KEEP box; the truck honks.",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreroom",
+  "state": "sunday",
+  "key": [
+   -1.5,
+   2.2,
+   4
+  ],
+  "shadowSize": 5,
+  "windows": false,
+  "aperture": 0,
+  "focus": false
+ },
+ "grade": [
+  [
+   0,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.495,
+    "w": -0.5
+   }
+  ],
+  [
+   29.8,
+   {
+    "c": 1.03,
+    "lift": 0,
+    "s": 0.44,
+    "w": -0.6
+   }
+  ]
+ ],
+ "hud": {
+  "own": {
+   "keys": [
+    [
+     0,
+     30
+    ],
+    [
+     29.8,
+     29
+    ]
+   ]
+  },
+  "train": {
+   "keys": [
+    [
+     0,
+     "09:12"
+    ],
+    [
+     23.8,
+     "00:58"
+    ],
+    [
+     29.8,
+     "00:41",
+     4
+    ],
+    [
+     35.8,
+     "00:22",
+     4
+    ],
+    [
+     45.8,
+     "00:12",
+     3
+    ],
+    [
+     59.8,
+     "00:03",
+     3
+    ],
+    [
+     63.8,
+     "00:00",
+     3
+    ]
+   ]
+  }
+ },
+ "music": {
+  "file": "score-film/hs03-score.ogg",
+  "from": 0,
+  "skip": 126.2,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.05,
+  "surface": "wood",
+  "room": "room",
+  "guard": true,
+  "level": -9.7
+ },
+ "hook": {
+  "show": [
+   "mash"
+  ],
+  "hint": 0,
+  "what": "mid-film block (no hook of its own in the wide film)"
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.3,
+    1.4
+   ],
+   "face": 180,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 2.1
+  },
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    40,
+    40
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.25,
+   "seed": 1.3
+  }
+ ],
+ "props": [
+  {
+   "id": "tape",
+   "kind": "taperoll",
+   "x": 1.3,
+   "y": 0.4,
+   "z": 1.1,
+   "rot": 360,
+   "pull": 0
+  },
+  {
+   "id": "gll",
+   "kind": "scoreglasses",
+   "fold": 0,
+   "x": 1.85,
+   "y": 0.56,
+   "z": -0.75,
+   "rot": 90,
+   "tip": -45,
+   "staged": "parked offstage under the floor until Mash holds them in 32"
+  },
+  {
+   "id": "glw",
+   "kind": "scoreglasses",
+   "wear": "spud",
+   "x": 0,
+   "y": 0.64,
+   "z": 0.349,
+   "tip": 6,
+   "fold": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "gls",
+   "kind": "scoreglasses",
+   "fold": 1,
+   "x": 2.19,
+   "y": 0.517,
+   "z": -0.8,
+   "rot": 270,
+   "tip": -24,
+   "scale": 0.001,
+   "staged": "lies folded on the seat box Mash just left (the set's seat boxes are not solid for the checks)"
+  },
+  {
+   "id": "tbox",
+   "kind": "cardbox",
+   "closed": true,
+   "x": -0.545,
+   "y": 0,
+   "z": -0.798,
+   "rot": -40.601,
+   "w": 0.55,
+   "d": 0.4,
+   "h": 0.42,
+   "scale": 0.001
+  }
+ ],
+ "captions": [
+  {
+   "from": 1.95,
+   "to": 3.55,
+   "text": "You found them.",
+   "pos": 128,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.55,
+   "to": 5.5,
+   "text": "I wore them a whole year.",
+   "pos": 56,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 5.5,
+   "to": 7.15,
+   "text": "Copied everything you did.",
+   "pos": 56,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 7.15,
+   "to": 8.75,
+   "text": "Stayed at forty-one.",
+   "pos": 56,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 8.75,
+   "to": 10.15,
+   "text": "So what changed?",
+   "pos": 56,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 10.15,
+   "to": 12.05,
+   "text": "I put them in that box.",
+   "pos": 56,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "31 Mash at the door",
+   "at": 0,
+   "len": 3.2,
+   "shot": {
+    "pos": [
+     0.9,
+     0.9,
+     -1.3
+    ],
+    "look": [
+     1.45,
+     1.35,
+     1.4
+    ],
+    "fov": 40,
+    "to": {
+     "fov": 38
+    },
+    "dur": 3.2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "pull": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "gls",
+     "set": {
+      "fold": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "fold": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.15
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 0.005
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 0.005
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.008
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.008
+    },
+    {
+     "macro": "narrate",
+     "line": "...was you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 0.7301,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.05
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "tape",
+     "hand": "both",
+     "grip": [
+      0,
+      0.077,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.55
+     },
+     "dur": 0.3,
+     "at": 1.65
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "You found them.",
+     "tone": "calm",
+     "dur": 1.25,
+     "blink": false,
+     "voice": false,
+     "at": 1.95
+    },
+    {
+     "who": "mash",
+     "do": "release",
+     "prop": "tape",
+     "dur": 0,
+     "at": 3.15
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 3.15
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 3.15
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.188
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.15,
+      -1.7
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.188
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.188
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 3.188
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": -90,
+     "height": 0.42,
+     "dur": 0,
+     "hands": "lap",
+     "at": 3.188
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      2.15,
+      -0.75
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.188
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.188
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 3.188
+    },
+    {
+     "who": "mash",
+     "do": "sit",
+     "rot": -90,
+     "height": 0.42,
+     "dur": 0,
+     "hands": "keep",
+     "at": 3.188
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "y": 0.56
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.188
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 3.19
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.08,
+       0.02,
+       0.03
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 3.19
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 3.194
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.03,
+       0.02,
+       -0.08
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 3.194
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.005,
+     "at": 3.194
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.03,
+       0.02,
+       0.08
+      ]
+     },
+     "dur": 0.005,
+     "ease": "inOut",
+     "at": 3.194
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 3.199
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.005,
+     "ease": "settle",
+     "at": 3.199
+    }
+   ]
+  },
+  {
+   "name": "32 on the boxes",
+   "at": 3.2,
+   "len": 8.6,
+   "shot": {
+    "pos": [
+     -0.75,
+     0.78,
+     -1.22
+    ],
+    "look": [
+     3,
+     1.15,
+     -1.22
+    ],
+    "fov": 50,
+    "to": {
+     "fov": 48
+    },
+    "dur": 8.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "brow": 0.4,
+      "curve": -0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.002
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.002
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "gll",
+     "hand": "both",
+     "grip": [
+      0,
+      0,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.064
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "I wore them a whole year.",
+     "tone": "calm",
+     "dur": 1.9,
+     "blink": false,
+     "voice": false,
+     "at": 0.35
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "tip": -60
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.85
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "tip": -35
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2.2
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "Copied everything you did.",
+     "tone": "calm",
+     "dur": 1.6,
+     "blink": false,
+     "voice": false,
+     "at": 2.3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 3.8
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 3.8
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "tip": -60
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 3.8
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "Stayed at forty-one.",
+     "tone": "calm",
+     "dur": 1.4,
+     "blink": false,
+     "voice": false,
+     "at": 3.95
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 5.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "at": [
+       1.85,
+       0.56,
+       -0.75
+      ]
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 5.2
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "tip": -35
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 5.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": 0.2,
+      "eye": 1.1
+     },
+     "dur": 0.2,
+     "at": 5.35
+    },
+    {
+     "who": "spud",
+     "do": "talk",
+     "line": "So what changed?",
+     "tone": "question",
+     "dur": 1.2,
+     "blink": false,
+     "voice": false,
+     "at": 5.55
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 5.65
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.7
+     },
+     "dur": 0.25,
+     "at": 6.75
+    },
+    {
+     "who": "mash",
+     "do": "talk",
+     "line": "I put them in that box.",
+     "tone": "calm",
+     "dur": 1.5,
+     "blink": false,
+     "voice": false,
+     "at": 6.95
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.6,
+      -0.05
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 8.55
+    }
+   ]
+  },
+  {
+   "name": "33 Mash close",
+   "at": 11.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     0.75,
+     1.08,
+     -0.45
+    ],
+    "look": [
+     2.15,
+     1.05,
+     -0.8
+    ],
+    "fov": 34,
+    "to": {
+     "fov": 31
+    },
+    "dur": 1.4,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "release",
+     "prop": "gll",
+     "dur": 0,
+     "at": 1.35
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.35
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.35
+    },
+    {
+     "do": "prop",
+     "id": "gll",
+     "set": {
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "gls",
+     "set": {
+      "scale": 1,
+      "y": 0.517
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "tbox",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.2,
+      -1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -40.601,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "scale": 1,
+      "y": 0.42
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "x": -0.408,
+      "z": -0.681,
+      "rot": 139.399
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 16,
+     "dur": 0.01,
+     "at": 1.388
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "rot": -90,
+     "height": 0.42,
+     "dur": 0,
+     "hands": "lap",
+     "at": 1.388
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.03,
+       0.02,
+       -0.08
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.39
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "gll",
+      "grip": [
+       -0.264,
+       0,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.03,
+       0.02,
+       0.08
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.39
+    }
+   ]
+  },
+  {
+   "name": "34 taping",
+   "at": 13.2,
+   "len": 6.5,
+   "shot": {
+    "pos": [
+     -2.2,
+     1,
+     0.8
+    ],
+    "look": [
+     1,
+     1.1,
+     -1.4
+    ],
+    "fov": 44,
+    "to": {
+     "pos": [
+      -2.05,
+      1,
+      0.65
+     ]
+    },
+    "dur": 6.5,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "curve": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0,
+      -0.7
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "brow": 0.3,
+      "curve": 0
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.5,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       -0.041,
+       0.02,
+       -0.075
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "off": [
+       0.08,
+       0.02,
+       0.029
+      ]
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.12,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.12,
+     "ease": "settle",
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.372
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.12,
+     "at": 0.372
+    },
+    {
+     "macro": "narrate",
+     "line": "You were happiest when your mind was on what you were doing, not on how you were doing.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.5731,
+     "caption": true,
+     "pos": 128,
+     "gain": 4,
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "grab",
+     "prop": "tape",
+     "hand": "both",
+     "grip": [
+      0,
+      0.077,
+      0
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.48
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.666,
+       0.42,
+       -0.902
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.666,
+       0.42,
+       -0.902
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "pull": 1
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.9
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.16,
+     "reason": "packing tape pulled off the roll along the seam",
+     "at": 0.95
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.408,
+       0.42,
+       -0.681
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       -0.115,
+       0.077,
+       0
+      ],
+      "palm": true,
+      "at": [
+       -0.408,
+       0.42,
+       -0.681
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 3.2
+    },
+    {
+     "sfx": "zip",
+     "gain": 0.14,
+     "reason": "a second strip",
+     "at": 3.25
+    },
+    {
+     "who": "mash",
+     "do": "release",
+     "prop": "tape",
+     "dur": 0,
+     "at": 6.45
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 6.488
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      43,
+      40
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.488
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.488
+    },
+    {
+     "do": "prop",
+     "id": "gls",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.488
+    },
+    {
+     "do": "prop",
+     "id": "glw",
+     "set": {
+      "scale": 1,
+      "y": 0.64
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "stand",
+     "dur": 0.01,
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.25,
+      -1.2
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.488
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 6.488
+    }
+   ]
+  },
+  {
+   "name": "35 the window",
+   "at": 19.7,
+   "len": 2,
+   "shot": {
+    "pos": [
+     2.85,
+     0.72,
+     0.25
+    ],
+    "look": [
+     2.55,
+     0.62,
+     -1.4
+    ],
+    "fov": 38,
+    "to": {
+     "fov": 35
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "brow": 0.45,
+      "curve": -0.15
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.2
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "horn",
+     "gain": 0.3,
+     "reason": "the moving truck honks in the street below (heard through the window)",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "brow": 0.6,
+      "eye": 1.2
+     },
+     "dur": 0.15,
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.45
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.55
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.2,
+   "see": [
+    "mash.face",
+    "tape"
+   ],
+   "why": "Mash in the doorway with a roll of packing tape, smiling softly at Spud"
+  },
+  {
+   "from": 3.2,
+   "to": 11.8,
+   "see": [
+    "spud.face",
+    "mash.face",
+    "gll"
+   ],
+   "why": "both sit on taped moving boxes by the window; Mash holds the old glasses in both hands"
+  },
+  {
+   "from": 11.8,
+   "to": 13.2,
+   "see": [
+    "mash.face",
+    "gll"
+   ],
+   "why": "close on Mash, smiling at Spud, the glasses in his hands (no line: his last line ends in the two-shot)"
+  },
+  {
+   "from": 13.2,
+   "to": 19.7,
+   "see": [
+    "mash.face",
+    "tbox",
+    "spud"
+   ],
+   "why": "Mash tapes a box shut, eyes closed; Spud sits on a box behind him, the folded glasses beside him"
+  },
+  {
+   "from": 19.7,
+   "to": 21.7,
+   "see": [
+    "spud.face",
+    "glw"
+   ],
+   "why": "Spud at the window with the glasses on again; outside, the truck honks"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "glw",
+   "from": 19.7,
+   "to": 21.7,
+   "checks": [
+    "shell",
+    "clipping"
+   ],
+   "reason": "the glasses are worn on his nose: the temples rest on his head (SCORE_FITS.nose)"
+  },
+  {
+   "who": "mash",
+   "with": "tbox",
+   "from": 13.2,
+   "to": 19.7,
+   "checks": [
+    "arm-in-prop",
+    "hand-in-prop"
+   ],
+   "reason": "panel 34: he presses the tape roll along the box's top seam, forearm on the lid"
+  },
+  {
+   "who": "mash",
+   "with": "gll",
+   "from": 3.2,
+   "to": 13.2,
+   "checks": [
+    "thin-prop-hidden"
+   ],
+   "reason": "thin glasses held by the hinges"
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/03-happiness-score/block-c/make-block-c.mjs. Block C, storyboard c3 (story 126.2-147.9 s). Music: block C's animatic bed (sad piano, then the felt piano + celesta of elegant-reveal from the twist at 2:06)."
+}

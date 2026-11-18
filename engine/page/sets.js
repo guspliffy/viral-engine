@@ -40,6 +40,15 @@ import { buildBoutique } from "./set-boutique.js";
 import { buildTrail } from "./set-trail.js";
 import { buildXmasroom } from "./set-xmasroom.js";
 import { buildSnowcottage } from "./set-snowcottage.js";
+import { buildScoreStreet } from "./set-score-street.js";
+import { buildScoreHall } from "./set-score-hall.js";
+import { buildScoreBakery } from "./set-score-bakery.js";
+import { buildScoreRiver } from "./set-score-river.js";
+import { buildScoreRoom } from "./set-score-room.js";
+import { buildScoreHill } from "./set-score-hill.js";
+import { buildScoreRoad } from "./set-score-road.js";
+import { buildScoreBalcony } from "./set-score-balcony.js";
+import { buildScoreWall } from "./set-score-wall.js";
 import { buildSnowWorld } from "./set-snowslope.js";
 import { buildStormlake } from "./set-stormlake.js";
 import { addModels } from "./assets-gltf.js";
@@ -120,6 +129,15 @@ function buildSetType(scene, spec, palette) {
   if (type === "xmasroom") return buildXmasroom(scene, spec);   // set-xmasroom.js: a cosy living room in December (friends try to 07)
   if (type === "snowcottage") return buildSnowcottage(scene, spec);   // set-snowcottage.js: the snowed-in mountain cottage room (Survive it EP1)
   if (type === "snowslope") return buildSnowWorld(scene, spec);   // set-snowslope.js: the snowy mountain world outside the cottage (Survive it EP1)
+  if (type === "scorestreet") return buildScoreStreet(scene, spec);   // set-score-street.js: Mash's street (Happiness 03)
+  if (type === "scorehall") return buildScoreHall(scene, spec);   // set-score-hall.js: Mash's hallway (Happiness 03)
+  if (type === "scorebakery") return buildScoreBakery(scene, spec);   // set-score-bakery.js: bakery street, sun + rain (Happiness 03)
+  if (type === "scoreriver") return buildScoreRiver(scene, spec);   // set-score-river.js: river path + bridge (Happiness 03)
+  if (type === "scoreroom") return buildScoreRoom(scene, spec);   // set-score-room.js: Mash's room, party + Sunday (Happiness 03)
+  if (type === "scorehill") return buildScoreHill(scene, spec);   // set-score-hill.js: hilltop, golden + sunset (Happiness 03)
+  if (type === "scoreroad") return buildScoreRoad(scene, spec);   // set-score-road.js: hill road (Happiness 03)
+  if (type === "scorebalcony") return buildScoreBalcony(scene, spec);   // set-score-balcony.js: balcony at night (Happiness 03)
+  if (type === "scorewall") return buildScoreWall(scene, spec);   // set-score-wall.js: Spud's hall wall (Happiness 03)
   if (type === "stormlake") return buildStormlake(scene, spec);   // set-stormlake.js: the storm lake under a snapped bridge, above and under the water (You wake up mid EP02)
   if (type === "trail") return buildTrail(scene, spec);   // set-trail.js: The Easy Trail's forest trail, plank gully and cliff
   if (type === "party") return party(scene, { seed: 3, ...spec });
