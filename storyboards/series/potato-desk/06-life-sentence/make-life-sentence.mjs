@@ -4,12 +4,12 @@
 //
 //   Joke:        the judge gives everyone "life in prison", and each life turns into how long that one lives: Chip is a potato
 //                (3 WEEKS), Wedge lives in the fridge (3 MONTHS), then the Dragon lives a thousand years (1000 YEARS), leans in
-//                and puffs smoke, and the judge gulps: "...Three weeks. Case closed."
+//                with an evil grin and a snort, and the judge gulps: "...Three weeks. Case closed."
 //   Rule, repeat, flip: life = your lifespan (3 weeks, 3 months), then the big number scares the judge back to 3 weeks.
 //   Ending:      the Dragon strolls out; Chip and Wedge stare at us; cut on the stare (the empty spot loops to frame 0).
 // Chain: the judge says life, so Chip says he lasts 3 weeks, so 3 weeks; the Dragon chuckles, so the judge glares, so "oh,
 // nothing"; Wedge lives in the fridge, so 3 months; the Dragon lives 1000 years, so 1000 years, so the Dragon leans in and
-// puffs smoke, so the judge is scared, so three weeks, so the Dragon walks free, so the other two stare.
+// snorts, so the judge is scared, so three weeks, so the Dragon walks free, so the other two stare.
 // Opener A (the trial is running at frame 0: "Guilty! Life in prison!" and the LIFE board are up from 0.0 s).
 // Blocking, camera, cut-in, captions and sound are Court Day's (05-court-day/DESIGN.md, GPT-6.2 Sol), which Jonny posted
 // as it was and which held 41 % to the end. The Dragon takes Mash's spot beside the bench. No call to action (story.md).
@@ -33,7 +33,9 @@ const DECK = 1.18;
 const VIK = [-0.69, -0.66];
 // layout round 1: no bag in Wedge's hands, so his free arm reached the bench (queue and side spots off it); the Dragon's
 // wings hit the wall at the back of the queue and he hid behind Wedge (his spot forward and right); his lean met the bench
-const MARK = [0.45, 1.1], Q1 = [0.5, 0.05], Q2 = [1.4, -0.72], DRAGON_SPOT = [0.6, 0.3];
+// draft 1: at the back of the queue only the Dragon's eye showed at the frame edge, so he waits in the middle spot (Q1)
+// and Wedge at the back (Q2); Wedge comes forward round the Dragon's right (WVIA)
+const MARK = [0.45, 1.1], Q1 = [0.5, 0.05], Q2 = [1.4, -0.65], DRAGON_SPOT = [0.6, 0.3], WVIA = [1.58, 0.45];
 const CHIP_SIDE = [0.0, 2.3], WEDGE_SIDE = [-0.8, 1.3], EXIT = [2.15, 0.45];
 const D_YAW = -20, DRAGON_YAW = -45;
 const AT_JUDGE = [-0.8, 0.55], AT_US = [0, 0.05];
@@ -43,8 +45,8 @@ const heading = (a, b) => r3((Math.atan2(b[0] - a[0], b[1] - a[1]) * 180) / Math
 const cast = [
   { id: "vik", character: "potatobrawl/viking-judge", at: VIK, face: 8, expr: "stern", follow: 0.2, seed: 1.7 },
   { id: "chip", character: "potatobrawl/chip", at: MARK, face: D_YAW, expr: "sad", follow: 0.4, seed: 2.3 },
-  { id: "wedge", character: "potatobrawl/wedge", at: Q1, face: D_YAW, expr: "annoyed", follow: 0.3, seed: 3.1 },
-  { id: "dragon", character: "potatobrawl/dragon", at: Q2, face: D_YAW, expr: "smug", follow: 0.3, seed: 4.4 },
+  { id: "wedge", character: "potatobrawl/wedge", at: Q2, face: D_YAW, expr: "annoyed", follow: 0.3, seed: 3.1 },
+  { id: "dragon", character: "potatobrawl/dragon", at: Q1, face: D_YAW, expr: "smug", follow: 0.3, seed: 4.4 },
 ];
 
 const at3 = (a) => ({ x: a[0], y: a[1], z: a[2] });
@@ -54,7 +56,8 @@ const MUG_AT = [-0.5, DECK, -0.08];
 const MUG = { id: "mug", kind: "campmug", ...grips.placeFor("campmug", MUG_AT, 8) };
 // the board: each "life" turns into a lifespan; it wraps back to LIFE for the loop
 const STATES = ["LIFE", "3", "LIFE", "3", "LIFE", "1000", "3"], UNITS = ["", "WEEKS", "", "MONTHS", "", "YEARS", "WEEKS"];
-// the Dragon's nose smoke: two thin wisps in front of his snout once he leans in (placed from the layout's face points)
+// (draft 2 had nose smoke: it read as a smudge over his eye on a phone, so draft 3 leaves it out; the lean, the evil face and
+// the snort carry the threat)
 const SNOUT = [0.25, 0.61, 0.53];   // between his eyes and mouth after the lean, 6 cm in front (layout 18 Nov)
 const props = [
   { id: "floor", kind: "courtfloor", x: 0, y: 0, z: 2.1 },
@@ -66,8 +69,6 @@ const props = [
   { id: "plate", staged: "fixed to the bench front", kind: "officesign", x: -0.5, y: 1.068, z: 0.49, w: 0.58, h: 0.10, frameW: 0.009, lines: [["JUDGE VIKING", 0.043]], plate: "#24323f", ink: "#f3ead2", frame: "#b08a3c" },
   { id: "block", kind: "soundblock", x: -1.12, y: DECK, z: 0.22 },
   { id: "marks", kind: "floormarks", x: 0, y: 0, z: 0, bar: [MARK[0], MARK[1], 0.34, 0.09], queue: [[Q1[0], Q1[1], 0.24, 0.06], [Q2[0], Q2[1], 0.24, 0.06]] },
-  { id: "smokeL", staged: "smoke from the Dragon's nose", kind: "smokewisp", x: r3(SNOUT[0] - 0.018), y: SNOUT[1], z: r3(SNOUT[2] - 0.018), h: 0.2, n: 6, alpha: 0.5 },
-  { id: "smokeR", staged: "smoke from the Dragon's nose", kind: "smokewisp", x: r3(SNOUT[0] + 0.018), y: SNOUT[1], z: r3(SNOUT[2] + 0.018), h: 0.2, n: 6, alpha: 0.5 },
   GAVEL, MUG,
 ];
 
@@ -109,7 +110,6 @@ const strike = (t, flipTo, { up = 0.16, gain = 1.6 } = {}) => {   // 1.6: the to
 A(0, "vik", "sit", { seat: "chair", dur: 0.01, hands: "keep" });
 for (const who of ["chip", "wedge", "dragon"]) A(0, who, "turn", { to: D_YAW, dur: 0.01 });
 c.prop(0, "board", { flip: 0 }, 0.01);
-for (const s of ["smokeL", "smokeR"]) c.prop(0, s, { on: 0 }, 0.01);
 gv.take(0, { reach: 0.01, settle: 0.01 });
 A(0, "vik", "look", { to: [0.5, -0.45], dur: 0.01, blink: false });
 A(0, "vik", "expr", { expr: "angry", dur: 0.01 });
@@ -146,7 +146,10 @@ see(T[3], END_OF(5), ["dragon.face", "vik.face"], "the Dragon chuckles: oh, noth
 const W1 = r3(END_OF(5) - 0.3);
 A(W1, "chip", "expr", { expr: "sad", dur: 0.25 });
 walk("chip", W1, MARK, CHIP_SIDE, 1.0, 15);
-walk("wedge", r3(W1 + 0.6), Q1, MARK, 1.2, D_YAW);
+const W1b = walk("wedge", r3(W1 + 0.1), Q2, WVIA, 1.1, heading(WVIA, MARK));
+const W1c = walk("wedge", r3(W1b - 0.3), WVIA, MARK, 1.1, D_YAW);
+// his line waits until he stands on the mark (every later line moves with it)
+{ const late = r3(W1c - 0.2 - T[7]); if (late > 0) for (let k = 7; k < T.length; k++) T[k] = r3(T[k] + late); }
 A(r3(W1 + 0.4), "vik", "look", { to: [0.5, -0.45], dur: 0.25 }); A(r3(W1 + 0.4), "vik", "expr", { expr: "stern", dur: 0.25 });
 say(6);
 strike(r3(END_OF(6) - 0.35), 2);
@@ -165,7 +168,10 @@ A(W2, "wedge", "expr", { expr: "sad", dur: 0.2 });
 const VIA = [0.15, 1.35];
 const W2b = walk("wedge", W2, MARK, VIA, 0.5, heading(VIA, WEDGE_SIDE));
 walk("wedge", r3(W2b - 0.3), VIA, WEDGE_SIDE, 0.9, 10);
-const D1 = walk("dragon", r3(W2 + 0.3), Q2, DRAGON_SPOT, 1.5, DRAGON_YAW);
+// one small step, no turn first (a turn on the spot swung his wing into the bench), once Wedge has left the mark
+A(r3(W2 + 0.9), "dragon", "move", { to: DRAGON_SPOT, dur: 0.6, ease: "inOut" });
+A(r3(W2 + 1.3), "dragon", "turn", { to: DRAGON_YAW, dur: 0.5, ease: "inOut" });
+const D1 = r3(W2 + 2.0);
 A(r3(W2 + 0.3), "vik", "look", { to: [0.6, -0.3], dur: 0.25 }); A(r3(W2 + 0.3), "vik", "expr", { expr: "stern", dur: 0.25 });
 // "Next!" is said while he walks; his line waits until he stands at the bench (every later line moves with it)
 { const late = r3(D1 - 0.1 - T[10]); if (late > 0) for (let k = 10; k < T.length; k++) T[k] = r3(T[k] + late); }
@@ -179,16 +185,15 @@ A(r3(T[11] - 0.15), "vik", "expr", { expr: "delighted", dur: 0.2 });
 say(11);
 const S3 = strike(r3(T[11] + 0.55), 5);
 see(T[11], r3(S3 + 0.6), ["vik.face", "board", "dragon.face"], "1000 YEARS on the board");
-// 11 the Dragon leans in over the bench and puffs smoke from his nose; the judge gulps (the one cut-in, on his face)
+// 11 the Dragon leans in over the bench with an evil grin and snorts; the judge gulps (the one cut-in, on his face)
 const LEAN = r3(S3 + 0.35);
 A(LEAN, "dragon", "lean", { to: 8, dur: 0.45, ease: "inOut" });
 A(LEAN, "dragon", "expr", { expr: "evil", dur: 0.2 });
 const PUFF = r3(LEAN + 0.45);
-for (const s of ["smokeL", "smokeR"]) { c.prop(PUFF, s, { on: 1 }, 0.25); c.prop(r3(PUFF + 1.3), s, { on: 0 }, 0.6); }
 sfx(PUFF, "snort", { gain: 0.5 });   // a short breath out through the nose (no cartoon gulp: realistic sounds only)
 A(r3(PUFF + 0.1), "vik", "expr", { expr: "terrified", dur: 0.15 });
 A(r3(PUFF + 0.1), "vik", "lean", { to: -6, dur: 0.3, ease: "out" });
-see(PUFF, r3(PUFF + 1.0), ["dragon.face", "vik.face"], "the Dragon leans in and puffs smoke at the judge");
+see(PUFF, r3(PUFF + 1.0), ["dragon.face", "vik.face"], "the Dragon leans in at the judge");
 const CUT = F(PUFF + 0.9), BACK = F(CUT + 1.4);
 see(CUT, BACK, ["vik.face"], "the judge gulps");
 // 12 back in the wide: VIKING (small): ...Three weeks. Case closed. (soft tok, board -> 3 WEEKS)
@@ -239,6 +244,7 @@ write(import.meta.url, {
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "vik", with: "chair", from: 0, to: END, reason: "the judge sits in his chair" },
+    { who: "wedge", with: "dragon", from: r3(W1 + 0.05), to: r3(W1 + 1.3), reason: "Wedge's right glove brushes the tip of the Dragon's tail while he turns out of the queue (both at the back of the frame, the tail half behind the Dragon)" },
   ],
   notes: "Generated by storyboards/series/potato-desk/06-life-sentence/make-life-sentence.mjs.",
 });
