@@ -22,7 +22,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 const F2 = (t) => r3(Math.round(t * 15) / 15);   // on the 2-frame grid animeTiming draws (clip-lessons: odd-frame shifts move the drawn frames)
 
 // measured spoken lengths (node qa/lines.mjs desk07-voice-probe.json, 18 Nov 2026), in LINES order
-const DUR = [1.51, 1.82, 0.78, 1.39, 1.23, 2.89, 1.88, 1.35, 1.28, 1.05, 1.09, 2.47, 0.74];
+const DUR = [1.26, 1.82, 0.78, 1.39, 1.23, 2.89, 1.88, 1.35, 1.28, 1.05, 1.09, 2.47, 0.74];
 // the pause before each line (Jonny 17 Nov: pace up). 9 ("...I was just helping") waits for the cut-in.
 const GAP = [0.05, 0.15, 0.3, 0.15, 0.15, 0.2, 0.25, 0.15, 0.25, 0.3, 0.3, 0.2, 0.15];
 const T = []; { let t = 0; LINES.forEach((_, i) => { t = r3(t + GAP[i]); T.push(t); t = r3(t + DUR[i]); }); }
