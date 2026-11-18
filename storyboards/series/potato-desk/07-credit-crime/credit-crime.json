@@ -153,6 +153,12 @@
     "YEAR",
     "YEARS",
     ""
+   ],
+   "headers": [
+    "SENTENCE",
+    "SENTENCE",
+    "SENTENCE",
+    "BOSS'S SENTENCE"
    ]
   },
   {
@@ -241,7 +247,7 @@
   {
    "from": 1.46,
    "to": 3.58,
-   "text": "And you just helped. *1 YEAR.*",
+   "text": "And you just helped. *One year.*",
    "pos": 470,
    "pop": false,
    "size": 64
@@ -273,7 +279,7 @@
   {
    "from": 7.48,
    "to": 10.62,
-   "text": "So you planned it. *10 YEARS.*",
+   "text": "So you planned it. *Ten years.*",
    "pos": 470,
    "pop": false,
    "size": 64
@@ -303,32 +309,32 @@
    "size": 64
   },
   {
-   "from": 19.533,
-   "to": 20.883,
+   "from": 19,
+   "to": 20.35,
    "text": "...I was just helping.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 22.233,
-   "to": 23.523,
+   "from": 20.933,
+   "to": 22.223,
    "text": "He's the boss.",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 23.523,
-   "to": 26.143,
-   "text": "Then you're the helper. *1 YEAR.*",
+   "from": 22.223,
+   "to": 24.843,
+   "text": "Then you're the helper. *One year.*",
    "pos": 470,
    "pop": false,
    "size": 64
   },
   {
-   "from": 26.143,
-   "to": 27.183,
+   "from": 24.843,
+   "to": 25.883,
    "text": "Thank you!",
    "pos": 470,
    "pop": false,
@@ -420,11 +426,18 @@
      "who": "vik",
      "do": "look",
      "to": [
-      0.45,
-      -0.4
+      0.3,
+      -0.45
      ],
      "dur": 0.01,
      "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
      "at": 0
     },
     {
@@ -515,10 +528,17 @@
     },
     {
      "who": "vik",
+     "do": "turn",
+     "to": 28,
+     "dur": 0.35,
+     "at": 1.21
+    },
+    {
+     "who": "vik",
      "do": "look",
      "to": [
-      0.65,
-      -0.5
+      0.85,
+      -0.45
      ],
      "dur": 0.2,
      "at": 1.26
@@ -532,12 +552,6 @@
      "dur": 1.82,
      "caption": false,
      "at": 1.46
-    },
-    {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 2.6
     },
     {
      "who": "vik",
@@ -559,7 +573,7 @@
      },
      "dur": 0.16,
      "ease": "out",
-     "at": 2.8
+     "at": 2
     },
     {
      "who": "vik",
@@ -581,12 +595,12 @@
      },
      "dur": 0.07,
      "ease": "in",
-     "at": 2.99
+     "at": 2.19
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.2,
-     "at": 3.05
+     "at": 2.25
     },
     {
      "do": "prop",
@@ -596,26 +610,32 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 3.05
+     "at": 2.25
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "annoyed",
      "dur": 0.15,
-     "at": 3.11
+     "at": 2.31
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "kind",
      "dur": 0.3,
-     "at": 3.11
+     "at": 2.31
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 3.12
+     "at": 2.32
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.6
     },
     {
      "who": "chip",
@@ -754,8 +774,8 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.17,
-       0.55,
+       -0.12,
+       0.36,
        0.3
       ]
      },
@@ -854,6 +874,15 @@
      "expr": "stern",
      "dur": 0.3,
      "at": 7.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 7.43
     }
    ],
    "kind": "hook"
@@ -888,12 +917,6 @@
      "at": 0.4
     },
     {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 1.92
-    },
-    {
      "who": "vik",
      "do": "arm",
      "side": "R",
@@ -913,7 +936,7 @@
      },
      "dur": 0.16,
      "ease": "out",
-     "at": 2.453
+     "at": 1.587
     },
     {
      "who": "vik",
@@ -935,12 +958,12 @@
      },
      "dur": 0.07,
      "ease": "in",
-     "at": 2.643
+     "at": 1.777
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.2,
-     "at": 2.703
+     "at": 1.837
     },
     {
      "do": "prop",
@@ -950,7 +973,25 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 2.703
+     "at": 1.837
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 1.907
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.92
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 2.097
     },
     {
      "who": "vik",
@@ -968,23 +1009,11 @@
      "at": 2.74
     },
     {
-     "sfx": "kenney/switch",
-     "gain": 0.45,
-     "at": 2.773
-    },
-    {
      "who": "wedge",
      "do": "expr",
      "expr": "eager",
      "dur": 0.2,
      "at": 2.89
-    },
-    {
-     "who": "chip",
-     "do": "face",
-     "lid": 0,
-     "dur": 0.2,
-     "at": 2.963
     },
     {
      "who": "wedge",
@@ -1026,16 +1055,15 @@
      "who": "wedge",
      "do": "arm",
      "side": "L",
-     "pose": "rest",
-     "dur": 0.6,
-     "ease": "inOut",
-     "at": 5.12
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "happy",
+     "pose": {
+      "o": [
+       0.45,
+       0.6,
+       0.12
+      ]
+     },
      "dur": 0.3,
+     "ease": "inOut",
      "at": 5.12
     },
     {
@@ -1052,6 +1080,15 @@
      "who": "chip",
      "do": "blink",
      "dur": 0.22,
+     "at": 5.42
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
      "at": 5.42
     },
     {
@@ -1077,20 +1114,13 @@
      "side": "both",
      "pose": {
       "o": [
-       0.3,
-       0.78,
-       0.12
+       0.2,
+       0.6,
+       0.2
       ]
      },
      "dur": 0.45,
      "ease": "out",
-     "at": 5.92
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "expr": "delighted",
-     "dur": 0.2,
      "at": 5.92
     },
     {
@@ -1105,7 +1135,7 @@
   {
    "name": "life",
    "at": 14.25,
-   "len": 1.617,
+   "len": 1.083,
    "shot": "keep",
    "do": [
     {
@@ -1138,7 +1168,7 @@
      },
      "dur": 0.3,
      "ease": "out",
-     "at": 0.75
+     "at": 0.217
     },
     {
      "who": "vik",
@@ -1160,12 +1190,12 @@
      },
      "dur": 0.1,
      "ease": "in",
-     "at": 1.08
+     "at": 0.547
     },
     {
      "sfx": "kenney/impact-plank-medium",
      "gain": 1.4,
-     "at": 1.17
+     "at": 0.637
     },
     {
      "do": "prop",
@@ -1175,39 +1205,39 @@
      },
      "dur": 0.2,
      "ease": "inOut",
-     "at": 1.17
+     "at": 0.637
     },
     {
      "sfx": "kenney/switch",
      "gain": 0.45,
-     "at": 1.24
+     "at": 0.707
     },
     {
      "who": "chip",
      "do": "squash",
      "to": 0,
      "dur": 0.3,
-     "at": 1.48
+     "at": 0.947
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "smile freezes",
-   "at": 15.867,
-   "len": 1.466,
+   "at": 15.333,
+   "len": 1.467,
    "shot": {
     "pos": [
      0.5,
-     0.5,
+     0.3,
      4.9
     ],
     "look": [
      0.6,
-     0.5,
+     0.62,
      1.8
     ],
-    "fov": 24
+    "fov": 26
    },
    "do": [
     {
@@ -1220,12 +1250,6 @@
      "dur": 0.3,
      "blink": false,
      "at": 0.1
-    },
-    {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.233
     },
     {
      "who": "chip",
@@ -1270,6 +1294,12 @@
      "at": 0.35
     },
     {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.767
+    },
+    {
      "who": "chip",
      "do": "look",
      "to": [
@@ -1277,21 +1307,21 @@
       0.2
      ],
      "dur": 0.15,
-     "at": 1.316
+     "at": 1.317
     },
     {
      "who": "chip",
      "do": "turn",
      "to": -30,
      "dur": 0.3,
-     "at": 1.416
+     "at": 1.417
     }
    ]
   },
   {
    "name": "just helping",
-   "at": 17.333,
-   "len": 10.634,
+   "at": 16.8,
+   "len": 9.867,
    "shot": {
     "pos": [
      0,
@@ -1310,8 +1340,8 @@
      "who": "chip",
      "do": "move",
      "to": [
-      0.95,
-      1.05
+      0.9,
+      1.2
      ],
      "dur": 1.1,
      "at": 0
@@ -1320,7 +1350,7 @@
      "who": "vik",
      "do": "look",
      "to": [
-      0.4,
+      0.6,
       -0.55
      ],
      "dur": 0.4,
@@ -1328,9 +1358,10 @@
     },
     {
      "who": "vik",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 0.267
+     "do": "turn",
+     "to": 22,
+     "dur": 0.5,
+     "at": 0.2
     },
     {
      "who": "wedge",
@@ -1341,6 +1372,12 @@
      ],
      "dur": 0.3,
      "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.8
     },
     {
      "who": "chip",
@@ -1396,7 +1433,7 @@
       0
      ],
      "dur": 0.15,
-     "at": 3.2
+     "at": 2.783
     },
     {
      "who": "wedge",
@@ -1405,26 +1442,8 @@
       -0.4,
       1.45
      ],
-     "dur": 1.2,
-     "at": 3.35
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": 30,
-     "dur": 0.35,
-     "at": 4.55
-    },
-    {
-     "who": "wedge",
-     "do": "look",
-     "to": [
-      0.6,
-      -0.4
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 4.55
+     "dur": 1,
+     "at": 2.933
     },
     {
      "who": "wedge",
@@ -1437,16 +1456,42 @@
        0.24
       ]
      },
-     "dur": 0.7,
+     "dur": 0.5,
      "ease": "inOut",
-     "at": 4.55
+     "at": 3.833
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.35,
+     "at": 3.933
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.933
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.4,
+     "at": 3.933
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "kind",
      "dur": 0.2,
-     "at": 4.65
+     "at": 4.033
     },
     {
      "who": "wedge",
@@ -1456,23 +1501,24 @@
      "style": "plain, honest, helpful",
      "dur": 1.09,
      "caption": false,
-     "at": 4.9
+     "at": 4.133
     },
     {
-     "who": "wedge",
-     "do": "blink",
-     "dur": 0.22,
-     "at": 5.667
+     "who": "vik",
+     "do": "turn",
+     "to": 2,
+     "dur": 0.4,
+     "at": 5.123
     },
     {
      "who": "vik",
      "do": "look",
      "to": [
-      0.75,
-      -0.35
+      0.15,
+      -0.5
      ],
      "dur": 0.25,
-     "at": 5.99
+     "at": 5.223
     },
     {
      "who": "wedge",
@@ -1483,14 +1529,14 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 6.09
+     "at": 5.323
     },
     {
      "who": "wedge",
      "do": "turn",
      "to": -20,
      "dur": 0.35,
-     "at": 6.09
+     "at": 5.323
     },
     {
      "who": "vik",
@@ -1500,7 +1546,7 @@
      "style": "deep, stern, flat, a judge",
      "dur": 2.47,
      "caption": false,
-     "at": 6.19
+     "at": 5.423
     },
     {
      "who": "wedge",
@@ -1509,7 +1555,7 @@
      "pose": "rest",
      "dur": 0.9,
      "ease": "inOut",
-     "at": 6.29
+     "at": 5.523
     },
     {
      "who": "wedge",
@@ -1517,20 +1563,26 @@
      "side": "L",
      "shape": "open",
      "dur": 0.9,
-     "at": 6.29
+     "at": 5.523
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.2
     },
     {
      "who": "vik",
      "do": "blink",
      "dur": 0.22,
-     "at": 6.767
+     "at": 7.3
     },
     {
      "who": "wedge",
      "do": "expr",
      "expr": "delighted",
      "dur": 0.2,
-     "at": 8.46
+     "at": 7.693
     },
     {
      "who": "wedge",
@@ -1540,7 +1592,7 @@
      "style": "happy, relieved, grateful",
      "dur": 0.74,
      "caption": false,
-     "at": 8.81
+     "at": 8.043
     },
     {
      "who": "chip",
@@ -1551,14 +1603,14 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 9.01
+     "at": 8.243
     },
     {
      "who": "chip",
      "do": "expr",
      "expr": "sad",
      "dur": 0.3,
-     "at": 9.01
+     "at": 8.243
     }
    ],
    "kind": "payoff"
@@ -1578,7 +1630,7 @@
   },
   {
    "from": 1.46,
-   "to": 3.66,
+   "to": 2.86,
    "see": [
     "vik.face",
     "board",
@@ -1588,7 +1640,7 @@
   },
   {
    "from": 7.48,
-   "to": 10.793,
+   "to": 9.927,
    "see": [
     "vik.face",
     "board",
@@ -1598,7 +1650,7 @@
   },
   {
    "from": 14.25,
-   "to": 15.93,
+   "to": 15.397,
    "see": [
     "vik.face",
     "board",
@@ -1607,16 +1659,16 @@
    "why": "LIFE on the board"
   },
   {
-   "from": 15.867,
-   "to": 17.333,
+   "from": 15.333,
+   "to": 16.8,
    "see": [
     "chip.face"
    ],
    "why": "the little one looks up at LIFE; his smile freezes"
   },
   {
-   "from": 21.583,
-   "to": 23.323,
+   "from": 20.633,
+   "to": 22.023,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1625,8 +1677,8 @@
    "why": "the big one steps aside and points: he's the boss"
   },
   {
-   "from": 23.523,
-   "to": 27.967,
+   "from": 22.223,
+   "to": 26.667,
    "see": [
     "wedge.face",
     "chip.face",
@@ -1640,14 +1692,14 @@
    "who": "vik",
    "with": "chair",
    "from": 0,
-   "to": 27.967,
+   "to": 26.667,
    "reason": "the judge sits in his chair"
   },
   {
    "who": "chip",
    "with": "wedge",
-   "from": 18.333,
-   "to": 21.483,
+   "from": 17.8,
+   "to": 20.533,
    "checks": [
     "face-hidden",
     "front"

@@ -33,11 +33,15 @@ const shift = (from, by) => { for (let k = from; k < T.length; k++) T[k] = r3(T[
 const DECK = 1.18;
 const VIK = [-0.69, -0.66];
 const WEDGE0 = [0.05, 0.95], WEDGE_ASIDE = [-0.4, 1.45];   // he steps aside to the front-left, clear of the little one
-const CHIP0 = [0.7, 1.7], CHIP_FWD = [0.6, 1.8], CHIP_VIA = [0.95, 1.05], CHIP_HIDE = [0.66, 0.32];   // the hide: half behind the big one, peeking
+const CHIP0 = [0.7, 1.7], CHIP_FWD = [0.6, 1.8], CHIP_VIA = [0.9, 1.2], CHIP_HIDE = [0.66, 0.32];   // the hide: half behind the big one, peeking
 const D_YAW = -20, CHIP_TO_WEDGE = -50, WEDGE_TO_CHIP = 30;
 // looks: [x, y] of the eyes (+x screen right, +y up)
 const AT_JUDGE = [-0.8, 0.55], AT_US = [0, 0.05], AT_BOARD = [0.05, 0.9];
-const VIK_AT_WEDGE = [0.45, -0.4], VIK_AT_CHIP = [0.65, -0.5], VIK_AT_HIDE = [0.4, -0.55];
+const VIK_AT_WEDGE = [0.3, -0.45], VIK_AT_CHIP = [0.85, -0.45], VIK_AT_HIDE = [0.6, -0.55], VIK_AT_ASIDE = [0.15, -0.5];
+// the judge turns his whole body to the one he means (Sol pass 1: "you" switched with a forward eyeline)
+const VIK_TO_WEDGE = 12, VIK_TO_CHIP = 28, VIK_TO_ASIDE = 2;
+// when the number word is said in each verdict line (speech word times, 18 Nov 2026): the board flips on it
+const NUM_AT = { 1: 0.82, 5: 1.86, 8: 0.62 };
 
 const cast = [
   { id: "vik", character: "potatobrawl/viking-judge", at: VIK, face: 8, expr: "stern", follow: 0.2, seed: 1.7 },
@@ -55,7 +59,8 @@ const props = [
   { id: "wall", kind: "officewall", x: 0, y: 0, z: -1.3, w: 3.8, h: 4.24 },
   { id: "dado", staged: "panels fixed to the back wall", kind: "dadopanels", x: 0, y: 0, z: -1.3, trim: true },
   { id: "board", staged: "screwed to the back wall", kind: "sentenceboard", x: 0.66, y: 2.01, z: -1.255,
-    states: ["0", "1", "10", "LIFE"], units: ["YEARS", "YEAR", "YEARS", ""] },
+    states: ["0", "1", "10", "LIFE"], units: ["YEARS", "YEAR", "YEARS", ""],
+    headers: ["SENTENCE", "SENTENCE", "SENTENCE", "BOSS'S SENTENCE"] },   // LIFE is the boss's: the ending's 1 YEAR is the helper's (Sol pass 1)
   { id: "bench", kind: "judgebench", x: -0.69, y: 0, z: 0.145 },
   { id: "chair", staged: "on a block on the bench's riser, hidden by the bench", kind: "chair", x: VIK[0], y: 0.72, z: VIK[1], rot: 0 },
   { id: "plate", staged: "fixed to the bench front", kind: "officesign", x: -0.5, y: 1.068, z: 0.49, w: 0.58, h: 0.10, frameW: 0.009, lines: [["JUDGE VIKING", 0.043]], plate: "#24323f", ink: "#f3ead2", frame: "#b08a3c" },
@@ -66,7 +71,8 @@ const props = [
 
 // captions: upper third, under the band the in-app title takes; numbers as digits, the sentence in colour
 const SUB = 470;
-const CAPTEXT = { 1: "And you just helped. *1 YEAR.*", 5: "So you planned it. *10 YEARS.*", 7: "Thank you! I'm the *boss!*", 8: "The boss gets *LIFE.*", 11: "Then you're the helper. *1 YEAR.*" };
+// numbers as the spoken words, so each pops as it is said, with the board's flip (Sol pass 1: digits popped early)
+const CAPTEXT = { 1: "And you just helped. *One year.*", 5: "So you planned it. *Ten years.*", 7: "Thank you! I'm the *boss!*", 8: "The boss gets *LIFE.*", 11: "Then you're the helper. *One year.*" };
 const say = (i, extra = {}) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
@@ -92,7 +98,7 @@ A(0, "vik", "sit", { seat: "chair", dur: 0.01, hands: "keep" });
 for (const who of ["chip", "wedge"]) A(0, who, "turn", { to: D_YAW, dur: 0.01 });
 c.prop(0, "board", { flip: 0 }, 0.01);
 gv.take(0, { reach: 0.01, settle: 0.01 });
-A(0, "vik", "look", { to: VIK_AT_WEDGE, dur: 0.01, blink: false });
+A(0, "vik", "look", { to: VIK_AT_WEDGE, dur: 0.01, blink: false }); A(0, "vik", "turn", { to: VIK_TO_WEDGE, dur: 0.01 });
 A(0, "chip", "look", { to: AT_JUDGE, dur: 0.01, blink: false });
 A(0, "wedge", "look", { to: [-0.3, -0.3], dur: 0.01, blink: false });   // eyes down, sheepish
 act.blinksAt(c, "vik", [3.4, 10.2, 17.6, 24.1]);
@@ -103,9 +109,9 @@ see(0, END_OF(0), ["vik.face", "wedge.face", "chip.face", "board"], "the judge t
 // 1 JUDGE (to the big one): You planned the robbery.
 say(0);
 // 2 JUDGE (to the little one): And you just helped. One year.  (tok, 1 YEAR; the little one is offended, not relieved)
-A(r3(T[1] - 0.2), "vik", "look", { to: VIK_AT_CHIP, dur: 0.2 });
+A(r3(T[1] - 0.2), "vik", "look", { to: VIK_AT_CHIP, dur: 0.2 }); A(r3(T[1] - 0.25), "vik", "turn", { to: VIK_TO_CHIP, dur: 0.35 });
 say(1);
-const S1 = strike(r3(T[1] + DUR[1] - 0.45), 1);
+const S1 = strike(r3(T[1] + NUM_AT[1] - 0.26), 1);
 A(r3(S1 + 0.05), "chip", "expr", { expr: "annoyed", dur: 0.15 });
 A(r3(S1 + 0.05), "wedge", "expr", { expr: "kind", dur: 0.3 });
 see(T[1], r3(S1 + 0.6), ["vik.face", "board", "chip.face"], "1 YEAR; the little one is offended");
@@ -124,7 +130,8 @@ say(3);
 // 5 CHIP, hand on chest, chin up: The plan was MINE!  (the judge leans in)
 A(r3(T[4] - 0.15), "chip", "turn", { to: D_YAW, dur: 0.3 });
 A(r3(T[4] - 0.15), "chip", "look", { to: [-0.6, 0.75], dur: 0.25 });
-arm(r3(T[4] - 0.2), "chip", "R", { o: [-0.17, 0.55, 0.3] }, 0.45); grip(r3(T[4] - 0.15), "chip", "R", "open");
+arm(r3(T[4] - 0.2), "chip", "R", { o: [-0.12, 0.36, 0.3] }, 0.45); grip(r3(T[4] - 0.15), "chip", "R", "open");   // mitten on his chest, under the face
+arm(r3(END_OF(4) + 0.15), "chip", "R", "rest", 0.6);
 A(r3(T[4] - 0.1), "chip", "expr", { expr: "cocky", dur: 0.2 });
 arm(r3(T[4]), "wedge", "R", "rest", 0.6); A(r3(T[4]), "wedge", "look", { to: AT_JUDGE, dur: 0.25, blink: false });
 A(r3(T[4] + 0.6), "vik", "lean", { to: 12, dur: 0.5, ease: "inOut" }); A(r3(T[4] + 0.6), "vik", "expr", { expr: "focused", dur: 0.3 });
@@ -132,7 +139,7 @@ say(4);
 // 6 JUDGE: So you planned it. Ten years.  (tok, 10 YEARS; the little one nods proudly, eyes shut, not looking)
 A(r3(T[5] - 0.1), "vik", "lean", { to: 0, dur: 0.4, ease: "inOut" }); A(r3(T[5] - 0.1), "vik", "expr", { expr: "stern", dur: 0.3 });
 say(5);
-const S2 = strike(r3(T[5] + DUR[5] - 0.45), 2);
+const S2 = strike(r3(T[5] + NUM_AT[5] - 0.26), 2);
 A(r3(T[5] + 0.4), "chip", "nod", { dur: 0.6 });
 A(r3(T[5] + 0.4), "chip", "face", { lid: 0.9, dur: 0.2 }); A(r3(S2 + 0.25), "chip", "face", { lid: 0, dur: 0.2 });
 see(T[5], r3(S2 + 0.6), ["vik.face", "board", "chip.face"], "10 YEARS; the little one nods proudly");
@@ -142,15 +149,15 @@ say(6);
 // 8 CHIP turns to him, then arms wide, beaming: Thank you! I'm the boss!
 A(r3(T[7] - 0.15), "chip", "turn", { to: CHIP_TO_WEDGE + 25, dur: 0.25 }); A(r3(T[7] - 0.15), "chip", "look", { to: [-0.6, 0.35], dur: 0.2 });
 arm(r3(T[7] - 0.15), "chip", "R", "rest", 0.4);
-arm(r3(END_OF(6) + 0.1), "wedge", "L", "rest", 0.6); A(r3(END_OF(6) + 0.1), "wedge", "expr", { expr: "happy", dur: 0.3 });
+arm(r3(END_OF(6) + 0.1), "wedge", "L", { o: [0.45, 0.6, 0.12] }, 0.3); arm(r3(END_OF(6) + 0.4), "wedge", "L", "rest", 0.45);   // down on an outward arc, clear of his head A(r3(END_OF(6) + 0.1), "wedge", "expr", { expr: "happy", dur: 0.3 });
 const WIDE_AT = r3(T[7] + 0.75);
 A(WIDE_AT, "chip", "turn", { to: D_YAW, dur: 0.3 }); A(WIDE_AT, "chip", "look", { to: [-0.4, 0.6], dur: 0.2 });
-arm(WIDE_AT, "chip", "both", { o: [0.3, 0.78, 0.12] }, 0.45, "out"); A(WIDE_AT, "chip", "expr", { expr: "delighted", dur: 0.2 });
+arm(WIDE_AT, "chip", "both", { o: [0.2, 0.6, 0.2] }, 0.45, "out");   // elbows bent: clear of the big one's face, in frame A(WIDE_AT, "chip", "expr", { expr: "delighted", dur: 0.2 });
 A(WIDE_AT, "chip", "squash", { to: -0.06, dur: 0.3 });
 say(7);
 // 9 JUDGE lifts the gavel high: The boss gets life.  (tok, LIFE; the little one still beaming)
 say(8);
-const S3 = strike(r3(T[8] + DUR[8] - 0.55), 3, { up: 0.32, gain: 1.4 });
+const S3 = strike(r3(T[8] + NUM_AT[8] - 0.43), 3, { up: 0.32, gain: 1.4 });
 A(r3(S3 + 0.3), "chip", "squash", { to: 0, dur: 0.3 });
 see(T[8], r3(S3 + 0.5), ["vik.face", "board", "chip.face"], "LIFE on the board");
 
@@ -170,22 +177,23 @@ step(r3(BACK + 1.1), "chip", CHIP_HIDE, 1.0);
 A(r3(BACK + 2.0), "chip", "turn", { to: -10, dur: 0.3 });
 A(r3(BACK + 2.0), "chip", "expr", { expr: "terrified", dur: 0.2 }); A(r3(BACK + 2.0), "chip", "look", { to: AT_JUDGE, dur: 0.2 });
 A(r3(BACK + 0.3), "wedge", "look", { to: [0.5, -0.3], dur: 0.3 });
-A(r3(BACK + 0.2), "vik", "look", { to: VIK_AT_HIDE, dur: 0.4 });
+A(r3(BACK + 0.2), "vik", "look", { to: VIK_AT_HIDE, dur: 0.4 }); A(r3(BACK + 0.2), "vik", "turn", { to: 22, dur: 0.5 });
 shift(9, r3(BACK + 2.2 - T[9]));
 say(9, { soft: true });
 // 11 WEDGE steps aside and points at him: He's the boss.
-const W1 = r3(END_OF(9) + 0.1);
+const W1 = F2(END_OF(9) - 0.3);   // he moves under the tail of "helping" (Sol pass 1: 1.5 s gap)
 A(r3(W1 - 0.15), "wedge", "look", { to: [-0.5, 0], dur: 0.15 });
-step(W1, "wedge", WEDGE_ASIDE, 1.2);
-A(r3(W1 + 1.2), "wedge", "turn", { to: WEDGE_TO_CHIP, dur: 0.35 });
-A(r3(W1 + 1.2), "wedge", "look", { to: [0.6, -0.4], dur: 0.2, blink: false });
-arm(r3(W1 + 1.2), "wedge", "L", { o: [0.22, 0.42, 0.24] }, 0.7, "inOut");   // pointing down at him, below his face grip(r3(W1 + 1.2), "wedge", "L", "point", 0.7);
-A(r3(W1 + 1.3), "wedge", "expr", { expr: "kind", dur: 0.2 });
-shift(10, r3(W1 + 1.55 - T[10]));
+step(W1, "wedge", WEDGE_ASIDE, 1.0);
+A(r3(W1 + 1.0), "wedge", "turn", { to: WEDGE_TO_CHIP, dur: 0.35 });
+A(r3(W1 + 1.0), "wedge", "look", { to: [0.6, -0.4], dur: 0.2, blink: false });
+arm(r3(W1 + 0.9), "wedge", "L", { o: [0.22, 0.42, 0.24] }, 0.5, "inOut");   // pointing down at him, below his face
+grip(r3(W1 + 1.0), "wedge", "L", "point", 0.4);
+A(r3(W1 + 1.1), "wedge", "expr", { expr: "kind", dur: 0.2 });
+shift(10, r3(W1 + 1.2 - T[10]));
 say(10);
 see(r3(W1 + 0.9), END_OF(10), ["wedge.face", "chip.face", "board"], "the big one steps aside and points: he's the boss");
 // 12 JUDGE (to the big one): Then you're the helper. One year.   13 WEDGE: Thank you!
-A(r3(T[11] - 0.2), "vik", "look", { to: [0.75, -0.35], dur: 0.25 });
+A(r3(T[11] - 0.2), "vik", "look", { to: VIK_AT_ASIDE, dur: 0.25 }); A(r3(T[11] - 0.3), "vik", "turn", { to: VIK_TO_ASIDE, dur: 0.4 });
 A(r3(T[11] - 0.1), "wedge", "look", { to: AT_JUDGE, dur: 0.2, blink: false }); A(r3(T[11] - 0.1), "wedge", "turn", { to: D_YAW, dur: 0.35 });
 arm(r3(T[11] + 0.1), "wedge", "L", "rest", 0.9); grip(r3(T[11] + 0.1), "wedge", "L", "open", 0.9);
 say(11);
@@ -201,7 +209,7 @@ const beats = c.beats([
   ["one year", 0, WIDE, "hook"],
   ["ten years", T[5], "keep"],
   ["life", T[8], "keep", "escalation"],
-  ["smile freezes", CUT, { pos: [0.5, 0.5, 4.9], look: [0.6, 0.5, 1.8], fov: 24 }],
+  ["smile freezes", CUT, { pos: [0.5, 0.3, 4.9], look: [0.6, 0.62, 1.8], fov: 26 }],
   ["just helping", BACK, { ...WIDE }, "payoff"],
 ], END);
 
