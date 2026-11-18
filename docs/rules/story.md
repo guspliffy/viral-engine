@@ -17,6 +17,11 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   the same after about ten. So each new episode changes at least one visible thing about its shape from the last one
   in its series (opening, structure, setting, music, who wins), and the delivery names what changed. A series is
   reviewed after about 12 episodes and paused before it goes stale, even when it still does well.
+- **Never the same outcome twice in a series** (18 Nov, ON TRIAL, from YouTube's monetization policy): YouTube does
+  not monetize channels where "characters are put in the same situation over and over again with the same outcome"
+  (templated storylines); a series with a fixed cast is fine when each episode has its own storyline. So a series
+  keeps its format, but each new episode changes the situation AND the way it ends (who wins, what the catch costs,
+  how it resolves), and the outline names how its ending differs from the last two episodes.
 - **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
   picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
   save it). If the picture is unclear, change the idea, not the packaging.
