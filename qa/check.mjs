@@ -709,8 +709,9 @@ export function checkClip(clip, { sb = null, layout = null, profile = null, flow
     // nor where another field names one (a carrier "mashWC" ridden, "with": "mashW": You wake up mid EP02, 12 Nov 2026)
     const ids = (sb.cast || []).map((c) => c.id).filter(Boolean).sort((x, y) => y.length - x.length).map((x) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
     const castRe = ids.length ? new RegExp(`"(with|prop|id|target|of|by|at|to|on|seat)":"(${ids.join("|")})\\w*"`, "gi") : null;
-    // nor in a spoken line: the words of a "say" are speech, not an effect ("Mashed potatoes. One big bowl.": Potato Desk 05, 18 Nov 2026)
-    const effect = ({ who, ...x }) => (x.macro === "say" ? (({ line, tone, style, ...y }) => y)(x) : x);
+    // nor in a spoken line: the words of a "say" or "talk" (and its speech file) are speech, not an effect
+    // ("Mashed potatoes. One big bowl.": Potato Desk 05, 18 Nov 2026)
+    const effect = ({ who, ...x }) => (x.macro === "say" || x.do === "talk" ? (({ line, tone, style, speech, ...y }) => y)(x) : x);
     const bad = [...(sb.fx || []), ...(sb.actions || [])].filter((a) => { const s = JSON.stringify(effect(a)); return RULES.gore.test(castRe ? s.replace(castRe, "") : s); });
     if (bad.length) add("fail", "cartoon-only", `graphic-looking effects (${bad.map((x) => x.do).join(", ")}): use stars, dust or squash instead (graphic violence isn't eligible for For You)`);
     else add("pass", "cartoon-only", "no graphic-looking effects");
