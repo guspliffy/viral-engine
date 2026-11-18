@@ -40,6 +40,7 @@ import { DINO_KINDS } from "./props-dino.js";
 import { SHARK_KINDS } from "./props-shark.js";
 import { BUSSTOP_KINDS } from "./props-busstop.js";
 import { DESK_KINDS } from "./props-desk.js";   // potato desk: service counter set
+import { COURT_KINDS } from "./props-court.js";   // potato desk 05 court day: judgebench, dadopanels, floormarks, soundblock, courtfloor, sentenceboard, axegavel, fryfan, chipbag, mashbowl, courtspoon
 import { IKEA_KINDS } from "./props-ikea.js";   // friends try to, episode 1 (friends-try-to-shared)
 import { BEDROOM_KINDS } from "./props-bedroom.js";   // friends try to, episode 3: the cat, the plaid bed (friends-try-to-shared)
 import { TENT_KINDS, TENT_PARTS } from "./props-tent.js";   // friends try to, episode 2: the tent cloth, pegs, backpack, fire ring, wind leaves
@@ -1498,6 +1499,7 @@ Object.assign(KINDS, SNOW_KINDS);   // survive it 01 snowed in: the small props 
 Object.assign(KINDS, AVALANCHE_KINDS);   // survive it 01 snowed in (props-avalanche.js)
 Object.assign(KINDS, SOS_KINDS, SOS_SET_KINDS, SOS_VAT_KINDS); Object.assign(GRIPS, SOS_GRIPS);   // share or steal (props-sos.js, props-sos-set.js)
 Object.assign(KINDS, HP_SET_KINDS, HP_KINDS); Object.assign(GRIPS, HP_GRIPS);   // hot potato (props-hotpotato-set.js, props-hotpotato.js)
+Object.assign(KINDS, COURT_KINDS);   // potato desk 05 court day (props-court.js)
 Object.assign(KINDS, DESK_KINDS);   // potato desk: officesign, crtmonitor, keyboard, callbell, ticketsnail, ticket, cobweb (props-desk.js)
 Object.assign(KINDS, SCORE_KINDS); Object.assign(GRIPS, SCORE_GRIPS);   // happiness score film (props-score.js)
 Object.assign(KINDS, VAN_KINDS); Object.assign(GRIPS, VAN_GRIPS);   // happiness score film (props-score-van.js)
