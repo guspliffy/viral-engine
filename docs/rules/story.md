@@ -92,10 +92,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Lettering in the upper third** (12 Nov): spoken and narrated captions sit in the top third (above y 640, below the
   app bar at ~y 200), never over eyes or faces. Set `captionBand` to the upper third and take each caption's `pos` from
   `node qa/camfit.mjs <sb> --at <s>`. A face in the top third moves the camera or the caption, not the rule.
-- **A follow ask at the payoff** (15 Nov, test): one short narrator line right after the payoff asking viewers to
-  follow (in the series' voice, e.g. "Follow, or you'll miss part 2."), never before the payoff and never over a
-  character's line. MrBeast saw 5-10x more subscribers per view from simply asking. Compare follows per 1,000 views
-  with and without it in `experiments/` before it becomes a rule.
+- **No call to action in the video** (18 Nov, replaces the 15 Nov follow-ask test): no spoken or on-screen ask to
+  follow, share, comment, like or tag a friend ("Follow, or you'll miss part 2.", "Send this to your friend who...").
+  The story ends on its payoff. Asks in the post itself (caption question, poll) are posting rules
+  (`docs/rules/posting.md`), not part of this line.
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
