@@ -38,8 +38,8 @@
  },
  "creative": {
   "length": [
-   14,
-   19
+   12,
+   16
   ]
  },
  "hook": {
@@ -313,47 +313,47 @@
  "captions": [
   {
    "from": 0.1,
-   "to": 1.92,
+   "to": 1.55,
    "text": "One of them is *too heavy.*",
    "pos": 430,
    "pop": false,
    "size": 64
   },
   {
-   "from": 1.75,
-   "to": 3.14,
+   "from": 1.6,
+   "to": 2.99,
    "text": "You're too fat.",
    "pos": 430,
    "pop": false,
    "size": 64
   },
   {
-   "from": 2.99,
-   "to": 4.26,
+   "from": 2.74,
+   "to": 4.01,
    "text": "Fine!",
    "pos": 430,
    "pop": false,
    "size": 64
   },
   {
-   "from": 6.72,
-   "to": 7.97,
+   "from": 5.77,
+   "to": 7.02,
    "text": "Your turn.",
    "pos": 430,
    "pop": false,
    "size": 64
   },
   {
-   "from": 10.55,
-   "to": 11.73,
+   "from": 8.5,
+   "to": 9.68,
    "text": "Wait...",
    "pos": 430,
    "pop": false,
    "size": 64
   },
   {
-   "from": 14.25,
-   "to": 15.96,
+   "from": 11.4,
+   "to": 13.11,
    "text": "Just in case!",
    "pos": 430,
    "pop": false,
@@ -364,7 +364,7 @@
   {
    "name": "cracks",
    "at": 0,
-   "len": 1.6,
+   "len": 1.45,
    "shot": {
     "pos": [
      -0.3,
@@ -732,15 +732,15 @@
      "do": "turn",
      "to": -55,
      "dur": 0.35,
-     "at": 1.55
+     "at": 1.4
     }
    ],
    "kind": "hook"
   },
   {
    "name": "too fat",
-   "at": 1.6,
-   "len": 2.14,
+   "at": 1.45,
+   "len": 1.883,
    "shot": {
     "pos": [
      0.35,
@@ -924,7 +924,7 @@
      "who": "spud",
      "do": "blink",
      "dur": 0.22,
-     "at": 0.8
+     "at": 0.95
     },
     {
      "who": "mash",
@@ -961,14 +961,14 @@
      "style": "loud, offended, huffy sigh",
      "dur": 0.92,
      "caption": false,
-     "at": 1.39
+     "at": 1.29
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": 0.06,
      "dur": 0.25,
-     "at": 1.39
+     "at": 1.29
     },
     {
      "who": "mash",
@@ -976,7 +976,47 @@
      "side": "R",
      "shape": "scroll",
      "dur": 0.1,
-     "at": 1.5
+     "at": 1.65
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.69
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.69
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1.69
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1.69
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -167.381,
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.69
     },
     {
      "who": "mash",
@@ -984,72 +1024,25 @@
      "side": "R",
      "shape": "hold",
      "dur": 0.12,
-     "at": 1.66
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.3,
-     "at": 1.74
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 1.74
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.3,
-     "at": 1.74
-    },
-    {
-     "who": "wedge",
-     "do": "grip",
-     "side": "R",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 1.74
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": -171.511,
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.84
+     "at": 1.81
     },
     {
      "who": "wedge",
      "do": "move",
      "to": [
-      -1.25,
+      -1.4,
       -1.66
      ],
-     "dur": 1.25,
+     "dur": 1.2,
      "ease": "inOut",
-     "at": 2.02
-    },
-    {
-     "who": "chip",
-     "do": "turn",
-     "to": -20,
-     "dur": 0.4,
-     "at": 2.04
+     "at": 1.87
     }
    ]
   },
   {
    "name": "fine",
-   "at": 3.74,
-   "len": 1.63,
+   "at": 3.333,
+   "len": 1.387,
    "shot": {
     "pos": [
      -2.1,
@@ -1066,6 +1059,13 @@
    "do": [
     {
      "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.4,
+     "at": 0.007
+    },
+    {
+     "who": "chip",
      "do": "look",
      "to": [
       -0.4,
@@ -1073,7 +1073,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0
+     "at": 0.107
     },
     {
      "who": "spud",
@@ -1084,7 +1084,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0
+     "at": 0.107
     },
     {
      "who": "wedge",
@@ -1095,20 +1095,7 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 0.3
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      -1.25,
-      -1.96
-     ],
-     "y": 0.1,
-     "dur": 0.3,
-     "ease": "inOut",
-     "steps": 1,
-     "at": 1.13
+     "at": 0.157
     },
     {
      "who": "wedge",
@@ -1119,7 +1106,27 @@
      ],
      "dur": 0.25,
      "blink": false,
-     "at": 1.2
+     "at": 0.807
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -1.4,
+      -1.96
+     ],
+     "y": 0.1,
+     "dur": 0.22,
+     "ease": "inOut",
+     "steps": 1,
+     "at": 1.187
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.3,
+     "at": 1.187
     },
     {
      "do": "prop",
@@ -1127,21 +1134,21 @@
      "set": {
       "crack": 0.3
      },
-     "dur": 0.45,
+     "dur": 0.3,
      "ease": "linear",
-     "at": 1.23
+     "at": 1.237
     },
     {
      "sfx": "ai/screen-crack",
-     "gain": 0.6,
-     "at": 1.23
+     "gain": 0.7,
+     "at": 1.237
     },
     {
      "who": "chip",
      "do": "turn",
      "to": 30,
      "dur": 0.35,
-     "at": 1.28
+     "at": 1.287
     },
     {
      "who": "spud",
@@ -1152,7 +1159,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.28
+     "at": 1.287
     },
     {
      "who": "chip",
@@ -1163,7 +1170,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.33
+     "at": 1.337
     },
     {
      "who": "wedge",
@@ -1174,35 +1181,35 @@
       "eye": 0.9
      },
      "dur": 0.2,
-     "at": 1.33
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0.04,
-     "dur": 0.3,
-     "at": 1.33
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      -1.25,
-      -2.62
-     ],
-     "y": 0.2,
-     "dur": 0.35,
-     "ease": "inOut",
-     "steps": 1,
-     "at": 1.43
-    },
+     "at": 1.337
+    }
+   ]
+  },
+  {
+   "name": "mash off",
+   "at": 4.72,
+   "len": 0.85,
+   "shot": {
+    "pos": [
+     -0.9,
+     1.25,
+     2.5
+    ],
+    "look": [
+     0.15,
+     0.45,
+     -1.9
+    ],
+    "fov": 60
+   },
+   "do": [
     {
      "who": "mash",
      "do": "turn",
      "to": -175.943,
      "dur": 0.4,
      "ease": "linear",
-     "at": 1.53
+     "at": 0
     },
     {
      "who": "mash",
@@ -1224,7 +1231,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 1.53
+     "at": 0
     },
     {
      "do": "prop",
@@ -1234,28 +1241,21 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 1.53
-    }
-   ]
-  },
-  {
-   "name": "mash off",
-   "at": 5.37,
-   "len": 1.05,
-   "shot": {
-    "pos": [
-     -0.9,
-     1.25,
-     2.5
-    ],
-    "look": [
-     0.15,
-     0.45,
-     -1.9
-    ],
-    "fov": 60
-   },
-   "do": [
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -1.4,
+      -2.62
+     ],
+     "y": 0.2,
+     "dur": 0.25,
+     "ease": "inOut",
+     "steps": 1,
+     "at": 0.02
+    },
     {
      "who": "mash",
      "do": "arm",
@@ -1276,7 +1276,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -1286,14 +1286,6 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.45,
-     "ease": "inOut",
      "at": 0.1
     },
     {
@@ -1316,7 +1308,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.1
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -1326,7 +1318,15 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.1
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.22
     },
     {
      "who": "mash",
@@ -1348,7 +1348,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.2
+     "at": 0.3
     },
     {
      "do": "prop",
@@ -1358,7 +1358,7 @@
      },
      "dur": 0.1,
      "ease": "linear",
-     "at": 0.2
+     "at": 0.3
     },
     {
      "who": "mash",
@@ -1367,10 +1367,10 @@
       0.55,
       -1.66
      ],
-     "dur": 1,
+     "dur": 0.8,
      "ease": "inOut",
      "steps": 3,
-     "at": 0.3
+     "at": 0.4
     },
     {
      "who": "mash",
@@ -1390,31 +1390,16 @@
        -2.069
       ]
      },
-     "dur": 1,
+     "dur": 0.8,
      "ease": "inOut",
-     "at": 0.3
-    },
-    {
-     "do": "prop",
-     "id": "ice",
-     "set": {
-      "crack": 0.4
-     },
-     "dur": 0.45,
-     "ease": "linear",
-     "at": 0.95
-    },
-    {
-     "sfx": "ai/screen-crack",
-     "gain": 0.6,
-     "at": 0.95
+     "at": 0.4
     }
    ]
   },
   {
    "name": "your turn",
-   "at": 6.42,
-   "len": 1.7,
+   "at": 5.57,
+   "len": 1.25,
    "shot": {
     "pos": [
      0.55,
@@ -1499,6 +1484,16 @@
      "at": 0.15
     },
     {
+     "who": "chip",
+     "macro": "say",
+     "line": "Your turn.",
+     "tone": "calm",
+     "style": "high, small, sweet, innocent",
+     "dur": 0.9,
+     "caption": false,
+     "at": 0.2
+    },
+    {
      "who": "mash",
      "do": "move",
      "to": [
@@ -1506,10 +1501,10 @@
       -1.96
      ],
      "y": 0.1,
-     "dur": 0.3,
+     "dur": 0.22,
      "ease": "inOut",
      "steps": 1,
-     "at": 0.25
+     "at": 0.35
     },
     {
      "who": "mash",
@@ -1529,19 +1524,24 @@
        -2.369
       ]
      },
-     "dur": 0.3,
+     "dur": 0.22,
      "ease": "inOut",
-     "at": 0.25
+     "at": 0.35
     },
     {
-     "who": "chip",
-     "macro": "say",
-     "line": "Your turn.",
-     "tone": "calm",
-     "style": "high, small, sweet, innocent",
-     "dur": 0.9,
-     "caption": false,
-     "at": 0.3
+     "do": "prop",
+     "id": "ice",
+     "set": {
+      "crack": 0.4
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 0.4
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.8,
+     "at": 0.4
     },
     {
      "who": "mash",
@@ -1551,10 +1551,10 @@
       -2.55
      ],
      "y": 0.2,
-     "dur": 0.35,
+     "dur": 0.25,
      "ease": "inOut",
      "steps": 1,
-     "at": 0.55
+     "at": 0.57
     },
     {
      "who": "mash",
@@ -1574,9 +1574,26 @@
        -2.959
       ]
      },
-     "dur": 0.35,
+     "dur": 0.25,
      "ease": "inOut",
-     "at": 0.55
+     "at": 0.57
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "curve": -0.45,
+      "eye": 0.85
+     },
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.04,
+     "dur": 0.25,
+     "at": 0.8
     },
     {
      "who": "mash",
@@ -1584,7 +1601,7 @@
      "to": -8,
      "dur": 0.5,
      "ease": "linear",
-     "at": 0.9
+     "at": 0.82
     },
     {
      "who": "mash",
@@ -1606,7 +1623,7 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 0.9
+     "at": 0.82
     },
     {
      "do": "prop",
@@ -1616,7 +1633,7 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 0.9
+     "at": 0.82
     },
     {
      "who": "mash",
@@ -1638,7 +1655,7 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.025
+     "at": 0.945
     },
     {
      "do": "prop",
@@ -1648,24 +1665,31 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.025
+     "at": 0.945
     },
     {
      "who": "spud",
-     "do": "expr",
-     "set": {
-      "curve": -0.45,
-      "eye": 0.85
-     },
-     "dur": 0.2,
-     "at": 1.1
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.04,
+     "do": "turn",
+     "to": 118.877,
      "dur": 0.3,
-     "at": 1.1
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.2,
+     "at": 1
     },
     {
      "who": "mash",
@@ -1687,7 +1711,7 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.15
+     "at": 1.07
     },
     {
      "do": "prop",
@@ -1697,23 +1721,18 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.15
+     "at": 1.07
     },
     {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.3,
-     "at": 1.15
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "L",
-     "shape": "relaxed",
-     "dur": 0.2,
-     "at": 1.15
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.5,
+      -1.66
+     ],
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 1.13
     },
     {
      "who": "mash",
@@ -1735,7 +1754,7 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.275
+     "at": 1.195
     },
     {
      "do": "prop",
@@ -1745,52 +1764,15 @@
      },
      "dur": 0.125,
      "ease": "linear",
-     "at": 1.275
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 118.877,
-     "dur": 0.3,
-     "ease": "inOut",
-     "at": 1.3
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      1.5,
-      -1.66
-     ],
-     "dur": 1.3,
-     "ease": "inOut",
-     "at": 1.48
-    },
-    {
-     "who": "chip",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.45,
-     "at": 1.6
-    },
-    {
-     "who": "chip",
-     "do": "look",
-     "to": [
-      0.3,
-      -0.35
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 1.65
+     "at": 1.195
     }
    ],
    "kind": "escalation"
   },
   {
    "name": "spud off",
-   "at": 8.12,
-   "len": 1.18,
+   "at": 6.82,
+   "len": 0.83,
    "shot": {
     "pos": [
      1.2,
@@ -1806,6 +1788,24 @@
    },
    "do": [
     {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.45,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
      "who": "spud",
      "do": "move",
      "to": [
@@ -1813,17 +1813,17 @@
       -1.96
      ],
      "y": 0.1,
-     "dur": 0.3,
+     "dur": 0.22,
      "ease": "inOut",
      "steps": 1,
-     "at": 1.08
+     "at": 0.78
     }
    ]
   },
   {
    "name": "only chip",
-   "at": 9.3,
-   "len": 1.05,
+   "at": 7.65,
+   "len": 0.7,
    "shot": {
     "pos": [
      0.25,
@@ -1849,7 +1849,7 @@
      ],
      "fov": 40
     },
-    "dur": 1.4,
+    "dur": 0.85,
     "ease": "inOut"
    },
    "do": [
@@ -1859,13 +1859,13 @@
      "set": {
       "crack": 0.5
      },
-     "dur": 0.3,
+     "dur": 0.2,
      "ease": "linear",
      "at": 0
     },
     {
      "sfx": "ai/screen-crack",
-     "gain": 0.65,
+     "gain": 0.85,
      "at": 0
     },
     {
@@ -1898,10 +1898,25 @@
       -2.6
      ],
      "y": 0.2,
-     "dur": 0.35,
+     "dur": 0.25,
      "ease": "inOut",
      "steps": 1,
-     "at": 0.2
+     "at": 0.17
+    },
+    {
+     "do": "prop",
+     "id": "ice",
+     "set": {
+      "crack": 0.65
+     },
+     "dur": 0.2,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "sfx": "ai/screen-crack",
+     "gain": 0.95,
+     "at": 0.3
     },
     {
      "who": "wedge",
@@ -1937,6 +1952,36 @@
      "at": 0.3
     },
     {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.1,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.37
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "curve": 0.45,
+      "eye": 1.05,
+      "open": 0
+     },
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
      "who": "mash",
      "do": "expr",
      "set": {
@@ -1950,80 +1995,35 @@
      "do": "prop",
      "id": "ice",
      "set": {
-      "crack": 0.65
-     },
-     "dur": 0.35,
-     "ease": "linear",
-     "at": 0.45
-    },
-    {
-     "sfx": "ai/screen-crack",
-     "gain": 0.7,
-     "at": 0.45
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 0,
-     "dur": 0.45,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "who": "chip",
-     "do": "look",
-     "to": [
-      0.1,
-      0.05
-     ],
-     "dur": 0.2,
-     "blink": false,
-     "at": 0.5
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "set": {
-      "curve": 0.45,
-      "eye": 1.05,
-      "open": 0
-     },
-     "dur": 0.2,
-     "at": 0.55
-    },
-    {
-     "do": "prop",
-     "id": "ice",
-     "set": {
       "crack": 0.8
      },
-     "dur": 0.4,
+     "dur": 0.25,
      "ease": "linear",
-     "at": 0.95
+     "at": 0.6
     },
     {
      "sfx": "ai/screen-crack",
-     "gain": 0.85,
-     "at": 0.95
+     "gain": 1,
+     "at": 0.6
     }
    ]
   },
   {
    "name": "wait",
-   "at": 10.35,
-   "len": 1.18,
+   "at": 8.35,
+   "len": 0.93,
    "shot": {
     "pos": [
-     0.55,
-     1.25,
-     1.1
+     0.25,
+     1.3,
+     1.6
     ],
     "look": [
-     -0.5,
-     0.55,
+     -0.9,
+     0.8,
      -2.6
     ],
-    "fov": 48
+    "fov": 56
    },
    "do": [
     {
@@ -2031,7 +2031,7 @@
      "do": "lean",
      "to": 12,
      "dur": 0.4,
-     "at": 0.1
+     "at": 0.05
     },
     {
      "who": "wedge",
@@ -2042,7 +2042,7 @@
       "smirk": 0.2
      },
      "dur": 0.2,
-     "at": 0.1
+     "at": 0.05
     },
     {
      "who": "wedge",
@@ -2050,7 +2050,7 @@
      "browL": -0.45,
      "browR": -0.1,
      "dur": 0.15,
-     "at": 0.1
+     "at": 0.05
     },
     {
      "who": "wedge",
@@ -2060,7 +2060,7 @@
      "style": "slow, suspicious, low",
      "dur": 0.83,
      "caption": false,
-     "at": 0.2
+     "at": 0.15
     },
     {
      "who": "mash",
@@ -2071,7 +2071,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.3
+     "at": 0.25
     },
     {
      "who": "spud",
@@ -2082,7 +2082,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 0.35
+     "at": 0.3
     },
     {
      "who": "chip",
@@ -2093,7 +2093,7 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.55
+     "at": 0.5
     },
     {
      "who": "chip",
@@ -2104,38 +2104,14 @@
       "smirk": 0.25
      },
      "dur": 0.2,
-     "at": 0.6
-    },
-    {
-     "who": "mash",
-     "do": "look",
-     "to": [
-      0.05,
-      -0.75
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 1.1
-    },
-    {
-     "do": "prop",
-     "id": "g0",
-     "set": {
-      "x": 0.1,
-      "y": 0.12,
-      "z": 0.24,
-      "in": 1
-     },
-     "dur": 0.033,
-     "ease": "linear",
-     "at": 1.146
+     "at": 0.55
     }
    ]
   },
   {
    "name": "the reel",
-   "at": 11.53,
-   "len": 0.45,
+   "at": 9.28,
+   "len": 0.5,
    "shot": {
     "pos": [
      0.2,
@@ -2151,6 +2127,40 @@
    },
    "do": [
     {
+     "do": "prop",
+     "id": "gear",
+     "set": {
+      "fill": 0.84
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "g0",
+     "set": {
+      "x": 0.1,
+      "y": 0.12,
+      "z": 0.24,
+      "in": 1
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.116
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.05,
+      -0.75
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.12
+    },
+    {
      "do": "physics",
      "prop": "g0",
      "mode": "throw",
@@ -2164,17 +2174,7 @@
       2,
       3
      ],
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "gear",
-     "set": {
-      "fill": 0.84
-     },
-     "dur": 0.3,
-     "ease": "out",
-     "at": 0
+     "at": 0.15
     },
     {
      "who": "chip",
@@ -2185,15 +2185,82 @@
      ],
      "dur": 0.15,
      "blink": false,
-     "at": 0.15
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.2,
+       0.22,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.2,
+       0.22,
+       0.24
+      ]
+     },
+     "dur": 0.25,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "pinch",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "curve": 0.3,
+      "eye": 1.2,
+      "open": 0.1,
+      "smirk": 0.3
+     },
+     "dur": 0.15,
+     "at": 0.45
     }
    ],
    "kind": "payoff"
   },
   {
    "name": "the gear",
-   "at": 11.98,
-   "len": 2.02,
+   "at": 9.78,
+   "len": 1.42,
    "shot": {
     "pos": [
      0.2,
@@ -2209,73 +2276,6 @@
    },
    "do": [
     {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.2,
-       0.22,
-       0.24
-      ]
-     },
-     "dur": 0.25,
-     "at": 0.05
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "L",
-     "shape": "pinch",
-     "dur": 0.2,
-     "at": 0.05
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.2,
-       0.22,
-       0.24
-      ]
-     },
-     "dur": 0.25,
-     "at": 0.05
-    },
-    {
-     "who": "chip",
-     "do": "grip",
-     "side": "R",
-     "shape": "pinch",
-     "dur": 0.2,
-     "at": 0.05
-    },
-    {
-     "who": "chip",
-     "do": "look",
-     "to": [
-      0,
-      0.05
-     ],
-     "dur": 0.15,
-     "blink": false,
-     "at": 0.05
-    },
-    {
-     "who": "chip",
-     "do": "expr",
-     "set": {
-      "curve": 0.3,
-      "eye": 1.2,
-      "open": 0.1,
-      "smirk": 0.3
-     },
-     "dur": 0.15,
-     "at": 0.05
-    },
-    {
      "do": "prop",
      "id": "heap",
      "set": {
@@ -2283,7 +2283,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.15
+     "at": 0
     },
     {
      "do": "prop",
@@ -2296,7 +2296,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.216
+     "at": 0.066
     },
     {
      "do": "physics",
@@ -2312,7 +2312,7 @@
       0,
       4
      ],
-     "at": 0.25
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -2320,9 +2320,9 @@
      "set": {
       "fill": 0.14
      },
-     "dur": 0.95,
+     "dur": 0.67,
      "ease": "linear",
-     "at": 0.25
+     "at": 0.1
     },
     {
      "do": "prop",
@@ -2335,17 +2335,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.286
-    },
-    {
-     "do": "prop",
-     "id": "heap",
-     "set": {
-      "fill": 1
-     },
-     "dur": 1,
-     "ease": "linear",
-     "at": 0.3
+     "at": 0.115
     },
     {
      "do": "physics",
@@ -2361,7 +2351,17 @@
       6,
       2
      ],
-     "at": 0.32
+     "at": 0.149
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "fill": 1
+     },
+     "dur": 0.72,
+     "ease": "linear",
+     "at": 0.15
     },
     {
      "do": "prop",
@@ -2374,7 +2374,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.346
+     "at": 0.157
     },
     {
      "do": "physics",
@@ -2390,7 +2390,40 @@
       1,
       2
      ],
-     "at": 0.38
+     "at": 0.191
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "curve": -0.1,
+      "eye": 1.25,
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "curve": -0.1,
+      "eye": 1.25,
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "curve": -0.1,
+      "eye": 1.25,
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.2
     },
     {
      "do": "prop",
@@ -2403,40 +2436,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.436
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "set": {
-      "curve": -0.1,
-      "eye": 1.25,
-      "open": 0.3
-     },
-     "dur": 0.2,
-     "at": 0.45
-    },
-    {
-     "who": "mash",
-     "do": "expr",
-     "set": {
-      "curve": -0.1,
-      "eye": 1.25,
-      "open": 0.3
-     },
-     "dur": 0.2,
-     "at": 0.45
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "set": {
-      "curve": -0.1,
-      "eye": 1.25,
-      "open": 0.3
-     },
-     "dur": 0.2,
-     "at": 0.45
+     "at": 0.22
     },
     {
      "do": "physics",
@@ -2452,7 +2452,7 @@
       0,
       1
      ],
-     "at": 0.47
+     "at": 0.254
     },
     {
      "do": "prop",
@@ -2465,7 +2465,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.516
+     "at": 0.276
     },
     {
      "do": "physics",
@@ -2481,12 +2481,12 @@
       0,
       0
      ],
-     "at": 0.55
+     "at": 0.31
     },
     {
      "sfx": "put-down-metal",
-     "gain": 0.45,
-     "at": 0.55
+     "gain": 0.5,
+     "at": 0.34
     },
     {
      "do": "prop",
@@ -2499,12 +2499,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.616
-    },
-    {
-     "sfx": "put-down-metal",
-     "gain": 0.5,
-     "at": 0.62
+     "at": 0.346
     },
     {
      "do": "physics",
@@ -2520,12 +2515,12 @@
       2,
       3
      ],
-     "at": 0.65
+     "at": 0.38
     },
     {
      "sfx": "put-down-metal",
-     "gain": 0.55,
-     "at": 0.68
+     "gain": 0.56,
+     "at": 0.39
     },
     {
      "do": "prop",
@@ -2538,7 +2533,12 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.716
+     "at": 0.416
+    },
+    {
+     "sfx": "put-down-metal",
+     "gain": 0.62,
+     "at": 0.43
     },
     {
      "do": "physics",
@@ -2554,12 +2554,12 @@
       1,
       0
      ],
-     "at": 0.75
+     "at": 0.45
     },
     {
      "sfx": "put-down-metal",
-     "gain": 0.45,
-     "at": 0.77
+     "gain": 0.5,
+     "at": 0.49
     },
     {
      "do": "prop",
@@ -2572,12 +2572,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.836
-    },
-    {
-     "sfx": "put-down-metal",
-     "gain": 0.5,
-     "at": 0.85
+     "at": 0.5
     },
     {
      "do": "physics",
@@ -2593,7 +2588,12 @@
       3,
       2
      ],
-     "at": 0.87
+     "at": 0.534
+    },
+    {
+     "sfx": "put-down-metal",
+     "gain": 0.56,
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -2606,7 +2606,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 0.916
+     "at": 0.556
     },
     {
      "do": "physics",
@@ -2622,12 +2622,12 @@
       0,
       3
      ],
-     "at": 0.95
+     "at": 0.59
     },
     {
      "sfx": "put-down-metal",
-     "gain": 0.55,
-     "at": 0.95
+     "gain": 0.62,
+     "at": 0.62
     },
     {
      "do": "prop",
@@ -2640,12 +2640,7 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 1.036
-    },
-    {
-     "sfx": "put-down-metal",
-     "gain": 0.45,
-     "at": 1.05
+     "at": 0.64
     },
     {
      "do": "physics",
@@ -2661,12 +2656,17 @@
       4,
       2
      ],
-     "at": 1.07
+     "at": 0.674
     },
     {
      "sfx": "put-down-metal",
      "gain": 0.5,
-     "at": 1.17
+     "at": 0.69
+    },
+    {
+     "sfx": "put-down-metal",
+     "gain": 0.56,
+     "at": 0.77
     },
     {
      "do": "prop",
@@ -2676,12 +2676,7 @@
      },
      "dur": 0.2,
      "ease": "in",
-     "at": 1.25
-    },
-    {
-     "sfx": "put-down-metal",
-     "gain": 0.55,
-     "at": 1.25
+     "at": 0.8
     },
     {
      "do": "prop",
@@ -2694,7 +2689,12 @@
      },
      "dur": 0.033,
      "ease": "linear",
-     "at": 1.266
+     "at": 0.816
+    },
+    {
+     "sfx": "put-down-metal",
+     "gain": 0.62,
+     "at": 0.83
     },
     {
      "do": "physics",
@@ -2710,12 +2710,12 @@
       0,
       2
      ],
-     "at": 1.3
+     "at": 0.85
     },
     {
      "sfx": "hit-metal",
-     "gain": 0.5,
-     "at": 1.35
+     "gain": 0.55,
+     "at": 0.88
     },
     {
      "do": "prop",
@@ -2725,12 +2725,12 @@
      },
      "dur": 0.25,
      "ease": "linear",
-     "at": 1.7
+     "at": 1.25
     },
     {
      "sfx": "ai/screen-crack",
      "gain": 0.9,
-     "at": 1.7
+     "at": 1.25
     },
     {
      "do": "prop",
@@ -2740,12 +2740,12 @@
      },
      "dur": 0.25,
      "ease": "out",
-     "at": 1.72
+     "at": 1.27
     },
     {
      "sfx": "thud",
      "gain": 0.9,
-     "at": 1.72
+     "at": 1.27
     },
     {
      "who": "chip",
@@ -2753,7 +2753,7 @@
      "side": "L",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 1.82
+     "at": 1.37
     },
     {
      "who": "chip",
@@ -2761,14 +2761,14 @@
      "side": "R",
      "shape": "relaxed",
      "dur": 0.2,
-     "at": 1.82
+     "at": 1.37
     }
    ]
   },
   {
    "name": "just in case",
-   "at": 14,
-   "len": 1.81,
+   "at": 11.2,
+   "len": 1.61,
    "shot": {
     "pos": [
      0.1,
@@ -2795,7 +2795,7 @@
       ]
      },
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "chip",
@@ -2809,7 +2809,7 @@
       ]
      },
      "dur": 0.25,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "chip",
@@ -2821,7 +2821,7 @@
       "smirk": 0
      },
      "dur": 0.2,
-     "at": 0.15
+     "at": 0.1
     },
     {
      "who": "chip",
@@ -2831,44 +2831,28 @@
      "style": "high, proud, cheerful, a little guilty",
      "dur": 1.36,
      "caption": false,
-     "at": 0.25
+     "at": 0.2
     }
    ]
   },
   {
    "name": "it sinks",
-   "at": 15.81,
-   "len": 3.057,
+   "at": 12.81,
+   "len": 2.59,
    "shot": {
     "pos": [
-     -0.9,
-     1.55,
-     2.9
+     -0.5,
+     1.7,
+     3.2
     ],
     "look": [
-     0.45,
-     0.3,
-     -0.6
+     0,
+     0.35,
+     -0.9
     ],
-    "fov": 64
+    "fov": 72
    },
    "do": [
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0
-    },
-    {
-     "who": "chip",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.35,
-     "at": 0
-    },
     {
      "do": "prop",
      "id": "ice",
@@ -2894,6 +2878,22 @@
      "dur": 0.12,
      "blink": false,
      "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.35,
+     "at": 0.15
     },
     {
      "who": "chip",
@@ -2933,7 +2933,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2943,7 +2943,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2953,7 +2953,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2963,7 +2963,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2973,7 +2973,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2983,7 +2983,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -2993,7 +2993,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3003,7 +3003,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3013,7 +3013,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3023,7 +3023,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3033,7 +3033,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3043,7 +3043,7 @@
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 0.64
+     "at": 0.54
     },
     {
      "do": "prop",
@@ -3053,7 +3053,7 @@
      },
      "dur": 0.7,
      "ease": "in",
-     "at": 0.65
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -3063,7 +3063,7 @@
      },
      "dur": 0.7,
      "ease": "in",
-     "at": 0.65
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -3075,12 +3075,12 @@
      },
      "dur": 1.1,
      "ease": "in",
-     "at": 0.65
+     "at": 0.55
     },
     {
      "sfx": "ai/screen-crack",
      "gain": 0.7,
-     "at": 0.65
+     "at": 0.55
     },
     {
      "do": "prop",
@@ -3090,7 +3090,7 @@
      },
      "dur": 1,
      "ease": "in",
-     "at": 1
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3100,7 +3100,7 @@
      },
      "dur": 1.2,
      "ease": "linear",
-     "at": 1.05
+     "at": 0.95
     },
     {
      "do": "prop",
@@ -3110,30 +3110,30 @@
      },
      "dur": 1.2,
      "ease": "linear",
-     "at": 1.2
+     "at": 1.05
     },
     {
      "sfx": "ai/swim-splash",
      "gain": 0.9,
+     "at": 1.05
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "curve": 0.85,
+      "eye": 0.6,
+      "open": 0.45
+     },
+     "dur": 0.15,
      "at": 1.2
     },
     {
      "who": "wedge",
-     "do": "expr",
-     "set": {
-      "curve": 0.85,
-      "eye": 0.6,
-      "open": 0.45
-     },
-     "dur": 0.15,
-     "at": 1.35
-    },
-    {
-     "who": "wedge",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.35
+     "at": 1.2
     },
     {
      "who": "spud",
@@ -3144,14 +3144,14 @@
       "open": 0.45
      },
      "dur": 0.15,
-     "at": 1.43
+     "at": 1.28
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.43
+     "at": 1.28
     },
     {
      "who": "mash",
@@ -3162,28 +3162,28 @@
       "open": 0.45
      },
      "dur": 0.15,
-     "at": 1.51
+     "at": 1.36
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.51
+     "at": 1.36
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.67
+     "at": 1.52
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.75
+     "at": 1.6
     },
     {
      "who": "chip",
@@ -3194,7 +3194,7 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.75
+     "at": 1.6
     },
     {
      "who": "chip",
@@ -3206,35 +3206,35 @@
       "smirk": 0.3
      },
      "dur": 0.25,
-     "at": 1.8
+     "at": 1.65
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.83
+     "at": 1.68
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.99
+     "at": 1.84
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 2.07
+     "at": 1.92
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 2.15
+     "at": 2
     }
    ]
   }
@@ -3253,16 +3253,16 @@
    "why": "four friends on the ice round a fishing hole; a crack runs between them"
   },
   {
-   "from": 2.99,
-   "to": 5.47,
+   "from": 2.74,
+   "to": 5.04,
    "see": [
     "wedge.face"
    ],
    "why": "the biggest steps onto the jetty; three left on the ice, it still cracks"
   },
   {
-   "from": 9.3,
-   "to": 10.6,
+   "from": 7.65,
+   "to": 8.5,
    "see": [
     "chip.face",
     "ice"
@@ -3270,8 +3270,8 @@
    "why": "only tiny Chip is left, and the cracks close round his feet"
   },
   {
-   "from": 11.63,
-   "to": 12.23,
+   "from": 9.43,
+   "to": 10.03,
    "see": [
     "chip.face",
     "g0"
@@ -3279,8 +3279,8 @@
    "why": "a fishing reel slips out of Chip's hoodie"
   },
   {
-   "from": 12.23,
-   "to": 14,
+   "from": 9.88,
+   "to": 11.35,
    "see": [
     "chip.face",
     "heap"
@@ -3288,8 +3288,8 @@
    "why": "heavy fishing gear pours out of Chip's hoodie, an anchor last"
   },
   {
-   "from": 16.46,
-   "to": 17.81,
+   "from": 13.36,
+   "to": 14.66,
    "see": [
     "chip.face",
     "heap"
@@ -3302,7 +3302,7 @@
    "who": "chip",
    "with": "gear",
    "from": 0,
-   "to": 18.867,
+   "to": 15.4,
    "checks": [
     "clipping",
     "costume-in-prop",

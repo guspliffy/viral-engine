@@ -28,7 +28,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 // tighter than the design's arc so all four fit a 9:16 wide from on the ice (the bank's drifts start at z 2.5)
 const CHIP0 = [0, 0], SPUD0 = [-0.15, -1.05], WEDGE0 = [-0.95, 0.05], MASH0 = [0.65, -0.55];
 // each walks straight to the ledge below his jetty mark (ledge z -2.10..-1.82, top 0.10), then up onto the deck (top 0.20)
-const WEDGE_LEDGE = [-1.25, -1.96], WEDGE_J = [-1.25, -2.62];   // straight back, clear of Spud and of the head pile at x -1.90
+const WEDGE_LEDGE = [-1.4, -1.96], WEDGE_J = [-1.4, -2.62];   // straight back, clear of Spud and of the head pile at x -1.90
 const MASH_LEDGE = [0.55, -1.96], MASH_J = [0.55, -2.55];   // straight back, clear of the teal one
 const SPUD_LEDGE = [1.5, -1.96], SPUD_J = [1.5, -2.60];
 const CHIP_BACK = [-0.32, -0.30];   // the step back from the slab's lip when the crack runs round the heap
@@ -63,25 +63,26 @@ const props = [
 // captions: upper third (Jonny 12 Nov), never over faces
 const SUB = 430;
 const DUR = [1.47, 1.04, 0.92, 0.90, 0.83, 1.36];   // measured from the voice probe (ftt12-voice-probe, 18 Nov)
-const say = (i, t, { text } = {}) => {
+const say = (i, t, { text, end } = {}) => {
   const [w, line, tone, style, o = {}] = LINES[i];
   if (w === "narrator") c.at(t, { macro: "narrate", line, voice: "narrator", style, ...o, caption: false });
   else c.macro(t, w, "say", { line, tone, style, ...o, dur: DUR[i], caption: false });
-  cap(t, r3(t + DUR[i] + 0.35), text ?? line, SUB, false, { size: 64 });
+  cap(t, end ?? r3(t + DUR[i] + 0.35), text ?? line, SUB, false, { size: 64 });
   return r3(t + DUR[i]);
 };
 // the crack grows: one tween per stage, with a real crack sound at its start
 const crackTo = (t, to, dur, gain = 0.6) => { c.prop(t, "ice", { crack: to }, dur, "linear"); sfx(t, "ai/screen-crack", { gain }); };
 
 // a walk on the ice to the ledge, two small rises, a turn to face the lake (yaw 0 = toward us)
-const toJetty = (who, from, ledge, mark, t, { walk = 1.2, turn = 0.3 } = {}) => {
-  const hd = heading(from, ledge);
+const toJetty = (who, from, ledge, mark, t, { walk = 0.9, turn = 0.3, up = [0.22, 0.25] } = {}) => {
+  const face = cast.find((x) => x.id === who).face;
+  let hd = heading(from, ledge); if (hd - face < -180) hd = r3(hd + 360);   // the short way round (-171 from 12 snapped at the walk's start)
   A(t, who, "turn", { to: hd, dur: turn, ease: "inOut" });
   A(r3(t + turn * 0.6), who, "move", { to: [ledge[0], -1.66], dur: walk, ease: "inOut" });   // to the ledge's foot (ledge z -1.82..-2.10)
   let e = r3(t + turn * 0.6 + walk);
-  A(e, who, "move", { to: ledge, y: 0.10, dur: 0.3, ease: "inOut", steps: 1 });   // up onto the ledge (top 0.10)
-  A(r3(e + 0.3), who, "move", { to: mark, y: 0.20, dur: 0.35, ease: "inOut", steps: 1 });   // up onto the deck (top 0.20)
-  e = r3(e + 0.65);
+  A(e, who, "move", { to: ledge, y: 0.10, dur: up[0], ease: "inOut", steps: 1 });   // up onto the ledge (top 0.10)
+  A(r3(e + up[0]), who, "move", { to: mark, y: 0.20, dur: up[1], ease: "inOut", steps: 1 });   // up onto the deck (top 0.20)
+  e = r3(e + up[0] + up[1]);
   A(r3(e - 0.05), who, "turn", { to: 0, dur: 0.45, ease: "inOut" });
   return r3(e + 0.4);
 };
@@ -108,10 +109,10 @@ crackTo(0.35, 0.10, 1.0, 0.5);   // on to the web's centre (under Chip) + two sp
 see(0, 1.5, ["wedge.face", "mash.face", "spud.face", "chip.face", "ice"], "four friends on the ice round a fishing hole; a crack runs between them");
 
 // 1 NARRATOR: One of them is too heavy.
-say(0, 0.1, { text: "One of them is *too heavy.*" });
+say(0, 0.1, { text: "One of them is *too heavy.*", end: 1.55 });   // off before the next line's caption
 
 // ---------------------------------------------------------------- 2 CHIP POINTS UP AT THE BIGGEST: You're too fat.
-const FAT = 1.75;
+const FAT = 1.6;   // v2 (Jonny 18 Nov "not punchy enough"): every beat tighter, ~14.5 s
 A(r3(FAT - 0.2), "chip", "turn", { to: -55, dur: 0.35 });
 A(r3(FAT - 0.15), "chip", "look", { to: [-0.6, 0.5], dur: 0.2, blink: false });
 A(r3(FAT - 0.1), "chip", "arm", { side: "R", pose: { o: [0.08, 0.88, 0.16] }, dur: 0.25 });   // up at the big one's face (Codex review P2)
@@ -124,26 +125,26 @@ A(r3(FAT + 0.9), "mash", "look", { to: [0.05, -0.75], dur: 0.15, blink: false })
 A(r3(FAT + 0.2), "wedge", "look", { to: [0.6, -0.35], dur: 0.15, blink: false });   // down at Chip
 A(r3(FAT + 0.45), "wedge", "expr", { set: { curve: -0.45, smirk: 0.3, eye: 0.85 }, dur: 0.15 });
 A(r3(FAT + 0.45), "wedge", "face", { browL: -0.5, browR: 0.2, dur: 0.15 });
-for (const sd of ["L", "R"]) { A(r3(FAT + 0.4), "wedge", "arm", { side: sd, pose: { o: [0.26, 0.62, 0.22] }, dur: 0.25 }); A(r3(FAT + 0.4), "wedge", "grip", { side: sd, shape: "open", dur: 0.2 }); A(r3(FAT + DUR[1] + 0.55), "wedge", "arm", { side: sd, pose: "rest", dur: 0.3 }); A(r3(FAT + DUR[1] + 0.55), "wedge", "grip", { side: sd, shape: "relaxed", dur: 0.2 }); }   // palms up: me?!
+for (const sd of ["L", "R"]) { A(r3(FAT + 0.4), "wedge", "arm", { side: sd, pose: { o: [0.26, 0.62, 0.22] }, dur: 0.25 }); A(r3(FAT + 0.4), "wedge", "grip", { side: sd, shape: "open", dur: 0.2 }); A(r3(FAT + DUR[1] + 0.5), "wedge", "arm", { side: sd, pose: "rest", dur: 0.3 }); A(r3(FAT + DUR[1] + 0.5), "wedge", "grip", { side: sd, shape: "relaxed", dur: 0.2 }); }   // palms up: me?!
 crackTo(r3(FAT + 0.2), 0.20, 0.5);   // arm B runs to the big one's feet: the ice "agrees"
 A(r3(FAT + DUR[1] + 0.1), "chip", "arm", { side: "R", pose: "rest", dur: 0.3 });
 A(r3(FAT + DUR[1] + 0.1), "chip", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
 
 // ---------------------------------------------------------------- 3 WEDGE: Fine! -> onto the jetty
-const FINE = r3(FAT + DUR[1] + 0.2);
+const FINE = r3(FAT + DUR[1] + 0.1);
 say(2, FINE);
 A(FINE, "wedge", "squash", { amount: 0.06, dur: 0.25 });
-const W_GO = r3(FINE + 0.45);
-let t = toJetty("wedge", WEDGE0, WEDGE_LEDGE, WEDGE_J, W_GO, { walk: 1.25 });
-const WEDGE_ON = r3(W_GO + 0.18 + 1.25 + 0.3);
-A(r3(W_GO + 0.6), "wedge", "look", { to: [0.75, 0.1], dur: 0.25, blink: false });   // a scowl back over his shoulder as he goes (Codex P3)
-A(r3(W_GO + 1.5), "wedge", "look", { to: [0, -0.2], dur: 0.25, blink: false });
+const W_GO = r3(FINE + 0.4);   // he storms off while still huffing
+let t = toJetty("wedge", WEDGE0, WEDGE_LEDGE, WEDGE_J, W_GO, { walk: 1.2 });
+const WEDGE_ON = r3(W_GO + 0.18 + 1.2 + 0.22);
+A(r3(W_GO + 0.35), "wedge", "look", { to: [0.75, 0.1], dur: 0.25, blink: false });   // a scowl back over his shoulder as he goes (Codex P3)
+A(r3(W_GO + 1.0), "wedge", "look", { to: [0, -0.2], dur: 0.25, blink: false });
 A(r3(W_GO + 0.2), "chip", "turn", { to: -20, dur: 0.4 });
 A(r3(W_GO + 0.3), "chip", "look", { to: [-0.4, -0.3], dur: 0.2, blink: false });
 A(r3(W_GO + 0.3), "spud", "look", { to: [-0.4, -0.5], dur: 0.2, blink: false });
 // ... and it still cracks: arm C to the tall one
-const MT = r3(W_GO + 0.18 + 1.25 + 0.1);   // the moment his feet leave the ice (the ledge)
-crackTo(MT, 0.30, 0.45);
+const MT = r3(W_GO + 0.18 + 1.2 + 0.05);   // the moment his feet leave the ice (the ledge)
+crackTo(MT, 0.30, 0.3, 0.7);   // stair-step: each exit, a louder crack
 A(r3(MT + 0.05), "chip", "turn", { to: 30, dur: 0.35 });
 A(r3(MT + 0.1), "chip", "look", { to: [0.6, 0.4], dur: 0.2, blink: false });
 A(r3(MT + 0.05), "spud", "look", { to: [0.6, 0.1], dur: 0.2, blink: false });
@@ -151,23 +152,23 @@ A(r3(MT + 0.1), "wedge", "expr", { set: { curve: -0.2, smirk: 0.5, eye: 0.9 }, d
 see(FINE, r3(WEDGE_ON + 0.3), ["wedge.face"], "the biggest steps onto the jetty; three left on the ice, it still cracks");
 
 // ---------------------------------------------------------------- 4 MASH (eyes on the phone) walks off
-const M1 = r3(MT + 0.3);
+const M1 = r3(MT + 0.15);
 A(r3(M1 - 0.2), "mash", "squash", { amount: 0.04, dur: 0.3 });   // a shrug, never looks up
 {
   const hd = heading(MASH0, MASH_LEDGE);
   A(M1, "mash", "turn", { to: hd, dur: 0.4, ease: "linear" }); swingHold(ph, MASH0, -8, hd, M1, 0.4, PHONE_OFF, 4);
   const foot = [MASH_LEDGE[0], -1.66];
-  A(r3(M1 + 0.4), "mash", "move", { to: foot, dur: 1.0, ease: "inOut", steps: 3 }); ph.carry(r3(M1 + 0.4), offAt(foot, hd, ...PHONE_OFF), 1.0, "inOut");
-  const e = r3(M1 + 1.4), mid = MASH_LEDGE;
-  A(e, "mash", "move", { to: mid, y: 0.10, dur: 0.3, ease: "inOut", steps: 1 }); ph.carry(e, offAt(mid, hd, ...PHONE_OFF).map((v, i) => (i === 1 ? r3(v + 0.10) : v)), 0.3, "inOut");
-  A(r3(e + 0.3), "mash", "move", { to: MASH_J, y: 0.20, dur: 0.35, ease: "inOut", steps: 1 }); ph.carry(r3(e + 0.3), offAt(MASH_J, hd, ...PHONE_OFF).map((v, i) => (i === 1 ? r3(v + 0.20) : v)), 0.35, "inOut");
-  A(r3(e + 0.65), "mash", "turn", { to: -8, dur: 0.5, ease: "linear" }); swingHold(ph, MASH_J, hd, -8, r3(e + 0.65), 0.5, PHONE_OFF.map((v, i) => (i === 1 ? r3(v + 0.20) : v)), 4);
+  A(r3(M1 + 0.4), "mash", "move", { to: foot, dur: 0.8, ease: "inOut", steps: 3 }); ph.carry(r3(M1 + 0.4), offAt(foot, hd, ...PHONE_OFF), 0.8, "inOut");
+  const e = r3(M1 + 1.2), mid = MASH_LEDGE;
+  A(e, "mash", "move", { to: mid, y: 0.10, dur: 0.22, ease: "inOut", steps: 1 }); ph.carry(e, offAt(mid, hd, ...PHONE_OFF).map((v, i) => (i === 1 ? r3(v + 0.10) : v)), 0.22, "inOut");
+  A(r3(e + 0.22), "mash", "move", { to: MASH_J, y: 0.20, dur: 0.25, ease: "inOut", steps: 1 }); ph.carry(r3(e + 0.22), offAt(MASH_J, hd, ...PHONE_OFF).map((v, i) => (i === 1 ? r3(v + 0.20) : v)), 0.25, "inOut");
+  A(r3(e + 0.47), "mash", "turn", { to: -8, dur: 0.5, ease: "linear" }); swingHold(ph, MASH_J, hd, -8, r3(e + 0.47), 0.5, PHONE_OFF.map((v, i) => (i === 1 ? r3(v + 0.20) : v)), 4);
 }
-const MASH_ON = r3(M1 + 2.05);
+const ML = r3(M1 + 1.25);   // his feet leave the ice
 
 // ---------------------------------------------------------------- 5 CHIP: Your turn. -> Spud tiptoes off
-const TURN = r3(M1 + 1.15);
-crackTo(r3(TURN - 0.1), 0.40, 0.45);   // arm D to Spud's feet
+const TURN = r3(M1 + 0.85);
+crackTo(ML, 0.40, 0.3, 0.8);   // arm D to Spud's feet, the moment the tall one is off
 A(TURN, "chip", "turn", { to: -30, dur: 0.35 });
 A(r3(TURN + 0.1), "chip", "look", { to: [-0.45, 0.6], dur: 0.2, blink: false });
 A(r3(TURN + 0.1), "chip", "arm", { side: "L", pose: { o: [0.12, 0.85, 0.3] }, dur: 0.25 });   // up at the teal one (Codex review P5)
@@ -175,32 +176,32 @@ A(r3(TURN + 0.1), "chip", "grip", { side: "L", shape: "point", dur: 0.2 });
 A(r3(TURN + 0.1), "chip", "expr", { set: { curve: 0.55, smirk: 0.0, eye: 1.1 }, dur: 0.2 });
 A(r3(TURN + 0.15), "spud", "turn", { to: 30, dur: 0.3 });
 A(r3(TURN + 0.15), "spud", "look", { to: [0.35, -0.6], dur: 0.2, blink: false });   // down at tiny Chip
-say(3, r3(TURN + 0.3));
-A(r3(TURN + 1.15), "chip", "arm", { side: "L", pose: "rest", dur: 0.3 });
-A(r3(TURN + 1.15), "chip", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
-A(r3(TURN + 1.1), "spud", "expr", { set: { curve: -0.45, eye: 0.85 }, dur: 0.2 });
-A(r3(TURN + 1.1), "spud", "squash", { amount: 0.04, dur: 0.3 });   // a sigh
-const S1 = r3(TURN + 1.3);
-t = toJetty("spud", SPUD0, SPUD_LEDGE, SPUD_J, S1, { walk: 1.3 });
-const SPUD_ON = r3(S1 + 0.18 + 1.3 + 0.3);
+say(3, r3(TURN + 0.2));
+A(r3(TURN + 1.0), "chip", "arm", { side: "L", pose: "rest", dur: 0.3 });
+A(r3(TURN + 1.0), "chip", "grip", { side: "L", shape: "relaxed", dur: 0.2 });
+A(r3(TURN + 0.8), "spud", "expr", { set: { curve: -0.45, eye: 0.85 }, dur: 0.2 });
+A(r3(TURN + 0.8), "spud", "squash", { amount: 0.04, dur: 0.25 });   // a sigh
+const S1 = r3(TURN + 0.95);
+t = toJetty("spud", SPUD0, SPUD_LEDGE, SPUD_J, S1, { walk: 0.9 });
+const SPUD_ON = r3(S1 + 0.18 + 0.9 + 0.22);
 A(r3(S1 + 0.3), "chip", "turn", { to: 0, dur: 0.45 });
 A(r3(S1 + 0.35), "chip", "look", { to: [0.3, -0.35], dur: 0.2, blink: false });
 
 // ---------------------------------------------------------------- 6 ONLY CHIP, STILL CRACKING (the web closes round him)
-const ALONE = r3(S1 + 0.18 + 1.3 + 0.1);   // Spud's feet leave the ice
-crackTo(ALONE, 0.50, 0.3, 0.65);
-crackTo(r3(ALONE + 0.45), 0.65, 0.35, 0.7);
-crackTo(r3(ALONE + 0.95), 0.80, 0.4, 0.85);
+const ALONE = r3(S1 + 0.18 + 0.9 + 0.05);   // Spud's feet leave the ice
+crackTo(ALONE, 0.50, 0.2, 0.85);
+crackTo(r3(ALONE + 0.3), 0.65, 0.2, 0.95);
+crackTo(r3(ALONE + 0.6), 0.80, 0.25, 1.0);   // three fast, loud, right under him
 A(ALONE, "chip", "look", { to: [0, -0.8], dur: 0.15, blink: false });
 A(r3(ALONE + 0.05), "chip", "expr", { set: { curve: -0.15, eye: 1.25, open: 0.2 }, dur: 0.15 });
-A(r3(ALONE + 0.5), "chip", "look", { to: [0.1, 0.05], dur: 0.2, blink: false });   // up at us
-A(r3(ALONE + 0.55), "chip", "expr", { set: { curve: 0.45, eye: 1.05, open: 0 }, dur: 0.2 });   // the innocent smile
+A(r3(ALONE + 0.35), "chip", "look", { to: [0.1, 0.05], dur: 0.2, blink: false });   // up at us
+A(r3(ALONE + 0.4), "chip", "expr", { set: { curve: 0.45, eye: 1.05, open: 0 }, dur: 0.2 });   // the innocent smile
 for (const w of ["wedge", "mash", "spud"]) { A(r3(ALONE + 0.3), w, "look", { to: [w === "spud" ? -0.35 : w === "wedge" ? 0.35 : 0, -0.25], dur: 0.2, blink: false }); }
 A(r3(ALONE + 0.4), "mash", "expr", { set: { curve: -0.1, eye: 1.0 }, dur: 0.2 });
-see(ALONE, r3(ALONE + 1.3), ["chip.face", "ice"], "only tiny Chip is left, and the cracks close round his feet");
+see(ALONE, r3(ALONE + 0.85), ["chip.face", "ice"], "only tiny Chip is left, and the cracks close round his feet");
 
 // WEDGE (on the jetty, leaning in): Wait...
-const WAIT = r3(ALONE + 1.25);
+const WAIT = r3(ALONE + 0.85);
 A(r3(WAIT - 0.1), "wedge", "lean", { to: 12, dur: 0.4 });
 A(r3(WAIT - 0.1), "wedge", "expr", { set: { curve: -0.2, eye: 0.8, smirk: 0.2 }, dur: 0.2 });
 A(r3(WAIT - 0.1), "wedge", "face", { browL: -0.45, browR: -0.1, dur: 0.15 });
@@ -211,23 +212,23 @@ A(r3(WAIT + 0.35), "chip", "look", { to: [-0.5, -0.05], dur: 0.15, blink: false 
 A(r3(WAIT + 0.4), "chip", "expr", { set: { curve: 0.35, eye: 0.95, smirk: 0.25 }, dur: 0.2 });
 
 // ---------------------------------------------------------------- 7 THE GEAR (a reel slips out of the hem, then everything)
-const DROP1 = r3(WAIT + DUR[4] + 0.25);
-const POUR = r3(DROP1 + 0.6);
+const DROP1 = r3(WAIT + DUR[4] + 0.1);
+const POUR = r3(DROP1 + 0.45);
 const HEM = [CHIP0[0], 0.12, r3(CHIP0[1] + 0.24)];
 const u = [0.8, 0.6];
 // [kind, release after POUR (s), v [x, y, z] m/s, spin, hem offset x]: thrown low toward the heap's side, rising in size
 const SPILL = [
-  ["fishreel", -0.7, [0.25, 0.1, 0.5], [0, 2, 3], 0.1],     // DROP1: the reel whose crank showed under the hem
+  ["fishreel", -0.45, [0.25, 0.1, 0.5], [0, 2, 3], 0.1],     // DROP1: the reel whose crank showed under the hem
   ["sinker", 0.0, [0.9, 0.25, 0.55], [2, 0, 4], 0.05],
-  ["sinker", 0.07, [1.1, 0.3, 0.35], [0, 6, 2], 0.1],
-  ["sinker", 0.13, [0.7, 0.2, 0.8], [3, 1, 2], 0.0],
-  ["fishreel", 0.22, [1.0, 0.3, 0.75], [4, 0, 1], 0.08],
-  ["sinker", 0.3, [1.25, 0.25, 0.5], [5, 0, 0], 0.12],
-  ["baittin", 0.4, [0.8, 0.3, 0.95], [1, 2, 3], 0.05],
-  ["fishreel", 0.5, [1.2, 0.35, 0.35], [3, 1, 0], 0.1],
-  ["tacklebox", 0.62, [0.85, 0.35, 0.7], [1, 3, 2], 0.05],
-  ["sinker", 0.7, [0.6, 0.2, 1.0], [2, 0, 3], 0.1],
-  ["iceauger", 0.82, [0.9, 0.3, 0.8], [0, 4, 2], 0.05],
+  ["sinker", 0.049, [1.1, 0.3, 0.35], [0, 6, 2], 0.1],
+  ["sinker", 0.091, [0.7, 0.2, 0.8], [3, 1, 2], 0.0],
+  ["fishreel", 0.154, [1.0, 0.3, 0.75], [4, 0, 1], 0.08],
+  ["sinker", 0.21, [1.25, 0.25, 0.5], [5, 0, 0], 0.12],
+  ["baittin", 0.28, [0.8, 0.3, 0.95], [1, 2, 3], 0.05],
+  ["fishreel", 0.35, [1.2, 0.35, 0.35], [3, 1, 0], 0.1],
+  ["tacklebox", 0.434, [0.85, 0.35, 0.7], [1, 3, 2], 0.05],
+  ["sinker", 0.49, [0.6, 0.2, 1.0], [2, 0, 3], 0.1],
+  ["iceauger", 0.574, [0.9, 0.3, 0.8], [0, 4, 2], 0.05],
 ];
 const PARK = [CHIP0[0], -3, CHIP0[1]];   // under the ice until each one leaves the hoodie
 props.push({ id: "gear", kind: "hoodiegear", wear: "chip", x: 0, y: 0, z: 0, fill: 1 });
@@ -242,7 +243,7 @@ SPILL.forEach(([kind, dt, v, spin, dx], i) => {
   c.throw(at, id, { v, spin });
 });
 // the anchor: last and heaviest, out of the hem in a short arc onto the heap's peak, one dead thunk
-const ANCHOR_T = r3(POUR + 1.05), THUNK = r3(ANCHOR_T + 0.42);
+const ANCHOR_T = r3(POUR + 0.75), THUNK = r3(ANCHOR_T + 0.42);
 props.push({ id: "anchor", kind: "anchor", x: PARK[0], y: PARK[1], z: PARK[2], in: 0, seed: 5 });
 c.prop(r3(ANCHOR_T - 0.034), "anchor", { x: 0.12, y: 0.16, z: 0.24, in: 1 }, 0.033, "linear");
 c.throw(ANCHOR_T, "anchor", { v: [1.4, 1.6, 0.85], spin: [0, 0, 2] });
@@ -252,21 +253,21 @@ sfx(THUNK, "thud", { gain: 0.9 });
 see(DROP1, r3(DROP1 + 0.6), ["chip.face", "g0"], "a fishing reel slips out of Chip's hoodie");
 // the hoodie empties in the design's order: the reel at DROP1, the rest through the pour, the anchor fluke last
 c.prop(r3(DROP1 - 0.1), "gear", { fill: 0.84 }, 0.3, "out");
-c.prop(POUR, "gear", { fill: 0.14 }, 0.95, "linear");
+c.prop(POUR, "gear", { fill: 0.14 }, 0.67, "linear");
 for (const sd of ["L", "R"]) { A(r3(POUR - 0.2), "chip", "arm", { side: sd, pose: { o: [0.2, 0.22, 0.24] }, dur: 0.25 }); A(r3(POUR - 0.2), "chip", "grip", { side: sd, shape: "pinch", dur: 0.2 }); A(r3(THUNK + 0.1), "chip", "grip", { side: sd, shape: "relaxed", dur: 0.2 }); }   // he lifts his hem: it pours (Codex P10)
 c.prop(r3(ANCHOR_T - 0.05), "gear", { fill: 0 }, 0.2, "in");
-c.prop(r3(POUR + 0.05), "heap", { fill: 1 }, 1.0, "linear");
+c.prop(r3(POUR + 0.05), "heap", { fill: 1 }, 0.72, "linear");
 see(POUR, r3(THUNK + 0.3), ["chip.face", "heap"], "heavy fishing gear pours out of Chip's hoodie, an anchor last");
 A(r3(DROP1 + 0.05), "chip", "look", { to: [0.1, -0.75], dur: 0.15, blink: false });   // down at the reel
-A(r3(DROP1 + 0.4), "chip", "look", { to: [0, 0.05], dur: 0.15, blink: false });        // back up at us, caught
-A(r3(DROP1 + 0.4), "chip", "expr", { set: { curve: 0.3, eye: 1.2, open: 0.1, smirk: 0.3 }, dur: 0.15 });
-for (const w of ["wedge", "mash", "spud"]) A(r3(POUR + 0.2), w, "expr", { set: { curve: -0.1, eye: 1.25, open: 0.3 }, dur: 0.2 });
+A(r3(DROP1 + 0.3), "chip", "look", { to: [0, 0.05], dur: 0.15, blink: false });        // back up at us, caught
+A(r3(DROP1 + 0.3), "chip", "expr", { set: { curve: 0.3, eye: 1.2, open: 0.1, smirk: 0.3 }, dur: 0.15 });
+for (const w of ["wedge", "mash", "spud"]) A(r3(POUR + 0.1), w, "expr", { set: { curve: -0.1, eye: 1.25, open: 0.3 }, dur: 0.2 });
 // foley: lead and steel on ice, thickening; the auger's clang
-[0.05, 0.12, 0.18, 0.27, 0.35, 0.45, 0.55, 0.67, 0.75].forEach((dt, k) => sfx(r3(POUR + dt + 0.25), "put-down-metal", { gain: 0.45 + (k % 3) * 0.05 }));
-sfx(r3(POUR + 1.1), "hit-metal", { gain: 0.5 });
+[0.04, 0.09, 0.13, 0.19, 0.25, 0.32, 0.39, 0.47, 0.53].forEach((dt, k) => sfx(r3(POUR + dt + 0.2), "put-down-metal", { gain: 0.5 + (k % 3) * 0.06 }));   // a clattering avalanche
+sfx(r3(POUR + 0.78), "hit-metal", { gain: 0.55 });
 
 // 8 CHIP: Just in case! (arms wide, proud)
-const CASE = r3(THUNK + 0.55);
+const CASE = r3(THUNK + 0.35);
 A(r3(CASE - 0.1), "chip", "arm", { side: "L", pose: { o: [0.28, 0.6, 0.12] }, dur: 0.25 });
 A(r3(CASE - 0.1), "chip", "arm", { side: "R", pose: { o: [0.28, 0.6, 0.12] }, dur: 0.25 });
 A(r3(CASE - 0.1), "chip", "expr", { set: { curve: 0.75, eye: 0.95, open: 0.25, smirk: 0 }, dur: 0.2 });
@@ -275,14 +276,14 @@ A(r3(CASE_END + 0.2), "chip", "arm", { side: "L", pose: "rest", dur: 0.35 });
 A(r3(CASE_END + 0.2), "chip", "arm", { side: "R", pose: "rest", dur: 0.35 });
 
 // ---------------------------------------------------------------- 9 THE SLAB GOES (the crack runs round the heap; it tips; all of it sinks)
-const RUN = r3(CASE_END + 0.25);
+const RUN = r3(CASE_END + 0.1);
 c.prop(RUN, "ice", { run: 1 }, 0.55, "in");
 sfx(RUN, "ai/screen-crack", { gain: 0.8 });
 A(r3(RUN + 0.05), "chip", "look", { to: [0.5, -0.6], dur: 0.12, blink: false });
 A(r3(RUN + 0.1), "chip", "expr", { set: { curve: -0.2, eye: 1.25, open: 0.2 }, dur: 0.12 });
 A(r3(RUN + 0.15), "chip", "move", { to: CHIP_BACK, dur: 0.35, ease: "out", steps: 2 });   // a hop back off the lip
 A(r3(RUN + 0.15), "chip", "turn", { to: 35, dur: 0.3 });
-const TIP = r3(RUN + 0.6);
+const TIP = r3(RUN + 0.5);
 c.prop(TIP, "ice", { slab: 1 }, 0.7, "in");
 c.prop(TIP, "heap", { slab: 1 }, 0.7, "in");
 c.prop(r3(TIP + 0.35), "heap", { slide: 1 }, 1.0, "in");
@@ -290,7 +291,7 @@ c.prop(r3(TIP + 0.4), "ice", { churn: 1 }, 1.2, "linear");
 c.prop(TIP, "bucket", { y: -0.6, x: 1.35, z: 1.3 }, 1.1, "in");   // the bucket rides the slab down last (DESIGN default 4)
 props.push({ id: "splash", kind: "icesplash", x: 1.15, y: -0.02, z: 0.75, puff: 0, dur: 1.2 });
 c.prop(0, "splash", { puff: 0 }, 0.01);
-const SPLASH = r3(TIP + 0.55);
+const SPLASH = r3(TIP + 0.5);
 c.prop(SPLASH, "splash", { puff: 1 }, 1.2, "linear");
 sfx(TIP, "ai/screen-crack", { gain: 0.7 });
 sfx(SPLASH, "ai/swim-splash", { gain: 0.9 });
@@ -306,7 +307,7 @@ for (const [w, d] of [["wedge", 0], ["spud", 0.08], ["mash", 0.16]]) {
 }
 A(r3(LAUGH + 0.4), "chip", "look", { to: [0, 0.05], dur: 0.2, blink: false });
 A(r3(LAUGH + 0.45), "chip", "expr", { set: { curve: 0.35, eye: 0.9, open: 0, smirk: 0.3 }, dur: 0.25 });   // a sheepish smile, safe on his patch (Codex P12)
-const END = F(LAUGH + 1.7);   // hold the three laughing (Codex P12)
+const END = F(LAUGH + 1.4);   // hold the three laughing (Codex P12)
 
 // ---------------------------------------------------------------- shots (DESIGN section 1 cameras; camfit before staging changes)
 // cameras stand ON the ice (the near bank's snow at z > 2.5 filled the lower half of the frame from the design's spots)
@@ -324,20 +325,20 @@ const TWO_JET = { pos: [0.55, 1.0, 2.3], look: [-0.15, 0.5, -0.6], fov: 56 };
 const MASH_CAM = { pos: [-0.9, 1.25, 2.5], look: [0.15, 0.45, -1.9], fov: 60 };   // the tall one's walk, clear of the teal one
 const FAT_TWO = { pos: [0.35, 1.0, 2.9], look: [-0.5, 0.55, 0], fov: 54 };   // Chip points up at the big one   // Chip and the teal one, the jetty behind right
 const HEM_LOW = { pos: [0.2, 0.6, 1.9], look: [0.1, 0.25, 0], fov: 48 };
-const END_SHOT = { pos: [-0.9, 1.55, 2.9], look: [0.45, 0.3, -0.6], fov: 64 };
-const OTS = { pos: [0.55, 1.25, 1.1], look: [-0.5, 0.55, -2.6], fov: 48 };
+const END_SHOT = { pos: [-0.5, 1.7, 3.2], look: [0.0, 0.35, -0.9], fov: 72 };   // all three laughing on the jetty + Chip (camfit 19 Nov)
+const OTS = { pos: [0.25, 1.3, 1.6], look: [-0.9, 0.8, -2.6], fov: 56 };   // over Chip's head at the big one (camfit 19 Nov)
 const beats = c.beats([
   ["cracks", 0, { ...A_WIDE, to: A_WIDE_IN, dur: 1.6, ease: "out" }, "hook"],
   ["too fat", r3(FAT - 0.15), FAT_TWO],
-  ["fine", r3(W_GO + 0.3), JET],
-  ["mash off", r3(M1 + 0.1), MASH_CAM],
+  ["fine", F(W_GO + 0.19), JET],   // the cut hides the drawn rig turning front to back
+  ["mash off", M1, MASH_CAM],
   ["your turn", TURN, TWO_JET, "escalation"],
-  ["spud off", r3(S1 + 0.4), JET_WIDE],
-  ["only chip", ALONE, { ...A_CLOSE, pos: [0.25, 0.7, 2.9], to: A_CLOSE, dur: 1.4, ease: "inOut" }],
-  ["wait", r3(WAIT - 0.2), OTS],
-  ["the reel", r3(DROP1 - 0.1), HEM_LOW, "payoff"],
-  ["the gear", r3(POUR - 0.25), GEAR_SHOT],
-  ["just in case", r3(CASE - 0.25), A_MID],
+  ["spud off", r3(S1 + 0.3), JET_WIDE],
+  ["only chip", ALONE, { ...A_CLOSE, pos: [0.25, 0.7, 2.9], to: A_CLOSE, dur: 0.85, ease: "inOut" }],
+  ["wait", r3(WAIT - 0.15), OTS],
+  ["the reel", r3(DROP1 - 0.15), HEM_LOW, "payoff"],
+  ["the gear", r3(POUR - 0.1), GEAR_SHOT],
+  ["just in case", r3(CASE - 0.2), A_MID],
   ["it sinks", r3(RUN - 0.05), END_SHOT],
 ], END);
 
@@ -353,7 +354,7 @@ write(import.meta.url, {
   physics: true, animeTiming: true,
   set: { type: "icelake" },
   sound: { sfx: 0.7, ambience: 0.08, guard: true, signature: false, surface: "snow" },
-  creative: { length: [14, 19] },
+  creative: { length: [12, 16] },
   hook: { show: ["wedge", "mash", "spud", "chip", "ice"], hint: 0, what: "four friends on cracking ice round a fishing hole; the narrator says one of them is too heavy" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
