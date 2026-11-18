@@ -8,6 +8,7 @@ import { everyday, EVERYDAY } from "./costumes-everyday.js";
 import { skipAge } from "./costumes-skipage.js";
 import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 import { plato, PLATO_TYPES } from "./costumes-plato.js";
+import { pharaoh, PHARAOH_TYPES } from "./costumes-pharaoh.js";
 import { judge } from "./costumes-judge.js";
 
 // The rest of Jonny's potato fighters in 3D, from his reference portraits (2026-10-24): Astronaut, Viking, Dragon,
@@ -317,7 +318,7 @@ export function addBeard(ch, B) {
   return beard;
 }
 
-export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY, ...ALIEN_TYPES, ...PLATO_TYPES];
+export const CAST_TYPES = ["astronaut", "viking", "dragon", "allfather", "samurai", "sorcerer", "kid", "spud", "clown", ...EVERYDAY, ...ALIEN_TYPES, ...PLATO_TYPES, ...PHARAOH_TYPES];
 
 // returns { hat, sitDepth, prop, apply(st, t, hands) } for the cast types, or for `pistols` alone (hat stays the caller's)
 export function castCostume(C, ch) {
@@ -326,7 +327,8 @@ export function castCostume(C, ch) {
   // costume.art (castLook "art"): the detailed, integrated costumes (costumes-art-cast.js)
   if (EVERYDAY.includes(T)) return everyday(C, ch, out);   // Chip, Wedge, Mash (costumes-everyday.js): the same in every look
   if (ALIEN_TYPES.includes(T)) return aliens(C, ch, out);   // the alien crew and the Egyptian workers (costumes-aliens.js, Ancient Aliens kit)
-  if (PLATO_TYPES.includes(T)) return plato(C, ch, out);   // Plato (costumes-plato.js, Ancient Aliens EP03 kit)
+  if (PLATO_TYPES.includes(T)) return plato(C, ch, out);
+  if (PHARAOH_TYPES.includes(T)) return pharaoh(C, ch, out);   // the Pharaoh + Memphis priests (costumes-pharaoh.js, Egypt EP04)   // Plato (costumes-plato.js, Ancient Aliens EP03 kit)
   if (T === "viking" && C.judge) return judge(C, ch, out);   // costume.judge: Viking as the judge (costumes-judge.js USAGE, Potato Desk 05); no key, no change
   if (T === "clown") return clown(C, ch, out);   // Mr. Crisp (costumes-clown.js): the same in every look
   if ((C.art || T === "spud") && ART_CAST[T]) { const r = ART_CAST[T](C, ch, out); return C.age ? skipAge(C, ch, r) : r; }   // costume.age: Spud aged (costumes-skipage.js, happiness EP02)   // Spud has no plain version: his sweater is the same in every look

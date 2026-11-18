@@ -393,6 +393,41 @@
    },
    "freckles": 20,
    "blush": 0
+  },
+  "pharaoh": {
+   "skin": "#e0a655",
+   "rest": {
+    "tilt": -0.1,
+    "browY": 0.004,
+    "curve": -0.05,
+    "open": 0,
+    "eye": 1,
+    "pupil": 0.95,
+    "smirk": 0,
+    "raise": 0.05
+   },
+   "lids": [
+    0.42,
+    0.42
+   ],
+   "browShape": {
+    "thick": 0.85,
+    "arch": 0.05,
+    "inner": 0.14,
+    "outer": 0.7,
+    "tip": 0.004,
+    "clear": 0.004
+   },
+   "eye": {
+    "oval": 1.0,
+    "iris": 0.5,
+    "lash": 1.5,
+    "flick": 0.5,
+    "glintSize": 0.8,
+    "white": "#f1e0ba"
+   },
+   "freckles": 17,
+   "blush": 0
   }
  }
 }

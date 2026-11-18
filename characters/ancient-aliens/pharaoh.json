@@ -1,0 +1,101 @@
+{
+  "id": "ancient-aliens/pharaoh",
+  "name": "The Pharaoh",
+  "franchise": "Ancient Aliens",
+  "source": "Ancient Aliens EP04 Serapeum kit (18 Nov 2026): DESIGN.md section 3, task T1; panels 03, 06, 16, 19, 23, 24 of the Egypt EP04 sheets",
+  "rig": "potato",
+  "body": {
+    "color": "#e0a655",
+    "height": 0.93,
+    "width": 0.68,
+    "depth": 0.6,
+    "lump": 0.03,
+    "seed": 71,
+    "taper": 0.1,
+    "specks": 0,
+    "speckColor": "#a46e34"
+  },
+  "limbs": {
+    "color": "#d9c3a0",
+    "width": 0.036,
+    "shoulder": -0.32
+  },
+  "face": {
+    "default": "kind",
+    "iris": "#65452c",
+    "cheeks": "#d87f55",
+    "neutral": {
+      "tilt": 0,
+      "curve": 0,
+      "smirk": 0,
+      "eye": 1
+    },
+    "eye": {
+      "flick": 0,
+      "lash": 1.5
+    },
+    "browShape": {
+      "arch": 0.05,
+      "thick": 0.85
+    },
+    "size": 0.86,
+    "final": {
+      "size": 0.86,
+      "layout": {
+        "eyeU": 0.26,
+        "eyeV": 0.64,
+        "browV": 0.6,
+        "cheekU": 0.7,
+        "cheekV": 0.4,
+        "mouthV": 0.165,
+        "mouthW": 0.12
+      }
+    },
+    "mouth": {
+      "thick": 0.5,
+      "ink": "#683d34"
+    }
+  },
+  "sprout": {
+    "color": "#6cbf3a",
+    "placement": "none"
+  },
+  "costume": {
+    "type": "pharaoh",
+    "linen": "#d9c3a0",
+    "fibre": "#f0dbb5",
+    "fold": "#aa906e",
+    "tear": "#765c49",
+    "gold": "#dca83b",
+    "goldDark": "#876328",
+    "goldLight": "#f6d570",
+    "lapis": "#26447b",
+    "lapisDark": "#1d2c52",
+    "turquoise": "#3f9c9c",
+    "carnelian": "#a94830",
+    "hands": "#d9c3a0"
+  },
+  "personality": "The Pharaoh: a dry, proud mummy king, the guide of the series. Heavy kohl-lined lids, one raised brow, a thin dry mouth, a short plait under the chin. Cagey: every line he speaks is a fact. 'We had good tools.'",
+  "voice": {
+    "pitch": 92,
+    "rate": 2.6,
+    "formant": 0.93,
+    "range": 2,
+    "breath": 0.12,
+    "vibrato": 0.006,
+    "seed": 19
+  },
+  "voiceNote": "his own VoxCPM2 voice (dry, proud, cagey), see lines.mjs",
+  "hands": {
+    "type": "glove",
+    "size": 0.95,
+    "fingers": 3,
+    "seamless": true,
+    "cell": 0.0035,
+    "fingerR": 0.82,
+    "blend": {
+      "root": 0.35
+    }
+  },
+  "notes": "Costume type pharaoh (engine/page/costumes-pharaoh.js, its header is the usage text): 14 linen bands with frayed ends, a lapis and gold nemes with the gold cobra, a 4-row bead collar, a short plait under the chin, 3-finger wrapped hands. Body 0.93 high x 0.68 wide x 0.60 deep, skin #e0a655."
+}

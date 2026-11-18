@@ -88,7 +88,10 @@ import { PAPER_KINDS, PAPER_GRIPS } from "./props-score-paper.js";   // happines
 import { TRAIN_KINDS, TRAIN_GRIPS } from "./props-score-train.js";   // happiness score film: the train at sunset
 import { SCORE_ITEMS_KINDS, SCORE_ITEMS_GRIPS } from "./props-score-items.js";   // happiness score film: hill bench, kettle, mirror, reflections
 import { SMALL_KINDS, SMALL_GRIPS } from "./props-score-small.js";   // happiness score film: speaker, cups, bun, tape, satchel, hats
-import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";   // ancient aliens EP03 Atlantis, block D (kit/BLOCKS.md)
+import { AT_D_KINDS, AT_D_GRIPS } from "./props-at-d.js";
+import { EG_SERAPEUM_KINDS, EG_SERAPEUM_GRIPS } from "./props-eg-serapeum.js";   // Egypt EP04 Serapeum (storyboards/series/ancient-aliens/04-serapeum/DESIGN.md)
+import { EG_PAST_KINDS, EG_PAST_GRIPS } from "./props-eg-past.js";   // Egypt EP04 Serapeum, past places
+import { EG_SAQQARA_KINDS, EG_SAQQARA_GRIPS } from "./props-eg-saqqara.js";   // Egypt EP04 Serapeum, Saqqara + effects
 import { DINER_KINDS } from "./props-diner.js";   // never has money 01: dinercounter, milkshake, frybasket, fry, saladbowl, burgerpick, button, tipjar, cardterminal, paycard, wallet, paperhat, condiments
 import { COFFEE_KINDS } from "./props-coffee.js";   // never has money 02: ioufridge, iounote, feltpen, coffeecup, cuptray, milkbottle, milkpour, kitchentable, fruitbowl, kitchencounter, plankfloor
 import { WHATIF_KINDS } from "./props-whatif.js";   // what if 01 pause time: parkclock, parkbench
@@ -1484,6 +1487,7 @@ Object.assign(KINDS, MOTT_KINDS);   // Mott the moth: mott, stickynote, dustprin
 Object.assign(KINDS, AA_GIZA_KINDS, AA_SITE_KINDS, AA_SHIP_KINDS, AA_INSIDE_KINDS, AA_ITEMS_KINDS); Object.assign(GRIPS, AA_GIZA_GRIPS, AA_SITE_GRIPS, AA_SHIP_GRIPS, AA_INSIDE_GRIPS, AA_ITEMS_GRIPS);   // ancient aliens shared kit (props-aa-*.js)
 Object.assign(KINDS, SH_STONES_KINDS, SH_LAND_KINDS, SH_FAR_KINDS, SH_ITEMS_KINDS); Object.assign(GRIPS, SH_STONES_GRIPS, SH_LAND_GRIPS, SH_FAR_GRIPS, SH_ITEMS_GRIPS);   // ancient aliens EP02 Stonehenge kit
 Object.assign(KINDS, AT_CITY_KINDS, AT_FAR_KINDS, AT_SEA_KINDS, AT_SEABED_KINDS, AT_TOWNS_KINDS, AT_B_KINDS, AT_C_KINDS, AT_D_KINDS); Object.assign(GRIPS, AT_CITY_GRIPS, AT_FAR_GRIPS, AT_SEA_GRIPS, AT_SEABED_GRIPS, AT_TOWNS_GRIPS, AT_B_GRIPS, AT_C_GRIPS, AT_D_GRIPS);   // ancient aliens EP03 Atlantis kit
+Object.assign(KINDS, EG_SERAPEUM_KINDS, EG_PAST_KINDS, EG_SAQQARA_KINDS); Object.assign(GRIPS, EG_SERAPEUM_GRIPS, EG_PAST_GRIPS, EG_SAQQARA_GRIPS);   // Egypt EP04 Serapeum
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
