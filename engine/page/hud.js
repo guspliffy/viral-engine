@@ -112,6 +112,25 @@ function ownState(H, t) {
     kick: changed && since < 0.15 ? since : null,
   };
 }
+// Friends try to 09 "Dad's new car" (18 Nov 2026) adds "tries" (opt-in): an attempt counter that needs no English, a
+// little car pictogram + "1/3" where the own chip sits (tall x 60, y 214).
+//   "tries": { "keys": [[0, 1], [5.2, 2], [9.4, 3], [19.0, 4]], "max": 3, "out": [t, dur] }
+// A key that changes the number rolls it like the own chip (5 frames) and kicks the chip (scale 1.06, 0.2 s); the last
+// try (= max) is amber, over max the text is red #ff5a4a and the kick bigger (1.14), the rule broken.
+function triesState(H, t) {
+  const spec = specKeys(H.tries);
+  if (!spec || !spec.length) return null;
+  const K = spec.map((k) => [k[0], Math.round(Number(k[1]))]).sort((a, b) => a[0] - b[0]);
+  const i = idxSorted(K, t), a = fadeOut(H.tries.out, t);
+  if (i < 0 || a <= 0) return null;
+  const since = t - K[i][0], changed = i > 0 && K[i][1] !== K[i - 1][1];
+  return {
+    v: K[i][1], max: H.tries.max || 3, a,
+    born: t - K[0][0] < 0.25 ? t - K[0][0] : null,
+    tick: changed && since < TICK ? since : null, prev: changed && since < TICK ? K[i - 1][1] : null,
+    kick: changed && since < 0.2 ? since : null,
+  };
+}
 function trainState(H, t) {
   const spec = specKeys(H.train);
   if (!spec || !spec.length) return null;
@@ -151,6 +170,8 @@ export function hudState(sb, t) {
   if (isWide(sb)) out.wide = true;   // only set on a wide frame, so a tall clip's cache key never changes
   const own = ownState(H, t), train = trainState(H, t);
   if (own) out.own = own;
+  const tries = triesState(H, t);
+  if (tries) out.tries = tries;
   if (train) out.train = train;
   if (day) out.day = { n: Math.round(day.v), since: day.since };
   if (H.part != null) out.part = H.part;
@@ -286,6 +307,8 @@ function layout(ctx, S) {
   const pctW = Math.max(dig * 3 + ctx.measureText("%").width, ctx.measureText("DEAD").width);
   const gauW = S.gauge ? 26 + 10 + dig * 3 + ctx.measureText("-").width + ctx.measureText(" °C").width : 0;
   const ownW = S.own ? PAD * 2 + GLYPH + 10 + S.own.nd * dig : 0;
+  const triesTW = S.tries ? ctx.measureText(`${S.tries.max + 8}/${S.tries.max}`).width : 0;
+  const triesW = S.tries ? PAD * 2 + GLYPH + 12 + triesTW : 0;
   const trainTextW = S.train ? Math.max(dig * 4 + colon, ...S.train.labels.map((l) => ctx.measureText(l).width)) : 0;
   const trainW = S.train ? Math.max(PAD * 2 + GLYPH + 12 + trainTextW, PAD * 2 + PIP_W) : 0;
   ctx.font = THR_FONT; const thrW = S.threat ? 40 + 12 + ctx.measureText("SNOW 0.0 m").width + PAD * 2 : 0;
@@ -305,6 +328,7 @@ function layout(ctx, S) {
     y, dig, colon, clockW, batW, gauW, ammoW, safe, trainTextW,
     left, threat, right,
     own: S.own ? [safe.x0, ownY, ownW, CH] : null,
+    tries: S.tries ? [safe.x0, ownY + (S.own ? CH + 10 : 0), triesW, CH] : null, triesTW,
     train: S.train ? [safe.x1 - trainW, trainY, trainW, CH + 24] : null,
   };
 }
@@ -314,7 +338,7 @@ export function hudBoxes(ctx, sb, t) {
   const L = layout(ctx, S);
   const oy = (S.y ?? 214) - 214;
   const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
-  return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  return [L.left, L.threat, L.right, L.own, L.tries, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
 function chip(ctx, [x, y, w, h], edge = EDGE, lw = 2) {
@@ -386,6 +410,17 @@ function glasses(ctx, cx, cy) {
   for (const dx of [-11, 11]) { ctx.beginPath(); ctx.arc(cx + dx, cy, 9, 0, Math.PI * 2); ctx.stroke(); }
   ctx.beginPath(); ctx.arc(cx, cy - 1, 4, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(cx - 20, cy - 2); ctx.lineTo(cx - 22, cy - 6); ctx.moveTo(cx + 20, cy - 2); ctx.lineTo(cx + 22, cy - 6); ctx.stroke();
+  ctx.restore();
+}
+// a small car side-on, GLYPH px wide, centred on (cx, cy): body, cabin, two wheels (the tries chip)
+function carGlyph(ctx, cx, cy) {
+  ctx.save(); ctx.fillStyle = SGOLD;
+  ctx.beginPath(); ctx.roundRect(cx - 21, cy - 4, 42, 14, 5); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cx - 11, cy - 15, 22, 13, [6, 6, 0, 0]); ctx.fill();
+  ctx.fillStyle = "#1a1720";
+  for (const dx of [-12, 12]) { ctx.beginPath(); ctx.arc(cx + dx, cy + 10, 6, 0, Math.PI * 2); ctx.fill(); }
+  ctx.fillStyle = SGOLD;
+  for (const dx of [-12, 12]) { ctx.beginPath(); ctx.arc(cx + dx, cy + 10, 3, 0, Math.PI * 2); ctx.fill(); }
   ctx.restore();
 }
 // a locomotive seen from the front, GLYPH px, centred on (cx, cy): cab, windscreen, two lamps, cowcatcher, rails
@@ -649,6 +684,22 @@ export function drawHud(ctx, sb, t) {
       num(O.prev, ownColour(O.prev), k * ROLL, 1 - k);
       num(O.v, newCol, -(1 - k) * ROLL, k);
     } else num(O.v, ownColour(O.v), 0, 1);
+    ctx.restore();
+  }
+  if (L.tries) {
+    const R = S.tries, [x, y, w, h] = L.tries, amp = R.v > R.max ? 0.14 : 0.06;
+    const kick = R.kick != null ? 1 + amp * Math.sin((R.kick / 0.2) * Math.PI) : 1;
+    const born = R.born != null ? ease("back")(clamp(R.born / 0.25)) : 1, sc = kick * (0.9 + 0.1 * born);
+    const col = (v) => (v > R.max ? "#ff5a4a" : v === R.max ? AMBER : TXT);
+    ctx.save(); ctx.globalAlpha *= R.a * (R.born != null ? clamp(R.born / 0.12) : 1);
+    ctx.translate(x + w / 2, y + h / 2); ctx.scale(sc, sc); ctx.translate(-(x + w / 2), -(y + h / 2));
+    chip(ctx, L.tries); ctx.beginPath(); ctx.roundRect(x, y, w, h, 20); ctx.clip();
+    carGlyph(ctx, x + PAD + GLYPH / 2, y + h / 2);
+    const nx = x + PAD + GLYPH + 12 + L.triesTW / 2, my = y + h / 2 + 2;
+    ctx.font = FONT; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    const num = (v, dy, a) => { ctx.save(); ctx.globalAlpha *= a; ctx.fillStyle = col(v); ctx.fillText(`${v}/${R.max}`, nx, my + dy); ctx.restore(); };
+    if (R.tick != null) { const k = clamp(R.tick / TICK); num(R.prev, k * ROLL, 1 - k); num(R.v, -(1 - k) * ROLL, k); }
+    else num(R.v, 0, 1);
     ctx.restore();
   }
   if (L.train) {
