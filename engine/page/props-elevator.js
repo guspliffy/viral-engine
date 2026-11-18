@@ -59,9 +59,27 @@ export const ELEVATOR_KINDS = {
     }));
     ring.material.userData.outlineParameters = { visible: false }; ring.position.z = 0.031; P.whole.add(ring);
     if (P.spec.gate === "inside") P.whole.userData.camGate = insideCar;
+    // the overload alarm (Friends try to 10, 18 Nov 2026): `over` 0..1 swaps the floor number for a red warning
+    // triangle that flashes in step with audio.mjs "overload" (0.22 s on, 0.16 s off, from `overAt` seconds), the
+    // arrow goes out and the brass frame's glow turns red. No lettering: the sign a viewer knows from any lift.
+    const warn = canvasTex(256, 160, (g) => {
+      g.fillStyle = "#1a0d0c"; g.fillRect(0, 0, 256, 160);
+      g.shadowColor = "rgba(255,70,50,0.9)"; g.shadowBlur = 16; g.strokeStyle = "#ff4a3a"; g.lineWidth = 12; g.lineJoin = "round";
+      g.beginPath(); g.moveTo(128, 22); g.lineTo(196, 138); g.lineTo(60, 138); g.closePath(); g.stroke();
+      g.fillStyle = "#ff4a3a"; g.fillRect(121, 58, 14, 46); g.beginPath(); g.arc(128, 120, 8, 0, Math.PI * 2); g.fill();
+    });
+    const dark = canvasTex(32, 20, (g) => { g.fillStyle = "#140c0b"; g.fillRect(0, 0, 32, 20); });
     let shown = -1;
     return {
       apply(ps, t) {
+        if (clamp(ps.over ?? 0) > 0.5) {
+          const k = (t - (P.spec.overAt ?? 0)) % 0.38, lit = k >= 0 && k < 0.22;
+          const want = lit ? "warn" : "dark";
+          if (shown !== want) { glass.material.map = lit ? warn : dark; glass.material.needsUpdate = true; shown = want; }
+          arrow.visible = false; ring.material.uniforms.uK.value = lit ? 0.9 : 0.15;
+          return;
+        }
+        arrow.visible = true;
         const n = Math.floor(ps.count + 1e-6);
         if (n !== shown) { glass.material.map = face(n); glass.material.needsUpdate = true; shown = n; }
         arrow.material.opacity = 0.7 + 0.3 * (0.5 + 0.5 * Math.sin(t * 5.5));

@@ -49,7 +49,7 @@ function paintTex(W, H, seed, base, washAmp, draw, swap = false) {
   return texOf(buf, W, H, swap);
 }
 // sweatshirt fleece: short soft flecks, most of them running down the cloth, a third of them pencil-dark
-function fleeceTexture(W, H, seed, n, swap = false, pale = false) {   // pale: a light cloth (yellow) takes fainter marks, or it greys
+export function fleeceTexture(W, H, seed, n, swap = false, pale = false) {   // pale: a light cloth (yellow) takes fainter marks, or it greys
   const k = pale ? 0.55 : 1;
   return paintTex(W, H, seed, pale ? 0.96 : 0.88, pale ? 0.03 : 0.05, (stroke, h) => {
     for (let i = 0; i < n; i++) {

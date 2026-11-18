@@ -1,0 +1,403 @@
+{
+ "id": "buffet-bench-chip",
+ "title": "Friends try to 10 buffet bench",
+ "idea": "props-buffet.js on the lift set: hoodiestuff, buffetheap, nine loose items",
+ "fps": 30,
+ "frame": "wide",
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "elevator",
+  "seed": 3
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   4,
+   4
+  ]
+ },
+ "cast": [
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.38,
+    0.32
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "stuff",
+   "kind": "hoodiestuff",
+   "wear": "chip",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 1
+  },
+  {
+   "id": "heap",
+   "kind": "buffetheap",
+   "x": -0.4,
+   "y": 0,
+   "z": 0.2,
+   "seed": 7,
+   "fill": 0
+  },
+  {
+   "id": "l0",
+   "kind": "croissant",
+   "x": -1.55,
+   "y": 0.5,
+   "z": 0.9,
+   "rot": 0,
+   "in": 0,
+   "body": {
+    "bounce": 0.08
+   }
+  },
+  {
+   "id": "l1",
+   "kind": "sausage",
+   "x": 0.5,
+   "y": 0.14,
+   "z": 0.62,
+   "rot": 37,
+   "in": 0,
+   "body": {
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "l2",
+   "kind": "pancakestack",
+   "x": -0.85,
+   "y": 0.5,
+   "z": 1,
+   "rot": 74,
+   "in": 0,
+   "body": {
+    "bounce": 0.05,
+    "friction": 0.9
+   }
+  },
+  {
+   "id": "l3",
+   "kind": "melon",
+   "x": -0.3,
+   "y": 0.6,
+   "z": 1,
+   "rot": 21,
+   "in": 0,
+   "body": {
+    "bounce": 0.12,
+    "friction": 0.7
+   }
+  },
+  {
+   "id": "l4",
+   "kind": "breadroll",
+   "x": 0.15,
+   "y": 0.5,
+   "z": 1,
+   "rot": 58,
+   "in": 0,
+   "body": {
+    "bounce": 0.1
+   }
+  },
+  {
+   "id": "l5",
+   "kind": "banana",
+   "x": 0.7,
+   "y": 0.5,
+   "z": 0.95,
+   "rot": 5,
+   "in": 0,
+   "body": {
+    "bounce": 0.08
+   }
+  },
+  {
+   "id": "l6",
+   "kind": "juicejug",
+   "x": 1.05,
+   "y": 0.5,
+   "z": 0.7,
+   "rot": 42,
+   "in": 0,
+   "body": {
+    "density": 500,
+    "bounce": 0.05,
+    "friction": 0.8
+   }
+  },
+  {
+   "id": "l7",
+   "kind": "waffle",
+   "x": 1.4,
+   "y": 0.5,
+   "z": 0.95,
+   "rot": 79,
+   "in": 0,
+   "body": {
+    "bounce": 0.08,
+    "shape": "box"
+   }
+  },
+  {
+   "id": "l8",
+   "kind": "muffin",
+   "x": 1.7,
+   "y": 0.5,
+   "z": 0.7,
+   "rot": 26,
+   "in": 0,
+   "body": {
+    "bounce": 0.08
+   }
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "bench",
+   "at": 0,
+   "len": 4,
+   "shot": {
+    "pos": [
+     0.45,
+     0.5,
+     1.9
+    ],
+    "look": [
+     0.38,
+     0.38,
+     0.32
+    ],
+    "fov": 36
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "fill": 1
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "l0",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "physics",
+     "prop": "l0",
+     "mode": "drop",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "l1",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.09
+    },
+    {
+     "do": "physics",
+     "prop": "l1",
+     "mode": "throw",
+     "v": [
+      0.5,
+      0.35,
+      0.9
+     ],
+     "spin": [
+      0,
+      3,
+      0
+     ],
+     "at": 1.14
+    },
+    {
+     "do": "prop",
+     "id": "l2",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.23
+    },
+    {
+     "do": "physics",
+     "prop": "l2",
+     "mode": "drop",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "l3",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.37
+    },
+    {
+     "do": "physics",
+     "prop": "l3",
+     "mode": "drop",
+     "at": 1.42
+    },
+    {
+     "do": "prop",
+     "id": "l4",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.51
+    },
+    {
+     "do": "physics",
+     "prop": "l4",
+     "mode": "drop",
+     "at": 1.56
+    },
+    {
+     "do": "prop",
+     "id": "l5",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.65
+    },
+    {
+     "do": "physics",
+     "prop": "l5",
+     "mode": "drop",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "l6",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.79
+    },
+    {
+     "do": "physics",
+     "prop": "l6",
+     "mode": "drop",
+     "at": 1.84
+    },
+    {
+     "do": "prop",
+     "id": "l7",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.93
+    },
+    {
+     "do": "physics",
+     "prop": "l7",
+     "mode": "drop",
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "l8",
+     "set": {
+      "in": 1
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.07
+    },
+    {
+     "do": "physics",
+     "prop": "l8",
+     "mode": "drop",
+     "at": 2.12
+    },
+    {
+     "do": "prop",
+     "id": "stuff",
+     "set": {
+      "fill": 0
+     },
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 2.5
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Bench for engine/page/props-buffet.js (friends try to 10). Not a clip."
+}

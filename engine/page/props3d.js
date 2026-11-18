@@ -119,6 +119,7 @@ import { FIREBLOCK_KINDS, FIREBLOCK_GRIPS } from "./props-fireblock.js";   // th
 import { FIREREWIND_KINDS, FIREREWIND_GRIPS } from "./props-firerewind.js";   // there's a catch 07 fire rewind: facadefire, blockfire, stairfire, floorsmoke
 import { GORGE_KINDS } from "./props-gorge.js";   // there's a catch 09b teleport forget: gorge, bridgerope, planks
 import { ROAST_KINDS } from "./props-roast.js";   // always orders potatoes 02, Sunday roast: pubtable, roastie, roastheap, roastplate, gravyboat, mills, fork
+import { BUFFET_KINDS, BUFFET_GRIPS } from "./props-buffet.js";   // friends try to 10 take the lift: croissant, sausage, pancakestack, melon, breadroll, banana, juicejug, waffle, muffin, buffetheap, hoodiestuff
 import { STEAK_KINDS } from "./props-steak.js";   // always orders potatoes 03, the steakhouse: steaktable, servingboard, bakedpotato, toppingbowl, butterpat, creamdollop, cheeseslice, baconbits, tablespoon, skilletsteak, corncob, lemonade, barcounter
 import { FRIES_KINDS } from "./props-fries.js";   // always orders potatoes 01, the burger place: burgertable, boothback, burgertray, frycone, dippot, tomatosoup, fullshake
 import { COASTER_KINDS } from "./props-coaster.js";   // never looks up 07, the roller coaster: coastertrack, coastercar, photopost, photoscreen
@@ -1485,6 +1486,7 @@ Object.assign(KINDS, AA_GIZA_KINDS, AA_SITE_KINDS, AA_SHIP_KINDS, AA_INSIDE_KIND
 Object.assign(KINDS, SH_STONES_KINDS, SH_LAND_KINDS, SH_FAR_KINDS, SH_ITEMS_KINDS); Object.assign(GRIPS, SH_STONES_GRIPS, SH_LAND_GRIPS, SH_FAR_GRIPS, SH_ITEMS_GRIPS);   // ancient aliens EP02 Stonehenge kit
 Object.assign(KINDS, AT_CITY_KINDS, AT_FAR_KINDS, AT_SEA_KINDS, AT_SEABED_KINDS, AT_TOWNS_KINDS, AT_B_KINDS, AT_C_KINDS, AT_D_KINDS); Object.assign(GRIPS, AT_CITY_GRIPS, AT_FAR_GRIPS, AT_SEA_GRIPS, AT_SEABED_GRIPS, AT_TOWNS_GRIPS, AT_B_GRIPS, AT_C_GRIPS, AT_D_GRIPS);   // ancient aliens EP03 Atlantis kit
 Object.assign(KINDS, ROAST_KINDS);   // always orders potatoes 02 (props-roast.js)
+Object.assign(KINDS, BUFFET_KINDS); Object.assign(GRIPS, BUFFET_GRIPS);   // friends try to 10 take the lift (props-buffet.js)
 Object.assign(KINDS, STEAK_KINDS);   // always orders potatoes 03 (props-steak.js)
 Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.js)
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)

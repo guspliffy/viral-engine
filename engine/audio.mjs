@@ -815,6 +815,16 @@ const SFX = {
     for (let i = 0; i < x.length; i++) { const t = i / SR, k = Math.sin(Math.PI * Math.min(1, t / d)) ** 1.5; x[i] = (run(lp, r() * 2 - 1) * 1.4 + run(bp, r() * 2 - 1) * 0.12 + Math.sin(TAU * 62 * t) * 0.08) * k; }
     return x;
   },
+  overload(r, d = 2.0) { // a lift's overload alarm: a hard electronic beep (a squarish 1.9 kHz tone, its odd partials
+    // softened) gated 0.22 s on, 0.16 s off, for as long as the alarm sounds; each beep has 4 ms edges so it never clicks
+    const x = buf(d), lp = biquad("lp", 5200, 0.7), on = 0.22, per = 0.38;
+    for (let i = 0; i < x.length; i++) {
+      const t = i / SR, k = t % per, g = k < on ? Math.min(1, k / 0.004, (on - k) / 0.004) : 0;
+      const s = Math.sin(TAU * 1900 * t) + Math.sin(TAU * 5700 * t) * 0.22 + Math.sin(TAU * 9500 * t) * 0.06;
+      x[i] = run(lp, s) * 0.5 * g * env(t, 0.003, d - 0.01, d);
+    }
+    return x;
+  },
   hiss(r, d = 0.3) { // bus doors: air brakes' hiss
     const x = buf(d), hp = biquad("hp", 2500, 0.7);
     for (let i = 0; i < x.length; i++) { const t = i / SR; x[i] = run(hp, r() * 2 - 1) * 0.5 * env(t, 0.01, 0.1, d); }
