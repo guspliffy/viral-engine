@@ -260,7 +260,7 @@ const DROP1 = r3(HEM_UP + 0.3);        // one croissant slips out of the hem
 const FLOOD = r3(DROP1 + 0.45);        // then everything
 // over the rim, in front of Chip (his hem band sits 0.04 above the leather): out and down onto the grass
 const HEM = [r3(RIG[0] + PL.chip[0]), r3(RIG[1] + RIM_Y + 0.1), r3(RIG[2] + 1.07)];
-const HEAP = W([0.15, 1.6]);
+const HEAP = W([0.3, 1.75]);   // right of the lens in panel 11, so the pile does not fill the frame's bottom
 // [kind, extra spec, release time after FLOOD (s), v [x, y, z] m/s, spin, hem offset x]
 const SPILL = [
   ["croissant", {}, -0.45, [0.05, 0.1, 0.8], [0, 2, 3], 0.05],
@@ -332,7 +332,7 @@ for (const [w, dt] of [["spud", 0], ["wedge", 0.05], ["mash", 0.1]]) {
 c.prop(LIFT, "rig", { y: r3(RIG[1] + 1) }, 0.8, "in");
 c.prop(r3(LIFT + 0.12), "rig", { free: 1 }, 1.6, "linear");
 c.prop(r3(LIFT + 0.8), "rig", { y: r3(RIG[1] + 8.6), z: r3(RIG[2] - 14.3), x: r3(RIG[0] - 0.15), sway: 1 }, 2.2, "out");
-sfx(r3(LIFT + 0.1), "windswell", { gain: 0.35 });
+// (no windswell: it only marks movement, Jonny 12 Nov; it also buried "It was free!" on a phone)
 const FREE = r3(LIFT + 0.25);
 const FREE_END = r3(FREE + DUR[5]);
 const END = F(Math.max(FREE_END + 1.2, LIFT + 3.4));
@@ -358,9 +358,9 @@ see(LIFT, END, ["rig", "heap", "spud.face"], "the balloon shoots up with Chip wa
 const S = (pos, look, fov) => ({ pos: add(RIG, pos), look: add(RIG, look), fov });
 const SH = {
   1: S([0.2, 0.3, 7.2], [0, 3.5, 0], 56), 2: S([-2.6, 0.14, 2.1], [-0.75, 1.15, 0.25], 56), 3: S([-0.35, 1.1, 5.3], [-0.1, 1.0, 0], 44),
-  4: S([0.3, 0.7, 6.4], [0, 2.5, 0], 50), 5: S([0, 1.2, 4.6], [0, 1.95, 0], 42), 6: S([-0.55, 0.85, 5.9], [-0.05, 1.4, 0], 44),
+  4: S([0.3, 0.7, 6.4], [0, 2.5, 0], 50), 5: S([0, 1.2, 4.6], [0, 1.95, 0], 42), 6: S([-0.2, 0.85, 6.2], [0.25, 1.4, 0], 50),
   8: S([-0.45, 0.9, 5.9], [0.45, 1.35, 0], 46), 9: S([-0.3, 1.0, 3.1], [-0.3, 1.38, 0], 42), 10: S([-0.1, 2.7, 8.6], [-0.1, 1.5, 0], 46),
-  11: S([-0.05, 0.6, 2.95], [-0.05, 0.95, 0], 60), 12: S([-0.4, 0.75, 10.4], [-0.9, 3.75, 0], 50),
+  11: S([-0.05, 0.6, 2.95], [-0.05, 1.05, 0], 60), 12: S([-0.4, 0.75, 10.4], [-0.9, 3.75, 0], 50),
 };
 const beats = c.beats([
   ["1 stuck", 0, SH[1], "hook"],
