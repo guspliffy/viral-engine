@@ -6,6 +6,13 @@
 export const KIND_POSTS = {
   // props-gorge.js bridgerope: four 1.3 m posts, 0.08 thick with hand-rope turns to 0.092 (DESIGN 2)
   bridgerope: [[-0.9, 0, 0.5, 0.092, 1.3], [0.9, 0, 0.5, 0.092, 1.3], [-0.9, 0.4, -9.5, 0.092, 1.3], [0.9, 0.4, -9.5, 0.092, 1.3]],
+  // props-icelake.js icejetty (friends try to 12): mooring piles + rail posts, the same formula as ICEJETTY_POSTS there
+  icejetty: (() => {
+    const out = [[-1.90, -2.10], [1.95, -2.10], [-2.30, -2.10], [-2.30, -3.40]].map(([x, z]) => [x, 0.20, z, 0.06, 0.55]);
+    for (let x = -2.25; x < 7.7; x += 1.15) out.push([x, 0.20, -3.37, 0.04, 0.50]);
+    for (let x = 1.95 + 1.15; x < 7.7; x += 1.15) out.push([x, 0.20, -2.13, 0.04, 0.50]);
+    return out;
+  })(),
 };
 
 // the posts of one storyboard prop in world coordinates: [{ x, y, z, r, h }]

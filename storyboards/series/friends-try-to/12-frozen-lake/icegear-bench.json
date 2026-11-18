@@ -1,0 +1,1797 @@
+{
+ "id": "icegear-bench",
+ "title": "Ice gear bench",
+ "idea": "Props bench for friends try to 12 (the six gear kinds, gearheap, hoodiegear), not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "castLook": "sheet",
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "set": {
+  "type": "plain",
+  "color": "#c9d6ee",
+  "floor": "#a9bde0"
+ },
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "hook": {
+  "show": [
+   "chip0"
+  ],
+  "hint": 0,
+  "what": "engine test"
+ },
+ "cast": [
+  {
+   "id": "chip0",
+   "character": "potatobrawl/chip",
+   "at": [
+    100,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 3
+  },
+  {
+   "id": "chip1",
+   "character": "potatobrawl/chip",
+   "at": [
+    104,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 4
+  },
+  {
+   "id": "chip2",
+   "character": "potatobrawl/chip",
+   "at": [
+    108,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5
+  },
+  {
+   "id": "chip3",
+   "character": "potatobrawl/chip",
+   "at": [
+    112,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 6
+  },
+  {
+   "id": "chipx0",
+   "character": "potatobrawl/chip",
+   "at": [
+    118,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 9
+  },
+  {
+   "id": "chipx1",
+   "character": "potatobrawl/chip",
+   "at": [
+    122,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 10
+  },
+  {
+   "id": "chipx2",
+   "character": "potatobrawl/chip",
+   "at": [
+    126,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 11
+  },
+  {
+   "id": "chipx3",
+   "character": "potatobrawl/chip",
+   "at": [
+    130,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 12
+  },
+  {
+   "id": "chipS",
+   "character": "potatobrawl/chip",
+   "at": [
+    135,
+    0
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 17
+  }
+ ],
+ "props": [
+  {
+   "id": "d-sinker",
+   "kind": "sinker",
+   "x": -30,
+   "y": 0.45,
+   "z": 0,
+   "rot": 0,
+   "seed": 1,
+   "body": {
+    "density": 6000,
+    "bounce": 0.03,
+    "friction": 0.6
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "d-fishreel",
+   "kind": "fishreel",
+   "x": -29.45,
+   "y": 0.45,
+   "z": 0,
+   "rot": 0,
+   "seed": 1,
+   "body": {
+    "density": 1500,
+    "bounce": 0.08,
+    "friction": 0.5
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "d-tacklebox",
+   "kind": "tacklebox",
+   "x": -28.8,
+   "y": 0.45,
+   "z": 0,
+   "rot": 0,
+   "seed": 1,
+   "body": {
+    "shape": "box",
+    "density": 700,
+    "bounce": 0.03,
+    "friction": 0.8
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "d-baittin",
+   "kind": "baittin",
+   "x": -30,
+   "y": 0.45,
+   "z": 0.65,
+   "rot": 0,
+   "seed": 1,
+   "body": {
+    "density": 1200,
+    "bounce": 0.06,
+    "friction": 0.5
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "d-iceauger",
+   "kind": "iceauger",
+   "x": -29.25,
+   "y": 0.45,
+   "z": 0.65,
+   "rot": 20,
+   "seed": 1,
+   "body": {
+    "density": 2500,
+    "bounce": 0.05,
+    "friction": 0.7
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "d-anchor",
+   "kind": "anchor",
+   "x": -28.45,
+   "y": 0.45,
+   "z": 0.65,
+   "rot": 0,
+   "seed": 1,
+   "body": {
+    "density": 7000,
+    "bounce": 0,
+    "friction": 0.9
+   },
+   "staged": "bench: dropped from 0.45 m at 0.3 s"
+  },
+  {
+   "id": "k-sinker-0",
+   "kind": "sinker",
+   "x": 3.9445125,
+   "z": -0.055487499999999995,
+   "rot": 0,
+   "seed": 1,
+   "shape": "pear"
+  },
+  {
+   "id": "k-sinker-1",
+   "kind": "sinker",
+   "x": 4.0554875,
+   "z": -0.055487499999999995,
+   "rot": 90,
+   "seed": 1,
+   "shape": "pear"
+  },
+  {
+   "id": "k-sinker-2",
+   "kind": "sinker",
+   "x": 3.9445125,
+   "z": 0.055487499999999995,
+   "rot": 180,
+   "seed": 1,
+   "shape": "ball"
+  },
+  {
+   "id": "k-sinker-3",
+   "kind": "sinker",
+   "x": 4.0554875,
+   "z": 0.055487499999999995,
+   "rot": 270,
+   "seed": 1,
+   "shape": "coin"
+  },
+  {
+   "id": "k-fishreel-0",
+   "kind": "fishreel",
+   "x": 7.928125,
+   "z": -0.071875,
+   "rot": 0,
+   "seed": 1
+  },
+  {
+   "id": "k-fishreel-1",
+   "kind": "fishreel",
+   "x": 8.071875,
+   "z": -0.071875,
+   "rot": 90,
+   "seed": 1
+  },
+  {
+   "id": "k-fishreel-2",
+   "kind": "fishreel",
+   "x": 7.928125,
+   "z": 0.071875,
+   "rot": 180,
+   "seed": 1
+  },
+  {
+   "id": "k-fishreel-3",
+   "kind": "fishreel",
+   "x": 8.071875,
+   "z": 0.071875,
+   "rot": 270,
+   "seed": 1
+  },
+  {
+   "id": "k-tacklebox-0",
+   "kind": "tacklebox",
+   "x": 11.8735,
+   "z": -0.1265,
+   "rot": 0,
+   "seed": 1
+  },
+  {
+   "id": "k-tacklebox-1",
+   "kind": "tacklebox",
+   "x": 12.1265,
+   "z": -0.1265,
+   "rot": 90,
+   "seed": 1
+  },
+  {
+   "id": "k-tacklebox-2",
+   "kind": "tacklebox",
+   "x": 11.8735,
+   "z": 0.1265,
+   "rot": 180,
+   "seed": 1
+  },
+  {
+   "id": "k-tacklebox-3",
+   "kind": "tacklebox",
+   "x": 12.1265,
+   "z": 0.1265,
+   "rot": 270,
+   "seed": 1
+  },
+  {
+   "id": "k-baittin-0",
+   "kind": "baittin",
+   "x": 15.92211625,
+   "z": -0.07788375,
+   "rot": 0,
+   "seed": 1
+  },
+  {
+   "id": "k-baittin-1",
+   "kind": "baittin",
+   "x": 16.07788375,
+   "z": -0.07788375,
+   "rot": 90,
+   "seed": 1
+  },
+  {
+   "id": "k-baittin-2",
+   "kind": "baittin",
+   "x": 15.92211625,
+   "z": 0.07788375,
+   "rot": 180,
+   "seed": 1
+  },
+  {
+   "id": "k-baittin-3",
+   "kind": "baittin",
+   "x": 16.07788375,
+   "z": 0.07788375,
+   "rot": 270,
+   "seed": 1
+  },
+  {
+   "id": "k-iceauger-0",
+   "kind": "iceauger",
+   "x": 19.6987,
+   "z": -0.3013,
+   "rot": 0,
+   "seed": 1
+  },
+  {
+   "id": "k-iceauger-1",
+   "kind": "iceauger",
+   "x": 20.3013,
+   "z": -0.3013,
+   "rot": 90,
+   "seed": 1
+  },
+  {
+   "id": "k-iceauger-2",
+   "kind": "iceauger",
+   "x": 19.6987,
+   "z": 0.3013,
+   "rot": 180,
+   "seed": 1
+  },
+  {
+   "id": "k-iceauger-3",
+   "kind": "iceauger",
+   "x": 20.3013,
+   "z": 0.3013,
+   "rot": 270,
+   "seed": 1
+  },
+  {
+   "id": "k-anchor-0",
+   "kind": "anchor",
+   "x": 23.8789625,
+   "z": -0.12103749999999999,
+   "rot": 0,
+   "seed": 1
+  },
+  {
+   "id": "k-anchor-1",
+   "kind": "anchor",
+   "x": 24.1210375,
+   "z": -0.12103749999999999,
+   "rot": 90,
+   "seed": 1
+  },
+  {
+   "id": "k-anchor-2",
+   "kind": "anchor",
+   "x": 23.8789625,
+   "z": 0.12103749999999999,
+   "rot": 180,
+   "seed": 1
+  },
+  {
+   "id": "k-anchor-3",
+   "kind": "anchor",
+   "x": 24.1210375,
+   "z": 0.12103749999999999,
+   "rot": 270,
+   "seed": 1
+  },
+  {
+   "id": "h-0",
+   "kind": "gearheap",
+   "x": 40,
+   "z": 0,
+   "seed": 7,
+   "fill": 0.15
+  },
+  {
+   "id": "h-1",
+   "kind": "gearheap",
+   "x": 44,
+   "z": 0,
+   "seed": 7,
+   "fill": 0.4
+  },
+  {
+   "id": "h-2",
+   "kind": "gearheap",
+   "x": 48,
+   "z": 0,
+   "seed": 7,
+   "fill": 0.7
+  },
+  {
+   "id": "h-3",
+   "kind": "gearheap",
+   "x": 52,
+   "z": 0,
+   "seed": 7,
+   "fill": 1
+  },
+  {
+   "id": "s-0",
+   "kind": "gearheap",
+   "x": 70.76,
+   "z": 0.57,
+   "seed": 7,
+   "fill": 1,
+   "slab": 1,
+   "slide": 0.3,
+   "staged": "bench: the heap is tipped under the floor on purpose",
+   "pivot": [
+    [
+     69.99,
+     1.18
+    ],
+    [
+     71.07,
+     -0.26
+    ]
+   ],
+   "strays": [
+    [
+     "iceauger",
+     70.55,
+     0,
+     0.9,
+     200,
+     1
+    ],
+    [
+     "anchor",
+     70.8,
+     0.3,
+     0.52,
+     35,
+     1
+    ],
+    [
+     "bucket",
+     71.12,
+     0,
+     1.05,
+     0,
+     1
+    ],
+    [
+     "sinker",
+     70.3,
+     0,
+     1,
+     40,
+     3
+    ],
+    [
+     "sinker",
+     71.2,
+     0,
+     0.55,
+     90,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "s-1",
+   "kind": "gearheap",
+   "x": 76.76,
+   "z": 0.57,
+   "seed": 7,
+   "fill": 1,
+   "slab": 1,
+   "slide": 0.7,
+   "staged": "bench: the heap is tipped under the floor on purpose",
+   "pivot": [
+    [
+     75.99,
+     1.18
+    ],
+    [
+     77.07,
+     -0.26
+    ]
+   ],
+   "strays": [
+    [
+     "iceauger",
+     76.55,
+     0,
+     0.9,
+     200,
+     1
+    ],
+    [
+     "anchor",
+     76.8,
+     0.3,
+     0.52,
+     35,
+     1
+    ],
+    [
+     "bucket",
+     77.12,
+     0,
+     1.05,
+     0,
+     1
+    ],
+    [
+     "sinker",
+     76.3,
+     0,
+     1,
+     40,
+     3
+    ],
+    [
+     "sinker",
+     77.2,
+     0,
+     0.55,
+     90,
+     5
+    ]
+   ]
+  },
+  {
+   "id": "hg-0",
+   "kind": "hoodiegear",
+   "wear": "chip0",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 1
+  },
+  {
+   "id": "hg-1",
+   "kind": "hoodiegear",
+   "wear": "chip1",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.6
+  },
+  {
+   "id": "hg-2",
+   "kind": "hoodiegear",
+   "wear": "chip2",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.3
+  },
+  {
+   "id": "hg-3",
+   "kind": "hoodiegear",
+   "wear": "chip3",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0
+  },
+  {
+   "id": "hgx-0",
+   "kind": "hoodiegear",
+   "wear": "chipx0",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.9
+  },
+  {
+   "id": "hgx-1",
+   "kind": "hoodiegear",
+   "wear": "chipx1",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.86
+  },
+  {
+   "id": "hgx-2",
+   "kind": "hoodiegear",
+   "wear": "chipx2",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.1
+  },
+  {
+   "id": "hgx-3",
+   "kind": "hoodiegear",
+   "wear": "chipx3",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 0.03
+  },
+  {
+   "id": "hgS",
+   "kind": "hoodiegear",
+   "wear": "chipS",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "fill": 1
+  },
+  {
+   "id": "hS",
+   "kind": "gearheap",
+   "x": 135.76,
+   "z": 0.57,
+   "seed": 7,
+   "fill": 1
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 4,
+   "text": "drop: before and settled",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 4,
+   "to": 5,
+   "text": "sinker: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 5,
+   "to": 6,
+   "text": "fishreel: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 6,
+   "to": 7,
+   "text": "tacklebox: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 7,
+   "to": 8,
+   "text": "baittin: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 8,
+   "to": 9,
+   "text": "iceauger: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 9,
+   "to": 10,
+   "text": "anchor: rot 0, 90, 180, 270",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 10,
+   "to": 11,
+   "text": "gearheap fill 0.15",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 11,
+   "to": 12,
+   "text": "gearheap fill 0.4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 12,
+   "to": 13,
+   "text": "gearheap fill 0.7",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 13,
+   "to": 14,
+   "text": "gearheap fill 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 14,
+   "to": 15,
+   "text": "gearheap slab 1 slide 0.3",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 15,
+   "to": 16,
+   "text": "gearheap slab 1 slide 0.7",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 16,
+   "to": 17,
+   "text": "hoodiegear fill 1: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 17,
+   "to": 18,
+   "text": "hoodiegear fill 1: 3q",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 18,
+   "to": 19,
+   "text": "hoodiegear fill 1: side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 19,
+   "to": 20,
+   "text": "hoodiegear fill 1: close, from above",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 20,
+   "to": 21,
+   "text": "hoodiegear fill 1: the hem hint",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 21,
+   "to": 22,
+   "text": "hoodiegear fill 0.6: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 22,
+   "to": 23,
+   "text": "hoodiegear fill 0.6: 3q",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 23,
+   "to": 24,
+   "text": "hoodiegear fill 0.6: side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 24,
+   "to": 25,
+   "text": "hoodiegear fill 0.6: close, from above",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 25,
+   "to": 26,
+   "text": "hoodiegear fill 0.3: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 26,
+   "to": 27,
+   "text": "hoodiegear fill 0.3: 3q",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 27,
+   "to": 28,
+   "text": "hoodiegear fill 0.3: side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 28,
+   "to": 29,
+   "text": "hoodiegear fill 0.3: close, from above",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 29,
+   "to": 30,
+   "text": "hoodiegear fill 0: front",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 30,
+   "to": 31,
+   "text": "hoodiegear fill 0: 3q",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 31,
+   "to": 32,
+   "text": "hoodiegear fill 0: side",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 32,
+   "to": 33,
+   "text": "hoodiegear fill 0: close, from above",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 33,
+   "to": 34,
+   "text": "hoodiegear fill 0.9: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 34,
+   "to": 35,
+   "text": "hoodiegear fill 0.86: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 35,
+   "to": 36,
+   "text": "hoodiegear fill 0.1: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 36,
+   "to": 37,
+   "text": "hoodiegear fill 0.03: 3/4",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 37,
+   "to": 38,
+   "text": "A-close: Chip and the heap at fill 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  },
+  {
+   "from": 38,
+   "to": 39,
+   "text": "A-mid: Chip and the heap at fill 1",
+   "pos": 240,
+   "pop": false,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "drop",
+   "at": 0,
+   "len": 4,
+   "shot": {
+    "pos": [
+     -29.22,
+     5.127,
+     6.311
+    ],
+    "look": [
+     -29.22,
+     0.1,
+     0.32
+    ],
+    "fov": 28
+   },
+   "do": [
+    {
+     "who": "chip0",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip1",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip2",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip3",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipx0",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipx1",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipx2",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipx3",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipS",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "do": "physics",
+     "prop": "d-sinker",
+     "mode": "drop",
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "d-fishreel",
+     "mode": "drop",
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "d-tacklebox",
+     "mode": "drop",
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "d-baittin",
+     "mode": "drop",
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "d-iceauger",
+     "mode": "drop",
+     "at": 0.3
+    },
+    {
+     "do": "physics",
+     "prop": "d-anchor",
+     "mode": "drop",
+     "at": 0.3
+    }
+   ]
+  },
+  {
+   "name": "k-sinker",
+   "at": 4,
+   "len": 1,
+   "shot": {
+    "pos": [
+     4,
+     0.545,
+     0.85
+    ],
+    "look": [
+     4,
+     0.013,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "k-fishreel",
+   "at": 5,
+   "len": 1,
+   "shot": {
+    "pos": [
+     8,
+     0.653,
+     1.004
+    ],
+    "look": [
+     8,
+     0.026,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "k-tacklebox",
+   "at": 6,
+   "len": 1,
+   "shot": {
+    "pos": [
+     12,
+     1.067,
+     1.655
+    ],
+    "look": [
+     12,
+     0.033,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "k-baittin",
+   "at": 7,
+   "len": 1,
+   "shot": {
+    "pos": [
+     16,
+     0.684,
+     1.076
+    ],
+    "look": [
+     16,
+     0.011,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "k-iceauger",
+   "at": 8,
+   "len": 1,
+   "shot": {
+    "pos": [
+     20,
+     2.364,
+     3.736
+    ],
+    "look": [
+     20,
+     0.03,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "k-anchor",
+   "at": 9,
+   "len": 1,
+   "shot": {
+    "pos": [
+     24,
+     1.065,
+     1.59
+    ],
+    "look": [
+     24,
+     0.072,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-fill-0.15",
+   "at": 10,
+   "len": 1,
+   "shot": {
+    "pos": [
+     40.904,
+     1.044,
+     1.938
+    ],
+    "look": [
+     40,
+     0.18,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-fill-0.4",
+   "at": 11,
+   "len": 1,
+   "shot": {
+    "pos": [
+     44.904,
+     1.044,
+     1.938
+    ],
+    "look": [
+     44,
+     0.18,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-fill-0.7",
+   "at": 12,
+   "len": 1,
+   "shot": {
+    "pos": [
+     48.904,
+     1.044,
+     1.938
+    ],
+    "look": [
+     48,
+     0.18,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-fill-1",
+   "at": 13,
+   "len": 1,
+   "shot": {
+    "pos": [
+     52.904,
+     1.044,
+     1.938
+    ],
+    "look": [
+     52,
+     0.18,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-slide-0.3",
+   "at": 14,
+   "len": 1,
+   "shot": {
+    "pos": [
+     71.651,
+     1.604,
+     3.018
+    ],
+    "look": [
+     70.76,
+     0.1,
+     0.57
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "h-slide-0.7",
+   "at": 15,
+   "len": 1,
+   "shot": {
+    "pos": [
+     77.651,
+     1.604,
+     3.018
+    ],
+    "look": [
+     76.76,
+     0.1,
+     0.57
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-1-front",
+   "at": 16,
+   "len": 1,
+   "shot": {
+    "pos": [
+     100,
+     0.678,
+     1.975
+    ],
+    "look": [
+     100,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-1-3q",
+   "at": 17,
+   "len": 1,
+   "shot": {
+    "pos": [
+     101.216,
+     0.678,
+     1.556
+    ],
+    "look": [
+     100,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-1-side",
+   "at": 18,
+   "len": 1,
+   "shot": {
+    "pos": [
+     101.967,
+     0.678,
+     0.172
+    ],
+    "look": [
+     100,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-1-close",
+   "at": 19,
+   "len": 1,
+   "shot": {
+    "pos": [
+     100.576,
+     0.706,
+     0.998
+    ],
+    "look": [
+     100,
+     0.24,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-hem",
+   "at": 20,
+   "len": 1,
+   "shot": {
+    "pos": [
+     100.677,
+     0.294,
+     0.788
+    ],
+    "look": [
+     100.1,
+     0.2,
+     0.1
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.6-front",
+   "at": 21,
+   "len": 1,
+   "shot": {
+    "pos": [
+     104,
+     0.678,
+     1.975
+    ],
+    "look": [
+     104,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.6-3q",
+   "at": 22,
+   "len": 1,
+   "shot": {
+    "pos": [
+     105.216,
+     0.678,
+     1.556
+    ],
+    "look": [
+     104,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.6-side",
+   "at": 23,
+   "len": 1,
+   "shot": {
+    "pos": [
+     105.967,
+     0.678,
+     0.172
+    ],
+    "look": [
+     104,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.6-close",
+   "at": 24,
+   "len": 1,
+   "shot": {
+    "pos": [
+     104.576,
+     0.706,
+     0.998
+    ],
+    "look": [
+     104,
+     0.24,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.3-front",
+   "at": 25,
+   "len": 1,
+   "shot": {
+    "pos": [
+     108,
+     0.678,
+     1.975
+    ],
+    "look": [
+     108,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.3-3q",
+   "at": 26,
+   "len": 1,
+   "shot": {
+    "pos": [
+     109.216,
+     0.678,
+     1.556
+    ],
+    "look": [
+     108,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.3-side",
+   "at": 27,
+   "len": 1,
+   "shot": {
+    "pos": [
+     109.967,
+     0.678,
+     0.172
+    ],
+    "look": [
+     108,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0.3-close",
+   "at": 28,
+   "len": 1,
+   "shot": {
+    "pos": [
+     108.576,
+     0.706,
+     0.998
+    ],
+    "look": [
+     108,
+     0.24,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0-front",
+   "at": 29,
+   "len": 1,
+   "shot": {
+    "pos": [
+     112,
+     0.678,
+     1.975
+    ],
+    "look": [
+     112,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0-3q",
+   "at": 30,
+   "len": 1,
+   "shot": {
+    "pos": [
+     113.216,
+     0.678,
+     1.556
+    ],
+    "look": [
+     112,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0-side",
+   "at": 31,
+   "len": 1,
+   "shot": {
+    "pos": [
+     113.967,
+     0.678,
+     0.172
+    ],
+    "look": [
+     112,
+     0.33,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-0-close",
+   "at": 32,
+   "len": 1,
+   "shot": {
+    "pos": [
+     112.576,
+     0.706,
+     0.998
+    ],
+    "look": [
+     112,
+     0.24,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-x0.9",
+   "at": 33,
+   "len": 1,
+   "shot": {
+    "pos": [
+     118.771,
+     0.702,
+     1.336
+    ],
+    "look": [
+     118,
+     0.26,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-x0.86",
+   "at": 34,
+   "len": 1,
+   "shot": {
+    "pos": [
+     122.771,
+     0.702,
+     1.336
+    ],
+    "look": [
+     122,
+     0.26,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-x0.1",
+   "at": 35,
+   "len": 1,
+   "shot": {
+    "pos": [
+     126.771,
+     0.702,
+     1.336
+    ],
+    "look": [
+     126,
+     0.26,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "chip-x0.03",
+   "at": 36,
+   "len": 1,
+   "shot": {
+    "pos": [
+     130.771,
+     0.702,
+     1.336
+    ],
+    "look": [
+     130,
+     0.26,
+     0
+    ],
+    "fov": 28
+   },
+   "do": []
+  },
+  {
+   "name": "scene-A-close",
+   "at": 37,
+   "len": 1,
+   "shot": {
+    "pos": [
+     135.25,
+     0.75,
+     2.5
+    ],
+    "look": [
+     135.25,
+     0.38,
+     0
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "scene-A-mid",
+   "at": 38,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     135.55,
+     1.5,
+     4.5
+    ],
+    "look": [
+     135.45,
+     0.4,
+     -0.5
+    ],
+    "fov": 54
+   },
+   "do": []
+  }
+ ],
+ "notes": "Generated by make-icegear-bench.mjs (props bench, no reviews)."
+}
