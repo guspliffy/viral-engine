@@ -1,0 +1,211 @@
+{
+ "id": "desk06c-voice-probe",
+ "title": "Potato Desk 06 Five Coins voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   35.5,
+   35.5
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -2.1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 35.5,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Chip. I told you to turn it off.",
+     "tone": "angry",
+     "style": "deep, stern, annoyed, a judge",
+     "dur": 3.7,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I thought I did!",
+     "tone": "scared",
+     "style": "bright, fast, panicked, high",
+     "dur": 2.1,
+     "caption": false,
+     "at": 4.9
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Oh, good.",
+     "tone": "happy",
+     "style": "quiet, under his breath, smug, pleased",
+     "dur": 1.3,
+     "caption": false,
+     "at": 8
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Five coins for leaving it on.",
+     "tone": "angry",
+     "style": "deep, stern, firm",
+     "dur": 2.9,
+     "caption": false,
+     "at": 10.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Wedge. Yours too?",
+     "tone": "angry",
+     "style": "deep, stern, disappointed",
+     "dur": 1.7,
+     "caption": false,
+     "at": 14.2
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I turned the sound down.",
+     "tone": "sad",
+     "style": "low, slow, guilty, quiet",
+     "dur": 2.5,
+     "caption": false,
+     "at": 16.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Five coins.",
+     "tone": "angry",
+     "style": "deep, stern, short",
+     "dur": 1.3,
+     "caption": false,
+     "at": 20.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Mash. Was that your phone?",
+     "tone": "angry",
+     "style": "deep, stern, loud, accusing",
+     "dur": 2.5,
+     "caption": false,
+     "at": 22.7
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Look by your mug.",
+     "tone": "calm",
+     "style": "calm, slow, smug, relaxed",
+     "dur": 2.1,
+     "caption": false,
+     "at": 26.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Oh. Mine. No fine, Mash.",
+     "tone": "scared",
+     "style": "small, quiet, embarrassed, fast",
+     "take": 2,
+     "dur": 2.5,
+     "caption": false,
+     "at": 29.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Five coins, right?",
+     "tone": "calm",
+     "style": "calm, slow, smug, polite",
+     "dur": 1.7,
+     "caption": false,
+     "at": 32.8
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 06: makes and measures every take."
+}

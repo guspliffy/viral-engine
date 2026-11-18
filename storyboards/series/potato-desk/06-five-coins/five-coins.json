@@ -1,0 +1,2515 @@
+{
+ "id": "five-coins",
+ "title": "He blamed the wrong potato",
+ "idea": "Potato Desk 06: a Viking judge fines two potatoes 5 coins each for phones ringing in court; the third ringing phone is his own.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   26,
+   36
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "chip",
+   "cphone",
+   "board"
+  ],
+  "hint": 0,
+  "what": "a potato's phone rings in court and the judge glares at him"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 8,
+   "expr": "angry",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.45,
+    1.1
+   ],
+   "face": -20,
+   "expr": "shocked",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.62,
+    0.08
+   ],
+   "face": -20,
+   "expr": "annoyed",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    1.2,
+    -0.8
+   ],
+   "face": -20,
+   "expr": "smug",
+   "follow": 0.3,
+   "seed": 4.4
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": 2.1
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 3.8,
+   "h": 4.24
+  },
+  {
+   "id": "dado",
+   "staged": "panels fixed to the back wall",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true
+  },
+  {
+   "id": "board",
+   "staged": "screwed to the back wall",
+   "kind": "sentenceboard",
+   "x": 0.66,
+   "y": 2.01,
+   "z": -1.255,
+   "states": [
+    "?",
+    "5",
+    "?",
+    "5",
+    "?",
+    "0",
+    "?"
+   ],
+   "units": [
+    "",
+    "COINS",
+    "",
+    "COINS",
+    "",
+    "COINS",
+    ""
+   ]
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "chair",
+   "staged": "on a block on the bench's riser, hidden by the bench",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "plate",
+   "staged": "fixed to the bench front",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -1.12,
+   "y": 1.18,
+   "z": 0.22
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "bar": [
+    0.45,
+    1.1,
+    0.34,
+    0.09
+   ],
+   "queue": [
+    [
+     0.62,
+     0.08,
+     0.24,
+     0.06
+    ],
+    [
+     1.2,
+     -0.8,
+     0.24,
+     0.06
+    ]
+   ]
+  },
+  {
+   "id": "gavel",
+   "kind": "axegavel",
+   "x": -1.12,
+   "y": 1.24,
+   "z": 0.22,
+   "rot": 0
+  },
+  {
+   "id": "mug",
+   "kind": "campmug",
+   "x": -0.5,
+   "y": 1.18,
+   "z": -0.08,
+   "rot": 63
+  },
+  {
+   "id": "cphone",
+   "kind": "phone",
+   "scale": 1.2,
+   "halo": 0.22,
+   "haloK": 0.7,
+   "case": "#e8574a",
+   "x": 0.535,
+   "y": 0.42,
+   "z": 1.45,
+   "rot": 160
+  },
+  {
+   "id": "wphone",
+   "kind": "phone",
+   "scale": 1.2,
+   "halo": 0.22,
+   "haloK": 0.7,
+   "case": "#4a8fe8",
+   "x": 1.02,
+   "y": 0.3,
+   "z": 0.385,
+   "rot": 160
+  },
+  {
+   "id": "jphone",
+   "kind": "phone",
+   "scale": 1.2,
+   "halo": 0.22,
+   "haloK": 0.7,
+   "case": "#3a3f4a",
+   "x": -0.2,
+   "y": 1.186,
+   "z": -0.02,
+   "rot": 8,
+   "tip": -90
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.55,
+   "to": 3.08,
+   "text": "Chip. I told you to *turn it off.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.08,
+   "to": 4.31,
+   "text": "I thought I did!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.31,
+   "to": 5.51,
+   "text": "Oh, good.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 5.51,
+   "to": 7.7,
+   "text": "*5 coins* for leaving it on.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.01,
+   "to": 12.01,
+   "text": "Wedge. Yours too?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.01,
+   "to": 14.13,
+   "text": "I turned the sound down.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 14.13,
+   "to": 15.62,
+   "text": "*5 coins.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 17.19,
+   "to": 19.19,
+   "text": "Mash. Was that *your* phone?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.19,
+   "to": 20.5,
+   "text": "Look by your *mug.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 22.917,
+   "to": 23.21,
+   "text": "Oh. *Mine.* No fine, Mash.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 25.827,
+   "to": 27.627,
+   "text": "*5 coins,* right?",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "chip's phone",
+   "at": 0,
+   "len": 8.36,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "off": [
+       0.07,
+       0.02,
+       -0.017
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "off": [
+       0.07,
+       0.02,
+       -0.017
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cphone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ringtone",
+     "gain": 0.55,
+     "dur": 1.6,
+     "reason": "a phone ringing in court",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "gavel",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.121,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "chip",
+     "do": "grab",
+     "prop": "cphone",
+     "hand": "L",
+     "grip": [
+      -0.068,
+      0.065,
+      -0.008
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "wedge",
+     "do": "grab",
+     "prop": "wphone",
+     "hand": "L",
+     "grip": [
+      -0.068,
+      0.065,
+      -0.008
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Chip. I told you to turn it off.",
+     "tone": "angry",
+     "style": "deep, stern, annoyed, a judge",
+     "dur": 2.33,
+     "caption": false,
+     "at": 0.55
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.15,
+     "at": 2.98
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "I thought I did!",
+     "tone": "scared",
+     "style": "bright, fast, panicked, high",
+     "dur": 1.08,
+     "caption": false,
+     "at": 3.08
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.4
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.9
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.3
+     ],
+     "dur": 0.25,
+     "at": 4.01
+    },
+    {
+     "do": "prop",
+     "id": "cphone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 4.06
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.2,
+     "at": 4.06
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.3
+     ],
+     "dur": 0.15,
+     "at": 4.06
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 4.11
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Oh, good.",
+     "tone": "happy",
+     "style": "quiet, under his breath, smug, pleased",
+     "dur": 1,
+     "caption": false,
+     "at": 4.31
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.2,
+     "at": 5.36
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.25,
+     "at": 5.41
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Five coins for leaving it on.",
+     "tone": "angry",
+     "style": "deep, stern, firm",
+     "dur": 1.89,
+     "caption": false,
+     "at": 5.51
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.6
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.6
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 7.05
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 7.24
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 7.3
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 7.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.15,
+     "at": 7.31
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.2,
+     "at": 7.31
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 7.37
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.747,
+       0.2,
+       1.336
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 7.41
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -36.87,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.86
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.666,
+       0.2,
+       1.412
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.86
+    },
+    {
+     "do": "prop",
+     "id": "cphone",
+     "set": {
+      "rot": 143.13
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.86
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "wedge's phone",
+   "at": 8.36,
+   "len": 7.83,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.15,
+      1.9
+     ],
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.066,
+       0.2,
+       2.212
+      ]
+     },
+     "dur": 1,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ringtone",
+     "gain": 0.38,
+     "dur": 1.6,
+     "reason": "a phone ringing in court",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.12,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.45,
+      -0.35
+     ],
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -9.462,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       1.069,
+       0.3,
+       0.307
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 170.538
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.47
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.74
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.45,
+      1.1
+     ],
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.899,
+       0.3,
+       1.327
+      ]
+     },
+     "dur": 1.2,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.229,
+       0.2,
+       1.923
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "cphone",
+     "set": {
+      "rot": 195
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.95
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Wedge. Yours too?",
+     "tone": "angry",
+     "style": "deep, stern, disappointed",
+     "dur": 1.8,
+     "caption": false,
+     "at": 1.65
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.85,
+       0.3,
+       1.405
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 160
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.561,
+       0.55,
+       1.672
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 3.15
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.2
+     ],
+     "dur": 0.2,
+     "at": 3.35
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 3.55
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "I turned the sound down.",
+     "tone": "sad",
+     "style": "low, slow, guilty, quiet",
+     "dur": 1.92,
+     "caption": false,
+     "at": 3.65
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.04
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.84
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 5.42
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.2,
+     "at": 5.42
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.15,
+     "at": 5.67
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Five coins.",
+     "tone": "angry",
+     "style": "deep, stern, short",
+     "dur": 1.19,
+     "caption": false,
+     "at": 5.77
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 6.22
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 6.41
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.6,
+     "at": 6.47
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 6.47
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.15,
+     "at": 6.48
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.2,
+     "at": 6.48
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6.54
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 6.54
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.85,
+       0.3,
+       1.405
+      ]
+     },
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 6.58
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.23
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.3,
+       0.3,
+       1.58
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.23
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 90
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.23
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 7.54
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.15,
+      1.1
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.73
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0,
+       0.3,
+       1.58
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 7.73
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      0.48,
+      0.3
+     ],
+     "dur": 1.4,
+     "ease": "inOut",
+     "at": 7.73
+    }
+   ]
+  },
+  {
+   "name": "the third ring",
+   "at": 16.19,
+   "len": 6.373,
+   "shot": "keep",
+   "do": [
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "sfx": "ringtone",
+     "gain": 0.5,
+     "dur": 1.6,
+     "reason": "a phone ringing in court",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.3
+     ],
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 4
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -96.34,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.052,
+       0.3,
+       1.561
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 83.66
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -96.34,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.052,
+       0.3,
+       1.561
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.35
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.37
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.75,
+      1
+     ],
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.952,
+       0.3,
+       1.461
+      ]
+     },
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 0.85
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Mash. Was that your phone?",
+     "tone": "angry",
+     "style": "deep, stern, loud, accusing",
+     "dur": 1.75,
+     "caption": false,
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.251,
+       0.3,
+       1.064
+      ]
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 190
+     },
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.42,
+       0.62,
+       0.25
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 2.55
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.3,
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.3
+     ],
+     "dur": 0.2,
+     "at": 2.8
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Look by your mug.",
+     "tone": "calm",
+     "style": "calm, slow, smug, relaxed",
+     "dur": 1.31,
+     "caption": false,
+     "at": 3
+    },
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "glow": 1
+     },
+     "dur": 0.08,
+     "ease": "inOut",
+     "at": 3.5
+    },
+    {
+     "sfx": "ringtone",
+     "gain": 0.5,
+     "dur": 1.6,
+     "reason": "a phone ringing in court",
+     "at": 3.5
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.85
+     ],
+     "dur": 0.25,
+     "at": 4.11
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.3
+     ],
+     "dur": 0.25,
+     "at": 4.21
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.15,
+     "at": 4.26
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.85,
+      0.3
+     ],
+     "dur": 0.25,
+     "at": 4.31
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.41
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 4.41
+    },
+    {
+     "who": "mash",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.35,
+     "at": 4.41
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 4.46
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "jphone",
+      "grip": [
+       -0.049,
+       0.078,
+       0.06
+      ],
+      "palm": true,
+      "off": [
+       -0.05,
+       0.07,
+       0.007
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 4.46
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 4.91
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "jphone",
+      "grip": [
+       -0.049,
+       0.078,
+       0.06
+      ],
+      "palm": true
+     },
+     "dur": 0.2,
+     "ease": "settle",
+     "at": 4.96
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 5.08
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "jphone",
+     "hand": "L",
+     "grip": [
+      -0.049,
+      0.078,
+      0.06
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 5.22
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "jphone",
+      "grip": [
+       -0.049,
+       0.078,
+       0.06
+      ],
+      "palm": true,
+      "at": [
+       -0.2,
+       1.236,
+       -0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 5.3
+    },
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "tip": -50
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 5.3
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "jphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.2,
+       1.256,
+       -0.02
+      ]
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 5.55
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "jphone",
+     "hand": "L",
+     "grip": [
+      -0.068,
+      0.065,
+      -0.008
+     ],
+     "dur": 0.25,
+     "pose": null,
+     "at": 5.55
+    },
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "tip": -12
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 5.55
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "jphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.42,
+       1.54,
+       0.02
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 5.82
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.3
+     ],
+     "dur": 0.2,
+     "at": 6.22
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "his own phone",
+   "at": 22.563,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -0.7,
+     1.95,
+     3.9
+    ],
+    "look": [
+     -0.6,
+     1.95,
+     -0.4
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.237
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 0.254
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Oh. Mine. No fine, Mash.",
+     "tone": "scared",
+     "style": "small, quiet, embarrassed, fast",
+     "take": 2,
+     "dur": 2.26,
+     "caption": false,
+     "at": 0.354
+    },
+    {
+     "do": "prop",
+     "id": "jphone",
+     "set": {
+      "glow": 0
+     },
+     "dur": 0.12,
+     "ease": "inOut",
+     "at": 1.154
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.2,
+     "at": 1.154
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.3
+     ],
+     "dur": 0.25,
+     "at": 1.354
+    }
+   ]
+  },
+  {
+   "name": "five coins, right?",
+   "at": 25.263,
+   "len": 4.47,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.34,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.054
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 0.244
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 0.6,
+     "at": 0.304
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 5
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.304
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.374
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0.464
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.2,
+     "at": 0.464
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Five coins, right?",
+     "tone": "calm",
+     "style": "calm, slow, smug, polite",
+     "dur": 1.5,
+     "caption": false,
+     "at": 0.564
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "at": 2.164
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       0.21,
+       0.2,
+       2.02
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.164
+    },
+    {
+     "do": "prop",
+     "id": "cphone",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.164
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "at": 2.164
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.164
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "at": 2.314
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "wphone",
+      "grip": [
+       -0.068,
+       0.065,
+       -0.008
+      ],
+      "palm": true,
+      "at": [
+       -0.27,
+       0.3,
+       1.15
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.314
+    },
+    {
+     "do": "prop",
+     "id": "wphone",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 2.314
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.3,
+     "at": 2.314
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.314
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.1,
+      0
+     ],
+     "dur": 0.3,
+     "at": 2.614
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "deadpan",
+     "dur": 0.3,
+     "at": 2.614
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 2.88,
+   "see": [
+    "vik.face",
+    "chip.face",
+    "cphone"
+   ],
+   "why": "Chip's phone rings in court; the judge glares"
+  },
+  {
+   "from": 4.31,
+   "to": 5.31,
+   "see": [
+    "mash.face"
+   ],
+   "why": "Mash eyes the judge's mug and smiles"
+  },
+  {
+   "from": 5.51,
+   "to": 7.91,
+   "see": [
+    "vik.face",
+    "board",
+    "chip.face"
+   ],
+   "why": "5 COINS on the board"
+  },
+  {
+   "from": 10.01,
+   "to": 15.44,
+   "see": [
+    "vik.face",
+    "board",
+    "wedge.face",
+    "wphone"
+   ],
+   "why": "Wedge's phone: 5 COINS on the board"
+  },
+  {
+   "from": 19.19,
+   "to": 20.5,
+   "see": [
+    "mash.face",
+    "jphone"
+   ],
+   "why": "Mash points at the judge's ringing phone"
+  },
+  {
+   "from": 22.567,
+   "to": 25.267,
+   "see": [
+    "vik.face",
+    "jphone"
+   ],
+   "why": "the judge holds up his own phone"
+  },
+  {
+   "from": 28.027,
+   "to": 29.733,
+   "see": [
+    "chip.face",
+    "wedge.face",
+    "vik.face",
+    "jphone"
+   ],
+   "why": "Chip, Wedge and the judge stare at us"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 0,
+   "to": 29.733,
+   "reason": "the judge sits in his chair"
+  },
+  {
+   "who": "vik",
+   "with": "bench",
+   "from": 20.65,
+   "to": 21.55,
+   "reason": "his fingers slide under the flat phone's edge on the deck to lift it; the deck top is seen edge-on from the wide camera, so they read as behind the deck's front edge"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/06-five-coins/make-five-coins.mjs."
+}

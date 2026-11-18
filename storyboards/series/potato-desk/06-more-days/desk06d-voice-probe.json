@@ -1,0 +1,230 @@
+{
+ "id": "desk06d-voice-probe",
+ "title": "Potato Desk 06 More days voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   42.5,
+   42.5
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "dragon",
+   "character": "potatobrawl/dragon",
+   "at": [
+    -2.1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 42.5,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "ONE day? I'm a dragon!",
+     "tone": "angry",
+     "style": "outraged, insulted, loud, trying to sound big",
+     "dur": 2.5,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "One toasted marshmallow. One day.",
+     "tone": "calm",
+     "style": "deep, dry, bored, reading from a file",
+     "dur": 2.5,
+     "caption": false,
+     "at": 3.7
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "I am forty feet tall!",
+     "tone": "angry",
+     "style": "loud, proud, puffed up",
+     "dur": 2.5,
+     "caption": false,
+     "at": 7.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "That's a lie. One more day.",
+     "tone": "calm",
+     "style": "deep, dry, firm",
+     "dur": 2.9,
+     "caption": false,
+     "at": 10.7
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "...It goes up?",
+     "tone": "happy",
+     "style": "quiet, surprised, slowly delighted",
+     "dur": 1.7,
+     "caption": false,
+     "at": 14.6
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "My wings block out the sun!",
+     "tone": "happy",
+     "style": "loud, grand, showing off",
+     "dur": 2.9,
+     "caption": false,
+     "at": 17.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Another lie. Three days.",
+     "tone": "calm",
+     "style": "deep, dry, tired",
+     "dur": 2.1,
+     "caption": false,
+     "at": 21.2
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "I breathe rivers of fire!",
+     "tone": "happy",
+     "style": "loud, grand, very proud",
+     "dur": 2.5,
+     "caption": false,
+     "at": 24.3
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Four days.",
+     "tone": "calm",
+     "style": "deep, dry, bored",
+     "dur": 1.3,
+     "caption": false,
+     "at": 27.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Four days. He's so scary.",
+     "tone": "scared",
+     "style": "low, quiet whisper, impressed",
+     "dur": 2.5,
+     "caption": false,
+     "at": 30.1
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "And NOTHING scares me!",
+     "tone": "angry",
+     "style": "loudest, proud, shouting",
+     "dur": 2.1,
+     "caption": false,
+     "at": 33.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "That's a lie too.",
+     "tone": "calm",
+     "style": "deep, dry, flat",
+     "dur": 2.1,
+     "caption": false,
+     "at": 36.7
+    },
+    {
+     "who": "dragon",
+     "macro": "say",
+     "line": "...One was fine.",
+     "tone": "sad",
+     "style": "tiny, small, quiet, embarrassed",
+     "dur": 1.7,
+     "caption": false,
+     "at": 39.8
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 06: makes and measures every take."
+}
