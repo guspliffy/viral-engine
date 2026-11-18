@@ -102,6 +102,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
   follow, share, comment, like or tag a friend ("Follow, or you'll miss part 2.", "Send this to your friend who...").
   The story ends on its payoff. Asks in the post itself (caption question, poll) are posting rules
   (`docs/rules/posting.md`), not part of this line.
+- **No cast names on screen** (18 Nov, every video): viewers don't know our names (Chip, Wedge, Mash, Spud...), so no
+  name in a spoken line, caption, poll or post text; say "you", "he", "my friend", the big one, and point or look.
+  Names stay in scripts and code. Exception: a character whose look says who he is (the Wizard, the Samurai, the
+  Dragon, the Viking) may be called that.
 - **Gibberish is always captioned** with its words, in the speaker's colour, timed to the line.
 - **No title card or freeze mid-video** (9 Nov): the title is added in the app. No silent freeze before a punchline
   (it looked like a playback bug and lost a third of viewers in one second). Hit-stops and slow-motion close-ups are
