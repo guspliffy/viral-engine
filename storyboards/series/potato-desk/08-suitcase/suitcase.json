@@ -1,0 +1,2655 @@
+{
+ "id": "suitcase",
+ "title": "His suitcase fit too well",
+ "idea": "Potato Desk 08: at the gate a passenger rams his bag into the BAG CHECK box; it never comes out, so he takes the box too.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "far": 800,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#cfd6dc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   40,
+   50
+  ]
+ },
+ "hook": {
+  "show": [
+   "wedge",
+   "unit",
+   "board"
+  ],
+  "hint": 0,
+  "what": "a passenger forcing his suitcase into the red BAG CHECK box at an airport gate"
+ },
+ "cast": [
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    -0.9,
+    -1.45
+   ],
+   "face": 25,
+   "expr": "deadpan",
+   "follow": 0.2,
+   "seed": 4.4
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.3,
+    -0.78
+   ],
+   "face": -25,
+   "expr": "focused",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.94,
+    -0.3
+   ],
+   "face": -30,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 2.3
+  },
+  {
+   "id": "q1",
+   "character": "potatobrawl/rosti",
+   "at": [
+    1.05,
+    -1.9
+   ],
+   "face": -20,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 5.1
+  },
+  {
+   "id": "q2",
+   "character": "potatobrawl/rosti",
+   "at": [
+    0.8,
+    -2.45
+   ],
+   "face": -15,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 6.7
+  },
+  {
+   "id": "q3",
+   "character": "potatobrawl/rosti",
+   "at": [
+    1.25,
+    -2.75
+   ],
+   "face": -25,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 7.9
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": -0.2,
+   "w": 5.6,
+   "d": 6,
+   "tile": 0.5,
+   "a": "#46629E",
+   "b": "#415C96"
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": -1.375,
+   "y": 0,
+   "z": -3,
+   "w": 2.85,
+   "h": 3.3
+  },
+  {
+   "id": "hall",
+   "kind": "gatehall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "sky",
+   "kind": "biminisky",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "jet",
+   "kind": "airliner",
+   "x": 22.5,
+   "y": 3.56,
+   "z": -150,
+   "rot": -90,
+   "lit": 0
+  },
+  {
+   "id": "gear",
+   "kind": "jetgear",
+   "x": 9,
+   "y": 0,
+   "z": -150
+  },
+  {
+   "id": "desk",
+   "kind": "woodcounter",
+   "x": -1.3,
+   "y": 0,
+   "z": -0.825,
+   "w": 1.3,
+   "d": 0.45,
+   "h": 0.6
+  },
+  {
+   "id": "monitor",
+   "staged": "on the desk",
+   "kind": "flatmonitor",
+   "x": -1.5,
+   "y": 0.6,
+   "z": -0.85,
+   "rot": 180
+  },
+  {
+   "id": "board",
+   "staged": "on the back wall",
+   "kind": "gateboard",
+   "x": -0.75,
+   "y": 1.925,
+   "z": -2.955
+  },
+  {
+   "id": "posts",
+   "kind": "stanchions",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "posts": [
+    [
+     1.42,
+     -1.3
+    ],
+    [
+     1.42,
+     -2.8
+    ]
+   ]
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "strip": 0,
+   "bar": [
+    -0.52,
+    -0.42,
+    0.14,
+    0.14
+   ],
+   "barColor": "#8FA5D6",
+   "queue": [
+    [
+     0.02,
+     -0.42,
+     0.14,
+     0.14
+    ],
+    [
+     -0.52,
+     -0.08,
+     0.14,
+     0.14
+    ],
+    [
+     0.02,
+     -0.08,
+     0.14,
+     0.14
+    ]
+   ],
+   "queueColor": "#8FA5D6"
+  },
+  {
+   "id": "cap",
+   "kind": "policecap",
+   "wear": "mash",
+   "x": 0,
+   "y": 1.33,
+   "z": 0.02,
+   "r": 0.2,
+   "badge": false
+  },
+  {
+   "id": "pack",
+   "kind": "backpack",
+   "wear": "chip",
+   "x": 0,
+   "y": 0.34,
+   "z": -0.24,
+   "scale": 0.53,
+   "color": "#4E79A7"
+  },
+  {
+   "id": "tape",
+   "kind": "tapemeasure",
+   "x": -0.95,
+   "y": 0.64,
+   "z": -0.72,
+   "rot": 0,
+   "pull": 0
+  },
+  {
+   "id": "unit",
+   "kind": "bagsizer",
+   "x": -0.25,
+   "y": 0.99,
+   "z": -0.36,
+   "rot": 0,
+   "roll": 0,
+   "insert": 0.35,
+   "handle": 1,
+   "pivot": "base"
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.15,
+   "to": 1.85,
+   "text": "Bags in the box, please.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3,
+   "to": 4.1,
+   "text": "It fits!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.2,
+   "to": 6.1,
+   "text": "Great. Now take it out.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7,
+   "to": 8.1,
+   "text": "One sec.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 15,
+   "to": 16.2,
+   "text": "Hurry up!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.4,
+   "to": 20.3,
+   "text": "Pull!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 23.4,
+   "to": 26.8,
+   "text": "Bags that don't come out go in the hold. Ten coins.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 29.2,
+   "to": 30.6,
+   "text": "...It fits.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 32.2,
+   "to": 33.9,
+   "text": "...Rules are rules.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 35,
+   "to": 36.2,
+   "text": "Thank you!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 40.8,
+   "to": 42.4,
+   "text": "We'll use this now.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "bag in the box",
+   "at": 0,
+   "len": 6.3,
+   "shot": {
+    "pos": [
+     -0.3,
+     1.8,
+     5.8
+    ],
+    "look": [
+     -0.3,
+     1.45,
+     -0.8
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "insert": 0.35,
+      "handle": 1
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "q1",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "q2",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "q3",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.25
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.07,
+       0.312,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.07,
+       0.312,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "press",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Bags in the box, please.",
+     "tone": "calm",
+     "style": "flat, bored, polite, an airline gate agent",
+     "dur": 1.3,
+     "caption": false,
+     "at": 0.15
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 0.99,
+      "insert": 1
+     },
+     "dur": 2.3,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 2.3,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 2.3,
+     "ease": "in",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 14,
+     "dur": 0.5,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.2
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.6
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 2.7
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.35,
+     "at": 2.75
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.26,
+       0.62,
+       0.1
+      ]
+     },
+     "dur": 0.35,
+     "at": 2.75
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.26,
+       0.62,
+       0.1
+      ]
+     },
+     "dur": 0.35,
+     "at": 2.75
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 2.8
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.2,
+     "at": 2.8
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "It fits!",
+     "tone": "happy",
+     "style": "proud, loud, very pleased with himself",
+     "dur": 0.7,
+     "caption": false,
+     "at": 3
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.9
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.7
+     ],
+     "dur": 0.25,
+     "at": 3.9
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Great. Now take it out.",
+     "tone": "calm",
+     "style": "flat, deadpan, slow",
+     "dur": 1.5,
+     "caption": false,
+     "at": 4.2
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.1
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -42.064,
+     "dur": 0.35,
+     "at": 6.2
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "take it out",
+   "at": 6.3,
+   "len": 3.7,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.12,
+      -0.66
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.25
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "One sec.",
+     "tone": "calm",
+     "style": "straining, trying to sound casual",
+     "dur": 0.7,
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "tap",
+     "side": "R",
+     "count": 4,
+     "every": 0.32,
+     "lift": 1,
+     "at": 1.32
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -14,
+     "dur": 0.4,
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 1.9
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 0.99,
+      "roll": -2
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.1
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 0.99,
+      "roll": 2
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.1
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 0.99,
+      "roll": -2
+     },
+     "dur": 0.25,
+     "ease": "inOut",
+     "at": 3.1
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 0.99,
+      "roll": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 3.45
+    }
+   ]
+  },
+  {
+   "name": "the lift",
+   "at": 10,
+   "len": 8.5,
+   "shot": "keep",
+   "do": [
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.133,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -22,
+     "dur": 0.3,
+     "at": 0.6
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": -0.15,
+      "z": -0.51,
+      "y": 1.29,
+      "roll": -15
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.4
+     ],
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 1.3
+    },
+    {
+     "who": "q1",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.4
+     ],
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "q1",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q1",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q1",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 1.3
+    },
+    {
+     "who": "q2",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.4
+     ],
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "q2",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q2",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q2",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 1.3
+    },
+    {
+     "who": "q3",
+     "do": "look",
+     "to": [
+      -0.15,
+      -0.4
+     ],
+     "dur": 0.2,
+     "at": 1.3
+    },
+    {
+     "who": "q3",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.45,
+      "eye": 1.425,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q3",
+     "do": "face",
+     "brow": 0.45,
+     "dur": 0.25,
+     "at": 1.3
+    },
+    {
+     "who": "q3",
+     "do": "still",
+     "dur": 1.1,
+     "idle": 0.08,
+     "at": 1.3
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.6
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -70.974,
+     "dur": 0.3,
+     "at": 2.8
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.8
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 2.8
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.8,
+      0.3
+     ],
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 2.9
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.3
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.3,
+     "at": 3.85
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.15,
+      -0.7
+     ],
+     "dur": 0.4,
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.4,
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 4
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 0.15,
+      "z": -0.7,
+      "y": 1.16,
+      "roll": 180,
+      "handle": 0.2
+     },
+     "dur": 0.7,
+     "ease": "inOut",
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.7,
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.7,
+     "at": 4
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.3,
+      0.6
+     ],
+     "dur": 0.25,
+     "at": 4.3
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2
+     },
+     "dur": 0.133,
+     "ease": "inOut",
+     "at": 4.4
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 4.8
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 1.22
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 4.9
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "fist",
+     "dur": 0.25,
+     "at": 4.9
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "fist",
+     "dur": 0.25,
+     "at": 4.9
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Hurry up!",
+     "tone": "angry",
+     "style": "tiny, impatient, loud",
+     "dur": 0.8,
+     "caption": false,
+     "at": 5
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 1.16
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 5.25
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 1.22
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 5.6
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 1.16
+     },
+     "dur": 0.17,
+     "ease": "inOut",
+     "at": 5.95
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "y": 1.16
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 6.3
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 7.2
+    },
+    {
+     "who": "q1",
+     "do": "turn",
+     "to": -50.052,
+     "dur": 0.3,
+     "at": 7.5
+    },
+    {
+     "who": "q1",
+     "do": "move",
+     "to": [
+      -0.9199999999999999,
+      -0.25
+     ],
+     "dur": 1,
+     "at": 7.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.8,
+      0.25
+     ],
+     "dur": 0.6,
+     "at": 7.8
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -75.964,
+     "dur": 0.35,
+     "at": 7.9
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.3,
+      -0.1
+     ],
+     "dur": 0.5,
+     "at": 7.9
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": -0.3,
+      "z": -0.06,
+      "y": 0.99,
+      "roll": -12,
+      "handle": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 8
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.07,
+       0,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 8
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.3,
+     "at": 8.4
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "tug of war",
+   "at": 18.5,
+   "len": 4.5,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": -25,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "q1",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.32,
+       -0.55,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.32,
+       -0.55,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "q1",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "q1",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.32,
+       -0.4,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "q1",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.32,
+       -0.4,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -20,
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3
+     },
+     "dur": 0.133,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "q1",
+     "do": "lean",
+     "to": -20,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Pull!",
+     "tone": "angry",
+     "style": "straining, loud",
+     "dur": 0.5,
+     "caption": false,
+     "at": 0.9
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 0.02,
+      "z": -0.06,
+      "y": 0.99
+     },
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.62,
+      -0.1
+     ],
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.48,
+      0.25
+     ],
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "q1",
+     "do": "move",
+     "to": [
+      -0.6,
+      -0.25
+     ],
+     "dur": 2.5,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.9
+    },
+    {
+     "who": "wedge",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "q1",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "q1",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 4.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "who": "q1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "who": "q1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 4.1
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": -0.12,
+      "z": -0.06,
+      "y": 0.99,
+      "roll": 0
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 4.2
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      0.48,
+      -0.1
+     ],
+     "dur": 0.5,
+     "at": 4.3
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.68,
+      0.3
+     ],
+     "dur": 0.4,
+     "at": 4.3
+    },
+    {
+     "who": "q1",
+     "do": "turn",
+     "to": 135,
+     "dur": 0.3,
+     "at": 4.4
+    }
+   ]
+  },
+  {
+   "name": "the hold",
+   "at": 23,
+   "len": 4.5,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "q1",
+     "do": "move",
+     "to": [
+      1.05,
+      -1.9
+     ],
+     "dur": 1.2,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 15,
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.1
+     ],
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "Bags that don't come out go in the hold. Ten coins.",
+     "tone": "calm",
+     "style": "flat, deadpan, firm",
+     "dur": 3,
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.9,
+      -1.45
+     ],
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "q1",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "at": 1.6
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.8
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 3.6
+    }
+   ]
+  },
+  {
+   "name": "the sign",
+   "at": 27.5,
+   "len": 7,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.12,
+      0.05
+     ],
+     "dur": 0.4,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.4,
+     "at": 0.7
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 4
+     },
+     "dur": 0.133,
+     "ease": "inOut",
+     "at": 1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.45,
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -75.964,
+     "dur": 0.4,
+     "at": 1.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "...It fits.",
+     "tone": "calm",
+     "style": "slow, sly, a smile in the voice",
+     "dur": 1,
+     "caption": false,
+     "at": 1.7
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 2.3
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 18,
+     "dur": 0.5,
+     "at": 3.5
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.12,
+      0.05
+     ],
+     "dur": 0.3,
+     "at": 3.5
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.4,
+     "at": 3.9
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "...Rules are rules.",
+     "tone": "sad",
+     "style": "tired sigh, defeated, flat",
+     "dur": 1.3,
+     "caption": false,
+     "at": 4.7
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 5.5
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.6
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "point",
+     "dur": 0.35,
+     "at": 6.1
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      1.6,
+      -1.5
+     ],
+     "dur": 0.25,
+     "at": 6.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 6.9
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 83.443,
+     "dur": 0.35,
+     "at": 6.9
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 0.778,
+      "z": -0.176,
+      "y": 1.29,
+      "roll": -8,
+      "rot": 83.443
+     },
+     "dur": 0.35,
+     "ease": "out",
+     "at": 6.9
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       0.32,
+       -0.5,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 6.9
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "unit",
+      "grip": [
+       -0.32,
+       -0.5,
+       0.11
+      ],
+      "palm": true
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 6.9
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "boarding",
+   "at": 34.5,
+   "len": 6,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 83.443,
+     "dur": 0.3,
+     "at": 0.4
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thank you!",
+     "tone": "happy",
+     "style": "cheerful, loud, walking away",
+     "dur": 0.8,
+     "caption": false,
+     "at": 0.5
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.35,
+      0
+     ],
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 1.648,
+      "z": -0.076,
+      "y": 1.29,
+      "roll": -8,
+      "rot": 83.443
+     },
+     "dur": 1.6,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      1.35,
+      0
+     ],
+     "dur": 0.3,
+     "at": 0.7
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "at": 0.9
+    },
+    {
+     "who": "mash",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.9
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 162.646,
+     "dur": 0.3,
+     "at": 2.1
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.85,
+      -1.6
+     ],
+     "dur": 1,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 1.939,
+      "z": -1.996,
+      "y": 1.29,
+      "roll": -8,
+      "rot": 162.646
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 2.2
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.7
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.3,
+     "at": 3.2
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.85,
+      -3
+     ],
+     "dur": 1.3,
+     "ease": "linear",
+     "at": 3.3
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 1.85,
+      "z": -3.41,
+      "y": 1.29,
+      "roll": -8,
+      "rot": 180
+     },
+     "dur": 1.3,
+     "ease": "linear",
+     "at": 3.3
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 161.715,
+     "dur": 0.3,
+     "at": 3.4
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      -0.3,
+      -0.85
+     ],
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 3.5
+    },
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.85
+     ],
+     "dur": 0.3,
+     "at": 3.7
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.3,
+     "at": 4.4
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.25,
+      -0.25
+     ],
+     "dur": 0.25,
+     "at": 4.5
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.25,
+     "at": 4.5
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.3,
+     "at": 4.6
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.85,
+      -4.6
+     ],
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 4.7
+    },
+    {
+     "do": "prop",
+     "id": "unit",
+     "set": {
+      "x": 1.85,
+      "z": -5.01,
+      "y": 1.29,
+      "roll": -8,
+      "rot": 180
+     },
+     "dur": 1.2,
+     "ease": "linear",
+     "at": 4.7
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.85,
+      -1.28
+     ],
+     "dur": 0.25,
+     "at": 5.3
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      -0.85,
+      -1.28
+     ],
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 5.98
+    },
+    {
+     "who": "mash",
+     "do": "lean",
+     "to": 25,
+     "dur": 0.01,
+     "at": 5.98
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "x": -0.6,
+      "y": 0.36,
+      "z": -0.86,
+      "rot": 90
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 5.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0,
+       0.03,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 5.98
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0,
+       0.27,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "at": 5.98
+    }
+   ]
+  },
+  {
+   "name": "tape measure",
+   "at": 40.5,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     -0.15,
+     1.2,
+     1.6
+    ],
+    "look": [
+     -0.75,
+     0.85,
+     -1.2
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "mash",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.85
+     ],
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "macro": "say",
+     "line": "We'll use this now.",
+     "tone": "calm",
+     "style": "flat, deadpan, slow",
+     "dur": 1.2,
+     "caption": false,
+     "at": 0.3
+    },
+    {
+     "do": "prop",
+     "id": "tape",
+     "set": {
+      "pull": 0.8
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "tape",
+      "grip": [
+       0,
+       0.27,
+       0
+      ],
+      "palm": true
+     },
+     "dur": 1.6,
+     "at": 0.4
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3,
+   "see": [
+    "wedge.face",
+    "unit",
+    "board"
+   ],
+   "why": "a passenger forcing his bag into the BAG CHECK box at a gate"
+  },
+  {
+   "from": 2.8,
+   "to": 6,
+   "see": [
+    "wedge.face",
+    "unit",
+    "mash.face"
+   ],
+   "why": "it fits: proud passenger, calm agent"
+  },
+  {
+   "from": 6.3,
+   "to": 10,
+   "see": [
+    "wedge.face",
+    "unit"
+   ],
+   "why": "he pulls; the bag won't come out"
+  },
+  {
+   "from": 11,
+   "to": 14,
+   "see": [
+    "wedge.face",
+    "unit"
+   ],
+   "why": "the whole red box comes up with the bag"
+  },
+  {
+   "from": 14.6,
+   "to": 18.4,
+   "see": [
+    "wedge.face",
+    "unit",
+    "chip.face"
+   ],
+   "why": "upside down, shaken: still stuck"
+  },
+  {
+   "from": 18.6,
+   "to": 22.6,
+   "see": [
+    "wedge.face",
+    "chip.face",
+    "unit"
+   ],
+   "why": "tug of war: bag and box stay one piece"
+  },
+  {
+   "from": 23.4,
+   "to": 27,
+   "see": [
+    "mash.face",
+    "wedge.face"
+   ],
+   "why": "into the hold, ten coins: his face drops"
+  },
+  {
+   "from": 27.6,
+   "to": 31,
+   "see": [
+    "wedge.face",
+    "unit",
+    "board"
+   ],
+   "why": "he points at the sign: IF IT FITS / IT FLIES"
+  },
+  {
+   "from": 31,
+   "to": 34.4,
+   "see": [
+    "mash.face",
+    "unit"
+   ],
+   "why": "the agent reads his own sign and gives in"
+  },
+  {
+   "from": 34.5,
+   "to": 37.5,
+   "see": [
+    "wedge",
+    "unit"
+   ],
+   "why": "he walks to the plane carrying the whole box"
+  },
+  {
+   "from": 38.4,
+   "to": 40.4,
+   "see": [
+    "chip.face",
+    "marks"
+   ],
+   "why": "the box is gone: four marks on the carpet"
+  },
+  {
+   "from": 40.5,
+   "to": 44,
+   "see": [
+    "mash.face",
+    "tape",
+    "pack"
+   ],
+   "why": "the agent measures the tiny backpack"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/08-suitcase/make-suitcase.mjs. Engine-sheet stage: the unit is tweened, hands sit on its points (no grabs yet)."
+}

@@ -145,6 +145,8 @@ const SIZE = {
   chipbag: { w: 0.28, h: 0.33, t: 0.1 },
   mashbowl: { rim: 0.16, wall: [[0, 0.1], [0.02, 0.118], [0.05, 0.153], [0.09, 0.185], [0.13, 0.202], [0.16, 0.205]] },
   courtspoon: { len: 0.3, r: 0.0105 },
+  // props-gate.js (Potato Desk 08 the suitcase): tapemeasure's origin is the case CENTRE (0.065 x 0.065 x 0.032, the blade runs out of the top, +y): mug hold = a fist round the case at its centre (h 0, r = half the width)
+  tapemeasure: { r: 0.0325, h: 0, len: 0.065 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
