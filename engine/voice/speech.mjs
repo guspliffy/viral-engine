@@ -176,9 +176,10 @@ function readWav(file) {
 // river." is "actually not slow ... there needs to be a gap"). VoxCPM2 reads one voice at quite different speeds from
 // line to line: the happiness score film's narrator talked at 3.2 to 6.5 syllables/s, so the film's one 1.3x speed-up
 // made the fast takes sound rushed ("sometimes it's rushed"). A recipe's "rate" is that voice's usual talking speed; a
-// take over RATE_FAST faster or RATE_SLOW slower gets a warning when it is read (the slow side is wider: Jonny heard
-// "For the first time in three days, you didn't check." at 20 % under the usual speed as not slow, after the 1.3x).
-const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_FAST = 0.18, RATE_SLOW = 0.25;
+// take over RATE_FAST faster or RATE_SLOW slower gets a warning when it is read (the slow side is much wider: Jonny heard
+// even "Years ago, he wore these glasses." at 27 % under the usual speed as "not really slow" after the 1.3x; rushed is
+// what a speed-up makes worse).
+const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_FAST = 0.18, RATE_SLOW = 0.35;
 export function speakingRate(phones) {
   if (!phones?.length) return null;
   let n = 0, prev = false, talk = 0;
