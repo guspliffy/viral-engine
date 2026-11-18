@@ -82,7 +82,7 @@ export function withSpeech(sb, chars) {
   if (sb.sound?.speech === false || process.env.SPEECH === "off") return sb;
   const out = structuredClone(sb), lines = [];
   const castVoice = (who) => { const c = (sb.cast || []).find((x) => x.id === who); return c && chars[c.character]?.tts; };
-  const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, job: job(item.line, rec, opts) }); };
+  const add = (item, voice, opts) => { const rec = recipe(voice); if (rec) lines.push({ item, rec, job: job(item.line, rec, opts) }); };
   const recs = [];
   for (const b of out.beats || []) for (const it of b.do || []) {
     if (it.macro === "say" && it.line && it.rec) { recs.push(it); continue; }
@@ -104,9 +104,11 @@ export function withSpeech(sb, chars) {
     const words = wordTimes(info.phones, it.line);
     it.speech = { id: info.id, mouth: mouthKeys(info.phones), ...(words ? { words } : {}) };
   }
-  for (const { item, job: j } of lines) {
+  for (const { item, rec, job: j } of lines) {
     if (!item) continue;
     const info = JSON.parse(fs.readFileSync(path.join(CACHE, `${j.id}.json`), "utf8"));
+    const r = rec?.rate ? speakingRate(info.phones) : null;
+    if (r && Math.abs(r / rec.rate - 1) > RATE_BAND) console.warn(`speech: "${item.line}" reads at ${r.toFixed(2)} syllables/s, ${Math.round(Math.abs(r / rec.rate - 1) * 100)} % ${r > rec.rate ? "faster" : "slower"} than this voice's usual ${rec.rate}: it will sound ${r > rec.rate ? "rushed" : "slow"} next to the other lines (and more so in a film sped up at the join); try "take": 2, or a "tempo" for this line`);
     if (item.dur != null && Math.abs(item.dur - info.dur) > 0.25) console.warn(`speech: "${item.line}" lasts ${info.dur}s spoken, not the ${item.dur}s written; using the spoken length`);
     item.dur = info.dur;
     const words = wordTimes(info.phones, item.line);
@@ -166,6 +168,21 @@ function readWav(file) {
     p += 8 + n + (n & 1);
   }
   throw new Error(`speech: ${file} has no audio`);
+}
+
+// how fast a take is spoken: vowel nuclei (a run of vowel phones, a length mark kept with its vowel) per second
+// of the spoken span, from the phones the take was read with. VoxCPM2 reads one voice at quite different speeds from
+// line to line: in the happiness score film (18 Nov 2026) the narrator's takes ran from 2.3 to 4.4 syllables/s, so
+// the film's one 1.3x speed-up made "If you've ever compared yourself to a friend..." (4.15/s) sound rushed and
+// "Same hoodie. Same bun. Same river." (2.30/s) still slow, and Jonny heard it ("sometimes it's rushed"). A recipe's
+// "rate" is that voice's usual speed; a take more than RATE_BAND away from it gets a warning when it is read.
+const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), RATE_BAND = 0.18;
+export function speakingRate(phones) {
+  if (!phones?.length) return null;
+  let n = 0, prev = false;
+  for (const [p] of phones) { const v = VOWEL.has(p); if (v && !prev) n++; prev = v || (prev && (p === "ː" || p === "ˑ")); }
+  const span = phones[phones.length - 1][1] + phones[phones.length - 1][2] - phones[0][1];
+  return span > 0.3 && n >= 4 ? n / span : null;
 }
 
 // spoken stretches [start, end] in seconds: 20 ms windows over a threshold, gaps under `gap` s joined, blips dropped
