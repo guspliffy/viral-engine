@@ -63,6 +63,12 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 
 ## 2. The opening (first 3 seconds)
 
+- **Build the video around its hook** (18 Nov, ON TRIAL on four videos; a rule only once finished videos prove it):
+  the hook, the curiosity gap and the ending matter most, and the story is built between them. Write in this order:
+  (1) a statement on screen in the first 3 s and the caption question about the same thing, both opening ONE gap
+  ("He found the perfect crime." / caption "Did he really find the perfect crime?"), with the video already in the
+  action; (2) the ending that releases that gap clearly (Court Day: three characters lined up, the last one reveals);
+  (3) only then the beats between, each keeping the gap open. Court Day: 51 % finish, 58 % at 0:05.
 - **Stake first** (12 Nov): the narrator's first line names WHAT is at risk and BY WHEN inside ~2.5 s ("One brother
   fries in ten seconds." / "You wake up mid plane crash. Ninety seconds to live."). Stake by relation ("he", "you",
   best friend, family), never a name, never the payoff, always true to the story. On screen: 2-4 words with the same
