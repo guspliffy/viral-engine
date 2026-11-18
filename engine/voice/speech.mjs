@@ -170,19 +170,22 @@ function readWav(file) {
   throw new Error(`speech: ${file} has no audio`);
 }
 
-// how fast a take is spoken: vowel nuclei (a run of vowel phones, a length mark kept with its vowel) per second
-// of the spoken span, from the phones the take was read with. VoxCPM2 reads one voice at quite different speeds from
-// line to line: in the happiness score film (18 Nov 2026) the narrator's takes ran from 2.3 to 4.4 syllables/s, so
-// the film's one 1.3x speed-up made "If you've ever compared yourself to a friend..." (4.15/s) sound rushed and
-// "Same hoodie. Same bun. Same river." (2.30/s) still slow, and Jonny heard it ("sometimes it's rushed"). A recipe's
-// "rate" is that voice's usual speed; a take more than RATE_BAND away from it gets a warning when it is read.
-const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), RATE_BAND = 0.18;
+// how fast a take is spoken: vowel nuclei (a run of vowel phones, a length mark kept with its vowel) per second of
+// TALKING, the pause phones (space and punctuation: the gaps at commas and full stops) left out, so a line of three
+// short sentences with a breath at each dot is not called slow (Jonny 18 Nov 2026: "Same hoodie. Same bun. Same
+// river." is "actually not slow ... there needs to be a gap"). VoxCPM2 reads one voice at quite different speeds from
+// line to line: the happiness score film's narrator talked at 3.2 to 6.5 syllables/s, so the film's one 1.3x speed-up
+// made the fast takes sound rushed ("sometimes it's rushed"). A recipe's "rate" is that voice's usual talking speed; a
+// take more than RATE_BAND away from it gets a warning when it is read.
+const VOWEL = new Set([..."aeiouæɑɒɔəɛɜɪʊʌʏøœɐɚɝyɨᵻ"]), PAUSE = new Set([..." .,!?;:…—-"]), RATE_BAND = 0.18;
 export function speakingRate(phones) {
   if (!phones?.length) return null;
-  let n = 0, prev = false;
-  for (const [p] of phones) { const v = VOWEL.has(p); if (v && !prev) n++; prev = v || (prev && (p === "ː" || p === "ˑ")); }
-  const span = phones[phones.length - 1][1] + phones[phones.length - 1][2] - phones[0][1];
-  return span > 0.3 && n >= 4 ? n / span : null;
+  let n = 0, prev = false, talk = 0;
+  for (const [p, , d] of phones) {
+    const v = VOWEL.has(p); if (v && !prev) n++; prev = v || (prev && (p === "ː" || p === "ˑ"));
+    if (!PAUSE.has(p)) talk += d;
+  }
+  return talk > 0.3 && n >= 4 ? n / talk : null;
 }
 
 // spoken stretches [start, end] in seconds: 20 ms windows over a threshold, gaps under `gap` s joined, blips dropped
