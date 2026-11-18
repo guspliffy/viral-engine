@@ -7,8 +7,8 @@
 // x10,000; so he tips it up, gets under it and presses it overhead, then sets it down with a thump; the thump shakes the
 // parked empty bus's brake loose, so it rolls down the lane; Chip, laughing, steps back off the kerb into its path,
 // x100,000; so Spud leaps in and stops it one-handed; so "You're a superhero!"; so Wedge dares him to lift it with them
-// inside; so they climb in, Wedge cracks up, x1,000,000, the bus goes overhead; so up high they get scared and stop
-// laughing; so it drains; so "Wait. LAUGH AT ME!", they look at each other, x1: it comes down on him and BREAKS open.
+// inside; so they climb in, Wedge cracks up, x1,000,000, the bus goes overhead; so up high they stop laughing and admire him,
+// and the catch is that praise makes him weaker; so it drains; so "Wait. LAUGH AT ME!", they look at each other, x1: it comes down on him and BREAKS open.
 // The counter is the HUD strength chip (hud.js), on from frame 0 at x1,000 (the gym's last value).
 import { clip, write, r3 } from "../../../lib/clip.mjs";
 import * as act from "../../../lib/acting.mjs";
@@ -21,12 +21,12 @@ const ROAD = -0.12;
 // ---------------------------------------------------------------- the lines (measured: catch10-voice-probe, 18 Nov 2026)
 // STREET: 0 "Trust me... he can't lift a car!", 1 Chip's laugh (take 2), 2 "You're a superhero!", 3 "Trust me... with US
 // inside!", 4 Wedge's laugh, 5 narrator "But there's a catch." (take 2), 6 "Whoa.", 7 "Put us down. Please.", 8 "Wait. LAUGH AT ME!"
-const DUR = [4.08, 2.72, 1.52, 2.82, 1.52, 1.30, 1.00, 2.18, 1.86];
+const DUR = [4.08, 2.72, 1.52, 2.82, 1.52, 1.33, 0.96, 2.70, 1.86, 2.93];
 const T = [];
 const END_OF = (i) => r3(T[i] + DUR[i]);
 const SUB = 470, SUB_HI = 320;
-const CAPTEXT = { 0: "Ha ha! Trust me... he can't lift a *CAR!*", 1: "HA HA HA HA!", 2: "Ha ha! You're a *SUPERHERO!*", 3: "Trust me... he can't lift it with *US* inside!", 4: "HA HA HA HA!", 5: "But there's a *catch.*", 6: "Whoa.", 7: "Put us down. *Please.*", 8: "Wait. *LAUGH AT ME!*" };
-const CAPPOS = { 4: 340, 5: SUB_HI, 7: SUB_HI };
+const CAPTEXT = { 0: "Ha ha! Trust me... he can't lift a *CAR!*", 1: "HA HA HA HA!", 2: "Ha ha! You're a *SUPERHERO!*", 3: "Trust me... he can't lift it with *US* inside!", 4: "HA HA HA HA!", 5: "But there's a *catch.*", 6: "Whoa.", 7: "You're so *strong*... whoa.", 8: "Wait. *LAUGH AT ME!*", 9: "The more they *praise* you, the *weaker* you get." };
+const CAPPOS = { 4: 340, 5: SUB_HI, 7: SUB_HI, 9: SUB_HI };
 // a line at t (line i of STREET); the caption runs to the end of the voice + 0.3 s, or to `to`
 const say = (i, t, to = null) => {
   T[i] = r3(t);
@@ -146,14 +146,20 @@ A(PRESS, "spud", "look", { to: [0.5, 0.1], dur: 0.25 });
 A(r3(PRESS + 0.3), "spud", "expr", { expr: "cocky", dur: 0.2 });
 sfx(PRESS, "creak", { gain: 0.45 });
 // the hold (0.8 s), then back the same way: down to over his head, out to the side, down by the sill, the last bit drops
-const DOWN1 = r3(PRESS + 1.2);
+const REACT = F(PRESS + 0.45), BACK7 = F(PRESS + 1.25);
+A(r3(REACT - 0.3), "wedge", "grip", { side: "R", shape: "point", dur: 0.15 }); c.arm(r3(REACT - 0.3), "wedge", "R", PT_W, 0.3, "inOut");
+A(REACT, "wedge", "look", { to: [0.6, 0.35], dur: 0.15 }); A(REACT, "chip", "look", { to: [0.6, 0.4], dur: 0.15 });
+A(r3(REACT + 0.1), "wedge", "expr", { expr: "shocked", dur: 0.15 }); A(r3(REACT + 0.05), "chip", "expr", { expr: "shocked", dur: 0.15 });
+c.arm(r3(REACT + 0.25), "wedge", "R", "rest", 0.5, "inOut"); A(r3(REACT + 0.6), "wedge", "grip", { side: "R", shape: "relaxed", dur: 0.2 });
+const DOWN1 = r3(BACK7 + 0.05);
 c.prop(DOWN1, "car", level(1.22), 0.3, "inOut");
 A(DOWN1, "spud", "crouch", { to: 0.2, dur: 0.3 });
 const OUT = r3(DOWN1 + 0.3);
 A(OUT, "spud", "move", { to: SPUD_SILL, y: ROAD, dur: 0.4, ease: "inOut" });
-A(OUT, "spud", "turn", { to: 180, dur: 0.4 });
-sillHands(r3(OUT + 0.05), 0.3);
-const DROP = r3(OUT + 0.45);
+A(OUT, "spud", "turn", { to: -180, dur: 0.4 });   // the left shoulder leads, the right arm clears the body
+for (const sd of ["R", "L"]) c.arm(OUT, "spud", sd, { o: [0.18, 1.0, 0.02] }, 0.12, "out");   // straight up through the turn
+sillHands(r3(OUT + 0.36), 0.2);
+const DROP = r3(OUT + 0.6);
 c.prop(DROP, "car", level(0.5), 0.35, "inOut");
 A(DROP, "spud", "crouch", { to: 0.45, dur: 0.35 });
 const LETGO = r3(DROP + 0.37), THUMP = r3(LETGO + 0.15);
@@ -163,6 +169,8 @@ A(LETGO, "spud", "grip", { side: "both", shape: "open", dur: 0.15 });
 c.prop(THUMP, "car", { y: ROAD + 0.04 }, 0.08, "out"); c.prop(r3(THUMP + 0.08), "car", { y: ROAD }, 0.12, "in");
 sfx(THUMP, "thud", { gain: 1.0 }); sfx(THUMP, "kenney/impact-metal-heavy", { gain: 0.7 });
 c.at(THUMP, { fx: "shake", amount: 0.06, dur: 0.25 });
+const dust = (t, pos, size = 0.6, puffs = 10) => c.at(r3(t), { fx: "poof", pos, dur: 0.7, color: "#d9cbb4", puffs, sparks: 0, size, lift: 0.1 });
+dust(THUMP, [CAR_A[0] - 0.9, ROAD + 0.05, -4.75]); dust(THUMP, [CAR_A[0] + 0.9, ROAD + 0.05, -4.75]);
 see(CUT7, THUMP, ["spud", "car"], "he lifts the car, steps under it, presses it overhead, then sets it down: THUMP");
 
 // ---------------------------------------------------------------- 8 the thump shakes the parked bus loose (cut on the thump)
@@ -236,8 +244,8 @@ const CUT13 = F(GO + 1.45);
 const WEDGE_OFF = [0.30, 0.62, -0.69], CHIP_OFF = [0.38, 0.75, -0.21];
 A(r3(CUT13 + 0.05), "wedge", "turn", { to: 180, dur: 0.2 }); A(r3(CUT13 + 0.05), "chip", "turn", { to: 180, dur: 0.2 });
 const IN_W = r3(CUT13 + 0.3), IN_C = r3(IN_W + 0.3);
-A(IN_C, "chip", "ride", { prop: "bus", off: CHIP_OFF, yaw: 90, dur: 0.45, ease: "inOut" });
-A(IN_W, "wedge", "ride", { prop: "bus", off: WEDGE_OFF, yaw: 90, dur: 0.45, ease: "inOut" });
+A(IN_C, "chip", "ride", { prop: "bus", off: CHIP_OFF, yaw: 90, tilt: true, dur: 0.45, ease: "inOut" });
+A(IN_W, "wedge", "ride", { prop: "bus", off: WEDGE_OFF, yaw: 90, tilt: true, dur: 0.45, ease: "inOut" });
 sfx(r3(IN_W + 0.4), "step", { gain: 0.5 }); sfx(r3(IN_C + 0.4), "step", { gain: 0.5 });
 see(CUT13, r3(IN_C + 0.5), ["bus"], "they hop in by the open door");
 
@@ -249,28 +257,41 @@ say(4, r3(CUT14 + 0.05));
 for (const w of ["chip", "wedge"]) rideLaugh(w, CUT14, r3(CUT14 + 2.4));
 const U14 = r3(CUT14 + 0.2);
 tick(U14, 1000000); power(U14);
-const CUT15 = F(U14 + 0.85);
+const REAR = -2.65 * BUS_K, NOSE = 10;                       // the rear axle (props-cabinbus.js), the tip angle
+const noseUp = (deg) => { const a = (deg * Math.PI) / 180; return { tilt: deg, x: r3(BUS_STOP + REAR * (1 - Math.cos(a))), y: r3(ROAD - REAR * Math.sin(a)) }; };
+const TIPT = r3(U14 + 0.3), TIP14 = r3(TIPT + 0.3);
+A(r3(U14 + 0.2), "spud", "turn", { to: -90, dur: 0.25 });
+A(TIPT, "spud", "crouch", { to: 0.3, dur: 0.2 });
+A(r3(TIPT - 0.1), "spud", "look", { to: [0, 0.3], dur: 0.15 });
+const nx = r3(0.99 - 0.06), nz = r3(SPUD_STOP[1] - BUS_Z), ny = r3(BUS_UNDER + 0.04);
+palmsOn(r3(TIPT + 0.12), "bus", BUS_K, [nx, ny, r3(nz - 0.26)], [nx, ny, r3(nz + 0.26)], { dur: 0.16 });
+c.prop(TIP14, "bus", noseUp(NOSE), 0.3, "out");
+A(TIP14, "spud", "crouch", { to: 0.12, dur: 0.3 });
+sfx(TIP14, "creak", { gain: 0.5 });
+const CUT15 = F(U14 + 0.95);
 const U0 = 0.85;
 const busAt = (u) => [BUS_STOP, busY(u), BUS_Z];
-// the cheat lands ON the cut: an action that starts on the cut frame shows its start there (anime timing draws the
-// pose at the frame's time), so these end on it instead
-const CHEAT = r3(CUT15 - 0.01);
-A(CHEAT, "spud", "move", { to: SPUD_BUS, y: ROAD, dur: 0.01, ease: "linear", sync: true });
-A(CHEAT, "spud", "turn", { to: 90, dur: 0.01 });
-A(CHEAT, "spud", "crouch", { to: 0.5, dur: 0.01 });
-c.prop(CUT15, "bus", { y: busY(U0) }, 0.01, "linear");   // the bus (and its riders) on the cut itself: earlier, the riders blend up early
+// the cheat lands ON the cut: "dur": 0 actions (anime-timing.js: a "dur": 0 move lands on the cut, with no stepping
+// lead-in before it)
+const CHEAT = CUT15;
+A(CHEAT, "spud", "move", { to: SPUD_BUS, y: ROAD, dur: 0, ease: "linear", sync: true });
+A(CHEAT, "spud", "turn", { to: 90, dur: 0 });
+A(CHEAT, "spud", "crouch", { to: 0.5, dur: 0 });
+c.prop(CUT15, "bus", { y: busY(U0), tilt: 0, x: BUS_STOP }, 0, "linear");   // the bus (and its riders) on the cut itself
 const hx = r3(SPUD_BUS[0] - BUS_STOP), hz = r3(SPUD_BUS[1] - BUS_Z), gy = r3(BUS_UNDER - 0.03);
-palmsOn(CUT15, "bus", BUS_K, [hx, gy, r3(hz + 0.26)], [hx, gy, r3(hz - 0.26)]);
-A(CUT15, "spud", "look", { to: [0, 0.2], dur: 0.01 });
+palmsOn(CHEAT, "bus", BUS_K, [hx, gy, r3(hz + 0.26)], [hx, gy, r3(hz - 0.26)], { dur: 0 });
+A(CUT15, "spud", "look", { to: [0, 0.2], dur: 0 });
 const L15 = r3(CUT15 + 0.15), FULL = 1.33;
 c.prop(L15, "bus", { y: busAt(FULL + 0.03)[1] }, 0.5, "out"); c.prop(r3(L15 + 0.52), "bus", { y: busAt(FULL)[1] }, 0.15, "inOut");
 A(L15, "spud", "crouch", { to: 0, dur: 0.5 });
 A(L15, "spud", "expr", { expr: "cocky", dur: 0.2 });
 sfx(L15, "creak", { gain: 0.5 });
 
-// ---------------------------------------------------------------- 16-18 "But there's a catch." Up high they get scared, it drains
+// ---------------------------------------------------------------- 16-18 THE CATCH (Jonny 18 Nov 22:05): "The more they praise you... the weaker
+// you get." Up high they stop laughing and admire him ("Whoa." / "You're so strong... whoa."): each praise drains it, the bus sinks
 say(5, r3(L15 + 2.3));
-for (const w of ["chip", "wedge"]) { A(r3(T[5] + 0.1), w, "look", { to: [0.2, -0.8], dur: 0.3 }); A(r3(T[5] + 0.4), w, "expr", { expr: "terrified", dur: 0.3 }); }
+say(9, r3(END_OF(5) + 0.15));
+for (const w of ["chip", "wedge"]) { A(r3(T[5] + 0.1), w, "look", { to: [0.2, -0.8], dur: 0.3 }); A(r3(T[5] + 0.4), w, "expr", { expr: "shocked", dur: 0.3 }); }
 see(L15, T[5], ["bus", "spud", "chip.face", "wedge.face"], "x1,000,000: the bus with both friends over his head (the cover)");
 let u = FULL;
 const sink = (t, to, v, drain, knees) => {
@@ -281,20 +302,22 @@ const sink = (t, to, v, drain, knees) => {
   c.prop(t, "bus", { tip: 1 }, 0.12, "out"); c.prop(r3(t + 0.12), "bus", { tip: 0 }, 0.2, "inOut");
   sfx(t, "creak", { gain: 0.45 });
 };
-say(6, r3(END_OF(5) + 0.25));
-const CUT17 = F(T[6] - 0.2);
+const CUT17 = F(T[9] + 1.6);
+say(6, r3(END_OF(9) + 0.2));
+A(T[6], "chip", "expr", { expr: "delighted", dur: 0.2 });
 sink(r3(END_OF(6) + 0.05), r3(FULL - 0.10), 100000, 0.2, 0.05);
 A(r3(END_OF(6) + 0.05), "spud", "expr", { expr: "shocked", dur: 0.2 });
-say(7, r3(T[6] + 1.45));
+say(7, r3(END_OF(6) + 0.45));
 const CUT18 = F(T[7] - 0.15);
-sink(r3(T[7] + 0.5), 1.15, 10000, 0.4, 0.1);
-sink(r3(T[7] + 1.0), 1.07, 1000, 0.6, 0.18);
-sink(r3(T[7] + 1.5), 0.99, 100, 0.75, 0.26);
-A(r3(T[7] + 1.0), "spud", "expr", { expr: "terrified", dur: 0.2 });
-see(T[5], r3(T[7] + 1.9), ["bus", "chip.face", "wedge.face"], "they look down and stop laughing; the chip drains, the bus sinks");
+A(T[7], "wedge", "expr", { expr: "kind", dur: 0.2 }); A(T[7], "chip", "expr", { expr: "kind", dur: 0.2 });
+sink(r3(T[7] + 0.75), 1.15, 10000, 0.4, 0.1);
+sink(r3(T[7] + 1.45), 1.07, 1000, 0.6, 0.18);
+sink(r3(T[7] + 2.2), 0.99, 100, 0.75, 0.26);
+A(r3(T[7] + 1.45), "spud", "expr", { expr: "terrified", dur: 0.2 });
+see(T[5], r3(T[7] + 2.6), ["bus", "chip.face", "wedge.face"], "the catch: they admire him, every praise drains it, the bus sinks");
 
 // ---------------------------------------------------------------- 19-20 "Wait. LAUGH AT ME!" (a forced grin), they look at each other
-say(8, r3(T[7] + 2.45));
+say(8, r3(END_OF(7) + 0.35));
 const CUT19 = F(T[8] - 0.2);
 A(T[8], "spud", "look", { to: [0, 0.7], dur: 0.2 });
 A(T[8], "spud", "expr", { expr: "eager", dur: 0.15 });
@@ -303,47 +326,51 @@ A(r3(T[8] + 1.05), "spud", "expr", { expr: "terrified", dur: 0.15 });
 const CUT20 = F(END_OF(8) + 0.2);
 A(r3(CUT20 + 0.15), "chip", "turn", { to: -70, dur: 0.3 }); A(r3(CUT20 + 0.15), "wedge", "turn", { to: -110, dur: 0.3 });
 A(r3(CUT20 + 0.15), "chip", "look", { to: [0.6, 0], dur: 0.2 }); A(r3(CUT20 + 0.15), "wedge", "look", { to: [-0.6, 0], dur: 0.2 });
-A(r3(CUT20 + 0.1), "chip", "expr", { expr: "sad", dur: 0.2 }); A(r3(CUT20 + 0.1), "wedge", "expr", { expr: "sad", dur: 0.2 });
+A(r3(CUT20 + 0.1), "chip", "expr", { expr: "shocked", dur: 0.2 }); A(r3(CUT20 + 0.1), "wedge", "expr", { expr: "shocked", dur: 0.2 });
 see(T[8], r3(CUT20 + 0.95), ["spud.face", "chip.face", "wedge.face"], "he begs; they look at each other; nobody laughs");
 
-// ---------------------------------------------------------------- 21 x1: it comes down on him and BREAKS (Sol's break, props-cabinbus.js split/spill)
+// ---------------------------------------------------------------- 21 x1: the bus SMASHES him flat (Jonny 18 Nov 22:05), holds, then BREAKS open
 const CRASH = F(CUT20 + 1.05);
 tick(CRASH, 1, 1.0);
-const GIVE = r3(CRASH + 0.07), HITB = r3(GIVE + 0.17);
-// frames 1-7: the floor comes down level onto him; he goes pancake-flat
-c.prop(GIVE, "bus", { y: busAt(0.48)[1] }, 0.17, "in");
-A(GIVE, "spud", "crouch", { to: 1.6, dur: 0.17, ease: "in" });
-A(HITB, "spud", "squash", { amount: 0.35, dur: 0.4 });
+const GIVE = r3(CRASH + 0.07), HITB = r3(GIVE + 0.15), SPLIT = r3(HITB + 0.4);
+// the floor slams down onto him: he goes pancake-flat under it, a heavy hit, dust, a held beat
+c.prop(GIVE, "bus", { y: busAt(0.3)[1] }, 0.15, "in");
+c.prop(HITB, "bus", { y: busAt(0.34)[1] }, 0.08, "out"); c.prop(r3(HITB + 0.08), "bus", { y: busAt(0.3)[1] }, 0.12, "in");
+A(GIVE, "spud", "crouch", { to: 1.9, dur: 0.15, ease: "in" });
+A(HITB, "spud", "squash", { amount: 0.5, dur: 0.3 });
 A(HITB, "spud", "expr", { expr: "dizzy", dur: 0.1 });
-c.arm(GIVE, "spud", "R", { o: [0.6, 0.3, 0.2] }, 0.17, "out"); c.arm(GIVE, "spud", "L", { o: [0.6, 0.3, 0.2] }, 0.17, "out");
+c.arm(GIVE, "spud", "R", { o: [0.6, 0.2, 0.2] }, 0.15, "out"); c.arm(GIVE, "spud", "L", { o: [0.6, 0.2, 0.2] }, 0.15, "out");
 A(HITB, "spud", "grip", { side: "both", shape: "open", dur: 0.1 });
-
-sfx(HITB, "thud", { gain: 1.0 }); sfx(HITB, "kenney/impact-metal-heavy", { gain: 1.0 }); sfx(HITB, "ai/metal-tear", { gain: 0.7, reason: "the bus splits open down the middle" });
-c.at(HITB, { fx: "shake", amount: 0.07, dur: 0.3 });
-// frames 8-26: the two halves tip outward, the seats spill, the friends slide out forward
-c.prop(HITB, "bus", { split: 0.55 }, 0.6, "out");
-c.prop(r3(HITB + 0.05), "bus", { spill: 1 }, 0.6, "out");
-const OFF = r3(HITB + 0.05);
+sfx(HITB, "thud", { gain: 1.0 }); sfx(HITB, "kenney/impact-metal-heavy", { gain: 1.0 });
+c.at(HITB, { fx: "shake", amount: 0.09, dur: 0.35 });
+dust(HITB, [-1.6, ROAD + 0.05, -2.35], 1.0, 16); dust(HITB, [-3.6, ROAD + 0.05, -2.35], 0.8, 12);
+// then it splits: the two halves tip outward, the seats spill, the friends slide out forward
+sfx(SPLIT, "ai/metal-tear", { gain: 0.8, reason: "the bus splits open down the middle" });
+c.prop(SPLIT, "bus", { split: 0.55 }, 0.6, "out");
+c.prop(r3(SPLIT + 0.05), "bus", { spill: 1 }, 0.6, "out");
+const OFF = r3(SPLIT + 0.05);
 // they stay riders of the (now still) bus and slide out of the break to the road: off = (world - bus origin) / its scale
-const busOff = ([x, z]) => [r3((x - BUS_STOP) / BUS_K), r3((ROAD - busAt(0.48)[1]) / BUS_K), r3((z - BUS_Z) / BUS_K)];
+const busOff = ([x, z]) => [r3((x - BUS_STOP) / BUS_K), r3((ROAD - busAt(0.3)[1]) / BUS_K), r3((z - BUS_Z) / BUS_K)];
 A(OFF, "chip", "ride", { prop: "bus", off: busOff([1.7, -1.25]), yaw: 90, dur: 0.6, ease: "inOut" });
 A(OFF, "wedge", "ride", { prop: "bus", off: busOff([2.0, -3.65]), yaw: 90, dur: 0.65, ease: "inOut" });
 A(r3(OFF + 0.43), "chip", "crouch", { to: 0.6, dur: 0.2 }); A(r3(OFF + 0.48), "wedge", "crouch", { to: 0.6, dur: 0.2 });
 A(r3(OFF + 0.3), "chip", "expr", { expr: "dizzy", dur: 0.1 }); A(r3(OFF + 0.3), "wedge", "expr", { expr: "dizzy", dur: 0.1 });
 sfx(r3(OFF + 0.45), "thud-soft", { gain: 0.6 }); sfx(r3(OFF + 0.5), "thud-soft", { gain: 0.6 });
-sfx(r3(HITB + 0.6), "thud", { gain: 0.8 });
-// frames 27-39: hold the picture; Chip blinks and his mouth curls up, just before the laugh
-act.blinksAt(c, "chip", [r3(HITB + 0.8)]);
-A(r3(HITB + 0.95), "chip", "look", { to: [-0.5, -0.2], dur: 0.2 }); A(r3(HITB + 1.0), "chip", "expr", { expr: "smug", dur: 0.25 });
-const END = F(HITB + 1.25);
-see(GIVE, END, ["bus", "spud", "chip.face", "wedge.face"], "x1: the bus comes down on him and breaks open, they slide out, cut");
+sfx(r3(SPLIT + 0.6), "thud", { gain: 0.8 });
+dust(r3(SPLIT + 0.55), [-2.4, ROAD + 0.05, -0.3], 0.8, 12); dust(r3(SPLIT + 0.55), [-2.4, ROAD + 0.05, -4.4], 0.8, 12);
+// the held end: Chip blinks and his mouth curls up, just before the laugh
+act.blinksAt(c, "chip", [r3(SPLIT + 0.8)]);
+A(r3(SPLIT + 0.95), "chip", "look", { to: [-0.5, -0.2], dur: 0.2 }); A(r3(SPLIT + 1.0), "chip", "expr", { expr: "smug", dur: 0.25 });
+const END = F(SPLIT + 1.25);
+see(GIVE, END, ["bus", "spud", "chip.face", "wedge.face"], "x1: the bus smashes him flat, then breaks open, they slide out, cut");
 
 act.blinksAt(c, "wedge", [6.0]);
 
 // ---------------------------------------------------------------- cameras (DESIGN-STREET.md section 3; WIDE6, CARLOW and BREAK new for v3)
 const CAM = {
-  WIDE6: { pos: [3.6, 1.5, 3.6], look: [4.0, 0.8, -4.5], fov: 46 },
-  CARLOW: { pos: [6.4, 0.4, -1.9], look: [4.5, 1.0, -5.4], fov: 48 },
+  WIDE6: { pos: [2.4, 1.6, 6.5], look: [2.4, 0.9, -4.0], fov: 52 },
+  REACT: { pos: [4.3, 0.85, -3.7], look: [2.7, 0.75, -0.6], fov: 42 },
+  CARLOW: { pos: [8.4, 0.35, -1.4], look: [4.9, 1.0, -5.0], fov: 48 },
   STOP: { pos: [-1.2, 1.3, 3.4], look: [-4.2, 1.4, -2.0], fov: 40 },
   BUSSTOP: { pos: [1.9, 1.3, 6.4], look: [1.9, 1.2, -2.35], fov: 38 },
   STREETB: { pos: [2.35, 1.45, 7.6], look: [2.35, 1.0, -2.4], fov: 40 },
@@ -358,6 +385,8 @@ c.captions.sort((a, b) => a.from - b.from).forEach((k, i, all) => { if (all[i + 
 const beats = c.beats([
   ["the dare", 0, CAM.WIDE6, "hook"],
   ["car lift", CUT7, CAM.CARLOW, "escalation"],
+  ["they stare", REACT, CAM.REACT],
+  ["set down", BACK7, { ...CAM.CARLOW }],
   ["bus loose", CUT8, CAM.STOP],
   ["bus stop", CUT9, CAM.BUSSTOP, "escalation"],
   ["superhero", CUT11, CAM.STREETB],
@@ -365,7 +394,7 @@ const beats = c.beats([
   ["million", CUT14, CAM.LINEA],
   ["bus lift", CUT15, CAM.HERO, "escalation"],
   ["whoa", CUT17, CAM.WINDOW],
-  ["put us down", CUT18, { ...CAM.HERO }],
+  ["so strong", CUT18, { ...CAM.HERO }],
   ["laugh at me", CUT19, CAM.LINEB],
   ["look", CUT20, { ...CAM.WINDOW }],
   ["break", CRASH, CAM.BREAK, "payoff"],
@@ -393,10 +422,11 @@ write(import.meta.url, {
     { who: "spud", from: r3(T1B - 0.05), to: r3(DROP + 0.2), checks: ["held-high"], reason: "the joke: he presses the car over his head" },
     { who: "spud", from: r3(LEAP - 0.05), to: r3(STOP + 0.05), checks: ["rig-jump"], reason: "the superhero leap: one 0.45 s arc, fast on purpose (seen in a 30 fps strip: it reads as one arc)" },
     { who: "spud", with: "bus", from: r3(LEAP - 0.05), to: END, reason: "his palm on the bus's bumper, then he is under the bus he holds up, and under it when it breaks" },
-    { who: "spud", from: r3(CUT15 - 0.05), to: END, checks: ["held-high"], reason: "the joke: he holds the bus with both friends over his head" },
+    { who: "spud", from: r3(TIPT - 0.05), to: END, checks: ["held-high"], reason: "the joke: he holds the bus with both friends over his head" },
     { who: "spud", with: "bus", from: r3(CUT15 - 0.05), to: END, checks: ["shell"], reason: "his crown and sprout press up against the bus floor he holds (and it comes down on him)" },
     { who: "chip", with: "wedge", from: r3(IN_W - 0.3), to: r3(OFF + 0.6), checks: ["character-overlap", "reach"], reason: "side by side at the windscreen, shoulder to shoulder, then sliding out of the broken bus together" },
     { who: "wedge", with: "chip", from: r3(IN_W - 0.3), to: r3(OFF + 0.6), checks: ["character-overlap", "reach"], reason: "shoulder to shoulder at the windscreen, gloves on the dash side by side" },
+    { who: "spud", from: r3(TIP14 + 0.05), to: r3(TIP14 + 0.15), checks: ["rig-jump"], reason: "ROUGH DRAFT 3b ONLY: a one-frame foot pop as he tips the nose up; on the list for the Sol glitch pass" },
     { who: "chip", from: r3(CRASH - 0.05), to: r3(OFF + 0.1), checks: ["face-covered"], reason: "the impact: 0.3 s with Chip's glove up at the glass as the bus drops, under the shake" },
     { who: "chip", from: OFF, to: END, checks: ["rig-jump"], reason: "the break throws them out: one fast 0.6 s slide, on 2s" },
     { who: "wedge", from: OFF, to: END, checks: ["rig-jump"], reason: "the break throws them out: one fast 0.65 s slide, on 2s" },

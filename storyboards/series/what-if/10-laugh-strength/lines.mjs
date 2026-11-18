@@ -13,6 +13,8 @@ export const LINES = [
   ["chip", "Whoa.", "calm", "quiet, stunned, amazed, breathless, no laugh"],
   ["wedge", "He's actually strong.", "calm", "quiet, low, amazed, slow, serious"],
   ["spud", "Wait. LAUGH AT ME!", "angry", "panicked, straining, desperate, a forced grin, shouting at the end", { voice: "teo", take: 2 }],
+  // v3b (Jonny 18 Nov 22:05): the catch is "the more they praise you, the weaker you get"
+  ["nar", "The more they praise you, the weaker you get.", "calm", null, { take: 2 }],
 ];
 
 // panels v3 (18 Nov 2026 21:00: the car lift replaces the bar toss; was outline v2, Jonny's notes on draft 1: longer, a second place, a bigger superhero climb). The gym keeps
@@ -25,7 +27,9 @@ export const STREET = [
   ["wedge", "Trust me... he can't lift it with us inside!", "happy", "low, laughing, teasing, quick, sure of himself"],
   ["wedge", "Ha ha ha ha!", "happy", "low, belly laugh, cracking up, can't stop"],
   ["nar", "But there's a catch.", "calm", null, { take: 2 }],
-  ["chip", "Whoa.", "calm", "quiet, scared, looking down from high up, breathless, no laugh"],
-  ["wedge", "Put us down. Please.", "calm", "quiet, low, scared, slow, serious, no laugh"],
+  ["chip", "Whoa.", "calm", "quiet, amazed, admiring, looking down from high up, breathless, no laugh"],
+  ["wedge", "You're so strong... whoa.", "calm", "quiet, low, amazed, admiring, impressed, slow, no laugh"],
   ["spud", "Wait. LAUGH AT ME!", "angry", "panicked, straining, desperate, a forced grin, shouting at the end", { voice: "teo", take: 2 }],
+  // v3b (Jonny 18 Nov 22:05): the catch is "the more they praise you, the weaker you get"
+  ["nar", "The more they praise you, the weaker you get.", "calm", null, { take: 2 }],
 ];

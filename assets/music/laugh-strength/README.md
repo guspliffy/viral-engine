@@ -14,3 +14,5 @@ Gym 0-11.667, street from 11.667 (MUSIC_SKIP). sneaky-01 0-11.95 (out from 11.35
 lift); hero-bed-02 from 19.3 (bus rescue, "superhero"); hero-bed-01 0-4.6 again from 27.0 (the dare, boarding); epic-02
 0-3.8 from 31.2 (the bus overhead at ~32.5, out by 35.0); orchestra-suspense-01 from 34.85 ("But there's a catch." at
 ~35.0) to the end. ffmpeg: atrim + afade + adelay per bed, amix normalize=0, libvorbis q6.
+v3b (49.4 s film): epic-02 from 31.4 (out by 35.4), orchestra-suspense-01 from 35.2, a second suspense pass (1.0-6.0 s of
+it) from 45.5 to the end (the smash at ~47.5).

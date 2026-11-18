@@ -5,7 +5,7 @@ const c = clip({ faces: "strong", lines: { sub: true, blink: false } });
 let t = 0.2;
 for (const [who, line, tone, style, o = {}] of [...LINES, TOSS, ...STREET]) {
   const est = r3(line.split(" ").length * 0.45 + 0.6);
-  if (who === "nar") c.at(t, { macro: "narrate", line, voice: "narrator", take: 1, dur: est, caption: false });
+  if (who === "nar") c.at(t, { macro: "narrate", line, voice: "narrator", take: o.take ?? 1, dur: est, caption: false });
   else c.macro(t, who, "say", { line, tone, ...(style && { style }), ...o, dur: est, caption: false });
   t = r3(t + est + 1.0);
 }
