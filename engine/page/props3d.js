@@ -125,6 +125,9 @@ import { WAKECABIN_KINDS } from "./props-wakeup-cabin.js";
 import { WAKEFX_KINDS } from "./props-wakeup-fx.js";
 import { WAKEOUT_KINDS } from "./props-wakeup-out.js";
 import { SINKCAR_KINDS } from "./props-sinkcar.js";
+import { SKIPREMOTE_KINDS } from "./props-skipremote.js";
+import { SKIPCAR_KINDS } from "./props-skipcar.js";
+import { SKIPROOM_KINDS } from "./props-skiproom.js";
 import { BAND_KINDS } from "./props-band.js";   // never looks up S2 E1, text him: the band and the LOOK UP fireworks   // never looks up 06b, the city car crash: citycar, cartyre, carburst, firesmoke
 import { FIRE_KINDS } from "./props-fire.js";   // the anime person's firebending: firebend (props-fire.js)
 import { WATER_KINDS } from "./props-water.js";   // Pebble's water bending: waterbend (props-water.js)
@@ -135,6 +138,11 @@ import { SOS_VAT_KINDS } from "./props-sos-vat.js";   // share or steal v2: the 
 import { SOS_SET_KINDS } from "./props-sos-set.js";   // share or steal: the dark studio and the deep fryer (props-sos-set.js)
 import { HP_SET_KINDS } from "./props-hotpotato-set.js";   // hot potato: the felt studio, trapdoor tiles and the vat
 import { HP_KINDS, HP_GRIPS } from "./props-hotpotato.js";   // hot potato: the coal, tongs, bow tie and basket lift
+import { HAPPY_KINDS } from "./props-happy.js";   // happiness 01: limo, ambulance, bank front, fountain, iron gate, city dressing
+import { COUPE_KINDS } from "./props-coupe.js";
+import { SPREE_KINDS } from "./props-spree.js";   // happiness 01 redo: check, bag mountain, sun disc, side-cast bits
+import { TOW_KINDS } from "./props-tow.js";   // happiness 01 redo: tow truck, coat heap
+import { HARBOUR_KINDS } from "./props-harbour.js";   // happiness 01 redo: pier, yacht   // happiness 01: the gold coupe (a prop, not a rig)
 
 // Props for the comedy clips, in the engine's soft 3D style: table, chair, teacup, pickle jar, cookie, plate, wall
 // clock, gift box, phone, cake, banner, a pickle that can leave its jar, and an office desk, a report that a sword
@@ -1480,6 +1488,7 @@ Object.assign(KINDS, FRIES_KINDS);   // always orders potatoes 01 (props-fries.j
 Object.assign(KINDS, CITY_KINDS);   // never looks up 06b (props-city.js)
 Object.assign(KINDS, WAKECABIN_KINDS, WAKEFX_KINDS, WAKEOUT_KINDS);   // you wake up mid EP01 (props-wakeup-*.js)
 Object.assign(KINDS, SINKCAR_KINDS);   // you wake up mid EP02: cabinwater, carglass, dashglow, headrest, headbeams, lakebubbles (props-sinkcar.js)
+Object.assign(KINDS, SKIPREMOTE_KINDS, SKIPCAR_KINDS, SKIPROOM_KINDS);   // happiness EP02 skip remote: remote, umbrella, loaf | car dash + glove box | room + box TV
 Object.assign(KINDS, COASTER_KINDS);   // never looks up 07 (props-coaster.js)
 Object.assign(KINDS, BAND_KINDS);   // never looks up S2 E1 (props-band.js)
 Object.assign(KINDS, FIRE_KINDS);   // firebend (props-fire.js)
@@ -1494,6 +1503,7 @@ Object.assign(KINDS, PAPER_KINDS); Object.assign(GRIPS, PAPER_GRIPS);   // happi
 Object.assign(KINDS, TRAIN_KINDS); Object.assign(GRIPS, TRAIN_GRIPS);   // happiness score film (props-score-train.js)
 Object.assign(KINDS, SCORE_ITEMS_KINDS); Object.assign(GRIPS, SCORE_ITEMS_GRIPS);   // happiness score film (props-score-items.js)
 Object.assign(KINDS, SMALL_KINDS); Object.assign(GRIPS, SMALL_GRIPS);   // happiness score film (props-score-small.js)
+Object.assign(KINDS, HAPPY_KINDS, COUPE_KINDS, SPREE_KINDS, TOW_KINDS, HARBOUR_KINDS);   // happiness 01 (props-happy.js, props-coupe.js)
 
 // a rounded rectangle centred on the origin (w x h, corner radius r)
 function roundRect(w, h, r) {

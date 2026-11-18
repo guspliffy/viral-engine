@@ -1,0 +1,367 @@
+{
+ "id": "tv-bench",
+ "title": "Box TV bench",
+ "idea": "Prop bench, not a clip",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "music": false,
+ "sound": {
+  "auto": false
+ },
+ "set": {
+  "type": "plain",
+  "color": "#3b3a40",
+  "floor": "#4a4038",
+  "para": 0,
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true
+ },
+ "notes": "Prop bench for engine/page/props-skiproom.js (no reviews).",
+ "hook": {
+  "show": [],
+  "hint": 0,
+  "what": "prop bench"
+ },
+ "fx": [
+  {
+   "do": "lights",
+   "at": 6.8,
+   "to": 0.08,
+   "dur": 0.2
+  }
+ ],
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    4.3500000000000005,
+    1.339
+   ],
+   "face": 144,
+   "expr": "kind",
+   "follow": 0.2,
+   "seed": 1.7
+  }
+ ],
+ "props": [
+  {
+   "id": "bOff",
+   "kind": "sideboard",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tvOff",
+   "kind": "boxtv",
+   "x": 0,
+   "y": 0.55,
+   "z": 0,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/bench/tv/atlas-6x4.png",
+    "cols": 6,
+    "rows": 4
+   }
+  },
+  {
+   "id": "bStill",
+   "kind": "sideboard",
+   "x": 2.6,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tvStill",
+   "kind": "boxtv",
+   "x": 2.6,
+   "y": 0.55,
+   "z": 0,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/bench/tv/still.png",
+    "cols": 1,
+    "rows": 1
+   }
+  },
+  {
+   "id": "bAtlas",
+   "kind": "sideboard",
+   "x": 5.2,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tvAtlas",
+   "kind": "boxtv",
+   "x": 5.2,
+   "y": 0.55,
+   "z": 0,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/bench/tv/atlas-6x4.png",
+    "cols": 6,
+    "rows": 4
+   },
+   "castLight": 1
+  },
+  {
+   "id": "bFps",
+   "kind": "sideboard",
+   "x": 7.8,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "tvFps",
+   "kind": "boxtv",
+   "x": 7.8,
+   "y": 0.55,
+   "z": 0,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/bench/tv/atlas-6x4.png",
+    "cols": 6,
+    "rows": 4
+   },
+   "fps": 12,
+   "t0": 0
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "TV off, 3/4: cabinet, sideboard, grain",
+   "at": 0,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     1.5,
+     1.15,
+     2.3
+    ],
+    "look": [
+     0.1,
+     0.5,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tvOff",
+     "set": {
+      "on": 0,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tvStill",
+     "set": {
+      "on": 0,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tvAtlas",
+     "set": {
+      "on": 0,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tvFps",
+     "set": {
+      "on": 0,
+      "feed": 0
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "TV off, straight on (panel 11): dark glass, knobs, slats",
+   "at": 1.4,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -0.045,
+     0.8400000000000001,
+     2.779
+    ],
+    "look": [
+     -0.045,
+     0.8400000000000001,
+     0.239
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tvStill",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "tvAtlas",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "tvFps",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "TV on, a single still (cols 1 rows 1), screen 540 px",
+   "at": 2.8,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     2.555,
+     0.8400000000000001,
+     2.779
+    ],
+    "look": [
+     2.555,
+     0.8400000000000001,
+     0.239
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tvAtlas",
+     "set": {
+      "feed": 23
+     },
+     "dur": 2,
+     "ease": "linear",
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "TV on, 6x4 atlas mid-feed (feed 9.2 -> tile 9)",
+   "at": 4.2,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     5.155,
+     0.8400000000000001,
+     2.779
+    ],
+    "look": [
+     5.155,
+     0.8400000000000001,
+     0.239
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "TV on, 6x4 atlas by spec.fps 12 (t 6.2 -> tile 2)",
+   "at": 5.6,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     7.755,
+     0.8400000000000001,
+     2.779
+    ],
+    "look": [
+     7.755,
+     0.8400000000000001,
+     0.239
+    ],
+    "fov": 40
+   },
+   "do": []
+  },
+  {
+   "name": "the glow on a potato 1.35 m away, the room at 0.08",
+   "at": 7,
+   "len": 1.8,
+   "shot": {
+    "pos": [
+     6.52,
+     1,
+     0.33
+    ],
+    "look": [
+     4.35,
+     0.55,
+     1.34
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tvAtlas",
+     "set": {
+      "on": 0
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.6
+    }
+   ]
+  },
+  {
+   "name": "the same, the TV off: the room light alone",
+   "at": 8.8,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     6.52,
+     1,
+     0.33
+    ],
+    "look": [
+     4.35,
+     0.55,
+     1.34
+    ],
+    "fov": 34
+   },
+   "do": []
+  }
+ ]
+}

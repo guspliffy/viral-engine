@@ -1,0 +1,5971 @@
+{
+ "id": "skip-remote",
+ "title": "He skipped every boring part of his life",
+ "idea": "Happiness series 02: Spud gets a remote that skips the boring parts of life; he skips traffic, rain, queues and Mondays, wakes up at 82 remembering nothing, finds a rewind button and goes back to the traffic jam where his best friend is telling a joke",
+ "format": "series: Spud looks for happiness (one life question per episode, never answered out loud)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  210,
+  1360
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "env",
+  "env": "golden-city-crossing",
+  "swap": [
+   {
+    "at": 3.8,
+    "room": {
+     "type": "street",
+     "pos": [
+      500,
+      0,
+      0
+     ],
+     "parking": true
+    }
+   },
+   {
+    "at": 4.6,
+    "room": {
+     "type": "cottage",
+     "pos": [
+      300,
+      0,
+      0
+     ],
+     "seed": 3,
+     "pumpkins": false
+    }
+   },
+   {
+    "at": 9.4,
+    "room": {
+     "type": "street",
+     "pos": [
+      500,
+      0,
+      0
+     ],
+     "parking": true
+    }
+   },
+   {
+    "at": 14.7,
+    "room": {
+     "type": "office",
+     "pos": [
+      700,
+      0,
+      0
+     ]
+    }
+   },
+   {
+    "at": 19.6,
+    "room": {
+     "type": "park",
+     "pos": [
+      900,
+      0,
+      0
+     ]
+    }
+   },
+   {
+    "at": 23.1,
+    "room": {
+     "type": "livingroom",
+     "pos": [
+      1100,
+      0,
+      0
+     ]
+    }
+   },
+   {
+    "at": 36.6,
+    "env": "golden-city-crossing"
+   },
+   {
+    "at": 38,
+    "room": {
+     "type": "street",
+     "pos": [
+      500,
+      0,
+      0
+     ],
+     "parking": true
+    }
+   },
+   {
+    "at": 40,
+    "env": "golden-city-crossing"
+   },
+   {
+    "at": 42,
+    "env": "twilight-city-crossing"
+   }
+  ],
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "rigs": [
+  {
+   "id": "car",
+   "kind": "hatchback",
+   "color": "#3f7f7b",
+   "plate": false,
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "at": 0,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.776,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.78,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.784,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 3.788,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.576,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.58,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.584,
+     "pos": [
+      297.7,
+      0,
+      1.2
+     ],
+     "yaw": -90,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 4.588,
+     "pos": [
+      297.7,
+      0,
+      1.2
+     ],
+     "yaw": -90,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 9.376,
+     "pos": [
+      297.7,
+      0,
+      1.2
+     ],
+     "yaw": -90,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 9.38,
+     "pos": [
+      297.7,
+      0,
+      1.2
+     ],
+     "yaw": -90,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 9.384,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 9.388,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 37.976,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 37.98,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 37.984,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 37.988,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 39.976,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 39.98,
+     "pos": [
+      498,
+      0,
+      2.4
+     ],
+     "yaw": 180,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 39.984,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    },
+    {
+     "at": 39.988,
+     "pos": [
+      0,
+      0,
+      1
+     ],
+     "yaw": 0,
+     "pitch": 0,
+     "roll": 0
+    }
+   ]
+  }
+ ],
+ "hud": {
+  "age": {
+   "keys": [
+    [
+     0,
+     25
+    ],
+    [
+     11.3,
+     26
+    ],
+    [
+     14.7,
+     31
+    ],
+    [
+     17,
+     38
+    ],
+    [
+     19.6,
+     45
+    ],
+    [
+     23.1,
+     61
+    ],
+    [
+     24.7,
+     82
+    ],
+    [
+     35.7,
+     25,
+     1.5
+    ]
+   ],
+   "fade": [
+    42.8,
+    1
+   ]
+  },
+  "pills": {
+   "show": [
+    17.55,
+    19.55
+   ]
+  }
+ },
+ "music": {
+  "file": "skip-remote/skip-remote-score.ogg",
+  "gain": 0.6,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  }
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "concrete",
+  "room": "open",
+  "guard": true
+ },
+ "creative": {
+  "length": [
+   52.2,
+   52.2
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "rem",
+   "chip"
+  ],
+  "hint": 0,
+  "what": "in a traffic jam Spud holds a remote with one big fast-forward button while his friend tells a joke"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "rig": "car",
+   "at": [
+    -0.55,
+    -0.12
+   ],
+   "face": 0,
+   "arms": {
+    "R": {
+     "prop": "wheel",
+     "grip": "R"
+    }
+   },
+   "grip": {
+    "R": "hold"
+   },
+   "expr": "kind",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "rig": "car",
+   "at": [
+    0.55,
+    0.09
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.25,
+   "shadowFall": 0.001,
+   "seed": 2.2
+  },
+  {
+   "id": "spudw",
+   "character": "potatobrawl/spud",
+   "at": [
+    403,
+    400
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.3
+  },
+  {
+   "id": "chipw",
+   "character": "potatobrawl/chip",
+   "at": [
+    406,
+    400
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 2.4
+  },
+  {
+   "id": "spudm",
+   "character": "potatobrawl/spud-mid",
+   "at": [
+    409,
+    400
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.5
+  },
+  {
+   "id": "spudo",
+   "character": "potatobrawl/spud-old",
+   "at": [
+    412,
+    400
+   ],
+   "face": 0,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 1.7
+  },
+  {
+   "id": "chipo",
+   "character": "potatobrawl/chip",
+   "at": [
+    424,
+    400
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 2.5
+  },
+  {
+   "id": "chipf",
+   "character": "potatobrawl/chip",
+   "at": [
+    415,
+    400
+   ],
+   "face": 0,
+   "expr": "delighted",
+   "follow": 0.3,
+   "seed": 2.6
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    418,
+    400
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 3.3
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    421,
+    400
+   ],
+   "face": 0,
+   "expr": "happy",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "seatS",
+   "kind": "carseat",
+   "rig": "car",
+   "color": "#e8dcc4",
+   "trim": "#c9b893",
+   "head": 1,
+   "width": 0.52,
+   "z": -0.15,
+   "x": -0.55,
+   "y": 0.24
+  },
+  {
+   "id": "seatC",
+   "kind": "carseat",
+   "rig": "car",
+   "color": "#e8dcc4",
+   "trim": "#c9b893",
+   "head": 1,
+   "width": 0.52,
+   "z": 0.06,
+   "x": 0.55,
+   "y": 0.4
+  },
+  {
+   "id": "wheel",
+   "kind": "steer",
+   "rig": "car",
+   "x": -0.55,
+   "y": 0.98,
+   "z": 0.55,
+   "tip": 34,
+   "color": "#2a2520"
+  },
+  {
+   "id": "carlook",
+   "kind": "skipcar",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "dash",
+   "kind": "skipdash",
+   "rig": "car",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "glove": 0,
+   "gx": 0.05
+  },
+  {
+   "id": "jam0",
+   "kind": "citycar",
+   "x": 0,
+   "y": 0,
+   "z": -4.6,
+   "rot": 0,
+   "color": "#c9483d"
+  },
+  {
+   "id": "jam1",
+   "kind": "citycar",
+   "x": 0.1,
+   "y": 0,
+   "z": -9.4,
+   "rot": 0,
+   "color": "#e8e2d4"
+  },
+  {
+   "id": "jam2",
+   "kind": "citycar",
+   "x": -3.1,
+   "y": 0,
+   "z": 2.6,
+   "rot": 180,
+   "color": "#3d5a8a"
+  },
+  {
+   "id": "jam3",
+   "kind": "citycar",
+   "x": -3,
+   "y": 0,
+   "z": -2.4,
+   "rot": 180,
+   "color": "#d9a63a"
+  },
+  {
+   "id": "jam4",
+   "kind": "citycar",
+   "x": -3.2,
+   "y": 0,
+   "z": -7.6,
+   "rot": 180,
+   "color": "#7d8a8e"
+  },
+  {
+   "id": "jam5",
+   "kind": "citycar",
+   "x": 0.2,
+   "y": 0,
+   "z": -14.6,
+   "rot": 0,
+   "color": "#a8c3c9"
+  },
+  {
+   "id": "rem",
+   "kind": "skipremote",
+   "x": -0.31,
+   "y": 0.86,
+   "z": 0.28,
+   "scale": 0.8,
+   "press": 0,
+   "dust": 0,
+   "wipe": 0,
+   "rot": 180,
+   "tip": -35
+  },
+  {
+   "id": "remw",
+   "kind": "skipremote",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "scale": 0.001,
+   "press": 0,
+   "dust": 0,
+   "wipe": 0
+  },
+  {
+   "id": "remm",
+   "kind": "skipremote",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "scale": 0.001,
+   "press": 0,
+   "dust": 0,
+   "wipe": 0
+  },
+  {
+   "id": "remg",
+   "kind": "skipremote",
+   "rig": "car",
+   "x": 0.05,
+   "y": 0.7815,
+   "z": 0.61,
+   "rot": 0,
+   "tip": -90,
+   "scale": 0.001,
+   "press": 0,
+   "dust": 0,
+   "wipe": 0,
+   "staged": "lies on the glove box floor"
+  },
+  {
+   "id": "remd",
+   "kind": "skipremote",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "scale": 0.001,
+   "press": 0,
+   "dust": 0.45,
+   "wipe": 0,
+   "halo": 1,
+   "staged": "it lies on the sofa's armrest"
+  },
+  {
+   "id": "remo",
+   "kind": "skipremote",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "scale": 0.001,
+   "press": 0,
+   "dust": 0.45,
+   "wipe": 0
+  },
+  {
+   "id": "door",
+   "kind": "archdoor",
+   "x": 300,
+   "y": -30,
+   "z": -0.81,
+   "color": "#a7382e",
+   "scale": 0.001
+  },
+  {
+   "id": "puddle",
+   "kind": "wetpuddle",
+   "x": 500.35,
+   "y": -30,
+   "z": 0.75,
+   "rx": 0.85,
+   "rz": 0.55,
+   "splash": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "rain",
+   "kind": "rainbox",
+   "x": 500,
+   "y": -30,
+   "z": 0.5,
+   "box": [
+    8,
+    6,
+    8
+   ],
+   "n": 1500,
+   "streak": 0.55,
+   "scale": 0.001
+  },
+  {
+   "id": "umb",
+   "kind": "umbrella",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "open": 1,
+   "scale": 0.001
+  },
+  {
+   "id": "stall",
+   "kind": "marketstall",
+   "x": 503.2,
+   "y": -30,
+   "z": -0.5,
+   "rot": 0,
+   "w": 1.8,
+   "h": 1.9,
+   "d": 0.8,
+   "color": "#c84a3a",
+   "scale": 0.001
+  },
+  {
+   "id": "q0",
+   "kind": "streetpotato",
+   "x": 502.3,
+   "y": -30,
+   "z": 0.35,
+   "rot": 90,
+   "dress": "coat",
+   "hat": 0,
+   "color": "#6b6e72",
+   "scale": 0.001
+  },
+  {
+   "id": "q1",
+   "kind": "streetpotato",
+   "x": 501.75,
+   "y": -30,
+   "z": 0.45,
+   "rot": 90,
+   "dress": "coat",
+   "hat": 1,
+   "color": "#7a5a44",
+   "scale": 0.001
+  },
+  {
+   "id": "q2",
+   "kind": "streetpotato",
+   "x": 501.25,
+   "y": -30,
+   "z": 0.4,
+   "rot": 90,
+   "dress": "coat",
+   "hat": 2,
+   "color": "#55606a",
+   "scale": 0.001
+  },
+  {
+   "id": "loaf",
+   "kind": "loaf",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "staged": "balanced on Chip's head (panel 06)",
+   "scale": 0.001
+  },
+  {
+   "id": "desk",
+   "kind": "officedesk",
+   "x": 700,
+   "y": -30,
+   "z": -0.35,
+   "rot": 0,
+   "color": "#b9a98f",
+   "w": 1.5,
+   "d": 0.75,
+   "scale": 0.001
+  },
+  {
+   "id": "chair",
+   "kind": "chair",
+   "x": 700,
+   "y": 0,
+   "z": -1.05,
+   "rot": 0,
+   "scale": 0.001
+  },
+  {
+   "id": "cup1",
+   "kind": "cocoacup",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "steam": 0.35,
+   "scale": 0.001
+  },
+  {
+   "id": "cup2",
+   "kind": "cocoacup",
+   "x": 0,
+   "y": -30,
+   "z": 0,
+   "steam": 0.35,
+   "scale": 0.001
+  },
+  {
+   "id": "pbench",
+   "kind": "parkbench",
+   "x": 900.2,
+   "y": 0,
+   "z": 0.55,
+   "rot": 0,
+   "w": 2,
+   "scale": 0.001
+  },
+  {
+   "id": "couch",
+   "kind": "couch",
+   "x": 1100.2,
+   "y": 0,
+   "z": -1.3,
+   "rot": 0,
+   "color": "#7e6a74",
+   "color2": "#8f7a84",
+   "scale": 0.001
+  },
+  {
+   "id": "sideb",
+   "kind": "sideboard",
+   "x": 1098.6,
+   "y": -30,
+   "z": -0.1,
+   "rot": 121,
+   "scale": 0.001
+  },
+  {
+   "id": "tv",
+   "kind": "boxtv",
+   "x": 1098.6,
+   "y": -30,
+   "z": -0.1,
+   "rot": 121,
+   "on": 0,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/tv/tv-jam.png",
+    "cols": 1,
+    "rows": 1
+   },
+   "scale": 0.001
+  },
+  {
+   "id": "tv2",
+   "kind": "boxtv",
+   "x": 1098.6,
+   "y": -30,
+   "z": -0.1,
+   "rot": 121,
+   "on": 1,
+   "castLight": 1.6,
+   "screen": {
+    "src": "storyboards/series/happiness/02-skip-remote/tv/tv-puddle.png",
+    "cols": 1,
+    "rows": 1
+   },
+   "scale": 0.001
+  },
+  {
+   "id": "tear",
+   "kind": "tear",
+   "wear": "spudo",
+   "x": -0.12,
+   "y": 0.42,
+   "z": 0.36,
+   "fill": 0,
+   "on": 0,
+   "scale": 0.001
+  }
+ ],
+ "captions": [
+  {
+   "from": 40.15,
+   "to": 41.95,
+   "text": "We don't serve fries here!",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the jam",
+   "at": 0,
+   "len": 3.8,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.05,
+     1.8,
+     3.4
+    ],
+    "look": [
+     -0.05,
+     1.1,
+     -0.2
+    ],
+    "fov": 52,
+    "to": {
+     "pos": [
+      -0.05,
+      1.8,
+      3.4
+     ],
+     "look": [
+      -0.05,
+      1.1,
+      -0.2
+     ],
+     "fov": 48
+    },
+    "dur": 3.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "press": 0,
+      "dust": 0,
+      "wipe": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "remd",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "remo",
+     "set": {
+      "press": 0,
+      "dust": 0.45,
+      "wipe": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "glove": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "splash": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tear",
+     "set": {
+      "fill": 0,
+      "on": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "sit",
+     "seat": "seatS",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "sit",
+     "seat": "seatC",
+     "dur": 0,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "brow": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.25,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0,
+     "dur": 4.6,
+     "reason": "room tone of the place, far under the music",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.006
+    },
+    {
+     "who": "spud",
+     "do": "grab",
+     "prop": "rem",
+     "hand": "L",
+     "grip": [
+      -0.109,
+      -0.02,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.07
+    },
+    {
+     "macro": "narrate",
+     "line": "You get a remote that skips the boring parts of life.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.67,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "So a potato walks into a bar...",
+     "tone": "happy",
+     "dur": 3.4,
+     "speech": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "height": 0.02,
+     "dur": 0.25,
+     "quiet": true,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       -0.24,
+       0.98,
+       0.38
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "tip": -25
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "hop",
+     "height": 0.02,
+     "dur": 0.25,
+     "quiet": true,
+     "at": 2.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       -0.31,
+       0.9,
+       0.3
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "tip": -45
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam4",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "jam5",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.788
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "02 the button",
+   "at": 3.8,
+   "len": 0.8,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.05,
+     1.42,
+     0
+    ],
+    "look": [
+     -0.14,
+     0.9,
+     0.29
+    ],
+    "fov": 30
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.6
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 0.68
+    },
+    {
+     "who": "spud",
+     "do": "hide",
+     "at": 0.788
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "",
+     "dur": 0.01,
+     "speech": false,
+     "at": 0.788
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.788
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.788
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.788
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 0.788
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      298.7,
+      2.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.788
+    },
+    {
+     "who": "spudw",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.788
+    },
+    {
+     "who": "spudw",
+     "do": "show",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "x": 299.006,
+      "y": 0.2,
+      "z": 2.47,
+      "rot": 210
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 0.788
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.789
+    },
+    {
+     "who": "spudw",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.795
+    }
+   ]
+  },
+  {
+   "name": "03 home",
+   "at": 4.6,
+   "len": 4.8,
+   "shot": {
+    "pos": [
+     298.5,
+     1.1,
+     7.4
+    ],
+    "look": [
+     298.45,
+     0.85,
+     1.9
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.2
+     },
+     "dur": 0.1,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.3,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "grab",
+     "prop": "remw",
+     "hand": "L",
+     "grip": [
+      -0.109,
+      -0.02,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "macro": "narrate",
+     "line": "If you've ever wished a Monday away, watch what it costs you.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.6,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      299,
+      3
+     ],
+     "dur": 1.6,
+     "stride": 0.3,
+     "at": 0.2
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       299.306,
+       0.2,
+       3.17
+      ]
+     },
+     "dur": 1.6,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 1.4
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.9
+    },
+    {
+     "who": "chip",
+     "do": "hide",
+     "at": 4.788
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      499.1,
+      0.95
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.788
+    },
+    {
+     "who": "spudw",
+     "do": "turn",
+     "to": 25,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.788
+    },
+    {
+     "who": "spudw",
+     "do": "show",
+     "at": 4.788
+    },
+    {
+     "who": "chipw",
+     "do": "move",
+     "to": [
+      499.95,
+      0.55
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.788
+    },
+    {
+     "who": "chipw",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 4.788
+    },
+    {
+     "who": "chipw",
+     "do": "show",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "x": 498.913,
+      "y": 0.52,
+      "z": 1.258,
+      "rot": 205
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "door",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.788
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 4.788
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "umb",
+      "grip": [
+       0.06,
+       0.079,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 4.789
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       499.39,
+       0.2,
+       1.146
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.79
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "rot": 205
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 4.79
+    },
+    {
+     "who": "spudw",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 4.795
+    }
+   ]
+  },
+  {
+   "name": "04 rain",
+   "at": 9.4,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     499.7,
+     1.05,
+     4.6
+    ],
+    "look": [
+     499.7,
+     0.7,
+     0.2
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "brow": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipw",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipw",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.4,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "sfx": "ai/rain-car-roof",
+     "gain": 0.08,
+     "dur": 1.9,
+     "reason": "rain on the street, far under the voice",
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "grab",
+     "prop": "umb",
+     "hand": "R",
+     "grip": [
+      0.06,
+      0.079,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "macro": "narrate",
+     "line": "Rain? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.9,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "chipw",
+     "do": "crouch",
+     "to": 0.4,
+     "dur": 0.35,
+     "at": 0.4
+    },
+    {
+     "who": "chipw",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "chipw",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.6
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 1.68
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.8
+    },
+    {
+     "who": "chipw",
+     "do": "hide",
+     "at": 1.888
+    },
+    {
+     "who": "chipw",
+     "do": "move",
+     "to": [
+      406,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.888
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.888
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "umb",
+      "grip": [
+       0.06,
+       0.079,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       498.858,
+       0.3,
+       1.283
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.888
+    },
+    {
+     "do": "prop",
+     "id": "puddle",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.888
+    },
+    {
+     "do": "prop",
+     "id": "rain",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.888
+    }
+   ]
+  },
+  {
+   "name": "05 dry",
+   "at": 11.3,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     499.3,
+     1,
+     4
+    ],
+    "look": [
+     499.2,
+     0.65,
+     0.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      500.6,
+      0.55
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.288
+    },
+    {
+     "who": "spudw",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.288
+    },
+    {
+     "who": "spudw",
+     "do": "show",
+     "at": 1.288
+    },
+    {
+     "who": "chipw",
+     "do": "move",
+     "to": [
+      499.85,
+      0.75
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.288
+    },
+    {
+     "who": "chipw",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.288
+    },
+    {
+     "who": "chipw",
+     "do": "show",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "x": 499.85,
+      "y": 0.72,
+      "z": 0.75,
+      "rot": 40,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "set on Chip's head on the cut",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "stall",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "q0",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "q1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "q2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.288
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.288
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       500.906,
+       0.2,
+       0.72
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.29
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "rot": 210
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.29
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "umb",
+      "grip": [
+       0.06,
+       0.079,
+       0.016
+      ],
+      "palm": "wrap",
+      "at": [
+       500.388,
+       0.3,
+       0.903
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.29
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "rot": 210
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.29
+    }
+   ]
+  },
+  {
+   "name": "06 the queue",
+   "at": 12.6,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     500.3,
+     1,
+     3.6
+    ],
+    "look": [
+     500.3,
+     0.72,
+     0.7
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "chipw",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipw",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "chipw",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.5
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipw",
+     "do": "look",
+     "to": [
+      0.6,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Queues? Skipped.",
+     "voice": "narrator",
+     "take": 2,
+     "dur": 1.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.65
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.8
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 1.88
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "spudw",
+     "do": "release",
+     "prop": "umb",
+     "dur": 0,
+     "at": 2.088
+    },
+    {
+     "who": "spudw",
+     "do": "grip",
+     "side": "R",
+     "shape": "relaxed",
+     "dur": 0.01,
+     "at": 2.088
+    },
+    {
+     "who": "chipw",
+     "do": "hide",
+     "at": 2.088
+    },
+    {
+     "who": "chipw",
+     "do": "move",
+     "to": [
+      406,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "y": -30,
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set with the cut",
+     "at": 2.088
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      700,
+      -1.05
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.088
+    },
+    {
+     "who": "spudw",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.088
+    },
+    {
+     "who": "spudw",
+     "do": "show",
+     "at": 2.088
+    },
+    {
+     "who": "chipo",
+     "do": "move",
+     "to": [
+      700.85,
+      0.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.088
+    },
+    {
+     "who": "chipo",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.088
+    },
+    {
+     "who": "chipo",
+     "do": "show",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "cup1",
+     "set": {
+      "x": 700.538,
+      "y": 0.3,
+      "z": 0.449,
+      "rot": 140
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "x": 700.905,
+      "y": 0.3,
+      "z": 0.757,
+      "rot": 140
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "umb",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "stall",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "q0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "q1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "q2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "desk",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "cup1",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.088
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.089
+    },
+    {
+     "who": "chipo",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "cup1",
+      "grip": [
+       0.092,
+       0.076,
+       0.025
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.089
+    },
+    {
+     "who": "chipo",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "cup2",
+      "grip": [
+       -0.092,
+       0.076,
+       0.025
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.089
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       700.17,
+       0.1,
+       -0.69
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.09
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "rot": 180
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.09
+    },
+    {
+     "who": "chipo",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.095
+    },
+    {
+     "who": "chipo",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.095
+    },
+    {
+     "who": "spudw",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0,
+     "hands": "keep",
+     "at": 2.099
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "07 Monday",
+   "at": 14.7,
+   "len": 2.3,
+   "shot": {
+    "pos": [
+     700.35,
+     1.35,
+     2.6
+    ],
+    "look": [
+     700.35,
+     0.75,
+     -0.4
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "chipo",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chipo",
+     "do": "look",
+     "to": [
+      -0.7,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "lid": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.1,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipo",
+     "do": "grab",
+     "prop": "cup1",
+     "hand": "R",
+     "grip": [
+      0.092,
+      0.076,
+      0.025
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "who": "chipo",
+     "do": "grab",
+     "prop": "cup2",
+     "hand": "L",
+     "grip": [
+      -0.092,
+      0.076,
+      0.025
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "macro": "narrate",
+     "line": "Mondays? Skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.01,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.75
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.9
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 1.98
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 2.1
+    },
+    {
+     "who": "chipo",
+     "do": "hide",
+     "at": 2.288
+    },
+    {
+     "who": "chipo",
+     "do": "move",
+     "to": [
+      424,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.288
+    },
+    {
+     "who": "spudw",
+     "do": "stand",
+     "dur": 0,
+     "at": 2.288
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      700,
+      0.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.288
+    },
+    {
+     "who": "spudw",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.288
+    },
+    {
+     "who": "spudw",
+     "do": "show",
+     "at": 2.288
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       700.18,
+       0.2,
+       0.75
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.29
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "rot": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 2.29
+    }
+   ]
+  },
+  {
+   "name": "08 would you press it",
+   "at": 17,
+   "len": 2.6,
+   "shot": {
+    "pos": [
+     700,
+     0.9,
+     3.5
+    ],
+    "look": [
+     700,
+     0.86,
+     0.45
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      700,
+      0.9,
+      3.5
+     ],
+     "look": [
+      700,
+      0.86,
+      0.45
+     ],
+     "fov": 32
+    },
+    "dur": 2.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudw",
+     "do": "expr",
+     "expr": "cocky",
+     "set": {
+      "brow": 0.5,
+      "curve": 0.4
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudw",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remw",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       700.08,
+       0.24,
+       0.85
+      ]
+     },
+     "dur": 0.45,
+     "ease": "anticSettle",
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Would you press it?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.17,
+     "caption": true,
+     "pos": 370,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spudw",
+     "do": "hide",
+     "at": 2.588
+    },
+    {
+     "who": "spudw",
+     "do": "move",
+     "to": [
+      403,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "spudm",
+     "do": "move",
+     "to": [
+      900.2,
+      0.55
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "spudm",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "spudm",
+     "do": "show",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "x": 900.37,
+      "y": 0.14,
+      "z": 0.91,
+      "rot": 180
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 2.588
+    },
+    {
+     "who": "chipf",
+     "do": "move",
+     "to": [
+      897.75,
+      -5.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "chipf",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "chipf",
+     "do": "show",
+     "at": 2.588
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      898.8,
+      -5.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 2.588
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      899.85,
+      -5.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.588
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "desk",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "chair",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "cup1",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "cup2",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "do": "prop",
+     "id": "pbench",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.588
+    },
+    {
+     "who": "spudm",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remm",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.589
+    },
+    {
+     "who": "spudm",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 2.595
+    },
+    {
+     "who": "spudm",
+     "do": "sit",
+     "seat": "pbench",
+     "dur": 0,
+     "hands": "keep",
+     "at": 2.599
+    }
+   ]
+  },
+  {
+   "name": "09 the bench",
+   "at": 19.6,
+   "len": 3.5,
+   "shot": {
+    "pos": [
+     900.3,
+     1,
+     4.4
+    ],
+    "look": [
+     899.7,
+     0.7,
+     -1.5
+    ],
+    "fov": 48
+   },
+   "do": [
+    {
+     "who": "spudm",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudm",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.4
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chipf",
+     "do": "move",
+     "to": [
+      897.35,
+      -7.7
+     ],
+     "dur": 3,
+     "stride": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      898.4,
+      -7.7
+     ],
+     "dur": 3,
+     "stride": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      899.45,
+      -7.7
+     ],
+     "dur": 3,
+     "stride": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "spudm",
+     "do": "grab",
+     "prop": "remm",
+     "hand": "L",
+     "grip": [
+      -0.109,
+      -0.02,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "macro": "narrate",
+     "line": "But most of life is the boring parts.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.25,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "spudm",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "spudm",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 2.85
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 3
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 3.08
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 3.2
+    },
+    {
+     "who": "chipf",
+     "do": "hide",
+     "at": 3.488
+    },
+    {
+     "who": "chipf",
+     "do": "move",
+     "to": [
+      415,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.488
+    },
+    {
+     "who": "wedge",
+     "do": "hide",
+     "at": 3.488
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      418,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.488
+    },
+    {
+     "who": "mash",
+     "do": "hide",
+     "at": 3.488
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      421,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "stand",
+     "dur": 0,
+     "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "move",
+     "to": [
+      1101.75,
+      -1.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "turn",
+     "to": -95,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "show",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "remd",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "remo",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "pbench",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "couch",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "sideb",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 1,
+      "y": 0.55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 3.488
+    },
+    {
+     "who": "spudm",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remm",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       1101.435,
+       0.2,
+       -1.297
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.49
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "rot": 85
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 3.49
+    }
+   ]
+  },
+  {
+   "name": "10 the window",
+   "at": 23.1,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     1100.2,
+     1.15,
+     0.3
+    ],
+    "look": [
+     1101.6,
+     0.8,
+     -1.5
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "spudm",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.1
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudm",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudm",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "press": 1
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 1.2
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 1.28
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "press": 0
+     },
+     "dur": 0.12,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "spudm",
+     "do": "hide",
+     "at": 1.588
+    },
+    {
+     "who": "spudm",
+     "do": "move",
+     "to": [
+      409,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "move",
+     "to": [
+      1100.2,
+      -1.3
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "show",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "remd",
+     "set": {
+      "x": 1100.98,
+      "y": 0.605,
+      "z": -1.45,
+      "rot": 10,
+      "tip": -90,
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "laid on the armrest on the cut",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "sit",
+     "seat": "couch",
+     "dur": 0,
+     "hands": "keep",
+     "at": 1.599
+    }
+   ]
+  },
+  {
+   "name": "11 eighty-two",
+   "at": 24.7,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     1100.6,
+     1.3,
+     1.7
+    ],
+    "look": [
+     1099.95,
+     0.7,
+     -1
+    ],
+    "fov": 54,
+    "to": {
+     "pos": [
+      1100.6,
+      1.3,
+      1.7
+     ],
+     "look": [
+      1099.95,
+      0.7,
+      -1
+     ],
+     "fov": 46
+    },
+    "dur": 3.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudo",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "curve": -0.2,
+      "lid": 0.3
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "look",
+     "to": [
+      0,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Eighty-two. And you can't remember a single day.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.72,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "remd",
+     "set": {
+      "y": -30,
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "swapped for the one in his hand on the cut",
+     "at": 3.888
+    },
+    {
+     "do": "prop",
+     "id": "remo",
+     "set": {
+      "x": 1100.37,
+      "y": 0.12,
+      "z": -0.88,
+      "rot": 180
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "put in the hand on the cut (it is off screen until then)",
+     "at": 3.888
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remo",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 3.889
+    },
+    {
+     "who": "spudo",
+     "do": "grip",
+     "side": "L",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 3.895
+    }
+   ],
+   "kind": "reveal"
+  },
+  {
+   "name": "12 the red button",
+   "at": 28.6,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     1100.4,
+     0.38,
+     -0.45
+    ],
+    "look": [
+     1100.36,
+     0.24,
+     -0.9
+    ],
+    "fov": 34
+   },
+   "do": [
+    {
+     "who": "spudo",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.15
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.5
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "grab",
+     "prop": "remo",
+     "hand": "L",
+     "grip": [
+      -0.109,
+      -0.02,
+      -0.012
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.059
+    },
+    {
+     "do": "prop",
+     "id": "remo",
+     "set": {
+      "wipe": 1
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.5
+    }
+   ]
+  },
+  {
+   "name": "13 the TV",
+   "at": 30.2,
+   "len": 2.8,
+   "shot": {
+    "pos": [
+     1100.85,
+     1.25,
+     -1.85
+    ],
+    "look": [
+     1098.6,
+     0.85,
+     -0.1
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "on": 1
+     },
+     "dur": 0.25,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "click",
+     "gain": 0.4,
+     "reason": "the old TV switches on",
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.2
+     },
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.05
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "So you rewind, to see what you skipped.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.69,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "do": "prop",
+     "id": "tv",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.788
+    },
+    {
+     "do": "prop",
+     "id": "tv2",
+     "set": {
+      "scale": 1,
+      "y": 0.55
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.788
+    },
+    {
+     "do": "prop",
+     "id": "tear",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 2.788
+    }
+   ]
+  },
+  {
+   "name": "14 the puddle on TV",
+   "at": 33,
+   "len": 2,
+   "shot": {
+    "pos": [
+     1099,
+     1,
+     0.3
+    ],
+    "look": [
+     1100.32,
+     0.85,
+     -1.3
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      1099,
+      1,
+      0.3
+     ],
+     "look": [
+      1100.32,
+      0.85,
+      -1.3
+     ],
+     "fov": 39
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spudo",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.6,
+      "lid": 0.35
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "tear",
+     "set": {
+      "on": 1,
+      "fill": 0.8
+     },
+     "dur": 0.6,
+     "ease": "linear",
+     "at": 0.3
+    },
+    {
+     "who": "spudo",
+     "do": "stand",
+     "dur": 0,
+     "at": 1.988
+    },
+    {
+     "who": "spudo",
+     "do": "move",
+     "to": [
+      1100.2,
+      -0.5
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.988
+    },
+    {
+     "who": "spudo",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.988
+    },
+    {
+     "who": "spudo",
+     "do": "show",
+     "at": 1.988
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remo",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       1100.38,
+       0.2,
+       -0.2
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.99
+    }
+   ],
+   "kind": "reaction"
+  },
+  {
+   "name": "15 rewind",
+   "at": 35,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     1099.75,
+     0.95,
+     1.3
+    ],
+    "look": [
+     1100.25,
+     0.85,
+     -0.5
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spudo",
+     "do": "expr",
+     "expr": "focused",
+     "set": {
+      "brow": -0.3
+     },
+     "dur": 0.15,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "look",
+     "to": [
+      0.2,
+      0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spudo",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "remo",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       1100.34,
+       0.28,
+       -0.1
+      ]
+     },
+     "dur": 0.4,
+     "ease": "anticSettle",
+     "at": 0.1
+    },
+    {
+     "who": "spudo",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.6
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.45
+    },
+    {
+     "sfx": "click",
+     "gain": 0.55,
+     "reason": "the remote's button clicks down",
+     "at": 0.68
+    },
+    {
+     "who": "spudo",
+     "do": "hide",
+     "at": 1.588
+    },
+    {
+     "who": "spudo",
+     "do": "move",
+     "to": [
+      412,
+      400
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.588
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 1.588
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 1.588
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.588
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.588
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 1.588
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       -0.31,
+       0.86,
+       0.28
+      ]
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "tip": -35
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam0",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam3",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam4",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "jam5",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "remm",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "remd",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "remo",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "couch",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "sideb",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "tv2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    },
+    {
+     "do": "prop",
+     "id": "tear",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.588
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "16 back at 25",
+   "at": 36.6,
+   "len": 1.4,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     -0.05,
+     1.8,
+     3.4
+    ],
+    "look": [
+     -0.05,
+     1.1,
+     -0.2
+    ],
+    "fov": 52
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.25,
+      "eye": 1.2
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.35
+     },
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "...and the bartender says...",
+     "tone": "happy",
+     "dur": 1.2,
+     "speech": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "blink",
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.7,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "lap",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam3",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam4",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "jam5",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "stall",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "q0",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "q1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "q2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "scale": 1
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.388
+    }
+   ]
+  },
+  {
+   "name": "17 the glove box",
+   "at": 38,
+   "len": 2,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.35,
+     1.6,
+     0.15
+    ],
+    "look": [
+     0,
+     0.8,
+     0.6
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "glove": 1
+     },
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "sfx": "click",
+     "gain": 0.35,
+     "reason": "the glove box latch",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -8,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       0.05,
+       0.897,
+       0.59
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "at": [
+       0.05,
+       0.817,
+       0.59
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "now the one lying in the glove box (remg)",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "remg",
+     "set": {
+      "scale": 0.8
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "laid in the box as his hand lets go",
+     "at": 0.95
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "squash": 0.05
+     },
+     "dur": 0.05,
+     "ease": "out",
+     "at": 1
+    },
+    {
+     "do": "prop",
+     "id": "rem",
+     "set": {
+      "squash": 0
+     },
+     "dur": 0.15,
+     "ease": "settle",
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "release",
+     "prop": "rem",
+     "dur": 0,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.15,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "prop": "rem",
+      "grip": [
+       -0.109,
+       -0.02,
+       -0.012
+      ],
+      "palm": true,
+      "off": [
+       0.06,
+       0.02,
+       -0.04
+      ]
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 1.14
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "settle",
+     "at": 1.34
+    },
+    {
+     "who": "spud",
+     "do": "grip",
+     "side": "L",
+     "shape": "relaxed",
+     "dur": 0.3,
+     "at": 1.34
+    },
+    {
+     "do": "prop",
+     "id": "dash",
+     "set": {
+      "glove": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.35
+    },
+    {
+     "sfx": "click",
+     "gain": 0.3,
+     "reason": "the glove box snaps shut",
+     "at": 1.6
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "remg",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "shut in the glove box",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam0",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam1",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam2",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam3",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam4",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "jam5",
+     "set": {
+      "scale": 1,
+      "y": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "remw",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "stall",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "q0",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "q1",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "q2",
+     "set": {
+      "scale": 0.001,
+      "y": -30
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    },
+    {
+     "do": "prop",
+     "id": "loaf",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "reason": "off the set between scenes: hidden and parked under the floor on the cut",
+     "at": 1.988
+    }
+   ]
+  },
+  {
+   "name": "18 the punchline",
+   "at": 40,
+   "len": 2,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.03,
+     1.8,
+     3.3
+    ],
+    "look": [
+     0.03,
+     1.15,
+     -0.2
+    ],
+    "fov": 50
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "talk",
+     "line": "We don't serve fries here!",
+     "tone": "excited",
+     "dur": 1.4,
+     "blink": false,
+     "gain": 1.3,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.06,
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.6,
+      "curve": 0.8
+     },
+     "dur": 0.15,
+     "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "set": {
+      "open": 0.6
+     },
+     "dur": 0.15,
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.3,
+     "at": 1.45
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 1.5
+    }
+   ],
+   "kind": "payoff"
+  },
+  {
+   "name": "19 sunset",
+   "at": 42,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     0,
+     3,
+     7.8
+    ],
+    "look": [
+     0,
+     1,
+     -4
+    ],
+    "fov": 44
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "The boring parts were the good parts.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "20 the shoulder",
+   "at": 44.4,
+   "len": 7.8,
+   "shot": {
+    "rig": "car",
+    "pos": [
+     0.03,
+     1.75,
+     3.9
+    ],
+    "look": [
+     0.03,
+     1.12,
+     -0.2
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.03,
+      1.75,
+      3.9
+     ],
+     "look": [
+      0.03,
+      1.12,
+      -0.2
+     ],
+     "fov": 38
+    },
+    "dur": 7.8,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "And for one moment, you forget all your worries.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.7,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "lean",
+     "to": -12,
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 3,
+     "dur": 0.6,
+     "ease": "settle",
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "serene",
+     "set": {
+      "lid": 0.6,
+      "curve": 0.5
+     },
+     "dur": 0.4,
+     "at": 0.6
+    },
+    {
+     "macro": "narrate",
+     "line": "Follow for the next question.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.77,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 5.4
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 3.8,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "rem"
+   ],
+   "why": "a traffic jam: Spud at the wheel looks at a remote in his hand; Chip beside him tells a joke, hands up"
+  },
+  {
+   "from": 3.8,
+   "to": 4.6,
+   "see": [
+    "rem"
+   ],
+   "why": "close from over his head: his thumb on the big white fast-forward button"
+  },
+  {
+   "from": 4.6,
+   "to": 9.4,
+   "see": [
+    "spudw.face",
+    "chip.face",
+    "remw"
+   ],
+   "why": "evening at his cottage: Spud walks off with the remote; Chip still sits in the parked car, blinking, his joke cut off"
+  },
+  {
+   "from": 9.4,
+   "to": 11.3,
+   "see": [
+    "spudw.face",
+    "chipw.face",
+    "puddle"
+   ],
+   "why": "rain: Chip crouches to jump into a big puddle, grinning at Spud; Spud under his umbrella presses the remote"
+  },
+  {
+   "from": 11.3,
+   "to": 12.6,
+   "see": [
+    "spudw.face"
+   ],
+   "why": "the same street, dry and sunny: Spud alone with his folded umbrella, pleased; no Chip"
+  },
+  {
+   "from": 12.6,
+   "to": 14.7,
+   "see": [
+    "spudw.face",
+    "chipw.face",
+    "loaf"
+   ],
+   "why": "a long queue at the bakery: Chip balances a bread loaf on his head to make Spud laugh; Spud rolls his eyes and presses the remote"
+  },
+  {
+   "from": 14.7,
+   "to": 17,
+   "see": [
+    "spudw.face",
+    "chipo.face",
+    "cup1",
+    "cup2"
+   ],
+   "why": "Monday at the office: Chip brings two coffees, smiling; Spud presses the remote without looking up"
+  },
+  {
+   "from": 17,
+   "to": 19.6,
+   "see": [
+    "spudw.face",
+    "remw"
+   ],
+   "why": "straight to camera: Spud holds the remote out to us, eyebrows up: would you press it?"
+  },
+  {
+   "from": 19.6,
+   "to": 23.1,
+   "see": [
+    "spudm.face",
+    "remm",
+    "chipf"
+   ],
+   "why": "an autumn park: middle-aged Spud alone on a bench presses again; far away Chip walks with the other friends"
+  },
+  {
+   "from": 23.1,
+   "to": 24.7,
+   "see": [
+    "spudm.face",
+    "remm"
+   ],
+   "why": "his living room at dusk: middle-aged Spud alone at the window presses once more"
+  },
+  {
+   "from": 24.7,
+   "to": 28.6,
+   "see": [
+    "spudo.face",
+    "remd",
+    "tv"
+   ],
+   "why": "a dim living room: Spud at 82 alone on the sofa, the remote dusty on the armrest, the TV dark"
+  },
+  {
+   "from": 28.6,
+   "to": 30.2,
+   "see": [
+    "spudo.face",
+    "remo"
+   ],
+   "why": "close: old Spud finds a small red rewind button on the back of the remote"
+  },
+  {
+   "from": 30.2,
+   "to": 33,
+   "see": [
+    "tv"
+   ],
+   "why": "over his shoulder: on the old TV, Spud and Chip laughing in the car in the traffic jam"
+  },
+  {
+   "from": 33,
+   "to": 35,
+   "see": [
+    "spudo.face",
+    "tv2"
+   ],
+   "why": "his face lit by the TV, laughing with a tear; on the TV the two of them jump into the puddle together"
+  },
+  {
+   "from": 35,
+   "to": 36.6,
+   "see": [
+    "spudo.face",
+    "remo"
+   ],
+   "why": "old Spud stands and holds the remote high, pressing the red rewind button"
+  },
+  {
+   "from": 36.6,
+   "to": 38,
+   "see": [
+    "spud.face",
+    "chip.face",
+    "rem"
+   ],
+   "why": "back in the traffic jam at 25: Spud blinks, the remote in his hand; Chip mid-joke beside him"
+  },
+  {
+   "from": 38,
+   "to": 40,
+   "see": [
+    "dash",
+    "rem"
+   ],
+   "why": "close: Spud lays the remote in the glove box and shuts it"
+  },
+  {
+   "from": 40,
+   "to": 42,
+   "see": [
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "Chip's punchline; Spud bursts into a real belly laugh"
+  },
+  {
+   "from": 42,
+   "to": 44.4,
+   "see": [
+    "car"
+   ],
+   "why": "the jammed road at sunset; the teal car in the line, the sun at the end of the street"
+  },
+  {
+   "from": 44.4,
+   "to": 52.2,
+   "see": [
+    "spud.face",
+    "chip.face"
+   ],
+   "why": "close through the windscreen at sunset: Spud smiles softly, Chip's head on his shoulder"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "spud",
+   "with": "seatS",
+   "from": 0,
+   "to": 52.2,
+   "reason": "sitting in the car seat"
+  },
+  {
+   "who": "chip",
+   "with": "seatC",
+   "from": 0,
+   "to": 52.2,
+   "reason": "sitting in the car seat"
+  },
+  {
+   "who": "spud",
+   "with": "wheel",
+   "from": 0,
+   "to": 52.2,
+   "reason": "hands on the wheel rim"
+  },
+  {
+   "who": "spud",
+   "with": "dash",
+   "from": 0,
+   "to": 52.2,
+   "reason": "his sweater's hem and left elbow touch the dash below the windscreen line: every camera sees the car from the front, the fascia hides them"
+  },
+  {
+   "who": "spud",
+   "with": "car",
+   "from": 0,
+   "to": 52.2,
+   "reason": "he sits inside the car (it encloses him)"
+  },
+  {
+   "who": "chip",
+   "with": "car",
+   "from": 0,
+   "to": 52.2,
+   "reason": "he sits inside the car (it encloses him)"
+  },
+  {
+   "who": "spudw",
+   "with": "chair",
+   "from": 14.7,
+   "to": 19.6,
+   "reason": "sitting on the office chair"
+  },
+  {
+   "who": "spudm",
+   "with": "pbench",
+   "from": 19.6,
+   "to": 23.1,
+   "reason": "sitting on the park bench"
+  },
+  {
+   "who": "spud",
+   "with": "remg",
+   "from": 38.9,
+   "to": 39.4,
+   "reason": "the remote he has just laid in the glove box: his fingers let go of it"
+  },
+  {
+   "who": "chipw",
+   "with": "loaf",
+   "from": 12.6,
+   "to": 14.7,
+   "reason": "the loaf is balanced on his hood (panel 06): it rests on him"
+  },
+  {
+   "who": "spudo",
+   "with": "couch",
+   "from": 24.7,
+   "to": 35,
+   "reason": "sitting on the sofa"
+  },
+  {
+   "who": "spudo",
+   "with": "tear",
+   "from": 33,
+   "to": 36.6,
+   "reason": "the tear is worn on his cheek"
+  },
+  {
+   "who": "chip",
+   "with": "spud",
+   "from": 44.8,
+   "to": 52.2,
+   "reason": "the lean, panel 20 (DESIGN 8)"
+  }
+ ],
+ "notes": "Generated by storyboards/series/happiness/02-skip-remote/make-skip-remote.mjs."
+}

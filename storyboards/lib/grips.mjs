@@ -26,6 +26,7 @@ const mirror = ([x, y, z]) => [-x, y, z];
 // the sizes the holds need, per prop kind (metres before the prop's scale; engine/page/props*.js)
 const SIZE = {
   campmug: { r: 0.045, h: 0.085 },                 // props-duo.js campmug: its handle on +x
+  shopbag: { r: 0.012, h: 0.62 },                  // props-happy.js shopbag: held by its rope loop (apex 0.41 = the mug hold at 0.66 x h)
   // a bowl's outside, [height, radius] from the foot up to the rim
   snackbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] },   // props-charger.js
   popcornbowl: { rim: 0.088, wall: [[0, 0.062], [0.02, 0.092], [0.046, 0.128], [0.074, 0.146], [0.088, 0.15]] }, // props-ufo.js: the snack bowl's shape
@@ -47,6 +48,8 @@ const SIZE = {
   // the half-width the pads close on
   candy: { len: 0.04, r: 0.024 },                  // props-halloween.js candy (big 1.3): the sweet's middle is 0.02 up
   wallcalendar: { w: 0.26, h: 0.34, t: 0.008 },    // props-notyet.js CALENDAR: held with the phone hold, its grid (-z) faces away from the holder
+  clipboard: { w: 0.24, h: 0.32, t: 0.008 },       // props-spree.js: the estate agent's clipboard (money redo), phone hold, paper on -z
+  bigcheck: { w: 0.56, h: 0.002, d: 0.24 },        // props-spree.js: the $10,000,000 check (money redo), lies flat
   hotelpillow: { w: 0.5, h: 0.12, d: 0.3 },        // props-nightcity.js: both palms on its two ends (box hold: L at x -0.25, R at x +0.25)
   gamepad: { w: 0.17, h: 0.045, d: 0.1 },
   rubberstamp: { r: 0.018, h: 0.13 },             // props-busy.js: held round its wooden neck like a mug (a real stamp's fist hold), the pad below
@@ -126,6 +129,13 @@ const SIZE = {
   // (grips.phone(c, who, PAD, { side: "L", height: 0.2 }) = 5 cm up from the bottom); the book is held OPEN (open 1, 0.40 wide, spine on x 0): both gloves on its outer edges (box hold)
   spudpad: { w: 0.19, h: 0.26, t: 0.018 },
   mashbook: { w: 0.4, h: 0.27, d: 0.011 },
+  // props-skipremote.js (Happiness EP02): the remote's origin is the middle of its BACK face, so the phone hold's grip height 0.42 x h must land
+  // under the middle: h -0.048 gives y -0.020 (negative on purpose, precedent: headrest h 0). Hold: phone, side "L", gap 0.035, height 0.42 (defaults).
+  skipremote: { w: 0.13, h: -0.048, t: 0.03 },
+  // umbrella: origin 0.14 up the wooden handle, the shaft up +y: the mug hold's fist at 0.66 h = y 0.079 on the handle, round r 0.012 (burnbranch precedent)
+  umbrella: { r: 0.012, h: 0.12 },
+  // loaf: worn or placed on a head, not held; w / h / d are for the box hold if both hands carry it overhead (palms on the two ends)
+  loaf: { w: 0.34, h: 0.09, d: 0.11 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };

@@ -5,6 +5,7 @@ import { rad } from "./util.js";
 import { ART_CAST } from "./costumes-art-cast.js";
 import { clown } from "./costumes-clown.js";
 import { everyday, EVERYDAY } from "./costumes-everyday.js";
+import { skipAge } from "./costumes-skipage.js";
 import { aliens, ALIEN_TYPES } from "./costumes-aliens.js";
 import { plato, PLATO_TYPES } from "./costumes-plato.js";
 
@@ -326,7 +327,7 @@ export function castCostume(C, ch) {
   if (ALIEN_TYPES.includes(T)) return aliens(C, ch, out);   // the alien crew and the Egyptian workers (costumes-aliens.js, Ancient Aliens kit)
   if (PLATO_TYPES.includes(T)) return plato(C, ch, out);   // Plato (costumes-plato.js, Ancient Aliens EP03 kit)
   if (T === "clown") return clown(C, ch, out);   // Mr. Crisp (costumes-clown.js): the same in every look
-  if ((C.art || T === "spud") && ART_CAST[T]) return ART_CAST[T](C, ch, out);   // Spud has no plain version: his sweater is the same in every look
+  if ((C.art || T === "spud") && ART_CAST[T]) { const r = ART_CAST[T](C, ch, out); return C.age ? skipAge(C, ch, r) : r; }   // costume.age: Spud aged (costumes-skipage.js, happiness EP02)   // Spud has no plain version: his sweater is the same in every look
   if (T === "astronaut") {
     const suitM = std(C.suit || "#eef0f4", { roughness: 0.55 }), trimM = std(C.trim || "#9aa3b2", { roughness: 0.45, metalness: 0.3 });
     parts.add(new THREE.Mesh(lowerShell(ch, -0.42), suitM));

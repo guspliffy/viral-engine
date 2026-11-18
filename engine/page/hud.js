@@ -42,6 +42,33 @@
 // Placement follows the frame (shared/frame.js): tall as below; "frame": "wide" (1920 x 1080) puts the same chips in
 // frameSafe's corners, y 40 on top (y 888 for "bottom"): own at x 80, train's right edge at x 1840, DAY at x 92.
 // Tall own chip: x 60, y 214; train right edge x 920, y 214. A chip's "y" override ("hud": { "y": n }) moves them all.
+// Skip remote (Happiness EP02) adds two opt-in parts, nothing changes without them (design: DESIGN.md section 3). A clip
+// without "age" or "pills" draws exactly as before.
+//   "age": { "keys": [[0, 25], [4.1, 31], [9.0, 61], [15.2, 25, 1.5]], "fade": [40.2, 1.0] }
+//   "pills": { "show": [17.2, 19.4] }
+// age = the video's clock, no English: a birthday-cake icon (3 candle flames under 50, 1 from 50), the number in big
+// digits and a life bar (90 - age) / 90 (green over 50 %, amber 25-50, red under 25) in a chip at x 72-372, y 214-332
+// (the y key moves it). Keys [t, value, dur?]: a RISE counts up over dur (default 0.4 s) from the key's time, the chip
+// kicks 6 px, the number flashes yellow and scales 1.18 -> 1, the lost chunk of the bar flashes for 0.35 s and a
+// "+N" tag shows right of the chip for 0.9 s. A FALL (the roll-back) counts down over dur (default 1.5 s, eased in,
+// one whole number per frame, the bar refilling) and a green "-N" tag shows for 1.0 s from the moment it lands. dur 0 jumps.
+// "fade": [from, dur = 1] fades the chip out. The "+N" tag is 388-490 px wide: keep a jump key clear of the pills.
+// pills = the "YES" / "NO" question pills x 420-900, y 214-332 (green YES, red NO, a small "or" between): fade in over
+// 0.2 s at show[0], out over 0.2 s ending at show[1]. "pills": [from, to] works too.
+// "The money counter" (happiness EP01, 15 Nov 2026) adds two opt-in parts for the race, drawn as their own chips in the strip
+// y 344-462 (no English: a dollar sign, digits, sacks, a sun on an arc, an hourglass; everything is a pure function of story time):
+//   "money": [[0.1, 10000000], [6.9, 9997000, 0.35], [14.6, 8000000, 0.45], [36.0, 0, 0.5]]      (or { keys, in, fade, y })
+//   "sun":   { "p": [[0.1, 0.02], [14.0, 0.34, 0.4], [36.0, 1.0, 0.4]], "last": [23.2, 36.0] }   (or a plain key array = p only)
+// money: chip at x 72 (380 wide): "$10,000,000" (CapBlack 58) and 10 sack pips, one million each (pip k fills from its bottom by
+// clamp(v / 1e6 - (k - 1)); pip 1 is the last to empty). A key that lowers the value runs the number down over its dur, kicks the
+// chip 5 px down and back (0.18 s) and glows every sack that empties for 0.4 s; nothing is red. A key that reaches 0 flashes the
+// number and pip 1 red twice (0.15 s on / off), runs to $0 and drops the chip to 0.45 opacity.
+// sun: chip with its right edge at x 908 (150 wide): a quarter arc of r 76 from straight up (noon) clockwise to a sea line;
+// p 0-1 is the sun's way along it (keys as the battery's: give each cut a dur 0.4 so the sun slides), colour #ffe066 -> #ffd04a
+// -> #ffb23d -> #ff7a3a (no rays from 0.85), cut by the sea line, half sunk at p 1. "last": [from, to] adds the last minute: at
+// `from` the chip grows to 292 (0.2 s) and an hourglass with "1:00" pops in and runs to "0:00" at `to` (red under 0:10, with the
+// chip's edge pulsing red twice a second); the chip drops to 0.45 opacity at `to`.
+// Both: "in" (pop-in time, default the first key; scale 0.9 -> 1 in 0.18 s), "fade": [from, dur] (default none), "y" (top, default 344).
 //
 // pos "top" (default): DAY in the safe zone's top-left corner and the clock + battery in its top-right, y 214-284, the
 // middle left free for Jonny's in-app title. "bottom": the same strip at y 1288-1356 (clear of one-line subtitles at
@@ -59,7 +86,7 @@ const hhmm = (m) => { const x = ((Math.floor(m + 1e-6) % 1440) + 1440) % 1440; r
 const gap = (d) => (d >= 60 ? `+${Math.floor(d / 60)}h${d % 60 ? ` ${d % 60}m` : ""}` : `+${d} min`);
 
 // ---- the score film's chips (own, train)
-const TICK = 5 / 30, ROLL = 0.4 * CH, AMBER = "#ffb648", GOLD = "#e6cf8a", DAYS = ["THU", "FRI", "SAT", "SUN"];
+const TICK = 5 / 30, ROLL = 0.4 * CH, AMBER = "#ffb648", SGOLD = "#e6cf8a", DAYS = ["THU", "FRI", "SAT", "SUN"];
 const specKeys = (s) => (Array.isArray(s) ? s : s && Array.isArray(s.keys) ? s.keys : null);
 const fadeOut = (o, t) => (o ? 1 - clamp((t - o[0]) / Math.max(o[1] ?? 0.5, 1e-6)) : 1);
 const ownColour = (v) => (v <= 35 ? "#cbb98a" : v <= 60 ? "#e6cf8a" : v <= 85 ? "#f3dc8c" : "#ffe9a3");
@@ -143,11 +170,113 @@ export function hudState(sb, t) {
     const v = clamp(bat.v, 0, 100), dropped = bat.i > 0 && bat.K[bat.i][1] < bat.K[bat.i - 1][1];
     out.battery = { v, pct: Math.round(v), dead: v <= 0.001 && !bat.counting, since: bat.since - (bat.K[bat.i][2] || 0), kick: dropped ? bat.since : null };
   }
+  const age = H.age ? ageState(H.age, t) : null;
+  if (age) out.age = age;
+  const pl = H.pills ? pillsState(H.pills, t) : null;
+  if (pl) out.pills = pl;
+  if (H.money) { const M = moneyState(H.money, t); if (M) out.money = M; }
+  if (H.sun) { const U = sunState(H.sun, t); if (U) out.sun = U; }
   return out;
 }
+
+// ---- money + sun (opt-in) ----
+const MONEY_Y = 344, STRIP_H = 118, MONEY_X = 72, MONEY_W = 380, SUN_R = 908, SUN_W = 150, SUN_W_LAST = 292, SACK = 1e6, GROW = 0.2;
+const MONEY_FONT = '900 58px "CapBlack"', TIMER_FONT = '900 50px "CapBlack"';
+const RED = "#ff4d4d", GOLD = "#ffd25a", SACK_FULL = "#e9dcb4";
+// pop-in slap (scale 0.9 -> 1 in 0.18 s), fade-out and the opacity alpha shared by both chips
+function envelope(P, t, first, dimAt) {
+  const tin = P.in ?? first, k = t - tin;
+  if (k < 0) return null;
+  const fade = P.fade ? 1 - clamp((t - P.fade[0]) / (P.fade[1] ?? 1)) : 1;
+  if (fade <= 0) return null;
+  const dim = dimAt != null ? clamp((t - dimAt) / 0.3) : 0;
+  return { a: Math.min(1, k / 0.1) * fade * (1 - 0.55 * dim), pop: 0.9 + 0.1 * ease("back")(clamp(k / 0.18)), y: P.y ?? MONEY_Y };
+}
+function moneyState(spec, t) {
+  const P = Array.isArray(spec) ? { keys: spec } : spec, mk = keyed(P.keys, t);
+  if (!mk) return null;
+  const K = mk.K, inOut = ease("inOut");
+  // the time a downward key brings the number to level `thr` (the eased run inverted by bisection)
+  const crossing = (j, thr) => {
+    const [t0, v1, d] = K[j], v0 = K[j - 1][1];
+    if (!(d > 0)) return t0;
+    const f = (v0 - thr) / (v0 - v1); let lo = 0, hi = 1;
+    for (let n = 0; n < 24; n++) { const m = (lo + hi) / 2; if (inOut(m) < f) lo = m; else hi = m; }
+    return t0 + hi * d;
+  };
+  const unit = Math.max(SACK, K[0][1] / 10), glow = [];
+  for (let k = 1; k <= 10; k++) {
+    let g = 0;
+    for (let j = 1; j < K.length; j++) {
+      const thr = (k - 1) * unit;
+      if (K[j][0] > t || !(K[j - 1][1] > thr && K[j][1] <= thr)) continue;
+      const since = t - crossing(j, thr);
+      if (since >= 0 && since < 0.4) g = Math.max(g, 1 - since / 0.4);
+    }
+    glow.push(Math.round(g * 1e3) / 1e3);
+  }
+  let zt = null;   // the first key that spends the last of it
+  for (let j = 1; j < K.length; j++) if (K[j][1] <= 0 && K[j - 1][1] > 0) { zt = K[j][0]; break; }
+  if (zt != null && zt > t) zt = null;
+  const E = envelope(P, t, K[0][0], zt);
+  if (!E) return null;
+  const dec = mk.i > 0 && K[mk.i][1] < K[mk.i - 1][1];
+  const fs = zt != null ? t - zt : -1;
+  return { n: Math.max(0, Math.round(mk.v)), n0: K[0][1], unit, a: E.a, pop: E.pop, y: E.y, glow,
+    kick: dec && mk.since >= 0 && mk.since < 0.18 ? mk.since : null, flash: fs >= 0 && fs < 0.6 ? Math.floor(fs / 0.15) % 2 === 0 : false };
+}
+function sunState(spec, t) {
+  const P = Array.isArray(spec) ? { p: spec } : spec, pk = keyed(P.p, t);
+  if (!pk) return null;
+  const last = P.last, E = envelope(P, t, pk.K[0][0], last ? last[1] : null);
+  if (!E) return null;
+  const out = { p: pk.v, a: E.a, pop: E.pop, y: E.y, grow: 0 };
+  if (last && t >= last[0]) {
+    const k = clamp((t - last[0]) / Math.max(1e-6, last[1] - last[0])), s = Math.ceil(60 * (1 - k) - 1e-6), since = t - last[0];
+    out.grow = clamp(since / GROW);
+    out.timer = { s, k, pop: 0.8 + 0.2 * ease("back")(clamp(since / 0.2)), a: Math.min(1, since / 0.1), red: s < 10, pulse: s < 10 ? 0.5 - 0.5 * Math.cos(t * 4 * Math.PI) : 0 };
+  }
+  return out;
+}
+const moneyBox = (M) => [MONEY_X, M.y, MONEY_W, STRIP_H];
+const sunBox = (U) => { const w = SUN_W + (SUN_W_LAST - SUN_W) * ease("inOut")(U.grow); return [SUN_R - w, U.y, w, STRIP_H]; };
 export const hudKey = (sb, t) => { const s = hudState(sb, t); return s ? JSON.stringify(s, (k, v) => (typeof v === "number" ? Math.round(v * 1e3) / 1e3 : v)) : ""; };
 
-// the chips' boxes in output px: { left, threat, right, own, train }
+// ---- age (the skip remote's clock) and the YES / NO pills ----
+const AGE_RISE = 0.4, AGE_FALL = 1.5, AGE_MAX = 90;
+// the age at t from keys [t, value, dur?]: a rise eases out, a fall (the roll-back) eases in
+function ageEval(spec, t) {
+  const K = (Array.isArray(spec) ? spec : [[0, spec]]).map((k) => [k[0], +k[1], k[2]]).sort((a, b) => a[0] - b[0]);
+  K.forEach((k, i) => { const prev = i > 0 ? K[i - 1][1] : k[1]; if (k[2] == null) k[2] = i === 0 || k[1] === prev ? 0 : k[1] > prev ? AGE_RISE : AGE_FALL; });
+  let i = -1; for (let j = 0; j < K.length; j++) if (K[j][0] <= t + 1e-9) i = j;
+  if (i < 0) return { v: K[0][1], i: -1 };
+  const [t0, to, dur] = K[i], prev = i > 0 ? K[i - 1][1] : to, k = dur > 0 ? clamp((t - t0) / dur) : 1;
+  const e = to >= prev ? ease("out")(k) : k * k;
+  return { v: dur > 0 ? prev + (to - prev) * e : to, i, since: t - t0, dur, prev, to };
+}
+function ageState(A, t) {
+  const spec = Array.isArray(A) ? A : A.keys ?? A;
+  const f = Array.isArray(A) || !A.fade ? null : A.fade, fo = f ? (Array.isArray(f) ? f : [f, 1]) : null;
+  const fade = fo ? 1 - clamp((t - fo[0]) / (fo[1] || 1)) : 1;
+  if (fade <= 0) return null;
+  const e = ageEval(spec, t), out = { v: e.v, fade };
+  if (e.i > 0 && e.since >= 0 && Math.abs(e.to - e.prev) >= 0.5) {
+    const rise = e.to > e.prev, end = rise ? 0.9 : e.dur + 1.0;
+    if (e.since < Math.max(end, 0.4) + 0.05) out.key = { rise, since: e.since, dur: e.dur, prev: e.prev, to: e.to };
+  }
+  return out;
+}
+function pillsState(P, t) {
+  const sh = Array.isArray(P) ? P : P.show;
+  if (!sh || t < sh[0] || t >= sh[1]) return null;
+  const a = Math.min(clamp((t - sh[0]) / 0.2), clamp((sh[1] - t) / 0.2));
+  return { a, pop: t - sh[0] < 0.2 ? t - sh[0] : null };
+}
+const AGE_BOX = [72, 214, 300, 118], PILLS_BOX = [420, 214, 480, 118];
+const AGE_GREEN = "#8fd14f", AGE_AMBER = "#ffb23d", AGE_RED = "#ff4d4d";
+const ageColour = (v) => { const f = (AGE_MAX - v) / AGE_MAX; return f > 0.5 ? AGE_GREEN : f >= 0.25 ? AGE_AMBER : AGE_RED; };
+
+// the chips' boxes in output px: { left, threat, right, own, train } ([x, y, w, h] each)
 function layout(ctx, S) {
   const safe = frameSafe(S.wide ? { frame: "wide" } : null);
   const y = S.y ?? (S.pos === "bottom" ? safe.y1 - 72 : S.wide ? safe.y0 : 214);
@@ -183,12 +312,14 @@ export function hudBoxes(ctx, sb, t) {
   const S = hudState(sb, t);
   if (!S) return [];
   const L = layout(ctx, S);
-  return [L.left, L.threat, L.right, L.own, L.train].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
+  const oy = (S.y ?? 214) - 214;
+  const extra = [S.age && AGE_BOX, S.pills && PILLS_BOX].filter(Boolean).map((b) => [b[0], b[1] + oy, b[2], b[3]]);
+  return [L.left, L.threat, L.right, L.own, L.train, ...extra, S.money && moneyBox(S.money), S.sun && sunBox(S.sun)].filter(Boolean).map((b) => ({ text: "hud", box: b.map(Math.round), card: true }));
 }
 
-function chip(ctx, [x, y, w, h]) {
+function chip(ctx, [x, y, w, h], edge = EDGE, lw = 2) {
   ctx.beginPath(); ctx.roundRect(x, y, w, h, 20);
-  ctx.fillStyle = CHIP; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+  ctx.fillStyle = CHIP; ctx.fill(); ctx.lineWidth = lw; ctx.strokeStyle = edge; ctx.stroke();
 }
 // digits in fixed cells, so a changing clock or battery never jiggles sideways
 function digits(ctx, s, x, y, cell, colon) {
@@ -251,7 +382,7 @@ function cartridge(ctx, x, cy, live, glow) {
 }
 // the glasses glyph (two rings and a bridge), GLYPH px wide, centred on (cx, cy)
 function glasses(ctx, cx, cy) {
-  ctx.save(); ctx.strokeStyle = GOLD; ctx.lineWidth = 4; ctx.lineCap = "round";
+  ctx.save(); ctx.strokeStyle = SGOLD; ctx.lineWidth = 4; ctx.lineCap = "round";
   for (const dx of [-11, 11]) { ctx.beginPath(); ctx.arc(cx + dx, cy, 9, 0, Math.PI * 2); ctx.stroke(); }
   ctx.beginPath(); ctx.arc(cx, cy - 1, 4, Math.PI * 1.15, Math.PI * 1.85); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(cx - 20, cy - 2); ctx.lineTo(cx - 22, cy - 6); ctx.moveTo(cx + 20, cy - 2); ctx.lineTo(cx + 22, cy - 6); ctx.stroke();
@@ -269,6 +400,160 @@ function loco(ctx, cx, cy) {
 }
 
 const batColour = (v) => (v < 10 ? "#ff4d4d" : v < 20 ? "#ffb02e" : "#5fe07a");
+
+// a birthday cake in a 64 px box at (x, y): candles lit by age (3 flames under 50, 1 from 50, the others burnt out)
+function cake(ctx, x, y, v) {
+  const lit = v < 50 ? 3 : 1, cx = [20, 32, 44];
+  ctx.save(); ctx.translate(x, y); ctx.lineJoin = "round";
+  ctx.fillStyle = "#e9dcb4"; ctx.beginPath(); ctx.roundRect(1, 56, 62, 7, 3.5); ctx.fill();
+  ctx.fillStyle = "#ff8fb1"; ctx.beginPath(); ctx.roundRect(6, 38, 52, 19, 5); ctx.fill();
+  ctx.fillStyle = "#ff6f9a"; ctx.beginPath(); ctx.roundRect(15, 26, 34, 13, 4); ctx.fill();
+  ctx.fillStyle = TXT; ctx.beginPath(); ctx.roundRect(6, 38, 52, 8, 4); ctx.fill();   // icing band with three drips
+  for (const dx of [14, 30, 46]) { ctx.beginPath(); ctx.roundRect(dx - 3, 42, 6, 9, 3); ctx.fill(); }
+  ctx.beginPath(); ctx.roundRect(15, 26, 34, 6, 3); ctx.fill();
+  cx.forEach((x0, i) => {
+    const on = lit === 3 || i === 1;
+    ctx.fillStyle = i === 1 ? "#ffd25a" : "#7cc4ff"; ctx.beginPath(); ctx.roundRect(x0 - 2.5, 15, 5, 12, 1.5); ctx.fill();
+    if (on) {
+      ctx.fillStyle = "#ffb23d"; ctx.beginPath(); ctx.moveTo(x0, 1); ctx.quadraticCurveTo(x0 + 5.5, 8, x0, 14); ctx.quadraticCurveTo(x0 - 5.5, 8, x0, 1); ctx.fill();
+      ctx.fillStyle = "#fff0a0"; ctx.beginPath(); ctx.ellipse(x0, 10, 1.9, 3, 0, 0, Math.PI * 2); ctx.fill();
+    } else { ctx.strokeStyle = "rgba(255,248,236,0.4)"; ctx.lineWidth = 2; ctx.lineCap = "round"; ctx.beginPath(); ctx.moveTo(x0, 14); ctx.lineTo(x0 + 1, 9); ctx.stroke(); }
+  });
+  ctx.restore();
+}
+// the number in fixed 50 px cells from x: always one whole integer (a count over dur shows 82, 81, ... one per frame)
+function ageNumber(ctx, v, x, y, cell, col) {
+  const a = String(Math.max(0, Math.round(v)));
+  ctx.fillStyle = col;
+  for (let j = 0; j < a.length; j++) ctx.fillText(a[j], x + j * cell + cell / 2, y);
+}
+function drawAge(ctx, S) {
+  const A = S.age, K = A.key, oy = (S.y ?? 214) - 214, [bx, by, bw, bh] = AGE_BOX;
+  const kick = K && K.rise && K.since < 0.18 ? Math.sin((K.since / 0.18) * Math.PI) * 6 : 0;
+  ctx.save(); ctx.globalAlpha = A.fade; ctx.translate(0, oy); ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.letterSpacing = "0px";
+  ctx.save(); ctx.translate(kick, 0);
+  chip(ctx, AGE_BOX);
+  cake(ctx, 94, 230, A.v);
+  // the number: yellow flash and 1.18 -> 1 on a rise
+  const fl = K && K.rise && K.since < 0.4 ? K.since / 0.4 : null, sc = fl != null ? 1 + 0.18 * (1 - ease("out")(fl)) : 1;
+  const col = fl != null ? (fl < 0.7 ? "#ffd25a" : TXT) : TXT, len = String(Math.max(0, Math.round(A.v))).length, ncx = 176 + (len * 50) / 2;
+  ctx.font = '900 84px "CapBlack"';
+  ctx.save(); ctx.translate(ncx, 266); ctx.scale(sc, sc); ctx.translate(-ncx, -266);
+  ageNumber(ctx, A.v, 176, 266, 50, col);
+  ctx.restore();
+  // the life bar
+  const f = clamp((AGE_MAX - A.v) / AGE_MAX), tx = 94, tw = 256, ty = 308, th = 12;
+  ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 6); ctx.fillStyle = "rgba(255,255,255,0.16)"; ctx.fill();
+  ctx.save(); ctx.beginPath(); ctx.roundRect(tx, ty, tw, th, 6); ctx.clip();
+  if (K && K.rise && K.since < 0.35) {   // the lost chunk flashes cream
+    const f0 = clamp((AGE_MAX - K.prev) / AGE_MAX);
+    ctx.globalAlpha = A.fade * (1 - K.since / 0.35); ctx.fillStyle = TXT; ctx.fillRect(tx + tw * f, ty, tw * (f0 - f), th); ctx.globalAlpha = A.fade;
+  }
+  ctx.fillStyle = ageColour(A.v); ctx.fillRect(tx, ty, tw * f, th);
+  ctx.restore();
+  ctx.restore();
+  // the tag right of the chip: "+N" for 0.9 s on a rise, a green "-N" for 1.0 s once the roll-back has landed
+  if (K) {
+    const k = K.rise ? K.since : K.since - K.dur, span = K.rise ? 0.9 : 1.0;
+    if (k >= 0 && k < span) {
+      const text = `${K.rise ? "+" : "-"}${Math.round(Math.abs(K.to - K.prev))}`, a = Math.min(1, k / 0.1) * (1 - clamp((k - (span - 0.2)) / 0.2));
+      const dx = 18 * (1 - ease("back")(clamp(k / 0.22)));
+      ctx.font = '900 40px "CapBlack"'; const tw2 = ctx.measureText(text).width + 36, th2 = 58;
+      ctx.globalAlpha = A.fade * a;
+      ctx.beginPath(); ctx.roundRect(bx + bw + 16 - dx, by + 48 - th2 / 2 + 0.5, tw2, th2, 20); ctx.fillStyle = "rgba(18,16,24,0.78)"; ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+      ctx.fillStyle = K.rise ? AGE_AMBER : AGE_GREEN; ctx.fillText(text, bx + bw + 16 - dx + tw2 / 2, by + 50);
+    }
+  }
+  ctx.restore();
+}
+// the YES / NO pills: two pills with a small "or" between, x 420-900
+function drawPills(ctx, S) {
+  const P = S.pills, oy = (S.y ?? 214) - 214, [x0, y0, w, h] = PILLS_BOX, cy = y0 + h / 2, pop = P.pop != null ? 0.92 + 0.08 * ease("out")(P.pop / 0.2) : 1;
+  ctx.save(); ctx.globalAlpha = P.a; ctx.translate(0, oy); ctx.translate(x0 + w / 2, cy); ctx.scale(pop, pop); ctx.translate(-(x0 + w / 2), -cy);
+  ctx.textBaseline = "middle"; ctx.textAlign = "center"; ctx.letterSpacing = "0px"; ctx.lineJoin = "round";
+  const shape = (x, text, fill) => {
+    ctx.beginPath(); ctx.roundRect(x, y0, 220, h, 20); ctx.fillStyle = fill; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = EDGE; ctx.stroke();
+    ctx.font = '900 88px "CapBlack"'; ctx.lineWidth = 8; ctx.strokeStyle = "rgba(18,16,24,0.55)"; ctx.strokeText(text, x + 110, cy + 4);
+    ctx.fillStyle = TXT; ctx.fillText(text, x + 110, cy + 4);
+  };
+  shape(x0, "YES", "rgba(143,209,79,0.85)"); shape(x0 + w - 220, "NO", "rgba(255,77,77,0.85)");
+  ctx.font = '900 40px "CapBlack"'; ctx.lineWidth = 7; ctx.strokeStyle = "rgba(18,16,24,0.7)"; ctx.strokeText("or", 660, cy + 3); ctx.fillStyle = TXT; ctx.fillText("or", 660, cy + 3);
+  ctx.restore();
+}
+
+// a money sack 24 x 28 (top-left x, y) with a tied neck, filled from its bottom to `f`; glow 0-1 lights it gold
+function sack(ctx, x, y, f, glow, col) {
+  const path = () => { ctx.beginPath(); ctx.moveTo(x + 8, y); ctx.lineTo(x + 16, y); ctx.lineTo(x + 15, y + 7); ctx.quadraticCurveTo(x + 24, y + 10, x + 24, y + 20); ctx.quadraticCurveTo(x + 24, y + 28, x + 20, y + 28);
+    ctx.lineTo(x + 4, y + 28); ctx.quadraticCurveTo(x, y + 28, x, y + 20); ctx.quadraticCurveTo(x, y + 10, x + 9, y + 7); ctx.closePath(); };
+  ctx.save(); ctx.lineWidth = 3; ctx.lineJoin = "round";
+  path(); ctx.strokeStyle = "rgba(255,248,236,0.32)"; ctx.stroke();
+  if (f > 0.001) { ctx.save(); path(); ctx.clip(); ctx.fillStyle = col; ctx.fillRect(x - 2, y + 28 - 28 * f, 28, 28 * f + 1); ctx.restore(); }
+  if (f > 0.999) { path(); ctx.strokeStyle = col; ctx.stroke(); }
+  if (glow > 0) { ctx.save(); ctx.globalAlpha *= glow; ctx.shadowColor = GOLD; ctx.shadowBlur = 14; path(); ctx.strokeStyle = GOLD; ctx.lineWidth = 4; ctx.stroke(); ctx.restore(); }
+  ctx.restore();
+}
+function mix(a, b, k) { const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * k)).join(",")})`; }
+// the sun's colour along its way: #ffe066 to 0.3, #ffd04a at 0.6, #ffb23d at 0.85, #ff7a3a from 0.95
+const sunColour = (p) => (p <= 0.3 ? "#ffe066" : p < 0.6 ? mix("#ffe066", "#ffd04a", (p - 0.3) / 0.3) : p < 0.85 ? mix("#ffd04a", "#ffb23d", (p - 0.6) / 0.25) : p < 0.95 ? mix("#ffb23d", "#ff7a3a", (p - 0.85) / 0.1) : "#ff7a3a");
+function hourglass(ctx, x, y, f, col) {   // 22 x 30; f = share of the sand run down (0-1)
+  const path = () => { ctx.beginPath(); ctx.moveTo(x, y + 2); ctx.lineTo(x + 22, y + 2); ctx.lineTo(x + 11, y + 15); ctx.lineTo(x + 22, y + 28); ctx.lineTo(x, y + 28); ctx.lineTo(x + 11, y + 15); ctx.closePath(); };
+  ctx.save();
+  ctx.save(); path(); ctx.clip(); ctx.fillStyle = GOLD; ctx.fillRect(x, y + 15 - 13 * (1 - f), 22, 13 * (1 - f)); ctx.fillRect(x, y + 28 - 13 * f, 22, 13 * f + 1); ctx.restore();
+  path(); ctx.lineWidth = 3; ctx.lineJoin = "round"; ctx.strokeStyle = col; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x - 2, y + 1); ctx.lineTo(x + 24, y + 1); ctx.moveTo(x - 2, y + 29); ctx.lineTo(x + 24, y + 29); ctx.lineCap = "round"; ctx.stroke();
+  ctx.restore();
+}
+function popAbout(ctx, [x, y, w, h], s) { ctx.translate(x + w / 2, y + h / 2); ctx.scale(s, s); ctx.translate(-(x + w / 2), -(y + h / 2)); }
+
+function drawMoney(ctx, M) {
+  const box = moneyBox(M), [x, y, w] = box, kick = M.kick != null ? Math.sin((M.kick / 0.18) * Math.PI) : 0;
+  ctx.save(); ctx.globalAlpha = M.a; popAbout(ctx, box, M.pop); ctx.translate(0, kick * 5);
+  chip(ctx, box);
+  // row 1 (centre y + 42): "$" and the number in fixed cells of 34 (a comma 14), left-aligned so the dollar sign never moves
+  ctx.font = MONEY_FONT; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const fmt = (n) => "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","), text = fmt(M.n), top = fmt(M.n0 ?? 1e7);
+  const full = [...top].reduce((a, ch) => a + (ch === "," ? 14 : 34), 0), k = Math.min(1, (w - 28) / full);   // a bigger start squeezes the row
+  ctx.save(); ctx.translate(x + w / 2, y + 44); ctx.scale(k, k); ctx.translate(-(x + w / 2), -(y + 44));
+  let cx = x + (w - full) / 2;
+  for (const ch of text) { const cw = ch === "," ? 14 : 34; ctx.fillStyle = ch === "$" ? (M.flash ? RED : GOLD) : M.flash ? RED : TXT; ctx.fillText(ch, cx + cw / 2, y + 42 + 2); cx += cw; }
+  ctx.restore();
+  // row 2 (centre y + 92): ten sacks, one every 34
+  const sx = x + (w - (9 * 34 + 24)) / 2;
+  for (let k = 1; k <= 10; k++) sack(ctx, sx + (k - 1) * 34, y + 92 - 14, clamp(M.n / (M.unit ?? SACK) - (k - 1)), M.glow[k - 1], k === 1 && M.flash ? RED : SACK_FULL);
+  ctx.restore();
+}
+function drawSun(ctx, U) {
+  const box = sunBox(U), [x, y, w] = box, T = U.timer;
+  ctx.save(); ctx.globalAlpha = U.a; popAbout(ctx, box, U.pop);
+  chip(ctx, box, T && T.red ? `rgba(255,77,77,${0.2 + 0.8 * T.pulse})` : EDGE, T && T.red ? 2 + T.pulse : 2);
+  const R = 76, ex = SUN_R - 14 - 30, cx = ex - R, sea = y + 100, p = clamp(U.p, 0, 1.2), th = (Math.PI / 2) * clamp(p), ang = -Math.PI / 2 + th, col = sunColour(p);
+  ctx.lineCap = "round";
+  ctx.beginPath(); ctx.arc(cx, sea, R, -Math.PI / 2, ang); ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,248,236,0.25)"; ctx.stroke();
+  if (th < Math.PI / 2 - 0.001) { ctx.beginPath(); ctx.arc(cx, sea, R, ang, 0); ctx.lineWidth = 4; ctx.strokeStyle = col; ctx.stroke(); }
+  const sx = cx + R * Math.cos(ang), sy = sea + R * Math.sin(ang) + (p > 1 ? (p - 1) * 80 : 0);
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, sea - y); ctx.clip();   // the sea line cuts it off
+  ctx.fillStyle = col; ctx.beginPath(); ctx.arc(sx, sy, 16, 0, Math.PI * 2); ctx.fill();
+  const rays = 1 - clamp((p - 0.85) / 0.05);
+  if (rays > 0) { ctx.globalAlpha *= rays; ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.lineCap = "butt";
+    for (let i = 0; i < 8; i++) { const a = (i / 8) * Math.PI * 2; ctx.beginPath(); ctx.moveTo(sx + Math.cos(a) * 18, sy + Math.sin(a) * 18); ctx.lineTo(sx + Math.cos(a) * 23, sy + Math.sin(a) * 23); ctx.stroke(); } }
+  ctx.restore();
+  // the sea line (60 long, 3 bumps) and the sun's reflection under it
+  ctx.beginPath(); ctx.moveTo(ex - 30, sea); for (let i = 0; i < 3; i++) ctx.quadraticCurveTo(ex - 30 + i * 20 + 10, sea - 7, ex - 30 + (i + 1) * 20, sea);
+  ctx.lineWidth = 3; ctx.lineCap = "round"; ctx.strokeStyle = "#7cc4ff"; ctx.stroke();
+  const rf = clamp((p - 0.8) / 0.2) * 0.6;
+  if (rf > 0) { ctx.save(); ctx.globalAlpha *= rf; ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(sx - 12, sea + 6); ctx.lineTo(sx + 12, sea + 6); ctx.moveTo(sx - 7, sea + 12); ctx.lineTo(sx + 7, sea + 12); ctx.stroke(); ctx.restore(); }
+  if (T) {   // the last minute: hourglass + m:ss in the zone left of the arc, centred on its final spot
+    ctx.font = TIMER_FONT; ctx.letterSpacing = "0px"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    const dig = Math.max(...[..."0123456789"].map((d) => ctx.measureText(d).width)), colon = ctx.measureText(":").width - 5, cell = dig - 3, tw = 22 + 8 + cell * 3 + colon;   // tight cells: the zone is 142 wide
+    const zx = SUN_R - SUN_W_LAST + (SUN_W_LAST - SUN_W) / 2 + 15, tcol = T.red ? RED : TXT;
+    ctx.save(); ctx.globalAlpha *= T.a; ctx.translate(zx, y + 59); ctx.scale(T.pop, T.pop); ctx.translate(-zx, -(y + 59));
+    hourglass(ctx, zx - tw / 2, y + 59 - 15, T.k, tcol);
+    ctx.fillStyle = tcol; digits(ctx, `${Math.floor(T.s / 60)}:${String(T.s % 60).padStart(2, "0")}`, zx - tw / 2 + 30, y + 59 + 2, cell, colon);
+    ctx.restore();
+  }
+  ctx.restore();
+}
 
 export function drawHud(ctx, sb, t) {
   const S = hudState(sb, t);
@@ -393,10 +678,14 @@ export function drawHud(ctx, sb, t) {
     for (let i = 0; i < 4; i++) {
       const cxp = px + i * (PIP_R * 2 + PIP_GAP);
       ctx.beginPath(); ctx.arc(cxp, py, PIP_R, 0, Math.PI * 2);
-      if (i <= T.day) { ctx.fillStyle = i === T.day ? GOLD : TXT; ctx.fill(); }
+      if (i <= T.day) { ctx.fillStyle = i === T.day ? SGOLD : TXT; ctx.fill(); }
       else { ctx.strokeStyle = "rgba(255,248,236,0.55)"; ctx.stroke(); }
     }
     ctx.restore();
   }
+  if (S.money) drawMoney(ctx, S.money);
+  if (S.sun) drawSun(ctx, S.sun);
   ctx.restore();
+  if (S.age) drawAge(ctx, S);
+  if (S.pills) drawPills(ctx, S);
 }

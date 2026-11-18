@@ -1,0 +1,211 @@
+{
+ "id": "voice-probe",
+ "title": "Money redo voice probe",
+ "idea": "narrator takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  250,
+  1360
+ ],
+ "cleanStart": true,
+ "set": {
+  "type": "env",
+  "env": "golden-city-crossing"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   59.25,
+   59.25
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 59.25,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     4
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "One billion dollars. Gone in seven days.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought the whole coffee cart.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 4.95
+    },
+    {
+     "macro": "narrate",
+     "line": "But at a dollar a second, a billion takes thirty-one years.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 5.55,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 9.7
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought big.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 16.25
+    },
+    {
+     "macro": "narrate",
+     "line": "Every day, his best friend asked.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.3,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 19.65
+    },
+    {
+     "macro": "narrate",
+     "line": "On day five, he stopped asking.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.3,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 23.95
+    },
+    {
+     "macro": "narrate",
+     "line": "So he bought a yacht.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 28.25
+    },
+    {
+     "macro": "narrate",
+     "line": "And a plane.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 1.95,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 32.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Day seven. One million left. One last buy.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.2,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 35.05
+    },
+    {
+     "macro": "narrate",
+     "line": "But up on the hill sat his best friend.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.65,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 40.25
+    },
+    {
+     "macro": "narrate",
+     "line": "He lost a billion dollars.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 45.9
+    },
+    {
+     "macro": "narrate",
+     "line": "But for one moment, he forgot all his worries.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 4.65,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 49.75
+    },
+    {
+     "macro": "narrate",
+     "line": "Follow for the next question.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.85,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 55.4
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for the money redo: render only --from 0 --to 1 on the farm; the plan job makes every take."
+}

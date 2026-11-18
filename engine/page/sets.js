@@ -31,6 +31,12 @@ import { buildFurnace } from "./set-furnace.js";
 import { buildEnergyRoom } from "./set-energy.js";
 import { buildLanding } from "./set-landing.js";
 import { buildNighthall } from "./set-nighthall.js";
+import { buildCoast } from "./set-coast.js";
+import { buildVault } from "./set-vault.js";
+import { buildBankhall } from "./set-bankhall.js";
+import { buildMansionhall } from "./set-mansionhall.js";
+import { buildShowroom } from "./set-showroom.js";
+import { buildBoutique } from "./set-boutique.js";
 import { buildTrail } from "./set-trail.js";
 import { buildXmasroom } from "./set-xmasroom.js";
 import { buildSnowcottage } from "./set-snowcottage.js";
@@ -113,6 +119,12 @@ function buildSetType(scene, spec, palette) {
   if (type === "furnace") return buildFurnace(scene, spec);   // set-furnace.js: the hell tunnel and the giant fryer
   if (type === "energyroom") return buildEnergyRoom(scene, spec);   // set-energy.js: Reaper's bedroom at 6 AM
   if (type === "landing") return buildLanding(scene, spec);   // set-landing.js: a stairwell landing, a narrow doorway (Moving One Sofa)
+  if (type === "coast") return buildCoast(scene, spec);   // set-coast.js: coast road, cliff top, sea, rain dusk -> sunset (happiness 01)
+  if (type === "vault") return buildVault(scene, spec);   // set-vault.js: the bank vault (happiness 01)
+  if (type === "bankhall") return buildBankhall(scene, spec);   // set-bankhall.js: the bank counter room (happiness 01 draft 2)
+  if (type === "showroom") return buildShowroom(scene, spec);   // set-showroom.js: the car showroom (happiness 01 redo)
+  if (type === "boutique") return buildBoutique(scene, spec);   // set-boutique.js: the luxury boutique (happiness 01 redo)
+  if (type === "mansionhall") return buildMansionhall(scene, spec);   // set-mansionhall.js: the marble hall + front door (happiness 01)
   if (type === "nighthall") return buildNighthall(scene, spec);   // set-nighthall.js: a hall at 3 a.m. (friends try to 06)
   if (type === "xmasroom") return buildXmasroom(scene, spec);   // set-xmasroom.js: a cosy living room in December (friends try to 07)
   if (type === "snowcottage") return buildSnowcottage(scene, spec);   // set-snowcottage.js: the snowed-in mountain cottage room (Survive it EP1)
