@@ -1,0 +1,198 @@
+{
+ "id": "catch10-voice-probe",
+ "title": "There's a catch EP10 voice probe",
+ "idea": "line takes only",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#dfe6ec",
+  "floor": "#2b2e35"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   42.55,
+   42.55
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.1,
+    0.4
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 42.55,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "What if every laugh made you stronger?",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 3.75,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha ha! It's empty!",
+     "tone": "happy",
+     "style": "laughing hard, bright, fast, mocking, can't stop laughing",
+     "dur": 2.85,
+     "caption": false,
+     "at": 4.95
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ha ha! Trust me, it's fake!",
+     "tone": "happy",
+     "style": "low, laughing, slow, teasing, sure of himself",
+     "dur": 3.3,
+     "caption": false,
+     "at": 8.8
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha! He's gonna snap!",
+     "tone": "happy",
+     "style": "laughing hard, high, fast, mocking",
+     "dur": 2.85,
+     "caption": false,
+     "at": 13.1
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Ha ha ha ha!",
+     "tone": "happy",
+     "style": "big deep belly laugh, loud, can't stop",
+     "dur": 2.4,
+     "caption": false,
+     "at": 16.95
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Trust me... he can't lift us!",
+     "tone": "happy",
+     "style": "low, laughing, teasing, slow, sure of himself",
+     "dur": 3.3,
+     "caption": false,
+     "at": 20.35
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Ha ha ha ha ha!",
+     "tone": "happy",
+     "style": "laughing hard, high, giggling, out of breath",
+     "dur": 2.85,
+     "caption": false,
+     "at": 24.65
+    },
+    {
+     "macro": "narrate",
+     "line": "But there's a catch.",
+     "voice": "narrator",
+     "take": 1,
+     "dur": 2.4,
+     "caption": false,
+     "at": 28.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Whoa.",
+     "tone": "calm",
+     "style": "quiet, stunned, amazed, breathless, no laugh",
+     "dur": 1.05,
+     "caption": false,
+     "at": 31.9
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "He's actually strong.",
+     "tone": "calm",
+     "style": "quiet, low, amazed, slow, serious",
+     "dur": 1.95,
+     "caption": false,
+     "at": 33.95
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No, no, no... laugh at me! LAUGH AT ME!",
+     "tone": "angry",
+     "style": "panicked, straining, desperate, shouting at the end",
+     "voice": "teo",
+     "dur": 4.65,
+     "caption": false,
+     "at": 36.9
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for There's a catch EP10: makes and measures every take."
+}

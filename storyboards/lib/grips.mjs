@@ -145,6 +145,10 @@ const SIZE = {
   chipbag: { w: 0.28, h: 0.33, t: 0.1 },
   mashbowl: { rim: 0.16, wall: [[0, 0.1], [0.02, 0.118], [0.05, 0.153], [0.09, 0.185], [0.13, 0.202], [0.16, 0.205]] },
   courtspoon: { len: 0.3, r: 0.0105 },
+  // props3d.js barbell (There's a catch 10, laugh strength): the bar along x, origin its middle, radius 0.018, 0.3 of bare steel each side of it, then the collar and plates
+  barbell: { r: 0.018, len: 0.3 },
+  // props3d.js weightbench: the origin is on the floor under the pad's middle (the feet), the pad 1.0 x 0.08 x 0.3 with its top at SEAT_Y 0.42 and its underside at 0.34, legs at x +-0.4
+  weightbench: { w: 1.0, h: 0.08, d: 0.3, top: 0.42 },
 };
 // a bowl's outside radius at height y (before scale)
 const wallAt = (wall, y) => { for (let i = 1; i < wall.length; i++) if (y <= wall[i][0]) { const [y0, r0] = wall[i - 1], [y1, r1] = wall[i]; return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0); } return wall[wall.length - 1][1]; };
@@ -383,4 +387,37 @@ export function rest(c, who, side, spec, [x, z], t, { dur = 0.35, ease = "settle
   return r3(t + dur);
 }
 
-export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, staff, rest };
+// BAR (barbell, There's a catch 10, laugh strength): fists closed round the bar, the holder standing behind it (the hold frame: on the
+// bar's +z side, so placeFor() with the holder's yaw 0 gives rot 180 and the bar in front of his belly, the camera on the far side).
+// Two fists at bar-local x +-gw (R at +x); side "R" / "L": one fist at the bar's middle (x 0). The bar is carried by its middle: carry(t, [x, y, z])
+// puts the bar's centre there. under false: overhand, the fist over the top of the bar from the holder's side, the fingers over its front, the
+// knuckles to the camera (the hip-height deadlift hold, grip height = bar y + r + 0.02); under true: the press, palms up and forward,
+// the bar resting across the root of the curled fingers (grip height = bar y - 0.03: the bar at 1.35 is carried in gloves at 1.32). The fists
+// are made for hands.size 1.3 (Spud). dy / dz nudge the fist (metres, world): the bench proof settles them.
+export function bar(c, who, spec, { gw = 0.30, under = false, side = null, dy = 0, dz = 0 } = {}) {
+  const { r } = size(spec), k = spec.scale ?? 1;
+  const list = side ? [[side, 0]] : [["R", gw], ["L", -gw]];
+  const hands = {};
+  for (const [s, x] of list) {
+    const sx = s === "R" ? 1 : -1, y = under ? -0.03 + dy : r * k + 0.022 + dy, z = (under ? 0.0 : 0.02) + dz;
+    hands[s] = { grip: toProp(spec, [x, y, z]), palm: toProp(spec, [x, under ? y + 1 : 0, under ? z : 0]), away: toWorld(spec, [sx * 0.09, under ? -0.05 : 0.1, 0.08]) };
+  }
+  const gs = Object.values(hands).map((h) => h.grip), mid = [r3(gs.reduce((a, g) => a + g[0], 0) / gs.length), r3(gs.reduce((a, g) => a + g[1], 0) / gs.length), r3(gs.reduce((a, g) => a + g[2], 0) / gs.length)];
+  return holder(c, who, spec, { hands, shape: { shape: "hold", set: { axis: [1, 0, 0] } }, ready: "open", grab: mid });
+}
+
+// UNDERPAD (weightbench): both gloves flat, palms up, under the pad's frame at bench-local x +-gx (R at +x), 0.005 under its underside, the
+// holder under the bench lifting it overhead: carry(t, [x, y, z]) puts the bench's feet there (its origin; the pad top is 0.42 above). shape
+// "flat" (fingers straight along the underside) by default, "carry" for the half-curled hand. The glove's middle sits `lift` under the pad
+// (palm half-thickness for hands.size 1.3 plus the 0.005 gap), the palm faces up. dz: the gloves sit 0.07 toward the camera side (-z, in front of the legs) so the forearms clear the bench legs (inner faces x +-0.375) with the body between them.
+export function underpad(c, who, spec, { gx = 0.30, shape = "flat", lift = 0.025, dz = -0.07 } = {}) {
+  const { h, top } = size(spec), k = spec.scale ?? 1;
+  const hands = {};
+  for (const [s, sx] of [["R", 1], ["L", -1]]) {
+    const y = (top - h) * k - 0.005 - lift;
+    hands[s] = { grip: toProp(spec, [sx * gx, y, dz]), palm: toProp(spec, [sx * gx, y + 1, dz]), away: toWorld(spec, [sx * 0.06, -0.09, 0.04]) };
+  }
+  return holder(c, who, spec, { hands, shape, ready: "flat", grab: toProp(spec, [0, (top - h) * k - 0.005 - lift, dz]) });
+}
+
+export const HOLDS = { mug, bowl, bowlPush, box, thin, phone, bar, underpad, staff, rest };
