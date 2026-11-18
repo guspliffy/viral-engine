@@ -186,6 +186,21 @@ export function oddFrames(clip, fps = 30) {
     }
     if (best > 0) out.push({ t: i / fps, score: best, where: `${["left", "middle", "middle", "right", "right"][at[0] / 6]} ${at[1] < 22 ? "top" : at[1] < 42 ? "centre" : "bottom"}` });
   }
+  // the first and the last frame have no neighbour on one side, so the loop above never judges them: a frame that
+  // differs from its one neighbour by more than the next two steps differ from each other is odd the same way. A
+  // segment's frame 0 drawn before its poses or actors are in (Happiness 03, 18 Nov 2026: Spud missing from the room
+  // for one frame, a party room empty, a hand that jumps) passed every segment's check and showed only in the joined
+  // film as a one-frame flash at five cuts
+  if (n >= 4) for (const [i, j, k, l] of [[0, 1, 2, 3], [n - 1, n - 2, n - 3, n - 4]]) {
+    const c = F(i), q = F(j), qq = F(k), q3 = F(l); let best = 0, at = [0, 0];
+    for (let by = 0; by + B <= H; by += B / 2) for (let bx = 0; bx + B <= W; bx += B / 2) {
+      let a = 0, d = 0, e = 0;
+      for (let y = by; y < by + B; y++) for (let x = bx; x < bx + B; x++) { const kk = y * W + x; a += Math.abs(c[kk] - q[kk]); d += Math.abs(qq[kk] - q[kk]); e += Math.abs(q3[kk] - qq[kk]); }
+      const s = (a - Math.max(d, e)) / (B * B);
+      if (s > best) { best = s; at = [bx, by]; }
+    }
+    if (best > 0) out.push({ t: i / fps, score: best, edge: i === 0 ? "first" : "last", where: `${i === 0 ? "first frame" : "last frame"}, ${["left", "middle", "middle", "right", "right"][at[0] / 6]} ${at[1] < 22 ? "top" : at[1] < 42 ? "centre" : "bottom"}` });
+  }
   return out.sort((x, y) => y.score - x.score);
 }
 
