@@ -189,9 +189,9 @@ A(r3(T[12] - 0.3), "vik", "look", { to: [0.55, -0.6], dur: 0.25 });
 say(12);
 // 11 MASH turns to the bench and holds the bowl out over the deck's corner (never lets go): You tell me.
 const M1 = r3(END_OF(12) - 0.25);
-const OFFER = [-0.06, DECK + 0.16, 0.3];
+const OFFER = [-0.06, DECK + 0.26, 0.3];   // high, against the wall: the mash reads on a phone
 A(M1, "mash", "turn", { to: -90, dur: 0.45, ease: "inOut" });
-let mb = bw.carry(M1, [0.2, DECK + 0.1, 0.32], 0.35, "inOut");
+let mb = bw.carry(M1, [0.2, DECK + 0.2, 0.32], 0.35, "inOut");
 mb = bw.carry(r3(mb + 0.02), OFFER, 0.3, "inOut");
 T[13] = Math.max(T[13], r3(mb - 0.3));
 say(13);
@@ -252,7 +252,7 @@ const beats = c.beats([
   ["three fries", 0, WIDE, "hook"],
   ["ten chips", T[6], "keep"],
   ["the mash", T[10], "keep", "escalation"],
-  ["can't count", CUT, { pos: [-0.8, 1.8, 4.2], look: [-0.8, 1.72, -0.4], fov: 30 }],
+  ["can't count", CUT, { pos: [-0.8, 2.05, 3.8], look: [-0.76, 1.8, -0.4], fov: 24 }],
   ["case closed", BACK, { ...WIDE }, "payoff"],
 ], END);
 
