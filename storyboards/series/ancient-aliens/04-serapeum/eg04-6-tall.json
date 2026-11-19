@@ -251,8 +251,7 @@
    "text": "Forty works!",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 6.4,
@@ -260,8 +259,7 @@
    "text": "Not down here.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 6.6,

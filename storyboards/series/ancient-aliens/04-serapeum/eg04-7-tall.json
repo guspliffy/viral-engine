@@ -692,8 +692,7 @@
    "text": "It's stuck.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 9.8,
@@ -701,8 +700,7 @@
    "text": "Day seventy.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 9.9,
@@ -719,8 +717,7 @@
    "text": "On time.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 17.5,
@@ -728,8 +725,7 @@
    "text": "How?",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 18.4,
@@ -737,8 +733,7 @@
    "text": "Good tools.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 21.25,
@@ -746,8 +741,7 @@
    "text": "Where's the cow?",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 22.8,
@@ -755,8 +749,7 @@
    "text": "Gone. Every box. Empty.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 26.5,
@@ -764,8 +757,7 @@
    "text": "So... they took the cows?",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   }
  ],
  "beats": [
@@ -3558,6 +3550,13 @@
     },
     {
      "who": "pharaoh",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.1,
+     "at": 0.45
+    },
+    {
+     "who": "pharaoh",
      "do": "expr",
      "expr": "shocked",
      "set": {
@@ -3581,6 +3580,27 @@
      "dur": 0.8,
      "ease": "linear",
      "at": 0.54
+    },
+    {
+     "who": "pharaoh",
+     "do": "lean",
+     "to": 2,
+     "dur": 0.12,
+     "at": 0.58
+    },
+    {
+     "who": "pharaoh",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.1,
+     "at": 0.72
+    },
+    {
+     "who": "pharaoh",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.35,
+     "at": 0.9
     },
     {
      "who": "pharaoh",

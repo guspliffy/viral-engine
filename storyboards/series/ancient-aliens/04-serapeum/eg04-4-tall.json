@@ -185,8 +185,7 @@
    "text": "How did you even move it?",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   }
  ],
  "beats": [
@@ -227,6 +226,16 @@
      "dur": 0.01,
      "ease": "linear",
      "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "cutter",
+     "set": {
+      "slide": 0.75
+     },
+     "dur": 2.4,
+     "ease": "linear",
+     "at": 0.05
     },
     {
      "who": "crew1",

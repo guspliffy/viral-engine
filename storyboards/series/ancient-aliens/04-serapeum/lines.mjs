@@ -3,7 +3,7 @@
 // Jonny 18 Nov on PR #248); the Pharaoh = his own VoxCPM2 voice (pharaoh: dry, proud, cagey). Every Pharaoh line is a fact from
 // RESEARCH.md; Spud's lines are opinions or questions. [who, line, tone]
 export const LINES = {
-  n01: ["spud", "Egypt. Under this desert lies a secret tunnel.", "calm"],   // draft 2: Jonny 18 Nov "expect that the viewer knows nothing"
+  n01: ["spud", "Under Egypt: twenty-four sixty-tonne boxes. All empty. Who really put them there?", "calm"],   // Jonny 19 Nov: one opening line that sets the scene and opens the gap (was "Egypt. Under this desert lies a secret tunnel.")
   s01a: ["spud", "Inside: twenty-four stone boxes. Sixty tonnes each.", "calm"],
   s01b: ["spud", "All that... for one dead cow?", "question"],
   p03: ["pharaoh", "Not a cow. The holy bull Apis.", "calm", 2],   // take 2: take 1 was heard as "up us"

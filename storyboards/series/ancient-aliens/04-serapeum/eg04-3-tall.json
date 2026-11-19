@@ -350,8 +350,7 @@
    "text": "The inside is perfect.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   },
   {
    "from": 2.6,
@@ -359,8 +358,7 @@
    "text": "We had... good tools.",
    "pos": 400,
    "pop": false,
-   "size": 62,
-   "kinetic": false
+   "size": 62
   }
  ],
  "beats": [
