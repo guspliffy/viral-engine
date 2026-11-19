@@ -63,6 +63,7 @@ const SIZE = {
   toffeeapple: { len: 0.2, r: 0.006 },             // props-bonfire.js: the stick (the apple sits on its top): the thin pinch on the stick
   mallowstick: { len: 0.9, r: 0.01 },              // props-dino.js: a long green toasting stick, marshmallows at the tip; the thin pinch near its butt
   reedbrush: { len: 0.35, r: 0.007 },              // props-aa-inside.js: a reed brush 0.30 long, plain end at the origin, painted tip up: len 0.35 puts the default thin pinch (0.6) at 0.21 up, so the 9 cm tip shows beyond the fist
+  archbrush: { len: 0.275, r: 0.0148, h: 0.25 },      // props-archaeologist.js: the archaeologist's conservation brush, bristle tip at the origin (bristles DOWN), 0.316 long (0.42 of her height, the sheet's size). MUG hold: h 0.25 puts the fist at 0.66 x 0.25 = y 0.165 on the lower middle of the handle (r 0.0148 at the belly), the butt 0.12 above it and the ferrule and bristles below. THIN hold: len 0.275 puts the default pinch (0.6) at the same y 0.165
   // props-bonfire.js sandbucket (BUCKET r 0.13 at the rim, h 0.22): carried at the chest in both hands like a full bowl
   sandbucket: { rim: 0.22, wall: [[0, 0.104], [0.22, 0.13]] },
   manual: { w: 0.34, h: 0.24, t: 0.004 },          // props-ikea.js instruction sheet: held with the phone hold (spec.away: its drawings face away from the holder)
