@@ -40,6 +40,7 @@ import { ICELAKE, shoreDist } from "./set-icelake.js";
 //                under it (body #0a1322); ice under less than 0.12 of water shows through dark; a foam line on every edge at the water.
 //          churn 0..1 (default 0, prime): the open water moves: 3 ripple lines running in from the edges at 0.5 m/s, 40 foam flecks, 12
 //                ice chips bobbing.
+//          sink 0..1 (default 0): the tipped slab drops 0.9 under the water and is hidden at 1 (the v3 ending: open water stays).
 //          (`tip` and `tilt` are the engine's own keys and are NOT used here.)
 //   LOOK   body #5a7fc0, blotches #3f5c96, frost #93b2de, lightening toward the horizon to #c9d3ee; bubbles; drift streaks along the wind
 //          (at most 10 % inside r 1.6 of the origin, 60 % within 2 m of the shore, all snow in the last 0.6 m); cracks: white band with a
@@ -239,7 +240,8 @@ float edgeD(vec2 p) {
 }
 void main() {
   vec2 p = vW.xz; float dE = edgeD(p);
-  vec3 col = ${g3("#0a1322")}; float a = uAlpha;
+  // deep in the middle, a lighter blue toward the edges (frozen lake v3: the big opening read as a black plate)
+  vec3 col = mix(${g3("#2c4f7c")}, ${g3("#0f1f38")}, smoothstep(0.02, 0.55, dE)); float a = uAlpha;
   // glint facets 0.12 across on 8 %, drifting 0.2 m/s
   vec2 q = p / 0.12 + vec2(uT * 0.2 / 0.12, 0.0), cell = floor(q), f = fract(q) - 0.5;
   float ang = h12(cell + 3.0) * 6.28, ca = cos(ang), sa = sin(ang); vec2 r = vec2(ca * f.x - sa * f.y, sa * f.x + ca * f.y);
@@ -248,7 +250,7 @@ void main() {
   if (uChurn > 0.01) {
     // three ripple lines 0.12 apart running in from the edges at 0.5 m/s
     float s = mod(uT * 0.5, 0.9);
-    for (int k = 0; k < 3; k++) { float rl = 1.0 - smoothstep(0.006, 0.016, abs(dE - (s + 0.12 * float(k)))); col = mix(col, ${g3("#3d5b8f")}, rl * uChurn); a = max(a, rl * uChurn); }
+    for (int k = 0; k < 3; k++) { float wob = 0.012 * sin(p.x * 9.0 + p.y * 7.0 + float(k) * 2.1); float rl = (1.0 - smoothstep(0.004, 0.02, abs(dE + wob - (s + 0.12 * float(k))))) * (1.0 - smoothstep(0.25, 0.7, dE)); col = mix(col, ${g3("#4b6ea3")}, 0.6 * rl * uChurn); a = max(a, rl * uChurn); }   // soft, broken, fading toward the middle
     // 40 foam flecks (0.22 m cells) drifting
     vec2 fq = p / 0.22 + vec2(uT * 0.1, uT * 0.05), fc = floor(fq), ff = fract(fq);
     if (h12(fc + 11.0) < 0.62) { vec2 fo = 0.2 + 0.6 * h22(fc + 5.0); float fr = 0.03 + 0.06 * h12(fc + 9.0); float d = length((ff - fo) * 0.22); float fl = 1.0 - smoothstep(fr * 0.22 - 0.004, fr * 0.22 + 0.004, d); col = mix(col, ${g3("#dfeaf7")}, fl * uChurn); a = max(a, fl * uChurn); }
@@ -600,6 +602,7 @@ function lakeice(P) {
     const rk = smooth(0.9, 1.0, run); runM.material.uniforms.uRunK.value = rk; runM.material.uniforms.uFade.value = 1 - 0.8 * smooth(0.1, 0.6, slab);
     haloM.uniforms.uA.value = smooth(0.65, 0.8, crack);
     q.setFromAxisAngle(axD, S.tipDeg * D2R * slab); slabG.quaternion.copy(q);
+    const sink = clamp(Number(ps.sink) || 0); slabG.position.y = -0.9 * sink; slabG.visible = sink < 0.999; waterSlab.material.uniforms.uAlpha.value = 0.55 + 0.42 * sink;   // deep open water: what is under it (the slab, a body) goes dark   // sink 0..1: the tipped slab goes under (v3 ending)
     for (const w of [waterHole, waterSlab]) { w.material.uniforms.uT.value = tt; w.material.uniforms.uChurn.value = churn; }
     waterSlab.visible = run > 0.001 || slab > 0.001;
     chips.forEach((c) => { c.o.visible = churn > 0.05; c.o.position.set(c.x, -0.02 + 0.004 + 0.01 * Math.sin(tt * 2.4 + c.ph), c.z); });

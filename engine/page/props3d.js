@@ -1710,6 +1710,10 @@ export function propState(sb, spec, t) {
   if (spec.kind === "sproutman") for (const [k, v] of Object.entries(SPROUT_STATE)) ps[k] = spec[k] ?? v;
   if (spec.kind === "selfieframe") { ps.filter = spec.filter ?? 0; ps.snap = 0; }
   Object.assign(ps, snowPropKeys(spec));   // amount, dump, grow, trickle, depth, sweep, logs (props-survive-snow.js): so they tween
+  // friends try to 12 frozen lake (props-icelake.js, props-icegear.js): their numbers start as numbers, so they tween (not snap)
+  if (spec.kind === "lakeice") for (const k of ["run", "slab", "churn", "sink"]) ps[k] = spec[k] ?? 0;
+  if (spec.kind === "gearheap") for (const k of ["jolt", "slab", "slide"]) ps[k] = spec[k] ?? 0;
+  if (spec.kind === "gearrope") for (const k of ["ax", "ay", "az", "bx", "by", "bz", "sag", "in"]) ps[k] = spec[k] ?? (k === "in" ? 1 : k === "sag" ? 0.1 : 0);
   const acts = (sb.actions || []).filter((a) => a.at <= t && ((a.do === "prop" && a.id === spec.id) || ((a.do === "grab" || a.do === "release" || a.do === "carry") && a.prop === spec.id))).sort((a, b) => a.at - b.at);
   for (const a of acts) {
     const p = prog(t, a.at, a.dur ?? 0.3), e = ease(a.ease || "inOut")(p);

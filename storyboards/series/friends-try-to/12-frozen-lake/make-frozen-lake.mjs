@@ -242,11 +242,25 @@ SPILL.forEach(([kind, dt, v, spin, dx], i) => {
   c.prop(r3(at - 0.034), id, { x: r3(HEM[0] + dx), y: HEM[1], z: HEM[2], in: 1 }, 0.033, "linear");
   c.throw(at, id, { v, spin });
 });
-// the anchor: last and heaviest, out of the hem in a short arc onto the heap's peak, one dead thunk
+// the anchor: last and heaviest, out of the hem in a short arc onto the heap's Chip side, one dead thunk. v3 (Jonny 19 Nov
+// "Chip gets yanked in"): its rope stays tied inside Chip's hoodie, so the flight is tweened (the rope's end follows it exactly)
 const ANCHOR_T = r3(POUR + 0.75), THUNK = r3(ANCHOR_T + 0.42);
+const A0 = [0.12, 0.16, 0.24], A_UP = [0.42, 0.62, 0.38], A_LAND = [0.64, 0.33, 0.47];   // hem -> top of the arc -> on the heap
+const A_YAW = r3(heading([A_LAND[0], A_LAND[2]], CHIP0));   // its ring toward Chip (the rope runs back to him)
 props.push({ id: "anchor", kind: "anchor", x: PARK[0], y: PARK[1], z: PARK[2], in: 0, seed: 5 });
-c.prop(r3(ANCHOR_T - 0.034), "anchor", { x: 0.12, y: 0.16, z: 0.24, in: 1 }, 0.033, "linear");
-c.throw(ANCHOR_T, "anchor", { v: [1.4, 1.6, 0.85], spin: [0, 0, 2] });
+c.prop(r3(ANCHOR_T - 0.034), "anchor", { x: A0[0], y: A0[1], z: A0[2], rot: A_YAW, tip: 0, in: 1 }, 0.033, "linear");
+c.prop(ANCHOR_T, "anchor", { x: A_UP[0], y: A_UP[1], z: A_UP[2], tip: 40 }, 0.2, "out");
+c.prop(r3(ANCHOR_T + 0.2), "anchor", { x: A_LAND[0], y: A_LAND[1], z: A_LAND[2], tip: 80 }, 0.22, "in");
+// the rope: from Chip's hem to the anchor's ring (about 0.2 from its crown, toward Chip once it lies on its side)
+const ringOf = ([x, y, z], k = 1) => [r3(x + k * 0.17 * Math.sin(rad(A_YAW))), r3(y + 0.02 * k), r3(z + k * 0.17 * Math.cos(rad(A_YAW)))];
+const ROPE_HEM = (at, yaw, y = 0) => offAt(at, yaw, 0.04, 0.25, r3(0.13 + y));
+props.push({ id: "rope", kind: "gearrope", x: 0, y: 0, z: 0, in: 0, sag: 0.05, ...(([ax, ay, az]) => ({ ax, ay, az }))(ROPE_HEM(CHIP0, 0)), bx: A0[0], by: A0[1], bz: A0[2] });
+for (const k of ["in", "sag", "ax", "ay", "az", "bx", "by", "bz"]) c.prop(0, "rope", { [k]: props.at(-1)[k] }, 0.01);
+const ropeB = (t, [x, y, z], dur, ease = "linear") => c.prop(t, "rope", { bx: x, by: y, bz: z }, dur, ease);
+const ropeA = (t, [x, y, z], dur, ease = "linear") => c.prop(t, "rope", { ax: x, ay: y, az: z }, dur, ease);
+c.prop(r3(ANCHOR_T - 0.034), "rope", { in: 1 }, 0.033, "linear");
+ropeB(ANCHOR_T, A_UP, 0.2, "out"); ropeB(r3(ANCHOR_T + 0.2), ringOf(A_LAND), 0.22, "in");
+c.prop(ANCHOR_T, "rope", { sag: 0.25 }, 0.42, "linear");   // slack: it lies on the ice between them
 c.prop(r3(THUNK), "heap", { jolt: 1 }, 0.25, "out");
 crackTo(r3(THUNK - 0.02), 1.0, 0.25, 0.9);   // the last crack is the anchor's: then silence
 sfx(THUNK, "thud", { gain: 0.9 });
@@ -275,7 +289,7 @@ const CASE_END = say(5, CASE);
 A(r3(CASE_END + 0.2), "chip", "arm", { side: "L", pose: "rest", dur: 0.35 });
 A(r3(CASE_END + 0.2), "chip", "arm", { side: "R", pose: "rest", dur: 0.35 });
 
-// ---------------------------------------------------------------- 9 THE SLAB GOES (the crack runs round the heap; it tips; all of it sinks)
+// ---------------------------------------------------------------- 9 THE SLAB GOES (the crack runs round the heap; it tips; the gear sinks)
 const RUN = r3(CASE_END + 0.1);
 c.prop(RUN, "ice", { run: 1 }, 0.55, "in");
 sfx(RUN, "ai/screen-crack", { gain: 0.8 });
@@ -283,12 +297,15 @@ A(r3(RUN + 0.05), "chip", "look", { to: [0.5, -0.6], dur: 0.12, blink: false });
 A(r3(RUN + 0.1), "chip", "expr", { set: { curve: -0.2, eye: 1.25, open: 0.2 }, dur: 0.12 });
 A(r3(RUN + 0.15), "chip", "move", { to: CHIP_BACK, dur: 0.35, ease: "out", steps: 2 });   // a hop back off the lip
 A(r3(RUN + 0.15), "chip", "turn", { to: 35, dur: 0.3 });
+ropeA(r3(RUN + 0.15), ROPE_HEM(CHIP_BACK, 35), 0.35, "out");
 const TIP = r3(RUN + 0.5);
-c.prop(TIP, "ice", { slab: 1 }, 0.7, "in");
-c.prop(TIP, "heap", { slab: 1 }, 0.7, "in");
-c.prop(r3(TIP + 0.35), "heap", { slide: 1 }, 1.0, "in");
-c.prop(r3(TIP + 0.4), "ice", { churn: 1 }, 1.2, "linear");
-c.prop(TIP, "bucket", { y: -0.6, x: 1.35, z: 1.3 }, 1.1, "in");   // the bucket rides the slab down last (DESIGN default 4)
+c.prop(TIP, "ice", { slab: 1 }, 0.6, "in");
+c.prop(TIP, "heap", { slab: 1 }, 0.6, "in");
+c.prop(r3(TIP + 0.3), "heap", { slide: 1 }, 0.9, "in");
+c.prop(r3(TIP + 1.25), "heap", { y: -3 }, 0.01);   // all of it under: off the floor plan (Chip goes in where it was)
+c.prop(r3(TIP + 0.35), "ice", { churn: 1 }, 1.4, "linear");
+c.prop(TIP, "bucket", { y: -0.6, x: 1.35, z: 1.3 }, 1.0, "in");   // the bucket rides the slab down last (DESIGN default 4)
+c.prop(r3(TIP + 0.7), "ice", { sink: 1 }, 0.8, "in");   // the slab goes under: open water
 props.push({ id: "splash", kind: "icesplash", x: 1.15, y: -0.02, z: 0.75, puff: 0, dur: 1.2 });
 c.prop(0, "splash", { puff: 0 }, 0.01);
 const SPLASH = r3(TIP + 0.5);
@@ -297,17 +314,54 @@ sfx(TIP, "ai/screen-crack", { gain: 0.7 });
 sfx(SPLASH, "ai/swim-splash", { gain: 0.9 });
 // the loose gear: hidden the frame the heap's strays take over (strays come from the layout's rest poses; v1 drops them with the heap)
 for (let i = 0; i < SPILL.length; i++) c.prop(r3(TIP - 0.01), `g${i}`, { in: 0 }, 0.01);
-c.prop(r3(TIP - 0.01), "anchor", { in: 0 }, 0.01);
-see(TIP, r3(SPLASH + 0.8), ["chip.face", "heap"], "the slab under the gear tips and everything slides into the lake");
-// the friends on the jetty laugh; Chip, safe and empty-handed, deflates
-const LAUGH = r3(SPLASH + 0.15);
+// the anchor rides the slab into the water, last, and sinks: its rope pays out after it
+const A_WATER = [1.05, -0.02, 0.78], A_DEEP = [1.2, -0.75, 0.9];
+c.prop(r3(TIP + 0.25), "anchor", { x: A_WATER[0], y: A_WATER[1], z: A_WATER[2], tip: 110 }, 0.4, "in");
+c.prop(r3(TIP + 0.65), "anchor", { x: A_DEEP[0], y: A_DEEP[1], z: A_DEEP[2], tip: 170 }, 0.45, "in");
+c.prop(r3(TIP + 1.1), "anchor", { in: 0 }, 0.01);
+ropeB(r3(TIP + 0.25), A_WATER, 0.4, "in"); ropeB(r3(TIP + 0.65), [A_DEEP[0], -0.3, A_DEEP[2]], 0.45, "in");
+c.prop(r3(TIP + 0.25), "rope", { sag: 0.12 }, 0.4, "linear");
+see(TIP, r3(SPLASH + 0.6), ["chip.face", "heap"], "the slab under the gear tips and everything slides into the lake");
+// Chip, safe on his patch, smiles: then the rope snaps tight at his hem (a beat), and it drags him in after his anchor
+const PHEW = r3(SPLASH + 0.1);
+A(PHEW, "chip", "look", { to: [0, 0.05], dur: 0.2, blink: false });
+A(PHEW, "chip", "expr", { set: { curve: 0.55, eye: 0.9, open: 0, smirk: 0.2 }, dur: 0.2 });   // phew
+A(PHEW, "chip", "turn", { to: 15, dur: 0.3 });
+ropeA(PHEW, ROPE_HEM(CHIP_BACK, 15), 0.3);
+const TAUT = r3(TIP + 1.1);
+c.prop(TAUT, "rope", { sag: 0 }, 0.08, "out");
+sfx(TAUT, "door-creak", { gain: 0.55 }); sfx(TAUT, "thud", { gain: 0.35 });
+A(r3(TAUT + 0.04), "chip", "squash", { amount: 0.06, dur: 0.18 });   // the jerk at his middle
+A(r3(TAUT + 0.06), "chip", "look", { to: [0.35, -0.75], dur: 0.1, blink: false });   // down at the rope
+A(r3(TAUT + 0.06), "chip", "expr", { set: { curve: -0.3, eye: 1.3, open: 0.3, smirk: 0 }, dur: 0.1 });
+A(r3(TAUT + 0.3), "chip", "look", { to: [0, 0.05], dur: 0.12, blink: false });   // at us: uh-oh
+const YANK = r3(TAUT + 0.5), EDGE = [0.6, 0.4], YAW_Y = r3(heading(CHIP_BACK, EDGE));
+A(YANK, "chip", "turn", { to: YAW_Y, dur: 0.12, ease: "out" });
+A(YANK, "chip", "pitch", { to: 35, dur: 0.15, ease: "out" });   // pulled over by his middle
+A(YANK, "chip", "move", { to: EDGE, dur: 0.32, ease: "in", steps: 0 });   // dragged on the ice, feet off the step
+A(r3(YANK + 0.28), "chip", "move", { to: EDGE, y: -0.85, dur: 0.22, ease: "in", steps: 0 });   // in
+ropeA(YANK, ROPE_HEM(EDGE, YAW_Y), 0.32, "in"); ropeA(r3(YANK + 0.28), ROPE_HEM(EDGE, YAW_Y, -0.85), 0.22, "in");
+sfx(YANK, "ai/branch-snap", { gain: 0.25 });   // ice grit under him
+props.push({ id: "splash2", kind: "icesplash", x: EDGE[0], y: -0.02, z: EDGE[1], puff: 0, dur: 1.0 });
+c.prop(0, "splash2", { puff: 0 }, 0.01);
+const IN = r3(YANK + 0.45);
+c.prop(IN, "splash2", { puff: 1 }, 1.0, "linear");
+sfx(IN, "ai/swim-splash", { gain: 1.0 }); sfx(r3(IN + 0.05), "splash", { gain: 0.6 });
+c.prop(r3(IN + 0.3), "rope", { in: 0 }, 0.01);
+see(TAUT, r3(IN + 0.3), ["chip.face"], "the anchor's rope is tied to Chip: it snaps tight and drags him into the lake");
+// he comes up in the hole, sheepish, to the friends laughing on the jetty
+const POP = r3(IN + 0.85);
+A(r3(IN + 0.3), "chip", "pitch", { to: 0, dur: 0.2 }); A(r3(IN + 0.3), "chip", "turn", { to: 10, dur: 0.2 });
+A(POP, "chip", "move", { to: EDGE, y: -0.4, dur: 0.35, ease: "out", steps: 0 });   // head and eyes out of the water
+sfx(POP, "ai/surface-gasp", { gain: 0.6 });
+A(r3(POP + 0.05), "chip", "look", { to: [0, 0.05], dur: 0.15, blink: false });
+A(r3(POP + 0.1), "chip", "expr", { set: { curve: 0.3, eye: 0.85, open: 0.05, smirk: 0.35 }, dur: 0.2 });   // a sheepish smile, soaked
+const LAUGH = r3(IN + 0.15);
 for (const [w, d] of [["wedge", 0], ["spud", 0.08], ["mash", 0.16]]) {
   A(r3(LAUGH + d), w, "expr", { set: { curve: 0.85, eye: 0.6, open: 0.45 }, dur: 0.15 });
-  for (let k = 0; k < 3; k++) A(r3(LAUGH + d + k * 0.32), w, "squash", { amount: 0.05, dur: 0.28 });
+  for (let k = 0; k < 4; k++) A(r3(LAUGH + d + k * 0.32), w, "squash", { amount: 0.05, dur: 0.28 });
 }
-A(r3(LAUGH + 0.4), "chip", "look", { to: [0, 0.05], dur: 0.2, blink: false });
-A(r3(LAUGH + 0.45), "chip", "expr", { set: { curve: 0.35, eye: 0.9, open: 0, smirk: 0.3 }, dur: 0.25 });   // a sheepish smile, safe on his patch (Codex P12)
-const END = F(LAUGH + 1.4);   // hold the three laughing (Codex P12)
+const END = F(POP + 1.3);   // hold Chip up in the hole and the three laughing
 
 // ---------------------------------------------------------------- shots (DESIGN section 1 cameras; camfit before staging changes)
 // cameras stand ON the ice (the near bank's snow at z > 2.5 filled the lower half of the frame from the design's spots)
@@ -326,6 +380,7 @@ const MASH_CAM = { pos: [-0.9, 1.25, 2.5], look: [0.15, 0.45, -1.9], fov: 60 }; 
 const FAT_TWO = { pos: [0.35, 1.0, 2.9], look: [-0.5, 0.55, 0], fov: 54 };   // Chip points up at the big one   // Chip and the teal one, the jetty behind right
 const HEM_LOW = { pos: [0.2, 0.6, 1.9], look: [0.1, 0.25, 0], fov: 48 };
 const END_SHOT = { pos: [-0.5, 1.7, 3.2], look: [0.0, 0.35, -0.9], fov: 72 };   // all three laughing on the jetty + Chip (camfit 19 Nov)
+const ROPE_CU = { pos: [0.05, 0.62, 1.5], look: [-0.25, 0.3, -0.3], fov: 42 };   // Chip at his safe patch, the rope tight at his hem
 const OTS = { pos: [0.25, 1.3, 1.6], look: [-0.9, 0.8, -2.6], fov: 56 };   // over Chip's head at the big one (camfit 19 Nov)
 const beats = c.beats([
   ["cracks", 0, { ...A_WIDE, to: A_WIDE_IN, dur: 1.6, ease: "out" }, "hook"],
@@ -336,10 +391,12 @@ const beats = c.beats([
   ["spud off", r3(S1 + 0.3), JET_WIDE],
   ["only chip", ALONE, { ...A_CLOSE, pos: [0.25, 0.7, 2.9], to: A_CLOSE, dur: 0.85, ease: "inOut" }],
   ["wait", r3(WAIT - 0.15), OTS],
-  ["the reel", r3(DROP1 - 0.15), HEM_LOW, "payoff"],
+  ["the reel", r3(DROP1 - 0.15), HEM_LOW],
   ["the gear", r3(POUR - 0.1), GEAR_SHOT],
   ["just in case", r3(CASE - 0.2), A_MID],
   ["it sinks", r3(RUN - 0.05), END_SHOT],
+  ["taut", r3(TAUT - 0.05), ROPE_CU],
+  ["yanked", r3(YANK - 0.05), END_SHOT, "payoff"],
 ], END);
 
 write(import.meta.url, {
@@ -358,6 +415,9 @@ write(import.meta.url, {
   hook: { show: ["wedge", "mash", "spud", "chip", "ice"], hint: 0, what: "four friends on cracking ice round a fishing hole; the narrator says one of them is too heavy" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
+    { who: "chip", with: "ice", from: r3(YANK + 0.25), to: END, checks: ["clipping"], reason: "he is in the open water where the slab sank (the ice is cut there, props-icelake sink); only head and shoulders come up" },
+    { who: "chip", from: YANK, to: r3(IN + 0.3), checks: ["payoff-face"], reason: "dragged face first toward the hole by the rope at his middle for half a second; his face is back to us when he comes up" },
+    { who: "chip", with: "heap", from: r3(TIP + 1.25), to: END, checks: ["character-overlap"], reason: "the heap has slid under the water (parked at y -3) before the rope drags Chip in where it lay" },
     { who: "chip", with: "gear", from: 0, to: END, checks: ["clipping", "costume-in-prop", "arm-in-prop"], reason: "the lumps are worn: a patch of his own hoodie cloth over his belly (props-icegear.js hoodiegear), built round his body" },
   ],
   notes: "Generated by storyboards/series/friends-try-to/12-frozen-lake/make-frozen-lake.mjs.",

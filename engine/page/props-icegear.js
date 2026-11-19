@@ -686,4 +686,41 @@ function hoodiegear(P) {
     },
   };
 }
-export const ICEGEAR_KINDS = { sinker: loose("sinker"), fishreel: loose("fishreel"), tacklebox: loose("tacklebox"), baittin: loose("baittin"), iceauger: loose("iceauger"), anchor: loose("anchor"), gearheap: heap, hoodiegear };
+
+// ---------------------------------------------------------------------------------------------------- gearrope
+// the anchor's rope (frozen lake v3 ending, Jonny 19 Nov "Chip gets yanked in"): one cream rope between two points in the prop's
+// frame (place the prop at 0,0,0 rot 0 so they are world points): a (ax, ay, az) = Chip's hem, b (bx, by, bz) = the anchor's ring.
+// sag (metres, 0 = taut) drops the middle; where the line would go under the ice top (y 0.006) it lies on the ice, unless that
+// part is over open water (an end under y -0.01: the rope runs down into the water). in 0..1 shows it. All params tween
+// (props3d propState). Rebuilt only when its numbers change (keyed on the exact inputs, so renders stay deterministic).
+export const ROPE_KEYS = ["ax", "ay", "az", "bx", "by", "bz", "sag", "in"];
+function gearrope(P) {
+  const S = P.spec, g = new THREE.Group(); P.whole.add(g);
+  const mA = mat("#d8d2c0", { roughness: 0.9 }), mB = mat("#b4ab93", { roughness: 0.9 });
+  let key = null;
+  return {
+    grip: 0,
+    apply(ps) {
+      const v = (k, d = 0) => Number(ps[k] ?? S[k] ?? d);
+      const on = v("in", 1) > 0.01; g.visible = on; if (!on) return;
+      const A = new V3(v("ax"), v("ay"), v("az")), B = new V3(v("bx"), v("by"), v("bz")), sag = Math.max(0, v("sag", 0.1));
+      const k = [A.x, A.y, A.z, B.x, B.y, B.z, sag].map((x) => x.toFixed(4)).join(",");
+      if (k === key) return; key = k;
+      for (const c of [...g.children]) { g.remove(c); c.geometry.dispose(); }
+      const N = 48, pts = [], wet = Math.min(A.y, B.y) < -0.01;
+      for (let i = 0; i <= N; i++) {
+        const u = i / N, p = A.clone().lerp(B, u); p.y -= sag * 4 * u * (1 - u);
+        if (!wet || p.y > -0.01) p.y = Math.max(p.y, 0.006 + 0.004 * Math.sin(u * 37));   // on the ice it lies flat (a little wander)
+        pts.push(p);
+      }
+      const curve = new THREE.CatmullRomCurve3(pts, false, "centripetal"), n = 10;
+      for (let i = 0; i < n; i++) {
+        const seg = curve.getPoints(80).slice(Math.floor((i / n) * 80), Math.min(81, Math.ceil(((i + 1) / n) * 80) + 1));
+        if (seg.length < 2) continue;
+        const m = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(seg), 8, 0.0075, 8, false), i % 2 ? mB : mA); m.castShadow = true; g.add(m);
+      }
+    },
+  };
+}
+
+export const ICEGEAR_KINDS = { sinker: loose("sinker"), fishreel: loose("fishreel"), tacklebox: loose("tacklebox"), baittin: loose("baittin"), iceauger: loose("iceauger"), anchor: loose("anchor"), gearheap: heap, hoodiegear, gearrope };

@@ -301,6 +301,21 @@
    "seed": 5
   },
   {
+   "id": "rope",
+   "kind": "gearrope",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "in": 0,
+   "sag": 0.05,
+   "ax": 0.04,
+   "ay": 0.13,
+   "az": 0.25,
+   "bx": 0.12,
+   "by": 0.16,
+   "bz": 0.24
+  },
+  {
    "id": "splash",
    "kind": "icesplash",
    "x": 1.15,
@@ -308,6 +323,15 @@
    "z": 0.75,
    "puff": 0,
    "dur": 1.2
+  },
+  {
+   "id": "splash2",
+   "kind": "icesplash",
+   "x": 0.6,
+   "y": -0.02,
+   "z": 0.4,
+   "puff": 0,
+   "dur": 1
   }
  ],
  "captions": [
@@ -634,7 +658,97 @@
     },
     {
      "do": "prop",
+     "id": "rope",
+     "set": {
+      "in": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sag": 0.05
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ax": 0.04
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ay": 0.13
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "az": 0.25
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bx": 0.12
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "by": 0.16
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bz": 0.24
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
      "id": "splash",
+     "set": {
+      "puff": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "splash2",
      "set": {
       "puff": 0
      },
@@ -2254,8 +2368,7 @@
      "dur": 0.15,
      "at": 0.45
     }
-   ],
-   "kind": "payoff"
+   ]
   },
   {
    "name": "the gear",
@@ -2685,6 +2798,18 @@
       "x": 0.12,
       "y": 0.16,
       "z": 0.24,
+      "rot": -126.293,
+      "tip": 0,
+      "in": 1
+     },
+     "dur": 0.033,
+     "ease": "linear",
+     "at": 0.816
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
       "in": 1
      },
      "dur": 0.033,
@@ -2697,25 +2822,69 @@
      "at": 0.83
     },
     {
-     "do": "physics",
-     "prop": "anchor",
-     "mode": "throw",
-     "v": [
-      1.4,
-      1.6,
-      0.85
-     ],
-     "spin": [
-      0,
-      0,
-      2
-     ],
+     "do": "prop",
+     "id": "anchor",
+     "set": {
+      "x": 0.42,
+      "y": 0.62,
+      "z": 0.38,
+      "tip": 40
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bx": 0.42,
+      "by": 0.62,
+      "bz": 0.38
+     },
+     "dur": 0.2,
+     "ease": "out",
+     "at": 0.85
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sag": 0.25
+     },
+     "dur": 0.42,
+     "ease": "linear",
      "at": 0.85
     },
     {
      "sfx": "hit-metal",
      "gain": 0.55,
      "at": 0.88
+    },
+    {
+     "do": "prop",
+     "id": "anchor",
+     "set": {
+      "x": 0.64,
+      "y": 0.33,
+      "z": 0.47,
+      "tip": 80
+     },
+     "dur": 0.22,
+     "ease": "in",
+     "at": 1.05
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bx": 0.503,
+      "by": 0.35,
+      "bz": 0.369
+     },
+     "dur": 0.22,
+     "ease": "in",
+     "at": 1.05
     },
     {
      "do": "prop",
@@ -2838,7 +3007,7 @@
   {
    "name": "it sinks",
    "at": 12.81,
-   "len": 2.59,
+   "len": 1.6,
    "shot": {
     "pos": [
      -0.5,
@@ -2923,6 +3092,18 @@
      "do": "turn",
      "to": 35,
      "dur": 0.3,
+     "at": 0.2
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ax": -0.144,
+      "ay": 0.13,
+      "az": -0.118
+     },
+     "dur": 0.35,
+     "ease": "out",
      "at": 0.2
     },
     {
@@ -3037,21 +3218,11 @@
     },
     {
      "do": "prop",
-     "id": "anchor",
-     "set": {
-      "in": 0
-     },
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 0.54
-    },
-    {
-     "do": "prop",
      "id": "ice",
      "set": {
       "slab": 1
      },
-     "dur": 0.7,
+     "dur": 0.6,
      "ease": "in",
      "at": 0.55
     },
@@ -3061,7 +3232,7 @@
      "set": {
       "slab": 1
      },
-     "dur": 0.7,
+     "dur": 0.6,
      "ease": "in",
      "at": 0.55
     },
@@ -3073,7 +3244,7 @@
       "x": 1.35,
       "z": 1.3
      },
-     "dur": 1.1,
+     "dur": 1,
      "ease": "in",
      "at": 0.55
     },
@@ -3084,13 +3255,48 @@
     },
     {
      "do": "prop",
+     "id": "anchor",
+     "set": {
+      "x": 1.05,
+      "y": -0.02,
+      "z": 0.78,
+      "tip": 110
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bx": 1.05,
+      "by": -0.02,
+      "bz": 0.78
+     },
+     "dur": 0.4,
+     "ease": "in",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sag": 0.12
+     },
+     "dur": 0.4,
+     "ease": "linear",
+     "at": 0.8
+    },
+    {
+     "do": "prop",
      "id": "heap",
      "set": {
       "slide": 1
      },
-     "dur": 1,
+     "dur": 0.9,
      "ease": "in",
-     "at": 0.9
+     "at": 0.85
     },
     {
      "do": "prop",
@@ -3098,9 +3304,9 @@
      "set": {
       "churn": 1
      },
-     "dur": 1.2,
+     "dur": 1.4,
      "ease": "linear",
-     "at": 0.95
+     "at": 0.9
     },
     {
      "do": "prop",
@@ -3118,74 +3324,6 @@
      "at": 1.05
     },
     {
-     "who": "wedge",
-     "do": "expr",
-     "set": {
-      "curve": 0.85,
-      "eye": 0.6,
-      "open": 0.45
-     },
-     "dur": 0.15,
-     "at": 1.2
-    },
-    {
-     "who": "wedge",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.2
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "set": {
-      "curve": 0.85,
-      "eye": 0.6,
-      "open": 0.45
-     },
-     "dur": 0.15,
-     "at": 1.28
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.28
-    },
-    {
-     "who": "mash",
-     "do": "expr",
-     "set": {
-      "curve": 0.85,
-      "eye": 0.6,
-      "open": 0.45
-     },
-     "dur": 0.15,
-     "at": 1.36
-    },
-    {
-     "who": "mash",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.36
-    },
-    {
-     "who": "wedge",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.52
-    },
-    {
-     "who": "spud",
-     "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.6
-    },
-    {
      "who": "chip",
      "do": "look",
      "to": [
@@ -3194,49 +3332,469 @@
      ],
      "dur": 0.2,
      "blink": false,
-     "at": 1.6
+     "at": 1.15
     },
     {
      "who": "chip",
      "do": "expr",
      "set": {
-      "curve": 0.35,
+      "curve": 0.55,
       "eye": 0.9,
       "open": 0,
-      "smirk": 0.3
+      "smirk": 0.2
      },
-     "dur": 0.25,
-     "at": 1.65
+     "dur": 0.2,
+     "at": 1.15
     },
     {
-     "who": "mash",
+     "who": "chip",
+     "do": "turn",
+     "to": 15,
+     "dur": 0.3,
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ax": -0.217,
+      "ay": 0.13,
+      "az": -0.069
+     },
+     "dur": 0.3,
+     "ease": "linear",
+     "at": 1.15
+    },
+    {
+     "do": "prop",
+     "id": "anchor",
+     "set": {
+      "x": 1.2,
+      "y": -0.75,
+      "z": 0.9,
+      "tip": 170
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "bx": 1.2,
+      "by": -0.3,
+      "bz": 0.9
+     },
+     "dur": 0.45,
+     "ease": "in",
+     "at": 1.2
+    },
+    {
+     "do": "prop",
+     "id": "ice",
+     "set": {
+      "sink": 1
+     },
+     "dur": 0.8,
+     "ease": "in",
+     "at": 1.25
+    }
+   ]
+  },
+  {
+   "name": "taut",
+   "at": 14.41,
+   "len": 0.5,
+   "shot": {
+    "pos": [
+     0.05,
+     0.62,
+     1.5
+    ],
+    "look": [
+     -0.25,
+     0.3,
+     -0.3
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "anchor",
+     "set": {
+      "in": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "sag": 0
+     },
+     "dur": 0.08,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "door-creak",
+     "gain": 0.55,
+     "at": 0.05
+    },
+    {
+     "sfx": "thud",
+     "gain": 0.35,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
      "do": "squash",
-     "amount": 0.05,
-     "dur": 0.28,
-     "at": 1.68
+     "amount": 0.06,
+     "dur": 0.18,
+     "at": 0.09
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.75
+     ],
+     "dur": 0.1,
+     "blink": false,
+     "at": 0.11
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "curve": -0.3,
+      "eye": 1.3,
+      "open": 0.3,
+      "smirk": 0
+     },
+     "dur": 0.1,
+     "at": 0.11
+    },
+    {
+     "do": "prop",
+     "id": "heap",
+     "set": {
+      "y": -3
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 0.35
+    }
+   ]
+  },
+  {
+   "name": "yanked",
+   "at": 14.91,
+   "len": 2.657,
+   "shot": {
+    "pos": [
+     -0.5,
+     1.7,
+     3.2
+    ],
+    "look": [
+     0,
+     0.35,
+     -0.9
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 52.734,
+     "dur": 0.12,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 35,
+     "dur": 0.15,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "dur": 0.32,
+     "ease": "in",
+     "steps": 0,
+     "at": 0.05
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ax": 0.823,
+      "ay": 0.13,
+      "az": 0.52
+     },
+     "dur": 0.32,
+     "ease": "in",
+     "at": 0.05
+    },
+    {
+     "sfx": "ai/branch-snap",
+     "gain": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "y": -0.85,
+     "dur": 0.22,
+     "ease": "in",
+     "steps": 0,
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "ax": 0.823,
+      "ay": -0.72,
+      "az": 0.52
+     },
+     "dur": 0.22,
+     "ease": "in",
+     "at": 0.33
+    },
+    {
+     "do": "prop",
+     "id": "splash2",
+     "set": {
+      "puff": 1
+     },
+     "dur": 1,
+     "ease": "linear",
+     "at": 0.5
+    },
+    {
+     "sfx": "ai/swim-splash",
+     "gain": 1,
+     "at": 0.5
+    },
+    {
+     "sfx": "splash",
+     "gain": 0.6,
+     "at": 0.55
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "set": {
+      "curve": 0.85,
+      "eye": 0.6,
+      "open": 0.45
+     },
+     "dur": 0.15,
+     "at": 0.65
     },
     {
      "who": "wedge",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.84
+     "at": 0.65
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "set": {
+      "curve": 0.85,
+      "eye": 0.6,
+      "open": 0.45
+     },
+     "dur": 0.15,
+     "at": 0.73
     },
     {
      "who": "spud",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 1.92
+     "at": 0.73
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "in": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "pitch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 10,
+     "dur": 0.2,
+     "at": 0.8
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "set": {
+      "curve": 0.85,
+      "eye": 0.6,
+      "open": 0.45
+     },
+     "dur": 0.15,
+     "at": 0.81
     },
     {
      "who": "mash",
      "do": "squash",
      "amount": 0.05,
      "dur": 0.28,
-     "at": 2
+     "at": 0.81
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 0.97
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.05
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.13
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.29
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.6,
+      0.4
+     ],
+     "y": -0.4,
+     "dur": 0.35,
+     "ease": "out",
+     "steps": 0,
+     "at": 1.35
+    },
+    {
+     "sfx": "ai/surface-gasp",
+     "gain": 0.6,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.37
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "set": {
+      "curve": 0.3,
+      "eye": 0.85,
+      "open": 0.05,
+      "smirk": 0.35
+     },
+     "dur": 0.2,
+     "at": 1.45
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.45
+    },
+    {
+     "who": "wedge",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.61
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.69
+    },
+    {
+     "who": "mash",
+     "do": "squash",
+     "amount": 0.05,
+     "dur": 0.28,
+     "at": 1.77
     }
-   ]
+   ],
+   "kind": "payoff"
   }
  ],
  "visible": [
@@ -3289,20 +3847,57 @@
   },
   {
    "from": 13.36,
-   "to": 14.66,
+   "to": 14.46,
    "see": [
     "chip.face",
     "heap"
    ],
    "why": "the slab under the gear tips and everything slides into the lake"
+  },
+  {
+   "from": 14.46,
+   "to": 15.71,
+   "see": [
+    "chip.face"
+   ],
+   "why": "the anchor's rope is tied to Chip: it snaps tight and drags him into the lake"
   }
  ],
  "allowClip": [
   {
    "who": "chip",
+   "with": "ice",
+   "from": 15.21,
+   "to": 17.567,
+   "checks": [
+    "clipping"
+   ],
+   "reason": "he is in the open water where the slab sank (the ice is cut there, props-icelake sink); only head and shoulders come up"
+  },
+  {
+   "who": "chip",
+   "from": 14.96,
+   "to": 15.71,
+   "checks": [
+    "payoff-face"
+   ],
+   "reason": "dragged face first toward the hole by the rope at his middle for half a second; his face is back to us when he comes up"
+  },
+  {
+   "who": "chip",
+   "with": "heap",
+   "from": 14.61,
+   "to": 17.567,
+   "checks": [
+    "character-overlap"
+   ],
+   "reason": "the heap has slid under the water (parked at y -3) before the rope drags Chip in where it lay"
+  },
+  {
+   "who": "chip",
    "with": "gear",
    "from": 0,
-   "to": 15.4,
+   "to": 17.567,
    "checks": [
     "clipping",
     "costume-in-prop",
