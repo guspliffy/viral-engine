@@ -118,17 +118,28 @@ const MLP = { id: "ml", kind: "painting", ...PAINT.ml };
 const ATML = [ML.x - 0.05, ML.y + ML.h / 2, ML.z];   // the face of the painting, for inserts
 const ATLOW = [ML.x - 0.05, ML.y + ML.h / 2 + 0.17, ML.z];   // aimed above her eyes (0.12 over the centre): they sit just below the frame's middle, under the caption band (Sol r1 #20, r2 #10)
 
+// the reopening-day queue (front at the bare hooks, back through the hall) and its shots: QSHOT1/2 keep the wall out of
+// sight (hook + scene 10), QREVEAL looks over the front of the line at the empty wall (the answer, near the end)
+const QUEUE = { v1: [-0.1, 1.0, 180], v2: [0.15, 0.25, 180], v3: [-0.12, -0.5, 180], spud: [0.12, -1.25, 180], v5: [-0.1, -2.0, 180], wedge: [0.14, -2.75, 180], v4: [-0.1, -3.5, 180], mash: [0.12, -4.25, 180] };
+const QSHOT1 = { t: "wide", at: [2.6, 0.45, 0], h: 5.2, az: -75, el: 32, hold: true };
+const QSHOT2 = { t: "wide", at: [2.8, 0.6, 0], h: 5.2, az: 4, el: 12, hold: true };
+const QREVEAL = { t: "wide", at: [5.8, 0.8, 0], h: 2.4, az: 18, el: 42, hold: true };
 export const SCENES = [
-  // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
+  // 0 HOOK (Astra, Jonny 19 Nov): reopening day, a queue already moving at frame 0, what they queue for stays hidden
+  { id: "00 the queue", act: "hook", place: "gallery", extra: [HOOKS], props: {},
+    layout: QUEUE,
+    shot: QSHOT1, seq: [
+      ["walk", "mash", [0.12, -4.05], 0.8], ["walk", "v4", [-0.1, -3.4], 0.8], ["sfx", "step", { gain: 0.3 }],
+      ["n", "The Mona Lisa's been missing for a week."],
+      ["cut", QSHOT2],
+      ["n", "What are these people lining up to see?"] ] },
+  // 1 A WEEK EARLIER: visitors stroll past without a look
   { id: "01 nobody stops", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
     layout: { v1: [-0.9, 1.05, 90], v2: [-2.6, 1.05, 90], v3: [0.2, 0.45, 90], v4: [-1.7, 0.45, 90] },
-    // Jonny 19 Nov (after posting, for the Instagram cut): open on the clock line, scene setting after it
-    shot: { t: "insert", at: ATLOW, h: 0.9, push: 0.25, hold: true }, seq: [
-      ["n", "In two days, the whole world will be hunting for her."],
-      ["cut", { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }],
+    shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, seq: [
       ["walk", "v1", [2.0, 1.05], 4.4], ["walk", "v2", [0.3, 1.05], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
       ["sfx", "step", { gain: 0.3 }],
-      ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."] ] },
+      ["n", "A week earlier, nobody stops for her."] ] },
   // 2 PLANT: the man who put the glass on her
   { id: "02 the glass man", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
     layout: { thief: [0.5, 1.15, -135] },
@@ -211,15 +222,12 @@ export const SCENES = [
       ["n", "Her face is on every front page on Earth."],
       ["cut", { t: "two", who: ["insp", "picasso"], az: -10 }], ["e", "picasso", "terrified"], ["arm", "insp", "R", "point"],
       ["n", "Police even question Picasso."], ["fx", { fx: "sweat", who: "picasso", dur: 1.2 }], ["wait", 0.3] ] },
-  // 10 THE EMPTY WALL (the second hook)
+  // 10 REOPENING: the queue again, still no view of what they queue for (Astra: keep the gap open to the end)
   { id: "10 empty wall", act: "wall", place: "gallery", extra: [HOOKS], props: {},
-    // a line from the bare hooks back through the hall (Sol r1 #14), then the empty wall over the front of the line
-    layout: { v1: [-0.1, 1.0, 180], v2: [0.15, 0.25, 180], v3: [-0.12, -0.5, 180], spud: [0.12, -1.25, 180], v5: [-0.1, -2.0, 180], wedge: [0.14, -2.75, 180], v4: [-0.1, -3.5, 180], mash: [0.12, -4.25, 180] },
-    shot: { t: "wide", at: [2.9, 0.5, 0], h: 6.2, az: -70, el: 32, hold: true }, seq: [
-      ["n", "When it reopens, thousands queue..."],
+    layout: QUEUE,
+    shot: QSHOT2, seq: [
       ["walk", "mash", [0.12, -4.05], 0.8], ["walk", "v4", [-0.1, -3.4], 0.8],
-      ["cut", { t: "wide", at: [5.8, 0.8, 0], h: 2.4, az: 18, el: 42, hold: true }],
-      ["n", "...to stare at an empty wall."], ["wait", 0.5] ] },
+      ["n", "When it reopens, thousands queue."], ["wait", 0.3] ] },
   // 11 HIS ROOM: the knock, the search, the trunk a metre away; two years
   { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 },
       { id: "ml", kind: "painting", x: -1.0, y: 0.15, z: -1.6, rot: 90, tip: -90, cover: 0, wrap: 0.3 }], props: {},
@@ -255,6 +263,13 @@ export const SCENES = [
       ["arm", "v1", "R", "up"], ["arm", "v2", "L", "up"], ["hop", "v1"], ["hop", "v4"], ["sfx", "gasp", { gain: 0.3 }],
       ["n", "Italy cheers him."], ["cut", { t: "close", who: ["thief"], h: 2.8, az: -20 }], ["e", "thief", "smug"],
       ["n", "He gets seven months."], ["wait", 0.4] ] },
+  // 13b THE ANSWER (Astra): the reopening queue at last seen past the front visitor: an empty wall
+  { id: "13b the answer", act: "today", place: "gallery", extra: [HOOKS], props: {},
+    layout: QUEUE,
+    shot: QSHOT2, seq: [
+      ["n", "And that queue?"],
+      ["cut", QREVEAL],
+      ["n", "They came to stare at an empty wall."], ["wait", 0.4] ] },
   // 14 TODAY: the mirror of the first shot
   { id: "14 today", act: "today", place: "gallery", extra: [{ ...MLP, x: ML.x - 0.07 }, { id: "mlwall", kind: "mlwall", x: WALLX - 0.01, y: 0, z: 0, rot: -90 },
       { id: "crowd", kind: "visitorcrowd", x: ML.x, y: 0, z: 0, rot: 0, n: 30, arc: [1.7, -145, -35], h: 0.85, seed: 3 },
