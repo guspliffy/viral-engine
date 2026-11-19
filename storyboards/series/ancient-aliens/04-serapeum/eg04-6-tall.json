@@ -118,10 +118,10 @@
    "id": "djoser",
    "kind": "djoser",
    "x": -48,
-   "y": 2.6,
+   "y": 0,
    "z": -40,
    "rot": 14,
-   "staged": "stands on a far rise behind the cliff (DESIGN.md), 60 m away"
+   "staged": "stands on the sand apron, 60 m away (Sol d3: it floated at y 2.6)"
   },
   {
    "id": "sledge",
@@ -301,6 +301,37 @@
     "ease": "inOut"
    },
    "do": [
+    {
+     "do": "prop",
+     "id": "jar",
+     "set": {
+      "pour": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "wet",
+     "set": {
+      "wet": 0,
+      "track": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "haul",
+     "set": {
+      "along": 0
+     },
+     "dur": 0.01,
+     "ease": "linear",
+     "at": 0
+    },
     {
      "who": "p0",
      "do": "arm",
@@ -767,21 +798,21 @@
    "len": 1.8,
    "shot": {
     "pos": [
-     3.2,
-     6.8,
-     21
+     2.6,
+     2.6,
+     18.6
     ],
     "look": [
-     0,
-     0.4,
-     9
+     -0.2,
+     0.5,
+     11
     ],
-    "fov": 64,
+    "fov": 62,
     "to": {
      "pos": [
-      3,
-      6.6,
-      20.4
+      2.4,
+      2.5,
+      17.4
      ]
     },
     "dur": 1.8,
