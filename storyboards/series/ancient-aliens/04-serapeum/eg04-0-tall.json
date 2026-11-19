@@ -117,7 +117,7 @@
  "music": {
   "file": "ancient-aliens/aa04-score.ogg",
   "from": 0,
-  "skip": 0,
+  "skip": 2.9,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,
