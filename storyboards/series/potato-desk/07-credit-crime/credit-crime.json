@@ -1,0 +1,1692 @@
+{
+ "id": "credit-crime",
+ "title": "He demanded credit for the crime",
+ "idea": "Potato Desk 07: the little one is offended at being called a helper, argues himself from 1 year to life, and his friend ends up the helper.",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  470,
+  1360
+ ],
+ "captionStyle": "kinetic",
+ "castLook": "sheet",
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "set": {
+  "type": "plain",
+  "color": "#aab6bc",
+  "floor": "none",
+  "light": "soft",
+  "para": 0,
+  "aperture": 0,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "ai/sneaky/sneaky-01.ogg",
+  "lowCut": 150,
+  "gain": 0.15
+ },
+ "sound": {
+  "sfx": 0.6,
+  "ambience": 0.05,
+  "guard": true,
+  "signature": false,
+  "surface": "indoor"
+ },
+ "creative": {
+  "length": [
+   26,
+   36
+  ]
+ },
+ "hook": {
+  "show": [
+   "vik",
+   "wedge",
+   "chip",
+   "board"
+  ],
+  "hint": 0,
+  "what": "a judge sentences two potatoes; the board says 0 YEARS"
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.69,
+    -0.66
+   ],
+   "face": 8,
+   "expr": "stern",
+   "follow": 0.2,
+   "seed": 1.7
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    0.05,
+    0.95
+   ],
+   "face": -20,
+   "expr": "sad",
+   "follow": 0.3,
+   "seed": 3.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.7,
+    1.7
+   ],
+   "face": -20,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 2.3
+  }
+ ],
+ "props": [
+  {
+   "id": "floor",
+   "kind": "courtfloor",
+   "x": 0,
+   "y": 0,
+   "z": 2.1
+  },
+  {
+   "id": "wall",
+   "kind": "officewall",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "w": 3.8,
+   "h": 4.24
+  },
+  {
+   "id": "dado",
+   "staged": "panels fixed to the back wall",
+   "kind": "dadopanels",
+   "x": 0,
+   "y": 0,
+   "z": -1.3,
+   "trim": true
+  },
+  {
+   "id": "board",
+   "staged": "screwed to the back wall",
+   "kind": "sentenceboard",
+   "x": 0.66,
+   "y": 2.01,
+   "z": -1.255,
+   "states": [
+    "0",
+    "1",
+    "10",
+    "LIFE"
+   ],
+   "units": [
+    "YEARS",
+    "YEAR",
+    "YEARS",
+    ""
+   ],
+   "headers": [
+    "SENTENCE",
+    "SENTENCE",
+    "SENTENCE",
+    "BOSS'S SENTENCE"
+   ]
+  },
+  {
+   "id": "bench",
+   "kind": "judgebench",
+   "x": -0.69,
+   "y": 0,
+   "z": 0.145
+  },
+  {
+   "id": "chair",
+   "staged": "on a block on the bench's riser, hidden by the bench",
+   "kind": "chair",
+   "x": -0.69,
+   "y": 0.72,
+   "z": -0.66,
+   "rot": 0
+  },
+  {
+   "id": "plate",
+   "staged": "fixed to the bench front",
+   "kind": "officesign",
+   "x": -0.5,
+   "y": 1.068,
+   "z": 0.49,
+   "w": 0.58,
+   "h": 0.1,
+   "frameW": 0.009,
+   "lines": [
+    [
+     "JUDGE VIKING",
+     0.043
+    ]
+   ],
+   "plate": "#24323f",
+   "ink": "#f3ead2",
+   "frame": "#b08a3c"
+  },
+  {
+   "id": "block",
+   "kind": "soundblock",
+   "x": -1.12,
+   "y": 1.18,
+   "z": 0.22
+  },
+  {
+   "id": "marks",
+   "kind": "floormarks",
+   "x": 0,
+   "y": 0,
+   "z": 0,
+   "bar": [
+    0.45,
+    1.1,
+    0.34,
+    0.09
+   ],
+   "queue": []
+  },
+  {
+   "id": "gavel",
+   "kind": "axegavel",
+   "x": -1.12,
+   "y": 1.24,
+   "z": 0.22,
+   "rot": 0
+  },
+  {
+   "id": "mug",
+   "kind": "campmug",
+   "x": -0.5,
+   "y": 1.18,
+   "z": -0.08,
+   "rot": 63
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.05,
+   "to": 1.46,
+   "text": "You planned the robbery.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 1.46,
+   "to": 3.58,
+   "text": "And you just helped. *One year.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 3.58,
+   "to": 4.51,
+   "text": "Just helped?!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 4.51,
+   "to": 6.05,
+   "text": "He got lost in the bank!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 6.05,
+   "to": 7.48,
+   "text": "The plan was MINE!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 7.48,
+   "to": 10.62,
+   "text": "So you planned it. *Ten years.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 10.62,
+   "to": 12.65,
+   "text": "He even packed my snack!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 12.65,
+   "to": 14.25,
+   "text": "Thank you! I'm the *boss!*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 14.25,
+   "to": 15.533,
+   "text": "The boss gets *LIFE.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 19.2,
+   "to": 20.55,
+   "text": "...I was just helping.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 21.133,
+   "to": 22.423,
+   "text": "He's the boss.",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 22.423,
+   "to": 25.043,
+   "text": "Then you're the helper. *One year.*",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  },
+  {
+   "from": 25.043,
+   "to": 26.083,
+   "text": "Thank you!",
+   "pos": 470,
+   "pop": false,
+   "size": 64
+  }
+ ],
+ "beats": [
+  {
+   "name": "one year",
+   "at": 0,
+   "len": 7.48,
+   "shot": {
+    "pos": [
+     0,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0,
+     1.45,
+     0
+    ],
+    "fov": 26
+   },
+   "do": [
+    {
+     "who": "vik",
+     "do": "sit",
+     "seat": "chair",
+     "dur": 0.01,
+     "hands": "keep",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 0
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "off": [
+       0.068,
+       0.02,
+       0.018
+      ]
+     },
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.3,
+      -0.45
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 12,
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.3
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "noblink",
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 0.01
+    },
+    {
+     "who": "vik",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.016
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You planned the robbery.",
+     "tone": "angry",
+     "style": "deep, fast, sharp, punchy, accusing, snapping like a cop asking what did you steal",
+     "dur": 1.26,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "vik",
+     "do": "grab",
+     "prop": "gavel",
+     "hand": "R",
+     "grip": [
+      0.064,
+      0.121,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.08
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 28,
+     "dur": 0.35,
+     "at": 1.21
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.85,
+      -0.45
+     ],
+     "dur": 0.2,
+     "at": 1.26
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "And you just helped. One year.",
+     "tone": "calm",
+     "style": "deep, stern, flat, a judge",
+     "dur": 1.82,
+     "caption": false,
+     "at": 1.46
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 2
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 2.19
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.2,
+     "at": 2.25
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 1
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 2.25
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "annoyed",
+     "dur": 0.15,
+     "at": 2.31
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 2.31
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 2.32
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.6,
+      1.8
+     ],
+     "dur": 0.45,
+     "at": 3.33
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.04,
+       1,
+       0.14
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 3.33
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 3.4
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "point",
+     "dur": 0.2,
+     "at": 3.48
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.15,
+     "at": 3.48
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Just helped?!",
+     "tone": "angry",
+     "style": "outraged, offended, high, loud",
+     "dur": 0.78,
+     "caption": false,
+     "at": 3.58
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -50,
+     "dur": 0.3,
+     "at": 4.31
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.45
+     ],
+     "dur": 0.2,
+     "at": 4.31
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.22,
+       0.62,
+       0.3
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 4.31
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He got lost in the bank!",
+     "tone": "angry",
+     "style": "outraged, fast, pointing at his friend",
+     "dur": 1.39,
+     "caption": false,
+     "at": 4.51
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 4.71
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "hat",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 4.81
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.3,
+     "at": 4.81
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       -0.12,
+       0.36,
+       0.3
+      ]
+     },
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 5.85
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "at": 5.9
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.75
+     ],
+     "dur": 0.25,
+     "at": 5.9
+    },
+    {
+     "who": "chip",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.2,
+     "at": 5.9
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "cocky",
+     "dur": 0.2,
+     "at": 5.95
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 6.05
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 6.05
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "The plan was MINE!",
+     "tone": "angry",
+     "style": "proud, insulted, loud, chin up, slamming his chest",
+     "dur": 1.23,
+     "caption": false,
+     "at": 6.05
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 12,
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 6.65
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "focused",
+     "dur": 0.3,
+     "at": 6.65
+    },
+    {
+     "who": "vik",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 7.38
+    },
+    {
+     "who": "vik",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.3,
+     "at": 7.38
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 7.43
+    }
+   ],
+   "kind": "hook"
+  },
+  {
+   "name": "ten years",
+   "at": 7.48,
+   "len": 6.77,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "So you planned it. Ten years.",
+     "tone": "calm",
+     "style": "deep, stern, slow, a little surprised",
+     "dur": 2.89,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "nod",
+     "dur": 0.6,
+     "at": 0.4
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.4,
+       0.24
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 1.587
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.07,
+     "ease": "in",
+     "at": 1.777
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.2,
+     "at": 1.837
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 2
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 1.837
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 1.907
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 1.92
+    },
+    {
+     "who": "chip",
+     "do": "face",
+     "lid": 0,
+     "dur": 0.2,
+     "at": 2.097
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 2.72
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.5,
+     "ease": "out",
+     "at": 2.74
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "eager",
+     "dur": 0.2,
+     "at": 2.89
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "He even packed my snack!",
+     "tone": "happy",
+     "style": "eager, helpful, proud of his friend",
+     "dur": 1.88,
+     "caption": false,
+     "at": 3.14
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -25,
+     "dur": 0.25,
+     "at": 5.02
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.6,
+      0.35
+     ],
+     "dur": 0.2,
+     "at": 5.02
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 5.02
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.45,
+       0.6,
+       0.12
+      ]
+     },
+     "dur": 0.3,
+     "ease": "inOut",
+     "at": 5.12
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thank you! I'm the boss!",
+     "tone": "happy",
+     "style": "proud, bragging, loud, triumphant",
+     "dur": 1.35,
+     "caption": false,
+     "at": 5.17
+    },
+    {
+     "who": "chip",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 5.42
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 5.42
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.3,
+     "at": 5.92
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.4,
+      0.6
+     ],
+     "dur": 0.2,
+     "at": 5.92
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": {
+      "o": [
+       0.2,
+       0.6,
+       0.2
+      ]
+     },
+     "dur": 0.45,
+     "ease": "out",
+     "at": 5.92
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 5.92
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "to": -0.06,
+     "dur": 0.3,
+     "at": 5.92
+    }
+   ]
+  },
+  {
+   "name": "life",
+   "at": 14.25,
+   "len": 1.283,
+   "shot": "keep",
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "The boss gets life.",
+     "tone": "angry",
+     "style": "deep, stern, loud, final",
+     "dur": 1.28,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.18,
+       1.56,
+       0.24
+      ]
+     },
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.417
+    },
+    {
+     "who": "vik",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "gavel",
+      "grip": [
+       0.064,
+       0.121,
+       0.017
+      ],
+      "palm": "wrap",
+      "at": [
+       -1.12,
+       1.24,
+       0.22
+      ]
+     },
+     "dur": 0.1,
+     "ease": "in",
+     "at": 0.747
+    },
+    {
+     "sfx": "kenney/impact-plank-medium",
+     "gain": 1.4,
+     "at": 0.837
+    },
+    {
+     "do": "prop",
+     "id": "board",
+     "set": {
+      "flip": 3
+     },
+     "dur": 0.2,
+     "ease": "inOut",
+     "at": 0.837
+    },
+    {
+     "sfx": "kenney/switch",
+     "gain": 0.45,
+     "at": 0.907
+    },
+    {
+     "who": "chip",
+     "do": "squash",
+     "to": 0,
+     "dur": 0.3,
+     "at": 1.147
+    }
+   ],
+   "kind": "escalation"
+  },
+  {
+   "name": "smile freezes",
+   "at": 15.533,
+   "len": 1.467,
+   "shot": {
+    "pos": [
+     0.55,
+     0.7,
+     5.1
+    ],
+    "look": [
+     0.62,
+     0.74,
+     1.8
+    ],
+    "fov": 33
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      0.1,
+      1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "both",
+     "pose": "rest",
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.3
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.567
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.2
+     ],
+     "dur": 0.15,
+     "at": 1.317
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -30,
+     "dur": 0.3,
+     "at": 1.417
+    }
+   ]
+  },
+  {
+   "name": "just helping",
+   "at": 17,
+   "len": 9.867,
+   "shot": {
+    "pos": [
+     0.12,
+     1.45,
+     10.4
+    ],
+    "look": [
+     0.12,
+     1.45,
+     0
+    ],
+    "fov": 27.5
+   },
+   "do": [
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.9,
+      1.2
+     ],
+     "dur": 1.1,
+     "at": 0
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.55
+     ],
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 22,
+     "dur": 0.5,
+     "at": 0.2
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.3
+     ],
+     "dur": 0.3,
+     "at": 0.3
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 0.6
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      0.66,
+      0.32
+     ],
+     "dur": 1,
+     "at": 1.1
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": -10,
+     "dur": 0.3,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "terrified",
+     "dur": 0.2,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.2,
+     "at": 2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...I was just helping.",
+     "tone": "sad",
+     "style": "tiny, quiet, scared, small voice",
+     "take": 2,
+     "dur": 1.05,
+     "caption": false,
+     "soft": true,
+     "at": 2.2
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.5,
+      0
+     ],
+     "dur": 0.15,
+     "at": 2.783
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      -0.4,
+      1.45
+     ],
+     "dur": 1,
+     "at": 2.933
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      0.6,
+      -0.4
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 3.633
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.45,
+     "at": 3.733
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.22,
+       0.42,
+       0.24
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.933
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "point",
+     "dur": 0.4,
+     "at": 4.033
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 4.033
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "He's the boss.",
+     "tone": "calm",
+     "style": "plain, honest, helpful",
+     "dur": 1.09,
+     "caption": false,
+     "at": 4.133
+    },
+    {
+     "who": "vik",
+     "do": "turn",
+     "to": 2,
+     "dur": 0.4,
+     "at": 5.123
+    },
+    {
+     "who": "vik",
+     "do": "look",
+     "to": [
+      0.15,
+      -0.5
+     ],
+     "dur": 0.25,
+     "at": 5.223
+    },
+    {
+     "who": "wedge",
+     "do": "look",
+     "to": [
+      -0.8,
+      0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 5.323
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": -20,
+     "dur": 0.35,
+     "at": 5.323
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Then you're the helper. One year.",
+     "tone": "calm",
+     "style": "deep, stern, flat, a judge",
+     "dur": 2.47,
+     "caption": false,
+     "at": 5.423
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.9,
+     "ease": "inOut",
+     "at": 5.523
+    },
+    {
+     "who": "wedge",
+     "do": "grip",
+     "side": "L",
+     "shape": "open",
+     "dur": 0.9,
+     "at": 5.523
+    },
+    {
+     "who": "wedge",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 6
+    },
+    {
+     "who": "vik",
+     "do": "blink",
+     "dur": 0.22,
+     "at": 7.1
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "delighted",
+     "dur": 0.2,
+     "at": 7.693
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thank you!",
+     "tone": "happy",
+     "style": "happy, relieved, grateful",
+     "dur": 0.74,
+     "caption": false,
+     "at": 8.043
+    },
+    {
+     "who": "chip",
+     "do": "look",
+     "to": [
+      -0.7,
+      0.3
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 8.243
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.3,
+     "at": 8.243
+    }
+   ],
+   "kind": "payoff"
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.31,
+   "see": [
+    "vik.face",
+    "wedge.face",
+    "chip.face",
+    "board"
+   ],
+   "why": "the judge tells the big one he planned the robbery; 0 YEARS"
+  },
+  {
+   "from": 1.46,
+   "to": 2.86,
+   "see": [
+    "vik.face",
+    "board",
+    "chip.face"
+   ],
+   "why": "1 YEAR; the little one is offended"
+  },
+  {
+   "from": 7.48,
+   "to": 9.927,
+   "see": [
+    "vik.face",
+    "board",
+    "chip.face"
+   ],
+   "why": "10 YEARS; the little one nods proudly"
+  },
+  {
+   "from": 14.25,
+   "to": 15.597,
+   "see": [
+    "vik.face",
+    "board",
+    "chip.face"
+   ],
+   "why": "LIFE on the board"
+  },
+  {
+   "from": 15.533,
+   "to": 17,
+   "see": [
+    "chip.face"
+   ],
+   "why": "the little one looks up at LIFE; his smile freezes"
+  },
+  {
+   "from": 20.833,
+   "to": 22.223,
+   "see": [
+    "wedge.face",
+    "chip.face",
+    "board"
+   ],
+   "why": "the big one steps aside and points: he's the boss"
+  },
+  {
+   "from": 22.423,
+   "to": 26.867,
+   "see": [
+    "wedge.face",
+    "chip.face",
+    "board"
+   ],
+   "why": "the big one gets 1 year and says thank you; the little one under LIFE"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "vik",
+   "with": "chair",
+   "from": 0,
+   "to": 26.867,
+   "reason": "the judge sits in his chair"
+  },
+  {
+   "who": "chip",
+   "with": "wedge",
+   "from": 18,
+   "to": 20.733,
+   "checks": [
+    "face-hidden",
+    "front"
+   ],
+   "reason": "the beat: the little one hides behind the big one (panel 11), peeking out"
+  }
+ ],
+ "notes": "Generated by storyboards/series/potato-desk/07-credit-crime/make-credit-crime.mjs."
+}
