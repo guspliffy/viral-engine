@@ -100,7 +100,8 @@
    "kind": "nightdoor",
    "x": -1.45,
    "z": -0.7,
-   "rot": -89
+   "rot": 91,
+   "angle": 100
   },
   {
    "id": "closet",

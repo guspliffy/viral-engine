@@ -27,7 +27,7 @@ export const PLACES = {
   gallery: { set: GALLERY_SET, props: galleryProps, c: [4.3, 0], yaw: 90, wideH: 3.4, surface: "stone", room: "large" },
   corridor: { set: { type: "nighthall", night: true }, c: [0, 2.2], yaw: 180, wideH: 2.8, surface: "wood", room: "small",
     props: () => [
-      { id: "door", kind: "nightdoor", x: -1.45, z: -0.7, rot: -89 },
+      { id: "door", kind: "nightdoor", x: -1.45, z: -0.7, rot: 91, angle: 100 },   // closed in the doorway, swings into the hall (rot -89 swung it into the wall: Sol r3 #16 pop)
       { id: "closet", kind: "momdoor", x: 1.39, z: 1.0, rot: -90, w: 0.85 },
     ] },
   street: { set: { type: "scorestreet", light: "golden", key: [6.5, 3.4, 3.0], shadowSize: 9, windows: false }, c: [1.0, 1.2], yaw: 180, wideH: 3.2, surface: "stone", room: "open", nature: ["birds"] },
@@ -85,6 +85,9 @@ export function shotOf(P, spec, pos, len) {
 
 // ---------------------------------------------------------------- voices + music
 export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller" (Jonny's pick), 15 % faster (his note on the Egypt opening, 19 Nov)
+// a narrator take that came out wrong gets another take (another seed): Jonny 19 Nov heard a "weird noise" after the
+// hooks line; Whisper heard "...four hooks, this clear." (a made-up tail after a silence)
+export const TAKES = { "He lifts her off four hooks...": 2 };
 export const WPS = 0.4;
 export const SCORE = (T0) => ({ file: "score-film/monalisa-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false });
 export const LEVEL = -9.7;
@@ -126,7 +129,7 @@ export const SCENES = [
     shot: { t: "insert", at: [5.6, 0.75, 0.25], h: 1.7, az: -40 }, seq: [
       ["arm", "thief", "R", { o: [0.18, 0.42, 0.32] }], ["arm", "thief", "L", { o: [0.14, 0.2, 0.3] }],
       ["n", "This man put the glass on her."],
-      ["cut", { t: "close", who: ["thief"], face: -90, az: 0 }], ["arm", "thief", "R", "rest"], ["arm", "thief", "L", "rest"], ["turn", "thief", -20], ["e", "thief", "focused", { brow: 0.2 }],
+      ["cut", { t: "close", who: ["thief"], face: -90, az: 0, h: 3.3 }], ["arm", "thief", "R", "rest"], ["arm", "thief", "L", "rest"], ["turn", "thief", -20], ["e", "thief", "focused", { brow: 0.2 }],
       ["n", "He knows every door in this museum."], ["look", "thief", [4.3, 0.8, -6]] ] },
   // 3 SUNDAY NIGHT: into the closet as a guard walks by
   { id: "03 closet", act: "theft", place: "corridor", extra: [], props: {},
@@ -183,9 +186,9 @@ export const SCENES = [
     layout: { painter: [-2.4, 0.9, 90], g1: [0.9, 0.6, -40] },
     shot: { t: "wide", at: [5.2, 0.7, -0.8], h: 3.2, az: -10 }, seq: [
       ["walk", "painter", [-0.8, 0.9], 1.6], ["n", "Next morning, a painter comes to copy her."],
-      ["turn", "painter", 160], ["cut", { t: "insert", at: [ML.x - 0.05, ML.y + 0.25, 0], h: 1.1, push: 0.2, az: 15 }],
+      ["turn", "painter", 160], ["cut", { t: "insert", at: [ML.x - 0.05, ML.y + 0.33, 0], h: 1.4, push: 0.2, az: 15 }],
       ["n", "Four empty hooks."],
-      ["cut", { t: "wide", at: [5.0, 0.6, 0.1], h: 3.9, az: 0, el: 6, hold: true }], ["turn", "painter", 135], ["e", "painter", "shocked", { open: 0.2 }], ["hop", "painter"], ["arm", "painter", "R", "point"], ["wait", 0.5], ["turn", "painter", ["to", "g1"]],
+      ["cut", { t: "wide", at: [5.0, 0.6, 0.1], h: 4.6, az: 0, el: 6, hold: true }], ["turn", "painter", 135], ["e", "painter", "shocked", { open: 0.2 }], ["hop", "painter"], ["arm", "painter", "R", "point"], ["wait", 0.5], ["turn", "painter", ["to", "g1"]],
       ["s", "g1", "being photographed!", "calm"], ["arm", "g1", "R", "shrug"], ["arm", "g1", "L", "shrug"],
       ["n", "The guards shrug."], ["arm", "g1", "R", "rest"], ["arm", "g1", "L", "rest"],
       ["arm", "painter", "R", "rest"], ["walk", "painter", [-2.2, 1.25], 1.0], ["n", "Hours later..."], ["sfx", "alarmbell", { gain: 0.6 }], ["e", "g1", "shocked"], ["arm", "g1", "R", "point"],
@@ -194,7 +197,7 @@ export const SCENES = [
   // 9 THE WORLD EXPLODES: papers everywhere, Picasso questioned
   { id: "09 front pages", act: "panic", place: "street",
     extra: [...[0, 1, 2, 3].map((i) => ({ id: `np${i}`, kind: "newspaper", x: 0, y: -40, z: 0, bend: 0.6 })), { id: "ferme", kind: "sign", x: 0.65, y: 0, z: 0.2, rot: 0, text: "FERMÉ" }], props: {},
-    layout: { g1: [-1.05, 1.15, 0], v1: [-1.9, 0.4, 20], v2: [0.4, 0.8, -15], insp: [1.5, 0.2, ["to", "picasso"]], picasso: [0.45, 0.0, ["to", "insp"]] },
+    layout: { g1: [-1.05, 1.15, 0], v1: [-1.9, 0.4, 20], v2: [0.4, 0.8, -15], insp: [1.85, 0.2, ["to", "picasso"]], picasso: [0.45, 0.0, ["to", "insp"]] },
     shot: { t: "wide", h: 3.2, az: 8 }, seq: [
       ["papers"], ["sfx", "flutter", { gain: 0.6 }],
       ["n", "The Louvre shuts for a week."],
@@ -236,7 +239,7 @@ export const SCENES = [
       ["prop", "ml", { y: 0.42, tip: -45 }, 0.8, "out"],
       ["n", "Then he tries to sell her in Florence."],
       ["cut", { t: "close", who: ["dealer"], h: 2.1, az: 10 }], ["e", "dealer", "shocked", { eye: 1.3 }], ["wait", 0.3], ["e", "dealer", "kind"], ["s", "dealer", "leave it with me.", "calm"],
-      ["cut", { t: "two", who: ["thief", "dealer"], h: 3.1, el: 12, az: 15 }], ["turn", "dealer", 60], ["walk", "dealer", [2.3, 0.3], 1.1],
+      ["cut", { t: "two", who: ["thief", "dealer"], h: 3.9, el: 12, az: 5 }], ["turn", "dealer", 60], ["walk", "dealer", [2.3, 0.3], 1.1],
       ["n", "The dealer calls the police."], ["wait", 0.3] ] },
   // 13 CAUGHT, CHEERED
   { id: "13 seven months", act: "caught", place: "street", extra: [], props: {},

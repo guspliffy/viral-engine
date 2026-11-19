@@ -4,7 +4,7 @@
 //   node storyboards/series/facts/01-mona-lisa/make-film.mjs
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { clip, write } from "../../../lib/clip.mjs";
-import { F, PLACES, CAST, WEAR, SCENES, ACTS, NARRATOR, WPS, SCORE, LEVEL, ML, stage, shotOf, r3, yawTo } from "./film.mjs";
+import { F, PLACES, CAST, WEAR, SCENES, ACTS, NARRATOR, TAKES, WPS, SCORE, LEVEL, ML, stage, shotOf, r3, yawTo } from "./film.mjs";
 
 const LJ = new URL("./lines.json", import.meta.url);
 const MEASURED = existsSync(LJ) ? JSON.parse(readFileSync(LJ, "utf8")) : {};
@@ -110,7 +110,7 @@ runs.forEach((run, ri) => {
         // the caption is the clip's own (absolute), not the macro's: a macro caption ends with its beat, so a line that
         // starts just before a cut lost its subtitle (draft 2: "The dealer calls the police."); it ends 0.15 s after the
         // voice, before the next narrator line (0.18 s gap)
-        c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, dur: e[3], caption: false, pos: F.SUB, gain: 4.0 });
+        c.at(uu, { macro: "narrate", line: e[2], voice: NARRATOR, ...(TAKES[e[2]] && { take: TAKES[e[2]] }), dur: e[3], caption: false, pos: F.SUB, gain: 4.0 });
         c.cap(uu, Math.min(r3(uu + e[3] + 0.15), END), e[2], F.SUB);
       }
       else if (k === "s") {
