@@ -84,7 +84,7 @@
    "id": "v1",
    "character": "potatobrawl/duchess",
    "at": [
-    5.55,
+    5.35,
     -0.9
    ],
    "face": 0,
@@ -96,7 +96,7 @@
    "id": "v2",
    "character": "potatobrawl/dauphin",
    "at": [
-    5.55,
+    5.35,
     -2.6
    ],
    "face": 0,
@@ -252,15 +252,15 @@
  "captions": [
   {
    "from": 0.1,
-   "to": 3.37,
-   "text": "Nineteen eleven. Nobody stops for the Mona Lisa.",
+   "to": 2.956,
+   "text": "In two days, the whole world will be hunting for her.",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 3.4,
+   "from": 2.986,
    "to": 6.256,
-   "text": "In two days, the whole world will be hunting for her.",
+   "text": "Nineteen eleven. Nobody stops for the Mona Lisa.",
    "pos": 470,
    "pop": false
   },
@@ -281,29 +281,29 @@
  ],
  "beats": [
   {
-   "name": "01 nobody stops wide",
+   "name": "01 nobody stops insert",
    "at": 0,
-   "len": 1.7,
+   "len": 2.986,
    "shot": {
     "pos": [
-     -0.135,
-     1.42,
-     -1.134
-    ],
-    "look": [
-     5.2,
-     0.75,
+     4.235,
+     1.157,
      0
     ],
-    "fov": 40,
+    "look": [
+     5.91,
+     1.04,
+     0
+    ],
+    "fov": 30,
     "to": {
      "pos": [
-      0.612,
-      1.326,
-      -0.975
+      4.654,
+      1.128,
+      0
      ]
     },
-    "dur": 3.4,
+    "dur": 2.986,
     "yaw": {
      "keys": [
       [
@@ -311,11 +311,11 @@
        0
       ],
       [
-       3.4,
+       2.986,
        5
       ]
      ],
-     "pivot": 5.495
+     "pivot": 1.679
     }
    },
    "do": [
@@ -323,7 +323,7 @@
      "who": "v1",
      "do": "move",
      "to": [
-      5.55,
+      5.35,
       -0.9
      ],
      "dur": 0.01,
@@ -373,7 +373,7 @@
      "who": "v2",
      "do": "move",
      "to": [
-      5.55,
+      5.35,
       -2.6
      ],
      "dur": 0.01,
@@ -566,38 +566,89 @@
      "at": 0
     },
     {
+     "macro": "narrate",
+     "line": "In two days, the whole world will be hunting for her.",
+     "voice": "narrator-quick",
+     "dur": 2.7057,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "01 nobody stops wide",
+   "at": 2.986,
+   "len": 1.725,
+   "shot": {
+    "pos": [
+     -0.135,
+     1.42,
+     -1.134
+    ],
+    "look": [
+     5.2,
+     0.75,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.612,
+      1.326,
+      -0.975
+     ]
+    },
+    "dur": 1.725,
+    "yaw": {
+     "keys": [
+      [
+       2.986,
+       0
+      ],
+      [
+       4.711,
+       -5
+      ]
+     ],
+     "pivot": 5.495
+    }
+   },
+   "do": [
+    {
      "who": "v1",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v2",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v3",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v4",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "sfx": "step",
      "reason": "the story's own sound",
      "gain": 0.3,
-     "at": 0.1
+     "at": 0
     },
     {
      "macro": "narrate",
@@ -607,27 +658,27 @@
      "caption": false,
      "pos": 470,
      "gain": 4,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v1",
      "do": "move",
      "to": [
-      5.55,
+      5.35,
       2
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v2",
      "do": "move",
      "to": [
-      5.55,
+      5.35,
       0.3
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v3",
@@ -637,7 +688,7 @@
       3.1
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v4",
@@ -647,14 +698,14 @@
       1.2
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     }
    ]
   },
   {
    "name": "01 nobody stops wide +",
-   "at": 1.7,
-   "len": 1.7,
+   "at": 4.711,
+   "len": 1.725,
    "shot": {
     "pos": [
      0.771,
@@ -674,15 +725,15 @@
       0.535
      ]
     },
-    "dur": 1.7,
+    "dur": 1.725,
     "yaw": {
      "keys": [
       [
-       1.7,
+       4.711,
        0
       ],
       [
-       3.4,
+       6.436,
        5
       ]
      ],
@@ -693,7 +744,7 @@
     {
      "who": "v1",
      "do": "hide",
-     "at": 1.688
+     "at": 1.713
     },
     {
      "who": "v1",
@@ -706,135 +757,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 1.688
+     "at": 1.713
     },
     {
      "who": "v2",
      "do": "hide",
-     "at": 1.688
-    },
-    {
-     "who": "v2",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 1.688
-    },
-    {
-     "who": "v3",
-     "do": "hide",
-     "at": 1.688
-    },
-    {
-     "who": "v3",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 1.688
-    },
-    {
-     "who": "v4",
-     "do": "hide",
-     "at": 1.688
-    },
-    {
-     "who": "v4",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 1.688
-    }
-   ]
-  },
-  {
-   "name": "01 nobody stops insert",
-   "at": 3.4,
-   "len": 3.036,
-   "shot": {
-    "pos": [
-     4.235,
-     1.157,
-     0
-    ],
-    "look": [
-     5.91,
-     1.04,
-     0
-    ],
-    "fov": 30,
-    "to": {
-     "pos": [
-      4.654,
-      1.128,
-      0
-     ]
-    },
-    "dur": 3.036,
-    "yaw": {
-     "keys": [
-      [
-       3.4,
-       0
-      ],
-      [
-       6.436,
-       -5
-      ]
-     ],
-     "pivot": 1.679
-    }
-   },
-   "do": [
-    {
-     "macro": "narrate",
-     "line": "In two days, the whole world will be hunting for her.",
-     "voice": "narrator-quick",
-     "dur": 2.7057,
-     "caption": false,
-     "pos": 470,
-     "gain": 4,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "hide",
-     "at": 3.024
-    },
-    {
-     "who": "v1",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.024
-    },
-    {
-     "who": "v2",
-     "do": "hide",
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "v2",
@@ -847,12 +775,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "v3",
      "do": "hide",
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "v3",
@@ -865,12 +793,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "v4",
      "do": "hide",
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "v4",
@@ -883,7 +811,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "thief",
@@ -896,7 +824,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "thief",
@@ -905,12 +833,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.024
+     "at": 1.713
     },
     {
      "who": "thief",
      "do": "show",
-     "at": 3.024
+     "at": 1.713
     },
     {
      "do": "prop",
@@ -925,7 +853,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.024
+     "at": 1.713
     },
     {
      "do": "prop",
@@ -938,7 +866,7 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.024
+     "at": 1.713
     }
    ]
   },

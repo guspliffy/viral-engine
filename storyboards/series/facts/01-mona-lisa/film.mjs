@@ -121,13 +121,14 @@ const ATLOW = [ML.x - 0.05, ML.y + ML.h / 2 + 0.17, ML.z];   // aimed above her 
 export const SCENES = [
   // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
   { id: "01 nobody stops", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
-    layout: { v1: [-0.9, 1.25, 90], v2: [-2.6, 1.25, 90], v3: [0.2, 0.45, 90], v4: [-1.7, 0.45, 90] },
-    shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, seq: [
-      ["walk", "v1", [2.0, 1.25], 4.4], ["walk", "v2", [0.3, 1.25], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
+    layout: { v1: [-0.9, 1.05, 90], v2: [-2.6, 1.05, 90], v3: [0.2, 0.45, 90], v4: [-1.7, 0.45, 90] },
+    // Jonny 19 Nov (after posting, for the Instagram cut): open on the clock line, scene setting after it
+    shot: { t: "insert", at: ATLOW, h: 0.9, push: 0.25, hold: true }, seq: [
+      ["n", "In two days, the whole world will be hunting for her."],
+      ["cut", { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }],
+      ["walk", "v1", [2.0, 1.05], 4.4], ["walk", "v2", [0.3, 1.05], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
       ["sfx", "step", { gain: 0.3 }],
-      ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."],
-      ["cut", { t: "insert", at: ATLOW, h: 0.9, push: 0.25, hold: true }], ["hide", "v1"], ["hide", "v2"], ["hide", "v3"], ["hide", "v4"],
-      ["n", "In two days, the whole world will be hunting for her."] ] },
+      ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."] ] },
   // 2 PLANT: the man who put the glass on her
   { id: "02 the glass man", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
     layout: { thief: [0.5, 1.15, -135] },
