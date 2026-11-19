@@ -37,7 +37,7 @@ const BX = 40;                                   // set B's world offset along x
 const B = (x, z) => [r3(BX + x), z];             // a set-B floor point
 const TER = 0.40;                                // the cloud terrace's top (set A)
 // set A marks (DESIGN §2)
-const REAP = [-0.82, 0.30], CHIP_A = [0.70, 0.10], DEV_DOOR = [0.80, -0.92], DEV_PEEK = [0.91, -2.15];   // a little left of the door centre, turned to the gap: both eyes in it, the arms inside the doorway (Sol r1 #1, r2 #4)   // DEV_PEEK: inside the hot box behind the hell door
+const REAP = [-0.82, 0.30], CHIP_A = [0.70, 0.10], DEV_DOOR = [0.80, -0.92], DEV_PEEK = [0.88, -2.15];   // a little left of the door centre, turned to the gap: both eyes in it, the arms inside the doorway (Sol r1 #1, r2 #4)   // DEV_PEEK: inside the hot box behind the hell door
 const REAP_YAW = 35, CHIP_YAW = -35;
 // parking spots far off camera (hidden there too)
 const PARK = { chip: [-30, 5], devil: [-34, 5], imp: [-38, 5], wedge: [-42, 5] };
@@ -64,7 +64,7 @@ const KETCHUP_AT = [BX + 1.20, 0.16, -0.40];   // in his hand by his side from t
 const KETCHUP = { id: "ketchup", staged: "parked under the world until a hand takes it on a cut", kind: "ketchupbottle", ...grips.placeFor("ketchupbottle", [BX + 1.20, AWAY, -0.40], -20) };
 const FORK = { id: "fork", staged: "parked under the world until a hand takes it on a cut", kind: "pitchfork", ...at3(BX + 0.62, AWAY, 0.30), rot: 90 };
 const TABD = { id: "tabletD", staged: "parked under the world until a hand takes it on a cut", kind: "reviewtablet", ...at3(BX + 1.15, AWAY, 0.30), rot: 135, scale: 0.8, lit: 0, hover: 0 };
-const TABR = { id: "tabletR", staged: "propped on the tub's rim", kind: "reviewtablet", ...at3(BX - 0.82, AWAY, 0.74), rot: 150, scale: 0.75, lit: 3, hover: 0 };   // on the rim at his right side, screen turned between him and the camera: his hand meets the screen from the front (Sol r1 #3, r2 #2)
+const TABR = { id: "tabletR", staged: "propped on the tub's rim", kind: "reviewtablet", ...at3(BX - 0.84, AWAY, 0.48), rot: 160, scale: 0.75, lit: 3, hover: 0 };   // on the rim level with him at his right, screen turned to us and him: his wrist comes round the left bezel in view (Sol r1 #3, r2 #2, r3 #2)
 const LEAF = { id: "leaf", staged: "parked under the world until a hand takes it on a cut", kind: "palmleaf", ...at3(BX - 0.45, AWAY, 0.55), rot: 135 };
 const props = [
   // set A: the crossroads desk (DESIGN §2)
@@ -92,6 +92,8 @@ const props = [
   { id: "exit", staged: "set in the back wall", kind: "exitdoor", ...at3(BX + 1.10, 0, -1.30) },
   { id: "exitsign", staged: "screwed to the back wall", kind: "officesign", ...at3(BX + 1.10, 1.84, -1.27), w: 0.50, h: 0.20, lines: [["EXIT", 0.12]], plate: "#1f7a3a", ink: "#f3ead2", frame: "#d9a93a" },
   { id: "lights", staged: "hung on the wall", kind: "partylights", ...at3(BX, 0, -1.25) },
+  // the lobby's front wall, only up in the outside shot of his face on the glass (Sol r3 #5: he looked outdoors)
+  { id: "lobbyback", staged: "the lobby's front wall, up for one shot", kind: "officesign", ...at3(BX - 1.60, AWAY, 1.40), rot: 180, w: 3.2, h: 2.6, frameW: 0.0, lines: [], plate: "#4a2428", ink: "#4a2428", frame: "#4a2428" },
   // party light (Sol r2 #7): soft additive colour pools on the wall and floor, and one faint wash in front of the two of
   // them (the toon materials take no scene light), all off until the party snap
   { id: "glowW1", staged: "light on the back wall", kind: "lightpool", ...at3(BX - 0.35, 1.20, -1.22), face: "z", w: 1.4, d: 1.1, color: "#ff5fa8", on: 0 },
@@ -165,9 +167,9 @@ const showProp = (t, id, y) => c.prop(t, id, { y }, 0);
 const camAt = (x, y = 1.45, fov = 26) => ({ pos: [r3(x), y, 10.4], look: [r3(x), y, 0], fov });
 const A_WIDE = camAt(0);
 const A_BADGE = { pos: [0.86, 2.03, 3.6], look: [0.86, 2.03, -1.3], fov: 24 };
-const A_PEEK = { pos: [0.80, 1.55, 3.4], look: [0.80, 1.50, -1.5], fov: 24 };   // the whole badge on top, his face in the gap below it (Sol r2 #4)   // square on the door: the Devil deep in the hot box fits inside the doorway (Sol r1 #1: he showed beside the jamb)   // the tag's insert: the Devil in the hell door's gap
+const A_PEEK = { pos: [0.80, 2.06, 4.3], look: [0.80, 1.89, -1.5], fov: 24 };   // the whole badge with air above it for the caption (Sol r3 #1)   // the whole badge on top, his face in the gap below it (Sol r2 #4)   // square on the door: the Devil deep in the hot box fits inside the doorway (Sol r1 #1: he showed beside the jamb)   // the tag's insert: the Devil in the hell door's gap
 const B_C = camAt(BX), B_L = camAt(BX - 0.75), B_R = camAt(BX + 0.75);
-const B_GLASS = { pos: [BX - 1.60, 0.62, -4.3], look: [BX - 1.60, 0.50, -1.3], fov: 24 };
+const B_GLASS = { pos: [BX - 1.60, 0.62, -4.3], look: [BX - 1.60, 0.55, -1.3], fov: 30 };   // wider: the gold window trim in frame (Sol r3 #5)
 const B_TAB = { pos: [BX + 0.62, 0.75, 4.7], look: [BX + 0.62, 0.75, 0.3], fov: 24 };
 const B_PAR = { pos: [BX + 0.15, 1.82, 8.6], look: [BX + 0.15, 1.42, 0], fov: 28 };   // (Sol r2 #5: raised 0.22 so the board sits under the caption line)   // the conga: closer and lower than the B_R massage shot before it
 const B_VIEW = { pos: [BX - 0.80, 1.65, 7.6], look: [BX - 0.80, 1.45, 0], fov: 26 };   // (raised 0.2: caption clear of the board, Sol r2 #5)   // the view: a step closer than the party wide (B_C to B_L read as a skipped frame)
@@ -297,9 +299,9 @@ const FORK_AT = [r3(IMP[0] - 0.02), 0, r3(IMP[1] - 0.12)];
 c.prop(r3(MAS - 0.02), "fork", { ...grips.placeFor("pitchfork", FORK_AT, IMP_YAW) }, 0);
 const hf = grips.mug(c, "imp", { ...FORK, ...grips.placeFor("pitchfork", FORK_AT, IMP_YAW) }, { side: "R" });
 hf.take(r3(MAS - 0.015), { reach: 0.01, settle: 0.01 });
-const FORK_BACK = [r3(IMP[0] - 0.12), 0.16, r3(IMP[1])], FORK_JAB = [r3(IMP[0] - 0.22), 0.16, r3(IMP[1])];
+const FORK_BACK = [r3(IMP[0] - 0.12), 0.16, r3(IMP[1])], FORK_JAB = [r3(IMP[0] - 0.16), 0.16, r3(IMP[1])];   // the tips stop on the hoodie (Sol r3 #3: 10 cm sank the head in)
 e = hf.carry(r3(MAS + 0.1), FORK_BACK, 0.7, "inOut", { tip: -68 });   // the head a hand off his back, y ~0.35
-for (let k = 0; k < 4; k++) {   // each poke: the whole fork jabs 10 cm in, he hops on that contact, it pulls back (Sol r2 #3: the shaft barely moved)
+for (let k = 0; k < 4; k++) {   // each poke: the whole fork jabs 4 cm in, he hops on that contact, it pulls back (Sol r2 #3: the shaft barely moved)
   const p = r3(e + 0.1 + k * 0.5);
   hf.carry(p, FORK_JAB, 0.12, "out", { tip: -68 }); hf.carry(r3(p + 0.14), FORK_BACK, 0.22, "inOut", { tip: -68 });
   A(p, "imp", "lean", { to: 10, dur: 0.12, ease: "out" }); A(r3(p + 0.15), "imp", "lean", { to: 0, dur: 0.2 });
@@ -351,10 +353,12 @@ step(r3(t + 0.6), "chip", B(-0.85, -0.25), 0.7); step(r3(t + 1.4), "chip", B(-1.
 turn(r3(t + 2.3), "chip", 180, 0.3);
 const GLASS = shot("face on the glass", r3(t + 2.7), B_GLASS);
 place(GLASS, "chip", B(-1.60, -0.98), 180);
+showProp(r3(GLASS - 0.02), "lobbyback", 1.2);   // the lobby's far wall behind him, this shot only (Sol r3 #5)
 arm(GLASS, "chip", "both", { o: [0.25, 0.65, 0.28] }, 0.01); grip(GLASS, "chip", "both", "flat", 0.01);
 look(GLASS, "chip", [0, 0.6], 0.01); expr(GLASS, "chip", "sad", 0.01);
 see(GLASS, r3(GLASS + 1.4), ["chip.face"], "from outside: his face on the glass, heaven's party above");
 const VIEWB = shot("worst", r3(GLASS + 1.5), B_L);
+hideProp(r3(VIEWB - 0.02), "lobbyback");
 place(VIEWB, "chip", B(-1.30, -0.60), -10);
 arm(VIEWB, "chip", "both", { o: [0.25, 0.65, 0.2] }, 0.01); grip(VIEWB, "chip", "both", "fist", 0.01);
 look(VIEWB, "chip", AT_US, 0.01); expr(VIEWB, "chip", "angry", 0.01);
@@ -435,11 +439,18 @@ place(S2, "devil", B(0.95, -0.62), -20); place(S2, "chip", CHIP_M, CHIP_M_YAW);
 arm(S2, "devil", "both", "rest", 0.01);
 const IMP_M = [r3(CHIP_M[0] + 0.42 * Math.sin(90 * Math.PI / 180)), r3(CHIP_M[1] + 0.42 * Math.cos(90 * Math.PI / 180))];   // he stands in profile; the imp at his back, both in profile, its face in the clear
 unpark(S2, "imp", IMP_M, -90);
-showProp(r3(S2 - 0.02), "fork2", 0.012);
+// the imp still holds the pitchfork; the snap's puff takes it and the kneading starts (Sol r3 #4: it kneaded before the snap)
+const FORK_AT2 = [r3(IMP_M[0] - 0.02), 0, r3(IMP_M[1] - 0.12)];
+c.prop(r3(S2 - 0.02), "fork", { scale: 1, ...grips.placeFor("pitchfork", FORK_AT2, -90) }, 0);
+const hf2 = grips.mug(c, "imp", { ...FORK, ...grips.placeFor("pitchfork", FORK_AT2, -90) }, { side: "R" });
+hf2.take(r3(S2 - 0.015), { reach: 0.01, settle: 0.01 });
 look(S2, "chip", AT_US, 0.01); expr(S2, "chip", "deadpan", 0.01); expr(S2, "imp", "terrified", 0.01);
-arm(S2, "imp", "both", { o: [0.08, 0.80, 0.17] }, 0.01);
+arm(S2, "imp", "L", "rest", 0.01);
 e = snap(r3(S2 + 0.1));
 poof(e, [BX + 1.63, 0.62, 0.30], 0.7);
+poof(e, [IMP_M[0], 0.45, r3(IMP_M[1] + 0.05)], 0.45);
+A(r3(e + 0.12), "imp", "release", { prop: "fork", dur: 0 }); c.prop(r3(e + 0.12), "fork", { scale: 0.001 }, 0);   // gone in the puff
+arm(r3(e + 0.14), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.16, "out"); arm(r3(e + 0.14), "imp", "L", { o: [0.08, 0.80, 0.22] }, 0.16, "out"); grip(r3(e + 0.14), "imp", "both", "relaxed", 0.12);
 hideProp(r3(e + 0.05), "fries"); showProp(r3(e + 0.05), "cake", 0.40);
 for (let k = 0; k < 3; k++) hideProp(r3(e + 0.05), `plate${k}`);   // Sol r1 #9: a fries carton stayed beside the cake
 peelX(r3(e + 0.25), 1);
@@ -477,7 +488,7 @@ const S4 = shot("four stars", r3(t + 0.3), B_TUB);
 const CHIP_TUB = B(-1.20, 0.42);   // in the middle of the foam (Sol r2 #10: at the front rim he hid it), the rim tablet in arm's reach
 place(S4, "chip", CHIP_TUB, 30, -0.06);   // sits in the foam: head top about y 0.61, the foam to his chest
 showProp(r3(S4 - 0.02), "tabletR", 0.14);
-const DEV_FAN = B(-0.28, 0.30), DEV_FAN_YAW = -60;
+const DEV_FAN = B(-0.16, 0.30), DEV_FAN_YAW = -60;   // a step right: his glove clear of the rim tablet
 place(S4, "devil", DEV_FAN, DEV_FAN_YAW); arm(S4, "devil", "L", "rest", 0.01);   // R holds the leaf from the cut
 const leafAt = [r3(DEV_FAN[0] + 0.46 * Math.sin(DEV_FAN_YAW * Math.PI / 180)), 0.30, r3(DEV_FAN[1] + 0.46 * Math.cos(DEV_FAN_YAW * Math.PI / 180))];
 c.prop(r3(S4 - 0.03), "leaf", { ...grips.placeFor("palmleaf", leafAt, DEV_FAN_YAW) }, 0);
@@ -558,6 +569,7 @@ write(import.meta.url, {
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
   allowClip: [
     { who: "reaper", with: "counter", from: r3(STAMP_HIT - 0.25), to: r3(STAMP_HIT + 0.32), checks: ["arm-in-prop", "costume-in-prop"], reason: "the stamp slams down on the form: the forearm and sleeve brush the counter's top edge for 0.3 s (panel 04)" },
+    { who: "devil", with: "chip", from: r3(SOB - 0.05), to: r3(SOB + 0.1), checks: ["character-overlap", "reach"], reason: "the cut to the sob close-up: the Devil is placed for it while the customer sits in the tub off-screen; the frame shows only the Devil" },
     { who: "imp", with: "chip", from: S2, to: S3, checks: ["character-overlap", "reach"], reason: "the imp kneads his back: its hands press into his sweater (Sol r1 #10)" },
     { who: "chip", with: "tub", from: r3(S4 - 0.05), to: TAG, checks: ["clipping", "shell"], reason: "he sits in the foam of the fixed hot tub (panel 16)" },
     { who: "devil", with: "doorX", from: r3(TAG - 0.05), to: END, checks: ["clipping", "shell"], reason: "the Devil stands in the hot box behind the hell door and peeks through the gap (panel 18)" },

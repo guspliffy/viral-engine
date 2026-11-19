@@ -420,6 +420,22 @@
    "z": -1.25
   },
   {
+   "id": "lobbyback",
+   "staged": "the lobby's front wall, up for one shot",
+   "kind": "officesign",
+   "x": 38.4,
+   "y": -60,
+   "z": 1.4,
+   "rot": 180,
+   "w": 3.2,
+   "h": 2.6,
+   "frameW": 0,
+   "lines": [],
+   "plate": "#4a2428",
+   "ink": "#4a2428",
+   "frame": "#4a2428"
+  },
+  {
    "id": "glowW1",
    "staged": "light on the back wall",
    "kind": "lightpool",
@@ -602,10 +618,10 @@
    "id": "tabletR",
    "staged": "propped on the tub's rim",
    "kind": "reviewtablet",
-   "x": 39.18,
+   "x": 39.16,
    "y": -60,
-   "z": 0.74,
-   "rot": 150,
+   "z": 0.48,
+   "rot": 160,
    "scale": 0.75,
    "lit": 3,
    "hover": 0
@@ -2440,7 +2456,7 @@
       ],
       "palm": "wrap",
       "at": [
-       40.83,
+       40.89,
        0.16,
        0.4
       ]
@@ -2550,7 +2566,7 @@
       ],
       "palm": "wrap",
       "at": [
-       40.83,
+       40.89,
        0.16,
        0.4
       ]
@@ -2642,7 +2658,7 @@
       ],
       "palm": "wrap",
       "at": [
-       40.83,
+       40.89,
        0.16,
        0.4
       ]
@@ -2734,7 +2750,7 @@
       ],
       "palm": "wrap",
       "at": [
-       40.83,
+       40.89,
        0.16,
        0.4
       ]
@@ -3492,6 +3508,16 @@
      "at": 3.847
     },
     {
+     "do": "prop",
+     "id": "lobbyback",
+     "set": {
+      "y": 1.2
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 3.847
+    },
+    {
      "who": "chip",
      "do": "arm",
      "side": "both",
@@ -3545,10 +3571,10 @@
     ],
     "look": [
      38.4,
-     0.5,
+     0.55,
      -1.3
     ],
-    "fov": 24
+    "fov": 30
    },
    "do": [
     {
@@ -3560,6 +3586,16 @@
      "who": "devil",
      "do": "hide",
      "at": 1.504
+    },
+    {
+     "do": "prop",
+     "id": "lobbyback",
+     "set": {
+      "y": -60
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 1.513
     },
     {
      "who": "chip",
@@ -4760,9 +4796,13 @@
     },
     {
      "do": "prop",
-     "id": "fork2",
+     "id": "fork",
      "set": {
-      "y": 0.012
+      "scale": 1,
+      "x": 40.5,
+      "y": 0,
+      "z": 0.28,
+      "rot": 90
      },
      "dur": 0,
      "ease": "inOut",
@@ -4795,17 +4835,58 @@
     {
      "who": "imp",
      "do": "arm",
-     "side": "both",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 2.78
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "open",
+     "dur": 0.01,
+     "at": 2.785
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
      "pose": {
-      "o": [
-       0.08,
-       0.8,
-       0.17
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap",
+      "off": [
+       0.018,
+       0.02,
+       -0.068
       ]
      },
      "dur": 0.01,
      "ease": "inOut",
-     "at": 2.78
+     "at": 2.785
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "fork",
+      "grip": [
+       0.058,
+       0.132,
+       0.016
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0.01,
+     "ease": "settle",
+     "at": 2.795
     }
    ]
   },
@@ -4827,6 +4908,28 @@
     "fov": 26
    },
    "do": [
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0.001
+    },
+    {
+     "who": "imp",
+     "do": "grab",
+     "prop": "fork",
+     "hand": "R",
+     "grip": [
+      0.058,
+      0.132,
+      0.016
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.065
+    },
     {
      "who": "devil",
      "do": "arm",
@@ -4885,6 +4988,27 @@
      "at": 0.43
     },
     {
+     "fx": "poof",
+     "pos": [
+      40.52,
+      0.45,
+      0.45
+     ],
+     "dur": 0.4,
+     "color": "#f7fafc",
+     "puffs": 9,
+     "sparks": 0,
+     "size": 0.45,
+     "lift": 0.08,
+     "sound": false,
+     "at": 0.43
+    },
+    {
+     "sfx": "ai/cushion-poof",
+     "gain": 0.55,
+     "at": 0.43
+    },
+    {
      "do": "prop",
      "id": "fries",
      "set": {
@@ -4933,6 +5057,61 @@
      "dur": 0,
      "ease": "inOut",
      "at": 0.48
+    },
+    {
+     "who": "imp",
+     "do": "release",
+     "prop": "fork",
+     "dur": 0,
+     "at": 0.55
+    },
+    {
+     "do": "prop",
+     "id": "fork",
+     "set": {
+      "scale": 0.001
+     },
+     "dur": 0,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.17
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.57
+    },
+    {
+     "who": "imp",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.08,
+       0.8,
+       0.22
+      ]
+     },
+     "dur": 0.16,
+     "ease": "out",
+     "at": 0.57
+    },
+    {
+     "who": "imp",
+     "do": "grip",
+     "side": "both",
+     "shape": "relaxed",
+     "dur": 0.12,
+     "at": 0.57
     },
     {
      "do": "prop",
@@ -5730,7 +5909,7 @@
      "do": "prop",
      "id": "leaf",
      "set": {
-      "x": 39.322,
+      "x": 39.442,
       "y": 0.3,
       "z": 0.53,
       "rot": 120
@@ -5825,7 +6004,7 @@
      "who": "devil",
      "do": "move",
      "to": [
-      39.72,
+      39.84,
       0.3
      ],
      "dur": 0.01,
@@ -5962,7 +6141,7 @@
       ],
       "palm": "wrap",
       "at": [
-       39.322,
+       39.442,
        0.38,
        0.53
       ]
@@ -6028,7 +6207,7 @@
       ],
       "palm": "wrap",
       "at": [
-       39.322,
+       39.442,
        0.3,
        0.53
       ]
@@ -6096,7 +6275,7 @@
       ],
       "palm": "wrap",
       "at": [
-       39.322,
+       39.442,
        0.38,
        0.53
       ]
@@ -6155,7 +6334,7 @@
       ],
       "palm": "wrap",
       "at": [
-       39.322,
+       39.442,
        0.3,
        0.53
       ]
@@ -6382,7 +6561,7 @@
      "who": "devil",
      "do": "move",
      "to": [
-      0.91,
+      0.88,
       -2.15
      ],
      "dur": 0.01,
@@ -6601,12 +6780,12 @@
    "shot": {
     "pos": [
      0.8,
-     1.55,
-     3.4
+     2.06,
+     4.3
     ],
     "look": [
      0.8,
-     1.5,
+     1.89,
      -1.5
     ],
     "fov": 24
@@ -6853,6 +7032,17 @@
     "costume-in-prop"
    ],
    "reason": "the stamp slams down on the form: the forearm and sleeve brush the counter's top edge for 0.3 s (panel 04)"
+  },
+  {
+   "who": "devil",
+   "with": "chip",
+   "from": 54.15,
+   "to": 54.3,
+   "checks": [
+    "character-overlap",
+    "reach"
+   ],
+   "reason": "the cut to the sob close-up: the Devil is placed for it while the customer sits in the tub off-screen; the frame shows only the Devil"
   },
   {
    "who": "imp",
