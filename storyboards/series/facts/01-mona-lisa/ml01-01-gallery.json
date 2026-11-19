@@ -617,7 +617,7 @@
       2
      ],
      "dur": 4.4,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "v2",
@@ -627,7 +627,7 @@
       0.3
      ],
      "dur": 4.4,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "v3",
@@ -637,7 +637,7 @@
       3.1
      ],
      "dur": 4.4,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "v4",
@@ -647,7 +647,7 @@
       1.2
      ],
      "dur": 4.4,
-     "at": 0.18
+     "at": 0.28
     }
    ]
   },
@@ -1148,6 +1148,16 @@
    "from": 0,
    "to": 10.928,
    "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 10.928,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {

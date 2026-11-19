@@ -475,15 +475,8 @@
     {
      "who": "dealer",
      "do": "turn",
-     "to": 420,
-     "dur": 0.25,
-     "at": 0
-    },
-    {
-     "who": "dealer",
-     "do": "turn",
      "to": 69.864,
-     "dur": 0.2,
+     "dur": 0.462,
      "at": 0
     },
     {
@@ -504,7 +497,7 @@
       0.1
      ],
      "dur": 1.1,
-     "at": 0.08
+     "at": 0.311
     }
    ]
   }
@@ -517,6 +510,16 @@
    "from": 0,
    "to": 7.25,
    "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 7.25,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {

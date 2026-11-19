@@ -27,7 +27,7 @@ export const PLACES = {
   gallery: { set: GALLERY_SET, props: galleryProps, c: [4.3, 0], yaw: 90, wideH: 3.4, surface: "stone", room: "large" },
   corridor: { set: { type: "nighthall", night: true }, c: [0, 2.2], yaw: 180, wideH: 2.8, surface: "wood", room: "small",
     props: () => [
-      { id: "door", kind: "nightdoor", x: -1.45, z: -0.7, rot: 91, angle: 100 },   // closed in the doorway, swings into the hall (rot -89 swung it into the wall: Sol r3 #16 pop)
+      { id: "door", kind: "nightdoor", x: -1.45, z: -0.7, rot: 91, angle: -100 },   // closed in the doorway, swings out into the night (rot -89 stood beside the doorway and swung into the wall: Sol r3 #16 pop)
       { id: "closet", kind: "momdoor", x: 1.39, z: 1.0, rot: -90, w: 0.85 },
     ] },
   street: { set: { type: "scorestreet", light: "golden", key: [6.5, 3.4, 3.0], shadowSize: 9, windows: false }, c: [1.0, 1.2], yaw: 180, wideH: 3.2, surface: "stone", room: "open", nature: ["birds"] },
@@ -88,6 +88,11 @@ export const NARRATOR = "narrator-quick";   // voice 1 "deep storyteller" (Jonny
 // a narrator take that came out wrong gets another take (another seed): Jonny 19 Nov heard a "weird noise" after the
 // hooks line; Whisper heard "...four hooks, this clear." (a made-up tail after a silence)
 export const TAKES = { "He lifts her off four hooks...": 2 };
+// check windows (director only, workflow "Check windows"): contact the beat needs, on the segment's clock
+export const ALLOW = {
+  "ml01-04-corridor": [
+    { who: "thief", with: "frm", from: 0.4, to: 0.8, checks: ["hand-in-prop", "arm-in-prop"], reason: "he pulls the frame off the panel: his right hand is on the frame (3-5 cm into its moulding for 0.2 s)" } ],
+};
 export const WPS = 0.4;
 export const SCORE = (T0) => ({ file: "score-film/monalisa-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false });
 export const LEVEL = -9.7;
@@ -135,7 +140,7 @@ export const SCENES = [
   { id: "03 closet", act: "theft", place: "corridor", extra: [], props: {},
     layout: { thief: [0.4, 0.4, 150], g1: [-0.3, 5.0, 0] },
     shot: { t: "wide", at: [0.3, 0.8, 1.6], h: 2.6, az: -18 }, seq: [
-      ["walk", "thief", [1.45, 1.0], 1.3], ["n", "Sunday night, he hides in a closet."], ["sfx", "latch", { gain: 0.5 }], ["hide", "thief"],
+      ["walk", "thief", [0.95, 1.0], 1.2], ["n", "Sunday night, he hides in a closet."], ["sfx", "latch", { gain: 0.5 }], ["hide", "thief"],
       ["walk", "g1", [-0.2, 0.2], 2.6], ["sfx", "step", { gain: 0.4 }], ["wait", 1.2] ] },
   // 4 MONDAY: closed; off four hooks
   { id: "04 off the wall", act: "theft", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
@@ -152,31 +157,31 @@ export const SCENES = [
   { id: "05 frame off", act: "theft", place: "corridor", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 1, wrap: 0 }, { id: "frm", kind: "frameonly", x: 1.3, y: -40, z: 0.3, rot: 0, tip: 0 }],
     props: { frm: { y: -40 } },
     layout: { thief: [0.2, 1.4, 0] },
-    shot: { t: "wide", at: [-0.1, 0.5, 0.85], h: 2.4, az: -15 }, seq: [
+    shot: { t: "wide", at: [-0.1, 0.72, 0.85], h: 2.7, az: -15 }, seq: [
       ["mlhold", "thief"], ["e", "thief", "focused"], ["arm", "thief", "L", { o: [0.3, 0.3, 0.12] }], ["wait", 0.35],
       // the frame comes off the panel where he holds her and drops at his feet (Sol r1 #1)
       ["prop", "ml", { cover: 0 }, 0.01, "linear"], ["prop", "frm", { x: -0.46, y: 0.38, z: 0.9, rot: 0, tip: 0 }, 0.01, "linear"],
       ["prop", "frm", { x: -0.85, y: 0.04, z: 1.15, rot: 25, tip: -80 }, 0.4, "in"], ["sfx", "tink", { gain: 0.5 }], ["arm", "thief", "L", "rest"],
       ["n", "...pulls off the frame in a stairwell..."],
       // and the white smock wraps her, bottom up, her face still peeking out (Sol r1 #2)
-      ["cut", { t: "wide", at: [-0.2, 0.55, 0.85], h: 2.0, az: 20 }], ["arm", "thief", "L", { o: [0.3, 0.25, 0.14] }], ["prop", "ml", { wrap: 1 }, 0.8, "inOut"], ["sfx", "flutter", { gain: 0.3 }], ["wait", 0.5], ["arm", "thief", "L", "rest"],
+      ["cut", { t: "wide", at: [-0.2, 0.75, 0.85], h: 2.4, az: 20 }], ["arm", "thief", "L", { o: [0.3, 0.25, 0.14] }], ["prop", "ml", { wrap: 1 }, 0.8, "inOut"], ["sfx", "flutter", { gain: 0.3 }], ["wait", 0.5], ["arm", "thief", "L", "rest"],
       ["n", "...and wraps her in his smock."], ["wait", 0.3] ] },
   // 6 THE LOCKED DOOR + THE PLUMBER
   { id: "06 locked", act: "door", place: "corridor", extra: [], props: {},
-    layout: { thief: [-0.75, 2.45, -60], plumber: [1.4, 1.1, -90] },
-    shot: { t: "wide", at: [-1.15, 0.8, -0.45], h: 2.6, az: 35 }, seq: [
+    layout: { thief: [-0.75, 3.5, -60], plumber: [1.05, 0.5, -90] },
+    shot: { t: "wide", at: [-0.95, 0.8, -1.0], h: 2.6, az: 35 }, seq: [
       ["mlhold", "thief", { cover: 0, wrap: 1 }],
       ["prop", "door", { squeal: 1 }, 0.25, "out"], ["sfx", "latch", { gain: 0.6 }], ["prop", "door", { squeal: 0 }, 0.25, "inOut"],
       ["n", "But the door is locked. The knob is gone."], ["e", "thief", "shocked", { open: 0.15 }],
-      ["cut", { t: "wide", who: ["thief", "plumber"], h: 3.2 }], ["walk", "plumber", [-1.0, 1.35], 2.0], ["sfx", "step", { gain: 0.4 }],
+      ["cut", { t: "wide", who: ["thief", "plumber"], h: 3.2 }], ["walk", "plumber", [-0.55, 2.55], 2.0], ["sfx", "step", { gain: 0.4 }],
       ["n", "Then a plumber walks by..."], ["turn", "thief", ["to", "plumber"]],
       // he reaches to the lock himself and swings the door open (Sol r1 #3)
-      ["cut", { t: "wide", at: [-1.1, 0.8, -0.3], h: 2.6, az: 35, hold: true }], ["turn", "plumber", ["to", "thief"]], ["arm", "plumber", "L", { o: [0.25, 0.5, 0.32] }], ["sfx", "latch", { gain: 0.5 }],
+      ["cut", { t: "wide", at: [-1.0, 0.8, -0.85], h: 3.0, az: 10, hold: true }], ["turn", "plumber", ["to", "thief"]], ["arm", "plumber", "L", { o: [0.25, 0.5, 0.32] }], ["sfx", "latch", { gain: 0.5 }],
       ["wait", 0.3], ["prop", "door", { open: 1 }, 0.9, "inOut"], ["sfx", "creak", { gain: 0.5 }],
-      ["n", "...and opens it for him."], ["arm", "plumber", "L", "rest"], ["walk", "thief", [-1.75, 2.3], 1.2], ["wait", 0.4] ] },
+      ["n", "...and opens it for him."], ["arm", "plumber", "L", "rest"], ["walk", "thief", [-2.25, 3.5], 1.2], ["wait", 0.4] ] },
   // 7 OUT INTO PARIS
   { id: "07 paris", act: "out", place: "street", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 0, wrap: 1 }], props: {},
-    layout: { thief: [-1.3, 0.2, 90], v3: [1.3, 1.15, -90], v4: [2.0, 1.95, -90] },
+    layout: { thief: [-1.3, 0.2, 90], v3: [1.3, 1.15, -90], v4: [2.3, 2.35, -90] },
     shot: { t: "wide", at: [1.0, 0.6, 0.9], h: 4.4, az: -8, hold: true }, seq: [
       ["mlhold", "thief", { cover: 0, wrap: 1 }],
       ["walk", "thief", [1.1, 0.2], 3.4], ["walk", "v3", [-1.6, 1.15], 3.0], ["walk", "v4", [-1.4, 1.9], 3.4],
@@ -191,7 +196,7 @@ export const SCENES = [
       ["cut", { t: "wide", at: [5.0, 0.6, 0.1], h: 4.6, az: 0, el: 6, hold: true }], ["turn", "painter", 135], ["e", "painter", "shocked", { open: 0.2 }], ["hop", "painter"], ["arm", "painter", "R", "point"], ["wait", 0.5], ["turn", "painter", ["to", "g1"]],
       ["s", "g1", "being photographed!", "calm"], ["arm", "g1", "R", "shrug"], ["arm", "g1", "L", "shrug"],
       ["n", "The guards shrug."], ["arm", "g1", "R", "rest"], ["arm", "g1", "L", "rest"],
-      ["arm", "painter", "R", "rest"], ["walk", "painter", [-2.2, 1.25], 1.0], ["n", "Hours later..."], ["sfx", "alarmbell", { gain: 0.6 }], ["e", "g1", "shocked"], ["arm", "g1", "R", "point"],
+      ["arm", "painter", "R", "rest"], ["walk", "painter", [-2.2, 1.25], 1.0], ["n", "Hours later..."], ["sfx", "alarmbell", { gain: 0.6 }], ["e", "g1", "shocked"],
       ["cut", { t: "wide", h: 3.4, az: 12 }], ["arm", "g1", "R", "up"], ["walk", "g1", [3.2, 0.3], 1.2], ["show", "g2", [-2.8, -0.45, 90]], ["walk", "g2", [2.6, -0.45], 1.4],
       ["n", "...panic."], ["wait", 0.4] ] },
   // 9 THE WORLD EXPLODES: papers everywhere, Picasso questioned
@@ -217,14 +222,14 @@ export const SCENES = [
   // 11 HIS ROOM: the knock, the search, the trunk a metre away; two years
   { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 },
       { id: "ml", kind: "painting", x: -1.0, y: 0.15, z: -1.6, rot: 90, tip: -90, cover: 0, wrap: 0.3 }], props: {},
-    layout: { thief: [-0.1, 0.9, 0], insp: [1.6, -1.2, ["to", "thief"]] },
+    layout: { thief: [0.25, 0.9, 0], insp: [1.6, -1.2, ["to", "thief"]] },
     shot: { t: "wide", who: ["thief"], h: 2.6 }, seq: [
       ["sfx", "knock-tap", { gain: 0.7 }], ["e", "thief", "shocked", { open: 0.1 }],
-      ["walk", "insp", [0.75, 1.0], 1.4], ["n", "Then the police knock on his door."],
+      ["walk", "insp", [1.15, 1.0], 1.4], ["n", "Then the police knock on his door."],
       ["cut", { t: "two", who: ["thief", "insp"], h: 2.8, az: 0 }], ["s", "insp", "where were you on Monday?", "question"],
       ["cut", { t: "insert", at: [-1.25, 0.25, -1.6], h: 1.3, el: 22, push: 0.2, az: -40, hold: true }],
       ["n", "She's in the trunk. One metre away."],
-      ["cut", { t: "wide", who: ["thief"], h: 2.6, az: -10 }], ["turn", "insp", 120], ["walk", "insp", [1.8, -1.4], 1.0],
+      ["cut", { t: "wide", who: ["thief"], h: 2.6, az: -10 }], ["walk", "insp", [1.8, -1.4], 1.0],
       ["n", "They leave."], ["hide", "insp"],
       // only now, alone, he lifts the lid: she is there (Sol r1 #5, r2 #5)
       ["cut", { t: "insert", at: [-1.25, 0.18, -1.55], h: 1.0, el: 50, push: 0.15, az: -70, hold: true }], ["prop", "trunk", { open: 0.55 }, 0.4, "out"], ["wait", 1.1], ["prop", "trunk", { open: 0 }, 0.3, "in"], ["wait", 0.3],
@@ -239,7 +244,7 @@ export const SCENES = [
       ["prop", "ml", { y: 0.42, tip: -45 }, 0.8, "out"],
       ["n", "Then he tries to sell her in Florence."],
       ["cut", { t: "close", who: ["dealer"], h: 2.1, az: 10 }], ["e", "dealer", "shocked", { eye: 1.3 }], ["wait", 0.3], ["e", "dealer", "kind"], ["s", "dealer", "leave it with me.", "calm"],
-      ["cut", { t: "two", who: ["thief", "dealer"], h: 3.9, el: 12, az: 5 }], ["turn", "dealer", 60], ["walk", "dealer", [2.3, 0.3], 1.1],
+      ["cut", { t: "two", who: ["thief", "dealer"], h: 3.9, el: 12, az: 5 }], ["walk", "dealer", [2.3, 0.3], 1.1],
       ["n", "The dealer calls the police."], ["wait", 0.3] ] },
   // 13 CAUGHT, CHEERED
   { id: "13 seven months", act: "caught", place: "street", extra: [], props: {},
@@ -247,7 +252,7 @@ export const SCENES = [
     shot: { t: "wide", at: [0.4, 0.5, 0.9], h: 4.2, el: 10 }, seq: [
       ["walk", "thief", [0.4, -0.1], 2.6], ["walk", "g1", [-0.5, 0.55], 2.6], ["walk", "g2", [1.3, 0.55], 2.6],
       ["arm", "v1", "R", "up"], ["arm", "v2", "L", "up"], ["hop", "v1"], ["hop", "v4"], ["sfx", "gasp", { gain: 0.3 }],
-      ["n", "Italy cheers him."], ["cut", { t: "close", who: ["thief"], h: 1.9, az: -20 }], ["e", "thief", "smug"],
+      ["n", "Italy cheers him."], ["cut", { t: "close", who: ["thief"], h: 2.8, az: -20 }], ["e", "thief", "smug"],
       ["n", "He gets seven months."], ["wait", 0.4] ] },
   // 14 TODAY: the mirror of the first shot
   { id: "14 today", act: "today", place: "gallery", extra: [{ ...MLP, x: ML.x - 0.07 }, { id: "mlwall", kind: "mlwall", x: WALLX - 0.01, y: 0, z: 0, rot: -90 },

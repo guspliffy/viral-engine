@@ -835,6 +835,16 @@
    "from": 0,
    "to": 7.173,
    "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 7.173,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {

@@ -678,7 +678,7 @@
       1.3
      ],
      "dur": 2.6,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "g1",
@@ -688,7 +688,7 @@
       0.65
      ],
      "dur": 2.6,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "g2",
@@ -698,7 +698,7 @@
       0.65
      ],
      "dur": 2.6,
-     "at": 0.18
+     "at": 0.28
     }
    ]
   },
@@ -708,9 +708,9 @@
    "len": 2.189,
    "shot": {
     "pos": [
-     2.376,
-     0.806,
-     4.703
+     2.838,
+     0.893,
+     6.316
     ],
     "look": [
      1.4,
@@ -720,9 +720,9 @@
     "fov": 30,
     "to": {
      "pos": [
-      2.239,
-      0.78,
-      4.227
+      2.637,
+      0.855,
+      5.613
      ]
     },
     "dur": 2.189,
@@ -737,7 +737,7 @@
        -5
       ]
      ],
-     "pivot": 3.545
+     "pivot": 5.225
     }
    },
    "do": [
@@ -771,8 +771,35 @@
    "reason": "the cap is worn"
   },
   {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 4.105,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
    "who": "g1",
    "with": "cap-g1",
+   "from": 0,
+   "to": 4.105,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 4.105,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "g2",
+   "with": "cap-g2",
    "from": 0,
    "to": 4.105,
    "reason": "the cap is worn"
@@ -782,7 +809,10 @@
    "with": "cap-g2",
    "from": 0,
    "to": 4.105,
-   "reason": "the cap is worn"
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {

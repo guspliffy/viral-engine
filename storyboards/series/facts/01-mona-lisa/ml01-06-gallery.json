@@ -470,7 +470,7 @@
       -0.8
      ],
      "dur": 1.6,
-     "at": 0.18
+     "at": 0.28
     }
    ]
   },
@@ -674,7 +674,7 @@
      "who": "painter",
      "do": "turn",
      "to": 165.964,
-     "dur": 0.2,
+     "dur": 0.6,
      "at": 3.051
     },
     {
@@ -695,7 +695,7 @@
       -2.2
      ],
      "dur": 1,
-     "at": 3.131
+     "at": 3.431
     },
     {
      "who": "g2",
@@ -782,14 +782,6 @@
      "who": "g1",
      "do": "arm",
      "side": "R",
-     "pose": "point",
-     "dur": 0.3,
-     "at": 0
-    },
-    {
-     "who": "g1",
-     "do": "arm",
-     "side": "R",
      "pose": "up",
      "dur": 0.3,
      "at": 0
@@ -798,7 +790,7 @@
      "who": "g1",
      "do": "turn",
      "to": -7.431,
-     "dur": 0.2,
+     "dur": 0.506,
      "at": 0
     },
     {
@@ -819,16 +811,6 @@
      "at": 0
     },
     {
-     "who": "g1",
-     "do": "move",
-     "to": [
-      4.6,
-      3.2
-     ],
-     "dur": 1.2,
-     "at": 0.08
-    },
-    {
      "who": "g2",
      "do": "move",
      "to": [
@@ -836,7 +818,17 @@
       2.6
      ],
      "dur": 1.4,
-     "at": 0.08
+     "at": 0.18
+    },
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      4.6,
+      3.2
+     ],
+     "dur": 1.2,
+     "at": 0.333
     }
    ]
   }
@@ -851,8 +843,35 @@
    "reason": "the cap is worn"
   },
   {
+   "who": "painter",
+   "with": "cap-painter",
+   "from": 0,
+   "to": 9.69,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
    "who": "g1",
    "with": "cap-g1",
+   "from": 0,
+   "to": 9.69,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 9.69,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "g2",
+   "with": "cap-g2",
    "from": 0,
    "to": 9.69,
    "reason": "the cap is worn"
@@ -862,7 +881,10 @@
    "with": "cap-g2",
    "from": 0,
    "to": 9.69,
-   "reason": "the cap is worn"
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {

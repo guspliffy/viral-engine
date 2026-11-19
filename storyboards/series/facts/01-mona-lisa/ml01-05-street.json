@@ -109,8 +109,8 @@
    "id": "v4",
    "character": "potatobrawl/tot",
    "at": [
-    3,
-    -0.75
+    3.3,
+    -1.15
    ],
    "face": -90,
    "expr": "kind",
@@ -298,8 +298,8 @@
      "who": "v4",
      "do": "move",
      "to": [
-      3,
-      -0.75
+      3.3,
+      -1.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -416,8 +416,8 @@
     {
      "who": "v4",
      "do": "turn",
-     "to": -89.157,
-     "dur": 0.2,
+     "to": -83.066,
+     "dur": 0.217,
      "at": 0.1
     },
     {
@@ -438,7 +438,7 @@
       1
      ],
      "dur": 3.4,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "v3",
@@ -448,7 +448,7 @@
       0.05
      ],
      "dur": 3,
-     "at": 0.18
+     "at": 0.28
     },
     {
      "who": "v4",
@@ -458,7 +458,7 @@
       -0.7
      ],
      "dur": 3.4,
-     "at": 0.18
+     "at": 0.289
     },
     {
      "macro": "narrate",
@@ -481,6 +481,16 @@
    "from": 0,
    "to": 3.722,
    "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 3.722,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
   }
  ],
  "story": {
