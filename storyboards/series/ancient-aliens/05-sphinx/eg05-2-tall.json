@@ -27,7 +27,7 @@
    "character": "ancient-aliens/archaeologist",
    "at": [
     5.4,
-    4.05
+    3.92
    ],
    "face": 180,
    "expr": "kind",
@@ -38,8 +38,8 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    4.65,
-    4.6
+    4.6,
+    4.65
    ],
    "face": 150,
    "expr": "neutral",
@@ -80,7 +80,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "stele": true,
+   "stele": false,
    "flakeAt": [
     5.4,
     0.5,
@@ -129,7 +129,7 @@
    "tip": 25,
    "x": 5.86,
    "y": 0.07,
-   "z": 3.68,
+   "z": 3.55,
    "rot": 360,
    "staged": "already in her hand: the fist closes on it in the first frames"
   }
@@ -281,6 +281,16 @@
   {
    "who": "arch",
    "with": "brush",
+   "from": 0.3,
+   "to": 0.4,
+   "checks": [
+    "hand-in-prop"
+   ],
+   "reason": "panel 07: her fist starts the first stroke with the brush already in it from frame 0; the palm meets the handle 2 cm for 2 frames (to see in the strip)"
+  },
+  {
+   "who": "arch",
+   "with": "brush",
    "from": 0.6,
    "to": 0.9,
    "checks": [
@@ -374,21 +384,21 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     7.2,
-     0.65,
-     3.85
+     7,
+     0.5,
+     4.05
     ],
     "look": [
      5.3,
-     0.5,
-     3.75
+     0.45,
+     3.55
     ],
-    "fov": 46,
+    "fov": 44,
     "to": {
      "pos": [
-      7.05,
-      0.64,
-      3.85
+      6.9,
+      0.5,
+      4
      ]
     },
     "dur": 1.6,
@@ -400,8 +410,8 @@
      "do": "grip",
      "side": "R",
      "shape": "open",
-     "dur": 0.2,
-     "at": 0.03
+     "dur": 0,
+     "at": 0
     },
     {
      "who": "arch",
@@ -421,9 +431,34 @@
        0.018
       ]
      },
-     "dur": 0.3,
+     "dur": 0,
      "ease": "inOut",
-     "at": 0.03
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "prop": "brush",
+      "grip": [
+       0.063,
+       0.165,
+       0.017
+      ],
+      "palm": "wrap"
+     },
+     "dur": 0,
+     "ease": "settle",
+     "at": 0
+    },
+    {
+     "who": "arch",
+     "do": "grip",
+     "side": "R",
+     "shape": "hold",
+     "dur": 0.12,
+     "at": 0
     },
     {
      "who": "arch",
@@ -442,6 +477,20 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.05
+    },
+    {
+     "who": "arch",
+     "do": "grab",
+     "prop": "brush",
+     "hand": "R",
+     "grip": [
+      0.063,
+      0.165,
+      0.017
+     ],
+     "dur": 0,
+     "pose": null,
+     "at": 0.06
     },
     {
      "do": "prop",
@@ -531,45 +580,6 @@
      "dur": 0.2,
      "blink": false,
      "at": 0.3
-    },
-    {
-     "who": "arch",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "prop": "brush",
-      "grip": [
-       0.063,
-       0.165,
-       0.017
-      ],
-      "palm": "wrap"
-     },
-     "dur": 0.15,
-     "ease": "settle",
-     "at": 0.33
-    },
-    {
-     "who": "arch",
-     "do": "grip",
-     "side": "R",
-     "shape": "hold",
-     "dur": 0.12,
-     "at": 0.42
-    },
-    {
-     "who": "arch",
-     "do": "grab",
-     "prop": "brush",
-     "hand": "R",
-     "grip": [
-      0.063,
-      0.165,
-      0.017
-     ],
-     "dur": 0,
-     "pose": null,
-     "at": 0.54
     },
     {
      "who": "arch",
@@ -698,15 +708,15 @@
      "set": {
       "pop": 1
      },
-     "dur": 0.9,
+     "dur": 0.45,
      "ease": "in",
-     "at": 4.6
+     "at": 5.25
     },
     {
      "sfx": "crumble",
      "gain": 0.14,
      "reason": "a thin flake of stone crumbles off",
-     "at": 4.65
+     "at": 5.3
     },
     {
      "who": "arch",
@@ -794,21 +804,21 @@
    "len": 3.5,
    "shot": {
     "pos": [
-     10.6,
-     0.8,
-     8.5
+     11,
+     0.9,
+     8.6
     ],
     "look": [
-     4.6,
-     3.6,
-     1.6
+     6,
+     3,
+     2.8
     ],
-    "fov": 58,
+    "fov": 62,
     "to": {
      "pos": [
-      10.4,
-      0.85,
-      8.3
+      10.85,
+      0.92,
+      8.45
      ]
     },
     "dur": 3.5,
@@ -1014,21 +1024,6 @@
      "shape": "point",
      "dur": 0.15,
      "at": 0.2
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": {
-      "o": [
-       0.36,
-       0.3,
-       0.32
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.8
     },
     {
      "who": "spud",

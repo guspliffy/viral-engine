@@ -26,8 +26,8 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    -2,
-    -7.4
+    -1.6,
+    -7.75
    ],
    "face": 180,
    "expr": "neutral",
@@ -38,8 +38,8 @@
    "id": "arch",
    "character": "ancient-aliens/archaeologist",
    "at": [
-    -0.95,
-    -7.02
+    -1.35,
+    -6.85
    ],
    "face": 180,
    "expr": "kind",
@@ -80,7 +80,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "stele": true,
+   "stele": false,
    "flakeAt": [
     5.4,
     0.5,
@@ -119,9 +119,9 @@
    "id": "brush",
    "kind": "archbrush",
    "tip": 25,
-   "x": -0.49,
+   "x": -0.89,
    "y": 0.07,
-   "z": -7.39,
+   "z": -7.22,
    "rot": 360,
    "staged": "already in her hand: the fist closes on it in the first frames"
   }
@@ -385,14 +385,14 @@
     "look": [
      -0.5,
      2.6,
-     -3.4
+     -2.7
     ],
     "fov": 50,
     "to": {
      "pos": [
-      17.5,
-      9.6,
-      -2.8
+      19.2,
+      10.6,
+      -2.2
      ]
     },
     "dur": 2.3,
@@ -565,6 +565,29 @@
      "ease": "linear",
      "sync": true,
      "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2,
+      -7.45
+     ],
+     "y": 0,
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 40,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 2.28
     }
    ],
    "kind": "hook"
@@ -575,21 +598,26 @@
    "len": 2.3,
    "shot": {
     "pos": [
-     0,
-     1,
-     -6.5
+     -0.2,
+     0.7,
+     -5.6
     ],
     "look": [
-     -2,
-     0.9,
-     -7.8
+     -2.2,
+     1.5,
+     -8.1
     ],
-    "fov": 42,
+    "fov": 56,
     "to": {
      "pos": [
-      -0.2,
-      1,
-      -6.6
+      -0.25,
+      0.7,
+      -5.7
+     ],
+     "look": [
+      -2.2,
+      1.9,
+      -8.1
      ]
     },
     "dur": 2.3,
@@ -598,70 +626,47 @@
    "do": [
     {
      "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.14,
-       0.55,
-       0.42
-      ]
-     },
-     "dur": 0.35,
-     "ease": "inOut",
-     "at": 0.05
-    },
-    {
-     "who": "spud",
      "do": "look",
      "to": [
-      0.15,
-      0.3
+      0.45,
+      0.6
      ],
-     "dur": 0.2,
+     "dur": 0.3,
      "blink": false,
      "at": 0.05
     },
     {
      "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.12,
+       0.62,
+       0.36
+      ]
+     },
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
      "do": "grip",
-     "side": "R",
-     "shape": "open",
+     "side": "L",
+     "shape": "point",
      "dur": 0.15,
      "at": 0.1
     },
     {
      "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": {
-      "o": [
-       0.14,
-       0.12,
-       0.44
-      ]
+     "do": "expr",
+     "expr": "surprised",
+     "set": {
+      "open": 0.15
      },
-     "dur": 1.6,
-     "ease": "inOut",
-     "at": 0.5
-    },
-    {
-     "sfx": "ai/cookie-scrape",
-     "gain": 0.08,
-     "dur": 1.4,
-     "reason": "his palm over the dry, sandy limestone",
-     "at": 0.5
-    },
-    {
-     "who": "spud",
-     "do": "look",
-     "to": [
-      0.15,
-      -0.1
-     ],
-     "dur": 1.4,
-     "blink": false,
-     "at": 0.6
+     "dur": 0.2,
+     "at": 0.1
     },
     {
      "who": "spud",
@@ -677,7 +682,7 @@
      "do": "move",
      "to": [
       8.7,
-      0.2
+      0.35
      ],
      "y": 0,
      "dur": 0.01,
@@ -700,7 +705,7 @@
      "do": "move",
      "to": [
       7.95,
-      -0.25
+      -0.3
      ],
      "y": 0,
      "dur": 0.01,
@@ -727,19 +732,19 @@
    "shot": {
     "pos": [
      16.4,
-     0.5,
+     0.62,
      0.15
     ],
     "look": [
      6.5,
-     5.4,
+     5.1,
      0
     ],
     "fov": 60,
     "to": {
      "pos": [
-      15.9,
-      0.55,
+      16.1,
+      0.64,
       0.12
      ]
     },
@@ -815,8 +820,8 @@
      "who": "arch",
      "do": "move",
      "to": [
-      -1.95,
-      -6.3
+      -2.2,
+      -6.2
      ],
      "y": 0,
      "dur": 0.01,
@@ -842,21 +847,21 @@
    "len": 1.6,
    "shot": {
     "pos": [
-     -0.4,
+     -0.3,
      0.85,
-     -3.8
+     -3.5
     ],
     "look": [
-     -1.45,
+     -1.5,
      0.55,
      -6.5
     ],
-    "fov": 44,
+    "fov": 52,
     "to": {
      "pos": [
-      -0.45,
+      -0.35,
       0.84,
-      -3.95
+      -3.65
      ]
     },
     "dur": 1.6,

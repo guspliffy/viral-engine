@@ -26,7 +26,7 @@
    "id": "arch",
    "character": "ancient-aliens/archaeologist",
    "at": [
-    12.3,
+    12.15,
     0.3
    ],
    "face": 90,
@@ -84,7 +84,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "stele": true,
+   "stele": false,
    "flakeAt": [
     5.4,
     0.5,
@@ -124,7 +124,7 @@
    "id": "brush",
    "kind": "archbrush",
    "tip": 25,
-   "x": 12.67,
+   "x": 12.52,
    "y": 0.07,
    "z": 0.76,
    "rot": 270,

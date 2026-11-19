@@ -26,10 +26,10 @@
    "id": "arch",
    "character": "ancient-aliens/archaeologist",
    "at": [
-    10.8,
-    -6.45
+    13.75,
+    -7
    ],
-   "face": 145,
+   "face": 255,
    "expr": "kind",
    "follow": 0.2,
    "seed": 1.3
@@ -38,10 +38,10 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    12.15,
-    -6.2
+    13.2,
+    -6.1
    ],
-   "face": 220,
+   "face": 260,
    "expr": "sad",
    "follow": 0.2,
    "seed": 4.1
@@ -62,7 +62,8 @@
   {
    "id": "sky2",
    "kind": "aasky",
-   "x": 1010,
+   "x": 20,
+   "y": -5000,
    "z": 0,
    "time": "dusk",
    "staged": "panel 20's dusk sky, moved in at its cut"
@@ -93,7 +94,7 @@
    "x": 0,
    "y": 0,
    "z": 0,
-   "stele": true,
+   "stele": false,
    "flakeAt": [
     5.4,
     0.5,
@@ -153,10 +154,10 @@
    "id": "brush",
    "kind": "archbrush",
    "tip": 25,
-   "x": 11.389,
+   "x": 13.512,
    "y": 0.07,
-   "z": -6.489,
-   "rot": 325,
+   "z": -7.54,
+   "rot": 435,
    "staged": "already in her hand: the fist closes on it in the first frames"
   }
  ],
@@ -348,8 +349,16 @@
   },
   {
    "from": 2.8,
-   "to": 8.405,
-   "text": "Four and a half thousand years ago. Some blocks are still lying where they left them.",
+   "to": 4.78,
+   "text": "Four and a half thousand years ago.",
+   "pos": 400,
+   "pop": false,
+   "size": 62
+  },
+  {
+   "from": 4.8,
+   "to": 8.15,
+   "text": "Some blocks are still lying where they left them.",
    "pos": 400,
    "pop": false,
    "size": 62
@@ -379,21 +388,21 @@
    "len": 4.8,
    "shot": {
     "pos": [
-     40,
-     22,
-     30
+     60,
+     28,
+     22
     ],
     "look": [
-     -20,
-     2,
-     -2
+     -40,
+     -2,
+     0
     ],
-    "fov": 55,
+    "fov": 46,
     "to": {
      "pos": [
-      37,
-      20,
-      28
+      57,
+      27,
+      21
      ]
     },
     "dur": 4.8,
@@ -421,9 +430,9 @@
       ],
       "palm": "wrap",
       "off": [
-       0.045,
+       0.035,
        0.02,
-       0.054
+       -0.061
       ]
      },
      "dur": 0.3,
@@ -464,7 +473,7 @@
      "do": "prop",
      "id": "sphinx",
      "set": {
-      "rough": 0.35,
+      "rough": 0.75,
       "flake": 0,
       "wet": 0
      },
@@ -621,21 +630,21 @@
    "len": 3.4,
    "shot": {
     "pos": [
-     12,
-     1,
-     -4
+     9.8,
+     0.62,
+     -5.9
     ],
     "look": [
-     11.3,
-     1,
-     -7.5
+     13.3,
+     0.62,
+     -6.75
     ],
-    "fov": 52,
+    "fov": 56,
     "to": {
      "pos": [
-      11.95,
-      1,
-      -4.2
+      9.95,
+      0.62,
+      -5.95
      ]
     },
     "dur": 3.4,
@@ -646,8 +655,8 @@
      "who": "arch",
      "do": "look",
      "to": [
-      0.25,
-      0.55
+      0,
+      -0.3
      ],
      "dur": 0.01,
      "blink": false,
@@ -657,8 +666,8 @@
      "who": "spud",
      "do": "look",
      "to": [
-      -0.2,
-      0.2
+      0,
+      -0.2
      ],
      "dur": 0.01,
      "blink": false,
@@ -670,12 +679,12 @@
      "side": "L",
      "pose": {
       "o": [
-       0.18,
-       0.45,
-       0.3
+       0.3,
+       0.25,
+       0.42
       ]
      },
-     "dur": 0.7,
+     "dur": 0.6,
      "ease": "inOut",
      "at": 0.2
     },
@@ -694,8 +703,8 @@
      "set": {
       "brow": 0.6
      },
-     "dur": 0.3,
-     "at": 0.4
+     "dur": 0.4,
+     "at": 0.8
     },
     {
      "who": "arch",
@@ -719,7 +728,7 @@
      "do": "prop",
      "id": "sky",
      "set": {
-      "x": 1020
+      "y": -5000
      },
      "dur": 0.01,
      "ease": "linear",
@@ -729,7 +738,7 @@
      "do": "prop",
      "id": "sky2",
      "set": {
-      "x": 20
+      "y": 0
      },
      "dur": 0.01,
      "ease": "linear",
@@ -794,9 +803,9 @@
      8.7
     ],
     "look": [
-     14.15,
+     14,
      1,
-     6.95
+     7.15
     ],
     "fov": 50,
     "to": {
@@ -892,21 +901,21 @@
    "len": 3.18,
    "shot": {
     "pos": [
-     -5.5,
+     -5.6,
      9.4,
-     2.2
+     2.3
     ],
     "look": [
-     30,
-     6.5,
-     -0.5
+     40,
+     11.5,
+     -1
     ],
-    "fov": 56,
+    "fov": 62,
     "to": {
      "pos": [
-      -4.6,
-      9.1,
-      1.8
+      -5.2,
+      9.3,
+      2.1
      ]
     },
     "dur": 3.2,
