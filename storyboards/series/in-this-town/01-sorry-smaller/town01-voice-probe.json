@@ -1,0 +1,351 @@
+{
+ "id": "town01-voice-probe",
+ "title": "In this town 01 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   78.38,
+   78.38
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    -1.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "big",
+   "character": "happiness/mover",
+   "at": [
+    0,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    1.2,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 78.38,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry!",
+     "tone": "calm",
+     "style": "quick, polite, apologetic, a little startled",
+     "voice": "chip",
+     "dur": 0.92,
+     "caption": false,
+     "key": "s1",
+     "at": 0.2
+    },
+    {
+     "macro": "narrate",
+     "line": "In this town, every sorry makes you smaller.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.86,
+     "caption": false,
+     "key": "n1",
+     "at": 2.12
+    },
+    {
+     "macro": "narrate",
+     "line": "And he says it forty times a day.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.86,
+     "caption": false,
+     "key": "n2",
+     "at": 6.98
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry!",
+     "tone": "calm",
+     "style": "quick, polite, apologetic, bright",
+     "voice": "chip",
+     "dur": 0.92,
+     "caption": false,
+     "key": "s2",
+     "at": 11.84
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh, sorry.",
+     "tone": "calm",
+     "style": "polite, apologetic, soft, to an object",
+     "voice": "chip",
+     "take": 2,
+     "dur": 1.34,
+     "caption": false,
+     "key": "s3",
+     "at": 13.76
+    },
+    {
+     "macro": "narrate",
+     "line": "Say it too often, and you're gone.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.44,
+     "caption": false,
+     "key": "n3",
+     "at": 16.1
+    },
+    {
+     "macro": "narrate",
+     "line": "But some people never say it.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.02,
+     "caption": false,
+     "key": "n4",
+     "at": 20.54
+    },
+    {
+     "who": "driver",
+     "macro": "say",
+     "line": "Oh! Sorry!",
+     "tone": "calm",
+     "style": "startled, polite, apologetic, quick",
+     "voice": "wedge",
+     "dur": 1.34,
+     "caption": false,
+     "key": "d1",
+     "at": 24.56
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Excuse me, I was first...",
+     "tone": "calm",
+     "style": "timid, polite, nervous, small voice",
+     "voice": "chip",
+     "dur": 2.6,
+     "caption": false,
+     "key": "s4",
+     "at": 26.9
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...sorry.",
+     "tone": "sad",
+     "style": "tiny, timid, giving up, quiet",
+     "voice": "chip",
+     "dur": 0.92,
+     "caption": false,
+     "key": "s5",
+     "at": 30.5
+    },
+    {
+     "macro": "narrate",
+     "line": "That's the other half of the rule. Every sorry you say makes them bigger.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 6.38,
+     "caption": false,
+     "key": "n5",
+     "at": 32.42
+    },
+    {
+     "macro": "narrate",
+     "line": "That's why he's so big. He has never said it once.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 5.12,
+     "caption": false,
+     "key": "n5b",
+     "at": 39.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Ow! Sorry!",
+     "tone": "sad",
+     "style": "pained, then apologetic, quick",
+     "voice": "chip",
+     "dur": 1.34,
+     "caption": false,
+     "key": "s6",
+     "at": 45.92
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "Next!",
+     "tone": "happy",
+     "voice": "odin",
+     "dur": 0.92,
+     "caption": false,
+     "key": "b1",
+     "at": 48.26
+    },
+    {
+     "macro": "narrate",
+     "line": "One more sorry, and he's gone.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.02,
+     "caption": false,
+     "key": "n6",
+     "at": 50.18
+    },
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "You're in my way. Say sorry.",
+     "tone": "angry",
+     "style": "low, cold, slow, threatening, looking down",
+     "voice": "ryn",
+     "dur": 3.02,
+     "caption": false,
+     "key": "m1",
+     "at": 54.2
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No.",
+     "tone": "calm",
+     "style": "small but firm, quiet, brave",
+     "voice": "chip",
+     "dur": 0.92,
+     "caption": false,
+     "key": "s7",
+     "at": 58.22
+    },
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "What did you say?",
+     "tone": "angry",
+     "style": "low, cold, slow, disbelieving, leaning down",
+     "voice": "ryn",
+     "dur": 2.18,
+     "caption": false,
+     "key": "m3",
+     "at": 60.14
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I said no.",
+     "tone": "calm",
+     "style": "small but firm, louder, brave, steady",
+     "voice": "chip",
+     "dur": 1.76,
+     "caption": false,
+     "key": "s9",
+     "at": 63.32
+    },
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "Oh no! Sorry! Sorry! I'm so sorry!",
+     "tone": "sad",
+     "style": "panicked, horrified, fast, apologising",
+     "voice": "ryn",
+     "dur": 3.44,
+     "caption": false,
+     "key": "m2",
+     "at": 66.08
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "You're in my way.",
+     "tone": "calm",
+     "style": "calm, polite, gentle, a small smile",
+     "voice": "chip",
+     "dur": 2.18,
+     "caption": false,
+     "key": "s10",
+     "at": 70.52
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "Oh! Good morning!",
+     "tone": "happy",
+     "voice": "odin",
+     "dur": 1.76,
+     "caption": false,
+     "key": "b2",
+     "at": 73.7
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry.",
+     "tone": "calm",
+     "style": "automatic, polite, absent-minded",
+     "voice": "chip",
+     "dur": 0.92,
+     "caption": false,
+     "key": "s8",
+     "at": 76.46
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for In this town 01: makes and measures every take."
+}

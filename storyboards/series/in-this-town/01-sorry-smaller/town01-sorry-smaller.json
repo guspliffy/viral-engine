@@ -1,0 +1,3566 @@
+{
+ "id": "town01-sorry-smaller",
+ "title": "In this town, every sorry makes you smaller",
+ "idea": "In this town, every sorry makes you smaller, and makes the one you said it to bigger. Spud says it forty times a day; a big one who never says it pushes in front of him at the bakery.",
+ "format": "In this town (one strange rule per video, Spud leads, narrator voice 1)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": true,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorebakery",
+  "rain": false,
+  "light": "golden",
+  "key": [
+   -5.5,
+   3.6,
+   4.5
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-town/town01-score.ogg",
+  "from": 0,
+  "gain": 0.5,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true
+ },
+ "creative": {
+  "length": [
+   61.8,
+   61.8
+  ]
+ },
+ "hook": {
+  "show": [
+   "spud",
+   "driver"
+  ],
+  "hint": 0,
+  "what": "two strangers nearly collide in front of a bakery; he says sorry and visibly shrinks"
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    0.05,
+    1.3
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.4,
+   "seed": 1.3
+  },
+  {
+   "id": "driver",
+   "character": "happiness/driver",
+   "at": [
+    1.5,
+    1.2
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.2
+  },
+  {
+   "id": "big",
+   "character": "happiness/mover",
+   "at": [
+    7.6,
+    1.25
+   ],
+   "face": -90,
+   "expr": "annoyed",
+   "follow": 0.2,
+   "seed": 3.4,
+   "scale": 1.5
+  },
+  {
+   "id": "baker",
+   "character": "happiness/baker",
+   "at": [
+    3,
+    -1.7
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 4.1
+  }
+ ],
+ "props": [
+  {
+   "id": "toque",
+   "kind": "toque",
+   "wear": "baker",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  }
+ ],
+ "captions": [
+  {
+   "from": 0,
+   "to": 3,
+   "text": "SORRY = SMALLER",
+   "pos": 236,
+   "pop": false,
+   "size": 84,
+   "kinetic": false,
+   "color": "#f3dc8c",
+   "stroke": "#24232b"
+  },
+  {
+   "from": 0.18,
+   "to": 0.71,
+   "text": "Sorry!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 0.75,
+   "to": 4.66,
+   "text": "In this town, every *sorry* makes you smaller.",
+   "pos": 470,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 4.7,
+   "to": 7.11,
+   "text": "And he says it forty times a day.",
+   "pos": 470,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 7.15,
+   "to": 7.84,
+   "text": "Sorry!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 9.62,
+   "to": 10.91,
+   "text": "Oh, sorry.",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 10.95,
+   "to": 14.26,
+   "text": "Say it too often, and you're gone.",
+   "pos": 470,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 14.3,
+   "to": 16.01,
+   "text": "But some people never say it.",
+   "pos": 470,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 16.05,
+   "to": 17.81,
+   "text": "Oh! Sorry!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 19.4,
+   "to": 20.97,
+   "text": "Excuse me, I was first...",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 21.35,
+   "to": 22.39,
+   "text": "...sorry.",
+   "pos": 380,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 23.1,
+   "to": 26.91,
+   "text": "Every sorry you say... makes *them* bigger.",
+   "pos": 470,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 26.95,
+   "to": 30.41,
+   "text": "That's why he's so big. He has *never* said it.",
+   "pos": 300,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 30.45,
+   "to": 31.88,
+   "text": "Ow! Sorry!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 33.1,
+   "to": 34.16,
+   "text": "Next!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 35.5,
+   "to": 37.56,
+   "text": "One more sorry, and he's *gone*.",
+   "pos": 300,
+   "pop": false,
+   "size": 60
+  },
+  {
+   "from": 37.6,
+   "to": 40.09,
+   "text": "You're in my way. Say sorry.",
+   "pos": 380,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 41,
+   "to": 41.69,
+   "text": "No.",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 41.75,
+   "to": 43.21,
+   "text": "What did you say?",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 43.25,
+   "to": 44.62,
+   "text": "I said no.",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 46.4,
+   "to": 49.71,
+   "text": "Oh no! Sorry! Sorry! I'm so sorry!",
+   "pos": 400,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 51,
+   "to": 52.15,
+   "text": "You're in my way.",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 52.85,
+   "to": 54.63,
+   "text": "Oh! Good morning!",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  },
+  {
+   "from": 58.35,
+   "to": 59.18,
+   "text": "Sorry.",
+   "pos": 470,
+   "pop": false,
+   "size": 68
+  }
+ ],
+ "beats": [
+  {
+   "name": "01 the near-bump: Sorry! He shrinks, the stranger grows",
+   "at": 0,
+   "len": 1.9,
+   "shot": {
+    "pos": [
+     0.775,
+     0.805,
+     6.49
+    ],
+    "look": [
+     0.775,
+     0.94,
+     0.492
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      0.3,
+      1.3
+     ],
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      1.25,
+      1.2
+     ],
+     "dur": 0.32,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.05
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.368,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.08,
+     "at": 0.1
+    },
+    {
+     "who": "driver",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.254,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "driver",
+     "do": "face",
+     "brow": 0.2,
+     "dur": 0.25,
+     "at": 0.12
+    },
+    {
+     "who": "driver",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 45,
+     "dur": 0.22,
+     "at": 0.12
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": -45,
+     "dur": 0.22,
+     "at": 0.12
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry!",
+     "tone": "calm",
+     "style": "quick, polite, apologetic, a little startled",
+     "voice": "chip",
+     "dur": 0.41,
+     "caption": false,
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 0.94,
+     "dur": 0.12,
+     "at": 0.18
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.9,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.66
+    },
+    {
+     "who": "driver",
+     "do": "grow",
+     "to": 1.08,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.66
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 0.66
+    },
+    {
+     "macro": "narrate",
+     "line": "In this town, every sorry makes you smaller.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.86,
+     "caption": false,
+     "at": 0.75
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.2,
+     "at": 0.9
+    },
+    {
+     "who": "driver",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.25
+     },
+     "dur": 0.3,
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      -0.1,
+      -0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.95
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": -150,
+     "dur": 0.25,
+     "at": 1.45
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      0.95,
+      0.42
+     ],
+     "dur": 0.55,
+     "ease": "inOut",
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "02 he looks down at himself",
+   "at": 1.9,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     2.911,
+     0.717,
+     3.911
+    ],
+    "look": [
+     -1.329,
+     0.526,
+     -0.329
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.35,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.25,
+     "at": 0.15
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      -7.5,
+      0.42
+     ],
+     "dur": 4.4,
+     "ease": "inOut",
+     "at": 0.2
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      0.5,
+      -0.1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "tilt": 0.45,
+      "curve": 0.42,
+      "open": 0.16,
+      "eye": 1.08,
+      "smirk": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 1
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -123.366,
+     "dur": 0.55,
+     "at": 2.35
+    }
+   ]
+  },
+  {
+   "name": "03 he walks on, eyes down",
+   "at": 4.6,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     1.448,
+     0.717,
+     4.454
+    ],
+    "look": [
+     -0.603,
+     0.509,
+     -1.181
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.602,
+      0.717,
+      3.104
+     ],
+     "look": [
+      -2.653,
+      0.509,
+      -2.531
+     ],
+     "fov": 40
+    },
+    "dur": 2.15,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -123.366,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "And he says it forty times a day.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 2.33,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -1.75,
+      -0.05
+     ],
+     "dur": 1.9,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.25
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 0.9,
+     "dur": 0.08,
+     "at": 2.02
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": -6,
+     "dur": 0.12,
+     "at": 2.02
+    },
+    {
+     "sfx": "kenney/impact-wood-light",
+     "gain": 0.45,
+     "reason": "his foot knocks the wooden flower tub",
+     "at": 2.02
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.311,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 2.05
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 2.05
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 2.05
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.25,
+     "at": 2.1
+    }
+   ]
+  },
+  {
+   "name": "04 'Sorry!' to a flower tub",
+   "at": 6.75,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     -2.409,
+     0.686,
+     3.833
+    ],
+    "look": [
+     -1.887,
+     0.565,
+     -2.143
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "lean",
+     "to": 0,
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry!",
+     "tone": "calm",
+     "style": "quick, polite, apologetic, bright",
+     "voice": "chip",
+     "dur": 0.39,
+     "caption": false,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.82,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.87
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 0.87
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -78.024,
+     "dur": 0.25,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "05 'Oh, sorry.' to the lamp post",
+   "at": 8.6,
+   "len": 2.35,
+   "shot": {
+    "pos": [
+     -1.9,
+     0.85,
+     3
+    ],
+    "look": [
+     -3.459,
+     0.525,
+     -2.785
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.35,
+      -0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.41,
+      0.09
+     ],
+     "dur": 0.65,
+     "ease": "in",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 0.88,
+     "dur": 0.07,
+     "at": 0.7
+    },
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.55,
+     "reason": "his head knocks the iron lamp post",
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.4,
+      "eye": 1.368,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.72
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.35,
+     "dur": 0.25,
+     "at": 0.72
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.45,
+     "idle": 0.08,
+     "at": 0.72
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.3,
+     "at": 0.77
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Oh, sorry.",
+     "tone": "calm",
+     "style": "polite, apologetic, soft, to an object",
+     "voice": "chip",
+     "take": 2,
+     "dur": 1.06,
+     "caption": false,
+     "at": 1.02
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.75,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 2.12
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 2.12
+    }
+   ]
+  },
+  {
+   "name": "06 high: the post towers over him",
+   "at": 10.95,
+   "len": 3.25,
+   "shot": {
+    "pos": [
+     -1.9,
+     2.3,
+     2.4
+    ],
+    "look": [
+     -3.528,
+     -1.052,
+     -2.303
+    ],
+    "fov": 42,
+    "to": {
+     "pos": [
+      -1.8,
+      2.8,
+      2.7
+     ],
+     "look": [
+      -3.345,
+      -0.816,
+      -1.831
+     ],
+     "fov": 42
+    },
+    "dur": 3.3,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "Say it too often, and you're gone.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.21,
+     "caption": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.5
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.3,
+     "at": 0.05
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      4.7,
+      1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.038
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 1.038
+    },
+    {
+     "who": "driver",
+     "do": "grow",
+     "to": 1.08,
+     "dur": 0.01,
+     "ease": "out",
+     "at": 1.05
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      0,
+      -0.1
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 78.48,
+     "dur": 0.25,
+     "at": 1.35
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.3,
+      1.05
+     ],
+     "dur": 3.15,
+     "ease": "inOut",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 1.45
+    }
+   ]
+  },
+  {
+   "name": "07 low: a big one strides in",
+   "at": 14.2,
+   "len": 1.75,
+   "shot": {
+    "pos": [
+     1.138,
+     0.35,
+     3.709
+    ],
+    "look": [
+     6.292,
+     1.111,
+     0.733
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -96.34,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "macro": "narrate",
+     "line": "But some people never say it.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 1.63,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      5.8,
+      1.05
+     ],
+     "dur": 1.15,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "lid": 0.35
+     },
+     "dur": 0.01,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.01,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "driver",
+     "do": "squash",
+     "to": 0.92,
+     "dur": 0.08,
+     "at": 1.18
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.5,
+     "reason": "the big one's shoulder knocks the stranger",
+     "at": 1.18
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      4.5,
+      1.9
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "driver",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.311,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.2
+    },
+    {
+     "who": "driver",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 1.2
+    },
+    {
+     "who": "driver",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.08,
+     "at": 1.2
+    },
+    {
+     "who": "driver",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.25,
+     "at": 1.26
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": 123.179,
+     "dur": 0.3,
+     "at": 1.3
+    },
+    {
+     "who": "driver",
+     "do": "look",
+     "to": [
+      0,
+      0.2
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 147.529,
+     "dur": 0.3,
+     "at": 1.5
+    }
+   ]
+  },
+  {
+   "name": "08 the stranger says sorry TO HIM: one shrinks, one grows",
+   "at": 15.95,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     12.13,
+     1.171,
+     4.73
+    ],
+    "look": [
+     6.692,
+     1.149,
+     2.194
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "driver",
+     "macro": "say",
+     "line": "Oh! Sorry!",
+     "tone": "calm",
+     "style": "startled, polite, apologetic, quick",
+     "voice": "wedge",
+     "dur": 1.46,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "driver",
+     "do": "grow",
+     "to": 0.96,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 1.62,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 1.65
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 1.65
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -111.448,
+     "dur": 0.25,
+     "at": 1.85
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3,
+      -0.05
+     ],
+     "dur": 1.35,
+     "ease": "inOut",
+     "at": 1.9
+    }
+   ]
+  },
+  {
+   "name": "09 the big one cuts in front of him",
+   "at": 17.9,
+   "len": 1.5,
+   "shot": {
+    "pos": [
+     3.35,
+     1.045,
+     9.71
+    ],
+    "look": [
+     3.35,
+     1.071,
+     3.71
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.25,
+      0.88
+     ],
+     "dur": 0.45,
+     "ease": "inOut",
+     "at": 0.4
+    },
+    {
+     "who": "driver",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "driver",
+     "do": "move",
+     "to": [
+      9.5,
+      2.2
+     ],
+     "dur": 3.2,
+     "ease": "inOut",
+     "at": 0.9
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.311,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 0.95
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.2,
+      0.35
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.1
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.3,
+     "at": 1.3
+    }
+   ]
+  },
+  {
+   "name": "10 'Excuse me, I was first...'",
+   "at": 19.4,
+   "len": 1.35,
+   "shot": {
+    "pos": [
+     7.803,
+     1.171,
+     5.593
+    ],
+    "look": [
+     3.56,
+     1.136,
+     1.35
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Excuse me, I was first...",
+     "tone": "calm",
+     "style": "timid, polite, nervous, small voice",
+     "voice": "chip",
+     "dur": 1.27,
+     "caption": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "11 low: the big one turns and looks down",
+   "at": 20.75,
+   "len": 1.2,
+   "shot": {
+    "pos": [
+     1.6,
+     0.32,
+     2.6
+    ],
+    "look": [
+     4.087,
+     2.808,
+     -2.261
+    ],
+    "fov": 64
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -38.884,
+     "dur": 0.35,
+     "at": 0
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      -0.55
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "lid": 0.45,
+      "brow": -0.3
+     },
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.2,
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "...sorry.",
+     "tone": "sad",
+     "style": "tiny, timid, giving up, quiet",
+     "voice": "chip",
+     "dur": 0.74,
+     "caption": false,
+     "at": 0.6
+    }
+   ]
+  },
+  {
+   "name": "12 '...sorry.' he shrinks, the big one grows",
+   "at": 21.95,
+   "len": 1.05,
+   "shot": {
+    "pos": [
+     0.645,
+     1.158,
+     4.661
+    ],
+    "look": [
+     3.18,
+     0.979,
+     -0.774
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.6,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 1.8,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.2
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.4
+     },
+     "dur": 0.3,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.35
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.3
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.4,
+     "at": 0.95
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.95
+    }
+   ]
+  },
+  {
+   "name": "13 wide: the whole street, the big one, the tiny one",
+   "at": 23,
+   "len": 3.9,
+   "shot": {
+    "pos": [
+     3.447,
+     1.3,
+     7.673
+    ],
+    "look": [
+     2.924,
+     1.387,
+     1.696
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      3.286,
+      1.1,
+      7.965
+     ],
+     "look": [
+      2.763,
+      1.326,
+      1.992
+     ],
+     "fov": 40
+    },
+    "dur": 3.9,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "That's the other half of the rule. Every sorry you say makes them bigger.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.73,
+     "caption": false,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "14 low: the big one, who never said it",
+   "at": 26.9,
+   "len": 3.1,
+   "shot": {
+    "pos": [
+     3.3,
+     0.72,
+     -1.9
+    ],
+    "look": [
+     2.46,
+     3.631,
+     3.279
+    ],
+    "fov": 76
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "That's why he's so big. He has never said it once.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 3.47,
+     "caption": false,
+     "at": 0.05
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      4.3,
+      -1.8
+     ],
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "15 low: the big one steps back onto him: 'Ow! Sorry!'",
+   "at": 30,
+   "len": 1.6,
+   "shot": {
+    "pos": [
+     3.136,
+     1.284,
+     8.334
+    ],
+    "look": [
+     2.613,
+     1.243,
+     2.357
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 165,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3,
+      0.3
+     ],
+     "dur": 0.35,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Ow! Sorry!",
+     "tone": "sad",
+     "style": "pained, then apologetic, quick",
+     "voice": "chip",
+     "dur": 1.13,
+     "caption": false,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "hop",
+     "height": 0.12,
+     "dur": 0.35,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      1.95,
+      1.25
+     ],
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "angry",
+     "set": {
+      "lid": 0.6
+     },
+     "dur": 0.08,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -15,
+     "dur": 0.5,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "dur": 0.2,
+     "at": 1
+    }
+   ]
+  },
+  {
+   "name": "16 tiny now",
+   "at": 31.6,
+   "len": 2.7,
+   "shot": {
+    "pos": [
+     -0.456,
+     1.441,
+     7.061
+    ],
+    "look": [
+     2.079,
+     1.353,
+     1.624
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.38,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 2.05,
+     "dur": 0.3,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 136.397,
+     "dur": 0.6,
+     "at": 0.45
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 62.65,
+     "dur": 0.25,
+     "at": 0.5
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      4.45,
+      1.05
+     ],
+     "dur": 0.8,
+     "ease": "inOut",
+     "at": 0.55
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 136.397,
+     "dur": 0.25,
+     "at": 1.05
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      2.95,
+      0.2
+     ],
+     "dur": 1.45,
+     "ease": "inOut",
+     "at": 1.1
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -60,
+     "dur": 0.3,
+     "at": 1.35
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.35
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.48
+     ],
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.4
+    },
+    {
+     "who": "baker",
+     "do": "look",
+     "to": [
+      0,
+      0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.4
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.2,
+     "at": 1.4
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "Next!",
+     "tone": "happy",
+     "voice": "odin",
+     "dur": 0.76,
+     "caption": false,
+     "at": 1.5
+    },
+    {
+     "who": "baker",
+     "do": "look",
+     "to": [
+      -0.3,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 2.4
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.4,
+     "at": 2.55
+    }
+   ]
+  },
+  {
+   "name": "18 he waves at the counter's edge",
+   "at": 34.3,
+   "len": 1.1,
+   "shot": {
+    "pos": [
+     2.35,
+     0.32,
+     1.25
+    ],
+    "look": [
+     5.3,
+     1.118,
+     -3.913
+    ],
+    "fov": 46
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "wave",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "baker",
+     "do": "look",
+     "to": [
+      0.3,
+      0.05
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.25,
+     "at": 0.3
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "baker",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.8
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.7
+     ],
+     "dur": 0.4,
+     "ease": "inOut",
+     "at": 0.8
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.3,
+     "at": 0.85
+    }
+   ]
+  },
+  {
+   "name": "19 high, over the counter: the big one comes back",
+   "at": 35.4,
+   "len": 2.1,
+   "shot": {
+    "pos": [
+     -5.581,
+     2,
+     3.003
+    ],
+    "look": [
+     0.214,
+     2.033,
+     1.45
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "One more sorry, and he's gone.",
+     "voice": "narrator-brisk",
+     "take": 1,
+     "dur": 1.94,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -83.313,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3,
+      1.22
+     ],
+     "dur": 0.95,
+     "ease": "inOut",
+     "at": 0.15
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 2.806,
+     "dur": 0.4,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "worried",
+     "dur": 0.2,
+     "at": 0.4
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.45,
+     "at": 1.1
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      -0.7
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 1.2
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "annoyed",
+     "set": {
+      "lid": 0.5,
+      "brow": -0.4
+     },
+     "dur": 0.2,
+     "at": 1.2
+    },
+    {
+     "who": "big",
+     "do": "crouch",
+     "to": 0.35,
+     "dur": 0.5,
+     "at": 2
+    }
+   ]
+  },
+  {
+   "name": "20 low, from his eyes: 'Say sorry.'",
+   "at": 37.5,
+   "len": 2.4,
+   "shot": {
+    "pos": [
+     3.35,
+     0.2,
+     -0.45
+    ],
+    "look": [
+     2.464,
+     4.363,
+     3.779
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "You're in my way. Say sorry.",
+     "tone": "angry",
+     "style": "low, cold, slow, threatening, looking down",
+     "voice": "ryn",
+     "dur": 2.19,
+     "caption": false,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "21 his last sorry... ",
+   "at": 39.9,
+   "len": 1.7,
+   "shot": {
+    "pos": [
+     2.15,
+     0.3,
+     0.8
+    ],
+    "look": [
+     6.942,
+     0.64,
+     -2.794
+    ],
+    "fov": 48,
+    "to": {
+     "pos": [
+      2.15,
+      0.3,
+      0.8
+     ],
+     "look": [
+      6.947,
+      0.513,
+      -2.798
+     ],
+     "fov": 42
+    },
+    "dur": 1.6,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "No.",
+     "tone": "calm",
+     "style": "small but firm, quiet, brave",
+     "voice": "chip",
+     "dur": 0.39,
+     "caption": false,
+     "at": 1.1
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "stern",
+     "dur": 0.15,
+     "at": 1.1
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.311,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 1.55
+    },
+    {
+     "who": "big",
+     "do": "face",
+     "brow": 0.4,
+     "dur": 0.25,
+     "at": 1.55
+    },
+    {
+     "who": "big",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 1.55
+    }
+   ]
+  },
+  {
+   "name": "22 'What did you say?'",
+   "at": 41.6,
+   "len": 1.55,
+   "shot": {
+    "pos": [
+     10.615,
+     1.441,
+     3.491
+    ],
+    "look": [
+     4.977,
+     1.399,
+     1.439
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "crouch",
+     "to": 0.55,
+     "dur": 0.4,
+     "at": 0
+    },
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "What did you say?",
+     "tone": "angry",
+     "style": "low, cold, slow, disbelieving, leaning down",
+     "voice": "ryn",
+     "dur": 1.28,
+     "caption": false,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "23 'I said no.'",
+   "at": 43.15,
+   "len": 1.25,
+   "shot": {
+    "pos": [
+     2.15,
+     0.3,
+     0.8
+    ],
+    "look": [
+     6.943,
+     0.632,
+     -2.794
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "I said no.",
+     "tone": "calm",
+     "style": "small but firm, louder, brave, steady",
+     "voice": "chip",
+     "dur": 1.07,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1.06,
+     "dur": 0.25,
+     "at": 0.1
+    },
+    {
+     "who": "baker",
+     "do": "look",
+     "to": [
+      0.2,
+      -0.3
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.15
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.45
+     ],
+     "dur": 0.3,
+     "at": 0.15
+    }
+   ]
+  },
+  {
+   "name": "24 he steps at him, sees him, falls",
+   "at": 44.4,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     11.101,
+     1.441,
+     3.757
+    ],
+    "look": [
+     5.463,
+     1.415,
+     1.705
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "crouch",
+     "to": 0,
+     "dur": 0.2,
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "squash",
+     "amount": 0.2,
+     "dur": 0.25,
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "angry",
+     "dur": 0.15,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3,
+      1.05
+     ],
+     "dur": 0.22,
+     "ease": "in",
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.482,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.5,
+     "dur": 0.25,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1,
+     "idle": 0.08,
+     "at": 0.35
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 0.9,
+     "dur": 0.1,
+     "at": 0.35
+    },
+    {
+     "who": "big",
+     "do": "arm",
+     "side": "R",
+     "pose": "shrug",
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "big",
+     "do": "arm",
+     "side": "L",
+     "pose": "shrug",
+     "dur": 0.3,
+     "at": 0.45
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.5,
+      "eye": 1.4
+     },
+     "dur": 0.12,
+     "at": 0.5
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3,
+      1.62
+     ],
+     "dur": 0.25,
+     "ease": "in",
+     "at": 0.7
+    },
+    {
+     "who": "big",
+     "do": "sit",
+     "dur": 0.32,
+     "rot": -180,
+     "hands": "lap",
+     "height": 0.08,
+     "at": 0.8
+    },
+    {
+     "who": "big",
+     "do": "squash",
+     "to": 0.86,
+     "dur": 0.06,
+     "at": 1.1
+    },
+    {
+     "sfx": "kenney/impact-soft-heavy",
+     "gain": 0.9,
+     "loud": true,
+     "reason": "the big one lands on his backside on the setts",
+     "at": 1.1
+    },
+    {
+     "fx": "poof",
+     "pos": [
+      3,
+      0.02,
+      1.77
+     ],
+     "dur": 0.45,
+     "color": "#e9d8c0",
+     "puffs": 8,
+     "sparks": 0,
+     "size": 0.4,
+     "lift": 0.06,
+     "at": 1.1
+    },
+    {
+     "who": "big",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.3,
+     "at": 1.16
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.3,
+     "at": 1.2
+    }
+   ]
+  },
+  {
+   "name": "25 horrified: he nearly squashed him",
+   "at": 45.7,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     2.75,
+     0.4,
+     -0.55
+    ],
+    "look": [
+     3.342,
+     3.447,
+     4.585
+    ],
+    "fov": 72
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "worried",
+     "set": {
+      "open": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.25
+    },
+    {
+     "who": "big",
+     "macro": "say",
+     "line": "Oh no! Sorry! Sorry! I'm so sorry!",
+     "tone": "sad",
+     "style": "panicked, horrified, fast, apologising",
+     "voice": "ryn",
+     "dur": 3.01,
+     "caption": false,
+     "at": 0.7
+    },
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 1.65,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.58,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.3
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 1.3
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.3
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.35
+    }
+   ]
+  },
+  {
+   "name": "26b 'Sorry! I'm so sorry!' the sizes swap back",
+   "at": 47.65,
+   "len": 1.95,
+   "shot": {
+    "pos": [
+     10.127,
+     1.032,
+     3.513
+    ],
+    "look": [
+     4.489,
+     1.025,
+     1.461
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 1.3,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.8,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 0.05
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 0.05
+    },
+    {
+     "who": "big",
+     "do": "grow",
+     "to": 1,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 1,
+     "dur": 0.35,
+     "ease": "out",
+     "at": 1.2
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 1.2
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 1.25
+    }
+   ]
+  },
+  {
+   "name": "27 his own size again",
+   "at": 49.6,
+   "len": 1.3,
+   "shot": {
+    "pos": [
+     0.9,
+     0.85,
+     2.3
+    ],
+    "look": [
+     5.076,
+     0.343,
+     -1.978
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.5
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.05
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.1
+     ],
+     "dur": 0.25,
+     "blink": false,
+     "at": 0.6
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.7
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.78
+    }
+   ]
+  },
+  {
+   "name": "28 'You're in my way.'",
+   "at": 50.9,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     9.458,
+     0.78,
+     2.647
+    ],
+    "look": [
+     3.662,
+     0.78,
+     1.094
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "You're in my way.",
+     "tone": "calm",
+     "style": "calm, polite, gentle, a small smile",
+     "voice": "chip",
+     "dur": 0.85,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.2,
+     "blink": false,
+     "at": 0.1
+    },
+    {
+     "who": "big",
+     "do": "expr",
+     "expr": "sad",
+     "set": {
+      "lid": 0.3
+     },
+     "dur": 0.2,
+     "at": 0.2
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 0.53
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 0.53
+    },
+    {
+     "who": "big",
+     "do": "stand",
+     "dur": 0.45,
+     "at": 1.25
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 180,
+     "dur": 0.35,
+     "at": 1.65
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": 53.253,
+     "dur": 0.25,
+     "at": 1.7
+    },
+    {
+     "who": "baker",
+     "do": "move",
+     "to": [
+      3,
+      -1.48
+     ],
+     "dur": 0.25,
+     "ease": "out",
+     "at": 1.7
+    },
+    {
+     "who": "big",
+     "do": "move",
+     "to": [
+      3.75,
+      2.3
+     ],
+     "dur": 0.6,
+     "ease": "inOut",
+     "at": 1.75
+    },
+    {
+     "who": "baker",
+     "do": "look",
+     "to": [
+      0,
+      -0.05
+     ],
+     "dur": 0.15,
+     "blink": false,
+     "at": 1.8
+    }
+   ]
+  },
+  {
+   "name": "29 the baker sees him: 'Oh! Good morning!'",
+   "at": 52.75,
+   "len": 1.85,
+   "shot": {
+    "pos": [
+     2,
+     1,
+     -2.6
+    ],
+    "look": [
+     3.915,
+     0.311,
+     3.044
+    ],
+    "fov": 42
+   },
+   "do": [
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.35,
+      "eye": 1.254,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "do": "still",
+     "dur": 0.5,
+     "idle": 0.08,
+     "at": 0
+    },
+    {
+     "who": "baker",
+     "macro": "say",
+     "line": "Oh! Good morning!",
+     "tone": "happy",
+     "voice": "odin",
+     "dur": 1.48,
+     "caption": false,
+     "at": 0.1
+    },
+    {
+     "who": "baker",
+     "do": "expr",
+     "expr": "happy",
+     "dur": 0.2,
+     "at": 0.25
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "happy",
+     "set": {
+      "curve": 0.72
+     },
+     "dur": 0.25,
+     "at": 0.45
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.9,
+     "dur": 0.2,
+     "at": 0.45
+    },
+    {
+     "who": "big",
+     "do": "turn",
+     "to": -40,
+     "dur": 0.3,
+     "at": 0.5
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "amount": 0.025,
+     "dur": 0.25,
+     "at": 0.53
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.3,
+     "at": 1.58
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "set": {
+      "curve": 0.4,
+      "eye": 0.95
+     },
+     "dur": 0.35,
+     "at": 1.58
+    }
+   ]
+  },
+  {
+   "name": "30 he walks off happy",
+   "at": 54.6,
+   "len": 2,
+   "shot": {
+    "pos": [
+     0.182,
+     0.78,
+     2.618
+    ],
+    "look": [
+     4.422,
+     0.561,
+     -1.622
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -3.018,
+      0.78,
+      2.598
+     ],
+     "look": [
+      1.222,
+      0.561,
+      -1.642
+     ],
+     "fov": 40
+    },
+    "dur": 2,
+    "ease": "inOut"
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -91.176,
+     "dur": 0.3,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      -2.41,
+      0.09
+     ],
+     "dur": 3.3,
+     "ease": "inOut",
+     "at": 0.1
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0.3,
+      0.15
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "31 the lamp post: 'Sorry.' One notch smaller",
+   "at": 56.6,
+   "len": 5.2,
+   "shot": {
+    "pos": [
+     -1.9,
+     0.85,
+     3
+    ],
+    "look": [
+     -3.459,
+     0.525,
+     -2.785
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "sfx": "kenney/impact-metal-light",
+     "gain": 0.55,
+     "reason": "he walks into the lamp post again",
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 0.88,
+     "dur": 0.07,
+     "at": 1.4
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0.25
+     ],
+     "dur": 0.12,
+     "blink": false,
+     "at": 1.45
+    },
+    {
+     "who": "spud",
+     "do": "squash",
+     "to": 1,
+     "dur": 0.3,
+     "at": 1.47
+    },
+    {
+     "who": "spud",
+     "macro": "say",
+     "line": "Sorry.",
+     "tone": "calm",
+     "style": "automatic, polite, absent-minded",
+     "voice": "chip",
+     "dur": 0.53,
+     "caption": false,
+     "at": 1.75
+    },
+    {
+     "who": "spud",
+     "do": "grow",
+     "to": 0.92,
+     "dur": 0.25,
+     "ease": "out",
+     "at": 2.35
+    },
+    {
+     "sfx": "kenney/impact-soft-medium",
+     "gain": 0.18,
+     "reason": "his body settles smaller (a soft cloth thump)",
+     "at": 2.35
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.3,
+      "eye": 1.254,
+      "curve": -0.075
+     },
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "brow": 0.3,
+     "dur": 0.25,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 0.6000000000000001,
+     "idle": 0.08,
+     "at": 2.6
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      -0.6
+     ],
+     "dur": 0.3,
+     "blink": false,
+     "at": 2.7
+    },
+    {
+     "who": "spud",
+     "macro": "sigh",
+     "at": 3.4
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "deadpan",
+     "set": {
+      "curve": -0.12
+     },
+     "dur": 0.35,
+     "at": 3.45
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "brow": -0.25,
+     "dur": 0.4,
+     "at": 3.45
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.5
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": {
+      "o": [
+       0.03,
+       0.2,
+       0.03
+      ]
+     },
+     "dur": 0.5,
+     "ease": "inOut",
+     "at": 3.5
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": -12,
+     "dur": 0.5,
+     "at": 3.8
+    },
+    {
+     "who": "spud",
+     "do": "look",
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.35,
+     "blink": false,
+     "at": 3.9
+    },
+    {
+     "who": "spud",
+     "do": "still",
+     "dur": 1.5,
+     "idle": 0.1,
+     "sink": 0.012,
+     "at": 4.3
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.85,
+     "dur": 0.15,
+     "at": 5
+    },
+    {
+     "who": "spud",
+     "do": "face",
+     "lid": 0.42,
+     "dur": 0.15,
+     "at": 5.18
+    }
+   ]
+  }
+ ],
+ "visible": [
+  {
+   "from": 0,
+   "to": 1.9,
+   "see": [
+    "spud.face",
+    "driver.face"
+   ],
+   "why": "frame 0: two strangers nearly collide in front of a bakery; he says sorry and shrinks"
+  },
+  {
+   "from": 1.9,
+   "to": 4.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he looks down at himself, smaller"
+  },
+  {
+   "from": 6.75,
+   "to": 8.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he apologises to a flower tub and shrinks again"
+  },
+  {
+   "from": 8.6,
+   "to": 10.95,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he walks into the lamp post and apologises to it (plant for the end)"
+  },
+  {
+   "from": 10.95,
+   "to": 12.3,
+   "see": [
+    "spud"
+   ],
+   "why": "he is small beside the lamp post"
+  },
+  {
+   "from": 15.95,
+   "to": 17.9,
+   "see": [
+    "driver.face",
+    "big"
+   ],
+   "why": "the stranger apologises to the big one: the stranger shrinks, the big one grows"
+  },
+  {
+   "from": 19.4,
+   "to": 20.75,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he tries to stand up for himself"
+  },
+  {
+   "from": 21.95,
+   "to": 23,
+   "see": [
+    "spud",
+    "big"
+   ],
+   "why": "the sizes change side by side"
+  },
+  {
+   "from": 23,
+   "to": 26.9,
+   "see": [
+    "spud",
+    "big"
+   ],
+   "why": "the rule's other half: the big one is huge, Spud is small"
+  },
+  {
+   "from": 30,
+   "to": 31.6,
+   "see": [
+    "spud.face",
+    "big"
+   ],
+   "why": "the big one steps back onto him; Spud apologises"
+  },
+  {
+   "from": 34.3,
+   "to": 35.4,
+   "see": [
+    "spud"
+   ],
+   "why": "tiny Spud waves below the counter; nobody sees him"
+  },
+  {
+   "from": 39.9,
+   "to": 41.6,
+   "see": [
+    "spud.face"
+   ],
+   "why": "his face before 'No.'"
+  },
+  {
+   "from": 44.4,
+   "to": 45.7,
+   "see": [
+    "spud",
+    "big"
+   ],
+   "why": "the big one steps at him, then falls back"
+  },
+  {
+   "from": 46.3,
+   "to": 47.65,
+   "see": [
+    "spud",
+    "big.face"
+   ],
+   "why": "the big one's first sorry: he shrinks, Spud grows"
+  },
+  {
+   "from": 47.65,
+   "to": 49.6,
+   "see": [
+    "spud",
+    "big"
+   ],
+   "why": "sorry after sorry: the sizes swap back"
+  },
+  {
+   "from": 49.6,
+   "to": 50.9,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he is his own size again"
+  },
+  {
+   "from": 50.9,
+   "to": 52.6,
+   "see": [
+    "spud.face",
+    "big.face"
+   ],
+   "why": "the insult comes back word for word"
+  },
+  {
+   "from": 52.75,
+   "to": 54.6,
+   "see": [
+    "spud.face",
+    "baker.face"
+   ],
+   "why": "the baker sees him at last"
+  },
+  {
+   "from": 58,
+   "to": 61.8,
+   "see": [
+    "spud.face"
+   ],
+   "why": "he says sorry to the lamp post again and shrinks a notch"
+  }
+ ],
+ "allowClip": [
+  {
+   "who": "baker",
+   "with": "toque",
+   "from": 0,
+   "to": 61.8,
+   "reason": "the chef's hat is worn"
+  },
+  {
+   "who": "big",
+   "with": "driver",
+   "from": 15.3,
+   "to": 18.5,
+   "reason": "the big one's shoulder knocks the stranger aside (the beat)"
+  },
+  {
+   "who": "big",
+   "with": "spud",
+   "from": 30.1,
+   "to": 31.6,
+   "reason": "the big one steps back onto Spud's foot (the beat)"
+  },
+  {
+   "who": "big",
+   "with": "spud",
+   "from": 44.6,
+   "to": 45.6,
+   "reason": "the big one's step nearly lands on tiny Spud (the beat)"
+  },
+  {
+   "who": "big",
+   "with": "baker",
+   "from": 19,
+   "to": 20.8,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the baker is far background behind the counter; the big one's arm crosses him while Spud speaks"
+  },
+  {
+   "who": "big",
+   "with": "baker",
+   "from": 30.1,
+   "to": 30.3,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the baker is far background; the big one's arm swings past him as he steps back"
+  },
+  {
+   "who": "baker",
+   "with": "spud",
+   "from": 46.3,
+   "to": 47.7,
+   "checks": [
+    "face-covered"
+   ],
+   "reason": "the camera is behind Spud's head (his eyes are not in view); the baker stands behind the camera"
+  }
+ ],
+ "notes": "Generated by storyboards/series/in-this-town/01-sorry-smaller/make-sorry-smaller.mjs."
+}
