@@ -23,11 +23,11 @@ POOLS = {   # (file, from, to, dB). Jonny 19 Nov 14:54: "more dramatic and a bit
 # Sol's music plan (sol-check/SOL-MUSIC.md), the parts Jonny's "more dramatic" keeps, on story time (1.1x video = /1.1):
 # the panic act holds suspense until the alarm, the chase starts on "...panic."; Italy's cheers get the brass phrase
 MOOD = {"panic": "suspense"}
-SPLITS = [("alarm", "drama", 47.197), ("cheer", "heroic", 77.504)]   # story times after the queue opening (19 Nov)
+SPLITS = [("alarm", "drama", 45.3), ("cheer", "heroic", 78.6)]
 # a single low orchestral hit after "the knob is gone" (orchestra-chase's timpani-and-piano hit at 3.15 s)
-HITS = [(31.247, ai("orchestra-chase", 1), 3.15, 1.3, 3)]
+HITS = [(29.35, ai("orchestra-chase", 1), 3.15, 1.3, 3)]
 # (from, to, gain): the bed drops under the plumber's door so the hit lands, and "He gets seven months." lands dry
-DUCKS = [(28.297, 31.197, 0.45), (31.197, 34.497, 0.3), (79.254, 81.004, 0.12)]
+DUCKS = [(26.4, 29.3, 0.45), (29.3, 32.6, 0.3), (80.35, 82.1, 0.12)]
 X = 1.2
 
 

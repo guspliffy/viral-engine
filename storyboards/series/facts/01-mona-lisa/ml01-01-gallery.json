@@ -68,8 +68,8 @@
  },
  "creative": {
   "length": [
-   12.825,
-   12.825
+   10.928,
+   10.928
   ]
  },
  "hook": {
@@ -84,10 +84,10 @@
    "id": "v1",
    "character": "potatobrawl/duchess",
    "at": [
-    5.3,
-    -0.1
+    5.35,
+    -0.9
    ],
-   "face": 90,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 1.1
@@ -96,10 +96,10 @@
    "id": "v2",
    "character": "potatobrawl/dauphin",
    "at": [
-    4.55,
-    0.15
+    5.35,
+    -2.6
    ],
-   "face": 90,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 2.4000000000000004
@@ -108,85 +108,37 @@
    "id": "v3",
    "character": "potatobrawl/agent",
    "at": [
-    3.8,
-    -0.12
+    4.75,
+    0.2
    ],
-   "face": 90,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 3.7
   },
   {
-   "id": "spud",
-   "character": "potatobrawl/spud",
+   "id": "v4",
+   "character": "potatobrawl/tot",
    "at": [
-    3.05,
-    0.12
+    4.75,
+    -1.7
    ],
-   "face": 90,
+   "face": 0,
    "expr": "kind",
    "follow": 0.3,
    "seed": 5
   },
   {
-   "id": "v5",
-   "character": "potatobrawl/assistant",
-   "at": [
-    2.3,
-    -0.1
-   ],
-   "face": 90,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 6.300000000000001
-  },
-  {
-   "id": "wedge",
-   "character": "potatobrawl/wedge",
-   "at": [
-    1.55,
-    0.14
-   ],
-   "face": 90,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 7.6
-  },
-  {
-   "id": "v4",
-   "character": "potatobrawl/tot",
-   "at": [
-    0.8,
-    -0.1
-   ],
-   "face": 90,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 8.9
-  },
-  {
-   "id": "mash",
-   "character": "potatobrawl/mash",
-   "at": [
-    0.05,
-    0.12
-   ],
-   "face": 90,
-   "expr": "kind",
-   "follow": 0.3,
-   "seed": 10.2
-  },
-  {
    "id": "thief",
    "character": "facts/thief",
    "at": [
-    84,
+    72,
     60
    ],
    "face": 0,
    "expr": "kind",
    "follow": 0.3,
-   "seed": 11.5
+   "seed": 6.300000000000001
   }
  ],
  "props": [
@@ -270,14 +222,6 @@
    "frame": "#8a6a2e"
   },
   {
-   "id": "hooks",
-   "kind": "wallhooks",
-   "x": 5.9799999999999995,
-   "y": 0.87,
-   "z": 0,
-   "rot": -90
-  },
-  {
    "id": "ml",
    "kind": "painting",
    "x": 5.96,
@@ -286,6 +230,14 @@
    "rot": -90,
    "tip": 0,
    "cover": 1
+  },
+  {
+   "id": "hooks",
+   "kind": "wallhooks",
+   "x": 5.9799999999999995,
+   "y": 0.87,
+   "z": 0,
+   "rot": -90
   },
   {
    "id": "cap-thief",
@@ -300,35 +252,28 @@
  "captions": [
   {
    "from": 0.1,
-   "to": 2.268,
-   "text": "The Mona Lisa's been missing for a week.",
+   "to": 2.956,
+   "text": "In two days, the whole world will be hunting for her.",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 2.298,
-   "to": 4.955,
-   "text": "What are these people lining up to see?",
+   "from": 2.986,
+   "to": 6.256,
+   "text": "Nineteen eleven. Nobody stops for the Mona Lisa.",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 5.235,
-   "to": 8.154,
-   "text": "A week earlier, nobody stops for her.",
-   "pos": 470,
-   "pop": false
-  },
-  {
-   "from": 8.433,
-   "to": 10.164,
+   "from": 6.536,
+   "to": 8.267,
    "text": "This man put the glass on her.",
    "pos": 470,
    "pop": false
   },
   {
-   "from": 10.194,
-   "to": 12.645,
+   "from": 8.297,
+   "to": 10.748,
    "text": "He knows every door in this museum.",
    "pos": 470,
    "pop": false
@@ -336,29 +281,29 @@
  ],
  "beats": [
   {
-   "name": "00 the queue wide",
+   "name": "01 nobody stops insert",
    "at": 0,
-   "len": 2.298,
+   "len": 2.986,
    "shot": {
     "pos": [
-     1.032,
      4.235,
-     -5.852
-    ],
-    "look": [
-     2.6,
-     0.45,
+     1.157,
      0
     ],
-    "fov": 40,
+    "look": [
+     5.91,
+     1.04,
+     0
+    ],
+    "fov": 30,
     "to": {
      "pos": [
-      1.252,
-      3.705,
-      -5.032
+      4.654,
+      1.128,
+      0
      ]
     },
-    "dur": 2.298,
+    "dur": 2.986,
     "yaw": {
      "keys": [
       [
@@ -366,556 +311,14 @@
        0
       ],
       [
-       2.298,
+       2.986,
        5
       ]
      ],
-     "pivot": 7.144
+     "pivot": 1.679
     }
    },
    "do": [
-    {
-     "who": "v1",
-     "do": "move",
-     "to": [
-      5.3,
-      -0.1
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "move",
-     "to": [
-      4.55,
-      0.15
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "move",
-     "to": [
-      3.8,
-      -0.12
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      3.05,
-      0.12
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "spud",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "move",
-     "to": [
-      2.3,
-      -0.1
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v5",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      1.55,
-      0.14
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "wedge",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "move",
-     "to": [
-      0.8,
-      -0.1
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      0.05,
-      0.12
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.01,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "show",
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "thief",
-     "do": "hide",
-     "at": 0
-    },
-    {
-     "who": "thief",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "hooks",
-     "set": {
-      "x": 5.9799999999999995,
-      "y": 0.87,
-      "z": 0,
-      "rot": -90
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "do": "prop",
-     "id": "ml",
-     "set": {
-      "y": -40
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 0
-    },
-    {
-     "who": "mash",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.2,
-     "at": 0.1
-    },
-    {
-     "who": "v4",
-     "do": "turn",
-     "to": 90,
-     "dur": 0.2,
-     "at": 0.1
-    },
-    {
-     "sfx": "step",
-     "reason": "the story's own sound",
-     "gain": 0.3,
-     "at": 0.1
-    },
-    {
-     "macro": "narrate",
-     "line": "The Mona Lisa's been missing for a week.",
-     "voice": "narrator-quick",
-     "dur": 2.0182,
-     "caption": false,
-     "pos": 470,
-     "gain": 4,
-     "at": 0.1
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      0.25,
-      0.12
-     ],
-     "dur": 0.8,
-     "at": 0.28
-    },
-    {
-     "who": "v4",
-     "do": "move",
-     "to": [
-      0.9,
-      -0.1
-     ],
-     "dur": 0.8,
-     "at": 0.28
-    }
-   ]
-  },
-  {
-   "name": "00 the queue wide",
-   "at": 2.298,
-   "len": 2.837,
-   "shot": {
-    "pos": [
-     -4.17,
-     2.085,
-     0.487
-    ],
-    "look": [
-     2.8,
-     0.6,
-     0
-    ],
-    "fov": 40,
-    "to": {
-     "pos": [
-      -3.194,
-      1.877,
-      0.419
-     ]
-    },
-    "dur": 2.837,
-    "yaw": {
-     "keys": [
-      [
-       2.298,
-       0
-      ],
-      [
-       5.135,
-       -5
-      ]
-     ],
-     "pivot": 7.143
-    }
-   },
-   "do": [
-    {
-     "macro": "narrate",
-     "line": "What are these people lining up to see?",
-     "voice": "narrator-quick",
-     "dur": 2.5071,
-     "caption": false,
-     "pos": 470,
-     "gain": 4,
-     "at": 0
-    },
     {
      "who": "v1",
      "do": "move",
@@ -927,7 +330,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v1",
@@ -936,12 +339,35 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v1",
      "do": "show",
-     "at": 2.825
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
     },
     {
      "who": "v2",
@@ -954,7 +380,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v2",
@@ -963,12 +389,35 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v2",
      "do": "show",
-     "at": 2.825
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
     },
     {
      "who": "v3",
@@ -981,7 +430,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v3",
@@ -990,66 +439,35 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v3",
      "do": "show",
-     "at": 2.825
+     "at": 0
     },
     {
-     "who": "spud",
-     "do": "hide",
-     "at": 2.825
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
+     "who": "v3",
+     "do": "expr",
+     "expr": "kind",
      "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
-     "who": "v5",
-     "do": "hide",
-     "at": 2.825
-    },
-    {
-     "who": "v5",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
+     "who": "v3",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
      "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
-     "who": "wedge",
-     "do": "hide",
-     "at": 2.825
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
+     "who": "v3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
      "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v4",
@@ -1062,7 +480,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v4",
@@ -1071,20 +489,43 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
+     "at": 0
     },
     {
      "who": "v4",
      "do": "show",
-     "at": 2.825
+     "at": 0
     },
     {
-     "who": "mash",
+     "who": "v4",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
      "do": "hide",
-     "at": 2.825
+     "at": 0
     },
     {
-     "who": "mash",
+     "who": "thief",
      "do": "move",
      "to": [
       90,
@@ -1094,38 +535,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 2.825
-    },
-    {
-     "who": "thief",
-     "do": "hide",
-     "at": 2.825
-    },
-    {
-     "who": "thief",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 2.825
-    },
-    {
-     "do": "prop",
-     "id": "hooks",
-     "set": {
-      "x": 5.9799999999999995,
-      "y": 0.87,
-      "z": 0,
-      "rot": -90
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 2.825
+     "at": 0
     },
     {
      "do": "prop",
@@ -1140,14 +550,37 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 2.825
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "In two days, the whole world will be hunting for her.",
+     "voice": "narrator-quick",
+     "dur": 2.7057,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
     }
    ]
   },
   {
    "name": "01 nobody stops wide",
-   "at": 5.135,
-   "len": 3.198,
+   "at": 2.986,
+   "len": 1.725,
    "shot": {
     "pos": [
      -0.135,
@@ -1167,16 +600,16 @@
       -0.975
      ]
     },
-    "dur": 3.198,
+    "dur": 1.725,
     "yaw": {
      "keys": [
       [
-       5.135,
+       2.986,
        0
       ],
       [
-       8.333,
-       5
+       4.711,
+       -5
       ]
      ],
      "pivot": 5.495
@@ -1185,139 +618,47 @@
    "do": [
     {
      "who": "v1",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v1",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v2",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v3",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "expr",
-     "expr": "kind",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v4",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "at": 0
-    },
-    {
-     "who": "v1",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v2",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v3",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v4",
      "do": "turn",
      "to": 0,
      "dur": 0.2,
-     "at": 0.1
+     "at": 0
     },
     {
      "sfx": "step",
      "reason": "the story's own sound",
      "gain": 0.3,
-     "at": 0.1
+     "at": 0
     },
     {
      "macro": "narrate",
-     "line": "A week earlier, nobody stops for her.",
+     "line": "Nineteen eleven. Nobody stops for the Mona Lisa.",
      "voice": "narrator-quick",
-     "dur": 2.7685,
+     "dur": 3.1203,
      "caption": false,
      "pos": 470,
      "gain": 4,
-     "at": 0.1
+     "at": 0
     },
     {
      "who": "v1",
@@ -1327,7 +668,7 @@
       2
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v2",
@@ -1337,7 +678,7 @@
       0.3
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v3",
@@ -1347,7 +688,7 @@
       3.1
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
     },
     {
      "who": "v4",
@@ -1357,12 +698,53 @@
       1.2
      ],
      "dur": 4.4,
-     "at": 0.28
+     "at": 0.18
+    }
+   ]
+  },
+  {
+   "name": "01 nobody stops wide +",
+   "at": 4.711,
+   "len": 1.725,
+   "shot": {
+    "pos": [
+     0.771,
+     1.299,
+     0.622
+    ],
+    "look": [
+     5.2,
+     0.75,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.391,
+      1.222,
+      0.535
+     ]
     },
+    "dur": 1.725,
+    "yaw": {
+     "keys": [
+      [
+       4.711,
+       0
+      ],
+      [
+       6.436,
+       5
+      ]
+     ],
+     "pivot": 4.506
+    }
+   },
+   "do": [
     {
      "who": "v1",
      "do": "hide",
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v1",
@@ -1375,12 +757,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v2",
      "do": "hide",
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v2",
@@ -1393,12 +775,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v3",
      "do": "hide",
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v3",
@@ -1411,66 +793,12 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
-    },
-    {
-     "who": "spud",
-     "do": "hide",
-     "at": 3.186
-    },
-    {
-     "who": "spud",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.186
-    },
-    {
-     "who": "v5",
-     "do": "hide",
-     "at": 3.186
-    },
-    {
-     "who": "v5",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.186
-    },
-    {
-     "who": "wedge",
-     "do": "hide",
-     "at": 3.186
-    },
-    {
-     "who": "wedge",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v4",
      "do": "hide",
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "v4",
@@ -1483,25 +811,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
-    },
-    {
-     "who": "mash",
-     "do": "hide",
-     "at": 3.186
-    },
-    {
-     "who": "mash",
-     "do": "move",
-     "to": [
-      90,
-      90
-     ],
-     "dur": 0.01,
-     "steps": 0,
-     "ease": "linear",
-     "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "thief",
@@ -1514,7 +824,7 @@
      "steps": 0,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "thief",
@@ -1523,25 +833,12 @@
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
-     "at": 3.186
+     "at": 1.713
     },
     {
      "who": "thief",
      "do": "show",
-     "at": 3.186
-    },
-    {
-     "do": "prop",
-     "id": "hooks",
-     "set": {
-      "x": 5.9799999999999995,
-      "y": 0.87,
-      "z": 0,
-      "rot": -90
-     },
-     "dur": 0,
-     "ease": "linear",
-     "at": 3.186
+     "at": 1.713
     },
     {
      "do": "prop",
@@ -1556,13 +853,26 @@
      },
      "dur": 0,
      "ease": "linear",
-     "at": 3.186
+     "at": 1.713
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 1.713
     }
    ]
   },
   {
    "name": "02 the glass man insert",
-   "at": 8.333,
+   "at": 6.436,
    "len": 1.861,
    "shot": {
     "pos": [
@@ -1587,11 +897,11 @@
     "yaw": {
      "keys": [
       [
-       8.333,
+       6.436,
        0
       ],
       [
-       10.194,
+       8.297,
        -5
       ]
      ],
@@ -1664,7 +974,7 @@
   },
   {
    "name": "02 the glass man close",
-   "at": 10.194,
+   "at": 8.297,
    "len": 2.631,
    "shot": {
     "pos": [
@@ -1689,11 +999,11 @@
     "yaw": {
      "keys": [
       [
-       10.194,
+       8.297,
        0
       ],
       [
-       12.825,
+       10.928,
        5
       ]
      ],
@@ -1764,14 +1074,14 @@
    "who": "thief",
    "with": "cap-thief",
    "from": 0,
-   "to": 12.825,
+   "to": 10.928,
    "reason": "the cap is worn"
   },
   {
    "who": "thief",
    "with": "cap-thief",
    "from": 0,
-   "to": 12.825,
+   "to": 10.928,
    "checks": [
     "shell"
    ],
@@ -1780,7 +1090,7 @@
  ],
  "story": {
   "T0": 0,
-  "T1": 12.825
+  "T1": 10.928
  },
- "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 0-12.825 s)."
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 0-10.928 s)."
 }
