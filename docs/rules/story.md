@@ -20,6 +20,10 @@ not scripts or plans. Audience numbers decide packaging, not his score (`docs/ru
 - **Can you picture it?** (15 Nov, on trial): before any work, the idea is written as one title line a stranger can
   picture at once ("world's largest firework" works; "a stock-picking monkey" bombed and no title or thumbnail could
   save it). If the picture is unclear, change the idea, not the packaging.
+- **A topic the audience already knows, with action** (19 Nov, Egypt EP04 Serapeum redo dropped after two glitch
+  rounds; Mona Lisa and unknown-hero facts lost viewers early): before a build or a redo, ask whether OUR viewers know
+  the subject cold and whether it has physical action. An unknown site or a calm documentary debate is dropped before
+  staging, however good the format. Check the topic first; polishing never saves it.
 - **One chain of cause and effect** (10 Nov): every beat happens BECAUSE of the beat before it, written as "X, so Y,
   so Z" from the first second to the last frame. A beat joined by "and then", a time jump or a card is rewritten or
   cut. One mistake or one want starts the video and the last frame answers it. For every outcome ask "what on screen
