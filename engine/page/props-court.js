@@ -48,6 +48,9 @@ import { clamp } from "./util.js";
 //     spin    radians (default 0): the "?" card turns about its vertical axle (x -0.31, z +0.185 from the origin).
 //     card    0 or 1 (default 0): 1 = the card (0.20 x 0.30 x 0.008, "#263543", an amber "?" on each side, correctly oriented) is
 //             shown, the printed "?" is blanked; 0 = the card is hidden. (not in propState: a tween STEPS at its `at`; spec.card works.)
+//     units   spec only: a word per state where YEARS is printed (["", "WEEKS", ...]; "" = none). Left out: YEARS, fixed.
+//     headers spec only: a header per state where SENTENCE is printed (["SENTENCE", ..., "BOSS'S SENTENCE"]); it changes with the
+//             unit as the leaf passes half way, squeezed to 1.20 m when wider. Left out: SENTENCE, fixed (credit-crime, 18 Nov 2026).
 //   Not held.
 //
 // HELD PROPS (SIZE entries in storyboards/lib/grips.mjs; proof: make-grip-tests.mjs --prop <kind> --hold <hold>)
@@ -250,12 +253,14 @@ export const COURT_KINDS = {
 
   sentenceboard(P) {
     const S = P.spec, states = (S.states ?? ["0", "3", "10", "?"]).map(String), n = states.length;
+    const units = S.units ? states.map((_, k) => String(S.units[k] ?? "")) : null;   // per-state unit words; none = the fixed YEARS
+    const heads = S.headers ? states.map((_, k) => String(S.headers[k] ?? "SENTENCE")) : null;   // per-state headers; none = the fixed SENTENCE
     box(1.30, 0.70, 0.09, mat("#24323f", { roughness: 0.6 }), P.whole, 0, 0, 0);
     // the printed face: the header and YEARS (fixed), drawn once
     const ft = canvasTex(1300, 700, (g, w, h) => {
       g.fillStyle = "#202c38"; g.fillRect(0, 0, w, h);
-      inkText(g, FONT, "SENTENCE", 650, 155, 107, 0, CREAM, { track: 0.04, sw: 3 });
-      inkText(g, FONT, "YEARS", 890, 485, 125, 0, CREAM, { track: 0.04, sw: 3 });
+      if (!heads) inkText(g, FONT, "SENTENCE", 650, 155, 107, 0, CREAM, { track: 0.04, sw: 3 });
+      if (!units) inkText(g, FONT, "YEARS", 890, 485, 125, 0, CREAM, { track: 0.04, sw: 3 });
     });
     plane(1.298, 0.698, lit(ft, 0.12), P.whole, 0, 0, 0.0455);
     const brass = mat(BRASS, { roughness: 0.45, metalness: 0.2 });
@@ -279,6 +284,29 @@ export const COURT_KINDS = {
     const cardG = new THREE.Group(); cardG.position.set(BAY.x, BAY.y, BAY.card); P.whole.add(cardG);
     mesh(new THREE.BoxGeometry(0.20, 0.30, 0.008), blockM, cardG, 0, 0, 0);
     const ct = cardTex(); plane(0.20, 0.30, lit(ct, 0.3), cardG, 0, 0, 0.0041); plane(0.20, 0.30, lit(ct, 0.3), cardG, 0, 0, -0.0041, Math.PI);
+    // spec.units: one plane (0.58 x 0.16) per distinct word where YEARS is printed; the one for the state on show is visible (it changes as the
+    // leaf passes half way). A word wider than 0.54 m is squeezed to fit.
+    const unitPl = {};
+    if (units) for (const u of [...new Set(units)].filter(Boolean)) {
+      const t = canvasTex(580, 160, (g, w, h) => {
+        g.fillStyle = "#202c38"; g.fillRect(0, 0, w, h);
+        g.font = FONT(100); const m = g.measureText(u), fs = (100 * 122) / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+        g.font = FONT(fs); const iw = g.measureText(u).width * 1.04;
+        inkText(g, FONT, u, w / 2, h / 2, 125, iw > 540 ? 540 : 0, CREAM, { track: 0.04, sw: 3 });
+      });
+      unitPl[u] = plane(0.58, 0.16, lit(t, 0.12), P.whole, 0.26, -0.135, 0.0458);
+    }
+    // spec.headers: one plane (1.24 x 0.20) per distinct header, on the printed header's line, the one for the state on show visible
+    const headPl = {};
+    if (heads) for (const hd of [...new Set(heads)].filter(Boolean)) {
+      const t = canvasTex(1240, 200, (g, w, h) => {
+        g.fillStyle = "#202c38"; g.fillRect(0, 0, w, h);
+        g.font = FONT(100); const m = g.measureText(hd), fs = (100 * 104) / (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+        g.font = FONT(fs); const iw = g.measureText(hd).width * 1.04;
+        inkText(g, FONT, hd, w / 2, h / 2, 107, iw > 1200 ? 1200 : 0, CREAM, { track: 0.04, sw: 3 });
+      });
+      headPl[hd] = plane(1.24, 0.20, lit(t, 0.12), P.whole, 0, 0.35 - 0.155, 0.0458);
+    }
     let seen = "";
     return {
       grip: 0,
@@ -290,6 +318,8 @@ export const COURT_KINDS = {
         }
         leaf.rotation.x = Math.min(1, f) * Math.PI;
         cardG.visible = card; cardG.rotation.y = ps.spin || S.spin || 0;
+        if (units) { const u = units[f >= 0.5 ? j : i]; for (const k in unitPl) unitPl[k].visible = k === u; }
+        if (heads) { const hd = heads[f >= 0.5 ? j : i]; for (const k in headPl) headPl[k].visible = k === hd; }
       },
     };
   },

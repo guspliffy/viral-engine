@@ -1,0 +1,221 @@
+{
+ "id": "desk07-voice-probe",
+ "title": "Potato Desk 07 voice probe",
+ "idea": "line takes only",
+ "tool": "voice probe: makes and measures the line takes, never a video",
+ "fps": 30,
+ "look": "anime-pro",
+ "profile": "short",
+ "loop": false,
+ "captionBand": [
+  200,
+  1360
+ ],
+ "cleanStart": true,
+ "castLook": "sheet",
+ "set": {
+  "type": "plain",
+  "color": "#c3ccd0",
+  "floor": "#97a3a8"
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.6,
+  "ambience": 0.06
+ },
+ "creative": {
+  "length": [
+   42.5,
+   42.5
+  ]
+ },
+ "cast": [
+  {
+   "id": "vik",
+   "character": "potatobrawl/viking-judge",
+   "at": [
+    -0.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.9,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    0.5,
+    0
+   ],
+   "face": 0,
+   "expr": "kind"
+  }
+ ],
+ "props": [],
+ "captions": [],
+ "beats": [
+  {
+   "name": "probe",
+   "at": 0,
+   "len": 42.5,
+   "shot": {
+    "pos": [
+     0,
+     1.2,
+     6
+    ],
+    "look": [
+     0,
+     0.6,
+     0
+    ],
+    "fov": 40
+   },
+   "do": [
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "You planned the robbery.",
+     "tone": "angry",
+     "style": "deep, fast, sharp, punchy, accusing, snapping like a cop asking what did you steal",
+     "dur": 2.1,
+     "caption": false,
+     "at": 0.2
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "And you just helped. One year.",
+     "tone": "calm",
+     "style": "deep, stern, flat, a judge",
+     "dur": 2.9,
+     "caption": false,
+     "at": 3.3
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Just helped?!",
+     "tone": "angry",
+     "style": "outraged, offended, high, loud",
+     "dur": 1.3,
+     "caption": false,
+     "at": 7.2
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "He got lost in the bank!",
+     "tone": "angry",
+     "style": "outraged, fast, pointing at his friend",
+     "dur": 2.9,
+     "caption": false,
+     "at": 9.5
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "The plan was MINE!",
+     "tone": "angry",
+     "style": "proud, insulted, loud, chin up, slamming his chest",
+     "dur": 2.1,
+     "caption": false,
+     "at": 13.4
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "So you planned it. Ten years.",
+     "tone": "calm",
+     "style": "deep, stern, slow, a little surprised",
+     "dur": 2.9,
+     "caption": false,
+     "at": 16.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "He even packed my snack!",
+     "tone": "happy",
+     "style": "eager, helpful, proud of his friend",
+     "dur": 2.5,
+     "caption": false,
+     "at": 20.4
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "Thank you! I'm the boss!",
+     "tone": "happy",
+     "style": "proud, bragging, loud, triumphant",
+     "dur": 2.5,
+     "caption": false,
+     "at": 23.9
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "The boss gets life.",
+     "tone": "angry",
+     "style": "deep, stern, loud, final",
+     "dur": 2.1,
+     "caption": false,
+     "at": 27.4
+    },
+    {
+     "who": "chip",
+     "macro": "say",
+     "line": "...I was just helping.",
+     "tone": "sad",
+     "style": "tiny, quiet, scared, small voice",
+     "take": 2,
+     "dur": 2.1,
+     "caption": false,
+     "at": 30.5
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "He's the boss.",
+     "tone": "calm",
+     "style": "plain, honest, helpful",
+     "dur": 1.7,
+     "caption": false,
+     "at": 33.6
+    },
+    {
+     "who": "vik",
+     "macro": "say",
+     "line": "Then you're the helper. One year.",
+     "tone": "calm",
+     "style": "deep, stern, flat, a judge",
+     "dur": 2.9,
+     "caption": false,
+     "at": 36.3
+    },
+    {
+     "who": "wedge",
+     "macro": "say",
+     "line": "Thank you!",
+     "tone": "happy",
+     "style": "happy, relieved, grateful",
+     "dur": 1.3,
+     "caption": false,
+     "at": 40.2
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "notes": "Voice probe for Potato Desk 07: makes and measures every take."
+}
