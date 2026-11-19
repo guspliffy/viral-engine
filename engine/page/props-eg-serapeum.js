@@ -554,7 +554,8 @@ function buildUnfinished(parent, S) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
-// the pale dust motes of a lamp pool or a beam: camera-facing quads wrapped on the clip clock
+// the pale dust motes of a lamp pool or a beam: camera-facing quads wrapped on the clip clock; they fade out within ~1 m of the
+// lens (EG04 Sol r1: motes passing right in front of the camera bloomed into white spots over the faces)
 function motes(parent, list, { color = [0.78, 0.7, 0.57], peak = 0.33, travel = 0.6, order = 7 }) {
   const pos = [], uv = [], hs = [], vs = [], idx = [];
   list.forEach((m, i) => {
@@ -567,7 +568,7 @@ function motes(parent, list, { color = [0.78, 0.7, 0.57], peak = 0.33, travel = 
     uniforms: { uT: { value: 0 }, uA: { value: 1 }, uL: { value: travel } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     vertexShader: `uniform float uT, uL; attribute vec4 aH, aV; varying vec2 vUv; varying float vF;
       void main() { vUv = uv; float f = fract(uT * aV.w / uL + aH.x); vec3 p = position + aV.xyz * uL * (f - 0.5); vF = sin(3.14159 * f) * aH.w;
-        vec4 c = modelViewMatrix * vec4(p, 1.0); c.xy += (uv - 0.5) * 2.0 * aH.y; gl_Position = projectionMatrix * c; }`,
+        vec4 c = modelViewMatrix * vec4(p, 1.0); vF *= smoothstep(0.45, 1.1, -c.z); c.xy += (uv - 0.5) * 2.0 * aH.y; gl_Position = projectionMatrix * c; }`,
     fragmentShader: `uniform float uA; varying vec2 vUv; varying float vF; void main() { float r = length(vUv - 0.5) * 2.0; float a = uA * vF * smoothstep(1.0, 0.2, r) * ${peak.toFixed(3)}; if (a < 0.003) discard; gl_FragColor = vec4(vec3(${color.map((v) => v.toFixed(3)).join(",")}), a); }`,
   });
   m.userData.noOutline = true;

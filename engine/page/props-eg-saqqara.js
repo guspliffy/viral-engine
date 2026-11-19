@@ -572,10 +572,10 @@ function wetCanvas(side) {
     for (let i = 0; i < 21; i++) { const p = pts[i], n = pts[(i + 1) % 21], mx = (p[0] + n[0]) / 2, my = (p[1] + n[1]) / 2, dx = mx - WET.w / 2, dy = my - WET.l / 2, d = Math.hypot(dx / (WET.w / 2), dy / (WET.l / 2)) || 1, bx = (dx / (WET.w / 2)) / d, by = (dy / (WET.l / 2)) / d, s = WET.scallop * 2 * (0.7 + 0.5 * H(i, side, 3)); g.quadraticCurveTo(mx + bx * s * 0.5, my + by * s, n[0], n[1]); }
     g.closePath();
   };
-  for (let k = 0; k < 6; k++) { path(); g.strokeStyle = rgba(C.wet, 0.1); g.lineWidth = WET.feather * 2 * (1 - k / 6); g.lineJoin = "round"; g.stroke(); }   // the feathered rim
-  path(); g.fillStyle = rgba(C.wet, 0.8); g.fill();
+  for (let k = 0; k < 6; k++) { path(); g.strokeStyle = rgba(sh(C.wet, 0.62), 0.12); g.lineWidth = WET.feather * 2 * (1 - k / 6); g.lineJoin = "round"; g.stroke(); }   // the feathered rim
+  path(); g.fillStyle = rgba(sh(C.wet, 0.62), 0.88); g.fill();   // darker than the sand in the sledge's shade too (EG04 Sol r1: #896249 at .8 vanished there)
   path(); g.save(); g.clip();
-  for (let i = 0; i < 18; i++) blob(g, WET.w * H(i, side, 4), WET.l * H(i, side, 5), 0.06 + 0.12 * H(i, side, 6), 0.1 + 0.3 * H(i, side, 7), 0, sh(C.wet, 0.7), 0.25);   // deeper wet in the middle
+  for (let i = 0; i < 18; i++) blob(g, WET.w * H(i, side, 4), WET.l * H(i, side, 5), 0.06 + 0.12 * H(i, side, 6), 0.1 + 0.3 * H(i, side, 7), 0, sh(C.wet, 0.45), 0.25);   // deeper wet in the middle
   for (let i = 0; i < 34; i++) { const x = WET.w * H(i, side, 8), y = WET.l * H(i, side, 9); line(g, x, y, x + (H(i, side, 10) - 0.5) * 0.04, y + 0.05 + 0.2 * H(i, side, 11), 0.003 + 0.004 * H(i, side, 12), H(i, side, 13) < 0.5 ? sh(C.wet, 0.6) : hex("#B89270"), 0.3); }   // wet ripples and glints
   g.restore();
   return tex(X.c);
@@ -601,8 +601,9 @@ function buildWet(P) {
   return {
     grip: 0,
     apply(ps) {
-      const wet = clamp(num(ps, S, "wet")), tk = clamp(num(ps, S, "track")), k = lerp(0.4, 1, smooth(wet));
-      for (const p of patches) { p.visible = wet > 0.001; p.scale.set(k, 1, k); p.material.opacity = smooth(wet * 1.8); }
+      const wet = clamp(num(ps, S, "wet")), tk = clamp(num(ps, S, "track")), k = lerp(0.12, 1, smooth(wet));
+      // the patches grow from a wet spot (scale only: an opacity tween stuck at its first value in a sequential render, EG04 19 Nov)
+      for (const p of patches) { p.visible = wet > 0.001; p.scale.set(k, 1, k); }
       for (const t of tracks) { t.visible = tk > 0.001; t.scale.z = Math.max(0.001, tk); t.position.z = 0.95 - (L * tk) / 2; }
     },
   };
