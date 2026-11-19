@@ -448,9 +448,13 @@ look(S2, "chip", AT_US, 0.01); expr(S2, "chip", "deadpan", 0.01); expr(S2, "imp"
 arm(S2, "imp", "L", "rest", 0.01);
 e = snap(r3(S2 + 0.1));
 poof(e, [BX + 1.63, 0.62, 0.30], 0.7);
-poof(e, [IMP_M[0], 0.45, r3(IMP_M[1] + 0.05)], 0.45);
+// one big low puff over the imp and the whole fork shaft (it runs behind him to screen right), long enough to hide
+// the fork going and the hands turning from the hold to the kneading (full render 1: the fork vanished in the open)
+// (puffs only rise from pos, so it sits under the floor and in front of the shaft; z toward the camera)
+c.at(r3(e), { fx: "poof", pos: [r3(IMP_M[0] + 0.30), -0.22, r3(IMP_M[1] + 0.12)], dur: 0.7, color: "#f7fafc", puffs: 16, sparks: 0, size: 0.75, lift: 0, sound: false });
+sfx(r3(e), "ai/cushion-poof", { gain: 0.55 });
 A(r3(e + 0.12), "imp", "release", { prop: "fork", dur: 0 }); c.prop(r3(e + 0.12), "fork", { scale: 0.001 }, 0);   // gone in the puff
-arm(r3(e + 0.14), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.16, "out"); arm(r3(e + 0.14), "imp", "L", { o: [0.08, 0.80, 0.22] }, 0.16, "out"); grip(r3(e + 0.14), "imp", "both", "relaxed", 0.12);
+arm(r3(e + 0.14), "imp", "R", { o: [0.08, 0.80, 0.17] }, 0.3, "inOut"); arm(r3(e + 0.14), "imp", "L", { o: [0.08, 0.80, 0.22] }, 0.3, "inOut"); grip(r3(e + 0.14), "imp", "both", "relaxed", 0.2);
 hideProp(r3(e + 0.05), "fries"); showProp(r3(e + 0.05), "cake", 0.40);
 for (let k = 0; k < 3; k++) hideProp(r3(e + 0.05), `plate${k}`);   // Sol r1 #9: a fries carton stayed beside the cake
 peelX(r3(e + 0.25), 1);
