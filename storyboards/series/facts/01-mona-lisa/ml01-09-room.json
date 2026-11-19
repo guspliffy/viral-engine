@@ -1,0 +1,740 @@
+{
+ "id": "ml01-09-room",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scoreroom",
+  "state": "sunday",
+  "light": "golden",
+  "key": [
+   -1.5,
+   2.2,
+   4
+  ],
+  "shadowSize": 5,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 60.169,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   11.15,
+   11.15
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    -0.35,
+    -1.4
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "insp",
+   "character": "facts/inspector",
+   "at": [
+    1,
+    0.7
+   ],
+   "face": -103.086,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "pad",
+   "kind": "daypad",
+   "x": -0.6,
+   "y": 1.25,
+   "z": -2.47,
+   "rot": 0,
+   "count": 1
+  },
+  {
+   "id": "trunk",
+   "kind": "trunk",
+   "x": -1.25,
+   "y": 0,
+   "z": -1.6,
+   "rot": 0,
+   "open": 0
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": -1,
+   "y": 0.15,
+   "z": -1.6,
+   "rot": 90,
+   "tip": -90,
+   "cover": 0,
+   "wrap": 0.3
+  },
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.59,
+   "text": "Then the police knock on his door.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.62,
+   "to": 3.72,
+   "text": "Where were you on Monday?",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  },
+  {
+   "from": 3.77,
+   "to": 6.313,
+   "text": "She's in the trunk. One metre away.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 6.343,
+   "to": 7.25,
+   "text": "They leave.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 8.679,
+   "to": 9.77,
+   "text": "Two years.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "11 his room wide",
+   "at": 0,
+   "len": 1.62,
+   "shot": {
+    "pos": [
+     -0.35,
+     1.055,
+     2.145
+    ],
+    "look": [
+     -0.35,
+     0.62,
+     -1.4
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.35,
+      0.994,
+      1.649
+     ]
+    },
+    "dur": 1.62,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.62,
+       5
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -0.35,
+      -1.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "move",
+     "to": [
+      1,
+      0.7
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "turn",
+     "to": -103.086,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "x": -1.25,
+      "y": 0,
+      "z": -1.6,
+      "rot": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": -1,
+      "y": 0.15,
+      "z": -1.6,
+      "rot": 90,
+      "cover": 0,
+      "tip": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "sfx": "knock-tap",
+     "reason": "the story's own sound",
+     "gain": 0.7,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "open": 0.1
+     },
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "insp",
+     "do": "turn",
+     "to": -168.44,
+     "dur": 0.363,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Then the police knock on his door.",
+     "voice": "narrator-quick",
+     "dur": 1.3395,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "insp",
+     "do": "move",
+     "to": [
+      0.55,
+      -1.5
+     ],
+     "dur": 1.4,
+     "at": 0.362
+    }
+   ]
+  },
+  {
+   "name": "11 his room two",
+   "at": 1.62,
+   "len": 2.15,
+   "shot": {
+    "pos": [
+     0.1,
+     1.035,
+     2.835
+    ],
+    "look": [
+     0.1,
+     0.585,
+     -1.45
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.1,
+      0.972,
+      2.235
+     ]
+    },
+    "dur": 2.15,
+    "yaw": {
+     "keys": [
+      [
+       1.62,
+       0
+      ],
+      [
+       3.77,
+       -5
+      ]
+     ],
+     "pivot": 4.309
+    }
+   },
+   "do": [
+    {
+     "who": "insp",
+     "do": "talk",
+     "line": "where were you on Monday?",
+     "tone": "question",
+     "dur": 1.7,
+     "blink": false,
+     "voice": false,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "11 his room insert",
+   "at": 3.77,
+   "len": 2.573,
+   "shot": {
+    "pos": [
+     -2.696,
+     1.159,
+     0.123
+    ],
+    "look": [
+     -1.25,
+     0.25,
+     -1.6
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.407,
+      0.977,
+      -0.222
+     ]
+    },
+    "dur": 2.573,
+    "yaw": {
+     "keys": [
+      [
+       3.77,
+       0
+      ],
+      [
+       6.343,
+       5
+      ]
+     ],
+     "pivot": 2.426
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "She's in the trunk. One metre away.",
+     "voice": "narrator-quick",
+     "dur": 2.3931,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "11 his room wide",
+   "at": 6.343,
+   "len": 0.936,
+   "shot": {
+    "pos": [
+     -0.966,
+     1.055,
+     2.091
+    ],
+    "look": [
+     -0.35,
+     0.62,
+     -1.4
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.879,
+      0.994,
+      1.602
+     ]
+    },
+    "dur": 0.937,
+    "yaw": {
+     "keys": [
+      [
+       6.343,
+       0
+      ],
+      [
+       7.28,
+       -5
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
+    {
+     "who": "insp",
+     "do": "turn",
+     "to": 15.154,
+     "dur": 0.641,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "They leave.",
+     "voice": "narrator-quick",
+     "dur": 0.7566,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "insp",
+     "do": "move",
+     "to": [
+      1.2,
+      0.9
+     ],
+     "dur": 1,
+     "at": 0.401
+    },
+    {
+     "who": "insp",
+     "do": "hide",
+     "at": 0.924
+    },
+    {
+     "who": "insp",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.924
+    }
+   ]
+  },
+  {
+   "name": "11 his room insert",
+   "at": 7.279,
+   "len": 1.4,
+   "shot": {
+    "pos": [
+     -2.377,
+     1.609,
+     -1.14
+    ],
+    "look": [
+     -1.25,
+     0.18,
+     -1.55
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -2.208,
+      1.395,
+      -1.201
+     ]
+    },
+    "dur": 1.4,
+    "yaw": {
+     "keys": [
+      [
+       7.279,
+       0
+      ],
+      [
+       8.679,
+       5
+      ]
+     ],
+     "pivot": 1.866
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "open": 0.55
+     },
+     "dur": 0.4,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "open": 0
+     },
+     "dur": 0.3,
+     "ease": "in",
+     "at": 1.1
+    }
+   ]
+  },
+  {
+   "name": "11 his room insert",
+   "at": 8.679,
+   "len": 2.471,
+   "shot": {
+    "pos": [
+     -0.6,
+     1.367,
+     -0.725
+    ],
+    "look": [
+     -0.6,
+     1.25,
+     -2.4
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      -0.6,
+      1.355,
+      -0.892
+     ]
+    },
+    "dur": 2.471,
+    "yaw": {
+     "keys": [
+      [
+       8.679,
+       0
+      ],
+      [
+       11.15,
+       -5
+      ]
+     ],
+     "pivot": 1.679
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "pad",
+     "set": {
+      "count": 843
+     },
+     "dur": 2.4,
+     "ease": "in",
+     "at": 0
+    },
+    {
+     "sfx": "flutter",
+     "reason": "the story's own sound",
+     "gain": 0.4,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Two years.",
+     "voice": "narrator-quick",
+     "dur": 0.9405,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 11.15,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 11.15,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  }
+ ],
+ "story": {
+  "T0": 60.169,
+  "T1": 71.319
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 60.169-71.319 s)."
+}
