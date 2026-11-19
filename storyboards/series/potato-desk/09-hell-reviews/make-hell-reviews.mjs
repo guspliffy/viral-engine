@@ -28,7 +28,7 @@ const F = (t) => r3(Math.round(t * 30) / 30);
 const F2 = (t) => r3(Math.round(t * 15) / 15);
 
 // measured spoken lengths (node qa/lines.mjs desk09-voice-probe.json, 19 Nov 2026), in LINES order
-const DUR = [1.33, 1.33, 1.04, 0.88, 2.21, 1.86, 0.69, 1.28, 1.07, 0.84, 1.42, 0.86, 1.01, 0.83, 1.04, 1.93, 2.49, 0.84, 1.30, 1.76, 0.89, 0.54, 1.13, 0.85, 1.12, 1.33, 2.70, 0.90];
+const DUR = [1.33, 1.33, 1.04, 1.01, 2.21, 1.86, 0.69, 1.28, 1.07, 0.84, 1.42, 0.86, 1.01, 0.83, 1.04, 1.93, 2.49, 0.84, 1.30, 1.76, 0.89, 0.54, 1.13, 0.85, 1.12, 1.33, 2.70, 0.90];
 const T = new Array(LINES.length).fill(null);
 const END_OF = (i) => r3(T[i] + DUR[i]);
 
@@ -462,7 +462,7 @@ c.prop(r3(e + 0.03), "balloon", { cluster: 1 }, 0.1);
 hideProp(r3(e + 0.03), "island"); hideProp(r3(e + 0.03), "rock");
 showProp(r3(e + 0.03), "beach", 1.05); showProp(r3(e + 0.03), "sunset", 1.0);
 c.prop(r3(e + 0.03), "speaker", { bpm: 112 }, 0);
-sfx(r3(e + 0.05), "jingle-sax", { gain: 0.6 });
+// (no jingle on the party fix: the score plays through; two tunes at once clashed)
 peelX(r3(e + 0.3), 3); peelX(r3(e + 0.5), 4);
 look(r3(e + 0.4), "chip", [-0.8, 0.5]);
 t = say(22, r3(e + 0.8));
@@ -547,8 +547,8 @@ write(import.meta.url, {
   physics: true, animeTiming: true,
   set: { type: "plain", color: "#9fd0f0", floor: "none", light: "soft", para: 0, aperture: 0,
     lighting: 2, hatch: { boil: 0.25 }, cel: { at: 0.25 }, ink: true, satsuei: true },
-  music: { file: "ai/elevator-bossa/elevator-bossa-01.ogg", until: T[12], lowCut: 150, gain: 0.22 },
-  sound: { sfx: 0.6, ambience: 0.05, guard: true, signature: false, surface: "indoor", scenes: ["ui", "jingle"] },   // ui: the review tablet and the badge; jingle: the speaker's three-note loop and the real party tune
+  music: { file: "hell-reviews/hell-reviews-score.ogg", lock: false, dip: false, lowCut: 150, gain: 0.24 },   // make-score.mjs: one score through the whole clip (Jonny 19 Nov: no elevator music, the music must not stop)
+  sound: { sfx: 0.6, ambience: 0.05, guard: true, signature: false, surface: "indoor", scenes: ["ui", "jingle"] },   // ui: the review tablet and the badge; jingle: the speaker's three-note loop
   creative: { length: [50, 66] },
   hook: { show: ["reaper", "chip", "badgeH", "badgeX"], hint: 0, what: "a desk between heaven 3.1 stars and hell 4.9 stars; heaven or hell?" },
   cast, props, captions: c.captions, beats, visible: c.visible, ...(c.hitStops.length && { hitStop: c.hitStops }),
