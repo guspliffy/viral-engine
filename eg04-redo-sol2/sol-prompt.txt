@@ -1,0 +1,51 @@
+You are checking an animated vertical short (1080x1920, 30 fps, potato cartoon characters, Three.js renderer) for bugs, glitches
+and logic issues BEFORE its final render. You see it only as contact sheets (the attached PNGs, timestamps on every frame):
+sheet-NN.png = the whole video at 3 fps; strip-*.png = 12 fps strips of the shots changed since your round 1.
+Timestamps are on the 1x cut (before the speed-up: the final plays 0-7.8 s at 1.045x and the rest at 1.15x).
+
+THE VIDEO: "Sixty tonnes. For one cow." (the Serapeum of Saqqara, Egypt), ~78 s at 1x. A debate: SPUD (teal knit sweater,
+headlamp band) is the believer (ancient aliens); THE ARCHAEOLOGIST (plum wide-brim hat, violet field jacket, tunnel lamp under
+the brim) is the sceptic and answers each claim with one real fact. The pictures behind the facts show "Spud's version" (aliens
+with a cutter and a ship light) and the real method (workers, wet sand, ropes, levers).
+Story chain (each beat a BUT or THEREFORE):
+0-1 Saqqara desert, "Under Egypt:" / 1-7.8 the tunnel of granite boxes, "twenty-four sixty-tonne boxes. All empty. Who really put
+them there?", the counter BOX 1-24, Spud: "All that... for one dead cow?" / 7.8-14 she steps out of a side chamber: "Not a cow.
+The holy bull Apis. They worshipped him as a living god." / 14-18.2 Memphis, the dead bull on its bier: "When he died, they had
+seventy days to bury him." 70 DAYS / 18.2-21.8 Spud's fingertip on the polished inner wall: "But the inside is perfect. That's
+machine work." / 21.8-25.1 her close-up: "Copper tools, sand, and a lot of patience." / 25.1-26.5 far behind, an alien ducks away, a
+turquoise glow goes out / 26.5-29.7 Spud's version: the alien cutter at the quarry: "Sixty tonnes. How do you even move that?" /
+29.7-32.8 the barge on the Nile, DAY 41: "Granite from the south. By boat." / 32.8-36 four workers push, nothing moves, "4" /
+36-37.9 water poured on the sand: "Wet sand halves the pull." / 37.9-40.4 forty pull and it slides, "40": "Fine. Forty works." /
+40.4-43.3 the tunnel mouth, "≈3 m": "But forty don't fit down here." / 43.3-52.8 inside: eight men with levers ("So eight men.
+Levers. Inch by inch."), the long way, it jams, a lever snaps: "It's stuck." / 52.8-56.3 her close-up, DAY 70: "And the god had to
+be buried. Day seventy." / 56.3-60.8 the box is in its chamber, a turquoise light fades, three aliens tiptoe away / 60.8-65.4 the
+two: "On time? How?" "Practice. They did it twenty-four times." / 65.4-68.4 Spud slides a lid open: "So where's the bull?" /
+68.4-72.2 "Robbed, long ago. Every box was found empty." / 72.2-75.2 Spud looks up at the ceiling crack: "Or... someone took them
+home." / 75.2-78.2 END: the unfinished box they left in the corridor; she turns to him, one brow up, a small smile.
+
+ALREADY JUDGED BY THE PRODUCER (do not list again unless it got worse): in the previous version he accepted the haul crew's pull,
+the lever stroke, the quarry cut without a groove, the bier, the counter over the same boxes, and the lid-slide hands as they are.
+
+WHAT TO CHECK: anything that would look broken or wrong to a viewer: popping or teleporting characters or props, limbs or props
+through bodies, walls or boxes, faces hidden or cropped at the frame edge, captions over faces, the wrong character on screen for
+who speaks, eye lines that miss the other character, a shot that does not show what the line says, a logic gap in the chain,
+and anything about the archaeologist that reads silly or off-model (she must read as a trustworthy expert).
+
+THIS IS ROUND 2. Your round-1 list and what was done (check each fix; list it again only if it still shows):
+ 1. aliens seem to solve the jam: KEPT ON PURPOSE. It is the episode's joke, approved by the producer: she credits practice while
+    the picture shows Spud's version (the aliens). Do not list it again.
+ 2. her boots sank at the chamber step (8.2-9.1): she now walks on the chamber floor to its edge, steps up, then into the aisle.
+ 3. doorway shot (40.4-43.3): camera higher, over the workers, onto the gap between box and jamb.
+ 4. end shot (75.2-78.2): camera pulled back, the unfinished box shows down to the floor and the gap beside it.
+ 5. end shot: she turns to him earlier, a small dry smile, one brow up.
+ 6. "someone took them home": his head, eyes and headlamp tip up to the crack.
+ 7. "Robbed, long ago": camera higher, she stands a little further out; her face shows above his shoulder.
+ 8. pour: the wet patch now grows from where the stream lands; "40" appears on the cut to the pullers.
+ 9. DAY 70 close-up: Spud is out of her shot; her face is serious (focused), not smiling.
+ 10. "the inside is perfect": fingertip inside the lip; more headroom.
+ 11. the alien's duck ends deeper in the side chamber (no glove left at the jamb).
+ 12. "On time? How?": both nearer the middle, camera a step back.
+ 13. dust motes over Spud's face: his headlamp's motes are smaller and fewer; the room's motes fade near the lens.
+
+ANSWER FORMAT (write it to glitches.md in this folder): a numbered list, worst first; each item = timestamp (1x), what is wrong,
+the smallest fix (camera, position, timing). Then one line: VERDICT: PASS (nothing a viewer would see as broken) or FIX n.
