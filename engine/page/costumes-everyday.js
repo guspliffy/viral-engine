@@ -686,6 +686,202 @@ function dauphin(C, ch, P) {
   return wt ? { sl, apply: (st, t) => wt.apply(t) } : sl;
 }
 
+// ---------- the archaeologist (Egypt debate shorts, 19 Nov 2026): wide plum hat, violet field jacket, fig ankle boots, an optional lamp ----
+// Her reference sheet (references/cast/archaeologist-reference-sheet-2026-11-19.png) and numbers (archaeologist-design-2026-11-19.md sections 2-5)
+// are the target; every size below is a share of HER OWN measured body (height Hh, widest width Wd and depth Dp, read off the surface),
+// so the kit follows the body in characters/ancient-aliens/archaeologist.json. costume keys (hex): hat "#48344F" (crown + brim top),
+// hatEdge "#B2A0C2" (the lilac rim band), hatUnder "#34263F" (brim underside, lower rim, crown slit, lamp housing), jacket "#7965A1",
+// jacketDark "#514268" (seams, stitching, placket, pocket outline), facing "#C4B4D7" (the broken chalk line on the collar's edge),
+// buttons, boots "#544052", sole "#382B3C", lamp (boolean, default false: the small tunnel lamp clipped under the front-left brim).
+// The conservation brush is NOT part of her: it is the prop kind "archbrush" (props-archaeologist.js).
+//   hat     a soft field hat (the sheet): a deep rounded dome crown 0.23 Hh tall sitting down over the head (a little wider than it, never inside
+//           it), its brim 1.17 Wd x 1.18 Dp across, meeting the crown at 0.92 Hh (the inner edge just above the brows) and curving DOWN toward its
+//           edge, 0.058 Hh at the sides and 0.072 Hh at the front and back, level (no pitch: the droop does it, and the front edge stays off the eyes);
+//           a thick rolled lilac edge band, a dark underside, one broken cream stitch line on the crown's front-left and a dark slit at its top
+//           where the leaf comes through (sprout.lift [0.095, 0] in her file puts the stem inside the crown)
+//   jacket  0.15 Hh .. 0.45 Hh at the front (0.6 on the shoulders, 0.64 at the back), close fitting, a flat folded-down collar lying on the shoulders
+//           (its top at the front about 0.48 Hh: the mouth and both cheeks are clear) with a broken chalk-violet line on its edge, an off-centre placket
+//           (toward her left, +x) with 3 buttons, one patch pocket on her LEFT chest, a hem stitch; sleeves from the shoulder (limbs.shoulder 0.05 in her
+//           file) to 0.06 before the hand, a seam ring where the cuff starts, one crease at each elbow in the sleeve's painted map
+//   boots   on the feet (children of each foot, so they take its step and turn): 0.23 Wd wide, 0.38 Dp long, 0.13 Hh tall, a dark sole,
+//           one toe seam each and a mauve scuff, the right one's on its heel side
+//   lamp    costume.lamp true: a plum box 0.12 Wd x 0.05 Hh x 0.07 Dp under the front-left brim (0.31 Wd to her left) with an amber lens disc
+//           (emissive only: no real light, the anime look ignores point lights anyway), a screw mark; hangs on the hat, so it turns with it
+
+// the body's own extents (metres): height, widest width and depth (read off the surface), and the floor-to-base leg height
+function bodySize(ch) {
+  let w = 0, d = 0; for (let i = 0; i <= 80; i++) { const ph = -1.5 + (3 * i) / 80; w = Math.max(w, Math.abs(ch.surf(PI / 2, ph).pos.x)); d = Math.max(d, Math.abs(ch.surf(0, ph).pos.z)); }
+  return { Hh: ch.ry * 2, Wd: w * 2, Dp: d * 2, base: ch.cy - ch.ry };
+}
+// a point and an outward normal on the garment G at (th, v): v 0 = its top edge, 1 = its hem; off: metres from the inside of the cloth (thick = the outside)
+function onG(G, th, v, off) {
+  const e = 0.004, p = G.at(th, v, off), a = G.at(th + e, v, off).sub(G.at(th - e, v, off)), b = G.at(th, Math.min(1, v + 0.01), off).sub(G.at(th, Math.max(0, v - 0.01), off)), n = new THREE.Vector3().crossVectors(b, a).normalize();
+  if (n.x * p.x + n.z * p.z < 0) n.negate();
+  return { p, n };
+}
+// a flat rectangle of cloth lying on the garment (th0..th1, v0..v1) `off` from its inside
+function patchOn(G, th0, th1, v0, v1, off, nu = 14, nv = 14) {
+  const pos = [], idx = [];
+  for (let j = 0; j <= nv; j++) for (let i = 0; i <= nu; i++) { const q = G.at(th0 + (th1 - th0) * (i / nu), v0 + (v1 - v0) * (j / nv), off); pos.push(q.x, q.y, q.z); }
+  for (let j = 0; j < nv; j++) for (let i = 0; i < nu; i++) { const a = j * (nu + 1) + i, b = a + 1, c = a + nu + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); return g;
+}
+// a hand-drawn line on the garment along path(t) -> [th, v], r thick in the middle and thin at its ends; gaps: [[t0, t1]...] it skips (a broken stitch line)
+function lineOn(G, path, r, off, n = 40) {
+  const pts = []; for (let i = 0; i <= n; i++) { const [th, v] = path(i / n); pts.push(G.at(th, v, off)); }
+  const c = new THREE.CatmullRomCurve3(pts), g = new THREE.TubeGeometry(c, n * 2, r, 5, false), P = g.attributes.position, q = new THREE.Vector3(), w = new THREE.Vector3();
+  for (let i = 0; i <= n * 2; i++) { c.getPointAt(i / (n * 2), q); const k = 0.55 + 0.45 * Math.sin(PI * (i / (n * 2))); for (let j = 0; j <= 5; j++) { const m = i * 6 + j; w.fromBufferAttribute(P, m).sub(q).multiplyScalar(k).add(q); P.setXYZ(m, w.x, w.y, w.z); } }
+  return g;
+}
+
+// felt: a soft wash and short dry-brush strokes (each its own place, no repeat); `pale` darker marks only
+function feltTexture(W, H, seed, n, swap = false) {
+  return paintTex(W, H, seed, 0.97, 0.035, (stroke, h) => {
+    for (let i = 0; i < n; i++) {
+      const x = h(i, 1) * W, y = h(i, 2) * H, len = (W / 1024) * (24 + 80 * h(i, 3)), a = (h(i, 4) - 0.5) * 1.3, w = 1 + 2.2 * h(i, 5), dark = h(i, 6) < 0.55;
+      stroke(x, y, x + Math.sin(a) * len, y + Math.cos(a) * len * 0.5, w, w * 0.5, dark ? 0.05 + 0.06 * h(i, 7) : 0.035 + 0.04 * h(i, 7), dark);
+    }
+  }, swap);
+}
+
+function archHat(C, ch, S, P) {
+  const { Hh, Wd, Dp, base } = S, hat = new THREE.Group(), seed = P.seed;
+  const col = C.hat || "#48344F", edge = C.hatEdge || "#B2A0C2", under = C.hatUnder || "#34263F", stitchC = C.stitch || "#dccfb0";
+  const A = 0.585 * Wd, B = 0.59 * Dp, T = 0.03 * Hh, rho = T / 2, CH = 0.23 * Hh, Y0 = base + 0.92 * Hh;   // brim semi-axes (1.17 Wd across), thickness, crown height, where the brim meets the crown
+  hat.position.set(0, Y0, P.fwd ?? 0); hat.rotation.set(0, 0, 0);   // level: the soft brim droops by itself (the spec's 4 degree pitch would lower its front edge over the eyes)
+  const feltM = (c, map) => { const m = clothMat(c, { side: THREE.DoubleSide, roughness: 1 }); if (map) m.map = map; return m; };
+  const top = feltM(col, feltTexture(512, 256, seed, 150)), lilac = feltM(edge), dark = feltM(under);
+  // the body's half widths (x, z) at a height: the crown has to stand outside them, as a soft hat sits down over the head
+  const bodyR = (y) => { const ph = elOfY(ch, y); return [Math.abs(ch.surf(PI / 2, ph).pos.x), Math.abs(ch.surf(0, ph).pos.z)]; };
+  // the brim curves DOWN toward its edge, more at the front and back than at the sides
+  const droop = (r, az) => { const q = Math.max(0, (r - 0.3) / 0.7); return (0.058 + 0.014 * Math.cos(az) ** 2) * Hh * q ** 1.6; };
+  const brim = (pts, m) => {   // a lathe of unit radius (r, y), the droop taken off its y, then stretched to the ellipse
+    const n = pts.length, g = new THREE.LatheGeometry(pts.map(([r, y]) => new THREE.Vector2(r, y)), 120), p = g.attributes.position;
+    for (let i = 0; i < p.count; i++) { const x = p.getX(i), z = p.getZ(i); p.setXYZ(i, x * A, p.getY(i) - droop(Math.hypot(x, z), Math.atan2(x, z)), z * B); }
+    g.computeVertexNormals(); const N = g.attributes.normal;
+    for (let j = 0; j < n; j++) { const a = j, b = 120 * n + j, x = N.getX(a) + N.getX(b), y = N.getY(a) + N.getY(b), z = N.getZ(a) + N.getZ(b), l = Math.hypot(x, y, z) || 1; N.setXYZ(a, x / l, y / l, z / l); N.setXYZ(b, x / l, y / l, z / l); }
+    const o = mesh(g, m); hat.add(o); return o;
+  };
+  // the brim: the plum top, a thick rolled lilac edge (the top band, the round of the rim and its upper underside), the dark plum underside
+  const rr = rho / ((A + B) / 2), rc = 1 - rr, arc = (f0, f1, n) => Array.from({ length: n + 1 }, (_, k) => { const f = f0 + (f1 - f0) * (k / n); return [rc + rr * Math.cos(f), rho * Math.sin(f)]; });
+  brim([[0.2, rho], [0.45, rho], [0.7, rho], [0.9, rho - 0.0006], [0.925, rho]], top);
+  brim([[0.925, rho], [0.95, rho + 0.0008], [rc, rho], ...arc(PI / 2, -0.62, 8).slice(1)], lilac);
+  brim([...arc(-0.62, -PI / 2, 4), [0.8, -rho], [0.5, -rho], [0.2, -rho]], dark);
+  // the crown: a deep rounded dome sitting down over the head, a little wider than it at the brim, never inside it
+  const [bx, bz] = bodyR(Y0), CA = bx + 0.016, CB = bz + 0.016 * (bz / bx);
+  const CP0 = [[1.0, -0.04], [1.0, 0.0], [0.995, 0.16], [0.975, 0.36], [0.93, 0.56], [0.85, 0.74], [0.7, 0.89], [0.46, 0.975], [0.2, 1.0], [0.0, 1.005]];
+  const CP = CP0.map(([r, y]) => { const [qx, qz] = bodyR(Y0 + Math.max(0, y) * CH); return [Math.max(r, (qx + 0.007) / CA, (qz + 0.007) / CB), y]; });
+  const crown = mesh(new THREE.LatheGeometry(CP.map(([r, y]) => new THREE.Vector2(r, y * CH)), 72), top); crown.scale.set(CA, 1, CB); hat.add(crown);
+  const at = (az, s) => { const f = s * (CP.length - 1), i = Math.min(CP.length - 2, Math.floor(f)), u = f - i, r = CP[i][0] + (CP[i + 1][0] - CP[i][0]) * u, y = CP[i][1] + (CP[i + 1][1] - CP[i][1]) * u; return V(CA * r * Math.sin(az), y * CH, CB * r * Math.cos(az)); };
+  // the broken stitch line: four cream dashes on an arc, front-left of the crown (viewer's left, her right), then a short cross; lying on the cloth
+  const stitchM = clothMat(stitchC, { roughness: 1 }), stitchG = new THREE.BoxGeometry(0.036, 0.0075, 0.002);
+  [[-1.2, 0.52, 0.25], [-0.98, 0.56, 0.1], [-0.76, 0.6, 0.0], [-0.54, 0.64, -0.1]].forEach(([az, s, rz], i) => {
+    const p = at(az, s), p2 = at(az + 0.04, s + 0.01), pm = at(az - 0.04, s - 0.01), n = new THREE.Vector3().crossVectors(p2.clone().sub(pm), V(0, -1, 0)).normalize();
+    if (n.z < 0) n.negate();
+    const d = new THREE.Mesh(stitchG, stitchM); d.position.copy(p).addScaledVector(n, 0.0012); d.lookAt(p.clone().add(n)); d.rotateZ(rz); d.scale.x = 0.8 + 0.25 * ((i * 5) % 3); hat.add(d);
+  });
+  { const p = at(-0.3, 0.66), p2 = at(-0.26, 0.67), pm = at(-0.34, 0.65), n = new THREE.Vector3().crossVectors(p2.clone().sub(pm), V(0, -1, 0)).normalize(); if (n.z < 0) n.negate();
+    for (const rz of [0.15, PI / 2 + 0.15]) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.0075, 0.002), stitchM); d.position.copy(p).addScaledVector(n, 0.0012); d.lookAt(p.clone().add(n)); d.rotateZ(rz); hat.add(d); } }
+  // the slit the leaf comes through: a short dark ellipse on the crown's top
+  const slit = new THREE.Mesh(new THREE.CircleGeometry(0.022, 20), clothMat(under, { side: THREE.DoubleSide })); slit.scale.set(1, 0.6, 1); slit.rotation.x = -PI / 2; slit.position.set(0, CH * 1.005 + 0.0008, 0); hat.add(slit);
+  ch.potatoParts.add(hat);
+  return { hat, CH, T, A, B, rho, droop };
+}
+
+// the tunnel lamp: a plum box with an amber lens under the front-left brim, on the hat
+function archLamp(C, S, H) {
+  const { Hh, Wd, Dp } = S, g = new THREE.Group(), plum = clothMat(C.hatUnder || "#34263F", { roughness: 0.7 }), w = 0.12 * Wd, h = 0.05 * Hh, d = 0.07 * Dp;
+  const x = 0.31 * Wd, r = 0.85, az = Math.asin(Math.min(0.95, x / (H.A * r))), z = H.B * r * Math.cos(az), yb = -H.rho - H.droop(r, az);   // 0.31 Wd to her left, on the brim's underside
+  const box = new THREE.Mesh(new THREE.BoxGeometry(w, h, d, 2, 2, 2), plum); box.castShadow = true; box.position.y = -h / 2 + 0.006; g.add(box);
+  const clip = new THREE.Mesh(new THREE.BoxGeometry(w * 0.5, 0.006, d * 0.9), plum); clip.position.y = 0.004; g.add(clip);   // the clip's plate under the brim
+  const lensM = new THREE.MeshStandardMaterial({ color: "#FFE0AA", emissive: new THREE.Color("#FFB347"), emissiveIntensity: 0.75, roughness: 0.3 }); lensM.userData.noOutline = true; lensM.userData.lookRole = "cloth";
+  const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.0153, 0.0153, 0.005, 24), lensM); lens.rotation.x = PI / 2; lens.position.set(0, box.position.y, d / 2 + 0.0015); g.add(lens);   // 0.030 across
+  const rim = new THREE.Mesh(new THREE.TorusGeometry(0.0163, 0.0022, 6, 24), clothMat("#241a2b", { roughness: 0.6 })); rim.position.copy(lens.position); rim.position.z += 0.001; g.add(rim);
+  const screw = new THREE.Mesh(new THREE.CircleGeometry(0.0035, 10), clothMat("#241a2b")); screw.position.set(w * 0.33, box.position.y + h * 0.22, d / 2 + 0.0013); g.add(screw);
+  g.position.set(x, yb, z);   // the housing hangs level (the design aims its light 12 degrees down: there is no real light here)
+  H.hat.add(g);
+}
+
+// ankle boots on the feet: a bevelled low box with a short oval upper, a dark sole, one toe seam and one scuff each
+function archBoots(C, ch, S) {
+  const { Hh, Wd, Dp } = S, bw = 0.23 * Wd, bl = 0.38 * Dp, bh = 0.13 * Hh, col = C.boots || "#544052", soleC = C.sole || "#382B3C", scuffC = C.scuff || "#926F8E";
+  const bootM = clothMat(col, { roughness: 0.85 }), soleM = clothMat(soleC, { roughness: 0.9 }), seamM = clothMat("#2e222f", { roughness: 0.9 }), scuffM = clothMat(scuffC, { roughness: 1 });
+  const outline = (w, l, k = 1) => {   // footprint in shape space (x, -z): toe at -y, a squarer toe, a narrower heel
+    const s = new THREE.Shape(), n = 40; for (let i = 0; i < n; i++) { const a = (i / n) * TAU, c = Math.cos(a), sn = Math.sin(a), x = Math.sign(c) * Math.abs(c) ** 0.72 * (w / 2) * (sn < 0 ? 1 : 0.86), y = Math.sign(sn) * Math.abs(sn) ** 0.72 * (l / 2); (i ? s.lineTo : s.moveTo).call(s, x * k, y * k); } s.closePath(); return s;
+  };
+  const solH = 0.013 * Hh / 0.757, bevel = 0.007;
+  const footG = new THREE.ExtrudeGeometry(outline(bw - 2 * bevel, bl - 2 * bevel), { depth: 0.032, bevelEnabled: true, bevelSize: bevel, bevelThickness: bevel, bevelSegments: 2, curveSegments: 10 }); footG.rotateX(-PI / 2);
+  const soleG = new THREE.ExtrudeGeometry(outline(bw + 0.004, bl + 0.004), { depth: solH, bevelEnabled: false, curveSegments: 10 }); soleG.rotateX(-PI / 2);
+  const shaftG = new THREE.CylinderGeometry(0.5, 0.56, bh - 0.03, 28, 1);
+  for (const s of ["L", "R"]) {
+    const f = ch.legs?.[s]?.foot; if (!f) continue;
+    if (ch.limbMat) { const fm = ch.limbMat.clone(); fm.color.set(col); fm.userData = { ...ch.limbMat.userData, noOutline: true }; f.material = fm; }   // the foot ball inside the boot takes its colour (it shows behind the heel)
+    const g = new THREE.Group(); g.scale.set(1 / 0.9, 1 / 0.5, 1 / 1.25); g.position.set(0, -0.035 / 0.5, 0);   // the foot ball is squashed (0.9, 0.5, 1.25) and 0.035 up: undo it, floor at the group's origin
+    const sole = mesh(soleG, soleM); g.add(sole);
+    const body = mesh(footG, bootM); body.position.y = solH + bevel; g.add(body);
+    const topY = solH + bevel * 2 + 0.032;
+    const shaft = mesh(shaftG, bootM); shaft.scale.set(bw * 0.78, 1, bl * 0.5); shaft.position.set(0, topY - 0.012 + (bh - 0.03) / 2, -bl * 0.14); g.add(shaft);
+    const cuff = new THREE.Mesh(new THREE.TorusGeometry(0.5, 0.045, 6, 28), clothMat(shade(col, 0.82), { roughness: 0.9 })); cuff.rotation.x = PI / 2; cuff.scale.set(bw * 0.78, bl * 0.5, 1); cuff.position.copy(shaft.position); cuff.position.y += (bh - 0.03) / 2 - 0.002; cuff.castShadow = true; g.add(cuff);
+    // one curved toe seam across the cap, and the scuff (the left boot's on its toe, the right's on its outer heel side)
+    const seam = []; for (let i = 0; i <= 14; i++) { const t = i / 14, x = (t - 0.5) * bw * 0.64; seam.push(V(x, topY + 0.0008, bl * 0.22 + 0.018 * Math.cos((t - 0.5) * PI) - 0.0)); }
+    g.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(seam), 28, 0.0023, 5, false), seamM));
+    const sc = s === "L" ? [[-0.02, bl * 0.4, 0.5], [0.004, bl * 0.37, 0.3]] : [[0.05, -bl * 0.3, 1.2], [0.062, -bl * 0.24, 1.0]];
+    for (const [x, z, a] of sc) { const m = new THREE.Mesh(new THREE.BoxGeometry(0.03, 0.0012, 0.0045), scuffM); m.position.set(x, topY + 0.0008 - (s === "R" ? 0.012 : 0), z); m.rotation.y = a; g.add(m); }
+    g.position.z += 0.07 / 1.25;   // the boot's toe reaches further forward than the ankle
+    f.add(g);
+  }
+}
+
+function archaeologist(C, ch, P) {
+  const S = bodySize(ch), { Hh, Wd } = S, parts = ch.potatoParts, jc = C.jacket || "#7965A1", dk = C.jacketDark || "#514268", fc = C.facing || "#C4B4D7", btn = C.buttons || "#C8AE82", seed = P.seed;
+  const el = (k) => elOfY(ch, S.base + k * Hh);
+  // ---- the jacket: 0.18 Hh .. 0.66 Hh, the neckline a little lower at the front
+  const neckF = el(0.45), neckB = el(0.64), hem = el(0.15), neck = (th) => neckF + (neckB - neckF) * Math.pow(0.5 * (1 - Math.cos(th)), 0.45);   // low at the front, up on the shoulders (the sleeves come out under it)
+  const { G } = top(ch, C, { neckFn: neck, front: neckF, back: neckB, hem, color: jc, map: feltTexture(1024, 512, seed, 70), folds: 3, depth: 0.004, flare: 0.008, lift: 0.01, lift0: 0.01, phase: 0.7 });
+  const off = 0.016 + 0.0035, jm = (c, o = {}) => clothMat(c, { side: THREE.DoubleSide, ...o });
+  // the collar: a flat folded-down roll all round the neck, open at the front, and on its neck-side edge the chalk-violet facing in broken strokes
+  { const open = 0.03, end = (th) => sstep(0, 0.22, Math.min(th - open, TAU - open - th)), cr = (th) => 0.0035 + 0.0055 * end(th), wide = 5.2;
+    parts.add(mesh(rollOn(ch, { th0: open, th1: TAU - open, ph: (th) => neck(th) - (cr(th) * wide * 0.55) / ch.ry, r: cr, wide: () => wide, lift: 0.024, sink: 0.8, segs: 150, radial: 12 }), jm(jc)));
+    const gaps = [0.62, 1.55, 2.5, 3.5, 4.55, 5.5], win = (th) => gaps.reduce((k, g) => k * (0.12 + 0.88 * sstep(0.05, 0.16, Math.abs(th - g))), 1), fr = (th) => 0.0022 + 0.0058 * end(th) * win(th);
+    parts.add(mesh(rollOn(ch, { th0: open, th1: TAU - open, ph: (th) => neck(th) + 0.004 / ch.ry, r: fr, wide: () => 1.5, lift: 0.04, sink: 0.8, segs: 220, radial: 8 }), jm(fc), false));
+  }
+  // the placket: a strip down the front a little to her left (+x), 3 buttons on it; a hem stitch; one patch pocket on her left chest
+  const pk = (v) => 0.17 + 0.02 * Math.sin(v * 2.4);
+  { const pos = [], idx = [], n = 20, w = 0.019;
+    for (let i = 0; i <= n; i++) { const v = 0.1 + 0.86 * (i / n), a = onG(G, pk(v), v, off), t = onG(G, pk(v), Math.min(1, v + 0.02), off).p.sub(onG(G, pk(v), Math.max(0, v - 0.02), off).p).normalize(), sd = new THREE.Vector3().crossVectors(t, a.n).normalize(); for (const k of [-1, 1]) { const q = a.p.clone().addScaledVector(sd, k * w); pos.push(q.x, q.y, q.z); } }
+    for (let i = 0; i < n; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals(); parts.add(mesh(g, jm(shade(jc, 0.92)), false));
+    for (const sg of [-1, 1]) parts.add(mesh(lineOn(G, (t) => [pk(0.1 + 0.86 * t) + sg * 0.062, 0.1 + 0.86 * t], 0.0016, off + 0.0012, 24), clothMat(dk), false)); }
+  { const bm = clothMat(btn, { roughness: 0.55 }), bd = clothMat(shade(btn, 0.62), { roughness: 0.6 });
+    for (const v of [0.34, 0.53, 0.72]) { const q = onG(G, pk(v), v, off + 0.006), b = new THREE.Mesh(new THREE.SphereGeometry(0.0125, 14, 10), bm); b.scale.set(1, 1, 0.5); b.position.copy(q.p); b.lookAt(q.p.clone().add(q.n)); b.castShadow = true; parts.add(b);
+      for (const [dx, dy] of [[-0.0035, 0], [0.0035, 0]]) { const h = new THREE.Mesh(new THREE.SphereGeometry(0.0016, 6, 5), bd); h.position.copy(b.position).addScaledVector(q.n, 0.006).add(V(dx, dy, 0)); parts.add(h); } } }
+  parts.add(mesh(lineOn(G, (t) => [0.05 + (TAU - 0.1) * t, 0.955], 0.0016, off + 0.001, 120), clothMat(dk), false));   // a stitch line round the hem
+  { const a0 = 0.46, a1 = 0.98, v0 = 0.53, v1 = 0.82, o2 = off + 0.003;   // the patch pocket (her left, +x): a darker patch, a stitched outline, a pressed top edge
+    parts.add(mesh(patchOn(G, a0, a1, v0, v1, o2), jm(shade(jc, 0.94)), false));
+    const ring = [[a0, v0], [a0, v1], [a1, v1], [a1, v0], [a0 + 0.01, v0]];
+    const side = (A, B) => lineOn(G, (t) => [A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t], 0.0016, o2 + 0.0012, 10);
+    for (let i = 0; i < 3; i++) parts.add(mesh(side(ring[i], ring[i + 1]), clothMat(dk), false));
+    parts.add(mesh(lineOn(G, (t) => [a0 + (a1 - a0) * t, v0 + 0.018], 0.0016, o2 + 0.0012, 10), clothMat(dk), false));   // the second line under the pressed top edge
+    parts.add(mesh(lineOn(G, (t) => [a0 + (a1 - a0) * t, v0], 0.0034, o2 + 0.0012, 10), clothMat(fc), false)); }   // the top edge, a chalk-violet binding
+  // ---- sleeves: from the shoulder to 0.06 before the hand's centre, 0.19 Wd across at the shoulder and 0.12 Wd at the cuff, a seam ring where the cuff starts
+  const ring = ["L", "R"].map(() => { const m = new THREE.Mesh(new THREE.TorusGeometry(1, 0.045, 6, 26), clothMat(dk)); m.visible = false; ch.root.add(m); return m; });
+  const SLV = { from: 0.04, gap: C.cuffGap ?? P.gap ?? 0.06, r0: 0.08 * Wd, r1: 0.062 * Wd, rc: 0.062 * Wd * 0.94, cuff: 0.012, cuffAt: 0.8 }, _q = new THREE.Quaternion(), _t = V(0, 0, 0);
+  SLV.hook = (s, curve, L, to) => {
+    const m = ring[s === "L" ? 0 : 1], u = SLV.from + (to - SLV.from) * SLV.cuffAt; curve.getPointAt(u, m.position); curve.getTangentAt(u, _t);
+    m.quaternion.setFromUnitVectors(V(0, 0, 1), _t); const r = SLV.r1 + 0.002; m.scale.set(r, r, r * 0.9); m.visible = true;
+  };
+  const armTex = (sd) => feltTexture(256, 256, sd, 22, true);
+  const armCrease = (sd) => { const t = paintTex(256, 256, sd, 0.97, 0.035, (stroke, h) => {   // swapped: draw y runs along the arm, x round it
+      for (let i = 0; i < 22; i++) { const x = h(i, 1) * 256, y = h(i, 2) * 256, len = 6 + 22 * h(i, 3), a = (h(i, 4) - 0.5) * 1.3, w = 1 + 2 * h(i, 5), dark = h(i, 6) < 0.55; stroke(x, y, x + Math.sin(a) * len, y + Math.cos(a) * len * 0.5, w, w * 0.5, dark ? 0.05 + 0.06 * h(i, 7) : 0.035 + 0.04 * h(i, 7), dark); }
+      stroke(70, 120, 118, 116, 1.5, 0.8, 0.22, true); stroke(78, 128, 112, 125, 1.1, 0.5, 0.17, true);   // one short crease where the elbow bends
+    }, true); return t; };
+  const mk = (map) => { const m = jm(jc); m.map = map; return m; };
+  const sl = sleeves(ch, { L: mk(armCrease(seed + 3.1)), R: mk(armCrease(seed + 5.7)) }, { L: jm(shade(jc, 0.95)), R: jm(shade(jc, 0.95)) }, SLV);
+  // ---- hat, boots, the lamp
+  const H = archHat(C, ch, S, P); archBoots(C, ch, S); if (C.lamp) archLamp(C, S, H);
+  return sl;
+}
+
 // numbers from their sheets (measured 12 Nov 2026), set against Spud's own sheet and his build
 const CHIP_HOODIE = { color: "#ffcf2e", seed: 21.4, front: -0.28, back: 0.25, vee: 0.6, hem: -1.14, cowlR: 0.02, cowlWide: 1.7, hoodR: 0.026, hoodWide: 2.7, r0: 0.062, r1: 0.05, phase: 0.6, cordLen: 0.2, cordR: 0.0085, pocketW: 0.52, pocketH: 0.05, pocketUp: 0.26, flecks: 220, folds: 3, pale: true };
 const KIT = {
@@ -699,6 +895,7 @@ const KIT = {
   teller: (C, ch) => teller(C, ch, { seed: 87.3 }),
   duchess: (C, ch) => duchess(C, ch, { seed: 73.6 }),
   dauphin: (C, ch) => dauphin(C, ch, { seed: 79.2 }),
+  archaeologist: (C, ch) => archaeologist(C, ch, { seed: 91.7 }),   // the calm sceptic of the Egypt debate shorts (see the header above her functions)
   wedge: (C, ch) => { const sl = bomber(C, ch, { color: "#c34732", seed: 12.6, front: -0.3, back: 0.3, vee: 0.6, hem: -1.12, r0: 0.09, r1: 0.066, phase: 0.3 }); shades(C, ch, { size: 2.0, x: 0.04, tip: -0.42, fwd: 0.1, up: -0.035 }); return sl; },
 };
 export const EVERYDAY = Object.keys(KIT);
