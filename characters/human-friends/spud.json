@@ -66,7 +66,8 @@
     },
     "heel": 0.065,
     "toe": 0.125,
-    "sole": 0.035
+    "sole": 0.035,
+    "homeX": 0.068
   },
   "limbs": {
     "color": "#fdc18a",
