@@ -50,9 +50,11 @@ Xs) and it goes into the video's `experiments/` note, so the test can be compare
 - What the data showed so far (trials, not laws): an impossible fact or number at 0.0 opens best; likes follow the
   payoff, not the hook; the strongest formats were the mystery films, There's a catch and Friends try to; music from
   the first frame held better at 0:03; a freeze before a punchline lost a third of the viewers in one second. 19 Nov:
-  a ~30 s dialogue sketch in the action at frame 0 with one counter on screen (Court Day: 73 % at 0:03, 49 % finish,
-  74 % viewed on YouTube) was the first post past TikTok's ~750-view batch; a life question or a scenic title shot at
-  frame 0 lost a quarter of viewers in the first second (26 % viewed).
+  Court Day (73 % at 0:03, 49 % finish, 74 % viewed on YouTube) was the first post past TikTok's ~750-view batch. It
+  plays live on screen as a dialogue, teaches a rule by 3 s with a counter the viewer predicts, opens a gap at 3-5 s
+  and lets a character's flaw break the rule at the end; carry these into every format, not more court sketches. A
+  premise explained by a narrator or a scenic title shot at frame 0 lost a quarter of viewers in the first second
+  (26 % viewed). A drop is a story problem, never a reason to cut length: 60 s+ is fine when every beat moves.
 - The producer tests many formats and hooks on purpose. Do not tell him to stop; propose one change per test,
   recorded in `experiments/`, compared at the same post age.
 - Most TikTok viewers are in Germany, Austria and Switzerland and 18-34: hooks must read without English.
