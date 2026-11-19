@@ -1,4 +1,5 @@
-// EGYPT EP04 "Sixty tonnes. For one cow." (Serapeum of Saqqara, 66 s): Spud asks, the mummy Pharaoh answers with real facts,
+// EGYPT EP04 "Sixty tonnes. For one cow." (Serapeum of Saqqara), REDO 19 Nov: Spud (believer) argues, the archaeologist (sceptic,
+// Jonny's approved script redo/SCRIPT-archaeologist.md) answers each claim with a real fact; was the mummy Pharaoh (v2, "silly"),
 // the pictures behind him show the aliens doing the work. Story + panels: /mnt/project-files/videos/ancient-aliens/04-egypt/STORY.md
 // (24 panels on egypt-04-sheet-1/2.png), facts: RESEARCH.md, design: DESIGN.md here (GPT-6.2 Sol; its section 8 dialogue is NOT used,
 // lines.mjs is). The light of the cast is one value per storyboard, so the episode is SEVEN segment storyboards cut together on
@@ -15,7 +16,7 @@ const MEASURED = new URL("./lines.json", import.meta.url);
 const DUR = existsSync(MEASURED) ? JSON.parse(readFileSync(MEASURED, "utf8")) : Object.fromEntries(Object.entries(LINES).map(([k, l]) => [k, r3(0.3 + l[1].split(/\s+/).length * 0.36)]));
 const MOTION = { feet: 2, overlap: true, timing: true, solve: true }, RIG = { hand: 2, eyes: 2, hold: 2 };
 const CAST = {
-  spud: "potatobrawl/spud", pharaoh: "ancient-aliens/pharaoh", priest: "ancient-aliens/priest", priestL: "ancient-aliens/priest-leopard",
+  spud: "potatobrawl/spud", arch: "ancient-aliens/archaeologist", archLamp: "ancient-aliens/archaeologist-lamp", priest: "ancient-aliens/priest", priestL: "ancient-aliens/priest-leopard",
   wa: "ancient-aliens/worker-a", wb: "ancient-aliens/worker-b", crew: "ancient-aliens/alien-crew", foreman: "ancient-aliens/alien-foreman",
 };
 // tall = TikTok / Reels / Shorts (the first cut), wide = YouTube. Captions in the upper third, numbers under them, the counter top left.
@@ -44,7 +45,9 @@ const gallery = (o = {}) => ({ id: "gallery", kind: "gallery", x: 0, z: 0, lids:
 const box = (id, bay, o = {}) => ({ id, kind: "granitebox", x: 1.55, y: -0.18, z: BAY(bay), rot: -90, lidSlide: 0, ...o });
 
 // ---- one segment: its own clip, its times written in story seconds (t0 = the segment's first frame)
-function segment(F, t0, t1, fill, story, warp = (t) => t) {   // story = where the segment starts in the cut (its music slice); times inside are design times; warp = re-times the design (seg1: shorter box shot)
+let STORY = 0, LAST_END = 0;   // where the next segment starts in the cut: set by the loop at the bottom (the score is laid on these times, score.py)
+const ins = (...p) => (t) => r3(t + p.reduce((n, [at, d]) => n + (t > at ? d : 0), 0));   // a warp that inserts d seconds after design time `at` (room for a longer line)
+function segment(F, t0, t1, fill, _story, warp = (t) => t) {   // story = where the segment starts in the cut (its music slice); times inside are design times; warp = re-times the design (seg1: shorter box shot)
   const c = clip({ faces: "strong" }), T = (t) => r3(warp(t) - t0);
   const S = {
     c, F, T, END: r3(warp(t1) - t0),
@@ -59,9 +62,9 @@ function segment(F, t0, t1, fill, story, warp = (t) => t) {   // story = where t
     sfx: (t, s, o = {}) => c.sfx(T(t), s, o),
     // a spoken line: the say macro in the speaker's voice + its subtitle in the upper third; hold = how long the subtitle stays after the voice
     say(t, k, next) {
-      const [who, line, tone, take] = LINES[k], d = DUR[k], hold = next == null ? 0.4 : Math.max(0, Math.min(0.4, r3(next - t - d - 0.05)));
+      const [who, line, tone, take] = LINES[k], d = DUR[k], hold = next == null ? 0.4 : Math.max(0, Math.min(0.4, r3(T(next) - T(t) - d - 0.05)));   // in cut time (warps insert pauses)
       c.at(T(t), { macro: "say", who, line, tone, dur: d, voice: VOICE[who], caption: false, ...(take && { take }) });
-      c.cap(T(t), T(t + d + hold), line, F.SUB, false, { size: F.subSize });   // kinetic: each word appears as it is said (Jonny 19 Nov: the lettering showed before the spoken word)
+      c.cap(T(t), r3(T(t) + d + hold), line, F.SUB, false, { size: F.subSize });   // kinetic: each word appears as it is said (Jonny 19 Nov: the lettering showed before the spoken word)
       return r3(t + d);
     },
     num: (a, b, text, { y = F.NUM, ...o } = {}) => c.cap(T(a), T(b), text, y, false, { size: F.numSize, kinetic: false, ...o }),
@@ -70,9 +73,10 @@ function segment(F, t0, t1, fill, story, warp = (t) => t) {   // story = where t
     shot(name, t, cam, kind) { S.shots.push([name, T(t), cam, kind]); },
   };
   const o = fill(S);
+  LAST_END = S.END;
   const beats = c.beats(S.shots, S.END);
   return { ...o, fps: 30, look: "anime-pro", profile: "short", loop: false, captionStyle: "kinetic", castLook: "sheet", cleanStart: true,
-    motion: MOTION, rig: RIG, physics: false, loopIdle: false, music: score(story), captions: c.captions, beats, visible: c.visible };
+    motion: MOTION, rig: RIG, physics: false, loopIdle: false, music: score(STORY), captions: c.captions, beats, visible: c.visible };
 }
 // the gallery is the room (floor, walls, vault as one prop): its clipping and shell checks are off for the cast; hand and costume checks stay on
 const room = (ids, end) => ids.map((who) => ({ who, with: "gallery", from: 0, to: end, checks: ["clipping", "shell"], reason: "the gallery is the room they stand in; chamber floors sit at -0.18" }));
@@ -117,11 +121,11 @@ const seg0 = (F) => segment(F, 0, 1.0, (S) => {
 // ================================================================= 1. TUNNEL 1.0-17.8: the boxes, the tunnel, the corridor, the Pharaoh steps out
 // The opening shots are written in segment time (N), the older beats keep their design times: warp drops the old box shot
 // (design 0-4) and starts the corridor beat at 4.0 s into the segment (Jonny 19 Nov: no 350 m tunnel shot).
-const seg1 = (F) => segment(F, -4.0, 13.9, (S) => {
+const seg1 = (F) => segment(F, -4.0, 13.0, (S) => {
   const N = (t) => r3(t - 4.0);   // segment time -> design time (4.0 = frame 120: the old beats' "place" 0.02 s before a cut lands inside the frame before it)
   const cast = [
     { id: "spud", character: CAST.spud, at: [0.3, 0.37], face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [-1.55, -60], y: -0.18, face: 70, expr: "neutral", seed: 7.3, staged: "waits out of sight until his chamber beat" },
+    { id: "arch", character: CAST.archLamp, at: [-1.55, -60], y: -0.18, face: 70, expr: "neutral", seed: 7.3, staged: "waits out of sight until her chamber beat" },
   ];
   const props = [gallery({ omit: ["R0", "R4", "L1"] }), box("boxR0", 0, { reflect: true }), box("boxR4", 4, { lidSlide: 0.6 }), ...LAMPS, host("spud", 1)];   // lid well open: "All empty." looks into it
   rec(S, N(0.0), OPEN_B, N(3.98));   // (N(4.0) = design 0 = the dropped old box shot)
@@ -140,51 +144,50 @@ const seg1 = (F) => segment(F, -4.0, 13.9, (S) => {
   for (let i = 1; i <= 24; i++) S.tag(r3(4.0 + (i - 1) * 0.06), i === 24 ? 6.8 : r3(4.0 + i * 0.06), `BOX ${i}/24`);
   S.say(4.2, "s01b", 6.8);
   S.shot("02 twenty-four boxes", 4.0, cam([0.22, 1.3, -3.4], [-0.2, 0.85, 0.7], tv(S.F, 44, 58), { pos: [0.2, 1.28, -3.0] }, 2.8));   // ahead of him: his face on the question (Sol), boxes both sides
-  // 03 (6.8-13.9): out of a dark chamber, dust falling from his wraps: "Not a cow. The holy bull Apis." "To us, he was a god."
+  // 03 (6.8-13.0): the archaeologist steps out of a side chamber, lamp on: "Not a cow. The holy bull Apis." "They worshipped him as a living god."
   S.place(6.8, "spud", [-0.4, -2.2], 180); S.look(6.8, "spud", [-0.1, 0.1], 0.01);
-  S.place(6.7, "pharaoh", [-1.55, -4.4], 70, -0.18);   // into his dark chamber just before the cut (hidden far away while the camera flies down the aisle)
-  S.look(6.72, "pharaoh", [0.5, 0], 0.15); S.walk(6.85, "pharaoh", [0.05, -3.75], 1.1, { y: 0 });
-  S.turn(6.9, "pharaoh", 20, 0.8);
+  S.place(6.7, "arch", [-1.55, -4.4], 70, -0.18);   // into his dark chamber just before the cut (hidden far away while the camera flies down the aisle)
+  S.look(6.72, "arch", [0.5, 0], 0.15); S.walk(6.85, "arch", [0.05, -3.75], 1.1, { y: 0 });
+  S.turn(6.9, "arch", 20, 0.8);
   S.A(7.1, "spud", "move", { to: [-0.42, -1.95], dur: 0.35, ease: "out" }); S.expr(7.05, "spud", "surprised", { open: 0.3 }, 0.12);
-  S.turn(7.9, "pharaoh", 345, 0.5); S.look(7.2, "pharaoh", [0, 0.05], 0.3);   // to Spud (Sol: he answered the camera)
-  S.expr(7.8, "pharaoh", "neutral", null, 0.2);
-  S.say(7.6, "p03", 11.75); S.say(11.75, "p03b", 13.9);
-  S.A(7.6, "pharaoh", "noblink", { dur: 6.2 }); S.A(6.5, "pharaoh", "noblink", { dur: 0.3 });
-  S.sfx(6.9, "step-concrete", { gain: 0.25, dur: 1.1, reason: "his wrapped feet on the stone" });
-  S.shot("03 the Pharaoh", 6.8, cam([0.75, 1.05, -0.6], [-0.12, 0.78, -3.1], tv(S.F, 50, 70), { pos: [0.68, 1.03, -0.9] }, 7.1));
+  S.turn(7.9, "arch", 345, 0.5); S.look(7.2, "arch", [0, 0.05], 0.3);   // to Spud (Sol: he answered the camera)
+  S.expr(7.8, "arch", "neutral", { brow: 0.35 }, 0.2);   // one brow up: a claim catches her interest
+  S.say(7.6, "a03", 10.15); S.say(10.15, "a03b", 13.0); S.expr(10.1, "arch", "neutral", null, 0.25);
+  S.sfx(6.9, "step-concrete", { gain: 0.25, dur: 1.1, reason: "her boots on the stone" });
+  S.shot("03 the archaeologist", 6.8, cam([0.75, 1.05, -0.6], [-0.12, 0.78, -3.1], tv(S.F, 50, 70), { pos: [0.68, 1.03, -0.9] }, 7.1));
   return { id: `eg04-1-${S.F.key}`, title: "Sixty tonnes (1: the boxes)", idea: "seg 1 of 7", set: TUNNEL, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.05, surface: "stone", room: "open", guard: true },
     hook: { show: ["spud"], hint: 0, what: "the camera flies down a dark tunnel past giant black granite boxes; 60 t on screen" },
-    allowClip: [...lampClip(["spud"], S.END), ...tv(S.F, [{ who: "spud", with: "gallery", from: S.T(7.3), to: S.T(13.9), checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame: walking close to the dark side wall, his fingertips brush it 2-3 cm" }], []), { who: "spud", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room he stands in (floor, walls, vault as one prop); hand and costume checks stay on" },
-      { who: "pharaoh", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room; he steps up out of the side chamber (floor -0.18) into the aisle" }],
+    allowClip: [...lampClip(["spud"], S.END), ...tv(S.F, [{ who: "spud", with: "gallery", from: S.T(7.3), to: S.T(13.0), checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame: walking close to the dark side wall, his fingertips brush it 2-3 cm" }], []), { who: "spud", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room he stands in (floor, walls, vault as one prop); hand and costume checks stay on" },
+      { who: "arch", with: "gallery", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the gallery is the room; she steps up out of the side chamber (floor -0.18) into the aisle" }],
     notes: "Generated by make-serapeum.mjs, segment 1 (cut 1.0-14.9, music 3.9-17.8)." };
 }, 3.9, (t) => (t < 0 ? t : r3(t - 4)));   // music: the opening plays the score from 2.9 s so the rest stays where it was
 
 // ================================================================= 2. MEMPHIS 8-12: the dead god-bull; 70 days
-const seg2 = (F) => segment(F, 8, 13, (S) => {
+const seg2 = (F) => segment(F, 8, 12.2, (S) => {
   const cast = [
     { id: "pr1", character: CAST.priest, at: [-1.6, 0.3], face: 90, expr: "sad", seed: 1.1 },   // in front of and beside the bier (Sol: none were in frame)
     { id: "pr2", character: CAST.priest, at: [-0.85, 1.0], face: 150, expr: "sad", seed: 1.7 },
     { id: "pr3", character: CAST.priest, at: [0.85, 1.0], face: 210, expr: "sad", seed: 2.3 },
     { id: "pr4", character: CAST.priestL, at: [1.6, 0.3], face: 270, expr: "sad", seed: 2.9 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [0, 30], face: 0, expr: "neutral", seed: 7.3 },   // off camera: his voice over the flashback
+    { id: "arch", character: CAST.arch, at: [0, 30], face: 0, expr: "neutral", seed: 7.3 },   // off camera: his voice over the flashback
   ];
   const props = [{ id: "sky", kind: "aasky", time: "day" }, { id: "court", kind: "memphiscourt", x: 0, z: 0, palms: true }, { id: "bier", kind: "apisbier", x: 0, z: 0 }];
   for (const p of ["pr1", "pr2", "pr3", "pr4"]) S.look(8, p, [0, -0.45], 0.01);
-  S.say(8.2, "p04", 13.0);
-  S.num(10.2, 13.0, "70 DAYS");
+  S.say(8.2, "a04", 12.2);
+  S.num(10.2, 12.2, "70 DAYS");
   S.shot("04 Memphis: Apis is dead", 8, cam([-0.4, 1.75, 5.9], [0, 0.7, 0.3], tv(S.F, 40, 72), { pos: [-0.3, 1.65, 5.4] }, 5));   // wider: all four priests whole (Sol d3)
   return { id: `eg04-2-${S.F.key}`, title: "Sixty tonnes (2: Memphis)", idea: "seg 2 of 7", set: DAY, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.06, surface: "stone", room: "open", guard: true },
     allowClip: ["pr1", "pr2", "pr3", "pr4"].map((who) => ({ who, with: "court", from: 0, to: S.END, checks: ["clipping", "shell"], reason: "the court is the place they stand in (floor, walls, columns as one prop)" })),
-    notes: "Generated by make-serapeum.mjs, segment 2 (story 17.8-22.8): flashback, the Pharaoh's line as a voice over." };
+    notes: "Generated by make-serapeum.mjs, segment 2 (story 17.8-22.8): flashback, the archaeologist's line as a voice over." };
 }, 17.8);
 
 // ================================================================= 3. TUNNEL 12-18: "The inside is perfect." "We had... good tools."
-const seg3 = (F) => segment(F, 12, 18.7, (S) => {
+const seg3 = (F) => segment(F, 12, 18.7, (S) => {   // warp: +1.1 s after 14.29 (Spud's longer claim), +0.5 s after 17.0 (her answer)
   const cast = [
     { id: "spud", character: CAST.spud, at: [0.55, 0.06], y: 0.34, face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [-0.2, -0.95], face: 32, expr: "neutral", seed: 7.3 },
+    { id: "arch", character: CAST.archLamp, at: [-0.2, -0.95], face: 32, expr: "neutral", seed: 7.3 },
     { id: "alien", character: CAST.crew, at: [0.45, -8.0], face: 200, expr: "surprised", seed: 3.3 },
   ];
   // 05: the box of bay R0 sits lower in this close shot (y -0.62) so Spud on the stepping block looks over its rim into it
@@ -195,14 +198,14 @@ const seg3 = (F) => segment(F, 12, 18.7, (S) => {
   S.look(12.77, "spud", [0.25, -0.4], 0.3);   // the eyes go ahead of the finger
   S.arm(12.9, "spud", "R", { prop: "boxR0", grip: G.tipB, point: "pinch" }, 1.2, "inOut");   // along the inner wall, over the rim (Sol: the hand went through the granite)
   S.arm(14.3, "spud", "R", "rest", 0.4); S.arm(14.35, "spud", "L", "rest", 0.4);
-  S.say(12.3, "s05", 14.5);
+  S.say(12.3, "s05", 14.5);   // (14.5 is 15.6 after the warp)
   S.sfx(12.6, "ai/cookie-scrape", { gain: 0.12, dur: 0.8, reason: "his fingertip squeaks along the polished granite" });
   S.shot("05 the inside is perfect", 12, cam([1.5, 2.6, 1.4], [1.1, 0.75, -0.05], tv(S.F, 40, 55), { pos: [1.45, 2.5, 1.3] }, 2.5));   // above, into the polished box
-  // 06: his eyes slide away
-  S.look(14.5, "pharaoh", [0.35, 0.05], 0.01);
-  S.say(14.6, "p06", 17.3); S.A(14.5, "pharaoh", "noblink", { dur: 2.8 }); S.A(12.0, "spud", "noblink", { dur: 5.3 });
-  S.look(15.0, "pharaoh", [-0.55, 0.05], 0.25); S.expr(15.0, "pharaoh", "neutral", { lid: 0.55 }, 0.25);
-  S.shot("06 good tools", 14.5, cam([-0.15, 1.02, 1.25], [-0.2, 0.86, -0.95], tv(S.F, 34, 46), { pos: [-0.16, 1.01, 1.1] }, 2.8));
+  // 06: she answers him straight, calm: copper tools, sand, patience
+  S.look(14.5, "arch", [0.35, 0.05], 0.01);
+  S.say(14.6, "a06", 17.3); S.A(12.0, "spud", "noblink", { dur: 5.3 });
+  S.expr(15.4, "arch", "neutral", { brow: 0.2 }, 0.3); S.expr(16.6, "arch", "neutral", null, 0.3);
+  S.shot("06 copper tools", 14.5, cam([-0.15, 1.02, 1.25], [-0.2, 0.86, -0.95], tv(S.F, 34, 46), { pos: [-0.16, 1.01, 1.1] }, 2.8));
   // 07: far behind him a turquoise glow goes out, an antenna ducks behind a box
   S.look(17.72, "alien", [0.6, 0], 0.13); S.walk(17.85, "alien", [1.25, -8.9], 0.45, { y: -0.18 });
   S.prop(18.0, "spill", { beam: 0 }, 0.58, "inOut");
@@ -210,12 +213,12 @@ const seg3 = (F) => segment(F, 12, 18.7, (S) => {
   S.shot("07 behind him", 17.3, cam([0.0, 1.8, 0.35], [0.8, 0.9, -8.5], tv(S.F, 22, 30)));   // a long lens over his head onto the glow (Sol: too small; draft 3: his crown filled the frame)
   return { id: `eg04-3-${S.F.key}`, title: "Sixty tonnes (3: good tools)", idea: "seg 3 of 7", set: TUNNEL, cast, props,
     sound: { scenes: ["scifi"], signature: false, sfx: 0.6, ambience: 0.05, surface: "stone", room: "open", guard: true },
-    allowClip: [...lampClip(["spud"], S.END), ...room(["spud", "pharaoh", "alien"], S.END), { who: "spud", with: "spud-lamp", from: 0, to: S.END, checks: ["shell"], reason: "the headlamp band is worn on his head; it presses in as he bows over the box" }],
-    notes: "Generated by make-serapeum.mjs, segment 3 (story 22.8-29.5)." };
-}, 22.8);
+    allowClip: [...lampClip(["spud"], S.END), ...room(["spud", "arch", "alien"], S.END), { who: "spud", with: "spud-lamp", from: 0, to: S.END, checks: ["shell"], reason: "the headlamp band is worn on his head; it presses in as he bows over the box" }],
+    notes: "Generated by make-serapeum.mjs, segment 3." };
+}, 0, ins([14.29, 1.1], [17.0, 0.5]));
 
 // ================================================================= 4. QUARRY 18-20.5: the alien cutter slices the block; "And the stone?"
-const seg4 = (F) => segment(F, 18, 20.5, (S) => {
+const seg4 = (F) => segment(F, 18, 21.2, (S) => {
   const cast = [
     { id: "crew1", character: CAST.crew, at: [-1.4, 2.15], face: 180, expr: "neutral", seed: 3.1 },   // at the cutter's control slab (pedestal moved to -1.4, 1.6)
     { id: "crew2", character: CAST.crew, at: [-0.75, 2.55], face: 200, expr: "neutral", seed: 3.6 },
@@ -230,7 +233,7 @@ const seg4 = (F) => segment(F, 18, 20.5, (S) => {
   S.prop(18.0, "cutter", { slide: 0.2, cut: 1 }, 0.01);   // cut has no propState default: without this the beam was off (Sol d3: no contact)
   S.prop(18.05, "cutter", { slide: 0.75 }, 2.4, "linear");   // one slow continuous pass (Sol: it jumped)
   S.arm(18.1, "crew1", "R", PANEL, 0.3);
-  S.say(18.35, "s08", 20.5);
+  S.say(18.35, "s08", 21.2);
   S.sfx(18.2, "kenney/space-engine-low", { gain: 0.3, dur: 2.2, reason: "the cutter's hum" });
   S.shot("08 the quarry", 18, cam([-0.2, 2.75, 5.3], [-0.2, 2.15, 0.2], tv(S.F, 44, 60), { pos: [-0.15, 2.7, 4.9] }, 2.5));   // close: the beam meets the stone, the hot spot, the dust (Sol d3: no contact seen)
   return { id: `eg04-4-${S.F.key}`, title: "Sixty tonnes (4: the quarry)", idea: "seg 4 of 7", set: DAY, cast, props,
@@ -239,15 +242,15 @@ const seg4 = (F) => segment(F, 18, 20.5, (S) => {
 }, 29.5);
 
 // ================================================================= 5. NILE 20.5-24: the barge at sunset; "Granite. From the south. By boat."
-const seg5 = (F) => segment(F, 20.5, 24.3, (S) => {
-  const cast = [{ id: "pharaoh", character: CAST.pharaoh, at: [0, 60], face: 0, expr: "neutral", seed: 7.3 }];   // voice over
+const seg5 = (F) => segment(F, 20.5, 23.6, (S) => {
+  const cast = [{ id: "arch", character: CAST.arch, at: [0, 60], face: 0, expr: "neutral", seed: 7.3 }];   // voice over
   const props = [{ id: "sky", kind: "aasky", time: "sunset", sun: [11, 5] }, { id: "water", kind: "nilewater", x: 0, z: 0, staged: "the river surface itself" }, { id: "banks", kind: "nilebanks", x: 0, z: 0, sunset: true },
     { id: "barge", kind: "nilebarge", x: 0, y: -0.42, z: 0, row: 0, drift: 0 }, { id: "reed", kind: "reedboat", x: -16, z: -20, scale: 0.75 }];
   S.prop(20.5, "barge", { row: 0, drift: 0 }, 0.01);   // seed (row/drift have no default)
   S.prop(20.52, "barge", { drift: 1 }, 3.78, "linear");
   S.prop(20.52, "barge", { row: 1 }, 1.88, "linear"); S.prop(22.4, "barge", { row: 0 }, 0.01); S.prop(22.42, "barge", { row: 1 }, 1.88, "linear");   // two strokes
-  S.say(20.7, "p09", 24.3);
-  S.tag(20.5, 24.3, "DAY 41");
+  S.say(20.7, "a09", 23.6);
+  S.tag(20.5, 23.6, "DAY 41");
   S.sfx(20.5, "ai/swim-splash", { gain: 0.08, dur: 3.5, reason: "oars in the river" });
   S.shot("09 the Nile", 20.5, cam([0.2, 2.16, 10.9], [0.21, 1.67, 0], tv(S.F, 31, 55), { pos: [0.9, 2.1, 10.4] }, 3.8));
   return { id: `eg04-5-${S.F.key}`, title: "Sixty tonnes (5: the Nile)", idea: "seg 5 of 7", set: SUNSET, cast, props,
@@ -256,14 +259,14 @@ const seg5 = (F) => segment(F, 20.5, 24.3, (S) => {
 }, 32.0);
 
 // ================================================================= 6. SAQQARA 24-32.5: 4 can't, 40 on wet sand can, the mouth is too narrow
-const seg6 = (F) => segment(F, 24, 32.5, (S) => {
+const seg6 = (F) => segment(F, 24, 32.5, (S) => {   // warp: +0.9 s after 28.19 (her wet-sand line), +0.7 after 29.9 (before the 29.98 resets, so they land on the cut), +0.4 after 32.4
   const SZ = 16.2;                    // the sledge's z in 10; the crowd pulls it 1.83 toward the mouth in 11; 12 cuts to z 1.1 at the mouth
   const pushers = [[-1.2, 0.25], [-0.42, 0.45], [0.42, 0.45], [1.2, 0.25]];   // x, behind the back edge (SZ + 1.41)
   const cast = [
     ...pushers.map(([x, z], i) => ({ id: `p${i}`, character: i % 2 ? CAST.wb : CAST.wa, at: [x, r3(SZ + 1.41 + z)], face: [150, 180, 180, 210][i], expr: "angry", seed: 6 + i })),
     { id: "pourer", character: CAST.wa, at: [1.15, 14.44], face: 240, expr: "neutral", seed: 8.2 },
     { id: "spud", character: CAST.spud, at: [0, 60], face: 0, expr: "neutral", seed: 4.1 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [3, 60], face: 0, expr: "neutral", seed: 7.3 },
+    { id: "arch", character: CAST.arch, at: [3, 60], face: 0, expr: "neutral", seed: 7.3 },
   ];
   const props = [{ id: "sky", kind: "aasky", time: "day" }, { id: "desert", kind: "saqqara", x: 0, z: 0, mouth: true, staged: "the ground itself (desert slab and cliff)" }, { id: "djoser", kind: "djoser", x: -48, y: 0, z: -40, rot: 14, staged: "stands on the sand apron, 60 m away (Sol d3: it floated at y 2.6)" },
     { id: "sledge", kind: "sledge", x: 0, z: SZ, rot: 0, ropes: true }, { id: "load", kind: "granitebox", x: 0, y: 0.19, z: SZ, rot: 90, staged: "rests on the sledge crossbeams (the support ray falls between them)" },
@@ -283,7 +286,7 @@ const seg6 = (F) => segment(F, 24, 32.5, (S) => {
   S.arm(27.2, "pourer", "L", JAR, 0.3); S.arm(27.2, "pourer", "R", JAR, 0.3); S.arm(28.0, "pourer", "L", "rest", 0.3); S.arm(28.0, "pourer", "R", "rest", 0.3);
   S.prop(28.25, "haul", { along: 1 }, 1.7, "inOut"); S.prop(28.25, "sledge", { z: r3(SZ - 1.83) }, 1.7, "inOut"); S.prop(28.25, "load", { z: r3(SZ - 1.83) }, 1.7, "inOut"); S.prop(28.25, "wet", { track: 1 }, 1.7, "inOut");
   S.num(27.5, 30, "40");
-  S.say(28.6, "s11", 30.0);
+  S.say(27.15, "a10", 28.3); S.say(28.3, "s11", 30.0);   // "Wet sand halves the pull." over the pour; "Fine. Forty works." as it slides
   S.sfx(27.4, "ai/water-gush", { gain: 0.12, dur: 1.2, reason: "a jar of water poured on the sand" });
   S.sfx(27.9, "ai/bag-drag", { gain: 0.3, dur: 1.8, reason: "the sledge slides on the wet sand" });
   S.shot("11a water on the sand", 27, cam([1.7, 0.85, 12.9], [0.4, 0.15, 14.0], tv(S.F, 40, 54)));   // the pour and the wet patch close (Sol: no stream seen)
@@ -291,16 +294,16 @@ const seg6 = (F) => segment(F, 24, 32.5, (S) => {
   // 12 (30-32.5): the mouth is barely wider than the box; ropes slack
   S.prop(29.98, "haul", { y: -60 }); S.prop(29.98, "sledge", { z: 1.1 }); S.prop(29.98, "load", { z: 1.1 }); S.place(30, "pourer", [6, 60], 0);
   for (const [i, x, z] of [[0, -1.2, 2.6], [1, 1.2, 2.6], [2, -1.75, 3.3], [3, 1.75, 3.3]]) { S.place(30, `p${i}`, [x, r3(z)], 180); S.arm(30.4, `p${i}`, "R", "hat", 0.4); }
-  S.say(30.4, "p12", 32.5);
+  S.say(30.2, "s12", 32.5);
   S.num(30.6, 32.5, "≈3 m");
   S.shot("12 the mouth", 30, cam([2.4, 1.55, 5.6], [-0.1, 1.05, 0.6], tv(S.F, 44, 58)));   // three-quarter: jambs, the gap, the workers (Sol: head-on hid it)
   return { id: `eg04-6-${S.F.key}`, title: "Sixty tonnes (6: Saqqara)", idea: "seg 6 of 7", set: DAY, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.06, surface: "sand", room: "open", guard: true }, allowClip: [],
-    notes: "Generated by make-serapeum.mjs, segment 6 (story 35.8-44.3). '≈3 m' is our estimate (RESEARCH.md)." };
-}, 35.8);
+    notes: "Generated by make-serapeum.mjs, segment 6. '≈3 m' is our estimate (RESEARCH.md)." };
+}, 0, ins([28.19, 0.9], [29.9, 0.7], [32.4, 0.4]));
 
 // ================================================================= 7. TUNNEL 32.5-66.3 (design times; story 44.3-78.1): 8 levers, the jam; day 70; empty; the tag
-const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
+const seg7 = (F) => segment(F, 32.5, 64.5, (S) => {   // warp: +1.5 s after 43.9 ("Day seventy." is longer), +1.1 after 51.9, +0.3 after 58.4
   // the crew: two levers under the sledge's back edge (tip under it), l0/l1 on the lever butts, l2/l3 a step behind pushing the sledge's
   // tail; everything keyed on the sledge's z (sz): lever origin sz + 1.51 (tip .23 ahead of it), butt hands at origin + 1.15
   const LX = [-0.42, 0.42], crew = (sz) => [[-0.42, r3(sz + 2.86)], [0.42, r3(sz + 2.86)], [-0.345, r3(sz + 3.5)], [0.345, r3(sz + 3.5)],
@@ -308,7 +311,7 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   const cast = [
     ...crew(-1.65).map(([x, z], i) => ({ id: `l${i}`, character: i % 2 ? CAST.wb : CAST.wa, at: [x, z], face: 180, expr: "angry", seed: 9 + i })),
     { id: "spud", character: CAST.spud, at: [-0.05, -14.83], face: 180, expr: "neutral", follow: 0.2, seed: 4.1 },
-    { id: "pharaoh", character: CAST.pharaoh, at: [0.16, -13.89], face: 200, expr: "neutral", seed: 7.3 },
+    { id: "arch", character: CAST.archLamp, at: [0.16, -13.89], face: 200, expr: "neutral", seed: 7.3 },
     { id: "a1", character: CAST.crew, at: [-2, 60], face: 180, expr: "neutral", seed: 3.1 },
     { id: "a2", character: CAST.crew, at: [0, 60], face: 180, expr: "neutral", seed: 3.6 },
     { id: "a3", character: CAST.foreman, at: [2, 60], face: 180, expr: "neutral", seed: 3.9 },
@@ -318,7 +321,6 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
     ...LX.map((x, i) => ({ id: `lv${i}`, kind: "lever", x, z: r3(-1.65 + 1.51), rot: 0, snap: 0, pry: 0, snapAt: 6.82, staged: "under the sledge lip on the floor; parked out of sight after 42" })),   // snapAt = clip time of the snap (design 39.32)
     { id: "dust", kind: "dustcloud", x: 0.6, y: 0.2, z: -5.6, age: 0, size: 1 },
     { id: "shaft", kind: "crackshaft", x: 0, z: 0, beam: 0, staged: "a beam of light through the ceiling crack, not an object" },
-    { id: "puff", kind: "dustcloud", x: 0.22, y: 0.56, z: -16.22, age: 0, size: 0.4, drift: [-0.3, 0, 0.25], rise: 0.04, floorY: -0.56, staged: "a puff of dust from his cough, at his mouth" },
     { id: "stuck", kind: "granitebox", x: 0.45, y: -60, z: 5.9, rot: 48, material: "red", unfinished: true, staged: "parked out of sight until shot 24, then on the corridor floor" }];
   const PRESS = { o: [0.06, 0.12, 0.42] }, SHOVE = { o: [0.07, 0.34, 0.4] }, WAIT = { o: [0.1, 0.05, 0.24] }, RECOIL = { o: [0.08, 0.32, 0.22] };   // RECOIL: hands up at the chest, a step back
   // move the sledge, its box, the levers and the crew together to sledge z `sz`
@@ -330,7 +332,7 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   // the present-day pair waits in the dark until 42 (they stand at bay 3, far behind the past shots' framing)
   // 13 (32.5-36): the crew with levers inside; it creeps
   S.tag(32.5, 36, "DAY 66"); S.num(32.8, 36, "8");
-  S.prop(32.5, "lv0", { pry: 0, snap: 0 }); S.prop(32.5, "lv1", { pry: 0, snap: 0 }); S.prop(32.5, "dust", { age: 0 }); S.prop(32.5, "puff", { age: 0 });   // seeds
+  S.prop(32.5, "lv0", { pry: 0, snap: 0 }); S.prop(32.5, "lv1", { pry: 0, snap: 0 }); S.prop(32.5, "dust", { age: 0 });   // seeds
   for (const i of [0, 1]) { S.arm(32.5, `l${i}`, "L", PRESS, 0.01); S.arm(32.5, `l${i}`, "R", PRESS, 0.01); }   // (the butt grips sit too low for their arms: hands pressed forward)
   for (const i of [2, 3]) { S.arm(32.5, `l${i}`, "L", SHOVE, 0.01); S.arm(32.5, `l${i}`, "R", SHOVE, 0.01); }
   for (const i of [4, 5, 6, 7]) { S.arm(32.5, `l${i}`, "L", WAIT, 0.01); S.arm(32.5, `l${i}`, "R", WAIT, 0.01); }
@@ -339,6 +341,7 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
     for (const i of [0, 1]) { S.prop(t - 0.4, `lv${i}`, { pry: 1 }, 0.5, "inOut"); S.prop(t + 0.6, `lv${i}`, { pry: 0 }, 0.5, "inOut"); }
     haul(t, sz, 0.9); S.sfx(t, "ai/bag-drag", { gain: 0.3, dur: 0.9, reason: "the sledge scrapes forward a hand's width" });
   }
+  S.say(32.8, "a13", 36.0);   // "So eight men. Levers. Inch by inch."
   S.shot("13a the levers", 32.5, cam([-0.62, 2.2, 0.05], [0.25, 0.15, -0.95], tv(S.F, 50, 64)));   // above the lever tips: the rods press, the sledge creeps   // beside the front pair: the rods press, the sledge creeps
   S.shot("13b eight levers", 34.2, cam([0.55, 2.45, 5.9], [0, 0.15, -0.6], tv(S.F, 46, 60)));   // high behind: all eight
   // 14 (36-39): the long way still ahead
@@ -360,10 +363,10 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   // the past leaves: crew, sledge, levers parked far away, a body-width apart
   for (let i = 0; i < 8; i++) S.place(42, `l${i}`, [r3(-7 + i * 2), 40], 0);
   for (const id of ["lv0", "lv1"]) S.prop(41.98, id, { y: -60 });
-  // 16 (42-44): the Pharaoh looks at us: "Day seventy."
+  // 16 (42-44 + 1.5): she looks at us: "And the god had to be buried. Day seventy."
   S.prop(41.98, "load", { y: -60 }); S.prop(41.98, "sledge", { y: -60 }); S.prop(41.98, "boxR4", { y: -0.18 });
-  S.turn(41.98, "pharaoh", 346, 0.01); S.look(42, "pharaoh", [0, 0], 0.01); S.expr(42, "pharaoh", "neutral", { lid: 0.5 }, 0.01);
-  S.say(42.3, "p16", 44.0); S.num(42.4, 44, "DAY 70", tv(S.F, { x: 1480 }, {}));   // wide: beside his head, not over it
+  S.turn(41.98, "arch", 346, 0.01); S.look(42, "arch", [0, 0], 0.01); S.expr(42, "arch", "neutral", { brow: 0.15 }, 0.01);
+  S.say(42.3, "a16", 44.0); S.num(42.4, 44, "DAY 70", tv(S.F, { x: 1480 }, {}));   // wide: beside his head, not over it
   S.shot("16 day seventy", 42, cam([-0.4, 1.02, -11.68], [0.16, 0.84, -13.89], tv(S.F, 26, 36)));
   // 17 (44-46.5): he turns: the box is in its chamber, a turquoise column fades through the crack
   S.prop(44.0, "shaft", { beam: 1 }); S.prop(44.65, "shaft", { beam: 0 }, 1.73, "inOut");
@@ -375,15 +378,15 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   for (const [id, x, z] of [["a1", -0.3, -19.3], ["a2", 0.05, -18.64], ["a3", 0.29, -17.77]]) S.walk(46.55, id, [x, r3(z - 5.6)], 1.9);   // out of frame before the cut (Sol)
   S.look(47.0, "a3", [0.8, 0.1], 0.25); S.look(47.7, "a3", [0, 0], 0.25);   // the last one glances back (no wave: Sol saw the arm snap)
   S.shot("18 tiptoe", 46.5, cam([-0.16, 1.0, -15.04], [0.05, 0.7, -18.38], tv(S.F, 40, 58)));
-  // 19 (48.5-52): "On time." "How?" "Good tools."
-  S.place(48.5, "spud", [-0.62, -16.5], 50); S.place(48.5, "pharaoh", [0.62, -16.5], -50);
+  // 19 (48.5-52 + 1.1): "On time? How?" "Practice. They did it twenty-four times."
+  S.place(48.5, "spud", [-0.62, -16.5], 50); S.place(48.5, "arch", [0.62, -16.5], -50);
   ["a1", "a2", "a3"].forEach((id, i) => S.place(48.5, id, [r3(-2 + i * 2), 60], 0));
-  S.look(48.5, "pharaoh", [0, 0.05], 0.01); S.look(48.5, "spud", [0, 0.05], 0.01);   // they face each other, three-quarter to us (Sol)
+  S.look(48.5, "arch", [0, 0.05], 0.01); S.look(48.5, "spud", [0, 0.05], 0.01);   // they face each other, three-quarter to us (Sol)
   S.expr(48.5, "spud", "neutral", { lid: 0.45, brow: -0.3 }, 0.01);
-  const a = S.say(48.7, "p19a", 49.9); S.say(Math.max(a + 0.25, 49.9), "s19", 50.9); S.say(50.9, "p19b", 52.0);
+  S.say(48.7, "s19", 50.3); S.say(50.3, "a19", 52.0); S.expr(50.3, "arch", "neutral", { brow: 0.3 }, 0.25);
   S.shot("19 how", 48.5, cam([0, 1.12, -14.3], [0, 0.72, -16.5], tv(S.F, 50, 72)));
   // 20 (52-55): the lid: empty
-  S.place(52.0, "spud", [0.55, -17.35], 90, 0.34); S.place(52.0, "pharaoh", [-0.4, -15.4], 160);   // at the cut, not a frame before it (Sol: the pop at the shot 20 cut)
+  S.place(52.0, "spud", [0.55, -17.35], 90, 0.34); S.place(52.0, "arch", [-0.4, -15.4], 160);   // at the cut, not a frame before it (Sol: the pop at the shot 20 cut)
   S.prop(51.98, "boxR4", { y: -0.62, lidSlide: 0.15 });
   S.arm(52.1, "spud", "L", { prop: "boxR4", grip: G.padL }, 0.4); S.arm(52.1, "spud", "R", { prop: "boxR4", grip: G.padR }, 0.4);   // palms on the lid edge; the pads ride with the lid (Sol: hands sank)
   S.arm(53.8, "spud", "L", "rest", 0.4); S.arm(53.85, "spud", "R", "rest", 0.4);
@@ -394,38 +397,31 @@ const seg7 = (F) => segment(F, 32.5, 66.3, (S) => {
   S.shot("20 empty", 52, cam([0.1, 2.95, -18.5], [1.35, 0.5, -17.3], tv(S.F, 50, 64)));   // high, from past the box: into the open box, Spud at its edge   // from the aisle, not the 05 angle (Sol: read as the same box)
   // 21 (55-58.5): every box, empty
   S.prop(54.98, "boxR4", { y: -0.18, lidSlide: 0.6 });
-  S.place(55, "spud", [-0.3, 0.82], 180); S.place(55, "pharaoh", [0.32, 1.4], 180);   // a step apart in depth: both faces, no arms touching
-  S.say(55.3, "p21", 58.5);
+  S.place(55, "spud", [-0.32, 0.82], 180); S.place(55, "arch", [0.22, 1.4], 180);   // (her wider body: her right hand touched the wall at x 0.32)   // a step apart in depth: both faces, no arms touching
+  S.say(55.3, "a21", 58.5);
   S.shot("21 every box", 55, cam([0, 1.35, -6.4], [0, 0.95, 0.82], tv(S.F, 46, 60), { pos: [0, 1.32, -6.0] }, 3.5));   // from the far end: their faces, the boxes between (Sol: backs)
-  // 22 (58.5-61.5): he looks up at the crack: "So... they took the cows?"
-  S.place(58.5, "spud", [-0.5, -16.5], 50); S.place(58.5, "pharaoh", [0.5, -16.5], -50);
-  S.look(58.6, "spud", [0.2, 0.7], 0.6); S.look(58.5, "pharaoh", [0, 0], 0.01);
+  // 22 (58.5-61.5): he looks up at the crack: "Or... someone took them home."
+  S.place(58.5, "spud", [-0.48, -16.5], 50); S.place(58.5, "arch", [0.4, -16.5], -50);   // (her left hand touched the wall at x 0.5)
+  S.look(58.6, "spud", [0.2, 0.7], 0.6); S.look(58.5, "arch", [0, 0], 0.01);
   S.say(59.0, "s22", 61.5);
-  S.shot("22 they took the cows", 58.5, cam([0, 1.05, -14.2], [0, 0.92, -16.6], tv(S.F, 54, 74)));
-  // 23 (61.5-63.5): the cough, a puff of dust
-  S.arm(61.75, "pharaoh", "R", LIPS, 0.27);   // hand to the mouth, a jolt (Sol: unreadable)
-  S.expr(62.0, "pharaoh", "shocked", { lid: 0.85 }, 0.08);   // mouth wide, eyes squeezed ("pain" is not an expression)
-  S.A(61.95, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.08, "pharaoh", "lean", { to: 2, dur: 0.12 }); S.A(62.22, "pharaoh", "lean", { to: 12, dur: 0.1 }); S.A(62.4, "pharaoh", "lean", { to: 0, dur: 0.35 });   // two hacking jolts
-  S.prop(62.04, "puff", { age: 1 }, 0.8, "linear"); S.sfx(62.0, "ai/wet-cough", { gain: 0.35, reason: "a dry, dusty cough" });
-  S.arm(62.75, "pharaoh", "R", "rest", 0.5); S.expr(62.9, "pharaoh", "neutral", null, 0.2);
-  S.shot("23 cough", 61.5, cam([-0.45, 1.0, -15.65], [0.5, 0.72, -16.5], tv(S.F, 40, 54)));   // square on to his face, so the hand at his mouth reads
-  // 24 (63.5-66): near the exit, the unfinished box in the corridor; he spreads his arms in front of it
-  S.prop(63.48, "stuck", { y: 0 });
-  S.place(63.5, "pharaoh", [0.2, 4.18], 180);   // facing us, in front of the box
-  S.place(63.5, "spud", [-2, 40], 0);   // he has gone up the stairs already (Sol d3: a sliver of him at the edge)
-  S.arm(63.72, "pharaoh", "L", "shrug", 0.6); S.arm(63.72, "pharaoh", "R", "shrug", 0.6);   // (Sol: the straight spread stretched the arms)
-  S.expr(64.4, "pharaoh", "happy", { lid: 0.7 }, 0.2);
-  S.shot("24 nothing to see", 63.5, cam([-0.55, 2.2, 1.5], [0.3, 0.75, 5.2], tv(S.F, 52, 74)));   // inside the aisle (draft 3: x -1 was in the wall)   // three-quarter: the box's corner and lid show (Sol: read as a wall)
+  S.shot("22 someone took them home", 58.5, cam([0, 1.05, -14.2], [0, 0.92, -16.6], tv(S.F, 54, 74)));
+  // 23 (61.5-64.5): the end (replaces the Pharaoh's cough): the unfinished box they left in the corridor. Spud looks up, sure of
+  // his answer; she turns her eyes from the box to him, one brow up, the corner of her mouth too (dry amusement). The viewer picks a side.
+  S.prop(61.48, "stuck", { y: 0 });
+  S.place(61.5, "arch", [0.35, 4.1], 160); S.place(61.5, "spud", [-0.45, 3.8], 200);   // turned a little toward each other, the box behind them
+  S.look(61.5, "spud", [0.1, 0.6], 0.01); S.look(61.5, "arch", [0.3, -0.1], 0.01); S.expr(61.5, "spud", "neutral", { brow: 0.4 }, 0.01); S.expr(61.5, "arch", "neutral", null, 0.01);
+  S.look(62.7, "arch", [-0.55, 0.05], 0.3); S.expr(62.9, "arch", "happy", { brow: 0.45 }, 0.3);
+  S.shot("23 the box they left", 61.5, cam([-0.5, 1.3, 1.6], [0.0, 0.75, 5.2], tv(S.F, 52, 70), { pos: [-0.45, 1.25, 1.9] }, 3.0));   // eye height: from above, her brim hid her eyes; the box's corner and lid behind them
   return { id: `eg04-7-${S.F.key}`, title: "Sixty tonnes (7: day seventy)", idea: "seg 7 of 7", set: TUNNEL, cast, props,
     sound: { scenes: ["scifi"], signature: false, sfx: 0.6, ambience: 0.05, surface: "stone", room: "open", guard: true },
-    allowClip: [...lampClip(["spud"], S.END), ...room(["spud", "pharaoh", "a1", "a2", "a3", "l0", "l1", "l2", "l3", "l4", "l5", "l6", "l7"], S.END),
-      ...tv(S.F, ["spud", "pharaoh"].map((who) => ({ who, with: "gallery", from: 16.0, to: 19.5, checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame, shot 19: the outer glove brushes the dark side wall 2-3 cm" })), []),
+    allowClip: [...lampClip(["spud"], S.END), ...room(["spud", "arch", "a1", "a2", "a3", "l0", "l1", "l2", "l3", "l4", "l5", "l6", "l7"], S.END),
+      ...tv(S.F, ["spud", "arch"].map((who) => ({ who, with: "gallery", from: S.T(48.5), to: S.T(52.0), checks: ["hand-in-prop", "arm-in-prop"], reason: "wide frame, shot 19: the outer glove brushes the dark side wall 2-3 cm" })), []),
       { who: "l0", with: "gallery", from: 6.6, to: 6.9, checks: ["hand-in-prop", "arm-in-prop"], reason: "at the jam his palm and elbow brush the shadowed side wall, 3 cm for a few frames" },
-      { who: "spud", with: "spud", from: 19.9, to: 21.4, checks: ["face-covered"], reason: "shot 20 is from above the far side of the box: only his crown shows, his face is turned to the lid" }],
-    notes: "Generated by make-serapeum.mjs, segment 7 (story 44.3-78.1): past interior 13-15, present 16-24." };
-}, 44.3);
+      { who: "spud", with: "spud", from: S.T(52.4), to: S.T(53.9), checks: ["face-covered"], reason: "shot 20 is from above the far side of the box: only his crown shows, his face is turned to the lid" }],
+    notes: "Generated by make-serapeum.mjs, segment 7: past interior 13-15, present 16-23." };
+}, 0, ins([43.9, 1.5], [51.9, 1.1], [58.4, 0.3]));
 
 const SEGS = [seg0, seg1, seg2, seg3, seg4, seg5, seg6, seg7];
 const only = process.argv.find((a) => /^--seg=/.test(a))?.slice(6).split(",").map(Number);
 const FRAMES = process.argv.includes("--wide") ? [FRAME.tall, FRAME.wide] : [FRAME.tall];
-for (const F of FRAMES) SEGS.forEach((g, i) => { if (!only || only.includes(i)) { const sb = g(F); write(import.meta.url, { ...F.sb, ...sb }); } });
+for (const F of FRAMES) { STORY = 0; SEGS.forEach((g, i) => { const sb = g(F); if (!only || only.includes(i)) write(import.meta.url, { ...F.sb, ...sb }); console.log(`seg ${i}: story ${STORY}-${r3(STORY + LAST_END)}`); STORY = r3(STORY + LAST_END); }); }

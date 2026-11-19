@@ -169,7 +169,7 @@
  "music": {
   "file": "ancient-aliens/aa04-score.ogg",
   "from": 0,
-  "skip": 29.5,
+  "skip": 26.5,
   "gain": 0.6,
   "lowCut": 90,
   "dip": false,
@@ -181,8 +181,8 @@
  "captions": [
   {
    "from": 0.35,
-   "to": 2.432,
-   "text": "How did you even move it?",
+   "to": 3.15,
+   "text": "Sixty tonnes. How do you even move that?",
    "pos": 400,
    "pop": false,
    "size": 62
@@ -192,7 +192,7 @@
   {
    "name": "08 the quarry",
    "at": 0,
-   "len": 2.5,
+   "len": 3.2,
    "shot": {
     "pos": [
      -0.2,
@@ -262,9 +262,9 @@
     {
      "macro": "say",
      "who": "spud",
-     "line": "How did you even move it?",
+     "line": "Sixty tonnes. How do you even move that?",
      "tone": "question",
-     "dur": 1.6824,
+     "dur": 2.5859,
      "voice": "reaper-quick",
      "caption": false,
      "at": 0.35
