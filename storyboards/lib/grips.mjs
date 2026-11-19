@@ -33,6 +33,7 @@ const SIZE = {
   soupbowl: { rim: 0.1, wall: [[0, 0.07], [0.02, 0.1], [0.05, 0.142], [0.084, 0.162], [0.1, 0.165]] },           // props-chef.js
   parcel: { w: 0.42, h: 0.26, d: 0.3 },            // props-package.js PARCEL
   gift: { w: 0.3, h: 0.24, d: 0.3 },
+  painting: { w: 0.34, h: 0.5, d: 0.05 },          // props-monalisa.js: the bare panel (frame off), held on its side edges
   pencil: { len: 0.255, r: 0.011 },                // props3d.js pencil (len 1): eraser at the bottom, point at the top
   soggyfry: { len: 0.16, r: 0.011 },               // props-zombie.js soggyfry: the bottom end at the origin, the top flops over
   orangefeather: { len: 0.34, r: 0.0065 },            // props-prank.js FEATHER: the quill at the bottom, the vane up to the tip

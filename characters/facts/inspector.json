@@ -1,0 +1,76 @@
+{
+ "id": "facts/inspector",
+ "name": "The police inspector (1911)",
+ "franchise": "PotatoBrawl",
+ "source": "storyboards/series/facts/01-mona-lisa (19 Nov 2026): a costume variant of potatobrawl/agent (no new design; the body is its fit for worn caps)",
+ "rig": "potato",
+ "body": {
+  "color": "#e2a95c",
+  "height": 0.82,
+  "width": 0.7,
+  "depth": 0.62,
+  "lump": 0.03,
+  "seed": 215,
+  "taper": 0.04
+ },
+ "limbs": {
+  "color": "#3b3f48",
+  "width": 0.032,
+  "shoulder": -0.32
+ },
+ "face": {
+  "default": "kind",
+  "iris": "#4a2a14",
+  "cheeks": "#ff8f8f",
+  "neutral": {
+   "tilt": 0,
+   "curve": 0.3,
+   "smirk": 0,
+   "eye": 1
+  },
+  "eye": {
+   "flick": 0,
+   "lash": 0.9
+  },
+  "browShape": {
+   "arch": 0.06,
+   "thick": 0.8
+  },
+  "size": 0.9
+ },
+ "sprout": {
+  "color": "#6cbf3a",
+  "placement": "none",
+  "leaves": 1
+ },
+ "costume": {
+  "type": "teller",
+  "shirt": "#fbf8f1",
+  "vest": "#3a2f2a",
+  "tie": "#5a1f1f",
+  "glasses": "#2b2d33",
+  "garters": false
+ },
+ "personality": "Bald, glasses, brown vest: questions the suspects, searches the thief's room and misses the trunk.",
+ "voice": {
+  "pitch": 112,
+  "rate": 3.0,
+  "formant": 1.0,
+  "range": 4,
+  "breath": 0.08,
+  "vibrato": 0.008,
+  "seed": 215
+ },
+ "voiceNote": "gibberish (a proposal until Jonny has heard it)",
+ "hands": {
+  "type": "glove",
+  "size": 1.15,
+  "fingers": 3,
+  "seamless": true,
+  "cell": 0.0035,
+  "blend": {
+   "root": 0.35
+  }
+ },
+ "notes": ""
+}

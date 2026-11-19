@@ -1,0 +1,823 @@
+{
+ "id": "ml01-11-street",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 78.569,
+  "seam": true,
+  "gain": 0.7,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   4.105,
+   4.105
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    -0.6,
+    1.3
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "g1",
+   "character": "facts/guard",
+   "at": [
+    -1.5,
+    0.65
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "g2",
+   "character": "facts/guard",
+   "at": [
+    0.3,
+    0.65
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "v1",
+   "character": "potatobrawl/duchess",
+   "at": [
+    1.5,
+    -0.35
+   ],
+   "face": -150,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  },
+  {
+   "id": "v2",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    2.45,
+    -0.25
+   ],
+   "face": -160,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.300000000000001
+  },
+  {
+   "id": "v3",
+   "character": "potatobrawl/agent",
+   "at": [
+    0.6,
+    -0.5
+   ],
+   "face": -140,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 7.6
+  },
+  {
+   "id": "v4",
+   "character": "potatobrawl/tot",
+   "at": [
+    3.4,
+    -0.4
+   ],
+   "face": -170,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 8.9
+  }
+ ],
+ "props": [
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  },
+  {
+   "id": "cap-g1",
+   "wear": "g1",
+   "x": 0,
+   "y": 1.02,
+   "z": 0.02,
+   "kind": "policecap",
+   "r": 0.19,
+   "badge": false
+  },
+  {
+   "id": "cap-g2",
+   "wear": "g2",
+   "x": 0,
+   "y": 1.02,
+   "z": 0.02,
+   "kind": "policecap",
+   "r": 0.19,
+   "badge": false
+  }
+ ],
+ "captions": [
+  {
+   "from": 0.1,
+   "to": 1.886,
+   "text": "Italy cheers him.",
+   "pos": 470,
+   "pop": false
+  },
+  {
+   "from": 1.916,
+   "to": 3.525,
+   "text": "He gets seven months.",
+   "pos": 470,
+   "pop": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "13 seven months wide",
+   "at": 0,
+   "len": 1.916,
+   "shot": {
+    "pos": [
+     0.4,
+     1.502,
+     6.582
+    ],
+    "look": [
+     0.4,
+     0.5,
+     0.9
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.4,
+      1.362,
+      5.787
+     ]
+    },
+    "dur": 1.916,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.916,
+       5
+      ]
+     ],
+     "pivot": 5.77
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -0.6,
+      1.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      -1.5,
+      0.65
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "move",
+     "to": [
+      0.3,
+      0.65
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      1.5,
+      -0.35
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "turn",
+     "to": -150,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      2.45,
+      -0.25
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "turn",
+     "to": -160,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      0.6,
+      -0.5
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": -140,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      3.4,
+      -0.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": -170,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "g1",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "g2",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "v1",
+     "do": "hop",
+     "count": 2,
+     "height": 0.08,
+     "at": 0.1
+    },
+    {
+     "who": "v4",
+     "do": "hop",
+     "count": 2,
+     "height": 0.08,
+     "at": 0.1
+    },
+    {
+     "sfx": "gasp",
+     "reason": "the story's own sound",
+     "gain": 0.3,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Italy cheers him.",
+     "voice": "narrator-quick",
+     "dur": 1.6356,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      1.4,
+      1.3
+     ],
+     "dur": 2.6,
+     "at": 0.28
+    },
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      0.5,
+      0.65
+     ],
+     "dur": 2.6,
+     "at": 0.28
+    },
+    {
+     "who": "g2",
+     "do": "move",
+     "to": [
+      2.3,
+      0.65
+     ],
+     "dur": 2.6,
+     "at": 0.28
+    }
+   ]
+  },
+  {
+   "name": "13 seven months close",
+   "at": 1.916,
+   "len": 2.189,
+   "shot": {
+    "pos": [
+     2.838,
+     0.893,
+     6.316
+    ],
+    "look": [
+     1.4,
+     0.62,
+     1.3
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      2.637,
+      0.855,
+      5.613
+     ]
+    },
+    "dur": 2.189,
+    "yaw": {
+     "keys": [
+      [
+       1.916,
+       0
+      ],
+      [
+       4.105,
+       -5
+      ]
+     ],
+     "pivot": 5.225
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "smug",
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "He gets seven months.",
+     "voice": "narrator-quick",
+     "dur": 1.459,
+     "caption": false,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 4.105,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 4.105,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 4.105,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 4.105,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  },
+  {
+   "who": "g2",
+   "with": "cap-g2",
+   "from": 0,
+   "to": 4.105,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g2",
+   "with": "cap-g2",
+   "from": 0,
+   "to": 4.105,
+   "checks": [
+    "shell"
+   ],
+   "reason": "the cap is worn: its band sits into the head by the flatcap fit (props-spree.js), the same on every capped body"
+  }
+ ],
+ "story": {
+  "T0": 78.569,
+  "T1": 82.674
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 78.569-82.674 s)."
+}
