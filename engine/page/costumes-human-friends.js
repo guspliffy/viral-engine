@@ -83,7 +83,8 @@ function shoes(ch, upper, sole, stripe, size = [0.07, 0.05, 0.115]) {
     f.geometry.dispose(); f.geometry = g; f.material = upper; f.scale.set(1, 1, 1);
     const sl = mesh(new THREE.CylinderGeometry(1, 1, 1, 28), sole); sl.scale.set(w * 1.08, 0.024, d * 1.06); sl.position.set(0, -0.023, 0.03); f.add(sl);
     const cap = mesh(new THREE.SphereGeometry(1, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2), sole, false); cap.scale.set(w * 0.82, h * 0.62, d * 0.4); cap.position.set(0, 0.0, 0.03 + d * 0.66); f.add(cap);
-    if (stripe) for (const k of [0, 1]) { const b = mesh(new THREE.TorusGeometry(1, 0.1, 6, 20, Math.PI), stripe, false); b.scale.set(w * 0.92, h * 1.02, 0.02); b.position.set(0, 0.02, 0.045 + k * 0.035); f.add(b); }
+    // a stripe over the vamp: a band of the shoe's own shape, a touch outside it
+    if (stripe) { const b = new THREE.SphereGeometry(1, 28, 6, 0, Math.PI * 2, 1.12, 0.3); b.rotateX(Math.PI / 2); b.scale(w * 1.035, h * 1.035, d * 1.035); b.translate(0, 0.02, 0.03); f.add(mesh(b, stripe, false)); }
   }
 }
 
@@ -113,6 +114,39 @@ function limbsCloth(ch, o) {
       tr[s].tube.geometry.dispose(); tr[s].tube.geometry = taperTube(new THREE.CatmullRomCurve3(lp), 16, 14, (u) => lw * (o.trouserR ?? 1.3) * (1 - (o.trouserTaper ?? 0.06) * u));
     }
   };
+}
+
+// shared clothes parts, sized by k (1 = Mash's torso)
+// a soft roll round the neck: rx, rz its half axes, r its thickness, drop how much lower it sits in front
+function collarRoll(ch, mat, top, { rx, rz, r, drop = 0, y = 0.004, back = -0.012 }) {
+  const pts = []; for (let i = 0; i < 28; i++) { const a = (i / 28) * Math.PI * 2, fr = (1 + Math.cos(a)) / 2; pts.push(new THREE.Vector3(Math.sin(a) * rx, top + y - drop * fr * fr, Math.cos(a) * rz + back)); }
+  return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts, true), 72, r, 12, true), mat);
+}
+// a hood lying on the back, its opening's lip under the nape
+function hoodBack(ch, P, mat, top, k) {
+  const g = new THREE.SphereGeometry(1, 40, 28), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), low = sstep(0.2, -1, y); p.setXYZ(i, x * 0.16 * k * (1 - 0.55 * low), (y * 0.115 - 0.02 * low) * k, z * 0.06 * k * (1 - 0.3 * low)); }
+  g.computeVertexNormals(); const m = mesh(g, mat); m.position.set(0, top - 0.105 * k, -ch.rz * 0.72 - 0.03 * k); m.rotation.x = 0.12; P.add(m);
+  const lip = mesh(new THREE.TorusGeometry(0.105 * k, 0.024 * k, 10, 28, Math.PI), mat); lip.rotation.set(Math.PI / 2 + 0.25, 0, Math.PI); lip.position.set(0, top - 0.035 * k, -ch.rz * 0.62); lip.scale.set(1.15, 1, 0.8); P.add(lip);
+}
+// a thin line drawn on the torso through [azimuth, elevation] points (a zip, a knit line, a pocket welt, a drawstring)
+function surfLine(ch, pts, r, mat, lift = 0.005) {
+  const v = pts.map(([th, ph]) => { const q = ch.surf(th, ph); return q.pos.clone().addScaledVector(q.normal, lift); });
+  return mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(v), 48, r, 6), mat, false);
+}
+// the seat of the trousers under the top's hem
+function seat(ch, mat, k) { const m = mesh(new THREE.SphereGeometry(1, 28, 18), mat); m.scale.set(ch.rx * 0.8, 0.075 * k, ch.rz * 0.82); m.position.set(0, ch.legH + 0.03 * k, 0); return m; }
+// free spikes on the hair mass: [azimuth, elevation, length past the mass, root radius, droop (rad; negative hooks up)]
+function spikes(ch, list, thickAt, mat) {
+  const at = (az, el, out) => { const d = dirOf(az, el), q = ch.headPoint(d).addScaledVector(d, out); return [q.x, q.y, q.z]; };
+  for (const [a, e, len, r, drop] of list) { const T = thickAt(a, e), sd = Math.sign(a) || 1;
+    ch.head.group.add(lock([at(a, e + Math.sign(drop) * 0.14, T * 0.2), at(a, e - drop * 0.35, T * 0.75), at(a + sd * 0.03, e - drop, thickAt(a, e - drop) + len)], r, mat, 1, true)); }
+}
+// a leaf-shaped lock (Chip's two crown locks): flat, widest a third up, pointed; its root at the origin, growing along +y
+function leaf(len, w, th, mat) {
+  const g = new THREE.SphereGeometry(1, 20, 16), p = g.attributes.position;
+  for (let i = 0; i < p.count; i++) { const x = p.getX(i), y = p.getY(i), z = p.getZ(i), t = (y + 1) / 2, f = 1 - 0.62 * t * t; p.setXYZ(i, x * w * f, t * len, z * th * f + 0.25 * len * t * t * 0.3); }
+  g.computeVertexNormals(); return mesh(g, mat);
 }
 
 const HUMAN = {
@@ -183,6 +217,96 @@ const HUMAN = {
       } }
     shoes(ch, flat(C.shoe || "#45435c", 0.8), flat(C.sole || "#f2e3c6", 0.8), null, C.shoeSize);
     return [limbsCloth(ch, { sleeve: hood, cuff: rib, trouser: denim, sleeveR: 1.32, cuffR: 1.42, trouserR: 1.3 })];
+  },
+  // SPUD: the neutral one. Close chestnut cap with a low zigzag over the forehead, short tips at the temples, a row of
+  // short points at the nape and one small cowlick off the crown; teal knit sweater with a ribbed mock neck, a wavy knit
+  // line down the front, ribbed cuffs and hem; indigo trousers; plain brown shoes.
+  "human-spud"(C, ch) {
+    const P = ch.potatoParts, H = ch.head, top = ch.cy + ch.ry, k = ch.rx / 0.18;
+    const hairM = clothMat(C.hair || "#c0543e", { roughness: 0.85 }), knit = clothMat(C.knit || "#4e9291"), rib = clothMat(C.rib || "#447f7e"), trouser = clothMat(C.trouser || "#5a508f");
+    const TH = 0.03, CR = 0.035, thickAt = (az, el) => TH + CR * sstep(0.2, 1.2, el);
+    H.group.add(hairShell(ch, { thick: TH, crown: CR, crownFrom: 0.2, hang: 0.25,
+      line: [[0, 0.52], [0.6, 0.5], [0.9, 0.36], [1.15, 0.12], [1.85, 0.14], [2.15, -0.42], [3.1416, -0.6]],
+      locks: [[0.02, 0.15, 0.08], [0.33, 0.13, 0.06], [-0.3, 0.13, 0.065], [0.62, 0.13, 0.08], [-0.6, 0.13, 0.075], [1.08, 0.13, 0.14], [-1.08, 0.13, 0.14],
+        [2.35, 0.2, 0.12], [-2.35, 0.2, 0.12], [2.8, 0.2, 0.14], [-2.8, 0.2, 0.14], [3.1416, 0.17, 0.13]],
+      tufts: [[1.3, 0.75, 0.012, 0.22], [-1.4, 0.65, 0.012, 0.22], [2.5, 0.8, 0.012, 0.25], [-2.3, 0.9, 0.012, 0.25], [0.3, 1.0, 0.01, 0.25]],
+    }, hairM));
+    spikes(ch, C.spikes || [[1.25, 0.42, 0.03, 0.05, 0.4], [-1.25, 0.42, 0.03, 0.05, 0.4], [1.45, 0.2, 0.028, 0.045, 0.4], [-1.45, 0.2, 0.028, 0.045, 0.4], [2.0, 0.05, 0.03, 0.05, 0.4], [-2.0, 0.05, 0.03, 0.05, 0.4]], thickAt, hairM);
+    { const hy = H.ry + TH + CR; H.group.add(lock([[0.015, hy - 0.04, -0.01], [0.012, hy + 0.012, -0.005], [-0.004, hy + 0.036, 0.0], [-0.028, hy + 0.042, 0.008], [-0.042, hy + 0.026, 0.012]], 0.02, hairM)); }
+    // sweater: the mock neck, the wavy knit line down the front, the ribbed hem
+    P.add(collarRoll(ch, rib, top, { rx: 0.095 * k, rz: 0.088 * k, r: 0.03 * k, drop: 0.006, y: 0.012 * k, back: -0.006 }));
+    { const pts = []; for (let i = 0; i <= 24; i++) { const ph = 1.0 - (1.95 * i) / 24; pts.push([0.07 * Math.sin(i * 1.05), ph]); }
+      const lm = flat(C.knitLine || "#385c58", 0.9); lm.userData.noOutline = true; P.add(surfLine(ch, pts, 0.0035, lm, 0.003)); }
+    P.add(ring(ch, -1.0, 0.022 * k, rib, 0.0));
+    P.add(seat(ch, trouser, k * 0.62));
+    shoes(ch, flat(C.shoe || "#b85c26", 0.8), flat(C.sole || "#8f4319", 0.8), null, C.shoeSize);
+    return [limbsCloth(ch, { sleeve: knit, cuff: rib, trouser, sleeveR: 1.3, cuffR: 1.42, trouserR: 1.3, cuffAt: 0.05 })];
+  },
+  // CHIP: the smallest, a round ball of energy. Red-orange cap with a zigzag fringe and two leaf-shaped crown locks in a
+  // V; yellow hoodie (hood on the back, white drawstrings with knots); khaki shorts to the knee over bare legs; cream
+  // trainers with a red stripe.
+  "human-chip"(C, ch) {
+    const P = ch.potatoParts, H = ch.head, top = ch.cy + ch.ry, k = ch.rx / 0.18;
+    const hairM = clothMat(C.hair || "#d8422a", { roughness: 0.85 }), hood = clothMat(C.hoodie || "#feae11"), rib = clothMat(C.rib || "#f0a00c"), shorts = clothMat(C.shorts || "#ca9c5b");
+    const TH = 0.028, CR = 0.03, thickAt = (az, el) => TH + CR * sstep(0.2, 1.2, el);
+    H.group.add(hairShell(ch, { thick: TH, crown: CR, crownFrom: 0.2, hang: 0.3,
+      line: [[0, 0.7], [0.6, 0.68], [0.9, 0.48], [1.15, 0.16], [1.85, 0.18], [2.15, -0.4], [3.1416, -0.58]],
+      locks: [[0.0, 0.14, 0.09], [0.3, 0.13, 0.07], [-0.3, 0.13, 0.07], [0.6, 0.13, 0.09], [-0.6, 0.13, 0.09], [0.88, 0.12, 0.1], [-0.88, 0.12, 0.1], [1.1, 0.12, 0.14], [-1.1, 0.12, 0.14],
+        [2.3, 0.17, 0.12], [-2.3, 0.17, 0.12], [2.65, 0.17, 0.14], [-2.65, 0.17, 0.14], [2.97, 0.15, 0.15], [-2.97, 0.15, 0.15]],
+      tufts: [[1.2, 0.8, 0.012, 0.2], [-1.2, 0.8, 0.012, 0.2], [2.3, 0.7, 0.012, 0.25], [-2.3, 0.7, 0.012, 0.25]],
+    }, hairM));
+    spikes(ch, C.spikes || [[1.2, 0.62, 0.026, 0.045, 0.4], [-1.2, 0.62, 0.026, 0.045, 0.4], [1.35, 0.4, 0.028, 0.045, 0.42], [-1.35, 0.4, 0.028, 0.045, 0.42], [1.55, 0.2, 0.026, 0.04, 0.42], [-1.55, 0.2, 0.026, 0.04, 0.42],
+      [2.0, 0.1, 0.026, 0.04, 0.4], [-2.0, 0.1, 0.026, 0.04, 0.4]], thickAt, hairM);
+    { const hy = H.ry + TH + CR - 0.012; for (const sd of [-1, 1]) { const l = leaf(0.095, 0.03, 0.018, hairM); l.rotation.order = "ZYX"; l.position.set(sd * 0.004, hy, -0.005); l.rotation.set(-0.12, sd * 0.45, -sd * 0.55); H.group.add(l); }
+      for (const [x, a] of [[-0.012, 0.25], [0.012, -0.22], [0, 0.02]]) { const l = leaf(0.032, 0.012, 0.007, hairM); l.position.set(x, hy - 0.004, 0.012); l.rotation.set(0.25, 0, a); H.group.add(l); } }
+    // hoodie: the collar with its V, the hood on the back, the drawstrings, the hem
+    P.add(collarRoll(ch, hood, top, { rx: 0.112 * k, rz: 0.1 * k, r: 0.03 * k, drop: 0.04 * k, back: -0.008 }));
+    hoodBack(ch, P, hood, top, k * 0.86);
+    { const wm = flat(C.strings || "#fefefd", 0.6); for (const sd of [-1, 1]) {
+        P.add(surfLine(ch, [[sd * 0.3, 0.95], [sd * 0.27, 0.6], [sd * 0.25, 0.25], [sd * 0.25, 0.02]], 0.0045, wm, 0.006));
+        const q = ch.surf(sd * 0.25, 0.0), kn = mesh(new THREE.SphereGeometry(0.008, 12, 10), wm, false); kn.position.copy(q.pos).addScaledVector(q.normal, 0.007); P.add(kn); } }
+    P.add(ring(ch, -1.0, 0.02 * k, rib, 0.0));
+    shoes(ch, flat(C.shoe || "#fdebd8", 0.8), flat(C.sole || "#ffffff", 0.8), flat(C.stripe || "#e5342d", 0.7), C.shoeSize);
+    return [limbsCloth(ch, { sleeve: hood, cuff: rib, trouser: shorts, sleeveR: 1.35, cuffR: 1.45, trouserR: 1.75, hemU: 0.5, trouserTaper: -0.08, cuffAt: 0.045 })];
+  },
+  // WEDGE: the biggest, broad. Red-brown hair with a tall quiff swept to his right in hooked points, a forelock over
+  // the forehead, a small hooked curl on the other side of the crown, brown sunglasses resting in the hair; red bomber
+  // (cream knit shawl collar and cuffs, cream zip, two slanted pocket welts, deep red ribbed waist); brown trousers;
+  // russet boots with dark welts.
+  "human-wedge"(C, ch) {
+    const P = ch.potatoParts, H = ch.head, top = ch.cy + ch.ry, k = ch.rx / 0.18;
+    const hairM = clothMat(C.hair || "#bb462d", { roughness: 0.85 }), red = clothMat(C.bomber || "#c93a2e"), cream = clothMat(C.knit || "#fedbb4"), waist = clothMat(C.waist || "#9e3323"), trouser = clothMat(C.trouser || "#935840");
+    const THz = [[0, 0.045], [1.0, 0.06], [3.1416, 0.06]], CR = 0.065, QF = [[-0.75, 1.0, 0.05, 0.5], [-1.2, 0.55, 0.03, 0.4]];
+    const thickAt = (az, el) => { let t = table(THz, Math.abs(wrap(az))) + CR * sstep(0.1, 1.2, el); for (const [a, e, h, w] of QF) { const da = wrap(az - a) * Math.cos(el), de = el - e; t += h * Math.exp(-(da * da + de * de) / (w * w)); } return t; };
+    H.group.add(hairShell(ch, { thickAz: THz, crown: CR, hang: 0.3,
+      line: [[0, 0.5], [0.6, 0.48], [0.9, 0.34], [1.15, 0.1], [1.85, 0.12], [2.15, -0.42], [3.1416, -0.6]],
+      locks: [[-0.4, 0.42, 0.17, 0.03], [0.45, 0.2, 0.12, 0.02], [0.8, 0.14, 0.1, 0.01], [1.08, 0.14, 0.16], [-1.08, 0.14, 0.16],
+        [2.3, 0.2, 0.14], [-2.3, 0.2, 0.14], [2.75, 0.2, 0.16], [-2.75, 0.2, 0.16], [3.1416, 0.18, 0.15]],
+      tufts: [...QF, [1.3, 0.8, 0.015, 0.25], [2.4, 0.7, 0.015, 0.3], [-2.5, 0.8, 0.015, 0.3]],
+    }, hairM));
+    // the quiff's hooked points on his right (they curl up), plain points on the other side and round the back
+    spikes(ch, C.spikes || [[-1.15, 1.0, 0.085, 0.11, -0.3], [-1.3, 0.66, 0.1, 0.12, -0.26], [-1.4, 0.3, 0.09, 0.11, -0.2], [-0.55, 1.2, 0.07, 0.1, -0.25],
+      [1.3, 0.6, 0.05, 0.07, 0.4], [1.45, 0.3, 0.05, 0.07, 0.42], [1.6, 0.05, 0.045, 0.065, 0.42], [2.1, 0.0, 0.045, 0.065, 0.4], [-2.1, 0.0, 0.045, 0.065, 0.4]], thickAt, hairM);
+    { const hy = H.ry + CR + 0.03; H.group.add(lock([[0.07, hy - 0.06, -0.01], [0.1, hy + 0.01, -0.005], [0.14, hy + 0.05, 0.0], [0.18, hy + 0.045, 0.005], [0.195, hy + 0.015, 0.008]], 0.032, hairM)); }
+    // sunglasses resting in the hair above the forehead
+    { const d = dirOf(0.05, 0.8), q = ch.headPoint(d).addScaledVector(d, thickAt(0.05, 0.8) + 0.014), G = new THREE.Group();
+      const frame = flat(C.frame || "#bd6022", 0.5), lens = new THREE.MeshStandardMaterial({ color: C.lens || "#633117", roughness: 0.25 });
+      for (const sd of [-1, 1]) {
+        const l = mesh(new THREE.SphereGeometry(1, 24, 16), lens); l.scale.set(0.062, 0.043, 0.012); l.position.set(sd * 0.07, 0, 0); G.add(l);
+        const f = mesh(new THREE.TorusGeometry(1, 0.13, 8, 32), frame); f.scale.set(0.062, 0.043, 0.06); f.position.set(sd * 0.07, 0, 0); G.add(f);
+        const arm = mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.16, 8), frame); arm.rotation.x = Math.PI / 2; arm.position.set(sd * 0.135, 0.01, -0.08); G.add(arm);
+      }
+      const br = mesh(new THREE.CylinderGeometry(0.007, 0.007, 0.03, 8), frame); br.rotation.z = Math.PI / 2; br.position.set(0, 0.012, 0); G.add(br);
+      G.position.copy(q); G.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), d); H.group.add(G); }
+    // bomber: the shawl collar, the zip, the pocket welts, the ribbed waist
+    P.add(collarRoll(ch, cream, top, { rx: 0.115 * k, rz: 0.1 * k, r: 0.036 * k, drop: 0.07, y: 0.0, back: -0.01 }));
+    { const zm = flat(C.zip || "#fedbb4", 0.7); zm.userData.noOutline = true; P.add(surfLine(ch, [[0, 0.75], [0, 0.3], [0, -0.3], [0, -0.9]], 0.006, zm, 0.004));
+      const wm = flat(C.welt || "#8e2a20", 0.9); wm.userData.noOutline = true;
+      for (const sd of [-1, 1]) P.add(surfLine(ch, [[sd * 0.38, -0.12], [sd * 0.5, -0.3], [sd * 0.6, -0.48]], 0.005, wm, 0.004)); }
+    P.add(ring(ch, -1.0, 0.034, waist, 0.0));
+    P.add(seat(ch, trouser, k * 0.55));
+    shoes(ch, flat(C.shoe || "#b14022", 0.8), flat(C.sole || "#6b2a18", 0.8), null, C.shoeSize);
+    return [limbsCloth(ch, { sleeve: red, cuff: cream, trouser, sleeveR: 1.35, cuffR: 1.5, trouserR: 1.32 })];
   },
 };
 

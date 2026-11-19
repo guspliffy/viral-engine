@@ -1,0 +1,184 @@
+{
+  "id": "human-friends/chip",
+  "name": "Chip (human)",
+  "franchise": "Human friends",
+  "tts": "chip",
+  "source": "Jonny's pick 19 Nov 2026 20:03: line-up 'a touch more South Park' (/mnt/project-files/characters/human-friends/round5/humans-sp-1-PICKED.png); shapes, sizes and colours from the round 6 sheets in that look (round6/chip-turnaround.png, chip-faces-details.png, DESIGN-NOTES.md: standing height with Mash at 100 = 46).",
+  "rig": "potato",
+  "build": "core",
+  "body": {
+    "color": "#feae11",
+    "height": 0.21,
+    "width": 0.22,
+    "depth": 0.17,
+    "lump": 0,
+    "seed": 67,
+    "taper": 0.02,
+    "square": 2.4,
+    "specks": 0,
+    "gloss": 0,
+    "keepSkin": true
+  },
+  "head": {
+    "color": "#fdc18a",
+    "keepSkin": true,
+    "width": 0.31,
+    "height": 0.275,
+    "depth": 0.28,
+    "square": 2.4,
+    "taper": 0.05,
+    "neck": 0.0,
+    "neckR": 0.04,
+    "faceUp": 0.0,
+    "faceWide": 1.25,
+    "nose": {
+      "w": 0.009,
+      "h": 0.007,
+      "d": 0.006,
+      "v": -0.25
+    },
+    "ears": {
+      "w": 0.04,
+      "h": 0.045,
+      "d": 0.018,
+      "v": -0.22
+    },
+    "specks": 0,
+    "turn": 0.55,
+    "nod": 0.38
+  },
+  "legs": {
+    "stride": 1.4,
+    "height": 0.157,
+    "width": 0.03,
+    "hipX": 0.045,
+    "footX": 0.052,
+    "knees": {
+      "crouch": 0.5,
+      "bend": 1
+    },
+    "roll": {
+      "on": true,
+      "peel": 0.6,
+      "strike": 0.36,
+      "len": 0.45,
+      "settle": 0.12,
+      "lead": 0.2
+    },
+    "heel": 0.05,
+    "toe": 0.11,
+    "sole": 0.035
+  },
+  "limbs": {
+    "color": "#fdc18a",
+    "role": "skin",
+    "width": 0.028,
+    "shoulder": 0.62,
+    "rest": {
+      "o": [
+        0.04,
+        -0.05,
+        0.02
+      ],
+      "elbow": 0.02,
+      "swing": 0.7
+    }
+  },
+  "hands": {
+    "type": "mitten",
+    "size": 0.7,
+    "keep": true,
+    "plain": true
+  },
+  "face": {
+    "size": 0.4,
+    "default": "kind",
+    "iris": "#3a2117",
+    "brow": "#b5452c",
+    "cheeks": "#f3a08a",
+    "neutral": {
+      "curve": -0.05,
+      "open": 0,
+      "eye": 1.0
+    },
+    "eye": {
+      "flick": 0.2
+    },
+    "browShape": {
+      "arch": -0.02,
+      "thick": 1.3
+    },
+    "blush": 0.7,
+    "final": {
+      "iris": "#3a2117",
+      "brow": "#b5452c",
+      "freckles": 0,
+      "eye": {
+        "oval": 1.22,
+        "iris": 0.74,
+        "white": "#fff8ec",
+        "lash": 0.6,
+        "glintSize": 1.6,
+        "glints": 1,
+        "irisShade": false,
+        "corner": 0
+      },
+      "browShape": {
+        "arch": 0.2,
+        "thick": 0.9,
+        "clear": 0.012,
+        "taper": 0.5
+      },
+      "rest": {
+        "smirk": 0,
+        "curve": 0.8,
+        "tilt": 0.2
+      },
+      "neutral": {
+        "lidL": 0,
+        "lidR": 0
+      },
+      "blush": 0.7,
+      "layout": {
+        "eyeU": 0.5,
+        "eyeV": -0.05,
+        "mouthV": -0.9,
+        "mouthW": 0.3,
+        "cheekU": 0.7,
+        "cheekV": -0.5,
+        "browV": 0.0
+      }
+    }
+  },
+  "sprout": {
+    "placement": "none"
+  },
+  "costume": {
+    "type": "human-chip",
+    "skin": "#fdc18a",
+    "hair": "#d8422a",
+    "hoodie": "#feae11",
+    "rib": "#f0a00c",
+    "shorts": "#ca9c5b",
+    "shoe": "#fdebd8",
+    "sole": "#ffffff",
+    "stripe": "#e5342d",
+    "strings": "#fefefd",
+    "shoeSize": [
+      0.055,
+      0.04,
+      0.08
+    ]
+  },
+  "personality": "The human version of Chip, the friend with too much energy. The smallest of the four, never stands still, says yes before he has heard the plan. Catchphrase: \"Let's go!\"",
+  "voice": {
+    "pitch": 168,
+    "rate": 3.9,
+    "formant": 1.0,
+    "range": 4,
+    "breath": 0.08,
+    "vibrato": 0.008,
+    "seed": 71
+  },
+  "notes": "Core build (torso + separate head). Hair, clothes' parts and shoes come from engine/page/costumes-human-friends.js."
+}
