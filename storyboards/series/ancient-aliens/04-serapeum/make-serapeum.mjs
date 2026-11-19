@@ -120,7 +120,7 @@ const seg0 = (F) => segment(F, 0, 1.0, (S) => {
 const seg1 = (F) => segment(F, -4.0, 13.9, (S) => {
   const N = (t) => r3(t - 4.0);   // segment time -> design time (4.0 = frame 120: the old beats' "place" 0.02 s before a cut lands inside the frame before it)
   const cast = [
-    { id: "spud", character: CAST.spud, at: [0.75, 0.55], face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
+    { id: "spud", character: CAST.spud, at: [0.3, 0.37], face: 90, expr: "neutral", follow: 0.2, seed: 4.1 },
     { id: "pharaoh", character: CAST.pharaoh, at: [-1.55, -60], y: -0.18, face: 70, expr: "neutral", seed: 7.3, staged: "waits out of sight until his chamber beat" },
   ];
   const props = [gallery({ omit: ["R0", "R4", "L1"] }), box("boxR0", 0, { reflect: true }), box("boxR4", 4, { lidSlide: 0.6 }), ...LAMPS, host("spud", 1)];   // lid well open: "All empty." looks into it

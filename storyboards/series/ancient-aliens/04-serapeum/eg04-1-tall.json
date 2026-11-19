@@ -26,8 +26,8 @@
    "id": "spud",
    "character": "potatobrawl/spud",
    "at": [
-    0.75,
-    0.55
+    0.3,
+    0.37
    ],
    "face": 90,
    "expr": "neutral",
