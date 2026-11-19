@@ -1,0 +1,491 @@
+{
+ "id": "ml01-05-street",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "scorestreet",
+  "light": "golden",
+  "key": [
+   6.5,
+   3.4,
+   3
+  ],
+  "shadowSize": 9,
+  "windows": false,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 32.81,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "open",
+  "guard": true,
+  "level": -9.7,
+  "nature": [
+   {
+    "id": "birds",
+    "gain": 0.05
+   }
+  ]
+ },
+ "creative": {
+  "length": [
+   3.722,
+   3.722
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    -1,
+    1
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "v3",
+   "character": "potatobrawl/agent",
+   "at": [
+    2.6,
+    -0.1
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "v4",
+   "character": "potatobrawl/tot",
+   "at": [
+    3.6,
+    -0.9
+   ],
+   "face": -90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  }
+ ],
+ "props": [
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "07 paris wide",
+   "at": 0,
+   "len": 1.861,
+   "shot": {
+    "pos": [
+     -1.85,
+     1.122,
+     5.001
+    ],
+    "look": [
+     -1,
+     0.62,
+     1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -1.731,
+      1.052,
+      4.441
+     ]
+    },
+    "dur": 1.861,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       1.861,
+       5
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -1,
+      1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      2.6,
+      -0.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      3.6,
+      -0.9
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": -0.94,
+      "y": 0.13,
+      "z": 1.66,
+      "rot": 450,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "grab",
+     "prop": "ml",
+     "hand": "R",
+     "keep": true,
+     "dur": 0.01,
+     "at": 0.02
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": -90,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "He walks out into Paris.",
+     "voice": "narrator-quick",
+     "dur": 1.5485,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      2.8,
+      1
+     ],
+     "dur": 3.4,
+     "at": 0.18
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      -0.4,
+      -0.1
+     ],
+     "dur": 3.2,
+     "at": 0.18
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      -0.6,
+      -0.9
+     ],
+     "dur": 3.6,
+     "at": 0.18
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody notices.",
+     "voice": "narrator-quick",
+     "dur": 1.2639,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 1.828
+    }
+   ]
+  },
+  {
+   "name": "07 paris wide +",
+   "at": 1.861,
+   "len": 1.861,
+   "shot": {
+    "pos": [
+     -0.533,
+     1.032,
+     4.322
+    ],
+    "look": [
+     -1,
+     0.62,
+     1
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      -0.599,
+      0.974,
+      3.857
+     ]
+    },
+    "dur": 1.861,
+    "yaw": {
+     "keys": [
+      [
+       1.861,
+       0
+      ],
+      [
+       3.722,
+       -5
+      ]
+     ],
+     "pivot": 3.38
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 3.722,
+   "reason": "the cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 32.81,
+  "T1": 36.532
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 32.81-36.532 s)."
+}

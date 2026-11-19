@@ -24,7 +24,7 @@ for (const sc of SCENES) {
   let t = T + 0.1;
   for (const it of sc.seq) {
     const [k] = it;
-    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.12; }
+    if (k === "n") { const d = nDur(it[1]); ev.push([t, "n", it[1], d]); t += d + 0.18; }
     else if (k === "s") { const [, who, line, tone] = it, d = sDur(line); ev.push([t, "s", who, line, d, tone]); t += d + 0.1; }
     else if (k === "cut") ev.push([t, "cut", it[1], { ...posNow }]);
     else if (k === "wait") t += it[1];
@@ -126,13 +126,15 @@ runs.forEach((run, ri) => {
       else if (k === "grab") {
         c.arm(uu, e[2], "R", { o: [0.2, 0.26, 0.34] }, 0.25); c.arm(uu, e[2], "L", { o: [0.2, 0.26, 0.34] }, 0.25);
         A(r3(uu + 0.3), e[2], "grab", { prop: e[3], hand: "R", keep: true, dur: 0.01 });
-      } else if (k === "mlhold") {
-        // she is already in his hands at the scene's start: in front of him at chest height, the panel facing him
+      } else if (k === "mltake" || k === "mlhold") {
+        // carried at his right side by its edge, her face out: the baker body's arms can't reach round the belly, so
+        // the panel stands where the resting R hand is (measured: 0.50 out, 0.06 forward, 0.40 up) and the hand keeps it
         const id = e[2], f = facing[id] ?? S.facing, a = (f * Math.PI) / 180, p = live[id];
-        const at = [r3(p[0] + Math.sin(a) * 0.4), 0.03, r3(p[1] + Math.cos(a) * 0.4)];   // low, below his face, her face out (the viewer must see what he carries)
-        c.prop(us0, "ml", { x: at[0], y: at[1], z: at[2], rot: r3(f), tip: 0 }, 0, "linear");
-        c.arm(us0, id, "R", { o: [0.19, 0.12, 0.34] }, 0.01); c.arm(us0, id, "L", { o: [0.19, 0.12, 0.34] }, 0.01);
-        A(r3(us0 + 0.02), id, "grab", { prop: "ml", hand: "R", keep: true, dur: 0.01 });
+        const side = -0.66, fwd = 0.06, at = [r3(p[0] + side * Math.cos(a) + fwd * Math.sin(a)), 0.13, r3(p[1] - side * Math.sin(a) + fwd * Math.cos(a))];
+        const t0 = k === "mltake" ? uu : us0, d = k === "mltake" ? 0.45 : 0;
+        c.arm(t0, id, "R", "rest", k === "mltake" ? 0.4 : 0.01); c.arm(t0, id, "L", "rest", k === "mltake" ? 0.4 : 0.01);
+        c.prop(t0, "ml", { x: at[0], y: at[1], z: at[2], rot: r3(f), tip: 0 }, d, d ? "inOut" : "linear");
+        A(r3(t0 + d + 0.02), id, "grab", { prop: "ml", hand: "R", keep: true, dur: 0.01 });
       } else if (k === "papers") {
         // four front pages blow across the street; the first one ends up filling the insert
         const ends = [NPAPER_AT(S)], spots = [[-3, 2.4, -0.3], [-2.5, 2.0, 0.6], [3.0, 2.2, 0.2], [2.6, 1.8, -0.6]];

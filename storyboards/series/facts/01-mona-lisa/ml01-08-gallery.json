@@ -1,0 +1,674 @@
+{
+ "id": "ml01-08-gallery",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 52.545,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "large",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   6.355,
+   6.355
+  ]
+ },
+ "cast": [
+  {
+   "id": "v1",
+   "character": "potatobrawl/duchess",
+   "at": [
+    5.35,
+    -0.3
+   ],
+   "face": 75,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "v2",
+   "character": "potatobrawl/dauphin",
+   "at": [
+    5.05,
+    0.55
+   ],
+   "face": 85,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "v3",
+   "character": "potatobrawl/agent",
+   "at": [
+    4.85,
+    -1.15
+   ],
+   "face": 70,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "v4",
+   "character": "potatobrawl/tot",
+   "at": [
+    4.6,
+    1.4
+   ],
+   "face": 100,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  },
+  {
+   "id": "v5",
+   "character": "potatobrawl/assistant",
+   "at": [
+    4.4,
+    -2
+   ],
+   "face": 60,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 6.300000000000001
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "art0",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": -1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": 1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": -2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": 2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art4",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": -4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art5",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": 4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "hooks",
+   "kind": "wallhooks",
+   "x": 5.9799999999999995,
+   "y": 0.87,
+   "z": 0,
+   "rot": -90
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "10 empty wall wide",
+   "at": 0,
+   "len": 1.833,
+   "shot": {
+    "pos": [
+     3.812,
+     1.316,
+     -3.814
+    ],
+    "look": [
+     5.2,
+     0.6,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      4.006,
+      1.215,
+      -3.28
+     ]
+    },
+    "dur": 3.667,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       3.667,
+       5
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "v1",
+     "do": "move",
+     "to": [
+      5.35,
+      -0.3
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "turn",
+     "to": 75,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "move",
+     "to": [
+      5.05,
+      0.55
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "turn",
+     "to": 85,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v2",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      4.85,
+      -1.15
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "move",
+     "to": [
+      4.6,
+      1.4
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v4",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "move",
+     "to": [
+      4.4,
+      -2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "turn",
+     "to": 60,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "When it reopens, thousands queue...",
+     "voice": "narrator-quick",
+     "dur": 3.3868,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "10 empty wall wide +",
+   "at": 1.833,
+   "len": 1.834,
+   "shot": {
+    "pos": [
+     3.061,
+     1.187,
+     -2.549
+    ],
+    "look": [
+     5.2,
+     0.6,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      3.36,
+      1.105,
+      -2.193
+     ]
+    },
+    "dur": 1.834,
+    "yaw": {
+     "keys": [
+      [
+       1.833,
+       0
+      ],
+      [
+       3.667,
+       5
+      ]
+     ],
+     "pivot": 3.379
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "10 empty wall wide",
+   "at": 3.667,
+   "len": 2.688,
+   "shot": {
+    "pos": [
+     3.295,
+     1.235,
+     3.299
+    ],
+    "look": [
+     5.2,
+     0.7,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      3.562,
+      1.16,
+      2.837
+     ]
+    },
+    "dur": 2.688,
+    "yaw": {
+     "keys": [
+      [
+       3.667,
+       0
+      ],
+      [
+       6.355,
+       -5
+      ]
+     ],
+     "pivot": 3.847
+    }
+   },
+   "do": [
+    {
+     "who": "v5",
+     "do": "turn",
+     "to": 26.565,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "v3",
+     "do": "turn",
+     "to": 26.565,
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "...to stare at an empty wall.",
+     "voice": "narrator-quick",
+     "dur": 1.8585,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "move",
+     "to": [
+      4.5,
+      -1.8
+     ],
+     "dur": 2,
+     "at": 0.08
+    },
+    {
+     "who": "v3",
+     "do": "move",
+     "to": [
+      4.9,
+      -1.05
+     ],
+     "dur": 1.8,
+     "at": 0.08
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 52.545,
+  "T1": 58.9
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 52.545-58.9 s)."
+}

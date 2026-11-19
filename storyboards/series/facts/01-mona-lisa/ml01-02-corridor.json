@@ -1,0 +1,414 @@
+{
+ "id": "ml01-02-corridor",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "nighthall",
+  "night": true,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 10.928,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   4.264,
+   4.264
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    0.4,
+    1.8
+   ],
+   "face": 150,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "g1",
+   "character": "facts/guard",
+   "at": [
+    -0.3,
+    -2.8
+   ],
+   "face": 0,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "door",
+   "kind": "nightdoor",
+   "x": -1.45,
+   "z": -0.7,
+   "rot": -89
+  },
+  {
+   "id": "closet",
+   "kind": "momdoor",
+   "x": 1.39,
+   "z": 1,
+   "rot": -90,
+   "w": 0.85
+  },
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  },
+  {
+   "id": "cap-g1",
+   "wear": "g1",
+   "x": 0,
+   "y": 1.02,
+   "z": 0.02,
+   "kind": "policecap",
+   "r": 0.19,
+   "badge": false
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "03 closet wide",
+   "at": 0,
+   "len": 2.132,
+   "shot": {
+    "pos": [
+     0.4,
+     1.055,
+     5.345
+    ],
+    "look": [
+     0.4,
+     0.62,
+     1.8
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      0.4,
+      0.994,
+      4.849
+     ]
+    },
+    "dur": 2.132,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.132,
+       5
+      ]
+     ],
+     "pivot": 3.572
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      0.4,
+      1.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 150,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      -0.3,
+      -2.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "turn",
+     "to": 0,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "g1",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 139.086,
+     "dur": 0.2,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Sunday night, he hides in a closet.",
+     "voice": "narrator-quick",
+     "dur": 2.6339,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      1.05,
+      1.05
+     ],
+     "dur": 1,
+     "at": 0.18
+    }
+   ]
+  },
+  {
+   "name": "03 closet wide +",
+   "at": 2.132,
+   "len": 2.132,
+   "shot": {
+    "pos": [
+     1.394,
+     0.977,
+     4.532
+    ],
+    "look": [
+     0.4,
+     0.62,
+     1.8
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.255,
+      0.927,
+      4.149
+     ]
+    },
+    "dur": 2.132,
+    "yaw": {
+     "keys": [
+      [
+       2.132,
+       0
+      ],
+      [
+       4.264,
+       -5
+      ]
+     ],
+     "pivot": 2.929
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "hide",
+     "at": 0.77
+    },
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      90,
+      90
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0.77
+    },
+    {
+     "sfx": "latch",
+     "reason": "the story's own sound",
+     "gain": 0.5,
+     "at": 0.782
+    },
+    {
+     "who": "g1",
+     "do": "turn",
+     "to": 1.193,
+     "dur": 0.2,
+     "at": 0.782
+    },
+    {
+     "sfx": "step",
+     "reason": "the story's own sound",
+     "gain": 0.4,
+     "at": 0.782
+    },
+    {
+     "who": "g1",
+     "do": "move",
+     "to": [
+      -0.2,
+      2
+     ],
+     "dur": 2.6,
+     "at": 0.862
+    }
+   ]
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 4.264,
+   "reason": "the cap is worn"
+  },
+  {
+   "who": "g1",
+   "with": "cap-g1",
+   "from": 0,
+   "to": 4.264,
+   "reason": "the cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 10.928,
+  "T1": 15.192
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 10.928-15.192 s)."
+}

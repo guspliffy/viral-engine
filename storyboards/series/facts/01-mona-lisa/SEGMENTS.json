@@ -1,0 +1,126 @@
+{
+ "length": 87.602,
+ "acts": {
+  "hook": 0,
+  "theft": 10.928,
+  "door": 26.207,
+  "out": 32.81,
+  "panic": 36.532,
+  "wall": 52.545,
+  "room": 58.9,
+  "caught": 68.3,
+  "today": 78.805
+ },
+ "actList": [
+  {
+   "key": "hook",
+   "mood": "mystery"
+  },
+  {
+   "key": "theft",
+   "mood": "sneaky"
+  },
+  {
+   "key": "door",
+   "mood": "suspense"
+  },
+  {
+   "key": "out",
+   "mood": "sneaky"
+  },
+  {
+   "key": "panic",
+   "mood": "drama"
+  },
+  {
+   "key": "wall",
+   "mood": "mystery"
+  },
+  {
+   "key": "room",
+   "mood": "suspense"
+  },
+  {
+   "key": "caught",
+   "mood": "drama"
+  },
+  {
+   "key": "today",
+   "mood": "reveal"
+  }
+ ],
+ "segs": [
+  {
+   "id": "ml01-01-gallery",
+   "place": "gallery",
+   "T0": 0,
+   "T1": 10.928
+  },
+  {
+   "id": "ml01-02-corridor",
+   "place": "corridor",
+   "T0": 10.928,
+   "T1": 15.192
+  },
+  {
+   "id": "ml01-03-gallery",
+   "place": "gallery",
+   "T0": 15.192,
+   "T1": 21.768
+  },
+  {
+   "id": "ml01-04-corridor",
+   "place": "corridor",
+   "T0": 21.768,
+   "T1": 32.81
+  },
+  {
+   "id": "ml01-05-street",
+   "place": "street",
+   "T0": 32.81,
+   "T1": 36.532
+  },
+  {
+   "id": "ml01-06-gallery",
+   "place": "gallery",
+   "T0": 36.532,
+   "T1": 45.372
+  },
+  {
+   "id": "ml01-07-street",
+   "place": "street",
+   "T0": 45.372,
+   "T1": 52.545
+  },
+  {
+   "id": "ml01-08-gallery",
+   "place": "gallery",
+   "T0": 52.545,
+   "T1": 58.9
+  },
+  {
+   "id": "ml01-09-room",
+   "place": "room",
+   "T0": 58.9,
+   "T1": 68.3
+  },
+  {
+   "id": "ml01-10-shop",
+   "place": "shop",
+   "T0": 68.3,
+   "T1": 74.7
+  },
+  {
+   "id": "ml01-11-street",
+   "place": "street",
+   "T0": 74.7,
+   "T1": 78.805
+  },
+  {
+   "id": "ml01-12-gallery",
+   "place": "gallery",
+   "T0": 78.805,
+   "T1": 87.602
+  }
+ ]
+}

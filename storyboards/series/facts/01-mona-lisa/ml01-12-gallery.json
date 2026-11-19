@@ -1,0 +1,771 @@
+{
+ "id": "ml01-12-gallery",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "plain",
+  "color": "#9fcdf0",
+  "floor": "#d9cfc0",
+  "light": "golden",
+  "para": 0,
+  "bloom": "emissive",
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 78.805,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "stone",
+  "room": "large",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   8.797,
+   8.797
+  ]
+ },
+ "cast": [
+  {
+   "id": "spud",
+   "character": "potatobrawl/spud",
+   "at": [
+    4.7,
+    -0.8
+   ],
+   "face": 80,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "chip",
+   "character": "potatobrawl/chip",
+   "at": [
+    4.5,
+    0.05
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    4.8,
+    0.95
+   ],
+   "face": 100,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 3.7
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    4.4,
+    -1.65
+   ],
+   "face": 70,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 5
+  }
+ ],
+ "props": [
+  {
+   "id": "hall",
+   "kind": "museumhall",
+   "x": 0,
+   "y": 0,
+   "z": 0
+  },
+  {
+   "id": "art0",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": -1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art1",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 0.95,
+   "z": 1.25,
+   "rot": -90,
+   "w": 0.62,
+   "h": 0.48,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art2",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": -2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art3",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1.25,
+   "z": 2.6,
+   "rot": -90,
+   "w": 0.95,
+   "h": 0.75,
+   "scene": "hills",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art4",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": -4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "sea",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "art5",
+   "kind": "wallart",
+   "x": 5.97,
+   "y": 1,
+   "z": 4.1,
+   "rot": -90,
+   "w": 0.7,
+   "h": 0.55,
+   "scene": "forest",
+   "frame": "#8a6a2e"
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": 5.96,
+   "y": 0.62,
+   "z": 0,
+   "rot": -90,
+   "tip": 0,
+   "cover": 1
+  },
+  {
+   "id": "hooks",
+   "kind": "wallhooks",
+   "x": 5.9799999999999995,
+   "y": 0.87,
+   "z": 0,
+   "rot": -90
+  },
+  {
+   "id": "crowd",
+   "kind": "visitorcrowd",
+   "x": 5.96,
+   "y": 0,
+   "z": 0,
+   "rot": 0,
+   "n": 30,
+   "arc": [
+    1.7,
+    -145,
+    -35
+   ],
+   "h": 0.85,
+   "seed": 3
+  },
+  {
+   "id": "rope",
+   "kind": "exhibitrope",
+   "x": 4.66,
+   "y": 0,
+   "z": 0,
+   "posts": [
+    [
+     0,
+     -1.2
+    ],
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1.2
+    ]
+   ]
+  }
+ ],
+ "captions": [],
+ "beats": [
+  {
+   "name": "14 today wide",
+   "at": 0,
+   "len": 2.074,
+   "shot": {
+    "pos": [
+     1.172,
+     1.202,
+     -0.71
+    ],
+    "look": [
+     5.2,
+     0.7,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      1.736,
+      1.132,
+      -0.611
+     ]
+    },
+    "dur": 4.148,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       4.148,
+       5
+      ]
+     ],
+     "pivot": 4.121
+    }
+   },
+   "do": [
+    {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      4.7,
+      -0.8
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 80,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      4.5,
+      0.05
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      4.8,
+      0.95
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 100,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "move",
+     "to": [
+      4.4,
+      -1.65
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "turn",
+     "to": 70,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 5.96,
+      "y": 0.62,
+      "z": 0,
+      "rot": -90,
+      "cover": 1,
+      "tip": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "hooks",
+     "set": {
+      "x": 5.9799999999999995,
+      "y": 0.87,
+      "z": 0,
+      "rot": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "crowd",
+     "set": {
+      "x": 5.96,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "rope",
+     "set": {
+      "x": 4.66,
+      "y": 0,
+      "z": 0,
+      "rot": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "mash",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "arm",
+     "side": "R",
+     "pose": "up",
+     "dur": 0.3,
+     "at": 0.1
+    },
+    {
+     "sfx": "notify",
+     "reason": "the story's own sound",
+     "gain": 0.25,
+     "at": 0.1
+    },
+    {
+     "macro": "narrate",
+     "line": "Nobody used to stop for her.",
+     "voice": "narrator-quick",
+     "dur": 1.519,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    },
+    {
+     "who": "chip",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.2,
+     "at": 1.799
+    },
+    {
+     "macro": "narrate",
+     "line": "Now, nobody can get close.",
+     "voice": "narrator-quick",
+     "dur": 2.1687,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 1.799
+    },
+    {
+     "who": "chip",
+     "do": "move",
+     "to": [
+      4.75,
+      0.05
+     ],
+     "dur": 1,
+     "at": 1.879
+    }
+   ]
+  },
+  {
+   "name": "14 today wide +",
+   "at": 2.074,
+   "len": 2.074,
+   "shot": {
+    "pos": [
+     1.897,
+     1.112,
+     0.582
+    ],
+    "look": [
+     5.2,
+     0.7,
+     0
+    ],
+    "fov": 40,
+    "to": {
+     "pos": [
+      2.359,
+      1.054,
+      0.501
+     ]
+    },
+    "dur": 2.074,
+    "yaw": {
+     "keys": [
+      [
+       2.074,
+       0
+      ],
+      [
+       4.148,
+       5
+      ]
+     ],
+     "pivot": 3.379
+    }
+   },
+   "do": []
+  },
+  {
+   "name": "14 today insert",
+   "at": 4.148,
+   "len": 2.324,
+   "shot": {
+    "pos": [
+     3.809,
+     2.083,
+     0
+    ],
+    "look": [
+     5.91,
+     0.87,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      4.439,
+      1.719,
+      0
+     ]
+    },
+    "dur": 2.324,
+    "yaw": {
+     "keys": [
+      [
+       4.148,
+       0
+      ],
+      [
+       6.472,
+       -5
+      ]
+     ],
+     "pivot": 2.426
+    }
+   },
+   "do": [
+    {
+     "macro": "narrate",
+     "line": "All because one man carried her out under his smock.",
+     "voice": "narrator-quick",
+     "dur": 3.3197,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0
+    }
+   ]
+  },
+  {
+   "name": "14 today insert +",
+   "at": 6.472,
+   "len": 2.325,
+   "shot": {
+    "pos": [
+     3.64,
+     2.265,
+     -0.826
+    ],
+    "look": [
+     5.91,
+     0.87,
+     0
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      4.321,
+      1.846,
+      -0.578
+     ]
+    },
+    "dur": 2.325,
+    "yaw": {
+     "keys": [
+      [
+       6.472,
+       0
+      ],
+      [
+       8.797,
+       -5
+      ]
+     ],
+     "pivot": 2.789
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "story": {
+  "T0": 78.805,
+  "T1": 87.602
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 78.805-87.602 s)."
+}

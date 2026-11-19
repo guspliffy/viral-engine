@@ -1,0 +1,480 @@
+{
+ "id": "ml01-10-shop",
+ "title": "How did one thief make the Mona Lisa famous?",
+ "idea": "Fact story 01: in 1911 a glass fitter walked out of the Louvre with the Mona Lisa under his smock; the theft made her the most famous painting on Earth.",
+ "format": "Fact story (vertical, 60 s+)",
+ "fps": 30,
+ "look": "anime-pro",
+ "castLook": "sheet",
+ "profile": "short",
+ "loop": false,
+ "captionStyle": "kinetic",
+ "cleanStart": false,
+ "motion": {
+  "feet": 2,
+  "overlap": true,
+  "timing": true,
+  "solve": true
+ },
+ "rig": {
+  "hand": 2,
+  "eyes": 2,
+  "hold": 2
+ },
+ "physics": false,
+ "animeTiming": true,
+ "loopIdle": false,
+ "set": {
+  "type": "boutique",
+  "twin": 0,
+  "aperture": 0,
+  "focus": false,
+  "lighting": 2,
+  "hatch": {
+   "boil": 0.25
+  },
+  "cel": {
+   "at": 0.25
+  },
+  "ink": true,
+  "satsuei": true
+ },
+ "music": {
+  "file": "score-film/monalisa-score.ogg",
+  "from": 0,
+  "skip": 68.3,
+  "seam": true,
+  "gain": 0.55,
+  "lowCut": 90,
+  "dip": false,
+  "duck": {
+   "voice": -6
+  },
+  "lock": false
+ },
+ "sound": {
+  "signature": false,
+  "sfx": 0.65,
+  "ambience": 0.06,
+  "surface": "wood",
+  "room": "small",
+  "guard": true,
+  "level": -9.7,
+  "nature": []
+ },
+ "creative": {
+  "length": [
+   6.4,
+   6.4
+  ]
+ },
+ "cast": [
+  {
+   "id": "thief",
+   "character": "facts/thief",
+   "at": [
+    -0.3,
+    -0.2
+   ],
+   "face": 30,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 1.1
+  },
+  {
+   "id": "dealer",
+   "character": "potatobrawl/carseller",
+   "at": [
+    1.05,
+    -0.35
+   ],
+   "face": -35,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 2.4000000000000004
+  }
+ ],
+ "props": [
+  {
+   "id": "trunk",
+   "kind": "trunk",
+   "x": 0.3,
+   "y": 0,
+   "z": 0.1,
+   "rot": 0,
+   "open": 0
+  },
+  {
+   "id": "ml",
+   "kind": "painting",
+   "x": 0.3,
+   "y": 0.15,
+   "z": 0.05,
+   "rot": 0,
+   "tip": -90,
+   "cover": 0
+  },
+  {
+   "id": "cap-thief",
+   "wear": "thief",
+   "x": 0,
+   "y": 1,
+   "z": 0.02,
+   "kind": "flatcap",
+   "r": 0.19
+  }
+ ],
+ "captions": [
+  {
+   "from": 2.665,
+   "to": 4.485,
+   "text": "Leave it with me.",
+   "pos": 470,
+   "pop": false,
+   "size": 62,
+   "kinetic": false
+  }
+ ],
+ "beats": [
+  {
+   "name": "12 dealer two",
+   "at": 0,
+   "len": 2.365,
+   "shot": {
+    "pos": [
+     0.375,
+     0.971,
+     3.398
+    ],
+    "look": [
+     0.375,
+     0.585,
+     -0.275
+    ],
+    "fov": 36,
+    "to": {
+     "pos": [
+      0.375,
+      0.917,
+      2.884
+     ]
+    },
+    "dur": 2.365,
+    "yaw": {
+     "keys": [
+      [
+       0,
+       0
+      ],
+      [
+       2.365,
+       5
+      ]
+     ],
+     "pivot": 3.693
+    }
+   },
+   "do": [
+    {
+     "who": "thief",
+     "do": "move",
+     "to": [
+      -0.3,
+      -0.2
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "turn",
+     "to": 30,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "thief",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "move",
+     "to": [
+      1.05,
+      -0.35
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "turn",
+     "to": -35,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "x": 0.3,
+      "y": 0,
+      "z": 0.1,
+      "rot": 0,
+      "open": 0
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "x": 0.3,
+      "y": 0.15,
+      "z": 0.05,
+      "rot": 0,
+      "cover": 0,
+      "tip": -90
+     },
+     "dur": 0,
+     "ease": "linear",
+     "at": 0
+    },
+    {
+     "macro": "narrate",
+     "line": "Then he tries to sell her in Florence.",
+     "voice": "narrator-quick",
+     "dur": 2.085,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 0.1
+    }
+   ]
+  },
+  {
+   "name": "12 dealer close",
+   "at": 2.365,
+   "len": 2.018,
+   "shot": {
+    "pos": [
+     0.842,
+     0.706,
+     2.624
+    ],
+    "look": [
+     1.05,
+     0.55,
+     -0.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      0.871,
+      0.684,
+      2.208
+     ]
+    },
+    "dur": 2.018,
+    "yaw": {
+     "keys": [
+      [
+       2.365,
+       0
+      ],
+      [
+       4.383,
+       -5
+      ]
+     ],
+     "pivot": 2.985
+    }
+   },
+   "do": [
+    {
+     "do": "prop",
+     "id": "trunk",
+     "set": {
+      "open": 1
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "sfx": "creak",
+     "reason": "the story's own sound",
+     "gain": 0.4,
+     "at": 0
+    },
+    {
+     "do": "prop",
+     "id": "ml",
+     "set": {
+      "y": 0.42,
+      "tip": -45
+     },
+     "dur": 0.8,
+     "ease": "out",
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "expr",
+     "expr": "shocked",
+     "set": {
+      "eye": 1.3
+     },
+     "dur": 0.2,
+     "at": 0
+    },
+    {
+     "who": "dealer",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.2,
+     "at": 0.3
+    },
+    {
+     "who": "dealer",
+     "do": "talk",
+     "line": "leave it with me.",
+     "tone": "calm",
+     "dur": 1.42,
+     "blink": false,
+     "voice": false,
+     "at": 0.3
+    },
+    {
+     "macro": "narrate",
+     "line": "The dealer calls the police.",
+     "voice": "narrator-quick",
+     "dur": 1.5851,
+     "caption": true,
+     "pos": 470,
+     "gain": 4,
+     "at": 1.82
+    }
+   ]
+  },
+  {
+   "name": "12 dealer close +",
+   "at": 4.383,
+   "len": 2.017,
+   "shot": {
+    "pos": [
+     1.492,
+     0.634,
+     1.192
+    ],
+    "look": [
+     1.05,
+     0.55,
+     -0.35
+    ],
+    "fov": 30,
+    "to": {
+     "pos": [
+      1.43,
+      0.622,
+      0.976
+     ]
+    },
+    "dur": 2.017,
+    "yaw": {
+     "keys": [
+      [
+       4.383,
+       0
+      ],
+      [
+       6.4,
+       5
+      ]
+     ],
+     "pivot": 1.606
+    }
+   },
+   "do": []
+  }
+ ],
+ "visible": [],
+ "allowClip": [
+  {
+   "who": "thief",
+   "with": "cap-thief",
+   "from": 0,
+   "to": 6.4,
+   "reason": "the cap is worn"
+  }
+ ],
+ "story": {
+  "T0": 68.3,
+  "T1": 74.7
+ },
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 68.3-74.7 s)."
+}

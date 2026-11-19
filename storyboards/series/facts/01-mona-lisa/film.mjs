@@ -112,9 +112,9 @@ const ATML = [ML.x - 0.05, ML.y + ML.h / 2, ML.z];   // the face of the painting
 export const SCENES = [
   // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
   { id: "01 nobody stops", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
-    layout: { v1: [-2.0, 1.15, 90], v2: [-3.8, 1.15, 90], v3: [1.4, 0.25, -90], v4: [3.1, 0.25, -90] },
-    shot: { t: "wide", at: [5.2, 0.75, 0], h: 3.6, az: -12 }, card: ["How did one thief make\nthe Mona Lisa famous?", 5.2], seq: [
-      ["walk", "v1", [2.2, 1.15], 4.4], ["walk", "v2", [0.4, 1.15], 4.4], ["walk", "v3", [-2.2, 0.25], 4.2], ["walk", "v4", [-0.6, 0.25], 4.2],
+    layout: { v1: [-0.9, 1.05, 90], v2: [-2.6, 1.05, 90], v3: [1.0, 0.8, -90], v4: [2.7, 0.8, -90] },
+    shot: { t: "wide", at: [5.2, 0.75, 0], h: 4.0, az: -12 }, card: ["How did one thief make\nthe Mona Lisa famous?", 5.2], seq: [
+      ["walk", "v1", [2.0, 1.05], 4.4], ["walk", "v2", [0.3, 1.05], 4.4], ["walk", "v3", [-2.0, 0.8], 4.2], ["walk", "v4", [-0.4, 0.8], 4.2],
       ["sfx", "step", { gain: 0.3 }],
       ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."],
       ["cut", { t: "insert", at: ATML, h: 0.75, push: 0.25 }],
@@ -141,14 +141,14 @@ export const SCENES = [
       ["turn", "thief", 180], ["arm", "thief", "R", { o: [0.21, 0.36, 0.3] }], ["arm", "thief", "L", { o: [0.21, 0.36, 0.3] }],
       ["cut", { t: "insert", at: [5.6, 0.7, 0], h: 1.8, az: -60 }],
       ["n", "He lifts her off four hooks..."],
-      ["prop", "ml", { x: ML.x - 0.28, y: ML.y - 0.08 }, 0.45, "out"], ["grab", "thief", "ml"], ["sfx", "scrape", { gain: 0.4 }],
+      ["prop", "ml", { x: ML.x - 0.08, y: ML.y + 0.04 }, 0.3, "out"], ["sfx", "scrape", { gain: 0.4 }], ["wait", 0.3], ["mltake", "thief"], ["wait", 0.5],
       ["cut", { t: "wide", at: [5.2, 0.7, 0], h: 3.2, az: 15 }],
       ["turn", "thief", 90], ["walk", "thief", [2.6, 0.7], 1.3], ["wait", 0.6] ] },
   // 5 THE STAIRWELL: the frame comes off, she goes under his smock
   { id: "05 frame off", act: "theft", place: "corridor", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 1 }, { id: "frm", kind: "frameonly", x: 1.3, y: -40, z: 0.3, rot: -90 }],
     props: { frm: { y: -40 } },
     layout: { thief: [0.2, 1.4, 0] },
-    shot: { t: "two", who: ["thief"], h: 2.2 }, seq: [
+    shot: { t: "two", who: ["thief"], h: 3.0 }, seq: [
       ["mlhold", "thief"],
       ["n", "...pulls off the frame in a stairwell..."],
       ["prop", "ml", { cover: 0 }, 0.01, "linear"], ["prop", "frm", { y: 0.0, x: 1.33, z: 0.4, tip: -12 }, 0.01, "linear"], ["sfx", "tink", { gain: 0.5 }],
@@ -157,7 +157,7 @@ export const SCENES = [
   // 6 THE LOCKED DOOR + THE PLUMBER
   { id: "06 locked", act: "door", place: "corridor", extra: [], props: {},
     layout: { thief: [-0.75, 2.45, -60], plumber: [0.6, 5.6, 0] },
-    shot: { t: "two", who: ["thief"], h: 2.0, az: 10 }, seq: [
+    shot: { t: "two", who: ["thief"], h: 2.8, az: 10 }, seq: [
       ["mlhold", "thief"],
       ["prop", "door", { squeal: 1 }, 0.25, "out"], ["sfx", "latch", { gain: 0.6 }], ["prop", "door", { squeal: 0 }, 0.25, "inOut"],
       ["n", "But the door is locked. The knob is gone."], ["e", "thief", "shocked", { open: 0.15 }],
@@ -167,10 +167,10 @@ export const SCENES = [
       ["n", "...and opens it for him."], ["arm", "plumber", "L", "rest"], ["walk", "thief", [-1.55, 2.6], 0.8], ["wait", 0.4] ] },
   // 7 OUT INTO PARIS
   { id: "07 paris", act: "out", place: "street", extra: [], props: {},
-    layout: { thief: [-2.0, 0.2, 90], v3: [1.6, 1.2, -90], v4: [2.3, -0.8, -90] },
+    layout: { thief: [-2.0, 0.2, 90], v3: [1.6, 1.3, -90], v4: [2.6, 2.1, -90] },
     shot: { t: "wide", who: ["thief"], h: 3.0, az: -12 }, seq: [
       ["mlhold", "thief"],
-      ["walk", "thief", [1.8, 0.2], 3.4], ["walk", "v3", [-1.4, 1.2], 3.2], ["walk", "v4", [-2.0, -0.8], 3.6],
+      ["walk", "thief", [1.8, 0.2], 3.4], ["walk", "v3", [-1.4, 1.3], 3.2], ["walk", "v4", [-1.6, 2.1], 3.6],
       ["n", "He walks out into Paris."], ["n", "Nobody notices."], ["wait", 0.3] ] },
   // 8 TUESDAY: the painter, four empty hooks, the shrug, then panic
   { id: "08 empty hooks", act: "panic", place: "gallery", extra: [HOOKS], props: {},
@@ -199,10 +199,10 @@ export const SCENES = [
   // 10 THE EMPTY WALL (the second hook)
   { id: "10 empty wall", act: "wall", place: "gallery", extra: [HOOKS], props: {},
     layout: { v1: [-0.3, 1.05, 165], v2: [0.55, 0.75, 175], v3: [-1.15, 0.55, 160], v4: [1.4, 0.3, -170], v5: [-2.0, 0.1, 150] },
-    shot: { t: "wide", at: [5.3, 0.6, 0], h: 2.8, az: -150, el: 10 }, seq: [
+    shot: { t: "wide", at: [5.2, 0.6, 0], h: 3.0, az: -70, el: 10 }, seq: [
       ["n", "When it reopens, thousands queue..."],
       ["walk", "v5", [-1.8, 0.2], 2.0], ["walk", "v3", [-1.05, 0.6], 1.8],
-      ["cut", { t: "wide", at: [5.0, 0.7, 0], h: 2.6, az: 160, el: 6 }],
+      ["cut", { t: "wide", at: [5.2, 0.7, 0], h: 2.8, az: 60, el: 8 }],
       ["n", "...to stare at an empty wall."], ["wait", 0.5] ] },
   // 11 HIS ROOM: the knock, the search, the trunk a metre away; two years
   { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 }], props: {},
@@ -244,6 +244,6 @@ export const SCENES = [
       ["arm", "spud", "R", "up"], ["arm", "wedge", "L", "up"], ["arm", "mash", "R", "up"], ["arm", "chip", "R", "up"], ["sfx", "notify", { gain: 0.25 }],
       ["n", "Nobody used to stop for her."], ["walk", "chip", [0.05, 0.45], 1.0],
       ["n", "Now, nobody can get close."],
-      ["cut", { t: "insert", at: ATML, h: 1.0, el: 16, push: 0.3 }],
+      ["cut", { t: "insert", at: ATML, h: 1.3, el: 30, push: 0.3 }],
       ["n", "All because one man carried her out under his smock."], ["wait", 1.0] ] },
 ];
