@@ -10,7 +10,7 @@ export const LINES = [
   [11.1, "Four g. Blood leaves your head. Your eyes go grey."],
   [16.1, "Five g. Pilots need special suits for this. You don't."],
   [21.1, "Ten g. Lying flat, blood reaches your head again."],
-  [26.1, "Fifteen. Buildings hold about twice their weight. Not fifteen times."],
+  [26.1, "Fifteen. Buildings only hold about twice their weight."],
   [31.1, "Twenty. The air gets squeezed down. Clouds sink to the street."],
   [36.1, "Twenty-five. No human survives this. Good thing you're a potato."],
   [41.1, "Thirty. Every satellite is too slow now. They all fall."],
