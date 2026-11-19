@@ -580,7 +580,7 @@ export class Character {
         const tk = Math.round((t + (dir * k) / 30) * 1e6) / 1e6, st = stAt(tk);
         if (!st || !st.arms || Math.hypot(st.x - prev.x, st.z - prev.z) > 0.25 || Math.abs(st.y - prev.y) > 0.25 || Math.abs(Math.atan2(Math.sin(st.yaw - prev.yaw), Math.cos(st.yaw - prev.yaw))) > 1) break;
         prev = st;
-        const sq = st.squash ?? 1, S = new THREE.Vector3(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)), ai = this._armIn(st, tk, s, S);
+        const sq = this.def.legs?.knees ? 1 : st.squash ?? 1, S = new THREE.Vector3(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq)), ai = this._armIn(st, tk, s, S);
         const qk = this._orient2(U, ai.mid, ai.h, ai.sx, ai.gr, ai.ax, this._palms(ai.a, S, ai.from, ai.to), ai.sh, ai.fr);
         const w = ker(k) * (1 + HOLD * qk.hold) * (qk.dot(q0) < 0 ? -1 : 1);
         acc[0] += qk.x * w; acc[1] += qk.y * w; acc[2] += qk.z * w; acc[3] += qk.w * w;
@@ -979,7 +979,25 @@ export class Character {
     R.position.set(st.x, st.y - 0.1 * (st.kneel || 0), st.z); R.rotation.set(st.pitch || 0, st.yaw, st.lean); R.scale.setScalar(st.scale ?? 1);
     R.visible = st.visible !== false;
     this.bodyGroup.visible = !st.pov;   // first person (timeline.js "pov"): only the limbs are drawn
-    const sq = st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
+    // legs.knees (opt-in, the human friends 19 Nov; { crouch, bend }): a body on real legs. A squash (a hop's crouch and
+    // landing, a nod, a react) no longer scales the body: the hips sink that much and the knees bend. And a standing
+    // leg never stretches past its own length, so the hips sink as the feet spread and rise as they pass: a walk's
+    // own down and up. Everything is a function of this frame's state.
+    const KN = this.def.legs?.knees, sq = KN ? 1 : st.squash; this.bodyGroup.scale.set(1 / Math.sqrt(sq), sq, 1 / Math.sqrt(sq));
+    this._crouch = 0;
+    if (KN) {
+      const LG = this.def.legs, q = st.squash ?? 1, K = KN.crouch ?? 0.5, L0 = this.legH + (LG.hipY ?? 0.06) - 0.035, sc = st.scale ?? 1;
+      let D = q < 1 ? (1 - q) * K : (1 - q) * K * 0.3;
+      if (st.feet) {
+        R.updateMatrix(); const inv = new THREE.Matrix4().copy(R.matrix).invert();
+        for (const [s, sx] of [["R", -1], ["L", 1]]) {
+          const ft = st.feet[s], w = ft ? Math.min(1, Math.max(0, ft.w ?? 1)) : 0; if (!w) continue;
+          const p = new THREE.Vector3(ft.x, ft.y, ft.z).applyMatrix4(inv), h = Math.min(L0 * 0.9, Math.hypot(p.x - sx * (LG.hipX ?? 0.12), p.z));
+          D = Math.max(D, (L0 - Math.sqrt(L0 * L0 - h * h) - Math.max(0, p.y - 0.035)) * w);
+        }
+      }
+      this._crouch = D; R.position.y -= D * sc;
+    }
     // planted feet (timeline.js st.plant): where the last step left them, in the world; drawn in the body's frame
     const pl = st.plant && st.plant.w < 1 ? st.plant : null;
     if (pl) {
@@ -1055,6 +1073,7 @@ export class Character {
         else { const w = (u - ST) / (1 - ST); along = -A + 2 * A * (w - Math.sin(2 * Math.PI * w) / (2 * Math.PI)); up = Math.sin(Math.PI * w) * 0.065 * Math.min(1.4, G.sd) * G.amt; }
         foot.set(sx * fX + along * G.dir[0], 0.035 + up + st.tuck * 0.08, 0.04 + along * G.dir[1]);
       }
+      if (this._crouch) foot.y += this._crouch;   // legs.knees: the hips sank, the feet stay on the floor
       // kneeling: the body drops, the feet stay on the floor tucked behind; sitting: the feet stick out in front
       const kn = st.kneel || 0, si = st.sit || 0;
       foot.y += 0.1 * kn; foot.z -= 0.14 * kn;
@@ -1099,8 +1118,15 @@ export class Character {
         this[`_k${s}`] = key;
         this.arms[s].mesh = this._tube(this.arms[s].mesh, this.arms[s].shoulder, mid, h, this.limbW, true, joint, this.seamless ? this.def.hands.stub ?? 0.15 : 0);
         const knee = hip.clone().lerp(foot, 0.5).add(new THREE.Vector3(sx * 0.02, 0, 0.02 + (this.def.legs?.knee ?? 0)));
-        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, false, 0, this.def.legs?.dome);
-        this.legs[s].hip = hip; this.legs[s].knee = knee;   // the leg's curve, for costume parts that follow it (costumes-core.js)
+        // legs.knees: a thigh and a shin of half the standing leg each; a hip nearer its foot than that pushes the knee forward
+        const KN = this.def.legs?.knees;
+        if (KN) {
+          const L0 = this.legH + (this.def.legs.hipY ?? 0.06) - 0.035, d = hip.distanceTo(foot), hh = d < L0 ? Math.sqrt((L0 * L0 - d * d) / 4) : 0;
+          const u = foot.clone().sub(hip).normalize(), f = new THREE.Vector3(0, 0, 1).addScaledVector(u, -u.z).normalize();
+          knee.addScaledVector(f, hh * (KN.bend ?? 1));
+        }
+        this.legs[s].mesh = this._tube(this.legs[s].mesh, hip, knee, foot, this.def.legs?.width ?? this.limbW * 1.1, false, !!KN, 0, this.def.legs?.dome);
+        this.legs[s].hip = hip; this.legs[s].knee = knee; this.legs[s].joint = !!KN;   // the leg's curve, for costume parts that follow it (costumes-core.js)
       }
       // a juice stain on the forearm (face controls stainR / stainL, Vampire vs Juice Box): a wet purple patch wrapped
       // round the arm just above the wrist, rebuilt with the arm

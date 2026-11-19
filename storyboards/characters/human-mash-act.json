@@ -68,9 +68,10 @@
    "from": 14.05,
    "to": 14.3,
    "checks": [
-    "motion"
+    "motion",
+    "rig-jump"
    ],
-   "reason": "the hop's own 0.1 s anticipation crouch: the body dips 0.061 in a frame against a limit of 0.06"
+   "reason": "the hop's own 0.1 s anticipation crouch: the hips dip 3 cm in a frame as the knees bend"
   }
  ],
  "cast": [
@@ -124,7 +125,7 @@
      "do": "look",
      "at": 0,
      "to": [
-      0.5,
+      -0.4,
       0
      ],
      "dur": 0.1
@@ -420,10 +421,44 @@
    "len": 3.7,
    "do": [
     {
-     "macro": "nod",
      "who": "c",
+     "do": "look",
      "at": 0.3,
-     "times": 2
+     "to": [
+      0,
+      -0.9
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "do": "look",
+     "at": 0.52,
+     "to": [
+      0,
+      0.15
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "do": "look",
+     "at": 0.74,
+     "to": [
+      0,
+      -0.9
+     ],
+     "dur": 0.2
+    },
+    {
+     "who": "c",
+     "do": "look",
+     "at": 0.96,
+     "to": [
+      0,
+      0
+     ],
+     "dur": 0.2
     },
     {
      "who": "c",
@@ -497,10 +532,10 @@
      "do": "look",
      "at": 0.6,
      "to": [
-      0.5,
+      -0.3,
       0.05
      ],
-     "dur": 0.12
+     "dur": 0.15
     },
     {
      "who": "c",

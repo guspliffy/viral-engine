@@ -1256,6 +1256,7 @@ function natSteps(sb, a) {
 }
 
 function foley(sb, panOf, chars) {
+  if (!chars) try { chars = loadCharacters(sb); } catch { chars = {}; }   // the cast's own strides (legs.stride)
   const ev = [], step = surfaceOf(sb), ownSteps = (sb.sfx || []).some((s) => /^step/.test(s.sound));
   const acts = [...(sb.actions || [])].sort((p, q) => p.at - q.at), air = {};
   // the planted gait (timeline.js, "motion": { "feet": 2 }): a footstep on each real touch down, softer for a short

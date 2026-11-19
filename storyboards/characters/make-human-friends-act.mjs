@@ -9,7 +9,7 @@ import { turnaround } from "./make-turnaround.mjs";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const write = (sb) => { const f = path.join(here, `${sb.id}.json`); fs.writeFileSync(f, JSON.stringify(sb, null, 1) + "\n"); console.log(f); };
 // each friend's standing height to the top of the hair (m), the middle of the face, and the walk's rhythm (a move's "steps": stride cycles a second)
-const FRIENDS = { mash: { h: 1.56, face: 1.2, cad: 1.15 } };
+const FRIENDS = { mash: { h: 1.56, face: 1.05, cad: 1.15 } };
 const r3 = (v) => +v.toFixed(3);
 
 for (const [name, F] of Object.entries(FRIENDS)) {
@@ -33,11 +33,11 @@ for (const [name, F] of Object.entries(FRIENDS)) {
     // 1.7 times a potato's height covers that much more ground per drawing
     drawn: { ...rest.drawn, twos: false },
     creative: { length: [4, 25], notes: false },
-    allowClip: [{ who: "c", from: HOP - 0.05, to: HOP + 0.2, checks: ["motion"], reason: "the hop's own 0.1 s anticipation crouch: the body dips 0.061 in a frame against a limit of 0.06" }],
+    allowClip: [{ who: "c", from: HOP - 0.05, to: HOP + 0.2, checks: ["motion", "rig-jump"], reason: "the hop's own 0.1 s anticipation crouch: the hips dip 3 cm in a frame as the knees bend" }],
     cast: [{ id: "c", character: `human-friends/${name}`, at: IN, face: DIAG, expr: "kind", follow: 0.25, seed: 1.3 }],
     beats: [
       { name: "walks in", at: 0, len: 4.2, shot: walkIn, do: [
-        { who: "c", do: "look", at: 0, to: [0.5, 0], dur: 0.1 },
+        { who: "c", do: "look", at: 0, to: [-0.4, 0], dur: 0.1 },   // his head a little toward us as he comes
         { who: "c", do: "move", at: 0.15, to: [0, 0], dur: 3.1, steps: F.cad },
         { who: "c", do: "look", at: 3.15, to: [-0.6, 0.1], dur: 0.2 },
         { who: "c", do: "turn", at: 3.35, to: "camera", dur: 0.5 },
@@ -65,7 +65,8 @@ for (const [name, F] of Object.entries(FRIENDS)) {
         { who: "c", do: "move", at: 0.1, to: [0, Z1], dur: 2.9, steps: F.cad },
       ] },
       { name: "nod and hop", len: 3.7, do: [
-        { macro: "nod", who: "c", at: 0.3, times: 2 },
+        // a nod with the head (his head turns and tips with his look): down, up, down, up
+        ...[[0.3, -0.9], [0.52, 0.15], [0.74, -0.9], [0.96, 0]].map(([at, v]) => ({ who: "c", do: "look", at, to: [0, v], dur: 0.2 })),
         { who: "c", do: "expr", at: 0.9, expr: "happy" },
         { who: "c", do: "arm", at: 0.95, side: "both", pose: CHEER, dur: 0.55 },
         { who: "c", do: "hop", at: 1.3, count: 2, height: 0.14, dur: 1.3, quiet: true },
@@ -75,7 +76,7 @@ for (const [name, F] of Object.entries(FRIENDS)) {
       { name: "walks off", len: 3.0, do: [
         { who: "c", do: "look", at: 0.05, to: [0.6, 0], dur: 0.2 },
         { who: "c", do: "turn", at: 0.2, to: DIAG, dur: 0.5 },
-        { who: "c", do: "look", at: 0.6, to: [0.5, 0.05], dur: 0.12 },
+        { who: "c", do: "look", at: 0.6, to: [-0.3, 0.05], dur: 0.15 },
         { who: "c", do: "move", at: 0.75, to: OUT, dur: 2.2, steps: F.cad },
       ] },
     ],

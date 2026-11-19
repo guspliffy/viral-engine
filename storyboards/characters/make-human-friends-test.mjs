@@ -9,7 +9,7 @@ import { turnaround } from "./make-turnaround.mjs";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const write = (sb) => { const f = path.join(here, `${sb.id}.json`); fs.writeFileSync(f, JSON.stringify(sb, null, 1) + "\n"); console.log(f); };
 // each friend's standing height to the top of the hair (m) and where the middle of the face is
-const FRIENDS = { mash: { h: 1.56, face: 1.2 } };
+const FRIENDS = { mash: { h: 1.56, face: 1.05 } };
 
 const Q = 1.6, R = 0.25, RA = (90 / Q) * R / 3;   // a quarter turn (s); the turn eases in and out over R s and RA degrees
 const turnSteps = [[RA, R, "in"], [90, Q * (90 - RA) / 90, "linear"], [180, Q, "linear"], [270, Q, "linear"], [360 - RA, Q * (90 - RA) / 90, "linear"], [360, R, "out"]];
