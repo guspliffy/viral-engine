@@ -17,10 +17,13 @@ const TURN = sb.captions.find((c) => c.text === "One star.").from, SOB = beat("s
 const END = sb.beats.reduce((m, b) => Math.max(m, b.at + b.len), 0);
 const A = path.join(ROOT, "assets/music/ai"), OUT = path.join(ROOT, "assets/music/hell-reviews/hell-reviews-score.ogg");
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
+const SPEED = 1.07;   // the whole video is played 1.07x at the end (Jonny 19 Nov), voices at their own pitch
 const f = (x) => x.toFixed(3), ms = (x) => Math.round(x * 1000);
 const g = [
   `[0:a]loudnorm=I=-16:TP=-1.5,atrim=0:${f(TURN)},asetpts=PTS-STARTPTS,afade=t=out:st=${f(TURN - 0.25)}:d=0.25[a]`,
-  `[1:a]loudnorm=I=-16:TP=-1.5,atrim=0:${f(SOB - TURN)},asetpts=PTS-STARTPTS,afade=t=in:d=0.08,afade=t=out:st=${f(SOB - TURN - 0.25)}:d=0.25,adelay=${ms(TURN)}|${ms(TURN)}[b]`,
+  // the chase is laid in slowed by the clip's final speed-up, so it plays at its own tempo in the 1.07x video, and 10 % quieter
+  // (Jonny 19 Nov 17:51: "make the second song in normal speed and turn the volume 10% down")
+  `[1:a]loudnorm=I=-16:TP=-1.5,atrim=0:${f((SOB - TURN) / SPEED)},asetpts=PTS-STARTPTS,atempo=${f(1 / SPEED)},volume=0.9,afade=t=in:d=0.08,afade=t=out:st=${f(SOB - TURN - 0.25)}:d=0.25,adelay=${ms(TURN)}|${ms(TURN)}[b]`,
   `[2:a]loudnorm=I=-17:TP=-1.5,atrim=0:${f(TAG - SOB)},asetpts=PTS-STARTPTS,afade=t=in:d=0.15,afade=t=out:st=${f(TAG - SOB - 0.3)}:d=0.3,adelay=${ms(SOB)}|${ms(SOB)}[c]`,
   `[3:a]loudnorm=I=-16:TP=-1.5,atrim=0:${f(END - TAG)},asetpts=PTS-STARTPTS,afade=t=in:d=0.1,afade=t=out:st=${f(END - TAG - 0.6)}:d=0.6,adelay=${ms(TAG)}|${ms(TAG)}[d]`,
   `[a][b][c][d]amix=inputs=4:normalize=0:duration=longest,atrim=0:${f(END)},aresample=44100[o]`,
