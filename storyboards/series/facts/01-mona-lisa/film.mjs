@@ -94,7 +94,7 @@ export const ALLOW = {
     { who: "thief", with: "frm", from: 0.4, to: 0.8, checks: ["hand-in-prop", "arm-in-prop"], reason: "he pulls the frame off the panel: his right hand is on the frame (3-5 cm into its moulding for 0.2 s)" } ],
 };
 export const WPS = 0.4;
-export const SCORE = (T0) => ({ file: "score-film/monalisa-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.55, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false });
+export const SCORE = (T0) => ({ file: "score-film/monalisa-score.ogg", from: 0, skip: r3(T0), seam: true, gain: 0.7, lowCut: 90, dip: false, duck: { voice: -6 }, lock: false });
 export const LEVEL = -9.7;
 
 // ================================================================= THE FILM

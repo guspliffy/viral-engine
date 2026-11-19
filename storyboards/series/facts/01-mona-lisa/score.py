@@ -10,12 +10,14 @@ ROOT = os.path.abspath(os.path.join(HERE, "../../../.."))
 M = os.path.join(ROOT, "assets/music")
 OUT = os.path.join(M, "score-film/monalisa-score.ogg")
 ai = lambda k, n: os.path.join(M, f"ai/{k}/{k}-{n:02d}.ogg")
-POOLS = {   # (file, from, to, dB)
-  "mystery": [(ai("orchestra-suspense", 1), 0, 11, -2), (ai("elegant-reveal", 2), 0, 11, -3)],
-  "sneaky": [(ai("sneaky", 1), 0, 16, -1)],
-  "suspense": [(ai("sos-tension", 1), 0, 19, -3), (ai("orchestra-suspense", 1), 0, 11, -2)],
-  "drama": [(ai("orchestra-chase", 1), 0, 6.4, -2), (ai("drama-swell", 1), 0, 10, -2), (ai("epic", 2), 0, 8, -3)],
-  "reveal": [(ai("elegant-reveal", 2), 0, 11.4, -1), (ai("hero-bed", 1), 0, 8, -3)],
+POOLS = {   # (file, from, to, dB). Jonny 19 Nov 14:54: "more dramatic and a bit louder music": all orchestra now (the
+  # soft piano reveal, the cartoon pizzicato and the synth-bass tension take are out), dread under the theft, a chase
+  # and a disaster bed under the panic and the arrest, the big choir swell for today
+  "mystery": [(ai("orchestra-suspense", 1), 0, 11, 2), (ai("drama-swell", 1), 0, 10, -1)],
+  "sneaky": [(ai("zombies-score", 3), 0, 14, -1), (ai("orchestra-suspense", 1), 0, 11, 2)],
+  "suspense": [(ai("orchestra-suspense", 1), 0, 11, 2), (ai("zombies-score", 3), 0, 14, -1)],
+  "drama": [(ai("orchestra-chase", 1), 0, 6.4, 0), (ai("disaster", 1), 0, 15, 0), (ai("drama-swell", 2), 0, 10, 0)],
+  "reveal": [(ai("drama-swell", 1), 0, 10, 0), (ai("hero-bed", 1), 0, 8, -2)],
 }
 X = 1.2
 

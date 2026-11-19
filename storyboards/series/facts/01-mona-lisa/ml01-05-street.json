@@ -51,7 +51,7 @@
   "from": 0,
   "skip": 33.229,
   "seam": true,
-  "gain": 0.55,
+  "gain": 0.7,
   "lowCut": 90,
   "dip": false,
   "duck": {
