@@ -577,9 +577,9 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.06,
-       0.26,
-       0.44
+       0,
+       0.27,
+       0.43
       ]
      },
      "dur": 0.35,
@@ -609,7 +609,7 @@
      "side": "R",
      "pose": {
       "o": [
-       0.08,
+       0.06,
        0.3,
        0.42
       ]
@@ -624,9 +624,9 @@
      "side": "R",
      "pose": {
       "o": [
-       -0.04,
-       0.27,
-       0.44
+       0.01,
+       0.28,
+       0.43
       ]
      },
      "dur": 0.3,
@@ -729,7 +729,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.95
+     "at": 5.97
     },
     {
      "who": "arch",
@@ -738,7 +738,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 5.95
+     "at": 5.97
     },
     {
      "who": "arch",
@@ -861,6 +861,24 @@
     },
     {
      "who": "arch",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.47
+    },
+    {
+     "who": "arch",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "ease": "inOut",
+     "at": 3.47
+    },
+    {
+     "who": "arch",
      "do": "move",
      "to": [
       11,
@@ -904,24 +922,6 @@
      "ease": "linear",
      "sync": true,
      "at": 3.48
-    },
-    {
-     "who": "arch",
-     "do": "arm",
-     "side": "L",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 3.485
-    },
-    {
-     "who": "arch",
-     "do": "arm",
-     "side": "R",
-     "pose": "rest",
-     "dur": 0.01,
-     "ease": "inOut",
-     "at": 3.485
     }
    ]
   },

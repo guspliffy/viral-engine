@@ -702,9 +702,9 @@
      "do": "arm",
      "side": "L",
      "pose": "rest",
-     "dur": 0.01,
+     "dur": 0.4,
      "ease": "inOut",
-     "at": 3.35
+     "at": 2.95
     },
     {
      "who": "arch",
@@ -713,7 +713,7 @@
      "pose": "rest",
      "dur": 0.01,
      "ease": "inOut",
-     "at": 3.35
+     "at": 3.37
     },
     {
      "do": "prop",

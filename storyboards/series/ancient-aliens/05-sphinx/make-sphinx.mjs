@@ -36,7 +36,7 @@ const DAY = light("#88bbe3", [225, 40], { light: "#fff4dc", shadow: "#7f8fc0", e
 const STORM = light("#5a6a74", [225, 55], { light: "#c2ccd2", shadow: "#46525e", exposure: 0.82 });
 const HALL = light("#120d08", [200, 35], { light: "#ffc27a", shadow: "#2a2030", exposure: 0.85 });
 const SUNSET = light("#eb9775", [90, 6], { light: "#ffb070", shadow: "#5a4a7a", exposure: 0.92 });
-const NIGHT = light("#0b1438", [270, 30], { light: "#8fa6d8", shadow: "#1c2550", exposure: 0.62 });
+const NIGHT = light("#0b1438", [270, 30], { light: "#8fa6d8", shadow: "#1c2550", exposure: 0.8 });
 const DUSK = light("#6a5a8a", [90, 5], { light: "#e6a076", shadow: "#3e3a66", exposure: 0.78 });
 const DAWN = light("#f0b98a", [270, 3], { light: "#ffd29c", shadow: "#6a5a8a", exposure: 0.95 });
 const score = (storyTime) => ({ file: "ancient-aliens/aa05-score.ogg", from: 0, skip: storyTime, gain: 0.6, lowCut: 90, dip: false, duck: { voice: -6 }, mood: "dramatic" });
@@ -119,7 +119,8 @@ const seedGiza = (S, t) => { S.prop(t, "sky", { night: 0 }); S.prop(t, "sphinx",
 const PLACE_IDS = ["pit", "sphinx", "valley", "temple", "tempQ", "hall"];
 const inPit = (ids, end) => ids.flatMap((who) => PLACE_IDS.map((w) => ({ who, with: w, from: 0, to: end, checks: ["clipping", "shell"], reason: "world-frame scenery: its bounds span the whole place they stand in (pit floor, between the paws, the temple terrace); hand, arm and costume checks stay on" })));
 
-// arm targets ({ o: [out, up, fwd] }, mirrored per side)
+// arm targets ({ o: [out, up, fwd] }, mirrored per side). An instant "rest" before a place goes 0.03 s before the cut: after the last frame
+// of the shot, before the teleport (2 frames earlier it shows as a hand jump, after the place the brush settles over 5 frames)
 const SPREAD = { o: [0.5, 0.3, 0.22] }, FINGER = { o: [0.12, 0.55, 0.28] }, POINTUP = { o: [0.12, 0.62, 0.36] }, BRUSHUP = { o: [0.08, 0.5, 0.42] }, POUND = { o: [0.1, 0.3, 0.42] }, STRIKE = { o: [0.1, 0.12, 0.5] };
 
 // ===================================================================== 0. DAY 0-8.9: the grooved wall, the paws, "Rain did this"
@@ -134,25 +135,25 @@ const seg0 = () => segment(0, (S) => {
   props.push(brush(S, WALL.arch, 180, 0.03));
   seedGiza(S, 0.1);
   S.look(0, "spud", [0, 0.45], 0.01); S.look(0, "arch", [0, 0.4], 0.01);
-  // P01 (0-2.3) "These are rain scars.": the high view from the south-east over the pit, both small at the grooved north wall
+  // P01 (0-2.3) "These are rain scars.": the high view from the east over the temple: the Sphinx face, the grooved north wall, both small at it (frame 1 shows the Sphinx, draft 2 polish)
   S.say(0.2, "n01", 7.3);
   S.label(0.05, 2.3, "GIZA, EGYPT");
-  S.shot("01 the pit", 0, cam([11, 8.5, -3.2], [-3.5, 2.2, -5.2], 50, { pos: [8, 6.5, -4.4] }, 2.3, "out"), "hook");
+  S.shot("01 the pit", 0, cam([20, 11, -2], [-0.5, 2.6, -3.4], 50, { pos: [17.5, 9.6, -2.8] }, 2.3, "out"), "hook");
   // P02 (2.3-4.6) "Egypt hasn't seen rain like this in five thousand years.": along the wall, his hand traces one groove top to bottom
-  S.arm(2.285, "arch", "R", "rest", 0.01); S.place(2.3, "arch", [-3.3, -6.9], 140);
+  S.arm(2.27, "arch", "R", "rest", 0.01); S.place(2.3, "arch", [-3.3, -6.9], 140);
   S.arm(2.35, "spud", "R", { o: [0.14, 0.55, 0.42] }, 0.35); S.A(2.4, "spud", "grip", { side: "R", shape: "open", dur: 0.15 });
   S.arm(2.8, "spud", "R", { o: [0.14, 0.12, 0.44] }, 1.6, "inOut");
   S.look(2.35, "spud", [0.15, 0.3], 0.2); S.look(2.9, "spud", [0.15, -0.1], 1.4);
   S.sfx(2.8, "ai/cookie-scrape", { gain: 0.08, dur: 1.4, reason: "his palm over the dry, sandy limestone" });
   S.shot("02 the grooves", 2.3, cam([0.0, 1.0, -6.5], [-2.0, 0.9, -7.8], 42, { pos: [-0.2, 1.0, -6.6] }, 2.3));
   // P03 (4.6-7.3) "How old is the Sphinx really?": low between the paws, the giant above, both tiny, looking up
-  S.arm(4.585, "spud", "R", "rest", 0.01);
+  S.arm(4.57, "spud", "R", "rest", 0.01);
   S.place(4.6, "spud", PAWS.spud, 270); S.place(4.6, "arch", PAWS.arch, 270);
   S.look(4.6, "spud", [0, 0.8], 0.01); S.look(4.6, "arch", [0, 0.75], 0.01);
   S.expr(4.6, "spud", "surprised", { open: 0.25 }, 0.01);
   S.shot("03 the giant", 4.6, cam([16.4, 0.5, 0.15], [6.5, 5.4, 0], 60, { pos: [15.9, 0.55, 0.12] }, 2.7));
   // P04 (7.3-8.9) "Rain did this. ...": by the wall, he spins to her, arms wide, leaf up; she calm, one brow up
-  S.arm(7.285, "arch", "R", "rest", 0.01); S.place(7.3, "spud", [-0.95, -6.7], 200); S.place(7.3, "arch", [-1.95, -6.3], 70);
+  S.arm(7.27, "arch", "R", "rest", 0.01); S.place(7.3, "spud", [-0.95, -6.7], 200); S.place(7.3, "arch", [-1.95, -6.3], 70);
   S.look(7.3, "spud", [0, 0], 0.01); S.look(7.3, "arch", [0, 0], 0.01);
   S.expr(7.3, "spud", "happy", { open: 0.4, brow: 0.8 }, 0.01);
   S.turn(7.32, "spud", 300, 0.3);
@@ -211,7 +212,7 @@ const seg2 = () => segment(2, (S) => {
   S.A(12.05, "arch", "crouch", { to: 0.5, dur: 0.4 });
   S.look(12.05, "arch", [0, -0.1], 0.2);
   S.arm(12.2, "arch", "R", { o: [0.06, 0.3, 0.42] }, 0.35);
-  S.arm(12.6, "arch", "R", { o: [-0.06, 0.26, 0.44] }, 0.35); S.arm(12.95, "arch", "R", { o: [0.08, 0.3, 0.42] }, 0.35); S.arm(13.3, "arch", "R", { o: [-0.04, 0.27, 0.44] }, 0.3);
+  S.arm(12.6, "arch", "R", { o: [0.0, 0.27, 0.43] }, 0.35); S.arm(12.95, "arch", "R", { o: [0.06, 0.3, 0.42] }, 0.35); S.arm(13.3, "arch", "R", { o: [0.01, 0.28, 0.43] }, 0.3);   // short strokes: wider ones turned the palm 65° in 4 frames
   S.prop(12.6, "sphinx", { flake: 1 }, 1.0, "in");
   S.A(12.3, "spud", "lean", { to: 14, dur: 0.4 }); S.look(12.3, "spud", [0.2, -0.2], 0.2);
   S.say(12.1, "a03", 13.6);
@@ -226,14 +227,14 @@ const seg2 = () => segment(2, (S) => {
   S.shot("08 salt", 13.6, cam([60.6, 0.92, 2.6], [60.6, 0.88, 0.33], 42, { pos: [60.75, 0.98, 2.15] }, 6.0));
   // P09 (19.6-23.1) "The head is harder stone. That's why it held up.": the bands, the head; she points the brush up at it
   S.A(19.55, "arch", "crouch", { to: 0, dur: 0.01 }); S.A(19.55, "spud", "lean", { to: 0, dur: 0.01 });
-  S.arm(19.55, "arch", "L", "rest", 0.01); S.arm(19.55, "arch", "R", "rest", 0.01);
+  S.arm(19.57, "arch", "L", "rest", 0.01); S.arm(19.57, "arch", "R", "rest", 0.01);
   S.place(19.6, "arch", [8.4, 6.9], 250); S.place(19.6, "spud", [60, 60], 0);
   S.look(19.6, "arch", [0.3, 0.55], 0.01);
   S.arm(20.0, "arch", "L", BRUSHUP, 0.45); S.A(20.0, "arch", "grip", { side: "L", shape: "point", dur: 0.15 });
   S.say(19.7, "a03c", 23.2);
   S.shot("09 the hard head", 19.6, cam([10.6, 0.8, 8.5], [4.6, 3.6, 1.6], 58, { pos: [10.4, 0.85, 8.3] }, 3.5));
   // P10 (23.1-25.0) "Then what about the secret room? ...": he hops in front of her, finger up, sly, pointing at the paw (screen right)
-  S.arm(23.085, "arch", "L", "rest", 0.01); S.arm(23.085, "arch", "R", "rest", 0.01);
+  S.arm(23.07, "arch", "L", "rest", 0.01); S.arm(23.07, "arch", "R", "rest", 0.01);
   S.place(23.1, "arch", [11.0, 4.85], 100); S.place(23.1, "spud", [11.55, 4.1], 75);
   S.look(23.1, "arch", [0, 0], 0.01);
   S.A(23.12, "spud", "hop", { height: 0.18, dur: 0.4, quiet: true });
@@ -296,7 +297,7 @@ const seg4 = () => segment(4, (S) => {
   S.sfx(27.2, "rumble", { gain: 0.1, dur: 3.9, reason: "the drill rig turning into the rock" }); S.sfx(27.2, "freewheel", { gain: 0.12, dur: 3.6, reason: "the radar cart rolling over sand" });
   S.shot("12 the survey", 27.0, cam([14.8, 1.5, 8.4], [10.6, 0.6, 5.5], 54, { pos: [14.5, 1.45, 8.2] }, 4.2));
   // P13 (31.2-32.4) "Yet.": Spud alone at the paw, squinting at the stone, not giving up
-  for (const s of ["L", "R"]) S.arm(31.185, "chip", s, "rest", 0.01);
+  for (const s of ["L", "R"]) S.arm(31.17, "chip", s, "rest", 0.01);
   S.prop(31.18, "survey", { y: -60 });
   S.place(31.2, "spud", P13, 75); S.place(31.2, "chip", PARK(3), 0); S.place(31.2, "wedge", PARK(4), 0);
   S.look(31.2, "spud", [-0.45, -0.15], 0.01); S.look(31.7, "spud", [-0.1, 0], 0.25); S.expr(31.2, "spud", "angry", { lid: 0.45, brow: -0.6 }, 0.01);
@@ -310,7 +311,7 @@ const seg4 = () => segment(4, (S) => {
   S.say(32.5, "a05", 34.4);
   S.shot("14 the temple", 32.4, cam([12.4, 0.9, 6.6], [17.5, 1.4, 3.6], 52, { pos: [12.7, 0.9, 6.4] }, 1.9));
   // P15 (34.3-36.6) PAST "Its wall blocks were cut out of this pit.": workers cut blocks; the rough Sphinx behind
-  S.arm(34.285, "arch", "L", "rest", 0.01); S.arm(34.285, "arch", "R", "rest", 0.01);
+  S.arm(34.27, "arch", "L", "rest", 0.01); S.arm(34.27, "arch", "R", "rest", 0.01);
   S.place(34.3, "arch", [6.95, -6.62], 135);   // waits for 17 at the witness block (out of the past shots' frames)
   S.prop(34.28, "sphinx", { rough: 1, flake: 0 }); S.prop(34.28, "pit", { quarry: 1 }); S.prop(34.28, "temple", { y: -60 }); S.prop(34.28, "pyramids", { y: -60 });
   S.place(34.3, "w1", [0.25, -6.3], 270); S.place(34.3, "w2", [0.3, -4.35], 270);
@@ -325,14 +326,14 @@ const seg4 = () => segment(4, (S) => {
   S.shot("15 cut from the pit", 34.3, cam([4.5, 4.5, -6.0], [0.0, 0.8, -5.5], 50, { pos: [4.1, 4.2, -6.0] }, 2.3));
   // P17 (36.6-38.4) "Same layers.": the witness block beside the wall's return, the stripes run on; her brush follows one
   S.prop(36.58, "sphinx", { rough: 0 }); S.prop(36.58, "pit", { quarry: 0 }); S.prop(36.58, "temple", { y: 0 }); S.prop(36.58, "pyramids", { y: 4.8 });
-  for (const w of ["w1", "w2"]) { S.arm(36.585, w, "R", "rest", 0.01); S.arm(36.585, w, "L", "rest", 0.01); S.place(36.6, w, PARK(w === "w1" ? 1 : 2), 0); }
+  for (const w of ["w1", "w2"]) { S.arm(36.57, w, "R", "rest", 0.01); S.arm(36.57, w, "L", "rest", 0.01); S.place(36.6, w, PARK(w === "w1" ? 1 : 2), 0); }
   S.look(36.6, "arch", [0.1, 0.6], 0.01);
   S.arm(36.7, "arch", "L", { o: [0.3, 0.62, 0.4] }, 0.35); S.A(36.7, "arch", "grip", { side: "L", shape: "point", dur: 0.15 });
   S.arm(37.1, "arch", "L", { o: [-0.12, 0.62, 0.42] }, 1.1, "inOut");
   S.look(37.1, "arch", [-0.25, 0.6], 1.1);
   S.shot("17 same layers", 36.6, cam([8.8, 0.8, -6.5], [6.3, 1.3, -7.5], 48, { pos: [8.65, 0.8, -6.55] }, 1.8), "reveal");
   // P16 (38.4-42.0) PAST "They carved the Sphinx, and built the temple from what they cut away.": a block hauled up out of the pit to the rising temple
-  S.arm(38.385, "arch", "L", "rest", 0.01); S.arm(38.385, "arch", "R", "rest", 0.01);
+  S.arm(38.37, "arch", "L", "rest", 0.01); S.arm(38.37, "arch", "R", "rest", 0.01);
   S.prop(38.38, "sphinx", { rough: 0.35 }); S.prop(38.38, "pit", { quarry: 0.34 }); S.prop(38.38, "temple", { y: -60 }); S.prop(38.38, "pyramids", { y: -60 });
   S.place(38.4, "arch", PARK(5), 0);
   for (const id of ["tempQ", "sledge", "haul"]) S.prop(38.38, id, { y: 0 }); S.prop(38.38, "load", { y: 0.19 });
@@ -377,7 +378,7 @@ const seg5 = () => segment(5, (S) => {
   S.shot("19 left where they stopped", 46.8, cam([12.0, 1.0, -4.0], [11.3, 1.0, -7.5], 52, { pos: [11.95, 1.0, -4.2] }, 3.4));
   // P20 (50.2-53.2) "Then why does it stare at the exact spot...": dusk; he turns back to her, one finger up, a sly smile (framed on him, draft 2)
   S.prop(50.18, "sky", { x: 1020 }); S.prop(50.18, "sky2", { x: 20 });
-  S.arm(50.15, "arch", "L", "rest", 0.01); S.arm(50.15, "arch", "R", "rest", 0.01);
+  S.arm(49.75, "arch", "L", "rest", 0.4); S.arm(50.17, "arch", "R", "rest", 0.01);   // (50.17: after the last frame of 19, before the place) the pointing hand lowered in the shot (an instant rest jumped it in the last frame of 19); the brush hand stays put, a slow rest pushed the palm into the brush
   S.place(50.2, "spud", P20.spud, 40); S.place(50.2, "arch", P20.arch, 40);
   S.look(50.2, "arch", [0, 0], 0.01); S.look(50.2, "spud", [0.3, 0], 0.01);
   S.turn(50.25, "spud", 100, 0.5);
@@ -402,7 +403,7 @@ const seg6 = () => segment(6, (S) => {
   S.prop(53.41, "ground", { night: 1 }); S.prop(53.41, "sphinx", { rough: 0, flake: 0, wet: 0 }); S.prop(53.41, "pit", { wet: 0, flow: 0, quarry: 0 });
   // P22 (53.4-57.4) "...twelve and a half thousand years ago?": the Lion rises in line with its gaze, a first glow beneath
   S.head("s06");   // "twelve and a half thousand years ago?"
-  S.prop(53.41, "leo", { show: 0.88, lines: 0, rise: 0 }); S.prop(53.7, "leo", { lines: 0.82 }, 0.8, "inOut");
+  S.prop(53.41, "leo", { show: 1, lines: 0, rise: 0 }); S.prop(53.7, "leo", { lines: 1 }, 0.8, "inOut");
   S.prop(53.44, "leo", { rise: 1 }, 3.4, "inOut");
   S.prop(53.41, "sky", { night: 0.83 }); S.prop(53.44, "sky", { night: 0.69 }, 3.4, "linear");
   S.prop(53.41, "stars", { show: 0.68 }); S.prop(53.44, "stars", { show: 0.46 }, 3.4, "linear");

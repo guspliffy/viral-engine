@@ -18,7 +18,7 @@
    ],
    "light": "#8fa6d8",
    "shadow": "#1c2550",
-   "exposure": 0.62
+   "exposure": 0.8
   }
  },
  "cast": [
@@ -303,7 +303,7 @@
      "do": "prop",
      "id": "leo",
      "set": {
-      "show": 0.88,
+      "show": 1,
       "lines": 0,
       "rise": 0
      },
@@ -375,7 +375,7 @@
      "do": "prop",
      "id": "leo",
      "set": {
-      "lines": 0.82
+      "lines": 1
      },
      "dur": 0.8,
      "ease": "inOut",
