@@ -591,9 +591,9 @@ function trackCanvas(side) {
 function buildWet(P) {
   const S = P.spec, G = P.whole, L = S.trackLen ?? 1.83, patches = [], tracks = [];
   for (const [i, s] of [[0, -1], [1, 1]]) {
-    const g = new THREE.PlaneGeometry(WET.w, WET.l); g.rotateX(-Math.PI / 2);
+    const g = new THREE.PlaneGeometry(WET.w, WET.l); g.rotateX(-Math.PI / 2); g.translate(0, 0, -WET.l / 2);   // origin at the +z end, where the jar pours: it grows from there
     const m = quiet(mat("#ffffff", { map: wetCanvas(i), roughness: 0.67, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 }));
-    const p = lookOnly(mesh(g, m, G, s * WET.cx, 0.004, 0, false, true)); p.renderOrder = 2; patches.push(p);
+    const p = lookOnly(mesh(g, m, G, s * WET.cx, 0.004, WET.l / 2, false, true)); p.renderOrder = 2; patches.push(p);
     const tg = new THREE.PlaneGeometry(0.2, L); tg.rotateX(-Math.PI / 2);
     const tm = quiet(mat("#ffffff", { map: trackCanvas(i), roughness: 0.7, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
     const tr = lookOnly(mesh(tg, tm, G, s * 0.505, 0.006, 0.95 - L / 2, false, true)); tr.renderOrder = 3; tracks.push(tr);
@@ -601,9 +601,11 @@ function buildWet(P) {
   return {
     grip: 0,
     apply(ps) {
-      const wet = clamp(num(ps, S, "wet")), tk = clamp(num(ps, S, "track")), k = lerp(0.12, 1, smooth(wet));
-      // the patches grow from a wet spot (scale only: an opacity tween stuck at its first value in a sequential render, EG04 19 Nov)
-      for (const p of patches) { p.visible = wet > 0.001; p.scale.set(k, 1, k); }
+      const wet = clamp(num(ps, S, "wet")), tk = clamp(num(ps, S, "track"));
+      // each patch grows from its +z end (where the water lands) down the track; the +x patch (the jar's side, spec.first) first, the
+      // other once the pour reaches it (scale only: an opacity tween stuck at its first value in a sequential render, EG04 19 Nov)
+      const first = S.first ?? 1;
+      patches.forEach((p, i) => { const w = (i === 0 ? -1 : 1) === first ? clamp(wet / 0.6) : clamp((wet - 0.4) / 0.6), k = lerp(0.1, 1, smooth(w)); p.visible = w > 0.001; p.scale.set(lerp(0.35, 1, smooth(w)), 1, k); });
       for (const t of tracks) { t.visible = tk > 0.001; t.scale.z = Math.max(0.001, tk); t.position.z = 0.95 - (L * tk) / 2; }
     },
   };

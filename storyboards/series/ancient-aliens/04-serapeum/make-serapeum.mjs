@@ -86,7 +86,7 @@ const room = (ids, end) => ids.map((who) => ({ who, with: "gallery", from: 0, to
 const TOUCH = { o: [0.1, 0.2, 0.5] }, PUSHF = { o: [0.16, 0.36, 0.42] }, PANEL = { o: [0.08, 0.3, 0.4] }, JAR = { o: [0.1, 0.28, 0.36] }, MOUTH = { o: [-0.18, 0.44, 0.46] }, PUSHN = { o: [0.05, 0.36, 0.42] }, SPREAD = { o: [0.5, 0.3, 0.22] };
 // the box's own grips (props-eg-serapeum.js: brace = left hand on the rim, tipA -> tipB = the fingertip's track along the
 // polished inner wall, padL/padR = hands on the lid edge; the pads follow lidSlide)
-const G = { brace: [-0.16, 1.48, 0.6325], tipA: [-0.18, 1.462, 0.53], tipB: [0.34, 1.462, 0.53], padL: [-0.17, 1.585, 0.6325], padR: [0.17, 1.585, 0.6325] };
+const G = { brace: [-0.16, 1.48, 0.6325], tipA: [-0.18, 1.41, 0.53], tipB: [0.34, 1.41, 0.53], padL: [-0.17, 1.585, 0.6325], padR: [0.17, 1.585, 0.6325] };
 const LIPS = { o: [-0.37, 0.4, 0.56], frame: { y: [0.1, 1, 0.1], z: [0.35, 0, -1], elbow: 1 } };   // a hand to the mouth (the Plato bench)
 // (no brush in this episode: a held prop does not follow her through the "place" jumps between shots; the arm stretched to
 // where she took it. A clip with one continuous take per shot can give her the archbrush; see props-archaeologist.js)
@@ -150,9 +150,8 @@ const seg1 = (F) => segment(F, -4.0, 13.0, (S) => {
   S.shot("02 twenty-four boxes", 4.0, cam([0.22, 1.3, -3.4], [-0.2, 0.85, 0.7], tv(S.F, 44, 58), { pos: [0.2, 1.28, -3.0] }, 2.8));   // ahead of him: his face on the question (Sol), boxes both sides
   // 03 (6.8-13.0): the archaeologist steps out of a side chamber, lamp on: "Not a cow. The holy bull Apis." "They worshipped him as a living god."
   S.place(6.8, "spud", [-0.4, -2.2], 180); S.look(6.8, "spud", [-0.1, 0.1], 0.01);
-  S.place(6.7, "arch", [-1.55, -4.4], 70, -0.18);   // into his dark chamber just before the cut (hidden far away while the camera flies down the aisle)
-  S.look(6.72, "arch", [0.5, 0], 0.15); S.walk(6.85, "arch", [-1.02, -4.12], 0.45, { y: -0.18 });   // on the chamber floor to its edge,
-  S.walk(7.3, "arch", [-0.66, -3.95], 0.28, { y: 0, ease: "out" }); S.walk(7.58, "arch", [0.05, -3.75], 0.5, { y: 0 });   // one step up onto the aisle, then in (Sol r1: her boots sank through the seam)
+  S.place(6.7, "arch", [-0.74, -4.2], 70);   // into his dark chamber just before the cut (hidden far away while the camera flies down the aisle)
+  S.look(6.72, "arch", [0.5, 0], 0.15); S.walk(6.85, "arch", [0.05, -3.75], 1.1);   // out of the dark doorway on the aisle floor itself: no step (Sol r1+r2: her boots sank at the chamber step)
   S.turn(6.9, "arch", 20, 0.8);
   S.A(7.1, "spud", "move", { to: [-0.42, -1.95], dur: 0.35, ease: "out" }); S.expr(7.05, "spud", "surprised", { open: 0.3 }, 0.12);
   S.turn(7.9, "arch", 345, 0.5); S.look(7.2, "arch", [0, 0.05], 0.3);   // to Spud (Sol: he answered the camera)
@@ -212,7 +211,7 @@ const seg3 = (F) => segment(F, 12, 18.7, (S) => {   // warp: +1.1 s after 14.29 
   S.expr(15.4, "arch", "neutral", { brow: 0.2 }, 0.3); S.expr(16.6, "arch", "neutral", null, 0.3);
   S.shot("06 copper tools", 14.5, cam([-0.15, 1.02, 1.25], [-0.2, 0.86, -0.95], tv(S.F, 34, 46), { pos: [-0.16, 1.01, 1.1] }, 2.8));
   // 07: far behind him a turquoise glow goes out, an antenna ducks behind a box
-  S.look(17.72, "alien", [0.6, 0], 0.13); S.walk(17.85, "alien", [1.32, -9.45], 0.45, { y: -0.18 });   // deep enough that the trailing glove clears the jamb (Sol r1)
+  S.look(17.72, "alien", [0.6, 0], 0.13); S.walk(17.75, "alien", [1.5, -9.6], 0.55, { y: -0.18 }); S.A(18.32, "alien", "hide", { dur: 0.01 });   // deep in the chamber, then hidden (Sol r2: his glove stayed at the jamb)   // deep enough that the trailing glove clears the jamb (Sol r1)
   S.prop(18.0, "spill", { beam: 0 }, 0.58, "inOut");
   S.sfx(17.4, "kenney/space-engine-low", { gain: 0.12, dur: 1.2, reason: "a faint ship hum behind the stone" });
   S.shot("07 behind him", 17.3, cam([0.0, 1.8, 0.35], [0.8, 0.9, -8.5], tv(S.F, 22, 30)));   // a long lens over his head onto the glow (Sol: too small; draft 3: his crown filled the frame)
@@ -302,7 +301,7 @@ const seg6 = (F) => segment(F, 24, 32.5, (S) => {   // warp: +0.9 s after 28.19 
   for (const [i, x, z] of [[0, -1.2, 2.6], [1, 1.2, 2.6], [2, -1.75, 3.3], [3, 1.75, 3.3]]) { S.place(30, `p${i}`, [x, r3(z)], 180); S.arm(30.4, `p${i}`, "R", "hat", 0.4); }
   S.say(30.2, "s12", 32.5);
   S.num(30.6, 32.5, "≈3 m");
-  S.shot("12 the mouth", 30, cam([0.35, 2.5, 8.8], [0, 1.1, 0.8], tv(S.F, 40, 54)));   // back and nearly head-on, over the workers: the box fills the doorway, a hand-width each side (Sol r1)   // three-quarter: jambs, the gap, the workers (Sol: head-on hid it)
+  S.shot("12 the mouth", 30, cam([1.35, 2.3, 7.8], [0.1, 1.0, 0.8], tv(S.F, 40, 54)));   // a little off-axis, over the workers: the box passes the jamb by a hand-width, no room for a man (Sol r1, r2)   // three-quarter: jambs, the gap, the workers (Sol: head-on hid it)
   return { id: `eg04-6-${S.F.key}`, title: "Sixty tonnes (6: Saqqara)", idea: "seg 6 of 7", set: DAY, cast, props,
     sound: { signature: false, sfx: 0.6, ambience: 0.06, surface: "sand", room: "open", guard: true }, allowClip: [],
     notes: "Generated by make-serapeum.mjs, segment 6. '≈3 m' is our estimate (RESEARCH.md)." };
@@ -371,8 +370,8 @@ const seg7 = (F) => segment(F, 32.5, 64.5, (S) => {   // warp: +1.5 s after 43.9
   for (const id of ["lv0", "lv1"]) S.prop(41.98, id, { y: -60 });
   // 16 (42-44 + 1.5): she looks at us: "And the god had to be buried. Day seventy."
   S.prop(41.98, "load", { y: -60 }); S.prop(41.98, "sledge", { y: -60 }); S.prop(41.98, "boxR4", { y: -0.18 });
-  S.turn(41.98, "arch", 346, 0.01); S.look(42, "arch", [0, 0], 0.01); S.expr(42, "arch", "focused", null, 0.01);   // serious on the deadline (Sol r1: she smiled through it)
-  S.place(42, "spud", [-0.55, -14.83], 180); S.place(44, "spud", [-0.05, -14.83], 180);   // out of her close-up (Sol r1: the back of his head cut in behind her hat), back for 17
+  S.turn(41.98, "arch", 346, 0.01); S.look(42, "arch", [0, 0], 0.01); S.expr(42, "arch", "focused", { curve: 0.02 }, 0.01);   // serious on the deadline (Sol r1: she smiled through it)
+  S.place(42, "spud", [-0.05, -10.6], 180); S.place(44, "spud", [-0.05, -14.83], 180);   // behind the camera during her close-up (Sol r1, r2: his head and sweater cut in), back for 17
   S.say(42.3, "a16", 44.0); S.num(42.4, 44, "DAY 70", tv(S.F, { x: 1480 }, {}));   // wide: beside his head, not over it
   S.shot("16 day seventy", 42, cam([-0.4, 1.02, -11.68], [0.16, 0.84, -13.89], tv(S.F, 26, 36)));
   // 17 (44-46.5): he turns: the box is in its chamber, a turquoise column fades through the crack
@@ -409,17 +408,17 @@ const seg7 = (F) => segment(F, 32.5, 64.5, (S) => {   // warp: +1.5 s after 43.9
   S.shot("21 every box", 55, cam([0.12, 1.45, -2.3], [0.02, 0.62, 1.1], tv(S.F, 46, 60), { pos: [0.12, 1.42, -1.95] }, 3.5));   // higher (Sol r1): her face above his shoulder   // closer: their faces read, boxes both sides (story check: too far)   // from the far end: their faces, the boxes between (Sol: backs)
   // 22 (58.5-61.5): he looks up at the crack: "Or... someone took them home."
   S.place(58.5, "spud", [-0.48, -16.5], 50); S.place(58.5, "arch", [0.4, -16.5], -50);   // (her left hand touched the wall at x 0.5)
-  S.look(58.6, "spud", [0.1, 1], 0.4); S.A(58.7, "spud", "pitch", { to: -14, dur: 0.6, ease: "inOut" }); S.look(58.5, "arch", [0, 0], 0.01);   // head and lamp tip up to the crack (Sol r1: he looked across the aisle)
+  S.look(58.6, "spud", [0.1, 1], 0.4); S.A(58.7, "spud", "pitch", { to: -20, dur: 0.6, ease: "inOut" }); S.look(58.5, "arch", [0, 0], 0.01);   // head and lamp tip up to the crack (Sol r1: he looked across the aisle)
   S.A(61.48, "spud", "pitch", { to: 0, dur: 0.01, ease: "linear" });
   S.say(59.0, "s22", 61.5);
   S.shot("22 someone took them home", 58.5, cam([0, 1.05, -14.2], [0, 0.92, -16.6], tv(S.F, 54, 74)));
   // 23 (61.5-64.5): the end (replaces the Pharaoh's cough): the unfinished box they left in the corridor. Spud looks up, sure of
   // his answer; she turns her eyes from the box to him, one brow up, the corner of her mouth too (dry amusement). The viewer picks a side.
   S.prop(61.48, "stuck", { y: 0 });
-  S.place(61.5, "arch", [-0.62, 3.85], 150); S.place(61.5, "spud", [0.5, 4.0], 210);   // side by side, turned a little toward each other (yaw 90 = +x), the box behind them (draft: she stood half behind him)
+  S.place(61.5, "arch", [-0.28, 3.9], 150); S.place(61.5, "spud", [0.58, 4.0], 210);   // side by side, turned a little toward each other (yaw 90 = +x), the box behind them (draft: she stood half behind him)
   S.look(61.5, "spud", [0.1, 0.6], 0.01); S.look(61.5, "arch", [0.3, -0.1], 0.01); S.expr(61.5, "spud", "neutral", { brow: 0.4 }, 0.01); S.expr(61.5, "arch", "neutral", null, 0.01);
   S.turn(61.9, "arch", 125, 0.45); S.expr(62.2, "arch", "smug", { brow: 0.45 }, 0.3);   // she turns to him early, one brow up, a small dry smile (Sol r1: late, read as idle)   // she turns to him, one brow up
-  S.shot("23 the box they left", 61.5, cam([0.05, 1.3, 0.3], [0.1, 0.64, 5.4], tv(S.F, 52, 66), { pos: [0.05, 1.28, 0.55] }, 3.0));   // pulled back (Sol r1): the box down to the floor and the gap beside it   // eye height: from above, her brim hid her eyes; the box's corner and lid behind them
+  S.shot("23 the box they left", 61.5, cam([0.38, 1.22, 0.3], [0.18, 0.66, 5.4], tv(S.F, 52, 66), { pos: [0.38, 1.04, 0.6] }, 3.0));   // pulled back (Sol r1): the box down to the floor and the gap beside it   // eye height: from above, her brim hid her eyes; the box's corner and lid behind them
   return { id: `eg04-7-${S.F.key}`, title: "Sixty tonnes (7: day seventy)", idea: "seg 7 of 7", set: TUNNEL, cast, props,
     sound: { scenes: ["scifi"], signature: false, sfx: 0.6, ambience: 0.05, surface: "stone", room: "open", guard: true },
     allowClip: [...lampClip(["spud"], S.END), ...room(["spud", "arch", "a1", "a2", "a3", "l0", "l1", "l2", "l3", "l4", "l5", "l6", "l7"], S.END),
