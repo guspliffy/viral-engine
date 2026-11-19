@@ -108,6 +108,7 @@ const PAINT = { ml: { x: ML.x, y: ML.y, z: ML.z, rot: ML.rot, tip: 0, cover: 1 }
 const HOOKS = { id: "hooks", kind: "wallhooks", x: WALLX + 0.02, y: ML.y + ML.h / 2, z: 0, rot: -90 };
 const MLP = { id: "ml", kind: "painting", ...PAINT.ml };
 const ATML = [ML.x - 0.05, ML.y + ML.h / 2, ML.z];   // the face of the painting, for inserts
+const ATLOW = [ML.x - 0.05, ML.y + ML.h / 2 - 0.1, ML.z];   // aimed 10 cm low: her eyes sit below the caption band (Sol r1 #20)
 
 export const SCENES = [
   // 1 HOOK: the Louvre, 1911; visitors stroll past without a look; push in on her
@@ -117,7 +118,7 @@ export const SCENES = [
       ["walk", "v1", [2.0, 1.25], 4.4], ["walk", "v2", [0.3, 1.25], 4.4], ["walk", "v3", [3.1, 0.45], 4.4], ["walk", "v4", [1.2, 0.45], 4.4],
       ["sfx", "step", { gain: 0.3 }],
       ["n", "Nineteen eleven. Nobody stops for the Mona Lisa."],
-      ["cut", { t: "insert", at: ATML, h: 0.75, push: 0.25 }], ["hide", "v1"], ["hide", "v2"], ["hide", "v3"], ["hide", "v4"],
+      ["cut", { t: "insert", at: ATLOW, h: 0.9, push: 0.25, hold: true }], ["hide", "v1"], ["hide", "v2"], ["hide", "v3"], ["hide", "v4"],
       ["n", "In two days, the whole world will be hunting for her."] ] },
   // 2 PLANT: the man who put the glass on her
   { id: "02 the glass man", act: "hook", place: "gallery", extra: [MLP, HOOKS], props: { ml: PAINT.ml },
@@ -130,7 +131,7 @@ export const SCENES = [
   // 3 SUNDAY NIGHT: into the closet as a guard walks by
   { id: "03 closet", act: "theft", place: "corridor", extra: [], props: {},
     layout: { thief: [0.4, 0.4, 150], g1: [-0.3, 5.0, 0] },
-    shot: { t: "wide", who: ["thief"], h: 2.6 }, seq: [
+    shot: { t: "wide", at: [0.9, 0.8, 1.35], h: 2.8, az: -18 }, seq: [
       ["walk", "thief", [1.05, 1.15], 1.0], ["n", "Sunday night, he hides in a closet."], ["sfx", "latch", { gain: 0.5 }], ["hide", "thief"],
       ["walk", "g1", [-0.2, 0.2], 2.6], ["sfx", "step", { gain: 0.4 }], ["wait", 1.2] ] },
   // 4 MONDAY: closed; off four hooks
@@ -139,38 +140,43 @@ export const SCENES = [
     shot: { t: "wide", at: [5.0, 0.6, -0.6], h: 3.0, az: -8 }, seq: [
       ["walk", "thief", [0, 1.12], 1.6], ["n", "Monday, the Louvre is closed."],
       ["turn", "thief", 180], ["arm", "thief", "R", { o: [0.21, 0.36, 0.3] }], ["arm", "thief", "L", { o: [0.21, 0.36, 0.3] }],
-      ["cut", { t: "insert", at: [5.6, 0.7, 0], h: 1.8, az: -60 }],
+      ["cut", { t: "insert", at: [5.55, 0.7, -0.1], h: 2.0, az: -75 }],
       ["n", "He lifts her off four hooks..."],
-      ["prop", "ml", { x: ML.x - 0.08, y: ML.y + 0.04 }, 0.3, "out"], ["sfx", "scrape", { gain: 0.4 }], ["wait", 0.3], ["mltake", "thief"], ["wait", 0.5],
+      ["sfx", "scrape", { gain: 0.4 }], ["mltake", "thief"], ["wait", 0.9],
       ["cut", { t: "wide", at: [5.2, 0.7, 0], h: 3.2, az: 15 }],
       ["turn", "thief", 90], ["walk", "thief", [2.6, 0.7], 1.3], ["wait", 0.6] ] },
   // 5 THE STAIRWELL: the frame comes off, she goes under his smock
-  { id: "05 frame off", act: "theft", place: "corridor", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 1 }, { id: "frm", kind: "frameonly", x: 1.3, y: -40, z: 0.3, rot: -90 }],
+  { id: "05 frame off", act: "theft", place: "corridor", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 1, wrap: 0 }, { id: "frm", kind: "frameonly", x: 1.3, y: -40, z: 0.3, rot: 0, tip: 0 }],
     props: { frm: { y: -40 } },
     layout: { thief: [0.2, 1.4, 0] },
-    shot: { t: "two", who: ["thief"], h: 3.0 }, seq: [
-      ["mlhold", "thief"],
+    shot: { t: "wide", at: [-0.1, 0.5, 0.85], h: 2.4, az: -15 }, seq: [
+      ["mlhold", "thief"], ["e", "thief", "focused"], ["wait", 0.3],
+      // the frame comes off the panel where he holds her and drops at his feet (Sol r1 #1)
+      ["prop", "ml", { cover: 0 }, 0.01, "linear"], ["prop", "frm", { x: -0.46, y: 0.38, z: 0.9, rot: 0, tip: 0 }, 0.01, "linear"],
+      ["prop", "frm", { x: -0.85, y: 0.04, z: 1.15, rot: 25, tip: -80 }, 0.4, "in"], ["sfx", "tink", { gain: 0.5 }],
       ["n", "...pulls off the frame in a stairwell..."],
-      ["prop", "ml", { cover: 0 }, 0.01, "linear"], ["prop", "frm", { y: 0.0, x: 1.33, z: 0.4, tip: -12 }, 0.01, "linear"], ["sfx", "tink", { gain: 0.5 }],
-      ["cut", { t: "close", who: ["thief"], az: 15 }], ["e", "thief", "focused"],
+      // and the white smock wraps her, bottom up, her face still peeking out (Sol r1 #2)
+      ["cut", { t: "wide", at: [-0.2, 0.55, 0.85], h: 2.0, az: 20 }], ["prop", "ml", { wrap: 1 }, 0.8, "inOut"], ["sfx", "flutter", { gain: 0.3 }],
       ["n", "...and wraps her in his smock."], ["wait", 0.3] ] },
   // 6 THE LOCKED DOOR + THE PLUMBER
   { id: "06 locked", act: "door", place: "corridor", extra: [], props: {},
-    layout: { thief: [-0.75, 2.45, -60], plumber: [0.6, 5.6, 0] },
-    shot: { t: "two", who: ["thief"], h: 2.8, az: 10 }, seq: [
-      ["mlhold", "thief"],
+    layout: { thief: [-0.75, 2.45, -60], plumber: [0.9, -0.6, 0] },
+    shot: { t: "wide", at: [-1.15, 0.8, -0.45], h: 2.6, az: 35 }, seq: [
+      ["mlhold", "thief", { cover: 0, wrap: 1 }],
       ["prop", "door", { squeal: 1 }, 0.25, "out"], ["sfx", "latch", { gain: 0.6 }], ["prop", "door", { squeal: 0 }, 0.25, "inOut"],
       ["n", "But the door is locked. The knob is gone."], ["e", "thief", "shocked", { open: 0.15 }],
-      ["cut", { t: "wide", who: ["thief", "plumber"], h: 3.2 }], ["walk", "plumber", [0.2, 2.0], 2.0], ["sfx", "step", { gain: 0.4 }],
+      ["cut", { t: "wide", who: ["thief", "plumber"], h: 3.2 }], ["walk", "plumber", [-1.0, 1.35], 2.0], ["sfx", "step", { gain: 0.4 }],
       ["n", "Then a plumber walks by..."], ["turn", "thief", ["to", "plumber"]],
-      ["cut", { t: "two", who: ["thief", "plumber"], az: 10 }], ["arm", "plumber", "L", "point"], ["prop", "door", { open: 1 }, 0.9, "inOut"], ["sfx", "creak", { gain: 0.5 }],
-      ["n", "...and opens it for him."], ["arm", "plumber", "L", "rest"], ["walk", "thief", [-1.55, 2.6], 0.8], ["wait", 0.4] ] },
+      // he reaches to the lock himself and swings the door open (Sol r1 #3)
+      ["cut", { t: "wide", at: [-1.1, 0.8, -0.3], h: 2.6, az: 35, hold: true }], ["turn", "plumber", ["to", "thief"]], ["arm", "plumber", "L", { o: [0.25, 0.5, 0.32] }], ["sfx", "latch", { gain: 0.5 }],
+      ["wait", 0.3], ["prop", "door", { open: 1 }, 0.9, "inOut"], ["sfx", "creak", { gain: 0.5 }],
+      ["n", "...and opens it for him."], ["arm", "plumber", "L", "rest"], ["walk", "thief", [-1.75, 2.3], 1.2], ["wait", 0.4] ] },
   // 7 OUT INTO PARIS
-  { id: "07 paris", act: "out", place: "street", extra: [], props: {},
-    layout: { thief: [-2.0, 0.2, 90], v3: [1.6, 1.3, -90], v4: [2.6, 2.1, -90] },
-    shot: { t: "wide", who: ["thief"], h: 3.0, az: -12 }, seq: [
-      ["mlhold", "thief"],
-      ["walk", "thief", [1.8, 0.2], 3.4], ["walk", "v3", [-1.4, 1.3], 3.2], ["walk", "v4", [-1.6, 2.1], 3.6],
+  { id: "07 paris", act: "out", place: "street", extra: [{ id: "ml", kind: "painting", x: 0, y: -40, z: 0, cover: 0, wrap: 1 }], props: {},
+    layout: { thief: [-1.3, 0.2, 90], v3: [1.3, 1.15, -90], v4: [2.0, 1.95, -90] },
+    shot: { t: "wide", at: [1.0, 0.6, 0.9], h: 4.4, az: -8, hold: true }, seq: [
+      ["mlhold", "thief", { cover: 0, wrap: 1 }],
+      ["walk", "thief", [1.1, 0.2], 3.4], ["walk", "v3", [-1.6, 1.15], 3.0], ["walk", "v4", [-1.4, 1.9], 3.4],
       ["n", "He walks out into Paris."], ["n", "Nobody notices."], ["wait", 0.3] ] },
   // 8 TUESDAY: the painter, four empty hooks, the shrug, then panic
   { id: "08 empty hooks", act: "panic", place: "gallery", extra: [HOOKS], props: {},
@@ -179,16 +185,16 @@ export const SCENES = [
       ["walk", "painter", [-0.8, 0.9], 1.6], ["n", "Next morning, a painter comes to copy her."],
       ["turn", "painter", 160], ["cut", { t: "insert", at: [ML.x - 0.05, ML.y + 0.25, 0], h: 1.1, push: 0.2, az: 15 }],
       ["n", "Four empty hooks."],
-      ["cut", { t: "two", who: ["painter", "g1"], az: -15 }], ["turn", "painter", ["to", "g1"]],
+      ["cut", { t: "two", who: ["painter", "g1"], az: -15 }], ["turn", "painter", ["to", "g1"]], ["e", "painter", "shocked", { open: 0.2 }], ["hop", "painter"], ["arm", "painter", "R", "point"],
       ["s", "g1", "being photographed!", "calm"], ["arm", "g1", "R", "shrug"], ["arm", "g1", "L", "shrug"],
       ["n", "The guards shrug."], ["arm", "g1", "R", "rest"], ["arm", "g1", "L", "rest"],
-      ["n", "Hours later..."], ["sfx", "alarmbell", { gain: 0.6 }], ["e", "g1", "shocked"],
-      ["cut", { t: "wide", h: 3.4, az: 12 }], ["walk", "g1", [-2.8, -0.6], 1.2], ["show", "g2", [2.8, -1.3, -90]], ["walk", "g2", [-2.6, -1.3], 1.4],
+      ["arm", "painter", "R", "rest"], ["n", "Hours later..."], ["sfx", "alarmbell", { gain: 0.6 }], ["e", "g1", "shocked"], ["arm", "g1", "R", "point"],
+      ["cut", { t: "wide", h: 3.4, az: 12 }], ["arm", "g1", "R", "up"], ["walk", "g1", [3.2, 0.3], 1.2], ["show", "g2", [-2.8, -1.4, 90]], ["walk", "g2", [2.6, -1.4], 1.4],
       ["n", "...panic."], ["wait", 0.4] ] },
   // 9 THE WORLD EXPLODES: papers everywhere, Picasso questioned
   { id: "09 front pages", act: "panic", place: "street",
-    extra: [0, 1, 2, 3].map((i) => ({ id: `np${i}`, kind: "newspaper", x: 0, y: -40, z: 0, bend: 0.6 })), props: {},
-    layout: { v1: [-0.9, 0.4, 20], v2: [0.4, 0.8, -15], insp: [1.5, 0.2, ["to", "picasso"]], picasso: [0.45, 0.0, ["to", "insp"]] },
+    extra: [...[0, 1, 2, 3].map((i) => ({ id: `np${i}`, kind: "newspaper", x: 0, y: -40, z: 0, bend: 0.6 })), { id: "ferme", kind: "sign", x: -0.15, y: 0, z: 0.55, rot: 0, text: "FERMÉ" }], props: {},
+    layout: { g1: [-1.75, 0.75, 0], v1: [-0.9, 0.4, 20], v2: [0.4, 0.8, -15], insp: [1.5, 0.2, ["to", "picasso"]], picasso: [0.45, 0.0, ["to", "insp"]] },
     shot: { t: "wide", h: 3.2, az: 8 }, seq: [
       ["papers"], ["sfx", "flutter", { gain: 0.6 }],
       ["n", "The Louvre shuts for a week."],
@@ -198,22 +204,25 @@ export const SCENES = [
       ["n", "Police even question Picasso."], ["fx", { fx: "sweat", who: "picasso", dur: 1.2 }], ["wait", 0.3] ] },
   // 10 THE EMPTY WALL (the second hook)
   { id: "10 empty wall", act: "wall", place: "gallery", extra: [HOOKS], props: {},
-    layout: { v1: [-0.3, 1.05, 165], v2: [0.55, 0.75, 175], v3: [-1.15, 0.55, 160], v4: [1.4, 0.3, -170], v5: [-2.0, 0.1, 150] },
-    shot: { t: "wide", at: [5.6, 0.8, 0], h: 3.4, az: -40, el: 38 }, seq: [
+    // a line from the bare hooks back through the hall (Sol r1 #14), then the empty wall over the front of the line
+    layout: { v1: [-0.1, 1.0, 180], v2: [0.15, 0.25, 180], v3: [-0.12, -0.5, 180], spud: [0.12, -1.25, 180], v5: [-0.1, -2.0, 180], wedge: [0.14, -2.75, 180], v4: [-0.1, -3.5, 180], mash: [0.12, -4.25, 180] },
+    shot: { t: "wide", at: [3.3, 0.5, 0], h: 4.6, az: -62, el: 26, hold: true }, seq: [
       ["n", "When it reopens, thousands queue..."],
-      ["walk", "v5", [-1.8, 0.2], 2.0], ["walk", "v3", [-1.05, 0.6], 1.8],
-      ["cut", { t: "wide", at: [5.6, 0.8, 0], h: 3.0, az: 35, el: 34 }],
+      ["walk", "mash", [0.12, -4.05], 0.8], ["walk", "v4", [-0.1, -3.4], 0.8],
+      ["cut", { t: "wide", at: [5.8, 0.8, 0], h: 2.4, az: 18, el: 42, hold: true }],
       ["n", "...to stare at an empty wall."], ["wait", 0.5] ] },
   // 11 HIS ROOM: the knock, the search, the trunk a metre away; two years
-  { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 }], props: {},
+  { id: "11 his room", act: "room", place: "room", extra: [{ id: "trunk", kind: "trunk", x: -1.25, y: 0, z: -1.6, rot: 0, open: 0 },
+      { id: "ml", kind: "painting", x: -1.0, y: 0.15, z: -1.6, rot: 90, tip: -90, cover: 0, wrap: 0.3 }], props: {},
     layout: { thief: [-0.1, 0.9, 0], insp: [1.6, -1.2, ["to", "thief"]] },
     shot: { t: "wide", who: ["thief"], h: 2.6 }, seq: [
       ["sfx", "knock-tap", { gain: 0.7 }], ["e", "thief", "shocked", { open: 0.1 }],
       ["n", "Then the police knock on his door."], ["walk", "insp", [0.7, 0.3], 1.2],
-      ["cut", { t: "two", who: ["thief", "insp"], az: -10 }], ["s", "insp", "where were you on monday?", "question"],
-      ["cut", { t: "insert", at: [-1.25, 0.25, -1.6], h: 1.0, push: 0.25, az: -20 }],
-      ["n", "She's in the trunk. One metre away."],
-      ["cut", { t: "two", who: ["thief", "insp"], az: 15 }], ["turn", "insp", 120], ["walk", "insp", [1.8, -1.4], 1.0],
+      ["cut", { t: "two", who: ["thief", "insp"], h: 3.0, az: -40 }], ["s", "insp", "where were you on Monday?", "question"],
+      // the viewer alone gets a peek into the trunk (Sol r1 #5)
+      ["cut", { t: "insert", at: [-1.25, 0.18, -1.55], h: 1.0, el: 50, push: 0.15, az: -70, hold: true }], ["prop", "trunk", { open: 0.55 }, 0.35, "out"],
+      ["n", "She's in the trunk. One metre away."], ["prop", "trunk", { open: 0 }, 0.25, "in"],
+      ["cut", { t: "wide", who: ["thief"], h: 2.6, az: -10 }], ["turn", "insp", 120], ["walk", "insp", [1.8, -1.4], 1.0],
       ["n", "They leave."], ["hide", "insp"],
       ["cut", { t: "insert", at: [-0.6, 1.25, -2.4], h: 0.9, push: 0.1 }], ["prop", "pad", { count: 843 }, 2.4, "in"], ["sfx", "flutter", { gain: 0.4 }],
       ["n", "Two years."], ["wait", 1.2] ] },
@@ -221,10 +230,12 @@ export const SCENES = [
   { id: "12 dealer", act: "caught", place: "shop", extra: [{ id: "trunk", kind: "trunk", x: 0.3, y: 0, z: 0.1, rot: 0, open: 0 }, { id: "ml", kind: "painting", x: 0.3, y: 0.15, z: 0.05, rot: 0, tip: -90, cover: 0 }],
     props: {},
     layout: { thief: [-0.95, 0.75, 30], dealer: [0.95, 0.85, -35] },
-    shot: { t: "two", who: ["thief", "dealer"], h: 2.4 }, seq: [
-      ["n", "Then he tries to sell her in Florence."], ["prop", "trunk", { open: 1 }, 0.8, "out"], ["sfx", "creak", { gain: 0.4 }],
+    shot: { t: "two", who: ["thief", "dealer"], h: 3.1, el: 16 }, seq: [
+      ["prop", "trunk", { open: 1 }, 0.8, "out"], ["sfx", "creak", { gain: 0.4 }], ["arm", "thief", "R", "point"],
+      ["n", "Then he tries to sell her in Florence."],
       ["prop", "ml", { y: 0.42, tip: -45 }, 0.8, "out"],
       ["cut", { t: "close", who: ["dealer"], h: 2.1, az: 10 }], ["e", "dealer", "shocked", { eye: 1.3 }], ["wait", 0.3], ["e", "dealer", "kind"], ["s", "dealer", "leave it with me.", "calm"],
+      ["cut", { t: "two", who: ["thief", "dealer"], h: 3.1, el: 12, az: 15 }], ["turn", "dealer", 60], ["walk", "dealer", [2.3, 0.3], 1.1],
       ["n", "The dealer calls the police."], ["wait", 0.3] ] },
   // 13 CAUGHT, CHEERED
   { id: "13 seven months", act: "caught", place: "street", extra: [], props: {},
@@ -232,18 +243,19 @@ export const SCENES = [
     shot: { t: "wide", at: [0.4, 0.5, 0.9], h: 4.2, el: 10 }, seq: [
       ["walk", "thief", [0.4, -0.1], 2.6], ["walk", "g1", [-0.5, 0.55], 2.6], ["walk", "g2", [1.3, 0.55], 2.6],
       ["arm", "v1", "R", "up"], ["arm", "v2", "L", "up"], ["hop", "v1"], ["hop", "v4"], ["sfx", "gasp", { gain: 0.3 }],
-      ["n", "Italy cheers him."], ["cut", { t: "close", who: ["thief"], az: -20 }], ["e", "thief", "smug"],
+      ["n", "Italy cheers him."], ["cut", { t: "close", who: ["thief"], h: 1.9, az: -20 }], ["e", "thief", "smug"],
       ["n", "He gets seven months."], ["wait", 0.4] ] },
   // 14 TODAY: the mirror of the first shot
-  { id: "14 today", act: "today", place: "gallery", extra: [MLP, HOOKS,
+  { id: "14 today", act: "today", place: "gallery", extra: [{ ...MLP, x: ML.x - 0.07 }, { id: "mlwall", kind: "mlwall", x: WALLX - 0.01, y: 0, z: 0, rot: -90 },
       { id: "crowd", kind: "visitorcrowd", x: ML.x, y: 0, z: 0, rot: 0, n: 30, arc: [1.7, -145, -35], h: 0.85, seed: 3 },
       { id: "rope", kind: "exhibitrope", x: ML.x - 1.3, y: 0, z: 0, posts: [[0, -1.2], [0, 0], [0, 1.2]] }],
-    props: { ml: PAINT.ml },
+    props: { ml: { ...PAINT.ml, x: ML.x - 0.07 } },
     layout: {},
-    shot: { t: "wide", at: [5.2, 0.7, 0], h: 3.0, az: -10 }, seq: [
+    shot: { t: "wide", at: [5.2, 0.8, 0], h: 3.4, az: -10, el: 14, hold: true }, seq: [
       ["sfx", "notify", { gain: 0.25 }],
       ["n", "Nobody used to stop for her."],
+      ["cut", { t: "wide", at: [5.3, 0.9, 0], h: 3.0, az: 14, el: 24, hold: true }],
       ["n", "Now, nobody can get close."],
-      ["cut", { t: "insert", at: ATML, h: 1.3, el: 30, push: 0.3 }],
+      ["cut", { t: "insert", at: [ML.x - 0.3, ML.y + ML.h / 2 - 0.12, 0], h: 1.4, el: 22, push: 0.3, hold: true }],
       ["n", "All because one man carried her out under his smock."], ["wait", 1.0] ] },
 ];

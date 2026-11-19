@@ -36,10 +36,12 @@ for (const sc of SCENES) {
   // no shot over MAXSHOT: split it into a 20-degree angle change and a size step (never a jump cut)
   const cutsOf = () => ev.filter((e) => e[1] === "cut").sort((a, b) => a[0] - b[0]);
   for (let k = 0, g = 0; g < 40; g++) {
-    const cs = cutsOf(), i = cs.findIndex((c, j) => (cs[j + 1]?.[0] ?? T) - c[0] > MAXSHOT + 0.5);
+    const cs = cutsOf(), i = cs.findIndex((c, j) => !c[2].hold && (cs[j + 1]?.[0] ?? T) - c[0] > MAXSHOT + 0.5);
     if (i < 0) break;
     const c = cs[i], at2 = r3(c[0] + Math.min(MAXSHOT, ((cs[i + 1]?.[0] ?? T) - c[0]) / 2)), b = c[2].base ?? c[2];
-    const v = { ...b, base: b, az: (b.az ?? 0) + (k % 2 ? -20 : 20), h: (b.h ?? (b.t === "close" ? 1.05 : b.t === "insert" ? 0.8 : P.wideH)) * (k % 2 ? 1.15 : 0.82), auto: 1 };
+    // a two/group shot without its own h keeps the size computed from who is in it (Sol r1: the split cropped both faces)
+    const own = (b.t === "two" || b.t === "group") && b.h == null;
+    const v = { ...b, base: b, az: (b.az ?? 0) + (k % 2 ? -20 : 20), h: own ? undefined : (b.h ?? (b.t === "close" ? 1.05 : b.t === "insert" ? 0.8 : P.wideH)) * (k % 2 ? 1.15 : 0.82), auto: 1 };
     ev.push([at2, "cut", v, c[3]]); k++;
   }
   timed.push({ sc, T0: r3(T0), T1: T, ev });
@@ -137,9 +139,9 @@ runs.forEach((run, ri) => {
         // the panel stands where the resting R hand is (measured: 0.50 out, 0.06 forward, 0.40 up) and the hand keeps it
         const id = e[2], f = facing[id] ?? S.facing, a = (f * Math.PI) / 180, p = live[id];
         const side = -0.66, fwd = 0.06, at = [r3(p[0] + side * Math.cos(a) + fwd * Math.sin(a)), 0.13, r3(p[1] - side * Math.sin(a) + fwd * Math.cos(a))];
-        const t0 = k === "mltake" ? uu : us0, d = k === "mltake" ? 0.45 : 0;
-        c.arm(t0, id, "R", "rest", k === "mltake" ? 0.4 : 0.01); c.arm(t0, id, "L", "rest", k === "mltake" ? 0.4 : 0.01);
-        c.prop(t0, "ml", { x: at[0], y: at[1], z: at[2], rot: r3(f), tip: 0 }, d, d ? "inOut" : "linear");
+        const t0 = k === "mltake" ? uu : us0, d = k === "mltake" ? 0.75 : 0;
+        c.arm(t0, id, "R", "rest", k === "mltake" ? 0.6 : 0.01); c.arm(t0, id, "L", "rest", k === "mltake" ? 0.6 : 0.01);
+        c.prop(t0, "ml", { x: at[0], y: at[1], z: at[2], rot: r3(f), tip: 0, ...(e[3] || {}) }, d, d ? "inOut" : "linear");
         A(r3(t0 + d + 0.02), id, "grab", { prop: "ml", hand: "R", keep: true, dur: 0.01 });
       } else if (k === "papers") {
         // four front pages blow across the street; the first one ends up filling the insert

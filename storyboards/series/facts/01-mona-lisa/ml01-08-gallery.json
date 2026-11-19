@@ -46,7 +46,7 @@
  "music": {
   "file": "score-film/monalisa-score.ogg",
   "from": 0,
-  "skip": 52.895,
+  "skip": 53.595,
   "seam": true,
   "gain": 0.55,
   "lowCut": 90,
@@ -77,10 +77,10 @@
    "id": "v1",
    "character": "potatobrawl/duchess",
    "at": [
-    5.35,
-    -0.3
+    5.3,
+    -0.1
    ],
-   "face": 75,
+   "face": 90,
    "expr": "kind",
    "follow": 0.3,
    "seed": 1.1
@@ -89,10 +89,10 @@
    "id": "v2",
    "character": "potatobrawl/dauphin",
    "at": [
-    5.05,
-    0.55
+    4.55,
+    0.15
    ],
-   "face": 85,
+   "face": 90,
    "expr": "kind",
    "follow": 0.3,
    "seed": 2.4000000000000004
@@ -101,22 +101,22 @@
    "id": "v3",
    "character": "potatobrawl/agent",
    "at": [
-    4.85,
-    -1.15
+    3.8,
+    -0.12
    ],
-   "face": 70,
+   "face": 90,
    "expr": "kind",
    "follow": 0.3,
    "seed": 3.7
   },
   {
-   "id": "v4",
-   "character": "potatobrawl/tot",
+   "id": "spud",
+   "character": "potatobrawl/spud",
    "at": [
-    4.6,
-    1.4
+    3.05,
+    0.12
    ],
-   "face": 100,
+   "face": 90,
    "expr": "kind",
    "follow": 0.3,
    "seed": 5
@@ -125,13 +125,49 @@
    "id": "v5",
    "character": "potatobrawl/assistant",
    "at": [
-    4.4,
-    -2
+    2.3,
+    -0.1
    ],
-   "face": 60,
+   "face": 90,
    "expr": "kind",
    "follow": 0.3,
    "seed": 6.300000000000001
+  },
+  {
+   "id": "wedge",
+   "character": "potatobrawl/wedge",
+   "at": [
+    1.55,
+    0.14
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 7.6
+  },
+  {
+   "id": "v4",
+   "character": "potatobrawl/tot",
+   "at": [
+    0.8,
+    -0.1
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 8.9
+  },
+  {
+   "id": "mash",
+   "character": "potatobrawl/mash",
+   "at": [
+    0.05,
+    0.12
+   ],
+   "face": 90,
+   "expr": "kind",
+   "follow": 0.3,
+   "seed": 10.2
   }
  ],
  "props": [
@@ -243,24 +279,24 @@
   {
    "name": "10 empty wall wide",
    "at": 0,
-   "len": 1.833,
+   "len": 3.667,
    "shot": {
     "pos": [
-     2.781,
-     3.676,
-     -2.366
+     0.634,
+     3.27,
+     -5.015
     ],
     "look": [
-     5.6,
-     0.8,
+     3.3,
+     0.5,
      0
     ],
     "fov": 40,
     "to": {
      "pos": [
-      3.175,
-      3.273,
-      -2.035
+      1.007,
+      2.882,
+      -4.313
      ]
     },
     "dur": 3.667,
@@ -275,7 +311,7 @@
        5
       ]
      ],
-     "pivot": 4.671
+     "pivot": 6.319
     }
    },
    "do": [
@@ -283,8 +319,8 @@
      "who": "v1",
      "do": "move",
      "to": [
-      5.35,
-      -0.3
+      5.3,
+      -0.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -295,7 +331,7 @@
     {
      "who": "v1",
      "do": "turn",
-     "to": 75,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -333,8 +369,8 @@
      "who": "v2",
      "do": "move",
      "to": [
-      5.05,
-      0.55
+      4.55,
+      0.15
      ],
      "dur": 0.01,
      "steps": 0,
@@ -345,7 +381,7 @@
     {
      "who": "v2",
      "do": "turn",
-     "to": 85,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -383,8 +419,8 @@
      "who": "v3",
      "do": "move",
      "to": [
-      4.85,
-      -1.15
+      3.8,
+      -0.12
      ],
      "dur": 0.01,
      "steps": 0,
@@ -395,7 +431,7 @@
     {
      "who": "v3",
      "do": "turn",
-     "to": 70,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -430,11 +466,161 @@
      "at": 0
     },
     {
+     "who": "spud",
+     "do": "move",
+     "to": [
+      3.05,
+      0.12
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "spud",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "move",
+     "to": [
+      2.3,
+      -0.1
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "v5",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "move",
+     "to": [
+      1.55,
+      0.14
+     ],
+     "dur": 0.01,
+     "steps": 0,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "turn",
+     "to": 90,
+     "dur": 0.01,
+     "ease": "linear",
+     "sync": true,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "show",
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "expr",
+     "expr": "kind",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "R",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
+     "who": "wedge",
+     "do": "arm",
+     "side": "L",
+     "pose": "rest",
+     "dur": 0.01,
+     "at": 0
+    },
+    {
      "who": "v4",
      "do": "move",
      "to": [
-      4.6,
-      1.4
+      0.8,
+      -0.1
      ],
      "dur": 0.01,
      "steps": 0,
@@ -445,7 +631,7 @@
     {
      "who": "v4",
      "do": "turn",
-     "to": 100,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
@@ -480,11 +666,11 @@
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "move",
      "to": [
-      4.4,
-      -2
+      0.05,
+      0.12
      ],
      "dur": 0.01,
      "steps": 0,
@@ -493,28 +679,28 @@
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "turn",
-     "to": 60,
+     "to": 90,
      "dur": 0.01,
      "ease": "linear",
      "sync": true,
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "show",
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "expr",
      "expr": "kind",
      "dur": 0.01,
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "arm",
      "side": "R",
      "pose": "rest",
@@ -522,7 +708,7 @@
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "arm",
      "side": "L",
      "pose": "rest",
@@ -555,66 +741,26 @@
    ]
   },
   {
-   "name": "10 empty wall wide +",
-   "at": 1.833,
-   "len": 1.834,
-   "shot": {
-    "pos": [
-     2.764,
-     3.158,
-     -1.032
-    ],
-    "look": [
-     5.6,
-     0.8,
-     0
-    ],
-    "fov": 40,
-    "to": {
-     "pos": [
-      3.161,
-      2.828,
-      -0.888
-     ]
-    },
-    "dur": 1.834,
-    "yaw": {
-     "keys": [
-      [
-       1.833,
-       0
-      ],
-      [
-       3.667,
-       5
-      ]
-     ],
-     "pivot": 3.83
-    }
-   },
-   "do": []
-  },
-  {
    "name": "10 empty wall wide",
    "at": 3.667,
    "len": 2.688,
    "shot": {
     "pos": [
-     2.801,
-     3.105,
-     1.96
+     3.47,
+     3.006,
+     0.757
     ],
     "look": [
-     5.6,
+     5.8,
      0.8,
      0
     ],
     "fov": 40,
     "to": {
      "pos": [
-      3.193,
-      2.782,
-      1.685
+      3.796,
+      2.697,
+      0.651
      ]
     },
     "dur": 2.688,
@@ -629,21 +775,21 @@
        -5
       ]
      ],
-     "pivot": 4.122
+     "pivot": 3.297
     }
    },
    "do": [
     {
-     "who": "v5",
+     "who": "mash",
      "do": "turn",
-     "to": 26.565,
+     "to": 90,
      "dur": 0.2,
      "at": 0
     },
     {
-     "who": "v3",
+     "who": "v4",
      "do": "turn",
-     "to": 26.565,
+     "to": 90,
      "dur": 0.2,
      "at": 0
     },
@@ -658,23 +804,23 @@
      "at": 0
     },
     {
-     "who": "v5",
+     "who": "mash",
      "do": "move",
      "to": [
-      4.5,
-      -1.8
+      0.25,
+      0.12
      ],
-     "dur": 2,
+     "dur": 0.8,
      "at": 0.08
     },
     {
-     "who": "v3",
+     "who": "v4",
      "do": "move",
      "to": [
-      4.9,
-      -1.05
+      0.9,
+      -0.1
      ],
-     "dur": 1.8,
+     "dur": 0.8,
      "at": 0.08
     }
    ]
@@ -682,8 +828,8 @@
  ],
  "visible": [],
  "story": {
-  "T0": 52.895,
-  "T1": 59.25
+  "T0": 53.595,
+  "T1": 59.95
  },
- "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 52.895-59.25 s)."
+ "notes": "Generated by storyboards/series/facts/01-mona-lisa/make-film.mjs (story 53.595-59.95 s)."
 }

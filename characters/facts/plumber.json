@@ -36,15 +36,10 @@
    "thick": 0.85
   }
  },
- "sprout": {
-  "color": "#6cbf3a",
-  "placement": "top",
-  "leaves": 1
- },
  "costume": {
   "type": "spud",
-  "sweater": "#4f5f6e",
-  "patch": "#4f5f6e"
+  "sweater": "#8c9096",
+  "patch": "#8c9096"
  },
  "personality": "Opens the locked door for the thief without a second look. Grey flat cap (flatcap fit mover).",
  "voice": {

@@ -12,7 +12,9 @@ import { clamp } from "./util.js";
 //               optional glass pane (spec.glass true: a faint sheen). Origin: the bottom middle of the panel's BACK (it hangs on
 //               a wall in the local xy plane, facing +z; hang it with y = centre height - h/2). Params: `cover` 0..1 = how much of the frame + glass is left
 //               (1 = framed, 0 = the bare panel; jumps unless tweened: seed it). spec.src another picture (repo path).
-//               Held by the box hold on its two side edges (GRIPS.painting.L/R at the panel's half height).
+//               Held by the box hold on its two side edges (GRIPS.painting.L/R at the panel's half height). Param `wrap` 0..1
+//               wraps the bare panel in his white knit smock from the bottom up to 0.7 h (her face peeks out).
+//   mlwall      Today's display: a dark blue free wall 2.6 x 2.8 with a glazed bronze-edged case round the painting.
 //   frameonly   The empty gilt frame with its glass, lying or leaning: spec.w/h as the painting's, origin the middle of its back.
 //   wallhooks   Four iron wall hooks (two up, two low) round where the painting hung, spec.w 0.34 x spec.h 0.5, and a slightly
 //               paler rectangle on the wall behind (the dust line). Origin: the middle of that rectangle, on the wall (xy plane).
@@ -66,10 +68,34 @@ export const MONALISA_KINDS = {
     const face = mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: picTex(S.src || SRC), roughness: 0.7 }), G, 0, 0, 0.0205); face.castShadow = false;
     const fr = frameGroup(w, h, fw, S.frame); G.add(fr);
     const gl = S.glass !== false ? glassPane(w + 0.01, h + 0.01, 0.05) : null; if (gl) G.add(gl);
+    // the smock: white knit cloth wrapped round the bare panel from the bottom up to 0.7 h (her face still peeks out)
+    const cloth = new THREE.Group(); cloth.position.y = -h / 2 - 0.02; G.add(cloth);
+    const knit = mat("#ece6d6", { roughness: 1 });
+    mesh(new THREE.BoxGeometry(w + 0.05, 1, 0.07), knit, cloth, 0, 0.5, 0.01);
+    for (const y of [0.25, 0.6, 0.92]) { const f = mesh(new THREE.BoxGeometry(w + 0.07, 0.025, 0.08), mat("#d8d0bd", { roughness: 1 }), cloth, 0, y, 0.012); f.rotation.z = (y - 0.55) * 0.25; }
     return {
       grip: h / 2,
-      apply(ps) { const on = (ps.cover ?? S.cover ?? 1) > 0.5; fr.visible = on; if (gl) gl.visible = on; },
+      apply(ps) {
+        const on = (ps.cover ?? S.cover ?? 1) > 0.5; fr.visible = on; if (gl) gl.visible = on;
+        const k = clamp(ps.wrap ?? S.wrap ?? 0, 0, 1); cloth.visible = k > 0.01; cloth.scale.y = Math.max(0.001, k * (0.7 * h + 0.02));
+      },
     };
+  },
+
+  // today's display (Salle des Etats): a dark blue free wall 2.6 x 2.8 m, 0.04 thick, and on it a glazed case with a dark
+  // bronze edge round where the painting hangs (spec.cy = the case's centre height, 0.87; spec.cw x spec.ch 0.62 x 0.82, 0.3 deep).
+  // Origin: the bottom middle of the wall's BACK, facing +z (stand it 0.01 off the gallery wall; hang the painting 0.06 in front).
+  mlwall(P) {
+    const S = P.spec, W = S.w ?? 2.6, H = S.h ?? 2.8, cy = S.cy ?? 0.87, cw = S.cw ?? 0.62, ch = S.ch ?? 0.82, cd = 0.3;
+    mesh(new THREE.BoxGeometry(W, H, 0.04), mat(S.color || "#33465c", { roughness: 0.85 }), P.whole, 0, H / 2, 0.02);
+    const bronze = mat("#3a3128", { roughness: 0.4, metalness: 0.6 }), e = 0.025;
+    for (const [x, y, bw, bh] of [[0, cy + ch / 2, cw + e, e], [0, cy - ch / 2, cw + e, e], [-cw / 2, cy, e, ch + e], [cw / 2, cy, e, ch + e]]) mesh(new THREE.BoxGeometry(bw, bh, e), bronze, P.whole, x, y, 0.04 + cd);
+    for (const [x, y] of [[-cw / 2, cy + ch / 2], [cw / 2, cy + ch / 2], [-cw / 2, cy - ch / 2], [cw / 2, cy - ch / 2]]) mesh(new THREE.BoxGeometry(e, e, cd), bronze, P.whole, x, y, 0.04 + cd / 2);
+    const gm = new THREE.MeshBasicMaterial({ color: "#dfe9f2", transparent: true, opacity: 0.14, depthWrite: false }); gm.userData.noOutline = true; gm.userData.glass = true;
+    const front = new THREE.Mesh(new THREE.PlaneGeometry(cw, ch), gm); front.position.set(0, cy, 0.04 + cd); P.whole.add(front);
+    const sheen = new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.18, depthWrite: false }); sheen.userData.noOutline = true;
+    const st = new THREE.Mesh(new THREE.PlaneGeometry(0.06, ch * 0.9), sheen); st.position.set(-cw * 0.22, cy, 0.041 + cd); st.rotation.z = -0.35; P.whole.add(st);
+    return { grip: 0 };
   },
 
   frameonly(P) {
