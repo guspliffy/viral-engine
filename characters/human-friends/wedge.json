@@ -51,8 +51,8 @@
     "stride": 1.3,
     "height": 0.283,
     "width": 0.05,
-    "hipX": 0.09,
-    "footX": 0.1,
+    "hipX": 0.088,
+    "footX": 0.102,
     "knees": {
       "crouch": 0.5,
       "bend": 1
@@ -68,7 +68,7 @@
     "heel": 0.085,
     "toe": 0.145,
     "sole": 0.035,
-    "homeX": 0.1
+    "homeX": 0.102
   },
   "limbs": {
     "color": "#fdc18a",
