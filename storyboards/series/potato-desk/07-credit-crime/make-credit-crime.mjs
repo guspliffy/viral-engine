@@ -73,11 +73,11 @@ const props = [
 const SUB = 470;
 // numbers as the spoken words, so each pops as it is said, with the board's flip (Sol pass 1: digits popped early)
 const CAPTEXT = { 1: "And you just helped. *One year.*", 5: "So you planned it. *Ten years.*", 7: "Thank you! I'm the *boss!*", 8: "The boss gets *LIFE.*", 11: "Then you're the helper. *One year.*" };
-const say = (i, extra = {}) => {
+const say = (i, extra = {}, capTo = null) => {
   const [who, line, tone, style, o = {}] = LINES[i];
   c.macro(T[i], who, "say", { line, tone, style, ...o, dur: DUR[i], caption: false, ...extra });
   const to = r3(Math.min(END_OF(i) + 0.3, T[i + 1] ?? END_OF(i) + 1.2));
-  cap(T[i], to, CAPTEXT[i] ?? line, SUB, false, { size: 64 });
+  cap(T[i], capTo ?? to, CAPTEXT[i] ?? line, SUB, false, { size: 64 });
 };
 
 const gv = grips.mug(c, "vik", GAVEL, { side: "R", height: 1.0 });
@@ -157,8 +157,8 @@ A(WIDE_AT, "chip", "expr", { expr: "delighted", dur: 0.2 });
 A(WIDE_AT, "chip", "squash", { to: -0.06, dur: 0.3 });
 say(7);
 // 9 JUDGE lifts the gavel high: The boss gets life.  (tok, LIFE; the little one still beaming)
-say(8);
 const S3 = strike(r3(T[8] + NUM_AT[8] - 0.43), 3, { up: 0.32, gain: 1.4 });
+say(8, {}, F2(S3 + 0.45));   // the caption ends at the cut: in the cut-in it would sit on the LIFE letters (Sol pass 3)
 A(r3(S3 + 0.3), "chip", "squash", { to: 0, dur: 0.3 });
 see(T[8], r3(S3 + 0.5), ["vik.face", "board", "chip.face"], "LIFE on the board");
 
@@ -210,8 +210,8 @@ const beats = c.beats([
   ["one year", 0, WIDE, "hook"],
   ["ten years", T[5], "keep"],
   ["life", T[8], "keep", "escalation"],
-  ["smile freezes", CUT, { pos: [0.55, 0.75, 5.1], look: [0.62, 0.85, 1.8], fov: 29 }],
-  ["just helping", BACK, { ...WIDE }, "payoff"],
+  ["smile freezes", CUT, { pos: [0.55, 0.7, 5.1], look: [0.62, 0.74, 1.8], fov: 33 }],
+  ["just helping", BACK, { pos: [0.12, 1.45, 10.4], look: [0.12, 1.45, 0], fov: 27.5 }, "payoff"],   // a touch wider and right: the hide path stays in frame (Sol pass 3)
 ], END);
 
 write(import.meta.url, {
